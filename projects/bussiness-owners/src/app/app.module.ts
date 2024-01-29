@@ -14,10 +14,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ERPInterceptor } from '../../../shared-lib/src/lib/interceptors/http.interceptor';
 import { CookieModule } from 'ngx-cookie';
 import { LayoutComponent } from './compnents/layout/layout.component';
+import { UsersComponent } from './pages/users/users.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    UsersComponent,
     LayoutComponent
   ],
   imports: [
