@@ -1,0 +1,17 @@
+{
+  "dir": "ltr",
+  "Welcome": "Welcome",
+  "Bank": {
+    "PageName": "Banks",
+    "Id": "Id",
+    "BankName": "Name",
+    "Code": "Code",
+    "ShortName": "Short Name"
+  },
+  "Treasury": {
+    "PageName": "Treasury",
+    "Id": "Id",
+    "Name": "Name",
+    "Code": "Code"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "dir": "rtl",
+  "Welcome": "مرحبا",
+  "Bank": {
+    "PageName": "البنوك",
+    "Id": "الرقم",
+    "BankName": "الاسم",
+    "Code": "الكود",
+    "ShortName": "الاسم المختصر"
+  },
+  "Treasury": {
+    "PageName": "خزائن",
+    "Id": "الرقم",
+    "Name": "الاسم",
+    "Code": "الكود"
+  }
+}

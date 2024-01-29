@@ -1,0 +1,25 @@
+<ng-container *ngIf="searchFields && searchFields.length > 0">
+  <div class="container mt-3">
+    <form [formGroup]="searchFormData" (ngSubmit)="onSearch()">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group" *ngFor="let field of searchFields">
+            <label for="{{ field.name }}">{{ field.text }}</label>
+            <input
+              [type]="field.type"
+              class="form-control"
+              [id]="field.name"
+              [placeholder]="field.text"
+              [formControlName]="field.name"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-container>

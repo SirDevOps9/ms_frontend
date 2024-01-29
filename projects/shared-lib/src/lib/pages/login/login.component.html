@@ -1,0 +1,118 @@
+
+<section class="login-page">
+  <div class="container">
+    <div class="row justify-content-center">
+      <!-- Center the content -->
+      <div class="col-md-6 login-sec">
+        <div class="card card-outline card-primary">
+          <div class="card-header text-center">
+            <h1>Microtec ERP</h1>
+          </div>
+          <div class="card-body">
+            <p class="h5 login-box-msg">{{ "Login.PageName" | translate }}</p>
+            <form [formGroup]="loginForm" (ngSubmit)="onLogIn()">
+              <div class="form-group">
+                <label for="email" class="control-label form-label">{{
+                  "Login.Email" | translate
+                }}</label>
+                <div id="email" class="input-group mb-3">
+                  <input
+                    formControlName="email"
+                    type="email"
+                    name="email"
+                    class="form-control"
+                    placeholder="Email"
+                  />
+                  <span
+                    *ngIf="
+                      loginForm.get('email')!.hasError('required') &&
+                      loginForm.get('email')!.touched
+                    "
+                    class="text-danger"
+                  >
+                    Can't be Empty
+                  </span>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-envelope"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password" class="control-label form-label">{{
+                  "Login.Password" | translate
+                }}</label>
+                <div class="input-group mb-3">
+                  <input
+                    formControlName="password"
+                    id="password"
+                    [type]="type"
+                    class="form-control"
+                    placeholder="Password"
+                  />
+                  <span
+                    *ngIf="
+                      loginForm.get('password')!.hasError('required') &&
+                      loginForm.get('password')!.touched
+                    "
+                    class="text-danger"
+                  >
+                    Can't be Empty
+                  </span>
+                  <div class="input-group-append">
+                    <div class="input-group-text"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="icheck-primary">
+                    <input
+                      formControlName="remember"
+                      class="mx-1"
+                      type="checkbox"
+                      id="remember"
+                    />
+                    <label for="remember">{{
+                      "Login.RememberMe" | translate
+                    }}</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <!-- <p class="mb-1">
+                    <a href="forgot-password.html">I forgot my password?</a>
+                  </p> -->
+                </div>
+              </div>
+              <div class="social-auth-links text-center mt-2 mb-3">
+                <button
+                  [disabled]="isSubmit"
+                  type="submit"
+                  class="btn btn-primary btn-block"
+                >
+                  {{ "Login.SignIn" | translate }}
+                </button>
+                <button
+                  (click)="microTecSignIn()"
+                  type="button"
+                  class="btn btn-primary btn-block"
+                >
+                  {{ "Login.MicroTecSignIn" | translate }}
+                </button>
+              </div>
+            </form>
+          </div>
+          <!-- <div *ngIf="data.backendErrors$" class="card-footer text-center">
+            <ul
+              class="list-unstyled alert alert-danger"
+              *ngFor="let errorMessage of data.backendErrors$.errors"
+            >
+              <li>{{ errorMessage }}</li>
+            </ul>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

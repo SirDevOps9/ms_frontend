@@ -1,0 +1,59 @@
+{
+  "dir": "rtl",
+  "Welcome": "مرحبا",
+  "Submit": "حفظ",
+  "Logout":"تسجيل الخروج",
+  "DeleteError": "حدث خطاء فى المسح",
+  "LoadError": "حدث خطاء فى التحميل",
+  "Table": {
+    "Actions": "اجراءات",
+    "Edit": "تعديل",
+    "Delete": "حذف",
+    "Add": "اضافة"
+  },
+  "Toaster": {
+    "Confirm": {
+      "Title": "هل انت متاكد?",
+      "Text": "لا يمكنك الرجوع فى هذا القرار!",
+      "ConfirmButtonText": "نعم, قم بالمسح!",
+      "CancelButtonText": "الغاء"
+    }
+  },
+  "Lookup": {
+    "Add": {
+      "PageName": "اضافة بيان",
+      "Name": "الاسم",
+      "Code": "الكود",
+      "LookupType": "النوع",
+      "Parent": "الوالد"
+    },
+    "Edit": {
+      "PageName": "تعديل بيان",
+      "Name": "الاسم",
+      "Code": "الكود",
+      "LookupType": "النوع",
+      "Parent": "الوالد"
+    },
+    "PageName": "البيانات",
+    "Id": "الرقم",
+    "Name": "الاسم",
+    "Code": "الكود",
+    "LookupType": "النوع"
+  },
+  "Currency": {
+    "Add": {
+      "PageName": "اضافة عملة",
+      "Name": "الاسم",
+      "Code": "الكود",
+      "Symbol": "العلامة",
+      "Unit": "الوحدة",
+      "SubUnit": "الوحدة sub",
+      "Country": "الدولة"
+    },
+    "PageName": "العملات",
+    "Id": "الرقم",
+    "Name": "الاسم",
+    "Code": "الكود",
+    "Symbol": "العلامة"
+  }
+}

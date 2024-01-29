@@ -1,0 +1,35 @@
+/* Add this CSS to your global styles or a dedicated stylesheet */
+
+/* Additional styling for the navbar */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Adjust the brand text size for better responsiveness */
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+  
+  /* Style for the toggler icon */
+  .navbar-toggler-icon {
+    background-color: #3498db; /* Adjust color as needed */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 767px) {
+    /* Center-align items in the mobile view */
+    .navbar-nav {
+      text-align: center;
+    }
+  
+    /* Push username to a new line in mobile view */
+    .nav-item.ml-auto {
+      margin-top: 10px;
+    }
+  
+    /* Style for the navbar items in mobile view */
+    .navbar-nav .nav-item {
+      margin: 10px 0;
+    }
+  }
+  

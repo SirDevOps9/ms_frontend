@@ -1,29 +1,30 @@
-# README #
+# Serpfrontapps
 
-This README would normally document whatever steps are necessary to get your application up and running.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.10.
 
-### What is this repository for? ###
+## Development server
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Run `npm run stat:gateway` for a dev server. Navigate to `http://localhost:4300/`. The application will automatically reload if you change any of the source files.
+Run `npm run stat:adminportal` for a accounting server. Navigate to `http://localhost:4300/adminportal`. The application will automatically reload if you change any of the source files.
+Run `npm run stat:bussiness-owners` for a accounting server. Navigate to `http://localhost:4300/bussinessowners`. The application will automatically reload if you change any of the source files.
 
-### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+## Code scaffolding
 
-### Contribution guidelines ###
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-* Writing tests
-* Code review
-* Other guidelines
+## Build
 
-### Who do I talk to? ###
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-* Repo owner or admin
-* Other community or team contact
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
