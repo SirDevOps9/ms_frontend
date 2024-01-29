@@ -19,41 +19,8 @@
       "CancelButtonText": "الغاء"
     }
   },
-  "Lookup": {
-    "Add": {
-      "PageName": "اضافة بيان",
-      "Name": "الاسم",
-      "Code": "الكود",
-      "LookupType": "النوع",
-      "Parent": "الوالد"
-    },
-    "Edit": {
-      "PageName": "تعديل بيان",
-      "Name": "الاسم",
-      "Code": "الكود",
-      "LookupType": "النوع",
-      "Parent": "الوالد"
-    },
-    "PageName": "البيانات",
-    "Id": "الرقم",
-    "Name": "الاسم",
-    "Code": "الكود",
-    "LookupType": "النوع"
-  },
-  "Currency": {
-    "Add": {
-      "PageName": "اضافة عملة",
-      "Name": "الاسم",
-      "Code": "الكود",
-      "Symbol": "العلامة",
-      "Unit": "الوحدة",
-      "SubUnit": "الوحدة sub",
-      "Country": "الدولة"
-    },
-    "PageName": "العملات",
-    "Id": "الرقم",
-    "Name": "الاسم",
-    "Code": "الكود",
-    "Symbol": "العلامة"
+  "Layout": {
+    "Dashboard": "لوحة التحكم",
+    "Users": "المستخدمين"
   }
 }
