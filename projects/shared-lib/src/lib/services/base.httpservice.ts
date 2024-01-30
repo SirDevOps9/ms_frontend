@@ -107,7 +107,7 @@ export class BaseService {
     callUrl: string,
     response: HttpErrorResponse,
     input: any
-  ): Observable<APIResponse<any>> {
+  ): Observable<any> {
     let res: any;
 
     res = response.error;

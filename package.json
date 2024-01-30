@@ -12,7 +12,9 @@
     "start:bussiness-owners": "ng serve --project bussiness-owners --port 4301",
     "start:bussiness-owners-stage": "ng serve --project bussiness-owners --port 4301 --configuration stage",
     "start:adminportal": "ng serve --project adminportal --port 4302",
-    "start:gateway": "node proxy.js"
+    "start:gateway": "node proxy.js",
+    "start:all": "start npm run start:gateway && start npm run start:bussiness-owners && start npm run start:adminportal"
+
   },
   "private": true,
   "dependencies": {
