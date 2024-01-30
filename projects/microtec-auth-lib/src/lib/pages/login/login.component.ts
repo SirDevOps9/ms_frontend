@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { LanguageService } from '../../services/language.service';
-import { StorageService } from '../../services/localstorage.service';
-import { RouterService } from '../../services/router.service';
+import { LanguageService, StorageService, RouterService } from 'shared-lib';
 
 @Component({
   selector: 'app-login',
@@ -29,8 +27,6 @@ export class LoginComponent {
   ngOnInit(): void {
     this.languageService.setDefaultLang('en');
     this.languageService.setLang();
-    //this.storageService.ClearAllLocalStorage();
-    // this.oidcSecurityService.authorize();
     this.loginFormValidation();
   }
 
@@ -52,7 +48,7 @@ export class LoginComponent {
 
         //console.log(userData);
       });
-   // this.oidcSecurityService.authorize();
+    // this.oidcSecurityService.authorize();
   }
 
   onLogIn() {

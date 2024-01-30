@@ -7,21 +7,23 @@ import {
   CanActivate,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { StorageService } from '../services/localstorage.service';
-import { StorageKeys } from '../constants/storagekeys';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UnauthGuard {
-  constructor(public router: Router, private localStorage: StorageService) {}
+  constructor(public router: Router,  private oidcSecurityService: OidcSecurityService) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | UrlTree | boolean {
-    if (this.localStorage.getItem(StorageKeys.USER_TOKEN) != null) {
-      this.router.navigate(['']);
-    }
+    this.oidcSecurityService
+      .checkAuth()
+      .subscribe(({ isAuthenticated, userData, accessToken }) => {
+        if (isAuthenticated) this.router.navigate(['']);
+      });
     return true;
   }
+
 }

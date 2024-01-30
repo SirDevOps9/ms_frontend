@@ -2,7 +2,7 @@ import { LoginRedirectComponent } from './pages/login-redirect/login-redirect.co
 import { LoginComponent } from './pages/login/login.component';
 import { LogoutRedirectComponent } from './pages/logout-redirect/logout-redirect.component';
 
-export const sharedRoutes = [
+export const loginRoutes = [
   { path: 'login', component: LoginComponent },
   {
     path: 'login-redirect',

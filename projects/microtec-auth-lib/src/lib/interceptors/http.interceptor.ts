@@ -8,7 +8,6 @@ import {
 } from '@angular/common/http';
 import { Observable, catchError, switchMap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { APIResponse } from '../models/apiResponse';
 import { AuthService } from '../services/auth.httpservice';
 import { AuthenticationResponse } from '../models/authenticationResponse';
 
@@ -42,7 +41,7 @@ export class ERPInterceptor implements HttpInterceptor {
     this.router.navigate(['login']);
     let tokenModel = this.authService.getUserTokenModel();
     return this.authService.refreshToken(tokenModel).pipe(
-      switchMap((data: APIResponse<AuthenticationResponse>) => {
+      switchMap((data: any) => {
        // this.authService.saveUserData(data.response);
         request = request.clone();
         return next.handle(request);

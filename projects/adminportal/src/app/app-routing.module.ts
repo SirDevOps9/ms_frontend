@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { sharedRoutes } from '../../../shared-lib/src/lib/shared.routes';
-import { AuthGuard } from '../../../shared-lib/src/lib/guards/auth.guard';
 import { LayoutComponent } from './components/layout/layout.component';
 import { AppComponent } from './app.component';
+import { AuthGuard } from 'microtec-auth-lib';
 
 const routes: Routes = [
-  ...sharedRoutes,
   {
     path: '',
     component: LayoutComponent,
-    children: [{ path: '', component: AppComponent }],
+    children: [{ path: '', component: AppComponent, canActivate: [AuthGuard] }],
   },
 ];
 
