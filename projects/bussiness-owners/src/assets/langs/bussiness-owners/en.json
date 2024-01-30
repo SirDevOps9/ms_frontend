@@ -2,7 +2,7 @@
   "dir": "ltr",
   "Welcome": "Welcome",
   "Submit": "Submit",
-  "Logout":"Logout",
+  "Logout": "Logout",
   "DeleteError": "Error in Delete",
   "LoadError": "Error in loading Data",
   "Table": {
@@ -19,41 +19,8 @@
       "CancelButtonText": "Cancel"
     }
   },
-  "Lookup": {
-    "Add": {
-      "PageName": "Add Lookup",
-      "Name": "Name",
-      "Code": "Code",
-      "LookupType": "Lookup Type",
-      "Parent": "Parent Lookup"
-    },
-    "Edit": {
-      "PageName": "Edit Lookup",
-      "Name": "Name",
-      "Code": "Code",
-      "LookupType": "Lookup Type",
-      "Parent": "Parent Lookup"
-    },
-    "PageName": "Lookups",
-    "Id": "Id",
-    "Name": "Name",
-    "Code": "Code",
-    "LookupType": "Type"
-  },
-  "Currency": {
-    "Add": {
-      "PageName": "Add Currency",
-      "Name": "Name",
-      "Code": "Code",
-      "Symbol": "Symbol",
-      "Unit": "Unit",
-      "SubUnit": "Sub Unit",
-      "Country": "Country"
-    },
-    "PageName": "Currency",
-    "Id": "Id",
-    "Name": "Name",
-    "Code": "Code",
-    "Symbol": "Symbol"
+  "Layout": {
+    "Dashboard": "Dashboard",
+    "Users": "Users"
   }
 }
