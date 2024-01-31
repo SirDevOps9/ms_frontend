@@ -7,20 +7,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LayoutComponent } from './components/layout/layout.component';
 import { ErpTableComponent } from './components/erp-table/erp-table.component';
 import { SearchEngineComponent } from './components/search-engine/search-engine.component';
-import { LoginComponent } from './pages/login/login.component';
-import { LoginRedirectComponent } from './pages/login-redirect/login-redirect.component';
-import { LogoutRedirectComponent } from './pages/logout-redirect/logout-redirect.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
-  declarations: [
-    LayoutComponent,
-    ErpTableComponent,
-    SearchEngineComponent,
-    LoginComponent,
-    LoginRedirectComponent,
-    LogoutRedirectComponent, 
-  ],
+  declarations: [LayoutComponent, ErpTableComponent, SearchEngineComponent],
   imports: [
     CommonModule,
     RouterOutlet,
@@ -29,11 +19,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatPaginatorModule,
     TranslateModule.forRoot(),
   ],
-  exports: [
-    LayoutComponent,
-    ErpTableComponent,
-    SearchEngineComponent,
-  ],
+  exports: [LayoutComponent, ErpTableComponent, SearchEngineComponent],
 })
 export class SharedLibModule {
   public static forRoot(

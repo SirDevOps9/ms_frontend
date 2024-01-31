@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://localhost:44328',
+  baseUrl: 'https://localhost:7265',
   openIdConfig: {
     authority: 'https://localhost:7092',
    redirectUrl: window.location.origin + '/bussinessowners/login-redirect',

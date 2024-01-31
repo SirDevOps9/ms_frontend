@@ -6,10 +6,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable, map, take } from 'rxjs';
-import { StorageService } from '../services/localstorage.service';
-import { StorageKeys } from '../constants/storagekeys';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { SessionStorageService } from '../services/sessionstorage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,9 +14,26 @@ import { SessionStorageService } from '../services/sessionstorage.service';
 export class AuthGuard {
   constructor(
     public router: Router,
-    private sessionService: SessionStorageService,
     private oidcSecurityService: OidcSecurityService
   ) {}
+
+  // canActivate(
+  //   route: ActivatedRouteSnapshot,
+  //   state: RouterStateSnapshot
+  // ): Observable<boolean | UrlTree> {
+  //   return this.oidcSecurityService.isAuthenticated$.pipe(
+  //     take(1),
+  //     map(({ isAuthenticated }) => {
+  //       // allow navigation if authenticated
+  //       if (isAuthenticated) {
+  //         return true;
+  //       }
+
+  //       // redirect if not authenticated
+  //       return this.router.parseUrl('/login');
+  //     })
+  //   );
+  // }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -27,15 +41,11 @@ export class AuthGuard {
     this.oidcSecurityService
       .checkAuth()
       .subscribe(({ isAuthenticated, userData, accessToken }) => {
+        console.log(isAuthenticated);
+        console.log(accessToken);
+
         if (!isAuthenticated) this.router.navigate(['login']);
       });
     return true;
-    // if (
-    //   this.sessionService.getItem(StorageKeys.USER_TOKEN) == '' ||
-    //   this.sessionService.getItem(StorageKeys.USER_TOKEN) == null
-    // ) {
-    //   this.router.navigate(['login']);
-    // }
-    // return true;
   }
 }

@@ -11,17 +11,17 @@ import { AbstractSecurityStorage, AuthModule } from 'angular-auth-oidc-client';
 import { MultiTranslateHttpLoader } from '../../../shared-lib/src/lib/services/translationHttpLoader';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ERPInterceptor } from '../../../shared-lib/src/lib/interceptors/http.interceptor';
 import { CookieModule } from 'ngx-cookie';
-import { LayoutComponent } from './compnents/layout/layout.component';
+import { LayoutComponent } from './components/layout/layout.component';
 import { UsersComponent } from './pages/users/users.component';
+import {
+  MicrotecAuthLibModule,
+  ERPInterceptor,
+  CustomStorageService,
+} from 'microtec-auth-lib';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    UsersComponent,
-    LayoutComponent
-  ],
+  declarations: [AppComponent, UsersComponent, LayoutComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -41,18 +41,20 @@ import { UsersComponent } from './pages/users/users.component';
         deps: [HttpClient],
       },
     }),
+    MicrotecAuthLibModule,
     SharedLibModule.forRoot(environment),
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
-    CookieModule.withOptions()
+    CookieModule.withOptions(),
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ERPInterceptor,
       multi: true,
-    }
+    },
+    { provide: AbstractSecurityStorage, useClass: CustomStorageService },
   ],
   bootstrap: [AppComponent],
 })

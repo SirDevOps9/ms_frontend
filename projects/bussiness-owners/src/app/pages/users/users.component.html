@@ -1,1 +1,46 @@
-<p>users works!</p>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h3 class="card-title">{{ "User.PageName" | translate }}</h3>
+          <!-- <a class="btn btn-primary" (click)="navigateToAdd()">
+              {{ "Table.Add" | translate }}
+            </a> -->
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped custom-table">
+              <thead class="thead-custom">
+                <tr>
+                  <th>
+                    {{ "User.Id" | translate }}
+                  </th>
+                  <th>
+                    {{ "User.Name" | translate }}
+                  </th>
+                  <th>
+                    {{ "User.Phone" | translate }}
+                  </th>
+                  <th>
+                    {{ "User.Email" | translate }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of userData">
+                  <td >{{ item['id'] }}</td>
+                  <td >{{ item['name'] }}</td>
+                  <td >{{ item['phone'] }}</td>
+                  <td >{{ item['email'] }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

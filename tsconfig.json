@@ -17,6 +17,9 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "paths": {
+      "microtec-auth-lib": [
+        "./dist/microtec-auth-lib"
+      ],
       "shared-lib": [
         "./dist/shared-lib"
       ]

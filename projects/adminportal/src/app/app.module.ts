@@ -10,14 +10,15 @@ import { MultiTranslateHttpLoader } from '../../../shared-lib/src/lib/services/t
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
-import { ERPInterceptor } from '../../../shared-lib/src/lib/interceptors/http.interceptor';
+import {
+  CustomStorageService,
+  ERPInterceptor,
+  MicrotecAuthLibModule,
+} from 'microtec-auth-lib';
 import { LayoutComponent } from './components/layout/layout.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LayoutComponent,
-  ],
+  declarations: [AppComponent, LayoutComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -37,6 +38,7 @@ import { LayoutComponent } from './components/layout/layout.component';
     AuthModule.forRoot({
       config: environment.openIdConfig,
     }),
+    MicrotecAuthLibModule,
     SharedLibModule.forRoot(environment),
     BrowserAnimationsModule,
     CookieModule.withOptions(),
@@ -47,6 +49,7 @@ import { LayoutComponent } from './components/layout/layout.component';
       useClass: ERPInterceptor,
       multi: true,
     },
+    { provide: AbstractSecurityStorage, useClass: CustomStorageService },
   ],
   bootstrap: [AppComponent],
 })

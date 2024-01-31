@@ -22,5 +22,12 @@
   "Layout": {
     "Dashboard": "Dashboard",
     "Users": "Users"
+  },
+  "User": {
+    "PageName": "Users Index",
+    "Id": "Id",
+    "Name": "Name",
+    "Email": "Email",
+    "Phone": "Phone"
   }
 }
