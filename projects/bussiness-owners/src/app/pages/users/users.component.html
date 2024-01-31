@@ -22,9 +22,6 @@
                     {{ "User.Name" | translate }}
                   </th>
                   <th>
-                    {{ "User.Phone" | translate }}
-                  </th>
-                  <th>
                     {{ "User.Email" | translate }}
                   </th>
                 </tr>
@@ -33,7 +30,6 @@
                 <tr *ngFor="let item of userData">
                   <td >{{ item['id'] }}</td>
                   <td >{{ item['name'] }}</td>
-                  <td >{{ item['phone'] }}</td>
                   <td >{{ item['email'] }}</td>
                 </tr>
               </tbody>

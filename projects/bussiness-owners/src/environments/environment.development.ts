@@ -2,10 +2,10 @@ export const environment = {
   production: true,
   baseUrl: 'https://localhost:7265',
   openIdConfig: {
-    authority: 'https://localhost:7092',
+    authority: 'http://192.168.100.191:8080',
    redirectUrl: window.location.origin + '/bussinessowners/login-redirect',
    postLogoutRedirectUri: window.location.origin + '/bussinessowners/logout-redirect',
-    clientId: 'ERPBackend',
+    clientId: 'microtecadminfrontend',
     scope: 'openid profile',
     responseType: 'code',
     silentRenew: true,
