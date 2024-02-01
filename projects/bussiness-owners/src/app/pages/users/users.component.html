@@ -24,6 +24,9 @@
                   <th>
                     {{ "User.Email" | translate }}
                   </th>
+                  <th>
+                    {{ "User.Activate" | translate }}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -31,6 +34,13 @@
                   <td >{{ item['id'] }}</td>
                   <td >{{ item['name'] }}</td>
                   <td >{{ item['email'] }}</td>
+                  <td>
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="customSwitch{{ item.id }}" [checked]="item['isActive']"
+                             (change)="ActivateAndDeactivate(item.id)">
+                      <label class="custom-control-label" for="customSwitch{{ item.id }}"></label>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>

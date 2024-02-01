@@ -10,9 +10,16 @@ export class UserService {
   private userController = 'User';
 
   constructor(private baseService: BaseService) {}
+
   getAll(): Observable<UserListResponse[]> {
     return this.baseService.get<UserListResponse[]>(
       `${this.userController}`
+    );
+  }
+  ActivateAndDeactivate(id : number) :Observable<Boolean>{
+    console.log(id)
+    return this.baseService.put<boolean>(
+      `${this.userController}/${id}`,{}
     );
   }
 }

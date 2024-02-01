@@ -22,4 +22,12 @@ export class UsersComponent implements OnInit {
       },
     });
   }
+  ActivateAndDeactivate(id : number){
+    this.userService.ActivateAndDeactivate(id)
+    .subscribe(response => {
+      console.log('Status updated successfully:', response);
+    }, error => {
+      console.error('Error updating status:', error);
+    });
+  }
 }
