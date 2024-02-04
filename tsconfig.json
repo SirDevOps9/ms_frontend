@@ -3,6 +3,11 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
+    "baseUrl": "./",
+    "paths": {
+      "microtec-auth-lib": ["projects/microtec-auth-lib/src/public-api"],
+      "shared-lib": ["projects/shared-lib/src/public-api"]
+    },
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
@@ -16,22 +21,11 @@
     "declaration": false,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "paths": {
-      "microtec-auth-lib": [
-        "./dist/microtec-auth-lib"
-      ],
-      "shared-lib": [
-        "./dist/shared-lib"
-      ]
-    },
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

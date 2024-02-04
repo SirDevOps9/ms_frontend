@@ -42,6 +42,9 @@ export class BaseService {
           [HeaderParams.TENANT_ID]: '1',
           [HeaderParams.COMPANY_ID]: '2',
           [HeaderParams.BRANCH_ID]: '2',
+          [HeaderParams.VERSION]: this.environment.Version,
+          [HeaderParams.CLIENTID]: this.environment.ClientId,
+          [HeaderParams.PLATFORMTYPE]: this.environment.Platform,
         });
         return of(headers);
       })
