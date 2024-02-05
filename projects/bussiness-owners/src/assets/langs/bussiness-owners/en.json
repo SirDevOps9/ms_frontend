@@ -28,6 +28,7 @@
     "Id": "Id",
     "Name": "Name",
     "Email": "Email",
-    "Phone": "Phone"
+    "Phone": "Phone",
+    "Activate":"Status(Activate Or Deactivate)"
   }
 }
