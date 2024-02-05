@@ -10,7 +10,14 @@
           </div>
           <div class="card-body">
             <p class="h5 login-box-msg">{{ "Login.PageName" | translate }}</p>
-            <form [formGroup]="loginForm" (ngSubmit)="onLogIn()">
+            <button
+            (click)="microTecSignIn()"
+            type="button"
+            class="btn btn-primary btn-block"
+          >
+            {{ "Login.MicroTecSignIn" | translate }}
+          </button>
+            <!-- <form [formGroup]="loginForm" (ngSubmit)="onLogIn()">
               <div class="form-group">
                 <label for="email" class="control-label form-label">{{
                   "Login.Email" | translate
@@ -80,9 +87,6 @@
                   </div>
                 </div>
                 <div class="col">
-                  <!-- <p class="mb-1">
-                    <a href="forgot-password.html">I forgot my password?</a>
-                  </p> -->
                 </div>
               </div>
               <div class="social-auth-links text-center mt-2 mb-3">
@@ -101,7 +105,7 @@
                   {{ "Login.MicroTecSignIn" | translate }}
                 </button>
               </div>
-            </form>
+            </form> -->
           </div>
           <!-- <div *ngIf="data.backendErrors$" class="card-footer text-center">
             <ul
