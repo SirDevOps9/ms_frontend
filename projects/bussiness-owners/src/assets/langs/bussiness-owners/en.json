@@ -29,6 +29,9 @@
     "Name": "Name",
     "Email": "Email",
     "Phone": "Phone",
-    "Activate":"Status(Activate Or Deactivate)"
+    "Status":"Status(Activate Or Deactivate)",
+    "Deactivate":"Deactivate",
+    "Activate":"Activate"
+
   }
 }
