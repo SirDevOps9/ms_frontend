@@ -28,6 +28,10 @@
     "Id": "Id",
     "Name": "Name",
     "Email": "Email",
-    "Phone": "Phone"
+    "Phone": "Phone",
+    "Status":"Status(Activate Or Deactivate)",
+    "Deactivate":"Deactivate",
+    "Activate":"Activate"
+
   }
 }

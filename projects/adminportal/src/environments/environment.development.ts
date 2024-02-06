@@ -1,8 +1,11 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://localhost:44328',
+  baseUrl: 'https://localhost:7265',
+  Version: 'V1',
+  ClientId: 'AdminPortal',
+  Platform: 'Web',
   openIdConfig: {
-    authority: 'http://192.168.100.191:8080',
+    authority: 'https://192.168.100.191:2000',
     redirectUrl: window.location.origin + '/adminportal/login-redirect',
     postLogoutRedirectUri:
       window.location.origin + '/adminportal/logout-redirect',
