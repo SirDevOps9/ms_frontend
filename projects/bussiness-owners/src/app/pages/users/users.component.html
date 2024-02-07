@@ -36,7 +36,7 @@
                   <td >{{ item['email'] }}</td>
                   <td>
                     <button class="btn btn-info" (click)="ActivateAndDeactivate(item.id)">
-                      {{ item.isActive ? "Deactivate" : "Activate" | translate }}
+                      {{ (item.isActive ? "User.Deactivate" : "User.Activate") | translate }}
                     </button>
                   </td>
                 </tr>

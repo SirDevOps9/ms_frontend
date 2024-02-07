@@ -5,7 +5,7 @@ export const environment = {
   ClientId: 'BussinessOwner',
   Platform: 'Web',
   openIdConfig: {
-    authority: 'https://192.168.100.191:2000',
+    authority: 'https://intmicrotec.neat-url.com:2010',
     redirectUrl: window.location.origin + '/bussinessowners/login-redirect',
     postLogoutRedirectUri:
       window.location.origin + '/bussinessowners/logout-redirect',

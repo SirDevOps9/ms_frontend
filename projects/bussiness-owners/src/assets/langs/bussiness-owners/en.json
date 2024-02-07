@@ -31,7 +31,11 @@
     "Phone": "Phone",
     "Status":"Status(Activate Or Deactivate)",
     "Deactivate":"Deactivate",
-    "Activate":"Activate"
+    "Activate":"Activate",
+    "Succefully":"Succefully",
+    "userDeactivatedSuccessfully":"user deactivaed Successfully",
+    "userActivatedSuccessfully":"user activaed Successfully"
+
 
   }
 }

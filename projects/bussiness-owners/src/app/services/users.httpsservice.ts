@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { BaseService } from 'shared-lib';
+import { APIResponse, BaseService } from 'shared-lib';
 import { UserListResponse } from '../models/users/userlist.response';
 @Injectable({
   providedIn: 'root',
@@ -16,9 +16,8 @@ export class UserService {
       `${this.userController}`
     );
   }
-  ActivateAndDeactivate(id : number) :Observable<Boolean>{
-    console.log(id)
-    return this.baseService.put<boolean>(
+  ActivateAndDeactivate(id : number) :Observable<APIResponse<string>>{
+    return this.baseService.put<APIResponse<string>>(
       `${this.userController}/${id}`,{}
     );
   }
