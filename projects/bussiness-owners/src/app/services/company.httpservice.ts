@@ -11,21 +11,20 @@ import { Injectable } from "@angular/core";
 })
 
 export class CompanyService {
-  private companyApi = 'company'; 
+  private companyApi = `api/Company`; 
 
   constructor(private http: HttpClient, private baseService: BaseService) {}
 
   addCompany(request: AddCompanyDto): Observable<APIResponse<AddCompanyDto>> {
     return this.baseService.post<APIResponse<AddCompanyDto>>(
-        this.companyApi + '/Add',
+        this.companyApi,
       request
     );
   }
   getAll(): Observable<CompanyListResponse[]>
   {
     return this.baseService.get<CompanyListResponse[]>(
-            // `${this.companyApi}`
-            `api/Company`
+             `${this.companyApi}`
     );
   }
 }

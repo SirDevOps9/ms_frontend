@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyService } from '../../services/company.httpservice';
 import { CompanyListResponse } from '../../models/company/companylist.response';
+import { LanguageService } from '../../../../../shared-lib/src/lib/services/language.service';
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
@@ -13,8 +14,10 @@ export class CompanyComponent implements OnInit {
   companies: CompanyListResponse[];
 
   constructor(private formBuilder: FormBuilder ,
-     private companyService : CompanyService
+     private companyService : CompanyService,
+     public languageService: LanguageService
      ) {
+      this.languageService.setLang();
       this.companyForm = this.formBuilder.group({
         subdomain: ['', Validators.required],
         companyName: ['', Validators.required],
@@ -32,7 +35,7 @@ export class CompanyComponent implements OnInit {
     this.companyService.getAll().subscribe({
       next: (res) => {
         this.companies = res;
-        console.log( this.companies)
+        console.log(this.companies)
       },
     });
   }
@@ -58,27 +61,4 @@ export class CompanyComponent implements OnInit {
 
 
 
-  // ,
-  // "Company":{
-  //   "accountInformation": {
-  //     "step": "Step 01 - Company Main Info",
-  //     "companyMainInfo": {
-  //       "domain": "domain",
-  //       "companyName": "companyName",
-  //       "industry": "industry",
-  //       "currency": "currency",
-  //       "website": "website",
-  //       "address": "address",
-  //       "mobileNumber": "mobileNumber",
-  //       "companyEmail": "mobileNumber"
-  //     },
-  //     "companyList": [
-  //       {
-  //         "companyName": "companyName",
-  //         "industry": "industry",
-  //         "website": "website",
-  //         "address": "address"
-  //       }
-  //     ]
-  //   }
-  // }
+ 

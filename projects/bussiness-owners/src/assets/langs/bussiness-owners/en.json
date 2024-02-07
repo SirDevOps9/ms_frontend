@@ -21,7 +21,8 @@
   },
   "Layout": {
     "Dashboard": "Dashboard",
-    "Users": "Users"
+    "Users": "Users",
+    "Company": "Company"
   },
   "User": {
     "PageName": "Users Index",
@@ -29,5 +30,23 @@
     "Name": "Name",
     "Email": "Email",
     "Phone": "Phone"
-  }
+  },
+  "Company":{
+      "step": "Step 01 - Company Main Info",
+      "AccInfo":"Account Information",
+      "Domain": "Choose Your Domain:",
+      "Subdomain":"Subdomain",
+      "companyName": "Company Name",
+      "industry": "Industry",
+      "currency": "Currency",
+      "website": "Website",
+      "address": "Address",
+      "mobileNumber": "Mobile Number",
+      "companyEmail": "Company Email",
+      "next":"Next",
+      "companyList":"Company List",
+      "required" : " is required",
+      "noData":" There is no data"
+    }
 }
+
