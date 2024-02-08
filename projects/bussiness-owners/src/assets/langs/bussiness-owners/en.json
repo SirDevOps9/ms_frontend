@@ -46,7 +46,8 @@
       "next":"Next",
       "companyList":"Company List",
       "required" : " is required",
-      "noData":" There is no data"
+      "noData":" There is no data",
+      "createNew": "Create New Company"
     }
 }
 

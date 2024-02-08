@@ -3,6 +3,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UsersComponent } from './pages/users/users.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { CompanyComponent } from './pages/company/company.component';
+import { AddCompanyComponent } from './pages/company/add-company/add-company.component';
 
 export const BORoutes = [
   {
@@ -16,5 +17,9 @@ export const BORoutes = [
   {
     path: 'company',
     component: CompanyComponent,
+  },
+  {
+    path: 'company/add',
+    component: AddCompanyComponent,
   },
 ];

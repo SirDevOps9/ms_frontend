@@ -20,13 +20,15 @@ import {
   CustomStorageService,
 } from 'microtec-auth-lib';
 import { CompanyComponent } from './pages/company/company.component';
+import { AddCompanyComponent } from './pages/company/add-company/add-company.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UsersComponent, 
     LayoutComponent,
-    CompanyComponent],
+    CompanyComponent,
+    AddCompanyComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

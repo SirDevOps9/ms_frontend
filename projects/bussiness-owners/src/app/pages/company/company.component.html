@@ -3,6 +3,10 @@
       <div class="col-md-8">
           <h2>{{ "Company.companyList" | translate }}</h2>
 
+          <button class="btn btn-primary mb-3" (click)="navigateToAdd()">
+            {{ "Company.createNew" | translate }}
+          </button>
+
           <div class="table-responsive">
               <table class="table table-striped custom-table">
                 <thead class="thead-custom">
@@ -26,95 +30,7 @@
                 </tbody>
               </table>              
             </div>
-            <div class="card mt-4">
-              <div class="card-header d-flex justify-content-between align-items-center">
-                  <h3 class="card-title">{{"Company.AccInfo" | translate}}</h3>
-              </div>
-
-              <div class="card-body">
-                  <h4>{{"Company.step" | translate}}</h4>
-
-                  <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
-              <div class="form-group mb-3">
-                <label for="subdomain" class="form-label">
-                  {{"Company.Domain" | translate}}
-                </label>
-                <input formControlName="subdomain" class="form-control" />
-                <div *ngIf="hasError('subdomain', 'required')" class="text-danger">
-                    {{ "Company.Subdomain" | translate }} {{ "Company.required" | translate }}
-                  </div>
-                </div>
-              <div class="form-group mb-3">
-                <label for="companyName" class="form-label"> 
-                  {{"Company.companyName" | translate}} :</label>
-                <input formControlName="companyName" class="form-control" />
-                <div *ngIf="hasError('companyName', 'required')" class="text-danger">
-                  {{ "Company.companyName" | translate }} {{ "Company.required" | translate }}
-                  </div>
-              </div>
-              <div class="form-group mb-3">
-                <label for="industry" class="form-label">{{"Company.industry" | translate}} :</label>
-                <select formControlName="industry" id="industry" name="industry" class="form-select" required>
-                  <option value="">Select Industry</option>
-                  <option value="1">Technology</option>
-                  <option value="2">Finance</option>
-                  <option value="4">Healthcare</option>
-                  <option value="5">Retail</option>
-                </select>
-                <div *ngIf="hasError('industry', 'required')" class="text-danger">                  
-                  {{ "Company.industry" | translate }} {{ "Company.required" | translate }}
-                </div>
-              </div>
-              <div class="form-group mb-3">
-                <label for="currency" class="form-label">{{ "Company.currency" | translate }} :</label>
-                <select formControlName="currency" id="currency" name="currency" class="form-select" required>
-                  <option value="">Select Currency</option>
-                  <option value="1">USD</option>
-                  <option value="2">EUR</option>
-                  <option value="4">EGP</option>
-                  <option value="5">SAR</option>
-                </select>
-                <div *ngIf="hasError('currency', 'required')" class="text-danger">                  
-                  {{ "Company.currency" | translate }} {{ "Company.required" | translate }}
-                </div>
-              </div>
-              <div class="form-group mb-3">
-                <label for="website" class="form-label">{{ "Company.website" | translate }} :</label>
-                <input formControlName="website" class="form-control" />
-                <div *ngIf="hasError('website', 'required')" class="text-danger">                
-                    {{ "Company.website" | translate }} {{ "Company.required" | translate }}
-                </div>
-              </div>
-              <div class="form-group mb-3">
-                <label for="address" class="form-label">{{ "Company.address" | translate }} :</label>
-                <input formControlName="address" class="form-control" maxlength="100" />
-                <div *ngIf="hasError('address', 'required')" class="text-danger">                    
-                  {{ "Company.address" | translate }} {{ "Company.required" | translate }}
-                </div>
-              </div>
-              <div class="form-group mb-3">
-                <label for="mobile" class="form-label"> {{ "Company.mobileNumber" | translate }} :</label>
-                <input type="tel" formControlName="mobile" class="form-control" />
-                <div *ngIf="hasError('mobile', 'required')" class="text-danger">                  
-                  {{ "Company.mobileNumber" | translate }} {{ "Company.required" | translate }}
-                </div>
-              </div>
-              <div class="form-group mb-3">
-                <label for="companyEmail" class="form-label">{{ "Company.companyEmail" | translate }} :</label>
-                <input type="email" formControlName="companyEmail" class="form-control" />
-                <div *ngIf="hasError('companyEmail', 'required')" class="text-danger">                 
-                   {{ "Company.companyEmail" | translate }} {{ "Company.required" | translate }}
-                </div>
-              </div>
-              <button type="submit" class="btn btn-primary">{{ "Company.next" | translate }}</button>
-                    </form>
-
-                    <hr>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div>
-
-
-  
