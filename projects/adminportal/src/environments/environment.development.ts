@@ -5,12 +5,12 @@ export const environment = {
   ClientId: 'AdminPortal',
   Platform: 'Web',
   openIdConfig: {
-    authority: 'https://192.168.100.191:2000',
+    authority: 'https://intmicrotec.neat-url.com:2003',
     redirectUrl: window.location.origin + '/adminportal/login-redirect',
     postLogoutRedirectUri:
       window.location.origin + '/adminportal/logout-redirect',
     clientId: 'microtecadminfrontend',
-    scope: 'openid profile ',
+    scope: 'openid profile offline_access',
     responseType: 'code',
     silentRenew: true,
     useRefreshToken: true,

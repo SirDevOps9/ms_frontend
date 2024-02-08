@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LanguageService } from '../../../../../shared-lib/src/lib/services/language.service';
 import { RouterService } from '../../../../../shared-lib/src/lib/services/router.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { AuthService } from '../../../../../shared-lib/src/lib/services/auth.httpservice';
+import { AuthService } from 'microtec-auth-lib';
 
 @Component({
   selector: 'app-layout',

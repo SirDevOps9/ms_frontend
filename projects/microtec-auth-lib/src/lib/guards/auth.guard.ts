@@ -5,8 +5,9 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
-import { Observable, map, take } from 'rxjs';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { Observable } from 'rxjs';
+import { LogService } from 'shared-lib';
+import { AuthService } from '../services';
 
 @Injectable({
   providedIn: 'root',
@@ -14,9 +15,19 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 export class AuthGuard {
   constructor(
     public router: Router,
-    private oidcSecurityService: OidcSecurityService
+    private authService: AuthService,
+    private logService: LogService
   ) {}
-
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean> | UrlTree | boolean {
+    this.authService.isAuthenticated().subscribe((isAuthenticated) => {
+      this.logService.log(isAuthenticated, 'Guard');
+      if (!isAuthenticated) this.router.navigate(['login']);
+    });
+    return true;
+  }
   // canActivate(
   //   route: ActivatedRouteSnapshot,
   //   state: RouterStateSnapshot
@@ -34,18 +45,4 @@ export class AuthGuard {
   //     })
   //   );
   // }
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | UrlTree | boolean {
-    this.oidcSecurityService
-      .checkAuth()
-      .subscribe(({ isAuthenticated, userData, accessToken }) => {
-        console.log(isAuthenticated);
-        console.log(accessToken);
-
-        if (!isAuthenticated) this.router.navigate(['login']);
-      });
-    return true;
-  }
 }
