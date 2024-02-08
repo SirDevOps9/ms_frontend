@@ -16,8 +16,8 @@ export class UserService {
       `${this.userController}`
     );
   }
-  ActivateAndDeactivate(id : number) :Observable<APIResponse<string>>{
-    return this.baseService.put<APIResponse<string>>(
+  ActivateAndDeactivate(id : number) :Observable<APIResponse<boolean>>{
+    return this.baseService.put<APIResponse<boolean>>(
       `${this.userController}/${id}`,{}
     );
   }

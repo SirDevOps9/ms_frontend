@@ -15,10 +15,12 @@
     "Confirm": {
       "Title": "هل انت متاكد?",
       "Text": "لا يمكنك الرجوع فى هذا القرار!",
-      "ConfirmButtonText": "نعم, قم بالمسح!",
-      "CancelButtonText": "الغاء"
+      "ConfirmButtonTexttodelete": "نعم, قم بالمسح!",
+      "CancelButtonText": "الغاء",
+      "ConfirmButtonTexttochangstatus":"نعم, غير الحالة"
     }
-  },
+    }
+  ,
   "Layout": {
     "Dashboard": "لوحة التحكم",
     "Users": "المستخدمين"

@@ -28,15 +28,19 @@ export class UsersComponent implements OnInit {
       },
     });
   }
-  async ActivateAndDeactivate(id : number ){
-    const confirmed = await this.toasterService.showConfirm();
+  async ActivateAndDeactivate(id : number , currentstatus :Boolean){
+    const confirmed = await this.toasterService.showConfirm("ConfirmButtonTexttochangstatus");
     let status ;
     if (confirmed) 
     {
       this.userService.ActivateAndDeactivate(id).subscribe({
         next: (res) => {
-          this.toasterService.showSuccess('Success', res.response);
-          this.getAllUsers();
+          if(currentstatus)this.toasterService.showSuccess('Success', this.languageService.transalte('User.userDeactivatedSuccessfully'));
+          else
+          this.toasterService.showSuccess('Success', this.languageService.transalte('User.userActivatedSuccessfully'));
+
+          let indexToChange = this.userData.findIndex(item => item.id === id);
+          this.userData[indexToChange].isActive = !currentstatus;
             },
             error: (err) => {
               this.toasterService.showError('Error',err)

@@ -15,8 +15,9 @@
     "Confirm": {
       "Title": "Are you sure?",
       "Text": "You won't be able to revert this!",
-      "ConfirmButtonText": "Yes, delete it!",
-      "CancelButtonText": "Cancel"
+      "ConfirmButtonTexttodelete": "Yes, delete it!",
+      "CancelButtonText": "Cancel",
+      "ConfirmButtonTexttochangstatus":"Yes, change staus"
     }
   },
   "Layout": {
