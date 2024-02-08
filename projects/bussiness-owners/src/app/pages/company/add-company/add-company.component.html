@@ -1,29 +1,29 @@
 <div class="card mt-4">
   <div class="card-header d-flex justify-content-between align-items-center">
-    <h3 class="card-title">{{ "Company.AccInfo" | translate }}</h3>
+    <h3 class="card-title">{{ "Company.Add.AccInfo" | translate }}</h3>
   </div>
 
   <div class="card-body">
-    <h4>{{ "Company.step" | translate }}</h4>
+    <h4>{{ "Company.Add.Step" | translate }}</h4>
 
     <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
       <div class="form-group mb-3">
-        <label for="subdomain" class="form-label">{{ "Company.Domain" | translate }}</label>
+        <label for="subdomain" class="form-label">{{ "Company.Add.Domain" | translate }}</label>
         <input formControlName="subdomain" id="subdomain" class="form-control" />
         <div *ngIf="hasError('subdomain', 'required')" class="text-danger">
-          {{ "Company.Subdomain" | translate }} {{ "Company.required" | translate }}
+          {{ "Company.Add.Subdomain" | translate }} {{ "Company.Add.Required" | translate }}
         </div>
       </div>
   <div class="form-group mb-3">
     <label for="companyName" class="form-label"> 
-      {{"Company.companyName" | translate}} :</label>
+      {{"Company.Add.CompanyName" | translate}} :</label>
     <input formControlName="companyName" class="form-control" />
     <div *ngIf="hasError('companyName', 'required')" class="text-danger">
-      {{ "Company.companyName" | translate }} {{ "Company.required" | translate }}
+      {{ "Company.Add.CompanyName" | translate }} {{ "Company.Add.Required" | translate }}
       </div>
   </div>
   <div class="form-group mb-3">
-    <label for="industry" class="form-label">{{"Company.industry" | translate}} :</label>
+    <label for="industry" class="form-label">{{"Company.Add.Industry" | translate}} :</label>
     <select formControlName="industry" id="industry" name="industry" class="form-select" required>
       <option value="">Select Industry</option>
       <option value="1">Technology</option>
@@ -32,11 +32,11 @@
       <option value="5">Retail</option>
     </select>
     <div *ngIf="hasError('industry', 'required')" class="text-danger">                  
-      {{ "Company.industry" | translate }} {{ "Company.required" | translate }}
+      {{ "Company.Add.Industry" | translate }} {{ "Company.Add.Required" | translate }}
     </div>
   </div>
   <div class="form-group mb-3">
-    <label for="currency" class="form-label">{{ "Company.currency" | translate }} :</label>
+    <label for="currency" class="form-label">{{ "Company.Add.Currency" | translate }} :</label>
     <select formControlName="currency" id="currency" name="currency" class="form-select" required>
       <option value="">Select Currency</option>
       <option value="1">USD</option>
@@ -45,38 +45,38 @@
       <option value="5">SAR</option>
     </select>
     <div *ngIf="hasError('currency', 'required')" class="text-danger">                  
-      {{ "Company.currency" | translate }} {{ "Company.required" | translate }}
+      {{ "Company.Add.Currency" | translate }} {{ "Company.Add.Required" | translate }}
     </div>
   </div>
   <div class="form-group mb-3">
-    <label for="website" class="form-label">{{ "Company.website" | translate }} :</label>
+    <label for="website" class="form-label">{{ "Company.Add.Website" | translate }} :</label>
     <input formControlName="website" class="form-control" />
     <div *ngIf="hasError('website', 'required')" class="text-danger">                
-        {{ "Company.website" | translate }} {{ "Company.required" | translate }}
+        {{ "Company.Add.Website" | translate }} {{ "Company.Add.Required" | translate }}
     </div>
   </div>
   <div class="form-group mb-3">
-    <label for="address" class="form-label">{{ "Company.address" | translate }} :</label>
+    <label for="address" class="form-label">{{ "Company.Add.Address" | translate }} :</label>
     <input formControlName="address" class="form-control" maxlength="100" />
     <div *ngIf="hasError('address', 'required')" class="text-danger">                    
-      {{ "Company.address" | translate }} {{ "Company.required" | translate }}
+      {{ "Company.Add.Address" | translate }} {{ "Company.Add.Required" | translate }}
     </div>
   </div>
   <div class="form-group mb-3">
-    <label for="mobile" class="form-label"> {{ "Company.mobileNumber" | translate }} :</label>
+    <label for="mobile" class="form-label"> {{ "Company.Add.MobileNumber" | translate }} :</label>
     <input type="tel" formControlName="mobile" class="form-control" />
     <div *ngIf="hasError('mobile', 'required')" class="text-danger">                  
-      {{ "Company.mobileNumber" | translate }} {{ "Company.required" | translate }}
+      {{ "Company.Add.MobileNumber" | translate }} {{ "Company.Add.Required" | translate }}
     </div>
   </div>
   <div class="form-group mb-3">
-    <label for="companyEmail" class="form-label">{{ "Company.companyEmail" | translate }}</label>
+    <label for="companyEmail" class="form-label">{{ "Company.Add.CompanyEmail" | translate }}</label>
     <input type="email" formControlName="companyEmail" id="companyEmail" class="form-control" />
     <div *ngIf="hasError('companyEmail', 'required')" class="text-danger">
-      {{ "Company.companyEmail" | translate }} {{ "Company.required" | translate }}
+      {{ "Company.Add.CompanyEmail" | translate }} {{ "Company.Add.Required" | translate }}
     </div>
   </div>
-  <button type="submit" class="btn btn-primary">{{ "Company.next" | translate }}</button>
+  <button type="submit" class="btn btn-primary">{{ "Company.Add.Next" | translate }}</button>
 </form>
 
 <hr>

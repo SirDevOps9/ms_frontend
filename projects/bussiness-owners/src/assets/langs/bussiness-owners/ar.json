@@ -31,22 +31,31 @@
     "Email": "البريد الالكترونى",
     "Phone": "رقم التليفون"
   },
-      "Company": {
-        "step": "الخطوة 01 - معلومات الشركة الرئيسية",
-        "AccInfo": "معلومات الحساب",
-        "Domain": "اختر نطاقك:",
-        "Subdomain": "نطاقك",
-        "companyName": "اسم الشركة",
-        "industry": "الصناعة",
-        "currency": "العملة",
-        "website": "موقع الويب",
-        "address": "العنوان",
-        "mobileNumber": "رقم الجوال",
-        "companyEmail": "بريد الشركة الإلكتروني",
-        "next": "التالي",
-        "companyList": "قائمة الشركات",
-        "required": "مطلوب",
-        "noData":"لا يوجد بيانات ",
-        "createNew": "انشاء شركه جديده"
-      }
+      
+        "Company": {
+          "CompanyList": "قائمة الشركات",
+          "CreateNew": "إنشاء شركة جديدة",
+          "CompanyName": "اسم الشركة",
+          "Industry": "الصناعة",
+          "Website": "موقع الويب",
+          "Address": "العنوان",
+          "NoData": "لا توجد بيانات",
+          "Add": {
+            "Step": "الخطوة 01 - معلومات الشركة الرئيسية",
+            "AccInfo": "معلومات الحساب",
+            "CompanyName": "اسم الشركة",
+            "Industry": "الصناعة",
+            "Website": "موقع الويب",
+            "Address": "العنوان",
+            "Domain": "اختر نطاقك:",
+            "Subdomain": "نطاقك",
+            "Currency": "العملة",
+            "MobileNumber": "رقم الجوال",
+            "CompanyEmail": "بريد الشركة الإلكتروني",
+            "Next": "التالي",
+            "Required": "مطلوب"
+                    }
+        }
+      
+      
 }

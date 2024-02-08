@@ -1,25 +1,28 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
-      <div class="col-md-8">
-          <h2>{{ "Company.companyList" | translate }}</h2>
-
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-6">
+          <h2>{{ "Company.CompanyList" | translate }}</h2>
+        </div>
+        <div class="col-md-6 text-md-right">
           <button class="btn btn-primary mb-3" (click)="navigateToAdd()">
-            {{ "Company.createNew" | translate }}
+            {{ "Company.CreateNew" | translate }}
           </button>
-
+        </div>
           <div class="table-responsive">
               <table class="table table-striped custom-table">
                 <thead class="thead-custom">
                   <tr>
-                    <th>{{ "Company.companyName" | translate }}</th>
-                    <th>{{ "Company.industry" | translate }}</th>
-                    <th>{{ "Company.website" | translate }}</th>
-                    <th>{{ "Company.address" | translate }}</th>
+                    <th>{{ "Company.CompanyName" | translate }}</th>
+                    <th>{{ "Company.Industry" | translate }}</th>
+                    <th>{{ "Company.Website" | translate }}</th>
+                    <th>{{ "Company.Address" | translate }}</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngIf="companies?.length === 0">
-                    <td colspan="4">{{ "Company.noData" | translate }}</td>
+                    <td colspan="4">{{ "Company.NoData" | translate }}</td>
                   </tr>
                   <tr *ngFor="let company of companies">
                     <td>{{ company['name'] }}</td>
@@ -29,8 +32,7 @@
                   </tr>
                 </tbody>
               </table>              
-            </div>
-            
+            </div>            
         </div>
     </div>
 </div>

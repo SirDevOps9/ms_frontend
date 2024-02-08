@@ -32,22 +32,28 @@
     "Phone": "Phone"
   },
   "Company":{
-      "step": "Step 01 - Company Main Info",
+    "CompanyList":"Company List",
+    "CreateNew": "Create New Company",
+    "CompanyName": "Company Name",
+    "Industry": "Industry",
+    "Website": "Website",
+    "Address": "Address",
+    "NoData":" There is no data",
+    "Add" : {
+      "Step": "Step 01 - Company Main Info",
       "AccInfo":"Account Information",
+      "CompanyName": "Company Name",
+      "Industry": "Industry",
+      "Website": "Website",
+      "Address": "Address",
       "Domain": "Choose Your Domain:",
       "Subdomain":"Subdomain",
-      "companyName": "Company Name",
-      "industry": "Industry",
-      "currency": "Currency",
-      "website": "Website",
-      "address": "Address",
-      "mobileNumber": "Mobile Number",
-      "companyEmail": "Company Email",
-      "next":"Next",
-      "companyList":"Company List",
-      "required" : " is required",
-      "noData":" There is no data",
-      "createNew": "Create New Company"
+      "Currency": "Currency",
+      "MobileNumber": "Mobile Number",
+      "CompanyEmail": "Company Email",
+      "Next":"Next",
+      "Required" : " is required"
+        }
     }
 }
 
