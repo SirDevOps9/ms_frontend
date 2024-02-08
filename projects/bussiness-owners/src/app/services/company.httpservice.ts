@@ -4,12 +4,14 @@ import { APIResponse } from '../../../../shared-lib/src/lib/models';
 import { AddCompanyDto } from '../models/company/add-company';
 import { CompanyListResponse } from '../models/company/companylist.response';
 import { Injectable } from '@angular/core';
+import { DropdownItemDto, DropdownListDto } from '../models/company/drop-down';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CompanyService {
   private companyApi = `Company`;
+  private dropDownApi = `/dropdowns`;
 
   constructor(private baseService: BaseService) {}
 
@@ -19,7 +21,10 @@ export class CompanyService {
       request
     );
   }
-  getAll(): Observable<APIResponse<ResponseItems<CompanyListResponse>>> {
-    return this.baseService.get<APIResponse<ResponseItems<CompanyListResponse[]>>>(`${this.companyApi}`);
+  getAll(): Observable<APIResponse<CompanyListResponse>> {
+    return this.baseService.get<APIResponse<CompanyListResponse[]>>(`${this.companyApi}`);
+  }
+  getDropDown():Observable<APIResponse<DropdownListDto>>{
+    return this.baseService.get<APIResponse<DropdownListDto>>(`${this.companyApi}${this.dropDownApi}`);
   }
 }

@@ -6,6 +6,6 @@ export interface CompanyListResponse {
     address: string;
     mobileNumber: string;
     companyEmail: string;
-    industryId: number;
-    currencyId: number;
+    industryName: string;
+    currencyName: string;
 }

@@ -42,8 +42,13 @@
           class="form-select"
           required
         >
-          <option value="">{{ "Company.Add.Select" | translate }}{{ "Company.Add.Industry" | translate }}</option>
-          <option *ngFor="let option of industryOptions" [value]="option.value">{{ option.label }}</option>
+          <option value="">
+            {{ "Company.Add.Select" | translate
+            }}{{ "Company.Add.Industry" | translate }}
+          </option>
+          <option *ngFor="let option of industryDropDown" [value]="option.id">
+            {{ option.name }}
+          </option>
         </select>
         <div *ngIf="hasError('industry', 'required')" class="text-danger">
           {{ "Company.Add.Industry" | translate }}
@@ -61,8 +66,13 @@
           class="form-select"
           required
         >
-          <option value="">{{ "Company.Add.Select" | translate }} {{ "Company.Add.Currency" | translate }}</option>
-          <option *ngFor="let option of currencyOptions" [value]="option.value">{{ option.label }}</option>
+          <option value="">
+            {{ "Company.Add.Select" | translate }}
+            {{ "Company.Add.Currency" | translate }}
+          </option>
+          <option *ngFor="let option of currencyDropDown" [value]="option.id">
+            {{ option.name }}
+          </option>
         </select>
         <div *ngIf="hasError('currency', 'required')" class="text-danger">
           {{ "Company.Add.Currency" | translate }}
