@@ -15,8 +15,9 @@
     "Confirm": {
       "Title": "هل انت متاكد?",
       "Text": "لا يمكنك الرجوع فى هذا القرار!",
-      "ConfirmButtonText": "نعم, قم بالمسح!",
-      "CancelButtonText": "الغاء"
+      "ConfirmButtonTexttodelete": "نعم, قم بالمسح!",
+      "CancelButtonText": "الغاء",
+      "ConfirmButtonTexttochangstatus": "نعم, غير الحالة"
     }
   },
   "Layout": {
@@ -28,6 +29,12 @@
     "Id": "الرقم",
     "Name": "الاسم",
     "Email": "البريد الالكترونى",
-    "Phone": "رقم التليفون"
+    "Phone": "رقم التليفون",
+    "Status": "(تفعيل او الغاء تفعيل)الحالة",
+    "Deactivate": "الغاء التفعيل",
+    "Activate": "تفعيل",
+    "Succefully": "بنجاح",
+    "UserDeactivatedSuccessfully": "العميل غير مفعل بنجاح",
+    "UserActivatedSuccessfully": "العميل مفعل بنجاح"
   }
 }

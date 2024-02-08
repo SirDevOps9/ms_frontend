@@ -15,8 +15,9 @@
     "Confirm": {
       "Title": "Are you sure?",
       "Text": "You won't be able to revert this!",
-      "ConfirmButtonText": "Yes, delete it!",
-      "CancelButtonText": "Cancel"
+      "ConfirmButtonTexttodelete": "Yes, delete it!",
+      "CancelButtonText": "Cancel",
+      "ConfirmButtonTexttochangstatus": "Yes, Change Status"
     }
   },
   "Layout": {
@@ -28,6 +29,12 @@
     "Id": "Id",
     "Name": "Name",
     "Email": "Email",
-    "Phone": "Phone"
+    "Phone": "Phone",
+    "Status": "Status(Activate Or Deactivate)",
+    "Deactivate": "Deactivate",
+    "Activate": "Activate",
+    "Succefully": "Succefully",
+    "UserDeactivatedSuccessfully": "user deactivaed Successfully",
+    "UserActivatedSuccessfully": "user activaed Successfully"
   }
 }
