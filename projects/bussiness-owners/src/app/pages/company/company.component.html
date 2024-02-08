@@ -10,29 +10,17 @@
             {{ "Company.CreateNew" | translate }}
           </button>
         </div>
-          <div class="table-responsive">
-              <table class="table table-striped custom-table">
-                <thead class="thead-custom">
-                  <tr>
-                    <th>{{ "Company.CompanyName" | translate }}</th>
-                    <th>{{ "Company.Industry" | translate }}</th>
-                    <th>{{ "Company.Website" | translate }}</th>
-                    <th>{{ "Company.Address" | translate }}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngIf="companies?.length === 0">
-                    <td colspan="4">{{ "Company.NoData" | translate }}</td>
-                  </tr>
-                  <tr *ngFor="let company of companies">
-                    <td>{{ company['name'] }}</td>
-                    <td>{{ company['industryId'] }}</td>
-                    <td>{{ company['website'] }}</td>
-                    <td>{{ company['address'] }}</td>
-                  </tr>
-                </tbody>
-              </table>              
-            </div>            
-        </div>
+        <app-erp-table
+          [headers]="['name', 'industryId', 'website', 'address']"
+          [headerTranslations]="[
+            'Company.CompanyName',
+            'Company.Industry',
+            'Company.Website',
+            'Company.Address'
+          ]"
+          [tableData]="companies!"
+        ></app-erp-table>
+      </div>
     </div>
+  </div>
 </div>

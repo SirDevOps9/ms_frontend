@@ -12,14 +12,9 @@ export const BORoutes = [
     children: [
       { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
       { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+      { path: 'company', component: CompanyComponent, canActivate: [AuthGuard] },
+      { path: 'company/add', component: AddCompanyComponent, canActivate: [AuthGuard] },
     ],
   },
-  {
-    path: 'company',
-    component: CompanyComponent,
-  },
-  {
-    path: 'company/add',
-    component: AddCompanyComponent,
-  },
+
 ];
