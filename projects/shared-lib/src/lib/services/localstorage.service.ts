@@ -13,7 +13,7 @@ export class StorageService {
   deleteItem(keyName: string) {
     localStorage.removeItem(keyName);
   }
-  ClearAllLocalStorage() {
+  clearAll() {
     localStorage.clear();
     sessionStorage.clear();
   }
