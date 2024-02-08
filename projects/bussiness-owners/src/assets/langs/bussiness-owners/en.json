@@ -17,7 +17,7 @@
       "Text": "You won't be able to revert this!",
       "ConfirmButtonTexttodelete": "Yes, delete it!",
       "CancelButtonText": "Cancel",
-      "ConfirmButtonTexttochangstatus":"Yes, change staus"
+      "ConfirmButtonTexttochangstatus": "Yes, Change Status"
     }
   },
   "Layout": {
@@ -30,13 +30,11 @@
     "Name": "Name",
     "Email": "Email",
     "Phone": "Phone",
-    "Status":"Status(Activate Or Deactivate)",
-    "Deactivate":"Deactivate",
-    "Activate":"Activate",
-    "Succefully":"Succefully",
-    "userDeactivatedSuccessfully":"user deactivaed Successfully",
-    "userActivatedSuccessfully":"user activaed Successfully"
-
-
+    "Status": "Status(Activate Or Deactivate)",
+    "Deactivate": "Deactivate",
+    "Activate": "Activate",
+    "Succefully": "Succefully",
+    "UserDeactivatedSuccessfully": "user deactivaed Successfully",
+    "UserActivatedSuccessfully": "user activaed Successfully"
   }
 }
