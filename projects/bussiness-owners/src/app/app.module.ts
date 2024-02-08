@@ -19,9 +19,10 @@ import {
   ERPInterceptor,
   CustomStorageService,
 } from 'microtec-auth-lib';
+import { AddCompnyComponent } from './pages/company/add-compny/add-compny.component';
 
 @NgModule({
-  declarations: [AppComponent, UsersComponent, LayoutComponent],
+  declarations: [AppComponent, UsersComponent, LayoutComponent, AddCompnyComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
