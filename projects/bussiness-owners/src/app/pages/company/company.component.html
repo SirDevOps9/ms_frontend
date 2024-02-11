@@ -5,11 +5,11 @@
         <div class="col-md-6">
           <h2>{{ "Company.CompanyList" | translate }}</h2>
         </div>
-        <div class="col-md-6 text-md-right">
+        <!-- <div class="col-md-6 text-md-right">
           <button class="btn btn-primary mb-3" (click)="navigateToAdd()">
             {{ "Company.CreateNew" | translate }}
           </button>
-        </div>
+        </div> -->
         <app-erp-table
           [headers]="['name', 'industryName', 'website', 'address']"
           [headerTranslations]="[

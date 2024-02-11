@@ -5,7 +5,7 @@ import { LogService, RouterService } from 'shared-lib';
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
-  styleUrls: ['./company.component.css'],
+  // styleUrls: ['./company.component.css'],
 })
 export class CompanyComponent implements OnInit {
   companies: CompanyListResponse;
@@ -14,15 +14,14 @@ export class CompanyComponent implements OnInit {
     private routerService: RouterService,
     private logService: LogService
   ) {}
-  navigateToAdd(): void {
-    this.routerService.navigateTo('company/add');
-  }
+  // navigateToAdd(): void {
+  //   this.routerService.navigateTo('company/add');
+  // }
 
   ngOnInit() {
     this.companyService.getAll().subscribe((res) => {
       this.companies = res.response;
       this.logService.log(this.companies);
     });
-    // this.logService.log( this.companies);
   }
 }
