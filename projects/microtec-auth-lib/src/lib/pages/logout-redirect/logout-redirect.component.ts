@@ -15,7 +15,7 @@ export class LogoutRedirectComponent {
   ) {}
 
   ngOnInit(): void {
-    this.storage.ClearAllLocalStorage();
+    this.storage.clearAll();
     this.cookiService.removeAll();
     this.routerService.navigateTo('');
   }

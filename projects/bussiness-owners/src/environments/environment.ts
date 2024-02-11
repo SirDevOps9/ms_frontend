@@ -1,13 +1,16 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://localhost:44328',
+  baseUrl: 'https://intmicrotec.neat-url.com:2003',
+  Version: 'V1',
+  ClientId: 'BussinessOwner',
+  Platform: 'Web',
   openIdConfig: {
-    authority: 'http://192.168.100.191:8080',
+    authority: 'https://intmicrotec.neat-url.com:2010',
     redirectUrl: window.location.origin + '/bussinessowners/login-redirect',
     postLogoutRedirectUri:
       window.location.origin + '/bussinessowners/logout-redirect',
     clientId: 'microtecadminfrontend',
-    scope: 'openid profile',
+    scope: 'openid profile email offline_access',
     responseType: 'code',
     silentRenew: true,
     useRefreshToken: true,

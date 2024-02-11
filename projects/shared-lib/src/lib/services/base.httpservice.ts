@@ -12,8 +12,7 @@ import { LogService } from './log.service';
 import { StorageKeys } from '../constants/storagekeys';
 import { HeaderParams } from '../constants/headerparams';
 import { ToasterService } from './toaster.service';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { CookieService } from 'ngx-cookie';
+import { AuthService } from 'microtec-auth-lib';
 
 @Injectable({
   providedIn: 'root',
@@ -24,15 +23,14 @@ export class BaseService {
   constructor(
     private http: HttpClient,
     protected storageService: StorageService,
-    private cookieService: CookieService,
     private logService: LogService,
     private toasterService: ToasterService,
-    private oidcSecurityService: OidcSecurityService,
+    private authService: AuthService,
     @Inject('env') private environment: any
   ) {}
 
   private addHeaders(): Observable<HttpHeaders> {
-    return this.oidcSecurityService.getAccessToken().pipe(
+    return this.authService.getAuthToken().pipe(
       switchMap((token) => {
         const headers = new HttpHeaders({
           'Content-Type': 'application/json-patch+json',
@@ -42,21 +40,13 @@ export class BaseService {
           [HeaderParams.TENANT_ID]: '1',
           [HeaderParams.COMPANY_ID]: '2',
           [HeaderParams.BRANCH_ID]: '2',
+          [HeaderParams.VERSION]: this.environment.Version,
+          [HeaderParams.CLIENTID]: this.environment.ClientId,
+          [HeaderParams.PLATFORMTYPE]: this.environment.Platform,
         });
         return of(headers);
       })
     );
-    // return new HttpHeaders({
-    //   'Content-Type': 'application/json-patch+json',
-    //   Authorization: `Bearer ${this.cookieService.get(
-    //     StorageKeys.USER_TOKEN
-    //   )}`,
-    //   'Accept-Language':
-    //     this.storageService.getItem(StorageKeys.LANG_KEY) || 'en',
-    //   [HeaderParams.TENANT_ID]: '1',
-    //   [HeaderParams.COMPANY_ID]: '2',
-    //   [HeaderParams.BRANCH_ID]: '2',
-    // });
   }
 
   get<T>(url: string) {
