@@ -15,10 +15,11 @@ import { CookieModule } from 'ngx-cookie';
 import { LayoutComponent } from './components/layout/layout.component';
 import { UsersComponent } from './pages/users/users.component';
 import { CompanyComponent } from './pages/company/company.component';
-import {
-   MicrotecAuthLibModule,
-    ERPInterceptor, 
-    CustomStorageService } from '../../../microtec-auth-lib/src/public-api';
+import { 
+  CustomStorageService, 
+  ERPInterceptor, 
+  MicrotecAuthLibModule } from 'microtec-auth-lib';
+
 
 @NgModule({
   declarations: [
