@@ -14,21 +14,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
 import { LayoutComponent } from './components/layout/layout.component';
 import { UsersComponent } from './pages/users/users.component';
-import {
-  MicrotecAuthLibModule,
-  ERPInterceptor,
-  CustomStorageService,
-} from 'microtec-auth-lib';
 import { CompanyComponent } from './pages/company/company.component';
-import { AddCompanyComponent } from './pages/company/add-company/add-company.component';
+import {
+   MicrotecAuthLibModule,
+    ERPInterceptor, 
+    CustomStorageService } from '../../../microtec-auth-lib/src/public-api';
 
 @NgModule({
   declarations: [
     AppComponent,
     UsersComponent, 
     LayoutComponent,
-    CompanyComponent,
-    AddCompanyComponent],
+    CompanyComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
