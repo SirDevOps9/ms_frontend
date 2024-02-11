@@ -24,13 +24,27 @@
                   <th>
                     {{ "User.Email" | translate }}
                   </th>
+                  <th>
+                    {{ "User.Status" | translate }}
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let item of userData">
-                  <td >{{ item['id'] }}</td>
-                  <td >{{ item['name'] }}</td>
-                  <td >{{ item['email'] }}</td>
+                  <td>{{ item["id"] }}</td>
+                  <td>{{ item["name"] }}</td>
+                  <td>{{ item["email"] }}</td>
+                  <td>
+                    <button
+                      class="btn btn-info"
+                      (click)="activateAndDeactivate(item.id, item.isActive)"
+                    >
+                      {{
+                        (item.isActive ? "User.Deactivate" : "User.Activate")
+                          | translate
+                      }}
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>

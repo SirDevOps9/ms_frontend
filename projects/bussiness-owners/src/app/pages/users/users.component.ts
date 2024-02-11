@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PipeTransform } from '@angular/core';
 import { UserListResponse } from '../../models/users/userlist.response';
-import { RouterService, ToasterService } from 'shared-lib';
+import { ToasterService } from 'shared-lib';
 import { UserService } from '../../services/users.httpsservice';
+import { LanguageService } from 'dist/shared-lib';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -11,15 +12,42 @@ export class UsersComponent implements OnInit {
   userData: UserListResponse[];
 
   constructor(
+    public languageService: LanguageService,
     private toasterService: ToasterService,
-    private routerService: RouterService,
     private userService: UserService
   ) {}
   ngOnInit() {
+    this.getAllUsers();
+  }
+  getAllUsers() {
     this.userService.getAll().subscribe({
       next: (res) => {
         this.userData = res;
       },
     });
+  }
+  async activateAndDeactivate(id: number, currentstatus: boolean) {
+    const confirmed = await this.toasterService.showConfirm(
+      'ConfirmButtonTexttochangstatus'
+    );
+    if (confirmed) {
+      this.userService.ActivateAndDeactivate(id).subscribe({
+        next: () => {
+          if (currentstatus)
+            this.toasterService.showSuccess(
+              'Success',
+              this.languageService.transalte('User.UserDeactivatedSuccessfully')
+            );
+          else
+            this.toasterService.showSuccess(
+              'Success',
+              this.languageService.transalte('User.UserActivatedSuccessfully')
+            );
+
+          let indexToChange = this.userData.find((item) => item.id === id);
+          indexToChange!.isActive = !currentstatus;
+        },
+      });
+    }
   }
 }
