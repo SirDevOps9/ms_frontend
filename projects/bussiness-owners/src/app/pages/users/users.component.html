@@ -38,14 +38,14 @@
                     @if (item.isActive) {
                     <button
                       class="btn btn-info"
-                      (click)="activate(item.id)"
+                      (click)="deactivate(item.id)"
                     >
                       {{ "User.Deactivate" | translate }}
                     </button>
                     }@else {
                     <button
                       class="btn btn-info"
-                      (click)="Deactivate(item.id)"
+                      (click)="activate(item.id)"
                     >
                       {{ "User.Activate" | translate }}
                     </button>

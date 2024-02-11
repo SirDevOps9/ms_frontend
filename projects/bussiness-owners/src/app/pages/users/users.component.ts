@@ -44,7 +44,7 @@ export class UsersComponent implements OnInit {
       });
     }
   }
-  async Deactivate(id: number){
+  async deactivate(id: number){
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangstatus'
     );
