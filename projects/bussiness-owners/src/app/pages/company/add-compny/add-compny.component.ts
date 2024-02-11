@@ -1,28 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LogService } from 'shared-lib';
+import { CompanyService } from '../../../services/company.httpservice';
+import { DropdownItemDto } from '../../../models/users/company/drop-down';
 @Component({
   selector: 'app-add-compny',
   templateUrl: './add-compny.component.html',
   styleUrls: ['./add-compny.component.css']
 })
-export class AddCompnyComponent implements OnInit {
+export class AddCompanyComponent implements OnInit {
   companyForm: FormGroup;
-  currencyOptions = [
-    { value: '1', label: 'USD' },
-    { value: '2', label: 'EUR' },
-    { value: '4', label: 'EGP' },
-    { value: '5', label: 'SAR' },
-  ];
-  industryOptions = [
-    { value: '1', label: 'Technology' },
-    { value: '2', label: 'Finance' },
-    { value: '4', label: 'Healthcare' },
-    { value: '5', label: 'Retail' },
-  ];
+  currencyDropDown: DropdownItemDto[];
+  industryDropDown: DropdownItemDto[];
 
   constructor(
     private formBuilder: FormBuilder,
+    private companyService: CompanyService,
     private logService: LogService
   ) {
     this.companyForm = this.formBuilder.group({
@@ -37,18 +30,33 @@ export class AddCompnyComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getDropDown();
+  }
 
   onSubmit() {
-    if (!this.companyForm.valid) this.companyForm.markAllAsTouched();
+    if (!this.companyForm.valid) return;
     this.addCompanyInfo();
   }
 
   addCompanyInfo() {
-    if (this.companyForm.valid) {
       const companyInfo = this.companyForm.value;
       this.logService.log('Company Information:', companyInfo);
-    }
+    
+  }
+  getDropDown() {
+    this.companyService.getDropDown().subscribe((res) => {
+      this.currencyDropDown = res.response.currencyDropdown;
+      this.industryDropDown = res.response.industryDropdown;
+      this.logService.log(
+        res.response.industryDropdown,
+        'industry Information:'
+      );
+      this.logService.log(
+        res.response.currencyDropdown,
+        'currency Information:'
+      );
+    });
   }
   hasError(field: string, errorType: string): boolean {
     const control = this.companyForm.get(field);
