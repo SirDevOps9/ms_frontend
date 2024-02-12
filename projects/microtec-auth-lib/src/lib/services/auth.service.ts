@@ -10,7 +10,6 @@ import {
   RouterService,
 } from 'shared-lib';
 import { TokenModel } from '../models/tokenmodel';
-
 @Injectable({
   providedIn: 'root',
 })

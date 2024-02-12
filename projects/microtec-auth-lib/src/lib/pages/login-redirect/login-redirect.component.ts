@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'microtec-auth-lib';
+import { AuthHttpService, AuthService } from 'microtec-auth-lib';
 
 @Component({
   selector: 'app-login-redirect',
@@ -9,7 +9,9 @@ import { AuthService } from 'microtec-auth-lib';
 export class LoginRedirectComponent implements OnInit {
   loginResponse: any;
   ngOnInit() {
+    this.authHttp.updateLoginDate().subscribe();
     this.authService.afterLoginReidrect();
   }
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,
+    private authHttp:AuthHttpService) {}
 }
