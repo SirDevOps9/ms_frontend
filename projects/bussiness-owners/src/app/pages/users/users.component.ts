@@ -26,17 +26,21 @@ export class UsersComponent implements OnInit {
       },
     });
   }
-  async activate(id: number ) {
+  toggle(id: number, isActive: boolean) {
+    if (!isActive) this.activate(id);
+    else this.deactivate(id);
+  }
+  async activate(id: number) {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangstatus'
     );
     if (confirmed) {
       this.userService.activateUser(id).subscribe({
         next: () => {
-            this.toasterService.showSuccess(
-              'Success',
-              this.languageService.transalte('User.UserActivatedSuccessfully')
-            );
+          this.toasterService.showSuccess(
+            'Success',
+            this.languageService.transalte('User.UserActivatedSuccessfully')
+          );
 
           let indexToChange = this.userData.find((item) => item.id === id);
           indexToChange!.isActive = true;
@@ -44,23 +48,21 @@ export class UsersComponent implements OnInit {
       });
     }
   }
-  async deactivate(id: number){
+  async deactivate(id: number) {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangstatus'
     );
     if (confirmed) {
       this.userService.deactivateUser(id).subscribe({
         next: () => {
-            this.toasterService.showSuccess(
-              'Success',
-              this.languageService.transalte('User.UserDeactivatedSuccessfully')
-            );
-            let indexToChange = this.userData.find((item) => item.id === id);
+          this.toasterService.showSuccess(
+            'Success',
+            this.languageService.transalte('User.UserDeactivatedSuccessfully')
+          );
+          let indexToChange = this.userData.find((item) => item.id === id);
           indexToChange!.isActive = false;
-
-         }
+        },
       });
-
-   }
+    }
   }
 }
