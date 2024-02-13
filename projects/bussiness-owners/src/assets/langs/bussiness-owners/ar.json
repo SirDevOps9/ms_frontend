@@ -22,7 +22,8 @@
   },
   "Layout": {
     "Dashboard": "لوحة التحكم",
-    "Users": "المستخدمين"
+    "Users": "المستخدمين",
+    "Company": "الشركات"
   },
   "User": {
     "PageName": "صفحة المستخدمين",
@@ -36,5 +37,31 @@
     "Succefully": "بنجاح",
     "UserDeactivatedSuccessfully": "العميل غير مفعل بنجاح",
     "UserActivatedSuccessfully": "العميل مفعل بنجاح"
+  },
+
+  "Company": {
+    "CompanyList": "قائمة الشركات",
+    "CreateNew": "إنشاء شركة جديدة",
+    "CompanyName": "اسم الشركة",
+    "Industry": "الصناعة",
+    "Website": "موقع الويب",
+    "Address": "العنوان",
+    "NoData": "لا توجد بيانات",
+    "Add": {
+      "Step": "الخطوة 01 - معلومات الشركة الرئيسية",
+      "AccInfo": "معلومات الحساب",
+      "CompanyName": "اسم الشركة",
+      "Industry": "الصناعة",
+      "Website": "موقع الويب",
+      "Address": "العنوان",
+      "Domain": "اختر نطاقك:",
+      "Subdomain": "نطاقك",
+      "Currency": "العملة",
+      "MobileNumber": "رقم الجوال",
+      "CompanyEmail": "بريد الشركة الإلكتروني",
+      "Next": "التالي",
+      "Required": "مطلوب",
+      "Select":"اختر "
+    }
   }
 }

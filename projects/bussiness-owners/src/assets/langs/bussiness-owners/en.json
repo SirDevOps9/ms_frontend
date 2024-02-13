@@ -22,7 +22,8 @@
   },
   "Layout": {
     "Dashboard": "Dashboard",
-    "Users": "Users"
+    "Users": "Users",
+    "Company": "Company"
   },
   "User": {
     "PageName": "Users Index",
@@ -36,5 +37,30 @@
     "Succefully": "Succefully",
     "UserDeactivatedSuccessfully": "user deactivaed Successfully",
     "UserActivatedSuccessfully": "user activaed Successfully"
+  },
+  "Company": {
+    "CompanyList": "Company List",
+    "CreateNew": "Create New Company",
+    "CompanyName": "Company Name",
+    "Industry": "Industry",
+    "Website": "Website",
+    "Address": "Address",
+    "NoData": " There is no data",
+    "Add": {
+      "Step": "Step 01 - Company Main Info",
+      "AccInfo": "Account Information",
+      "CompanyName": "Company Name",
+      "Industry": "Industry",
+      "Website": "Website",
+      "Address": "Address",
+      "Domain": "Choose Your Domain:",
+      "Subdomain": "Subdomain",
+      "Currency": "Currency",
+      "MobileNumber": "Mobile Number",
+      "CompanyEmail": "Company Email",
+      "Next": "Next",
+      "Required": " is required",
+      "Select":"Select "
+    }
   }
 }
