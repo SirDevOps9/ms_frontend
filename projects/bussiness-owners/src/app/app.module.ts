@@ -20,9 +20,12 @@ import {
   CustomStorageService,
 } from 'microtec-auth-lib';
 import { AddCompanyComponent } from './pages/company/add-compny/add-compny.component';
+import { CompanyComponent } from './pages/company/company.component';
+
+
 
 @NgModule({
-  declarations: [AppComponent, UsersComponent, LayoutComponent, AddCompanyComponent],
+  declarations: [AppComponent, UsersComponent, LayoutComponent, AddCompanyComponent,CompanyComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -55,7 +58,7 @@ import { AddCompanyComponent } from './pages/company/add-compny/add-compny.compo
       useClass: ERPInterceptor,
       multi: true,
     },
-    { provide: AbstractSecurityStorage, useClass: CustomStorageService },
+    { provide: AbstractSecurityStorage, useClass: CustomStorageService }
   ],
   bootstrap: [AppComponent],
 })
