@@ -19,9 +19,15 @@ import {
   ERPInterceptor,
   CustomStorageService,
 } from 'microtec-auth-lib';
+import { UserInviteFormComponent } from './components/userscomps/invite-form/user-invite-form/user-invite-form.component';
 
 @NgModule({
-  declarations: [AppComponent, UsersComponent, LayoutComponent],
+  declarations: [
+    AppComponent,
+    UsersComponent,
+    LayoutComponent,
+    UserInviteFormComponent,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,

@@ -35,6 +35,20 @@
     "Activate": "تفعيل",
     "Succefully": "بنجاح",
     "UserDeactivatedSuccessfully": "العميل غير مفعل بنجاح",
-    "UserActivatedSuccessfully": "العميل مفعل بنجاح"
+    "UserActivatedSuccessfully": "العميل مفعل بنجاح",
+    "InviteUser": "دعوة مستخدم",
+    "LastLogin":"اخر ميعاد للدخول",
+    "InvitationStatus":"حالة الدعوة",
+    "Inviteform": {
+      "FormHeader": "دعوة مستخدم",
+      "EmailLabel": "بريد الالكترونى للدخول",
+      "EmailPlaceHolder":"ادخل البريد الالكترونى",
+      "DomainLabel": "دوماين سبايس",
+      "ActionsLabel": "التحكم فى الاجرائات",
+      "SubmitButton": "ارسل دعوه",
+      "CancelButton": "الغاء",
+      "Success": "تم بنجاح",
+      "InviationSent": "تم ارسال الدعوة بنجاح"
+    }
   }
 }

@@ -1,0 +1,95 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form [formGroup]="inviteForm" (ngSubmit)="onSubmit()">
+        <div class="text-center mb-4">
+          <h2>{{ "User.Inviteform.FormHeader" | translate }}</h2>
+        </div>
+
+        <!-- Email Input -->
+        <div class="form-group">
+          <label for="inputEmail">{{
+            "User.Inviteform.EmailLabel" | translate
+          }}</label>
+          <input
+            type="email"
+            id="inputEmail"
+            formControlName="email"
+            class="form-control"
+            placeholder="{{ 'User.Inviteform.EmailPlaceHolder' | translate }}"
+            required
+          />
+          <div
+            *ngIf="inviteForm.get('email')?.invalid && submitted"
+            class="text-danger"
+          >
+            Your email address is invalid.
+          </div>
+        </div>
+
+        <!-- Domain Multi-Select -->
+        <div class="form-group">
+          <label for="inputDomain">{{
+            "User.Inviteform.DomainLabel" | translate
+          }}</label>
+          <select
+            formControlName="subDomains"
+            multiple
+            class="form-control"
+            id="subDomains"
+            required
+          >
+            <option *ngFor="let item of domains" value="{{ item.id }}">
+              {{ item.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="inviteForm.get('subDomains')?.invalid && submitted"
+            class="text-danger"
+          >
+            please select a domain
+          </div>
+        </div>
+
+        <!-- Manage Actions Multi-Select -->
+        <div class="form-group">
+          <label for="inputActions">{{
+            "User.Inviteform.ActionsLabel" | translate
+          }}</label>
+          <select
+            formControlName="plans"
+            multiple
+            class="form-control"
+            id="plans"
+            required
+          >
+            <option *ngFor="let item of actions" value="{{ item.id }}">
+              {{ item.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="inviteForm.get('plans')?.invalid && submitted"
+            class="text-danger"
+          >
+            please select an action
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-envelope-fill"></i>
+            {{ "User.Inviteform.SubmitButton" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary ml-2"
+            (click)="onCancel()"
+          >
+            {{ "User.Inviteform.CancelButton" | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

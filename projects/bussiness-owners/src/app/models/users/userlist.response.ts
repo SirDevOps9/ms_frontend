@@ -10,5 +10,6 @@ export interface UserListResponse {
   roleId?: number;
   identityId?: string;
   typeId?: number;
-  isActive:boolean;
+  isActive: boolean;
+  lastLoginDate: string;
 }
