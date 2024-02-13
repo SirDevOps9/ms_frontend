@@ -1,10 +1,10 @@
-import { BaseService, ResponseItems } from 'shared-lib';
-import { Observable } from 'rxjs';
-import { APIResponse } from '../../../../shared-lib/src/lib/models';
-import { AddCompanyDto } from '../models/company/add-company';
-import { CompanyListResponse } from '../models/company/companylist.response';
 import { Injectable } from '@angular/core';
-import { DropdownItemDto, DropdownListDto } from '../models/company/drop-down';
+import { APIResponse, BaseService, ResponseItems} from 'shared-lib';
+import { AddCompanyDto } from '../models/users/company/add-company';
+import { Observable } from 'rxjs';
+import { DropdownListDto,  DropdownItemDto} from '../models/users/company/drop-down';
+import { CompanyListResponse } from '../models/company/companylist.response';
+
 
 @Injectable({
   providedIn: 'root',

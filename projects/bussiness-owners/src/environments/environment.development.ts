@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  baseUrl: 'https://localhost:7265',
+  baseUrl: 'http://localhost:2003',
   Version: 'V1',
   ClientId: 'BussinessOwner',
   Platform: 'Web',
