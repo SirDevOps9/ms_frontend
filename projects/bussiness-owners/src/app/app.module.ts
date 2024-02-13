@@ -21,6 +21,7 @@ import {
 } from 'microtec-auth-lib';
 import { UserInviteFormComponent } from './components/userscomps/invite-form/user-invite-form/user-invite-form.component';
 import { AddCompanyComponent } from './pages/company/add-compny/add-compny.component';
+import { CompanyComponent } from './pages/company/company.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AddCompanyComponent } from './pages/company/add-compny/add-compny.compo
     UsersComponent,
     LayoutComponent,
     UserInviteFormComponent,
-    AddCompanyComponent
+    AddCompanyComponent,
+    CompanyComponent,
   ],
   imports: [
     CommonModule,

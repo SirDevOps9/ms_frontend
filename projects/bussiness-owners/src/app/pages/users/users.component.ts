@@ -2,7 +2,7 @@ import { Component, OnInit, PipeTransform } from '@angular/core';
 import { UserListResponse } from '../../models/users/userlist.response';
 import { ToasterService } from 'shared-lib';
 import { UserService } from '../../services/users.httpsservice';
-import { LanguageService } from 'dist/shared-lib';
+import { LanguageService } from 'shared-lib';
 import { MatDialog } from '@angular/material/dialog';
 import { UserInviteFormComponent } from '../../components/userscomps/invite-form/user-invite-form/user-invite-form.component';
 @Component({
