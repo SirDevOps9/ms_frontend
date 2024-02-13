@@ -20,6 +20,7 @@ import {
   CustomStorageService,
 } from 'microtec-auth-lib';
 import { UserInviteFormComponent } from './components/userscomps/invite-form/user-invite-form/user-invite-form.component';
+import { AddCompanyComponent } from './pages/company/add-compny/add-compny.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { UserInviteFormComponent } from './components/userscomps/invite-form/use
     UsersComponent,
     LayoutComponent,
     UserInviteFormComponent,
+    AddCompanyComponent
   ],
   imports: [
     CommonModule,

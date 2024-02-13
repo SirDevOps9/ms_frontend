@@ -9,7 +9,8 @@ import { TokenModel } from '../models/tokenmodel';
   providedIn: 'root',
 })
 export class AuthHttpService {
-  private loginAPI = 'Auth/Account';
+ private loginAPI = 'Auth/Account';
+ private updateLoginDateAPI = 'User/UpdateLoginDate';
 
   constructor(private baseService: BaseService) {}
   login(model: LoginModel): Observable<APIResponse<AuthenticationResponse>> {
@@ -17,6 +18,10 @@ export class AuthHttpService {
       `${this.loginAPI}/Login`,
       model
     );
+  }
+  updateLoginDate(): Observable<APIResponse<boolean>> {
+    return this.baseService.post<APIResponse<boolean>>(
+      `${this.updateLoginDateAPI}`,null  );
   }
 
   refreshToken(

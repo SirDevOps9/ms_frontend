@@ -30,6 +30,10 @@ export class UsersComponent implements OnInit {
       },
     });
   }
+  toggle(id: number, isActive: boolean) {
+    if (!isActive) this.activate(id);
+    else this.deactivate(id);
+  }
 
   openInviteModal() {
     const dialogRef = this.dialog.open(UserInviteFormComponent, {
@@ -38,26 +42,37 @@ export class UsersComponent implements OnInit {
     });
   }
   
-  async activateAndDeactivate(id: number, currentstatus: boolean) {
+  async activate(id: number) {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangstatus'
     );
     if (confirmed) {
-      this.userService.ActivateAndDeactivate(id).subscribe({
+      this.userService.activateUser(id).subscribe({
         next: () => {
-          if (currentstatus)
-            this.toasterService.showSuccess(
-              'Success',
-              this.languageService.transalte('User.UserDeactivatedSuccessfully')
-            );
-          else
-            this.toasterService.showSuccess(
-              'Success',
-              this.languageService.transalte('User.UserActivatedSuccessfully')
-            );
+          this.toasterService.showSuccess(
+            'Success',
+            this.languageService.transalte('User.UserActivatedSuccessfully')
+          );
 
           let indexToChange = this.userData.find((item) => item.id === id);
-          indexToChange!.isActive = !currentstatus;
+          indexToChange!.isActive = true;
+        },
+      });
+    }
+  }
+  async deactivate(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      'ConfirmButtonTexttochangstatus'
+    );
+    if (confirmed) {
+      this.userService.deactivateUser(id).subscribe({
+        next: () => {
+          this.toasterService.showSuccess(
+            'Success',
+            this.languageService.transalte('User.UserDeactivatedSuccessfully')
+          );
+          let indexToChange = this.userData.find((item) => item.id === id);
+          indexToChange!.isActive = false;
         },
       });
     }

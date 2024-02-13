@@ -22,7 +22,8 @@
   },
   "Layout": {
     "Dashboard": "لوحة التحكم",
-    "Users": "المستخدمين"
+    "Users": "المستخدمين",
+    "Company": "الشركات"
   },
   "User": {
     "PageName": "صفحة المستخدمين",
@@ -37,18 +38,43 @@
     "UserDeactivatedSuccessfully": "العميل غير مفعل بنجاح",
     "UserActivatedSuccessfully": "العميل مفعل بنجاح",
     "InviteUser": "دعوة مستخدم",
-    "LastLogin":"اخر ميعاد للدخول",
-    "InvitationStatus":"حالة الدعوة",
+    "LastLogin": "اخر ميعاد للدخول",
+    "InvitationStatus": "حالة الدعوة",
     "Inviteform": {
       "FormHeader": "دعوة مستخدم",
       "EmailLabel": "بريد الالكترونى للدخول",
-      "EmailPlaceHolder":"ادخل البريد الالكترونى",
+      "EmailPlaceHolder": "ادخل البريد الالكترونى",
       "DomainLabel": "دوماين سبايس",
       "ActionsLabel": "التحكم فى الاجرائات",
       "SubmitButton": "ارسل دعوه",
       "CancelButton": "الغاء",
       "Success": "تم بنجاح",
       "InviationSent": "تم ارسال الدعوة بنجاح"
+    }
+  },
+  "Company": {
+    "CompanyList": "قائمة الشركات",
+    "CreateNew": "إنشاء شركة جديدة",
+    "CompanyName": "اسم الشركة",
+    "Industry": "الصناعة",
+    "Website": "موقع الويب",
+    "Address": "العنوان",
+    "NoData": "لا توجد بيانات",
+    "Add": {
+      "Step": "الخطوة 01 - معلومات الشركة الرئيسية",
+      "AccInfo": "معلومات الحساب",
+      "CompanyName": "اسم الشركة",
+      "Industry": "الصناعة",
+      "Website": "موقع الويب",
+      "Address": "العنوان",
+      "Domain": "اختر نطاقك:",
+      "Subdomain": "نطاقك",
+      "Currency": "العملة",
+      "MobileNumber": "رقم الجوال",
+      "CompanyEmail": "بريد الشركة الإلكتروني",
+      "Next": "التالي",
+      "Required": "مطلوب",
+      "Select": "اختر "
     }
   }
 }

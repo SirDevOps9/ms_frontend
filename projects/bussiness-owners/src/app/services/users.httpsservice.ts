@@ -24,7 +24,14 @@ export class UserService {
       userModel
     );
   }
-  ActivateAndDeactivate(id: number): Observable<APIResponse<boolean>> {
+
+  activateUser(id: number): Observable<APIResponse<boolean>> {
+    return this.baseService.put<APIResponse<boolean>>(
+      `${this.userController}/ActivateUser/${id}`,
+      {}
+    );
+  }
+  deactivateUser(id: number): Observable<APIResponse<boolean>> {
     return this.baseService.put<APIResponse<boolean>>(
       `${this.userController}/${id}`,
       {}

@@ -49,9 +49,9 @@ export class UserInviteFormComponent implements OnInit {
     // Fetch domains and actions dynamically if needed
   }
   onSubmit() {
-    this.loaderService.show();
     this.submitted = true;
     if (this.inviteForm.valid) {
+      this.loaderService.show();
       console.log('Form submitted:', this.inviteForm.value);
       this.inviteForm.value.invitationStatus = 1;
       this.userService.inviteUser(this.inviteForm.value).subscribe({
