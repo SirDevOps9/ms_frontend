@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { APIResponse, BaseService } from 'shared-lib';
-import { AddCompanyDto } from '../models/users/company/add-company';
+import { AddCompanyDto } from '../models/company/add-company';
 import { Observable } from 'rxjs';
-import { DropdownListDto } from '../models/users/company/drop-down';
+import { DropdownListDto } from '../models/company/drop-down';
 
 @Injectable({
   providedIn: 'root'
