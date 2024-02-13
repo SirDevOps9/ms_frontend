@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
 import { LayoutComponent } from './components/layout/layout.component';
 import { UsersComponent } from './pages/users/users.component';
+import { UserconfirmationComponent } from './pages/userconfirmation/userconfirmation.component';
 import {
   MicrotecAuthLibModule,
   ERPInterceptor,
@@ -22,7 +23,7 @@ import {
 import { AddCompanyComponent } from './pages/company/add-compny/add-compny.component';
 
 @NgModule({
-  declarations: [AppComponent, UsersComponent, LayoutComponent, AddCompanyComponent],
+  declarations: [AppComponent, UsersComponent, LayoutComponent, AddCompanyComponent ,UserconfirmationComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
