@@ -40,11 +40,24 @@
                   <td>{{ item["id"] }}</td>
                   <td>{{ item["name"] }}</td>
                   <td>{{ item["email"] }}</td>
-                  <td>{{ item["lastLoginDate"] }}</td>
-                  <td>{{ item["lastLoginDate"] }}</td>
                   <td>
-                    <button class="btn btn-info"
-                      (click)="toggle(item.id,item.isActive)" >
+                    {{ item["lastLoginDate"] | date : "dd/MM/yyyy HH:mm" }}
+                  </td>
+                  <td>
+                    {{
+                      (item.invitationStatus === 1
+                        ? "User.Invited"
+                        : item.invitationStatus === 2
+                        ? "User.Accepted"
+                        : ""
+                      ) | translate
+                    }}
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-info"
+                      (click)="toggle(item.id, item.isActive)"
+                    >
                       {{
                         (item.isActive ? "User.Deactivate" : "User.Activate")
                           | translate

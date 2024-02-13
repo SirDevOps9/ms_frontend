@@ -12,4 +12,5 @@ export interface UserListResponse {
   typeId?: number;
   isActive: boolean;
   lastLoginDate: string;
+  invitationStatus: number;
 }

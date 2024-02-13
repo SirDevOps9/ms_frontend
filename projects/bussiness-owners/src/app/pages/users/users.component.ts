@@ -1,6 +1,6 @@
 import { Component, OnInit, PipeTransform } from '@angular/core';
 import { UserListResponse } from '../../models/users/userlist.response';
-import { LoaderService, ToasterService } from 'shared-lib';
+import { ToasterService } from 'shared-lib';
 import { UserService } from '../../services/users.httpsservice';
 import { LanguageService } from 'dist/shared-lib';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,8 +17,7 @@ export class UsersComponent implements OnInit {
     public languageService: LanguageService,
     private toasterService: ToasterService,
     private userService: UserService,
-    private  dialog: MatDialog,
-    private loaderService:LoaderService
+    private dialog: MatDialog
   ) {}
   ngOnInit() {
     this.getAllUsers();
@@ -40,8 +39,12 @@ export class UsersComponent implements OnInit {
       width: '600px',
       height: '600px',
     });
+
+    dialogRef.afterClosed().subscribe((result: UserListResponse) => {
+      if (result as UserListResponse) this.userData.push(result);
+    });
   }
-  
+
   async activate(id: number) {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangstatus'

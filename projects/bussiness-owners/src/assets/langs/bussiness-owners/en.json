@@ -40,6 +40,8 @@
     "InviteUser": "Invite User",
     "LastLogin": "Last Login Date",
     "InvitationStatus": "Invitation Status",
+    "Invited":"Invited",
+    "Accepted":"Accepted",
     "Inviteform": {
       "FormHeader": "Invite User",
       "EmailLabel": "Email Login",

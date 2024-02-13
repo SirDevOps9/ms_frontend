@@ -18,8 +18,8 @@ export class UserService {
     );
   }
 
-  inviteUser(userModel: InviteUserDto): Observable<APIResponse<boolean>> {
-    return this.baseService.post<APIResponse<boolean>>(
+  inviteUser(userModel: InviteUserDto): Observable<APIResponse<UserListResponse>> {
+    return this.baseService.post<APIResponse<UserListResponse>>(
       `${this.inviteUserController}`,
       userModel
     );

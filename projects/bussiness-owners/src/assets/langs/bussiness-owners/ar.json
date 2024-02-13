@@ -40,6 +40,8 @@
     "InviteUser": "دعوة مستخدم",
     "LastLogin": "اخر ميعاد للدخول",
     "InvitationStatus": "حالة الدعوة",
+    "Invited": "تم الدعوة",
+    "Accepted": "تم القبول",
     "Inviteform": {
       "FormHeader": "دعوة مستخدم",
       "EmailLabel": "بريد الالكترونى للدخول",

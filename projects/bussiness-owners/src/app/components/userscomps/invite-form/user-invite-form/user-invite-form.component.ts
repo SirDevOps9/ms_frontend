@@ -15,7 +15,6 @@ import {
   styleUrls: ['./user-invite-form.component.css'],
 })
 export class UserInviteFormComponent implements OnInit {
-  @Output() invitedUser = new EventEmitter<any>();
   submitted = false;
   constructor(
     private dialogRef: MatDialogRef<UserInviteFormComponent>,
@@ -52,7 +51,6 @@ export class UserInviteFormComponent implements OnInit {
     this.submitted = true;
     if (this.inviteForm.valid) {
       this.loaderService.show();
-      console.log('Form submitted:', this.inviteForm.value);
       this.inviteForm.value.invitationStatus = 1;
       this.userService.inviteUser(this.inviteForm.value).subscribe({
         next: (res) => {
@@ -61,8 +59,8 @@ export class UserInviteFormComponent implements OnInit {
             this.languageService.transalte('User.Inviteform.Success'),
             this.languageService.transalte('User.Inviteform.InviationSent')
           );
-          this.invitedUser.emit(res);
-          this.dialogRef.close();
+          this.loaderService.hide();
+          this.dialogRef.close(res.response);
         },
         error: (err) => {
           this.loaderService.hide();
