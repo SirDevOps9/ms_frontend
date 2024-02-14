@@ -25,7 +25,7 @@
         <label for="companyName" class="form-label">
           {{ "Company.Add.CompanyName" | translate }} :</label
         >
-        <input formControlName="companyName" class="form-control" />
+        <input aria-label="input" formControlName="companyName" class="form-control" />
         <div *ngIf="hasError('companyName', 'required')" class="text-danger">
           {{ "Company.Add.CompanyName" | translate }}
           {{ "Company.Add.Required" | translate }}
@@ -83,7 +83,7 @@
         <label for="website" class="form-label"
           >{{ "Company.Add.Website" | translate }} :</label
         >
-        <input formControlName="website" class="form-control" />
+        <input  aria-label="input" formControlName="website" class="form-control" />
         <div *ngIf="hasError('website', 'required')" class="text-danger">
           {{ "Company.Add.Website" | translate }}
           {{ "Company.Add.Required" | translate }}
@@ -93,7 +93,7 @@
         <label for="address" class="form-label"
           >{{ "Company.Add.Address" | translate }} :</label
         >
-        <input formControlName="address" class="form-control" maxlength="100" />
+        <input aria-label="input" formControlName="address" class="form-control" maxlength="100" />
         <div *ngIf="hasError('address', 'required')" class="text-danger">
           {{ "Company.Add.Address" | translate }}
           {{ "Company.Add.Required" | translate }}
@@ -103,7 +103,7 @@
         <label for="mobile" class="form-label">
           {{ "Company.Add.MobileNumber" | translate }} :</label
         >
-        <input type="tel" formControlName="mobile" class="form-control" />
+        <input aria-label="input" type="tel" formControlName="mobile" class="form-control" />
         <div *ngIf="hasError('mobile', 'required')" class="text-danger">
           {{ "Company.Add.MobileNumber" | translate }}
           {{ "Company.Add.Required" | translate }}

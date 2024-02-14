@@ -5,7 +5,7 @@ const app = express();
 
 // Define your projects and their paths
 const projects = [
-  { path: '/bussinessowners', target: 'http://localhost:4301' },
+  { path: '/bussinessowners', target: 'http://localhost:4300' },
   { path: '/adminportal', target: 'http://localhost:4302' },
   // Add more projects as needed
 ];

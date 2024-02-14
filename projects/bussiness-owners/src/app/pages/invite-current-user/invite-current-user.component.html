@@ -1,0 +1,35 @@
+
+<div class="form-container">
+  <h2>User Information</h2>
+  <p>Step 02 - Admin User Information</p>
+
+  <!-- Reactive Form -->
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+    <!-- Checkbox for "Set Me As Admin" -->
+
+    <div class="row justify-content-center mb-2">
+      <div class="col-md-12 text-center">
+        <div class="form-check" style="display: flex; margin-left: 0;">
+          <input type="checkbox" class="custom-checkbox" id="setAdmin" formControlName="setAdmin">
+          <label class="form-check-label checkbox-label-no-margin small m-0" for="setAdmin">Set Me As Admin</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email Input Field with Label -->
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <div class="input-container">
+        <input type="email" id="email" formControlName="email" placeholder="Enter email">
+      </div>
+    </div>
+
+    <!-- Back and Send Invitation Buttons -->
+    <div class="button-group">
+      <button type="button" class="btn btn-secondary custom-button" (click)="onBack()">Back</button>
+      <button type="submit" class="btn btn-primary custom-button">Send Invitation</button>
+    </div>
+
+  </form>
+</div>

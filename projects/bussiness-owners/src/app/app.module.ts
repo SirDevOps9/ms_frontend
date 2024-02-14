@@ -21,11 +21,17 @@ import {
 } from 'microtec-auth-lib';
 import { AddCompanyComponent } from './pages/company/add-compny/add-compny.component';
 import { CompanyComponent } from './pages/company/company.component';
-
-
+import { InviteCurrentUserComponent } from './pages/invite-current-user/invite-current-user.component';
 
 @NgModule({
-  declarations: [AppComponent, UsersComponent, LayoutComponent, AddCompanyComponent,CompanyComponent],
+  declarations: [
+    AppComponent,
+    UsersComponent,
+    LayoutComponent,
+    AddCompanyComponent,
+    CompanyComponent,
+    InviteCurrentUserComponent,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -58,7 +64,7 @@ import { CompanyComponent } from './pages/company/company.component';
       useClass: ERPInterceptor,
       multi: true,
     },
-    { provide: AbstractSecurityStorage, useClass: CustomStorageService }
+    { provide: AbstractSecurityStorage, useClass: CustomStorageService },
   ],
   bootstrap: [AppComponent],
 })
