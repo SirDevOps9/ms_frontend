@@ -1,5 +1,6 @@
 export interface AddConfirmedUserDto {
-    name: string;
-    email: string;
-    Password:string;
+  InvitedUserId:string;
+   UserName: string;
+   Email: string;
+   Password:string;
   }  

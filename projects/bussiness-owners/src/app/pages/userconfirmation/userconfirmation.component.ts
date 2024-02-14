@@ -48,6 +48,8 @@ export class UserconfirmationComponent implements OnInit {
       const user = this.userForm.value;
       this.logService.log('user Information:', user);
 
+     // this.userService.CreateInvitedUser()
+
     }
   }
 }
