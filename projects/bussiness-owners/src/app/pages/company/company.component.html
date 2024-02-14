@@ -1,0 +1,26 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-6">
+          <h2>{{ "Company.CompanyList" | translate }}</h2>
+        </div>
+        <!-- <div class="col-md-6 text-md-right">
+          <button class="btn btn-primary mb-3" (click)="navigateToAdd()">
+            {{ "Company.CreateNew" | translate }}
+          </button>
+        </div> -->
+        <app-erp-table
+          [headers]="['name', 'industryName', 'website', 'address']"
+          [headerTranslations]="[
+            'Company.CompanyName',
+            'Company.Industry',
+            'Company.Website',
+            'Company.Address'
+          ]"
+          [tableData]="companies!"
+        ></app-erp-table>
+      </div>
+    </div>
+  </div>
+</div>
