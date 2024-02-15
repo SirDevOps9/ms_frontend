@@ -6,7 +6,7 @@ import { DropdownItemDto } from '../../../models/users/company/drop-down';
 @Component({
   selector: 'app-add-compny',
   templateUrl: './add-compny.component.html',
-  styleUrls: ['./add-compny.component.css']
+  styleUrls: ['./add-compny.component.css'],
 })
 export class AddCompanyComponent implements OnInit {
   companyForm: FormGroup;
@@ -40,9 +40,8 @@ export class AddCompanyComponent implements OnInit {
   }
 
   addCompanyInfo() {
-      const companyInfo = this.companyForm.value;
-      this.logService.log('Company Information:', companyInfo);
-    
+    const companyInfo = this.companyForm.value;
+    this.logService.log('Company Information:', companyInfo);
   }
   getDropDown() {
     this.companyService.getDropDown().subscribe((res) => {
@@ -63,4 +62,3 @@ export class AddCompanyComponent implements OnInit {
     return (control?.hasError(errorType) && control?.touched) ?? false;
   }
 }
-

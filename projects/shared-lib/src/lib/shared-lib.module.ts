@@ -8,9 +8,15 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { ErpTableComponent } from './components/erp-table/erp-table.component';
 import { SearchEngineComponent } from './components/search-engine/search-engine.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
-  declarations: [LayoutComponent, ErpTableComponent, SearchEngineComponent],
+  declarations: [
+    LayoutComponent,
+    ErpTableComponent,
+    SearchEngineComponent,
+    LoaderComponent,
+  ],
   imports: [
     CommonModule,
     RouterOutlet,
@@ -19,7 +25,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatPaginatorModule,
     TranslateModule.forRoot(),
   ],
-  exports: [LayoutComponent, ErpTableComponent, SearchEngineComponent],
+  exports: [
+    LayoutComponent,
+    ErpTableComponent,
+    SearchEngineComponent,
+    LoaderComponent,
+  ],
 })
 export class SharedLibModule {
   public static forRoot(

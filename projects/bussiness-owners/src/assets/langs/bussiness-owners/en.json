@@ -36,7 +36,23 @@
     "Activate": "Activate",
     "Succefully": "Succefully",
     "UserDeactivatedSuccessfully": "user deactivaed Successfully",
-    "UserActivatedSuccessfully": "user activaed Successfully"
+    "UserActivatedSuccessfully": "user activaed Successfully",
+    "InviteUser": "Invite User",
+    "LastLogin": "Last Login Date",
+    "InvitationStatus": "Invitation Status",
+    "Invited":"Invited",
+    "Accepted":"Accepted",
+    "Inviteform": {
+      "FormHeader": "Invite User",
+      "EmailLabel": "Email Login",
+      "EmailPlaceHolder": "Enter your email address",
+      "DomainLabel": "Domain Space",
+      "ActionsLabel": "Manage Actions",
+      "SubmitButton": "Send User Inviation",
+      "CancelButton": "Cancel",
+      "Success": "Success",
+      "InviationSent": "Invitation Sent Succefully"
+    }
   },
   "Company": {
     "CompanyList": "Company List",
@@ -60,7 +76,7 @@
       "CompanyEmail": "Company Email",
       "Next": "Next",
       "Required": " is required",
-      "Select":"Select "
+      "Select": "Select "
     }
   }
 }

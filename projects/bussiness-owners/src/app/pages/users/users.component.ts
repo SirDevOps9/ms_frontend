@@ -2,7 +2,9 @@ import { Component, OnInit, PipeTransform } from '@angular/core';
 import { UserListResponse } from '../../models/users/userlist.response';
 import { ToasterService } from 'shared-lib';
 import { UserService } from '../../services/users.httpsservice';
-import { LanguageService } from 'dist/shared-lib';
+import { LanguageService } from 'shared-lib';
+import { MatDialog } from '@angular/material/dialog';
+import { UserInviteFormComponent } from '../../components/userscomps/invite-form/user-invite-form/user-invite-form.component';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -14,7 +16,8 @@ export class UsersComponent implements OnInit {
   constructor(
     public languageService: LanguageService,
     private toasterService: ToasterService,
-    private userService: UserService
+    private userService: UserService,
+    private dialog: MatDialog
   ) {}
   ngOnInit() {
     this.getAllUsers();
@@ -22,7 +25,7 @@ export class UsersComponent implements OnInit {
   getAllUsers() {
     this.userService.getAll().subscribe({
       next: (res) => {
-        this.userData = res;
+        this.userData = res.response;
       },
     });
   }
@@ -30,6 +33,18 @@ export class UsersComponent implements OnInit {
     if (!isActive) this.activate(id);
     else this.deactivate(id);
   }
+
+  openInviteModal() {
+    const dialogRef = this.dialog.open(UserInviteFormComponent, {
+      width: '600px',
+      height: '600px',
+    });
+
+    dialogRef.afterClosed().subscribe((result: UserListResponse) => {
+      if (result as UserListResponse) this.userData.push(result);
+    });
+  }
+
   async activate(id: number) {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangstatus'
