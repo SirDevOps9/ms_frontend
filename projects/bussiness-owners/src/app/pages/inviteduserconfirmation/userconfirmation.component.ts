@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LogService } from 'shared-lib';
-import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../../services/users.httpsservice';
+import { ActivatedRoute, Router } from '@angular/router';
+import { InviteduserService } from '../../services/inviteduser.httpservice';
+import { AddConfirmedUserDto } from '../../models/users/add-ConfirmedUserDto';
+
 
 
 @Component({
@@ -14,8 +16,9 @@ export class UserconfirmationComponent implements OnInit {
 
   userForm: FormGroup;
   inviteduserId: string |null;
+  email :string;
 
-  constructor( private userService: UserService ,private route: ActivatedRoute, private formBuilder: FormBuilder , private logService: LogService) { 
+  constructor(private router: Router, private inviteduserService: InviteduserService ,private route: ActivatedRoute, private formBuilder: FormBuilder , private logService: LogService) { 
   }
 
   ngOnInit() {
@@ -34,8 +37,9 @@ export class UserconfirmationComponent implements OnInit {
   GetEmail(){
      this.inviteduserId = this.route.snapshot.paramMap.get('id');
     if ( this.inviteduserId !== null) {
-    this.userService.GetInvitedUserEmail( this.inviteduserId).subscribe({
+    this.inviteduserService.GetInvitedUserEmail( this.inviteduserId).subscribe({
       next: (res) => {
+        this.email=res.response
         this.userForm.patchValue({
           email: res.response
         });
@@ -45,10 +49,18 @@ export class UserconfirmationComponent implements OnInit {
   }
   submitForm() {
     if (this.userForm.valid) {
-      const user = this.userForm.value;
-      this.logService.log('user Information:', user);
-
-     // this.userService.CreateInvitedUser()
+      const addUserDto: AddConfirmedUserDto = {
+        InvitedUserId: this.inviteduserId!,
+        FullName: this.userForm.value.name,
+        Email:this.email,
+        Password: this.userForm.value.password,
+        ConfirmPassword: this.userForm.value.confirmPassword
+      };
+      this.logService.log(addUserDto);
+      this.inviteduserService.ConfirmInvitedUser(addUserDto).subscribe({
+        next: (response) => {
+          this.router.navigate(['/login']);
+        }})
 
     }
   }

@@ -28,15 +28,5 @@ export class UserService {
       `${this.userController}/DeactivateUser/${id}`,{}
     );
   }
-  CreateInvitedUser(request: AddConfirmedUserDto): Observable<APIResponse<boolean>> {
-    return this.baseService.post<APIResponse<boolean>>(
-      `${this.userController}/CreateInvitedUser`,
-      request
-    );
-  }
-  GetInvitedUserEmail(id : string) :Observable<APIResponse<string>>{
-    return this.baseService.get<APIResponse<string>>(
-      `InvitedUser/GetInvitedUserEmail/${id}`
-    );
-  }
+ 
 }

@@ -14,7 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
 import { LayoutComponent } from './components/layout/layout.component';
 import { UsersComponent } from './pages/users/users.component';
-import { UserconfirmationComponent } from './pages/userconfirmation/userconfirmation.component';
+import { UserconfirmationComponent } from './pages/inviteduserconfirmation/userconfirmation.component';
 import {
   MicrotecAuthLibModule,
   ERPInterceptor,
