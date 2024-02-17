@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UserListResponse } from '../../models/users/userlist.response';
 import { UserService } from '../../services/users.httpsservice';
 import { AddExistUser } from '../../models/users/add-existed-user';
@@ -8,18 +8,21 @@ import { LogService, ToasterService } from 'shared-lib';
 @Component({
   selector: 'invite-current-user',
   templateUrl: './invite-current-user.component.html',
-  styleUrls: ['./invite-current-user.component.css']
+  styleUrls: ['./invite-current-user.component.css'],
 })
 export class InviteCurrentUserComponent implements OnInit {
   userForm: FormGroup;
   userData: UserListResponse[] = [];
 
-  constructor(private fb: FormBuilder, private userService: UserService,
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
     private logService: LogService,
-    private toasterService: ToasterService,
-    ) { }
+    private toasterService: ToasterService
+  ) {}
 
   ngOnInit(): void {
+    
     this.userForm = this.fb.group({
       selectedOption: ['', Validators.required],
     });
@@ -38,13 +41,15 @@ export class InviteCurrentUserComponent implements OnInit {
   onSubmit() {
     if (this.userForm.valid) {
       const selectedEmail = this.userForm.get('selectedOption')?.value;
-      const selectedUser = this.userData.find(user => user.email === selectedEmail);
+      const selectedUser = this.userData.find(
+        (user) => user.email === selectedEmail
+      );
 
       if (selectedUser) {
         const addSelectedExistedUser: AddExistUser = {
           userId: selectedUser.id,
-          plans: [], 
-          subDomains: [] 
+          plans: [],
+          subDomains: [],
         };
 
         this.userService.addExistUser(addSelectedExistedUser).subscribe({
@@ -56,19 +61,13 @@ export class InviteCurrentUserComponent implements OnInit {
               'Invitation Sent'
             );
           },
-          error: (error) => {
-            this.logService.log(error, 'Error sending invitation:');
-            this.toasterService.showError(
-              'Error sending invitation. Please try again.',
-              'Invitation Error'
-            );
-          }
+         
         });
       }
     }
   }
 
 
-  onBack() {
-  }
+
+  onBack() {}
 }
