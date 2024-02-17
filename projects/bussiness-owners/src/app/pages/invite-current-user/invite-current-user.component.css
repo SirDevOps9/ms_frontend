@@ -4,36 +4,35 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 20vh;
+    height: 40vh;
     margin-top: 10vh;
   }
   
   h2, p {
     text-align: center;
-    font-size: 24px; /* Adjust the font size */
-    margin-bottom: 20px; /* Add margin between header and sub-header */
+    font-size: 24px; 
+    margin-bottom: 20px; 
   }
   
   .form-group {
-    margin-bottom: 30px; /* Increase the margin between form groups */
+    margin-bottom: 30px; 
     text-align: center;
   }
   
   input {
-    width: 350px; /* Adjust the input width as needed */
+    width: 350px;
     padding: 10px;
-    font-size: 16px; /* Adjust the font size */
+    font-size: 16px; 
   }
   
   .button-group {
     display: flex;
     justify-content: space-between;
-    margin-top: 30px; /* Increase the margin between buttons and form */
-  }
+    margin-top: 30px;}
   
   button {
     padding: 15px 30px;
-    font-size: 16px; /* Adjust the font size */
+    font-size: 16px; 
     cursor: pointer;
     margin-top: 30px;
   }
@@ -45,3 +44,8 @@
     margin-right: 300px;
   }
   
+  .input-container select {
+    width: 100%; 
+    padding: 5px;
+    font-size: 16px;
+  }

@@ -6,22 +6,14 @@
   <!-- Reactive Form -->
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
 
-    <!-- Checkbox for "Set Me As Admin" -->
-
-    <div class="row justify-content-center mb-2">
-      <div class="col-md-12 text-center">
-        <div class="form-check" style="display: flex; margin-left: 0;">
-          <input type="checkbox" class="custom-checkbox" id="setAdmin" formControlName="setAdmin">
-          <label class="form-check-label checkbox-label-no-margin small m-0" for="setAdmin">Set Me As Admin</label>
-        </div>
-      </div>
-    </div>
 
     <!-- Email Input Field with Label -->
     <div class="form-group">
-      <label for="email">Email:</label>
+      <label for="selectedOption">Select an email:</label>
       <div class="input-container">
-        <input type="email" id="email" formControlName="email" placeholder="Enter email">
+        <select id="selectedOption" formControlName="selectedOption" placeholder="Select an email">
+          <option *ngFor="let user of userData" [value]="user.email">{{ user.email }}</option>
+        </select>
       </div>
     </div>
 
