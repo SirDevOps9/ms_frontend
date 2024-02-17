@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LogService } from 'shared-lib';
 import { CompanyService } from '../../../services/company.httpservice';
-import { DropdownItemDto } from '../../../models/users/company/drop-down';
+import { DropdownItemDto } from '../../../models/company/drop-down';
 @Component({
   selector: 'app-add-compny',
   templateUrl: './add-compny.component.html',

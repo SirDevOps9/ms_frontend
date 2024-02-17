@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { APIResponse, BaseService, ResponseItems} from 'shared-lib';
-import { AddCompanyDto } from '../models/users/company/add-company';
+import { AddCompanyDto } from '../models/company/add-company';
 import { Observable } from 'rxjs';
-import { DropdownListDto,  DropdownItemDto} from '../models/users/company/drop-down';
+import { DropdownListDto,  DropdownItemDto} from '../models/company/drop-down';
 import { CompanyListResponse } from '../models/company/companylist.response';
 
 

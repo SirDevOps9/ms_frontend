@@ -12,3 +12,5 @@ export interface UserListResponse {
   typeId?: number;
   isActive:boolean;
 }
+
+
