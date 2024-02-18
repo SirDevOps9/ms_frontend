@@ -36,7 +36,9 @@
     "Activate": "تفعيل",
     "Succefully": "بنجاح",
     "UserDeactivatedSuccessfully": "العميل غير مفعل بنجاح",
-    "UserActivatedSuccessfully": "العميل مفعل بنجاح"
+    "UserActivatedSuccessfully": "العميل مفعل بنجاح",
+    "InvitationSentSuccessfully": "تم إرسال الدعوة بنجاح"
+
   },
 
   "Company": {

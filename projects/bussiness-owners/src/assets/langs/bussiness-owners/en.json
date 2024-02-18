@@ -36,7 +36,8 @@
     "Activate": "Activate",
     "Succefully": "Succefully",
     "UserDeactivatedSuccessfully": "user deactivaed Successfully",
-    "UserActivatedSuccessfully": "user activaed Successfully"
+    "UserActivatedSuccessfully": "user activaed Successfully",
+    "InvitationSentSuccessfully": "Invitation Sent Successfully"
   },
   "Company": {
     "CompanyList": "Company List",

@@ -3,7 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UserListResponse } from '../../models/users/userlist.response';
 import { UserService } from '../../services/users.httpsservice';
 import { AddExistUser } from '../../models/users/add-existed-user';
-import { LogService, ToasterService } from 'shared-lib';
+import { LanguageService, LogService, ToasterService } from 'shared-lib';
 
 @Component({
   selector: 'invite-current-user',
@@ -18,7 +18,8 @@ export class InviteCurrentUserComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService,
     private logService: LogService,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
+    private languageService: LanguageService
   ) {}
 
   ngOnInit(): void {
@@ -57,9 +58,10 @@ export class InviteCurrentUserComponent implements OnInit {
             this.logService.log(response, 'Invitation sent successfully:');
 
             this.toasterService.showSuccess(
-              'Invitation sent successfully!',
-              'Invitation Sent'
+              'Success',
+              this.languageService.transalte('User.InvitationSentSuccessfully')
             );
+  
           },
          
         });
