@@ -14,9 +14,10 @@ export const BORoutes = [
       { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
       { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
       { path: 'company/add', component: AddCompanyComponent, canActivate: [AuthGuard] },
-      { path: 'users/userconfirmation/:id', component: UserconfirmationComponent, canActivate: [AuthGuard] },
+    
       { path: 'company', component: CompanyComponent, canActivate: [AuthGuard] },
     ],
   },
+  { path: 'users/userconfirmation/:id', component: UserconfirmationComponent },
 
 ];

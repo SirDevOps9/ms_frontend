@@ -14,7 +14,6 @@ export class LayoutComponent {
     public authService: AuthService
   ) {
     this.userName = this.authService.getUserName;
-    this.languageService.setLang();
   }
   toggleLanguage(): void {
     this.languageService.toggleLanguage();
