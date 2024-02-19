@@ -25,7 +25,7 @@
         <label for="companyName" class="form-label">
           {{ "Company.Add.CompanyName" | translate }} :</label
         >
-        <input formControlName="companyName" class="form-control" />
+        <input aria-label="companyName" formControlName="companyName" class="form-control" />
         <div *ngIf="hasError('companyName', 'required')" class="text-danger">
           {{ "Company.Add.CompanyName" | translate }}
           {{ "Company.Add.Required" | translate }}
@@ -83,7 +83,7 @@
         <label for="website" class="form-label"
           >{{ "Company.Add.Website" | translate }} :</label
         >
-        <input formControlName="website" class="form-control" />
+        <input aria-label="website" formControlName="website" class="form-control" />
         <div *ngIf="hasError('website', 'required')" class="text-danger">
           {{ "Company.Add.Website" | translate }}
           {{ "Company.Add.Required" | translate }}
@@ -93,17 +93,55 @@
         <label for="address" class="form-label"
           >{{ "Company.Add.Address" | translate }} :</label
         >
-        <input formControlName="address" class="form-control" maxlength="100" />
+        <input  aria-label="address" formControlName="address" class="form-control" maxlength="100" />
         <div *ngIf="hasError('address', 'required')" class="text-danger">
           {{ "Company.Add.Address" | translate }}
           {{ "Company.Add.Required" | translate }}
         </div>
       </div>
+      <!-- <div class="form-group mb-3">
+        <label for="mobileCode" class="form-label">
+          {{ "Company.Add.MobileNumberCode" | translate }} :</label
+        >
+        <input aria-label="mobileCode" type="tel" formControlName="MobileNumberCode" class="form-control" />
+        <div *ngIf="hasError('mobile', 'required')" class="text-danger">
+          {{ "Company.Add.MobileNumberCode" | translate }}
+          {{ "Company.Add.Required" | translate }}
+        </div>
+      </div> -->
+
+
+    <div class="form-group mb-3">
+      <label for="MobileNumberCode" class="form-label"
+        >{{ "Company.Add.MobileNumberCode" | translate }} :</label
+      >
+      <select
+        formControlName="MobileNumberCode"
+        id="MobileNumberCode"
+        name="MobileNumberCode"
+        class="form-select"
+        required
+      >
+        <option value="">
+          {{ "Company.Add.Select" | translate }}
+          {{ "Company.Add.MobileNumberCode" | translate }}
+        </option>
+        <option *ngFor="let option of mobileCodeDropDown" [value]="option.code">
+          {{ option.code }}
+        </option>
+      </select>
+      <div *ngIf="hasError('currency', 'required')" class="text-danger">
+        {{ "Company.Add.MobileNumberCode" | translate }}
+        {{ "Company.Add.Required" | translate }}
+      </div>
+    </div>
+
+
       <div class="form-group mb-3">
         <label for="mobile" class="form-label">
           {{ "Company.Add.MobileNumber" | translate }} :</label
         >
-        <input type="tel" formControlName="mobile" class="form-control" />
+        <input aria-label="mobile" type="tel" formControlName="mobile" class="form-control" />
         <div *ngIf="hasError('mobile', 'required')" class="text-danger">
           {{ "Company.Add.MobileNumber" | translate }}
           {{ "Company.Add.Required" | translate }}
@@ -130,5 +168,3 @@
     </form>
 
     <hr />
-  </div>
-</div>

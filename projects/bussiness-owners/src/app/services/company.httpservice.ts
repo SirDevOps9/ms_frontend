@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { APIResponse, BaseService, ResponseItems} from 'shared-lib';
-import { AddCompanyDto } from '../models/users/company/add-company';
+import { AddCompanyDto } from '../models/company/add-company';
 import { Observable } from 'rxjs';
-import { DropdownListDto,  DropdownItemDto} from '../models/users/company/drop-down';
+import { DropdownListDto,  DropdownItemDto} from '../models/company/drop-down';
 import { CompanyListResponse } from '../models/company/companylist.response';
+import { ResponseCompanyDto } from '../models/company/response-company-dto';
+import { MobileCodeDropdownDto } from '../models/company/mobile-code-drop-down';
 
 
 @Injectable({
@@ -12,11 +14,14 @@ import { CompanyListResponse } from '../models/company/companylist.response';
 export class CompanyService {
   private companyApi = `Company`;
   private dropDownApi = `/dropdowns`;
+  private countryApi = `Country`;
+  private countrycode = `/GetAllCountryCodeDropDown`;
+
 
   constructor(private baseService: BaseService) {}
 
-  addCompany(request: AddCompanyDto): Observable<APIResponse<AddCompanyDto>> {
-    return this.baseService.post<APIResponse<AddCompanyDto>>(
+  addCompany(request: AddCompanyDto): Observable<APIResponse<ResponseCompanyDto>> {
+    return this.baseService.post<APIResponse<ResponseCompanyDto>>(
       this.companyApi,
       request
     );
@@ -26,5 +31,9 @@ export class CompanyService {
   }
   getDropDown():Observable<APIResponse<DropdownListDto>>{
     return this.baseService.get<APIResponse<DropdownListDto>>(`${this.companyApi}${this.dropDownApi}`);
+  }
+
+  getMobileCodeDropDown():Observable<APIResponse<MobileCodeDropdownDto[]>>{
+    return this.baseService.get<APIResponse<MobileCodeDropdownDto[]>>(`${this.countryApi}${this.countrycode}`);
   }
 }

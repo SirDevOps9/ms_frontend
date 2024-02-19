@@ -62,6 +62,7 @@
     "Website": "Website",
     "Address": "Address",
     "NoData": " There is no data",
+    "CompanyAddedSuccessfully":"Company added successfully",
     "Add": {
       "Step": "Step 01 - Company Main Info",
       "AccInfo": "Account Information",
@@ -72,6 +73,7 @@
       "Domain": "Choose Your Domain:",
       "Subdomain": "Subdomain",
       "Currency": "Currency",
+      "MobileNumberCode": "Mobile Code",
       "MobileNumber": "Mobile Number",
       "CompanyEmail": "Company Email",
       "Next": "Next",
