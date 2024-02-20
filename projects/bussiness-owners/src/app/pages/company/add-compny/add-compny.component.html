@@ -13,7 +13,7 @@
           >{{ "Company.Add.Subdomain" | translate }} :</label
         >
         <select
-          formControlName="subdomain"
+          formControlName="subdomainId"
           id="subdomain"
           name="subdomain"
           class="form-select"
@@ -37,7 +37,7 @@
         <label for="companyName" class="form-label">
           {{ "Company.Add.CompanyName" | translate }} :</label
         >
-        <input aria-label="companyName" formControlName="companyName" class="form-control" />
+        <input aria-label="companyName" formControlName="name" class="form-control" />
         <div *ngIf="hasError('companyName', 'required')" class="text-danger">
           {{ "Company.Add.CompanyName" | translate }}
           {{ "Company.Add.Required" | translate }}
@@ -49,9 +49,9 @@
           >{{ "Company.Add.Industry" | translate }} :</label
         >
         <select
-          formControlName="industry"
-          id="industry"
-          name="industry"
+          formControlName="industryId"
+          id="industryId"
+          name="industryId"
           class="form-select"
           required
         >
@@ -74,7 +74,7 @@
           >{{ "Company.Add.Currency" | translate }} :</label
         >
         <select
-          formControlName="currency"
+          formControlName="currencyId"
           id="currency"
           name="currency"
           class="form-select"
@@ -145,7 +145,7 @@
         <label for="mobile" class="form-label">
           {{ "Company.Add.MobileNumber" | translate }} :</label
         >
-        <input aria-label="mobile" type="tel" formControlName="mobile" class="form-control" />
+        <input aria-label="mobile" type="tel" formControlName="mobileNumber" class="form-control" />
         <div *ngIf="hasError('mobile', 'required')" class="text-danger">
           {{ "Company.Add.MobileNumber" | translate }}
           {{ "Company.Add.Required" | translate }}

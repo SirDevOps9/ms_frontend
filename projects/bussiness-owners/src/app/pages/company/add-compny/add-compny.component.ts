@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LanguageService, LoaderService, LogService, ToasterService } from 'shared-lib';
+import {
+  LanguageService,
+  LoaderService,
+  LogService,
+  ToasterService,
+} from 'shared-lib';
 import { CompanyService } from '../../../services/company.httpservice';
 import { DropdownItemDto } from '../../../models/company/dropdown';
 import { AddCompanyDto } from '../../../models/company/addcompany';
@@ -18,7 +23,6 @@ export class AddCompanyComponent implements OnInit {
   mobileCodeDropDown: MobileCodeDropdownDto[];
   subdoaminDropDown: DropdownItemDto[];
 
-
   constructor(
     private formBuilder: FormBuilder,
     private companyService: CompanyService,
@@ -28,13 +32,17 @@ export class AddCompanyComponent implements OnInit {
     private languageService: LanguageService
   ) {
     this.companyForm = this.formBuilder.group({
-      subdomain: ['', Validators.required],
-      companyName: ['', Validators.required],
-      industry: ['', Validators.required],
-      currency: ['', Validators.required],
-      website: ['', Validators.required],
+      name: ['', Validators.required],
+      subdomainId: ['', Validators.required],
+      industryId: ['', Validators.required],
+      currencyId: ['', Validators.required],
+      website: [
+        '',
+        Validators.required,
+        // Validators.pattern("^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?$"),
+      ],
       address: ['', [Validators.required, Validators.maxLength(100)]],
-      mobile: ['', Validators.required],
+      mobileNumber: ['', Validators.required],
       MobileNumberCode: ['', Validators.required],
       companyEmail: ['', [Validators.required, Validators.email]],
     });
@@ -43,83 +51,59 @@ export class AddCompanyComponent implements OnInit {
   ngOnInit() {
     this.getDropDowns();
   }
-  
 
   onSubmit() {
-    if (this.companyForm.valid) 
-   {
+    if (!this.companyForm.valid) return;
     this.addCompany();
-   }
-
   }
 
-  addCompanyInfo() {
-    const companyInfo = this.companyForm.value;
-    this.logService.log('Company Information:', companyInfo);
+  getDropDowns() {
+    combineLatest([
+      this.companyService.getDropDown(),
+      this.companyService.getMobileCodeDropDown(),
+      this.companyService.getSubdomainDropDown(),
+    ]).subscribe({
+      next: ([resDropdown, resMobileCode, resSubdomain]) => {
+        this.currencyDropDown = resDropdown.response.currencyDropdown;
+        this.logService.log(this.currencyDropDown, 'currency Information:');
+
+        this.industryDropDown = resDropdown.response.industryDropdown;
+        this.logService.log(this.industryDropDown, 'industry Information:');
+
+        this.mobileCodeDropDown = resMobileCode.response;
+        this.logService.log(
+          this.mobileCodeDropDown,
+          'mobileCodeDropdownDto Information:'
+        );
+
+        this.subdoaminDropDown = resSubdomain.response;
+        this.logService.log(
+          this.subdoaminDropDown,
+          'SubDomainDropdownDto Information:'
+        );
+      },
+    });
   }
-
-  getDropDowns(){
-
-  combineLatest([
-    this.companyService.getDropDown(),
-    this.companyService.getMobileCodeDropDown(),
-    this.companyService.getSubdomainDropDown()
-  ]).subscribe({
-    next: ([resDropdown, resMobileCode, resSubdomain]) => {
-      this.currencyDropDown = resDropdown.response.currencyDropdown;
-      this.logService.log(this.currencyDropDown, 'currency Information:');
-
-      this.industryDropDown = resDropdown.response.industryDropdown;
-      this.logService.log(this.industryDropDown, 'industry Information:');
-
-      this.mobileCodeDropDown = resMobileCode.response;
-      this.logService.log(this.mobileCodeDropDown, 'mobileCodeDropdownDto Information:');
-
-      this.subdoaminDropDown = resSubdomain.response;
-      this.logService.log(this.subdoaminDropDown, 'SubDomainDropdownDto Information:');
-    },
-  });
-  }
-
-
-
 
   addCompany() {
     this.loaderService.show();
-    const controls = this.companyForm.controls;
-    const request: AddCompanyDto = {
-      name: controls['companyName']?.value,
-      subdomainId: controls['subdomain']?.value ,
-      website: controls['website']?.value ,
-      address: controls['address']?.value ,
-      mobileNumberCode: controls['MobileNumberCode']?.value ,
-      mobileNumber: controls['mobile']?.value ,
-      companyEmail: controls['companyEmail']?.value ,
-      industryId: controls['industry']?.value ,
-      currencyId: controls['currency']?.value ,
-    };
-
+    const request: AddCompanyDto = this.companyForm.value;
     this.logService.log(request, 'Checking the sending request:');
 
-  
     this.companyService.addCompany(request).subscribe({
       next: (response) => {
-
         this.logService.log(response, 'Company added successfully:');
         this.toasterService.showSuccess(
           'Success',
           this.languageService.transalte('Company.CompanyAddedSuccessfully')
         );
         this.loaderService.hide();
-
       },
-      error: () =>{
+      error: () => {
         this.loaderService.hide();
-
-      }
+      },
     });
   }
-
 
   hasError(field: string, errorType: string): boolean {
     const control = this.companyForm.get(field);
