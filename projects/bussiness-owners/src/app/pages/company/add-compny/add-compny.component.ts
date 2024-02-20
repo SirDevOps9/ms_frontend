@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LanguageService, LogService, ToasterService } from 'shared-lib';
+import { LanguageService, LoaderService, LogService, ToasterService } from 'shared-lib';
 import { CompanyService } from '../../../services/company.httpservice';
-import { DropdownItemDto } from '../../../models/company/drop-down';
-import { AddCompanyDto } from '../../../models/company/add-company';
-import { MobileCodeDropdownDto } from '../../../models/company/mobile-code-drop-down';
+import { DropdownItemDto } from '../../../models/company/dropdown';
+import { AddCompanyDto } from '../../../models/company/addcompany';
+import { MobileCodeDropdownDto } from '../../../models/company/mobilecodedropdown';
 import { combineLatest } from 'rxjs';
 @Component({
   selector: 'app-add-compny',
@@ -16,12 +16,15 @@ export class AddCompanyComponent implements OnInit {
   currencyDropDown: DropdownItemDto[];
   industryDropDown: DropdownItemDto[];
   mobileCodeDropDown: MobileCodeDropdownDto[];
+  subdoaminDropDown: DropdownItemDto[];
+
 
   constructor(
     private formBuilder: FormBuilder,
     private companyService: CompanyService,
     private logService: LogService,
     private toasterService: ToasterService,
+    private loaderService: LoaderService,
     private languageService: LanguageService
   ) {
     this.companyForm = this.formBuilder.group({
@@ -38,13 +41,16 @@ export class AddCompanyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getDropDown();
+    this.getDropDowns();
   }
   
 
   onSubmit() {
-    if (!this.companyForm.valid) return;
+    if (this.companyForm.valid) 
+   {
     this.addCompany();
+   }
+
   }
 
   addCompanyInfo() {
@@ -52,84 +58,66 @@ export class AddCompanyComponent implements OnInit {
     this.logService.log('Company Information:', companyInfo);
   }
 
-  getDropDown(){
-    combineLatest([
-      this.companyService.getDropDown(),
-      this.companyService.getMobileCodeDropDown()
-    ]).subscribe({
-      next: ([resDropdown, resMobileCode]) => {
-        this.currencyDropDown = resDropdown.response.currencyDropdown;
-        this.industryDropDown = resDropdown.response.industryDropdown;
-        this.logService.log(
-          this.industryDropDown,
-          'industry Information:'
-        );
-        this.logService.log(
-          this.currencyDropDown,
-          'currency Information:'
-        );
+  getDropDowns(){
 
-        this.mobileCodeDropDown = resMobileCode.response;
-        this.logService.log(
-          this.mobileCodeDropDown,
-          'mobileCodeDropdownDto Information:'
-        );
-      },
-    });
+  combineLatest([
+    this.companyService.getDropDown(),
+    this.companyService.getMobileCodeDropDown(),
+    this.companyService.getSubdomainDropDown()
+  ]).subscribe({
+    next: ([resDropdown, resMobileCode, resSubdomain]) => {
+      this.currencyDropDown = resDropdown.response.currencyDropdown;
+      this.logService.log(this.currencyDropDown, 'currency Information:');
+
+      this.industryDropDown = resDropdown.response.industryDropdown;
+      this.logService.log(this.industryDropDown, 'industry Information:');
+
+      this.mobileCodeDropDown = resMobileCode.response;
+      this.logService.log(this.mobileCodeDropDown, 'mobileCodeDropdownDto Information:');
+
+      this.subdoaminDropDown = resSubdomain.response;
+      this.logService.log(this.subdoaminDropDown, 'SubDomainDropdownDto Information:');
+    },
+  });
   }
-  // getDropDown() {
-  //   this.companyService.getDropDown().subscribe({
-  //     next: (res) => {
-  //       this.currencyDropDown = res.response.currencyDropdown;
-  //       this.industryDropDown = res.response.industryDropdown;
-  //       this.logService.log(
-  //         res.response.industryDropdown,
-  //         'industry Information:'
-  //       );
-  //       this.logService.log(
-  //         res.response.currencyDropdown,
-  //         'currency Information:'
-  //       );
-  //     }
-  //   });
-  // }
 
-  // getMobileCodeDropDown(){
-  //   this.companyService.getMobileCodeDropDown().subscribe({
-  //     next: (res)=>{
-  //       this.mobileCodeDropDown = res.response;
-  //       this.logService.log(
-  //         res.response,
-  //         'mobileCodeDropdownDto Information:'
-  //       );
-  //     }
-  //   })
-  // }
+
+
 
   addCompany() {
+    this.loaderService.show();
+    const controls = this.companyForm.controls;
     const request: AddCompanyDto = {
-      name: this.companyForm.get('companyName')?.value,
-      subdomain: this.companyForm.get('subdomain')?.value,
-      website: this.companyForm.get('website')?.value,
-      address: this.companyForm.get('address')?.value,
-      mobileNumberCode: this.companyForm.get('MobileNumberCode')?.value,
-      mobileNumber: this.companyForm.get('mobile')?.value,
-      email: this.companyForm.get('companyEmail')?.value,
-      industry: this.companyForm.get('industry')?.value,
-      currency: this.companyForm.get('currency')?.value,
+      name: controls['companyName']?.value,
+      subdomainId: controls['subdomain']?.value ,
+      website: controls['website']?.value ,
+      address: controls['address']?.value ,
+      mobileNumberCode: controls['MobileNumberCode']?.value ,
+      mobileNumber: controls['mobile']?.value ,
+      companyEmail: controls['companyEmail']?.value ,
+      industryId: controls['industry']?.value ,
+      currencyId: controls['currency']?.value ,
     };
 
+    this.logService.log(request, 'Checking the sending request:');
+
+  
     this.companyService.addCompany(request).subscribe({
       next: (response) => {
+
         this.logService.log(response, 'Company added successfully:');
         this.toasterService.showSuccess(
           'Success',
           this.languageService.transalte('Company.CompanyAddedSuccessfully')
         );
-      }
-    }
+        this.loaderService.hide();
 
-    );
+      },
+      error: () =>{
+        this.loaderService.hide();
+
+      }
+    });
   }
 
 

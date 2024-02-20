@@ -1,11 +1,11 @@
 export interface AddCompanyDto {
   name: string;
-  subdomain: string;
+  subdomainId: number;
   website: string;
   address: string;
   mobileNumberCode: string;
   mobileNumber: string;
-  email: string;
-  industry: number;
-  currency: number;
+  companyEmail: string;
+  industryId: number;
+  currencyId: number;
 }  
