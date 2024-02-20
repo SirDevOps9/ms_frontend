@@ -1,4 +1,4 @@
-import { Component, OnInit, PipeTransform } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserListResponse } from '../../models/users/userlist.response';
 import { ToasterService } from 'shared-lib';
 import { UserService } from '../../services/users.httpsservice';
