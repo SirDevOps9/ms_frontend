@@ -7,13 +7,27 @@
     <h4>{{ "Company.Add.Step" | translate }}</h4>
 
     <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
-
+      <div class="form-group mb-3">
+        <label for="subdomain" class="form-label"
+          >{{ "Company.Add.Subdomain" | translate }} :</label
+        >
+        <input
+          aria-label="subdomainName"
+          formControlName="subdomainName"
+          class="form-control"
+        />
+        <div *ngIf="hasError('Subdomain', 'required')" class="text-danger">
+          {{ "Company.Add.Subdomain" | translate }}
+          {{ "Company.Add.Subdomain" | translate }}
+        </div>
+      </div>
+      <!-- 
       <div class="form-group mb-3">
         <label for="subdomain" class="form-label"
           >{{ "Company.Add.Subdomain" | translate }} :</label
         >
         <select
-          formControlName="subdomainId"
+          formControlName="subdomain"
           id="subdomain"
           name="subdomain"
           class="form-select"
@@ -31,13 +45,17 @@
           {{ "Company.Add.Subdomain" | translate }}
           {{ "Company.Add.Required" | translate }}
         </div>
-      </div>
+      </div> -->
 
       <div class="form-group mb-3">
         <label for="companyName" class="form-label">
           {{ "Company.Add.CompanyName" | translate }} :</label
         >
-        <input aria-label="companyName" formControlName="name" class="form-control" />
+        <input
+          aria-label="companyName"
+          formControlName="name"
+          class="form-control"
+        />
         <div *ngIf="hasError('companyName', 'required')" class="text-danger">
           {{ "Company.Add.CompanyName" | translate }}
           {{ "Company.Add.Required" | translate }}
@@ -50,8 +68,8 @@
         >
         <select
           formControlName="industryId"
-          id="industryId"
-          name="industryId"
+          id="industry"
+          name="industry"
           class="form-select"
           required
         >
@@ -63,7 +81,7 @@
             {{ option.name }}
           </option>
         </select>
-        <div *ngIf="hasError('industry', 'required')" class="text-danger">
+        <div *ngIf="hasError('industryId', 'required')" class="text-danger">
           {{ "Company.Add.Industry" | translate }}
           {{ "Company.Add.Required" | translate }}
         </div>
@@ -88,7 +106,7 @@
             {{ option.name }}
           </option>
         </select>
-        <div *ngIf="hasError('currency', 'required')" class="text-danger">
+        <div *ngIf="hasError('currencyId', 'required')" class="text-danger">
           {{ "Company.Add.Currency" | translate }}
           {{ "Company.Add.Required" | translate }}
         </div>
@@ -98,7 +116,11 @@
         <label for="website" class="form-label"
           >{{ "Company.Add.Website" | translate }} :</label
         >
-        <input aria-label="website" formControlName="website" class="form-control" />
+        <input
+          aria-label="website"
+          formControlName="website"
+          class="form-control"
+        />
         <div *ngIf="hasError('website', 'required')" class="text-danger">
           {{ "Company.Add.Website" | translate }}
           {{ "Company.Add.Required" | translate }}
@@ -109,7 +131,12 @@
         <label for="address" class="form-label"
           >{{ "Company.Add.Address" | translate }} :</label
         >
-        <input  aria-label="address" formControlName="address" class="form-control" maxlength="100" />
+        <input
+          aria-label="address"
+          formControlName="address"
+          class="form-control"
+          maxlength="100"
+        />
         <div *ngIf="hasError('address', 'required')" class="text-danger">
           {{ "Company.Add.Address" | translate }}
           {{ "Company.Add.Required" | translate }}
@@ -121,9 +148,9 @@
           >{{ "Company.Add.MobileNumberCode" | translate }} :</label
         >
         <select
-          formControlName="MobileNumberCode"
+          formControlName="mobileNumberCode"
           id="MobileNumberCode"
-          name="MobileNumberCode"
+          name="mobileNumberCode"
           class="form-select"
           required
         >
@@ -131,11 +158,17 @@
             {{ "Company.Add.Select" | translate }}
             {{ "Company.Add.MobileNumberCode" | translate }}
           </option>
-          <option *ngFor="let option of mobileCodeDropDown" [value]="option.code">
+          <option
+            *ngFor="let option of mobileCodeDropDown"
+            [value]="option.code"
+          >
             {{ option.code }}
           </option>
         </select>
-        <div *ngIf="hasError('MobileNumberCode', 'required')" class="text-danger">
+        <div
+          *ngIf="hasError('MobileNumberCode', 'required')"
+          class="text-danger"
+        >
           {{ "Company.Add.MobileNumberCode" | translate }}
           {{ "Company.Add.Required" | translate }}
         </div>
@@ -145,7 +178,12 @@
         <label for="mobile" class="form-label">
           {{ "Company.Add.MobileNumber" | translate }} :</label
         >
-        <input aria-label="mobile" type="tel" formControlName="mobileNumber" class="form-control" />
+        <input
+          aria-label="mobile"
+          type="tel"
+          formControlName="mobileNumber"
+          class="form-control"
+        />
         <div *ngIf="hasError('mobile', 'required')" class="text-danger">
           {{ "Company.Add.MobileNumber" | translate }}
           {{ "Company.Add.Required" | translate }}

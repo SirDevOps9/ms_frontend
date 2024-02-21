@@ -33,7 +33,7 @@ export class AddCompanyComponent implements OnInit {
   ) {
     this.companyForm = this.formBuilder.group({
       name: ['', Validators.required],
-      subdomainId: ['', Validators.required],
+      subdomainName: ['', Validators.required],
       industryId: ['', Validators.required],
       currencyId: ['', Validators.required],
       website: [
@@ -43,7 +43,7 @@ export class AddCompanyComponent implements OnInit {
       ],
       address: ['', [Validators.required, Validators.maxLength(100)]],
       mobileNumber: ['', Validators.required],
-      MobileNumberCode: ['', Validators.required],
+      mobileNumberCode: ['', Validators.required],
       companyEmail: ['', [Validators.required, Validators.email]],
     });
   }
@@ -61,9 +61,8 @@ export class AddCompanyComponent implements OnInit {
     combineLatest([
       this.companyService.getDropDown(),
       this.companyService.getMobileCodeDropDown(),
-      this.companyService.getSubdomainDropDown(),
     ]).subscribe({
-      next: ([resDropdown, resMobileCode, resSubdomain]) => {
+      next: ([resDropdown, resMobileCode]) => {
         this.currencyDropDown = resDropdown.response.currencyDropdown;
         this.logService.log(this.currencyDropDown, 'currency Information:');
 
@@ -76,11 +75,6 @@ export class AddCompanyComponent implements OnInit {
           'mobileCodeDropdownDto Information:'
         );
 
-        this.subdoaminDropDown = resSubdomain.response;
-        this.logService.log(
-          this.subdoaminDropDown,
-          'SubDomainDropdownDto Information:'
-        );
       },
     });
   }
