@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoaderService, LogService, RouterService } from 'shared-lib';
+import {
+  LoaderService,
+  LogService,
+  RouterService,
+  customValidators,
+} from 'shared-lib';
 import { InviteduserService } from '../../services/inviteduser.httpservice';
 import { AddConfirmedUserDto } from '../../models/users/addconfirmedcser.model';
 
@@ -29,7 +34,7 @@ export class UserconfirmationComponent implements OnInit {
   }
   initializeForm() {
     this.userForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(50)]],
+      fullName: ['', [Validators.required, Validators.maxLength(50)]],
       email: [
         { value: '', disabled: true },
         ,
@@ -59,13 +64,9 @@ export class UserconfirmationComponent implements OnInit {
   submitForm() {
     this.loaderservice.show();
     if (this.userForm.valid) {
-      const addUserDto: AddConfirmedUserDto = {
-        InvitedUserId: this.inviteduserId!,
-        FullName: this.userForm.value.name,
-        Email: this.email,
-        Password: this.userForm.value.password,
-        ConfirmPassword: this.userForm.value.confirmPassword,
-      };
+      const addUserDto: AddConfirmedUserDto = this.userForm.value;
+      addUserDto.invitedUserId = this.inviteduserId;
+      addUserDto.email = this.email;
       this.logService.log(addUserDto);
       this.inviteduserService.ConfirmInvitedUser(addUserDto).subscribe({
         next: (response) => {
@@ -76,5 +77,9 @@ export class UserconfirmationComponent implements OnInit {
         },
       });
     }
+  }
+  hasError(field: string, errorType: string): boolean {
+    const control = this.userForm.get(field);
+    return (control?.hasError(errorType) && control?.touched) ?? false;
   }
 }

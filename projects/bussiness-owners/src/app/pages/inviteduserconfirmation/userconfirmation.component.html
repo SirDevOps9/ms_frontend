@@ -2,13 +2,13 @@
 
 <form  [formGroup]="userForm" (ngSubmit)="submitForm()" class="mt-4">
   <div class="mb-3">
-    <label for="name" class="form-label">{{
+    <label for="fullName" class="form-label">{{
       "UserConfirmation.Name" | translate
     }}</label>
     <input
       type="text"
-      id="name"
-      formControlName="name"
+      id="fullName"
+      formControlName="fullName"
       class="form-control"
       required
     />
