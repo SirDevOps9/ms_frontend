@@ -8,6 +8,7 @@ import {
   LogService,
   CookieStorageService,
   RouterService,
+  LanguageService,
 } from 'shared-lib';
 import { TokenModel } from '../models/tokenmodel';
 @Injectable({
@@ -15,16 +16,20 @@ import { TokenModel } from '../models/tokenmodel';
 })
 export class AuthService {
   constructor(
-    protected localStorageService: StorageService,
+    private localStorageService: StorageService,
     private sessionService: SessionStorageService,
     private oidcSecurityService: OidcSecurityService,
     private logService: LogService,
     private routerService: RouterService,
-    private cookieService: CookieStorageService
+    private cookieService: CookieStorageService,
+    private languageService: LanguageService
   ) {}
 
   authorize() {
-    this.oidcSecurityService.authorize();
+    var storageCulutre = this.languageService.getLang();
+    this.oidcSecurityService.authorize(undefined, {
+      customParams: { lang: storageCulutre },
+    });
   }
 
   logout() {

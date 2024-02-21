@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { StorageService } from './localstorage.service';
 import { StorageKeys } from '../constants/storagekeys';
 import { CookieService } from 'ngx-cookie';
+import { Cultures } from '../constants';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,9 @@ import { CookieService } from 'ngx-cookie';
 export class LanguageService {
   get Lang(): string {
     let currentLanguage =
-      this.storageService.getItem(StorageKeys.LANG_KEY) === 'en' ? 'ar' : 'en';
+      this.storageService.getItem(StorageKeys.LANG_KEY) === Cultures.English
+        ? Cultures.Arabic
+        : Cultures.English;
     return currentLanguage;
   }
 
@@ -24,13 +27,19 @@ export class LanguageService {
   }
 
   setDefaultLang(lang: string) {
-    this.storageService.setItem(StorageKeys.LANG_KEY, lang);
+    const isValidLang = Object.values(Cultures).includes(lang as Cultures);
+    const selectedLang = isValidLang ? lang : Cultures.English;
+    this.storageService.setItem(StorageKeys.LANG_KEY, selectedLang);
   }
 
   setLang() {
     let currentLanguage = this.storageService.getItem(StorageKeys.LANG_KEY);
-    currentLanguage = currentLanguage || 'en';
+    currentLanguage = currentLanguage || Cultures.English;
     this.transalteService.use(currentLanguage);
+  }
+  getLang(): string {
+    let currentLanguage = this.storageService.getItem(StorageKeys.LANG_KEY);
+    return currentLanguage;
   }
 
   toggleLanguage(): void {
@@ -42,6 +51,6 @@ export class LanguageService {
   constructor(
     private transalteService: TranslateService,
     private storageService: StorageService,
-    private cookieService:CookieService
+    private cookieService: CookieService
   ) {}
 }
