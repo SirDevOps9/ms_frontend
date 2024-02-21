@@ -78,5 +78,13 @@
       "Required": "مطلوب",
       "Select": "اختر "
     }
-  }
+  },
+  "UserConfirmation":{
+    "Name":"الاسم",
+    "Email":"الاميل",
+    "Password":"كلمة المرور",
+    "ConfirmPassword":"تأكيد كلمة المرور",
+    "policy":"أنا أوافق على سياسة المستخدم",
+    "Save":"حفظ"
+      }
 }
