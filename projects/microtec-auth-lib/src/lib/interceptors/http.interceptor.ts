@@ -9,16 +9,27 @@ import {
 import { Observable, catchError, switchMap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { LanguageService } from 'shared-lib';
 
 @Injectable()
 export class ERPInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private languageService: LanguageService
+  ) {}
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const clonedRequest = request.clone();
+     const clonedRequest = request.clone();
+    // const clonedRequest = request.clone({
+    //   headers: request.headers.append(
+    //     'ERPAccept-Language',
+    //     this.languageService.getLang()
+    //   ),
+    // });
     return next.handle(clonedRequest).pipe(
       catchError((error: any) => {
         if (error instanceof HttpErrorResponse) {

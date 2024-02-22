@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { TranslateModule } from '@ngx-translate/core';
 import { loginRoutes } from './login.routes';
+import { RouterService } from 'shared-lib';
 
 @NgModule({
   declarations: [

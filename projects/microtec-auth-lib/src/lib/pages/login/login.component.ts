@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
-import { LanguageService } from 'shared-lib';
+import { LanguageService, RouteParams, RouterService } from 'shared-lib';
 
 @Component({
   selector: 'app-login',
@@ -10,12 +10,13 @@ import { LanguageService } from 'shared-lib';
 export class LoginComponent implements OnInit {
   constructor(
     private languageService: LanguageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private routerService: RouterService
   ) {}
 
   ngOnInit(): void {
-    this.languageService.setDefaultLang('en');
-    this.languageService.setLang();
+    let culture = this.routerService.getRouteParams(RouteParams.CULTUREQUERY);
+    this.languageService.setDefaultLang(culture);
     this.authService.authorize();
   }
 }

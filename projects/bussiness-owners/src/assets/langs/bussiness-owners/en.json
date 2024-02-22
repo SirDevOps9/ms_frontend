@@ -91,5 +91,13 @@
       "Required": " is required",
       "Select": "Select "
     }
+  },
+  "UserConfirmation":{
+"Name":"Name",
+"Email":"Email",
+"Password":"Password",
+"ConfirmPassword":"ConfirmPassword",
+"policy":"I accept the user policy",
+"Save":"Save"
   }
 }
