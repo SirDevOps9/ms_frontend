@@ -19,8 +19,8 @@ export class AuthHttpService {
       model
     );
   }
-  updateLoginDate(): Observable<APIResponse<boolean>> {
-    return this.baseService.post<APIResponse<boolean>>(
+  updateLoginDate(): Observable<APIResponse<string>> {
+    return this.baseService.post<APIResponse<string>>(
       `${this.updateLoginDateAPI}`,null  );
   }
 

@@ -2,7 +2,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserService } from 'projects/bussiness-owners/src/app/services/users.httpsservice';
+import { forkJoin } from 'rxjs';
 import {
+  BaseDto,
   LanguageService,
   LoaderService,
   ToasterService,
@@ -31,21 +33,17 @@ export class UserInviteFormComponent implements OnInit {
     });
   }
   inviteForm: FormGroup;
-
-  domains: any[] = [
-    { id: 1, name: 'Marketing' },
-    { id: 2, name: 'Sales' },
-    { id: 3, name: 'Support' },
-  ];
-
-  actions: any[] = [
-    { id: 1, name: 'Read' },
-    { id: 2, name: 'Write' },
-    { id: 3, name: 'Manage' },
-  ];
+  domains: BaseDto[];
+  actions: BaseDto[];
 
   ngOnInit() {
-    // Fetch domains and actions dynamically if needed
+    forkJoin([
+      this.userService.subDomainDropDown(),
+      this.userService.platformDropDown(),
+    ]).subscribe(([subDomainData, platformData]) => {
+      this.domains = subDomainData.response;
+      this.actions = platformData.response;
+    });
   }
   onSubmit() {
     this.submitted = true;

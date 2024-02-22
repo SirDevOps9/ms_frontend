@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { LoginResponse, OidcSecurityService } from 'angular-auth-oidc-client';
 import {
   StorageService,
@@ -54,11 +54,28 @@ export class AuthService {
   getUserData(): LoginResponse {
     return this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
   }
-
-  afterLoginReidrect() {
+  saveTokenData(): Observable<LoginResponse> {
+    return this.oidcSecurityService.checkAuth().pipe(
+      map((loginResponse: LoginResponse) => {
+        this.saveUserData(loginResponse);
+        return loginResponse;
+      })
+    );
+  }
+  refreshToken(): Observable<LoginResponse> {
+    return this.oidcSecurityService.forceRefreshSession().pipe(
+      map((loginResponse: LoginResponse) => {
+        console.log('refresh Token', loginResponse);
+        this.saveUserData(loginResponse);
+        return loginResponse;
+      })
+    );
+  }
+  afterLoginRedirect() {
     this.oidcSecurityService
       .checkAuth()
       .subscribe((loginResponse: LoginResponse) => {
+        console.log('Second Call', loginResponse);
         this.saveUserData(loginResponse);
         this.routerService.navigateTo('');
       });

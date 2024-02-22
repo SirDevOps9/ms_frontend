@@ -5,6 +5,7 @@ import { UserService } from '../../services/users.httpsservice';
 import { LanguageService } from 'shared-lib';
 import { MatDialog } from '@angular/material/dialog';
 import { UserInviteFormComponent } from '../../components/userscomps/invite-form/user-invite-form/user-invite-form.component';
+import { AuthService } from 'microtec-auth-lib';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -17,9 +18,11 @@ export class UsersComponent implements OnInit {
     public languageService: LanguageService,
     private toasterService: ToasterService,
     private userService: UserService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthService
   ) {}
   ngOnInit() {
+    this.authService.refreshToken().subscribe();
     this.getAllUsers();
   }
   getAllUsers() {
