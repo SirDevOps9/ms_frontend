@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:2003',
+  baseUrl: 'https://intmicrotec.neat-url.com:2003',
   Version: 'V1',
   ClientId: 'BussinessOwner',
   Platform: 'Web',

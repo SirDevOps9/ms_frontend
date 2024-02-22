@@ -1,4 +1,4 @@
-import { Component, OnInit, PipeTransform } from '@angular/core';
+import { Component, OnInit, PipeTransform, ViewChild } from '@angular/core';
 import { UserListResponse } from '../../models/users/userlist.response';
 import { ToasterService } from 'shared-lib';
 import { UserService } from '../../services/users.httpsservice';
@@ -12,7 +12,9 @@ import { UserInviteFormComponent } from '../../components/userscomps/invite-form
 })
 export class UsersComponent implements OnInit {
   userData: UserListResponse[];
-
+  users:any[]=[];
+  checked: boolean = true;
+  @ViewChild('dt') dt:any | undefined;
   constructor(
     public languageService: LanguageService,
     private toasterService: ToasterService,
@@ -21,6 +23,91 @@ export class UsersComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.getAllUsers();
+    this.users=[
+      {
+        id: "010",
+        name: "aaaaaa",
+        email: "aaaaaaa",
+        countryId: "0",
+        phone: "string",
+        password: "string",
+        isMailSent: false,
+        isConfirmed: false,
+        roleId: "number",
+        identityId: "string",
+        typeId: "number",
+        isActive: false,
+        lastLoginDate: "string",
+        invitationStatus: "number",
+      },
+      {
+        id: "010",
+        name: "bbbbbbbb",
+        email: "bbbbbbbbb",
+        countryId: "0",
+        phone: "string",
+        password: "string",
+        isMailSent: false,
+        isConfirmed: false,
+        roleId: "number",
+        identityId: "string",
+        typeId: "number",
+        isActive: false,
+        lastLoginDate: "string",
+        invitationStatus: "number",
+      },
+      {
+        id: "010",
+        name: "aaaaaa",
+        email: "aaaaaaa",
+        countryId: "0",
+        phone: "string",
+        password: "string",
+        isMailSent: false,
+        isConfirmed: false,
+        roleId: "number",
+        identityId: "string",
+        typeId: "number",
+        isActive: false,
+        lastLoginDate: "string",
+        invitationStatus: "number",
+      },
+      {
+        id: "010",
+        name: "ccccccccc",
+        email: "ccccccccc",
+        countryId: "0",
+        phone: "string",
+        password: "string",
+        isMailSent: false,
+        isConfirmed: false,
+        roleId: "number",
+        identityId: "string",
+        typeId: "number",
+        isActive: false,
+        lastLoginDate: "string",
+        invitationStatus: "number",
+      },
+      {
+        id: "010",
+        name: "ccccccccc",
+        email: "cccccccccccccc",
+        countryId: "0",
+        phone: "string",
+        password: "string",
+        isMailSent: false,
+        isConfirmed: false,
+        roleId: "number",
+        identityId: "string",
+        typeId: "number",
+        isActive: false,
+        lastLoginDate: "string",
+        invitationStatus: "number",
+      },
+      
+    
+
+    ]
   }
   getAllUsers() {
     this.userService.getAll().subscribe({
@@ -43,6 +130,9 @@ export class UsersComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: UserListResponse) => {
       if (result as UserListResponse) this.userData.push(result);
     });
+  }
+  applyFilterGlobal($event:any, stringVal:any) {
+    this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
 
   async activate(id: number) {

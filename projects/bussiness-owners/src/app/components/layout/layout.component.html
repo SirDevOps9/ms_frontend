@@ -1,5 +1,5 @@
 <div dir="{{ 'dir' | translate }}">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+  <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light" >
     <div class="container">
       <a class="navbar-brand" routerLink="/home">Microtec BO</a>
       <button
@@ -47,13 +47,147 @@
               {{ languageService.Lang === "en" ? "English" : "عربى" }}
             </button>
           </li>
-          <!-- Pushing the username to the opposite side -->
           <li class="nav-item ml-auto">
             <span class="nav-link">{{ userName}}</span>
           </li>
         </ul>
       </div>
     </div>
-  </nav>
+  </nav> -->
+  <div class="card">
+    <div class="header_bussiness">
+      <p-menubar  >
+        <ng-template pTemplate="start">
+          <div class="start_nav">
+            <div class="logo">
+
+            </div>
+            <div class="suplogo" style="background-image: url('assets/images/navbar/suplogo.png');">
+            </div>
+            <!-- <img src="assets/images/navbar/logo (1).png" height="40" class="mr-2" /> -->
+            <!-- <div class="card flex justify-content-center align-items-center">
+              <p-breadcrumb class="max-w-full" [model]="itemsBrod" [home]="homeBrod"></p-breadcrumb>
+          </div> -->
+          </div>
+           
+          </ng-template>
+        <ng-template pTemplate="end" >
+          <div class="header_sec">
+            <div class="choices">
+              <div class="choices_com">
+                <div class="card flex justify-content-center">
+                  <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Company">
+                      <ng-template pTemplate="selectedItem" let-selectedOption>
+                          <div class="flex align-items-center gap-2">
+                              <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' " style="width: 18px"/>
+                              <div>{{ selectedOption.name }}</div>
+                          </div>
+                      </ng-template>
+                      <ng-template let-country pTemplate="item">
+                          <div class="flex align-items-center gap-2">
+                              <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' " style="width: 18px"/>
+                              <div>{{ country.name }}</div>
+                          </div>
+                      </ng-template>
+                  </p-dropdown>
+              </div>
+              </div>
+              <div class="choices_pr">
+                <div class="card flex justify-content-center">
+                  <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Branch">
+                      <ng-template pTemplate="selectedItem" let-selectedOption>
+                          <div class="flex align-items-center gap-2">
+                              <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' " style="width: 18px"/>
+                              <div>{{ selectedOption.name }}</div>
+                          </div>
+                      </ng-template>
+                      <ng-template let-country pTemplate="item">
+                          <div class="flex align-items-center gap-2">
+                              <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' " style="width: 18px"/>
+                              <div>{{ country.name }}</div>
+                          </div>
+                      </ng-template>
+                  </p-dropdown>
+              </div>
+              </div>
+            </div>
+            <div class="line">
+
+            </div>
+            <div class="end_header_sec">
+              <div class="link_sec">
+                <div class="count">
+                  10
+              </div>
+                <button >
+                  <span  class="pi pi-bell icon_link" ></span>
+                </button>
+              </div>
+              <div class="link_sec">
+                <div class="count">
+                  5
+              </div>
+                <button class="btn_count" >
+               
+                  <span  class="pi pi-comment icon_link" ></span>
+                </button>
+              </div>
+              <div class="link_sec">
+               
+                <button >
+                  <span  class="pi pi-cog icon_link" ></span>
+                </button>
+              </div>
+              <div class="link_sec">
+                <button >
+                  <span  class="pi pi-star icon_link" ></span>
+                </button>
+              </div>
+              <div class="profaile_sec">
+                <button (click)="cardDrob()" class="btn_profaile" style="background-image: url('assets/images/users/default.png');">
+    
+                </button>
+                <div class="profaile_card_drob" *ngIf="showcard">
+                    <div class="header_card">
+                        <div class="photo">
+                          <img src="assets/images/users/default.png">
+                        </div>
+                        <div class="title">
+                            <p class="name">ahmed gamal</p>
+                            <p class="description">admin</p>
+                        </div>
+                      
+                    </div>
+                    <button class="profaile_link">
+                      <p class="pi pi-user"></p>
+                      <p class="title">Profile</p>
+                    </button>
+                    <button class="lang_link">
+                      <p class="pi pi-language"></p>
+                      <p class="title">عربى</p>
+                    </button>
+                    <button class="mode_link">
+                      <p class="pi pi-moon"></p>
+                      <p class="title">Dark Mood</p>
+                    </button>
+                    <div class="footer_card">
+                      <div class="logout">
+                        <button class="log_link">
+                          <p class="pi pi-sign-out"></p>
+                          <p class="title">logout</p>
+                        </button>
+                      </div>
+                     </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        
+          
+        </ng-template>
+    </p-menubar>
+    </div>
+  
+</div>
   <router-outlet></router-outlet>
 </div>

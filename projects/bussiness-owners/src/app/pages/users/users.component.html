@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <!-- <div class="col-md-8">
       <div class="card">
         <div
           class="card-header d-flex justify-content-between align-items-center"
@@ -70,6 +70,73 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+   
+  <p-table
+    #dt
+    [value]="users"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="['name', 'email', 'representative.name', 'status']"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+>
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <h5 class="m-0">User information</h5>
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <!-- <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." /> -->
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="name" style="min-width:15rem">Name <p-sortIcon field="name"></p-sortIcon></th>
+           
+            <th pSortableColumn="email">Login Mail <p-sortIcon field="email"></p-sortIcon></th>
+            <th pSortableColumn="category" style="min-width:10rem">last login date <p-sortIcon field="category"></p-sortIcon></th>
+            <th pSortableColumn="rating">Actions <p-sortIcon field="rating"></p-sortIcon></th>
+            <th pSortableColumn="inventoryStatus" style="min-width:10rem">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+            
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+        <tr>
+            <td>
+              <div class=" user_info">
+                <img  src="assets/images/users/default.png"  width="50" class="shadow-4 img_user"/>
+                <p>{{ product.name }}</p>
+              </div>
+            </td>
+            <td>{{ product.email }}</td>
+            <td>
+              <span class="pi pi-calendar-minus"></span>
+            
+              {{ product.date| date : "dd/MM/yyyy HH:mm" }}</td>
+            <td>
+              
+<p-button icon="pi pi-pencil" [rounded]="true" [text]="true" severity="secondary "></p-button>
+              <!-- <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded mr-2" ></button> -->
+              <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger "></p-button>
+
+              <!-- <button pButton pRipple icon="pi pi-trash" class="p-button-rounded   " ></button> -->
+          </td>
+            <td>
+              <!-- <div class="card flex justify-content-center"> -->
+                <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
+            <!-- </div> -->
+            </td>
+           
+        </tr>
+    </ng-template>
+    <!-- <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">In total there are {{ products ? products.length : 0 }} products.</div>
+    </ng-template> -->
+</p-table>
   </div>
 </div>

@@ -1,0 +1,179 @@
+.start_nav{
+    display: flex;
+    align-items: center;
+    .logo{
+        width: 130px;
+        height: 30px;
+        background-image: url("../../../assets/images/navbar/logo\ \(1\).png");
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        border-right: 1px solid #6B7280;
+    }
+    .suplogo{
+        width: 80px;
+        height: 80px;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+}
+.header_sec{
+    display: flex;
+    align-items: center;
+    .choices{
+        display: flex;
+        align-items: center;
+        border-right: 1px solid #6B7280;
+        padding-right: 10px;
+        .choices_com{
+            margin-inline-end: 30px;
+        }
+    }
+    .line{
+        width: 1px;
+
+        height: 80%;
+        background: #6B7280;
+    }
+    .end_header_sec{
+    display: flex;
+    align-items: center;
+    position: relative;
+    button{
+        background: none;
+        border: none;
+    }
+    .icon_link{
+        color:#6B7280 ;
+        font-size: 22px;
+    }
+        .link_sec{
+            margin-inline-end: 20px;
+            position: relative;
+            width: 50px;
+            height:50px ;
+            .count{
+                top: 5px;
+                right: 5px;
+                width: 20px;
+                height: 20px;
+                color: #fff;
+                background: red;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                position: absolute;
+            }
+            button{
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .profaile_sec{
+            
+            position: relative;
+            .btn_profaile{
+                width: 58px;
+                height: 58px;
+                border-radius: 50%;
+                border: 1px solid #000;
+                background-position: center;
+                background-size: cover;
+            }
+            .profaile_card_drob{
+                position: absolute;
+                right: 0px;
+                top: 70px;
+                width: 230px;
+                padding: 5px;
+                background-color: #fff;
+                z-index: 1000;
+                border-radius: 11px;
+                .header_card{
+                    display:flex ;
+                    align-items: start;
+                    border-bottom: 1px solid #383A42;
+                    padding-bottom: 5px;
+                    .photo{
+                        width: 40px;
+                        height: 40px;
+                        border: 1px solid #000;
+                        border-radius: 11px;
+                        img{
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 11px;
+                        }
+                    }
+                    .title{
+                        margin-inline-start: 10px;
+                      
+                        .name{
+                            margin: 0;
+                            padding: 0;
+                            font-size: 18px;
+                            font-weight: 600;
+                            color: #000;
+                            text-transform: capitalize;
+                        }
+                        .description{
+                            margin: 0;
+                            padding: 0;
+                            font-size: 16;
+                            color: gray;
+                            text-transform: capitalize;
+                        }
+                    }
+                }
+                .profaile_link ,.lang_link , .mode_link{
+                    width: 100%;
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    .title{
+                        font-size: 14;
+                        color: #383A42;
+                        margin-inline-start: 5px;
+                    }
+                }
+                .footer_card{
+                    .logout{
+                        border-top: 1px solid #383A42;
+                        .log_link{
+                            width: 100%;
+                            background: none;
+                            border: none;
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            .title{
+                                font-size: 14;
+                                color: #383A42;
+                                margin-inline-start: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+.header_bussiness{
+    position: relative !important;
+}
+::ng-deep .header_bussiness .p-menubar {
+   
+        background: #fff !important;
+        border: none !important;
+}
+::ng-deep .header_bussiness  .p-breadcrumb {
+        border: none !important;
+}

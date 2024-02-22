@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { SharedLibModule } from '../../../shared-lib/src/public-api';
 import { environment } from '../environments/environment';
@@ -22,7 +22,13 @@ import {
 import { UserInviteFormComponent } from './components/userscomps/invite-form/user-invite-form/user-invite-form.component';
 import { AddCompanyComponent } from './pages/company/add-compny/add-compny.component';
 import { CompanyComponent } from './pages/company/company.component';
-
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { MenubarModule } from 'primeng/menubar';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { DropdownModule } from 'primeng/dropdown';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +63,14 @@ import { CompanyComponent } from './pages/company/company.component';
     BrowserModule,
     AppRoutingModule,
     CookieModule.withOptions(),
+    TableModule,
+    ButtonModule,
+    InputTextModule,
+    MenubarModule,
+    BreadcrumbModule,
+    InputSwitchModule,
+    FormsModule,
+    DropdownModule
   ],
   providers: [
     {
