@@ -3,8 +3,3 @@ export interface DropdownItemDto {
     name: string;
   }
   
-  export  interface DropdownListDto {
-    currencyDropdown: DropdownItemDto[];
-    industryDropdown: DropdownItemDto[];
-  }
-  

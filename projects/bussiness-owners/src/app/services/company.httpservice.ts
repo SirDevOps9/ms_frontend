@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { APIResponse, BaseService, ResponseItems} from 'shared-lib';
 import { AddCompanyDto } from '../models/company/addcompany';
 import { Observable } from 'rxjs';
-import { DropdownListDto,  DropdownItemDto} from '../models/company/dropdown';
+import { DropdownItemDto} from '../models/company/dropdown';
 import { CompanyListResponse } from '../models/company/companylist.response';
 import { ResponseCompanyDto } from '../models/company/responsecompanydto';
 import { MobileCodeDropdownDto } from '../models/company/mobilecodedropdown';
 import { CountryDropDown } from '../models/company/countrydropdown';
+import { DropdownListDto } from '../models/company/dropdownlist';
 
 
 @Injectable({
