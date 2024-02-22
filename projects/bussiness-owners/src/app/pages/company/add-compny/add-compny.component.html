@@ -21,31 +21,31 @@
           {{ "Company.Add.Subdomain" | translate }}
         </div>
       </div>
-      <!-- 
+      
       <div class="form-group mb-3">
-        <label for="subdomain" class="form-label"
-          >{{ "Company.Add.Subdomain" | translate }} :</label
+        <label for="country" class="form-label"
+          >{{ "Company.Add.Country" | translate }} :</label
         >
         <select
-          formControlName="subdomain"
-          id="subdomain"
-          name="subdomain"
+          formControlName="countryCode"
+          id="country"
+          name="country"
           class="form-select"
           required
         >
           <option value="">
             {{ "Company.Add.Select" | translate }}
-            {{ "Company.Add.Subdomain" | translate }}
+            {{ "Company.Add.Country" | translate }}
           </option>
-          <option *ngFor="let option of subdoaminDropDown" [value]="option.id">
+          <option *ngFor="let option of CountryDropDown " [value]="option.code">
             {{ option.name }}
           </option>
         </select>
-        <div *ngIf="hasError('subdomain', 'required')" class="text-danger">
-          {{ "Company.Add.Subdomain" | translate }}
+        <div *ngIf="hasError('Country', 'required')" class="text-danger">
+          {{ "Company.Add.Country" | translate }}
           {{ "Company.Add.Required" | translate }}
         </div>
-      </div> -->
+      </div>
 
       <div class="form-group mb-3">
         <label for="companyName" class="form-label">

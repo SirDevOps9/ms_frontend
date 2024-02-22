@@ -11,6 +11,7 @@ import { DropdownItemDto } from '../../../models/company/dropdown';
 import { AddCompanyDto } from '../../../models/company/addcompany';
 import { MobileCodeDropdownDto } from '../../../models/company/mobilecodedropdown';
 import { combineLatest } from 'rxjs';
+import { CountryDropDown } from '../../../models/company/countrydropdown';
 @Component({
   selector: 'app-add-compny',
   templateUrl: './add-compny.component.html',
@@ -20,8 +21,9 @@ export class AddCompanyComponent implements OnInit {
   companyForm: FormGroup;
   currencyDropDown: DropdownItemDto[];
   industryDropDown: DropdownItemDto[];
-  mobileCodeDropDown: MobileCodeDropdownDto[];
   subdoaminDropDown: DropdownItemDto[];
+  CountryDropDown: CountryDropDown[];
+  mobileCodeDropDown: MobileCodeDropdownDto[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,6 +35,7 @@ export class AddCompanyComponent implements OnInit {
   ) {
     this.companyForm = this.formBuilder.group({
       name: ['', Validators.required],
+      countryCode: ['', Validators.required],
       subdomainName: ['', Validators.required],
       industryId: ['', Validators.required],
       currencyId: ['', Validators.required],
@@ -61,8 +64,9 @@ export class AddCompanyComponent implements OnInit {
     combineLatest([
       this.companyService.getDropDown(),
       this.companyService.getMobileCodeDropDown(),
+      this.companyService.getCountryDropDown(),
     ]).subscribe({
-      next: ([resDropdown, resMobileCode]) => {
+      next: ([resDropdown, resMobileCode,  resCountry]) => {
         this.currencyDropDown = resDropdown.response.currencyDropdown;
         this.logService.log(this.currencyDropDown, 'currency Information:');
 
@@ -73,6 +77,12 @@ export class AddCompanyComponent implements OnInit {
         this.logService.log(
           this.mobileCodeDropDown,
           'mobileCodeDropdownDto Information:'
+        );
+
+        this.CountryDropDown = resCountry.response;
+        this.logService.log(
+          this.CountryDropDown,
+          'CountryDropDown Information:'
         );
 
       },

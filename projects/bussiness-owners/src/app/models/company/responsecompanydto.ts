@@ -9,4 +9,7 @@ export interface ResponseCompanyDto {
     companyEmail: string;
     industryName: string;
     currencyName: string;
+    CountryName:string;
+    isActive: boolean;
+
 }

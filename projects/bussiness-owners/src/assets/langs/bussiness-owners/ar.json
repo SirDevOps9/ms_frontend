@@ -63,8 +63,17 @@
     "Address": "العنوان",
     "NoData": "لا توجد بيانات",
     "CompanyAddedSuccessfully":"تمت إضافة الشركة بنجاح",
-
+    "Id": "الرقم",
+    "Name": "الاسم",
+    "Deactivate": "الغاء التفعيل",
+    "Activate": "تفعيل",
+    "CopmanyDeactivatedSuccessfully": "العميل غير مفعل بنجاح",
+    "CopmanyActivatedSuccessfully": "العميل مفعل بنجاح",
     "Add": {
+      "AddCompany": "إضافة شركة",
+      "Country": "دولة",
+
+      "Status": "(تفعيل او الغاء تفعيل)الحالة",
       "Step": "الخطوة 01 - معلومات الشركة الرئيسية",
       "AccInfo": "معلومات الحساب",
       "CompanyName": "اسم الشركة",

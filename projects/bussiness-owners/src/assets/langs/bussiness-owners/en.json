@@ -55,6 +55,7 @@
     }
   },
   "Company": {
+    "PageName": "Companies",
     "CompanyList": "Company List",
     "CreateNew": "Create New Company",
     "CompanyName": "Company Name",
@@ -63,7 +64,17 @@
     "Address": "Address",
     "NoData": " There is no data",
     "CompanyAddedSuccessfully":"Company added successfully",
+    "CompanyDeactivatedSuccessfully": "user deactivaed Successfully",
+    "CompanyActivatedSuccessfully": "user activaed Successfully",
+    "Id": "Id",
+    "Name": "Name",
+    "Deactivate": "Deactivate",
+    "Activate": "Activate",
     "Add": {
+      "AddCompany": "Add Company",
+        "Country": "Country",
+      "Status": "Status(Activate Or Deactivate)",
+
       "Step": "Step 01 - Company Main Info",
       "AccInfo": "Account Information",
       "CompanyName": "Company Name",

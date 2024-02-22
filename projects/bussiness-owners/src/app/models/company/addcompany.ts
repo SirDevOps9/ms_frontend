@@ -6,6 +6,7 @@ export interface AddCompanyDto {
   mobileNumberCode: string;
   mobileNumber: string;
   companyEmail: string;
+  countryCode:string;
   industryId: number;
   currencyId: number;
 }  

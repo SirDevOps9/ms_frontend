@@ -6,6 +6,7 @@ import { DropdownListDto,  DropdownItemDto} from '../models/company/dropdown';
 import { CompanyListResponse } from '../models/company/companylist.response';
 import { ResponseCompanyDto } from '../models/company/responsecompanydto';
 import { MobileCodeDropdownDto } from '../models/company/mobilecodedropdown';
+import { CountryDropDown } from '../models/company/countrydropdown';
 
 
 @Injectable({
@@ -16,6 +17,8 @@ export class CompanyService {
   private companyDropDown = `/dropdowns`;
   private country = `Country`;
   private countrycode = `/GetAllCountryCodeDropDown`;
+  private countryName = `/GetAllDropDown`;
+
   private subdomain = `SubDomain`;
   private subdomainDropDown = `/GetAllDropDown`;
 
@@ -28,7 +31,7 @@ export class CompanyService {
       request
     );
   }
-  getAll(): Observable<APIResponse<CompanyListResponse>> {
+  getAll(): Observable<APIResponse<ResponseCompanyDto[]>> {
     return this.baseService.get<APIResponse<CompanyListResponse[]>>(`${this.company}`);
   }
   getDropDown():Observable<APIResponse<DropdownListDto>>{
@@ -41,5 +44,22 @@ export class CompanyService {
 
   getSubdomainDropDown():Observable<APIResponse<DropdownItemDto[]>>{
     return this.baseService.get<APIResponse<DropdownItemDto[]>>(`${this.subdomain}${this.subdomainDropDown}`);
+  }
+
+  getCountryDropDown():Observable<APIResponse<CountryDropDown[]>>{
+    return this.baseService.get<APIResponse<CountryDropDown[]>>(`${this.country}${this.countryName}`);
+  }
+
+  activateCompany(id: number): Observable<APIResponse<boolean>> {
+    return this.baseService.put<APIResponse<boolean>>(
+      `${this.company}/activatecompany/${id}`,
+      {}
+    );
+  }
+  deactivateCompany(id: number): Observable<APIResponse<boolean>> {
+    return this.baseService.put<APIResponse<boolean>>(
+      `${this.company}/deactivatecompany/${id}`,
+      {}
+    );
   }
 }
