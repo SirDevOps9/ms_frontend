@@ -12,16 +12,18 @@ export class LoginRedirectComponent implements OnInit {
   loginResponse: any;
   ngOnInit() {
     this.authService
-    .saveTokenData()
-    .pipe(switchMap(() => this.authHttp.updateLoginDate()))
-    .subscribe({
-      next: (tenantObj) => {
-        this.localStorage.setItem(StorageKeys.TENANT, tenantObj.response);
-        this.authService.afterLoginRedirect();
-      },
-    });
+      .saveTokenData()
+      .pipe(switchMap(() => this.authHttp.updateLoginDate()))
+      .subscribe({
+        next: (tenantObj) => {
+          this.localStorage.setItem(StorageKeys.TENANT, tenantObj.response);
+          this.authService.afterLoginRedirect();
+        },
+      });
   }
-  constructor(private authService: AuthService,
+  constructor(
+    private authService: AuthService,
     private localStorage: StorageService,
-    private authHttp:AuthHttpService) {}
+    private authHttp: AuthHttpService
+  ) {}
 }

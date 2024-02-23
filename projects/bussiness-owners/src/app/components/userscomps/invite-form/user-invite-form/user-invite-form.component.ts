@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserService } from 'projects/bussiness-owners/src/app/services/users.httpsservice';
@@ -47,25 +47,26 @@ export class UserInviteFormComponent implements OnInit {
   }
   onSubmit() {
     this.submitted = true;
-    if (this.inviteForm.valid) {
-      this.loaderService.show();
-      this.inviteForm.value.invitationStatus = 1;
-      this.userService.inviteUser(this.inviteForm.value).subscribe({
-        next: (res) => {
-          this.submitted = false;
-          this.toasterService.showSuccess(
-            this.languageService.transalte('User.Inviteform.Success'),
-            this.languageService.transalte('User.Inviteform.InviationSent')
-          );
-          this.loaderService.hide();
-          this.dialogRef.close(res.response);
-        },
-        error: (err) => {
-          this.loaderService.hide();
-          this.submitted = false;
-        },
-      });
+    if (!this.inviteForm.valid) {
+      return;
     }
+    this.loaderService.show();
+    this.inviteForm.value.invitationStatus = 1;
+    this.userService.inviteUser(this.inviteForm.value).subscribe({
+      next: (res) => {
+        this.submitted = false;
+        this.toasterService.showSuccess(
+          this.languageService.transalte('User.Inviteform.Success'),
+          this.languageService.transalte('User.Inviteform.InviationSent')
+        );
+        this.loaderService.hide();
+        this.dialogRef.close(res.response);
+      },
+      error: (err) => {
+        this.loaderService.hide();
+        this.submitted = false;
+      },
+    });
   }
 
   onCancel() {

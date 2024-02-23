@@ -1,0 +1,24 @@
+import { Injectable } from '@angular/core';
+import { IEnvironment } from '../models';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class EnvironmentService implements IEnvironment {
+  constructor() {}
+  production: boolean;
+  baseUrl: string;
+  Version: string;
+  ClientId: string;
+  Platform: string;
+  openIdConfig: {
+    authority: string;
+    redirectUrl: string;
+    postLogoutRedirectUri: string;
+    clientId: string;
+    scope: string;
+    responseType: string;
+    silentRenew: true;
+    useRefreshToken: true;
+  };
+}

@@ -1,4 +1,6 @@
-export const environment = {
+import { IEnvironment } from "shared-lib";
+
+export const environment : IEnvironment = {
   production: false,
   baseUrl: 'http://localhost:2003',
   Version: 'V1',

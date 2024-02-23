@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -13,12 +13,13 @@ import { StorageKeys } from '../constants/storagekeys';
 import { HeaderParams } from '../constants/headerparams';
 import { ToasterService } from './toaster.service';
 import { AuthService } from 'microtec-auth-lib';
+import { EnvironmentService } from './environment.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BaseService {
-  baseUrl = this.environment.baseUrl;
+  baseUrl = this.environmentService.baseUrl;
 
   constructor(
     private http: HttpClient,
@@ -26,7 +27,7 @@ export class BaseService {
     private logService: LogService,
     private toasterService: ToasterService,
     private authService: AuthService,
-    @Inject('env') private environment: any
+    private environmentService: EnvironmentService
   ) {}
 
   private addHeaders(): Observable<HttpHeaders> {
@@ -40,9 +41,9 @@ export class BaseService {
           [HeaderParams.TENANT_ID]: '1',
           [HeaderParams.COMPANY_ID]: '2',
           [HeaderParams.BRANCH_ID]: '2',
-          [HeaderParams.VERSION]: this.environment.Version,
-          [HeaderParams.CLIENTID]: this.environment.ClientId,
-          [HeaderParams.PLATFORMTYPE]: this.environment.Platform,
+          [HeaderParams.VERSION]: this.environmentService.Version,
+          [HeaderParams.CLIENTID]: this.environmentService.ClientId,
+          [HeaderParams.PLATFORMTYPE]: this.environmentService.Platform,
         });
         return of(headers);
       })
