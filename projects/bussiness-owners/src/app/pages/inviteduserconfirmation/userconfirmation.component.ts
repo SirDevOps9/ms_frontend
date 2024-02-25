@@ -4,11 +4,9 @@ import {
   LoaderService,
   LogService,
   RouterService,
-  customValidators,
 } from 'shared-lib';
 import { InviteduserService } from '../../services/inviteduser.httpservice';
 import { AddConfirmedUserDto } from '../../models/users/addconfirmedcser.model';
-
 @Component({
   selector: 'app-userconfirmation',
   templateUrl: './userconfirmation.component.html',
@@ -32,6 +30,7 @@ export class UserconfirmationComponent implements OnInit {
     this.initializeForm();
     this.GetEmail();
   }
+ 
   initializeForm() {
     this.userForm = this.formBuilder.group({
       fullName: ['', [Validators.required, Validators.maxLength(50)]],
@@ -43,7 +42,9 @@ export class UserconfirmationComponent implements OnInit {
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
       acceptPolicy: [false, Validators.requiredTrue],
+      photo:['']
     });
+    
   }
   GetEmail() {
     this.inviteduserId = this.router.currentId;
