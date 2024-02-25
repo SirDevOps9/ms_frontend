@@ -159,10 +159,10 @@
             {{ "Company.Add.MobileNumberCode" | translate }}
           </option>
           <option
-            *ngFor="let option of CountryDropDown"
+            *ngFor="let option of mobileCodeDropDown"
             [value]="option.code"
           >
-            {{ option.code }}
+            {{ option.phoneCode }}
           </option>
         </select>
         <div

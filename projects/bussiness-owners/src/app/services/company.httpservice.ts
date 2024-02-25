@@ -6,6 +6,7 @@ import { DropdownItemDto} from '../models/company/dropdown';
 import { ResponseCompanyDto } from '../models/company/responsecompanydto';
 import { CountryDropDown } from '../models/company/countrydropdown';
 import { DropdownListDto } from '../models/company/dropdownlist';
+import { MobileCodeDropdownDto } from '../models/company/mobilecodedropdown';
 
 
 @Injectable({
@@ -41,6 +42,11 @@ export class CompanyService {
   getSubdomainDropDown():Observable<APIResponse<DropdownItemDto[]>>{
     return this.baseService.get<APIResponse<DropdownItemDto[]>>(`${this.subdomain}${this.subdomainDropDown}`);
   }
+  
+  getMobileCodeDropDown():Observable<APIResponse<MobileCodeDropdownDto[]>>{
+    return this.baseService.get<APIResponse<MobileCodeDropdownDto[]>>(`${this.country}${this.countrycode}`);
+  }
+
 
   getCountryDropDown():Observable<APIResponse<CountryDropDown[]>>{
     return this.baseService.get<APIResponse<CountryDropDown[]>>(`${this.country}${this.countryName}`);

@@ -11,6 +11,7 @@ import { DropdownItemDto } from '../../../models/company/dropdown';
 import { AddCompanyDto } from '../../../models/company/addcompany';
 import { combineLatest } from 'rxjs';
 import { CountryDropDown } from '../../../models/company/countrydropdown';
+import { MobileCodeDropdownDto } from '../../../models/company/mobilecodedropdown';
 @Component({
   selector: 'app-add-compny',
   templateUrl: './add-compny.component.html',
@@ -22,6 +23,8 @@ export class AddCompanyComponent implements OnInit {
   industryDropDown: DropdownItemDto[];
   subdoaminDropDown: DropdownItemDto[];
   CountryDropDown: CountryDropDown[];
+  mobileCodeDropDown: MobileCodeDropdownDto[];
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -55,10 +58,13 @@ export class AddCompanyComponent implements OnInit {
      // Add change event listener to the country dropdown
      this.companyForm.get('countryCode')?.valueChanges.subscribe((selectedCountryCode) => {
       // Find the corresponding country from the fetched data
-      const selectedCountry = this.CountryDropDown.find(country => country.code === selectedCountryCode);
+      const selectedCountry = this.mobileCodeDropDown.find(mobile => mobile.code === selectedCountryCode);
+      this.logService.log(selectedCountryCode, 'cadfdsf:');
 
       if (selectedCountry) {
         // Set the corresponding phone code in the form
+        this.logService.log(selectedCountry.phoneCode, 'cadfdsf:');
+
         this.companyForm.patchValue({ 'mobileNumberCode': selectedCountry.code });
 
       } 
@@ -79,22 +85,24 @@ export class AddCompanyComponent implements OnInit {
   getDropDowns() {
     combineLatest([
       this.companyService.getDropDown(),
+      this.companyService.getMobileCodeDropDown(),
       this.companyService.getCountryDropDown(),
     ]).subscribe({
-      next: ([resDropdown,  resCountry]) => {
+      next: ([resDropdown, resMobileCode,  resCountry]) => {
         this.currencyDropDown = resDropdown.response.currencyDropdown;
         this.logService.log(this.currencyDropDown, 'currency Information:');
-
         this.industryDropDown = resDropdown.response.industryDropdown;
         this.logService.log(this.industryDropDown, 'industry Information:');
-
-
+        this.mobileCodeDropDown = resMobileCode.response;
+        this.logService.log(
+          this.mobileCodeDropDown,
+          'mobileCodeDropdownDto Information:'
+        );
         this.CountryDropDown = resCountry.response;
         this.logService.log(
           this.CountryDropDown,
           'CountryDropDown Information:'
         );
-
       },
     });
   }
