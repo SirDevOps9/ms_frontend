@@ -32,6 +32,7 @@
     "Email": "Email",
     "Phone": "Phone",
     "Status": "Status(Activate Or Deactivate)",
+    "Resend":"Resend",
     "Deactivate": "Deactivate",
     "Activate": "Activate",
     "Succefully": "Succefully",
@@ -69,6 +70,9 @@
 
   },
   "Company": {
+    "Error": "Error",
+    "Success": "Success",
+    "PageName": "Companies",
     "CompanyList": "Company List",
     "CreateNew": "Create New Company",
     "CompanyName": "Company Name",
@@ -76,7 +80,20 @@
     "Website": "Website",
     "Address": "Address",
     "NoData": " There is no data",
+    "CompanyDeactivatedSuccessfully": "Company deactivaed Successfully",
+    "CompanyActivatedSuccessfully": "Company activaed Successfully",
+    "Id": "Id",
+    "Name": "Name",
+    "Deactivate": "Deactivate",
+    "Activate": "Activate",
     "Add": {
+      "CompanyAddedSuccessfully": "Company added successfully",
+      "Error": "Error",
+      "Success": "Success",
+      "AddCompany": "Add Company",
+      "Country": "Country",
+      "PleaseFillInAllTheRequiredFields": "Please fill in all the required fields.",
+      "Status": "Status(Activate Or Deactivate)",
       "Step": "Step 01 - Company Main Info",
       "AccInfo": "Account Information",
       "CompanyName": "Company Name",
@@ -86,6 +103,7 @@
       "Domain": "Choose Your Domain:",
       "Subdomain": "Subdomain",
       "Currency": "Currency",
+      "MobileNumberCode": "Mobile Code",
       "MobileNumber": "Mobile Number",
       "CompanyEmail": "Company Email",
       "Next": "Next",
@@ -93,12 +111,12 @@
       "Select": "Select "
     }
   },
-  "UserConfirmation":{
-"Name":"Name",
-"Email":"Email",
-"Password":"Password",
-"ConfirmPassword":"ConfirmPassword",
-"policy":"I accept the user policy",
-"Save":"Save"
+  "UserConfirmation": {
+    "Name": "Name",
+    "Email": "Email",
+    "Password": "Password",
+    "ConfirmPassword": "ConfirmPassword",
+    "policy": "I accept the user policy",
+    "Save": "Save"
   }
 }

@@ -37,6 +37,16 @@ export class UsersComponent implements OnInit {
     else this.deactivate(id);
   }
 
+  resendInvitation(id: number) {
+    this.userService.resendInvitation(id).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('User.Inviteform.Success'),
+          this.languageService.transalte('User.Inviteform.InviationSent')
+        );
+      },
+    });
+  }
   openInviteModal() {
     const dialogRef = this.dialog.open(UserInviteFormComponent, {
       width: '600px',

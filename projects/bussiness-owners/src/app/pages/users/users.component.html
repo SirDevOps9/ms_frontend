@@ -56,7 +56,14 @@
                       ) | translate
                     }}
                   </td>
-                  <td>
+                  <td *ngIf="item.invitationStatus == 1">
+                    <button
+                    class="btn btn-info"
+                    (click)="resendInvitation(item.id)"
+                  >  {{ "User.Resend" | translate }}
+                  </button>
+                  </td>
+                  <td *ngIf="item.invitationStatus == 2">
                     <button
                       class="btn btn-info"
                       (click)="toggle(item.id, item.isActive)"

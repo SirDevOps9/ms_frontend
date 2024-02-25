@@ -5,10 +5,13 @@ import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { SharedLibModule } from '../../../shared-lib/src/public-api';
+import {
+  EnvironmentService,
+  MultiTranslateHttpLoader,
+  SharedLibModule,
+} from 'shared-lib';
 import { environment } from '../environments/environment';
 import { AbstractSecurityStorage, AuthModule } from 'angular-auth-oidc-client';
-import { MultiTranslateHttpLoader } from '../../../shared-lib/src/lib/services/translationHttpLoader';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
@@ -33,7 +36,7 @@ import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetai
     UserInviteFormComponent,
     AddCompanyComponent,
     CompanyComponent,
-    UserconfirmationComponent,
+    UserconfirmationComponent
     bouserdetails
   ],
   imports: [
@@ -56,13 +59,14 @@ import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetai
       },
     }),
     MicrotecAuthLibModule,
-    SharedLibModule.forRoot(environment),
+    SharedLibModule,
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     CookieModule.withOptions(),
   ],
   providers: [
+    { provide: EnvironmentService, useValue: environment },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ERPInterceptor,

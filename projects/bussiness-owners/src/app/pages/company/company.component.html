@@ -1,25 +1,55 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <div class="row">
-        <div class="col-md-6">
-          <h2>{{ "Company.CompanyList" | translate }}</h2>
+      <div class="card">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h3 class="card-title">{{ "Company.CompanyList" | translate }}</h3>
+          <a class="btn btn-primary" (click)="navigateToAdd()">
+            {{ "Company.Add.AddCompany" | translate }}
+          </a>
         </div>
-        <!-- <div class="col-md-6 text-md-right">
-          <button class="btn btn-primary mb-3" (click)="navigateToAdd()">
-            {{ "Company.CreateNew" | translate }}
-          </button>
-        </div> -->
-        <app-erp-table
-          [headers]="['name', 'industryName', 'website', 'address']"
-          [headerTranslations]="[
-            'Company.CompanyName',
-            'Company.Industry',
-            'Company.Website',
-            'Company.Address'
-          ]"
-          [tableData]="companies!"
-        ></app-erp-table>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped custom-table">
+              <thead class="thead-custom">
+                <tr>
+                  <th>
+                    {{ "Company.Id" | translate }}
+                  </th>
+                  <th>
+                    {{ "Company.Name" | translate }}
+                  </th>
+                  <th>
+                    {{ "Company.Website" | translate }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of companies">
+                  <td>{{ item["id"] }}</td>
+                  <td>{{ item["name"] }}</td>
+                  <td>{{ item["website"] }}</td>
+
+                  <td>
+                    <button
+                      class="btn btn-info"
+                      (click)="toggle(item.id, item.isActive)"
+                    >
+                      {{
+                        (item.isActive
+                          ? "Company.Deactivate"
+                          : "Company.Activate"
+                        ) | translate
+                      }}
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>

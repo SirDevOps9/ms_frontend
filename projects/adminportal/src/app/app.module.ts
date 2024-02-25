@@ -2,11 +2,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SharedLibModule } from '../../../shared-lib/src/public-api';
+import {
+  EnvironmentService,
+  MultiTranslateHttpLoader,
+  SharedLibModule,
+} from 'shared-lib';
 import { AbstractSecurityStorage, AuthModule } from 'angular-auth-oidc-client';
 import { environment } from '../environments/environment';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { MultiTranslateHttpLoader } from '../../../shared-lib/src/lib/services/translationHttpLoader';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
@@ -39,11 +42,12 @@ import { LayoutComponent } from './components/layout/layout.component';
       config: environment.openIdConfig,
     }),
     MicrotecAuthLibModule,
-    SharedLibModule.forRoot(environment),
+    SharedLibModule,
     BrowserAnimationsModule,
     CookieModule.withOptions(),
   ],
   providers: [
+    { provide: EnvironmentService, useValue: environment },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ERPInterceptor,

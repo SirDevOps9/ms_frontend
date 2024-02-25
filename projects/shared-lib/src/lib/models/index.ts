@@ -5,3 +5,4 @@ export * from './loginmodel';
 export * from './searchField';
 export * from './tokenModel';
 export * from './searchField'
+export * from './iEnvironment'

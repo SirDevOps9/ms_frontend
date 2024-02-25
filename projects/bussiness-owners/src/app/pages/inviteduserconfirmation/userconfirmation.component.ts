@@ -27,6 +27,8 @@ export class UserconfirmationComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log("User Confirmation");
+    
     this.initializeForm();
     this.GetEmail();
   }

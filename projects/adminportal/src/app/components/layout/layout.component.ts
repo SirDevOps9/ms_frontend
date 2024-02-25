@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { LanguageService } from '../../../../../shared-lib/src/lib/services/language.service';
-import { RouterService } from '../../../../../shared-lib/src/lib/services/router.service';
+import { Component } from '@angular/core';
+import { LanguageService, RouterService } from 'shared-lib';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { AuthService } from 'microtec-auth-lib';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+  styleUrls: ['./layout.component.css'],
 })
 export class LayoutComponent {
   constructor(
@@ -22,8 +21,8 @@ export class LayoutComponent {
     this.languageService.toggleLanguage();
   }
   logout(): void {
-    console.log("logout");
-    
+    console.log('logout');
+
     this.oidcSecurityService
       .logoff()
       .subscribe((result) => console.log(result));
