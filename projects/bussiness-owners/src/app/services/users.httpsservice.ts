@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { APIResponse, BaseService } from 'shared-lib';
 import { UserListResponse } from '../models/users/userlist.response';
 import { InviteUserDto } from '../models/users/inviteuser.model';
+import { GetUserbyid } from '../models/users/getuserbyid.response';
 @Injectable({
   providedIn: 'root',
 })
@@ -37,5 +38,15 @@ export class UserService {
       {}
     );
   }
- 
+  getUserById(id:string): Observable<APIResponse<GetUserbyid>> {
+    return this.baseService.get<APIResponse<GetUserbyid>>(
+      `${this.userController}/Getbyid/${id}`
+    );
+  }
+  
+  updateUser(user:any , id:string):Observable<APIResponse<boolean>> {
+    return this.baseService.get<APIResponse<boolean>>(
+      `${this.userController}/Getbyid/${id}`
+    );
+  }
 }

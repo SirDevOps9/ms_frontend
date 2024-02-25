@@ -1,0 +1,29 @@
+<div>
+  <h1>Edit User Profile</h1>
+  <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+    <label for="username">Username:</label>
+    <input type="text" id="username" formControlName="username" required />
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" formControlName="email" required />
+
+    <label for="photo">Photo:</label>
+    <input type="file" id="photo" formControlName="photo" />
+
+    <label for="subdomain">Subdomain:</label>
+    <select id="subdomain" formControlName="subdomain" multiple>
+      <option *ngFor="let subdomain of subdomains" [value]="subdomain.id">
+        {{ subdomain.name }}
+      </option>
+    </select>
+
+    <label for="platformplan">Platform Plan:</label>
+    <select id="platformplan" formControlName="platformplan" multiple>
+      <option *ngFor="let plan of platformplans" [value]="plan.id">
+        {{ plan.name }}
+      </option>
+    </select>
+
+    <button type="submit">Save Changes</button>
+  </form>
+</div>

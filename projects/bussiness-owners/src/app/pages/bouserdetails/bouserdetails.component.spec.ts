@@ -2,22 +2,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { bouserdetails } from './Bouserdetails.component';
 
-import { UpdateuserbyadminComponent } from './Updateuserbyadmin.component';
-
-describe('UpdateuserbyadminComponent', () => {
-  let component: UpdateuserbyadminComponent;
-  let fixture: ComponentFixture<UpdateuserbyadminComponent>;
+describe('bouserdetails', () => {
+  let component: bouserdetails;
+  let fixture: ComponentFixture<bouserdetails>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UpdateuserbyadminComponent ]
+      declarations: [ bouserdetails ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UpdateuserbyadminComponent);
+    fixture = TestBed.createComponent(bouserdetails);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

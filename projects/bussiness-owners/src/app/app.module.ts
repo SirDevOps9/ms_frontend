@@ -23,7 +23,7 @@ import {
 import { UserInviteFormComponent } from './components/userscomps/invite-form/user-invite-form/user-invite-form.component';
 import { AddCompanyComponent } from './pages/company/add-compny/add-compny.component';
 import { CompanyComponent } from './pages/company/company.component';
-import { UpdateuserbyadminComponent } from './pages/Updateuserbyadmin/Updateuserbyadmin.component';
+import { bouserdetails } from './pages/bouserdetails/Bouserdetails.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { UpdateuserbyadminComponent } from './pages/Updateuserbyadmin/Updateuser
     AddCompanyComponent,
     CompanyComponent,
     UserconfirmationComponent,
-    UpdateuserbyadminComponent
+    bouserdetails
   ],
   imports: [
     CommonModule,
