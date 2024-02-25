@@ -5,7 +5,6 @@ import { UserService } from '../../services/users.httpsservice';
 import { LanguageService } from 'shared-lib';
 import { MatDialog } from '@angular/material/dialog';
 import { UserInviteFormComponent } from '../../components/userscomps/invite-form/user-invite-form/user-invite-form.component';
-import { AuthService } from 'microtec-auth-lib';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -18,11 +17,9 @@ export class UsersComponent implements OnInit {
     public languageService: LanguageService,
     private toasterService: ToasterService,
     private userService: UserService,
-    private dialog: MatDialog,
-    private authService: AuthService
+    private dialog: MatDialog
   ) {}
   ngOnInit() {
-    this.authService.refreshToken().subscribe();
     this.getAllUsers();
   }
   getAllUsers() {
@@ -37,6 +34,16 @@ export class UsersComponent implements OnInit {
     else this.deactivate(id);
   }
 
+  resendInvitation(id: number) {
+    this.userService.resendInvitation(id).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('User.Inviteform.Success'),
+          this.languageService.transalte('User.Inviteform.InviationSent')
+        );
+      },
+    });
+  }
   openInviteModal() {
     const dialogRef = this.dialog.open(UserInviteFormComponent, {
       width: '600px',

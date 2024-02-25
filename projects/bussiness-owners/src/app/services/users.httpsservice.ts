@@ -12,6 +12,7 @@ export class UserService {
   private inviteUserController = 'InvitedUser/Create';
   private platformPlansAPI = 'PlatformPlan/GetAllDropDown';
   private subDomainAPI = 'SubDomain/GetAllDropDown';
+  private resendInvitationAPI = 'InvitedUser/ResendEmail';
 
   constructor(private baseService: BaseService) {}
 
@@ -42,6 +43,12 @@ export class UserService {
     );
   }
 
+  resendInvitation(id: number): Observable<APIResponse<boolean>> {
+    return this.baseService.post<APIResponse<boolean>>(
+      `${this.resendInvitationAPI}/${id}`,
+      {}
+    );
+  }
   activateUser(id: number): Observable<APIResponse<boolean>> {
     return this.baseService.put<APIResponse<boolean>>(
       `${this.userController}/ActivateUser/${id}`,

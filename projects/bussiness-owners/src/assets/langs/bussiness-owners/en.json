@@ -32,6 +32,7 @@
     "Email": "Email",
     "Phone": "Phone",
     "Status": "Status(Activate Or Deactivate)",
+    "Resend":"Resend",
     "Deactivate": "Deactivate",
     "Activate": "Activate",
     "Succefully": "Succefully",

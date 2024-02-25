@@ -12,7 +12,7 @@ export const environment : IEnvironment = {
     postLogoutRedirectUri:
       window.location.origin + '/bussinessowners/logout-redirect',
     clientId: 'microtecadminfrontend',
-    scope: 'openid profile email offline_access',
+    scope: 'openid profile email offline_access tenants',
     responseType: 'code',
     silentRenew: true,
     useRefreshToken: true,

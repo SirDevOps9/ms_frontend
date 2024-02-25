@@ -38,7 +38,9 @@ export class BaseService {
           Authorization: `Bearer ${token}`,
           'Accept-Language':
             this.storageService.getItem(StorageKeys.LANG_KEY) || 'en',
-          [HeaderParams.TENANT_ID]: '1',
+          // [HeaderParams.TENANT_ID]: this.storageService.getItem(
+          //   StorageKeys.TENANT
+          // ),
           [HeaderParams.COMPANY_ID]: '2',
           [HeaderParams.BRANCH_ID]: '2',
           [HeaderParams.VERSION]: this.environmentService.Version,

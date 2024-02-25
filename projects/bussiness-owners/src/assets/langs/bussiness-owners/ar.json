@@ -33,6 +33,7 @@
     "Phone": "رقم التليفون",
     "Status": "(تفعيل او الغاء تفعيل)الحالة",
     "Deactivate": "الغاء التفعيل",
+    "Resend":"اعادة الارسال",
     "Activate": "تفعيل",
     "Succefully": "بنجاح",
     "UserDeactivatedSuccessfully": "العميل غير مفعل بنجاح",
