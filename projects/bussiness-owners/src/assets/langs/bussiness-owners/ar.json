@@ -55,6 +55,8 @@
     }
   },
   "Company": {
+    "Success": "تم بنجاح",
+    "Error": "حدث خطاء",
     "CompanyList": "قائمة الشركات",
     "CreateNew": "إنشاء شركة جديدة",
     "CompanyName": "اسم الشركة",
@@ -62,7 +64,18 @@
     "Website": "موقع الويب",
     "Address": "العنوان",
     "NoData": "لا توجد بيانات",
+    "Id": "الرقم",
+    "Name": "الاسم",
+    "Deactivate": "الغاء التفعيل",
+    "Activate": "تفعيل",
+    "CompanyDeactivatedSuccessfully": "الشركة غير مفعلة بنجاح",
+    "CompanyActivatedSuccessfully": "الشركة مفعلة بنجاح",
     "Add": {
+      "CompanyAddedSuccessfully": "تمت إضافة الشركة بنجاح",
+      "AddCompany": "إضافة شركة",
+      "Country": "دولة",
+      "PleaseFillInAllTheRequiredFields": ".يرجى ملء جميع الحقول المطلوبة",
+      "Status": "(تفعيل او الغاء تفعيل)الحالة",
       "Step": "الخطوة 01 - معلومات الشركة الرئيسية",
       "AccInfo": "معلومات الحساب",
       "CompanyName": "اسم الشركة",
@@ -72,6 +85,7 @@
       "Domain": "اختر نطاقك:",
       "Subdomain": "نطاقك",
       "Currency": "العملة",
+      "MobileNumberCode": "كود الجوال",
       "MobileNumber": "رقم الجوال",
       "CompanyEmail": "بريد الشركة الإلكتروني",
       "Next": "التالي",
@@ -79,12 +93,12 @@
       "Select": "اختر "
     }
   },
-  "UserConfirmation":{
-    "Name":"الاسم",
-    "Email":"الاميل",
-    "Password":"كلمة المرور",
-    "ConfirmPassword":"تأكيد كلمة المرور",
-    "policy":"أنا أوافق على سياسة المستخدم",
-    "Save":"حفظ"
-      }
+  "UserConfirmation": {
+    "Name": "الاسم",
+    "Email": "الاميل",
+    "Password": "كلمة المرور",
+    "ConfirmPassword": "تأكيد كلمة المرور",
+    "policy": "أنا أوافق على سياسة المستخدم",
+    "Save": "حفظ"
+  }
 }
