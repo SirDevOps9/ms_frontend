@@ -37,7 +37,7 @@ export class UsersComponent implements OnInit {
     else this.deactivate(id);
   }
 
-  resendInvitation(id: number) {
+  resendInvitation(id: string) {
     this.userService.resendInvitation(id).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(

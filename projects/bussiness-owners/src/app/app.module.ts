@@ -27,7 +27,6 @@ import { UserInviteFormComponent } from './components/userscomps/invite-form/use
 import { AddCompanyComponent } from './pages/company/add-compny/add-compny.component';
 import { CompanyComponent } from './pages/company/company.component';
 import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetails.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +35,7 @@ import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetai
     UserInviteFormComponent,
     AddCompanyComponent,
     CompanyComponent,
-    UserconfirmationComponent
+    UserconfirmationComponent,
     bouserdetails
   ],
   imports: [

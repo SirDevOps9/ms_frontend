@@ -21,17 +21,8 @@ import { boupdateuser } from '../../../models/users/boupdateduser.model';
 export class bouserdetails implements OnInit {
   userForm: FormGroup;
  @Input() formId:string;
-  subdomains: any[] = [
-    { id: 1, name: 'Marketing' },
-    { id: 2, name: 'Sales' },
-    { id: 3, name: 'Support' },
-  ];
-
-  platformplans: any[] = [
-    { id: 1, name: 'Read' },
-    { id: 2, name: 'Write' },
-    { id: 3, name: 'Manage' },
-  ];
+  subdomains: any[];
+  platformplans: any[]; 
   Id:string;
 
   constructor(private fb: FormBuilder 
@@ -54,14 +45,14 @@ export class bouserdetails implements OnInit {
       subdomain: [[]],
       platformplan: [[]]
     });
-    this.getformdata();
-   // this.Userservice.getSubdomains().subscribe(data => {
-    //  this.subdomains = data;
-  //  });
+    this.Userservice.subDomainDropDown().subscribe(data => {
+      this.subdomains = data.response;
+    });
 
-  //  this.Userservice.getPlatformPlans().subscribe(data => {
-   //   this.platformplans = data;
-   // });
+    this.Userservice.platformDropDown().subscribe(data => {
+      this.platformplans = data.response;
+    });
+    this.getformdata();
   }
   getformdata() {
     this.logService.log(this.Id);
@@ -91,13 +82,13 @@ export class bouserdetails implements OnInit {
       const UpdateUserDto: boupdateuser = this.userForm.value;
 
       this.logService.log(UpdateUserDto);
-      this.Userservice.updateUser(userForm ,this.Id ).subscribe({
+      this.Userservice.updateUser(UpdateUserDto ,this.Id ).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
             'Success',
             this.languageService.transalte('User.BoUserDetails.UserUpdated')
           )
-        //  this.dialogRef.close(); 
+          this.dialogRef.close(); 
         },
         error: () => {
           this.dialogRef.close();
