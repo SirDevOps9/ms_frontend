@@ -59,11 +59,9 @@ export class AddCompanyComponent implements OnInit {
      this.companyForm.get('countryCode')?.valueChanges.subscribe((selectedCountryCode) => {
       // Find the corresponding country from the fetched data
       const selectedCountry = this.mobileCodeDropDown.find(mobile => mobile.code === selectedCountryCode);
-      this.logService.log(selectedCountryCode, 'cadfdsf:');
 
       if (selectedCountry) {
         // Set the corresponding phone code in the form
-        this.logService.log(selectedCountry.phoneCode, 'cadfdsf:');
 
         this.companyForm.patchValue({ 'mobileNumberCode': selectedCountry.code });
 
