@@ -36,10 +36,13 @@
             "styles": [
               "projects/bussiness-owners/src/styles.css",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css"
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/font-awesome/css/font-awesome.css"
+
+
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {
@@ -116,7 +119,11 @@
             "styles": [
               "projects/bussiness-owners/src/styles.css",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-             "node_modules/primeng/resources/primeng.min.css"
+             "node_modules/primeng/resources/primeng.min.css",
+             "/node_modules/primeflex/primeflex.css",
+             "/node_modules/font-awesome/css/font-awesome.css",
+             "/node_modules/font-awesome/css/font-awesome.css"
+             
             ],
             "scripts": []
           }
@@ -157,7 +164,8 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/bootstrap/scss/bootstrap.scss",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
-              "projects/adminportal/src/styles.css"
+              "projects/adminportal/src/styles.css",
+              "/node_modules/font-awesome/css/font-awesome.scss"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"

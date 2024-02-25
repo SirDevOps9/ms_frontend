@@ -54,140 +54,535 @@
       </div>
     </div>
   </nav> -->
-  <div class="card">
-    <div class="header_bussiness">
-      <p-menubar  >
-        <ng-template pTemplate="start">
-          <div class="start_nav">
-            <div class="logo">
-
-            </div>
-            <div class="suplogo" style="background-image: url('assets/images/navbar/suplogo.png');">
-            </div>
-            <!-- <img src="assets/images/navbar/logo (1).png" height="40" class="mr-2" /> -->
-            <!-- <div class="card flex justify-content-center align-items-center">
-              <p-breadcrumb class="max-w-full" [model]="itemsBrod" [home]="homeBrod"></p-breadcrumb>
-          </div> -->
-          </div>
-           
-          </ng-template>
-        <ng-template pTemplate="end" >
-          <div class="header_sec">
-            <div class="choices">
-              <div class="choices_com">
-                <div class="card flex justify-content-center">
-                  <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Company">
-                      <ng-template pTemplate="selectedItem" let-selectedOption>
-                          <div class="flex align-items-center gap-2">
-                              <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' " style="width: 18px"/>
-                              <div>{{ selectedOption.name }}</div>
-                          </div>
-                      </ng-template>
-                      <ng-template let-country pTemplate="item">
-                          <div class="flex align-items-center gap-2">
-                              <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' " style="width: 18px"/>
-                              <div>{{ country.name }}</div>
-                          </div>
-                      </ng-template>
-                  </p-dropdown>
-              </div>
-              </div>
-              <div class="choices_pr">
-                <div class="card flex justify-content-center">
-                  <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Branch">
-                      <ng-template pTemplate="selectedItem" let-selectedOption>
-                          <div class="flex align-items-center gap-2">
-                              <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' " style="width: 18px"/>
-                              <div>{{ selectedOption.name }}</div>
-                          </div>
-                      </ng-template>
-                      <ng-template let-country pTemplate="item">
-                          <div class="flex align-items-center gap-2">
-                              <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' " style="width: 18px"/>
-                              <div>{{ country.name }}</div>
-                          </div>
-                      </ng-template>
-                  </p-dropdown>
-              </div>
-              </div>
-            </div>
-            <div class="line">
-
-            </div>
-            <div class="end_header_sec">
-              <div class="link_sec">
-                <div class="count">
-                  10
-              </div>
-                <button >
-                  <span  class="pi pi-bell icon_link" ></span>
-                </button>
-              </div>
-              <div class="link_sec">
-                <div class="count">
-                  5
-              </div>
-                <button class="btn_count" >
-               
-                  <span  class="pi pi-comment icon_link" ></span>
-                </button>
-              </div>
-              <div class="link_sec">
-               
-                <button >
-                  <span  class="pi pi-cog icon_link" ></span>
-                </button>
-              </div>
-              <div class="link_sec">
-                <button >
-                  <span  class="pi pi-star icon_link" ></span>
-                </button>
-              </div>
-              <div class="profaile_sec">
-                <button (click)="cardDrob()" class="btn_profaile" style="background-image: url('assets/images/users/default.png');">
-    
-                </button>
-                <div class="profaile_card_drob" *ngIf="showcard">
-                    <div class="header_card">
-                        <div class="photo">
-                          <img src="assets/images/users/default.png">
-                        </div>
-                        <div class="title">
-                            <p class="name">ahmed gamal</p>
-                            <p class="description">admin</p>
-                        </div>
-                      
-                    </div>
-                    <button class="profaile_link">
-                      <p class="pi pi-user"></p>
-                      <p class="title">Profile</p>
-                    </button>
-                    <button class="lang_link">
-                      <p class="pi pi-language"></p>
-                      <p class="title">عربى</p>
-                    </button>
-                    <button class="mode_link">
-                      <p class="pi pi-moon"></p>
-                      <p class="title">Dark Mood</p>
-                    </button>
-                    <div class="footer_card">
-                      <div class="logout">
-                        <button class="log_link">
-                          <p class="pi pi-sign-out"></p>
-                          <p class="title">logout</p>
-                        </button>
-                      </div>
-                     </div>
-              </div>
-              </div>
-            </div>
-          </div>
-        
-          
-        </ng-template>
-    </p-menubar>
-    </div>
+  <nav>
+    <div class="card">
+      <div class="header_bussiness">
+        <div class="header_content">
+          <p-menubar  >
+            <ng-template pTemplate="start">
+              <div class="start_nav">
+                <div class="logo">
   
-</div>
-  <router-outlet></router-outlet>
+                </div>
+                <div class="suplogo" style="background-image: url('assets/images/navbar/suplogo.png');">
+                </div>
+              </div>
+              
+              </ng-template>
+            <ng-template pTemplate="end" >
+              <div class="header_sec">
+                <div class="choices">
+                  <div class="choices_com">
+                    <div class="card flex justify-content-center">
+                      <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Company">
+                          <ng-template pTemplate="selectedItem" let-selectedOption>
+                              <div class="flex align-items-center gap-2">
+                                  <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' " style="width: 18px"/>
+                                  <div>{{ selectedOption.name }}</div>
+                              </div>
+                          </ng-template>
+                          <ng-template let-country pTemplate="item">
+                              <div class="flex align-items-center gap-2">
+                                  <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' " style="width: 18px"/>
+                                  <div>{{ country.name }}</div>
+                              </div>
+                          </ng-template>
+                      </p-dropdown>
+                  </div>
+                  </div>
+                  <div class="choices_pr">
+                    <div class="card flex justify-content-center">
+                      <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Branch">
+                          <ng-template pTemplate="selectedItem" let-selectedOption>
+                              <div class="flex align-items-center gap-2">
+                                  <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' " style="width: 18px"/>
+                                  <div>{{ selectedOption.name }}</div>
+                              </div>
+                          </ng-template>
+                          <ng-template let-country pTemplate="item">
+                              <div class="flex align-items-center gap-2">
+                                  <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' " style="width: 18px"/>
+                                  <div>{{ country.name }}</div>
+                              </div>
+                          </ng-template>
+                      </p-dropdown>
+                  </div>
+                  </div>
+                </div>
+                <div class="line">
+  
+                </div>
+                <div class="end_header_sec">
+                  <div class="link_sec">
+                    <div class="count">
+                      10
+                  </div>
+                    <button >
+                      <span  class="pi pi-bell icon_link" ></span>
+                    </button>
+                  </div>
+                  <div class="link_sec">
+                    <div class="count">
+                      5
+                  </div>
+                    <button class="btn_count" >
+                  
+                      <span  class="pi pi-comment icon_link" ></span>
+                    </button>
+                  </div>
+                  <div class="link_sec">
+                  
+                    <button >
+                      <span  class="pi pi-cog icon_link" ></span>
+                    </button>
+                  </div>
+                  <div class="link_sec">
+                    <button >
+                      <span  class="pi pi-star icon_link" ></span>
+                    </button>
+                  </div>
+                  <div class="profaile_sec">
+                    <button (click)="cardDrob()" class="btn_profaile" style="background-image: url('assets/images/users/default.png');">
+        
+                    </button>
+                    <div class="profaile_card_drob" *ngIf="showcard">
+                        <div class="header_card">
+                            <div class="photo">
+                              <img src="assets/images/users/default.png">
+                            </div>
+                            <div class="title">
+                                <p class="name">ahmed gamal</p>
+                                <p class="description">admin</p>
+                            </div>
+                          
+                        </div>
+                        <button class="profaile_link">
+                          <p class="pi pi-user"></p>
+                          <p class="title">Profile</p>
+                        </button>
+                        <button class="lang_link"   (click)="toggleLanguage()">
+                          <p class="pi pi-language"></p>
+                          <p class="title">
+                            {{ languageService.Lang === "en" ? "English" : "عربى" }}
+                          </p>
+                        </button>
+                        <button class="mode_link">
+                          <p class="pi pi-moon"></p>
+                          <p class="title">Dark Mood</p>
+                        </button>
+                        <div class="footer_card">
+                          <div class="logout">
+                            <button class="log_link">
+                              <p class="pi pi-sign-out"></p>
+                              <p class="title">logout</p>
+                            </button>
+                          </div>
+                        </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            
+              
+            </ng-template>
+        </p-menubar>
+        </div>
+     
+      </div>
+    
+  </div>
+  </nav>
+  
+  <div class="Layout">
+    <!-- <div class="sidebar" [ngClass]="{'sidebar_open': sidebarOpen}">
+      <div class="sidebar_content" >
+        <div class="btn_side">
+          <button  (click)="toggleSidebar()">
+            <div class=" pi pi-chevron-right" *ngIf="!sidebarOpen"></div>
+            <div class=" pi pi-chevron-left" *ngIf="sidebarOpen"></div>
+        </button>
+        </div>
+    
+      </div>
+   
+    </div> -->
+    <!-- <div class="new_sidebar">
+      <div class="sidebar_content">
+
+      </div>
+    </div> -->
+
+    <div data-component="sidebar">
+      <div class="sidebar">
+      <ul class="list-group flex-column d-inline-block first-menu">
+        <li class="list-group-item pl-3 py-2">
+        
+          <a href="#"> <i class="fa fa-solid fa-globe"> <span class="ml-2 align-middle">Plans</span></i></a>
+          
+          <ul class="list-group flex-column d-inline-block submenu">
+            <li class="list-group-item pl-4">
+              <a href="#" class="">Dashboard</a>
+              
+              <ul class="list-group flex-column d-inline-block sub-submenu">
+                <span class="arrow"></span>
+                <li class="list-group-item pl-4">
+                  <a href="#">Home</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">My Sites</a>
+                </li>
+              </ul>
+              
+            </li> 
+            
+            <li class="list-group-item pl-4">
+              <a href="">SEO</a>
+              
+              <ul class="list-group flex-column d-inline-block sub-submenu">
+                <span class="arrow" style="top:113px;"></span>
+                <li class="list-group-item pl-4">
+                  <a href="#">Dashboard</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Titles & Metas</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Social</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">XML Sitemaps</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Advanced</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Tools</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Search Console</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Go Premium</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Manual</a>
+                </li>
+              </ul>
+            
+            </li>
+          </ul> <!-- /.submenu --> 
+        </li> <!-- /.list-group-item -->
+        
+        <li class="list-group-item pl-3 py-2">
+          <a  ><i class="fa fa-regular fa-building"><span class="ml-2 align-middle">Company</span></i></a>
+       
+        </li> <!-- /.list-group-item -->
+        
+        <li class="list-group-item pl-3 py-2">
+          <a routerLink="/users">
+            <i class=" fa fa-solid fa-users"><span class="ml-2 align-middle">Users</span></i>
+          </a>
+          <!-- <ul class="list-group flex-column d-inline-block submenu">
+            
+            <li class="list-group-item pl-4">
+              <a href="#" class="">Comments</a>
+              <ul class="list-group flex-column d-inline-block sub-submenu">
+                <span class="arrow"></span>
+                <li class="list-group-item pl-4">
+                  <a href="#">Comments</a>
+                </li>
+              </ul>
+            </li>
+            
+            <li class="list-group-item pl-4">
+              <a href="#" class="">Forms</a>
+              <ul class="list-group flex-column d-inline-block sub-submenu">
+                <span class="arrow" style="top:114px;"></span>
+                <li class="list-group-item pl-4">
+                  <a href="#">All Forms</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">New Form</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">All Entries</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Gravity Forms</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Import/Export</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Gravity Forms Tutorials</a>
+                </li>
+              </ul>
+            </li>
+            <li class="list-group-item pl-4">
+              <a href="#" class="">Home Valuation</a>
+              <ul class="list-group flex-column d-inline-block sub-submenu">
+                <span class="arrow" style="top:166px;"></span>
+                <li class="list-group-item pl-4">
+                  <a href="#">View All Leads</a>
+                </li>
+              </ul>
+            </li>
+          </ul> /.submenu -->
+        </li> <!-- /.list-group-item -->
+        
+        
+        <!-- <li class="list-group-item pl-3 py-2">
+          <a href="#"><i class="fa fa-user-o" aria-hidden="true"><span class="ml-2 align-middle">Image Center</span></i></a>
+          
+          <ul class="list-group flex-column d-inline-block submenu">
+            <li class="list-group-item pl-4">
+              <a href="#" class="">Media Library</a>
+              
+              <ul class="list-group flex-column d-inline-block sub-submenu">
+                <span class="arrow"></span>
+                <li class="list-group-item pl-4">
+                  <a href="#">Media Library</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Add New</a>
+                </li>
+              </ul>
+              
+            </li>
+            <li class="list-group-item pl-4">
+              <a href="#" class="">Soliloquy Slider</a>
+              
+              <ul class="list-group flex-column d-inline-block sub-submenu">
+                <span class="arrow" style="top:114px;"></span>
+                <li class="list-group-item pl-4">
+                  <a href="#">All Sliders</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Add New</a>
+                </li>
+              </ul>
+            
+            </li>
+          </ul>
+        </li>
+        
+        <li class="list-group-item pl-3 py-2">
+          <a href="#"><i class="fa fa-user-o" aria-hidden="true"><span class="ml-2 align-middle">Settings</span></i></a>
+          <ul class="list-group flex-column d-inline-block submenu">
+            <li class="list-group-item pl-4">
+              <a href="#" class="">Users</a>
+              
+              <ul class="list-group flex-column d-inline-block sub-submenu">
+                <span class="arrow"></span>
+                <li class="list-group-item pl-4">
+                  <a href="#">All Users</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Add New</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Your Profile</a>
+                </li>
+              </ul>
+            
+            </li>
+            <li class="list-group-item pl-4">
+              <a href="#" class="">AgentFire Settings</a>
+              
+              <ul class="list-group flex-column d-inline-block sub-submenu">
+                <span class="arrow" style="top:114px;"></span>
+                <li class="list-group-item pl-4">
+                  <a href="#">Home Valuation</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Testimonials</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Team Members</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Area Content</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Manual Listings</a>
+                </li>
+              </ul>
+            
+            </li>
+            <li class="list-group-item pl-4">
+              <a href="#" class="">Grids Settings</a>
+              
+              <ul class="list-group flex-column d-inline-block sub-submenu">
+                <span class="arrow" style="top:166px;"></span>
+                <li class="list-group-item pl-4">
+                  <a href="#">Ess. Grid Search Settings</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Ess. Grid Global Settings</a>
+                </li>
+              </ul>
+            </li>
+            <li class="list-group-item pl-4">
+              <a href="#" class="">Plugin Settings</a>
+              
+              <ul class="list-group flex-column d-inline-block sub-submenu">
+                <span class="arrow" style="top:220px;"></span>
+                <li class="list-group-item pl-4">
+                  <a href="#">Soliloquy</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Flickr - Pick a Picture</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Google Analytics</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Google Maps</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">JackBox</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Media</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">No Page Comment</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Post Types Order</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Shortcode any widget</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">WP RSS Images</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">SNAP</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">WP Sitemap Page</a>
+                </li>
+              </ul>
+            
+            
+            </li>
+            <li class="list-group-item pl-4">
+              <a href="#" class="">WordPress Settings</a>
+              
+              <ul class="list-group flex-column d-inline-block sub-submenu">
+                <span class="arrow" style="top:272px;"></span>
+                <li class="list-group-item pl-4">
+                  <a href="#">General</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Discussion</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Reading</a>
+                </li>
+              </ul>
+            
+            </li>
+            <li class="list-group-item pl-4">
+              <a href="#" class="">Re-Order</a>
+              
+              <ul class="list-group flex-column d-inline-block sub-submenu">
+                <span class="arrow" style="top:323px;"></span>
+                <li class="list-group-item pl-4">
+                  <a href="#">Posts</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Pages</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Media Library</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Blog Assist</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Area Content</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Manual Listings</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Testimonials</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Team Members</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Flyouts</a>
+                </li>
+              </ul>
+            
+            </li>
+            <li class="list-group-item pl-4">
+              <a href="#" class="">Site Appearance</a>
+              
+              <ul class="list-group flex-column d-inline-block sub-submenu">
+                <span class="arrow" style="top:377px;"></span>
+                <li class="list-group-item pl-4">
+                  <a href="#">Widgets</a>
+                </li>
+                <li class="list-group-item pl-4">
+                  <a href="#">Menus</a>
+                </li>
+              </ul>
+            
+            </li>
+          </ul>
+        
+        </li>
+        
+        <li class="list-group-item pl-3 py-2">
+          <a href="#"><i class="fa fa-user-o" aria-hidden="true"><span class="ml-2 align-middle">Support</span></i></a>
+          <ul class="list-group flex-column d-inline-block submenu">
+            <li class="list-group-item pl-4">
+              <a href="#" class="">Training</a>
+              
+              <ul class="list-group flex-column d-inline-block sub-submenu">
+                <span class="arrow"></span>
+                <li class="list-group-item pl-4">
+                  <a href="#">Video Tutorials</a>
+                </li>
+              </ul>
+            
+            </li>
+            <li class="list-group-item pl-4">
+              <a href="#" class="">Tutorials</a>
+              
+              <ul class="list-group flex-column d-inline-block sub-submenu">
+                <span class="arrow" style="top:114px;"></span>
+                <li class="list-group-item pl-4">
+                  <a href="#">Help Desk</a>
+                </li>
+              </ul>
+            
+            </li>
+            <li class="list-group-item pl-4">
+              <a href="#" class="">Ask a Question</a>
+              
+              <ul class="list-group flex-column d-inline-block sub-submenu">
+                <span class="arrow" style="top:166px;"></span>
+                <li class="list-group-item pl-4">
+                  <a href="#">Send Support Request</a>
+                </li>
+              </ul>
+            
+            </li>
+          </ul>
+        
+        </li> -->
+        
+        
+      </ul> <!-- /.first-menu -->
+    </div> <!-- /.sidebar -->
+    </div>
+    <div class="pages">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>

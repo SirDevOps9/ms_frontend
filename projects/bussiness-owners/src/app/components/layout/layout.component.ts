@@ -12,6 +12,7 @@ import { LogService } from 'shared-lib';
 export class LayoutComponent implements OnInit {
   userName:string;
   showcard:boolean=false;
+  sidebarOpen:boolean=false;
   items: MenuItem[] | undefined;
   itemsBrod: MenuItem[] | undefined;
 
@@ -185,6 +186,13 @@ export class LayoutComponent implements OnInit {
         this.showcard=false
     }else{
         this.showcard=true
+    }
+  }
+  toggleSidebar(){
+    if(this.sidebarOpen==true){
+        this.sidebarOpen=false
+    }else{
+        this.sidebarOpen=true
     }
   }
 }

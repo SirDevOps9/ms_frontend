@@ -29,6 +29,9 @@ import { MenubarModule } from 'primeng/menubar';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { DropdownModule } from 'primeng/dropdown';
+import { SidebarModule } from 'primeng/sidebar';
+import { DialogModule } from 'primeng/dialog';
+import { MultiSelectModule } from 'primeng/multiselect';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +73,10 @@ import { DropdownModule } from 'primeng/dropdown';
     BreadcrumbModule,
     InputSwitchModule,
     FormsModule,
-    DropdownModule
+    DropdownModule,
+    SidebarModule,
+    DialogModule,
+    MultiSelectModule,
   ],
   providers: [
     {

@@ -2,24 +2,36 @@ import { Component, OnInit, PipeTransform, ViewChild } from '@angular/core';
 import { UserListResponse } from '../../models/users/userlist.response';
 import { ToasterService } from 'shared-lib';
 import { UserService } from '../../services/users.httpsservice';
-import { LanguageService } from 'shared-lib';
+import { LanguageService ,LogService } from 'shared-lib';
 import { MatDialog } from '@angular/material/dialog';
 import { UserInviteFormComponent } from '../../components/userscomps/invite-form/user-invite-form/user-invite-form.component';
+interface City {
+  name: string,
+  code: string
+}
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css'],
+  styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
   userData: UserListResponse[];
   users:any[]=[];
+  user:any[]=[];
+  
   checked: boolean = true;
+  userEditDialog: boolean = false;
+  cities!: City[];
+
+  selectedCities!: City[];
   @ViewChild('dt') dt:any | undefined;
   constructor(
     public languageService: LanguageService,
     private toasterService: ToasterService,
     private userService: UserService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private _LogService: LogService,
+
   ) {}
   ngOnInit() {
     this.getAllUsers();
@@ -41,7 +53,7 @@ export class UsersComponent implements OnInit {
         invitationStatus: "number",
       },
       {
-        id: "010",
+        id: "011",
         name: "bbbbbbbb",
         email: "bbbbbbbbb",
         countryId: "0",
@@ -57,7 +69,7 @@ export class UsersComponent implements OnInit {
         invitationStatus: "number",
       },
       {
-        id: "010",
+        id: "012",
         name: "aaaaaa",
         email: "aaaaaaa",
         countryId: "0",
@@ -73,7 +85,7 @@ export class UsersComponent implements OnInit {
         invitationStatus: "number",
       },
       {
-        id: "010",
+        id: "013",
         name: "ccccccccc",
         email: "ccccccccc",
         countryId: "0",
@@ -89,7 +101,7 @@ export class UsersComponent implements OnInit {
         invitationStatus: "number",
       },
       {
-        id: "010",
+        id: "014",
         name: "ccccccccc",
         email: "cccccccccccccc",
         countryId: "0",
@@ -108,6 +120,14 @@ export class UsersComponent implements OnInit {
     
 
     ]
+    this.cities = [
+      {name: 'New York', code: 'NY'},
+      {name: 'Rome', code: 'RM'},
+      {name: 'London', code: 'LDN'},
+      {name: 'Istanbul', code: 'IST'},
+      {name: 'Paris', code: 'PRS'}
+  ];
+
   }
   getAllUsers() {
     this.userService.getAll().subscribe({
@@ -169,5 +189,15 @@ export class UsersComponent implements OnInit {
         },
       });
     }
+  }
+  editeUser(id:any){
+    this.users.forEach((element:any) => {
+      if(element.id==id){
+       this.user=[element]
+      }
+    });
+    this._LogService.log(id)
+    //this._LogService.log(this.user)
+    this.userEditDialog=true
   }
 }
