@@ -9,7 +9,6 @@ import {
 import { CompanyService } from '../../../services/company.httpservice';
 import { DropdownItemDto } from '../../../models/company/dropdown';
 import { AddCompanyDto } from '../../../models/company/addcompany';
-import { MobileCodeDropdownDto } from '../../../models/company/mobilecodedropdown';
 import { combineLatest } from 'rxjs';
 import { CountryDropDown } from '../../../models/company/countrydropdown';
 @Component({
@@ -23,7 +22,6 @@ export class AddCompanyComponent implements OnInit {
   industryDropDown: DropdownItemDto[];
   subdoaminDropDown: DropdownItemDto[];
   CountryDropDown: CountryDropDown[];
-  mobileCodeDropDown: MobileCodeDropdownDto[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,31 +51,43 @@ export class AddCompanyComponent implements OnInit {
 
   ngOnInit() {
     this.getDropDowns();
+
+     // Add change event listener to the country dropdown
+     this.companyForm.get('countryCode')?.valueChanges.subscribe((selectedCountryCode) => {
+      // Find the corresponding country from the fetched data
+      const selectedCountry = this.CountryDropDown.find(country => country.code === selectedCountryCode);
+
+      if (selectedCountry) {
+        // Set the corresponding phone code in the form
+        this.companyForm.patchValue({ 'mobileNumberCode': selectedCountry.code });
+
+      } 
+    });
+
+    this.companyForm.get('countryCode')?.valueChanges
   }
 
+
   onSubmit() {
-    if (!this.companyForm.valid) return;
+    if (!this.companyForm.valid) {
+      this.toasterService.showError('Error', 'Please fill in all the required fields');
+      return;
+    }
     this.addCompany();
   }
 
   getDropDowns() {
     combineLatest([
       this.companyService.getDropDown(),
-      this.companyService.getMobileCodeDropDown(),
       this.companyService.getCountryDropDown(),
     ]).subscribe({
-      next: ([resDropdown, resMobileCode,  resCountry]) => {
+      next: ([resDropdown,  resCountry]) => {
         this.currencyDropDown = resDropdown.response.currencyDropdown;
         this.logService.log(this.currencyDropDown, 'currency Information:');
 
         this.industryDropDown = resDropdown.response.industryDropdown;
         this.logService.log(this.industryDropDown, 'industry Information:');
 
-        this.mobileCodeDropDown = resMobileCode.response;
-        this.logService.log(
-          this.mobileCodeDropDown,
-          'mobileCodeDropdownDto Information:'
-        );
 
         this.CountryDropDown = resCountry.response;
         this.logService.log(

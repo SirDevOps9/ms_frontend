@@ -3,9 +3,7 @@ import { APIResponse, BaseService, ResponseItems} from 'shared-lib';
 import { AddCompanyDto } from '../models/company/addcompany';
 import { Observable } from 'rxjs';
 import { DropdownItemDto} from '../models/company/dropdown';
-import { CompanyListResponse } from '../models/company/companylist.response';
 import { ResponseCompanyDto } from '../models/company/responsecompanydto';
-import { MobileCodeDropdownDto } from '../models/company/mobilecodedropdown';
 import { CountryDropDown } from '../models/company/countrydropdown';
 import { DropdownListDto } from '../models/company/dropdownlist';
 
@@ -33,15 +31,12 @@ export class CompanyService {
     );
   }
   getAll(): Observable<APIResponse<ResponseCompanyDto[]>> {
-    return this.baseService.get<APIResponse<CompanyListResponse[]>>(`${this.company}`);
+    return this.baseService.get<APIResponse<ResponseCompanyDto[]>>(`${this.company}`);
   }
   getDropDown():Observable<APIResponse<DropdownListDto>>{
     return this.baseService.get<APIResponse<DropdownListDto>>(`${this.company}${this.companyDropDown}`);
   }
 
-  getMobileCodeDropDown():Observable<APIResponse<MobileCodeDropdownDto[]>>{
-    return this.baseService.get<APIResponse<MobileCodeDropdownDto[]>>(`${this.country}${this.countrycode}`);
-  }
 
   getSubdomainDropDown():Observable<APIResponse<DropdownItemDto[]>>{
     return this.baseService.get<APIResponse<DropdownItemDto[]>>(`${this.subdomain}${this.subdomainDropDown}`);

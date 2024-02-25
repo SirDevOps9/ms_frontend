@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../../services/company.httpservice';
-import { CompanyListResponse } from '../../models/company/companylist.response';
 import { LanguageService, LogService, RouterService, ToasterService } from 'shared-lib';
 import { ResponseCompanyDto } from '../../models/company/responsecompanydto';
 @Component({
