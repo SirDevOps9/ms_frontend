@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UserListResponse } from '../../models/users/userlist.response';
-import { ToasterService } from 'shared-lib';
+import { LogService, ToasterService } from 'shared-lib';
 import { UserService } from '../../services/users.httpsservice';
-import { LanguageService } from 'shared-lib';
+import { LanguageService ,RouterService } from 'shared-lib';
 import { MatDialog } from '@angular/material/dialog';
 import { UserInviteFormComponent } from '../../components/userscomps/invite-form/user-invite-form/user-invite-form.component';
+import { bouserdetails } from '../bouserdetails/bouserdetails.component';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -17,7 +18,9 @@ export class UsersComponent implements OnInit {
     public languageService: LanguageService,
     private toasterService: ToasterService,
     private userService: UserService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: RouterService,
+    private logService: LogService
   ) {}
   ngOnInit() {
     this.getAllUsers();
@@ -29,7 +32,7 @@ export class UsersComponent implements OnInit {
       },
     });
   }
-  toggle(id: number, isActive: boolean) {
+  toggle(id: string, isActive: boolean) {
     if (!isActive) this.activate(id);
     else this.deactivate(id);
   }
@@ -45,7 +48,7 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  async activate(id: number) {
+  async activate(id: string) {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangstatus'
     );
@@ -63,7 +66,7 @@ export class UsersComponent implements OnInit {
       });
     }
   }
-  async deactivate(id: number) {
+  async deactivate(id: string) {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangstatus'
     );
@@ -79,5 +82,16 @@ export class UsersComponent implements OnInit {
         },
       });
     }
+  }
+  async editUser(Id: string) {
+    //const dialogRef = this.dialog.open(bouserdetails, {
+   //   width: '600px',
+  //    height: '600px',
+  //  });
+  //  dialogRef.afterClosed().subscribe((result: UserListResponse) => {
+  //    if (result as UserListResponse) this.userData.push(result);
+  //  });
+    this.logService.log('users/bouserdetails/' + Id);
+    this.router.navigateTo('users/bouserdetails/' + Id);
   }
 }

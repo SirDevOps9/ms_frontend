@@ -34,15 +34,16 @@ export class bouserdetails implements OnInit {
       subdomain: [[]],
       platformplan: [[]]
     });
-    this.Userservice.getSubdomains().subscribe(data => {
-      this.subdomains = data;
-    });
+   // this.Userservice.getSubdomains().subscribe(data => {
+    //  this.subdomains = data;
+  //  });
 
-    this.Userservice.getPlatformPlans().subscribe(data => {
-      this.platformplans = data;
-    });
+  //  this.Userservice.getPlatformPlans().subscribe(data => {
+   //   this.platformplans = data;
+   // });
   }
   getformdata() {
+    this.loaderservice.show();
     this.Id = this.router.currentId;
     this.logService.log(this.Id);
     this.Userservice.getUserById(this.Id).subscribe({
@@ -55,9 +56,10 @@ export class bouserdetails implements OnInit {
           subdomain: userData.subDomain, 
           platformplan: userData.pLatformplan, 
         });
+        this.loaderservice.hide();
       },
       error: (err) => {
-        this.router.navigateTo('');
+        this.loaderservice.hide();
       },
     });
 
@@ -69,7 +71,7 @@ export class bouserdetails implements OnInit {
     const userForm = this.userForm.value;
     this.Userservice.updateUser(userForm ,this.Id ).subscribe({
       next: (response) => {
-        this.router.getRouteParams('/login');
+        this.router.getRouteParams('/users');
       },
       error: () => {
         this.loaderservice.hide();

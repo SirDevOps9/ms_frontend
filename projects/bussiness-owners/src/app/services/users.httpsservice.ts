@@ -26,13 +26,13 @@ export class UserService {
     );
   }
 
-  activateUser(id: number): Observable<APIResponse<boolean>> {
+  activateUser(id: string): Observable<APIResponse<boolean>> {
     return this.baseService.put<APIResponse<boolean>>(
       `${this.userController}/ActivateUser/${id}`,
       {}
     );
   }
-  deactivateUser(id: number): Observable<APIResponse<boolean>> {
+  deactivateUser(id: string): Observable<APIResponse<boolean>> {
     return this.baseService.put<APIResponse<boolean>>(
       `${this.userController}/${id}`,
       {}
@@ -43,7 +43,7 @@ export class UserService {
       `${this.userController}/Getbyid/${id}`
     );
   }
-  
+
   updateUser(user:any , id:string):Observable<APIResponse<boolean>> {
     return this.baseService.get<APIResponse<boolean>>(
       `${this.userController}/Getbyid/${id}`
