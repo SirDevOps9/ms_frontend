@@ -45,8 +45,8 @@ export class UserService {
   }
 
   updateUser(user:any , id:string):Observable<APIResponse<boolean>> {
-    return this.baseService.get<APIResponse<boolean>>(
-      `${this.userController}/Getbyid/${id}`
+    return this.baseService.put<APIResponse<boolean>>(
+      `${this.userController}/BOUpdateUser/${id}`,user
     );
   }
 }

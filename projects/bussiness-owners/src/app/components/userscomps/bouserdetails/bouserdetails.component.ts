@@ -48,6 +48,7 @@ export class bouserdetails implements OnInit {
       subdomain: [[]],
       platformplan: [[]]
     });
+    this.getformdata();
    // this.Userservice.getSubdomains().subscribe(data => {
     //  this.subdomains = data;
   //  });
@@ -57,8 +58,6 @@ export class bouserdetails implements OnInit {
    // });
   }
   getformdata() {
-    this.loaderservice.show();
-    this.Id = this.router.currentId;
     this.logService.log(this.Id);
     this.Userservice.getUserById(this.Id).subscribe({
       next: (res) => {
@@ -70,10 +69,8 @@ export class bouserdetails implements OnInit {
           subdomain: userData.subDomain, 
           platformplan: userData.pLatformplan, 
         });
-        this.loaderservice.hide();
       },
       error: (err) => {
-        this.loaderservice.hide();
       },
     });
 
