@@ -33,6 +33,9 @@
                   <th>
                     {{ "User.Status" | translate }}
                   </th>
+                  <th>
+                    {{ "User.Detail" | translate }}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -62,6 +65,14 @@
                         (item.isActive ? "User.Deactivate" : "User.Activate")
                           | translate
                       }}
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-warning"
+                      (click)="editUser(item.id)"
+                    >
+                      {{ "User.Edit" | translate }}
                     </button>
                   </td>
                 </tr>
