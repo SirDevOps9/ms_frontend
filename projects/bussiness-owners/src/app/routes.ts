@@ -5,7 +5,7 @@ import { AddCompanyComponent } from './pages/company/add-compny/add-compny.compo
 import { UserconfirmationComponent } from './pages/inviteduserconfirmation/userconfirmation.component';
 import { CompanyComponent } from './pages/company/company.component';
 import { AuthGuard } from '../../../microtec-auth-lib/src/public-api';
-import { bouserdetails } from './pages/bouserdetails/bouserdetails.component';
+import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetails.component';
 
 export const BORoutes = [
   {

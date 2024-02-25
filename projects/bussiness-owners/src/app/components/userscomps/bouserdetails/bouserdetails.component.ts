@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../../services/users.httpsservice';
+import { UserService } from '../../../services/users.httpsservice';
 import {
   LoaderService,
   LogService,
   RouterService,
   customValidators,
 } from 'shared-lib';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 @Component({
@@ -16,15 +17,28 @@ import {
 })
 export class bouserdetails implements OnInit {
   userForm: FormGroup;
-  subdomains: any[] = [];
-  platformplans: any[] = [];
+ @Input() formId:string;
+  subdomains: any[] = [
+    { id: 1, name: 'Marketing' },
+    { id: 2, name: 'Sales' },
+    { id: 3, name: 'Support' },
+  ];
+
+  platformplans: any[] = [
+    { id: 1, name: 'Read' },
+    { id: 2, name: 'Write' },
+    { id: 3, name: 'Manage' },
+  ];
   Id:string;
 
   constructor(private fb: FormBuilder 
     ,private Userservice :UserService 
     ,private router: RouterService
     , private logService: LogService
-    , private loaderservice: LoaderService) { }
+    , private loaderservice: LoaderService
+    ,@Inject(MAT_DIALOG_DATA) public data: any) {
+      this.Id = data.Id;
+     }
 
   ngOnInit(): void {
     this.userForm = this.fb.group({

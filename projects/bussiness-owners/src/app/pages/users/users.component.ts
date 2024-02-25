@@ -5,7 +5,7 @@ import { UserService } from '../../services/users.httpsservice';
 import { LanguageService ,RouterService } from 'shared-lib';
 import { MatDialog } from '@angular/material/dialog';
 import { UserInviteFormComponent } from '../../components/userscomps/invite-form/user-invite-form/user-invite-form.component';
-import { bouserdetails } from '../bouserdetails/bouserdetails.component';
+import { bouserdetails } from '../../components/userscomps/bouserdetails/bouserdetails.component';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -84,14 +84,16 @@ export class UsersComponent implements OnInit {
     }
   }
   async editUser(Id: string) {
-    //const dialogRef = this.dialog.open(bouserdetails, {
-   //   width: '600px',
-  //    height: '600px',
-  //  });
-  //  dialogRef.afterClosed().subscribe((result: UserListResponse) => {
-  //    if (result as UserListResponse) this.userData.push(result);
-  //  });
-    this.logService.log('users/bouserdetails/' + Id);
-    this.router.navigateTo('users/bouserdetails/' + Id);
+    const dialogRef = this.dialog.open(bouserdetails, {
+      width: '800px',
+      height: '700px',
+      data: { Id: Id }
+    });
+    dialogRef.
+    dialogRef.afterClosed().subscribe((result: UserListResponse) => {
+      if (result as UserListResponse) this.userData.push(result);
+    });
+  //  this.logService.log('users/bouserdetails/' + Id);
+   // this.router.navigateTo('users/bouserdetails/' + Id);
   }
 }
