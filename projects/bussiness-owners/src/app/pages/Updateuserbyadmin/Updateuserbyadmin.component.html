@@ -1,0 +1,29 @@
+<div>
+  <h1>Edit User Profile</h1>
+  <form [formGroup]="profileForm" (ngSubmit)="submitForm()">
+    <label for="username">Username:</label>
+    <input type="text" id="username" formControlName="username" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" formControlName="email" required>
+
+    <label for="photo">Photo:</label>
+    <input type="file" id="photo" formControlName="photo">
+
+    <label for="subdomain">Subdomain:</label>
+    <select id="subdomain" formControlName="subdomain" multiple>
+      <option value="subdomain1">Subdomain 1</option>
+      <option value="subdomain2">Subdomain 2</option>
+      <!-- Add more options as needed -->
+    </select>
+
+    <label for="platformplan">Platform Plan:</label>
+    <select id="platformplan" formControlName="platformplan" multiple>
+      <option value="plan1">Plan 1</option>
+      <option value="plan2">Plan 2</option>
+      <!-- Add more options as needed -->
+    </select>
+
+    <button type="submit">Save Changes</button>
+  </form>
+</div>
