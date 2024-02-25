@@ -1,4 +1,6 @@
-export const environment = {
+import { IEnvironment } from 'shared-lib';
+
+export const environment: IEnvironment = {
   production: true,
   baseUrl: 'https://intmicrotec.neat-url.com:2003',
   Version: 'V1',
@@ -10,7 +12,7 @@ export const environment = {
     postLogoutRedirectUri:
       window.location.origin + '/bussinessowners/logout-redirect',
     clientId: 'microtecadminfrontend',
-    scope: 'openid profile email offline_access',
+    scope: 'openid profile email offline_access tenants',
     responseType: 'code',
     silentRenew: true,
     useRefreshToken: true,
