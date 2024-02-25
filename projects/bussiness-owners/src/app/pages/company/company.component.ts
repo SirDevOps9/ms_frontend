@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../../services/company.httpservice';
-import { LanguageService, LogService, RouterService, ToasterService } from 'shared-lib';
+import {
+  LanguageService,
+  LogService,
+  RouterService,
+  ToasterService,
+} from 'shared-lib';
 import { ResponseCompanyDto } from '../../models/company/responsecompanydto';
 @Component({
   selector: 'app-company',
@@ -12,7 +17,7 @@ export class CompanyComponent implements OnInit {
   constructor(
     private companyService: CompanyService,
     private routerService: RouterService,
-    private toasterService:ToasterService,
+    private toasterService: ToasterService,
     private languageService: LanguageService,
     private logService: LogService
   ) {}
@@ -23,7 +28,7 @@ export class CompanyComponent implements OnInit {
 
   ngOnInit() {
     this.companyService.getAll().subscribe((res) => {
-      this.companies = res.response;
+      this.companies = res.response.reverse();
       this.logService.log(this.companies);
     });
   }
@@ -32,7 +37,6 @@ export class CompanyComponent implements OnInit {
     if (!isActive) this.activate(id);
     else this.deactivate(id);
   }
-
 
   async activate(id: number) {
     const confirmed = await this.toasterService.showConfirm(
@@ -43,7 +47,9 @@ export class CompanyComponent implements OnInit {
         next: () => {
           this.toasterService.showSuccess(
             'Success',
-            this.languageService.transalte('Company.CompanyActivatedSuccessfully')
+            this.languageService.transalte(
+              'Company.CompanyActivatedSuccessfully'
+            )
           );
 
           let indexToChange = this.companies.find((item) => item.id === id);
@@ -61,7 +67,9 @@ export class CompanyComponent implements OnInit {
         next: () => {
           this.toasterService.showSuccess(
             'Success',
-            this.languageService.transalte('Company.CompanyDeactivatedSuccessfully')
+            this.languageService.transalte(
+              'Company.CompanyDeactivatedSuccessfully'
+            )
           );
           let indexToChange = this.companies.find((item) => item.id === id);
           indexToChange!.isActive = false;

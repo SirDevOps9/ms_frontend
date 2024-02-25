@@ -4,6 +4,7 @@ import {
   LanguageService,
   LoaderService,
   LogService,
+  RouterService,
   ToasterService,
 } from 'shared-lib';
 import { CompanyService } from '../../../services/company.httpservice';
@@ -25,14 +26,14 @@ export class AddCompanyComponent implements OnInit {
   CountryDropDown: CountryDropDown[];
   mobileCodeDropDown: MobileCodeDropdownDto[];
 
-
   constructor(
     private formBuilder: FormBuilder,
     private companyService: CompanyService,
     private logService: LogService,
     private toasterService: ToasterService,
     private loaderService: LoaderService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private routerService: RouterService
   ) {
     this.companyForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -55,26 +56,41 @@ export class AddCompanyComponent implements OnInit {
   ngOnInit() {
     this.getDropDowns();
 
-     // Add change event listener to the country dropdown
-     this.companyForm.get('countryCode')?.valueChanges.subscribe((selectedCountryCode) => {
-      // Find the corresponding country from the fetched data
-      const selectedCountry = this.mobileCodeDropDown.find(mobile => mobile.code === selectedCountryCode);
+    // Add change event listener to the country dropdown
+    this.companyForm
+      .get('countryCode')
+      ?.valueChanges.subscribe((selectedCountryCode) => {
+        // Find the corresponding country from the fetched data
+        const selectedCountry = this.mobileCodeDropDown.find(
+          (mobile) => mobile.code === selectedCountryCode
+        );
 
-      if (selectedCountry) {
-        // Set the corresponding phone code in the form
+        if (selectedCountry) {
+          // Set the corresponding phone code in the form
 
-        this.companyForm.patchValue({ 'mobileNumberCode': selectedCountry.code });
+          this.companyForm.patchValue({
+            mobileNumberCode: selectedCountry.code,
+          });
+        }
+      });
 
-      } 
-    });
+    // Add change event listener to the subdomain input
+    this.companyForm
+      .get('subdomainName')
+      ?.valueChanges.subscribe((subdomain) => {
+        // Automatically fill the company name with the subdomain
+        this.companyForm.patchValue({ name: subdomain });
+      });
 
-    this.companyForm.get('countryCode')?.valueChanges
+    this.companyForm.get('countryCode')?.valueChanges;
   }
-
 
   onSubmit() {
     if (!this.companyForm.valid) {
-      this.toasterService.showError('Error', 'Please fill in all the required fields');
+      this.toasterService.showError(
+        'Error',
+        'Please fill in all the required fields'
+      );
       return;
     }
     this.addCompany();
@@ -86,7 +102,7 @@ export class AddCompanyComponent implements OnInit {
       this.companyService.getMobileCodeDropDown(),
       this.companyService.getCountryDropDown(),
     ]).subscribe({
-      next: ([resDropdown, resMobileCode,  resCountry]) => {
+      next: ([resDropdown, resMobileCode, resCountry]) => {
         this.currencyDropDown = resDropdown.response.currencyDropdown;
         this.logService.log(this.currencyDropDown, 'currency Information:');
         this.industryDropDown = resDropdown.response.industryDropdown;
@@ -118,6 +134,7 @@ export class AddCompanyComponent implements OnInit {
           this.languageService.transalte('Company.CompanyAddedSuccessfully')
         );
         this.loaderService.hide();
+        this.routerService.navigateTo('company');
       },
       error: () => {
         this.loaderService.hide();

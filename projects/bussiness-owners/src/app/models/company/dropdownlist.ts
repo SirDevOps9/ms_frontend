@@ -1,7 +1,6 @@
-import { DropdownItemDto } from "./dropdown";
+import { DropdownItemDto } from './dropdown';
 
-export  interface DropdownListDto {
-    currencyDropdown: DropdownItemDto[];
-    industryDropdown: DropdownItemDto[];
-  }
-  
+export interface DropdownListDto {
+  currencyDropdown: DropdownItemDto[];
+  industryDropdown: DropdownItemDto[];
+}

@@ -21,7 +21,7 @@
           {{ "Company.Add.Subdomain" | translate }}
         </div>
       </div>
-      
+
       <div class="form-group mb-3">
         <label for="country" class="form-label"
           >{{ "Company.Add.Country" | translate }} :</label
@@ -37,7 +37,7 @@
             {{ "Company.Add.Select" | translate }}
             {{ "Company.Add.Country" | translate }}
           </option>
-          <option *ngFor="let option of CountryDropDown " [value]="option.code">
+          <option *ngFor="let option of CountryDropDown" [value]="option.code">
             {{ option.name }}
           </option>
         </select>
