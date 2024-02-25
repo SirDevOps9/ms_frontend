@@ -46,7 +46,7 @@ export class CompanyComponent implements OnInit {
       this.companyService.activateCompany(id).subscribe({
         next: () => {
           this.toasterService.showSuccess(
-            'Success',
+            this.languageService.transalte('Company.Success'),
             this.languageService.transalte(
               'Company.CompanyActivatedSuccessfully'
             )
@@ -66,7 +66,7 @@ export class CompanyComponent implements OnInit {
       this.companyService.deactivateCompany(id).subscribe({
         next: () => {
           this.toasterService.showSuccess(
-            'Success',
+            this.languageService.transalte('Company.Success'),
             this.languageService.transalte(
               'Company.CompanyDeactivatedSuccessfully'
             )

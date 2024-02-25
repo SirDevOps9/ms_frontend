@@ -40,8 +40,8 @@
     "InviteUser": "Invite User",
     "LastLogin": "Last Login Date",
     "InvitationStatus": "Invitation Status",
-    "Invited":"Invited",
-    "Accepted":"Accepted",
+    "Invited": "Invited",
+    "Accepted": "Accepted",
     "Inviteform": {
       "FormHeader": "Invite User",
       "EmailLabel": "Email Login",
@@ -55,6 +55,8 @@
     }
   },
   "Company": {
+    "Error": "Error",
+    "Success": "Success",
     "PageName": "Companies",
     "CompanyList": "Company List",
     "CreateNew": "Create New Company",
@@ -63,18 +65,20 @@
     "Website": "Website",
     "Address": "Address",
     "NoData": " There is no data",
-    "CompanyAddedSuccessfully":"Company added successfully",
-    "CompanyDeactivatedSuccessfully": "user deactivaed Successfully",
-    "CompanyActivatedSuccessfully": "user activaed Successfully",
+    "CompanyDeactivatedSuccessfully": "Company deactivaed Successfully",
+    "CompanyActivatedSuccessfully": "Company activaed Successfully",
     "Id": "Id",
     "Name": "Name",
     "Deactivate": "Deactivate",
     "Activate": "Activate",
     "Add": {
+      "CompanyAddedSuccessfully": "Company added successfully",
+      "Error": "Error",
+      "Success": "Success",
       "AddCompany": "Add Company",
-        "Country": "Country",
+      "Country": "Country",
+      "PleaseFillInAllTheRequiredFields": "Please fill in all the required fields.",
       "Status": "Status(Activate Or Deactivate)",
-
       "Step": "Step 01 - Company Main Info",
       "AccInfo": "Account Information",
       "CompanyName": "Company Name",
@@ -92,12 +96,12 @@
       "Select": "Select "
     }
   },
-  "UserConfirmation":{
-"Name":"Name",
-"Email":"Email",
-"Password":"Password",
-"ConfirmPassword":"ConfirmPassword",
-"policy":"I accept the user policy",
-"Save":"Save"
+  "UserConfirmation": {
+    "Name": "Name",
+    "Email": "Email",
+    "Password": "Password",
+    "ConfirmPassword": "ConfirmPassword",
+    "policy": "I accept the user policy",
+    "Save": "Save"
   }
 }

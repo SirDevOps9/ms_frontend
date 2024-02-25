@@ -88,9 +88,10 @@ export class AddCompanyComponent implements OnInit {
   onSubmit() {
     if (!this.companyForm.valid) {
       this.toasterService.showError(
-        'Error',
-        'Please fill in all the required fields'
-      );
+        this.languageService.transalte('Company.Error')
+        ,
+        this.languageService.transalte('Company.Add.PleaseFillInAllTheRequiredFields')
+        );
       return;
     }
     this.addCompany();
@@ -130,8 +131,8 @@ export class AddCompanyComponent implements OnInit {
       next: (response) => {
         this.logService.log(response, 'Company added successfully:');
         this.toasterService.showSuccess(
-          'Success',
-          this.languageService.transalte('Company.CompanyAddedSuccessfully')
+          this.languageService.transalte('Company.Success'),
+          this.languageService.transalte('Company.Add.CompanyAddedSuccessfully')
         );
         this.loaderService.hide();
         this.routerService.navigateTo('company');
