@@ -2,12 +2,15 @@ import { Component, Inject, Input, OnInit, input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../services/users.httpsservice';
 import {
+  LanguageService,
   LoaderService,
   LogService,
   RouterService,
+  ToasterService,
   customValidators,
 } from 'shared-lib';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { boupdateuser } from '../../../models/users/boupdateduser.model';
 
 
 @Component({
@@ -36,15 +39,18 @@ export class bouserdetails implements OnInit {
     ,private router: RouterService
     , private logService: LogService
     , private loaderservice: LoaderService
-    ,@Inject(MAT_DIALOG_DATA) public data: any) {
+    ,private toasterService: ToasterService
+    , public languageService: LanguageService
+    ,@Inject(MAT_DIALOG_DATA) public data: any
+    , private dialogRef: MatDialogRef<bouserdetails>) {
       this.Id = data.Id;
      }
 
   ngOnInit(): void {
     this.userForm = this.fb.group({
-      username: [''],
-      email: [''],
-      photo: [''],
+      username: [ { value: '', disabled: true }],
+      email: [ { value: '', disabled: true }],
+      photo: [ { value: '', disabled: true }],
       subdomain: [[]],
       platformplan: [[]]
     });
@@ -67,7 +73,7 @@ export class bouserdetails implements OnInit {
           email: userData.email,
           photo: userData.photo,
           subdomain: userData.subDomain, 
-          platformplan: userData.pLatformplan, 
+          plateformPlan: userData.pLatformplan, 
         });
       },
       error: (err) => {
@@ -77,17 +83,31 @@ export class bouserdetails implements OnInit {
   }
   
 
-  submitForm() {
-    this.loaderservice.show();
-    const userForm = this.userForm.value;
-    this.Userservice.updateUser(userForm ,this.Id ).subscribe({
-      next: (response) => {
-        this.router.getRouteParams('/users');
-      },
-      error: () => {
-        this.loaderservice.hide();
-      },
-    });
+  async submitForm() {
+    const confirmed = await this.toasterService.showConfirm(
+      'ConfirmButtonTexttochangstatus'
+    );
+    if (confirmed) {
+      const UpdateUserDto: boupdateuser = this.userForm.value;
+
+      this.logService.log(UpdateUserDto);
+      this.Userservice.updateUser(userForm ,this.Id ).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            'Success',
+            this.languageService.transalte('User.BoUserDetails.UserUpdated')
+          )
+        //  this.dialogRef.close(); 
+        },
+        error: () => {
+          this.dialogRef.close();
+        },
+      });
+    }
+   
+  }
+  cancelEdit(){
+    this.dialogRef.close();
   }
 
 }

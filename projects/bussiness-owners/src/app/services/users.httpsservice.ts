@@ -5,6 +5,7 @@ import { APIResponse, BaseService } from 'shared-lib';
 import { UserListResponse } from '../models/users/userlist.response';
 import { InviteUserDto } from '../models/users/inviteuser.model';
 import { GetUserbyid } from '../models/users/getuserbyid.response';
+import { boupdateuser } from '../models/users/boupdateduser.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -44,7 +45,7 @@ export class UserService {
     );
   }
 
-  updateUser(user:any , id:string):Observable<APIResponse<boolean>> {
+  updateUser(user:boupdateuser , id:string):Observable<APIResponse<boolean>> {
     return this.baseService.put<APIResponse<boolean>>(
       `${this.userController}/BOUpdateUser/${id}`,user
     );

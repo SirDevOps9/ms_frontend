@@ -42,6 +42,8 @@
     "InvitationStatus": "Invitation Status",
     "Invited":"Invited",
     "Accepted":"Accepted",
+    "Actions":"Actions",
+    "Edit":"Edit",
     "Inviteform": {
       "FormHeader": "Invite User",
       "EmailLabel": "Email Login",
@@ -52,7 +54,19 @@
       "CancelButton": "Cancel",
       "Success": "Success",
       "InviationSent": "Invitation Sent Succefully"
+    },
+    "BoUserDetails":{
+      "Title":"Edit User Profile",
+      "Username":"Username",
+      "Email":"Email",
+      "Photo":"Photo",
+      "Subdomain":"Subdomain",
+      "PlatformPlan":"Platform Plan",
+      "submit":"Save Changes",
+      "Cancel":"Cancel",
+      "UserUpdated": "User Updated Successfully"
     }
+
   },
   "Company": {
     "CompanyList": "Company List",
