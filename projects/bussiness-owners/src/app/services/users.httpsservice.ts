@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { APIResponse, BaseDto, BaseService } from 'shared-lib';
 import { UserListResponse } from '../models/users/userlist.response';
 import { InviteUserDto } from '../models/users/inviteuser.model';
+import { GetUserbyid } from '../models/users/getuserbyid.response';
+import { boupdateuser } from '../models/users/boupdateduser.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -43,22 +45,33 @@ export class UserService {
     );
   }
 
-  resendInvitation(id: number): Observable<APIResponse<boolean>> {
+  resendInvitation(id: string): Observable<APIResponse<boolean>> {
     return this.baseService.post<APIResponse<boolean>>(
       `${this.resendInvitationAPI}/${id}`,
       {}
     );
   }
-  activateUser(id: number): Observable<APIResponse<boolean>> {
+  activateUser(id: string): Observable<APIResponse<boolean>> {
     return this.baseService.put<APIResponse<boolean>>(
       `${this.userController}/ActivateUser/${id}`,
       {}
     );
   }
-  deactivateUser(id: number): Observable<APIResponse<boolean>> {
+  deactivateUser(id: string): Observable<APIResponse<boolean>> {
     return this.baseService.put<APIResponse<boolean>>(
       `${this.userController}/DeactivateUser/${id}`,
       {}
+    );
+  }
+  getUserById(id:string): Observable<APIResponse<GetUserbyid>> {
+    return this.baseService.get<APIResponse<GetUserbyid>>(
+      `${this.userController}/Getbyid/${id}`
+    );
+  }
+
+  updateUser(user:boupdateuser , id:string):Observable<APIResponse<boolean>> {
+    return this.baseService.put<APIResponse<boolean>>(
+      `${this.userController}/BOUpdateUser/${id}`,user
     );
   }
 }

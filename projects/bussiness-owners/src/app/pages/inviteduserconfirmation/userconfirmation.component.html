@@ -2,6 +2,20 @@
 
 <form  [formGroup]="userForm" (ngSubmit)="submitForm()" class="mt-4">
   <div class="mb-3">
+    <label for="photo" class="form-label">
+      {{ "UserConfirmation.Photo" | translate }}
+    </label>
+    <input
+      type="file"
+      id="photo"
+      name="photo"
+      formControlName="photo"
+      class="form-control"
+      accept="image/*"
+      
+    />
+  </div>
+  <div class="mb-3">
     <label for="fullName" class="form-label">{{
       "UserConfirmation.Name" | translate
     }}</label>

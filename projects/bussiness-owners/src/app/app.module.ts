@@ -26,7 +26,7 @@ import {
 import { UserInviteFormComponent } from './components/userscomps/invite-form/user-invite-form/user-invite-form.component';
 import { AddCompanyComponent } from './pages/company/add-compny/add-compny.component';
 import { CompanyComponent } from './pages/company/company.component';
-
+import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetails.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +36,7 @@ import { CompanyComponent } from './pages/company/company.component';
     AddCompanyComponent,
     CompanyComponent,
     UserconfirmationComponent,
+    bouserdetails
   ],
   imports: [
     CommonModule,
