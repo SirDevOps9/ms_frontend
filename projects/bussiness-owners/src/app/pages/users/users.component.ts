@@ -99,5 +99,10 @@ export class UsersComponent implements OnInit {
       height: '700px',
       data: { Id: Id }
     });
+    dialogRef.afterClosed().subscribe((result: UserListResponse) => {
+      if (result as UserListResponse) this.userData.push(result);
+    });
+  //  this.logService.log('users/bouserdetails/' + Id);
+   // this.router.navigateTo('users/bouserdetails/' + Id);
   }
 }

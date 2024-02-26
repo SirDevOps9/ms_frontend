@@ -16,9 +16,9 @@ export class InviteduserService {
     );
   }
   ConfirmInvitedUser(
-    request: AddConfirmedUserDto
+    request: FormData
   ): Observable<APIResponse<boolean>> {
-    return this.baseService.post<APIResponse<boolean>>(
+    return this.baseService.postForm<APIResponse<boolean>>(
       `${this.userController}/ConfirmInvitedUser`,
       request
     );

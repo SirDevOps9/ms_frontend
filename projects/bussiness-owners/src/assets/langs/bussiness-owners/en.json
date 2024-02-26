@@ -32,7 +32,7 @@
     "Email": "Email",
     "Phone": "Phone",
     "Status": "Status(Activate Or Deactivate)",
-    "Resend":"Resend",
+    "Resend": "Resend",
     "Deactivate": "Deactivate",
     "Activate": "Activate",
     "Succefully": "Succefully",
@@ -41,10 +41,10 @@
     "InviteUser": "Invite User",
     "LastLogin": "Last Login Date",
     "InvitationStatus": "Invitation Status",
-    "Invited":"Invited",
-    "Accepted":"Accepted",
-    "Actions":"Actions",
-    "Edit":"Edit",
+    "Invited": "Invited",
+    "Accepted": "Accepted",
+    "Actions": "Actions",
+    "Edit": "Edit",
     "Inviteform": {
       "FormHeader": "Invite User",
       "EmailLabel": "Email Login",
@@ -56,18 +56,17 @@
       "Success": "Success",
       "InviationSent": "Invitation Sent Succefully"
     },
-    "BoUserDetails":{
-      "Title":"Edit User Profile",
-      "Username":"Username",
-      "Email":"Email",
-      "Photo":"Photo",
-      "Subdomain":"Subdomain",
-      "PlatformPlan":"Platform Plan",
-      "submit":"Save Changes",
-      "Cancel":"Cancel",
+    "BoUserDetails": {
+      "Title": "Edit User Profile",
+      "Username": "Username",
+      "Email": "Email",
+      "Photo": "Photo",
+      "Subdomain": "Subdomain",
+      "PlatformPlan": "Platform Plan",
+      "submit": "Save Changes",
+      "Cancel": "Cancel",
       "UserUpdated": "User Updated Successfully"
     }
-
   },
   "Company": {
     "Error": "Error",
@@ -117,6 +116,7 @@
     "Password": "Password",
     "ConfirmPassword": "ConfirmPassword",
     "policy": "I accept the user policy",
-    "Save": "Save"
+    "Save": "Save",
+    "Photo": "Photo"
   }
 }

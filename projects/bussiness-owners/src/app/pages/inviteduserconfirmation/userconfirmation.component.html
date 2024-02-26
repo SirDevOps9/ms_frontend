@@ -8,11 +8,8 @@
     <input
       type="file"
       id="photo"
-      name="photo"
-      formControlName="photo"
-      class="form-control"
       accept="image/*"
-      
+      (change)="onFileSelected($event)"
     />
   </div>
   <div class="mb-3">
