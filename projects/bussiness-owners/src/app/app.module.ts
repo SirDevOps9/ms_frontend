@@ -32,6 +32,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { SidebarModule } from 'primeng/sidebar';
 import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,6 +78,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     SidebarModule,
     DialogModule,
     MultiSelectModule,
+    ToggleButtonModule
   ],
   providers: [
     {

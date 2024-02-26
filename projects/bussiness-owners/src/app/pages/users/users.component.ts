@@ -21,9 +21,11 @@ export class UsersComponent implements OnInit {
   
   checked: boolean = true;
   userEditDialog: boolean = false;
+  addUser: boolean = false;
   cities!: City[];
-
+  value: string | undefined;
   selectedCities!: City[];
+  
   @ViewChild('dt') dt:any | undefined;
   constructor(
     public languageService: LanguageService,
@@ -151,9 +153,9 @@ export class UsersComponent implements OnInit {
       if (result as UserListResponse) this.userData.push(result);
     });
   }
-  applyFilterGlobal($event:any, stringVal:any) {
-    this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
-  }
+  // applyFilterGlobal($event:any, stringVal:any) {
+  //   this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
+  // }
 
   async activate(id: number) {
     const confirmed = await this.toasterService.showConfirm(
@@ -199,5 +201,21 @@ export class UsersComponent implements OnInit {
     this._LogService.log(id)
     //this._LogService.log(this.user)
     this.userEditDialog=true
+  }
+  applyFilterGlobal($event:any, stringVal:any) {
+    this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
+  }
+  addNewUser(){
+    if(this.addUser==false){
+      this.addUser=true
+    }else{
+      this.addUser=false
+    }
+  }
+  closeAdd(){
+    this.addUser=false
+  }
+  closeedite(){
+    this.userEditDialog=false
   }
 }

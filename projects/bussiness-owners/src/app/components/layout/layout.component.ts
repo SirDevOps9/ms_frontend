@@ -13,6 +13,8 @@ export class LayoutComponent implements OnInit {
   userName:string;
   showcard:boolean=false;
   sidebarOpen:boolean=false;
+  submenu:boolean=false;
+  subSubmenu:boolean=false;
   items: MenuItem[] | undefined;
   itemsBrod: MenuItem[] | undefined;
 
@@ -194,5 +196,9 @@ export class LayoutComponent implements OnInit {
     }else{
         this.sidebarOpen=true
     }
+  }
+  showSubmenu(){
+    this.submenu=true
+    this.logService.log("gggggggggggg");
   }
 }

@@ -213,13 +213,18 @@
     </div> -->
 
     <div data-component="sidebar">
-      <div class="sidebar">
+      <!-- <div class="sidebar"> -->
       <ul class="list-group flex-column d-inline-block first-menu">
         <li class="list-group-item pl-3 py-2">
         
-          <a href="#"> <i class="fa fa-solid fa-globe"> <span class="ml-2 align-middle">Plans</span></i></a>
+          <!-- <a href="#"> -->
+            <button (click)="showSubmenu()">
+              <i class="fa fa-solid fa-globe"> <span class="ml-2 align-middle">Plans</span></i>
+
+            </button>
+            <!-- </a> -->
           
-          <ul class="list-group flex-column d-inline-block submenu">
+          <ul class="list-group flex-column d-inline-block submenu" *ngIf="submenu">
             <li class="list-group-item pl-4">
               <a href="#" class="">Dashboard</a>
               
@@ -238,7 +243,7 @@
             <li class="list-group-item pl-4">
               <a href="">SEO</a>
               
-              <ul class="list-group flex-column d-inline-block sub-submenu">
+              <ul class="list-group flex-column d-inline-block sub-submenu" *ngIf="subSubmenu">
                 <span class="arrow" style="top:113px;"></span>
                 <li class="list-group-item pl-4">
                   <a href="#">Dashboard</a>
@@ -580,7 +585,7 @@
         
       </ul> <!-- /.first-menu -->
     </div> <!-- /.sidebar -->
-    </div>
+    <!-- </div> -->
     <div class="pages">
       <router-outlet></router-outlet>
     </div>
