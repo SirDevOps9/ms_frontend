@@ -81,7 +81,8 @@ export class UserconfirmationComponent implements OnInit {
       formData.append('email', this.email);
       this.inviteduserService.ConfirmInvitedUser(formData).subscribe({
         next: (response) => {
-          this.router.getRouteParams('/login');
+          this.loaderservice.hide();
+          this.router.navigateTo('/login');
         },
         error: () => {
           this.loaderservice.hide();
