@@ -33,6 +33,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { AccordionModule } from 'primeng/accordion';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,7 +79,8 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     SidebarModule,
     DialogModule,
     MultiSelectModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    AccordionModule
   ],
   providers: [
     {

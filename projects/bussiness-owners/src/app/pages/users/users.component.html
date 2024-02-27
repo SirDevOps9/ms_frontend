@@ -1,6 +1,6 @@
-<!-- <div class="container mt-4">
-  <div class="row justify-content-center"> -->
-     <!-- <div class="col-md-8">
+<div class="container mt-4">
+  <!-- <div class="row justify-content-center">
+     <div class="col-md-8">
       <div class="card">
         <div
           class="card-header d-flex justify-content-between align-items-center"
@@ -70,19 +70,19 @@
           </div>
         </div>
       </div>
-    </div>  -->
+    </div> 
 
-<!-- </div> -->
+</div> -->
 
 <div class="user_page">
   <p-table
   #dt
-  [value]="users"
+  [value]="userData"
   [rows]="10"
   [paginator]="true"
   [globalFilterFields]="['name', 'email', 'representative.name', 'status']"
   [tableStyle]="{ 'min-width': '75rem' }"
-  [rowsPerPageOptions]="[10, 25, 50]"
+  [rowsPerPageOptions]="[5, 10, 15]"
   [rowHover]="true"
   dataKey="id"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -125,20 +125,20 @@
           <td>
             <span class="pi pi-calendar-minus"></span>
           
-            {{ product.date| date : "dd/MM/yyyy HH:mm" }}</td>
+            {{ product.lastLoginDate| date : "dd/MM/yyyy HH:mm" }}</td>
           <td>
             
             <p-button icon="pi pi-pencil" (click)="editeUser(product.id)" [rounded]="true" [text]="true" severity="secondary "></p-button>
             <!-- <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger "></p-button> -->
         </td>
-          <td>
-              <div class="checked" >
-                <p-inputSwitch [(ngModel)]="checked"  onLabel="Yes" offLabel="No">
+          <td >
+              <div class="checked" *ngIf="product.isConfirmed" >
+                <p-inputSwitch [(ngModel)]="product.isActive">
                 </p-inputSwitch>
-                <p class="active" *ngIf="checked">Active</p>
-                <p class="inactive" *ngIf="!checked">Inactive</p>
+                <p class="active" *ngIf=product.isActive>Active</p>
+                <p class="inactive" *ngIf="!product.isActive">Inactive</p>
               </div>
-              <button class="resend" >
+              <button class="resend" *ngIf="!product.isConfirmed">
                 <p class="title">Resend</p>
                 <p class="ico_mail pi pi-envelope
                 "></p>
@@ -152,6 +152,7 @@
       </tr>
   </ng-template>
 </p-table>
+
 
 <p-dialog [(visible)]="userEditDialog" [style]="{ width: '60%' , height:'100vh'  }" header="Edit User Information" [modal]="true" styleClass="p-fluid">
   <div class="popup_edit flex-column  flex  h-full justify-content-around ">
@@ -171,13 +172,13 @@
       <div class="admin_edit">
         <div class="card ">
           <span class="p-float-label">
-              <p-multiSelect inputId="float-label" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [showClear]="true" display="chip"></p-multiSelect>
+              <p-multiSelect inputId="float-label" [options]="domains" [(ngModel)]="selectedCities" optionLabel="name" [showClear]="true" display="chip"></p-multiSelect>
               <label class="" for="float-label">Domain Space (multiple Select)</label>
           </span>
       </div>
         <div class="card ">
           <span class="p-float-label">
-              <p-multiSelect inputId="float-label" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [showClear]="true" display="chip"></p-multiSelect>
+              <p-multiSelect inputId="float-label" [options]="actions" [(ngModel)]="selectedCities" optionLabel="name" [showClear]="true" display="chip"></p-multiSelect>
               <label class="" for="float-label">Manage Role (multiple Select)</label>
           </span>
       </div>
@@ -194,18 +195,6 @@
 <p-dialog [(visible)]="addUser" [style]="{ width: '40%' , height:'100vh'  }" header="Add New User" [modal]="true" styleClass="p-fluid">
   <div class="popup_edit flex-column  flex  h-full justify-content-around ">
     <div class="card_edit">
-      <!-- <div class="information">
-          <div class="user_photo">
-              <img [src]="user.photo" alt="" *ngIf="user.photo">
-              <img src="assets/images/users/editdefault.png" alt="" *ngIf="!user.photo">
-          </div>
-          <div class="user_name">
-             <p>{{user.name}}</p> 
-          </div>
-          <div class="user_mail">
-             <p> {{user.email}} </p>
-          </div>
-      </div> -->
       <div class="admin_edit">
         <div class="email_input" > 
           <div class="card flex justify-content-center">
@@ -217,13 +206,13 @@
         </div>
         <div class="card ">
           <span class="p-float-label">
-              <p-multiSelect inputId="float-label" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [showClear]="true" display="chip"></p-multiSelect>
+              <p-multiSelect inputId="float-label" [options]="domains" [(ngModel)]="selectedDomain" optionLabel="name" [showClear]="true" display="chip"></p-multiSelect>
               <label class="" for="float-label">Domain Space (multiple Select)</label>
           </span>
       </div>
         <div class="card ">
           <span class="p-float-label">
-              <p-multiSelect inputId="float-label" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [showClear]="true" display="chip"></p-multiSelect>
+              <p-multiSelect inputId="float-label" [options]="actions" [(ngModel)]="selectedActions" optionLabel="name" [showClear]="true" display="chip"></p-multiSelect>
               <label class="" for="float-label">Manage Role (multiple Select)</label>
           </span>
       </div>

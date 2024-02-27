@@ -25,7 +25,19 @@ export class UsersComponent implements OnInit {
   cities!: City[];
   value: string | undefined;
   selectedCities!: City[];
-  
+  selectedDomain!: any[];
+  selectedActions!: any[];
+  domains: any[] = [
+    { id: 1, name: 'Marketing' },
+    { id: 2, name: 'Sales' },
+    { id: 3, name: 'Support' },
+  ];
+
+  actions: any[] = [
+    { id: 1, name: 'Read' },
+    { id: 2, name: 'Write' },
+    { id: 3, name: 'Manage' },
+  ];
   @ViewChild('dt') dt:any | undefined;
   constructor(
     public languageService: LanguageService,
@@ -118,6 +130,86 @@ export class UsersComponent implements OnInit {
         lastLoginDate: "string",
         invitationStatus: "number",
       },
+      {
+        id: "014",
+        name: "ccccccccc",
+        email: "cccccccccccccc",
+        countryId: "0",
+        phone: "string",
+        password: "string",
+        isMailSent: false,
+        isConfirmed: false,
+        roleId: "number",
+        identityId: "string",
+        typeId: "number",
+        isActive: false,
+        lastLoginDate: "string",
+        invitationStatus: "number",
+      },
+      {
+        id: "014",
+        name: "ccccccccc",
+        email: "cccccccccccccc",
+        countryId: "0",
+        phone: "string",
+        password: "string",
+        isMailSent: false,
+        isConfirmed: false,
+        roleId: "number",
+        identityId: "string",
+        typeId: "number",
+        isActive: false,
+        lastLoginDate: "string",
+        invitationStatus: "number",
+      },
+      {
+        id: "014",
+        name: "ccccccccc",
+        email: "cccccccccccccc",
+        countryId: "0",
+        phone: "string",
+        password: "string",
+        isMailSent: false,
+        isConfirmed: false,
+        roleId: "number",
+        identityId: "string",
+        typeId: "number",
+        isActive: false,
+        lastLoginDate: "string",
+        invitationStatus: "number",
+      },
+      {
+        id: "014",
+        name: "ccccccccc",
+        email: "cccccccccccccc",
+        countryId: "0",
+        phone: "string",
+        password: "string",
+        isMailSent: false,
+        isConfirmed: false,
+        roleId: "number",
+        identityId: "string",
+        typeId: "number",
+        isActive: false,
+        lastLoginDate: "string",
+        invitationStatus: "number",
+      },
+      {
+        id: "014",
+        name: "ccccccccc",
+        email: "cccccccccccccc",
+        countryId: "0",
+        phone: "string",
+        password: "string",
+        isMailSent: false,
+        isConfirmed: false,
+        roleId: "number",
+        identityId: "string",
+        typeId: "number",
+        isActive: false,
+        lastLoginDate: "string",
+        invitationStatus: "number",
+      },
       
     
 
@@ -135,6 +227,7 @@ export class UsersComponent implements OnInit {
     this.userService.getAll().subscribe({
       next: (res) => {
         this.userData = res.response;
+        
       },
     });
   }
@@ -193,7 +286,7 @@ export class UsersComponent implements OnInit {
     }
   }
   editeUser(id:any){
-    this.users.forEach((element:any) => {
+    this.userData.forEach((element:any) => {
       if(element.id==id){
        this.user=[element]
       }

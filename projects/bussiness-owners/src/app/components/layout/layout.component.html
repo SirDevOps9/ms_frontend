@@ -1,59 +1,4 @@
 <div dir="{{ 'dir' | translate }}">
-  <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light" >
-    <div class="container">
-      <a class="navbar-brand" routerLink="/home">Microtec BO</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarNav" style="background-color: rgb(0, 119, 255);">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/">{{
-              "Layout.Dashboard" | translate
-            }}</a>
-          </li>
-      
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/users">{{
-              "Layout.Users" | translate
-            }}</a>
-          </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="company/add">{{
-            "Layout.Company" | translate
-          }}</a>
-        </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/company">{{
-              "Layout.Company" | translate
-            }}</a>
-          </li>
-          <li class="nav-item">
-            <button class="btn btn-link nav-link" (click)="logout()">
-              {{ "Logout" | translate }}
-            </button>
-          </li>
-          <li class="nav-item">
-            <button class="btn btn-link nav-link" (click)="toggleLanguage()">
-              {{ languageService.Lang === "en" ? "English" : "عربى" }}
-            </button>
-          </li>
-          <li class="nav-item ml-auto">
-            <span class="nav-link">{{ userName}}</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav> -->
   <nav>
     <div class="card">
       <div class="header_bussiness">
@@ -172,7 +117,7 @@
                         </button>
                         <div class="footer_card">
                           <div class="logout">
-                            <button class="log_link">
+                            <button class="log_link" (click)="logout()">
                               <p class="pi pi-sign-out"></p>
                               <p class="title">logout</p>
                             </button>
@@ -192,401 +137,145 @@
     
   </div>
   </nav>
-  
   <div class="Layout">
-    <!-- <div class="sidebar" [ngClass]="{'sidebar_open': sidebarOpen}">
-      <div class="sidebar_content" >
-        <div class="btn_side">
-          <button  (click)="toggleSidebar()">
-            <div class=" pi pi-chevron-right" *ngIf="!sidebarOpen"></div>
-            <div class=" pi pi-chevron-left" *ngIf="sidebarOpen"></div>
-        </button>
-        </div>
-    
-      </div>
-   
-    </div> -->
-    <!-- <div class="new_sidebar">
-      <div class="sidebar_content">
-
-      </div>
-    </div> -->
-
-    <div data-component="sidebar">
-      <!-- <div class="sidebar"> -->
-      <ul class="list-group flex-column d-inline-block first-menu">
-        <li class="list-group-item pl-3 py-2">
-        
-          <!-- <a href="#"> -->
-            <button (click)="showSubmenu()">
-              <i class="fa fa-solid fa-globe"> <span class="ml-2 align-middle">Plans</span></i>
-
+    <div class="bar" [ngClass]="{'bar_opened': sidebarOpen}" id="bar">
+      <div class="sidebar_container">
+        <div class="content" *ngIf="!sidebarOpen">
+          <button class="item"  routerLink="/plan"  id="plan" (click)="activeTag('plan')">
+            <div class="item_icon">
+              <i class=" fa fa-solid fa-globe"></i>
+            </div>
+            <div class="item_text">
+              plan
+            </div>
+          </button>
+          <button class="item" routerLink="/company"  id="company" (click)="activeTag('company')">
+            <div class="item_icon">
+              <i class="fa fa-solid fa-building"></i>
+            </div>
+            <div class="item_text">
+              company
+            </div>
+          </button>
+          <button class="item"  routerLink="/users"  id="users" (click)="activeTag('users')">
+            <div class="item_icon">
+              <i class=" fa fa-solid fa-users"></i>
+            </div>
+            <div class="item_text">
+              user
+            </div>
+          </button>
+          <button class="item"  id="KPI" (click)="activeTag('KPI')">
+            <div class="item_icon">
+              <i class=" fa fa-solid fa-globe"></i>
+            </div>
+            <div class="item_text">
+              KPI's
+            </div>
+          </button>
+          <button class="item"  id="Apps" (click)="activeTag('Apps')">
+            <div class="item_icon">
+              <i class=" fa fa-solid fa-globe"></i>
+            </div>
+            <div class="item_text">
+              microtec Apps users
+            </div>
+          </button>
+          <div class="item"  id="subscripition" (click)="activeTag('subscripition')">
+            <button>
+              <div class="item_icon">
+                <i class=" fa fa-solid fa-globe"></i>
+              </div>
+              <div class="item_text">
+                subscripition
+              </div>
             </button>
-            <!-- </a> -->
-          
-          <ul class="list-group flex-column d-inline-block submenu" *ngIf="submenu">
-            <li class="list-group-item pl-4">
-              <a href="#" class="">Dashboard</a>
-              
-              <ul class="list-group flex-column d-inline-block sub-submenu">
-                <span class="arrow"></span>
-                <li class="list-group-item pl-4">
-                  <a href="#">Home</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">My Sites</a>
-                </li>
-              </ul>
-              
-            </li> 
-            
-            <li class="list-group-item pl-4">
-              <a href="">SEO</a>
-              
-              <ul class="list-group flex-column d-inline-block sub-submenu" *ngIf="subSubmenu">
-                <span class="arrow" style="top:113px;"></span>
-                <li class="list-group-item pl-4">
-                  <a href="#">Dashboard</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Titles & Metas</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Social</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">XML Sitemaps</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Advanced</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Tools</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Search Console</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Go Premium</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Manual</a>
-                </li>
-              </ul>
-            
-            </li>
-          </ul> <!-- /.submenu --> 
-        </li> <!-- /.list-group-item -->
-        
-        <li class="list-group-item pl-3 py-2">
-          <a  ><i class="fa fa-regular fa-building"><span class="ml-2 align-middle">Company</span></i></a>
-       
-        </li> <!-- /.list-group-item -->
-        
-        <li class="list-group-item pl-3 py-2">
-          <a routerLink="/users">
-            <i class=" fa fa-solid fa-users"><span class="ml-2 align-middle">Users</span></i>
-          </a>
-          <!-- <ul class="list-group flex-column d-inline-block submenu">
-            
-            <li class="list-group-item pl-4">
-              <a href="#" class="">Comments</a>
-              <ul class="list-group flex-column d-inline-block sub-submenu">
-                <span class="arrow"></span>
-                <li class="list-group-item pl-4">
-                  <a href="#">Comments</a>
-                </li>
-              </ul>
-            </li>
-            
-            <li class="list-group-item pl-4">
-              <a href="#" class="">Forms</a>
-              <ul class="list-group flex-column d-inline-block sub-submenu">
-                <span class="arrow" style="top:114px;"></span>
-                <li class="list-group-item pl-4">
-                  <a href="#">All Forms</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">New Form</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">All Entries</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Gravity Forms</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Import/Export</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Gravity Forms Tutorials</a>
-                </li>
-              </ul>
-            </li>
-            <li class="list-group-item pl-4">
-              <a href="#" class="">Home Valuation</a>
-              <ul class="list-group flex-column d-inline-block sub-submenu">
-                <span class="arrow" style="top:166px;"></span>
-                <li class="list-group-item pl-4">
-                  <a href="#">View All Leads</a>
-                </li>
-              </ul>
-            </li>
-          </ul> /.submenu -->
-        </li> <!-- /.list-group-item -->
-        
-        
-        <!-- <li class="list-group-item pl-3 py-2">
-          <a href="#"><i class="fa fa-user-o" aria-hidden="true"><span class="ml-2 align-middle">Image Center</span></i></a>
-          
-          <ul class="list-group flex-column d-inline-block submenu">
-            <li class="list-group-item pl-4">
-              <a href="#" class="">Media Library</a>
-              
-              <ul class="list-group flex-column d-inline-block sub-submenu">
-                <span class="arrow"></span>
-                <li class="list-group-item pl-4">
-                  <a href="#">Media Library</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Add New</a>
-                </li>
-              </ul>
-              
-            </li>
-            <li class="list-group-item pl-4">
-              <a href="#" class="">Soliloquy Slider</a>
-              
-              <ul class="list-group flex-column d-inline-block sub-submenu">
-                <span class="arrow" style="top:114px;"></span>
-                <li class="list-group-item pl-4">
-                  <a href="#">All Sliders</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Add New</a>
-                </li>
-              </ul>
-            
-            </li>
-          </ul>
-        </li>
-        
-        <li class="list-group-item pl-3 py-2">
-          <a href="#"><i class="fa fa-user-o" aria-hidden="true"><span class="ml-2 align-middle">Settings</span></i></a>
-          <ul class="list-group flex-column d-inline-block submenu">
-            <li class="list-group-item pl-4">
-              <a href="#" class="">Users</a>
-              
-              <ul class="list-group flex-column d-inline-block sub-submenu">
-                <span class="arrow"></span>
-                <li class="list-group-item pl-4">
-                  <a href="#">All Users</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Add New</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Your Profile</a>
-                </li>
-              </ul>
-            
-            </li>
-            <li class="list-group-item pl-4">
-              <a href="#" class="">AgentFire Settings</a>
-              
-              <ul class="list-group flex-column d-inline-block sub-submenu">
-                <span class="arrow" style="top:114px;"></span>
-                <li class="list-group-item pl-4">
-                  <a href="#">Home Valuation</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Testimonials</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Team Members</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Area Content</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Manual Listings</a>
-                </li>
-              </ul>
-            
-            </li>
-            <li class="list-group-item pl-4">
-              <a href="#" class="">Grids Settings</a>
-              
-              <ul class="list-group flex-column d-inline-block sub-submenu">
-                <span class="arrow" style="top:166px;"></span>
-                <li class="list-group-item pl-4">
-                  <a href="#">Ess. Grid Search Settings</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Ess. Grid Global Settings</a>
-                </li>
-              </ul>
-            </li>
-            <li class="list-group-item pl-4">
-              <a href="#" class="">Plugin Settings</a>
-              
-              <ul class="list-group flex-column d-inline-block sub-submenu">
-                <span class="arrow" style="top:220px;"></span>
-                <li class="list-group-item pl-4">
-                  <a href="#">Soliloquy</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Flickr - Pick a Picture</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Google Analytics</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Google Maps</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">JackBox</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Media</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">No Page Comment</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Post Types Order</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Shortcode any widget</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">WP RSS Images</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">SNAP</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">WP Sitemap Page</a>
-                </li>
-              </ul>
-            
-            
-            </li>
-            <li class="list-group-item pl-4">
-              <a href="#" class="">WordPress Settings</a>
-              
-              <ul class="list-group flex-column d-inline-block sub-submenu">
-                <span class="arrow" style="top:272px;"></span>
-                <li class="list-group-item pl-4">
-                  <a href="#">General</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Discussion</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Reading</a>
-                </li>
-              </ul>
-            
-            </li>
-            <li class="list-group-item pl-4">
-              <a href="#" class="">Re-Order</a>
-              
-              <ul class="list-group flex-column d-inline-block sub-submenu">
-                <span class="arrow" style="top:323px;"></span>
-                <li class="list-group-item pl-4">
-                  <a href="#">Posts</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Pages</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Media Library</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Blog Assist</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Area Content</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Manual Listings</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Testimonials</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Team Members</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Flyouts</a>
-                </li>
-              </ul>
-            
-            </li>
-            <li class="list-group-item pl-4">
-              <a href="#" class="">Site Appearance</a>
-              
-              <ul class="list-group flex-column d-inline-block sub-submenu">
-                <span class="arrow" style="top:377px;"></span>
-                <li class="list-group-item pl-4">
-                  <a href="#">Widgets</a>
-                </li>
-                <li class="list-group-item pl-4">
-                  <a href="#">Menus</a>
-                </li>
-              </ul>
-            
-            </li>
-          </ul>
-        
-        </li>
-        
-        <li class="list-group-item pl-3 py-2">
-          <a href="#"><i class="fa fa-user-o" aria-hidden="true"><span class="ml-2 align-middle">Support</span></i></a>
-          <ul class="list-group flex-column d-inline-block submenu">
-            <li class="list-group-item pl-4">
-              <a href="#" class="">Training</a>
-              
-              <ul class="list-group flex-column d-inline-block sub-submenu">
-                <span class="arrow"></span>
-                <li class="list-group-item pl-4">
-                  <a href="#">Video Tutorials</a>
-                </li>
-              </ul>
-            
-            </li>
-            <li class="list-group-item pl-4">
-              <a href="#" class="">Tutorials</a>
-              
-              <ul class="list-group flex-column d-inline-block sub-submenu">
-                <span class="arrow" style="top:114px;"></span>
-                <li class="list-group-item pl-4">
-                  <a href="#">Help Desk</a>
-                </li>
-              </ul>
-            
-            </li>
-            <li class="list-group-item pl-4">
-              <a href="#" class="">Ask a Question</a>
-              
-              <ul class="list-group flex-column d-inline-block sub-submenu">
-                <span class="arrow" style="top:166px;"></span>
-                <li class="list-group-item pl-4">
-                  <a href="#">Send Support Request</a>
-                </li>
-              </ul>
-            
-            </li>
-          </ul>
-        
-        </li> -->
-        
-        
-      </ul> <!-- /.first-menu -->
-    </div> <!-- /.sidebar -->
-    <!-- </div> -->
-    <div class="pages">
+            <!-- <div class="drodown_list">
+              <button> test</button>
+              <button> test</button>
+              <button> test</button>
+              <button> test</button>
+              <button> test</button>
+            </div> -->
+          </div>
+        </div>
+        <div class="content_open" *ngIf="sidebarOpen">
+          <button class="item"  routerLink="/plan"  id="plan" (click)="activeTag('plan')">
+            <div class="item_icon">
+              <i class=" fa fa-solid fa-globe"></i>
+            </div>
+            <div class="item_text">
+              plan
+            </div>
+          </button>
+          <button class="item" routerLink="/company"  id="company" (click)="activeTag('company')">
+            <div class="item_icon">
+              <i class="fa fa-solid fa-building"></i>
+            </div>
+            <div class="item_text">
+              company
+            </div>
+          </button>
+          <button class="item"  routerLink="/users"  id="users" (click)="activeTag('users')">
+            <div class="item_icon">
+              <i class=" fa fa-solid fa-users"></i>
+            </div>
+            <div class="item_text">
+              user
+            </div>
+          </button>
+          <button class="item"  id="KPI" (click)="activeTag('KPI')">
+            <div class="item_icon">
+              <i class=" fa fa-solid fa-globe"></i>
+            </div>
+            <div class="item_text">
+              KPI's
+            </div>
+          </button>
+          <button class="item"  id="Apps" (click)="activeTag('Apps')">
+            <div class="item_icon">
+              <i class=" fa fa-solid fa-globe"></i>
+            </div>
+            <div class="item_text">
+              microtec Apps users
+            </div>
+          </button>
+          <div class="card flex justify-content-center">
+            <p-accordion [activeIndex]="0" 
+            expandIcon = "fa fa-solid fa-caret-down" collapseIcon = "fa fa-solid fa-caret-up"
+            >
+                <p-accordionTab header="users">
+                  <button class="item"  id="Apps" (click)="activeTag('Apps')">
+                    <div class="item_icon">
+                      <i class=" fa fa-solid fa-globe"></i>
+                    </div>
+                    <div class="item_text">
+                      microtec Apps users
+                    </div>
+                  </button>
+                  <button class="item"  id="Apps" (click)="activeTag('Apps')">
+                    <div class="item_icon">
+                      <i class=" fa fa-solid fa-globe"></i>
+                    </div>
+                    <div class="item_text">
+                      microtec Apps users
+                    </div>
+                  </button>
+                </p-accordionTab>
+               
+            </p-accordion>
+        </div>
+        </div>
+        <div class="arrwo">
+          <button (click)="toggleSidebar()">
+            <p *ngIf="!sidebarOpen"><i class="fa fa-solid fa-angle-right"></i></p>
+            <p *ngIf="sidebarOpen"><i class="fa fa-solid fa-angle-left"></i></p>
+          </button>
+        </div>
+      </div>
+
+    </div>
+    <div class="pages" [ngClass]="{'pages_sid_open': sidebarOpen}">
       <router-outlet></router-outlet>
     </div>
   </div>
