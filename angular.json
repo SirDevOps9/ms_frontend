@@ -302,10 +302,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/apps-shared-lib/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }
@@ -334,17 +331,13 @@
             "baseHref": "/accounting/",
             "index": "projects/apps-accounting/src/index.html",
             "browser": "projects/apps-accounting/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/apps-accounting/tsconfig.app.json",
             "assets": [
               "projects/apps-accounting/src/favicon.ico",
               "projects/apps-accounting/src/assets"
             ],
-            "styles": [
-              "projects/apps-accounting/src/styles.css"
-            ],
+            "styles": ["projects/apps-accounting/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -366,7 +359,24 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-accounting/src/environments/environment.ts",
+                  "with": "projects/apps-accounting/src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "stage": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-accounting/src/environments/environment.ts",
+                  "with": "projects/apps-accounting/src/environments/environment.stage.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -392,18 +402,13 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/apps-accounting/tsconfig.spec.json",
             "assets": [
               "projects/apps-accounting/src/favicon.ico",
               "projects/apps-accounting/src/assets"
             ],
-            "styles": [
-              "projects/apps-accounting/src/styles.css"
-            ],
+            "styles": ["projects/apps-accounting/src/styles.css"],
             "scripts": []
           }
         }
@@ -433,17 +438,13 @@
             "baseHref": "/hr/",
             "index": "projects/apps-hr/src/index.html",
             "browser": "projects/apps-hr/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/apps-hr/tsconfig.app.json",
             "assets": [
               "projects/apps-hr/src/favicon.ico",
               "projects/apps-hr/src/assets"
             ],
-            "styles": [
-              "projects/apps-hr/src/styles.css"
-            ],
+            "styles": ["projects/apps-hr/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -465,7 +466,24 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-hr/src/environments/environment.ts",
+                  "with": "projects/apps-hr/src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "stage": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-hr/src/environments/environment.ts",
+                  "with": "projects/apps-hr/src/environments/environment.stage.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -491,18 +509,13 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/apps-hr/tsconfig.spec.json",
             "assets": [
               "projects/apps-hr/src/favicon.ico",
               "projects/apps-hr/src/assets"
             ],
-            "styles": [
-              "projects/apps-hr/src/styles.css"
-            ],
+            "styles": ["projects/apps-hr/src/styles.css"],
             "scripts": []
           }
         }
