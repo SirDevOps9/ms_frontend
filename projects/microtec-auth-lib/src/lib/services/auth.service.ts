@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { LoginResponse, OidcSecurityService } from 'angular-auth-oidc-client';
 import {
   StorageService,
@@ -8,6 +8,7 @@ import {
   LogService,
   CookieStorageService,
   RouterService,
+  LanguageService,
 } from 'shared-lib';
 import { TokenModel } from '../models/tokenmodel';
 @Injectable({
@@ -15,16 +16,20 @@ import { TokenModel } from '../models/tokenmodel';
 })
 export class AuthService {
   constructor(
-    protected localStorageService: StorageService,
+    private localStorageService: StorageService,
     private sessionService: SessionStorageService,
     private oidcSecurityService: OidcSecurityService,
     private logService: LogService,
     private routerService: RouterService,
-    private cookieService: CookieStorageService
+    private cookieService: CookieStorageService,
+    private languageService: LanguageService
   ) {}
 
   authorize() {
-    this.oidcSecurityService.authorize();
+    var storageCulutre = this.languageService.getLang();
+    this.oidcSecurityService.authorize(undefined, {
+      customParams: { lang: storageCulutre },
+    });
   }
 
   logout() {
@@ -49,11 +54,28 @@ export class AuthService {
   getUserData(): LoginResponse {
     return this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
   }
-
-  afterLoginReidrect() {
+  saveTokenData(): Observable<LoginResponse> {
+    return this.oidcSecurityService.checkAuth().pipe(
+      map((loginResponse: LoginResponse) => {
+        this.saveUserData(loginResponse);
+        return loginResponse;
+      })
+    );
+  }
+  refreshToken(): Observable<LoginResponse> {
+    return this.oidcSecurityService.forceRefreshSession().pipe(
+      map((loginResponse: LoginResponse) => {
+        console.log('refresh Token', loginResponse);
+        this.saveUserData(loginResponse);
+        return loginResponse;
+      })
+    );
+  }
+  afterLoginRedirect() {
     this.oidcSecurityService
       .checkAuth()
       .subscribe((loginResponse: LoginResponse) => {
+        console.log('Second Call', loginResponse);
         this.saveUserData(loginResponse);
         this.routerService.navigateTo('');
       });

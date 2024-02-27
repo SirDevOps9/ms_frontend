@@ -1,5 +1,4 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { BaseService } from './services/base.httpservice';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -9,7 +8,6 @@ import { ErpTableComponent } from './components/erp-table/erp-table.component';
 import { SearchEngineComponent } from './components/search-engine/search-engine.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { LoaderComponent } from './components/loader/loader.component';
-
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -32,19 +30,4 @@ import { LoaderComponent } from './components/loader/loader.component';
     LoaderComponent,
   ],
 })
-export class SharedLibModule {
-  public static forRoot(
-    environment: any
-  ): ModuleWithProviders<SharedLibModule> {
-    return {
-      ngModule: SharedLibModule,
-      providers: [
-        BaseService,
-        {
-          provide: 'env',
-          useValue: environment,
-        },
-      ],
-    };
-  }
-}
+export class SharedLibModule {}

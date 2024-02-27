@@ -33,6 +33,9 @@
                   <th>
                     {{ "User.Status" | translate }}
                   </th>
+                  <th>
+                    {{ "User.Actions" | translate }}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -53,7 +56,14 @@
                       ) | translate
                     }}
                   </td>
-                  <td>
+                  <td *ngIf="item.invitationStatus == 1">
+                    <button
+                    class="btn btn-info"
+                    (click)="resendInvitation(item.id)"
+                  >  {{ "User.Resend" | translate }}
+                  </button>
+                  </td>
+                  <td *ngIf="item.invitationStatus == 2">
                     <button
                       class="btn btn-info"
                       (click)="toggle(item.id, item.isActive)"
@@ -62,6 +72,14 @@
                         (item.isActive ? "User.Deactivate" : "User.Activate")
                           | translate
                       }}
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-warning"
+                      (click)="editUser(item.id)"
+                    >
+                      {{ "User.Edit" | translate }}
                     </button>
                   </td>
                 </tr>
@@ -132,13 +150,13 @@
             <!-- <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger "></p-button> -->
         </td>
           <td >
-              <div class="checked" *ngIf="product.isConfirmed" >
+              <div class="checked" *ngIf="product.invitationStatus==2" >
                 <p-inputSwitch [(ngModel)]="product.isActive">
                 </p-inputSwitch>
                 <p class="active" *ngIf=product.isActive>Active</p>
                 <p class="inactive" *ngIf="!product.isActive">Inactive</p>
               </div>
-              <button class="resend" *ngIf="!product.isConfirmed">
+              <button class="resend" *ngIf="product.invitationStatus==1">
                 <p class="title">Resend</p>
                 <p class="ico_mail pi pi-envelope
                 "></p>

@@ -1,30 +1,75 @@
 import { Injectable } from '@angular/core';
-import { APIResponse, BaseService, ResponseItems} from 'shared-lib';
-import { AddCompanyDto } from '../models/users/company/add-company';
+import { APIResponse, BaseService, ResponseItems } from 'shared-lib';
+import { AddCompanyDto } from '../models/company/addcompany';
 import { Observable } from 'rxjs';
-import { DropdownListDto,  DropdownItemDto} from '../models/users/company/drop-down';
-import { CompanyListResponse } from '../models/company/companylist.response';
-
+import { DropdownItemDto } from '../models/company/dropdown';
+import { ResponseCompanyDto } from '../models/company/responsecompanydto';
+import { CountryDropDown } from '../models/company/countrydropdown';
+import { DropdownListDto } from '../models/company/dropdownlist';
+import { MobileCodeDropdownDto } from '../models/company/mobilecodedropdown';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CompanyService {
-  private companyApi = `Company`;
-  private dropDownApi = `/dropdowns`;
+  private company = `Company`;
+  private companyDropDown = `/dropdowns`;
+  private country = `Country`;
+  private countrycode = `/GetAllCountryCodeDropDown`;
+  private countryName = `/GetAllDropDown`;
+
+  private subdomain = `SubDomain`;
+  private subdomainDropDown = `/GetAllDropDown`;
 
   constructor(private baseService: BaseService) {}
 
-  addCompany(request: AddCompanyDto): Observable<APIResponse<AddCompanyDto>> {
-    return this.baseService.post<APIResponse<AddCompanyDto>>(
-      this.companyApi,
+  addCompany(
+    request: AddCompanyDto
+  ): Observable<APIResponse<ResponseCompanyDto>> {
+    return this.baseService.post<APIResponse<ResponseCompanyDto>>(
+      this.company,
       request
     );
   }
-  getAll(): Observable<APIResponse<CompanyListResponse>> {
-    return this.baseService.get<APIResponse<CompanyListResponse[]>>(`${this.companyApi}`);
+  getAll(): Observable<APIResponse<ResponseCompanyDto[]>> {
+    return this.baseService.get<APIResponse<ResponseCompanyDto[]>>(
+      `${this.company}`
+    );
   }
-  getDropDown():Observable<APIResponse<DropdownListDto>>{
-    return this.baseService.get<APIResponse<DropdownListDto>>(`${this.companyApi}${this.dropDownApi}`);
+  getDropDown(): Observable<APIResponse<DropdownListDto>> {
+    return this.baseService.get<APIResponse<DropdownListDto>>(
+      `${this.company}${this.companyDropDown}`
+    );
+  }
+
+  getSubdomainDropDown(): Observable<APIResponse<DropdownItemDto[]>> {
+    return this.baseService.get<APIResponse<DropdownItemDto[]>>(
+      `${this.subdomain}${this.subdomainDropDown}`
+    );
+  }
+
+  getMobileCodeDropDown(): Observable<APIResponse<MobileCodeDropdownDto[]>> {
+    return this.baseService.get<APIResponse<MobileCodeDropdownDto[]>>(
+      `${this.country}${this.countrycode}`
+    );
+  }
+
+  getCountryDropDown(): Observable<APIResponse<CountryDropDown[]>> {
+    return this.baseService.get<APIResponse<CountryDropDown[]>>(
+      `${this.country}${this.countryName}`
+    );
+  }
+
+  activateCompany(id: number): Observable<APIResponse<boolean>> {
+    return this.baseService.put<APIResponse<boolean>>(
+      `${this.company}/activatecompany/${id}`,
+      {}
+    );
+  }
+  deactivateCompany(id: number): Observable<APIResponse<boolean>> {
+    return this.baseService.put<APIResponse<boolean>>(
+      `${this.company}/deactivatecompany/${id}`,
+      {}
+    );
   }
 }

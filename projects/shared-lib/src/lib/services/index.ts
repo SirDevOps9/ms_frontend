@@ -9,3 +9,4 @@ export * from './translationHttpLoader'
 export * from './cookie.service';
 export * from './validation.service'
 export * from './loader.service'
+export * from './environment.service'

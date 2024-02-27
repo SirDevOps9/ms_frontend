@@ -1,4 +1,4 @@
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, FormGroup } from '@angular/forms';
 
 function IsNumber(control: AbstractControl) {
   if (
@@ -257,6 +257,25 @@ function IsIqamaId(control: AbstractControl) {
   }
 }
 
+function validPassword(control: AbstractControl) {
+  const password = control.value;
+
+  if (!password || password.length < 8 || password.length > 16) {
+    return { invalidPassword: true };
+  }
+
+  if (
+    !/[A-Z]+/.test(password) ||
+    !/[a-z]+/.test(password) ||
+    !/[0-9]+/.test(password) ||
+    !/[~!@#$%^&*()]+/.test(password)
+  ) {
+    return { invalidPassword: true };
+  }
+
+  return null; // Valid password
+}
+
 export const customValidators = {
   isValidMobile: IsValidMobile,
   isValidPhone: IsValidPhone,
@@ -272,4 +291,5 @@ export const customValidators = {
   preventSpecialChars: PreventSpecialChars,
   IsValidMobileWithPrefix: IsValidMobileWithPrefix,
   isAgreedToTermsRequired: IsAgreedToTermsRequired,
+  isvalidPassword: validPassword,
 };

@@ -23,7 +23,6 @@ export class LayoutComponent implements OnInit {
     ,private logService:LogService
   ) {
     this.userName = this.authService.getUserName;
-    this.languageService.setLang();
   }
   ngOnInit(): void {
   this.countries = [

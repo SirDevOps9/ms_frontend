@@ -9,16 +9,29 @@ import {
 import { Observable, catchError, switchMap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { HeaderParams, LanguageService, StorageKeys, StorageService } from 'shared-lib';
 
 @Injectable()
 export class ERPInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private languageService: LanguageService,
+    private localStorageService: StorageService
+  ) {}
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const clonedRequest = request.clone();
+    //const clonedRequest = request.clone();
+    var tenantID = this.localStorageService.getItem(StorageKeys.TENANT);
+    const clonedRequest = request.clone({
+      headers: request.headers.append(
+        HeaderParams.TENANT_ID,
+        tenantID ? tenantID : ''
+      ),
+    });
     return next.handle(clonedRequest).pipe(
       catchError((error: any) => {
         if (error instanceof HttpErrorResponse) {

@@ -1,14 +1,19 @@
-import { Component, OnInit, PipeTransform, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserListResponse } from '../../models/users/userlist.response';
-import { ToasterService } from 'shared-lib';
 import { UserService } from '../../services/users.httpsservice';
-import { LanguageService ,LogService } from 'shared-lib';
+import {
+  BaseDto,
+  LanguageService,
+  LogService,
+  RouterService,
+  ToasterService,
+} from 'shared-lib';
 import { MatDialog } from '@angular/material/dialog';
 import { UserInviteFormComponent } from '../../components/userscomps/invite-form/user-invite-form/user-invite-form.component';
-interface City {
-  name: string,
-  code: string
-}
+
+import { bouserdetails } from '../../components/userscomps/bouserdetails/bouserdetails.component';
+import { City } from '../../models/users/cities.model';
+import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -16,9 +21,9 @@ interface City {
 })
 export class UsersComponent implements OnInit {
   userData: UserListResponse[];
-  users:any[]=[];
-  user:any[]=[];
-  
+  users: any[] = [];
+  user: any[] = [];
+
   checked: boolean = true;
   userEditDialog: boolean = false;
   addUser: boolean = false;
@@ -27,215 +32,56 @@ export class UsersComponent implements OnInit {
   selectedCities!: City[];
   selectedDomain!: any[];
   selectedActions!: any[];
-  domains: any[] = [
-    { id: 1, name: 'Marketing' },
-    { id: 2, name: 'Sales' },
-    { id: 3, name: 'Support' },
-  ];
-
-  actions: any[] = [
-    { id: 1, name: 'Read' },
-    { id: 2, name: 'Write' },
-    { id: 3, name: 'Manage' },
-  ];
-  @ViewChild('dt') dt:any | undefined;
+  domains: BaseDto[];
+  actions: BaseDto[];
+  @ViewChild('dt') dt: any | undefined;
   constructor(
     public languageService: LanguageService,
     private toasterService: ToasterService,
     private userService: UserService,
     private dialog: MatDialog,
-    private _LogService: LogService,
-
+    private router: RouterService,
+    private logService: LogService
   ) {}
   ngOnInit() {
+    forkJoin([
+      this.userService.subDomainDropDown(),
+      this.userService.platformDropDown(),
+    ]).subscribe(([subDomainData, platformData]) => {
+      this.domains = subDomainData.response;
+      this.actions = platformData.response;
+    });
     this.getAllUsers();
-    this.users=[
-      {
-        id: "010",
-        name: "aaaaaa",
-        email: "aaaaaaa",
-        countryId: "0",
-        phone: "string",
-        password: "string",
-        isMailSent: false,
-        isConfirmed: false,
-        roleId: "number",
-        identityId: "string",
-        typeId: "number",
-        isActive: false,
-        lastLoginDate: "string",
-        invitationStatus: "number",
-      },
-      {
-        id: "011",
-        name: "bbbbbbbb",
-        email: "bbbbbbbbb",
-        countryId: "0",
-        phone: "string",
-        password: "string",
-        isMailSent: false,
-        isConfirmed: false,
-        roleId: "number",
-        identityId: "string",
-        typeId: "number",
-        isActive: false,
-        lastLoginDate: "string",
-        invitationStatus: "number",
-      },
-      {
-        id: "012",
-        name: "aaaaaa",
-        email: "aaaaaaa",
-        countryId: "0",
-        phone: "string",
-        password: "string",
-        isMailSent: false,
-        isConfirmed: false,
-        roleId: "number",
-        identityId: "string",
-        typeId: "number",
-        isActive: false,
-        lastLoginDate: "string",
-        invitationStatus: "number",
-      },
-      {
-        id: "013",
-        name: "ccccccccc",
-        email: "ccccccccc",
-        countryId: "0",
-        phone: "string",
-        password: "string",
-        isMailSent: false,
-        isConfirmed: false,
-        roleId: "number",
-        identityId: "string",
-        typeId: "number",
-        isActive: false,
-        lastLoginDate: "string",
-        invitationStatus: "number",
-      },
-      {
-        id: "014",
-        name: "ccccccccc",
-        email: "cccccccccccccc",
-        countryId: "0",
-        phone: "string",
-        password: "string",
-        isMailSent: false,
-        isConfirmed: false,
-        roleId: "number",
-        identityId: "string",
-        typeId: "number",
-        isActive: false,
-        lastLoginDate: "string",
-        invitationStatus: "number",
-      },
-      {
-        id: "014",
-        name: "ccccccccc",
-        email: "cccccccccccccc",
-        countryId: "0",
-        phone: "string",
-        password: "string",
-        isMailSent: false,
-        isConfirmed: false,
-        roleId: "number",
-        identityId: "string",
-        typeId: "number",
-        isActive: false,
-        lastLoginDate: "string",
-        invitationStatus: "number",
-      },
-      {
-        id: "014",
-        name: "ccccccccc",
-        email: "cccccccccccccc",
-        countryId: "0",
-        phone: "string",
-        password: "string",
-        isMailSent: false,
-        isConfirmed: false,
-        roleId: "number",
-        identityId: "string",
-        typeId: "number",
-        isActive: false,
-        lastLoginDate: "string",
-        invitationStatus: "number",
-      },
-      {
-        id: "014",
-        name: "ccccccccc",
-        email: "cccccccccccccc",
-        countryId: "0",
-        phone: "string",
-        password: "string",
-        isMailSent: false,
-        isConfirmed: false,
-        roleId: "number",
-        identityId: "string",
-        typeId: "number",
-        isActive: false,
-        lastLoginDate: "string",
-        invitationStatus: "number",
-      },
-      {
-        id: "014",
-        name: "ccccccccc",
-        email: "cccccccccccccc",
-        countryId: "0",
-        phone: "string",
-        password: "string",
-        isMailSent: false,
-        isConfirmed: false,
-        roleId: "number",
-        identityId: "string",
-        typeId: "number",
-        isActive: false,
-        lastLoginDate: "string",
-        invitationStatus: "number",
-      },
-      {
-        id: "014",
-        name: "ccccccccc",
-        email: "cccccccccccccc",
-        countryId: "0",
-        phone: "string",
-        password: "string",
-        isMailSent: false,
-        isConfirmed: false,
-        roleId: "number",
-        identityId: "string",
-        typeId: "number",
-        isActive: false,
-        lastLoginDate: "string",
-        invitationStatus: "number",
-      },
-      
-    
-
-    ]
     this.cities = [
-      {name: 'New York', code: 'NY'},
-      {name: 'Rome', code: 'RM'},
-      {name: 'London', code: 'LDN'},
-      {name: 'Istanbul', code: 'IST'},
-      {name: 'Paris', code: 'PRS'}
-  ];
-
+      { name: 'New York', code: 'NY' },
+      { name: 'Rome', code: 'RM' },
+      { name: 'London', code: 'LDN' },
+      { name: 'Istanbul', code: 'IST' },
+      { name: 'Paris', code: 'PRS' },
+    ];
   }
   getAllUsers() {
     this.userService.getAll().subscribe({
       next: (res) => {
         this.userData = res.response;
-        
       },
     });
   }
-  toggle(id: number, isActive: boolean) {
+  toggle(id: string, isActive: boolean) {
     if (!isActive) this.activate(id);
     else this.deactivate(id);
   }
 
+  resendInvitation(id: string) {
+    this.userService.resendInvitation(id).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('User.Inviteform.Success'),
+          this.languageService.transalte('User.Inviteform.InviationSent')
+        );
+      },
+    });
+  }
   openInviteModal() {
     const dialogRef = this.dialog.open(UserInviteFormComponent, {
       width: '600px',
@@ -250,7 +96,7 @@ export class UsersComponent implements OnInit {
   //   this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   // }
 
-  async activate(id: number) {
+  async activate(id: string) {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangstatus'
     );
@@ -268,7 +114,7 @@ export class UsersComponent implements OnInit {
       });
     }
   }
-  async deactivate(id: number) {
+  async deactivate(id: string) {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangstatus'
     );
@@ -285,30 +131,42 @@ export class UsersComponent implements OnInit {
       });
     }
   }
-  editeUser(id:any){
-    this.userData.forEach((element:any) => {
-      if(element.id==id){
-       this.user=[element]
+  editeUser(id: any) {
+    this.userData.forEach((element: any) => {
+      if (element.id == id) {
+        this.user = [element];
       }
     });
-    this._LogService.log(id)
+    this.logService.log(id);
     //this._LogService.log(this.user)
-    this.userEditDialog=true
+    this.userEditDialog = true;
   }
-  applyFilterGlobal($event:any, stringVal:any) {
+  applyFilterGlobal($event: any, stringVal: any) {
     this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
-  addNewUser(){
-    if(this.addUser==false){
-      this.addUser=true
-    }else{
-      this.addUser=false
+  addNewUser() {
+    if (this.addUser == false) {
+      this.addUser = true;
+    } else {
+      this.addUser = false;
     }
   }
-  closeAdd(){
-    this.addUser=false
+  closeAdd() {
+    this.addUser = false;
   }
-  closeedite(){
-    this.userEditDialog=false
+  closeedite() {
+    this.userEditDialog = false;
+  }
+  async editUser(Id: string) {
+    const dialogRef = this.dialog.open(bouserdetails, {
+      width: '800px',
+      height: '700px',
+      data: { Id: Id },
+    });
+    dialogRef.afterClosed().subscribe((result: UserListResponse) => {
+      if (result as UserListResponse) this.userData.push(result);
+    });
+    //  this.logService.log('users/bouserdetails/' + Id);
+    // this.router.navigateTo('users/bouserdetails/' + Id);
   }
 }

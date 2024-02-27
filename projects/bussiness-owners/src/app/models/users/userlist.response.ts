@@ -1,5 +1,5 @@
 export interface UserListResponse {
-  id: number;
+  id: string;
   name: string;
   email: string;
   countryId: number;

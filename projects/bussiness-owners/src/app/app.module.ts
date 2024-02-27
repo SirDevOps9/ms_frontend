@@ -5,15 +5,19 @@ import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { SharedLibModule } from '../../../shared-lib/src/public-api';
+import {
+  EnvironmentService,
+  MultiTranslateHttpLoader,
+  SharedLibModule,
+} from 'shared-lib';
 import { environment } from '../environments/environment';
 import { AbstractSecurityStorage, AuthModule } from 'angular-auth-oidc-client';
-import { MultiTranslateHttpLoader } from '../../../shared-lib/src/lib/services/translationHttpLoader';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
 import { LayoutComponent } from './components/layout/layout.component';
 import { UsersComponent } from './pages/users/users.component';
+import { UserconfirmationComponent } from './pages/inviteduserconfirmation/userconfirmation.component';
 import {
   MicrotecAuthLibModule,
   ERPInterceptor,
@@ -33,7 +37,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ToggleButtonModule } from 'primeng/togglebutton';
-import { AccordionModule } from 'primeng/accordion';
+import { AccordionModule } from 'primeng/accordion';import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetails.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +46,8 @@ import { AccordionModule } from 'primeng/accordion';
     UserInviteFormComponent,
     AddCompanyComponent,
     CompanyComponent,
+    UserconfirmationComponent,
+    bouserdetails
   ],
   imports: [
     CommonModule,
@@ -63,7 +69,7 @@ import { AccordionModule } from 'primeng/accordion';
       },
     }),
     MicrotecAuthLibModule,
-    SharedLibModule.forRoot(environment),
+    SharedLibModule,
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
@@ -83,6 +89,7 @@ import { AccordionModule } from 'primeng/accordion';
     AccordionModule
   ],
   providers: [
+    { provide: EnvironmentService, useValue: environment },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ERPInterceptor,
