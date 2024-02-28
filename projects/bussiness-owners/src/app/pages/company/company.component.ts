@@ -7,6 +7,7 @@ import {
   ToasterService,
 } from 'shared-lib';
 import { ResponseCompanyDto } from '../../models/company/responsecompanydto';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
@@ -14,9 +15,14 @@ import { ResponseCompanyDto } from '../../models/company/responsecompanydto';
 })
 export class CompanyComponent implements OnInit {
   companies: ResponseCompanyDto[];
+  planId: string;
+
   constructor(
     private companyService: CompanyService,
     private routerService: RouterService,
+    private router: Router,
+    private route: ActivatedRoute,
+
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private logService: LogService
@@ -24,12 +30,19 @@ export class CompanyComponent implements OnInit {
 
   navigateToAdd(): void {
     this.routerService.navigateTo('company/add');
+    this.routerService.getRouteParams(this.planId);
+    this.router.navigate(['company/add'], { queryParams: { planId: this.planId } });
+
   }
 
   ngOnInit() {
     this.companyService.getAll().subscribe((res) => {
       this.companies = res.response.reverse();
       this.logService.log(this.companies);
+    });
+
+    this.route.queryParams.subscribe(params => {
+      this.planId = params['planId'];
     });
   }
 

@@ -13,6 +13,7 @@ import { AddCompanyDto } from '../../../models/company/addcompany';
 import { combineLatest } from 'rxjs';
 import { CountryDropDown } from '../../../models/company/countrydropdown';
 import { MobileCodeDropdownDto } from '../../../models/company/mobilecodedropdown';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-add-compny',
   templateUrl: './add-compny.component.html',
@@ -25,6 +26,7 @@ export class AddCompanyComponent implements OnInit {
   subdoaminDropDown: DropdownItemDto[];
   CountryDropDown: CountryDropDown[];
   mobileCodeDropDown: MobileCodeDropdownDto[];
+  PlanId: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,7 +35,8 @@ export class AddCompanyComponent implements OnInit {
     private toasterService: ToasterService,
     private loaderService: LoaderService,
     private languageService: LanguageService,
-    private routerService: RouterService
+    private routerService: RouterService,
+    private route: ActivatedRoute
   ) {
     this.companyForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -83,6 +86,9 @@ export class AddCompanyComponent implements OnInit {
     //   });
 
     this.companyForm.get('countryCode')?.valueChanges;
+    this.route.queryParams.subscribe(params => {
+      this.PlanId = params['planId'];
+    });
   }
 
   onSubmit() {
@@ -125,6 +131,7 @@ export class AddCompanyComponent implements OnInit {
   addCompany() {
     this.loaderService.show();
     const request: AddCompanyDto = this.companyForm.value;
+    request.planId = this.PlanId;
     this.logService.log(request, 'Checking the sending request:');
 
     this.companyService.addCompany(request).subscribe({
