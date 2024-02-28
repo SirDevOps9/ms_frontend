@@ -146,12 +146,12 @@
             {{ product.lastLoginDate| date : "dd/MM/yyyy HH:mm" }}</td>
           <td>
             
-            <p-button icon="pi pi-pencil" (click)="editeUser(product.id)" [rounded]="true" [text]="true" severity="secondary "></p-button>
+            <p-button icon="pi pi-pencil" (click)="editUser(product.id)" [rounded]="true" [text]="true" severity="secondary "></p-button>
             <!-- <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger "></p-button> -->
         </td>
           <td >
               <div class="checked" *ngIf="product.invitationStatus==2" >
-                <p-inputSwitch [(ngModel)]="product.isActive">
+                <p-inputSwitch (onChange)="changed($event , product.id )" [(ngModel)]="product.isActive">
                 </p-inputSwitch>
                 <p class="active" *ngIf=product.isActive>Active</p>
                 <p class="inactive" *ngIf="!product.isActive">Inactive</p>
@@ -172,7 +172,7 @@
 </p-table>
 
 
-<p-dialog [(visible)]="userEditDialog" [style]="{ width: '60%' , height:'100vh'  }" header="Edit User Information" [modal]="true" styleClass="p-fluid">
+<!-- <p-dialog [(visible)]="userEditDialog" [style]="{ width: '60%' , height:'100vh'  }" header="Edit User Information" [modal]="true" styleClass="p-fluid">
   <div class="popup_edit flex-column  flex  h-full justify-content-around ">
     <div class="card_edit" *ngFor="let user of user">
       <div class="information">
@@ -243,7 +243,7 @@
   </div>
   </div> 
  
-</p-dialog>
+</p-dialog> -->
 
 
 </div>

@@ -171,7 +171,7 @@ export class UsersComponent implements OnInit {
     this.userEditDialog = false;
   }
   async editUser(Id: string) {
-    const dialogRef = this.dialog.open(bouserdetails, {
+    this.ref = this.dialog.open(bouserdetails, {
       width: '800px',
       height: '700px',
       data: { Id: Id },
@@ -181,5 +181,18 @@ export class UsersComponent implements OnInit {
     // });
     //  this.logService.log('users/bouserdetails/' + Id);
     // this.router.navigateTo('users/bouserdetails/' + Id);
+  }
+  changed(e: any ,id:string){
+    console.log(id);
+    
+    if(e.checked===false){
+      console.log(id);
+     this.activate(id)
+      
+    }else{
+      console.log(id);
+      this.deactivate(id)
+      
+    }
   }
 }
