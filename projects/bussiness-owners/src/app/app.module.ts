@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {
   EnvironmentService,
@@ -26,7 +26,19 @@ import {
 import { UserInviteFormComponent } from './components/userscomps/invite-form/user-invite-form/user-invite-form.component';
 import { AddCompanyComponent } from './pages/company/add-compny/add-compny.component';
 import { CompanyComponent } from './pages/company/company.component';
-import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetails.component';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { MenubarModule } from 'primeng/menubar';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { DropdownModule } from 'primeng/dropdown';
+import { SidebarModule } from 'primeng/sidebar';
+import { DialogModule } from 'primeng/dialog';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { AccordionModule } from 'primeng/accordion';import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetails.component';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,8 +75,23 @@ import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetai
     BrowserModule,
     AppRoutingModule,
     CookieModule.withOptions(),
+    TableModule,
+    ButtonModule,
+    InputTextModule,
+    MenubarModule,
+    BreadcrumbModule,
+    InputSwitchModule,
+    FormsModule,
+    DropdownModule,
+    SidebarModule,
+    DialogModule,
+    MultiSelectModule,
+    ToggleButtonModule,
+    AccordionModule,
+    DynamicDialogModule
   ],
   providers: [
+    DialogService,
     { provide: EnvironmentService, useValue: environment },
     {
       provide: HTTP_INTERCEPTORS,
