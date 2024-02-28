@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  LoaderService,
-  LogService,
-  RouterService,
-} from 'shared-lib';
+import { LoaderService, LogService, RouterService } from 'shared-lib';
 import { InviteduserService } from '../../services/inviteduser.httpservice';
-import { AddConfirmedUserDto } from '../../models/users/addconfirmedcser.model';
 @Component({
   selector: 'app-userconfirmation',
   templateUrl: './userconfirmation.component.html',
@@ -18,6 +13,7 @@ export class UserconfirmationComponent implements OnInit {
   inviteduserId: string;
   email: string;
   validId = false;
+  photo: any;
   constructor(
     private loaderservice: LoaderService,
     private router: RouterService,
@@ -27,12 +23,12 @@ export class UserconfirmationComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log("User Confirmation");
-    
+    console.log('User Confirmation');
+
     this.initializeForm();
     this.GetEmail();
   }
- 
+
   initializeForm() {
     this.userForm = this.formBuilder.group({
       fullName: ['', [Validators.required, Validators.maxLength(50)]],
@@ -44,9 +40,15 @@ export class UserconfirmationComponent implements OnInit {
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
       acceptPolicy: [false, Validators.requiredTrue],
-      photo:['']
     });
-    
+  }
+  onFileSelected(event: any) {
+    if (event.target.files.length > 0) {
+      this.photo = event.target.files[0];
+      console.log('photo', this.photo);
+      const fData = new FormData();
+      fData.append('photo', this.photo);
+    }
   }
   GetEmail() {
     this.inviteduserId = this.router.currentId;
@@ -64,14 +66,20 @@ export class UserconfirmationComponent implements OnInit {
       },
     });
   }
+
   submitForm() {
     this.loaderservice.show();
+
     if (this.userForm.valid) {
-      const addUserDto: AddConfirmedUserDto = this.userForm.value;
-      addUserDto.invitedUserId = this.inviteduserId;
-      addUserDto.email = this.email;
-      this.logService.log(addUserDto);
-      this.inviteduserService.ConfirmInvitedUser(addUserDto).subscribe({
+      const formData = new FormData();
+      formData.append('photo', this.photo);
+
+      Object.keys(this.userForm.value).forEach((key) => {
+        formData.append(key, this.userForm.value[key]);
+      });
+      formData.append('inviteduserId', this.inviteduserId);
+      formData.append('email', this.email);
+      this.inviteduserService.ConfirmInvitedUser(formData).subscribe({
         next: (response) => {
           this.router.getRouteParams('/login');
         },

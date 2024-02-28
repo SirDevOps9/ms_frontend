@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { UserListResponse } from './../../../../models/users/userlist.response';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { UserService } from 'projects/bussiness-owners/src/app/services/users.httpsservice';
 import { forkJoin } from 'rxjs';
 import {
@@ -14,17 +15,18 @@ import {
 @Component({
   selector: 'app-user-invite-form',
   templateUrl: './user-invite-form.component.html',
-  styleUrls: ['./user-invite-form.component.css'],
+  styleUrls: ['./user-invite-form.component.scss'],
 })
 export class UserInviteFormComponent implements OnInit {
   submitted = false;
   constructor(
-    private dialogRef: MatDialogRef<UserInviteFormComponent>,
+    public dialogService: DialogService,
     private fb: FormBuilder,
     private userService: UserService,
     private toasterService: ToasterService,
     private languageService: LanguageService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private ref: DynamicDialogRef
   ) {
     this.inviteForm = this.fb.group({
       email: ['', [Validators.required, customValidators.isValidSEmail]],
@@ -52,6 +54,7 @@ export class UserInviteFormComponent implements OnInit {
     }
     this.loaderService.show();
     this.inviteForm.value.invitationStatus = 1;
+
     this.userService.inviteUser(this.inviteForm.value).subscribe({
       next: (res) => {
         this.submitted = false;
@@ -60,7 +63,8 @@ export class UserInviteFormComponent implements OnInit {
           this.languageService.transalte('User.Inviteform.InviationSent')
         );
         this.loaderService.hide();
-        this.dialogRef.close(res.response);
+
+        this.ref.close(res.response);
       },
       error: (err) => {
         this.loaderService.hide();
@@ -70,6 +74,6 @@ export class UserInviteFormComponent implements OnInit {
   }
 
   onCancel() {
-    this.dialogRef.close();
+    this.ref.close(true);
   }
 }

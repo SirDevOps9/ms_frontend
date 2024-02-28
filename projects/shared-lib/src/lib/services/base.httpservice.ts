@@ -52,6 +52,25 @@ export class BaseService {
     );
   }
 
+  private addFormHeaders(): Observable<HttpHeaders> {
+    return this.authService.getAuthToken().pipe(
+      switchMap((token) => {
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${token}`,
+          'Accept-Language':
+            this.storageService.getItem(StorageKeys.LANG_KEY) || 'en',
+          [HeaderParams.TENANT_ID]: '1',
+          [HeaderParams.COMPANY_ID]: '2',
+          [HeaderParams.BRANCH_ID]: '2',
+          [HeaderParams.VERSION]: this.environmentService.Version,
+          [HeaderParams.CLIENTID]: this.environmentService.ClientId,
+          [HeaderParams.PLATFORMTYPE]: this.environmentService.Platform,
+        });
+        return of(headers);
+      })
+    );
+  }
+
   get<T>(url: string) {
     return this.addHeaders().pipe(
       switchMap((headers) =>
@@ -72,6 +91,17 @@ export class BaseService {
         this.errorHandler(url, response, null)
       )
     );
+  }
+  postForm<T>(url: string, data: any) {
+    return this.addFormHeaders().pipe(
+      switchMap((headers) =>
+        this.http.post<T>(`${this.baseUrl}/${url}`, data, { headers })
+      ),
+      catchError((response: HttpErrorResponse) =>
+        this.errorHandler(url, response, null)
+      )
+    );
+    //return this.http.post<T>(`${this.baseUrl}/${url}`, data);
   }
 
   put<T>(url: string, data: any) {
