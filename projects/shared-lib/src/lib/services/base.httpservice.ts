@@ -166,7 +166,11 @@ export class BaseService {
         errors: [],
       },
     };
-    this.toasterService.showError('Invalid data', apiResponse!.error!.message);
+    this.logService.log(apiResponse!.error, 'Invalid Api Error');
+    this.toasterService.showError(
+      'Internal Server Error',
+      'Internal Server Error'
+    );
     return throwError(apiResponse);
     // return of(apiResponse);
   }
