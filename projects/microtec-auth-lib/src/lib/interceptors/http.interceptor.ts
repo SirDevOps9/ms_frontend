@@ -24,14 +24,14 @@ export class ERPInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    //const clonedRequest = request.clone();
+    const clonedRequest = request.clone();
     var tenantID = this.localStorageService.getItem(StorageKeys.TENANT);
-    const clonedRequest = request.clone({
-      headers: request.headers.append(
-        HeaderParams.TENANT_ID,
-        tenantID ? tenantID : ''
-      ),
-    });
+    // const clonedRequest = request.clone({
+    //   headers: request.headers.append(
+    //     HeaderParams.TENANT_ID,
+    //     tenantID ? tenantID : ''
+    //   ),
+    // });
     return next.handle(clonedRequest).pipe(
       catchError((error: any) => {
         if (error instanceof HttpErrorResponse) {

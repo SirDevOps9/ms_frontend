@@ -57,6 +57,7 @@ export class AuthService {
   saveTokenData(): Observable<LoginResponse> {
     return this.oidcSecurityService.checkAuth().pipe(
       map((loginResponse: LoginResponse) => {
+        console.log("loginResponse: ", loginResponse);
         this.saveUserData(loginResponse);
         return loginResponse;
       })
