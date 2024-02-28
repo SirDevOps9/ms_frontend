@@ -7,18 +7,34 @@
     <h4>{{ "Company.Add.Step" | translate }}</h4>
 
     <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+
       <div class="form-group mb-3">
-        <label for="subdomain" class="form-label"
-          >{{ "Company.Add.Subdomain" | translate }} :</label
+        <label for="companyName" class="form-label">
+          {{ "Company.Add.CompanyName" | translate }} :</label
         >
         <input
-          aria-label="subdomainName"
-          formControlName="subdomainName"
+          aria-label="companyName"
+          formControlName="name"
           class="form-control"
         />
-        <div *ngIf="hasError('Subdomain', 'required')" class="text-danger">
-          {{ "Company.Add.Subdomain" | translate }}
-          {{ "Company.Add.Subdomain" | translate }}
+        <div *ngIf="hasError('companyName', 'required')" class="text-danger">
+          {{ "Company.Add.CompanyName" | translate }}
+          {{ "Company.Add.Required" | translate }}
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="plan" class="form-label"
+          >{{ "Company.Add.Plan" | translate }} :</label
+        >
+        <input
+          aria-label="planId"
+          formControlName="planId"
+          class="form-control"
+        />
+        <div *ngIf="hasError('planId', 'required')" class="text-danger">
+          {{ "Company.Add.Plan" | translate }}
+          {{ "Company.Add.Plan" | translate }}
         </div>
       </div>
 
@@ -47,20 +63,7 @@
         </div>
       </div>
 
-      <div class="form-group mb-3">
-        <label for="companyName" class="form-label">
-          {{ "Company.Add.CompanyName" | translate }} :</label
-        >
-        <input
-          aria-label="companyName"
-          formControlName="name"
-          class="form-control"
-        />
-        <div *ngIf="hasError('companyName', 'required')" class="text-danger">
-          {{ "Company.Add.CompanyName" | translate }}
-          {{ "Company.Add.Required" | translate }}
-        </div>
-      </div>
+  
 
       <div class="form-group mb-3">
         <label for="industry" class="form-label"

@@ -38,7 +38,7 @@ export class AddCompanyComponent implements OnInit {
     this.companyForm = this.formBuilder.group({
       name: ['', Validators.required],
       countryCode: ['', Validators.required],
-      subdomainName: ['', Validators.required],
+      planId: ['', Validators.required],
       industryId: ['', Validators.required],
       currencyId: ['', Validators.required],
       website: [
@@ -74,13 +74,13 @@ export class AddCompanyComponent implements OnInit {
         }
       });
 
-    // Add change event listener to the subdomain input
-    this.companyForm
-      .get('subdomainName')
-      ?.valueChanges.subscribe((subdomain) => {
-        // Automatically fill the company name with the subdomain
-        this.companyForm.patchValue({ name: subdomain });
-      });
+    // // Add change event listener to the subdomain input
+    // this.companyForm
+    //   .get('subdomainName')
+    //   ?.valueChanges.subscribe((subdomain) => {
+    //     // Automatically fill the company name with the subdomain
+    //     this.companyForm.patchValue({ name: subdomain });
+    //   });
 
     this.companyForm.get('countryCode')?.valueChanges;
   }

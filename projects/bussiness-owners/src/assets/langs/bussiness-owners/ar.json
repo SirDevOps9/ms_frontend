@@ -84,7 +84,10 @@
     "Activate": "تفعيل",
     "CompanyDeactivatedSuccessfully": "الشركة غير مفعلة بنجاح",
     "CompanyActivatedSuccessfully": "الشركة مفعلة بنجاح",
+    "CompanyType":"نوع الشركة",
+    "MobileNumber":"الهاتف",
     "Add": {
+      "Plan":"خطة",
       "CompanyAddedSuccessfully": "تمت إضافة الشركة بنجاح",
       "AddCompany": "إضافة شركة",
       "Country": "دولة",

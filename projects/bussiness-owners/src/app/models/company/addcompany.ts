@@ -1,6 +1,6 @@
 export interface AddCompanyDto {
   name: string;
-  subdomainName: number;
+  planId: number;
   website: string;
   address: string;
   mobileNumberCode: string;
