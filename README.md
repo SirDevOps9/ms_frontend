@@ -22,10 +22,16 @@ For adminportal, Navigate to `http://localhost:4300/adminportal`. The applicatio
 
 For bussiness-owners, Navigate to `http://localhost:4300/bussinessowners`. The application will automatically reload if you change any of the source files.
 
+For accounting, Navigate to `http://localhost:4300/accounting`. The application will automatically reload if you change any of the source files.
+
+For hr, Navigate to `http://localhost:4300/hr`. The application will automatically reload if you change any of the source files.
+
 
 ## Publishing
 For Building bussiness-owners run `npm build:bussiness-owners`
 For Building adminportal run `npm build:adminportal`
+For Building accounting run `npm build:accounting`
+For Building hr run `npm build:hr`
 
 
 

@@ -9,6 +9,8 @@
     "test": "ng test",
     "build:bussiness-owners": "ng build --project bussiness-owners",
     "build:adminportal": "ng build --project adminportal",
+    "build:hr": "ng build --project apps-hr",
+    "build:accounting": "ng build --project apps-accounting",
     "start:bussiness-owners": "ng serve --project bussiness-owners --port 4301",
     "start:bussiness-owners-stage": "ng serve --project bussiness-owners --port 4301 --configuration stage",
     "start:adminportal": "ng serve --project adminportal --port 4302",

@@ -7,7 +7,7 @@ export const environment : IEnvironment = {
   ClientId: 'Apps-HR',
   Platform: 'Web',
   openIdConfig: {
-    authority: 'https://intmicrotec.neat-url.com:2010',
+    authority: 'https://intmicrotec.neat-url.com:2020',
     redirectUrl: window.location.origin + '/hr/login-redirect',
     postLogoutRedirectUri:
       window.location.origin + '/hr/logout-redirect',
