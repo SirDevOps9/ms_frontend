@@ -38,6 +38,7 @@ import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { AccordionModule } from 'primeng/accordion';import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetails.component';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,9 +87,11 @@ import { AccordionModule } from 'primeng/accordion';import { bouserdetails } fro
     DialogModule,
     MultiSelectModule,
     ToggleButtonModule,
-    AccordionModule
+    AccordionModule,
+    DynamicDialogModule
   ],
   providers: [
+    DialogService,
     { provide: EnvironmentService, useValue: environment },
     {
       provide: HTTP_INTERCEPTORS,

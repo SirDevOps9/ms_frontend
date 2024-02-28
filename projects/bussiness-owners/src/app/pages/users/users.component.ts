@@ -14,6 +14,7 @@ import { UserInviteFormComponent } from '../../components/userscomps/invite-form
 import { bouserdetails } from '../../components/userscomps/bouserdetails/bouserdetails.component';
 import { City } from '../../models/users/cities.model';
 import { forkJoin } from 'rxjs';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -34,12 +35,13 @@ export class UsersComponent implements OnInit {
   selectedActions!: any[];
   domains: BaseDto[];
   actions: BaseDto[];
+  ref: DynamicDialogRef | undefined;
   @ViewChild('dt') dt: any | undefined;
   constructor(
     public languageService: LanguageService,
     private toasterService: ToasterService,
     private userService: UserService,
-    private dialog: MatDialog,
+    private dialog: DialogService,
     private router: RouterService,
     private logService: LogService
   ) {}
@@ -83,15 +85,26 @@ export class UsersComponent implements OnInit {
     });
   }
   openInviteModal() {
-    const dialogRef = this.dialog.open(UserInviteFormComponent, {
+    this.ref = this.dialog.open(UserInviteFormComponent, {
       width: '600px',
       height: '600px',
     });
-
-    dialogRef.afterClosed().subscribe((result: UserListResponse) => {
+    this.ref.onClose.subscribe((result: UserListResponse) => {
       if (result as UserListResponse) this.userData.push(result);
     });
-  }
+    //this.ref.close();
+    // dialogRef.afterClosed().subscribe((result: UserListResponse) => {
+    //   if (result as UserListResponse) this.userData.push(result);
+    // });
+    this.ref.onClose.subscribe((data: UserListResponse) => {
+      if(data){
+        this.logService.log("000")
+      }
+   
+    
+  });
+}
+  
   // applyFilterGlobal($event:any, stringVal:any) {
   //   this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   // }
@@ -163,9 +176,9 @@ export class UsersComponent implements OnInit {
       height: '700px',
       data: { Id: Id },
     });
-    dialogRef.afterClosed().subscribe((result: UserListResponse) => {
-      if (result as UserListResponse) this.userData.push(result);
-    });
+    // dialogRef.afterClosed().subscribe((result: UserListResponse) => {
+    //   if (result as UserListResponse) this.userData.push(result);
+    // });
     //  this.logService.log('users/bouserdetails/' + Id);
     // this.router.navigateTo('users/bouserdetails/' + Id);
   }

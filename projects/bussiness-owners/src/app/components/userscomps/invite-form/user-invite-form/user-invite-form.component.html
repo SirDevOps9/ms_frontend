@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-2">
   <div class="row justify-content-center">
     <div class="col-md-6">
       <form [formGroup]="inviteForm" (ngSubmit)="onSubmit()">
@@ -7,89 +7,71 @@
         </div>
 
         <!-- Email Input -->
-        <div class="form-group">
-          <label for="inputEmail">{{
-            "User.Inviteform.EmailLabel" | translate
-          }}</label>
-          <input
-            type="email"
-            id="inputEmail"
-            formControlName="email"
-            class="form-control"
-            placeholder="{{ 'User.Inviteform.EmailPlaceHolder' | translate }}"
-            required
-          />
+        <div class="form-group mb-6">
+          <div class="card flex justify-content-center">
+            <div class="flex flex-column gap-2 w-full " >
+                <label for="username">{{
+                  "User.Inviteform.EmailLabel" | translate
+                }}</label>
+                <input pInputText  class="form-control" id="inputEmail" aria-describedby="username-help" formControlName="email" placeholder="{{ 'User.Inviteform.EmailPlaceHolder' | translate }}"   required/>
+            </div>
+        </div>
           <div
             *ngIf="inviteForm.get('email')?.invalid && submitted"
-            class="text-danger"
+            class="error"
           >
             Your email address is invalid.
           </div>
         </div>
 
         <!-- Domain Multi-Select -->
-        <div class="form-group">
-          <label for="inputDomain">{{
-            "User.Inviteform.DomainLabel" | translate
-          }}</label>
-          <select
-            formControlName="subDomains"
-            multiple
-            class="form-control"
-            id="subDomains"
-            required
-          >
-            <option *ngFor="let item of domains" value="{{ item.id }}">
-              {{ item.name }}
-            </option>
-          </select>
+        <div class="form-group w-full mb-4">
+   
+          <div class="card w-full  ">
+            <span class="p-float-label">
+                <p-multiSelect  inputId="subDomains"   optionValue="id" required    class="form-control  w-full" formControlName="subDomains" [options]="domains"  optionLabel="name" [showClear]="true" display="chip"></p-multiSelect>
+                <label class="" for="subDomains">{{
+                  "User.Inviteform.DomainLabel" | translate
+                }}</label>
+            </span>
+        </div>
           <div
             *ngIf="inviteForm.get('subDomains')?.invalid && submitted"
-            class="text-danger"
+            class="error"
           >
             please select a domain
           </div>
         </div>
 
         <!-- Manage Actions Multi-Select -->
-        <div class="form-group">
-          <label for="inputActions">{{
-            "User.Inviteform.ActionsLabel" | translate
-          }}</label>
-          <select
-            formControlName="plans"
-            multiple
-            class="form-control"
-            id="plans"
-            required
-          >
-            <option *ngFor="let item of actions" value="{{ item.id }}">
-              {{ item.name }}
-            </option>
-          </select>
+        <div class="form-group pb-4">
+    
+          <div class="card ">
+            <span class="p-float-label">
+                <p-multiSelect  required  formControlName="plans"  optionValue="id"  class="form-control" inputId="plans" [options]="actions"  optionLabel="name" [showClear]="true" display="chip"></p-multiSelect>
+                <label class="" for="plans">{{
+                  "User.Inviteform.ActionsLabel" | translate
+                }}</label>
+            </span>
+        </div>
           <div
             *ngIf="inviteForm.get('plans')?.invalid && submitted"
-            class="text-danger"
+            class="error"
           >
             please select an action
           </div>
         </div>
 
         <!-- Buttons -->
-        <div class="form-group text-center">
-          <button type="submit" class="btn btn-primary">
-            <i class="bi bi-envelope-fill"></i>
-            {{ "User.Inviteform.SubmitButton" | translate }}
-          </button>
-          <button
-            type="button"
-            class="btn btn-secondary ml-2"
-            (click)="onCancel()"
-          >
-            {{ "User.Inviteform.CancelButton" | translate }}
-          </button>
+        <div class="form-group  actions">
+         
+          <button  type="submit" class="save w-6"> <span class="pi pi-send"></span>  {{ "User.Inviteform.SubmitButton" | translate }} </button>
+      
+          <button class="cancel" type="button" (click)="onCancel()">  {{ "User.Inviteform.CancelButton" | translate }}</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+
+ 
