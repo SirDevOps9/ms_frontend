@@ -7,6 +7,8 @@ const app = express();
 const projects = [
   { path: '/bussinessowners', target: 'http://localhost:4301' },
   { path: '/adminportal', target: 'http://localhost:4302' },
+  { path: '/accounting', target: 'http://localhost:4303' },
+  { path: '/hr', target: 'http://localhost:4304' },
   // Add more projects as needed
 ];
 
