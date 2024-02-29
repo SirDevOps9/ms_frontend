@@ -1,7 +1,7 @@
 export interface ResponseCompanyDto {
   id: number;
   name: string;
-  subdomain: string;
+  companyType: string;
   website: string;
   address: string;
   mobileNumberCode: string;
@@ -10,5 +10,7 @@ export interface ResponseCompanyDto {
   industryName: string;
   currencyName: string;
   CountryName: string;
+  planId:number;
+  planName:number;
   isActive: boolean;
 }

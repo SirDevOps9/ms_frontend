@@ -5,6 +5,9 @@
     "outDir": "./dist/out-tsc",
     "baseUrl": "./",
     "paths": {
+      "apps-shared-lib": [
+        "projects/apps-shared-lib/src/public-api"
+      ],
       "microtec-auth-lib": ["projects/microtec-auth-lib/src/public-api"],
       "shared-lib": ["projects/shared-lib/src/public-api"]
     },

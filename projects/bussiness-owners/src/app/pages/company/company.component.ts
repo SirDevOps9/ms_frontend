@@ -1,4 +1,4 @@
-import { Component, OnInit ,ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CompanyService } from '../../services/company.httpservice';
 import {
   LanguageService,
@@ -10,28 +10,34 @@ import { ResponseCompanyDto } from '../../models/company/responsecompanydto';
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
-   styleUrls: ['./company.component.scss'],
+  styleUrls: ['./company.component.scss'],
+  providers: [RouterService],
 })
 export class CompanyComponent implements OnInit {
   companies: ResponseCompanyDto[];
   @ViewChild('dt') dt: any | undefined;
   selectedCompanies!: ResponseCompanyDto[] | null;
+  planId: number;
+
   constructor(
     private companyService: CompanyService,
     private routerService: RouterService,
+
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private logService: LogService
   ) {}
 
   navigateToAdd(): void {
-    this.routerService.navigateTo('company/add');
+    this.routerService.navigateTo('company/add/' + this.planId);
   }
 
   ngOnInit() {
+    this.planId = this.routerService.currentId;
+    this.logService.log(this.planId, 'recived company list plan id');
+
     this.companyService.getAll().subscribe((res) => {
       this.companies = res.response.reverse();
-      this.logService.log(this.companies);
     });
   }
 
@@ -58,15 +64,14 @@ export class CompanyComponent implements OnInit {
           indexToChange!.isActive = true;
         },
       });
-    }else{
+    } else {
       this.companies.forEach((element: any) => {
         if (element.id == id) {
           console.log(element.isActive);
-          element.isActive=false
+          element.isActive = false;
         }
       });
-        
-      }
+    }
   }
   async deactivate(id: number) {
     const confirmed = await this.toasterService.showConfirm(
@@ -85,24 +90,23 @@ export class CompanyComponent implements OnInit {
           indexToChange!.isActive = false;
         },
       });
-    }else{
+    } else {
       this.companies.forEach((element: any) => {
         if (element.id == id) {
           console.log(element.isActive);
-          element.isActive=true
+          element.isActive = true;
         }
       });
-        
-      }
+    }
   }
   applyFilterGlobal($event: any, stringVal: any) {
     this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
-  changed(e: any ,id:number){  
-    if(e.checked===false){
-       this.deactivate(id)
-    }else{
-        this.activate(id)
+  changed(e: any, id: number) {
+    if (e.checked === false) {
+      this.deactivate(id);
+    } else {
+      this.activate(id);
     }
   }
 }
