@@ -1,8 +1,7 @@
 @import "../users/users.component.scss";
-.test{
-    width: 100px;
-    height: 100px;
-    background-color: red;
+.company_page{
+  width: 95%;
+  margin: auto;
 }
 ::ng-deep{
     .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item.p-highlight {

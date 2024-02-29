@@ -6,7 +6,7 @@ import { ResponsePlanDto } from '../../models/plan/responseplandto';
 @Component({
   selector: 'app-Plan',
   templateUrl: './Plan.component.html',
-  styleUrls: ['./Plan.component.css'],
+  styleUrls: ['./Plan.component.scss'],
 })
 export class PlanComponent implements OnInit {
   plansList: ResponsePlanDto[];

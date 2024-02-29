@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<!-- <div class="container mt-4">
   <div class="row justify-content-center">
     
     <div class="col-md-8">
@@ -54,9 +54,9 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
-<div class="user_page">
+<div class="company_page">
   <p-table
   #dt
   [value]="companies"
@@ -90,11 +90,11 @@
         <th style="width: 4rem">
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
       </th>
-          <th pSortableColumn="name" >  {{ "Company.Id" | translate }} <p-sortIcon field="name"></p-sortIcon></th>
+          <th pSortableColumn="name" >  {{ "Company.Name" | translate }} <p-sortIcon field="name"></p-sortIcon></th>
          
-          <th pSortableColumn="email">{{ "Company.Name" | translate }} <p-sortIcon field="email"></p-sortIcon></th>
-          <th pSortableColumn="category" style="min-width:10rem">{{ "Company.Website" | translate }} <p-sortIcon field="category"></p-sortIcon></th>
-          <!-- <th pSortableColumn="rating">{{ "User.Actions" | translate }} <p-sortIcon field="rating"></p-sortIcon></th> -->
+          <th pSortableColumn="email">{{ "Company.CompanyType" | translate }} <p-sortIcon field="email"></p-sortIcon></th>
+          <th pSortableColumn="category" style="min-width:10rem">{{ "Company.MobileNumber" | translate }} <p-sortIcon field="category"></p-sortIcon></th>
+          <th pSortableColumn="rating">{{ "User.Actions" | translate }} <p-sortIcon field="rating"></p-sortIcon></th>
           <th pSortableColumn="inventoryStatus" style="min-width:10rem">{{ "User.Status" | translate }} <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
           
       </tr>
@@ -106,16 +106,16 @@
       </td>
           <td>
             <div class=" user_info">
-              <p>{{ item.id }}</p>
+              <p>{{ item.name }}</p>
             </div>
           </td>
-          <td>{{ item.name }}</td>
+          <td>{{ item.companyType }}</td>
           <td>
-            {{ item.website }}</td>
-          <!-- <td>
+            {{ item.mobileNumber }}</td>
+          <td>
             
             <p-button icon="pi pi-pencil"  [rounded]="true" [text]="true" severity="secondary "></p-button>
-        </td> -->
+        </td>
           <td >
               <div class="checked"  >
              

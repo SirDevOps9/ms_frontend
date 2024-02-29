@@ -17,7 +17,10 @@
             <ng-template pTemplate="end" >
               <div class="header_sec">
                 <div class="choices">
-                  <div class="choices_com">
+                  <div class="choices_tnt">
+                      
+                  </div>
+                  <!-- <div class="choices_com">
                     <div class="card flex justify-content-center">
                       <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Company">
                           <ng-template pTemplate="selectedItem" let-selectedOption>
@@ -52,11 +55,9 @@
                           </ng-template>
                       </p-dropdown>
                   </div>
-                  </div>
+                  </div> -->
                 </div>
-                <div class="line">
-  
-                </div>
+               
                 <div class="end_header_sec">
                   <div class="link_sec">
                     <div class="count">
@@ -149,7 +150,7 @@
               plan
             </div>
           </button>
-          <button class="item" routerLink="/company"  id="company" (click)="activeTag('company')">
+          <!-- <button class="item" routerLink="/company"  id="company" (click)="activeTag('company')">
             <div class="item_icon">
               <i class="fa fa-solid fa-building"></i>
             </div>
@@ -164,7 +165,7 @@
             <div class="item_text">
               user
             </div>
-          </button>
+          </button> -->
           <button class="item"  id="KPI" (click)="activeTag('KPI')">
             <div class="item_icon">
               <i class=" fa fa-solid fa-globe"></i>
@@ -276,6 +277,9 @@
 
     </div>
     <div class="pages" [ngClass]="{'pages_sid_open': sidebarOpen}">
+      <div class="title_of_page"> 
+
+      </div>
       <router-outlet></router-outlet>
     </div>
   </div>
