@@ -85,7 +85,10 @@
     "Name": "Name",
     "Deactivate": "Deactivate",
     "Activate": "Activate",
+    "CompanyType": "Company Type",
+    "MobileNumber":"Phone",
     "Add": {
+      "Plan":"Plan",
       "CompanyAddedSuccessfully": "Company added successfully",
       "Error": "Error",
       "Success": "Success",

@@ -1,6 +1,6 @@
 export interface AddCompanyDto {
   name: string;
-  subdomainName: number;
+  planId: number;
   website: string;
   address: string;
   mobileNumberCode: string;
@@ -9,4 +9,5 @@ export interface AddCompanyDto {
   countryCode: string;
   industryId: number;
   currencyId: number;
+  companyType:number
 }

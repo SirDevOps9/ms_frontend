@@ -6,6 +6,7 @@ import { UserconfirmationComponent } from './pages/inviteduserconfirmation/userc
 import { CompanyComponent } from './pages/company/company.component';
 import { AuthGuard } from '../../../microtec-auth-lib/src/public-api';
 import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetails.component';
+import { PlanComponent } from './pages/Plan/Plan.component';
 
 export const BORoutes = [
   {
@@ -14,9 +15,15 @@ export const BORoutes = [
     children: [
       { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
       { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
-      { path: 'company/add', component: AddCompanyComponent, canActivate: [AuthGuard] },
+      { path: 'company/add/:id', component: AddCompanyComponent, canActivate: [AuthGuard] },
+
+      { path: 'company/:id', component: CompanyComponent, canActivate: [AuthGuard] },
       { path: 'company', component: CompanyComponent, canActivate: [AuthGuard] },
+
       { path: 'users/bouserdetails/:id', component: bouserdetails, canActivate: [AuthGuard] },
+      { path: 'plan', component: PlanComponent, canActivate: [AuthGuard] },
+
+
     ],
   },
   { path: 'users/userconfirmation/:id', component: UserconfirmationComponent },

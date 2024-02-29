@@ -37,8 +37,10 @@ import { SidebarModule } from 'primeng/sidebar';
 import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ToggleButtonModule } from 'primeng/togglebutton';
-import { AccordionModule } from 'primeng/accordion';import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetails.component';
+import { AccordionModule } from 'primeng/accordion';
+import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetails.component';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { PlanComponent } from './pages/Plan/Plan.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +50,8 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
     AddCompanyComponent,
     CompanyComponent,
     UserconfirmationComponent,
-    bouserdetails
+    bouserdetails,
+    PlanComponent
   ],
   imports: [
     CommonModule,
