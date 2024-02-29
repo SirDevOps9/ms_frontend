@@ -15,7 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CompanyComponent implements OnInit {
   companies: ResponseCompanyDto[];
-  planId: string;
+id: any;
 
   constructor(
     private companyService: CompanyService,
@@ -30,20 +30,21 @@ export class CompanyComponent implements OnInit {
 
   navigateToAdd(): void {
     this.routerService.navigateTo('company/add');
-    this.routerService.getRouteParams(this.planId);
-    this.router.navigate(['company/add'], { queryParams: { planId: this.planId } });
-
   }
 
   ngOnInit() {
+
+
+    this.id =this.routerService.getRouteParams('id');
+    //this.id = +this.route.snapshot.queryParams['id'];
+    this.logService.log(this.id,"recived id");
+
     this.companyService.getAll().subscribe((res) => {
       this.companies = res.response.reverse();
       this.logService.log(this.companies);
     });
 
-    this.route.queryParams.subscribe(params => {
-      this.planId = params['planId'];
-    });
+
   }
 
   toggle(id: number, isActive: boolean) {

@@ -29,13 +29,15 @@ export class PlanComponent implements OnInit {
       { id: 2, name: 'plane 2' ,subdomain:"subdomain2"},
       { id: 3, name: 'plane 3',subdomain:"subdomain3" },
     ];
+
   }
 
-  navigateToManageCompany() {
-    const staticPlanId = '14';
-    this.routerService.navigateTo('company/' + staticPlanId);
+  navigateToManageCompany(id:number) {
+    this.logService.log(id,"sending id");
+
+    this.routerService.navigateTo('company/' + id);
     //this.routerService.queryParams(staticPlanId);
-    //this.router.navigate(['company'], { queryParams: { planId: staticPlanId } });
+    //this.router.navigate(['company'], { queryParams: { id: planId } });
   }
 
   navigateToManageUser() {

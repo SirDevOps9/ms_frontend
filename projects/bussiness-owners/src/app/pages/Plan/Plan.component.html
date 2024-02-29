@@ -59,7 +59,7 @@
     <div class="card-body">
       <p>{{ plan.subdomain }}</p>
       <button type="button" class="btn btn-success" (click)="navigateToManageUser()">Manage User</button>
-      <button type="button" class="btn btn-primary" (click)="navigateToManageCompany()">Manage Company</button>
+      <button type="button" class="btn btn-primary" (click)="navigateToManageCompany(plan.id)">Manage Company</button>
     </div>
   </div>
 </div>
