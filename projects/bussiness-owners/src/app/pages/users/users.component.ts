@@ -92,10 +92,6 @@ export class UsersComponent implements OnInit {
     this.ref.onClose.subscribe((result: UserListResponse) => {
       if (result as UserListResponse) this.userData.push(result);
     });
-    //this.ref.close();
-    // dialogRef.afterClosed().subscribe((result: UserListResponse) => {
-    //   if (result as UserListResponse) this.userData.push(result);
-    // });
     this.ref.onClose.subscribe((data: UserListResponse) => {
       if(data){
         this.logService.log("000")
@@ -104,10 +100,6 @@ export class UsersComponent implements OnInit {
     
   });
 }
-  
-  // applyFilterGlobal($event:any, stringVal:any) {
-  //   this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
-  // }
 
   async activate(id: string) {
     const confirmed = await this.toasterService.showConfirm(
@@ -125,6 +117,14 @@ export class UsersComponent implements OnInit {
           indexToChange!.isActive = true;
         },
       });
+    }else{
+      this.userData.forEach((element: any) => {
+        if (element.id == id) {
+          console.log(element.isActive);
+          element.isActive=false
+        }
+      });
+      
     }
   }
   async deactivate(id: string) {
@@ -142,17 +142,16 @@ export class UsersComponent implements OnInit {
           indexToChange!.isActive = false;
         },
       });
-    }
-  }
-  editeUser(id: any) {
-    this.userData.forEach((element: any) => {
-      if (element.id == id) {
-        this.user = [element];
+    }else{
+      this.userData.forEach((element: any) => {
+        if (element.id == id) {
+          console.log(element.isActive);
+          element.isActive=true
+        }
+      });
+        
       }
-    });
-    this.logService.log(id);
-    //this._LogService.log(this.user)
-    this.userEditDialog = true;
+    
   }
   applyFilterGlobal($event: any, stringVal: any) {
     this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
@@ -164,12 +163,8 @@ export class UsersComponent implements OnInit {
       this.addUser = false;
     }
   }
-  closeAdd() {
-    this.addUser = false;
-  }
-  closeedite() {
-    this.userEditDialog = false;
-  }
+
+
   async editUser(Id: string) {
     this.ref = this.dialog.open(bouserdetails, {
       width: '800px',
@@ -183,16 +178,13 @@ export class UsersComponent implements OnInit {
     // this.router.navigateTo('users/bouserdetails/' + Id);
   }
   changed(e: any ,id:string){
-    console.log(id);
     
     if(e.checked===false){
-      console.log(id);
-     this.activate(id)
-      
+     this.deactivate(id)
+
     }else{
-      console.log(id);
-      this.deactivate(id)
-      
+      this.activate(id)
+
     }
   }
 }

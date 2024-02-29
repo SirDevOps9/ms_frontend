@@ -2,12 +2,12 @@ import { IEnvironment } from "shared-lib";
 
 export const environment : IEnvironment = {
   production: false,
-  baseUrl: 'https://intmicrotec.neat-url.com:2003',
+  baseUrl: 'http://localhost:2003',
   Version: 'V1',
   ClientId: 'BussinessOwner',
   Platform: 'Web',
   openIdConfig: {
-    authority: 'https://intmicrotec.neat-url.com:2010',
+    authority: 'https://intmicrotec.neat-url.com:2020',
     redirectUrl: window.location.origin + '/bussinessowners/login-redirect',
     postLogoutRedirectUri:
       window.location.origin + '/bussinessowners/logout-redirect',

@@ -28,8 +28,8 @@ export class bouserdetails implements OnInit {
   photo:string;
   domains: BaseDto[];
   actions: BaseDto[];
-  selectedPlat:any[]
-  selectedDomain:any[]
+  selectedPlat:number[]
+  selectedDomain:number[]
  @Input() formId:string;
   subdomains: any[]=[];
   platformplans: any[]=[]; 
@@ -95,11 +95,13 @@ export class bouserdetails implements OnInit {
       'ConfirmButtonTexttochangstatus'
     );
     if (confirmed) {
-      const UpdateUserDto: any = [
-        this.selectedDomain,
-        this.selectedPlat,
-          this.Id
-      ];
+      const UpdateUserDto: boupdateuser = {
+        subDomain:this.selectedDomain,
+        plateformPlan:this.selectedPlat,
+        id:this.Id
+      }
+       
+      
 
       this.logService.log(UpdateUserDto);
       this.Userservice.updateUser(UpdateUserDto, this.Id ).subscribe({

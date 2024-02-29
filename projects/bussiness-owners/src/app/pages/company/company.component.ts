@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild } from '@angular/core';
 import { CompanyService } from '../../services/company.httpservice';
 import {
   LanguageService,
@@ -10,10 +10,12 @@ import { ResponseCompanyDto } from '../../models/company/responsecompanydto';
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
-  // styleUrls: ['./company.component.css'],
+   styleUrls: ['./company.component.scss'],
 })
 export class CompanyComponent implements OnInit {
   companies: ResponseCompanyDto[];
+  @ViewChild('dt') dt: any | undefined;
+  selectedCompanies!: ResponseCompanyDto[] | null;
   constructor(
     private companyService: CompanyService,
     private routerService: RouterService,
@@ -56,7 +58,15 @@ export class CompanyComponent implements OnInit {
           indexToChange!.isActive = true;
         },
       });
-    }
+    }else{
+      this.companies.forEach((element: any) => {
+        if (element.id == id) {
+          console.log(element.isActive);
+          element.isActive=false
+        }
+      });
+        
+      }
   }
   async deactivate(id: number) {
     const confirmed = await this.toasterService.showConfirm(
@@ -75,6 +85,24 @@ export class CompanyComponent implements OnInit {
           indexToChange!.isActive = false;
         },
       });
+    }else{
+      this.companies.forEach((element: any) => {
+        if (element.id == id) {
+          console.log(element.isActive);
+          element.isActive=true
+        }
+      });
+        
+      }
+  }
+  applyFilterGlobal($event: any, stringVal: any) {
+    this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
+  }
+  changed(e: any ,id:number){  
+    if(e.checked===false){
+       this.deactivate(id)
+    }else{
+        this.activate(id)
     }
   }
 }
