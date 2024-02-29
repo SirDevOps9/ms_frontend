@@ -1,4 +1,4 @@
-<div class="mt-4">
+<!-- <div class="mt-4">
   <div>plan 1</div>
   <button
     type="button"
@@ -50,4 +50,17 @@
   >
     Manage User
   </button>
+</div> -->
+
+<div class ="card-alignment">
+<div class="card-container" *ngFor="let plan of plansList">
+  <div class="card">
+    <div class="card-header">{{ plan.name }}</div>
+    <div class="card-body">
+      <p>{{ plan.subdomain }}</p>
+      <button type="button" class="btn btn-success" (click)="navigateToManageUser()">Manage User</button>
+      <button type="button" class="btn btn-primary" (click)="navigateToManageCompany()">Manage Company</button>
+    </div>
+  </div>
+</div>
 </div>
