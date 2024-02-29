@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import {
-  LanguageService,
   LogService,
   RouterService,
-  ToasterService,
 } from 'shared-lib';
+import { PlanService } from '../../services/plan.httpservice';
+import { ResponsePlanDto } from '../../models/plan/responseplandto';
 
 @Component({
   selector: 'app-Plan',
@@ -13,31 +12,27 @@ import {
   styleUrls: ['./Plan.component.css'],
 })
 export class PlanComponent implements OnInit {
-  plansList: any[];
+  plansList: ResponsePlanDto[];
   constructor(
     private routerService: RouterService,
-    private router: Router,
-
-    private toasterService: ToasterService,
-    private languageService: LanguageService,
-    private logService: LogService
+    private logService: LogService,
+    private planService: PlanService,
   ) {}
 
   ngOnInit() {
-    this.plansList = [
-      { id: 14, name: 'plane 1' ,subdomain:"subdomain1"},
-      { id: 2, name: 'plane 2' ,subdomain:"subdomain2"},
-      { id: 3, name: 'plane 3',subdomain:"subdomain3" },
-    ];
+
+    this.planService.getAll().subscribe((res) => {
+      this.plansList = res.response;
+      this.logService.log(this.plansList,"Plan list");
+    });
+
 
   }
 
-  navigateToManageCompany(id:number) {
-    this.logService.log(id,"sending id");
+  navigateToManageCompany(planId:number) {
+    this.logService.log(planId,"sending id");
+    this.routerService.navigateTo('company/' + planId);
 
-    this.routerService.navigateTo('company/' + id);
-    //this.routerService.queryParams(staticPlanId);
-    //this.router.navigate(['company'], { queryParams: { id: planId } });
   }
 
   navigateToManageUser() {

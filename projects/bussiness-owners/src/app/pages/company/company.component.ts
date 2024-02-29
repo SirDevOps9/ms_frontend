@@ -7,43 +7,36 @@ import {
   ToasterService,
 } from 'shared-lib';
 import { ResponseCompanyDto } from '../../models/company/responsecompanydto';
-import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
+  providers:[RouterService]
   // styleUrls: ['./company.component.css'],
 })
 export class CompanyComponent implements OnInit {
   companies: ResponseCompanyDto[];
-id: any;
+    planId: number;
 
   constructor(
     private companyService: CompanyService,
     private routerService: RouterService,
-    private router: Router,
-    private route: ActivatedRoute,
-
+  
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private logService: LogService
   ) {}
 
   navigateToAdd(): void {
-    this.routerService.navigateTo('company/add');
+    this.routerService.navigateTo('company/add/' + this.planId);
   }
 
   ngOnInit() {
-
-
-    this.id =this.routerService.getRouteParams('id');
-    //this.id = +this.route.snapshot.queryParams['id'];
-    this.logService.log(this.id,"recived id");
+    this.planId =this.routerService.currentId;
+    this.logService.log(this.planId,"recived company list plan id");
 
     this.companyService.getAll().subscribe((res) => {
       this.companies = res.response.reverse();
-      this.logService.log(this.companies);
     });
-
 
   }
 

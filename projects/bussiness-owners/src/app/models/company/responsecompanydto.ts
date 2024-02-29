@@ -10,5 +10,7 @@ export interface ResponseCompanyDto {
   industryName: string;
   currencyName: string;
   CountryName: string;
+  planId:number;
+  planName:number;
   isActive: boolean;
 }

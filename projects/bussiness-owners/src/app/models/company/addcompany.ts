@@ -9,4 +9,5 @@ export interface AddCompanyDto {
   countryCode: string;
   industryId: number;
   currencyId: number;
+  companyType:number
 }
