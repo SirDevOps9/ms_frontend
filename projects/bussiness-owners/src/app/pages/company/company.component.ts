@@ -10,17 +10,17 @@ import { ResponseCompanyDto } from '../../models/company/responsecompanydto';
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
-  providers:[RouterService]
+  providers: [RouterService],
   // styleUrls: ['./company.component.css'],
 })
 export class CompanyComponent implements OnInit {
   companies: ResponseCompanyDto[];
-    planId: number;
+  planId: number;
 
   constructor(
     private companyService: CompanyService,
     private routerService: RouterService,
-  
+
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private logService: LogService
@@ -31,13 +31,12 @@ export class CompanyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.planId =this.routerService.currentId;
-    this.logService.log(this.planId,"recived company list plan id");
+    this.planId = this.routerService.currentId;
+    this.logService.log(this.planId, 'recived company list plan id');
 
     this.companyService.getAll().subscribe((res) => {
       this.companies = res.response.reverse();
     });
-
   }
 
   toggle(id: number, isActive: boolean) {

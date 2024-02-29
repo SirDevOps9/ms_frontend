@@ -17,7 +17,7 @@ import { CompanyTypes } from '../../../enums/companytypes';
 @Component({
   selector: 'app-add-compny',
   templateUrl: './add-compny.component.html',
-    providers:[RouterService],
+  providers: [RouterService],
 
   styleUrls: ['./add-compny.component.css'],
 })
@@ -37,7 +37,7 @@ export class AddCompanyComponent implements OnInit {
     private toasterService: ToasterService,
     private loaderService: LoaderService,
     private languageService: LanguageService,
-    private routerService: RouterService,
+    private routerService: RouterService
   ) {
     this.companyForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -57,8 +57,8 @@ export class AddCompanyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.planId =this.routerService.currentId;
-    this.logService.log(this.planId,"recived add company id");
+    this.planId = this.routerService.currentId;
+    this.logService.log(this.planId, 'recived add company id');
 
     this.getDropDowns();
 
@@ -70,25 +70,23 @@ export class AddCompanyComponent implements OnInit {
         );
 
         if (selectedCountry) {
-
           this.companyForm.patchValue({
             mobileNumberCode: selectedCountry.code,
           });
         }
       });
 
-
     this.companyForm.get('countryCode')?.valueChanges;
-
   }
 
   onSubmit() {
     if (!this.companyForm.valid) {
       this.toasterService.showError(
-        this.languageService.transalte('Company.Error')
-        ,
-        this.languageService.transalte('Company.Add.PleaseFillInAllTheRequiredFields')
-        );
+        this.languageService.transalte('Company.Error'),
+        this.languageService.transalte(
+          'Company.Add.PleaseFillInAllTheRequiredFields'
+        )
+      );
       return;
     }
     this.addCompany();
@@ -134,7 +132,7 @@ export class AddCompanyComponent implements OnInit {
           this.languageService.transalte('Company.Add.CompanyAddedSuccessfully')
         );
         this.loaderService.hide();
-        this.routerService.navigateTo('company/' +this.planId);
+        this.routerService.navigateTo('company/' + this.planId);
       },
       error: () => {
         this.loaderService.hide();
@@ -147,6 +145,3 @@ export class AddCompanyComponent implements OnInit {
     return (control?.hasError(errorType) && control?.touched) ?? false;
   }
 }
-
-
-
