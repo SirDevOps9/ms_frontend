@@ -6,3 +6,4 @@ export * from './searchField';
 export * from './tokenModel';
 export * from './searchField'
 export * from './iEnvironment'
+export * from'./validationError';

@@ -15,7 +15,7 @@
       <p class="card_subdomain">{{ plan.subdomain }}</p>
  
         <div class="btn_manage">
-          <button  class="mange user "  type="button" class="btn btn-success" (click)="navigateToManageUser()">Manage User</button>
+          <button  class="mange user "  type="button" class="btn btn-success" (click)="navigateToManageUser(plan.subdomainId)">Manage User</button>
           <button  class="mange "  type="button" class="btn btn-primary" (click)="navigateToManageCompany(plan.id)">Manage Company</button>
         </div>
       

@@ -8,23 +8,23 @@ import {
   RouterService,
   ToasterService,
 } from 'shared-lib';
-import { MatDialog } from '@angular/material/dialog';
 import { UserInviteFormComponent } from '../../components/userscomps/invite-form/user-invite-form/user-invite-form.component';
 
 import { bouserdetails } from '../../components/userscomps/bouserdetails/bouserdetails.component';
 import { City } from '../../models/users/cities.model';
 import { forkJoin } from 'rxjs';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
+  providers: [RouterService],
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
   userData: UserListResponse[];
   users: any[] = [];
   user: any[] = [];
-
   checked: boolean = true;
   userEditDialog: boolean = false;
   addUser: boolean = false;
@@ -43,9 +43,11 @@ export class UsersComponent implements OnInit {
     private userService: UserService,
     private dialog: DialogService,
     private router: RouterService,
-    private logService: LogService
+    private logService: LogService,
+    private titleService: Title
   ) {}
   ngOnInit() {
+    this.titleService.setTitle('Users');
     forkJoin([
       this.userService.subDomainDropDown(),
       this.userService.platformDropDown(),
@@ -63,7 +65,7 @@ export class UsersComponent implements OnInit {
     ];
   }
   getAllUsers() {
-    this.userService.getAll().subscribe({
+    this.userService.getAll(this.router.currentId).subscribe({
       next: (res) => {
         this.userData = res.response;
       },
@@ -93,13 +95,11 @@ export class UsersComponent implements OnInit {
       if (result as UserListResponse) this.userData.push(result);
     });
     this.ref.onClose.subscribe((data: UserListResponse) => {
-      if(data){
-        this.logService.log("000")
+      if (data) {
+        this.logService.log('000');
       }
-   
-    
-  });
-}
+    });
+  }
 
   async activate(id: string) {
     const confirmed = await this.toasterService.showConfirm(
@@ -117,14 +117,13 @@ export class UsersComponent implements OnInit {
           indexToChange!.isActive = true;
         },
       });
-    }else{
+    } else {
       this.userData.forEach((element: any) => {
         if (element.id == id) {
           console.log(element.isActive);
-          element.isActive=false
+          element.isActive = false;
         }
       });
-      
     }
   }
   async deactivate(id: string) {
@@ -142,16 +141,14 @@ export class UsersComponent implements OnInit {
           indexToChange!.isActive = false;
         },
       });
-    }else{
+    } else {
       this.userData.forEach((element: any) => {
         if (element.id == id) {
           console.log(element.isActive);
-          element.isActive=true
+          element.isActive = true;
         }
       });
-        
-      }
-    
+    }
   }
   applyFilterGlobal($event: any, stringVal: any) {
     this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
@@ -163,7 +160,6 @@ export class UsersComponent implements OnInit {
       this.addUser = false;
     }
   }
-
 
   async editUser(Id: string) {
     this.ref = this.dialog.open(bouserdetails, {
@@ -177,14 +173,11 @@ export class UsersComponent implements OnInit {
     //  this.logService.log('users/bouserdetails/' + Id);
     // this.router.navigateTo('users/bouserdetails/' + Id);
   }
-  changed(e: any ,id:string){
-    
-    if(e.checked===false){
-     this.deactivate(id)
-
-    }else{
-      this.activate(id)
-
+  changed(e: any, id: string) {
+    if (e.checked === false) {
+      this.deactivate(id);
+    } else {
+      this.activate(id);
     }
   }
 }

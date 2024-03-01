@@ -12,12 +12,11 @@ export class InviteduserService {
 
   GetInvitedUserEmail(id: string): Observable<APIResponse<string>> {
     return this.baseService.get<APIResponse<string>>(
-      `${this.userController}/GetInvitedUserEmail/${id}`
+      `${this.userController}/GetInvitedUserEmail/${id}`,
+      false
     );
   }
-  ConfirmInvitedUser(
-    request: FormData
-  ): Observable<APIResponse<boolean>> {
+  ConfirmInvitedUser(request: FormData): Observable<APIResponse<boolean>> {
     return this.baseService.postForm<APIResponse<boolean>>(
       `${this.userController}/ConfirmInvitedUser`,
       request

@@ -1,88 +1,90 @@
-<ng-container *ngIf="validId" >
+<ng-container *ngIf="validId">
+  <form [formGroup]="userForm" (ngSubmit)="submitForm()" class="mt-4">
+    <div class="mb-3">
+      <label for="photo" class="form-label">
+        {{ "UserConfirmation.Photo" | translate }}
+      </label>
+      <input
+        type="file"
+        id="photo"
+        accept="image/*"
+        (change)="onFileSelected($event)"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="fullName" class="form-label">{{
+        "UserConfirmation.Name" | translate
+      }}</label>
+      <input
+        type="text"
+        id="fullName"
+        formControlName="fullName"
+        class="form-control"
+        required
+      />
+    </div>
 
-<form  [formGroup]="userForm" (ngSubmit)="submitForm()" class="mt-4">
-  <div class="mb-3">
-    <label for="photo" class="form-label">
-      {{ "UserConfirmation.Photo" | translate }}
-    </label>
-    <input
-      type="file"
-      id="photo"
-      accept="image/*"
-      (change)="onFileSelected($event)"
-    />
-  </div>
-  <div class="mb-3">
-    <label for="fullName" class="form-label">{{
-      "UserConfirmation.Name" | translate
-    }}</label>
-    <input
-      type="text"
-      id="fullName"
-      formControlName="fullName"
-      class="form-control"
-      required
-    />
-  </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">{{
+        "UserConfirmation.Email" | translate
+      }}</label>
+      <input
+        type="text"
+        id="email"
+        formControlName="email"
+        class="form-control"
+        readonly
+      />
+    </div>
 
-  <div class="mb-3">
-    <label for="email" class="form-label">{{
-      "UserConfirmation.Email" | translate
-    }}</label>
-    <input
-      type="text"
-      id="email"
-      formControlName="email"
-      class="form-control"
-      readonly
-    />
-  </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">{{
+        "UserConfirmation.Password" | translate
+      }}</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        class="form-control"
+        required
+      />
+    </div>
 
-  <div class="mb-3">
-    <label for="password" class="form-label">{{
-      "UserConfirmation.Password" | translate
-    }}</label>
-    <input
-      type="password"
-      id="password"
-      formControlName="password"
-      class="form-control"
-      required
-    />
-  </div>
+    <div class="mb-3">
+      <label for="confirmPassword" class="form-label">{{
+        "UserConfirmation.ConfirmPassword" | translate
+      }}</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        formControlName="confirmPassword"
+        class="form-control"
+        required
+      />
+    </div>
 
-  <div class="mb-3">
-    <label for="confirmPassword" class="form-label">{{
-      "UserConfirmation.ConfirmPassword" | translate
-    }}</label>
-    <input
-      type="password"
-      id="confirmPassword"
-      formControlName="confirmPassword"
-      class="form-control"
-      required
-    />
-  </div>
+    <div class="form-check mb-3">
+      <input
+        type="checkbox"
+        id="policy"
+        formControlName="acceptPolicy"
+        class="form-check-input"
+      />
+      <label for="policy" class="form-check-label">{{
+        "UserConfirmation.policy" | translate
+      }}</label>
+    </div>
 
-  <div class="form-check mb-3">
-    <input
-      type="checkbox"
-      id="policy"
-      formControlName="acceptPolicy"
-      class="form-check-input"
-    />
-    <label for="policy" class="form-check-label">{{
-      "UserConfirmation.policy" | translate
-    }}</label>
-  </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">
+      {{ "UserConfirmation.Save" | translate }}
+    </button>
+  </form>
+</ng-container>
 
-  <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">
-    {{ "UserConfirmation.Save" | translate }}
-  </button>
-</form>
-</ng-container> 
-
-
-<ng-container *ngIf="!validId" >
+<ng-container *ngIf="!validId">
   <div>....</div>
-</ng-container> 
+</ng-container>
+
+<ng-container *ngIf="errorMessage">
+  <div>{{ errorMessage }}</div>
+</ng-container>

@@ -7,6 +7,7 @@ import {
   ToasterService,
 } from 'shared-lib';
 import { ResponseCompanyDto } from '../../models/company/responsecompanydto';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
@@ -22,10 +23,10 @@ export class CompanyComponent implements OnInit {
   constructor(
     private companyService: CompanyService,
     private routerService: RouterService,
-
     private toasterService: ToasterService,
     private languageService: LanguageService,
-    private logService: LogService
+    private logService: LogService,
+    private titleService: Title
   ) {}
 
   navigateToAdd(): void {
@@ -33,6 +34,7 @@ export class CompanyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('Companies');
     this.planId = this.routerService.currentId;
     this.logService.log(this.planId, 'recived company list plan id');
 

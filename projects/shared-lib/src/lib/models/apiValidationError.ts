@@ -1,5 +1,8 @@
+import { ValidationError } from "./";
 export interface APIValidationError {
-    errors: string[];
     statusCode: number;
-    message: string;
-}
+    errorMessage: string;
+    errorCode: number;
+    key: string;
+    ValidationErrors: ValidationError[];
+  }
