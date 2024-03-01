@@ -36,9 +36,7 @@ export class CompanyComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Companies');
     this.planId = this.routerService.currentId;
-    this.logService.log(this.planId, 'recived company list plan id');
-
-    this.companyService.getAll().subscribe((res) => {
+    this.companyService.getAll(this.planId).subscribe((res) => {
       this.companies = res.response.reverse();
     });
   }
