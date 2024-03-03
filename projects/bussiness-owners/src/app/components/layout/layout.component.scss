@@ -125,6 +125,7 @@
                             }
                             .title{
                                 margin-inline-start: 10px;
+                                max-width: calc(100% - 50px);
                               
                                 .name{
                                     margin: 0;

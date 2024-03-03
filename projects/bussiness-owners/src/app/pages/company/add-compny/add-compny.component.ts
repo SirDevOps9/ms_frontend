@@ -19,7 +19,7 @@ import { CompanyTypes } from '../../../enums/companytypes';
   templateUrl: './add-compny.component.html',
   providers: [RouterService],
 
-  styleUrls: ['./add-compny.component.css'],
+  styleUrls: ['./add-compny.component.scss'],
 })
 export class AddCompanyComponent implements OnInit {
   companyForm: FormGroup;
