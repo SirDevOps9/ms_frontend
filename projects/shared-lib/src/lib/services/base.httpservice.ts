@@ -71,57 +71,56 @@ export class BaseService {
     );
   }
 
-  get<T>(url: string) {
+  get<T>(url: string, showError: boolean = true) {
     return this.addHeaders().pipe(
       switchMap((headers) =>
         this.http.get<T>(`${this.baseUrl}/${url}`, { headers })
       ),
       catchError((response: HttpErrorResponse) =>
-        this.errorHandler(url, response, null)
+        this.errorHandler(url, response, null, showError)
       )
     );
   }
 
-  post<T>(url: string, data: any) {
+  post<T>(url: string, data: any, showError: boolean = true) {
     return this.addHeaders().pipe(
       switchMap((headers) =>
         this.http.post<T>(`${this.baseUrl}/${url}`, data, { headers })
       ),
       catchError((response: HttpErrorResponse) =>
-        this.errorHandler(url, response, null)
+        this.errorHandler(url, response, data, showError)
       )
     );
   }
-  postForm<T>(url: string, data: any) {
+  postForm<T>(url: string, data: any, showError: boolean = true) {
     return this.addFormHeaders().pipe(
       switchMap((headers) =>
         this.http.post<T>(`${this.baseUrl}/${url}`, data, { headers })
       ),
       catchError((response: HttpErrorResponse) =>
-        this.errorHandler(url, response, null)
+        this.errorHandler(url, response, data, showError)
       )
     );
-    //return this.http.post<T>(`${this.baseUrl}/${url}`, data);
   }
 
-  put<T>(url: string, data: any) {
+  put<T>(url: string, data: any, showError: boolean = true) {
     return this.addHeaders().pipe(
       switchMap((headers) =>
         this.http.put<T>(`${this.baseUrl}/${url}`, data, { headers })
       ),
       catchError((response: HttpErrorResponse) =>
-        this.errorHandler(url, response, null)
+        this.errorHandler(url, response, data, showError)
       )
     );
   }
 
-  delete<T>(url: string) {
+  delete<T>(url: string, showError: boolean = true) {
     return this.addHeaders().pipe(
       switchMap((headers) =>
         this.http.delete<T>(`${this.baseUrl}/${url}`, { headers })
       ),
       catchError((response: HttpErrorResponse) =>
-        this.errorHandler(url, response, null)
+        this.errorHandler(url, response, null, showError)
       )
     );
   }
@@ -129,7 +128,8 @@ export class BaseService {
   errorHandler(
     callUrl: string,
     response: HttpErrorResponse,
-    input: any
+    input: any,
+    showError: boolean = true
   ): Observable<any> {
     let res: any;
 
@@ -167,10 +167,12 @@ export class BaseService {
       },
     };
     this.logService.log(apiResponse!.error, 'Invalid Api Error');
-    this.toasterService.showError(
-      'Internal Server Error',
-      'Internal Server Error'
-    );
+    if (showError)
+      this.toasterService.showError(
+        'Error Occured',
+        apiResponse!.error!.errorMessage
+      );
+
     return throwError(apiResponse);
     // return of(apiResponse);
   }

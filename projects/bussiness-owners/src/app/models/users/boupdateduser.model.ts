@@ -1,5 +1,5 @@
 export interface boupdateuser {
     id: string;
-    subDomain: [];
-    plateformPlan: [];
+    subDomain: number[];
+    plateformPlan:number [];
   }

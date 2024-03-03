@@ -41,6 +41,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetails.component';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { PlanComponent } from './pages/Plan/Plan.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { EditCompanyComponent } from './pages/company/edit-company/edit-company.component';
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { EditCompanyComponent } from './pages/company/edit-company/edit-company.
     UserconfirmationComponent,
     bouserdetails,
     PlanComponent,
+    NotFoundComponent,
     EditCompanyComponent
   ],
   imports: [

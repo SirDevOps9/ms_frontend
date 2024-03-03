@@ -16,7 +16,6 @@ export class ERPInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private languageService: LanguageService,
     private localStorageService: StorageService
   ) {}
 
@@ -35,6 +34,7 @@ export class ERPInterceptor implements HttpInterceptor {
     return next.handle(clonedRequest).pipe(
       catchError((error: any) => {
         if (error instanceof HttpErrorResponse) {
+        console.log("Interceptor Error",error);
           if (error.status === 401) {
             this.router.navigate(['login']);
           } else {

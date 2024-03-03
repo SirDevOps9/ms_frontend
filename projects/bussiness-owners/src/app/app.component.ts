@@ -7,7 +7,7 @@ import { LanguageService } from 'shared-lib';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'bussiness-owners';
+  title = 'Bussiness Owners';
   constructor( public languageService: LanguageService,
     ) { 
       this.languageService.setLang();

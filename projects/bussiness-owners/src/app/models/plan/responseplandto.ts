@@ -1,6 +1,6 @@
 export interface ResponsePlanDto {
-    id: number;
-    name: string;
-    subdomain: string;
-
-  }
+  id: number;
+  name: string;
+  subdomain: string;
+  subdomainId: number;
+}

@@ -18,9 +18,9 @@ export class UserService {
 
   constructor(private baseService: BaseService) {}
 
-  getAll(): Observable<APIResponse<UserListResponse[]>> {
+  getAll(subdomainId: number): Observable<APIResponse<UserListResponse[]>> {
     return this.baseService.get<APIResponse<UserListResponse[]>>(
-      `${this.userController}`
+      `${this.userController}?subdomainId=${subdomainId}`
     );
   }
 
@@ -63,15 +63,16 @@ export class UserService {
       {}
     );
   }
-  getUserById(id:string): Observable<APIResponse<GetUserbyid>> {
+  getUserById(id: string): Observable<APIResponse<GetUserbyid>> {
     return this.baseService.get<APIResponse<GetUserbyid>>(
       `${this.userController}/Getbyid/${id}`
     );
   }
 
-  updateUser(user:boupdateuser , id:string):Observable<APIResponse<boolean>> {
+  updateUser(user: boupdateuser, id: string): Observable<APIResponse<boolean>> {
     return this.baseService.put<APIResponse<boolean>>(
-      `${this.userController}/BOUpdateUser/${id}`,user
+      `${this.userController}/BOUpdateUser/${id}`,
+      user
     );
   }
 }

@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoaderService, LogService, RouterService } from 'shared-lib';
+import {
+  APIResponse,
+  LoaderService,
+  LogService,
+  RouterService,
+  ToasterService,
+} from 'shared-lib';
 import { InviteduserService } from '../../services/inviteduser.httpservice';
 @Component({
   selector: 'app-userconfirmation',
@@ -14,17 +20,17 @@ export class UserconfirmationComponent implements OnInit {
   email: string;
   validId = false;
   photo: any;
+  errorMessage: string;
   constructor(
     private loaderservice: LoaderService,
     private router: RouterService,
+    private toasterService: ToasterService,
     private inviteduserService: InviteduserService,
     private formBuilder: FormBuilder,
     private logService: LogService
   ) {}
 
   ngOnInit() {
-    console.log('User Confirmation');
-
     this.initializeForm();
     this.GetEmail();
   }
@@ -45,7 +51,6 @@ export class UserconfirmationComponent implements OnInit {
   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       this.photo = event.target.files[0];
-      console.log('photo', this.photo);
       const fData = new FormData();
       fData.append('photo', this.photo);
     }
@@ -61,8 +66,8 @@ export class UserconfirmationComponent implements OnInit {
           email: res.response,
         });
       },
-      error: (err) => {
-        this.router.navigateTo('');
+      error: (err: APIResponse<string>) => {
+        this.errorMessage = err.error?.errorMessage!;
       },
     });
   }
@@ -81,7 +86,9 @@ export class UserconfirmationComponent implements OnInit {
       formData.append('email', this.email);
       this.inviteduserService.ConfirmInvitedUser(formData).subscribe({
         next: (response) => {
-          this.router.getRouteParams('/login');
+          this.loaderservice.hide();
+          this.toasterService.showSuccess('Success', 'Success');
+          this.router.navigateTo('/login');
         },
         error: () => {
           this.loaderservice.hide();
