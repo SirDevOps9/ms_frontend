@@ -19,7 +19,7 @@ import { CompanyTypes } from '../../../enums/companytypes';
   templateUrl: './add-compny.component.html',
   providers: [RouterService],
 
-  styleUrls: ['./add-compny.component.css'],
+  styleUrls: ['./add-compny.component.scss'],
 })
 export class AddCompanyComponent implements OnInit {
   companyForm: FormGroup;
@@ -58,10 +58,7 @@ export class AddCompanyComponent implements OnInit {
 
   ngOnInit() {
     this.planId = this.routerService.currentId;
-    this.logService.log(this.planId, 'recived add company id');
-
     this.getDropDowns();
-
     this.companyForm
       .get('countryCode')
       ?.valueChanges.subscribe((selectedCountryCode) => {
@@ -100,19 +97,9 @@ export class AddCompanyComponent implements OnInit {
     ]).subscribe({
       next: ([resDropdown, resMobileCode, resCountry]) => {
         this.currencyDropDown = resDropdown.response.currencyDropdown;
-        this.logService.log(this.currencyDropDown, 'currency Information:');
         this.industryDropDown = resDropdown.response.industryDropdown;
-        this.logService.log(this.industryDropDown, 'industry Information:');
         this.mobileCodeDropDown = resMobileCode.response;
-        this.logService.log(
-          this.mobileCodeDropDown,
-          'mobileCodeDropdownDto Information:'
-        );
         this.CountryDropDown = resCountry.response;
-        this.logService.log(
-          this.CountryDropDown,
-          'CountryDropDown Information:'
-        );
       },
     });
   }
@@ -122,8 +109,6 @@ export class AddCompanyComponent implements OnInit {
     const request: AddCompanyDto = this.companyForm.value;
     request.planId = this.planId;
     request.companyType = CompanyTypes.Holding;
-    this.logService.log(request, 'Checking the sending request:');
-
     this.companyService.addCompany(request).subscribe({
       next: (response) => {
         this.logService.log(response, 'Company added successfully:');

@@ -14,6 +14,7 @@
     width: 30px;
     height: 30px;
     border-radius: 50%;
+    margin-inline-end: 10px;
    
 }
 .popup_edit{
@@ -88,7 +89,9 @@
 }
 
 ::ng-deep{
-  .user_page{
+
+  .user_page , .company_page{
+   
     #username{
       background-color: #EDEDF4 !important;
     }
@@ -146,7 +149,7 @@
       background: #ffffff;
       width: 3.25rem;
       height: 2.25rem;
-      left: -.75rem;
+      left: -.5rem;
       margin-top: -1.15rem;
      // border-radius: 50%;
      border-radius: 15px;
