@@ -45,6 +45,16 @@
                       }}
                     </button>
                   </td>
+                  <td>
+                    <button
+                      class="btn btn-info"
+                      (click)="navigateToEdit(item.id)"
+                    >
+                      {{
+                        "Company.Edit" | translate
+                      }}
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>

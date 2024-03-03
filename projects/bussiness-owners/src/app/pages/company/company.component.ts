@@ -30,6 +30,11 @@ export class CompanyComponent implements OnInit {
     this.routerService.navigateTo('company/add/' + this.planId);
   }
 
+  navigateToEdit(id: number): void {
+    this.routerService.navigateTo('company/edit/' + id);
+  }
+
+
   ngOnInit() {
     this.planId = this.routerService.currentId;
     this.logService.log(this.planId, 'recived company list plan id');
