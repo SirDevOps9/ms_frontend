@@ -17,66 +17,40 @@ export const BORoutes = [
       { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
       {
         path: 'users/:id',
-         data: { breadcrumb: 'user' },
         component: UsersComponent,
         canActivate: [AuthGuard],
-        children:[
-          {
-            path: 'users/bouserdetails/:id',
-            component: bouserdetails,
-            canActivate: [AuthGuard], 
-            data: {
-              breadcrumb: 'user edite'
-            },
-          },
-        ]
+        data: {
+          breadcrumb: 'user list'
+        },
       },
       {
         path: 'company/add/:id',
-        data: { breadcrumb: 'company add' },
         component: AddCompanyComponent,
         canActivate: [AuthGuard],
+        data: {
+          breadcrumb: 'company add'
+        },
       },
       {
         path: 'company/:id',
-        
-        data: { breadcrumb: 'company ' },
         component: CompanyComponent,
         canActivate: [AuthGuard],
-      },
-      // {
-      //   path: 'users/bouserdetails/:id',
-      //   component: bouserdetails,
-      //   canActivate: [AuthGuard], 
-      //   data: {
-      //     breadcrumb: 'Europe'
-      //   },
-      // },
-      {
-       path: 'plan',
-       data: { breadcrumb: 'plan' },
-        component: PlanComponent, 
-       canActivate: [AuthGuard],
-       children:[
-        {
-          path: 'users/:id',
-           data: { breadcrumb: 'user' },
-          component: UsersComponent,
-          canActivate: [AuthGuard],
-          children:[
-            {
-              path: 'users/bouserdetails/:id',
-              component: bouserdetails,
-              canActivate: [AuthGuard], 
-              data: {
-                breadcrumb: 'user edite'
-              },
-            },
-          ]
+        data: {
+          breadcrumb: 'company list'
         },
-       ]
       },
-    ]
+      {
+        path: 'users/bouserdetails/:id',
+        component: bouserdetails,
+        canActivate: [AuthGuard],
+      },
+      { path: 'plan', component: PlanComponent, 
+      canActivate: [AuthGuard] ,
+       data: {
+        breadcrumb: 'plan'
+      }
+    },
+    ],
   },
   { path: 'users/userconfirmation/:id', component: UserconfirmationComponent },
   {
