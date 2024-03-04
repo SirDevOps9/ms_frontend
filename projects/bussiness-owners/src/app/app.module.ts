@@ -44,6 +44,7 @@ import { PlanComponent } from './pages/Plan/Plan.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { PasswordModule } from 'primeng/password';
 import { CheckboxModule } from 'primeng/checkbox';
+import { MyPlansComponent } from './pages/my-plans/my-plans.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +56,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     UserconfirmationComponent,
     bouserdetails,
     PlanComponent,
+    MyPlansComponent,
     NotFoundComponent
   ],
   imports: [
