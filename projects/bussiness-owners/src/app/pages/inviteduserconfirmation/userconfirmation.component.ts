@@ -11,7 +11,7 @@ import { InviteduserService } from '../../services/inviteduser.httpservice';
 @Component({
   selector: 'app-userconfirmation',
   templateUrl: './userconfirmation.component.html',
-  styleUrls: ['./userconfirmation.component.css'],
+  styleUrls: ['./userconfirmation.component.scss'],
   providers: [RouterService],
 })
 export class UserconfirmationComponent implements OnInit {

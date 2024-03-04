@@ -42,6 +42,8 @@ import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetai
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { PlanComponent } from './pages/Plan/Plan.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { PasswordModule } from 'primeng/password';
+import { CheckboxModule } from 'primeng/checkbox';
 @NgModule({
   declarations: [
     AppComponent,
@@ -93,7 +95,9 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     MultiSelectModule,
     ToggleButtonModule,
     AccordionModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    PasswordModule,
+    CheckboxModule
   ],
   providers: [
     DialogService,
