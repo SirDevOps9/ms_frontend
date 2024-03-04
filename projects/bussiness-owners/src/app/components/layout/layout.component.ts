@@ -53,58 +53,9 @@ this.home = { icon: 'pi pi-home', routerLink: '/plan' };
 this.router.events
 .pipe(filter(event => event instanceof NavigationEnd))
 .subscribe(() => this.menuItems = this.createBreadcrumb(this.activatedRoute.root));
-// this.router.events.pipe(
-//   filter(event => event instanceof NavigationEnd)
-// ).subscribe(() => {
-//   this.breadcrumbItems = this.createBreadcrumb(this.route.root);
-// });
+
   }
-  // private createBreadcrumb(route: ActivatedRoute, url: string = '', breadcrumbs: MenuItem[] = []): MenuItem[] {
-  //   const children: ActivatedRoute[] = route.children;
 
-  //   if (children.length === 0) {
-  //     return breadcrumbs;
-  //   }
-
-  //   for (const child of children) {
-  //     const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
-  //     if (routeURL !== '') {
-  //       url += `/${routeURL}`;
-  //     }
-
-  //     const label = child.snapshot.data['breadcrumb'];
-  //     if (label) {
-  //       breadcrumbs.push({ label, routerLink: url });
-  //     }
-
-  //     return this.createBreadcrumb(child, url, breadcrumbs);
-  //   }
-  // }
-//   private createBreadcrumb(route: ActivatedRoute, url: string = '', breadcrumbs: MenuItem[] = []): MenuItem[] {
-//     const children: ActivatedRoute[] = route.children;
-
-//     if (children.length === 0) {
-//       return breadcrumbs;
-//     }
-
-//     for (const child of children) {
-//       const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
-//       if (routeURL !== '') {
-//         url += `/${routeURL}`;
-//       }
-
-//       const label = child.snapshot.data['breadcrumb'];
-//       if (label) {
-//         breadcrumbs.push({ label, routerLink: url });
-//       }
-
-//       // Recursively call createBreadcrumb for child routes
-//       return this.createBreadcrumb(child, url, breadcrumbs);
-//     }
-
-//     // Return breadcrumbs if no child routes
-//     return breadcrumbs;
-// }
 private createBreadcrumb(route: ActivatedRoute, url: string = '', breadcrumbs: MenuItem[] = []): MenuItem[] {
   const children: ActivatedRoute[] = route.children;
 
@@ -123,36 +74,13 @@ private createBreadcrumb(route: ActivatedRoute, url: string = '', breadcrumbs: M
       breadcrumbs.push({ label, routerLink: url });
     }
 
-    // Recursively call createBreadcrumb for child routes
     if (child.children && child.children.length > 0) {
       return this.createBreadcrumb(child, url, breadcrumbs);
     }
   }
-
-  // Return breadcrumbs if no child routes
   return breadcrumbs;
 }
-// private createBreadcrumbs(route: ActivatedRoute, url: string = '#', breadcrumbs: MenuItem[] = []): MenuItem[] {
-//   const children: ActivatedRoute[] = route.children;
 
-//   if (children.length === 0) {
-//     return breadcrumbs;
-//   }
-
-//   for (const child of children) {
-//     const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
-//     if (routeURL !== '') {
-//       url += `/${routeURL}`;
-//     }
-
-//     const label = child.snapshot.data[BreadcrumbComponent.ROUTE_DATA_BREADCRUMB];
-//     if (!isNullOrUndefined(label)) {
-//       breadcrumbs.push({label, url});
-//     }
-
-//     return this.createBreadcrumbs(child, url, breadcrumbs);
-//   }
-// }
 
   toggleLanguage(): void {
     this.languageService.toggleLanguage();
