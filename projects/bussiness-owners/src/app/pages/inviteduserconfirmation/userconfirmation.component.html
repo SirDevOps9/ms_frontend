@@ -1,4 +1,4 @@
-<ng-container *ngIf="validId">
+<!-- <ng-container *ngIf="validId">
   <form [formGroup]="userForm" (ngSubmit)="submitForm()" class="mt-4">
     <div class="mb-3">
       <label for="photo" class="form-label">
@@ -79,7 +79,7 @@
       {{ "UserConfirmation.Save" | translate }}
     </button>
   </form>
-</ng-container>
+</ng-container> -->
 
 <ng-container *ngIf="!validId">
   <div>....</div>
@@ -88,3 +88,104 @@
 <ng-container *ngIf="errorMessage">
   <div>{{ errorMessage }}</div>
 </ng-container>
+<div class="confirm_invitation_pages" >
+<div class="container_page">
+  <div class="welcome_card ">
+    <h2 class="title" >Hello!</h2>
+    <h2 class="sub_title">Welcome</h2>
+  </div>
+  <div class="form_card">
+      <div class="sec_header mb-6">
+          <p class="title">
+            Confirm Invitation
+          </p>
+      </div>
+      <div class="form_content pb-6">
+        <form  [formGroup]="userForm"  (ngSubmit)="submitForm()" >
+         <div class="uplode_photo mb-6">
+       
+          <div class="btn_uplode">
+            <!-- <label for="photo" class="form-label">
+              {{ "UserConfirmation.Photo" | translate }}
+            </label> -->
+            <input
+              type="file"
+              id="photo"
+              accept="image/*"
+              (change)="onFileSelected($event)"
+              style="background-image: url('assets/images/users/editdefault.png');"
+            />
+          </div>
+          <div>
+
+          </div>
+          <div class="information">
+            <p class="information_title">Add User Photo Here</p>
+            <p class="information_subtitle">250px *500px  (JPG, PNG)</p>
+          </div>
+        
+         </div>
+         <div class="user_name_email mb-6">
+          <div class="user_name ">
+            <label for="fullName">{{
+              "UserConfirmation.Name" | translate
+            }}</label>
+            <input type="text"     placeholder="Name here"  id="fullName" pInputText formControlName="fullName"/>
+            <!-- <p *ngIf="!fullName.valid" >name is a required</p> -->
+            <!-- <div *ngIf=" userForm.fullName.errors?.required ">Name is required.</div> -->
+          </div>
+          <div class="user_email ">
+            <label for="email">{{
+              "UserConfirmation.Email" | translate
+            }}</label>
+            <input type="text" placeholder="Email  here"  id="email" pInputText formControlName="email"/>
+
+          </div>
+         </div>
+         <div class="user_name_email mb-6">
+          <div class="user_name ">
+            <label for="password">{{
+              "UserConfirmation.Password" | translate
+            }}</label>
+            <p-password class="w-full" formControlName="password" id="password"  [feedback]="false"  [toggleMask]="true"></p-password>
+          </div>
+          <div class="user_email ">
+            <label for="confirmPassword">{{
+              "UserConfirmation.ConfirmPassword" | translate
+            }}</label>
+            <p-password formControlName="confirmPassword" id="confirmPassword"  [feedback]="false"  [toggleMask]="true"></p-password>
+
+            
+          </div>
+         </div>
+         <div class="policy mb-6">
+          <!-- <p-checkbox formControlName="acceptPolicy"  inputId="policy"></p-checkbox>
+          <label for="policy">I Agree to the <span>terms of use</span>  and <span>privacy policy</span> </label>
+          -->
+          <input
+          type="checkbox"
+          id="policy"
+          formControlName="acceptPolicy"
+          class="form-check-input"
+          
+        />
+        <label for="policy" class="form-check-label">{{
+          "UserConfirmation.policy" | translate
+        }}</label>
+        </div>
+       <div class="actions mb-6">
+        <button type="button"  class="disabled" *ngIf="userForm.invalid"   >
+          {{ "UserConfirmation.Save" | translate }}
+        </button>
+        <button type="submit"  class="save" *ngIf="userForm.valid"   >
+          {{ "UserConfirmation.Save" | translate }}
+        </button>
+       </div>
+      
+        </form>
+      </div>
+      
+      
+  </div>
+</div>
+</div>
