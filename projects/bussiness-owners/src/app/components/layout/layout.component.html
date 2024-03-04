@@ -13,7 +13,7 @@
                 </div>
               </div>
               
-              </ng-template>
+            </ng-template>
             <ng-template pTemplate="end" >
               <div class="header_sec">
                 <div class="choices">
@@ -78,27 +78,27 @@
                   </div>
                   <div class="link_sec">
                   
-                    <button >
+                    <button>
                       <span  class="pi pi-cog icon_link" ></span>
                     </button>
                   </div>
                   <div class="link_sec">
-                    <button >
+                    <button>
                       <span  class="pi pi-star icon_link" ></span>
                     </button>
                   </div>
                   <div class="profaile_sec">
-                    <button (click)="cardDrob()" class="btn_profaile" style="background-image: url('assets/images/users/default.png');">
-        
+                    <button (click)="cardDrob()" class="btn_profaile" style="background-image: url('{{getProfilePic()}}');">
+
                     </button>
                     <div class="profaile_card_drob" *ngIf="showcard">
                         <div class="header_card">
                             <div class="photo">
-                              <img src="assets/images/users/default.png">
+                              <img [src]="getProfilePic()">
                             </div>
                             <div class="title">
                                 <p class="name">{{userName}}</p>
-                                <p class="description">admin</p>
+                                <p class="description">{{(userData.userType == '2' ? 'User.AdminUser': 'User.InvitedUser') | translate}}</p>
                             </div>
                           
                         </div>

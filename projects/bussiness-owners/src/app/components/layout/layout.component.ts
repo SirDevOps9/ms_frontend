@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LanguageService } from '../../../../../shared-lib/src/lib/services/language.service';
 import { AuthService } from 'microtec-auth-lib';
 import { MenuItem } from 'primeng/api';
-import { LogService } from 'shared-lib';
+import { EnvironmentService, LogService } from 'shared-lib';
+import { UserData } from '../../models/users/userdata.model';
 
 @Component({
   selector: 'app-layout',
@@ -11,6 +12,7 @@ import { LogService } from 'shared-lib';
 })
 export class LayoutComponent implements OnInit {
   userName:string;
+  userData: UserData;
   showcard:boolean=false;
   sidebarOpen:boolean=false;
   submenu:boolean=false;
@@ -20,9 +22,11 @@ export class LayoutComponent implements OnInit {
   constructor(
     public languageService: LanguageService,
     public authService: AuthService
-    ,private logService:LogService
+    ,private logService:LogService,
+    private env: EnvironmentService
   ) {
     this.userName = this.authService.getUserName;
+    this.userData = this.authService.getUserData().userData;
   }
   ngOnInit(): void {
   this.countries = [
@@ -68,5 +72,9 @@ export class LayoutComponent implements OnInit {
     var test = document.querySelector('.active_link');
     test?.classList.remove('active_link');
    targetElementId?.classList.add('active_link')
+  }
+
+  getProfilePic(){
+    return this.userData.userType == "4" ? this.env.photoBaseUrl + '/api/Users/GetProfilePic?userId=' + this.userData.sub : 'assets/images/users/default.png';
   }
 }

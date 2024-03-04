@@ -45,6 +45,8 @@
     "Accepted": "Accepted",
     "Actions": "Actions",
     "Edit": "Edit",
+    "AdminUser": "Admin",
+    "InvitedUser": "Manager",
     "Inviteform": {
       "FormHeader": "Invite User",
       "EmailLabel": "Email Login",
