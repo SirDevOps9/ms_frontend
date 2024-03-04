@@ -17,26 +17,66 @@ export const BORoutes = [
       { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
       {
         path: 'users/:id',
+         data: { breadcrumb: 'user' },
         component: UsersComponent,
         canActivate: [AuthGuard],
+        children:[
+          {
+            path: 'users/bouserdetails/:id',
+            component: bouserdetails,
+            canActivate: [AuthGuard], 
+            data: {
+              breadcrumb: 'user edite'
+            },
+          },
+        ]
       },
       {
         path: 'company/add/:id',
+        data: { breadcrumb: 'company add' },
         component: AddCompanyComponent,
         canActivate: [AuthGuard],
       },
       {
         path: 'company/:id',
+        
+        data: { breadcrumb: 'company ' },
         component: CompanyComponent,
         canActivate: [AuthGuard],
       },
+      // {
+      //   path: 'users/bouserdetails/:id',
+      //   component: bouserdetails,
+      //   canActivate: [AuthGuard], 
+      //   data: {
+      //     breadcrumb: 'Europe'
+      //   },
+      // },
       {
-        path: 'users/bouserdetails/:id',
-        component: bouserdetails,
-        canActivate: [AuthGuard],
+       path: 'plan',
+       data: { breadcrumb: 'plan' },
+        component: PlanComponent, 
+       canActivate: [AuthGuard],
+       children:[
+        {
+          path: 'users/:id',
+           data: { breadcrumb: 'user' },
+          component: UsersComponent,
+          canActivate: [AuthGuard],
+          children:[
+            {
+              path: 'users/bouserdetails/:id',
+              component: bouserdetails,
+              canActivate: [AuthGuard], 
+              data: {
+                breadcrumb: 'user edite'
+              },
+            },
+          ]
+        },
+       ]
       },
-      { path: 'plan', component: PlanComponent, canActivate: [AuthGuard] },
-    ],
+    ]
   },
   { path: 'users/userconfirmation/:id', component: UserconfirmationComponent },
   {

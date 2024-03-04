@@ -3,6 +3,10 @@ import { LanguageService } from '../../../../../shared-lib/src/lib/services/lang
 import { AuthService } from 'microtec-auth-lib';
 import { MenuItem } from 'primeng/api';
 import { LogService } from 'shared-lib';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { filter } from 'rxjs/operators';
+
+
 
 @Component({
   selector: 'app-layout',
@@ -17,10 +21,17 @@ export class LayoutComponent implements OnInit {
   countries: any[] | undefined;
   
   selectedCountry: string | undefined;
+  breadcrumbItems: MenuItem[];
+  menuItems: MenuItem[];
+  
+  home: MenuItem | undefined;
   constructor(
     public languageService: LanguageService,
-    public authService: AuthService
-    ,private logService:LogService
+    public authService: AuthService,
+    private logService:LogService,
+    private router: Router,
+     private activatedRoute: ActivatedRoute
+
   ) {
     this.userName = this.authService.getUserName;
   }
@@ -37,7 +48,110 @@ export class LayoutComponent implements OnInit {
     { name: 'Spain', code: 'ES' },
     { name: 'United States', code: 'US' }
 ]
+this.home = { icon: 'pi pi-home', routerLink: '/' };
+this.router.events
+.pipe(filter(event => event instanceof NavigationEnd))
+.subscribe(() => this.menuItems = this.createBreadcrumb(this.activatedRoute.root));
+// this.router.events.pipe(
+//   filter(event => event instanceof NavigationEnd)
+// ).subscribe(() => {
+//   this.breadcrumbItems = this.createBreadcrumb(this.route.root);
+// });
   }
+  // private createBreadcrumb(route: ActivatedRoute, url: string = '', breadcrumbs: MenuItem[] = []): MenuItem[] {
+  //   const children: ActivatedRoute[] = route.children;
+
+  //   if (children.length === 0) {
+  //     return breadcrumbs;
+  //   }
+
+  //   for (const child of children) {
+  //     const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
+  //     if (routeURL !== '') {
+  //       url += `/${routeURL}`;
+  //     }
+
+  //     const label = child.snapshot.data['breadcrumb'];
+  //     if (label) {
+  //       breadcrumbs.push({ label, routerLink: url });
+  //     }
+
+  //     return this.createBreadcrumb(child, url, breadcrumbs);
+  //   }
+  // }
+//   private createBreadcrumb(route: ActivatedRoute, url: string = '', breadcrumbs: MenuItem[] = []): MenuItem[] {
+//     const children: ActivatedRoute[] = route.children;
+
+//     if (children.length === 0) {
+//       return breadcrumbs;
+//     }
+
+//     for (const child of children) {
+//       const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
+//       if (routeURL !== '') {
+//         url += `/${routeURL}`;
+//       }
+
+//       const label = child.snapshot.data['breadcrumb'];
+//       if (label) {
+//         breadcrumbs.push({ label, routerLink: url });
+//       }
+
+//       // Recursively call createBreadcrumb for child routes
+//       return this.createBreadcrumb(child, url, breadcrumbs);
+//     }
+
+//     // Return breadcrumbs if no child routes
+//     return breadcrumbs;
+// }
+private createBreadcrumb(route: ActivatedRoute, url: string = '', breadcrumbs: MenuItem[] = []): MenuItem[] {
+  const children: ActivatedRoute[] = route.children;
+
+  if (children.length === 0) {
+    return breadcrumbs;
+  }
+
+  for (const child of children) {
+    const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
+    if (routeURL !== '') {
+      url += `/${routeURL}`;
+    }
+
+    const label = child.snapshot.data['breadcrumb'];
+    if (label) {
+      breadcrumbs.push({ label, routerLink: url });
+    }
+
+    // Recursively call createBreadcrumb for child routes
+    if (child.children && child.children.length > 0) {
+      return this.createBreadcrumb(child, url, breadcrumbs);
+    }
+  }
+
+  // Return breadcrumbs if no child routes
+  return breadcrumbs;
+}
+// private createBreadcrumbs(route: ActivatedRoute, url: string = '#', breadcrumbs: MenuItem[] = []): MenuItem[] {
+//   const children: ActivatedRoute[] = route.children;
+
+//   if (children.length === 0) {
+//     return breadcrumbs;
+//   }
+
+//   for (const child of children) {
+//     const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
+//     if (routeURL !== '') {
+//       url += `/${routeURL}`;
+//     }
+
+//     const label = child.snapshot.data[BreadcrumbComponent.ROUTE_DATA_BREADCRUMB];
+//     if (!isNullOrUndefined(label)) {
+//       breadcrumbs.push({label, url});
+//     }
+
+//     return this.createBreadcrumbs(child, url, breadcrumbs);
+//   }
+// }
 
   toggleLanguage(): void {
     this.languageService.toggleLanguage();
