@@ -120,6 +120,12 @@
     "ConfirmPassword": "ConfirmPassword",
     "policy": "I accept the user policy",
     "Save": "Save",
-    "Photo": "Photo"
+    "Photo": "Photo",
+    "IsRequired":"is Required",
+    "Doesnotmatch":"does not match",
+    "LowerCaseLetter":"Password must contain Lower Case Letter ",
+    "UpperCaseLetter":"Password must contain Upper Case Letter ",
+    "SpecialCharacter":"Password must contain Special Character ",
+    "PasswordmustcontainNumber":"Password must contain Number "
   }
 }

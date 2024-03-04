@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 function IsNumber(control: AbstractControl) {
   if (
@@ -275,6 +275,16 @@ function validPassword(control: AbstractControl) {
 
   return null; // Valid password
 }
+export  const  ConfirmPasswordValidator:  ValidatorFn  = (control:AbstractControl):  ValidationErrors|  null  =>{
+  const  password  =  control.get('password');
+  const  confirmpassword  =  control.get('confirmPassword');
+  if(password  &&  confirmpassword  &&  password.value  !=  confirmpassword.value){
+    return {
+      passwordmatcherror :  true
+    }
+  }
+  return  null;
+}
 
 export const customValidators = {
   isValidMobile: IsValidMobile,
@@ -292,4 +302,5 @@ export const customValidators = {
   IsValidMobileWithPrefix: IsValidMobileWithPrefix,
   isAgreedToTermsRequired: IsAgreedToTermsRequired,
   isvalidPassword: validPassword,
+
 };
