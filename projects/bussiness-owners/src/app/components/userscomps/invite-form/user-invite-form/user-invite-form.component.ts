@@ -75,6 +75,6 @@ export class UserInviteFormComponent implements OnInit {
   }
 
   onCancel() {
-    this.ref.close(true);
+    this.ref.close();
   }
 }
