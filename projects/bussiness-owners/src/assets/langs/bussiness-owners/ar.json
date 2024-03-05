@@ -23,7 +23,9 @@
   "Layout": {
     "Dashboard": "لوحة التحكم",
     "Users": "المستخدمين",
-    "Company": "الشركات"
+    "Plan": "باقات",
+    "AddCompany":"أضف شركة",
+    "ListCompany": "قائمة الشركات"
   },
   "User": {
     "PageName": "صفحة المستخدمين",

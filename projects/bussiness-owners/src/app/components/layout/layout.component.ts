@@ -38,6 +38,7 @@ export class LayoutComponent implements OnInit {
   ) {
     this.userName = this.authService.getUserName;
     this.userData = this.authService.getUserData().userData;
+    this.languageService.setLang();
   }
   ngOnInit(): void {
     this.menuItems = this.createBreadcrumb(this.activatedRoute.root)
@@ -75,7 +76,8 @@ private createBreadcrumb(route: ActivatedRoute, url: string = '', breadcrumbs: M
 
     const label = child.snapshot.data['breadcrumb'];
     if (label) {
-      breadcrumbs.push({ label, routerLink: url });
+      const localized = this.languageService.transalte(label);
+      breadcrumbs.push({ label: localized, routerLink: url });
     }
 
     if (child.children && child.children.length > 0) {
