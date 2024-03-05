@@ -9,6 +9,8 @@ import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetai
 import { PlanComponent } from './pages/Plan/Plan.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { MyPlansComponent } from './pages/my-plans/my-plans.component';
+import { BreadcrumbLabel } from '../../../shared-lib/src/lib/constants/index';
+
 
 export const BORoutes = [
   {
@@ -20,23 +22,37 @@ export const BORoutes = [
         path: 'users/:id',
         component: UsersComponent,
         canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.USERS,
+        },
       },
       {
         path: 'company/add/:id',
         component: AddCompanyComponent,
         canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.ADD_COMPANY,
+        },
       },
       {
         path: 'company/:id',
         component: CompanyComponent,
         canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.COMPANE_LIST,
+        },
       },
       {
         path: 'users/bouserdetails/:id',
         component: bouserdetails,
         canActivate: [AuthGuard],
       },
-      { path: 'plan', component: PlanComponent, canActivate: [AuthGuard] },
+      { path: 'plan', component: PlanComponent, 
+      canActivate: [AuthGuard] ,
+       data: {
+        breadcrumb: BreadcrumbLabel.PLAN,
+      }
+    },
       { path: 'my-plans', component: MyPlansComponent, canActivate: [AuthGuard] },
     ],
   },
