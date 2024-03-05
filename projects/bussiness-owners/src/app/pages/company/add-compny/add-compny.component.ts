@@ -28,7 +28,7 @@ export class AddCompanyComponent implements OnInit {
   subdoaminDropDown: DropdownItemDto[];
   CountryDropDown: CountryDropDown[];
   mobileCodeDropDown: MobileCodeDropdownDto[];
-  planId: number;
+  subscriptionId: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -57,7 +57,7 @@ export class AddCompanyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.planId = this.routerService.currentId;
+    this.subscriptionId = this.routerService.currentId;
     this.getDropDowns();
     this.companyForm
       .get('countryCode')
@@ -107,7 +107,7 @@ export class AddCompanyComponent implements OnInit {
   addCompany() {
     this.loaderService.show();
     const request: AddCompanyDto = this.companyForm.value;
-    request.planId = this.planId;
+    request.subscriptionId = this.subscriptionId;
     request.companyType = CompanyTypes.Holding;
     this.companyService.addCompany(request).subscribe({
       next: (response) => {
@@ -117,7 +117,7 @@ export class AddCompanyComponent implements OnInit {
           this.languageService.transalte('Company.Add.CompanyAddedSuccessfully')
         );
         this.loaderService.hide();
-        this.routerService.navigateTo('company/' + this.planId);
+        this.routerService.navigateTo('company/' + this.subscriptionId);
       },
       error: () => {
         this.loaderService.hide();

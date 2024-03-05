@@ -43,6 +43,9 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { PlanComponent } from './pages/Plan/Plan.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { EditCompanyComponent } from './pages/company/edit-company/edit-company.component';
+import { PasswordModule } from 'primeng/password';
+import { CheckboxModule } from 'primeng/checkbox';
+import { MyPlansComponent } from './pages/my-plans/my-plans.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +57,7 @@ import { EditCompanyComponent } from './pages/company/edit-company/edit-company.
     UserconfirmationComponent,
     bouserdetails,
     PlanComponent,
+    MyPlansComponent,
     NotFoundComponent,
     EditCompanyComponent
   ],
@@ -95,7 +99,9 @@ import { EditCompanyComponent } from './pages/company/edit-company/edit-company.
     MultiSelectModule,
     ToggleButtonModule,
     AccordionModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    PasswordModule,
+    CheckboxModule
   ],
   providers: [
     DialogService,
