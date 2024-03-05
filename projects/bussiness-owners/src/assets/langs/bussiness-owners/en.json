@@ -23,7 +23,9 @@
   "Layout": {
     "Dashboard": "Dashboard",
     "Users": "Users",
-    "Company": "Company"
+    "Plan": "Plan",
+    "AddCompany":"Add company",
+    "ListCompany": "Company list"
   },
   "User": {
     "PageName": "Users Index",

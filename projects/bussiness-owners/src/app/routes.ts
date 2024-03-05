@@ -40,7 +40,7 @@ export const BORoutes = [
         component: CompanyComponent,
         canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.COMPANE_LIST,
+          breadcrumb: BreadcrumbLabel.COMPANY_LIST,
         },
       },
       { path: 'company/edit/:id', component: EditCompanyComponent, canActivate: [AuthGuard] },
