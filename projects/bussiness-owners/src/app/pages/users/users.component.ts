@@ -3,6 +3,7 @@ import { UserListResponse } from '../../models/users/userlist.response';
 import { UserService } from '../../services/users.httpsservice';
 import {
   BaseDto,
+  EnvironmentService,
   LanguageService,
   LogService,
   RouterService,
@@ -41,7 +42,8 @@ export class UsersComponent implements OnInit {
     private dialog: DialogService,
     private router: RouterService,
     private logService: LogService,
-    private titleService: Title
+    private titleService: Title,
+    private env: EnvironmentService,
   ) { }
   ngOnInit() {
     this.titleService.setTitle('Users');
@@ -92,6 +94,9 @@ export class UsersComponent implements OnInit {
         this.logService.log('000');
       }
     });
+  }
+  getProfilePic(id: string){
+    return this.env.photoBaseUrl + '/api/Users/GetProfilePic?userId=' + id
   }
 
   async activate(id: string) {

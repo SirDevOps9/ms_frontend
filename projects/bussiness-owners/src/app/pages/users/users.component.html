@@ -135,7 +135,7 @@
       <tr>
           <td>
             <div class=" user_info">
-              <img  src="assets/images/users/default.png"  width="50" class="shadow-4 img_user"/>
+              <img  [src]="getProfilePic(user.id)"  width="50" class="shadow-4 img_user"/>
               <p>{{ user.name }}</p>
             </div>
           </td>

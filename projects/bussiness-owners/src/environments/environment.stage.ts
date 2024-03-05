@@ -6,6 +6,7 @@ export const environment: IEnvironment = {
   Version: 'V1',
   ClientId: 'BussinessOwner',
   Platform: 'Web',
+  photoBaseUrl: 'https://intmicrotec.neat-url.com:2002',
   openIdConfig: {
     authority: 'https://dev-q00lf3jdcvq53wkj.us.auth0.com',
     redirectUrl: window.location.origin + '/login-redirect',

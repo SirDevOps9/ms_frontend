@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LanguageService } from '../../../../../shared-lib/src/lib/services/language.service';
 import { AuthService } from 'microtec-auth-lib';
 import { MenuItem } from 'primeng/api';
-import { LogService } from 'shared-lib';
+import { EnvironmentService, LogService } from 'shared-lib';
+import { UserData } from '../../models/users/userdata.model';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
@@ -15,6 +16,7 @@ import { filter } from 'rxjs/operators';
 })
 export class LayoutComponent implements OnInit {
   userName:string;
+  userData: UserData;
   showcard:boolean=false;
   sidebarOpen:boolean=false;
   submenu:boolean=false;
@@ -29,11 +31,13 @@ export class LayoutComponent implements OnInit {
     public languageService: LanguageService,
     public authService: AuthService,
     private logService:LogService,
+    private env: EnvironmentService,
     private router: Router,
      private activatedRoute: ActivatedRoute
 
   ) {
     this.userName = this.authService.getUserName;
+    this.userData = this.authService.getUserData().userData;
   }
   ngOnInit(): void {
     this.menuItems = this.createBreadcrumb(this.activatedRoute.root)
@@ -111,5 +115,9 @@ private createBreadcrumb(route: ActivatedRoute, url: string = '', breadcrumbs: M
     var test = document.querySelector('.active_link');
     test?.classList.remove('active_link');
    targetElementId?.classList.add('active_link')
+  }
+
+  getProfilePic(){
+    return this.userData.userType == "4" ? this.env.photoBaseUrl + '/api/Users/GetProfilePic?userId=' + this.userData.sub : 'assets/images/users/default.png';
   }
 }
