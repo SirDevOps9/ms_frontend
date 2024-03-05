@@ -29,14 +29,12 @@
    
           <div class="card w-full  ">
             <span class="p-float-label">
-                <p-multiSelect  inputId="subDomains"   optionValue="id" required    class="form-control  w-full" formControlName="subDomains" [options]="domains"  optionLabel="name" [showClear]="true" display="chip"></p-multiSelect>
-                <label class="" for="subDomains">{{
-                  "User.Inviteform.DomainLabel" | translate
-                }}</label>
+                <p-multiSelect  inputId="subscriptions"   optionValue="id" required    class="form-control  w-full" formControlName="subscriptions" [options]="domains"  optionLabel="name" [showClear]="true" display="chip"></p-multiSelect>
+                <label class="" for="subscriptions">{{"User.Inviteform.DomainLabel" | translate}}</label>
             </span>
         </div>
           <div
-            *ngIf="inviteForm.get('subDomains')?.invalid && submitted"
+            *ngIf="inviteForm.get('subscriptions')?.invalid && submitted"
             class="error"
           >
             please select a domain
@@ -48,14 +46,14 @@
     
           <div class="card ">
             <span class="p-float-label">
-                <p-multiSelect  required  formControlName="plans"  optionValue="id"  class="form-control" inputId="plans" [options]="actions"  optionLabel="name" [showClear]="true" display="chip"></p-multiSelect>
-                <label class="" for="plans">{{
+                <p-multiSelect  required  formControlName="bORoles"  optionValue="id"  class="form-control" inputId="bORoles" [options]="actions"  optionLabel="name" [showClear]="true" display="chip"></p-multiSelect>
+                <label class="" for="bORoles">{{
                   "User.Inviteform.ActionsLabel" | translate
                 }}</label>
             </span>
         </div>
           <div
-            *ngIf="inviteForm.get('plans')?.invalid && submitted"
+            *ngIf="inviteForm.get('bORoles')?.invalid && submitted"
             class="error"
           >
             please select an action

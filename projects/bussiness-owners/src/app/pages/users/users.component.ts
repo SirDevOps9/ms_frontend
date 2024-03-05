@@ -23,8 +23,6 @@ import { Title } from '@angular/platform-browser';
 })
 export class UsersComponent implements OnInit {
   userData: UserListResponse[];
-  users: any[] = [];
-  user: any[] = [];
   checked: boolean = true;
   userEditDialog: boolean = false;
   addUser: boolean = false;
@@ -33,7 +31,6 @@ export class UsersComponent implements OnInit {
   selectedCities!: City[];
   selectedDomain!: any[];
   selectedActions!: any[];
-  domains: BaseDto[];
   actions: BaseDto[];
   ref: DynamicDialogRef | undefined;
   @ViewChild('dt') dt: any | undefined;
@@ -45,14 +42,10 @@ export class UsersComponent implements OnInit {
     private router: RouterService,
     private logService: LogService,
     private titleService: Title
-  ) {}
+  ) { }
   ngOnInit() {
     this.titleService.setTitle('Users');
-    forkJoin([
-      this.userService.subDomainDropDown(),
-      this.userService.platformDropDown(),
-    ]).subscribe(([subDomainData, platformData]) => {
-      this.domains = subDomainData.response;
+    this.userService.platformDropDown().subscribe(platformData => {
       this.actions = platformData.response;
     });
     this.getAllUsers();

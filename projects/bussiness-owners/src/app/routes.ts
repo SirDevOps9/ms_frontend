@@ -8,6 +8,7 @@ import { AuthGuard } from '../../../microtec-auth-lib/src/public-api';
 import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetails.component';
 import { PlanComponent } from './pages/Plan/Plan.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { MyPlansComponent } from './pages/my-plans/my-plans.component';
 
 export const BORoutes = [
   {
@@ -36,6 +37,7 @@ export const BORoutes = [
         canActivate: [AuthGuard],
       },
       { path: 'plan', component: PlanComponent, canActivate: [AuthGuard] },
+      { path: 'my-plans', component: MyPlansComponent, canActivate: [AuthGuard] },
     ],
   },
   { path: 'users/userconfirmation/:id', component: UserconfirmationComponent },
