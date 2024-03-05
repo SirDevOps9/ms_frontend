@@ -89,14 +89,14 @@ export class UsersComponent implements OnInit {
     this.ref.onClose.subscribe((result: UserListResponse) => {
       if (result as UserListResponse) this.userData.push(result);
     });
-    this.ref.onClose.subscribe((data: UserListResponse) => {
-      if (data) {
-        this.logService.log('000');
-      }
-    });
+
   }
   getProfilePic(id: string){
     return this.env.photoBaseUrl + '/api/Users/GetProfilePic?userId=' + id
+    
+    
+    
+    
   }
 
   async activate(id: string) {
