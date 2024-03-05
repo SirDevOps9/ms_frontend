@@ -6,6 +6,7 @@ export const environment : IEnvironment = {
   Version: 'V1',
   ClientId: 'Apps-Accounting',
   Platform: 'Web',
+  photoBaseUrl: 'https://intmicrotec.neat-url.com:2022',
   openIdConfig: {
     authority: 'https://intmicrotec.neat-url.com:2020',
     redirectUrl: window.location.origin + '/accounting/login-redirect',

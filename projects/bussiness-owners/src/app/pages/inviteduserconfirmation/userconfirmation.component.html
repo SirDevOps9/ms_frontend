@@ -214,13 +214,34 @@
             <input type="text"     placeholder="Name here"  id="fullName" pInputText formControlName="fullName"/>
             <!-- <p *ngIf="!fullName.valid" >name is a required</p> -->
             <!-- <div *ngIf=" userForm.fullName.errors?.required ">Name is required.</div> -->
+            <span
+            *ngIf="
+              (userForm.controls['fullName'].dirty ||
+                userForm.controls['fullName'].touched) &&
+              userForm.hasError('required', 'fullName')
+            "
+            class="text-danger"
+          >
+            {{ "UserConfirmation.Name" | translate }}
+            {{ "UserConfirmation.IsRequired" | translate }}
+          </span>
           </div>
           <div class="user_email ">
             <label for="email">{{
               "UserConfirmation.Email" | translate
             }}</label>
             <input type="text" placeholder="Email  here"  id="email" pInputText formControlName="email"/>
-
+            <span
+            *ngIf="
+              (userForm.controls['email'].dirty ||
+                userForm.controls['email'].touched) &&
+              userForm.hasError('required', 'email')
+            "
+            class="text-danger"
+          >
+            {{ "UserConfirmation.Email" | translate }}
+            {{ "UserConfirmation.IsRequired" | translate }}
+          </span>
           </div>
          </div>
          <div class="user_name_email mb-6">
@@ -229,13 +250,71 @@
               "UserConfirmation.Password" | translate
             }}</label>
             <p-password class="w-full" formControlName="password" id="password"  [feedback]="false"  [toggleMask]="true"></p-password>
+            <span
+            *ngIf="
+              (userForm.controls['password'].dirty ||
+                userForm.controls['password'].touched) &&
+              userForm.hasError('required', 'password')
+            "
+            class="text-danger"
+          >
+            {{ "UserConfirmation.Password" | translate }}
+            {{ "UserConfirmation.IsRequired" | translate }}
+          </span>
+          <div class="my-1">
+            <span class="d-block"
+              *ngIf="
+                userForm.get('password')?.hasError('pattern') &&
+                userForm.controls['password'].dirty
+              "
+              class="text-danger"
+            >
+              <span class="d-block"
+                class="d-block"
+                *ngIf="! userForm.controls['password'].value?.match('^(?=.*[A-Z])')"
+                >
+                {{ "UserConfirmation.UpperCaseLetter" | translate }}</span
+              >
+              <span class="d-block"
+                class="d-block"
+                *ngIf="! userForm.controls['password'].value?.match('(?=.*[a-z])')"
+                > 
+                {{ "UserConfirmation.LowerCaseLetter" | translate }}</span
+              >
+              <span class="d-block"
+                class="d-block"
+                *ngIf="!userForm.controls['password'].value?.match('(.*[0-9].*)')"
+                > 
+                {{ "UserConfirmation.PasswordmustcontainNumber" | translate }}</span
+              >
+              <span class="d-block"
+                class="d-block"
+               *ngIf="!userForm.controls['password'].value?.match('(?=.*[!@#$%^&*])')"
+                >
+                {{ "UserConfirmation.SpecialCharacter" | translate }}</span
+              >
+            </span>
+          </div>
           </div>
           <div class="user_email ">
             <label for="confirmPassword">{{
               "UserConfirmation.ConfirmPassword" | translate
             }}</label>
             <p-password formControlName="confirmPassword" id="confirmPassword"  [feedback]="false"  [toggleMask]="true"></p-password>
-
+            <span
+        *ngIf="
+          (userForm.controls['confirmPassword'].dirty ||
+            userForm.controls['confirmPassword'].touched) &&
+          userForm.hasError('required', 'confirmPassword')
+        "
+        class="text-danger"
+      >
+        {{ "UserConfirmation.ConfirmPassword" | translate }}
+        {{ "UserConfirmation.IsRequired" | translate }}
+      </span>
+      <span *ngIf="userForm.errors?.['passwordmatcherror']">
+        {{ "UserConfirmation.ConfirmPassword" | translate }} {{ "UserConfirmation.Doesnotmatch" | translate }}
+      </span>
             
           </div>
          </div>
