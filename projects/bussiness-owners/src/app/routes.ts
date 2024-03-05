@@ -18,7 +18,7 @@ export const BORoutes = [
     path: '',
     component: LayoutComponent,
     children: [
-      { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
+      { path: '', component: MyPlansComponent, canActivate: [AuthGuard] },
       {
         path: 'users/:id',
         component: UsersComponent,

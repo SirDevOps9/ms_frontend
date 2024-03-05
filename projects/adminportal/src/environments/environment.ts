@@ -6,6 +6,7 @@ export const environment :IEnvironment = {
   Version: 'V1',
   ClientId: 'AdminPortal',
   Platform: 'Web',
+  photoBaseUrl: 'https://intmicrotec.neat-url.com:2002',
   openIdConfig: {
     authority: 'https://intmicrotec.neat-url.com:2010',
     redirectUrl: window.location.origin + '/adminportal/login-redirect',
