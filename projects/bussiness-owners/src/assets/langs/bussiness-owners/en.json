@@ -87,6 +87,7 @@
     "Activate": "Activate",
     "CompanyType": "Company Type",
     "MobileNumber":"Phone",
+    "Edit":"Edit",
     "Add": {
       "Plan":"Plan",
       "CompanyAddedSuccessfully": "Company added successfully",

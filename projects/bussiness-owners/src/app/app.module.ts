@@ -42,6 +42,7 @@ import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetai
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { PlanComponent } from './pages/Plan/Plan.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { EditCompanyComponent } from './pages/company/edit-company/edit-company.component';
 import { PasswordModule } from 'primeng/password';
 import { CheckboxModule } from 'primeng/checkbox';
 import { MyPlansComponent } from './pages/my-plans/my-plans.component';
@@ -57,7 +58,8 @@ import { MyPlansComponent } from './pages/my-plans/my-plans.component';
     bouserdetails,
     PlanComponent,
     MyPlansComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    EditCompanyComponent
   ],
   imports: [
     CommonModule,

@@ -8,6 +8,7 @@ import { AuthGuard } from '../../../microtec-auth-lib/src/public-api';
 import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetails.component';
 import { PlanComponent } from './pages/Plan/Plan.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { EditCompanyComponent } from './pages/company/edit-company/edit-company.component';
 import { MyPlansComponent } from './pages/my-plans/my-plans.component';
 import { BreadcrumbLabel } from '../../../shared-lib/src/lib/constants/index';
 
@@ -42,6 +43,8 @@ export const BORoutes = [
           breadcrumb: BreadcrumbLabel.COMPANE_LIST,
         },
       },
+      { path: 'company/edit/:id', component: EditCompanyComponent, canActivate: [AuthGuard] },
+
       {
         path: 'users/bouserdetails/:id',
         component: bouserdetails,

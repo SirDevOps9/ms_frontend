@@ -36,6 +36,13 @@ export class CompanyService {
       `${this.company}?planId=${subscriptionId}`
     );
   }
+
+  getById(id:number): Observable<APIResponse<ResponseCompanyDto>> {
+    return this.baseService.get<APIResponse<ResponseCompanyDto>>(
+      `${this.company}/${id}`
+    );
+  }
+
   getDropDown(): Observable<APIResponse<DropdownListDto>> {
     return this.baseService.get<APIResponse<DropdownListDto>>(
       `${this.company}${this.companyDropDown}`

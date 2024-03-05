@@ -46,6 +46,16 @@
                       }}
                     </button>
                   </td>
+                  <td>
+                    <button
+                      class="btn btn-info"
+                      (click)="navigateToEdit(item.id)"
+                    >
+                      {{
+                        "Company.Edit" | translate
+                      }}
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -114,7 +124,7 @@
             {{ item.mobileNumber }}</td>
           <td>
             
-            <p-button icon="pi pi-pencil"  [rounded]="true" [text]="true" severity="secondary "></p-button>
+            <p-button icon="pi pi-pencil"  [rounded]="true" [text]="true" severity="secondary " (click)="navigateToEdit(item.id)"></p-button>
         </td>
           <td >
               <div class="checked"  >
