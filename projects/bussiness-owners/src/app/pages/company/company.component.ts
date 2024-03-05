@@ -18,7 +18,7 @@ export class CompanyComponent implements OnInit {
   companies: ResponseCompanyDto[];
   @ViewChild('dt') dt: any | undefined;
   selectedCompanies!: ResponseCompanyDto[] | null;
-  planId: number;
+  subscriptionId: string;
 
   constructor(
     private companyService: CompanyService,
@@ -30,13 +30,13 @@ export class CompanyComponent implements OnInit {
   ) {}
 
   navigateToAdd(): void {
-    this.routerService.navigateTo('company/add/' + this.planId);
+    this.routerService.navigateTo('company/add/' + this.subscriptionId);
   }
 
   ngOnInit() {
     this.titleService.setTitle('Companies');
-    this.planId = this.routerService.currentId;
-    this.companyService.getAll(this.planId).subscribe((res) => {
+    this.subscriptionId = this.routerService.currentId;
+    this.companyService.getAll(this.subscriptionId).subscribe((res) => {
       this.companies = res.response.reverse();
     });
   }
