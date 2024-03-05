@@ -33,7 +33,7 @@ export class CompanyService {
   }
   getAll(subscriptionId: string): Observable<APIResponse<ResponseCompanyDto[]>> {
     return this.baseService.get<APIResponse<ResponseCompanyDto[]>>(
-      `${this.company}?planId=${subscriptionId}`
+      `${this.company}?subscriptionId=${subscriptionId}`
     );
   }
 
