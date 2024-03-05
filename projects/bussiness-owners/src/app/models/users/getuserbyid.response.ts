@@ -3,6 +3,6 @@ export interface GetUserbyid {
     name: string;
     email: string;
     subscriptions: string[];
-    BORoles: number[];
+    boRoles: number[];
   }
   

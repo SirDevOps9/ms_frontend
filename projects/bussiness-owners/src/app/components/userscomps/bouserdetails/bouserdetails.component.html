@@ -58,8 +58,8 @@
     <div class="card_edit" >
       <div class="information">
           <div class="user_photo">
-              <img [src]="photo" alt="" *ngIf="photo">
-              <img src="assets/images/users/editdefault.png" alt="" *ngIf="!photo">
+             
+              <img  [src]="getProfilePic() "  onerror="this.src='assets/images/users/editdefault.png'" alt="">
           </div>
           <div class="user_name">
              <p>{{userName}}</p> 
@@ -71,13 +71,13 @@
       <div class="admin_edit">
         <div class="card ">
           <span class="p-float-label">
-              <p-multiSelect inputId="float-label" optionValue="id" [options]="subdomains" [(ngModel)]="selectedSubscriptions" optionLabel="name" [showClear]="true" display="chip"></p-multiSelect>
+              <p-multiSelect inputId="float-label" optionValue="id" [options]="domains" [(ngModel)]="selectedSubscriptions" optionLabel="name" [showClear]="true" display="chip"></p-multiSelect>
               <label class="" for="float-label">Domain Space (multiple Select)</label>
           </span>
       </div>
         <div class="card ">
           <span class="p-float-label">
-              <p-multiSelect inputId="float-label" optionValue="id" [options]="platformplans"   [(ngModel)]="selectedPlat" optionLabel="name" [showClear]="true" display="chip"></p-multiSelect>
+              <p-multiSelect inputId="float-label" optionValue="id" [options]="actions"   [(ngModel)]="selectedPlat" optionLabel="name" [showClear]="true" display="chip"></p-multiSelect>
               <label class="" for="float-label">Manage Role (multiple Select)</label>
           </span>
       </div>
