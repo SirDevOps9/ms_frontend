@@ -1,0 +1,98 @@
+<div
+  class="error"
+  *ngIf="
+    appControl && appControl.invalid && (appControl.dirty || appControl.touched)
+  "
+>
+  <span class="errorMessage" *ngIf="appControl.errors?.['required']">
+    {{ "validation.required" | translate }}
+  </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidOnlySaudiId']">
+    {{ "validation.invalidOnlySaudiId" | translate }}
+  </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['customRequired']">
+    {{ "validation.required" | translate }}
+  </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidIqamaiId']">
+    {{ "validation.invalidIqamaiId" | translate }}
+  </span>
+
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidPhone']">
+    {{ "shared.invalidPhone" | translate }}
+  </span>
+  <span
+    class="errorMessage"
+    *ngIf="appControl.errors?.['isNotAgreedToTermsRequired']"
+  >
+    {{ "validation.agreedToTermsRequired" | translate }}
+  </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['pattern']">
+    {{ "validation.pattern" | translate }}
+  </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['email']">
+    {{ "validation.email" | translate }}
+  </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidSaudiId']">
+    {{ "validation.invalidSaudiId" | translate }}
+  </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['inValidEmailPattern']">
+    {{ "validation.emailPattern" | translate }}
+  </span>
+  <span
+    class="errorMessage"
+    *ngIf="appControl.errors?.['inValidMobilePattern']"
+  >
+    {{ "validation.mobilePattern" | translate }}
+  </span>
+  <span
+    class="errorMessage"
+    *ngIf="appControl.errors?.['inValidMobilePrefixPattern']"
+  >
+    {{ "validation.mobilePrefixPattern" | translate }}
+  </span>
+
+  <span class="errorMessage" *ngIf="appControl.errors?.['withSpecialChars']">
+    {{ "validation.specialCharPattern" | translate }}
+  </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidNumber']">
+    {{ "validation.invalidNumber" | translate }}
+  </span>
+  <span
+    class="errorMessage"
+    *ngIf="appControl.errors?.['isValidNationalMobile']"
+  >
+    {{ "validation.mobileNationalPattern" | translate }}
+  </span>
+  <span
+    class="errorMessage"
+    *ngIf="appControl.errors?.['invalidUnifiedNumber']"
+  >
+    {{ "validation.invalidUnifiedNumber" | translate }}
+  </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidCRNumber']">
+    {{ "validation.invalidCRNumber" | translate }}
+  </span>
+
+  <span class="errorMessage" *ngIf="appControl.errors?.['maxlength']">
+    {{ "validation.maxLength" | translate }}:{{
+      appControl.errors?.['maxlength.requiredLength']
+    }}
+  </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['minlength']">
+    {{ "validation.minLength" | translate }}:{{
+      appControl.errors?.['minlength.requiredLength']
+    }}
+  </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['max']">
+    {{ "validation.invalidMax" | translate }}:{{ appControl.errors?.['max.max }}
+  </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['min']">
+    {{ "validation.invalidMin" | translate }}:{{ appControl.errors?.['min.min }}
+  </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['hasSpecialChars']">
+    {{ "validation.hasSpecialChars" | translate }}
+  </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['hasWhiteSpaces']">
+    {{ "validation.hasWhiteSpaces" | translate }}
+  </span>
+</div>

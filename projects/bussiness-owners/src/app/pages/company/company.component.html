@@ -1,6 +1,6 @@
 <!-- <div class="container mt-4">
   <div class="row justify-content-center">
-    
+
     <div class="col-md-8">
       <div class="card">
         <div
@@ -54,7 +54,7 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>
 
 <div class="company_page mt-4">
   <p-table
@@ -72,10 +72,9 @@
   [showCurrentPageReport]="true"
   class="flex flex-column "
   >
- 
+
   <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-end">
-          <!-- <h5 class="m-0">{{ "Company.CompanyList" | translate }}</h5>  -->
 
           <span class="p-input-icon-left">
               <i class="pi pi-search"></i>
@@ -91,12 +90,12 @@
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
       </th>
           <th pSortableColumn="name" >  {{ "Company.Name" | translate }} <p-sortIcon field="name"></p-sortIcon></th>
-         
+
           <th pSortableColumn="email">{{ "Company.CompanyType" | translate }} <p-sortIcon field="email"></p-sortIcon></th>
           <th pSortableColumn="category" style="min-width:10rem">{{ "Company.MobileNumber" | translate }} <p-sortIcon field="category"></p-sortIcon></th>
           <th pSortableColumn="rating">{{ "User.Actions" | translate }} <p-sortIcon field="rating"></p-sortIcon></th>
           <th pSortableColumn="inventoryStatus" style="min-width:10rem">{{ "User.Status" | translate }} <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
-          
+
       </tr>
   </ng-template>
   <ng-template pTemplate="body" let-item>
@@ -113,25 +112,27 @@
           <td>
             {{ item.mobileNumber }}</td>
           <td>
-            
+
             <p-button icon="pi pi-pencil"  [rounded]="true" [text]="true" severity="secondary "></p-button>
         </td>
           <td >
               <div class="checked"  >
-             
+
                 <p-inputSwitch [id]=" item.id"     (onChange)="changed($event , item.id )" [(ngModel)]="item.isActive">
                 </p-inputSwitch>
                 <p class="active" *ngIf=item.isActive>{{ "User.Activate" | translate }}</p>
                 <p class="inactive" *ngIf="!item.isActive">{{ "User.Deactivate" | translate }}</p>
               </div>
-          
-              
-              
-            
+
+
+
+
           </td>
-         
+
       </tr>
   </ng-template>
 </p-table>
 
 </div>
+
+-->

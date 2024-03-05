@@ -42,6 +42,8 @@ import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetai
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { PlanComponent } from './pages/Plan/Plan.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { NewCompanyComponent } from './pages/company/new-company/new-company.component';
+import { CompaniesListComponent } from './pages/company/companies-list/companies-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,11 +51,13 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     LayoutComponent,
     UserInviteFormComponent,
     AddCompanyComponent,
-    CompanyComponent,
+    //CompanyComponent,
     UserconfirmationComponent,
     bouserdetails,
     PlanComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    NewCompanyComponent,
+    CompaniesListComponent,
   ],
   imports: [
     CommonModule,
@@ -93,7 +97,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     MultiSelectModule,
     ToggleButtonModule,
     AccordionModule,
-    DynamicDialogModule
+    DynamicDialogModule,
   ],
   providers: [
     DialogService,

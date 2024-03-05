@@ -29,7 +29,7 @@ export class UserInviteFormComponent implements OnInit {
     private ref: DynamicDialogRef
   ) {
     this.inviteForm = this.fb.group({
-      email: ['', [Validators.required, customValidators.isValidSEmail]],
+      email: ['', [Validators.required, customValidators.email]],
       subDomains: ['', Validators.required],
       plans: ['', Validators.required],
     });

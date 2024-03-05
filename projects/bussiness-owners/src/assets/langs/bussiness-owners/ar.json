@@ -33,7 +33,7 @@
     "Phone": "رقم التليفون",
     "Status": "(تفعيل او الغاء تفعيل)الحالة",
     "Deactivate": "الغاء التفعيل",
-    "Resend":"اعادة الارسال",
+    "Resend": "اعادة الارسال",
     "Activate": "تفعيل",
     "Succefully": "بنجاح",
     "UserDeactivatedSuccessfully": "العميل غير مفعل بنجاح",
@@ -43,8 +43,8 @@
     "InvitationStatus": "حالة الدعوة",
     "Invited": "تم الدعوة",
     "Accepted": "تم القبول",
-    "Actions":"افعال",
-    "Edit":"تعديل",
+    "Actions": "افعال",
+    "Edit": "تعديل",
     "Inviteform": {
       "FormHeader": "دعوة مستخدم",
       "EmailLabel": "بريد الالكترونى للدخول",
@@ -56,15 +56,15 @@
       "Success": "تم بنجاح",
       "InviationSent": "تم ارسال الدعوة بنجاح"
     },
-    "BoUserDetails":{
-      "Title":"تعديل معلومات المستخدم",
-      "Username":"اسم المستخدم",
-      "Email":"البريد الالكترونى",
-      "Photo":"الصورة",
-      "Subdomain":"Subdomain",
-      "PlatformPlan":"Platform Plan",
-      "submit":"حفظ التعديلات",
-      "Cancel":"الغاء",
+    "BoUserDetails": {
+      "Title": "تعديل معلومات المستخدم",
+      "Username": "اسم المستخدم",
+      "Email": "البريد الالكترونى",
+      "Photo": "الصورة",
+      "Subdomain": "Subdomain",
+      "PlatformPlan": "Platform Plan",
+      "submit": "حفظ التعديلات",
+      "Cancel": "الغاء",
       "UserUpdated": "تم تعديل البياتات بنجاح"
     }
   },
@@ -84,10 +84,10 @@
     "Activate": "تفعيل",
     "CompanyDeactivatedSuccessfully": "الشركة غير مفعلة بنجاح",
     "CompanyActivatedSuccessfully": "الشركة مفعلة بنجاح",
-    "CompanyType":"نوع الشركة",
-    "MobileNumber":"الهاتف",
+    "CompanyType": "نوع الشركة",
+    "MobileNumber": "الهاتف",
     "Add": {
-      "Plan":"خطة",
+      "Plan": "خطة",
       "CompanyAddedSuccessfully": "تمت إضافة الشركة بنجاح",
       "AddCompany": "إضافة شركة",
       "Country": "دولة",
@@ -117,6 +117,6 @@
     "ConfirmPassword": "تأكيد كلمة المرور",
     "policy": "أنا أوافق على سياسة المستخدم",
     "Save": "حفظ",
-    "Photo":"الصورة"
+    "Photo": "الصورة"
   }
 }

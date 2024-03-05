@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { APIResponse, BaseService, ResponseItems } from 'shared-lib';
+import {
+  APIResponse,
+  BaseService,
+  ResponseItems,
+  lookupsListDto,
+} from 'shared-lib';
 import { AddCompanyDto } from '../models/company/addcompany';
 import { Observable } from 'rxjs';
 import { DropdownItemDto } from '../models/company/dropdown';
@@ -35,6 +40,10 @@ export class CompanyService {
     return this.baseService.get<APIResponse<ResponseCompanyDto[]>>(
       `${this.company}?planId=${planId}`
     );
+  }
+
+  getLookups(): Observable<APIResponse<lookupsListDto>> {
+    return this.baseService.get<APIResponse<lookupsListDto>>('Company/Lookups');
   }
   getDropDown(): Observable<APIResponse<DropdownListDto>> {
     return this.baseService.get<APIResponse<DropdownListDto>>(

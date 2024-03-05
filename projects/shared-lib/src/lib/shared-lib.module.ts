@@ -8,26 +8,45 @@ import { ErpTableComponent } from './components/erp-table/erp-table.component';
 import { SearchEngineComponent } from './components/search-engine/search-engine.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { LoaderComponent } from './components/loader/loader.component';
+import {
+  FieldValidationsComponent,
+  LabelComponent,
+  SelectComponent,
+  TextInputComponent,
+} from './form-components';
+import { DropdownModule } from 'primeng/dropdown';
+import { GetLookupPipe } from './pipes/lookupList';
 @NgModule({
   declarations: [
+    GetLookupPipe,
     LayoutComponent,
     ErpTableComponent,
     SearchEngineComponent,
     LoaderComponent,
+    FieldValidationsComponent,
+    LabelComponent,
+    TextInputComponent,
+    SelectComponent,
   ],
   imports: [
     CommonModule,
     RouterOutlet,
     RouterModule,
     ReactiveFormsModule,
+    DropdownModule,
     MatPaginatorModule,
     TranslateModule.forRoot(),
   ],
   exports: [
+    GetLookupPipe,
     LayoutComponent,
     ErpTableComponent,
     SearchEngineComponent,
     LoaderComponent,
+    FieldValidationsComponent,
+    LabelComponent,
+    TextInputComponent,
+    SelectComponent,
   ],
 })
 export class SharedLibModule {}

@@ -1,4 +1,26 @@
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { EnvironmentService } from './environment.service';
+
+function notOnlyWhitespaceValidator() {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const isWhitespace =
+      control.value.length > 0 && (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    control.value.trim();
+    return isValid ? null : { hasWhiteSpaces: true };
+  };
+}
+
+export function required(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control?.value?.toString()?.trim();
+    if (value === null || value === undefined || value === '') {
+      return { customRequired: true };
+    }
+
+    return null;
+  };
+}
 
 function IsNumber(control: AbstractControl) {
   if (
@@ -27,7 +49,7 @@ function IsValidMobileWithPrefix(control: AbstractControl) {
     return null;
   }
 
-  const regularExpression = /^5[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$/;
+  const regularExpression = /^05[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$/;
 
   const isValid = regularExpression.test(String(control.value).toLowerCase());
   if (isValid) {
@@ -82,7 +104,7 @@ function PreventSpecialChars(control: AbstractControl) {
     return null;
   }
 
-  const resularExpression = /^[\u0621-\u064Aa-zA-Z0-9\n\s?؟-]*$/;
+  const resularExpression = /^[\u0621-\u064Aa-zA-Z0-9\n\s.?؟-]*$/;
 
   const isValid = resularExpression.test(String(control.value).toLowerCase());
   if (isValid) {
@@ -123,23 +145,6 @@ function IsAbove18(control: AbstractControl) {
 
 function IsValidNationalMobile(control: AbstractControl) {
   return null;
-
-  if (
-    control.value == null ||
-    control.value === '' ||
-    control.value.length === 0
-  ) {
-    return null;
-  }
-
-  const regularExpression = /^00[1-9]\d{0,14}$/;
-
-  const isValid = regularExpression.test(String(control.value).toLowerCase());
-  if (isValid) {
-    return null;
-  } else {
-    return { isValidNationalMobile: true };
-  }
 }
 
 function IsValidCRNumber(control: AbstractControl) {
@@ -180,7 +185,7 @@ function IsValid700Number(control: AbstractControl) {
   }
 }
 
-function IsValidSEmail(control: AbstractControl) {
+function IsValidEmail(control: AbstractControl) {
   if (
     control.value == null ||
     control.value === '' ||
@@ -189,10 +194,8 @@ function IsValidSEmail(control: AbstractControl) {
     return null;
   }
 
-  const regularExpression =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  const isValid = regularExpression.test(String(control.value).toLowerCase());
+  const regularExpression = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
+  const isValid = regularExpression.test(String(control.value));
   if (isValid) {
     return null;
   } else {
@@ -257,39 +260,21 @@ function IsIqamaId(control: AbstractControl) {
   }
 }
 
-function validPassword(control: AbstractControl) {
-  const password = control.value;
-
-  if (!password || password.length < 8 || password.length > 16) {
-    return { invalidPassword: true };
-  }
-
-  if (
-    !/[A-Z]+/.test(password) ||
-    !/[a-z]+/.test(password) ||
-    !/[0-9]+/.test(password) ||
-    !/[~!@#$%^&*()]+/.test(password)
-  ) {
-    return { invalidPassword: true };
-  }
-
-  return null; // Valid password
-}
-
 export const customValidators = {
-  isValidMobile: IsValidMobile,
-  isValidPhone: IsValidPhone,
-  isAbove18: IsAbove18,
-  isValidSEmail: IsValidSEmail,
-  isValidSaudiId: IsValidSaudiId,
-  IsOnlySaudiId: IsOnlySaudiId,
-  IsIqamaId: IsIqamaId,
-  isValidNationalMobile: IsValidNationalMobile,
-  isNumber: IsNumber,
-  isValid700Number: IsValid700Number,
-  isValidCRNumber: IsValidCRNumber,
-  preventSpecialChars: PreventSpecialChars,
-  IsValidMobileWithPrefix: IsValidMobileWithPrefix,
-  isAgreedToTermsRequired: IsAgreedToTermsRequired,
-  isvalidPassword: validPassword,
+  notOnlyWhitespaceValidator: notOnlyWhitespaceValidator,
+  required: required,
+  mobile: IsValidMobile,
+  phone: IsValidPhone,
+  notUnderAge: IsAbove18,
+  email: IsValidEmail,
+  saudiId: IsValidSaudiId,
+  onlySaudiId: IsOnlySaudiId,
+  saudiIqamaId: IsIqamaId,
+  nationalMobile: IsValidNationalMobile,
+  number: IsNumber,
+  cr700Number: IsValid700Number,
+  cRNumber: IsValidCRNumber,
+  noSpecialChars: PreventSpecialChars,
+  mobileWithPrefix: IsValidMobileWithPrefix,
+  agreedToTermsRequired: IsAgreedToTermsRequired,
 };

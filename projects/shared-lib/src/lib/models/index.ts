@@ -4,6 +4,7 @@ export * from './filterDto';
 export * from './loginmodel';
 export * from './searchField';
 export * from './tokenModel';
-export * from './searchField'
-export * from './iEnvironment'
-export * from'./validationError';
+export * from './searchField';
+export * from './iEnvironment';
+export * from './validationError';
+export * from './lookupDto';

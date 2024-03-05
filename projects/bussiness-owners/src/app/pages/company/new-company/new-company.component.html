@@ -1,0 +1,117 @@
+<form
+  [formGroup]="companyForm"
+  (ngSubmit)="onSubmit()"
+  *ngIf="lookupsService.lookupsLoaded | async"
+>
+  <div class="group mb-3">
+    <lib-label [appControl]="companyForm.controls['name']">
+      {{ "Company.Add.CompanyName" | translate }}
+    </lib-label>
+    <lib-text-input type="text" formControlName="name" />
+    <lib-field-validations [appControl]="companyForm.controls['name']">
+    </lib-field-validations>
+  </div>
+
+  <div class="group mb-3">
+    <lib-label [appControl]="companyForm.controls['countryCode']">
+      {{ "Company.Add.CompanyName" | translate }}
+    </lib-label>
+    <lib-select
+      formControlName="countryCode"
+      [options]="'countries' | lookups"
+      optionValue="id"
+      optionLabel="name"
+    >
+    </lib-select>
+    <lib-field-validations [appControl]="companyForm.controls['countryCode']">
+    </lib-field-validations>
+  </div>
+
+  <div class="group mb-3">
+    <lib-label [appControl]="companyForm.controls['industryId']">
+      {{ "Company.Add.Industry" | translate }}
+    </lib-label>
+    <lib-select
+      formControlName="industryId"
+      [options]="'industries' | lookups"
+      optionValue="id"
+      optionLabel="name"
+    >
+    </lib-select>
+    <lib-field-validations [appControl]="companyForm.controls['industryId']">
+    </lib-field-validations>
+  </div>
+
+  <div class="group mb-3">
+    <lib-label [appControl]="companyForm.controls['currencyId']">
+      {{ "Company.Add.Currency" | translate }}
+    </lib-label>
+    <lib-select
+      formControlName="currencyId"
+      [options]="'currencies' | lookups"
+      optionValue="id"
+      optionLabel="name"
+    >
+    </lib-select>
+    <lib-field-validations [appControl]="companyForm.controls['currencyId']">
+    </lib-field-validations>
+  </div>
+
+  <div class="group mb-3">
+    <lib-label [appControl]="companyForm.controls['website']">
+      {{ "Company.Add.Website" | translate }}
+    </lib-label>
+    <lib-text-input type="text" pInputText formControlName="website" />
+    <lib-field-validations [appControl]="companyForm.controls['website']">
+    </lib-field-validations>
+  </div>
+
+  <div class="group mb-3">
+    <lib-label [appControl]="companyForm.controls['address']">
+      {{ "Company.Add.Address" | translate }}
+    </lib-label>
+    <lib-text-input type="text" pInputText formControlName="address" />
+    <lib-field-validations [appControl]="companyForm.controls['address']">
+    </lib-field-validations>
+  </div>
+
+  <div class="group mb-3">
+    <lib-label [appControl]="companyForm.controls['mobileNumberCode']">
+      {{ "Company.Add.MobileNumberCode" | translate }}
+    </lib-label>
+    <lib-select
+      formControlName="mobileNumberCode"
+      [options]="'mobileCodes' | lookups"
+      optionValue="id"
+      optionLabel="name"
+    >
+    </lib-select>
+    <lib-field-validations
+      [appControl]="companyForm.controls['mobileNumberCode']"
+    >
+    </lib-field-validations>
+  </div>
+
+  <div class="group mb-3">
+    <lib-label [appControl]="companyForm.controls['mobileNumber']">
+      {{ "Company.Add.MobileNumber" | translate }}
+    </lib-label>
+    <lib-text-input type="tel" pInputText formControlName="mobileNumber" />
+    <lib-field-validations [appControl]="companyForm.controls['mobileNumber']">
+    </lib-field-validations>
+  </div>
+
+  <div class="group mb-3">
+    <lib-label [appControl]="companyForm.controls['companyEmail']">
+      {{ "Company.Add.CompanyEmail" | translate }}
+    </lib-label>
+    <lib-text-input type="email" pInputText formControlName="companyEmail" />
+    <lib-field-validations [appControl]="companyForm.controls['companyEmail']">
+    </lib-field-validations>
+  </div>
+  <div class="Actions">
+    <button type="submit" class="btn btn-primary">
+      {{ "Company.Add.Next" | translate }}
+    </button>
+  </div>
+</form>
