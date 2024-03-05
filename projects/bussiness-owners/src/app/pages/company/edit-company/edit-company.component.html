@@ -1,0 +1,242 @@
+<!-- <div class="company-details-container">
+  <h2>Company Details</h2>
+
+  <div class="company-details">
+    <p><strong>Name:</strong> {{ company?.name }}</p>
+    <p><strong>Type:</strong> {{ company?.companyType }}</p>
+    <p><strong>Website:</strong> {{ company?.website }}</p>
+    <p><strong>Address:</strong> {{ company?.address }}</p>
+    <p><strong>Mobile Number:</strong> {{ company?.mobileNumber }}</p>
+    <p><strong>Email:</strong> {{ company?.companyEmail }}</p>
+    <p><strong>Industry:</strong> {{ company?.industryName }}</p>
+    <p><strong>Currency:</strong> {{ company?.currencyName }}</p>
+    <p><strong>Country:</strong> {{ company?.countryName }}</p>
+    <p><strong>Plan Name:</strong> {{ company?.planName }}</p>
+    <p><strong>Active:</strong> {{ company?.isActive ? 'Yes' : 'No' }}</p>
+  </div>
+</div> -->
+<div class="edit_company_page">
+  <div class="card mt-4">
+    <!-- <div class="card-header d-flex justify-content-between align-items-center">
+      <h3 class="card-title">{{ "Company.Add.AccInfo" | translate }}</h3>
+    </div> -->
+  
+    <div class="card-body">
+      <!-- <h4>{{ "Company.Add.Step" | translate }}</h4> -->
+  
+      <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+  
+        <div class="group mb-3">
+          <label for="companyName" class="form-label">
+            {{ "Company.Add.CompanyName" | translate }} :</label
+          >
+          <!-- <input
+            aria-label="companyName"
+            formControlName="name"
+            class="form-control"
+          /> -->
+          <input type="text"  pInputText formControlName="name" [disabled]="true"     />
+          <div *ngIf="hasError('companyName', 'required')" class="error">
+            {{ "Company.Add.CompanyName" | translate }}
+            {{ "Company.Add.Required" | translate }}
+          </div>
+        </div>
+  
+  
+  
+  
+        <div class="group mb-3">
+          <label for="country" class="form-label"
+            >{{ "Company.Add.Country" | translate }} :</label
+          >
+          <!-- <select
+            formControlName="countryCode"
+            id="country"
+            name="country"
+            class="form-select"
+            required
+          >
+            <option value="">
+              {{ "Company.Add.Select" | translate }}
+              {{ "Company.Add.Country" | translate }}
+            </option>
+            <option *ngFor="let option of CountryDropDown" [value]="option.code">
+              {{ option.name }}
+            </option>
+          </select> -->
+          <p-dropdown formControlName="countryCode"  optionValue="code"    [options]="CountryDropDown" optionLabel="name"  ></p-dropdown>
+
+          <div *ngIf="hasError('Country', 'required')" class="error">
+            {{ "Company.Add.Country" | translate }}
+            {{ "Company.Add.Required" | translate }}
+          </div>
+        </div>
+  
+    
+  
+        <div class="group mb-3">
+          <label for="industry" class="form-label"
+            >{{ "Company.Add.Industry" | translate }} :</label
+          >
+          <!-- <select
+            formControlName="industryId"
+            id="industry"
+            name="industry"
+            class="form-select"
+            required
+          >
+            <option value="">
+              {{ "Company.Add.Select" | translate
+              }}{{ "Company.Add.Industry" | translate }}
+            </option>
+            <option *ngFor="let option of industryDropDown" [value]="option.id">
+              {{ option.name }}
+            </option>
+          </select> -->
+          <p-dropdown formControlName="industryId" [disabled]="true"  optionValue="id"    [options]="industryDropDown" optionLabel="name"  ></p-dropdown>
+
+          <div *ngIf="hasError('industryId', 'required')" class="error">
+            {{ "Company.Add.Industry" | translate }}
+            {{ "Company.Add.Required" | translate }}
+          </div>
+        </div>
+  
+        <div class="group mb-3">
+          <label for="currency" class="form-label"
+            >{{ "Company.Add.Currency" | translate }} :</label
+          >
+          <!-- <select
+            formControlName="currencyId"
+            id="currency"
+            name="currency"
+            class="form-select"
+            required
+          >
+            <option value="">
+              {{ "Company.Add.Select" | translate }}
+              {{ "Company.Add.Currency" | translate }}
+            </option>
+            <option *ngFor="let option of currencyDropDown" [value]="option.id">
+              {{ option.name }}
+            </option>
+          </select> -->
+          <p-dropdown formControlName="currencyId" [disabled]="true"  optionValue="id"    [options]="currencyDropDown" optionLabel="name"  ></p-dropdown>
+
+          <div *ngIf="hasError('currencyId', 'required')" class="error">
+            {{ "Company.Add.Currency" | translate }}
+            {{ "Company.Add.Required" | translate }}
+          </div>
+        </div>
+  
+        <div class="group mb-3">
+          <label for="website" class="form-label"
+            >{{ "Company.Add.Website" | translate }} :</label
+          >
+          <!-- <input
+            aria-label="website"
+            formControlName="website"
+            class="form-control"
+          /> -->
+          <input type="text" [disabled]="true" pInputText formControlName="website"/>
+          <div *ngIf="hasError('website', 'required')" class="error">
+            {{ "Company.Add.Website" | translate }}
+            {{ "Company.Add.Required" | translate }}
+          </div>
+        </div>
+  
+        <div class="group mb-3">
+          <label for="address" class="form-label"
+            >{{ "Company.Add.Address" | translate }} :</label
+          >
+          <!-- <input
+            aria-label="address"
+            formControlName="address"
+            class="form-control"
+            maxlength="100"
+          /> -->
+          <input type="text" [disabled]="true" pInputText formControlName="address"/>
+          <div *ngIf="hasError('address', 'required')" class="error">
+            {{ "Company.Add.Address" | translate }}
+            {{ "Company.Add.Required" | translate }}
+          </div>
+        </div>
+  
+        <div class="group mb-3">
+          <label for="MobileNumberCode" class="form-label"
+            >{{ "Company.Add.MobileNumberCode" | translate }} :</label
+          >
+          <!-- <select
+            formControlName="mobileNumberCode"
+            id="MobileNumberCode"
+            name="mobileNumberCode"
+            class="form-select"
+            required
+          >
+            <option value="">
+              {{ "Company.Add.Select" | translate }}
+              {{ "Company.Add.MobileNumberCode" | translate }}
+            </option>
+            <option
+              *ngFor="let option of mobileCodeDropDown"
+              [value]="option.code"
+            >
+              {{ option.phoneCode }}
+            </option>
+          </select> -->
+          <p-dropdown formControlName="mobileNumberCode"  [disabled]="true" optionValue="code"    [options]="mobileCodeDropDown" optionLabel="phoneCode"  ></p-dropdown>
+
+          <div
+            *ngIf="hasError('MobileNumberCode', 'required')"
+            class="error"
+          >
+            {{ "Company.Add.MobileNumberCode" | translate }}
+            {{ "Company.Add.Required" | translate }}
+          </div>
+        </div>
+  
+        <div class="group mb-3">
+          <label for="mobile" class="form-label">
+            {{ "Company.Add.MobileNumber" | translate }} :</label
+          >
+          <!-- <input
+            aria-label="mobile"
+            type="tel"
+            formControlName="mobileNumber"
+            class="form-control"
+          /> -->
+          <input type="tel" [disabled]="true" pInputText formControlName="mobileNumber"/>
+          <div *ngIf="hasError('mobile', 'required')" class="error">
+            {{ "Company.Add.MobileNumber" | translate }}
+            {{ "Company.Add.Required" | translate }}
+          </div>
+        </div>
+  
+        <div class="group mb-3">
+          <label for="companyEmail" class="form-label">{{
+            "Company.Add.CompanyEmail" | translate
+          }}</label>
+          <!-- <input
+            type="email"
+            formControlName="companyEmail"
+            id="companyEmail"
+            class="form-control"
+          /> -->
+          <input type="email"   [disabled]="true" pInputText formControlName="companyEmail" [disabled]="true"/>
+          <div *ngIf="hasError('companyEmail', 'required')" class="error">
+            {{ "Company.Add.CompanyEmail" | translate }}
+            {{ "Company.Add.Required" | translate }}
+          </div>
+        </div>
+        <!-- <div class="Actions">
+          <button type="submit" class="btn btn-primary">
+            {{ "Company.Add.Next" | translate }}
+          </button>
+        </div> -->
+     
+      </form>
+  
+      <hr />
+    </div>
+  </div>
+</div>
+

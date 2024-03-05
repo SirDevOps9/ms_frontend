@@ -18,23 +18,23 @@ export class UserService {
 
   constructor(private baseService: BaseService) {}
 
-  getAll(subdomainId: number): Observable<APIResponse<UserListResponse[]>> {
+  getAll(subscriptionId: number): Observable<APIResponse<UserListResponse[]>> {
     return this.baseService.get<APIResponse<UserListResponse[]>>(
-      `${this.userController}?subdomainId=${subdomainId}`
+      `${this.userController}?subscriptionId=${subscriptionId}`
     );
   }
 
   platformDropDown(): Observable<APIResponse<BaseDto[]>> {
-    return this.baseService.get<APIResponse<UserListResponse[]>>(
+    return this.baseService.get<APIResponse<BaseDto[]>>(
       `${this.platformPlansAPI}`
     );
   }
 
-  subDomainDropDown(): Observable<APIResponse<BaseDto[]>> {
-    return this.baseService.get<APIResponse<UserListResponse[]>>(
-      `${this.subDomainAPI}`
-    );
-  }
+  // subDomainDropDown(): Observable<APIResponse<BaseDto[]>> {
+  //   return this.baseService.get<APIResponse<UserListResponse[]>>(
+  //     `${this.subDomainAPI}`
+  //   );
+  // }
 
   inviteUser(
     userModel: InviteUserDto
