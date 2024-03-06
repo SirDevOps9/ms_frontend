@@ -23,6 +23,7 @@ export class UserconfirmationComponent implements OnInit {
   validId = false;
   photo: any;
   errorMessage: string;
+  photoSrc:string="assets/images/users/pic.jpg"
   constructor(
     private loaderservice: LoaderService,
     private router: RouterService,
@@ -57,6 +58,10 @@ export class UserconfirmationComponent implements OnInit {
       this.photo = event.target.files[0];
       const fData = new FormData();
       fData.append('photo', this.photo);
+    }
+    const file = event.srcElement.files
+    if (file) {
+      this.photoSrc = URL.createObjectURL(file[0])
     }
   }
   GetEmail() {

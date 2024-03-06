@@ -53,10 +53,13 @@ export const BORoutes = [
       { path: 'plan', component: PlanComponent, 
       canActivate: [AuthGuard] ,
        data: {
-        breadcrumb: BreadcrumbLabel.PLAN,
+        breadcrumb:  BreadcrumbLabel.PLAN,
       }
     },
-      { path: 'my-plans', component: MyPlansComponent, canActivate: [AuthGuard] },
+      { path: 'my-plans', component: MyPlansComponent, canActivate: [AuthGuard] 
+      , data: {
+        breadcrumb: BreadcrumbLabel.MY_PLAN,
+      } },
     ],
   },
   { path: 'users/userconfirmation/:id', component: UserconfirmationComponent },

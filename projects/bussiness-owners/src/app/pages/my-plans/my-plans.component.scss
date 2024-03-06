@@ -13,22 +13,21 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 30%;
+      //width: 30%;
       margin-inline-end: 20px;
       margin-bottom: 20px;
       background-color: #fff;
       padding: 10px 5px;
       border-radius: 8px;
-
+      .plan_cover{
+        width: 200px;
+        height: 118px;
+        background-image: url("../../../assets/images/plans/plancover.png");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
       .plan_description{
-        width: 60%;
-        margin: auto;
-        text-align: center;
-        .plan_ico{
-          color: #1A8EAE !important;
-          font-size: 20px;
-          font-weight: 800;
-        }
         .title{
           margin-inline-start: 5px;
           margin-inline-end: 10px;
@@ -54,12 +53,11 @@
         .card_name{
           margin: 5px 0px;
           color: #383A42;
-          font-size: 20px;
-          font-weight: 700;
+          font-size: 18px;
         }
         .card_subdomain{
-          margin: 20px 0px;
-          color: #6B7280;
+          margin: 5px 0px;
+          color: #2B6FAE;
           font-size:16px ;
         }
         .btn_manage{

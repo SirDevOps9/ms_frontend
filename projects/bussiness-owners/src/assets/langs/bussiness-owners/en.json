@@ -25,7 +25,8 @@
     "Users": "Users",
     "Plan": "Plan",
     "AddCompany":"Add company",
-    "ListCompany": "Company list"
+    "ListCompany": "Company list",
+    "MyPlan":"My Plan"
   },
   "User": {
     "PageName": "Users Index",

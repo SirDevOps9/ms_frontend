@@ -88,10 +88,10 @@
                     </button>
                   </div>
                   <div class="profaile_sec">
-                    <button (click)="cardDrob()" class="btn_profaile" style="background-image: url('{{getProfilePic()}}');">
+                    <button (click)="cardDrob()" #cardDr class="btn_profaile" style="background-image: url('{{getProfilePic()}}');">
 
                     </button>
-                    <div class="profaile_card_drob" *ngIf="showcard">
+                    <div class="profaile_card_drob" #profaile_card_drob *ngIf="showcard">
                         <div class="header_card">
                             <div class="photo">
                               <img [src]="getProfilePic()">

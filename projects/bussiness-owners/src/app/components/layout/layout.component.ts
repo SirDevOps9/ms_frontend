@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { LanguageService } from '../../../../../shared-lib/src/lib/services/language.service';
 import { AuthService } from 'microtec-auth-lib';
 import { MenuItem } from 'primeng/api';
@@ -27,21 +27,34 @@ export class LayoutComponent implements OnInit {
   menuItems: MenuItem[];
   
   home: MenuItem | undefined;
+  @ViewChild('cardDr') cardDr: ElementRef;
+      @ViewChild('profaile_card_drob') profaile_card_drob: ElementRef;
   constructor(
     public languageService: LanguageService,
     public authService: AuthService,
     private logService:LogService,
     private env: EnvironmentService,
     private router: Router,
-     private activatedRoute: ActivatedRoute
+     private activatedRoute: ActivatedRoute,
+     private renderer: Renderer2
 
   ) {
     this.userName = this.authService.getUserName;
     this.userData = this.authService.getUserData().userData;
     this.languageService.setLang();
+    this.renderer.listen('window', 'click',(e:Event)=>{
+      if(this.showcard==true){
+        if(e.target !== this.cardDr.nativeElement && e.target!==this.profaile_card_drob.nativeElement){
+          this.showcard=false;
+      }
+      }
+    
+ });
+
   }
   ngOnInit(): void {
     this.menuItems = this.createBreadcrumb(this.activatedRoute.root)
+     
   this.countries = [
     { name: 'Australia', code: 'AU' },
     { name: 'Brazil', code: 'BR' },
@@ -54,7 +67,7 @@ export class LayoutComponent implements OnInit {
     { name: 'Spain', code: 'ES' },
     { name: 'United States', code: 'US' }
 ]
-this.home = { icon: 'pi pi-home', routerLink: '/plan' };
+this.home = { icon: 'pi pi-home', routerLink: '/my-plans' };
 this.router.events
 .pipe(filter(event => event instanceof NavigationEnd))
 .subscribe(() => this.menuItems = this.createBreadcrumb(this.activatedRoute.root));
@@ -73,6 +86,7 @@ private createBreadcrumb(route: ActivatedRoute, url: string = '', breadcrumbs: M
     if (routeURL !== '') {
       url += `/${routeURL}`;
     }
+
 
     const label = child.snapshot.data['breadcrumb'];
     if (label) {
@@ -101,6 +115,7 @@ private createBreadcrumb(route: ActivatedRoute, url: string = '', breadcrumbs: M
         this.showcard=true
     }
   }
+  
   toggleSidebar(){
     if(this.sidebarOpen==true){
         this.sidebarOpen=false
@@ -120,6 +135,6 @@ private createBreadcrumb(route: ActivatedRoute, url: string = '', breadcrumbs: M
   }
 
   getProfilePic(){
-    return this.userData.userType == "4" ? this.env.photoBaseUrl + '/api/Users/GetProfilePic?userId=' + this.userData.sub : 'assets/images/users/default.png';
+    return this.userData.userType == "4" ? this.env.photoBaseUrl + '/api/Users/GetProfilePic?userId=' + this.userData.sub : 'assets/images/users/pic.jpg';
   }
 }
