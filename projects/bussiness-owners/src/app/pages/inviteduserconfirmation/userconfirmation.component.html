@@ -164,7 +164,7 @@
 </ng-container> -->
 
 <ng-container *ngIf="!validId">
-  <div>
+  <div class="not_valid">
     NOT VALID ACOUNT
   </div>
 </ng-container>
@@ -172,7 +172,7 @@
 <ng-container *ngIf="errorMessage">
   <div>{{ errorMessage }}</div>
 </ng-container>
-<div class="confirm_invitation_pages" >
+<div class="confirm_invitation_pages"  *ngIf="validId">
 <div class="container_page">
   <div class="welcome_card ">
     <h2 class="title" >Hello!</h2>
