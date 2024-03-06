@@ -1,6 +1,8 @@
 export class BreadcrumbLabel {
-    static PLAN = 'Layout.Plan';
-    static USERS = 'Layout.Users';
-    static ADD_COMPANY = 'Layout.AddCompany';
-    static COMPANY_LIST = 'Layout.ListCompany';
+    static PLAN = 'Plan';
+    static USERS = 'Users';
+    static ADD_COMPANY = 'Add company';
+    static COMPANY_LIST = 'Company list';
+    static MY_PLAN = 'My Plan';
+
   }

@@ -25,7 +25,8 @@
     "Users": "المستخدمين",
     "Plan": "باقات",
     "AddCompany":"أضف شركة",
-    "ListCompany": "قائمة الشركات"
+    "ListCompany": "قائمة الشركات",
+    "MyPlan":"باقاتي"
   },
   "User": {
     "PageName": "صفحة المستخدمين",

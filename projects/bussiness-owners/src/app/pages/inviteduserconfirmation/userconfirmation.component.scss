@@ -2,7 +2,7 @@
     background: linear-gradient(345deg, rgba(255,255,255,1) 0%, rgba(234,237,238,1) 0%);
 
     .container_page{
-        height: 80vh;
+        height: 100vh;
         display: flex;
         align-items: start;
         justify-content: center;
@@ -42,9 +42,10 @@
             }
             .form_content{
                 .uplode_photo{
-                    max-width: 50%;
+                    //max-width: 50%;
                     display: flex;
-                    align-items: center;
+                   // align-items: center;
+                    flex-direction: column;
                     #photo{
                         width: 175px;
                         height: 150px;
@@ -54,7 +55,20 @@
                         background-repeat: no-repeat;
                         background-position: center;
                         background-size: cover;
+                        
 
+                    }
+                    #btnuplode{
+                        margin-top: 20px;
+                        width: 100px;
+                        padding: 5px;
+                        background-color: #1A8EAE;
+                        color: #fff;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        
                     }
                     .information{
                         .information_title{

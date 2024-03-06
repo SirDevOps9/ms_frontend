@@ -172,7 +172,7 @@
 <ng-container *ngIf="errorMessage">
   <div>{{ errorMessage }}</div>
 </ng-container>
-<div class="confirm_invitation_pages" *ngIf="validId" >
+<div class="confirm_invitation_pages" >
 <div class="container_page">
   <div class="welcome_card ">
     <h2 class="title" >Hello!</h2>
@@ -192,17 +192,27 @@
             <!-- <label for="photo" class="form-label">
               {{ "UserConfirmation.Photo" | translate }}
             </label> -->
-            <input
+            <!-- (change)="onFileSelected($event)" -->
+            <div id="photo" style="background-image: url('{{photoSrc}}');">
+                
+            </div>
+            <!-- <input
               type="file"
-              id="photo"
+              
+              accept="image/*"
+               (change)="onFileSelected($event)"
+              
+            /> -->
+             <input
+              type="file"
+              id="btnuplode"
               accept="image/*"
               (change)="onFileSelected($event)"
-              style="background-image: url('assets/images/users/editdefault.png');"
-            />
+              />
           </div>
-          <div>
+          <!-- <div>
 
-          </div>
+          </div> -->
           <div class="information">
             <p class="information_title">Add User Photo Here</p>
             <p class="information_subtitle">250px *500px  (JPG, PNG)</p>

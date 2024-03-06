@@ -8,7 +8,7 @@ import { SubscriptionService } from "../../services/subscription.httpservice";
 
 @Component({
     templateUrl: './my-plans.component.html',
-    styleUrls: ['./../Plan/Plan.component.scss'],
+    styleUrls: ['./my-plans.component.scss'],
 })
 export class MyPlansComponent implements OnInit {
 
