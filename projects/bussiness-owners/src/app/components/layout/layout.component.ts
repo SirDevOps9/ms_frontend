@@ -19,7 +19,6 @@ export class LayoutComponent implements OnInit {
   userData: UserData;
   showcard:boolean=false;
   sidebarOpen:boolean=false;
-  submenu:boolean=false;
   countries: any[] | undefined;
   
   selectedCountry: string | undefined;
@@ -28,7 +27,7 @@ export class LayoutComponent implements OnInit {
   
   home: MenuItem | undefined;
   @ViewChild('cardDr') cardDr: ElementRef;
-      @ViewChild('profaile_card_drob') profaile_card_drob: ElementRef;
+  @ViewChild('profaile_card_drob') profaile_card_drob: ElementRef;
   constructor(
     public languageService: LanguageService,
     public authService: AuthService,
@@ -123,9 +122,6 @@ private createBreadcrumb(route: ActivatedRoute, url: string = '', breadcrumbs: M
     }else{
         this.sidebarOpen=true
     }
-  }
-  showSubmenu(){
-    this.submenu=true
   }
   activeTag(id:any){
     const targetElementId = document.getElementById(id)

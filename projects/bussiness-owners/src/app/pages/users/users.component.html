@@ -1,97 +1,3 @@
-<!-- <div class="container mt-4"> -->
-  <!-- <div class="row justify-content-center">
-     <div class="col-md-8">
-      <div class="card">
-        <div
-          class="card-header d-flex justify-content-between align-items-center"
-        >
-          <h3 class="card-title">{{ "User.PageName" | translate }}</h3>
-          <a class="btn btn-primary" (click)="openInviteModal()">
-            {{ "User.InviteUser" | translate }}
-          </a>
-        </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-striped custom-table">
-              <thead class="thead-custom">
-                <tr>
-                  <th>
-                    {{ "User.Id" | translate }}
-                  </th>
-                  <th>
-                    {{ "User.Name" | translate }}
-                  </th>
-                  <th>
-                    {{ "User.Email" | translate }}
-                  </th>
-                  <th>
-                    {{ "User.LastLogin" | translate }}
-                  </th>
-                  <th>
-                    {{ "User.InvitationStatus" | translate }}
-                  </th>
-                  <th>
-                    {{ "User.Status" | translate }}
-                  </th>
-                  <th>
-                    {{ "User.Actions" | translate }}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of userData">
-                  <td>{{ item["id"] }}</td>
-                  <td>{{ item["name"] }}</td>
-                  <td>{{ item["email"] }}</td>
-                  <td>
-                    {{ item["lastLoginDate"] | date : "dd/MM/yyyy HH:mm" }}
-                  </td>
-                  <td>
-                    {{
-                      (item.invitationStatus === 1
-                        ? "User.Invited"
-                        : item.invitationStatus === 2
-                        ? "User.Accepted"
-                        : ""
-                      ) | translate
-                    }}
-                  </td>
-                  <td *ngIf="item.invitationStatus == 1">
-                    <button
-                    class="btn btn-info"
-                    (click)="resendInvitation(item.id)"
-                  >  {{ "User.Resend" | translate }}
-                  </button>
-                  </td>
-                  <td *ngIf="item.invitationStatus == 2">
-                    <button
-                      class="btn btn-info"
-                      (click)="toggle(item.id, item.isActive)"
-                    >
-                      {{
-                        (item.isActive ? "User.Deactivate" : "User.Activate")
-                          | translate
-                      }}
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      class="btn btn-warning"
-                      (click)="editUser(item.id)"
-                    >
-                      {{ "User.Edit" | translate }}
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div> 
-
-</div> -->
-
 <div class="user_page mt-4">
   <p-table
   #dt
@@ -110,7 +16,6 @@
  
   <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-end">
-          <!-- <h5 class="m-0">User information</h5> -->
 
           <span class="p-input-icon-left">
               <i class="pi pi-search"></i>
@@ -135,7 +40,7 @@
       <tr>
           <td>
             <div class=" user_info">
-              <img  [src]="getProfilePic(user.id) "  onerror="this.src='assets/images/users/default.png'"  width="50" class="shadow-4 img_user"/>
+              <img  [src]="getProfilePic(user.id) "  onerror="this.src='assets/images/users/pic.jpg'"  width="50" class="shadow-4 img_user"/>
               <p>{{ user.name }}</p>
             </div>
           </td>

@@ -1,71 +1,3 @@
-<!-- <div class="container mt-4">
-  <div class="row justify-content-center">
-    
-    <div class="col-md-8">
-      <div class="card">
-        <div
-          class="card-header d-flex justify-content-between align-items-center"
-        >
-          <h3 class="card-title">{{ "Company.CompanyList" | translate }}</h3>
-          <a class="btn btn-primary" (click)="navigateToAdd()">
-            {{ "Company.Add.AddCompany" | translate }}
-          </a>
-        </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-striped custom-table">
-              <thead class="thead-custom">
-                <tr>
-                  <th>
-                    {{ "Company.Name" | translate }}
-                  </th>
-                  <th>
-                    {{ "Company.CompanyType" | translate }}
-                  </th>
-                  <th>
-                    {{ "Company.MobileNumber" | translate }}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of companies">
-                  <td>{{ item["name"] }}</td>
-                  <td>{{ item["companyType"] }}</td>
-                  <td>{{  item["mobileNumber"]  }}</td>
-
-                  <td>
-                    <button
-                      class="btn btn-info"
-                      (click)="toggle(item.id, item.isActive)"
-                    >
-                      {{
-                        (item.isActive
-                          ? "Company.Deactivate"
-                          : "Company.Activate"
-                        ) | translate
-                      }}
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      class="btn btn-info"
-                      (click)="navigateToEdit(item.id)"
-                    >
-                      {{
-                        "Company.Edit" | translate
-                      }}
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-
 <div class="company_page mt-4">
   <p-table
   #dt
@@ -85,7 +17,6 @@
  
   <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-end">
-          <!-- <h5 class="m-0">{{ "Company.CompanyList" | translate }}</h5>  -->
 
           <span class="p-input-icon-left">
               <i class="pi pi-search"></i>

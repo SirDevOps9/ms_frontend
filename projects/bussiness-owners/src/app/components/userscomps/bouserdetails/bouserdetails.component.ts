@@ -1,22 +1,15 @@
-import { Component, Inject, Input, OnInit, input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from '../../../services/users.httpsservice';
 import {
   BaseDto,
   EnvironmentService,
   LanguageService,
-  LoaderService,
   LogService,
-  RouterService,
   ToasterService,
-  customValidators,
 } from 'shared-lib';
-import { DialogService, DynamicDialogConfig, DynamicDialogRef  } from 'primeng/dynamicdialog';
-
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {DynamicDialogConfig, DynamicDialogRef  } from 'primeng/dynamicdialog';
 import { boupdateuser } from '../../../models/users/boupdateduser.model';
 import { SubscriptionService } from '../../../services/subscription.httpservice';
-import { SubscriptionDto } from '../../../models/subscription/subscriptionDto';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -25,17 +18,13 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./bouserdetails.component.scss']
 })
 export class bouserdetails implements OnInit {
-  userForm: FormGroup;
   userName:string;
   userEmail:string;
   photo:string;
-  // domains: BaseDto[];
   actions: BaseDto[];
   selectedPlat:number[];
   selectedSubscriptions:string[];
  @Input() formId:string;
-  subdomains: SubscriptionDto[]=[];
-  platformplans: any[]=[]; 
   Id:string;
   domains: {id: string; name: string}[];
 
@@ -43,12 +32,9 @@ export class bouserdetails implements OnInit {
     public config: DynamicDialogConfig,
     public dialogService: DynamicDialogRef,
     private ref: DynamicDialogRef,
-    private fb: FormBuilder 
-    ,private Userservice :UserService,
-    private subscriptionService: SubscriptionService 
-    ,private router: RouterService
+    private Userservice :UserService,
+    private subscriptionService: SubscriptionService
     , private logService: LogService
-    , private loaderservice: LoaderService
     ,private toasterService: ToasterService
     , public languageService: LanguageService,
     private env: EnvironmentService,
@@ -58,18 +44,6 @@ export class bouserdetails implements OnInit {
 
   ngOnInit(): void {
     this.Id = this.config.data.Id;
-    this.userForm = this.fb.group({
-      username: [ { value: '', disabled: true }],
-      email: [ { value: '', disabled: true }],
-      photo: [ { value: '', disabled: true }],
-      subdomain: [[]],
-      platformplan: [[]]
-    });
-    // this.subscriptionService.getAll().subscribe(r => this.subdomains = r.response)
-
-    // this.Userservice.platformDropDown().subscribe(data => {
-    //   this.platformplans = data.response;
-    // });
     this.getformdata();
     forkJoin([
       this.subscriptionService.getAll(),
@@ -88,11 +62,6 @@ export class bouserdetails implements OnInit {
         this.userEmail= userData.email;
         this.selectedSubscriptions=userData.subscriptions;
         this.selectedPlat=userData.boRoles;
-        
-        // this.userForm.patchValue({
-        //   subdomain: userData.subDomain, 
-        //   plateformPlan: userData.pLatformplan, 
-        // });
       },
       error: (err) => {
       },
@@ -111,9 +80,6 @@ export class bouserdetails implements OnInit {
         bORoles:this.selectedPlat,
         id:this.Id
       }
-       
-      
-
       this.logService.log(UpdateUserDto);
       this.Userservice.updateUser(UpdateUserDto, this.Id ).subscribe({
         next: (res) => {
@@ -135,10 +101,6 @@ export class bouserdetails implements OnInit {
   }
   getProfilePic(){
     return this.env.photoBaseUrl + '/api/Users/GetProfilePic?userId=' + this.Id
-    
-    
-    
-    
   }
 
 }
