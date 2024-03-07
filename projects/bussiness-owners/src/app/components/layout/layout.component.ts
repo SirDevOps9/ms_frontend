@@ -9,7 +9,7 @@ import { LanguageService } from '../../../../../shared-lib/src/lib/services/lang
 import { AuthService } from 'microtec-auth-lib';
 import { MenuItem } from 'primeng/api';
 import { EnvironmentService, LogService } from 'shared-lib';
-import { UserData } from '../../models/users/userdata.model';
+import { UserData } from '../../modules/user/models/userdata.model';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 

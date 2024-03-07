@@ -16,16 +16,12 @@ import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
 import { LayoutComponent } from './components/layout/layout.component';
-import { UsersComponent } from './pages/users/users.component';
-import { UserconfirmationComponent } from './pages/inviteduserconfirmation/userconfirmation.component';
 import {
   MicrotecAuthLibModule,
   ERPInterceptor,
   CustomStorageService,
 } from 'microtec-auth-lib';
-import { UserInviteFormComponent } from './components/userscomps/invite-form/user-invite-form/user-invite-form.component';
-import { AddCompanyComponent } from './pages/company/add-compny/add-compny.component';
-import { CompanyComponent } from './pages/company/company/company.component';
+import { AddCompanyComponent } from './modules/company/pages/add-compny/add-compny.component';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -38,30 +34,22 @@ import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { AccordionModule } from 'primeng/accordion';
-import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetails.component';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
-import { PlanComponent } from './pages/Plan/Plan.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { CompaniesListComponent } from './pages/company/companies-list/companies-list.component';
-import { EditCompanyComponent } from './pages/company/edit-company/edit-company.component';
+import { CompaniesListComponent } from './modules/company/pages/companies-list/companies-list.component';
+import { EditCompanyComponent } from './modules/company/pages/edit-company/edit-company.component';
 import { PasswordModule } from 'primeng/password';
 import { CheckboxModule } from 'primeng/checkbox';
-import { MyPlansComponent } from './pages/my-plans/my-plans.component';
-import { CompanyModule } from './pages/company/company.module';
+import { CompanyModule } from './modules/company/company.module';
+import { PlanModule } from './modules/plan/plan.module';
+import { UserModule } from './modules/user/user.module';
 @NgModule({
   declarations: [
     AppComponent,
-    UsersComponent,
     LayoutComponent,
-    UserInviteFormComponent,
     AddCompanyComponent,
-    //CompanyComponent,
-    UserconfirmationComponent,
-    bouserdetails,
-    PlanComponent,
     NotFoundComponent,
     CompaniesListComponent,
-    MyPlansComponent,
     NotFoundComponent,
     EditCompanyComponent,
   ],
@@ -107,6 +95,8 @@ import { CompanyModule } from './pages/company/company.module';
     PasswordModule,
     CheckboxModule,
     CompanyModule,
+    PlanModule,
+    UserModule
   ],
   providers: [
     DialogService,
