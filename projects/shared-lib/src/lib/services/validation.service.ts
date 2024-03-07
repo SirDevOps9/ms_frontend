@@ -380,6 +380,7 @@ export const customValidators = {
   noSpecialChars: PreventSpecialChars,
   mobileWithPrefix: IsValidMobileWithPrefix,
   agreedToTermsRequired: IsAgreedToTermsRequired,
-  validPassword: validPassword,
+  password: validPassword,
+  confrimPassword: ConfirmPasswordValidator,
   length: lengthValidator,
 };
