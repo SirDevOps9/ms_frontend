@@ -1,23 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import {
   FormsService,
   LanguageService,
   LoaderService,
-  LogService,
   LookupsService,
   RouterService,
   ToasterService,
   customValidators,
 } from 'shared-lib';
 import { CompanyService } from '../../../services/company.httpservice';
-import { AddCompanyDto } from '../../../models/company/addcompany';
-import { CompanyTypes } from '../../../enums/companytypes';
+import { AddCompanyDto, CompanyTypes } from '../models';
 @Component({
   selector: 'app-new-company',
   templateUrl: './new-company.component.html',
@@ -32,8 +25,6 @@ export class NewCompanyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initializeCompanyForm();
-
     this.loadLookups();
   }
 
@@ -84,8 +75,9 @@ export class NewCompanyComponent implements OnInit {
       currencyId: new FormControl('', [customValidators.required]),
       website: new FormControl('', [customValidators.required]),
       address: new FormControl('', [
-        customValidators.required,
         customValidators.length(10, 100),
+        customValidators.required,
+        customValidators.number,
       ]),
       mobileNumber: new FormControl('', [customValidators.required]),
       mobileNumberCode: new FormControl('', [customValidators.required]),
@@ -99,11 +91,12 @@ export class NewCompanyComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formsService: FormsService,
     private companyService: CompanyService,
-    private logService: LogService,
     private toasterService: ToasterService,
     private loaderService: LoaderService,
     public lookupsService: LookupsService,
     private languageService: LanguageService,
     private routerService: RouterService
-  ) {}
+  ) {
+    this.initializeCompanyForm();
+  }
 }

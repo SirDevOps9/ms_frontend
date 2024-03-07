@@ -1,3 +1,4 @@
+{{ appControl.errors | json }}
 <div
   class="error"
   *ngIf="
@@ -10,9 +11,7 @@
   <span class="errorMessage" *ngIf="appControl.errors?.['invalidOnlySaudiId']">
     {{ "validation.invalidOnlySaudiId" | translate }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['customRequired']">
-    {{ "validation.required" | translate }}
-  </span>
+
   <span class="errorMessage" *ngIf="appControl.errors?.['invalidIqamaiId']">
     {{ "validation.invalidIqamaiId" | translate }}
   </span>

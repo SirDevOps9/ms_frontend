@@ -128,7 +128,7 @@ export class LayoutComponent implements OnInit {
   }
 
   getProfilePic() {
-    return this.userData.userType == '4'
+    return this.userData?.userType == '4'
       ? this.env.photoBaseUrl +
           '/api/Users/GetProfilePic?userId=' +
           this.userData.sub

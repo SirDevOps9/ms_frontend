@@ -10,17 +10,6 @@ function notOnlyWhitespaceValidator() {
   };
 }
 
-export function required(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const value = control?.value?.toString()?.trim();
-    if (value === null || value === undefined || value === '') {
-      return { customRequired: true };
-    }
-
-    return null;
-  };
-}
-
 function IsNumber(control: AbstractControl) {
   const hasSpacesAround = HasWhitespaceAroundString(control?.value);
 
@@ -287,10 +276,16 @@ function IsIqamaId(control: AbstractControl) {
   }
 }
 
-export function lengthValidator(
-  minLength: number,
-  maxLength: number
-): ValidatorFn {
+function IsRequired(control: AbstractControl) {
+  const value = control?.value?.toString()?.trim();
+  if (value === null || value === undefined || value === '') {
+    return { required: true };
+  }
+
+  return null;
+}
+
+function lengthValidator(minLength: number, maxLength: number): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     if (
       control.value == null ||
@@ -370,7 +365,7 @@ export const ConfirmPasswordValidator: ValidatorFn = (
 
 export const customValidators = {
   notOnlyWhitespaceValidator: notOnlyWhitespaceValidator,
-  required: required,
+  required: IsRequired,
   mobile: IsValidMobile,
   phone: IsValidPhone,
   notUnderAge: minimumNumberOfYears,

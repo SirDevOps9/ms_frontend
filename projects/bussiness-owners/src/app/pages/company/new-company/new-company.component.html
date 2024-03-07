@@ -2,11 +2,7 @@
   [title]="'Company.Add.Step' | translate"
   [subTitle]="'Company.Add.Step' | translate"
 >
-  <form
-    [formGroup]="companyForm"
-    (ngSubmit)="onSubmit()"
-    *ngIf="lookupsService.lookupsLoaded | async"
-  >
+  <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
     <lib-form-group>
       <lib-label [appControl]="companyForm.controls['name']">
         {{ "Company.Add.CompanyName" | translate }}
