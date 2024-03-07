@@ -8,6 +8,7 @@ import {
   RouterService,
   ToasterService,
   customValidators,
+  lookupDto,
 } from 'shared-lib';
 import { CompanyService } from '../../../services/company.httpservice';
 import { AddCompanyDto, CompanyTypes } from '../models';
@@ -19,6 +20,7 @@ import { AddCompanyDto, CompanyTypes } from '../models';
 })
 export class NewCompanyComponent implements OnInit {
   companyForm: FormGroup;
+  lookups: { [key: string]: lookupDto[] };
 
   get subscriptionId(): string {
     return this.routerService.currentId;
@@ -26,6 +28,14 @@ export class NewCompanyComponent implements OnInit {
 
   ngOnInit() {
     this.loadLookups();
+
+    this.initializeCompanyForm();
+
+    this.Subscribe();
+  }
+
+  Subscribe() {
+    this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
   }
 
   loadLookups() {
@@ -38,8 +48,7 @@ export class NewCompanyComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.companyForm);
-    if (this.formsService.validForm(this.companyForm, true)) return;
+    if (!this.formsService.validForm(this.companyForm, true)) return;
 
     this.loaderService.show();
 
@@ -96,7 +105,5 @@ export class NewCompanyComponent implements OnInit {
     public lookupsService: LookupsService,
     private languageService: LanguageService,
     private routerService: RouterService
-  ) {
-    this.initializeCompanyForm();
-  }
+  ) {}
 }

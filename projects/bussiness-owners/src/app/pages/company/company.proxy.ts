@@ -33,6 +33,7 @@ export class CompanyProxy {
   getLookups(): Observable<APIResponse<lookupsListDto>> {
     return this.httpService.get<APIResponse<lookupsListDto>>('Company/Lookups');
   }
+
   getById(id: number): Observable<APIResponse<ResponseCompanyDto>> {
     return this.httpService.get<APIResponse<ResponseCompanyDto>>(
       `Company/${id}`

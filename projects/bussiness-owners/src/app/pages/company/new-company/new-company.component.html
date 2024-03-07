@@ -2,7 +2,11 @@
   [title]="'Company.Add.Step' | translate"
   [subTitle]="'Company.Add.Step' | translate"
 >
-  <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+  <form
+    [formGroup]="companyForm"
+    (ngSubmit)="onSubmit()"
+    *ngIf="lookupsService.lookupsLoaded"
+  >
     <lib-form-group>
       <lib-label [appControl]="companyForm.controls['name']">
         {{ "Company.Add.CompanyName" | translate }}
@@ -19,6 +23,7 @@
       <lib-select
         formControlName="countryCode"
         [options]="'countries' | lookups"
+        [options]="lookups['countries']"
         optionValue="id"
         optionLabel="name"
       >
