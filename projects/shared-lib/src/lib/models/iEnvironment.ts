@@ -4,6 +4,7 @@ export interface IEnvironment {
   Version: string;
   ClientId: string;
   Platform: string;
+  photoBaseUrl: string;
   openIdConfig: {
     authority: string;
     redirectUrl: string;

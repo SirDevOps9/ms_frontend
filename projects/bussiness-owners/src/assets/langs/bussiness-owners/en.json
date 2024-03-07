@@ -23,7 +23,10 @@
   "Layout": {
     "Dashboard": "Dashboard",
     "Users": "Users",
-    "Company": "Company"
+    "Plan": "Plan",
+    "AddCompany":"Add company",
+    "ListCompany": "Company list",
+    "MyPlan":"My Plan"
   },
   "User": {
     "PageName": "Users Index",
@@ -45,6 +48,8 @@
     "Accepted": "Accepted",
     "Actions": "Actions",
     "Edit": "Edit",
+    "AdminUser": "Admin",
+    "InvitedUser": "Manager",
     "Inviteform": {
       "FormHeader": "Invite User",
       "EmailLabel": "Email Login",
@@ -87,6 +92,7 @@
     "Activate": "Activate",
     "CompanyType": "Company Type",
     "MobileNumber":"Phone",
+    "Edit":"Edit",
     "Add": {
       "Plan":"Plan",
       "CompanyAddedSuccessfully": "Company added successfully",
@@ -120,6 +126,12 @@
     "ConfirmPassword": "ConfirmPassword",
     "policy": "I accept the user policy",
     "Save": "Save",
-    "Photo": "Photo"
+    "Photo": "Photo",
+    "IsRequired":"is Required",
+    "Doesnotmatch":"does not match",
+    "LowerCaseLetter":"Password must contain Lower Case Letter ",
+    "UpperCaseLetter":"Password must contain Upper Case Letter ",
+    "SpecialCharacter":"Password must contain Special Character ",
+    "PasswordmustcontainNumber":"Password must contain Number "
   }
 }

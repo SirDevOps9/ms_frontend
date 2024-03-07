@@ -44,6 +44,10 @@ import { PlanComponent } from './pages/Plan/Plan.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { NewCompanyComponent } from './pages/company/new-company/new-company.component';
 import { CompaniesListComponent } from './pages/company/companies-list/companies-list.component';
+import { EditCompanyComponent } from './pages/company/edit-company/edit-company.component';
+import { PasswordModule } from 'primeng/password';
+import { CheckboxModule } from 'primeng/checkbox';
+import { MyPlansComponent } from './pages/my-plans/my-plans.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +62,9 @@ import { CompaniesListComponent } from './pages/company/companies-list/companies
     NotFoundComponent,
     NewCompanyComponent,
     CompaniesListComponent,
+    MyPlansComponent,
+    NotFoundComponent,
+    EditCompanyComponent,
   ],
   imports: [
     CommonModule,
@@ -98,6 +105,8 @@ import { CompaniesListComponent } from './pages/company/companies-list/companies
     ToggleButtonModule,
     AccordionModule,
     DynamicDialogModule,
+    PasswordModule,
+    CheckboxModule,
   ],
   providers: [
     DialogService,

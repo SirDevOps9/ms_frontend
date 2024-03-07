@@ -1,6 +1,6 @@
 export interface AddCompanyDto {
   name: string;
-  planId: number;
+  subscriptionId: string;
   website: string;
   address: string;
   mobileNumberCode: string;

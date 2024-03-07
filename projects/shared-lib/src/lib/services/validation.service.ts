@@ -1,5 +1,12 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import {
+  AbstractControl,
+  ValidationErrors,
+  Validator,
+  ValidatorFn,
+} from '@angular/forms';
 import { EnvironmentService } from './environment.service';
+import { Input } from '@angular/core';
+import { hasUncaughtExceptionCaptureCallback } from 'process';
 
 function notOnlyWhitespaceValidator() {
   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -23,6 +30,10 @@ export function required(): ValidatorFn {
 }
 
 function IsNumber(control: AbstractControl) {
+  const hasSpacesAround = HasWhitespaceAroundString(control?.value);
+
+  if (hasSpacesAround) return { hasWhitespaceAroundString: true };
+
   if (
     control.value == null ||
     control.value === '' ||
@@ -41,6 +52,10 @@ function IsNumber(control: AbstractControl) {
   }
 }
 function IsValidMobileWithPrefix(control: AbstractControl) {
+  const hasSpacesAround = HasWhitespaceAroundString(control?.value);
+
+  if (hasSpacesAround) return { hasWhitespaceAroundString: true };
+
   if (
     control.value == null ||
     control.value === '' ||
@@ -59,6 +74,10 @@ function IsValidMobileWithPrefix(control: AbstractControl) {
   }
 }
 function IsValidMobile(control: AbstractControl) {
+  const hasSpacesAround = HasWhitespaceAroundString(control?.value);
+
+  if (hasSpacesAround) return { hasWhitespaceAroundString: true };
+
   if (
     control.value == null ||
     control.value === '' ||
@@ -78,6 +97,10 @@ function IsValidMobile(control: AbstractControl) {
 }
 
 function IsValidPhone(control: AbstractControl) {
+  const hasSpacesAround = HasWhitespaceAroundString(control?.value);
+
+  if (hasSpacesAround) return { hasWhitespaceAroundString: true };
+
   if (
     control.value == null ||
     control.value === '' ||
@@ -96,6 +119,10 @@ function IsValidPhone(control: AbstractControl) {
 }
 
 function PreventSpecialChars(control: AbstractControl) {
+  const hasSpacesAround = HasWhitespaceAroundString(control?.value);
+
+  if (hasSpacesAround) return { hasWhitespaceAroundString: true };
+
   if (
     control.value == null ||
     control.value === '' ||
@@ -122,32 +149,15 @@ function IsAgreedToTermsRequired(control: AbstractControl) {
   }
 }
 
-function IsAbove18(control: AbstractControl) {
-  const enteredDate = control.value;
-
-  if (!enteredDate) {
-    // Return null if the value is empty, as it means the field is not required.
-    return null;
-  }
-
-  const currentDate = new Date();
-  const inputDate = new Date(enteredDate);
-
-  const timeDiff = currentDate.getTime() - inputDate.getTime();
-  const yearsDiff = timeDiff / (1000 * 60 * 60 * 24 * 365.25); // Taking leap years into account
-
-  if (yearsDiff < 18) {
-    return { dateLessThan18YearsAgo: true };
-  }
-
-  return null;
-}
-
 function IsValidNationalMobile(control: AbstractControl) {
   return null;
 }
 
 function IsValidCRNumber(control: AbstractControl) {
+  const hasSpacesAround = HasWhitespaceAroundString(control?.value);
+
+  if (hasSpacesAround) return { hasWhitespaceAroundString: true };
+
   if (
     control.value == null ||
     control.value === '' ||
@@ -167,6 +177,10 @@ function IsValidCRNumber(control: AbstractControl) {
 }
 
 function IsValid700Number(control: AbstractControl) {
+  const hasSpacesAround = HasWhitespaceAroundString(control?.value);
+
+  if (hasSpacesAround) return { hasWhitespaceAroundString: true };
+
   if (
     control.value == null ||
     control.value === '' ||
@@ -185,7 +199,16 @@ function IsValid700Number(control: AbstractControl) {
   }
 }
 
+function HasWhitespaceAroundString(targetString: string): boolean {
+  const regularExpression = /^\s|\s$/;
+  return regularExpression.test(targetString);
+}
+
 function IsValidEmail(control: AbstractControl) {
+  const hasSpacesAround = HasWhitespaceAroundString(control?.value);
+
+  if (hasSpacesAround) return { hasWhitespaceAroundString: true };
+
   if (
     control.value == null ||
     control.value === '' ||
@@ -204,6 +227,10 @@ function IsValidEmail(control: AbstractControl) {
 }
 
 function IsValidSaudiId(control: AbstractControl) {
+  const hasSpacesAround = HasWhitespaceAroundString(control?.value);
+
+  if (hasSpacesAround) return { hasWhitespaceAroundString: true };
+
   if (
     control.value == null ||
     control.value === '' ||
@@ -225,6 +252,10 @@ function IsValidSaudiId(control: AbstractControl) {
 }
 
 function IsOnlySaudiId(control: AbstractControl) {
+  const hasSpacesAround = HasWhitespaceAroundString(control?.value);
+
+  if (hasSpacesAround) return { hasWhitespaceAroundString: true };
+
   if (
     control.value == null ||
     control.value === '' ||
@@ -243,6 +274,10 @@ function IsOnlySaudiId(control: AbstractControl) {
 }
 
 function IsIqamaId(control: AbstractControl) {
+  const hasSpacesAround = HasWhitespaceAroundString(control?.value);
+
+  if (hasSpacesAround) return { hasWhitespaceAroundString: true };
+
   if (
     control.value == null ||
     control.value === '' ||
@@ -260,21 +295,72 @@ function IsIqamaId(control: AbstractControl) {
   }
 }
 
+export function lengthValidator(
+  minLength: number,
+  maxLength: number
+): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (
+      control.value == null ||
+      control.value === '' ||
+      control.value.length === 0
+    ) {
+      return null;
+    }
+
+    const length: number = control.value.length;
+
+    if (length >= minLength && length <= maxLength) {
+      return null; // Validation passed
+    } else {
+      return { lengthRange: { min: minLength, max: maxLength } }; // Validation failed
+    }
+  };
+}
+
+function minimumNumberOfYears(age: number): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const hasSpacesAround = HasWhitespaceAroundString(control?.value);
+
+    if (hasSpacesAround) return { hasWhitespaceAroundString: true };
+
+    const enteredDate = control.value;
+
+    if (!enteredDate) {
+      // Return null if the value is empty, as it means the field is not required.
+      return null;
+    }
+
+    const currentDate = new Date();
+    const inputDate = new Date(enteredDate);
+
+    const timeDiff = currentDate.getTime() - inputDate.getTime();
+    const yearsDiff = timeDiff / (1000 * 60 * 60 * 24 * 365.25); // Taking leap years into account
+
+    if (yearsDiff < age) {
+      return { ageAbove: age };
+    }
+
+    return null;
+  };
+}
+
 export const customValidators = {
   notOnlyWhitespaceValidator: notOnlyWhitespaceValidator,
   required: required,
-  mobile: IsValidMobile,
-  phone: IsValidPhone,
-  notUnderAge: IsAbove18,
-  email: IsValidEmail,
-  saudiId: IsValidSaudiId,
-  onlySaudiId: IsOnlySaudiId,
-  saudiIqamaId: IsIqamaId,
-  nationalMobile: IsValidNationalMobile,
-  number: IsNumber,
-  cr700Number: IsValid700Number,
-  cRNumber: IsValidCRNumber,
-  noSpecialChars: PreventSpecialChars,
-  mobileWithPrefix: IsValidMobileWithPrefix,
-  agreedToTermsRequired: IsAgreedToTermsRequired,
+  isValidMobile: IsValidMobile,
+  isValidPhone: IsValidPhone,
+  IsValidEmail: IsValidEmail,
+  isValidSaudiId: IsValidSaudiId,
+  IsOnlySaudiId: IsOnlySaudiId,
+  IsIqamaId: IsIqamaId,
+  isValidNationalMobile: IsValidNationalMobile,
+  isNumber: IsNumber,
+  isValid700Number: IsValid700Number,
+  isValidCRNumber: IsValidCRNumber,
+  preventSpecialChars: PreventSpecialChars,
+  IsValidMobileWithPrefix: IsValidMobileWithPrefix,
+  isAgreedToTermsRequired: IsAgreedToTermsRequired,
+  lengthValidator: lengthValidator,
+  minimumNumberOfYears: minimumNumberOfYears,
 };

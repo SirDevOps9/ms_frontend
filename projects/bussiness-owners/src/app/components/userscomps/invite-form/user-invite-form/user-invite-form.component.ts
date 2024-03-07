@@ -2,6 +2,7 @@ import { UserListResponse } from './../../../../models/users/userlist.response';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { SubscriptionService } from 'projects/bussiness-owners/src/app/services/subscription.httpservice';
 import { UserService } from 'projects/bussiness-owners/src/app/services/users.httpsservice';
 import { forkJoin } from 'rxjs';
 import {
@@ -23,27 +24,33 @@ export class UserInviteFormComponent implements OnInit {
     public dialogService: DialogService,
     private fb: FormBuilder,
     private userService: UserService,
+    private subscriptionService: SubscriptionService,
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private loaderService: LoaderService,
     private ref: DynamicDialogRef
   ) {
     this.inviteForm = this.fb.group({
-      email: ['', [Validators.required, customValidators.email]],
       subDomains: ['', Validators.required],
       plans: ['', Validators.required],
+      email: ['', [customValidators.required, customValidators.email]],
+      subscriptions: ['', Validators.required],
+      bORoles: ['', Validators.required],
     });
   }
   inviteForm: FormGroup;
-  domains: BaseDto[];
+  domains: { id: string; name: string }[];
   actions: BaseDto[];
 
   ngOnInit() {
     forkJoin([
-      this.userService.subDomainDropDown(),
+      this.subscriptionService.getAll(),
       this.userService.platformDropDown(),
-    ]).subscribe(([subDomainData, platformData]) => {
-      this.domains = subDomainData.response;
+    ]).subscribe(([subscriptions, platformData]) => {
+      this.domains = subscriptions.response.map((x) => ({
+        name: x.subdomain,
+        id: x.id,
+      }));
       this.actions = platformData.response;
     });
   }
@@ -53,7 +60,6 @@ export class UserInviteFormComponent implements OnInit {
       return;
     }
     this.loaderService.show();
-    this.inviteForm.value.invitationStatus = 1;
 
     this.userService.inviteUser(this.inviteForm.value).subscribe({
       next: (res) => {
@@ -74,6 +80,6 @@ export class UserInviteFormComponent implements OnInit {
   }
 
   onCancel() {
-    this.ref.close(true);
+    this.ref.close();
   }
 }

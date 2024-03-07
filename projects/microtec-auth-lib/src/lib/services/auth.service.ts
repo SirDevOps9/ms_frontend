@@ -92,6 +92,7 @@ export class AuthService {
     this.logService.log(loggedUser, 'authService.UserName');
     return loggedUser?.userData?.name;
   }
+
   getUserTokenModel(): TokenModel {
     let tokenModel: TokenModel = {
       AccessToken: this.localStorageService.getItem(StorageKeys.USER_TOKEN)!,

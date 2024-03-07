@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../services/users.httpsservice';
 import {
   BaseDto,
+  EnvironmentService,
   LanguageService,
   LoaderService,
   LogService,
@@ -14,7 +15,9 @@ import { DialogService, DynamicDialogConfig, DynamicDialogRef  } from 'primeng/d
 
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { boupdateuser } from '../../../models/users/boupdateduser.model';
-
+import { SubscriptionService } from '../../../services/subscription.httpservice';
+import { SubscriptionDto } from '../../../models/subscription/subscriptionDto';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'bouserdetails',
@@ -26,26 +29,29 @@ export class bouserdetails implements OnInit {
   userName:string;
   userEmail:string;
   photo:string;
-  domains: BaseDto[];
+  // domains: BaseDto[];
   actions: BaseDto[];
-  selectedPlat:number[]
-  selectedDomain:number[]
+  selectedPlat:number[];
+  selectedSubscriptions:string[];
  @Input() formId:string;
-  subdomains: any[]=[];
+  subdomains: SubscriptionDto[]=[];
   platformplans: any[]=[]; 
   Id:string;
+  domains: {id: string; name: string}[];
 
   constructor(
     public config: DynamicDialogConfig,
     public dialogService: DynamicDialogRef,
     private ref: DynamicDialogRef,
     private fb: FormBuilder 
-    ,private Userservice :UserService 
+    ,private Userservice :UserService,
+    private subscriptionService: SubscriptionService 
     ,private router: RouterService
     , private logService: LogService
     , private loaderservice: LoaderService
     ,private toasterService: ToasterService
-    , public languageService: LanguageService
+    , public languageService: LanguageService,
+    private env: EnvironmentService,
     ){
       
      }
@@ -59,14 +65,19 @@ export class bouserdetails implements OnInit {
       subdomain: [[]],
       platformplan: [[]]
     });
-    this.Userservice.subDomainDropDown().subscribe(data => {
-      this.subdomains = data.response;
-    });
+    // this.subscriptionService.getAll().subscribe(r => this.subdomains = r.response)
 
-    this.Userservice.platformDropDown().subscribe(data => {
-      this.platformplans = data.response;
-    });
+    // this.Userservice.platformDropDown().subscribe(data => {
+    //   this.platformplans = data.response;
+    // });
     this.getformdata();
+    forkJoin([
+      this.subscriptionService.getAll(),
+      this.Userservice.platformDropDown(),
+    ]).subscribe(([subscriptions, platformData]) => {
+      this.domains = subscriptions.response.map(x=>({name: x.subdomain, id: x.id}));
+      this.actions = platformData.response;
+    });
   }
   getformdata() {
     this.logService.log(this.Id);
@@ -75,9 +86,9 @@ export class bouserdetails implements OnInit {
         const userData = res.response;
         this.userName= userData.name; 
         this.userEmail= userData.email;
-        this.photo= userData.photo;
-        this.selectedDomain=userData.subDomain;
-        this.selectedPlat=userData.pLatformplan;
+        this.selectedSubscriptions=userData.subscriptions;
+        this.selectedPlat=userData.boRoles;
+        
         // this.userForm.patchValue({
         //   subdomain: userData.subDomain, 
         //   plateformPlan: userData.pLatformplan, 
@@ -96,8 +107,8 @@ export class bouserdetails implements OnInit {
     );
     if (confirmed) {
       const UpdateUserDto: boupdateuser = {
-        subDomain:this.selectedDomain,
-        plateformPlan:this.selectedPlat,
+        subscriptions:this.selectedSubscriptions,
+        bORoles:this.selectedPlat,
         id:this.Id
       }
        
@@ -121,6 +132,13 @@ export class bouserdetails implements OnInit {
   }
   cancelEdit(){
     this.ref.close();
+  }
+  getProfilePic(){
+    return this.env.photoBaseUrl + '/api/Users/GetProfilePic?userId=' + this.Id
+    
+    
+    
+    
   }
 
 }

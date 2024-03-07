@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormControlOptions, FormGroup, Validators } from '@angular/forms';
 import {
   APIResponse,
+  ConfirmPasswordValidator,
   LoaderService,
   LogService,
   RouterService,
   ToasterService,
+  customValidators,
 } from 'shared-lib';
 import { InviteduserService } from '../../services/inviteduser.httpservice';
 @Component({
   selector: 'app-userconfirmation',
   templateUrl: './userconfirmation.component.html',
-  styleUrls: ['./userconfirmation.component.css'],
+  styleUrls: ['./userconfirmation.component.scss'],
   providers: [RouterService],
 })
 export class UserconfirmationComponent implements OnInit {
@@ -21,6 +23,7 @@ export class UserconfirmationComponent implements OnInit {
   validId = false;
   photo: any;
   errorMessage: string;
+  photoSrc:string="assets/images/users/pic.jpg"
   constructor(
     private loaderservice: LoaderService,
     private router: RouterService,
@@ -37,22 +40,28 @@ export class UserconfirmationComponent implements OnInit {
 
   initializeForm() {
     this.userForm = this.formBuilder.group({
-      fullName: ['', [Validators.required, Validators.maxLength(50)]],
+      fullName: ['', [Validators.required, Validators.maxLength(50),Validators.minLength(3)]],
       email: [
         { value: '', disabled: true },
         ,
         [Validators.required, Validators.email],
       ],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
+      password: ['', [Validators.required ,Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]],
+      confirmPassword: ['', Validators.required,],
       acceptPolicy: [false, Validators.requiredTrue],
-    });
+    }
+    ,{validators:ConfirmPasswordValidator} as  AbstractControlOptions
+    );
   }
   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       this.photo = event.target.files[0];
       const fData = new FormData();
       fData.append('photo', this.photo);
+    }
+    const file = event.srcElement.files
+    if (file) {
+      this.photoSrc = URL.createObjectURL(file[0])
     }
   }
   GetEmail() {

@@ -2,8 +2,7 @@ export interface GetUserbyid {
     id: string;
     name: string;
     email: string;
-    photo:string;
-    subDomain: [number];
-    pLatformplan:[number];
+    subscriptions: string[];
+    boRoles: number[];
   }
   

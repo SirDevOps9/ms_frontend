@@ -13,7 +13,7 @@
                 </div>
               </div>
               
-              </ng-template>
+            </ng-template>
             <ng-template pTemplate="end" >
               <div class="header_sec">
                 <div class="choices">
@@ -78,27 +78,27 @@
                   </div>
                   <div class="link_sec">
                   
-                    <button >
+                    <button>
                       <span  class="pi pi-cog icon_link" ></span>
                     </button>
                   </div>
                   <div class="link_sec">
-                    <button >
+                    <button>
                       <span  class="pi pi-star icon_link" ></span>
                     </button>
                   </div>
                   <div class="profaile_sec">
-                    <button (click)="cardDrob()" class="btn_profaile" style="background-image: url('assets/images/users/default.png');">
-        
+                    <button (click)="cardDrob()" #cardDr class="btn_profaile" style="background-image: url('{{getProfilePic()}}');">
+
                     </button>
-                    <div class="profaile_card_drob" *ngIf="showcard">
+                    <div class="profaile_card_drob" #profaile_card_drob *ngIf="showcard">
                         <div class="header_card">
                             <div class="photo">
-                              <img src="assets/images/users/default.png">
+                              <img [src]="getProfilePic()">
                             </div>
                             <div class="title">
                                 <p class="name">{{userName}}</p>
-                                <p class="description">admin</p>
+                                <p class="description">{{(userData.userType == '2' ? 'User.AdminUser': 'User.InvitedUser') | translate}}</p>
                             </div>
                           
                         </div>
@@ -142,14 +142,17 @@
     <div class="bar" [ngClass]="{'bar_opened': sidebarOpen}" id="bar">
       <div class="sidebar_container">
         <div class="content" *ngIf="!sidebarOpen">
-          <button class="item"  routerLink="/plan"  id="plan" (click)="activeTag('plan')">
-            <div class="item_icon">
-              <i class=" fa fa-solid fa-globe"></i>
-            </div>
-            <div class="item_text">
-              plan
-            </div>
-          </button>
+          <div class="item" routerLink="/my-plans" id="subscripition" (click)="activeTag('subscripition')">
+            <button>
+              <div class="item_icon">
+                <i class=" fa fa-solid fa-globe"></i>
+              </div>
+              <div class="item_text">
+                subscripition
+              </div>
+            </button>
+          </div>
+
           <!-- <button class="item" routerLink="/company"  id="company" (click)="activeTag('company')">
             <div class="item_icon">
               <i class="fa fa-solid fa-building"></i>
@@ -182,23 +185,14 @@
               microtec Apps users
             </div>
           </button>
-          <div class="item"  id="subscripition" (click)="activeTag('subscripition')">
-            <button>
-              <div class="item_icon">
-                <i class=" fa fa-solid fa-globe"></i>
-              </div>
-              <div class="item_text">
-                subscripition
-              </div>
-            </button>
-            <!-- <div class="drodown_list">
-              <button> test</button>
-              <button> test</button>
-              <button> test</button>
-              <button> test</button>
-              <button> test</button>
-            </div> -->
-          </div>
+          <button class="item"  routerLink="/plan"  id="plan" (click)="activeTag('plan')">
+            <div class="item_icon">
+              <i class=" fa fa-solid fa-globe"></i>
+            </div>
+            <div class="item_text">
+              plan
+            </div>
+          </button>
         </div>
         <div class="content_open" *ngIf="sidebarOpen">
           <button class="item"  routerLink="/plan"  id="plan" (click)="activeTag('plan')">
@@ -277,8 +271,10 @@
 
     </div>
     <div class="pages" [ngClass]="{'pages_sid_open': sidebarOpen}">
-      <div class="title_of_page"> 
-
+      <div class="title_of_page p-3"> 
+        <div class="card flex  align-items-center">
+          <p-breadcrumb [home]="home" [model]="menuItems"></p-breadcrumb>
+      </div>
       </div>
       <router-outlet></router-outlet>
     </div>

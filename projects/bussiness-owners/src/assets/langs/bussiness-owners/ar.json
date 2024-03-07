@@ -23,7 +23,10 @@
   "Layout": {
     "Dashboard": "لوحة التحكم",
     "Users": "المستخدمين",
-    "Company": "الشركات"
+    "Plan": "باقات",
+    "AddCompany": "أضف شركة",
+    "ListCompany": "قائمة الشركات",
+    "MyPlan": "باقاتي"
   },
   "User": {
     "PageName": "صفحة المستخدمين",
@@ -45,6 +48,8 @@
     "Accepted": "تم القبول",
     "Actions": "افعال",
     "Edit": "تعديل",
+    "AdminUser": "مدير",
+    "InvitedUser": "مدير مفوّض",
     "Inviteform": {
       "FormHeader": "دعوة مستخدم",
       "EmailLabel": "بريد الالكترونى للدخول",
@@ -86,6 +91,7 @@
     "CompanyActivatedSuccessfully": "الشركة مفعلة بنجاح",
     "CompanyType": "نوع الشركة",
     "MobileNumber": "الهاتف",
+    "Edit": "تعديل",
     "Add": {
       "Plan": "خطة",
       "CompanyAddedSuccessfully": "تمت إضافة الشركة بنجاح",
