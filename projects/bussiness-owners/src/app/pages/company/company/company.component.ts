@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CompanyService } from '../../services/company.httpservice';
+import { CompanyService } from '../../../services/company.httpservice';
 import {
   LanguageService,
   LogService,
   RouterService,
   ToasterService,
 } from 'shared-lib';
-import { ResponseCompanyDto } from '../../models/company/responsecompanydto';
+import { ResponseCompanyDto } from '../../../models/company/responsecompanydto';
 import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-company',
@@ -36,7 +36,6 @@ export class CompanyComponent implements OnInit {
   navigateToEdit(id: number): void {
     this.routerService.navigateTo('company/edit/' + id);
   }
-
 
   ngOnInit() {
     this.titleService.setTitle('Companies');

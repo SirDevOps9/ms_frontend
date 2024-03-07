@@ -33,7 +33,7 @@ export class UserInviteFormComponent implements OnInit {
     this.inviteForm = this.fb.group({
       subDomains: ['', Validators.required],
       plans: ['', Validators.required],
-      email: ['', [customValidators.required, customValidators.email]],
+      email: ['', [Validators.required, customValidators.email]],
       subscriptions: ['', Validators.required],
       bORoles: ['', Validators.required],
     });

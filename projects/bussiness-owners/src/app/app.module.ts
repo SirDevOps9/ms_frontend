@@ -25,7 +25,7 @@ import {
 } from 'microtec-auth-lib';
 import { UserInviteFormComponent } from './components/userscomps/invite-form/user-invite-form/user-invite-form.component';
 import { AddCompanyComponent } from './pages/company/add-compny/add-compny.component';
-import { CompanyComponent } from './pages/company/company.component';
+import { CompanyComponent } from './pages/company/company/company.component';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -42,12 +42,12 @@ import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetai
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { PlanComponent } from './pages/Plan/Plan.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { NewCompanyComponent } from './pages/company/new-company/new-company.component';
 import { CompaniesListComponent } from './pages/company/companies-list/companies-list.component';
 import { EditCompanyComponent } from './pages/company/edit-company/edit-company.component';
 import { PasswordModule } from 'primeng/password';
 import { CheckboxModule } from 'primeng/checkbox';
 import { MyPlansComponent } from './pages/my-plans/my-plans.component';
+import { CompanyModule } from './pages/company/company.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +60,6 @@ import { MyPlansComponent } from './pages/my-plans/my-plans.component';
     bouserdetails,
     PlanComponent,
     NotFoundComponent,
-    NewCompanyComponent,
     CompaniesListComponent,
     MyPlansComponent,
     NotFoundComponent,
@@ -107,6 +106,7 @@ import { MyPlansComponent } from './pages/my-plans/my-plans.component';
     DynamicDialogModule,
     PasswordModule,
     CheckboxModule,
+    CompanyModule,
   ],
   providers: [
     DialogService,

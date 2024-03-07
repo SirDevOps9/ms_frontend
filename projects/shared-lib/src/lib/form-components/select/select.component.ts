@@ -17,7 +17,7 @@ import {
 @Component({
   selector: 'lib-select',
   templateUrl: './select.component.html',
-  styleUrls: ['./select.component.css'],
+  styleUrls: ['./select.component.scss'],
 })
 export class SelectComponent implements ControlValueAccessor, Validator {
   @Input() label: string;

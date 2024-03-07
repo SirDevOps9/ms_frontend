@@ -95,4 +95,11 @@
   <span class="errorMessage" *ngIf="appControl.errors?.['hasWhiteSpaces']">
     {{ "validation.hasWhiteSpaces" | translate }}
   </span>
+
+  <span class="errorMessage" *ngIf="appControl.errors?.['lengthRange']">
+    {{
+      'validation.lengthRange'
+        | translate: { min: this.appControl.errors?.['lengthRange'].min, max: this.appControl.errors?.['lengthRange'].max }
+    }}
+  </span>
 </div>

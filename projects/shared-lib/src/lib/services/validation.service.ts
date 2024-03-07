@@ -1,12 +1,4 @@
-import {
-  AbstractControl,
-  ValidationErrors,
-  Validator,
-  ValidatorFn,
-} from '@angular/forms';
-import { EnvironmentService } from './environment.service';
-import { Input } from '@angular/core';
-import { hasUncaughtExceptionCaptureCallback } from 'process';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 function notOnlyWhitespaceValidator() {
   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -345,22 +337,54 @@ function minimumNumberOfYears(age: number): ValidatorFn {
   };
 }
 
+function validPassword(control: AbstractControl) {
+  const password = control.value;
+
+  if (!password || password.length < 8 || password.length > 16) {
+    return { invalidPassword: true };
+  }
+
+  if (
+    !/[A-Z]+/.test(password) ||
+    !/[a-z]+/.test(password) ||
+    !/[0-9]+/.test(password) ||
+    !/[~!@#$%^&*()]+/.test(password)
+  ) {
+    return { invalidPassword: true };
+  }
+
+  return null; // Valid password
+}
+export const ConfirmPasswordValidator: ValidatorFn = (
+  control: AbstractControl
+): ValidationErrors | null => {
+  const password = control.get('password');
+  const confirmpassword = control.get('confirmPassword');
+  if (password && confirmpassword && password.value != confirmpassword.value) {
+    return {
+      passwordmatcherror: true,
+    };
+  }
+  return null;
+};
+
 export const customValidators = {
   notOnlyWhitespaceValidator: notOnlyWhitespaceValidator,
   required: required,
-  isValidMobile: IsValidMobile,
-  isValidPhone: IsValidPhone,
-  IsValidEmail: IsValidEmail,
-  isValidSaudiId: IsValidSaudiId,
-  IsOnlySaudiId: IsOnlySaudiId,
-  IsIqamaId: IsIqamaId,
-  isValidNationalMobile: IsValidNationalMobile,
-  isNumber: IsNumber,
-  isValid700Number: IsValid700Number,
-  isValidCRNumber: IsValidCRNumber,
-  preventSpecialChars: PreventSpecialChars,
-  IsValidMobileWithPrefix: IsValidMobileWithPrefix,
-  isAgreedToTermsRequired: IsAgreedToTermsRequired,
-  lengthValidator: lengthValidator,
-  minimumNumberOfYears: minimumNumberOfYears,
+  mobile: IsValidMobile,
+  phone: IsValidPhone,
+  notUnderAge: minimumNumberOfYears,
+  email: IsValidEmail,
+  saudiId: IsValidSaudiId,
+  onlySaudiId: IsOnlySaudiId,
+  saudiIqamaId: IsIqamaId,
+  nationalMobile: IsValidNationalMobile,
+  number: IsNumber,
+  cr700Number: IsValid700Number,
+  cRNumber: IsValidCRNumber,
+  noSpecialChars: PreventSpecialChars,
+  mobileWithPrefix: IsValidMobileWithPrefix,
+  agreedToTermsRequired: IsAgreedToTermsRequired,
+  validPassword: validPassword,
+  length: lengthValidator,
 };

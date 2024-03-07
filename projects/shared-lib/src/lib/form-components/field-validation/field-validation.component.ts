@@ -4,7 +4,7 @@ import { AbstractControl } from '@angular/forms';
 @Component({
   selector: 'lib-field-validations',
   templateUrl: './field-validation.component.html',
-  styleUrls: ['./field-validation.component.css'],
+  styleUrls: ['./field-validation.component.scss'],
 })
 export class FieldValidationsComponent implements OnInit {
   @Input() appControl: AbstractControl;

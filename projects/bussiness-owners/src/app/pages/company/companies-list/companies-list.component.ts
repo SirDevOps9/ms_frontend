@@ -17,7 +17,7 @@ export class CompaniesListComponent implements OnInit {
   companies: ResponseCompanyDto[];
   @ViewChild('dt') dt: any | undefined;
   selectedCompanies!: ResponseCompanyDto[] | null;
-  planId: number;
+  planId: string;
 
   constructor(
     private companyService: CompanyService,

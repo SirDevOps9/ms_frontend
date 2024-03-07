@@ -3,7 +3,7 @@ import { UsersComponent } from './pages/users/users.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { AddCompanyComponent } from './pages/company/add-compny/add-compny.component';
 import { UserconfirmationComponent } from './pages/inviteduserconfirmation/userconfirmation.component';
-import { CompanyComponent } from './pages/company/company.component';
+import { CompanyComponent } from './pages/company/company/company.component';
 import { AuthGuard } from '../../../microtec-auth-lib/src/public-api';
 import { bouserdetails } from './components/userscomps/bouserdetails/bouserdetails.component';
 import { PlanComponent } from './pages/Plan/Plan.component';

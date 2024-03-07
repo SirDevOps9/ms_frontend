@@ -24,9 +24,9 @@
     "Dashboard": "Dashboard",
     "Users": "Users",
     "Plan": "Plan",
-    "AddCompany":"Add company",
+    "AddCompany": "Add company",
     "ListCompany": "Company list",
-    "MyPlan":"My Plan"
+    "MyPlan": "My Plan"
   },
   "User": {
     "PageName": "Users Index",
@@ -91,10 +91,10 @@
     "Deactivate": "Deactivate",
     "Activate": "Activate",
     "CompanyType": "Company Type",
-    "MobileNumber":"Phone",
-    "Edit":"Edit",
+    "MobileNumber": "Phone",
+    "Edit": "Edit",
     "Add": {
-      "Plan":"Plan",
+      "Plan": "Plan",
       "CompanyAddedSuccessfully": "Company added successfully",
       "Error": "Error",
       "Success": "Success",
@@ -127,11 +127,11 @@
     "policy": "I accept the user policy",
     "Save": "Save",
     "Photo": "Photo",
-    "IsRequired":"is Required",
-    "Doesnotmatch":"does not match",
-    "LowerCaseLetter":"Password must contain Lower Case Letter ",
-    "UpperCaseLetter":"Password must contain Upper Case Letter ",
-    "SpecialCharacter":"Password must contain Special Character ",
-    "PasswordmustcontainNumber":"Password must contain Number "
+    "IsRequired": "is Required",
+    "Doesnotmatch": "does not match",
+    "LowerCaseLetter": "Password must contain Lower Case Letter ",
+    "UpperCaseLetter": "Password must contain Upper Case Letter ",
+    "SpecialCharacter": "Password must contain Special Character ",
+    "PasswordmustcontainNumber": "Password must contain Number "
   }
 }
