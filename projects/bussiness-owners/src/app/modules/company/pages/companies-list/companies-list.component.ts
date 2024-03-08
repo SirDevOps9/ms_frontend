@@ -1,112 +1,56 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  LanguageService,
-  LogService,
-  RouterService,
-  ToasterService,
-} from 'shared-lib';
+import { RouterService } from 'shared-lib';
 import { Title } from '@angular/platform-browser';
-import { CompanyProxy } from '../../company.proxy';
 import { ResponseCompanyDto } from '../../models';
+import { CompanyService } from '../../company.service';
 @Component({
   selector: 'app-companies-list',
   templateUrl: './companies-list.component.html',
   styleUrl: './companies-list.component.css',
-  providers:[RouterService]
+  providers: [RouterService],
 })
 export class CompaniesListComponent implements OnInit {
   companies: ResponseCompanyDto[];
   @ViewChild('dt') dt: any | undefined;
-  selectedCompanies!: ResponseCompanyDto[] | null;
-  planId: string;
+  selectedCompanies: ResponseCompanyDto[];
 
   constructor(
-    private companyProxy: CompanyProxy,
     private routerService: RouterService,
-    private toasterService: ToasterService,
-    private languageService: LanguageService,
-    private logService: LogService,
-    private titleService: Title
+    private titleService: Title,
+    private companyService: CompanyService
   ) {}
 
   navigateToAdd(): void {
-    this.routerService.navigateTo('company/add/' + this.planId);
+    this.routerService.navigateTo('company/add/' + this.subscriptionId);
   }
 
   ngOnInit() {
     this.titleService.setTitle('Companies');
-    this.planId = this.routerService.currentId;
-    this.companyProxy.getAll(this.planId).subscribe((res) => {
-      this.companies = res.response.reverse();
+    this.initCompanyData();
+  }
+
+  initCompanyData() {
+    this.companyService.loadCompanies(this.subscriptionId);
+    this.companyService.companies.subscribe((companyList) => {
+      this.companies = companyList;
     });
   }
-
   toggle(id: number, isActive: boolean) {
-    if (!isActive) this.activate(id);
-    else this.deactivate(id);
-  }
-
-  async activate(id: number) {
-    const confirmed = await this.toasterService.showConfirm(
-      'ConfirmButtonTexttochangstatus'
-    );
-    if (confirmed) {
-      this.companyProxy.activateCompany(id).subscribe({
-        next: () => {
-          this.toasterService.showSuccess(
-            this.languageService.transalte('Company.Success'),
-            this.languageService.transalte(
-              'Company.CompanyActivatedSuccessfully'
-            )
-          );
-
-          let indexToChange = this.companies.find((item) => item.id === id);
-          indexToChange!.isActive = true;
-        },
-      });
-    } else {
-      this.companies.forEach((element: any) => {
-        if (element.id == id) {
-          console.log(element.isActive);
-          element.isActive = false;
-        }
-      });
-    }
-  }
-  async deactivate(id: number) {
-    const confirmed = await this.toasterService.showConfirm(
-      'ConfirmButtonTexttochangstatus'
-    );
-    if (confirmed) {
-      this.companyProxy.deactivateCompany(id).subscribe({
-        next: () => {
-          this.toasterService.showSuccess(
-            this.languageService.transalte('Company.Success'),
-            this.languageService.transalte(
-              'Company.CompanyDeactivatedSuccessfully'
-            )
-          );
-          let indexToChange = this.companies.find((item) => item.id === id);
-          indexToChange!.isActive = false;
-        },
-      });
-    } else {
-      this.companies.forEach((element: any) => {
-        if (element.id == id) {
-          console.log(element.isActive);
-          element.isActive = true;
-        }
-      });
-    }
+    if (!isActive) this.companyService.activate(id);
+    else this.companyService.deactivate(id);
   }
   applyFilterGlobal($event: any, stringVal: any) {
     this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
   changed(e: any, id: number) {
     if (e.checked === false) {
-      this.deactivate(id);
+      this.companyService.deactivate(id);
     } else {
-      this.activate(id);
+      this.companyService.activate(id);
     }
+  }
+
+  get subscriptionId(): string {
+    return this.routerService.currentId;
   }
 }
