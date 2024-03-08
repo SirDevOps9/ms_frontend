@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { RouterService } from 'shared-lib';
+import { LanguageService, RouterService } from 'shared-lib';
 import { Title } from '@angular/platform-browser';
 import { ResponseCompanyDto } from '../../models';
 import { CompanyService } from '../../company.service';
@@ -17,15 +17,18 @@ export class CompaniesListComponent implements OnInit {
   constructor(
     private routerService: RouterService,
     private titleService: Title,
+    private languageService: LanguageService,
     private companyService: CompanyService
   ) {}
 
   navigateToAdd(): void {
-    this.routerService.navigateTo('company/add/' + this.subscriptionId);
+    this.routerService.navigateTo('company/new/' + this.subscriptionId);
   }
 
   ngOnInit() {
-    this.titleService.setTitle('Companies');
+    this.titleService.setTitle(
+      this.languageService.transalte('Company.CompanyList')
+    );
     this.initCompanyData();
   }
 

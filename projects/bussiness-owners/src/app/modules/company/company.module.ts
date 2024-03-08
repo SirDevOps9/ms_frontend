@@ -23,6 +23,9 @@ const routes: Routes = [
         path: 'company/new/:id',
         component: NewCompanyComponent,
         canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.ADD_COMPANY,
+        },
       },
       {
         path: 'company/add/:id',

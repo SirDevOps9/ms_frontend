@@ -10,7 +10,7 @@ export class PlanProxy {
   
   constructor(private baseService: BaseService) {}
 
-  getAll(): Observable<APIResponse<ResponsePlanDto[]>> {
+  getAllPlans(): Observable<APIResponse<ResponsePlanDto[]>> {
     return this.baseService.get<APIResponse<ResponsePlanDto[]>>(`plan`);
   }
 

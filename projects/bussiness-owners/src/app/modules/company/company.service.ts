@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
 import { CompanyProxy } from './company.proxy';
-import { ResponseCompanyDto } from './models';
+import { AddCompanyDto, ResponseCompanyDto } from './models';
 import { BehaviorSubject } from 'rxjs';
-import { LanguageService, ToasterService } from 'shared-lib';
+import {
+  LanguageService,
+  LoaderService,
+  RouterService,
+  ToasterService,
+} from 'shared-lib';
 
 @Injectable({
   providedIn: 'root',
@@ -15,12 +20,31 @@ export class CompanyService {
   constructor(
     private companyProxy: CompanyProxy,
     private toasterService: ToasterService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private loaderService: LoaderService,
+    private routerService: RouterService
   ) {}
 
   loadCompanies(subscriptionId: string) {
     this.companyProxy.getAll(subscriptionId).subscribe((response) => {
       this.companiesDataSource.next(response.response.reverse());
+    });
+  }
+
+  addCompany(model: AddCompanyDto) {
+    this.loaderService.show();
+    this.companyProxy.addCompany(model).subscribe({
+      next: (response) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('Company.Success'),
+          this.languageService.transalte('Company.Add.CompanyAddedSuccessfully')
+        );
+        this.loaderService.hide();
+        this.routerService.navigateTo('company/' + model.subscriptionId);
+      },
+      error: () => {
+        this.loaderService.hide();
+      },
     });
   }
 

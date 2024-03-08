@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LogService, RouterService } from 'shared-lib';
+import { RouterService } from 'shared-lib';
 import { ResponsePlanDto } from '../../models';
 import { Title } from '@angular/platform-browser';
-import { PlanProxy } from '../../plan.proxy';
+import { PlanService } from '../../plan.service';
 
 @Component({
   selector: 'app-plan',
@@ -13,17 +13,13 @@ export class PlanComponent implements OnInit {
   plansList: ResponsePlanDto[];
   constructor(
     private routerService: RouterService,
-    private logService: LogService,
-    private planProxy: PlanProxy,
-    private titleService: Title
+    private titleService: Title,
+    private planService: PlanService
   ) {}
 
   ngOnInit() {
     this.titleService.setTitle('Plans');
-    this.planProxy.getAll().subscribe((res) => {
-      this.plansList = res.response;
-      this.logService.log(this.plansList, 'Plan list');
-    });
+    this.loadPlans();
   }
 
   navigateToManageCompany(planId: number) {
@@ -32,5 +28,11 @@ export class PlanComponent implements OnInit {
 
   navigateToManageUser(subdomainId: number) {
     this.routerService.navigateTo('users/' + subdomainId);
+  }
+  loadPlans() {
+    this.planService.loadPlans();
+    this.planService.plans.subscribe((plansList) => {
+      this.plansList = plansList;
+    });
   }
 }

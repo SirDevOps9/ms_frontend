@@ -4,14 +4,13 @@ import {
   LanguageService,
   LogService,
   RouterService,
-  ToasterService,
 } from 'shared-lib';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Title } from '@angular/platform-browser';
-import { UserProxy } from '../../user.proxy';
 import { UserListResponse } from '../../models';
 import { UserInviteFormComponent } from '../../components/invite-form/user-invite-form/user-invite-form.component';
 import { bouserdetails } from '../../components/bouserdetails/bouserdetails.component';
+import { UserService } from '../../user.service';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -24,39 +23,30 @@ export class UsersComponent implements OnInit {
   value: string | undefined;
   ref: DynamicDialogRef | undefined;
   @ViewChild('dt') dt: any | undefined;
-  
+
   constructor(
     public languageService: LanguageService,
-    private toasterService: ToasterService,
-    private userProxy: UserProxy,
     private dialog: DialogService,
-    private router: RouterService,
+    private routerService: RouterService,
     private logService: LogService,
     private titleService: Title,
     private env: EnvironmentService,
-  ) { }
+    private userService: UserService
+  ) {}
   ngOnInit() {
     this.titleService.setTitle('Users');
-    this.getAllUsers();
-   
+    this.loadUsers();
   }
-  getAllUsers() {
-    this.userProxy.getAll(this.router.currentId).subscribe({
-      next: (res) => {
-        this.userData = res.response;
-      },
+  loadUsers() {
+    this.userService.getAllUsers(this.subscriptionId);
+    this.userService.users.subscribe((users) => {
+      this.userData = users;
     });
   }
   resendInvitation(id: string) {
-    this.userProxy.resendInvitation(id).subscribe({
-      next: (res) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('User.Inviteform.Success'),
-          this.languageService.transalte('User.Inviteform.InviationSent')
-        );
-      },
-    });
+    this.userService.resendInvitation(id);
   }
+
   openInviteModal() {
     this.ref = this.dialog.open(UserInviteFormComponent, {
       width: '600px',
@@ -65,60 +55,15 @@ export class UsersComponent implements OnInit {
     this.ref.onClose.subscribe((result: UserListResponse) => {
       if (result as UserListResponse) this.userData.push(result);
     });
-
   }
-  getProfilePic(id: string){
-    return this.env.photoBaseUrl + '/api/Users/GetProfilePic?userId=' + id
+  getProfilePic(id: string) {
+    return this.env.photoBaseUrl + '/api/Users/GetProfilePic?userId=' + id;
   }
-
   async activate(id: string) {
-    const confirmed = await this.toasterService.showConfirm(
-      'ConfirmButtonTexttochangstatus'
-    );
-    if (confirmed) {
-      this.userProxy.activateUser(id).subscribe({
-        next: () => {
-          this.toasterService.showSuccess(
-            'Success',
-            this.languageService.transalte('User.UserActivatedSuccessfully')
-          );
-
-          let indexToChange = this.userData.find((item) => item.id === id);
-          indexToChange!.isActive = true;
-        },
-      });
-    } else {
-      this.userData.forEach((element: any) => {
-        if (element.id == id) {
-          console.log(element.isActive);
-          element.isActive = false;
-        }
-      });
-    }
+    this.userService.activate(id);
   }
   async deactivate(id: string) {
-    const confirmed = await this.toasterService.showConfirm(
-      'ConfirmButtonTexttochangstatus'
-    );
-    if (confirmed) {
-      this.userProxy.deactivateUser(id).subscribe({
-        next: () => {
-          this.toasterService.showSuccess(
-            'Success',
-            this.languageService.transalte('User.UserDeactivatedSuccessfully')
-          );
-          let indexToChange = this.userData.find((item) => item.id === id);
-          indexToChange!.isActive = false;
-        },
-      });
-    } else {
-      this.userData.forEach((element: any) => {
-        if (element.id == id) {
-          console.log(element.isActive);
-          element.isActive = true;
-        }
-      });
-    }
+    this.userService.deactivate(id);
   }
   applyFilterGlobal($event: any, stringVal: any) {
     this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
@@ -136,5 +81,9 @@ export class UsersComponent implements OnInit {
     } else {
       this.activate(id);
     }
+  }
+
+  get subscriptionId(): number {
+    return this.routerService.currentId;
   }
 }

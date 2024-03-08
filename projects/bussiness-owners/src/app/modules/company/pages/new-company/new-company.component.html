@@ -1,5 +1,5 @@
 <lib-page-content
-  [title]="'Company.Add.Step' | translate"
+  [title]="'Company.Add.AccInfo' | translate"
   [subTitle]="'Company.Add.Step' | translate"
 >
   <form
@@ -18,12 +18,11 @@
 
     <lib-form-group>
       <lib-label [appControl]="companyForm.controls['countryCode']">
-        {{ "Company.Add.CompanyName" | translate }}
+        {{ "Company.Add.Country" | translate }}
       </lib-label>
       <lib-select
         formControlName="countryCode"
-        [options]="'countries' | lookups"
-        [options]="lookups['countries']"
+        [options]="lookups[LookupEnum.Country]"
         optionValue="id"
         optionLabel="name"
       >
@@ -38,7 +37,7 @@
       </lib-label>
       <lib-select
         formControlName="industryId"
-        [options]="'industries' | lookups"
+        [options]="lookups[LookupEnum.Industry]"
         optionValue="id"
         optionLabel="name"
       >
@@ -53,7 +52,7 @@
       </lib-label>
       <lib-select
         formControlName="currencyId"
-        [options]="'currencies' | lookups"
+        [options]="lookups[LookupEnum.Currency]"
         optionValue="id"
         optionLabel="name"
       >
@@ -86,7 +85,6 @@
       </lib-label>
       <lib-select
         formControlName="mobileNumberCode"
-        [options]="'mobileCodes' | lookups"
         optionValue="id"
         optionLabel="name"
       >

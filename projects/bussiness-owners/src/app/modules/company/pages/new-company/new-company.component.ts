@@ -2,15 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import {
   FormsService,
-  LanguageService,
-  LoaderService,
+  LookupEnum,
   LookupsService,
   RouterService,
-  ToasterService,
   customValidators,
   lookupDto,
 } from 'shared-lib';
-import { AddCompanyDto, CompanyTypes } from '../../models';
+import {
+  AddCompanyDto,
+  CompanyTypes,
+  MobileCodeDropdownDto,
+} from '../../models';
+import { CompanyService } from '../../company.service';
+import { Title } from '@angular/platform-browser';
 import { CompanyProxy } from '../../company.proxy';
 @Component({
   selector: 'app-new-company',
@@ -21,14 +25,15 @@ import { CompanyProxy } from '../../company.proxy';
 export class NewCompanyComponent implements OnInit {
   companyForm: FormGroup;
   lookups: { [key: string]: lookupDto[] };
-
+  LookupEnum = LookupEnum;
+  mobileCodes: MobileCodeDropdownDto[];
   get subscriptionId(): string {
     return this.routerService.currentId;
   }
 
   ngOnInit() {
     this.loadLookups();
-
+    this.titleService.setTitle('Add Company');
     this.initializeCompanyForm();
 
     this.Subscribe();
@@ -39,18 +44,18 @@ export class NewCompanyComponent implements OnInit {
   }
 
   loadLookups() {
+    this.companyProxy.getMobileCodeDropDown().subscribe((res) => {
+      this.mobileCodes = res.response;
+    });
     this.lookupsService.loadLookups([
-      'currencies',
-      'industries',
-      'mobileCodes',
-      'countries',
+      LookupEnum.Currency,
+      LookupEnum.Industry,
+      LookupEnum.Country,
     ]);
   }
 
   onSubmit() {
-    if (!this.formsService.validForm(this.companyForm, true)) return;
-
-    this.loaderService.show();
+    if (this.formsService.validForm(this.companyForm, true)) return;
 
     const request: AddCompanyDto = this.companyForm.value;
 
@@ -58,24 +63,12 @@ export class NewCompanyComponent implements OnInit {
 
     request.companyType = CompanyTypes.Holding;
 
-    this.companyProxy.addCompany(request).subscribe({
-      next: (response) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('Company.Success'),
-          this.languageService.transalte('Company.Add.CompanyAddedSuccessfully')
-        );
-        this.loaderService.hide();
-        this.routerService.navigateTo('company/' + this.subscriptionId);
-      },
-      error: () => {
-        this.loaderService.hide();
-      },
-    });
+    this.companyService.addCompany(request);
   }
 
   private initializeCompanyForm() {
     this.companyForm = this.formBuilder.group({
-      name: new FormControl('yass', [
+      name: new FormControl('', [
         customValidators.required,
         customValidators.length(5, 100),
       ]),
@@ -96,14 +89,14 @@ export class NewCompanyComponent implements OnInit {
       ]),
     });
   }
+
   constructor(
     private formBuilder: FormBuilder,
     private formsService: FormsService,
-    private companyProxy: CompanyProxy,
-    private toasterService: ToasterService,
-    private loaderService: LoaderService,
     public lookupsService: LookupsService,
-    private languageService: LanguageService,
-    private routerService: RouterService
+    private routerService: RouterService,
+    private companyService: CompanyService,
+    private titleService: Title,
+    private companyProxy: CompanyProxy
   ) {}
 }

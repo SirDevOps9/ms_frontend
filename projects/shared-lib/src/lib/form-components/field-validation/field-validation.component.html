@@ -1,4 +1,4 @@
-{{ appControl.errors | json }}
+<!-- {{ appControl.errors | json }} -->
 <div
   class="error"
   *ngIf="
@@ -83,10 +83,14 @@
     }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['max']">
-    {{ "validation.invalidMax" | translate }}:{{ appControl.errors?.['max.max }}
+    {{
+      "validation.invalidMax" | translate
+    }}:{{ appControl.errors?.['max.max'] }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['min']">
-    {{ "validation.invalidMin" | translate }}:{{ appControl.errors?.['min.min }}
+    {{
+      "validation.invalidMin" | translate
+    }}:{{ appControl.errors?.['min.min'] }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['hasSpecialChars']">
     {{ "validation.hasSpecialChars" | translate }}

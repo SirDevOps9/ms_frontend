@@ -4,12 +4,14 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { forkJoin } from 'rxjs';
 import {
   BaseDto,
+  FormsService,
   LanguageService,
   LoaderService,
   ToasterService,
   customValidators,
 } from 'shared-lib';
 import { UserProxy } from '../../../user.proxy';
+import { UserService } from '../../../user.service';
 
 @Component({
   selector: 'app-user-invite-form',
@@ -25,6 +27,8 @@ export class UserInviteFormComponent implements OnInit {
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private loaderService: LoaderService,
+    private formService: FormsService,
+    private userService: UserService,
     private ref: DynamicDialogRef
   ) {
     this.inviteForm = this.fb.group({

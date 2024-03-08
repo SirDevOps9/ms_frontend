@@ -8,3 +8,4 @@ export * from './searchField';
 export * from './iEnvironment';
 export * from './validationError';
 export * from './lookupDto';
+export * from './lookupTypes';

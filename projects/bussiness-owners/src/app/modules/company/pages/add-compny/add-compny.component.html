@@ -7,10 +7,10 @@
       <h4>{{ "Company.Add.Step" | translate }}</h4>
 
       <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
-
         <div class="group mb-3">
           <label for="companyName" class="form-label">
-            {{ "Company.Add.CompanyName" | translate }} :</label>
+            {{ "Company.Add.CompanyName" | translate }} :</label
+          >
 
           <input type="text" pInputText formControlName="name" />
           <div *ngIf="hasError('companyName', 'required')" class="error">
@@ -19,13 +19,16 @@
           </div>
         </div>
 
-
-
-
         <div class="group mb-3">
-          <label for="country" class="form-label">{{ "Company.Add.Country" | translate }} :</label>
-          <p-dropdown formControlName="countryCode" optionValue="code" [options]="CountryDropDown"
-            optionLabel="name"></p-dropdown>
+          <label for="country" class="form-label"
+            >{{ "Company.Add.Country" | translate }} :</label
+          >
+          <p-dropdown
+            formControlName="countryCode"
+            optionValue="code"
+            [options]="CountryDropDown"
+            optionLabel="name"
+          ></p-dropdown>
 
           <div *ngIf="hasError('Country', 'required')" class="error">
             {{ "Company.Add.Country" | translate }}
@@ -33,12 +36,16 @@
           </div>
         </div>
 
-
-
         <div class="group mb-3">
-          <label for="industry" class="form-label">{{ "Company.Add.Industry" | translate }} :</label>
-          <p-dropdown formControlName="industryId" optionValue="id" [options]="industryDropDown"
-            optionLabel="name"></p-dropdown>
+          <label for="industry" class="form-label"
+            >{{ "Company.Add.Industry" | translate }} :</label
+          >
+          <p-dropdown
+            formControlName="industryId"
+            optionValue="id"
+            [options]="industryDropDown"
+            optionLabel="name"
+          ></p-dropdown>
 
           <div *ngIf="hasError('industryId', 'required')" class="error">
             {{ "Company.Add.Industry" | translate }}
@@ -47,10 +54,16 @@
         </div>
 
         <div class="group mb-3">
-          <label for="currency" class="form-label">{{ "Company.Add.Currency" | translate }} :</label>
+          <label for="currency" class="form-label"
+            >{{ "Company.Add.Currency" | translate }} :</label
+          >
 
-          <p-dropdown formControlName="currencyId" optionValue="id" [options]="currencyDropDown"
-            optionLabel="name"></p-dropdown>
+          <p-dropdown
+            formControlName="currencyId"
+            optionValue="id"
+            [options]="currencyDropDown"
+            optionLabel="name"
+          ></p-dropdown>
 
           <div *ngIf="hasError('currencyId', 'required')" class="error">
             {{ "Company.Add.Currency" | translate }}
@@ -59,7 +72,9 @@
         </div>
 
         <div class="group mb-3">
-          <label for="website" class="form-label">{{ "Company.Add.Website" | translate }} :</label>
+          <label for="website" class="form-label"
+            >{{ "Company.Add.Website" | translate }} :</label
+          >
           <input type="text" pInputText formControlName="website" />
           <div *ngIf="hasError('website', 'required')" class="error">
             {{ "Company.Add.Website" | translate }}
@@ -68,7 +83,9 @@
         </div>
 
         <div class="group mb-3">
-          <label for="address" class="form-label">{{ "Company.Add.Address" | translate }} :</label>
+          <label for="address" class="form-label"
+            >{{ "Company.Add.Address" | translate }} :</label
+          >
           <input type="text" pInputText formControlName="address" />
           <div *ngIf="hasError('address', 'required')" class="error">
             {{ "Company.Add.Address" | translate }}
@@ -77,9 +94,15 @@
         </div>
 
         <div class="group mb-3">
-          <label for="MobileNumberCode" class="form-label">{{ "Company.Add.MobileNumberCode" | translate }} :</label>
-          <p-dropdown formControlName="mobileNumberCode" optionValue="code" [options]="mobileCodeDropDown"
-            optionLabel="phoneCode"></p-dropdown>
+          <label for="MobileNumberCode" class="form-label"
+            >{{ "Company.Add.MobileNumberCode" | translate }} :</label
+          >
+          <p-dropdown
+            formControlName="mobileNumberCode"
+            optionValue="code"
+            [options]="mobileCodeDropDown"
+            optionLabel="phoneCode"
+          ></p-dropdown>
 
           <div *ngIf="hasError('MobileNumberCode', 'required')" class="error">
             {{ "Company.Add.MobileNumberCode" | translate }}
@@ -89,7 +112,8 @@
 
         <div class="group mb-3">
           <label for="mobile" class="form-label">
-            {{ "Company.Add.MobileNumber" | translate }} :</label>
+            {{ "Company.Add.MobileNumber" | translate }} :</label
+          >
           <input type="tel" pInputText formControlName="mobileNumber" />
           <div *ngIf="hasError('mobile', 'required')" class="error">
             {{ "Company.Add.MobileNumber" | translate }}
@@ -100,7 +124,7 @@
         <div class="group mb-3">
           <label for="companyEmail" class="form-label">{{
             "Company.Add.CompanyEmail" | translate
-            }}</label>
+          }}</label>
 
           <input type="email" pInputText formControlName="companyEmail" />
           <div *ngIf="hasError('companyEmail', 'required')" class="error">
@@ -113,7 +137,6 @@
             {{ "Company.Add.Next" | translate }}
           </button>
         </div>
-
       </form>
 
       <hr />

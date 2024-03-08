@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { BaseService } from './base.httpservice';
-import { APIResponse, lookupDto, lookupsListDto } from '../models';
+import { APIResponse, LookupEnum, lookupDto, lookupsListDto } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -18,26 +18,29 @@ export class LookupsService {
   public lookups = this.lookupsDataSource.asObservable();
 
   private resetLookups(lookups: lookupsListDto[]) {
+   // console.log("Reset");
+    
     let dictionary = Object.assign(
       {},
       ...lookups.map((l) => ({ [l.lookupName]: l.items }))
     );
-
     this.lookupsDataSource.next(dictionary);
-
     this.lookupsLoadedDataSource.next(true);
   }
 
-  getLookup(name: string): lookupDto[] {
-    const lookup = this.lookupsDataSource.value[name];
+  getLookup(name: LookupEnum): lookupDto[] {
+   // console.log(name, this.lookupsDataSource);
+    const lookup = this.lookupsDataSource.value[name]; 
+   // console.log(name, lookup);
 
     return lookup;
   }
 
-  loadLookups(names: string[]) {
+  loadLookups(lookups: LookupEnum[]) {
+    const queryParams = lookups.map((name) => `lookups=${name}`).join('&');
     this.lookupsLoadedDataSource.next(false);
     this.httpService
-      .get<APIResponse<lookupsListDto[]>>('Lookups/Lookups')
+      .get<APIResponse<lookupsListDto[]>>('Lookup?' + queryParams)
       .subscribe((response: APIResponse<lookupsListDto[]>) => {
         this.resetLookups(response.response);
       });
