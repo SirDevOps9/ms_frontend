@@ -6,12 +6,12 @@ import {
   RouterService,
   ToasterService,
 } from 'shared-lib';
-import { UserInviteFormComponent } from '../../../../components/userscomps/invite-form/user-invite-form/user-invite-form.component';
-import { bouserdetails } from '../../../../components/userscomps/bouserdetails/bouserdetails.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Title } from '@angular/platform-browser';
 import { UserProxy } from '../../user.proxy';
 import { UserListResponse } from '../../models';
+import { UserInviteFormComponent } from '../../components/invite-form/user-invite-form/user-invite-form.component';
+import { bouserdetails } from '../../components/bouserdetails/bouserdetails.component';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -24,6 +24,7 @@ export class UsersComponent implements OnInit {
   value: string | undefined;
   ref: DynamicDialogRef | undefined;
   @ViewChild('dt') dt: any | undefined;
+  
   constructor(
     public languageService: LanguageService,
     private toasterService: ToasterService,

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {
   AbstractControlOptions,
   FormBuilder,
-  FormControlOptions,
   FormGroup,
   Validators,
 } from '@angular/forms';
@@ -13,7 +12,6 @@ import {
   LogService,
   RouterService,
   ToasterService,
-  customValidators,
 } from 'shared-lib';
 import { UserProxy } from '../../user.proxy';
 @Component({

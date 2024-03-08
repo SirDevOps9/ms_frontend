@@ -5,23 +5,31 @@ import { AuthGuard, MicrotecAuthLibModule } from 'microtec-auth-lib';
 import { BreadcrumbLabel, SharedLibModule } from 'shared-lib';
 import { MyPlansComponent } from './pages/my-plans/my-plans.component';
 import { PlanComponent } from './pages/plan-list/plan.component';
+import { LayoutModule } from '../layout/layout.module';
+import { LayoutComponent } from '../layout/layout-page/layout.component';
 
 const routes: Routes = [
   {
-    path: 'plan',
-    component: PlanComponent,
-    canActivate: [AuthGuard],
-    data: {
-      breadcrumb: BreadcrumbLabel.PLAN,
-    },
-  },
-  {
-    path: 'my-plans',
-    component: MyPlansComponent,
-    canActivate: [AuthGuard],
-    data: {
-      breadcrumb: BreadcrumbLabel.MY_PLAN,
-    },
+    path:'',
+    component: LayoutComponent,
+    children: [
+      {
+        path: 'plan',
+        component: PlanComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.PLAN,
+        },
+      },
+      {
+        path: 'my-plans',
+        component: MyPlansComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.MY_PLAN,
+        },
+      },
+    ],
   },
 ];
 
@@ -32,7 +40,8 @@ const routes: Routes = [
     MicrotecAuthLibModule,
     SharedLibModule,
     HttpClientModule,
-    RouterModule.forRoot(routes, {}),
+    LayoutModule,
+    RouterModule.forRoot(routes),
   ],
   exports: [],
 })

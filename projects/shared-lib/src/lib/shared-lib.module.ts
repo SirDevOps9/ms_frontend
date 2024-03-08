@@ -18,6 +18,7 @@ import {
 import { DropdownModule } from 'primeng/dropdown';
 import { GetLookupPipe } from './pipes/lookupList';
 import { PageContentComponent } from './components/page-content/page-content.component';
+import { PrimeSharedModule } from './prime-module/prime.module';
 @NgModule({
   declarations: [
     GetLookupPipe,
@@ -41,6 +42,7 @@ import { PageContentComponent } from './components/page-content/page-content.com
     MatPaginatorModule,
     TranslateModule.forRoot(),
     FormsModule,
+    PrimeSharedModule
   ],
   exports: [
     GetLookupPipe,
@@ -58,6 +60,7 @@ import { PageContentComponent } from './components/page-content/page-content.com
     FormsModule,
     TranslateModule,
     PageContentComponent,
+    PrimeSharedModule
   ],
 })
 export class SharedLibModule {}

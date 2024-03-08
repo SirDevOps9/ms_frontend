@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class PlanProxy {
-
+  
   constructor(private baseService: BaseService) {}
 
   getAll(): Observable<APIResponse<ResponsePlanDto[]>> {

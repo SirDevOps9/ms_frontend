@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LogService, RouterService } from 'shared-lib';
-import { CompanyService } from '../../../../services/company.httpservice';
-import { ResponseCompanyDto } from '../../../../models/company/responsecompanydto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DropdownItemDto } from '../../../../models/company/dropdown';
-import { MobileCodeDropdownDto } from '../../../../models/company/mobilecodedropdown';
-import { CountryDropDown } from '../../../../models/company/countrydropdown';
 import { combineLatest } from 'rxjs';
 import { CompanyProxy } from '../../company.proxy';
+import { CountryDropDown, DropdownItemDto, MobileCodeDropdownDto, ResponseCompanyDto } from '../../models';
 
 @Component({
   selector: 'app-edit-company',
@@ -27,7 +23,6 @@ export class EditCompanyComponent implements OnInit {
     private formBuilder: FormBuilder,
     private routerSerivce: RouterService,
     private companyProxy: CompanyProxy,
-    private companyService: CompanyService,
     private logService: LogService
   ) {
     this.companyForm = this.formBuilder.group({
@@ -80,9 +75,9 @@ export class EditCompanyComponent implements OnInit {
   }
   getDropDowns() {
     combineLatest([
-      this.companyService.getDropDown(),
-      this.companyService.getMobileCodeDropDown(),
-      this.companyService.getCountryDropDown(),
+      this.companyProxy.getDropDown(),
+      this.companyProxy.getMobileCodeDropDown(),
+      this.companyProxy.getCountryDropDown(),
     ]).subscribe({
       next: ([resDropdown, resMobileCode, resCountry]) => {
         this.currencyDropDown = resDropdown.response.currencyDropdown;

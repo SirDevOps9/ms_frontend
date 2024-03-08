@@ -12,6 +12,7 @@ import { ResponseCompanyDto } from '../../models';
   selector: 'app-companies-list',
   templateUrl: './companies-list.component.html',
   styleUrl: './companies-list.component.css',
+  providers:[RouterService]
 })
 export class CompaniesListComponent implements OnInit {
   companies: ResponseCompanyDto[];

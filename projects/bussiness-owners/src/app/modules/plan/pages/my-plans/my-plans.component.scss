@@ -1,4 +1,4 @@
-@import"../../../assets/styling/scss/variables/font-family";
+@import"../../../../../assets/styling/scss/variables/font-family";
 .plan_page {
   width: 95%;
   margin: auto;
@@ -24,7 +24,7 @@
       .plan_cover {
         width: 200px;
         height: 118px;
-        background-image: url("../../../assets/images/plans/plancover.png");
+        background-image: url("../../../../../assets/images/plans/plancover.png");
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
