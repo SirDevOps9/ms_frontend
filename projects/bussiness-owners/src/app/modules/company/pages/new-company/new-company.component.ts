@@ -87,6 +87,7 @@ export class NewCompanyComponent implements OnInit {
         customValidators.required,
         customValidators.email,
       ]),
+      file: new FormControl('', [customValidators.required]),
     });
   }
 

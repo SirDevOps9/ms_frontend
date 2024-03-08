@@ -9,3 +9,6 @@ export * from './iEnvironment';
 export * from './validationError';
 export * from './lookupDto';
 export * from './lookupTypes';
+export * from './attachmentDto';
+export * from './attachmentFileTypes';
+export * from './fileTypeMetaData';
