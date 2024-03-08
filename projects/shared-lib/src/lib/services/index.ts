@@ -13,4 +13,3 @@ export * from './environment.service';
 export * from './forms.service';
 export * from './lookups.service';
 export * from './attachment.service';
-export * from './attachment.service';
