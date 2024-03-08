@@ -29,12 +29,11 @@ export class FormsService {
 
     form.markAsDirty();
 
-    if (!showAlert) {
-      return form.status !== 'VALID';
-    }
-
-    if (form.status !== 'VALID') {
+    if (form.status === 'VALID') {
       return true;
+    }
+    if (!showAlert) {
+      return false;
     }
 
     this.logService.log(form, 'Invalid form');

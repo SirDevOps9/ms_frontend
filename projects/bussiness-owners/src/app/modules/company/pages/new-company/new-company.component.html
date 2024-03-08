@@ -118,6 +118,15 @@
       >
       </lib-field-validations>
     </lib-form-group>
+
+    <lib-form-group>
+      <lib-label [appControl]="companyForm.controls['file']">
+        {{ "file" }}
+      </lib-label>
+      <lib-file-uploader type="email" formControlName="file" />
+      <lib-field-validations [appControl]="companyForm.controls['file']">
+      </lib-field-validations>
+    </lib-form-group>
     <div class="Actions">
       <button type="submit" class="btn btn-primary">
         {{ "Company.Add.Next" | translate }}

@@ -8,3 +8,6 @@ export * from './searchField';
 export * from './iEnvironment';
 export * from './validationError';
 export * from './lookupDto';
+export * from './attachmentDto';
+export * from './attachmentFileTypes';
+export * from './fileTypeMetaData';
