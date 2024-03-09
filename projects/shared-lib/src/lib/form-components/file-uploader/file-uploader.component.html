@@ -2,10 +2,11 @@
   #fileInput
   type="file"
   style="display: none"
-  accept="{{ attachmentService.getFileType(this.fileType).allowedExtensions }}"
   [multiple]="false"
   (change)="uploadFile($event)"
 />
+<!-- accept="{{ cus getFileType(this.config.type).allowedExtensions }}" -->
+
 <button type="button" (click)="fileInput.click()" *ngIf="!value">
   <svg
     xmlns="http://www.w3.org/2000/svg"

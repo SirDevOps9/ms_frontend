@@ -6,7 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 import {
-  ConfirmPasswordValidator,
   FormsService,
   LoaderService,
   RouterService,
@@ -56,7 +55,7 @@ export class UserconfirmationComponent implements OnInit {
         confirmPassword: ['', customValidators.required],
         acceptPolicy: [false, Validators.requiredTrue],
       },
-      { validators: ConfirmPasswordValidator } as AbstractControlOptions
+      { validators: customValidators.confrimPassword } as AbstractControlOptions
     );
   }
   onFileSelected(event: any) {

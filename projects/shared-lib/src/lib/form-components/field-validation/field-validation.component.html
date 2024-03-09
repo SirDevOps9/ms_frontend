@@ -106,3 +106,8 @@
     }}
   </span>
 </div>
+<span class="errorMessage" *ngFor="let errorKey of errorKeys">
+  <!-- {{ this.appControl.errors?.[errorKey]["errorMessage"] }} -->
+  {{ this.appControl.errors?.[errorKey].errorMessage }}
+</span>
+<!-- {{ errorKeys | json }} -->

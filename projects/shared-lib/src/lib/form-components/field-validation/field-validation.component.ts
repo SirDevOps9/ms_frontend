@@ -9,7 +9,9 @@ import { AbstractControl } from '@angular/forms';
 export class FieldValidationsComponent implements OnInit {
   @Input() appControl: AbstractControl;
 
-  private name: string;
+  get errorKeys(): string[] {
+    return Object.keys(this.appControl?.errors!);
+  }
 
   ngOnInit(): void {}
 

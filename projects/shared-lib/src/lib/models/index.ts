@@ -12,3 +12,5 @@ export * from './lookupTypes';
 export * from './attachmentDto';
 export * from './attachmentFileTypes';
 export * from './fileTypeMetaData';
+export * from './uploadFileConfigDto';
+export * from './fileDto';

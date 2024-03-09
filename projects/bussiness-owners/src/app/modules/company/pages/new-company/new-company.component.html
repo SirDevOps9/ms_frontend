@@ -121,7 +121,11 @@
       <lib-label [appControl]="companyForm.controls['file']">
         {{ "file" }}
       </lib-label>
-      <lib-file-uploader type="email" formControlName="file" />
+      <lib-file-uploader
+        type="email"
+        formControlName="file"
+        [appControl]="companyForm.controls['file']"
+      />
       <lib-field-validations [appControl]="companyForm.controls['file']">
       </lib-field-validations>
     </lib-form-group>

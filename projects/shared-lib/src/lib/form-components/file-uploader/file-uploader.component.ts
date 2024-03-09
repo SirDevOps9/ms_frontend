@@ -14,7 +14,7 @@ import {
   Validator,
 } from '@angular/forms';
 import { AttachmentsService } from '../../services';
-import { AttachmentFileTypes } from '../../models';
+import { AttachmentFileTypes, UploadFileConfigDto } from '../../models';
 
 @Component({
   selector: 'lib-file-uploader',
@@ -26,9 +26,9 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
   @Input() readOnly: boolean;
   @Input() inputContainerClass: string;
   @Input() placeholder: string;
-  @Input() maxLength: string;
-  @Input() fileType: AttachmentFileTypes = AttachmentFileTypes.image;
   @Input() id: string;
+  @Input() appControl: AbstractControl;
+  @Input() config: UploadFileConfigDto = { type: AttachmentFileTypes.image };
 
   @Output() valueChanged = new EventEmitter<string>();
 
@@ -56,12 +56,13 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
+    console.log('validate file uploader', control);
     const value = control.value;
-    if (!value) {
-      return null;
-    }
+    // if (!value) {
+    //   return null;
+    // }
 
-    return null;
+    return { invalidFile: true };
   }
 
   change(m: any) {
@@ -70,7 +71,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
   }
 
   uploadFile(event: any) {
-    this.attachmentService.uploadFile(event.target.files);
+    this.attachmentService.uploadFile(event.target.files, this.config);
   }
 
   // resetErrorMessages() {
@@ -84,7 +85,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
     this.attachmentService.downloadAttachment(
       this.value,
       this.label,
-      this.fileType
+      this.config.type!
     );
   }
   deleteAttachment() {
@@ -100,12 +101,24 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
     if (this.controlDir) {
       this.controlDir.valueAccessor = this;
     }
+    this.subscribe();
+
+    this.appControl?.setErrors({
+      in: true,
+    });
+  }
+
+  private subscribe() {
     this.attachmentService.attachemntId.subscribe((attId) => {
       this.value = attId;
 
       this.onChange(attId);
 
       this.valueChanged.emit(attId);
+    });
+
+    this.attachmentService.validationErrors.subscribe((err) => {
+      this.appControl?.setErrors(err);
     });
   }
 }

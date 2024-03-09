@@ -7,7 +7,7 @@ export * from './router.service';
 export * from './toaster.service';
 export * from './translationHttpLoader';
 export * from './cookie.service';
-export * from './validation.service';
+export * from '../custom-validators/validation.service';
 export * from './loader.service';
 export * from './environment.service';
 export * from './forms.service';

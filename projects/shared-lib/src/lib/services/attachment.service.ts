@@ -5,10 +5,14 @@ import {
   APIResponse,
   AttachmentDto,
   AttachmentFileTypes,
+  FileDto,
   FileTypeMetaData,
+  UploadFileConfigDto,
 } from '../models';
 import { LanguageService } from './language.service';
 import { ToasterService } from './toaster.service';
+import { customValidators } from '../custom-validators/validation.service';
+import { getFileType } from '../custom-validators/attachmentValidators';
 
 @Injectable({
   providedIn: 'root',
@@ -18,10 +22,23 @@ export class AttachmentsService {
 
   public attachemntId = this.attachmentIdDataSource.asObservable();
 
-  uploadFile(files: any[]) {
+  private validationErrorsDataSource = new BehaviorSubject<{}>({});
+
+  public validationErrors = this.validationErrorsDataSource.asObservable();
+
+  uploadFile(files: FileDto[], uploadFileConfig: UploadFileConfigDto) {
     const reader = new FileReader();
 
     const [file] = files;
+
+    console.log(file);
+
+    const validationErrors = customValidators.file(file, uploadFileConfig);
+
+    if (validationErrors) {
+      this.validationErrorsDataSource.next(validationErrors);
+      return;
+    }
 
     reader.readAsDataURL(file);
 
@@ -50,7 +67,7 @@ export class AttachmentsService {
     label: string,
     fileType: AttachmentFileTypes
   ) {
-    const fileTypeMetaData = this.getFileType(fileType);
+    const fileTypeMetaData = getFileType(fileType);
 
     this.httpService
       .get('Attachments/DownloadAttachment/' + fileId)
@@ -72,24 +89,6 @@ export class AttachmentsService {
           );
         }
       });
-  }
-
-  getFileType(fileType: AttachmentFileTypes): FileTypeMetaData {
-    let fileTypeInfo: FileTypeMetaData = {};
-
-    switch (fileType) {
-      case AttachmentFileTypes.image:
-        fileTypeInfo.fileExtension = '.jpg';
-        fileTypeInfo.allowedExtensions = 'png,peg,jpg,jpeg';
-        fileTypeInfo.fileBase64Padding = 'data:image/jpg;base64';
-        break;
-      case AttachmentFileTypes.pdf:
-        fileTypeInfo.fileExtension = '.pdf';
-        fileTypeInfo.allowedExtensions = 'pdf';
-        fileTypeInfo.fileBase64Padding = 'data:application/pdf;base64';
-        break;
-    }
-    return fileTypeInfo;
   }
 
   constructor(
