@@ -6,7 +6,7 @@ import { BreadcrumbLabel, RouterService, SharedLibModule } from 'shared-lib';
 import { UsersComponent } from './pages/user-list/users.component';
 import { bouserdetails } from './components/bouserdetails/bouserdetails.component';
 import { UserconfirmationComponent } from './pages/inviteduserconfirmation/userconfirmation.component';
-import { UserInviteFormComponent } from './components/invite-form/user-invite-form/user-invite-form.component';
+import { UserInviteFormComponent } from './components/invite-form/user-invite-form.component';
 import { LayoutModule } from '../layout/layout.module';
 import { LayoutComponent } from '../layout/layout-page/layout.component';
 

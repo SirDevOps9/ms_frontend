@@ -8,7 +8,7 @@ import {
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Title } from '@angular/platform-browser';
 import { UserListResponse } from '../../models';
-import { UserInviteFormComponent } from '../../components/invite-form/user-invite-form/user-invite-form.component';
+import { UserInviteFormComponent } from '../../components/invite-form/user-invite-form.component';
 import { bouserdetails } from '../../components/bouserdetails/bouserdetails.component';
 import { UserService } from '../../user.service';
 @Component({
@@ -21,18 +21,8 @@ export class UsersComponent implements OnInit {
   userData: UserListResponse[];
   checked: boolean = true;
   value: string | undefined;
-  ref: DynamicDialogRef | undefined;
+  ref: DynamicDialogRef;
   @ViewChild('dt') dt: any | undefined;
-
-  constructor(
-    public languageService: LanguageService,
-    private dialog: DialogService,
-    private routerService: RouterService,
-    private logService: LogService,
-    private titleService: Title,
-    private env: EnvironmentService,
-    private userService: UserService
-  ) {}
   ngOnInit() {
     this.titleService.setTitle('Users');
     this.loadUsers();
@@ -48,13 +38,7 @@ export class UsersComponent implements OnInit {
   }
 
   openInviteModal() {
-    this.ref = this.dialog.open(UserInviteFormComponent, {
-      width: '600px',
-      height: '600px',
-    });
-    this.ref.onClose.subscribe((result: UserListResponse) => {
-      if (result as UserListResponse) this.userData.push(result);
-    });
+    this.userService.openInviteUserModal(this.ref, this.dialog);
   }
   getProfilePic(id: string) {
     return this.env.photoBaseUrl + '/api/Users/GetProfilePic?userId=' + id;
@@ -86,4 +70,13 @@ export class UsersComponent implements OnInit {
   get subscriptionId(): number {
     return this.routerService.currentId;
   }
+
+  constructor(
+    public languageService: LanguageService,
+    private dialog: DialogService,
+    private routerService: RouterService,
+    private titleService: Title,
+    private env: EnvironmentService,
+    private userService: UserService
+  ) {}
 }

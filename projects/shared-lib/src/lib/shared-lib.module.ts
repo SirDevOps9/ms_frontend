@@ -14,6 +14,7 @@ import {
   LabelComponent,
   SelectComponent,
   TextInputComponent,
+  MultiSelectComponent,
 } from './form-components';
 import { DropdownModule } from 'primeng/dropdown';
 import { GetLookupPipe } from './pipes/lookupList';
@@ -34,6 +35,7 @@ import { FileUploaderComponent } from './form-components/file-uploader/file-uplo
     FormGroupComponent,
     PageContentComponent,
     FileUploaderComponent,
+    MultiSelectComponent,
   ],
   imports: [
     CommonModule,
@@ -64,6 +66,7 @@ import { FileUploaderComponent } from './form-components/file-uploader/file-uplo
     PageContentComponent,
     PrimeSharedModule,
     FileUploaderComponent,
+    MultiSelectComponent,
   ],
 })
 export class SharedLibModule {}

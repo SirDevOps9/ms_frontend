@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { UserListResponse } from './models';
+import { BehaviorSubject, catchError, map } from 'rxjs';
+import { InviteUserDto, UserListResponse } from './models';
 import { UserProxy } from './user.proxy';
-import { LanguageService, RouterService, ToasterService } from 'shared-lib';
+import {
+  APIResponse,
+  LanguageService,
+  LoaderService,
+  RouterService,
+  ToasterService,
+} from 'shared-lib';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { UserInviteFormComponent } from './components/invite-form/user-invite-form.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private userDataSource = new BehaviorSubject<UserListResponse[]>([]);
+
   public users = this.userDataSource.asObservable();
-  constructor(
-    private userProxy: UserProxy,
-    private routerService: RouterService,
-    private toasterService: ToasterService,
-    private languageService: LanguageService
-  ) {}
 
   getAllUsers(subscriptionId: number) {
     this.userProxy.getAll(subscriptionId).subscribe({
@@ -85,4 +88,79 @@ export class UserService {
     } else {
     }
   }
+
+  openInviteUserModal(ref: DynamicDialogRef, dialog: DialogService) {
+    ref = dialog.open(UserInviteFormComponent, {
+      width: '600px',
+      height: '600px',
+    });
+    ref.onClose.subscribe((result: UserListResponse) => {
+      if (result as UserListResponse) {
+        const updatedUserList: UserListResponse[] = [
+          ...this.userDataSource.value,
+          result,
+        ];
+        this.userDataSource.next(updatedUserList);
+      }
+    });
+  }
+  inviteUser(model: InviteUserDto, dialogRef: DynamicDialogRef) {
+    this.loaderService.show();
+    this.userProxy.inviteUser(model).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('User.Inviteform.Success'),
+          this.languageService.transalte('User.Inviteform.InviationSent')
+        );
+        this.loaderService.hide();
+
+        dialogRef.close(res.response);
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+
+  getUserById(userId: string) {
+    return this.userProxy.getUserById(userId).pipe(
+      map((res) => {
+        return res.response;
+      }),
+      catchError((err: APIResponse<string>) => {
+        throw err.error?.errorMessage!;
+      })
+    );
+  }
+
+  getEmail(userId: string) {
+    return this.userProxy.getInvitedUserEmail(userId).pipe(
+      map((res) => {
+        return res.response;
+      }),
+      catchError((err: APIResponse<string>) => {
+        throw err.error?.errorMessage!;
+      })
+    );
+  }
+  submitUserConfirm(formData: FormData) {
+    this.loaderService.show();
+    this.userProxy.confirmInvitedUser(formData).subscribe({
+      next: (response) => {
+        this.loaderService.hide();
+        this.toasterService.showSuccess('Success', 'Success');
+        this.routerService.navigateTo('/login');
+      },
+      error: () => {
+        this.loaderService.hide();
+      },
+    });
+  }
+  constructor(
+    private userProxy: UserProxy,
+    private routerService: RouterService,
+    private toasterService: ToasterService,
+    private languageService: LanguageService,
+    private loaderService: LoaderService
+  ) {}
 }

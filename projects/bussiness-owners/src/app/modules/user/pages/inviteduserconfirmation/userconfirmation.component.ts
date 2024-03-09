@@ -6,14 +6,13 @@ import {
   Validators,
 } from '@angular/forms';
 import {
-  APIResponse,
   ConfirmPasswordValidator,
+  FormsService,
   LoaderService,
-  LogService,
   RouterService,
-  ToasterService,
+  customValidators,
 } from 'shared-lib';
-import { UserProxy } from '../../user.proxy';
+import { UserService } from '../../user.service';
 @Component({
   selector: 'app-userconfirmation',
   templateUrl: './userconfirmation.component.html',
@@ -22,24 +21,15 @@ import { UserProxy } from '../../user.proxy';
 })
 export class UserconfirmationComponent implements OnInit {
   userForm: FormGroup;
-  inviteduserId: string;
   email: string;
   validId = false;
   photo: any;
   errorMessage: string;
   photoSrc: string = 'assets/images/users/pic.jpg';
-  constructor(
-    private loaderservice: LoaderService,
-    private router: RouterService,
-    private toasterService: ToasterService,
-    private userProxy: UserProxy,
-    private formBuilder: FormBuilder,
-    private logService: LogService
-  ) {}
 
   ngOnInit() {
     this.initializeForm();
-    this.GetEmail();
+    this.getEmail();
   }
 
   initializeForm() {
@@ -47,27 +37,23 @@ export class UserconfirmationComponent implements OnInit {
       {
         fullName: [
           '',
-          [
-            Validators.required,
-            Validators.maxLength(50),
-            Validators.minLength(3),
-          ],
+          [customValidators.required, customValidators.length(3, 50)],
         ],
         email: [
           { value: '', disabled: true },
           ,
-          [Validators.required, Validators.email],
+          [customValidators.required, customValidators.email],
         ],
         password: [
           '',
           [
-            Validators.required,
+            customValidators.required,
             Validators.pattern(
               '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$'
             ),
           ],
         ],
-        confirmPassword: ['', Validators.required],
+        confirmPassword: ['', customValidators.required],
         acceptPolicy: [false, Validators.requiredTrue],
       },
       { validators: ConfirmPasswordValidator } as AbstractControlOptions
@@ -84,49 +70,47 @@ export class UserconfirmationComponent implements OnInit {
       this.photoSrc = URL.createObjectURL(file[0]);
     }
   }
-  GetEmail() {
-    this.inviteduserId = this.router.currentId;
-    this.logService.log(this.inviteduserId);
-    this.userProxy.getInvitedUserEmail(this.inviteduserId).subscribe({
-      next: (res) => {
-        this.email = res.response;
+  getEmail() {
+    this.userService.getEmail(this.getUserId).subscribe({
+      next: (email) => {
+        this.email = email;
         this.validId = true;
         this.userForm.patchValue({
-          email: res.response,
+          email: email,
         });
       },
-      error: (err: APIResponse<string>) => {
-        this.errorMessage = err.error?.errorMessage!;
+      error: (err) => {
+        this.errorMessage = err;
       },
     });
   }
 
   submitForm() {
+    if (!this.formsService.validForm(this.userForm, true)) return;
     this.loaderservice.show();
-
-    if (this.userForm.valid) {
-      const formData = new FormData();
-      formData.append('photo', this.photo);
-
-      Object.keys(this.userForm.value).forEach((key) => {
-        formData.append(key, this.userForm.value[key]);
-      });
-      formData.append('inviteduserId', this.inviteduserId);
-      formData.append('email', this.email);
-      this.userProxy.confirmInvitedUser(formData).subscribe({
-        next: (response) => {
-          this.loaderservice.hide();
-          this.toasterService.showSuccess('Success', 'Success');
-          this.router.navigateTo('/login');
-        },
-        error: () => {
-          this.loaderservice.hide();
-        },
-      });
-    }
+    const formData = this.fillDataForm();
+    this.userService.submitUserConfirm(formData);
   }
-  hasError(field: string, errorType: string): boolean {
-    const control = this.userForm.get(field);
-    return (control?.hasError(errorType) && control?.touched) ?? false;
+  fillDataForm(): FormData {
+    const formData = new FormData();
+    formData.append('photo', this.photo);
+
+    Object.keys(this.userForm.value).forEach((key) => {
+      formData.append(key, this.userForm.value[key]);
+    });
+    formData.append('inviteduserId', this.getUserId);
+    formData.append('email', this.email);
+    return formData;
   }
+
+  get getUserId(): string {
+    return this.router.currentId;
+  }
+  constructor(
+    private loaderservice: LoaderService,
+    private router: RouterService,
+    private formBuilder: FormBuilder,
+    private formsService: FormsService,
+    private userService: UserService
+  ) {}
 }

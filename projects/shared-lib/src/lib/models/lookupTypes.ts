@@ -5,4 +5,6 @@ export enum LookupEnum {
   Currency = 'Currency',
   Industry = 'Industry',
   MobileCode = 'MobileCode',
+  BusinessRole = 'BusinessRole',
+  Subscription = 'Subscription',
 }

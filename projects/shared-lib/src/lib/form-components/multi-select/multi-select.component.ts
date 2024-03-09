@@ -1,9 +1,10 @@
 import {
   Component,
-  Input,
-  Output,
   EventEmitter,
+  Input,
+  OnInit,
   Optional,
+  Output,
   Self,
 } from '@angular/core';
 import {
@@ -15,14 +16,14 @@ import {
 } from '@angular/forms';
 
 @Component({
-  selector: 'lib-select',
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
+  selector: 'lib-multi-select',
+  templateUrl: './multi-select.component.html',
+  styleUrls: ['./multi-select.component.css'],
 })
-export class SelectComponent implements ControlValueAccessor, Validator {
+export class MultiSelectComponent implements ControlValueAccessor, Validator {
   @Input() label: string;
   @Input() options: any[];
-  @Input() optionValue = 'code';
+  @Input() optionValue = 'id';
   @Input() optionLabel = 'name';
   @Input() readOnly: boolean;
   @Input() inputContainerClass: string;
@@ -63,14 +64,11 @@ export class SelectComponent implements ControlValueAccessor, Validator {
     return null;
   }
 
-  // change(m: any) {
-  //   this.onChange(m.target.value);
-  //   this.valueChanged.emit(m.target.value);
-  // }
   change(m: any) {;
     this.onChange(m.value);
     this.valueChanged.emit(m.value);
   }
+
   constructor(@Self() @Optional() public controlDir: NgControl) {
     if (this.controlDir) {
       this.controlDir.valueAccessor = this;

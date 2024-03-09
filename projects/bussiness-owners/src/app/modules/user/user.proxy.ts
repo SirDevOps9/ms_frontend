@@ -8,9 +8,7 @@ import { SubscriptionDto } from '../plan/models';
   providedIn: 'root',
 })
 export class UserProxy {
-
-  constructor(private baseService: BaseService) {}
-
+  
   getAll(subscriptionId: number): Observable<APIResponse<UserListResponse[]>> {
     return this.baseService.get<APIResponse<UserListResponse[]>>(
       `User?subscriptionId=${subscriptionId}`
@@ -77,4 +75,7 @@ export class UserProxy {
   getAllSubscriptions(): Observable<APIResponse<SubscriptionDto[]>> {
     return this.baseService.get<APIResponse<SubscriptionDto[]>>(`Subscription`);
   }
+
+  constructor(private baseService: BaseService) {}
+
 }
