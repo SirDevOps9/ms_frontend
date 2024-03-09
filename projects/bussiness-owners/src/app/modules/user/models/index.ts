@@ -1,5 +1,5 @@
 export * from './addconfirmedcser.model';
-export * from './boupdateduser.model';
+export * from './editUser.model';
 export * from './cities.model';
 export * from './getuserbyid.response';
 export * from './inviteuser.model';

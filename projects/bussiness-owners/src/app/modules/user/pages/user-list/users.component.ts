@@ -11,6 +11,7 @@ import { UserListResponse } from '../../models';
 import { UserInviteFormComponent } from '../../components/invite-form/user-invite-form.component';
 import { bouserdetails } from '../../components/bouserdetails/bouserdetails.component';
 import { UserService } from '../../user.service';
+import { UserDetailsComponent } from '../../components/user-details/user-details.component';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -53,7 +54,7 @@ export class UsersComponent implements OnInit {
     this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
   async editUser(Id: string) {
-    this.ref = this.dialog.open(bouserdetails, {
+    this.ref = this.dialog.open(UserDetailsComponent, {
       width: '800px',
       height: '700px',
       data: { Id: Id },

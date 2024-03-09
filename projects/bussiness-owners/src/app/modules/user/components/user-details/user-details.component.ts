@@ -1,38 +1,33 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
-  BaseDto,
   EnvironmentService,
   LanguageService,
   LogService,
   LookupEnum,
   LookupsService,
   ToasterService,
+  customValidators,
   lookupDto,
 } from 'shared-lib';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { UserProxy } from '../../user.proxy';
-import { boupdateuser } from '../../models';
+import { EditUserModel } from '../../models';
 import { UserService } from '../../user.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.css'],
 })
 export class UserDetailsComponent implements OnInit {
-  userName: string;
-  userEmail: string;
   photo: string;
-  actions: BaseDto[];
-  selectedPlat: number[];
-  selectedSubscriptions: string[];
-  @Input() formId: string;
-  domains: { id: string; name: string }[];
+  editUserForm: FormGroup;
   lookups: { [key: string]: lookupDto[] };
   LookupEnum = LookupEnum;
 
   ngOnInit() {
     this.loadLookups();
     this.initializeUserForm();
+    this.initializeUserFormData();
     this.subscribe();
   }
   subscribe() {
@@ -45,44 +40,41 @@ export class UserDetailsComponent implements OnInit {
     ]);
   }
   initializeUserForm() {
+    this.editUserForm = this.formBuilder.group({
+      userName: ['', [customValidators.required]],
+      email: ['', [customValidators.required, customValidators.email]],
+      subscriptions: ['', customValidators.required],
+      bORoles: ['', customValidators.required],
+    });
+  }
+  initializeUserFormData() {
     this.userService.getUserById(this.currentUserId).subscribe({
       next: (res) => {
-        const userData = res;
-        this.userName = userData.name;
-        this.userEmail = userData.email;
-        this.selectedSubscriptions = userData.subscriptions;
-        this.selectedPlat = userData.boRoles;
+        console.log(res);
+
+        this.editUserForm.patchValue({
+          ...res,
+          userName: res.name,
+          subscriptions: res.subscriptions,
+          bORoles: [3],
+        });
       },
       error: (err) => {},
     });
   }
 
-  async submitForm() {
+  async onSubmit() {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangstatus'
     );
     if (confirmed) {
-      const UpdateUserDto: boupdateuser = {
-        subscriptions: this.selectedSubscriptions,
-        bORoles: this.selectedPlat,
-        id: this.currentUserId,
-      };
+      const UpdateUserDto: EditUserModel = this.editUserForm.value;
       this.logService.log(UpdateUserDto);
-      this.userProxy.updateUser(UpdateUserDto, this.currentUserId).subscribe({
-        next: (res) => {
-          this.toasterService.showSuccess(
-            'Success',
-            this.languageService.transalte('User.BoUserDetails.UserUpdated')
-          );
-          this.ref.close();
-        },
-        error: () => {
-          this.ref.close();
-        },
-      });
+      UpdateUserDto.id = this.currentUserId;
+      this.userService.editUser(UpdateUserDto, this.ref);
     }
   }
-  cancelEdit() {
+  onCancel() {
     this.ref.close();
   }
   getProfilePic() {
@@ -101,12 +93,12 @@ export class UserDetailsComponent implements OnInit {
     public config: DynamicDialogConfig,
     public dialogService: DynamicDialogRef,
     private ref: DynamicDialogRef,
-    private userProxy: UserProxy,
     private logService: LogService,
     private toasterService: ToasterService,
     public languageService: LanguageService,
     private env: EnvironmentService,
     public lookupsService: LookupsService,
-    private userService: UserService
+    private userService: UserService,
+    private formBuilder: FormBuilder
   ) {}
 }

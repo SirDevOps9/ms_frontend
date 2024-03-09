@@ -9,7 +9,7 @@ import {
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { forkJoin } from 'rxjs';
 import { UserProxy } from '../../user.proxy';
-import { boupdateuser } from '../../models';
+import { EditUserModel } from '../../models';
 
 @Component({
   selector: 'bouserdetails',
@@ -71,7 +71,7 @@ export class bouserdetails implements OnInit {
       'ConfirmButtonTexttochangstatus'
     );
     if (confirmed) {
-      const UpdateUserDto: boupdateuser = {
+      const UpdateUserDto: EditUserModel = {
         subscriptions: this.selectedSubscriptions,
         bORoles: this.selectedPlat,
         id: this.Id,

@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { APIResponse, BaseDto, BaseService } from 'shared-lib';
 import { Injectable } from '@angular/core';
-import { GetUserbyid, InviteUserDto, UserListResponse, boupdateuser } from './models';
+import { EditUserModel, GetUserbyid, InviteUserDto, UserListResponse } from './models';
 import { SubscriptionDto } from '../plan/models';
 
 @Injectable({
@@ -53,7 +53,7 @@ export class UserProxy {
     );
   }
 
-  updateUser(user: boupdateuser, id: string): Observable<APIResponse<boolean>> {
+  updateUser(user: EditUserModel, id: string): Observable<APIResponse<boolean>> {
     return this.baseService.put<APIResponse<boolean>>(
       `User/BOUpdateUser/${id}`,
       user

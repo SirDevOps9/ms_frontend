@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import {
-  BaseDto,
   FormsService,
   LookupEnum,
   LookupsService,
@@ -20,8 +19,6 @@ import { InviteUserDto } from '../../models';
 export class UserInviteFormComponent implements OnInit {
   submitted = false;
   inviteForm: FormGroup;
-  domains: { id: string; name: string }[];
-  actions: BaseDto[];
   lookups: { [key: string]: lookupDto[] };
   LookupEnum = LookupEnum;
   ngOnInit() {

@@ -5,6 +5,7 @@ import {
   EventEmitter,
   Optional,
   Self,
+  input,
 } from '@angular/core';
 import {
   AbstractControl,

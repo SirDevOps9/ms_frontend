@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map } from 'rxjs';
-import { InviteUserDto, UserListResponse } from './models';
+import { EditUserModel, InviteUserDto, UserListResponse } from './models';
 import { UserProxy } from './user.proxy';
 import {
   APIResponse,
@@ -153,6 +153,21 @@ export class UserService {
       },
       error: () => {
         this.loaderService.hide();
+      },
+    });
+  }
+
+  editUser(userModel: EditUserModel, ref: DynamicDialogRef) {
+    this.userProxy.updateUser(userModel, userModel.id).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          'Success',
+          this.languageService.transalte('User.BoUserDetails.UserUpdated')
+        );
+        ref.close();
+      },
+      error: () => {
+        ref.close();
       },
     });
   }

@@ -1,4 +1,4 @@
-export interface boupdateuser {
+export interface EditUserModel {
     id: string;
     subscriptions: string[];
     bORoles:number [];

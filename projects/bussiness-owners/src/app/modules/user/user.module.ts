@@ -9,6 +9,7 @@ import { UserconfirmationComponent } from './pages/inviteduserconfirmation/userc
 import { UserInviteFormComponent } from './components/invite-form/user-invite-form.component';
 import { LayoutModule } from '../layout/layout.module';
 import { LayoutComponent } from '../layout/layout-page/layout.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,7 @@ const routes: Routes = [
     UsersComponent,
     UserconfirmationComponent,
     bouserdetails,
+    UserDetailsComponent,
     UserInviteFormComponent,
   ],
   imports: [
