@@ -2,7 +2,6 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
   Optional,
   Output,
   Self,
@@ -30,6 +29,7 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
   @Input() placeholder: string;
   @Input() maxLength: string;
   @Input() id: string;
+  @Input() selectedValue: any[];
   @Output() valueChanged = new EventEmitter<string>();
 
   value: string = '';
@@ -60,11 +60,10 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
     if (!value) {
       return null;
     }
-
     return null;
   }
 
-  change(m: any) {;
+  change(m: any) {
     this.onChange(m.value);
     this.valueChanged.emit(m.value);
   }

@@ -1,8 +1,9 @@
 <p-multiSelect
-required
-[optionValue]="optionValue"
-[options]="options"
-[optionLabel]="optionLabel"
-[showClear]="true"
-(onChange)="change($event)"
+  required
+  [optionValue]="optionValue"
+  [options]="options"
+  [optionLabel]="optionLabel"
+  [showClear]="true"
+  [(ngModel)]="selectedValue"
+  (onChange)="change($event)"
 ></p-multiSelect>

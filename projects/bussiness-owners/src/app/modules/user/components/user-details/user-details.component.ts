@@ -23,7 +23,8 @@ export class UserDetailsComponent implements OnInit {
   editUserForm: FormGroup;
   lookups: { [key: string]: lookupDto[] };
   LookupEnum = LookupEnum;
-
+  selectedBors: string[];
+  selectedSubscriptions: string[];
   ngOnInit() {
     this.loadLookups();
     this.initializeUserForm();
@@ -50,14 +51,14 @@ export class UserDetailsComponent implements OnInit {
   initializeUserFormData() {
     this.userService.getUserById(this.currentUserId).subscribe({
       next: (res) => {
-        console.log(res);
-
         this.editUserForm.patchValue({
           ...res,
           userName: res.name,
           subscriptions: res.subscriptions,
-          bORoles: [3],
+          bORoles: res.boRoles,
         });
+        this.selectedBors = res.boRoles.map((b) => b.toString());
+        this.selectedSubscriptions = res.subscriptions.map((b) => b.toUpperCase());
       },
       error: (err) => {},
     });

@@ -54,7 +54,7 @@
             [options]="lookups[LookupEnum.Subscription]"
             optionValue="id"
             optionLabel="name"
-            
+            [selectedValue]="selectedSubscriptions"
           >
           </lib-multi-select>
           <lib-field-validations
@@ -70,6 +70,7 @@
           <lib-multi-select
             formControlName="bORoles"
             [options]="lookups[LookupEnum.BusinessRole]"
+            [selectedValue]="selectedBors"
             optionValue="id"
             optionLabel="name"
           >
