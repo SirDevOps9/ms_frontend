@@ -1,4 +1,4 @@
-<!-- {{ appControl.errors | json }} -->
+{{ appControl.errors | json }}
 <div
   class="error"
   *ngIf="
@@ -105,9 +105,35 @@
         | translate: { min: this.appControl.errors?.['lengthRange'].min, max: this.appControl.errors?.['lengthRange'].max }
     }}
   </span>
+
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidSize']">
+    {{
+      'validation.invalidSize'
+        | translate: { maxSize: this.appControl.errors?.['lengthRange'].maxSize  }
+    }}
+  </span>
+
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidFileType']">
+    ييي
+    {{
+      'validation.invalidFileType'
+        | translate: { allowedFileTypes: this.appControl.errors?.['invalidFileType'].allowedFileTypes  }
+    }}
+  </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidWidth']">
+    {{
+      'validation.invalidWidth'
+        | translate: { minWidth: this.appControl.errors?.['invalidWidth'].minWidth , maxWidth: this.appControl.errors?.['invalidWidth'].maxWidth  }
+    }}
+  </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidHeight']">
+    {{
+      'validation.invalidHeight'
+        | translate: { minHeight: this.appControl.errors?.['invalidHeight'].minHeight , maxHeight: this.appControl.errors?.['invalidHeight'].maxHeight  }
+    }}
+  </span>
 </div>
-<span class="errorMessage" *ngFor="let errorKey of errorKeys">
-  <!-- {{ this.appControl.errors?.[errorKey]["errorMessage"] }} -->
-  {{ this.appControl.errors?.[errorKey] |translate}}
+<!-- <span class="errorMessage" *ngFor="let errorKey of errorKeys">
+   {{ this.appControl.errors?.[errorKey] |translate}}
 </span>
-<!-- {{ errorKeys | json }} -->
+  -->
