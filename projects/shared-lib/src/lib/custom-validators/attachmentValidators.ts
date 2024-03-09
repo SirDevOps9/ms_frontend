@@ -14,9 +14,7 @@ export function fileValidator(
 
   if (!fileTypeInfo.allowedExtensions?.find((e) => e === uploadedFile.type)) {
     return {
-      invalidType: {
-        errorMessage: 'Invalid type',
-      },
+      invalidType: 'validation.invalidFileType',
     };
   }
 

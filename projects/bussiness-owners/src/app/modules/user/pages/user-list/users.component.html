@@ -94,7 +94,7 @@
               <p-inputSwitch
                 [id]="user.id"
                 (onChange)="changed($event, user.id)"
-                [(ngModel)]="user.isActive"
+                value="user.isActive"
               >
               </p-inputSwitch>
               <p class="active" *ngIf="user.isActive">
