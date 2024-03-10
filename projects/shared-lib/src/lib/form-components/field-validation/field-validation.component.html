@@ -1,4 +1,6 @@
+<<<<<<< Updated upstream
 {{ appControl.errors | json }}
+======= >>>>>>> Stashed changes
 <div
   class="error"
   *ngIf="
@@ -113,8 +115,13 @@
     }}
   </span>
 
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidFileSize']">
+    {{
+      'validation.invalidFileSize'
+        | translate: { maxFileSize: this.appControl.errors?.['invalidFileSize'].maxFileSize  }
+    }}
+  </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['invalidFileType']">
-    ييي
     {{
       'validation.invalidFileType'
         | translate: { allowedFileTypes: this.appControl.errors?.['invalidFileType'].allowedFileTypes  }

@@ -20,6 +20,13 @@ export function fileValidator(
     };
   }
 
+  if (uploadedFile.size > uploadFileConfig.maxSize!) {
+    return {
+      invalidSize: {
+        allowedFileTypes: getFileType(uploadFileConfig.type!).allowedExtensions,
+      },
+    };
+  }
   return {
     invalidSize: true,
     invalidWidth: true,
