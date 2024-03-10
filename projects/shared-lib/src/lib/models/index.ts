@@ -4,6 +4,13 @@ export * from './filterDto';
 export * from './loginmodel';
 export * from './searchField';
 export * from './tokenModel';
-export * from './searchField'
-export * from './iEnvironment'
-export * from'./validationError';
+export * from './searchField';
+export * from './iEnvironment';
+export * from './validationError';
+export * from './lookupDto';
+export * from './lookupTypes';
+export * from './attachmentDto';
+export * from './attachmentFileTypes';
+export * from './fileTypeMetaData';
+export * from './uploadFileConfigDto';
+export * from './fileDto';

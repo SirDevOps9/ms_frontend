@@ -1,4 +1,4 @@
-import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { LoginComponent } from './pages/login/login.component';
 import { LoginRedirectComponent } from './pages/login-redirect/login-redirect.component';
 import { LogoutRedirectComponent } from './pages/logout-redirect/logout-redirect.component';

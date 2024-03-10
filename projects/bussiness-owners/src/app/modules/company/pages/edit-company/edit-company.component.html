@@ -1,0 +1,103 @@
+<div class="edit_company_page">
+  <div class="card mt-4">
+    <div class="card-body">
+      <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+        <div class="group mb-3">
+          <label for="companyName" class="form-label">
+            {{ "Company.Add.CompanyName" | translate }} :</label>
+          <input type="text" pInputText formControlName="name" [disabled]="true" />
+          <div *ngIf="hasError('companyName', 'required')" class="error">
+            {{ "Company.Add.CompanyName" | translate }}
+            {{ "Company.Add.Required" | translate }}
+          </div>
+        </div>
+        <div class="group mb-3">
+          <label for="country" class="form-label">{{ "Company.Add.Country" | translate }} :</label>
+          <p-dropdown formControlName="countryCode" optionValue="code" [options]="CountryDropDown"
+            optionLabel="name"></p-dropdown>
+          <div *ngIf="hasError('Country', 'required')" class="error">
+            {{ "Company.Add.Country" | translate }}
+            {{ "Company.Add.Required" | translate }}
+          </div>
+        </div>
+        <div class="group mb-3">
+          <label for="industry" class="form-label">{{ "Company.Add.Industry" | translate }} :</label>
+          <p-dropdown formControlName="industryId" [disabled]="true" optionValue="id" [options]="industryDropDown"
+            optionLabel="name"></p-dropdown>
+          <div *ngIf="hasError('industryId', 'required')" class="error">
+            {{ "Company.Add.Industry" | translate }}
+            {{ "Company.Add.Required" | translate }}
+          </div>
+        </div>
+        <div class="group mb-3">
+          <label for="currency" class="form-label">{{ "Company.Add.Currency" | translate }} :</label>
+          <p-dropdown formControlName="currencyId" [disabled]="true" optionValue="id" [options]="currencyDropDown"
+            optionLabel="name"></p-dropdown>
+
+          <div *ngIf="hasError('currencyId', 'required')" class="error">
+            {{ "Company.Add.Currency" | translate }}
+            {{ "Company.Add.Required" | translate }}
+          </div>
+        </div>
+
+        <div class="group mb-3">
+          <label for="website" class="form-label">{{ "Company.Add.Website" | translate }} :</label>
+
+          <input type="text" [disabled]="true" pInputText formControlName="website" />
+          <div *ngIf="hasError('website', 'required')" class="error">
+            {{ "Company.Add.Website" | translate }}
+            {{ "Company.Add.Required" | translate }}
+          </div>
+        </div>
+
+        <div class="group mb-3">
+          <label for="address" class="form-label">{{ "Company.Add.Address" | translate }} :</label>
+
+          <input type="text" [disabled]="true" pInputText formControlName="address" />
+          <div *ngIf="hasError('address', 'required')" class="error">
+            {{ "Company.Add.Address" | translate }}
+            {{ "Company.Add.Required" | translate }}
+          </div>
+        </div>
+
+        <div class="group mb-3">
+          <label for="MobileNumberCode" class="form-label">{{ "Company.Add.MobileNumberCode" | translate }} :</label>
+
+          <p-dropdown formControlName="mobileNumberCode" [disabled]="true" optionValue="code"
+            [options]="mobileCodeDropDown" optionLabel="phoneCode"></p-dropdown>
+
+          <div *ngIf="hasError('MobileNumberCode', 'required')" class="error">
+            {{ "Company.Add.MobileNumberCode" | translate }}
+            {{ "Company.Add.Required" | translate }}
+          </div>
+        </div>
+
+        <div class="group mb-3">
+          <label for="mobile" class="form-label">
+            {{ "Company.Add.MobileNumber" | translate }} :</label>
+
+          <input type="tel" [disabled]="true" pInputText formControlName="mobileNumber" />
+          <div *ngIf="hasError('mobile', 'required')" class="error">
+            {{ "Company.Add.MobileNumber" | translate }}
+            {{ "Company.Add.Required" | translate }}
+          </div>
+        </div>
+
+        <div class="group mb-3">
+          <label for="companyEmail" class="form-label">{{
+            "Company.Add.CompanyEmail" | translate
+            }}</label>
+
+          <input type="email" [disabled]="true" pInputText formControlName="companyEmail" [disabled]="true" />
+          <div *ngIf="hasError('companyEmail', 'required')" class="error">
+            {{ "Company.Add.CompanyEmail" | translate }}
+            {{ "Company.Add.Required" | translate }}
+          </div>
+        </div>
+
+      </form>
+
+      <hr />
+    </div>
+  </div>
+</div>
