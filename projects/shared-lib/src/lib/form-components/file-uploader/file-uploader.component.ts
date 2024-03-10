@@ -118,12 +118,9 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
     });
 
     this.attachmentService.validationErrors.subscribe((err) => {
-<<<<<<< Updated upstream
-=======
       this.appControl.markAllAsTouched();
       this.appControl.markAsDirty();
 
->>>>>>> Stashed changes
       this.appControl?.setErrors(err);
     });
   }
