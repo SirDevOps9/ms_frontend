@@ -12,7 +12,7 @@ export const BORoutes = [
   //     { path: '', component: MyPlansComponent, canActivate: [AuthGuard] },
   //   ],
   // },
-  { path: 'users/userconfirmation/:id', component: UserconfirmationComponent },
+ { path: 'users/userconfirmation/:id', component: UserconfirmationComponent },
   // {
   //   path: '**',
   //   component: NotFoundComponent,

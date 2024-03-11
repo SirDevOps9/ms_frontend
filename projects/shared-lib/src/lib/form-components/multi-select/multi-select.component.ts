@@ -17,7 +17,7 @@ import {
 @Component({
   selector: 'lib-multi-select',
   templateUrl: './multi-select.component.html',
-  styleUrls: ['./multi-select.component.css'],
+  styleUrls: ['./multi-select.component.scss'],
 })
 export class MultiSelectComponent implements ControlValueAccessor, Validator {
   @Input() label: string;

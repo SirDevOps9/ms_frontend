@@ -16,10 +16,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
-  styleUrls: ['./user-details.component.css'],
+  styleUrls: ['./user-details.component.scss'],
 })
 export class UserDetailsComponent implements OnInit {
   photo: string;
+  userName: string;
+  userEmail: string;
   editUserForm: FormGroup;
   lookups: { [key: string]: lookupDto[] };
   LookupEnum = LookupEnum;
@@ -51,6 +53,8 @@ export class UserDetailsComponent implements OnInit {
   initializeUserFormData() {
     this.userService.getUserById(this.currentUserId).subscribe({
       next: (res) => {
+        this.userName=res.name
+        this.userEmail=res.email
         this.editUserForm.patchValue({
           ...res,
           userName: res.name,

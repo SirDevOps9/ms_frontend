@@ -1,98 +1,70 @@
-<div class="container mt-2">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <form
-        [formGroup]="editUserForm"
-        (ngSubmit)="onSubmit()"
-        *ngIf="lookupsService.lookupsLoaded"
-      >
-        <div class="text-center mb-4">
-          <h2>{{ "User.Inviteform.FormHeader" | translate }}</h2>
-        </div>
+<div class="popup_edit  h-full ">
+   <h2 class="title">Edit User</h2>
+  <div class="card_edit" >
+    <div class="information">
         <div class="user_photo">
-          <img
+           
+            <img  
             [src]="getProfilePic()"
             onerror="this.src='assets/images/users/editdefault.png'"
-            alt=""
-          />
+            alt="">
         </div>
-        <lib-form-group>
-          <lib-label [appControl]="editUserForm.controls['userName']">
-            {{ "User.Inviteform.UserNameLabel" | translate }}
-          </lib-label>
-          <lib-text-input
-            type="text"
-            [readOnly]="true"
-            formControlName="userName"
-            pInputText
-          />
-          <lib-field-validations
-            [appControl]="editUserForm.controls['userName']"
-          >
-          </lib-field-validations>
-        </lib-form-group>
-        <lib-form-group>
-          <lib-label [appControl]="editUserForm.controls['email']">
-            {{ "User.Inviteform.EmailLabel" | translate }}
-          </lib-label>
-          <lib-text-input
-            type="text"
-            [readOnly]="true"
-            formControlName="email"
-            pInputText
-          />
-          <lib-field-validations [appControl]="editUserForm.controls['email']">
-          </lib-field-validations>
-        </lib-form-group>
-
-        <lib-form-group>
-          <lib-label [appControl]="editUserForm.controls['subscriptions']">
-            {{ "User.Inviteform.DomainLabel" | translate }}
-          </lib-label>
-          <lib-multi-select
-            formControlName="subscriptions"
-            [options]="lookups[LookupEnum.Subscription]"
-            optionValue="id"
-            optionLabel="name"
-            [selectedValue]="selectedSubscriptions"
-          >
-          </lib-multi-select>
-          <lib-field-validations
-            [appControl]="editUserForm.controls['subscriptions']"
-          >
-          </lib-field-validations>
-        </lib-form-group>
-
-        <lib-form-group>
-          <lib-label [appControl]="editUserForm.controls['bORoles']">
-            {{ "User.Inviteform.ActionsLabel" | translate }}
-          </lib-label>
-          <lib-multi-select
-            formControlName="bORoles"
-            [options]="lookups[LookupEnum.BusinessRole]"
-            [selectedValue]="selectedBors"
-            optionValue="id"
-            optionLabel="name"
-          >
-          </lib-multi-select>
-          <lib-field-validations
-            [appControl]="editUserForm.controls['bORoles']"
-          >
-          </lib-field-validations>
-        </lib-form-group>
-
-        <!-- Buttons -->
-        <div class="form-group actions">
-          <button type="submit" class="save w-6">
-            <span class="pi pi-send"></span>
-            {{ "User.Inviteform.SubmitButton" | translate }}
-          </button>
-
-          <button class="cancel" type="button" (click)="onCancel()">
-            {{ "User.Inviteform.CancelButton" | translate }}
-          </button>
+        <div class="user_name">
+           <p>{{userName}}</p> 
         </div>
-      </form>
+        <div class="user_mail"> 
+           <p> {{userEmail}} </p>
+        </div>
     </div>
+    <div class="admin_edit">
+      <form
+      [formGroup]="editUserForm"
+      (ngSubmit)="onSubmit()"
+      *ngIf="lookupsService.lookupsLoaded"
+    >
+    <lib-form-group>
+      <lib-label [appControl]="editUserForm.controls['subscriptions']">
+        {{ "User.Inviteform.DomainLabel" | translate }}
+      </lib-label>
+      <lib-multi-select
+        formControlName="subscriptions"
+        [options]="lookups[LookupEnum.Subscription]"
+        optionValue="id"
+        optionLabel="name"
+        [selectedValue]="selectedSubscriptions"
+      >
+      </lib-multi-select>
+      <lib-field-validations
+        [appControl]="editUserForm.controls['subscriptions']"
+      >
+      </lib-field-validations>
+    </lib-form-group>
+
+    <lib-form-group>
+      <lib-label [appControl]="editUserForm.controls['bORoles']">
+        {{ "User.Inviteform.ActionsLabel" | translate }}
+      </lib-label>
+      <lib-multi-select
+        formControlName="bORoles"
+        [options]="lookups[LookupEnum.BusinessRole]"
+        [selectedValue]="selectedBors"
+        optionValue="id"
+        optionLabel="name"
+      >
+      </lib-multi-select>
+      <lib-field-validations
+        [appControl]="editUserForm.controls['bORoles']"
+      >
+      </lib-field-validations>
+    </lib-form-group>
+    <div class="actions flex align-items-center justify-content-center mt-12">
+      <button class="save" type="submit" > save</button>
+      <button class="cancel"   type="button" (click)="onCancel()" > cancel</button>
   </div>
+    </form>
+
+    
+    </div>
 </div>
+
+</div> 

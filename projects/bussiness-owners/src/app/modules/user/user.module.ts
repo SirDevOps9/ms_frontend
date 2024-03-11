@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard, MicrotecAuthLibModule } from 'microtec-auth-lib';
 import { BreadcrumbLabel, RouterService, SharedLibModule } from 'shared-lib';
 import { UsersComponent } from './pages/user-list/users.component';
-import { bouserdetails } from './components/bouserdetails/bouserdetails.component';
 import { UserconfirmationComponent } from './pages/inviteduserconfirmation/userconfirmation.component';
 import { UserInviteFormComponent } from './components/invite-form/user-invite-form.component';
 import { LayoutModule } from '../layout/layout.module';
@@ -24,11 +23,11 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.USERS,
         },
       },
-      {
-        path: 'users/bouserdetails/:id',
-        component: bouserdetails,
-        canActivate: [AuthGuard],
-      },
+      // {
+      //   path: 'users/bouserdetails/:id',
+      //   component: bouserdetails,
+      //   canActivate: [AuthGuard],
+      // },
     ],
   },
 ];
@@ -38,7 +37,6 @@ const routes: Routes = [
   declarations: [
     UsersComponent,
     UserconfirmationComponent,
-    bouserdetails,
     UserDetailsComponent,
     UserInviteFormComponent,
   ],

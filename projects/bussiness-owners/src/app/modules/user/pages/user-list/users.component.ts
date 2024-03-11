@@ -9,7 +9,6 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Title } from '@angular/platform-browser';
 import { UserListResponse } from '../../models';
 import { UserInviteFormComponent } from '../../components/invite-form/user-invite-form.component';
-import { bouserdetails } from '../../components/bouserdetails/bouserdetails.component';
 import { UserService } from '../../user.service';
 import { UserDetailsComponent } from '../../components/user-details/user-details.component';
 @Component({
