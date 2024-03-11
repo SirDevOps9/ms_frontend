@@ -58,27 +58,11 @@ export class ERPUserComponent implements OnInit {
   }
 
   resendInvitation(id: string) {
-   // this.erpUsersService.resendInvitation(id).subscribe({
-   //   next: (res) => {
-   //     this.toasterService.showSuccess(
-   //       this.languageService.transalte('User.Inviteform.Success'),
-   //       this.languageService.transalte('User.Inviteform.InviationSent')
-   //     );
-   //   },
-   // });
+   
   }
   changed(e: any, id: string) {
-   // if (e.checked === false) {
-   //   this.deactivate(id);
-   // } else {
-   //   this.activate(id);
-   // }
+   
   }
   async editUser(Id: string) {
-   // this.ref = this.dialog.open(bouserdetails, {
-   //   width: '800px',
-   //   height: '700px',
-   //   data: { Id: Id },
-   // });
   }
 }
