@@ -5,6 +5,7 @@ import {
   Optional,
   Output,
   Self,
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -18,6 +19,7 @@ import {
   selector: 'lib-multi-select',
   templateUrl: './multi-select.component.html',
   styleUrls: ['./multi-select.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class MultiSelectComponent implements ControlValueAccessor, Validator {
   @Input() label: string;

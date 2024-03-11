@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { BaseService } from './base.httpservice';
+import { HttpService } from './base.httpservice';
 import { APIResponse, LookupEnum, lookupDto, lookupsListDto } from '../models';
 
 @Injectable({
@@ -18,8 +18,8 @@ export class LookupsService {
   public lookups = this.lookupsDataSource.asObservable();
 
   private resetLookups(lookups: lookupsListDto[]) {
-   // console.log("Reset");
-    
+    // console.log("Reset");
+
     let dictionary = Object.assign(
       {},
       ...lookups.map((l) => ({ [l.lookupName]: l.items }))
@@ -29,9 +29,9 @@ export class LookupsService {
   }
 
   getLookup(name: LookupEnum): lookupDto[] {
-   // console.log(name, this.lookupsDataSource);
-    const lookup = this.lookupsDataSource.value[name]; 
-   // console.log(name, lookup);
+    // console.log(name, this.lookupsDataSource);
+    const lookup = this.lookupsDataSource.value[name];
+    // console.log(name, lookup);
 
     return lookup;
   }
@@ -54,5 +54,5 @@ export class LookupsService {
       });
   }
 
-  constructor(private httpService: BaseService) {}
+  constructor(private httpService: HttpService) {}
 }
