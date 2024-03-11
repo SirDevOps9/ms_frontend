@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { EnvironmentService, LanguageService, LogService, RouterService, ToasterService } from 'shared-lib';
 import { ErpUsersService } from '../../erp-users.service';
-import { UserListResponse } from '../../../models/users/userlist.response';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { UserListResponse } from '../../../user/models';
 
 @Component({
   selector: 'app-erpuser',

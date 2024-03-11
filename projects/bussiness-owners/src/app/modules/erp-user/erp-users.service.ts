@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { APIResponse, BaseService } from 'shared-lib';
-import { UserListResponse } from '../models/users/userlist.response';
+import { UserListResponse } from '../user/models';
 
 
 @Injectable({
