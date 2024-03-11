@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { EnvironmentService, LanguageService, LogService, RouterService, ToasterService } from 'shared-lib';
-import { ErpUsersService } from '../../services/erp-users.service';
-import { UserListResponse } from '../../models/users/userlist.response';
+import { ErpUsersService } from '../../erp-users.service';
+import { UserListResponse } from '../../../models/users/userlist.response';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
