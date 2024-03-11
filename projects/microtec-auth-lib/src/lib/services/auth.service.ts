@@ -55,8 +55,7 @@ export class AuthService {
     return this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
   }
   saveTokenData(): Observable<LoginResponse> {
-    return this.oidcSecurityService
-      .checkAuth().pipe(
+    return this.oidcSecurityService.checkAuth().pipe(
       map((loginResponse: LoginResponse) => {
         this.saveUserData(loginResponse);
         return loginResponse;
@@ -91,9 +90,9 @@ export class AuthService {
     let item = this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
     let loggedUser = item! as LoginResponse;
     this.logService.log(loggedUser, 'authService.UserName');
-    return loggedUser.userData.fullname;
+    return loggedUser?.userData?.name;
   }
-  
+
   getUserTokenModel(): TokenModel {
     let tokenModel: TokenModel = {
       AccessToken: this.localStorageService.getItem(StorageKeys.USER_TOKEN)!,

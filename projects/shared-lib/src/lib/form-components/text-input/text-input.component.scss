@@ -1,0 +1,44 @@
+.add_company_page {
+  width: 95%;
+  margin: auto;
+  .group {
+    display: flex;
+    flex-direction: column;
+  }
+  input {
+    padding: 5px;
+  }
+  .error {
+    color: red;
+  }
+  .form-label {
+    margin-bottom: 5px;
+  }
+  .Actions {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button {
+      padding: 10px 40px;
+      background-color: #1a8eae;
+      font-size: 18px;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+  }
+}
+
+::ng-deep {
+  .p-inputtext:enabled:hover {
+    border-color: #1a8eae !important;
+  }
+  .p-inputtext:enabled:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2rem #1a8eae !important;
+    border-color: #1a8eae !important;
+  }
+}
