@@ -13,11 +13,11 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'users/:id',
+        path: 'erpusers/:id',
         component: ERPUserComponent,
         canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.USERS,
+          breadcrumb: BreadcrumbLabel.erpusers,
         },
       }
     ],
@@ -38,4 +38,4 @@ const routes: Routes = [
   ],
   exports: [],
 })
-export class UserModule {}
+export class ERPUserModule {}

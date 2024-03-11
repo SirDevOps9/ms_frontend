@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { EnvironmentService, LanguageService, LogService, RouterService, ToasterService } from 'shared-lib';
-import { ErpUsersService } from '../../erp-users.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { UserListResponse } from '../../../user/models';
+import { ERPUserService } from '../../erp-user.service';
 
 @Component({
   selector: 'app-erpuser',
@@ -22,18 +22,22 @@ export class ERPUserComponent implements OnInit {
     private logService: LogService,
     private dialog: DialogService,
     private env: EnvironmentService,
-    private erpUsersService : ErpUsersService
+    private erpUsersService : ERPUserService
   ) { }
 
  
   ngOnInit() {
-    this.getAllERPUsers();
+    this.loadUsers();
   }
-  getAllERPUsers() {
-    this.erpUsersService.getAll(this.router.currentId).subscribe({
-      next: (res) => {
-        this.userlist = res.response;
-      },
+  
+  get subscriptionId(): number {
+    return this.router.currentId;
+  }
+
+  loadUsers() {
+    this.erpUsersService.getAllUsers(this.subscriptionId);
+    this.erpUsersService.users.subscribe((users) => {
+      this.userlist = users;
     });
   }
   applyFilterGlobal($event: any, stringVal: any) {

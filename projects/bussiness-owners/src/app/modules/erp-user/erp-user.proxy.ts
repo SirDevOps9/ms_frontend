@@ -7,12 +7,16 @@ import { UserListResponse } from '../user/models';
 @Injectable({
   providedIn: 'root'
 })
-export class ErpUsersService {
+export class ERPUserProxy {
 
-constructor(private baseService: BaseService) { }
+
 getAll(subscriptionId: number): Observable<APIResponse<UserListResponse[]>> {
   return this.baseService.get<APIResponse<UserListResponse[]>>(
     `ERPUser?subscriptionId=${subscriptionId}`
   );
 }
+
+
+constructor(private baseService: BaseService) { }
+
 }

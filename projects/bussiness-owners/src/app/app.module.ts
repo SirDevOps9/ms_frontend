@@ -57,6 +57,7 @@ import { LayoutModule } from './modules/layout/layout.module';
     CompanyModule,
     PlanModule,
     UserModule,
+    ERPUserModule
   ],
   providers: [
     { provide: EnvironmentService, useValue: environment },
