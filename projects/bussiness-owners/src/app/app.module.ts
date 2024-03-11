@@ -25,6 +25,7 @@ import { CompanyModule } from './modules/company/company.module';
 import { PlanModule } from './modules/plan/plan.module';
 import { UserModule } from './modules/user/user.module';
 import { LayoutModule } from './modules/layout/layout.module';
+import { ERPUserModule } from './modules/erp-user/erp-user.module';
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
   imports: [

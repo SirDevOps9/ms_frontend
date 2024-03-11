@@ -17,7 +17,7 @@ const routes: Routes = [
         component: ERPUserComponent,
         canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.erpusers,
+          breadcrumb: BreadcrumbLabel.ERP_USERS,
         },
       }
     ],
