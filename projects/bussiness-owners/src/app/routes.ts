@@ -1,5 +1,5 @@
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { UsersComponent } from './pages/users/users.component';
+import { UsersComponent } from './pages/admain-users/admain-users.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { AddCompanyComponent } from './pages/company/add-compny/add-compny.component';
 import { UserconfirmationComponent } from './pages/inviteduserconfirmation/userconfirmation.component';
@@ -11,6 +11,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { EditCompanyComponent } from './pages/company/edit-company/edit-company.component';
 import { MyPlansComponent } from './pages/my-plans/my-plans.component';
 import { BreadcrumbLabel } from '../../../shared-lib/src/lib/constants/index';
+import { ERPUserComponent } from './pages/erp-users/erp-users.component';
 
 
 export const BORoutes = [
@@ -26,6 +27,11 @@ export const BORoutes = [
         data: {
           breadcrumb: BreadcrumbLabel.USERS,
         },
+      },
+      {
+        path: 'erp-users/:id',
+        component: ERPUserComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'company/add/:id',

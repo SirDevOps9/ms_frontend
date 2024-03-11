@@ -16,7 +16,7 @@ import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
 import { LayoutComponent } from './components/layout/layout.component';
-import { UsersComponent } from './pages/users/users.component';
+import { UsersComponent } from './pages/admain-users/admain-users.component';
 import { UserconfirmationComponent } from './pages/inviteduserconfirmation/userconfirmation.component';
 import {
   MicrotecAuthLibModule,
@@ -46,6 +46,8 @@ import { EditCompanyComponent } from './pages/company/edit-company/edit-company.
 import { PasswordModule } from 'primeng/password';
 import { CheckboxModule } from 'primeng/checkbox';
 import { MyPlansComponent } from './pages/my-plans/my-plans.component';
+import { ERPUserComponent } from './pages/erp-users/erp-users.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +61,8 @@ import { MyPlansComponent } from './pages/my-plans/my-plans.component';
     PlanComponent,
     MyPlansComponent,
     NotFoundComponent,
-    EditCompanyComponent
+    EditCompanyComponent,
+    ERPUserComponent
   ],
   imports: [
     CommonModule,

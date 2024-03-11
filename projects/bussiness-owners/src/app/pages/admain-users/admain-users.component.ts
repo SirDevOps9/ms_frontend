@@ -18,9 +18,9 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-users',
-  templateUrl: './users.component.html',
+  templateUrl: './admain-users.component.html',
   providers: [RouterService],
-  styleUrls: ['./users.component.scss'],
+  styleUrls: ['./admain-users.component.scss'],
 })
 export class UsersComponent implements OnInit {
   userData: UserListResponse[];

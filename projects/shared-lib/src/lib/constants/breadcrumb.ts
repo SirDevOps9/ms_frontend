@@ -4,5 +4,6 @@ export class BreadcrumbLabel {
     static ADD_COMPANY = 'Add company';
     static COMPANY_LIST = 'Company list';
     static MY_PLAN = 'My Plan';
+    static ERP_USERS = 'ERP Users';
 
   }
