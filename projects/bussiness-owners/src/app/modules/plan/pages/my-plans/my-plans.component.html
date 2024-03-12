@@ -2,8 +2,7 @@
   <div class="plan_page">
     <div class="card-container">
       <div class="card" *ngFor="let plan of plansList">
-        <div class="over_lay">
-
+        <div class="over_lay" *ngIf="plan.subdomain == null">
           <button>
             text
           </button>

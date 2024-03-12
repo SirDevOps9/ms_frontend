@@ -10,6 +10,7 @@ import { PlanService } from '../../plan.service';
 })
 export class MyPlansComponent implements OnInit {
   plansList: SubscriptionDto[];
+
   constructor(
     private routerService: RouterService,
     private planService: PlanService,
