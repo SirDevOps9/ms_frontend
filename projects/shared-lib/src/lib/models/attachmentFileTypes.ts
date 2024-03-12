@@ -1,4 +1,4 @@
-export enum AttachmentFileTypes {
+export enum AttachmentFileTypeEnum {
   pdf,
   image,
   word,

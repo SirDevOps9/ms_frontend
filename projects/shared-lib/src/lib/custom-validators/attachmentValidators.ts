@@ -1,5 +1,5 @@
 import {
-  AttachmentFileTypes,
+  AttachmentFileTypeEnum,
   FileDto,
   FileTypeMetaData,
   UploadFileConfigDto,
@@ -10,9 +10,9 @@ export function fileValidator(
   uploadFileConfig: UploadFileConfigDto
 ) {
   const fileTypeInfo = getFileType(uploadFileConfig.type!);
-  ('');
+  console.log(uploadedFile);
 
-  if (!fileTypeInfo.allowedExtensions?.find((e) => e === uploadedFile.type)) {
+  if (!fileTypeInfo.allowedTypes?.find((e) => e === uploadedFile.type)) {
     return {
       invalidFileType: {
         allowedFileTypes: getFileType(uploadFileConfig.type!).allowedExtensions,
@@ -23,28 +23,37 @@ export function fileValidator(
   if (uploadedFile.size > uploadFileConfig.maxSize!) {
     return {
       invalidSize: {
-        allowedFileTypes: getFileType(uploadFileConfig.type!).allowedExtensions,
+        maxSize: uploadFileConfig.maxSize,
       },
     };
   }
-  return {
-    invalidSize: true,
-    invalidWidth: true,
-    invalidHeight: true,
-    invalidFileType: true,
-  };
+  // return {
+  //   invalidSize: true,
+  //   invalidWidth: true,
+  //   invalidHeight: true,
+  //   invalidFileType: true,
+  // };
+  return null;
 }
 
-export function getFileType(fileType: AttachmentFileTypes): FileTypeMetaData {
+export function getFileType(
+  fileType: AttachmentFileTypeEnum
+): FileTypeMetaData {
   let fileTypeInfo: FileTypeMetaData = {};
 
   switch (fileType) {
-    case AttachmentFileTypes.image:
+    case AttachmentFileTypeEnum.image:
       fileTypeInfo.fileExtension = '.jpg';
       fileTypeInfo.allowedExtensions = ['png', 'peg', 'jpg', 'jpeg'];
+      fileTypeInfo.allowedTypes = [
+        'image/jpeg',
+        'image/png',
+        'image/peg',
+        'image/jpg',
+      ];
       fileTypeInfo.fileBase64Padding = 'data:image/jpg;base64';
       break;
-    case AttachmentFileTypes.pdf:
+    case AttachmentFileTypeEnum.pdf:
       fileTypeInfo.fileExtension = '.pdf';
       fileTypeInfo.allowedExtensions = ['pdf'];
       fileTypeInfo.fileBase64Padding = 'data:application/pdf;base64';

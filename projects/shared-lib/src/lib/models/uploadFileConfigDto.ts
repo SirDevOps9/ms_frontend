@@ -1,7 +1,7 @@
-import { AttachmentFileTypes } from './attachmentFileTypes';
+import { AttachmentFileTypeEnum } from './attachmentFileTypes';
 
 export class UploadFileConfigDto {
-  type?: AttachmentFileTypes;
+  type?: AttachmentFileTypeEnum;
   maxSize?: number;
   maxHeight?: number;
   maxWidth?: number;
