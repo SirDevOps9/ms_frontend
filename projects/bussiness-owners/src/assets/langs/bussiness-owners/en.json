@@ -133,5 +133,14 @@
     "UpperCaseLetter": "Password must contain Upper Case Letter ",
     "SpecialCharacter": "Password must contain Special Character ",
     "PasswordmustcontainNumber": "Password must contain Number "
+  },
+  "Plan":{
+    "Subdomain":{
+      "AddSubdomain":"Add Subdomain",
+      "CancelButton": "Cancel",
+        "Success": "Success",
+        "SubdomainAddedSuccessfully":"SubdomainAddedSuccessfully"
+    }
+
   }
 }

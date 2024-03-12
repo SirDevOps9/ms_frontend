@@ -53,7 +53,7 @@ export class PlanService {
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Plan.Subdomain.Success'),
-          this.languageService.transalte('Plan.AddSubdomain.SubDomainAdded')
+          this.languageService.transalte('Plan.Subdomain.SubdomainAddedSuccessfully')
         );
         this.loaderService.hide();
 

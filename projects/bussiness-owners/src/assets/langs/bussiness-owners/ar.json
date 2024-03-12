@@ -124,5 +124,13 @@
     "policy": "أنا أوافق على سياسة المستخدم",
     "Save": "حفظ",
     "Photo": "الصورة"
+  },
+  "Plan":{
+      "Subdomain": {
+          "AddSubdomain": "إضافة نطاق فرعي",
+          "CancelButton": "إلغاء",
+          "Success": "نجاح",
+          "SubdomainAddedSuccessfully": "تمت إضافة النطاق الفرعي بنجاح"
+      }
   }
 }
