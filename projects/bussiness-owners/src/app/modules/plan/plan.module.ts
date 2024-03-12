@@ -31,14 +31,7 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.MY_PLAN,
         },
       },
-      {
-        path: 'add-subdomain',
-        component: MyPlansComponent,
-        canActivate: [AuthGuard],
-        data: {
-          breadcrumb: BreadcrumbLabel.MY_PLAN,
-        },
-      },
+
     ],
   },
 ];
