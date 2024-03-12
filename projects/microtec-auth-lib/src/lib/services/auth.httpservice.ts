@@ -2,17 +2,17 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LoginModel } from '../models/loginmodel';
 import { AuthenticationResponse } from '../models/authenticationResponse';
-import { BaseService, APIResponse } from 'shared-lib';
+import { HttpService, APIResponse } from 'shared-lib';
 import { TokenModel } from '../models/tokenmodel';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthHttpService {
- private loginAPI = 'Auth/Account';
- private updateLoginDateAPI = 'User/UpdateLoginDate';
+  private loginAPI = 'Auth/Account';
+  private updateLoginDateAPI = 'User/UpdateLoginDate';
 
-  constructor(private baseService: BaseService) {}
+  constructor(private baseService: HttpService) {}
   login(model: LoginModel): Observable<APIResponse<AuthenticationResponse>> {
     return this.baseService.post<APIResponse<AuthenticationResponse>>(
       `${this.loginAPI}/Login`,
@@ -21,7 +21,9 @@ export class AuthHttpService {
   }
   updateLoginDate(): Observable<APIResponse<string>> {
     return this.baseService.post<APIResponse<string>>(
-      `${this.updateLoginDateAPI}`,null  );
+      `${this.updateLoginDateAPI}`,
+      null
+    );
   }
 
   refreshToken(

@@ -1,14 +1,18 @@
 import { Observable } from 'rxjs';
-import { APIResponse, BaseDto, BaseService } from 'shared-lib';
+import { APIResponse, BaseDto, HttpService } from 'shared-lib';
 import { Injectable } from '@angular/core';
-import { EditUserModel, GetUserbyid, InviteUserDto, UserListResponse } from './models';
+import {
+  EditUserModel,
+  GetUserbyid,
+  InviteUserDto,
+  UserListResponse,
+} from './models';
 import { SubscriptionDto } from '../plan/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserProxy {
-  
   getAll(subscriptionId: number): Observable<APIResponse<UserListResponse[]>> {
     return this.baseService.get<APIResponse<UserListResponse[]>>(
       `User?subscriptionId=${subscriptionId}`
@@ -48,12 +52,13 @@ export class UserProxy {
     );
   }
   getUserById(id: string): Observable<APIResponse<GetUserbyid>> {
-    return this.baseService.get<APIResponse<GetUserbyid>>(
-      `User/Getbyid/${id}`
-    );
+    return this.baseService.get<APIResponse<GetUserbyid>>(`User/Getbyid/${id}`);
   }
 
-  updateUser(user: EditUserModel, id: string): Observable<APIResponse<boolean>> {
+  updateUser(
+    user: EditUserModel,
+    id: string
+  ): Observable<APIResponse<boolean>> {
     return this.baseService.put<APIResponse<boolean>>(
       `User/BOUpdateUser/${id}`,
       user
@@ -76,6 +81,5 @@ export class UserProxy {
     return this.baseService.get<APIResponse<SubscriptionDto[]>>(`Subscription`);
   }
 
-  constructor(private baseService: BaseService) {}
-
+  constructor(private baseService: HttpService) {}
 }

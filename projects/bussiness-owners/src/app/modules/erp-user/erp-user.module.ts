@@ -3,12 +3,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard, MicrotecAuthLibModule } from 'microtec-auth-lib';
 import { BreadcrumbLabel, RouterService, SharedLibModule } from 'shared-lib';
-import { UsersComponent } from './pages/user-list/users.component';
-import { UserconfirmationComponent } from './pages/inviteduserconfirmation/userconfirmation.component';
-import { UserInviteFormComponent } from './components/invite-form/user-invite-form.component';
 import { LayoutModule } from '../layout/layout.module';
 import { LayoutComponent } from '../layout/layout-page/layout.component';
-import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { ERPUserComponent } from './pages/erp-user-list/erp-users.component';
 
 const routes: Routes = [
   {
@@ -16,18 +13,13 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'users/:id',
-        component: UsersComponent,
+        path: 'erpusers/:id',
+        component: ERPUserComponent,
         canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.USERS,
+          breadcrumb: BreadcrumbLabel.ERP_USERS,
         },
-      },
-      // {
-      //   path: 'users/bouserdetails/:id',
-      //   component: bouserdetails,
-      //   canActivate: [AuthGuard],
-      // },
+      }
     ],
   },
 ];
@@ -35,10 +27,7 @@ const routes: Routes = [
 @NgModule({
   providers: [RouterService],
   declarations: [
-    UsersComponent,
-    UserconfirmationComponent,
-    UserDetailsComponent,
-    UserInviteFormComponent,
+    ERPUserComponent
   ],
   imports: [
     MicrotecAuthLibModule,
@@ -49,4 +38,4 @@ const routes: Routes = [
   ],
   exports: [],
 })
-export class UserModule {}
+export class ERPUserModule {}

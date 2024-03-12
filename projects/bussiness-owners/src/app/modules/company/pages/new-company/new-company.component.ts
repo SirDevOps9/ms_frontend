@@ -7,6 +7,7 @@ import {
   RouterService,
   customValidators,
   lookupDto,
+  SharedLibraryEnums,
 } from 'shared-lib';
 import {
   AddCompanyDto,
@@ -33,7 +34,6 @@ export class NewCompanyComponent implements OnInit {
 
   ngOnInit() {
     this.loadLookups();
-    this.titleService.setTitle('Add Company');
     this.initializeCompanyForm();
 
     this.Subscribe();
@@ -41,12 +41,13 @@ export class NewCompanyComponent implements OnInit {
 
   Subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
-  }
 
-  loadLookups() {
     this.companyProxy.getMobileCodeDropDown().subscribe((res) => {
       this.mobileCodes = res.response;
     });
+  }
+
+  loadLookups() {
     this.lookupsService.loadLookups([
       LookupEnum.Currency,
       LookupEnum.Industry,
@@ -97,7 +98,7 @@ export class NewCompanyComponent implements OnInit {
     public lookupsService: LookupsService,
     private routerService: RouterService,
     private companyService: CompanyService,
-    private titleService: Title,
-    private companyProxy: CompanyProxy
+    private companyProxy: CompanyProxy,
+    public sharedLibEnums: SharedLibraryEnums
   ) {}
 }

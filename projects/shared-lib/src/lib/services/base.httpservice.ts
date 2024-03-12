@@ -18,7 +18,7 @@ import { EnvironmentService } from './environment.service';
 @Injectable({
   providedIn: 'root',
 })
-export class BaseService {
+export class HttpService {
   baseUrl = this.environmentService.baseUrl;
 
   constructor(

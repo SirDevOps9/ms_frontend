@@ -14,7 +14,7 @@ import {
   Validator,
 } from '@angular/forms';
 import { AttachmentsService } from '../../services';
-import { AttachmentFileTypes, UploadFileConfigDto } from '../../models';
+import { AttachmentFileTypeEnum, UploadFileConfigDto } from '../../models';
 
 @Component({
   selector: 'lib-file-uploader',
@@ -28,7 +28,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
   @Input() placeholder: string;
   @Input() id: string;
   @Input() appControl: AbstractControl;
-  @Input() config: UploadFileConfigDto = { type: AttachmentFileTypes.image };
+  @Input() config: UploadFileConfigDto = { type: AttachmentFileTypeEnum.image };
 
   @Output() valueChanged = new EventEmitter<string>();
 
