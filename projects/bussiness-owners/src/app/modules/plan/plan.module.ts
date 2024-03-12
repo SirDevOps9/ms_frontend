@@ -7,10 +7,12 @@ import { MyPlansComponent } from './pages/my-plans/my-plans.component';
 import { PlanComponent } from './pages/plan-list/plan.component';
 import { LayoutModule } from '../layout/layout.module';
 import { LayoutComponent } from '../layout/layout-page/layout.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AddSubdomainComponent } from './pages/add-subdomain/add-subdomain.component';
 
 const routes: Routes = [
   {
-    path:'',
+    path: '',
     component: LayoutComponent,
     children: [
       {
@@ -43,7 +45,7 @@ const routes: Routes = [
 
 @NgModule({
   providers: [],
-  declarations: [PlanComponent, MyPlansComponent],
+  declarations: [PlanComponent, MyPlansComponent, AddSubdomainComponent],
   imports: [
     MicrotecAuthLibModule,
     SharedLibModule,

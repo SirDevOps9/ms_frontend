@@ -4,10 +4,10 @@
       <form
         [formGroup]="subdomainForm"
         (ngSubmit)="onSubmit()"
-      >
+      > 
         <div class="text-center mb-4">
           <h2>{{ "add subdomain"  }}</h2>
-        </div>
+        </div> 
 
         <lib-form-group>
           <lib-label [appControl]="subdomainForm.controls['subdomain']">
@@ -18,9 +18,8 @@
           </lib-field-validations>
         </lib-form-group>
 
-    
-        <!-- Buttons -->
-        <div class="form-group actions">
+   
+       <div class="form-group actions">
           <button type="submit" class="save w-6">
             <span class="pi pi-send"></span>
             {{  "add subdomain" }}
@@ -29,8 +28,8 @@
           <button class="cancel" type="button" (click)="onCancel()">
             {{"add subdomain" }}
           </button>
-        </div>
-      </form>
+        </div> 
+     </form>
     </div>
   </div>
 </div>

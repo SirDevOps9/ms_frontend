@@ -104,6 +104,7 @@ export class UserService {
       }
     });
   }
+  
   inviteUser(model: InviteUserDto, dialogRef: DynamicDialogRef) {
     this.loaderService.show();
     this.userProxy.inviteUser(model).subscribe({
