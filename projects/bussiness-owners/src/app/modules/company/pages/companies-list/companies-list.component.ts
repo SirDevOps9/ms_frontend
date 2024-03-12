@@ -33,7 +33,8 @@ export class CompaniesListComponent implements OnInit {
   }
 
   initCompanyData() {
-    this.companyService.loadCompanies(this.subscriptionId);
+    //this.companyService.loadCompanies(this.subscriptionId);
+
     this.companyService.companies.subscribe((companyList) => {
       this.companies = companyList;
     });

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { APIResponse, BaseService, lookupsListDto } from 'shared-lib';
+import { APIResponse, HttpService, lookupsListDto } from 'shared-lib';
 import {
   AddCompanyDto,
   CountryDropDown,
@@ -77,5 +77,5 @@ export class CompanyProxy {
     );
   }
 
-  constructor(private httpService: BaseService) {}
+  constructor(private httpService: HttpService) {}
 }

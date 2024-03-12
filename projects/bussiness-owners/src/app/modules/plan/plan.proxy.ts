@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { APIResponse, BaseService } from 'shared-lib';
+import { APIResponse, HttpService } from 'shared-lib';
 import { ResponsePlanDto, SubscriptionDto } from './models';
 import { Injectable } from '@angular/core';
 
@@ -7,8 +7,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class PlanProxy {
-  
-  constructor(private baseService: BaseService) {}
+  constructor(private baseService: HttpService) {}
 
   getAllPlans(): Observable<APIResponse<ResponsePlanDto[]>> {
     return this.baseService.get<APIResponse<ResponsePlanDto[]>>(`plan`);
