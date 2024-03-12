@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'lib-page-content',
   templateUrl: './page-content.component.html',
-  styleUrl: './page-content.component.css',
+  styleUrl: './page-content.component.scss',
 })
 export class PageContentComponent implements OnInit {
   @Input() title: string;

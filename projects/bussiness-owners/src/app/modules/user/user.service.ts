@@ -61,6 +61,12 @@ export class UserService {
         },
       });
     } else {
+      this.userDataSource.value.find((item) => {
+        if (item.id === id) {
+          console.log(item.isActive);
+          item.isActive = false
+        }
+      });
     }
   }
   async deactivate(id: string) {
@@ -86,6 +92,14 @@ export class UserService {
         },
       });
     } else {
+      this.userDataSource.value.find((item) => {
+        if (item.id === id) {
+          console.log(item.isActive);
+          item.isActive = true
+        }
+      });
+
+
     }
   }
 
@@ -177,5 +191,5 @@ export class UserService {
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private loaderService: LoaderService
-  ) {}
+  ) { }
 }
