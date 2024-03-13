@@ -1,12 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { FieldValidationsComponent } from './form-components';
+import { FieldValidationsComponent } from 'projects/shared-lib/src/lib/form-components';
+import { ConfirmInvitedErpUserComponent } from './pages/confirm-invited-erp-user/confirm-invited-erp-user.component';
+import { LayoutComponent, RouterService, SharedLibModule } from 'shared-lib';
+import { LayoutModule } from 'projects/bussiness-owners/src/app/modules/layout/layout.module';
+import { HttpClientModule } from '@angular/common/http';
 
+const routes: Routes = [
+  { path: 'users/userconfirmation/:id', component: ConfirmInvitedErpUserComponent }
+    ]
 @NgModule({
-  declarations: [FieldValidationsComponent],
+  providers: [RouterService],
+  declarations: [FieldValidationsComponent , ConfirmInvitedErpUserComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -14,6 +22,10 @@ import { FieldValidationsComponent } from './form-components';
     RouterModule,
     FormsModule,
     TranslateModule,
+    SharedLibModule,
+    LayoutModule,
+    HttpClientModule,
+    RouterModule.forRoot(routes, {}),
   ],
   exports: [FieldValidationsComponent],
 })
