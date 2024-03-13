@@ -9,6 +9,8 @@ import { EditCompanyComponent } from './pages/edit-company/edit-company.componen
 import { CompaniesListComponent } from './pages/companies-list/companies-list.component';
 import { LayoutComponent } from '../layout/layout-page/layout.component';
 import { LayoutModule } from '../layout/layout.module';
+import { TreeTableModule } from 'primeng/treetable';
+import { TableModule } from 'primeng/table';
 
 const routes: Routes = [
   {
@@ -66,6 +68,9 @@ const routes: Routes = [
     HttpClientModule,
     LayoutModule,
     RouterModule.forRoot(routes, {}),
+    TreeTableModule,
+    TableModule
+  
   ],
   exports: [],
 })
