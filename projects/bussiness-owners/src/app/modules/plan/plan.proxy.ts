@@ -19,7 +19,7 @@ export class PlanProxy {
   }
 
   addSubdomain(subdomain: AddSubdomainDto): Observable<boolean> {
-    return this.baseService.post<APIResponse<boolean>>(
+    return this.baseService.post<APIResponse<AddSubdomainDto>>(
       `Subscription/Addsubdomain`,
       subdomain
     );

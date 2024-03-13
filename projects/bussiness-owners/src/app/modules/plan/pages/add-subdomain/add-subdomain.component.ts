@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup,   } from '@angular/forms';
-import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  DialogService,
+  DynamicDialogConfig,
+  DynamicDialogRef,
+} from 'primeng/dynamicdialog';
 import { FormsService, RouterService, customValidators } from 'shared-lib';
 import { PlanService } from '../../plan.service';
 import { AddSubdomainDto } from '../../models/addsubdomaindto';
@@ -18,7 +22,7 @@ export class AddSubdomainComponent implements OnInit {
   ngOnInit() {
     this.initializesubDomainForm();
   }
-  
+
   initializesubDomainForm() {
     this.subdomainForm = this.fb.group({
       subdomain: ['', [customValidators.required]],
@@ -28,15 +32,13 @@ export class AddSubdomainComponent implements OnInit {
   onSubmit() {
     if (!this.formService.validForm(this.subdomainForm, true)) return;
     const domainModel: AddSubdomainDto = this.subdomainForm.value;
-    domainModel.id= this.currentPlanId;
+    domainModel.id = this.currentPlanId;
     this.planService.addSubdomain(domainModel, this.ref);
   }
-
 
   onCancel() {
     this.ref.close();
   }
-
 
   constructor(
     public config: DynamicDialogConfig,

@@ -1,35 +1,33 @@
 <div class="container mt-2">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <form
-        [formGroup]="subdomainForm"
-        (ngSubmit)="onSubmit()"
-      > 
+      <form [formGroup]="subdomainForm" (ngSubmit)="onSubmit()">
         <div class="text-center mb-4">
           <h2>{{ "Plan.Subdomain.AddSubdomain" | translate }}</h2>
-        </div> 
+        </div>
 
         <lib-form-group>
           <lib-label [appControl]="subdomainForm.controls['subdomain']">
             {{ "Plan.Subdomain.AddSubdomain" | translate }}
           </lib-label>
           <lib-text-input type="text" formControlName="subdomain" pInputText />
-          <lib-field-validations [appControl]="subdomainForm.controls['subdomain']">
+          <lib-field-validations
+            [appControl]="subdomainForm.controls['subdomain']"
+          >
           </lib-field-validations>
         </lib-form-group>
 
-   
-       <div class="form-group actions">
+        <div class="form-group actions">
           <button type="submit" class="save w-6">
             <span class="pi pi-send"></span>
-            {{ "Plan.AddSubdomain" | translate }}
+            {{ "Plan.Subdomain.AddSubdomain" | translate }}
           </button>
 
           <button class="cancel" type="button" (click)="onCancel()">
-            {{"Plan.Subdomain.CancelButton" | translate }}
+            {{ "Plan.Subdomain.CancelButton" | translate }}
           </button>
-        </div> 
-     </form>
+        </div>
+      </form>
     </div>
   </div>
 </div>

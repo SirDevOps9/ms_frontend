@@ -31,7 +31,6 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.MY_PLAN,
         },
       },
-
     ],
   },
 ];

@@ -22,7 +22,6 @@ export class PlanService {
   private plansDataSource = new BehaviorSubject<ResponsePlanDto[]>([]);
   public plans = this.plansDataSource.asObservable();
 
-
   loadSubscription() {
     this.planProxy.getAllSubscriptions().subscribe((response) => {
       this.subscriptionDataSource.next(response.response);
@@ -35,25 +34,24 @@ export class PlanService {
     });
   }
 
-
-  openSubdomainModal(Id: string,ref: DynamicDialogRef, dialog: DialogService) {
+  openSubdomainModal(Id: string, ref: DynamicDialogRef, dialog: DialogService) {
     ref = dialog.open(AddSubdomainComponent, {
       width: '600px',
       height: '600px',
       data: { Id: Id },
-    },
-    );
+    });
     ref.onClose.subscribe();
-  
   }
-  
+
   addSubdomain(subdomain: AddSubdomainDto, dialogRef: DynamicDialogRef) {
     this.loaderService.show();
     this.planProxy.addSubdomain(subdomain).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Plan.Subdomain.Success'),
-          this.languageService.transalte('Plan.Subdomain.SubdomainAddedSuccessfully')
+          this.languageService.transalte(
+            'Plan.Subdomain.SubdomainAddedSuccessfully'
+          )
         );
         this.loaderService.hide();
 
@@ -70,5 +68,5 @@ export class PlanService {
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private loaderService: LoaderService
-    ) {}
+  ) {}
 }
