@@ -21,6 +21,8 @@ import { GetLookupPipe } from './pipes/lookupList';
 import { PageContentComponent } from './components/page-content/page-content.component';
 import { PrimeSharedModule } from './prime-module/prime.module';
 import { FileUploaderComponent } from './form-components/file-uploader/file-uploader.component';
+import { TreeTableModule } from 'primeng/treetable';
+
 @NgModule({
   declarations: [
     GetLookupPipe,
@@ -47,6 +49,7 @@ import { FileUploaderComponent } from './form-components/file-uploader/file-uplo
     TranslateModule.forRoot(),
     FormsModule,
     PrimeSharedModule,
+    TreeTableModule
   ],
   exports: [
     GetLookupPipe,
