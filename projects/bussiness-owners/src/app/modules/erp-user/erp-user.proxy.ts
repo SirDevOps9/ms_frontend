@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { APIResponse, BaseService } from 'shared-lib';
+import { APIResponse, HttpService } from 'shared-lib';
 import { UserListResponse } from '../user/models';
 
 
@@ -17,6 +17,6 @@ getAll(subscriptionId: number): Observable<APIResponse<UserListResponse[]>> {
 }
 
 
-constructor(private baseService: BaseService) { }
+constructor(private baseService: HttpService) { }
 
 }

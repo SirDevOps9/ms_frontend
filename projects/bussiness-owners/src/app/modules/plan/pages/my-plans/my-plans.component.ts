@@ -26,7 +26,7 @@ export class MyPlansComponent implements OnInit {
   }
 
   navigateToManageUser(subdomainId: string) {
-    this.routerService.navigateTo('users/' + subdomainId);
+    this.routerService.navigateTo('erpusers/' + subdomainId);
   }
 
   loadSubscriptions() {

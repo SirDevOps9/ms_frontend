@@ -10,6 +10,7 @@ import {
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ERPUserProxy } from './erp-user.proxy';
 import { UserListResponse } from '../user/models';
+import { InvitedErpUserComponent } from './components/invited-erp-user/invited-erp-user.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -23,6 +24,21 @@ export class ERPUserService {
       next: (res) => {
         this.userDataSource.next(res.response);
       },
+    });
+  }
+  openInviteErpUserModal(ref: DynamicDialogRef, dialog: DialogService) {
+    ref = dialog.open(InvitedErpUserComponent, {
+      width: '600px',
+      height: '600px',
+    });
+    ref.onClose.subscribe((result: UserListResponse) => {
+      if (result as UserListResponse) {
+        const updatedUserList: UserListResponse[] = [
+          ...this.userDataSource.value,
+          result,
+        ];
+        this.userDataSource.next(updatedUserList);
+      }
     });
   }
   constructor(

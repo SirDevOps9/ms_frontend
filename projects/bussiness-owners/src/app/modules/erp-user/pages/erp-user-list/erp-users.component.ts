@@ -3,6 +3,7 @@ import { EnvironmentService, LanguageService, LogService, RouterService, Toaster
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { UserListResponse } from '../../../user/models';
 import { ERPUserService } from '../../erp-user.service';
+import { InvitedErpUserComponent } from '../../components/invited-erp-user/invited-erp-user.component';
 
 @Component({
   selector: 'app-erpuser',
@@ -10,8 +11,7 @@ import { ERPUserService } from '../../erp-user.service';
   styleUrls: ['./erp-users.component.css']
 })
 export class ERPUserComponent implements OnInit {
-  
-  ref: DynamicDialogRef | undefined;
+  ref: DynamicDialogRef;
   userlist: UserListResponse[];
   @ViewChild('dt') dt: any | undefined;
 
@@ -45,13 +45,7 @@ export class ERPUserComponent implements OnInit {
   }
 
   openInviteERPUser() {
-   // this.ref = this.dialog.open(UserInviteFormComponent, {
-    //  width: '600px',
-    //  height: '600px',
-   // });
-   // this.ref.onClose.subscribe((result: UserListResponse) => {
-    //  if (result as UserListResponse) this.userlist.push(result);
-    //});
+    this.erpUsersService.openInviteErpUserModal(this.ref, this.dialog);
   }
   getProfilePic(id: string){
     return this.env.photoBaseUrl + '/api/Users/GetProfilePic?userId=' + id

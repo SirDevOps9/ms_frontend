@@ -1,0 +1,38 @@
+.actions{
+    margin-top: 100px;
+    width: 100% ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+      .save{
+          width: 20%;
+          height: 50px;
+          text-transform: capitalize;
+          font-size: 22px;
+          background-color: #1A8EAE !important;
+          color: #fff;
+          padding: 5px 20px;
+          border-radius: 12px;
+          border: none;
+          cursor: pointer;
+          margin-inline-end: 20px;
+      }
+      .cancel{
+          
+          text-transform: capitalize;
+          font-size: 20px;
+          background-color: #EDEEF1;
+          color: #383A42;
+          padding: 5px 20px;
+          height: 50px;
+          border-radius: 12px;
+          border: none;
+          cursor: pointer;
+          margin-inline-end: 20px;
+      }
+  }
+  .error{
+      color: red;
+  }
+  

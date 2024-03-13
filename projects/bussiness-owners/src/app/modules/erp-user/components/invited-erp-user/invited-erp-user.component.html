@@ -1,0 +1,69 @@
+<div class="container mt-2">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form
+        [formGroup]="inviteForm"
+        (ngSubmit)="onSubmit()"
+        *ngIf="lookupsService.lookupsLoaded"
+      >
+        <div class="text-center mb-4">
+          <h2>{{ "User.Inviteform.FormHeader" | translate }}</h2>
+        </div>
+
+        <lib-form-group>
+          <lib-label [appControl]="inviteForm.controls['email']">
+            {{ "User.Inviteform.EmailLabel" | translate }}
+          </lib-label>
+          <lib-text-input type="text" formControlName="email"  />
+          <lib-field-validations [appControl]="inviteForm.controls['email']">
+          </lib-field-validations>
+        </lib-form-group>
+
+        <lib-form-group>
+          <lib-label [appControl]="inviteForm.controls['subscriptions']">
+            {{ "User.Inviteform.DomainLabel" | translate }}
+          </lib-label>
+          <lib-multi-select
+            formControlName="subscriptions"
+            [options]="lookups[LookupEnum.Subscription]"
+            optionValue="id"
+            optionLabel="name"
+          >
+          </lib-multi-select>
+          <lib-field-validations
+            [appControl]="inviteForm.controls['subscriptions']"
+          >
+          </lib-field-validations>
+        </lib-form-group>
+
+        <lib-form-group>
+          <lib-label [appControl]="inviteForm.controls['bORoles']">
+            {{ "User.Inviteform.ActionsLabel" | translate }}
+          </lib-label>
+          <lib-multi-select
+            formControlName="bORoles"
+            [options]="lookups[LookupEnum.BusinessRole]"
+            optionValue="id"
+            optionLabel="name"
+          >
+          </lib-multi-select>
+          <lib-field-validations [appControl]="inviteForm.controls['bORoles']">
+          </lib-field-validations>
+        </lib-form-group>
+        
+        <!-- Buttons -->
+        <div class="form-group actions">
+          <button type="submit" class="save w-6">
+            <span class="pi pi-send"></span>
+            {{ "User.Inviteform.SubmitButton" | translate }}
+          </button>
+
+          <button class="cancel" type="button" (click)="onCancel()">
+            {{ "User.Inviteform.CancelButton" | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
