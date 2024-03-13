@@ -6,6 +6,9 @@ import {
   LogService,
   RouterService,
   ToasterService,
+  LookupsService,
+  LookupEnum,
+  lookupDto
 } from 'shared-lib';
 import { combineLatest } from 'rxjs';
 import { AddCompanyDto, CompanyTypes, CountryDropDown, DropdownItemDto, MobileCodeDropdownDto } from '../../models';
@@ -25,6 +28,8 @@ export class AddCompanyComponent implements OnInit {
   CountryDropDown: CountryDropDown[];
   mobileCodeDropDown: MobileCodeDropdownDto[];
   subscriptionId: string;
+  LookupEnum = LookupEnum;
+  lookups: { [key: string]: lookupDto[] };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,7 +38,8 @@ export class AddCompanyComponent implements OnInit {
     private toasterService: ToasterService,
     private loaderService: LoaderService,
     private languageService: LanguageService,
-    private routerService: RouterService
+    private routerService: RouterService,
+    public lookupsService: LookupsService
   ) {
     this.companyForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -54,7 +60,8 @@ export class AddCompanyComponent implements OnInit {
 
   ngOnInit() {
     this.subscriptionId = this.routerService.currentId;
-    this.getDropDowns();
+    this.loadLookups();
+    this.Subscribe();
     this.companyForm
       .get('countryCode')
       ?.valueChanges.subscribe((selectedCountryCode) => {
@@ -85,19 +92,19 @@ export class AddCompanyComponent implements OnInit {
     this.addCompany();
   }
 
-  getDropDowns() {
-    combineLatest([
-      this.companyProxy.getDropDown(),
-      this.companyProxy.getMobileCodeDropDown(),
-      this.companyProxy.getCountryDropDown(),
-    ]).subscribe({
-      next: ([resDropdown, resMobileCode, resCountry]) => {
-        this.currencyDropDown = resDropdown.response.currencyDropdown;
-        this.industryDropDown = resDropdown.response.industryDropdown;
-        this.mobileCodeDropDown = resMobileCode.response;
-        this.CountryDropDown = resCountry.response;
-      },
-    });
+
+  Subscribe() {
+    this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
+  }
+  loadLookups() {
+    this.lookupsService.loadLookups([
+      LookupEnum.Country,
+      LookupEnum.Currency,
+      LookupEnum.Industry,
+      LookupEnum.MobileCode,
+      
+    ]);
+    
   }
 
   addCompany() {

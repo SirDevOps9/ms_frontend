@@ -26,7 +26,7 @@
           <p-dropdown
             formControlName="countryCode"
             optionValue="code"
-            [options]="CountryDropDown"
+            [options]="lookups[LookupEnum.Country]"
             optionLabel="name"
           ></p-dropdown>
 
@@ -43,7 +43,7 @@
           <p-dropdown
             formControlName="industryId"
             optionValue="id"
-            [options]="industryDropDown"
+            [options]="lookups[LookupEnum.Industry]"
             optionLabel="name"
           ></p-dropdown>
 
@@ -61,7 +61,7 @@
           <p-dropdown
             formControlName="currencyId"
             optionValue="id"
-            [options]="currencyDropDown"
+            [options]="lookups[LookupEnum.Currency]"
             optionLabel="name"
           ></p-dropdown>
 
@@ -100,7 +100,7 @@
           <p-dropdown
             formControlName="mobileNumberCode"
             optionValue="code"
-            [options]="mobileCodeDropDown"
+            [options]="lookups[LookupEnum.MobileCode]"
             optionLabel="phoneCode"
           ></p-dropdown>
 

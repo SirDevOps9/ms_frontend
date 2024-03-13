@@ -60,14 +60,14 @@ export class UserProxy {
     id: string
   ): Observable<APIResponse<boolean>> {
     return this.baseService.put<APIResponse<boolean>>(
-      `User/BOUpdateUser/${id}`,
+      `User/UpdateInvitedBoByAdmin/${id}`,
       user
     );
   }
 
-  getInvitedUserEmail(id: string): Observable<APIResponse<string>> {
+  GetById(id: string): Observable<APIResponse<string>> {
     return this.baseService.get<APIResponse<string>>(
-      `InvitedUser/GetInvitedUserEmail/${id}`,
+      `InvitedUser/GetById/${id}`,
       false
     );
   }

@@ -13,7 +13,7 @@ export class LoginRedirectComponent implements OnInit {
   ngOnInit() {
     this.authService
       .saveTokenData()
-      .pipe(switchMap(() => this.authHttp.updateLoginDate()))
+      .pipe(switchMap(() => this.authHttp.UpdateLastLoggingTime()))
       .subscribe({
         next: (tenantObj) => {
           this.localStorage.setItem(StorageKeys.TENANT, tenantObj.response);

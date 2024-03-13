@@ -10,7 +10,7 @@ import { TokenModel } from '../models/tokenmodel';
 })
 export class AuthHttpService {
   private loginAPI = 'Auth/Account';
-  private updateLoginDateAPI = 'User/UpdateLoginDate';
+  private updateLoginDateAPI = 'User/UpdateLastLoggingTime';
 
   constructor(private baseService: HttpService) {}
   login(model: LoginModel): Observable<APIResponse<AuthenticationResponse>> {
@@ -19,7 +19,7 @@ export class AuthHttpService {
       model
     );
   }
-  updateLoginDate(): Observable<APIResponse<string>> {
+  UpdateLastLoggingTime(): Observable<APIResponse<string>> {
     return this.baseService.post<APIResponse<string>>(
       `${this.updateLoginDateAPI}`,
       null

@@ -148,7 +148,7 @@ export class UserService {
   }
 
   getEmail(userId: string) {
-    return this.userProxy.getInvitedUserEmail(userId).pipe(
+    return this.userProxy.GetById(userId).pipe(
       map((res) => {
         return res.response;
       }),
