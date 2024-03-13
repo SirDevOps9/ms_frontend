@@ -2,7 +2,7 @@
   <div class="user_page mt-4">
     <p-table
       #dt
-      [value]="userData"
+      [value]="userlist"
       [rows]="10"
       [paginator]="true"
       [globalFilterFields]="['name', 'email', 'representative.name', 'status']"
@@ -31,7 +31,7 @@
             label="Add New"
             icon="pi pi-plus"
             class="add_new mr-2"
-            (click)="openInviteModal()"
+            (click)="openInviteERPUser()"
           ></button>
         </div>
       </ng-template>
@@ -94,7 +94,7 @@
               <p-inputSwitch
                 [id]="user.id"
                 (onChange)="changed($event, user.id)"
-                [(ngModel)]="user.isActive"
+                value="user.isActive"
               >
               </p-inputSwitch>
               <p class="active" *ngIf="user.isActive">

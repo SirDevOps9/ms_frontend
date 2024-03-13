@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { BaseService } from './base.httpservice';
+import { HttpService } from './base.httpservice';
 import {
   APIResponse,
   AttachmentDto,
-  AttachmentFileTypes,
+  AttachmentFileTypeEnum,
   FileDto,
   FileTypeMetaData,
   UploadFileConfigDto,
@@ -65,7 +65,7 @@ export class AttachmentsService {
   downloadAttachment(
     fileId: string,
     label: string,
-    fileType: AttachmentFileTypes
+    fileType: AttachmentFileTypeEnum
   ) {
     const fileTypeMetaData = getFileType(fileType);
 
@@ -92,7 +92,7 @@ export class AttachmentsService {
   }
 
   constructor(
-    private httpService: BaseService,
+    private httpService: HttpService,
     private languageService: LanguageService,
     private toasterService: ToasterService
   ) {}
