@@ -5,4 +5,5 @@ export class UploadFileConfigDto {
   maxSize?: number;
   maxHeight?: number;
   maxWidth?: number;
+  viewThumbnail?: boolean;
 }
