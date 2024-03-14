@@ -13,7 +13,7 @@
         </div>
         <div class="group mb-3">
           <label for="country" class="form-label">{{ "Company.Add.Country" | translate }} :</label>
-          <p-dropdown formControlName="countryCode" optionValue="code" [options]="CountryDropDown"
+          <p-dropdown formControlName="countryCode" optionValue="code" [options]="lookups[LookupEnum.Country]"
             optionLabel="name"></p-dropdown>
           <div *ngIf="hasError('Country', 'required')" class="error">
             {{ "Company.Add.Country" | translate }}
@@ -22,7 +22,7 @@
         </div>
         <div class="group mb-3">
           <label for="industry" class="form-label">{{ "Company.Add.Industry" | translate }} :</label>
-          <p-dropdown formControlName="industryId" [disabled]="true" optionValue="id" [options]="industryDropDown"
+          <p-dropdown formControlName="industryId" [disabled]="true" optionValue="id" [options]="lookups[LookupEnum.Industry]"
             optionLabel="name"></p-dropdown>
           <div *ngIf="hasError('industryId', 'required')" class="error">
             {{ "Company.Add.Industry" | translate }}
@@ -31,7 +31,7 @@
         </div>
         <div class="group mb-3">
           <label for="currency" class="form-label">{{ "Company.Add.Currency" | translate }} :</label>
-          <p-dropdown formControlName="currencyId" [disabled]="true" optionValue="id" [options]="currencyDropDown"
+          <p-dropdown formControlName="currencyId" [disabled]="true" optionValue="id" [options]="lookups[LookupEnum.Currency]"
             optionLabel="name"></p-dropdown>
 
           <div *ngIf="hasError('currencyId', 'required')" class="error">
@@ -64,7 +64,7 @@
           <label for="MobileNumberCode" class="form-label">{{ "Company.Add.MobileNumberCode" | translate }} :</label>
 
           <p-dropdown formControlName="mobileNumberCode" [disabled]="true" optionValue="code"
-            [options]="mobileCodeDropDown" optionLabel="phoneCode"></p-dropdown>
+            [options]="lookups[LookupEnum.MobileCode]" optionLabel="phoneCode"></p-dropdown>
 
           <div *ngIf="hasError('MobileNumberCode', 'required')" class="error">
             {{ "Company.Add.MobileNumberCode" | translate }}

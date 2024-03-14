@@ -60,17 +60,18 @@ export class UserProxy {
     id: string
   ): Observable<APIResponse<boolean>> {
     return this.baseService.put<APIResponse<boolean>>(
-      `User/BOUpdateUser/${id}`,
+      `User/UpdateInvitedBoByAdmin/${id}`,
       user
     );
   }
 
-  getInvitedUserEmail(id: string): Observable<APIResponse<string>> {
-    return this.baseService.get<APIResponse<string>>(
-      `InvitedUser/GetInvitedUserEmail/${id}`,
+  getById(id: string): Observable<APIResponse<InviteUserDto>> {
+    return this.baseService.get<APIResponse<InviteUserDto>>(
+      `InvitedUser/GetById/${id}`,
       false
     );
   }
+  
   confirmInvitedUser(request: FormData): Observable<APIResponse<boolean>> {
     return this.baseService.postForm<APIResponse<boolean>>(
       `InvitedUser/ConfirmInvitedUser`,

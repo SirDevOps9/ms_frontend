@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LogService, RouterService } from 'shared-lib';
+import { LogService, RouterService ,  LookupsService,
+  LookupEnum,
+  lookupDto } from 'shared-lib';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { combineLatest } from 'rxjs';
 import { CompanyProxy } from '../../company.proxy';
@@ -19,11 +21,14 @@ export class EditCompanyComponent implements OnInit {
   CountryDropDown: CountryDropDown[];
   mobileCodeDropDown: MobileCodeDropdownDto[];
   planId: number;
+  LookupEnum = LookupEnum;
+  lookups: { [key: string]: lookupDto[] };
   constructor(
     private formBuilder: FormBuilder,
     private routerSerivce: RouterService,
     private companyProxy: CompanyProxy,
-    private logService: LogService
+    private logService: LogService,
+    public lookupsService: LookupsService
   ) {
     this.companyForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -45,10 +50,10 @@ export class EditCompanyComponent implements OnInit {
   id: number;
   company: ResponseCompanyDto | null = null;
   ngOnInit() {
-    this.getDropDowns();
     this.id = this.routerSerivce.currentId;
     this.logService.log(this.id, 'get by id response');
-
+    this.loadLookups()
+    this.Subscribe()
     this.companyProxy.getById(this.id).subscribe((res) => {
       this.company = res.response;
       this.companyForm.setValue({
@@ -73,18 +78,19 @@ export class EditCompanyComponent implements OnInit {
   onSubmit() {
     console.log(this.companyForm);
   }
-  getDropDowns() {
-    combineLatest([
-      this.companyProxy.getDropDown(),
-      this.companyProxy.getMobileCodeDropDown(),
-      this.companyProxy.getCountryDropDown(),
-    ]).subscribe({
-      next: ([resDropdown, resMobileCode, resCountry]) => {
-        this.currencyDropDown = resDropdown.response.currencyDropdown;
-        this.industryDropDown = resDropdown.response.industryDropdown;
-        this.mobileCodeDropDown = resMobileCode.response;
-        this.CountryDropDown = resCountry.response;
-      },
-    });
+ 
+  
+  Subscribe() {
+    this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
+  }
+  loadLookups() {
+    this.lookupsService.loadLookups([
+      LookupEnum.Country,
+      LookupEnum.Currency,
+      LookupEnum.Industry,
+      LookupEnum.MobileCode,
+      
+    ]);
+    
   }
 }

@@ -29,6 +29,7 @@ export class SelectComponent implements ControlValueAccessor, Validator {
   @Input() placeholder: string;
   @Input() maxLength: string;
   @Input() id: string;
+  @Input() selectedValue: any;
   @Output() valueChanged = new EventEmitter<string>();
 
   value: string = '';

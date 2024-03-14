@@ -13,5 +13,7 @@ export class ERPUserProxy {
     );
   }
 
-  constructor(private httpService: HttpService) {}
+
+constructor(private httpService: HttpService) { }
+
 }

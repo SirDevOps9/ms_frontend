@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import {
   FormsService,
@@ -17,6 +17,7 @@ import {
 import { CompanyService } from '../../company.service';
 import { Title } from '@angular/platform-browser';
 import { CompanyProxy } from '../../company.proxy';
+import { SelectComponent } from 'projects/shared-lib/src/lib/form-components';
 @Component({
   selector: 'app-new-company',
   templateUrl: './new-company.component.html',
@@ -27,6 +28,7 @@ export class NewCompanyComponent implements OnInit {
   companyForm: FormGroup;
   lookups: { [key: string]: lookupDto[] };
   LookupEnum = LookupEnum;
+  selectedPhoneCode: string | undefined;
   mobileCodes: MobileCodeDropdownDto[];
   get subscriptionId(): string {
     return this.routerService.currentId;
@@ -41,10 +43,6 @@ export class NewCompanyComponent implements OnInit {
 
   Subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
-
-    this.companyProxy.getMobileCodeDropDown().subscribe((res) => {
-      this.mobileCodes = res.response;
-    });
   }
 
   loadLookups() {
@@ -52,6 +50,7 @@ export class NewCompanyComponent implements OnInit {
       LookupEnum.Currency,
       LookupEnum.Industry,
       LookupEnum.Country,
+      LookupEnum.MobileCode,
     ]);
   }
 
@@ -90,8 +89,17 @@ export class NewCompanyComponent implements OnInit {
       ]),
       file: new FormControl('', [customValidators.required]),
     });
-  }
 
+    this.companyForm
+    .get('countryCode')
+    ?.valueChanges.subscribe((selectedCountryCode) => {
+      // this.selectedPhoneCode = this.lookups[LookupEnum.MobileCode].find(
+      //   mobile => mobile.id === selectedCountryCode
+      // )?.id.toString();
+      // this.childComponent.onChange(this.selectedPhoneCode);
+    });
+  }
+  @ViewChild(SelectComponent) childComponent!: SelectComponent;
   constructor(
     private formBuilder: FormBuilder,
     private formsService: FormsService,

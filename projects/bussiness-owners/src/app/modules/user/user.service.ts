@@ -148,15 +148,16 @@ export class UserService {
   }
 
   getEmail(userId: string) {
-    return this.userProxy.getInvitedUserEmail(userId).pipe(
+    return this.userProxy.getById(userId).pipe(
       map((res) => {
-        return res.response;
+        return res.response.email;
       }),
       catchError((err: APIResponse<string>) => {
         throw err.error?.errorMessage!;
       })
     );
   }
+  
   submitUserConfirm(formData: FormData) {
     this.loaderService.show();
     this.userProxy.confirmInvitedUser(formData).subscribe({
