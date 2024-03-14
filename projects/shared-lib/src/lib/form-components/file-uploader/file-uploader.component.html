@@ -23,7 +23,10 @@
   {{ "shared.pleaseUpload" | translate }}
 </button>
 
-<div class="steps-form__attachments__content" *ngIf="value">
+<div
+  class="steps-form__attachments__content"
+  *ngIf="value && !config.viewThumbnail"
+>
   <div class="steps-form__attachments__item__updated">
     <p class="attach-name">الملف المرفق</p>
     <a
@@ -59,4 +62,23 @@
       </svg>
     </a>
   </div>
+</div>
+
+<div
+  class="uplode_photo mb-6"
+  *ngIf="
+    config.type === sharedLibEnums.AttachmentFileTypes.image &&
+    config.viewThumbnail &&
+    base64
+  "
+>
+  <!-- <div id="photo" style="background-image: url('{{ photoSrc }}');"></div> -->
+  <img class="image-rounded" *ngIf="base64" [src]="base64" alt="" />
+  <a
+    class="attach-delete"
+    href="javascript:void(0)"
+    (click)="deleteAttachment()"
+  >
+    حذف
+  </a>
 </div>

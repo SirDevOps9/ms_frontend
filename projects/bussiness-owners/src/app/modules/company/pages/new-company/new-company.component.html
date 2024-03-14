@@ -11,7 +11,7 @@
       <lib-label [appControl]="companyForm.controls['name']">
         {{ "Company.Add.CompanyName" | translate }}
       </lib-label>
-      <lib-text-input type="text" formControlName="name"  />
+      <lib-text-input type="text" formControlName="name" />
       <lib-field-validations [appControl]="companyForm.controls['name']">
       </lib-field-validations>
     </lib-form-group>
@@ -65,7 +65,7 @@
       <lib-label [appControl]="companyForm.controls['website']">
         {{ "Company.Add.Website" | translate }}
       </lib-label>
-      <lib-text-input type="text"  formControlName="website" />
+      <lib-text-input type="text" formControlName="website" />
       <lib-field-validations [appControl]="companyForm.controls['website']">
       </lib-field-validations>
     </lib-form-group>
@@ -74,7 +74,7 @@
       <lib-label [appControl]="companyForm.controls['address']">
         {{ "Company.Add.Address" | translate }}
       </lib-label>
-      <lib-text-input type="text"  formControlName="address" />
+      <lib-text-input type="text" formControlName="address" />
       <lib-field-validations [appControl]="companyForm.controls['address']">
       </lib-field-validations>
     </lib-form-group>
@@ -100,7 +100,7 @@
       <lib-label [appControl]="companyForm.controls['mobileNumber']">
         {{ "Company.Add.MobileNumber" | translate }}
       </lib-label>
-      <lib-text-input type="tel"  formControlName="mobileNumber" />
+      <lib-text-input type="tel" formControlName="mobileNumber" />
       <lib-field-validations
         [appControl]="companyForm.controls['mobileNumber']"
       >
@@ -111,7 +111,7 @@
       <lib-label [appControl]="companyForm.controls['companyEmail']">
         {{ "Company.Add.CompanyEmail" | translate }}
       </lib-label>
-      <lib-text-input type="email"  formControlName="companyEmail" />
+      <lib-text-input type="email" formControlName="companyEmail" />
       <lib-field-validations
         [appControl]="companyForm.controls['companyEmail']"
       >
@@ -125,7 +125,10 @@
       <lib-file-uploader
         type="email"
         formControlName="file"
-        [config]="{ type: sharedLibEnums.AttachmentFileTypes.image }"
+        [config]="{
+          type: sharedLibEnums.AttachmentFileTypes.image,
+          viewThumbnail: true
+        }"
         [appControl]="companyForm.controls['file']"
       />
       <lib-field-validations [appControl]="companyForm.controls['file']">

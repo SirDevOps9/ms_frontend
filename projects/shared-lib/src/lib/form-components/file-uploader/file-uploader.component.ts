@@ -14,7 +14,12 @@ import {
   Validator,
 } from '@angular/forms';
 import { AttachmentsService } from '../../services';
-import { AttachmentFileTypeEnum, UploadFileConfigDto } from '../../models';
+import {
+  APIResponse,
+  AttachmentFileTypeEnum,
+  UploadFileConfigDto,
+} from '../../models';
+import { SharedLibraryEnums } from '../../constants';
 
 @Component({
   selector: 'lib-file-uploader',
@@ -26,6 +31,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
   @Input() readOnly: boolean;
   @Input() inputContainerClass: string;
   @Input() placeholder: string;
+  @Input() base64: string;
   @Input() id: string;
   @Input() appControl: AbstractControl;
   @Input() config: UploadFileConfigDto = { type: AttachmentFileTypeEnum.image };
@@ -39,6 +45,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
   writeValue(value: any): void {
     if (value) {
       this.value = value;
+      this.updateImageBase64();
     }
   }
 
@@ -92,20 +99,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
     this.value = '';
     this.onChange('');
     this.valueChanged.emit('');
-  }
-
-  constructor(
-    @Self() @Optional() public controlDir: NgControl,
-    public attachmentService: AttachmentsService
-  ) {
-    if (this.controlDir) {
-      this.controlDir.valueAccessor = this;
-    }
-    this.subscribe();
-
-    this.appControl?.setErrors({
-      in: true,
-    });
+    this.base64 = '';
   }
 
   private subscribe() {
@@ -115,13 +109,42 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
       this.onChange(attId);
 
       this.valueChanged.emit(attId);
+
+      this.updateImageBase64();
     });
 
     this.attachmentService.validationErrors.subscribe((err) => {
-      this.appControl.markAllAsTouched();
-      this.appControl.markAsDirty();
+      this.appControl?.markAllAsTouched();
+
+      this.appControl?.markAsDirty();
 
       this.appControl?.setErrors(err);
     });
+
+    if (this.config.type === AttachmentFileTypeEnum.image && this.value) {
+      this.updateImageBase64();
+    }
+  }
+  private updateImageBase64() {
+    this.attachmentService
+      .getAttachment(this.value)
+      .subscribe((response: APIResponse<any>) => {
+        if (response?.response?.fileContent) {
+          const source = `data:image/jpg;base64,${response.response.fileContent}`;
+          this.base64 = source;
+        }
+      });
+  }
+
+  constructor(
+    @Self() @Optional() public controlDir: NgControl,
+    public sharedLibEnums: SharedLibraryEnums,
+
+    public attachmentService: AttachmentsService
+  ) {
+    if (this.controlDir) {
+      this.controlDir.valueAccessor = this;
+    }
+    this.subscribe();
   }
 }

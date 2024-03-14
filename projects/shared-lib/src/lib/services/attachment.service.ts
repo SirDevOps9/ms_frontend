@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpService } from './base.httpservice';
 import {
   APIResponse,
@@ -89,6 +89,10 @@ export class AttachmentsService {
           );
         }
       });
+  }
+
+  getAttachment(fileId: string): Observable<APIResponse<any>> {
+    return this.httpService.get('Attachments/DownloadAttachment/' + fileId);
   }
 
   constructor(
