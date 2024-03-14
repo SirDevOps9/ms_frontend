@@ -51,8 +51,8 @@ export class UserDetailsComponent implements OnInit {
     });
   }
   initializeUserFormData() {
-    this.userService.getUserById(this.currentUserId).subscribe({
-      next: (res) => {
+    this.userService.getUserById(this.currentUserId).subscribe(
+      (res) => {
         this.userName=res.name
         this.userEmail=res.email
         this.editUserForm.patchValue({
@@ -63,9 +63,8 @@ export class UserDetailsComponent implements OnInit {
         });
         this.selectedBors = res.boRoles.map((b) => b.toString());
         this.selectedSubscriptions = res.subscriptions.map((b) => b.toUpperCase());
-      },
-      error: (err) => {},
-    });
+      }
+    );
   }
 
   async onSubmit() {
