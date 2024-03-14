@@ -8,12 +8,12 @@ import { UserListResponse } from '../user/models';
 })
 export class ERPUserProxy {
   getAll(subscriptionId: number): Observable<APIResponse<UserListResponse[]>> {
-    return this.baseService.get<APIResponse<UserListResponse[]>>(
+    return this.httpService.get<APIResponse<UserListResponse[]>>(
       `ERPUser?subscriptionId=${subscriptionId}`
     );
   }
 
 
-constructor(private baseService: HttpService) { }
+constructor(private httpService: HttpService) { }
 
 }
