@@ -6,6 +6,7 @@ import { BreadcrumbLabel, RouterService, SharedLibModule } from 'shared-lib';
 import { LayoutModule } from '../layout/layout.module';
 import { LayoutComponent } from '../layout/layout-page/layout.component';
 import { ERPUserComponent } from './pages/erp-user-list/erp-users.component';
+import { InviteErpAdminComponent } from './pages/invite-erp-admin/invite-erp-admin.component';
 
 const routes: Routes = [
   {
@@ -27,7 +28,8 @@ const routes: Routes = [
 @NgModule({
   providers: [RouterService],
   declarations: [
-    ERPUserComponent
+    ERPUserComponent,
+    InviteErpAdminComponent
   ],
   imports: [
     MicrotecAuthLibModule,

@@ -1,0 +1,44 @@
+<div class="container mt-2">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form
+        [formGroup]="inviteForm"
+        (ngSubmit)="onSubmit()"
+      >
+        <div class="text-center mb-4">
+          <h2>{{ "User.Inviteform.FormHeader" | translate }}</h2>
+        </div>
+
+        <lib-form-group>
+          <lib-label [appControl]="inviteForm.controls['email']">
+            {{ "User.Inviteform.EmailLabel" | translate }}
+          </lib-label>
+          <lib-text-input type="text" formControlName="email" />
+          <lib-field-validations [appControl]="inviteForm.controls['email']">
+          </lib-field-validations>
+        </lib-form-group>
+
+        <div>
+          <input
+            type="checkbox"
+            formControlName="setMeAsAdmin"
+            id="setMeAsAdmin"
+          />
+          <label for="setMeAsAdmin">Set me as admin</label>
+        </div>
+
+        <!-- Buttons -->
+        <div class="form-group actions">
+          <button type="submit" class="save w-6">
+            <span class="pi pi-send"></span>
+            {{ "User.Inviteform.SubmitButton" | translate }}
+          </button>
+
+          <button class="cancel" type="button" (click)="onCancel()">
+            {{ "User.Inviteform.CancelButton" | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
