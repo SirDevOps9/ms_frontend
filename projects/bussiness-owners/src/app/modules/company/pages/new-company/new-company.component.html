@@ -86,8 +86,9 @@
       <lib-select
         formControlName="mobileNumberCode"
         optionValue="id"
-        optionLabel="name"
-      >
+        [options]="lookups[LookupEnum.MobileCode]"
+        [selectedValue]="selectedPhoneCode"
+        optionLabel="name">
       </lib-select>
       <lib-field-validations
         [appControl]="companyForm.controls['mobileNumberCode']"

@@ -65,12 +65,13 @@ export class UserProxy {
     );
   }
 
-  GetById(id: string): Observable<APIResponse<string>> {
-    return this.baseService.get<APIResponse<string>>(
+  getById(id: string): Observable<APIResponse<InviteUserDto>> {
+    return this.baseService.get<APIResponse<InviteUserDto>>(
       `InvitedUser/GetById/${id}`,
       false
     );
   }
+  
   confirmInvitedUser(request: FormData): Observable<APIResponse<boolean>> {
     return this.baseService.postForm<APIResponse<boolean>>(
       `InvitedUser/ConfirmInvitedUser`,

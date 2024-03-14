@@ -27,6 +27,7 @@ export class NewCompanyComponent implements OnInit {
   companyForm: FormGroup;
   lookups: { [key: string]: lookupDto[] };
   LookupEnum = LookupEnum;
+  selectedPhoneCode: string | undefined;
   mobileCodes: MobileCodeDropdownDto[];
   get subscriptionId(): string {
     return this.routerService.currentId;
@@ -52,6 +53,7 @@ export class NewCompanyComponent implements OnInit {
       LookupEnum.Currency,
       LookupEnum.Industry,
       LookupEnum.Country,
+      LookupEnum.MobileCode,
     ]);
   }
 
@@ -89,6 +91,14 @@ export class NewCompanyComponent implements OnInit {
         customValidators.email,
       ]),
       file: new FormControl('', [customValidators.required]),
+    });
+
+    this.companyForm
+    .get('countryCode')
+    ?.valueChanges.subscribe((selectedCountryCode) => {
+      this.selectedPhoneCode = this.lookups[LookupEnum.MobileCode].find(
+        mobile => mobile.id === selectedCountryCode
+      )?.id.toString();
     });
   }
 
