@@ -1,70 +1,71 @@
-<div class="popup_edit  h-full ">
-   <h2 class="title">Edit User</h2>
-  <div class="card_edit" >
+<div class="popup_edit h-full">
+  <h2 class="title">Edit User</h2>
+  <div class="card_edit">
     <div class="information">
-        <div class="user_photo">
-           
-            <img  
-            [src]="getProfilePic()"
-            onerror="this.src='assets/images/users/editdefault.png'"
-            alt="">
-        </div>
-        <div class="user_name">
-           <p>{{userName}}</p> 
-        </div>
-        <div class="user_mail"> 
-           <p> {{userEmail}} </p>
-        </div>
+      <div class="user_photo">
+        <img
+          [src]="getProfilePic()"
+          onerror="this.src='assets/images/users/editdefault.png'"
+          alt=""
+        />
+      </div>
+      <div class="user_name">
+        <p>{{ userName }}</p>
+      </div>
+      <div class="user_mail">
+        <p>{{ userEmail }}</p>
+      </div>
     </div>
     <div class="admin_edit">
       <form
-      [formGroup]="editUserForm"
-      (ngSubmit)="onSubmit()"
-      *ngIf="lookupsService.lookupsLoaded"
-    >
-    <lib-form-group>
-      <lib-label [appControl]="editUserForm.controls['subscriptions']">
-        {{ "User.Inviteform.DomainLabel" | translate }}
-      </lib-label>
-      <lib-multi-select
-        formControlName="subscriptions"
-        [options]="lookups[LookupEnum.Subscription]"
-        optionValue="id"
-        optionLabel="name"
-        [selectedValue]="selectedSubscriptions"
+        [formGroup]="editUserForm"
+        (ngSubmit)="onSubmit()"
+        *ngIf="lookupsService.lookupsLoaded"
       >
-      </lib-multi-select>
-      <lib-field-validations
-        [appControl]="editUserForm.controls['subscriptions']"
-      >
-      </lib-field-validations>
-    </lib-form-group>
+        <lib-form-group>
+          <lib-label [appControl]="editUserForm.controls['subscriptions']">
+            {{ "User.Inviteform.DomainLabel" | translate }}
+          </lib-label>
+          <lib-multi-select
+            formControlName="subscriptions"
+            [options]="lookups[LookupEnum.Subscription]"
+            optionValue="id"
+            optionLabel="name"
+            [selectedValue]="selectedSubscriptions"
+          >
+          </lib-multi-select>
+          <lib-field-validations
+            [appControl]="editUserForm.controls['subscriptions']"
+          >
+          </lib-field-validations>
+        </lib-form-group>
 
-    <lib-form-group>
-      <lib-label [appControl]="editUserForm.controls['bORoles']">
-        {{ "User.Inviteform.ActionsLabel" | translate }}
-      </lib-label>
-      <lib-multi-select
-        formControlName="bORoles"
-        [options]="lookups[LookupEnum.BusinessRole]"
-        [selectedValue]="selectedBors"
-        optionValue="id"
-        optionLabel="name"
-      >
-      </lib-multi-select>
-      <lib-field-validations
-        [appControl]="editUserForm.controls['bORoles']"
-      >
-      </lib-field-validations>
-    </lib-form-group>
-    <div class="actions flex align-items-center justify-content-center mt-12">
-      <button class="save" type="submit" > save</button>
-      <button class="cancel"   type="button" (click)="onCancel()" > cancel</button>
-  </div>
-    </form>
-
-    
+        <lib-form-group>
+          <lib-label [appControl]="editUserForm.controls['bORoles']">
+            {{ "User.Inviteform.ActionsLabel" | translate }}
+          </lib-label>
+          <lib-multi-select
+            formControlName="bORoles"
+            [options]="lookups[LookupEnum.BusinessRole]"
+            [selectedValue]="selectedBors"
+            optionValue="id"
+            optionLabel="name"
+          >
+          </lib-multi-select>
+          <lib-field-validations
+            [appControl]="editUserForm.controls['bORoles']"
+          >
+          </lib-field-validations>
+        </lib-form-group>
+        <div
+          class="actions flex align-items-center justify-content-center mt-12"
+        >
+          <button class="save" type="submit">save</button>
+          <button class="cancel" type="button" (click)="onCancel()">
+            cancel
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
-
-</div> 
