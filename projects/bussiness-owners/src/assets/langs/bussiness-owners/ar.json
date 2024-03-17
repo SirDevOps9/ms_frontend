@@ -124,5 +124,17 @@
     "policy": "أنا أوافق على سياسة المستخدم",
     "Save": "حفظ",
     "Photo": "الصورة"
-  }
+  },
+  "ErpUser": {
+    "Inviteform": {
+        "FormHeader": "دعوة مستخدم",
+        "EmailLabel": "تسجيل الدخول بالبريد الإلكتروني",
+        "EmailPlaceHolder": "أدخل عنوان بريدك الإلكتروني",
+        "SetMeAsAdmin": "تعييني كمسؤول",
+        "SubmitButton": "إرسال دعوة للمستخدم",
+        "CancelButton": "إلغاء",
+        "Success": "نجاح",
+        "InvitationSent": "تم إرسال الدعوة بنجاح"
+    }
+}
 }

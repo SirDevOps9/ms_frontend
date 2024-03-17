@@ -12,11 +12,13 @@ import { ERPUserService } from '../../erp-user.service';
 export class InviteErpAdminComponent implements OnInit {
 
   inviteForm: FormGroup;
+  emailResults: string[] = [];
+  selectedEmail: string
 
   ngOnInit() {
     this.initializeUserForm();
+    this.setupEmailAutocomplete();
   }
-
 
   initializeUserForm() {
     this.inviteForm = this.fb.group({
@@ -28,12 +30,33 @@ export class InviteErpAdminComponent implements OnInit {
   onSubmit() {
     if (!this.formService.validForm(this.inviteForm, true)) return;
     const userModel = this.inviteForm.value;
-    //this.userService.inviteUser(userModel, this.ref);
+    userModel.selectedEmail = this.selectedEmail;
+    this.userService.inviteUser(userModel, this.ref);
   }
 
   onCancel() {
     this.ref.close();
   }
+
+  setupEmailAutocomplete() {
+    const emailControl = this.inviteForm.get('email');
+    emailControl?.valueChanges.subscribe(query => {
+      if (!query) {
+        this.emailResults = [];
+      } else {
+        this.userService.getEmailOptions(query).subscribe(options => {
+          this.emailResults = options;
+        });
+      }
+    });
+  }
+
+  onSelectEmail(email: string) {
+    this.inviteForm.get('email')?.setValue(email);
+    this.selectedEmail = email; 
+    this.emailResults = []; 
+  }
+
   constructor(
     public dialogService: DialogService,
     private fb: FormBuilder,

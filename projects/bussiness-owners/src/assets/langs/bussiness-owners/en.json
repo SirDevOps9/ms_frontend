@@ -133,5 +133,16 @@
     "UpperCaseLetter": "Password must contain Upper Case Letter ",
     "SpecialCharacter": "Password must contain Special Character ",
     "PasswordmustcontainNumber": "Password must contain Number "
-  }
+  },
+  "ErpUser": {
+    "Inviteform": {
+      "FormHeader": "Invite User",
+      "EmailLabel": "Email Login",
+      "EmailPlaceHolder": "Enter your email address",
+      "SetMeAsAdmin":"Set me as admin",
+      "SubmitButton": "Send User Inviation",
+      "CancelButton": "Cancel",
+      "Success": "Success",
+      "InviationSent": "Invitation Sent Succefully"
+    }  }
 }
