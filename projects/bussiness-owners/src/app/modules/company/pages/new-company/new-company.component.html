@@ -24,6 +24,7 @@
         formControlName="countryCode"
         [options]="lookups[LookupEnum.Country]"
         optionValue="id"
+        (valueChanged)="getout($event)"
         optionLabel="name"
       >
       </lib-select>
