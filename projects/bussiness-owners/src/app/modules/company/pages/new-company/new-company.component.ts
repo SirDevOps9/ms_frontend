@@ -92,27 +92,17 @@ export class NewCompanyComponent implements OnInit {
       file: new FormControl('', [customValidators.required]),
     });
 
-    // this.companyForm
-    // .get('countryCode')
-    // ?.valueChanges.subscribe((selectedCountryCode) => {
-    //   // this.selectedPhoneCode = this.lookups[LookupEnum.MobileCode].find(
-    //   //   mobile => mobile.id === selectedCountryCode
-    //   // )?.id.toString();
-    //   // this.childComponent.onChange(this.selectedPhoneCode);
-    // });
+    this.companyForm
+    .get('countryCode')
+    ?.valueChanges.subscribe((selectedCountryCode) => {
+      this.selectedPhoneCode = this.lookups[LookupEnum.MobileCode].find(
+        mobile => mobile.id === selectedCountryCode
+      )?.id.toString();
+      this.companyForm.patchValue({'mobileNumberCode': this.selectedPhoneCode})
+      
+    });
   }
-  getout(event:any){
-      this.lookups[LookupEnum.MobileCode].find(
-        mobile =>{
-          if( mobile.id === event){
-            this.selectedPhoneCode= mobile.id
-            this.companyForm.patchValue({'mobileNumberCode':mobile.id})
-            
-          }
-        }  
-      );
-   
-  }
+
   @ViewChild(SelectComponent) childComponent!: SelectComponent;
   constructor(
     private formBuilder: FormBuilder,
