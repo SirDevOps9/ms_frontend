@@ -6,6 +6,7 @@ import { IEnvironment } from '../models';
 })
 export class EnvironmentService implements IEnvironment {
   constructor() {}
+  AttachmentServiceConfig: { AttachmentServiceUrl: string; ClientId: string; SecretKey: string; };
   production: boolean;
   baseUrl: string;
   Version: string;

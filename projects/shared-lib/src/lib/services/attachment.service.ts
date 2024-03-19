@@ -13,6 +13,7 @@ import { LanguageService } from './language.service';
 import { ToasterService } from './toaster.service';
 import { customValidators } from '../custom-validators/validation.service';
 import { getFileType } from '../custom-validators/attachmentValidators';
+import { EnvironmentService } from './environment.service';
 
 @Injectable({
   providedIn: 'root',
@@ -50,7 +51,7 @@ export class AttachmentsService {
 
       this.httpService
         .postFullUrl(
-          'https://localhost:2030/api/Attachment/UploadBase64Attachment',
+          `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/UploadBase64Attachment`,
           fileInfo
         )
         .subscribe((response: APIResponse<string>) => {
@@ -74,7 +75,7 @@ export class AttachmentsService {
 
     this.httpService
       .getFullUrl(
-        'https://localhost:2030/api/Attachment/DownloadBase64Attachment/' +
+        `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
           fileId
       )
       .subscribe((apiResponse: APIResponse<AttachmentDto>) => {
@@ -99,13 +100,15 @@ export class AttachmentsService {
 
   getAttachment(fileId: string): Observable<APIResponse<any>> {
     return this.httpService.getFullUrl(
-      'https://localhost:2030/api/Attachment/DownloadBase64Attachment/' + fileId
+      `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
+        fileId
     );
   }
 
   constructor(
     private httpService: HttpService,
     private languageService: LanguageService,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
+    private enviormentService: EnvironmentService
   ) {}
 }
