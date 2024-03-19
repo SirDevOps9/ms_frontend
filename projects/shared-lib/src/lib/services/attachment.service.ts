@@ -49,7 +49,10 @@ export class AttachmentsService {
       };
 
       this.httpService
-        .post('Attachments/UploadAttachment', fileInfo)
+        .postFullUrl(
+          'https://localhost:2030/api/Attachment/UploadBase64Attachment',
+          fileInfo
+        )
         .subscribe((response: APIResponse<string>) => {
           if (!response.response) {
             this.toasterService.showError(
@@ -70,7 +73,10 @@ export class AttachmentsService {
     const fileTypeMetaData = getFileType(fileType);
 
     this.httpService
-      .get('Attachments/DownloadAttachment/' + fileId)
+      .getFullUrl(
+        'https://localhost:2030/api/Attachment/DownloadBase64Attachment/' +
+          fileId
+      )
       .subscribe((apiResponse: APIResponse<AttachmentDto>) => {
         if (apiResponse.response) {
           const source = `${fileTypeMetaData.fileBase64Padding},${apiResponse.response.fileContent}`;
@@ -92,7 +98,9 @@ export class AttachmentsService {
   }
 
   getAttachment(fileId: string): Observable<APIResponse<any>> {
-    return this.httpService.get('Attachments/DownloadAttachment/' + fileId);
+    return this.httpService.getFullUrl(
+      'https://localhost:2030/api/Attachment/DownloadBase64Attachment/' + fileId
+    );
   }
 
   constructor(
