@@ -42,6 +42,9 @@ export class SelectComponent implements ControlValueAccessor, Validator {
     }
   }
 
+
+
+  
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
