@@ -19,7 +19,7 @@ export const environment : IEnvironment = {
     useRefreshToken: true,
   },
   AttachmentServiceConfig:{
-    AttachmentServiceUrl :"https://localhost:2030",
+    AttachmentServiceUrl :"http://localhost:2030",
     ClientId:"BussinessOwner",
     SecretKey:"secretkey",
   }

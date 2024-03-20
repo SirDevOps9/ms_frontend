@@ -17,38 +17,23 @@
       </div>
       <div class="form_content pb-6">
         <form [formGroup]="userForm" (ngSubmit)="submitForm()">
-          <div class="uplode_photo mb-6">
-            <div class="btn_uplode">
-              <!-- <label for="photo" class="form-label">
-              {{ "UserConfirmation.Photo" | translate }}
-            </label> -->
-              <!-- (change)="onFileSelected($event)" -->
-              <div
-                id="photo"
-                style="background-image: url('{{ photoSrc }}');"
-              ></div>
-              <!-- <input
-              type="file"
-
-              accept="image/*"
-               (change)="onFileSelected($event)"
-
-            /> -->
-              <input
-                type="file"
-                id="btnuplode"
-                accept="image/*"
-                (change)="onFileSelected($event)"
-              />
-            </div>
-            <!-- <div>
-
-          </div> -->
-            <div class="information">
-              <p class="information_title">Add User Photo Here</p>
-              <p class="information_subtitle">250px *500px (JPG, PNG)</p>
-            </div>
-          </div>
+       
+          <lib-form-group>
+            <lib-label [appControl]="userForm.controls['photo']">
+              {{ "photo" }}
+            </lib-label>
+            <lib-file-uploader
+              type="photo"
+              formControlName="photo"
+              [config]="{
+                type: sharedLibEnums.AttachmentFileTypes.image,
+                viewThumbnail: true
+              }"
+              [appControl]="userForm.controls['photo']"
+            />
+            <lib-field-validations [appControl]="userForm.controls['photo']">
+            </lib-field-validations>
+          </lib-form-group>
           <div class="user_name_email mb-6">
             <div class="user_name">
               <label for="fullName">{{
@@ -80,7 +65,8 @@
                 "UserConfirmation.Email" | translate
               }}</label>
               <input
-                type="text"
+                type="email"
+                disabled
                 placeholder="Email  here"
                 id="email"
                 pInputText

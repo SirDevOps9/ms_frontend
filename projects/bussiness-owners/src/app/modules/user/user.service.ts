@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map } from 'rxjs';
-import { EditUserModel, InviteUserDto, UserListResponse } from './models';
+import { AddConfirmedUserDto, EditUserModel, InviteUserDto, UserListResponse } from './models';
 import { UserProxy } from './user.proxy';
 import {
   APIResponse,
@@ -158,9 +158,9 @@ export class UserService {
     );
   }
   
-  submitUserConfirm(formData: FormData) {
+  submitUserConfirm(request: AddConfirmedUserDto) {
     this.loaderService.show();
-    this.userProxy.confirmInvitedUser(formData).subscribe({
+    this.userProxy.confirmInvitedUser(request).subscribe({
       next: (response) => {
         this.loaderService.hide();
         this.toasterService.showSuccess('Success', 'Success');
