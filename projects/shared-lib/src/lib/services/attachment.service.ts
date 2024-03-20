@@ -13,6 +13,7 @@ import { LanguageService } from './language.service';
 import { ToasterService } from './toaster.service';
 import { customValidators } from '../custom-validators/validation.service';
 import { getFileType } from '../custom-validators/attachmentValidators';
+import { EnvironmentService } from './environment.service';
 
 @Injectable({
   providedIn: 'root',
@@ -49,7 +50,10 @@ export class AttachmentsService {
       };
 
       this.httpService
-        .post('Attachments/UploadAttachment', fileInfo)
+        .postFullUrl(
+          `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/UploadBase64Attachment`,
+          fileInfo
+        )
         .subscribe((response: APIResponse<string>) => {
           if (!response.response) {
             this.toasterService.showError(
@@ -70,7 +74,10 @@ export class AttachmentsService {
     const fileTypeMetaData = getFileType(fileType);
 
     this.httpService
-      .get('Attachments/DownloadAttachment/' + fileId)
+      .getFullUrl(
+        `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
+          fileId
+      )
       .subscribe((apiResponse: APIResponse<AttachmentDto>) => {
         if (apiResponse.response) {
           const source = `${fileTypeMetaData.fileBase64Padding},${apiResponse.response.fileContent}`;
@@ -92,12 +99,16 @@ export class AttachmentsService {
   }
 
   getAttachment(fileId: string): Observable<APIResponse<any>> {
-    return this.httpService.get('Attachments/DownloadAttachment/' + fileId);
+    return this.httpService.getFullUrl(
+      `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
+        fileId
+    );
   }
 
   constructor(
     private httpService: HttpService,
     private languageService: LanguageService,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
+    private enviormentService: EnvironmentService
   ) {}
 }

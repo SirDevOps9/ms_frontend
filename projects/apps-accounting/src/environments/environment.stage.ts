@@ -1,4 +1,4 @@
-import { IEnvironment } from "shared-lib";
+import { IEnvironment } from 'shared-lib';
 
 export const environment: IEnvironment = {
   production: false,
@@ -16,4 +16,10 @@ export const environment: IEnvironment = {
     silentRenew: true,
     useRefreshToken: true,
   },
+  AttachmentServiceConfig: {
+    AttachmentServiceUrl: 'https://localhost:2030',
+    ClientId: 'Accounting',
+    SecretKey: 'secretkey',
+  },
+  photoBaseUrl: ''
 };

@@ -82,10 +82,32 @@ export class HttpService {
     );
   }
 
+  getFullUrl<T>(url: string, showError: boolean = true) {
+    return this.addHeaders().pipe(
+      switchMap((headers) =>
+        this.http.get<T>(`${url}`, { headers })
+      ),
+      catchError((response: HttpErrorResponse) =>
+        this.errorHandler(url, response, null, showError)
+      )
+    );
+  }
+
   post<T>(url: string, data: any, showError: boolean = true) {
     return this.addHeaders().pipe(
       switchMap((headers) =>
         this.http.post<T>(`${this.baseUrl}/${url}`, data, { headers })
+      ),
+      catchError((response: HttpErrorResponse) =>
+        this.errorHandler(url, response, data, showError)
+      )
+    );
+  }
+
+  postFullUrl<T>(url: string, data: any, showError: boolean = true) {
+    return this.addHeaders().pipe(
+      switchMap((headers) =>
+        this.http.post<T>(`${url}`, data, { headers })
       ),
       catchError((response: HttpErrorResponse) =>
         this.errorHandler(url, response, data, showError)
