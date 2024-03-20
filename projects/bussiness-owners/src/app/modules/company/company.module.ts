@@ -11,6 +11,7 @@ import { LayoutComponent } from '../layout/layout-page/layout.component';
 import { LayoutModule } from '../layout/layout.module';
 import { TreeTableModule } from 'primeng/treetable';
 import { TableModule } from 'primeng/table';
+import { AddCompanyPopupComponent } from './components/add-company-popup/add-company-popup.component';
 
 const routes: Routes = [
   {
@@ -61,6 +62,7 @@ const routes: Routes = [
     CompaniesListComponent,
     AddCompanyComponent,
     EditCompanyComponent,
+    AddCompanyPopupComponent
   ],
   imports: [
     MicrotecAuthLibModule,

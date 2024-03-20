@@ -11,7 +11,7 @@ import {
   lookupDto
 } from 'shared-lib';
 import { combineLatest } from 'rxjs';
-import { AddCompanyDto, CompanyTypes, CountryDropDown, DropdownItemDto, MobileCodeDropdownDto } from '../../models';
+import { AddCompanyDto } from '../../models';
 import { CompanyProxy } from '../../company.proxy';
 @Component({
   selector: 'app-add-compny',
@@ -22,11 +22,7 @@ import { CompanyProxy } from '../../company.proxy';
 })
 export class AddCompanyComponent implements OnInit {
   companyForm: FormGroup;
-  currencyDropDown: DropdownItemDto[];
-  industryDropDown: DropdownItemDto[];
-  subdoaminDropDown: DropdownItemDto[];
-  CountryDropDown: CountryDropDown[];
-  mobileCodeDropDown: MobileCodeDropdownDto[];
+
   subscriptionId: string;
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
@@ -62,19 +58,6 @@ export class AddCompanyComponent implements OnInit {
     this.subscriptionId = this.routerService.currentId;
     this.loadLookups();
     this.Subscribe();
-    this.companyForm
-      .get('countryCode')
-      ?.valueChanges.subscribe((selectedCountryCode) => {
-        const selectedCountry = this.mobileCodeDropDown.find(
-          (mobile) => mobile.code === selectedCountryCode
-        );
-
-        if (selectedCountry) {
-          this.companyForm.patchValue({
-            mobileNumberCode: selectedCountry.code,
-          });
-        }
-      });
 
     this.companyForm.get('countryCode')?.valueChanges;
   }
@@ -111,7 +94,7 @@ export class AddCompanyComponent implements OnInit {
     this.loaderService.show();
     const request: AddCompanyDto = this.companyForm.value;
     request.subscriptionId = this.subscriptionId;
-    request.companyType = CompanyTypes.Holding;
+    //request.companyType = CompanyTypes.Holding;
     this.companyProxy.addCompany(request).subscribe({
       next: (response) => {
         this.logService.log(response, 'Company added successfully:');

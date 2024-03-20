@@ -3,12 +3,9 @@ import { Observable } from 'rxjs';
 import { APIResponse, HttpService, lookupsListDto } from 'shared-lib';
 import {
   AddCompanyDto,
-  CountryDropDown,
-  DropdownItemDto,
-  DropdownListDto,
-  MobileCodeDropdownDto,
   ResponseCompanyDto,
 } from './models';
+import { AddCompanyPopupDto } from './models/addcompanypopup';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +13,14 @@ import {
 export class CompanyProxy {
   addCompany(
     request: AddCompanyDto
+  ): Observable<APIResponse<ResponseCompanyDto>> {
+    return this.httpService.post<APIResponse<ResponseCompanyDto>>(
+      'Company',
+      request
+    );
+  }
+  addCompanyPopup(
+    request: AddCompanyPopupDto
   ): Observable<APIResponse<ResponseCompanyDto>> {
     return this.httpService.post<APIResponse<ResponseCompanyDto>>(
       'Company',
@@ -37,30 +42,6 @@ export class CompanyProxy {
   getById(id: number): Observable<APIResponse<ResponseCompanyDto>> {
     return this.httpService.get<APIResponse<ResponseCompanyDto>>(
       `Company/${id}`
-    );
-  }
-
-  getDropDown(): Observable<APIResponse<DropdownListDto>> {
-    return this.httpService.get<APIResponse<DropdownListDto>>(
-      `Company/dropdowns`
-    );
-  }
-
-  getSubdomainDropDown(): Observable<APIResponse<DropdownItemDto[]>> {
-    return this.httpService.get<APIResponse<DropdownItemDto[]>>(
-      `SubDomain/GetAllDropDown`
-    );
-  }
-
-  getMobileCodeDropDown(): Observable<APIResponse<MobileCodeDropdownDto[]>> {
-    return this.httpService.get<APIResponse<MobileCodeDropdownDto[]>>(
-      `Country/GetAllCountryCodeDropDown`
-    );
-  }
-
-  getCountryDropDown(): Observable<APIResponse<CountryDropDown[]>> {
-    return this.httpService.get<APIResponse<CountryDropDown[]>>(
-      `Country/GetAllDropDown`
     );
   }
 

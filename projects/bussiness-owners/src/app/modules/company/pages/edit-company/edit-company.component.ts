@@ -5,7 +5,7 @@ import { LogService, RouterService ,  LookupsService,
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { combineLatest } from 'rxjs';
 import { CompanyProxy } from '../../company.proxy';
-import { CountryDropDown, DropdownItemDto, MobileCodeDropdownDto, ResponseCompanyDto } from '../../models';
+import {  ResponseCompanyDto } from '../../models';
 
 @Component({
   selector: 'app-edit-company',
@@ -15,11 +15,7 @@ import { CountryDropDown, DropdownItemDto, MobileCodeDropdownDto, ResponseCompan
 })
 export class EditCompanyComponent implements OnInit {
   companyForm: FormGroup;
-  currencyDropDown: DropdownItemDto[];
-  industryDropDown: DropdownItemDto[];
-  subdoaminDropDown: DropdownItemDto[];
-  CountryDropDown: CountryDropDown[];
-  mobileCodeDropDown: MobileCodeDropdownDto[];
+
   planId: number;
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };

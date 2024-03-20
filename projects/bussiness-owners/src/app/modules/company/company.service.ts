@@ -8,6 +8,9 @@ import {
   RouterService,
   ToasterService,
 } from 'shared-lib';
+import { AddCompanyPopupDto } from './models/addcompanypopup';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { AddCompanyPopupComponent } from './components/add-company-popup/add-company-popup.component';
 
 @Injectable({
   providedIn: 'root',
@@ -98,5 +101,34 @@ export class CompanyService {
       });
     } else {
     }
+  }
+
+  openAddCompanyModal(
+    Id: string, 
+    ref: DynamicDialogRef, dialog: DialogService) {
+    ref = dialog.open(AddCompanyPopupComponent, {
+      width: '600px',
+      height: '600px',
+      data: { Id: Id },
+    });
+    ref.onClose.subscribe();
+  }
+  addCompanyPopup(company: AddCompanyPopupDto, dialogRef: DynamicDialogRef) {
+    this.loaderService.show();
+    this.companyProxy.addCompanyPopup(company).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('Plan.Subdomain.Success'),
+          this.languageService.transalte(
+            'Plan.Subdomain.SubdomainAddedSuccessfully'
+          )
+        );
+        this.loaderService.hide();
+        dialogRef.close(res);
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
   }
 }

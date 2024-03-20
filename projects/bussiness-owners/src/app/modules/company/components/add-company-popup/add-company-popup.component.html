@@ -1,0 +1,94 @@
+<lib-page-content
+  [title]="'Company.Add.AccInfo' | translate"
+  [subTitle]="'Company.Add.Step' | translate"
+>
+  <form
+    [formGroup]="companyForm"
+    (ngSubmit)="onSubmit()"
+  >
+
+  <!-- <lib-form-group>
+    <lib-label [appControl]="companyForm.controls['companyLogo']">
+      {{ "companyLogo" }}
+    </lib-label>
+    <lib-file-uploader
+      formControlName="companyLogo"
+      [config]="{
+        type: sharedLibEnums.AttachmentFileTypes.image,
+        viewThumbnail: true
+      }"
+      [appControl]="companyForm.controls['companyLogo']"
+    />
+    <lib-field-validations [appControl]="companyForm.controls['companyLogo']">
+    </lib-field-validations>
+  </lib-form-group> -->
+
+  <lib-form-group>
+    <lib-label [appControl]="companyForm.controls['companyLogo']">
+      {{ "Company.Add.companyLogo" | translate }}
+    </lib-label>
+    <lib-text-input type="text" formControlName="companyLogo" />
+    <lib-field-validations [appControl]="companyForm.controls['companyLogo']">
+    </lib-field-validations>
+  </lib-form-group>
+
+    <lib-form-group>
+      <lib-label [appControl]="companyForm.controls['name']">
+        {{ "Company.Add.CompanyName" | translate }}
+      </lib-label>
+      <lib-text-input type="text" formControlName="name" />
+      <lib-field-validations [appControl]="companyForm.controls['name']">
+      </lib-field-validations>
+    </lib-form-group>
+
+    <lib-form-group>
+      <lib-label [appControl]="companyForm.controls['branchName']">
+        {{ "Company.Add.BranchName" | translate }}
+      </lib-label>
+      <lib-text-input type="text" formControlName="branchName" />
+      <lib-field-validations [appControl]="companyForm.controls['branchName']">
+      </lib-field-validations>
+    </lib-form-group>
+
+    <lib-form-group>
+      <lib-label [appControl]="companyForm.controls['companyType']">
+        {{ "Company.Add.CompanyType" | translate }}
+      </lib-label>
+      <lib-select
+        formControlName="companyType"
+        [options]="lookups[LookupEnum.CompanyType]"
+        optionValue="id"
+        optionLabel="name"
+      >
+      </lib-select>
+      <lib-field-validations [appControl]="companyForm.controls['companyType']">
+      </lib-field-validations>
+    </lib-form-group>
+
+
+    <lib-form-group>
+      <lib-label [appControl]="companyForm.controls['parentCompany']">
+        {{ "Company.Add.ParentCompany" | translate }}
+      </lib-label>
+      <lib-select
+        formControlName="parentCompany"
+        [options]="lookups[LookupEnum.Company]"
+        optionValue="id"
+        optionLabel="name"
+      >
+      </lib-select>
+    </lib-form-group>
+
+    <div class="Actions">
+      <button type="button" (click)="onSaveAndEdit()"class="btn btn-primary">
+        {{ "Company.Add.SaveAndEdit" | translate }}
+      </button>
+    </div>
+
+    <div class="Actions">
+      <button type="submit" class="btn btn-primary">
+        {{ "Company.Add.Save" | translate }}
+      </button>
+    </div>
+  </form>
+</lib-page-content>

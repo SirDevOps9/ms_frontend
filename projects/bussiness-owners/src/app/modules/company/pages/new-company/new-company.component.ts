@@ -11,11 +11,8 @@ import {
 } from 'shared-lib';
 import {
   AddCompanyDto,
-  CompanyTypes,
-  MobileCodeDropdownDto,
 } from '../../models';
 import { CompanyService } from '../../company.service';
-import { Title } from '@angular/platform-browser';
 import { CompanyProxy } from '../../company.proxy';
 import { SelectComponent } from 'projects/shared-lib/src/lib/form-components';
 @Component({
@@ -29,7 +26,6 @@ export class NewCompanyComponent implements OnInit {
   lookups: { [key: string]: lookupDto[] };
   LookupEnum = LookupEnum;
   selectedPhoneCode: string | undefined;
-  mobileCodes: MobileCodeDropdownDto[];
   get subscriptionId(): string {
     return this.routerService.currentId;
   }
@@ -61,7 +57,7 @@ export class NewCompanyComponent implements OnInit {
 
     request.subscriptionId = this.subscriptionId;
 
-    request.companyType = CompanyTypes.Holding;
+    //request.companyType = CompanyTypes.Holding;
 
     this.companyService.addCompany(request);
   }
