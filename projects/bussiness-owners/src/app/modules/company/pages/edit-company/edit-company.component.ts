@@ -6,7 +6,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { combineLatest } from 'rxjs';
 import { CompanyProxy } from '../../company.proxy';
 import { CountryDropDown, DropdownItemDto, MobileCodeDropdownDto, ResponseCompanyDto } from '../../models';
-
+import { ActivatedRoute } from '@angular/router';
+ 
 @Component({
   selector: 'app-edit-company',
   templateUrl: './edit-company.component.html',
@@ -23,12 +24,14 @@ export class EditCompanyComponent implements OnInit {
   planId: number;
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
+  active:boolean=false
   constructor(
     private formBuilder: FormBuilder,
     private routerSerivce: RouterService,
     private companyProxy: CompanyProxy,
     private logService: LogService,
-    public lookupsService: LookupsService
+    public lookupsService: LookupsService,
+    private route: ActivatedRoute
   ) {
     this.companyForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -48,8 +51,12 @@ export class EditCompanyComponent implements OnInit {
   }
 
   id: number;
+  editTabName: any;
   company: ResponseCompanyDto | null = null;
   ngOnInit() {
+
+    this.editTabName=  this.route.snapshot.firstChild!.routeConfig!.path;
+    this.activeTag(this.editTabName);
     this.id = this.routerSerivce.currentId;
     this.logService.log(this.id, 'get by id response');
     this.loadLookups()
@@ -92,5 +99,11 @@ export class EditCompanyComponent implements OnInit {
       
     ]);
     
+  }
+  activeTag(id: any) {
+    const targetElementId = document.getElementById(id);
+    var test = document.querySelector('.active_link');
+    test?.classList.remove('active_link');
+    targetElementId?.classList.add('active_link');
   }
 }

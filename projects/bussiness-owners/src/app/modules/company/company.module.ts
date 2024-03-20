@@ -11,6 +11,12 @@ import { LayoutComponent } from '../layout/layout-page/layout.component';
 import { LayoutModule } from '../layout/layout.module';
 import { TreeTableModule } from 'primeng/treetable';
 import { TableModule } from 'primeng/table';
+import { CompanyAddresComponent } from './pages/company-addres/company-addres.component';
+import { CompanyLegalComponent } from './pages/company-legal/company-legal.component';
+import { CompanyContactComponent } from './pages/company-contact/company-contact.component';
+import { CompanyHierarchyComponent } from './pages/company-hierarchy/company-hierarchy.component';
+import { CompanyBranchesComponent } from './pages/company-branches/company-branches.component'
+
 
 const routes: Routes = [
   {
@@ -49,6 +55,32 @@ const routes: Routes = [
         path: 'company/edit/:id',
         component: EditCompanyComponent,
         canActivate: [AuthGuard],
+        children: [
+          {
+            path: '',
+            component: CompanyAddresComponent,
+          },
+          {
+            path: 'addres',
+            component: CompanyAddresComponent,
+          },
+          {
+            path: 'legal',
+            component: CompanyLegalComponent,
+          },
+          {
+            path: 'contact',
+            component: CompanyContactComponent,
+          },
+          {
+            path: 'hierarchy',
+            component: CompanyHierarchyComponent,
+          },
+          {
+            path: 'branches',
+            component: CompanyBranchesComponent,
+          }
+        ]
       },
     ],
   },
@@ -61,6 +93,11 @@ const routes: Routes = [
     CompaniesListComponent,
     AddCompanyComponent,
     EditCompanyComponent,
+    CompanyAddresComponent,
+    CompanyLegalComponent,
+    CompanyContactComponent,
+    CompanyHierarchyComponent,
+    CompanyBranchesComponent
   ],
   imports: [
     MicrotecAuthLibModule,
@@ -69,7 +106,8 @@ const routes: Routes = [
     LayoutModule,
     RouterModule.forRoot(routes, {}),
     TreeTableModule,
-    TableModule
+    TableModule,
+    
   
   ],
   exports: [],
