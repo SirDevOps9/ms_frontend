@@ -14,4 +14,9 @@ export const environment = {
     silentRenew: true,
     useRefreshToken: true,
   },
+  AttachmentServiceConfig:{
+    AttachmentServiceUrl :"https://localhost:2030",
+    ClientId:"AdminPortal",
+    SecretKey:"secretkey",
+  }
 };

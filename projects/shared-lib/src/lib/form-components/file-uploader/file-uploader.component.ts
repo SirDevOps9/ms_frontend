@@ -7,7 +7,7 @@ import {
   Self,
 } from '@angular/core';
 import {
-  AbstractControl,
+AbstractControl,
   ControlValueAccessor,
   NgControl,
   ValidationErrors,

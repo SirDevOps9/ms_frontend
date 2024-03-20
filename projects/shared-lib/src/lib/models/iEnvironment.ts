@@ -14,5 +14,10 @@ export interface IEnvironment {
     responseType: string;
     silentRenew: true;
     useRefreshToken: true;
-  };
+  },
+  AttachmentServiceConfig:{
+    AttachmentServiceUrl :string,
+    ClientId:string,
+    SecretKey:string
+  }
 }

@@ -25,7 +25,8 @@ export class NewCompanyComponent implements OnInit {
   companyForm: FormGroup;
   lookups: { [key: string]: lookupDto[] };
   LookupEnum = LookupEnum;
-  selectedPhoneCode: string | undefined;
+  selectedPhoneCode: any | undefined;
+  mobileCodes: MobileCodeDropdownDto[];
   get subscriptionId(): string {
     return this.routerService.currentId;
   }
@@ -51,6 +52,8 @@ export class NewCompanyComponent implements OnInit {
   }
 
   onSubmit() {
+    
+    
     if (this.formsService.validForm(this.companyForm, true)) return;
 
     const request: AddCompanyDto = this.companyForm.value;
@@ -89,12 +92,14 @@ export class NewCompanyComponent implements OnInit {
     this.companyForm
     .get('countryCode')
     ?.valueChanges.subscribe((selectedCountryCode) => {
-      // this.selectedPhoneCode = this.lookups[LookupEnum.MobileCode].find(
-      //   mobile => mobile.id === selectedCountryCode
-      // )?.id.toString();
-      // this.childComponent.onChange(this.selectedPhoneCode);
+      this.selectedPhoneCode = this.lookups[LookupEnum.MobileCode].find(
+        mobile => mobile.id === selectedCountryCode
+      )?.id.toString();
+      this.companyForm.patchValue({'mobileNumberCode': this.selectedPhoneCode})
+      
     });
   }
+
   @ViewChild(SelectComponent) childComponent!: SelectComponent;
   constructor(
     private formBuilder: FormBuilder,
