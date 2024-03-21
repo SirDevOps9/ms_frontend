@@ -29,7 +29,6 @@ export class UserconfirmationComponent implements OnInit {
   photo: any;
   errorMessage: string;
   photoSrc: string = 'assets/images/users/pic.jpg';
-  photoUrl: any;
   ngOnInit() {
     this.initializeForm();
     this.getEmail();
