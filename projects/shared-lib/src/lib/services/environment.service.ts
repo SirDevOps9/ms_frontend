@@ -23,4 +23,5 @@ export class EnvironmentService implements IEnvironment {
     silentRenew: true;
     useRefreshToken: true;
   };
+  ApiKey: string;
 }
