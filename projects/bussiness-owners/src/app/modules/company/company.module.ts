@@ -15,7 +15,9 @@ import { CompanyAddresComponent } from './pages/company-addres/company-addres.co
 import { CompanyLegalComponent } from './pages/company-legal/company-legal.component';
 import { CompanyContactComponent } from './pages/company-contact/company-contact.component';
 import { CompanyHierarchyComponent } from './pages/company-hierarchy/company-hierarchy.component';
-import { CompanyBranchesComponent } from './pages/company-branches/company-branches.component'
+import { CompanyBranchesComponent } from './pages/company-branches/company-branches.component';
+import { NewBranchesComponent } from './components/new-branches/new-branches.component';
+import { EditBranchesComponent } from './components/edit-branches/edit-branches.component'
 
 
 const routes: Routes = [
@@ -97,7 +99,9 @@ const routes: Routes = [
     CompanyLegalComponent,
     CompanyContactComponent,
     CompanyHierarchyComponent,
-    CompanyBranchesComponent
+    CompanyBranchesComponent,
+    NewBranchesComponent,
+    EditBranchesComponent
   ],
   imports: [
     MicrotecAuthLibModule,

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserListResponse } from '../../../user/models';
-
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { NewBranchesComponent } from '../../components/new-branches/new-branches.component';
+import { CompanyService } from '../../company.service';
 @Component({
   selector: 'app-company-branches',
   templateUrl: './company-branches.component.html',
@@ -8,7 +10,7 @@ import { UserListResponse } from '../../../user/models';
 })
 export class CompanyBranchesComponent implements OnInit {
   branchData: any[];
-
+  ref: DynamicDialogRef;
   ngOnInit() {
     this.branchData=[
       {
@@ -33,4 +35,16 @@ export class CompanyBranchesComponent implements OnInit {
     }
   }
  
+  addBranche() {
+    this.CompanyService.addBranche(this.ref, this.dialog);
+  }
+ 
+  editBranche() {
+    this.CompanyService.editBranche(this.ref, this.dialog);
+  }
+  constructor(
+    private dialog: DialogService,
+    private CompanyService: CompanyService,
+
+  ){}
 }

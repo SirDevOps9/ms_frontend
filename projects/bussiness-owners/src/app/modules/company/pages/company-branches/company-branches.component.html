@@ -21,7 +21,7 @@
               label="Add New"
               icon="pi pi-plus"
               class="add_new mr-2"
-              
+              (click)="addBranche()"
             ></button>
           </div>
         </ng-template>
@@ -101,13 +101,13 @@
             <td>
               <p-button
                 icon="pi pi-pencil"
-              
+                (click)="editBranche()"
                 [rounded]="true"
                 [text]="true"
                 severity="secondary "
         
               ></p-button>
-              <!-- <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger "></p-button> -->
+              <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger "></p-button>
             </td>
           </tr>
         </ng-template>
