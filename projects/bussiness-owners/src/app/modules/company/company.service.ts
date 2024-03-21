@@ -8,6 +8,10 @@ import {
   RouterService,
   ToasterService,
 } from 'shared-lib';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { NewBranchesComponent } from './components/new-branches/new-branches.component';
+import { EditBranchesComponent } from './components/edit-branches/edit-branches.component';
+
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +20,7 @@ export class CompanyService {
   private companiesDataSource = new BehaviorSubject<ResponseCompanyDto[]>([]);
 
   public companies = this.companiesDataSource.asObservable();
+  private branchData = new BehaviorSubject<any[]>([]);
 
   constructor(
     private companyProxy: CompanyProxy,
@@ -98,5 +103,36 @@ export class CompanyService {
       });
     } else {
     }
+  }
+  editBranche(ref: DynamicDialogRef, dialog: DialogService) {
+    ref = dialog.open(EditBranchesComponent, {
+      width: '600px',
+      height: '600px',
+    });
+    ref.onClose.subscribe((result: any) => {
+      if (result as any) {
+        const updatedUserList: any[] = [
+          ...this.branchData.value,
+          result,
+        ];
+        this.branchData.next(updatedUserList);
+      }
+    });
+  }
+  
+  addBranche(ref: DynamicDialogRef, dialog: DialogService) {
+    ref = dialog.open(NewBranchesComponent, {
+      width: '600px',
+      height: '600px',
+    });
+    ref.onClose.subscribe((result: any) => {
+      if (result as any) {
+        const updatedUserList: any[] = [
+          ...this.branchData.value,
+          result,
+        ];
+        this.branchData.next(updatedUserList);
+      }
+    });
   }
 }

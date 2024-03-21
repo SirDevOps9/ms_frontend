@@ -1,3 +1,4 @@
+
 .Active {
     width: 150px;
     height: 40px;
@@ -12,38 +13,76 @@
     border-radius: 50%;
     margin-inline-end: 10px;
   }
-
+  .popup_edit {
+    .card_edit {
+      display: flex;
+      align-items: start;
+      justify-content: space-around;
+      .information {
+        width: 250px;
+        .user_photo {
+          width: 175px;
+          height: 150px;
+          border: 1px dashed #000;
+          border-radius: 8px;
+          img {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+          }
+        }
+        .user_name {
+          font-size: 18px;
+          color: #6b7280;
+          text-transform: capitalize;
+        }
+        .user_mail {
+          font-size: 16px;
+          color: #6b7280;
+        }
+      }
+      .admin_edit {
+        width: 80%;
+        .card {
+          margin-top: 50px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+      }
+    }
+    .actions {
+      .save {
+        width: 20%;
+        height: 50px;
+        text-transform: capitalize;
+        font-size: 22px;
+        background-color: #1a8eae;
+        color: #fff;
+        padding: 5px 20px;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        margin-inline-end: 20px;
+      }
+      .cancel {
+        text-transform: capitalize;
+        font-size: 20px;
+        background-color: #edeef1;
+        color: #383a42;
+        padding: 5px 20px;
+        height: 50px;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        margin-inline-end: 20px;
+      }
+    }
+  }
   
   ::ng-deep {
-   
     .user_page,
     .company_page {
-        .p-treetable .p-treetable-tbody > tr > td:first-child , td:nth-child(2) {
-            position: relative ;
-            color: #1a8eae !important;
-           
-        }
-     
-
-             .p-treetable .p-treetable-tbody > tr > td .p-treetable-toggler {
-               border: 1px solid #40444c !important;
-                button{
-                position: relative ;
-                &::before{
-                 content: "";
-                 position: absolute;
-                 left: 0px;
-                 bottom: 0px;
-                 width: 2px;
-                 height: 50px;
-                 background-color: red;
-     
-                }
-              }
-            
-            
-        }
-    
       #username {
         background-color: #ededf4 !important;
       }
@@ -108,19 +147,67 @@
       .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
         transform: translateX(5.5rem);
       }
-    
-      .p-treetable{
+      .admin_edit {
+        .card {
+          .p-multiselect {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+              box-shadow 0.2s;
+            border-radius: 6px;
+          }
+          .p-multiselect:not(.p-disabled):hover {
+            border-color: #1a8eae !important;
+          }
+          .p-multiselect:not(.p-disabled).p-focus {
+            outline: 0 none;
+            outline-offset: 0;
+            box-shadow: 0 0 0 0.2rem #1a8eae !important;
+            border-color: #1a8eae !important;
+          }
+  
+          .p-autocomplete-panel
+            .p-autocomplete-items
+            .p-autocomplete-item.p-highlight {
+            color: #8e95a2 !important;
+            background: #eff6ff;
+          }
+          .p-autocomplete-panel
+            .p-autocomplete-items
+            .p-autocomplete-item.p-highlight.p-focus {
+            background: rgba(59, 130, 246, 0.24);
+          }
+          .p-checkbox .p-checkbox-box.p-highlight {
+            border-color: #383a42 !important;
+            background: #8e95a2 !important;
+          }
+          .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+            border-color: #383a42 !important;
+          }
+          .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
+            outline: 0 none;
+            outline-offset: 0;
+            box-shadow: none !important;
+            border-color: #383a42 !important;
+          }
+          .p-checkbox:not(.p-checkbox-disabled)
+            .p-checkbox-box.p-highlight:hover {
+            border-color: #383a42 !important;
+            background: #8e95a2 !important;
+            color: #ffffff;
+          }
+        }
+      }
+      .p-datatable {
         display: flex !important;
         flex-direction: column !important;
       }
       // .p-element .ng-star-inserted{
       //   order: 2 !important;
       // }
-
-      .p-treetable-scrollable-wrapper {
+      .p-datatable-wrapper {
         order: 3 !important;
         max-height: 80vh;
-        overflow: auto;
       }
       .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
         color: #fff !important;
@@ -163,6 +250,15 @@
         border-color: #1a8eae !important;
       }
   
+      // .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+      //   margin: 0;
+      //   padding: 0.75rem 1.25rem;
+      //   border: 0 none;
+      //   color: #4b5563;
+      //   background: transparent;
+      //   transition: box-shadow 0.2s;
+      //   border-radius: 0;
+      // }
       .p-autocomplete-panel
         .p-autocomplete-items
         .p-dropdown-item
@@ -171,7 +267,12 @@
         background-color: #1a8eae !important;
       }
     }
-
+    // .p-autocomplete:not(.p-disabled).p-focus .p-autocomplete-multiple-container {
+    //   outline: 0 none;
+    //   outline-offset: 0;
+    //   box-shadow: none !important;
+    //   border-color: #1A8EAE !important;
+    // }
   }
   .checked {
     position: relative;

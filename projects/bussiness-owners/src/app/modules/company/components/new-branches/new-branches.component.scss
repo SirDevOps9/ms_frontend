@@ -1,0 +1,57 @@
+.new_branche{
+  .branch_header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    .title{
+        font-size: 18px;
+        font-weight: 700;
+        color: #383A42;
+    }
+    .code{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .title{
+            font-size: 16px;
+            color: #383A42;
+        }
+        .code_text{
+            margin-inline-start: 20px;
+            font-size: 18px;
+            color: #2B6FAE;
+        }
+    }
+  } 
+  .branch_content{
+    .actions{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin: 20px 0px;
+        .save{
+            min-width: 30%;
+            background-color: #1A8EAE;
+            padding: 10px 0;
+            color: #fff;
+            border: 2px solid #1A8EAE;
+            border-radius: 12px;
+            font-size: 22px;
+            cursor: pointer;
+        }
+        .cancel{
+            min-width: 30%;
+
+            background-color: #fff;
+            padding: 10px 0;
+            color: #1A8EAE;
+            border: 2px solid #1A8EAE;
+            border-radius: 12px;
+            font-size: 22px;
+            cursor: pointer;
+        }
+    }
+
+  } 
+}
