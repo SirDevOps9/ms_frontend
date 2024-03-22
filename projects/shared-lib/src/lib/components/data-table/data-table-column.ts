@@ -33,16 +33,3 @@ export class TableConfig {
 
   enableSelection?: boolean;
 }
-
-// [rows]="10"
-// [paginator]="true"
-// [globalFilterFields]="[
-//   'name',
-//   'email',
-//   'representative.name',
-//   'status'
-// ]"
-// [rowsPerPageOptions]="[5, 10, 15]"
-// [rowHover]="true"
-// dataKey="id"
-// [showCurrentPageReport]="true"
