@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { LayoutComponent } from './components/layout/layout.component';
-import { ErpTableComponent } from './components/erp-table/erp-table.component';
-import { SearchEngineComponent } from './components/search-engine/search-engine.component';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { LoaderComponent } from './components/loader/loader.component';
+import {
+  LayoutComponent,
+  ErpTableComponent,
+  SearchEngineComponent,
+  LoaderComponent,
+  DataTableComponent,
+} from './components';
 import {
   FieldValidationsComponent,
   FormGroupComponent,
@@ -22,6 +24,7 @@ import { PageContentComponent } from './components/page-content/page-content.com
 import { PrimeSharedModule } from './prime-module/prime.module';
 import { FileUploaderComponent } from './form-components/file-uploader/file-uploader.component';
 import { TreeTableModule } from 'primeng/treetable';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,7 @@ import { TreeTableModule } from 'primeng/treetable';
     PageContentComponent,
     FileUploaderComponent,
     MultiSelectComponent,
+    DataTableComponent,
   ],
   imports: [
     CommonModule,
@@ -49,7 +53,7 @@ import { TreeTableModule } from 'primeng/treetable';
     TranslateModule.forRoot(),
     FormsModule,
     PrimeSharedModule,
-    TreeTableModule
+    TreeTableModule,
   ],
   exports: [
     GetLookupPipe,
@@ -70,6 +74,7 @@ import { TreeTableModule } from 'primeng/treetable';
     PrimeSharedModule,
     FileUploaderComponent,
     MultiSelectComponent,
+    DataTableComponent,
   ],
 })
 export class SharedLibModule {}
