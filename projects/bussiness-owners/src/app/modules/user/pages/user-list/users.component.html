@@ -75,6 +75,8 @@ create image viewer component  -->
           #dt
           [value]="userData"
           [rows]="10"
+          [paginatorPosition]="'bottom'"
+
           [paginator]="true"
           [globalFilterFields]="['name', 'email', 'representative.name', 'status']"
           [tableStyle]="{ 'min-width': '75rem' }"

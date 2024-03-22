@@ -1,0 +1,18 @@
+.viewInWeb {
+  display: none;
+}
+
+.viewInMob {
+  display: block;
+  width: 100%;
+}
+
+@media (min-width: 1400px) {
+  .viewInWeb {
+    display: block;
+  }
+
+  .viewInMob {
+    display: none;
+  }
+}
