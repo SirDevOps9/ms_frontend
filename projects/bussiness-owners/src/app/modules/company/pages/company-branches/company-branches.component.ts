@@ -1,7 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { UserListResponse } from '../../../user/models';
+import { Component, OnInit, } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { NewBranchesComponent } from '../../components/new-branches/new-branches.component';
 import { CompanyService } from '../../company.service';
 @Component({
   selector: 'app-company-branches',

@@ -116,7 +116,12 @@
       "CompanyEmail": "Company Email",
       "Next": "Next",
       "Required": " is required",
-      "Select": "Select "
+      "Select": "Select ",
+      "CompanyType":"Company Type",
+      "BranchName":"Branch Name",
+      "ParentCompany":"Holding Company",
+      "SaveAndEdit":"Save and Edit",
+      "Save":"Save"
     }
   },
   "UserConfirmation": {

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { LookupEnum, LookupsService, RouterService, customValidators, lookupDto } from 'shared-lib';
+import { FormsService, LookupEnum, LookupsService, RouterService, SharedLibraryEnums, customValidators, lookupDto } from 'shared-lib';
 import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
+import { CompanyService } from '../../company.service';
+import { CompanyProxy } from '../../company.proxy';
+import { CompanyContactDto } from '../../models/companycontactdto';
 
 @Component({
   selector: 'app-company-contact',
@@ -21,11 +24,21 @@ export class CompanyContactComponent implements OnInit {
     console.log(this.companyContactForm);
     
   }
+  onSubmit() {
+    //if (this.formsService.validForm(this.companyContactForm, true)) return;
+    const request: CompanyContactDto = this.companyContactForm.value;
+    request.companyId= "17c13914-04a6-44a3-e20b-08dc4a688464";
+    this.companyService.saveCompanyContact(request);
+  }
   initializeForm(){
     this.companyContactForm= this.fb.group({
-      Country:["",customValidators.required],
-      mobileNumberCode:["",customValidators.required],
-      mobileNumber:["",customValidators.required],
+      mobileNumberCode:["",],
+      mobileNumber:["",],
+      companyEmail:["",],
+      companyAddress:["",],
+      contactPersonal:["",],
+      contactPersonalPosition:["",],
+      contactPersonalEmail:["",],
     })
   }
   Subscribe() {
@@ -43,6 +56,11 @@ export class CompanyContactComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public lookupsService: LookupsService,
-
+    private formBuilder: FormBuilder,
+    private formsService: FormsService,
+    private routerService: RouterService,
+    private companyService: CompanyService,
+    private companyProxy: CompanyProxy,
+    public sharedLibEnums: SharedLibraryEnums,
   ){}
 }

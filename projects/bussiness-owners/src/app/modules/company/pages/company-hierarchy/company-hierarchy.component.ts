@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LookupEnum, LookupsService, RouterService, customValidators, lookupDto } from 'shared-lib';
-import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
+import { FormsService, LookupEnum, LookupsService, RouterService, SharedLibraryEnums, customValidators, lookupDto } from 'shared-lib';
+import { FormGroup, FormBuilder } from "@angular/forms";
+import { CompanyService } from '../../company.service';
+import { CompanyProxy } from '../../company.proxy';
 
 @Component({
   selector: 'app-company-hierarchy',
@@ -16,6 +18,7 @@ export class CompanyHierarchyComponent {
     console.log(this.companyHierarchyForm);
     
   }
+
   initializeForm(){
     this.companyHierarchyForm= this.fb.group({
       Country:["",customValidators.required],
@@ -24,6 +27,11 @@ export class CompanyHierarchyComponent {
   constructor(
     private fb: FormBuilder,
     public lookupsService: LookupsService,
-
+    private formBuilder: FormBuilder,
+    private formsService: FormsService,
+    private routerService: RouterService,
+    private companyService: CompanyService,
+    private companyProxy: CompanyProxy,
+    public sharedLibEnums: SharedLibraryEnums,
   ){}
 }

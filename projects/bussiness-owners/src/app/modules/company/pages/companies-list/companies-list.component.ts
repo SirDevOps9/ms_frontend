@@ -32,8 +32,8 @@ export class CompaniesListComponent implements OnInit {
 //   navigateToAdd(): void {
 //     this.routerService.navigateTo('company/new/' + this.subscriptionId);
 //   }
-addBranche() {
-    this.companyService.newCompany(this.ref, this.dialog);
+newCompany() {
+    this.companyService.openNewCompanyModal(this.subscriptionId,this.ref, this.dialog);
   }
 
   ngOnInit() {
@@ -480,12 +480,12 @@ addBranche() {
       this.companies = companyList;
     });
   }
-  toggle(id: number, isActive: boolean) {
+  toggle(id: string, isActive: boolean) {
     if (!isActive) this.companyService.activate(id);
     else this.companyService.deactivate(id);
   }
 
-  changed(e: any, id: number) {
+  changed(e: any, id: string) {
     if (e.checked === false) {
       this.companyService.deactivate(id);
     } else {

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CompanyProxy } from './company.proxy';
-import { AddCompanyDto, ResponseCompanyDto } from './models';
-import { BehaviorSubject } from 'rxjs';
+import { AddCompanyDto, ResponseCompanyDto} from './models';
+import { BehaviorSubject, Observable, catchError, map, tap } from 'rxjs';
 import {
+  APIResponse,
   LanguageService,
   LoaderService,
   RouterService,
@@ -12,6 +13,10 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NewBranchesComponent } from './components/new-branches/new-branches.component';
 import { EditBranchesComponent } from './components/edit-branches/edit-branches.component';
 import { NewCompanyComponent } from './components/new-company/new-company.component';
+import { AddCompanyPopupDto } from './models/addcompanypopupdto';
+import { CompanyAddressDto } from './models/companyaddressdto';
+import { CompanyContactDto } from './models/companycontactdto';
+import { CompanyLegalDto } from './models/companylegaldto';
 
 
 @Injectable({
@@ -54,7 +59,7 @@ export class CompanyService {
     });
   }
 
-  async activate(id: number) {
+  async activate(id: string) {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangestatus'
     );
@@ -80,7 +85,7 @@ export class CompanyService {
     }
   }
 
-  async deactivate(id: number) {
+  async deactivate(id: string) {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangestatus'
     );
@@ -120,21 +125,45 @@ export class CompanyService {
       }
     });
   }
-  newCompany(ref: DynamicDialogRef, dialog: DialogService) {
+  openNewCompanyModal(Id: string, 
+    ref: DynamicDialogRef, dialog: DialogService) {
     ref = dialog.open(NewCompanyComponent, {
       width: '600px',
       height: '600px',
+      data: { Id: Id },
     });
     ref.onClose.subscribe((result: any) => {
       if (result as any) {
-        const updatedUserList: any[] = [
-          ...this.branchData.value,
+        const updatedCompaniesList: any[] = [
+          ...this.companiesDataSource.value,
           result,
         ];
-        this.branchData.next(updatedUserList);
+        this.companiesDataSource.next(updatedCompaniesList);
       }
     });
   }
+
+
+  addCompanyPopup(company: AddCompanyPopupDto, dialogRef: DynamicDialogRef) : Observable<APIResponse<ResponseCompanyDto>> {
+    this.loaderService.show();
+    return this.companyProxy.addCompanyPopup(company).pipe(
+      map((res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('Company.Success'),
+          this.languageService.transalte(
+            'Company.Add.CompanyAddedSuccessfully'
+          )
+        );
+        this.loaderService.hide();
+        dialogRef.close(res);
+        return res;
+      }),
+      catchError((err: APIResponse<string>) => {
+        throw err.error?.errorMessage!;
+      })
+    );
+  }
+
   
   addBranche(ref: DynamicDialogRef, dialog: DialogService) {
     ref = dialog.open(NewBranchesComponent, {
@@ -149,6 +178,57 @@ export class CompanyService {
         ];
         this.branchData.next(updatedUserList);
       }
+    });
+  }
+
+  saveCompanyContact(model: CompanyContactDto) {
+    this.loaderService.show();
+    this.companyProxy.saveCompanyContact(model).subscribe({
+      next: (response) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('Company.Success'),
+          this.languageService.transalte('Company.Add.CompanyAddedSuccessfully')
+        );
+        this.loaderService.hide();
+        //this.routerService.navigateTo('company/' + model.subscriptionId);
+      },
+      error: () => {
+        this.loaderService.hide();
+      },
+    });
+  }
+
+  saveCompanyAddress(model: CompanyAddressDto) {
+    this.loaderService.show();
+    this.companyProxy.saveCompanyAddress(model).subscribe({
+      next: (response) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('Company.Success'),
+          this.languageService.transalte('Company.Add.CompanyAddedSuccessfully')
+        );
+        this.loaderService.hide();
+        //this.routerService.navigateTo('company/' + model.subscriptionId);
+      },
+      error: () => {
+        this.loaderService.hide();
+      },
+    });
+  }
+
+  saveCompanyLegal(model: CompanyLegalDto) {
+    this.loaderService.show();
+    this.companyProxy.saveCompanyLegal(model).subscribe({
+      next: (response) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('Company.Success'),
+          this.languageService.transalte('Company.Add.CompanyAddedSuccessfully')
+        );
+        this.loaderService.hide();
+       // this.routerService.navigateTo('company/' + model.subscriptionId);
+      },
+      error: () => {
+        this.loaderService.hide();
+      },
     });
   }
 }

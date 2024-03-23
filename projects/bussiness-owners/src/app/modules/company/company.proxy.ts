@@ -9,6 +9,10 @@ import {
   MobileCodeDropdownDto,
   ResponseCompanyDto,
 } from './models';
+import { AddCompanyPopupDto } from './models/addcompanypopupdto';
+import { CompanyContactDto } from './models/companycontactdto';
+import { CompanyAddressDto } from './models/companyaddressdto';
+import { CompanyLegalDto } from './models/companylegaldto';
 
 @Injectable({
   providedIn: 'root',
@@ -64,18 +68,53 @@ export class CompanyProxy {
     );
   }
 
-  activateCompany(id: number): Observable<APIResponse<boolean>> {
+  activateCompany(id: string): Observable<APIResponse<boolean>> {
     return this.httpService.put<APIResponse<boolean>>(
       `Company/activatecompany/${id}`,
       {}
     );
   }
-  deactivateCompany(id: number): Observable<APIResponse<boolean>> {
+  deactivateCompany(id: string): Observable<APIResponse<boolean>> {
     return this.httpService.put<APIResponse<boolean>>(
       `Company/deactivatecompany/${id}`,
       {}
     );
   }
+  addCompanyPopup(
+    request: AddCompanyPopupDto
+  ): Observable<APIResponse<ResponseCompanyDto>> {
+    return this.httpService.post<APIResponse<ResponseCompanyDto>>(
+      'Company',
+      request
+    );
+  }
 
+
+  saveCompanyContact(
+    request: CompanyContactDto
+  ): Observable<APIResponse<ResponseCompanyDto>> {
+    return this.httpService.post<APIResponse<ResponseCompanyDto>>(
+      'Company/Contact/AddorUpdate',
+      request
+    );
+  }
+
+  saveCompanyAddress(
+    request: CompanyAddressDto
+  ): Observable<APIResponse<ResponseCompanyDto>> {
+    return this.httpService.post<APIResponse<ResponseCompanyDto>>(
+      'Company/Address/AddorUpdate',
+      request
+    );
+  }
+
+  saveCompanyLegal(
+    request: CompanyLegalDto
+  ): Observable<APIResponse<ResponseCompanyDto>> {
+    return this.httpService.post<APIResponse<ResponseCompanyDto>>(
+      'Company/Legal/AddorUpdate',
+      request
+    );
+  }
   constructor(private httpService: HttpService) {}
 }
