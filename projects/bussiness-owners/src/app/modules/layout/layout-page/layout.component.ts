@@ -1,14 +1,7 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  Renderer2,
-  ViewChild,
-} from '@angular/core';
-import { LanguageService } from '../../../../../../shared-lib/src/lib/services/language.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { LanguageService } from 'shared-lib';
 import { AuthService } from 'microtec-auth-lib';
 import { MenuItem } from 'primeng/api';
-import { EnvironmentService, LogService } from 'shared-lib';
 import { UserData } from '../../user/models/userdata.model';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -32,18 +25,7 @@ export class LayoutComponent implements OnInit {
   home: MenuItem | undefined;
   @ViewChild('cardDr') cardDr: ElementRef;
   @ViewChild('profaile_card_drob') profaile_card_drob: ElementRef;
-  constructor(
-    public languageService: LanguageService,
-    public authService: AuthService,
-    private logService: LogService,
-    private env: EnvironmentService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {
-    this.userName = this.authService.getUserName;
-    this.userData = this.authService.getUserData()?.userData;
-    this.languageService.setLang();
-  }
+
   ngOnInit(): void {
     this.menuItems = this.createBreadcrumb(this.activatedRoute.root);
     this.countries = [
@@ -97,20 +79,6 @@ export class LayoutComponent implements OnInit {
     }
     return breadcrumbs;
   }
-
-  toggleLanguage(): void {
-    this.languageService.toggleLanguage();
-  }
-  logout(): void {
-    this.authService.logout();
-  }
-  cardDrob() {
-    if (this.showcard == true) {
-      this.showcard = false;
-    } else {
-      this.showcard = true;
-    }
-  }
   toggleSidebar() {
     if (this.sidebarOpen == true) {
       this.sidebarOpen = false;
@@ -125,11 +93,14 @@ export class LayoutComponent implements OnInit {
     targetElementId?.classList.add('active_link');
   }
 
-  getProfilePic() {
-    return this.userData?.userType == '4'
-      ? this.env.photoBaseUrl +
-          '/api/Users/GetProfilePic?userId=' +
-          this.userData.sub
-      : 'assets/images/users/pic.jpg';
+  constructor(
+    public languageService: LanguageService,
+    public authService: AuthService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.userName = this.authService.getUserName;
+    this.userData = this.authService.getUserData()?.userData;
+    this.languageService.setLang();
   }
 }
