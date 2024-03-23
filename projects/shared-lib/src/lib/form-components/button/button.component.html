@@ -1,0 +1,11 @@
+<p-button
+  [icon]="icon"
+  [rounded]="rounded"
+  [text]="enableText"
+  [severity]="severity"
+  [label]="label"
+  [class]="className"
+  (click)="onClick.emit($event)"
+>
+  <ng-content> </ng-content>
+</p-button>

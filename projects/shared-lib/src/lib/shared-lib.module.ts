@@ -9,6 +9,7 @@ import {
   SearchEngineComponent,
   LoaderComponent,
   DataTableComponent,
+  AttachmentViewerComponent,
 } from './components';
 import {
   FieldValidationsComponent,
@@ -17,6 +18,7 @@ import {
   SelectComponent,
   TextInputComponent,
   MultiSelectComponent,
+  ButtonComponent,
 } from './form-components';
 import { DropdownModule } from 'primeng/dropdown';
 import { GetLookupPipe } from './pipes/lookupList';
@@ -42,6 +44,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     FileUploaderComponent,
     MultiSelectComponent,
     DataTableComponent,
+    AttachmentViewerComponent,
+    ButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -75,6 +79,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     FileUploaderComponent,
     MultiSelectComponent,
     DataTableComponent,
+    AttachmentViewerComponent,
+    ButtonComponent,
   ],
 })
 export class SharedLibModule {}
