@@ -367,22 +367,6 @@
 }
 ::ng-deep {
 
-
-.header_bussiness{
-  .p-menubar-end{
-    margin: 0 !important;
-    margin-inline-start: auto !important;
-  }
- .p-menubar {
-   width: 100%;
-        background: #fff !important;
-        border: none !important;
-        border-radius: 0 !important;
-}
- .p-breadcrumb {
-        border: none !important;
-}
-}
 .content_open{
     .p-component {
         margin-bottom: 20px;
@@ -411,9 +395,5 @@
         
       }
 }
-.p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
-  color: #1A8EAE !important;
-  font-size: 18px !important;
-  font-weight: 800 !important;
-}
+
 }

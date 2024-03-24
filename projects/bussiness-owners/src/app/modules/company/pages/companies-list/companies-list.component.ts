@@ -17,7 +17,7 @@ export class CompaniesListComponent implements OnInit {
   selectedCompanies: ResponseCompanyDto[];
   tableData: TreeNode[] = []; 
   cols: any[] = []; 
-  active:boolean=false
+  active:boolean=true
   constructor(
     private routerService: RouterService,
     private titleService: Title,
@@ -478,12 +478,15 @@ export class CompaniesListComponent implements OnInit {
     else this.companyService.deactivate(id);
   }
 
+
   changed(e: any, id: number) {
-    if (e.checked === false) {
-      this.companyService.deactivate(id);
-    } else {
-      this.companyService.activate(id);
-    }
+    console.log(e ,id ,"///////");
+    
+    // if (e === false) {
+    //   this.companyService.deactivate(id);
+    // } else {
+    //   this.companyService.activate(id);
+    // }
   }
 
   get subscriptionId(): string {

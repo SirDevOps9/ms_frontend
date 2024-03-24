@@ -27,6 +27,8 @@ import { PrimeSharedModule } from './prime-module/prime.module';
 import { FileUploaderComponent } from './form-components/file-uploader/file-uploader.component';
 import { TreeTableModule } from 'primeng/treetable';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { InputSwitchComponent } from './form-components/input-switch/input-switch.component';
+import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     DataTableComponent,
     AttachmentViewerComponent,
     ButtonComponent,
+    InputSwitchComponent,
+    BreadCrumbComponent
   ],
   imports: [
     CommonModule,
@@ -81,6 +85,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     DataTableComponent,
     AttachmentViewerComponent,
     ButtonComponent,
+    InputSwitchComponent,BreadCrumbComponent
   ],
 })
 export class SharedLibModule {}
