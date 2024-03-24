@@ -13,8 +13,8 @@ export class CardAppsComponent implements OnInit {
   subdomains: BaseDto[];
 
   constructor(private appStoreService: AppStoreService,
-     private dialog: DialogService,
-     private subdomainService: SubdomainService) {
+    private dialog: DialogService,
+    private subdomainService: SubdomainService) {
   }
 
   ngOnInit(): void {
@@ -27,5 +27,9 @@ export class CardAppsComponent implements OnInit {
 
   addToCart(appId: number) {
     this.appStoreService.addToCart(appId, this.dialog, this.subdomains);
+  }
+
+  getAppDeps(app: AppDto) {
+    return app.dependencies.map(d => d.name).join(" - ");
   }
 }

@@ -20,10 +20,7 @@
                     <div>
                         {{app.description}}
                         <div>
-                            <strong>Dependecies: </strong>
-                            <ul>
-                                <li *ngFor="let dep of app.dependencies">{{dep.name}}</li>
-                            </ul>
+                            <strong>Dependecies: </strong> {{getAppDeps(app)}}
                         </div>
                     </div>
                 </div>

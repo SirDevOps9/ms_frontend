@@ -15,15 +15,13 @@
                         </div>
                         <div class="xs:col-2 text-right">
                             <strong>{{app.price.amount}}{{app.price.currencyName}} / Monthly</strong>
+                            <button (click)="addToCart(app.id)">Add to cart</button>
                         </div>
                     </div>
                     <div>
                         {{app.description}}
                         <div>
-                            <strong>Dependecies: </strong>
-                            <ul>
-                                <li *ngFor="let dep of app.dependencies">{{dep.name}}</li>
-                            </ul>
+                            <strong>Dependecies: </strong> {{getAppDeps(app)}}
                         </div>
                     </div>
                 </div>
