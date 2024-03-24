@@ -38,8 +38,6 @@ export class UsersComponent implements OnInit {
   }
 
   openInviteModal() {
-    console.log();
-    
     this.userService.openInviteUserModal(this.ref, this.dialog);
   }
   getProfilePic(id: string) {

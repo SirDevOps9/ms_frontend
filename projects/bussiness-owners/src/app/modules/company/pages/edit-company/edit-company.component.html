@@ -1,5 +1,5 @@
 <div class="edit_company_page">
-  <div class="card mt-4">
+  <!-- <div class="card mt-4">
     <div class="card-body">
       <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
         <div class="group mb-3">
@@ -83,6 +83,7 @@
           </div>
         </div>
 
+
         <div class="group mb-3">
           <label for="companyEmail" class="form-label">{{
             "Company.Add.CompanyEmail" | translate
@@ -99,5 +100,66 @@
 
       <hr />
     </div>
+  </div> -->
+  <div class="company_code">
+    <div class="code">
+      <p class="title">
+        Company Code 
+      </p>
+      <p class="code_num">
+        # 112115011
+      </p>
+    </div>
+    <div class="status">
+      <div class="checked" >
+        <p-inputSwitch
+        
+          [(ngModel)]="active"
+        >
+        </p-inputSwitch>
+        <p class="active" *ngIf="active">
+          {{ "User.Activate" | translate }}
+        </p>
+        <p class="inactive" *ngIf="!active">
+          {{ "User.Deactivate" | translate }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="company_nav">
+    <div class="company_name">
+      <p class="title">company name</p>
+    </div>
+    <div class="company_route">
+      <div class="tab active_link " id="addres" (click)="activeTag('addres')">
+        <a routerLink="/company/edit/5/addres" > address</a>
+      </div>
+      <div class="tab" id="contact" (click)="activeTag('contact')">
+        <a routerLink="/company/edit/5/contact" > contact</a>
+      </div>
+      <div class="tab" id="legal" (click)="activeTag('legal')">
+        <a routerLink="/company/edit/5/legal"> legal</a>
+      </div>
+      <div class="tab" id="hierarchy" (click)="activeTag('hierarchy')">
+        <a routerLink="/company/edit/5/hierarchy" > hierarchy</a>
+      </div>
+      <div class="tab" id="branches" (click)="activeTag('branches')">
+        <a routerLink="/company/edit/5/branches" > branches</a>
+      </div>
+     
+    </div>
+    <div class="edit_btn">
+      <button class="edit">
+        <i class="fa fa-regular fa-pen-to-square"></i>
+        Edit
+      </button>
+     
+    </div>
+  </div>
+  <div class="content">
+    
+    <router-outlet></router-outlet>
+
+
   </div>
 </div>
