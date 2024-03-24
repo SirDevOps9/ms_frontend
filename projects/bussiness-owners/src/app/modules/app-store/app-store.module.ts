@@ -6,15 +6,25 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../layout/layout-page/layout.component';
 import { BreadcrumbLabel, SharedLibModule } from 'shared-lib';
 import { HttpClientModule } from '@angular/common/http';
+import { CardAppsComponent } from './pages/card-apps/card-apps.component';
+import { SelectSubdomainComponent } from './components/select-subdomain.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'app-store',
     component: LayoutComponent,
     children: [
       {
-        path: 'app-store',
+        path: '',
         component: ListAppsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.APP_STORE,
+        },
+      },
+      {
+        path: 'cards',
+        component: CardAppsComponent,
         canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.APP_STORE,
@@ -26,7 +36,9 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    ListAppsComponent
+    ListAppsComponent,
+    CardAppsComponent,
+    SelectSubdomainComponent
   ],
   imports: [
     SharedLibModule,

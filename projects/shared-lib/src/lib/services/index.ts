@@ -12,4 +12,5 @@ export * from './loader.service';
 export * from './environment.service';
 export * from './forms.service';
 export * from './lookups.service';
+export * from './subdomain.service';
 export * from './attachment.service';

@@ -22,6 +22,8 @@ import { PageContentComponent } from './components/page-content/page-content.com
 import { PrimeSharedModule } from './prime-module/prime.module';
 import { FileUploaderComponent } from './form-components/file-uploader/file-uploader.component';
 import { TreeTableModule } from 'primeng/treetable';
+import { RatingModule } from 'primeng/rating';
+import { RatingComponent } from './form-components/rating/rating.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { TreeTableModule } from 'primeng/treetable';
     PageContentComponent,
     FileUploaderComponent,
     MultiSelectComponent,
+    RatingComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +52,8 @@ import { TreeTableModule } from 'primeng/treetable';
     TranslateModule.forRoot(),
     FormsModule,
     PrimeSharedModule,
-    TreeTableModule
+    TreeTableModule,
+    RatingModule,
   ],
   exports: [
     GetLookupPipe,
@@ -70,6 +74,7 @@ import { TreeTableModule } from 'primeng/treetable';
     PrimeSharedModule,
     FileUploaderComponent,
     MultiSelectComponent,
+    RatingComponent
   ],
 })
 export class SharedLibModule {}

@@ -134,5 +134,8 @@
     "UpperCaseLetter": "Password must contain Upper Case Letter ",
     "SpecialCharacter": "Password must contain Special Character ",
     "PasswordmustcontainNumber": "Password must contain Number "
+  },
+  "AppStore": {
+    "AddedToCartSuccessfully": "Successfully added to cart"
   }
 }

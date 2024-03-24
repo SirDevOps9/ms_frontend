@@ -5,11 +5,10 @@ import { BaseDto, SubdomainService } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
-  selector: 'app-list-apps',
-  templateUrl: './list-apps.component.html',
-  styleUrl: './list-apps.component.scss'
+  templateUrl: './card-apps.component.html',
+  styleUrl: './card-apps.component.scss'
 })
-export class ListAppsComponent implements OnInit {
+export class CardAppsComponent implements OnInit {
   apps: AppDto[];
   subdomains: BaseDto[];
 

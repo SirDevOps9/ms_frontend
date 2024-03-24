@@ -125,5 +125,8 @@
     "policy": "أنا أوافق على سياسة المستخدم",
     "Save": "حفظ",
     "Photo": "الصورة"
+  },
+  "AppStore": {
+    "AddedToCartSuccessfully": "تم الإضافة لسلة الشراء بنجاح"
   }
 }
