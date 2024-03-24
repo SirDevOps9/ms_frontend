@@ -5,5 +5,6 @@ export class BreadcrumbLabel {
     static COMPANY_LIST = 'Company list';
     static MY_PLAN = 'My Plan';
     static ERP_USERS = 'ERP Users';
+    static APP_STORE = 'Layout.AppStore'
 
   }

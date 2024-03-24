@@ -26,7 +26,8 @@
     "Plan": "Plan",
     "AddCompany": "Add company",
     "ListCompany": "Company list",
-    "MyPlan": "My Plan"
+    "MyPlan": "My Plan",
+    "AppStore": "App store"
   },
   "User": {
     "PageName": "Users Index",

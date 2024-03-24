@@ -1,0 +1,18 @@
+<div *ngIf="apps" style="padding-left: 40px;">
+    <ul style="padding-left: 0;">
+        <li *ngFor="let app of apps">
+            <label>
+                <input type="checkbox" [ngModel]="state[app.id]" (ngModelChange)="onChecked(app.id, $event)" [disabled]="readonlyIds.includes(app.id)" />
+                {{app.name}} - {{app.price.amount}}{{app.price.currencyName}}
+            </label>
+            <ul *ngIf="app.dependencies?.length">
+                <li *ngFor="let dep of app.dependencies">
+                    {{dep.name}}
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <div>
+        <b>Total:</b> {{total}} {{apps[0]?.price?.currencyName}}
+    </div>
+</div>
