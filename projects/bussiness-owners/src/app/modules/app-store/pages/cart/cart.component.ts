@@ -6,6 +6,7 @@ import { AppStoreService } from '../../app-store.service';
     templateUrl: './cart.component.html',
     styleUrl: './cart.component.scss'
   })
+  
   export class CartComponent implements OnInit {
     cartData : CartDto;
   
@@ -17,7 +18,13 @@ import { AppStoreService } from '../../app-store.service';
     this.appStoreService.cartData.subscribe(cartData => {
       this.cartData = cartData;
     });
+
     
-  }
 }
+removeItemFromCart(id: string) {
+    throw new Error('Function not implemented.');
+}
+}
+
+
   
