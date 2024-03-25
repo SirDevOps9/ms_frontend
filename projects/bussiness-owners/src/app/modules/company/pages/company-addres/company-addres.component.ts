@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormGroup,
-  FormControl,
-  Validators,
   FormBuilder,
 } from '@angular/forms';
 import {
@@ -11,7 +9,6 @@ import {
   LookupsService,
   RouterService,
   SharedLibraryEnums,
-  customValidators,
   lookupDto,
 } from 'shared-lib';
 import { CompanyService } from '../../company.service';
@@ -29,9 +26,13 @@ export class CompanyAddresComponent implements OnInit {
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
 
+  @Input() editMode: boolean = false;
+
+
   ngOnInit() {
     this.loadLookups();
     this.initializeForm();
+    this.initializeFormData();
     this.Subscribe();
   }
   Subscribe() {
@@ -39,19 +40,30 @@ export class CompanyAddresComponent implements OnInit {
   }
   initializeForm() {
     this.companyAddresForm = this.fb.group({
-      countryCode: [''],
-      city: [''],
-      region: [''],
-      address: [''],
-      longitude: [''],
-      latitude: [''],
+      countryCode: [],
+      city: [],
+      region: [],
+      address: [],
+      radius:[],
+      longitude: [],
+      latitude: []
     });
   }
-
+  initializeFormData() {
+    this.companyService.getCompanyAddressId(this.companyId).subscribe(
+      (res) => {
+        //this.branchCode=res.code
+        console.log("Calling get by Id", res)
+        this.companyAddresForm.patchValue({
+          ...res,
+        });
+      }
+    );
+  }
   onSubmit() {
     //if (this.formsService.validForm(this.companyAddresForm, true)) return;
     const request: CompanyAddressDto = this.companyAddresForm.value;
-    request.companyId= "17c13914-04a6-44a3-e20b-08dc4a688464";
+    request.id= "17c13914-04a6-44a3-e20b-08dc4a688464";
     this.companyService.saveCompanyAddress(request);
     console.log("request",request);
     
@@ -62,7 +74,12 @@ export class CompanyAddresComponent implements OnInit {
       LookupEnum.Country,
     ]);
   }
+  get companyId(): string {
+    //return this.routerService.currentId;
+    return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+  }
 
+  
   constructor(
     private fb: FormBuilder,
     public lookupsService: LookupsService,

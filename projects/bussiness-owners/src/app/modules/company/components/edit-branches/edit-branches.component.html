@@ -1,80 +1,80 @@
 <div class="edit_branche">
     <div class="branch_header">
         <div class="title">
-            Edit Branch
+          {{"Company.Branch.EditBranch" | translate }}
         </div>
         <div class="code">
           <div class="title">
-            Branch Code
+            {{"Company.Branch.BranchCode" | translate }}
           </div>
           <div class="code_text">
-            112554
+            {{branchCode}}
           </div>
         </div>
     </div>
     <div class="branch_content">
         <form 
-        [formGroup]="newBrancheForm"
-        (ngSubmit)="submitForm()"
+        [formGroup]="editBrancheForm"
+        (ngSubmit)="onSubmit()"
         >
         <div class=" grid">
             <div class="col-12 md:col-6">
                 <lib-form-group>
-                    <lib-label [appControl]="newBrancheForm.controls['Country']">
-                      {{ "Company.Add.CompanyName" | translate }}
+                    <lib-label [appControl]="editBrancheForm.controls['branchName']">
+                      {{ "Company.Branch.BranchName" | translate }}
                     </lib-label>
-                    <lib-text-input type="text" formControlName="Country" />
-                    <lib-field-validations [appControl]="newBrancheForm.controls['Country']">
+                    <lib-text-input type="text" formControlName="branchName" />
+                    <lib-field-validations [appControl]="editBrancheForm.controls['branchName']">
                     </lib-field-validations>
                   </lib-form-group>
             </div>
             <div class="col-12 md:col-6">
                 <lib-form-group>
-                    <lib-label [appControl]="newBrancheForm.controls['Country']">
-                      {{ "Company.Add.CompanyName" | translate }}
+                    <lib-label [appControl]="editBrancheForm.controls['countryCode']">
+                      {{ "Company.Branch.CountryCode" | translate }}
                     </lib-label>
-                    <lib-text-input type="text" formControlName="Country" />
-                    <lib-field-validations [appControl]="newBrancheForm.controls['Country']">
+                    <lib-text-input type="text" formControlName="countryCode" />
+                    <lib-field-validations [appControl]="editBrancheForm.controls['countryCode']">
                     </lib-field-validations>
                   </lib-form-group>
             </div>
             <div class="col-12 md:col-6">
                 <lib-form-group>
-                    <lib-label [appControl]="newBrancheForm.controls['Country']">
-                      {{ "Company.Add.CompanyName" | translate }}
+                    <lib-label [appControl]="editBrancheForm.controls['branchRegion']">
+                      {{ "Company.Branch.BranchRegion" | translate }}
                     </lib-label>
-                    <lib-text-input type="text" formControlName="Country" />
-                    <lib-field-validations [appControl]="newBrancheForm.controls['Country']">
+                    <lib-text-input type="text" formControlName="branchRegion" />
+                    <lib-field-validations [appControl]="editBrancheForm.controls['branchRegion']">
                     </lib-field-validations>
                   </lib-form-group>
             </div>
             <div class="col-12 md:col-6">
                 <lib-form-group>
-                    <lib-label [appControl]="newBrancheForm.controls['Country']">
-                      {{ "Company.Add.CompanyName" | translate }}
+                    <lib-label [appControl]="editBrancheForm.controls['branchCity']">
+                      {{ "Company.Branch.BranchCity" | translate }}
                     </lib-label>
-                    <lib-text-input type="text" formControlName="Country" />
-                    <lib-field-validations [appControl]="newBrancheForm.controls['Country']">
+                    <lib-text-input type="text" formControlName="branchCity" />
+                    <lib-field-validations [appControl]="editBrancheForm.controls['branchCity']">
                     </lib-field-validations>
                   </lib-form-group>
             </div>
             <div class="col-12 ">
                 <lib-form-group>
-                    <lib-label [appControl]="newBrancheForm.controls['Country']">
-                      {{ "Company.Add.CompanyName" | translate }}
+                    <lib-label [appControl]="editBrancheForm.controls['branchEmail']">
+                      {{ "Company.Branch.BranchEmail" | translate }}
                     </lib-label>
-                    <lib-text-input type="text" formControlName="Country" />
-                    <lib-field-validations [appControl]="newBrancheForm.controls['Country']">
+                    <lib-text-input type="text" formControlName="branchEmail" />
+                    <lib-field-validations [appControl]="editBrancheForm.controls['branchEmail']">
                     </lib-field-validations>
                   </lib-form-group>
             </div>
             <div class="col-12 ">
                 <lib-form-group>
-                    <lib-label [appControl]="newBrancheForm.controls['Country']">
-                      {{ "Company.Add.CompanyName" | translate }}
+                    <lib-label [appControl]="editBrancheForm.controls['branchAddress']">
+                      {{ "Company.Branch.BranchAddress" | translate }}
                     </lib-label>
-                    <lib-text-input type="text" formControlName="Country" />
-                    <lib-field-validations [appControl]="newBrancheForm.controls['Country']">
+                    <lib-text-input type="text" formControlName="branchAddress" />
+                    <lib-field-validations [appControl]="editBrancheForm.controls['branchAddress']">
                     </lib-field-validations>
                   </lib-form-group>
             </div>
@@ -83,8 +83,8 @@
             ">
               
                 <lib-form-group>
-                  <lib-label [appControl]="newBrancheForm.controls['mobileNumberCode']">
-                    {{ "Company.Add.MobileNumberCode" | translate }}
+                  <lib-label [appControl]="editBrancheForm.controls['mobileNumberCode']">
+                    {{ "Company.Branch.MobileNumberCode" | translate }}
                   </lib-label>
                   <lib-select
                     formControlName="mobileNumberCode"
@@ -98,12 +98,12 @@
             </div>
             <div class=" col-8">
               <lib-form-group>
-                <lib-label [appControl]="newBrancheForm.controls['mobileNumber']">
-                  {{ "Company.Add.MobileNumber" | translate }}
+                <lib-label [appControl]="editBrancheForm.controls['mobileNumber']">
+                  {{ "Company.Branch.MobileNumber" | translate }}
                 </lib-label>
                 <lib-text-input type="tel" formControlName="mobileNumber" />
                 <lib-field-validations
-                  [appControl]="newBrancheForm.controls['mobileNumber']"
+                  [appControl]="editBrancheForm.controls['mobileNumber']"
                 >
                 </lib-field-validations>
               </lib-form-group>

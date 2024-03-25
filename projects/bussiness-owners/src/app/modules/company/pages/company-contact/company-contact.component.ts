@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsService, LookupEnum, LookupsService, RouterService, SharedLibraryEnums, customValidators, lookupDto } from 'shared-lib';
 import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
 import { CompanyService } from '../../company.service';
@@ -15,8 +15,11 @@ export class CompanyContactComponent implements OnInit {
   companyContactForm: FormGroup;
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
+  @Input() editMode: boolean = false;
+
   ngOnInit() {
     this.initializeForm();
+    this.initializeFormData();
     this.loadLookups();
     this.Subscribe();
   }
@@ -27,18 +30,18 @@ export class CompanyContactComponent implements OnInit {
   onSubmit() {
     //if (this.formsService.validForm(this.companyContactForm, true)) return;
     const request: CompanyContactDto = this.companyContactForm.value;
-    request.companyId= "17c13914-04a6-44a3-e20b-08dc4a688464";
+    request.id= "1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3";
     this.companyService.saveCompanyContact(request);
   }
   initializeForm(){
     this.companyContactForm= this.fb.group({
-      mobileNumberCode:["",],
-      mobileNumber:["",],
-      companyEmail:["",],
-      companyAddress:["",],
-      contactPersonal:["",],
-      contactPersonalPosition:["",],
-      contactPersonalEmail:["",],
+      mobileNumberCode:[],
+      mobileNumber:[],
+      companyEmail:[],
+      companyAddress:[],
+      contactPersonal:[],
+      contactPersonalPosition:[],
+      contactPersonalEmail:[],
     })
   }
   Subscribe() {
@@ -47,11 +50,26 @@ export class CompanyContactComponent implements OnInit {
 
   loadLookups() {
     this.lookupsService.loadLookups([
-      LookupEnum.Currency,
-      LookupEnum.Industry,
       LookupEnum.Country,
       LookupEnum.MobileCode,
     ]);
+  }
+
+  initializeFormData() {
+    this.companyService.getCompanyContactById('1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3').subscribe(
+      (res) => {
+        //this.branchCode=res.code
+        console.log("Calling get by Id", res)
+
+        this.companyContactForm.patchValue({
+          ...res,
+        });
+      }
+    );
+  }
+  get companyId(): string {
+    //return this.routerService.currentId;
+    return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
   }
   constructor(
     private fb: FormBuilder,

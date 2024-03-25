@@ -11,7 +11,10 @@
     <form [formGroup]="addCompanyForm" (ngSubmit)="onSubmit()">
       <div class="grid">
         <div class="col-12 md:col-4">
-          <!-- <lib-form-group>
+          <lib-form-group>
+            <lib-label [appControl]="addCompanyForm.controls['companyLogo']">
+              {{ "companyLogo" }}
+            </lib-label>
             <lib-file-uploader
               formControlName="companyLogo"
               [config]="{
@@ -24,7 +27,7 @@
               [appControl]="addCompanyForm.controls['companyLogo']"
             >
             </lib-field-validations>
-          </lib-form-group> -->
+          </lib-form-group>
           <div class="text">
             <p>
               Add
@@ -93,7 +96,6 @@
                   optionLabel="name"
                 >
                 </lib-select>
-  
               </lib-form-group>
             </div>
           </div>

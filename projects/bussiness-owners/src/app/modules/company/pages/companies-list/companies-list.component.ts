@@ -16,7 +16,7 @@ export class CompaniesListComponent implements OnInit {
   companies: ResponseCompanyDto[];
   @ViewChild('myTab') myTab: any | undefined;
   selectedCompanies: ResponseCompanyDto[];
-  tableData: TreeNode[] = []; 
+  tableData: TreeNode<any>[] = []; 
   cols: any[] = []; 
   active:boolean=false
   ref: DynamicDialogRef;
@@ -32,6 +32,42 @@ export class CompaniesListComponent implements OnInit {
 //   navigateToAdd(): void {
 //     this.routerService.navigateTo('company/new/' + this.subscriptionId);
 //   }
+
+convertToTreeNode(companies: ResponseCompanyDto[]): TreeNode<ResponseCompanyDto>[] {
+    const treeNodes: TreeNode<ResponseCompanyDto>[] = [];
+  
+    // Create a map of id to node
+    const nodeMap = new Map<string, TreeNode<ResponseCompanyDto>>();
+  
+    // First pass - create tree nodes and populate the node map
+    companies.forEach(company => {
+      const node: TreeNode<ResponseCompanyDto> = {
+        data: company,
+        children: []
+      };
+      nodeMap.set(company.id, node);
+    });
+  
+    // Second pass - link child nodes to their parents
+    companies.forEach(company => {
+      if (company.parentId && nodeMap.has(company.parentId)) {
+        const parentNode = nodeMap.get(company.parentId);
+        const currentNode = nodeMap.get(company.id);
+        if (parentNode && currentNode) {
+          parentNode.children?.push(currentNode);
+        }
+      } else {
+        // If no parent, it's a root node
+        const currentNode = nodeMap.get(company.id);
+        if (currentNode) {
+          treeNodes.push(currentNode);
+        }
+      }
+    });
+  
+    return treeNodes;
+  }
+  
 newCompany() {
     this.companyService.openNewCompanyModal(this.subscriptionId,this.ref, this.dialog);
   }
@@ -45,15 +81,15 @@ newCompany() {
     this.cols = [ 
       {  
           field: 'Code',  
-          header: 'Code' 
+          header: 'id' 
       }, 
       {  
           field: 'Companies Name',  
-          header: 'Name' 
+          header: 'name' 
       }, 
       {  
           field: 'Companies Type',  
-          header: 'Type' 
+          header: 'companyType' 
       }, 
       {  
           field: 'Tax ID',  
@@ -65,7 +101,7 @@ newCompany() {
       }, 
       {  
           field: 'Phone',  
-          header: 'Phone' 
+          header: 'mobileNumber' 
       }, 
       {  
           field: 'status',  
@@ -474,12 +510,15 @@ newCompany() {
   }
 
   initCompanyData() {
-    //this.companyService.loadCompanies(this.subscriptionId);
+    this.companyService.loadCompanies(this.subscriptionId);
 
     this.companyService.companies.subscribe((companyList) => {
-      this.companies = companyList;
+      //this.tableData=companyList;
+      //this.tableData = this.convertToTreeNode(companyList);
+      console.log("companyList",companyList )
     });
   }
+
   toggle(id: string, isActive: boolean) {
     if (!isActive) this.companyService.activate(id);
     else this.companyService.deactivate(id);

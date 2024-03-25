@@ -1,29 +1,29 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, Input, OnInit, } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CompanyService } from '../../company.service';
+import { BranchDto } from '../../models/branchdto';
 @Component({
   selector: 'app-company-branches',
   templateUrl: './company-branches.component.html',
   styleUrl: './company-branches.component.scss'
 })
 export class CompanyBranchesComponent implements OnInit {
-  branchData: any[];
+  branches: BranchDto[];
   ref: DynamicDialogRef;
+  @Input() editMode: boolean = false;
+
   ngOnInit() {
-    this.branchData=[
-      {
-        id:"1",
-        code:"101",
-        Name:"Company 01",
-        Region:"Region",
-        City:"City",
-        Address:"12 st. riyadh Ksa",
-        Phone:"002 010 2255441136",
-        Email:"abc@abc.com",
-        isActive:true,
-       
-      }
-    ]
+    this.initBranchData();  
+
+  }
+
+  companyId = "17c13914-04a6-44a3-e20b-08dc4a688464";
+   
+  initBranchData() {
+    this.companyService.loadBranches(this.companyId);
+    this.companyService.branches.subscribe((branchList) => {
+      this.branches = branchList;
+    });
   }
   changed(e: any, id: string) {
     if (e.checked === false) {
@@ -33,16 +33,22 @@ export class CompanyBranchesComponent implements OnInit {
     }
   }
  
-  addBranche() {
-    this.CompanyService.addBranche(this.ref, this.dialog);
+  addBranch() {
+    this.companyService.openBranchModel(this.ref, this.dialog);
   }
  
-  editBranche() {
-    this.CompanyService.editBranche(this.ref, this.dialog);
+  editBranch(branchId:string) {
+    this.companyService.openEditBranchModel(branchId,this.ref, this.dialog);
   }
+
+  deleteBranch(branchId:string){
+    this.companyService.deleteBranch(branchId);
+
+  }
+
   constructor(
     private dialog: DialogService,
-    private CompanyService: CompanyService,
+    private companyService: CompanyService,
 
   ){}
 }

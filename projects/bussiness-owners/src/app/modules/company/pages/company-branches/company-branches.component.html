@@ -1,117 +1,109 @@
 <lib-page-content>
-    <div class="user_page mt-4">
-      <p-table
-        #dt
-        [value]="branchData"
-      
-        
-        [tableStyle]="{ 'min-width': '75rem' }"
-        [rowsPerPageOptions]="[5, 10, 15]"
-        [rowHover]="true"
-        dataKey="id"
-       
-        class="flex flex-column"
-      >
-        <ng-template pTemplate="caption">
-          <div class="flex align-items-center justify-content-end">
-         
-            <button
-              pButton
-              pRipple
-              label="Add New"
-              icon="pi pi-plus"
-              class="add_new mr-2"
-              (click)="addBranche()"
-            ></button>
-          </div>
-        </ng-template>
-        <ng-template pTemplate="header">
-          <tr>
-            <th pSortableColumn="name">
-                Code           
-             </th>
-  
-            <th pSortableColumn="email">
-                Branch Name
-            </th>
-            <th pSortableColumn="category" style="min-width: 10rem">
-                Branch Region
-            </th>
-            <th pSortableColumn="rating">
-                Branch City
-            </th>
-            <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
-                Branch Address
-            </th>
-            <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
-                Phone
-            </th>
-            <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
-                Branch Email
-            </th>
-            <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
-                status
-            </th>
-            <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
-                Actions
-            </th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-branch>
-          <tr>
-            <td>
-              <div class="user_info">
-          
-                <p>{{ branch.code }}</p>
-              </div>
-            </td>
-            <td>{{ branch.Name }}</td>
-            <td>
-              {{ branch.Region }}
-            </td>
-            <td>
-              {{ branch.City }}
-            </td>
-            <td>
-              {{ branch.Address }}
-            </td>
-            <td>
-              {{ branch.Phone }}
-            </td>
-            <td>
-              {{ branch.Email }}
-            </td>
-            <td>
-              <div class="checked" >
-                <p-inputSwitch
-                  [id]="branch.id"
-                  (onChange)="changed($event, branch.id)"
-                  [(ngModel)]="branch.isActive"
-                >
-                </p-inputSwitch>
-                <p class="active" *ngIf="branch.isActive">
-                  {{ "User.Activate" | translate }}
-                </p>
-                <p class="inactive" *ngIf="!branch.isActive">
-                  {{ "User.Deactivate" | translate }}
-                </p>
-              </div>
-             
-            </td>
-            <td>
-              <p-button
-                icon="pi pi-pencil"
-                (click)="editBranche()"
-                [rounded]="true"
-                [text]="true"
-                severity="secondary "
-        
-              ></p-button>
-              <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger "></p-button>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
-  </lib-page-content>
-  
+  <div class="user_page mt-4">
+    <p-table
+      #dt
+      [value]="branches"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [rowsPerPageOptions]="[5, 10, 15]"
+      [rowHover]="true"
+      dataKey="id"
+      class="flex flex-column"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-end">
+          <button
+            pButton
+            pRipple
+            label="Add New"
+            icon="pi pi-plus"
+            class="add_new mr-2"
+            (click)="addBranch()"
+          ></button>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="name">Code</th>
+
+          <th pSortableColumn="email">Branch Name</th>
+          <th pSortableColumn="category" style="min-width: 10rem">
+            Branch Region
+          </th>
+          <th pSortableColumn="rating">Branch City</th>
+          <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
+            Branch Address
+          </th>
+          <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
+            Phone
+          </th>
+          <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
+            Branch Email
+          </th>
+          <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
+            status
+          </th>
+          <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
+            Actions
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-branch>
+        <tr>
+          <td>
+            <div class="user_info">
+              <p>{{ branch.code }}</p>
+            </div>
+          </td>
+          <td>{{ branch.branchName }}</td>
+          <td>
+            {{ branch.branchRegion }}
+          </td>
+          <td>
+            {{ branch.branchCity }}
+          </td>
+          <td>
+            {{ branch.branchAddress }}
+          </td>
+          <td>
+            {{ branch.mobileNumber }}
+          </td>
+          <td>
+            {{ branch.branchEmail }}
+          </td>
+          <td>
+            <div class="checked">
+              <p-inputSwitch
+                [id]="branch.id"
+                (onChange)="changed($event, branch.id)"
+                [(ngModel)]="branch.isActive"
+              >
+              </p-inputSwitch>
+              <p class="active" *ngIf="branch.isActive">
+                {{ "User.Activate" | translate }}
+              </p>
+              <p class="inactive" *ngIf="!branch.isActive">
+                {{ "User.Deactivate" | translate }}
+              </p>
+            </div>
+          </td>
+          <td>
+            <p-button
+              icon="pi pi-pencil"
+              (click)="editBranch(branch.id)"
+              [rounded]="true"
+              [text]="true"
+              severity="secondary "
+            ></p-button>
+            <p-button
+              icon="pi pi-trash"
+              [rounded]="true"
+              [text]="true"
+              severity="danger "
+              (click)="deleteBranch(branch.id)"
+            ></p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</lib-page-content>

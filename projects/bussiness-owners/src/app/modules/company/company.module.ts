@@ -52,7 +52,7 @@ const routes: Routes = [
             component: CompanyAddresComponent,
           },
           {
-            path: 'addres',
+            path: 'address',
             component: CompanyAddresComponent,
           },
           {

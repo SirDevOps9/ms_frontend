@@ -78,13 +78,13 @@
                   <div class="checked" >
                     <p-inputSwitch
                     
-                      [(ngModel)]="active"
+                      [(ngModel)]="col.isActive"
                     >
                     </p-inputSwitch>
-                    <p class="active" *ngIf="active">
+                    <p class="active" *ngIf="col.isActive">
                       {{ "User.Activate" | translate }}
                     </p>
-                    <p class="inactive" *ngIf="!active">
+                    <p class="inactive" *ngIf="!col.isActive">
                       {{ "User.Deactivate" | translate }}
                     </p>
                   </div>

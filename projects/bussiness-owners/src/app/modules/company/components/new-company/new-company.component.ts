@@ -77,12 +77,15 @@ export class NewCompanyComponent {
     this.ref.close();
   }
 
-  get subscriptionId(): string {
+  get subdomainId(): string {
     return this.routerService.currentId;
   }
   onSaveAndEdit() {
     this.onSubmit();
-    this.routerService.navigateTo('company/edit/' + this.companyId);
+    console.log(this.companyId);
+    
+    this.routerService.navigateTo('company/edit/' + this.companyId );
+
   }
 
   constructor(

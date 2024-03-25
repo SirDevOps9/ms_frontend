@@ -122,6 +122,23 @@
       "ParentCompany":"Holding Company",
       "SaveAndEdit":"Save and Edit",
       "Save":"Save"
+    },
+    "Branch":{
+      "EditBranch":"Edit Branch",
+      "AddNewBranch": "Add New Branch",
+      "BranchCode": "Branch Code",
+      "BranchName": "Branch Name",
+      "CountryCode": "Country Code",
+      "BranchRegion": "Branch Region",
+      "BranchCity": "Branch City",
+      "BranchEmail": "Branch Email",
+      "BranchAddress": "Branch Address",
+      "MobileNumberCode": "Mobile Number Code",
+      "MobileNumber": "Mobile Number"
+    },
+    "Hierarchy":{
+      "CompanyType":"Company Type",
+      "Subsidiary":"subsidiary"
     }
   },
   "UserConfirmation": {

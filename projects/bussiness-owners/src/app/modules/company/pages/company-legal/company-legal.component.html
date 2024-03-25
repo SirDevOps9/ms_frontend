@@ -1,151 +1,312 @@
-<lib-page-content>
-    <div class="company_addres">
-        <form
-        [formGroup]="companyLegalForm"
-    
-        >
-        <div class="contact_form">
-            <div class="grid">
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyLegalForm.controls['companyName']">
-                          {{ "Company.Add.companyName" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="companyName" />
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyLegalForm.controls['companyEmail']">
-                          {{ "Company.Add.companyEmail" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="companyEmail" />
 
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyLegalForm.controls['organizationUnit']">
-                          {{ "Company.Add.organizationUnit" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="organizationUnit" />
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyLegalForm.controls['organization']">
-                          {{ "Company.Add.organization" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="organization" />
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyLegalForm.controls['taxId']">
-                          {{ "Company.Add.taxId" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="taxId" />
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyLegalForm.controls['commercialId']">
-                          {{ "Company.Add.commercialId" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="commercialId" />
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyLegalForm.controls['registeredAddress']">
-                          {{ "Company.Add.registeredAddress" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="registeredAddress" />
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyLegalForm.controls['businessCategory']">
-                          {{ "Company.Add.businessCategory" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="businessCategory" />
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyLegalForm.controls['streetName']">
-                          {{ "Company.Add.streetName" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="streetName" />
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyLegalForm.controls['citySubDivisionName']">
-                          {{ "Company.Add.citySubDivisionName" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="citySubDivisionName" />
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyLegalForm.controls['cityName']">
-                          {{ "Company.Add.cityName" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="cityName" />
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyLegalForm.controls['postalZone']">
-                          {{ "Company.Add.postalZone" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="postalZone" />
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyLegalForm.controls['countrySubEntity']">
-                          {{ "Company.Add.countrySubEntity" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="countrySubEntity" />
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyLegalForm.controls['buildingNumber']">
-                          {{ "Company.Add.buildingNumber" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="buildingNumber" />
-                      </lib-form-group>
-                </div>
-                <div class="col-12 ">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyLegalForm.controls['additionalStreetName']">
-                          {{ "Company.Add.additionalStreetName" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="additionalStreetName" />
-                      </lib-form-group>
-                </div>
-                <div class="col-12 ">
-                  <lib-form-group>
-                      <lib-label [appControl]="companyLegalForm.controls['registrationName']">
-                        {{ "Company.Add.registrationName" | translate }}
-                      </lib-label>
-                      <lib-text-input type="text" formControlName="registrationName" />
-                    </lib-form-group>
-              </div>
+
+    <lib-page-content>
+      <div class="company_addres">
+        <ng-container *ngIf="!editMode; else editModeContent">
+          <!-- Display form fields in view mode -->
+          <div class="grid">
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['companyName']">
+                {{ "Company.Add.companyName" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['companyName'].value }}</p>
             </div>
-        </div>
-     
-        <div class="actions mb-6">
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['companyEmail']">
+                {{ "Company.Add.companyEmail" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['companyEmail'].value }}</p>
+            </div>
+
+
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['companyEmail']">
+                {{ "Company.Add.companyEmail" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['companyEmail'].value }}</p>
+            </div>
+
+
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['organizationUnit']">
+                {{ "Company.Add.organizationUnit" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['organizationUnit'].value }}</p>
+            </div>
+
+
+
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['organization']">
+                {{ "Company.Add.organization" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['organization'].value }}</p>
+            </div>
+
+
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['taxId']">
+                {{ "Company.Add.taxId" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['taxId'].value }}</p>
+            </div>
+
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['commercialId']">
+                {{ "Company.Add.commercialId" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['commercialId'].value }}</p>
+            </div>
+
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['registeredAddress']">
+                {{ "Company.Add.registeredAddress" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['registeredAddress'].value }}</p>
+            </div>
+
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['registeredAddress']">
+                {{ "Company.Add.registeredAddress" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['registeredAddress'].value }}</p>
+            </div>
+
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['businessCategory']">
+                {{ "Company.Add.businessCategory" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['businessCategory'].value }}</p>
+            </div>
+
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['streetName']">
+                {{ "Company.Add.streetName" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['streetName'].value }}</p>
+            </div>
+
+
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['citySubDivisionName']">
+                {{ "Company.Add.citySubDivisionName" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['citySubDivisionName'].value }}</p>
+            </div>
+
+
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['cityName']">
+                {{ "Company.Add.cityName" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['cityName'].value }}</p>
+            </div>
+
+
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['postalZone']">
+                {{ "Company.Add.postalZone" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['postalZone'].value }}</p>
+            </div>
+
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['buildingNumber']">
+                {{ "Company.Add.buildingNumber" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['buildingNumber'].value }}</p>
+            </div>
+
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['countrySubEntity']">
+                {{ "Company.Add.countrySubEntity" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['countrySubEntity'].value }}</p>
+            </div>
+
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['buildingNumber']">
+                {{ "Company.Add.buildingNumber" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['buildingNumber'].value }}</p>
+            </div>
+
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['additionalStreetName']">
+                {{ "Company.Add.additionalStreetName" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['additionalStreetName'].value }}</p>
+            </div>
+
+            <div class="col-12 md:col-6">
+              <lib-label [appControl]="companyLegalForm.controls['registrationName']">
+                {{ "Company.Add.registrationName" | translate }}
+              </lib-label>
+              <p>{{ companyLegalForm.controls['registrationName'].value }}</p>
+            </div>
+
+
+            <!-- Add other fields in view mode here -->
+          </div>
+        </ng-container>
     
-          <button type="submit" class="save" >
-            {{ "UserConfirmation.Save" | translate }}
-          </button>
-        </div>
-     
-        </form>
-    
-    </div>
+        <!-- Form displayed in edit mode -->
+        <ng-template #editModeContent>
+          <lib-page-content>
+            <div class="company_addres">
+                <form
+                [formGroup]="companyLegalForm"
+                (ngSubmit)="onSubmit()"
+                >
+                <div class="contact_form">
+                    <div class="grid">
+                        <div class="col-12 md:col-6">
+                            <lib-form-group>
+                                <lib-label [appControl]="companyLegalForm.controls['companyName']">
+                                  {{ "Company.Add.companyName" | translate }}
+                                </lib-label>
+                                <lib-text-input type="text" formControlName="companyName" />
+                              </lib-form-group>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <lib-form-group>
+                                <lib-label [appControl]="companyLegalForm.controls['companyEmail']">
+                                  {{ "Company.Add.companyEmail" | translate }}
+                                </lib-label>
+                                <lib-text-input type="text" formControlName="companyEmail" />
+        
+                              </lib-form-group>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <lib-form-group>
+                                <lib-label [appControl]="companyLegalForm.controls['organizationUnit']">
+                                  {{ "Company.Add.organizationUnit" | translate }}
+                                </lib-label>
+                                <lib-text-input type="text" formControlName="organizationUnit" />
+                              </lib-form-group>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <lib-form-group>
+                                <lib-label [appControl]="companyLegalForm.controls['organization']">
+                                  {{ "Company.Add.organization" | translate }}
+                                </lib-label>
+                                <lib-text-input type="text" formControlName="organization" />
+                              </lib-form-group>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <lib-form-group>
+                                <lib-label [appControl]="companyLegalForm.controls['taxId']">
+                                  {{ "Company.Add.taxId" | translate }}
+                                </lib-label>
+                                <lib-text-input type="text" formControlName="taxId" />
+                              </lib-form-group>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <lib-form-group>
+                                <lib-label [appControl]="companyLegalForm.controls['commercialId']">
+                                  {{ "Company.Add.commercialId" | translate }}
+                                </lib-label>
+                                <lib-text-input type="text" formControlName="commercialId" />
+                              </lib-form-group>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <lib-form-group>
+                                <lib-label [appControl]="companyLegalForm.controls['registeredAddress']">
+                                  {{ "Company.Add.registeredAddress" | translate }}
+                                </lib-label>
+                                <lib-text-input type="text" formControlName="registeredAddress" />
+                              </lib-form-group>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <lib-form-group>
+                                <lib-label [appControl]="companyLegalForm.controls['businessCategory']">
+                                  {{ "Company.Add.businessCategory" | translate }}
+                                </lib-label>
+                                <lib-text-input type="text" formControlName="businessCategory" />
+                              </lib-form-group>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <lib-form-group>
+                                <lib-label [appControl]="companyLegalForm.controls['streetName']">
+                                  {{ "Company.Add.streetName" | translate }}
+                                </lib-label>
+                                <lib-text-input type="text" formControlName="streetName" />
+                              </lib-form-group>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <lib-form-group>
+                                <lib-label [appControl]="companyLegalForm.controls['citySubDivisionName']">
+                                  {{ "Company.Add.citySubDivisionName" | translate }}
+                                </lib-label>
+                                <lib-text-input type="text" formControlName="citySubDivisionName" />
+                              </lib-form-group>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <lib-form-group>
+                                <lib-label [appControl]="companyLegalForm.controls['cityName']">
+                                  {{ "Company.Add.cityName" | translate }}
+                                </lib-label>
+                                <lib-text-input type="text" formControlName="cityName" />
+                              </lib-form-group>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <lib-form-group>
+                                <lib-label [appControl]="companyLegalForm.controls['postalZone']">
+                                  {{ "Company.Add.postalZone" | translate }}
+                                </lib-label>
+                                <lib-text-input type="text" formControlName="postalZone" />
+                              </lib-form-group>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <lib-form-group>
+                                <lib-label [appControl]="companyLegalForm.controls['countrySubEntity']">
+                                  {{ "Company.Add.countrySubEntity" | translate }}
+                                </lib-label>
+                                <lib-text-input type="text" formControlName="countrySubEntity" />
+                              </lib-form-group>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <lib-form-group>
+                                <lib-label [appControl]="companyLegalForm.controls['buildingNumber']">
+                                  {{ "Company.Add.buildingNumber" | translate }}
+                                </lib-label>
+                                <lib-text-input type="text" formControlName="buildingNumber" />
+                              </lib-form-group>
+                        </div>
+                        <div class="col-12 ">
+                            <lib-form-group>
+                                <lib-label [appControl]="companyLegalForm.controls['additionalStreetName']">
+                                  {{ "Company.Add.additionalStreetName" | translate }}
+                                </lib-label>
+                                <lib-text-input type="text" formControlName="additionalStreetName" />
+                              </lib-form-group>
+                        </div>
+                        <div class="col-12 ">
+                          <lib-form-group>
+                              <lib-label [appControl]="companyLegalForm.controls['registrationName']">
+                                {{ "Company.Add.registrationName" | translate }}
+                              </lib-label>
+                              <lib-text-input type="text" formControlName="registrationName" />
+                            </lib-form-group>
+                      </div>
+                    </div>
+                </div>
+             
+                <div class="actions mb-6">
+            
+                  <button type="submit" class="save" >
+                    {{ "UserConfirmation.Save" | translate }}
+                  </button>
+                </div>
+             
+                </form>
+            
+            </div>
+            </lib-page-content>
+        
+        </ng-template>
+      </div>
     </lib-page-content>
+
+
+    

@@ -7,5 +7,5 @@ export interface CompanyAddressDto {
     city: string | null;
     address: string | null;
     countryCode: string | null;
-    companyId: string;
+    id: string;
 }

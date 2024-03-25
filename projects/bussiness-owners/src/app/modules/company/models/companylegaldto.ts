@@ -15,5 +15,5 @@ export interface CompanyLegalDto {
     buildingNumber: string | null;
     additionalStreetName: string | null;
     registrationName: string | null;
-    companyId: string;
+    id: string;
 }

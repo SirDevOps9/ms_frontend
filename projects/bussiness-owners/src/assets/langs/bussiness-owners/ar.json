@@ -113,7 +113,25 @@
       "CompanyEmail": "بريد الشركة الإلكتروني",
       "Next": "التالي",
       "Required": "مطلوب",
-      "Select": "اختر "
+      "Select": "اختر ",
+      "CompanyType": "نوع الشركة",
+      "BranchName": "اسم الفرع",
+      "ParentCompany": "الشركة الأم",
+      "SaveAndEdit": "حفظ وتحرير",
+      "Save": "حفظ"
+    },
+    "Branch":{
+      "EditBranch":"تعديل فرع",
+      "AddNewBranch": "إضافة فرع جديد",
+      "BranchCode": "رمز الفرع",
+      "BranchName": "اسم الفرع",
+      "CountryCode": "رمز البلد",
+      "BranchRegion": "منطقة الفرع",
+      "BranchCity": "مدينة الفرع",
+      "BranchEmail": "بريد الفرع",
+      "BranchAddress": "عنوان الفرع",
+      "mobileNumberCode": "رمز الهاتف المحمول",
+      "MobileNumber": "رقم الهاتف المحمول"
     }
   },
   "UserConfirmation": {

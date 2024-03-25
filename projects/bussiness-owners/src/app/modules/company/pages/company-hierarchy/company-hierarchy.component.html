@@ -1,73 +1,67 @@
 <lib-page-content>
-    <div class="company_addres">
-        <form
-        [formGroup]="companyHierarchyForm"
-    
-        >
-        <div class="contact_form">
-            <div class="grid">
-                <div class="col-12">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyHierarchyForm.controls['Country']">
-                          {{ "Company.Add.CompanyName" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text"  formControlName="Country" />
-                        <lib-field-validations [appControl]="companyHierarchyForm.controls['Country']">
-                        </lib-field-validations>
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-3">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyHierarchyForm.controls['Country']">
-                          {{ "Company.Add.CompanyName" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="Country" />
-                        <lib-field-validations [appControl]="companyHierarchyForm.controls['Country']">
-                        </lib-field-validations>
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-3">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyHierarchyForm.controls['Country']">
-                          {{ "Company.Add.CompanyName" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="Country" />
-                        <lib-field-validations [appControl]="companyHierarchyForm.controls['Country']">
-                        </lib-field-validations>
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-3">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyHierarchyForm.controls['Country']">
-                          {{ "Company.Add.CompanyName" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="Country" />
-                        <lib-field-validations [appControl]="companyHierarchyForm.controls['Country']">
-                        </lib-field-validations>
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-3">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyHierarchyForm.controls['Country']">
-                          {{ "Company.Add.CompanyName" | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="Country" />
-                        <lib-field-validations [appControl]="companyHierarchyForm.controls['Country']">
-                        </lib-field-validations>
-                      </lib-form-group>
-                </div>
-                
-            </div>
-        </div>
-     
-        <div class="actions mb-6">
-    
-          <button type="submit" class="save" >
-            {{ "UserConfirmation.Save" | translate }}
-          </button>
-        </div>
-     
-        </form>
-    
-    </div>
-    </lib-page-content>
+  <div class="company_addres">
+      <ng-container *ngIf="!editMode; else editModeContent">
+          <!-- Display form fields in view mode -->
+          <div class="grid">
+              <div class="col-12">
+                  <lib-label [appControl]="companyHierarchyForm.controls['companyType']">
+                      {{ "Company.Add.CompanyType" | translate }}
+                  </lib-label>
+                  <p>{{ companyHierarchyForm.controls['companyType'].value }}</p>
+              </div>
+              <div class="col-12 md:col-3">
+                  <lib-label [appControl]="companyHierarchyForm.controls['subsidiary']">
+                      {{ "Company.Add.subsidiary" | translate }}
+                  </lib-label>
+                  <p>{{ companyHierarchyForm.controls['subsidiary'].value }}</p>
+              </div>
+
+              <!-- Add other fields in view mode here -->
+          </div>
+      </ng-container>
+
+      <!-- Form displayed in edit mode -->
+      <ng-template #editModeContent>
+          <form [formGroup]="companyHierarchyForm" (ngSubmit)="onSubmit()">
+              <div class="contact_form">
+                  <div class="grid">
+                      <div class="col-12">
+                          <lib-form-group>
+                              <lib-label [appControl]="companyHierarchyForm.controls['companyType']">
+                                  {{ "Company.Add.CompanyType" | translate }}
+                              </lib-label>
+                              <lib-text-input type="text" formControlName="companyType" />
+                              <lib-field-validations [appControl]="companyHierarchyForm.controls['companyType']">
+                              </lib-field-validations>
+                          </lib-form-group>
+                      </div>
+                      <div class="col-12 md:col-3">
+                          <lib-form-group>
+                              <lib-label [appControl]="companyHierarchyForm.controls['subsidiary']">
+                                  {{ "Company.Hierarchy.Subsidiary" | translate }}
+                              </lib-label>
+                              <lib-multi-select
+                                  formControlName="subsidiary"
+                                  [options]="subsidiaryList"
+                                  optionValue="id"
+                                  optionLabel="name"
+                              >
+                              </lib-multi-select>
+                              <lib-field-validations
+                                  [appControl]="companyHierarchyForm.controls['subsidiary']"
+                              >
+                              </lib-field-validations>
+                          </lib-form-group>
+                      </div>
+                      <!-- Add other fields in edit mode here -->
+                  </div>
+              </div>
+              <div class="actions mb-6">
+                  <button type="submit" class="save">
+                      {{ "UserConfirmation.Save" | translate }}
+                  </button>
+              </div>
+          </form>
+      </ng-template>
+  </div>
+</lib-page-content>

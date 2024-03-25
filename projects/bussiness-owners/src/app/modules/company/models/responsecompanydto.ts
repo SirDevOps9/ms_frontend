@@ -22,6 +22,7 @@
 export interface ResponseCompanyDto {
   id: string;
   name: string;
+  code:string;
   countryCode: string;
   parentId?: string;
   childrens?: ResponseCompanyDto[];
