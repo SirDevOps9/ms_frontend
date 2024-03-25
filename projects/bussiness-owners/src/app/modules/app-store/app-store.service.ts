@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AppStoreProxy } from './app-store.proxy';
 import { AppDto } from './models/appDto';
 import { AddToCartDto } from './models/addToCartDto';
-import { BaseDto, LanguageService, ToasterService } from 'shared-lib';
+import { BaseDto, LanguageService, ToasterService, Money } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { SelectSubdomainComponent } from './components/select-subdomain.component';
 import { CartDto } from './models/cartDto';
@@ -13,9 +13,9 @@ import { CartDto } from './models/cartDto';
 })
 export class AppStoreService {
   private appsDataSource = new BehaviorSubject<AppDto[]>([]);
-  private cartDataSource = new BehaviorSubject<any>({});
+  private cartDataSource = new BehaviorSubject<CartDto | null>(null);
   public apps = this.appsDataSource.asObservable();
-  public cartData = this.cartDataSource.asObservable(); 
+  public cartData = this.cartDataSource.asObservable();
 
   constructor(
     private toasterService: ToasterService,
@@ -50,11 +50,40 @@ export class AppStoreService {
         header: 'Select a Subdomain'
       });
       ref.onClose.subscribe((result: number) => {
-        if(result){
+        if (result) {
           this.addModelToCart({ subdomainId: result, appId })
         }
       });
     }
+  }
+  async removeFromCart(id: string) {
+    const confirmed = await this.toasterService.showConfirm(
+      'ConfirmButtonTexttochangestatus'
+    );
+    if (confirmed) {
+      this.appStoreProxy.removeFromCart(id).subscribe({
+        next: () => {
+
+          
+          this.cartDataSource.value!.items! =
+          this.cartDataSource.value!.items!.filter(item => item.id != id);
+          this.cartDataSource.value!.total = this.cartDataSource.value!.total;
+          
+            this.toasterService.showSuccess(
+              this.languageService.transalte('CartItem.Success'),
+              this.languageService.transalte('CartItem.ItemRemovedSuccessfully')
+            );
+        },
+        error:() => {
+          this.toasterService.showError(
+            this.languageService.transalte('CartItem.Error'),
+            this.languageService.transalte('CartItem.ErrorWhileDeleting')
+          );
+        }
+      });
+      
+    }
+
   }
 
   private addModelToCart(model: AddToCartDto) {

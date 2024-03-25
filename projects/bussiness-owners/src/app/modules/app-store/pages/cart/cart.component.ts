@@ -8,8 +8,8 @@ import { AppStoreService } from '../../app-store.service';
   })
   
   export class CartComponent implements OnInit {
-    cartData : CartDto;
-  
+    cartData : CartDto|null;
+    groupedItems: { [key: string]: any[] };
     constructor(private appStoreService: AppStoreService,) {
     }
   
@@ -17,14 +17,20 @@ import { AppStoreService } from '../../app-store.service';
         this.appStoreService.getCartData();
     this.appStoreService.cartData.subscribe(cartData => {
       this.cartData = cartData;
+      this.groupedItems = this.groupByAppName(this.cartData!.items);
     });
 
     
 }
-removeItemFromCart(id: string) {
-    throw new Error('Function not implemented.');
-}
-}
+  removeItemFromCart(id: string) {
+      this.appStoreService.removeFromCart(id);
+      this.groupedItems = this.groupByAppName(this.cartData!.items.filter(item => item.id != id));
+  }
+  private groupByAppName(items: any[]): { [key: string]: any[] } {
+    return items.reduce((result, item) => {
+      (result[item.appName] = result[item.appName] || []).push(item);
+      return result;
+    }, {});
+  }
 
-
-  
+}

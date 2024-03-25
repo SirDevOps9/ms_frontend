@@ -1,25 +1,34 @@
 <a routerLink="./">List view</a>
 
-<div *ngIf="cartData" style="padding-left: 40px;">
-    <ul style="padding-left: 0;">
-        <li *ngFor="let cartItem of cartData" class="list-item">
-            <div class="row">
-                <div class="sm:col-2">
-                    <img class="app-img" src="assets/images/users/editdefault.png" />
-                </div>
-                <div class="sm:col-10">
-                    <div class="row">
-                        <div class="xs:col-10">
-                            <h2>{{cartItem.name}}</h2>
-                            <lib-rating [value]="4.5"></lib-rating>
-                        </div>
-                        <div class="xs:col-2 text-right">
-                            <strong>{{cartItem.price.amount}}{{cartItem.price.currencyName}} / Monthly</strong>
-                            <button (click)="removeItemFromCart(cartItem.id)">Delte</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
-    </ul>
+<div *ngIf="cartData"  style="padding-left: 40px;">
+    <table class="table" style="border: solid;">
+        <thead>
+            <th>App Name</th>
+            <th>Subdomain Name</th>
+            <th>Price</th>
+            <th></th>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let group of groupedItems | keyvalue">
+                <tr *ngFor="let item of group.value; let isFirst = first">
+                  <td *ngIf="isFirst">{{ group.key }}</td>
+                  <td *ngIf="!isFirst"></td> <!-- Empty cell for non-first rows in group -->
+                  <td>{{ item.subDomainName }}</td>
+                  <td>{{ item.unitPrice.amount }} {{ item.unitPrice.currencyName }}</td>
+                  <td>
+                    <button (click)="removeItemFromCart(item.id)">Remove</button>
+                  </td>
+                </tr>
+              </ng-container>
+        </tbody>
+    </table>
+
+    <div style="border:solid;">
+        Total :
+        <p>{{cartData.total.amount}}</p>
+        <p>{{cartData.total.currencyName}}</p>
+    </div>
+    
 </div>
+
+

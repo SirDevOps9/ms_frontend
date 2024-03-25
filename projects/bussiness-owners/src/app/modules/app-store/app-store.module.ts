@@ -47,7 +47,8 @@ const routes: Routes = [
   declarations: [
     ListAppsComponent,
     CardAppsComponent,
-    SelectSubdomainComponent
+    SelectSubdomainComponent,
+    CartComponent
   ],
   imports: [
     SharedLibModule,

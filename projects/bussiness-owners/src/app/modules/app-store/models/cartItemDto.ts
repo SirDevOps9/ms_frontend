@@ -2,7 +2,7 @@ import { Money } from "shared-lib";
 
 export interface CartItemDto {
     id: string;
-    app: string
+    appName: string
     unitPrice: Money;
-    subDomain : string
+    subDomainName : string
 }

@@ -20,6 +20,9 @@ export class AppStoreProxy {
   addToCart(model: AddToCartDto): Observable<any>{
     return this.httpService.post<any>("Cart", model);
   }
+  removeFromCart(id: string): Observable<any>{
+    return this.httpService.delete<any>("Cart/"+ id , true);
+  }
 
   constructor(private httpService: HttpService) {}
 }
