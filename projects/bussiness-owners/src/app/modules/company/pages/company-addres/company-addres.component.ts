@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
 import { LookupEnum, LookupsService, RouterService, customValidators, lookupDto } from 'shared-lib';
-import { GoogleMapsModule } from '@angular/google-maps'
+
 
 @Component({
   selector: 'app-company-addres',

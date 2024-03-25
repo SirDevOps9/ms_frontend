@@ -6,24 +6,31 @@ import { AddToCartDto } from './models/addToCartDto';
 import { BaseDto, LanguageService, ToasterService } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { SelectSubdomainComponent } from './components/select-subdomain.component';
+import { CartDto } from './models/cartDto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppStoreService {
   private appsDataSource = new BehaviorSubject<AppDto[]>([]);
-
+  private cartDataSource = new BehaviorSubject<any>({});
   public apps = this.appsDataSource.asObservable();
+  public cartData = this.cartDataSource.asObservable(); 
 
   constructor(
     private toasterService: ToasterService,
     private languageService: LanguageService,
-    private appSotrProxy: AppStoreProxy,
+    private appStoreProxy: AppStoreProxy,
   ) { }
 
   loadApps() {
-    this.appSotrProxy.getAll().subscribe((response) => {
+    this.appStoreProxy.getAll().subscribe((response) => {
       this.appsDataSource.next(response);
+    });
+  }
+  getCartData() {
+    this.appStoreProxy.getCartData().subscribe((response) => {
+      this.cartDataSource.next(response);
     });
   }
 
@@ -51,7 +58,7 @@ export class AppStoreService {
   }
 
   private addModelToCart(model: AddToCartDto) {
-    this.appSotrProxy.addToCart(model).subscribe(
+    this.appStoreProxy.addToCart(model).subscribe(
       r => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Company.Success'),

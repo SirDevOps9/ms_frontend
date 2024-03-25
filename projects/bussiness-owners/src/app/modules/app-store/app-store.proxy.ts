@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpService } from 'shared-lib';
 import { AppDto } from './models/appDto';
 import { AddToCartDto } from './models/addToCartDto';
+import { CartDto } from './models/cartDto';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,9 @@ export class AppStoreProxy {
 
   getAll(): Observable<AppDto[]> {
     return this.httpService.get<AppDto[]>(`App`);
+  }
+  getCartData(): Observable<CartDto>{
+    return this.httpService.get<CartDto>("Cart/GetCurrentUserCart");
   }
 
   addToCart(model: AddToCartDto): Observable<any>{

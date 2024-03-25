@@ -8,6 +8,7 @@ import { BreadcrumbLabel, SharedLibModule } from 'shared-lib';
 import { HttpClientModule } from '@angular/common/http';
 import { CardAppsComponent } from './pages/card-apps/card-apps.component';
 import { SelectSubdomainComponent } from './components/select-subdomain.component';
+import { CartComponent } from './pages/cart/cart.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,14 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.APP_STORE,
+        },
+      },
+      {
+        path: 'cart',
+        component: CartComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.CART,
         },
       }
     ]
