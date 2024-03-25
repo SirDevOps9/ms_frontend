@@ -24,6 +24,7 @@ import { FileUploaderComponent } from './form-components/file-uploader/file-uplo
 import { TreeTableModule } from 'primeng/treetable';
 import { RatingModule } from 'primeng/rating';
 import { RatingComponent } from './form-components/rating/rating.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { RatingComponent } from './form-components/rating/rating.component';
     PageContentComponent,
     FileUploaderComponent,
     MultiSelectComponent,
-    RatingComponent
+    RatingComponent,
+    PaginatorComponent
   ],
   imports: [
     CommonModule,
@@ -74,7 +76,8 @@ import { RatingComponent } from './form-components/rating/rating.component';
     PrimeSharedModule,
     FileUploaderComponent,
     MultiSelectComponent,
-    RatingComponent
+    RatingComponent,
+    PaginatorComponent
   ],
 })
 export class SharedLibModule {}

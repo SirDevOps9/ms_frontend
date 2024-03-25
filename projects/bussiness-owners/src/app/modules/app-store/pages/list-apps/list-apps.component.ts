@@ -12,6 +12,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 export class ListAppsComponent implements OnInit {
   apps: AppDto[];
   subdomains: BaseDto[];
+  cardList:boolean=false;
 
   constructor(private appStoreService: AppStoreService,
     private dialog: DialogService,
@@ -19,9 +20,35 @@ export class ListAppsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.apps=[
+      {
+        id: 1,
+        name: "Finance",
+        description: "test ",
+        logoId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        price: {
+          amount: 0,
+          currencyId: 3,
+          currencyName: "EGP"
+        },
+    dependencies: []
+      },
+      {
+        id: 1,
+        name: "Finance",
+        description: "test ",
+        logoId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        price: {
+          amount: 0,
+          currencyId: 3,
+          currencyName: "EGP"
+        },
+    dependencies: []
+      }
+    ]
     this.appStoreService.loadApps();
     this.appStoreService.apps.subscribe(apps => {
-      this.apps = apps;
+      //this.apps = apps;
     });
     this.subdomainService.getAllSubdomains().subscribe(s => this.subdomains = s);
   }
@@ -32,5 +59,12 @@ export class ListAppsComponent implements OnInit {
 
   getAppDeps(app: AppDto) {
     return app.dependencies.map(d => d.name).join(" - ");
+  }
+  card(){
+    this.cardList=true
+  }
+  row(){
+    this.cardList=false
+
   }
 }
