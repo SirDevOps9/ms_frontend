@@ -1,6 +1,6 @@
-import { IEnvironment } from "shared-lib";
+import { IEnvironment } from 'shared-lib';
 
-export const environment :IEnvironment = {
+export const environment: IEnvironment = {
   production: true,
   baseUrl: 'https://intmicrotec.neat-url.com:2003',
   Version: 'V1',
@@ -18,9 +18,10 @@ export const environment :IEnvironment = {
     silentRenew: true,
     useRefreshToken: true,
   },
-  AttachmentServiceConfig:{
-    AttachmentServiceUrl :"https://localhost:2030",
-    ClientId:"AdminPortal",
-    SecretKey:"secretkey",
-  }
+  AttachmentServiceConfig: {
+    AttachmentServiceUrl: 'https://localhost:2030',
+    ClientId: 'AdminPortal',
+    SecretKey: 'secretkey',
+  },
+  ApiKey: '3bb564df-0f24-4ea6-82c1-d99f368cac8a',
 };

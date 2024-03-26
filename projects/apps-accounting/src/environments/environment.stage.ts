@@ -21,5 +21,6 @@ export const environment: IEnvironment = {
     ClientId: 'Accounting',
     SecretKey: 'secretkey',
   },
-  photoBaseUrl: ''
+  photoBaseUrl: '',
+  ApiKey: '3bb564df-0f24-4ea6-82c1-d99f368cac8a',
 };

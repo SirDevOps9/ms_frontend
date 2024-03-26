@@ -46,6 +46,7 @@ export class HttpService {
           [HeaderParams.VERSION]: this.environmentService.Version,
           [HeaderParams.CLIENTID]: this.environmentService.ClientId,
           [HeaderParams.PLATFORMTYPE]: this.environmentService.Platform,
+          [HeaderParams.APIKEY]: this.environmentService.ApiKey,
         });
         return of(headers);
       })
@@ -84,9 +85,7 @@ export class HttpService {
 
   getFullUrl<T>(url: string, showError: boolean = true) {
     return this.addHeaders().pipe(
-      switchMap((headers) =>
-        this.http.get<T>(`${url}`, { headers })
-      ),
+      switchMap((headers) => this.http.get<T>(`${url}`, { headers })),
       catchError((response: HttpErrorResponse) =>
         this.errorHandler(url, response, null, showError)
       )
@@ -106,9 +105,7 @@ export class HttpService {
 
   postFullUrl<T>(url: string, data: any, showError: boolean = true) {
     return this.addHeaders().pipe(
-      switchMap((headers) =>
-        this.http.post<T>(`${url}`, data, { headers })
-      ),
+      switchMap((headers) => this.http.post<T>(`${url}`, data, { headers })),
       catchError((response: HttpErrorResponse) =>
         this.errorHandler(url, response, data, showError)
       )
