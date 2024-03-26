@@ -67,4 +67,8 @@ export class ListAppsComponent implements OnInit {
     this.cardList=false
 
   }
+  routeToDetails(id:any){
+    console.log(id);
+    
+  }
 }

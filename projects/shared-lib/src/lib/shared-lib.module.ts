@@ -22,9 +22,9 @@ import { PageContentComponent } from './components/page-content/page-content.com
 import { PrimeSharedModule } from './prime-module/prime.module';
 import { FileUploaderComponent } from './form-components/file-uploader/file-uploader.component';
 import { TreeTableModule } from 'primeng/treetable';
-import { RatingModule } from 'primeng/rating';
 import { RatingComponent } from './form-components/rating/rating.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { AccordionComponent } from './components/accordion/accordion.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,8 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     FileUploaderComponent,
     MultiSelectComponent,
     RatingComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    AccordionComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +56,6 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     FormsModule,
     PrimeSharedModule,
     TreeTableModule,
-    RatingModule,
   ],
   exports: [
     GetLookupPipe,
@@ -77,7 +77,8 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     FileUploaderComponent,
     MultiSelectComponent,
     RatingComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    AccordionComponent
   ],
 })
 export class SharedLibModule {}

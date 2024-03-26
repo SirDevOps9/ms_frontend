@@ -1,33 +1,3 @@
-<!-- <a routerLink="./cards">Cards view</a>
-<div *ngIf="apps" style="padding-left: 40px;">
-    <ul style="padding-left: 0;">
-        <li *ngFor="let app of apps" class="list-item">
-            <div class="grid">
-                <div class="sm:col-2">
-                    <img class="app-img" src="assets/images/users/editdefault.png" />
-                </div>
-                <div class="sm:col-10">
-                    <div class="grid">
-                        <div class="xs:col-10">
-                            <h2>{{app.name}}</h2>
-                            <lib-rating [value]="4.5"></lib-rating>
-                        </div>
-                        <div class="xs:col-2 text-right">
-                            <strong>{{app.price.amount}}{{app.price.currencyName}} / Monthly</strong>
-                            <button (click)="addToCart(app.id)">Add to cart</button>
-                        </div>
-                    </div>
-                    <div>
-                        {{app.description}}
-                        <div>
-                            <strong>Dependecies: </strong> {{getAppDeps(app)}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
-    </ul>
-</div> -->
 <lib-page-content>
 <div class="app_list">
     <div class="grid">
@@ -71,42 +41,68 @@
 
         </div>
         <div class="col-12 md:col-3">
-
+            <div class="Category">
+                <lib-accordion 
+                header="Category"
+                >
+                <div>
+                    <p>Accounts</p>
+                    <p>Stores</p>
+                    <p>HR</p>
+                    <p>See all</p>
+                </div>
+                </lib-accordion>
+            </div>
+            <div class="Category">
+                <lib-accordion 
+                header="Brands"
+                >
+                <div >
+                    
+                </div>
+                </lib-accordion>
+            </div>
+          
         </div>
         <div class="col-12 md:col-9">
             <div [ngClass]="{contant:cardList}">
-                <div class="card" [ngClass]="{card_list:cardList}" *ngFor="let app of apps" >
-                    <div class="app_img">
-                        <img src="assets/images/apps/Group.png" alt="">
-                    </div>
-                    <div class="app_description">
-                        <div class="sec_one">
-                            <div class="title">
-                                {{app.name}}
-                            </div>
-                            <div class="re_new">
-                                {{app.price.amount}}{{app.price.currencyName}}
-                                <button (click)="addToCart(app.id)">Add to cart</button>
-
-                            </div>
+                <div class="card" [ngClass]="{card_list:cardList}" *ngFor="let app of apps"  >
+                  
+                        <div class="app_img">
+                            <img src="assets/images/apps/Group.png" alt="">
                         </div>
-                        <div class="sec_two">
-                            <div class="rate">
-                                <lib-rating [value]="4"
-                                [isReadOnly]="true"
-                                [showCancel]="false"
-                                >
+                        <div class="app_description">
+                            <div class="sec_one">
+                                <div class="title" (click)="routeToDetails(app.id)">
+                                    {{app.name}}
+                                </div>
+                                <div class="re_new">
+                                    {{app.price.amount}}{{app.price.currencyName}}
     
-                                </lib-rating>
+                                </div>
                             </div>
-                            <div class="date">
-                              <span class="pi pi-calendar"></span>
-                                20/3/2024
+                            <div class="sec_two">
+                                <div class="rate">
+                                    <lib-rating [value]="4"
+                                    [isReadOnly]="true"
+                                    [showCancel]="false"
+                                    >
+        
+                                    </lib-rating>
+                                </div>
+                                <!-- <div class="date">
+                                  <span class="pi pi-calendar"></span>
+                                    20/3/2024
+                                </div> -->
+                                <div class="cart">
+                                    <button (click)="addToCart(app.id)">Add to cart</button>
+                                </div>
                             </div>
+                            <div class="sec_desription">
+                                {{app.description}}                    </div>
                         </div>
-                        <div class="sec_desription">
-                            {{app.description}}                    </div>
-                    </div>
+                  
+                   
                 </div>
             </div>
            

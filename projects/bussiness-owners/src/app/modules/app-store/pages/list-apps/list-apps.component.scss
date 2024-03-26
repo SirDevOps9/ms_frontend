@@ -33,6 +33,10 @@
     }
 
 }
+.card_content{
+    cursor: pointer;
+    width: 100%;
+}
 .card{
     display: flex;
     align-items: center;
@@ -61,6 +65,7 @@
             align-items: center;
             justify-content: space-between;
             .title{
+                cursor: pointer;
                 font-size: 20px;
                 color: #383A42;
             }
@@ -82,6 +87,16 @@
                 font-size: 18px;
                 color: #36A19B;
             }
+            .cart{
+                button{
+                    background: #1A8EAE;
+                    color: #fff;
+                    border-radius: 12px;
+                    border: none;
+                    padding: 10px;
+                    cursor: pointer;
+                }
+            }
         }
         .sec_desription{
             font-size: 16px;
@@ -97,4 +112,7 @@
     display: flex;
     align-items: start;
     justify-content: space-around;
+}
+.Category{
+    border-bottom:1px solid #8E95A2 ;
 }
