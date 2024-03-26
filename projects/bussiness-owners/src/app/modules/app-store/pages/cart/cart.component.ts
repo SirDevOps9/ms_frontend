@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CartDto } from '../../models/cartDto';
 import { AppStoreService } from '../../app-store.service';
+import { RouterModule } from '@angular/router';
+import { RouterService } from 'shared-lib';
 
 @Component({
     templateUrl: './cart.component.html',
@@ -10,7 +12,7 @@ import { AppStoreService } from '../../app-store.service';
   export class CartComponent implements OnInit {
     cartData : CartDto|null;
     groupedItems: { [key: string]: any[] };
-    constructor(private appStoreService: AppStoreService,) {
+    constructor(private appStoreService: AppStoreService,private routerService: RouterService) {
     }
   
     ngOnInit(): void {
@@ -21,6 +23,10 @@ import { AppStoreService } from '../../app-store.service';
     });
 
     
+}
+itemFromCartDetail(id: string) {
+  this.routerService.navigateTo('app-store/cartItemDetail/'+ id);
+  
 }
   removeItemFromCart(id: string) {
       this.appStoreService.removeFromCart(id);

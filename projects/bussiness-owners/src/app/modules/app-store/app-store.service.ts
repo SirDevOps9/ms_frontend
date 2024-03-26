@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, pipe } from 'rxjs';
 import { AppStoreProxy } from './app-store.proxy';
 import { AppDto } from './models/appDto';
 import { AddToCartDto } from './models/addToCartDto';
-import { BaseDto, LanguageService, ToasterService, Money } from 'shared-lib';
+import { BaseDto, LanguageService, ToasterService, Money, APIResponse } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { SelectSubdomainComponent } from './components/select-subdomain.component';
 import { CartDto } from './models/cartDto';
+import { CartItemDto } from './models/cartItemDto';
 
 @Injectable({
   providedIn: 'root',
@@ -56,6 +57,19 @@ export class AppStoreService {
       });
     }
   }
+  
+  getFromCart(id: string) {
+    return this.appStoreProxy.getFromCart(id).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((err: APIResponse<string>) => {
+        throw err.error?.errorMessage!;
+      })
+    );
+  }
+
+
   async removeFromCart(id: string) {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangestatus'
@@ -64,24 +78,25 @@ export class AppStoreService {
       this.appStoreProxy.removeFromCart(id).subscribe({
         next: () => {
 
-          
+
           this.cartDataSource.value!.items! =
-          this.cartDataSource.value!.items!.filter(item => item.id != id);
-          this.cartDataSource.value!.total = this.cartDataSource.value!.total;
-          
-            this.toasterService.showSuccess(
-              this.languageService.transalte('CartItem.Success'),
-              this.languageService.transalte('CartItem.ItemRemovedSuccessfully')
-            );
+            this.cartDataSource.value!.items!.filter(item => item.id != id);
+          this.cartDataSource.value!.total.amount = this.cartDataSource.value!.items
+            .reduce((sum, current) => sum + current.unitPrice.amount, 0);
+
+          this.toasterService.showSuccess(
+            this.languageService.transalte('CartItem.Success'),
+            this.languageService.transalte('CartItem.ItemRemovedSuccessfully')
+          );
         },
-        error:() => {
+        error: () => {
           this.toasterService.showError(
             this.languageService.transalte('CartItem.Error'),
             this.languageService.transalte('CartItem.ErrorWhileDeleting')
           );
         }
       });
-      
+
     }
 
   }

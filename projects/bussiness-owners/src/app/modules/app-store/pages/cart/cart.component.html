@@ -16,7 +16,21 @@
                   <td>{{ item.subDomainName }}</td>
                   <td>{{ item.unitPrice.amount }} {{ item.unitPrice.currencyName }}</td>
                   <td>
-                    <button (click)="removeItemFromCart(item.id)">Remove</button>
+                    <p-button
+                      icon="pi pi-pencil"
+                      (click)="itemFromCartDetail(item.id)"
+                      [rounded]="true"
+                      [text]="true"
+                      severity="secondary "
+                     ></p-button>
+                     <p-button
+                      icon="pi pi-trash"
+                      (click)="removeItemFromCart(item.id)"
+                      [rounded]="true"
+                      [text]="true"
+                      severity="secondary "
+                    ></p-button>
+                   
                   </td>
                 </tr>
               </ng-container>

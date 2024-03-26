@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CardAppsComponent } from './pages/card-apps/card-apps.component';
 import { SelectSubdomainComponent } from './components/select-subdomain.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { CartItemDetailComponent } from './pages/cart-item-detail/cart-item-detail.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,14 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.CART,
         },
+      },
+      {
+        path: 'cartItemDetail/:id',
+        component: CartItemDetailComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.CART,
+        },
       }
     ]
   }
@@ -48,7 +57,8 @@ const routes: Routes = [
     ListAppsComponent,
     CardAppsComponent,
     SelectSubdomainComponent,
-    CartComponent
+    CartComponent,
+    CartItemDetailComponent
   ],
   imports: [
     SharedLibModule,

@@ -4,6 +4,7 @@ import { HttpService } from 'shared-lib';
 import { AppDto } from './models/appDto';
 import { AddToCartDto } from './models/addToCartDto';
 import { CartDto } from './models/cartDto';
+import { CartItemDto } from './models/cartItemDto';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,9 @@ export class AppStoreProxy {
 
   addToCart(model: AddToCartDto): Observable<any>{
     return this.httpService.post<any>("Cart", model);
+  }
+  getFromCart(id: string): Observable<CartItemDto>{
+    return this.httpService.get<CartItemDto>("Cart/GetCartItem/"+ id , true);
   }
   removeFromCart(id: string): Observable<any>{
     return this.httpService.delete<any>("Cart/"+ id , true);
