@@ -44,7 +44,7 @@ export class UserconfirmationComponent implements OnInit {
       password: new FormControl('', [customValidators.required,customValidators.password]),
       confirmPassword: new FormControl('', [customValidators.required,customValidators.confrimPassword]),
       acceptPolicy: new FormControl('', [Validators.requiredTrue]),
-      photo: new FormControl('', [customValidators.required]),
+      photo: new FormControl(''),
     });
   }
   getEmail() {
