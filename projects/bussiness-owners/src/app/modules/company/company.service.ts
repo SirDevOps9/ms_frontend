@@ -20,7 +20,6 @@ import { CompanyLegalDto } from './models/companylegaldto';
 import { BranchDto } from './models/branchdto';
 import { CreateBranchDto } from './models/createbranchdto';
 import { EditBranchDto } from './models/editbranchdto';
-import { TreeNode } from 'primeng/api';
 import { CompanyHierarchyDto } from './models/companyhierarchydto';
 
 @Injectable({
@@ -45,7 +44,7 @@ export class CompanyService {
 
   loadCompanies(subscriptionId: string) {
     this.companyProxy.getAll(subscriptionId).subscribe((response) => {
-      this.companiesDataSource.next(response.response.reverse());
+      this.companiesDataSource.next(response.response);
     });
   }
 
@@ -305,11 +304,20 @@ export class CompanyService {
     });
     ref.onClose.subscribe((result: BranchDto) => {
       if (result as BranchDto) {
-        const updatedBranchlist: BranchDto[] = [
-          ...this.branchesDataSource.value,
-          result,
-        ];
-        this.branchesDataSource.next(updatedBranchlist);
+
+        let branchToChange = this.branchesDataSource.value.find(
+          (item) => item.id === result.id
+        );
+        
+        if (branchToChange) {
+          Object.assign(branchToChange, result);
+          this.branchesDataSource.next([...this.branchesDataSource.value]);
+        }
+        // const updatedBranchlist: BranchDto[] = [
+        //   ...this.branchesDataSource.value,
+        //   result,
+        // ];
+        // this.branchesDataSource.next(updatedBranchlist);
       }
     });
   }
@@ -345,7 +353,6 @@ export class CompanyService {
   async deleteBranch(branchId: string) {
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte( 'ConfirmButtonTexttodelete'),
-      //'Toaster.Confirm.ConfirmButtonTexttodelete'
     );
     if (confirmed) {
       this.companyProxy.deleteBranch(branchId).subscribe({
@@ -355,12 +362,67 @@ export class CompanyService {
             this.languageService.transalte('Branch Deleted Successfully')
           );
           this.loaderService.hide();
-          this.branchesDataSource.next([...this.branchesDataSource.value]);
+          const currentBranches = this.branchesDataSource.getValue();
+          const updatedBranches = currentBranches.filter(branch => branch.id !== branchId);
+          this.branchesDataSource.next(updatedBranches);
         },
       });
     } else {
     }
   }
+
+  async activateBranch(id: string) {
+    const confirmed = await this.toasterService.showConfirm(
+      'ConfirmButtonTexttochangestatus'
+    );
+    if (confirmed) {
+      this.companyProxy.activateBranch(id).subscribe({
+        next: () => {
+          const branchToChange = this.branchesDataSource.value.find(
+            (item) => item.id === id
+          );
+          if (branchToChange) {
+            branchToChange.isActive = true;
+            this.branchesDataSource.next([...this.branchesDataSource.value]);
+          }
+          this.toasterService.showSuccess(
+            this.languageService.transalte('Company.Success'),
+            this.languageService.transalte(
+              'branch Activated Successfully'
+            )
+          );
+        },
+      });
+    } else {
+    }
+  }
+
+  async deActivateBranch(id: string) {
+    const confirmed = await this.toasterService.showConfirm(
+      'ConfirmButtonTexttochangestatus'
+    );
+    if (confirmed) {
+      this.companyProxy.deActivateBranch(id).subscribe({
+        next: () => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('Company.Success'),
+            this.languageService.transalte(
+              'Branhc De ActivatedSuccessfully'
+            )
+          );
+          const branchToChange = this.branchesDataSource.value.find(
+            (item) => item.id === id
+          );
+          if (branchToChange) {
+            branchToChange.isActive = false;
+            this.branchesDataSource.next([...this.branchesDataSource.value]);
+          }
+        },
+      });
+    } else {
+    }
+  }
+
 
   getCompanyById(companyId: string) {
     return this.companyProxy.getCompanyById(companyId).pipe(

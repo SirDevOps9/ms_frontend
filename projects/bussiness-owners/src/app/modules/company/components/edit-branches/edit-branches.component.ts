@@ -27,13 +27,13 @@ export class EditBranchesComponent {
   initializeForm(){
     this.editBrancheForm= this.fb.group({
       branchName:["",customValidators.required],
-      countryCode:["",],
-      branchRegion:["",],
-      branchCity:["",],
-      branchEmail:["",],
-      branchAddress:["",],
-      mobileNumberCode:["",],
-      mobileNumber:["",],
+      countryCode:[],
+      branchRegion:[],
+      branchCity:[],
+      branchEmail:[],
+      branchAddress:[],
+      mobileNumberCode:[],
+      mobileNumber:[],
     })
   }
   loadLookups() {
@@ -62,12 +62,6 @@ export class EditBranchesComponent {
 
   onSubmit() {
     //if (this.formsService.validForm(this.editBrancheForm, true)) return;
-    // Object.keys(this.editBrancheForm.controls).forEach(key => {
-    //   const control = this.editBrancheForm.get(key);
-    //   if (control && control.value === '') {
-    //     control.setValue(null);
-    //   }
-    // });
     const request: EditBranchDto = this.editBrancheForm.value;
     request.id = this.currentBranchId;
     this.companyService

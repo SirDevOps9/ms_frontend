@@ -81,7 +81,6 @@
     "CompanyName": "اسم الشركة",
     "Industry": "الصناعة",
     "Website": "موقع الويب",
-    "Address": "العنوان",
     "NoData": "لا توجد بيانات",
     "Id": "الرقم",
     "Name": "الاسم",
@@ -125,13 +124,55 @@
       "AddNewBranch": "إضافة فرع جديد",
       "BranchCode": "رمز الفرع",
       "BranchName": "اسم الفرع",
-      "CountryCode": "رمز البلد",
+      "Country": " البلد",
       "BranchRegion": "منطقة الفرع",
       "BranchCity": "مدينة الفرع",
       "BranchEmail": "بريد الفرع",
       "BranchAddress": "عنوان الفرع",
       "mobileNumberCode": "رمز الهاتف المحمول",
       "MobileNumber": "رقم الهاتف المحمول"
+    },
+    "Hierarchy":{
+      "CompanyType":"نوع الشركة",
+      "Subsidiary":"الشركة التابعة"
+    },
+    "Address":{
+      "country": " الدولة",
+      "city": "المدينة",
+      "region": "المنطقة",
+      "address": "العنوان",
+      "longitude": "خط الطول",
+      "latitude": "خط العرض",
+      "Save": "حفظ"
+    },
+    "Contanct": {
+      "MobileNumberCode": "رمز الهاتف المحمول",
+      "MobileNumber": "رقم الهاتف المحمول",
+      "companyEmail": "بريد الشركة",
+      "companyAddress": "عنوان الشركة",
+      "contactPersonal": "الاتصال الشخصي",
+      "contactPersonalPosition": "موقع الاتصال الشخصي",
+      "contactPersonalEmail": "بريد الكتروني للاتصال الشخصي",
+      "Save": "حفظ"
+    },
+    "Legal": {
+      "companyName": "اسم الشركة",
+      "companyEmail": "بريد الشركة",
+      "organizationUnit": "وحدة التنظيم",
+      "organization": "المنظمة",
+      "taxId": "الرقم الضريبي",
+      "commercialId": "الرقم التجاري",
+      "registeredAddress": "العنوان المسجل",
+      "businessCategory": "فئة العمل",
+      "streetName": "اسم الشارع",
+      "citySubDivisionName": "اسم الإدارة الفرعية للمدينة",
+      "cityName": "اسم المدينة",
+      "postalZone": "الرمز البريدي",
+      "countrySubEntity": "كيان الدولة الفرعي",
+      "buildingNumber": "رقم المبنى",
+      "additionalStreetName": "اسم الشارع الإضافي",
+      "registrationName": "اسم التسجيل",
+      "Save": "حفظ"
     }
   },
   "UserConfirmation": {

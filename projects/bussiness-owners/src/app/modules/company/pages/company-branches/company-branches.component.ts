@@ -17,7 +17,7 @@ export class CompanyBranchesComponent implements OnInit {
 
   }
 
-  companyId = "17c13914-04a6-44a3-e20b-08dc4a688464";
+  companyId = "1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3";
    
   initBranchData() {
     this.companyService.loadBranches(this.companyId);
@@ -44,6 +44,11 @@ export class CompanyBranchesComponent implements OnInit {
   deleteBranch(branchId:string){
     this.companyService.deleteBranch(branchId);
 
+  }
+
+  toggle(id: string, isActive: boolean) {
+    if (!isActive) this.companyService.activateBranch(id);
+    else this.companyService.deActivateBranch(id);
   }
 
   constructor(

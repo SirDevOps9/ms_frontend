@@ -5,5 +5,6 @@ export interface CompanyContactDto {
     contactPersonal: string | null;
     contactPersonalPosition: string | null;
     contactPersonalEmail: string | null;
+    companyAdress:string | null;
     id: string;
 }

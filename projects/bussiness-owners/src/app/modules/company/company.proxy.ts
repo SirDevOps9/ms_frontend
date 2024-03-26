@@ -200,5 +200,19 @@ export class CompanyProxy {
   }
 
 
+  activateBranch(id: string): Observable<APIResponse<boolean>> {
+    return this.httpService.put<APIResponse<boolean>>(
+      `Company/ActivateBranch/${id}`,
+      {}
+    );
+  }
+  deActivateBranch(id: string): Observable<APIResponse<boolean>> {
+    return this.httpService.put<APIResponse<boolean>>(
+      `Company/DeActivateBranch/${id}`,
+      {}
+    );
+  }
+
+
   constructor(private httpService: HttpService) {}
 }

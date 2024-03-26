@@ -74,7 +74,7 @@
             <div class="checked">
               <p-inputSwitch
                 [id]="branch.id"
-                (onChange)="changed($event, branch.id)"
+                (onChange)="toggle(branch.id,branch.isActive)"
                 [(ngModel)]="branch.isActive"
               >
               </p-inputSwitch>

@@ -1,163 +1,195 @@
+<lib-page-content>
+  <div class="company_address">
+    <!-- Display form fields in view mode -->
+    <ng-container *ngIf="!editMode; else editModeContent">
+      <div class="grid">
+        <div class="col-2">
+          <lib-label
+            [appControl]="companyContactForm.controls['mobileNumberCode']"
+          >
+            {{ "Company.Contanct.MobileNumberCode" | translate }}
+          </lib-label>
+          <p>{{ companyContactForm.controls["mobileNumberCode"].value }}</p>
+        </div>
+        <div class="col-10">
+          <lib-label [appControl]="companyContactForm.controls['mobileNumber']">
+            {{ "Company.Contanct.MobileNumber" | translate }}
+          </lib-label>
+          <p>{{ companyContactForm.controls["mobileNumber"].value }}</p>
+        </div>
+        <div class="col-12 md:col-6">
+          <lib-label [appControl]="companyContactForm.controls['companyEmail']">
+            {{ "Company.Contanct.companyEmail" | translate }}
+          </lib-label>
+          <p>{{ companyContactForm.controls["companyEmail"].value }}</p>
+        </div>
+        <div class="col-12 md:col-6">
+          <lib-label
+            [appControl]="companyContactForm.controls['companyAddress']"
+          >
+            {{ "Company.Contanct.companyAddress" | translate }}
+          </lib-label>
+          <p>{{ companyContactForm.controls["companyAddress"].value }}</p>
+        </div>
+        <div class="col-12">
+          <lib-label
+            [appControl]="companyContactForm.controls['contactPersonal']"
+          >
+            {{ "Company.Contanct.contactPersonal" | translate }}
+          </lib-label>
+          <p>{{ companyContactForm.controls["contactPersonal"].value }}</p>
+        </div>
+        <div class="col-12">
+          <lib-label
+            [appControl]="
+              companyContactForm.controls['contactPersonalPosition']
+            "
+          >
+            {{ "Company.Contanct.contactPersonalPosition" | translate }}
+          </lib-label>
+          <p>
+            {{ companyContactForm.controls["contactPersonalPosition"].value }}
+          </p>
+        </div>
+        <div class="col-12">
+          <lib-label
+            [appControl]="companyContactForm.controls['contactPersonalEmail']"
+          >
+            {{ "Company.Contanct.contactPersonalEmail" | translate }}
+          </lib-label>
+          <p>{{ companyContactForm.controls["contactPersonalEmail"].value }}</p>
+        </div>
+      </div>
+    </ng-container>
 
-
-
-
-    <lib-page-content>
-      <div class="company_address">
-        <!-- Display form fields in view mode -->
-        <ng-container *ngIf="!editMode; else editModeContent">
+    <!-- Form displayed in edit mode -->
+    <ng-template #editModeContent>
+      <form [formGroup]="companyContactForm" (ngSubmit)="onSubmit()">
+        <div class="contact_form">
           <div class="grid">
             <div class="col-2">
-              <lib-label [appControl]="companyContactForm.controls['mobileNumberCode']">
-                {{ "Company.Add.MobileNumberCode" | translate }}
-              </lib-label>
-              <p>{{ companyContactForm.controls['mobileNumberCode'].value }}</p>
+              <lib-form-group>
+                <lib-label
+                  [appControl]="companyContactForm.controls['mobileNumberCode']"
+                >
+                  {{ "Company.Contanct.MobileNumberCode" | translate }}
+                </lib-label>
+                <lib-select
+                  formControlName="mobileNumberCode"
+                  optionValue="id"
+                  [options]="lookups[LookupEnum.MobileCode]"
+                  optionLabel="name"
+                >
+                </lib-select>
+              </lib-form-group>
             </div>
             <div class="col-10">
-              <lib-label [appControl]="companyContactForm.controls['mobileNumber']">
-                {{ "Company.Add.MobileNumber" | translate }}
-              </lib-label>
-              <p>{{ companyContactForm.controls['mobileNumber'].value }}</p>
+              <lib-form-group>
+                <lib-label
+                  [appControl]="companyContactForm.controls['mobileNumber']"
+                >
+                  {{ "Company.Contanct.MobileNumber" | translate }}
+                </lib-label>
+                <lib-text-input type="tel" formControlName="mobileNumber" />
+                <lib-field-validations
+                  [appControl]="companyContactForm.controls['mobileNumber']"
+                >
+                </lib-field-validations>
+              </lib-form-group>
             </div>
             <div class="col-12 md:col-6">
-              <lib-label [appControl]="companyContactForm.controls['companyEmail']">
-                {{ "Company.Add.companyEmail" | translate }}
-              </lib-label>
-              <p>{{ companyContactForm.controls['companyEmail'].value }}</p>
+              <lib-form-group>
+                <lib-label
+                  [appControl]="companyContactForm.controls['companyEmail']"
+                >
+                  {{ "Company.Contanct.companyEmail" | translate }}
+                </lib-label>
+                <lib-text-input type="text" formControlName="companyEmail" />
+                <lib-field-validations
+                  [appControl]="companyContactForm.controls['companyEmail']"
+                >
+                </lib-field-validations>
+              </lib-form-group>
             </div>
             <div class="col-12 md:col-6">
-              <lib-label [appControl]="companyContactForm.controls['companyAddress']">
-                {{ "Company.Add.companyAddress" | translate }}
-              </lib-label>
-              <p>{{ companyContactForm.controls['companyAddress'].value }}</p>
+              <lib-form-group>
+                <lib-label
+                  [appControl]="companyContactForm.controls['companyAddress']"
+                >
+                  {{ "Company.Contanct.companyAddress" | translate }}
+                </lib-label>
+                <lib-text-input type="text" formControlName="companyAddress" />
+                <lib-field-validations
+                  [appControl]="companyContactForm.controls['companyAddress']"
+                >
+                </lib-field-validations>
+              </lib-form-group>
             </div>
             <div class="col-12">
-              <lib-label [appControl]="companyContactForm.controls['contactPersonal']">
-                {{ "Company.Add.contactPersonal" | translate }}
-              </lib-label>
-              <p>{{ companyContactForm.controls['contactPersonal'].value }}</p>
+              <lib-form-group>
+                <lib-label
+                  [appControl]="companyContactForm.controls['contactPersonal']"
+                >
+                  {{ "Company.Contanct.contactPersonal" | translate }}
+                </lib-label>
+                <lib-text-input type="text" formControlName="contactPersonal" />
+                <lib-field-validations
+                  [appControl]="companyContactForm.controls['contactPersonal']"
+                >
+                </lib-field-validations>
+              </lib-form-group>
             </div>
             <div class="col-12">
-              <lib-label [appControl]="companyContactForm.controls['contactPersonalPosition']">
-                {{ "Company.Add.contactPersonalPosition" | translate }}
-              </lib-label>
-              <p>{{ companyContactForm.controls['contactPersonalPosition'].value }}</p>
+              <lib-form-group>
+                <lib-label
+                  [appControl]="
+                    companyContactForm.controls['contactPersonalPosition']
+                  "
+                >
+                  {{ "Company.Contanct.contactPersonalPosition" | translate }}
+                </lib-label>
+                <lib-text-input
+                  type="text"
+                  formControlName="contactPersonalPosition"
+                />
+                <lib-field-validations
+                  [appControl]="
+                    companyContactForm.controls['contactPersonalPosition']
+                  "
+                >
+                </lib-field-validations>
+              </lib-form-group>
             </div>
             <div class="col-12">
-              <lib-label [appControl]="companyContactForm.controls['contactPersonalEmail']">
-                {{ "Company.Add.contactPersonalEmail" | translate }}
-              </lib-label>
-              <p>{{ companyContactForm.controls['contactPersonalEmail'].value }}</p>
+              <lib-form-group>
+                <lib-label
+                  [appControl]="
+                    companyContactForm.controls['contactPersonalEmail']
+                  "
+                >
+                  {{ "Company.Contanct.contactPersonalEmail" | translate }}
+                </lib-label>
+                <lib-text-input
+                  type="text"
+                  formControlName="contactPersonalEmail"
+                />
+                <lib-field-validations
+                  [appControl]="
+                    companyContactForm.controls['contactPersonalEmail']
+                  "
+                >
+                </lib-field-validations>
+              </lib-form-group>
             </div>
           </div>
-        </ng-container>
-    
-        <!-- Form displayed in edit mode -->
-        <ng-template #editModeContent>
-          <form [formGroup]="companyContactForm" (ngSubmit)="onSubmit()">
-            <lib-page-content>
-              <div class="company_addres">
-                  <form
-                  [formGroup]="companyContactForm"
-              
-                  >
-                  <div class="contact_form">
-                      <div class="grid">
-                        <div class="col-2
-                        ">
-                          
-                            <lib-form-group>
-                              <lib-label [appControl]="companyContactForm.controls['mobileNumberCode']">
-                                {{ "Company.Add.MobileNumberCode" | translate }}
-                              </lib-label>
-                              <lib-select
-                                formControlName="mobileNumberCode"
-                                optionValue="id"
-                                [options]="lookups[LookupEnum.MobileCode]"
-                                optionLabel="name">
-                              </lib-select>
-                          
-                            </lib-form-group>
-          
-                        </div>
-                        <div class=" col-10">
-                          <lib-form-group>
-                            <lib-label [appControl]="companyContactForm.controls['mobileNumber']">
-                              {{ "Company.Add.MobileNumber" | translate }}
-                            </lib-label>
-                            <lib-text-input type="tel" formControlName="mobileNumber" />
-                            <lib-field-validations
-                              [appControl]="companyContactForm.controls['mobileNumber']"
-                            >
-                            </lib-field-validations>
-                          </lib-form-group>
-                        </div>
-                          <div class="col-12 md:col-6">
-                              <lib-form-group>
-                                  <lib-label [appControl]="companyContactForm.controls['companyEmail']">
-                                    {{ "Company.Add.companyEmail" | translate }}
-                                  </lib-label>
-                                  <lib-text-input type="text" formControlName="companyEmail" />
-                                  <lib-field-validations [appControl]="companyContactForm.controls['companyEmail']">
-                                  </lib-field-validations>
-                                </lib-form-group>
-                          </div>
-                          <div class="col-12 md:col-6">
-                              <lib-form-group>
-                                  <lib-label [appControl]="companyContactForm.controls['companyAddress']">
-                                    {{ "Company.Add.companyAddress" | translate }}
-                                  </lib-label>
-                                  <lib-text-input type="text" formControlName="companyAddress" />
-                                  <lib-field-validations [appControl]="companyContactForm.controls['companyAddress']">
-                                  </lib-field-validations>
-                                </lib-form-group>
-                          </div>
-                          <div class="col-12 ">
-                              <lib-form-group>
-                                  <lib-label [appControl]="companyContactForm.controls['contactPersonal']">
-                                    {{ "Company.Add.contactPersonal" | translate }}
-                                  </lib-label>
-                                  <lib-text-input type="text" formControlName="contactPersonal" />
-                                  <lib-field-validations [appControl]="companyContactForm.controls['contactPersonal']">
-                                  </lib-field-validations>
-                                </lib-form-group>
-                          </div>
-                          <div class="col-12 ">
-                              <lib-form-group>
-                                  <lib-label [appControl]="companyContactForm.controls['contactPersonalPosition']">
-                                    {{ "Company.Add.contactPersonalPosition" | translate }}
-                                  </lib-label>
-                                  <lib-text-input type="text" formControlName="contactPersonalPosition" />
-                                  <lib-field-validations [appControl]="companyContactForm.controls['contactPersonalPosition']">
-                                  </lib-field-validations>
-                                </lib-form-group>
-                          </div>
-                          <div class="col-12 ">
-                              <lib-form-group>
-                                  <lib-label [appControl]="companyContactForm.controls['contactPersonalEmail']">
-                                    {{ "Company.Add.contactPersonalEmail" | translate }}
-                                  </lib-label>
-                                  <lib-text-input type="text" formControlName="contactPersonalEmail" />
-                                  <lib-field-validations [appControl]="companyContactForm.controls['contactPersonalEmail']">
-                                  </lib-field-validations>
-                                </lib-form-group>
-                          </div>
-                          
-                      </div>
-                  </div>
-               
-                  <div class="actions mb-6">
-              
-                    <button type="submit" class="save" >
-                      {{ "UserConfirmation.Save" | translate }}
-                    </button>
-                  </div>
-               
-                  </form>
-              
-              </div>
-              </lib-page-content>
-                    </form>
-        </ng-template>
-      </div>
-    </lib-page-content>
+        </div>
+
+        <div class="actions mb-6">
+          <button type="submit" class="save">
+            {{ "UserConfirmation.Save" | translate }}
+          </button>
+        </div>
+      </form>
+    </ng-template>
+  </div>
+</lib-page-content>

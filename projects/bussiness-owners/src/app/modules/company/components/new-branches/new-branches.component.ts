@@ -36,6 +36,8 @@ export class NewBranchesComponent implements OnInit {
   loadLookups() {
     this.lookupsService.loadLookups([
       LookupEnum.MobileCode,
+      LookupEnum.Country,
+
     ]);
   }
   Subscribe() {
@@ -43,14 +45,8 @@ export class NewBranchesComponent implements OnInit {
   }
   onSubmit() {
     //if (this.formsService.validForm(this.newBrancheForm, true)) return;
-    // Object.keys(this.newBrancheForm.controls).forEach(key => {
-    //   const control = this.newBrancheForm.get(key);
-    //   if (control && control.value === '') {
-    //     control.setValue(null);
-    //   }
-    // });
     const request: CreateBranchDto = this.newBrancheForm.value;
-    request.companyId = "17c13914-04a6-44a3-e20b-08dc4a688464";
+    request.companyId = this.currentCompanyId;
 
     console.log("sending branch", request)
     this.companyService
@@ -60,7 +56,10 @@ export class NewBranchesComponent implements OnInit {
     this.ref.close();
   }
 
-
+  get currentCompanyId(): string {
+    //return this.config.data.Id;
+    return "1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3";
+  }
   constructor(
     public config: DynamicDialogConfig,
     public dialogService: DialogService,

@@ -29,14 +29,20 @@
                   </lib-form-group>
             </div>
             <div class="col-12 md:col-6">
-                <lib-form-group>
-                    <lib-label [appControl]="editBrancheForm.controls['countryCode']">
-                      {{ "Company.Branch.CountryCode" | translate }}
-                    </lib-label>
-                    <lib-text-input type="text" formControlName="countryCode" />
-                    <lib-field-validations [appControl]="editBrancheForm.controls['countryCode']">
-                    </lib-field-validations>
-                  </lib-form-group>
+              <lib-form-group>
+                <lib-label
+                  [appControl]="editBrancheForm.controls['countryCode']"
+                >
+                  {{ "Company.Branch.Country" | translate }}
+                </lib-label>
+                <lib-select
+                  formControlName="countryCode"
+                  [options]="lookups[LookupEnum.Country]"
+                  optionValue="id"
+                  optionLabel="name"
+                >
+                </lib-select>
+              </lib-form-group>
             </div>
             <div class="col-12 md:col-6">
                 <lib-form-group>

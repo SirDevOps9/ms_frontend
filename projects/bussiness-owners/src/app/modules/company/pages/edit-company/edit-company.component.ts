@@ -22,7 +22,7 @@ import { CompanyService } from '../../company.service';
 export class EditCompanyComponent implements OnInit {
   companyCode:string;
   planId: number;
-  isActive: boolean = false;
+  isActive: boolean = true;
   currentTab: string = 'address'; 
   editMode: boolean = false;
 
@@ -85,6 +85,7 @@ export class EditCompanyComponent implements OnInit {
   switchToTab(tab: string) {
     this.currentTab = tab; 
   }
+  
 
   getCompanyData() {
     this.companyService.getCompanyById(this.companyId).subscribe(

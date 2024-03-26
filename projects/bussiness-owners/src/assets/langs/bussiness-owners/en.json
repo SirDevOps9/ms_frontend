@@ -82,7 +82,6 @@
     "CompanyName": "Company Name",
     "Industry": "Industry",
     "Website": "Website",
-    "Address": "Address",
     "NoData": " There is no data",
     "CompanyDeactivatedSuccessfully": "Company deactivaed Successfully",
     "CompanyActivatedSuccessfully": "Company activaed Successfully",
@@ -117,18 +116,18 @@
       "Next": "Next",
       "Required": " is required",
       "Select": "Select ",
-      "CompanyType":"Company Type",
-      "BranchName":"Branch Name",
-      "ParentCompany":"Holding Company",
-      "SaveAndEdit":"Save and Edit",
-      "Save":"Save"
+      "CompanyType": "Company Type",
+      "BranchName": "Branch Name",
+      "ParentCompany": "Holding Company",
+      "SaveAndEdit": "Save and Edit",
+      "Save": "Save"
     },
-    "Branch":{
-      "EditBranch":"Edit Branch",
+    "Branch": {
+      "EditBranch": "Edit Branch",
       "AddNewBranch": "Add New Branch",
       "BranchCode": "Branch Code",
       "BranchName": "Branch Name",
-      "CountryCode": "Country Code",
+      "Country": "Country",
       "BranchRegion": "Branch Region",
       "BranchCity": "Branch City",
       "BranchEmail": "Branch Email",
@@ -136,9 +135,47 @@
       "MobileNumberCode": "Mobile Number Code",
       "MobileNumber": "Mobile Number"
     },
-    "Hierarchy":{
-      "CompanyType":"Company Type",
-      "Subsidiary":"subsidiary"
+    "Hierarchy": {
+      "CompanyType": "Company Type",
+      "Subsidiary": "subsidiary"
+    },
+    "Address": {
+      "country": "Country",
+      "city": "City",
+      "region": "Region",
+      "address": "Address",
+      "longitude": "Longitude",
+      "latitude": "Latitude",
+      "Save": "Save"
+    },
+    "Contanct": {
+      "MobileNumberCode": "Mobile Number Code",
+      "MobileNumber": "Mobile Number",
+      "companyEmail": "Company Email",
+      "companyAddress": "Company Address",
+      "contactPersonal": "Contact Personal",
+      "contactPersonalPosition": "Contact Personal Position",
+      "contactPersonalEmail": "Contact Personal Email",
+      "Save": "Save"
+    },
+    "Legal": {
+      "companyName": "Company Name",
+      "companyEmail": "Company Email",
+      "organizationUnit": "Organization Unit",
+      "organization": "Organization",
+      "taxId": "Tax ID",
+      "commercialId": "Commercial ID",
+      "registeredAddress": "Registered Address",
+      "businessCategory": "Business Category",
+      "streetName": "Street Name",
+      "citySubDivisionName": "City Subdivision Name",
+      "cityName": "City Name",
+      "postalZone": "Postal Zone",
+      "countrySubEntity": "Country Subentity",
+      "buildingNumber": "Building Number",
+      "additionalStreetName": "Additional Street Name",
+      "registrationName": "Registration Name",
+      "Save": "Save"
     }
   },
   "UserConfirmation": {

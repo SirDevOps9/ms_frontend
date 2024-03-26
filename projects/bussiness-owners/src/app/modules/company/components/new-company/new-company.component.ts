@@ -41,7 +41,7 @@ export class NewCompanyComponent {
   onSubmit() {
     if (this.formsService.validForm(this.addCompanyForm, true)) return;
     const request: AddCompanyPopupDto = this.addCompanyForm.value;
-    request.companyLogo = 'logo';
+    //request.companyLogo = 'logo';
     request.subdomainId = 2;
     //request.companyType=1;
     this.companyService
