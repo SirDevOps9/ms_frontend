@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { APIResponse, BaseDto, HttpService } from 'shared-lib';
+import { APIResponse, BaseDto, FilterBase, HttpService } from 'shared-lib';
 import { Injectable } from '@angular/core';
 import {
   EditUserModel,
@@ -18,7 +18,20 @@ export class UserProxy {
       `User?subscriptionId=${subscriptionId}`
     );
   }
+  getAllPaginated(
+    pageInfo: FilterBase
+  ): Observable<APIResponse<UserListResponse[]>> {
+    return this.baseService.get<APIResponse<UserListResponse[]>>(
+      `User/GetAllPaginated?${this.fromPageInfoToString(pageInfo)}`
+    );
+  }
 
+  fromPageInfoToString(pageInfo: FilterBase): string {
+    let query = `PageInfo.Offset=${pageInfo.offset}&PageInfo.PageSize=${pageInfo.pageSize}`;
+    console.log(query);
+
+    return query;
+  }
   platformDropDown(): Observable<APIResponse<BaseDto[]>> {
     return this.baseService.get<APIResponse<BaseDto[]>>(
       `PlatformPlan/GetAllDropDown`
@@ -71,7 +84,7 @@ export class UserProxy {
       false
     );
   }
-  
+
   confirmInvitedUser(request: FormData): Observable<APIResponse<boolean>> {
     return this.baseService.postForm<APIResponse<boolean>>(
       `InvitedUser/ConfirmInvitedUser`,

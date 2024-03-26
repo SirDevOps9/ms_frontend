@@ -1,12 +1,15 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { LanguageService, LookupsService } from '../../services';
 import { TableConfig } from './data-table-column';
+import { FilterBase } from '../../models';
 
 @Component({
   selector: 'lib-data-table',
@@ -16,9 +19,13 @@ import { TableConfig } from './data-table-column';
 export class DataTableComponent implements OnInit {
   @Input() items: any[];
 
+  @Input() allowPagination: boolean = false;
+
   @Input() tableConfigs: TableConfig;
 
   @Input() rowTemplate: TemplateRef<any>;
+
+  @Output() pageChange = new EventEmitter<FilterBase>();
 
   sortingFields: string[];
 
@@ -34,7 +41,9 @@ export class DataTableComponent implements OnInit {
   }
 
   selectRow(row: any) {}
-
+  onPageChange(pageInfo: FilterBase) {
+    this.pageChange.emit(pageInfo);
+  }
   constructor(
     public languageService: LanguageService,
     public lookupsService: LookupsService

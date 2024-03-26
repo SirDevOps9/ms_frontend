@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   EnvironmentService,
+  FilterBase,
   LanguageService,
   LogService,
   RouterService,
@@ -39,7 +40,7 @@ export class UsersComponent implements OnInit {
 
   openInviteModal() {
     console.log();
-    
+
     this.userService.openInviteUserModal(this.ref, this.dialog);
   }
   getProfilePic(id: string) {
@@ -69,6 +70,10 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  onPageChange(pageInfo: FilterBase) {
+    console.log(pageInfo);
+    this.userService.getAllUsersPaginated(pageInfo);
+  }
   get subscriptionId(): number {
     return this.routerService.currentId;
   }

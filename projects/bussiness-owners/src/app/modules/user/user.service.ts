@@ -4,6 +4,7 @@ import { EditUserModel, InviteUserDto, UserListResponse } from './models';
 import { UserProxy } from './user.proxy';
 import {
   APIResponse,
+  FilterBase,
   LanguageService,
   LoaderService,
   RouterService,
@@ -22,6 +23,14 @@ export class UserService {
 
   getAllUsers(subscriptionId: number) {
     this.userProxy.getAll(subscriptionId).subscribe({
+      next: (res) => {
+        this.userDataSource.next(res.response);
+      },
+    });
+  }
+
+  getAllUsersPaginated(pageInfo: FilterBase) {
+    this.userProxy.getAllPaginated(pageInfo).subscribe({
       next: (res) => {
         this.userDataSource.next(res.response);
       },
@@ -64,7 +73,7 @@ export class UserService {
       this.userDataSource.value.find((item) => {
         if (item.id === id) {
           console.log(item.isActive);
-          item.isActive = false
+          item.isActive = false;
         }
       });
     }
@@ -95,11 +104,9 @@ export class UserService {
       this.userDataSource.value.find((item) => {
         if (item.id === id) {
           console.log(item.isActive);
-          item.isActive = true
+          item.isActive = true;
         }
       });
-
-
     }
   }
 
@@ -157,7 +164,7 @@ export class UserService {
       })
     );
   }
-  
+
   submitUserConfirm(formData: FormData) {
     this.loaderService.show();
     this.userProxy.confirmInvitedUser(formData).subscribe({
@@ -192,5 +199,5 @@ export class UserService {
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private loaderService: LoaderService
-  ) { }
+  ) {}
 }

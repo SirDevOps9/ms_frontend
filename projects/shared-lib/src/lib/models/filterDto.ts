@@ -1,21 +1,20 @@
-import { PageInfo } from "./apiResponse";
-
 export interface FilterDto {
-  model?: string;
   orderBy?: string;
   isDesc?: boolean;
-  groupBy?: string[];
-  PageInfo?: PageInfo;
+  PageInfo?: FilterBase;
   conditions?: Condition[];
 }
 
+export interface FilterBase {
+  offset: number;
+  pageSize: number;
+}
 export interface Condition {
   column: string;
   oprator: FilterOptions;
   value?: any;
   then?: AndOr;
 }
-
 
 export enum FilterOptions {
   StartsWith = 1,

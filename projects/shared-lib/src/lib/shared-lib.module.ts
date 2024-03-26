@@ -10,6 +10,7 @@ import {
   LoaderComponent,
   DataTableComponent,
   AttachmentViewerComponent,
+  TablePaginatorComponent,
 } from './components';
 import {
   FieldValidationsComponent,
@@ -46,6 +47,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     DataTableComponent,
     AttachmentViewerComponent,
     ButtonComponent,
+    TablePaginatorComponent,
   ],
   imports: [
     CommonModule,
@@ -81,6 +83,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     DataTableComponent,
     AttachmentViewerComponent,
     ButtonComponent,
+    TablePaginatorComponent,
   ],
 })
 export class SharedLibModule {}
