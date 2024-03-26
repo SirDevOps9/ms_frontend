@@ -65,8 +65,8 @@ export class NewBranchesComponent implements OnInit {
   }
 
   get currentCompanyId(): string {
-    //return this.config.data.Id;
-    return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+    return this.config.data.Id;
+    //return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
   }
   constructor(
     public config: DynamicDialogConfig,

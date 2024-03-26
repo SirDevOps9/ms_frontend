@@ -22,8 +22,11 @@ export class CompanyContactComponent implements OnInit {
   companyContactForm: FormGroup;
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
-  @Input() editMode: boolean = false;
-  @Input() companyId: string;
+   editMode: boolean = false;
+  //@Input() companyId: string;
+  toggleEditMode() {
+    this.editMode = !this.editMode;
+  }
 
   selectedMobileCode: string;
 
@@ -40,7 +43,7 @@ export class CompanyContactComponent implements OnInit {
   onSubmit() {
     if (!this.formsService.validForm(this.companyContactForm, true)) return;
     const request: CompanyContactDto = this.companyContactForm.value;
-    request.id = '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+    request.id = this.companyId;
     this.companyService.saveCompanyContact(request);
   }
   initializeForm() {
@@ -79,15 +82,16 @@ export class CompanyContactComponent implements OnInit {
         this.selectedMobileCode = res.mobileNumberCode!;
       });
   }
-  // get companyId(): string {
-  //   //return this.routerService.currentId;
-  //   return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
-  // }
+  get companyId(): string {
+    return this.routerService.currentId;
+    //return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+  }
   constructor(
     private fb: FormBuilder,
     public lookupsService: LookupsService,
     private companyService: CompanyService,
     private formsService: FormsService,
+    private routerService: RouterService,
     public sharedLibEnums: SharedLibraryEnums
   ) {}
 }

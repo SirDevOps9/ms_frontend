@@ -2,6 +2,7 @@ import { Component, Input, OnInit, } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CompanyService } from '../../company.service';
 import { BranchDto } from '../../models/branchdto';
+import { RouterService } from 'shared-lib';
 @Component({
   selector: 'app-company-branches',
   templateUrl: './company-branches.component.html',
@@ -10,17 +11,22 @@ import { BranchDto } from '../../models/branchdto';
 export class CompanyBranchesComponent implements OnInit {
   branches: BranchDto[];
   ref: DynamicDialogRef;
-  @Input() editMode: boolean = false;
-  @Input() companyId: string;
+   editMode: boolean = false;
+  //@Input() companyId: string;
 
+  toggleEditMode() {
+    this.editMode = !this.editMode;
+  }
 
   ngOnInit() {
     this.initBranchData();  
 
   }
 
-  //companyId = "1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3";
-   
+  get companyId(): string {
+    return this.routerService.currentId;
+    //return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+  }   
   initBranchData() {
     this.companyService.loadBranches(this.companyId);
     this.companyService.branches.subscribe((branchList) => {
@@ -56,6 +62,8 @@ export class CompanyBranchesComponent implements OnInit {
   constructor(
     private dialog: DialogService,
     private companyService: CompanyService,
+    private routerService: RouterService,
+
 
   ){}
 }

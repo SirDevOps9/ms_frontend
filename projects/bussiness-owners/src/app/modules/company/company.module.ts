@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard, MicrotecAuthLibModule } from 'microtec-auth-lib';
-import { BreadcrumbLabel, SharedLibModule } from 'shared-lib';
+import { BreadcrumbLabel, RouterService, SharedLibModule } from 'shared-lib';
 import { AddCompanyComponent } from './pages/add-compny/add-compny.component';
 import { EditCompanyComponent } from './pages/edit-company/edit-company.component';
 import { CompaniesListComponent } from './pages/companies-list/companies-list.component';
@@ -76,7 +76,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  providers: [],
+  providers: [RouterService],
   declarations: [
     NewCompanyComponent,
     CompaniesListComponent,

@@ -19,9 +19,12 @@ import { CompanyLegalDto } from '../../models/companylegaldto';
 })
 export class CompanyLegalComponent implements OnInit {
   companyLegalForm: FormGroup;
-  @Input() editMode: boolean = false;
-  @Input() companyId: string;
+  editMode: boolean = false;
+  //@Input() companyId: string;
 
+  toggleEditMode() {
+    this.editMode = !this.editMode;
+  }
 
   ngOnInit() {
     this.initializeForm();
@@ -31,7 +34,7 @@ export class CompanyLegalComponent implements OnInit {
   onSubmit() {
     if (!this.formsService.validForm(this.companyLegalForm, true)) return;
     const request: CompanyLegalDto = this.companyLegalForm.value;
-    request.id = '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+    request.id = this.companyId;
     this.companyService.saveCompanyLegal(request);
   }
   initializeForm() {
@@ -65,15 +68,16 @@ export class CompanyLegalComponent implements OnInit {
       });
     });
   }
-  // get companyId(): string {
-  //   //return this.routerService.currentId;
-  //   return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
-  // }
+  get companyId(): string {
+    return this.routerService.currentId;
+    //return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+  }
   constructor(
     private fb: FormBuilder,
     public lookupsService: LookupsService,
     private formsService: FormsService,
     private companyService: CompanyService,
+    private routerService: RouterService,
     public sharedLibEnums: SharedLibraryEnums
   ) {}
 }

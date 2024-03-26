@@ -3,6 +3,7 @@ import {
   FormsService,
   LookupEnum,
   LookupsService,
+  RouterService,
   SharedLibraryEnums,
   customValidators,
   lookupDto,
@@ -24,8 +25,11 @@ export class CompanyHierarchyComponent {
   lookups: { [key: string]: lookupDto[] };
   companyHierarchy: CompanyHierarchyDto;
   subsidiaryList: SubsidiaryDto[];
-  @Input() editMode: boolean = false;
-  @Input() companyId: string;
+  editMode: boolean = false;
+  //@Input() companyId: string;
+  toggleEditMode() {
+    this.editMode = !this.editMode;
+  }
 
 
   companyTypes = [
@@ -41,7 +45,7 @@ export class CompanyHierarchyComponent {
   onSubmit() {
     if (!this.formsService.validForm(this.companyHierarchyForm, true)) return;
     const request: UpdateCompanyHierarchyDto = this.companyHierarchyForm.value;
-    request.id = '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+    request.id = this.companyId;
     this.companyService.saveCompanyHierarchy(request);
 
     this.companyService.saveCompanyHierarchy(request).subscribe((res) => {
@@ -75,15 +79,17 @@ export class CompanyHierarchyComponent {
         this.subsidiaryList = res.subsidiary;
       });
   }
-  // get companyId(): string {
-  //   //return this.routerService.currentId;
-  //   return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
-  // }
+  get companyId(): string {
+    return this.routerService.currentId;
+    //return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+  }
   constructor(
     private fb: FormBuilder,
     public lookupsService: LookupsService,
     private companyService: CompanyService,
     private formsService: FormsService,
-    public sharedLibEnums: SharedLibraryEnums
+    public sharedLibEnums: SharedLibraryEnums,
+    private routerService: RouterService,
+
   ) {}
 }

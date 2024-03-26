@@ -11,22 +11,26 @@ import { CompanyService } from '../../company.service';
 })
 export class EditCompanyComponent implements OnInit {
   companyCode: string;
+  companyName: string;
   planId: number;
   isActive: boolean = true;
   currentTab: string = 'address';
   editMode: boolean = false;
-  companyId: string = '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+  //companyId: string = '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
 
-  // get companyId(): string {
-  //   return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
-  //   //return this.routerService.currentId;
-  // }
+  get companyId(): string {
+    //return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+    console.log("From edit",this.routerService.currentId);
+
+    return this.routerService.currentId;
+  }
 
   id: number;
   editTabName: any;
 
   ngOnInit() {
     this.getCompanyData();
+    this.companyId;
   }
 
   activeTag(id: any) {
@@ -82,7 +86,8 @@ export class EditCompanyComponent implements OnInit {
       console.log('company by id', res);
       this.isActive = res.isActive;
       this.companyCode = res.code;
-      this.companyId = res.id;
+      this.companyName = res.name;
+      //this.companyId = res.id;
     });
   }
   constructor(

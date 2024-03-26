@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import {
+  FormsService,
   LookupEnum,
   LookupsService,
   RouterService,
@@ -9,19 +10,24 @@ import {
 } from 'shared-lib';
 import { CompanyService } from '../../company.service';
 import { CompanyAddressDto } from '../../models/companyaddressdto';
+import { NavigationEnd, Router, RoutesRecognized } from '@angular/router';
+import { filter, map } from 'rxjs';
 @Component({
   selector: 'app-company-addres',
   templateUrl: './company-addres.component.html',
-  providers: [RouterService],
   styleUrl: './company-addres.component.scss',
+  providers: [RouterService],
 })
 export class CompanyAddresComponent implements OnInit {
   companyAddresForm: FormGroup;
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   selectedCountryCode: string;
-  @Input() editMode: boolean = false;
-  @Input() companyId: string;
+  editMode: boolean = false;
+  //@Input() companyId: string;
+  // toggleEditMode() {
+  //   this.editMode = !this.editMode;
+  // }
 
 
   ngOnInit() {
@@ -29,6 +35,18 @@ export class CompanyAddresComponent implements OnInit {
     this.initializeForm();
     this.initializeFormData();
     this.Subscribe();
+    // this.router.events.pipe(
+    //   filter(event => event instanceof NavigationEnd),
+    //   map(() => this.activatedRoute),
+    //   map(route => {
+    //     while (route.firstChild) {
+    //      route = route.firstChild;
+    //     }
+    //     return route;
+    //    }),
+    //    map(route => route.url)
+    //   )
+    //  .subscribe(res=>)
   }
   Subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
@@ -54,26 +72,48 @@ export class CompanyAddresComponent implements OnInit {
       this.selectedCountryCode = res.countryCode!;
     });
   }
+  // onSubmit() {
+  //   if (!this.formsService.validForm(this.companyAddresForm, true)) return;
+  //   const request: CompanyAddressDto = this.companyAddresForm.value;
+  //   request.id = this.companyId;
+  //   this.companyService.saveCompanyAddress(request);
+  //   console.log('request', request);
+  // }
+
   onSubmit() {
-    //if (this.formsService.validForm(this.companyAddresForm, true)) return;
-    const request: CompanyAddressDto = this.companyAddresForm.value;
-    request.id = '17c13914-04a6-44a3-e20b-08dc4a688464';
-    this.companyService.saveCompanyAddress(request);
-    console.log('request', request);
+    console.log(this.editMode);
+    
+    if (this.editMode) {
+      if (!this.formsService.validForm(this.companyAddresForm, true)) return;
+      const request: CompanyAddressDto = this.companyAddresForm.value;
+      request.id = this.companyId;
+      this.companyService.saveCompanyAddress(request);
+      console.log('request', request);
+      this.editMode = false;
+    } else {
+      // Enable edit mode
+      this.editMode = true;
+    }
   }
+
 
   loadLookups() {
     this.lookupsService.loadLookups([LookupEnum.Country]);
   }
-  // get companyId(): string {
-  //   //return this.routerService.currentId;
-  //   return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
-  // }
+  get companyId(): string {
+    console.log("from Address",
+    this.routerService.getCurrentUrl());
+    return this.routerService.currentId;
+    //return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+  }
 
   constructor(
     private fb: FormBuilder,
     public lookupsService: LookupsService,
     private companyService: CompanyService,
-    public sharedLibEnums: SharedLibraryEnums
+    private routerService: RouterService,
+    private formsService: FormsService,
+    public sharedLibEnums: SharedLibraryEnums,
+    private router: Router
   ) {}
 }

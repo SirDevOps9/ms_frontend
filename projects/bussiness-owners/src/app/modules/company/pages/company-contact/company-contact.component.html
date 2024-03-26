@@ -128,9 +128,12 @@
         </div>
 
         <div class="actions mb-6">
-          <button type="submit" class="save">
-            {{ "UserConfirmation.Save" | translate }}
-          </button>
+          <div class="edit_btn">
+            <button class="edit" (click)="toggleEditMode()">
+              <i class="fa fa-regular fa-pen-to-square"></i>
+              {{ editMode ? "Save" : "Edit" }}
+            </button>
+          </div>
         </div>
       </fieldset>
     </form>
