@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import {
   FormsService,
@@ -10,7 +10,6 @@ import {
   lookupDto,
 } from 'shared-lib';
 import { CompanyService } from '../../company.service';
-import { CompanyProxy } from '../../company.proxy';
 import {
   DialogService,
   DynamicDialogConfig,
@@ -39,17 +38,15 @@ export class NewCompanyComponent {
   }
 
   onSubmit() {
-    if (this.formsService.validForm(this.addCompanyForm, true)) return;
+    if (!this.formsService.validForm(this.addCompanyForm, true)) return;
     const request: AddCompanyPopupDto = this.addCompanyForm.value;
     //request.companyLogo = 'logo';
     request.subdomainId = 2;
     //request.companyType=1;
-    this.companyService
-    .addCompanyPopup(request, this.ref)
-    .subscribe((res) => {
+    this.companyService.addCompanyPopup(request, this.ref).subscribe((res) => {
       this.companyId = res.response.id;
     });
-}
+  }
   private initializeForm() {
     this.addCompanyForm = this.formBuilder.group({
       name: new FormControl('', [
@@ -83,9 +80,8 @@ export class NewCompanyComponent {
   onSaveAndEdit() {
     this.onSubmit();
     console.log(this.companyId);
-    
-    this.routerService.navigateTo('company/edit/' + this.companyId );
 
+    this.routerService.navigateTo('company/edit/' + this.companyId);
   }
 
   constructor(
@@ -96,7 +92,6 @@ export class NewCompanyComponent {
     private formsService: FormsService,
     private routerService: RouterService,
     private companyService: CompanyService,
-    private companyProxy: CompanyProxy,
     public sharedLibEnums: SharedLibraryEnums,
     public lookupsService: LookupsService
   ) {}

@@ -1,70 +1,7 @@
 <lib-page-content>
   <div class="company_address">
-    <!-- Display form fields in view mode -->
-    <ng-container *ngIf="!editMode; else editModeContent">
-      <div class="grid">
-        <div class="col-2">
-          <lib-label
-            [appControl]="companyContactForm.controls['mobileNumberCode']"
-          >
-            {{ "Company.Contanct.MobileNumberCode" | translate }}
-          </lib-label>
-          <p>{{ companyContactForm.controls["mobileNumberCode"].value }}</p>
-        </div>
-        <div class="col-10">
-          <lib-label [appControl]="companyContactForm.controls['mobileNumber']">
-            {{ "Company.Contanct.MobileNumber" | translate }}
-          </lib-label>
-          <p>{{ companyContactForm.controls["mobileNumber"].value }}</p>
-        </div>
-        <div class="col-12 md:col-6">
-          <lib-label [appControl]="companyContactForm.controls['companyEmail']">
-            {{ "Company.Contanct.companyEmail" | translate }}
-          </lib-label>
-          <p>{{ companyContactForm.controls["companyEmail"].value }}</p>
-        </div>
-        <div class="col-12 md:col-6">
-          <lib-label
-            [appControl]="companyContactForm.controls['companyAddress']"
-          >
-            {{ "Company.Contanct.companyAddress" | translate }}
-          </lib-label>
-          <p>{{ companyContactForm.controls["companyAddress"].value }}</p>
-        </div>
-        <div class="col-12">
-          <lib-label
-            [appControl]="companyContactForm.controls['contactPersonal']"
-          >
-            {{ "Company.Contanct.contactPersonal" | translate }}
-          </lib-label>
-          <p>{{ companyContactForm.controls["contactPersonal"].value }}</p>
-        </div>
-        <div class="col-12">
-          <lib-label
-            [appControl]="
-              companyContactForm.controls['contactPersonalPosition']
-            "
-          >
-            {{ "Company.Contanct.contactPersonalPosition" | translate }}
-          </lib-label>
-          <p>
-            {{ companyContactForm.controls["contactPersonalPosition"].value }}
-          </p>
-        </div>
-        <div class="col-12">
-          <lib-label
-            [appControl]="companyContactForm.controls['contactPersonalEmail']"
-          >
-            {{ "Company.Contanct.contactPersonalEmail" | translate }}
-          </lib-label>
-          <p>{{ companyContactForm.controls["contactPersonalEmail"].value }}</p>
-        </div>
-      </div>
-    </ng-container>
-
-    <!-- Form displayed in edit mode -->
-    <ng-template #editModeContent>
-      <form [formGroup]="companyContactForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="companyContactForm" (ngSubmit)="onSubmit()">
+      <fieldset [disabled]="!editMode">
         <div class="contact_form">
           <div class="grid">
             <div class="col-2">
@@ -75,12 +12,18 @@
                   {{ "Company.Contanct.MobileNumberCode" | translate }}
                 </lib-label>
                 <lib-select
+                  [disabledMode]="!editMode"
                   formControlName="mobileNumberCode"
-                  optionValue="id"
                   [options]="lookups[LookupEnum.MobileCode]"
+                  [selectedValue]="selectedMobileCode"
+                  optionValue="id"
                   optionLabel="name"
                 >
                 </lib-select>
+                <lib-field-validations
+                  [appControl]="companyContactForm.controls['mobileNumberCode']"
+                >
+                </lib-field-validations>
               </lib-form-group>
             </div>
             <div class="col-10">
@@ -189,7 +132,7 @@
             {{ "UserConfirmation.Save" | translate }}
           </button>
         </div>
-      </form>
-    </ng-template>
+      </fieldset>
+    </form>
   </div>
 </lib-page-content>

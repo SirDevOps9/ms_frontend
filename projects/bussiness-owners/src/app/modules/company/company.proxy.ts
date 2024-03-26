@@ -17,6 +17,7 @@ import { BranchDto } from './models/branchdto';
 import { CreateBranchDto } from './models/createbranchdto';
 import { EditBranchDto } from './models/editbranchdto';
 import { CompanyHierarchyDto } from './models/companyhierarchydto';
+import { UpdateCompanyHierarchyDto } from './models/updatecompanyhierarchydto';
 
 @Injectable({
   providedIn: 'root',
@@ -78,8 +79,6 @@ export class CompanyProxy {
     );
   }
 
-
-
   // new company and edit
   getAll(
     subscriptionId: string
@@ -97,7 +96,6 @@ export class CompanyProxy {
       request
     );
   }
-
 
   saveCompanyContact(
     request: CompanyContactDto
@@ -127,7 +125,7 @@ export class CompanyProxy {
   }
 
   saveCompanyHierarchy(
-    request: CompanyHierarchyDto
+    request: UpdateCompanyHierarchyDto
   ): Observable<APIResponse<CompanyHierarchyDto>> {
     return this.httpService.post<APIResponse<CompanyHierarchyDto>>(
       'Company/Hierarchy/Update',
@@ -135,7 +133,9 @@ export class CompanyProxy {
     );
   }
 
-  getCompanyContactById(id: string): Observable<APIResponse<CompanyContactDto>> {
+  getCompanyContactById(
+    id: string
+  ): Observable<APIResponse<CompanyContactDto>> {
     return this.httpService.get<APIResponse<CompanyContactDto>>(
       `Company/Contact/${id}`
     );
@@ -153,52 +153,36 @@ export class CompanyProxy {
     );
   }
 
-  getCompanyHierarchyById(id: string): Observable<APIResponse<CompanyHierarchyDto>>  {
+  getCompanyHierarchyById(
+    id: string
+  ): Observable<APIResponse<CompanyHierarchyDto>> {
     return this.httpService.get<APIResponse<CompanyHierarchyDto>>(
       `Company/Hierarchy/${id}`
     );
   }
 
-
   //branches
-  getAllBranches(
-    companyId: string
-  ): Observable<APIResponse<BranchDto[]>> {
+  getAllBranches(companyId: string): Observable<APIResponse<BranchDto[]>> {
     return this.httpService.get<APIResponse<BranchDto[]>>(
       `Branch?companyId=${companyId}`
     );
   }
 
-  addBranch(
-    request: CreateBranchDto
-  ): Observable<APIResponse<BranchDto>> {
-    return this.httpService.post<APIResponse<BranchDto>>(
-      'Branch',
-      request
-    );
+  addBranch(request: CreateBranchDto): Observable<APIResponse<BranchDto>> {
+    return this.httpService.post<APIResponse<BranchDto>>('Branch', request);
   }
 
-  editBranch(
-    request: EditBranchDto
-  ): Observable<APIResponse<BranchDto>> {
-    return this.httpService.put<APIResponse<BranchDto>>(
-      'Branch',
-      request
-    );
+  editBranch(request: EditBranchDto): Observable<APIResponse<BranchDto>> {
+    return this.httpService.put<APIResponse<BranchDto>>('Branch', request);
   }
 
   getBranchById(id: string): Observable<APIResponse<BranchDto>> {
-    return this.httpService.get<APIResponse<BranchDto>>(
-      `Branch/${id}`
-    );
+    return this.httpService.get<APIResponse<BranchDto>>(`Branch/${id}`);
   }
 
   deleteBranch(id: string): Observable<APIResponse<BranchDto>> {
-    return this.httpService.delete<APIResponse<BranchDto>>(
-      `Branch?id=${id}`
-    );
+    return this.httpService.delete<APIResponse<BranchDto>>(`Branch?id=${id}`);
   }
-
 
   activateBranch(id: string): Observable<APIResponse<boolean>> {
     return this.httpService.put<APIResponse<boolean>>(
@@ -212,7 +196,6 @@ export class CompanyProxy {
       {}
     );
   }
-
 
   constructor(private httpService: HttpService) {}
 }

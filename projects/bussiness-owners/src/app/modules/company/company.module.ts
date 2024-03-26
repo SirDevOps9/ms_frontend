@@ -16,16 +16,14 @@ import { CompanyContactComponent } from './pages/company-contact/company-contact
 import { CompanyHierarchyComponent } from './pages/company-hierarchy/company-hierarchy.component';
 import { CompanyBranchesComponent } from './pages/company-branches/company-branches.component';
 import { NewBranchesComponent } from './components/new-branches/new-branches.component';
-import { EditBranchesComponent } from './components/edit-branches/edit-branches.component'
+import { EditBranchesComponent } from './components/edit-branches/edit-branches.component';
 import { NewCompanyComponent } from './components/new-company/new-company.component';
-
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
     children: [
-
       {
         path: 'company/add/:id',
         component: AddCompanyComponent,
@@ -70,8 +68,8 @@ const routes: Routes = [
           {
             path: 'branches',
             component: CompanyBranchesComponent,
-          }
-        ]
+          },
+        ],
       },
     ],
   },
@@ -90,7 +88,7 @@ const routes: Routes = [
     CompanyHierarchyComponent,
     CompanyBranchesComponent,
     NewBranchesComponent,
-    EditBranchesComponent
+    EditBranchesComponent,
   ],
   imports: [
     MicrotecAuthLibModule,
@@ -100,8 +98,6 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {}),
     TreeTableModule,
     TableModule,
-    
-  
   ],
   exports: [],
 })

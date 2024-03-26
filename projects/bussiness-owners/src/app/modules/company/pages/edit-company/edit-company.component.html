@@ -1,4 +1,4 @@
-<!-- <div class="edit_company_page">
+<div class="edit_company_page">
   <div class="company_code">
     <div class="code">
       <p class="title">Company Code</p>
@@ -6,11 +6,11 @@
     </div>
     <div class="status">
       <div class="checked">
-        <p-inputSwitch [(ngModel)]="active"> </p-inputSwitch>
-        <p class="active" *ngIf="active">
+        <p-inputSwitch [(ngModel)]="isActive"> </p-inputSwitch>
+        <p class="active" *ngIf="isActive">
           {{ "User.Activate" | translate }}
         </p>
-        <p class="inactive" *ngIf="!active">
+        <p class="inactive" *ngIf="!isActive">
           {{ "User.Deactivate" | translate }}
         </p>
       </div>
@@ -47,60 +47,5 @@
   <div class="content">
     <router-outlet></router-outlet>
   </div>
-</div> -->
-
-<div class="edit_company_page">
-  <div class="company_code">
-    <div class="code">
-      <p class="title">Company Code</p>
-      <p class="code_num">{{companyCode}}</p>
-    </div>
-    <div class="status">
-      <div class="checked">
-        
-        <p-inputSwitch [(ngModel)]="isActive" (onChange)="toggle()"> </p-inputSwitch>
-        <p class="active" *ngIf="isActive">
-          {{ "User.Activate" | translate }}
-        </p>
-        <p class="inactive" *ngIf="!isActive">
-          {{ "User.Deactivate" | translate }}
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="company_nav">
-    <div class="company_name">
-      <p class="title">company name</p>
-    </div>
-    <div class="company_route">
-      <div class="tab" id="address" (click)="switchToTab('address')" [class.active_link]="currentTab === 'address'">
-        <a>address</a>
-      </div>
-      <div class="tab" id="contact" (click)="switchToTab('contact')" [class.active_link]="currentTab === 'contact'">
-        <a>contact</a>
-      </div>
-      <div class="tab" id="legal" (click)="switchToTab('legal')" [class.active_link]="currentTab === 'legal'">
-        <a>legal</a>
-      </div>
-      <div class="tab" id="hierarchy" (click)="switchToTab('hierarchy')" [class.active_link]="currentTab === 'hierarchy'">
-        <a>hierarchy</a>
-      </div>
-      <div class="tab" id="branches" (click)="switchToTab('branches')" [class.active_link]="currentTab === 'branches'">
-        <a>branches</a>
-      </div>
-    </div>
-    <div class="edit_btn">
-      <button class="edit" (click)="toggleEditMode()">
-        <i class="fa fa-regular fa-pen-to-square"></i>
-        {{ editMode ? 'Save' : 'Edit' }}
-      </button>
-    </div>
-  </div>
-  <div class="content">
-    <app-company-addres *ngIf="currentTab === 'address'" [editMode]="editMode"></app-company-addres>
-    <app-company-contact *ngIf="currentTab === 'contact'" [editMode]="editMode"></app-company-contact>
-    <app-company-legal *ngIf="currentTab === 'legal'" [editMode]="editMode"></app-company-legal>
-    <app-company-hierarchy *ngIf="currentTab === 'hierarchy'" [editMode]="editMode"></app-company-hierarchy>
-    <app-company-branches *ngIf="currentTab === 'branches'" [editMode]="editMode"></app-company-branches>
-  </div>
 </div>
+

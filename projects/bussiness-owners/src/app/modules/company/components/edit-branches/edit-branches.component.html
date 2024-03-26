@@ -1,129 +1,131 @@
 <div class="edit_branche">
-    <div class="branch_header">
-        <div class="title">
-          {{"Company.Branch.EditBranch" | translate }}
-        </div>
-        <div class="code">
-          <div class="title">
-            {{"Company.Branch.BranchCode" | translate }}
-          </div>
-          <div class="code_text">
-            {{branchCode}}
-          </div>
-        </div>
+  <div class="branch_header">
+    <div class="title">
+      {{ "Company.Branch.EditBranch" | translate }}
     </div>
-    <div class="branch_content">
-        <form 
-        [formGroup]="editBrancheForm"
-        (ngSubmit)="onSubmit()"
-        >
-        <div class=" grid">
-            <div class="col-12 md:col-6">
-                <lib-form-group>
-                    <lib-label [appControl]="editBrancheForm.controls['branchName']">
-                      {{ "Company.Branch.BranchName" | translate }}
-                    </lib-label>
-                    <lib-text-input type="text" formControlName="branchName" />
-                    <lib-field-validations [appControl]="editBrancheForm.controls['branchName']">
-                    </lib-field-validations>
-                  </lib-form-group>
-            </div>
-            <div class="col-12 md:col-6">
-              <lib-form-group>
-                <lib-label
-                  [appControl]="editBrancheForm.controls['countryCode']"
-                >
-                  {{ "Company.Branch.Country" | translate }}
-                </lib-label>
-                <lib-select
-                  formControlName="countryCode"
-                  [options]="lookups[LookupEnum.Country]"
-                  optionValue="id"
-                  optionLabel="name"
-                >
-                </lib-select>
-              </lib-form-group>
-            </div>
-            <div class="col-12 md:col-6">
-                <lib-form-group>
-                    <lib-label [appControl]="editBrancheForm.controls['branchRegion']">
-                      {{ "Company.Branch.BranchRegion" | translate }}
-                    </lib-label>
-                    <lib-text-input type="text" formControlName="branchRegion" />
-                    <lib-field-validations [appControl]="editBrancheForm.controls['branchRegion']">
-                    </lib-field-validations>
-                  </lib-form-group>
-            </div>
-            <div class="col-12 md:col-6">
-                <lib-form-group>
-                    <lib-label [appControl]="editBrancheForm.controls['branchCity']">
-                      {{ "Company.Branch.BranchCity" | translate }}
-                    </lib-label>
-                    <lib-text-input type="text" formControlName="branchCity" />
-                    <lib-field-validations [appControl]="editBrancheForm.controls['branchCity']">
-                    </lib-field-validations>
-                  </lib-form-group>
-            </div>
-            <div class="col-12 ">
-                <lib-form-group>
-                    <lib-label [appControl]="editBrancheForm.controls['branchEmail']">
-                      {{ "Company.Branch.BranchEmail" | translate }}
-                    </lib-label>
-                    <lib-text-input type="text" formControlName="branchEmail" />
-                    <lib-field-validations [appControl]="editBrancheForm.controls['branchEmail']">
-                    </lib-field-validations>
-                  </lib-form-group>
-            </div>
-            <div class="col-12 ">
-                <lib-form-group>
-                    <lib-label [appControl]="editBrancheForm.controls['branchAddress']">
-                      {{ "Company.Branch.BranchAddress" | translate }}
-                    </lib-label>
-                    <lib-text-input type="text" formControlName="branchAddress" />
-                    <lib-field-validations [appControl]="editBrancheForm.controls['branchAddress']">
-                    </lib-field-validations>
-                  </lib-form-group>
-            </div>
-            
-            <div class="col-4
-            ">
-              
-                <lib-form-group>
-                  <lib-label [appControl]="editBrancheForm.controls['mobileNumberCode']">
-                    {{ "Company.Branch.MobileNumberCode" | translate }}
-                  </lib-label>
-                  <lib-select
-                    formControlName="mobileNumberCode"
-                    optionValue="id"
-                    [options]="lookups[LookupEnum.MobileCode]"
-                    optionLabel="name">
-                  </lib-select>
-              
-                </lib-form-group>
-    
-            </div>
-            <div class=" col-8">
-              <lib-form-group>
-                <lib-label [appControl]="editBrancheForm.controls['mobileNumber']">
-                  {{ "Company.Branch.MobileNumber" | translate }}
-                </lib-label>
-                <lib-text-input type="tel" formControlName="mobileNumber" />
-                <lib-field-validations
-                  [appControl]="editBrancheForm.controls['mobileNumber']"
-                >
-                </lib-field-validations>
-              </lib-form-group>
-            </div>
-        </div>
-     
-        <div class="actions">
-            <button type="button" class="cancel"  (click)="onCancel()">
-                cancel
-            </button>
-            <button type="submit"  class="save">
-                save
-            </button>
-        </div>
-        </form>
+    <div class="code">
+      <div class="title">
+        {{ "Company.Branch.BranchCode" | translate }}
+      </div>
+      <div class="code_text">
+        {{ branchCode }}
+      </div>
     </div>
+  </div>
+  <div class="branch_content">
+    <form [formGroup]="editBrancheForm" (ngSubmit)="onSubmit()">
+      <div class="grid">
+        <div class="col-12 md:col-6">
+          <lib-form-group>
+            <lib-label [appControl]="editBrancheForm.controls['branchName']">
+              {{ "Company.Branch.BranchName" | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="branchName" />
+            <lib-field-validations
+              [appControl]="editBrancheForm.controls['branchName']"
+            >
+            </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="col-12 md:col-6">
+          <lib-form-group>
+            <lib-label [appControl]="editBrancheForm.controls['countryCode']">
+              {{ "Company.Branch.Country" | translate }}
+            </lib-label>
+            <lib-select
+              formControlName="countryCode"
+              [options]="lookups[LookupEnum.Country]"
+              optionValue="id"
+              optionLabel="name"
+            >
+            </lib-select>
+          </lib-form-group>
+        </div>
+        <div class="col-12 md:col-6">
+          <lib-form-group>
+            <lib-label [appControl]="editBrancheForm.controls['branchRegion']">
+              {{ "Company.Branch.BranchRegion" | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="branchRegion" />
+            <lib-field-validations
+              [appControl]="editBrancheForm.controls['branchRegion']"
+            >
+            </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="col-12 md:col-6">
+          <lib-form-group>
+            <lib-label [appControl]="editBrancheForm.controls['branchCity']">
+              {{ "Company.Branch.BranchCity" | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="branchCity" />
+            <lib-field-validations
+              [appControl]="editBrancheForm.controls['branchCity']"
+            >
+            </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="col-12">
+          <lib-form-group>
+            <lib-label [appControl]="editBrancheForm.controls['branchEmail']">
+              {{ "Company.Branch.BranchEmail" | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="branchEmail" />
+            <lib-field-validations
+              [appControl]="editBrancheForm.controls['branchEmail']"
+            >
+            </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="col-12">
+          <lib-form-group>
+            <lib-label [appControl]="editBrancheForm.controls['branchAddress']">
+              {{ "Company.Branch.BranchAddress" | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="branchAddress" />
+            <lib-field-validations
+              [appControl]="editBrancheForm.controls['branchAddress']"
+            >
+            </lib-field-validations>
+          </lib-form-group>
+        </div>
+
+        <div class="col-4">
+          <lib-form-group>
+            <lib-label
+              [appControl]="editBrancheForm.controls['mobileNumberCode']"
+            >
+              {{ "Company.Branch.MobileNumberCode" | translate }}
+            </lib-label>
+            <lib-select
+              formControlName="mobileNumberCode"
+              optionValue="id"
+              [options]="lookups[LookupEnum.MobileCode]"
+              optionLabel="name"
+            >
+            </lib-select>
+          </lib-form-group>
+        </div>
+        <div class="col-8">
+          <lib-form-group>
+            <lib-label [appControl]="editBrancheForm.controls['mobileNumber']">
+              {{ "Company.Branch.MobileNumber" | translate }}
+            </lib-label>
+            <lib-text-input type="tel" formControlName="mobileNumber" />
+            <lib-field-validations
+              [appControl]="editBrancheForm.controls['mobileNumber']"
+            >
+            </lib-field-validations>
+          </lib-form-group>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="cancel" (click)="onCancel()">
+          cancel
+        </button>
+        <button type="submit" class="save">save</button>
+      </div>
+    </form>
+  </div>
 </div>

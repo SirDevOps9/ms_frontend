@@ -11,13 +11,15 @@ export class CompanyBranchesComponent implements OnInit {
   branches: BranchDto[];
   ref: DynamicDialogRef;
   @Input() editMode: boolean = false;
+  @Input() companyId: string;
+
 
   ngOnInit() {
     this.initBranchData();  
 
   }
 
-  companyId = "1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3";
+  //companyId = "1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3";
    
   initBranchData() {
     this.companyService.loadBranches(this.companyId);

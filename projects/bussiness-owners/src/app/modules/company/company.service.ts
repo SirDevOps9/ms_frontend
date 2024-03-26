@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CompanyProxy } from './company.proxy';
 import { AddCompanyDto, ResponseCompanyDto } from './models';
-import { BehaviorSubject, Observable, catchError, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map } from 'rxjs';
 import {
   APIResponse,
   LanguageService,
@@ -21,6 +21,7 @@ import { BranchDto } from './models/branchdto';
 import { CreateBranchDto } from './models/createbranchdto';
 import { EditBranchDto } from './models/editbranchdto';
 import { CompanyHierarchyDto } from './models/companyhierarchydto';
+import { UpdateCompanyHierarchyDto } from './models/updatecompanyhierarchydto';
 
 @Injectable({
   providedIn: 'root',
@@ -31,8 +32,6 @@ export class CompanyService {
 
   public companies = this.companiesDataSource.asObservable();
   public branches = this.branchesDataSource.asObservable();
-
-  private branchData = new BehaviorSubject<any[]>([]);
 
   constructor(
     private companyProxy: CompanyProxy,
@@ -47,7 +46,6 @@ export class CompanyService {
       this.companiesDataSource.next(response.response);
     });
   }
-
 
   // loadCompanies(subscriptionId:string) {
   //   return this.companyProxy.getAll(subscriptionId)
@@ -234,14 +232,16 @@ export class CompanyService {
   // }
 
   saveCompanyHierarchy(
-    model: CompanyHierarchyDto,
+    model: UpdateCompanyHierarchyDto
   ): Observable<APIResponse<CompanyHierarchyDto>> {
     this.loaderService.show();
     return this.companyProxy.saveCompanyHierarchy(model).pipe(
       map((res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Company.Success'),
-          this.languageService.transalte('Company Hierarchy Updated Successfully')
+          this.languageService.transalte(
+            'Company Hierarchy Updated Successfully'
+          )
         );
         this.loaderService.hide();
         return res;
@@ -251,7 +251,6 @@ export class CompanyService {
       })
     );
   }
-
 
   loadBranches(companyId: string) {
     this.companyProxy.getAllBranches(companyId).subscribe((response) => {
@@ -304,11 +303,10 @@ export class CompanyService {
     });
     ref.onClose.subscribe((result: BranchDto) => {
       if (result as BranchDto) {
-
         let branchToChange = this.branchesDataSource.value.find(
           (item) => item.id === result.id
         );
-        
+
         if (branchToChange) {
           Object.assign(branchToChange, result);
           this.branchesDataSource.next([...this.branchesDataSource.value]);
@@ -352,7 +350,7 @@ export class CompanyService {
 
   async deleteBranch(branchId: string) {
     const confirmed = await this.toasterService.showConfirm(
-      this.languageService.transalte( 'ConfirmButtonTexttodelete'),
+      this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
       this.companyProxy.deleteBranch(branchId).subscribe({
@@ -363,7 +361,9 @@ export class CompanyService {
           );
           this.loaderService.hide();
           const currentBranches = this.branchesDataSource.getValue();
-          const updatedBranches = currentBranches.filter(branch => branch.id !== branchId);
+          const updatedBranches = currentBranches.filter(
+            (branch) => branch.id !== branchId
+          );
           this.branchesDataSource.next(updatedBranches);
         },
       });
@@ -387,9 +387,7 @@ export class CompanyService {
           }
           this.toasterService.showSuccess(
             this.languageService.transalte('Company.Success'),
-            this.languageService.transalte(
-              'branch Activated Successfully'
-            )
+            this.languageService.transalte('branch Activated Successfully')
           );
         },
       });
@@ -406,9 +404,7 @@ export class CompanyService {
         next: () => {
           this.toasterService.showSuccess(
             this.languageService.transalte('Company.Success'),
-            this.languageService.transalte(
-              'Branhc De ActivatedSuccessfully'
-            )
+            this.languageService.transalte('Branhc De ActivatedSuccessfully')
           );
           const branchToChange = this.branchesDataSource.value.find(
             (item) => item.id === id
@@ -422,7 +418,6 @@ export class CompanyService {
     } else {
     }
   }
-
 
   getCompanyById(companyId: string) {
     return this.companyProxy.getCompanyById(companyId).pipe(

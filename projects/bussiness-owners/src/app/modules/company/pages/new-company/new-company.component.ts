@@ -15,7 +15,6 @@ import {
   MobileCodeDropdownDto,
 } from '../../models';
 import { CompanyService } from '../../company.service';
-import { Title } from '@angular/platform-browser';
 import { CompanyProxy } from '../../company.proxy';
 import { SelectComponent } from 'projects/shared-lib/src/lib/form-components';
 @Component({

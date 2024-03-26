@@ -1,80 +1,7 @@
 <lib-page-content>
   <div class="company_address">
-    <!-- Display form fields in view mode -->
-    <ng-container *ngIf="!editMode; else editModeContent">
-      <div class="grid">
-        <div class="form_select col-12 md:col-6">
-          <div class="grid">
-            <div class="col-12">
-              <div class="">
-                <!-- <lib-file-uploader> </lib-file-uploader> -->
-              </div>
-            </div>
-            <div class="col-12">
-              <lib-form-group>
-                <lib-label
-                  [appControl]="companyAddresForm.controls['countryCode']"
-                >
-                  {{ "Company.Address.country" | translate }}
-                </lib-label>
-                <p>{{ companyAddresForm.controls["countryCode"].value }}</p>
-              </lib-form-group>
-            </div>
-            <div class="col-12 md:col-6">
-              <lib-form-group>
-                <lib-label [appControl]="companyAddresForm.controls['city']">
-                  {{ "Company.Address.city" | translate }}
-                </lib-label>
-                <p>{{ companyAddresForm.controls["city"].value }}</p>
-              </lib-form-group>
-            </div>
-            <div class="col-12 md:col-6">
-              <lib-form-group>
-                <lib-label [appControl]="companyAddresForm.controls['region']">
-                  {{ "Company.Address.region" | translate }}
-                </lib-label>
-                <p>{{ companyAddresForm.controls["region"].value }}</p>
-              </lib-form-group>
-            </div>
-            <div class="col-12">
-              <lib-form-group>
-                <lib-label [appControl]="companyAddresForm.controls['address']">
-                  {{ "Company.Address.address" | translate }}
-                </lib-label>
-                <p>{{ companyAddresForm.controls["address"].value }}</p>
-              </lib-form-group>
-            </div>
-            <div class="col-12 md:col-6">
-              <lib-form-group>
-                <lib-label
-                  [appControl]="companyAddresForm.controls['longitude']"
-                >
-                  {{ "Company.Address.longitude" | translate }}
-                </lib-label>
-                <p>{{ companyAddresForm.controls["longitude"].value }}</p>
-              </lib-form-group>
-            </div>
-            <div class="col-12 md:col-6">
-              <lib-form-group>
-                <lib-label
-                  [appControl]="companyAddresForm.controls['latitude']"
-                >
-                  {{ "Company.Address.latitude" | translate }}
-                </lib-label>
-                <p>{{ companyAddresForm.controls["latitude"].value }}</p>
-              </lib-form-group>
-            </div>
-          </div>
-        </div>
-        <div class="form map col-12 md:col-6">
-          <!-- <google-map ></google-map> -->
-        </div>
-      </div>
-    </ng-container>
-
-    <!-- Form displayed in edit mode -->
-    <ng-template #editModeContent>
-      <form [formGroup]="companyAddresForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="companyAddresForm" (ngSubmit)="onSubmit()">
+      <fieldset [disabled]="!editMode">
         <div class="grid">
           <div class="form_select col-12 md:col-6">
             <div class="grid">
@@ -91,8 +18,10 @@
                     {{ "Company.Address.country" | translate }}
                   </lib-label>
                   <lib-select
+                    [disabledMode]="!editMode"
                     formControlName="countryCode"
                     [options]="lookups[LookupEnum.Country]"
+                    [selectedValue]="selectedCountryCode"
                     optionValue="id"
                     optionLabel="name"
                   >
@@ -158,7 +87,7 @@
             {{ "UserConfirmation.Save" | translate }}
           </button>
         </div>
-      </form>
-    </ng-template>
+      </fieldset>
+    </form>
   </div>
 </lib-page-content>
