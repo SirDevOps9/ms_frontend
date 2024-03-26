@@ -26,6 +26,7 @@ import { PlanModule } from './modules/plan/plan.module';
 import { UserModule } from './modules/user/user.module';
 import { LayoutModule } from './modules/layout/layout.module';
 import { ERPUserModule } from './modules/erp-user/erp-user.module';
+import { AppStoreModule } from './modules/app-store/app-store.module';
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
   imports: [
@@ -58,7 +59,8 @@ import { ERPUserModule } from './modules/erp-user/erp-user.module';
     CompanyModule,
     PlanModule,
     UserModule,
-    ERPUserModule
+    ERPUserModule,
+    AppStoreModule
   ],
   providers: [
     { provide: EnvironmentService, useValue: environment },

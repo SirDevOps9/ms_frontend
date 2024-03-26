@@ -1,0 +1,14 @@
+
+<div class="card flex  justify-content-center">
+    <p-accordion 
+    class="w-12"
+    expandIcon="fa fa-solid fa-caret-down"
+    collapseIcon="fa fa-solid fa-caret-up">
+        <p-accordionTab >
+            <ng-template pTemplate="header">
+                {{header}}
+            </ng-template>
+            <ng-content></ng-content>
+        </p-accordionTab>
+    </p-accordion>
+</div>

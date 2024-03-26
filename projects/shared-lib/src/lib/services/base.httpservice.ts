@@ -72,7 +72,7 @@ export class HttpService {
     );
   }
 
-  get<T>(url: string, showError: boolean = true) {
+  get<T>(url: string, showError: boolean = true): Observable<T> {
     return this.addHeaders().pipe(
       switchMap((headers) =>
         this.http.get<T>(`${this.baseUrl}/${url}`, { headers })
