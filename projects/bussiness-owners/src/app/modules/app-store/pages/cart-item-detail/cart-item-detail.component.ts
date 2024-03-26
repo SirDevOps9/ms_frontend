@@ -9,22 +9,23 @@ import { RouterService } from 'shared-lib';
   })
   
   export class CartItemDetailComponent implements OnInit {
-    cartItemData : any ={};
+    cartItemData : any = null;
     constructor(private appStoreService: AppStoreService,private routerService: RouterService) {
     }
   
     ngOnInit(): void {
-        
         this.initilizeData();
     };
     async initilizeData()
     {
        await  this.appStoreService.getFromCart(this.routerService.currentId).subscribe(
             (res) => {
-                this.cartItemData.id = res.id;
-                this.cartItemData.appName=res.appName;
-                this.cartItemData.subDomainName=res.subDomainName;
-                this.cartItemData.unitPrice = res.unitPrice;
+                this.cartItemData = {
+                    id : res.id,
+                    appName:res.appName,
+                    subDomainName : res.subDomainName,
+                    unitPrice: res.unitPrice
+                }                
             }
         );
     }
