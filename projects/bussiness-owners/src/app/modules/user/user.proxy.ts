@@ -1,5 +1,12 @@
 import { Observable } from 'rxjs';
-import { APIResponse, BaseDto, FilterBase, HttpService } from 'shared-lib';
+import {
+  APIResponse,
+  BaseDto,
+  PageInfo,
+  HttpService,
+  PaginationVm,
+  FilterDto,
+} from 'shared-lib';
 import { Injectable } from '@angular/core';
 import {
   EditUserModel,
@@ -19,19 +26,19 @@ export class UserProxy {
     );
   }
   getAllPaginated(
-    pageInfo: FilterBase
-  ): Observable<APIResponse<UserListResponse[]>> {
-    return this.baseService.get<APIResponse<UserListResponse[]>>(
-      `User/GetAllPaginated?${this.fromPageInfoToString(pageInfo)}`
+    filterDto: FilterDto
+  ): Observable<APIResponse<PaginationVm<UserListResponse>>> {
+    return this.baseService.get<APIResponse<PaginationVm<UserListResponse>>>(
+      `User/GetAllPaginated?${filterDto.toQuery}`
     );
   }
 
-  fromPageInfoToString(pageInfo: FilterBase): string {
-    let query = `PageInfo.Offset=${pageInfo.offset}&PageInfo.PageSize=${pageInfo.pageSize}`;
-    console.log(query);
+  // fromPageInfoToString(pageInfo: PageInfo): string {
+  //   let query = `PageInfo.Offset=${pageInfo.offset}&PageInfo.PageSize=${pageInfo.pageSize}`;
+  //   console.log(query);
 
-    return query;
-  }
+  //   return query;
+  // }
   platformDropDown(): Observable<APIResponse<BaseDto[]>> {
     return this.baseService.get<APIResponse<BaseDto[]>>(
       `PlatformPlan/GetAllDropDown`

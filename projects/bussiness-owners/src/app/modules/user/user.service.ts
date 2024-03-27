@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, filter, map } from 'rxjs';
 import { EditUserModel, InviteUserDto, UserListResponse } from './models';
 import { UserProxy } from './user.proxy';
 import {
   APIResponse,
-  FilterBase,
+  Condition,
+  FilterDto,
+  FilterOptions,
   LanguageService,
   LoaderService,
+  PageInfo,
+  PageInfoResult,
   RouterService,
   ToasterService,
 } from 'shared-lib';
@@ -21,18 +25,40 @@ export class UserService {
 
   public users = this.userDataSource.asObservable();
 
+  public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
+
   getAllUsers(subscriptionId: number) {
-    this.userProxy.getAll(subscriptionId).subscribe({
+    var filterDto = new FilterDto();
+
+    filterDto.pageInfo = new PageInfo();
+    let cond: Condition[] = [];
+    cond.push({
+      column: "Name",
+      operator: FilterOptions.Contains,
+      value: "f",
+    });
+
+    cond.push({
+      column: "Email",
+      operator: FilterOptions.Contains,
+      value: "gmail",
+    });
+
+    filterDto.conditions = cond;
+
+    this.userProxy.getAllPaginated(filterDto).subscribe({
       next: (res) => {
-        this.userDataSource.next(res.response);
+        this.userDataSource.next(res.response.result);
+        this.currentPageInfo.next(res.response.pageInfoResult);
       },
     });
+    return;
   }
 
-  getAllUsersPaginated(pageInfo: FilterBase) {
+  getAllUsersPaginated(pageInfo: PageInfo) {
     this.userProxy.getAllPaginated(pageInfo).subscribe({
       next: (res) => {
-        this.userDataSource.next(res.response);
+        this.userDataSource.next(res.response.result);
       },
     });
   }

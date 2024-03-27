@@ -1,19 +1,39 @@
-export interface FilterDto {
+import { PageInfo } from '.';
+// export interface FilterDto {
+//   orderBy?: string;
+//   isDesc?: boolean;
+//   PageInfo?: PageInfo;
+//   conditions?: Condition[];
+// }
+
+export class FilterDto {
   orderBy?: string;
   isDesc?: boolean;
-  PageInfo?: FilterBase;
+  pageInfo?: PageInfo;
   conditions?: Condition[];
+
+  get toQuery(): string {
+    let query = '';
+    if (this.pageInfo) query += this.pageInfo.toQuery;
+
+    if (this.conditions) {
+      query += '&';
+      for (let i = 0; i < this.conditions.length; i++) {
+        console.log('conditions: ' + this.conditions[i]);
+        query += `Conditions[${i}].Column=${this.conditions[i].column}&Conditions[${i}].Value=${this.conditions[i].value}&Conditions[${i}].Operator=${this.conditions[i].operator}`;
+        query += i === this.conditions.length - 1 ? '' : '&';
+      }
+    }
+
+    return query;
+  }
 }
 
-export interface FilterBase {
-  offset: number;
-  pageSize: number;
-}
 export interface Condition {
   column: string;
-  oprator: FilterOptions;
+  operator: FilterOptions;
   value?: any;
-  then?: AndOr;
+  // then?: AndOr;
 }
 
 export enum FilterOptions {

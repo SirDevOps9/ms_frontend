@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { LanguageService, LookupsService } from '../../services';
 import { TableConfig } from './data-table-column';
-import { FilterBase } from '../../models';
+import { PageInfo, PageInfoResult } from '../../models';
 
 @Component({
   selector: 'lib-data-table',
@@ -19,13 +19,13 @@ import { FilterBase } from '../../models';
 export class DataTableComponent implements OnInit {
   @Input() items: any[];
 
-  @Input() allowPagination: boolean = false;
+  @Input() currentPageResult: PageInfoResult;
 
   @Input() tableConfigs: TableConfig;
 
   @Input() rowTemplate: TemplateRef<any>;
 
-  @Output() pageChange = new EventEmitter<FilterBase>();
+  @Output() pageChange = new EventEmitter<PageInfo>();
 
   sortingFields: string[];
 
@@ -41,9 +41,11 @@ export class DataTableComponent implements OnInit {
   }
 
   selectRow(row: any) {}
-  onPageChange(pageInfo: FilterBase) {
+
+  onPageChange(pageInfo: PageInfo) {
     this.pageChange.emit(pageInfo);
   }
+
   constructor(
     public languageService: LanguageService,
     public lookupsService: LookupsService

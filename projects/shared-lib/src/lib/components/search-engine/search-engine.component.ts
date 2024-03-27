@@ -31,15 +31,15 @@ export class SearchEngineComponent {
         if (value)
           cond.push({
             column: key,
-            oprator: this.searchFields.filter((x) => x.name == key)[0].operator,
+            operator: this.searchFields.filter((x) => x.name == key)[0].operator,
             value: value,
           });
       }
     }
-    let params: FilterDto = {
-      conditions: cond ? cond : undefined,
-    };
-    this.searchValue.emit(params);
-    console.log('Collected Data:', params);
+    // let params =new FilterDto () {
+    //   conditions: cond ? cond : undefined,
+    // };
+   // this.searchValue.emit(params);
+   // console.log('Collected Data:', params);
   }
 }
