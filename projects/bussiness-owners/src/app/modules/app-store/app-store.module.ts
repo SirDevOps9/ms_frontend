@@ -21,6 +21,14 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.APP_STORE,
         },
       },
+      {
+        path: 'app-detail/:id',
+        component: AppDetailsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.APP_STORE,
+        },
+      }
     ]
   }
 ]

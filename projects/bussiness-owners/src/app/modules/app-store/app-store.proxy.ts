@@ -13,9 +13,13 @@ export class AppStoreProxy {
     return this.httpService.get<AppDto[]>(`App`);
   }
 
-  addToCart(model: AddToCartDto): Observable<any>{
+  getById(id: number): Observable<AppDto> {
+    return this.httpService.get<AppDto>(`App/${id}`);
+  }
+
+  addToCart(model: AddToCartDto): Observable<any> {
     return this.httpService.post<any>("Cart", model);
   }
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) { }
 }
