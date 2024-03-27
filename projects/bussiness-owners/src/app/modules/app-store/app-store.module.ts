@@ -7,6 +7,8 @@ import { BreadcrumbLabel, SharedLibModule } from 'shared-lib';
 import { HttpClientModule } from '@angular/common/http';
 import { SelectSubdomainComponent } from './components/select-subdomain.component';
 import { AppDetailsComponent } from './pages/app-details/app-details.component';
+import { CartComponent } from './pages/cart/cart.component';
+import { CartItemDetailComponent } from './pages/cart-item-detail/cart-item-detail.component';
 
 const routes: Routes = [
   {
@@ -21,6 +23,30 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.APP_STORE,
         },
       },
+      // {
+      //   path: 'cards',
+      //   component: CardAppsComponent,
+      //   canActivate: [AuthGuard],
+      //   data: {
+      //     breadcrumb: BreadcrumbLabel.APP_STORE,
+      //   },
+      // },
+      {
+        path: 'cart',
+        component: CartComponent,
+       // canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.CART,
+        },
+      },
+      {
+        path: 'cartItemDetail/:id',
+        component: CartItemDetailComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.CART,
+        },
+      }
     ]
   }
 ]
@@ -29,7 +55,9 @@ const routes: Routes = [
   declarations: [
     ListAppsComponent,
     SelectSubdomainComponent,
-    AppDetailsComponent
+    AppDetailsComponent,
+    CartComponent,
+    CartItemDetailComponent
   ],
   imports: [
     SharedLibModule,
