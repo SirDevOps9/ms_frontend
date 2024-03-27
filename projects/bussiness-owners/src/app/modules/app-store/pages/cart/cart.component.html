@@ -1,6 +1,6 @@
-<a routerLink="./">List view</a>
 
-<div *ngIf="cartData"  style="padding-left: 40px;">
+
+<!-- <div *ngIf="cartData"  style="padding-left: 40px;">
     <table class="table" style="border: solid;">
         <thead>
             <th>App Name</th>
@@ -12,7 +12,7 @@
             <ng-container *ngFor="let group of groupedItems | keyvalue">
                 <tr *ngFor="let item of group.value; let isFirst = first">
                   <td *ngIf="isFirst">{{ group.key }}</td>
-                  <td *ngIf="!isFirst"></td> <!-- Empty cell for non-first rows in group -->
+                  <td *ngIf="!isFirst"></td> 
                   <td>{{ item.subDomainName }}</td>
                   <td>{{ item.unitPrice.amount }} {{ item.unitPrice.currencyName }}</td>
                   <td>
@@ -43,6 +43,123 @@
         <p>{{cartData.total.currencyName}}</p>
     </div>
     
-</div>
+</div> -->
+<lib-page-content>
+  <div class="cart_page">
+    <div class="grid">
+      <div class="col-12 md:col-9 " >
+        <div class="cart_header">
+          <h2>
+            Shopping Cart
+          </h2>
+          <p>
+            Enter an item number and press ‘Enter’ to load the product inormation and variants . Tab to select variants and quantity . press on the quantity arrows to add the product to the list
+          </p>
+        </div>
+        <div class="data_table">
+          <div class="data_head">
+            <div class="grid">
+              <div class="col-4">
+                Product
+              </div>
+              <div class="col-2">
+                Price
+              </div>
+              <div class="col-2">
+                Quantity
+              </div>
+              <div class="col-2">
+                Total
+              </div>
+
+            </div>
+
+          </div>
+          <div class="data_body" *ngFor="let group of groupedItems | keyvalue">
+            <div class="grid" *ngFor="let item of group.value; let isFirst = first">
+              <div class="item col-4">
+               <div class="app_name">
+                <div>
+                  {{item.appName}}
+                </div>
+                <div class="view">
+                  <button class="btn_view">
+                    view
+                  </button>
+                </div>
+               </div>
+              </div>
+              <div class="item col-2">
+                {{ item.unitPrice.amount }} {{ item.unitPrice.currencyName }}
+              </div>
+              <div class="item col-2">
+               
+              </div>
+              <div class="item col-2">
+                {{ item.unitPrice.amount }} {{ item.unitPrice.currencyName }}
+              </div>
+              <div class="col-2">
+                <div class="btn_action">
+                <button class="pi pi-pencil edit"  (click)="itemFromCartDetail(item.id)" ></button>
+                <button class="pi pi-trash delet" (click)="removeItemFromCart(item.id)" ></button>
+                </div>
+              
+                 
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-12 md:col-3 " >
+        <div class="cart_Details">
+          <div class="text">
+            <p class="title">
+              Shopping Cart
+
+            </p>
+            <p class="title">
+              Details
+            </p>
+            <div class="items" >
+              <div class="total_items">
+                <div class="title">
+                  Items(<span class="count_items">2</span>) 
+                </div>
+                <div class="price">
+                  20
+                </div>
+              </div>
+
+            </div>
+            <div  *ngFor="let group of groupedItems | keyvalue">
+             <div class="singel_item" *ngFor="let item of group.value">
+              <div class="title">
+                Total 
+              </div>
+              <div class="price">
+                {{ item.unitPrice.amount }} {{ item.unitPrice.currencyName }}
+              </div>
+             </div>
+           
+            </div>
+          </div>
+          <div class="btn_action">
+            <button class="Check_out">
+              Check out
+            </button>
+            <button class="Cancel">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  
+  </div>
+</lib-page-content>
+
 
 
