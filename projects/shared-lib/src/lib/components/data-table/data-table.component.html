@@ -113,6 +113,8 @@
 </div>
 
 <lib-table-paginator
-  *ngIf="allowPagination"
+  *ngIf="tableConfigs.allowServerPagination"
   (pageChange)="onPageChange($event)"
+  [totalRecords]="currentPageResult.totalItems!"
+  [rows]="currentPageResult.pageSize!"
 ></lib-table-paginator>

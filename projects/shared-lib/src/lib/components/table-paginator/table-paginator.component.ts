@@ -1,5 +1,12 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FilterBase } from '../../models';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  input,
+} from '@angular/core';
+import { PageInfo } from '../../models';
 
 @Component({
   selector: 'lib-table-paginator',
@@ -7,17 +14,19 @@ import { FilterBase } from '../../models';
   styleUrls: ['./table-paginator.component.css'],
 })
 export class TablePaginatorComponent implements OnInit {
-  
-  @Output() pageChange = new EventEmitter<FilterBase>();
+
+  @Input() totalRecords: number;
+
+  @Input() rows: number;
+
+  @Output() pageChange = new EventEmitter<PageInfo>();
 
   ngOnInit() {}
 
   onPageChange(e: any) {
-    let pageInfo: FilterBase = {
-      offset: e.page + 1,
-      pageSize: 10,
-    };
-
+    
+    let pageInfo = new PageInfo(e.page + 1, e.rows);
+    
     this.pageChange.emit(pageInfo);
   }
 

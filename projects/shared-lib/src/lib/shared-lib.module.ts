@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   LayoutComponent,
-  ErpTableComponent,
   SearchEngineComponent,
   LoaderComponent,
   DataTableComponent,
@@ -33,7 +32,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   declarations: [
     GetLookupPipe,
     LayoutComponent,
-    ErpTableComponent,
     SearchEngineComponent,
     LoaderComponent,
     FieldValidationsComponent,
@@ -64,7 +62,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   exports: [
     GetLookupPipe,
     LayoutComponent,
-    ErpTableComponent,
     SearchEngineComponent,
     LoaderComponent,
     FieldValidationsComponent,

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map } from 'rxjs';
 import { EditUserModel, InviteUserDto, UserListResponse } from './models';
 import { UserProxy } from './user.proxy';
 import {
   APIResponse,
-  FilterBase,
   LanguageService,
   LoaderService,
+  PageInfo,
+  PageInfoResult,
   RouterService,
   ToasterService,
 } from 'shared-lib';
@@ -21,18 +22,22 @@ export class UserService {
 
   public users = this.userDataSource.asObservable();
 
-  getAllUsers(subscriptionId: number) {
-    this.userProxy.getAll(subscriptionId).subscribe({
-      next: (res) => {
-        this.userDataSource.next(res.response);
-      },
-    });
-  }
+  public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
-  getAllUsersPaginated(pageInfo: FilterBase) {
+  getAllUsers(subscriptionId: number, pageInfo: PageInfo) {
     this.userProxy.getAllPaginated(pageInfo).subscribe({
       next: (res) => {
-        this.userDataSource.next(res.response);
+        this.userDataSource.next(res.response.result);
+        this.currentPageInfo.next(res.response.pageInfoResult);
+      },
+    });
+    return;
+  }
+
+  getAllUsersPaginated(pageInfo: PageInfo) {
+    this.userProxy.getAllPaginated(pageInfo).subscribe({
+      next: (res) => {
+        this.userDataSource.next(res.response.result);
       },
     });
   }

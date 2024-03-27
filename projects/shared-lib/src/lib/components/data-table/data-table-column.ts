@@ -23,6 +23,8 @@ export class TableConfig {
 
   allowPagination?: boolean = true;
 
+  allowServerPagination?: boolean = false;
+
   dataKey?: string;
 
   showCurrentPageReport?: boolean;

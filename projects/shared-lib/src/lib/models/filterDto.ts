@@ -1,14 +1,11 @@
+import { PageInfo } from ".";
 export interface FilterDto {
   orderBy?: string;
   isDesc?: boolean;
-  PageInfo?: FilterBase;
+  PageInfo?: PageInfo;
   conditions?: Condition[];
 }
 
-export interface FilterBase {
-  offset: number;
-  pageSize: number;
-}
 export interface Condition {
   column: string;
   oprator: FilterOptions;
