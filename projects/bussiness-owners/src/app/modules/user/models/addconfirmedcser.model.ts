@@ -4,5 +4,5 @@ export interface AddConfirmedUserDto {
   email: string;
   password: string;
   confirmPassword: string;
-  photo: File
+  photo: string
 }

@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { APIResponse, BaseDto, HttpService } from 'shared-lib';
 import { Injectable } from '@angular/core';
 import {
+  AddConfirmedUserDto,
   EditUserModel,
   GetUserbyid,
   InviteUserDto,
@@ -72,8 +73,8 @@ export class UserProxy {
     );
   }
   
-  confirmInvitedUser(request: FormData): Observable<APIResponse<boolean>> {
-    return this.baseService.postForm<APIResponse<boolean>>(
+  confirmInvitedUser(request: AddConfirmedUserDto): Observable<APIResponse<boolean>> {
+    return this.baseService.post<APIResponse<boolean>>(
       `InvitedUser/ConfirmInvitedUser`,
       request
     );
