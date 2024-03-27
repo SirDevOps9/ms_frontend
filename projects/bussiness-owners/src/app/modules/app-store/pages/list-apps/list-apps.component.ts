@@ -12,6 +12,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 export class ListAppsComponent implements OnInit {
   apps: AppDto[];
   subdomains: BaseDto[];
+  cardList:boolean=false;
 
   constructor(private appStoreService: AppStoreService,
     private dialog: DialogService,
@@ -32,5 +33,16 @@ export class ListAppsComponent implements OnInit {
 
   getAppDeps(app: AppDto) {
     return app.dependencies.map(d => d.name).join(" - ");
+  }
+  card(){
+    this.cardList=true
+  }
+  row(){
+    this.cardList=false
+
+  }
+  routeToDetails(id:any){
+    console.log(id);
+    
   }
 }

@@ -5,12 +5,12 @@ import { customValidators } from '../../services';
 @Component({
   selector: 'lib-rating',
   templateUrl: './rating.component.html',
-  styleUrls: ['./rating.component.css'],
+  styleUrls: ['./rating.component.scss'],
 })
 export class RatingComponent implements OnInit {
   @Input() value: number;
-  @Input() isReadOnly = false;
-  @Input() showCancel = false;
+  @Input() isReadOnly :boolean;
+  @Input() showCancel :boolean;
 
   
 

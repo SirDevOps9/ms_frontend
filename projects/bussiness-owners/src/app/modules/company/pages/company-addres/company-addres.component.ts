@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
 import { LookupEnum, LookupsService, RouterService, customValidators, lookupDto } from 'shared-lib';
 
-
 @Component({
   selector: 'app-company-addres',
   templateUrl: './company-addres.component.html',
