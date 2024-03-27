@@ -10,7 +10,7 @@ import {
 } from 'shared-lib';
 import { CompanyService } from '../../company.service';
 import { CompanyAddressDto } from '../../models/companyaddressdto';
-import { NavigationEnd, Router, RoutesRecognized } from '@angular/router';
+import { Router } from '@angular/router';
 import { filter, map } from 'rxjs';
 @Component({
   selector: 'app-company-addres',
@@ -28,7 +28,6 @@ export class CompanyAddresComponent implements OnInit {
   // toggleEditMode() {
   //   this.editMode = !this.editMode;
   // }
-
 
   ngOnInit() {
     this.loadLookups();
@@ -72,21 +71,16 @@ export class CompanyAddresComponent implements OnInit {
       this.selectedCountryCode = res.countryCode!;
     });
   }
-  // onSubmit() {
-  //   if (!this.formsService.validForm(this.companyAddresForm, true)) return;
-  //   const request: CompanyAddressDto = this.companyAddresForm.value;
-  //   request.id = this.companyId;
-  //   this.companyService.saveCompanyAddress(request);
-  //   console.log('request', request);
-  // }
 
   onSubmit() {
     console.log(this.editMode);
-    
+
     if (this.editMode) {
       if (!this.formsService.validForm(this.companyAddresForm, true)) return;
       const request: CompanyAddressDto = this.companyAddresForm.value;
       request.id = this.companyId;
+      //request.id = '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+
       this.companyService.saveCompanyAddress(request);
       console.log('request', request);
       this.editMode = false;
@@ -96,15 +90,11 @@ export class CompanyAddresComponent implements OnInit {
     }
   }
 
-
   loadLookups() {
     this.lookupsService.loadLookups([LookupEnum.Country]);
   }
   get companyId(): string {
-    console.log("from Address",
-    this.routerService.getCurrentUrl());
-    return this.routerService.currentId;
-    //return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+    return this.routerService.currentParetId;
   }
 
   constructor(

@@ -24,9 +24,6 @@ export class CompanyContactComponent implements OnInit {
   lookups: { [key: string]: lookupDto[] };
    editMode: boolean = false;
   //@Input() companyId: string;
-  toggleEditMode() {
-    this.editMode = !this.editMode;
-  }
 
   selectedMobileCode: string;
 
@@ -40,12 +37,26 @@ export class CompanyContactComponent implements OnInit {
   submitForm() {
     console.log(this.companyContactForm);
   }
+
+
   onSubmit() {
-    if (!this.formsService.validForm(this.companyContactForm, true)) return;
-    const request: CompanyContactDto = this.companyContactForm.value;
-    request.id = this.companyId;
-    this.companyService.saveCompanyContact(request);
+    console.log(this.editMode);
+    
+    if (this.editMode) {
+      if (!this.formsService.validForm(this.companyContactForm, true)) return;
+      const request: CompanyContactDto = this.companyContactForm.value;
+      request.id = this.companyId;
+      //request.id = '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+      this.companyService.saveCompanyContact(request);
+      console.log('request', request);
+      this.editMode = false;
+    } else {
+      // Enable edit mode
+      this.editMode = true;
+    }
   }
+
+
   initializeForm() {
     this.companyContactForm = this.fb.group({
       mobileNumberCode: new FormControl('', [customValidators.required]),
@@ -83,7 +94,7 @@ export class CompanyContactComponent implements OnInit {
       });
   }
   get companyId(): string {
-    return this.routerService.currentId;
+    return this.routerService.currentParetId;
     //return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
   }
   constructor(

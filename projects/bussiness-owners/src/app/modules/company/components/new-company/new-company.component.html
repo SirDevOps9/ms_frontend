@@ -11,7 +11,7 @@
     <form [formGroup]="addCompanyForm" (ngSubmit)="onSubmit()">
       <div class="grid">
         <div class="col-12 md:col-4">
-          <lib-form-group>
+          <!-- <lib-form-group>
             <lib-label [appControl]="addCompanyForm.controls['companyLogo']">
               {{ "companyLogo" }}
             </lib-label>
@@ -27,7 +27,7 @@
               [appControl]="addCompanyForm.controls['companyLogo']"
             >
             </lib-field-validations>
-          </lib-form-group>
+          </lib-form-group> -->
           <div class="text">
             <p>
               Add
@@ -104,7 +104,7 @@
 
       <div class="actions">
         <button type="button" class="edit" (click)="onSaveAndEdit()">
-          save and edite
+          save and edit
         </button>
         <button type="submit" class="save">save</button>
       </div>

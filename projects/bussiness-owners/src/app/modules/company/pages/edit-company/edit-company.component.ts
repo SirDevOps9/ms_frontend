@@ -16,13 +16,14 @@ export class EditCompanyComponent implements OnInit {
   isActive: boolean = true;
   currentTab: string = 'address';
   editMode: boolean = false;
-  //companyId: string = '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
 
   get companyId(): string {
     //return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+    console.log(   "From Edit Url" ,this.routerService.getCurrentUrl());
+    
     console.log("From edit",this.routerService.currentId);
 
-    return this.routerService.currentId;
+    return this.routerService.currentParetId;
   }
 
   id: number;

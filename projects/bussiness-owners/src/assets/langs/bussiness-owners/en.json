@@ -123,6 +123,10 @@
       "Save": "Save"
     },
     "Branch": {
+      "BranchActivatedSuccessfully":"branch Activated Successfully",
+      "BranchDeActivatedSuccessfully":"branch DeActivated Successfully",
+      "BranchDeletedSuccessfully":"branch Deleted Successfully",
+      "BranchUpdatedSuccessfully":"Branch Updated Successfully",
       "EditBranch": "Edit Branch",
       "AddNewBranch": "Add New Branch",
       "BranchCode": "Branch Code",

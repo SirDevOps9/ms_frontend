@@ -26,6 +26,7 @@ export class EditBranchesComponent {
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   branchCode: string;
+  selectecCountry:string;
 
   ngOnInit() {
     this.initializeForm();
@@ -58,6 +59,7 @@ export class EditBranchesComponent {
       this.editBrancheForm.patchValue({
         ...res,
       });
+      this.selectecCountry = res.countryCode!;
     });
   }
   Subscribe() {

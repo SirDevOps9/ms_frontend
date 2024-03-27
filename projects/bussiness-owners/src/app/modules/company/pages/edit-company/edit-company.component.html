@@ -6,7 +6,7 @@
     </div>
     <div class="status">
       <div class="checked">
-        <p-inputSwitch [(ngModel)]="isActive"> </p-inputSwitch>
+        <p-inputSwitch [(ngModel)]="isActive" (onChange)="toggle()"> </p-inputSwitch>
         <p class="active" *ngIf="isActive">
           {{ "User.Activate" | translate }}
         </p>

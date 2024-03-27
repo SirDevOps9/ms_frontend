@@ -40,7 +40,7 @@ export class NewCompanyComponent {
   onSubmit() {
     if (!this.formsService.validForm(this.addCompanyForm, true)) return;
     const request: AddCompanyPopupDto = this.addCompanyForm.value;
-    //request.companyLogo = 'logo';
+    request.companyLogo = 'logo';
     request.subdomainId = 2;
     //request.companyType=1;
     this.companyService.addCompanyPopup(request, this.ref).subscribe((res) => {
@@ -55,8 +55,8 @@ export class NewCompanyComponent {
       ]),
       branchName: new FormControl('', [customValidators.required]),
       companyType: new FormControl('', [customValidators.required]),
-      parentCompany: new FormControl('', [customValidators.required]),
-      companyLogo: new FormControl('', [customValidators.required]),
+      parentCompany: new FormControl(),
+      //companyLogo: new FormControl('', [customValidators.required]),
     });
   }
 
@@ -77,11 +77,18 @@ export class NewCompanyComponent {
   get subdomainId(): string {
     return this.routerService.currentId;
   }
-  onSaveAndEdit() {
-    this.onSubmit();
-    console.log(this.companyId);
 
-    this.routerService.navigateTo('company/edit/' + this.companyId);
+  onSaveAndEdit() {
+    if (!this.formsService.validForm(this.addCompanyForm, true)) return;
+    const request: AddCompanyPopupDto = this.addCompanyForm.value;
+    request.companyLogo = 'logo';
+    request.subdomainId = 2;
+
+    this.companyService.addCompanyPopup(request, this.ref).subscribe((res) => {
+      this.companyId = res.response.id;
+      this.routerService.navigateTo('company/edit/' + this.companyId);
+    });
+
   }
 
   constructor(

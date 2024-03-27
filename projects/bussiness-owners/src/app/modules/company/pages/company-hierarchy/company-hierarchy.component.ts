@@ -25,6 +25,7 @@ export class CompanyHierarchyComponent {
   lookups: { [key: string]: lookupDto[] };
   companyHierarchy: CompanyHierarchyDto;
   subsidiaryList: SubsidiaryDto[];
+  companyType: number;
   editMode: boolean = false;
   //@Input() companyId: string;
   toggleEditMode() {
@@ -42,17 +43,42 @@ export class CompanyHierarchyComponent {
     this.loadLookups();
     this.Subscribe();
   }
-  onSubmit() {
-    if (!this.formsService.validForm(this.companyHierarchyForm, true)) return;
-    const request: UpdateCompanyHierarchyDto = this.companyHierarchyForm.value;
-    request.id = this.companyId;
-    this.companyService.saveCompanyHierarchy(request);
+  // onSubmit() {
+  //   if (!this.formsService.validForm(this.companyHierarchyForm, true)) return;
+  //   const request: UpdateCompanyHierarchyDto = this.companyHierarchyForm.value;
+  //   //request.id = this.companyId;
+  //   request.id ='1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+  //   this.companyService.saveCompanyHierarchy(request);
 
-    this.companyService.saveCompanyHierarchy(request).subscribe((res) => {
-      this.companyHierarchy = res.response;
-      this.subsidiaryList = res.response.subsidiary;
-    });
+  //   this.companyService.saveCompanyHierarchy(request).subscribe((res) => {
+  //     this.companyHierarchy = res.response;
+  //     this.subsidiaryList = res.response.subsidiary;
+  //   });
+  // }
+
+  onSubmit() {
+    console.log(this.editMode);
+    
+    if (this.editMode) {
+      if (!this.formsService.validForm(this.companyHierarchyForm, true)) return;
+      const request: UpdateCompanyHierarchyDto = this.companyHierarchyForm.value;
+      request.id = this.companyId;
+      this.companyService.saveCompanyHierarchy(request);
+  
+      this.companyService.saveCompanyHierarchy(request).subscribe((res) => {
+        this.companyHierarchy = res.response;
+        this.subsidiaryList = res.response.subsidiary;
+        this.companyType = res.response.companyType;
+      });
+      console.log('request', request);
+      this.editMode = false;
+    } else {
+      // Enable edit mode
+      this.editMode = true;
+    }
   }
+
+
   Subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
   }
@@ -80,7 +106,7 @@ export class CompanyHierarchyComponent {
       });
   }
   get companyId(): string {
-    return this.routerService.currentId;
+    return this.routerService.currentParetId;
     //return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
   }
   constructor(

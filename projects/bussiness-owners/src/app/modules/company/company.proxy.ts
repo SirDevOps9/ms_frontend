@@ -184,15 +184,15 @@ export class CompanyProxy {
     return this.httpService.delete<APIResponse<BranchDto>>(`Branch?id=${id}`);
   }
 
-  activateBranch(id: string): Observable<APIResponse<boolean>> {
-    return this.httpService.put<APIResponse<boolean>>(
-      `Company/ActivateBranch/${id}`,
+  activateBranch(id: string): Observable<APIResponse<string>> {
+    return this.httpService.put<APIResponse<string>>(
+      `Branch/ActivateBranch/${id}`,
       {}
     );
   }
-  deActivateBranch(id: string): Observable<APIResponse<boolean>> {
-    return this.httpService.put<APIResponse<boolean>>(
-      `Company/DeActivateBranch/${id}`,
+  deActivateBranch(id: string): Observable<APIResponse<string>> {
+    return this.httpService.put<APIResponse<string>>(
+      `Branch/DeActivateBranch/${id}`,
       {}
     );
   }

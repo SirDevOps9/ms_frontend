@@ -55,7 +55,7 @@ export class CompanyBranchesComponent implements OnInit {
   }
 
   toggle(id: string, isActive: boolean) {
-    if (!isActive) this.companyService.activateBranch(id);
+    if (isActive) this.companyService.activateBranch(id);
     else this.companyService.deActivateBranch(id);
   }
 

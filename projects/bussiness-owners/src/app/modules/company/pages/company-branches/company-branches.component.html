@@ -71,11 +71,12 @@
             {{ branch.branchEmail }}
           </td>
           <td>
-            <div class="checked">
+            <div class="checked" >
               <p-inputSwitch
                 [id]="branch.id"
                 (onChange)="toggle(branch.id,branch.isActive)"
                 [(ngModel)]="branch.isActive"
+                
               >
               </p-inputSwitch>
               <p class="active" *ngIf="branch.isActive">

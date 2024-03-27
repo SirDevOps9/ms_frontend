@@ -72,7 +72,7 @@ export class CompanyService {
 
   async activate(id: string) {
     const confirmed = await this.toasterService.showConfirm(
-      'ConfirmButtonTexttochangestatus'
+      this.languageService.transalte('ConfirmButtonTexttochangstatus')
     );
     if (confirmed) {
       this.companyProxy.activateCompany(id).subscribe({
@@ -98,7 +98,7 @@ export class CompanyService {
 
   async deactivate(id: string) {
     const confirmed = await this.toasterService.showConfirm(
-      'ConfirmButtonTexttochangestatus'
+      this.languageService.transalte('ConfirmButtonTexttochangstatus')
     );
     if (confirmed) {
       this.companyProxy.deactivateCompany(id).subscribe({
@@ -159,6 +159,7 @@ export class CompanyService {
         return res;
       }),
       catchError((err: APIResponse<string>) => {
+        this.loaderService.hide();
         throw err.error?.errorMessage!;
       })
     );
@@ -325,7 +326,7 @@ export class CompanyService {
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Success'),
-          this.languageService.transalte('Branch Updated Successfully')
+          this.languageService.transalte('Company.Branch.BranchUpdatedSuccessfully')
         );
         this.loaderService.hide();
 
@@ -357,7 +358,7 @@ export class CompanyService {
         next: () => {
           this.toasterService.showSuccess(
             this.languageService.transalte('Success'),
-            this.languageService.transalte('Branch Deleted Successfully')
+            this.languageService.transalte('Company.Branch.BranchDeletedSuccessfully')
           );
           this.loaderService.hide();
           const currentBranches = this.branchesDataSource.getValue();
@@ -373,7 +374,8 @@ export class CompanyService {
 
   async activateBranch(id: string) {
     const confirmed = await this.toasterService.showConfirm(
-      'ConfirmButtonTexttochangestatus'
+
+      this.languageService.transalte('ConfirmButtonTexttochangstatus')
     );
     if (confirmed) {
       this.companyProxy.activateBranch(id).subscribe({
@@ -387,24 +389,31 @@ export class CompanyService {
           }
           this.toasterService.showSuccess(
             this.languageService.transalte('Company.Success'),
-            this.languageService.transalte('branch Activated Successfully')
+            this.languageService.transalte('Company.Branch.BranchActivatedSuccessfully')
           );
         },
       });
     } else {
+      const branchToChange = this.branchesDataSource.value.find(
+        (item) => item.id === id
+      );
+      if (branchToChange) {
+        branchToChange.isActive = false;
+        this.branchesDataSource.next([...this.branchesDataSource.value]);
+      }
     }
   }
 
   async deActivateBranch(id: string) {
     const confirmed = await this.toasterService.showConfirm(
-      'ConfirmButtonTexttochangestatus'
+      this.languageService.transalte('ConfirmButtonTexttochangstatus')
     );
     if (confirmed) {
       this.companyProxy.deActivateBranch(id).subscribe({
         next: () => {
           this.toasterService.showSuccess(
             this.languageService.transalte('Company.Success'),
-            this.languageService.transalte('Branhc De ActivatedSuccessfully')
+            this.languageService.transalte('Company.Branch.BranchDeActivatedSuccessfully')
           );
           const branchToChange = this.branchesDataSource.value.find(
             (item) => item.id === id
@@ -416,6 +425,13 @@ export class CompanyService {
         },
       });
     } else {
+      const branchToChange = this.branchesDataSource.value.find(
+        (item) => item.id === id
+      );
+      if (branchToChange) {
+        branchToChange.isActive = true;
+        this.branchesDataSource.next([...this.branchesDataSource.value]);
+      }
     }
   }
 

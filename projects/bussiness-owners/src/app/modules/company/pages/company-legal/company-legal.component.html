@@ -1,6 +1,6 @@
 <lib-page-content>
   <div class="company_address">
-    <form [formGroup]="companyLegalForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="companyLegalForm" >
       <fieldset [disabled]="!editMode">
         <div class="contact_form">
           <div class="grid">
@@ -187,16 +187,20 @@
             </div>
           </div>
         </div>
+      </fieldset>
 
         <div class="actions mb-6">
           <div class="edit_btn">
-            <button class="edit" (click)="toggleEditMode()">
-              <i class="fa fa-regular fa-pen-to-square"></i>
-              {{ editMode ? "Save" : "Edit" }}
-            </button>
+            <button
+            type="button"
+           
+            class="save"
+            (click)="onSubmit()"
+          >
+            {{ editMode ? "Save" : ("Edit" | translate) }}
+          </button>
           </div>
         </div>
-      </fieldset>
     </form>
   </div>
 </lib-page-content>

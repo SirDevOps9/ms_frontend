@@ -1,8 +1,6 @@
 <lib-page-content>
   <div class="company_addres">
     <ng-container *ngIf="!editMode; else editModeContent">
-      <form [formGroup]="companyHierarchyForm" (ngSubmit)="onSubmit()">
-        <fieldset [disabled]="true">
           <div class="contact_form">
             <div class="grid">
               <div class="col-12">
@@ -12,7 +10,7 @@
                   >
                     {{ "Company.Hierarchy.CompanyType" | translate }}
                   </lib-label>
-                  <lib-text-input type="text" formControlName="companyType" />
+                  {{ companyType }}
                 </lib-form-group>
               </div>
               <div
@@ -30,8 +28,6 @@
               </div>
             </div>
           </div>
-        </fieldset>
-      </form>
     </ng-container>
 
     <!-- Form displayed in edit mode -->
@@ -44,9 +40,15 @@
                 <lib-label
                   [appControl]="companyHierarchyForm.controls['companyType']"
                 >
-                  {{ "Company.Hierarchy.CompanyType" | translate }}
+                  {{ "Company.Add.CompanyType" | translate }}
                 </lib-label>
-                <lib-text-input type="text" formControlName="companyType" />
+                <lib-select
+                  formControlName="companyType"
+                  [options]="companyTypes"
+                  optionValue="id"
+                  optionLabel="name"
+                >
+                </lib-select>
                 <lib-field-validations
                   [appControl]="companyHierarchyForm.controls['companyType']"
                 >
@@ -76,15 +78,19 @@
             <!-- Add other fields in edit mode here -->
           </div>
         </div>
-        <div class="actions mb-6">
-            <div class="edit_btn">
-                <button class="edit" (click)="toggleEditMode()">
-                  <i class="fa fa-regular fa-pen-to-square"></i>
-                  {{ editMode ? "Save" : "Edit" }}
-                </button>
-              </div>
-        </div>
       </form>
     </ng-template>
+    <div class="actions mb-6">
+      <div class="edit_btn">
+        <button
+        type="button"
+       
+        class="save"
+        (click)="onSubmit()"
+      >
+        {{ editMode ? "Save" : ("Edit" | translate) }}
+      </button>
+        </div>
+  </div>
   </div>
 </lib-page-content>

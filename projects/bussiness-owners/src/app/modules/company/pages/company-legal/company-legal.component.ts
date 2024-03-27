@@ -31,12 +31,30 @@ export class CompanyLegalComponent implements OnInit {
     this.initializeFormData();
   }
 
+
+
+
   onSubmit() {
-    if (!this.formsService.validForm(this.companyLegalForm, true)) return;
-    const request: CompanyLegalDto = this.companyLegalForm.value;
-    request.id = this.companyId;
-    this.companyService.saveCompanyLegal(request);
+    console.log(this.editMode);
+    
+    if (this.editMode) {
+      if (!this.formsService.validForm(this.companyLegalForm, true)) return;
+      const request: CompanyLegalDto = this.companyLegalForm.value;
+      request.id = this.companyId;
+      //request.id = '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+  
+      this.companyService.saveCompanyLegal(request);
+
+      
+      this.editMode = false;
+    } else {
+      // Enable edit mode
+      this.editMode = true;
+    }
   }
+
+
+
   initializeForm() {
     this.companyLegalForm = this.fb.group({
       companyName: new FormControl(),
@@ -69,8 +87,7 @@ export class CompanyLegalComponent implements OnInit {
     });
   }
   get companyId(): string {
-    return this.routerService.currentId;
-    //return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
+    return this.routerService.currentParetId;
   }
   constructor(
     private fb: FormBuilder,
