@@ -26,7 +26,8 @@
     "Plan": "باقات",
     "AddCompany": "أضف شركة",
     "ListCompany": "قائمة الشركات",
-    "MyPlan": "باقاتي"
+    "MyPlan": "باقاتي",
+    "AppStore": "متجر التطبيقات"
   },
   "User": {
     "PageName": "صفحة المستخدمين",
@@ -124,5 +125,8 @@
     "policy": "أنا أوافق على سياسة المستخدم",
     "Save": "حفظ",
     "Photo": "الصورة"
+  },
+  "AppStore": {
+    "AddedToCartSuccessfully": "تم الإضافة لسلة الشراء بنجاح"
   }
 }

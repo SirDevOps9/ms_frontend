@@ -14,6 +14,8 @@ import { AccordionModule } from 'primeng/accordion';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PasswordModule } from 'primeng/password';
+import { PaginatorModule } from 'primeng/paginator';
+import { RatingModule } from 'primeng/rating';
 
 @NgModule({
   providers: [DialogService],
@@ -34,6 +36,7 @@ import { PasswordModule } from 'primeng/password';
     DynamicDialogModule,
     PasswordModule,
     CheckboxModule,
+    PaginatorModule,
   ],
   exports: [
     TableModule,
@@ -51,6 +54,8 @@ import { PasswordModule } from 'primeng/password';
     DynamicDialogModule,
     PasswordModule,
     CheckboxModule,
+    PaginatorModule,
+    RatingModule,
   ],
 })
 export class PrimeSharedModule {}
