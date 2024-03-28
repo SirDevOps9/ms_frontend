@@ -28,21 +28,24 @@ export class UserService {
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
   getAllUsers(subscriptionId: number) {
+
     var filterDto = new FilterDto();
 
     filterDto.pageInfo = new PageInfo();
+
     let cond: Condition[] = [];
-    cond.push({
-      column: "Name",
-      operator: FilterOptions.Contains,
-      value: "f",
-    });
 
     cond.push({
-      column: "Email",
+      column: 'Name',
       operator: FilterOptions.Contains,
-      value: "gmail",
+      value: 'f',
     });
+
+    // cond.push({
+    //   column: 'Email',
+    //   operator: FilterOptions.Contains,
+    //   value: 'gmail',
+    // });
 
     filterDto.conditions = cond;
 
@@ -58,6 +61,7 @@ export class UserService {
   getAllUsersPaginated(pageInfo: PageInfo) {
     this.userProxy.getAllPaginated(pageInfo).subscribe({
       next: (res) => {
+        this.userDataSource.next(res.response.result);
         this.userDataSource.next(res.response.result);
       },
     });
@@ -104,6 +108,7 @@ export class UserService {
       });
     }
   }
+
   async deactivate(id: string) {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangestatus'
@@ -151,6 +156,7 @@ export class UserService {
       }
     });
   }
+
   inviteUser(model: InviteUserDto, dialogRef: DynamicDialogRef) {
     this.loaderService.show();
     this.userProxy.inviteUser(model).subscribe({

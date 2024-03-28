@@ -36,7 +36,12 @@ export class UserProxy {
   // fromPageInfoToString(pageInfo: PageInfo): string {
   //   let query = `PageInfo.Offset=${pageInfo.offset}&PageInfo.PageSize=${pageInfo.pageSize}`;
   //   console.log(query);
+  // fromPageInfoToString(pageInfo: PageInfo): string {
+  //   let query = `PageInfo.Offset=${pageInfo.offset}&PageInfo.PageSize=${pageInfo.pageSize}`;
+  //   console.log(query);
 
+  //   return query;
+  // }
   //   return query;
   // }
   platformDropDown(): Observable<APIResponse<BaseDto[]>> {

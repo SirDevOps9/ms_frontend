@@ -30,6 +30,7 @@ export class UsersComponent implements OnInit {
     this.loadUsers();
   }
 
+
   loadUsers() {
     this.userService.getAllUsers(this.subscriptionId);
 
@@ -40,7 +41,12 @@ export class UsersComponent implements OnInit {
     this.userService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
+
+    this.userService.currentPageInfo.subscribe((currentPageInfo) => {
+      this.currentPageInfo = currentPageInfo;
+    });
   }
+
 
   resendInvitation(id: string) {
     this.userService.resendInvitation(id);
@@ -51,21 +57,26 @@ export class UsersComponent implements OnInit {
     this.userService.openInviteUserModal(this.ref, this.dialog);
   }
 
+
   getProfilePic(id: string) {
     return this.env.photoBaseUrl + '/api/Users/GetProfilePic?userId=' + id;
   }
+
 
   async activate(id: string) {
     this.userService.activate(id);
   }
 
+
   async deactivate(id: string) {
     this.userService.deactivate(id);
   }
 
+
   applyFilterGlobal($event: any, stringVal: any) {
     this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
+
 
   async editUser(Id: string) {
     this.ref = this.dialog.open(UserDetailsComponent, {
@@ -74,6 +85,7 @@ export class UsersComponent implements OnInit {
       data: { Id: Id },
     });
   }
+
 
   changed(e: any, id: string) {
     if (e.checked === false) {
@@ -87,6 +99,7 @@ export class UsersComponent implements OnInit {
     console.log(pageInfo);
     this.userService.getAllUsersPaginated(pageInfo);
   }
+
 
   get subscriptionId(): number {
     return this.routerService.currentId;
