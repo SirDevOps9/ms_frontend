@@ -11,8 +11,8 @@ import { RouterService } from 'shared-lib';
   
   export class CartComponent implements OnInit {
     cartData : CartDto|null;
-    totalItems:any;
-    totalPrice:any;
+    totalItems:number;
+    totalPrice:number;
     groupedItems: { [key: string]: any[] };
     constructor(private appStoreService: AppStoreService,private routerService: RouterService) {
     }
@@ -21,8 +21,8 @@ import { RouterService } from 'shared-lib';
         this.appStoreService.getCartData();
     this.appStoreService.cartData.subscribe(cartData => {
       this.cartData = cartData;
-      this.totalItems= cartData?.items.length
-      this.totalPrice= cartData?.total.amount
+      this.totalItems= cartData!.items.length
+      this.totalPrice= cartData!.total.amount
       this.groupedItems = this.groupByAppName(this.cartData!.items);
       console.log(cartData?.total.amount ,"this.groupedItems");
       
