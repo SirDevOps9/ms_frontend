@@ -137,5 +137,8 @@
   },
   "AppStore": {
     "AddedToCartSuccessfully": "Successfully added to cart"
+  },
+  "CartItem":{
+    "ItemRemovedSuccessfully":"Successfully removed from cart"
   }
 }

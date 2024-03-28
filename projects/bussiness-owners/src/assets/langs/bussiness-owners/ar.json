@@ -128,5 +128,8 @@
   },
   "AppStore": {
     "AddedToCartSuccessfully": "تم الإضافة لسلة الشراء بنجاح"
+  },
+  "CartItem":{
+    "ItemRemovedSuccessfully":"تم الحذف من السلة بنجاح"
   }
 }
