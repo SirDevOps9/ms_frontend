@@ -28,7 +28,7 @@ export class CompanyBranchesComponent implements OnInit {
     //return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
   }   
   initBranchData() {
-    this.companyService.loadBranches(this.companyId);
+    this.companyService.loadBranches("1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3");
     this.companyService.branches.subscribe((branchList) => {
       this.branches = branchList;
     });

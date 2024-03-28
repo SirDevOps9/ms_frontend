@@ -55,7 +55,6 @@ export class NewBranchesComponent implements OnInit {
   onSubmit() {
     if (!this.formsService.validForm(this.newBrancheForm, true)) return;
     const request: CreateBranchDto = this.newBrancheForm.value;
-    //request.companyId = "1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3";
     request.companyId = this.currentCompanyId;
 
 

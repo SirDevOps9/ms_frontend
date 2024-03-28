@@ -3,12 +3,7 @@
     <div class="title">
       {{ "Company.Branch.AddNewBranch" | translate }}
     </div>
-    <div class="code">
-      <div class="title">
-        {{ "Company.Branch.BranchCode" | translate }}
-      </div>
-      <div class="code_text">112554</div>
-    </div>
+
   </div>
   <div class="branch_content">
     <form [formGroup]="newBrancheForm" (ngSubmit)="onSubmit()">
@@ -100,9 +95,11 @@
 
       <div class="actions">
         <button type="button" class="cancel" (click)="onCancel()">
-          cancel
+          {{ "Company.Cancel" | translate }}
         </button>
-        <button type="submit" class="save">save</button>
+        <button type="submit" class="save">
+          {{ "Company.Save" | translate }}
+        </button>
       </div>
     </form>
   </div>

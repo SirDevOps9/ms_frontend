@@ -9,7 +9,6 @@ export interface BranchDto {
     mobileNumber: string | null;
     branchEmail: string | null;
     countryCode: string | null;
-    countryName: string | null;
     companyId: string;
     companyName: string;
     isActive:boolean;

@@ -92,6 +92,8 @@
     "CompanyType": "Company Type",
     "MobileNumber": "Phone",
     "Edit": "Edit",
+    "Cancel":"Cancel",
+    "Save":"Save",
     "Add": {
       "Plan": "Plan",
       "CompanyAddedSuccessfully": "Company added successfully",

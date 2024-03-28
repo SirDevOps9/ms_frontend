@@ -40,9 +40,10 @@ export class NewCompanyComponent {
   onSubmit() {
     if (!this.formsService.validForm(this.addCompanyForm, true)) return;
     const request: AddCompanyPopupDto = this.addCompanyForm.value;
-    request.companyLogo = 'logo';
+    //request.companyLogo = 'logo';
     request.subdomainId = 2;
     //request.companyType=1;
+    console.log("sdgd", this.addCompanyForm.value)
     this.companyService.addCompanyPopup(request, this.ref).subscribe((res) => {
       this.companyId = res.response.id;
     });
@@ -56,7 +57,7 @@ export class NewCompanyComponent {
       branchName: new FormControl('', [customValidators.required]),
       companyType: new FormControl('', [customValidators.required]),
       parentCompany: new FormControl(),
-      //companyLogo: new FormControl('', [customValidators.required]),
+      companyLogo: new FormControl('', [customValidators.required]),
     });
   }
 

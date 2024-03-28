@@ -123,9 +123,11 @@
 
       <div class="actions">
         <button type="button" class="cancel" (click)="onCancel()">
-          cancel
+          {{ "Company.Cancel" | translate }}
         </button>
-        <button type="submit" class="save">save</button>
+        <button type="submit" class="save">
+          {{ "Company.Save" | translate }}
+        </button>
       </div>
     </form>
   </div>

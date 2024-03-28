@@ -1,17 +1,12 @@
 <div class="new_company">
   <div class="company_header">
     <div class="title">Add New company</div>
-    <div class="code">
-      <div class="title">company Code</div>
-      <div class="code_text">112554</div>
-      <div class="pi pi-times cancel" (click)="onCancel()"></div>
-    </div>
   </div>
   <div class="company_content">
     <form [formGroup]="addCompanyForm" (ngSubmit)="onSubmit()">
       <div class="grid">
         <div class="col-12 md:col-4">
-          <!-- <lib-form-group>
+          <lib-form-group>
             <lib-label [appControl]="addCompanyForm.controls['companyLogo']">
               {{ "companyLogo" }}
             </lib-label>
@@ -27,7 +22,7 @@
               [appControl]="addCompanyForm.controls['companyLogo']"
             >
             </lib-field-validations>
-          </lib-form-group> -->
+          </lib-form-group>
           <div class="text">
             <p>
               Add
@@ -71,7 +66,7 @@
                 </lib-label>
                 <lib-select
                   formControlName="companyType"
-                  [options]="companyTypes"
+                  [options]="lookups[LookupEnum.CompanyType]"
                   optionValue="id"
                   optionLabel="name"
                 >
@@ -84,13 +79,11 @@
             </div>
             <div class="col-12">
               <lib-form-group>
-                <lib-label
-                  [appControl]="addCompanyForm.controls['parentCompany']"
-                >
+                <lib-label [appControl]="addCompanyForm.controls['parentId']">
                   {{ "Company.Add.ParentCompany" | translate }}
                 </lib-label>
                 <lib-select
-                  formControlName="companyType"
+                  formControlName="parentId"
                   [options]="lookups[LookupEnum.Company]"
                   optionValue="id"
                   optionLabel="name"
@@ -104,9 +97,11 @@
 
       <div class="actions">
         <button type="button" class="edit" (click)="onSaveAndEdit()">
-          save and edit
+          {{ "Company.Add.SaveAndEdit" | translate }}
         </button>
-        <button type="submit" class="save">save</button>
+        <button type="submit" class="save">
+          {{ "Company.Save" | translate }}
+        </button>
       </div>
     </form>
   </div>

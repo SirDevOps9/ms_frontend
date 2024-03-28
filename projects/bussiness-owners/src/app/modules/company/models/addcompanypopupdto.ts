@@ -4,5 +4,5 @@ export interface AddCompanyPopupDto {
     branchName: string;
     companyType: number;
     companyLogo: string;
-    parentCompany?: string
+    parentId?: string
   }
