@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, map, pipe } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of, pipe, tap } from 'rxjs';
 import { AppStoreProxy } from './app-store.proxy';
 import { AppDto } from './models/appDto';
 import { AddToCartDto } from './models/addToCartDto';
@@ -58,7 +58,7 @@ export class AppStoreService {
       });
     }
   }
-  
+
   getFromCart(id: string) {
     return this.appStoreProxy.getFromCart(id).pipe(
       map((res) => {
@@ -71,34 +71,28 @@ export class AppStoreService {
   }
 
 
-  async removeFromCart(id: string) {
+  async removeFromCart(id: string) : Promise<Observable<any>> {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangestatus'
     );
     if (confirmed) {
-      this.appStoreProxy.removeFromCart(id).subscribe({
-        next: () => {
-
+      return this.appStoreProxy.removeFromCart(id).pipe(map(
+        () => {
 
           this.cartDataSource.value!.items! =
             this.cartDataSource.value!.items!.filter(item => item.id != id);
+
           this.cartDataSource.value!.total.amount = this.cartDataSource.value!.items
             .reduce((sum, current) => sum + current.unitPrice.amount, 0);
 
           this.toasterService.showSuccess(
-            this.languageService.transalte('CartItem.Success'),
+            this.languageService.transalte('Company.Success'),
             this.languageService.transalte('CartItem.ItemRemovedSuccessfully')
           );
-        },
-        error: () => {
-          this.toasterService.showError(
-            this.languageService.transalte('CartItem.Error'),
-            this.languageService.transalte('CartItem.ErrorWhileDeleting')
-          );
-        }
-      });
-
+          return true;
+        }));
     }
+    return of(false);
   }
 
   checkout(){

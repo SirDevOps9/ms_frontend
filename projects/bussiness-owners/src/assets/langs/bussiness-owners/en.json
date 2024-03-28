@@ -138,5 +138,8 @@
   "AppStore": {
     "AddedToCartSuccessfully": "Successfully added to cart",
     "CheckedOut": "Successfully checked out"
+  },
+  "CartItem":{
+    "ItemRemovedSuccessfully":"Successfully removed from cart"
   }
 }

@@ -28,15 +28,19 @@ export class CartComponent implements OnInit {
 
     });
 
-
-  }
-  itemFromCartDetail(id: string) {
-    this.routerService.navigateTo('app-store/cartItemDetail/' + id);
-
-  }
-  removeItemFromCart(id: string) {
-    this.appStoreService.removeFromCart(id);
-    this.groupedItems = this.groupByAppName(this.cartData!.items.filter(item => item.id != id));
+    
+}
+itemFromCartDetail(id: string) {
+  this.routerService.navigateTo('app-store/cartItemDetail/'+ id);
+  
+}
+  async removeItemFromCart(id: string) {
+      let removeResult = await this.appStoreService.removeFromCart(id);
+          removeResult.subscribe(r => {
+            if(r)
+            this.groupedItems = this.groupByAppName(this.cartData!.items.filter(item => item.id != id));
+          })
+      
   }
 
   checkout() {
