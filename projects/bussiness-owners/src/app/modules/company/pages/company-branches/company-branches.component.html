@@ -23,27 +23,29 @@
       </ng-template>
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="name">Code</th>
+          <th pSortableColumn="name">
+            {{ "Company.Branch.Code" | translate }}
+          </th>
 
-          <th pSortableColumn="email">Branch Name</th>
+          <th pSortableColumn="email">{{ "Company.Branch.BranchName" | translate }}</th>
           <th pSortableColumn="category" style="min-width: 10rem">
-            Branch Region
+            {{ "Company.Branch.BranchRegion" | translate }}
           </th>
-          <th pSortableColumn="rating">Branch City</th>
+          <th pSortableColumn="rating">{{ "Company.Branch.BranchCity" | translate }}</th>
           <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
-            Branch Address
-          </th>
-          <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
-            Phone
+            {{ "Company.Branch.BranchAddress" | translate }}
           </th>
           <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
-            Branch Email
+            {{ "Company.Branch.Phone" | translate }}
           </th>
           <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
-            status
+            {{ "Company.Branch.BranchEmail" | translate }}
           </th>
           <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
-            Actions
+            {{ "Company.Branch.status" | translate }}
+          </th>
+          <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
+            {{ "Company.Branch.Actions" | translate }}
           </th>
         </tr>
       </ng-template>
@@ -71,19 +73,18 @@
             {{ branch.branchEmail }}
           </td>
           <td>
-            <div class="checked" >
+            <div class="checked">
               <p-inputSwitch
                 [id]="branch.id"
-                (onChange)="toggle(branch.id,branch.isActive)"
+                (onChange)="toggle(branch.id, branch.isActive)"
                 [(ngModel)]="branch.isActive"
-                
               >
               </p-inputSwitch>
               <p class="active" *ngIf="branch.isActive">
-                {{ "User.Activate" | translate }}
+                {{ "Company.Activate" | translate }}
               </p>
               <p class="inactive" *ngIf="!branch.isActive">
-                {{ "User.Deactivate" | translate }}
+                {{ "Company.Deactivate" | translate }}
               </p>
             </div>
           </td>

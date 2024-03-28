@@ -1,7 +1,7 @@
 <div class="edit_company_page">
   <div class="company_code">
     <div class="code">
-      <p class="title">Company Code</p>
+      <p class="title">{{"Company.CompanyCode" | translate}}</p>
       <p class="code_num">{{companyCode}}</p>
     </div>
     <div class="status">
@@ -22,25 +22,25 @@
     </div>
     <div class="company_route">
       <div class="tab active_link" id="addres" (click)="activeTag('addres')">
-        <a (click)="navigateToAddress()"> address</a>
+        <a (click)="navigateToAddress()"> {{"Company.AddressTab" | translate}}</a>
       </div>
       <div class="tab" id="contact" (click)="activeTag('contact')">
-        <a (click)="navigateToContact()"> contact</a>
+        <a (click)="navigateToContact()"> {{"Company.ContactTab" | translate}}</a>
       </div>
       <div class="tab" id="legal" (click)="activeTag('legal')">
-        <a (click)="navigateToLegal()"> legal</a>
+        <a (click)="navigateToLegal()"> {{"Company.LegalTab" | translate}}</a>
       </div>
       <div class="tab" id="hierarchy" (click)="activeTag('hierarchy')">
-        <a (click)="navigateToHierarchy()"> hierarchy</a>
+        <a (click)="navigateToHierarchy()"> {{"Company.HierarchyTab" | translate}}</a>
       </div>
       <div class="tab" id="branches" (click)="activeTag('branches')">
-        <a (click)="navigateToBranches()"> branches</a>
+        <a (click)="navigateToBranches()"> {{"Company.BranchesTab" | translate}}</a>
       </div>
     </div>
     <div class="edit_btn">
       <button class="edit" (click)="toggleEditMode()">
         <i class="fa fa-regular fa-pen-to-square"></i>
-        {{ editMode ? 'Save' : 'Edit' }}
+        {{ editMode ? ("Company.Save" | translate) : ("Company.Edit" | translate) }}
       </button>
     </div>
   </div>

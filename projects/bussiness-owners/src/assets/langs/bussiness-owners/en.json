@@ -74,6 +74,7 @@
     }
   },
   "Company": {
+    "CompanyCode": "Company Code",
     "Error": "Error",
     "Success": "Success",
     "PageName": "Companies",
@@ -94,12 +95,19 @@
     "Edit": "Edit",
     "Cancel":"Cancel",
     "Save":"Save",
+    "AddressTab": "address",
+    "ContactTab": "contact",
+    "LegalTab": "legal",
+    "HierarchyTab": "hierarchy",
+    "BranchesTab": "branches",
     "Add": {
+      "CompanyLogo":"CompanyLogo",
+      "AddCompany":"Add",
       "Plan": "Plan",
       "CompanyAddedSuccessfully": "Company added successfully",
       "Error": "Error",
       "Success": "Success",
-      "AddCompany": "Add Company",
+      "AddNewCompany": "Add New company",
       "Country": "Country",
       "PleaseFillInAllTheRequiredFields": "Please fill in all the required fields.",
       "Status": "Status(Activate Or Deactivate)",
@@ -125,6 +133,7 @@
       "Save": "Save"
     },
     "Branch": {
+      "Code": "Code",
       "BranchActivatedSuccessfully":"branch Activated Successfully",
       "BranchDeActivatedSuccessfully":"branch DeActivated Successfully",
       "BranchDeletedSuccessfully":"branch Deleted Successfully",
@@ -139,7 +148,11 @@
       "BranchEmail": "Branch Email",
       "BranchAddress": "Branch Address",
       "MobileNumberCode": "Mobile Number Code",
-      "MobileNumber": "Mobile Number"
+      "MobileNumber": "Mobile Number",
+      "Phone": "Phone",
+      "status": "Status",
+      "Actions": "Actions"
+
     },
     "Hierarchy": {
       "CompanyType": "Company Type",
