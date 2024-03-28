@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, catchError, map, of, pipe, tap } from 'rxj
 import { AppStoreProxy } from './app-store.proxy';
 import { AppDto } from './models/appDto';
 import { AddToCartDto } from './models/addToCartDto';
-import { BaseDto, LanguageService, ToasterService, Money, APIResponse } from 'shared-lib';
+import { BaseDto, LanguageService, ToasterService, Money, APIResponse, RouterService } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { SelectSubdomainComponent } from './components/select-subdomain.component';
 import { CartDto } from './models/cartDto';
@@ -21,6 +21,7 @@ export class AppStoreService {
   constructor(
     private toasterService: ToasterService,
     private languageService: LanguageService,
+    private router: RouterService,
     private appStoreProxy: AppStoreProxy,
   ) { }
 
@@ -92,6 +93,16 @@ export class AppStoreService {
         }));
     }
     return of(false);
+  }
+
+  checkout(){
+    this.appStoreProxy.checkout().subscribe(r=>{
+      this.toasterService.showSuccess(
+        this.languageService.transalte('CartItem.Success'),
+        this.languageService.transalte('AppStore.CheckedOut')
+      );
+      this.router.navigateTo('/my-plans');
+    })
   }
 
   private addModelToCart(model: AddToCartDto) {

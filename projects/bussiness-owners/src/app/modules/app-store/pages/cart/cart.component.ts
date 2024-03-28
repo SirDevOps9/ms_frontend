@@ -5,21 +5,27 @@ import { RouterModule } from '@angular/router';
 import { RouterService } from 'shared-lib';
 
 @Component({
-    templateUrl: './cart.component.html',
-    styleUrl: './cart.component.scss'
-  })
-  
-  export class CartComponent implements OnInit {
-    cartData : CartDto|null;
-    groupedItems: { [key: string]: any[] };
-    constructor(private appStoreService: AppStoreService,private routerService: RouterService) {
-    }
-  
-    ngOnInit(): void {
-        this.appStoreService.getCartData();
+  templateUrl: './cart.component.html',
+  styleUrl: './cart.component.scss'
+})
+
+export class CartComponent implements OnInit {
+  cartData: CartDto | null;
+  totalItems: number;
+  totalPrice: number;
+  groupedItems: { [key: string]: any[] };
+  constructor(private appStoreService: AppStoreService, private routerService: RouterService) {
+  }
+
+  ngOnInit(): void {
+    this.appStoreService.getCartData();
     this.appStoreService.cartData.subscribe(cartData => {
       this.cartData = cartData;
+      this.totalItems = cartData!.items.length
+      this.totalPrice = cartData!.total.amount
       this.groupedItems = this.groupByAppName(this.cartData!.items);
+      console.log(cartData?.total.amount, "this.groupedItems");
+
     });
 
     
@@ -36,6 +42,11 @@ itemFromCartDetail(id: string) {
           })
       
   }
+
+  checkout() {
+    this.appStoreService.checkout();
+  }
+
   private groupByAppName(items: any[]): { [key: string]: any[] } {
     return items.reduce((result, item) => {
       (result[item.appName] = result[item.appName] || []).push(item);

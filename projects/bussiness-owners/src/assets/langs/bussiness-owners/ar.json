@@ -127,7 +127,8 @@
     "Photo": "الصورة"
   },
   "AppStore": {
-    "AddedToCartSuccessfully": "تم الإضافة لسلة الشراء بنجاح"
+    "AddedToCartSuccessfully": "تم الإضافة لسلة الشراء بنجاح",
+    "CheckedOut": "تم الشراء بنجاح"
   },
   "CartItem":{
     "ItemRemovedSuccessfully":"تم الحذف من السلة بنجاح"

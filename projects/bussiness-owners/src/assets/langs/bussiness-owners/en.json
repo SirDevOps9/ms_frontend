@@ -136,7 +136,8 @@
     "PasswordmustcontainNumber": "Password must contain Number "
   },
   "AppStore": {
-    "AddedToCartSuccessfully": "Successfully added to cart"
+    "AddedToCartSuccessfully": "Successfully added to cart",
+    "CheckedOut": "Successfully checked out"
   },
   "CartItem":{
     "ItemRemovedSuccessfully":"Successfully removed from cart"
