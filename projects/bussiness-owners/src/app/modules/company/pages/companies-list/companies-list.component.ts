@@ -43,7 +43,7 @@ convertToTreeNode(companies: ResponseCompanyDto[]): TreeNode<ResponseCompanyDto>
     companies.forEach(company => {
       const node: TreeNode<ResponseCompanyDto> = {
         data: company,
-        children: []
+        children: this.convertToTreeNode(company.childrens!)
       };
       nodeMap.set(company.id, node);
     });
@@ -81,7 +81,7 @@ newCompany() {
     this.cols = [ 
       {  
           field: 'Code',  
-          header: 'id' 
+          header: 'code' 
       }, 
       {  
           field: 'Companies Name',  
@@ -113,396 +113,396 @@ newCompany() {
       }, 
     
     ]; 
-    this.tableData = [ 
-    { 
-        data: { 
-            Code: 'David', 
-            CompaniesName: 'dddddd', 
-            Type: 'pppppppp', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
+//     this.tableData = [ 
+//     { 
+//         data: { 
+//             Code: 'David', 
+//             CompaniesName: 'dddddd', 
+//             Type: 'pppppppp', 
+//             ID: '40', 
+//             CommercialID: '40', 
+//             Phone: '40', 
             
             
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    Code: 'David', 
-                    Name: '40', 
-                    Type: '40', 
-                    ID: '40', 
-                    CommercialID: '40', 
-                    Phone: '40', 
+//         }, 
+//         children: [ 
+//             { 
+//                 data: { 
+//                     Code: 'David', 
+//                     Name: '40', 
+//                     Type: '40', 
+//                     ID: '40', 
+//                     CommercialID: '40', 
+//                     Phone: '40', 
                     
                     
-                }, 
-                children: [ 
-                    { 
-                        data: { 
-                            Code: 'David', 
-                            Name: '40', 
-                            Type: '40', 
-                            ID: '40', 
-                            CommercialID: '40', 
-                            Phone: '40', 
+//                 }, 
+//                 children: [ 
+//                     { 
+//                         data: { 
+//                             Code: 'David', 
+//                             Name: '40', 
+//                             Type: '40', 
+//                             ID: '40', 
+//                             CommercialID: '40', 
+//                             Phone: '40', 
                             
                           
-                        }, 
-                    }, 
-                    { 
-                        data: { 
-                            Code: 'David', 
-                            Name: '40', 
-                            Type: '40', 
-                            ID: '40', 
-                            CommercialID: '40', 
-                            Phone: '40', 
+//                         }, 
+//                     }, 
+//                     { 
+//                         data: { 
+//                             Code: 'David', 
+//                             Name: '40', 
+//                             Type: '40', 
+//                             ID: '40', 
+//                             CommercialID: '40', 
+//                             Phone: '40', 
                             
                           
-                        }, 
-                    }, 
-                ], 
-            }, 
-            { 
-                data: { 
-                    Code: 'David', 
-                    Name: '40', 
-                    Type: '40', 
-                    ID: '40', 
-                    CommercialID: '40', 
-                    Phone: '40', 
+//                         }, 
+//                     }, 
+//                 ], 
+//             }, 
+//             { 
+//                 data: { 
+//                     Code: 'David', 
+//                     Name: '40', 
+//                     Type: '40', 
+//                     ID: '40', 
+//                     CommercialID: '40', 
+//                     Phone: '40', 
                     
                   
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
+//                 }, 
+//             }, 
+//         ], 
+//     }, 
+//     { 
+//         data: { 
+//             Code: 'David', 
+//             Name: '40', 
+//             Type: '40', 
+//             ID: '40', 
+//             CommercialID: '40', 
+//             Phone: '40', 
             
             
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    Code: 'David', 
-                    Name: 'ssssssssss', 
-                    Type: 'sssssssss', 
-                    ID: 'ssssssss', 
-                    CommercialID: '40', 
-                    Phone: '40', 
+//         }, 
+//         children: [ 
+//             { 
+//                 data: { 
+//                     Code: 'David', 
+//                     Name: 'ssssssssss', 
+//                     Type: 'sssssssss', 
+//                     ID: 'ssssssss', 
+//                     CommercialID: '40', 
+//                     Phone: '40', 
                     
-                    Actions: '40',
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
+//                     Actions: '40',
+//                 }, 
+//             }, 
+//             { 
+//                 data: { 
+//                        Code: 'David', 
+//             Name: '40', 
+//             Type: '40', 
+//             ID: '40', 
+//             CommercialID: '40', 
+//             Phone: '40', 
             
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Max', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
+//             Actions: '40',
+//                 }, 
+//             }, 
+//         ], 
+//     }, 
+//     { 
+//         data: { 
+//             name: 'Max', 
+//             age: '55', 
+//         }, 
+//         children: [ 
+//             { 
+//                 data: { 
+//                     name: 'Michelle', 
+//                     age: '20', 
+//                 }, 
+//             }, 
+//             { 
+//                 data: { 
+//                        Code: 'David', 
+//             Name: '40', 
+//             Type: '40', 
+//             ID: '40', 
+//             CommercialID: '40', 
+//             Phone: '40', 
             
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Max', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
+//             Actions: '40',
+//                 }, 
+//             }, 
+//         ], 
+//     }, 
+//     { 
+//         data: { 
+//             name: 'Max', 
+//             age: '55', 
+//         }, 
+//         children: [ 
+//             { 
+//                 data: { 
+//                     name: 'Michelle', 
+//                     age: '20', 
+//                 }, 
+//             }, 
+//             { 
+//                 data: { 
+//                        Code: 'David', 
+//             Name: '40', 
+//             Type: '40', 
+//             ID: '40', 
+//             CommercialID: '40', 
+//             Phone: '40', 
             
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Max', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
+//             Actions: '40',
+//                 }, 
+//             }, 
+//         ], 
+//     }, 
+//     { 
+//         data: { 
+//             name: 'Max', 
+//             age: '55', 
+//         }, 
+//         children: [ 
+//             { 
+//                 data: { 
+//                     name: 'Michelle', 
+//                     age: '20', 
+//                 }, 
+//             }, 
+//             { 
+//                 data: { 
+//                        Code: 'David', 
+//             Name: '40', 
+//             Type: '40', 
+//             ID: '40', 
+//             CommercialID: '40', 
+//             Phone: '40', 
             
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Max', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
+//             Actions: '40',
+//                 }, 
+//             }, 
+//         ], 
+//     }, 
+//     { 
+//         data: { 
+//             name: 'Max', 
+//             age: '55', 
+//         }, 
+//         children: [ 
+//             { 
+//                 data: { 
+//                     name: 'Michelle', 
+//                     age: '20', 
+//                 }, 
+//             }, 
+//             { 
+//                 data: { 
+//                        Code: 'David', 
+//             Name: '40', 
+//             Type: '40', 
+//             ID: '40', 
+//             CommercialID: '40', 
+//             Phone: '40', 
             
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Max', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
+//             Actions: '40',
+//                 }, 
+//             }, 
+//         ], 
+//     }, 
+//     { 
+//         data: { 
+//             name: 'Max', 
+//             age: '55', 
+//         }, 
+//         children: [ 
+//             { 
+//                 data: { 
+//                     name: 'Michelle', 
+//                     age: '20', 
+//                 }, 
+//             }, 
+//             { 
+//                 data: { 
+//                        Code: 'David', 
+//             Name: '40', 
+//             Type: '40', 
+//             ID: '40', 
+//             CommercialID: '40', 
+//             Phone: '40', 
             
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Max', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
+//             Actions: '40',
+//                 }, 
+//             }, 
+//         ], 
+//     }, 
+//     { 
+//         data: { 
+//             name: 'Max', 
+//             age: '55', 
+//         }, 
+//         children: [ 
+//             { 
+//                 data: { 
+//                     name: 'Michelle', 
+//                     age: '20', 
+//                 }, 
+//             }, 
+//             { 
+//                 data: { 
+//                        Code: 'David', 
+//             Name: '40', 
+//             Type: '40', 
+//             ID: '40', 
+//             CommercialID: '40', 
+//             Phone: '40', 
             
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Max', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
+//             Actions: '40',
+//                 }, 
+//             }, 
+//         ], 
+//     }, 
+//     { 
+//         data: { 
+//             name: 'Max', 
+//             age: '55', 
+//         }, 
+//         children: [ 
+//             { 
+//                 data: { 
+//                     name: 'Michelle', 
+//                     age: '20', 
+//                 }, 
+//             }, 
+//             { 
+//                 data: { 
+//                        Code: 'David', 
+//             Name: '40', 
+//             Type: '40', 
+//             ID: '40', 
+//             CommercialID: '40', 
+//             Phone: '40', 
             
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Willy', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
+//             Actions: '40',
+//                 }, 
+//             }, 
+//         ], 
+//     }, 
+//     { 
+//         data: { 
+//             name: 'Willy', 
+//             age: '55', 
+//         }, 
+//         children: [ 
+//             { 
+//                 data: { 
+//                     name: 'Michelle', 
+//                     age: '20', 
+//                 }, 
+//             }, 
+//             { 
+//                 data: { 
+//                        Code: 'David', 
+//             Name: '40', 
+//             Type: '40', 
+//             ID: '40', 
+//             CommercialID: '40', 
+//             Phone: '40', 
             
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Miley', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
+//             Actions: '40',
+//                 }, 
+//             }, 
+//         ], 
+//     }, 
+//     { 
+//         data: { 
+//             name: 'Miley', 
+//             age: '55', 
+//         }, 
+//         children: [ 
+//             { 
+//                 data: { 
+//                     name: 'Michelle', 
+//                     age: '20', 
+//                 }, 
+//             }, 
+//             { 
+//                 data: { 
+//                        Code: 'David', 
+//             Name: '40', 
+//             Type: '40', 
+//             ID: '40', 
+//             CommercialID: '40', 
+//             Phone: '40', 
             
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Sam', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
+//             Actions: '40',
+//                 }, 
+//             }, 
+//         ], 
+//     }, 
+//     { 
+//         data: { 
+//             name: 'Sam', 
+//             age: '55', 
+//         }, 
+//         children: [ 
+//             { 
+//                 data: { 
+//                     name: 'Michelle', 
+//                     age: '20', 
+//                 }, 
+//             }, 
+//             { 
+//                 data: { 
+//                        Code: 'David', 
+//             Name: '40', 
+//             Type: '40', 
+//             ID: '40', 
+//             CommercialID: '40', 
+//             Phone: '40', 
             
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'James', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
+//             Actions: '40',
+//                 }, 
+//             }, 
+//         ], 
+//     }, 
+//     { 
+//         data: { 
+//             name: 'James', 
+//             age: '55', 
+//         }, 
+//         children: [ 
+//             { 
+//                 data: { 
+//                     name: 'Michelle', 
+//                     age: '20', 
+//                 }, 
+//             }, 
+//             { 
+//                 data: { 
+//                        Code: 'David', 
+//             Name: '40', 
+//             Type: '40', 
+//             ID: '40', 
+//             CommercialID: '40', 
+//             Phone: '40', 
             
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-]; 
+//             Actions: '40',
+//                 }, 
+//             }, 
+//         ], 
+//     }, 
+// ]; 
 
   }
   applyFilterGlobal($event: any, stringVal: any) {
@@ -514,15 +514,12 @@ newCompany() {
 
     this.companyService.companies.subscribe((companyList) => {
       //this.tableData=companyList;
-      //this.tableData = this.convertToTreeNode(companyList);
+      this.tableData = this.convertToTreeNode(companyList);
       console.log("companyList",companyList )
     });
   }
 
-  toggle(id: string, isActive: boolean) {
-    if (!isActive) this.companyService.activate(id);
-    else this.companyService.deactivate(id);
-  }
+
 
   changed(e: any, id: string) {
     if (e.checked === false) {
@@ -535,5 +532,9 @@ newCompany() {
   get subscriptionId(): string {
     return this.routerService.currentId;
   }
- 
+  routeToEdit(id:string){
+    this.routerService.navigateTo(`/company/edit/${id}/address`)
+    
+  }
+  
 }

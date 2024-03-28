@@ -69,21 +69,24 @@
                 <ng-container *ngIf="i == 7">
                   <p-button
                   icon="pi pi-pencil"
-                  
+                  (click)="routeToEdit(rowData.id)"
                   [rounded]="true"
                   [text]="true"
-                  severity="secondary "                   ></p-button>
+                  severity="secondary "                   >
+                </p-button>
               </ng-container>
                 <ng-container *ngIf="i == 6">
                   <div class="checked" >
                     <p-inputSwitch
-                      [(ngModel)]="col.isActive"
+                      [(ngModel)]="rowData.isActive"
+                      (onChange)="changed( $event , rowData.id)"
+
                     >
                     </p-inputSwitch>
-                    <p class="active" *ngIf="col.isActive">
+                    <p class="active" *ngIf="rowData.isActive">
                       {{ "User.Activate" | translate }}
                     </p>
-                    <p class="inactive" *ngIf="!col.isActive">
+                    <p class="inactive" *ngIf="!rowData.isActive">
                       {{ "User.Deactivate" | translate }}
                     </p>
                   </div>

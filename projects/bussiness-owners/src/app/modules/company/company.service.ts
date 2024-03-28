@@ -91,8 +91,22 @@ export class CompanyService {
             )
           );
         },
+        error:()=>{
+          const companyToChange = this.companiesDataSource.value.find(
+            (item) => item.id === id
+          );
+          if (companyToChange) {
+            companyToChange.isActive = false;
+          }
+        }
       });
     } else {
+      const companyToChange = this.companiesDataSource.value.find(
+        (item) => item.id === id
+      );
+      if (companyToChange) {
+        companyToChange.isActive = false;
+      }
     }
   }
 
@@ -117,8 +131,22 @@ export class CompanyService {
             this.companiesDataSource.next([...this.companiesDataSource.value]);
           }
         },
+        error:()=>{
+          const companyToChange = this.companiesDataSource.value.find(
+            (item) => item.id === id
+          );
+          if (companyToChange) {
+            companyToChange.isActive = true;
+          }
+        }
       });
     } else {
+      const companyToChange = this.companiesDataSource.value.find(
+        (item) => item.id === id
+      );
+      if (companyToChange) {
+        companyToChange.isActive = true;
+      }
     }
   }
 
