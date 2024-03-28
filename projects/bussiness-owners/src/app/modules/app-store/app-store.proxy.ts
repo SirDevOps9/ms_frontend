@@ -27,6 +27,9 @@ export class AppStoreProxy {
   removeFromCart(id: string): Observable<any>{
     return this.httpService.delete<any>("Cart/"+ id , true);
   }
+  checkout():Observable<any>{
+    return this.httpService.post("Cart/Checkout", {});
+  }
 
   constructor(private httpService: HttpService) {}
 }
