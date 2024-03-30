@@ -8,7 +8,7 @@ import {
 import { LanguageService } from '../../../../../../shared-lib/src/lib/services/language.service';
 import { AuthService } from 'microtec-auth-lib';
 import { MenuItem } from 'primeng/api';
-import { EnvironmentService, LogService } from 'shared-lib';
+import { EnvironmentService, LogService, RouterService } from 'shared-lib';
 import { UserData } from '../../user/models/userdata.model';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -38,7 +38,9 @@ export class LayoutComponent implements OnInit {
     private logService: LogService,
     private env: EnvironmentService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private routerService: RouterService
+    
   ) {
     this.userName = this.authService.getUserName;
     this.userData = this.authService.getUserData()?.userData;
@@ -131,5 +133,8 @@ export class LayoutComponent implements OnInit {
           '/api/Users/GetProfilePic?userId=' +
           this.userData.sub
       : 'assets/images/users/pic.jpg';
+  }
+  routeToCart(){
+    this.routerService.navigateTo(`/app-store/cart`)
   }
 }

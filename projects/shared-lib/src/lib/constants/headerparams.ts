@@ -5,4 +5,5 @@ export class HeaderParams {
   static CLIENTID: string = 'ClientId';
   static VERSION: string = 'Version';
   static PLATFORMTYPE: string = 'Platform';
+  static APIKEY: string = 'XApiKey';
 }
