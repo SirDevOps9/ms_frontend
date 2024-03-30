@@ -14,6 +14,7 @@ import { HeaderParams } from '../constants/headerparams';
 import { ToasterService } from './toaster.service';
 import { AuthService } from 'microtec-auth-lib';
 import { EnvironmentService } from './environment.service';
+import { DefaultExceptionModel } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -176,23 +177,24 @@ export class HttpService {
         break;
     }
 
-    const apiResponse: APIResponse<any> = {
-      language: 'en',
-      response: null,
-      error: (res.error as APIValidationError) || {
-        message: response.message,
-        statusCode: response.status,
-        errors: [],
-      },
-    };
-    this.logService.log(apiResponse!.error, 'Invalid Api Error');
-    if (showError)
-      this.toasterService.showError(
-        'Error Occured',
-        apiResponse!.error!.errorMessage
-      );
+    const exceptionModel: DefaultExceptionModel = response.error;
 
-    return throwError(apiResponse);
+    this.logService.log(exceptionModel, 'Invalid Api Error');
+
+    if (showError) {
+      if (exceptionModel.validationErrors) {
+        this.toasterService.showError(
+          exceptionModel.message,
+          exceptionModel.validationErrors![0].errorMessages[0]
+        );
+      } else {
+        this.toasterService.showError(
+          exceptionModel.message,
+          exceptionModel.message
+        );
+      }
+    }
+    return throwError(exceptionModel);
     // return of(apiResponse);
   }
 }

@@ -1,4 +1,4 @@
 export interface ValidationError {
   key: string;
-  ErrorMessages: string[];
+  errorMessages: string[];
 }

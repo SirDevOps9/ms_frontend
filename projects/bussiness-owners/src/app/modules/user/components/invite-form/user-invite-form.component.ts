@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import {
+  DefaultExceptionModel,
   FormsService,
+  LanguageService,
+  LoaderService,
   LookupEnum,
   LookupsService,
+  ToasterService,
   customValidators,
   lookupDto,
 } from 'shared-lib';
@@ -33,7 +37,33 @@ export class UserInviteFormComponent implements OnInit {
   onSubmit() {
     if (!this.formService.validForm(this.inviteForm, true)) return;
     const userModel: InviteUserDto = this.inviteForm.value;
-    this.userService.inviteUser(userModel, this.ref);
+    // this.userService.inviteUser(userModel, this.ref);
+    this.userService.inviteUserPipe(userModel).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('User.Inviteform.Success'),
+          this.languageService.transalte('User.Inviteform.InviationSent')
+        );
+        this.loaderService.hide();
+
+        this.ref.close(res);
+      },
+      error: (err: DefaultExceptionModel) => {
+        console.log('Invite Error', err);
+        for (let index = 0; index < err.validationErrors!.length; index++) {
+          this.inviteForm.controls[
+            err.validationErrors![index].key.toLowerCase()
+          ].setErrors({
+            serverError: err.validationErrors![index].errorMessages[0],
+          });
+
+          // this.inviteForm.controls[err.validationErrors![index].key].setErrors(
+          //   err.validationErrors![index].errorMessages[0]
+          // );
+        }
+        this.loaderService.hide();
+      },
+    });
   }
   loadLookups() {
     this.lookupsService.loadLookups([
@@ -58,6 +88,9 @@ export class UserInviteFormComponent implements OnInit {
     private formService: FormsService,
     private userService: UserService,
     private ref: DynamicDialogRef,
-    public lookupsService: LookupsService
+    public lookupsService: LookupsService,
+    private toasterService: ToasterService,
+    private languageService: LanguageService,
+    private loaderService: LoaderService
   ) {}
 }

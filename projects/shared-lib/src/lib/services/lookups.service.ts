@@ -40,17 +40,17 @@ export class LookupsService {
     const queryParams = lookups.map((name) => `lookups=${name}`).join('&');
     this.lookupsLoadedDataSource.next(false);
     this.httpService
-      .get<APIResponse<lookupsListDto[]>>('Lookup?' + queryParams)
-      .subscribe((response: APIResponse<lookupsListDto[]>) => {
-        this.resetLookups(response.response);
+      .get<lookupsListDto[]>('Lookup?' + queryParams)
+      .subscribe((response: lookupsListDto[]) => {
+        this.resetLookups(response);
       });
   }
 
   loadServiceLookups(url: string) {
     this.httpService
-      .get<APIResponse<lookupsListDto[]>>(url)
-      .subscribe((response: APIResponse<lookupsListDto[]>) => {
-        this.resetLookups(response.response);
+      .get<lookupsListDto[]>(url)
+      .subscribe((response: lookupsListDto[]) => {
+        this.resetLookups(response);
       });
   }
 

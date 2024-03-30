@@ -9,11 +9,11 @@ import { Injectable } from '@angular/core';
 export class PlanProxy {
   constructor(private baseService: HttpService) {}
 
-  getAllPlans(): Observable<APIResponse<ResponsePlanDto[]>> {
-    return this.baseService.get<APIResponse<ResponsePlanDto[]>>(`plan`);
+  getAllPlans(): Observable<ResponsePlanDto[]> {
+    return this.baseService.get<ResponsePlanDto[]>(`plan`);
   }
 
-  getAllSubscriptions(): Observable<APIResponse<SubscriptionDto[]>> {
-    return this.baseService.get<APIResponse<SubscriptionDto[]>>(`Subscription`);
+  getAllSubscriptions(): Observable<SubscriptionDto[]> {
+    return this.baseService.get<SubscriptionDto[]>(`Subscription`);
   }
 }

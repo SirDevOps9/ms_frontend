@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map } from 'rxjs';
-import { AddConfirmedUserDto, EditUserModel, InviteUserDto, UserListResponse } from './models';
+import {
+  AddConfirmedUserDto,
+  EditUserModel,
+  InviteUserDto,
+  UserListResponse,
+} from './models';
 import { UserProxy } from './user.proxy';
 import {
   APIResponse,
@@ -23,7 +28,7 @@ export class UserService {
   getAllUsers(subscriptionId: number) {
     this.userProxy.getAll(subscriptionId).subscribe({
       next: (res) => {
-        this.userDataSource.next(res.response);
+        this.userDataSource.next(res);
       },
     });
   }
@@ -64,7 +69,7 @@ export class UserService {
       this.userDataSource.value.find((item) => {
         if (item.id === id) {
           console.log(item.isActive);
-          item.isActive = false
+          item.isActive = false;
         }
       });
     }
@@ -95,11 +100,9 @@ export class UserService {
       this.userDataSource.value.find((item) => {
         if (item.id === id) {
           console.log(item.isActive);
-          item.isActive = true
+          item.isActive = true;
         }
       });
-
-
     }
   }
 
@@ -128,18 +131,27 @@ export class UserService {
         );
         this.loaderService.hide();
 
-        dialogRef.close(res.response);
+        dialogRef.close(res);
       },
       error: (err) => {
+        console.log('Invite Error', err);
+
         this.loaderService.hide();
       },
     });
+  }
+  inviteUserPipe(model: InviteUserDto) {
+    return this.userProxy.inviteUser(model).pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
 
   getUserById(userId: string) {
     return this.userProxy.getUserById(userId).pipe(
       map((res) => {
-        return res.response;
+        return res;
       }),
       catchError((err: APIResponse<string>) => {
         throw err.error?.errorMessage!;
@@ -150,14 +162,14 @@ export class UserService {
   getEmail(userId: string) {
     return this.userProxy.getById(userId).pipe(
       map((res) => {
-        return res.response.email;
+        return res.email;
       }),
       catchError((err: APIResponse<string>) => {
         throw err.error?.errorMessage!;
       })
     );
   }
-  
+
   submitUserConfirm(request: AddConfirmedUserDto) {
     this.loaderService.show();
     this.userProxy.confirmInvitedUser(request).subscribe({
@@ -192,5 +204,5 @@ export class UserService {
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private loaderService: LoaderService
-  ) { }
+  ) {}
 }

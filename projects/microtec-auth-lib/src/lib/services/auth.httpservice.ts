@@ -13,23 +13,18 @@ export class AuthHttpService {
   private updateLoginDateAPI = 'User/UpdateLastLoggingTime';
 
   constructor(private baseService: HttpService) {}
-  login(model: LoginModel): Observable<APIResponse<AuthenticationResponse>> {
-    return this.baseService.post<APIResponse<AuthenticationResponse>>(
+  login(model: LoginModel): Observable<AuthenticationResponse> {
+    return this.baseService.post<AuthenticationResponse>(
       `${this.loginAPI}/Login`,
       model
     );
   }
-  UpdateLastLoggingTime(): Observable<APIResponse<string>> {
-    return this.baseService.post<APIResponse<string>>(
-      `${this.updateLoginDateAPI}`,
-      null
-    );
+  UpdateLastLoggingTime(): Observable<string> {
+    return this.baseService.post<string>(`${this.updateLoginDateAPI}`, null);
   }
 
-  refreshToken(
-    model: TokenModel
-  ): Observable<APIResponse<AuthenticationResponse>> {
-    return this.baseService.post<APIResponse<AuthenticationResponse>>(
+  refreshToken(model: TokenModel): Observable<AuthenticationResponse> {
+    return this.baseService.post<AuthenticationResponse>(
       `${this.loginAPI}/refresh-token`,
       model
     );
