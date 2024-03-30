@@ -1,6 +1,7 @@
 <div class="new_company">
   <div class="company_header">
     <div class="title">{{ "Company.Add.AddCompany" | translate }}</div>
+    <div class="pi pi-times cancel" (click)="onCancel()"></div>
   </div>
   <div class="company_content">
     <form [formGroup]="addCompanyForm" (ngSubmit)="onSubmit()">
