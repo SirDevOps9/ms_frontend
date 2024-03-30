@@ -1,33 +1,33 @@
 <lib-page-content>
   <div class="company_addres">
     <ng-container *ngIf="!editMode; else editModeContent">
-          <div class="contact_form">
-            <div class="grid">
-              <div class="col-12">
-                <lib-form-group>
-                  <lib-label
-                    [appControl]="companyHierarchyForm.controls['companyType']"
-                  >
-                    {{ "Company.Hierarchy.CompanyType" | translate }}
-                  </lib-label>
-                  {{ companyType }}
-                </lib-form-group>
-              </div>
-              <div
-                class="col-12 md:col-3"
-                *ngFor="let subsidiary of subsidiaryList"
+      <div class="contact_form">
+        <div class="grid">
+          <div class="col-12">
+            <lib-form-group>
+              <lib-label
+                [appControl]="companyHierarchyForm.controls['companyType']"
               >
-                <lib-form-group>
-                  <lib-label
-                    [appControl]="companyHierarchyForm.controls['subsidiary']"
-                  >
-                    {{ "Company.Hierarchy.Subsidiary" | translate }}
-                  </lib-label>
-                  {{ subsidiary.name }}
-                </lib-form-group>
-              </div>
-            </div>
+                {{ "Company.Hierarchy.CompanyType" | translate }}
+              </lib-label>
+              {{ companyType }}
+            </lib-form-group>
           </div>
+          <div
+            class="col-12 md:col-3"
+            *ngFor="let subsidiary of subsidiaryList"
+          >
+            <lib-form-group>
+              <lib-label
+                [appControl]="companyHierarchyForm.controls['subsidiary']"
+              >
+                {{ "Company.Hierarchy.Subsidiary" | translate }}
+              </lib-label>
+              {{ subsidiary.name }}
+            </lib-form-group>
+          </div>
+        </div>
+      </div>
     </ng-container>
 
     <ng-template #editModeContent>
@@ -43,7 +43,7 @@
                 </lib-label>
                 <lib-select
                   formControlName="companyType"
-                  [options]="companyTypes"
+                  [options]="lookups[LookupEnum.CompanyType]"
                   optionValue="id"
                   optionLabel="name"
                 >
@@ -63,7 +63,7 @@
                 </lib-label>
                 <lib-multi-select
                   formControlName="subsidiary"
-                  [options]="subsidiaryList"
+                  [options]="lookups[LookupEnum.CompanySubsidiary]"
                   optionValue="id"
                   optionLabel="name"
                 >
@@ -80,15 +80,14 @@
     </ng-template>
     <div class="actions mb-6">
       <div class="edit_btn">
-        <button
-        type="button"
-       
-        class="save"
-        (click)="onSubmit()"
-      >
-      {{ editMode ? ("Company.Save" | translate) : ("Company.Edit" | translate) }}
-    </button>
-        </div>
-  </div>
+        <button type="button" class="save" (click)="onSubmit()">
+          {{
+            editMode
+              ? ("Company.Save" | translate)
+              : ("Company.Edit" | translate)
+          }}
+        </button>
+      </div>
+    </div>
   </div>
 </lib-page-content>

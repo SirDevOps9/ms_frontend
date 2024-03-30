@@ -82,17 +82,15 @@
             <!-- <google-map ></google-map> -->
           </div>
         </div>
-      
       </fieldset>
       <div class="actions mb-6">
-        <button
-          type="button"
-         
-          class="save"
-          (click)="onSubmit()"
-        >
-        {{ editMode ? ("Company.Save" | translate) : ("Company.Edit" | translate) }}
-      </button>
+        <button type="button" class="save" (click)="onSubmit()">
+          {{
+            editMode
+              ? ("Company.Save" | translate)
+              : ("Company.Edit" | translate)
+          }}
+        </button>
       </div>
     </form>
   </div>

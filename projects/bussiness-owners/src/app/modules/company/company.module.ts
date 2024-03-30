@@ -3,7 +3,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard, MicrotecAuthLibModule } from 'microtec-auth-lib';
 import { BreadcrumbLabel, RouterService, SharedLibModule } from 'shared-lib';
-import { AddCompanyComponent } from './pages/add-compny/add-compny.component';
 import { EditCompanyComponent } from './pages/edit-company/edit-company.component';
 import { CompaniesListComponent } from './pages/companies-list/companies-list.component';
 import { LayoutComponent } from '../layout/layout-page/layout.component';
@@ -24,14 +23,6 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
-      {
-        path: 'company/add/:id',
-        component: AddCompanyComponent,
-        canActivate: [AuthGuard],
-        data: {
-          breadcrumb: BreadcrumbLabel.ADD_COMPANY,
-        },
-      },
       {
         path: 'company/:id',
         component: CompaniesListComponent,
@@ -80,7 +71,6 @@ const routes: Routes = [
   declarations: [
     NewCompanyComponent,
     CompaniesListComponent,
-    AddCompanyComponent,
     EditCompanyComponent,
     CompanyAddresComponent,
     CompanyLegalComponent,

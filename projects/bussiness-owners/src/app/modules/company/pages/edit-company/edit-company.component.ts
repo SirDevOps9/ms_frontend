@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterService, LookupsService } from 'shared-lib';
-
 import { CompanyService } from '../../company.service';
 
 @Component({
@@ -83,7 +82,6 @@ export class EditCompanyComponent implements OnInit {
       this.isActive = res.isActive;
       this.companyCode = res.code;
       this.companyName = res.name;
-      //this.companyId = res.id;
     });
   }
   constructor(

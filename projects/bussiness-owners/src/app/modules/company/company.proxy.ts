@@ -2,11 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { APIResponse, HttpService, lookupsListDto } from 'shared-lib';
 import {
-  AddCompanyDto,
-  CountryDropDown,
-  DropdownItemDto,
-  DropdownListDto,
-  MobileCodeDropdownDto,
   ResponseCompanyDto,
 } from './models';
 import { AddCompanyPopupDto } from './models/addcompanypopupdto';
@@ -23,14 +18,6 @@ import { UpdateCompanyHierarchyDto } from './models/updatecompanyhierarchydto';
   providedIn: 'root',
 })
 export class CompanyProxy {
-  addCompany(
-    request: AddCompanyDto
-  ): Observable<APIResponse<ResponseCompanyDto>> {
-    return this.httpService.post<APIResponse<ResponseCompanyDto>>(
-      'Company',
-      request
-    );
-  }
 
   getLookups(): Observable<APIResponse<lookupsListDto>> {
     return this.httpService.get<APIResponse<lookupsListDto>>('Company/Lookups');
@@ -39,30 +26,6 @@ export class CompanyProxy {
   getCompanyById(id: string): Observable<APIResponse<ResponseCompanyDto>> {
     return this.httpService.get<APIResponse<ResponseCompanyDto>>(
       `Company/${id}`
-    );
-  }
-
-  getDropDown(): Observable<APIResponse<DropdownListDto>> {
-    return this.httpService.get<APIResponse<DropdownListDto>>(
-      `Company/dropdowns`
-    );
-  }
-
-  getSubdomainDropDown(): Observable<APIResponse<DropdownItemDto[]>> {
-    return this.httpService.get<APIResponse<DropdownItemDto[]>>(
-      `SubDomain/GetAllDropDown`
-    );
-  }
-
-  getMobileCodeDropDown(): Observable<APIResponse<MobileCodeDropdownDto[]>> {
-    return this.httpService.get<APIResponse<MobileCodeDropdownDto[]>>(
-      `Country/GetAllCountryCodeDropDown`
-    );
-  }
-
-  getCountryDropDown(): Observable<APIResponse<CountryDropDown[]>> {
-    return this.httpService.get<APIResponse<CountryDropDown[]>>(
-      `Country/GetAllDropDown`
     );
   }
 
@@ -79,7 +42,6 @@ export class CompanyProxy {
     );
   }
 
-  // new company and edit
   getAll(
     subscriptionId: string
   ): Observable<APIResponse<ResponseCompanyDto[]>> {
@@ -161,7 +123,6 @@ export class CompanyProxy {
     );
   }
 
-  //branches
   getAllBranches(companyId: string): Observable<APIResponse<BranchDto[]>> {
     return this.httpService.get<APIResponse<BranchDto[]>>(
       `Branch?companyId=${companyId}`

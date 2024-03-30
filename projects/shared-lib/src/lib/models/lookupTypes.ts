@@ -7,5 +7,7 @@ export enum LookupEnum {
   MobileCode = 'MobileCode',
   BusinessRole = 'BusinessRole',
   Subscription = 'Subscription',
-  CompanyType ='CompanyType'
+  CompanyType = 'CompanyType',
+  CompanyHolding = 'CompanyHolding',
+  CompanySubsidiary = 'CompanySubsidiary',
 }

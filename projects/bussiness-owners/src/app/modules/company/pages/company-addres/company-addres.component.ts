@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import {
   FormsService,
@@ -9,9 +9,8 @@ import {
   lookupDto,
 } from 'shared-lib';
 import { CompanyService } from '../../company.service';
-import { CompanyAddressDto } from '../../models/companyaddressdto';
 import { Router } from '@angular/router';
-import { filter, map } from 'rxjs';
+import { CompanyAddressDto } from '../../models';
 @Component({
   selector: 'app-company-addres',
   templateUrl: './company-addres.component.html',
@@ -22,30 +21,14 @@ export class CompanyAddresComponent implements OnInit {
   companyAddresForm: FormGroup;
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
-  selectedCountryCode: string;
+  selectedCountryCode: string | null;
   editMode: boolean = false;
-  //@Input() companyId: string;
-  // toggleEditMode() {
-  //   this.editMode = !this.editMode;
-  // }
 
   ngOnInit() {
     this.loadLookups();
     this.initializeForm();
     this.initializeFormData();
     this.Subscribe();
-    // this.router.events.pipe(
-    //   filter(event => event instanceof NavigationEnd),
-    //   map(() => this.activatedRoute),
-    //   map(route => {
-    //     while (route.firstChild) {
-    //      route = route.firstChild;
-    //     }
-    //     return route;
-    //    }),
-    //    map(route => route.url)
-    //   )
-    //  .subscribe(res=>)
   }
   Subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
@@ -63,12 +46,11 @@ export class CompanyAddresComponent implements OnInit {
   }
   initializeFormData() {
     this.companyService.getCompanyAddressId(this.companyId).subscribe((res) => {
-      //this.branchCode=res.code
       console.log('Calling Get Company AddressId', res);
       this.companyAddresForm.patchValue({
         ...res,
       });
-      this.selectedCountryCode = res.countryCode!;
+      if (res) this.selectedCountryCode = res.countryCode;
     });
   }
 
@@ -79,8 +61,6 @@ export class CompanyAddresComponent implements OnInit {
       if (!this.formsService.validForm(this.companyAddresForm, true)) return;
       const request: CompanyAddressDto = this.companyAddresForm.value;
       request.id = this.companyId;
-      //request.id = '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
-
       this.companyService.saveCompanyAddress(request);
       console.log('request', request);
       this.editMode = false;
@@ -104,6 +84,5 @@ export class CompanyAddresComponent implements OnInit {
     private routerService: RouterService,
     private formsService: FormsService,
     public sharedLibEnums: SharedLibraryEnums,
-    private router: Router
   ) {}
 }

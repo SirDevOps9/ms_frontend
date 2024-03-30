@@ -1,15 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormsService,
   LookupsService,
   RouterService,
   SharedLibraryEnums,
-  customValidators,
-  lookupDto,
+
 } from 'shared-lib';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { CompanyService } from '../../company.service';
-import { CompanyLegalDto } from '../../models/companylegaldto';
+import { CompanyLegalDto } from '../../models';
 
 @Component({
   selector: 'app-company-legal',
@@ -20,7 +19,6 @@ import { CompanyLegalDto } from '../../models/companylegaldto';
 export class CompanyLegalComponent implements OnInit {
   companyLegalForm: FormGroup;
   editMode: boolean = false;
-  //@Input() companyId: string;
 
   toggleEditMode() {
     this.editMode = !this.editMode;
@@ -31,29 +29,19 @@ export class CompanyLegalComponent implements OnInit {
     this.initializeFormData();
   }
 
-
-
-
   onSubmit() {
     console.log(this.editMode);
-    
+
     if (this.editMode) {
       if (!this.formsService.validForm(this.companyLegalForm, true)) return;
       const request: CompanyLegalDto = this.companyLegalForm.value;
       request.id = this.companyId;
-      //request.id = '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
-  
       this.companyService.saveCompanyLegal(request);
-
-      
       this.editMode = false;
     } else {
-      // Enable edit mode
       this.editMode = true;
     }
   }
-
-
 
   initializeForm() {
     this.companyLegalForm = this.fb.group({
@@ -78,9 +66,7 @@ export class CompanyLegalComponent implements OnInit {
 
   initializeFormData() {
     this.companyService.getCompanyLegalById(this.companyId).subscribe((res) => {
-      //this.branchCode=res.code
       console.log('Calling get by Id', res);
-
       this.companyLegalForm.patchValue({
         ...res,
       });

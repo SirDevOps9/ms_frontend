@@ -1,6 +1,6 @@
 <div class="new_company">
   <div class="company_header">
-    <div class="title"> {{ "Company.Add.AddCompany" | translate }}</div>
+    <div class="title">{{ "Company.Add.AddCompany" | translate }}</div>
   </div>
   <div class="company_content">
     <form [formGroup]="addCompanyForm" (ngSubmit)="onSubmit()">
@@ -84,7 +84,7 @@
                 </lib-label>
                 <lib-select
                   formControlName="parentId"
-                  [options]="lookups[LookupEnum.Company]"
+                  [options]="lookups[LookupEnum.CompanyHolding]"
                   optionValue="id"
                   optionLabel="name"
                 >

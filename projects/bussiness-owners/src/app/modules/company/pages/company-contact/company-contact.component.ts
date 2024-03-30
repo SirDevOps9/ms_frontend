@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormsService,
   LookupEnum,
@@ -10,7 +10,7 @@ import {
 } from 'shared-lib';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { CompanyService } from '../../company.service';
-import { CompanyContactDto } from '../../models/companycontactdto';
+import { CompanyContactDto } from '../../models';
 
 @Component({
   selector: 'app-company-contact',
@@ -23,7 +23,6 @@ export class CompanyContactComponent implements OnInit {
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
    editMode: boolean = false;
-  //@Input() companyId: string;
 
   selectedMobileCode: string;
 
@@ -46,12 +45,10 @@ export class CompanyContactComponent implements OnInit {
       if (!this.formsService.validForm(this.companyContactForm, true)) return;
       const request: CompanyContactDto = this.companyContactForm.value;
       request.id = this.companyId;
-      //request.id = '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
       this.companyService.saveCompanyContact(request);
       console.log('request', request);
       this.editMode = false;
     } else {
-      // Enable edit mode
       this.editMode = true;
     }
   }
@@ -80,22 +77,22 @@ export class CompanyContactComponent implements OnInit {
   }
 
   initializeFormData() {
+    console.log('Cadgadgdg', this.companyId);
+
     this.companyService
       .getCompanyContactById(this.companyId)
       .subscribe((res) => {
-        //this.branchCode=res.code
         console.log('Calling get by Id', res);
 
         this.companyContactForm.patchValue({
           ...res,
         });
-
+        if(res)
         this.selectedMobileCode = res.mobileNumberCode!;
       });
   }
   get companyId(): string {
     return this.routerService.currentParetId;
-    //return '1de5b3ba-e028-44ed-a7f7-08dc4cf0a9d3';
   }
   constructor(
     private fb: FormBuilder,

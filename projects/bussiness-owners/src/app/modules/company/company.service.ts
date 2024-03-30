@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CompanyProxy } from './company.proxy';
-import { AddCompanyDto, ResponseCompanyDto } from './models';
+import {  ResponseCompanyDto } from './models';
 import { BehaviorSubject, Observable, catchError, map } from 'rxjs';
 import {
   APIResponse,
@@ -38,35 +38,11 @@ export class CompanyService {
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private loaderService: LoaderService,
-    private routerService: RouterService
   ) {}
 
   loadCompanies(subscriptionId: string) {
     this.companyProxy.getAll(subscriptionId).subscribe((response) => {
       this.companiesDataSource.next(response.response);
-    });
-  }
-
-  // loadCompanies(subscriptionId:string) {
-  //   return this.companyProxy.getAll(subscriptionId)
-  //     .toPromise()
-  //     .then(res => <TreeNode[]>res?.response);
-  //   }
-
-  addCompany(model: AddCompanyDto) {
-    this.loaderService.show();
-    this.companyProxy.addCompany(model).subscribe({
-      next: (response) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('Company.Success'),
-          this.languageService.transalte('Company.Add.CompanyAddedSuccessfully')
-        );
-        this.loaderService.hide();
-        this.routerService.navigateTo('company/' + model.subscriptionId);
-      },
-      error: () => {
-        this.loaderService.hide();
-      },
     });
   }
 
@@ -202,7 +178,6 @@ export class CompanyService {
           this.languageService.transalte('Company.Add.CompanyAddedSuccessfully')
         );
         this.loaderService.hide();
-        //this.routerService.navigateTo('company/' + model.subscriptionId);
       },
       error: () => {
         this.loaderService.hide();
@@ -219,7 +194,6 @@ export class CompanyService {
           this.languageService.transalte('Company.Add.CompanyAddedSuccessfully')
         );
         this.loaderService.hide();
-        //this.routerService.navigateTo('company/' + model.subscriptionId);
       },
       error: () => {
         this.loaderService.hide();
@@ -236,50 +210,29 @@ export class CompanyService {
           this.languageService.transalte('Company Legal Updated Successfully')
         );
         this.loaderService.hide();
-        // this.routerService.navigateTo('company/' + model.subscriptionId);
       },
       error: () => {
         this.loaderService.hide();
       },
     });
   }
-  // saveCompanyHierarchy(model: CompanyHierarchyDto) {
-  //   this.loaderService.show();
-  //   this.companyProxy.saveCompanyHierarchy(model).subscribe({
-  //     next: (response) => {
-  //       this.toasterService.showSuccess(
-  //         this.languageService.transalte('Company.Success'),
-  //         this.languageService.transalte('Company Hierarchy Updated Successfully')
-  //       );
-  //       this.loaderService.hide();
-  //       // this.routerService.navigateTo('company/' + model.subscriptionId);
-  //     },
-  //     error: () => {
-  //       this.loaderService.hide();
-  //     },
-  //   });
-  // }
-
-  saveCompanyHierarchy(
-    model: UpdateCompanyHierarchyDto
-  ): Observable<APIResponse<CompanyHierarchyDto>> {
+  saveCompanyHierarchy(model: UpdateCompanyHierarchyDto) {
     this.loaderService.show();
-    return this.companyProxy.saveCompanyHierarchy(model).pipe(
-      map((res) => {
+    this.companyProxy.saveCompanyHierarchy(model).subscribe({
+      next: (response) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Company.Success'),
-          this.languageService.transalte(
-            'Company Hierarchy Updated Successfully'
-          )
+          this.languageService.transalte('Company Hierarchy Updated Successfully')
         );
         this.loaderService.hide();
-        return res;
-      }),
-      catchError((err: APIResponse<string>) => {
-        throw err.error?.errorMessage!;
-      })
-    );
+      },
+      error: () => {
+        this.loaderService.hide();
+      },
+    });
   }
+
+
 
   loadBranches(companyId: string) {
     this.companyProxy.getAllBranches(companyId).subscribe((response) => {
@@ -287,11 +240,14 @@ export class CompanyService {
     });
   }
 
-  openBranchModel(ref: DynamicDialogRef, dialog: DialogService) {
+  openBranchModel(id:string,ref: DynamicDialogRef, dialog: DialogService) {
     ref = dialog.open(NewBranchesComponent, {
       width: '600px',
       height: '600px',
+      data: { Id: id },
+
     });
+
     ref.onClose.subscribe((result: BranchDto) => {
       if (result as BranchDto) {
         const updatedBranchlist: BranchDto[] = [
@@ -340,11 +296,6 @@ export class CompanyService {
           Object.assign(branchToChange, result);
           this.branchesDataSource.next([...this.branchesDataSource.value]);
         }
-        // const updatedBranchlist: BranchDto[] = [
-        //   ...this.branchesDataSource.value,
-        //   result,
-        // ];
-        // this.branchesDataSource.next(updatedBranchlist);
       }
     });
   }
@@ -506,8 +457,8 @@ export class CompanyService {
     );
   }
 
-  getCompanyHierarchyById(branchId: string) {
-    return this.companyProxy.getCompanyHierarchyById(branchId).pipe(
+  getCompanyHierarchyById(companyId: string) {
+    return this.companyProxy.getCompanyHierarchyById(companyId).pipe(
       map((res) => {
         return res.response;
       }),

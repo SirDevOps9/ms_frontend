@@ -15,7 +15,7 @@ import {
   DynamicDialogConfig,
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
-import { AddCompanyPopupDto } from '../../models/addcompanypopupdto';
+import { AddCompanyPopupDto } from '../../models';
 @Component({
   selector: 'app-new-company',
   templateUrl: './new-company.component.html',
@@ -27,10 +27,6 @@ export class NewCompanyComponent {
   lookups: { [key: string]: lookupDto[] };
   companyId: string;
 
-  companyTypes = [
-    { id: 1, name: 'Holding' },
-    { id: 2, name: 'Subsidiary' },
-  ];
   ngOnInit() {
     this.initializeForm();
     this.loadLookups();
@@ -40,10 +36,8 @@ export class NewCompanyComponent {
   onSubmit() {
     if (!this.formsService.validForm(this.addCompanyForm, true)) return;
     const request: AddCompanyPopupDto = this.addCompanyForm.value;
-    //request.companyLogo = 'logo';
     request.subdomainId = 2;
-    //request.companyType=1;
-    console.log("sdgd", this.addCompanyForm.value)
+    console.log('sdgd', this.addCompanyForm.value);
     this.companyService.addCompanyPopup(request, this.ref).subscribe((res) => {
       this.companyId = res.response.id;
     });
@@ -56,16 +50,13 @@ export class NewCompanyComponent {
       ]),
       branchName: new FormControl('', [customValidators.required]),
       companyType: new FormControl('', [customValidators.required]),
-      parentCompany: new FormControl(),
+      parentId: new FormControl(),
       companyLogo: new FormControl('', [customValidators.required]),
     });
   }
 
   loadLookups() {
-    this.lookupsService.loadLookups([
-      LookupEnum.CompanyType,
-      LookupEnum.Company,
-    ]);
+    this.lookupsService.loadLookups([LookupEnum.CompanyHolding]);
   }
   Subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
@@ -82,14 +73,11 @@ export class NewCompanyComponent {
   onSaveAndEdit() {
     if (!this.formsService.validForm(this.addCompanyForm, true)) return;
     const request: AddCompanyPopupDto = this.addCompanyForm.value;
-    request.companyLogo = 'logo';
     request.subdomainId = 2;
-
     this.companyService.addCompanyPopup(request, this.ref).subscribe((res) => {
       this.companyId = res.response.id;
       this.routerService.navigateTo('company/edit/' + this.companyId);
     });
-
   }
 
   constructor(
