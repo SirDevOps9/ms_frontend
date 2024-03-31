@@ -48,21 +48,6 @@ export class UserInviteFormComponent implements OnInit {
 
         this.ref.close(res);
       },
-      error: (err: DefaultExceptionModel) => {
-        console.log('Invite Error', err);
-        for (let index = 0; index < err.validationErrors!.length; index++) {
-          this.inviteForm.controls[
-            err.validationErrors![index].key.toLowerCase()
-          ].setErrors({
-            serverError: err.validationErrors![index].errorMessages[0],
-          });
-
-          // this.inviteForm.controls[err.validationErrors![index].key].setErrors(
-          //   err.validationErrors![index].errorMessages[0]
-          // );
-        }
-        this.loaderService.hide();
-      },
     });
   }
   loadLookups() {

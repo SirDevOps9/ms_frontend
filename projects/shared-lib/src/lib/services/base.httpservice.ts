@@ -6,8 +6,6 @@ import {
 } from '@angular/common/http';
 import { Observable, catchError, of, switchMap, throwError } from 'rxjs';
 import { StorageService } from './localstorage.service';
-import { APIValidationError } from '../models/apiValidationError';
-import { APIResponse } from '../models/apiResponse';
 import { LogService } from './log.service';
 import { StorageKeys } from '../constants/storagekeys';
 import { HeaderParams } from '../constants/headerparams';
@@ -160,41 +158,35 @@ export class HttpService {
       'Calling Api Error: ' + callUrl
     );
 
-    let message = '';
+    const exceptionModel: DefaultExceptionModel = response.error;
 
     switch (response.status) {
       case 400:
-        message = 'Bad Request.';
+        if (showError && exceptionModel.validationErrors) {
+          for (
+            let index = 0;
+            index < exceptionModel.validationErrors!.length;
+            index++
+          ) {
+            this.toasterService.showError(
+              exceptionModel.message,
+              exceptionModel.validationErrors![index].errorMessages[0]
+            );
+          }
+        }
         break;
-
-      case 401:
-      case 404:
-        message = 'The resource no longer exists.';
-        break;
-      case 504:
       default:
-        message = 'An un handeled error occured while getting data';
+        if (showError) {
+          this.toasterService.showError(
+            exceptionModel.message,
+            exceptionModel.message
+          );
+        }
         break;
     }
-
-    const exceptionModel: DefaultExceptionModel = response.error;
 
     this.logService.log(exceptionModel, 'Invalid Api Error');
 
-    if (showError) {
-      if (exceptionModel.validationErrors) {
-        this.toasterService.showError(
-          exceptionModel.message,
-          exceptionModel.validationErrors![0].errorMessages[0]
-        );
-      } else {
-        this.toasterService.showError(
-          exceptionModel.message,
-          exceptionModel.message
-        );
-      }
-    }
     return throwError(exceptionModel);
-    // return of(apiResponse);
   }
 }
