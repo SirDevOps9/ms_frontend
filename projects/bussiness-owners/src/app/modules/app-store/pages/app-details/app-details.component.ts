@@ -13,7 +13,7 @@ import { AppStoreService } from '../../app-store.service';
   styleUrl: './app-details.component.scss'
 })
 export class AppDetailsComponent implements OnInit {
-
+  cover:string="assets/images/apps/Group.png";
   id: number;
   app: AppDto;
   subdomains: BaseDto[];
