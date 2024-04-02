@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpService } from './base.httpservice';
 import {
-  APIResponse,
   AttachmentDto,
   AttachmentFileTypeEnum,
   FileDto,
@@ -54,14 +53,14 @@ export class AttachmentsService {
           `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/UploadBase64Attachment`,
           fileInfo
         )
-        .subscribe((response: APIResponse<string>) => {
-          if (!response.response) {
+        .subscribe((response: string) => {
+          if (!response) {
             this.toasterService.showError(
               this.languageService.transalte('Shared.Error'),
               this.languageService.transalte('Shared.valdation.invalidForm')
             );
           }
-          this.attachmentIdDataSource.next(response.response);
+          this.attachmentIdDataSource.next(response);
         });
     };
   }
@@ -78,9 +77,12 @@ export class AttachmentsService {
         `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
           fileId
       )
-      .subscribe((apiResponse: APIResponse<AttachmentDto>) => {
-        if (apiResponse.response) {
-          const source = `${fileTypeMetaData.fileBase64Padding},${apiResponse.response.fileContent}`;
+      .subscribe((apiResponse: AttachmentDto) => {
+
+        console.log("attachmentResp",apiResponse);
+        
+        if (apiResponse) {
+          const source = `${fileTypeMetaData.fileBase64Padding},${apiResponse.fileContent}`;
 
           const link = document.createElement('a');
 
@@ -98,7 +100,7 @@ export class AttachmentsService {
       });
   }
 
-  getAttachment(fileId: string): Observable<APIResponse<any>> {
+  getAttachment(fileId: string): Observable<any> {
     return this.httpService.getFullUrl(
       `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
         fileId
