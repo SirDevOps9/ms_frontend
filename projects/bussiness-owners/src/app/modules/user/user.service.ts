@@ -8,7 +8,7 @@ import {
 } from './models';
 import { UserProxy } from './user.proxy';
 import {
-  APIResponse,
+  DefaultExceptionModel,
   LanguageService,
   LoaderService,
   RouterService,
@@ -153,7 +153,7 @@ export class UserService {
       map((res) => {
         return res;
       }),
-      catchError((err: APIResponse<string>) => {
+      catchError((err: any) => {
         throw err.error?.errorMessage!;
       })
     );
@@ -164,7 +164,7 @@ export class UserService {
       map((res) => {
         return res.email;
       }),
-      catchError((err: APIResponse<string>) => {
+      catchError((err: any) => {
         throw err.error?.errorMessage!;
       })
     );

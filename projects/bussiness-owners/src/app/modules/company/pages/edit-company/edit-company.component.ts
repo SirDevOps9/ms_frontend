@@ -1,13 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { LogService, RouterService ,  LookupsService,
+import {
+  LogService,
+  RouterService,
+  LookupsService,
   LookupEnum,
-  lookupDto } from 'shared-lib';
+  lookupDto,
+} from 'shared-lib';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { combineLatest } from 'rxjs';
 import { CompanyProxy } from '../../company.proxy';
-import { CountryDropDown, DropdownItemDto, MobileCodeDropdownDto, ResponseCompanyDto } from '../../models';
+import {
+  CountryDropDown,
+  DropdownItemDto,
+  MobileCodeDropdownDto,
+  ResponseCompanyDto,
+} from '../../models';
 import { ActivatedRoute } from '@angular/router';
- 
+
 @Component({
   selector: 'app-edit-company',
   templateUrl: './edit-company.component.html',
@@ -24,7 +33,7 @@ export class EditCompanyComponent implements OnInit {
   planId: number;
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
-  active:boolean=false
+  active: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private routerSerivce: RouterService,
@@ -54,15 +63,14 @@ export class EditCompanyComponent implements OnInit {
   editTabName: any;
   company: ResponseCompanyDto | null = null;
   ngOnInit() {
-
-    this.editTabName=  this.route.snapshot.firstChild!.routeConfig!.path;
+    this.editTabName = this.route.snapshot.firstChild!.routeConfig!.path;
     this.activeTag(this.editTabName);
     this.id = this.routerSerivce.currentId;
     this.logService.log(this.id, 'get by id response');
-    this.loadLookups()
-    this.Subscribe()
+    this.loadLookups();
+    this.Subscribe();
     this.companyProxy.getById(this.id).subscribe((res) => {
-      this.company = res.response;
+      this.company = res;
       this.companyForm.setValue({
         name: this.company.name,
         countryCode: this.company.countryCode,
@@ -85,8 +93,7 @@ export class EditCompanyComponent implements OnInit {
   onSubmit() {
     console.log(this.companyForm);
   }
- 
-  
+
   Subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
   }
@@ -96,9 +103,7 @@ export class EditCompanyComponent implements OnInit {
       LookupEnum.Currency,
       LookupEnum.Industry,
       LookupEnum.MobileCode,
-      
     ]);
-    
   }
   activeTag(id: any) {
     const targetElementId = document.getElementById(id);

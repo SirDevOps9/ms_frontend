@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { APIResponse, HttpService, lookupsListDto } from 'shared-lib';
+import { HttpService, lookupsListDto } from 'shared-lib';
 import {
   AddCompanyDto,
   CountryDropDown,
@@ -14,67 +14,46 @@ import {
   providedIn: 'root',
 })
 export class CompanyProxy {
-  addCompany(
-    request: AddCompanyDto
-  ): Observable<APIResponse<ResponseCompanyDto>> {
-    return this.httpService.post<APIResponse<ResponseCompanyDto>>(
-      'Company',
-      request
-    );
+  addCompany(request: AddCompanyDto): Observable<ResponseCompanyDto> {
+    return this.httpService.post<ResponseCompanyDto>('Company', request);
   }
-  getAll(
-    subscriptionId: string
-  ): Observable<APIResponse<ResponseCompanyDto[]>> {
-    return this.httpService.get<APIResponse<ResponseCompanyDto[]>>(
+  getAll(subscriptionId: string): Observable<ResponseCompanyDto[]> {
+    return this.httpService.get<ResponseCompanyDto[]>(
       `Company?subscriptionId=${subscriptionId}`
     );
   }
 
-  getLookups(): Observable<APIResponse<lookupsListDto>> {
-    return this.httpService.get<APIResponse<lookupsListDto>>('Company/Lookups');
+  getLookups(): Observable<lookupsListDto> {
+    return this.httpService.get<lookupsListDto>('Company/Lookups');
   }
 
-  getById(id: number): Observable<APIResponse<ResponseCompanyDto>> {
-    return this.httpService.get<APIResponse<ResponseCompanyDto>>(
-      `Company/${id}`
-    );
+  getById(id: number): Observable<ResponseCompanyDto> {
+    return this.httpService.get<ResponseCompanyDto>(`Company/${id}`);
   }
 
-  getDropDown(): Observable<APIResponse<DropdownListDto>> {
-    return this.httpService.get<APIResponse<DropdownListDto>>(
-      `Company/dropdowns`
-    );
+  getDropDown(): Observable<DropdownListDto> {
+    return this.httpService.get<DropdownListDto>(`Company/dropdowns`);
   }
 
-  getSubdomainDropDown(): Observable<APIResponse<DropdownItemDto[]>> {
-    return this.httpService.get<APIResponse<DropdownItemDto[]>>(
-      `SubDomain/GetAllDropDown`
-    );
+  getSubdomainDropDown(): Observable<DropdownItemDto[]> {
+    return this.httpService.get<DropdownItemDto[]>(`SubDomain/GetAllDropDown`);
   }
 
-  getMobileCodeDropDown(): Observable<APIResponse<MobileCodeDropdownDto[]>> {
-    return this.httpService.get<APIResponse<MobileCodeDropdownDto[]>>(
+  getMobileCodeDropDown(): Observable<MobileCodeDropdownDto[]> {
+    return this.httpService.get<MobileCodeDropdownDto[]>(
       `Country/GetAllCountryCodeDropDown`
     );
   }
 
-  getCountryDropDown(): Observable<APIResponse<CountryDropDown[]>> {
-    return this.httpService.get<APIResponse<CountryDropDown[]>>(
-      `Country/GetAllDropDown`
-    );
+  getCountryDropDown(): Observable<CountryDropDown[]> {
+    return this.httpService.get<CountryDropDown[]>(`Country/GetAllDropDown`);
   }
 
-  activateCompany(id: number): Observable<APIResponse<boolean>> {
-    return this.httpService.put<APIResponse<boolean>>(
-      `Company/activatecompany/${id}`,
-      {}
-    );
+  activateCompany(id: number): Observable<boolean> {
+    return this.httpService.put<boolean>(`Company/activatecompany/${id}`, {});
   }
-  deactivateCompany(id: number): Observable<APIResponse<boolean>> {
-    return this.httpService.put<APIResponse<boolean>>(
-      `Company/deactivatecompany/${id}`,
-      {}
-    );
+  deactivateCompany(id: number): Observable<boolean> {
+    return this.httpService.put<boolean>(`Company/deactivatecompany/${id}`, {});
   }
 
   constructor(private httpService: HttpService) {}

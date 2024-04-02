@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpService } from './base.httpservice';
 import {
-  APIResponse,
   AttachmentDto,
   AttachmentFileTypeEnum,
   FileDto,
@@ -79,6 +78,9 @@ export class AttachmentsService {
           fileId
       )
       .subscribe((apiResponse: AttachmentDto) => {
+
+        console.log("attachmentResp",apiResponse);
+        
         if (apiResponse) {
           const source = `${fileTypeMetaData.fileBase64Padding},${apiResponse.fileContent}`;
 

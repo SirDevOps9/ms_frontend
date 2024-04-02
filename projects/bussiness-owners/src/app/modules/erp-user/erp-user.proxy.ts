@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { APIResponse, HttpService } from 'shared-lib';
+import { HttpService } from 'shared-lib';
 import { UserListResponse } from '../user/models';
 
 @Injectable({

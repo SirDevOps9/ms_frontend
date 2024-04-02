@@ -102,9 +102,11 @@ export class HttpService {
     );
   }
 
-  postFullUrl<T>(url: string, data: any, showError: boolean = true) {
+  postFullUrl(url: string, data: any, showError: boolean = true) {
     return this.addHeaders().pipe(
-      switchMap((headers) => this.http.post<T>(`${url}`, data, { headers })),
+      switchMap((headers) =>
+        this.http.post(`${url}`, data, { headers, responseType: 'text' })
+      ),
       catchError((response: HttpErrorResponse) =>
         this.errorHandler(url, response, data, showError)
       )
@@ -142,7 +144,7 @@ export class HttpService {
       )
     );
   }
-//TODO : disuccs the error handler call back function
+  //TODO : disuccs the error handler call back function
   errorHandler(
     callUrl: string,
     response: HttpErrorResponse,

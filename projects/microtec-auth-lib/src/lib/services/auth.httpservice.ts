@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LoginModel } from '../models/loginmodel';
 import { AuthenticationResponse } from '../models/authenticationResponse';
-import { HttpService, APIResponse } from 'shared-lib';
+import { HttpService } from 'shared-lib';
 import { TokenModel } from '../models/tokenmodel';
 
 @Injectable({

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { HttpService } from './base.httpservice';
-import { APIResponse, LookupEnum, lookupDto, lookupsListDto } from '../models';
+import { LookupEnum, lookupDto, lookupsListDto } from '../models';
 
 @Injectable({
   providedIn: 'root',

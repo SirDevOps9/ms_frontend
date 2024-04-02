@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { APIResponse, HttpService } from 'shared-lib';
+import { HttpService } from 'shared-lib';
 import { ResponsePlanDto, SubscriptionDto } from './models';
 import { Injectable } from '@angular/core';
 
