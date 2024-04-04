@@ -9,8 +9,13 @@
                 [appControl]="companyHierarchyForm.controls['companyType']"
               >
                 {{ "Company.Hierarchy.CompanyType" | translate }}
+                
               </lib-label>
-              {{ companyType }}
+              <div class="view">
+                {{ companyType }}
+
+              </div>
+              
             </lib-form-group>
           </div>
           <div
@@ -23,7 +28,9 @@
               >
                 {{ "Company.Hierarchy.Subsidiary" | translate }}
               </lib-label>
-              {{ subsidiary.name }}
+              <div class="view">
+                {{ subsidiary.name }}
+              </div> 
             </lib-form-group>
           </div>
         </div>

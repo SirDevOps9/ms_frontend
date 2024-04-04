@@ -24,33 +24,29 @@
     <div class="company_route">
       <div class="tab active_link" id="addres" (click)="activeTag('addres')">
         <a (click)="navigateToAddress()">
-          {{ "Company.AddressTab" | translate }}</a
-        >
+          {{ "Company.AddressTab" | translate }}</a>
       </div>
       <div class="tab" id="contact" (click)="activeTag('contact')">
         <a (click)="navigateToContact()">
-          {{ "Company.ContactTab" | translate }}</a
-        >
+          {{ "Company.ContactTab" | translate }}</a>
       </div>
       <div class="tab" id="legal" (click)="activeTag('legal')">
         <a (click)="navigateToLegal()"> {{ "Company.LegalTab" | translate }}</a>
       </div>
       <div class="tab" id="hierarchy" (click)="activeTag('hierarchy')">
         <a (click)="navigateToHierarchy()">
-          {{ "Company.HierarchyTab" | translate }}</a
-        >
+          {{ "Company.HierarchyTab" | translate }}</a>
       </div>
       <div class="tab" id="branches" (click)="activeTag('branches')">
         <a (click)="navigateToBranches()">
-          {{ "Company.BranchesTab" | translate }}</a
-        >
+          {{ "Company.BranchesTab" | translate }}</a>
       </div>
     </div>
     <div class="edit_btn">
       <button class="edit" (click)="toggleEditMode()">
         <i class="fa fa-regular fa-pen-to-square"></i>
         {{
-          editMode ? ("Company.Save" | translate) : ("Company.Edit" | translate)
+        editMode ? ("Company.Save" | translate) : ("Company.Edit" | translate)
         }}
       </button>
     </div>
