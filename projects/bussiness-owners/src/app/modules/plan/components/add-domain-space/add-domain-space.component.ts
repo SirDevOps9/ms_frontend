@@ -18,7 +18,8 @@ export class AddDomainSpaceComponent implements OnInit {
   }
   initializesubDomainForm() {
     this.subdomainForm = this.fb.group({
-      subdomain: ['', [customValidators.required]],
+      count: [ [customValidators.required]],
+      subdomain:['', [customValidators.required]]
     });
   }
   onSubmit() {
@@ -30,6 +31,14 @@ export class AddDomainSpaceComponent implements OnInit {
   onCancel() {
     this.ref.close();
   }
+
+  activeButton(id: any) {
+    const targetElementId = document.getElementById(id);
+    var test = document.querySelector('.btn_active');
+    test?.classList.remove('btn_active');
+    targetElementId?.classList.add('btn_active');
+  }
+  
   constructor(
     public config: DynamicDialogConfig,
     public dialogService: DialogService,

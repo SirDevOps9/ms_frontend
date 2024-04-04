@@ -6,61 +6,90 @@
     </div>
     <div class="pi pi-times cancel" (click)="onCancel()"></div>
   </div>
-  <form [formGroup]="subdomainForm" (ngSubmit)="onSubmit()">
+  <form class="domain_form" [formGroup]="subdomainForm" (ngSubmit)="onSubmit()">
     <div class="domain_content">
-      <div class="grid">
-        <div class="col-1">
-          <lib-form-group>
-            <lib-label [appControl]="subdomainForm.controls['subdomain']">
-              Count
-            </lib-label>
-            <lib-text-input type="number" formControlName="subdomain" />
-            <lib-field-validations
-              [appControl]="subdomainForm.controls['subdomain']"
-            >
-            </lib-field-validations>
-          </lib-form-group>
-        </div>
-        <div class="col-2">
-          <lib-form-group>
-            <lib-label [appControl]="subdomainForm.controls['subdomain']">
-              {{ "Company.Add.CompanyName" | translate }}
-            </lib-label>
-            <lib-text-input type="text" formControlName="subdomain" />
-            <lib-field-validations
-              [appControl]="subdomainForm.controls['subdomain']"
-            >
-            </lib-field-validations>
-          </lib-form-group>
-        </div>
-        <div class="col-1">
-          <lib-form-group>
-            <lib-label [appControl]="subdomainForm.controls['subdomain']">
-              Try Another Domain
-            </lib-label>
-            <lib-text-input type="number" formControlName="subdomain" />
-            <lib-field-validations
-              [appControl]="subdomainForm.controls['subdomain']"
-            >
-            </lib-field-validations>
-          </lib-form-group>
-        </div>
-        <div class="col-2">
-          <lib-form-group>
-            <lib-label [appControl]="subdomainForm.controls['subdomain']">
-              {{ "Company.Add.CompanyName" | translate }}
-            </lib-label>
-            <lib-text-input type="text" formControlName="subdomain" />
-            <lib-field-validations
-              [appControl]="subdomainForm.controls['subdomain']"
-            >
-            </lib-field-validations>
-          </lib-form-group>
+      <div class="data_content">
+        <div class="grid">
+          <div class="col-12 md:col-8">
+            <lib-form-group>
+              <lib-label [appControl]="subdomainForm.controls['count']">
+                Count
+              </lib-label>
+              <lib-text-input type="number" formControlName="count" />
+              <lib-field-validations
+                [appControl]="subdomainForm.controls['count']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12 md:col-4">
+            <div class="button-row">
+              <button
+                type="submit"
+                class="btn"
+                id="Monthly"
+                (click)="activeButton('Monthly')"
+              >
+                Monthly
+              </button>
+              <button
+                type="submit"
+                class="btn"
+                id="Yearly"
+                (click)="activeButton('Yearly')"
+              >
+                Yearly
+              </button>
+            </div>
+          </div>
+          <div class="col-12 price">
+            <p>
+              <sup class="currency">$</sup>
+              <span class="cost">26</span>
+              <sub class="period">Monthly</sub>
+            
+              </p>
+            
+          </div>
+          <div class="col-12 md:col-8">
+            <lib-form-group>
+              <lib-label [appControl]="subdomainForm.controls['subdomain']">
+                Try Another Domain
+              </lib-label>
+              <lib-text-input type="text" formControlName="subdomain" />
+              <lib-field-validations
+                [appControl]="subdomainForm.controls['subdomain']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12 md:col-4 domain_name">
+            <lib-form-group>
+              <!-- <lib-label [appControl]="subdomainForm.controls['subdomain']">
+                {{ "Company.Add.CompanyName" | translate }}
+              </lib-label> -->
+              <lib-text-input
+                type="text"
+                placeholder="@microtec.com.sa"
+                [readOnly]="true"
+              />
+            </lib-form-group>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="actions">
-      <button type="submit" class="save">Add To Cart</button>
+      <div class="actions">
+        <button
+          type="submit"
+          class="btn"
+          [ngClass]="{
+            'valid_btn ': subdomainForm.valid,
+            invaild_btn: !subdomainForm.valid
+          }"
+        >
+          Add To Cart
+          <span class="pi pi-shopping-cart"></span>
+        </button>
+      </div>
     </div>
   </form>
 </div>
