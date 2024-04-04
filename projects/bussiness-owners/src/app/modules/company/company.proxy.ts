@@ -19,24 +19,24 @@ import { UpdateCompanyHierarchyDto } from './models/updatecompanyhierarchydto';
 })
 export class CompanyProxy {
 
-  getLookups(): Observable<APIResponse<lookupsListDto>> {
-    return this.httpService.get<APIResponse<lookupsListDto>>('Company/Lookups');
+  getLookups(): Observable<lookupsListDto> {
+    return this.httpService.get<lookupsListDto>('Company/Lookups');
   }
 
-  getCompanyById(id: string): Observable<APIResponse<ResponseCompanyDto>> {
-    return this.httpService.get<APIResponse<ResponseCompanyDto>>(
+  getCompanyById(id: string): Observable<ResponseCompanyDto> {
+    return this.httpService.get<ResponseCompanyDto>(
       `Company/${id}`
     );
   }
 
-  activateCompany(id: string): Observable<APIResponse<boolean>> {
-    return this.httpService.put<APIResponse<boolean>>(
+  activateCompany(id: string): Observable<boolean> {
+    return this.httpService.put<boolean>(
       `Company/activatecompany/${id}`,
       {}
     );
   }
-  deactivateCompany(id: string): Observable<APIResponse<boolean>> {
-    return this.httpService.put<APIResponse<boolean>>(
+  deactivateCompany(id: string): Observable<boolean> {
+    return this.httpService.put<boolean>(
       `Company/deactivatecompany/${id}`,
       {}
     );
@@ -44,16 +44,16 @@ export class CompanyProxy {
 
   getAll(
     subscriptionId: string
-  ): Observable<APIResponse<ResponseCompanyDto[]>> {
-    return this.httpService.get<APIResponse<ResponseCompanyDto[]>>(
+  ): Observable<ResponseCompanyDto[]> {
+    return this.httpService.get<ResponseCompanyDto[]>(
       `Company?subscriptionId=${subscriptionId}`
     );
   }
 
   addCompanyPopup(
     request: AddCompanyPopupDto
-  ): Observable<APIResponse<ResponseCompanyDto>> {
-    return this.httpService.post<APIResponse<ResponseCompanyDto>>(
+  ): Observable<ResponseCompanyDto> {
+    return this.httpService.post<ResponseCompanyDto>(
       'Company',
       request
     );
@@ -61,8 +61,8 @@ export class CompanyProxy {
 
   saveCompanyContact(
     request: CompanyContactDto
-  ): Observable<APIResponse<ResponseCompanyDto>> {
-    return this.httpService.post<APIResponse<ResponseCompanyDto>>(
+  ): Observable<ResponseCompanyDto> {
+    return this.httpService.post<ResponseCompanyDto>(
       'Company/Contact/AddorUpdate',
       request
     );
@@ -70,8 +70,8 @@ export class CompanyProxy {
 
   saveCompanyAddress(
     request: CompanyAddressDto
-  ): Observable<APIResponse<ResponseCompanyDto>> {
-    return this.httpService.post<APIResponse<ResponseCompanyDto>>(
+  ): Observable<ResponseCompanyDto> {
+    return this.httpService.post<ResponseCompanyDto>(
       'Company/Address/AddorUpdate',
       request
     );
@@ -79,8 +79,8 @@ export class CompanyProxy {
 
   saveCompanyLegal(
     request: CompanyLegalDto
-  ): Observable<APIResponse<ResponseCompanyDto>> {
-    return this.httpService.post<APIResponse<ResponseCompanyDto>>(
+  ): Observable<ResponseCompanyDto> {
+    return this.httpService.post<ResponseCompanyDto>(
       'Company/Legal/AddorUpdate',
       request
     );
@@ -88,8 +88,8 @@ export class CompanyProxy {
 
   saveCompanyHierarchy(
     request: UpdateCompanyHierarchyDto
-  ): Observable<APIResponse<CompanyHierarchyDto>> {
-    return this.httpService.post<APIResponse<CompanyHierarchyDto>>(
+  ): Observable<CompanyHierarchyDto> {
+    return this.httpService.post<CompanyHierarchyDto>(
       'Company/Hierarchy/Update',
       request
     );
@@ -97,62 +97,62 @@ export class CompanyProxy {
 
   getCompanyContactById(
     id: string
-  ): Observable<APIResponse<CompanyContactDto>> {
-    return this.httpService.get<APIResponse<CompanyContactDto>>(
+  ): Observable<CompanyContactDto> {
+    return this.httpService.get<CompanyContactDto>(
       `Company/Contact/${id}`
     );
   }
 
-  getCompanyAddressId(id: string): Observable<APIResponse<CompanyAddressDto>> {
-    return this.httpService.get<APIResponse<CompanyAddressDto>>(
+  getCompanyAddressId(id: string): Observable<CompanyAddressDto> {
+    return this.httpService.get<CompanyAddressDto>(
       `Company/Address/${id}`
     );
   }
 
-  getCompanyLegalById(id: string): Observable<APIResponse<CompanyLegalDto>> {
-    return this.httpService.get<APIResponse<CompanyLegalDto>>(
+  getCompanyLegalById(id: string): Observable<CompanyLegalDto> {
+    return this.httpService.get<CompanyLegalDto>(
       `Company/Legal/${id}`
     );
   }
 
   getCompanyHierarchyById(
     id: string
-  ): Observable<APIResponse<CompanyHierarchyDto>> {
-    return this.httpService.get<APIResponse<CompanyHierarchyDto>>(
+  ): Observable<CompanyHierarchyDto> {
+    return this.httpService.get<CompanyHierarchyDto>(
       `Company/Hierarchy/${id}`
     );
   }
 
-  getAllBranches(companyId: string): Observable<APIResponse<BranchDto[]>> {
-    return this.httpService.get<APIResponse<BranchDto[]>>(
+  getAllBranches(companyId: string): Observable<BranchDto[]> {
+    return this.httpService.get<BranchDto[]>(
       `Branch?companyId=${companyId}`
     );
   }
 
-  addBranch(request: CreateBranchDto): Observable<APIResponse<BranchDto>> {
-    return this.httpService.post<APIResponse<BranchDto>>('Branch', request);
+  addBranch(request: CreateBranchDto): Observable<BranchDto> {
+    return this.httpService.post<BranchDto>('Branch', request);
   }
 
-  editBranch(request: EditBranchDto): Observable<APIResponse<BranchDto>> {
-    return this.httpService.put<APIResponse<BranchDto>>('Branch', request);
+  editBranch(request: EditBranchDto): Observable<BranchDto> {
+    return this.httpService.put<BranchDto>('Branch', request);
   }
 
-  getBranchById(id: string): Observable<APIResponse<BranchDto>> {
-    return this.httpService.get<APIResponse<BranchDto>>(`Branch/${id}`);
+  getBranchById(id: string): Observable<BranchDto> {
+    return this.httpService.get<BranchDto>(`Branch/${id}`);
   }
 
-  deleteBranch(id: string): Observable<APIResponse<BranchDto>> {
-    return this.httpService.delete<APIResponse<BranchDto>>(`Branch?id=${id}`);
+  deleteBranch(id: string): Observable<BranchDto> {
+    return this.httpService.delete<BranchDto>(`Branch?id=${id}`);
   }
 
-  activateBranch(id: string): Observable<APIResponse<string>> {
-    return this.httpService.put<APIResponse<string>>(
+  activateBranch(id: string): Observable<string> {
+    return this.httpService.put<string>(
       `Branch/ActivateBranch/${id}`,
       {}
     );
   }
-  deActivateBranch(id: string): Observable<APIResponse<string>> {
-    return this.httpService.put<APIResponse<string>>(
+  deActivateBranch(id: string): Observable<string> {
+    return this.httpService.put<string>(
       `Branch/DeActivateBranch/${id}`,
       {}
     );

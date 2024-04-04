@@ -5,7 +5,6 @@ import { BehaviorSubject, Observable, catchError, map } from 'rxjs';
 import {
   LanguageService,
   LoaderService,
-  RouterService,
   ToasterService,
 } from 'shared-lib';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -41,7 +40,7 @@ export class CompanyService {
 
   loadCompanies(subscriptionId: string) {
     this.companyProxy.getAll(subscriptionId).subscribe((response) => {
-      this.companiesDataSource.next(response.response);
+      this.companiesDataSource.next(response);
     });
   }
 
@@ -149,7 +148,7 @@ export class CompanyService {
   addCompanyPopup(
     company: AddCompanyPopupDto,
     dialogRef: DynamicDialogRef
-  ): Observable<APIResponse<ResponseCompanyDto>> {
+  ): Observable<ResponseCompanyDto> {
     this.loaderService.show();
     return this.companyProxy.addCompanyPopup(company).pipe(
       map((res) => {
@@ -161,9 +160,9 @@ export class CompanyService {
         dialogRef.close(res);
         return res;
       }),
-      catchError((err: APIResponse<string>) => {
+      catchError((err: string) => {
         this.loaderService.hide();
-        throw err.error?.errorMessage!;
+        throw err;
       })
     );
   }
@@ -235,7 +234,7 @@ export class CompanyService {
 
   loadBranches(companyId: string) {
     this.companyProxy.getAllBranches(companyId).subscribe((response) => {
-      this.branchesDataSource.next(response.response);
+      this.branchesDataSource.next(response);
     });
   }
 
@@ -268,7 +267,7 @@ export class CompanyService {
         );
         this.loaderService.hide();
 
-        dialogRef.close(res.response);
+        dialogRef.close(res);
       },
       error: () => {
         this.loaderService.hide();
@@ -308,7 +307,7 @@ export class CompanyService {
         );
         this.loaderService.hide();
 
-        dialogRef.close(res.response);
+        dialogRef.close(res);
       },
       error: () => {
         this.loaderService.hide();
@@ -319,10 +318,10 @@ export class CompanyService {
   getBranchById(branchId: string) {
     return this.companyProxy.getBranchById(branchId).pipe(
       map((res) => {
-        return res.response;
+        return res;
       }),
-      catchError((err: APIResponse<string>) => {
-        throw err.error?.errorMessage!;
+      catchError((err: string) => {
+        throw err!;
       })
     );
   }
@@ -416,20 +415,20 @@ export class CompanyService {
   getCompanyById(companyId: string) {
     return this.companyProxy.getCompanyById(companyId).pipe(
       map((res) => {
-        return res.response;
+        return res;
       }),
-      catchError((err: APIResponse<string>) => {
-        throw err.error?.errorMessage!;
+      catchError((err: string) => {
+        throw err;
       })
     );
   }
   getCompanyContactById(companyId: string) {
     return this.companyProxy.getCompanyContactById(companyId).pipe(
       map((res) => {
-        return res.response;
+        return res;
       }),
-      catchError((err: APIResponse<string>) => {
-        throw err.error?.errorMessage!;
+      catchError((err:string) => {
+        throw err;
       })
     );
   }
@@ -437,10 +436,10 @@ export class CompanyService {
   getCompanyAddressId(companyId: string) {
     return this.companyProxy.getCompanyAddressId(companyId).pipe(
       map((res) => {
-        return res.response;
+        return res;
       }),
-      catchError((err: APIResponse<string>) => {
-        throw err.error?.errorMessage!;
+      catchError((err: string) => {
+        throw err;
       })
     );
   }
@@ -448,10 +447,10 @@ export class CompanyService {
   getCompanyLegalById(companyId: string) {
     return this.companyProxy.getCompanyLegalById(companyId).pipe(
       map((res) => {
-        return res.response;
+        return res;
       }),
-      catchError((err: APIResponse<string>) => {
-        throw err.error?.errorMessage!;
+      catchError((err: string) => {
+        throw err;
       })
     );
   }
@@ -459,10 +458,10 @@ export class CompanyService {
   getCompanyHierarchyById(companyId: string) {
     return this.companyProxy.getCompanyHierarchyById(companyId).pipe(
       map((res) => {
-        return res.response;
+        return res;
       }),
-      catchError((err: APIResponse<string>) => {
-        throw err.error?.errorMessage!;
+      catchError((err: string) => {
+        throw err;
       })
     );
   }

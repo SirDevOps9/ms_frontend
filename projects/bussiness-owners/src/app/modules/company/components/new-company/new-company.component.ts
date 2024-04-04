@@ -39,7 +39,7 @@ export class NewCompanyComponent {
     request.subdomainId = 2;
     console.log('sdgd', this.addCompanyForm.value);
     this.companyService.addCompanyPopup(request, this.ref).subscribe((res) => {
-      this.companyId = res.response.id;
+      this.companyId = res.id;
     });
   }
   private initializeForm() {
@@ -75,7 +75,7 @@ export class NewCompanyComponent {
     const request: AddCompanyPopupDto = this.addCompanyForm.value;
     request.subdomainId = 2;
     this.companyService.addCompanyPopup(request, this.ref).subscribe((res) => {
-      this.companyId = res.response.id;
+      this.companyId = res.id;
       this.routerService.navigateTo('company/edit/' + this.companyId);
     });
   }
