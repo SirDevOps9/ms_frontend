@@ -16,4 +16,7 @@ export class PlanProxy {
   getAllSubscriptions(): Observable<SubscriptionDto[]> {
     return this.baseService.get<SubscriptionDto[]>(`Subscription`);
   }
+  getSubdomainDetails(id:number): Observable<any[]> {
+    return this.baseService.get<SubscriptionDto[]>(`Subdomain/GetsubdomainDetail?subdomainId=${id}`);
+  }
 }
