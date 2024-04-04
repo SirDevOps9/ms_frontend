@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { HttpService } from 'shared-lib';
 import { ResponsePlanDto, SubscriptionDto } from './models';
 import { Injectable } from '@angular/core';
+import { DomainSpaceDto } from './models/domainspacedto';
 
 @Injectable({
   providedIn: 'root',
@@ -16,4 +17,12 @@ export class PlanProxy {
   getAllSubscriptions(): Observable<SubscriptionDto[]> {
     return this.baseService.get<SubscriptionDto[]>(`Subscription`);
   }
+
+  addSubdomain(subdomain: DomainSpaceDto): Observable<boolean> {
+    return this.baseService.post<DomainSpaceDto>(
+      `Subscription/Addsubdomain`,
+      subdomain
+    );
+  }
+
 }

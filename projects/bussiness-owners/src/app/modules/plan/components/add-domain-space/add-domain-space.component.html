@@ -1,0 +1,66 @@
+<div class="new_domain">
+  <div class="domain_header">
+    <div class="title">
+      <div class="plus_icon"></div>
+      Add Domain Space
+    </div>
+    <div class="pi pi-times cancel" (click)="onCancel()"></div>
+  </div>
+  <form [formGroup]="subdomainForm" (ngSubmit)="onSubmit()">
+    <div class="domain_content">
+      <div class="grid">
+        <div class="col-1">
+          <lib-form-group>
+            <lib-label [appControl]="subdomainForm.controls['subdomain']">
+              Count
+            </lib-label>
+            <lib-text-input type="number" formControlName="subdomain" />
+            <lib-field-validations
+              [appControl]="subdomainForm.controls['subdomain']"
+            >
+            </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="col-2">
+          <lib-form-group>
+            <lib-label [appControl]="subdomainForm.controls['subdomain']">
+              {{ "Company.Add.CompanyName" | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="subdomain" />
+            <lib-field-validations
+              [appControl]="subdomainForm.controls['subdomain']"
+            >
+            </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="col-1">
+          <lib-form-group>
+            <lib-label [appControl]="subdomainForm.controls['subdomain']">
+              Try Another Domain
+            </lib-label>
+            <lib-text-input type="number" formControlName="subdomain" />
+            <lib-field-validations
+              [appControl]="subdomainForm.controls['subdomain']"
+            >
+            </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="col-2">
+          <lib-form-group>
+            <lib-label [appControl]="subdomainForm.controls['subdomain']">
+              {{ "Company.Add.CompanyName" | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="subdomain" />
+            <lib-field-validations
+              [appControl]="subdomainForm.controls['subdomain']"
+            >
+            </lib-field-validations>
+          </lib-form-group>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="submit" class="save">Add To Cart</button>
+    </div>
+  </form>
+</div>

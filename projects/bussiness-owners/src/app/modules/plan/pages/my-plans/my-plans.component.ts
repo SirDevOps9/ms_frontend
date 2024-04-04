@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { RouterService } from 'shared-lib';
+import { FormsService, RouterService } from 'shared-lib';
 import { SubscriptionDto } from '../../models';
 import { PlanService } from '../../plan.service';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   templateUrl: './my-plans.component.html',
@@ -10,15 +12,16 @@ import { PlanService } from '../../plan.service';
 })
 export class MyPlansComponent implements OnInit {
   plansList: SubscriptionDto[];
-  constructor(
-    private routerService: RouterService,
-    private planService: PlanService,
-    private titleService: Title
-  ) {}
+
+  ref: DynamicDialogRef;
 
   ngOnInit() {
     this.titleService.setTitle('My plans');
     this.loadSubscriptions();
+  }
+
+  openSubdomainModal() {
+    this.planService.openSubdomainModal(this.ref, this.dialog);
   }
 
   navigateToManageCompany(planId: string) {
@@ -35,4 +38,11 @@ export class MyPlansComponent implements OnInit {
       this.plansList = plansList;
     });
   }
+
+  constructor(
+    private routerService: RouterService,
+    private planService: PlanService,
+    private titleService: Title,
+    private dialog: DialogService,
+  ) {}
 }

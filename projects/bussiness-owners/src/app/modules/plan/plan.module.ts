@@ -7,10 +7,12 @@ import { MyPlansComponent } from './pages/my-plans/my-plans.component';
 import { PlanComponent } from './pages/plan-list/plan.component';
 import { LayoutModule } from '../layout/layout.module';
 import { LayoutComponent } from '../layout/layout-page/layout.component';
+import { AddDomainSpaceComponent } from './components/add-domain-space/add-domain-space.component';
+
 
 const routes: Routes = [
   {
-    path:'',
+    path: '',
     component: LayoutComponent,
     children: [
       {
@@ -35,7 +37,11 @@ const routes: Routes = [
 
 @NgModule({
   providers: [],
-  declarations: [PlanComponent, MyPlansComponent],
+  declarations: [
+    PlanComponent, 
+    MyPlansComponent, 
+    AddDomainSpaceComponent
+  ],
   imports: [
     MicrotecAuthLibModule,
     SharedLibModule,
