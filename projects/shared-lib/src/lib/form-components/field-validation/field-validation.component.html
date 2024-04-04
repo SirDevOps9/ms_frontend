@@ -8,6 +8,11 @@
   <span class="errorMessage" *ngIf="appControl.errors?.['required']">
     {{ "validation.required" | translate }}
   </span>
+
+  <span class="errorMessage" *ngIf="appControl.errors?.['serverError']">
+    {{appControl.errors?.['serverError']}}
+  </span>
+
   <span class="errorMessage" *ngIf="appControl.errors?.['invalidOnlySaudiId']">
     {{ "validation.invalidOnlySaudiId" | translate }}
   </span>

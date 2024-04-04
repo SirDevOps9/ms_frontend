@@ -3,7 +3,6 @@ import { CompanyProxy } from './company.proxy';
 import {  ResponseCompanyDto } from './models';
 import { BehaviorSubject, Observable, catchError, map } from 'rxjs';
 import {
-  APIResponse,
   LanguageService,
   LoaderService,
   RouterService,

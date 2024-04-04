@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { APIResponse, HttpService, lookupsListDto } from 'shared-lib';
+import { HttpService, lookupsListDto } from 'shared-lib';
 import {
   ResponseCompanyDto,
 } from './models';

@@ -16,13 +16,13 @@ export class PlanService {
 
   loadSubscription() {
     this.planProxy.getAllSubscriptions().subscribe((response) => {
-      this.subscriptionDataSource.next(response.response);
+      this.subscriptionDataSource.next(response);
     });
   }
 
   loadPlans() {
     this.planProxy.getAllPlans().subscribe((response) => {
-      this.plansDataSource.next(response.response);
+      this.plansDataSource.next(response);
     });
   }
 }

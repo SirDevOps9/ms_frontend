@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map } from 'rxjs';
 import {
-  APIResponse,
   LanguageService,
   LoaderService,
   RouterService,
@@ -21,12 +20,12 @@ export class ERPUserService {
   getAllUsers(subscriptionId: number) {
     this.eRPUserProxy.getAll(subscriptionId).subscribe({
       next: (res) => {
-        this.userDataSource.next(res.response);
+        this.userDataSource.next(res);
       },
     });
   }
   constructor(
-    private eRPUserProxy:ERPUserProxy,
+    private eRPUserProxy: ERPUserProxy,
     private routerService: RouterService,
     private toasterService: ToasterService,
     private languageService: LanguageService,
