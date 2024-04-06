@@ -1,51 +1,109 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { FormsService, RouterService, customValidators } from 'shared-lib';
-import { DomainSpaceDto } from '../../models/domainspacedto';
-import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormsService, customValidators } from 'shared-lib';
+import {
+  DialogService,
+  DynamicDialogConfig,
+  DynamicDialogRef,
+} from 'primeng/dynamicdialog';
 import { PlanService } from '../../plan.service';
+import { DomainSpaceDto, PurchasingPaymentPeriod } from '../../models';
 
 @Component({
   selector: 'app-add-domain-space',
   templateUrl: './add-domain-space.component.html',
-  styleUrls: ['./add-domain-space.component.scss']
+  styleUrls: ['./add-domain-space.component.scss'],
 })
 export class AddDomainSpaceComponent implements OnInit {
   subdomainForm: FormGroup;
+  purchasingPaymentPeriod: PurchasingPaymentPeriod;
+  count: number;
+  period: string = 'Monthly';
+  cost: number = 0;
+
+  //need to get subdomain unit price
+  unitPrice: number = 50;
 
   ngOnInit() {
     this.initializesubDomainForm();
+    this.activeButton('Monthly');
+    this.subdomainForm.controls[
+      'purchasingPaymentCount'
+    ].valueChanges.subscribe(() => {
+      this.calculateCost();
+    });
   }
   initializesubDomainForm() {
     this.subdomainForm = this.fb.group({
-      count: [ [customValidators.required]],
-      subdomain:['', [customValidators.required]]
+      purchasingPaymentCount: new FormControl(0),
+      name: new FormControl('', [customValidators.required]),
+      purchasingPaymentPeriod: new FormControl([customValidators.required]),
     });
   }
   onSubmit() {
     if (!this.formService.validForm(this.subdomainForm, true)) return;
-    const domainModel: DomainSpaceDto = this.subdomainForm.value;
-    domainModel.id = ""
+    const domainModel: DomainSpaceDto = {
+      ...this.subdomainForm.value,
+      purchasingPaymentPeriod: this.purchasingPaymentPeriod,
+    };
+
     this.planService.addSubdomain(domainModel, this.ref);
   }
   onCancel() {
     this.ref.close();
   }
 
-  activeButton(id: any) {
-    const targetElementId = document.getElementById(id);
-    var test = document.querySelector('.btn_active');
-    test?.classList.remove('btn_active');
-    targetElementId?.classList.add('btn_active');
+  activeButton(id: string) {
+    this.purchasingPaymentPeriod =
+      id === 'Monthly'
+        ? PurchasingPaymentPeriod.Monthly
+        : PurchasingPaymentPeriod.Yearly;
+    this.period = id;
+    this.setRangeValidator(id);
   }
-  
+
+  setRangeValidator(selectedOption: string) {
+    const purchasingPaymentCountControl = this.subdomainForm.get(
+      'purchasingPaymentCount'
+    );
+
+    if (selectedOption === 'Monthly') {
+      purchasingPaymentCountControl?.setValidators([
+        customValidators.required,
+        customValidators.number,
+        customValidators.range(0, 12),
+      ]);
+    } else {
+      purchasingPaymentCountControl?.setValidators([
+        customValidators.required,
+        customValidators.number,
+      ]);
+    }
+
+    purchasingPaymentCountControl?.updateValueAndValidity();
+  }
+
+  calculateCost() {
+    const count = this.subdomainForm.controls['purchasingPaymentCount'].value;
+    const isMonthly = this.period === 'Monthly';
+
+    let totalDuration: number;
+
+    if (isMonthly) {
+      totalDuration = count;
+    } else {
+      totalDuration = count * 12;
+    }
+
+    this.cost = this.unitPrice * totalDuration;
+  }
+
   constructor(
     public config: DynamicDialogConfig,
     public dialogService: DialogService,
     private fb: FormBuilder,
     private formService: FormsService,
     private ref: DynamicDialogRef,
-    private planService: PlanService,
-    private routerService: RouterService
+    private planService: PlanService
   ) {}
 }

@@ -3,8 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { FormsService, RouterService } from 'shared-lib';
 import { SubscriptionDto } from '../../models';
 import { PlanService } from '../../plan.service';
-import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { FormBuilder } from '@angular/forms';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   templateUrl: './my-plans.component.html',
@@ -43,6 +42,6 @@ export class MyPlansComponent implements OnInit {
     private routerService: RouterService,
     private planService: PlanService,
     private titleService: Title,
-    private dialog: DialogService,
+    private dialog: DialogService
   ) {}
 }

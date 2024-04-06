@@ -9,7 +9,6 @@ import { LayoutModule } from '../layout/layout.module';
 import { LayoutComponent } from '../layout/layout-page/layout.component';
 import { AddDomainSpaceComponent } from './components/add-domain-space/add-domain-space.component';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -37,11 +36,7 @@ const routes: Routes = [
 
 @NgModule({
   providers: [],
-  declarations: [
-    PlanComponent, 
-    MyPlansComponent, 
-    AddDomainSpaceComponent
-  ],
+  declarations: [PlanComponent, MyPlansComponent, AddDomainSpaceComponent],
   imports: [
     MicrotecAuthLibModule,
     SharedLibModule,

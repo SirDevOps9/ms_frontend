@@ -1,4 +1,5 @@
 export interface DomainSpaceDto {
-    id: string;
-    subdomain: string;
+  name: string;
+  purchasingPaymentPeriod: number;
+  purchasingPaymentCount: number;
 }

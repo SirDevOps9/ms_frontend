@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ResponsePlanDto, SubscriptionDto } from './models';
+import { DomainSpaceDto, ResponsePlanDto, SubscriptionDto } from './models';
 import { PlanProxy } from './plan.proxy';
-import { LanguageService, LoaderService, RouterService, ToasterService } from 'shared-lib';
+import {
+  LanguageService,
+  LoaderService,
+  RouterService,
+  ToasterService,
+} from 'shared-lib';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { DomainSpaceDto } from './models/domainspacedto';
 import { AddDomainSpaceComponent } from './components/add-domain-space/add-domain-space.component';
 @Injectable({
   providedIn: 'root',
@@ -15,8 +19,6 @@ export class PlanService {
 
   private plansDataSource = new BehaviorSubject<ResponsePlanDto[]>([]);
   public plans = this.plansDataSource.asObservable();
-
-  //constructor(private planProxy: PlanProxy) {}
 
   loadSubscription() {
     this.planProxy.getAllSubscriptions().subscribe((response) => {
@@ -30,8 +32,7 @@ export class PlanService {
     });
   }
 
-
-  openSubdomainModal( ref: DynamicDialogRef, dialog: DialogService) {
+  openSubdomainModal(ref: DynamicDialogRef, dialog: DialogService) {
     ref = dialog.open(AddDomainSpaceComponent, {
       width: '600px',
       height: '600px',
