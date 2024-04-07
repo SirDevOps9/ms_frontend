@@ -1,0 +1,90 @@
+<div class="new_company">
+    <div class="company_header">
+        <div class="title">
+            Add New company
+        </div>
+        <div class="code">
+          <div class="title">
+            company Code
+          </div>
+          <div class="code_text">
+            112554
+          </div>
+          <div class="pi  pi-times cancel" (click)="onCancel()">
+
+          </div>
+        </div>
+    </div>
+   <div class="company_content">
+        <form 
+        [formGroup]="addCompanyForm"
+        (ngSubmit)="submitForm()"
+        >
+       <div class="grid">
+        <div class=" col-12 md:col-4">
+            <lib-file-uploader>
+
+            </lib-file-uploader>
+            <div class="text">
+                <p>Add
+                <br>
+                Company Logo
+                </p>
+
+            </div>
+        </div>
+        <div class=" col-12 md:col-8">
+            <div class="grid">
+                <div class="col-12">
+                    <lib-form-group>
+                        <lib-label [appControl]="addCompanyForm.controls['Country']">
+                          {{ "Company.Add.CompanyName" | translate }}
+                        </lib-label>
+                        <lib-text-input type="text" formControlName="Country" />
+                        <lib-field-validations [appControl]="addCompanyForm.controls['Country']">
+                        </lib-field-validations>
+                      </lib-form-group>
+                </div>
+                <div class="col-12">
+                    <lib-form-group>
+                        <lib-label [appControl]="addCompanyForm.controls['Country']">
+                          {{ "Company.Add.CompanyName" | translate }}
+                        </lib-label>
+                        <lib-text-input type="text" formControlName="Country" />
+                        <lib-field-validations [appControl]="addCompanyForm.controls['Country']">
+                        </lib-field-validations>
+                      </lib-form-group>
+                </div>
+                <div class="col-12">
+                    <lib-form-group>
+                        <lib-label [appControl]="addCompanyForm.controls['Country']">
+                          {{ "Company.Add.Country" | translate }}
+                        </lib-label>
+                        <lib-select
+                          formControlName="Country"
+                          [options]="lookups[LookupEnum.Country]"
+                          optionValue="id"
+                          optionLabel="name"
+                        >
+                        </lib-select>
+                        <lib-field-validations [appControl]="addCompanyForm.controls['Country']">
+                        </lib-field-validations>
+                      </lib-form-group>
+                </div>
+            </div>
+           
+        </div>
+
+       </div>
+     
+        <div class="actions">
+            <button type="button" class="edit"  (click)="onCancel()">
+                save and edite
+            </button>
+            <button type="submit"  class="save">
+                save
+            </button>
+        </div>
+        </form>
+    </div> 
+</div>

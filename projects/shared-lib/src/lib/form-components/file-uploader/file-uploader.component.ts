@@ -7,7 +7,7 @@ import {
   Self,
 } from '@angular/core';
 import {
-AbstractControl,
+  AbstractControl,
   ControlValueAccessor,
   NgControl,
   ValidationErrors,
@@ -15,7 +15,7 @@ AbstractControl,
 } from '@angular/forms';
 import { AttachmentsService } from '../../services';
 import {
-  APIResponse,
+  AttachmentDto,
   AttachmentFileTypeEnum,
   UploadFileConfigDto,
 } from '../../models';
@@ -128,9 +128,9 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
   private updateImageBase64() {
     this.attachmentService
       .getAttachment(this.value)
-      .subscribe((response: APIResponse<any>) => {
-        if (response?.response?.fileContent) {
-          const source = `data:image/jpg;base64,${response.response.fileContent}`;
+      .subscribe((response: AttachmentDto) => {
+        if (response?.fileContent) {
+          const source = `data:image/jpg;base64,${response.fileContent}`;
           this.base64 = source;
         }
       });

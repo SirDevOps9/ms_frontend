@@ -16,7 +16,7 @@ export class LoginRedirectComponent implements OnInit {
       .pipe(switchMap(() => this.authHttp.UpdateLastLoggingTime()))
       .subscribe({
         next: (tenantObj) => {
-          this.localStorage.setItem(StorageKeys.TENANT, tenantObj.response);
+          this.localStorage.setItem(StorageKeys.TENANT, tenantObj);
           this.authService.afterLoginRedirect();
         },
       });

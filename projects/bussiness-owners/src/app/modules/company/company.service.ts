@@ -11,6 +11,7 @@ import {
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NewBranchesComponent } from './components/new-branches/new-branches.component';
 import { EditBranchesComponent } from './components/edit-branches/edit-branches.component';
+import { NewCompanyComponent } from './components/new-company/new-company.component';
 
 
 @Injectable({
@@ -32,7 +33,7 @@ export class CompanyService {
 
   loadCompanies(subscriptionId: string) {
     this.companyProxy.getAll(subscriptionId).subscribe((response) => {
-      this.companiesDataSource.next(response.response.reverse());
+      this.companiesDataSource.next(response.reverse());
     });
   }
 
@@ -106,6 +107,21 @@ export class CompanyService {
   }
   editBranche(ref: DynamicDialogRef, dialog: DialogService) {
     ref = dialog.open(EditBranchesComponent, {
+      width: '600px',
+      height: '600px',
+    });
+    ref.onClose.subscribe((result: any) => {
+      if (result as any) {
+        const updatedUserList: any[] = [
+          ...this.branchData.value,
+          result,
+        ];
+        this.branchData.next(updatedUserList);
+      }
+    });
+  }
+  newCompany(ref: DynamicDialogRef, dialog: DialogService) {
+    ref = dialog.open(NewCompanyComponent, {
       width: '600px',
       height: '600px',
     });

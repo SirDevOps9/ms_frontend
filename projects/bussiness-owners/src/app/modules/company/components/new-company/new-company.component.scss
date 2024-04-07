@@ -1,0 +1,76 @@
+.new_company{
+    .company_header{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #F7F8F8;
+      padding: 20px ;
+        .title{
+          font-size: 18px;
+          font-weight: 700;
+          color: #383A42;
+      }
+      .code{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+         
+          .title{
+              font-size: 16px;
+              color: #383A42;
+          }
+          .code_text{
+              margin-inline-start: 20px;
+              margin-inline-end: 20px;
+              font-size: 18px;
+              color: #2B6FAE;
+          }
+          .cancel{
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 700;
+          }
+      }
+    } 
+    .company_content{
+        padding: 20px;
+        margin-top: 50px;
+      .actions{
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          margin: 50px 0px;
+          .save{
+              min-width: 40%;
+              background-color: #1A8EAE;
+              padding: 10px 0;
+              color: #fff;
+              border: 2px solid #1A8EAE;
+              border-radius: 12px;
+              font-size: 22px;
+              cursor: pointer;
+          }
+          .edit{
+              min-width: 40%;
+            text-transform: capitalize;
+              background-color: #fff;
+              padding: 10px 0;
+              color: #1A8EAE;
+              border: 2px solid #1A8EAE;
+              border-radius: 12px;
+              font-size: 22px;
+              cursor: pointer;
+          }
+      }
+  
+    } 
+  }
+  ::ng-deep{
+    .p-dialog .p-dialog-header {
+        display: none !important;
+      }
+      .p-dialog .p-dialog-content {
+        padding: 0 !important;
+      }
+  }
+ 
