@@ -1,34 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
 import { LookupEnum, LookupsService, RouterService, customValidators, lookupDto } from 'shared-lib';
-@Component({
-  selector: 'app-company-addres',
-  templateUrl: './company-addres.component.html',
-  providers: [RouterService],
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
-  styleUrl: './company-addres.component.scss'
+@Component({
+  selector: 'app-new-company',
+  templateUrl: './new-company.component.html',
+  styleUrl: './new-company.component.scss'
 })
-export class CompanyAddresComponent implements OnInit {
-  companyAddresForm: FormGroup;
+export class NewCompanyComponent {
+  addCompanyForm: FormGroup;
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
-
   ngOnInit() {
-    this.loadLookups();
     this.initializeForm();
+    this.loadLookups();
     this.Subscribe();
   }
-  Subscribe() {
-    this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
-  }
   initializeForm(){
-    this.companyAddresForm= this.fb.group({
+    this.addCompanyForm = this.fb.group({
       Country:["",customValidators.required],
-      City:["",customValidators.required ],
-      Region:["", customValidators.required],
-      Address:["", customValidators.required],
-      longitude:["",customValidators.required],
-      latitude:["",customValidators.required],
+      mobileNumberCode:["",customValidators.required],
+      mobileNumber:["",customValidators.required],
     })
   }
   loadLookups() {
@@ -39,13 +32,19 @@ export class CompanyAddresComponent implements OnInit {
       LookupEnum.MobileCode,
     ]);
   }
+  Subscribe() {
+    this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
+  }
   submitForm(){
-    console.log(this.companyAddresForm);
+    console.log(this.addCompanyForm);
     
+  }
+  onCancel() {
+    this.ref.close();
   }
   constructor(
     private fb: FormBuilder,
     public lookupsService: LookupsService,
-
+    private ref: DynamicDialogRef,
   ){}
 }

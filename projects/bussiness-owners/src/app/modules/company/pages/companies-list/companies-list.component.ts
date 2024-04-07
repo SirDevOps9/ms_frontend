@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { ResponseCompanyDto } from '../../models';
 import { CompanyService } from '../../company.service';
 import { TreeNode } from 'primeng/api'; 
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-companies-list',
@@ -18,15 +19,21 @@ export class CompaniesListComponent implements OnInit {
   tableData: TreeNode[] = []; 
   cols: any[] = []; 
   active:boolean=false
+  ref: DynamicDialogRef;
+
   constructor(
     private routerService: RouterService,
     private titleService: Title,
     private languageService: LanguageService,
     private companyService: CompanyService,
+    private dialog: DialogService,
   ) {}
 
-  navigateToAdd(): void {
-    this.routerService.navigateTo('company/new/' + this.subscriptionId);
+//   navigateToAdd(): void {
+//     this.routerService.navigateTo('company/new/' + this.subscriptionId);
+//   }
+addBranche() {
+    this.companyService.newCompany(this.ref, this.dialog);
   }
 
   ngOnInit() {
