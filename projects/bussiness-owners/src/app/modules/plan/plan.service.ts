@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { ResponsePlanDto, SubscriptionDto } from './models';
 import { PlanProxy } from './plan.proxy';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { SubdomainDetailsComponent } from './components/subdomain-details/subdomain-details.component';
+import { subdomainDetailsDto } from './models/subdomainDetailsDto';
+import { LogService } from 'shared-lib';
 @Injectable({
   providedIn: 'root',
 })
@@ -14,11 +16,11 @@ export class PlanService {
   private plansDataSource = new BehaviorSubject<ResponsePlanDto[]>([]);
   public plans = this.plansDataSource.asObservable();
 
-  private subdomainDetailsDataSource  = new BehaviorSubject<ResponsePlanDto[]>([]);
+  private subdomainDetailsDataSource  = new BehaviorSubject<subdomainDetailsDto | null>(null);
   public subdomainDetails = this.subdomainDetailsDataSource.asObservable();
 
-  constructor(private planProxy: PlanProxy) {}
-
+  constructor(private planProxy: PlanProxy , private logService: LogService) {}
+ 
   loadSubscription() {
     this.planProxy.getAllSubscriptions().subscribe((response) => {
       this.subscriptionDataSource.next(response);
@@ -38,8 +40,9 @@ export class PlanService {
     });
   }
   loadSubdomainDetails(id:number){
-    this.planProxy.getSubdomainDetails(id).subscribe((response) => {
+   this.planProxy.getSubdomainDetails(id).subscribe((response) => {
       this.subdomainDetailsDataSource.next(response);
+      
     });
   }
 }

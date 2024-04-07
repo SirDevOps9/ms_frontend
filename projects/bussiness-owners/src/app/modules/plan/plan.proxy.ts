@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { HttpService } from 'shared-lib';
 import { ResponsePlanDto, SubscriptionDto } from './models';
 import { Injectable } from '@angular/core';
+import { subdomainDetailsDto } from './models/subdomainDetailsDto';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class PlanProxy {
   getAllSubscriptions(): Observable<SubscriptionDto[]> {
     return this.baseService.get<SubscriptionDto[]>(`Subscription`);
   }
-  getSubdomainDetails(id:number): Observable<any[]> {
-    return this.baseService.get<SubscriptionDto[]>(`Subdomain/GetsubdomainDetail?subdomainId=${id}`);
+  getSubdomainDetails(id:number): Observable<subdomainDetailsDto> {
+    return this.baseService.get<subdomainDetailsDto>(`Subdomain/GetsubdomainDetail?subdomainId=${id}`);
   }
 }

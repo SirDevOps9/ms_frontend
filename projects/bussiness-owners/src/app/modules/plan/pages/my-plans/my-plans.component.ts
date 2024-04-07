@@ -27,7 +27,7 @@ export class MyPlansComponent implements OnInit {
     this.routerService.navigateTo('users/' + subdomainId);
   }
   navigateTosubdomainDetails(subdomainId: string) {
-    this.planService.opensubdomainDetails(this.ref, this.dialog,subdomainId);
+    this.planService.opensubdomainDetails(this.ref, this.dialog , 1);
     }
   loadSubscriptions() {
     this.planService.loadSubscription();

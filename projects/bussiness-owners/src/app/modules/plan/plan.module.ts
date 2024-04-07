@@ -7,6 +7,7 @@ import { MyPlansComponent } from './pages/my-plans/my-plans.component';
 import { PlanComponent } from './pages/plan-list/plan.component';
 import { LayoutModule } from '../layout/layout.module';
 import { LayoutComponent } from '../layout/layout-page/layout.component';
+import { SubdomainDetailsComponent } from './components/subdomain-details/subdomain-details.component';
 
 const routes: Routes = [
   {
@@ -29,13 +30,21 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.MY_PLAN,
         },
       },
+      {
+        path: 'subdomain-details',
+        component: SubdomainDetailsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.DOMAIN,
+        },
+      },
     ],
   },
 ];
 
 @NgModule({
   providers: [],
-  declarations: [PlanComponent, MyPlansComponent],
+  declarations: [PlanComponent, MyPlansComponent ,SubdomainDetailsComponent],
   imports: [
     MicrotecAuthLibModule,
     SharedLibModule,
