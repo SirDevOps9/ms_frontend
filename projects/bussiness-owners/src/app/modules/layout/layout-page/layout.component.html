@@ -80,6 +80,12 @@
                       <span class="pi pi-star icon_link"></span>
                     </button>
                   </div>
+                  <div class="link_sec">
+                    <!-- <div class="count">5</div> -->
+                    <button class="btn_count" (click)="routeToCart()">
+                      <span class="pi pi-shopping-cart icon_link"></span>
+                    </button>
+                  </div>
                   <div class="profaile_sec">
                     <button
                       (click)="cardDrob()"
@@ -175,12 +181,19 @@
               user
             </div>
           </button> -->
-          <button class="item" id="KPI" (click)="activeTag('KPI')">
-            <div class="item_icon">
-              <i class="fa fa-solid fa-globe"></i>
-            </div>
-            <div class="item_text">KPI's</div>
-          </button>
+          <div
+            class="item"
+            routerLink="/app-store"
+            id="app-store"
+            (click)="activeTag('appStore')"
+          >
+            <button>
+              <div class="item_icon">
+                <i class="fa fa-solid fa-globe"></i>
+              </div>
+              <div class="item_text">App store</div>
+            </button>
+          </div>
           <button class="item" id="Apps" (click)="activeTag('Apps')">
             <div class="item_icon">
               <i class="fa fa-solid fa-globe"></i>

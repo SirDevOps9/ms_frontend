@@ -26,7 +26,8 @@
     "Plan": "Plan",
     "AddCompany": "Add company",
     "ListCompany": "Company list",
-    "MyPlan": "My Plan"
+    "MyPlan": "My Plan",
+    "AppStore": "App store"
   },
   "User": {
     "PageName": "Users Index",
@@ -133,5 +134,12 @@
     "UpperCaseLetter": "Password must contain Upper Case Letter ",
     "SpecialCharacter": "Password must contain Special Character ",
     "PasswordmustcontainNumber": "Password must contain Number "
+  },
+  "AppStore": {
+    "AddedToCartSuccessfully": "Successfully added to cart",
+    "CheckedOut": "Successfully checked out"
+  },
+  "CartItem":{
+    "ItemRemovedSuccessfully":"Successfully removed from cart"
   }
 }

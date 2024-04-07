@@ -18,9 +18,10 @@ export const environment: IEnvironment = {
     silentRenew: true,
     useRefreshToken: true,
   },
-  AttachmentServiceConfig:{
-    AttachmentServiceUrl :"https://localhost:2030",
-    ClientId:"Accounting",
-    SecretKey:"secretkey",
-  }
+  AttachmentServiceConfig: {
+    AttachmentServiceUrl: 'https://localhost:2030',
+    ClientId: 'Accounting',
+    SecretKey: 'secretkey',
+  },
+  ApiKey: '3bb564df-0f24-4ea6-82c1-d99f368cac8a',
 };

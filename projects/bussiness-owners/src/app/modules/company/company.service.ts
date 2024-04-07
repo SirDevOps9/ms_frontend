@@ -33,7 +33,7 @@ export class CompanyService {
 
   loadCompanies(subscriptionId: string) {
     this.companyProxy.getAll(subscriptionId).subscribe((response) => {
-      this.companiesDataSource.next(response.response.reverse());
+      this.companiesDataSource.next(response.reverse());
     });
   }
 
