@@ -21,7 +21,7 @@ export class AddDomainSpaceComponent implements OnInit {
   period: string = 'Monthly';
   cost: number = 0;
 
-  //need to get subdomain unit price
+  // need to get subdomain unit price
   unitPrice: number = 50;
 
   ngOnInit() {
