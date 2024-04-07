@@ -9,7 +9,6 @@ import {
   lookupDto,
 } from 'shared-lib';
 import { CompanyService } from '../../company.service';
-import { Router } from '@angular/router';
 import { CompanyAddressDto } from '../../models';
 @Component({
   selector: 'app-company-addres',
