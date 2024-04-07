@@ -153,7 +153,7 @@
         <div class="content" *ngIf="!sidebarOpen">
           <div
             class="item"
-            routerLink="/my-plans"
+            routerLink="/my-subscriptions"
             id="subscripition"
             (click)="activeTag('subscripition')"
           >
@@ -202,14 +202,14 @@
           </button>
           <button
             class="item"
-            routerLink="/plan"
+            routerLink="/subscription"
             id="plan"
             (click)="activeTag('plan')"
           >
             <div class="item_icon">
               <i class="fa fa-solid fa-globe"></i>
             </div>
-            <div class="item_text">plan</div>
+            <div class="item_text">subscription</div>
           </button>
         </div>
         <div class="content_open" *ngIf="sidebarOpen">

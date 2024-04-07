@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { DomainSpaceDto, ResponsePlanDto, SubscriptionDto } from './models';
-import { PlanProxy } from './plan.proxy';
+import { PlanProxy } from './subscription.proxy';
 import {
   LanguageService,
   LoaderService,

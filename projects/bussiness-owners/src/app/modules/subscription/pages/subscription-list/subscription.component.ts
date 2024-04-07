@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { RouterService } from 'shared-lib';
 import { ResponsePlanDto } from '../../models';
 import { Title } from '@angular/platform-browser';
-import { PlanService } from '../../plan.service';
+import { PlanService } from '../../subscription.service';
 
 @Component({
-  selector: 'app-plan',
-  templateUrl: './plan.component.html',
-  styleUrls: ['./plan.component.scss'],
+  selector: 'app-subscription',
+  templateUrl: './subscription.component.html',
+  styleUrls: ['./subscription.component.scss'],
 })
-export class PlanComponent implements OnInit {
+export class SubscriptionComponent implements OnInit {
   plansList: ResponsePlanDto[];
   constructor(
     private routerService: RouterService,
@@ -18,7 +18,7 @@ export class PlanComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle('Plans');
+    this.titleService.setTitle('Subscriptions');
     this.loadPlans();
   }
 

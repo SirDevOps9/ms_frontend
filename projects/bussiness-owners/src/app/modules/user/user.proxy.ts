@@ -8,7 +8,7 @@ import {
   InviteUserDto,
   UserListResponse,
 } from './models';
-import { SubscriptionDto } from '../plan/models';
+import { SubscriptionDto } from '../subscription/models';
 
 @Injectable({
   providedIn: 'root',

@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { FormsService, RouterService } from 'shared-lib';
+import {  RouterService } from 'shared-lib';
 import { SubscriptionDto } from '../../models';
-import { PlanService } from '../../plan.service';
+import { PlanService } from '../../subscription.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
-  templateUrl: './my-plans.component.html',
-  styleUrls: ['./my-plans.component.scss'],
+  templateUrl: './my-subscriptions.component.html',
+  styleUrls: ['./my-subscriptions.component.scss'],
 })
-export class MyPlansComponent implements OnInit {
+export class MySubscriptionsComponent implements OnInit {
   plansList: SubscriptionDto[];
 
   ref: DynamicDialogRef;
 
   ngOnInit() {
-    this.titleService.setTitle('My plans');
+    this.titleService.setTitle('My subscriptions');
     this.loadSubscriptions();
   }
 
