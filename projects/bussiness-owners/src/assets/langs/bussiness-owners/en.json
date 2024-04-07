@@ -141,5 +141,13 @@
   },
   "CartItem":{
     "ItemRemovedSuccessfully":"Successfully removed from cart"
+  },
+  "subdomain":{
+    "Name": "Name",
+    "purchasingPaymentPeriod":"purchasing Payment Period",
+    "validFrom":"valid From",
+    "validTo":"valid To",
+    "cancel":"cancel"
+
   }
 }

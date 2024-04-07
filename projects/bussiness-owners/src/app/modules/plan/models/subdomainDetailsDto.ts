@@ -1,6 +1,6 @@
 export interface subdomainDetailsDto {
-    Subdomain: ResponseSubdomainListDto;
-    SubdomainApps: SubdomainAppDto[];
+    subdomain: ResponseSubdomainListDto;
+    subdomainApps: SubdomainAppDto[];
 }
 
 export interface ResponseSubdomainListDto{

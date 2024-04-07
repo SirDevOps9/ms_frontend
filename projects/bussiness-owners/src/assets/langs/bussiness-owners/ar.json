@@ -132,5 +132,14 @@
   },
   "CartItem":{
     "ItemRemovedSuccessfully":"تم الحذف من السلة بنجاح"
+  },
+  "subdomain":{
+    "Name": "الاسم",
+    "purchasingPaymentPeriod":"فترة سداد الشراء",
+    "validFrom":"صالح من تاريخ",
+    "validTo":"صالحة إلى",
+    "cancel":"إلغاء"
+
   }
+
 }

@@ -39,10 +39,8 @@ export class PlanService {
       data: { Id: Id }
     });
   }
-  loadSubdomainDetails(id:number){
-   this.planProxy.getSubdomainDetails(id).subscribe((response) => {
-      this.subdomainDetailsDataSource.next(response);
-      
-    });
+   loadSubdomainDetails(id:number){
+    
+    return this.planProxy.getSubdomainDetails(id);
   }
 }

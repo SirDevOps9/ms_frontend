@@ -2,38 +2,35 @@
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="text-center mb-4">
-        <h2>{{ subdomainform?.Subdomain?.name }}</h2>
+        <h2>{{ subdomainform?.subdomain?.name }}</h2>
       </div>
 
-      <div class="form-group">
-        <label>{{ "User.Inviteform.EmailLabel" | translate }}</label>
-        <p>{{ subdomainform?.Subdomain?.name }}</p>
+      <div class="group">
+        <div class="label">{{ "subdomain.purchasingPaymentPeriod" | translate }}</div>
+        <div class="value">{{ subdomainform?.subdomain?.purchasingPaymentPeriod }}</div>
       </div>
 
-      <div class="form-group">
-        <label>{{ "User.Inviteform.DomainLabel" | translate }}</label>
-        <p>{{ subdomainform?.Subdomain?.purchasingPaymentPeriod }}</p>
+      <div class="group">
+        <div class="label">{{ "subdomain.validFrom" | translate }}</div>
+        <div class="value">{{ subdomainform?.subdomain?.validFrom | date }}</div>
       </div>
 
-      <div class="form-group">
-        <label>{{ "User.Inviteform.ActionsLabel" | translate }}</label>
-        <p>{{ subdomainform?.Subdomain?.validFrom | date }}</p>
+      <div class="group">
+        <div class="label">{{ "subdomain.validTo" | translate }}</div>
+        <div class="value">{{ subdomainform?.subdomain?.validTo | date }}</div>
       </div>
 
       <!-- Loop through SubdomainApps -->
-      <div *ngFor="let app of subdomainform?.SubdomainApps">
-        <div class="form-group">
-          <label>{{ app.name }}</label>
-          <p>{{ app.CategoryName }}</p>
-        </div>
+      <div *ngFor="let app of subdomainform?.subdomainApps" class="group">
+        <div class="label">{{ app.name }}</div>
+        <div class="value">{{ app.CategoryName }}</div>
       </div>
-      <div
-      class="actions flex align-items-center justify-content-center mt-12"
-    >
-      <button class="cancel" type="button" (click)="onCancel()">
-        cancel
-      </button>
-    </div>
+
+      <div class="actions flex align-items-center justify-content-center mt-12">
+        <button class="cancel" type="button" (click)="onCancel()">
+          {{ "subdomain.cancel" | translate }}
+        </button>
+      </div>
     </div>
   </div>
 </div>
