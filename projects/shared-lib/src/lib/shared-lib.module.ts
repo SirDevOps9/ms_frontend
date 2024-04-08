@@ -25,6 +25,7 @@ import { TreeTableModule } from 'primeng/treetable';
 import { RatingComponent } from './form-components/rating/rating.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { AccordionComponent } from './components/accordion/accordion.component';
+import { AttachmentViewerComponent } from './components/attachment-viewer/attachment-viewer.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { AccordionComponent } from './components/accordion/accordion.component';
     MultiSelectComponent,
     RatingComponent,
     PaginatorComponent,
-    AccordionComponent
+    AccordionComponent,
+    AttachmentViewerComponent,
   ],
   imports: [
     CommonModule,
@@ -78,7 +80,8 @@ import { AccordionComponent } from './components/accordion/accordion.component';
     MultiSelectComponent,
     RatingComponent,
     PaginatorComponent,
-    AccordionComponent
+    AccordionComponent,
+    AttachmentViewerComponent,
   ],
 })
 export class SharedLibModule {}
