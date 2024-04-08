@@ -16,7 +16,7 @@ export class CompaniesListComponent implements OnInit {
   companies: ResponseCompanyDto[];
   @ViewChild('myTab') myTab: any | undefined;
   selectedCompanies: ResponseCompanyDto[];
-  tableData: TreeNode[] = []; 
+  tableData: TreeNode<any>[] = []; 
   cols: any[] = []; 
   active:boolean=false
   ref: DynamicDialogRef;
@@ -29,11 +29,45 @@ export class CompaniesListComponent implements OnInit {
     private dialog: DialogService,
   ) {}
 
-//   navigateToAdd(): void {
-//     this.routerService.navigateTo('company/new/' + this.subscriptionId);
-//   }
-addBranche() {
-    this.companyService.newCompany(this.ref, this.dialog);
+
+
+convertToTreeNode(companies: ResponseCompanyDto[]): TreeNode<ResponseCompanyDto>[] {
+    const treeNodes: TreeNode<ResponseCompanyDto>[] = [];
+  
+    // Create a map of id to node
+    const nodeMap = new Map<string, TreeNode<ResponseCompanyDto>>();
+  
+    // First pass - create tree nodes and populate the node map
+    companies.forEach(company => {
+      const node: TreeNode<ResponseCompanyDto> = {
+        data: company,
+        children: this.convertToTreeNode(company.childrens!)
+      };
+      nodeMap.set(company.id, node);
+    });
+  
+    // Second pass - link child nodes to their parents
+    companies.forEach(company => {
+      if (company.parentId && nodeMap.has(company.parentId)) {
+        const parentNode = nodeMap.get(company.parentId);
+        const currentNode = nodeMap.get(company.id);
+        if (parentNode && currentNode) {
+          parentNode.children?.push(currentNode);
+        }
+      } else {
+        // If no parent, it's a root node
+        const currentNode = nodeMap.get(company.id);
+        if (currentNode) {
+          treeNodes.push(currentNode);
+        }
+      }
+    });
+  
+    return treeNodes;
+  }
+  
+newCompany() {
+    this.companyService.openNewCompanyModal(this.subscriptionId,this.ref, this.dialog);
   }
 
   ngOnInit() {
@@ -45,15 +79,15 @@ addBranche() {
     this.cols = [ 
       {  
           field: 'Code',  
-          header: 'Code' 
+          header: 'code' 
       }, 
       {  
           field: 'Companies Name',  
-          header: 'Name' 
+          header: 'name' 
       }, 
       {  
           field: 'Companies Type',  
-          header: 'Type' 
+          header: 'companyType' 
       }, 
       {  
           field: 'Tax ID',  
@@ -65,7 +99,7 @@ addBranche() {
       }, 
       {  
           field: 'Phone',  
-          header: 'Phone' 
+          header: 'mobileNumber' 
       }, 
       {  
           field: 'status',  
@@ -77,396 +111,7 @@ addBranche() {
       }, 
     
     ]; 
-    this.tableData = [ 
-    { 
-        data: { 
-            Code: 'David', 
-            CompaniesName: 'dddddd', 
-            Type: 'pppppppp', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
-            
-            
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    Code: 'David', 
-                    Name: '40', 
-                    Type: '40', 
-                    ID: '40', 
-                    CommercialID: '40', 
-                    Phone: '40', 
-                    
-                    
-                }, 
-                children: [ 
-                    { 
-                        data: { 
-                            Code: 'David', 
-                            Name: '40', 
-                            Type: '40', 
-                            ID: '40', 
-                            CommercialID: '40', 
-                            Phone: '40', 
-                            
-                          
-                        }, 
-                    }, 
-                    { 
-                        data: { 
-                            Code: 'David', 
-                            Name: '40', 
-                            Type: '40', 
-                            ID: '40', 
-                            CommercialID: '40', 
-                            Phone: '40', 
-                            
-                          
-                        }, 
-                    }, 
-                ], 
-            }, 
-            { 
-                data: { 
-                    Code: 'David', 
-                    Name: '40', 
-                    Type: '40', 
-                    ID: '40', 
-                    CommercialID: '40', 
-                    Phone: '40', 
-                    
-                  
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
-            
-            
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    Code: 'David', 
-                    Name: 'ssssssssss', 
-                    Type: 'sssssssss', 
-                    ID: 'ssssssss', 
-                    CommercialID: '40', 
-                    Phone: '40', 
-                    
-                    Actions: '40',
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
-            
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Max', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
-            
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Max', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
-            
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Max', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
-            
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Max', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
-            
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Max', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
-            
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Max', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
-            
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Max', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
-            
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Willy', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
-            
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Miley', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
-            
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'Sam', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
-            
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-    { 
-        data: { 
-            name: 'James', 
-            age: '55', 
-        }, 
-        children: [ 
-            { 
-                data: { 
-                    name: 'Michelle', 
-                    age: '20', 
-                }, 
-            }, 
-            { 
-                data: { 
-                       Code: 'David', 
-            Name: '40', 
-            Type: '40', 
-            ID: '40', 
-            CommercialID: '40', 
-            Phone: '40', 
-            
-            Actions: '40',
-                }, 
-            }, 
-        ], 
-    }, 
-]; 
+
 
   }
   applyFilterGlobal($event: any, stringVal: any) {
@@ -474,18 +119,17 @@ addBranche() {
   }
 
   initCompanyData() {
-    //this.companyService.loadCompanies(this.subscriptionId);
+    this.companyService.loadCompanies(this.subscriptionId);
 
     this.companyService.companies.subscribe((companyList) => {
-      this.companies = companyList;
+      //this.tableData=companyList;
+      this.tableData = this.convertToTreeNode(companyList);
+      console.log("companyList",companyList )
     });
   }
-  toggle(id: number, isActive: boolean) {
-    if (!isActive) this.companyService.activate(id);
-    else this.companyService.deactivate(id);
-  }
 
-  changed(e: any, id: number) {
+
+  changed(e: any, id: string) {
     if (e.checked === false) {
       this.companyService.deactivate(id);
     } else {
@@ -496,5 +140,9 @@ addBranche() {
   get subscriptionId(): string {
     return this.routerService.currentId;
   }
- 
+  routeToEdit(id:string){
+    this.routerService.navigateTo(`/company/edit/${id}/address`)
+    
+  }
+  
 }

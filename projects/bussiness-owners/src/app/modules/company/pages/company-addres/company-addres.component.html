@@ -1,130 +1,97 @@
 <lib-page-content>
-<div class="company_addres">
-    <form
-    [formGroup]="companyAddresForm"
-    (ngSubmit)="submitForm()"
-    >
-    <div class="grid">
-        <div class="form_select col-12 md:col-6 ">
+  <div class="company_address">
+    <form [formGroup]="companyAddresForm">
+      <fieldset [disabled]="!editMode">
+        <div class="grid">
+          <div class="form_select col-12 md:col-6">
             <div class="grid">
-                <div class="col-12">
-                    <div class="">
-                        <lib-file-uploader>
-
-                        </lib-file-uploader>
-                        
-                    </div>
+              <div class="col-12">
+                <div class="">
+                  <!-- <lib-file-uploader> </lib-file-uploader> -->
                 </div>
-                <div class="col-12">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyAddresForm.controls['Country']">
-                          {{ "Company.Add.Country" | translate }}
-                        </lib-label>
-                        <lib-select
-                          formControlName="Country"
-                          [options]="lookups[LookupEnum.Country]"
-                          optionValue="id"
-                          optionLabel="name"
-                        >
-                        </lib-select>
-                        <lib-field-validations [appControl]="companyAddresForm.controls['Country']">
-                        </lib-field-validations>
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyAddresForm.controls['Country']">
-                          {{ "Company.Add.Country" | translate }}
-                        </lib-label>
-                        <lib-select
-                          formControlName="Country"
-                          [options]="lookups[LookupEnum.Country]"
-                          optionValue="id"
-                          optionLabel="name"
-                        >
-                        </lib-select>
-                        <lib-field-validations [appControl]="companyAddresForm.controls['Country']">
-                        </lib-field-validations>
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyAddresForm.controls['Country']">
-                          {{ "Company.Add.Country" | translate }}
-                        </lib-label>
-                        <lib-select
-                          formControlName="Country"
-                          [options]="lookups[LookupEnum.Country]"
-                          optionValue="id"
-                          optionLabel="name"
-                        >
-                        </lib-select>
-                        <lib-field-validations [appControl]="companyAddresForm.controls['Country']">
-                        </lib-field-validations>
-                      </lib-form-group>
-                </div>
-                <div class="col-12">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyAddresForm.controls['Country']">
-                          {{ "Company.Add.Country" | translate }}
-                        </lib-label>
-                        <lib-select
-                          formControlName="Country"
-                          [options]="lookups[LookupEnum.Country]"
-                          optionValue="id"
-                          optionLabel="name"
-                        >
-                        </lib-select>
-                        <lib-field-validations [appControl]="companyAddresForm.controls['Country']">
-                        </lib-field-validations>
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyAddresForm.controls['Country']">
-                          {{ "Company.Add.Country" | translate }}
-                        </lib-label>
-                        <lib-select
-                          formControlName="Country"
-                          [options]="lookups[LookupEnum.Country]"
-                          optionValue="id"
-                          optionLabel="name"
-                        >
-                        </lib-select>
-                        <lib-field-validations [appControl]="companyAddresForm.controls['Country']">
-                        </lib-field-validations>
-                      </lib-form-group>
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="companyAddresForm.controls['Country']">
-                          {{ "Company.Add.Country" | translate }}
-                        </lib-label>
-                        <lib-select
-                          formControlName="Country"
-                          [options]="lookups[LookupEnum.Country]"
-                          optionValue="id"
-                          optionLabel="name"
-                        >
-                        </lib-select>
-                        <lib-field-validations [appControl]="companyAddresForm.controls['Country']">
-                        </lib-field-validations>
-                      </lib-form-group>
-                </div>
+              </div>
+              <div class="col-12">
+                <lib-form-group>
+                  <lib-label
+                    [appControl]="companyAddresForm.controls['countryCode']"
+                  >
+                    {{ "Company.Address.country" | translate }}
+                  </lib-label>
+                  <lib-select
+                    [disabledMode]="!editMode"
+                    formControlName="countryCode"
+                    [options]="lookups[LookupEnum.Country]"
+                    [selectedValue]="selectedCountryCode"
+                    optionValue="id"
+                    optionLabel="name"
+                  >
+                  </lib-select>
+                </lib-form-group>
+              </div>
+              <div class="col-12 md:col-6">
+                <lib-form-group>
+                  <lib-label [appControl]="companyAddresForm.controls['city']">
+                    {{ "Company.Address.city" | translate }}
+                  </lib-label>
+                  <lib-text-input type="text" formControlName="city" />
+                </lib-form-group>
+              </div>
+              <div class="col-12 md:col-6">
+                <lib-form-group>
+                  <lib-label
+                    [appControl]="companyAddresForm.controls['region']"
+                  >
+                    {{ "Company.Address.region" | translate }}
+                  </lib-label>
+                  <lib-text-input type="text" formControlName="region" />
+                </lib-form-group>
+              </div>
+              <div class="col-12">
+                <lib-form-group>
+                  <lib-label
+                    [appControl]="companyAddresForm.controls['address']"
+                  >
+                    {{ "Company.Address.address" | translate }}
+                  </lib-label>
+                  <lib-text-input type="text" formControlName="address" />
+                </lib-form-group>
+              </div>
+              <div class="col-12 md:col-6">
+                <lib-form-group>
+                  <lib-label
+                    [appControl]="companyAddresForm.controls['longitude']"
+                  >
+                    {{ "Company.Address.longitude" | translate }}
+                  </lib-label>
+                  <lib-text-input type="text" formControlName="longitude" />
+                </lib-form-group>
+              </div>
+              <div class="col-12 md:col-6">
+                <lib-form-group>
+                  <lib-label
+                    [appControl]="companyAddresForm.controls['latitude']"
+                  >
+                    {{ "Company.Address.latitude" | translate }}
+                  </lib-label>
+                  <lib-text-input type="text" formControlName="latitude" />
+                </lib-form-group>
+              </div>
             </div>
-            
-        </div>
-        <div class="form map col-12 md:col-6 ">
+          </div>
+          <div class="form map col-12 md:col-6">
             <!-- <google-map ></google-map> -->
+          </div>
         </div>
-    </div>
-    <div class="actions mb-6">
-    
-      <button type="submit" class="save" >
-        {{ "UserConfirmation.Save" | translate }}
-      </button>
-    </div>
+      </fieldset>
+      <div class="actions mb-6">
+        <button type="button" class="save" (click)="onSubmit()">
+          {{
+            editMode
+              ? ("Company.Save" | translate)
+              : ("Company.Edit" | translate)
+          }}
+        </button>
+      </div>
     </form>
-
-</div>
+  </div>
 </lib-page-content>

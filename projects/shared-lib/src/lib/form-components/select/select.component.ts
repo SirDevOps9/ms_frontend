@@ -30,6 +30,7 @@ export class SelectComponent implements ControlValueAccessor, Validator {
   @Input() maxLength: string;
   @Input() id: string;
   @Input() selectedValue: any;
+  @Input() disabledMode: boolean = false;
   @Output() valueChanged = new EventEmitter<string>();
 
   value: string = '';
@@ -42,9 +43,6 @@ export class SelectComponent implements ControlValueAccessor, Validator {
     }
   }
 
-
-
-  
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
@@ -71,7 +69,7 @@ export class SelectComponent implements ControlValueAccessor, Validator {
   //   this.onChange(m.target.value);
   //   this.valueChanged.emit(m.target.value);
   // }
-  change(m: any) {;
+  change(m: any) {
     this.onChange(m.value);
     this.valueChanged.emit(m.value);
   }
