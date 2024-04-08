@@ -13,7 +13,8 @@ import { AppStoreService } from '../../app-store.service';
   styleUrl: './app-details.component.scss'
 })
 export class AppDetailsComponent implements OnInit {
-  cover:string="assets/images/apps/Group.png";
+  cover: string;
+  activeIndex = 0;
   id: number;
   app: AppDto;
   subdomains: BaseDto[];
@@ -29,12 +30,19 @@ export class AppDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.appStoreProxy.getById(this.id).subscribe(r => {
+      r.appGallery = [r.logoId, ...r.appGallery!];
       this.app = r;
+      this.cover = r.logoId;
     });
     this.subdomainService.getAllSubdomains().subscribe(s => this.subdomains = s);
   }
 
   addToCart() {
     this.appStoreService.addToCart(this.app.id, this.dialog, this.subdomains);
+  }
+
+  clickImg(photoId: string, index: number) {
+    this.cover = photoId;
+    this.activeIndex = index;
   }
 }
