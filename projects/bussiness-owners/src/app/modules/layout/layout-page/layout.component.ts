@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import {
   Component,
   ElementRef,
@@ -12,6 +13,7 @@ import { EnvironmentService, LogService, RouterService } from 'shared-lib';
 import { UserData } from '../../user/models/userdata.model';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { AppStoreService } from '../../app-store/app-store.service';
 
 @Component({
   selector: 'app-layout',
@@ -28,6 +30,7 @@ export class LayoutComponent implements OnInit {
   selectedCountry: string | undefined;
   breadcrumbItems: MenuItem[];
   menuItems: MenuItem[];
+  cartItemsCount$: Observable<number>;
 
   home: MenuItem | undefined;
   @ViewChild('cardDr') cardDr: ElementRef;
@@ -39,12 +42,13 @@ export class LayoutComponent implements OnInit {
     private env: EnvironmentService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private routerService: RouterService
-    
+    private routerService: RouterService,
+    private cartService: AppStoreService
   ) {
     this.userName = this.authService.getUserName;
     this.userData = this.authService.getUserData()?.userData;
     this.languageService.setLang();
+    this.cartItemsCount$ = cartService.cartItemsCount$;
   }
   ngOnInit(): void {
     this.menuItems = this.createBreadcrumb(this.activatedRoute.root);

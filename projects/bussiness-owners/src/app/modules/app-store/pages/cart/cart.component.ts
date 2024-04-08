@@ -18,29 +18,28 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.appStoreService.getCartData();
+    this.appStoreService.getCartData()
     this.appStoreService.cartData.subscribe(cartData => {
+      if (!cartData)
+        return;
       this.cartData = cartData;
       this.totalItems = cartData!.items.length
       this.totalPrice = cartData!.total.amount
       this.groupedItems = this.groupByAppName(this.cartData!.items);
       console.log(cartData?.total.amount, "this.groupedItems");
-
     });
+  }
 
-    
-}
-itemFromCartDetail(id: string) {
-  this.routerService.navigateTo('app-store/cartItemDetail/'+ id);
-  
-}
+  itemFromCartDetail(id: string) {
+    this.routerService.navigateTo('app-store/cartItemDetail/' + id);
+  }
+
   async removeItemFromCart(id: string) {
-      let removeResult = await this.appStoreService.removeFromCart(id);
-          removeResult.subscribe(r => {
-            if(r)
-            this.groupedItems = this.groupByAppName(this.cartData!.items.filter(item => item.id != id));
-          })
-      
+    let removeResult = await this.appStoreService.removeFromCart(id);
+    removeResult.subscribe(r => {
+      if (r)
+        this.groupedItems = this.groupByAppName(this.cartData!.items.filter(item => item.id != id));
+    })
   }
 
   checkout() {
@@ -53,5 +52,4 @@ itemFromCartDetail(id: string) {
       return result;
     }, {});
   }
-
 }
