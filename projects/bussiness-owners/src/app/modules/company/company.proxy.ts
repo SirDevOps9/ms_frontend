@@ -46,7 +46,8 @@ export class CompanyProxy {
     subscriptionId: string
   ): Observable<ResponseCompanyDto[]> {
     return this.httpService.get<ResponseCompanyDto[]>(
-      `Company?subscriptionId=${subscriptionId}`
+      // `Company?subscriptionId=${subscriptionId}`
+       `Company/GetAllBySubdomain?subdomain=${subscriptionId}`
     );
   }
 
