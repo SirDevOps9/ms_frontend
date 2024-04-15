@@ -10,27 +10,34 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
   styleUrls: ['./my-subscriptions.component.scss'],
 })
 export class MySubscriptionsComponent implements OnInit {
-  plansList: SubscriptionDto[];
+  List: SubscriptionDto[];
 
   ref: DynamicDialogRef;
 
   ngOnInit() {
     this.titleService.setTitle('My subscriptions');
+    this.loadSubscriptions();
+
   }
 
   openSubdomainModal() {
     this.subscriptionService.openSubdomainModal(this.ref, this.dialog);
   }
 
-  navigateToManageCompany(planId: string) {
-    this.routerService.navigateTo('company/' + planId);
+  navigateToManageCompany(subdomainId: string) {
+    this.routerService.navigateTo('company/' + subdomainId);
   }
 
   navigateToManageUser(subdomainId: string) {
     this.routerService.navigateTo('users/' + subdomainId);
   }
 
-
+  loadSubscriptions() {
+    this.subscriptionService.loadSubscription();
+    this.subscriptionService.subscriptions.subscribe((List) => {
+      this.List = List;
+    });
+  }
   constructor(
     private routerService: RouterService,
     private subscriptionService: SubscriptionService,
