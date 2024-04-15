@@ -11,20 +11,11 @@ import {
   LanguageService,
 } from 'shared-lib';
 import { TokenModel } from '../models/tokenmodel';
+import { PermissionTreeNode } from '../models';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(
-    private localStorageService: StorageService,
-    private sessionService: SessionStorageService,
-    private oidcSecurityService: OidcSecurityService,
-    private logService: LogService,
-    private routerService: RouterService,
-    private cookieService: CookieStorageService,
-    private languageService: LanguageService
-  ) {}
-
   authorize() {
     var storageCulutre = this.languageService.getLang();
     this.oidcSecurityService.authorize(undefined, {
@@ -54,6 +45,18 @@ export class AuthService {
   getUserData(): LoginResponse {
     return this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
   }
+
+  getUserPermissions(): PermissionTreeNode[] {
+    let encrypted = this.localStorageService.getItem(
+      StorageKeys.PERMISSIONTREE
+    );
+    const decodedString = atob(encrypted);
+    const tree: PermissionTreeNode[] = JSON.parse(decodedString);
+    console.log('Decoded Tree', tree);
+
+    return tree;
+  }
+  
   saveTokenData(): Observable<LoginResponse> {
     return this.oidcSecurityService.checkAuth().pipe(
       map((loginResponse: LoginResponse) => {
@@ -75,7 +78,6 @@ export class AuthService {
     this.oidcSecurityService
       .checkAuth()
       .subscribe((loginResponse: LoginResponse) => {
-        console.log('Second Call', loginResponse);
         this.saveUserData(loginResponse);
         this.routerService.navigateTo('');
       });
@@ -89,7 +91,6 @@ export class AuthService {
   get getUserName(): string {
     let item = this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
     let loggedUser = item! as LoginResponse;
-    this.logService.log(loggedUser, 'authService.UserName');
     return loggedUser?.userData?.name;
   }
 
@@ -102,4 +103,14 @@ export class AuthService {
     };
     return tokenModel;
   }
+
+  constructor(
+    private localStorageService: StorageService,
+    private sessionService: SessionStorageService,
+    private oidcSecurityService: OidcSecurityService,
+    private logService: LogService,
+    private routerService: RouterService,
+    private cookieService: CookieStorageService,
+    private languageService: LanguageService
+  ) {}
 }

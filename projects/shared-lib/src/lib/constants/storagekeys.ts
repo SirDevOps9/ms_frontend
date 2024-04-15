@@ -4,4 +4,5 @@ export class StorageKeys {
   static LANG_KEY = 'selectedLanguage';
   static LOGIN_RESPONSE = 'loginResponse';
   static TENANT = 'Tenant';
+  static PERMISSIONTREE = 'permissiontree';
 }

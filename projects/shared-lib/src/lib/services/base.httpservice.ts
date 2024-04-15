@@ -82,6 +82,20 @@ export class HttpService {
     );
   }
 
+  getString(url: string, showError: boolean = true): Observable<any> {
+    return this.addHeaders().pipe(
+      switchMap((headers) =>
+        this.http.get(`${this.baseUrl}/${url}`, {
+          headers,
+          responseType: 'text',
+        })
+      ),
+      catchError((response: HttpErrorResponse) =>
+        this.errorHandler(url, response, null, showError)
+      )
+    );
+  }
+
   getFullUrl<T>(url: string, showError: boolean = true) {
     return this.addHeaders().pipe(
       switchMap((headers) => this.http.get<T>(`${url}`, { headers })),

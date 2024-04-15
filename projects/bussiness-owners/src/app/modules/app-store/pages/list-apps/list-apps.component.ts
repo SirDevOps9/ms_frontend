@@ -1,30 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { AppStoreService } from '../../app-store.service';
 import { AppDto } from '../../models/appDto';
-import { BaseDto, SubdomainService } from 'shared-lib';
+import { BaseDto, SharedLibraryEnums, SubdomainService } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-
 @Component({
   selector: 'app-list-apps',
   templateUrl: './list-apps.component.html',
-  styleUrl: './list-apps.component.scss'
+  styleUrl: './list-apps.component.scss',
 })
 export class ListAppsComponent implements OnInit {
   apps: AppDto[];
   subdomains: BaseDto[];
-  cardList:boolean=false;
+  cardList: boolean = false;
 
-  constructor(private appStoreService: AppStoreService,
+  constructor(
+    private appStoreService: AppStoreService,
     private dialog: DialogService,
-    private subdomainService: SubdomainService) {
-  }
+    private subdomainService: SubdomainService,
+    public sharedLibraryEnums: SharedLibraryEnums
+  ) {}
 
   ngOnInit(): void {
     this.appStoreService.loadApps();
-    this.appStoreService.apps.subscribe(apps => {
+    this.appStoreService.apps.subscribe((apps) => {
       this.apps = apps;
     });
-    this.subdomainService.getAllSubdomains().subscribe(s => this.subdomains = s);
+    this.subdomainService
+      .getAllSubdomains()
+      .subscribe((s) => (this.subdomains = s));
   }
 
   addToCart(appId: number) {
@@ -32,17 +35,15 @@ export class ListAppsComponent implements OnInit {
   }
 
   getAppDeps(app: AppDto) {
-    return app.dependencies.map(d => d.name).join(" - ");
+    return app.dependencies.map((d) => d.name).join(' - ');
   }
-  card(){
-    this.cardList=true
+  card() {
+    this.cardList = true;
   }
-  row(){
-    this.cardList=false
-
+  row() {
+    this.cardList = false;
   }
-  routeToDetails(id:any){
+  routeToDetails(id: any) {
     console.log(id);
-    
   }
 }
