@@ -5,7 +5,7 @@ import { AttachmentDto } from '../../models';
 @Component({
   selector: 'lib-attachment-viewer',
   templateUrl: './attachment-viewer.component.html',
-  styleUrls: ['./attachment-viewer.component.css'],
+  styleUrls: ['./attachment-viewer.component.scss'],
 })
 export class AttachmentViewerComponent implements OnInit, OnChanges {
   @Input() attachmentId: string;
