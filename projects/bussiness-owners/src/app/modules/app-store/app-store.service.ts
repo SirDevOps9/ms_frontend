@@ -29,15 +29,19 @@ import { CartItemDto } from './models/cartItemDto';
 export class AppStoreService {
   private appsDataSource = new BehaviorSubject<AppDto[]>([]);
   private cartDataSource = new BehaviorSubject<CartDto | null>(null);
+  private cartItemsCount = new BehaviorSubject<number>(0);
   public apps = this.appsDataSource.asObservable();
   public cartData = this.cartDataSource.asObservable();
+  public cartItemsCount$ = this.cartItemsCount.asObservable();
 
   constructor(
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private router: RouterService,
     private appStoreProxy: AppStoreProxy
-  ) {}
+  ) {
+    this.getCartData();
+  }
 
   loadApps() {
     this.appStoreProxy.getAll().subscribe((response) => {
@@ -46,6 +50,9 @@ export class AppStoreService {
   }
   getCartData() {
     this.appStoreProxy.getCartData().subscribe((response) => {
+      console.log('cart', response);
+      
+      this.cartItemsCount.next(response?.items?.length || 0);
       this.cartDataSource.next(response);
     });
   }
@@ -91,8 +98,10 @@ export class AppStoreService {
     if (confirmed) {
       return this.appStoreProxy.removeFromCart(id).pipe(
         map(() => {
-          this.cartDataSource.value!.items! =
+          this.cartDataSource.value!.items =
             this.cartDataSource.value!.items!.filter((item) => item.id != id);
+          
+          this.cartItemsCount.next(this.cartItemsCount.value - 1);
 
           this.cartDataSource.value!.total.amount =
             this.cartDataSource.value!.items.reduce(
@@ -123,6 +132,7 @@ export class AppStoreService {
 
   private addModelToCart(model: AddToCartDto) {
     this.appStoreProxy.addToCart(model).subscribe((r) => {
+      this.getCartData();
       this.toasterService.showSuccess(
         this.languageService.transalte('Company.Success'),
         this.languageService.transalte('AppStore.AddedToCartSuccessfully')

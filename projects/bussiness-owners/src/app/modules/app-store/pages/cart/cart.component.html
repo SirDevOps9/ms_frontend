@@ -2,7 +2,7 @@
 
 <lib-page-content>
   <div class="cart_page">
-    <div class="grid">
+    <div class="grid" *ngIf="cartData else noItems">
       <div class="col-12 md:col-9 " >
         <div class="cart_header">
           <h2>
@@ -124,7 +124,10 @@
       </div>
   
     </div>
-  
+
+    <ng-template #noItems>
+      No items in cart. <a routerLink="/app-store">Start shopping</a>
+    </ng-template>
   </div>
 </lib-page-content>
 

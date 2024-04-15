@@ -1,12 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
-import { LookupEnum, LookupsService, RouterService, customValidators, lookupDto } from 'shared-lib';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import {
+  FormsService,
+  LookupEnum,
+  LookupsService,
+  SharedLibraryEnums,
+  customValidators,
+  lookupDto,
+} from 'shared-lib';
+import {
+  DialogService,
+  DynamicDialogConfig,
+  DynamicDialogRef,
+} from 'primeng/dynamicdialog';
+import { CreateBranchDto } from '../../models/createbranchdto';
+import { CompanyService } from '../../company.service';
 
 @Component({
   selector: 'app-new-branches',
   templateUrl: './new-branches.component.html',
-  styleUrl: './new-branches.component.scss'
+  styleUrl: './new-branches.component.scss',
 })
 export class NewBranchesComponent implements OnInit {
   newBrancheForm: FormGroup;
@@ -18,36 +31,51 @@ export class NewBranchesComponent implements OnInit {
     this.loadLookups();
     this.Subscribe();
   }
-  initializeForm(){
-    this.newBrancheForm= this.fb.group({
-      Country:["",customValidators.required],
-      mobileNumberCode:["",customValidators.required],
-      mobileNumber:["",customValidators.required],
-    })
+  initializeForm() {
+    this.newBrancheForm = this.fb.group({
+      branchName: new FormControl('', [customValidators.required]),
+      countryCode: new FormControl(),
+      branchRegion: new FormControl(),
+      branchCity: new FormControl(),
+      branchEmail: new FormControl(),
+      branchAddress: new FormControl(),
+      mobileNumberCode: new FormControl(),
+      mobileNumber: new FormControl(),
+    });
   }
   loadLookups() {
     this.lookupsService.loadLookups([
-      LookupEnum.Currency,
-      LookupEnum.Industry,
-      LookupEnum.Country,
       LookupEnum.MobileCode,
+      LookupEnum.Country,
     ]);
   }
   Subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
   }
-  submitForm(){
-    console.log(this.newBrancheForm);
-    
+  onSubmit() {
+    if (!this.formsService.validForm(this.newBrancheForm, true)) return;
+    const request: CreateBranchDto = this.newBrancheForm.value;
+    request.companyId = this.currentCompanyId;
+
+
+    console.log('sending branch', request);
+    this.companyService.addBranch(request, this.ref);
   }
   onCancel() {
     this.ref.close();
   }
+
+  get currentCompanyId(): string {
+    return this.config.data.Id;
+  }
   constructor(
-    private fb: FormBuilder,
-    public lookupsService: LookupsService,
+    public config: DynamicDialogConfig,
+    public dialogService: DialogService,
     private ref: DynamicDialogRef,
-
-
-  ){}
+    private fb: FormBuilder,
+    private companyService: CompanyService,
+    public sharedLibEnums: SharedLibraryEnums,
+    private formsService: FormsService,
+    public lookupsService: LookupsService
+  ) {}
 }

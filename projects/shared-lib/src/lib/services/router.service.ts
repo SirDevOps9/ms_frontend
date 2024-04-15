@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,13 @@ export class RouterService {
     return false;
   }
 
+  get currentParetId() {
+    return this.route.parent!.snapshot.params['id'];
+  }
+
   get currentId() {
+    console.log('fromrouter', this.route.snapshot.params);
+
     const value = this.route.snapshot.params['id'];
     return value;
   }
