@@ -46,6 +46,9 @@ export class HttpService {
           [HeaderParams.CLIENTID]: this.environmentService.ClientId,
           [HeaderParams.PLATFORMTYPE]: this.environmentService.Platform,
           [HeaderParams.APIKEY]: this.environmentService.ApiKey,
+          [HeaderParams.PERMISSIONTREE]: this.storageService.getItem(
+            StorageKeys.PERMISSIONTREE
+          ),
         });
         return of(headers);
       })

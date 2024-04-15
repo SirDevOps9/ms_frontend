@@ -3,6 +3,7 @@ import { AppStoreService } from '../../app-store.service';
 import { AppDto } from '../../models/appDto';
 import { BaseDto, SharedLibraryEnums, SubdomainService } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
+import { UserService } from '../../../user/user.service';
 @Component({
   selector: 'app-list-apps',
   templateUrl: './list-apps.component.html',
@@ -17,10 +18,13 @@ export class ListAppsComponent implements OnInit {
     private appStoreService: AppStoreService,
     private dialog: DialogService,
     private subdomainService: SubdomainService,
-    public sharedLibraryEnums: SharedLibraryEnums
+    public sharedLibraryEnums: SharedLibraryEnums,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
+    this.userService.testTree();
+
     this.appStoreService.loadApps();
     this.appStoreService.apps.subscribe((apps) => {
       this.apps = apps;

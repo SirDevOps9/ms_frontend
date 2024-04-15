@@ -22,7 +22,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.APP_STORE,
-          //action: Actions.Delete,
+          action: Actions.Update,
         },
       },
       // {
