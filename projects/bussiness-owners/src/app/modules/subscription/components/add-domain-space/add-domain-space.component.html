@@ -65,10 +65,12 @@
               <lib-field-validations
                 [appControl]="subdomainForm.controls['name']"
               >
-    
               </lib-field-validations>
-              <div *ngIf="subdomainValidation">
+              <div class="domain_invalid" *ngIf="subdomainInValid">
                 Domain name already exists.
+              </div>
+              <div class="domain_valid"  *ngIf="subdomainValid">
+                domain space are available
               </div>
             </lib-form-group>
           </div>
@@ -89,7 +91,7 @@
           class="btn"
           [ngClass]="{
             'valid_btn ': subdomainForm.valid,
-            invaild_btn: !subdomainForm.valid
+           ' invaild_btn': !subdomainForm.valid
           }"
         >
           {{ "Subscription.Subdomain.AddToCart" | translate }}
