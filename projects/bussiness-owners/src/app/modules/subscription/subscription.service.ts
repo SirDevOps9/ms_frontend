@@ -10,6 +10,7 @@ import {
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddDomainSpaceComponent } from './components/add-domain-space/add-domain-space.component';
 import { SubscriptionProxy } from './subscription.proxy';
+import { subscriptionDetailsDto } from './models/subscriptionDetailsDto';
 @Injectable({
   providedIn: 'root',
 })
@@ -20,9 +21,18 @@ export class SubscriptionService {
   private plansDataSource = new BehaviorSubject<ResponsePlanDto[]>([]);
   public plans = this.plansDataSource.asObservable();
 
+  private SubscriptionDetailsDataSource = new BehaviorSubject<subscriptionDetailsDto[]>([]);
+  public SubscriptionDetails = this.SubscriptionDetailsDataSource.asObservable();
+
   loadSubscription() {
     this.subscriptionProxy.getAllSubscriptions().subscribe((response) => {
       this.subscriptionDataSource.next(response);
+    });
+  }
+
+  GetSubscriptionDetails(id :number){
+    this.subscriptionProxy.GetUserSubscriptionsDetail(id).subscribe((response) => {
+      this.SubscriptionDetailsDataSource.next(response);
     });
   }
 

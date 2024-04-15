@@ -9,6 +9,7 @@ export class BreadcrumbLabel {
     static APP_STORE = 'Layout.AppStore';
     static CART = 'Cart List';
     static DOMAIN = 'Domain Details';
+    static Manage_Apps='Manage Apps';
  
 
   }
