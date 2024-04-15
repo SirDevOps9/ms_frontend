@@ -154,7 +154,7 @@
         <div class="content" *ngIf="!sidebarOpen">
           <div
             class="item"
-            routerLink="/my-plans"
+            routerLink="/my-subscriptions"
             id="subscripition"
             (click)="activeTag('subscripition')"
           >
@@ -201,30 +201,8 @@
             </div>
             <div class="item_text">microtec Apps users</div>
           </button>
-          <button
-            class="item"
-            routerLink="/plan"
-            id="plan"
-            (click)="activeTag('plan')"
-          >
-            <div class="item_icon">
-              <i class="fa fa-solid fa-globe"></i>
-            </div>
-            <div class="item_text">plan</div>
-          </button>
         </div>
         <div class="content_open" *ngIf="sidebarOpen">
-          <button
-            class="item"
-            routerLink="/plan"
-            id="plan"
-            (click)="activeTag('plan')"
-          >
-            <div class="item_icon">
-              <i class="fa fa-solid fa-globe"></i>
-            </div>
-            <div class="item_text">plan</div>
-          </button>
           <button
             class="item"
             routerLink="/company"

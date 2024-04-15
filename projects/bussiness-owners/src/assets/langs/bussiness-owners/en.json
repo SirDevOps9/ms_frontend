@@ -224,15 +224,21 @@
     "AddedToCartSuccessfully": "Successfully added to cart",
     "CheckedOut": "Successfully checked out"
   },
-  "CartItem":{
-    "ItemRemovedSuccessfully":"Successfully removed from cart"
+  "CartItem": {
+    "ItemRemovedSuccessfully": "Successfully removed from cart"
   },
-  "subdomain":{
-    "Name": "Name",
-    "purchasingPaymentPeriod":"purchasing Payment Period",
-    "validFrom":"valid From",
-    "validTo":"valid To",
-    "cancel":"cancel"
-
+  "Plan": {
+    "Subdomain": {
+      "AddSubdomain": "Add Subdomain",
+      "CancelButton": "Cancel",
+      "Success": "Success",
+      "SubdomainAddedSuccessfully": "SubdomainAddedSuccessfully",
+      "AddDomainSpace": "Add Domain Space",
+      "Count": "Count",
+      "Monthly": "Monthly",
+      "Yearly": "Yearly",
+      "TryAnotherDomain": "Try Another Domain",
+      "AddToCart": "Add To Cart"
+    }
   }
 }

@@ -25,7 +25,7 @@ export class TextInputComponent implements ControlValueAccessor, Validator {
   @Input() type: 'text' | 'number' | 'tel' | 'email';
   @Input() readOnly: boolean;
   @Input() inputContainerClass: string;
-  @Input() placeholder: string;
+  @Input() placeholder: string = '';
   @Input() maxLength: string;
   @Input() id: string;
   @Output() valueChanged = new EventEmitter<string>();

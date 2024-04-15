@@ -13,4 +13,7 @@
     box-shadow: 0 0 0 0.2rem #1a8eae !important;
     border-color: #1a8eae !important;
   }
+ .p-inputtext::placeholder {
+    color: #1a8eae !important;
+  }
 }
