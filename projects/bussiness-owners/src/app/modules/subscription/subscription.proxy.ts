@@ -16,4 +16,10 @@ export class SubscriptionProxy {
   addSubdomain(subdomain: DomainSpaceDto): Observable<boolean> {
     return this.baseService.post<DomainSpaceDto>(`Subdomain/Add`, subdomain);
   }
+
+  checkSubdomain(subdomain: string): Observable<boolean> {
+    return this.baseService.get(`Subdomain/IsSubdomainExist?subdomain=${subdomain}`);
+  }
+
+
 }

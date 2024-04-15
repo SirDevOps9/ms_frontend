@@ -227,7 +227,7 @@
   "CartItem": {
     "ItemRemovedSuccessfully": "Successfully removed from cart"
   },
-  "Plan": {
+  "Subscription": {
     "Subdomain": {
       "AddSubdomain": "Add Subdomain",
       "CancelButton": "Cancel",
@@ -237,7 +237,7 @@
       "Count": "Count",
       "Monthly": "Monthly",
       "Yearly": "Yearly",
-      "TryAnotherDomain": "Try Another Domain",
+      "YourDomainSpace": "Your Domain Space",
       "AddToCart": "Add To Cart"
     }
   }

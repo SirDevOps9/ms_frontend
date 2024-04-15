@@ -42,9 +42,11 @@
       align-items: center;
       justify-content: center;
       flex-wrap: wrap;
+      //width: 30%;
       margin-inline-end: 20px;
       margin-bottom: 20px;
       background-color: #fff;
+      padding: 10px 5px;
       border-radius: 8px;
       border: 1px solid #B6BAC3;
       .card_header{
@@ -86,7 +88,7 @@
           background-position: center;
           background-repeat: no-repeat;
         }
-  
+        
         .plan_description {
           .title {
             font-family:'poppins_extra_bold';
@@ -106,7 +108,7 @@
             height: 4px;
             background-color: #EDEEF1;
             border-radius: 8px;
-  
+              
             .line_active {
               width: 50%;
               height: 4px;

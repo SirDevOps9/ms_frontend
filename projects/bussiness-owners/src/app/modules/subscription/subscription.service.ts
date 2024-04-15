@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { DomainSpaceDto, ResponsePlanDto, SubscriptionDto } from './models';
 import {
   LanguageService,
@@ -26,6 +26,9 @@ export class SubscriptionService {
     });
   }
 
+   checkSubdomian(subdomain: string) : Observable<boolean>{
+     return this.subscriptionProxy.checkSubdomain(subdomain); 
+}
 
   openSubdomainModal(ref: DynamicDialogRef, dialog: DialogService) {
     ref = dialog.open(AddDomainSpaceComponent, {
@@ -52,6 +55,8 @@ export class SubscriptionService {
       },
     });
   }
+
+  
   constructor(
     private subscriptionProxy: SubscriptionProxy,
     private routerService: RouterService,
