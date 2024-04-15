@@ -27,7 +27,8 @@ export class AddDomainSpaceComponent implements OnInit {
   count: number;
   period: string = 'Monthly';
   cost: number = 0;
-  subdomainValidation: boolean = false;
+  subdomainValid: boolean = false;
+  subdomainInValid: boolean = false;
 
   // need to get subdomain unit price
   unitPrice: number = 50;
@@ -43,7 +44,7 @@ export class AddDomainSpaceComponent implements OnInit {
   }
   initializesubDomainForm() {
     this.subdomainForm = this.fb.group({
-      purchasingPaymentCount: new FormControl(0),
+      purchasingPaymentCount: new FormControl('', customValidators.required,),
       name: new FormControl('', [
         customValidators.required,
         customValidators.noSpecialChars,
@@ -109,27 +110,32 @@ export class AddDomainSpaceComponent implements OnInit {
     this.cost = this.unitPrice * totalDuration;
   }
 
-   onNameInputKeyUp(event: any) {
-    const subdomainName =  event.target.value;
-    console.log("sssss", subdomainName);
+  onNameInputKeyUp(event: any) {
+    const subdomainName = event.target.value;
+    if (subdomainName.length > 3) {
       this.subscriptionService
         .checkSubdomian(subdomainName)
         .subscribe((exists: boolean) => {
-          console.log("subsdomain exist", exists)
           if (exists) {
-            this.subdomainValidation = true;
+            this.subdomainInValid = true;
+            this.subdomainValid = false;
           } else {
-            this.subdomainValidation = false;
+            this.subdomainInValid = false;
+            this.subdomainValid = true;
           }
         });
     }
+    else{
+      this.subdomainInValid = false;
+      this.subdomainValid = false;
+    }
+  }
   constructor(
     public config: DynamicDialogConfig,
     public dialogService: DialogService,
     private fb: FormBuilder,
     private formService: FormsService,
     private ref: DynamicDialogRef,
-    private subscriptionService: SubscriptionService,
-
+    private subscriptionService: SubscriptionService
   ) {}
 }

@@ -18,7 +18,7 @@ export class SubscriptionProxy {
   }
 
   checkSubdomain(subdomain: string): Observable<boolean> {
-    return this.baseService.get(`Subdomain/IsSubdomainExist?subdomain=${subdomain}`);
+    return this.baseService.get(`Subdomain/IsSubdomainExist?subdomainName=${subdomain}`);
   }
 
 

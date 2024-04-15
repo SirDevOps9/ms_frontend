@@ -26,8 +26,8 @@ export class SubscriptionService {
     });
   }
 
-   checkSubdomian(subdomain: string) : Observable<boolean>{
-     return this.subscriptionProxy.checkSubdomain(subdomain); 
+   checkSubdomian(subdomain: string) {
+     return  this.subscriptionProxy.checkSubdomain(subdomain); 
 }
 
   openSubdomainModal(ref: DynamicDialogRef, dialog: DialogService) {
@@ -42,9 +42,9 @@ export class SubscriptionService {
     this.subscriptionProxy.addSubdomain(subdomain).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('Plan.Subdomain.Success'),
+          this.languageService.transalte('Subscription.Subdomain.Success'),
           this.languageService.transalte(
-            'Plan.Subdomain.SubdomainAddedSuccessfully'
+            'Subscription.Subdomain.SubdomainAddedSuccessfully'
           )
         );
         this.loaderService.hide();
