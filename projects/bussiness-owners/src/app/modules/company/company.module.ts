@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
-import { NewCompanyComponent } from './pages/new-company/new-company.component';
 import { AuthGuard, MicrotecAuthLibModule } from 'microtec-auth-lib';
-import { BreadcrumbLabel, SharedLibModule } from 'shared-lib';
-import { AddCompanyComponent } from './pages/add-compny/add-compny.component';
+import { BreadcrumbLabel, RouterService, SharedLibModule } from 'shared-lib';
 import { EditCompanyComponent } from './pages/edit-company/edit-company.component';
 import { CompaniesListComponent } from './pages/companies-list/companies-list.component';
 import { LayoutComponent } from '../layout/layout-page/layout.component';
@@ -17,34 +15,14 @@ import { CompanyContactComponent } from './pages/company-contact/company-contact
 import { CompanyHierarchyComponent } from './pages/company-hierarchy/company-hierarchy.component';
 import { CompanyBranchesComponent } from './pages/company-branches/company-branches.component';
 import { NewBranchesComponent } from './components/new-branches/new-branches.component';
-import { EditBranchesComponent } from './components/edit-branches/edit-branches.component'
-
+import { EditBranchesComponent } from './components/edit-branches/edit-branches.component';
+import { NewCompanyComponent } from './components/new-company/new-company.component';
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
     children: [
-      {
-        path: 'company/new',
-        component: NewCompanyComponent,
-      },
-      {
-        path: 'company/new/:id',
-        component: NewCompanyComponent,
-        canActivate: [AuthGuard],
-        data: {
-          breadcrumb: BreadcrumbLabel.ADD_COMPANY,
-        },
-      },
-      {
-        path: 'company/add/:id',
-        component: AddCompanyComponent,
-        canActivate: [AuthGuard],
-        data: {
-          breadcrumb: BreadcrumbLabel.ADD_COMPANY,
-        },
-      },
       {
         path: 'company/:id',
         component: CompaniesListComponent,
@@ -63,7 +41,7 @@ const routes: Routes = [
             component: CompanyAddresComponent,
           },
           {
-            path: 'addres',
+            path: 'address',
             component: CompanyAddresComponent,
           },
           {
@@ -81,19 +59,18 @@ const routes: Routes = [
           {
             path: 'branches',
             component: CompanyBranchesComponent,
-          }
-        ]
+          },
+        ],
       },
     ],
   },
 ];
 
 @NgModule({
-  providers: [],
+  providers: [RouterService],
   declarations: [
     NewCompanyComponent,
     CompaniesListComponent,
-    AddCompanyComponent,
     EditCompanyComponent,
     CompanyAddresComponent,
     CompanyLegalComponent,
@@ -101,7 +78,7 @@ const routes: Routes = [
     CompanyHierarchyComponent,
     CompanyBranchesComponent,
     NewBranchesComponent,
-    EditBranchesComponent
+    EditBranchesComponent,
   ],
   imports: [
     MicrotecAuthLibModule,
@@ -111,8 +88,6 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {}),
     TreeTableModule,
     TableModule,
-    
-  
   ],
   exports: [],
 })

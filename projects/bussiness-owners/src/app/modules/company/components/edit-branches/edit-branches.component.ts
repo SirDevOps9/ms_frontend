@@ -1,52 +1,92 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
-import { LookupEnum, LookupsService, RouterService, customValidators, lookupDto } from 'shared-lib';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Component } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import {
+  FormsService,
+  LookupEnum,
+  LookupsService,
+  SharedLibraryEnums,
+  customValidators,
+  lookupDto,
+} from 'shared-lib';
+import {
+  DialogService,
+  DynamicDialogConfig,
+  DynamicDialogRef,
+} from 'primeng/dynamicdialog';
+import { CompanyService } from '../../company.service';
+import { EditBranchDto } from '../../models/editbranchdto';
 
 @Component({
   selector: 'app-edit-branches',
   templateUrl: './edit-branches.component.html',
-  styleUrl: './edit-branches.component.scss'
+  styleUrl: './edit-branches.component.scss',
 })
 export class EditBranchesComponent {
-  newBrancheForm: FormGroup;
+  editBrancheForm: FormGroup;
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
+  branchCode: string;
+  selectecCountry:string;
+
   ngOnInit() {
     this.initializeForm();
+    this.initializeBranchFormData();
     this.loadLookups();
     this.Subscribe();
   }
-  initializeForm(){
-    this.newBrancheForm= this.fb.group({
-      Country:["",customValidators.required],
-      mobileNumberCode:["",customValidators.required],
-      mobileNumber:["",customValidators.required],
-    })
+  initializeForm() {
+    this.editBrancheForm = this.fb.group({
+      branchName: new FormControl('', [customValidators.required]),
+      countryCode: new FormControl(),
+      branchRegion: new FormControl(),
+      branchCity: new FormControl(),
+      branchEmail: new FormControl(),
+      branchAddress: new FormControl(),
+      mobileNumberCode: new FormControl(),
+      mobileNumber: new FormControl(),
+    });
   }
   loadLookups() {
     this.lookupsService.loadLookups([
-      LookupEnum.Currency,
-      LookupEnum.Industry,
       LookupEnum.Country,
       LookupEnum.MobileCode,
     ]);
   }
+
+  initializeBranchFormData() {
+    this.companyService.getBranchById(this.currentBranchId).subscribe((res) => {
+      this.branchCode = res.code;
+      this.editBrancheForm.patchValue({
+        ...res,
+      });
+      this.selectecCountry = res.countryCode!;
+    });
+  }
   Subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
   }
-  submitForm(){
-    console.log(this.newBrancheForm);
-    
+
+  onSubmit() {
+    if (!this.formsService.validForm(this.editBrancheForm, true)) return;
+    const request: EditBranchDto = this.editBrancheForm.value;
+    request.id = this.currentBranchId;
+    this.companyService.editBranch(request, this.ref);
   }
   onCancel() {
     this.ref.close();
   }
+
+  get currentBranchId(): string {
+    return this.config.data.Id;
+  }
   constructor(
-    private fb: FormBuilder,
-    public lookupsService: LookupsService,
+    public config: DynamicDialogConfig,
+    public dialogService: DialogService,
     private ref: DynamicDialogRef,
-
-
-  ){}
+    private fb: FormBuilder,
+    private companyService: CompanyService,
+    public sharedLibEnums: SharedLibraryEnums,
+    private formsService: FormsService,
+    public lookupsService: LookupsService
+  ) {}
 }

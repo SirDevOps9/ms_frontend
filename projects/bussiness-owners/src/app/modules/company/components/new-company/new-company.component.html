@@ -1,0 +1,109 @@
+<div class="new_company">
+  <div class="company_header">
+    <div class="title">{{ "Company.Add.AddCompany" | translate }}</div>
+    <div class="pi pi-times cancel" (click)="onCancel()"></div>
+  </div>
+  <div class="company_content">
+    <form [formGroup]="addCompanyForm" (ngSubmit)="onSubmit()">
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <lib-form-group>
+            <lib-label [appControl]="addCompanyForm.controls['companyLogo']">
+              {{ "companyLogo" }}
+            </lib-label>
+            <lib-file-uploader
+              formControlName="companyLogo"
+              [config]="{
+                type: sharedLibEnums.AttachmentFileTypes.image,
+                viewThumbnail: true
+              }"
+              [appControl]="addCompanyForm.controls['companyLogo']"
+            />
+            <lib-field-validations
+              [appControl]="addCompanyForm.controls['companyLogo']"
+            >
+            </lib-field-validations>
+          </lib-form-group>
+          <div class="text">
+            <p>
+              {{ "Company.Add.AddCompany" | translate }}
+              <br />
+              {{ "Company.Add.CompanyLogo" | translate }}
+            </p>
+          </div>
+        </div>
+        <div class="col-12 md:col-8">
+          <div class="grid">
+            <div class="col-12">
+              <lib-form-group>
+                <lib-label [appControl]="addCompanyForm.controls['name']">
+                  {{ "Company.Add.CompanyName" | translate }}
+                </lib-label>
+                <lib-text-input type="text" formControlName="name" />
+                <lib-field-validations
+                  [appControl]="addCompanyForm.controls['name']"
+                >
+                </lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="col-12">
+              <lib-form-group>
+                <lib-label [appControl]="addCompanyForm.controls['branchName']">
+                  {{ "Company.Add.BranchName" | translate }}
+                </lib-label>
+                <lib-text-input type="text" formControlName="branchName" />
+                <lib-field-validations
+                  [appControl]="addCompanyForm.controls['branchName']"
+                >
+                </lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="col-12">
+              <lib-form-group>
+                <lib-label
+                  [appControl]="addCompanyForm.controls['companyType']"
+                >
+                  {{ "Company.Add.CompanyType" | translate }}
+                </lib-label>
+                <lib-select
+                  formControlName="companyType"
+                  [options]="lookups[LookupEnum.CompanyType]"
+                  optionValue="id"
+                  optionLabel="name"
+                >
+                </lib-select>
+                <lib-field-validations
+                  [appControl]="addCompanyForm.controls['companyType']"
+                >
+                </lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="col-12">
+              <lib-form-group>
+                <lib-label [appControl]="addCompanyForm.controls['parentId']">
+                  {{ "Company.Add.ParentCompany" | translate }}
+                </lib-label>
+                <lib-select
+                  formControlName="parentId"
+                  [options]="lookups[LookupEnum.CompanyHolding]"
+                  optionValue="id"
+                  optionLabel="name"
+                >
+                </lib-select>
+              </lib-form-group>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="edit" (click)="onSaveAndEdit()">
+          {{ "Company.Add.SaveAndEdit" | translate }}
+        </button>
+        <button type="submit" class="save">
+          {{ "Company.Save" | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
