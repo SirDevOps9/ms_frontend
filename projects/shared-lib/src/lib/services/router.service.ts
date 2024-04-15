@@ -18,7 +18,7 @@ export class RouterService {
   }
 
   get currentId() {
-    console.log('fromrouter', this.route.snapshot.params);
+    console.log('fromrouter', this.route.snapshot);
 
     const value = this.route.snapshot.params['id'];
     return value;

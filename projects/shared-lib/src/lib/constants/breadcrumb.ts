@@ -9,5 +9,8 @@ export class BreadcrumbLabel {
     static ERP_USERS = 'ERP Users';
     static APP_STORE = 'Layout.AppStore';
     static CART = 'Cart List';
+    static DOMAIN = 'Domain Details';
+    static Manage_Apps='Manage Apps';
+ 
 
   }

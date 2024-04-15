@@ -8,6 +8,7 @@ import {SubscriptionComponent } from './pages/subscription-list/subscription.com
 import { LayoutModule } from '../layout/layout.module';
 import { LayoutComponent } from '../layout/layout-page/layout.component';
 import { AddDomainSpaceComponent } from './components/add-domain-space/add-domain-space.component';
+import { ManageAppsComponent } from './pages/manage-apps/manage-apps.component';
 
 const routes: Routes = [
   {
@@ -30,13 +31,21 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.SUBSCRIPTION,
         },
       },
+      {
+        path: 'Manage-Apps/:id',
+        component: ManageAppsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.Manage_Apps,
+        },
+      }
     ],
   },
 ];
 
 @NgModule({
   providers: [],
-  declarations: [SubscriptionComponent, MySubscriptionsComponent, AddDomainSpaceComponent],
+  declarations: [SubscriptionComponent, MySubscriptionsComponent, AddDomainSpaceComponent ,ManageAppsComponent],
   imports: [
     MicrotecAuthLibModule,
     SharedLibModule,
