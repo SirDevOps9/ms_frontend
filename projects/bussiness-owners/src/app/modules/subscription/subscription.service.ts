@@ -26,11 +26,6 @@ export class SubscriptionService {
     });
   }
 
-  loadPlans() {
-    this.subscriptionProxy.getAllPlans().subscribe((response) => {
-      this.plansDataSource.next(response);
-    });
-  }
 
   openSubdomainModal(ref: DynamicDialogRef, dialog: DialogService) {
     ref = dialog.open(AddDomainSpaceComponent, {
