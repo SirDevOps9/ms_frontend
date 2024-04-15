@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+  AbstractControl,
+  AsyncValidatorFn,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+} from '@angular/forms';
 import { FormsService, customValidators } from 'shared-lib';
 import {
   DialogService,
@@ -8,6 +14,7 @@ import {
 } from 'primeng/dynamicdialog';
 import { DomainSpaceDto, PurchasingPaymentPeriod } from '../../models';
 import { SubscriptionService } from '../../subscription.service';
+import { catchError, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-add-domain-space',
@@ -20,6 +27,8 @@ export class AddDomainSpaceComponent implements OnInit {
   count: number;
   period: string = 'Monthly';
   cost: number = 0;
+  subdomainValid: boolean = false;
+  subdomainInValid: boolean = false;
 
   // need to get subdomain unit price
   unitPrice: number = 50;
@@ -35,8 +44,11 @@ export class AddDomainSpaceComponent implements OnInit {
   }
   initializesubDomainForm() {
     this.subdomainForm = this.fb.group({
-      purchasingPaymentCount: new FormControl(0),
-      name: new FormControl('', [customValidators.required,customValidators.noSpecialChars,]),
+      purchasingPaymentCount: new FormControl('', customValidators.required,),
+      name: new FormControl('', [
+        customValidators.required,
+        customValidators.noSpecialChars,
+      ]),
       purchasingPaymentPeriod: new FormControl([customValidators.required]),
     });
   }
@@ -98,6 +110,26 @@ export class AddDomainSpaceComponent implements OnInit {
     this.cost = this.unitPrice * totalDuration;
   }
 
+  onNameInputKeyUp(event: any) {
+    const subdomainName = event.target.value;
+    if (subdomainName.length > 3) {
+      this.subscriptionService
+        .checkSubdomian(subdomainName)
+        .subscribe((exists: boolean) => {
+          if (exists) {
+            this.subdomainInValid = true;
+            this.subdomainValid = false;
+          } else {
+            this.subdomainInValid = false;
+            this.subdomainValid = true;
+          }
+        });
+    }
+    else{
+      this.subdomainInValid = false;
+      this.subdomainValid = false;
+    }
+  }
   constructor(
     public config: DynamicDialogConfig,
     public dialogService: DialogService,

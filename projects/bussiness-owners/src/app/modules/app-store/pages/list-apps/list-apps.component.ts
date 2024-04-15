@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppStoreService } from '../../app-store.service';
 import { AppDto } from '../../models/appDto';
-import { BaseDto, SubdomainService } from 'shared-lib';
+import { BaseDto, RouterService, SubdomainService } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
@@ -15,6 +15,7 @@ export class ListAppsComponent implements OnInit {
   cardList:boolean=false;
 
   constructor(private appStoreService: AppStoreService,
+    private router: RouterService,
     private dialog: DialogService,
     private subdomainService: SubdomainService) {
   }
@@ -43,6 +44,6 @@ export class ListAppsComponent implements OnInit {
   }
   routeToDetails(id:any){
     console.log(id);
-    
+    this.router.navigateTo('/app-store/app-detail/'+id);
   }
 }

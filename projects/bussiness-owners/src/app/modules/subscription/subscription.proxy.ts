@@ -20,4 +20,10 @@ export class SubscriptionProxy {
   GetUserSubscriptionsDetail(id:number): Observable<subscriptionDetailsDto[]>{
     return this.baseService.get<subscriptionDetailsDto[]>(`Subscription/GetUserSubscriptionsDetail?subdomainId=${id}`);
   }
+
+  checkSubdomain(subdomain: string): Observable<boolean> {
+    return this.baseService.get(`Subdomain/IsSubdomainExist?subdomainName=${subdomain}`);
+  }
+
+
 }

@@ -28,7 +28,7 @@ const routes: Routes = [
         component: MySubscriptionsComponent,
         canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.MY_SUBSCRIPTION,
+          breadcrumb: BreadcrumbLabel.SUBSCRIPTION,
         },
       },
       {

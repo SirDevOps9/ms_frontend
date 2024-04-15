@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { DomainSpaceDto, ResponsePlanDto, SubscriptionDto } from './models';
 import {
   LanguageService,
@@ -36,6 +36,9 @@ export class SubscriptionService {
     });
   }
 
+   checkSubdomian(subdomain: string) {
+     return  this.subscriptionProxy.checkSubdomain(subdomain); 
+}
 
   openSubdomainModal(ref: DynamicDialogRef, dialog: DialogService) {
     ref = dialog.open(AddDomainSpaceComponent, {
@@ -49,9 +52,9 @@ export class SubscriptionService {
     this.subscriptionProxy.addSubdomain(subdomain).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('Plan.Subdomain.Success'),
+          this.languageService.transalte('Subscription.Subdomain.Success'),
           this.languageService.transalte(
-            'Plan.Subdomain.SubdomainAddedSuccessfully'
+            'Subscription.Subdomain.SubdomainAddedSuccessfully'
           )
         );
         this.loaderService.hide();
@@ -62,6 +65,8 @@ export class SubscriptionService {
       },
     });
   }
+
+  
   constructor(
     private subscriptionProxy: SubscriptionProxy,
     private routerService: RouterService,

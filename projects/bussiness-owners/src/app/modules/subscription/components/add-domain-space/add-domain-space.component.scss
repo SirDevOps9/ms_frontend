@@ -22,6 +22,7 @@
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
+        
       }
     }
     .cancel {
@@ -118,8 +119,16 @@
       }
     }
   }
-}
+  .domain_invalid{
+    margin-top: 10px;
+    color: red;
+  }
+  .domain_valid{
+    margin-top: 10px;
+    color: #36A19B;
+  }
 
+}
 ::ng-deep {
   .p-dialog .p-dialog-header {
     display: none !important;

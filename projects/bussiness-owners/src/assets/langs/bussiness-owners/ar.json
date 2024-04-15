@@ -221,7 +221,7 @@
   "CartItem": {
     "ItemRemovedSuccessfully": "تم الحذف من السلة بنجاح"
   },
-  "Plan": {
+  "Subscription": {
     "Subdomain": {
       "AddSubdomain": "إضافة نطاق فرعي",
       "CancelButton": "إلغاء",
@@ -232,7 +232,9 @@
       "Monthly": "شهرياً",
       "Yearly": "سنوياً",
       "TryAnotherDomain": "جرب نطاقًا آخر",
-      "AddToCart": "أضف إلى السلة"
+      "AddToCart": "أضف إلى السلة",
+      "YourDomainSpace": "النطاق الفرعي"
+
     }
   }
 }

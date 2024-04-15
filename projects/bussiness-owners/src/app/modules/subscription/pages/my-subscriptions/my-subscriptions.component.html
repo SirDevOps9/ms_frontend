@@ -1,49 +1,58 @@
 <lib-page-content>
+  <div class="plan_header">
+    <button class="btn btn_app" type="button">
+      <span class="icon pi pi-plus"></span>
+      Add App
+    </button>
+    <button class="btn" type="button" (click)="openSubdomainModal()">
+      <span class="icon pi pi-plus"></span>
+      Add domain space
+    </button>
+  </div>
   <div class="plan_page">
     <div class="card-container grid">
-      <div>
-        <button type="button"  (click)="openSubdomainModal()">
-          Add Domain Space
-        </button>
-      </div>
-      <div class="card col-12 md:col-5" *ngFor="let plan of List">
-        <div class="plan_cover"></div>
-        <div class="plan_description">
-          <p class="pi pi-calendar">
-            <span class="title">End date</span>
-            <span class="date">01 JAN 2024</span>
-          </p>
-          <div class="line">
-            <div class="line_active"></div>
+      <div class="card col-12 md:col-6" *ngFor="let l of List">
+        <div class="card_header">
+          <div class="supdomain">Subdomain microtec.Com.sa</div>
+          <div class="date">
+            <p class="expire">Expire</p>
+            <p class="expire_date">31 / 12 / 2024</p>
           </div>
-          <p class="card_name">{{ plan.planName }}</p>
-          <p class="card_subdomain">{{ plan.subdomain }}</p>
+        </div>
 
-          <div class="btn_manage">
-            <button
-              class="mange user"
-              type="button"
-              class="btn btn-success"
-              (click)="navigateToManageUser(plan.id)"
-            >
-              Manage User
-            </button>
-            <button
-              class="mange"
-              type="button"
-              class="btn btn-primary"
-              (click)="navigateToManageCompany(plan.id)"
-            >
-              Manage Company
-            </button>
-            <button
-            class="mange"
-            type="button"
-            class="btn btn-primary"
-            (click)="navigateToManageApp(plan.id)"
-          >
-           Manage apps
-          </button>
+        <div class="card_contant">
+          <div class="plan_cover"></div>
+          <div class="plan_description">
+            <div class="btn_manage">
+              <button
+                class="mange user"
+                type="button"
+                class="btn btn-success"
+                (click)="navigateToManageUser(l.id)"
+              >
+                <span class="pi pi-users icon_btn"></span>
+                Manage User
+              </button>
+              <button
+                class="mange"
+                type="button"
+                class="btn btn-primary"
+                (click)="navigateToManageCompany(l.id)"
+              >
+                <span class="pi pi-building icon_btn"></span>
+                Manage Companies
+              </button>
+              <button class="mange" type="button" class="btn btn-primary">
+                <span class="pi pi-refresh icon_btn"></span>
+                renew
+              </button>
+            </div>
+            <div class="mange_app">
+              <button class="btn_mange_app" type="button">
+                <span class="pi pi-users icon_btn"></span>
+                Manage aPP
+              </button>
+            </div>
           </div>
         </div>
       
