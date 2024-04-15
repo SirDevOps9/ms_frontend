@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { DomainSpaceDto, ResponsePlanDto, SubscriptionDto } from './models';
-import { PlanProxy } from './subscription.proxy';
 import {
   LanguageService,
   LoaderService,
@@ -10,10 +9,11 @@ import {
 } from 'shared-lib';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddDomainSpaceComponent } from './components/add-domain-space/add-domain-space.component';
+import { SubscriptionProxy } from './subscription.proxy';
 @Injectable({
   providedIn: 'root',
 })
-export class PlanService {
+export class SubscriptionService {
   private subscriptionDataSource = new BehaviorSubject<SubscriptionDto[]>([]);
   public subscriptions = this.subscriptionDataSource.asObservable();
 
@@ -21,13 +21,13 @@ export class PlanService {
   public plans = this.plansDataSource.asObservable();
 
   loadSubscription() {
-    this.planProxy.getAllSubscriptions().subscribe((response) => {
+    this.subscriptionProxy.getAllSubscriptions().subscribe((response) => {
       this.subscriptionDataSource.next(response);
     });
   }
 
   loadPlans() {
-    this.planProxy.getAllPlans().subscribe((response) => {
+    this.subscriptionProxy.getAllPlans().subscribe((response) => {
       this.plansDataSource.next(response);
     });
   }
@@ -41,7 +41,7 @@ export class PlanService {
   }
   addSubdomain(subdomain: DomainSpaceDto, dialogRef: DynamicDialogRef) {
     this.loaderService.show();
-    this.planProxy.addSubdomain(subdomain).subscribe({
+    this.subscriptionProxy.addSubdomain(subdomain).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Plan.Subdomain.Success'),
@@ -58,7 +58,7 @@ export class PlanService {
     });
   }
   constructor(
-    private planProxy: PlanProxy,
+    private subscriptionProxy: SubscriptionProxy,
     private routerService: RouterService,
     private toasterService: ToasterService,
     private languageService: LanguageService,

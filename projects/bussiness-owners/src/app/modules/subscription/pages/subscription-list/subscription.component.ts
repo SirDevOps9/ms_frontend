@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterService } from 'shared-lib';
 import { ResponsePlanDto } from '../../models';
 import { Title } from '@angular/platform-browser';
-import { PlanService } from '../../subscription.service';
+import { SubscriptionService } from '../../subscription.service';
 
 @Component({
   selector: 'app-subscription',
@@ -14,12 +14,11 @@ export class SubscriptionComponent implements OnInit {
   constructor(
     private routerService: RouterService,
     private titleService: Title,
-    private planService: PlanService
+    private subscriptionService: SubscriptionService
   ) {}
 
   ngOnInit() {
     this.titleService.setTitle('Subscriptions');
-    this.loadPlans();
   }
 
   navigateToManageCompany(planId: number) {
@@ -29,10 +28,5 @@ export class SubscriptionComponent implements OnInit {
   navigateToManageUser(subdomainId: number) {
     this.routerService.navigateTo('users/' + subdomainId);
   }
-  loadPlans() {
-    this.planService.loadPlans();
-    this.planService.plans.subscribe((plansList) => {
-      this.plansList = plansList;
-    });
-  }
+
 }

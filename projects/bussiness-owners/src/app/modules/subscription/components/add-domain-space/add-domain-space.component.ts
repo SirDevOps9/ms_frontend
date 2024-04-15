@@ -6,8 +6,8 @@ import {
   DynamicDialogConfig,
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
-import { PlanService } from '../../subscription.service';
 import { DomainSpaceDto, PurchasingPaymentPeriod } from '../../models';
+import { SubscriptionService } from '../../subscription.service';
 
 @Component({
   selector: 'app-add-domain-space',
@@ -36,7 +36,7 @@ export class AddDomainSpaceComponent implements OnInit {
   initializesubDomainForm() {
     this.subdomainForm = this.fb.group({
       purchasingPaymentCount: new FormControl(0),
-      name: new FormControl('', [customValidators.required,customValidators.noSpecialChars]),
+      name: new FormControl('', [customValidators.required,customValidators.noSpecialChars,]),
       purchasingPaymentPeriod: new FormControl([customValidators.required]),
     });
   }
@@ -47,7 +47,7 @@ export class AddDomainSpaceComponent implements OnInit {
       purchasingPaymentPeriod: this.purchasingPaymentPeriod,
     };
 
-    this.planService.addSubdomain(domainModel, this.ref);
+    this.subscriptionService.addSubdomain(domainModel, this.ref);
   }
   onCancel() {
     this.ref.close();
@@ -104,6 +104,6 @@ export class AddDomainSpaceComponent implements OnInit {
     private fb: FormBuilder,
     private formService: FormsService,
     private ref: DynamicDialogRef,
-    private planService: PlanService
+    private subscriptionService: SubscriptionService
   ) {}
 }
