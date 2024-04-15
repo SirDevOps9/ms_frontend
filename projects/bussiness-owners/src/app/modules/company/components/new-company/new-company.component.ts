@@ -27,6 +27,10 @@ export class NewCompanyComponent {
   lookups: { [key: string]: lookupDto[] };
   companyId: string;
 
+  get subdomainId(): number {
+    return this.config.data.Id;
+  }
+
   ngOnInit() {
     this.initializeForm();
     this.loadLookups();
@@ -36,8 +40,7 @@ export class NewCompanyComponent {
   onSubmit() {
     if (!this.formsService.validForm(this.addCompanyForm, true)) return;
     const request: AddCompanyPopupDto = this.addCompanyForm.value;
-    request.subdomainId = 2;
-    console.log('sdgd', this.addCompanyForm.value);
+    request.subdomainId = this.subdomainId;
     this.companyService.addCompanyPopup(request, this.ref).subscribe((res) => {
       this.companyId = res.id;
     });
@@ -66,9 +69,6 @@ export class NewCompanyComponent {
     this.ref.close();
   }
 
-  get subdomainId(): string {
-    return this.routerService.currentId;
-  }
 
   onSaveAndEdit() {
     if (!this.formsService.validForm(this.addCompanyForm, true)) return;
