@@ -22,11 +22,11 @@ import {
 } from 'microtec-auth-lib';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CompanyModule } from './modules/company/company.module';
-import { PlanModule } from './modules/plan/plan.module';
 import { UserModule } from './modules/user/user.module';
 import { LayoutModule } from './modules/layout/layout.module';
 import { ERPUserModule } from './modules/erp-user/erp-user.module';
 import { AppStoreModule } from './modules/app-store/app-store.module';
+import { SubscriptionModule } from './modules/subscription/subscription.module';
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
   imports: [
@@ -57,7 +57,7 @@ import { AppStoreModule } from './modules/app-store/app-store.module';
     CookieModule.withOptions(),
     LayoutModule,
     CompanyModule,
-    PlanModule,
+    SubscriptionModule,
     UserModule,
     ERPUserModule,
     AppStoreModule

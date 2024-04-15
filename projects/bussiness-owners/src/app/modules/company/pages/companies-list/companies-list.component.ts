@@ -67,7 +67,7 @@ convertToTreeNode(companies: ResponseCompanyDto[]): TreeNode<ResponseCompanyDto>
   }
   
 newCompany() {
-    this.companyService.openNewCompanyModal(this.subscriptionId,this.ref, this.dialog);
+    this.companyService.openNewCompanyModal(this.subdomainId,this.ref, this.dialog);
   }
 
   ngOnInit() {
@@ -119,7 +119,7 @@ newCompany() {
   }
 
   initCompanyData() {
-    this.companyService.loadCompanies(this.subscriptionId);
+    this.companyService.loadCompanies(this.subdomainId);
 
     this.companyService.companies.subscribe((companyList) => {
       //this.tableData=companyList;
@@ -137,7 +137,7 @@ newCompany() {
     }
   }
 
-  get subscriptionId(): string {
+  get subdomainId(): string {
     return this.routerService.currentId;
   }
   routeToEdit(id:string){

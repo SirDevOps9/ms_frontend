@@ -218,7 +218,23 @@
     "AddedToCartSuccessfully": "تم الإضافة لسلة الشراء بنجاح",
     "CheckedOut": "تم الشراء بنجاح"
   },
-  "CartItem":{
-    "ItemRemovedSuccessfully":"تم الحذف من السلة بنجاح"
+  "CartItem": {
+    "ItemRemovedSuccessfully": "تم الحذف من السلة بنجاح"
+  },
+  "Subscription": {
+    "Subdomain": {
+      "AddSubdomain": "إضافة نطاق فرعي",
+      "CancelButton": "إلغاء",
+      "Success": "نجاح",
+      "SubdomainAddedSuccessfully": "تمت إضافة النطاق الفرعي بنجاح",
+      "AddDomainSpace": "إضافة مساحة النطاق",
+      "Count": "العدد",
+      "Monthly": "شهرياً",
+      "Yearly": "سنوياً",
+      "TryAnotherDomain": "جرب نطاقًا آخر",
+      "AddToCart": "أضف إلى السلة",
+      "YourDomainSpace": "النطاق الفرعي"
+
+    }
   }
 }

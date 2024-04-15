@@ -1,15 +1,14 @@
-.plan_page{
-
+.plan_page {
   width: 95%;
   margin: auto;
-  .card-container{
+  .card-container {
     padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    
-    .card{
+
+    .card {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -19,71 +18,69 @@
       padding: 10px 5px;
       border-radius: 8px;
 
-      .plan_description{
+      .plan_description {
         width: 60%;
         margin: auto;
         text-align: center;
-        .plan_ico{
-          color: #1A8EAE !important;
+        .plan_ico {
+          color: #1a8eae !important;
           font-size: 20px;
           font-weight: 800;
         }
-        .title{
+        .title {
           margin-inline-start: 5px;
           margin-inline-end: 10px;
           font-size: 16px;
-          color:#6B7280 ;
+          color: #6b7280;
         }
-        .date{
+        .date {
           font-size: 14px;
-          color:#6B7280 ;
+          color: #6b7280;
         }
-        .line{
+        .line {
           width: 100%;
           height: 4px;
-          background-color:#EDEEF1 ;
+          background-color: #edeef1;
           border-radius: 8px;
-          .line_active{
+          .line_active {
             width: 50%;
             height: 4px;
-            background-color:#CB3F2D ;
+            background-color: #cb3f2d;
             border-radius: 8px;
           }
         }
-        .card_name{
+        .card_name {
           margin: 5px 0px;
-          color: #383A42;
+          color: #383a42;
           font-size: 20px;
           font-weight: 700;
         }
-        .card_subdomain{
+        .card_subdomain {
           margin: 20px 0px;
-          color: #6B7280;
-          font-size:16px ;
+          color: #6b7280;
+          font-size: 16px;
         }
-        .btn_manage{
+        .btn_manage {
           display: flex;
           align-items: center;
           justify-content: center;
-          button{
+          button {
             background-color: #fff;
-            border: 2px solid #1A8EAE;
+            border: 2px solid #1a8eae;
             font-size: 16px;
             color: #000;
             padding: 10px 10px;
             border-radius: 8px;
             &:first-child {
-              margin-inline-end: 10px;            
-           }
-           &:hover{
-            background-color:#1A8EAE ;
-            color: #fff;
-            cursor: pointer;
-           }
+              margin-inline-end: 10px;
+            }
+            &:hover {
+              background-color: #1a8eae;
+              color: #fff;
+              cursor: pointer;
+            }
           }
-     
         }
-      
       }
     }
   }
