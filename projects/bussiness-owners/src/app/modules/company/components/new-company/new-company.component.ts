@@ -73,7 +73,7 @@ export class NewCompanyComponent {
   onSaveAndEdit() {
     if (!this.formsService.validForm(this.addCompanyForm, true)) return;
     const request: AddCompanyPopupDto = this.addCompanyForm.value;
-    request.subdomainId = 2;
+    request.subdomainId = this.subdomainId;
     this.companyService.addCompanyPopup(request, this.ref).subscribe((res) => {
       this.companyId = res.id;
       this.routerService.navigateTo('company/edit/' + this.companyId);
