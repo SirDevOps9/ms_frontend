@@ -10,6 +10,7 @@ import {
   DataTableComponent,
   AttachmentViewerComponent,
   TablePaginatorComponent,
+  
 } from './components';
 import {
   FieldValidationsComponent,
@@ -48,7 +49,7 @@ import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.compon
     AttachmentViewerComponent,
     ButtonComponent,
     InputSwitchComponent,
-    BreadCrumbComponent
+    BreadCrumbComponent,
     TablePaginatorComponent,
   ],
   imports: [
@@ -84,7 +85,8 @@ import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.compon
     DataTableComponent,
     AttachmentViewerComponent,
     ButtonComponent,
-    InputSwitchComponent,BreadCrumbComponent
+    InputSwitchComponent,
+    BreadCrumbComponent,
     TablePaginatorComponent,
   ],
 })
