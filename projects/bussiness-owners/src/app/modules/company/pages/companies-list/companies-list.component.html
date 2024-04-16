@@ -75,7 +75,7 @@
                   severity="secondary "                   ></p-button>
               </ng-container>
                 <ng-container *ngIf="i == 6">
-                  <div class="checked" >
+                  <!-- <div class="checked" >
                     <p-inputSwitch
 
                       [(ngModel)]="active"
@@ -87,7 +87,8 @@
                     <p class="inactive" *ngIf="!active">
                       {{ "User.Deactivate" | translate }}
                     </p>
-                  </div>
+                  </div> -->
+                  <lib-input-switch [isActive]="active"   (valueChanged)="changed( $event ,rowData.Code)"></lib-input-switch>
               </ng-container>
               </td>
         </tr>

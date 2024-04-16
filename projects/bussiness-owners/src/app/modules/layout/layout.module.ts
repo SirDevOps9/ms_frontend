@@ -4,10 +4,11 @@ import { MicrotecAuthLibModule } from 'microtec-auth-lib';
 import { SharedLibModule } from 'shared-lib';
 import { LayoutComponent } from './layout-page/layout.component';
 import { LayoutHeaderComponent } from './layout-header/layout-header.component';
+import { LayoutSidebarComponent } from './layout-sidebar/layout-sidebar.component';
 
 @NgModule({
   providers: [],
-  declarations: [LayoutComponent, LayoutHeaderComponent],
+  declarations: [LayoutComponent, LayoutHeaderComponent, LayoutSidebarComponent],
   imports: [MicrotecAuthLibModule, SharedLibModule, HttpClientModule],
   exports: [],
 })

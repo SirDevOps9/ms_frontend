@@ -1,0 +1,122 @@
+<div class="bar" [ngClass]="{ bar_opened: sidebarOpen }" id="bar">
+    
+
+<div class="sidebar_container">
+    <div class="content" *ngIf="!sidebarOpen">
+      <div
+        class="item"
+        routerLink="/my-plans"
+        id="subscripition"
+        (click)="activeTag('subscripition')"
+      >
+        <button>
+          <div class="item_icon">
+            <i class="fa fa-solid fa-globe"></i>
+          </div>
+          <div class="item_text">subscripition</div>
+        </button>
+      </div>
+      
+      <button class="item" id="KPI" (click)="activeTag('KPI')">
+        <div class="item_icon">
+          <i class="fa fa-solid fa-globe"></i>
+        </div>
+        <div class="item_text">KPI's</div>
+      </button>
+      <button class="item" id="Apps" (click)="activeTag('Apps')">
+        <div class="item_icon">
+          <i class="fa fa-solid fa-globe"></i>
+        </div>
+        <div class="item_text">microtec Apps users</div>
+      </button>
+      <button
+        class="item"
+        routerLink="/plan"
+        id="plan"
+        (click)="activeTag('plan')"
+      >
+        <div class="item_icon">
+          <i class="fa fa-solid fa-globe"></i>
+        </div>
+        <div class="item_text">plan</div>
+      </button>
+    </div>
+    <div class="content_open" *ngIf="sidebarOpen">
+      <button
+        class="item"
+        routerLink="/plan"
+        id="plan"
+        (click)="activeTag('plan')"
+      >
+        <div class="item_icon">
+          <i class="fa fa-solid fa-globe"></i>
+        </div>
+        <div class="item_text">plan</div>
+      </button>
+      <button
+        class="item"
+        routerLink="/company"
+        id="company"
+        (click)="activeTag('company')"
+      >
+        <div class="item_icon">
+          <i class="fa fa-solid fa-building"></i>
+        </div>
+        <div class="item_text">company</div>
+      </button>
+      <button
+        class="item"
+        routerLink="/users"
+        id="users"
+        (click)="activeTag('users')"
+      >
+        <div class="item_icon">
+          <i class="fa fa-solid fa-users"></i>
+        </div>
+        <div class="item_text">user</div>
+      </button>
+      <button class="item" id="KPI" (click)="activeTag('KPI')">
+        <div class="item_icon">
+          <i class="fa fa-solid fa-globe"></i>
+        </div>
+        <div class="item_text">KPI's</div>
+      </button>
+      <button class="item" id="Apps" (click)="activeTag('Apps')">
+        <div class="item_icon">
+          <i class="fa fa-solid fa-globe"></i>
+        </div>
+        <div class="item_text">microtec Apps users</div>
+      </button>
+      <div class="card flex justify-content-center">
+        <p-accordion
+          [activeIndex]="0"
+          expandIcon="fa fa-solid fa-caret-down"
+          collapseIcon="fa fa-solid fa-caret-up"
+        >
+          <p-accordionTab header="users">
+            <button class="item" id="Apps" (click)="activeTag('Apps')">
+              <div class="item_icon">
+                <i class="fa fa-solid fa-globe"></i>
+              </div>
+              <div class="item_text">microtec Apps users</div>
+            </button>
+            <button class="item" id="Apps" (click)="activeTag('Apps')">
+              <div class="item_icon">
+                <i class="fa fa-solid fa-globe"></i>
+              </div>
+              <div class="item_text">microtec Apps users</div>
+            </button>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+    </div>
+    <div class="arrwo">
+      <button (click)="toggleSidebar()">
+        <p *ngIf="!sidebarOpen">
+          <i class="fa fa-solid fa-angle-right"></i>
+        </p>
+        <p *ngIf="sidebarOpen"><i class="fa fa-solid fa-angle-left"></i></p>
+      </button>
+    </div>
+  </div>
+  </div>

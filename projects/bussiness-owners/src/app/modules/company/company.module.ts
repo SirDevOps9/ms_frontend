@@ -3,7 +3,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { NewCompanyComponent } from './pages/new-company/new-company.component';
 import { AuthGuard, MicrotecAuthLibModule } from 'microtec-auth-lib';
-import { BreadcrumbLabel, SharedLibModule } from 'shared-lib';
+import { BreadcrumbLabel, SharedLibModule, 
+
+} from 'shared-lib';
 import { AddCompanyComponent } from './pages/add-compny/add-compny.component';
 import { EditCompanyComponent } from './pages/edit-company/edit-company.component';
 import { CompaniesListComponent } from './pages/companies-list/companies-list.component';

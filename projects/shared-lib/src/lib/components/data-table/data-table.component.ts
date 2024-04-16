@@ -14,7 +14,7 @@ import { PageInfo, PageInfoResult } from '../../models';
 @Component({
   selector: 'lib-data-table',
   templateUrl: './data-table.component.html',
-  styleUrls: ['./data-table.component.css'],
+  styleUrls: ['./data-table.component.scss'],
 })
 export class DataTableComponent implements OnInit {
   @Input() items: any[];
