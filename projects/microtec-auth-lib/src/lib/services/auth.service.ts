@@ -90,7 +90,7 @@ export class AuthService {
     let item = this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
     let loggedUser = item! as LoginResponse;
     this.logService.log(loggedUser, 'authService.UserName');
-    return loggedUser?.userData?.name;
+    return loggedUser?.userData?.fullname;
   }
 
   getUserTokenModel(): TokenModel {
