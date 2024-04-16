@@ -4,6 +4,7 @@ import {  RouterService } from 'shared-lib';
 import { SubscriptionDto } from '../../models';
 import {  SubscriptionService } from '../../subscription.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ResponseSubdomainListDto } from '../../models/responseSubdomainListDto';
 
 @Component({
   templateUrl: './my-subscriptions.component.html',
@@ -11,12 +12,13 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class MySubscriptionsComponent implements OnInit {
   List: SubscriptionDto[];
+  subdomainList : ResponseSubdomainListDto[];
 
   ref: DynamicDialogRef;
 
   ngOnInit() {
     this.titleService.setTitle('My subscriptions');
-    this.loadSubscriptions();
+    this.loadMySubdomains();
 
   }
 
@@ -39,6 +41,13 @@ export class MySubscriptionsComponent implements OnInit {
     this.subscriptionService.loadSubscription();
     this.subscriptionService.subscriptions.subscribe((List) => {
       this.List = List;
+    });
+
+  }
+  loadMySubdomains() {
+    this.subscriptionService.loadSubdomains();
+    this.subscriptionService.subdomains.subscribe((subdomains) => {
+      this.subdomainList = subdomains;
     });
   }
   constructor(
