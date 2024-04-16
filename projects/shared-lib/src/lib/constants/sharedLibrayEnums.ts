@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AttachmentFileTypeEnum } from '../models';
-import { Actions } from 'microtec-auth-lib';
+import { Actions, Apps, Licenses } from 'microtec-auth-lib';
 
 @Injectable({
   providedIn: 'root',
@@ -12,5 +12,12 @@ export class SharedLibraryEnums {
 
   get PageActions(): typeof Actions {
     return Actions;
+  }
+
+  get AppsTypes(): typeof Apps {
+    return Apps;
+  }
+  get LicenseTypes(): typeof Licenses {
+    return Licenses;
   }
 }

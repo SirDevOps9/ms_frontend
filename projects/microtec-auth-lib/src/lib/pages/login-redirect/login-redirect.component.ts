@@ -33,8 +33,6 @@ export class LoginRedirectComponent implements OnInit {
       )
       .subscribe({
         next: ({ tenantObj, permissiontree }) => {
-          console.log('Load tree', permissiontree);
-
           this.localStorage.setItem(StorageKeys.TENANT, tenantObj);
           this.localStorage.setItem(StorageKeys.PERMISSIONTREE, permissiontree);
           this.authService.afterLoginRedirect();

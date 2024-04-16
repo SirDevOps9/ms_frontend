@@ -8,6 +8,6 @@ export * from './lib/interceptors/http.interceptor'
 export * from './lib/guards/index'
 export * from './lib/services/index'
 
-export * from './lib/models/actions'
+export * from './lib/models/index'
 
 export * from './lib/directives/hasPermission.directive'

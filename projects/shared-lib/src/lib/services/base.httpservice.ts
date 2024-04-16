@@ -48,7 +48,7 @@ export class HttpService {
           [HeaderParams.APIKEY]: this.environmentService.ApiKey,
           [HeaderParams.PERMISSIONTREE]: this.storageService.getItem(
             StorageKeys.PERMISSIONTREE
-          ),
+          ) || '',
         });
         return of(headers);
       })

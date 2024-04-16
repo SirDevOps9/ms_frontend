@@ -11,7 +11,8 @@ import {
   LanguageService,
 } from 'shared-lib';
 import { TokenModel } from '../models/tokenmodel';
-import { PermissionTreeNode } from '../models';
+import { PermissionTreeNode, RouteFilter } from '../models';
+import { Nullable } from 'primeng/ts-helpers';
 @Injectable({
   providedIn: 'root',
 })
@@ -46,17 +47,35 @@ export class AuthService {
     return this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
   }
 
-  getUserPermissions(): PermissionTreeNode[] {
+  getUserPermissions(): PermissionTreeNode[] | Nullable {
     let encrypted = this.localStorageService.getItem(
       StorageKeys.PERMISSIONTREE
     );
+
+    if (encrypted === null) return null;
     const decodedString = atob(encrypted);
     const tree: PermissionTreeNode[] = JSON.parse(decodedString);
-    console.log('Decoded Tree', tree);
-
     return tree;
   }
-  
+
+  hasPermission(filter: RouteFilter): boolean {
+    let tree = this.getUserPermissions();
+    if (tree === null) return false;
+    
+    let userPermission = tree!.filter(
+      (x) => x.AppId == filter.App && x.LicenseId == filter.License
+    );
+
+    if (userPermission.length === 0) return false;
+
+    const hasPermission = userPermission.some((node) => {
+      const includesAction = node.Actions.includes(filter.Action);
+      return includesAction;
+    });
+
+    return hasPermission;
+  }
+
   saveTokenData(): Observable<LoginResponse> {
     return this.oidcSecurityService.checkAuth().pipe(
       map((loginResponse: LoginResponse) => {
