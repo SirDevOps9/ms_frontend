@@ -1,0 +1,28 @@
+.actions {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .save {
+      
+      height: 50px;
+      text-transform: capitalize;
+      font-size: 22px;
+      background-color: #1a8eae;
+      color: #fff;
+      padding: 5px 20px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      margin-inline-end: 20px;
+      &:hover{
+        background-color: #fff;
+        color: #1a8eae;
+        border: 1px solid #1a8eae;
+      }
+    }
+}
+
+fieldset {
+  border: none; 
+}

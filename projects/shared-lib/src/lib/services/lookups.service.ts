@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { HttpService } from './base.httpservice';
-import { APIResponse, LookupEnum, lookupDto, lookupsListDto } from '../models';
+import { LookupEnum, lookupDto, lookupsListDto } from '../models';
 import { LanguageService } from './language.service';
 
 @Injectable({
@@ -59,17 +59,17 @@ export class LookupsService {
     const queryParams = lookups.map((name) => `lookups=${name}`).join('&');
     this.lookupsLoadedDataSource.next(false);
     this.httpService
-      .get<APIResponse<lookupsListDto[]>>('Lookup?' + queryParams)
-      .subscribe((response: APIResponse<lookupsListDto[]>) => {
-        this.resetLookups(response.response);
+      .get<lookupsListDto[]>('Lookup?' + queryParams)
+      .subscribe((response: lookupsListDto[]) => {
+        this.resetLookups(response);
       });
   }
 
   loadServiceLookups(url: string) {
     this.httpService
-      .get<APIResponse<lookupsListDto[]>>(url)
-      .subscribe((response: APIResponse<lookupsListDto[]>) => {
-        this.resetLookups(response.response);
+      .get<lookupsListDto[]>(url)
+      .subscribe((response: lookupsListDto[]) => {
+        this.resetLookups(response);
       });
   }
 

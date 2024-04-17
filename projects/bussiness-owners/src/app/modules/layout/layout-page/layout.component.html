@@ -6,11 +6,12 @@
   <div class="Layout">
     <app-layout-sidebar (sidebaropend)="toggleSidebar($event)"></app-layout-sidebar>
     <div class="pages" [ngClass]="{ pages_sid_open: sidebarOpen }">
-      <div class="title_of_page p-3">
-        <div class="card flex align-items-center">
-        <lib-bread-crumb></lib-bread-crumb>
-        </div>
-      </div>
+      <!-- <div class="title_of_page p-3">
+        <div class="card flex align-items-center"> -->
+        <!-- <lib-bread-crumb>
+        </lib-bread-crumb> -->
+        <!-- </div>
+      </div> -->
       <router-outlet></router-outlet>
     </div>
   </div>

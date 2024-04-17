@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   AbstractControlOptions,
   FormBuilder,
+  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
@@ -9,9 +10,12 @@ import {
   FormsService,
   LoaderService,
   RouterService,
+  SharedLibraryEnums,
   customValidators,
 } from 'shared-lib';
+
 import { UserService } from '../../user.service';
+import { AddConfirmedUserDto } from '../../models';
 @Component({
   selector: 'app-userconfirmation',
   templateUrl: './userconfirmation.component.html',
@@ -25,49 +29,23 @@ export class UserconfirmationComponent implements OnInit {
   photo: any;
   errorMessage: string;
   photoSrc: string = 'assets/images/users/pic.jpg';
-
   ngOnInit() {
     this.initializeForm();
     this.getEmail();
   }
 
   initializeForm() {
-    this.userForm = this.formBuilder.group(
-      {
-        fullName: [
-          '',
-          [customValidators.required, customValidators.length(3, 50)],
-        ],
-        email: [
-          { value: '', disabled: true },
-          ,
-          [customValidators.required, customValidators.email],
-        ],
-        password: [
-          '',
-          [
-            customValidators.required,
-            Validators.pattern(
-              '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$'
-            ),
-          ],
-        ],
-        confirmPassword: ['', customValidators.required],
-        acceptPolicy: [false, Validators.requiredTrue],
-      },
-      { validators: customValidators.confrimPassword } as AbstractControlOptions
-    );
-  }
-  onFileSelected(event: any) {
-    if (event.target.files.length > 0) {
-      this.photo = event.target.files[0];
-      const fData = new FormData();
-      fData.append('photo', this.photo);
-    }
-    const file = event.srcElement.files;
-    if (file) {
-      this.photoSrc = URL.createObjectURL(file[0]);
-    }
+    this.userForm = this.formBuilder.group({
+      fullName: new FormControl('', [
+        customValidators.required,
+        customValidators.length(3, 50),
+      ]),
+      email: new FormControl('',  [customValidators.required,customValidators.email]),
+      password: new FormControl('', [customValidators.required,customValidators.password]),
+      confirmPassword: new FormControl('', [customValidators.required,customValidators.confrimPassword]),
+      acceptPolicy: new FormControl('', [Validators.requiredTrue]),
+      photo: new FormControl(''),
+    });
   }
   getEmail() {
     this.userService.getEmail(this.getUserId).subscribe({
@@ -83,25 +61,14 @@ export class UserconfirmationComponent implements OnInit {
       },
     });
   }
-
   submitForm() {
     if (!this.formsService.validForm(this.userForm, true)) return;
     this.loaderservice.show();
-    const formData = this.fillDataForm();
-    this.userService.submitUserConfirm(formData);
+    const request: AddConfirmedUserDto = this.userForm.value;
+    request.invitedUserId = this.getUserId;
+    request.email = this.email;
+    this.userService.submitUserConfirm(request);
   }
-  fillDataForm(): FormData {
-    const formData = new FormData();
-    formData.append('photo', this.photo);
-
-    Object.keys(this.userForm.value).forEach((key) => {
-      formData.append(key, this.userForm.value[key]);
-    });
-    formData.append('inviteduserId', this.getUserId);
-    formData.append('email', this.email);
-    return formData;
-  }
-
   get getUserId(): string {
     return this.router.currentId;
   }
@@ -110,6 +77,7 @@ export class UserconfirmationComponent implements OnInit {
     private router: RouterService,
     private formBuilder: FormBuilder,
     private formsService: FormsService,
-    private userService: UserService
-  ) {}
+    private userService: UserService,
+    public sharedLibEnums: SharedLibraryEnums
+  ) { }
 }

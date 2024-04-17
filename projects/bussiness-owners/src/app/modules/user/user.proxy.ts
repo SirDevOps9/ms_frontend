@@ -1,34 +1,34 @@
 import { Observable } from 'rxjs';
 import {
-  APIResponse,
   BaseDto,
   PageInfo,
-  HttpService,
   PaginationVm,
   FilterDto,
+  HttpService,
 } from 'shared-lib';
 import { Injectable } from '@angular/core';
 import {
+  AddConfirmedUserDto,
   EditUserModel,
   GetUserbyid,
   InviteUserDto,
   UserListResponse,
 } from './models';
-import { SubscriptionDto } from '../plan/models';
+import { SubscriptionDto } from '../subscription/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserProxy {
-  getAll(subscriptionId: number): Observable<APIResponse<UserListResponse[]>> {
-    return this.baseService.get<APIResponse<UserListResponse[]>>(
+  getAll(subscriptionId: number): Observable<UserListResponse[]> {
+    return this.baseService.get<UserListResponse[]>(
       `User?subscriptionId=${subscriptionId}`
     );
   }
   getAllPaginated(
     filterDto: FilterDto
-  ): Observable<APIResponse<PaginationVm<UserListResponse>>> {
-    return this.baseService.get<APIResponse<PaginationVm<UserListResponse>>>(
+  ): Observable<PaginationVm<UserListResponse>> {
+    return this.baseService.get<PaginationVm<UserListResponse>>(
       `User/GetAllPaginated?${filterDto.toQuery}`
     );
   }
@@ -44,67 +44,52 @@ export class UserProxy {
   // }
   //   return query;
   // }
-  platformDropDown(): Observable<APIResponse<BaseDto[]>> {
-    return this.baseService.get<APIResponse<BaseDto[]>>(
-      `PlatformPlan/GetAllDropDown`
-    );
+  platformDropDown(): Observable<BaseDto[]> {
+    return this.baseService.get<BaseDto[]>(`PlatformPlan/GetAllDropDown`);
   }
-  inviteUser(
-    userModel: InviteUserDto
-  ): Observable<APIResponse<UserListResponse>> {
-    return this.baseService.post<APIResponse<UserListResponse>>(
+  inviteUser(userModel: InviteUserDto): Observable<UserListResponse> {
+    return this.baseService.post<UserListResponse>(
       `InvitedUser/Create`,
-      userModel
+      userModel,
+      false
     );
   }
 
-  resendInvitation(id: string): Observable<APIResponse<boolean>> {
-    return this.baseService.post<APIResponse<boolean>>(
-      `InvitedUser/ResendEmail/${id}`,
-      {}
-    );
+  resendInvitation(id: string): Observable<boolean> {
+    return this.baseService.post<boolean>(`InvitedUser/ResendEmail/${id}`, {});
   }
-  activateUser(id: string): Observable<APIResponse<boolean>> {
-    return this.baseService.put<APIResponse<boolean>>(
-      `User/ActivateUser/${id}`,
-      {}
-    );
+  activateUser(id: string): Observable<boolean> {
+    return this.baseService.put<boolean>(`User/ActivateUser/${id}`, {});
   }
-  deactivateUser(id: string): Observable<APIResponse<boolean>> {
-    return this.baseService.put<APIResponse<boolean>>(
-      `User/DeactivateUser/${id}`,
-      {}
-    );
+  deactivateUser(id: string): Observable<boolean> {
+    return this.baseService.put<boolean>(`User/DeactivateUser/${id}`, {});
   }
-  getUserById(id: string): Observable<APIResponse<GetUserbyid>> {
-    return this.baseService.get<APIResponse<GetUserbyid>>(`User/Getbyid/${id}`);
+  getUserById(id: string): Observable<GetUserbyid> {
+    return this.baseService.get<GetUserbyid>(`User/Getbyid/${id}`);
   }
 
-  updateUser(
-    user: EditUserModel,
-    id: string
-  ): Observable<APIResponse<boolean>> {
-    return this.baseService.put<APIResponse<boolean>>(
+  updateUser(user: EditUserModel, id: string): Observable<boolean> {
+    return this.baseService.put<boolean>(
       `User/UpdateInvitedBoByAdmin/${id}`,
       user
     );
   }
 
-  getById(id: string): Observable<APIResponse<InviteUserDto>> {
-    return this.baseService.get<APIResponse<InviteUserDto>>(
+  getById(id: string): Observable<InviteUserDto> {
+    return this.baseService.get<InviteUserDto>(
       `InvitedUser/GetById/${id}`,
       false
     );
   }
 
-  confirmInvitedUser(request: FormData): Observable<APIResponse<boolean>> {
-    return this.baseService.postForm<APIResponse<boolean>>(
+  confirmInvitedUser(request: AddConfirmedUserDto): Observable<boolean> {
+    return this.baseService.post<boolean>(
       `InvitedUser/ConfirmInvitedUser`,
       request
     );
   }
-  getAllSubscriptions(): Observable<APIResponse<SubscriptionDto[]>> {
-    return this.baseService.get<APIResponse<SubscriptionDto[]>>(`Subscription`);
+  getAllSubscriptions(): Observable<SubscriptionDto[]> {
+    return this.baseService.get<SubscriptionDto[]>(`Subscription`);
   }
 
   constructor(private baseService: HttpService) {}

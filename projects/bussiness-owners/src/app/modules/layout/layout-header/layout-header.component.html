@@ -18,6 +18,42 @@
             <div class="header_sec">
               <div class="choices">
                 <div class="choices_tnt"></div>
+                <!-- <div class="choices_com">
+                  <div class="card flex justify-content-center">
+                    <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Company">
+                        <ng-template pTemplate="selectedItem" let-selectedOption>
+                            <div class="flex align-items-center gap-2">
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' " style="width: 18px"/>
+                                <div>{{ selectedOption.name }}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-country pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' " style="width: 18px"/>
+                                <div>{{ country.name }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+                </div>
+                <div class="choices_pr">
+                  <div class="card flex justify-content-center">
+                    <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Branch">
+                        <ng-template pTemplate="selectedItem" let-selectedOption>
+                            <div class="flex align-items-center gap-2">
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' " style="width: 18px"/>
+                                <div>{{ selectedOption.name }}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-country pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' " style="width: 18px"/>
+                                <div>{{ country.name }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+                </div> -->
               </div>
 
               <div class="end_header_sec">
@@ -41,6 +77,13 @@
                 <div class="link_sec">
                   <button>
                     <span class="pi pi-star icon_link"></span>
+                  </button>
+                </div>
+                <div class="link_sec">
+                  <div class="count">  {{cartItemsCount$|async}}</div>
+                  <button class="btn_count" (click)="routeToCart()">
+                  
+                    <span class="pi pi-shopping-cart icon_link"></span>
                   </button>
                 </div>
                 <div class="profaile_sec">
@@ -77,7 +120,9 @@
                     <button class="lang_link" (click)="toggleLanguage()">
                       <p class="pi pi-language"></p>
                       <p class="title">
-                        {{ languageService.Lang === "en" ? "English" : "عربى" }}
+                        {{
+                          languageService.Lang === "en" ? "English" : "عربى"
+                        }}
                       </p>
                     </button>
                     <button class="mode_link">

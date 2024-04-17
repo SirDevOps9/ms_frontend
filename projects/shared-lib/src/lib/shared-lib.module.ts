@@ -8,7 +8,6 @@ import {
   SearchEngineComponent,
   LoaderComponent,
   DataTableComponent,
-  AttachmentViewerComponent,
   TablePaginatorComponent,
   
 } from './components';
@@ -30,6 +29,10 @@ import { TreeTableModule } from 'primeng/treetable';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { InputSwitchComponent } from './form-components/input-switch/input-switch.component';
 import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
+import { RatingComponent } from './form-components/rating/rating.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { AccordionComponent } from './components/accordion/accordion.component';
+import { AttachmentViewerComponent } from './components/attachment-viewer/attachment-viewer.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,9 @@ import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.compon
     InputSwitchComponent,
     BreadCrumbComponent,
     TablePaginatorComponent,
+    RatingComponent,
+    PaginatorComponent,
+    AccordionComponent,
   ],
   imports: [
     CommonModule,
@@ -88,6 +94,9 @@ import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.compon
     InputSwitchComponent,
     BreadCrumbComponent,
     TablePaginatorComponent,
+    RatingComponent,
+    PaginatorComponent,
+    AccordionComponent,
   ],
 })
 export class SharedLibModule {}

@@ -14,5 +14,7 @@ export * from './attachmentFileTypes';
 export * from './fileTypeMetaData';
 export * from './uploadFileConfigDto';
 export * from './fileDto';
+export * from './money';
+export * from './defaultExceptionModel';
 export * from './paginationVm';
 export * from'./pageInfo';

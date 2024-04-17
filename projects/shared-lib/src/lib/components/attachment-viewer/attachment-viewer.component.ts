@@ -1,23 +1,32 @@
-import { Component, Input, OnInit, input } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AttachmentsService } from '../../services';
-import { APIResponse } from '../../models';
+import { AttachmentDto } from '../../models';
 
 @Component({
   selector: 'lib-attachment-viewer',
   templateUrl: './attachment-viewer.component.html',
-  styleUrls: ['./attachment-viewer.component.css'],
+  styleUrls: ['./attachment-viewer.component.scss'],
 })
-export class AttachmentViewerComponent implements OnInit {
+export class AttachmentViewerComponent implements OnInit, OnChanges {
   @Input() attachmentId: string;
-  @Input() width:number;
+  @Input() style: string;
   imageData: string;
 
   ngOnInit() {
+  }
+  
+  ngOnChanges(changes: SimpleChanges) {
+    if ('attachmentId' in changes) {
+      this.setImage();
+    }
+  }
+  
+  private setImage() {
     this.attachmentService
       .getAttachment(this.attachmentId)
-      .subscribe((response: APIResponse<any>) => {
-        if (response?.response?.fileContent) {
-          const source = `data:image/jpg;base64,${response.response.fileContent}`;
+      .subscribe((response: AttachmentDto) => {
+        if (response?.fileContent) {
+          const source = `data:image/jpg;base64,${response.fileContent}`;
           this.imageData = source;
         }
       });

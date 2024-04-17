@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, filter, map } from 'rxjs';
-import { EditUserModel, InviteUserDto, UserListResponse } from './models';
+import {
+  AddConfirmedUserDto,
+  EditUserModel,
+  InviteUserDto,
+  UserListResponse,
+} from './models';
 import { UserProxy } from './user.proxy';
 import {
-  APIResponse,
+  DefaultExceptionModel,
   Condition,
   FilterDto,
   FilterOptions,
@@ -51,8 +56,8 @@ export class UserService {
 
     this.userProxy.getAllPaginated(filterDto).subscribe({
       next: (res) => {
-        this.userDataSource.next(res.response.result);
-        this.currentPageInfo.next(res.response.pageInfoResult);
+        this.userDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
       },
     });
     return;
@@ -61,8 +66,8 @@ export class UserService {
   getAllUsersPaginated(pageInfo: PageInfo) {
     this.userProxy.getAllPaginated(pageInfo).subscribe({
       next: (res) => {
-        this.userDataSource.next(res.response.result);
-        this.userDataSource.next(res.response.result);
+        this.userDataSource.next(res.result);
+        this.userDataSource.next(res.result);
       },
     });
   }
@@ -104,6 +109,7 @@ export class UserService {
         if (item.id === id) {
           console.log(item.isActive);
           item.isActive = false;
+          item.isActive = false;
         }
       });
     }
@@ -136,6 +142,7 @@ export class UserService {
         if (item.id === id) {
           console.log(item.isActive);
           item.isActive = true;
+          item.isActive = true;
         }
       });
     }
@@ -167,20 +174,29 @@ export class UserService {
         );
         this.loaderService.hide();
 
-        dialogRef.close(res.response);
+        dialogRef.close(res);
       },
       error: (err) => {
+        console.log('Invite Error', err);
+
         this.loaderService.hide();
       },
     });
+  }
+  inviteUserPipe(model: InviteUserDto) {
+    return this.userProxy.inviteUser(model).pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
 
   getUserById(userId: string) {
     return this.userProxy.getUserById(userId).pipe(
       map((res) => {
-        return res.response;
+        return res;
       }),
-      catchError((err: APIResponse<string>) => {
+      catchError((err: any) => {
         throw err.error?.errorMessage!;
       })
     );
@@ -189,17 +205,17 @@ export class UserService {
   getEmail(userId: string) {
     return this.userProxy.getById(userId).pipe(
       map((res) => {
-        return res.response.email;
+        return res.email;
       }),
-      catchError((err: APIResponse<string>) => {
+      catchError((err: any) => {
         throw err.error?.errorMessage!;
       })
     );
   }
 
-  submitUserConfirm(formData: FormData) {
+  submitUserConfirm(request: AddConfirmedUserDto) {
     this.loaderService.show();
-    this.userProxy.confirmInvitedUser(formData).subscribe({
+    this.userProxy.confirmInvitedUser(request).subscribe({
       next: (response) => {
         this.loaderService.hide();
         this.toasterService.showSuccess('Success', 'Success');

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
-import { EnvironmentService, LanguageService } from 'shared-lib';
+import { EnvironmentService, LanguageService, RouterService } from 'shared-lib';
 import { UserData } from '../../user/models';
+import { AppStoreService } from '../../app-store/app-store.service';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-layout-header',
@@ -13,6 +16,7 @@ export class LayoutHeaderComponent implements OnInit {
   userData: UserData;
   showcard: boolean = false;
   sidebarOpen: boolean = false;
+  cartItemsCount$: Observable<number>;
 
   ngOnInit() {}
 
@@ -52,14 +56,21 @@ export class LayoutHeaderComponent implements OnInit {
       this.showcard = true;
     }
   }
+  routeToCart() {
+    this.routerService.navigateTo(`/app-store/cart`)
+  }
 
   constructor(
     public languageService: LanguageService,
     public authService: AuthService,
-    private env: EnvironmentService
+    private env: EnvironmentService,
+    private cartService: AppStoreService,
+    private routerService: RouterService,
+
   ) {
     this.userName = this.authService.getUserName;
     this.userData = this.authService.getUserData()?.userData;
     this.languageService.setLang();
+    this.cartItemsCount$ = cartService.cartItemsCount$;
   }
 }
