@@ -16,11 +16,11 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'subscription',
+        path: '',
         component: SubscriptionComponent,
         canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.SUBSCRIPTION,
+          breadcrumb: BreadcrumbLabel.my_subscription,
         },
       },
       {
@@ -28,7 +28,7 @@ const routes: Routes = [
         component: MySubscriptionsComponent,
         canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.SUBSCRIPTION,
+          breadcrumb: BreadcrumbLabel.my_subscription,
         },
       },
       {
