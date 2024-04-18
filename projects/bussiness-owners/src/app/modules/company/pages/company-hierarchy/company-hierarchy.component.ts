@@ -25,9 +25,22 @@ export class CompanyHierarchyComponent {
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   companyHierarchy: CompanyHierarchyDto;
-  subsidiaryList: SubsidiaryDto[];
   companyType: number;
   editMode: boolean = false;
+  companyTypeLabel:string="subsidiary";
+
+  subsidiaryList: SubsidiaryDto[]=[
+    {
+      id: 'subsidiary1',
+      name: 'Subsidiary One',
+      selected: false,
+    },
+    {
+      id: 'subsidiary2',
+      name: 'Subsidiary Two',
+      selected: true,
+    }
+  ];
   toggleEditMode() {
     this.editMode = !this.editMode;
   }
@@ -79,6 +92,7 @@ export class CompanyHierarchyComponent {
         this.companyHierarchyForm.patchValue({
           ...res,
         });
+        this.companyTypeLabel = res.companyType;
       });
   }
   get companyId(): string {

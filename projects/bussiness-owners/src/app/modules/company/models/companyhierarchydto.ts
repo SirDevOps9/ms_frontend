@@ -1,7 +1,7 @@
 import { SubsidiaryDto } from './subsidiarydto';
 
 export interface CompanyHierarchyDto {
-  companyType: number;
+  companyType: string;
   subsidiary: SubsidiaryDto[];
   id: string;
 }
