@@ -54,12 +54,15 @@ export class NewCompanyComponent {
       branchName: new FormControl('', [customValidators.required]),
       companyType: new FormControl('', [customValidators.required]),
       parentId: new FormControl(),
-      companyLogo: new FormControl('', [customValidators.required]),
+      companyLogo: new FormControl(''),
     });
   }
 
   loadLookups() {
-    this.lookupsService.loadLookups([LookupEnum.CompanyHolding]);
+    this.lookupsService.loadLookups([
+      LookupEnum.CompanyHolding,
+      LookupEnum.CompanyType,
+    ]);
   }
   Subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
@@ -68,7 +71,6 @@ export class NewCompanyComponent {
   onCancel() {
     this.ref.close();
   }
-
 
   onSaveAndEdit() {
     if (!this.formsService.validForm(this.addCompanyForm, true)) return;
