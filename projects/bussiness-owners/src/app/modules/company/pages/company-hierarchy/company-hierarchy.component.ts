@@ -22,9 +22,10 @@ export class CompanyHierarchyComponent {
   companyHierarchyForm: FormGroup;
   companyHierarchyResponse: CompanyHierarchyDto;
   subsidiaryList: SubsidiaryDto[];
-  companyType: string;
+  companyTypeName: string;
   companyTypeLabel: string;
   holdingCompanyName: string;
+  companyType:number;
 
   ngOnInit() {
     this.initializeForm();
@@ -33,8 +34,8 @@ export class CompanyHierarchyComponent {
 
   initializeForm() {
     this.companyHierarchyForm = this.fb.group({
-      companyType: new FormControl('', [customValidators.required]),
-      subsidiary: new FormControl('', [customValidators.required]),
+      companyType: new FormControl('', ),
+      subsidiary: new FormControl('', ),
     });
   }
 
@@ -45,8 +46,9 @@ export class CompanyHierarchyComponent {
         this.companyHierarchyForm.patchValue({
           ...res,
         });
+        this.companyType = res.companyType
         this.companyHierarchyResponse = res;
-        this.companyType = res.companyTypeName;
+        this.companyTypeName = res.companyTypeName;
 
         if (res.companyType === CompanyTypes.Holding) {
           this.companyTypeLabel = 'Subsidiary Company';
@@ -58,9 +60,12 @@ export class CompanyHierarchyComponent {
       });
   }
 
+
+  
   get companyId(): string {
     return this.routerService.currentParetId;
   }
+
 
   constructor(
     private fb: FormBuilder,
