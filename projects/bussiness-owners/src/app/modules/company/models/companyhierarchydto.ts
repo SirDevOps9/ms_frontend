@@ -1,12 +1,5 @@
 import { SubsidiaryDto } from './subsidiarydto';
 
-// export interface CompanyHierarchyDto {
-//   companyType: number;
-//   subsidiary: SubsidiaryDto[];
-//   id: string;
-// }
-
-
 export interface CompanyHierarchyDto {
   companyType: number;
   companyTypeName: string;
@@ -14,4 +7,3 @@ export interface CompanyHierarchyDto {
   holdingCompany?: string;
   id: string;
 }
-
