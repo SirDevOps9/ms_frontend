@@ -57,12 +57,19 @@ export class AddDomainSpaceComponent implements OnInit {
     const domainModel: AddDomainSpaceDto = {
       ...this.subdomainForm.value,
       purchasingPaymentPeriod: this.purchasingPaymentPeriod,
+      
     };
 
+
     this.subscriptionService.addSubdomain(domainModel, this.ref);
+
   }
-  onCancel() {
+  onCancel() { 
+    console.log("window.location.reload");
+    
+  window.location.reload
     this.ref.close();
+    
   }
 
   activeButton(id: string) {

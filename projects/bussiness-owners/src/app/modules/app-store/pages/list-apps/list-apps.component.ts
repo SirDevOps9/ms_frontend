@@ -11,8 +11,10 @@ import { DialogService } from 'primeng/dynamicdialog';
 })
 export class ListAppsComponent implements OnInit {
   apps: AppDto[];
+  appInStore:number
   subdomains: BaseDto[];
   cardList:boolean=false;
+  AllModules:any[]
 
   constructor(private appStoreService: AppStoreService,
     private router: RouterService,
@@ -21,9 +23,28 @@ export class ListAppsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.AllModules=[
+      {
+        id:"1",
+        name:"All"
+      },
+      {
+        id:"1",
+        name:"HR"
+      },
+      {
+        id:"1",
+        name:"Stores"
+      },
+      {
+        id:"1",
+        name:"Accounts"
+      },
+    ]
     this.appStoreService.loadApps();
     this.appStoreService.apps.subscribe(apps => {
       this.apps = apps;
+      this.appInStore=apps.length
     });
     this.subdomainService.getAllSubdomains().subscribe(s => this.subdomains = s);
   }

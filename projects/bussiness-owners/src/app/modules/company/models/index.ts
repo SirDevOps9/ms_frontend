@@ -9,6 +9,8 @@ export * from './editbranchdto';
 export * from './responsecompanydto';
 export * from './updatecompanyhierarchydto';
 export * from './subsidiarydto';
+export * from './companyType';
+
 
 
 

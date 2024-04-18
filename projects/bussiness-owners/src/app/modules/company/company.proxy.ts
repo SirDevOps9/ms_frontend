@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, lookupsListDto } from 'shared-lib';
-import {
-  ResponseCompanyDto,
-} from './models';
+
 import { AddCompanyPopupDto } from './models/addcompanypopupdto';
 import { CompanyContactDto } from './models/companycontactdto';
 import { CompanyAddressDto } from './models/companyaddressdto';
@@ -13,6 +11,7 @@ import { CreateBranchDto } from './models/createbranchdto';
 import { EditBranchDto } from './models/editbranchdto';
 import { CompanyHierarchyDto } from './models/companyhierarchydto';
 import { UpdateCompanyHierarchyDto } from './models/updatecompanyhierarchydto';
+import { ResponseCompanyDto } from './models';
 
 @Injectable({
   providedIn: 'root',

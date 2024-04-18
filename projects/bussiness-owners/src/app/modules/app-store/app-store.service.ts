@@ -19,7 +19,7 @@ import {
   RouterService,
 } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { SelectSubdomainComponent } from './components/select-subdomain.component';
+import { SelectSubdomainComponent } from './components/select-subdomain/select-subdomain.component';
 import { CartDto } from './models/cartDto';
 import { CartItemDto } from './models/cartItemDto';
 
