@@ -1,58 +1,105 @@
-<div class="container mt-2">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <form
-        [formGroup]="inviteForm"
-        (ngSubmit)="onSubmit()"
-        *ngIf="lookupsService.lookupsLoaded"
-      >
-        <div class="text-center mb-4">
-          <h2>{{ "User.Inviteform.FormHeader" | translate }}</h2>
-        </div>
+<div class="invite_user">
+  <div class="invite_user_header">
+    <div class="title">
+      <div class="plus_icon"></div>
+     Invite user
+    </div>
+    <div class="pi pi-times cancel" (click)="onCancel()"></div>
+  </div>
+  <form class="domain_form" [formGroup]="inviteForm" (ngSubmit)="onSubmit()">
+    <div class="domain_content">
+      <div class="data_content">
+          <div class="col-md-6">
+            <lib-form-group>
+              <lib-label
+                [appControl]="inviteForm.controls['loginEmail']"
+              >
+                Login Email
+              </lib-label>
+              <lib-select
+              formControlName="loginEmail"
+              optionValue="id"
+              optionLabel="name"
+            >
+            </lib-select>
+              <lib-field-validations
+                [appControl]="inviteForm.controls['loginEmail']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
 
-        <lib-form-group>
-          <lib-label [appControl]="inviteForm.controls['email']">
-            {{ "User.Inviteform.EmailLabel" | translate }}
-          </lib-label>
-          <lib-text-input type="text" formControlName="email"  />
-          <lib-field-validations [appControl]="inviteForm.controls['email']">
-          </lib-field-validations>
-        </lib-form-group>
-
-        <lib-form-group>
-          <lib-label [appControl]="inviteForm.controls['subscriptions']">
-            {{ "User.Inviteform.DomainLabel" | translate }}
-          </lib-label>
-          <lib-multi-select
-            formControlName="subscriptions"
-            [options]="lookups[LookupEnum.Subscription]"
-            optionValue="id"
-            optionLabel="name"
-          >
-          </lib-multi-select>
-          <lib-field-validations
-            [appControl]="inviteForm.controls['subscriptions']"
-          >
-          </lib-field-validations>
-        </lib-form-group>
-
-        <lib-form-group>
-          <lib-label [appControl]="inviteForm.controls['bORoles']">
-            {{ "User.Inviteform.ActionsLabel" | translate }}
-          </lib-label>
-          <lib-multi-select
-            formControlName="bORoles"
-            [options]="lookups[LookupEnum.BusinessRole]"
-            optionValue="id"
-            optionLabel="name"
-          >
-          </lib-multi-select>
-          <lib-field-validations [appControl]="inviteForm.controls['bORoles']">
-          </lib-field-validations>
-        </lib-form-group>
-        
-        <!-- Buttons -->
-        <div class="form-group actions">
+            <lib-form-group>
+              <lib-label
+                [appControl]="inviteForm.controls['company']"
+              >
+                Company
+              </lib-label>
+              <lib-select
+              formControlName="company"
+              optionValue="id"
+              optionLabel="name"
+            >
+            </lib-select>
+              <lib-field-validations
+                [appControl]="inviteForm.controls['company']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+            <lib-form-group>
+              <lib-label
+                [appControl]="inviteForm.controls['branches']"
+              >
+              Branches
+              </lib-label>
+              <lib-select
+              formControlName="branches"
+              optionValue="id"
+              optionLabel="name"
+            >
+            </lib-select>
+              <lib-field-validations
+                [appControl]="inviteForm.controls['branches']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+            <lib-form-group>
+              <lib-label
+                [appControl]="inviteForm.controls['domainSpace']"
+              >
+              Domain Space
+              </lib-label>
+              <lib-select
+              formControlName="domainSpace"
+              optionValue="id"
+              optionLabel="name"
+            >
+            </lib-select>
+              <lib-field-validations
+                [appControl]="inviteForm.controls['domainSpace']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+            <lib-form-group>
+              <lib-label
+                [appControl]="inviteForm.controls['selectLicence']"
+              >
+              select Licence
+              </lib-label>
+              <lib-select
+              formControlName="selectLicence"
+              optionValue="id"
+              optionLabel="name"
+            >
+            </lib-select>
+              <lib-field-validations
+                [appControl]="inviteForm.controls['selectLicence']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          
+      </div>
+      <div class="actions">
           <button type="submit" class="save w-6">
             <span class="pi pi-send"></span>
             {{ "User.Inviteform.SubmitButton" | translate }}
@@ -62,7 +109,6 @@
             {{ "User.Inviteform.CancelButton" | translate }}
           </button>
         </div>
-      </form>
     </div>
-  </div>
+  </form>
 </div>
