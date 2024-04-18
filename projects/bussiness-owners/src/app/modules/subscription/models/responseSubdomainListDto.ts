@@ -1,8 +1,9 @@
 export interface ResponseSubdomainListDto {
-   id:string;
+[x: string]: any;
+    id:string;
     name: string;
     PurchasingPaymentPeriod: string;
-    ValidFrom: Date;
-    ValidTo: Date;
+    validFrom: Date;
+    validTo: Date;
   }
   

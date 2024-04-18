@@ -5,10 +5,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../layout/layout-page/layout.component';
 import { BreadcrumbLabel, SharedLibModule } from 'shared-lib';
 import { HttpClientModule } from '@angular/common/http';
-import { SelectSubdomainComponent } from './components/select-subdomain.component';
+import { SelectSubdomainComponent } from './components/select-subdomain/select-subdomain.component';
 import { AppDetailsComponent } from './pages/app-details/app-details.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { CartItemDetailComponent } from './pages/cart-item-detail/cart-item-detail.component';
+import { MainPageComponent } from './pages/main-page/main-page.component';
 
 const routes: Routes = [
   {
@@ -17,20 +18,38 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: ListAppsComponent,
+        component: MainPageComponent,
         canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.APP_STORE,
         },
+        children:[
+          {
+            path: '',
+            component: ListAppsComponent,
+            canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.APP_STORE,
+            },
+          },
+          {
+            path: 'app-detail/:id',
+            component: AppDetailsComponent,
+            canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.APP_STORE_Details,
+            },
+          },
+        ]
       },
-      {
-        path: 'app-detail/:id',
-        component: AppDetailsComponent,
-        canActivate: [AuthGuard],
-        data: {
-          breadcrumb: BreadcrumbLabel.APP_STORE,
-        },
-      },
+      // {
+      //   path: 'app-detail/:id',
+      //   component: AppDetailsComponent,
+      //   canActivate: [AuthGuard],
+      //   data: {
+      //     breadcrumb: BreadcrumbLabel.APP_STORE_Details,
+      //   },
+      // },
       // {
       //   path: 'cards',
       //   component: CardAppsComponent,
@@ -65,7 +84,8 @@ const routes: Routes = [
     SelectSubdomainComponent,
     AppDetailsComponent,
     CartComponent,
-    CartItemDetailComponent
+    CartItemDetailComponent,
+    MainPageComponent
   ],
   imports: [
     SharedLibModule,

@@ -1,5 +1,16 @@
 <lib-page-content>
   <div class="company_addres">
+    <div class="actions ">
+      <div class="edit_btn">
+        <button type="button" class="save" (click)="onSubmit()">
+          {{
+            editMode
+              ? ("Company.Save" | translate)
+              : ("Company.Edit" | translate)
+          }}
+        </button>
+      </div>
+    </div>
     <ng-container *ngIf="!editMode; else editModeContent">
       <div class="contact_form">
         <div class="grid">
@@ -85,16 +96,6 @@
         </div>
       </form>
     </ng-template>
-    <div class="actions mb-6">
-      <div class="edit_btn">
-        <button type="button" class="save" (click)="onSubmit()">
-          {{
-            editMode
-              ? ("Company.Save" | translate)
-              : ("Company.Edit" | translate)
-          }}
-        </button>
-      </div>
-    </div>
+
   </div>
 </lib-page-content>

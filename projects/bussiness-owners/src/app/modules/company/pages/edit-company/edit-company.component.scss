@@ -215,7 +215,7 @@
   .company_nav {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     border-bottom: 1px solid #B6BAC3;
     padding: 10px;
 
@@ -248,7 +248,7 @@
           position: absolute;
           width: 90%;
           left: 2px;
-          bottom: -95%;
+          bottom: -12px;
           height: 3px;
           background: #1A8EAE;
         }

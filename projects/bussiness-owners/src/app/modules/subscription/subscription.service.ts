@@ -69,11 +69,13 @@ loadSubdomains(){
         );
         this.loaderService.hide();
         dialogRef.close(res);
+        window.location.reload()
       },
       error: (err) => {
         this.loaderService.hide();
       },
     });
+
   }
 
   

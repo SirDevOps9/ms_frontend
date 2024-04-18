@@ -1,8 +1,9 @@
 <p-dropdown
-[disabled]="disabledMode"
+  [disabled]="disabledMode"
   [optionValue]="optionValue"
   [options]="options"
   [optionLabel]="optionLabel"
   [(ngModel)]="selectedValue"
   (onChange)="change($event)"
+  [placeholder]="placeholder"
 ></p-dropdown>
