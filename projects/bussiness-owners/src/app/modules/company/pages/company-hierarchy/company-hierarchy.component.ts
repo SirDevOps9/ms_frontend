@@ -1,65 +1,36 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
   FormsService,
-  LookupEnum,
   LookupsService,
   RouterService,
   SharedLibraryEnums,
   customValidators,
-  lookupDto,
 } from 'shared-lib';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { CompanyService } from '../../company.service';
 import { CompanyHierarchyDto } from '../../models/companyhierarchydto';
 import { SubsidiaryDto } from '../../models/subsidiarydto';
-import { UpdateCompanyHierarchyDto } from '../../models';
+import { CompanyTypes, } from '../../models';
 
 @Component({
   selector: 'app-company-hierarchy',
   templateUrl: './company-hierarchy.component.html',
   styleUrl: './company-hierarchy.component.scss',
-  providers:[RouterService]
+  providers: [RouterService],
 })
 export class CompanyHierarchyComponent {
   companyHierarchyForm: FormGroup;
-  LookupEnum = LookupEnum;
-  lookups: { [key: string]: lookupDto[] };
-  companyHierarchy: CompanyHierarchyDto;
-  companyType: number;
-  editMode: boolean = false;
-  companyTypeLabel:string;
-
+  companyHierarchyResponse: CompanyHierarchyDto;
   subsidiaryList: SubsidiaryDto[];
+  companyType: string;
+  companyTypeLabel: string;
+  holdingCompanyName: string;
 
   ngOnInit() {
     this.initializeForm();
     this.initializeFormData();
-    this.loadLookups();
-    this.Subscribe();
   }
 
-  onSubmit() {
-    console.log(this.editMode);
-    
-    if (this.editMode) {
-      if (!this.formsService.validForm(this.companyHierarchyForm, true)) return;
-      const request: UpdateCompanyHierarchyDto = this.companyHierarchyForm.value;
-      request.id = this.companyId;
-      this.companyService.saveCompanyHierarchy(request);
-  
-      console.log('request', request);
-      this.editMode = false;
-    } else {
-      this.editMode = true;
-    }
-  }
-
-  Subscribe() {
-    this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
-  }
-  loadLookups() {
-    this.lookupsService.loadLookups([LookupEnum.CompanyType,LookupEnum.CompanySubsidiary]);
-  }
   initializeForm() {
     this.companyHierarchyForm = this.fb.group({
       companyType: new FormControl('', [customValidators.required]),
@@ -68,29 +39,35 @@ export class CompanyHierarchyComponent {
   }
 
   initializeFormData() {
-    console.log('Cadgadgdg', this.companyId);
-
     this.companyService
       .getCompanyHierarchyById(this.companyId)
       .subscribe((res) => {
-        console.log('Calling get by Id', res);
-
         this.companyHierarchyForm.patchValue({
           ...res,
         });
-        this.companyTypeLabel = res.companyType;
+        this.companyHierarchyResponse = res;
+        this.companyType = res.companyTypeName;
+
+        if (res.companyType === CompanyTypes.Holding) {
+          this.companyTypeLabel = 'Subsidiary Company';
+          this.subsidiaryList = res.subsidiaryCompanies || [];
+        } else if (res.companyType === CompanyTypes.Subsidiary) {
+          this.companyTypeLabel = 'Parent Company';
+          this.holdingCompanyName = res.holdingCompany || '';
+        }
       });
   }
+
   get companyId(): string {
     return this.routerService.currentParetId;
   }
+
   constructor(
     private fb: FormBuilder,
     public lookupsService: LookupsService,
     private companyService: CompanyService,
     private formsService: FormsService,
     public sharedLibEnums: SharedLibraryEnums,
-    private routerService: RouterService,
-
+    private routerService: RouterService
   ) {}
 }

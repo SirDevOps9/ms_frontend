@@ -1,9 +1,7 @@
 <lib-page-content>
   <div class="company_addres">
-
-      <form [formGroup]="companyHierarchyForm" (ngSubmit)="onSubmit()">
-        <fieldset [disabled]="true">
-
+    <form [formGroup]="companyHierarchyForm">
+      <fieldset [disabled]="true">
         <div class="contact_form">
           <div class="grid">
             <div class="col-12">
@@ -12,35 +10,43 @@
                   [appControl]="companyHierarchyForm.controls['companyType']"
                 >
                   {{ "Company.Hierarchy.CompanyType" | translate }}
-                  
                 </lib-label>
                 <div class="view">
                   {{ companyType }}
-  
                 </div>
-                
               </lib-form-group>
             </div>
-            <div class="col-12 md:col-3"   *ngFor="let subsidiary of subsidiaryList">
-              <lib-form-group>
-                <lib-label
-                  [appControl]="companyHierarchyForm.controls['subsidiary']"
-                >
-                  {{ companyTypeLabel }}
-                  
-                </lib-label>
-                <div class="view">
-                  {{ subsidiary.name }}
-  
+            <div class="col-12 md:col-3">
+              <div *ngIf="companyHierarchyResponse.companyType === 1">
+                <div *ngFor="let subsidiary of subsidiaryList">
+                  <lib-form-group>
+                    <lib-label
+                      [appControl]="companyHierarchyForm.controls['subsidiary']"
+                    >
+                      {{ companyTypeLabel }}
+                    </lib-label>
+                    <div class="view">
+                      {{ subsidiary.name }}
+                    </div>
+                  </lib-form-group>
                 </div>
-                
-              </lib-form-group>
+              </div>
+              <div *ngIf="companyHierarchyResponse.companyType === 2">
+                <lib-form-group>
+                  <lib-label
+                    [appControl]="companyHierarchyForm.controls['subsidiary']"
+                  >
+                    {{ companyTypeLabel }}
+                  </lib-label>
+                  <div class="view">
+                    {{ holdingCompanyName }}
+                  </div>
+                </lib-form-group>
+              </div>
             </div>
           </div>
         </div>
-      </fieldset >
-
-      </form>
-
+      </fieldset>
+    </form>
   </div>
 </lib-page-content>
