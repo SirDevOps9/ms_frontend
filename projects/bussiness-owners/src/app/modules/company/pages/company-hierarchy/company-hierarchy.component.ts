@@ -27,23 +27,9 @@ export class CompanyHierarchyComponent {
   companyHierarchy: CompanyHierarchyDto;
   companyType: number;
   editMode: boolean = false;
-  companyTypeLabel:string="subsidiary";
+  companyTypeLabel:string;
 
-  subsidiaryList: SubsidiaryDto[]=[
-    {
-      id: 'subsidiary1',
-      name: 'Subsidiary One',
-      selected: false,
-    },
-    {
-      id: 'subsidiary2',
-      name: 'Subsidiary Two',
-      selected: true,
-    }
-  ];
-  toggleEditMode() {
-    this.editMode = !this.editMode;
-  }
+  subsidiaryList: SubsidiaryDto[];
 
   ngOnInit() {
     this.initializeForm();
