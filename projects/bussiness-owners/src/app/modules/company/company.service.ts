@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { CompanyProxy } from './company.proxy';
-import {  ResponseCompanyDto } from './models';
 import { BehaviorSubject, Observable, catchError, map } from 'rxjs';
 import {
   LanguageService,
@@ -20,6 +19,7 @@ import { CreateBranchDto } from './models/createbranchdto';
 import { EditBranchDto } from './models/editbranchdto';
 import { CompanyHierarchyDto } from './models/companyhierarchydto';
 import { UpdateCompanyHierarchyDto } from './models/updatecompanyhierarchydto';
+import { ResponseCompanyDto } from './models';
 
 @Injectable({
   providedIn: 'root',

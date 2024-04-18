@@ -10,7 +10,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { CompanyService } from '../../company.service';
 import { CompanyHierarchyDto } from '../../models/companyhierarchydto';
 import { SubsidiaryDto } from '../../models/subsidiarydto';
-import { CompanyTypes, } from '../../models';
+import { CompanyTypes } from '../../models';
 
 @Component({
   selector: 'app-company-hierarchy',
@@ -26,6 +26,8 @@ export class CompanyHierarchyComponent {
   companyTypeLabel: string;
   holdingCompanyName: string;
   companyType:number;
+  holdingCompany:number = CompanyTypes.Holding;
+  subsidiaryCompany :number= CompanyTypes.Subsidiary;
 
   ngOnInit() {
     this.initializeForm();
@@ -50,10 +52,10 @@ export class CompanyHierarchyComponent {
         this.companyHierarchyResponse = res;
         this.companyTypeName = res.companyTypeName;
 
-        if (res.companyType === CompanyTypes.Holding) {
+        if (res.companyType === this.holdingCompany) {
           this.companyTypeLabel = 'Subsidiary Company';
           this.subsidiaryList = res.subsidiaryCompanies || [];
-        } else if (res.companyType === CompanyTypes.Subsidiary) {
+        } else if (res.companyType === this.subsidiaryCompany) {
           this.companyTypeLabel = 'Parent Company';
           this.holdingCompanyName = res.holdingCompany || '';
         }
