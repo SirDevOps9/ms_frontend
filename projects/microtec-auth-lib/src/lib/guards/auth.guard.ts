@@ -14,12 +14,6 @@ import { RouteFilter } from '../models';
   providedIn: 'root',
 })
 export class AuthGuard {
-  constructor(
-    public router: Router,
-    private authService: AuthService,
-    private logService: LogService
-  ) {}
-
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -40,4 +34,10 @@ export class AuthGuard {
     });
     return true;
   }
+
+  constructor(
+    public router: Router,
+    private authService: AuthService,
+    private logService: LogService
+  ) {}
 }

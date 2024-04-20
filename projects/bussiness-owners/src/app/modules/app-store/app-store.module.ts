@@ -22,11 +22,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.APP_STORE,
-          filter: {
-            Action: Actions.Update,
-            License: Licenses.Advanced,
-            App: Apps.Hr,
-          } as RouteFilter,
+          // filter: {
+          //   Action: Actions.Update,
+          //   License: Licenses.Advanced,
+          //   App: Apps.Hr,
+          // } as RouteFilter,
           //action: Actions.Update,
         },
       },

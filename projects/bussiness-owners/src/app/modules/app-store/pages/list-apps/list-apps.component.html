@@ -1,10 +1,4 @@
-<button
-  *appHasPermission="{
-    Action: sharedLibraryEnums.PageActions.Update,
-    App: sharedLibraryEnums.AppsTypes.Hr,
-    License: sharedLibraryEnums.LicenseTypes.Advanced
-  }"
->
+<button *appHasPermission="sharedLibraryEnums.PageActions.Update">
   Delete Button
 </button>
 
