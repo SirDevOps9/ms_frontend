@@ -1,0 +1,115 @@
+// li {
+//     list-style: none;
+// }
+// li{
+//     border: 1px solid;
+//     margin: 10px 0;
+//     padding: 10px;
+// }
+// app-img{
+//     max-width: 200px;
+//     max-height: 300px;
+// }
+.app_list{
+    background: #FDFEFE;
+}
+.sub_header{
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #000;
+    .btns{
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        .togel_card{
+            button{
+                background: none;
+                border: none;
+                margin-inline-start: 10px;
+            }
+        }
+    }
+
+}
+.card_content{
+    cursor: pointer;
+    width: 100%;
+}
+.card{
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    background: #fff;
+    border: 1px solid #EDEEF1;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    .app_img{
+        width: 125px;
+        height: 145px;
+        img{
+            width: 125px;
+            height: 100%;
+        }
+    }
+    
+    .app_description{
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        .sec_one{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .title{
+                cursor: pointer;
+                font-size: 20px;
+                color: #383A42;
+            }
+            .re_new{
+                font-size: 20px;
+                color: #1A8EAE;
+            }
+        
+        }
+        .sec_two{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 20px 0px;
+            .date{
+                font-size: 18px;
+                color: #36A19B;
+            }
+            .cart{
+                button{
+                    background: #1A8EAE;
+                    color: #fff;
+                    border-radius: 12px;
+                    border: none;
+                    padding: 10px;
+                    cursor: pointer;
+                }
+            }
+        }
+        .sec_desription{
+            font-size: 16px;
+           color: #383A42; 
+        }
+    }
+}
+.card_list{
+    flex-direction: column !important;
+    max-width: 350px !important;
+}
+.contant{
+    display: flex;
+    align-items: start;
+    justify-content: space-around;
+}
+.Category{
+    border-bottom:1px solid #8E95A2 ;
+}

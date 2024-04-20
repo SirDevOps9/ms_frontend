@@ -61,9 +61,12 @@ export class AuthService {
   hasPermission(filter: RouteFilter): boolean {
     let tree = this.getUserPermissions();
     if (tree === null) return false;
-    
+
     let userPermission = tree!.filter(
-      (x) => x.AppId == filter.App && x.LicenseId == filter.License
+      (x) =>
+        x.AppId == filter.App &&
+        x.LicenseId == filter.License &&
+        x.ServiceId == filter.Service
     );
 
     if (userPermission.length === 0) return false;
@@ -110,7 +113,8 @@ export class AuthService {
   get getUserName(): string {
     let item = this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
     let loggedUser = item! as LoginResponse;
-    return loggedUser?.userData?.name;
+    this.logService.log(loggedUser, 'authService.UserName');
+    return loggedUser?.userData?.fullname;
   }
 
   getUserTokenModel(): TokenModel {

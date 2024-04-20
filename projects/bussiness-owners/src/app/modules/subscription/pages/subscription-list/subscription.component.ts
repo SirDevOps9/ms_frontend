@@ -2,24 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { RouterService } from 'shared-lib';
 import { ResponsePlanDto } from '../../models';
 import { Title } from '@angular/platform-browser';
-import { PlanService } from '../../plan.service';
+import { SubscriptionService } from '../../subscription.service';
 
 @Component({
-  selector: 'app-plan',
-  templateUrl: './plan.component.html',
-  styleUrls: ['./plan.component.scss'],
+  selector: 'app-subscription',
+  templateUrl: './subscription.component.html',
+  styleUrls: ['./subscription.component.scss'],
 })
-export class PlanComponent implements OnInit {
+export class SubscriptionComponent implements OnInit {
   plansList: ResponsePlanDto[];
   constructor(
     private routerService: RouterService,
     private titleService: Title,
-    private planService: PlanService
+    private subscriptionService: SubscriptionService
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle('Plans');
-    this.loadPlans();
+    this.titleService.setTitle('Subscriptions');
   }
 
   navigateToManageCompany(planId: number) {
@@ -29,10 +28,5 @@ export class PlanComponent implements OnInit {
   navigateToManageUser(subdomainId: number) {
     this.routerService.navigateTo('users/' + subdomainId);
   }
-  loadPlans() {
-    this.planService.loadPlans();
-    this.planService.plans.subscribe((plansList) => {
-      this.plansList = plansList;
-    });
-  }
+
 }

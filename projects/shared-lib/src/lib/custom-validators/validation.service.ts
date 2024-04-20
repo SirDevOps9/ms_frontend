@@ -1,4 +1,4 @@
-import { IsNumber } from './numberValidators';
+import { IsNumber, rangeValidator } from './numberValidators';
 import {
   IsValidMobileWithPrefix,
   IsValidNationalMobile,
@@ -44,4 +44,5 @@ export const customValidators = {
   confrimPassword: ConfirmPasswordValidator,
   length: lengthValidator,
   file: fileValidator,
+  range:rangeValidator
 };

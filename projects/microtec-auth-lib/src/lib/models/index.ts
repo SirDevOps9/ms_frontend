@@ -6,3 +6,4 @@ export * from './tokenmodel';
 export * from './routefilter';
 export * from './apps';
 export * from './licenses';
+export * from './services';

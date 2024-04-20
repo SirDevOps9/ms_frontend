@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppStoreService } from '../../app-store.service';
 import { AppDto } from '../../models/appDto';
-import { BaseDto, SharedLibraryEnums, SubdomainService } from 'shared-lib';
+import { BaseDto, SharedLibraryEnums,RouterService,SubdomainService } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { UserService } from '../../../user/user.service';
 import { Actions, Apps, Licenses, RouteFilter } from 'microtec-auth-lib';
@@ -12,22 +12,43 @@ import { Actions, Apps, Licenses, RouteFilter } from 'microtec-auth-lib';
 })
 export class ListAppsComponent implements OnInit {
   apps: AppDto[];
+  appInStore:number
   subdomains: BaseDto[];
-  cardList: boolean = false;
-  constructor(
-    private appStoreService: AppStoreService,
+  cardList:boolean=false;
+  AllModules:any[]
+  constructor(private appStoreService: AppStoreService,
     private dialog: DialogService,
     private subdomainService: SubdomainService,
     public sharedLibraryEnums: SharedLibraryEnums,
-    private userService: UserService
+    private userService: UserService,
+    private router: RouterService,
   ) {}
 
   ngOnInit(): void {
     this.userService.testTree();
 
+    this.AllModules=[
+      {
+        id:"1",
+        name:"All"
+      },
+      {
+        id:"1",
+        name:"HR"
+      },
+      {
+        id:"1",
+        name:"Stores"
+      },
+      {
+        id:"1",
+        name:"Accounts"
+      },
+    ]
     this.appStoreService.loadApps();
     this.appStoreService.apps.subscribe((apps) => {
       this.apps = apps;
+      this.appInStore=apps.length
     });
     this.subdomainService
       .getAllSubdomains()
@@ -49,5 +70,7 @@ export class ListAppsComponent implements OnInit {
   }
   routeToDetails(id: any) {
     console.log(id);
+    this.router.navigateTo('/app-store/app-detail/'+id);
+
   }
 }

@@ -1,44 +1,7 @@
 <lib-page-content>
   <div class="company_addres">
-    <ng-container *ngIf="!editMode; else editModeContent">
-      <div class="contact_form">
-        <div class="grid">
-          <div class="col-12">
-            <lib-form-group>
-              <lib-label
-                [appControl]="companyHierarchyForm.controls['companyType']"
-              >
-                {{ "Company.Hierarchy.CompanyType" | translate }}
-                
-              </lib-label>
-              <div class="view">
-                {{ companyType }}
-
-              </div>
-              
-            </lib-form-group>
-          </div>
-          <div
-            class="col-12 md:col-3"
-            *ngFor="let subsidiary of subsidiaryList"
-          >
-            <lib-form-group>
-              <lib-label
-                [appControl]="companyHierarchyForm.controls['subsidiary']"
-              >
-                {{ "Company.Hierarchy.Subsidiary" | translate }}
-              </lib-label>
-              <div class="view">
-                {{ subsidiary.name }}
-              </div> 
-            </lib-form-group>
-          </div>
-        </div>
-      </div>
-    </ng-container>
-
-    <ng-template #editModeContent>
-      <form [formGroup]="companyHierarchyForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="companyHierarchyForm">
+      <fieldset [disabled]="true">
         <div class="contact_form">
           <div class="grid">
             <div class="col-12">
@@ -46,55 +9,46 @@
                 <lib-label
                   [appControl]="companyHierarchyForm.controls['companyType']"
                 >
-                  {{ "Company.Add.CompanyType" | translate }}
+                  {{ "Company.Hierarchy.CompanyType" | translate }}
                 </lib-label>
-                <lib-select
-                  formControlName="companyType"
-                  [options]="lookups[LookupEnum.CompanyType]"
-                  optionValue="id"
-                  optionLabel="name"
-                >
-                </lib-select>
-                <lib-field-validations
-                  [appControl]="companyHierarchyForm.controls['companyType']"
-                >
-                </lib-field-validations>
+                <div class="view">
+                  {{ companyTypeName }}
+                </div>
               </lib-form-group>
             </div>
             <div class="col-12 md:col-3">
-              <lib-form-group>
-                <lib-label
-                  [appControl]="companyHierarchyForm.controls['subsidiary']"
-                >
-                  {{ "Company.Hierarchy.Subsidiary" | translate }}
-                </lib-label>
-                <lib-multi-select
-                  formControlName="subsidiary"
-                  [options]="lookups[LookupEnum.CompanySubsidiary]"
-                  optionValue="id"
-                  optionLabel="name"
-                >
-                </lib-multi-select>
-                <lib-field-validations
-                  [appControl]="companyHierarchyForm.controls['subsidiary']"
-                >
-                </lib-field-validations>
-              </lib-form-group>
+              <div *ngIf="companyType === holdingCompany">
+                <div *ngFor="let subsidiary of subsidiaryList">
+                  <lib-form-group>
+                    <lib-label
+                      [appControl]="companyHierarchyForm.controls['subsidiary']"
+                    >
+                      {{ companyTypeLabel }}
+                    </lib-label>
+                    <div class="view">
+                      {{ subsidiary.name }}
+                    </div>
+                  </lib-form-group>
+                </div>
+              </div>
+              <div *ngIf="companyType === subsidiaryCompany">
+                <lib-form-group>
+                  <lib-label
+                    [appControl]="companyHierarchyForm.controls['subsidiary']"
+                  >
+                    {{ companyTypeLabel }}
+                  </lib-label>
+                  <div class="view">
+                    {{ holdingCompanyName }}
+                  </div>
+                </lib-form-group>
+              </div>
             </div>
           </div>
         </div>
+        </fieldset>
       </form>
-    </ng-template>
-    <div class="actions mb-6">
-      <div class="edit_btn">
-        <button type="button" class="save" (click)="onSubmit()">
-          {{
-            editMode
-              ? ("Company.Save" | translate)
-              : ("Company.Edit" | translate)
-          }}
-        </button>
-      </div>
-    </div>
+    
+   
   </div>
 </lib-page-content>

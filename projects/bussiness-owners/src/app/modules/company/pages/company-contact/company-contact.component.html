@@ -1,6 +1,17 @@
 <lib-page-content>
   <div class="company_address">
     <form [formGroup]="companyContactForm">
+      <div class="actions ">
+        <div class="edit_btn">
+          <button type="button" class="save" (click)="onSubmit()">
+            {{
+              editMode
+                ? ("Company.Save" | translate)
+                : ("Company.Edit" | translate)
+            }}
+          </button>
+        </div>
+      </div>
       <fieldset [disabled]="!editMode">
         <div class="contact_form">
           <div class="grid">
@@ -128,17 +139,7 @@
         </div>
       </fieldset>
 
-      <div class="actions mb-6">
-        <div class="edit_btn">
-          <button type="button" class="save" (click)="onSubmit()">
-            {{
-              editMode
-                ? ("Company.Save" | translate)
-                : ("Company.Edit" | translate)
-            }}
-          </button>
-        </div>
-      </div>
+
     </form>
   </div>
 </lib-page-content>

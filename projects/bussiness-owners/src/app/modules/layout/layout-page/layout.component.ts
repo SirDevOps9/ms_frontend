@@ -64,7 +64,7 @@ export class LayoutComponent implements OnInit {
       { name: 'Spain', code: 'ES' },
       { name: 'United States', code: 'US' },
     ];
-    this.home = { icon: 'pi pi-home', routerLink: '/plan' };
+    this.home = { icon: 'pi pi-home', routerLink: '/my-subscriptions' };
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(
