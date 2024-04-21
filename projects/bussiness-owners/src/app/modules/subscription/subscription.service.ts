@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { DomainSpaceDto, ResponsePlanDto, SubscriptionDto } from './models';
+import { AddDomainSpaceDto, ResponsePlanDto, SubscriptionDto } from './models';
 import {
   LanguageService,
   LoaderService,
@@ -11,6 +11,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddDomainSpaceComponent } from './components/add-domain-space/add-domain-space.component';
 import { SubscriptionProxy } from './subscription.proxy';
 import { subscriptionDetailsDto } from './models/subscriptionDetailsDto';
+import { ResponseSubdomainListDto } from './models/responseSubdomainListDto';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,11 +19,20 @@ export class SubscriptionService {
   private subscriptionDataSource = new BehaviorSubject<SubscriptionDto[]>([]);
   public subscriptions = this.subscriptionDataSource.asObservable();
 
+  private subdomainsDataSource = new BehaviorSubject<ResponseSubdomainListDto[]>([]);
+  public subdomains = this.subdomainsDataSource.asObservable();
+
   private plansDataSource = new BehaviorSubject<ResponsePlanDto[]>([]);
   public plans = this.plansDataSource.asObservable();
 
   private SubscriptionDetailsDataSource = new BehaviorSubject<subscriptionDetailsDto[]>([]);
   public SubscriptionDetails = this.SubscriptionDetailsDataSource.asObservable();
+
+loadSubdomains(){
+  this.subscriptionProxy.getAllMySubdomains().subscribe((response) => {
+    this.subdomainsDataSource.next(response);
+  });
+}
 
   loadSubscription() {
     this.subscriptionProxy.getAllSubscriptions().subscribe((response) => {
@@ -47,7 +57,7 @@ export class SubscriptionService {
     });
     ref.onClose.subscribe();
   }
-  addSubdomain(subdomain: DomainSpaceDto, dialogRef: DynamicDialogRef) {
+  addSubdomain(subdomain: AddDomainSpaceDto, dialogRef: DynamicDialogRef) {
     this.loaderService.show();
     this.subscriptionProxy.addSubdomain(subdomain).subscribe({
       next: (res) => {
@@ -59,11 +69,13 @@ export class SubscriptionService {
         );
         this.loaderService.hide();
         dialogRef.close(res);
+        window.location.reload()
       },
       error: (err) => {
         this.loaderService.hide();
       },
     });
+
   }
 
   

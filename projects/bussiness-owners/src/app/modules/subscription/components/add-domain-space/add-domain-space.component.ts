@@ -12,7 +12,7 @@ import {
   DynamicDialogConfig,
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
-import { DomainSpaceDto, PurchasingPaymentPeriod } from '../../models';
+import { AddDomainSpaceDto, PurchasingPaymentPeriod } from '../../models';
 import { SubscriptionService } from '../../subscription.service';
 import { catchError, map, of } from 'rxjs';
 
@@ -54,15 +54,22 @@ export class AddDomainSpaceComponent implements OnInit {
   }
   onSubmit() {
     if (!this.formService.validForm(this.subdomainForm, true)) return;
-    const domainModel: DomainSpaceDto = {
+    const domainModel: AddDomainSpaceDto = {
       ...this.subdomainForm.value,
       purchasingPaymentPeriod: this.purchasingPaymentPeriod,
+      
     };
 
+
     this.subscriptionService.addSubdomain(domainModel, this.ref);
+
   }
-  onCancel() {
+  onCancel() { 
+    console.log("window.location.reload");
+    
+  window.location.reload
     this.ref.close();
+    
   }
 
   activeButton(id: string) {

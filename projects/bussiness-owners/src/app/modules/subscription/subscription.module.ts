@@ -16,7 +16,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'subscription',
+        path: '',
         component: SubscriptionComponent,
         canActivate: [AuthGuard],
         data: {
