@@ -26,15 +26,18 @@ export class NewCompanyComponent {
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   companyId: string;
+  holdingCompanies: lookupDto[] = []; 
 
   get subdomainId(): number {
     return this.config.data.Id;
   }
 
   ngOnInit() {
+    this.getHoldingCompanies(); 
     this.initializeForm();
     this.loadLookups();
     this.Subscribe();
+
   }
 
   onSubmit() {
@@ -66,6 +69,13 @@ export class NewCompanyComponent {
   }
   Subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
+  }
+
+
+  getHoldingCompanies() {
+    this.companyService.getHoldingCompanies(this.subdomainId).subscribe(res => {
+      this.holdingCompanies = res; 
+    });
   }
 
   onCancel() {
