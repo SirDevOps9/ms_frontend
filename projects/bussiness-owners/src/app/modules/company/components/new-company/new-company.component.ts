@@ -15,7 +15,7 @@ import {
   DynamicDialogConfig,
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
-import { AddCompanyPopupDto } from '../../models';
+import { AddCompanyPopupDto, CompanyTypes } from '../../models';
 @Component({
   selector: 'app-new-company',
   templateUrl: './new-company.component.html',
@@ -26,12 +26,15 @@ export class NewCompanyComponent {
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   companyId: string;
+  holdingCompanies: lookupDto[] = [];
+  showHoldingCompanies: boolean = false;
 
   get subdomainId(): number {
     return this.config.data.Id;
   }
 
   ngOnInit() {
+    this.getHoldingCompanies();
     this.initializeForm();
     this.loadLookups();
     this.Subscribe();
@@ -68,6 +71,14 @@ export class NewCompanyComponent {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
   }
 
+  getHoldingCompanies() {
+    this.companyService
+      .getHoldingCompanies(this.subdomainId)
+      .subscribe((res) => {
+        this.holdingCompanies = res;
+      });
+  }
+
   onCancel() {
     this.ref.close();
   }
@@ -80,6 +91,15 @@ export class NewCompanyComponent {
       this.companyId = res.id;
       this.routerService.navigateTo('company/edit/' + this.companyId);
     });
+  }
+
+  isSubsidairy(event: any) {
+    const companyType = event;
+    if (companyType == CompanyTypes.Subsidiary) {
+      this.showHoldingCompanies = true;
+    } else {
+      this.showHoldingCompanies = false;
+    }
   }
 
   constructor(

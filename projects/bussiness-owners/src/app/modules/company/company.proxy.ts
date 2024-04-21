@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpService, lookupsListDto } from 'shared-lib';
+import { HttpService, lookupDto, lookupsListDto } from 'shared-lib';
 
 import { AddCompanyPopupDto } from './models/addcompanypopupdto';
 import { CompanyContactDto } from './models/companycontactdto';
@@ -157,6 +157,8 @@ export class CompanyProxy {
       {}
     );
   }
-
+  getCompanyHoldingDropDown(subdomain: number): Observable<lookupDto[]> {
+    return this.httpService.get<lookupDto[]>(`Company/GetAllHoldingCompnayDropDwon?subdomain=${subdomain}`);
+  }
   constructor(private httpService: HttpService) {}
 }

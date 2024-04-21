@@ -70,7 +70,8 @@
                   [options]="lookups[LookupEnum.CompanyType]"
                   optionValue="id"
                   optionLabel="name"
-                >
+                  (valueChanged)="isSubsidairy($event)"
+                  >
                 </lib-select>
                 <lib-field-validations
                   [appControl]="addCompanyForm.controls['companyType']"
@@ -78,14 +79,14 @@
                 </lib-field-validations>
               </lib-form-group>
             </div>
-            <div class="col-12">
+            <div class="col-12"  *ngIf="showHoldingCompanies">
               <lib-form-group>
                 <lib-label [appControl]="addCompanyForm.controls['parentId']">
                   {{ "Company.Add.ParentCompany" | translate }}
                 </lib-label>
                 <lib-select
                   formControlName="parentId"
-                  [options]="lookups[LookupEnum.CompanyHolding]"
+                  [options]="holdingCompanies"
                   optionValue="id"
                   optionLabel="name"
                 >
