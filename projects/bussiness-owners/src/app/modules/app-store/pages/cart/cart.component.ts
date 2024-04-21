@@ -31,7 +31,7 @@ export class CartComponent implements OnInit {
   }
 
   itemFromCartDetail(id: string) {
-    this.routerService.navigateTo('app-store/cartItemDetail/' + id);
+    this.routerService.navigateTo('/app-store/app-detail/' + id);
   }
 
   async removeItemFromCart(id: string) {

@@ -38,7 +38,6 @@ export class CompanyAddresComponent implements OnInit {
       city: new FormControl(),
       region: new FormControl(),
       address: new FormControl(),
-      radius: new FormControl(),
       longitude: new FormControl(),
       latitude: new FormControl(),
     });

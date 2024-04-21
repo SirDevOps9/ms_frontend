@@ -79,9 +79,9 @@
                     <span class="pi pi-star icon_link"></span>
                   </button>
                 </div>
-                <div class="link_sec">
+                <div class="link_sec" (click)="routeToCart()">
                   <div class="count">  {{cartItemsCount$|async}}</div>
-                  <button class="btn_count" (click)="routeToCart()">
+                  <button class="btn_count" >
                   
                     <span class="pi pi-shopping-cart icon_link"></span>
                   </button>
