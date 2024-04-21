@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AttachmentFileTypeEnum } from '../models';
+import { AttachmentFileTypeEnum, LookupEnum } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -7,5 +7,9 @@ import { AttachmentFileTypeEnum } from '../models';
 export class SharedLibraryEnums {
   get AttachmentFileTypes(): typeof AttachmentFileTypeEnum {
     return AttachmentFileTypeEnum;
+  }
+
+  get LookupTypes(): typeof LookupEnum {
+    return LookupEnum;
   }
 }

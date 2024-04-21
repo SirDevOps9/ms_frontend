@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { LayoutComponent } from './components/layout/layout.component';
-import { ErpTableComponent } from './components/erp-table/erp-table.component';
-import { SearchEngineComponent } from './components/search-engine/search-engine.component';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { LoaderComponent } from './components/loader/loader.component';
+import {
+  LayoutComponent,
+  SearchEngineComponent,
+  LoaderComponent,
+  DataTableComponent,
+  TablePaginatorComponent,
+  
+} from './components';
 import {
   FieldValidationsComponent,
   FormGroupComponent,
@@ -15,6 +18,7 @@ import {
   SelectComponent,
   TextInputComponent,
   MultiSelectComponent,
+  ButtonComponent,
 } from './form-components';
 import { DropdownModule } from 'primeng/dropdown';
 import { GetLookupPipe } from './pipes/lookupList';
@@ -22,6 +26,9 @@ import { PageContentComponent } from './components/page-content/page-content.com
 import { PrimeSharedModule } from './prime-module/prime.module';
 import { FileUploaderComponent } from './form-components/file-uploader/file-uploader.component';
 import { TreeTableModule } from 'primeng/treetable';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { InputSwitchComponent } from './form-components/input-switch/input-switch.component';
+import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
 import { RatingComponent } from './form-components/rating/rating.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { AccordionComponent } from './components/accordion/accordion.component';
@@ -31,7 +38,6 @@ import { AttachmentViewerComponent } from './components/attachment-viewer/attach
   declarations: [
     GetLookupPipe,
     LayoutComponent,
-    ErpTableComponent,
     SearchEngineComponent,
     LoaderComponent,
     FieldValidationsComponent,
@@ -42,10 +48,15 @@ import { AttachmentViewerComponent } from './components/attachment-viewer/attach
     PageContentComponent,
     FileUploaderComponent,
     MultiSelectComponent,
+    DataTableComponent,
+    AttachmentViewerComponent,
+    ButtonComponent,
+    InputSwitchComponent,
+    BreadCrumbComponent,
+    TablePaginatorComponent,
     RatingComponent,
     PaginatorComponent,
     AccordionComponent,
-    AttachmentViewerComponent,
   ],
   imports: [
     CommonModule,
@@ -62,7 +73,6 @@ import { AttachmentViewerComponent } from './components/attachment-viewer/attach
   exports: [
     GetLookupPipe,
     LayoutComponent,
-    ErpTableComponent,
     SearchEngineComponent,
     LoaderComponent,
     FieldValidationsComponent,
@@ -78,10 +88,15 @@ import { AttachmentViewerComponent } from './components/attachment-viewer/attach
     PrimeSharedModule,
     FileUploaderComponent,
     MultiSelectComponent,
+    DataTableComponent,
+    AttachmentViewerComponent,
+    ButtonComponent,
+    InputSwitchComponent,
+    BreadCrumbComponent,
+    TablePaginatorComponent,
     RatingComponent,
     PaginatorComponent,
     AccordionComponent,
-    AttachmentViewerComponent,
   ],
 })
 export class SharedLibModule {}

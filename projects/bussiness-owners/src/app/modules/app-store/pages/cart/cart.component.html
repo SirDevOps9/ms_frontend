@@ -1,6 +1,9 @@
 
 
 <lib-page-content>
+  <lib-bread-crumb>
+  
+  </lib-bread-crumb>
   <div class="cart_page">
     <div class="grid" *ngIf="cartData else noItems">
       <div class="col-12 md:col-9 " >
@@ -40,18 +43,18 @@
                   {{item.appName}}
                 </div>
                 <div class="view">
-                  <button class="btn_view" (click)="itemFromCartDetail(item.id)">
+                  <button class="btn_view" (click)="itemFromCartDetail(item.appId)">
                     view
                   </button>
                 </div>
                </div>
-               <div class="app_name" *ngIf="!isFirst">
+               <!-- <div class="app_name" *ngIf="!isFirst">
                 <div class="view">
-                  <button class="btn_view" (click)="itemFromCartDetail(item.id)">
+                  <button class="btn_view" (click)="itemFromCartDetail(item.appId)">
                     view
                   </button>
                 </div>
-               </div>
+               </div> -->
               </div>
               <div class="item col-2">
                {{item.subDomainName}}

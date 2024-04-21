@@ -1,5 +1,11 @@
 import { Observable } from 'rxjs';
-import { BaseDto, HttpService } from 'shared-lib';
+import {
+  BaseDto,
+  PageInfo,
+  PaginationVm,
+  FilterDto,
+  HttpService,
+} from 'shared-lib';
 import { Injectable } from '@angular/core';
 import {
   AddConfirmedUserDto,
@@ -19,7 +25,25 @@ export class UserProxy {
       `User?subscriptionId=${subscriptionId}`
     );
   }
+  getAllPaginated(
+    filterDto: FilterDto
+  ): Observable<PaginationVm<UserListResponse>> {
+    return this.baseService.get<PaginationVm<UserListResponse>>(
+      `User/GetAllPaginated?${filterDto.toQuery}`
+    );
+  }
 
+  // fromPageInfoToString(pageInfo: PageInfo): string {
+  //   let query = `PageInfo.Offset=${pageInfo.offset}&PageInfo.PageSize=${pageInfo.pageSize}`;
+  //   console.log(query);
+  // fromPageInfoToString(pageInfo: PageInfo): string {
+  //   let query = `PageInfo.Offset=${pageInfo.offset}&PageInfo.PageSize=${pageInfo.pageSize}`;
+  //   console.log(query);
+
+  //   return query;
+  // }
+  //   return query;
+  // }
   platformDropDown(): Observable<BaseDto[]> {
     return this.baseService.get<BaseDto[]>(`PlatformPlan/GetAllDropDown`);
   }

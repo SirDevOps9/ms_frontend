@@ -16,7 +16,7 @@ export class CompaniesListComponent implements OnInit {
   companies: ResponseCompanyDto[];
   @ViewChild('myTab') myTab: any | undefined;
   selectedCompanies: ResponseCompanyDto[];
-  tableData: TreeNode<any>[] = [];
+  tableData: TreeNode<any>[] | any = [];
   cols: any[] = [];
   active: boolean = false;
   ref: DynamicDialogRef;
@@ -27,49 +27,32 @@ export class CompaniesListComponent implements OnInit {
     private languageService: LanguageService,
     private companyService: CompanyService,
     private dialog: DialogService
-  ) {}
-
-  convertToTreeNode(
-    companies: ResponseCompanyDto[]
-  ): TreeNode<ResponseCompanyDto>[] {
-    const treeNodes: TreeNode<ResponseCompanyDto>[] = [];
-
-    console.log('companiesNode', companies);
-    // Create a map of id to node
-    const nodeMap = new Map<string, TreeNode<ResponseCompanyDto>>();
-
-    if (companies) {
-      // First pass - create tree nodes and populate the node map
-      companies.forEach((company) => {
-        const node: TreeNode<ResponseCompanyDto> = {
-          data: company,
-          children: this.convertToTreeNode(company.childrens!),
-        };
-        nodeMap.set(company.id, node);
-      });
-
-      // Second pass - link child nodes to their parents
-      companies.forEach((company) => {
-        if (company.parentId && nodeMap.has(company.parentId)) {
-          const parentNode = nodeMap.get(company.parentId);
-          const currentNode = nodeMap.get(company.id);
-          if (parentNode && currentNode) {
-            parentNode.children?.push(currentNode);
-          }
-        } else {
-          // If no parent, it's a root node
-          const currentNode = nodeMap.get(company.id);
-          if (currentNode) {
-            treeNodes.push(currentNode);
-          }
-        }
-      });
-
-      console.log('treeNodes', treeNodes);
-
-   
-    }
-    return treeNodes;
+  ) { }
+  
+  convertToTreeNode(companies : any) {
+    let com = companies.map((company : any)=>{
+      let item = {
+        data : {
+          id: company.id,
+          name: company.name,
+          code:  company.code,
+          countryCode:  company.countryCode,
+          parentId:  company.parentId,
+          countryName:  company.countryName,
+          mobileNumberCode:  company.mobileNumberCode,
+          mobileNumber:  company.mobileNumber,
+          companyEmail:  company.companyEmail,
+          companyType: company.companyType,
+          subdomainId:  company.subdomainId,
+          subdomainName:  company.subdomainName,
+          commercialId:  company.commercialId,
+          isActive:  company.isActive
+        },
+        children: company.children ? this.convertToTreeNode(company.children) : [],
+      }
+      return item
+    })
+   return com
   }
 
   newCompany() {
@@ -133,10 +116,15 @@ export class CompaniesListComponent implements OnInit {
 
     this.companyService.companies.subscribe({
       next: (companyList) => {
-        console.log('companyList', companyList);
         this.tableData = this.convertToTreeNode(companyList);
+        console.log('this.tableData', this.tableData);
+
       },
     });
+  }
+  toggle(id: string, isActive: boolean) {
+    if (!isActive) this.companyService.activate(id);
+    else this.companyService.deactivate(id);
   }
 
   changed(e: any, id: string) {

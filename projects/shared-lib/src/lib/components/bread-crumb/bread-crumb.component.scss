@@ -1,0 +1,19 @@
+.title_of_page{
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(345deg, rgba(255,255,255,1) 0%, rgba(234,237,238,1) 0%);
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+::ng-deep{
+    .p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
+        color: #1A8EAE !important;
+        font-size: 18px !important;
+        font-weight: 800 !important;
+      }
+      .p-breadcrumb {
+        border: none !important;
+    }
+}
