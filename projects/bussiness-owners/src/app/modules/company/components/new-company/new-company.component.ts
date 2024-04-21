@@ -59,10 +59,6 @@ export class NewCompanyComponent {
       parentId: new FormControl(),
       companyLogo: new FormControl(''),
     });
-
-    // this.addCompanyForm.get('companyType')?.valueChanges.subscribe((value) => {
-    //   this.showHoldingCompanies = value !== CompanyTypes.Holding;
-    // });
   }
 
   loadLookups() {
@@ -80,7 +76,6 @@ export class NewCompanyComponent {
       .getHoldingCompanies(this.subdomainId)
       .subscribe((res) => {
         this.holdingCompanies = res;
-        console.log('dafdsdddd', res);
       });
   }
 
