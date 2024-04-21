@@ -27,7 +27,7 @@ export class NewCompanyComponent {
   lookups: { [key: string]: lookupDto[] };
   companyId: string;
   holdingCompanies: lookupDto[] = [];
-  showHoldingCompanies: boolean = true;
+  showHoldingCompanies: boolean = false;
 
   get subdomainId(): number {
     return this.config.data.Id;
