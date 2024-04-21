@@ -15,7 +15,7 @@ import {
   DynamicDialogConfig,
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
-import { AddCompanyPopupDto } from '../../models';
+import { AddCompanyPopupDto, CompanyTypes } from '../../models';
 @Component({
   selector: 'app-new-company',
   templateUrl: './new-company.component.html',
@@ -26,18 +26,18 @@ export class NewCompanyComponent {
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   companyId: string;
-  holdingCompanies: lookupDto[] = []; 
+  holdingCompanies: lookupDto[] = [];
+  showHoldingCompanies: boolean = true;
 
   get subdomainId(): number {
     return this.config.data.Id;
   }
 
   ngOnInit() {
-    this.getHoldingCompanies(); 
+    this.getHoldingCompanies();
     this.initializeForm();
     this.loadLookups();
     this.Subscribe();
-
   }
 
   onSubmit() {
@@ -59,6 +59,10 @@ export class NewCompanyComponent {
       parentId: new FormControl(),
       companyLogo: new FormControl(''),
     });
+
+    // this.addCompanyForm.get('companyType')?.valueChanges.subscribe((value) => {
+    //   this.showHoldingCompanies = value !== CompanyTypes.Holding;
+    // });
   }
 
   loadLookups() {
@@ -71,11 +75,13 @@ export class NewCompanyComponent {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
   }
 
-
   getHoldingCompanies() {
-    this.companyService.getHoldingCompanies(this.subdomainId).subscribe(res => {
-      this.holdingCompanies = res; 
-    });
+    this.companyService
+      .getHoldingCompanies(this.subdomainId)
+      .subscribe((res) => {
+        this.holdingCompanies = res;
+        console.log('dafdsdddd', res);
+      });
   }
 
   onCancel() {
@@ -90,6 +96,15 @@ export class NewCompanyComponent {
       this.companyId = res.id;
       this.routerService.navigateTo('company/edit/' + this.companyId);
     });
+  }
+
+  isSubsidairy(event: any) {
+    const companyType = event;
+    if (companyType == CompanyTypes.Subsidiary) {
+      this.showHoldingCompanies = true;
+    } else {
+      this.showHoldingCompanies = false;
+    }
   }
 
   constructor(
