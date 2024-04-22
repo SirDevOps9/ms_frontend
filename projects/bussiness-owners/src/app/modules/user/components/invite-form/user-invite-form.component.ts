@@ -16,7 +16,6 @@ import { CompanyService } from '../../../company/company.service';
 import { BranchDto } from '../../../company/models';
 import { SubscriptionService } from '../../../subscription/subscription.service';
 import { TenantLicenseDto } from '../../../subscription/models';
-import { MultiSelectComponent } from 'projects/shared-lib/src/lib/form-components';
 
 @Component({
   selector: 'app-user-invite-form',
@@ -105,9 +104,6 @@ export class UserInviteFormComponent implements OnInit {
   }
 
 
-  test(){
-    console.log("Form Valuse", this.inviteForm.value)
-  }
 
   constructor(
     public config: DynamicDialogConfig,
