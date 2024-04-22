@@ -27,14 +27,14 @@ export class LoginRedirectComponent implements OnInit {
         switchMap(() =>
           forkJoin({
             tenantObj: this.authHttp.updateLastLoggingTime(),
-            permissiontree: this.authHttp.loadPermissionTree(),
+           // permissiontree: this.authHttp.loadPermissionTree(),
           })
         )
       )
       .subscribe({
-        next: ({ tenantObj, permissiontree }) => {
+        next: ({ tenantObj}) => {
           this.localStorage.setItem(StorageKeys.TENANT, tenantObj);
-          this.localStorage.setItem(StorageKeys.PERMISSIONTREE, permissiontree);
+         // this.localStorage.setItem(StorageKeys.PERMISSIONTREE, permissiontree);
           this.authService.afterLoginRedirect();
         },
       });
