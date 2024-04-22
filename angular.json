@@ -41,9 +41,6 @@
               "node_modules/primeflex/primeflex.css",
               "node_modules/font-awesome/css/font-awesome.css",
               "projects/bussiness-owners/src/styles.css"
-
-
-
             ],
             "scripts": [
             ]
@@ -589,10 +586,28 @@
               ],
               "outputHashing": "all"
             },
+            
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/bussiness-owners/src/environments/environment.ts",
+                  "with": "projects/bussiness-owners/src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "stage": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/bussiness-owners/src/environments/environment.ts",
+                  "with": "projects/bussiness-owners/src/environments/environment.stage.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
