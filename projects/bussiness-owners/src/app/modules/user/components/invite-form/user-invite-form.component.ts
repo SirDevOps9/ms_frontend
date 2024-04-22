@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -16,6 +16,7 @@ import { CompanyService } from '../../../company/company.service';
 import { BranchDto } from '../../../company/models';
 import { SubscriptionService } from '../../../subscription/subscription.service';
 import { TenantLicenseDto } from '../../../subscription/models';
+import { MultiSelectComponent } from 'projects/shared-lib/src/lib/form-components';
 
 @Component({
   selector: 'app-user-invite-form',
@@ -26,8 +27,10 @@ export class UserInviteFormComponent implements OnInit {
   inviteForm: FormGroup;
   Companies: lookupDto[] = [];
   branches: BranchDto[];
-  Licenses:TenantLicenseDto[]
+  Licenses:TenantLicenseDto[];
+  selected : any = [];
   subdomainName: string;
+
 
 
   ngOnInit() {
@@ -92,10 +95,18 @@ export class UserInviteFormComponent implements OnInit {
     this.companyService.branches.subscribe((branchList) => {
       this.branches = branchList;
     });
+
+    this.inviteForm.patchValue({branchIds:[]})
+    this.selected=[];
   }
 
   get subdomainId(): number {
     return this.config.data.Id;
+  }
+
+
+  test(){
+    console.log("Form Valuse", this.inviteForm.value)
   }
 
   constructor(

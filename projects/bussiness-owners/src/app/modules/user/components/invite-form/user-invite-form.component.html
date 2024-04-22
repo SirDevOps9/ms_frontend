@@ -47,10 +47,11 @@
                 Branches
               </lib-label>
               <lib-multi-select
-                formControlName="branchIds"
+              formControlName="branchIds"
                 [options]="branches"
                 optionValue="id"
                 optionLabel="branchName"
+                [selectedValue]="selected"
               >
               </lib-multi-select>
               <lib-field-validations
