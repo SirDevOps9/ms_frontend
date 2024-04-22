@@ -32,6 +32,3 @@ For Building bussiness-owners run `npm build:bussiness-owners`
 For Building adminportal run `npm build:adminportal`
 For Building accounting run `npm build:accounting`
 For Building hr run `npm build:hr`
-
-
-
