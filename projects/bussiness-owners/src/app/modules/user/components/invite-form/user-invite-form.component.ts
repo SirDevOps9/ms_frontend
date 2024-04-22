@@ -15,6 +15,7 @@ import { UserService } from '../../user.service';
 import { CompanyService } from '../../../company/company.service';
 import { BranchDto } from '../../../company/models';
 import { SubscriptionService } from '../../../subscription/subscription.service';
+import { TenantLicenseDto } from '../../../subscription/models';
 
 @Component({
   selector: 'app-user-invite-form',
@@ -25,12 +26,14 @@ export class UserInviteFormComponent implements OnInit {
   inviteForm: FormGroup;
   Companies: lookupDto[] = [];
   branches: BranchDto[];
+  Licenses:TenantLicenseDto[]
   subdomainName: string;
 
 
   ngOnInit() {
     this.getSubdomainById();
     this.getCompanies();
+    this.getTenantLicense();
     this.initializesubDomainForm();
   }
 
@@ -70,6 +73,15 @@ export class UserInviteFormComponent implements OnInit {
         this.subdomainName = res.name;
       });
   }
+
+  getTenantLicense() {
+    this.subscriptionService
+      .getTenantLicense(this.subdomainId)
+      .subscribe((res) => {
+        this.Licenses = res;
+      });
+  }
+
 
 
   onCompanyChange(event: any) {

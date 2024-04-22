@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { HttpService } from 'shared-lib';
-import {  AddDomainSpaceDto, ResponseSubdomainDto, SubscriptionDto } from './models';
+import {  AddDomainSpaceDto, ResponseSubdomainDto, SubscriptionDto, TenantLicenseDto } from './models';
 import { Injectable } from '@angular/core';
 import { subscriptionDetailsDto } from './models/subscriptionDetailsDto';
 import { ResponseSubdomainListDto } from './models/responseSubdomainListDto';
@@ -32,6 +32,11 @@ export class SubscriptionProxy {
   getSubdomainById(subdomain: number): Observable<ResponseSubdomainDto> {
     return this.baseService.get<ResponseSubdomainDto>(`Subdomain/GetSubdomainById?subdomain=${subdomain}`);
   }
+
+  getTenantLicense(subdomain: number): Observable<TenantLicenseDto[]> {
+    return this.baseService.get<TenantLicenseDto[]>(`Subdomain/GetSubdomainLicenses?subdomainId${subdomain}`);
+  }
+
 
 
 }

@@ -78,8 +78,9 @@
               </lib-label>
               <lib-select
               formControlName="tenantLicenseId"
+              [options]="Licenses"
               optionValue="id"
-              optionLabel="name"
+              optionLabel="description"
             >
             </lib-select>
               <lib-field-validations
