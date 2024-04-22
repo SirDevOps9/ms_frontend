@@ -4,12 +4,17 @@ import {
   FormControl,
   FormGroup,
 } from '@angular/forms';
-import { FormsService, customValidators } from 'shared-lib';
+import { FormsService, customValidators, lookupDto } from 'shared-lib';
 import {
   DialogService,
   DynamicDialogConfig,
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
+import { InviteUserDto } from '../../models';
+import { UserService } from '../../user.service';
+import { CompanyService } from '../../../company/company.service';
+import { BranchDto } from '../../../company/models';
+import { SubscriptionService } from '../../../subscription/subscription.service';
 
 @Component({
   selector: 'app-user-invite-form',
@@ -18,39 +23,68 @@ import {
 })
 export class UserInviteFormComponent implements OnInit {
   inviteForm: FormGroup;
-
+  Companies: lookupDto[] = [];
+  branches: BranchDto[];
+  subdomainName: string;
 
 
   ngOnInit() {
+    this.getSubdomainById();
+    this.getCompanies();
     this.initializesubDomainForm();
   }
 
   initializesubDomainForm() {
     this.inviteForm = this.fb.group({
-      loginEmail: new FormControl('', customValidators.required,),
-      company: new FormControl('', customValidators.required,),
-      branches: new FormControl('', customValidators.required,),
-      domainSpace: new FormControl('', customValidators.required,),
-      selectLicence: new FormControl('', customValidators.required,),
-
+      email: new FormControl('', customValidators.required,),
+      companyId: new FormControl('', customValidators.required,),
+      branchIds: new FormControl('', customValidators.required,),
+      subdomain: new FormControl('', customValidators.required,),
+      tenantLicenseId: new FormControl('', customValidators.required,),
     });
   }
 
 
   onSubmit() {
-    // if (!this.formService.validForm(this.subdomainForm, true)) return;
-    // const domainModel: AddDomainSpaceDto = {
-    //   ...this.subdomainForm.value,
-    //   purchasingPaymentPeriod: this.purchasingPaymentPeriod,
-    // };
-
-    // this.subscriptionService.addSubdomain(domainModel, this.ref);
+    if (!this.formService.validForm(this.inviteForm, true)) return;
+    const userModel: InviteUserDto = this.inviteForm.value;
+    this.userService.inviteUser(userModel, this.ref);
   }
 
   onCancel() {
     this.ref.close();
   }
 
+  getCompanies() {
+    this.companyService
+      .getCompaniesDropDown(this.subdomainId)
+      .subscribe((res) => {
+        this.Companies = res;
+      });
+  }
+
+  getSubdomainById() {
+    this.subscriptionService
+      .getSubdomainById(this.subdomainId)
+      .subscribe((res) => {
+        this.subdomainName = res.name;
+      });
+  }
+
+
+  onCompanyChange(event: any) {
+    console.log("Calling onCompanyChange")
+    const companyId = event;
+    if (!companyId) return;
+    this.companyService.loadBranches(companyId);
+    this.companyService.branches.subscribe((branchList) => {
+      this.branches = branchList;
+    });
+  }
+
+  get subdomainId(): number {
+    return this.config.data.Id;
+  }
 
   constructor(
     public config: DynamicDialogConfig,
@@ -58,5 +92,9 @@ export class UserInviteFormComponent implements OnInit {
     private fb: FormBuilder,
     private formService: FormsService,
     private ref: DynamicDialogRef,
+    private userService: UserService,
+    private companyService: CompanyService,
+    private subscriptionService: SubscriptionService
+
   ) {}
 }

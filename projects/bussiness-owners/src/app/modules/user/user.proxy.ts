@@ -47,11 +47,12 @@ export class UserProxy {
   platformDropDown(): Observable<BaseDto[]> {
     return this.baseService.get<BaseDto[]>(`PlatformPlan/GetAllDropDown`);
   }
+
+
   inviteUser(userModel: InviteUserDto): Observable<UserListResponse> {
     return this.baseService.post<UserListResponse>(
       `InvitedUser/Create`,
       userModel,
-      false
     );
   }
 

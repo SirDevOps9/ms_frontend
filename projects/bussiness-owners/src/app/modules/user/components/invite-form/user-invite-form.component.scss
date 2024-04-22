@@ -165,6 +165,16 @@
     }
   
   }
+
+  .view{
+    font-size: 1rem;
+    color: #4b5563;
+    background: #ffffff;
+    padding:15px;
+    min-height: 40px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+  }
   ::ng-deep {
     .p-dialog .p-dialog-header {
       display: none !important;

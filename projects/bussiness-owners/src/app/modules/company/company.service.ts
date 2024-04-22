@@ -243,6 +243,11 @@ export class CompanyService {
     return this.companyProxy.getCompanyHoldingDropDown(subdomainId);
   }
 
+  getCompaniesDropDown(subdomainId: number): Observable<lookupDto[]> {
+    return this.companyProxy.getCompaniesDropDown(subdomainId);
+  }
+
+
   openBranchModel(id:string,ref: DynamicDialogRef, dialog: DialogService) {
     ref = dialog.open(NewBranchesComponent, {
       width: '600px',

@@ -11,88 +11,79 @@
       <div class="data_content">
           <div class="col-md-6">
             <lib-form-group>
-              <lib-label
-                [appControl]="inviteForm.controls['loginEmail']"
-              >
+              <lib-label [appControl]="inviteForm.controls['email']">
                 Login Email
               </lib-label>
-              <lib-select
-              formControlName="loginEmail"
-              optionValue="id"
-              optionLabel="name"
-            >
-            </lib-select>
+              <lib-text-input type="text" formControlName="email" />
               <lib-field-validations
-                [appControl]="inviteForm.controls['loginEmail']"
+                [appControl]="inviteForm.controls['email']"
               >
               </lib-field-validations>
             </lib-form-group>
 
             <lib-form-group>
               <lib-label
-                [appControl]="inviteForm.controls['company']"
+                [appControl]="inviteForm.controls['companyId']"
               >
                 Company
               </lib-label>
               <lib-select
-              formControlName="company"
+              formControlName="companyId"
+              [options]="Companies"
               optionValue="id"
               optionLabel="name"
+              (valueChanged)="onCompanyChange($event)"
+
             >
             </lib-select>
               <lib-field-validations
-                [appControl]="inviteForm.controls['company']"
+                [appControl]="inviteForm.controls['companyId']"
               >
               </lib-field-validations>
             </lib-form-group>
+
             <lib-form-group>
-              <lib-label
-                [appControl]="inviteForm.controls['branches']"
-              >
-              Branches
+              <lib-label [appControl]="inviteForm.controls['branchIds']">
+                Branches
               </lib-label>
-              <lib-select
-              formControlName="branches"
-              optionValue="id"
-              optionLabel="name"
-            >
-            </lib-select>
+              <lib-multi-select
+                formControlName="branchIds"
+                [options]="branches"
+                optionValue="id"
+                optionLabel="branchName"
+              >
+              </lib-multi-select>
               <lib-field-validations
-                [appControl]="inviteForm.controls['branches']"
+                [appControl]="inviteForm.controls['branchIds']"
               >
               </lib-field-validations>
             </lib-form-group>
+
+
             <lib-form-group>
               <lib-label
-                [appControl]="inviteForm.controls['domainSpace']"
+                [appControl]="inviteForm.controls['subdomain']"
               >
-              Domain Space
+                Domain Space
               </lib-label>
-              <lib-select
-              formControlName="domainSpace"
-              optionValue="id"
-              optionLabel="name"
-            >
-            </lib-select>
-              <lib-field-validations
-                [appControl]="inviteForm.controls['domainSpace']"
-              >
-              </lib-field-validations>
+              <div class="view">
+                {{ subdomainName }}
+              </div>
             </lib-form-group>
             <lib-form-group>
               <lib-label
-                [appControl]="inviteForm.controls['selectLicence']"
+                [appControl]="inviteForm.controls['tenantLicenseId']"
               >
               select Licence
               </lib-label>
               <lib-select
-              formControlName="selectLicence"
+              formControlName="tenantLicenseId"
               optionValue="id"
               optionLabel="name"
             >
             </lib-select>
               <lib-field-validations
-                [appControl]="inviteForm.controls['selectLicence']"
+                [appControl]="inviteForm.controls['tenantLicenseId']"
               >
               </lib-field-validations>
             </lib-form-group>

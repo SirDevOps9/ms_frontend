@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AddDomainSpaceDto, ResponsePlanDto, SubscriptionDto } from './models';
+import { AddDomainSpaceDto, ResponsePlanDto, ResponseSubdomainDto, SubscriptionDto } from './models';
 import {
   LanguageService,
   LoaderService,
@@ -78,6 +78,9 @@ loadSubdomains(){
 
   }
 
+  getSubdomainById(subdomainId: number): Observable<ResponseSubdomainDto> {
+    return this.subscriptionProxy.getSubdomainById(subdomainId);
+  }
   
   constructor(
     private subscriptionProxy: SubscriptionProxy,
