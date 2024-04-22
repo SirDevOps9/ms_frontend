@@ -1,10 +1,13 @@
 <lib-page-content>
-  <div class="plan_header">
-    <button class="btn" type="button" (click)="openSubdomainModal()">
-      <span class="icon pi pi-plus"></span>
-      Add domain space
-    </button>
-  </div>
+  <lib-bread-crumb>
+    <div class="plan_header">
+      <button class="btn" type="button" (click)="openSubdomainModal()">
+        <span class="icon pi pi-plus"></span>
+        Add domain space
+      </button>
+    </div>
+  </lib-bread-crumb>
+ 
   <div class="plan_page">
     <div class="card-container grid" *ngIf="subdomain">
       <div class="card col-12 md:col-5   " *ngFor="let subdomain of subdomainList">
@@ -47,7 +50,6 @@
               <button
                 class="btn_mange_app "
                 type="button"
-                (click)="navigateToManageApp(subdomain.id)"
               >
                 <span class="pi pi-building icon_btn"></span>
                 Manage aPP
@@ -55,7 +57,6 @@
               <button
                 class="btn_mange_app"
                 type="button"
-                (click)="navigateToManageApp(subdomain.id)"
               >
                 <span class="pi pi-building icon_btn"></span>
                 User licenses
@@ -65,7 +66,7 @@
               <button
                 class="btn_mange_erp "
                 type="button"
-                (click)="navigateToManageApp(subdomain.id)"
+                
               >
                 <span class="pi pi-building icon_btn"></span>
                 ERP Login

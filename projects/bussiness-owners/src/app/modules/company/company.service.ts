@@ -5,6 +5,7 @@ import {
   LanguageService,
   LoaderService,
   ToasterService,
+  lookupDto,
 } from 'shared-lib';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NewBranchesComponent } from './components/new-branches/new-branches.component';
@@ -236,6 +237,10 @@ export class CompanyService {
     this.companyProxy.getAllBranches(companyId).subscribe((response) => {
       this.branchesDataSource.next(response);
     });
+  }
+
+  getHoldingCompanies(subdomainId: number): Observable<lookupDto[]> {
+    return this.companyProxy.getCompanyHoldingDropDown(subdomainId);
   }
 
   openBranchModel(id:string,ref: DynamicDialogRef, dialog: DialogService) {

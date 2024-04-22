@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { HttpService } from './base.httpservice';
 import { LookupEnum, lookupDto, lookupsListDto } from '../models';
+import { LanguageService } from './language.service';
 
 @Injectable({
   providedIn: 'root',
@@ -36,6 +37,24 @@ export class LookupsService {
     return lookup;
   }
 
+  getLookUpText(key: string, itemCode: string) {
+    var allLookups = this.lookupsDataSource.value;
+
+    if (key && itemCode && allLookups) {
+      const lookup = allLookups[key];
+
+      const lookupItem = lookup?.find(
+        (item) => item?.id.toString() === itemCode?.toString()
+      );
+
+      if (this?.languageService?.ar) {
+        return lookupItem?.name ?? lookupItem?.name;
+      } else {
+        return lookupItem?.name ?? lookupItem?.name;
+      }
+    }
+    return '';
+  }
   loadLookups(lookups: LookupEnum[]) {
     const queryParams = lookups.map((name) => `lookups=${name}`).join('&');
     this.lookupsLoadedDataSource.next(false);
@@ -54,5 +73,8 @@ export class LookupsService {
       });
   }
 
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private httpService: HttpService,
+    public languageService: LanguageService
+  ) {}
 }

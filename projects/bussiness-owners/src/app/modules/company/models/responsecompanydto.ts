@@ -13,4 +13,5 @@ export interface ResponseCompanyDto {
   subdomainName: number;
   isActive: boolean;
   companyType: string;
+  commercialId?:string
 }

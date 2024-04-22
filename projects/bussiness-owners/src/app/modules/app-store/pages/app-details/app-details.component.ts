@@ -25,10 +25,12 @@ export class AppDetailsComponent implements OnInit {
     private appStoreService: AppStoreService,
     private subdomainService: SubdomainService,
     private appStoreProxy: AppStoreProxy) {
-    this.id = +route.snapshot.paramMap.get('id')!
+    this.id = route.snapshot.params['id']
+
   }
 
   ngOnInit(): void {
+    
     this.appStoreProxy.getById(this.id).subscribe(r => {
       r.appGallery = [r.logoId, ...r.appGallery!];
       this.app = r;
