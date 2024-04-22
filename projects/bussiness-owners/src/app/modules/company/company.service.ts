@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { CompanyProxy } from './company.proxy';
-import {  ResponseCompanyDto } from './models';
 import { BehaviorSubject, Observable, catchError, map } from 'rxjs';
 import {
   LanguageService,
   LoaderService,
   ToasterService,
+  lookupDto,
 } from 'shared-lib';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NewBranchesComponent } from './components/new-branches/new-branches.component';
@@ -20,6 +20,7 @@ import { CreateBranchDto } from './models/createbranchdto';
 import { EditBranchDto } from './models/editbranchdto';
 import { CompanyHierarchyDto } from './models/companyhierarchydto';
 import { UpdateCompanyHierarchyDto } from './models/updatecompanyhierarchydto';
+import { ResponseCompanyDto } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -236,6 +237,10 @@ export class CompanyService {
     this.companyProxy.getAllBranches(companyId).subscribe((response) => {
       this.branchesDataSource.next(response);
     });
+  }
+
+  getHoldingCompanies(subdomainId: number): Observable<lookupDto[]> {
+    return this.companyProxy.getCompanyHoldingDropDown(subdomainId);
   }
 
   openBranchModel(id:string,ref: DynamicDialogRef, dialog: DialogService) {

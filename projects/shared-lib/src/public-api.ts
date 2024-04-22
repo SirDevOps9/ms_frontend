@@ -2,7 +2,6 @@
  * Public API Surface of shared-lib
  */
 export * from './lib/shared-lib.module';
-export * from './lib/components/erp-table/erp-table.component';
 export * from './lib/components/layout/layout.component';
 export * from './lib/components/search-engine/search-engine.component';
 export * from './lib/components/loader/loader.component';

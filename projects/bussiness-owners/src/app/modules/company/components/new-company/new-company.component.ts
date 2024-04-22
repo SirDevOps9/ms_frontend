@@ -15,7 +15,7 @@ import {
   DynamicDialogConfig,
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
-import { AddCompanyPopupDto } from '../../models';
+import { AddCompanyPopupDto, CompanyTypes } from '../../models';
 @Component({
   selector: 'app-new-company',
   templateUrl: './new-company.component.html',
@@ -26,12 +26,15 @@ export class NewCompanyComponent {
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   companyId: string;
+  holdingCompanies: lookupDto[] = [];
+  showHoldingCompanies: boolean = false;
 
   get subdomainId(): number {
     return this.config.data.Id;
   }
 
   ngOnInit() {
+    this.getHoldingCompanies();
     this.initializeForm();
     this.loadLookups();
     this.Subscribe();
@@ -54,21 +57,31 @@ export class NewCompanyComponent {
       branchName: new FormControl('', [customValidators.required]),
       companyType: new FormControl('', [customValidators.required]),
       parentId: new FormControl(),
-      companyLogo: new FormControl('', [customValidators.required]),
+      companyLogo: new FormControl(''),
     });
   }
 
   loadLookups() {
-    this.lookupsService.loadLookups([LookupEnum.CompanyHolding]);
+    this.lookupsService.loadLookups([
+      LookupEnum.CompanyHolding,
+      LookupEnum.CompanyType,
+    ]);
   }
   Subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
   }
 
+  getHoldingCompanies() {
+    this.companyService
+      .getHoldingCompanies(this.subdomainId)
+      .subscribe((res) => {
+        this.holdingCompanies = res;
+      });
+  }
+
   onCancel() {
     this.ref.close();
   }
-
 
   onSaveAndEdit() {
     if (!this.formsService.validForm(this.addCompanyForm, true)) return;
@@ -78,6 +91,15 @@ export class NewCompanyComponent {
       this.companyId = res.id;
       this.routerService.navigateTo('company/edit/' + this.companyId);
     });
+  }
+
+  isSubsidairy(event: any) {
+    const companyType = event;
+    if (companyType == CompanyTypes.Subsidiary) {
+      this.showHoldingCompanies = true;
+    } else {
+      this.showHoldingCompanies = false;
+    }
   }
 
   constructor(

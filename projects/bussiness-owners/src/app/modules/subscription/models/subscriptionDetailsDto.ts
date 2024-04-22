@@ -1,6 +1,6 @@
 export interface subscriptionDetailsDto {
     appId: number;  
-    categoryName: string;
+    moduleName: string;
     appName:string;
     description:string;
     endDate:Date;

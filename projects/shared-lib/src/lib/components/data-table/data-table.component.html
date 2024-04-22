@@ -1,0 +1,120 @@
+<div class="viewInWeb">
+  <div class="row">
+    <div class="col-12">
+      <p-table
+        *ngIf="items"
+        #dt
+        [value]="items"
+        [rows]="tableConfigs.pageSize"
+        [paginator]="tableConfigs.allowPagination"
+        [paginatorPosition]="'bottom'"
+        [globalFilterFields]="globalFilterFields"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [rowsPerPageOptions]="[10, 20, 50, 100]"
+        [rowHover]="true"
+        [dataKey]="tableConfigs.dataKey"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        class="flex flex-column"
+      >
+        <ng-template pTemplate="caption">
+          <ng-content select="[caption]"> </ng-content>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+          <tr>
+            <ng-container *ngFor="let col of tableConfigs.columns">
+              <th [pSortableColumn]="col.name" *ngIf="col.isSortable">
+                {{ col.headerText }}
+                <p-sortIcon [field]="col.name"></p-sortIcon>
+              </th>
+              <th *ngIf="!col.isSortable">
+                {{ col.headerText }}
+              </th>
+            </ng-container>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-row>
+          <tr>
+            <td *ngFor="let col of tableConfigs.columns">
+              <ng-container *ngIf="!col.template; else customCellTemplate!">
+                <ng-container *ngIf="col.lookupKey">
+                  {{
+                    this.lookupsService.getLookUpText(
+                      col.lookupKey,
+                      row[col.name]
+                    )
+                  }}
+                </ng-container>
+                {{ row[col.name] }}
+              </ng-container>
+              <ng-template
+                #customCellTemplate
+                *ngTemplateOutlet="col.template!; context: { $implicit: row }"
+              >
+              </ng-template>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
+<div class="viewInMob">
+  <div class="row table__card__mob">
+    <div
+      *ngFor="let row of items; let i = index"
+      (click)="selectRow(row)"
+      class="col-md-6 col-sm-12 mb-2"
+    >
+      <div class="card-component">
+        <div *ngFor="let col of tableConfigs.columns">
+          <ng-container *ngIf="!col.template; else customCellTemplate!">
+            <h5 *ngIf="col.name === tableConfigs.cardTitleKey">
+              {{ row[col.name] }}
+            </h5>
+
+            <p *ngIf="col.name !== tableConfigs.cardTitleKey">
+              <strong>{{ col.headerText }}: </strong>
+              <ng-container
+                *ngIf="!col.lookupKey && col.name.indexOf('date') !== -1"
+              >
+                {{ row[col.name] | date : "d MMMM y" }}
+              </ng-container>
+
+              <ng-container
+                *ngIf="!col.lookupKey && col.name.indexOf('date') === -1"
+              >
+                {{ row[col.name] }}
+              </ng-container>
+
+              <ng-container *ngIf="col.lookupKey">
+                {{
+                  this.lookupsService.getLookUpText(
+                    col.lookupKey,
+                    row[col.name]
+                  )
+                }}
+              </ng-container>
+            </p>
+          </ng-container>
+          <ng-template
+            #customCellTemplate
+            *ngTemplateOutlet="col.template!; context: { $implicit: row }"
+          >
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <span></span>
+  </div>
+</div>
+
+<lib-table-paginator
+  *ngIf="tableConfigs.allowServerPagination"
+  (pageChange)="onPageChange($event)"
+  [totalRecords]="currentPageResult.totalItems!"
+  [rows]="currentPageResult.pageSize!"
+></lib-table-paginator>

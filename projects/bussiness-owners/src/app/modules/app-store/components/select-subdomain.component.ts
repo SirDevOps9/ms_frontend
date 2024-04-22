@@ -5,10 +5,10 @@ import { BaseDto } from "shared-lib";
 @Component({
     template: `
     Select Subdomain: <br>
-    <select [(ngModel)]="selectedSubdomain">
+    <!-- <select [(ngModel)]="selectedSubdomain">
         <option></option>
         <option *ngFor="let item of allSubdomains" [value]="item.id">{{item.name}}</option>
-    </select>
+    </select> -->
     <button (click)="submit()">Submit</button>`,
 })
 export class SelectSubdomainComponent implements OnInit {

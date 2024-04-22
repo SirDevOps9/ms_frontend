@@ -2,6 +2,27 @@
   [title]="'Company.CompanyList' | translate"
   [subTitle]="'Company.CompanyList' | translate"
 >
+<lib-bread-crumb>
+  <div class="flex justify-content-end align-items-center">
+    <div class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input
+        pInputText
+        type="text"
+        (input)="applyFilterGlobal($event, 'contains')"
+        placeholder="Search..."
+      />
+    </div>
+    <button
+      pButton
+      pRipple
+      label="Add New"
+      icon="pi pi-plus"
+      class="add_new mr-2"
+      (click)="newCompany()"
+    ></button>
+  </div>
+</lib-bread-crumb>
   <div class="company_page">
     <p-treeTable
       #myTab
@@ -14,27 +35,7 @@
       [tableStyle]="{ 'min-width': '75rem' }"
       [rowsPerPageOptions]="[5, 10, 15]"
     >
-      <ng-template pTemplate="caption">
-        <div class="flex justify-content-end align-items-center">
-          <div class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input
-              pInputText
-              type="text"
-              (input)="applyFilterGlobal($event, 'contains')"
-              placeholder="Search..."
-            />
-          </div>
-          <button
-            pButton
-            pRipple
-            label="Add New"
-            icon="pi pi-plus"
-            class="add_new mr-2"
-            (click)="newCompany()"
-          ></button>
-        </div>
-      </ng-template>
+   
       <ng-template pTemplate="header">
         <tr>
           <th>{{ "Company.Code" | translate }}</th>

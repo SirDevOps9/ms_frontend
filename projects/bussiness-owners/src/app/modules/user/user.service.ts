@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, filter, map } from 'rxjs';
 import {
   AddConfirmedUserDto,
   EditUserModel,
@@ -9,8 +9,13 @@ import {
 import { UserProxy } from './user.proxy';
 import {
   DefaultExceptionModel,
+  Condition,
+  FilterDto,
+  FilterOptions,
   LanguageService,
   LoaderService,
+  PageInfo,
+  PageInfoResult,
   RouterService,
   ToasterService,
 } from 'shared-lib';
@@ -25,10 +30,44 @@ export class UserService {
 
   public users = this.userDataSource.asObservable();
 
+  public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
+
   getAllUsers(subscriptionId: number) {
-    this.userProxy.getAll(subscriptionId).subscribe({
+
+    var filterDto = new FilterDto();
+
+    filterDto.pageInfo = new PageInfo();
+
+    let cond: Condition[] = [];
+
+    cond.push({
+      column: 'Name',
+      operator: FilterOptions.Contains,
+      value: 'f',
+    });
+
+    // cond.push({
+    //   column: 'Email',
+    //   operator: FilterOptions.Contains,
+    //   value: 'gmail',
+    // });
+
+    filterDto.conditions = cond;
+
+    this.userProxy.getAllPaginated(filterDto).subscribe({
       next: (res) => {
-        this.userDataSource.next(res);
+        this.userDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+    return;
+  }
+
+  getAllUsersPaginated(pageInfo: PageInfo) {
+    this.userProxy.getAllPaginated(pageInfo).subscribe({
+      next: (res) => {
+        this.userDataSource.next(res.result);
+        this.userDataSource.next(res.result);
       },
     });
   }
@@ -70,10 +109,12 @@ export class UserService {
         if (item.id === id) {
           console.log(item.isActive);
           item.isActive = false;
+          item.isActive = false;
         }
       });
     }
   }
+
   async deactivate(id: string) {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangestatus'
@@ -101,6 +142,7 @@ export class UserService {
         if (item.id === id) {
           console.log(item.isActive);
           item.isActive = true;
+          item.isActive = true;
         }
       });
     }
@@ -121,6 +163,7 @@ export class UserService {
       }
     });
   }
+
   inviteUser(model: InviteUserDto, dialogRef: DynamicDialogRef) {
     this.loaderService.show();
     this.userProxy.inviteUser(model).subscribe({

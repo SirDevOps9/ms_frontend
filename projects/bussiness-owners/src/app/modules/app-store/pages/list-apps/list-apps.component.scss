@@ -29,6 +29,9 @@
                 border: none;
                 margin-inline-start: 10px;
             }
+            .icon{
+                cursor: pointer;
+            }
         }
     }
 
@@ -45,6 +48,7 @@
     padding: 10px;
     margin-bottom: 20px;
     background: #fff;
+    margin-inline-end: 20px;
     border: 1px solid #EDEEF1;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     .app_img{
@@ -111,8 +115,11 @@
 .contant{
     display: flex;
     align-items: start;
-    justify-content: space-around;
+    justify-content: start;
 }
-.Category{
+.Modules{
     border-bottom:1px solid #8E95A2 ;
+}
+.test{
+    position:relative  !important;
 }

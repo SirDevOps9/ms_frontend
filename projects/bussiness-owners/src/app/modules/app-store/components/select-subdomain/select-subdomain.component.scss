@@ -1,0 +1,37 @@
+@import"../../../../../assets/styling/scss/variables/font-family";
+.selected_subdomain_page{
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+   .btns{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content:space-evenly ;
+    .btn{
+        width: 40%;
+        .btn_save , .btn_discard{
+            width: 100%;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: $cairo_regular;
+            padding: 5px 0;
+            cursor: pointer;
+        }
+        
+        .btn_discard{
+            color: #CB3F2D;
+            border: 1px solid #CB3F2D;
+            background: #fff;
+        }
+        .btn_save{
+            background-color: #1A8EAE;
+            color: #fff;
+            border: 1px solid #1A8EAE;
+           
+        }
+    }
+   } 
+}

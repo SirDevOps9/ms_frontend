@@ -1,10 +1,13 @@
 <lib-page-content>
+    <lib-bread-crumb>
+  
+    </lib-bread-crumb>
     <div class="app_list">
         <div class="grid">
             <div class="col-12">
                 <div class="sub_header">
                     <div class="count_of_apps">
-                        46 App in Store
+                        {{appInStore}} App in Store
                     </div>
                     <div class="paginator">
                         <lib-paginator [first]="0" [rows]="5" [totalRecords]="20">
@@ -15,44 +18,38 @@
                         <div class="pay">
 
                         </div>
-                        <div class="drop">
+                        <!-- <div class="drop">
                             <lib-select>
 
                             </lib-select>
-                        </div>
+                        </div> -->
                         <div class="togel_card">
-                            <button class="pi pi-microsoft" (click)="card()">
-
+                            <button  (click)="card()">
+                                <span class="icon pi pi-microsoft"></span>
                             </button>
-                            <button class="pi pi-bars" (click)="row()">
-
+                            <button  (click)="row()">
+                                <span class="icon pi pi-bars"></span>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-12 md:col-3">
-                <div class="Category">
-                    <lib-accordion header="Category">
-                        <div>
-                            <p>Accounts</p>
-                            <p>Stores</p>
-                            <p>HR</p>
-                            <p>See all</p>
-                        </div>
-                    </lib-accordion>
-                </div>
-                <div class="Category">
-                    <lib-accordion header="Brands">
-                        <div>
-
-                        </div>
-                    </lib-accordion>
+            <div class="filter">
+                <div class="grid">
+                    <div class="col-12 ">
+                        <lib-select
+                        [options]="AllModules"
+                        optionValue="id"
+                        optionLabel="name"
+                        placeholder="Select Modules"
+                        >
+                    
+                        </lib-select>
+                    </div>
                 </div>
             </div>
-
-            <div class="col-12 md:col-9">
+            <div class="col-12 ">
                 <div [ngClass]="{contant:cardList}">
                     <div class="card" [ngClass]="{card_list:cardList}" *ngFor="let app of apps">
 
@@ -94,6 +91,6 @@
                 </div>
             </div>
         </div>
-
+     
     </div>
 </lib-page-content>

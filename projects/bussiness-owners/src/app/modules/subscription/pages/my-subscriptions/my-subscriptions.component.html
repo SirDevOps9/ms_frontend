@@ -1,22 +1,21 @@
 <lib-page-content>
-  <div class="plan_header">
-    <button class="btn btn_app" type="button">
-      <span class="icon pi pi-plus"></span>
-      Add App
-    </button>
-    <button class="btn" type="button" (click)="openSubdomainModal()">
-      <span class="icon pi pi-plus"></span>
-      Add domain space
-    </button>
-  </div>
+  <lib-bread-crumb>
+    <div class="plan_header">
+      <button class="btn" type="button" (click)="openSubdomainModal()">
+        <span class="icon pi pi-plus"></span>
+        Add domain space
+      </button>
+    </div>
+  </lib-bread-crumb>
+ 
   <div class="plan_page">
-    <div class="card-container grid">
-      <div class="card col-12 md:col-6" *ngFor="let l of subdomainList">
+    <div class="card-container grid" *ngIf="subdomain">
+      <div class="card col-12 md:col-5   " *ngFor="let subdomain of subdomainList">
         <div class="card_header">
-          <div class="supdomain">Subdomain microtec.Com.sa</div>
+          <div class="supdomain">{{subdomain.name}}{{domainName}}</div>
           <div class="date">
             <p class="expire">Expire</p>
-            <p class="expire_date">31 / 12 / 2024</p>
+            <p class="expire_date">{{subdomain.validTo | date: 'dd'}}/{{subdomain.validTo | date:'MM'}}/{{subdomain.validTo | date: 'yyyy'}}</p>
           </div>
         </div>
 
@@ -28,16 +27,16 @@
                 class="mange user"
                 type="button"
                 class="btn btn-success"
-                (click)="navigateToManageUser(l.id)"
+                (click)="navigateToManageUser(subdomain.id)"
               >
                 <span class="pi pi-users icon_btn"></span>
                 Manage User
               </button>
               <button
-                class="mange"
+                class="mange Companies "
                 type="button"
                 class="btn btn-primary"
-                (click)="navigateToManageCompany(l.id)"
+                (click)="navigateToManageCompany(subdomain.id)"
               >
                 <span class="pi pi-building icon_btn"></span>
                 Manage Companies
@@ -49,18 +48,44 @@
             </div>
             <div class="mange_app">
               <button
-                class="mange"
+                class="btn_mange_app "
                 type="button"
-                class="btn btn-primary"
-                (click)="navigateToManageApp(l.id)"
               >
                 <span class="pi pi-building icon_btn"></span>
                 Manage aPP
               </button>
+              <button
+                class="btn_mange_app"
+                type="button"
+              >
+                <span class="pi pi-building icon_btn"></span>
+                User licenses
+              </button>
+            </div>
+            <div class="mange_erp">
+              <button
+                class="btn_mange_erp "
+                type="button"
+                
+              >
+                <span class="pi pi-building icon_btn"></span>
+                ERP Login
+              </button>
+            
             </div>
           </div>
         </div>
       
+      </div>
+    </div>
+    <div class="card_empty_subdomain" *ngIf="!subdomain">
+      <div class="card_subdomain">
+        <div class="cover">
+            <img src="assets/images/plans/Group (2).png" alt="">
+        </div>
+        <div class="text">
+          <p>Add domain space</p>
+        </div>
       </div>
     </div>
   </div>
