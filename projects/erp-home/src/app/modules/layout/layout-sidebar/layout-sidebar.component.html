@@ -1,1 +1,18 @@
-<p>layout-sidebar works!</p>
+<div class="side_bar_container" >
+  <p-sidebar [(visible)]="sidebarVisible" [ngClass]="!sidebarOpen ? 'hiddenside' : 'visibleside'">
+    <div class="card flex ">
+      <p-button type="button" (click)="toggleSidebar()" class="flex align-items-center justify-content-center mb-4"
+        [ngClass]="sidebarOpen ? 'pi pi-arrow-right' : 'pi pi-arrow-left'"></p-button>
+  
+      <p-tree [value]="nodes" class="w-full md:w-30rem">
+     
+        <ng-template let-node pTemplate="url">
+          <a [href]="node.data">{{ node.label }}</a>
+        </ng-template>
+        <ng-template let-node pTemplate="default" class="flex p-3">
+          <b>{{ node.label }}</b>
+        </ng-template>
+      </p-tree>
+    </div>
+  </p-sidebar>
+</div>

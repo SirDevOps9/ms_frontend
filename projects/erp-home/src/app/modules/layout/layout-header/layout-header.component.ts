@@ -15,7 +15,7 @@ export class LayoutHeaderComponent {
   userData: UserData;
   showcard: boolean = false;
   sidebarOpen: boolean = false;
-  cartItemsCount$: Observable<number>;
+  // cartItemsCount$: Observable<number>;
 
   ngOnInit() {}
 
@@ -31,12 +31,7 @@ export class LayoutHeaderComponent {
       this.sidebarOpen = true;
     }
   }
-  activeTag(id: any) {
-    const targetElementId = document.getElementById(id);
-    var test = document.querySelector('.active_link');
-    test?.classList.remove('active_link');
-    targetElementId?.classList.add('active_link');
-  }
+
 
   getProfilePic() {
    
@@ -60,9 +55,9 @@ export class LayoutHeaderComponent {
     private routerService: RouterService,
 
   ) {
-    this.userName = this.authService.getUserName;
-    this.userData = this.authService.getUserData()?.userData;
-    this.languageService.setLang();
-    this.cartItemsCount$ = cartService.cartItemsCount$;
+    // this.userName = this.authService.getUserName;
+    // this.userData = this.authService.getUserData()?.userData;
+    // this.languageService.setLang();
+    // this.cartItemsCount$ = cartService.cartItemsCount$;
   }
 }

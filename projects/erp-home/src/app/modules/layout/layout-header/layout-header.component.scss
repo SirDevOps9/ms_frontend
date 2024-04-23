@@ -1,15 +1,17 @@
-.header_bussiness{
+.header_erp{
     // position: relative !important;
      height: 80px;
      width: 100%;
      top: 0;
      position: fixed;
+     left: 0;
      z-index: 1000;
      .header_content{
-         width: 98%;
+         width: 100%;
          margin: auto;
          height: 100%;
          position: relative !important;
+      
          .start_nav{
              display: flex;
              align-items: center;

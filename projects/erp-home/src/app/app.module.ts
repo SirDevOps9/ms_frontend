@@ -15,7 +15,7 @@ import { CookieModule } from 'ngx-cookie';
 import { LayoutPageComponent } from './modules/layout/layout-page/layout-page.component';
 import { LayoutSidebarComponent } from './modules/layout/layout-sidebar/layout-sidebar.component';
 import { LayoutHeaderComponent } from './modules/layout/layout-header/layout-header.component';
-
+import { TreeModule } from 'primeng/tree';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +49,7 @@ import { LayoutHeaderComponent } from './modules/layout/layout-header/layout-hea
     FormsModule,
     AppRoutingModule,
     CookieModule.withOptions(),
+    TreeModule
   ],
   providers: [
     { provide: EnvironmentService, useValue: environment },

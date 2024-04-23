@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrl: './layout-page.component.scss'
 })
 export class LayoutPageComponent {
-
+  sidebarOpen: boolean = false;
+  toggleSidebar(event: boolean) {
+    this.sidebarOpen = event
+  }
 }

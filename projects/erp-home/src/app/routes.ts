@@ -8,7 +8,7 @@ export const ERPRoutes = [
     path: 'erp',
     component: LayoutPageComponent,
     children: [
-      { path: '', component: LayoutPageComponent, canActivate: [AuthGuard], data: {
+      { path: '', component: LayoutPageComponent, data: {
         breadcrumb: BreadcrumbLabel.my_subscription,
       }, },
     ],
