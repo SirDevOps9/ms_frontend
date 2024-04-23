@@ -8,41 +8,36 @@ import {
 import { Observable } from 'rxjs';
 import { LogService } from 'shared-lib';
 import { AuthService } from '../services';
+import { RouteFilter } from '../models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard {
-  constructor(
-    public router: Router,
-    private authService: AuthService,
-    private logService: LogService
-  ) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | UrlTree | boolean {
     this.authService.isAuthenticated().subscribe((isAuthenticated) => {
-      this.logService.log(isAuthenticated, 'Guard');
+      let routeFilter = next.data['filter'] as RouteFilter;
+
+      console.log('requiredAction', routeFilter);
+
+      if (routeFilter) {
+        let hasPermission = this.authService.hasPermission(routeFilter);
+        console.log('hasPermission', hasPermission);
+        if (!hasPermission) {
+          this.router.navigate(['login']);
+        }
+      }
       if (!isAuthenticated) this.router.navigate(['login']);
     });
     return true;
   }
-  // canActivate(
-  //   route: ActivatedRouteSnapshot,
-  //   state: RouterStateSnapshot
-  // ): Observable<boolean | UrlTree> {
-  //   return this.oidcSecurityService.isAuthenticated$.pipe(
-  //     take(1),
-  //     map(({ isAuthenticated }) => {
-  //       // allow navigation if authenticated
-  //       if (isAuthenticated) {
-  //         return true;
-  //       }
 
-  //       // redirect if not authenticated
-  //       return this.router.parseUrl('/login');
-  //     })
-  //   );
-  // }
+  constructor(
+    public router: Router,
+    private authService: AuthService,
+    private logService: LogService
+  ) {}
 }

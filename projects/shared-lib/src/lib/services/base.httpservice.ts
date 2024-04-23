@@ -46,6 +46,9 @@ export class HttpService {
           [HeaderParams.CLIENTID]: this.environmentService.ClientId,
           [HeaderParams.PLATFORMTYPE]: this.environmentService.Platform,
           [HeaderParams.APIKEY]: this.environmentService.ApiKey,
+          [HeaderParams.PERMISSIONTREE]: this.storageService.getItem(
+            StorageKeys.PERMISSIONTREE
+          ) || '',
         });
         return of(headers);
       })
@@ -75,6 +78,20 @@ export class HttpService {
     return this.addHeaders().pipe(
       switchMap((headers) =>
         this.http.get<T>(`${this.baseUrl}/${url}`, { headers })
+      ),
+      catchError((response: HttpErrorResponse) =>
+        this.errorHandler(url, response, null, showError)
+      )
+    );
+  }
+
+  getString(url: string, showError: boolean = true): Observable<any> {
+    return this.addHeaders().pipe(
+      switchMap((headers) =>
+        this.http.get(`${this.baseUrl}/${url}`, {
+          headers,
+          responseType: 'text',
+        })
       ),
       catchError((response: HttpErrorResponse) =>
         this.errorHandler(url, response, null, showError)

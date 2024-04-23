@@ -15,6 +15,7 @@ import {
   UserListResponse,
 } from './models';
 import { SubscriptionDto } from '../subscription/models';
+import { PermissionTreeNode } from 'projects/microtec-auth-lib/src/lib/models';
 
 @Injectable({
   providedIn: 'root',
@@ -51,6 +52,13 @@ export class UserProxy {
     return this.baseService.post<UserListResponse>(
       `InvitedUser/Create`,
       userModel,
+      false
+    );
+  }
+
+  testTree(): Observable<PermissionTreeNode[]> {
+    return this.baseService.get<PermissionTreeNode[]>(
+      `User/TestTree`,
       false
     );
   }

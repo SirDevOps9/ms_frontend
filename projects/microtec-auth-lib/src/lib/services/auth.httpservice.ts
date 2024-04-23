@@ -22,8 +22,12 @@ export class AuthHttpService {
       model
     );
   }
-  UpdateLastLoggingTime(): Observable<string> {
+  updateLastLoggingTime(): Observable<string> {
     return this.baseService.post<string>(`${this.updateLoginDateAPI}`, null);
+  }
+
+  loadPermissionTree(): Observable<string> {
+    return this.baseService.getString(`User/BuildPermissionTree`, false);
   }
 
   refreshToken(model: TokenModel): Observable<AuthenticationResponse> {
