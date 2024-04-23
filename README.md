@@ -26,12 +26,14 @@ For accounting, Navigate to `http://localhost:4300/accounting`. The application 
 
 For hr, Navigate to `http://localhost:4300/hr`. The application will automatically reload if you change any of the source files.
 
+For Erp home, Navigate to `http://localhost:4300/erp`. The application will automatically reload if you change any of the source files.
+
+
 
 ## Publishing
 For Building bussiness-owners run `npm build:bussiness-owners`
 For Building adminportal run `npm build:adminportal`
 For Building accounting run `npm build:accounting`
+For Building accounting run `npm build:erphome`
 For Building hr run `npm build:hr`
-
-
-
+For Building erp run `npm build:erp`

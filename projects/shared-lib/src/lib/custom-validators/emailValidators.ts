@@ -13,9 +13,13 @@ export function IsValidEmail(control: AbstractControl) {
   ) {
     return null;
   }
-
-  const regularExpression = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
+  
+  if (control.value.includes('#')) {
+    return { specialCharacterInEmail: true };
+  }
+  const regularExpression = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const isValid = regularExpression.test(String(control.value));
+
   if (isValid) {
     return null;
   } else {

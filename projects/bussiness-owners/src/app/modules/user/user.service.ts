@@ -126,10 +126,12 @@ export class UserService {
     }
   }
 
-  openInviteUserModal(ref: DynamicDialogRef, dialog: DialogService) {
+  openInviteUserModal(id: number, ref: DynamicDialogRef, dialog: DialogService) {
     ref = dialog.open(UserInviteFormComponent, {
       width: '600px',
       height: '600px',
+      data: { Id: id },
+
     });
     ref.onClose.subscribe((result: UserListResponse) => {
       if (result as UserListResponse) {

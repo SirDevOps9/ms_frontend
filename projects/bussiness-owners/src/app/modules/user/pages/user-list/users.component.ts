@@ -49,7 +49,7 @@ export class UsersComponent implements OnInit {
   }
 
   openInviteModal() {
-    this.userService.openInviteUserModal(this.ref, this.dialog);
+    this.userService.openInviteUserModal(this.subscriptionId,this.ref, this.dialog);
   }
 
 

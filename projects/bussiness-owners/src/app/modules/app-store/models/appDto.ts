@@ -2,7 +2,7 @@ import { Money } from "shared-lib";
 
 export interface AppDto {
     id: number;
-    categoryId: number;
+    moduleId: number;
     categoryName?: string;
     name: string;
     description: string;
