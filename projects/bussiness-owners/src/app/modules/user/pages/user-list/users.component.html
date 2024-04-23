@@ -7,8 +7,8 @@
       [currentPageResult]="currentPageInfo"
       (pageChange)="onPageChange($event)"
       [tableConfigs]="{
-        allowPagination: false,
-        allowServerPagination: true,
+        allowPagination: true,
+        allowServerPagination: false,
         dataKey: 'id',
         pageSize: 10,
         columns: [
@@ -42,8 +42,8 @@
             template: actionsCol
           }
         ]
-      }"
-    >
+      }">
+
       <ng-container caption>
         <div class="flex align-items-center justify-content-end">
           <span class="p-input-icon-left">

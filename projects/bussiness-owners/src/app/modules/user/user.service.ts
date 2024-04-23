@@ -33,31 +33,9 @@ export class UserService {
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
   getAllUsers(subscriptionId: number) {
-
-    var filterDto = new FilterDto();
-
-    filterDto.pageInfo = new PageInfo();
-
-    let cond: Condition[] = [];
-
-    cond.push({
-      column: 'Name',
-      operator: FilterOptions.Contains,
-      value: 'f',
-    });
-
-    // cond.push({
-    //   column: 'Email',
-    //   operator: FilterOptions.Contains,
-    //   value: 'gmail',
-    // });
-
-    filterDto.conditions = cond;
-
-    this.userProxy.getAllPaginated(filterDto).subscribe({
+    this.userProxy.getAll(subscriptionId).subscribe({
       next: (res) => {
-        this.userDataSource.next(res.result);
-        this.currentPageInfo.next(res.pageInfoResult);
+        this.userDataSource.next(res);
       },
     });
     return;

@@ -41,10 +41,6 @@ export class UsersComponent implements OnInit {
     this.userService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
-
-    this.userService.currentPageInfo.subscribe((currentPageInfo) => {
-      this.currentPageInfo = currentPageInfo;
-    });
   }
 
 
