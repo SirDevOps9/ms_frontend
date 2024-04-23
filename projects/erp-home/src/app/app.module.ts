@@ -12,10 +12,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
+import { LayoutPageComponent } from './modules/layout/layout-page/layout-page.component';
+import { LayoutSidebarComponent } from './modules/layout/layout-sidebar/layout-sidebar.component';
+import { LayoutHeaderComponent } from './modules/layout/layout-header/layout-header.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LayoutPageComponent,
+    LayoutSidebarComponent,
+    LayoutHeaderComponent
   ],
   imports: [
     CommonModule,
