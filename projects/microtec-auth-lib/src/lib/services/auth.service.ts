@@ -9,6 +9,8 @@ import {
   CookieStorageService,
   RouterService,
   LanguageService,
+  SideMenuModel,
+  MenuModule,
 } from 'shared-lib';
 import { TokenModel } from '../models/tokenmodel';
 @Injectable({
@@ -71,6 +73,32 @@ export class AuthService {
       })
     );
   }
+
+  saveSideMenu(menuItems: SideMenuModel[]) {
+    const distinctModules = menuItems
+      .filter(
+        (value, index, self) =>
+          self.findIndex(
+            (item) => item.key === value.key && item.module === value.module
+          ) === index
+      )
+      .map(({ key, module }) => ({ key, module }));
+
+    this.localStorageService.setItem(StorageKeys.MODULES, distinctModules);
+    this.localStorageService.setItem(StorageKeys.SIDEMENU, menuItems);
+  }
+
+  getModules() {
+    let item = this.localStorageService.getItem(StorageKeys.MODULES);
+    let menuModules = item! as MenuModule[];
+    return menuModules;
+  }
+  getSideMenu() {
+    let item = this.localStorageService.getItem(StorageKeys.SIDEMENU);
+    let sidemenu = item! as SideMenuModel[];
+    return sidemenu;
+  }
+
   afterLoginRedirect() {
     this.oidcSecurityService
       .checkAuth()
