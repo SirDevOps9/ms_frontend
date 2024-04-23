@@ -10,10 +10,9 @@ export const environment: IEnvironment = {
   openIdConfig: {
     authority: 'https://intmicrotec.neat-url.com:2020',
     redirectUrl: window.location.origin + '/erp/login-redirect',
-    postLogoutRedirectUri:
-      window.location.origin + '/erp/logout-redirect',
-    clientId: 'microtecadminfrontend',
-    scope: 'openid profile email offline_access tenants',
+    postLogoutRedirectUri: window.location.origin + '/erp/logout-redirect',
+    clientId: 'microtec_erp_frontend',
+    scope: 'openid profile email offline_access subdomain',
     responseType: 'code',
     silentRenew: true,
     useRefreshToken: true,
