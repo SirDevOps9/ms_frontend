@@ -10,6 +10,7 @@ import {
   RouterService,
   LanguageService,
   SideMenuModel,
+  MenuModule,
 } from 'shared-lib';
 import { TokenModel } from '../models/tokenmodel';
 @Injectable({
@@ -87,6 +88,11 @@ export class AuthService {
     this.localStorageService.setItem(StorageKeys.SIDEMENU, menuItems);
   }
 
+  getModules() {
+    let item = this.localStorageService.getItem(StorageKeys.MODULES);
+    let menuModules = item! as MenuModule[];
+    return menuModules;
+  }
   getSideMenu() {
     let item = this.localStorageService.getItem(StorageKeys.SIDEMENU);
     let sidemenu = item! as SideMenuModel[];

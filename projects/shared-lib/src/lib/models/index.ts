@@ -19,3 +19,4 @@ export * from './defaultExceptionModel';
 export * from './paginationVm';
 export * from './pageInfo';
 export * from './sideMenuModel';
+export * from './menuModule';
