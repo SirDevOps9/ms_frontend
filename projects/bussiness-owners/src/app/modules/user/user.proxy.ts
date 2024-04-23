@@ -22,7 +22,7 @@ import { SubscriptionDto } from '../subscription/models';
 export class UserProxy {
   getAll(subscriptionId: number): Observable<UserListResponse[]> {
     return this.baseService.get<UserListResponse[]>(
-      `User?subscriptionId=${subscriptionId}`
+      `User?subdomainId=${subscriptionId}`
     );
   }
   getAllPaginated(

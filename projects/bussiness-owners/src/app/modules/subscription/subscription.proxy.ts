@@ -34,7 +34,7 @@ export class SubscriptionProxy {
   }
 
   getTenantLicense(subdomain: number): Observable<TenantLicenseDto[]> {
-    return this.baseService.get<TenantLicenseDto[]>(`Subdomain/GetSubdomainLicenses?subdomainId${subdomain}`);
+    return this.baseService.get<TenantLicenseDto[]>(`Subdomain/GetSubdomainLicenses?subdomainId=${subdomain}`);
   }
 
 

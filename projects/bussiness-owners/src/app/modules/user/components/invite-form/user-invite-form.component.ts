@@ -44,7 +44,6 @@ export class UserInviteFormComponent implements OnInit {
       email: new FormControl('', customValidators.required,),
       companyId: new FormControl('', customValidators.required,),
       branchIds: new FormControl('', customValidators.required,),
-      subdomain: new FormControl('', customValidators.required,),
       tenantLicenseId: new FormControl('', customValidators.required,),
     });
   }
@@ -53,6 +52,7 @@ export class UserInviteFormComponent implements OnInit {
   onSubmit() {
     if (!this.formService.validForm(this.inviteForm, true)) return;
     const userModel: InviteUserDto = this.inviteForm.value;
+    userModel.subdomainId = this.subdomainId;
     this.userService.inviteUser(userModel, this.ref);
   }
 
