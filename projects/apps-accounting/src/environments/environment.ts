@@ -9,11 +9,10 @@ export const environment: IEnvironment = {
   photoBaseUrl: 'https://intmicrotec.neat-url.com:2002',
   openIdConfig: {
     authority: 'https://intmicrotec.neat-url.com:2010',
-    redirectUrl: window.location.origin + '/accounting/login-redirect',
-    postLogoutRedirectUri:
-      window.location.origin + '/accounting/logout-redirect',
+    redirectUrl: window.location.origin + '/erp/login-redirect',
+    postLogoutRedirectUri: window.location.origin + '/erp/logout-redirect',
     clientId: 'microtecadminfrontend',
-    scope: 'openid profile email offline_access tenants',
+    scope: 'openid profile email offline_access subdomain',
     responseType: 'code',
     silentRenew: true,
     useRefreshToken: true,

@@ -24,7 +24,7 @@ export class AuthGuard {
   ): Observable<boolean> | Promise<boolean> | UrlTree | boolean {
     this.authService.isAuthenticated().subscribe((isAuthenticated) => {
       this.logService.log(isAuthenticated, 'Guard');
-      // if (!isAuthenticated) this.router.navigate(['login']);
+      if (!isAuthenticated) this.router.navigate(['login']);
     });
     return true;
   }
