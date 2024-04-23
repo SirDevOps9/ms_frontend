@@ -229,8 +229,8 @@ export class UserService {
     });
   }
 
-  editUser(userModel: EditUserModel, ref: DynamicDialogRef) {
-    this.userProxy.updateUser(userModel, userModel.id).subscribe({
+  editUser(userModel: EditUserModel, id: string, subdomainId:number, ref: DynamicDialogRef) {
+    this.userProxy.updateUser(userModel,id, subdomainId).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
           'Success',

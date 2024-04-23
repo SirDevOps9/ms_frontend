@@ -66,13 +66,13 @@ export class UserProxy {
     return this.baseService.put<boolean>(`User/DeactivateUser/${id}`, {});
   }
 
-  getUserById(id: string, subdomainId :number): Observable<GetUserbyid> {
+  getUserById(id: string, subdomainId: number): Observable<GetUserbyid> {
     return this.baseService.get<GetUserbyid>(`User/Getbyid/${id}/${subdomainId }`);
   }
 
-  updateUser(user: EditUserModel, id: string): Observable<boolean> {
+  updateUser(user: EditUserModel, id: string, subdomainId: number): Observable<boolean> {
     return this.baseService.put<boolean>(
-      `User/UpdateInvitedBoByAdmin/${id}`,
+      `User/UpdateInvitedBoByAdmin/${id}/${subdomainId}`,
       user
     );
   }

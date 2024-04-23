@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   EnvironmentService,
+  FormsService,
   LanguageService,
   LogService,
   LookupEnum,
@@ -32,8 +33,8 @@ export class UserDetailsComponent implements OnInit {
 
   companies: lookupDto[] = [];
   branches: BranchDto[];
-  licenses:TenantLicenseDto[];
-  selected : any = [];
+  licenses: TenantLicenseDto[];
+  selected: any = [];
   subdomains: string[];
 
   selectedBranche: string[];
@@ -62,49 +63,39 @@ export class UserDetailsComponent implements OnInit {
       companyId: ['', customValidators.required],
       branchIds: ['', customValidators.required],
       subdomains: ['', customValidators.required],
-
     });
   }
 
   initializeUserFormData() {
-  this.userService.getUserById(this.currentUserId , this.subdomainId ).subscribe(
-    (res) => {
-      this.userName = res.name;
-      this.userEmail = res.email;
-      this.subdomains = res.subdomains;
-      this.editUserForm.patchValue({
-        id: res.id,
-        name: res.name,
-        email: res.email,
-        license: res.license, 
-        companyId: res.companyId, 
-        branches: res.branchIds,
-
+    this.userService
+      .getUserById(this.currentUserId, this.subdomainId)
+      .subscribe((res) => {
+        this.userName = res.name;
+        this.userEmail = res.email;
+        this.subdomains = res.subdomains;
+        this.editUserForm.patchValue({
+          id: res.id,
+          name: res.name,
+          email: res.email,
+          license: res.license,
+          companyId: res.companyId,
+          branches: res.branchIds,
+        });
+        this.companyService.loadBranches(res.companyId);
+        this.companyService.branches.subscribe((branchList) => {
+          this.branches = branchList;
+        });
+        // this.selectedLicenses = res.licenses.map(license => license.name);
+        // this.selectedCompanies = res.companies.map(company => company.name);
+        // this.selectedBranches = res.branches.map(branch => branch.name);
+        console.log('patched data', this.editUserForm.value);
       });
-      this.companyService.loadBranches( res.companyId);
-      this.companyService.branches.subscribe((branchList) => {
-        this.branches = branchList;
-      });
-      // this.selectedLicenses = res.licenses.map(license => license.name);
-      // this.selectedCompanies = res.companies.map(company => company.name);
-      // this.selectedBranches = res.branches.map(branch => branch.name);
-      console.log("patched data",this.editUserForm.value )
-
-    }
-  );
-
   }
 
   async onSubmit() {
-    // const confirmed = await this.toasterService.showConfirm(
-    //   'ConfirmButtonTexttochangstatus'
-    // );
-    // if (confirmed) {
-    //   const UpdateUserDto: EditUserModel = this.editUserForm.value;
-    //   this.logService.log(UpdateUserDto);
-    //   UpdateUserDto.id = this.currentUserId;
-    //   this.userService.editUser(UpdateUserDto, this.ref);
-    // }
+    if (!this.formService.validForm(this.editUserForm, true)) return;
+    const UpdateUserDto: EditUserModel = this.editUserForm.value;
+    this.userService.editUser(UpdateUserDto,this.currentUserId,this.subdomainId, this.ref);
   }
   onCancel() {
     this.ref.close();
@@ -133,29 +124,20 @@ export class UserDetailsComponent implements OnInit {
       });
   }
 
-  // getSubdomainById() {
-  //   this.subscriptionService
-  //     .getSubdomainById(this.subdomainId)
-  //     .subscribe((res) => {
-  //       this.subdomainName = res.name;
-  //     });
-  // }
-
 
   get currentUserId(): string {
     return this.config.data.Id;
   }
 
-  get subdomainId (): number {
-    return this.config.data.subdomainId ;
+  get subdomainId(): number {
+    return this.config.data.subdomainId;
   }
 
   constructor(
     public config: DynamicDialogConfig,
     public dialogService: DynamicDialogRef,
     private ref: DynamicDialogRef,
-    private logService: LogService,
-    private toasterService: ToasterService,
+    private formService: FormsService,
     public languageService: LanguageService,
     private env: EnvironmentService,
     public lookupsService: LookupsService,

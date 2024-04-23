@@ -81,7 +81,7 @@ export class UsersComponent implements OnInit {
     this.ref = this.dialog.open(UserDetailsComponent, {
       width: '800px',
       height: '700px',
-      data: { Id: Id,subdomainId: this.subdmainId },
+      data: { Id: Id, subdomainId: this.subdmainId },
     });
   }
 
