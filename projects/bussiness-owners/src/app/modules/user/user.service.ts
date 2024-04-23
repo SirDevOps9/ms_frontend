@@ -193,8 +193,8 @@ export class UserService {
     );
   }
 
-  getUserById(userId: string) {
-    return this.userProxy.getUserById(userId).pipe(
+  getUserById(userId: string , subdomainId  : number) {
+    return this.userProxy.getUserById(userId,subdomainId).pipe(
       map((res) => {
         return res;
       }),
