@@ -10,18 +10,18 @@ export const environment: IEnvironment = {
   openIdConfig: {
     authority: 'https://intmicrotec.neat-url.com:2010',
     redirectUrl: window.location.origin + '/erp/login-redirect',
-    postLogoutRedirectUri:
-      window.location.origin + '/erp/logout-redirect',
-    clientId: 'microtecadminfrontend',
-    scope: 'openid profile email offline_access tenants',
+    postLogoutRedirectUri: window.location.origin + '/erp/logout-redirect',
+    clientId: 'microtec_erp_frontend',
+    scope: 'openid profile email offline_access subdomain',
     responseType: 'code',
     silentRenew: true,
     useRefreshToken: true,
   },
-  AttachmentServiceConfig:{
-    AttachmentServiceUrl :"https://intmicrotec.neat-url.com:2030",
-    ClientId:"Erp",
-    SecretKey:"secretkey",
+  AttachmentServiceConfig: {
+    AttachmentServiceUrl: 'https://intmicrotec.neat-url.com:2030',
+    ClientId: 'Erp',
+    SecretKey: 'secretkey',
   },
-  ApiKey:"3bb564df-0f24-4ea6-82c1-d99f368cac8a"
+  ApiKey:"3bb564df-0f24-4ea6-82c1-d99f368cac8a",
+  BusinessOwnerUrl: 'http://localhost:2003',
 };

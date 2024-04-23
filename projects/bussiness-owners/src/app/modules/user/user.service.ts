@@ -241,6 +241,11 @@ export class UserService {
       },
     });
   }
+
+  testTree() {
+    this.userProxy.testTree().subscribe();
+  }
+
   constructor(
     private userProxy: UserProxy,
     private routerService: RouterService,

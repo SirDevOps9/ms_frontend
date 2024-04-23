@@ -6,4 +6,5 @@ export class HeaderParams {
   static VERSION: string = 'Version';
   static PLATFORMTYPE: string = 'Platform';
   static APIKEY: string = 'XApiKey';
+  static PERMISSIONTREE: string = 'PermissionsTree';
 }

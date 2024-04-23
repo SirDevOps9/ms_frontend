@@ -14,7 +14,7 @@ export const BORoutes = [
       }, },
     ],
   },
- { path: 'users/userconfirmation/:id', component: UserconfirmationComponent },
+  { path: 'users/userconfirmation/:id', component: UserconfirmationComponent },
   // {
   //   path: '**',
   //   component: NotFoundComponent,

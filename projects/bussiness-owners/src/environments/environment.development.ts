@@ -13,7 +13,7 @@ export const environment: IEnvironment = {
     postLogoutRedirectUri:
       window.location.origin + '/bussinessowners/logout-redirect',
     clientId: 'microtecadminfrontend',
-    scope: 'openid profile email offline_access tenants',
+    scope: 'openid profile email offline_access bo',
     responseType: 'code',
     silentRenew: true,
     useRefreshToken: true,
@@ -24,4 +24,5 @@ export const environment: IEnvironment = {
     SecretKey: 'secretkey',
   },
   ApiKey: '3bb564df-0f24-4ea6-82c1-d99f368cac8a',
+  BusinessOwnerUrl: 'http://localhost:2003',
 };

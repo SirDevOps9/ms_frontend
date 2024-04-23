@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AppStoreService } from '../../app-store.service';
 import { AppDto } from '../../models/appDto';
-import { BaseDto, RouterService, SubdomainService } from 'shared-lib';
+import { BaseDto, SharedLibraryEnums,RouterService,SubdomainService } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-
+import { UserService } from '../../../user/user.service';
+import { Actions, Apps, Licenses, RouteFilter } from 'microtec-auth-lib';
 @Component({
   selector: 'app-list-apps',
   templateUrl: './list-apps.component.html',
-  styleUrl: './list-apps.component.scss'
+  styleUrl: './list-apps.component.scss',
 })
 export class ListAppsComponent implements OnInit {
   apps: AppDto[];
@@ -15,14 +16,17 @@ export class ListAppsComponent implements OnInit {
   subdomains: BaseDto[];
   cardList:boolean=false;
   AllModules:any[]
-
   constructor(private appStoreService: AppStoreService,
-    private router: RouterService,
     private dialog: DialogService,
-    private subdomainService: SubdomainService) {
-  }
+    private subdomainService: SubdomainService,
+    public sharedLibraryEnums: SharedLibraryEnums,
+    private userService: UserService,
+    private router: RouterService,
+  ) {}
 
   ngOnInit(): void {
+    this.userService.testTree();
+
     this.AllModules=[
       {
         id:"1",
@@ -42,11 +46,13 @@ export class ListAppsComponent implements OnInit {
       },
     ]
     this.appStoreService.loadApps();
-    this.appStoreService.apps.subscribe(apps => {
+    this.appStoreService.apps.subscribe((apps) => {
       this.apps = apps;
       this.appInStore=apps.length
     });
-    this.subdomainService.getAllSubdomains().subscribe(s => this.subdomains = s);
+    this.subdomainService
+      .getAllSubdomains()
+      .subscribe((s) => (this.subdomains = s));
   }
 
   addToCart(appId: number) {
@@ -54,17 +60,17 @@ export class ListAppsComponent implements OnInit {
   }
 
   getAppDeps(app: AppDto) {
-    return app.dependencies.map(d => d.name).join(" - ");
+    return app.dependencies.map((d) => d.name).join(' - ');
   }
-  card(){
-    this.cardList=true
+  card() {
+    this.cardList = true;
   }
-  row(){
-    this.cardList=false
-
+  row() {
+    this.cardList = false;
   }
-  routeToDetails(id:any){
+  routeToDetails(id: any) {
     console.log(id);
     this.router.navigateTo('/app-store/app-detail/'+id);
+
   }
 }
