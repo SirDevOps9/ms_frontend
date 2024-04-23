@@ -1,5 +1,5 @@
 export interface EditUserModel {
-    id: string;
-    subscriptions: string[];
-    bORoles:number [];
+    companyId: string;
+    branchIds: string[];
   }
+

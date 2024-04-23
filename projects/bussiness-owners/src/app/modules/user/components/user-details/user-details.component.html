@@ -1,5 +1,6 @@
 <div class="popup_edit h-full">
   <h2 class="title">Edit User</h2>
+  
   <div class="card_edit">
     <div class="information">
       <div class="user_photo">
@@ -23,40 +24,69 @@
         *ngIf="lookupsService.lookupsLoaded"
       >
         <lib-form-group>
-          <lib-label [appControl]="editUserForm.controls['subscriptions']">
-            {{ "User.Inviteform.DomainLabel" | translate }}
+          <lib-label [appControl]="editUserForm.controls['license']">
+            license
           </lib-label>
-          <lib-multi-select
-            formControlName="subscriptions"
-            [options]="lookups[LookupEnum.Subscription]"
+          <lib-select
+            formControlName="license"
+            [options]="licenses"
             optionValue="id"
             optionLabel="name"
-            [selectedValue]="selectedSubscriptions"
           >
-          </lib-multi-select>
+          </lib-select>
           <lib-field-validations
-            [appControl]="editUserForm.controls['subscriptions']"
+            [appControl]="editUserForm.controls['companyId']"
           >
           </lib-field-validations>
         </lib-form-group>
 
         <lib-form-group>
-          <lib-label [appControl]="editUserForm.controls['bORoles']">
-            {{ "User.Inviteform.ActionsLabel" | translate }}
+          <lib-label [appControl]="editUserForm.controls['companyId']">
+            Company
+          </lib-label>
+          <lib-select
+            formControlName="companyId"
+            [options]="companies"
+            optionValue="id"
+            optionLabel="name"
+          >
+          </lib-select>
+          <lib-field-validations
+            [appControl]="editUserForm.controls['companyId']"
+          >
+          </lib-field-validations>
+        </lib-form-group>
+
+        <lib-form-group>
+          <lib-label [appControl]="editUserForm.controls['branchIds']">
+            Branches
           </lib-label>
           <lib-multi-select
-            formControlName="bORoles"
-            [options]="lookups[LookupEnum.BusinessRole]"
-            [selectedValue]="selectedBors"
+            formControlName="branchIds"
             optionValue="id"
             optionLabel="name"
           >
           </lib-multi-select>
           <lib-field-validations
-            [appControl]="editUserForm.controls['bORoles']"
+            [appControl]="editUserForm.controls['branchIds']"
           >
           </lib-field-validations>
         </lib-form-group>
+
+
+        <div *ngFor="let subdomainName of subdomains">
+          <lib-form-group>
+            <lib-label
+              [appControl]="editUserForm.controls['subdomains']"
+            >
+            Domain Space
+            </lib-label>
+            <div class="view">
+              {{ subdomainName }}
+            </div>
+          </lib-form-group>
+        </div>
+
         <div
           class="actions flex align-items-center justify-content-center mt-12"
         >

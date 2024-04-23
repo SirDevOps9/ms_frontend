@@ -171,8 +171,8 @@ export class UserService {
     );
   }
 
-  getUserById(userId: string) {
-    return this.userProxy.getUserById(userId).pipe(
+  getUserById(userId: string , subdomainId  : number) {
+    return this.userProxy.getUserById(userId,subdomainId).pipe(
       map((res) => {
         return res;
       }),
@@ -207,8 +207,8 @@ export class UserService {
     });
   }
 
-  editUser(userModel: EditUserModel, ref: DynamicDialogRef) {
-    this.userProxy.updateUser(userModel, userModel.id).subscribe({
+  editUser(userModel: EditUserModel, id: string, subdomainId:number, ref: DynamicDialogRef) {
+    this.userProxy.updateUser(userModel,id, subdomainId).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
           'Success',
