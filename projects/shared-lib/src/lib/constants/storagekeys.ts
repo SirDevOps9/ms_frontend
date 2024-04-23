@@ -5,4 +5,6 @@ export class StorageKeys {
   static LOGIN_RESPONSE = 'loginResponse';
   static TENANT = 'Tenant';
   static PERMISSIONTREE = 'permissiontree';
+  static SIDEMENU = 'SideMenu';
+  static MODULES = 'Modules';
 }
