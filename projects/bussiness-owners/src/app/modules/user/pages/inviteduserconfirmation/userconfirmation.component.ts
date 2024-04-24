@@ -54,7 +54,7 @@ export class UserconfirmationComponent implements OnInit {
         this.email = dto.email;
         this.validId = true;
         this.userForm.patchValue({
-          email: dto,
+          email: dto.email,
         });
       });
   }
