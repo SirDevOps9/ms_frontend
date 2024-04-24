@@ -36,7 +36,7 @@ export class ERPInterceptor implements HttpInterceptor {
         if (error instanceof HttpErrorResponse) {
         console.log("Interceptor Error",error);
           if (error.status === 401) {
-            this.router.navigate(['login']);
+          //  this.router.navigate(['login']);
           } else {
             return throwError(() => error);
           }

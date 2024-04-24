@@ -1,0 +1,19 @@
+<div class="side_bar_container" >
+  <p-sidebar [(visible)]="sidebarVisible" [ngClass]="!sidebarOpen ? 'hiddenside' : 'visibleside'">
+    <div class="card flex ">
+      <button type="button" (click)="toggleSidebar()" class="btn_togel"
+        [ngClass]="!sidebarOpen ? 'pi pi-arrow-right' : 'pi pi-arrow-left'">
+      </button>
+  
+      <p-tree [value]="nodes" class="w-full md:w-30rem">
+     
+        <ng-template let-node pTemplate="url">
+          <a [href]="node.data">{{ node.label }}</a>
+        </ng-template>
+        <ng-template let-node pTemplate="default" class="flex p-3">
+          <b>{{ node.label }}</b>
+        </ng-template>
+      </p-tree>
+    </div>
+  </p-sidebar>
+</div>

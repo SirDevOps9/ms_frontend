@@ -39,7 +39,7 @@
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
-              "node_modules/font-awesome/css/font-awesome.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "projects/bussiness-owners/src/styles.css"
             ],
             "scripts": [
@@ -120,8 +120,7 @@
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
              "node_modules/primeng/resources/primeng.min.css",
              "/node_modules/primeflex/primeflex.css",
-             "/node_modules/font-awesome/css/font-awesome.css",
-             "/node_modules/font-awesome/css/font-awesome.css",
+             "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
              "projects/bussiness-owners/src/styles.css"
 
              
@@ -537,7 +536,8 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "standalone": false
+          "standalone": false,
+          "style": "scss"
         },
         "@schematics/angular:directive": {
           "standalone": false
@@ -566,7 +566,10 @@
               "projects/erp-home/src/assets"
             ],
             "styles": [
-              "projects/erp-home/src/styles.css"
+              "projects/erp-home/src/styles.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": []
           },
@@ -643,7 +646,11 @@
               "projects/erp-home/src/assets"
             ],
             "styles": [
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "projects/erp-home/src/styles.css"
+
             ],
             "scripts": []
           }

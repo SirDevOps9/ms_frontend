@@ -195,12 +195,12 @@ export class HttpService {
         }
         break;
       default:
-        if (showError) {
-          this.toasterService.showError(
-            exceptionModel.message,
-            exceptionModel.message
-          );
-        }
+        // if (showError) {
+        //   this.toasterService.showError(
+        //     exceptionModel.message,
+        //     exceptionModel.message
+        //   );
+        // }
         break;
     }
 

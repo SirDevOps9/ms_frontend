@@ -33,6 +33,7 @@ import { RatingComponent } from './form-components/rating/rating.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { AccordionComponent } from './components/accordion/accordion.component';
 import { AttachmentViewerComponent } from './components/attachment-viewer/attachment-viewer.component';
+import { TreeModule } from 'primeng/tree';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,8 @@ import { AttachmentViewerComponent } from './components/attachment-viewer/attach
     FormsModule,
     PrimeSharedModule,
     TreeTableModule,
+    TreeModule,
+
   ],
   exports: [
     GetLookupPipe,
@@ -97,6 +100,8 @@ import { AttachmentViewerComponent } from './components/attachment-viewer/attach
     RatingComponent,
     PaginatorComponent,
     AccordionComponent,
+    TreeModule,
+
   ],
 })
 export class SharedLibModule {}

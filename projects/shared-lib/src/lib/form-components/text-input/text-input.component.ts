@@ -28,6 +28,7 @@ export class TextInputComponent implements ControlValueAccessor, Validator {
   @Input() placeholder: string = '';
   @Input() maxLength: string;
   @Input() id: string;
+  @Input() iconUrl: string = '';
   @Output() valueChanged = new EventEmitter<string>();
 
   value: string = '';
