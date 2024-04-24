@@ -24,33 +24,15 @@
         *ngIf="lookupsService.lookupsLoaded"
       >
         <lib-form-group>
-          <lib-label [appControl]="editUserForm.controls['license']">
-            license
-          </lib-label>
-          <lib-select
-            formControlName="license"
-            [options]="licenses"
-            optionValue="id"
-            optionLabel="name"
-            [selectedValue]="selectedLicense"
-          >
-          </lib-select>
-          <lib-field-validations
-            [appControl]="editUserForm.controls['companyId']"
-          >
-          </lib-field-validations>
-        </lib-form-group>
-
-        <lib-form-group>
           <lib-label [appControl]="editUserForm.controls['companyId']">
             Company
           </lib-label>
           <lib-select
             formControlName="companyId"
             [options]="companies"
+            [selectedValue]="selectedCompany"
             optionValue="id"
             optionLabel="name"
-            [selectedValue]="selectedCompany"
             (valueChanged)="onCompanyChange($event)"
           >
           </lib-select>
@@ -66,9 +48,10 @@
           </lib-label>
           <lib-multi-select
             formControlName="branchIds"
+            [options]="branches"
             optionValue="id"
-            optionLabel="name"
-            [selectedValue]="selectedBranches"
+            optionLabel="branchName"
+            [selectedValue]="selectedBranches!"
           >
           </lib-multi-select>
           <lib-field-validations

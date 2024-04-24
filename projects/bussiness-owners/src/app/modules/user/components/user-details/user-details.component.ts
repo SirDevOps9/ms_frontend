@@ -11,7 +11,7 @@ import {
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { EditUserModel } from '../../models';
 import { UserService } from '../../user.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CompanyService } from '../../../company/company.service';
 import { SubscriptionService } from '../../../subscription/subscription.service';
 import { BranchDto } from '../../../company/models';
@@ -27,27 +27,22 @@ export class UserDetailsComponent implements OnInit {
   userEmail: string;
   editUserForm: FormGroup;
   companies: lookupDto[] = [];
-  branches: BranchDto[];
-  licenses: TenantLicenseDto[];
-  subdomains: string[];
-  selectedBranches: string[];
-  selectedCompany: string;
-  selectedLicense: string;
+  branches: BranchDto[] = [];
+  subdomains: string[] = [];
+
+  selectedBranches: string[] =[];
+  selectedCompany: string | null;
 
   ngOnInit() {
     this.getCompanies();
-    this.getTenantLicense();
     this.initializeUserForm();
     this.initializeUserFormData();
   }
 
   initializeUserForm() {
     this.editUserForm = this.formBuilder.group({
-      name: ['', [customValidators.required]],
-      email: ['', [customValidators.required, customValidators.email]],
-      license: ['', customValidators.required],
-      companyId: ['', customValidators.required],
-      branchIds: ['', customValidators.required],
+      companyId: new FormControl('', customValidators.required),
+      branchIds: new FormControl('', customValidators.required),
     });
   }
 
@@ -58,29 +53,30 @@ export class UserDetailsComponent implements OnInit {
         this.userName = res.name;
         this.userEmail = res.email;
         this.subdomains = res.subdomains;
+        this.selectedCompany = res.companyId.toUpperCase();
+        this.selectedBranches = res.branchIds;
         this.editUserForm.patchValue({
-          id: res.id,
-          name: res.name,
-          email: res.email,
-          license: res.license,
           companyId: res.companyId,
           branches: res.branchIds,
         });
+        this.companyService.loadBranches( res.companyId);
+
         this.companyService.branches.subscribe((branchList) => {
           this.branches = branchList;
         });
-        console.log('patched data', this.editUserForm.value);
-
-        this.selectedCompany = res.companyId
-        this.selectedLicense = res.license
-
+        console.log('patched data', this.selectedCompany);
       });
   }
 
   async onSubmit() {
     if (!this.formService.validForm(this.editUserForm, true)) return;
     const UpdateUserDto: EditUserModel = this.editUserForm.value;
-    this.userService.editUser(UpdateUserDto,this.currentUserId,this.subdomainId, this.ref);
+    this.userService.editUser(
+      UpdateUserDto,
+      this.currentUserId,
+      this.subdomainId,
+      this.ref
+    );
   }
   onCancel() {
     this.ref.close();
@@ -93,32 +89,23 @@ export class UserDetailsComponent implements OnInit {
     );
   }
 
-  getTenantLicense() {
-    this.subscriptionService
-      .getTenantLicense(this.subdomainId)
-      .subscribe((res) => {
-        this.licenses = res;
-      });
-  }
-
   getCompanies() {
     this.companyService
       .getCompaniesDropDown(this.subdomainId)
       .subscribe((res) => {
         this.companies = res;
-       // this.selectedCompany = this.companies.find(c => c.id === this.editUserForm.value.companyId)?.name || '';
+        // this.selectedCompany = this.companies.find(c => c.id === this.editUserForm.value.companyId)?.name || '';
       });
   }
 
-
   onCompanyChange(event: any) {
-    console.log("Calling onCompanyChange")
+    console.log('Calling onCompanyChange');
     const companyId = event;
     if (!companyId) return;
     this.companyService.loadBranches(companyId);
 
-    // this.editUserForm.patchValue({branchIds:[]})
-    // this.selectedBranches=[];
+    this.editUserForm.patchValue({ branchIds: [] });
+    this.selectedBranches = [];
   }
 
 
