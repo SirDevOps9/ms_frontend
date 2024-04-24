@@ -3,10 +3,8 @@ import {
   EnvironmentService,
   FormsService,
   LanguageService,
-  LogService,
   LookupEnum,
   LookupsService,
-  ToasterService,
   customValidators,
   lookupDto,
 } from 'shared-lib';
@@ -28,33 +26,21 @@ export class UserDetailsComponent implements OnInit {
   userName: string;
   userEmail: string;
   editUserForm: FormGroup;
-  lookups: { [key: string]: lookupDto[] };
-  LookupEnum = LookupEnum;
-
   companies: lookupDto[] = [];
   branches: BranchDto[];
   licenses: TenantLicenseDto[];
-  selected: any = [];
   subdomains: string[];
-
-  selectedBranche: string[];
-  selectedCompanie: string;
+  selectedBranches: string[];
+  selectedCompany: string;
   selectedLicense: string;
+
   ngOnInit() {
-    // this.loadLookups();
+    this.getCompanies();
+    this.getTenantLicense();
     this.initializeUserForm();
     this.initializeUserFormData();
-    // this.subscribe();
   }
-  // subscribe() {
-  //   this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
-  // }
-  // loadLookups() {
-  //   this.lookupsService.loadLookups([
-  //     LookupEnum.BusinessRole,
-  //     LookupEnum.Subscription,
-  //   ]);
-  // }
+
   initializeUserForm() {
     this.editUserForm = this.formBuilder.group({
       name: ['', [customValidators.required]],
@@ -62,7 +48,6 @@ export class UserDetailsComponent implements OnInit {
       license: ['', customValidators.required],
       companyId: ['', customValidators.required],
       branchIds: ['', customValidators.required],
-      subdomains: ['', customValidators.required],
     });
   }
 
@@ -81,14 +66,14 @@ export class UserDetailsComponent implements OnInit {
           companyId: res.companyId,
           branches: res.branchIds,
         });
-        this.companyService.loadBranches(res.companyId);
         this.companyService.branches.subscribe((branchList) => {
           this.branches = branchList;
         });
-        // this.selectedLicenses = res.licenses.map(license => license.name);
-        // this.selectedCompanies = res.companies.map(company => company.name);
-        // this.selectedBranches = res.branches.map(branch => branch.name);
         console.log('patched data', this.editUserForm.value);
+
+        this.selectedCompany = res.companyId
+        this.selectedLicense = res.license
+
       });
   }
 
@@ -121,7 +106,19 @@ export class UserDetailsComponent implements OnInit {
       .getCompaniesDropDown(this.subdomainId)
       .subscribe((res) => {
         this.companies = res;
+       // this.selectedCompany = this.companies.find(c => c.id === this.editUserForm.value.companyId)?.name || '';
       });
+  }
+
+
+  onCompanyChange(event: any) {
+    console.log("Calling onCompanyChange")
+    const companyId = event;
+    if (!companyId) return;
+    this.companyService.loadBranches(companyId);
+
+    // this.editUserForm.patchValue({branchIds:[]})
+    // this.selectedBranches=[];
   }
 
 
