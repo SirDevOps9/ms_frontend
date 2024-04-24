@@ -25,7 +25,7 @@ export class ListAppsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userService.testTree();
+   // this.userService.testTree();
 
     this.AllModules=[
       {
@@ -56,6 +56,8 @@ export class ListAppsComponent implements OnInit {
   }
 
   addToCart(appId: number) {
+    console.log(appId , "000000000000");
+    
     this.appStoreService.addToCart(appId, this.dialog, this.subdomains);
   }
 

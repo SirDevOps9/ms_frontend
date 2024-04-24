@@ -13,7 +13,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../layout/layout-page/layout.component';
 import { BreadcrumbLabel, SharedLibModule } from 'shared-lib';
 import { HttpClientModule } from '@angular/common/http';
-import { SelectSubdomainComponent } from './components/select-subdomain/select-subdomain.component';
 import { AppDetailsComponent } from './pages/app-details/app-details.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { CartItemDetailComponent } from './pages/cart-item-detail/cart-item-detail.component';
@@ -95,17 +94,16 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     ListAppsComponent,
-    SelectSubdomainComponent,
     AppDetailsComponent,
     CartComponent,
     CartItemDetailComponent,
     MainPageComponent,
   ],
   imports: [
-    SharedLibModule,
     MicrotecAuthLibModule,
+    SharedLibModule,
     HttpClientModule,
     RouterModule.forChild(routes),
-  ],
+  ]
 })
 export class AppStoreModule {}

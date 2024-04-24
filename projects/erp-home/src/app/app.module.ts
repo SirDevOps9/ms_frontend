@@ -13,9 +13,11 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
 
+import { TreeModule } from 'primeng/tree';
+import { LayoutModule } from './modules/layout/layout.module';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent    
   ],
   imports: [
     CommonModule,
@@ -43,6 +45,8 @@ import { CookieModule } from 'ngx-cookie';
     FormsModule,
     AppRoutingModule,
     CookieModule.withOptions(),
+    LayoutModule,
+    
   ],
   providers: [
     { provide: EnvironmentService, useValue: environment },

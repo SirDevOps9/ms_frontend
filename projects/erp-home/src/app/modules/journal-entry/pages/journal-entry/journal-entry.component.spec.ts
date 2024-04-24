@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SelectSubdomainComponent } from './select-subdomain.component';
+import { JournalEntryComponent } from './journal-entry.component';
 
-describe('SelectSubdomainComponent', () => {
-  let component: SelectSubdomainComponent;
-  let fixture: ComponentFixture<SelectSubdomainComponent>;
+describe('JournalEntryComponent', () => {
+  let component: JournalEntryComponent;
+  let fixture: ComponentFixture<JournalEntryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SelectSubdomainComponent]
+      declarations: [JournalEntryComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(SelectSubdomainComponent);
+    fixture = TestBed.createComponent(JournalEntryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
