@@ -72,7 +72,7 @@ export class UserProxy {
 
   updateUser(user: EditUserModel, id: string, subdomainId: number): Observable<boolean> {
     return this.baseService.put<boolean>(
-      `User/UpdateInvitedBoByAdmin/${id}/${subdomainId}`,
+      `User/UpdateUserByAdmin/${id}/${subdomainId}`,
       user
     );
   }
