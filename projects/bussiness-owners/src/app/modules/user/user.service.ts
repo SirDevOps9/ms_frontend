@@ -145,7 +145,7 @@ export class UserService {
     });
   }
 
-  inviteUser(model: CreateInvitedUser, dialogRef: DynamicDialogRef) {
+  inviteUser(model: CreateInvitedUser, licenseLabel: string, dialogRef: DynamicDialogRef) {
     this.loaderService.show();
     this.userProxy.inviteUser(model).subscribe({
       next: (res) => {
@@ -154,7 +154,7 @@ export class UserService {
           this.languageService.transalte('User.Inviteform.InviationSent')
         );
         this.loaderService.hide();
-
+        res.license = licenseLabel;
         dialogRef.close(res);
       },
       error: (err) => {
