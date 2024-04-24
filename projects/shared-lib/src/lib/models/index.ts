@@ -17,4 +17,6 @@ export * from './fileDto';
 export * from './money';
 export * from './defaultExceptionModel';
 export * from './paginationVm';
-export * from'./pageInfo';
+export * from './pageInfo';
+export * from './sideMenuModel';
+export * from './menuModule';

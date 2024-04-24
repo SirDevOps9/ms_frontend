@@ -1,4 +1,12 @@
-import { AuthGuard } from 'microtec-auth-lib';
+import {
+  Actions,
+  Apps,
+  AuthGuard,
+  Licenses,
+  MicrotecAuthLibModule,
+  RouteFilter,
+  Services,
+} from 'microtec-auth-lib';
 import { NgModule } from '@angular/core';
 import { ListAppsComponent } from './pages/list-apps/list-apps.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -23,13 +31,19 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.APP_STORE,
         },
-        children:[
+        children: [
           {
             path: '',
             component: ListAppsComponent,
             canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.APP_STORE,
+              // filter: {
+              //   Action: Actions.Update,
+              //   License: Licenses.Advanced,
+              //   App: Apps.Hr,
+              //   Service: Services.Contract,
+              // } as RouteFilter,
             },
           },
           {
@@ -40,7 +54,7 @@ const routes: Routes = [
               breadcrumb: BreadcrumbLabel.APP_STORE_Details,
             },
           },
-        ]
+        ],
       },
       // {
       //   path: 'app-detail/:id',
@@ -61,7 +75,7 @@ const routes: Routes = [
       {
         path: 'cart',
         component: CartComponent,
-       // canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.CART,
         },
@@ -73,10 +87,10 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.CART,
         },
-      }
-    ]
-  }
-]
+      },
+    ],
+  },
+];
 
 @NgModule({
   declarations: [
@@ -85,12 +99,13 @@ const routes: Routes = [
     AppDetailsComponent,
     CartComponent,
     CartItemDetailComponent,
-    MainPageComponent
+    MainPageComponent,
   ],
   imports: [
     SharedLibModule,
+    MicrotecAuthLibModule,
     HttpClientModule,
     RouterModule.forChild(routes),
-  ]
+  ],
 })
-export class AppStoreModule { }
+export class AppStoreModule {}

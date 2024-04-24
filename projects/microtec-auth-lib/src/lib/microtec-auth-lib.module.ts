@@ -8,9 +8,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { TranslateModule } from '@ngx-translate/core';
 import { loginRoutes } from './login.routes';
+import { HasPermissionDirective } from './directives/hasPermission.directive';
 
 @NgModule({
   declarations: [
+    HasPermissionDirective,
     LoginComponent,
     LoginRedirectComponent,
     LogoutRedirectComponent,
@@ -23,6 +25,8 @@ import { loginRoutes } from './login.routes';
     MatPaginatorModule,
     TranslateModule.forRoot(),
   ],
-  exports: [],
+  exports: [
+    HasPermissionDirective
+  ],
 })
 export class MicrotecAuthLibModule {}

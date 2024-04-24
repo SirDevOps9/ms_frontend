@@ -9,22 +9,16 @@ import {
   CookieStorageService,
   RouterService,
   LanguageService,
+  SideMenuModel,
+  MenuModule,
 } from 'shared-lib';
 import { TokenModel } from '../models/tokenmodel';
+import { PermissionTreeNode, RouteFilter } from '../models';
+import { Nullable } from 'primeng/ts-helpers';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(
-    private localStorageService: StorageService,
-    private sessionService: SessionStorageService,
-    private oidcSecurityService: OidcSecurityService,
-    private logService: LogService,
-    private routerService: RouterService,
-    private cookieService: CookieStorageService,
-    private languageService: LanguageService
-  ) {}
-
   authorize() {
     var storageCulutre = this.languageService.getLang();
     this.oidcSecurityService.authorize(undefined, {
@@ -54,6 +48,39 @@ export class AuthService {
   getUserData(): LoginResponse {
     return this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
   }
+
+  getUserPermissions(): PermissionTreeNode[] | Nullable {
+    let encrypted = this.localStorageService.getItem(
+      StorageKeys.PERMISSIONTREE
+    );
+
+    if (encrypted === null) return null;
+    const decodedString = atob(encrypted);
+    const tree: PermissionTreeNode[] = JSON.parse(decodedString);
+    return tree;
+  }
+
+  hasPermission(filter: RouteFilter): boolean {
+    let tree = this.getUserPermissions();
+    if (tree === null) return false;
+
+    let userPermission = tree!.filter(
+      (x) =>
+        x.AppId == filter.App &&
+        x.LicenseId == filter.License &&
+        x.ServiceId == filter.Service
+    );
+
+    if (userPermission.length === 0) return false;
+
+    const hasPermission = userPermission.some((node) => {
+      const includesAction = node.Actions.includes(filter.Action);
+      return includesAction;
+    });
+
+    return hasPermission;
+  }
+
   saveTokenData(): Observable<LoginResponse> {
     return this.oidcSecurityService.checkAuth().pipe(
       map((loginResponse: LoginResponse) => {
@@ -71,11 +98,36 @@ export class AuthService {
       })
     );
   }
+
+  saveSideMenu(menuItems: SideMenuModel[]) {
+    const distinctModules = menuItems
+      .filter(
+        (value, index, self) =>
+          self.findIndex(
+            (item) => item.key === value.key && item.module === value.module
+          ) === index
+      )
+      .map(({ key, module }) => ({ key, module }));
+
+    this.localStorageService.setItem(StorageKeys.MODULES, distinctModules);
+    this.localStorageService.setItem(StorageKeys.SIDEMENU, menuItems);
+  }
+
+  getModules() {
+    let item = this.localStorageService.getItem(StorageKeys.MODULES);
+    let menuModules = item! as MenuModule[];
+    return menuModules;
+  }
+  getSideMenu() {
+    let item = this.localStorageService.getItem(StorageKeys.SIDEMENU);
+    let sidemenu = item! as SideMenuModel[];
+    return sidemenu;
+  }
+
   afterLoginRedirect() {
     this.oidcSecurityService
       .checkAuth()
       .subscribe((loginResponse: LoginResponse) => {
-        console.log('Second Call', loginResponse);
         this.saveUserData(loginResponse);
         this.routerService.navigateTo('');
       });
@@ -102,4 +154,14 @@ export class AuthService {
     };
     return tokenModel;
   }
+
+  constructor(
+    private localStorageService: StorageService,
+    private sessionService: SessionStorageService,
+    private oidcSecurityService: OidcSecurityService,
+    private logService: LogService,
+    private routerService: RouterService,
+    private cookieService: CookieStorageService,
+    private languageService: LanguageService
+  ) {}
 }

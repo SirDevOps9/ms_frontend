@@ -21,4 +21,5 @@ export interface IEnvironment {
     SecretKey: string;
   };
   ApiKey: string;
+  BusinessOwnerUrl: string;
 }
