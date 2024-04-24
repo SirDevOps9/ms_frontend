@@ -188,7 +188,7 @@ export class UserService {
         this.toasterService.showSuccess('Success', 'Success');
         let loginUrl = this.environmentService.erpLogin!;
         loginUrl = loginUrl.replace("*", subdomain);
-        this.routerService.navigateTo(loginUrl);
+        window.location.href = loginUrl;
       },
       error: () => {
         this.loaderService.hide();
