@@ -1,0 +1,20 @@
+
+@import "../../../../assets/styling/scss/variables/font-family";
+.journal_entry_add_page{
+    .entry_header{
+        background: #F7F8F8;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        padding: 20px;
+        margin-bottom: 20px;
+        .title{
+            font-size: 18px;
+            font-family: $cairo_regular;
+        }
+    }
+    .entry_table{
+
+    }
+
+   
+}
+

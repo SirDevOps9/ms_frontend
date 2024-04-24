@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
+import { TreeNode } from 'primeng/api';
 import { AppStoreService } from 'projects/bussiness-owners/src/app/modules/app-store/app-store.service';
 import { UserData } from 'projects/bussiness-owners/src/app/modules/user/models';
 import { Observable } from 'rxjs';
@@ -15,10 +16,18 @@ export class LayoutHeaderComponent {
   userData: UserData;
   showcard: boolean = false;
   sidebarOpen: boolean = false;
+  modulesOpen: boolean = false;
   // cartItemsCount$: Observable<number>;
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authService.getModules()
 
+  }
+  togelModules(){
+   
+      this.modulesOpen=false
+  
+  }
   toggleLanguage(): void {
   }
   logout(): void {

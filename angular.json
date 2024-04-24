@@ -646,10 +646,11 @@
               "projects/erp-home/src/assets"
             ],
             "styles": [
-              "projects/erp-home/src/styles.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "projects/erp-home/src/styles.css"
+
             ],
             "scripts": []
           }

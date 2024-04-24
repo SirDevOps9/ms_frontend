@@ -1,17 +1,8 @@
-import { BreadcrumbLabel } from 'shared-lib';
-import { AuthGuard } from 'microtec-auth-lib';
-import { LayoutPageComponent } from './modules/layout/layout-page/layout-page.component';
-
-AuthGuard
 export const ERPRoutes = [
   {
-    path: 'erp',
-    component: LayoutPageComponent,
-    children: [
-      { path: '', component: LayoutPageComponent, data: {
-        breadcrumb: BreadcrumbLabel.my_subscription,
-      }, },
-    ],
+    path: '',
+   loadChildren:()=> 
+   import('./modules/layout/layout.module').then((m)=>m.LayoutModule)
   },
 
 ];

@@ -1,4 +1,20 @@
 .side_bar_container {
+  position: relative;
+  .btn_togel{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    border: none;
+    background: #fff;
+    top: 80%;
+    right: -20px;
+    z-index: 100;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
   .sidebar_links {
     width: 95%;
 
@@ -81,6 +97,9 @@
 }
 
 ::ng-deep {
+  .p-sidebar-content {
+    overflow-y: visible !important;
+  }
   .p-component-overlay.p-sidebar-mask {
     width: 0 !important;
   }

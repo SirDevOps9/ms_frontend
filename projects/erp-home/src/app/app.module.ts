@@ -12,16 +12,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
-import { LayoutPageComponent } from './modules/layout/layout-page/layout-page.component';
-import { LayoutSidebarComponent } from './modules/layout/layout-sidebar/layout-sidebar.component';
-import { LayoutHeaderComponent } from './modules/layout/layout-header/layout-header.component';
+
 import { TreeModule } from 'primeng/tree';
+import { LayoutModule } from './modules/layout/layout.module';
 @NgModule({
   declarations: [
-    AppComponent,
-    LayoutPageComponent,
-    LayoutSidebarComponent,
-    LayoutHeaderComponent
+    AppComponent    
   ],
   imports: [
     CommonModule,
@@ -49,7 +45,8 @@ import { TreeModule } from 'primeng/tree';
     FormsModule,
     AppRoutingModule,
     CookieModule.withOptions(),
-    TreeModule
+    LayoutModule,
+    
   ],
   providers: [
     { provide: EnvironmentService, useValue: environment },
