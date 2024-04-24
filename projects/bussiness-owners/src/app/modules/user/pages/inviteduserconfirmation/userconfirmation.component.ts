@@ -15,7 +15,7 @@ import {
 } from 'shared-lib';
 
 import { UserService } from '../../user.service';
-import { AddConfirmedUserDto } from '../../models';
+import { AddConfirmedUserDto, InvitedUserDto } from '../../models';
 @Component({
   selector: 'app-userconfirmation',
   templateUrl: './userconfirmation.component.html',
@@ -25,6 +25,7 @@ import { AddConfirmedUserDto } from '../../models';
 export class UserconfirmationComponent implements OnInit {
   userForm: FormGroup;
   email: string;
+  dto: InvitedUserDto;
   validId = false;
   photo: any;
   errorMessage: string;
@@ -48,30 +49,29 @@ export class UserconfirmationComponent implements OnInit {
     });
   }
   getEmail() {
-    this.userService.getEmail(this.getUserId).subscribe({
-      next: (email) => {
-        this.email = email;
+    this.userService.getInvitedById(this.invitedUserId).subscribe((dto) => {
+        this.dto = dto;
+        this.email = dto.email;
         this.validId = true;
         this.userForm.patchValue({
-          email: email,
+          email: dto.email,
         });
-      },
-      error: (err) => {
-        this.errorMessage = err;
-      },
-    });
+      });
   }
+
   submitForm() {
     if (!this.formsService.validForm(this.userForm, true)) return;
     this.loaderservice.show();
     const request: AddConfirmedUserDto = this.userForm.value;
-    request.invitedUserId = this.getUserId;
+    request.invitedUserId = this.invitedUserId;
     request.email = this.email;
-    this.userService.submitUserConfirm(request);
+    this.userService.submitUserConfirm(this.dto.subdomain, request);
   }
-  get getUserId(): string {
+  
+  get invitedUserId(): string {
     return this.router.currentId;
   }
+  
   constructor(
     private loaderservice: LoaderService,
     private router: RouterService,

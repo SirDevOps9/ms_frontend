@@ -11,8 +11,9 @@ import {
   AddConfirmedUserDto,
   EditUserModel,
   GetUserbyid,
-  InviteUserDto,
+  CreateInvitedUser,
   UserListResponse,
+  InvitedUserDto,
 } from './models';
 import { SubscriptionDto } from '../subscription/models';
 import { PermissionTreeNode } from 'projects/microtec-auth-lib/src/lib/models';
@@ -23,7 +24,7 @@ import { PermissionTreeNode } from 'projects/microtec-auth-lib/src/lib/models';
 export class UserProxy {
   getAll(subscriptionId: number): Observable<UserListResponse[]> {
     return this.baseService.get<UserListResponse[]>(
-      `User?subscriptionId=${subscriptionId}`
+      `User?subdomainId=${subscriptionId}`
     );
   }
   getAllPaginated(
@@ -48,11 +49,12 @@ export class UserProxy {
   platformDropDown(): Observable<BaseDto[]> {
     return this.baseService.get<BaseDto[]>(`PlatformPlan/GetAllDropDown`);
   }
-  inviteUser(userModel: InviteUserDto): Observable<UserListResponse> {
+
+
+  inviteUser(userModel: CreateInvitedUser): Observable<UserListResponse> {
     return this.baseService.post<UserListResponse>(
       `InvitedUser/Create`,
       userModel,
-      false
     );
   }
 
@@ -72,19 +74,20 @@ export class UserProxy {
   deactivateUser(id: string): Observable<boolean> {
     return this.baseService.put<boolean>(`User/DeactivateUser/${id}`, {});
   }
-  getUserById(id: string): Observable<GetUserbyid> {
-    return this.baseService.get<GetUserbyid>(`User/Getbyid/${id}`);
+
+  getUserById(id: string, subdomainId: number): Observable<GetUserbyid> {
+    return this.baseService.get<GetUserbyid>(`User/Getbyid/${id}/${subdomainId }`);
   }
 
-  updateUser(user: EditUserModel, id: string): Observable<boolean> {
+  updateUser(user: EditUserModel, id: string, subdomainId: number): Observable<boolean> {
     return this.baseService.put<boolean>(
-      `User/UpdateInvitedBoByAdmin/${id}`,
+      `User/UpdateUserByAdmin/${id}/${subdomainId}`,
       user
     );
   }
 
-  getById(id: string): Observable<InviteUserDto> {
-    return this.baseService.get<InviteUserDto>(
+  getInvitedById(id: string): Observable<InvitedUserDto> {
+    return this.baseService.get<InvitedUserDto>(
       `InvitedUser/GetById/${id}`,
       false
     );

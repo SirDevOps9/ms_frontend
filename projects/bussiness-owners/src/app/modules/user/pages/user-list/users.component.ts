@@ -32,14 +32,10 @@ export class UsersComponent implements OnInit {
 
 
   loadUsers() {
-    this.userService.getAllUsers(this.subscriptionId);
+    this.userService.getAllUsers(this.subdmainId);
 
     this.userService.users.subscribe((users) => {
       this.userData = users;
-    });
-
-    this.userService.currentPageInfo.subscribe((currentPageInfo) => {
-      this.currentPageInfo = currentPageInfo;
     });
 
     this.userService.currentPageInfo.subscribe((currentPageInfo) => {
@@ -53,7 +49,7 @@ export class UsersComponent implements OnInit {
   }
 
   openInviteModal() {
-    this.userService.openInviteUserModal(this.ref, this.dialog);
+    this.userService.openInviteUserModal(this.subdmainId,this.ref, this.dialog);
   }
 
 
@@ -81,7 +77,7 @@ export class UsersComponent implements OnInit {
     this.ref = this.dialog.open(UserDetailsComponent, {
       width: '800px',
       height: '700px',
-      data: { Id: Id },
+      data: { Id: Id, subdomainId: this.subdmainId },
     });
   }
 
@@ -100,7 +96,7 @@ export class UsersComponent implements OnInit {
   }
 
 
-  get subscriptionId(): number {
+  get subdmainId(): number {
     return this.routerService.currentId;
   }
 

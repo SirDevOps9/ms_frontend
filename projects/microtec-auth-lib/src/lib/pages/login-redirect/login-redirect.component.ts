@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthHttpService, AuthService } from 'microtec-auth-lib';
 import { forkJoin, switchMap } from 'rxjs';
-import { StorageKeys, StorageService } from 'shared-lib';
+import { RouterService, StorageKeys, StorageService } from 'shared-lib';
 
 @Component({
   selector: 'app-login-redirect',
@@ -34,8 +34,8 @@ export class LoginRedirectComponent implements OnInit {
       .subscribe({
         next: ({ tenantObj}) => {
           this.localStorage.setItem(StorageKeys.TENANT, tenantObj);
-         // this.localStorage.setItem(StorageKeys.PERMISSIONTREE, permissiontree);
-          this.authService.afterLoginRedirect();
+          this.routerservice.navigateTo('');
+          // this.authService.afterLoginRedirect();
         },
       });
   }
@@ -43,6 +43,7 @@ export class LoginRedirectComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private localStorage: StorageService,
-    private authHttp: AuthHttpService
-  ) {}
+    private authHttp: AuthHttpService,
+    private routerservice: RouterService
+  ) { }
 }

@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import {
   EnvironmentService,
+  FormsService,
   LanguageService,
-  LogService,
   LookupEnum,
   LookupsService,
-  ToasterService,
   customValidators,
   lookupDto,
 } from 'shared-lib';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { EditUserModel } from '../../models';
 import { UserService } from '../../user.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { CompanyService } from '../../../company/company.service';
+import { SubscriptionService } from '../../../subscription/subscription.service';
+import { BranchDto } from '../../../company/models';
+import { TenantLicenseDto } from '../../../subscription/models';
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
@@ -23,60 +26,57 @@ export class UserDetailsComponent implements OnInit {
   userName: string;
   userEmail: string;
   editUserForm: FormGroup;
-  lookups: { [key: string]: lookupDto[] };
-  LookupEnum = LookupEnum;
-  selectedBors: string[];
-  selectedSubscriptions: string[];
+  companies: lookupDto[] = [];
+  branches: BranchDto[] = [];
+  subdomains: string[] = [];
+
+  selectedBranches: string[] =[];
+  selectedCompany: string | null;
+
   ngOnInit() {
-    this.loadLookups();
+    this.getCompanies();
     this.initializeUserForm();
     this.initializeUserFormData();
-    this.subscribe();
   }
-  subscribe() {
-    this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
-  }
-  loadLookups() {
-    this.lookupsService.loadLookups([
-      LookupEnum.BusinessRole,
-      LookupEnum.Subscription,
-    ]);
-  }
+
   initializeUserForm() {
     this.editUserForm = this.formBuilder.group({
-      userName: ['', [customValidators.required]],
-      email: ['', [customValidators.required, customValidators.email]],
-      subscriptions: ['', customValidators.required],
-      bORoles: ['', customValidators.required],
+      companyId: new FormControl('', customValidators.required),
+      branchIds: new FormControl('', customValidators.required),
     });
   }
+
   initializeUserFormData() {
-    this.userService.getUserById(this.currentUserId).subscribe(
-      (res) => {
-        this.userName=res.name
-        this.userEmail=res.email
+    this.userService
+      .getUserById(this.currentUserId, this.subdomainId)
+      .subscribe((res) => {
+        this.userName = res.name;
+        this.userEmail = res.email;
+        this.subdomains = res.subdomains;
+        this.selectedCompany = res.companyId.toUpperCase();
+        this.selectedBranches = res.branchIds;
         this.editUserForm.patchValue({
-          ...res,
-          userName: res.name,
-          subscriptions: res.subscriptions,
-          bORoles: res.boRoles,
+          companyId: res.companyId,
+          branches: res.branchIds,
         });
-        this.selectedBors = res.boRoles.map((b) => b.toString());
-        this.selectedSubscriptions = res.subscriptions.map((b) => b.toUpperCase());
-      }
-    );
+        this.companyService.loadBranches( res.companyId);
+
+        this.companyService.branches.subscribe((branchList) => {
+          this.branches = branchList;
+        });
+        console.log('patched data', this.selectedCompany);
+      });
   }
 
   async onSubmit() {
-    const confirmed = await this.toasterService.showConfirm(
-      'ConfirmButtonTexttochangstatus'
+    if (!this.formService.validForm(this.editUserForm, true)) return;
+    const UpdateUserDto: EditUserModel = this.editUserForm.value;
+    this.userService.editUser(
+      UpdateUserDto,
+      this.currentUserId,
+      this.subdomainId,
+      this.ref
     );
-    if (confirmed) {
-      const UpdateUserDto: EditUserModel = this.editUserForm.value;
-      this.logService.log(UpdateUserDto);
-      UpdateUserDto.id = this.currentUserId;
-      this.userService.editUser(UpdateUserDto, this.ref);
-    }
   }
   onCancel() {
     this.ref.close();
@@ -89,20 +89,45 @@ export class UserDetailsComponent implements OnInit {
     );
   }
 
+  getCompanies() {
+    this.companyService
+      .getCompaniesDropDown(this.subdomainId)
+      .subscribe((res) => {
+        this.companies = res;
+        // this.selectedCompany = this.companies.find(c => c.id === this.editUserForm.value.companyId)?.name || '';
+      });
+  }
+
+  onCompanyChange(event: any) {
+    console.log('Calling onCompanyChange');
+    const companyId = event;
+    if (!companyId) return;
+    this.companyService.loadBranches(companyId);
+
+    this.editUserForm.patchValue({ branchIds: [] });
+    this.selectedBranches = [];
+  }
+
+
   get currentUserId(): string {
     return this.config.data.Id;
+  }
+
+  get subdomainId(): number {
+    return this.config.data.subdomainId;
   }
 
   constructor(
     public config: DynamicDialogConfig,
     public dialogService: DynamicDialogRef,
     private ref: DynamicDialogRef,
-    private logService: LogService,
-    private toasterService: ToasterService,
+    private formService: FormsService,
     public languageService: LanguageService,
     private env: EnvironmentService,
     public lookupsService: LookupsService,
     private userService: UserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private companyService: CompanyService,
+    private subscriptionService: SubscriptionService
   ) {}
 }

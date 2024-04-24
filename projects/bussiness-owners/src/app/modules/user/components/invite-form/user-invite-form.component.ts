@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
-  DefaultExceptionModel,
-  FormsService,
-  LanguageService,
-  LoaderService,
-  LookupEnum,
-  LookupsService,
-  ToasterService,
-  customValidators,
-  lookupDto,
-} from 'shared-lib';
+  FormBuilder,
+  FormControl,
+  FormGroup,
+} from '@angular/forms';
+import { FormsService, customValidators, lookupDto } from 'shared-lib';
+import {
+  DialogService,
+  DynamicDialogConfig,
+  DynamicDialogRef,
+} from 'primeng/dynamicdialog';
+import { CreateInvitedUser } from '../../models';
 import { UserService } from '../../user.service';
-import { InviteUserDto } from '../../models';
+import { CompanyService } from '../../../company/company.service';
+import { BranchDto } from '../../../company/models';
+import { SubscriptionService } from '../../../subscription/subscription.service';
+import { TenantLicenseDto } from '../../../subscription/models';
 
 @Component({
   selector: 'app-user-invite-form',
@@ -21,61 +23,97 @@ import { InviteUserDto } from '../../models';
   styleUrls: ['./user-invite-form.component.scss'],
 })
 export class UserInviteFormComponent implements OnInit {
-  submitted = false;
   inviteForm: FormGroup;
-  lookups: { [key: string]: lookupDto[] };
-  LookupEnum = LookupEnum;
+  Companies: lookupDto[] = [];
+  branches: BranchDto[];
+  Licenses:TenantLicenseDto[];
+  selected : any = [];
+  subdomainName: string;
+
+
+
   ngOnInit() {
-    this.loadLookups();
-    this.initializeUserForm();
-    this.Subscribe();
+    this.getSubdomainById();
+    this.getCompanies();
+    this.getTenantLicense();
+    this.initializesubDomainForm();
   }
-  Subscribe() {
-    this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
+
+  initializesubDomainForm() {
+    this.inviteForm = this.fb.group({
+      email: new FormControl('', customValidators.required,),
+      companyId: new FormControl('', customValidators.required,),
+      branchIds: new FormControl('', customValidators.required,),
+      tenantLicenseId: new FormControl('', customValidators.required,),
+    });
   }
+
 
   onSubmit() {
     if (!this.formService.validForm(this.inviteForm, true)) return;
-    const userModel: InviteUserDto = this.inviteForm.value;
-    // this.userService.inviteUser(userModel, this.ref);
-    this.userService.inviteUserPipe(userModel).subscribe({
-      next: (res) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('User.Inviteform.Success'),
-          this.languageService.transalte('User.Inviteform.InviationSent')
-        );
-        this.loaderService.hide();
+    const userModel: CreateInvitedUser = this.inviteForm.value;
+    userModel.subdomainId = this.subdomainId;
+    this.userService.inviteUser(userModel, this.ref);
+  }
 
-        this.ref.close(res);
-      },
-    });
-  }
-  loadLookups() {
-    this.lookupsService.loadLookups([
-      LookupEnum.BusinessRole,
-      LookupEnum.Subscription,
-    ]);
-  }
   onCancel() {
     this.ref.close();
   }
 
-  initializeUserForm() {
-    this.inviteForm = this.fb.group({
-      email: ['', [customValidators.required, customValidators.email]],
-      subscriptions: ['', customValidators.required],
-      bORoles: ['', customValidators.required],
-    });
+  getCompanies() {
+    this.companyService
+      .getCompaniesDropDown(this.subdomainId)
+      .subscribe((res) => {
+        this.Companies = res;
+      });
   }
+
+  getSubdomainById() {
+    this.subscriptionService
+      .getSubdomainById(this.subdomainId)
+      .subscribe((res) => {
+        this.subdomainName = res.name;
+      });
+  }
+
+  getTenantLicense() {
+    this.subscriptionService
+      .getTenantLicense(this.subdomainId)
+      .subscribe((res) => {
+        this.Licenses = res;
+      });
+  }
+
+
+
+  onCompanyChange(event: any) {
+    console.log("Calling onCompanyChange")
+    const companyId = event;
+    if (!companyId) return;
+    this.companyService.loadBranches(companyId);
+    this.companyService.branches.subscribe((branchList) => {
+      this.branches = branchList;
+    });
+
+    this.inviteForm.patchValue({branchIds:[]})
+    this.selected=[];
+  }
+
+  get subdomainId(): number {
+    return this.config.data.Id;
+  }
+
+
+
   constructor(
+    public config: DynamicDialogConfig,
     public dialogService: DialogService,
     private fb: FormBuilder,
     private formService: FormsService,
-    private userService: UserService,
     private ref: DynamicDialogRef,
-    public lookupsService: LookupsService,
-    private toasterService: ToasterService,
-    private languageService: LanguageService,
-    private loaderService: LoaderService
+    private userService: UserService,
+    private companyService: CompanyService,
+    private subscriptionService: SubscriptionService
+
   ) {}
 }

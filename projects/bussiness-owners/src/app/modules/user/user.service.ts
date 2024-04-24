@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, catchError, filter, map } from 'rxjs';
 import {
   AddConfirmedUserDto,
   EditUserModel,
-  InviteUserDto,
+  CreateInvitedUser,
   UserListResponse,
 } from './models';
 import { UserProxy } from './user.proxy';
@@ -18,6 +18,7 @@ import {
   PageInfoResult,
   RouterService,
   ToasterService,
+  EnvironmentService,
 } from 'shared-lib';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { UserInviteFormComponent } from './components/invite-form/user-invite-form.component';
@@ -33,31 +34,9 @@ export class UserService {
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
   getAllUsers(subscriptionId: number) {
-
-    var filterDto = new FilterDto();
-
-    filterDto.pageInfo = new PageInfo();
-
-    let cond: Condition[] = [];
-
-    cond.push({
-      column: 'Name',
-      operator: FilterOptions.Contains,
-      value: 'f',
-    });
-
-    // cond.push({
-    //   column: 'Email',
-    //   operator: FilterOptions.Contains,
-    //   value: 'gmail',
-    // });
-
-    filterDto.conditions = cond;
-
-    this.userProxy.getAllPaginated(filterDto).subscribe({
+    this.userProxy.getAll(subscriptionId).subscribe({
       next: (res) => {
-        this.userDataSource.next(res.result);
-        this.currentPageInfo.next(res.pageInfoResult);
+        this.userDataSource.next(res);
       },
     });
     return;
@@ -148,10 +127,12 @@ export class UserService {
     }
   }
 
-  openInviteUserModal(ref: DynamicDialogRef, dialog: DialogService) {
+  openInviteUserModal(id: number, ref: DynamicDialogRef, dialog: DialogService) {
     ref = dialog.open(UserInviteFormComponent, {
       width: '600px',
       height: '600px',
+      data: { Id: id },
+
     });
     ref.onClose.subscribe((result: UserListResponse) => {
       if (result as UserListResponse) {
@@ -164,7 +145,7 @@ export class UserService {
     });
   }
 
-  inviteUser(model: InviteUserDto, dialogRef: DynamicDialogRef) {
+  inviteUser(model: CreateInvitedUser, dialogRef: DynamicDialogRef) {
     this.loaderService.show();
     this.userProxy.inviteUser(model).subscribe({
       next: (res) => {
@@ -183,16 +164,9 @@ export class UserService {
       },
     });
   }
-  inviteUserPipe(model: InviteUserDto) {
-    return this.userProxy.inviteUser(model).pipe(
-      map((res) => {
-        return res;
-      })
-    );
-  }
 
-  getUserById(userId: string) {
-    return this.userProxy.getUserById(userId).pipe(
+  getUserById(userId: string , subdomainId  : number) {
+    return this.userProxy.getUserById(userId,subdomainId).pipe(
       map((res) => {
         return res;
       }),
@@ -202,24 +176,19 @@ export class UserService {
     );
   }
 
-  getEmail(userId: string) {
-    return this.userProxy.getById(userId).pipe(
-      map((res) => {
-        return res.email;
-      }),
-      catchError((err: any) => {
-        throw err.error?.errorMessage!;
-      })
-    );
+  getInvitedById(invitedUserId: string){
+    return this.userProxy.getInvitedById(invitedUserId);
   }
 
-  submitUserConfirm(request: AddConfirmedUserDto) {
+  submitUserConfirm(subdomain: string, request: AddConfirmedUserDto) {
     this.loaderService.show();
     this.userProxy.confirmInvitedUser(request).subscribe({
       next: (response) => {
         this.loaderService.hide();
         this.toasterService.showSuccess('Success', 'Success');
-        this.routerService.navigateTo('/login');
+        let loginUrl = this.environmentService.erpLogin!;
+        loginUrl = loginUrl.replace("*", subdomain);
+        this.routerService.navigateTo(loginUrl);
       },
       error: () => {
         this.loaderService.hide();
@@ -227,8 +196,8 @@ export class UserService {
     });
   }
 
-  editUser(userModel: EditUserModel, ref: DynamicDialogRef) {
-    this.userProxy.updateUser(userModel, userModel.id).subscribe({
+  editUser(userModel: EditUserModel, id: string, subdomainId:number, ref: DynamicDialogRef) {
+    this.userProxy.updateUser(userModel,id, subdomainId).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
           'Success',
@@ -251,6 +220,7 @@ export class UserService {
     private routerService: RouterService,
     private toasterService: ToasterService,
     private languageService: LanguageService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private environmentService: EnvironmentService
   ) {}
 }

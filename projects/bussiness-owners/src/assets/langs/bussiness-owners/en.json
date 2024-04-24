@@ -30,6 +30,7 @@
     "AppStore": "App store"
   },
   "User": {
+    "License": "License",
     "PageName": "Users Index",
     "Id": "Id",
     "Name": "Name",

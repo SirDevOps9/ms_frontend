@@ -1,5 +1,6 @@
 <lib-page-content>
   
+  <button (click)="editUser('e36995d7-b97b-4c1a-aad3-796ef9d9d85d')">Test Edit User</button>
   <lib-bread-crumb></lib-bread-crumb>
   <div class="user_page">
     <lib-data-table
@@ -7,8 +8,8 @@
       [currentPageResult]="currentPageInfo"
       (pageChange)="onPageChange($event)"
       [tableConfigs]="{
-        allowPagination: false,
-        allowServerPagination: true,
+        allowPagination: true,
+        allowServerPagination: false,
         dataKey: 'id',
         pageSize: 10,
         columns: [
@@ -32,6 +33,11 @@
             isSortable: true
           },
           {
+            name: 'license',
+            headerText: ('User.License' | translate),
+            isGlobalFilter: true,
+          },
+          {
             name: 'invitationStatus',
             headerText: ('User.Status' | translate),
             isGlobalFilter: true
@@ -42,8 +48,8 @@
             template: actionsCol
           }
         ]
-      }"
-    >
+      }">
+
       <ng-container caption>
         <div class="flex align-items-center justify-content-end">
           <span class="p-input-icon-left">
@@ -140,124 +146,5 @@
         </button> -->
       </div>
     </ng-template>
-
-    <!-- <p-table
-      #dt
-      [value]="userData"
-      [rows]="10"
-      [paginatorPosition]="'bottom'"
-      [paginator]="true"
-      [globalFilterFields]="['name', 'email', 'representative.name', 'status']"
-      [tableStyle]="{ 'min-width': '75rem' }"
-      [rowsPerPageOptions]="[5, 10, 15]"
-      [rowHover]="true"
-      dataKey="id"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      [showCurrentPageReport]="true"
-      class="flex flex-column"
-    >
-      <ng-template pTemplate="caption">
-        <div class="flex align-items-center justify-content-end">
-          <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input
-              pInputText
-              type="text"
-              (input)="applyFilterGlobal($event, 'contains')"
-              placeholder="Search..."
-            />
-          </span>
-          <button
-            pButton
-            pRipple
-            label="Add New"
-            icon="pi pi-plus"
-            class="add_new mr-2"
-            (click)="openInviteModal()"
-          ></button>
-        </div>
-      </ng-template>
-      <ng-template pTemplate="header">
-        <tr>
-          <th pSortableColumn="name">
-            {{ "User.Name" | translate }} <p-sortIcon field="name"></p-sortIcon>
-          </th>
-
-          <th pSortableColumn="email">
-            {{ "User.Email" | translate }}
-            <p-sortIcon field="email"></p-sortIcon>
-          </th>
-          <th pSortableColumn="category" style="min-width: 10rem">
-            {{ "User.LastLogin" | translate }}
-            <p-sortIcon field="category"></p-sortIcon>
-          </th>
-          <th pSortableColumn="rating">
-            {{ "User.Actions" | translate }}
-            <p-sortIcon field="rating"></p-sortIcon>
-          </th>
-          <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
-            {{ "User.Status" | translate }}
-            <p-sortIcon field="inventoryStatus"></p-sortIcon>
-          </th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-user>
-        <tr>
-          <td>
-            <div class="user_info">
-              <img
-                [src]="getProfilePic(user.id)"
-                onerror="this.src='assets/images/users/pic.jpg'"
-                width="50"
-                class="shadow-4 img_user"
-              />
-              <p>{{ user.name }}</p>
-            </div>
-          </td>
-          <td>{{ user.email }}</td>
-          <td>
-            <span class="pi pi-calendar-minus"></span>
-
-            {{ user.lastLoginDate | date : "dd/MM/yyyy HH:mm" }}
-          </td>
-          <td>
-            <p-button
-              icon="pi pi-pencil"
-              (click)="editUser(user.id)"
-              [rounded]="true"
-              [text]="true"
-              severity="secondary "
-              *ngIf="user.invitationStatus == 2"
-            ></p-button>
-          </td>
-          <td>
-            <div class="checked" *ngIf="user.invitationStatus == 2">
-              <p-inputSwitch
-                [id]="user.id"
-                (onChange)="changed($event, user.id)"
-                [(ngModel)]="user.isActive"
-              >
-              </p-inputSwitch>
-              <p class="active" *ngIf="user.isActive">
-                {{ "User.Activate" | translate }}
-              </p>
-              <p class="inactive" *ngIf="!user.isActive">
-                {{ "User.Deactivate" | translate }}
-              </p>
-            </div>
-            <div class="checked">
-              <button
-                class="resend"
-                (click)="resendInvitation(user.id)"
-                *ngIf="user.invitationStatus == 1"
-              >
-                <p class="title">{{ "User.Resend" | translate }}</p>
-                <p class="ico_mail pi pi-envelope"></p>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table> -->
   </div>
 </lib-page-content>
