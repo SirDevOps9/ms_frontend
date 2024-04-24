@@ -11,8 +11,9 @@ import {
   AddConfirmedUserDto,
   EditUserModel,
   GetUserbyid,
-  InviteUserDto,
+  CreateInvitedUser,
   UserListResponse,
+  InvitedUserDto,
 } from './models';
 import { SubscriptionDto } from '../subscription/models';
 import { PermissionTreeNode } from 'projects/microtec-auth-lib/src/lib/models';
@@ -50,7 +51,7 @@ export class UserProxy {
   }
 
 
-  inviteUser(userModel: InviteUserDto): Observable<UserListResponse> {
+  inviteUser(userModel: CreateInvitedUser): Observable<UserListResponse> {
     return this.baseService.post<UserListResponse>(
       `InvitedUser/Create`,
       userModel,
@@ -85,8 +86,8 @@ export class UserProxy {
     );
   }
 
-  getById(id: string): Observable<InviteUserDto> {
-    return this.baseService.get<InviteUserDto>(
+  getInvitedById(id: string): Observable<InvitedUserDto> {
+    return this.baseService.get<InvitedUserDto>(
       `InvitedUser/GetById/${id}`,
       false
     );

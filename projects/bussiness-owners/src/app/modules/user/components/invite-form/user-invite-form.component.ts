@@ -10,7 +10,7 @@ import {
   DynamicDialogConfig,
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
-import { InviteUserDto } from '../../models';
+import { CreateInvitedUser } from '../../models';
 import { UserService } from '../../user.service';
 import { CompanyService } from '../../../company/company.service';
 import { BranchDto } from '../../../company/models';
@@ -51,7 +51,7 @@ export class UserInviteFormComponent implements OnInit {
 
   onSubmit() {
     if (!this.formService.validForm(this.inviteForm, true)) return;
-    const userModel: InviteUserDto = this.inviteForm.value;
+    const userModel: CreateInvitedUser = this.inviteForm.value;
     userModel.subdomainId = this.subdomainId;
     this.userService.inviteUser(userModel, this.ref);
   }

@@ -14,6 +14,7 @@ export class EnvironmentService implements IEnvironment {
   ClientId: string;
   Platform: string;
   photoBaseUrl: string;
+  erpLogin?: string | undefined;
   openIdConfig: {
     authority: string;
     redirectUrl: string;

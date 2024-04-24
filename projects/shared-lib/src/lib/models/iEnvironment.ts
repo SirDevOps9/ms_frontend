@@ -5,6 +5,7 @@ export interface IEnvironment {
   ClientId: string;
   Platform: string;
   photoBaseUrl: string;
+  erpLogin?: string;
   openIdConfig: {
     authority: string;
     redirectUrl: string;

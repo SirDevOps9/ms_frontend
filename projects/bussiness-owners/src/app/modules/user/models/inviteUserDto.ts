@@ -1,7 +1,9 @@
-export interface InviteUserDto {
- email: string;
- companyId: string;
- branchIds: string[];
- subdomainId: number;
- tenantLicenseId:number;
+export interface InvitedUserDto{
+    id: string;
+    email: string;
+    companyId: string;
+    branchIds: string[];
+    subdomainId: number;
+    subdomain: string;
+    tenantLicenseId:number;   
 }
