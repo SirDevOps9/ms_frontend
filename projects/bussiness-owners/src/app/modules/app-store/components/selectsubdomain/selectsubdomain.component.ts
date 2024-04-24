@@ -1,14 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
-import { BaseDto ,customValidators } from "shared-lib";
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { BaseDto, SharedLibModule, customValidators } from 'shared-lib';
 
 @Component({
-  selector: 'app-select-subdomain',
-  templateUrl: './select-subdomain.component.html',
-  styleUrl: './select-subdomain.component.scss'
+  selector: 'app-selectsubdomain',
+  templateUrl: './selectsubdomain.component.html',
+  styleUrls: ['./selectsubdomain.component.scss'],
+  standalone : true,
+  imports : [SharedLibModule , CommonModule]
 })
-export class SelectSubdomainComponent implements OnInit {
+export class SelectsubdomainComponent implements OnInit {
   selectSubdomain: FormGroup;
 
   selectedSubdomain: any;

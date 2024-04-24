@@ -19,9 +19,9 @@ import {
   RouterService,
 } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { SelectSubdomainComponent } from './components/select-subdomain/select-subdomain.component';
 import { CartDto } from './models/cartDto';
 import { CartItemDto } from './models/cartItemDto';
+import { SelectsubdomainComponent } from './components/selectsubdomain/selectsubdomain.component';
 
 @Injectable({
   providedIn: 'root',
@@ -64,7 +64,7 @@ export class AppStoreService {
     if (subdomains.length == 1) {
       this.addModelToCart({ subdomainId: subdomains[0].id, appId });
     } else {
-      const ref = dialog.open(SelectSubdomainComponent, {
+      const ref = dialog.open(SelectsubdomainComponent, {
         width: '600px',
         height: '600px',
         data: {

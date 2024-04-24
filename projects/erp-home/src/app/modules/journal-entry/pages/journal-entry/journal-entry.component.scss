@@ -1,5 +1,5 @@
 
-@import "../../../../assets/styling/scss/variables/font-family";
+//@import "../../../../assets/styling/scss/variables/font-family";
 .journal_entry_add_page{
     .entry_header{
         background: #F7F8F8;
@@ -8,7 +8,7 @@
         margin-bottom: 20px;
         .title{
             font-size: 18px;
-            font-family: $cairo_regular;
+           // font-family: $cairo_regular;
         }
     }
     .entry_table{
