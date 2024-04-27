@@ -61,12 +61,12 @@ export class UserService {
     });
   }
 
-  async activate(id: string) {
+  async activate(id: string, subdomainId: any) {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangestatus'
     );
     if (confirmed) {
-      this.userProxy.activateUser(id).subscribe({
+      this.userProxy.activateUser(id, subdomainId).subscribe({
         next: () => {
           const userToChange = this.userDataSource.value.find(
             (item) => item.id === id
@@ -94,12 +94,12 @@ export class UserService {
     }
   }
 
-  async deactivate(id: string) {
+  async deactivate(id: string, subdomainId: any) {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangestatus'
     );
     if (confirmed) {
-      this.userProxy.deactivateUser(id).subscribe({
+      this.userProxy.deactivateUser(id, subdomainId).subscribe({
         next: () => {
           this.toasterService.showSuccess(
             this.languageService.transalte('Company.Success'),
