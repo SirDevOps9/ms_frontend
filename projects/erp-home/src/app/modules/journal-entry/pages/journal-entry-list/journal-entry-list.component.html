@@ -3,7 +3,7 @@
     <div class="user_page">
       <lib-data-table
      
-        [items]="userData"
+        [items]="tableData"
         [currentPageResult]="currentPageInfo"
         (pageChange)="onPageChange($event)"
         [tableConfigs]="{
@@ -13,72 +13,72 @@
           pageSize: 10,
           columns: [
             {
-              name: 'Id',
+              name: 'id',
               headerText: ('Id' ),
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'JournalCode',
+              name: 'journalCode',
               headerText: ('Journal Code'),
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'RefrenceNumber',
+              name: 'refrenceNumber',
               headerText: ('Reference'),
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'CreatedOn',
+              name: 'createdOn',
               headerText: ('Date'),
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'Type',
+              name: 'type',
               headerText: ('Type'),
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'SourceName',
+              name: 'sourceName',
               headerText: ('Document Name'),
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'SourceCode',
+              name: 'sourceCode',
               headerText: ('Document Code'),
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'IsRepeated',
+              name: 'isRepeated',
               headerText: ('Repeated'),
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'IsReversed',
+              name: 'isReversed',
               headerText: ('Reversed'),
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'Status',
+              name: 'status',
               headerText: ('Status'),
               template: userStatus
             },
             {
-              name: 'TotalDebitAmount ',
+              name: 'totalDebitAmount ',
               headerText: ('Debit'),
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'TotalCreditAmount ',
+              name: 'totalCreditAmount ',
               headerText: ('Credit'),
               isGlobalFilter: true,
               isSortable: true

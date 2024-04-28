@@ -15,7 +15,7 @@ export class JournalEntryListComponent  implements OnInit {
   journalEntries: JournalEntryDto[];
   @ViewChild('myTab') myTab: any | undefined;
   selectedEntries: JournalEntryDto[];
-  tableData: any ;
+  tableData: JournalEntryDto[] ;
   cols: any[] = [];
   active: boolean = false;
   ref: DynamicDialogRef;
@@ -98,11 +98,16 @@ export class JournalEntryListComponent  implements OnInit {
      this.journalEntryService.getAllJournalEntriesPaginated(this.currentPageInfo).subscribe({
       next: (journalList : any) => {
         this.tableData = journalList.result;
+        
         //this.tableData = this.convertToTreeNode(journalList);
         console.log('this.tableData', this.tableData);
 
       },
     });
+  }
+  onPageChange(event : any){
+    console.log('');
+    
   }
  
    
