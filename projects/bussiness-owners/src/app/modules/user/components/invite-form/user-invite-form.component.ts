@@ -26,8 +26,8 @@ export class UserInviteFormComponent implements OnInit {
   inviteForm: FormGroup;
   Companies: lookupDto[] = [];
   branches: BranchDto[];
-  Licenses:TenantLicenseDto[];
-  selected : any = [];
+  Licenses: TenantLicenseDto[];
+  selected: any = [];
   subdomainName: string;
 
 
@@ -53,7 +53,8 @@ export class UserInviteFormComponent implements OnInit {
     if (!this.formService.validForm(this.inviteForm, true)) return;
     const userModel: CreateInvitedUser = this.inviteForm.value;
     userModel.subdomainId = this.subdomainId;
-    this.userService.inviteUser(userModel, this.ref);
+    const licenseLabel = this.Licenses.find(l => l.id == this.inviteForm.value.tenantLicenseId)!.description;
+    this.userService.inviteUser(userModel, licenseLabel, this.ref);
   }
 
   onCancel() {
@@ -95,8 +96,8 @@ export class UserInviteFormComponent implements OnInit {
       this.branches = branchList;
     });
 
-    this.inviteForm.patchValue({branchIds:[]})
-    this.selected=[];
+    this.inviteForm.patchValue({ branchIds: [] })
+    this.selected = [];
   }
 
   get subdomainId(): number {
@@ -115,5 +116,5 @@ export class UserInviteFormComponent implements OnInit {
     private companyService: CompanyService,
     private subscriptionService: SubscriptionService
 
-  ) {}
+  ) { }
 }

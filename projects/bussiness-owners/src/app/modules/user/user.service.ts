@@ -61,12 +61,12 @@ export class UserService {
     });
   }
 
-  async activate(id: string) {
+  async activate(id: string, subdomainId: any) {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangestatus'
     );
     if (confirmed) {
-      this.userProxy.activateUser(id).subscribe({
+      this.userProxy.activateUser(id, subdomainId).subscribe({
         next: () => {
           const userToChange = this.userDataSource.value.find(
             (item) => item.id === id
@@ -94,12 +94,12 @@ export class UserService {
     }
   }
 
-  async deactivate(id: string) {
+  async deactivate(id: string, subdomainId: any) {
     const confirmed = await this.toasterService.showConfirm(
       'ConfirmButtonTexttochangestatus'
     );
     if (confirmed) {
-      this.userProxy.deactivateUser(id).subscribe({
+      this.userProxy.deactivateUser(id, subdomainId).subscribe({
         next: () => {
           this.toasterService.showSuccess(
             this.languageService.transalte('Company.Success'),
@@ -145,7 +145,7 @@ export class UserService {
     });
   }
 
-  inviteUser(model: CreateInvitedUser, dialogRef: DynamicDialogRef) {
+  inviteUser(model: CreateInvitedUser, licenseLabel: string, dialogRef: DynamicDialogRef) {
     this.loaderService.show();
     this.userProxy.inviteUser(model).subscribe({
       next: (res) => {
@@ -154,7 +154,7 @@ export class UserService {
           this.languageService.transalte('User.Inviteform.InviationSent')
         );
         this.loaderService.hide();
-
+        res.license = licenseLabel;
         dialogRef.close(res);
       },
       error: (err) => {
@@ -188,7 +188,7 @@ export class UserService {
         this.toasterService.showSuccess('Success', 'Success');
         let loginUrl = this.environmentService.erpLogin!;
         loginUrl = loginUrl.replace("*", subdomain);
-        this.routerService.navigateTo(loginUrl);
+        window.location.href = loginUrl;
       },
       error: () => {
         this.loaderService.hide();

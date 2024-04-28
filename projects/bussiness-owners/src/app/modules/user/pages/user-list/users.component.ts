@@ -59,12 +59,12 @@ export class UsersComponent implements OnInit {
 
 
   async activate(id: string) {
-    this.userService.activate(id);
+    this.userService.activate(id, this.subdmainId);
   }
 
 
   async deactivate(id: string) {
-    this.userService.deactivate(id);
+    this.userService.deactivate(id, this.subdmainId);
   }
 
 
