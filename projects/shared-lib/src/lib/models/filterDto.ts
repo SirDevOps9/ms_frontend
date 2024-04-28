@@ -24,7 +24,7 @@ export class FilterDto {
 
       for (let i = 0; i < this.conditions.length; i++) {
 
-        query += `Conditions[${i}].Column=${this.conditions[i].column}&Conditions[${i}].Value=${this.conditions[i].value}&Conditions[${i}].Operator=${this.conditions[i].operator}`;
+        query += `Filter.Conditions[${i}].Column=${this.conditions[i].column}&Filter.Conditions[${i}].Value=${this.conditions[i].value}&Filter.Conditions[${i}].Operator=${this.conditions[i].operator}`;
 
         query += i === this.conditions.length - 1 ? '' : '&';
       }

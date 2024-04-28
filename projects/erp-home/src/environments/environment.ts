@@ -2,7 +2,7 @@ import { IEnvironment } from 'shared-lib';
 
 export const environment: IEnvironment = {
   production: true,
-  baseUrl: 'https://intmicrotec.neat-url.com:2003',
+  baseUrl: 'http://localhost:2005',
   Version: 'V1',
   ClientId: 'Erp',
   Platform: 'Web',

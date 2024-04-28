@@ -30,7 +30,7 @@ export class CompaniesListComponent implements OnInit {
   ) { }
   
   convertToTreeNode(companies : any) {
-    let com = companies.map((company : any)=>{
+    let com = companies.result.map((company : any)=>{
       let item = {
         data : {
           id: company.id,
