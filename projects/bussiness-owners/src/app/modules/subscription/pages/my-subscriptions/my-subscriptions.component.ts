@@ -18,7 +18,7 @@ export class MySubscriptionsComponent implements OnInit {
   domainName:string="@microtec.Com.sa"
 
   ngOnInit() {
-    this.titleService.setTitle('My subscriptions');
+    this.titleService.setTitle('aaaaas');
     this.loadMySubdomains();
 
   }
@@ -50,7 +50,7 @@ export class MySubscriptionsComponent implements OnInit {
     this.subscriptionService.subdomains.subscribe((subdomains) => {
       this.subdomainList = subdomains;
       if(this.subdomainList.length > 0){
-        this.subdomain=true;
+        this.subdomain = true;
       }else{
         this.subdomain=false;
       }
