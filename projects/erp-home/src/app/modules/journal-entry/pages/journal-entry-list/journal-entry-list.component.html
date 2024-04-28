@@ -1,1 +1,143 @@
-<p>journal-entry-list works!</p>
+<lib-page-content>
+    <lib-bread-crumb></lib-bread-crumb>
+    <div class="user_page">
+      <lib-data-table
+     
+        [items]="userData"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        [tableConfigs]="{
+          allowPagination: true,
+          allowServerPagination: false,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'Id',
+              headerText: ('Id' ),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'JournalCode',
+              headerText: ('Journal Code'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'RefrenceNumber',
+              headerText: ('Reference'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'CreatedOn',
+              headerText: ('Date'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'Type',
+              headerText: ('Type'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'SourceName',
+              headerText: ('Document Name'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'SourceCode',
+              headerText: ('Document Code'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'IsRepeated',
+              headerText: ('Repeated'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'IsReversed',
+              headerText: ('Reversed'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'Status',
+              headerText: ('Status'),
+              template: userStatus
+            },
+            {
+              name: 'TotalDebitAmount ',
+              headerText: ('Debit'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'TotalCreditAmount ',
+              headerText: ('Credit'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'id',
+              headerText: ('Actions'),
+              template: userCol
+
+            },
+          ]
+        }">
+  
+        <ng-container caption>
+          <div class="flex align-items-center justify-content-end">
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                placeholder="Search..."
+              />
+            </span>
+            <lib-button
+              pRipple
+              className="add_new mr-2"
+              label="Add New"
+              icon="pi pi-plus"
+            
+            >
+            </lib-button>
+          </div>
+        </ng-container>
+        <ng-template #userCol let-user>
+            <div class="actions flex align-items-center ">
+                <lib-button
+                icon="pi pi-pencil"
+                [rounded]="true"
+                [enableText]="true"
+                severity="secondary"
+              >
+              </lib-button>
+                <lib-button
+                icon="pi pi-trash"
+                [rounded]="true"
+                [enableText]="true"
+                severity="secondary"
+              >
+              </lib-button>
+            </div>
+      
+            </ng-template>
+            <ng-template #userStatus let-user>
+                    <div>
+                        <p>{{user.Status}}</p>
+                    </div>
+            </ng-template>
+      </lib-data-table>
+
+    </div>
+  </lib-page-content>
+  
