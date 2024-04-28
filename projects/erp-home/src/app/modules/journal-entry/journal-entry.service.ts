@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { JournalEntryDto } from './models';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { LanguageService, LoaderService, PageInfo, PaginationVm, ToasterService } from 'shared-lib';
 import { JournalEntryProxy } from './journal-entry.proxy';
 
@@ -18,14 +18,9 @@ export class JournalEntryService {
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private loaderService: LoaderService,
-  ) {}
+  ) { }
 
   getAllJournalEntriesPaginated(pageInfo: PageInfo) {
-    this.journalEntryProxy.getAllPaginated(pageInfo).subscribe({
-      next: (res) => {
-        this.journalEntriesDataSource.next(res.result);
-        this.journalEntriesDataSource.next(res.result);
-      },
-    });
+    return this.journalEntryProxy.getAllPaginated(pageInfo).pipe(map(res => { return res }));
   }
 }

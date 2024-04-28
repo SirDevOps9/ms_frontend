@@ -15,7 +15,7 @@ export class JournalEntryListComponent  implements OnInit {
   journalEntries: JournalEntryDto[];
   @ViewChild('myTab') myTab: any | undefined;
   selectedEntries: JournalEntryDto[];
-  tableData: TreeNode<any>[] | any = [];
+  tableData: any ;
   cols: any[] = [];
   active: boolean = false;
   ref: DynamicDialogRef;
@@ -94,40 +94,16 @@ export class JournalEntryListComponent  implements OnInit {
     ];
   }
   initJournalEntryData() {
-    console.log("hhhhhhhhh");
-    console.log("pageinfo",this.currentPageInfo);
-    
-    this.journalEntryService.getAllJournalEntriesPaginated(this.currentPageInfo);
 
-    this.journalEntryService.journalEntries.subscribe({
-      next: (companyList) => {
-        this.tableData = this.convertToTreeNode(companyList);
+     this.journalEntryService.getAllJournalEntriesPaginated(this.currentPageInfo).subscribe({
+      next: (journalList : any) => {
+        this.tableData = journalList.result;
+        //this.tableData = this.convertToTreeNode(journalList);
         console.log('this.tableData', this.tableData);
 
       },
     });
   }
-  convertToTreeNode(journalEntries : any) {
-    let journals = journalEntries.map((journalEntry : any)=>{
-      let item = {
-        data : {
-          id: journalEntry.id,
-          journalCode:  journalEntry.journalCode,
-          refrenceNumber:  journalEntry.refrenceNumber,
-          createdOn:  journalEntry.createdOn,
-          countryName:  journalEntry.countryName,
-          type:  journalEntry.type,
-          sourceName:  journalEntry.sourceName,
-          sourceCode:  journalEntry.sourceCode,
-          isRepeated: journalEntry.isRepeated,
-          isReversed:  journalEntry.isReversed,
-          status:  journalEntry.status,
-          totalDebitAmount:  journalEntry.totalDebitAmount,
-          totalCreditAmount:  journalEntry.totalCreditAmount
-        }
-      }
-      return item
-    })
-   return journals
-  }
+ 
+   
 }
