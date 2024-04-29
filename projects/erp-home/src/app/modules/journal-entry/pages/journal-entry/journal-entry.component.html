@@ -32,7 +32,7 @@
     </div>
     <div class="entry_table">
         <div class="card">
-            <p-table [value]="books" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
+            <p-table [value]="books"  dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="width:25%">Code</th>
@@ -41,7 +41,7 @@
                         <th style="width:25%">Price</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-product let-editing="editing">
+                <ng-template pTemplate="body" let-product  let-editing="editing"> 
                     <tr>
                         <td [pEditableColumn]="product.author" pEditableColumnField="author">
                             <p-cellEditor>
@@ -77,6 +77,30 @@
                     </tr>
                 </ng-template>
             </p-table>
+        </div>
+        <div class="add_new">
+            <button class="btn Line" (click)="addLine()">
+                Add New Line
+            </button>
+            <button class="btn">
+                Add Template
+            </button>
+        </div>
+        <div class="paginator">
+<lib-paginator
+[totalRecords]="50"
+[first]="0"
+[rows]="10"
+></lib-paginator>
+        </div>
+        <div class="btn_group">
+            <button class="btn discard">
+                discard
+            </button>
+            <button class="btn save" (click)="save()">
+                Save
+            </button>
+            
         </div>
     </div>
 

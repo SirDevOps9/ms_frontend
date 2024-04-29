@@ -60,4 +60,11 @@ export class JournalEntryComponent {
       } 
   ]; 
   }
+  addLine(){
+    this.books.push({})
+  }
+  save(){
+    console.log(this.books);
+    
+  }
 }

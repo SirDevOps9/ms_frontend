@@ -12,7 +12,44 @@
         }
     }
     .entry_table{
+        .add_new{
+            padding: 20px;
+            .btn{
+                background: none;
+                border: none;
+                font-size: 16px;
+                color: #1A8EAE;
+                cursor: pointer;
+            }
+            .Line{
+                border-inline-end: 3px solid #DDE1E6ed;
+            }
+        }
+        .btn_group{
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            margin-inline-end: 20px;
+            .btn{
+                background: none;
+                border: none;
+                padding: 10px 50px;
+                border-radius: 12px;
+                cursor: pointer;
+                position: relative;
 
+            }
+            .save{
+                background: #1A8EAE;
+                color: #fff;
+                margin-inline-start: 20px;
+
+            }
+            .discard{
+                border: 1px solid #CB3F2D;
+                color: #CB3F2D;
+            }
+        }
     }
 
    
