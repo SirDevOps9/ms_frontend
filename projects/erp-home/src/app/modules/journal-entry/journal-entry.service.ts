@@ -23,4 +23,8 @@ export class JournalEntryService {
   getAllJournalEntriesPaginated(pageInfo: PageInfo) {
     return this.journalEntryProxy.getAllPaginated(pageInfo).pipe(map(res => { return res }));
   }
+
+  getAllJournalTemplatesPaginated(pageInfo: PageInfo) {
+    return this.journalEntryProxy.getAllJournalTemplate(pageInfo).pipe(map(res => { return res }));
+  }
 }

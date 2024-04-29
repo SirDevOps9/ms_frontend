@@ -6,6 +6,7 @@ import { JournalEntryComponent } from './pages/journal-entry/journal-entry.compo
 import { BreadcrumbLabel, LayoutComponent, SharedLibModule } from 'shared-lib';
 import { JournalEntryListComponent } from './pages/journal-entry-list/journal-entry-list.component';
 import { AuthGuard } from 'microtec-auth-lib';
+import { JournalTemplatePopupComponent } from './pages/components/journal-template-popup/journal-template-popup.component';
 
 
 const routes: Routes = [
@@ -36,7 +37,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     JournalEntryComponent,
-    JournalEntryListComponent
+    JournalEntryListComponent,
+    JournalTemplatePopupComponent
   ],
   imports: [
     CommonModule,

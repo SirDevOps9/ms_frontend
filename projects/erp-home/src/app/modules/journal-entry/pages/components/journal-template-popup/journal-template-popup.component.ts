@@ -1,0 +1,36 @@
+import { Component, OnInit } from '@angular/core';
+import { JournalEntryService } from '../../../journal-entry.service';
+import { PageInfo } from 'shared-lib';
+import { GetAllJournalTemplateDto } from '../../../models/journaltemplatedto';
+
+@Component({
+  selector: 'app-journal-template-popup',
+  templateUrl: './journal-template-popup.component.html',
+  styleUrls: ['./journal-template-popup.component.scss']
+})
+
+export class JournalTemplatePopupComponent implements OnInit {
+
+  currentPageInfo: PageInfo = new PageInfo();
+  tableData: GetAllJournalTemplateDto[];
+
+  ngOnInit() {
+    this.getAllJournalTemplate(this.currentPageInfo);
+  }
+
+  getAllJournalTemplate(page:PageInfo){
+    this.journalEntryService.getAllJournalTemplatesPaginated(page).subscribe({
+      next: (journalTemplateList: any) => {
+        this.tableData = journalTemplateList.result;
+      },
+    });
+  }
+
+  onPageChange(pageInfo: PageInfo) {
+    console.log(pageInfo);
+    this.getAllJournalTemplate(pageInfo)
+  }
+
+  constructor(private journalEntryService:JournalEntryService) { }
+
+}

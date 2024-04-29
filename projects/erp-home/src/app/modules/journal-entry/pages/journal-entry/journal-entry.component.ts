@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { JournalTemplatePopupComponent } from '../components/journal-template-popup/journal-template-popup.component';
 
 
 @Component({
@@ -9,7 +11,8 @@ import { Component, OnInit } from '@angular/core';
 export class JournalEntryComponent {
   products!: any[];
   books:any;
-  constructor() {}
+  ref: DynamicDialogRef;
+  constructor( private dialog: DialogService,) {}
 
   ngOnInit() {
     this.books = [ 
@@ -67,4 +70,10 @@ export class JournalEntryComponent {
     console.log(this.books);
     
   }
+  RedirectToTemplate() {
+    this.ref = this.dialog.open(JournalTemplatePopupComponent, {
+      width: '800px',
+      height: '700px'
+       });
+    }
 }

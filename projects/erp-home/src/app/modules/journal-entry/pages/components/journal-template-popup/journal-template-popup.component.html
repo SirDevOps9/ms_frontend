@@ -1,0 +1,51 @@
+<div class="user_page">
+<lib-data-table [items]="tableData" className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
+      (pageChange)="onPageChange($event)"
+       [tableConfigs]="{
+        
+          allowPagination: true,
+          allowServerPagination: false,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'code',
+              headerText: ('code' ),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'PeriodName',
+              headerText: ('Period Name'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'Type',
+              headerText: ('Type'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'totalDebitAmountLocal',
+              headerText: ('Total Debit Amount'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'totalCreditAmountLocal',
+              headerText: ('Total Credit Amount'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'sourceName',
+              headerText: ('Document Name'),
+              isGlobalFilter: true,
+              isSortable: true
+            }
+          ]
+        }">
+ </lib-data-table>
+
+</div>
