@@ -82,7 +82,7 @@ export class AttachmentsService {
         console.log("attachmentResp",apiResponse);
         
         if (apiResponse) {
-          const source = `${fileTypeMetaData.fileBase64Padding},${apiResponse.fileContent}`;
+          const source = `${apiResponse.base64Padding},${apiResponse.fileContent}`;
 
           const link = document.createElement('a');
 

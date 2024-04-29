@@ -3,4 +3,5 @@ export class AttachmentDto {
   fileName?: string;
   fileType?: number;
   fileContent?: string;
+  base64Padding?: string;
 }
