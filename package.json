@@ -13,7 +13,7 @@
     "build:erp": "ng build --project erp-home",
     "build:accounting": "ng build --project apps-accounting",
     "start:bussiness-owners": "ng serve --project bussiness-owners --port 4301",
-    "start:bussiness-owners-stage": "ng serve --host localhost.com  --project bussiness-owners --port 4301 --configuration stage",
+    "start:bussiness-owners-stage": "ng serve --project bussiness-owners --port 4301 --configuration stage",
     "start:erp": "ng serve --project erp-home --port 4302",
     "start:adminportal": "ng serve --project adminportal --port 4303",
     "start:accounting": "ng serve --project apps-accounting --port 4304",
