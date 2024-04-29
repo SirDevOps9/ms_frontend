@@ -7,8 +7,8 @@ import {
 
 export function fileValidator(
   uploadedFile: FileDto,
-  uploadFileConfig: UploadFileConfigDto
-) {
+  uploadFileConfig: UploadFileConfigDto)
+{
   const fileTypeInfo = getFileType(uploadFileConfig.type!);
   console.log(uploadedFile);
 
@@ -51,12 +51,12 @@ export function getFileType(
         'image/peg',
         'image/jpg',
       ];
-      fileTypeInfo.fileBase64Padding = 'data:image/jpg;base64';
+      // fileTypeInfo.fileBase64Padding = 'data:image/jpg;base64';
       break;
     case AttachmentFileTypeEnum.pdf:
       fileTypeInfo.fileExtension = '.pdf';
       fileTypeInfo.allowedExtensions = ['pdf'];
-      fileTypeInfo.fileBase64Padding = 'data:application/pdf;base64';
+      // fileTypeInfo.fileBase64Padding = 'data:application/pdf;base64';
       break;
   }
   return fileTypeInfo;

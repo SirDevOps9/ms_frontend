@@ -129,7 +129,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
       .getAttachment(this.value)
       .subscribe((response: AttachmentDto) => {
         if (response?.fileContent) {
-          const source = `data:image/jpg;base64,${response.fileContent}`;
+          const source = `${response.base64Padding},${response.fileContent}`;
           this.base64 = source;
         }
       });
