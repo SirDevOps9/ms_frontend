@@ -11,14 +11,22 @@ import { AuthGuard } from 'microtec-auth-lib';
 const routes: Routes = [
   {
     path: '',
-    component: LayoutComponent,
+    component: LayoutPageComponent,
     children: [
       {
         path: 'journalentry',
         component: JournalEntryListComponent,
+        //canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.JOURNAL_LIST,
+        },
+      },
+      {
+        path: 'journalentry/add',
+        component: JournalEntryComponent,
        // canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.COMPANY_LIST,
+          breadcrumb: BreadcrumbLabel.JOURNAL_ADD,
         },
       }
     ],

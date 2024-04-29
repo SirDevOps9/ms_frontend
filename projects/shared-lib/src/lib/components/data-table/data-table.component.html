@@ -12,10 +12,13 @@
         [tableStyle]="{ 'min-width': '75rem' }"
         [rowsPerPageOptions]="[10, 20, 50, 100]"
         [rowHover]="true"
+        [styleClass]="className"
         [dataKey]="tableConfigs.dataKey"
         [showCurrentPageReport]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         class="flex flex-column"
+        [resizableColumns]="true"
+         columnResizeMode="expand"
       >
         <ng-template pTemplate="caption">
           <ng-content select="[caption]"> </ng-content>

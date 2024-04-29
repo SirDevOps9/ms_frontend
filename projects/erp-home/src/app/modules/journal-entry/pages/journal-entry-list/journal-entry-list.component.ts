@@ -1,39 +1,37 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { LanguageService, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { LanguageService, PageInfo, RouterService } from 'shared-lib';
 import { JournalEntryService } from '../../journal-entry.service';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { JournalEntryDto } from '../../models';
-import { TreeNode } from 'primeng/api';
+import { JournalEntryDto, SharedJournalEnums } from '../../models';
 
 @Component({
   selector: 'app-journal-entry-list',
   templateUrl: './journal-entry-list.component.html',
   styleUrl: './journal-entry-list.component.scss'
 })
-export class JournalEntryListComponent  implements OnInit {
+export class JournalEntryListComponent implements OnInit {
   journalEntries: JournalEntryDto[];
   @ViewChild('myTab') myTab: any | undefined;
   selectedEntries: JournalEntryDto[];
-  tableData: JournalEntryDto[] ;
+  tableData: JournalEntryDto[];
   cols: any[] = [];
   active: boolean = false;
-  ref: DynamicDialogRef;
   currentPageInfo: PageInfo = new PageInfo();
+
 
   constructor(
     private routerService: RouterService,
     private titleService: Title,
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
-    private dialog: DialogService
+    public sharedJouralEnum: SharedJournalEnums
   ) { }
 
   ngOnInit() {
     this.titleService.setTitle(
       this.languageService.transalte('JournalEntry.JournalEntryList')
     );
-    this.initJournalEntryData();
+    this.initJournalEntryData(this.currentPageInfo);
     this.cols = [
       {
         field: 'Id',
@@ -92,23 +90,27 @@ export class JournalEntryListComponent  implements OnInit {
         header: 'Actions',
       },
     ];
-  }
-  initJournalEntryData() {
 
-     this.journalEntryService.getAllJournalEntriesPaginated(this.currentPageInfo).subscribe({
-      next: (journalList : any) => {
+  }
+  initJournalEntryData(page:PageInfo) {
+
+    this.journalEntryService.getAllJournalEntriesPaginated(page).subscribe({
+      next: (journalList: any) => {
         this.tableData = journalList.result;
-        
+
         //this.tableData = this.convertToTreeNode(journalList);
         console.log('this.tableData', this.tableData);
 
       },
     });
   }
-  onPageChange(event : any){
-    console.log('');
-    
+  onPageChange(pageInfo: PageInfo) {
+    console.log(pageInfo);
+    this.initJournalEntryData(pageInfo)
   }
- 
-   
+  routeToAdd(){
+    this.routerService.navigateTo(`/journalentry/add`);
+  }
+
+
 }

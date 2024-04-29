@@ -1,6 +1,6 @@
 .Layout{
    position: relative;
-     padding-top: 62px;
+     padding-top: 35px;
      display: flex;
      align-items: start;
      justify-content: space-between;
@@ -125,7 +125,7 @@
      
      background: #FDFEFE;
     // background: linear-gradient(345deg, rgba(255,255,255,1) 0%, rgba(234,237,238,1) 0%);
-     width: calc(100% - 85px) !important;
+     width: calc(100% - 50px) !important;
      // margin-left: auto;
      margin-inline-start: auto;
      min-height: calc(100vh - 85px);

@@ -8,9 +8,9 @@ import { AuthHttpService, AuthService } from 'microtec-auth-lib';
 })
 export class AppComponent implements OnInit {
   ngOnInit(): void {
-    // this.authHttp
-    //   .loadSideMenu()
-    //   .subscribe((res) => this.currentUserservice.saveSideMenu(res));
+    this.authHttp
+      .loadSideMenu()
+      .subscribe((res) => this.currentUserservice.saveSideMenu(res));
   }
 
   title = 'erp-home';

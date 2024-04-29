@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { AuthService } from 'microtec-auth-lib';
 import { TreeNode } from 'primeng/api';
+import { SideMenuModel } from 'shared-lib';
 
 @Component({
   selector: 'app-layout-sidebar',
@@ -11,6 +13,9 @@ export class LayoutSidebarComponent {
   sidebarVisible: boolean = true;
   sidebarOpen: boolean = false;
   nodes!: TreeNode[];
+  sideMeun:SideMenuModel[];
+  treeData: TreeNode[] = [];
+  
   ngOnInit(): void {
     this.nodes = [
       {
@@ -287,6 +292,10 @@ export class LayoutSidebarComponent {
         ],
       },
     ];
+   this.sideMeun= this.authService.getSideMenu()
+   this.treeData = this.mapToTreeNodes(this.sideMeun);
+    console.log( this.treeData ," this.treeData");
+ 
   }
   toggleSidebar() {
     if (this.sidebarOpen == true) {
@@ -299,5 +308,38 @@ export class LayoutSidebarComponent {
 
     }
   }
+  mapToTreeNodes(data: SideMenuModel[]): TreeNode[] {
+    // Create a map of items by key
+    const map: { [key: string]: TreeNode } = {};
+    data.forEach(item => {
+      // Create a TreeNode for each item
+      map[item.key.toString()] = {
+        key: item.key.toString(),
+        label: item.labelEn, // Assuming you want to display the English label
+        icon: "pi pi-bell",
+        type:"url",
+        data: item.data,
+        children: []
+      };
+    });
+
+    // Construct the tree structure
+    const tree: TreeNode[] = [];
+    data.forEach(item => {
+      if (item.parentId != null) {
+        // Add the item as a child of its parent
+        map[item.parentId]?.children?.push(map[item.key]);
+      } else {
+        // If no parent, it is a root node
+        tree.push(map[item.key]);
+      }
+    });
+
+    return tree;
+  }
+  constructor(
+    public authService: AuthService,
+
+  ){}
 
 }
