@@ -68,11 +68,11 @@ export class UserProxy {
   resendInvitation(id: string): Observable<boolean> {
     return this.baseService.post<boolean>(`InvitedUser/ResendEmail/${id}`, {});
   }
-  activateUser(id: string): Observable<boolean> {
-    return this.baseService.put<boolean>(`User/ActivateUser/${id}`, {});
+  activateUser(id: string, subdomainId: any): Observable<boolean> {
+    return this.baseService.put<boolean>(`User/ActivateUser/${id}`, {subdomainId});
   }
-  deactivateUser(id: string): Observable<boolean> {
-    return this.baseService.put<boolean>(`User/DeactivateUser/${id}`, {});
+  deactivateUser(id: string, subdomainId: any): Observable<boolean> {
+    return this.baseService.put<boolean>(`User/DeactivateUser/${id}`, {subdomainId});
   }
 
   getUserById(id: string, subdomainId: number): Observable<GetUserbyid> {

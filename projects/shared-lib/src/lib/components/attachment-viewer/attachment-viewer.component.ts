@@ -26,7 +26,7 @@ export class AttachmentViewerComponent implements OnInit, OnChanges {
       .getAttachment(this.attachmentId)
       .subscribe((response: AttachmentDto) => {
         if (response?.fileContent) {
-          const source = `data:image/jpg;base64,${response.fileContent}`;
+          const source = `${response.base64Padding},${response.fileContent}`;
           this.imageData = source;
         }
       });
