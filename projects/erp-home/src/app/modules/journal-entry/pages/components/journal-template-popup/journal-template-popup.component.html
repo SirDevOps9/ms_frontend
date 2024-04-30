@@ -31,7 +31,7 @@
               headerText: ('Total Debit Amount'),
               isGlobalFilter: true,
               isSortable: true
-            },` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` ` `                                     `````````` };`,                                           ```````````````````````````````````````````````````
+            },
             {
               name: 'totalCreditAmountLocal',
               headerText: ('Total Credit Amount'),
@@ -39,13 +39,20 @@
               isSortable: true
             },
             {
-              name: 'sourceName',
-              headerText: ('Document Name'),
-              isGlobalFilter: true,
-              isSortable: true
-            }
+              name: 'id',
+              headerText: ('Actions'),
+              template: selectedTemplate
+
+            },
           ]
         }">
+        <ng-template #selectedTemplate let-journal>
+          <div class="actions flex align-items-center ">
+            <lib-button className="edit"  icon="pi pi-pencil" [rounded]="true" [enableText]="true" severity="secondary"  (onClick)="RoutToAddJournal(journal.id)">
+            </lib-button>
+          </div>
+  
+        </ng-template>
  </lib-data-table>
 
 </div>

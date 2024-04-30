@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { PageInfo } from 'shared-lib';
 import { GetAllJournalTemplateDto } from '../../../models/journaltemplatedto';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-journal-template-popup',
@@ -10,7 +11,6 @@ import { GetAllJournalTemplateDto } from '../../../models/journaltemplatedto';
 })
 
 export class JournalTemplatePopupComponent implements OnInit {
-
   currentPageInfo: PageInfo = new PageInfo();
   tableData: GetAllJournalTemplateDto[];
 
@@ -31,6 +31,11 @@ export class JournalTemplatePopupComponent implements OnInit {
     this.getAllJournalTemplate(pageInfo)
   }
 
-  constructor(private journalEntryService:JournalEntryService) { }
+  RoutToAddJournal(id: any) {
+    this.ref.close(id);
+    }
+  constructor(
+    private journalEntryService:JournalEntryService,
+    private ref: DynamicDialogRef) { }
 
 }

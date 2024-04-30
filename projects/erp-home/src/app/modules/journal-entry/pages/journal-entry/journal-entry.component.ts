@@ -75,5 +75,9 @@ export class JournalEntryComponent {
       width: '800px',
       height: '700px'
        });
+
+       this.ref.onClose.subscribe((id: any) => {
+        console.log('Received ID:', id);
+      });
     }
 }
