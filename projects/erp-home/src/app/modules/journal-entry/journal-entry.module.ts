@@ -7,6 +7,7 @@ import { JournalEntryListComponent } from './pages/journal-entry-list/journal-en
 import { AuthGuard } from 'microtec-auth-lib';
 import { CreateJournalEntryComponent } from './pages/create-journal-entry/create-journal-entry.component';
 import { AccountsComponent } from './components/accounts/accounts.component';
+import { JournalTemplatePopupComponent } from './pages/components/journal-template-popup/journal-template-popup.component';
 
 
 const routes: Routes = [
@@ -38,7 +39,8 @@ const routes: Routes = [
   declarations: [
     CreateJournalEntryComponent,
     JournalEntryListComponent,
-    AccountsComponent
+    AccountsComponent,
+    JournalTemplatePopupComponent
   ],
   imports: [
     CommonModule,
