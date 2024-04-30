@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { JournalEntryDto } from './models';
+import { EditJournalEntry, JournalEntryDto } from './models';
 import { BehaviorSubject, catchError, map } from 'rxjs';
 import { LanguageService, LoaderService, PageInfo, PaginationVm, ToasterService } from 'shared-lib';
 import { JournalEntryProxy } from './journal-entry.proxy';
@@ -33,6 +33,23 @@ export class JournalEntryService {
         throw err!;
       })
     );
+  }
+
+  editJournalEntry(request:EditJournalEntry) {
+    this.loaderService.show();
+    this.journalEntryProxy.Edit(request).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('Success'),
+          this.languageService.transalte('Company.Branch.BranchUpdatedSuccessfully')
+        );
+        this.loaderService.hide();
+
+      },
+      error: () => {
+        this.loaderService.hide();
+      },
+    });
   }
 
 }

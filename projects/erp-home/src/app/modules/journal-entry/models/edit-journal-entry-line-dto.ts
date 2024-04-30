@@ -4,6 +4,7 @@ export class EditJournalEntryLine {
     lineDescription?: string;
     debitAmount: number;
     creditAmount: number;
-    currencyRate: number;
+    currency: number;
     currencyId: number;
+    currencyRate:number
   }

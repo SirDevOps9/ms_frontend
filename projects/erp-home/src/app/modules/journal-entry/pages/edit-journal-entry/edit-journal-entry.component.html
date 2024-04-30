@@ -1,107 +1,83 @@
-<app-accounts></app-accounts>
-
 <div class="journal_entry_add_page">
   <lib-bread-crumb></lib-bread-crumb>
   <form [formGroup]="editJournalForm" (ngSubmit)="onSubmit()">
     <div class="entry_header">
-      <p class="title test">Please Enter Journal Entry Header</p>
       <div class="grid">
         <div class="col-12 md:col-3">
           <lib-label [appControl]="editJournalForm.controls['journalCode']">
             Journal Code
           </lib-label>
-          <lib-text-input
-            formControlName="journalCode"
-            placeholder="Journal Code"
-            [readOnly]="true"
-          ></lib-text-input>
+          <div class="view">
+            {{ journalEntry?.journalCode }}
+          </div>
         </div>
         <div class="col-12 md:col-3">
           <lib-label [appControl]="editJournalForm.controls['status']">
             Journal Status
           </lib-label>
-          <lib-text-input
-            formControlName="status"
-            placeholder="Journal Status"
-            [readOnly]="true"
-          ></lib-text-input>
+          <div class="view">
+            {{ journalEntry?.status }}
+          </div>
         </div>
         <div class="col-12 md:col-3">
           <lib-label [appControl]="editJournalForm.controls['referenceNumber']">
             Journal Reference
           </lib-label>
-          <lib-text-input
-            formControlName="referenceNumber"
-            placeholder="Journal Reference"
-          ></lib-text-input>
+          <lib-text-input formControlName="referenceNumber"></lib-text-input>
         </div>
         <div class="col-12 md:col-3">
-          <lib-label [appControl]="editJournalForm.controls['createdOn']">
+          <lib-label [appControl]="editJournalForm.controls['journalDate']">
             Date
           </lib-label>
-          <lib-text-input
-            formControlName="createdOn"
-            placeholder="Date"
-          ></lib-text-input>
+          <lib-text-input formControlName="journalDate"></lib-text-input>
         </div>
         <div class="col-12 md:col-3">
           <lib-label [appControl]="editJournalForm.controls['journalPeriod']">
             Journal Period
           </lib-label>
-          <lib-text-input
-            formControlName="journalPeriod"
-            placeholder="Journal Period"
-            [readOnly]="true"
-          ></lib-text-input>
+          <div class="view">
+            {{ journalEntry?.journalPeriod }}
+          </div>
         </div>
         <div class="col-12 md:col-3">
           <lib-label [appControl]="editJournalForm.controls['type']">
             Journal Type
           </lib-label>
-          <lib-text-input
-            formControlName="type"
-            placeholder="Journal Type"
-            [readOnly]="true"
-          ></lib-text-input>
+          <div class="view">
+            {{ journalEntry?.type }}
+          </div>
         </div>
         <div class="col-12 md:col-3">
           <lib-label [appControl]="editJournalForm.controls['sourceName']">
             Source Document Name
           </lib-label>
-          <lib-text-input
-            formControlName="sourceName"
-            placeholder="Source Document Name"
-            [readOnly]="true"
-          ></lib-text-input>
+          <div class="view">
+            {{ journalEntry?.sourceName }}
+          </div>
         </div>
         <div class="col-12 md:col-3">
           <lib-label [appControl]="editJournalForm.controls['sourceCode']">
             Source Document Code
           </lib-label>
-          <lib-text-input
-            formControlName="sourceCode"
-            placeholder="Source Document Code"
-            [readOnly]="true"
-          ></lib-text-input>
+          <div class="view">
+            {{ journalEntry?.sourceCode }}
+          </div>
         </div>
-        <div class="col-12 md:col-3">
-          <lib-label [appControl]="editJournalForm.controls['reversedJournalCode']">
+        <!-- <div class="col-12 md:col-3">
+          <lib-label
+            [appControl]="editJournalForm.controls['reversedJournalCode']"
+          >
             Reversed Journal
           </lib-label>
-          <lib-text-input
-            formControlName="reversedJournalCode"
-            placeholder="Reversed Journal"
-            [readOnly]="true"
-          ></lib-text-input>
-        </div>
+          <div class="view">
+            {{ journalEntry?.reversedJournalCode }}
+          </div>
+        </div> -->
         <div class="col-12 md:col-3">
           <lib-label [appControl]="editJournalForm.controls['description']">
             Journal Description
           </lib-label>
-          <lib-text-input
-            formControlName="description"
-            placeholder="Journal Description"
-          ></lib-text-input>
+          <lib-text-input formControlName="description"></lib-text-input>
         </div>
       </div>
     </div>
@@ -109,7 +85,7 @@
     <div class="entry_table">
       <div class="card">
         <p-table
-          [value]="journalEntryLines.controls"
+          [value]="journalEntryLinesFormArray.controls"
           dataKey="id"
           styleClass="p-datatable-gridlines p-datatable-striped"
           [tableStyle]="{ 'min-width': '50rem' }"
@@ -123,49 +99,62 @@
               <th style="width: 10%">Db Amount</th>
               <th style="width: 10%">CR Amount</th>
               <th style="width: 10%">Currency</th>
+              <th style="width: 10%">CurrencyId</th>
+
               <th style="width: 10%">Rate</th>
               <th style="width: 10%">DB Amount Local</th>
               <th style="width: 10%">CR Amount Local</th>
             </tr>
           </ng-template>
-        <ng-template pTemplate="body" let-journalLine let-i="index">
-          <tr [formGroup]="journalLine">
-            <td>
-              <lib-label [appControl]="journalLine.get('id')"></lib-label>
-              {{journalLine.get('id').value}}
-            </td>
-            <td>
-              <lib-text-input formControlName="accountCode"></lib-text-input>
-            </td>
-            <td>
-              <lib-text-input formControlName="accountName"></lib-text-input>
-            </td>
-            <td>
-              <lib-text-input formControlName="lineDescription"></lib-text-input>
-            </td>
-            <td>
-              <lib-text-input formControlName="debitAmount"></lib-text-input>
-            </td>
-            <td>
-              <lib-text-input formControlName="creditAmount"></lib-text-input>
-            </td>
-            <td>
-              <lib-text-input formControlName="currency" [readOnly]="true"></lib-text-input>
-            </td>
-            <td>
-              <lib-text-input formControlName="currencyRate"></lib-text-input>
-            </td>
-            <td>
-              <lib-text-input formControlName="debitAmountLocal" [readOnly]="true"></lib-text-input>
-            </td>
-            <td>
-              <lib-text-input formControlName="creditAmountLocal" [readOnly]="true"></lib-text-input>
-            </td>
-          </tr>
-        </ng-template>
-
-
-
+          <ng-template pTemplate="body" let-journalLine let-i="index">
+            <tr [formGroup]="journalLine">
+              <td>
+                <lib-label [appControl]="journalLine.get('id')"></lib-label>
+                {{ journalLine.get("id").value }}
+              </td>
+              <td>
+                <lib-text-input formControlName="accountId"></lib-text-input>
+              </td>
+              <td>
+                <lib-text-input formControlName="accountName"></lib-text-input>
+              </td>
+              <td>
+                <lib-text-input
+                  formControlName="lineDescription"
+                ></lib-text-input>
+              </td>
+              <td>
+                <lib-text-input formControlName="debitAmount"></lib-text-input>
+              </td>
+              <td>
+                <lib-text-input formControlName="creditAmount"></lib-text-input>
+              </td>
+              <td>
+                <lib-label
+                  [appControl]="journalLine.get('currency')"
+                ></lib-label>
+                {{ journalLine.get("currency").value }}
+              </td>
+              <td>
+                <lib-text-input formControlName="currencyId"></lib-text-input>
+              </td>
+              <td>
+                <lib-text-input formControlName="currencyRate"></lib-text-input>
+              </td>
+              <td>
+                <lib-label
+                  [appControl]="journalLine.get('debitAmountLocal')"
+                ></lib-label>
+                {{ journalLine.get("debitAmountLocal").value }}
+              </td>
+              <td>
+                <lib-label
+                  [appControl]="journalLine.get('creditAmountLocal')"
+                ></lib-label>
+                {{ journalLine.get("creditAmountLocal").value }}
+              </td>
+            </tr>
+          </ng-template>
         </p-table>
       </div>
       <div class="paginator">
@@ -176,8 +165,10 @@
         ></lib-paginator>
       </div>
       <div class="btn_group">
-        <button class="btn discard">Discard</button>
-        <button class="btn save" (click)="save()">Save</button>
+        <button class="btn discard" type="button" (click)="onDiscard()">
+          Discard
+        </button>
+        <button class="btn save" type="submit">Save</button>
       </div>
     </div>
   </form>

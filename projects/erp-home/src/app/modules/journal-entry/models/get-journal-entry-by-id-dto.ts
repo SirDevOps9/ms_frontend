@@ -8,16 +8,16 @@ export interface GetJournalEntryByIdDto {
     referenceNumber?: string;
     journalPeriod?: string;
     description?: string;
-    createdOn: Date;
+    journalDate: Date;
     type: JournalEntryType;
     sourceName: string;
     sourceCode: string;
-    isRepeated: boolean;
-    isReversed: boolean;
-    reversedJournalCode?: string;
+   // reversedJournalCode?: string;
     status: JournalEntryStatus;
     totalDebitAmount: number;
     totalCreditAmount: number;
+    currencyRate:number
+
     journalEntryLines?: JournalEntryLineDto[];
   }
   

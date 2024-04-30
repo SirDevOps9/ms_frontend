@@ -1,13 +1,17 @@
 export interface JournalEntryLineDto {
     id: number;
-    accountCode?: string;
+    accountId: number;
+
+    //accountCode?: string;
     accountName?: string;
     lineDescription?: string;
     debitAmount: number;
     creditAmount: number;
-    currencyRate: number;
+    currencyId: number;
     debitAmountLocal: number;
     creditAmountLocal: number;
     currency?: string;
+    currencyRate:number
+
   }
   

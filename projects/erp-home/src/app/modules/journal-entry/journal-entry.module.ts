@@ -32,7 +32,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'journalentry/edit',
+        path: 'journalentry/edit/:id',
         component: EditJournalEntryComponent,
        // canActivate: [AuthGuard],
         data: {

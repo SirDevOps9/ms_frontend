@@ -52,6 +52,35 @@
         }
     }
 
-   
+
+
+
+   .view{
+    font-size: 1rem;
+    color: #000000;
+    // background: #ffffff;
+    padding:15px;
+    min-height: 40px;
+    // border-radius: 6px;
+    // border: 1px solid #d1d5db;
+    font-weight: bold;
+  }
+
+//   ::ng-deep lib-text-input input {
+//     border: none;
+//     color: black;
+//     font-weight: bold;
+//   }
+
+//   ::ng-deep  lib-label  {
+//     border: none;
+//     color: #6B7280;
+//     font-weight: 600;
+//     font-size: 14px;
+//   }
+
+
 }
+
+
 
