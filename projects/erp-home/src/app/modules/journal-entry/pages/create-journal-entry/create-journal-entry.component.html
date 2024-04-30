@@ -1,3 +1,4 @@
+<app-accounts></app-accounts>
 <div class="journal_entry_add_page">
     <lib-bread-crumb></lib-bread-crumb>
     <div class="entry_header">
@@ -26,8 +27,6 @@
                 <lib-text-input placeholder="reference Number"></lib-text-input>
             </div>
             <!-- "projects/erp-home/src/styles.css", -->
-
-
         </div>
     </div>
     <div class="entry_table">
@@ -43,7 +42,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-product  let-editing="editing"> 
                     <tr>
-                        <td [pEditableColumn]="product.author" pEditableColumnField="author">
+                        <td [pEditableColumn]="product.author" >
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
                                     <input pInputText type="text" [(ngModel)]="product.author" />

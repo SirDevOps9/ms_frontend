@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutPageComponent } from '../layout/layout-page/layout-page.component';
-import { JournalEntryComponent } from './pages/journal-entry/journal-entry.component';
 import { BreadcrumbLabel, LayoutComponent, SharedLibModule } from 'shared-lib';
 import { JournalEntryListComponent } from './pages/journal-entry-list/journal-entry-list.component';
 import { AuthGuard } from 'microtec-auth-lib';
-import { JournalTemplatePopupComponent } from './pages/components/journal-template-popup/journal-template-popup.component';
+import { CreateJournalEntryComponent } from './pages/create-journal-entry/create-journal-entry.component';
+import { AccountsComponent } from './components/accounts/accounts.component';
 
 
 const routes: Routes = [
@@ -24,7 +24,7 @@ const routes: Routes = [
       },
       {
         path: 'journalentry/add',
-        component: JournalEntryComponent,
+        component: CreateJournalEntryComponent,
        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.JOURNAL_ADD,
@@ -36,9 +36,9 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    JournalEntryComponent,
+    CreateJournalEntryComponent,
     JournalEntryListComponent,
-    JournalTemplatePopupComponent
+    AccountsComponent
   ],
   imports: [
     CommonModule,

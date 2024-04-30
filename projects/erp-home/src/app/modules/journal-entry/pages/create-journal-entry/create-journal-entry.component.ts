@@ -5,10 +5,10 @@ import { JournalTemplatePopupComponent } from '../components/journal-template-po
 
 @Component({
   selector: 'app-journal-entry',
-  templateUrl: './journal-entry.component.html',
-  styleUrl: './journal-entry.component.scss'
+  templateUrl: './create-journal-entry.component.html',
+  styleUrl: './create-journal-entry.component.scss'
 })
-export class JournalEntryComponent {
+export class CreateJournalEntryComponent {
   products!: any[];
   books:any;
   ref: DynamicDialogRef;
