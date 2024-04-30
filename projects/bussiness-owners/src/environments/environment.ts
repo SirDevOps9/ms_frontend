@@ -7,7 +7,7 @@ export const environment: IEnvironment = {
   ClientId: 'BussinessOwner',
   Platform: 'Web',
   photoBaseUrl: 'https://intmicrotec.neat-url.com:2002',
-  erpLogin: "http://*.microtecdev.com/erp/login",  
+  erpLogin: "https://*.microtecdev.com:2050/erp/login",  
   openIdConfig: {
     authority: 'https://intmicrotec.neat-url.com:2010',
     redirectUrl: window.location.origin + '/bussinessowners/login-redirect',
