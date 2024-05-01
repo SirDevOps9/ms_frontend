@@ -11,6 +11,8 @@ export class BreadcrumbLabel {
     static CART = 'Cart List';
     static DOMAIN = 'Domain Details';
     static Manage_Apps='Manage Apps';
+    static JOURNAL_LIST='journal Entry List';
+    static JOURNAL_ADD='journal Entry Add';
  
 
   }

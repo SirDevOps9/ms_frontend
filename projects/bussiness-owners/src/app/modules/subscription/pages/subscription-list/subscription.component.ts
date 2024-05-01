@@ -18,7 +18,9 @@ export class SubscriptionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle('Subscriptions');
+    console.log("title");
+    
+    this.titleService.setTitle('dsdsfs ');
   }
 
   navigateToManageCompany(planId: number) {

@@ -22,12 +22,14 @@ export class DataTableComponent implements OnInit {
   @Input() currentPageResult: PageInfoResult;
 
   @Input() tableConfigs: TableConfig;
+  @Input() className:string='';
 
   @Input() rowTemplate: TemplateRef<any>;
 
   @Output() pageChange = new EventEmitter<PageInfo>();
 
   sortingFields: string[];
+
 
   globalFilterFields: string[];
 

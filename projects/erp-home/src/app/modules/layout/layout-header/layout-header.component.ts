@@ -1,6 +1,6 @@
+import { MenuModule } from './../../../../../../shared-lib/src/lib/models/menuModule';
 import { Component } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
-import { TreeNode } from 'primeng/api';
 import { AppStoreService } from 'projects/bussiness-owners/src/app/modules/app-store/app-store.service';
 import { UserData } from 'projects/bussiness-owners/src/app/modules/user/models';
 import { Observable } from 'rxjs';
@@ -17,10 +17,14 @@ export class LayoutHeaderComponent {
   showcard: boolean = false;
   sidebarOpen: boolean = false;
   modulesOpen: boolean = false;
-  // cartItemsCount$: Observable<number>;
+  moduleList:MenuModule[];
+  cartItemsCount$: Observable<number>;
 
   ngOnInit() {
-    this.authService.getModules()
+   this.moduleList = this.authService.getModules()
+    console.log( this.moduleList ," this.moduleList");
+    
+    
 
   }
   togelModules(){
@@ -31,6 +35,7 @@ export class LayoutHeaderComponent {
   toggleLanguage(): void {
   }
   logout(): void {
+    this.authService.logout();
   }
 
   toggleSidebar() {
@@ -43,7 +48,11 @@ export class LayoutHeaderComponent {
 
 
   getProfilePic() {
-   
+    return this.userData?.userType == '4'
+      ? this.env.photoBaseUrl +
+          '/api/Users/GetProfilePic?userId=' +
+          this.userData.sub
+      : 'assets/images/users/pic.jpg';
   }
 
   cardDrob() {
@@ -64,9 +73,11 @@ export class LayoutHeaderComponent {
     private routerService: RouterService,
 
   ) {
-    // this.userName = this.authService.getUserName;
-    // this.userData = this.authService.getUserData()?.userData;
-    // this.languageService.setLang();
-    // this.cartItemsCount$ = cartService.cartItemsCount$;
+    this.userName = this.authService.getUserName;
+    this.userData = this.authService.getUserData()?.userData;
+    this.languageService.setLang();
+    this.cartItemsCount$ = cartService.cartItemsCount$;
+    console.log(this.authService.getUserData()?.userData);
+    
   }
 }

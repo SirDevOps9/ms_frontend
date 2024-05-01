@@ -12,7 +12,7 @@ export class PageInfo {
   pageSize: number;
 
   get toQuery(): string {
-    let query = `PageInfo.Offset=${this.offset}&PageInfo.PageSize=${this.pageSize}`;
+    let query = `Filter.PageInfo.Offset=${this.offset}&Filter.PageInfo.PageSize=${this.pageSize}`;
     return query;
   }
 }
