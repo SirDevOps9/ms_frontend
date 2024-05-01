@@ -66,19 +66,30 @@
     font-weight: bold;
   }
 
-//   ::ng-deep lib-text-input input {
-//     border: none;
-//     color: black;
-//     font-weight: bold;
-//   }
 
-//   ::ng-deep  lib-label  {
-//     border: none;
-//     color: #6B7280;
-//     font-weight: 600;
-//     font-size: 14px;
-//   }
 
+  ::ng-deep {
+    .entry_header{
+         lib-text-input input {
+            border: none;
+            color: black;
+            font-weight: bold;
+          }
+        
+           lib-label  {
+            border: none;
+            color: #6B7280;
+            font-weight: 600;
+            font-size: 14px;
+          }
+    }
+    .entry_table{
+        lib-text-input input {
+            border: none;
+
+          }
+    }
+  }
 
 }
 

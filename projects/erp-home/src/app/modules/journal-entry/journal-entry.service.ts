@@ -41,7 +41,7 @@ export class JournalEntryService {
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Success'),
-          this.languageService.transalte('Company.Branch.BranchUpdatedSuccessfully')
+          this.languageService.transalte('JournalEntry.JournalUpdatedSuccessfully')
         );
         this.loaderService.hide();
 

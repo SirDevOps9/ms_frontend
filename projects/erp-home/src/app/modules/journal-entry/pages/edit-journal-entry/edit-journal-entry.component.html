@@ -26,10 +26,16 @@
           <lib-text-input formControlName="referenceNumber"></lib-text-input>
         </div>
         <div class="col-12 md:col-3">
-          <lib-label [appControl]="editJournalForm.controls['journalDate']">
-            Date
-          </lib-label>
-          <lib-text-input formControlName="journalDate"></lib-text-input>
+          <lib-form-group>
+            <lib-label [appControl]="editJournalForm.controls['journalDate']">
+              Date
+            </lib-label>
+            <lib-text-input formControlName="journalDate"></lib-text-input>
+            <lib-field-validations
+              [appControl]="editJournalForm.controls['journalDate']"
+            >
+            </lib-field-validations>
+          </lib-form-group>
         </div>
         <div class="col-12 md:col-3">
           <lib-label [appControl]="editJournalForm.controls['journalPeriod']">
@@ -63,7 +69,7 @@
             {{ journalEntry?.sourceCode }}
           </div>
         </div>
-        <!-- <div class="col-12 md:col-3">
+        <div class="col-12 md:col-3">
           <lib-label
             [appControl]="editJournalForm.controls['reversedJournalCode']"
           >
@@ -72,7 +78,7 @@
           <div class="view">
             {{ journalEntry?.reversedJournalCode }}
           </div>
-        </div> -->
+        </div>
         <div class="col-12 md:col-3">
           <lib-label [appControl]="editJournalForm.controls['description']">
             Journal Description
@@ -99,8 +105,6 @@
               <th style="width: 10%">Db Amount</th>
               <th style="width: 10%">CR Amount</th>
               <th style="width: 10%">Currency</th>
-              <th style="width: 10%">CurrencyId</th>
-
               <th style="width: 10%">Rate</th>
               <th style="width: 10%">DB Amount Local</th>
               <th style="width: 10%">CR Amount Local</th>
@@ -109,14 +113,13 @@
           <ng-template pTemplate="body" let-journalLine let-i="index">
             <tr [formGroup]="journalLine">
               <td>
-                <lib-label [appControl]="journalLine.get('id')"></lib-label>
                 {{ journalLine.get("id").value }}
               </td>
               <td>
-                <lib-text-input formControlName="accountId"></lib-text-input>
+                <lib-text-input formControlName="accountCode"></lib-text-input>
               </td>
               <td>
-                <lib-text-input formControlName="accountName"></lib-text-input>
+                {{ journalLine.get("accountName").value }}
               </td>
               <td>
                 <lib-text-input
@@ -124,33 +127,45 @@
                 ></lib-text-input>
               </td>
               <td>
-                <lib-text-input formControlName="debitAmount"></lib-text-input>
+                <lib-form-group>
+                  <lib-text-input
+                    formControlName="debitAmount"
+                  ></lib-text-input>
+                  <lib-field-validations
+                    [appControl]="journalLine.get('debitAmount')"
+                  >
+                  </lib-field-validations>
+                </lib-form-group>
               </td>
               <td>
-                <lib-text-input formControlName="creditAmount"></lib-text-input>
+                <lib-form-group>
+                  <lib-text-input
+                    formControlName="creditAmount"
+                  ></lib-text-input>
+                  <lib-field-validations
+                    [appControl]="journalLine.get('creditAmount')"
+                  >
+                  </lib-field-validations>
+                </lib-form-group>
               </td>
               <td>
-                <lib-label
-                  [appControl]="journalLine.get('currency')"
-                ></lib-label>
                 {{ journalLine.get("currency").value }}
               </td>
               <td>
-                <lib-text-input formControlName="currencyId"></lib-text-input>
+                <lib-form-group>
+                  <lib-text-input
+                    formControlName="currencyRate"
+                  ></lib-text-input>
+                  <lib-field-validations
+                    [appControl]="journalLine.get('currencyRate')"
+                  >
+                  </lib-field-validations>
+                </lib-form-group>
               </td>
               <td>
-                <lib-text-input formControlName="currencyRate"></lib-text-input>
-              </td>
-              <td>
-                <lib-label
-                  [appControl]="journalLine.get('debitAmountLocal')"
-                ></lib-label>
                 {{ journalLine.get("debitAmountLocal").value }}
               </td>
               <td>
-                <lib-label
-                  [appControl]="journalLine.get('creditAmountLocal')"
-                ></lib-label>
                 {{ journalLine.get("creditAmountLocal").value }}
               </td>
             </tr>

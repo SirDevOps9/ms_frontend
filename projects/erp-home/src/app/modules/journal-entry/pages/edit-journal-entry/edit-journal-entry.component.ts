@@ -6,7 +6,7 @@ import {
   JournalEntryLineDto,
 } from '../../models';
 import { JournalEntryService } from '../../journal-entry.service';
-import { FormsService, RouterService } from 'shared-lib';
+import { FormsService, RouterService, customValidators } from 'shared-lib';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -19,6 +19,8 @@ export class EditJournalEntryComponent implements OnInit {
   editJournalForm: FormGroup;
   journalEntry?: GetJournalEntryByIdDto;
   journalEntryLines?: JournalEntryLineDto[];
+  accountIdList: number[] = [];
+  currencyIdList: number[] = [];
 
   ngOnInit() {
     this.initializeForm();
@@ -29,28 +31,40 @@ export class EditJournalEntryComponent implements OnInit {
     this.editJournalForm = this.fb.group({
       journalCode: new FormControl(),
       referenceNumber: new FormControl(),
-      journalDate: new FormControl(),
+      journalDate: new FormControl('',[
+        customValidators.required,
+        customValidators.notOnlyWhitespaceValidator,
+      ]),
       description: new FormControl(),
       journalPeriod: new FormControl(),
       type: new FormControl(),
       sourceName: new FormControl(),
       sourceCode: new FormControl(),
-     // reversedJournalCode: new FormControl(),
+      reversedJournalCode: new FormControl(),
       status: new FormControl(),
       totalDebitAmount: new FormControl(),
       totalCreditAmount: new FormControl(),
       journalEntryLines: this.fb.array([
         this.fb.group({
           id: new FormControl(),
-          accountId: new FormControl(),
+          accountCode: new FormControl(),
           accountName: new FormControl(),
           lineDescription: new FormControl(),
-          debitAmount: new FormControl(),
-          creditAmount: new FormControl(),
-          currencyId: new FormControl(),
-
+          debitAmount: new FormControl('',[
+            customValidators.notOnlyWhitespaceValidator,
+            customValidators.required,
+          ]),
+          creditAmount: new FormControl([
+            '',
+            customValidators.notOnlyWhitespaceValidator,
+            customValidators.required,
+          ]),
           currency: new FormControl(),
-          currencyRate: new FormControl(),
+          currencyRate: new FormControl([
+            '',
+            customValidators.notOnlyWhitespaceValidator,
+            customValidators.required,
+          ]),
           debitAmountLocal: new FormControl(),
           creditAmountLocal: new FormControl(),
         }),
@@ -62,50 +76,38 @@ export class EditJournalEntryComponent implements OnInit {
     this.journalEntryService
       .getJournalEntryById(this.journalEntryId)
       .subscribe((res) => {
-        
         this.editJournalForm.patchValue({
           ...res,
         });
 
-        console.log('form value', this.editJournalForm.value);
         this.journalEntry = res;
         this.journalEntryLines = res.journalEntryLines!;
 
-        const journalEntryLinesArray = this.editJournalForm.get(
-          'journalEntryLines'
-        ) as FormArray;
+        const journalEntryLinesArray = this.journalEntryLinesFormArray;
         journalEntryLinesArray.clear();
 
         this.journalEntryLines.forEach((line) => {
-          journalEntryLinesArray.push(this.fb.group(line));
+          const { accountId, currencyId, ...lineData } = line;
+          journalEntryLinesArray.push(this.fb.group(lineData));
+
+          this.accountIdList.push(accountId);
+          this.currencyIdList.push(currencyId);
         });
       });
   }
 
   onSubmit() {
     if (!this.formsService.validForm(this.editJournalForm, true)) return;
-     const request: EditJournalEntry = this.editJournalForm.value;
-     request.id = this.journalEntryId;
 
-
-    // const request: EditJournalEntry = {
-    //   id: this.editJournalForm.get('id')?.value,
-    //   referenceNumber: this.editJournalForm.get('referenceNumber')?.value,
-    //   journalDate: this.editJournalForm.get('journalDate')?.value,
-    //   description: this.editJournalForm.get('description')?.value,
-    //   journalEntryLines: this.editJournalForm.get('journalEntryLines')?.value
-    // };
-
-
-    // const journalEntryLinesArray = this.editJournalForm.get(
-    //   'journalEntryLines'
-    // ) as FormArray;
-    // const lineIds = journalEntryLinesArray.value.map((line: any) => line.id);
-    // request.journalEntryLines?.forEach(
-    //   (line: EditJournalEntryLine, index: number) => {
-    //     line.id = lineIds[index];
-    //   }
-    // );
+    const request: EditJournalEntry = this.editJournalForm.value;
+    request.id = this.journalEntryId;
+    request.journalEntryLines = this.journalEntryLinesFormArray?.value.map(
+      (line: any, index: number) => ({
+        ...line,
+        accountId: this.accountIdList[index],
+        currencyId: this.currencyIdList[index],
+      })
+    );
 
     this.journalEntryService.editJournalEntry(request);
   }
@@ -115,10 +117,9 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   onDiscard() {
-    this.editJournalForm.reset();
-   // this.initializeForm();
-    this.initializeFormData();
-
+    //this.editJournalForm.reset();
+    //this.initializeFormData();
+    window.location.reload();
   }
 
   get journalEntryLinesFormArray() {
