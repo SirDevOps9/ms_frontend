@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {  Component, OnInit } from '@angular/core';
 import {
   EditJournalEntry,
   GetJournalEntryByIdDto,
@@ -73,53 +73,54 @@ export class EditJournalEntryComponent implements OnInit {
         this.editJournalForm.patchValue({
           ...res,
         });
-
-        console.log('callin init 1', this.editJournalForm.value);
-
-        if (res.status === JournalEntryStatus.Posted || res.status === JournalEntryStatus.submited) {
-        if (res.status === this.enums.JournalEntryStatus.Posted) {
-          this.viewMode = true;
+  
+        console.log('calling init 1', this.editJournalForm.value);
+  
+        if (res.status === this.enums.JournalEntryStatus.Posted || res.status === this.enums.JournalEntryStatus.submited) {
+          if (res.status === this.enums.JournalEntryStatus.Posted) {
+            this.viewMode = true;
+          }
+          this.statusName = this.enums.JournalEntryStatus[res.status];
+          this.journalTypeName = this.enums.JournalEntryType[res.type];
+  
+          this.journalEntry = res;
+          this.journalEntryLines = res.journalEntryLines!;
+          console.log(this.journalEntryLines);
+          const journalEntryLinesArray = this.journalEntryLinesFormArray;
+  
+          journalEntryLinesArray.clear();
+  
+          this.journalEntryLines.forEach((line) => {
+            const { currencyId, ...lineData } = line;
+  
+            journalEntryLinesArray.push(
+              this.fb.group({
+                id: new FormControl(lineData.id),
+                //accountCode: new FormControl(),
+                accountId: new FormControl(lineData.accountId),
+                accountName: new FormControl(lineData.accountName),
+                lineDescription: new FormControl(lineData.lineDescription),
+                debitAmount: new FormControl(lineData.debitAmount, [
+                  customValidators.required,
+                ]),
+                creditAmount: new FormControl(lineData.creditAmount, [
+                  customValidators.required,
+                ]),
+                currency: new FormControl(lineData.currency),
+                currencyRate: new FormControl(lineData.currencyRate, [
+                  customValidators.required,
+                ]),
+                debitAmountLocal: new FormControl(lineData.debitAmountLocal),
+                creditAmountLocal: new FormControl(lineData.creditAmountLocal),
+              })
+            );
+  
+            this.currencyIdList.push(currencyId);
+          });
         }
-        this.statusName = this.enums.JournalEntryStatus[res.status];
-        this.journalTypeName = this.enums.JournalEntryType[res.type];
-
-        this.journalEntry = res;
-        this.journalEntryLines = res.journalEntryLines!;
-console.log(this.journalEntryLines);
-        const journalEntryLinesArray = this.journalEntryLinesFormArray;
-
-        journalEntryLinesArray.clear();
-
-        this.journalEntryLines.forEach((line) => {
-          const { currencyId, ...lineData } = line;
-
-          journalEntryLinesArray.push(
-            this.fb.group({
-              id: new FormControl(lineData.id),
-              //accountCode: new FormControl(),
-              accountId: new FormControl(lineData.accountId),
-              accountName: new FormControl(lineData.accountName),
-              lineDescription: new FormControl(lineData.lineDescription),
-              debitAmount: new FormControl(lineData.debitAmount, [
-                customValidators.required,
-              ]),
-              creditAmount: new FormControl(lineData.creditAmount, [
-                customValidators.required,
-              ]),
-              currency: new FormControl(lineData.currency),
-              currencyRate: new FormControl(lineData.currencyRate, [
-                customValidators.required,
-              ]),
-              debitAmountLocal: new FormControl(lineData.debitAmountLocal),
-              creditAmountLocal: new FormControl(lineData.creditAmountLocal),
-            })
-          );
-
-          this.currencyIdList.push(currencyId);
-        });
       });
   }
-
+  
 
   onSubmit() {
     if (!this.formsService.validForm(this.editJournalForm, true)) return;
@@ -209,9 +210,23 @@ deleteJournalEntryLine(id:number){
  console.log(id);
 }
   addNewRow() {
-    console.log(this.journalEntryLinesFormArray.controls);
-    }
-  }
+    this.journalEntryLinesFormArray.push(
+      this.fb.group({
+        id: new FormControl(),
+        //accountCode: new FormControl(),
+        accountId: new FormControl(),
+        accountName: new FormControl(),
+        lineDescription: new FormControl(),
+        debitAmount: new FormControl(),
+        creditAmount: new FormControl(),
+        currency: new FormControl(),
+        currencyRate: new FormControl(),
+        debitAmountLocal: new FormControl(),
+        creditAmountLocal: new FormControl(),
+      })
+    );
+}
+  
 
   getAccounts(){
     this.accountService

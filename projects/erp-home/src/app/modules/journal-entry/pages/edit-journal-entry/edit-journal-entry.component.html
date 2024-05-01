@@ -108,9 +108,14 @@
         >
           <ng-template pTemplate="header">
             <tr>
-
-              <th style="width: 5%" *ngIf="journalEntry?.status == sharedJouralEnum.JournalEntryStatus.DraftUnbalanced ||
-                                            journalEntry?.status == sharedJouralEnum.JournalEntryStatus.Draftbalanced"></th>
+              <th
+                style="width: 5%"
+                *ngIf="
+                  journalEntry?.status ==
+                    enums.JournalEntryStatus.DraftUnbalanced ||
+                  journalEntry?.status == enums.JournalEntryStatus.Draftbalanced
+                "
+              ></th>
               <th style="width: 10%">Id</th>
               <th style="width: 15%">Account Code</th>
               <th style="width: 15%">Account Name</th>
@@ -125,9 +130,19 @@
           </ng-template>
           <ng-template pTemplate="body" let-journalLine let-rowIndex="rowIndex">
             <tr [formGroup]="journalLine">
-              <td *ngIf="journalEntry?.status == sharedJouralEnum.JournalEntryStatus.DraftUnbalanced ||
-                         journalEntry?.status == sharedJouralEnum.JournalEntryStatus.Draftbalanced">
-                <button (click)="deleteJournalEntryLine(journalLine.get('id').value)">Delete</button>
+              <td
+                *ngIf="
+                  journalEntry?.status ==
+                    enums.JournalEntryStatus.DraftUnbalanced ||
+                  journalEntry?.status == enums.JournalEntryStatus.Draftbalanced
+                "
+              >
+                <button
+                  type="button"
+                  (click)="deleteJournalEntryLine(journalLine.get('id').value)"
+                >
+                  Delete
+                </button>
               </td>
               <td>
                 {{ journalLine.get("id").value }}
@@ -171,6 +186,7 @@
               <td>
                 <lib-form-group>
                   <lib-text-input
+                    type="number"
                     (keyUp)="ValueChanges($event, rowIndex)"
                     formControlName="debitAmount"
                     [readOnly]="viewMode"
@@ -184,6 +200,7 @@
               <td>
                 <lib-form-group>
                   <lib-text-input
+                    type="number"
                     (keyUp)="ValueChanges($event, rowIndex)"
                     formControlName="creditAmount"
                     [readOnly]="viewMode"
@@ -195,11 +212,23 @@
                 </lib-form-group>
               </td>
               <td>
-                {{ journalLine.get("currency").value }}
+                <lib-form-group>
+                  <!-- Set readOnly to true if it's an already exited record -->
+                  <lib-text-input
+                    formControlName="currency"
+                    [readOnly]="journalLine.get('id').value"
+                  ></lib-text-input>
+                  <lib-field-validations
+                    [appControl]="journalLine?.get('currency')"
+                  >
+                  </lib-field-validations>
+                </lib-form-group>
+                <!-- {{ journalLine.get("currency").value }} -->
               </td>
               <td>
                 <lib-form-group>
                   <lib-text-input
+                    type="number"
                     (keyUp)="ValueChanges($event, rowIndex)"
                     formControlName="currencyRate"
                     [readOnly]="viewMode"
@@ -219,7 +248,10 @@
             </tr>
           </ng-template>
         </p-table>
-        <button (click)="addNewRow()">Add New Row</button>
+
+        <button class="add_new_btn" type="button" (click)="addNewRow()">
+          Add New Row
+        </button>
       </div>
       <div class="paginator">
         <lib-paginator
@@ -232,18 +264,38 @@
         <button class="btn discard" type="button" (click)="onDiscard()">
           Discard
         </button>
-        <div *ngIf="journalEntry?.status != sharedJouralEnum.JournalEntryStatus.submited &&
-                    journalEntry?.status != sharedJouralEnum.JournalEntryStatus.Posted">
+        <div
+          *ngIf="
+            journalEntry?.status != enums.JournalEntryStatus.submited &&
+            journalEntry?.status != enums.JournalEntryStatus.Posted
+          "
+        >
           <button class="btn save" type="submit">Save</button>
         </div>
-       
-        <div *ngIf="journalEntry?.status == sharedJouralEnum.JournalEntryStatus.DraftUnbalanced ||
-                   journalEntry?.status == sharedJouralEnum.JournalEntryStatus.Draftbalanced">
-          <button class="btn btn save" type="button" (click)="ChangeStatus(sharedJouralEnum.JournalEntryStatus.submited)">Submit</button>
+
+        <div
+          *ngIf="
+            journalEntry?.status == enums.JournalEntryStatus.DraftUnbalanced ||
+            journalEntry?.status == enums.JournalEntryStatus.Draftbalanced
+          "
+        >
+          <button
+            class="btn btn save"
+            type="button"
+            (click)="ChangeStatus(enums.JournalEntryStatus.submited)"
+          >
+            Submit
+          </button>
         </div>
 
-        <div *ngIf="journalEntry?.status == sharedJouralEnum.JournalEntryStatus.submited">
-          <button class="btn btn save" type="button" (click)="ChangeStatus(sharedJouralEnum.JournalEntryStatus.Posted)">Post</button>
+        <div *ngIf="journalEntry?.status == enums.JournalEntryStatus.submited">
+          <button
+            class="btn btn save"
+            type="button"
+            (click)="ChangeStatus(enums.JournalEntryStatus.Posted)"
+          >
+            Post
+          </button>
         </div>
       </div>
     </div>

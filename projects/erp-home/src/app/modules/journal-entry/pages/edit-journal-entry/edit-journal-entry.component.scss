@@ -27,8 +27,9 @@
     .btn_group {
       display: flex;
       align-items: center;
-      justify-content: end;
       margin-inline-end: 20px;
+      justify-content: end;
+
       .btn {
         background: none;
         border: none;
@@ -41,13 +42,22 @@
         background: #1a8eae;
         color: #fff;
         margin-inline-start: 20px;
+        justify-content: end;
+
       }
+
       .discard {
         border: 1px solid #cb3f2d;
         color: #cb3f2d;
+        justify-content: end;
+
       }
     }
+
+
   }
+
+
 
   .view {
     font-size: 1rem;
@@ -58,6 +68,18 @@
     // border-radius: 6px;
     // border: 1px solid #d1d5db;
     font-weight: bold;
+  }
+  .add_new_btn{
+    margin-top: 20px;
+    margin-inline-end: 20px;
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    background: #1a8eae;
+    color: #fff;
   }
 
   ::ng-deep {
