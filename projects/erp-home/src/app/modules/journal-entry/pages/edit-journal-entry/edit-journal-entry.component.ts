@@ -26,6 +26,7 @@ import { AccountsComponent } from '../../components/accounts/accounts.component'
   providers: [RouterService],
 })
 export class EditJournalEntryComponent implements OnInit {
+
   editJournalForm: FormGroup;
   journalEntry?: GetJournalEntryByIdDto;
   journalEntryLines?: JournalEntryLineDto[];
@@ -67,7 +68,7 @@ export class EditJournalEntryComponent implements OnInit {
 
   initializeFormData() {
     this.journalEntryService
-      .getJournalEntryById(this.journalEntryId)
+      .getJournalEntryById(this.routerService.currentId)
       .subscribe((res) => {
         this.editJournalForm.patchValue({
           ...res,
@@ -75,6 +76,7 @@ export class EditJournalEntryComponent implements OnInit {
 
         console.log('callin init 1', this.editJournalForm.value);
 
+        if (res.status === JournalEntryStatus.Posted || res.status === JournalEntryStatus.submited) {
         if (res.status === this.enums.JournalEntryStatus.Posted) {
           this.viewMode = true;
         }
@@ -83,7 +85,7 @@ export class EditJournalEntryComponent implements OnInit {
 
         this.journalEntry = res;
         this.journalEntryLines = res.journalEntryLines!;
-
+console.log(this.journalEntryLines);
         const journalEntryLinesArray = this.journalEntryLinesFormArray;
 
         journalEntryLinesArray.clear();
@@ -123,8 +125,7 @@ export class EditJournalEntryComponent implements OnInit {
     if (!this.formsService.validForm(this.editJournalForm, true)) return;
 
     const request: EditJournalEntry = this.editJournalForm.value;
-    request.id = this.journalEntryId;
-
+    request.id = this.routerService.currentId;
     request.journalEntryLines = this.journalEntryLinesFormArray?.value.map(
       (line: any, index: number) => ({
         ...line,
@@ -135,11 +136,8 @@ export class EditJournalEntryComponent implements OnInit {
     this.journalEntryService.editJournalEntry(request);
   }
 
-  get journalEntryId(): number {
-    return this.routerService.currentId;
-  }
-
-  updateStatus(status: number) {
+  ChangeStatus(status:number)
+  {
     let journalStatus = new JournalStatusUpdate();
     journalStatus.id = this.routerService.currentId;
     journalStatus.status = status;
@@ -206,6 +204,13 @@ export class EditJournalEntryComponent implements OnInit {
         creditAmountLocalControl?.setValue(creditAmountLocal);
       }
     });
+  }
+deleteJournalEntryLine(id:number){
+ console.log(id);
+}
+  addNewRow() {
+    console.log(this.journalEntryLinesFormArray.controls);
+    }
   }
 
   getAccounts(){
