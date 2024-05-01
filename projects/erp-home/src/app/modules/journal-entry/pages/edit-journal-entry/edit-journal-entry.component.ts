@@ -5,6 +5,7 @@ import {
   GetJournalEntryByIdDto,
   JournalEntryLineDto,
   JournalEntryStatus,
+  JournalEntryType,
 } from '../../models';
 import { JournalEntryService } from '../../journal-entry.service';
 import { FormsService, RouterService, customValidators } from 'shared-lib';
@@ -23,6 +24,9 @@ export class EditJournalEntryComponent implements OnInit {
   journalEntryLines?: JournalEntryLineDto[];
   accountIdList: number[] = [];
   currencyIdList: number[] = [];
+  viewMode: boolean = false;
+  statusName: string;
+  journalTypeName: string;
 
   ngOnInit() {
     this.initializeForm();
@@ -33,7 +37,7 @@ export class EditJournalEntryComponent implements OnInit {
     this.editJournalForm = this.fb.group({
       journalCode: new FormControl(),
       referenceNumber: new FormControl(),
-      journalDate: new FormControl('',[
+      journalDate: new FormControl('', [
         customValidators.required,
         customValidators.notOnlyWhitespaceValidator,
       ]),
@@ -49,24 +53,15 @@ export class EditJournalEntryComponent implements OnInit {
       journalEntryLines: this.fb.array([
         this.fb.group({
           id: new FormControl(),
-          accountCode: new FormControl(),
+          //accountCode: new FormControl(),
+          accountId: new FormControl(),
+
           accountName: new FormControl(),
           lineDescription: new FormControl(),
-          debitAmount: new FormControl('',[
-            customValidators.notOnlyWhitespaceValidator,
-            customValidators.required,
-          ]),
-          creditAmount: new FormControl([
-            '',
-            customValidators.notOnlyWhitespaceValidator,
-            customValidators.required,
-          ]),
+          debitAmount: new FormControl('', [customValidators.required]),
+          creditAmount: new FormControl('', [customValidators.required]),
           currency: new FormControl(),
-          currencyRate: new FormControl([
-            '',
-            customValidators.notOnlyWhitespaceValidator,
-            customValidators.required,
-          ]),
+          currencyRate: new FormControl('', [customValidators.required]),
           debitAmountLocal: new FormControl(),
           creditAmountLocal: new FormControl(),
         }),
@@ -82,6 +77,12 @@ export class EditJournalEntryComponent implements OnInit {
           ...res,
         });
 
+        if (res.status === JournalEntryStatus.Posted) {
+          this.viewMode = true;
+        }
+        this.statusName = JournalEntryStatus[res.status];
+        this.journalTypeName = JournalEntryType[res.type];
+
         this.journalEntry = res;
         this.journalEntryLines = res.journalEntryLines!;
 
@@ -89,10 +90,9 @@ export class EditJournalEntryComponent implements OnInit {
         journalEntryLinesArray.clear();
 
         this.journalEntryLines.forEach((line) => {
-          const { accountId, currencyId, ...lineData } = line;
+          const { currencyId, ...lineData } = line;
           journalEntryLinesArray.push(this.fb.group(lineData));
 
-          this.accountIdList.push(accountId);
           this.currencyIdList.push(currencyId);
         });
       });
@@ -106,7 +106,7 @@ export class EditJournalEntryComponent implements OnInit {
     request.journalEntryLines = this.journalEntryLinesFormArray?.value.map(
       (line: any, index: number) => ({
         ...line,
-        accountId: this.accountIdList[index],
+        //accountId: this.accountIdList[index],
         currencyId: this.currencyIdList[index],
       })
     );
