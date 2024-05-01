@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { HttpService } from './base.httpservice';
 import {
   AttachmentDto,
@@ -13,6 +13,8 @@ import { ToasterService } from './toaster.service';
 import { customValidators } from '../custom-validators/validation.service';
 import { getFileType } from '../custom-validators/attachmentValidators';
 import { EnvironmentService } from './environment.service';
+import { ValidationErrors } from '@angular/forms';
+import { UploadFileResult } from '../models/uploadFileResult';
 
 @Injectable({
   providedIn: 'root',
@@ -65,6 +67,50 @@ export class AttachmentsService {
     };
   }
 
+  validateFile(files: FileDto[], uploadFileConfig: UploadFileConfigDto) : ValidationErrors | null  {
+    const [file] = files;
+
+    const validationErrors = customValidators.file(file, uploadFileConfig);
+
+    return validationErrors;
+  }
+
+  async uploadValidatedFile(files: FileDto[]): Promise<Observable<UploadFileResult>> {
+    const reader = new FileReader();
+    const [file] = files;
+    reader.readAsDataURL(file);
+
+    const p = new Promise<AttachmentDto>((res, rej) => {
+      reader.onload = () => {
+        let fileInfo: AttachmentDto = {
+          fileContent: reader.result as string,
+          fileName: file.name,
+        };
+        res(fileInfo);
+      };
+    })
+    let fileInfo: AttachmentDto = await p;
+    return this.httpService
+      .postFullUrl(
+        `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/UploadBase64Attachment`,
+        fileInfo
+      )
+      .pipe(
+        map((response: string) => {
+          if (!response) {
+            this.toasterService.showError(
+              this.languageService.transalte('Shared.Error'),
+              this.languageService.transalte('Shared.valdation.invalidForm')
+            );
+          }
+          return {
+            attachmentId : response,
+            name: file.name
+          }
+        })
+      );
+  }
+
   downloadAttachment(
     fileId: string,
     label: string,
@@ -75,12 +121,12 @@ export class AttachmentsService {
     this.httpService
       .getFullUrl(
         `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
-          fileId
+        fileId
       )
       .subscribe((apiResponse: AttachmentDto) => {
 
-        console.log("attachmentResp",apiResponse);
-        
+        console.log("attachmentResp", apiResponse);
+
         if (apiResponse) {
           const source = `${apiResponse.base64Padding},${apiResponse.fileContent}`;
 
@@ -103,7 +149,7 @@ export class AttachmentsService {
   getAttachment(fileId: string): Observable<any> {
     return this.httpService.getFullUrl(
       `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
-        fileId
+      fileId
     );
   }
 
@@ -112,5 +158,5 @@ export class AttachmentsService {
     private languageService: LanguageService,
     private toasterService: ToasterService,
     private enviormentService: EnvironmentService
-  ) {}
+  ) { }
 }
