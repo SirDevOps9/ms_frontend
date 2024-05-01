@@ -1,97 +1,84 @@
-
 //@import "../../../../assets/styling/scss/variables/font-family";
-.journal_entry_add_page{
-    .entry_header{
-        background: #F7F8F8;
-        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-        padding: 20px;
-        margin-bottom: 20px;
-        .title{
-            font-size: 18px;
-           // font-family: $cairo_regular;
-        }
+.journal_entry_add_page {
+  .entry_header {
+    background: #f7f8f8;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding: 20px;
+    margin-bottom: 20px;
+    .title {
+      font-size: 18px;
+      // font-family: $cairo_regular;
     }
-    .entry_table{
-        .add_new{
-            padding: 20px;
-            .btn{
-                background: none;
-                border: none;
-                font-size: 16px;
-                color: #1A8EAE;
-                cursor: pointer;
-            }
-            .Line{
-                border-inline-end: 3px solid #DDE1E6ed;
-            }
-        }
-        .btn_group{
-            display: flex;
-            align-items: center;
-            justify-content: end;
-            margin-inline-end: 20px;
-            .btn{
-                background: none;
-                border: none;
-                padding: 10px 50px;
-                border-radius: 12px;
-                cursor: pointer;
-                position: relative;
-
-            }
-            .save{
-                background: #1A8EAE;
-                color: #fff;
-                margin-inline-start: 20px;
-
-            }
-            .discard{
-                border: 1px solid #CB3F2D;
-                color: #CB3F2D;
-            }
-        }
+  }
+  .entry_table {
+    .add_new {
+      padding: 20px;
+      .btn {
+        background: none;
+        border: none;
+        font-size: 16px;
+        color: #1a8eae;
+        cursor: pointer;
+      }
+      .Line {
+        border-inline-end: 3px solid #dde1e6ed;
+      }
     }
+    .btn_group {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      margin-inline-end: 20px;
+      .btn {
+        background: none;
+        border: none;
+        padding: 10px 50px;
+        border-radius: 12px;
+        cursor: pointer;
+        position: relative;
+      }
+      .save {
+        background: #1a8eae;
+        color: #fff;
+        margin-inline-start: 20px;
+      }
+      .discard {
+        border: 1px solid #cb3f2d;
+        color: #cb3f2d;
+      }
+    }
+  }
 
-
-
-
-   .view{
+  .view {
     font-size: 1rem;
     color: #000000;
     // background: #ffffff;
-    padding:15px;
+    padding: 15px;
     min-height: 40px;
     // border-radius: 6px;
     // border: 1px solid #d1d5db;
     font-weight: bold;
   }
 
-
-
   ::ng-deep {
-    .entry_header{
-         lib-text-input input {
-            border: none;
-            color: black;
-            font-weight: bold;
-          }
-        
-           lib-label  {
-            border: none;
-            color: #6B7280;
-            font-weight: 600;
-            font-size: 14px;
-          }
-    }
-    .entry_table{
-        lib-text-input input {
-            border: none;
+    .entry_header {
+      lib-text-input input {
+        border: none;
+        color: black;
+        font-weight: bold;
+      }
 
-          }
+      lib-label {
+        border: none;
+        color: #6b7280;
+        font-weight: 600;
+        font-size: 14px;
+      }
+    }
+    .entry_table {
+      lib-text-input input {
+        border: none;
+      }
     }
   }
-
 }
-
-
-

@@ -16,21 +16,27 @@
             Journal Status
           </lib-label>
           <div class="view">
-            {{ journalEntry?.status }}
+            {{ statusName }}
           </div>
         </div>
         <div class="col-12 md:col-3">
           <lib-label [appControl]="editJournalForm.controls['referenceNumber']">
             Journal Reference
           </lib-label>
-          <lib-text-input formControlName="referenceNumber"></lib-text-input>
+          <lib-text-input
+            formControlName="referenceNumber"
+            [readOnly]="viewMode"
+          ></lib-text-input>
         </div>
         <div class="col-12 md:col-3">
           <lib-form-group>
             <lib-label [appControl]="editJournalForm.controls['journalDate']">
               Date
             </lib-label>
-            <lib-text-input formControlName="journalDate"></lib-text-input>
+            <lib-text-input
+              formControlName="journalDate"
+              [readOnly]="viewMode"
+            ></lib-text-input>
             <lib-field-validations
               [appControl]="editJournalForm.controls['journalDate']"
             >
@@ -50,7 +56,7 @@
             Journal Type
           </lib-label>
           <div class="view">
-            {{ journalEntry?.type }}
+            {{ journalTypeName }}
           </div>
         </div>
         <div class="col-12 md:col-3">
@@ -83,7 +89,10 @@
           <lib-label [appControl]="editJournalForm.controls['description']">
             Journal Description
           </lib-label>
-          <lib-text-input formControlName="description"></lib-text-input>
+          <lib-text-input
+            formControlName="description"
+            [readOnly]="viewMode"
+          ></lib-text-input>
         </div>
       </div>
     </div>
@@ -110,13 +119,16 @@
               <th style="width: 10%">CR Amount Local</th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-journalLine let-i="index">
+          <ng-template pTemplate="body" let-journalLine let-rowIndex="rowIndex">
             <tr [formGroup]="journalLine">
               <td>
                 {{ journalLine.get("id").value }}
               </td>
               <td>
-                <lib-text-input formControlName="accountCode"></lib-text-input>
+                <lib-text-input
+                  formControlName="accountId"
+                  [readOnly]="viewMode"
+                ></lib-text-input>
               </td>
               <td>
                 {{ journalLine.get("accountName").value }}
@@ -124,15 +136,17 @@
               <td>
                 <lib-text-input
                   formControlName="lineDescription"
+                  [readOnly]="viewMode"
                 ></lib-text-input>
               </td>
               <td>
                 <lib-form-group>
                   <lib-text-input
                     formControlName="debitAmount"
+                    [readOnly]="viewMode"
                   ></lib-text-input>
                   <lib-field-validations
-                    [appControl]="journalLine.get('debitAmount')"
+                    [appControl]="journalLine?.get('debitAmount')"
                   >
                   </lib-field-validations>
                 </lib-form-group>
@@ -141,9 +155,10 @@
                 <lib-form-group>
                   <lib-text-input
                     formControlName="creditAmount"
+                    [readOnly]="viewMode"
                   ></lib-text-input>
                   <lib-field-validations
-                    [appControl]="journalLine.get('creditAmount')"
+                    [appControl]="journalLine?.get('creditAmount')"
                   >
                   </lib-field-validations>
                 </lib-form-group>
@@ -155,9 +170,10 @@
                 <lib-form-group>
                   <lib-text-input
                     formControlName="currencyRate"
+                    [readOnly]="viewMode"
                   ></lib-text-input>
                   <lib-field-validations
-                    [appControl]="journalLine.get('currencyRate')"
+                    [appControl]="journalLine?.get('currencyRate')"
                   >
                   </lib-field-validations>
                 </lib-form-group>
