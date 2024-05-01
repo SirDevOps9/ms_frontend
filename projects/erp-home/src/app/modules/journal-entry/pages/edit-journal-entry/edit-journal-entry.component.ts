@@ -32,7 +32,7 @@ export class EditJournalEntryComponent implements OnInit {
   journalEntryLines?: JournalEntryLineDto[];
   accountIdList: number[] = [];
   currencyIdList: number[] = [];
-  viewMode: boolean = true;
+  viewMode: boolean = false;
   statusName: string;
   journalTypeName: string;
 
@@ -160,7 +160,7 @@ export class EditJournalEntryComponent implements OnInit {
     return this.editJournalForm.get('journalEntryLines') as FormArray;
   }
 
-  ValueChanges(event: any, index: number) {
+  valueChanges(event: any, index: number) {
     const journalLine = this.journalEntryLinesFormArray.at(index);
 
     const currencyRateControl = journalLine.get('currencyRate');
@@ -220,7 +220,7 @@ export class EditJournalEntryComponent implements OnInit {
       this.toasterService.showError('Failure', message);
     }
   }
-  
+
   addNewRow() {
     this.journalEntryLinesFormArray.push(
       this.fb.group({
@@ -255,13 +255,13 @@ export class EditJournalEntryComponent implements OnInit {
 
   openDialog(index: number) {
     const ref = this.dialog.open(AccountsComponent, {});
-    ref.onClose.subscribe((r: AccountDto) => {
-      if (r) {
+    ref.onClose.subscribe((account: AccountDto) => {
+      if (account) {
         const journalLine = this.journalEntryLinesFormArray.at(index);
         const accountId = journalLine.get('accountId');
-        accountId?.setValue(r.id);
+        accountId?.setValue(account.id);
         const accountName = journalLine.get('accountName');
-        accountName?.setValue(r.nameEn);
+        accountName?.setValue(account.nameEn);
       }
     });
   }

@@ -151,6 +151,7 @@
                       (onFocus)="!autocomplete.value && autocomplete.show()"
                       (completeMethod)="filterAccount($event)"
                       field="accountCode"
+
                     ></p-autoComplete>
                     <button type="button" (click)="openDialog(rowIndex)">
                       open
@@ -174,7 +175,7 @@
                 <lib-form-group>
                   <lib-text-input
                     type="number"
-                    (keyUp)="ValueChanges($event, rowIndex)"
+                    (keyUp)="valueChanges($event, rowIndex)"
                     formControlName="debitAmount"
                     [readOnly]="viewMode"
                   ></lib-text-input>
@@ -188,7 +189,7 @@
                 <lib-form-group>
                   <lib-text-input
                     type="number"
-                    (keyUp)="ValueChanges($event, rowIndex)"
+                    (keyUp)="valueChanges($event, rowIndex)"
                     formControlName="creditAmount"
                     [readOnly]="viewMode"
                   ></lib-text-input>
@@ -216,7 +217,7 @@
                 <lib-form-group>
                   <lib-text-input
                     type="number"
-                    (keyUp)="ValueChanges($event, rowIndex)"
+                    (keyUp)="valueChanges($event, rowIndex)"
                     formControlName="currencyRate"
                     [readOnly]="viewMode"
                   ></lib-text-input>
