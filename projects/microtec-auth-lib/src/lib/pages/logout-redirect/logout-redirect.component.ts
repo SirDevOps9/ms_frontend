@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { StorageService, RouterService } from 'shared-lib';
-import { CookieService } from 'ngx-cookie';
+import { RouterService } from 'shared-lib';
+import { AuthService } from '../../services';
 
 @Component({
   selector: 'app-logout-redirect',
@@ -9,14 +9,12 @@ import { CookieService } from 'ngx-cookie';
 })
 export class LogoutRedirectComponent {
   constructor(
-    private storage: StorageService,
-    private cookiService: CookieService,
+    private authService: AuthService,
     private routerService: RouterService
   ) {}
 
   ngOnInit(): void {
-    this.storage.clearAll();
-    this.cookiService.removeAll();
+    this.authService.clearAllStorage();
     this.routerService.navigateTo('');
   }
 }
