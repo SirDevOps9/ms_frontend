@@ -34,6 +34,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { AccordionComponent } from './components/accordion/accordion.component';
 import { AttachmentViewerComponent } from './components/attachment-viewer/attachment-viewer.component';
 import { TreeModule } from 'primeng/tree';
+import { NamedFileUploaderComponent } from './form-components/named-file-uploader/named-file-uploader.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { TreeModule } from 'primeng/tree';
     FormGroupComponent,
     PageContentComponent,
     FileUploaderComponent,
+    NamedFileUploaderComponent,
     MultiSelectComponent,
     DataTableComponent,
     AttachmentViewerComponent,
@@ -87,6 +89,7 @@ import { TreeModule } from 'primeng/tree';
     ReactiveFormsModule,
     FormsModule,
     TranslateModule,
+    NamedFileUploaderComponent,
     PageContentComponent,
     PrimeSharedModule,
     FileUploaderComponent,

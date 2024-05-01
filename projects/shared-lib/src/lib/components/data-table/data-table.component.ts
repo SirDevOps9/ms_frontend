@@ -18,6 +18,7 @@ import { PageInfo, PageInfoResult } from '../../models';
 })
 export class DataTableComponent implements OnInit {
   @Input() items: any[];
+  @Input() selectedIndex: number;
 
   @Input() currentPageResult: PageInfoResult;
 

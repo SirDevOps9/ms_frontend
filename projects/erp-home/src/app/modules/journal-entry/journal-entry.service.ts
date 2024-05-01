@@ -3,7 +3,7 @@ import { EditJournalEntry, JournalEntryDto } from './models';
 import { BehaviorSubject, catchError, map } from 'rxjs';
 import { LanguageService, LoaderService, PageInfo, ToasterService } from 'shared-lib';
 import { JournalEntryProxy } from './journal-entry.proxy';
-import { JournalStatusUpdate } from './models/update-status';
+import { AddJournalEntryCommand } from './models/addJournalEntryCommand';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,10 @@ export class JournalEntryService {
 
   getAllJournalEntriesPaginated(pageInfo: PageInfo) {
     return this.journalEntryProxy.getAllPaginated(pageInfo).pipe(map(res => { return res }));
+  }
+
+  addJournalEntry(command: AddJournalEntryCommand){
+    return this.journalEntryProxy.create(command);
   }
 
   getJournalEntryById(Id: number) {
