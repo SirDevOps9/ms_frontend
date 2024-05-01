@@ -8,6 +8,7 @@ import { AuthGuard } from 'microtec-auth-lib';
 import { CreateJournalEntryComponent } from './pages/create-journal-entry/create-journal-entry.component';
 import { AccountsComponent } from './components/accounts/accounts.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AttachmentsComponent } from './components/attachments/attachments.component';
 
 
 const routes: Routes = [
@@ -40,6 +41,7 @@ const routes: Routes = [
     CreateJournalEntryComponent,
     JournalEntryListComponent,
     AccountsComponent,
+    AttachmentsComponent,
   ],
   imports: [
     CommonModule,

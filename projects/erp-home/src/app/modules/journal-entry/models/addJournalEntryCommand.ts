@@ -2,7 +2,7 @@ export class AddJournalEntryCommand {
     refrenceNumber: string | null;
     journalDate: string;
     description: string;
-    periodId: number;
+    periodId: string;
     journalEntryLines: CreateJournalEntryLine[] = [];
     journalEntryAttachments: CreateJournalEntryAttachment[] = [];
 }
@@ -13,7 +13,6 @@ export interface CreateJournalEntryAttachment {
 }
 
 export interface CreateJournalEntryLine {
-    id: number;
     lineDescription: string | null;
     debitAmount: number;
     creditAmount: number;
