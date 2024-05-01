@@ -3,13 +3,21 @@ import {
   EditJournalEntry,
   GetJournalEntryByIdDto,
   JournalEntryLineDto,
-  JournalEntryStatus,
-  JournalEntryType,
+  SharedJournalEnums,
 } from '../../models';
 import { JournalEntryService } from '../../journal-entry.service';
-import { FormsService, RouterService, customValidators } from 'shared-lib';
+import {
+  FormsService,
+  PageInfo,
+  RouterService,
+  customValidators,
+} from 'shared-lib';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { JournalStatusUpdate } from '../../models/update-status';
+import { AccountService } from '../../../account/account.service';
+import { AccountDto } from '../../../account/models/accountDto';
+import { DialogService } from 'primeng/dynamicdialog';
+import { AccountsComponent } from '../../components/accounts/accounts.component';
 
 @Component({
   selector: 'app-edit-journal-entry',
@@ -27,10 +35,14 @@ export class EditJournalEntryComponent implements OnInit {
   statusName: string;
   journalTypeName: string;
 
+  filteredAccounts: AccountDto[] = [];
+
   ngOnInit() {
+    this.getAccounts();
     this.initializeForm();
     this.initializeFormData();
   }
+
 
   initializeForm() {
     this.editJournalForm = this.fb.group({
@@ -63,16 +75,17 @@ export class EditJournalEntryComponent implements OnInit {
 
         console.log('callin init 1', this.editJournalForm.value);
 
-        if (res.status === JournalEntryStatus.Posted) {
+        if (res.status === this.enums.JournalEntryStatus.Posted) {
           this.viewMode = true;
         }
-        this.statusName = JournalEntryStatus[res.status];
-        this.journalTypeName = JournalEntryType[res.type];
+        this.statusName = this.enums.JournalEntryStatus[res.status];
+        this.journalTypeName = this.enums.JournalEntryType[res.type];
 
         this.journalEntry = res;
         this.journalEntryLines = res.journalEntryLines!;
 
         const journalEntryLinesArray = this.journalEntryLinesFormArray;
+
         journalEntryLinesArray.clear();
 
         this.journalEntryLines.forEach((line) => {
@@ -85,10 +98,16 @@ export class EditJournalEntryComponent implements OnInit {
               accountId: new FormControl(lineData.accountId),
               accountName: new FormControl(lineData.accountName),
               lineDescription: new FormControl(lineData.lineDescription),
-              debitAmount: new FormControl(lineData.debitAmount, [customValidators.required]),
-              creditAmount: new FormControl(lineData.creditAmount, [customValidators.required]),
+              debitAmount: new FormControl(lineData.debitAmount, [
+                customValidators.required,
+              ]),
+              creditAmount: new FormControl(lineData.creditAmount, [
+                customValidators.required,
+              ]),
               currency: new FormControl(lineData.currency),
-              currencyRate: new FormControl(lineData.currencyRate, [customValidators.required]),
+              currencyRate: new FormControl(lineData.currencyRate, [
+                customValidators.required,
+              ]),
               debitAmountLocal: new FormControl(lineData.debitAmountLocal),
               creditAmountLocal: new FormControl(lineData.creditAmountLocal),
             })
@@ -99,15 +118,16 @@ export class EditJournalEntryComponent implements OnInit {
       });
   }
 
+
   onSubmit() {
     if (!this.formsService.validForm(this.editJournalForm, true)) return;
 
     const request: EditJournalEntry = this.editJournalForm.value;
     request.id = this.journalEntryId;
+
     request.journalEntryLines = this.journalEntryLinesFormArray?.value.map(
       (line: any, index: number) => ({
         ...line,
-        //accountId: this.accountIdList[index],
         currencyId: this.currencyIdList[index],
       })
     );
@@ -119,28 +139,23 @@ export class EditJournalEntryComponent implements OnInit {
     return this.routerService.currentId;
   }
 
-
-  updateStatus(status:number)
-  {
+  updateStatus(status: number) {
     let journalStatus = new JournalStatusUpdate();
-        journalStatus.id = this.routerService.currentId;
-        journalStatus.status = status;
-        console.log(status);
-        console.log(journalStatus.id);
-     this.journalEntryService.ChangeStatus(journalStatus).subscribe(() => {
+    journalStatus.id = this.routerService.currentId;
+    journalStatus.status = status;
+    console.log(status);
+    console.log(journalStatus.id);
+    this.journalEntryService.ChangeStatus(journalStatus).subscribe(() => {
       setTimeout(() => {
-        location.reload();
+         location.reload();
       }, 1500);
-      
-     });
+    });
   }
 
   onDiscard() {
-    this.editJournalForm.reset();
+    //this.editJournalForm.reset();
     this.initializeFormData();
   }
-
-
 
   get journalEntryLinesFormArray() {
     return this.editJournalForm.get('journalEntryLines') as FormArray;
@@ -154,6 +169,10 @@ export class EditJournalEntryComponent implements OnInit {
     const creditAmountControl = journalLine.get('creditAmount');
     const debitAmountLocalControl = journalLine.get('debitAmountLocal');
     const creditAmountLocalControl = journalLine.get('creditAmountLocal');
+
+    
+    console.log(index ,debitAmountControl );
+    
 
     // Subscribe to changes in debit amount
     debitAmountControl?.valueChanges.subscribe((value) => {
@@ -189,10 +208,41 @@ export class EditJournalEntryComponent implements OnInit {
     });
   }
 
+  getAccounts(){
+    this.accountService
+    .getAllPaginated('', new PageInfo())
+    .subscribe((r) => (this.filteredAccounts = r.result));
+  }
+
+  filterAccount(event: any) {
+    console.log(this.filteredAccounts);
+    let query = event.query;
+    this.accountService
+      .getAllPaginated(query, new PageInfo())
+      .subscribe((r) => (this.filteredAccounts = r.result));
+  }
+
+  openDialog(index: number) {
+    const ref = this.dialog.open(AccountsComponent, {});
+    ref.onClose.subscribe((r: AccountDto) => {
+      if (r) {
+        const journalLine = this.journalEntryLinesFormArray.at(index);
+        const accountId = journalLine.get('accountId');
+        accountId?.setValue(r.id);
+        const accountName = journalLine.get('accountName');
+        accountName?.setValue(r.nameEn);
+      }
+    });
+  }
+
   constructor(
     private journalEntryService: JournalEntryService,
     private routerService: RouterService,
     private fb: FormBuilder,
-    private formsService: FormsService
+    private formsService: FormsService,
+    private accountService: AccountService,
+    private dialog: DialogService,
+    public enums: SharedJournalEnums,
+
   ) {}
 }

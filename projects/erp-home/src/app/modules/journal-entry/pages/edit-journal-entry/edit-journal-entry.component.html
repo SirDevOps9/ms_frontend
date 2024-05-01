@@ -34,6 +34,7 @@
               Date
             </lib-label>
             <lib-text-input
+              type="date"
               formControlName="journalDate"
               [readOnly]="viewMode"
             ></lib-text-input>
@@ -124,11 +125,32 @@
               <td>
                 {{ journalLine.get("id").value }}
               </td>
-              <td>
-                <lib-text-input
+              <td
+                [pEditableColumn]="journalLine.accountId"
+                pEditableColumnField="accountId"
+              >
+                <!-- <lib-text-input
                   formControlName="accountId"
                   [readOnly]="viewMode"
-                ></lib-text-input>
+                ></lib-text-input> -->
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <p-autoComplete
+                      [forceSelection]="true"
+                      [suggestions]="filteredAccounts"
+                      #autocomplete
+                      (onFocus)="!autocomplete.value && autocomplete.show()"
+                      (completeMethod)="filterAccount($event)"
+                      field="accountCode"
+                    ></p-autoComplete>
+                    <button type="button" (click)="openDialog(rowIndex)">
+                      open
+                    </button>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ journalLine.get("accountId").value }}
+                  </ng-template>
+                </p-cellEditor>
               </td>
               <td>
                 {{ journalLine.get("accountName").value }}
@@ -205,13 +227,17 @@
         <div *ngIf="journalEntry?.status != 3 && journalEntry?.status == 4">
           <button class="btn save" type="submit">Save</button>
         </div>
-       
+
         <div *ngIf="journalEntry?.status == 1 || journalEntry?.status == 2">
-          <button class="btn btn save" type="button" (click)="updateStatus(3)">Submit</button>
+          <button class="btn btn save" type="button" (click)="updateStatus(3)">
+            Submit
+          </button>
         </div>
 
         <div *ngIf="journalEntry?.status == 3">
-          <button class="btn btn save" type="button" (click)="updateStatus(4)">Post</button>
+          <button class="btn btn save" type="button" (click)="updateStatus(4)">
+            Post
+          </button>
         </div>
       </div>
     </div>

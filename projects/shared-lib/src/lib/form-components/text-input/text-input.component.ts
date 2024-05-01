@@ -31,6 +31,8 @@ export class TextInputComponent implements ControlValueAccessor, Validator {
   @Input() iconUrl: string = '';
   @Output() valueChanged = new EventEmitter<string>();
 
+  @Output() keyUp = new EventEmitter<string>();
+
   value: string = '';
   onChange = (value: any) => {};
   onTouched = () => {};
@@ -66,6 +68,10 @@ export class TextInputComponent implements ControlValueAccessor, Validator {
   change(m: any) {
     this.onChange(m.target.value);
     this.valueChanged.emit(m.target.value);
+  }
+
+  keyupChange(m: any) {
+    this.keyUp.emit(m.target.value);
   }
 
   constructor(@Self() @Optional() public controlDir: NgControl) {
