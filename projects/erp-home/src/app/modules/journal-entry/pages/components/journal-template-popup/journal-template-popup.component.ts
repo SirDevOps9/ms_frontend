@@ -32,7 +32,7 @@ export class JournalTemplatePopupComponent implements OnInit {
   }
 
   RoutToAddJournal(id: any) {
-    this.ref.close(id);
+    this.ref .close(id);
     }
 
   

@@ -6,7 +6,8 @@ import { AccountDto } from '../../../account/models/accountDto';
 import { AccountService } from '../../../account/account.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
 import { JournalTemplatePopupComponent } from '../components/journal-template-popup/journal-template-popup.component';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService } from 'primeng/dynamicdialog';
+import { JournalEntryService } from '../../journal-entry.service';
 
 export class Thing {
   id: number;
@@ -54,6 +55,7 @@ export class Thing {
   styleUrl: './create-journal-entry.component.scss'
 })
 export class CreateJournalEntryComponent {
+
   fg: FormGroup;
   things: Thing[] = [];
   filteredAccounts: AccountDto[] = [{
@@ -72,9 +74,8 @@ export class CreateJournalEntryComponent {
   constructor(private fb: FormBuilder,
     private accountService: AccountService,
     private currencyService: CurrencyService,
-    private dialog: DialogService,
-    private ref: DynamicDialogRef
-  ) {
+    private dialog: DialogService ,
+    private JournalService:JournalEntryService ) {
     this.fg = fb.group({
       refrenceNumber: ['', customValidators.required],
       journalDate: [this.getTodaysDate(), customValidators.required],
@@ -113,7 +114,6 @@ export class CreateJournalEntryComponent {
     this.currencyService.getCurrencies('')
       .subscribe(r => this.currencies = r);
   }
-
   extras = [];
   addLine() {
     const id = this.items.length + 1;
@@ -157,14 +157,40 @@ export class CreateJournalEntryComponent {
   test() {
     console.log(this.things);
   }
+ 
   RedirectToTemplate() {
-    this.ref = this.dialog.open(JournalTemplatePopupComponent, {
+    const dialogRef = this.dialog.open(JournalTemplatePopupComponent, {
       width: '800px',
       height: '700px'
-       });
+    });
+  
+    dialogRef.onClose.subscribe((id: any) => {
+      console.log('Received ID:', id);
+      this.JournalService.getJournalTemplateById(id).subscribe(template => {
+        console.log('template:', template);
+        this.fg.patchValue({
+          journalDate: new Date().toISOString().substring(0, 10), // Set today's date or template's date?
+          periodId: template.PeriodId,
+          description: template.Description,
+        });
 
-       this.ref.onClose.subscribe((id: any) => {
-        console.log('Received ID:', id);
+          while (this.items.length !== 0) {
+          this.items.removeAt(0);
+        }
+  
+        // Loop through template lines and add them to the form array
+        template.GetJournalTemplateLinesByIdDto.forEach(line => {
+          const fg = this.fb.group({
+            lineDescription: line.LineDescription,
+            debitAmount: line.DebitAmount,
+            creditAmount: line.CreditAmount,
+            currencyId: line.CurrencyId,
+            currencyRate: line.CurrencyRate,
+            accountId: line.AccountId
+          });
+          this.items.push(fg);
+        });
       });
-    }
+    });
+  }
 }

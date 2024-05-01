@@ -3,6 +3,7 @@ import { FilterDto, HttpService, PaginationVm, lookupDto, lookupsListDto } from 
 import { JournalEntryDto } from "./models";
 import { Observable } from "rxjs";
 import { GetAllJournalTemplateDto } from "./models/journaltemplatedto";
+import { GetJournalTemplateDto } from "./models/journalTemplateByIdDto";
 
 @Injectable({
     providedIn : 'root'
@@ -30,6 +31,11 @@ export class JournalEntryProxy{
       ): Observable<PaginationVm<GetAllJournalTemplateDto>>{
               return this.httpService.get<PaginationVm<GetAllJournalTemplateDto>>(
                 `JournalEntryTemplete?${filterDto.toQuery}`
+            )}
+
+            getJournalTemplateById(id:string){
+              return this.httpService.get<GetJournalTemplateDto>(
+                `JournalEntryTemplete/GetById?Id=${id}`
             )}
 
 
