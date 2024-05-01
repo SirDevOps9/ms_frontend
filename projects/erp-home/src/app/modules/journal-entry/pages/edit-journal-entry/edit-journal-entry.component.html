@@ -107,6 +107,9 @@
         >
           <ng-template pTemplate="header">
             <tr>
+
+              <th style="width: 5%" *ngIf="journalEntry?.status == sharedJouralEnum.JournalEntryStatus.DraftUnbalanced ||
+                                            journalEntry?.status == sharedJouralEnum.JournalEntryStatus.Draftbalanced"></th>
               <th style="width: 10%">Id</th>
               <th style="width: 15%">Account Code</th>
               <th style="width: 15%">Account Name</th>
@@ -121,6 +124,10 @@
           </ng-template>
           <ng-template pTemplate="body" let-journalLine let-rowIndex="rowIndex">
             <tr [formGroup]="journalLine">
+              <td *ngIf="journalEntry?.status == sharedJouralEnum.JournalEntryStatus.DraftUnbalanced ||
+                         journalEntry?.status == sharedJouralEnum.JournalEntryStatus.Draftbalanced">
+                <button (click)="deleteJournalEntryLine(journalLine.get('id').value)">Delete</button>
+              </td>
               <td>
                 {{ journalLine.get("id").value }}
               </td>
@@ -190,6 +197,7 @@
             </tr>
           </ng-template>
         </p-table>
+        <button (click)="addNewRow()">Add New Row</button>
       </div>
       <div class="paginator">
         <lib-paginator
@@ -202,16 +210,18 @@
         <button class="btn discard" type="button" (click)="onDiscard()">
           Discard
         </button>
-        <div *ngIf="journalEntry?.status != 3 && journalEntry?.status == 4">
+        <div *ngIf="journalEntry?.status != sharedJouralEnum.JournalEntryStatus.submited &&
+                    journalEntry?.status != sharedJouralEnum.JournalEntryStatus.Posted">
           <button class="btn save" type="submit">Save</button>
         </div>
        
-        <div *ngIf="journalEntry?.status == 1 || journalEntry?.status == 2">
-          <button class="btn btn save" type="button" (click)="updateStatus(3)">Submit</button>
+        <div *ngIf="journalEntry?.status == sharedJouralEnum.JournalEntryStatus.DraftUnbalanced ||
+                   journalEntry?.status == sharedJouralEnum.JournalEntryStatus.Draftbalanced">
+          <button class="btn btn save" type="button" (click)="ChangeStatus(sharedJouralEnum.JournalEntryStatus.submited)">Submit</button>
         </div>
 
-        <div *ngIf="journalEntry?.status == 3">
-          <button class="btn btn save" type="button" (click)="updateStatus(4)">Post</button>
+        <div *ngIf="journalEntry?.status == sharedJouralEnum.JournalEntryStatus.submited">
+          <button class="btn btn save" type="button" (click)="ChangeStatus(sharedJouralEnum.JournalEntryStatus.Posted)">Post</button>
         </div>
       </div>
     </div>

@@ -44,7 +44,10 @@ export class JournalEntryService {
   ChangeStatus(journalStatusUpdate: JournalStatusUpdate) {
     return this.journalEntryProxy.ChangeStatus(journalStatusUpdate).pipe(
       map((res) => {
-        this.toasterService.showSuccess("title","message");
+        this.toasterService.showSuccess(
+          this.languageService.transalte('Success'),
+          this.languageService.transalte('JournalEntry.JournalUpdatedSuccessfully')
+        );
         return res;
       }),
       catchError((err: string) => {
