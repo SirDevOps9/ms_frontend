@@ -202,7 +202,17 @@
         <button class="btn discard" type="button" (click)="onDiscard()">
           Discard
         </button>
-        <button class="btn save" type="submit">Save</button>
+        <div *ngIf="journalEntry?.status != 3 && journalEntry?.status == 4">
+          <button class="btn save" type="submit">Save</button>
+        </div>
+       
+        <div *ngIf="journalEntry?.status == 1 || journalEntry?.status == 2">
+          <button class="btn btn save" type="button" (click)="updateStatus(3)">Submit</button>
+        </div>
+
+        <div *ngIf="journalEntry?.status == 3">
+          <button class="btn btn save" type="button" (click)="updateStatus(4)">Post</button>
+        </div>
       </div>
     </div>
   </form>

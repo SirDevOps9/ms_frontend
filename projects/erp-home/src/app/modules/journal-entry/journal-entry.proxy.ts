@@ -5,7 +5,8 @@ import {
   PaginationVm,
 } from 'shared-lib';
 import { EditJournalEntry, GetJournalEntryByIdDto, JournalEntryDto } from './models';
-import { Observable } from 'rxjs';
+import { JournalStatusUpdate } from './models/update-status';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +38,14 @@ export class JournalEntryProxy {
       request
     );
   }
+  ChangeStatus(request:any): Observable<boolean> {
+    return this.httpService.put<boolean>(
+      `JournalEntry/ChangeStatus`,
+      request
+    );
+    
+  }
+
 
   constructor(private httpService: HttpService) {}
 }

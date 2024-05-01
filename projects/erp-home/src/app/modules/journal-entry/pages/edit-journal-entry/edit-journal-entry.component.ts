@@ -10,6 +10,7 @@ import {
 import { JournalEntryService } from '../../journal-entry.service';
 import { FormsService, RouterService, customValidators } from 'shared-lib';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { JournalStatusUpdate } from '../../models/update-status';
 
 @Component({
   selector: 'app-edit-journal-entry',
@@ -119,10 +120,28 @@ export class EditJournalEntryComponent implements OnInit {
     return this.routerService.currentId;
   }
 
+
+  updateStatus(status:number)
+  {
+    let journalStatus = new JournalStatusUpdate();
+        journalStatus.id = this.routerService.currentId;
+        journalStatus.status = status;
+        console.log(status);
+        console.log(journalStatus.id);
+     this.journalEntryService.ChangeStatus(journalStatus).subscribe(() => {
+      setTimeout(() => {
+        location.reload();
+      }, 1500);
+      
+     });
+  }
+
   onDiscard() {
     this.editJournalForm.reset();
     this.initializeFormData();
   }
+
+
 
   get journalEntryLinesFormArray() {
     return this.editJournalForm.get('journalEntryLines') as FormArray;
