@@ -6,6 +6,8 @@ export * from './get-journal-entry-by-id-dto';
 export * from './jouranl-entry-line-dto';
 export * from './edit-journal-entry-dto';
 export * from './edit-journal-entry-line-dto';
+export * from './addJournalEntryCommand';
+
 
 
 

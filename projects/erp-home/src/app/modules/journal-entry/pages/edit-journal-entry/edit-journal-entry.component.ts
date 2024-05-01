@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   EditJournalEntry,
-  EditJournalEntryLine,
   GetJournalEntryByIdDto,
   JournalEntryLineDto,
   JournalEntryStatus,

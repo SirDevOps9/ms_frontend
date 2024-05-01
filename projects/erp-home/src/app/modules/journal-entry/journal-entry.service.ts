@@ -4,6 +4,7 @@ import { BehaviorSubject, catchError, map } from 'rxjs';
 import { LanguageService, LoaderService, PageInfo, ToasterService } from 'shared-lib';
 import { JournalEntryProxy } from './journal-entry.proxy';
 import { AddJournalEntryCommand } from './models/addJournalEntryCommand';
+import { JournalStatusUpdate } from './models/update-status';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,7 @@ export class JournalEntryService {
       })
     );
   }
+  
   ChangeStatus(journalStatusUpdate: JournalStatusUpdate) {
     return this.journalEntryProxy.ChangeStatus(journalStatusUpdate).pipe(
       map((res) => {
@@ -53,7 +55,7 @@ export class JournalEntryService {
 
   editJournalEntry(request:EditJournalEntry) {
     this.loaderService.show();
-    this.journalEntryProxy.Edit(request).subscribe({
+    this.journalEntryProxy.edit(request).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Success'),
