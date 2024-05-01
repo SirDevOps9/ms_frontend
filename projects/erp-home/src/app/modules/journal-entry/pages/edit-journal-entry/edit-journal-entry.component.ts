@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   EditJournalEntry,
   EditJournalEntryLine,
@@ -49,22 +49,7 @@ export class EditJournalEntryComponent implements OnInit {
       status: new FormControl(),
       totalDebitAmount: new FormControl(),
       totalCreditAmount: new FormControl(),
-      journalEntryLines: this.fb.array([
-        this.fb.group({
-          id: new FormControl(),
-          //accountCode: new FormControl(),
-          accountId: new FormControl(),
-
-          accountName: new FormControl(),
-          lineDescription: new FormControl(),
-          debitAmount: new FormControl('', [customValidators.required]),
-          creditAmount: new FormControl('', [customValidators.required]),
-          currency: new FormControl(),
-          currencyRate: new FormControl('', [customValidators.required]),
-          debitAmountLocal: new FormControl(),
-          creditAmountLocal: new FormControl(),
-        }),
-      ]),
+      journalEntryLines: this.fb.array([]),
     });
   }
 
@@ -75,6 +60,8 @@ export class EditJournalEntryComponent implements OnInit {
         this.editJournalForm.patchValue({
           ...res,
         });
+
+        console.log('callin init 1', this.editJournalForm.value);
 
         if (res.status === JournalEntryStatus.Posted) {
           this.viewMode = true;
@@ -90,7 +77,22 @@ export class EditJournalEntryComponent implements OnInit {
 
         this.journalEntryLines.forEach((line) => {
           const { currencyId, ...lineData } = line;
-          journalEntryLinesArray.push(this.fb.group(lineData));
+
+          journalEntryLinesArray.push(
+            this.fb.group({
+              id: new FormControl(lineData.id),
+              //accountCode: new FormControl(),
+              accountId: new FormControl(lineData.accountId),
+              accountName: new FormControl(lineData.accountName),
+              lineDescription: new FormControl(lineData.lineDescription),
+              debitAmount: new FormControl(lineData.debitAmount, [customValidators.required]),
+              creditAmount: new FormControl(lineData.creditAmount, [customValidators.required]),
+              currency: new FormControl(lineData.currency),
+              currencyRate: new FormControl(lineData.currencyRate, [customValidators.required]),
+              debitAmountLocal: new FormControl(lineData.debitAmountLocal),
+              creditAmountLocal: new FormControl(lineData.creditAmountLocal),
+            })
+          );
 
           this.currencyIdList.push(currencyId);
         });
@@ -118,13 +120,55 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   onDiscard() {
-    //this.editJournalForm.reset();
-    //this.initializeFormData();
-    window.location.reload();
+    this.editJournalForm.reset();
+    this.initializeFormData();
   }
 
   get journalEntryLinesFormArray() {
     return this.editJournalForm.get('journalEntryLines') as FormArray;
+  }
+
+  ValueChanges(event: any, index: number) {
+    const journalLine = this.journalEntryLinesFormArray.at(index);
+
+    const currencyRateControl = journalLine.get('currencyRate');
+    const debitAmountControl = journalLine.get('debitAmount');
+    const creditAmountControl = journalLine.get('creditAmount');
+    const debitAmountLocalControl = journalLine.get('debitAmountLocal');
+    const creditAmountLocalControl = journalLine.get('creditAmountLocal');
+
+    // Subscribe to changes in debit amount
+    debitAmountControl?.valueChanges.subscribe((value) => {
+      const debitAmountLocal = value * currencyRateControl?.value;
+      debitAmountLocalControl?.setValue(debitAmountLocal);
+    });
+
+    // Subscribe to changes in credit amount
+    creditAmountControl?.valueChanges.subscribe((value) => {
+      const creditAmountLocal = value * currencyRateControl?.value;
+      creditAmountLocalControl?.setValue(creditAmountLocal);
+    });
+
+    // Subscribe to changes in currency rate
+    currencyRateControl?.valueChanges.subscribe((value) => {
+      // Update debit amount local only if debit amount exists
+      if (
+        debitAmountControl?.value !== null &&
+        debitAmountControl?.value !== undefined
+      ) {
+        const debitAmountLocal = debitAmountControl?.value * value;
+        debitAmountLocalControl?.setValue(debitAmountLocal);
+      }
+
+      // Update credit amount local only if credit amount exists
+      if (
+        creditAmountControl?.value !== null &&
+        creditAmountControl?.value !== undefined
+      ) {
+        const creditAmountLocal = creditAmountControl?.value * value;
+        creditAmountLocalControl?.setValue(creditAmountLocal);
+      }
+    });
   }
 
   constructor(

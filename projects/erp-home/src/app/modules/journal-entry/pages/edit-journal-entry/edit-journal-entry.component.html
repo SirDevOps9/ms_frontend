@@ -142,6 +142,7 @@
               <td>
                 <lib-form-group>
                   <lib-text-input
+                    (keyUp)="ValueChanges($event, rowIndex)"
                     formControlName="debitAmount"
                     [readOnly]="viewMode"
                   ></lib-text-input>
@@ -154,6 +155,7 @@
               <td>
                 <lib-form-group>
                   <lib-text-input
+                    (keyUp)="ValueChanges($event, rowIndex)"
                     formControlName="creditAmount"
                     [readOnly]="viewMode"
                   ></lib-text-input>
@@ -169,6 +171,7 @@
               <td>
                 <lib-form-group>
                   <lib-text-input
+                    (keyUp)="ValueChanges($event, rowIndex)"
                     formControlName="currencyRate"
                     [readOnly]="viewMode"
                   ></lib-text-input>
