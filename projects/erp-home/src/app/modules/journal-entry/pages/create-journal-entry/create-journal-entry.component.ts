@@ -5,6 +5,8 @@ import { PageInfo, customValidators } from 'shared-lib';
 import { AccountDto } from '../../../account/models/accountDto';
 import { AccountService } from '../../../account/account.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
+import { JournalTemplatePopupComponent } from '../components/journal-template-popup/journal-template-popup.component';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 export class Thing {
   id: number;
@@ -69,7 +71,9 @@ export class CreateJournalEntryComponent {
 
   constructor(private fb: FormBuilder,
     private accountService: AccountService,
-    private currencyService: CurrencyService
+    private currencyService: CurrencyService,
+    private dialog: DialogService,
+    private ref: DynamicDialogRef
   ) {
     this.fg = fb.group({
       refrenceNumber: ['', customValidators.required],
@@ -153,4 +157,14 @@ export class CreateJournalEntryComponent {
   test() {
     console.log(this.things);
   }
+  RedirectToTemplate() {
+    this.ref = this.dialog.open(JournalTemplatePopupComponent, {
+      width: '800px',
+      height: '700px'
+       });
+
+       this.ref.onClose.subscribe((id: any) => {
+        console.log('Received ID:', id);
+      });
+    }
 }

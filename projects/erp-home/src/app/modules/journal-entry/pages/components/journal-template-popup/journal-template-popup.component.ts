@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { PageInfo } from 'shared-lib';
 import { GetAllJournalTemplateDto } from '../../../models/journaltemplatedto';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-journal-template-popup',
@@ -34,6 +34,8 @@ export class JournalTemplatePopupComponent implements OnInit {
   RoutToAddJournal(id: any) {
     this.ref.close(id);
     }
+
+  
   constructor(
     private journalEntryService:JournalEntryService,
     private ref: DynamicDialogRef) { }
