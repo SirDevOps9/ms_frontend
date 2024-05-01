@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { EditJournalEntry, JournalEntryDto } from './models';
 import { BehaviorSubject, catchError, map } from 'rxjs';
-import { LanguageService, LoaderService, PageInfo, PaginationVm, ToasterService } from 'shared-lib';
+import { LanguageService, LoaderService, PageInfo, ToasterService } from 'shared-lib';
 import { JournalEntryProxy } from './journal-entry.proxy';
+import { JournalStatusUpdate } from './models/update-status';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,17 @@ export class JournalEntryService {
   getJournalEntryById(Id: number) {
     return this.journalEntryProxy.getById(Id).pipe(
       map((res) => {
+        return res;
+      }),
+      catchError((err: string) => {
+        throw err!;
+      })
+    );
+  }
+  ChangeStatus(journalStatusUpdate: JournalStatusUpdate) {
+    return this.journalEntryProxy.ChangeStatus(journalStatusUpdate).pipe(
+      map((res) => {
+        this.toasterService.showSuccess("title","message");
         return res;
       }),
       catchError((err: string) => {
