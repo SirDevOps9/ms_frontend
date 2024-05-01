@@ -1,0 +1,95 @@
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  Optional,
+  Self,
+} from '@angular/core';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormGroup,
+  NgControl,
+  ValidationErrors,
+  Validator,
+} from '@angular/forms';
+import { AttachmentsService } from '../../services';
+import {
+  AttachmentDto,
+  AttachmentFileTypeEnum,
+  UploadFileConfigDto,
+} from '../../models';
+import { SharedLibraryEnums } from '../../constants';
+
+@Component({
+  selector: 'lib-named-file-uploader',
+  templateUrl: './named-file-uploader.component.html',
+  styleUrl: './named-file-uploader.component.scss',
+})
+export class NamedFileUploaderComponent {
+  @Input() label: string;
+  @Input() placeholder: string;
+  @Input() base64: string;
+  @Input() id: string;
+  @Input() appControl: AbstractControl;
+  @Input() config: UploadFileConfigDto = { type: AttachmentFileTypeEnum.image };
+
+  value: string;
+  public get fg(): FormGroup {
+    return this.appControl as FormGroup;
+  }
+
+  async uploadFile(event: any) {
+    this.deleteAttachment();
+    const errors = this.attachmentService.validateFile(event.target.files, this.config);
+    if (errors) {
+      this.appControl?.markAsDirty();
+      this.appControl?.setErrors(errors);
+      return;
+    }
+    const upload$ = await this.attachmentService.uploadValidatedFile(event.target.files);
+    upload$.subscribe(result => {
+      this.value = result.attachmentId;
+      this.updateImageBase64();
+      this.fg.setValue({
+        attachmentId: result.attachmentId,
+        name: result.name
+      });
+    })
+  }
+
+  downloadAttachment() {
+    this.attachmentService.downloadAttachment(
+      this.value,
+      this.label,
+      this.config.type!
+    );
+  }
+
+  deleteAttachment() {
+    this.value = '';
+    this.base64 = '';
+    this.fg.setValue({
+      attachmentId: '',
+      name: ''
+    });
+  }
+
+  private updateImageBase64() {
+    this.attachmentService
+      .getAttachment(this.value)
+      .subscribe((response: AttachmentDto) => {
+        if (response?.fileContent) {
+          const source = `${response.base64Padding},${response.fileContent}`;
+          this.base64 = source;
+        }
+      });
+  }
+
+  constructor(
+    public sharedLibEnums: SharedLibraryEnums,
+    public attachmentService: AttachmentsService
+  ) {
+  }
+}

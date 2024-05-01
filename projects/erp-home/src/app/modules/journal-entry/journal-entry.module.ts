@@ -7,6 +7,7 @@ import { JournalEntryListComponent } from './pages/journal-entry-list/journal-en
 import { AuthGuard } from 'microtec-auth-lib';
 import { CreateJournalEntryComponent } from './pages/create-journal-entry/create-journal-entry.component';
 import { AccountsComponent } from './components/accounts/accounts.component';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 
 const routes: Routes = [
@@ -38,11 +39,12 @@ const routes: Routes = [
   declarations: [
     CreateJournalEntryComponent,
     JournalEntryListComponent,
-    AccountsComponent
+    AccountsComponent,
   ],
   imports: [
     CommonModule,
     SharedLibModule,
+    AutoCompleteModule,
     RouterModule.forChild(routes)
   ]
 })
