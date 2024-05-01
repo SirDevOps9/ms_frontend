@@ -1,4 +1,4 @@
-import {  Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   EditJournalEntry,
   GetJournalEntryByIdDto,
@@ -10,6 +10,7 @@ import {
   FormsService,
   PageInfo,
   RouterService,
+  ToasterService,
   customValidators,
 } from 'shared-lib';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -26,13 +27,12 @@ import { AccountsComponent } from '../../components/accounts/accounts.component'
   providers: [RouterService],
 })
 export class EditJournalEntryComponent implements OnInit {
-
   editJournalForm: FormGroup;
   journalEntry?: GetJournalEntryByIdDto;
   journalEntryLines?: JournalEntryLineDto[];
   accountIdList: number[] = [];
   currencyIdList: number[] = [];
-  viewMode: boolean = false;
+  viewMode: boolean = true;
   statusName: string;
   journalTypeName: string;
 
@@ -43,7 +43,6 @@ export class EditJournalEntryComponent implements OnInit {
     this.initializeForm();
     this.initializeFormData();
   }
-
 
   initializeForm() {
     this.editJournalForm = this.fb.group({
@@ -73,26 +72,29 @@ export class EditJournalEntryComponent implements OnInit {
         this.editJournalForm.patchValue({
           ...res,
         });
-  
+
         console.log('calling init 1', this.editJournalForm.value);
-  
-        if (res.status === this.enums.JournalEntryStatus.Posted || res.status === this.enums.JournalEntryStatus.submited) {
-          if (res.status === this.enums.JournalEntryStatus.Posted) {
+
+        // if (
+        //   res.status === this.enums.JournalEntryStatus.Posted ||
+        //   res.status === this.enums.JournalEntryStatus.submited
+        // ) {
+          if (res.status === this.enums.JournalEntryStatus.Posted || res.status === this.enums.JournalEntryStatus.submited) {
             this.viewMode = true;
           }
           this.statusName = this.enums.JournalEntryStatus[res.status];
           this.journalTypeName = this.enums.JournalEntryType[res.type];
-  
+
           this.journalEntry = res;
           this.journalEntryLines = res.journalEntryLines!;
           console.log(this.journalEntryLines);
           const journalEntryLinesArray = this.journalEntryLinesFormArray;
-  
+
           journalEntryLinesArray.clear();
-  
+
           this.journalEntryLines.forEach((line) => {
             const { currencyId, ...lineData } = line;
-  
+
             journalEntryLinesArray.push(
               this.fb.group({
                 id: new FormControl(lineData.id),
@@ -114,13 +116,12 @@ export class EditJournalEntryComponent implements OnInit {
                 creditAmountLocal: new FormControl(lineData.creditAmountLocal),
               })
             );
-  
+
             this.currencyIdList.push(currencyId);
           });
-        }
+        // }
       });
   }
-  
 
   onSubmit() {
     if (!this.formsService.validForm(this.editJournalForm, true)) return;
@@ -137,8 +138,7 @@ export class EditJournalEntryComponent implements OnInit {
     this.journalEntryService.editJournalEntry(request);
   }
 
-  ChangeStatus(status:number)
-  {
+  ChangeStatus(status: number) {
     let journalStatus = new JournalStatusUpdate();
     journalStatus.id = this.routerService.currentId;
     journalStatus.status = status;
@@ -146,7 +146,7 @@ export class EditJournalEntryComponent implements OnInit {
     console.log(journalStatus.id);
     this.journalEntryService.ChangeStatus(journalStatus).subscribe(() => {
       setTimeout(() => {
-         location.reload();
+        location.reload();
       }, 1500);
     });
   }
@@ -169,9 +169,7 @@ export class EditJournalEntryComponent implements OnInit {
     const debitAmountLocalControl = journalLine.get('debitAmountLocal');
     const creditAmountLocalControl = journalLine.get('creditAmountLocal');
 
-    
-    console.log(index ,debitAmountControl );
-    
+    console.log(index, debitAmountControl);
 
     // Subscribe to changes in debit amount
     debitAmountControl?.valueChanges.subscribe((value) => {
@@ -206,9 +204,23 @@ export class EditJournalEntryComponent implements OnInit {
       }
     });
   }
-deleteJournalEntryLine(id:number){
- console.log(id);
-}
+  deleteJournalEntryLine(index: number) {
+    const journalLine = this.journalEntryLinesFormArray.at(index);
+    const status = this.editJournalForm.get('status')?.value;
+  
+    if (!journalLine.get('id')?.value || status === this.enums.JournalEntryStatus.DraftUnbalanced || status === this.enums.JournalEntryStatus.Draftbalanced) {
+      this.journalEntryLinesFormArray.removeAt(index);
+    } else {
+      let message: string='';
+      if (status === this.enums.JournalEntryStatus.submited) {
+        message = "Can't be deleted, the entry is already submitted.";
+      } else if (status === this.enums.JournalEntryStatus.Posted) {
+        message = "Can't be deleted, the entry is already posted.";
+      } 
+      this.toasterService.showError('Failure', message);
+    }
+  }
+  
   addNewRow() {
     this.journalEntryLinesFormArray.push(
       this.fb.group({
@@ -225,13 +237,12 @@ deleteJournalEntryLine(id:number){
         creditAmountLocal: new FormControl(),
       })
     );
-}
-  
+  }
 
-  getAccounts(){
+  getAccounts() {
     this.accountService
-    .getAllPaginated('', new PageInfo())
-    .subscribe((r) => (this.filteredAccounts = r.result));
+      .getAllPaginated('', new PageInfo())
+      .subscribe((r) => (this.filteredAccounts = r.result));
   }
 
   filterAccount(event: any) {
@@ -263,6 +274,6 @@ deleteJournalEntryLine(id:number){
     private accountService: AccountService,
     private dialog: DialogService,
     public enums: SharedJournalEnums,
-
+    private toasterService: ToasterService
   ) {}
 }

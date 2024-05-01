@@ -108,14 +108,14 @@
         >
           <ng-template pTemplate="header">
             <tr>
-              <th
+              <!-- <th
                 style="width: 5%"
                 *ngIf="
                   journalEntry?.status ==
                     enums.JournalEntryStatus.DraftUnbalanced ||
                   journalEntry?.status == enums.JournalEntryStatus.Draftbalanced
                 "
-              ></th>
+              ></th> -->
               <th style="width: 10%">Id</th>
               <th style="width: 15%">Account Code</th>
               <th style="width: 15%">Account Name</th>
@@ -126,24 +126,11 @@
               <th style="width: 10%">Rate</th>
               <th style="width: 10%">DB Amount Local</th>
               <th style="width: 10%">CR Amount Local</th>
+              <th style="width: 10%">Actions</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-journalLine let-rowIndex="rowIndex">
             <tr [formGroup]="journalLine">
-              <td
-                *ngIf="
-                  journalEntry?.status ==
-                    enums.JournalEntryStatus.DraftUnbalanced ||
-                  journalEntry?.status == enums.JournalEntryStatus.Draftbalanced
-                "
-              >
-                <button
-                  type="button"
-                  (click)="deleteJournalEntryLine(journalLine.get('id').value)"
-                >
-                  Delete
-                </button>
-              </td>
               <td>
                 {{ journalLine.get("id").value }}
               </td>
@@ -244,6 +231,16 @@
               </td>
               <td>
                 {{ journalLine.get("creditAmountLocal").value }}
+              </td>
+              <!-- <td
+              *ngIf="
+                journalEntry?.status ==
+                  enums.JournalEntryStatus.DraftUnbalanced ||
+                journalEntry?.status == enums.JournalEntryStatus.Draftbalanced
+              "
+            > -->
+              <td>
+                <div class="pi pi-trash" (click)="deleteJournalEntryLine(rowIndex)"></div>
               </td>
             </tr>
           </ng-template>
