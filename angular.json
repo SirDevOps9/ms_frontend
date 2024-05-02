@@ -586,15 +586,14 @@
               ],
               "outputHashing": "all"
             },
-            
             "development": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
               "fileReplacements": [
                 {
-                  "replace": "projects/bussiness-owners/src/environments/environment.ts",
-                  "with": "projects/bussiness-owners/src/environments/environment.development.ts"
+                  "replace": "projects/erp-home/src/environments/environment.ts",
+                  "with": "projects/erp-home/src/environments/environment.development.ts"
                 }
               ]
             },
@@ -604,8 +603,8 @@
               "sourceMap": true,
               "fileReplacements": [
                 {
-                  "replace": "projects/bussiness-owners/src/environments/environment.ts",
-                  "with": "projects/bussiness-owners/src/environments/environment.stage.ts"
+                  "replace": "projects/erp-home/src/environments/environment.ts",
+                  "with": "projects/erp-home/src/environments/environment.stage.ts"
                 }
               ]
             }

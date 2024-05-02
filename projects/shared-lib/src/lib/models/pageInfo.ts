@@ -4,15 +4,15 @@
 // }
 
 export class PageInfo {
-  constructor(offset: number = 1, pageSize: number = 10) {
+  constructor(pageNumber: number = 1, pageSize: number = 10) {
     this.pageSize = pageSize;
-    this.offset = offset;
+    this.pageNumber = pageNumber;
   }
-  offset: number;
+  pageNumber: number;
   pageSize: number;
 
   get toQuery(): string {
-    let query = `Filter.PageInfo.Offset=${this.offset}&Filter.PageInfo.PageSize=${this.pageSize}`;
+    let query = `PageInfo.PageNumber=${this.pageNumber}&PageInfo.PageSize=${this.pageSize}`;
     return query;
   }
 }
