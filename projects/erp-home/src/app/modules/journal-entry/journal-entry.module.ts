@@ -7,6 +7,7 @@ import { JournalEntryListComponent } from './pages/journal-entry-list/journal-en
 import { CreateJournalEntryComponent } from './pages/create-journal-entry/create-journal-entry.component';
 import { AccountsComponent } from './components/accounts/accounts.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AttachmentsComponent } from './components/attachments/attachments.component';
 import { JournalTemplatePopupComponent } from './pages/components/journal-template-popup/journal-template-popup.component';
 
 
@@ -40,6 +41,7 @@ const routes: Routes = [
     CreateJournalEntryComponent,
     JournalEntryListComponent,
     AccountsComponent,
+    AttachmentsComponent,
     JournalTemplatePopupComponent
   ],
   imports: [

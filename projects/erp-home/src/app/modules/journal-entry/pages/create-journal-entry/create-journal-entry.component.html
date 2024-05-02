@@ -12,29 +12,20 @@
                 <lib-text-input placeholder="Journal Date" type="date" formControlName="journalDate"></lib-text-input>
             </div>
             <div class="col-12 md:col-3 ">
-                <lib-text-input placeholder="Journal Period" formControlName="periodName" [readOnly]="true">
+                <lib-text-input placeholder="Journal Period" formControlName="periodId" [readOnly]="true">
                 </lib-text-input>
             </div>
             <div class="col-12 md:col-3 ">
-                <button>upload attachment</button>
+                <button (click)="openAttachments()">Attach</button>
             </div>
             <div class="col-12 md:col-12 ">
                 <lib-text-input placeholder="Description" formControlName="description"></lib-text-input>
             </div>
         </div>
-        <div>
-            Attachments
-            <button (click)="addAttachment()">add</button>
-            <ul>
-                <li *ngFor="let item of attachments.controls">
-                    <lib-named-file-uploader></lib-named-file-uploader>
-                </li>
-            </ul>
-        </div>
     </div>
     <div class="entry_table">
         <div class="card">
-            <p-table [value]="things" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }">
+            <p-table [value]="fa.controls" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header">
                     <tr>
                         <th>Id</th>
@@ -47,125 +38,97 @@
                         <th>Rate</th>
                         <th>DB Amount Local</th>
                         <th>CR Amount Local</th>
+                        <th></th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-item let-editing="editing"> 
-                    <tr>
-                        <td>{{item.id}}</td>
-                        <td [pEditableColumn]="item.accountId" pEditableColumnField="accountId">
+                <ng-template pTemplate="body" let-fg let-editing="editing" let-i="rowIndex"> 
+                    <tr [formGroup]="fg">
+                        <td>{{fg.controls['id'].value}}</td>
+                        <td [pEditableColumn]="fg.controls['account']" pEditableColumnField="fg.controls['account']">
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <p-autoComplete [(ngModel)]="item.account" (onSelect)="accountSelected($event)" [forceSelection]="true" [suggestions]="filteredAccounts" (completeMethod)="filterAccount($event)" field="nameEn"></p-autoComplete>
+                                    <p-autoComplete formControlName="account" (onSelect)="accountSelected($event, i)" 
+                                    [forceSelection]="true" [suggestions]="filteredAccounts" 
+                                    #autocomplete (onFocus)="!autocomplete.value && autocomplete.show()"
+                                    (completeMethod)="filterAccount($event)" field="accountCode"></p-autoComplete>
+                                    <button (click)="openDialog(i)">open</button>
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{ item.account?.accountCode }}
+                                    {{ fg.controls['account'].value?.accountCode }}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
                         <td>
-                            {{ item.account?.nameEn }}
+                            {{ fg.controls['account'].value?.nameEn }}
                         </td>
-                        <td [pEditableColumn]="item.lineDescription" pEditableColumnField="lineDescription">
+                        <td [pEditableColumn]="fg.controls['lineDescription']" pEditableColumnField="lineDescription">
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText [(ngModel)]="item.lineDescription" />
+                                    <lib-text-input formControlName="lineDescription"></lib-text-input>
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{ item.lineDescription }}
+                                    {{ fg.controls['lineDescription'].value }}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
 
-                        <td [pEditableColumn]="item.debitAmount" pEditableColumnField="debitAmount">
+                        <td [pEditableColumn]="fg.controls['debitAmount']" pEditableColumnField="debitAmount">
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText [(ngModel)]="item.debitAmount" />
+                                    <lib-text-input formControlName="debitAmount"  type="number"></lib-text-input>
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{ item.debitAmount }}
+                                    {{ fg.controls['debitAmount'].value }}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
 
-                        <td [pEditableColumn]="item.creditAmount" pEditableColumnField="creditAmount">
+                        <td [pEditableColumn]="fg.controls['creditAmount']" pEditableColumnField="creditAmount">
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText [(ngModel)]="item.creditAmount" />
+                                    <lib-text-input formControlName="creditAmount"  type="number"></lib-text-input>
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{ item.creditAmount }}
+                                    {{ fg.controls['creditAmount'].value }}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
 
-                        <td [pEditableColumn]="item.currency" pEditableColumnField="currency">
+                        <td [pEditableColumn]="fg.controls['currency']" pEditableColumnField="currency">
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <p-autoComplete [(ngModel)]="item.currency" [forceSelection]="true" [suggestions]="fitleredCurrencies" (completeMethod)="filterCurrency($event)" field="currencyName"></p-autoComplete>
+                                    <p-autoComplete formControlName="currency" [forceSelection]="true" [suggestions]="fitleredCurrencies" (completeMethod)="filterCurrency($event)" field="currencyName"></p-autoComplete>
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{ item.currency?.currencyName }}
+                                    {{ fg.controls['currency'].value?.currencyName }}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
 
-                        <td [pEditableColumn]="item.rate" pEditableColumnField="rate">
+                        <td [pEditableColumn]="fg.controls['currencyRate']" pEditableColumnField="currencyRate">
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText [(ngModel)]="item.rate" />
+                                    <lib-text-input formControlName="currencyRate"  type="number"></lib-text-input>
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{ item.rate }}
+                                    {{ fg.controls['currencyRate'].value }}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
 
                         <td>
-                            {{ item.debitAmountLocal}}
+                            {{ fg.controls['debitAmountLocal'].value | number:'1.0-2'}}
                         </td>
 
                         <td>
-                            {{ item.creditAmountLocal }}
+                            {{ fg.controls['creditAmountLocal'].value | number:'1.0-2' }}
+                        </td>
+
+                        <td>
+                            <button (click)="deleteLine(i)">Delete</button>
                         </td>
                     </tr>
                 </ng-template>
-
-                <!-- <ng-template pTemplate="body" let-item  let-editing="editing"> 
-                    <tr>
-                        <td>{{item.get('id').value}}</td>
-                        <td>
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <input pInputText type="text" formControlName="accountId" />
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{ product.author }}
-                                </ng-template>
-                            </p-cellEditor>
-                        </td>
-                        <td [pEditableColumn]="product.name" pEditableColumnField="name">
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <input pInputText type="text" [(ngModel)]="product.name" required />
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{ product.name }}
-                                </ng-template>
-                            </p-cellEditor>
-                        </td>
-                        <td [pEditableColumn]="product.year" pEditableColumnField="year">
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <input pInputText [(ngModel)]="product.year" />
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{ product.year }}
-                                </ng-template>
-                            </p-cellEditor>
-                        </td>
-
-                    </tr>
-                </ng-template> -->
             </p-table>
         </div>
         <div class="add_new">
@@ -189,7 +152,7 @@
             <button class="btn discard">
                 discard
             </button>
-            <button class="btn save" (click)="save()">
+            <button class="btn save koss" [disabled]="!fg.valid" (click)="save()">
                 Save
             </button>
         </div>

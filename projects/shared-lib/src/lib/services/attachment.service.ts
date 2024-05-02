@@ -76,6 +76,7 @@ export class AttachmentsService {
   }
 
   async uploadValidatedFile(files: FileDto[]): Promise<Observable<UploadFileResult>> {
+    
     const reader = new FileReader();
     const [file] = files;
     reader.readAsDataURL(file);
@@ -158,5 +159,6 @@ export class AttachmentsService {
     private languageService: LanguageService,
     private toasterService: ToasterService,
     private enviormentService: EnvironmentService
-  ) { }
+  ) {
+   }
 }

@@ -5,6 +5,7 @@ import {
   EventEmitter,
   Optional,
   Self,
+  OnInit,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -27,7 +28,7 @@ import { SharedLibraryEnums } from '../../constants';
   templateUrl: './named-file-uploader.component.html',
   styleUrl: './named-file-uploader.component.scss',
 })
-export class NamedFileUploaderComponent {
+export class NamedFileUploaderComponent implements OnInit {
   @Input() label: string;
   @Input() placeholder: string;
   @Input() base64: string;
@@ -40,6 +41,11 @@ export class NamedFileUploaderComponent {
     return this.appControl as FormGroup;
   }
 
+  ngOnInit(): void {
+    const value = this.appControl.value.attachmentId;
+    this.setValue(value);
+  }
+
   async uploadFile(event: any) {
     this.deleteAttachment();
     const errors = this.attachmentService.validateFile(event.target.files, this.config);
@@ -50,8 +56,7 @@ export class NamedFileUploaderComponent {
     }
     const upload$ = await this.attachmentService.uploadValidatedFile(event.target.files);
     upload$.subscribe(result => {
-      this.value = result.attachmentId;
-      this.updateImageBase64();
+      this.setValue(result.attachmentId);
       this.fg.setValue({
         attachmentId: result.attachmentId,
         name: result.name
@@ -62,14 +67,18 @@ export class NamedFileUploaderComponent {
   downloadAttachment() {
     this.attachmentService.downloadAttachment(
       this.value,
-      this.label,
+      this.label || this.fg.value.name,
       this.config.type!
     );
   }
 
+  private setValue(value: string){
+    this.value = value;
+    this.updateImageBase64();
+  }
+
   deleteAttachment() {
-    this.value = '';
-    this.base64 = '';
+    this.setValue('');
     this.fg.setValue({
       attachmentId: '',
       name: ''
@@ -77,6 +86,10 @@ export class NamedFileUploaderComponent {
   }
 
   private updateImageBase64() {
+    if(!this.value){
+      this.base64 = '';
+      return;
+    }
     this.attachmentService
       .getAttachment(this.value)
       .subscribe((response: AttachmentDto) => {
