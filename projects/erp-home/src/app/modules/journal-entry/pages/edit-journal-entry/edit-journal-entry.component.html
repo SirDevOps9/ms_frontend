@@ -108,14 +108,7 @@
         >
           <ng-template pTemplate="header">
             <tr>
-              <!-- <th
-                style="width: 5%"
-                *ngIf="
-                  journalEntry?.status ==
-                    enums.JournalEntryStatus.DraftUnbalanced ||
-                  journalEntry?.status == enums.JournalEntryStatus.Draftbalanced
-                "
-              ></th> -->
+
               <th style="width: 10%">Id</th>
               <th style="width: 15%">Account Code</th>
               <th style="width: 15%">Account Name</th>
@@ -142,10 +135,7 @@
                 [pEditableColumn]="journalLine.accountId"
                 pEditableColumnField="accountId"
               >
-                <!-- <lib-text-input
-                  formControlName="accountId"
-                  [readOnly]="viewMode"
-                ></lib-text-input> -->
+
                 <p-cellEditor>
                   <ng-template pTemplate="input">
                     <p-autoComplete
@@ -203,7 +193,7 @@
                 </lib-form-group>
               </td>
               
-              <td
+              <!-- <td
                 [pEditableColumn]="journalLine.currency"
                 pEditableColumnField="currency"
               >
@@ -221,21 +211,9 @@
                     {{ journalLine.get("currency").value }}
                   </ng-template>
                 </p-cellEditor>
-              </td>
-              
-              <!-- <td>
-                <lib-form-group>
-                  <lib-text-input
-                    formControlName="currency"
-                    [readOnly]="journalLine.get('id').value"
-                  ></lib-text-input>
-                  <lib-field-validations
-                    [appControl]="journalLine?.get('currency')"
-                  >
-                  </lib-field-validations>
-                </lib-form-group>
-                 {{ journalLine.get("currency").value }} 
               </td> -->
+              
+
                 <td [pEditableColumn]="journalLine?.value?.currency" [pEditableColumnField]="journalLine?.value?.currency">
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
