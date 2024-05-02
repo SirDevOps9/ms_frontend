@@ -126,7 +126,11 @@
               <th style="width: 10%">Rate</th>
               <th style="width: 10%">DB Amount Local</th>
               <th style="width: 10%">CR Amount Local</th>
-              <th style="width: 10%">Actions</th>
+              <th style="width: 10%" *ngIf="
+                  journalEntry?.status ==
+                  enums.JournalEntryStatus.DraftUnbalanced ||
+                  journalEntry?.status == enums.JournalEntryStatus.Draftbalanced
+                    ">Actions</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-journalLine let-rowIndex="rowIndex">
@@ -188,7 +192,7 @@
                 <lib-form-group>
                   <lib-text-input
                     type="number"
-                    (keyUp)="valueChanges($event, rowIndex)"
+                    (valueChanged)="valueChanges($event, rowIndex)"
                     formControlName="creditAmount"
                     [readOnly]="viewMode"
                   ></lib-text-input>
@@ -219,7 +223,7 @@
                 </p-cellEditor>
               </td> -->
               
-              <td>
+              <!-- <td>
                 <lib-form-group>
                   <lib-text-input
                     formControlName="currency"
@@ -230,8 +234,18 @@
                   >
                   </lib-field-validations>
                 </lib-form-group>
-                <!-- {{ journalLine.get("currency").value }} -->
-              </td>
+                 {{ journalLine.get("currency").value }} 
+              </td> -->
+                <td [pEditableColumn]="journalLine?.value?.currency" [pEditableColumnField]="journalLine?.value?.currency">
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <p-autoComplete formControlName="currency" appendTo="body" [forceSelection]="true" [suggestions]="fitleredCurrencies" (completeMethod)="filterCurrency($event)" field="currencyName" (ngModelChange)="oncurrencyChange($event , journalLine)"></p-autoComplete>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{ journalLine?.value?.currency?.currencyName ? journalLine?.value?.currency?.currencyName : journalLine?.value?.currency }}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
               <td>
                 <lib-form-group>
                   <lib-text-input
@@ -239,6 +253,8 @@
                     (keyUp)="valueChanges($event, rowIndex)"
                     formControlName="currencyRate"
                     [readOnly]="viewMode"
+                   
+                    
                   ></lib-text-input>
                   <lib-field-validations
                     [appControl]="journalLine?.get('currencyRate')"
@@ -259,7 +275,11 @@
                 journalEntry?.status == enums.JournalEntryStatus.Draftbalanced
               "
             > -->
-              <td>
+              <td *ngIf="
+              journalEntry?.status ==
+                enums.JournalEntryStatus.DraftUnbalanced ||
+              journalEntry?.status == enums.JournalEntryStatus.Draftbalanced
+            ">
                 <div
                   class="pi pi-trash"
                   (click)="deleteJournalEntryLine(rowIndex)"
@@ -269,11 +289,13 @@
           </ng-template>
         </p-table>
 
-        <div class="add_new">
-          <button class="btn Line" type="button" (click)="addNewRow()">
-            Add New Line
-          </button>
-          <button class="btn" type="button">Add Template</button>
+        <div class="add_new" *ngIf="
+            journalEntry?.status != enums.JournalEntryStatus.submited &&
+            journalEntry?.status != enums.JournalEntryStatus.Posted">
+            <button class="btn Line" type="button" (click)="addNewRow()">
+              Add New Line
+            </button> 
+         
         </div>
       </div>
       <div class="paginator">

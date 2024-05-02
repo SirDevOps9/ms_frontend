@@ -20,7 +20,7 @@ import {
   templateUrl: './text-input.component.html',
   styleUrls: ['./text-input.component.scss'],
 })
-export class TextInputComponent implements ControlValueAccessor, Validator {
+export class  TextInputComponent implements ControlValueAccessor, Validator {
   @Input() label: string;
   @Input() type: 'text' | 'number' | 'tel' | 'email' | 'date';
   @Input() readOnly: boolean;

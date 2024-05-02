@@ -6,4 +6,5 @@ export class EditJournalEntryLine {
     creditAmount: number;
     currencyRate: number;
     currencyId: number;
+    currency : any
   }

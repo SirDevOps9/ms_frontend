@@ -39,13 +39,14 @@ export class EditJournalEntryComponent implements OnInit {
   journalTypeName: string;
 
   filteredAccounts: AccountDto[] = [];
-  currencies: CurrencyDto[];
+  currencies: CurrencyDto[] = [];
   fitleredCurrencies: CurrencyDto[];
 
   ngOnInit() {
     this.getAccounts();
     this.initializeForm();
     this.initializeFormData();
+    this.getCurrencies()
   }
 
   initializeForm() {
@@ -132,13 +133,20 @@ export class EditJournalEntryComponent implements OnInit {
 
     const request: EditJournalEntry = this.editJournalForm.value;
     request.id = this.routerService.currentId;
-    request.journalEntryLines = this.journalEntryLinesFormArray?.value.map(
-      (line: any, index: number) => ({
-        ...line,
-        currencyId: this.currencyIdList[index],
-      })
-    );
-
+    // request.journalEntryLines = this.journalEntryLinesFormArray?.value.map(
+    //   (line: any, index: number) => ({
+    //     ...line,
+    //     currencyId: this.currencyIdList[index],
+    //   })
+    // );
+    request.journalEntryLines = request.journalEntryLines?.map((item)=>{
+      if(item.currency) {
+        item.currency = this.currencies.find(elem=>elem.id == item.currency.id || item.currency)?.id
+        item.currencyId = item['currency']
+        delete item.currency
+      }    
+      return item
+    })
     this.journalEntryService.editJournalEntry(request);
   }
 
@@ -163,7 +171,10 @@ export class EditJournalEntryComponent implements OnInit {
   get journalEntryLinesFormArray() {
     return this.editJournalForm.get('journalEntryLines') as FormArray;
   }
-
+  oncurrencyChange(e : any , journalLine : FormGroup) {
+    journalLine.get('currencyRate')?.setValue(journalLine?.value?.currency?.ratePerUnit)
+    
+  }
   valueChanges(event: any, index: number) {
     const journalLine = this.journalEntryLinesFormArray.at(index);
 
@@ -173,19 +184,29 @@ export class EditJournalEntryComponent implements OnInit {
     const debitAmountLocalControl = journalLine.get('debitAmountLocal');
     const creditAmountLocalControl = journalLine.get('creditAmountLocal');
 
-    console.log(index, debitAmountControl);
 
     // Subscribe to changes in debit amount
     debitAmountControl?.valueChanges.subscribe((value) => {
-      const debitAmountLocal = value * currencyRateControl?.value;
+      console.log(value)
+      console.log(currencyRateControl?.value)
+      const debitAmountLocal = event * currencyRateControl?.value;
       debitAmountLocalControl?.setValue(debitAmountLocal);
     });
+    console.log(index, debitAmountControl);
+    console.log(event);
 
     // Subscribe to changes in credit amount
-    creditAmountControl?.valueChanges.subscribe((value) => {
-      const creditAmountLocal = value * currencyRateControl?.value;
-      creditAmountLocalControl?.setValue(creditAmountLocal);
-    });
+    // creditAmountControl?.valueChanges.subscribe((value) => {
+    //   const creditAmountLocal = value * currencyRateControl?.value;
+      
+    // });
+
+    console.log(journalLine.get('creditAmount')?.value)
+    console.log(journalLine.get('currencyRate')?.value)
+
+    creditAmountLocalControl?.setValue(journalLine.get('creditAmount')?.value * journalLine.get('currencyRate')?.value);
+    debitAmountLocalControl?.setValue(journalLine.get('debitAmount')?.value * journalLine.get('currencyRate')?.value);
+
 
     // Subscribe to changes in currency rate
     currencyRateControl?.valueChanges.subscribe((value) => {
@@ -228,7 +249,7 @@ export class EditJournalEntryComponent implements OnInit {
   addNewRow() {
     this.journalEntryLinesFormArray.push(
       this.fb.group({
-        id: new FormControl(),
+        id: new FormControl(0),
         //accountCode: new FormControl(),
         accountId: new FormControl(),
         accountName: new FormControl(),
@@ -276,7 +297,9 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   filterCurrency(event: any,) {
+    console.log(event)
     let query = event.query.toLowerCase();
+    console.log(this.currencies)
     this.fitleredCurrencies = this.currencies.filter(c =>
       c.currencyName?.toLowerCase().includes(query));
 
