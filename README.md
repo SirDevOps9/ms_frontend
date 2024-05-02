@@ -37,3 +37,17 @@ For Building accounting run `npm build:accounting`
 For Building accounting run `npm build:erphome`
 For Building hr run `npm build:hr`
 For Building erp run `npm build:erp`
+
+## SSL Configuration
+Open the SSL folder in next to the projects folder in our repository
+1- right click on localhost.crt and click install certifcate 
+2- select local machine hit next
+3- select place all certificates in the following store hit next
+4- select browse and select Trusted Root Certificate Authorities hit next
+5- then finish and next
+
+
+## DNS Configuration
+1- Open C:\Windows\System32\drivers\etc folder
+2- open hosts file and add this line at the end "127.0.0.1 fathysub2.localhost.com" without the quotes
+3- save the file 

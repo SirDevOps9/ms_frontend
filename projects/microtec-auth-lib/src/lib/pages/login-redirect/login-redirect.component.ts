@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthHttpService, AuthService } from 'microtec-auth-lib';
-import { forkJoin, switchMap } from 'rxjs';
-import { RouterService, StorageKeys, StorageService } from 'shared-lib';
+import { RouterService } from 'shared-lib';
 
 @Component({
   selector: 'app-login-redirect',
@@ -11,39 +10,21 @@ import { RouterService, StorageKeys, StorageService } from 'shared-lib';
 export class LoginRedirectComponent implements OnInit {
   loginResponse: any;
   ngOnInit() {
-    // this.authService
-    //   .saveTokenData()
-    //   .pipe(switchMap(() => this.authHttp.updateLastLoggingTime()),)
-    //   .subscribe({
-    //     next: (tenantObj) => {
-    //       this.localStorage.setItem(StorageKeys.TENANT, tenantObj);
-    //       this.authService.afterLoginRedirect();
-    //     },
-    //   });
+    this.authService.saveTokenData().subscribe({
+      next: (data: any) => {
+        this.authHttp.updateLastLoggingTime().subscribe({});
 
-    this.authService
-      .saveTokenData()
-      .pipe(
-        switchMap(() =>
-          forkJoin({
-            tenantObj: this.authHttp.updateLastLoggingTime(),
-           // permissiontree: this.authHttp.loadPermissionTree(),
-          })
-        )
-      )
-      .subscribe({
-        next: ({ tenantObj}) => {
-          this.localStorage.setItem(StorageKeys.TENANT, tenantObj);
+        this.authHttp.loadSideMenu().subscribe((res) => {
+          this.authService.saveSideMenu(res);
           this.routerservice.navigateTo('');
-          // this.authService.afterLoginRedirect();
-        },
-      });
+        });
+      },
+    });
   }
 
   constructor(
     private authService: AuthService,
-    private localStorage: StorageService,
     private authHttp: AuthHttpService,
     private routerservice: RouterService
-  ) { }
+  ) {}
 }
