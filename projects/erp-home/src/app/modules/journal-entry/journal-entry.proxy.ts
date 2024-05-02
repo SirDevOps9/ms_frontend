@@ -47,5 +47,10 @@ export class JournalEntryProxy {
     return this.httpService.put<boolean>(`JournalEntry/ChangeStatus`, request);
   }
 
+  deleteJounralEntryLine(id: number): Observable<boolean> {
+    return this.httpService.delete<number>(`JournalEntry/DeleteLine?Id=${id}`);
+  }
+
+
   constructor(private httpService: HttpService) {}
 }

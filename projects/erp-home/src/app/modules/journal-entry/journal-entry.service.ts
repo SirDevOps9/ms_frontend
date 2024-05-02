@@ -73,4 +73,24 @@ export class JournalEntryService {
     });
   }
 
+  
+  async deleteJournalEntryLine(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.journalEntryProxy.deleteJounralEntryLine(id).subscribe({
+        next: () => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('Success'),
+            this.languageService.transalte('Deleted Successfully')
+          );
+          this.loaderService.hide();
+        },
+      });
+    } else {
+    }
+  }
+
+
 }
