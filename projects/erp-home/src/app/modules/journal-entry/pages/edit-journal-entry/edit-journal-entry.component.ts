@@ -84,46 +84,46 @@ export class EditJournalEntryComponent implements OnInit {
         //   res.status === this.enums.JournalEntryStatus.Posted ||
         //   res.status === this.enums.JournalEntryStatus.submited
         // ) {
-          if (res.status === this.enums.JournalEntryStatus.Posted || res.status === this.enums.JournalEntryStatus.submited) {
-            this.viewMode = true;
-          }
-          this.statusName = this.enums.JournalEntryStatus[res.status];
-          this.journalTypeName = this.enums.JournalEntryType[res.type];
+        if (res.status === this.enums.JournalEntryStatus.Posted || res.status === this.enums.JournalEntryStatus.submited) {
+          this.viewMode = true;
+        }
+        this.statusName = this.enums.JournalEntryStatus[res.status];
+        this.journalTypeName = this.enums.JournalEntryType[res.type];
 
-          this.journalEntry = res;
-          this.journalEntryLines = res.journalEntryLines!;
-          console.log(this.journalEntryLines);
-          const journalEntryLinesArray = this.journalEntryLinesFormArray;
+        this.journalEntry = res;
+        this.journalEntryLines = res.journalEntryLines!;
+        console.log(this.journalEntryLines);
+        const journalEntryLinesArray = this.journalEntryLinesFormArray;
 
-          journalEntryLinesArray.clear();
+        journalEntryLinesArray.clear();
 
-          this.journalEntryLines.forEach((line) => {
-            const { currencyId, ...lineData } = line;
+        this.journalEntryLines.forEach((line) => {
+          const { currencyId, ...lineData } = line;
 
-            journalEntryLinesArray.push(
-              this.fb.group({
-                id: new FormControl(lineData.id),
-                //accountCode: new FormControl(),
-                accountId: new FormControl(lineData.accountId),
-                accountName: new FormControl(lineData.accountName),
-                lineDescription: new FormControl(lineData.lineDescription),
-                debitAmount: new FormControl(lineData.debitAmount, [
-                  customValidators.required,
-                ]),
-                creditAmount: new FormControl(lineData.creditAmount, [
-                  customValidators.required,
-                ]),
-                currency: new FormControl(lineData.currency),
-                currencyRate: new FormControl(lineData.currencyRate, [
-                  customValidators.required,
-                ]),
-                debitAmountLocal: new FormControl(lineData.debitAmountLocal),
-                creditAmountLocal: new FormControl(lineData.creditAmountLocal),
-              })
-            );
+          journalEntryLinesArray.push(
+            this.fb.group({
+              id: new FormControl(lineData.id),
+              //accountCode: new FormControl(),
+              accountId: new FormControl(lineData.accountId),
+              accountName: new FormControl(lineData.accountName),
+              lineDescription: new FormControl(lineData.lineDescription),
+              debitAmount: new FormControl(lineData.debitAmount, [
+                customValidators.required,
+              ]),
+              creditAmount: new FormControl(lineData.creditAmount, [
+                customValidators.required,
+              ]),
+              currency: new FormControl(lineData.currency),
+              currencyRate: new FormControl(lineData.currencyRate, [
+                customValidators.required,
+              ]),
+              debitAmountLocal: new FormControl(lineData.debitAmountLocal),
+              creditAmountLocal: new FormControl(lineData.creditAmountLocal),
+            })
+          );
 
-            this.currencyIdList.push(currencyId);
-          });
+          this.currencyIdList.push(currencyId);
+        });
         // }
       });
   }
@@ -139,12 +139,12 @@ export class EditJournalEntryComponent implements OnInit {
     //     currencyId: this.currencyIdList[index],
     //   })
     // );
-    request.journalEntryLines = request.journalEntryLines?.map((item)=>{
-      if(item.currency) {
-        item.currency = this.currencies.find(elem=>elem.id == item.currency.id || item.currency)?.id
+    request.journalEntryLines = request.journalEntryLines?.map((item) => {
+      if (item.currency) {
+        item.currency = this.currencies.find(elem => elem.id == item.currency.id || item.currency)?.id
         item.currencyId = item['currency']
         delete item.currency
-      }    
+      }
       return item
     })
     this.journalEntryService.editJournalEntry(request);
@@ -171,9 +171,9 @@ export class EditJournalEntryComponent implements OnInit {
   get journalEntryLinesFormArray() {
     return this.editJournalForm.get('journalEntryLines') as FormArray;
   }
-  oncurrencyChange(e : any , journalLine : FormGroup) {
+  oncurrencyChange(e: any, journalLine: FormGroup) {
     journalLine.get('currencyRate')?.setValue(journalLine?.value?.currency?.ratePerUnit)
-    
+
   }
   valueChanges(event: any, index: number) {
     const journalLine = this.journalEntryLinesFormArray.at(index);
@@ -198,7 +198,7 @@ export class EditJournalEntryComponent implements OnInit {
     // Subscribe to changes in credit amount
     // creditAmountControl?.valueChanges.subscribe((value) => {
     //   const creditAmountLocal = value * currencyRateControl?.value;
-      
+
     // });
 
     console.log(journalLine.get('creditAmount')?.value)
@@ -229,20 +229,22 @@ export class EditJournalEntryComponent implements OnInit {
       }
     });
   }
-  deleteJournalEntryLine(index: number) {
+  async deleteJournalEntryLine(index: number) {
     const journalLine = this.journalEntryLinesFormArray.at(index);
     const status = this.editJournalForm.get('status')?.value;
-  
+
     if (!journalLine.get('id')?.value) {
       // If it's a new record, just remove it
       this.journalEntryLinesFormArray.removeAt(index);
-    } else if (
+    }
+    else if (
       status === this.enums.JournalEntryStatus.DraftUnbalanced ||
       status === this.enums.JournalEntryStatus.Draftbalanced
     ) {
       // If it's not new and status is draft balanced or unbalanced, delete it from the backend
-      this.journalEntryService.deleteJournalEntryLine(journalLine.get('id')?.value!);
-      this.journalEntryLinesFormArray.removeAt(index);
+      const result = await this.journalEntryService.deleteJournalEntryLine(journalLine.get('id')?.value!);
+      if (result)
+        this.journalEntryLinesFormArray.removeAt(index);
 
     } else {
       // Otherwise, show an error message based on the status
@@ -301,9 +303,9 @@ export class EditJournalEntryComponent implements OnInit {
     });
   }
 
-  getCurrencies(){
+  getCurrencies() {
     this.currencyService.getCurrencies('')
-    .subscribe(r => this.currencies = r);
+      .subscribe(r => this.currencies = r);
   }
 
   filterCurrency(event: any,) {
@@ -316,7 +318,7 @@ export class EditJournalEntryComponent implements OnInit {
 
   }
 
-  onSelect(event: any,index: number) {
+  onSelect(event: any, index: number) {
     const journalLine = this.journalEntryLinesFormArray.at(index);
     const accountId = journalLine.get('currency');
     accountId?.setValue(event.target.value);
@@ -332,5 +334,5 @@ export class EditJournalEntryComponent implements OnInit {
     private toasterService: ToasterService,
     private currencyService: CurrencyService,
 
-  ) {}
+  ) { }
 }

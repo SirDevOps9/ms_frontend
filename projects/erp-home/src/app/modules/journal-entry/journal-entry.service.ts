@@ -26,7 +26,7 @@ export class JournalEntryService {
     return this.journalEntryProxy.getAllPaginated(pageInfo).pipe(map(res => { return res }));
   }
 
-  addJournalEntry(command: AddJournalEntryCommand){
+  addJournalEntry(command: AddJournalEntryCommand) {
     return this.journalEntryProxy.create(command);
   }
 
@@ -40,7 +40,7 @@ export class JournalEntryService {
       })
     );
   }
-  
+
   ChangeStatus(journalStatusUpdate: JournalStatusUpdate) {
     return this.journalEntryProxy.ChangeStatus(journalStatusUpdate).pipe(
       map((res) => {
@@ -56,7 +56,7 @@ export class JournalEntryService {
     );
   }
 
-  editJournalEntry(request:EditJournalEntry) {
+  editJournalEntry(request: EditJournalEntry) {
     this.loaderService.show();
     this.journalEntryProxy.edit(request).subscribe({
       next: (res) => {
@@ -73,23 +73,30 @@ export class JournalEntryService {
     });
   }
 
-  
-  async deleteJournalEntryLine(id: number) {
+
+  async deleteJournalEntryLine(id: number): Promise<boolean> {
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
-    if (confirmed) {
-      this.journalEntryProxy.deleteJounralEntryLine(id).subscribe({
-        next: () => {
-          this.toasterService.showSuccess(
-            this.languageService.transalte('Success'),
-            this.languageService.transalte('Deleted Successfully')
-          );
-          this.loaderService.hide();
-        },
-      });
-    } else {
-    }
+    const p = new Promise<boolean>((res, rej) => {
+
+      if (confirmed) {
+        this.journalEntryProxy.deleteJounralEntryLine(id).subscribe({
+          next: () => {
+            this.toasterService.showSuccess(
+              this.languageService.transalte('Success'),
+              this.languageService.transalte('Deleted Successfully')
+            );
+            this.loaderService.hide();
+            res(true);
+          },
+        });
+      } else {
+        res(false);
+      }
+
+    })
+    return await p;
   }
 
 
