@@ -102,7 +102,9 @@ export class EditJournalEntryComponent implements OnInit {
           journalEntryLinesArray.push(
             this.fb.group({
               id: new FormControl(lineData.id),
-              accountId: new FormControl(lineData.accountId),
+              accountId: new FormControl(lineData.accountId, [
+                customValidators.required,
+              ]),
               accountName: new FormControl(lineData.accountName),
               accountCode: new FormControl(lineData.accountCode),
               lineDescription: new FormControl(lineData.lineDescription),
@@ -112,7 +114,9 @@ export class EditJournalEntryComponent implements OnInit {
               creditAmount: new FormControl(lineData.creditAmount, [
                 customValidators.required,
               ]),
-              currency: new FormControl(lineData.currency),
+              currency: new FormControl(lineData.currency, [
+                customValidators.required,
+              ]),
               currencyRate: new FormControl(lineData.currencyRate, [
                 customValidators.required,
               ]),
@@ -134,11 +138,10 @@ export class EditJournalEntryComponent implements OnInit {
     request.id = this.routerService.currentId;
 
     request.journalEntryLines = request.journalEntryLines?.map((item) => {
-      return {...item, currencyId: item.currency.id}
+      const currencyId = typeof item.currency == 'string'? this.currencies.find(c=>c.currencyName==item.currency)!.id : item.currency.id;
+      return {...item, currencyId: currencyId }
     })
     this.journalEntryService.editJournalEntry(request)
-    console.log(this.journalEntryService.editJournalEntry(request))
-
   }
 
   ChangeStatus(status: number) {
@@ -253,13 +256,17 @@ export class EditJournalEntryComponent implements OnInit {
     this.journalEntryLinesFormArray.push(
       this.fb.group({
         id: new FormControl(0),
-        //accountCode: new FormControl(),
+        accountCode: new FormControl('', [
+          customValidators.required,
+        ]),
         accountId: new FormControl(),
         accountName: new FormControl(),
         lineDescription: new FormControl(),
-        debitAmount: new FormControl(),
-        creditAmount: new FormControl(),
-        currency: new FormControl(),
+        debitAmount: new FormControl(0),
+        creditAmount: new FormControl(0),
+        currency: new FormControl(null, [
+          customValidators.required,
+        ]),
         currencyRate: new FormControl(),
         debitAmountLocal: new FormControl(),
         creditAmountLocal: new FormControl(),
@@ -296,6 +303,7 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   updateAccount(event: any, index: number){
+    console.log(event.value);
     const journalLine = this.journalEntryLinesFormArray.at(index);
     journalLine.get('accountId')?.setValue(event.value.id);
     const accountName = journalLine.get('accountName');
