@@ -9,6 +9,7 @@ import { CreateJournalEntryComponent } from './pages/create-journal-entry/create
 import { AccountsComponent } from './components/accounts/accounts.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AttachmentsComponent } from './components/attachments/attachments.component';
+import { EditJournalEntryComponent } from './pages/edit-journal-entry/edit-journal-entry.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,14 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.JOURNAL_ADD,
         },
+      },
+      {
+        path: 'journalentry/edit/:id',
+        component: EditJournalEntryComponent,
+       // canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.JOURNAL_Edit,
+        },
       }
     ],
   },
@@ -42,6 +51,7 @@ const routes: Routes = [
     JournalEntryListComponent,
     AccountsComponent,
     AttachmentsComponent,
+    EditJournalEntryComponent
   ],
   imports: [
     CommonModule,

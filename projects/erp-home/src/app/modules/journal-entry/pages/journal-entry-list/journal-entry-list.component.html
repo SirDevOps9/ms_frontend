@@ -1,7 +1,7 @@
 <div>
   <lib-bread-crumb></lib-bread-crumb>
   <div class="user_page">
-    <lib-data-table [items]="tableData" className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
+    <lib-data-table [items]="tableData"  className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
       (pageChange)="onPageChange($event)"
        [tableConfigs]="{
         
@@ -33,7 +33,7 @@
               headerText: ('Date'),
               isGlobalFilter: true,
               isSortable: true,
-              template: userDate
+              template: journalDate
             },
             {
               name: 'type',
@@ -58,14 +58,14 @@
               headerText: ('Repeated'),
               isGlobalFilter: true,
               isSortable: true,
-              template: userIsRepeated
+              template: journalIsRepeated
             },
             {
               name: 'isReversed',
               headerText: ('Reversed'),
               isGlobalFilter: true,
               isSortable: true,
-              template: userIsReversed
+              template: journalIsReversed
             },
             {
               name: 'status',
@@ -117,29 +117,29 @@
       
         </div>
       </ng-container>
-      <ng-template #userCol let-user>
+      <ng-template #userCol let-journal>
         <div class="actions flex align-items-center ">
-          <lib-button className="edit"  icon="pi pi-pencil" [rounded]="true" [enableText]="true" severity="secondary">
+          <lib-button className="edit" type="button" (click)="routeToEdit(journal.id)"  icon="pi pi-pencil" [rounded]="true" [enableText]="true" severity="secondary">
           </lib-button>
           <lib-button icon="pi pi-trash" [rounded]="true" [enableText]="true" severity="secondary">
           </lib-button>
         </div>
 
       </ng-template>
-      <ng-template #userStatus let-user>
-        <div class="status unbalanced" *ngIf="user.status===sharedJouralEnum.JournalEntryStatus.DraftUnbalanced">
+      <ng-template #userStatus let-journal>
+        <div class="status unbalanced" *ngIf="journal.status===sharedJouralEnum.JournalEntryStatus.DraftUnbalanced">
           <p class="dot"></p>
           <p> Unbalanced</p>
         </div>
-        <div class="status draft" *ngIf="user.status==sharedJouralEnum.JournalEntryStatus.Draftbalanced">
+        <div class="status draft" *ngIf="journal.status==sharedJouralEnum.JournalEntryStatus.Draftbalanced">
           <p class="dot"></p>
           <p> Draft</p>
         </div>
-        <div class="status unposted" *ngIf="user.status===sharedJouralEnum.JournalEntryStatus.submited">
+        <div class="status unposted" *ngIf="journal.status===sharedJouralEnum.JournalEntryStatus.submited">
           <p class="dot"></p>
           <p> Unposted</p>
         </div>
-        <div class="status Posted" *ngIf="user.status===sharedJouralEnum.JournalEntryStatus.Posted">
+        <div class="status Posted" *ngIf="journal.status===sharedJouralEnum.JournalEntryStatus.Posted">
           <p class="dot"></p>
           <p> Posted</p>
         </div>
@@ -149,19 +149,19 @@
 
 
       </ng-template>
-      <ng-template #userDate let-user>
+      <ng-template #journalDate let-journal>
         <div>
-          <p>{{user.createdOn | date: 'dd/MM/yyyy' }}</p>
+          <p>{{journal.createdOn | date: 'dd/MM/yyyy' }}</p>
         </div>
       </ng-template>
-      <ng-template #userIsRepeated let-user>
+      <ng-template #journalIsRepeated let-journal>
         <div>
-          <p>{{user.isRepeated ? 'Yes' : 'No' }}</p>
+          <p>{{journal.isRepeated ? 'Yes' : 'No' }}</p>
         </div>
       </ng-template>
-      <ng-template #userIsReversed let-user>
+      <ng-template #journalIsReversed let-journal>
         <div>
-          <p>{{user.isReversed ? 'Yes' : 'No' }}</p>
+          <p>{{journal.isReversed ? 'Yes' : 'No' }}</p>
         </div>
       </ng-template>
     </lib-data-table>

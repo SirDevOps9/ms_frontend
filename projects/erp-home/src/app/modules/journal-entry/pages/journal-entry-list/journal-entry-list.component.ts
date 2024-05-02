@@ -111,6 +111,9 @@ export class JournalEntryListComponent implements OnInit {
   routeToAdd(){
     this.routerService.navigateTo(`/journalentry/add`);
   }
+  routeToEdit(id:number){
+    this.routerService.navigateTo(`/journalentry/edit/${id}`);
+  }
 
 
 }
