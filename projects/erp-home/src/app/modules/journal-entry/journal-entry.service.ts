@@ -66,6 +66,11 @@ export class JournalEntryService {
         );
         this.loaderService.hide();
 
+        setTimeout(() => {
+          location.reload()
+        }, 1500);
+        
+
       },
       error: () => {
         this.loaderService.hide();

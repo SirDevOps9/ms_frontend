@@ -133,12 +133,7 @@ export class EditJournalEntryComponent implements OnInit {
 
     const request: EditJournalEntry = this.editJournalForm.value;
     request.id = this.routerService.currentId;
-    // request.journalEntryLines = this.journalEntryLinesFormArray?.value.map(
-    //   (line: any, index: number) => ({
-    //     ...line,
-    //     currencyId: this.currencyIdList[index],
-    //   })
-    // );
+    
     request.journalEntryLines = request.journalEntryLines?.map((item) => {
       if (item.currency) {
         item.currency = this.currencies.find(elem => elem.id == item.currency.id || item.currency)?.id
@@ -147,7 +142,9 @@ export class EditJournalEntryComponent implements OnInit {
       }
       return item
     })
-    this.journalEntryService.editJournalEntry(request);
+    this.journalEntryService.editJournalEntry(request)
+    console.log(this.journalEntryService.editJournalEntry(request))
+    
   }
 
   ChangeStatus(status: number) {
