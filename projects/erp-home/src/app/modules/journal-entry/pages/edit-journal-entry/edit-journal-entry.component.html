@@ -145,13 +145,14 @@
                       (onFocus)="!autocomplete.value && autocomplete.show()"
                       (completeMethod)="filterAccount($event)"
                       field="accountCode"
+                      (onSelect)="updateAccount($event, rowIndex)"
                     ></p-autoComplete>
                     <button type="button" (click)="openDialog(rowIndex)">
                       open
                     </button>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ journalLine.get("accountId").value }}
+                    {{ journalLine.get("accountCode").value }}
                   </ng-template>
                 </p-cellEditor>
               </td>

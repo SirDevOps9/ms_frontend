@@ -8,7 +8,7 @@ export interface GetJournalEntryByIdDto {
     referenceNumber?: string;
     journalPeriod?: string;
     description?: string;
-    journalDate: Date;
+    journalDate: string;
     type: JournalEntryType;
     sourceName: string;
     sourceCode: string;

@@ -76,14 +76,13 @@ export class EditJournalEntryComponent implements OnInit {
       .subscribe((res) => {
         this.editJournalForm.patchValue({
           ...res,
-        });
+          journalDate: res.journalDate.substring(0, 10)
+        },
+        
+      );
 
         console.log('calling init 1', this.editJournalForm.value);
 
-        // if (
-        //   res.status === this.enums.JournalEntryStatus.Posted ||
-        //   res.status === this.enums.JournalEntryStatus.submited
-        // ) {
         if (res.status === this.enums.JournalEntryStatus.Posted || res.status === this.enums.JournalEntryStatus.submited) {
           this.viewMode = true;
         }
@@ -103,9 +102,9 @@ export class EditJournalEntryComponent implements OnInit {
           journalEntryLinesArray.push(
             this.fb.group({
               id: new FormControl(lineData.id),
-              //accountCode: new FormControl(),
               accountId: new FormControl(lineData.accountId),
               accountName: new FormControl(lineData.accountName),
+              accountCode: new FormControl(lineData.accountCode),
               lineDescription: new FormControl(lineData.lineDescription),
               debitAmount: new FormControl(lineData.debitAmount, [
                 customValidators.required,
@@ -133,18 +132,13 @@ export class EditJournalEntryComponent implements OnInit {
 
     const request: EditJournalEntry = this.editJournalForm.value;
     request.id = this.routerService.currentId;
-    
+
     request.journalEntryLines = request.journalEntryLines?.map((item) => {
-      if (item.currency) {
-        item.currency = this.currencies.find(elem => elem.id == item.currency.id || item.currency)?.id
-        item.currencyId = item['currency']
-        delete item.currency
-      }
-      return item
+      return {...item, currencyId: item.currency.id}
     })
     this.journalEntryService.editJournalEntry(request)
     console.log(this.journalEntryService.editJournalEntry(request))
-    
+
   }
 
   ChangeStatus(status: number) {
@@ -296,8 +290,17 @@ export class EditJournalEntryComponent implements OnInit {
         accountId?.setValue(account.id);
         const accountName = journalLine.get('accountName');
         accountName?.setValue(account.nameEn);
+        journalLine.get('accountCode')?.setValue(account.accountCode);
       }
     });
+  }
+
+  updateAccount(event: any, index: number){
+    const journalLine = this.journalEntryLinesFormArray.at(index);
+    journalLine.get('accountId')?.setValue(event.value.id);
+    const accountName = journalLine.get('accountName');
+    accountName?.setValue(event.value.nameEn);
+    journalLine.get('accountCode')?.setValue(event.value.accountCode);
   }
 
   getCurrencies() {
@@ -315,11 +318,6 @@ export class EditJournalEntryComponent implements OnInit {
 
   }
 
-  onSelect(event: any, index: number) {
-    const journalLine = this.journalEntryLinesFormArray.at(index);
-    const accountId = journalLine.get('currency');
-    accountId?.setValue(event.target.value);
-  }
   constructor(
     private journalEntryService: JournalEntryService,
     private routerService: RouterService,
