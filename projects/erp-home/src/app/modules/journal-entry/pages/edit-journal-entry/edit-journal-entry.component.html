@@ -151,7 +151,6 @@
                       (onFocus)="!autocomplete.value && autocomplete.show()"
                       (completeMethod)="filterAccount($event)"
                       field="accountCode"
-
                     ></p-autoComplete>
                     <button type="button" (click)="openDialog(rowIndex)">
                       open
@@ -199,9 +198,29 @@
                   </lib-field-validations>
                 </lib-form-group>
               </td>
+              
+              <!-- <td
+                [pEditableColumn]="journalLine.currency"
+                pEditableColumnField="currency"
+              >
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <p-autoComplete
+                      [forceSelection]="true"
+                      [suggestions]="fitleredCurrencies"
+                      (completeMethod)="filterCurrency($event)"
+                      field="currency"
+                      s
+                    ></p-autoComplete>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ journalLine.get("currency").value }}
+                  </ng-template>
+                </p-cellEditor>
+              </td> -->
+              
               <td>
                 <lib-form-group>
-                  <!-- Set readOnly to true if it's an already exited record -->
                   <lib-text-input
                     formControlName="currency"
                     [readOnly]="journalLine.get('id').value"
@@ -241,15 +260,21 @@
               "
             > -->
               <td>
-                <div class="pi pi-trash" (click)="deleteJournalEntryLine(rowIndex)"></div>
+                <div
+                  class="pi pi-trash"
+                  (click)="deleteJournalEntryLine(rowIndex)"
+                ></div>
               </td>
             </tr>
           </ng-template>
         </p-table>
 
-        <button class="add_new_btn" type="button" (click)="addNewRow()">
-          Add New Row
-        </button>
+        <div class="add_new">
+          <button class="btn Line" type="button" (click)="addNewRow()">
+            Add New Line
+          </button>
+          <button class="btn" type="button">Add Template</button>
+        </div>
       </div>
       <div class="paginator">
         <lib-paginator

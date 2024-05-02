@@ -19,6 +19,8 @@ import { AccountService } from '../../../account/account.service';
 import { AccountDto } from '../../../account/models/accountDto';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AccountsComponent } from '../../components/accounts/accounts.component';
+import { CurrencyService } from '../../../general/currency.service';
+import { CurrencyDto } from '../../../general/models/currencyDto';
 
 @Component({
   selector: 'app-edit-journal-entry',
@@ -37,6 +39,8 @@ export class EditJournalEntryComponent implements OnInit {
   journalTypeName: string;
 
   filteredAccounts: AccountDto[] = [];
+  currencies: CurrencyDto[];
+  fitleredCurrencies: CurrencyDto[];
 
   ngOnInit() {
     this.getAccounts();
@@ -266,6 +270,18 @@ export class EditJournalEntryComponent implements OnInit {
     });
   }
 
+  getCurrencies(){
+    this.currencyService.getCurrencies('')
+    .subscribe(r => this.currencies = r);
+  }
+
+  filterCurrency(event: any,) {
+    let query = event.query.toLowerCase();
+    this.fitleredCurrencies = this.currencies.filter(c =>
+      c.currencyName?.toLowerCase().includes(query));
+
+
+  }
   constructor(
     private journalEntryService: JournalEntryService,
     private routerService: RouterService,
@@ -274,6 +290,8 @@ export class EditJournalEntryComponent implements OnInit {
     private accountService: AccountService,
     private dialog: DialogService,
     public enums: SharedJournalEnums,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
+    private currencyService: CurrencyService,
+
   ) {}
 }
