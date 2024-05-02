@@ -9,6 +9,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { TranslateModule } from '@ngx-translate/core';
 import { loginRoutes } from './login.routes';
 import { HasPermissionDirective } from './directives/hasPermission.directive';
+import { UnAuthorizedComponent } from './pages/un-authorized/un-authorized.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { HasPermissionDirective } from './directives/hasPermission.directive';
     LoginComponent,
     LoginRedirectComponent,
     LogoutRedirectComponent,
+    UnAuthorizedComponent,
   ],
   imports: [
     CommonModule,
@@ -25,8 +27,6 @@ import { HasPermissionDirective } from './directives/hasPermission.directive';
     MatPaginatorModule,
     TranslateModule.forRoot(),
   ],
-  exports: [
-    HasPermissionDirective
-  ],
+  exports: [HasPermissionDirective],
 })
 export class MicrotecAuthLibModule {}

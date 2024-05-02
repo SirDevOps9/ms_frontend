@@ -12,295 +12,195 @@ export class LayoutSidebarComponent {
   @Output() sidebaropend = new EventEmitter<boolean>();
   sidebarVisible: boolean = true;
   sidebarOpen: boolean = false;
-  nodes!: TreeNode[];
-  sideMeun:SideMenuModel[];
-  treeData: TreeNode[] = [];
-  
+  nodes!: any[];
+  menuList:SideMenuModel[];  
+  treeData: any;
+  highlightedParent: any = null; // To track the highlighted parent node
+  menuItems:any;
   ngOnInit(): void {
+    this.menuItems= [
+      
+      {
+        name: "Accounting",
+        icon: "pi pi-user",
+       // link: "#",
+        showMenu : 'showMenu',
+
+        subMenu: [
+          {
+            name: "Master Data",
+            //link: "#",
+
+          },
+          {
+            name: "Transaction",
+            //link: "#"   
+            subMenu:[
+              {
+                name: "Journal Entry",
+                link: "journalentry"
+              },
+            ]
+          },
+        ]
+      },
+    
+      // Add more items as needed
+    ]
+    
+    // });
+  //   this.nodes=[
+  //     {
+  //         key: '0',
+  //         moduleId: 1,
+  //         module: "Accounting",
+  //         labelEn: "General Ledger",
+  //         labelAr: "دفتر الاستاذ",
+  //         routePath: ".",
+  //         type: "Text",
+  //         icon: null,
+  //         parentId: null,
+  //         children: [
+  //             {
+  //                 key: '0-0',
+  //                 moduleId: 1,
+  //                 module: "Accounting",
+  //                 labelEn: "Master Data",
+  //                 labelAr: "بيانات عامة",
+  //                 routePath: ".",
+  //                 type: "Text",
+  //                 icon: null,
+  //                 parentId: 3,
+  //                 children: []
+  //             },
+  //             {
+  //                 key: '0-1',
+  //                 moduleId: 1,
+  //                 module: "Accounting",
+  //                 labelEn: "Transaction",
+  //                 labelAr: "عمليات",
+  //                 routePath: ".",
+  //                 type: "Text",
+  //                 icon: null,
+  //                 parentId: 3,
+  //                 children: [
+  //                     {
+  //                         key: '0-1-0',
+  //                         moduleId: 1,
+  //                         module: "Accounting",
+  //                         labelEn: "Journal Entry",
+  //                         labelAr: "قيود اليومية",
+  //                         routePath: "fsgdgd",
+  //                         type: "Url",
+  //                         icon: "logo",
+  //                         parentId: 5,
+  //                         children: []
+  //                     }
+  //                 ]
+  //             },
+  //             {
+  //                 key: '0-2',
+  //                 moduleId: 1,
+  //                 module: "Accounting",
+  //                 labelEn: "Reports",
+  //                 labelAr: "تقارير",
+  //                 routePath: ".",
+  //                 type: "Text",
+  //                 icon: null,
+  //                 parentId: 3,
+  //                 children: []
+  //             }
+  //         ]
+  //     }
+  // ]
     this.nodes = [
       {
         key: '0',
-        label: 'create',
-        icon: 'fa-solid fa-square-plus',
+        label: 'General Ledger',
+        icon: 'pi-align-justify',
         children: [
           {
             key: '0-0',
-            label: 'skill pathway',
+            label: 'Master Data',
+            labelEn: 'skill ',
             //data: '/anther-pages/editor/landing',
             //type: 'url',
-            icon: 'https://i.pinimg.com/736x/0e/7c/3c/0e7c3cd000541a95fee5e98205881c59.jpg',
-            children: [
-              {
-                key: '0-0',
-                label: 'skill pathway',
-                //data: '/anther-pages/editor/landing',
-                //type: 'url',
-                icon: 'fa-solid fa-cubes-stacked',
-              },
-              {
-                key: '0-1',
-                label: 'competency quiz',
-                // type: 'url',
-                icon: 'fa-solid fa-file-circle-question',
-              },
-              {
-                key: '0-2',
-                label: 'activity',
-                //type: 'url',
-                icon: 'fa-solid fa-chalkboard-user',
-              },
-            ],
+            icon: 'pi-align-justify',
+          
           },
           {
             key: '0-1',
-            label: 'competency quiz',
+            label: 'Transaction',
             // type: 'url',
-            icon: 'fa-solid fa-file-circle-question',
+            icon: 'pi-align-justify',
+            children: [
+              {
+                key: '1-0',
+                label: 'Journal Entry',
+                data: 'journalentry',
+                type: 'url',
+                icon: 'pi-align-justify',
+              },
+            ],
           },
           {
             key: '0-2',
-            label: 'activity',
+            label: 'Reports',
             //type: 'url',
-            icon: 'fa-solid fa-chalkboard-user',
+            icon: 'pi-align-justify',
           },
         ],
       },
-      {
-        key: '1',
-        label: 'What’s News',
-        icon: 'fa-solid fa-arrows-to-eye',
-        children: [
-          {
-            key: '1-0',
-            label: 'assessment hub',
-            data: '',
-            // type: 'url',
-            icon: 'fa-solid fa-newspaper',
-          },
-          {
-            key: '1-1',
-            label: 'author mode',
-            data: '',
-            // type: 'url',
-            icon: 'fa-solid fa-user-pen',
-          },
-        ],
-      },
-      {
-        key: '2',
-        label: 'analytics',
-        icon: 'fa-solid fa-chart-line',
-        children: [
-          {
-            key: '1-0',
-            label: 'Skyscope Overview',
-            icon: 'fa-solid fa-eye',
-            children: [
-              {
-                key: '1-0',
-                label: 'Seats & Segmentation',
-                // type: 'url',
-                data: '',
-              },
-              {
-                key: '1-1',
-                label: 'Live Lens',
-                // type: 'url',
-                data: '',
-              },
-              {
-                key: '1-2',
-                label: 'Business Analytics',
-                // type: 'url',w
-                data: '',
-              },
-            ],
-          },
-          {
-            key: '1-1',
-            label: 'progress tracker',
-            //type: 'url',
-            icon: ' fa-solid fa-chart-area',
-          },
-          {
-            key: '1-2',
-            label: 'Performance',
-            icon: 'fa-solid fa-user-group',
-            children: [
-              {
-                key: '1-0',
-                label: 'Overview',
-                // type: 'url',
-                data: '',
-              },
-              {
-                key: '1-1',
-                label: 'View Time Status',
-                // type: 'url',
-                data: '',
-              },
-            ],
-          },
-        ],
-      },
-      {
-        key: '3',
-        label: 'organization',
-        icon: 'fa-solid fa-sitemap',
-        children: [
-          {
-            key: '1-0',
-            label: 'structure',
-            // type: 'url',
-            icon: 'fa-solid fa-folder-tree',
-          },
-          {
-            key: '1-1',
-            label: 'User explorer',
-            type: 'url',
-            icon: 'fa-solid fa-globe',
-            data: '/pages/user-explorer/view',
-          },
-        ],
-      },
-      {
-        key: '4',
-        label: 'reports',
-        icon: 'fa-solid fa-ranking-star',
-        children: [
-          {
-            key: '1-0',
-            label: 'custom reports',
-            //type: 'url',
-            icon: 'fa-solid fa-chart-pie',
-          },
-          {
-            key: '1-1',
-            label: 'saved reports',
-            //  type: 'url',
-            icon: 'fa-solid fa-floppy-disk',
-          },
-          {
-            key: '1-2',
-            label: 'alerts',
-            // type: 'url',
-            icon: 'fa-solid fa-circle-radiation',
-          },
-        ],
-      },
-      {
-        key: '5',
-        label: 'assignments',
-        icon: 'fa-solid fa-file-signature',
-        children: [
-          {
-            key: '1-0',
-            label: 'new assignment',
-            type: 'url',
-            icon: 'fa-solid fa-file-circle-plus',
-            data: '/pages/assignments/content-list',
-          },
-          {
-            key: '1-1',
-            label: 'history',
-            type: 'url',
-            icon: 'fa-solid fa-clock-rotate-left',
-            data: '/pages/assignments/list',
-          },
-        ],
-      },
-      {
-        key: '6',
-        label: 'collection',
-        icon: 'fa-solid fa-users-between-lines',
-        children: [
-          {
-            key: '1-0',
-            label: 'skill pathway',
-            //type: 'url',
-            icon: 'fa-solid fa-cubes-stacked',
-          },
-          {
-            key: '1-1',
-            label: 'company quiz',
-            // type: 'url',
-            icon: 'fa-solid fa-file-circle-question',
-          },
-          {
-            key: '1-2',
-            label: 'activity',
-            // type: 'url',
-            icon: 'fa-solid fa-chalkboard-user',
-          },
-        ],
-      },
-      {
-        key: '7',
-        label: 'bookmarks',
-        icon: 'fa-solid fa-bookmark',
-        children: [
-          {
-            key: '1-0',
-            label: 'new folder',
-            type: 'url',
-            icon: 'fa-solid fa-folder-plus',
-            data: '/pages/bookmarks/list',
-          },
-          {
-            key: '1-1',
-            label: 'bookmarked content',
-            type: 'url',
-            icon: 'fa-solid fa-book-bookmark',
-            data: '/pages/bookmarks/list',
-          },
-        ],
-      },
-      {
-        key: '8',
-        label: 'content catalogue',
-        icon: 'fa-brands fa-buromobelexperte',
-        
-        children: [
-          {
-            key: '1-0',
-            label: 'pathways library',
-            type: 'url',
-            icon: 'fa-solid fa-archway',
-            data: '/pages/pathways/list',
-          },
-          {
-            key: '1-1',
-            label: 'books library',
-            type: 'url',
-            icon: 'fa-solid fa-photo-film',
-            data: '/pages/books/list',
-          },
-          {
-            key: '1-2',
-            label: 'courses library',
-            type: 'url',
-            icon: 'fa-solid fa-swatchbook',
-            data: '/pages/courses/list',
-          },
-          {
-            key: '1-3',
-            label: 'reading library',
-            type: 'url',
-            icon: 'fa-solid fa-book-open-reader',
-            data: '/pages/reading/list',
-          },
-        ],
-      },
+  
     ];
-   this.sideMeun= this.authService.getSideMenu()
-   this.treeData = this.mapToTreeNodes(this.sideMeun);
-    console.log( this.treeData ," this.treeData");
+   this.menuList= this.authService.getSideMenu()
+   console.log("Menu list",this.menuList);
+   this.treeData = this.mapToTreeNodes(this.menuList);
+   console.log( this.treeData ," this.treeData");
  
   }
-  toggleSidebar() {
+  open (event:any , i:any) {
+       
+      // Check if the clicked element has the class 'arrow'
+      if (event.target.classList.contains('arrow')) {
+           // Get the parent element with the class 'iocn-link'
+          const arrowParent = event.target.closest('.iocn-link');
+          // Ensure the parent element is found
+          if (arrowParent) {
+              // Find the sibling element of the parent, which should be the menu element
+              const menuElement = arrowParent.nextElementSibling;
+              console.log(arrowParent ,"m");
+              
+              // Ensure the menu element is found
+              if (menuElement) {
+                  // Toggle the 'showMenu' class on the menu element
+                  if(menuElement.classList.contains('sub-menu')){
+                    menuElement.classList.add('sub-menuu2');
+                    menuElement.classList.remove('sub-menu');
+                    const line:any = arrowParent
+                    line.classList.add("parent")
+                  }else{
+                    menuElement.classList.add('sub-menu');
+                    menuElement.classList.remove('sub-menuu2');
+                    const line:any = arrowParent
+                    line.classList.remove("parent")
+                  }
+              }
+              
+          }
+      }
+  }
+  
+  toggleSidebar() {        
     if (this.sidebarOpen == true) {
       this.sidebarOpen = false;
-      
+      const elements = document.querySelectorAll('.sub-menuu2');
+
+      // Iterate over the elements and remove the class from each
+      elements.forEach((element) => {
+          element.classList.remove('sub-menuu2');
+          element.classList.add('sub-menu');
+      });
       this.sidebaropend.emit(false);
     } else {
       this.sidebarOpen = true;
@@ -308,38 +208,61 @@ export class LayoutSidebarComponent {
 
     }
   }
-  mapToTreeNodes(data: SideMenuModel[]): TreeNode[] {
-    // Create a map of items by key
-    const map: { [key: string]: TreeNode } = {};
-    data.forEach(item => {
-      // Create a TreeNode for each item
-      map[item.key.toString()] = {
+  mapToTreeNodes(data: any[]) {
+      data =data.map(item=>{
+       return{
         key: item.key.toString(),
-        label: item.labelEn, // Assuming you want to display the English label
-        icon: "pi pi-bell",
-        type:"url",
-        data: item.data,
-        children: []
-      };
-    });
+        name: item.labelEn, // Assuming you want to display the English label
+        icon: "pi pi-user",
+        type:item.type.toLowerCase(),
+        link: item.routePath,
+        subMenu:item.children?this.mapToTreeNodes(item.children) : [] 
+       }
+      }) 
+      return data
+  }
+  findParentNode(expandedNode: any): any {
+    // Recursive function to search for the parent node
+    const searchParent = (currentNode: any, parentNode: any): any => {
+        // Check if the current node has children
+        if (currentNode.children) {
+            // Iterate through each child
+            for (const child of currentNode.children) {
+                // Check if the child is the expanded node
+                if (child === expandedNode) {
+                    // Return the current node as the parent
+                    return parentNode;
+                }
+                // Recursively search in the child node's children
+                const result = searchParent(child, currentNode);
+                if (result) {
+                    return result;
+                }
+            }
+        }
+        return null; // Return null if not found
+    };
 
-    // Construct the tree structure
-    const tree: TreeNode[] = [];
-    data.forEach(item => {
-      if (item.parentId != null) {
-        // Add the item as a child of its parent
-        map[item.parentId]?.children?.push(map[item.key]);
-      } else {
-        // If no parent, it is a root node
-        tree.push(map[item.key]);
-      }
-    });
+    // Start the search from the root nodes of the tree data
+    for (const node of this.treeData) {
+        const parent = searchParent(node, null);
+        if (parent) {
+            return parent; // Return the found parent node
+        }
+    }
+    return null; // Return null if no parent is found
+  }
 
-    return tree;
+  // Function to handle node expansion event
+  onNodeExpand(event: any) {
+    // Get the expanded node
+    const expandedNode = event.node;
+    
+    // Find and update the highlighted parent node
+    this.highlightedParent = this.findParentNode(expandedNode);
   }
   constructor(
     public authService: AuthService,
 
   ){}
-
 }

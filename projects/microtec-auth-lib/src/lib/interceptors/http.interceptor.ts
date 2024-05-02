@@ -6,16 +6,18 @@ import {
   HttpEvent,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, catchError, switchMap, throwError } from 'rxjs';
-import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import { HeaderParams, LanguageService, StorageKeys, StorageService } from 'shared-lib';
+import { Observable, catchError, throwError } from 'rxjs';
+import {
+  HeaderParams,
+  RouterService,
+  StorageKeys,
+  StorageService,
+} from 'shared-lib';
 
 @Injectable()
 export class ERPInterceptor implements HttpInterceptor {
   constructor(
-    private authService: AuthService,
-    private router: Router,
+    private routerService: RouterService,
     private localStorageService: StorageService
   ) {}
 
@@ -34,9 +36,11 @@ export class ERPInterceptor implements HttpInterceptor {
     return next.handle(clonedRequest).pipe(
       catchError((error: any) => {
         if (error instanceof HttpErrorResponse) {
-        console.log("Interceptor Error",error);
+          console.log('Interceptor Error', error);
           if (error.status === 401) {
-          //  this.router.navigate(['login']);
+            this.routerService.navigateTo('login');
+          } else if (error.status === 403) {
+            this.routerService.navigateTo('un-authorized');
           } else {
             return throwError(() => error);
           }
@@ -44,26 +48,5 @@ export class ERPInterceptor implements HttpInterceptor {
         return throwError(() => error);
       })
     );
-  }
-
-  private handleUnAuthorizedError(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ) {
-    this.router.navigate(['login']);
-    let tokenModel = this.authService.getUserTokenModel();
-    // return this.authService.refreshToken(tokenModel).pipe(
-    //   switchMap((data: any) => {
-    //    // this.authService.saveUserData(data.response);
-    //     request = request.clone();
-    //     return next.handle(request);
-    //   }),
-    //   catchError((err) => {
-    //     //console.log(err);
-    //     return throwError(() => {
-    //       this.router.navigate(['login']);
-    //     });
-    //   })
-    // );
   }
 }

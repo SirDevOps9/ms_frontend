@@ -2,7 +2,7 @@ import { IEnvironment } from 'shared-lib';
 
 export const environment: IEnvironment = {
   production: true,
-  baseUrl: 'http://localhost:2005',
+  baseUrl: 'https://intmicrotec.neat-url.com:2003',
   Version: 'V1',
   ClientId: 'Erp',
   Platform: 'Web',
@@ -23,5 +23,5 @@ export const environment: IEnvironment = {
     SecretKey: 'secretkey',
   },
   ApiKey:"3bb564df-0f24-4ea6-82c1-d99f368cac8a",
-  BusinessOwnerUrl: 'http://localhost:2003',
+  BusinessOwnerUrl: 'https://intmicrotec.neat-url.com:2003',
 };
