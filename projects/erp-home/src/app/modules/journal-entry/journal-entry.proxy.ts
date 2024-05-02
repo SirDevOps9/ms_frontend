@@ -30,20 +30,19 @@ export class JournalEntryProxy{
       create(command: AddJournalEntryCommand):Observable<any>{
         return this.httpService.post('JournalEntry', command);
       }
-            }
-
+      
       getAllJournalTemplate( 
         filterDto: FilterDto
       ): Observable<PaginationVm<GetAllJournalTemplateDto>>{
               return this.httpService.get<PaginationVm<GetAllJournalTemplateDto>>(
                 `JournalEntryTemplete?${filterDto.toQuery}`
-            )}
+            )
+      }
 
-            getJournalTemplateById(id:string){
-              return this.httpService.get<GetJournalTemplateDto>(
-                `JournalEntryTemplete/GetById?Id=${id}`
-            )}
-
-
+      getJournalTemplateById(id:string){
+        return this.httpService.get<GetJournalTemplateDto>(
+          `JournalEntryTemplete/GetById?Id=${id}`
+      )}
+      
       constructor(private httpService: HttpService) {}
 }

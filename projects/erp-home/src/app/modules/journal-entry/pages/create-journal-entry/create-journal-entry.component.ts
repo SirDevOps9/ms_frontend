@@ -11,13 +11,9 @@ import { AddJournalEntryCommand, CreateJournalEntryLine } from '../../models/add
 import { JournalEntryService } from '../../journal-entry.service';
 import { AttachmentsComponent } from '../../components/attachments/attachments.component';
 import { JournalItemModel } from '../../models/journalItemModel';
+import { JournalTemplatePopupComponent } from '../components/journal-template-popup/journal-template-popup.component';
 
 export interface JournalEntryLineFormValue {
-import { JournalTemplatePopupComponent } from '../components/journal-template-popup/journal-template-popup.component';
-import { DialogService } from 'primeng/dynamicdialog';
-import { JournalEntryService } from '../../journal-entry.service';
-
-export class Thing {
   id: number;
   account: AccountDto;
   lineDescription: string;
@@ -43,7 +39,6 @@ export interface JournalEntryFormValue {
   styleUrl: './create-journal-entry.component.scss'
 })
 export class CreateJournalEntryComponent {
-
   fg: FormGroup;
   filteredAccounts: AccountDto[] = [];
   currencies: CurrencyDto[];
@@ -62,9 +57,6 @@ export class CreateJournalEntryComponent {
     private service: JournalEntryService,
     private routerService: RouterService,
   ) {
-    private currencyService: CurrencyService,
-    private dialog: DialogService ,
-    private JournalService:JournalEntryService ) {
     this.fg = fb.group({
       refrenceNumber: ['', customValidators.required],
       journalDate: [this.getTodaysDate(), customValidators.required],
@@ -96,20 +88,6 @@ export class CreateJournalEntryComponent {
       .subscribe(r => this.currencies = r);
   }
 
-  extras = [];
-  addLine() {
-    const id = this.items.length + 1;
-    const fg = this.fb.group({
-      id: new FormControl(id),
-      lineDescription: ['', customValidators.required],
-      debitAmount: [null, customValidators.required],
-      creditAmount: [null, customValidators.required],
-      currencyId: [null, customValidators.required],
-      currencyRate: [null, customValidators.required],
-      accountId: [null, customValidators.required]
-    });
-    this.items.push(fg)
-  }
   filterAccount(event: any) {
     // console.log(event.originalEvent);
     console.log(this.filteredAccounts);
@@ -222,7 +200,7 @@ export class CreateJournalEntryComponent {
     console.log(this.fa.value);
     // console.log(this.fg.value);
   }
- 
+
   RedirectToTemplate() {
     const dialogRef = this.dialog.open(JournalTemplatePopupComponent, {
       width: '800px',
@@ -231,31 +209,44 @@ export class CreateJournalEntryComponent {
   
     dialogRef.onClose.subscribe((id: any) => {
       console.log('Received ID:', id);
-      this.JournalService.getJournalTemplateById(id).subscribe(template => {
+  
+      this.service.getJournalTemplateById(id).subscribe(template => {
         console.log('template:', template);
+  
+        // Set template values to the form group
         this.fg.patchValue({
-          journalDate: new Date().toISOString().substring(0, 10), // Set today's date or template's date?
+          refrenceNumber: template.code,
           periodId: template.PeriodId,
           description: template.Description,
         });
-
-          while (this.items.length !== 0) {
+  
+        // Clear existing journal entry lines
+        while (this.items.length !== 0) {
           this.items.removeAt(0);
         }
-  
-        // Loop through template lines and add them to the form array
+
+        // Add new journal entry lines
+        if (template.GetJournalTemplateLinesByIdDto) {
         template.GetJournalTemplateLinesByIdDto.forEach(line => {
+          this.addThing()
+
           const fg = this.fb.group({
+            id: line.id,
+            account: { id: line.AccountId },
             lineDescription: line.LineDescription,
             debitAmount: line.DebitAmount,
             creditAmount: line.CreditAmount,
-            currencyId: line.CurrencyId,
+            currency: { id: line.CurrencyId },
             currencyRate: line.CurrencyRate,
-            accountId: line.AccountId
+            debitAmountLocal: line.DebitAmountLocal,
+            creditAmountLocal: line.CreditAmountLocal
           });
           this.items.push(fg);
         });
+       }
       });
     });
   }
+  
+
 }
