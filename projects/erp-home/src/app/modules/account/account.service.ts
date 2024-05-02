@@ -11,6 +11,6 @@ export class AccountService {
   constructor(private httpService: HttpService) {}
 
   getAllPaginated(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<AccountDto>>{
-    return this.httpService.get<PaginationVm<AccountDto>>(`api/Accounts?searchTerm=${searchTerm}&${pageInfo.toQuery}`);
+    return this.httpService.get<PaginationVm<AccountDto>>(`ChartOfAccounts?searchTerm=${searchTerm}&${pageInfo.toQuery}`);
   }
 }

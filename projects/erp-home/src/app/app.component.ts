@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthHttpService, AuthService } from 'microtec-auth-lib';
+import { LanguageService } from 'shared-lib';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,9 @@ export class AppComponent implements OnInit {
 
   constructor(
     private currentUserservice: AuthService,
-    private authHttp: AuthHttpService
-  ) {}
+    private authHttp: AuthHttpService,
+    public languageService: LanguageService,
+  ) {
+    this.languageService.setLang();
+  }
 }
