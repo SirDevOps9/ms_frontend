@@ -38,8 +38,8 @@
           </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-row>
-          <tr>
+        <ng-template pTemplate="body" let-row let-i="rowIndex">
+          <tr [ngClass]="{cssClass: i==selectedIndex}">
             <td *ngFor="let col of tableConfigs.columns">
               <ng-container *ngIf="!col.template; else customCellTemplate!">
                 <ng-container *ngIf="col.lookupKey">

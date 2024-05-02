@@ -1,3 +1,4 @@
+import { ValidationErrors } from '@angular/forms';
 import {
   AttachmentFileTypeEnum,
   FileDto,
@@ -7,7 +8,7 @@ import {
 
 export function fileValidator(
   uploadedFile: FileDto,
-  uploadFileConfig: UploadFileConfigDto)
+  uploadFileConfig: UploadFileConfigDto) : ValidationErrors | null 
 {
   const fileTypeInfo = getFileType(uploadFileConfig.type!);
   console.log(uploadedFile);

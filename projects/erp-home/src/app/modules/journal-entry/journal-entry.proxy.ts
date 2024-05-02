@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { FilterDto, HttpService, PaginationVm, lookupDto, lookupsListDto } from 'shared-lib';
 import { JournalEntryDto } from "./models";
 import { Observable } from "rxjs";
+import { AddJournalEntryCommand } from "./models/addJournalEntryCommand";
 
 @Injectable({
     providedIn : 'root'
@@ -23,5 +24,9 @@ export class JournalEntryProxy{
                  `JournalEntry?${filterDto.toQuery}`
               );
             }
+
+      create(command: AddJournalEntryCommand):Observable<any>{
+        return this.httpService.post('JournalEntry', command);
+      }
       constructor(private httpService: HttpService) {}
 }

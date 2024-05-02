@@ -69,14 +69,12 @@ export class LayoutHeaderComponent {
     public languageService: LanguageService,
     public authService: AuthService,
     private env: EnvironmentService,
-    private cartService: AppStoreService,
     private routerService: RouterService,
 
   ) {
     this.userName = this.authService.getUserName;
     this.userData = this.authService.getUserData()?.userData;
     this.languageService.setLang();
-    this.cartItemsCount$ = cartService.cartItemsCount$;
     console.log(this.authService.getUserData()?.userData);
     
   }
