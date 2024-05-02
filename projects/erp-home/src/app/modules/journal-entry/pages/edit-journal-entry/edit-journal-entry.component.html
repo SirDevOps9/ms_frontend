@@ -203,7 +203,7 @@
                 </lib-form-group>
               </td>
               
-              <!-- <td
+              <td
                 [pEditableColumn]="journalLine.currency"
                 pEditableColumnField="currency"
               >
@@ -214,14 +214,14 @@
                       [suggestions]="fitleredCurrencies"
                       (completeMethod)="filterCurrency($event)"
                       field="currency"
-                      s
+                    
                     ></p-autoComplete>
                   </ng-template>
                   <ng-template pTemplate="output">
                     {{ journalLine.get("currency").value }}
                   </ng-template>
                 </p-cellEditor>
-              </td> -->
+              </td>
               
               <!-- <td>
                 <lib-form-group>

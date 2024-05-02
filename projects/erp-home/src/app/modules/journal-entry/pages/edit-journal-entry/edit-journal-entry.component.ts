@@ -233,15 +233,25 @@ export class EditJournalEntryComponent implements OnInit {
     const journalLine = this.journalEntryLinesFormArray.at(index);
     const status = this.editJournalForm.get('status')?.value;
   
-    if (!journalLine.get('id')?.value || status === this.enums.JournalEntryStatus.DraftUnbalanced || status === this.enums.JournalEntryStatus.Draftbalanced) {
+    if (!journalLine.get('id')?.value) {
+      // If it's a new record, just remove it
       this.journalEntryLinesFormArray.removeAt(index);
+    } else if (
+      status === this.enums.JournalEntryStatus.DraftUnbalanced ||
+      status === this.enums.JournalEntryStatus.Draftbalanced
+    ) {
+      // If it's not new and status is draft balanced or unbalanced, delete it from the backend
+      this.journalEntryService.deleteJournalEntryLine(journalLine.get('id')?.value!);
+      this.journalEntryLinesFormArray.removeAt(index);
+
     } else {
-      let message: string='';
+      // Otherwise, show an error message based on the status
+      let message: string = '';
       if (status === this.enums.JournalEntryStatus.submited) {
         message = "Can't be deleted, the entry is already submitted.";
       } else if (status === this.enums.JournalEntryStatus.Posted) {
         message = "Can't be deleted, the entry is already posted.";
-      } 
+      }
       this.toasterService.showError('Failure', message);
     }
   }
@@ -304,6 +314,12 @@ export class EditJournalEntryComponent implements OnInit {
       c.currencyName?.toLowerCase().includes(query));
 
 
+  }
+
+  onSelect(event: any,index: number) {
+    const journalLine = this.journalEntryLinesFormArray.at(index);
+    const accountId = journalLine.get('currency');
+    accountId?.setValue(event.target.value);
   }
   constructor(
     private journalEntryService: JournalEntryService,
