@@ -257,6 +257,7 @@
     "JournalEntryType": "Journal Entry Type",
     "JournalEntryStatus": "Journal Entry Status",
     "Edit": "Edit",
+    "JournalUpdatedSuccessfully":"Journal Updated Successfully",
     "Add": {
       "CompanyLogo": "CompanyLogo",
       "AddCompany": "Add",
