@@ -51,7 +51,7 @@ const routes: Routes = [
     JournalEntryListComponent,
     AccountsComponent,
     AttachmentsComponent,
-    JournalTemplatePopupComponent
+    JournalTemplatePopupComponent,
     EditJournalEntryComponent
   ],
   imports: [
