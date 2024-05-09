@@ -2,7 +2,7 @@ import { Actions } from './actions';
 
 export interface PermissionTreeNode {
   UserLicenseId: number;
-  SubDomainId: number;
+  SubDomainId: string;
   License: string;
   LicenseId: number;
   App: string;

@@ -29,7 +29,7 @@ export class NewCompanyComponent {
   holdingCompanies: lookupDto[] = [];
   showHoldingCompanies: boolean = false;
 
-  get subdomainId(): number {
+  get subdomainId(): string {
     return this.config.data.Id;
   }
 

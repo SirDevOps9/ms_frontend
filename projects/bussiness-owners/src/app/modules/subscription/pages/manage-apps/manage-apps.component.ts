@@ -30,7 +30,7 @@ export class ManageAppsComponent implements OnInit {
   }
 
   initializeSubdomainData() {
-    this.subscriptionService.GetSubscriptionDetails(parseInt(this.SupdomainId));
+    this.subscriptionService.getSubscriptionDetails(this.SupdomainId);
     this.subscriptionService.SubscriptionDetails.subscribe((List) => {
       this.appList = List;
     });

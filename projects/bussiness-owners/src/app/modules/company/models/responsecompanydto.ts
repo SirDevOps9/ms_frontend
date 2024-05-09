@@ -9,7 +9,7 @@ export interface ResponseCompanyDto {
   mobileNumberCode: string;
   mobileNumber: string;
   companyEmail: string;
-  subdomainId: number;
+  subdomainId: string;
   subdomainName: number;
   isActive: boolean;
   companyType: string;
