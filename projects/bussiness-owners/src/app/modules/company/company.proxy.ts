@@ -158,7 +158,7 @@ export class CompanyProxy {
     );
   }
   getCompanyHoldingDropDown(subdomain: number): Observable<lookupDto[]> {
-    return this.httpService.get<lookupDto[]>(`Company/GetAllHoldingCompnayDropDwon?subdomain=${subdomain}`);
+    return this.httpService.get<lookupDto[]>(`Company/GetAllHoldingCompanies?subdomain=${subdomain}`);
   }
 
   getCompaniesDropDown(subdomain: number): Observable<lookupDto[]> {

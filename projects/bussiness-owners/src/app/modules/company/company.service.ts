@@ -36,7 +36,7 @@ export class CompanyService {
     private companyProxy: CompanyProxy,
     private toasterService: ToasterService,
     private languageService: LanguageService,
-    private loaderService: LoaderService,
+    private loaderService: LoaderService
   ) {}
 
   loadCompanies(subscriptionId: string) {
@@ -53,10 +53,10 @@ export class CompanyService {
       this.companyProxy.activateCompany(id).subscribe({
         next: () => {
           const companyToChange = this.companiesDataSource.value.find(
-            (item) => item.id === id
+            (item) => item.data.id === id
           );
           if (companyToChange) {
-            companyToChange.isActive = true;
+            companyToChange.data.isActive = true;
             this.companiesDataSource.next([...this.companiesDataSource.value]);
           }
           this.toasterService.showSuccess(
@@ -66,21 +66,21 @@ export class CompanyService {
             )
           );
         },
-        error:()=>{
+        error: () => {
           const companyToChange = this.companiesDataSource.value.find(
-            (item) => item.id === id
+            (item) => item.data.id === id
           );
           if (companyToChange) {
-            companyToChange.isActive = false;
+            companyToChange.data.isActive = false;
           }
-        }
+        },
       });
     } else {
       const companyToChange = this.companiesDataSource.value.find(
-        (item) => item.id === id
+        (item) => item.data.id === id
       );
       if (companyToChange) {
-        companyToChange.isActive = false;
+        companyToChange.data.isActive = false;
       }
     }
   }
@@ -99,28 +99,28 @@ export class CompanyService {
             )
           );
           const companyToChange = this.companiesDataSource.value.find(
-            (item) => item.id === id
+            (item) => item.data.id === id
           );
           if (companyToChange) {
-            companyToChange.isActive = false;
+            companyToChange.data.isActive = false;
             this.companiesDataSource.next([...this.companiesDataSource.value]);
           }
         },
-        error:()=>{
+        error: () => {
           const companyToChange = this.companiesDataSource.value.find(
-            (item) => item.id === id
+            (item) => item.data.id === id
           );
           if (companyToChange) {
-            companyToChange.isActive = true;
+            companyToChange.data.isActive = true;
           }
-        }
+        },
       });
     } else {
       const companyToChange = this.companiesDataSource.value.find(
-        (item) => item.id === id
+        (item) => item.data.id === id
       );
       if (companyToChange) {
-        companyToChange.isActive = true;
+        companyToChange.data.isActive = true;
       }
     }
   }
@@ -135,13 +135,21 @@ export class CompanyService {
       height: '600px',
       data: { Id: Id },
     });
-    ref.onClose.subscribe((result: any) => {
-      if (result as any) {
-        const updatedCompaniesList: any[] = [
-          ...this.companiesDataSource.value,
-          result,
-        ];
-        this.companiesDataSource.next(updatedCompaniesList);
+    ref.onClose.subscribe((result: ResponseCompanyDto) => {
+      if (result as ResponseCompanyDto) {
+        if (result.data.parentId) {
+          var parentCompany = this.companiesDataSource.value.find(
+            (x) => x.data.id === result.data.parentId
+          );
+          parentCompany?.children?.push(result);
+          this.companiesDataSource.next(this.companiesDataSource.value);
+        } else {
+          const updatedCompaniesList: ResponseCompanyDto[] = [
+            ...this.companiesDataSource.value,
+            result,
+          ];
+          this.companiesDataSource.next(updatedCompaniesList);
+        }
       }
     });
   }
@@ -221,7 +229,9 @@ export class CompanyService {
       next: (response) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Company.Success'),
-          this.languageService.transalte('Company Hierarchy Updated Successfully')
+          this.languageService.transalte(
+            'Company Hierarchy Updated Successfully'
+          )
         );
         this.loaderService.hide();
       },
@@ -230,8 +240,6 @@ export class CompanyService {
       },
     });
   }
-
-
 
   loadBranches(companyId: string) {
     this.companyProxy.getAllBranches(companyId).subscribe((response) => {
@@ -247,13 +255,11 @@ export class CompanyService {
     return this.companyProxy.getCompaniesDropDown(subdomainId);
   }
 
-
-  openBranchModel(id:string,ref: DynamicDialogRef, dialog: DialogService) {
+  openBranchModel(id: string, ref: DynamicDialogRef, dialog: DialogService) {
     ref = dialog.open(NewBranchesComponent, {
       width: '600px',
       height: '600px',
       data: { Id: id },
-
     });
 
     ref.onClose.subscribe((result: BranchDto) => {
@@ -313,7 +319,9 @@ export class CompanyService {
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Success'),
-          this.languageService.transalte('Company.Branch.BranchUpdatedSuccessfully')
+          this.languageService.transalte(
+            'Company.Branch.BranchUpdatedSuccessfully'
+          )
         );
         this.loaderService.hide();
 
@@ -345,7 +353,9 @@ export class CompanyService {
         next: () => {
           this.toasterService.showSuccess(
             this.languageService.transalte('Success'),
-            this.languageService.transalte('Company.Branch.BranchDeletedSuccessfully')
+            this.languageService.transalte(
+              'Company.Branch.BranchDeletedSuccessfully'
+            )
           );
           this.loaderService.hide();
           const currentBranches = this.branchesDataSource.getValue();
@@ -361,7 +371,6 @@ export class CompanyService {
 
   async activateBranch(id: string) {
     const confirmed = await this.toasterService.showConfirm(
-
       this.languageService.transalte('ConfirmButtonTexttochangstatus')
     );
     if (confirmed) {
@@ -376,7 +385,9 @@ export class CompanyService {
           }
           this.toasterService.showSuccess(
             this.languageService.transalte('Company.Success'),
-            this.languageService.transalte('Company.Branch.BranchActivatedSuccessfully')
+            this.languageService.transalte(
+              'Company.Branch.BranchActivatedSuccessfully'
+            )
           );
         },
       });
@@ -400,7 +411,9 @@ export class CompanyService {
         next: () => {
           this.toasterService.showSuccess(
             this.languageService.transalte('Company.Success'),
-            this.languageService.transalte('Company.Branch.BranchDeActivatedSuccessfully')
+            this.languageService.transalte(
+              'Company.Branch.BranchDeActivatedSuccessfully'
+            )
           );
           const branchToChange = this.branchesDataSource.value.find(
             (item) => item.id === id
@@ -437,7 +450,7 @@ export class CompanyService {
       map((res) => {
         return res;
       }),
-      catchError((err:string) => {
+      catchError((err: string) => {
         throw err;
       })
     );

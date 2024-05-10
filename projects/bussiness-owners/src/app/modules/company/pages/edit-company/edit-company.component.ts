@@ -79,9 +79,9 @@ export class EditCompanyComponent implements OnInit {
   getCompanyData() {
     this.companyService.getCompanyById(this.companyId).subscribe((res) => {
       console.log('company by id', res);
-      this.isActive = res.isActive;
-      this.companyCode = res.code;
-      this.companyName = res.name;
+      this.isActive = res.data.isActive;
+      this.companyCode = res.data.code;
+      this.companyName = res.data.name;
     });
   }
   constructor(
