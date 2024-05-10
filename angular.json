@@ -7,7 +7,6 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-
           "style": "scss",
           "standalone": false
         },
@@ -42,8 +41,7 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "projects/bussiness-owners/src/styles.css"
             ],
-            "scripts": [
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -118,12 +116,10 @@
             ],
             "styles": [
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-             "node_modules/primeng/resources/primeng.min.css",
-             "/node_modules/primeflex/primeflex.css",
-             "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-             "projects/bussiness-owners/src/styles.css"
-
-             
+              "node_modules/primeng/resources/primeng.min.css",
+              "/node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "projects/bussiness-owners/src/styles.css"
             ],
             "scripts": []
           }
@@ -165,8 +161,7 @@
               "projects/adminportal/src/styles.css",
               "node_modules/font-awesome/css/font-awesome.css"
             ],
-            "scripts": [
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -391,6 +386,13 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "ssl": true,
+            "disableHostCheck": true,
+            "sslKey": "ssl\\localhost.key",
+            "sslCert": "ssl\\localhost.crt",
+            "port": 4002
+          },
           "configurations": {
             "production": {
               "buildTarget": "apps-accounting:build:production"
@@ -498,6 +500,13 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "ssl": true,
+            "disableHostCheck": true,
+            "sslKey": "ssl\\localhost.key",
+            "sslCert": "ssl\\localhost.crt",
+            "port": 4003
+          },
           "configurations": {
             "production": {
               "buildTarget": "apps-hr:build:production"
@@ -554,9 +563,7 @@
             "outputPath": "dist/erp-home",
             "index": "projects/erp-home/src/index.html",
             "browser": "projects/erp-home/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/erp-home/tsconfig.app.json",
             "assets": [
               "projects/erp-home/src/favicon.ico",
@@ -613,6 +620,13 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "ssl": true,
+            "disableHostCheck": true,
+            "sslKey": "ssl\\localhost.key",
+            "sslCert": "ssl\\localhost.crt",
+            "port": 4001
+          },
           "configurations": {
             "production": {
               "buildTarget": "erp-home:build:production"
@@ -632,10 +646,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/erp-home/tsconfig.spec.json",
             "assets": [
               "projects/erp-home/src/favicon.ico",
@@ -646,7 +657,6 @@
               "node_modules/primeflex/primeflex.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "projects/erp-home/src/styles.css"
-
             ],
             "scripts": []
           }
