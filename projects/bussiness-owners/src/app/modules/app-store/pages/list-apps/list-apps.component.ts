@@ -5,6 +5,7 @@ import { BaseDto, SharedLibraryEnums,RouterService,SubdomainService } from 'shar
 import { DialogService } from 'primeng/dynamicdialog';
 import { UserService } from '../../../user/user.service';
 import { Actions, Apps, Licenses, RouteFilter } from 'microtec-auth-lib';
+import { ResponseSubdomainDto } from '../../../subscription/models';
 @Component({
   selector: 'app-list-apps',
   templateUrl: './list-apps.component.html',
@@ -13,7 +14,7 @@ import { Actions, Apps, Licenses, RouteFilter } from 'microtec-auth-lib';
 export class ListAppsComponent implements OnInit {
   apps: AppDto[];
   appInStore:number
-  subdomains: BaseDto[];
+  subdomains: ResponseSubdomainDto[];
   cardList:boolean=false;
   AllModules:any[]
   constructor(private appStoreService: AppStoreService,

@@ -100,7 +100,7 @@ export class UserInviteFormComponent implements OnInit {
     this.selected = [];
   }
 
-  get subdomainId(): number {
+  get subdomainId(): string {
     return this.config.data.Id;
   }
 

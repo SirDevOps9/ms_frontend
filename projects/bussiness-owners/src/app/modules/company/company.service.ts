@@ -247,11 +247,11 @@ export class CompanyService {
     });
   }
 
-  getHoldingCompanies(subdomainId: number): Observable<lookupDto[]> {
+  getHoldingCompanies(subdomainId: string): Observable<lookupDto[]> {
     return this.companyProxy.getCompanyHoldingDropDown(subdomainId);
   }
 
-  getCompaniesDropDown(subdomainId: number): Observable<lookupDto[]> {
+  getCompaniesDropDown(subdomainId: string): Observable<lookupDto[]> {
     return this.companyProxy.getCompaniesDropDown(subdomainId);
   }
 

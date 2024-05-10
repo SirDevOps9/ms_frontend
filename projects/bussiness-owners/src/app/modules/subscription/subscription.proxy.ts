@@ -11,9 +11,6 @@ import { ResponseSubdomainListDto } from './models/responseSubdomainListDto';
 export class SubscriptionProxy {
   constructor(private baseService: HttpService) {}
 
-  getAllSubscriptions(): Observable<SubscriptionDto[]> {
-    return this.baseService.get<SubscriptionDto[]>(`Subscription`);
-  }
   getAllMySubdomains(): Observable<ResponseSubdomainListDto[]>{
     return this.baseService.get<ResponseSubdomainListDto[]>(`Subdomain/GetMyDomains`);
   }
@@ -21,7 +18,7 @@ export class SubscriptionProxy {
   addSubdomain(subdomain: AddDomainSpaceDto): Observable<boolean> {
     return this.baseService.post<AddDomainSpaceDto>(`Subdomain/Add`, subdomain);
   }
-  GetUserSubscriptionsDetail(id:number): Observable<subscriptionDetailsDto[]>{
+  getUserSubscriptionsDetail(id:string): Observable<subscriptionDetailsDto[]>{
     return this.baseService.get<subscriptionDetailsDto[]>(`Subscription/GetUserSubscriptionsDetail?subdomainId=${id}`);
   }
 
@@ -29,11 +26,11 @@ export class SubscriptionProxy {
     return this.baseService.get(`Subdomain/IsSubdomainExist?subdomainName=${subdomain}`);
   }
 
-  getSubdomainById(subdomain: number): Observable<ResponseSubdomainDto> {
+  getSubdomainById(subdomain: string): Observable<ResponseSubdomainDto> {
     return this.baseService.get<ResponseSubdomainDto>(`Subdomain/GetSubdomainById?subdomain=${subdomain}`);
   }
 
-  getTenantLicense(subdomain: number): Observable<TenantLicenseDto[]> {
+  getTenantLicense(subdomain: string): Observable<TenantLicenseDto[]> {
     return this.baseService.get<TenantLicenseDto[]>(`Subdomain/GetSubdomainLicenses?subdomainId=${subdomain}`);
   }
 

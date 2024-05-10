@@ -113,7 +113,7 @@ export class UserDetailsComponent implements OnInit {
     return this.config.data.Id;
   }
 
-  get subdomainId(): number {
+  get subdomainId(): string {
     return this.config.data.subdomainId;
   }
 

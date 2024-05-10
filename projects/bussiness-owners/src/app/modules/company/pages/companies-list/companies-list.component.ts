@@ -119,12 +119,12 @@ export class CompaniesListComponent implements OnInit {
         //this.tableData = this.convertToTreeNode(companyList);
         this.tableData = companyList;
         console.log('this.tableData', this.tableData);
-
       },
     });
 
     
   }
+  
   toggle(id: string, isActive: boolean) {
     if (!isActive) this.companyService.activate(id);
     else this.companyService.deactivate(id);

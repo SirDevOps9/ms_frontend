@@ -33,7 +33,7 @@ export class UserService {
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
-  getAllUsers(subscriptionId: number) {
+  getAllUsers(subscriptionId: string) {
     this.userProxy.getAll(subscriptionId).subscribe({
       next: (res) => {
         this.userDataSource.next(res);
@@ -127,7 +127,7 @@ export class UserService {
     }
   }
 
-  openInviteUserModal(id: number, ref: DynamicDialogRef, dialog: DialogService) {
+  openInviteUserModal(id: string, ref: DynamicDialogRef, dialog: DialogService) {
     ref = dialog.open(UserInviteFormComponent, {
       width: '600px',
       height: '600px',
@@ -165,7 +165,7 @@ export class UserService {
     });
   }
 
-  getUserById(userId: string , subdomainId  : number) {
+  getUserById(userId: string , subdomainId  : string) {
     return this.userProxy.getUserById(userId,subdomainId).pipe(
       map((res) => {
         return res;
@@ -196,7 +196,7 @@ export class UserService {
     });
   }
 
-  editUser(userModel: EditUserModel, id: string, subdomainId:number, ref: DynamicDialogRef) {
+  editUser(userModel: EditUserModel, id: string, subdomainId:string, ref: DynamicDialogRef) {
     this.userProxy.updateUser(userModel,id, subdomainId).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(

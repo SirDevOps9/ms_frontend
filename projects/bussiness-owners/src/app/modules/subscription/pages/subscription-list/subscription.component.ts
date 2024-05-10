@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterService } from 'shared-lib';
-import { ResponsePlanDto } from '../../models';
 import { Title } from '@angular/platform-browser';
 import { SubscriptionService } from '../../subscription.service';
 
@@ -10,7 +9,6 @@ import { SubscriptionService } from '../../subscription.service';
   styleUrls: ['./subscription.component.scss'],
 })
 export class SubscriptionComponent implements OnInit {
-  plansList: ResponsePlanDto[];
   constructor(
     private routerService: RouterService,
     private titleService: Title,

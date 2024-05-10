@@ -17,11 +17,13 @@ import {
   ToasterService,
   Money,
   RouterService,
+  lookupDto,
 } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CartDto } from './models/cartDto';
 import { CartItemDto } from './models/cartItemDto';
 import { SelectsubdomainComponent } from './components/selectsubdomain/selectsubdomain.component';
+import { ResponseSubdomainDto } from '../subscription/models';
 
 @Injectable({
   providedIn: 'root',
@@ -57,7 +59,7 @@ export class AppStoreService {
     });
   }
 
-  addToCart(appId: number, dialog: DialogService, subdomains: BaseDto[]) {
+  addToCart(appId: number, dialog: DialogService, subdomains: ResponseSubdomainDto[]) {
     if (!subdomains.length) {
       throw 'No subdomains';
     }
@@ -72,7 +74,7 @@ export class AppStoreService {
         },
         header: 'Select a Subdomain',
       });
-      ref.onClose.subscribe((result: number) => {
+      ref.onClose.subscribe((result: string) => {
         if (result) {
           this.addModelToCart({ subdomainId: result, appId });
         }
