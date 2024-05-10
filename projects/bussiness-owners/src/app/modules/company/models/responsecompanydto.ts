@@ -26,7 +26,7 @@ export interface CompanyData {
   mobileNumber: string;
   companyEmail: string;
   companyType: string;
-  subdomainId: number;
+  subdomainId: string;
   subdomainName: string;
   commercialId?: string;
   isActive: boolean;
