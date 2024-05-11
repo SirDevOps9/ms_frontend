@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CompanyService } from '../../company.service';
-import { BranchDto } from '../../models/branchdto';
+import { BranchDto } from '../../models/branch-dto';
 import { RouterService } from 'shared-lib';
 @Component({
   selector: 'app-company-branches',

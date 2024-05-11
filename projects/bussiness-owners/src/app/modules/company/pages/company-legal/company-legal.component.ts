@@ -4,7 +4,7 @@ import {
   LookupsService,
   RouterService,
   SharedLibraryEnums,
-
+  customValidators,
 } from 'shared-lib';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { CompanyService } from '../../company.service';
@@ -46,7 +46,7 @@ export class CompanyLegalComponent implements OnInit {
   initializeForm() {
     this.companyLegalForm = this.fb.group({
       companyName: new FormControl(),
-      companyEmail: new FormControl(),
+      companyEmail: new FormControl(null, [customValidators.email]),
       organizationUnit: new FormControl(),
       organization: new FormControl(),
       taxId: new FormControl(),

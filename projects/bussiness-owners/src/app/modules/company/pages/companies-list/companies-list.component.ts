@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LanguageService, RouterService } from 'shared-lib';
 import { Title } from '@angular/platform-browser';
-import { ResponseCompanyDto } from '../../models';
+import { CompanyDto } from '../../models';
 import { CompanyService } from '../../company.service';
 import { TreeNode } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -13,10 +13,10 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
   providers: [RouterService],
 })
 export class CompaniesListComponent implements OnInit {
-  companies: ResponseCompanyDto[];
+  companies: CompanyDto[];
   @ViewChild('myTab') myTab: any | undefined;
-  selectedCompanies: ResponseCompanyDto[];
-  tableData:ResponseCompanyDto[];
+  selectedCompanies: CompanyDto[];
+  tableData:CompanyDto[];
   cols: any[] = [];
   active: boolean = false;
   ref: DynamicDialogRef;

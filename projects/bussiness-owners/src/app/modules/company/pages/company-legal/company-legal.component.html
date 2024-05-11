@@ -33,6 +33,10 @@
                   {{ "Company.Legal.companyEmail" | translate }}
                 </lib-label>
                 <lib-text-input type="text" formControlName="companyEmail" />
+                <lib-field-validations
+                [appControl]="companyLegalForm.controls['companyEmail']"
+              >
+              </lib-field-validations>
               </lib-form-group>
             </div>
             <div class="col-12 md:col-6">

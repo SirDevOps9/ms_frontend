@@ -11,22 +11,23 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NewBranchesComponent } from './components/new-branches/new-branches.component';
 import { EditBranchesComponent } from './components/edit-branches/edit-branches.component';
 import { NewCompanyComponent } from './components/new-company/new-company.component';
-import { AddCompanyPopupDto } from './models/addcompanypopupdto';
-import { CompanyAddressDto } from './models/companyaddressdto';
-import { CompanyContactDto } from './models/companycontactdto';
-import { CompanyLegalDto } from './models/companylegaldto';
-import { BranchDto } from './models/branchdto';
-import { CreateBranchDto } from './models/createbranchdto';
-import { EditBranchDto } from './models/editbranchdto';
-import { CompanyHierarchyDto } from './models/companyhierarchydto';
-import { UpdateCompanyHierarchyDto } from './models/updatecompanyhierarchydto';
-import { ResponseCompanyDto } from './models';
+import {
+  BranchDto,
+  CompanyAddressDto,
+  CompanyContactDto,
+  CompanyLegalDto,
+  CreateBranch,
+  CreateCompany,
+  editBranch,
+  CompanyDto,
+  UpdateCompanyHierarchyDto,
+} from './models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CompanyService {
-  private companiesDataSource = new BehaviorSubject<ResponseCompanyDto[]>([]);
+  private companiesDataSource = new BehaviorSubject<CompanyDto[]>([]);
   private branchesDataSource = new BehaviorSubject<BranchDto[]>([]);
 
   public companies = this.companiesDataSource.asObservable();
@@ -135,8 +136,8 @@ export class CompanyService {
       height: '600px',
       data: { Id: Id },
     });
-    ref.onClose.subscribe((result: ResponseCompanyDto) => {
-      if (result as ResponseCompanyDto) {
+    ref.onClose.subscribe((result: CompanyDto) => {
+      if (result as CompanyDto) {
         if (result.data.parentId) {
           var parentCompany = this.companiesDataSource.value.find(
             (x) => x.data.id === result.data.parentId
@@ -144,7 +145,7 @@ export class CompanyService {
           parentCompany?.children?.push(result);
           this.companiesDataSource.next(this.companiesDataSource.value);
         } else {
-          const updatedCompaniesList: ResponseCompanyDto[] = [
+          const updatedCompaniesList: CompanyDto[] = [
             ...this.companiesDataSource.value,
             result,
           ];
@@ -154,12 +155,12 @@ export class CompanyService {
     });
   }
 
-  addCompanyPopup(
-    company: AddCompanyPopupDto,
+  addCompany(
+    company: CreateCompany,
     dialogRef: DynamicDialogRef
-  ): Observable<ResponseCompanyDto> {
+  ): Observable<CompanyDto> {
     this.loaderService.show();
-    return this.companyProxy.addCompanyPopup(company).pipe(
+    return this.companyProxy.addCompany(company).pipe(
       map((res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Company.Success'),
@@ -182,7 +183,7 @@ export class CompanyService {
       next: (response) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Company.Success'),
-          this.languageService.transalte('Company.Add.CompanyAddedSuccessfully')
+          this.languageService.transalte('Company.CompanyUpdatedSuccessfully')
         );
         this.loaderService.hide();
       },
@@ -198,7 +199,7 @@ export class CompanyService {
       next: (response) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Company.Success'),
-          this.languageService.transalte('Company.Add.CompanyAddedSuccessfully')
+          this.languageService.transalte('Company.CompanyUpdatedSuccessfully')
         );
         this.loaderService.hide();
       },
@@ -214,7 +215,7 @@ export class CompanyService {
       next: (response) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Company.Success'),
-          this.languageService.transalte('Company Legal Updated Successfully')
+          this.languageService.transalte('Company.CompanyUpdatedSuccessfully')
         );
         this.loaderService.hide();
       },
@@ -230,7 +231,7 @@ export class CompanyService {
         this.toasterService.showSuccess(
           this.languageService.transalte('Company.Success'),
           this.languageService.transalte(
-            'Company Hierarchy Updated Successfully'
+            'Company.CompanyUpdatedSuccessfully'
           )
         );
         this.loaderService.hide();
@@ -247,12 +248,12 @@ export class CompanyService {
     });
   }
 
-  getHoldingCompanies(subdomainId: string): Observable<lookupDto[]> {
-    return this.companyProxy.getCompanyHoldingDropDown(subdomainId);
+  getAllHoldingCompanies(subdomainId: string): Observable<lookupDto[]> {
+    return this.companyProxy.getAllHoldingCompanies(subdomainId);
   }
 
-  getCompaniesDropDown(subdomainId: string): Observable<lookupDto[]> {
-    return this.companyProxy.getCompaniesDropDown(subdomainId);
+  getAllCompanies(subdomainId: string): Observable<lookupDto[]> {
+    return this.companyProxy.getAllCompanies(subdomainId);
   }
 
   openBranchModel(id: string, ref: DynamicDialogRef, dialog: DialogService) {
@@ -273,7 +274,7 @@ export class CompanyService {
     });
   }
 
-  addBranch(model: CreateBranchDto, dialogRef: DynamicDialogRef) {
+  addBranch(model: CreateBranch, dialogRef: DynamicDialogRef) {
     this.loaderService.show();
     this.companyProxy.addBranch(model).subscribe({
       next: (res) => {
@@ -313,7 +314,7 @@ export class CompanyService {
       }
     });
   }
-  editBranch(model: EditBranchDto, dialogRef: DynamicDialogRef) {
+  editBranch(model: editBranch, dialogRef: DynamicDialogRef) {
     this.loaderService.show();
     this.companyProxy.editBranch(model).subscribe({
       next: (res) => {

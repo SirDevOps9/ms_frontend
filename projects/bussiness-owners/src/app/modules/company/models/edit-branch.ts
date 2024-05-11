@@ -1,4 +1,4 @@
-export interface EditBranchDto {
+export interface editBranch {
   id: string;
   branchName: string;
   branchRegion: string | null;

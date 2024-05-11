@@ -14,7 +14,7 @@ import {
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
 import { CompanyService } from '../../company.service';
-import { EditBranchDto } from '../../models/editbranchdto';
+import { editBranch } from '../../models';
 
 @Component({
   selector: 'app-edit-branches',
@@ -40,10 +40,10 @@ export class EditBranchesComponent {
       countryCode: new FormControl(),
       branchRegion: new FormControl(),
       branchCity: new FormControl(),
-      branchEmail: new FormControl(),
+      branchEmail: new FormControl(null, [customValidators.email]),
       branchAddress: new FormControl(),
       mobileNumberCode: new FormControl(),
-      mobileNumber: new FormControl(),
+      mobileNumber: new FormControl(null, [customValidators.hasSpaces]),
     });
   }
   loadLookups() {
@@ -68,7 +68,7 @@ export class EditBranchesComponent {
 
   onSubmit() {
     if (!this.formsService.validForm(this.editBrancheForm, true)) return;
-    const request: EditBranchDto = this.editBrancheForm.value;
+    const request: editBranch = this.editBrancheForm.value;
     request.id = this.currentBranchId;
     this.companyService.editBranch(request, this.ref);
   }

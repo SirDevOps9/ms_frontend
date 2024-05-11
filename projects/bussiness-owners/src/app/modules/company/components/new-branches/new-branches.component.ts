@@ -13,7 +13,7 @@ import {
   DynamicDialogConfig,
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
-import { CreateBranchDto } from '../../models/createbranchdto';
+import { CreateBranch } from '../../models/create-branch';
 import { CompanyService } from '../../company.service';
 
 @Component({
@@ -37,10 +37,10 @@ export class NewBranchesComponent implements OnInit {
       countryCode: new FormControl(),
       branchRegion: new FormControl(),
       branchCity: new FormControl(),
-      branchEmail: new FormControl(),
+      branchEmail: new FormControl(null, [customValidators.email]),
       branchAddress: new FormControl(),
       mobileNumberCode: new FormControl(),
-      mobileNumber: new FormControl(),
+      mobileNumber: new FormControl(null, [customValidators.hasSpaces]),
     });
   }
   loadLookups() {
@@ -54,7 +54,7 @@ export class NewBranchesComponent implements OnInit {
   }
   onSubmit() {
     if (!this.formsService.validForm(this.newBrancheForm, true)) return;
-    const request: CreateBranchDto = this.newBrancheForm.value;
+    const request: CreateBranch = this.newBrancheForm.value;
     request.companyId = this.currentCompanyId;
 
 

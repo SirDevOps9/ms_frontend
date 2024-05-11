@@ -1,16 +1,16 @@
-export * from './addcompanypopupdto';
-export * from './branchdto';
-export * from './companyaddressdto';
-export * from './companycontactdto';
-export * from './companyhierarchydto';
-export * from './companylegaldto';
-export * from './createbranchdto';
-export * from './editbranchdto';
-export * from './responsecompanydto';
-export * from './updatecompanyhierarchydto';
-export * from './subsidiarydto';
-export * from './companyType';
-export * from './comany-data';
+export * from './create-company';
+export * from './branch-dto';
+export * from './company-address-dto';
+export * from './company-contact-dto';
+export * from './company-hierarchy-dto';
+export * from './company-legal-dto';
+export * from './create-branch';
+export * from './edit-branch';
+export * from './company-dto';
+export * from './update-company-hierarchy-dto';
+export * from './subsidiary-dto';
+export * from './company-type';
+export * from './comany-data-dto';
 
 
 
