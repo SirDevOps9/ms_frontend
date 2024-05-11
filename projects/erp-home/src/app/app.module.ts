@@ -13,7 +13,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
 
-import { TreeModule } from 'primeng/tree';
 import { LayoutModule } from './modules/layout/layout.module';
 @NgModule({
   declarations: [

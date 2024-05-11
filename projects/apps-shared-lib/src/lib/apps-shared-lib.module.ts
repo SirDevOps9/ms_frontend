@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { FieldValidationsComponent } from './form-components';
+import { LayoutModule } from './modules/layout/layout.module';
 
 @NgModule({
-  declarations: [FieldValidationsComponent],
+  declarations: [],
   imports: [
+    LayoutModule,
     CommonModule,
     ReactiveFormsModule,
     CommonModule,
@@ -15,6 +16,6 @@ import { FieldValidationsComponent } from './form-components';
     FormsModule,
     TranslateModule,
   ],
-  exports: [FieldValidationsComponent],
+  exports: [],
 })
 export class AppsSharedLibModule {}

@@ -23,7 +23,11 @@ export class AuthHttpService {
     );
   }
   updateLastLoggingTime(): Observable<string> {
-    return this.baseService.post<string>(`${this.updateLoginDateAPI}`, null);
+    return this.baseService.post<string>(
+      `${this.updateLoginDateAPI}`,
+      null,
+      false
+    );
   }
 
   loadPermissionTree(): Observable<string> {
