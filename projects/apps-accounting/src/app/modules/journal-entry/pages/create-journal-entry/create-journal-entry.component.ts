@@ -11,6 +11,7 @@ import { AddJournalEntryCommand, CreateJournalEntryLine } from '../../models/add
 import { JournalEntryService } from '../../journal-entry.service';
 import { AttachmentsComponent } from '../../components/attachments/attachments.component';
 import { JournalItemModel } from '../../models/journalItemModel';
+import { JournalTemplatePopupComponent } from '../components/journal-template-popup/journal-template-popup.component';
 
 export interface JournalEntryLineFormValue {
   id: number;
@@ -199,4 +200,53 @@ export class CreateJournalEntryComponent {
     console.log(this.fa.value);
     // console.log(this.fg.value);
   }
+
+  RedirectToTemplate() {
+    const dialogRef = this.dialog.open(JournalTemplatePopupComponent, {
+      width: '800px',
+      height: '700px'
+    });
+  
+    dialogRef.onClose.subscribe((id: any) => {
+      console.log('Received ID:', id);
+  
+      this.service.getJournalTemplateById(id).subscribe(template => {
+        console.log('template:', template);
+  
+        // Set template values to the form group
+        this.fg.patchValue({
+          refrenceNumber: template.code,
+          periodId: template.PeriodId,
+          description: template.Description,
+        });
+  
+        // Clear existing journal entry lines
+        while (this.items.length !== 0) {
+          this.items.removeAt(0);
+        }
+
+        // Add new journal entry lines
+        if (template.GetJournalTemplateLinesByIdDto) {
+        template.GetJournalTemplateLinesByIdDto.forEach(line => {
+          this.addThing()
+
+          const fg = this.fb.group({
+            id: line.id,
+            account: { id: line.AccountId },
+            lineDescription: line.LineDescription,
+            debitAmount: line.DebitAmount,
+            creditAmount: line.CreditAmount,
+            currency: { id: line.CurrencyId },
+            currencyRate: line.CurrencyRate,
+            debitAmountLocal: line.DebitAmountLocal,
+            creditAmountLocal: line.CreditAmountLocal
+          });
+          this.items.push(fg);
+        });
+       }
+      });
+    });
+  }
+  
+
 }
