@@ -6,3 +6,4 @@ export * from './inviteUserDto';
 export * from './createInvitedUser';
 export * from './userdata.model';
 export * from './userlist.response';
+export * from './userstate.model';

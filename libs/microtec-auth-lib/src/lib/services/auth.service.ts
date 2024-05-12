@@ -1,4 +1,4 @@
-import { EnvironmentInjector, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { LoginResponse, OidcSecurityService } from 'angular-auth-oidc-client';
 import {

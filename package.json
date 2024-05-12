@@ -21,7 +21,7 @@
     "start:erp":"concurrently \"npm run start:erp-gateway\" \"npm run start:erp-home\" \"npm run start:accounting\" \"npm run start:hr\"",
     "start:gateway": "node proxy.js",
     "start:erp-gateway": "node erp-proxy.js",
-    "start:all": "concurrently \"npm run start:gateway\" \"npm run start:bussiness-owners\" \"npm run start:adminportal\" \"npm run start:accounting\" \"npm run start:hr\" "
+    "start:all": "concurrently \"npm run start:gateway\" \"npm run start:bussiness-owners\" \"npm run start:adminportal\""
   },
   "private": true,
   "dependencies": {
