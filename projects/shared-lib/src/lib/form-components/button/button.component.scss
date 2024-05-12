@@ -4,3 +4,10 @@
         border-radius: 12px;
         margin-inline-start: 30px !important;
       }
+::ng-deep .Manage{
+  button {
+    background-color: #5468ff;
+    border-radius: 12px;
+    color: #fff;
+  }
+}

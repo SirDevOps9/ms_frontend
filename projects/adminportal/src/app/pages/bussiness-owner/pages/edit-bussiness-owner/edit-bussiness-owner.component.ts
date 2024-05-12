@@ -148,5 +148,8 @@ export class EditBussinessOwnerComponent implements OnInit {
     this.routerService.navigateTo(`/bussiness-owners/manage`);
   }
 
+  onManageOwner(domain : any) {
+    console.log(domain)
+  }
 
 }

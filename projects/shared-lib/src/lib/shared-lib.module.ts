@@ -34,6 +34,8 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { AccordionComponent } from './components/accordion/accordion.component';
 import { AttachmentViewerComponent } from './components/attachment-viewer/attachment-viewer.component';
 import { TreeModule } from 'primeng/tree';
+import { SharedFormComponent } from './shared-form/shared-form.component';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,8 @@ import { TreeModule } from 'primeng/tree';
     RatingComponent,
     PaginatorComponent,
     AccordionComponent,
+    SharedFormComponent
+    
   ],
   imports: [
     CommonModule,
@@ -71,6 +75,7 @@ import { TreeModule } from 'primeng/tree';
     PrimeSharedModule,
     TreeTableModule,
     TreeModule,
+    CalendarModule
 
   ],
   exports: [
@@ -101,7 +106,9 @@ import { TreeModule } from 'primeng/tree';
     PaginatorComponent,
     AccordionComponent,
     TreeModule,
+    SharedFormComponent,
+    CalendarModule
 
-  ],
+  ], 
 })
 export class SharedLibModule {}

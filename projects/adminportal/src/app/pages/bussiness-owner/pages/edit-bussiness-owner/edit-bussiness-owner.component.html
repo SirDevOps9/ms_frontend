@@ -22,26 +22,34 @@
               name: 'email',
               headerText: ('Apps Info'),
               isGlobalFilter: true,
-              isSortable: false
+              isSortable: false,
+              template : appsInfo
             },
             {
               name: 'country',
               headerText: ('Companies Info'),
               isGlobalFilter: true,
               isSortable: false,
+              template : companiesInfo
+
             },
 
             {
               name: 'mobileNumber',
               headerText: ('Users Info'),
               isGlobalFilter: true,
-              isSortable: false
+              isSortable: false,
+              template : usersInfo
+
+
             },
             {
               name: 'mobileNumber',
               headerText: ('Licence Info'),
               isGlobalFilter: true,
-              isSortable: false
+              isSortable: false,
+              template : licenceInfo
+
             },
             {
               name: 'id',
@@ -62,11 +70,7 @@
             </span>
           </div>
 
-          <div >
-
-            <lib-button pRipple className="add_new" label="Add New" icon="pi pi-plus">
-            </lib-button>
-          </div>
+        
 
         </div>
       </ng-container>
@@ -74,50 +78,49 @@
     <!-- actions of the Table -->
       <ng-template #userCol let-user>
         <div class="actions flex align-items-center ">
-          <lib-button className="edit"  icon="pi pi-pencil" [rounded]="true" [enableText]="true" severity="secondary" (onClick)="onEditOwner()">
+        
+        </div>
+
+      </ng-template>
+      <!--  -->
+      <ng-template #appsInfo let-appsInfo>
+        <div>
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" (onClick)="onManageOwner(appsInfo)">
+            Manage
           </lib-button>
         </div>
 
       </ng-template>
-
-      <ng-template #userStatus let-user>
-        <div class="status unbalanced" *ngIf="user.status===sharedJouralEnum.JournalEntryStatus.DraftUnbalanced">
-          <p class="dot"></p>
-          <p> Unbalanced</p>
-        </div>
-        <div class="status draft" *ngIf="user.status==sharedJouralEnum.JournalEntryStatus.Draftbalanced">
-          <p class="dot"></p>
-          <p> Draft</p>
-        </div>
-        <div class="status unposted" *ngIf="user.status===sharedJouralEnum.JournalEntryStatus.submited">
-          <p class="dot"></p>
-          <p> Unposted</p>
-        </div>
-        <div class="status Posted" *ngIf="user.status===sharedJouralEnum.JournalEntryStatus.Posted">
-          <p class="dot"></p>
-          <p> Posted</p>
-        </div>
-
-
-
-
-
-      </ng-template>
-      <ng-template #userDate let-user>
+      <!--  -->
+      <ng-template #companiesInfo let-companiesInfo>
         <div>
-          <p>{{user.createdOn | date: 'dd/MM/yyyy' }}</p>
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" (onClick)="onManageOwner(companiesInfo)">
+            Manage
+          </lib-button>
         </div>
+
       </ng-template>
-      <ng-template #userIsRepeated let-user>
+      <!--  -->
+      <ng-template #usersInfo let-usersInfo>
         <div>
-          <p>{{user.isRepeated ? 'Yes' : 'No' }}</p>
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" (onClick)="onManageOwner(usersInfo)">
+            Manage
+          </lib-button>
         </div>
+
       </ng-template>
-      <ng-template #userIsReversed let-user>
+      <!--  -->
+      <ng-template #licenceInfo let-licenceInfo>
         <div>
-          <p>{{user.isReversed ? 'Yes' : 'No' }}</p>
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" (onClick)="onManageOwner(licenceInfo)">
+            Manage
+          </lib-button>
         </div>
+
       </ng-template>
+      <!--  -->
+   
+     
     </lib-data-table>
 
   </div>

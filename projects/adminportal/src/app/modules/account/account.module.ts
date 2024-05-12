@@ -13,7 +13,6 @@ import { EmailPreferencesComponent } from './settings/forms/email-preferences/em
 import { NotificationsComponent } from './settings/forms/notifications/notifications.component';
 import { SignInMethodComponent } from './settings/forms/sign-in-method/sign-in-method.component';
 import { DropdownMenusModule, WidgetsModule } from '../../_metronic/partials';
-import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -32,8 +31,7 @@ import { SharedModule } from '../../shared/shared.module';
     AccountRoutingModule,
     InlineSVGModule,
     DropdownMenusModule,
-    WidgetsModule,
-    SharedModule
+    WidgetsModule
   ],
 })
 export class AccountModule {}
