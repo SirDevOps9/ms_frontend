@@ -1,0 +1,15 @@
+::ng-deep .p-button {
+    color: #3E97FF;
+    background: #F0F7FF;
+    border: 0;
+    padding: 0.75rem 1.25rem;
+    font-size: 12px;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 6px;
+  }
+
+  ::ng-deep .p-button:enabled:hover {
+    background: #0477f9b5;
+    color: #ffffff;
+    border-color: #2563eb;
+}
