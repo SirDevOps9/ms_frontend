@@ -47,7 +47,8 @@ export class AddDomainSpaceComponent implements OnInit {
       purchasingPaymentCount: new FormControl('', customValidators.required,),
       name: new FormControl('', [
         customValidators.required,
-        customValidators.noSpecialChars,
+        customValidators.number,
+        customValidators.nonZero,
       ]),
       purchasingPaymentPeriod: new FormControl([customValidators.required]),
     });
@@ -96,6 +97,7 @@ export class AddDomainSpaceComponent implements OnInit {
       purchasingPaymentCountControl?.setValidators([
         customValidators.required,
         customValidators.number,
+        customValidators.nonZero,
       ]);
     }
 

@@ -142,6 +142,9 @@
         | translate: { minHeight: this.appControl.errors?.['invalidHeight'].minHeight , maxHeight: this.appControl.errors?.['invalidHeight'].maxHeight  }
     }}
   </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['nonZero']">
+    {{ "validation.zeroNotAllowed" | translate }}
+  </span>
 </div>
 <!-- <span class="errorMessage" *ngFor="let errorKey of errorKeys">
    {{ this.appControl.errors?.[errorKey] |translate}}
