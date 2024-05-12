@@ -391,7 +391,7 @@
             "disableHostCheck": true,
             "sslKey": "ssl\\localhost.key",
             "sslCert": "ssl\\localhost.crt",
-            "port": 4002
+            "port": 4402
           },
           "configurations": {
             "production": {
@@ -505,7 +505,7 @@
             "disableHostCheck": true,
             "sslKey": "ssl\\localhost.key",
             "sslCert": "ssl\\localhost.crt",
-            "port": 4003
+            "port": 4403
           },
           "configurations": {
             "production": {
@@ -625,7 +625,7 @@
             "disableHostCheck": true,
             "sslKey": "ssl\\localhost.key",
             "sslCert": "ssl\\localhost.crt",
-            "port": 4001
+            "port": 4401
           },
           "configurations": {
             "production": {

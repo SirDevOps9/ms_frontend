@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { AuthHttpService, AuthService } from 'microtec-auth-lib';
-import { RouterService } from 'shared-lib';
+import { forkJoin } from 'rxjs';
+import { EnvironmentService, RouterService } from 'shared-lib';
 
 @Component({
   selector: 'app-login-redirect',
@@ -10,21 +12,43 @@ import { RouterService } from 'shared-lib';
 export class LoginRedirectComponent implements OnInit {
   loginResponse: any;
   ngOnInit() {
-    this.authService.saveTokenData().subscribe({
-      next: (data: any) => {
-        this.authHttp.updateLastLoggingTime().subscribe({});
+    console.log(this.environmentService.state);
 
-        this.authHttp.loadSideMenu().subscribe((res) => {
-          this.authService.saveSideMenu(res);
-          this.routerservice.navigateTo('');
+    if (this.environmentService.state) {
+      this.oidservice.getState().subscribe((stateRes) => {
+        console.log('Get State', stateRes);
+        this.authService.saveTokenData().subscribe({
+          next: (data: any) => {
+            // this.authHttp.updateLastLoggingTime().subscribe({});
+            forkJoin([this.authHttp.loadSideMenu()]).subscribe(
+              ([sideMenuRes]) => {
+                this.authService.saveSideMenu(sideMenuRes);
+                location.href = stateRes;
+              }
+            );
+          },
         });
-      },
-    });
+      });
+    } else {
+      this.authService.saveTokenData().subscribe({
+        next: (data: any) => {
+          // this.authHttp.updateLastLoggingTime().subscribe({});
+          forkJoin([this.authHttp.loadSideMenu()]).subscribe(
+            ([sideMenuRes]) => {
+              this.authService.saveSideMenu(sideMenuRes);
+              this.routerservice.navigateTo(''); // Assuming routerservice is an instance of Router
+            }
+          );
+        },
+      });
+    }
   }
 
   constructor(
     private authService: AuthService,
     private authHttp: AuthHttpService,
-    private routerservice: RouterService
+    private routerservice: RouterService,
+    private oidservice: OidcSecurityService,
+    private environmentService: EnvironmentService
   ) {}
 }

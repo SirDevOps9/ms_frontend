@@ -7,7 +7,11 @@ import { IEnvironment } from '../models';
 export class EnvironmentService implements IEnvironment {
   constructor() {}
   BusinessOwnerUrl: string;
-  AttachmentServiceConfig: { AttachmentServiceUrl: string; ClientId: string; SecretKey: string; };
+  AttachmentServiceConfig: {
+    AttachmentServiceUrl: string;
+    ClientId: string;
+    SecretKey: string;
+  };
   production: boolean;
   baseUrl: string;
   Version: string;
@@ -26,4 +30,5 @@ export class EnvironmentService implements IEnvironment {
     useRefreshToken: true;
   };
   ApiKey: string;
+  state?: string;
 }

@@ -23,4 +23,5 @@ export interface IEnvironment {
   };
   ApiKey: string;
   BusinessOwnerUrl: string;
+  state?: string;
 }

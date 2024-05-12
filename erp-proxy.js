@@ -8,9 +8,9 @@ const app = express();
 
 // Define your projects and their paths
 const projects = [
-  { path: '/erp', target: 'https://develop.localhost.com:4001' },
-  { path: '/accounting', target: 'https://develop.localhost.com:4002' },
-  { path: '/hr', target: 'https://develop.localhost.com:4003' },
+  { path: '/erp', target: 'https://develop.localhost.com:4401' },
+  { path: '/accounting', target: 'https://develop.localhost.com:4402' },
+  { path: '/hr', target: 'https://develop.localhost.com:4403' },
 ];
 
 projects.forEach(({ path, target }) => {
@@ -35,7 +35,7 @@ const options = {
 };
 
 // Start the HTTPS server
-const port = 4000; // Default HTTPS port
+const port = 4400; // Default HTTPS port
 https.createServer(options, app).listen(port, 'develop.localhost.com', () => {
   console.log(`Gateway server running on https://develop.localhost.com:${port}`);
 });

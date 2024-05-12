@@ -12,12 +12,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
+import { HomePageComponent } from './home-page/home-page.component';
 
-import { LayoutModule } from './modules/layout/layout.module';
 @NgModule({
-  declarations: [
-    AppComponent    
-  ],
+  declarations: [	
+    AppComponent,
+      HomePageComponent
+   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -43,9 +44,7 @@ import { LayoutModule } from './modules/layout/layout.module';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    CookieModule.withOptions(),
-    LayoutModule,
-    
+    CookieModule.withOptions(),    
   ],
   providers: [
     { provide: EnvironmentService, useValue: environment },

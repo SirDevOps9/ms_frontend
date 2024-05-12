@@ -19,7 +19,7 @@ const routes: Routes = [
       {
         path: 'journalentry',
         component: JournalEntryListComponent,
-        //canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.JOURNAL_LIST,
         },
@@ -27,7 +27,7 @@ const routes: Routes = [
       {
         path: 'journalentry/add',
         component: CreateJournalEntryComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.JOURNAL_ADD,
         },
@@ -35,7 +35,7 @@ const routes: Routes = [
       {
         path: 'journalentry/edit/:id',
         component: EditJournalEntryComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.JOURNAL_Edit,
         },

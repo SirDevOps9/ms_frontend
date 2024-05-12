@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EnvironmentInjector, Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { LoginResponse, OidcSecurityService } from 'angular-auth-oidc-client';
 import {
@@ -11,6 +11,7 @@ import {
   LanguageService,
   SideMenuModel,
   MenuModule,
+  EnvironmentService,
 } from 'shared-lib';
 import { TokenModel } from '../models/tokenmodel';
 import { PermissionTreeNode, RouteFilter } from '../models';
@@ -20,6 +21,11 @@ import { Nullable } from 'primeng/ts-helpers';
 })
 export class AuthService {
   authorize() {
+    if (this.environmentService.state) {
+      this.oidcSecurityService
+        .setState(this.environmentService.state)
+        .subscribe((res) => console.log('set state', res));
+    }
     var storageCulutre = this.languageService.getLang();
     this.oidcSecurityService.authorize(undefined, {
       customParams: { lang: storageCulutre },
@@ -162,6 +168,7 @@ export class AuthService {
     private logService: LogService,
     private routerService: RouterService,
     private cookieService: CookieStorageService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private environmentService: EnvironmentService
   ) {}
 }

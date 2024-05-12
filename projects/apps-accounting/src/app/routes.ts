@@ -1,8 +1,10 @@
 import { LayoutPageComponent } from 'apps-shared-lib';
+import { AuthGuard } from 'microtec-auth-lib';
 
 export const ERPRoutes = [
   {
     path: '',
+    canActivate: [AuthGuard],
     component: LayoutPageComponent,
     children: [
       {

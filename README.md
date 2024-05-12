@@ -49,5 +49,5 @@ Open the SSL folder in next to the projects folder in our repository
 
 ## DNS Configuration
 1- Open C:\Windows\System32\drivers\etc folder
-2- open hosts file and add this line at the end "127.0.0.1 fathysub2.localhost.com" without the quotes
+2- open hosts file and add this line at the end "127.0.0.1 develop.localhost.com" without the quotes
 3- save the file 
