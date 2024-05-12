@@ -4,11 +4,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutPageComponent } from '../layout/layout-page/layout-page.component';
 import { BreadcrumbLabel, LayoutComponent, SharedLibModule } from 'shared-lib';
 import { JournalEntryListComponent } from './pages/journal-entry-list/journal-entry-list.component';
-import { AuthGuard } from 'microtec-auth-lib';
 import { CreateJournalEntryComponent } from './pages/create-journal-entry/create-journal-entry.component';
 import { AccountsComponent } from './components/accounts/accounts.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AttachmentsComponent } from './components/attachments/attachments.component';
+import { JournalTemplatePopupComponent } from './pages/components/journal-template-popup/journal-template-popup.component';
 import { EditJournalEntryComponent } from './pages/edit-journal-entry/edit-journal-entry.component';
 
 
@@ -51,6 +51,7 @@ const routes: Routes = [
     JournalEntryListComponent,
     AccountsComponent,
     AttachmentsComponent,
+    JournalTemplatePopupComponent,
     EditJournalEntryComponent
   ],
   imports: [
