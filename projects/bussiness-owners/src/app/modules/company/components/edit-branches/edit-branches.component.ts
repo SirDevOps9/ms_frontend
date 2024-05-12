@@ -27,6 +27,7 @@ export class EditBranchesComponent {
   lookups: { [key: string]: lookupDto[] };
   branchCode: string;
   selectecCountry:string;
+  selectecMobile:string;
 
   ngOnInit() {
     this.initializeForm();
@@ -37,7 +38,7 @@ export class EditBranchesComponent {
   initializeForm() {
     this.editBrancheForm = this.fb.group({
       branchName: new FormControl('', [customValidators.required]),
-      countryCode: new FormControl(),
+      countryCode: new FormControl('', [customValidators.required]),
       branchRegion: new FormControl(),
       branchCity: new FormControl(),
       branchEmail: new FormControl(null, [customValidators.email]),
@@ -60,6 +61,7 @@ export class EditBranchesComponent {
         ...res,
       });
       this.selectecCountry = res.countryCode!;
+      this.selectecMobile=res.mobileNumberCode!;
     });
   }
   Subscribe() {

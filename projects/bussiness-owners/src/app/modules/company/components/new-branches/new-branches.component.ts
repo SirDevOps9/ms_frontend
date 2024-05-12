@@ -34,7 +34,7 @@ export class NewBranchesComponent implements OnInit {
   initializeForm() {
     this.newBrancheForm = this.fb.group({
       branchName: new FormControl('', [customValidators.required]),
-      countryCode: new FormControl(),
+      countryCode: new FormControl('', [customValidators.required]),
       branchRegion: new FormControl(),
       branchCity: new FormControl(),
       branchEmail: new FormControl(null, [customValidators.email]),
