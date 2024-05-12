@@ -72,6 +72,12 @@ export class CompanyLegalComponent implements OnInit {
       });
     });
   }
+
+  onDiscard(editMode: boolean){
+    if(editMode)
+    this.initializeFormData();
+    this.editMode = false;
+  }
   get companyId(): string {
     return this.routerService.currentParetId;
   }

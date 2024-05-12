@@ -56,6 +56,8 @@ export class CompanyBranchesComponent implements OnInit {
     else this.companyService.deActivateBranch(id);
   }
 
+  
+
   constructor(
     private dialog: DialogService,
     private companyService: CompanyService,
