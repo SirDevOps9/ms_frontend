@@ -5,10 +5,11 @@ import { AuthGuard, MicrotecAuthLibModule } from 'microtec-auth-lib';
 import { BreadcrumbLabel, SharedLibModule } from 'shared-lib';
 import { MySubscriptionsComponent } from './pages/my-subscriptions/my-subscriptions.component';
 import {SubscriptionComponent } from './pages/subscription-list/subscription.component';
-import { LayoutModule } from '../layout/layout.module';
+//import { LayoutModule } from '../layout/layout.module';
 import { LayoutComponent } from '../layout/layout-page/layout.component';
 import { AddDomainSpaceComponent } from './components/add-domain-space/add-domain-space.component';
 import { ManageAppsComponent } from './pages/manage-apps/manage-apps.component';
+import { LayoutModule } from '../layout/layout.module';
 
 const routes: Routes = [
   {
