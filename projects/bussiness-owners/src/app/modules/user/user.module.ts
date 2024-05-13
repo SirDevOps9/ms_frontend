@@ -6,9 +6,9 @@ import { BreadcrumbLabel, RouterService, SharedLibModule } from 'shared-lib';
 import { UsersComponent } from './pages/user-list/users.component';
 import { UserconfirmationComponent } from './pages/inviteduserconfirmation/userconfirmation.component';
 import { UserInviteFormComponent } from './components/invite-form/user-invite-form.component';
-import { LayoutModule } from '../layout/layout.module';
 import { LayoutComponent } from '../layout/layout-page/layout.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { LayoutModule } from '../layout/layout.module';
 
 const routes: Routes = [
   {
