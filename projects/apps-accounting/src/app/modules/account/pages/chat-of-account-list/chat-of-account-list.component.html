@@ -17,49 +17,58 @@
               isSortable: true
             },
             {
-              name: 'journalCode',
-              headerText: ('Journal Code'),
+              name: 'accountCode',
+              headerText: ('Account Code'),
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'refrenceNumber',
-              headerText: ('Reference'),
+              name: 'natureId',
+              headerText: ('Nature'),
+              template: Nature
+            },
+            {
+              name: 'accountTypeName',
+              headerText: ('Account Type'),
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'type',
-              headerText: ('Type'),
+              name: 'accountSectionName',
+              headerText: ('Account Section'),
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'sourceName',
-              headerText: ('Document Name'),
-              isGlobalFilter: true,
-              isSortable: true
+              name: 'id',
+              headerText: ('Actions'),
+              template: userCol
+
             },
-            {
-              name: 'sourceCode',
-              headerText: ('Document Code'),
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'totalDebitAmount',
-              headerText: ('Debit'),
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'totalCreditAmount',
-              headerText: ('Credit'),
-              isGlobalFilter: true,
-              isSortable: true
-            }
           ]
         }">
+
+          <ng-template #userCol let-Account>
+            <div class="actions flex align-items-center ">
+              <lib-button className="edit" type="button" (click)="routeToEdit(Account.id)"  icon="pi pi-pencil" [rounded]="true" [enableText]="true" severity="secondary">
+              </lib-button>
+              <lib-button icon="pi pi-trash" [rounded]="true" [enableText]="true" severity="secondary">
+              </lib-button>
+            </div>
+    
+          </ng-template>
+          
+          <ng-template #Nature let-Account>
+            <div class="status Credit" *ngIf="Account.natureId== 1">
+              <p class="dot"></p>
+              <p> Credit</p>
+            </div>
+            <div class="status Debit" *ngIf="Account.natureId==2">
+              <p class="dot"></p>
+              <p> Debit</p>
+            </div>
+          </ng-template>
+            
     </lib-data-table>
 
   </div>

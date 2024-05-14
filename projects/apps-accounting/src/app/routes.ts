@@ -18,7 +18,7 @@ export const ERPRoutes = [
         path: 'Account',
         loadChildren: () =>
           import('./modules/account/account.module').then(
-            (x) => x.AccountModule
+            (m) => m.AccountModule
           )
       }
     ],
