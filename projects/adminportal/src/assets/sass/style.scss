@@ -1,7 +1,8 @@
 // Initialize
 @import "init";
 // Components
-@import "./core/components/components";
+
+@import "./core/components/components.scss";
 
 // Layout
 @import "./core/layout/base/layout";
@@ -9,3 +10,7 @@
 @import "./layout/variables.custom";
 
 // Plugins
+@import "./init";
+
+// Plugins
+@import "./core/vendors/plugins/plugins";

@@ -78,22 +78,7 @@ data-kt-menu-trigger="{default: 'click'}"
  <h3 class="pt-2">{{loggedUserInfo?.name }}</h3>
 </div> -->
 <!--begin::User menu-->
-<div class="app-navbar-item" [ngClass]="itemClass">
-  <!--begin::Menu wrapper-->
 
-  <div style="margin-right: 13px;">
-    <h4 class="pt-2 mr-2" style="color: #868686;">{{loggedUserInfo?.name }}</h4>
-
-  </div>
-  <div class="cursor-pointer symbol" [ngClass]="userAvatarClass"
-  data-kt-menu-trigger="{default: 'click'}"
-    data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end"
-  >
-    <img src="./assets/media/avatars/300-1.jpg" />
-  </div>
-  <app-user-inner data-kt-menu='true'></app-user-inner>
-  <!--end::Menu wrapper-->
-</div>
 <!--end::User menu-->
 
 <!--begin::Header menu toggle-->
