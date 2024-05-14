@@ -1,18 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { JournalEntryService } from 'projects/erp-home/src/app/modules/journal-entry/journal-entry.service';
-import {
-  JournalEntryDto,
-  JournalEntryStatus,
-  SharedJournalEnums,
-} from 'projects/erp-home/src/app/modules/journal-entry/models';
-import { FormConfig, FormTypes } from 'projects/shared-lib/src/lib/models/form';
-import { SharedFormComponent } from 'projects/shared-lib/src/lib/shared-form/shared-form.component';
+import { JournalEntryService } from 'projects/apps-accounting/src/app/modules/journal-entry/journal-entry.service';
+import { SharedJournalEnums } from 'projects/apps-accounting/src/app/modules/journal-entry/models';
+
 import {
   PageInfo,
   RouterService,
   LanguageService,
+  FormConfig,
+  FormTypes,
+  SharedFormComponent,
   SharedLibModule,
 } from 'shared-lib';
 
@@ -24,10 +22,8 @@ import {
   styleUrl: './bussiness-owners-list.component.scss',
 })
 export class BussinessOwnersListComponent implements OnInit {
-  journalEntries: JournalEntryDto[];
   @ViewChild('myTab') myTab: any | undefined;
   @ViewChild('form') form: SharedFormComponent;
-  selectedEntries: JournalEntryDto[];
   tableData = [
     {
       code: '101',

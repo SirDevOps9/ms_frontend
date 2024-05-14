@@ -1,15 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+
 
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { JournalEntryService } from 'projects/erp-home/src/app/modules/journal-entry/journal-entry.service';
-import {
-  JournalEntryDto,
-  SharedJournalEnums,
-} from 'projects/erp-home/src/app/modules/journal-entry/models';
 import {
   PageInfo,
   RouterService,
@@ -17,9 +11,11 @@ import {
   SharedLibModule,
 } from 'shared-lib';
 import { Validators } from '@angular/forms';
-import { FormConfig, FormTypes } from 'projects/shared-lib/src/lib/models/form';
 import { of } from 'rxjs';
-import { SharedFormComponent } from 'projects/shared-lib/src/lib/shared-form/shared-form.component';
+import { JournalEntryDto, SharedJournalEnums } from 'projects/apps-accounting/src/app/modules/journal-entry/models';
+import { SharedFormComponent } from 'shared-lib';
+import { FormConfig, FormTypes } from 'shared-lib';
+import { JournalEntryService } from 'projects/apps-accounting/src/app/modules/journal-entry/journal-entry.service';
 
 @Component({
   selector: 'app-edit-bussiness-owner',
@@ -29,7 +25,6 @@ import { SharedFormComponent } from 'projects/shared-lib/src/lib/shared-form/sha
   styleUrl: './edit-bussiness-owner.component.scss',
 })
 export class EditBussinessOwnerComponent implements OnInit , AfterViewInit {
-  journalEntries: JournalEntryDto[];
   @ViewChild('myTab') myTab: any | undefined;
   @ViewChild('form') form: SharedFormComponent;
 

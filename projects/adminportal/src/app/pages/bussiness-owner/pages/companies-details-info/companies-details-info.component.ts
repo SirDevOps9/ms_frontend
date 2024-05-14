@@ -1,11 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { JournalEntryService } from 'projects/erp-home/src/app/modules/journal-entry/journal-entry.service';
-import { JournalEntryDto, SharedJournalEnums } from 'projects/erp-home/src/app/modules/journal-entry/models';
-import { FormConfig, FormTypes } from 'projects/shared-lib/src/lib/models/form';
-import { SharedFormComponent } from 'projects/shared-lib/src/lib/shared-form/shared-form.component';
-import { LanguageService, PageInfo, RouterService, SharedLibModule } from 'shared-lib';
+
+import { FormConfig, FormTypes, LanguageService, PageInfo, RouterService, SharedFormComponent, SharedLibModule } from 'shared-lib';
 
 @Component({
   selector: 'app-companies-details-info',
@@ -15,10 +12,8 @@ import { LanguageService, PageInfo, RouterService, SharedLibModule } from 'share
   imports: [CommonModule, SharedLibModule],
 })
 export class CompaniesDetailsInfoComponent implements OnInit {
-  journalEntries: JournalEntryDto[];
   @ViewChild('myTab') myTab: any | undefined;
   @ViewChild('form') form: SharedFormComponent;
-  selectedEntries: JournalEntryDto[];
   tableData = [
     {
       code: '101',
@@ -129,8 +124,7 @@ export class CompaniesDetailsInfoComponent implements OnInit {
     private routerService: RouterService,
     private titleService: Title,
     private languageService: LanguageService,
-    private journalEntryService: JournalEntryService,
-    public sharedJouralEnum: SharedJournalEnums
+  
   ) {}
 
   ngOnInit() {
@@ -142,11 +136,11 @@ export class CompaniesDetailsInfoComponent implements OnInit {
 
   patchFormValues(data: any) {}
   initJournalEntryData(page: PageInfo) {
-    this.journalEntryService.getAllJournalEntriesPaginated(page).subscribe({
-      next: (journalList: any) => {
-        // this.tableData = journalList.result;
-      },
-    });
+    // this.journalEntryService.getAllJournalEntriesPaginated(page).subscribe({
+    //   next: (journalList: any) => {
+    //     // this.tableData = journalList.result;
+    //   },
+    // });
   }
   onPageChange(pageInfo: PageInfo) {
     this.initJournalEntryData(pageInfo);

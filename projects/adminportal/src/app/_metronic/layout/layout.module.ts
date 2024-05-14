@@ -42,6 +42,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { Routing } from '../../pages/routing';
 import { HttpClient } from '@angular/common/http';
 import { MultiTranslateHttpLoader } from 'shared-lib';
+import { MicrotecAuthLibModule } from 'microtec-auth-lib';
 
 const routes: Routes = [
   {
@@ -102,7 +103,7 @@ const routes: Routes = [
     DropdownMenusModule,
     NgbTooltipModule,
     TranslateModule,
-    ThemeModeModule,
+    ThemeModeModule
   ],
   providers: [DialogService],
   exports: [RouterModule],

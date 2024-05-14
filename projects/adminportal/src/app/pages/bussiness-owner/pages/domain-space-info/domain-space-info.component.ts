@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { FormConfig, FormTypes } from 'projects/shared-lib/src/lib/models/form';
-import { SharedFormComponent } from 'projects/shared-lib/src/lib/shared-form/shared-form.component';
-import { SharedLibModule } from 'shared-lib';
+
+import { FormConfig, FormTypes, SharedFormComponent, SharedLibModule } from 'shared-lib';
 
 @Component({
   selector: 'app-domain-space-info',

@@ -1,8 +1,9 @@
+import { HomePageComponent } from "./home-page/home-page.component";
+
 export const ERPRoutes = [
   {
     path: '',
-   loadChildren:()=> 
-   import('./modules/layout/layout.module').then((m)=>m.LayoutModule)
+    component: HomePageComponent,
   },
 
 ];

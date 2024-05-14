@@ -14,12 +14,14 @@
     "build:accounting": "ng build --project apps-accounting",
     "start:bussiness-owners": "ng serve --project bussiness-owners --port 4301",
     "start:bussiness-owners-stage": "ng serve --project bussiness-owners --port 4301 --configuration stage",
-    "start:erp": "ng serve --project erp-home --ssl true --disable-host-check true --host fathysub2.localhost.com  --ssl-key ssl\\localhost.key --ssl-cert ssl\\localhost.crt --port 4400",
+    "start:erp-home": "ng serve --project erp-home --host develop.localhost.com",
+    "start:accounting": "ng serve --project apps-accounting --host develop.localhost.com ",
+    "start:hr": "ng serve --project apps-hr --host develop.localhost.com",
     "start:adminportal": "ng serve --project adminportal --port 4303",
-    "start:accounting": "ng serve --project apps-accounting --port 4304",
-    "start:hr": "ng serve --project apps-hr --port 4305",
+    "start:erp":"concurrently \"npm run start:erp-gateway\" \"npm run start:erp-home\" \"npm run start:accounting\" \"npm run start:hr\"",
     "start:gateway": "node proxy.js",
-    "start:all": "concurrently \"npm run start:gateway\" \"npm run start:bussiness-owners\" \"npm run start:adminportal\" \"npm run start:accounting\" \"npm run start:hr\" "
+    "start:erp-gateway": "node erp-proxy.js",
+    "start:all": "concurrently \"npm run start:gateway\" \"npm run start:bussiness-owners\" \"npm run start:adminportal\""
   },
   "private": true,
   "dependencies": {

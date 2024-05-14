@@ -4,12 +4,16 @@ import { BussinessOwnersListComponent } from './pages/bussiness-owners-list/buss
 import { EditBussinessOwnerComponent } from './pages/edit-bussiness-owner/edit-bussiness-owner.component';
 import { DomainSpaceInfoComponent } from './pages/domain-space-info/domain-space-info.component';
 import { CompaniesDetailsInfoComponent } from './pages/companies-details-info/companies-details-info.component';
+import { AuthGuard } from 'microtec-auth-lib';
 
 const routes: Routes = [
-  {path : '' , component : BussinessOwnersListComponent},
-  {path : 'manage' , component : EditBussinessOwnerComponent},
-  {path : 'domain-space-info' , component : DomainSpaceInfoComponent},
-  {path : 'companies-details-info' , component : CompaniesDetailsInfoComponent},
+  {
+    path: '', component: BussinessOwnersListComponent
+     , canActivate: [AuthGuard]
+  },
+  { path: 'manage', component: EditBussinessOwnerComponent },
+  { path: 'domain-space-info', component: DomainSpaceInfoComponent },
+  { path: 'companies-details-info', component: CompaniesDetailsInfoComponent },
 ];
 
 @NgModule({

@@ -1,0 +1,14 @@
+<input
+  class="p-inputtext p-component p-element "
+  [type]="type"
+  (change)="change($event)"
+  [value]="value"
+  [readOnly]="readOnly"
+  [placeholder]="placeholder"
+  (keyup)="keyupChange($event)"
+  [ngStyle]="{
+    'padding-right': '25px',
+    'background': 'url(' + iconUrl + ') no-repeat right',
+    'background-size': '20px'
+  }"
+  />
