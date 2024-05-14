@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { AccountDto } from './models/accountDto';
+import { AccountProxy } from './account.proxy';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
-  constructor(private httpService: HttpService) {}
+  
+  constructor(private accountproxy:AccountProxy) {}
 
-  getAllPaginated(
-    searchTerm: string,
-    pageInfo: PageInfo
-  ): Observable<PaginationVm<AccountDto>> {
-    return this.httpService.get<PaginationVm<AccountDto>>(
-      `ChartOfAccounts?searchTerm=${searchTerm}&${pageInfo.toQuery}`
+  getAllChartOfAccountPaginated(pageInfo: PageInfo) {
+    return this.accountproxy.getAllPaginated(pageInfo).pipe(
+      map((res) => {
+        return res;
+      })
     );
   }
 }

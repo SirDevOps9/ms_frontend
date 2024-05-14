@@ -1,0 +1,66 @@
+<div>
+  <lib-bread-crumb></lib-bread-crumb>
+  <div class="user_page">
+    <lib-data-table [items]="tableData"  className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
+      (pageChange)="onPageChange($event)"
+       [tableConfigs]="{
+        
+          allowPagination: true,
+          allowServerPagination: false,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'id',
+              headerText: ('Id' ),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'journalCode',
+              headerText: ('Journal Code'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'refrenceNumber',
+              headerText: ('Reference'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'type',
+              headerText: ('Type'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'sourceName',
+              headerText: ('Document Name'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'sourceCode',
+              headerText: ('Document Code'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'totalDebitAmount',
+              headerText: ('Debit'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'totalCreditAmount',
+              headerText: ('Credit'),
+              isGlobalFilter: true,
+              isSortable: true
+            }
+          ]
+        }">
+    </lib-data-table>
+
+  </div>
+</div>
