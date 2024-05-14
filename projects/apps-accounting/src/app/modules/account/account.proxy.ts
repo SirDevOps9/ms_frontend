@@ -8,12 +8,13 @@ import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
   providedIn: 'root',
 })
 export class AccountProxy {
-
+    
     getAllPaginated(
+        searchTerm: string,
         pageInfo: PageInfo
       ): Observable<PaginationVm<AccountDto>> {
         return this.httpService.get<PaginationVm<AccountDto>>(
-          `ChartOfAccounts?`
+          `ChartOfAccounts?searchTerm=${searchTerm}&${pageInfo.toQuery}`
         );
       }
 

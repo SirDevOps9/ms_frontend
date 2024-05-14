@@ -11,11 +11,12 @@ export class AccountService {
   
   constructor(private accountproxy:AccountProxy) {}
 
-  getAllChartOfAccountPaginated(pageInfo: PageInfo) {
-    return this.accountproxy.getAllPaginated(pageInfo).pipe(
+  getAllChartOfAccountPaginated( searchTerm:string ,pageInfo: PageInfo) {
+    return this.accountproxy.getAllPaginated( searchTerm,pageInfo).pipe(
       map((res) => {
         return res;
       })
     );
   }
+  
 }
