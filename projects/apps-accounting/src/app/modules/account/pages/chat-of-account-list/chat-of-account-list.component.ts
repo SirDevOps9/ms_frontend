@@ -7,7 +7,7 @@ import { AccountDto } from '../../models/accountDto';
 @Component({
   selector: 'app-chat-of-account-list',
   templateUrl: './chat-of-account-list.component.html',
-  styleUrls: ['./chat-of-account-list.component.css']
+  styleUrls: ['./chat-of-account-list.component.scss']
 })
 export class ChatOfAccountListComponent implements OnInit {
 onPageChange($event: PageInfo) {
@@ -25,10 +25,10 @@ throw new Error('Method not implemented.');
   ngOnInit() {
     this.initChartOfAccountData(this.currentPageInfo);
   }
-  
+
   initChartOfAccountData(page:PageInfo) {
 
-    this.accountService.getAllChartOfAccountPaginated(page).subscribe({
+    this.accountService.getAllChartOfAccountPaginated('',page).subscribe({
       next: (ChartOfAccountList: any) => {
         this.tableData = ChartOfAccountList.result;
         console.log('this.tableData', this.tableData);

@@ -9,7 +9,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'ChatOfAccount',
     component: LayoutPageComponent,
     children: [
       {
