@@ -2,7 +2,7 @@
 <form class="row d-flex align-items-center  sharedForm" [class.form]="formClass" [formGroup]="form">
   <div *ngFor="let elem of fields" class=" {{ elem.class }} ">
     <!----- input ------>
-    <div *ngIf="(elem.label && elem.type === 'text'  && !elem?.hidden) || elem.type === 'number'  && !elem?.hidden" >
+    <div *ngIf="( elem.type === 'text'  && !elem?.hidden) || elem.type === 'number'  && !elem?.hidden" >
       <label
         *ngIf="(elem.label && elem.type === 'text') || elem.type === 'number'"
         class="fw-bold"
@@ -168,8 +168,8 @@
       <span class="text-danger pt-1"  style="font-size: 20px;" *ngIf="form.controls[elem.key]?.hasError('required')">*</span>
       <span class="text-danger pt-1" style="font-size: 20px;" *ngIf="!form.controls[elem.key]?.hasError('required')"></span>
       <div class="py-2 d-flex gap-2">
+        <p class="fw-bold">{{form.controls[elem.key].value === true ? 'Active' : 'Deactive'}}</p>
         <p-inputSwitch   [formControlName]="elem.key"></p-inputSwitch>
-        <!-- <p class="fw-bold">{{form.controls[elem.key].value === true ? 'Active' : 'Inactive'}}</p> -->
       </div>
     </div>
 

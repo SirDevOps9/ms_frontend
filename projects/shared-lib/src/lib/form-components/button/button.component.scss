@@ -11,3 +11,13 @@
     color: #fff;
   }
 }
+::ng-deep .secondary{
+  button {
+    color: #fff;
+    background: #898b8d;
+    border: 1px solid #f1f5f9;
+    border-radius: 5px;
+    font-weight: 600;
+
+  }
+}

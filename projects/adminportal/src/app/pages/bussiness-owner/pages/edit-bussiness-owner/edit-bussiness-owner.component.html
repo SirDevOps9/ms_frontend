@@ -2,7 +2,7 @@
 <div>
   <!-- <lib-bread-crumb></lib-bread-crumb> -->
   <div class="user_page">
-    <lib-data-table [items]="tableData" className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
+    <lib-data-table [items]="tableData.Subdomains" className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
       (pageChange)="onPageChange($event)"
        [tableConfigs]="{
 
@@ -13,10 +13,18 @@
           columns: [
 
             {
-              name: 'name',
-              headerText: ('Domain Space Info'),
+              name: 'SubdomainName',
+              headerText: ('Domain Space'),
               isGlobalFilter: true,
               isSortable: false
+            },
+            {
+              name: 'info',
+              headerText: ('Domain Space Info'),
+              isGlobalFilter: true,
+              isSortable: false,
+              template : domainInfo
+
             },
             {
               name: 'email',
@@ -60,25 +68,42 @@
           ]
         }">
 
-   <!-- actions of the header of Table -->
       <ng-container caption>
         <div class="group">
           <div>
-            <span class="p-input-icon-left">
-              <i class="pi pi-search"></i>
-              <input pInputText type="text" placeholder="Search..." />
-            </span>
+            <app-shared-form
+              [fields]="fields"
+              [showSaveBtn]="false"
+              #form
+            ></app-shared-form>
           </div>
+        </div>
 
-        
-
+        <div class="my-5">
+          <lib-button className="secondary"   [rounded]="true" [enableText]="true"  (onClick)="onManageOwner(companiesInfo)">
+            Domains
+          </lib-button>
         </div>
       </ng-container>
+
+
+
 
     <!-- actions of the Table -->
       <ng-template #userCol let-user>
         <div class="actions flex align-items-center ">
-        
+          <div>
+            <lib-input-switch></lib-input-switch>
+          </div>
+        </div>
+
+      </ng-template>
+      <!--  -->
+      <ng-template #domainInfo let-domainInfo>
+        <div>
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" (onClick)="viewDomainInfo(domainInfo)">
+            Manage
+          </lib-button>
         </div>
 
       </ng-template>
@@ -94,7 +119,7 @@
       <!--  -->
       <ng-template #companiesInfo let-companiesInfo>
         <div>
-          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" (onClick)="onManageOwner(companiesInfo)">
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" [routerLink]="['/bussiness-owners/companies-details-info']">
             Manage
           </lib-button>
         </div>
@@ -119,8 +144,8 @@
 
       </ng-template>
       <!--  -->
-   
-     
+
+
     </lib-data-table>
 
   </div>

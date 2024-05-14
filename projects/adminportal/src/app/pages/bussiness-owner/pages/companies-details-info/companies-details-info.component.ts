@@ -1,29 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { JournalEntryService } from 'projects/erp-home/src/app/modules/journal-entry/journal-entry.service';
-import {
-  JournalEntryDto,
-  JournalEntryStatus,
-  SharedJournalEnums,
-} from 'projects/erp-home/src/app/modules/journal-entry/models';
+import { JournalEntryDto, SharedJournalEnums } from 'projects/erp-home/src/app/modules/journal-entry/models';
 import { FormConfig, FormTypes } from 'projects/shared-lib/src/lib/models/form';
 import { SharedFormComponent } from 'projects/shared-lib/src/lib/shared-form/shared-form.component';
-import {
-  PageInfo,
-  RouterService,
-  LanguageService,
-  SharedLibModule,
-} from 'shared-lib';
+import { LanguageService, PageInfo, RouterService, SharedLibModule } from 'shared-lib';
 
 @Component({
-  selector: 'app-bussiness-owners-list',
+  selector: 'app-companies-details-info',
+  templateUrl: './companies-details-info.component.html',
+  styleUrl: './companies-details-info.component.scss',
   standalone: true,
   imports: [CommonModule, SharedLibModule],
-  templateUrl: './bussiness-owners-list.component.html',
-  styleUrl: './bussiness-owners-list.component.scss',
 })
-export class BussinessOwnersListComponent implements OnInit {
+export class CompaniesDetailsInfoComponent implements OnInit {
   journalEntries: JournalEntryDto[];
   @ViewChild('myTab') myTab: any | undefined;
   @ViewChild('form') form: SharedFormComponent;

@@ -6,58 +6,109 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { JournalEntryService } from 'projects/erp-home/src/app/modules/journal-entry/journal-entry.service';
-import { JournalEntryDto, SharedJournalEnums } from 'projects/erp-home/src/app/modules/journal-entry/models';
-import { PageInfo, RouterService, LanguageService, SharedLibModule } from 'shared-lib';
+import {
+  JournalEntryDto,
+  SharedJournalEnums,
+} from 'projects/erp-home/src/app/modules/journal-entry/models';
+import {
+  PageInfo,
+  RouterService,
+  LanguageService,
+  SharedLibModule,
+} from 'shared-lib';
+import { Validators } from '@angular/forms';
+import { FormConfig, FormTypes } from 'projects/shared-lib/src/lib/models/form';
+import { of } from 'rxjs';
+import { SharedFormComponent } from 'projects/shared-lib/src/lib/shared-form/shared-form.component';
 
 @Component({
   selector: 'app-edit-bussiness-owner',
   standalone: true,
-  imports : [ CommonModule , SharedLibModule ],
+  imports: [CommonModule, SharedLibModule],
   templateUrl: './edit-bussiness-owner.component.html',
-  styleUrl: './edit-bussiness-owner.component.scss'
+  styleUrl: './edit-bussiness-owner.component.scss',
 })
-export class EditBussinessOwnerComponent implements OnInit {
+export class EditBussinessOwnerComponent implements OnInit , AfterViewInit {
   journalEntries: JournalEntryDto[];
   @ViewChild('myTab') myTab: any | undefined;
+  @ViewChild('form') form: SharedFormComponent;
+
   selectedEntries: JournalEntryDto[];
-  tableData = [
+
+  fields: FormConfig[] = [
     {
-      code: '101',
-      name: 'Domain Space.micrtec.com.sa',
-      email: 'john@example.com',
-      country: 'USA',
-      mobileNumber: '+1 123 456 7890',
+      key: 'isActive',
+      disabled: false,
+      placeholder: 'status',
+      class: 'col-md-12 d-flex justify-content-end',
+      type: FormTypes.switch,
+      firstValue: true,
     },
     {
-      code: '102',
-      name: 'Domain Space.micrtec.com.sa',
-      email: 'alice@example.com',
-      country: 'Canada',
-      mobileNumber: '+1 234 567 8901',
+      key: 'code',
+      disabled: false,
+      placeholder: 'Bo Code',
+      type: FormTypes.text,
+      class: 'col-md-4',
+      label: 'Bo Code',
     },
     {
-      code: '103',
-      name: 'Domain Space.micrtec.com.sa',
-      email: 'mohammed@example.com',
-      country: 'India',
-      mobileNumber: '+91 98765 43210',
+      key: 'name',
+      disabled: false,
+      placeholder: 'Bo Name',
+      type: FormTypes.text,
+      class: 'col-md-4',
+      label: 'Bo Name',
+    },
+
+    {
+      key: 'email',
+      disabled: false,
+      placeholder: 'Bo Email',
+      type: FormTypes.text,
+      class: 'col-md-4',
+      label: 'Bo Email',
     },
     {
-      code: '104',
-      name: 'Domain Space.micrtec.com.sa',
-      email: 'sophie@example.com',
-      country: 'UK',
-      mobileNumber: '+44 1234 567890',
+      key: 'CountryNameEn',
+      disabled: false,
+      placeholder: 'Bo Country',
+      type: FormTypes.text,
+      class: 'col-md-4',
+      label: 'Bo Country',
     },
     {
-      code: '105',
-      name: 'Domain Space.micrtec.com.sa',
-      email: 'chen@example.com',
-      country: 'China',
-      mobileNumber: '+86 10 1234 5678',
+      key: 'mobileNumber',
+      disabled: false,
+      placeholder: 'Bo Mobile',
+      type: FormTypes.text,
+      class: 'col-md-4',
+      label: 'Bo Mobile',
     },
-   
-  ]
+  ];
+
+  tableData = {
+    "Id": "c65162b4-6b2b-4ef9-b317-f2b545f66b19",
+    "code": "BO123",
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "CountryNameEn": "United States",
+    "CountryNameAr": null,
+    "mobileNumber": "+1234567890",
+    "isActive": false,
+    "Subdomains": [
+      {
+        "SubdomainName": "subdomain1.example.com",
+        "SubdomainId": "ef24cf4a-d2ac-4d2b-a409-1b3fdde21710",
+        "IsActive": true
+      },
+      {
+        "SubdomainName": "subdomain2.example.com",
+        "SubdomainId": "3d786630-8e4a-4f4c-af46-9b01611f3f94",
+        "IsActive": false
+      },
+    ]
+  }
   cols: any[] = [
     {
       field: 'Id',
@@ -119,37 +170,49 @@ export class EditBussinessOwnerComponent implements OnInit {
   active: boolean = false;
   currentPageInfo: PageInfo = new PageInfo();
 
-
   constructor(
     private routerService: RouterService,
     private titleService: Title,
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
     public sharedJouralEnum: SharedJournalEnums
-  ) { }
-
-  ngOnInit() {
-    this.titleService.setTitle(this.languageService.transalte('JournalEntry.JournalEntryList'));
-    this.initJournalEntryData(this.currentPageInfo);
+  ) {}
+  ngAfterViewInit(): void {
+    this.sendFormValues(this.tableData)
 
   }
-  initJournalEntryData(page:PageInfo) {
 
+  ngOnInit() {
+    this.titleService.setTitle(
+      this.languageService.transalte('JournalEntry.JournalEntryList')
+    );
+    this.initJournalEntryData(this.currentPageInfo);
+  }
+  initJournalEntryData(page: PageInfo) {
     this.journalEntryService.getAllJournalEntriesPaginated(page).subscribe({
       next: (journalList: any) => {
         // this.tableData = journalList.result;
       },
     });
   }
-  onPageChange(pageInfo: PageInfo) {
-    this.initJournalEntryData(pageInfo)
+
+  sendFormValues(data : {}) {
+    this.form.form.patchValue({
+      ...data
+    })
   }
-  onEditOwner(){
+  onPageChange(pageInfo: PageInfo) {
+    this.initJournalEntryData(pageInfo);
+  }
+  onEditOwner() {
     this.routerService.navigateTo(`/bussiness-owners/manage`);
   }
 
-  onManageOwner(domain : any) {
-    console.log(domain)
+  viewDomainInfo(domain:any) {
+    this.routerService.navigateTo(`//bussiness-owners/domain-space-info`)
   }
 
+  onManageOwner(domain: any) {
+    console.log(domain);
+  }
 }

@@ -2,56 +2,7 @@
   padding: 0;
   margin: 0;
 }
-.status{
-  padding: 0px 20px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-}
-.draft{
-  background:#F7F8F8 ;
-  color: #383A42;
-}
-.unbalanced{
-  background:#CB3F2D ;
-  color: #fff;
-}
-.unposted{
-  background:#8E95A2 ;
-  color: #fff;
-}
-.returned{
-  background:#E17F24 ;
-  color: #fff;
-}
-.Posted{
-  background:#36A19B ;
-  color: #fff;
-}
-.dot{
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #fff;
-  margin-inline-end: 5px;
-}
-.edit{
-  color: red !important;
-}
-.add_new {
-  background: #1A8EAE !important;
-  border: none !important;
-  border-radius: 12px;
-  padding: 15px 20px;
-  color: #fff;
-  margin-inline-start: 30px !important;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-}
-.export{
-  background: #36A19B !important;
-}
+
 .group{
   display: flex;
   align-items: center;

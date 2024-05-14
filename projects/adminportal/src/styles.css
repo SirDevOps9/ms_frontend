@@ -1,7 +1,13 @@
 
+
 @import "./assets/sass/style.scss";
 
 
 @import './assets/sass/plugins.scss';
 
 @import "./assets/sass/style.angular.scss";
+
+
+
+@import "./assets/sass/core/components/_root.scss";
+@import "./assets/sass/layout/_variables.custom.scss";
