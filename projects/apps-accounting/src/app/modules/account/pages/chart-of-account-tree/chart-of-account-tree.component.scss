@@ -1,0 +1,133 @@
+
+.chart_of_account_tree{
+    .test{
+        padding: 0 !important;
+        
+    }
+    ::ng-deep {
+
+      
+        .ui-tree-node-content {
+            display: flex !important;
+            //  flex-direction: row-reverse !important;
+            align-items: center;
+       
+        }
+    
+        .p-treenode-children li {
+            position: relative;
+            margin-inline-start: 15px !important;
+    
+            //background: #0D4859 !important;
+            &::before {
+                content: '' !important;
+                position: absolute !important;
+                top: 0 !important;
+                left: 0px !important;
+                /* Adjust as needed */
+                width: 1px !important;
+                height: 100% !important;
+                background: #000 !important;
+                /* Adjust color as needed */
+            }
+    
+            .p-treenode-content {
+                position: relative !important;
+                padding-inline-start: 15px;
+    
+                &::before {
+                    content: '' !important;
+                    position: absolute !important;
+                    top: 50% !important;
+                    left: 0px !important;
+                    /* Adjust as needed */
+                    width: 20px !important;
+                    height: 1px !important;
+                    background: #000 !important;
+                    /* Adjust color as needed */
+    
+                }
+            }
+        }
+    
+        .ui-treenode-content .pi-folder-open:before,
+        .ui-treenode-content .pi-folder:before {
+            content: '\f0d7' !important;
+            /* Unicode for the desired icon */
+        }
+    
+        /* Styling for open/close arrow icon */
+        .ui-treenode-content .pi-angle-down:before,
+        .ui-treenode-content .pi-angle-right:before {
+            content: '\f0d7' !important;
+            /* Unicode for the desired icon */
+        }
+        .p-fieldset .p-fieldset-content {
+            padding: 0 !important;
+        }
+        .p-tree{
+            height: 700px;
+            overflow: auto;
+        }
+      
+    }
+    
+    .btn_add {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid #0D4859;
+        color: #0D4859;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        margin-inline-start: 20px;
+        cursor: pointer;
+    }
+    
+    .folder_icon,
+    .file_icon {
+        color: #0D4859 !important;
+        margin-inline-end: 5px;
+    }
+    
+    .tree-icon {
+        color: #0D4859;
+    }
+    
+    .tree-icon {
+        display: inline-block;
+        width: 16px;
+        /* Adjust as per your requirement */
+        height: 16px;
+        /* Adjust as per your requirement */
+        /* Add any additional styling as needed */
+    }
+    .tree{
+        border: 1px solid #D8DBDF;
+        border-radius: 8px;
+        height: 100%;
+        overflow: auto;
+        
+    }
+    .content_descreption{
+        width: 100%;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #E6E4E4;
+        border-radius: 8px;
+        .parent_account , .accountCode , .account_nature{
+            margin: 10px 0px;
+        }
+        .account_child{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+       
+          
+          
+    }
+}

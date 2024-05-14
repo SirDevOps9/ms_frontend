@@ -6,15 +6,17 @@ import { ChatOfAccountListComponent } from './pages/chat-of-account-list/chat-of
 import { BreadcrumbLabel, SharedLibModule } from 'shared-lib';
 import { AuthGuard } from 'microtec-auth-lib';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { MainChartOfAccountComponent } from './pages/main-chart-of-account/main-chart-of-account.component';
+import { ChartOfAccountTreeComponent } from './pages/chart-of-account-tree/chart-of-account-tree.component';
 
 const routes: Routes = [
   {
-    path: 'ChatOfAccount',
+    path: '',
     component: LayoutPageComponent,
     children: [
       {
         path: 'ChatOfAccount',
-        component:ChatOfAccountListComponent ,
+        component:MainChartOfAccountComponent ,
        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.chart_of_account_list,
@@ -27,6 +29,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     ChatOfAccountListComponent,
+    MainChartOfAccountComponent,
+    ChartOfAccountTreeComponent,
   ],
   imports: [
     CommonModule,

@@ -340,7 +340,13 @@
               "projects/apps-accounting/src/favicon.ico",
               "projects/apps-accounting/src/assets"
             ],
-            "styles": ["projects/apps-accounting/src/styles.css"],
+            "styles": [
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "projects/apps-accounting/src/styles.css"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -418,7 +424,13 @@
               "projects/apps-accounting/src/favicon.ico",
               "projects/apps-accounting/src/assets"
             ],
-            "styles": ["projects/apps-accounting/src/styles.css"],
+            "styles": [
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "/node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "projects/apps-accounting/src/styles.css"
+            ],
             "scripts": []
           }
         }
