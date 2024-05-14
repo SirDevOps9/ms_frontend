@@ -3,6 +3,7 @@ import { LanguageService, PageInfo, RouterService } from 'shared-lib';
 import { JournalEntryService } from '../../../journal-entry/journal-entry.service';
 import { AccountService } from '../../account.service';
 import { AccountDto } from '../../models/accountDto';
+import { AccountNature } from '../../models/accountNature';
 
 @Component({
   selector: 'app-chat-of-account-list',
@@ -10,12 +11,10 @@ import { AccountDto } from '../../models/accountDto';
   styleUrls: ['./chat-of-account-list.component.scss']
 })
 export class ChatOfAccountListComponent implements OnInit {
-onPageChange($event: PageInfo) {
-throw new Error('Method not implemented.');
-}
 
   tableData: AccountDto[];
   currentPageInfo: PageInfo = new PageInfo();
+  accountNature: AccountNature;
 
 
   constructor(private routerService: RouterService,
@@ -34,5 +33,15 @@ throw new Error('Method not implemented.');
         console.log('this.tableData', this.tableData);
       },
     });
+  }
+  onPageChange(pageInfo: PageInfo) {
+    console.log(pageInfo);
+    this.initChartOfAccountData(pageInfo)
+  }
+  routeToAdd(){
+    this.routerService.navigateTo(`/journalentry/add`);
+  }
+  routeToEdit(id:number){
+    this.routerService.navigateTo(`/journalentry/edit/${id}`);
   }
 }
