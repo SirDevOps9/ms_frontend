@@ -6,7 +6,6 @@
 @media print {
     .app-print-content-only {
         padding: 0 !important;
-        background: none !important;
 
         .app-wrapper,
         .app-page,
@@ -30,5 +29,11 @@
         .btn {
             display: none !important;
         }
+       
     }
+}
+
+.app-sidebar {
+    background: #fff !important;
+
 }

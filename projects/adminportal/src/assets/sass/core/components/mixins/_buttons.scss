@@ -52,11 +52,11 @@
         @if ( $icon-color-active != null ) {
             i,
             .svg-icon {
-        		color: $icon-color-active;
+        		color: #009ef7;
         	}
 
             &.dropdown-toggle:after {
-                color: $icon-color-active;
+                color: #009ef7;
             }
         }
 
