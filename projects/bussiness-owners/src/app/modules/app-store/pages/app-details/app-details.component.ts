@@ -33,9 +33,9 @@ export class AppDetailsComponent implements OnInit {
   ngOnInit(): void {
     
     this.appStoreProxy.getById(this.id).subscribe(r => {
-      r.appGallery = [r.logoId, ...r.appGallery!];
+      r.appGallery = [ ...r.appGallery!];
       this.app = r;
-      this.cover = r.logoId;
+      this.cover = r.appGallery[0];
     });
     this.subdomainService.getAllSubdomains().subscribe(s => this.subdomains = s);
   }

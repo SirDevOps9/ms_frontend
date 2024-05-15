@@ -6,7 +6,6 @@ import {
   CreateInvitedUser,
   UserListResponse,
   UserState,
-  GetUserbyid,
 } from './models';
 import { UserProxy } from './user.proxy';
 import {

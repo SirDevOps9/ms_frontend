@@ -27,32 +27,37 @@ export class CompaniesListComponent implements OnInit {
     private languageService: LanguageService,
     private companyService: CompanyService,
     private dialog: DialogService
-  ) { }
-  
-  convertToTreeNode(companies : any) {
-    let com = companies.map((company : any)=>{
+  ) {}
+
+  convertToTreeNode(companies: ResponseCompanyDto[]) {
+    let com: any = companies.map((company) => {
       let item = {
-        data : {
+        data: {
           id: company.id,
           name: company.name,
-          code:  company.code,
-          countryCode:  company.countryCode,
-          parentId:  company.parentId,
-          countryName:  company.countryName,
-          mobileNumberCode:  company.mobileNumberCode,
-          mobileNumber:  company.mobileNumber,
-          companyEmail:  company.companyEmail,
+          code: company.code,
+          countryCode: company.countryCode,
+          parentId: company.parentId,
+          countryName: company.countryName,
+          mobileNumberCode: company.mobileNumberCode,
+          mobileNumber: company.mobileNumber,
+          companyEmail: company.companyEmail,
           companyType: company.companyType,
-          subdomainId:  company.subdomainId,
-          subdomainName:  company.subdomainName,
-          commercialId:  company.commercialId,
-          isActive:  company.isActive
+          subdomainId: company.subdomainId,
+          subdomainName: company.subdomainName,
+          commercialId: company.commercialId,
+          isActive: company.isActive,
         },
-        children: company.children ? this.convertToTreeNode(company.children) : [],
-      }
-      return item
-    })
-   return com
+        children: company.childrens
+          ? this.convertToTreeNode(company.childrens)
+          : [],
+      };
+
+      return item;
+    });
+
+    console.log('com', com);
+    return com;
   }
 
   newCompany() {
@@ -116,12 +121,12 @@ export class CompaniesListComponent implements OnInit {
 
     this.companyService.companies.subscribe({
       next: (companyList) => {
-        this.tableData = this.convertToTreeNode(companyList);
+        this.tableData = companyList;
         console.log('this.tableData', this.tableData);
       },
     });
   }
-  
+
   toggle(id: string, isActive: boolean) {
     if (!isActive) this.companyService.activate(id);
     else this.companyService.deactivate(id);
