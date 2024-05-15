@@ -17,9 +17,9 @@ const routes: Routes = [
       {
         path: 'ChatOfAccount',
         component:MainChartOfAccountComponent ,
-        //canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.chart_of_account_list,
+          breadcrumb: BreadcrumbLabel.chart_of_account,
         }
       }
     ],

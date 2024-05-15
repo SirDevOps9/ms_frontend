@@ -14,7 +14,7 @@ export class BreadcrumbLabel {
     static JOURNAL_LIST='journal Entry List';
     static JOURNAL_ADD='journal Entry Add';
     static JOURNAL_Edit='journal Entry Edit';
-    static chart_of_account_list='Chart of Account list';
+    static chart_of_account='Chart of Account';
 
     
 
