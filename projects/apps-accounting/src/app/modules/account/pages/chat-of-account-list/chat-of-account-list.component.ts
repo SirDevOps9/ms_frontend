@@ -30,7 +30,6 @@ export class ChatOfAccountListComponent implements OnInit {
     this.accountService.getAllChartOfAccountPaginated('',page).subscribe({
       next: (ChartOfAccountList: any) => {
         this.tableData = ChartOfAccountList.result;
-        console.log('this.tableData', this.tableData);
       },
     });
   }

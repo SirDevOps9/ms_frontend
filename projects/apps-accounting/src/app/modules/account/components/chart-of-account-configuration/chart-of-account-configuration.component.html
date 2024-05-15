@@ -1,0 +1,82 @@
+<div class="entry_table">
+  <div class="card">
+      <p-table [value]="fa.controls" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }">
+          <ng-template pTemplate="header">
+              <tr>
+                  <th>level number</th>
+                  <th>level Name</th>
+                  <th>number Of Digits</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-fg let-editing="editing" let-i="rowIndex"> 
+              <tr [formGroup]="fg">
+                  <td>{{fg.controls['id'].value}}</td>
+                  <td>
+                      {{ fg.controls['account'].value?.nameEn }}
+                  </td>
+                  <td [pEditableColumn]="fg.controls['debitAmount']" pEditableColumnField="debitAmount">
+                      <p-cellEditor>
+                          <ng-template pTemplate="input">
+                              <lib-text-input formControlName="debitAmount"  type="number"></lib-text-input>
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                              {{ fg.controls['debitAmount'].value }}
+                          </ng-template>
+                      </p-cellEditor>
+                  </td>
+
+                  <td [pEditableColumn]="fg.controls['creditAmount']" pEditableColumnField="creditAmount">
+                      <p-cellEditor>
+                          <ng-template pTemplate="input">
+                              <lib-text-input formControlName="creditAmount"  type="number"></lib-text-input>
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                              {{ fg.controls['creditAmount'].value }}
+                          </ng-template>
+                      </p-cellEditor>
+                  </td>
+
+                  <td [pEditableColumn]="fg.controls['currency']" pEditableColumnField="currency">
+                      <p-cellEditor>
+                          <ng-template pTemplate="input">
+                              <p-autoComplete formControlName="currency" [forceSelection]="true" [suggestions]="fitleredCurrencies" (completeMethod)="filterCurrency($event)" field="currencyName"></p-autoComplete>
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                              {{ fg.controls['currency'].value?.currencyName }}
+                          </ng-template>
+                      </p-cellEditor>
+                  </td>
+
+                  <td [pEditableColumn]="fg.controls['currencyRate']" pEditableColumnField="currencyRate">
+                      <p-cellEditor>
+                          <ng-template pTemplate="input">
+                              <lib-text-input formControlName="currencyRate"  type="number"></lib-text-input>
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                              {{ fg.controls['currencyRate'].value }}
+                          </ng-template>
+                      </p-cellEditor>
+                  </td>
+
+                  <td>
+                      <button (click)="deleteLine(i)">Delete</button>
+                  </td>
+              </tr>
+          </ng-template>
+      </p-table>
+  </div>
+  <div class="add_new">
+      <button class="btn Line" (click)="addThing()">
+          Add New Line
+      </button>
+  </div>
+
+  <div class="btn_group">
+      <button class="btn discard"(click)="close()">
+          discard
+      </button>
+      <button class="btn save" [disabled]="!fg.valid" (click)="save()">
+          Save
+      </button>
+  </div>
+</div>

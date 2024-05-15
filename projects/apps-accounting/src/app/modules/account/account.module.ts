@@ -8,6 +8,7 @@ import { AuthGuard } from 'microtec-auth-lib';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { MainChartOfAccountComponent } from './pages/main-chart-of-account/main-chart-of-account.component';
 import { ChartOfAccountTreeComponent } from './pages/chart-of-account-tree/chart-of-account-tree.component';
+import { ChartOfAccountConfigurationComponent } from './components/chart-of-account-configuration/chart-of-account-configuration.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,7 @@ const routes: Routes = [
     ChatOfAccountListComponent,
     MainChartOfAccountComponent,
     ChartOfAccountTreeComponent,
+    ChartOfAccountConfigurationComponent
   ],
   imports: [
     CommonModule,

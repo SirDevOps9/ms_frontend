@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { AccountService } from '../../account.service';
 import { accountTreeList } from '../../models';
+import { ChartOfAccountConfigurationComponent } from '../../components/chart-of-account-configuration/chart-of-account-configuration.component';
+import { DialogService } from 'primeng/dynamicdialog';
 @Component({
   selector: 'app-chart-of-account-tree',
   templateUrl: './chart-of-account-tree.component.html',
@@ -10,7 +12,9 @@ import { accountTreeList } from '../../models';
 export class ChartOfAccountTreeComponent implements OnInit {
   nodes: accountTreeList[];
   expanded:boolean=false;
-  constructor(private accountService: AccountService){}
+  constructor(private accountService: AccountService ,
+    private dialog: DialogService
+  ){}
   ngOnInit() {
     this.getTreeList()
   }
@@ -41,6 +45,12 @@ export class ChartOfAccountTreeComponent implements OnInit {
       this.nodes =this.mapToTreeNodes(res)
       
     })
+  }
+  RedirectToConfiguration() {
+    const dialogRef = this.dialog.open(ChartOfAccountConfigurationComponent, {
+      width: '800px',
+      height: '700px'
+    });
   }
 
 }

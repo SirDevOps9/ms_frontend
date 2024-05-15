@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { AccountDto } from './models/accountDto';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { accountTreeList } from './models';
+import { GetLevelsDto } from './models/getLevelsDto';
+import { AddLevelsDto } from './models/addLevelsDto';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +27,15 @@ export class AccountProxy {
           // `Company?subscriptionId=${subscriptionId}`
           `ChartOfAccounts/GetTree`
         );
+      }
+      getLevels(): Observable<GetLevelsDto[]> {
+        return this.httpService.get<GetLevelsDto[]>(
+          `Levels`
+        );
+      }
+
+      addLevels(command: AddLevelsDto): Observable<boolean> {
+        return this.httpService.post('Levels', command);
       }
 
       constructor(private httpService: HttpService) {}
