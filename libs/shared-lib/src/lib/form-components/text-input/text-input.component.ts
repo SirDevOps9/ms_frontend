@@ -22,7 +22,7 @@ import {
 })
 export class  TextInputComponent implements ControlValueAccessor, Validator {
   @Input() label: string;
-  @Input() type: 'text' | 'number' | 'tel' | 'email' | 'date';
+  @Input() type: 'text' | 'number' | 'tel' | 'email' | 'date' | 'radio';
   @Input() readOnly: boolean;
   @Input() inputContainerClass: string;
   @Input() placeholder: string = '';

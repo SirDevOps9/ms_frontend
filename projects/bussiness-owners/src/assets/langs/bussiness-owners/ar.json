@@ -88,6 +88,7 @@
     "NoData": "لا توجد بيانات",
     "CompanyDeactivatedSuccessfully": "تم تعطيل الشركة بنجاح",
     "CompanyActivatedSuccessfully": "تم تنشيط الشركة بنجاح",
+    "CompanyUpdatedSuccessfully": "Company Updated successfully",
     "Id": "المعرف",
     "Name": "الاسم",
     "Deactivate": "تعطيل",

@@ -60,3 +60,22 @@ export function notOnlyWhitespaceValidator() {
     return isValid ? null : { hasWhiteSpaces: true };
   };
 }
+
+export function noSpacesValidator(control: AbstractControl) {
+  if (
+    control.value == null ||
+    control.value === '' ||
+    control.value.length === 0
+  ) {
+    return null;
+  }
+  const regularExpression = /^\S+$/;
+
+  const isValid = regularExpression.test(control.value);
+
+  if (!isValid) {
+    return { hasWhiteSpaces: true };
+  } else {
+    return null;
+  }
+}

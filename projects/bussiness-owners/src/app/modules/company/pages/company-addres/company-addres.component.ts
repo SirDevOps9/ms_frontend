@@ -75,6 +75,12 @@ export class CompanyAddresComponent implements OnInit {
     return this.routerService.currentParetId;
   }
 
+  onDiscard(editMode: boolean){
+    if(editMode)
+    this.initializeFormData();
+    this.editMode = false;
+  }
+
   constructor(
     private fb: FormBuilder,
     public lookupsService: LookupsService,

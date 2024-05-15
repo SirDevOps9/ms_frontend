@@ -1,0 +1,46 @@
+.actions{
+    .btn {
+        background: none;
+        border: none;
+        padding: 10px 50px;
+        border-radius: 12px;
+        cursor: pointer;
+        position: relative;
+        text-transform: capitalize;
+      }
+      .save {
+        background: #1a8eae;
+        color: #fff;
+        margin-inline-start: 20px;
+        justify-content: end;
+      }
+
+      .import {
+        border: 1px solid #1a8eae;
+        color: #1a8eae;
+        justify-content: end;
+      }
+      .btn_icon{
+        margin-inline-end: 5px;
+      }
+      .icon_btn{
+        width: 40px;
+        height: 40px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        //color: #1a8eae;
+        border-radius: 8px;
+        margin-inline-start: 5px;
+        background-color: #fff;
+        color: #1a8eae;
+        &:hover{
+            background-color: #1a8eae;
+            color: #fff;
+        }
+      }
+      .active{
+        background-color: #1a8eae;
+        color: #fff;
+      }
+}

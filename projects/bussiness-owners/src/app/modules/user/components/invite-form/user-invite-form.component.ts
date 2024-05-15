@@ -63,7 +63,7 @@ export class UserInviteFormComponent implements OnInit {
 
   getCompanies() {
     this.companyService
-      .getCompaniesDropDown(this.subdomainId)
+      .getAllCompanies(this.subdomainId)
       .subscribe((res) => {
         this.Companies = res;
       });

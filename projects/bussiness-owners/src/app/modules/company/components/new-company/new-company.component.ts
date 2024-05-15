@@ -15,7 +15,7 @@ import {
   DynamicDialogConfig,
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
-import { AddCompanyPopupDto, CompanyTypes } from '../../models';
+import { CreateCompany, CompanyTypes } from '../../models';
 @Component({
   selector: 'app-new-company',
   templateUrl: './new-company.component.html',
@@ -42,18 +42,15 @@ export class NewCompanyComponent {
 
   onSubmit() {
     if (!this.formsService.validForm(this.addCompanyForm, true)) return;
-    const request: AddCompanyPopupDto = this.addCompanyForm.value;
+    const request: CreateCompany = this.addCompanyForm.value;
     request.subdomainId = this.subdomainId;
-    this.companyService.addCompanyPopup(request, this.ref).subscribe((res) => {
-      this.companyId = res.id;
+    this.companyService.addCompany(request, this.ref).subscribe((res) => {
+      this.companyId = res.data.id;
     });
   }
   private initializeForm() {
     this.addCompanyForm = this.formBuilder.group({
-      name: new FormControl('', [
-        customValidators.required,
-        customValidators.length(5, 100),
-      ]),
+      name: new FormControl('', [customValidators.required]),
       branchName: new FormControl('', [customValidators.required]),
       companyType: new FormControl('', [customValidators.required]),
       parentId: new FormControl(),
@@ -73,7 +70,7 @@ export class NewCompanyComponent {
 
   getHoldingCompanies() {
     this.companyService
-      .getHoldingCompanies(this.subdomainId)
+      .getAllHoldingCompanies(this.subdomainId)
       .subscribe((res) => {
         this.holdingCompanies = res;
       });
@@ -85,10 +82,10 @@ export class NewCompanyComponent {
 
   onSaveAndEdit() {
     if (!this.formsService.validForm(this.addCompanyForm, true)) return;
-    const request: AddCompanyPopupDto = this.addCompanyForm.value;
+    const request: CreateCompany = this.addCompanyForm.value;
     request.subdomainId = this.subdomainId;
-    this.companyService.addCompanyPopup(request, this.ref).subscribe((res) => {
-      this.companyId = res.id;
+    this.companyService.addCompany(request, this.ref).subscribe((res) => {
+      this.companyId = res.data.id;
       this.routerService.navigateTo('company/edit/' + this.companyId);
     });
   }

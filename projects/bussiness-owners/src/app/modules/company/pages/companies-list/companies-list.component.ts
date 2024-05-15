@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LanguageService, RouterService } from 'shared-lib';
 import { Title } from '@angular/platform-browser';
-import { ResponseCompanyDto } from '../../models';
+import { CompanyDto } from '../../models';
 import { CompanyService } from '../../company.service';
 import { TreeNode } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -13,10 +13,10 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
   providers: [RouterService],
 })
 export class CompaniesListComponent implements OnInit {
-  companies: ResponseCompanyDto[];
+  companies: CompanyDto[];
   @ViewChild('myTab') myTab: any | undefined;
-  selectedCompanies: ResponseCompanyDto[];
-  tableData: TreeNode<any>[] | any = [];
+  selectedCompanies: CompanyDto[];
+  tableData:CompanyDto[];
   cols: any[] = [];
   active: boolean = false;
   ref: DynamicDialogRef;
@@ -27,39 +27,8 @@ export class CompaniesListComponent implements OnInit {
     private languageService: LanguageService,
     private companyService: CompanyService,
     private dialog: DialogService
-  ) {}
-
-  convertToTreeNode(companies: ResponseCompanyDto[]) {
-    let com: any = companies.map((company) => {
-      let item = {
-        data: {
-          id: company.id,
-          name: company.name,
-          code: company.code,
-          countryCode: company.countryCode,
-          parentId: company.parentId,
-          countryName: company.countryName,
-          mobileNumberCode: company.mobileNumberCode,
-          mobileNumber: company.mobileNumber,
-          companyEmail: company.companyEmail,
-          companyType: company.companyType,
-          subdomainId: company.subdomainId,
-          subdomainName: company.subdomainName,
-          commercialId: company.commercialId,
-          isActive: company.isActive,
-        },
-        children: company.childrens
-          ? this.convertToTreeNode(company.childrens)
-          : [],
-      };
-
-      return item;
-    });
-
-    console.log('com', com);
-    return com;
-  }
-
+  ) { }
+  
   newCompany() {
     this.companyService.openNewCompanyModal(
       this.subdomainId,
@@ -125,6 +94,8 @@ export class CompaniesListComponent implements OnInit {
         console.log('this.tableData', this.tableData);
       },
     });
+
+    
   }
 
   toggle(id: string, isActive: boolean) {

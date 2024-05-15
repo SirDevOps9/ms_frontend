@@ -174,6 +174,7 @@ export class UserService {
   }
 
   getUserById(userId: string, subdomainId: string) {
+  getUserById(userId: string, subdomainId: string) {
     this.userProxy.getUserById(userId, subdomainId).subscribe({
       next: (response) => {
         this.userStateDataSource.next({ userDetails: response });

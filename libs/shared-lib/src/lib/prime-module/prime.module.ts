@@ -16,6 +16,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { PasswordModule } from 'primeng/password';
 import { PaginatorModule } from 'primeng/paginator';
 import { RatingModule } from 'primeng/rating';
+import { FieldsetModule } from 'primeng/fieldset';
 
 @NgModule({
   providers: [DialogService],
@@ -56,6 +57,7 @@ import { RatingModule } from 'primeng/rating';
     CheckboxModule,
     PaginatorModule,
     RatingModule,
+    FieldsetModule,
   ],
 })
 export class PrimeSharedModule {}

@@ -35,6 +35,7 @@ import { AccordionComponent } from './components/accordion/accordion.component';
 import { AttachmentViewerComponent } from './components/attachment-viewer/attachment-viewer.component';
 import { TreeModule } from 'primeng/tree';
 import { NamedFileUploaderComponent } from './form-components/named-file-uploader/named-file-uploader.component';
+import { FildestComponent } from './components/fildest/fildest.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { NamedFileUploaderComponent } from './form-components/named-file-uploade
     RatingComponent,
     PaginatorComponent,
     AccordionComponent,
+    FildestComponent,
   ],
   imports: [
     CommonModule,
@@ -104,6 +106,7 @@ import { NamedFileUploaderComponent } from './form-components/named-file-uploade
     PaginatorComponent,
     AccordionComponent,
     TreeModule,
+    FildestComponent
 
   ],
 })

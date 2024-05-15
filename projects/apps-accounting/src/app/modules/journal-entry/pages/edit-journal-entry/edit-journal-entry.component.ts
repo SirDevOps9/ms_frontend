@@ -276,7 +276,7 @@ export class EditJournalEntryComponent implements OnInit {
 
   getAccounts() {
     this.accountService
-      .getAllPaginated('', new PageInfo())
+      .getAllChartOfAccountPaginated('', new PageInfo())
       .subscribe((r) => (this.filteredAccounts = r.result));
   }
 
@@ -284,7 +284,7 @@ export class EditJournalEntryComponent implements OnInit {
     console.log(this.filteredAccounts);
     let query = event.query;
     this.accountService
-      .getAllPaginated(query, new PageInfo())
+      .getAllChartOfAccountPaginated(query, new PageInfo())
       .subscribe((r) => (this.filteredAccounts = r.result));
   }
 

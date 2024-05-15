@@ -1,17 +1,16 @@
-export interface ResponseCompanyDto {
+export interface CompanyDataDto {
   id: string;
   name: string;
   code: string;
   countryCode: string;
-  parentId?: string;
-  childrens?: ResponseCompanyDto[];
+  parentId: string | null;
   countryName: string;
   mobileNumberCode: string;
   mobileNumber: string;
   companyEmail: string;
-  subdomainId: string;
-  subdomainName: number;
-  isActive: boolean;
   companyType: string;
-  commercialId?:string
+  subdomainId: string;
+  subdomainName: string;
+  commercialId?: string;
+  isActive: boolean;
 }
