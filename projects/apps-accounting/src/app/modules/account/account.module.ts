@@ -15,7 +15,7 @@ const routes: Routes = [
     component: LayoutPageComponent,
     children: [
       {
-        path: 'ChatOfAccount',
+        path: 'ChartOfAccount',
         component:MainChartOfAccountComponent ,
         canActivate: [AuthGuard],
         data: {
