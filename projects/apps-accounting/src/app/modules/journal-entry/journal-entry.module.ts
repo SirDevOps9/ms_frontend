@@ -45,6 +45,7 @@ const routes: Routes = [
   },
 ];
 
+
 @NgModule({
   declarations: [
     CreateJournalEntryComponent,

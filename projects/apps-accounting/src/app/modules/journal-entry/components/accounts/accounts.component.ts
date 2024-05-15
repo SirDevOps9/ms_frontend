@@ -32,7 +32,7 @@ export class AccountsComponent implements OnInit {
   }
 
   getAccounts() {
-    this.accountService.getAllPaginated(this.searchTerm, this.pageInfo).subscribe(r => {
+    this.accountService.getAllChartOfAccountPaginated(this.searchTerm, this.pageInfo).subscribe(r => {
       this.items = r.result;
       this.paging = r.pageInfoResult;
     });
