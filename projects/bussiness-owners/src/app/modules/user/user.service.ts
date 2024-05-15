@@ -6,7 +6,6 @@ import {
   CreateInvitedUser,
   UserListResponse,
   UserState,
-  GetUserbyid,
 } from './models';
 import { UserProxy } from './user.proxy';
 import {
@@ -173,7 +172,6 @@ export class UserService {
       },
     });
   }
-
   getUserById(userId: string, subdomainId: string) {
     this.userProxy.getUserById(userId, subdomainId).subscribe({
       next: (response) => {
@@ -203,11 +201,12 @@ export class UserService {
   }
 
   editUser(
-    userModel: EditUserModel, 
-    id: string, 
-    subdomainId:string, 
-    ref: DynamicDialogRef) {
-    this.userProxy.updateUser(userModel,id, subdomainId).subscribe({
+    userModel: EditUserModel,
+    id: string,
+    subdomainId: string,
+    ref: DynamicDialogRef
+  ) {
+    this.userProxy.updateUser(userModel, id, subdomainId).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
           'Success',

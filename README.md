@@ -26,9 +26,9 @@ Run `npm run start:erp` to run all ERP Projects.
 
 For Accounting, Navigate to `https://develop.localhost.com:4400/accounting`. The application will automatically reload if you change any of the source files.
 
-For Hr, Navigate to `https://develop.localhost:4400/hr`. The application will automatically reload if you change any of the source files.
+For Hr, Navigate to `https://develop.localhost.com:4400/hr`. The application will automatically reload if you change any of the source files.
 
-For Erp home, Navigate to `https://develop.localhost:4400/erp`. The application will automatically reload if you change any of the source files.
+For Erp home, Navigate to `https://develop.localhost.com:4400/erp`. The application will automatically reload if you change any of the source files.
 
 
 
