@@ -6,10 +6,10 @@
     "baseUrl": "./",
     "paths": {
       "apps-shared-lib": [
-        "projects/apps-shared-lib/src/public-api"
+        "libs/apps-shared-lib/src/public-api"
       ],
-      "microtec-auth-lib": ["projects/microtec-auth-lib/src/public-api"],
-      "shared-lib": ["projects/shared-lib/src/public-api"]
+      "microtec-auth-lib": ["libs/microtec-auth-lib/src/public-api"],
+      "shared-lib": ["libs/shared-lib/src/public-api"]
     },
     "forceConsistentCasingInFileNames": true,
     "strict": true,

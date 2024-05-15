@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, filter, map } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map } from 'rxjs';
 import {
   AddConfirmedUserDto,
   EditUserModel,
   CreateInvitedUser,
   UserListResponse,
+  UserState,
+  GetUserbyid,
 } from './models';
 import { UserProxy } from './user.proxy';
 import {
-  DefaultExceptionModel,
-  Condition,
-  FilterDto,
-  FilterOptions,
   LanguageService,
   LoaderService,
   PageInfo,
@@ -28,6 +26,10 @@ import { UserInviteFormComponent } from './components/invite-form/user-invite-fo
 })
 export class UserService {
   private userDataSource = new BehaviorSubject<UserListResponse[]>([]);
+
+  private userStateDataSource = new BehaviorSubject<UserState>({});
+
+  public userState = this.userStateDataSource.asObservable();
 
   public users = this.userDataSource.asObservable();
 
@@ -127,12 +129,15 @@ export class UserService {
     }
   }
 
-  openInviteUserModal(id: string, ref: DynamicDialogRef, dialog: DialogService) {
+  openInviteUserModal(
+    id: string,
+    ref: DynamicDialogRef,
+    dialog: DialogService
+  ) {
     ref = dialog.open(UserInviteFormComponent, {
       width: '600px',
       height: '600px',
       data: { Id: id },
-
     });
     ref.onClose.subscribe((result: UserListResponse) => {
       if (result as UserListResponse) {
@@ -145,7 +150,11 @@ export class UserService {
     });
   }
 
-  inviteUser(model: CreateInvitedUser, licenseLabel: string, dialogRef: DynamicDialogRef) {
+  inviteUser(
+    model: CreateInvitedUser,
+    licenseLabel: string,
+    dialogRef: DynamicDialogRef
+  ) {
     this.loaderService.show();
     this.userProxy.inviteUser(model).subscribe({
       next: (res) => {
@@ -165,18 +174,15 @@ export class UserService {
     });
   }
 
-  getUserById(userId: string , subdomainId  : string) {
-    return this.userProxy.getUserById(userId,subdomainId).pipe(
-      map((res) => {
-        return res;
-      }),
-      catchError((err: any) => {
-        throw err.error?.errorMessage!;
-      })
-    );
+  getUserById(userId: string, subdomainId: string) {
+    this.userProxy.getUserById(userId, subdomainId).subscribe({
+      next: (response) => {
+        this.userStateDataSource.next({ userDetails: response });
+      },
+    });
   }
 
-  getInvitedById(invitedUserId: string){
+  getInvitedById(invitedUserId: string) {
     return this.userProxy.getInvitedById(invitedUserId);
   }
 
@@ -187,7 +193,7 @@ export class UserService {
         this.loaderService.hide();
         this.toasterService.showSuccess('Success', 'Success');
         let loginUrl = this.environmentService.erpLogin!;
-        loginUrl = loginUrl.replace("*", subdomain);
+        loginUrl = loginUrl.replace('*', subdomain);
         window.location.href = loginUrl;
       },
       error: () => {
@@ -196,8 +202,13 @@ export class UserService {
     });
   }
 
-  editUser(userModel: EditUserModel, id: string, subdomainId:string, ref: DynamicDialogRef) {
-    this.userProxy.updateUser(userModel,id, subdomainId).subscribe({
+  editUser(
+    userModel: EditUserModel,
+    id: string,
+    subdomainId: string,
+    ref: DynamicDialogRef
+  ) {
+    this.userProxy.updateUser(userModel, id, subdomainId).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
           'Success',

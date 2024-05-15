@@ -7,7 +7,6 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-
           "style": "scss",
           "standalone": false
         },
@@ -42,8 +41,7 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "projects/bussiness-owners/src/styles.css"
             ],
-            "scripts": [
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -118,12 +116,10 @@
             ],
             "styles": [
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-             "node_modules/primeng/resources/primeng.min.css",
-             "/node_modules/primeflex/primeflex.css",
-             "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-             "projects/bussiness-owners/src/styles.css"
-
-             
+              "node_modules/primeng/resources/primeng.min.css",
+              "/node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "projects/bussiness-owners/src/styles.css"
             ],
             "scripts": []
           }
@@ -165,8 +161,7 @@
               "projects/adminportal/src/styles.css",
               "node_modules/font-awesome/css/font-awesome.css"
             ],
-            "scripts": [
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -227,21 +222,21 @@
     },
     "shared-lib": {
       "projectType": "library",
-      "root": "projects/shared-lib",
-      "sourceRoot": "projects/shared-lib/src",
+      "root": "libs/shared-lib",
+      "sourceRoot": "libs/shared-lib/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/shared-lib/ng-package.json"
+            "project": "libs/shared-lib/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/shared-lib/tsconfig.lib.prod.json"
+              "tsConfig": "libs/shared-lib/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/shared-lib/tsconfig.lib.json"
+              "tsConfig": "libs/shared-lib/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -249,7 +244,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/shared-lib/tsconfig.spec.json",
+            "tsConfig": "libs/shared-lib/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
@@ -257,21 +252,21 @@
     },
     "microtec-auth-lib": {
       "projectType": "library",
-      "root": "projects/microtec-auth-lib",
-      "sourceRoot": "projects/microtec-auth-lib/src",
+      "root": "libs/microtec-auth-lib",
+      "sourceRoot": "libs/microtec-auth-lib/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/microtec-auth-lib/ng-package.json"
+            "project": "libs/microtec-auth-lib/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/microtec-auth-lib/tsconfig.lib.prod.json"
+              "tsConfig": "libs/microtec-auth-lib/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/microtec-auth-lib/tsconfig.lib.json"
+              "tsConfig": "libs/microtec-auth-lib/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -279,7 +274,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/microtec-auth-lib/tsconfig.spec.json",
+            "tsConfig": "libs/microtec-auth-lib/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
@@ -287,21 +282,21 @@
     },
     "apps-shared-lib": {
       "projectType": "library",
-      "root": "projects/apps-shared-lib",
-      "sourceRoot": "projects/apps-shared-lib/src",
+      "root": "libs/apps-shared-lib",
+      "sourceRoot": "libs/apps-shared-lib/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/apps-shared-lib/ng-package.json"
+            "project": "libs/apps-shared-lib/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/apps-shared-lib/tsconfig.lib.prod.json"
+              "tsConfig": "libs/apps-shared-lib/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/apps-shared-lib/tsconfig.lib.json"
+              "tsConfig": "libs/apps-shared-lib/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -309,7 +304,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/apps-shared-lib/tsconfig.spec.json",
+            "tsConfig": "libs/apps-shared-lib/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
@@ -391,6 +386,13 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "ssl": true,
+            "disableHostCheck": true,
+            "sslKey": "ssl\\localhost.key",
+            "sslCert": "ssl\\localhost.crt",
+            "port": 4402
+          },
           "configurations": {
             "production": {
               "buildTarget": "apps-accounting:build:production"
@@ -498,6 +500,13 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "ssl": true,
+            "disableHostCheck": true,
+            "sslKey": "ssl\\localhost.key",
+            "sslCert": "ssl\\localhost.crt",
+            "port": 4403
+          },
           "configurations": {
             "production": {
               "buildTarget": "apps-hr:build:production"
@@ -554,9 +563,7 @@
             "outputPath": "dist/erp-home",
             "index": "projects/erp-home/src/index.html",
             "browser": "projects/erp-home/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/erp-home/tsconfig.app.json",
             "assets": [
               "projects/erp-home/src/favicon.ico",
@@ -613,6 +620,13 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "ssl": true,
+            "disableHostCheck": true,
+            "sslKey": "ssl\\localhost.key",
+            "sslCert": "ssl\\localhost.crt",
+            "port": 4401
+          },
           "configurations": {
             "production": {
               "buildTarget": "erp-home:build:production"
@@ -632,10 +646,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/erp-home/tsconfig.spec.json",
             "assets": [
               "projects/erp-home/src/favicon.ico",
@@ -646,7 +657,6 @@
               "node_modules/primeflex/primeflex.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "projects/erp-home/src/styles.css"
-
             ],
             "scripts": []
           }

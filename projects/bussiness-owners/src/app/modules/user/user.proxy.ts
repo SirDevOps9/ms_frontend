@@ -16,7 +16,7 @@ import {
   InvitedUserDto,
 } from './models';
 import { SubscriptionDto } from '../subscription/models';
-import { PermissionTreeNode } from 'projects/microtec-auth-lib/src/lib/models';
+import { PermissionTreeNode } from 'microtec-auth-lib';
 
 @Injectable({
   providedIn: 'root',

@@ -30,7 +30,7 @@ export class UserDetailsComponent implements OnInit {
   branches: BranchDto[] = [];
   subdomains: string[] = [];
 
-  selectedBranches: string[] =[];
+  selectedBranches: string[] = [];
   selectedCompany: string | null;
 
   ngOnInit() {
@@ -47,25 +47,27 @@ export class UserDetailsComponent implements OnInit {
   }
 
   initializeUserFormData() {
-    this.userService
-      .getUserById(this.currentUserId, this.subdomainId)
-      .subscribe((res) => {
-        this.userName = res.name;
-        this.userEmail = res.email;
-        this.subdomains = res.subdomains;
-        this.selectedCompany = res.companyId.toUpperCase();
-        this.selectedBranches = res.branchIds;
+    this.userService.getUserById(this.currentUserId, this.subdomainId);
+
+    this.userService.userState.subscribe((res) => {
+      if (res.userDetails) {
+        this.userName = res.userDetails!.name;
+        this.userEmail = res.userDetails!.email;
+        this.subdomains = res.userDetails!.subdomains;
+        this.selectedCompany = res.userDetails!.companyId.toUpperCase();
+        this.selectedBranches = res.userDetails!.branchIds;
         this.editUserForm.patchValue({
-          companyId: res.companyId,
-          branches: res.branchIds,
+          companyId: res.userDetails!.companyId,
+          branches: res.userDetails!.branchIds,
         });
-        this.companyService.loadBranches( res.companyId);
+        this.companyService.loadBranches(res.userDetails!.companyId);
 
         this.companyService.branches.subscribe((branchList) => {
           this.branches = branchList;
         });
         console.log('patched data', this.selectedCompany);
-      });
+      }
+    });
   }
 
   async onSubmit() {
@@ -107,7 +109,6 @@ export class UserDetailsComponent implements OnInit {
     this.editUserForm.patchValue({ branchIds: [] });
     this.selectedBranches = [];
   }
-
 
   get currentUserId(): string {
     return this.config.data.Id;

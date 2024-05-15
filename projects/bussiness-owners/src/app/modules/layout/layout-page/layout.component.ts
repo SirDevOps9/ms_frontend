@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { LanguageService } from '../../../../../../shared-lib/src/lib/services/language.service';
+import { LanguageService } from 'shared-lib';
 import { AuthService } from 'microtec-auth-lib';
 import { RouterService } from 'shared-lib';
 import { UserData } from '../../user/models/userdata.model';

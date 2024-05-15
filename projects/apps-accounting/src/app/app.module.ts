@@ -17,14 +17,18 @@ import {
   MicrotecAuthLibModule,
 } from 'microtec-auth-lib';
 import { CookieModule } from 'ngx-cookie';
-import { TreasuryModule } from './treasury/treasury.module';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppsSharedLibModule } from 'apps-shared-lib';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent    
+  ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    TreasuryModule,
+    CommonModule,
+    ReactiveFormsModule,
     AuthModule.forRoot({
       config: environment.openIdConfig,
     }),
@@ -35,15 +39,21 @@ import { TreasuryModule } from './treasury/treasury.module';
           new MultiTranslateHttpLoader(http, {
             resources: [
               { prefix: './assets/langs/auth/', suffix: '.json' },
-              { prefix: './assets/langs/bussiness-owners/', suffix: '.json' },
+              { prefix: './assets/langs/erphome/', suffix: '.json' },
             ],
           }),
         deps: [HttpClient],
       },
     }),
-    SharedLibModule,
     MicrotecAuthLibModule,
+    SharedLibModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
     CookieModule.withOptions(),
+    AppsSharedLibModule
+    
   ],
   providers: [
     { provide: EnvironmentService, useValue: environment },
@@ -54,6 +64,6 @@ import { TreasuryModule } from './treasury/treasury.module';
     },
     { provide: AbstractSecurityStorage, useClass: CustomStorageService },
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
