@@ -22,9 +22,9 @@ import { PermissionTreeNode } from 'microtec-auth-lib';
   providedIn: 'root',
 })
 export class UserProxy {
-  getAll(subscriptionId: number): Observable<UserListResponse[]> {
+  getAll(subdomainId: string): Observable<UserListResponse[]> {
     return this.baseService.get<UserListResponse[]>(
-      `User?subdomainId=${subscriptionId}`
+      `User?subdomainId=${subdomainId}`
     );
   }
   getAllPaginated(
@@ -75,11 +75,11 @@ export class UserProxy {
     return this.baseService.put<boolean>(`User/DeactivateUser/${id}`, {subdomainId});
   }
 
-  getUserById(id: string, subdomainId: number): Observable<GetUserbyid> {
+  getUserById(id: string, subdomainId: string): Observable<GetUserbyid> {
     return this.baseService.get<GetUserbyid>(`User/Getbyid/${id}/${subdomainId }`);
   }
 
-  updateUser(user: EditUserModel, id: string, subdomainId: number): Observable<boolean> {
+  updateUser(user: EditUserModel, id: string, subdomainId: string): Observable<boolean> {
     return this.baseService.put<boolean>(
       `User/UpdateUserByAdmin/${id}/${subdomainId}`,
       user

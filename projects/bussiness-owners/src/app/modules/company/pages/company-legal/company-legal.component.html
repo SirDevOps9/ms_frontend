@@ -2,7 +2,6 @@
   <div class="company_address">
     <form [formGroup]="companyLegalForm">
       <div class="actions">
-        <div class="edit_btn">
           <button type="button" class="save" (click)="onSubmit()">
             {{
               editMode
@@ -10,7 +9,11 @@
                 : ("Company.Edit" | translate)
             }}
           </button>
-        </div>
+          <div *ngIf="editMode">
+            <button type="button" class="cancel" (click)="onDiscard(editMode)">
+              Discard
+            </button>
+          </div>
       </div>
       <fieldset [disabled]="!editMode">
         <div class="contact_form">
@@ -33,6 +36,10 @@
                   {{ "Company.Legal.companyEmail" | translate }}
                 </lib-label>
                 <lib-text-input type="text" formControlName="companyEmail" />
+                <lib-field-validations
+                [appControl]="companyLegalForm.controls['companyEmail']"
+              >
+              </lib-field-validations>
               </lib-form-group>
             </div>
             <div class="col-12 md:col-6">

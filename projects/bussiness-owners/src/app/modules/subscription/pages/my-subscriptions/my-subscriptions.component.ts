@@ -38,13 +38,6 @@ export class MySubscriptionsComponent implements OnInit {
     this.routerService.navigateTo('Manage-Apps/' + subdomainId);
       }
 
-  loadSubscriptions() {
-    this.subscriptionService.loadSubscription();
-    this.subscriptionService.subscriptions.subscribe((List) => {
-      this.List = List;
-    });
-
-  }
   loadMySubdomains() {
     this.subscriptionService.loadSubdomains();
     this.subscriptionService.subdomains.subscribe((subdomains) => {

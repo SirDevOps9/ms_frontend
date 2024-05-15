@@ -90,12 +90,13 @@ export class AddDomainSpaceComponent implements OnInit {
       purchasingPaymentCountControl?.setValidators([
         customValidators.required,
         customValidators.number,
-        customValidators.range(0, 12),
+        customValidators.range(1, 12),
       ]);
     } else {
       purchasingPaymentCountControl?.setValidators([
         customValidators.required,
         customValidators.number,
+        customValidators.nonZero,
       ]);
     }
 

@@ -93,7 +93,7 @@ export class UserDetailsComponent implements OnInit {
 
   getCompanies() {
     this.companyService
-      .getCompaniesDropDown(this.subdomainId)
+      .getAllCompanies(this.subdomainId)
       .subscribe((res) => {
         this.companies = res;
         // this.selectedCompany = this.companies.find(c => c.id === this.editUserForm.value.companyId)?.name || '';
@@ -114,7 +114,7 @@ export class UserDetailsComponent implements OnInit {
     return this.config.data.Id;
   }
 
-  get subdomainId(): number {
+  get subdomainId(): string {
     return this.config.data.subdomainId;
   }
 

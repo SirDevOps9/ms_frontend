@@ -1,5 +1,5 @@
-export interface AddCompanyPopupDto {
-  subdomainId: number;
+export interface CreateCompany {
+  subdomainId: string;
   name: string;
   branchName: string;
   companyType: number;

@@ -3,7 +3,7 @@ export interface InvitedUserDto{
     email: string;
     companyId: string;
     branchIds: string[];
-    subdomainId: number;
+    subdomainId: string;
     subdomain: string;
     tenantLicenseId:number;   
 }

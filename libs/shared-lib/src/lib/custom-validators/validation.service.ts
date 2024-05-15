@@ -1,4 +1,4 @@
-import { IsNumber, rangeValidator } from './numberValidators';
+import { IsNumber, nonZeroValidator, rangeValidator } from './numberValidators';
 import {
   IsValidMobileWithPrefix,
   IsValidNationalMobile,
@@ -7,6 +7,7 @@ import { IsValidMobile } from './mobileValidators';
 import { IsValidPhone } from './mobileValidators';
 import {
   PreventSpecialChars,
+  noSpacesValidator,
   notOnlyWhitespaceValidator,
 } from './stringValidators';
 import { IsAgreedToTermsRequired } from './agreedToTermsValidator';
@@ -44,5 +45,7 @@ export const customValidators = {
   confrimPassword: ConfirmPasswordValidator,
   length: lengthValidator,
   file: fileValidator,
-  range:rangeValidator
+  range:rangeValidator,
+  hasSpaces: noSpacesValidator,
+  nonZero:nonZeroValidator
 };

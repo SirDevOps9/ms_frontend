@@ -1,4 +1,4 @@
-import { SubsidiaryDto } from './subsidiarydto';
+import { SubsidiaryDto } from './subsidiary-dto';
 
 export interface CompanyHierarchyDto {
   companyType: number;
