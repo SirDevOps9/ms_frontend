@@ -3,7 +3,6 @@ import { LanguageService, RouterService } from 'shared-lib';
 import { Title } from '@angular/platform-browser';
 import { CompanyDto } from '../../models';
 import { CompanyService } from '../../company.service';
-import { TreeNode } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
@@ -16,7 +15,7 @@ export class CompaniesListComponent implements OnInit {
   companies: CompanyDto[];
   @ViewChild('myTab') myTab: any | undefined;
   selectedCompanies: CompanyDto[];
-  tableData:CompanyDto[];
+  tableData: CompanyDto[];
   cols: any[] = [];
   active: boolean = false;
   ref: DynamicDialogRef;
@@ -27,8 +26,8 @@ export class CompaniesListComponent implements OnInit {
     private languageService: LanguageService,
     private companyService: CompanyService,
     private dialog: DialogService
-  ) { }
-  
+  ) {}
+
   newCompany() {
     this.companyService.openNewCompanyModal(
       this.subdomainId,
@@ -94,8 +93,6 @@ export class CompaniesListComponent implements OnInit {
         console.log('this.tableData', this.tableData);
       },
     });
-
-    
   }
 
   toggle(id: string, isActive: boolean) {
