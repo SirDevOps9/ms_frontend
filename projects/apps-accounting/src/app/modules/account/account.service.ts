@@ -18,5 +18,12 @@ export class AccountService {
       })
     );
   }
+  getTreeList() {
+    return this.accountproxy.getTreeList().pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
   
 }

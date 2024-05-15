@@ -6,8 +6,15 @@ import { Component } from '@angular/core';
   styleUrl: './main-chart-of-account.component.scss'
 })
 export class MainChartOfAccountComponent {
-  listView:boolean=false;
-  toggleView(){
-    this.listView=!this.listView
+  Viewlist:boolean=false;
+  // toggleView(){
+  //   this.listView=!this.listView
+  // }
+  listView(){
+    this.Viewlist=true
+  }
+  treeView(){
+    this.Viewlist=false
+
   }
 }

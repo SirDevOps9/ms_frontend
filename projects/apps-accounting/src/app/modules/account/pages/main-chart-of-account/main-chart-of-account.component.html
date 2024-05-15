@@ -5,22 +5,22 @@
                 <i class="btn_icon pi pi-cloud-download"></i>
                  import
             </button>
-            <button class="btn save ">
+            <button class="btn save " *ngIf="!Viewlist">
                 <i class="btn_icon pi pi-user-edit"></i>
                 Edit
             </button>
-            <button class="icon_btn " [ngClass]="{'active':listView}" (click)="toggleView()">
+            <button class="icon_btn " [ngClass]="{'active':Viewlist}" (click)="listView()">
                 <i class="pi pi-bars"></i>
             </button>
-            <button class="icon_btn" [ngClass]="{'active':!listView}" (click)="toggleView()">
+            <button class="icon_btn" [ngClass]="{'active':!Viewlist}" (click)="treeView()">
                 <i class="pi pi-sitemap"></i>
             </button>
 
         </div>
     </lib-bread-crumb>
     <div class="main_chat_of_account">
-        <app-chart-of-account-tree *ngIf="!listView"></app-chart-of-account-tree>
-        <app-chat-of-account-list *ngIf="listView"></app-chat-of-account-list>
+        <app-chart-of-account-tree *ngIf="!Viewlist"></app-chart-of-account-tree>
+        <app-chat-of-account-list *ngIf="Viewlist"></app-chat-of-account-list>
     </div>
 
 </lib-page-content>

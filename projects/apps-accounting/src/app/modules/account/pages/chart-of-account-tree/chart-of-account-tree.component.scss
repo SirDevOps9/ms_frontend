@@ -1,4 +1,4 @@
-
+@import "../../../../../assets/styling/scss/variables/font-family";
 .chart_of_account_tree{
     .test{
         padding: 0 !important;
@@ -129,5 +129,13 @@
        
           
           
+    }
+    .active{
+        background: #DCF3FA;
+        color: #0D4859;
+    }
+    .label_text{
+        font-size: 16px;
+        font-family: $cairo_regular;
     }
 }

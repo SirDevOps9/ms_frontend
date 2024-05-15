@@ -44,4 +44,5 @@ export class ChatOfAccountListComponent implements OnInit {
   routeToEdit(id:number){
     this.routerService.navigateTo(`/journalentry/edit/${id}`);
   }
+ 
 }
