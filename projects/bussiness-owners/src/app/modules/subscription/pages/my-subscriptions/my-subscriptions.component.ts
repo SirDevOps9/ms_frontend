@@ -13,7 +13,7 @@ import { ResponseSubdomainListDto } from '../../models/responseSubdomainListDto'
 export class MySubscriptionsComponent implements OnInit {
   List: SubscriptionDto[];
   subdomainList : ResponseSubdomainListDto[];
-  subdomain:boolean =true ;
+  // subdomain:boolean =false ;
   ref: DynamicDialogRef;
   domainName:string="@microtec.Com.sa"
 
@@ -42,11 +42,11 @@ export class MySubscriptionsComponent implements OnInit {
     this.subscriptionService.loadSubdomains();
     this.subscriptionService.subdomains.subscribe((subdomains) => {
       this.subdomainList = subdomains;
-      if(this.subdomainList.length > 0){
-        this.subdomain = true;
-      }else{
-        this.subdomain=false;
-      }
+      // if(this.subdomainList.length > 0){
+      //   this.subdomain = true;
+      // }else{
+      //   this.subdomain=false;
+      // }
     });
   }
   constructor(

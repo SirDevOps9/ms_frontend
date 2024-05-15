@@ -9,7 +9,7 @@
   </lib-bread-crumb>
  
   <div class="plan_page">
-    <div class="card-container grid" *ngIf="subdomain">
+    <div class="card-container grid" *ngIf="subdomainList && subdomainList.length > 0">
       <div class="card col-12 md:col-5   " *ngFor="let subdomain of subdomainList">
         <div class="card_header">
           <div class="supdomain">{{subdomain.name}}{{domainName}}</div>
@@ -79,13 +79,14 @@
       
       </div>
     </div>
-    <div class="card_empty_subdomain" *ngIf="!subdomain">
+    <div class="card_empty_subdomain" *ngIf="!subdomainList || subdomainList.length === 0" >
       <div class="card_subdomain">
         <div class="cover">
-            <img src="assets/images/plans/Group (2).png" alt="">
+            <img src="assets/images/plans/Vector.png" alt="">
         </div>
         <div class="text">
-          <p>Add domain space</p>
+          <p class="desc">No Domain Space - Yet !</p>
+          <p class="add_domain" (click)="openSubdomainModal()">Add domain space</p>
         </div>
       </div>
     </div>
