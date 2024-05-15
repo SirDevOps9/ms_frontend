@@ -29,12 +29,9 @@ export class EditCompanyComponent implements OnInit {
   }
 
   activeTag(id: string) {
-    // const targetElementId = document.getElementById(id);
-    // var test = document.querySelector('.active_link');
-    // test?.classList.remove('active_link');
-    // targetElementId?.classList.add('active_link');
     this.currentTab = id;
   }
+  
   navigateToAddress() {
     console.log(this.companyId);
 
