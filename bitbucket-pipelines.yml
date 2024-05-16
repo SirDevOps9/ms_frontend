@@ -1,18 +1,26 @@
----
+# bitbucket-pipelines.yml
+
 image: node:17
+
 pipelines:
   branches:
     moataz-ci/cd:
-      - step:
-          name: Install Dependencies and Set Path
+      - step:  # Install dependencies (adjust if needed)
+          name: Install Dependencies
           script:
             - npm install
-            - set PATH=%PATH%;C:\Users\Microtec-D8\AppData\Roaming\npm
+
+      - step:  # Install Angular CLI globally (if needed)
+          name: Install Angular CLI (if needed)
+          script:
+            - npm install -g @angular/cli  # Comment out if not needed
+
       - step:
           name: Build Business Owners Project
           script:
-            - ng.cmd build --project bussiness-owners
+            - npm ng build --project bussiness-owners
+
       - step:
           name: Build Admin Portal Project
           script:
-            - ng.cmd build --project adminportal
+            - npm ng build --project adminportal
