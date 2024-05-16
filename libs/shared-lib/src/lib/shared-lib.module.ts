@@ -9,7 +9,6 @@ import {
   LoaderComponent,
   DataTableComponent,
   TablePaginatorComponent,
-  
 } from './components';
 import {
   FieldValidationsComponent,
@@ -70,12 +69,11 @@ import { FildestComponent } from './components/fildest/fildest.component';
     ReactiveFormsModule,
     DropdownModule,
     MatPaginatorModule,
-    TranslateModule.forRoot(),
+    TranslateModule,
     FormsModule,
     PrimeSharedModule,
     TreeTableModule,
     TreeModule,
-
   ],
   exports: [
     GetLookupPipe,
@@ -106,8 +104,7 @@ import { FildestComponent } from './components/fildest/fildest.component';
     PaginatorComponent,
     AccordionComponent,
     TreeModule,
-    FildestComponent
-
+    FildestComponent,
   ],
 })
 export class SharedLibModule {}

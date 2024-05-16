@@ -4,23 +4,18 @@ import { AuthGuard } from 'microtec-auth-lib';
 export const ERPRoutes = [
   {
     path: '',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     component: LayoutPageComponent,
     children: [
       {
         path: '',
         loadChildren: () =>
-          import('./modules/journal-entry/journal-entry.module').then(
-            (m) => m.JournalEntryModule
-          )
+          import('./modules/journal-entry/journal-entry.module').then((m) => m.JournalEntryModule),
       },
       {
-        path: 'Account',
-        loadChildren: () =>
-          import('./modules/account/account.module').then(
-            (m) => m.AccountModule
-          )
-      }
+        path: 'account',
+        loadChildren: () => import('./modules/account/account.module').then((m) => m.AccountModule),
+      },
     ],
   },
 ];

@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {
   EnvironmentService,
+  LowerCaseUrlSerializer,
   MultiTranslateHttpLoader,
   SharedLibModule,
 } from 'shared-lib';
@@ -15,11 +16,7 @@ import { AbstractSecurityStorage, AuthModule } from 'angular-auth-oidc-client';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
-import {
-  MicrotecAuthLibModule,
-  ERPInterceptor,
-  CustomStorageService,
-} from 'microtec-auth-lib';
+import { MicrotecAuthLibModule, ERPInterceptor, CustomStorageService } from 'microtec-auth-lib';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CompanyModule } from './modules/company/company.module';
 import { UserModule } from './modules/user/user.module';
@@ -27,6 +24,7 @@ import { LayoutModule } from './modules/layout/layout.module';
 import { ERPUserModule } from './modules/erp-user/erp-user.module';
 import { AppStoreModule } from './modules/app-store/app-store.module';
 import { SubscriptionModule } from './modules/subscription/subscription.module';
+import { UrlSerializer } from '@angular/router';
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
   imports: [
@@ -60,7 +58,7 @@ import { SubscriptionModule } from './modules/subscription/subscription.module';
     SubscriptionModule,
     UserModule,
     ERPUserModule,
-    AppStoreModule
+    AppStoreModule,
   ],
   providers: [
     { provide: EnvironmentService, useValue: environment },
@@ -69,7 +67,14 @@ import { SubscriptionModule } from './modules/subscription/subscription.module';
       useClass: ERPInterceptor,
       multi: true,
     },
-    { provide: AbstractSecurityStorage, useClass: CustomStorageService },
+    {
+      provide: AbstractSecurityStorage,
+      useClass: CustomStorageService,
+    },
+    {
+      provide: UrlSerializer,
+      useClass: LowerCaseUrlSerializer,
+    },
   ],
   bootstrap: [AppComponent],
 })
