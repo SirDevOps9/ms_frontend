@@ -8,14 +8,14 @@ import { GetLevelsDto, listAddLevelsDto } from './models';
   providedIn: 'root',
 })
 export class AccountService {
-  constructor(private accountproxy: AccountProxy,
+  constructor(
+    private accountproxy: AccountProxy,
     private toasterService: ToasterService,
     private languageService: LanguageService
   ) {}
 
-  private LevelsSource = new BehaviorSubject<GetLevelsDto[]>([]);
-  public Levels = this.LevelsSource.asObservable();
-
+  private levelsSource = new BehaviorSubject<GetLevelsDto[]>([]);
+  public levels = this.levelsSource.asObservable();
 
   getAllChartOfAccountPaginated(searchTerm: string, pageInfo: PageInfo) {
     return this.accountproxy.getAllPaginated(searchTerm, pageInfo).pipe(
@@ -33,21 +33,23 @@ export class AccountService {
   }
 
   getLevels() {
+    this.levelsSource.next([]);
     this.accountproxy.getLevels().subscribe({
       next: (res) => {
-        this.LevelsSource.next(res);
+        this.levelsSource.next(res);
       },
     });
     return;
   }
 
   addLevels(command: listAddLevelsDto) {
-     this.accountproxy.addLevels(command).subscribe({
+    this.accountproxy.addLevels(command).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('COAConfigration.Success'),
           this.languageService.transalte('COAConfigration.Levelsaved')
         );
-      }});
+      },
+    });
   }
 }
