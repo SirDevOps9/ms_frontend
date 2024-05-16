@@ -1,24 +1,22 @@
 # bitbucket-pipelines.yml
 
-image: node:16  # Use a recent Node.js version (adjust if needed)
+image: node:17
 
 pipelines:
-  default:  
-    from:
-      branch: moataz-ci/cd
+  branches:
+    moataz-ci/cd:
+      - step:
+          name: Install Dependencies
+          script:
+            - npm install
+            - npm install -g @angular/cli
 
-  - step:
-      name: Install Dependencies
-      script:
-        - npm install
-        - npm install -g @angular/cli
+      - step:
+          name: Build Business Owners Project
+          script:
+            - ng build --project bussiness-owners
 
-  - step:
-      name: Build Business Owners Project
-      script:
-        - ng build --project bussiness-owners
-
-  - step:
-      name: Build Admin Portal Project
-      script:
-        - ng build --project adminportal
+      - step:
+          name: Build Admin Portal Project
+          script:
+            - ng build --project adminportal
