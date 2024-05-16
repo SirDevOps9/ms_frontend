@@ -3,6 +3,7 @@ import { Observable, map } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { AccountDto } from './models/accountDto';
 import { AccountProxy } from './account.proxy';
+import { AddAccountDto } from './models/addAccountDto';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,9 @@ export class AccountService {
         return res;
       })
     );
+  }
+  addAccount(command : AddAccountDto) {
+    return this.accountproxy.addAccount(command);
   }
   
 }
