@@ -5,10 +5,10 @@
 
 image: atlassian/default-image:3
 
-  pipelines:
+pipelines:  # Indentation fixed here
   default:  # Trigger on any push (adjust based on needs)
     from:
-      branch: moataz-ci/cd 
+      branch: moataz-ci/cd
 
   - step:
       name: Checkout Code
@@ -26,7 +26,7 @@ image: atlassian/default-image:3
       script:
         - cd $BITBUCKET_BUILD_DIR
         - ng build --project adminportal 
-        
+
   - step:
       name: Build Business Owners Project
       script:
