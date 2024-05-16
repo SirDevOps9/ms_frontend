@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, input } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { AccountService } from '../../account.service';
 import { accountTreeList } from '../../models';
@@ -8,10 +8,18 @@ import { accountTreeList } from '../../models';
   styleUrl: './chart-of-account-tree.component.scss'
 })
 export class ChartOfAccountTreeComponent implements OnInit {
+  @Input() edit:boolean;
+  @Input() view:boolean;
+  @Input() add:boolean;
   nodes: accountTreeList[];
   expanded:boolean=false;
+  // view:boolean=false;
+  // add:boolean=false;
+  //edit:boolean=false;
   constructor(private accountService: AccountService){}
   ngOnInit() {
+    
+    //this.view=true
     this.getTreeList()
   }
   mapToTreeNodes(data: any[]) {
