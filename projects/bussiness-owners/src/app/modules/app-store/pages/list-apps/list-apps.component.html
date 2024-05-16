@@ -13,11 +13,11 @@
                     <div class="count_of_apps">
                         {{appInStore}} App in Store
                     </div>
-                    <div class="paginator">
+                    <!-- <div class="paginator">
                         <lib-paginator [first]="0" [rows]="5" [totalRecords]="20">
 
                         </lib-paginator>
-                    </div>
+                    </div> -->
                     <div class="btns">
                         <div class="pay">
 
@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-            <div class="filter">
+            <!-- <div class="filter">
                 <div class="grid">
                     <div class="col-12 ">
                         <lib-select
@@ -52,7 +52,7 @@
                         </lib-select>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-12 ">
                 <div [ngClass]="{contant:cardList}">
                     <div class="card" [ngClass]="{card_list:cardList}" *ngFor="let app of apps">

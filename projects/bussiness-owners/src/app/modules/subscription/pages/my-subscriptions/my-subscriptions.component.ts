@@ -13,7 +13,7 @@ import { ResponseSubdomainListDto } from '../../models/responseSubdomainListDto'
 export class MySubscriptionsComponent implements OnInit {
   List: SubscriptionDto[];
   subdomainList : ResponseSubdomainListDto[];
-  // subdomain:boolean =false ;
+   subdomain:boolean =false ;
   ref: DynamicDialogRef;
   domainName:string="@microtec.Com.sa"
 

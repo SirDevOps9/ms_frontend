@@ -240,7 +240,8 @@
       "Monthly": "Monthly",
       "Yearly": "Yearly",
       "YourDomainSpace": "Your Domain Space",
-      "AddToCart": "Add To Cart"
+      "AddToCart": "Add To Cart",
+      "purchase": "Purchase"
     }
   }
 }

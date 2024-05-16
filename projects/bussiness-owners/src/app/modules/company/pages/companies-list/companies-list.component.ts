@@ -3,7 +3,6 @@ import { LanguageService, RouterService } from 'shared-lib';
 import { Title } from '@angular/platform-browser';
 import { CompanyDto, Sharedcompanyenums } from '../../models';
 import { CompanyService } from '../../company.service';
-import { TreeNode } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
@@ -56,7 +55,7 @@ export class CompaniesListComponent implements OnInit {
       },
       {
         field: 'Companies Type',
-        header: 'companyType',
+        header: 'company Type',
       },
       {
         field: 'Tax ID',

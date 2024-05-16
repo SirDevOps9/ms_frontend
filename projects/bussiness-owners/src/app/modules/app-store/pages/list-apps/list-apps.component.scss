@@ -1,3 +1,4 @@
+@import '../../../../../assets/styling/scss/variables/font-family';
 // li {
 //     list-style: none;
 // }
@@ -19,6 +20,10 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #000;
+    .count_of_apps{
+        font-size: 16px;
+        font-family: $cairo_semi_bold;
+    }
     .btns{
         display: flex;
         align-items: center;
@@ -70,7 +75,8 @@
             justify-content: space-between;
             .title{
                 cursor: pointer;
-                font-size: 20px;
+                font-size: 23px;
+                font-family: $cairo_bold;
                 color: #383A42;
             }
             .re_new{
@@ -103,6 +109,7 @@
             }
         }
         .sec_desription{
+            font-family: $cairo_semi_bold;
             font-size: 16px;
            color: #383A42; 
         }
