@@ -61,26 +61,14 @@
               [showSaveBtn]="false"
               #form
 
+              (formValues)="formValues($event)"
+
             ></app-shared-form>
           </div>
         </div>
 
         <div class="my-3 d-flex align-items-center gap-3 justify-content-end">
-          <div>
-            <lib-button className="secondary" [rounded]="true" (onClick)="onSearch()">
-              Search
-            </lib-button>
-          </div>
-          <!-- <div>
-            <lib-button
-              pRipple
-              label="Clear"
-              icon="pi pi-times"
-              [rounded]="true"
-              [enableText]="true"
-            >
-            </lib-button>
-          </div> -->
+       
         </div>
       </ng-container>
 

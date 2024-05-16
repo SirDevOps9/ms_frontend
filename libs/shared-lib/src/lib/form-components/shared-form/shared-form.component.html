@@ -18,6 +18,7 @@
         [formControlName]="elem.key"
         class="w-100"
         *ngIf="elem.type === 'text' || elem.type === 'number'"
+        (ngModelChange)="formValues.emit(this.form.getRawValue())"
       />
       <div *ngIf="elem.customError">
         <span class="text-danger">{{elem.customErrorMessage}}</span>

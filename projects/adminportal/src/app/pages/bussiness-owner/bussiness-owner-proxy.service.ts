@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, auditTime } from 'rxjs';
 import { FilterDto, HttpService, PaginationVm } from 'shared-lib';
 import { BussinessOwner, bussinesOwnerDetails } from './models';
 
@@ -13,13 +13,14 @@ export class BussinessOwnerProxyService {
   getAllPaginated(filterDto: FilterDto , quieries?:string): Observable<PaginationVm<BussinessOwner[]>> {
     
     return this.baseService.get<PaginationVm<BussinessOwner[]>>(
-      `BusinessOwner?${filterDto.toQuery}&${quieries ? `SearchTerm=${quieries}` : ''}`
-    );
+      `BusinessOwner?${filterDto.toQuery}&${quieries}`
+    )
+
   }
   getBussinessGetBusinessOwnerById(id:string): Observable<bussinesOwnerDetails> {
     
     return this.baseService.get<bussinesOwnerDetails>(
       `BusinessOwner/GetBusinessOwnerById/${id}`
-    );
+    )
   }
 }

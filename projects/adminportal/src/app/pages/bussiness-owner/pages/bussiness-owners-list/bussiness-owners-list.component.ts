@@ -16,7 +16,10 @@ import {
 } from 'shared-lib';
 import { BussinessOwnerService } from '../../bussiness-owner.service';
 import { Observable } from 'rxjs';
+import { auditTime, distinctUntilChanged } from 'rxjs/operators';
+
 import { BussinessOwner } from '../../models';
+import { SearchFunc } from 'libs/shared-lib/src/lib/models/sendQueries';
 
 @Component({
   selector: 'app-bussiness-owners-list',
@@ -166,16 +169,16 @@ export class BussinessOwnersListComponent implements OnInit {
     this.routerService.navigateTo(`/bussiness-owners/manage/${id}` );
   }
 
-  onSearch() {
-    let formValue = this.form.form.value
+  formValues(event : any) {
+    console.log(event)
+    let formValue = event
 
 
-
-
-    this.bussinessOwnerList$ = this.bussinessOwnerService.getBussinessOwnerList(this.currentPageInfo , `${formValue.SearchTerm}` )
+   this.bussinessOwnerList$ =this.bussinessOwnerService.getBussinessOwnerList(this.currentPageInfo , SearchFunc(formValue) )
 
       this.form.form.patchValue({...formValue})
   }
 
+ 
 
 }

@@ -18,6 +18,7 @@ export class FilterDto {
 
     if (this.pageInfo) query += this.pageInfo.toQuery;
 
+
     if (this.conditions) {
 
       query += '&';
