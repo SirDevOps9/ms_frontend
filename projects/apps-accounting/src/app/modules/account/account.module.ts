@@ -8,7 +8,9 @@ import { AuthGuard } from 'microtec-auth-lib';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { MainChartOfAccountComponent } from './pages/main-chart-of-account/main-chart-of-account.component';
 import { ChartOfAccountTreeComponent } from './pages/chart-of-account-tree/chart-of-account-tree.component';
-import { AddAccountComponent } from './pages/add-account/add-account.component';
+import { ViewChartComponent } from './components/view-chart/view-chart.component';
+import { AddChartComponent } from './components/add-chart/add-chart.component';
+import { EditChartComponent } from './components/edit-chart/edit-chart.component';
 
 const routes: Routes = [
   {
@@ -32,7 +34,9 @@ const routes: Routes = [
     ChatOfAccountListComponent,
     MainChartOfAccountComponent,
     ChartOfAccountTreeComponent,
-    AddAccountComponent,
+    ViewChartComponent,
+    AddChartComponent,
+    EditChartComponent,
   ],
   imports: [
     CommonModule,

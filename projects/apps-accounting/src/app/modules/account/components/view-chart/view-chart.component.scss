@@ -1,0 +1,28 @@
+@import "../../../../../assets/styling/scss/variables/font-family";
+
+.content_descreption{
+    width: 100%;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #E6E4E4;
+    border-radius: 8px;
+    .parent_account , .accountCode , .account_nature{
+        margin: 10px 0px;
+    }
+    .account_child{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+   
+      
+      
+}
+.active{
+    background: #DCF3FA;
+    color: #0D4859;
+}
+.label_text{
+    font-size: 16px;
+    font-family: $cairo_regular;
+}
