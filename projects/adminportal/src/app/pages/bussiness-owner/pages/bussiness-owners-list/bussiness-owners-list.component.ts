@@ -172,7 +172,7 @@ export class BussinessOwnersListComponent implements OnInit {
 
 
 
-    this.bussinessOwnerList$ = this.bussinessOwnerService.getBussinessOwnerList(this.currentPageInfo , `SearchTerm=${formValue.SearchTerm}` )
+    this.bussinessOwnerList$ = this.bussinessOwnerService.getBussinessOwnerList(this.currentPageInfo , `${formValue.SearchTerm}` )
 
       this.form.form.patchValue({...formValue})
   }

@@ -13,7 +13,7 @@ export class BussinessOwnerProxyService {
   getAllPaginated(filterDto: FilterDto , quieries?:string): Observable<PaginationVm<BussinessOwner[]>> {
     
     return this.baseService.get<PaginationVm<BussinessOwner[]>>(
-      `BusinessOwner?${filterDto.toQuery}&${quieries ? quieries : ''}`
+      `BusinessOwner?${filterDto.toQuery}&${quieries ? `SearchTerm=${quieries}` : ''}`
     );
   }
   getBussinessGetBusinessOwnerById(id:string): Observable<bussinesOwnerDetails> {
