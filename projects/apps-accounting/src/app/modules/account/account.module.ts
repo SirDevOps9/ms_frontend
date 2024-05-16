@@ -23,7 +23,17 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.chart_of_account,
-        }
+        },
+        children:[
+          {
+            path: 'add',
+            component:AddChartComponent ,
+            canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.chart_of_account,
+            },
+          }
+        ]
       }
     ],
   },

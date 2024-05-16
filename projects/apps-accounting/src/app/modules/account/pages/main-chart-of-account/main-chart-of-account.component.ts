@@ -8,8 +8,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class MainChartOfAccountComponent {
   Viewlist:boolean=false;
   edit:boolean=false;
-  view:boolean=true;
-  add:boolean=false;
+  view:boolean=false;
+  add:boolean=true;
   //@Output() edit = new EventEmitter<boolean>();
   
   // toggleView(){

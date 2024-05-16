@@ -26,6 +26,20 @@ export class AccountService {
       })
     );
   }
+  getAccountSections() {
+    return this.accountproxy.getAccountSections().pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+  getAccountTypes(sectionId:number) {
+    return this.accountproxy.getAccountTypes(sectionId).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
   addAccount(command : AddAccountDto) {
     return this.accountproxy.addAccount(command);
   }

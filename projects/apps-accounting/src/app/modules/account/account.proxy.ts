@@ -5,6 +5,7 @@ import { AccountDto } from './models/accountDto';
 import { AddAccountDto } from './models/addAccountDto';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { accountTreeList } from './models';
+import { AccountSectionDropDownDto } from './models/accountSectionDropDownDto';
 
 @Injectable({
   providedIn: 'root',
@@ -15,18 +16,28 @@ export class AccountProxy {
         searchTerm: string,
         pageInfo: PageInfo
       ): Observable<PaginationVm<AccountDto>> {
-        const x= this.httpService.get<PaginationVm<AccountDto>>(
+        const accountList = this.httpService.get<PaginationVm<AccountDto>>(
           `ChartOfAccounts`
         );
-        console.log( 'sandra',x);
-         return x
+         return accountList
       }
       getTreeList(): Observable<accountTreeList[]> {
         return this.httpService.get<accountTreeList[]>(
-          // `Company?subscriptionId=${subscriptionId}`
           `ChartOfAccounts/GetTree`
         );
       }
+      getAccountSections(): Observable<AccountSectionDropDownDto[]> {
+        return this.httpService.get<AccountSectionDropDownDto[]>(
+          `AccountSection`
+        );
+      }
+
+      getAccountTypes(sectionId:number): Observable<AccountSectionDropDownDto[]> {
+        return this.httpService.get<AccountSectionDropDownDto[]>(
+          `AccountType?SectionId=`+ sectionId
+        );
+      }
+      
       addAccount(command: AddAccountDto): Observable<boolean> {
         return this.httpService.post('ChartOfAccounts/AddAccount',command);
       }
