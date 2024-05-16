@@ -1,21 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../../account.service';
 import { GetLevelsDto } from '../../models/getLevelsDto';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-} from '@angular/forms';
-import {  listAddLevelsDto } from '../../models';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { listAddLevelsDto } from '../../models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { LanguageService, customValidators } from 'shared-lib';
+import { customValidators } from 'shared-lib';
 
 @Component({
   selector: 'app-chart-of-account-configuration',
   templateUrl: './chart-of-account-configuration.component.html',
   styleUrls: ['./chart-of-account-configuration.component.scss'],
-  providers:[LanguageService]
 })
 export class ChartOfAccountConfigurationComponent implements OnInit {
   tableData: GetLevelsDto[];
@@ -24,40 +18,37 @@ export class ChartOfAccountConfigurationComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private ref: DynamicDialogRef,
-    private fb: FormBuilder,
-    private langService: LanguageService
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
-    //this.langService.setLang();
     this.fa = this.fb.array([]);
-console.log("Translated Text",this.langService.transalte("COAConfigration.levelnumber"));
 
     this.initChartOfAccountData();
   }
 
   initChartOfAccountData() {
     this.accountService.getLevels();
-    this.accountService.Levels.subscribe((l) => {
-      this.tableData = l;
+    this.accountService.levels.subscribe((response) => {
+      this.tableData = response;
       this.tableData.forEach((level: GetLevelsDto) => {
         this.fa.push(this.createLevelFormGroup(level));
       });
     });
   }
-  
+
   createLevelFormGroup(level: GetLevelsDto): FormGroup {
     return this.fb.group({
       levelNumber: [level.levelNumber],
       name: [level.name],
       numberOfDigits: [level.numberOfDigits],
-      id: [level.id]
+      id: [level.id],
     });
   }
 
   save() {
     const formData = this.fa.value;
-    let mappedData: listAddLevelsDto = { levels: formData};
+    let mappedData: listAddLevelsDto = { levels: formData };
     this.accountService.addLevels(mappedData);
   }
 
