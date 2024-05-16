@@ -1,24 +1,31 @@
 # bitbucket-pipelines.yml
 
-image: node:17
+image: node:17   
 
 pipelines:
-  branches:
-    moataz-ci/cd:
-      - step:
-          name: Install Dependencies
-          script:
-            - npm install
-            - npm install -g @angular/cli
-            - export PATH="$PATH:$(npm bin)"
-            # The above line ensures that the ng command is available
+default: 
+  from:
+    branch: moataz-ci/cd
 
-      - step:
-          name: Build Business Owners Project
-          script:
-            - ng build --project bussiness-owners
+  - step:
+      name: Install Dependencies
+      script:
+        - npm install  # Install project dependencies
 
-      - step:
-          name: Build Admin Portal Project
-          script:
-            - ng build --project adminportal
+  - step:
+      name: Install Angular CLI (if needed)
+      script:
+        - npm install -g @angular/cli  # Install Angular CLI globally (optional)
+        # Only run this step if the Angular CLI is not pre-installed in the image
+
+  - step:
+      name: Build Business Owners Project
+      script:
+        - ng build --project bussiness-owners
+        - if [ $? -eq 0 ]; then echo "Business Owners build successful"; else echo "Business Owners build failed!"; fi  # Optional error handling
+
+  - step:
+      name: Build Admin Portal Project
+      script:
+        - ng build --project adminportal
+        - if [ $? -eq 0 ]; then echo "Admin Portal build successful"; else echo "Admin Portal build failed!"; fi  # Optional error handling
