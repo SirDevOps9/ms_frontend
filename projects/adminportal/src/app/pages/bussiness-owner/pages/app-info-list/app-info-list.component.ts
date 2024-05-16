@@ -1,28 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { JournalEntryService } from 'projects/apps-accounting/src/app/modules/journal-entry/journal-entry.service';
-import { SharedJournalEnums } from 'projects/apps-accounting/src/app/modules/journal-entry/models';
-
-import {
-  PageInfo,
-  RouterService,
-  LanguageService,
-  FormConfig,
-  FormTypes,
-  SharedFormComponent,
-  SharedLibModule,
-} from 'shared-lib';
-import { BussinessOwnerService } from '../../bussiness-owner.service';
+import { SharedFormComponent, FormConfig, FormTypes, PageInfo, RouterService, LanguageService, SharedLibModule } from 'shared-lib';
 
 @Component({
-  selector: 'app-bussiness-owners-list',
-  standalone: true,
+  selector: 'app-app-info-list',
+  templateUrl: './app-info-list.component.html',
+  styleUrl: './app-info-list.component.scss',
+  standalone : true,
   imports: [CommonModule, SharedLibModule],
-  templateUrl: './bussiness-owners-list.component.html',
-  styleUrl: './bussiness-owners-list.component.scss',
 })
-export class BussinessOwnersListComponent implements OnInit {
+export class AppInfoListComponent implements OnInit {
   @ViewChild('myTab') myTab: any | undefined;
   @ViewChild('form') form: SharedFormComponent;
   tableData = [
@@ -32,6 +20,9 @@ export class BussinessOwnersListComponent implements OnInit {
       email: 'john@example.com',
       country: 'USA',
       mobileNumber: '+1 123 456 7890',
+      mob : 'erdf',
+      mob2 : 'wsdf',
+      mob3 : 'sadfdsf'
     },
     {
       code: '102',
@@ -39,6 +30,9 @@ export class BussinessOwnersListComponent implements OnInit {
       email: 'alice@example.com',
       country: 'Canada',
       mobileNumber: '+1 234 567 8901',
+      mob : 'erdf',
+      mob2 : 'wsdf',
+      mob3 : 'sadfdsf'
     },
     {
       code: '103',
@@ -46,6 +40,9 @@ export class BussinessOwnersListComponent implements OnInit {
       email: 'mohammed@example.com',
       country: 'India',
       mobileNumber: '+91 98765 43210',
+      mob : 'erdf',
+      mob2 : 'wsdf',
+      mob3 : 'sadfdsf'
     },
     {
       code: '104',
@@ -53,6 +50,9 @@ export class BussinessOwnersListComponent implements OnInit {
       email: 'sophie@example.com',
       country: 'UK',
       mobileNumber: '+44 1234 567890',
+      mob : 'erdf',
+      mob2 : 'wsdf',
+      mob3 : 'sadfdsf'
     },
     {
       code: '105',
@@ -60,6 +60,9 @@ export class BussinessOwnersListComponent implements OnInit {
       email: 'chen@example.com',
       country: 'China',
       mobileNumber: '+86 10 1234 5678',
+      mob : 'erdf',
+      mob2 : 'wsdf',
+      mob3 : 'sadfdsf'
     },
   ];
   cols: any[] = [
@@ -131,32 +134,33 @@ export class BussinessOwnersListComponent implements OnInit {
   active: boolean = false;
   currentPageInfo: PageInfo = new PageInfo();
 
-
   constructor(
     private routerService: RouterService,
     private titleService: Title,
     private languageService: LanguageService,
-    private journalEntryService: JournalEntryService,
-    public sharedJouralEnum: SharedJournalEnums,
-    private bussinessOwnerService : BussinessOwnerService
+  
   ) {}
-
-  bussinessOwnerList$ = this.bussinessOwnerService.getBussinessOwnerList(this.currentPageInfo)
-
 
   ngOnInit() {
     this.titleService.setTitle(
       this.languageService.transalte('JournalEntry.JournalEntryList')
     );
-
-    
+    this.initJournalEntryData(this.currentPageInfo);
   }
 
   patchFormValues(data: any) {}
- 
+  initJournalEntryData(page: PageInfo) {
+    // this.journalEntryService.getAllJournalEntriesPaginated(page).subscribe({
+    //   next: (journalList: any) => {
+    //     // this.tableData = journalList.result;
+    //   },
+    // });
+  }
   onPageChange(pageInfo: PageInfo) {
+    this.initJournalEntryData(pageInfo);
   }
   onEditOwner() {
     this.routerService.navigateTo(`/bussiness-owners/manage`);
   }
 }
+

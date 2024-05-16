@@ -110,7 +110,7 @@
       <!--  -->
       <ng-template #appsInfo let-appsInfo>
         <div>
-          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" (onClick)="onManageOwner(appsInfo)">
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" [routerLink]="['/bussiness-owners/apps-info']">
             Manage
           </lib-button>
         </div>
@@ -128,7 +128,7 @@
       <!--  -->
       <ng-template #usersInfo let-usersInfo>
         <div>
-          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" (onClick)="onManageOwner(usersInfo)">
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" [routerLink]="['/bussiness-owners/user-info']" >
             Manage
           </lib-button>
         </div>
@@ -137,7 +137,7 @@
       <!--  -->
       <ng-template #licenceInfo let-licenceInfo>
         <div>
-          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" (onClick)="onManageOwner(licenceInfo)">
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" [routerLink]="['/bussiness-owners/licence-info']"  >
             Manage
           </lib-button>
         </div>

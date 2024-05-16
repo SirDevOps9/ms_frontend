@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'projects/adminportal/src/app/environments/environment';
 
 @Component({
   selector: 'app-aside-menu',
@@ -7,8 +6,7 @@ import { environment } from 'projects/adminportal/src/app/environments/environme
   styleUrls: ['./aside-menu.component.scss'],
 })
 export class AsideMenuComponent implements OnInit {
-  appAngularVersion: string = environment.appVersion;
-  appPreviewChangelogUrl: string = environment.appPreviewChangelogUrl;
+
 
   constructor() {}
 

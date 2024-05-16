@@ -4,9 +4,7 @@ import { BusinessOwnerRoutingModule } from './business-owner-routing.module';
 
 
 @NgModule({
-  declarations: [
-
-  ],
+  declarations: [ ],
   imports: [
     CommonModule,
     BusinessOwnerRoutingModule

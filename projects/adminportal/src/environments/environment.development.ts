@@ -2,7 +2,7 @@ import { IEnvironment } from 'shared-lib';
 
 export const environment: IEnvironment = {
   production: true,
-  baseUrl: 'https://localhost:7265',
+  baseUrl: 'https://localhost:7082',
   Version: 'V1',
   ClientId: 'AdminPortal',
   Platform: 'Web',

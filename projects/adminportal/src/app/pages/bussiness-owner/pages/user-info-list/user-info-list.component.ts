@@ -1,28 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { JournalEntryService } from 'projects/apps-accounting/src/app/modules/journal-entry/journal-entry.service';
-import { SharedJournalEnums } from 'projects/apps-accounting/src/app/modules/journal-entry/models';
-
-import {
-  PageInfo,
-  RouterService,
-  LanguageService,
-  FormConfig,
-  FormTypes,
-  SharedFormComponent,
-  SharedLibModule,
-} from 'shared-lib';
-import { BussinessOwnerService } from '../../bussiness-owner.service';
+import { SharedFormComponent, FormConfig, FormTypes, PageInfo, RouterService, LanguageService, SharedLibModule } from 'shared-lib';
 
 @Component({
-  selector: 'app-bussiness-owners-list',
-  standalone: true,
+  selector: 'app-user-info-list',
+  templateUrl: './user-info-list.component.html',
+  styleUrl: './user-info-list.component.scss',
+  standalone : true,
   imports: [CommonModule, SharedLibModule],
-  templateUrl: './bussiness-owners-list.component.html',
-  styleUrl: './bussiness-owners-list.component.scss',
+
 })
-export class BussinessOwnersListComponent implements OnInit {
+export class UserInfoListComponent implements OnInit {
   @ViewChild('myTab') myTab: any | undefined;
   @ViewChild('form') form: SharedFormComponent;
   tableData = [
@@ -131,30 +120,30 @@ export class BussinessOwnersListComponent implements OnInit {
   active: boolean = false;
   currentPageInfo: PageInfo = new PageInfo();
 
-
   constructor(
     private routerService: RouterService,
     private titleService: Title,
     private languageService: LanguageService,
-    private journalEntryService: JournalEntryService,
-    public sharedJouralEnum: SharedJournalEnums,
-    private bussinessOwnerService : BussinessOwnerService
+  
   ) {}
-
-  bussinessOwnerList$ = this.bussinessOwnerService.getBussinessOwnerList(this.currentPageInfo)
-
 
   ngOnInit() {
     this.titleService.setTitle(
       this.languageService.transalte('JournalEntry.JournalEntryList')
     );
-
-    
+    this.initJournalEntryData(this.currentPageInfo);
   }
 
   patchFormValues(data: any) {}
- 
+  initJournalEntryData(page: PageInfo) {
+    // this.journalEntryService.getAllJournalEntriesPaginated(page).subscribe({
+    //   next: (journalList: any) => {
+    //     // this.tableData = journalList.result;
+    //   },
+    // });
+  }
   onPageChange(pageInfo: PageInfo) {
+    this.initJournalEntryData(pageInfo);
   }
   onEditOwner() {
     this.routerService.navigateTo(`/bussiness-owners/manage`);
