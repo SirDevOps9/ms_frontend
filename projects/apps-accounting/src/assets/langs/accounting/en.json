@@ -1,0 +1,10 @@
+{
+  "COAConfigration": {
+    "levelnumber": "level Number",
+    "levelName": "level Name",
+    "numberOfDigits": "Number Of Digits",
+    "AddNewLine": "Add New Line",
+    "discard": "discard",
+    "Save": "Save"
+  }
+}

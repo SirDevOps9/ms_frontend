@@ -1,19 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
-import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { AccountDto } from './models/accountDto';
+import { map } from 'rxjs';
+import { PageInfo } from 'shared-lib';
 import { AccountProxy } from './account.proxy';
-import { AddLevelsDto } from './models/addLevelsDto';
+import { listAddLevelsDto } from './models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
-  
-  constructor(private accountproxy:AccountProxy) {}
+  constructor(private accountproxy: AccountProxy) {}
 
-  getAllChartOfAccountPaginated( searchTerm:string ,pageInfo: PageInfo) {
-    return this.accountproxy.getAllPaginated( searchTerm,pageInfo).pipe(
+  getAllChartOfAccountPaginated(searchTerm: string, pageInfo: PageInfo) {
+    return this.accountproxy.getAllPaginated(searchTerm, pageInfo).pipe(
       map((res) => {
         return res;
       })
@@ -26,6 +24,7 @@ export class AccountService {
       })
     );
   }
+
   getLevels() {
     return this.accountproxy.getLevels().pipe(
       map((res) => {
@@ -33,13 +32,12 @@ export class AccountService {
       })
     );
   }
-  addLevels(command: AddLevelsDto)
-  {
+
+  addLevels(command: listAddLevelsDto) {
     return this.accountproxy.addLevels(command).pipe(
       map((res) => {
         return res;
       })
     );
   }
-  
 }
