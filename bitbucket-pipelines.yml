@@ -5,31 +5,66 @@
 
 image: atlassian/default-image:3
 
-pipelines:
-  default:
-    - parallel:
-      - step:
-          name: 'Build and Test'
-          script:
-            - echo "Your build and test goes here..."
-      - step:
-          name: 'Lint'
-          script:
-            - echo "Your linting goes here..."
-      - step:
-          name: 'Security scan'
-          script:
-            - echo "Your security scan goes here..."
+  pipelines:
+  pull-requests:
+    from:
+      branch: ci/cd  # Only trigger pipeline for pull requests from 'ci/cd' branch
+    to:
+      branch: develop  # Only trigger pipeline for pull requests merging into 'develop' branch
+  - step:
+      name: Checkout Code
+      script:
+        - git clone $BITBUCKET_CLONE_URL $BITBUCKET_BUILD_DIR
 
-    # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
-    - step:
-        name: 'Deployment to Staging'
-        deployment: staging
-        script:
-          - echo "Your deployment to staging script goes here..."
-    - step:
-        name: 'Deployment to Production'
-        deployment: production
-        trigger: 'manual'
-        script:
-          - echo "Your deployment to production script goes here..."
+  - step:
+      name: Install Dependencies
+      script:
+        - cd $BITBUCKET_BUILD_DIR
+        - npm install
+
+  - step:
+      name: Build Project
+      script:
+        - cd $BITBUCKET_BUILD_DIR
+        - npm run build  # Replace with your specific build command
+
+  - step:
+      name: Run Tests (Optional)
+      script:
+        - cd $BITBUCKET_BUILD_DIR
+        - npm run test  # Replace with your specific test command (optional)
+      # Uncomment the following lines to fail the pipeline on failing tests
+      # post:
+      #   - on: failure
+      #     fail: true
+
+  # Add additional steps for deployment scripts (optional)
+# this is the default bitbucket pipe lines
+# pipelines:
+#   default:
+#     - parallel:
+#       - step:
+#           name: 'Build and Test'
+#           script:
+#             - echo "Your build and test goes here..."
+#       - step:
+#           name: 'Lint'
+#           script:
+#             - echo "Your linting goes here..."
+#       - step:
+#           name: 'Security scan'
+#           script:
+#             - echo "Your security scan goes here..."
+
+#     # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
+#     - step:
+#         name: 'Deployment to Staging'
+#         deployment: staging
+#         script:
+#           - echo "Your deployment to staging script goes here..."
+#     - step:
+#         name: 'Deployment to Production'
+#         deployment: production
+#         trigger: 'manual'
+#         script:
+#           - echo "Your deployment to production script goes here..."
