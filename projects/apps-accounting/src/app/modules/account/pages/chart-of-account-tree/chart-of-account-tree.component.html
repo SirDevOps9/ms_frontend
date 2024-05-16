@@ -1,0 +1,199 @@
+<div class="chart_of_account_tree">
+  <div class="grid">
+    <div class="md:col-4">
+      <div class="tree">
+
+        <p-tree [value]="nodes">
+          <ng-template let-node pTemplate="default">
+            <div class="ui-tree-node-content label_text" [ngClass]="{'active': node.expanded}">
+              <span class="tree-icon" *ngIf="node.children"></span>
+              <i class="folder_icon pi pi-folder" *ngIf="node.children && node.children.length != 0"></i>
+              <i class="file_icon pi pi-file" *ngIf="node.children && node.children.length == 0"></i>
+              <span (click)="handleTabClick(node)"
+                *ngIf="node.children && node.children.length == 0">{{node.label}}</span>
+              <span  *ngIf="node.children">{{node.label}}</span>
+              <button class="btn_add" *ngIf="node.children" (click)="addChild(node)">+</button>
+
+            </div>
+          </ng-template>
+        </p-tree>
+      </div>
+    </div>
+    <div class="md:col-8">
+      <div class="content_descreption">
+        <div class="accountCode">
+          <lib-fildest header="Account Code">
+            <div class="grid">
+              <div class="md:col-3">
+                <lib-text-input [readOnly]="true">
+
+                </lib-text-input>
+              </div>
+              <div class="md:col-3">
+                <lib-text-input [readOnly]="true">
+
+                </lib-text-input>
+              </div>
+              <div class="md:col-3">
+                <lib-text-input [readOnly]="true">
+
+                </lib-text-input>
+              </div>
+              <div class="md:col-3">
+                <lib-text-input [readOnly]="true">
+
+                </lib-text-input>
+              </div>
+
+            </div>
+
+            <div class="md:col-12 test">
+
+              <p> Account Code </p>
+              <lib-text-input [readOnly]="true">
+
+              </lib-text-input>
+            </div>
+          </lib-fildest>
+        </div>
+        <div class="parent_account">
+          <lib-fildest header="parent account">
+            <div class="grid">
+              <div class="md:col-12">
+                <lib-text-input [readOnly]="true">
+
+                </lib-text-input>
+              </div>
+            </div>
+            <div class="grid">
+              <div class="md:col-4">
+                <lib-form-group>
+                  <!-- <lib-label [appControl]="">
+                        Account Name
+                      </lib-label> -->
+                  <p>Account Name</p>
+                  <lib-text-input [readOnly]="true">
+                  </lib-text-input>
+                </lib-form-group>
+              </div>
+              <div class="md:col-4">
+                <lib-form-group>
+                  <!-- <lib-label [appControl]="">
+                        Account Name
+                      </lib-label> -->
+                  <p>Account level</p>
+                  <lib-text-input [readOnly]="true">
+                  </lib-text-input>
+                </lib-form-group>
+              </div>
+              <div class="md:col-4">
+                <lib-form-group>
+                  <p>has No child account ( Detail )</p>
+                  <div class="account_child">
+                    <div>
+                      <input type="radio" id="Yes radio" name="drone" value="Yes" checked />
+                      <label for="Yes">Yes</label>
+
+                    </div>
+                    <div>
+                      <input type="radio" id="No radio" name="drone" value="No" />
+                      <label for="No">No</label>
+                    </div>
+                  </div>
+
+                </lib-form-group>
+              </div>
+
+            </div>
+
+
+
+          </lib-fildest>
+        </div>
+        <div class="account_nature">
+          <div class="grid">
+            <div class="md:col-4">
+              <lib-fildest header="account nature">
+                <lib-text-input [readOnly]="true">
+
+                </lib-text-input>
+              </lib-fildest>
+            </div>
+            <div class="md:col-4">
+              <lib-fildest header="account section">
+                <lib-text-input [readOnly]="true">
+
+                </lib-text-input>
+              </lib-fildest>
+            </div>
+            <div class="md:col-4">
+              <lib-fildest header="account currency">
+                <lib-text-input [readOnly]="true">
+
+                </lib-text-input>
+              </lib-fildest>
+            </div>
+          </div>
+        </div>
+        <div class="account_nature">
+          <div class="grid">
+            <div class="md:col-6">
+              <lib-fildest header="account tags">
+                <lib-text-input [readOnly]="true">
+
+                </lib-text-input>
+              </lib-fildest>
+            </div>
+            <div class="md:col-6">
+              <lib-fildest header="account type">
+                <lib-text-input [readOnly]="true">
+
+                </lib-text-input>
+              </lib-fildest>
+            </div>
+          </div>
+        </div>
+        <div class="account_nature">
+          <div class="grid">
+            <div class="md:col-4">
+              <lib-fildest header="activation">
+                <div class="account_child">
+                  <div>
+                    <input type="radio" id="active " name="drone" value="active" checked />
+                    <label for="active">active</label>
+
+                  </div>
+                  <div>
+                    <input type="radio" id="inactive " name="drone" value="inactive" />
+                    <label for="inactive">inactive</label>
+                  </div>
+                  <div>
+                    <input type="radio" id="periodic" name="drone" value="periodic" />
+                    <label for="periodic">periodic active</label>
+                  </div>
+                </div>
+              </lib-fildest>
+            </div>
+            <div class="md:col-4">
+              <lib-fildest header="periodic active ( From )">
+                <lib-text-input type="date" [readOnly]="true"
+                  iconUrl="https://banner2.cleanpng.com/20180404/zbe/kisspng-computer-icons-calendar-date-calendar-icon-5ac4eab06b4509.7580715615228545764394.jpg">
+
+                </lib-text-input>
+              </lib-fildest>
+            </div>
+            <div class="md:col-4">
+              <lib-fildest header="periodic active ( To )">
+                <lib-text-input type="date" [readOnly]="true"
+                  iconUrl="https://banner2.cleanpng.com/20180404/zbe/kisspng-computer-icons-calendar-date-calendar-icon-5ac4eab06b4509.7580715615228545764394.jpg">
+
+                </lib-text-input>
+              </lib-fildest>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

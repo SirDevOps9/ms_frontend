@@ -57,12 +57,12 @@ export class CompanyContactComponent implements OnInit {
   initializeForm() {
     this.companyContactForm = this.fb.group({
       mobileNumberCode: new FormControl('', [customValidators.required]),
-      mobileNumber: new FormControl('', [customValidators.required]),
-      companyEmail: new FormControl('', [customValidators.required]),
+      mobileNumber: new FormControl('', [customValidators.required,customValidators.hasSpaces]),
+      companyEmail: new FormControl('', [customValidators.required,customValidators.email]),
       companyAddress: new FormControl(),
       contactPersonal: new FormControl('', [customValidators.required]),
       contactPersonalPosition: new FormControl(),
-      contactPersonalEmail: new FormControl('', [customValidators.required]),
+      contactPersonalEmail: new FormControl('', [customValidators.required,customValidators.email]),
     });
   }
   Subscribe() {
@@ -93,6 +93,12 @@ export class CompanyContactComponent implements OnInit {
   }
   get companyId(): string {
     return this.routerService.currentParetId;
+  }
+
+  onDiscard(editMode: boolean){
+    if(editMode)
+    this.initializeFormData();
+    this.editMode = false;
   }
   constructor(
     private fb: FormBuilder,

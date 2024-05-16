@@ -88,6 +88,7 @@
     "NoData": " There is no data",
     "CompanyDeactivatedSuccessfully": "Company deactivaed Successfully",
     "CompanyActivatedSuccessfully": "Company activaed Successfully",
+    "CompanyUpdatedSuccessfully": "Company Updated successfully",
     "Id": "Id",
     "Name": "Name",
     "Deactivate": "Deactivate",

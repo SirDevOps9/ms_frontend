@@ -40,6 +40,10 @@
               [selectedValue]="selectecCountry"
             >
             </lib-select>
+            <lib-field-validations
+            [appControl]="editBrancheForm.controls['countryCode']"
+          >
+          </lib-field-validations>
           </lib-form-group>
         </div>
         <div class="col-12 md:col-6">
@@ -103,6 +107,8 @@
               optionValue="id"
               [options]="lookups[LookupEnum.MobileCode]"
               optionLabel="name"
+              [selectedValue]="selectecMobile"
+
             >
             </lib-select>
           </lib-form-group>

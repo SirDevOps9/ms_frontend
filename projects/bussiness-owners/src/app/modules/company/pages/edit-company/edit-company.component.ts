@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterService, LookupsService } from 'shared-lib';
+import { RouterService, LookupsService, StorageService } from 'shared-lib';
 import { CompanyService } from '../../company.service';
 
 @Component({
@@ -15,25 +15,23 @@ export class EditCompanyComponent implements OnInit {
   isActive: boolean = true;
   currentTab: string = 'address';
   editMode: boolean = false;
-
+  id: number;
+  editTabName: any;
   get companyId(): string {
     return this.routerService.currentId;
   }
 
-  id: number;
-  editTabName: any;
 
   ngOnInit() {
+    this.currentTab = this.routerService.lastRouteSegement();
     this.getCompanyData();
     this.companyId;
   }
 
-  activeTag(id: any) {
-    const targetElementId = document.getElementById(id);
-    var test = document.querySelector('.active_link');
-    test?.classList.remove('active_link');
-    targetElementId?.classList.add('active_link');
+  activeTag(id: string) {
+    this.currentTab = id;
   }
+  
   navigateToAddress() {
     console.log(this.companyId);
 
@@ -72,21 +70,16 @@ export class EditCompanyComponent implements OnInit {
     this.editMode = !this.editMode;
   }
 
-  switchToTab(tab: string) {
-    this.currentTab = tab;
-  }
-
   getCompanyData() {
     this.companyService.getCompanyById(this.companyId).subscribe((res) => {
-      console.log('company by id', res);
-      this.isActive = res.isActive;
-      this.companyCode = res.code;
-      this.companyName = res.name;
+      this.isActive = res.data.isActive;
+      this.companyCode = res.data.code;
+      this.companyName = res.data.name;
     });
   }
   constructor(
     private companyService: CompanyService,
     public lookupsService: LookupsService,
-    private routerService: RouterService
+    private routerService: RouterService,
   ) {}
 }

@@ -96,7 +96,7 @@ export class UsersComponent implements OnInit {
   }
 
 
-  get subdmainId(): number {
+  get subdmainId(): string {
     return this.routerService.currentId;
   }
 

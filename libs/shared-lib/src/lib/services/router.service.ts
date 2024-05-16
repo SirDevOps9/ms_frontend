@@ -69,6 +69,13 @@ export class RouterService {
     return this.currentUrl;
   }
 
+  public lastRouteSegement(): string {
+    const segments = this.currentUrl.split('/');
+    return segments[segments.length - 1];
+  }
+
+
+
   constructor(private router: Router, public route: ActivatedRoute) {
     this.currentUrl = this.router.url;
     router.events.subscribe((event) => {

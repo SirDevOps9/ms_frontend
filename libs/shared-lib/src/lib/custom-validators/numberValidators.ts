@@ -24,7 +24,6 @@ export function IsNumber(control: AbstractControl) {
   }
 }
 
-
 export function rangeValidator(
   minLength: number,
   maxLength: number
@@ -47,4 +46,21 @@ export function rangeValidator(
     }
   };
 }
+
+
+
+export function nonZeroValidator(control: AbstractControl) {
+  if (
+    control.value == null ||
+    control.value === '' 
+  ) {
+    return null;
+  }
+
+  if (control.value != 0) {
+    return null; // Validation passed
+  } else {
+    return { nonZero: true }; // Validation failed
+  }
+};
 

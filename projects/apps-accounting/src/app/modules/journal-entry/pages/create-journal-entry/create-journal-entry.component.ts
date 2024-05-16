@@ -82,7 +82,7 @@ export class CreateJournalEntryComponent {
   }
 
   ngOnInit() {
-    this.accountService.getAllPaginated('', new PageInfo())
+    this.accountService.getAllChartOfAccountPaginated('', new PageInfo())
       .subscribe(r => this.filteredAccounts = r.result);
     this.currencyService.getCurrencies('')
       .subscribe(r => this.currencies = r);
@@ -92,7 +92,7 @@ export class CreateJournalEntryComponent {
     // console.log(event.originalEvent);
     console.log(this.filteredAccounts);
     let query = event.query;
-    this.accountService.getAllPaginated(query, new PageInfo())
+    this.accountService.getAllChartOfAccountPaginated(query, new PageInfo())
       .subscribe(r => this.filteredAccounts = (r.result));
   }
 

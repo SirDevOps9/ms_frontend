@@ -9,7 +9,7 @@ import {
   LoaderComponent,
   DataTableComponent,
   TablePaginatorComponent,
-  
+
 } from './components';
 import {
   FieldValidationsComponent,
@@ -20,8 +20,8 @@ import {
   MultiSelectComponent,
   ButtonComponent,
   SharedFormComponent,
-  
-  
+
+
 } from './form-components';
 import { DropdownModule } from 'primeng/dropdown';
 import { GetLookupPipe } from './pipes/lookupList';
@@ -38,7 +38,7 @@ import { AccordionComponent } from './components/accordion/accordion.component';
 import { AttachmentViewerComponent } from './components/attachment-viewer/attachment-viewer.component';
 import { TreeModule } from 'primeng/tree';
 import { NamedFileUploaderComponent } from './form-components/named-file-uploader/named-file-uploader.component';
-
+import { FildestComponent } from './components/fildest/fildest.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +64,8 @@ import { NamedFileUploaderComponent } from './form-components/named-file-uploade
     RatingComponent,
     PaginatorComponent,
     AccordionComponent,
-    SharedFormComponent
+    SharedFormComponent,
+    FildestComponent,
   ],
   imports: [
     CommonModule,
@@ -109,7 +110,8 @@ import { NamedFileUploaderComponent } from './form-components/named-file-uploade
     PaginatorComponent,
     AccordionComponent,
     TreeModule,
-    SharedFormComponent
-    ], 
+    SharedFormComponent,
+    FildestComponent
+  ],
 })
-export class SharedLibModule {}
+export class SharedLibModule { }

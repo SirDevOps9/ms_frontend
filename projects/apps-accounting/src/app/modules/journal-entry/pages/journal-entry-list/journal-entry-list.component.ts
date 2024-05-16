@@ -28,6 +28,7 @@ export class JournalEntryListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.titleService.setTitle(
       this.languageService.transalte('JournalEntry.JournalEntryList')
     );
@@ -90,8 +91,8 @@ export class JournalEntryListComponent implements OnInit {
         header: 'Actions',
       },
     ];
-
   }
+
   initJournalEntryData(page:PageInfo) {
 
     this.journalEntryService.getAllJournalEntriesPaginated(page).subscribe({
@@ -104,6 +105,7 @@ export class JournalEntryListComponent implements OnInit {
       },
     });
   }
+  
   onPageChange(pageInfo: PageInfo) {
     console.log(pageInfo);
     this.initJournalEntryData(pageInfo)

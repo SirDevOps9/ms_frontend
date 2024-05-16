@@ -1,4 +1,4 @@
-export interface CreateBranchDto {
+export interface CreateBranch {
   branchName: string;
   countryCode?: string;
   branchRegion?: string;

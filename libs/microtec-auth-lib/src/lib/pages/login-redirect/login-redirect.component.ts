@@ -52,12 +52,7 @@ export class LoginRedirectComponent implements OnInit {
       this.authService.saveTokenData().subscribe({
         next: (data: any) => {
           this.authHttp.updateLastLoggingTime().subscribe({});
-          forkJoin([this.authHttp.loadSideMenu()]).subscribe(
-            ([sideMenuRes]) => {
-              this.authService.saveSideMenu(sideMenuRes);
-              this.routerservice.navigateTo(''); 
-            }
-          );
+          this.routerservice.navigateTo(''); 
         },
       });
     }
