@@ -2,18 +2,21 @@
 <div>
   <!-- <lib-bread-crumb></lib-bread-crumb> -->
   <div class="user_page">
-    <lib-data-table [items]="tableData.Subdomains" className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
+    <lib-data-table 
+    [items]="(bussinessOwnerListDetails$  | async)?.subdomains ?? []"
+    className="p-datatable-gridlines" 
+    [currentPageResult]="currentPageInfo"
       (pageChange)="onPageChange($event)"
        [tableConfigs]="{
 
-          allowPagination: true,
+          allowPagination: false,
           allowServerPagination: false,
           dataKey: 'id',
           pageSize: 10,
           columns: [
 
             {
-              name: 'SubdomainName',
+              name: 'name',
               headerText: ('Domain Space'),
               isGlobalFilter: true,
               isSortable: false

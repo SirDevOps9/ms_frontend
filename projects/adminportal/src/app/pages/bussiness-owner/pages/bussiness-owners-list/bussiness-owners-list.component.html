@@ -1,20 +1,19 @@
 <div>
   <!-- <lib-bread-crumb></lib-bread-crumb> -->
-  <div class="user_page">
+  <div class="user_page" >
     <lib-data-table
-      [items]="tableData"
-      className="p-datatable-gridlines"
-      [currentPageResult]="currentPageInfo"
+    [items]="(bussinessOwnerList$ | async)?.result ?? []"
+    className="p-datatable-gridlines"
+      [currentPageResult]="(bussinessOwnerList$ | async)?.pageInfoResult ?? {}"
       (pageChange)="onPageChange($event)"
       [tableConfigs]="{
-
-          allowPagination: true,
-          allowServerPagination: false,
+          allowPagination: false,
+          allowServerPagination: true,
           dataKey: 'id',
           pageSize: 10,
           columns: [
             {
-              name: 'code',
+              name: 'id',
               headerText: ('Code' ),
               isGlobalFilter: true,
               isSortable: false
@@ -32,14 +31,14 @@
               isSortable: false
             },
             {
-              name: 'country',
+              name: 'countryNameEn',
               headerText: ('Country'),
               isGlobalFilter: true,
               isSortable: false,
             },
 
             {
-              name: 'mobileNumber',
+              name: 'phone',
               headerText: ('Mobile Number'),
               isGlobalFilter: true,
               isSortable: false
@@ -61,17 +60,18 @@
               [fields]="fields"
               [showSaveBtn]="false"
               #form
+
             ></app-shared-form>
           </div>
         </div>
 
         <div class="my-3 d-flex align-items-center gap-3 justify-content-end">
           <div>
-            <lib-button className="secondary" [rounded]="true">
+            <lib-button className="secondary" [rounded]="true" (onClick)="onSearch()">
               Search
             </lib-button>
           </div>
-          <div>
+          <!-- <div>
             <lib-button
               pRipple
               label="Clear"
@@ -80,7 +80,7 @@
               [enableText]="true"
             >
             </lib-button>
-          </div>
+          </div> -->
         </div>
       </ng-container>
 
@@ -88,7 +88,7 @@
       <ng-template #userCol let-user>
         <div class="actions d-flex align-items-center gap-5">
           <div class="mt-3">
-            <lib-input-switch></lib-input-switch>
+            <lib-input-switch ></lib-input-switch>
           </div>
 
           <div>
@@ -97,7 +97,7 @@
               [rounded]="true"
               [enableText]="true"
               severity="secondary"
-              (onClick)="onEditOwner()"
+              (onClick)="onEditOwner(user.id)"
             >
               Manage
             </lib-button>

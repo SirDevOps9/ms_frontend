@@ -15,7 +15,7 @@ const routes: Routes = [
     
   },
   // , canActivate: [AuthGuard]
-  { path: 'manage', component: EditBussinessOwnerComponent },
+  { path: 'manage/:id', component: EditBussinessOwnerComponent },
   { path: 'domain-space-info', component: DomainSpaceInfoComponent },
   { path: 'companies-details-info', component: CompaniesDetailsInfoComponent },
   { path: 'user-info', component: UserInfoListComponent },

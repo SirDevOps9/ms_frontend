@@ -12,8 +12,11 @@ import {
   FormTypes,
   SharedFormComponent,
   SharedLibModule,
+  PaginationVm,
 } from 'shared-lib';
 import { BussinessOwnerService } from '../../bussiness-owner.service';
+import { Observable } from 'rxjs';
+import { BussinessOwner } from '../../models';
 
 @Component({
   selector: 'app-bussiness-owners-list',
@@ -122,7 +125,7 @@ export class BussinessOwnersListComponent implements OnInit {
   ];
   fields: FormConfig[] = [
     {
-      key: 'feesAmount',
+      key: 'SearchTerm',
       placeholder: 'Search...',
       type: FormTypes.text,
       class: 'col-md-4',
@@ -141,22 +144,38 @@ export class BussinessOwnersListComponent implements OnInit {
     private bussinessOwnerService : BussinessOwnerService
   ) {}
 
-  bussinessOwnerList$ = this.bussinessOwnerService.getBussinessOwnerList(this.currentPageInfo)
+  bussinessOwnerList$ : Observable<PaginationVm<BussinessOwner[]>> = this.bussinessOwnerService.getBussinessOwnerList(this.currentPageInfo )
 
 
   ngOnInit() {
     this.titleService.setTitle(
       this.languageService.transalte('JournalEntry.JournalEntryList')
     );
-
+   
     
   }
 
   patchFormValues(data: any) {}
  
   onPageChange(pageInfo: PageInfo) {
+    console.log(pageInfo)
+    this.bussinessOwnerList$ = this.bussinessOwnerService.getBussinessOwnerList(pageInfo)
+
   }
-  onEditOwner() {
-    this.routerService.navigateTo(`/bussiness-owners/manage`);
+  onEditOwner(id : string) {
+    this.routerService.navigateTo(`/bussiness-owners/manage/${id}` );
   }
+
+  onSearch() {
+    let formValue = this.form.form.value
+
+
+
+
+    this.bussinessOwnerList$ = this.bussinessOwnerService.getBussinessOwnerList(this.currentPageInfo , `SearchTerm=${formValue.SearchTerm}` )
+
+      this.form.form.patchValue({...formValue})
+  }
+
+
 }

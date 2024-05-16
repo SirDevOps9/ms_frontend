@@ -187,22 +187,7 @@
       </div>
     </div>
 
-    <!------- inputWithIcon ------>
-    <div *ngIf="elem.type === 'inputWithIcon'  && !elem?.hidden" class="iconCont">
-      <div>
-        <label class="fw-bold">{{ elem.label }}</label>
-        <span class="text-danger pt-1" style="font-size: 20px;" *ngIf="form.controls[elem.key].hasError('required')">*</span>
-        <span class="text-danger pt-1" style="font-size: 20px;" *ngIf="!form.controls[elem.key].hasError('required')"></span>
-      </div>
-
-      <div class="p-input-icon-right w-100">
-        <!-- <button class="iconBtn" [disabled]="form.controls[elem.key]?.hasError('minlength')"  (click)="addToList()">
-           </button> -->
-          <i class="pi pi-plus pointerMouse fw-bold"   (click)="addToList()" *ngIf="!form.controls[elem.key]?.hasError('minlength')"></i>
-          <i class="pi pi-plus pointerMouse fw-bold" *ngIf="form.controls[elem.key]?.hasError('minlength')"></i>
-        <input type="text" pInputText [(ngModel)]="Listvalues"     placeholder="{{elem.placeholder}}" [formControlName]="elem.key" />
-      </div>
-    </div>
+   
 
     <!-------- inline Template ------->
     <div *ngIf="elem.template" class=" mt-5 pt-4" [class]="elem.class">
@@ -266,13 +251,6 @@
   </div>
 
 
-    <!-- List Date -->
-  <div class="d-flex gap-2 p-3 align-items-center " style="height: 40px;" *ngIf="listArray.length">
-    <span *ngFor="let elem of listArray;let i = index" class="bg-secondary p-2 fw-bold gap-3" style="border-radius: 5px;margin-top: 20px;">
-      {{elem?.name}}
-      <i class="pi pi-trash pointerMouse" (click)="removeFromList(i)" style="font-size: 12px;"></i>
-    </span>
-  </div>
 
     <!------ Save To Send Form ------>
   <div class="d-flex justify-content-center" style="margin-top: 10px;" *ngIf="showSaveBtn">
