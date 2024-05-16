@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { PageInfo, RouterService, customValidators } from 'shared-lib';
+import { FormsService, PageInfo, RouterService, customValidators } from 'shared-lib';
 import { AccountService } from '../../account.service';
 import { AddAccountDto } from '../../models/addAccountDto';
 import { CurrencyService } from '../../../general/currency.service';
@@ -25,7 +25,8 @@ export class AddChartComponent {
                private formBuilder: FormBuilder,
                private accountService: AccountService,
                private routerService: RouterService,
-               private currencyService: CurrencyService,)
+               private currencyService: CurrencyService,
+               private formsService: FormsService)
                {
                   this.formGroup = formBuilder.group({
                       nameAr: ['', customValidators.length(0,255)],
@@ -58,8 +59,11 @@ export class AddChartComponent {
       this.accountService.getAccountTypes(sectionId).subscribe(res => this.accountSections == res);
     }
 
-    addAccount(formValue: FormGroup) {
-      let obj: AddAccountDto = formValue.value;
+    onSubmit() {
+      if (!this.formsService.validForm(this.formGroup, true)) return;
+
+      let obj: AddAccountDto = this.formGroup.value;
+      
       this.accountService.addAccount(obj)
                   .subscribe(r => r == true ?
                           this.routerService.navigateTo('ChartOfAccounts') : false);
