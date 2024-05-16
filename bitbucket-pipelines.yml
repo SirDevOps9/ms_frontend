@@ -10,13 +10,15 @@ pipelines:
           script:
             - npm install
             - npm install -g @angular/cli
+            - export PATH="$PATH:$(npm bin)"
+            # The above line ensures that the ng command is available
 
       - step:
           name: Build Business Owners Project
           script:
-            - /usr/local/bin/ng build --project bussiness-owners
+            - ng build --project bussiness-owners
 
       - step:
           name: Build Admin Portal Project
           script:
-            - /usr/local/bin/ng build --project adminportal
+            - ng build --project adminportal
