@@ -7,14 +7,15 @@ import {
   FormControl,
   FormGroup,
 } from '@angular/forms';
-import { AddLevelsDto, listAddLevelsDto } from '../../models/addLevelsDto';
+import {  listAddLevelsDto } from '../../models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { customValidators } from 'shared-lib';
+import { LanguageService, customValidators } from 'shared-lib';
 
 @Component({
   selector: 'app-chart-of-account-configuration',
   templateUrl: './chart-of-account-configuration.component.html',
   styleUrls: ['./chart-of-account-configuration.component.scss'],
+  providers:[LanguageService]
 })
 export class ChartOfAccountConfigurationComponent implements OnInit {
   tableData: GetLevelsDto[];
@@ -23,24 +24,25 @@ export class ChartOfAccountConfigurationComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private ref: DynamicDialogRef,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private langService: LanguageService
   ) {}
 
   ngOnInit() {
+    //this.langService.setLang();
     this.fa = this.fb.array([]);
+console.log("Translated Text",this.langService.transalte("COAConfigration.levelnumber"));
 
     this.initChartOfAccountData();
   }
 
   initChartOfAccountData() {
-    this.accountService.getLevels().subscribe({
-      next: (ChartOfAccountList: any) => {        
-       // this.fa.patchValue(ChartOfAccountList);
-         this.tableData = ChartOfAccountList;
-         this.tableData.forEach((level: GetLevelsDto) => {
-           this.fa.push(this.createLevelFormGroup(level));
-         });
-      },
+    this.accountService.getLevels();
+    this.accountService.Levels.subscribe((l) => {
+      this.tableData = l;
+      this.tableData.forEach((level: GetLevelsDto) => {
+        this.fa.push(this.createLevelFormGroup(level));
+      });
     });
   }
   
@@ -56,10 +58,7 @@ export class ChartOfAccountConfigurationComponent implements OnInit {
   save() {
     const formData = this.fa.value;
     let mappedData: listAddLevelsDto = { levels: formData};
-    console.log(mappedData, 'sandra');
-    this.accountService.addLevels(mappedData).subscribe({
-      next: (ChartOfAccountList: any) => {},
-    });
+    this.accountService.addLevels(mappedData);
   }
 
   close() {

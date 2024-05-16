@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { ChatOfAccountListComponent } from './pages/chat-of-account-list/chat-of-account-list.component';
-import { BreadcrumbLabel, SharedLibModule } from 'shared-lib';
+import { BreadcrumbLabel, MultiTranslateHttpLoader, SharedLibModule } from 'shared-lib';
 import { AuthGuard } from 'microtec-auth-lib';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { MainChartOfAccountComponent } from './pages/main-chart-of-account/main-chart-of-account.component';
@@ -16,7 +16,7 @@ const routes: Routes = [
     component: LayoutPageComponent,
     children: [
       {
-        path: 'ChatOfAccount',
+        path: 'ChartOfAccount',
         component:MainChartOfAccountComponent ,
         canActivate: [AuthGuard],
         data: {
@@ -35,7 +35,6 @@ const routes: Routes = [
     ChartOfAccountConfigurationComponent
   ],
   imports: [
-    CommonModule,
     CommonModule,
     SharedLibModule,
     AutoCompleteModule,

@@ -38,8 +38,6 @@ import { AppsSharedLibModule } from 'apps-shared-lib';
         useFactory: (http: HttpClient) =>
           new MultiTranslateHttpLoader(http, {
             resources: [
-              { prefix: './assets/langs/auth/', suffix: '.json' },
-              { prefix: './assets/langs/erphome/', suffix: '.json' },
               { prefix: './assets/langs/accounting/', suffix: '.json' },
             ],
           }),

@@ -1,14 +1,21 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
-import { PageInfo } from 'shared-lib';
+import { BehaviorSubject, map } from 'rxjs';
+import { LanguageService, PageInfo, ToasterService } from 'shared-lib';
 import { AccountProxy } from './account.proxy';
-import { listAddLevelsDto } from './models';
+import { GetLevelsDto, listAddLevelsDto } from './models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
-  constructor(private accountproxy: AccountProxy) {}
+  constructor(private accountproxy: AccountProxy,
+    private toasterService: ToasterService,
+    private languageService: LanguageService
+  ) {}
+
+  private LevelsSource = new BehaviorSubject<GetLevelsDto[]>([]);
+  public Levels = this.LevelsSource.asObservable();
+
 
   getAllChartOfAccountPaginated(searchTerm: string, pageInfo: PageInfo) {
     return this.accountproxy.getAllPaginated(searchTerm, pageInfo).pipe(
@@ -26,18 +33,21 @@ export class AccountService {
   }
 
   getLevels() {
-    return this.accountproxy.getLevels().pipe(
-      map((res) => {
-        return res;
-      })
-    );
+    this.accountproxy.getLevels().subscribe({
+      next: (res) => {
+        this.LevelsSource.next(res);
+      },
+    });
+    return;
   }
 
   addLevels(command: listAddLevelsDto) {
-    return this.accountproxy.addLevels(command).pipe(
-      map((res) => {
-        return res;
-      })
-    );
+     this.accountproxy.addLevels(command).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('COAConfigration.Success'),
+          this.languageService.transalte('COAConfigration.Levelsaved')
+        );
+      }});
   }
 }
