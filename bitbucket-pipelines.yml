@@ -14,9 +14,9 @@ pipelines:
       - step:
           name: Build Business Owners Project
           script:
-            - ng build --project bussiness-owners
+            - /usr/local/bin/ng build --project bussiness-owners
 
       - step:
           name: Build Admin Portal Project
           script:
-            - ng build --project adminportal
+            - /usr/local/bin/ng build --project adminportal
