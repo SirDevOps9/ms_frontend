@@ -1,34 +1,31 @@
 # This is an example Starter pipeline configuration
-# Use a skeleton to build, test and deploy using manual and parallel steps
+# Use a skeleton to build, test, and deploy using manual and parallel steps
 # -----
-# You can specify a custom docker image from Docker Hub as your build environment.
+# You can specify a custom Docker image from Docker Hub as your build environment.
 
 image: atlassian/default-image:3
 
 pipelines:  # Indentation fixed here
   default:  # Trigger on any push (adjust based on needs)
-    from:
-      branch: moataz-ci/cd
+    - step:
+        name: Checkout Code
+        script:
+          - git clone $BITBUCKET_CLONE_URL $BITBUCKET_BUILD_DIR
 
-  - step:
-      name: Checkout Code
-      script:
-        - git clone $BITBUCKET_CLONE_URL $BITBUCKET_BUILD_DIR
+    - step:
+        name: Install Dependencies
+        script:
+          - cd $BITBUCKET_BUILD_DIR
+          - npm install
 
-  - step:
-      name: Install Dependencies
-      script:
-        - cd $BITBUCKET_BUILD_DIR
-        - npm install
+    - step:
+        name: Build Admin Portal Project
+        script:
+          - cd $BITBUCKET_BUILD_DIR
+          - ng build --project adminportal 
 
-  - step:
-      name: Build Admin Portal Project
-      script:
-        - cd $BITBUCKET_BUILD_DIR
-        - ng build --project adminportal 
-
-  - step:
-      name: Build Business Owners Project
-      script:
-        - cd $BITBUCKET_BUILD_DIR
-        - ng build --project bussiness-owners
+    - step:
+        name: Build Business Owners Project
+        script:
+          - cd $BITBUCKET_BUILD_DIR
+          - ng build --project bussiness-owners
