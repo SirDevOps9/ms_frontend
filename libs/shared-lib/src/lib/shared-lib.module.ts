@@ -74,7 +74,7 @@ import { FildestComponent } from './components/fildest/fildest.component';
     ReactiveFormsModule,
     DropdownModule,
     MatPaginatorModule,
-    TranslateModule.forRoot(),
+    TranslateModule,
     FormsModule,
     PrimeSharedModule,
     TreeTableModule,
