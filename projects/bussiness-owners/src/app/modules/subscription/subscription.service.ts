@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AddDomainSpaceDto, ResponsePlanDto, ResponseSubdomainDto, SubscriptionDto, TenantLicenseDto } from './models';
+import { AddDomainSpaceDto, ResponseSubdomainDto, SubscriptionDto, TenantLicenseDto } from './models';
 import {
   LanguageService,
   LoaderService,
@@ -22,8 +22,6 @@ export class SubscriptionService {
   private subdomainsDataSource = new BehaviorSubject<ResponseSubdomainListDto[]>([]);
   public subdomains = this.subdomainsDataSource.asObservable();
 
-  private plansDataSource = new BehaviorSubject<ResponsePlanDto[]>([]);
-  public plans = this.plansDataSource.asObservable();
 
   private SubscriptionDetailsDataSource = new BehaviorSubject<subscriptionDetailsDto[]>([]);
   public SubscriptionDetails = this.SubscriptionDetailsDataSource.asObservable();
@@ -34,14 +32,8 @@ loadSubdomains(){
   });
 }
 
-  loadSubscription() {
-    this.subscriptionProxy.getAllSubscriptions().subscribe((response) => {
-      this.subscriptionDataSource.next(response);
-    });
-  }
-
-  GetSubscriptionDetails(id :number){
-    this.subscriptionProxy.GetUserSubscriptionsDetail(id).subscribe((response) => {
+  getSubscriptionDetails(id: string){
+    this.subscriptionProxy.getUserSubscriptionsDetail(id).subscribe((response) => {
       this.SubscriptionDetailsDataSource.next(response);
     });
   }
@@ -78,11 +70,11 @@ loadSubdomains(){
 
   }
 
-  getSubdomainById(subdomainId: number): Observable<ResponseSubdomainDto> {
+  getSubdomainById(subdomainId: string): Observable<ResponseSubdomainDto> {
     return this.subscriptionProxy.getSubdomainById(subdomainId);
   }
 
-  getTenantLicense(subdomainId: number): Observable<TenantLicenseDto[]> {
+  getTenantLicense(subdomainId: string): Observable<TenantLicenseDto[]> {
     return this.subscriptionProxy.getTenantLicense(subdomainId);
   }
   

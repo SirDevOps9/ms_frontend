@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LanguageService, RouterService } from 'shared-lib';
 import { Title } from '@angular/platform-browser';
-import { ResponseCompanyDto } from '../../models';
+import { CompanyDto } from '../../models';
 import { CompanyService } from '../../company.service';
-import { TreeNode } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
@@ -13,10 +12,10 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
   providers: [RouterService],
 })
 export class CompaniesListComponent implements OnInit {
-  companies: ResponseCompanyDto[];
+  companies: CompanyDto[];
   @ViewChild('myTab') myTab: any | undefined;
-  selectedCompanies: ResponseCompanyDto[];
-  tableData: TreeNode<any>[] | any = [];
+  selectedCompanies: CompanyDto[];
+  tableData: CompanyDto[];
   cols: any[] = [];
   active: boolean = false;
   ref: DynamicDialogRef;
@@ -27,33 +26,7 @@ export class CompaniesListComponent implements OnInit {
     private languageService: LanguageService,
     private companyService: CompanyService,
     private dialog: DialogService
-  ) { }
-  
-  convertToTreeNode(companies : any) {
-    let com = companies.map((company : any)=>{
-      let item = {
-        data : {
-          id: company.id,
-          name: company.name,
-          code:  company.code,
-          countryCode:  company.countryCode,
-          parentId:  company.parentId,
-          countryName:  company.countryName,
-          mobileNumberCode:  company.mobileNumberCode,
-          mobileNumber:  company.mobileNumber,
-          companyEmail:  company.companyEmail,
-          companyType: company.companyType,
-          subdomainId:  company.subdomainId,
-          subdomainName:  company.subdomainName,
-          commercialId:  company.commercialId,
-          isActive:  company.isActive
-        },
-        children: company.children ? this.convertToTreeNode(company.children) : [],
-      }
-      return item
-    })
-   return com
-  }
+  ) {}
 
   newCompany() {
     this.companyService.openNewCompanyModal(
@@ -116,12 +89,12 @@ export class CompaniesListComponent implements OnInit {
 
     this.companyService.companies.subscribe({
       next: (companyList) => {
-        this.tableData = this.convertToTreeNode(companyList);
+        this.tableData = companyList;
         console.log('this.tableData', this.tableData);
-
       },
     });
   }
+
   toggle(id: string, isActive: boolean) {
     if (!isActive) this.companyService.activate(id);
     else this.companyService.deactivate(id);

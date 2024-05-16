@@ -8,8 +8,8 @@ import {
 } from 'shared-lib';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { CompanyService } from '../../company.service';
-import { CompanyHierarchyDto } from '../../models/companyhierarchydto';
-import { SubsidiaryDto } from '../../models/subsidiarydto';
+import { CompanyHierarchyDto } from '../../models/company-hierarchy-dto';
+import { SubsidiaryDto } from '../../models/subsidiary-dto';
 import { CompanyTypes } from '../../models';
 
 @Component({

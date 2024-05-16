@@ -1,0 +1,126 @@
+.hide {
+  display: none;
+}
+.pointerMouse {
+  cursor: pointer;
+}
+.pointerMouseIcon {
+  cursor: pointer;
+  position: relative;
+  right: 48px;
+  font-size: 8px;
+}
+.form {
+  display: flex;
+  justify-content: center;
+}
+.btn:not(.btn-outline):not(.btn-dashed):not(.border-hover):not(.border-active):not(.btn-flush):not(.btn-icon) {
+  border: 0;
+  padding: 12px 65px !important;
+}
+::ng-deep .sharedForm {
+
+  input {
+    background-color: #fdfdfd !important;
+    width: 100%;
+    padding: 12px;
+  }
+  .p-calendar {
+    position: relative;
+    display: inline-flex;
+    min-width: 100%;
+    .p-inputtext{
+      background-color: #fdfdfd !important;
+      padding: 10px !important;
+    }
+  }
+  .p-dropdown {
+    display: inline-flex;
+    cursor: pointer;
+    padding: 3px;
+    position: relative;
+    -webkit-user-select: none;
+    user-select: none;
+    min-width: 100% !important;
+    background-color: #fdfdfd !important;
+    padding: 1px !important;
+
+  }
+  .p-inputtext {
+    margin: 0;
+    width: 100%;
+}
+  .p-multiselect {
+    display: inline-flex;
+    cursor: pointer;
+    position: relative;
+    -webkit-user-select: none;
+    user-select: none;
+    min-width: 100%;
+    max-width: 100%;
+
+}
+.p-password {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+}
+
+
+
+.iconBtn {
+  border: 0;
+  background-color: transparent;
+}
+// ::ng-deep .iconCont {
+//   .p-input-icon-right > i:last-of-type {
+//     right: 1rem;
+//     top: 19px;
+//     color: #6c757d;
+//     font-size: 12px;
+//     border: 1px solid;
+//     border-radius: 50%;
+//     color: #080;
+//     padding: 5px;
+// }
+// }
+.none {
+  display: none;
+}
+
+// .p-input-icon-right > i:last-of-type {
+//   right: 4rem ;
+//   color: #6c757d;
+//   font-size: 8px;
+// }
+
+.time {
+height: 42px;
+border: 1px solid #ddd;
+border-radius: 7px 0px 0px 7px;
+padding: 7px;
+background-color: #f7f5f5;
+}
+.timerPicker {
+.p-calendar {
+  position: relative;
+  display: inline-flex;
+  min-width: 100%;
+  .p-inputtext{
+    background-color: #fdfdfd !important;
+    padding: 10px !important;
+    border-radius: 0px 7px 7px 0px;
+
+  }
+}
+}
+.boldText {
+font-size: 18px;
+color: #9f9fa1;
+}
+.templeDesign {
+color: #817979;
+
+}
+
+}

@@ -1,5 +1,5 @@
 export interface ResponseSubdomainDto {
-    id: number;
+    id: string;
     name: string;
   }
   

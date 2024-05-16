@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { BaseDto, SharedLibModule, customValidators } from 'shared-lib';
+import { SharedLibModule, customValidators, lookupDto } from 'shared-lib';
 
 @Component({
   selector: 'app-selectsubdomain',
@@ -15,7 +15,7 @@ export class SelectsubdomainComponent implements OnInit {
   selectSubdomain: FormGroup;
 
   selectedSubdomain: any;
-  allSubdomains: BaseDto[];
+  allSubdomains: lookupDto[];
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig,
     private formBuilder: FormBuilder,) {
 

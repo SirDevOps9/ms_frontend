@@ -1,86 +1,63 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, lookupDto, lookupsListDto } from 'shared-lib';
-
-import { AddCompanyPopupDto } from './models/addcompanypopupdto';
-import { CompanyContactDto } from './models/companycontactdto';
-import { CompanyAddressDto } from './models/companyaddressdto';
-import { CompanyLegalDto } from './models/companylegaldto';
-import { BranchDto } from './models/branchdto';
-import { CreateBranchDto } from './models/createbranchdto';
-import { EditBranchDto } from './models/editbranchdto';
-import { CompanyHierarchyDto } from './models/companyhierarchydto';
-import { UpdateCompanyHierarchyDto } from './models/updatecompanyhierarchydto';
-import { ResponseCompanyDto } from './models';
+import { CreateCompany } from './models/create-company';
+import { CompanyContactDto } from './models/company-contact-dto';
+import { CompanyAddressDto } from './models/company-address-dto';
+import { CompanyLegalDto } from './models/company-legal-dto';
+import { BranchDto } from './models/branch-dto';
+import { CreateBranch } from './models/create-branch';
+import { editBranch } from './models/edit-branch';
+import { CompanyHierarchyDto } from './models/company-hierarchy-dto';
+import { UpdateCompanyHierarchyDto } from './models/update-company-hierarchy-dto';
+import { CompanyDto } from './models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CompanyProxy {
-
   getLookups(): Observable<lookupsListDto> {
     return this.httpService.get<lookupsListDto>('Company/Lookups');
   }
 
-  getCompanyById(id: string): Observable<ResponseCompanyDto> {
-    return this.httpService.get<ResponseCompanyDto>(
-      `Company/${id}`
-    );
+  getCompanyById(id: string): Observable<CompanyDto> {
+    return this.httpService.get<CompanyDto>(`Company/${id}`);
   }
 
   activateCompany(id: string): Observable<boolean> {
-    return this.httpService.put<boolean>(
-      `Company/activatecompany/${id}`,
-      {}
-    );
+    return this.httpService.put<boolean>(`Company/activatecompany/${id}`, {});
   }
   deactivateCompany(id: string): Observable<boolean> {
-    return this.httpService.put<boolean>(
-      `Company/deactivatecompany/${id}`,
-      {}
-    );
+    return this.httpService.put<boolean>(`Company/deactivatecompany/${id}`, {});
   }
 
-  getAll(
-    subscriptionId: string
-  ): Observable<ResponseCompanyDto[]> {
-    return this.httpService.get<ResponseCompanyDto[]>(
+  getAll(subscriptionId: string): Observable<CompanyDto[]> {
+    return this.httpService.get<CompanyDto[]>(
       // `Company?subscriptionId=${subscriptionId}`
-       `Company/GetAllBySubdomain?subdomain=${subscriptionId}`
+      `Company/GetAllBySubdomain?subdomain=${subscriptionId}`
     );
   }
 
-  addCompanyPopup(
-    request: AddCompanyPopupDto
-  ): Observable<ResponseCompanyDto> {
-    return this.httpService.post<ResponseCompanyDto>(
-      'Company',
-      request
-    );
+  addCompany(request: CreateCompany): Observable<CompanyDto> {
+    return this.httpService.post<CompanyDto>('Company', request);
   }
 
-  saveCompanyContact(
-    request: CompanyContactDto
-  ): Observable<ResponseCompanyDto> {
-    return this.httpService.post<ResponseCompanyDto>(
+  saveCompanyContact(request: CompanyContactDto): Observable<CompanyDto> {
+    return this.httpService.post<CompanyDto>(
       'Company/Contact/AddorUpdate',
       request
     );
   }
 
-  saveCompanyAddress(
-    request: CompanyAddressDto
-  ): Observable<ResponseCompanyDto> {
-    return this.httpService.post<ResponseCompanyDto>(
+  saveCompanyAddress(request: CompanyAddressDto): Observable<CompanyDto> {
+    return this.httpService.post<CompanyDto>(
       'Company/Address/AddorUpdate',
       request
     );
   }
 
-  saveCompanyLegal(
-    request: CompanyLegalDto
-  ): Observable<ResponseCompanyDto> {
-    return this.httpService.post<ResponseCompanyDto>(
+  saveCompanyLegal(request: CompanyLegalDto): Observable<CompanyDto> {
+    return this.httpService.post<CompanyDto>(
       'Company/Legal/AddorUpdate',
       request
     );
@@ -95,45 +72,31 @@ export class CompanyProxy {
     );
   }
 
-  getCompanyContactById(
-    id: string
-  ): Observable<CompanyContactDto> {
-    return this.httpService.get<CompanyContactDto>(
-      `Company/Contact/${id}`
-    );
+  getCompanyContactById(id: string): Observable<CompanyContactDto> {
+    return this.httpService.get<CompanyContactDto>(`Company/Contact/${id}`);
   }
 
   getCompanyAddressId(id: string): Observable<CompanyAddressDto> {
-    return this.httpService.get<CompanyAddressDto>(
-      `Company/Address/${id}`
-    );
+    return this.httpService.get<CompanyAddressDto>(`Company/Address/${id}`);
   }
 
   getCompanyLegalById(id: string): Observable<CompanyLegalDto> {
-    return this.httpService.get<CompanyLegalDto>(
-      `Company/Legal/${id}`
-    );
+    return this.httpService.get<CompanyLegalDto>(`Company/Legal/${id}`);
   }
 
-  getCompanyHierarchyById(
-    id: string
-  ): Observable<CompanyHierarchyDto> {
-    return this.httpService.get<CompanyHierarchyDto>(
-      `Company/Hierarchy/${id}`
-    );
+  getCompanyHierarchyById(id: string): Observable<CompanyHierarchyDto> {
+    return this.httpService.get<CompanyHierarchyDto>(`Company/Hierarchy/${id}`);
   }
 
   getAllBranches(companyId: string): Observable<BranchDto[]> {
-    return this.httpService.get<BranchDto[]>(
-      `Branch?companyId=${companyId}`
-    );
+    return this.httpService.get<BranchDto[]>(`Branch?companyId=${companyId}`);
   }
 
-  addBranch(request: CreateBranchDto): Observable<BranchDto> {
+  addBranch(request: CreateBranch): Observable<BranchDto> {
     return this.httpService.post<BranchDto>('Branch', request);
   }
 
-  editBranch(request: EditBranchDto): Observable<BranchDto> {
+  editBranch(request: editBranch): Observable<BranchDto> {
     return this.httpService.put<BranchDto>('Branch', request);
   }
 
@@ -146,23 +109,24 @@ export class CompanyProxy {
   }
 
   activateBranch(id: string): Observable<string> {
-    return this.httpService.put<string>(
-      `Branch/ActivateBranch/${id}`,
-      {}
-    );
-  }
-  deActivateBranch(id: string): Observable<string> {
-    return this.httpService.put<string>(
-      `Branch/DeActivateBranch/${id}`,
-      {}
-    );
-  }
-  getCompanyHoldingDropDown(subdomain: number): Observable<lookupDto[]> {
-    return this.httpService.get<lookupDto[]>(`Company/GetAllHoldingCompnayDropDwon?subdomain=${subdomain}`);
+    return this.httpService.put<string>(`Branch/ActivateBranch/${id}`, {});
   }
 
-  getCompaniesDropDown(subdomain: number): Observable<lookupDto[]> {
-    return this.httpService.get<lookupDto[]>(`Company/GetCompaniesDropdown?subdomain=${subdomain}`);
+  deActivateBranch(id: string): Observable<string> {
+    return this.httpService.put<string>(`Branch/DeActivateBranch/${id}`, {});
   }
+
+  getAllHoldingCompanies(subdomain: string): Observable<lookupDto[]> {
+    return this.httpService.get<lookupDto[]>(
+      `Company/GetAllHoldingCompanies??subdomain=${subdomain}`
+    );
+  }
+
+  getAllCompanies(subdomain: string): Observable<lookupDto[]> {
+    return this.httpService.get<lookupDto[]>(
+      `Company/GetCompaniesDropdown?subdomain=${subdomain}`
+    );
+  }
+
   constructor(private httpService: HttpService) {}
 }

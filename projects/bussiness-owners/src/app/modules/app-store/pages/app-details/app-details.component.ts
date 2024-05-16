@@ -6,6 +6,7 @@ import { AttachmentsService, BaseDto, EnvironmentService, SubdomainService } fro
 import { Observable } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AppStoreService } from '../../app-store.service';
+import { ResponseSubdomainDto } from '../../../subscription/models';
 
 @Component({
   selector: 'app-app-details',
@@ -17,7 +18,7 @@ export class AppDetailsComponent implements OnInit {
   activeIndex = 0;
   id: number;
   app: AppDto;
-  subdomains: BaseDto[];
+  subdomains: ResponseSubdomainDto[];
 
   constructor(route: ActivatedRoute,
     private attachmentService: AttachmentsService,
@@ -32,9 +33,9 @@ export class AppDetailsComponent implements OnInit {
   ngOnInit(): void {
     
     this.appStoreProxy.getById(this.id).subscribe(r => {
-      r.appGallery = [r.logoId, ...r.appGallery!];
+      r.appGallery = [ ...r.appGallery!];
       this.app = r;
-      this.cover = r.logoId;
+      this.cover = r.appGallery[0];
     });
     this.subdomainService.getAllSubdomains().subscribe(s => this.subdomains = s);
   }
