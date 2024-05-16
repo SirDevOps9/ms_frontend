@@ -85,6 +85,12 @@
                 </p>
               </div>
             </ng-container>
+            <ng-container *ngIf="i == 2">
+              <div class="status" *ngIf="rowData.companyType===Sharedcompanyenums.CompanyTypes.Holding">
+                <p class="dot"></p>
+                <p> Unbalanced</p>
+              </div>
+            </ng-container>
           </td>
         </tr>
       </ng-template>

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { RouterService } from 'shared-lib';
 
 @Component({
   selector: 'app-layout-sidebar',
@@ -9,7 +10,9 @@ export class LayoutSidebarComponent implements OnInit {
   @Output() sidebaropend = new EventEmitter<boolean>();
   sidebarOpen: boolean = false;
   ngOnInit(): void {
+    console.log(this.RouterService.snapshot, "currentId");
     
+    //this.activeTag()
   }
   toggleSidebar() {
     if (this.sidebarOpen == true) {
@@ -28,4 +31,7 @@ export class LayoutSidebarComponent implements OnInit {
     test?.classList.remove('active_link');
     targetElementId?.classList.add('active_link');
   }
+  constructor(
+    private RouterService:RouterService
+  ){}
 }
