@@ -1,0 +1,43 @@
+<div class="mt-5">
+  <!-- <lib-bread-crumb></lib-bread-crumb> -->
+  <div class="companies-container">
+    <lib-data-table
+      [items]="tableData"
+      className="p-datatable-gridlines"
+      [currentPageResult]="currentPageInfo"
+      (pageChange)="onPageChange($event)"
+      [tableConfigs]="{
+
+          allowPagination: true,
+          allowServerPagination: false,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'code',
+              headerText: ('Company Code' ),
+              isGlobalFilter: true,
+              isSortable: false
+            },
+            {
+              name: 'name',
+              headerText: ('Company Name'),
+              isGlobalFilter: true,
+              isSortable: false
+            },
+            {
+              name: 'email',
+              headerText: ('Company Type'),
+              isGlobalFilter: true,
+              isSortable: false
+            },
+
+
+          ]
+        }"
+    >
+
+
+    </lib-data-table>
+  </div>
+</div>

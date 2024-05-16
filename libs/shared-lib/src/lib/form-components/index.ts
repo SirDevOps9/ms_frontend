@@ -6,3 +6,4 @@ export * from './form-group/form-group.component';
 export * from './multi-select/multi-select.component';
 export * from './button/button.component';
 export * from './input-switch/input-switch.component';
+export * from './shared-form/shared-form.component'
