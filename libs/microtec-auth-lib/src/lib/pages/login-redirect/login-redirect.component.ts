@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { AuthHttpService, AuthService } from 'microtec-auth-lib';
-import { forkJoin, switchMap } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { EnvironmentService, RouterService } from 'shared-lib';
 
 @Component({
@@ -33,29 +33,32 @@ export class LoginRedirectComponent implements OnInit {
     //   this.routerservice.navigateTo('');
     // }
 
-    if (this.environmentService.state) {
-      this.oidservice.getState().subscribe((stateRes) => {
-        console.log('Get State', stateRes);
-        this.authService.saveTokenData().subscribe({
-          next: (data: any) => {
-            this.authHttp.updateLastLoggingTime().subscribe({});
-            forkJoin([this.authHttp.loadSideMenu()]).subscribe(
-              ([sideMenuRes]) => {
-                this.authService.saveSideMenu(sideMenuRes);
-                location.href = stateRes;
-              }
-            );
-          },
-        });
-      });
-    } else {
+    //if (this.environmentService.state) {
+    this.oidservice.getState().subscribe((stateRes) => {
+      console.log('Get State', stateRes);
       this.authService.saveTokenData().subscribe({
         next: (data: any) => {
           this.authHttp.updateLastLoggingTime().subscribe({});
-          this.routerservice.navigateTo(''); 
+          if (stateRes === 'noredirect') {
+            forkJoin([this.authHttp.loadSideMenu()]).subscribe(([sideMenuRes]) => {
+              this.authService.saveSideMenu(sideMenuRes);
+              location.href = stateRes;
+            });
+          } else {
+            this.routerservice.navigateTo('');
+          }
         },
       });
-    }
+    });
+    // }
+    // else {
+    //   this.authService.saveTokenData().subscribe({
+    //     next: (data: any) => {
+    //       this.authHttp.updateLastLoggingTime().subscribe({});
+    //       this.routerservice.navigateTo('');
+    //     },
+    //   });
+    // }
   }
 
   constructor(
