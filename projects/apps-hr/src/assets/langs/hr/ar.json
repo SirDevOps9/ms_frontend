@@ -30,6 +30,8 @@
     "AppStore": "متجر التطبيقات"
   },
 "Employee":{
+  "Success":"Success",
+  "EmployeeAddedSuccessfully":"Employee Added Successfully",
   "Add":{
     "AddEmployee": "Add Employee",
     "EmployeeCode": "Employee Code",
@@ -38,6 +40,7 @@
     "EmployeePhoto": "Employee Photo",
     "BirthDate": "Birth Date",
     "CountryOfBirth": "Country of Birth",
+    "Age":"Age",
     "BirthCity": "Birth City",
     "Nationality": "Nationality",
     "Gender": "Gender",
