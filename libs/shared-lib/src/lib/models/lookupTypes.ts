@@ -10,4 +10,5 @@ export enum LookupEnum {
   CompanyType = 'CompanyType',
   CompanyHolding = 'CompanyHolding',
   CompanySubsidiary = 'CompanySubsidiary',
+  AccountNature = "AccountNature"
 }

@@ -6,6 +6,7 @@ import { AddAccountDto } from './models/addAccountDto';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { accountTreeList } from './models';
 import { AccountSectionDropDownDto } from './models/accountSectionDropDownDto';
+import { TagDropDownDto } from './models/tagDropDownDto';
 
 @Injectable({
   providedIn: 'root',
@@ -37,7 +38,11 @@ export class AccountProxy {
           `AccountType?SectionId=`+ sectionId
         );
       }
-      
+      getTags(): Observable<TagDropDownDto[]> {
+        return this.httpService.get<TagDropDownDto[]>(
+          `Tag`
+        );
+      }
       addAccount(command: AddAccountDto): Observable<boolean> {
         return this.httpService.post('ChartOfAccounts/AddAccount',command);
       }

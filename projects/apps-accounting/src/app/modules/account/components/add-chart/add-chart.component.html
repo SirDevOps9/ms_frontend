@@ -1,6 +1,179 @@
 <div class="chart_add_page">
   <lib-bread-crumb></lib-bread-crumb>
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-    
+    <div class="grid">
+      <div class="md:col-4">
+        <lib-form-group>
+          <lib-label [appControl]="formGroup.controls['nameAr']">
+            {{ "nameAr" | translate }}
+          </lib-label>
+          <lib-text-input type="text" formControlName="nameAr" />
+          <lib-field-validations [appControl]="formGroup.controls['nameAr']">
+          </lib-field-validations>
+        </lib-form-group>
+      </div>
+      <div class="md:col-4">
+        <lib-form-group>
+          <lib-label [appControl]="formGroup.controls['nameEn']">
+            {{ "nameEN" | translate }}
+          </lib-label>
+          <lib-text-input type="text" formControlName="nameEn" />
+          <lib-field-validations [appControl]="formGroup.controls['nameEn']">
+          </lib-field-validations>
+        </lib-form-group>
+      </div>
+      <div class="md:col-4">
+        <lib-form-group>
+          <lib-label [appControl]="formGroup.controls['levelId']">
+            {{ "levelId" | translate }}
+          </lib-label>
+          <lib-text-input type="text" formControlName="levelId" />
+          <lib-field-validations [appControl]="formGroup.controls['levelId']">
+          </lib-field-validations>
+        </lib-form-group>
+      </div>
+      <div class="md:col-4">
+        <lib-label [appControl]="formGroup.controls['hasNoChild']">
+          {{ "hasNoChild" | translate }}
+        </lib-label>
+        <div class="checked">
+          <p-inputSwitch formControlName="hasNoChild"> </p-inputSwitch>
+        </div>
+      </div>
+      <div class="md:col-4">
+        <lib-form-group>
+          <lib-label [appControl]="formGroup.controls['natureId']">
+            Account Nature
+          </lib-label>
+          <lib-select
+            formControlName="natureId"
+            [options]="lookups[LookupEnum.AccountNature]"
+            optionValue="id"
+            optionLabel="name"
+          >
+          </lib-select>
+        </lib-form-group>
+      </div>
+      <div class="md:col-4">
+        <lib-form-group>
+          <lib-label [appControl]="formGroup.controls['accountSectionId']">
+            Account Section
+          </lib-label>
+          <lib-select
+            formControlName="accountSectionId"
+            [options]="accountSections"
+            optionValue="id"
+            optionLabel="nameAr"
+          >
+          </lib-select>
+        </lib-form-group>
+      </div>
+      <div class="md:col-4">
+        <lib-form-group>
+          <lib-label [appControl]="formGroup.controls['accountTypeId']">
+            Account Type
+          </lib-label>
+          <lib-select
+            formControlName="accountTypeId"
+            [options]="accountTypes"
+            optionValue="id"
+            optionLabel="nameAr"
+          >
+          </lib-select>
+        </lib-form-group>
+      </div>
+      <div class="md:col-4">
+        <lib-form-group>
+          <lib-label [appControl]="formGroup.controls['currencyId']">
+            Currency
+          </lib-label>
+          <lib-select
+            formControlName="currencyId"
+            [options]="currencies"
+            optionValue="id"
+            optionLabel="currencyName"
+          >
+          </lib-select>
+        </lib-form-group>
+      </div>
+      <div class="md:col-4">
+        <lib-form-group>
+          <lib-label [appControl]="formGroup.controls['tags']">
+            {{ "Tags" | translate }}
+          </lib-label>
+          <lib-multi-select
+            formControlName="tags"
+            [options]="accountTags"
+            optionValue="id"
+            optionLabel="name"
+          >
+          </lib-multi-select>
+          <lib-field-validations [appControl]="formGroup.controls['tags']">
+          </lib-field-validations>
+        </lib-form-group>
+      </div>
+      <div class="md:col-4">
+        <lib-form-group>
+          <lib-label [appControl]="formGroup.controls['periodicActive']">
+            {{ "periodicActive" | translate }}
+          </lib-label>
+          <br />
+          <p-radioButton
+            name="periodicActive"
+            value="Active"
+            formControlName="periodicActive"
+            inputId="Active"
+          >
+          </p-radioButton>
+          <label>Active</label>
+
+          <p-radioButton
+            name="periodicActive"
+            value="Inactive"
+            formControlName="periodicActive"
+            inputId="Inactive"
+          >
+          </p-radioButton>
+          <label>Inactive</label>
+          <p-radioButton
+            name="periodicActive"
+            value="Period"
+            formControlName="periodicActive"
+            inputId="Period"
+          >
+          </p-radioButton>
+          <label>Periodic Active</label>
+          <lib-field-validations
+            [appControl]="formGroup.controls['periodicActive']"
+          >
+          </lib-field-validations>
+        </lib-form-group>
+      </div>
+      <div class="md:col-4">
+        <lib-form-group>
+          <lib-label [appControl]="formGroup.controls['periodicActiveFrom']">
+            {{ "periodicActiveFrom" | translate }}
+          </lib-label>
+          <lib-text-input type="date" formControlName="periodicActiveFrom" />
+          <lib-field-validations
+            [appControl]="formGroup.controls['periodicActiveFrom']"
+          >
+          </lib-field-validations>
+        </lib-form-group>
+      </div>
+      <div class="md:col-4">
+        <lib-form-group>
+          <lib-label [appControl]="formGroup.controls['periodicActiveTo']">
+            {{ "periodicActiveTo" | translate }}
+          </lib-label>
+          <lib-text-input type="date" formControlName="periodicActiveTo" />
+          <lib-field-validations
+            [appControl]="formGroup.controls['periodicActiveTo']"
+          >
+          </lib-field-validations>
+        </lib-form-group>
+      </div>
+    </div>
+    <!-- Add Check Has No Child -->
   </form>
 </div>

@@ -17,6 +17,7 @@ import { PasswordModule } from 'primeng/password';
 import { PaginatorModule } from 'primeng/paginator';
 import { RatingModule } from 'primeng/rating';
 import { FieldsetModule } from 'primeng/fieldset';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   providers: [DialogService],
@@ -38,6 +39,7 @@ import { FieldsetModule } from 'primeng/fieldset';
     PasswordModule,
     CheckboxModule,
     PaginatorModule,
+    RadioButtonModule
   ],
   exports: [
     TableModule,
@@ -58,6 +60,7 @@ import { FieldsetModule } from 'primeng/fieldset';
     PaginatorModule,
     RatingModule,
     FieldsetModule,
+    RadioButtonModule
   ],
 })
 export class PrimeSharedModule {}
