@@ -18,12 +18,13 @@ const routes: Routes = [
     component: LayoutPageComponent,
     children: [
       {
-        path: 'ChartOfAccount',
-        component:MainChartOfAccountComponent ,
+        path: 'chartofaccounts',
+        component: MainChartOfAccountComponent,
         canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.chart_of_account,
         },
+<<<<<<< HEAD
         children:[
           {
             path: 'add',
@@ -35,6 +36,9 @@ const routes: Routes = [
           }
         ]
       }
+=======
+      },
+>>>>>>> develop
     ],
   },
 ];

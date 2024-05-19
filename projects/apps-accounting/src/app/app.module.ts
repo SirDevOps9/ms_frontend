@@ -7,25 +7,21 @@ import { environment } from '../environments/environment';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {
   EnvironmentService,
+  LowerCaseUrlSerializer,
   MultiTranslateHttpLoader,
   SharedLibModule,
 } from 'shared-lib';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
-import {
-  CustomStorageService,
-  ERPInterceptor,
-  MicrotecAuthLibModule,
-} from 'microtec-auth-lib';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { CustomStorageService, ERPInterceptor, MicrotecAuthLibModule } from 'microtec-auth-lib';
 import { CookieModule } from 'ngx-cookie';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppsSharedLibModule } from 'apps-shared-lib';
+import { UrlSerializer } from '@angular/router';
 
 @NgModule({
-  declarations: [
-    AppComponent    
-  ],
+  declarations: [AppComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -52,8 +48,7 @@ import { AppsSharedLibModule } from 'apps-shared-lib';
     FormsModule,
     AppRoutingModule,
     CookieModule.withOptions(),
-    AppsSharedLibModule
-    
+    AppsSharedLibModule,
   ],
   providers: [
     { provide: EnvironmentService, useValue: environment },
@@ -62,8 +57,15 @@ import { AppsSharedLibModule } from 'apps-shared-lib';
       useClass: ERPInterceptor,
       multi: true,
     },
-    { provide: AbstractSecurityStorage, useClass: CustomStorageService },
+    {
+      provide: AbstractSecurityStorage,
+      useClass: CustomStorageService,
+    },
+    {
+      provide: UrlSerializer,
+      useClass: LowerCaseUrlSerializer,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

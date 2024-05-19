@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+
+
+
+
+
+@import "./assets/sass/style.scss";
+
+
+@import './assets/sass/plugins.scss';
+
+@import "./assets/sass/style.angular.scss";
+
+
+@import "./assets/sass/components/_variables.custom.scss";
+@import "./assets/sass/core/components/_variables.scss";

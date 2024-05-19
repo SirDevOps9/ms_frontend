@@ -1,0 +1,152 @@
+
+<div>
+  <!-- <lib-bread-crumb></lib-bread-crumb> -->
+  <div class="user_page">
+    <lib-data-table [items]="tableData.Subdomains" className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
+      (pageChange)="onPageChange($event)"
+       [tableConfigs]="{
+
+          allowPagination: true,
+          allowServerPagination: false,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+
+            {
+              name: 'SubdomainName',
+              headerText: ('Domain Space'),
+              isGlobalFilter: true,
+              isSortable: false
+            },
+            {
+              name: 'info',
+              headerText: ('Domain Space Info'),
+              isGlobalFilter: true,
+              isSortable: false,
+              template : domainInfo
+
+            },
+            {
+              name: 'email',
+              headerText: ('Apps Info'),
+              isGlobalFilter: true,
+              isSortable: false,
+              template : appsInfo
+            },
+            {
+              name: 'country',
+              headerText: ('Companies Info'),
+              isGlobalFilter: true,
+              isSortable: false,
+              template : companiesInfo
+
+            },
+
+            {
+              name: 'mobileNumber',
+              headerText: ('Users Info'),
+              isGlobalFilter: true,
+              isSortable: false,
+              template : usersInfo
+
+
+            },
+            {
+              name: 'mobileNumber',
+              headerText: ('Licence Info'),
+              isGlobalFilter: true,
+              isSortable: false,
+              template : licenceInfo
+
+            },
+            {
+              name: 'id',
+              headerText: ('Actions'),
+              template: userCol
+
+            },
+          ]
+        }">
+
+      <ng-container caption>
+        <div class="group">
+          <div>
+            <app-shared-form
+              [fields]="fields"
+              [showSaveBtn]="false"
+              #form
+            ></app-shared-form>
+          </div>
+        </div>
+
+        <div class="my-5">
+          <lib-button className="secondary"   [rounded]="true" [enableText]="true"  (onClick)="onManageOwner(companiesInfo)">
+            Domains
+          </lib-button>
+        </div>
+      </ng-container>
+
+
+
+
+    <!-- actions of the Table -->
+      <ng-template #userCol let-user>
+        <div class="actions flex align-items-center ">
+          <div>
+            <lib-input-switch></lib-input-switch>
+          </div>
+        </div>
+
+      </ng-template>
+      <!--  -->
+      <ng-template #domainInfo let-domainInfo>
+        <div>
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" (onClick)="viewDomainInfo(domainInfo)">
+            Manage
+          </lib-button>
+        </div>
+
+      </ng-template>
+      <!--  -->
+      <ng-template #appsInfo let-appsInfo>
+        <div>
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" [routerLink]="['/bussiness-owners/apps-info']">
+            Manage
+          </lib-button>
+        </div>
+
+      </ng-template>
+      <!--  -->
+      <ng-template #companiesInfo let-companiesInfo>
+        <div>
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" [routerLink]="['/bussiness-owners/companies-details-info']">
+            Manage
+          </lib-button>
+        </div>
+
+      </ng-template>
+      <!--  -->
+      <ng-template #usersInfo let-usersInfo>
+        <div>
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" [routerLink]="['/bussiness-owners/user-info']" >
+            Manage
+          </lib-button>
+        </div>
+
+      </ng-template>
+      <!--  -->
+      <ng-template #licenceInfo let-licenceInfo>
+        <div>
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" [routerLink]="['/bussiness-owners/licence-info']"  >
+            Manage
+          </lib-button>
+        </div>
+
+      </ng-template>
+      <!--  -->
+
+
+    </lib-data-table>
+
+  </div>
+</div>

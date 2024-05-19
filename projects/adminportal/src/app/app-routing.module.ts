@@ -1,15 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutComponent } from './components/layout/layout.component';
 import { AppComponent } from './app.component';
 import { AuthGuard } from 'microtec-auth-lib';
+import { LayoutComponent } from './_metronic/layout/layout.component';
 
-const routes: Routes = [
+export const routes: Routes = [
+  {
+    path: 'error',
+    loadChildren: () =>
+      import('./modules/errors/errors.module').then((m) => m.ErrorsModule),
+  },
   {
     path: '',
-    component: LayoutComponent,
-    children: [{ path: '', component: AppComponent, canActivate: [AuthGuard] }],
+    //canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./_metronic/layout/layout.module').then((m) => m.LayoutModule),
   },
+  // { path: '**', redirectTo: 'error/404' },
 ];
 
 @NgModule({
