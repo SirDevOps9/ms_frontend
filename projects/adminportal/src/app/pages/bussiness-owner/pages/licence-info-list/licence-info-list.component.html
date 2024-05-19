@@ -1,0 +1,74 @@
+<div class="mt-5">
+    <!-- <lib-bread-crumb></lib-bread-crumb> -->
+    <div class="companies-container">
+      <lib-data-table
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        [tableConfigs]="{
+  
+            allowPagination: true,
+            allowServerPagination: false,
+            dataKey: 'id',
+            pageSize: 10,
+            columns: [
+              {
+                name: 'code',
+                headerText: ('Licence Code' ),
+                isGlobalFilter: true,
+                isSortable: false
+              },
+              {
+                name: 'name',
+                headerText: ('Licence Name'),
+                isGlobalFilter: true,
+                isSortable: false
+              },
+              {
+                name: 'email',
+                headerText: ('Supscrition Start Date'),
+                isGlobalFilter: true,
+                isSortable: false
+              },
+              {
+                name: 'country',
+                headerText: ('Supscrition End Date'),
+                isGlobalFilter: true,
+                isSortable: false
+              },
+              {
+                name: 'mobileNumber',
+                headerText: ('Licence Price'),
+                isGlobalFilter: true,
+                isSortable: false
+              },
+              {
+                name: 'mob',
+                headerText: ('Licence Interval'),
+                isGlobalFilter: true,
+                isSortable: false
+              },
+              {
+                name: 'mob2',
+                headerText: ('Licence Status'),
+                isGlobalFilter: true,
+                isSortable: false
+              },
+              {
+                name: 'mob3',
+                headerText: ('Linked User'),
+                isGlobalFilter: true,
+                isSortable: false
+              },
+  
+  
+            ]
+          }"
+      >
+  
+  
+      </lib-data-table>
+    </div>
+  </div>
+  

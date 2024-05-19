@@ -18,6 +18,7 @@ import {
   TextInputComponent,
   MultiSelectComponent,
   ButtonComponent,
+  SharedFormComponent,
 } from './form-components';
 import { DropdownModule } from 'primeng/dropdown';
 import { GetLookupPipe } from './pipes/lookupList';
@@ -60,6 +61,7 @@ import { FildestComponent } from './components/fildest/fildest.component';
     RatingComponent,
     PaginatorComponent,
     AccordionComponent,
+    SharedFormComponent,
     FildestComponent,
   ],
   imports: [
@@ -104,6 +106,7 @@ import { FildestComponent } from './components/fildest/fildest.component';
     PaginatorComponent,
     AccordionComponent,
     TreeModule,
+    SharedFormComponent,
     FildestComponent,
   ],
 })

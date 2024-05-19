@@ -2,7 +2,7 @@ import { IEnvironment } from 'shared-lib';
 
 export const environment: IEnvironment = {
   production: true,
-  baseUrl: 'https://localhost:7265',
+  baseUrl: 'https://localhost:7082',
   Version: 'V1',
   ClientId: 'AdminPortal',
   Platform: 'Web',
@@ -11,7 +11,7 @@ export const environment: IEnvironment = {
     authority: 'https://intmicrotec.neat-url.com:2020',
     redirectUrl: window.location.origin + '/adminportal/login-redirect',
     postLogoutRedirectUri: window.location.origin + '/adminportal/logout-redirect',
-    clientId: 'microtecadminfrontend',
+    clientId: 'microtec_admin_portal',
     scope: 'openid profile offline_access',
     responseType: 'code',
     silentRenew: true,
