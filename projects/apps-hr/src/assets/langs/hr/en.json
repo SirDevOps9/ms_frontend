@@ -1,0 +1,54 @@
+{
+  "dir": "ltr",
+  "Welcome": "Welcome",
+  "Submit": "Submit",
+  "Logout": "Logout",
+  "DeleteError": "Error in Delete",
+  "LoadError": "Error in loading Data",
+  "Table": {
+    "Actions": "Actions",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Add": "Add"
+  },
+  "Toaster": {
+    "Confirm": {
+      "Title": "Are you sure?",
+      "Text": "You won't be able to revert this!",
+      "ConfirmButtonTexttodelete": "Yes, delete it!",
+      "CancelButtonText": "Cancel",
+      "ConfirmButtonTexttochangstatus": "Yes, Change Status"
+    }
+  },
+  "Layout": {
+    "Dashboard": "Dashboard",
+    "Users": "Users",
+    "Plan": "Plan",
+    "AddCompany": "Add company",
+    "ListCompany": "Company list",
+    "MyPlan": "My Plan",
+    "AppStore": "App store"
+  },
+  "Employee":{
+    "Add":{
+      "AddEmployee": "Add Employee",
+      "EmployeeCode": "Employee Code",
+      "AttendanceCode": "Attendance Code",
+      "EmployeeName": "Employee Name",
+      "EmployeePhoto": "Employee Photo",
+      "BirthDate": "Birth Date",
+      "CountryOfBirth": "Country of Birth",
+      "BirthCity": "Birth City",
+      "Nationality": "Nationality",
+      "Gender": "Gender",
+      "MaritalStatus": "Marital Status",
+      "Religion": "Religion",
+      "MilitaryStatus": "Military Status",
+      "MilitaryNumber": "Military Number",
+      "BloodType": "Blood Type",
+      "WithSpecialNeeds": "With Special Needs",
+      "Discard": "Discard",
+      "Save": "Save"
+    }
+  }
+}
