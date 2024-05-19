@@ -7,7 +7,7 @@ export interface AddEmployeePersonal {
     countryOfBirth: string;
     birthCity: number;
     nationality: string;
-    gender: Gender;
+    gender: number;
     maritalStatus: MaritalStatus;
     religion: Religion;
     militaryStatus: MilitaryStatus;

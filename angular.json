@@ -487,7 +487,8 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "standalone": false
+          "standalone": false,
+          "style": "scss"
         },
         "@schematics/angular:directive": {
           "standalone": false
@@ -520,6 +521,7 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "node_modules/primeicons/primeicons.css",
               "projects/apps-hr/src/styles.css"
             ],
             "scripts": []
@@ -607,6 +609,7 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "node_modules/primeicons/primeicons.css",
               "projects/apps-hr/src/styles.css"
             ],
             "scripts": []
