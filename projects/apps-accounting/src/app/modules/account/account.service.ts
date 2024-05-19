@@ -1,16 +1,37 @@
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
-import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { AccountDto } from './models/accountDto';
+import { BehaviorSubject, map } from 'rxjs';
+import { PageInfo, PageInfoResult } from 'shared-lib';
 import { AccountProxy } from './account.proxy';
+<<<<<<< HEAD
 import { AddAccountDto } from './models/addAccountDto';
+=======
+import { AccountDto } from './models';
+>>>>>>> develop
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
+<<<<<<< HEAD
   constructor(private accountproxy: AccountProxy) {}
 
+=======
+  private accountDataSource = new BehaviorSubject<AccountDto[]>([]);
+
+  public accountsList = this.accountDataSource.asObservable();
+
+  public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
+
+  initAccountList(searchTerm: string, pageInfo: PageInfo) {
+    this.accountproxy.getAllPaginated(searchTerm, pageInfo).subscribe({
+      next: (res) => {
+        this.accountDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+  }
+
+>>>>>>> develop
   getAllChartOfAccountPaginated(searchTerm: string, pageInfo: PageInfo) {
     return this.accountproxy.getAllPaginated(searchTerm, pageInfo).pipe(
       map((res) => {
@@ -25,6 +46,7 @@ export class AccountService {
       })
     );
   }
+<<<<<<< HEAD
   getAccountSections() {
     return this.accountproxy.getAccountSections().pipe(
       map((res) => {
@@ -50,4 +72,8 @@ export class AccountService {
   addAccount(command: AddAccountDto) {
     return this.accountproxy.addAccount(command);
   }
+=======
+
+  constructor(private accountproxy: AccountProxy) {}
+>>>>>>> develop
 }

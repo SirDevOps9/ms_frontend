@@ -20,7 +20,7 @@ import { PermissionTreeNode } from 'microtec-auth-lib';
 
 @Injectable({
   providedIn: 'root',
-})
+}) 
 export class UserProxy {
   getAll(subdomainId: string): Observable<UserListResponse[]> {
     return this.baseService.get<UserListResponse[]>(

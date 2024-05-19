@@ -10,17 +10,20 @@ export const ERPRoutes = [
       {
         path: '',
         loadChildren: () =>
-          import('./modules/journal-entry/journal-entry.module').then(
-            (m) => m.JournalEntryModule
-          )
+          import('./modules/journal-entry/journal-entry.module').then((m) => m.JournalEntryModule),
       },
       {
         path: 'account',
+<<<<<<< HEAD
         loadChildren: () =>
           import('./modules/account/account.module').then(
             (m) => m.AccountModule
           )
       }
+=======
+        loadChildren: () => import('./modules/account/account.module').then((m) => m.AccountModule),
+      },
+>>>>>>> develop
     ],
   },
 ];
