@@ -1,47 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { LanguageService, PageInfo, RouterService } from 'shared-lib';
-import { JournalEntryService } from '../../../journal-entry/journal-entry.service';
+import { PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { AccountService } from '../../account.service';
-import { AccountDto } from '../../models/accountDto';
-import { AccountNature } from '../../models/accountNature';
+import { AccountNature, AccountDto } from '../../models';
 
 @Component({
   selector: 'app-chat-of-account-list',
   templateUrl: './chat-of-account-list.component.html',
-  styleUrls: ['./chat-of-account-list.component.scss']
+  styleUrls: ['./chat-of-account-list.component.scss'],
 })
 export class ChatOfAccountListComponent implements OnInit {
-
   tableData: AccountDto[];
-  currentPageInfo: PageInfo = new PageInfo();
+  currentPageInfo: PageInfoResult;
   accountNature: AccountNature;
 
-
-  constructor(private routerService: RouterService,
-    private languageService: LanguageService,
-    private accountService: AccountService) { }
+  constructor(private routerService: RouterService, private accountService: AccountService) {}
 
   ngOnInit() {
-    this.initChartOfAccountData(this.currentPageInfo);
+    this.initChartOfAccountData();
   }
 
-  initChartOfAccountData(page:PageInfo) {
+  initChartOfAccountData() {
+    this.accountService.initAccountList('', new PageInfo());
 
-    this.accountService.getAllChartOfAccountPaginated('',page).subscribe({
-      next: (ChartOfAccountList: any) => {
-        this.tableData = ChartOfAccountList.result;
+    this.accountService.accountsList.subscribe({
+      next: (ChartOfAccountList) => {
+        this.tableData = ChartOfAccountList;
       },
+    });
+
+    this.accountService.currentPageInfo.subscribe((currentPageInfo) => {
+      this.currentPageInfo = currentPageInfo;
     });
   }
   onPageChange(pageInfo: PageInfo) {
-    console.log(pageInfo);
-    this.initChartOfAccountData(pageInfo)
+    this.accountService.initAccountList('', pageInfo);
   }
-  routeToAdd(){
+  routeToAdd() {
     this.routerService.navigateTo(`/journalentry/add`);
   }
-  routeToEdit(id:number){
+  routeToEdit(id: number) {
     this.routerService.navigateTo(`/journalentry/edit/${id}`);
   }
- 
 }

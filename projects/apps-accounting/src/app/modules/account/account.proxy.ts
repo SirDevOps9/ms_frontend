@@ -16,9 +16,8 @@ export class AccountProxy {
     searchTerm: string,
     pageInfo: PageInfo
   ): Observable<PaginationVm<AccountDto>> {
-    const x = this.httpService.get<PaginationVm<AccountDto>>(`ChartOfAccounts`);
-    console.log('sandra', x);
-    return x;
+    return this.httpService.get<PaginationVm<AccountDto>>(`ChartOfAccounts?${pageInfo.toQuery}`);
+
   }
   getTreeList(): Observable<accountTreeList[]> {
     return this.httpService.get<accountTreeList[]>(
@@ -35,4 +34,6 @@ export class AccountProxy {
   }
 
   constructor(private httpService: HttpService) {}
+
 }
+

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AddDomainSpaceDto, ResponseSubdomainDto, SubscriptionDto, TenantLicenseDto } from './models';
 import {
-  LanguageService,
-  LoaderService,
-  RouterService,
-  ToasterService,
-} from 'shared-lib';
+  AddDomainSpaceDto,
+  ResponseSubdomainDto,
+  SubscriptionDto,
+  TenantLicenseDto,
+} from './models';
+import { LanguageService, LoaderService, RouterService, ToasterService } from 'shared-lib';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddDomainSpaceComponent } from './components/add-domain-space/add-domain-space.component';
 import { SubscriptionProxy } from './subscription.proxy';
@@ -22,25 +22,24 @@ export class SubscriptionService {
   private subdomainsDataSource = new BehaviorSubject<ResponseSubdomainListDto[]>([]);
   public subdomains = this.subdomainsDataSource.asObservable();
 
-
   private SubscriptionDetailsDataSource = new BehaviorSubject<subscriptionDetailsDto[]>([]);
   public SubscriptionDetails = this.SubscriptionDetailsDataSource.asObservable();
 
-loadSubdomains(){
-  this.subscriptionProxy.getAllMySubdomains().subscribe((response) => {
-    this.subdomainsDataSource.next(response);
-  });
-}
+  loadSubdomains() {
+    this.subscriptionProxy.getAllMySubdomains().subscribe((response) => {
+      this.subdomainsDataSource.next(response);
+    });
+  }
 
-  getSubscriptionDetails(id: string){
+  getSubscriptionDetails(id: string) {
     this.subscriptionProxy.getUserSubscriptionsDetail(id).subscribe((response) => {
       this.SubscriptionDetailsDataSource.next(response);
     });
   }
 
-   checkSubdomian(subdomain: string) {
-     return  this.subscriptionProxy.checkSubdomain(subdomain); 
-}
+  checkSubdomian(subdomain: string) {
+    return this.subscriptionProxy.checkSubdomain(subdomain);
+  }
 
   openSubdomainModal(ref: DynamicDialogRef, dialog: DialogService) {
     ref = dialog.open(AddDomainSpaceComponent, {
@@ -55,19 +54,17 @@ loadSubdomains(){
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Subscription.Subdomain.Success'),
-          this.languageService.transalte(
-            'Subscription.Subdomain.SubdomainAddedSuccessfully'
-          )
+          this.languageService.transalte('Subscription.Subdomain.SubdomainAddedSuccessfully')
         );
         this.loaderService.hide();
         dialogRef.close(res);
-        window.location.reload()
+        window.location.reload();
+        // this.subdomainsDataSource.next(res);
       },
       error: (err) => {
         this.loaderService.hide();
       },
     });
-
   }
 
   getSubdomainById(subdomainId: string): Observable<ResponseSubdomainDto> {
@@ -77,7 +74,6 @@ loadSubdomains(){
   getTenantLicense(subdomainId: string): Observable<TenantLicenseDto[]> {
     return this.subscriptionProxy.getTenantLicense(subdomainId);
   }
-  
 
   constructor(
     private subscriptionProxy: SubscriptionProxy,

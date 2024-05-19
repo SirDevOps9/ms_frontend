@@ -7,12 +7,11 @@ export const environment: IEnvironment = {
   ClientId: 'BussinessOwner',
   Platform: 'Web',
   photoBaseUrl: 'https://intmicrotec.neat-url.com:2022',
-  erpLogin: "https://*.localhost.com:4400/erp/login",
+  erpLogin: 'https://*.localhost.com:4400/erp/login',
   openIdConfig: {
     authority: 'https://intmicrotec.neat-url.com:2020',
     redirectUrl: window.location.origin + '/bussinessowners/login-redirect',
-    postLogoutRedirectUri:
-    window.location.origin + '/bussinessowners/logout-redirect',
+    postLogoutRedirectUri: window.location.origin + '/bussinessowners/logout-redirect',
     clientId: 'microtecadminfrontend',
     scope: 'openid profile email offline_access bo',
     responseType: 'code',
@@ -26,4 +25,5 @@ export const environment: IEnvironment = {
   },
   ApiKey: '3bb564df-0f24-4ea6-82c1-d99f368cac8a',
   BusinessOwnerUrl: 'http://localhost:2003',
+  state: 'noredirect',
 };
