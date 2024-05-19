@@ -71,10 +71,10 @@ import { UrlSerializer } from '@angular/router';
       provide: AbstractSecurityStorage,
       useClass: CustomStorageService,
     },
-    {
-      provide: UrlSerializer,
-      useClass: LowerCaseUrlSerializer,
-    },
+    // {
+    //   provide: UrlSerializer,
+    //   useClass: LowerCaseUrlSerializer,
+    // },
   ],
   bootstrap: [AppComponent],
 })
