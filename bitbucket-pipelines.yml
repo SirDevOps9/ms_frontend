@@ -1,22 +1,35 @@
 # bitbucket-pipelines.yml
 
-image: node:17 
+image: node:17
 
 pipelines:
   branches:
     moataz-ci/cd:
-    
-      - step:  # Install dependencies (adjust if needed)
-          name: Install Dependencies
+      - step:
+          name: Install Dependencies and Angular CLI
+          caches:
+            - node
           script:
             - npm install
+            - npm install -g @angular/cli
+          artifacts:
+            - node_modules
+            - /usr/local/lib/node_modules/@angular/cli
 
       - step:
           name: Build Business Owners Project
+          caches:
+            - node
           script:
             - ng build --project bussiness-owners
+          artifacts:
+            - dist/bussiness-owners
 
       - step:
           name: Build Admin Portal Project
+          caches:
+            - node
           script:
             - ng build --project adminportal
+          artifacts:
+            - dist/adminportal
