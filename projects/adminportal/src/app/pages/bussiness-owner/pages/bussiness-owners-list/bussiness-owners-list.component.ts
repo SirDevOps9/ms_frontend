@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, QueryList, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { JournalEntryService } from 'projects/apps-accounting/src/app/modules/journal-entry/journal-entry.service';
-import { SharedJournalEnums } from 'projects/apps-accounting/src/app/modules/journal-entry/models';
 
 import {
   PageInfo,
@@ -13,10 +11,11 @@ import {
   SharedFormComponent,
   SharedLibModule,
   PaginationVm,
+  PageInfoResult,
 } from 'shared-lib';
 import { BussinessOwnerService } from '../../bussiness-owner.service';
 import { Observable } from 'rxjs';
-import { auditTime, distinctUntilChanged } from 'rxjs/operators';
+import { auditTime, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { BussinessOwner } from '../../models';
 import { SearchFunc } from 'libs/shared-lib/src/lib/models/sendQueries';
@@ -28,46 +27,10 @@ import { SearchFunc } from 'libs/shared-lib/src/lib/models/sendQueries';
   templateUrl: './bussiness-owners-list.component.html',
   styleUrl: './bussiness-owners-list.component.scss',
 })
-export class BussinessOwnersListComponent implements OnInit {
+export class BussinessOwnersListComponent implements OnInit , AfterViewInit {
   @ViewChild('myTab') myTab: any | undefined;
   @ViewChild('form') form: SharedFormComponent;
-  tableData = [
-    {
-      code: '101',
-      name: 'John Doe',
-      email: 'john@example.com',
-      country: 'USA',
-      mobileNumber: '+1 123 456 7890',
-    },
-    {
-      code: '102',
-      name: 'Alice Smith',
-      email: 'alice@example.com',
-      country: 'Canada',
-      mobileNumber: '+1 234 567 8901',
-    },
-    {
-      code: '103',
-      name: 'Mohammed Khan',
-      email: 'mohammed@example.com',
-      country: 'India',
-      mobileNumber: '+91 98765 43210',
-    },
-    {
-      code: '104',
-      name: 'Sophie Brown',
-      email: 'sophie@example.com',
-      country: 'UK',
-      mobileNumber: '+44 1234 567890',
-    },
-    {
-      code: '105',
-      name: 'Chen Wei',
-      email: 'chen@example.com',
-      country: 'China',
-      mobileNumber: '+86 10 1234 5678',
-    },
-  ];
+  
   cols: any[] = [
     {
       field: 'Id',
@@ -135,50 +98,52 @@ export class BussinessOwnersListComponent implements OnInit {
     },
   ];
   active: boolean = false;
-  currentPageInfo: PageInfo = new PageInfo();
-
+  currentPageInfo: PageInfoResult = {};
+  dataList: BussinessOwner[];
 
   constructor(
     private routerService: RouterService,
     private titleService: Title,
     private languageService: LanguageService,
-    private journalEntryService: JournalEntryService,
-    public sharedJouralEnum: SharedJournalEnums,
-    private bussinessOwnerService : BussinessOwnerService
+    private bussinessOwnerService: BussinessOwnerService,
+
   ) {}
+  ngAfterViewInit(): void {
+    this.form.form.get('SearchTerm')?.valueChanges.pipe(
+      debounceTime(1000)
+    ).subscribe(res=>{
+    this.bussinessOwnerData(new PageInfo() , SearchFunc(this.form.form.value))
+    })
+  }
 
-  bussinessOwnerList$ : Observable<PaginationVm<BussinessOwner[]>> = this.bussinessOwnerService.getBussinessOwnerList(this.currentPageInfo )
-
-
+ 
   ngOnInit() {
     this.titleService.setTitle(
       this.languageService.transalte('JournalEntry.JournalEntryList')
     );
+    this.bussinessOwnerData(new PageInfo())
+
+  
    
-    
   }
 
-  patchFormValues(data: any) {}
- 
+  bussinessOwnerData(pageInfo: PageInfo , search? : string) {
+    this.bussinessOwnerService
+    .getBussinessOwnerList( pageInfo , search)
+    .subscribe((res) => {
+      this.currentPageInfo = res.pageInfoResult;
+      this.dataList = res.result;
+    });
+  }
+
+
   onPageChange(pageInfo: PageInfo) {
-    console.log(pageInfo)
-    this.bussinessOwnerList$ = this.bussinessOwnerService.getBussinessOwnerList(pageInfo)
+    this.bussinessOwnerData(pageInfo)
 
   }
-  onEditOwner(id : string) {
-    this.routerService.navigateTo(`/bussiness-owners/manage/${id}` );
+  onEditOwner(id: string) {
+    this.routerService.navigateTo(`/bussiness-owners/manage/${id}`);
   }
 
-  formValues(event : any) {
-    console.log(event)
-    let formValue = event
-
-
-   this.bussinessOwnerList$ =this.bussinessOwnerService.getBussinessOwnerList(this.currentPageInfo , SearchFunc(formValue) )
-
-      this.form.form.patchValue({...formValue})
-  }
-
- 
 
 }

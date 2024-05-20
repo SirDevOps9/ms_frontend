@@ -1,3 +1,4 @@
+import { PageInfoResult } from "shared-lib"
 import { Subdomain } from "./subdomain"
 
 export interface bussinesOwnerDetails {
@@ -8,5 +9,6 @@ export interface bussinesOwnerDetails {
     countryNameAr: string
     phone: string
     isActive: boolean
+    PageInfoResult? : PageInfoResult
     subdomains: Subdomain[]
   }

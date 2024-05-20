@@ -10,6 +10,7 @@ import {
   LanguageService,
   SharedLibModule,
   PaginationVm,
+  PageInfoResult,
 } from 'shared-lib';
 import { Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
@@ -17,7 +18,7 @@ import { JournalEntryDto, SharedJournalEnums } from 'projects/apps-accounting/sr
 import { SharedFormComponent } from 'shared-lib';
 import { FormConfig, FormTypes } from 'shared-lib';
 import { JournalEntryService } from 'projects/apps-accounting/src/app/modules/journal-entry/journal-entry.service';
-import { BussinessOwner, bussinesOwnerDetails } from '../../models';
+import { BussinessOwner, Subdomain, bussinesOwnerDetails } from '../../models';
 import { BussinessOwnerService } from '../../bussiness-owner.service';
 
 @Component({
@@ -30,9 +31,8 @@ import { BussinessOwnerService } from '../../bussiness-owner.service';
 export class EditBussinessOwnerComponent implements OnInit , AfterViewInit {
   @ViewChild('myTab') myTab: any | undefined;
   @ViewChild('form') form: SharedFormComponent;
-
-  selectedEntries: JournalEntryDto[];
-
+ 
+  dataList : Subdomain[]
   fields: FormConfig[] = [
     {
       key: 'isActive',
@@ -85,28 +85,7 @@ export class EditBussinessOwnerComponent implements OnInit , AfterViewInit {
     },
   ];
 
-  tableData = {
-    "Id": "c65162b4-6b2b-4ef9-b317-f2b545f66b19",
-    "code": "BO123",
-    "name": "John Doe",
-    "email": "john.doe@example.com",
-    "CountryNameEn": "United States",
-    "CountryNameAr": null,
-    "mobileNumber": "+1234567890",
-    "isActive": false,
-    "Subdomains": [
-      {
-        "SubdomainName": "subdomain1.example.com",
-        "SubdomainId": "ef24cf4a-d2ac-4d2b-a409-1b3fdde21710",
-        "IsActive": true
-      },
-      {
-        "SubdomainName": "subdomain2.example.com",
-        "SubdomainId": "3d786630-8e4a-4f4c-af46-9b01611f3f94",
-        "IsActive": false
-      },
-    ]
-  }
+ 
   cols: any[] = [
     {
       field: 'Id',
@@ -166,18 +145,14 @@ export class EditBussinessOwnerComponent implements OnInit , AfterViewInit {
     },
   ];
   active: boolean = false;
-  currentPageInfo: PageInfo = new PageInfo();
   id = this.route.snapshot.params['id']
 
 
-  bussinessOwnerListDetails$ : Observable<bussinesOwnerDetails> = this.bussinessOwnerService.getBussinessGetBusinessOwnerById(this.id )
 
 
   constructor(
     private routerService: RouterService,
-    private titleService: Title,
-    private languageService: LanguageService,
-    private journalEntryService: JournalEntryService,
+
     public sharedJouralEnum: SharedJournalEnums,
     public route : ActivatedRoute,
     private bussinessOwnerService : BussinessOwnerService
@@ -185,11 +160,17 @@ export class EditBussinessOwnerComponent implements OnInit , AfterViewInit {
   ) {}
   ngAfterViewInit(): void {
 
-    this.bussinessOwnerListDetails$.subscribe(res=>{
-    this.sendFormValues(res)
 
+   this.getBussinesOwnerById()
+
+  }
+
+  getBussinesOwnerById() {
+    this.bussinessOwnerService.getBussinessGetBusinessOwnerById(this.id ).subscribe((res)=>{
+      this.dataList = res.subdomains;
+      this.sendFormValues(res)
+      this.form.form.disable()
     })
-
   }
 
   sendFormValues(data : bussinesOwnerDetails) {
@@ -214,8 +195,21 @@ export class EditBussinessOwnerComponent implements OnInit , AfterViewInit {
     this.routerService.navigateTo(`/bussiness-owners/manage`);
   }
 
-  viewDomainInfo(domain:any) {
-    this.routerService.navigateTo(`//bussiness-owners/domain-space-info`)
+  viewDomainInfo(id:string) {
+    this.routerService.navigateTo(`/bussiness-owners/domain-space-info/${id}`)
+  }
+
+  viewCompaniesDetails(id : string) {
+    this.routerService.navigateTo(`/bussiness-owners/companies-details-info/${id}`)
+  }
+  viewLicenseDetails(id : string) {
+    this.routerService.navigateTo(`/bussiness-owners/licence-info/${id}`)
+  }
+  viewUserDetails(id : string) {
+    this.routerService.navigateTo(`/bussiness-owners/user-info/${id}`)
+  }
+  viewAppsDetails(id : string) {
+    this.routerService.navigateTo(`/bussiness-owners/apps-info/${id}`)
   }
 
   onManageOwner(domain: any) {
