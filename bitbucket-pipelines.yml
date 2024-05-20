@@ -11,7 +11,7 @@ pipelines:
             - node
           script:
             - npm install
-            - npm install -g @angular/cli
+            - npm install -g @angular/cli --location=global
             - export PATH=$(npm bin -g):$PATH
             - echo $PATH # Debug: Print the PATH to verify
             - ls -l $(npm bin -g) # List the contents of the global bin directory for verification
