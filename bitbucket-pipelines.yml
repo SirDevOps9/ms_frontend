@@ -1,6 +1,4 @@
-# bitbucket-pipelines.yml
-
-image: node:18-alpine
+image: node:17
 
 pipelines:
   branches:
@@ -11,18 +9,13 @@ pipelines:
             - node
           script:
             - npm install
-            - npm install -g @angular/cli
 
       - step:
           name: Build Business Owners Project
-          caches:
-            - node
           script:
             - ng build --project bussiness-owners
 
       - step:
           name: Build Admin Portal Project
-          caches:
-            - node
           script:
             - ng build --project adminportal
