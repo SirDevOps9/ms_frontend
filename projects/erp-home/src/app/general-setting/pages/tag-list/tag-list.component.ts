@@ -4,6 +4,8 @@ import { GeneralSettingService } from '../../general-setting.service';
 import { TagDto } from '../../models/TagDto';
 import { InputSwitchChangeEvent } from 'primeng/inputswitch';
 import { AuthService } from 'microtec-auth-lib';
+import { TagAddComponent } from '../tag-add/tag-add.component';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-tag-list',
@@ -15,7 +17,11 @@ export class TagListComponent implements OnInit {
   currentPageInfo: PageInfoResult;
   modulelist : MenuModule[];
   
-  constructor(private routerService: RouterService, private generalSettingService: GeneralSettingService,public authService: AuthService) {}
+  constructor(private routerService: RouterService, 
+    private generalSettingService: GeneralSettingService
+    ,public authService: AuthService
+    ,private dialog: DialogService
+  ) {}
 
   ngOnInit() {
     this.initChartOfAccountData();
@@ -39,9 +45,14 @@ export class TagListComponent implements OnInit {
   onPageChange(pageInfo: PageInfo) {
     this.generalSettingService.getAllTagsPaginated('', pageInfo);
   }
+
   routeToAdd() {
-    this.routerService.navigateTo(`/journalentry/add`);
+    const dialogRef = this.dialog.open(TagAddComponent, {
+      width: '800px',
+      height: '700px'
+    });  
   }
+
   routeToEdit(id: number) {
     this.routerService.navigateTo(`/journalentry/edit/${id}`);
   }
@@ -53,7 +64,10 @@ export class TagListComponent implements OnInit {
     }
 
   NewTag(){
-     this.routerService.navigateTo(`/journalentry/edit/`);
+     const dialogRef = this.dialog.open(TagAddComponent, {
+      width: '800px',
+      height: '700px'
+    });  
     }
 
 

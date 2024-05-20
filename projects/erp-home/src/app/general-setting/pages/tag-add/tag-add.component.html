@@ -1,0 +1,60 @@
+<div class="invite_user">
+  <div class="invite_user_header">
+    <div class="title">
+      <div class="plus_icon"></div>
+      {{ "tag.addtag.Titel" | translate }}
+    </div>
+    <div class="pi pi-times cancel" (click)="onCancel()"></div>
+  </div>
+  <form class="domain_form" [formGroup]="TagForm" (ngSubmit)="onSubmit()">
+    <div class="domain_content">
+      <div class="data_content">
+        <div class="col-md-6">
+          <lib-form-group>
+            <lib-label [appControl]="TagForm.controls['Code']">
+              {{ "tag.addtag.code" | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="Code" readonly class="form-control" />
+            <lib-field-validations
+              [appControl]="TagForm.controls['Code']"
+            ></lib-field-validations>
+          </lib-form-group>
+
+          <lib-form-group>
+            <lib-label [appControl]="TagForm.controls['Name']">
+              {{ "tag.addtag.Name" | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="Name" />
+            <lib-field-validations
+              [appControl]="TagForm.controls['Name']"
+            ></lib-field-validations>
+          </lib-form-group>
+
+          <lib-form-group>
+            <lib-label [appControl]="TagForm.controls['ModuleId']">
+              {{ "tag.addtag.applicability" | translate }}
+            </lib-label>
+            <p-multiSelect
+              [options]="modulelist"
+              optionLabel="name"
+              optionValue="id"
+              formControlName="ModuleId"
+            ></p-multiSelect>
+            <lib-field-validations
+              [appControl]="TagForm.controls['ModuleId']"
+            ></lib-field-validations>
+          </lib-form-group>
+        </div>
+      </div>
+      <div class="actions">
+        <button type="submit" class="save w-6" [disabled]="!TagForm.valid">
+          <span class="pi pi-send"></span>
+          {{ "tag.addtag.Save" | translate }}
+        </button>
+        <button class="cancel" type="button" (click)="onCancel()">
+          {{ "tag.addtag.Discard" | translate }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

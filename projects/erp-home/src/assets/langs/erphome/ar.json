@@ -249,6 +249,16 @@
     "Add": "إضافة",
     "AddTag": "إضافة علامة",
     "Active": "نشط",
-    "Deactivate": "إلغاء التنشيط"
+    "Deactivate": "إلغاء التنشيط",
+    "addtag": {
+      "Titel": "إضافة علامة",
+      "Name": "الاسم",
+      "applicability": "قابلية التطبيق",
+      "Status": "الحالة",
+      "Save": "حفظ",
+      "Discard": "تجاهل",
+      "code": "رمز"
+    }
+    
   }
 }

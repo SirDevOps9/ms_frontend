@@ -6,6 +6,7 @@ import { BreadcrumbLabel, SharedLibModule } from 'shared-lib';
 import { AuthGuard } from 'microtec-auth-lib';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TagListComponent } from './pages/tag-list/tag-list.component';
+import { TagAddComponent } from './pages/tag-add/tag-add.component';
 
 const routes: Routes = [
   {
@@ -19,14 +20,15 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.tag_list,
         },
-      },
+      }
     ],
   },
 ];
 
 @NgModule({
   declarations: [
-    TagListComponent
+    TagListComponent,
+    TagAddComponent
   ],
   imports: [
     CommonModule,

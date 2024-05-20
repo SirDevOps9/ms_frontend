@@ -304,7 +304,16 @@
       "Add":"Add",
       "AddTag":"Add Tag",
       "Active":"Active",
-      "Deactivate":"Deactivate"
+      "Deactivate":"Deactivate",
+      "addtag":{
+        "Titel":"Add Tag",
+        "Name":"Name",
+        "applicability":"Applicability",
+        "Status":"Status",
+        "Save":"Save",
+        "Discard":"Discard",
+        "code":"Code"
+      }
   
     }
   

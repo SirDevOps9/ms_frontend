@@ -29,6 +29,8 @@ export class GeneralSettingService {
       })
     );
   }
+  
+
  
   constructor(private GeneralSettingproxy: GeneralSettingProxy) {}
 }
