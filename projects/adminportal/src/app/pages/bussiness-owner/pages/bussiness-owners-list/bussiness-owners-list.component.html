@@ -1,20 +1,19 @@
 <div>
-  <!-- <lib-bread-crumb></lib-bread-crumb> -->
-  <div class="user_page">
+  <lib-bread-crumb></lib-bread-crumb>
+  <div class="owner_page">
     <lib-data-table
-      [items]="tableData"
+      [items]="dataList"
       className="p-datatable-gridlines"
       [currentPageResult]="currentPageInfo"
       (pageChange)="onPageChange($event)"
       [tableConfigs]="{
-
-          allowPagination: true,
-          allowServerPagination: false,
+          allowPagination: false,
+          allowServerPagination: true,
           dataKey: 'id',
           pageSize: 10,
           columns: [
             {
-              name: 'code',
+              name: 'id',
               headerText: ('Code' ),
               isGlobalFilter: true,
               isSortable: false
@@ -32,14 +31,14 @@
               isSortable: false
             },
             {
-              name: 'country',
+              name: 'countryNameEn',
               headerText: ('Country'),
               isGlobalFilter: true,
               isSortable: false,
             },
 
             {
-              name: 'mobileNumber',
+              name: 'phone',
               headerText: ('Mobile Number'),
               isGlobalFilter: true,
               isSortable: false
@@ -65,23 +64,9 @@
           </div>
         </div>
 
-        <div class="my-3 d-flex align-items-center gap-3 justify-content-end">
-          <div>
-            <lib-button className="secondary" [rounded]="true">
-              Search
-            </lib-button>
-          </div>
-          <div>
-            <lib-button
-              pRipple
-              label="Clear"
-              icon="pi pi-times"
-              [rounded]="true"
-              [enableText]="true"
-            >
-            </lib-button>
-          </div>
-        </div>
+        <div
+          class="my-3 d-flex align-items-center gap-3 justify-content-end"
+        ></div>
       </ng-container>
 
       <!-- actions of the Table -->
@@ -97,7 +82,7 @@
               [rounded]="true"
               [enableText]="true"
               severity="secondary"
-              (onClick)="onEditOwner()"
+              (onClick)="onEditOwner(user.id)"
             >
               Manage
             </lib-button>

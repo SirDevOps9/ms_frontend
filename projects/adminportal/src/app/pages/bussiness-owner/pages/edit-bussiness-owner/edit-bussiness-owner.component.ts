@@ -3,16 +3,22 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { PageInfo, RouterService, LanguageService, SharedLibModule } from 'shared-lib';
-import { Validators } from '@angular/forms';
-import { of } from 'rxjs';
 import {
-  JournalEntryDto,
-  SharedJournalEnums,
-} from 'projects/apps-accounting/src/app/modules/journal-entry/models';
+  PageInfo,
+  RouterService,
+  LanguageService,
+  SharedLibModule,
+  PaginationVm,
+  PageInfoResult,
+} from 'shared-lib';
+import { Validators } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { JournalEntryDto, SharedJournalEnums } from 'projects/apps-accounting/src/app/modules/journal-entry/models';
 import { SharedFormComponent } from 'shared-lib';
 import { FormConfig, FormTypes } from 'shared-lib';
 import { JournalEntryService } from 'projects/apps-accounting/src/app/modules/journal-entry/journal-entry.service';
+import { BussinessOwner, Subdomain, bussinesOwnerDetails } from '../../models';
+import { BussinessOwnerService } from '../../bussiness-owner.service';
 
 @Component({
   selector: 'app-edit-bussiness-owner',
@@ -24,9 +30,8 @@ import { JournalEntryService } from 'projects/apps-accounting/src/app/modules/jo
 export class EditBussinessOwnerComponent implements OnInit, AfterViewInit {
   @ViewChild('myTab') myTab: any | undefined;
   @ViewChild('form') form: SharedFormComponent;
-
-  selectedEntries: JournalEntryDto[];
-
+ 
+  dataList : Subdomain[]
   fields: FormConfig[] = [
     {
       key: 'isActive',
@@ -37,7 +42,7 @@ export class EditBussinessOwnerComponent implements OnInit, AfterViewInit {
       firstValue: true,
     },
     {
-      key: 'code',
+      key: 'id',
       disabled: false,
       placeholder: 'Bo Code',
       type: FormTypes.text,
@@ -62,7 +67,7 @@ export class EditBussinessOwnerComponent implements OnInit, AfterViewInit {
       label: 'Bo Email',
     },
     {
-      key: 'CountryNameEn',
+      key: 'countryNameEn',
       disabled: false,
       placeholder: 'Bo Country',
       type: FormTypes.text,
@@ -70,7 +75,7 @@ export class EditBussinessOwnerComponent implements OnInit, AfterViewInit {
       label: 'Bo Country',
     },
     {
-      key: 'mobileNumber',
+      key: 'phone',
       disabled: false,
       placeholder: 'Bo Mobile',
       type: FormTypes.text,
@@ -79,28 +84,7 @@ export class EditBussinessOwnerComponent implements OnInit, AfterViewInit {
     },
   ];
 
-  tableData = {
-    Id: 'c65162b4-6b2b-4ef9-b317-f2b545f66b19',
-    code: 'BO123',
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    CountryNameEn: 'United States',
-    CountryNameAr: null,
-    mobileNumber: '+1234567890',
-    isActive: false,
-    Subdomains: [
-      {
-        SubdomainName: 'subdomain1.example.com',
-        SubdomainId: 'ef24cf4a-d2ac-4d2b-a409-1b3fdde21710',
-        IsActive: true,
-      },
-      {
-        SubdomainName: 'subdomain2.example.com',
-        SubdomainId: '3d786630-8e4a-4f4c-af46-9b01611f3f94',
-        IsActive: false,
-      },
-    ],
-  };
+ 
   cols: any[] = [
     {
       field: 'Id',
@@ -160,45 +144,71 @@ export class EditBussinessOwnerComponent implements OnInit, AfterViewInit {
     },
   ];
   active: boolean = false;
-  currentPageInfo: PageInfo = new PageInfo();
+  id = this.route.snapshot.params['id']
+
+
+
 
   constructor(
     private routerService: RouterService,
-    private titleService: Title,
-    private languageService: LanguageService,
-    private journalEntryService: JournalEntryService,
-    public sharedJouralEnum: SharedJournalEnums
+
+    public sharedJouralEnum: SharedJournalEnums,
+    public route : ActivatedRoute,
+    private bussinessOwnerService : BussinessOwnerService
+    
   ) {}
   ngAfterViewInit(): void {
-    this.sendFormValues(this.tableData);
+
+
+   this.getBussinesOwnerById()
+
+  }
+
+  getBussinesOwnerById() {
+    this.bussinessOwnerService.getBussinessGetBusinessOwnerById(this.id ).subscribe((res)=>{
+      this.dataList = res.subdomains;
+      this.sendFormValues(res)
+      this.form.form.disable()
+    })
+  }
+
+  sendFormValues(data : bussinesOwnerDetails) {
+
+    this.form.form.patchValue({
+      ...data
+    })
+
   }
 
   ngOnInit() {
-    this.titleService.setTitle(this.languageService.transalte('JournalEntry.JournalEntryList'));
-    this.initJournalEntryData(this.currentPageInfo);
+  
   }
-  initJournalEntryData(page: PageInfo) {
-    // this.journalEntryService.getAllJournalEntriesPaginated(page).subscribe({
-    //   next: (journalList: any) => {
-    //     // this.tableData = journalList.result;
-    //   },
-    // });
-  }
+  
 
-  sendFormValues(data: {}) {
-    this.form.form.patchValue({
-      ...data,
-    });
-  }
+
   onPageChange(pageInfo: PageInfo) {
-    this.initJournalEntryData(pageInfo);
+    // this.bussinessOwnerListDetails$ = this.bussinessOwnerService.getBussinessGetBusinessOwnerById(this.id , this.currentPageInfo )
+
   }
   onEditOwner() {
     this.routerService.navigateTo(`/bussiness-owners/manage`);
   }
 
-  viewDomainInfo(domain: any) {
-    this.routerService.navigateTo(`//bussiness-owners/domain-space-info`);
+  viewDomainInfo(id:string) {
+    this.routerService.navigateTo(`/bussiness-owners/domain-space-info/${id}`)
+  }
+
+  viewCompaniesDetails(id : string) {
+    this.routerService.navigateTo(`/bussiness-owners/companies-details-info/${id}`)
+  }
+  viewLicenseDetails(id : string) {
+    this.routerService.navigateTo(`/bussiness-owners/licence-info/${id}`)
+  }
+  viewUserDetails(id : string) {
+    this.routerService.navigateTo(`/bussiness-owners/user-info/${id}`)
+  }
+  viewAppsDetails(id : string) {
+    this.routerService.navigateTo(`/bussiness-owners/apps-info/${id}`)
   }
 
   onManageOwner(domain: any) {

@@ -43,21 +43,7 @@ export class SharedFormComponent implements  OnChanges {
     this.fields = changes['fields'].currentValue
   }
 
-  // add List Owners
-  addToList() {
-    if (this.Listvalues) {
-      let listData = {
-        name: this.Listvalues,
-      };
-      this.listArray.push(listData);
-      this.Listvalues = '';
-    }
-  }
 
-  // Remove From List
-  removeFromList(index: number) {
-    this.listArray.splice(index, 1);
-  }
 
   // Send Form Data
   sendFormValues() {
