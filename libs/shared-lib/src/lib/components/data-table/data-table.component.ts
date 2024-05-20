@@ -19,7 +19,6 @@ import { PageInfo, PageInfoResult } from '../../models';
 export class DataTableComponent implements OnInit {
   @Input() items: any[];
   @Input() selectedIndex: number;
-
   @Input() currentPageResult: PageInfoResult;
 
   @Input() tableConfigs: TableConfig;
@@ -31,7 +30,7 @@ export class DataTableComponent implements OnInit {
 
   sortingFields: string[];
 
-
+first:any=0;
   globalFilterFields: string[];
 
   @ViewChild('customCellTemplate', { static: true })
@@ -46,6 +45,7 @@ export class DataTableComponent implements OnInit {
   selectRow(row: any) {}
 
   onPageChange(pageInfo: PageInfo) {
+    
     this.pageChange.emit(pageInfo);
   }
 

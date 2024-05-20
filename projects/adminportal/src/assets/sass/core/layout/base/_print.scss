@@ -15,6 +15,7 @@
             background: none !important;
             padding: 0 !important;
             margin: 0 !important;
+            padding-top: 0 !important;
         }
 
         .app-aside,
@@ -29,11 +30,22 @@
         .btn {
             display: none !important;
         }
+
+      
        
     }
 }
 
 .app-sidebar {
     background: #fff !important;
+
+}
+.app-content {
+    padding-top: 0 !important;
+}
+.app-header {
+    margin-bottom: 18px !important;
+    border-bottom: 1px solid #ddd !important;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px !important;
 
 }

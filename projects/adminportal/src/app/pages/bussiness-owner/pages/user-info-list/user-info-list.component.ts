@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { SharedFormComponent, FormConfig, FormTypes, PageInfo, RouterService, LanguageService, SharedLibModule } from 'shared-lib';
+import { SharedFormComponent, FormConfig, FormTypes, PageInfo, RouterService, LanguageService, SharedLibModule, PageInfoResult } from 'shared-lib';
+import { userData } from '../../models';
+import { BussinessOwnerService } from '../../bussiness-owner.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-info-list',
@@ -14,43 +17,9 @@ import { SharedFormComponent, FormConfig, FormTypes, PageInfo, RouterService, La
 export class UserInfoListComponent implements OnInit {
   @ViewChild('myTab') myTab: any | undefined;
   @ViewChild('form') form: SharedFormComponent;
-  tableData = [
-    {
-      code: '101',
-      name: 'John Doe',
-      email: 'john@example.com',
-      country: 'USA',
-      mobileNumber: '+1 123 456 7890',
-    },
-    {
-      code: '102',
-      name: 'Alice Smith',
-      email: 'alice@example.com',
-      country: 'Canada',
-      mobileNumber: '+1 234 567 8901',
-    },
-    {
-      code: '103',
-      name: 'Mohammed Khan',
-      email: 'mohammed@example.com',
-      country: 'India',
-      mobileNumber: '+91 98765 43210',
-    },
-    {
-      code: '104',
-      name: 'Sophie Brown',
-      email: 'sophie@example.com',
-      country: 'UK',
-      mobileNumber: '+44 1234 567890',
-    },
-    {
-      code: '105',
-      name: 'Chen Wei',
-      email: 'chen@example.com',
-      country: 'China',
-      mobileNumber: '+86 10 1234 5678',
-    },
-  ];
+  dataList: userData[];
+
+  
   cols: any[] = [
     {
       field: 'Id',
@@ -118,12 +87,16 @@ export class UserInfoListComponent implements OnInit {
     },
   ];
   active: boolean = false;
-  currentPageInfo: PageInfo = new PageInfo();
+  currentPageInfo: PageInfoResult = {}
+  id = this.route.snapshot.params['id']
 
   constructor(
     private routerService: RouterService,
     private titleService: Title,
     private languageService: LanguageService,
+    private bussinessOwnerService: BussinessOwnerService,
+    private route : ActivatedRoute
+
   
   ) {}
 
@@ -131,19 +104,17 @@ export class UserInfoListComponent implements OnInit {
     this.titleService.setTitle(
       this.languageService.transalte('JournalEntry.JournalEntryList')
     );
-    this.initJournalEntryData(this.currentPageInfo);
+    this.getUsersInfo(new PageInfo)
   }
+  getUsersInfo(pageInfo : PageInfo ) {
+    this.bussinessOwnerService.getUsersInfo(pageInfo , this.id ).subscribe(res=>{
+     this.currentPageInfo = res.pageInfoResult;
+     this.dataList = res.result;
+    })
+   }
 
-  patchFormValues(data: any) {}
-  initJournalEntryData(page: PageInfo) {
-    // this.journalEntryService.getAllJournalEntriesPaginated(page).subscribe({
-    //   next: (journalList: any) => {
-    //     // this.tableData = journalList.result;
-    //   },
-    // });
-  }
   onPageChange(pageInfo: PageInfo) {
-    this.initJournalEntryData(pageInfo);
+    this.getUsersInfo(pageInfo)
   }
   onEditOwner() {
     this.routerService.navigateTo(`/bussiness-owners/manage`);

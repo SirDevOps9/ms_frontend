@@ -1,0 +1,10 @@
+{
+  "COAConfigration": {
+    "levelnumber": "رقم المستوى",
+    "levelName": "اسم المستوى",
+    "numberOfDigits": "عدد الأرقام",
+    "AddNewLine": "إضافة سطر جديد",
+    "discard": "تجاهل",
+    "Save": "حفظ"
+}
+}
