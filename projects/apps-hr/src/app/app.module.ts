@@ -3,13 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {
-  CustomStorageService,
-  ERPInterceptor,
-  MicrotecAuthLibModule,
-} from 'microtec-auth-lib';
+import { CustomStorageService, ERPInterceptor, MicrotecAuthLibModule } from 'microtec-auth-lib';
 import {
   EnvironmentService,
+  LowerCaseUrlSerializer,
   MultiTranslateHttpLoader,
   SharedLibModule,
 } from 'shared-lib';
@@ -20,6 +17,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { CookieModule } from 'ngx-cookie';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UrlSerializer } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent],
@@ -54,7 +52,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       useClass: ERPInterceptor,
       multi: true,
     },
-    { provide: AbstractSecurityStorage, useClass: CustomStorageService },
+    {
+      provide: AbstractSecurityStorage,
+      useClass: CustomStorageService,
+    },
+    {
+      provide: UrlSerializer,
+      useClass: LowerCaseUrlSerializer,
+    },
   ],
   bootstrap: [AppComponent],
 })

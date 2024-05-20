@@ -1,18 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
-
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import {
-  PageInfo,
-  RouterService,
-  LanguageService,
-  SharedLibModule,
-} from 'shared-lib';
+import { PageInfo, RouterService, LanguageService, SharedLibModule } from 'shared-lib';
 import { Validators } from '@angular/forms';
 import { of } from 'rxjs';
-import { JournalEntryDto, SharedJournalEnums } from 'projects/apps-accounting/src/app/modules/journal-entry/models';
+import {
+  JournalEntryDto,
+  SharedJournalEnums,
+} from 'projects/apps-accounting/src/app/modules/journal-entry/models';
 import { SharedFormComponent } from 'shared-lib';
 import { FormConfig, FormTypes } from 'shared-lib';
 import { JournalEntryService } from 'projects/apps-accounting/src/app/modules/journal-entry/journal-entry.service';
@@ -24,7 +21,7 @@ import { JournalEntryService } from 'projects/apps-accounting/src/app/modules/jo
   templateUrl: './edit-bussiness-owner.component.html',
   styleUrl: './edit-bussiness-owner.component.scss',
 })
-export class EditBussinessOwnerComponent implements OnInit , AfterViewInit {
+export class EditBussinessOwnerComponent implements OnInit, AfterViewInit {
   @ViewChild('myTab') myTab: any | undefined;
   @ViewChild('form') form: SharedFormComponent;
 
@@ -83,27 +80,27 @@ export class EditBussinessOwnerComponent implements OnInit , AfterViewInit {
   ];
 
   tableData = {
-    "Id": "c65162b4-6b2b-4ef9-b317-f2b545f66b19",
-    "code": "BO123",
-    "name": "John Doe",
-    "email": "john.doe@example.com",
-    "CountryNameEn": "United States",
-    "CountryNameAr": null,
-    "mobileNumber": "+1234567890",
-    "isActive": false,
-    "Subdomains": [
+    Id: 'c65162b4-6b2b-4ef9-b317-f2b545f66b19',
+    code: 'BO123',
+    name: 'John Doe',
+    email: 'john.doe@example.com',
+    CountryNameEn: 'United States',
+    CountryNameAr: null,
+    mobileNumber: '+1234567890',
+    isActive: false,
+    Subdomains: [
       {
-        "SubdomainName": "subdomain1.example.com",
-        "SubdomainId": "ef24cf4a-d2ac-4d2b-a409-1b3fdde21710",
-        "IsActive": true
+        SubdomainName: 'subdomain1.example.com',
+        SubdomainId: 'ef24cf4a-d2ac-4d2b-a409-1b3fdde21710',
+        IsActive: true,
       },
       {
-        "SubdomainName": "subdomain2.example.com",
-        "SubdomainId": "3d786630-8e4a-4f4c-af46-9b01611f3f94",
-        "IsActive": false
+        SubdomainName: 'subdomain2.example.com',
+        SubdomainId: '3d786630-8e4a-4f4c-af46-9b01611f3f94',
+        IsActive: false,
       },
-    ]
-  }
+    ],
+  };
   cols: any[] = [
     {
       field: 'Id',
@@ -173,28 +170,25 @@ export class EditBussinessOwnerComponent implements OnInit , AfterViewInit {
     public sharedJouralEnum: SharedJournalEnums
   ) {}
   ngAfterViewInit(): void {
-    this.sendFormValues(this.tableData)
-
+    this.sendFormValues(this.tableData);
   }
 
   ngOnInit() {
-    this.titleService.setTitle(
-      this.languageService.transalte('JournalEntry.JournalEntryList')
-    );
+    this.titleService.setTitle(this.languageService.transalte('JournalEntry.JournalEntryList'));
     this.initJournalEntryData(this.currentPageInfo);
   }
   initJournalEntryData(page: PageInfo) {
-    this.journalEntryService.getAllJournalEntriesPaginated(page).subscribe({
-      next: (journalList: any) => {
-        // this.tableData = journalList.result;
-      },
-    });
+    // this.journalEntryService.getAllJournalEntriesPaginated(page).subscribe({
+    //   next: (journalList: any) => {
+    //     // this.tableData = journalList.result;
+    //   },
+    // });
   }
 
-  sendFormValues(data : {}) {
+  sendFormValues(data: {}) {
     this.form.form.patchValue({
-      ...data
-    })
+      ...data,
+    });
   }
   onPageChange(pageInfo: PageInfo) {
     this.initJournalEntryData(pageInfo);
@@ -203,8 +197,8 @@ export class EditBussinessOwnerComponent implements OnInit , AfterViewInit {
     this.routerService.navigateTo(`/bussiness-owners/manage`);
   }
 
-  viewDomainInfo(domain:any) {
-    this.routerService.navigateTo(`//bussiness-owners/domain-space-info`)
+  viewDomainInfo(domain: any) {
+    this.routerService.navigateTo(`//bussiness-owners/domain-space-info`);
   }
 
   onManageOwner(domain: any) {

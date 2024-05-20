@@ -1,12 +1,12 @@
-import { FilterDto, HttpService, PaginationVm } from 'shared-lib';
+import { FilterDto, HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { JournalEntryDto } from './models';
 import { Observable } from 'rxjs';
 import { AddJournalEntryCommand } from './models/addJournalEntryCommand';
 import { EditJournalEntry, GetJournalEntryByIdDto } from './models';
 
 import { Injectable } from '@angular/core';
-import { GetAllJournalTemplateDto } from "./models/journaltemplatedto";
-import { GetJournalTemplateDto } from "./models/journalTemplateByIdDto";
+import { GetAllJournalTemplateDto } from './models/journaltemplatedto';
+import { GetJournalTemplateDto } from './models/journalTemplateByIdDto';
 
 @Injectable({
   providedIn: 'root',
@@ -18,13 +18,8 @@ export class JournalEntryProxy {
       `JournalEntry`
     );
   }
-  getAllPaginated(
-    filterDto: FilterDto
-  ): Observable<PaginationVm<JournalEntryDto>> {
-    console.log(filterDto);
-    return this.httpService.get<PaginationVm<JournalEntryDto>>(
-      `JournalEntry?${filterDto.toQuery}`
-    );
+  getAllPaginated(pageInfo: PageInfo): Observable<PaginationVm<JournalEntryDto>> {
+    return this.httpService.get<PaginationVm<JournalEntryDto>>(`JournalEntry?${pageInfo.toQuery}`);
   }
 
   create(command: AddJournalEntryCommand): Observable<any> {
@@ -32,9 +27,7 @@ export class JournalEntryProxy {
   }
 
   getById(id: number): Observable<GetJournalEntryByIdDto> {
-    return this.httpService.get<GetJournalEntryByIdDto>(
-      `JournalEntry/GetById?Id=${id}`
-    );
+    return this.httpService.get<GetJournalEntryByIdDto>(`JournalEntry/GetById?Id=${id}`);
   }
   edit(request: EditJournalEntry): Observable<boolean> {
     return this.httpService.put<boolean>(`JournalEntry/Edit`, request);
@@ -47,18 +40,15 @@ export class JournalEntryProxy {
   deleteJounralEntryLine(id: number): Observable<boolean> {
     return this.httpService.delete<number>(`JournalEntry/DeleteLine?Id=${id}`);
   }
-  getAllJournalTemplate( 
-    filterDto: FilterDto
-  ): Observable<PaginationVm<GetAllJournalTemplateDto>>{
-          return this.httpService.get<PaginationVm<GetAllJournalTemplateDto>>(
-            `JournalEntryTemplete?${filterDto.toQuery}`
-        )
+  getAllJournalTemplate(filterDto: FilterDto): Observable<PaginationVm<GetAllJournalTemplateDto>> {
+    return this.httpService.get<PaginationVm<GetAllJournalTemplateDto>>(
+      `JournalEntryTemplete?${filterDto.toQuery}`
+    );
   }
 
-  getJournalTemplateById(id:string){
-    return this.httpService.get<GetJournalTemplateDto>(
-      `JournalEntryTemplete/GetById?Id=${id}`
-  )}
+  getJournalTemplateById(id: string) {
+    return this.httpService.get<GetJournalTemplateDto>(`JournalEntryTemplete/GetById?Id=${id}`);
+  }
 
   constructor(private httpService: HttpService) {}
 }

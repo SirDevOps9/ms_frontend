@@ -10,8 +10,7 @@ export const environment: IEnvironment = {
   openIdConfig: {
     authority: 'https://intmicrotec.neat-url.com:2010',
     redirectUrl: window.location.origin + '/adminportal/login-redirect',
-    postLogoutRedirectUri:
-      window.location.origin + '/adminportal/logout-redirect',
+    postLogoutRedirectUri: window.location.origin + '/adminportal/logout-redirect',
     clientId: 'microtec_admin_portal',
     scope: 'openid profile offline_access tenants',
     responseType: 'code',
@@ -25,4 +24,5 @@ export const environment: IEnvironment = {
   },
   ApiKey: '3bb564df-0f24-4ea6-82c1-d99f368cac8a',
   BusinessOwnerUrl: 'http://localhost:2003',
+  state: 'noredirect',
 };

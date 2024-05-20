@@ -16,7 +16,7 @@ const routes: Routes = [
       {
         path: 'employee',
         component: EmployeeListComponent,
-       // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.EMPLOYEE,
         },

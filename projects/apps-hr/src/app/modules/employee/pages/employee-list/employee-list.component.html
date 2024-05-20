@@ -1,3 +1,82 @@
-<lib-button  type="button" (click)="navigateToAdd()" >
-  Navigate to Add
-</lib-button>
+<div>
+  <lib-bread-crumb></lib-bread-crumb>
+  <div class="user_page">
+    <lib-data-table
+      [items]="tableData"
+      className="p-datatable-gridlines"
+      [currentPageResult]="currentPageInfo"
+      (pageChange)="onPageChange($event)"
+      [tableConfigs]="{
+        allowPagination: false,
+        allowServerPagination: true,
+        dataKey: 'id',
+        pageSize: 10,
+        columns: [
+            {
+            name: 'employeeName',
+            headerText: 'Employee.List.Name' | translate,
+            isGlobalFilter: true,
+            isSortable: true,
+            template: empNameCol
+          },
+          {
+            name: 'employeeCode',
+            headerText: 'Employee.List.Code' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'attendanceCode',
+            headerText: 'Employee.List.AttendanceCode' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+        
+        ]
+      }"
+    >
+      <ng-container caption>
+        <div class="group">
+          <div>
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                (input)="searchTermChange($event)"
+                placeholder="Search..."
+              />
+            </span>
+          </div>
+
+          <!-- <lib-button pRipple className="add_new" label="Add New" icon="pi pi-plus">
+          </lib-button> -->
+          <div>
+            <button class="add_new" (click)="navigateToAdd()">
+              <span class="pi pi-plus"></span>
+              {{"Add New" | translate}}
+            </button>
+            <button class="add_new export">
+              <span class="pi pi-file"></span>
+              Export
+            </button>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #empNameCol let-employee>
+        <div class="user_info">
+          <lib-attachment-viewer attachmentId="{{employee.employeePhoto}}" />
+          <p>{{ employee.name }}</p>
+        </div>
+      </ng-template>
+      <ng-template #userCol let-employee>
+        <!-- <div class="actions flex align-items-center ">
+          <lib-button className="edit" type="button" (click)="routeToEdit(let-employee.id)" icon="pi pi-pencil" [rounded]="true" [enableText]="true" severity="secondary">
+          </lib-button>
+          <lib-button icon="pi pi-trash" [rounded]="true" [enableText]="true" severity="secondary">
+          </lib-button>
+        </div> -->
+      </ng-template>
+    </lib-data-table>
+  </div>
+</div>

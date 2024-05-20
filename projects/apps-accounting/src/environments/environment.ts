@@ -2,7 +2,7 @@ import { IEnvironment } from 'shared-lib';
 
 export const environment: IEnvironment = {
   production: true,
-  baseUrl: 'https://intmicrotec.neat-url.com:2003',
+  baseUrl: 'https://intmicrotec.neat-url.com:2005',
   Version: 'V1',
   ClientId: 'Apps-Accounting',
   Platform: 'Web',
@@ -11,7 +11,7 @@ export const environment: IEnvironment = {
     authority: 'https://intmicrotec.neat-url.com:2010',
     redirectUrl: window.location.origin + '/erp/login-redirect',
     postLogoutRedirectUri: window.location.origin + '/erp/logout-redirect',
-    clientId: 'microtecadminfrontend',
+    clientId: 'microtec_erp_frontend',
     scope: 'openid profile email offline_access subdomain',
     responseType: 'code',
     silentRenew: true,
