@@ -12,7 +12,7 @@ export class PageInfo {
   pageSize: number;
 
   get toQuery(): string {
-    let query = `PageInfo.PageNumber=${this.pageNumber}&PageInfo.PageSize=${this.pageSize}`;
+    let query = `PageNumber=${this.pageNumber}&PageSize=${this.pageSize}`;
     return query;
   }
 }

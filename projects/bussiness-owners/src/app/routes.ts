@@ -9,9 +9,14 @@ export const BORoutes = [
     path: '',
     component: LayoutComponent,
     children: [
-      { path: '', component: MySubscriptionsComponent, canActivate: [AuthGuard], data: {
-        breadcrumb: BreadcrumbLabel.my_subscription,
-      }, },
+      {
+        path: '',
+        component: MySubscriptionsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.my_subscription,
+        },
+      },
     ],
   },
   { path: 'users/userconfirmation/:id', component: UserconfirmationComponent },

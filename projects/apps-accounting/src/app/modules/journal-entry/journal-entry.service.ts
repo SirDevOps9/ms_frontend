@@ -5,6 +5,7 @@ import {
   LanguageService,
   LoaderService,
   PageInfo,
+  PageInfoResult,
   ToasterService,
 } from 'shared-lib';
 import { JournalEntryProxy } from './journal-entry.proxy';
@@ -19,6 +20,8 @@ export class JournalEntryService {
 
   public journalEntries = this.journalEntriesDataSource.asObservable();
 
+  public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
+
   constructor(
     private journalEntryProxy: JournalEntryProxy,
     private toasterService: ToasterService,
@@ -27,11 +30,14 @@ export class JournalEntryService {
   ) {}
 
   getAllJournalEntriesPaginated(pageInfo: PageInfo) {
-    return this.journalEntryProxy.getAllPaginated(pageInfo).pipe(
-      map((res) => {
-        return res;
-      })
-    );
+
+    this.journalEntryProxy.getAllPaginated(pageInfo).subscribe({
+      next: (res) => {
+        this.journalEntriesDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+    
   }
 
   addJournalEntry(command: AddJournalEntryCommand) {
@@ -54,9 +60,7 @@ export class JournalEntryService {
       map((res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Success'),
-          this.languageService.transalte(
-            'JournalEntry.JournalUpdatedSuccessfully'
-          )
+          this.languageService.transalte('JournalEntry.JournalUpdatedSuccessfully')
         );
         return res;
       }),
@@ -72,9 +76,7 @@ export class JournalEntryService {
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Success'),
-          this.languageService.transalte(
-            'JournalEntry.JournalUpdatedSuccessfully'
-          )
+          this.languageService.transalte('JournalEntry.JournalUpdatedSuccessfully')
         );
         this.loaderService.hide();
 
@@ -111,13 +113,19 @@ export class JournalEntryService {
     return await p;
   }
 
-
-
   getAllJournalTemplatesPaginated(pageInfo: PageInfo) {
-    return this.journalEntryProxy.getAllJournalTemplate(pageInfo).pipe(map(res => { return res }));
+    return this.journalEntryProxy.getAllJournalTemplate(pageInfo).pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
-  
-  getJournalTemplateById(id:string){
-    return this.journalEntryProxy.getJournalTemplateById(id).pipe(map(res => { return res }));
+
+  getJournalTemplateById(id: string) {
+    return this.journalEntryProxy.getJournalTemplateById(id).pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
 }
