@@ -6,7 +6,7 @@ export interface GetEmployeeById {
     attendanceCode: number;
     employeeName: string;
     employeePhoto: string;
-    birthDate: Date;
+    birthDate: string;
     countryOfBirth: string;
     birthCity: number;
     nationality: string;

@@ -86,7 +86,7 @@ export function onlyLettersValidator(control: AbstractControl) {
     return null; 
   }
 
-  const regularExpression = /^[A-Za-z]+$/;  
+  const regularExpression = /^[A-Za-z\u0600-\u06FF\s]+$/;
 
   const isValid = regularExpression.test(control.value);
 

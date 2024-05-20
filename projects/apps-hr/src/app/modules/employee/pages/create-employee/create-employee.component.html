@@ -7,7 +7,7 @@
       <div class="form_content">
         <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
           <div class="actions">
-            <button type="button" class="cancel" (click)="Discard()">
+            <button type="button" class="cancel" (click)="onDiscard()">
               {{ "Employee.Add.Discard" | translate }}
             </button>
             <button type="submit" class="save">

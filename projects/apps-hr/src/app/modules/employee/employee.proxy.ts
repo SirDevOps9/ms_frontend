@@ -7,13 +7,16 @@ import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
   providedIn: 'root',
 })
 export class EmployeeProxy {
-getAllPaginated(searchTerm: string | undefined, pageInfo: PageInfo): Observable<PaginationVm<EmployeeDto>> {
-  let query = `Employee?${pageInfo.toQuery}`;
-  if (searchTerm) {
-    query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+  getAllPaginated(
+    searchTerm: string | undefined,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<EmployeeDto>> {
+    let query = `Employee?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<EmployeeDto>>(query);
   }
-  return this.httpService.get<PaginationVm<EmployeeDto>>(query);
-}
 
   addEmployee(employeeModel: AddEmployeePersonal): Observable<boolean> {
     return this.httpService.post<boolean>(`Employee/AddPersonal`, employeeModel);
@@ -24,13 +27,12 @@ getAllPaginated(searchTerm: string | undefined, pageInfo: PageInfo): Observable<
   }
 
   editEmployee(employeeModel: EditEmployeePersonal): Observable<boolean> {
-    return this.httpService.post<boolean>(`Employee/EditPersonal`, employeeModel);
+    return this.httpService.put<boolean>(`Employee/EditPersonal`, employeeModel);
   }
 
   deleteEmployee(id: number): Observable<boolean> {
     return this.httpService.delete<boolean>(`Employee/Delete?id=${id}`);
   }
-
 
   constructor(private httpService: HttpService) {}
 }

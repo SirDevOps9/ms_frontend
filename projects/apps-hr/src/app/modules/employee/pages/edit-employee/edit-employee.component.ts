@@ -1,13 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { FormsService, LookupEnum, LookupsService, RouterService, SharedLibraryEnums, customValidators, lookupDto } from 'shared-lib';
+import {
+  AgeService,
+  FormsService,
+  LookupEnum,
+  LookupsService,
+  RouterService,
+  SharedLibraryEnums,
+  customValidators,
+  lookupDto,
+} from 'shared-lib';
 import { EmployeeService } from '../../employee.service';
 import { EditEmployeePersonal } from '../../models';
 
 @Component({
   selector: 'app-edit-employee',
   templateUrl: './edit-employee.component.html',
-  styleUrls: ['./edit-employee.component.css']
+  styleUrls: ['./edit-employee.component.scss'],
+  providers: [RouterService],
 })
 export class EditEmployeeComponent implements OnInit {
   editEmployeeForm: FormGroup;
@@ -16,13 +26,13 @@ export class EditEmployeeComponent implements OnInit {
   Age: string = '';
   EmployeeCode = '';
 
-
   lookups: { [key: string]: lookupDto[] };
 
   ngOnInit() {
     this.initializeForm();
+    this.initializeFormData();
     this.loadLookups();
-    this.Subscribe();
+    this.subscribe();
     this.onBirthDateChange();
   }
 
@@ -36,20 +46,17 @@ export class EditEmployeeComponent implements OnInit {
       LookupEnum.BloodType,
     ]);
   }
-  Subscribe() {
+  subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
   }
   onBirthDateChange() {
     const birthDateControl = this.editEmployeeForm.get('birthDate');
     birthDateControl?.valueChanges.subscribe((birthDate) => {
-      if (birthDateControl.valid) {
-        this.Age = this.calculateAge(birthDate);
-      } else {
-        this.Age = '';
-      }
+      this.Age = '';
+      if (birthDateControl.valid) 
+        this.Age = this.ageService.calculateAge(birthDate);
     });
   }
-
 
   private initializeForm() {
     this.editEmployeeForm = this.formBuilder.group({
@@ -60,7 +67,7 @@ export class EditEmployeeComponent implements OnInit {
         customValidators.length(1, 75),
       ]),
       employeePhoto: new FormControl(null),
-      birthDate: new FormControl(null ,[
+      birthDate: new FormControl(null, [
         customValidators.required,
         customValidators.invalidBirthDate,
         customValidators.notUnderAge(18),
@@ -81,33 +88,20 @@ export class EditEmployeeComponent implements OnInit {
     this.employeeService.getEmployeeById(this.routerService.currentId).subscribe((res) => {
       this.editEmployeeForm.patchValue({
         ...res,
+        birthDate: res.birthDate.substring(0, 10),
       });
     });
   }
   onSubmit() {
     if (!this.formsService.validForm(this.editEmployeeForm, true)) return;
     const request: EditEmployeePersonal = this.editEmployeeForm.value;
-    request.employeePhoto ="sfdsdf"
-    this.employeeService.addEmployee(request);
+    request.id = this.routerService.currentId;
+    request.employeePhoto = 'sfdsdf';
+    this.employeeService.editEmployee(request);
   }
 
-  calculateAge(birthDate: string): string {
-    if (!birthDate) return '';
-    const today = new Date();
-    const birthDateObj = new Date(birthDate);
-    let age = today.getFullYear() - birthDateObj.getFullYear();
-    const monthDifference = today.getMonth() - birthDateObj.getMonth();
-    if (
-      monthDifference < 0 ||
-      (monthDifference === 0 && today.getDate() < birthDateObj.getDate())
-    ) {
-      age--;
-    }
-    return age.toString();
-  }
-
-  Discard() {
-    this.editEmployeeForm.reset();
+  onDiscard() {
+   this.editEmployeeForm.reset();
   }
 
   constructor(
@@ -116,6 +110,7 @@ export class EditEmployeeComponent implements OnInit {
     private formsService: FormsService,
     private employeeService: EmployeeService,
     private routerService: RouterService,
-    public sharedLibEnums: SharedLibraryEnums
+    public sharedLibEnums: SharedLibraryEnums,
+    private ageService: AgeService
   ) {}
 }

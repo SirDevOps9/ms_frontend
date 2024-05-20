@@ -7,7 +7,7 @@
       <div class="form_content">
         <form [formGroup]="editEmployeeForm" (ngSubmit)="onSubmit()">
           <div class="actions">
-            <button type="button" class="cancel" (click)="Discard()">
+            <button type="button" class="cancel" (click)="onDiscard()">
               {{ "Employee.Edit.Discard" | translate }}
             </button>
             <button type="submit" class="save">
@@ -64,6 +64,7 @@
                 >
                   {{ "Employee.Edit.EmployeePhoto" | translate }}
                 </lib-label>
+              <lib-attachment-viewer ></lib-attachment-viewer>
                 <lib-file-uploader
                   formControlName="employeePhoto"
                   [config]="{

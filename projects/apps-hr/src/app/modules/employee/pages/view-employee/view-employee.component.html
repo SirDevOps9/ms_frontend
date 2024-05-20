@@ -37,12 +37,11 @@
             </lib-form-group>
           </div>
           <div class="md:col-3">
-            <lib-form-group>
+            <!-- <lib-form-group>
               <label>
                 {{ "Employee.View.EmployeePhoto" | translate }}
               </label>
-              <img [src]="employee?.employeePhoto" alt="Employee Photo" class="employee-photo">
-            </lib-form-group>
+            </lib-form-group> -->
           </div>
           <div class="md:col-3">
             <lib-form-group>
@@ -60,7 +59,7 @@
                 {{ "Employee.View.Age" | translate }}
               </label>
               <div class="view">
-                {{ calculateAge(employee?.birthDate) }}
+                {{ ageService.calculateAge(employee?.birthDate!) }}
               </div>
             </lib-form-group>
           </div>

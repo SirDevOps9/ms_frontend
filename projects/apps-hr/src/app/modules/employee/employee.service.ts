@@ -10,7 +10,6 @@ import { Injectable } from '@angular/core';
 import { AddEmployeePersonal, EditEmployeePersonal } from './models';
 import { BehaviorSubject, catchError, map } from 'rxjs';
 import { EmployeeDto } from './models/employeeDto';
-import { EditBranchesComponent } from 'projects/bussiness-owners/src/app/modules/company/components/edit-branches/edit-branches.component';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +29,7 @@ export class EmployeeService {
       },
     });
   }
-  
+
   addEmployee(model: AddEmployeePersonal) {
     this.loaderService.show();
     this.employeeProxy.addEmployee(model).subscribe({
@@ -63,7 +62,6 @@ export class EmployeeService {
     });
   }
 
-
   getEmployeeById(Id: number) {
     return this.employeeProxy.getEmployeeById(Id).pipe(
       map((res) => {
@@ -84,9 +82,7 @@ export class EmployeeService {
         next: () => {
           this.toasterService.showSuccess(
             this.languageService.transalte('Success'),
-            this.languageService.transalte(
-              'Employee.EmployeeDeletedSuccessfully'
-            )
+            this.languageService.transalte('Employee.EmployeeDeletedSuccessfully')
           );
           this.loaderService.hide();
           const currentEmployees = this.employeeDataSource.getValue();
@@ -99,7 +95,6 @@ export class EmployeeService {
     } else {
     }
   }
-
 
   constructor(
     private employeeProxy: EmployeeProxy,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import {
+  AgeService,
   FormsService,
   LookupEnum,
   LookupsService,
@@ -28,7 +29,7 @@ export class CreateEmployeeComponent implements OnInit {
   ngOnInit() {
     this.initializeForm();
     this.loadLookups();
-    this.Subscribe();
+    this.subscribe();
     this.onBirthDateChange();
   }
 
@@ -42,21 +43,17 @@ export class CreateEmployeeComponent implements OnInit {
       LookupEnum.BloodType,
     ]);
   }
-  Subscribe() {
+  subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
   }
   onBirthDateChange() {
     const birthDateControl = this.addEmployeeForm.get('birthDate');
     birthDateControl?.valueChanges.subscribe((birthDate) => {
-      if (birthDateControl.valid) {
-        this.Age = this.calculateAge(birthDate);
-      } else {
-        this.Age = '';
-      }
+      this.Age = '';
+      if (birthDateControl.valid) 
+        this.Age = this.ageService.calculateAge(birthDate);
     });
   }
-
-
   private initializeForm() {
     this.addEmployeeForm = this.formBuilder.group({
       attendanceCode: new FormControl('', [customValidators.required]),
@@ -66,7 +63,7 @@ export class CreateEmployeeComponent implements OnInit {
         customValidators.length(1, 75),
       ]),
       employeePhoto: new FormControl(null),
-      birthDate: new FormControl(null ,[
+      birthDate: new FormControl(null, [
         customValidators.required,
         customValidators.invalidBirthDate,
         customValidators.notUnderAge(18),
@@ -87,26 +84,11 @@ export class CreateEmployeeComponent implements OnInit {
   onSubmit() {
     if (!this.formsService.validForm(this.addEmployeeForm, true)) return;
     const request: AddEmployeePersonal = this.addEmployeeForm.value;
-    request.employeePhoto ="sfdsdf"
+    //request.employeePhoto ="sfdsdf"
     this.employeeService.addEmployee(request);
   }
 
-  calculateAge(birthDate: string): string {
-    if (!birthDate) return '';
-    const today = new Date();
-    const birthDateObj = new Date(birthDate);
-    let age = today.getFullYear() - birthDateObj.getFullYear();
-    const monthDifference = today.getMonth() - birthDateObj.getMonth();
-    if (
-      monthDifference < 0 ||
-      (monthDifference === 0 && today.getDate() < birthDateObj.getDate())
-    ) {
-      age--;
-    }
-    return age.toString();
-  }
-
-  Discard() {
+  onDiscard() {
     this.addEmployeeForm.reset();
   }
 
@@ -115,6 +97,7 @@ export class CreateEmployeeComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formsService: FormsService,
     private employeeService: EmployeeService,
-    public sharedLibEnums: SharedLibraryEnums
+    public sharedLibEnums: SharedLibraryEnums,
+    private ageService: AgeService
   ) {}
 }

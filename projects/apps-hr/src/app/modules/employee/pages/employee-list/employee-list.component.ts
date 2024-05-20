@@ -78,8 +78,8 @@ export class EmployeeListComponent implements OnInit {
   navigateToView(id: number) {
     this.routerService.navigateTo(`/employee/view/${id}`);
   }
-  deletEmployee(id: number) {
-    this.employeeService.deleteEmployee(id);
+   deletEmployee(id: number) {
+     this.employeeService.deleteEmployee(id);
   }
 
   searchTermChange(event: Event) {
