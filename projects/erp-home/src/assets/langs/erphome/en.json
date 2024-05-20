@@ -290,5 +290,22 @@
       "SaveAndEdit": "Save and Edit",
       "Save": "Save"
     }
-  }
+  },
+  
+    "tag":{
+      "taglist":"Tag list",
+      "Id":"Id",
+      "Name":"Name",
+      "status":"Status",
+      "Modules":"Modules",
+      "Actions":"Actions",
+      "Edit":"Edit",
+      "Delete":"Delete",
+      "Add":"Add",
+      "AddTag":"Add Tag",
+      "Active":"Active",
+      "Deactivate":"Deactivate"
+  
+    }
+  
 }

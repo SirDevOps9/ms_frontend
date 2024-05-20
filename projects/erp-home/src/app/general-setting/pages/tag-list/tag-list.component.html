@@ -1,13 +1,13 @@
 <lib-page-content
-  [title]="'Company.CompanyList' | translate"
-  [subTitle]="'Company.CompanyList' | translate"
+  [title]="'tag.taglist' | translate"
+  [subTitle]="'tag.taglist' | translate"
 >
 <lib-bread-crumb>
   <div class="flex justify-content-end align-items-center">
     <button
       pButton
       pRipple
-      label="Add New"
+      label='Add New' | translate
       icon="pi pi-plus"
       class="add_new mr-2"
       (click)="NewTag()"
@@ -30,35 +30,35 @@
         columns: [
           {
             name: 'id',
-            headerText: 'Id',
+            headerText:('tag.Id' | translate) ,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'code',
-            headerText: 'Code',
+            headerText: ('tag.Code' | translate),
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'name',
-            headerText: 'Name',
+            headerText: ('tag.Name' | translate),
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'isActive',
-            headerText: 'status',
+            headerText:('tag.status' | translate),
             template: status
           },
           {
             name: 'modulesId',
-            headerText: 'Modules',
+            headerText: ('tag.Modules' | translate),
             template: Modules
           },
           {
             name: 'id',
-            headerText: 'Actions',
+            headerText: ('tag.Actions' | translate),
             template: userCol
           }
         ]
@@ -91,10 +91,10 @@
           >
           </p-inputSwitch>
           <p class="active" *ngIf="tag.isActive">
-            {{ "User.Activate" | translate }}
+            {{ "tag.Active" | translate }}
           </p>
           <p class="inactive" *ngIf="!tag.isActive">
-            {{ "User.Deactivate" | translate }}
+            {{ "tag.Deactivate" | translate }}
           </p>
         </div>
       </ng-template>
