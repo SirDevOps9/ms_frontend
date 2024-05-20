@@ -29,35 +29,79 @@
     "MyPlan": "باقاتي",
     "AppStore": "متجر التطبيقات"
   },
-"Employee":{
-  "Success":"Success",
-  "EmployeeAddedSuccessfully":"Employee Added Successfully",
-  "Add":{
-    "AddEmployee": "Add Employee",
-    "EmployeeCode": "Employee Code",
-    "AttendanceCode": "Attendance Code",
-    "EmployeeName": "Employee Name",
-    "EmployeePhoto": "Employee Photo",
-    "BirthDate": "Birth Date",
-    "CountryOfBirth": "Country of Birth",
-    "Age":"Age",
-    "BirthCity": "Birth City",
-    "Nationality": "Nationality",
-    "Gender": "Gender",
-    "MaritalStatus": "Marital Status",
-    "Religion": "Religion",
-    "MilitaryStatus": "Military Status",
-    "MilitaryNumber": "Military Number",
-    "BloodType": "Blood Type",
-    "WithSpecialNeeds": "With Special Needs",
-    "Discard": "Discard",
-    "Save": "Save"
-  },"List":{
-    "Employees":"الموظفين",
-    "Code":"الكود",
-    "Name":"الاسم",
-    "AttendanceCode":"كود الحضور" 
-   }
-}
 
+  "Employee": {
+    "Success": "نجاح",
+    "EmployeeAddedSuccessfully": "تمت إضافة الموظف بنجاح",
+    "EmployeeEditedSuccessfully": "تم تعديل الموظف بنجاح",
+    "EmployeeDeletedSuccessfully": "تم حذف الموظف بنجاح",
+
+    "Add": {
+      "AddEmployee": "إضافة موظف",
+      "EmployeeCode": "رمز الموظف",
+      "AttendanceCode": "رمز الحضور",
+      "EmployeeName": "اسم الموظف",
+      "EmployeePhoto": "صورة الموظف",
+      "BirthDate": "تاريخ الميلاد",
+      "CountryOfBirth": "بلد الميلاد",
+      "Age": "العمر",
+      "BirthCity": "مدينة الميلاد",
+      "Nationality": "الجنسية",
+      "Gender": "الجنس",
+      "MaritalStatus": "الحالة الاجتماعية",
+      "Religion": "الدين",
+      "MilitaryStatus": "الحالة العسكرية",
+      "MilitaryNumber": "الرقم العسكري",
+      "BloodType": "فصيلة الدم",
+      "WithSpecialNeeds": "ذوي الاحتياجات الخاصة",
+      "Discard": "تجاهل",
+      "Save": "حفظ"
+    },
+    "Edit": {
+      "AddEmployee": "إضافة موظف",
+      "EmployeeCode": "رمز الموظف",
+      "AttendanceCode": "رمز الحضور",
+      "EmployeeName": "اسم الموظف",
+      "EmployeePhoto": "صورة الموظف",
+      "BirthDate": "تاريخ الميلاد",
+      "CountryOfBirth": "بلد الميلاد",
+      "Age": "العمر",
+      "BirthCity": "مدينة الميلاد",
+      "Nationality": "الجنسية",
+      "Gender": "الجنس",
+      "MaritalStatus": "الحالة الاجتماعية",
+      "Religion": "الدين",
+      "MilitaryStatus": "الحالة العسكرية",
+      "MilitaryNumber": "الرقم العسكري",
+      "BloodType": "فصيلة الدم",
+      "WithSpecialNeeds": "ذوي الاحتياجات الخاصة",
+      "Discard": "تجاهل",
+      "Save": "حفظ"
+    },
+    "View": {
+      "AddEmployee": "إضافة موظف",
+      "EmployeeCode": "رمز الموظف",
+      "AttendanceCode": "رمز الحضور",
+      "EmployeeName": "اسم الموظف",
+      "EmployeePhoto": "صورة الموظف",
+      "BirthDate": "تاريخ الميلاد",
+      "CountryOfBirth": "بلد الميلاد",
+      "Age": "العمر",
+      "BirthCity": "مدينة الميلاد",
+      "Nationality": "الجنسية",
+      "Gender": "الجنس",
+      "MaritalStatus": "الحالة الاجتماعية",
+      "Religion": "الدين",
+      "MilitaryStatus": "الحالة العسكرية",
+      "MilitaryNumber": "الرقم العسكري",
+      "BloodType": "فصيلة الدم",
+      "WithSpecialNeeds": "ذوي الاحتياجات الخاصة"
+    },
+    "List": {
+      "Employees": "الموظفين",
+      "Code": "الكود",
+      "Name": "الاسم",
+      "AttendanceCode": "كود الحضور"
+    }
+  }
 }

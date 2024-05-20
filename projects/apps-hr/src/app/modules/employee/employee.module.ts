@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { EmployeeListComponent } from './pages/employee-list/employee-list.component';
 import { CreateEmployeeComponent } from './pages/create-employee/create-employee.component';
 import { ViewEmployeeComponent } from './pages/view-employee/view-employee.component';
+import { EditEmployeeComponent } from './pages/edit-employee/edit-employee.component';
 
 const routes: Routes = [
   {
@@ -31,11 +32,19 @@ const routes: Routes = [
         },
       },
       {
-        path: 'employee/view',
+        path: 'employee/view/:id',
         component: ViewEmployeeComponent,
         //canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.EMPLOYEE_ADD,
+          breadcrumb: BreadcrumbLabel.EMPLOYEE_VIEW,
+        },
+      },
+      {
+        path: 'employee/edit/:id',
+        component: EditEmployeeComponent,
+        //canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.EMPLOYEE_EDIT,
         },
       },
     ],
@@ -44,13 +53,13 @@ const routes: Routes = [
 
 @NgModule({
   providers: [RouterService],
-  declarations: [EmployeeListComponent, CreateEmployeeComponent],
-  imports: [
-    CommonModule,
-    SharedLibModule,
-    AutoCompleteModule,
-    RouterModule.forChild(routes),
+  declarations: [
+    EmployeeListComponent,
+    CreateEmployeeComponent,
+    EditEmployeeComponent,
+    ViewEmployeeComponent,
   ],
+  imports: [CommonModule, SharedLibModule, AutoCompleteModule, RouterModule.forChild(routes)],
   exports: [],
 })
 export class EmployeeModule {}

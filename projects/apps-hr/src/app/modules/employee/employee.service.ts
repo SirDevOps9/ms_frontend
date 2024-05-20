@@ -7,9 +7,10 @@ import {
 } from 'shared-lib';
 import { EmployeeProxy } from './employee.proxy';
 import { Injectable } from '@angular/core';
-import { AddEmployeePersonal } from './models';
-import { BehaviorSubject, map } from 'rxjs';
+import { AddEmployeePersonal, EditEmployeePersonal } from './models';
+import { BehaviorSubject, catchError, map } from 'rxjs';
 import { EmployeeDto } from './models/employeeDto';
+import { EditBranchesComponent } from 'projects/bussiness-owners/src/app/modules/company/components/edit-branches/edit-branches.component';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +46,60 @@ export class EmployeeService {
       },
     });
   }
+
+  editEmployee(model: EditEmployeePersonal) {
+    this.loaderService.show();
+    this.employeeProxy.editEmployee(model).subscribe({
+      next: () => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('Employee.Success'),
+          this.languageService.transalte('Employee.EmployeeEditedSuccessfully')
+        );
+        this.loaderService.hide();
+      },
+      error: () => {
+        this.loaderService.hide();
+      },
+    });
+  }
+
+
+  getEmployeeById(Id: number) {
+    return this.employeeProxy.getEmployeeById(Id).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((err: string) => {
+        throw err!;
+      })
+    );
+  }
+
+  async deleteEmployee(employeeId: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.employeeProxy.deleteEmployee(employeeId).subscribe({
+        next: () => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('Success'),
+            this.languageService.transalte(
+              'Employee.EmployeeDeletedSuccessfully'
+            )
+          );
+          this.loaderService.hide();
+          const currentEmployees = this.employeeDataSource.getValue();
+          const updatedEmployees = currentEmployees.filter(
+            (Employees) => Employees.id !== employeeId
+          );
+          this.employeeDataSource.next(updatedEmployees);
+        },
+      });
+    } else {
+    }
+  }
+
 
   constructor(
     private employeeProxy: EmployeeProxy,

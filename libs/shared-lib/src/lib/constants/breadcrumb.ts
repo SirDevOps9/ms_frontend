@@ -17,6 +17,10 @@ export class BreadcrumbLabel {
     static chart_of_account='Chart of Account';
     static EMPLOYEE='Employees';
     static EMPLOYEE_ADD='Add Employee';
+    static EMPLOYEE_VIEW='View Employee';
+    static EMPLOYEE_EDIT='Edit Employee';
+
+    
 
 
 
