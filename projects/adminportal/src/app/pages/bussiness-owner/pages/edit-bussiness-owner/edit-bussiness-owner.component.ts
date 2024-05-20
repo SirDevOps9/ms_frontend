@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
-
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import {
@@ -28,7 +27,7 @@ import { BussinessOwnerService } from '../../bussiness-owner.service';
   templateUrl: './edit-bussiness-owner.component.html',
   styleUrl: './edit-bussiness-owner.component.scss',
 })
-export class EditBussinessOwnerComponent implements OnInit , AfterViewInit {
+export class EditBussinessOwnerComponent implements OnInit, AfterViewInit {
   @ViewChild('myTab') myTab: any | undefined;
   @ViewChild('form') form: SharedFormComponent;
  
