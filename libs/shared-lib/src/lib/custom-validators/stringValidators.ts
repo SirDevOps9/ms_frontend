@@ -79,3 +79,20 @@ export function noSpacesValidator(control: AbstractControl) {
     return null;
   }
 }
+
+
+export function onlyLettersValidator(control: AbstractControl) {
+  if (control.value == null || control.value === '' || control.value.length === 0) {
+    return null; 
+  }
+
+  const regularExpression = /^[A-Za-z]+$/;  
+
+  const isValid = regularExpression.test(control.value);
+
+  if (!isValid) {
+    return { onlyLetters: true };  
+  } else {
+    return null;  
+  }
+}

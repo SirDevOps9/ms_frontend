@@ -11,27 +11,21 @@
               {{ "Employee.Add.Discard" | translate }}
             </button>
             <button type="submit" class="save">
-              {{ "Employee.Save" | translate }}
+              {{ "Employee.Add.Save" | translate }}
             </button>
           </div>
           <div class="grid">
-            <div class="md:col-3 ">
+            <div class="md:col-3">
               <lib-form-group>
-                <lib-label
-                  [appControl]="addEmployeeForm.controls['employeeCode']"
-                >
+                <label>
                   {{ "Employee.Add.EmployeeCode" | translate }}
-                </lib-label>
-                <lib-text-input
-                  type="text"
-                  formControlName="employeeCode"
-                ></lib-text-input>
-                <lib-field-validations
-                  [appControl]="addEmployeeForm.controls['employeeCode']"
-                ></lib-field-validations>
+                </label>
+                <div class="view">
+                  {{ EmployeeCode }}
+                </div>
               </lib-form-group>
             </div>
-            <div class="md:col-3 ">
+            <div class="md:col-3">
               <lib-form-group>
                 <lib-label
                   [appControl]="addEmployeeForm.controls['attendanceCode']"
@@ -39,7 +33,7 @@
                   {{ "Employee.Add.AttendanceCode" | translate }}
                 </lib-label>
                 <lib-text-input
-                  type="text"
+                  type="number"
                   formControlName="attendanceCode"
                 ></lib-text-input>
                 <lib-field-validations
@@ -47,7 +41,7 @@
                 ></lib-field-validations>
               </lib-form-group>
             </div>
-            <div class="md:col-3 ">
+            <div class="md:col-3">
               <lib-form-group>
                 <lib-label
                   [appControl]="addEmployeeForm.controls['employeeName']"
@@ -63,7 +57,7 @@
                 ></lib-field-validations>
               </lib-form-group>
             </div>
-            <div class=" md:col-3">
+            <div class="md:col-3">
               <lib-form-group>
                 <lib-label
                   [appControl]="addEmployeeForm.controls['employeePhoto']"
@@ -72,13 +66,18 @@
                 </lib-label>
                 <lib-file-uploader
                   formControlName="employeePhoto"
+                  [config]="{
+                    type: sharedLibEnums.AttachmentFileTypes.image,
+                    viewThumbnail: true
+                  }"
+                  [appControl]="addEmployeeForm.controls['employeePhoto']"
                 ></lib-file-uploader>
                 <lib-field-validations
                   [appControl]="addEmployeeForm.controls['employeePhoto']"
                 ></lib-field-validations>
               </lib-form-group>
             </div>
-            <div class="md:col-3 ">
+            <div class="md:col-3">
               <lib-form-group>
                 <lib-label [appControl]="addEmployeeForm.controls['birthDate']">
                   {{ "Employee.Add.BirthDate" | translate }}
@@ -92,7 +91,7 @@
                 ></lib-field-validations>
               </lib-form-group>
             </div>
-            <div class="md:col-3 ">
+            <div class="md:col-3">
               <lib-form-group>
                 <label>
                   {{ "Employee.Add.Age" | translate }}
@@ -102,7 +101,7 @@
                 </div>
               </lib-form-group>
             </div>
-            <div class="md:col-3 ">
+            <div class="md:col-3">
               <lib-form-group>
                 <lib-label
                   [appControl]="addEmployeeForm.controls['countryOfBirth']"
@@ -117,8 +116,23 @@
                   [appControl]="addEmployeeForm.controls['countryOfBirth']"
                 ></lib-field-validations>
               </lib-form-group>
+
+              <!-- <lib-form-group>
+                <lib-label [appControl]="addEmployeeForm.controls['countryOfBirth']">
+                  {{ "Employee.Add.CountryOfBirth" | translate }}
+                </lib-label>
+                <lib-select
+                  formControlName="countryOfBirth"
+                  [options]="lookups[LookupEnum.Country]"
+                  optionValue="id"
+                  optionLabel="name"
+                ></lib-select>
+                <lib-field-validations
+                  [appControl]="addEmployeeForm.controls['countryOfBirth']"
+                ></lib-field-validations>
+              </lib-form-group> -->
             </div>
-            <div class="md:col-3 ">
+            <div class="md:col-3">
               <lib-form-group>
                 <lib-label [appControl]="addEmployeeForm.controls['birthCity']">
                   {{ "Employee.Add.BirthCity" | translate }}
@@ -132,7 +146,7 @@
                 ></lib-field-validations>
               </lib-form-group>
             </div>
-            <div class=" md:col-3">
+            <div class="md:col-3">
               <lib-form-group>
                 <lib-label
                   [appControl]="addEmployeeForm.controls['nationality']"
@@ -148,7 +162,7 @@
                 ></lib-field-validations>
               </lib-form-group>
             </div>
-            <div class=" md:col-3">
+            <div class="md:col-3">
               <lib-form-group>
                 <lib-label [appControl]="addEmployeeForm.controls['gender']">
                   {{ "Employee.Add.Gender" | translate }}
@@ -164,7 +178,7 @@
                 ></lib-field-validations>
               </lib-form-group>
             </div>
-            <div class="md:col-3 ">
+            <div class="md:col-3">
               <lib-form-group>
                 <lib-label
                   [appControl]="addEmployeeForm.controls['maritalStatus']"
@@ -182,7 +196,7 @@
                 ></lib-field-validations>
               </lib-form-group>
             </div>
-            <div class="md:col-3 ">
+            <div class="md:col-3">
               <lib-form-group>
                 <lib-label [appControl]="addEmployeeForm.controls['religion']">
                   {{ "Employee.Add.Religion" | translate }}
@@ -198,7 +212,7 @@
                 ></lib-field-validations>
               </lib-form-group>
             </div>
-            <div class="md:col-6 ">
+            <div class="md:col-6">
               <lib-form-group>
                 <lib-label
                   [appControl]="addEmployeeForm.controls['militaryStatus']"
@@ -232,7 +246,7 @@
                 ></lib-field-validations>
               </lib-form-group>
             </div>
-            <!-- <div class="md:col-6">
+            <div class="md:col-6">
               <lib-form-group>
                 <lib-label [appControl]="addEmployeeForm.controls['bloodType']">
                   {{ "Employee.Add.BloodType" | translate }}
@@ -250,17 +264,23 @@
             </div>
             <div class="md:col-6">
               <lib-form-group>
-                <lib-label
-                  [appControl]="addEmployeeForm.controls['withSpecialNeeds']"
-                >
-                  {{ "Employee.Add.WithSpecialNeeds" | translate }}
-                </lib-label>
-                <lib-checkbox formControlName="withSpecialNeeds"></lib-checkbox>
+                <div class="p-field-checkbox">
+                  <p-checkbox
+                    formControlName="withSpecialNeeds"
+                    binary="true"
+                    inputId="withSpecialNeedsCheckbox"
+                  ></p-checkbox>
+                  <lib-label
+                    [appControl]="addEmployeeForm.controls['withSpecialNeeds']"
+                  >
+                    {{ "Employee.Add.WithSpecialNeeds" | translate }}
+                  </lib-label>
+                </div>
                 <lib-field-validations
                   [appControl]="addEmployeeForm.controls['withSpecialNeeds']"
                 ></lib-field-validations>
               </lib-form-group>
-            </div> -->
+            </div>
           </div>
         </form>
       </div>

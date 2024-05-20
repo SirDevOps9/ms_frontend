@@ -1,13 +1,12 @@
 export interface AddEmployeePersonal {
-    employeeCode: string;
     attendanceCode: number;
     employeeName: string;
-    employeePhoto: string;
+    employeePhoto?: string;
     birthDate: Date;
     countryOfBirth: string;
     birthCity: number;
     nationality: string;
-    gender: number;
+    gender: Gender;
     maritalStatus: MaritalStatus;
     religion: Religion;
     militaryStatus: MilitaryStatus;

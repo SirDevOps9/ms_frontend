@@ -37,7 +37,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
           new MultiTranslateHttpLoader(http, {
             resources: [
               { prefix: './assets/langs/auth/', suffix: '.json' },
-              { prefix: './assets/langs/bussiness-owners/', suffix: '.json' },
+              { prefix: './assets/langs/hr/', suffix: '.json' },
             ],
           }),
         deps: [HttpClient],
