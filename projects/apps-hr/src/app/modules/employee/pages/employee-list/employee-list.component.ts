@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { LanguageService, PageInfo, RouterService } from 'shared-lib';
+import { LanguageService, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { EmployeeDto } from '../../models/employeeDto';
 import { Title } from '@angular/platform-browser';
 import { EmployeeService } from '../../employee.service';
@@ -9,7 +9,6 @@ import { EmployeeService } from '../../employee.service';
   templateUrl: './employee-list.component.html',
   styleUrls: ['./employee-list.component.css'],
 })
-
 export class EmployeeListComponent implements OnInit {
   employees: EmployeeDto[];
   @ViewChild('myTab') myTab: any | undefined;
@@ -17,22 +16,18 @@ export class EmployeeListComponent implements OnInit {
   tableData: EmployeeDto[];
   cols: any[] = [];
   active: boolean = false;
-  currentPageInfo: PageInfo = new PageInfo();
+  currentPageInfo: PageInfoResult;
   searchTerm: string;
-
 
   constructor(
     private routerService: RouterService,
     private titleService: Title,
     private languageService: LanguageService,
-    private EmployeeService: EmployeeService,
-  ) { }
+    private employeeService: EmployeeService
+  ) {}
   ngOnInit() {
-
-    this.titleService.setTitle(
-      this.languageService.transalte('Employee.EmployeeList')
-    );
-    this.initEmployeeData(this.searchTerm,this.currentPageInfo);
+    this.titleService.setTitle(this.languageService.transalte('Employee.List.Employees'));
+    this.initEmployeeData(this.searchTerm, new PageInfo());
     this.cols = [
       {
         field: 'Id',
@@ -58,26 +53,29 @@ export class EmployeeListComponent implements OnInit {
     ];
   }
 
-
   initEmployeeData(searchTerm: string, page: PageInfo) {
+    this.employeeService.initEmployeesList(searchTerm, page);
 
-    this.EmployeeService.getAllEmployeesPaginated(searchTerm,page).subscribe({
-      next: (EmployeeList: any) => {
-        this.tableData = EmployeeList.result;
+    this.employeeService.employeesList.subscribe((res) => {
+      this.tableData = res;
+    });
 
-        //this.tableData = this.convertToTreeNode(journalList);
-        console.log('this.tableData', this.tableData);
-
-      },
+    this.employeeService.currentPageInfo.subscribe((res) => {
+      this.currentPageInfo = res;
     });
   }
 
-  onPageChange(searchTerm: string, pageInfo: PageInfo) {
+  onPageChange(pageInfo: PageInfo) {
     console.log(pageInfo);
-    this.initEmployeeData(searchTerm,pageInfo)
+    this.initEmployeeData('', pageInfo);
   }
   navigateToAdd() {
     this.routerService.navigateTo(`/employee/add`);
   }
 
+  searchTermChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.searchTerm = inputElement.value;
+    this.initEmployeeData(this.searchTerm, new PageInfo());
+  }
 }

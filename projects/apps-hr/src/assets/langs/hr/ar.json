@@ -52,7 +52,12 @@
     "WithSpecialNeeds": "With Special Needs",
     "Discard": "Discard",
     "Save": "Save"
-  }
+  },"List":{
+    "Employees":"الموظفين",
+    "Code":"الكود",
+    "Name":"الاسم",
+    "AttendanceCode":"كود الحضور" 
+   }
 }
 
 }

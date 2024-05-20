@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import {
-  FormsService,
-  LookupEnum,
-  LookupsService,
-  customValidators,
-  lookupDto,
-} from 'shared-lib';
+import { FormsService, LookupEnum, LookupsService, customValidators, lookupDto } from 'shared-lib';
 import { AddEmployeePersonal } from '../../models';
 import { EmployeeService } from '../../employee.service';
 
@@ -19,7 +13,7 @@ export class CreateEmployeeComponent implements OnInit {
   addEmployeeForm: FormGroup;
   LookupEnum = LookupEnum;
   employeeCode: string = 'dsdf';
-  Age:string ='33';
+  Age: string = '33';
   lookups: { [key: string]: lookupDto[] };
   ngOnInit() {
     this.initializeForm();
@@ -67,13 +61,11 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   Discard() {}
-  
+
   constructor(
     public lookupsService: LookupsService,
     private formBuilder: FormBuilder,
     private formsService: FormsService,
-    private employeeService: EmployeeService,
-
-
+    private employeeService: EmployeeService
   ) {}
 }

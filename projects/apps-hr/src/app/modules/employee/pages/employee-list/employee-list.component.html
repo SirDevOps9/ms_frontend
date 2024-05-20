@@ -1,52 +1,51 @@
-
 <div>
   <lib-bread-crumb></lib-bread-crumb>
   <div class="user_page">
-    <lib-data-table [items]="tableData" className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
-                    (pageChange)="onPageChange($event)"
-                    [tableConfigs]="{
-
-          allowPagination: true,
-          allowServerPagination: false,
-          dataKey: 'id',
-          pageSize: 10,
-          columns: [
+    <lib-data-table
+      [items]="tableData"
+      className="p-datatable-gridlines"
+      [currentPageResult]="currentPageInfo"
+      (pageChange)="onPageChange($event)"
+      [tableConfigs]="{
+        allowPagination: false,
+        allowServerPagination: true,
+        dataKey: 'id',
+        pageSize: 10,
+        columns: [
             {
-              name: 'id',
-              headerText: ('Id' ),
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'EmployeeCode',
-              headerText: ('Employee Code'),
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'AttendanceCode',
-              headerText: ('Attendance Code'),
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'EmployeeName',
-              headerText: ('Employee Name'),
-              isGlobalFilter: true,
-              isSortable: true,
-              template: journalDate
-            },
-          
-
-          ]
-        }">
-
+            name: 'employeeName',
+            headerText: 'Employee.List.Name' | translate,
+            isGlobalFilter: true,
+            isSortable: true,
+            template: empNameCol
+          },
+          {
+            name: 'employeeCode',
+            headerText: 'Employee.List.Code' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'attendanceCode',
+            headerText: 'Employee.List.AttendanceCode' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+        
+        ]
+      }"
+    >
       <ng-container caption>
         <div class="group">
           <div>
             <span class="p-input-icon-left">
               <i class="pi pi-search"></i>
-              <input pInputText type="text" placeholder="Search..." />
+              <input
+                pInputText
+                type="text"
+                (input)="searchTermChange($event)"
+                placeholder="Search..."
+              />
             </span>
           </div>
 
@@ -55,28 +54,29 @@
           <div>
             <button class="add_new" (click)="navigateToAdd()">
               <span class="pi pi-plus"></span>
-              Add New
+              {{"Add New" | translate}}
             </button>
             <button class="add_new export">
               <span class="pi pi-file"></span>
               Export
             </button>
           </div>
-
         </div>
       </ng-container>
-      <ng-template #userCol let-journal>
-        <div class="actions flex align-items-center ">
-          <lib-button className="edit" type="button" (click)="routeToEdit(Employee.id)" icon="pi pi-pencil" [rounded]="true" [enableText]="true" severity="secondary">
+      <ng-template #empNameCol let-employee>
+        <div class="user_info">
+          <lib-attachment-viewer attachmentId="{{employee.employeePhoto}}" />
+          <p>{{ employee.name }}</p>
+        </div>
+      </ng-template>
+      <ng-template #userCol let-employee>
+        <!-- <div class="actions flex align-items-center ">
+          <lib-button className="edit" type="button" (click)="routeToEdit(let-employee.id)" icon="pi pi-pencil" [rounded]="true" [enableText]="true" severity="secondary">
           </lib-button>
           <lib-button icon="pi pi-trash" [rounded]="true" [enableText]="true" severity="secondary">
           </lib-button>
-        </div>
-
+        </div> -->
       </ng-template>
-
-   
     </lib-data-table>
-
   </div>
 </div>
