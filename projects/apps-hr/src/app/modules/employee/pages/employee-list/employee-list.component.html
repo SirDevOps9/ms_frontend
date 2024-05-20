@@ -31,6 +31,13 @@
             isGlobalFilter: true,
             isSortable: true
           },
+                    
+            {
+    name: 'id',
+    headerText: 'Actions',
+    template: userCol
+             },
+
         
         ]
       }"
@@ -52,11 +59,11 @@
           <!-- <lib-button pRipple className="add_new" label="Add New" icon="pi pi-plus">
           </lib-button> -->
           <div>
-            <button class="add_new" (click)="navigateToAdd()">
+            <button class="btn add_new" (click)="navigateToAdd()">
               <span class="pi pi-plus"></span>
               {{"Add New" | translate}}
             </button>
-            <button class="add_new export">
+            <button class="add_new btn export">
               <span class="pi pi-file"></span>
               Export
             </button>
@@ -70,12 +77,12 @@
         </div>
       </ng-template>
       <ng-template #userCol let-employee>
-        <!-- <div class="actions flex align-items-center ">
-          <lib-button className="edit" type="button" (click)="routeToEdit(let-employee.id)" icon="pi pi-pencil" [rounded]="true" [enableText]="true" severity="secondary">
+         <div class="actions flex align-items-center ">
+          <lib-button className="edit" type="button" (click)="navigateToEdit(employee.id)" icon="pi pi-pencil" [rounded]="true" [enableText]="true" severity="secondary">
           </lib-button>
           <lib-button icon="pi pi-trash" [rounded]="true" [enableText]="true" severity="secondary">
           </lib-button>
-        </div> -->
+        </div> 
       </ng-template>
     </lib-data-table>
   </div>
