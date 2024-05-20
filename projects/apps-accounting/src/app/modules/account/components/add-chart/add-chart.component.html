@@ -2,7 +2,7 @@
   <lib-bread-crumb></lib-bread-crumb>
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <div class="grid">
-      <div class="md:col-4">
+      <div class="md:col-6">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['nameAr']">
             {{ "nameAr" | translate }}
@@ -12,7 +12,7 @@
           </lib-field-validations>
         </lib-form-group>
       </div>
-      <div class="md:col-4">
+      <div class="md:col-6">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['nameEn']">
             {{ "nameEN" | translate }}
@@ -22,34 +22,53 @@
           </lib-field-validations>
         </lib-form-group>
       </div>
+      <div class="md:col-12">
+        <lib-form-group>
+          <lib-label [appControl]="formGroup.controls['parentId']">
+            {{"Parent Account" | translate}}
+          </lib-label>
+          <lib-select
+            formControlName="parentId"
+            [options]="parentAccounts"
+            optionValue="id"
+            optionLabel="nameAr"
+            (valueChanged)="onParentAccountChange($event)"
+          >
+          </lib-select>
+        </lib-form-group>
+      </div>
       <div class="md:col-4">
         <lib-form-group>
-          <lib-label [appControl]="formGroup.controls['levelId']">
-            {{ "levelId" | translate }}
+          <lib-label [appControl]="formGroup.controls['accountCode']">
+            {{ "Parent Account Code" | translate }}
           </lib-label>
-          <lib-text-input type="text" formControlName="levelId" />
-          <lib-field-validations [appControl]="formGroup.controls['levelId']">
+          <lib-text-input [readOnly]="true" type="text" formControlName="accountCode" />
+          <lib-field-validations [appControl]="formGroup.controls['accountCode']">
           </lib-field-validations>
         </lib-form-group>
       </div>
       <div class="md:col-4">
-        <lib-label [appControl]="formGroup.controls['hasNoChild']">
-          {{ "hasNoChild" | translate }}
-        </lib-label>
-        <div class="checked">
-          <p-inputSwitch formControlName="hasNoChild"> </p-inputSwitch>
-        </div>
+        <lib-form-group>
+          <lib-label [appControl]="formGroup.controls['levelId']">
+            {{ "Parent level" | translate }}
+          </lib-label>
+          <lib-text-input [readOnly]="true" type="text" formControlName="levelId" />
+          <lib-field-validations [appControl]="formGroup.controls['levelId']">
+          </lib-field-validations>
+        </lib-form-group>
       </div>
+     
       <div class="md:col-4">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['natureId']">
-            Account Nature
+            {{ "Account Nature"| translate }}
           </lib-label>
           <lib-select
             formControlName="natureId"
             [options]="lookups[LookupEnum.AccountNature]"
-            optionValue="id"
+            optionValue="name"
             optionLabel="name"
+            
           >
           </lib-select>
         </lib-form-group>
@@ -57,41 +76,33 @@
       <div class="md:col-4">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['accountSectionId']">
-            Account Section
+            {{"Account Section" | translate}}
           </lib-label>
-          <lib-select
+          <lib-select *ngIf="!hasparent"
             formControlName="accountSectionId"
             [options]="accountSections"
             optionValue="id"
             optionLabel="nameAr"
+            
+            (valueChanged)="onAccountSectionChange($event)"
           >
           </lib-select>
+          <lib-text-input
+            formControlName="accountSectionId"
+             *ngIf="hasparent">
+          </lib-text-input>
         </lib-form-group>
       </div>
       <div class="md:col-4">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['accountTypeId']">
-            Account Type
+            {{"Account Type" | translate}}
           </lib-label>
           <lib-select
             formControlName="accountTypeId"
             [options]="accountTypes"
             optionValue="id"
             optionLabel="nameAr"
-          >
-          </lib-select>
-        </lib-form-group>
-      </div>
-      <div class="md:col-4">
-        <lib-form-group>
-          <lib-label [appControl]="formGroup.controls['currencyId']">
-            Currency
-          </lib-label>
-          <lib-select
-            formControlName="currencyId"
-            [options]="currencies"
-            optionValue="id"
-            optionLabel="currencyName"
           >
           </lib-select>
         </lib-form-group>
@@ -113,6 +124,28 @@
         </lib-form-group>
       </div>
       <div class="md:col-4">
+        <lib-label [appControl]="formGroup.controls['hasNoChild']">
+          {{ "hasNoChild" | translate }}
+        </lib-label>
+        <div class="checked">
+          <p-inputSwitch formControlName="hasNoChild" (onChange)="toggleCurrencyVisibility()"> </p-inputSwitch>
+        </div>
+      </div>
+      <div class="md:col-8">
+        <lib-form-group *ngIf="currencyIsVisible">
+          <lib-label [appControl]="formGroup.controls['currencyId']">
+            {{"Currency" | translate}}
+          </lib-label>
+          <lib-select
+            formControlName="currencyId"
+            [options]="currencies"
+            optionValue="id"
+            optionLabel="currencyName"
+          >
+          </lib-select>
+        </lib-form-group>
+      </div>
+      <div class="md:col-12">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['periodicActive']">
             {{ "periodicActive" | translate }}
@@ -132,6 +165,7 @@
             value="Inactive"
             formControlName="periodicActive"
             inputId="Inactive"
+            
           >
           </p-radioButton>
           <label>Inactive</label>
@@ -149,8 +183,8 @@
           </lib-field-validations>
         </lib-form-group>
       </div>
-      <div class="md:col-4">
-        <lib-form-group>
+      <div class="md:col-6">
+        <lib-form-group *ngIf="selectedPeriodOption === 'Period'">
           <lib-label [appControl]="formGroup.controls['periodicActiveFrom']">
             {{ "periodicActiveFrom" | translate }}
           </lib-label>
@@ -161,8 +195,8 @@
           </lib-field-validations>
         </lib-form-group>
       </div>
-      <div class="md:col-4">
-        <lib-form-group>
+      <div class="md:col-6">
+        <lib-form-group *ngIf="selectedPeriodOption === 'Period'">
           <lib-label [appControl]="formGroup.controls['periodicActiveTo']">
             {{ "periodicActiveTo" | translate }}
           </lib-label>
@@ -174,6 +208,15 @@
         </lib-form-group>
       </div>
     </div>
-    <!-- Add Check Has No Child -->
+    <div class="grid">
+      <div class="md:col-4">
+        <div class="btn_group">
+         
+          <button class="btn save" type="submit" >
+              {{"Save" | translate}}
+          </button>
+      </div>
+      </div>
+    </div>
   </form>
 </div>

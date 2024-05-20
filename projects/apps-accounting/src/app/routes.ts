@@ -14,16 +14,8 @@ export const ERPRoutes = [
       },
       {
         path: 'account',
-<<<<<<< HEAD
-        loadChildren: () =>
-          import('./modules/account/account.module').then(
-            (m) => m.AccountModule
-          )
-      }
-=======
         loadChildren: () => import('./modules/account/account.module').then((m) => m.AccountModule),
       },
->>>>>>> develop
     ],
   },
 ];

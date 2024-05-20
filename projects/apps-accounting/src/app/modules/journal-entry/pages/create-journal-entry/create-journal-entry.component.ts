@@ -84,8 +84,12 @@ export class CreateJournalEntryComponent {
   ngOnInit() {
     this.accountService.getAllChartOfAccountPaginated('', new PageInfo())
       .subscribe(r => this.filteredAccounts = r.result);
-    this.currencyService.getCurrencies('')
-      .subscribe(r => this.currencies = r);
+      
+      this.currencyService.getCurrencies('');
+
+      this.currencyService.currencies.subscribe((res) => {
+        this.currencies = res;
+      })
   }
 
   filterAccount(event: any) {

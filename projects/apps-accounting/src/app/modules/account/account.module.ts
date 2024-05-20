@@ -24,7 +24,6 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.chart_of_account,
         },
-<<<<<<< HEAD
         children:[
           {
             path: 'add',
@@ -36,9 +35,6 @@ const routes: Routes = [
           }
         ]
       }
-=======
-      },
->>>>>>> develop
     ],
   },
 ];

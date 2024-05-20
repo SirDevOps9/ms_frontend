@@ -10,14 +10,15 @@ import {
   LookupsService,
 } from 'shared-lib';
 import { AccountService } from '../../account.service';
-import { AddAccountDto } from '../../models/addAccountDto';
+import { AddAccountDto } from '../../models';
 import { CurrencyService } from '../../../general/currency.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
-import { AccountDto } from '../../models/accountDto';
-import { AccountSectionDropDownDto } from '../../models/accountSectionDropDownDto';
-import { AccountTypeDropDownDto } from '../../models/accountTypeDropDownDto';
-import { TagDropDownDto } from '../../models/tagDropDownDto';
-import { AccountProxy } from '../../account.proxy';
+import { AccountDto } from '../../models';
+import { AccountSectionDropDownDto } from '../../models';
+import { AccountTypeDropDownDto } from '../../models';
+import { TagDropDownDto } from '../../models';
+import { parentAccountDto } from '../../models';
+import { log } from 'console';
 
 @Component({
   selector: 'app-add-chart',
@@ -26,7 +27,8 @@ import { AccountProxy } from '../../account.proxy';
 })
 export class AddChartComponent {
   formGroup: FormGroup;
-  filteredAccounts: AccountDto[] = [];
+  parentAccounts: parentAccountDto[] = [];
+  selectedParentAccount: parentAccountDto = {} as parentAccountDto;
   currencies: CurrencyDto[];
   fitleredCurrencies: CurrencyDto[];
   accountSections: AccountSectionDropDownDto[];
@@ -34,14 +36,17 @@ export class AddChartComponent {
   accountTags: TagDropDownDto[];
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
+  currencyIsVisible: boolean = false;
+  hasparent: boolean = false;
+
+  selectedPeriodOption: string = '';
   constructor(
     private formBuilder: FormBuilder,
     private accountService: AccountService,
     private routerService: RouterService,
     private currencyService: CurrencyService,
     private formsService: FormsService,
-    private lookupsService: LookupsService,
-    private accountProxy: AccountProxy
+    private lookupsService: LookupsService
   ) {
     this.formGroup = formBuilder.group({
       nameAr: new FormControl('', customValidators.length(0, 255)),
@@ -64,35 +69,40 @@ export class AddChartComponent {
   ngOnInit() {
     this.loadLookups();
     this.Subscribe();
-    this.accountService
-      .getAllChartOfAccountPaginated('', new PageInfo())
-      .subscribe((r) => (this.filteredAccounts = r.result));
-
-    this.currencyService
-      .getCurrencies('')
-      .subscribe((r) => (this.currencies = r));
 
     this.accountService
-      .getAccountSections()
-      .subscribe((res) => (this.accountSections = res));
+      .getAllParentAccounts();
+      this.accountService.parentAccounts.subscribe((res) => {
+        this.parentAccounts = res;
+      })
+
+    this.currencyService.getCurrencies('');
+    this.currencyService.currencies.subscribe((res) => {
+      this.currencies = res;
+    });
+
+    this.accountService.getAccountSections();
+    this.accountService.accountSections.subscribe((res) => {
+      this.accountSections = res;
+    });
 
     this.getTags();
-  }
 
-  getAccountTypes(sectionId: number) {
-    this.accountService
-      .getAccountTypes(sectionId)
-      .subscribe((res) => this.accountTypes == res);
+    this.formGroup.get('periodicActive')?.valueChanges.subscribe((value) => {
+      this.onRadioButtonChange(value);
+    });
+
+
+    if(this.routerService.currentParetId)
+      this.onParentAccountChange(1);
   }
 
   getTags() {
-    this.accountService.getTags().subscribe((res) => {
+    this.accountService.getTags();
+    this.accountService.tags.subscribe((res) => {
       this.accountTags = res;
-
-      console.log('res', this.accountTags);
     });
   }
-
 
   loadLookups() {
     this.lookupsService.loadLookups([LookupEnum.AccountNature]);
@@ -100,15 +110,61 @@ export class AddChartComponent {
   Subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
   }
+
+  onAccountSectionChange(event: any) {
+    const sectionId = event;
+    if (!sectionId) return;
+    this.accountService.getAccountTypes(sectionId);
+    this.accountService.accountTypes.subscribe((typeList) => {
+      this.accountTypes = typeList;
+    });
+
+    this.formGroup.patchValue({ accountTypeId: [] });
+  }
+
+  onParentAccountChange(event: any) {
+    const parentAccountId = event;
+    if (!parentAccountId) return;
+    this.hasparent=true
+    this.accountService.getAccount(parentAccountId);
+    this.accountService.selectedAccount.subscribe((response) => {
+      this.selectedParentAccount = response;
+
+      const newAccountData = {
+        levelId: this.selectedParentAccount.levelId,
+        accountCode: this.selectedParentAccount.accountCode,
+        accountSectionId : this.selectedParentAccount.accountSectionId,
+        //natureId:this.selectedParentAccount.natureId
+      };
+      this.formGroup.patchValue(newAccountData);
+    });
+      
+   
+  }
+
+  toggleCurrencyVisibility() {
+    this.currencyIsVisible = !this.currencyIsVisible;
+  }
+
+  onRadioButtonChange(value: string) {
+    console.log(value);
+    this.selectedPeriodOption = value;
+  }
+
   onSubmit() {
     if (!this.formsService.validForm(this.formGroup, true)) return;
 
     let obj: AddAccountDto = this.formGroup.value;
+    //obj.natureId = this.formGroup.controls('natureId').value;
+
+    // const obj2 : AddAccountDto = {
+    //   natureId = this.formGroup.controls('natureId').value,
+
+    // }
+
 
     this.accountService
       .addAccount(obj)
-      .subscribe((r) =>
-        r == true ? this.routerService.navigateTo('ChartOfAccounts') : false
-      );
+      .subscribe((r) => (r == true ? this.routerService.navigateTo('ChartOfAccounts') : false));
   }
 }

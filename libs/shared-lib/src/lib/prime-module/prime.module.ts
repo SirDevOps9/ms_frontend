@@ -41,11 +41,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     PasswordModule,
     CheckboxModule,
     PaginatorModule,
-<<<<<<< HEAD
-    RadioButtonModule
-=======
+    RadioButtonModule,
     CalendarModule
->>>>>>> develop
   ],
   exports: [
     TableModule,

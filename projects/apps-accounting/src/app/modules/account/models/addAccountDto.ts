@@ -3,11 +3,8 @@ import { AccountNature } from "./accountNature";
 export interface AddAccountDto {
   nameAr: string;
   nameEn: string;
-  levelId: number;
-  accountCode:string;
   parentId:number;
-  parentAccountCode:string
-  natureId:AccountNature;
+  natureId:number;
   hasNoChild: boolean;
   accountTypeId : number;
   accountSectionId: number;

@@ -14,32 +14,13 @@ export class ChartOfAccountTreeComponent implements OnInit {
   @Input() view:boolean;
   @Input() add:boolean;
   nodes: accountTreeList[];
-<<<<<<< HEAD
   expanded:boolean=false;
   // view:boolean=false;
   // add:boolean=false;
   //edit:boolean=false;
   constructor(private accountService: AccountService){}
   ngOnInit() {
-    
-    //this.view=true
-    this.getTreeList()
-=======
-  expanded: boolean = false;
-  constructor(
-    private accountService: AccountService,
-    private title: Title,
-    private langService: LanguageService
-  ) {
-    this.langService.setLang();
-
-    console.log('Lang', this.langService.transalte('LoadError'));
-
-    this.title.setTitle('Chart of accounts');
-  }
-  ngOnInit() {
     this.getTreeList();
->>>>>>> develop
   }
   mapToTreeNodes(data: any[]) {
     data = data.map((item) => {
