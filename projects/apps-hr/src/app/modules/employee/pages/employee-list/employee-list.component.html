@@ -1,3 +1,82 @@
-<lib-button  type="button" (click)="navigateToAdd()" >
-  Navigate to Add
-</lib-button>
+
+<div>
+  <lib-bread-crumb></lib-bread-crumb>
+  <div class="user_page">
+    <lib-data-table [items]="tableData" className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
+                    (pageChange)="onPageChange($event)"
+                    [tableConfigs]="{
+
+          allowPagination: true,
+          allowServerPagination: false,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'id',
+              headerText: ('Id' ),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'EmployeeCode',
+              headerText: ('Employee Code'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'AttendanceCode',
+              headerText: ('Attendance Code'),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'EmployeeName',
+              headerText: ('Employee Name'),
+              isGlobalFilter: true,
+              isSortable: true,
+              template: journalDate
+            },
+          
+
+          ]
+        }">
+
+      <ng-container caption>
+        <div class="group">
+          <div>
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" placeholder="Search..." />
+            </span>
+          </div>
+
+          <!-- <lib-button pRipple className="add_new" label="Add New" icon="pi pi-plus">
+          </lib-button> -->
+          <div>
+            <button class="add_new" (click)="navigateToAdd()">
+              <span class="pi pi-plus"></span>
+              Add New
+            </button>
+            <button class="add_new export">
+              <span class="pi pi-file"></span>
+              Export
+            </button>
+          </div>
+
+        </div>
+      </ng-container>
+      <ng-template #userCol let-journal>
+        <div class="actions flex align-items-center ">
+          <lib-button className="edit" type="button" (click)="routeToEdit(Employee.id)" icon="pi pi-pencil" [rounded]="true" [enableText]="true" severity="secondary">
+          </lib-button>
+          <lib-button icon="pi pi-trash" [rounded]="true" [enableText]="true" severity="secondary">
+          </lib-button>
+        </div>
+
+      </ng-template>
+
+   
+    </lib-data-table>
+
+  </div>
+</div>

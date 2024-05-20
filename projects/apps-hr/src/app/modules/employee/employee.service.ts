@@ -1,13 +1,21 @@
-import { LanguageService, LoaderService, ToasterService } from "shared-lib";
+import { LanguageService, LoaderService, ToasterService, PageInfo } from "shared-lib";
 import { EmployeeProxy } from "./employee.proxy";
 import { Injectable } from "@angular/core";
 import { AddEmployeePersonal } from "./models";
+import { map } from "rxjs";
 
 @Injectable({
     providedIn: 'root',
   })
   export class EmployeeService {
 
+  getAllEmployeesPaginated(searchTerm: string, pageInfo: PageInfo) {
+    return this.employeeProxy.getAllPaginated(searchTerm, pageInfo).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
     addEmployee(model: AddEmployeePersonal) {
         this.loaderService.show();
         this.employeeProxy.addEmployee(model).subscribe({
@@ -33,4 +41,3 @@ import { AddEmployeePersonal } from "./models";
     ) {}
   
   }
-  
