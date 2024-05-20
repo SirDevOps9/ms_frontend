@@ -1,6 +1,6 @@
 # bitbucket-pipelines.yml
 
-image: node:17
+image: node:18-alpine
 
 pipelines:
   branches:
