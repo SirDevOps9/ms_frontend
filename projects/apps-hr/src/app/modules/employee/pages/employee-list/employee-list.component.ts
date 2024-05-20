@@ -72,10 +72,14 @@ export class EmployeeListComponent implements OnInit {
   navigateToAdd() {
     this.routerService.navigateTo(`/employee/add`);
   }
+  navigateToEdit(id: number) {
+    this.routerService.navigateTo(`/employee/edit/${id}`);
+  }
 
   searchTermChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     this.searchTerm = inputElement.value;
     this.initEmployeeData(this.searchTerm, new PageInfo());
   }
+
 }
