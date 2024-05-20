@@ -33,9 +33,7 @@ export class AuthService {
   }
 
   logout() {
-    this.oidcSecurityService
-      .logoff()
-      .subscribe((result) => console.log(result));
+    this.oidcSecurityService.logoff().subscribe((result) => console.log(result));
   }
 
   clearAllStorage() {
@@ -56,9 +54,7 @@ export class AuthService {
   }
 
   getUserPermissions(): PermissionTreeNode[] | Nullable {
-    let encrypted = this.localStorageService.getItem(
-      StorageKeys.PERMISSIONTREE
-    );
+    let encrypted = this.localStorageService.getItem(StorageKeys.PERMISSIONTREE);
 
     if (encrypted === null) return null;
     const decodedString = atob(encrypted);
@@ -71,10 +67,7 @@ export class AuthService {
     if (tree === null) return false;
 
     let userPermission = tree!.filter(
-      (x) =>
-        x.AppId == filter.App &&
-        x.LicenseId == filter.License &&
-        x.ServiceId == filter.Service
+      (x) => x.AppId == filter.App && x.LicenseId == filter.License && x.ServiceId == filter.Service
     );
 
     if (userPermission.length === 0) return false;
@@ -110,7 +103,7 @@ export class AuthService {
       .filter(
         (value, index, self) =>
           self.findIndex(
-            (item) => item.key === value.key && item.module === value.module
+            (item) => item.moduleId === value.moduleId && item.module === value.module
           ) === index
       )
       .map(({ key, module }) => ({ key, module }));
@@ -131,12 +124,10 @@ export class AuthService {
   }
 
   afterLoginRedirect() {
-    this.oidcSecurityService
-      .checkAuth()
-      .subscribe((loginResponse: LoginResponse) => {
-        this.saveUserData(loginResponse);
-        this.routerService.navigateTo('');
-      });
+    this.oidcSecurityService.checkAuth().subscribe((loginResponse: LoginResponse) => {
+      this.saveUserData(loginResponse);
+      this.routerService.navigateTo('');
+    });
   }
 
   saveUserData(model: LoginResponse) {
@@ -154,9 +145,7 @@ export class AuthService {
   getUserTokenModel(): TokenModel {
     let tokenModel: TokenModel = {
       AccessToken: this.localStorageService.getItem(StorageKeys.USER_TOKEN)!,
-      RefreshToken: this.localStorageService.getItem(
-        StorageKeys.USER_REFRESH_TOKEN
-      )!,
+      RefreshToken: this.localStorageService.getItem(StorageKeys.USER_REFRESH_TOKEN)!,
     };
     return tokenModel;
   }

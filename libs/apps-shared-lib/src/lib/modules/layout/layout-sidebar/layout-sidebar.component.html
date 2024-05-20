@@ -1,8 +1,8 @@
-<div class="sidebar" [ngClass]="{'close': !sidebarOpen}">
+<div class="sidebar" [ngClass]="{ close: !sidebarOpen }">
   <div class="logo-details">
     <button
       class="pi"
-      [ngClass]="{'pi-arrow-right': !sidebarOpen, 'pi-arrow-left': sidebarOpen}"
+      [ngClass]="{ 'pi-arrow-right': !sidebarOpen, 'pi-arrow-left': sidebarOpen }"
       (click)="toggleSidebar()"
     ></button>
   </div>
@@ -37,9 +37,9 @@
     </ng-container>
   </ul> -->
   <ul class="nav-links">
-    <ng-container *ngFor="let menuItem of treeData ; let i =index">
+    <ng-container *ngFor="let menuItem of treeData; let i = index">
       <li *ngIf="menuItem.subMenu.length > 0">
-        <div class="iocn-link " id="parent{{i}}">
+        <div class="iocn-link" id="parent{{ i }}">
           <a [href]="menuItem.link">
             <i class="{{ menuItem.icon }}"></i>
             <span class="link_name">{{ menuItem.name }}</span>
@@ -47,9 +47,9 @@
           <i class="pi pi-caret-down arrow" (click)="open($event, i)"></i>
         </div>
         <ul class="sub-menu">
-          <li *ngFor="let subItem of menuItem.subMenu let x= index">
+          <li *ngFor="let subItem of menuItem.subMenu; let x = index">
             <ng-container *ngIf="subItem.subMenu?.length">
-              <div class="iocn-link" id="parent{{x}}">
+              <div class="iocn-link" id="parent{{ x }}">
                 <a [routerLink]="subItem.link">
                   <span class="link_name">{{ subItem.name }}</span>
                 </a>
