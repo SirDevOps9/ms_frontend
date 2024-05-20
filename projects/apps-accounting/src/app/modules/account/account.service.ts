@@ -22,7 +22,7 @@ export class AccountService {
   private accountTypesDataSource = new BehaviorSubject<AccountTypeDropDownDto[]>([]);
   private accountSectionsDataSource = new BehaviorSubject<AccountTypeDropDownDto[]>([]);
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
-  
+  private savedAccountDataSource = new BehaviorSubject<AccountDto | undefined>(undefined);
 
   public accountsList = this.accountsDataSource.asObservable();
   public parentAccounts = this.parentAccountsDataSource.asObservable();
@@ -30,7 +30,7 @@ export class AccountService {
   public accountTypes = this.accountTypesDataSource.asObservable();
   public accountSections = this.accountSectionsDataSource.asObservable();
   public tags = this.tagsDataSource.asObservable();
-
+  public savedAddedAccount = this.savedAccountDataSource.asObservable();
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
@@ -78,13 +78,14 @@ export class AccountService {
       this.tagsDataSource.next(response);
     });
   }
-  getAccount(id:number){
-    this.accountproxy.getAccount(id).subscribe((response)=>{
+  getAccount(id: number) {
+    this.accountproxy.getAccount(id).subscribe((response) => {
       this.currentAccountDataSource.next(response);
-    })
+    });
   }
   addAccount(command: AddAccountDto) {
-    return this.accountproxy.addAccount(command);
+    this.accountproxy.addAccount(command).subscribe((res) => {
+      this.savedAccountDataSource.next(res);
+    });
   }
-
 }

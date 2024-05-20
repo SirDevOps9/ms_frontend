@@ -37,7 +37,7 @@
           </lib-select>
         </lib-form-group>
       </div>
-      <div class="md:col-4">
+      <div class="md:col-4" *ngIf="hasParentAccount">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['accountCode']">
             {{ "Parent Account Code" | translate }}
@@ -47,7 +47,7 @@
           </lib-field-validations>
         </lib-form-group>
       </div>
-      <div class="md:col-4">
+      <div class="md:col-4" *ngIf="hasParentAccount">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['levelId']">
             {{ "Parent level" | translate }}
@@ -57,8 +57,7 @@
           </lib-field-validations>
         </lib-form-group>
       </div>
-     
-      <div class="md:col-4">
+      <div class="md:col-4" *ngIf="!hasParentAccount">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['natureId']">
             {{ "Account Nature"| translate }}
@@ -73,23 +72,44 @@
           </lib-select>
         </lib-form-group>
       </div>
-      <div class="md:col-4">
+      <div class="md:col-4" *ngIf="hasParentAccount">
+        <lib-form-group>
+          <lib-label [appControl]="formGroup.controls['natureId']">
+            {{ "Account Nature"| translate }}
+          </lib-label>
+          <lib-text-input
+          type="text"
+          [readOnly]="true"
+          formControlName="natureId"
+          >
+        </lib-text-input>
+        </lib-form-group>
+      </div>
+      <div class="md:col-4" *ngIf="!hasParentAccount">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['accountSectionId']">
             {{"Account Section" | translate}}
           </lib-label>
-          <lib-select *ngIf="!hasparent"
+          <lib-select
             formControlName="accountSectionId"
             [options]="accountSections"
             optionValue="id"
             optionLabel="nameAr"
-            
             (valueChanged)="onAccountSectionChange($event)"
           >
           </lib-select>
+        </lib-form-group>
+      </div>
+      <div class="md:col-4"  *ngIf="hasParentAccount">
+        <lib-form-group>
+          <lib-label [appControl]="formGroup.controls['accountSectionName']">
+            {{"Account Section" | translate}}
+          </lib-label>
           <lib-text-input
-            formControlName="accountSectionId"
-             *ngIf="hasparent">
+            type="text"
+            [readOnly]="true"
+            formControlName="accountSectionName"
+            >
           </lib-text-input>
         </lib-form-group>
       </div>
@@ -119,8 +139,6 @@
             optionLabel="name"
           >
           </lib-multi-select>
-          <lib-field-validations [appControl]="formGroup.controls['tags']">
-          </lib-field-validations>
         </lib-form-group>
       </div>
       <div class="md:col-4">
@@ -147,38 +165,38 @@
       </div>
       <div class="md:col-12">
         <lib-form-group>
-          <lib-label [appControl]="formGroup.controls['periodicActive']">
-            {{ "periodicActive" | translate }}
+          <lib-label [appControl]="formGroup.controls['AccountActivation']">
+            {{ "AccountActivation" | translate }}
           </lib-label>
           <br />
           <p-radioButton
-            name="periodicActive"
+            name="AccountActivation"
             value="Active"
-            formControlName="periodicActive"
+            formControlName="AccountActivation"
             inputId="Active"
           >
           </p-radioButton>
           <label>Active</label>
 
           <p-radioButton
-            name="periodicActive"
+            name="AccountActivation"
             value="Inactive"
-            formControlName="periodicActive"
+            formControlName="AccountActivation"
             inputId="Inactive"
             
           >
           </p-radioButton>
           <label>Inactive</label>
           <p-radioButton
-            name="periodicActive"
+            name="AccountActivation"
             value="Period"
-            formControlName="periodicActive"
+            formControlName="AccountActivation"
             inputId="Period"
           >
           </p-radioButton>
           <label>Periodic Active</label>
           <lib-field-validations
-            [appControl]="formGroup.controls['periodicActive']"
+            [appControl]="formGroup.controls['AccountActivation']"
           >
           </lib-field-validations>
         </lib-form-group>

@@ -10,7 +10,7 @@ export interface AddAccountDto {
   accountSectionId: number;
   currencyId : number;
   tags : number[];
-  periodicActive: boolean;
+  AccountActivation: string;
   periodicActiveFrom : Date;
   periodicActiveTo : Date;
 }

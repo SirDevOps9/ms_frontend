@@ -28,7 +28,6 @@ import { log } from 'console';
 export class AddChartComponent {
   formGroup: FormGroup;
   parentAccounts: parentAccountDto[] = [];
-  selectedParentAccount: parentAccountDto = {} as parentAccountDto;
   currencies: CurrencyDto[];
   fitleredCurrencies: CurrencyDto[];
   accountSections: AccountSectionDropDownDto[];
@@ -37,7 +36,7 @@ export class AddChartComponent {
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   currencyIsVisible: boolean = false;
-  hasparent: boolean = false;
+  hasParentAccount: boolean = false;
 
   selectedPeriodOption: string = '';
   constructor(
@@ -54,27 +53,26 @@ export class AddChartComponent {
       levelId: new FormControl(''),
       accountCode: new FormControl('', customValidators.required),
       parentId: new FormControl(''),
-      parentAccountCode: new FormControl(''),
+      accountSectionName: new FormControl(''),
       natureId: new FormControl('', customValidators.required),
       hasNoChild: new FormControl(''),
       accountTypeId: new FormControl('', customValidators.required),
       accountSectionId: new FormControl('', customValidators.required),
       currencyId: new FormControl(''),
-      tags: new FormControl('', customValidators.required),
-      periodicActive: new FormControl(''),
-      periodicActiveFrom: new FormControl(''),
-      periodicActiveTo: new FormControl(''),
+      tags: new FormControl([]),
+      AccountActivation: new FormControl(''),
+      periodicActiveFrom: new FormControl(),
+      periodicActiveTo: new FormControl(),
     });
   }
   ngOnInit() {
     this.loadLookups();
     this.Subscribe();
 
-    this.accountService
-      .getAllParentAccounts();
-      this.accountService.parentAccounts.subscribe((res) => {
-        this.parentAccounts = res;
-      })
+    this.accountService.getAllParentAccounts();
+    this.accountService.parentAccounts.subscribe((res) => {
+      this.parentAccounts = res;
+    });
 
     this.currencyService.getCurrencies('');
     this.currencyService.currencies.subscribe((res) => {
@@ -88,13 +86,11 @@ export class AddChartComponent {
 
     this.getTags();
 
-    this.formGroup.get('periodicActive')?.valueChanges.subscribe((value) => {
+    this.formGroup.get('AccountActivation')?.valueChanges.subscribe((value) => {
       this.onRadioButtonChange(value);
     });
 
-
-    if(this.routerService.currentParetId)
-      this.onParentAccountChange(1);
+    if (this.routerService.currentId) this.onParentAccountChange(this.routerService.currentId);
   }
 
   getTags() {
@@ -125,21 +121,19 @@ export class AddChartComponent {
   onParentAccountChange(event: any) {
     const parentAccountId = event;
     if (!parentAccountId) return;
-    this.hasparent=true
+    this.hasParentAccount = true;
     this.accountService.getAccount(parentAccountId);
     this.accountService.selectedAccount.subscribe((response) => {
-      this.selectedParentAccount = response;
-
       const newAccountData = {
-        levelId: this.selectedParentAccount.levelId,
-        accountCode: this.selectedParentAccount.accountCode,
-        accountSectionId : this.selectedParentAccount.accountSectionId,
-        //natureId:this.selectedParentAccount.natureId
+        levelId: response.levelId,
+        accountCode: response.accountCode,
+        accountSectionId: response.accountSectionId,
+        accountSectionName: response.accountSectionName,
+        natureId: response.accountNature,
       };
+      this.onAccountSectionChange(response.accountSectionId);
       this.formGroup.patchValue(newAccountData);
     });
-      
-   
   }
 
   toggleCurrencyVisibility() {
@@ -155,16 +149,13 @@ export class AddChartComponent {
     if (!this.formsService.validForm(this.formGroup, true)) return;
 
     let obj: AddAccountDto = this.formGroup.value;
-    //obj.natureId = this.formGroup.controls('natureId').value;
 
-    // const obj2 : AddAccountDto = {
-    //   natureId = this.formGroup.controls('natureId').value,
+    this.accountService.addAccount(obj);
 
-    // }
-
-
-    this.accountService
-      .addAccount(obj)
-      .subscribe((r) => (r == true ? this.routerService.navigateTo('ChartOfAccounts') : false));
+    this.accountService.savedAddedAccount.subscribe((res) => {
+      if (res) {
+        alert('saved');
+      }
+    });
   }
 }

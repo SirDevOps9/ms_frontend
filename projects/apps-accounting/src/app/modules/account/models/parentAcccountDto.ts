@@ -8,4 +8,6 @@ export interface parentAccountDto {
   levelId?:number;
   natureId:AccountNature;
   accountSectionId:number;
+  accountSectionName:string;
+  accountNature: string;
 }

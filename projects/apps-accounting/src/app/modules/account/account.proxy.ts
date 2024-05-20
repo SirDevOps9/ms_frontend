@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AddAccountDto } from './models';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { AccountSectionDropDownDto } from './models';
-import { TagDropDownDto } from './models';
-import { accountTreeList, AccountDto } from './models';
-import { AccountTypeDropDownDto } from './models';
-import { parentAccountDto } from './models';
+import {
+  accountTreeList,
+  AddAccountDto,
+  AccountDto,
+  AccountSectionDropDownDto,
+  TagDropDownDto,
+  AccountTypeDropDownDto,
+  parentAccountDto,
+} from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -23,11 +26,11 @@ export class AccountProxy {
     return this.httpService.get<TagDropDownDto[]>(`Tag`);
   }
 
-  getAccount(id:number): Observable<parentAccountDto> {
+  getAccount(id: number): Observable<parentAccountDto> {
     return this.httpService.get<parentAccountDto>(`ChartOfAccounts/Get?id=${id}`);
   }
 
-  addAccount(command: AddAccountDto): Observable<boolean> {
+  addAccount(command: AddAccountDto): Observable<AccountDto> {
     return this.httpService.post('ChartOfAccounts/AddAccount', command);
   }
   getAllPaginated(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<AccountDto>> {
@@ -39,9 +42,7 @@ export class AccountProxy {
   }
 
   getTreeList(): Observable<accountTreeList[]> {
-    return this.httpService.get<accountTreeList[]>(
-      `ChartOfAccounts/GetTree`
-    );
+    return this.httpService.get<accountTreeList[]>(`ChartOfAccounts/GetTree`);
   }
 
   constructor(private httpService: HttpService) {}
