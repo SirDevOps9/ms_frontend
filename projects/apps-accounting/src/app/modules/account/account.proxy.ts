@@ -1,14 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { accountTreeList, AccountDto } from './models';
+import {
+  listAddLevelsDto,
+  GetLevelsDto,
+  accountTreeList,
+  AccountDto,
+} from './models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountProxy {
-  getAllPaginated(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<AccountDto>> {
+  getAllPaginated(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<AccountDto>> {
     return this.httpService.get<PaginationVm<AccountDto>>(`ChartOfAccounts?${pageInfo.toQuery}`);
+
   }
   getTreeList(): Observable<accountTreeList[]> {
     return this.httpService.get<accountTreeList[]>(
@@ -16,6 +25,15 @@ export class AccountProxy {
       `ChartOfAccounts/GetTree`
     );
   }
+  getLevels(): Observable<GetLevelsDto[]> {
+    return this.httpService.get<GetLevelsDto[]>(`Levels`);
+  }
+
+  addLevels(command: listAddLevelsDto): Observable<boolean> {
+    return this.httpService.post('Levels', command);
+  }
 
   constructor(private httpService: HttpService) {}
+
 }
+
