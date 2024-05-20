@@ -3,7 +3,9 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormsService, LoaderService, MenuModule, customValidators } from 'shared-lib';
-
+import { GeneralSettingProxy } from '../../general-setting.proxy';
+import { GeneralSettingService } from '../../general-setting.service';
+import { AddTagDto } from '../../models/AddTagDto';
 @Component({
   selector: 'app-tag-add',
   templateUrl: './tag-add.component.html',
@@ -12,6 +14,7 @@ import { FormsService, LoaderService, MenuModule, customValidators } from 'share
 export class TagAddComponent implements OnInit {
   TagForm: FormGroup;
   modulelist: MenuModule[];
+  
 
   constructor(
     public config: DynamicDialogConfig,
@@ -20,8 +23,7 @@ export class TagAddComponent implements OnInit {
     public authService: AuthService,
     private formService: FormsService,
     private ref: DynamicDialogRef,
-    private loaderService: LoaderService,
-
+    private generalSettingService : GeneralSettingService
   ) { }
 
   ngOnInit() {
@@ -46,20 +48,11 @@ export class TagAddComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.formService.validForm(this.TagForm, true)) return;
-
-    this.loaderService.show();
-    this.userProxy.confirmInvitedUser(request).subscribe({
-      next: (response) => {
-        this.loaderService.hide();
-        this.toasterService.showSuccess('Success', 'Success');
-        let loginUrl = this.environmentService.erpLogin!;
-        loginUrl = loginUrl.replace('*', subdomain);
-        window.location.href = loginUrl;
-      },
-      error: () => {
-        this.loaderService.hide();
-      },
-    });
+    if(!this.TagForm.valid) return;
+    const dto :AddTagDto=this.TagForm.value;
+    console.log(dto);
+    this.generalSettingService.addTag(dto,this.ref);
+    this.TagForm.patchValue({code : this.generalSettingService.TagCode});
+    
   }
 }
