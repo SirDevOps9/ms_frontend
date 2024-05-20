@@ -1,3 +1,5 @@
+# bitbucket-pipelines.yml
+
 image: node:17
 
 pipelines:
@@ -9,13 +11,27 @@ pipelines:
             - node
           script:
             - npm install
+            - npm install -g @angular/cli
+            - export PATH=$(npm bin -g):$PATH
+            - echo $PATH # Debug: Print the PATH to verify
+            - which ng # Debug: Verify if ng is found
 
       - step:
           name: Build Business Owners Project
+          caches:
+            - node
           script:
+            - export PATH=$(npm bin -g):$PATH
+            - echo $PATH # Debug: Print the PATH to verify
+            - which ng # Debug: Verify if ng is found
             - ng build --project bussiness-owners
 
       - step:
           name: Build Admin Portal Project
+          caches:
+            - node
           script:
+            - export PATH=$(npm bin -g):$PATH
+            - echo $PATH # Debug: Print the PATH to verify
+            - which ng # Debug: Verify if ng is found
             - ng build --project adminportal
