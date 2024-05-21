@@ -29,7 +29,7 @@
           <div class="md:col-3">
             <lib-form-group>
               <label>
-                {{ "Employee.View.EmployeeCode" | translate }}
+                {{ 'Employee.View.EmployeeCode' | translate }}
               </label>
               <div class="view">
                 {{ employee?.employeeCode }}
@@ -39,7 +39,7 @@
           <div class="md:col-3">
             <lib-form-group>
               <label>
-                {{ "Employee.View.AttendanceCode" | translate }}
+                {{ 'Employee.View.AttendanceCode' | translate }}
               </label>
               <div class="view">
                 {{ employee?.attendanceCode }}
@@ -49,7 +49,7 @@
           <div class="md:col-3">
             <lib-form-group>
               <label>
-                {{ "Employee.View.EmployeeName" | translate }}
+                {{ 'Employee.View.EmployeeName' | translate }}
               </label>
               <div class="view">
                 {{ employee?.employeeName }}
@@ -65,7 +65,7 @@
           <div class="md:col-3">
             <lib-form-group>
               <label>
-                {{ "Employee.View.BirthDate" | translate }}
+                {{ 'Employee.View.BirthDate' | translate }}
               </label>
               <div class="view">
                 {{ employee?.birthDate | date }}
@@ -75,7 +75,7 @@
           <div class="md:col-3">
             <lib-form-group>
               <label>
-                {{ "Employee.View.Age" | translate }}
+                {{ 'Employee.View.Age' | translate }}
               </label>
               <div class="view">
                 {{ ageService.calculateAge(employee?.birthDate!) }}
@@ -85,7 +85,7 @@
           <div class="md:col-3">
             <lib-form-group>
               <label>
-                {{ "Employee.View.CountryOfBirth" | translate }}
+                {{ 'Employee.View.CountryOfBirth' | translate }}
               </label>
               <div class="view">
                 {{ employee?.countryOfBirth }}
@@ -95,7 +95,7 @@
           <div class="md:col-3">
             <lib-form-group>
               <label>
-                {{ "Employee.View.BirthCity" | translate }}
+                {{ 'Employee.View.BirthCity' | translate }}
               </label>
               <div class="view">
                 {{ employee?.birthCity }}
@@ -108,7 +108,7 @@
           <div class="md:col-3">
             <lib-form-group>
               <label>
-                {{ "Employee.View.Nationality" | translate }}
+                {{ 'Employee.View.Nationality' | translate }}
               </label>
               <div class="view">
                 {{ employee?.nationality }}
@@ -119,7 +119,7 @@
           <div class="md:col-3">
             <lib-form-group>
               <label>
-                {{ "Employee.View.Gender" | translate }}
+                {{ 'Employee.View.Gender' | translate }}
               </label>
               <div class="view">
                 {{ employee?.gender }}
@@ -129,7 +129,7 @@
           <div class="md:col-3">
             <lib-form-group>
               <label>
-                {{ "Employee.View.MaritalStatus" | translate }}
+                {{ 'Employee.View.MaritalStatus' | translate }}
               </label>
               <div class="view">
                 {{ employee?.maritalStatus }}
@@ -139,7 +139,7 @@
           <div class="md:col-3">
             <lib-form-group>
               <label>
-                {{ "Employee.View.Religion" | translate }}
+                {{ 'Employee.View.Religion' | translate }}
               </label>
               <div class="view">
                 {{ employee?.religion }}
@@ -152,7 +152,7 @@
           <div class="md:col-6">
             <lib-form-group>
               <label>
-                {{ "Employee.View.MilitaryStatus" | translate }}
+                {{ 'Employee.View.MilitaryStatus' | translate }}
               </label>
               <div class="view">
                 {{ employee?.militaryStatus }}
@@ -163,7 +163,7 @@
           <div class="md:col-6">
             <lib-form-group>
               <label>
-                {{ "Employee.View.MilitaryNumber" | translate }}
+                {{ 'Employee.View.MilitaryNumber' | translate }}
               </label>
               <div class="view">
                 {{ employee?.militaryNumber }}
@@ -176,7 +176,7 @@
           <div class="md:col-6">
             <lib-form-group>
               <label>
-                {{ "Employee.View.BloodType" | translate }}
+                {{ 'Employee.View.BloodType' | translate }}
               </label>
               <div class="view">
                 {{ employee?.bloodType }}
@@ -185,10 +185,17 @@
           </div>
           <div class="md:col-6">
             <lib-form-group>
-              <label>
-                {{ "Employee.View.WithSpecialNeeds" | translate }}
-              </label>
-              <p-checkbox [binary]="true" [(ngModel)]="employee!.withSpecialNeeds!" disabled="true"></p-checkbox>
+              <div class="p-field-checkbox special_care">
+                <p-checkbox
+                  [binary]="true"
+                  [(ngModel)]="employee!.withSpecialNeeds!"
+                  disabled="true"
+                ></p-checkbox>
+                <label>
+                  {{ 'Employee.View.WithSpecialNeeds' | translate }}
+                </label>
+              </div>
+
             </lib-form-group>
           </div>
         </div>

@@ -99,6 +99,25 @@
       border: 1px solid #d1d5db;
     }
     
- 
+    .special_care {
+      margin-top: 18px;
+      color: #1a8eae;
+      font-size: 16px;
+    
+      ::ng-deep {
+        .p-checkbox {
+          .p-checkbox-box {
+            width: 18px;
+            height: 18px;
+            border-color: #1a8eae; 
+            background-color: #1a8eae;
+          }
+    
+          .p-checkbox-icon {
+            color: white;
+          }
+        }
+      }
+    }
   }
   
