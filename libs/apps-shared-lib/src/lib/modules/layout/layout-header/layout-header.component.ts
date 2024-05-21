@@ -71,6 +71,8 @@ export class LayoutHeaderComponent {
       location.href = '../hr';
     } else if (key === Modules.Accounting) {
       location.href = '../accounting';
+    } else if (key === Modules.GeneralSettings) {
+      location.href = '../erp';
     }
   }
   constructor(
