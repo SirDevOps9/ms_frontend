@@ -16,6 +16,7 @@ import { environment } from '../environments/environment';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { CookieModule } from 'ngx-cookie';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UrlSerializer } from '@angular/router';
 
 @NgModule({
@@ -23,6 +24,7 @@ import { UrlSerializer } from '@angular/router';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     AuthModule.forRoot({
       config: environment.openIdConfig,
     }),
@@ -33,7 +35,7 @@ import { UrlSerializer } from '@angular/router';
           new MultiTranslateHttpLoader(http, {
             resources: [
               { prefix: './assets/langs/auth/', suffix: '.json' },
-              { prefix: './assets/langs/bussiness-owners/', suffix: '.json' },
+              { prefix: './assets/langs/hr/', suffix: '.json' },
             ],
           }),
         deps: [HttpClient],

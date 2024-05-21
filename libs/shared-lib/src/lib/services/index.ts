@@ -15,3 +15,4 @@ export * from './lookups.service';
 export * from './subdomain.service';
 export * from './attachment.service';
 export * from './lowercaseurlserializer';
+export * from './age.service';
