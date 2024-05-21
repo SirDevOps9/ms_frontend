@@ -1,53 +1,53 @@
 
-   .btn {
-        background: none;
-        border: none;
-        padding: 10px 50px;
-        border-radius: 12px;
-        cursor: pointer;
-        position: relative;
-        text-transform: capitalize;
-      }
-      .save {
-        background: #1a8eae;
-        color: #fff;
-        margin-inline-start: 20px;
-        justify-content: end;
-      }
+.btn {
+  background: none;
+  border: none;
+  padding: 10px 50px;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  text-transform: capitalize;
+}
+.save {
+  background: #1a8eae;
+  color: #fff;
+  margin-inline-start: 20px;
+  justify-content: end;
+}
 
-      .primary{
-    color: #ffffff;
-    background: #1a8eae ;
-    border: 0px solid #1a8eae ;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
-    border-radius: 6px;
-    outline-color: transparent;
-      }
+.primary{
+color: #ffffff;
+background: #1a8eae ;
+border: 0px solid #1a8eae ;
+padding: 0.5rem 1rem;
+font-size: 1rem;
+transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+border-radius: 6px;
+outline-color: transparent;
+}
 
-      .import {
-        border: 1px solid #1a8eae;
-        color: #1a8eae;
-        justify-content: end;
-      }
-      .btn_icon{
-        margin-inline-end: 5px;
-      }
-      .icon_btn{
-        width: 40px;
-        height: 40px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        color: #1a8eae;
-        border-radius: 8px;
-        margin-inline-start: 5px;
-        background-color: #fff;
-        color: #1a8eae;
-      
-      }
-      .active{
-        background-color: #1a8eae;
-        color: #fff;
-      }
+.import {
+  border: 1px solid #1a8eae;
+  color: #1a8eae;
+  justify-content: end;
+}
+.btn_icon{
+  margin-inline-end: 5px;
+}
+.icon_btn{
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #1a8eae;
+  border-radius: 8px;
+  margin-inline-start: 5px;
+  background-color: #fff;
+  color: #1a8eae;
+
+}
+.active{
+  background-color: #1a8eae;
+  color: #fff;
+}

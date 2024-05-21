@@ -11,7 +11,7 @@
         dataKey: 'id',
         pageSize: 10,
         columns: [
-            {
+          {
             name: 'employeeName',
             headerText: 'Employee.List.Name' | translate,
             isGlobalFilter: true,
@@ -30,14 +30,12 @@
             isGlobalFilter: true,
             isSortable: true
           },
-                    
-            {
-    name: 'id',
-    headerText: 'Actions',
-    template: userCol
-             },
 
-        
+          {
+            name: 'id',
+            headerText: 'Actions',
+            template: userCol
+          }
         ]
       }"
     >
@@ -60,7 +58,7 @@
           <div class="flex justify-content-end gap-3">
             <button class="primary" (click)="navigateToAdd()">
               <span class="pi pi-plus"></span>
-              {{"Add New" | translate}}
+              {{ 'Add New' | translate }}
             </button>
             <button class="primary export">
               <span class="pi pi-file"></span>
@@ -71,19 +69,42 @@
       </ng-container>
       <ng-template #empNameCol let-employee>
         <div class="user_info flex gap-3">
-          <lib-attachment-viewer [className]="'thumbnail'" attachmentId="{{employee.employeePhoto}}" />
+          <lib-attachment-viewer
+            [className]="'thumbnail'"
+            attachmentId="{{ employee.employeePhoto }}"
+          />
           <p>{{ employee.employeeName }}</p>
         </div>
       </ng-template>
       <ng-template #userCol let-employee>
-         <div class="actions flex align-items-center ">
-          <lib-button (click)="navigateToView(employee.id)" icon="pi pi-eye" [rounded]="true" [enableText]="true" severity="secondary">
+        <div class="actions flex align-items-center">
+          <lib-button
+            (click)="navigateToView(employee.id)"
+            icon="pi pi-eye"
+            [rounded]="true"
+            [enableText]="true"
+            severity="secondary"
+          >
           </lib-button>
-          <lib-button className="edit" type="button" (click)="navigateToEdit(employee.id)" icon="pi pi-pencil" [rounded]="true" [enableText]="true" severity="secondary">
+          <lib-button
+            className="edit"
+            type="button"
+            (click)="navigateToEdit(employee.id)"
+            icon="pi pi-pencil"
+            [rounded]="true"
+            [enableText]="true"
+            severity="secondary"
+          >
           </lib-button>
-          <lib-button (click)="deletEmployee(employee.id)" icon="pi pi-trash" [rounded]="true" [enableText]="true" severity="secondary">
+          <lib-button
+            (click)="deletEmployee(employee.id)"
+            icon="pi pi-trash"
+            [rounded]="true"
+            [enableText]="true"
+            severity="secondary"
+          >
           </lib-button>
-        </div> 
+        </div>
       </ng-template>
     </lib-data-table>
   </div>

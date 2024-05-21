@@ -8,9 +8,9 @@ const app = express();
 
 // Define your projects and their paths
 const projects = [
-  { path: '/erp', target: 'https://fathyappsmenu.localhost.com:4401' },
-  { path: '/accounting', target: 'https://fathyappsmenu.localhost.com:4402' },
-  { path: '/hr', target: 'https://fathyappsmenu.localhost.com:4403' },
+  { path: '/erp', target: 'https://develop.localhost.com:4401' },
+  { path: '/accounting', target: 'https://develop.localhost.com:4402' },
+  { path: '/hr', target: 'https://develop.localhost.com:4403' },
 ];
 
 projects.forEach(({ path, target }) => {
@@ -36,6 +36,6 @@ const options = {
 
 // Start the HTTPS server
 const port = 4400; // Default HTTPS port
-https.createServer(options, app).listen(port, 'fathyappsmenu.localhost.com', () => {
-  console.log(`Gateway server running on https://fathyappsmenu.localhost.com:${port}`);
+https.createServer(options, app).listen(port, 'develop.localhost.com', () => {
+  console.log(`Gateway server running on https://develop.localhost.com:${port}`);
 });

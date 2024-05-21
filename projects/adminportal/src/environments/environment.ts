@@ -12,7 +12,7 @@ export const environment: IEnvironment = {
     redirectUrl: window.location.origin + '/adminportal/login-redirect',
     postLogoutRedirectUri: window.location.origin + '/adminportal/logout-redirect',
     clientId: 'microtec_admin_portal',
-    scope: 'openid profile offline_access tenants',
+    scope: 'openid profile offline_access',
     responseType: 'code',
     silentRenew: true,
     useRefreshToken: true,
