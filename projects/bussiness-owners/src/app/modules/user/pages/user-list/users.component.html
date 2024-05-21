@@ -1,6 +1,28 @@
 <lib-page-content>
   
-  <lib-bread-crumb></lib-bread-crumb>
+  <lib-bread-crumb>
+
+    <ng-container caption>
+      <div class="flex align-items-center justify-content-end">
+        <!-- <span class="p-input-icon-left"> -->
+          <!-- <i class="pi pi-search"></i> -->
+          <lib-text-input
+            type="text"
+            (input)="applyFilterGlobal($event, 'contains')"
+            placeholder="Search..."
+          />
+        <!-- </span> -->
+        <lib-button
+        
+          className="add_new mr-2"
+          label="Add New"
+          icon="pi pi-plus"
+          (onClick)="openInviteModal()"
+        >
+        </lib-button>
+      </div>
+    </ng-container>
+  </lib-bread-crumb>
   <div class="user_page">
     <lib-data-table
       [items]="userData"
@@ -49,7 +71,7 @@
         ]
       }">
 
-      <ng-container caption>
+      <!-- <ng-container caption>
         <div class="flex align-items-center justify-content-end">
           <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
@@ -69,7 +91,7 @@
           >
           </lib-button>
         </div>
-      </ng-container>
+      </ng-container> -->
     </lib-data-table>
 
     <ng-template #userCol let-user>

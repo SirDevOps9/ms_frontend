@@ -71,6 +71,14 @@ export class ListAppsComponent implements OnInit {
   row() {
     this.cardList = false;
   }
+  toggelview(){
+    if(this.cardList == true){
+      this.cardList = false;
+    }else{
+      this.cardList = true;
+
+    }
+  }
   routeToDetails(id: any) {
     console.log(id);
     this.router.navigateTo('/app-store/app-detail/'+id);

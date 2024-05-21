@@ -10,6 +10,7 @@ import { AttachmentDto } from '../../models';
 export class AttachmentViewerComponent implements OnInit, OnChanges {
   @Input() attachmentId: string;
   @Input() style: string;
+  @Input() className: string;
   imageData: string;
 
   ngOnInit() {

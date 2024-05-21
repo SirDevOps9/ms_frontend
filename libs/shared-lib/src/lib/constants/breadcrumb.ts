@@ -23,7 +23,14 @@ export class BreadcrumbLabel {
     static USER_INFO ='USER Info';
     static APP_INFO ='APP Info';
     static tag_list ='Tag List';
+    static EMPLOYEE='Employees';
+    static EMPLOYEE_ADD='Add Employee';
+    static EMPLOYEE_VIEW='View Employee';
+    static EMPLOYEE_EDIT='Edit Employee';
     static Add_Tag ='Add Tag';
+
+    
+
 
 
     

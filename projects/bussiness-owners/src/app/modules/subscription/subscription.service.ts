@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { AddDomainSpaceDto, ResponseSubdomainDto, SubscriptionDto, TenantLicenseDto } from './models';
 import {
   AddDomainSpaceDto,
   ResponseSubdomainDto,
@@ -19,7 +20,7 @@ export class SubscriptionService {
   private subscriptionDataSource = new BehaviorSubject<SubscriptionDto[]>([]);
   public subscriptions = this.subscriptionDataSource.asObservable();
 
-  private subdomainsDataSource = new BehaviorSubject<ResponseSubdomainListDto[]>([]);
+  private subdomainsDataSource = new Subject<ResponseSubdomainListDto[]>();
   public subdomains = this.subdomainsDataSource.asObservable();
 
   private SubscriptionDetailsDataSource = new BehaviorSubject<subscriptionDetailsDto[]>([]);

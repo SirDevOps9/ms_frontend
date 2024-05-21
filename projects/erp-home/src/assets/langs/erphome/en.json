@@ -305,6 +305,7 @@
       "AddTag":"Add Tag",
       "Active":"Active",
       "Deactivate":"Deactivate",
+      "code":"Code",
       "addtag":{
         "Titel":"Add Tag",
         "Name":"Name",

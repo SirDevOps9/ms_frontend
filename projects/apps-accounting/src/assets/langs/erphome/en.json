@@ -290,5 +290,24 @@
       "SaveAndEdit": "Save and Edit",
       "Save": "Save"
     }
+  },
+  "ChartOfAccounts":{
+    "nameAr":"Arabic Name",
+    "nameEn":"English Name",
+    "ParentAccount" :"Parent Account",
+    "ParentAccountCode":"Parent Account Code",
+    "ParentLevel":"Parent Level",
+    "AccountNature":"Account Nature",
+    "AccountSection":"Account Section",
+    "AccountType":"Account Type",
+    "Tags":"Tags",
+    "HasNoChild":"Has No Child",
+    "Currency":"Currency",
+    "AccountActivation":"Account Activation",
+    "periodicActiveFrom":"periodic Active From",
+    "periodicActiveTo":"periodic Active To",
+    "Save": "Save",
+    "SuccessTitle":"Success",
+    "SuccessMessage":"Data Has Been Added Successfully"
   }
 }

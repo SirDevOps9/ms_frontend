@@ -79,4 +79,11 @@
     color: #fff !important;
     background: #1a8eae !important;
   }
+  .read{
+    .p-dropdown .p-dropdown-trigger {
+      display: none !important;
+    }
+  }
+ 
 }
+

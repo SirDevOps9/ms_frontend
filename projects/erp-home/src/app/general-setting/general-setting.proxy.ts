@@ -14,7 +14,9 @@ export class GeneralSettingProxy {
       PageNumber: pageInfo.pageNumber.toString(),
       PageSize: pageInfo.pageSize.toString(),
     });
-    return this.httpService.get<PaginationVm<TagDto>>(`Tag?${pageInfo.toQuery}`);
+    const url = `Tag?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+
+    return this.httpService.get<PaginationVm<TagDto>>(url);
   }
   addTag(addTagDto: AddTagDto): Observable<string> {
      return this.httpService.post<TagDto>(`Tag`,addTagDto);

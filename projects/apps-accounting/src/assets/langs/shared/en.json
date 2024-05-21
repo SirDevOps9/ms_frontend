@@ -29,6 +29,11 @@
     "invalidCRNumber": "Invalid CR number. The correct number is 10 digits length and starts with 1. e:1xxxxxxxxx ",
     "agreedToTermsRequired": "You must check the box to declare your responsibility for the submitted data.",
     "lengthRange": "The minimum length must be {{min}}, and the maximum length must be {{max}} ",
-    "invalidFileType": "نوع الملف غير مسموح به"
+    "invalidFileType": "نوع الملف غير مسموح به",
+    "zeroNotAllowed": "Zero is not allowed",
+    "invalidBirthDate": "The birth date cannot be in the future",
+    "onlyLetters": "Only letters are allowed.",
+    "invalidage":"Invalid age",
+    "ageAbove": "You must be at least {{age}} years old."
   }
 }

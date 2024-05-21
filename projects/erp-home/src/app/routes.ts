@@ -16,13 +16,8 @@ export const ERPRoutes = [
       },
       {
         path: 'generalsettings',
-        loadChildren: () =>
-          import('./general-setting/general-setting.module').then((m) => m.GeneralSettingModule),
-      },
-      {
-        path: 'tags',
-        component: TagListComponent,
-      },
+        loadChildren: () => import('./general-setting/general-setting.module').then((m) => m.GeneralSettingModule),
+      }
     ],
   },
 ];

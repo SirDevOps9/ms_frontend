@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LanguageService, RouterService } from 'shared-lib';
 import { Title } from '@angular/platform-browser';
-import { CompanyDto } from '../../models';
+import { CompanyDto, Sharedcompanyenums } from '../../models';
 import { CompanyService } from '../../company.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
@@ -12,9 +12,11 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
   providers: [RouterService],
 })
 export class CompaniesListComponent implements OnInit {
+  [x: string]: any;
   companies: CompanyDto[];
   @ViewChild('myTab') myTab: any | undefined;
   selectedCompanies: CompanyDto[];
+  tableData: CompanyDto[];
   tableData: CompanyDto[];
   cols: any[] = [];
   active: boolean = false;
@@ -25,8 +27,9 @@ export class CompaniesListComponent implements OnInit {
     private titleService: Title,
     private languageService: LanguageService,
     private companyService: CompanyService,
-    private dialog: DialogService
-  ) {}
+    private dialog: DialogService,
+    public Sharedcompanyenums: Sharedcompanyenums
+  ) { }
 
   newCompany() {
     this.companyService.openNewCompanyModal(
@@ -53,7 +56,7 @@ export class CompaniesListComponent implements OnInit {
       },
       {
         field: 'Companies Type',
-        header: 'companyType',
+        header: 'company Type',
       },
       {
         field: 'Tax ID',
@@ -90,10 +93,14 @@ export class CompaniesListComponent implements OnInit {
     this.companyService.companies.subscribe({
       next: (companyList) => {
         this.tableData = companyList;
+
         console.log('this.tableData', this.tableData);
       },
     });
+
+
   }
+
 
   toggle(id: string, isActive: boolean) {
     if (!isActive) this.companyService.activate(id);

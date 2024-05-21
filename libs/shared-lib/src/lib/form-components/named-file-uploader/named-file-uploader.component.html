@@ -1,5 +1,5 @@
 <div [formGroup]="fg">
-  <input formControlName="name">
+  <input formControlName="name" pInputText >
 </div>
 <input
   #fileInput
@@ -10,7 +10,7 @@
 />
 <!-- accept="{{ cus getFileType(this.config.type).allowedExtensions }}" -->
 
-<button type="button" (click)="fileInput.click()" *ngIf="!value">
+<button type="button" (click)="fileInput.click()" *ngIf="!value" [ngClass]="uploadClassName">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="16"
@@ -23,7 +23,7 @@
       fill="currentColor"
     ></path>
   </svg>
-  {{ "shared.pleaseUpload" | translate }}
+  {{ "Upload" | translate }}
 </button>
 
 <div
