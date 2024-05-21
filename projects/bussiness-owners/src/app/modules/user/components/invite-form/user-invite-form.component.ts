@@ -53,7 +53,7 @@ export class UserInviteFormComponent implements OnInit {
     if (!this.formService.validForm(this.inviteForm, true)) return;
     const userModel: CreateInvitedUser = this.inviteForm.value;
     userModel.subdomainId = this.subdomainId;
-    const licenseLabel = this.Licenses.find(l => l.id == this.inviteForm.value.tenantLicenseId)!.description;
+    const licenseLabel = this.Licenses.find(l => l.id == this.inviteForm.value.tenantLicenseId)!.nameEn;
     this.userService.inviteUser(userModel, licenseLabel, this.ref);
   }
 

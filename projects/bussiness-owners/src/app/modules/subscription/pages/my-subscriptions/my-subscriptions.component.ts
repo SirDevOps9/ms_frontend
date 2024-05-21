@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import {  RouterService } from 'shared-lib';
+import { RouterService } from 'shared-lib';
 import { SubscriptionDto } from '../../models';
-import {  SubscriptionService } from '../../subscription.service';
+import { SubscriptionService } from '../../subscription.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ResponseSubdomainListDto } from '../../models/responseSubdomainListDto';
 
@@ -20,9 +20,8 @@ export class MySubscriptionsComponent implements OnInit {
   domainName:string="@microtec.com.sa"
 
   ngOnInit() {
-    this.titleService.setTitle('aaaaas');
+    this.titleService.setTitle('My Subscriptions');
     this.loadMySubdomains();
-
   }
 
   openSubdomainModal() {
@@ -38,7 +37,7 @@ export class MySubscriptionsComponent implements OnInit {
   }
   navigateToManageApp(subdomainId: any) {
     this.routerService.navigateTo('Manage-Apps/' + subdomainId);
-      }
+  }
 
   loadMySubdomains() {
     this.subscriptionService.loadSubdomains();

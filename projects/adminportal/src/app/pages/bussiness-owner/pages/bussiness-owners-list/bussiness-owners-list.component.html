@@ -1,0 +1,94 @@
+<div>
+  <lib-bread-crumb></lib-bread-crumb>
+  <div class="owner_page">
+    <lib-data-table
+      [items]="dataList"
+      className="p-datatable-gridlines"
+      [currentPageResult]="currentPageInfo"
+      (pageChange)="onPageChange($event)"
+      [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: true,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'id',
+              headerText: ('Code' ),
+              isGlobalFilter: true,
+              isSortable: false
+            },
+            {
+              name: 'name',
+              headerText: ('Name'),
+              isGlobalFilter: true,
+              isSortable: false
+            },
+            {
+              name: 'email',
+              headerText: ('Email'),
+              isGlobalFilter: true,
+              isSortable: false
+            },
+            {
+              name: 'countryNameEn',
+              headerText: ('Country'),
+              isGlobalFilter: true,
+              isSortable: false,
+            },
+
+            {
+              name: 'phone',
+              headerText: ('Mobile Number'),
+              isGlobalFilter: true,
+              isSortable: false
+            },
+            {
+              name: 'id',
+              headerText: ('Actions'),
+              template: userCol
+
+            },
+          ]
+        }"
+    >
+      <!-- actions of the header of Table -->
+      <ng-container caption>
+        <div class="group">
+          <div>
+            <app-shared-form
+              [fields]="fields"
+              [showSaveBtn]="false"
+              #form
+            ></app-shared-form>
+          </div>
+        </div>
+
+        <div
+          class="my-3 d-flex align-items-center gap-3 justify-content-end"
+        ></div>
+      </ng-container>
+
+      <!-- actions of the Table -->
+      <ng-template #userCol let-user>
+        <div class="actions d-flex align-items-center gap-5">
+          <div class="mt-3">
+            <lib-input-switch></lib-input-switch>
+          </div>
+
+          <div>
+            <lib-button
+              className="Manage"
+              [rounded]="true"
+              [enableText]="true"
+              severity="secondary"
+              (onClick)="onEditOwner(user.id)"
+            >
+              Manage
+            </lib-button>
+          </div>
+        </div>
+      </ng-template>
+    </lib-data-table>
+  </div>
+</div>

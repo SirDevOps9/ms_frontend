@@ -1,4 +1,4 @@
-<div class="checked">
+<div >
     <p-inputSwitch
       id="id"
       (onChange)="changed($event)"
@@ -6,10 +6,11 @@
     >
     </p-inputSwitch>
 
-    <p class="active" *ngIf="isActive">
+    <!-- <p class="active" *ngIf="isActive">
       {{ "User.Activate" | translate }}
     </p>
     <p class="inactive" *ngIf="!isActive">
       {{ "User.Deactivate" | translate }}
-    </p>
-  </div>
+    </p> -->
+</div>
+<!-- [ngClass]="classToAdd" -->

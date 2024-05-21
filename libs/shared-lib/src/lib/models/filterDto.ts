@@ -18,13 +18,14 @@ export class FilterDto {
 
     if (this.pageInfo) query += this.pageInfo.toQuery;
 
+
     if (this.conditions) {
 
       query += '&';
 
       for (let i = 0; i < this.conditions.length; i++) {
 
-        query += `Filter.Conditions[${i}].Column=${this.conditions[i].column}&Filter.Conditions[${i}].Value=${this.conditions[i].value}&Filter.Conditions[${i}].Operator=${this.conditions[i].operator}`;
+        query += `Conditions[${i}].Column=${this.conditions[i].column}&Conditions[${i}].Value=${this.conditions[i].value}&Conditions[${i}].Operator=${this.conditions[i].operator}`;
 
         query += i === this.conditions.length - 1 ? '' : '&';
       }

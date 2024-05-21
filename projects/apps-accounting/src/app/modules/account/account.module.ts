@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { ChatOfAccountListComponent } from './pages/chat-of-account-list/chat-of-account-list.component';
-import { BreadcrumbLabel, SharedLibModule } from 'shared-lib';
+import { BreadcrumbLabel, MultiTranslateHttpLoader, SharedLibModule } from 'shared-lib';
 import { AuthGuard } from 'microtec-auth-lib';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { MainChartOfAccountComponent } from './pages/main-chart-of-account/main-chart-of-account.component';
 import { ChartOfAccountTreeComponent } from './pages/chart-of-account-tree/chart-of-account-tree.component';
+import { ChartOfAccountConfigurationComponent } from './components/chart-of-account-configuration/chart-of-account-configuration.component';
 
 const routes: Routes = [
   {
@@ -15,13 +16,13 @@ const routes: Routes = [
     component: LayoutPageComponent,
     children: [
       {
-        path: 'ChatOfAccount',
-        component:MainChartOfAccountComponent ,
+        path: 'chartofaccounts',
+        component: MainChartOfAccountComponent,
         canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.chart_of_account,
-        }
-      }
+        },
+      },
     ],
   },
 ];
@@ -31,9 +32,9 @@ const routes: Routes = [
     ChatOfAccountListComponent,
     MainChartOfAccountComponent,
     ChartOfAccountTreeComponent,
+    ChartOfAccountConfigurationComponent
   ],
   imports: [
-    CommonModule,
     CommonModule,
     SharedLibModule,
     AutoCompleteModule,

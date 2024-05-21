@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { LanguageService, PageInfo, RouterService } from 'shared-lib';
+import { LanguageService, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { JournalEntryService } from '../../journal-entry.service';
 import { JournalEntryDto, SharedJournalEnums } from '../../models';
 
 @Component({
   selector: 'app-journal-entry-list',
   templateUrl: './journal-entry-list.component.html',
-  styleUrl: './journal-entry-list.component.scss'
+  styleUrl: './journal-entry-list.component.scss',
 })
 export class JournalEntryListComponent implements OnInit {
   journalEntries: JournalEntryDto[];
@@ -16,8 +16,7 @@ export class JournalEntryListComponent implements OnInit {
   tableData: JournalEntryDto[];
   cols: any[] = [];
   active: boolean = false;
-  currentPageInfo: PageInfo = new PageInfo();
-
+  currentPageInfo: PageInfoResult;
 
   constructor(
     private routerService: RouterService,
@@ -25,14 +24,11 @@ export class JournalEntryListComponent implements OnInit {
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
     public sharedJouralEnum: SharedJournalEnums
-  ) { }
+  ) {}
 
   ngOnInit() {
-
-    this.titleService.setTitle(
-      this.languageService.transalte('JournalEntry.JournalEntryList')
-    );
-    this.initJournalEntryData(this.currentPageInfo);
+    this.titleService.setTitle(this.languageService.transalte('JournalEntry.JournalEntryList'));
+    this.initJournalEntryData(new PageInfo());
     this.cols = [
       {
         field: 'Id',
@@ -93,29 +89,30 @@ export class JournalEntryListComponent implements OnInit {
     ];
   }
 
-  initJournalEntryData(page:PageInfo) {
+  initJournalEntryData(page: PageInfo) {
+    this.journalEntryService.getAllJournalEntriesPaginated(page);
 
-    this.journalEntryService.getAllJournalEntriesPaginated(page).subscribe({
-      next: (journalList: any) => {
-        this.tableData = journalList.result;
-
-        //this.tableData = this.convertToTreeNode(journalList);
-        console.log('this.tableData', this.tableData);
-
+    this.journalEntryService.journalEntries.subscribe({
+      next: (data) => {
+        this.tableData = data;
+        console.log('data', this.journalEntries);
       },
     });
+
+    this.journalEntryService.currentPageInfo.subscribe((currentPageInfo) => {
+      this.currentPageInfo = currentPageInfo;
+    });
   }
-  
+
   onPageChange(pageInfo: PageInfo) {
-    console.log(pageInfo);
-    this.initJournalEntryData(pageInfo)
+    this.initJournalEntryData(pageInfo);
   }
-  routeToAdd(){
+
+  routeToAdd() {
     this.routerService.navigateTo(`/journalentry/add`);
   }
-  routeToEdit(id:number){
+
+  routeToEdit(id: number) {
     this.routerService.navigateTo(`/journalentry/edit/${id}`);
   }
-
-
 }

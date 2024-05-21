@@ -1,0 +1,11 @@
+::ng-deep .user_page {
+  padding: 0;
+  margin: 0;
+
+}
+
+::ng-deep .owner_page {
+  .p-datatable-header {
+    border-bottom: 1px solid #ececec;
+  }
+}

@@ -16,11 +16,13 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { PasswordModule } from 'primeng/password';
 import { PaginatorModule } from 'primeng/paginator';
 import { RatingModule } from 'primeng/rating';
+import { CalendarModule } from 'primeng/calendar';
 import { FieldsetModule } from 'primeng/fieldset';
 
 @NgModule({
   providers: [DialogService],
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     TableModule,
     ButtonModule,
@@ -38,6 +40,7 @@ import { FieldsetModule } from 'primeng/fieldset';
     PasswordModule,
     CheckboxModule,
     PaginatorModule,
+    CalendarModule
   ],
   exports: [
     TableModule,
@@ -55,8 +58,9 @@ import { FieldsetModule } from 'primeng/fieldset';
     DynamicDialogModule,
     PasswordModule,
     CheckboxModule,
-    PaginatorModule,
+    PaginatorModule, 
     RatingModule,
+    CalendarModule,
     FieldsetModule,
   ],
 })
