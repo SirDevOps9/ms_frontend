@@ -5,7 +5,7 @@
       <div class="md:col-6">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['nameAr']">
-            {{ "nameAr" | translate }}
+            {{ "ChartOfAccounts.nameAr" | translate }}
           </lib-label>
           <lib-text-input type="text" formControlName="nameAr" />
           <lib-field-validations [appControl]="formGroup.controls['nameAr']">
@@ -15,7 +15,7 @@
       <div class="md:col-6">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['nameEn']">
-            {{ "nameEN" | translate }}
+            {{ "ChartOfAccounts.nameEn" | translate }}
           </lib-label>
           <lib-text-input type="text" formControlName="nameEn" />
           <lib-field-validations [appControl]="formGroup.controls['nameEn']">
@@ -25,7 +25,7 @@
       <div class="md:col-12">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['parentId']">
-            {{"Parent Account" | translate}}
+            {{"ChartOfAccounts.ParentAccount" | translate}}
           </lib-label>
           <lib-select
             formControlName="parentId"
@@ -40,7 +40,7 @@
       <div class="md:col-4" *ngIf="hasParentAccount">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['accountCode']">
-            {{ "Parent Account Code" | translate }}
+            {{ "ChartOfAccounts.ParentAccountCode" | translate }}
           </lib-label>
           <lib-text-input [readOnly]="true" type="text" formControlName="accountCode" />
           <lib-field-validations [appControl]="formGroup.controls['accountCode']">
@@ -50,7 +50,7 @@
       <div class="md:col-4" *ngIf="hasParentAccount">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['levelId']">
-            {{ "Parent level" | translate }}
+            {{ "ChartOfAccounts.ParentLevel" | translate }}
           </lib-label>
           <lib-text-input [readOnly]="true" type="text" formControlName="levelId" />
           <lib-field-validations [appControl]="formGroup.controls['levelId']">
@@ -60,14 +60,13 @@
       <div class="md:col-4" *ngIf="!hasParentAccount">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['natureId']">
-            {{ "Account Nature"| translate }}
+            {{ "ChartOfAccounts.AccountNature"| translate }}
           </lib-label>
           <lib-select
             formControlName="natureId"
             [options]="lookups[LookupEnum.AccountNature]"
             optionValue="name"
             optionLabel="name"
-            
           >
           </lib-select>
         </lib-form-group>
@@ -75,7 +74,7 @@
       <div class="md:col-4" *ngIf="hasParentAccount">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['natureId']">
-            {{ "Account Nature"| translate }}
+            {{ "ChartOfAccounts.AccountNature"| translate }}
           </lib-label>
           <lib-text-input
           type="text"
@@ -88,7 +87,7 @@
       <div class="md:col-4" *ngIf="!hasParentAccount">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['accountSectionId']">
-            {{"Account Section" | translate}}
+            {{"ChartOfAccounts.AccountSection" | translate}}
           </lib-label>
           <lib-select
             formControlName="accountSectionId"
@@ -103,7 +102,7 @@
       <div class="md:col-4"  *ngIf="hasParentAccount">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['accountSectionName']">
-            {{"Account Section" | translate}}
+            {{"ChartOfAccounts.AccountSection" | translate}}
           </lib-label>
           <lib-text-input
             type="text"
@@ -116,7 +115,7 @@
       <div class="md:col-4">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['accountTypeId']">
-            {{"Account Type" | translate}}
+            {{"ChartOfAccounts.AccountType" | translate}}
           </lib-label>
           <lib-select
             formControlName="accountTypeId"
@@ -130,7 +129,7 @@
       <div class="md:col-4">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['tags']">
-            {{ "Tags" | translate }}
+            {{ "ChartOfAccounts.Tags" | translate }}
           </lib-label>
           <lib-multi-select
             formControlName="tags"
@@ -143,7 +142,7 @@
       </div>
       <div class="md:col-4">
         <lib-label [appControl]="formGroup.controls['hasNoChild']">
-          {{ "hasNoChild" | translate }}
+          {{ "ChartOfAccounts.HasNoChild" | translate }}
         </lib-label>
         <div class="checked">
           <p-inputSwitch formControlName="hasNoChild" (onChange)="toggleCurrencyVisibility()"> </p-inputSwitch>
@@ -152,7 +151,7 @@
       <div class="md:col-8">
         <lib-form-group *ngIf="currencyIsVisible">
           <lib-label [appControl]="formGroup.controls['currencyId']">
-            {{"Currency" | translate}}
+            {{"ChartOfAccounts.Currency" | translate}}
           </lib-label>
           <lib-select
             formControlName="currencyId"
@@ -166,7 +165,7 @@
       <div class="md:col-12">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['AccountActivation']">
-            {{ "AccountActivation" | translate }}
+            {{ "ChartOfAccounts.AccountActivation" | translate }}
           </lib-label>
           <br />
           <p-radioButton
@@ -204,7 +203,7 @@
       <div class="md:col-6">
         <lib-form-group *ngIf="selectedPeriodOption === 'Period'">
           <lib-label [appControl]="formGroup.controls['periodicActiveFrom']">
-            {{ "periodicActiveFrom" | translate }}
+            {{ "ChartOfAccounts.periodicActiveFrom" | translate }}
           </lib-label>
           <lib-text-input type="date" formControlName="periodicActiveFrom" />
           <lib-field-validations
@@ -216,7 +215,7 @@
       <div class="md:col-6">
         <lib-form-group *ngIf="selectedPeriodOption === 'Period'">
           <lib-label [appControl]="formGroup.controls['periodicActiveTo']">
-            {{ "periodicActiveTo" | translate }}
+            {{ "ChartOfAccounts.periodicActiveTo" | translate }}
           </lib-label>
           <lib-text-input type="date" formControlName="periodicActiveTo" />
           <lib-field-validations
@@ -231,7 +230,7 @@
         <div class="btn_group">
          
           <button class="btn save" type="submit" >
-              {{"Save" | translate}}
+              {{"ChartOfAccounts.Save" | translate}}
           </button>
       </div>
       </div>

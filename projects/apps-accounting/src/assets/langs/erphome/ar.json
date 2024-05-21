@@ -236,5 +236,21 @@
       "YourDomainSpace": "النطاق الفرعي"
 
     }
-  }
+  },
+  "ChartOfAccounts":{
+    "nameAr":"الاسم بالعربية",
+    "nameEn":"الاسم بالإنجليزية",
+    "ParentAccount":"الحساب الرئيسي",
+    "ParentAccountCode":"رمز الحساب الرئيسي",
+    "ParentLevel":"المستوى الرئيسي",
+    "AccountNature":"طبيعة الحساب",
+    "AccountSection":"قسم الحساب",
+    "AccountType":"نوع الحساب",
+    "Tags":"الوسوم",
+    "HasNoChild":"ليس لديه أطفال",
+    "Currency":"العملة",
+    "AccountActivation":"تفعيل الحساب",
+    "periodicActiveFrom":"نشط دوريًا من",
+    "periodicActiveTo":"نشط دوريًا إلى",
+    "Save": "حفظ"}
 }

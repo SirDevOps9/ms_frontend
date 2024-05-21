@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import {
   FormsService,
-  PageInfo,
   RouterService,
   customValidators,
   lookupDto,
   LookupEnum,
   LookupsService,
+  ToasterService,
+  LanguageService,
 } from 'shared-lib';
 import { AccountService } from '../../account.service';
 import { AddAccountDto } from '../../models';
@@ -18,7 +19,6 @@ import { AccountSectionDropDownDto } from '../../models';
 import { AccountTypeDropDownDto } from '../../models';
 import { TagDropDownDto } from '../../models';
 import { parentAccountDto } from '../../models';
-import { log } from 'console';
 
 @Component({
   selector: 'app-add-chart',
@@ -45,7 +45,9 @@ export class AddChartComponent {
     private routerService: RouterService,
     private currencyService: CurrencyService,
     private formsService: FormsService,
-    private lookupsService: LookupsService
+    private lookupsService: LookupsService,
+    private toaserService : ToasterService,
+    private languageService : LanguageService
   ) {
     this.formGroup = formBuilder.group({
       nameAr: new FormControl('', customValidators.length(0, 255)),
@@ -154,7 +156,10 @@ export class AddChartComponent {
 
     this.accountService.savedAddedAccount.subscribe((res) => {
       if (res) {
-        alert('saved');
+        this.toaserService.showSuccess(
+          this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
+          this.languageService.transalte('ChartOfAccounts.SuccessMessage')
+        )
       }
     });
   }
