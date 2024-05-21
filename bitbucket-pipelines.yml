@@ -1,3 +1,4 @@
+
 image: node:18.13.0
 
 pipelines:
@@ -8,6 +9,19 @@ pipelines:
           script:
             - npm install
             - npm install -g @angular/cli
+
+      - step:
+          name: Explore Directory Structure
+          script:
+            - ls -l
+            - ls -l projects
+            - ls -l projects/bussiness-owners
+            - ls -l projects/bussiness-owners/src
+            - ls -l projects/bussiness-owners/src/assets
+            - ls -l projects/bussiness-owners/src/assets/fonts
+
+      - step:
+          name: Build Business Owners Project
+          script:
             - cd projects/bussiness-owners
-            - ls -l projects/bussiness-owners/src/assets/fonts/poppins
             - ng build --project bussiness-owners
