@@ -14,5 +14,6 @@ export enum LookupEnum {
   MaritalStatus = 'MaritalStatus',
   Religion = 'Religion',
   MilitaryStatus = 'MilitaryStatus',
-  BloodType = 'BloodType'
+  BloodType = 'BloodType',
+  AccountNature = 'AccountNature',
 }

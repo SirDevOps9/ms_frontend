@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, input } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { AccountService } from '../../account.service';
 import { accountTreeList } from '../../models';
@@ -12,6 +12,9 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
   styleUrl: './chart-of-account-tree.component.scss',
 })
 export class ChartOfAccountTreeComponent implements OnInit {
+  @Input() edit: boolean;
+  @Input() view: boolean;
+  @Input() add: boolean;
   nodes: accountTreeList[];
   expanded: boolean = false;
   ref: DynamicDialogRef;
@@ -32,8 +35,10 @@ export class ChartOfAccountTreeComponent implements OnInit {
     this.getTreeList();
   }
   mapToTreeNodes(data: any[]) {
-    data = data.map((item) => {
+    data = data.map((item, index) => {
       return {
+        //expanded: true,
+        expanded: index === 0,
         label: item.nameEn, // Assuming you want to display the English label
         children: item.childrens ? this.mapToTreeNodes(item.childrens) : [],
       };
@@ -57,10 +62,10 @@ export class ChartOfAccountTreeComponent implements OnInit {
       this.nodes = this.mapToTreeNodes(res);
     });
   }
-  RedirectToConfiguration(){
+  RedirectToConfiguration() {
     this.ref = this.dialog.open(ChartOfAccountConfigurationComponent, {
       width: '800px',
-      height: '700px'
+      height: '700px',
     });
   }
 }

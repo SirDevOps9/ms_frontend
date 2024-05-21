@@ -18,6 +18,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { RatingModule } from 'primeng/rating';
 import { CalendarModule } from 'primeng/calendar';
 import { FieldsetModule } from 'primeng/fieldset';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   providers: [DialogService],
@@ -40,6 +41,7 @@ import { FieldsetModule } from 'primeng/fieldset';
     PasswordModule,
     CheckboxModule,
     PaginatorModule,
+    RadioButtonModule,
     CalendarModule
   ],
   exports: [
@@ -62,6 +64,7 @@ import { FieldsetModule } from 'primeng/fieldset';
     RatingModule,
     CalendarModule,
     FieldsetModule,
+    RadioButtonModule
   ],
 })
 export class PrimeSharedModule {}

@@ -312,8 +312,11 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   getCurrencies() {
-    this.currencyService.getCurrencies('')
-      .subscribe(r => this.currencies = r);
+    this.currencyService.getCurrencies('');
+
+      this.currencyService.currencies.subscribe((res) => {
+        this.currencies = res;
+      })
   }
 
   filterCurrency(event: any,) {
