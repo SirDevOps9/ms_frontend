@@ -10,10 +10,15 @@ pipelines:
           script:
             - npm install
           artifacts:
-            - node_modules/** 
+            - node_modules/** # Save modules for next steps 
+      - step:
+          name: Verify Assets
+          script:
+            - ls -l projects/bussiness-owners/src/app/modules/user/components/user-details
+            - ls -l projects/bussiness-owners/src/assets/fonts/poppins
       - step:
           name: Build
           script:
             - npm run build:bussiness-owners
           artifacts:
-            - dist/** 
+            - dist/** # Save build for next steps
