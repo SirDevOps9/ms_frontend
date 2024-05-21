@@ -7,7 +7,10 @@ import { AccountService } from '../../../account/account.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AccountsComponent } from '../../components/accounts/accounts.component';
-import { AddJournalEntryCommand, CreateJournalEntryLine } from '../../models/addJournalEntryCommand';
+import {
+  AddJournalEntryCommand,
+  CreateJournalEntryLine,
+} from '../../models/addJournalEntryCommand';
 import { JournalEntryService } from '../../journal-entry.service';
 import { AttachmentsComponent } from '../../components/attachments/attachments.component';
 import { JournalItemModel } from '../../models/journalItemModel';
@@ -29,14 +32,14 @@ export interface JournalEntryFormValue {
   journalDate: string;
   periodId: string;
   description: string;
-  journalEntryAttachments: {attachmentId: string, name: string}[],
+  journalEntryAttachments: { attachmentId: string; name: string }[];
   journalEntryLines: JournalEntryLineFormValue[];
 }
 
 @Component({
   selector: 'app-journal-entry',
   templateUrl: './create-journal-entry.component.html',
-  styleUrl: './create-journal-entry.component.scss'
+  styleUrl: './create-journal-entry.component.scss',
 })
 export class CreateJournalEntryComponent {
   fg: FormGroup;
@@ -49,13 +52,14 @@ export class CreateJournalEntryComponent {
     return date.toISOString().substring(0, 10);
   }
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private accountService: AccountService,
     private currencyService: CurrencyService,
     private dialog: DialogService,
     public sharedLibEnums: SharedLibraryEnums,
     private service: JournalEntryService,
-    private routerService: RouterService,
+    private routerService: RouterService
   ) {
     this.fg = fb.group({
       refrenceNumber: ['', customValidators.required],
@@ -77,23 +81,24 @@ export class CreateJournalEntryComponent {
 
   openAttachments() {
     this.dialog.open(AttachmentsComponent, {
-      data: { attachments: this.attachments }
+      data: { attachments: this.attachments },
     });
   }
 
   ngOnInit() {
-    this.accountService.getAllChartOfAccountPaginated('', new PageInfo())
-      .subscribe(r => this.filteredAccounts = r.result);
-    this.currencyService.getCurrencies('')
-      .subscribe(r => this.currencies = r);
+    this.accountService
+      .getAllChartOfAccountPaginated('', new PageInfo())
+      .subscribe((r) => (this.filteredAccounts = r.result));
+    this.currencyService.getCurrencies('').subscribe((r) => (this.currencies = r));
   }
 
   filterAccount(event: any) {
     // console.log(event.originalEvent);
     console.log(this.filteredAccounts);
     let query = event.query;
-    this.accountService.getAllChartOfAccountPaginated(query, new PageInfo())
-      .subscribe(r => this.filteredAccounts = (r.result));
+    this.accountService
+      .getAllChartOfAccountPaginated(query, new PageInfo())
+      .subscribe((r) => (this.filteredAccounts = r.result));
   }
 
   accountSelected(event: any, id: number) {
@@ -105,24 +110,25 @@ export class CreateJournalEntryComponent {
   }
 
   openDialog(index: number) {
-    const ref = this.dialog.open(AccountsComponent, {})
-    ref.onClose.subscribe(r => {
+    const ref = this.dialog.open(AccountsComponent, {});
+    ref.onClose.subscribe((r) => {
       if (r) {
         this.fa.at(index).get('account')?.setValue(r);
       }
-    })
+    });
   }
 
   filterCurrency(event: any) {
     let query = event.query.toLowerCase();
-    this.fitleredCurrencies = this.currencies.filter(c =>
-      c.currencyName?.toLowerCase().includes(query));
+    this.fitleredCurrencies = this.currencies.filter((c) =>
+      c.currencyName?.toLowerCase().includes(query)
+    );
   }
 
-  public get fa() : FormArray {
+  public get fa(): FormArray {
     return this.fg.get('journalEntryLines') as FormArray;
   }
-  
+
   addThing() {
     const id = this.fa.length + 1;
     //controls
@@ -131,35 +137,34 @@ export class CreateJournalEntryComponent {
     const currencyControl = new FormControl(null, customValidators.required);
     const rateControl = new FormControl(null, [customValidators.required, Validators.min(0)]);
     //events
-    dbControl.valueChanges.subscribe(value => {
+    dbControl.valueChanges.subscribe((value) => {
       if (rateControl.value) {
-        rateControl.parent?.get('debitAmountLocal')!.setValue(value! * rateControl.value)
+        rateControl.parent?.get('debitAmountLocal')!.setValue(value! * rateControl.value);
       }
-    })
-    crControl.valueChanges.subscribe(value => {
-      if (rateControl.value){
-        crControl.parent?.get('creditAmountLocal')!.setValue(value! * rateControl.value)
+    });
+    crControl.valueChanges.subscribe((value) => {
+      if (rateControl.value) {
+        crControl.parent?.get('creditAmountLocal')!.setValue(value! * rateControl.value);
       }
-    })
-    rateControl.valueChanges.subscribe(value => {
+    });
+    rateControl.valueChanges.subscribe((value) => {
       const dbLocalControl = rateControl.parent?.get('debitAmountLocal')!;
       const crLocalControl = rateControl.parent?.get('creditAmountLocal')!;
-      if(!value){
+      if (!value) {
         dbLocalControl.setValue(null);
         crLocalControl.setValue(null);
         return;
       }
-      if(dbControl.value){
+      if (dbControl.value) {
         dbLocalControl.setValue(value * dbControl.value);
       }
-      if(crControl.value){
+      if (crControl.value) {
         crLocalControl.setValue(value * crControl.value);
       }
-    })
-    currencyControl.valueChanges.subscribe(value => 
-      {
-        currencyControl.parent!.get('currencyRate')!.setValue((value as any)?.ratePerUnit)
-      });
+    });
+    currencyControl.valueChanges.subscribe((value) => {
+      currencyControl.parent!.get('currencyRate')!.setValue((value as any)?.ratePerUnit);
+    });
     //set group
     const fg = this.fb.group({
       id: new FormControl(id),
@@ -170,7 +175,7 @@ export class CreateJournalEntryComponent {
       currency: currencyControl,
       currencyRate: rateControl,
       debitAmountLocal: new FormControl(),
-      creditAmountLocal: new FormControl()
+      creditAmountLocal: new FormControl(),
     });
     this.fa.push(fg);
   }
@@ -181,19 +186,21 @@ export class CreateJournalEntryComponent {
 
   save() {
     const value = this.fg.value as JournalEntryFormValue;
-    let obj: AddJournalEntryCommand = { 
+    let obj: AddJournalEntryCommand = {
       ...value,
-      journalEntryLines: value.journalEntryLines.map(l=>({
+      journalEntryLines: value.journalEntryLines.map((l) => ({
         accountId: l.account.id,
         creditAmount: l.creditAmount,
         currencyId: l.currency.id,
         currencyRate: l.currencyRate,
         debitAmount: l.debitAmount,
-        lineDescription: l.lineDescription
-      }))
+        lineDescription: l.lineDescription,
+      })),
     };
     console.log(obj);
-    this.service.addJournalEntry(obj).subscribe(r => this.routerService.navigateTo('journalentry'));
+    this.service
+      .addJournalEntry(obj)
+      .subscribe((r) => this.routerService.navigateTo('journalentry'));
   }
 
   test() {
@@ -204,49 +211,57 @@ export class CreateJournalEntryComponent {
   RedirectToTemplate() {
     const dialogRef = this.dialog.open(JournalTemplatePopupComponent, {
       width: '800px',
-      height: '700px'
+      height: '700px',
     });
-  
+
     dialogRef.onClose.subscribe((id: any) => {
       console.log('Received ID:', id);
-  
-      this.service.getJournalTemplateById(id).subscribe(template => {
+
+      this.service.getJournalTemplateById(id).subscribe((template) => {
         console.log('template:', template);
-  
+
         // Set template values to the form group
         this.fg.patchValue({
           refrenceNumber: template.code,
-          periodId: template.PeriodId,
-          description: template.Description,
+          periodId: template.periodId,
+          description: template.description,
         });
-  
+
         // Clear existing journal entry lines
         while (this.items.length !== 0) {
           this.items.removeAt(0);
         }
 
         // Add new journal entry lines
-        if (template.GetJournalTemplateLinesByIdDto) {
-        template.GetJournalTemplateLinesByIdDto.forEach(line => {
-          this.addThing()
 
-          const fg = this.fb.group({
-            id: line.id,
-            account: { id: line.AccountId },
-            lineDescription: line.LineDescription,
-            debitAmount: line.DebitAmount,
-            creditAmount: line.CreditAmount,
-            currency: { id: line.CurrencyId },
-            currencyRate: line.CurrencyRate,
-            debitAmountLocal: line.DebitAmountLocal,
-            creditAmountLocal: line.CreditAmountLocal
+        if (template.getJournalTemplateLinesByIdDto.length > 0) {
+          template.getJournalTemplateLinesByIdDto.forEach((line) => {
+            const newLine = this.fb.group({
+              id: new FormControl(line.id),
+              account: new FormControl({ id: line.accountId }, customValidators.required),
+              lineDescription: new FormControl(line.lineDescription, customValidators.required),
+              debitAmount: new FormControl(line.debitAmount, [
+                customValidators.required,
+                Validators.min(0),
+              ]),
+              creditAmount: new FormControl(line.creditAmount, [
+                customValidators.required,
+                Validators.min(0),
+              ]),
+              currency: new FormControl({ id: line.currencyId }, customValidators.required),
+              currencyRate: new FormControl(line.currencyRate, [
+                customValidators.required,
+                Validators.min(0),
+              ]),
+              debitAmountLocal: new FormControl(line.debitAmountLocal),
+              creditAmountLocal: new FormControl(line.creditAmountLocal),
+            });
+            this.fa.push(newLine);
+            console.log('new line', newLine);
+            console.log(this.fa, 'test');
           });
-          this.items.push(fg);
-        });
-       }
+        }
       });
     });
   }
-  
-
 }
