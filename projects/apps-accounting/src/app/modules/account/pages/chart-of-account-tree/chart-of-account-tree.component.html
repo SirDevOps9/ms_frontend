@@ -3,7 +3,7 @@
     <div class="md:col-4">
       <div class="tree">
 
-        <p-tree [value]="nodes">
+        <p-tree [value]="nodes" expanded="true">
           <ng-template let-node pTemplate="default">
             <div class="ui-tree-node-content label_text" [ngClass]="{'active': node.expanded}">
               <span class="tree-icon" *ngIf="node.children"></span>

@@ -23,8 +23,10 @@ export class ChartOfAccountTreeComponent implements OnInit {
     this.getTreeList();
   }
   mapToTreeNodes(data: any[]) {
-    data = data.map((item) => {
+    data = data.map((item ,index) => {
       return {
+        //expanded: true,
+        expanded: index === 0,
         label: item.nameEn, // Assuming you want to display the English label
         children: item.childrens ? this.mapToTreeNodes(item.childrens) : [],
       };
