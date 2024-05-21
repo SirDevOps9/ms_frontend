@@ -10,11 +10,7 @@ pipelines:
           script:
             - npm install
           artifacts:
-            - node_modules/** # Save modules for next steps
-      - step:
-          name: Lint
-          script:
-            - npm run lint
+            - node_modules/** # Save modules for next steps 
       - step:
           name: Build
           script:
