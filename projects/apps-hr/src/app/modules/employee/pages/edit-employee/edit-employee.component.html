@@ -3,7 +3,7 @@
     <div class="md:col-3">
       <div class="sidebar">
         <ul>
-          <li>{{ 'Employee.PersonalInfo' | translate }}</li>
+          <li class="active">{{ 'Employee.PersonalInfo' | translate }}</li>
           <li>{{ 'Employee.ContactInfo' | translate }}</li>
           <li>{{ 'Employee.AcademicInfo' | translate }}</li>
           <li>{{ 'Employee.OfficialInfo' | translate }}</li>
@@ -80,6 +80,7 @@
                   }"
                   [appControl]="editEmployeeForm.controls['employeePhoto']"
                 ></lib-file-uploader>
+
                 <lib-field-validations
                   [appControl]="editEmployeeForm.controls['employeePhoto']"
                 ></lib-field-validations>
@@ -156,6 +157,7 @@
                   [options]="lookups[LookupEnum.Gender]"
                   optionValue="id"
                   optionLabel="name"
+                  [selectedValue]="selectedGender"
                 ></lib-select>
                 <lib-field-validations
                   [appControl]="editEmployeeForm.controls['gender']"
@@ -172,6 +174,8 @@
                   [options]="lookups[LookupEnum.MaritalStatus]"
                   optionValue="id"
                   optionLabel="name"
+                  [selectedValue]="selectedMaritalStatus"
+
                 ></lib-select>
                 <lib-field-validations
                   [appControl]="editEmployeeForm.controls['maritalStatus']"
@@ -188,6 +192,8 @@
                   [options]="lookups[LookupEnum.Religion]"
                   optionValue="id"
                   optionLabel="name"
+                  [selectedValue]="selectedReligion"
+
                 ></lib-select>
                 <lib-field-validations
                   [appControl]="editEmployeeForm.controls['religion']"
@@ -207,6 +213,8 @@
                   [options]="lookups[LookupEnum.MilitaryStatus]"
                   optionValue="id"
                   optionLabel="name"
+                  [selectedValue]="selectedMilitaryStatus"
+
                 ></lib-select>
                 <lib-field-validations
                   [appControl]="editEmployeeForm.controls['militaryStatus']"
@@ -237,6 +245,7 @@
                   [options]="lookups[LookupEnum.BloodType]"
                   optionValue="id"
                   optionLabel="name"
+                  [selectedValue]="selectedBloodType"
                 ></lib-select>
                 <lib-field-validations
                   [appControl]="editEmployeeForm.controls['bloodType']"

@@ -25,6 +25,7 @@ export class EditEmployeeComponent implements OnInit {
 
   Age: string = '';
   EmployeeCode = '';
+  employeePhoto:string = '';
   selectedCountryOfBirth: string;
   selectedBirthCity: number;
   selectedNationality: string;
@@ -98,10 +99,11 @@ export class EditEmployeeComponent implements OnInit {
         ...res,
         birthDate: res.birthDate.substring(0, 10),
       });
+      this.employeePhoto=res.employeePhoto;
       // this.selectedCountryOfBirth = res.countryOfBirth;
       // this.selectedBirthCity = res.birthCity;
       // this.selectedNationality = res.nationality;
-      // this.selectedGender = res.gender.toString();
+      this.selectedGender = res.gender.toString();
       // this.selectedMaritalStatus = res.maritalStatus.toString();
       // this.selectedReligion = res.religion.toString();
       // this.selectedMilitaryStatus = res.militaryStatus.toString();
@@ -113,6 +115,7 @@ export class EditEmployeeComponent implements OnInit {
     const request: EditEmployeePersonal = this.editEmployeeForm.value;
     request.id = this.routerService.currentId;
     this.employeeService.editEmployee(request);
+  
   }
 
   onDiscard() {

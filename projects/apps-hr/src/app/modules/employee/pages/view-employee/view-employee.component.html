@@ -3,7 +3,7 @@
     <div class="md:col-3">
       <div class="sidebar">
         <ul>
-          <li>{{ 'Employee.PersonalInfo' | translate }}</li>
+          <li class="active">{{ 'Employee.PersonalInfo' | translate }}</li>
           <li>{{ 'Employee.ContactInfo' | translate }}</li>
           <li>{{ 'Employee.AcademicInfo' | translate }}</li>
           <li>{{ 'Employee.OfficialInfo' | translate }}</li>
@@ -57,7 +57,14 @@
             </lib-form-group>
           </div>
           <div class="md:col-3">
-            <!-- Placeholder for Employee Photo view  -->
+            <lib-form-group>
+              <label>
+                {{ 'Employee.View.EmployeePhoto' | translate }}
+              </label>
+              <lib-attachment-viewer attachmentId="{{employee?.employeePhoto}}" />
+
+            </lib-form-group>
+
           </div>
           <div class="md:col-12 info">
             {{ 'Employee.BirthInfo' | translate }}

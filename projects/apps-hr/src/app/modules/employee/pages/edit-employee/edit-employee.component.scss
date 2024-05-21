@@ -25,9 +25,19 @@
 
         &:hover {
           background-color: #1a8eae;
-          color: #fff;        }
-      }
+          color: #fff;      
+        
+        
+        }
+
+        .active {
+          background-color: #1a8eae;
+          color: #fff;  
+        }
+        
     }
+
+  }
   
     .form_content {
       margin: 8px;
@@ -120,4 +130,3 @@
         }
       }
   }
-  
