@@ -37,7 +37,7 @@
     align-items: center;
     justify-content: center;
     background: #f7f8f8;
-    margin-top: 18px;
+    margin-top: 40px;
     border-radius: 8px;
 
     .btn {
@@ -45,7 +45,7 @@
       font-size: 16px;
       background: none;
       border: none;
-      padding: 15px 10px;
+      padding: 10px 10px;
       &:hover {
         background: #fff;
         color: #1a8eae;
@@ -70,7 +70,7 @@
         padding: 20px;
 
         .domain_name {
-          margin-top: 20px;
+          margin-top: 27px;
         }
 
         .price {
@@ -82,12 +82,12 @@
           .currency,
           .period {
             color: #1a8eae;
-            font-size: 18px;
+           // font-size: 18px;
           }
           .cost {
             color: #000;
-            font-weight: 700;
-            font-size: 20px;
+            // font-weight: 700;
+            // font-size: 20px;
             margin: 0 2px;
           }
         }
@@ -101,7 +101,7 @@
         .btn {
           min-width: 30%;
           padding: 10px 0;
-          font-size: 16px;
+         // font-size: 16px;
           cursor: pointer;
           border-radius: 12px;
         }
@@ -130,8 +130,13 @@
 
 }
 ::ng-deep {
-  .p-dialog .p-dialog-header {
-    display: none !important;
+  .p-dialog {
+    // position: absolute !important;
+    // bottom: 0 !important;
+    // right: 0 !important;
+    .p-dialog-header {
+      display: none !important;
+    }
   }
   .p-dialog .p-dialog-content {
     padding: 0 !important;

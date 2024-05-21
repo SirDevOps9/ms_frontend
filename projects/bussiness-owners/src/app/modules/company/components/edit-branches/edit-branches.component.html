@@ -11,6 +11,8 @@
         {{ branchCode }}
       </div>
     </div>
+    <div class="pi pi-times cancel" (click)="onCancel()"></div>
+
   </div>
   <div class="branch_content">
     <form [formGroup]="editBrancheForm" (ngSubmit)="onSubmit()">

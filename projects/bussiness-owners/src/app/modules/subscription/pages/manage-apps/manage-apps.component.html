@@ -1,82 +1,84 @@
 <lib-page-content>
-  <div class="app_list">
-      <div class="grid">
-          <div class="col-12">
-              <div class="sub_header">
-                  <div class="count_of_apps">
-                      46 App in Store
-                  </div>
-                  <div class="paginator">
-                      <lib-paginator [first]="0" [rows]="5" [totalRecords]="20">
+    <lib-bread-crumb>
 
-                      </lib-paginator>
-                  </div>
-                  <div class="btns">
-                      <div class="pay">
+    </lib-bread-crumb>
+    <div class="app_list">
+        <div class="grid">
+            <div class="col-12">
+                <div class="sub_header">
+                    <div class="count_of_apps">
+                        {{appInStore}} {{"AppStore.App-in-Store" |translate}}
+                    </div>
 
-                      </div>
-                      <div class="drop">
-                          <lib-select>
+                    <div class="btns">
 
-                          </lib-select>
-                      </div>
-                      <div class="togel_card">
+                        <!-- <div class="togel_card">
                           <button class="pi pi-microsoft" (click)="card()">
 
                           </button>
                           <button class="pi pi-bars" (click)="row()">
 
                           </button>
-                      </div>
-                  </div>
-              </div>
-          </div>
+                      </div> -->
+                        <label class="switch">
+                            <span class="sun">
+                                <i class="icon pi pi-bars"></i> </span>
 
-          <div class="col-12 md:col-3">
-              <div class="Modules">
-                  <lib-accordion header="Modules">
-                      <div>
-                          <p>Accounts</p>
-                          <p>Stores</p>
-                          <p>HR</p>
-                          <p>See all</p>
-                      </div>
-                  </lib-accordion>
-              </div>
-          </div>
+                            <span class="moon">
+                                <i class="icon pi pi-microsoft"></i></span>
+                            <input type="checkbox" class="input" (click)="toggelview()" />
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
 
-          <div class="col-12 md:col-9">
-              <div [ngClass]="{contant:cardList}">
-                  <div class="card" [ngClass]="{card_list:cardList}" *ngFor="let app of appList">
+            <div class="col-12 md:col-3">
+                <div class="Modules">
+                    <lib-accordion header="Modules">
+                        <div>
+                            <p>Accounts</p>
+                            <p>Stores</p>
+                            <p>HR</p>
+                            <p>See all</p>
 
-                      <div class="app_img">
-                          <img src="assets/images/apps/Group.png" alt="">
-                      </div>
-                      <div class="app_description">
-                          <div class="sec_one">
-                              <div class="title" (click)="routeToDetails(app.appId)">
-                                  {{app.appName}}
-                              </div>
-                              <div class="re_new">
-                                <button (click)="Renew(app.appId)">Renew</button>
-                              </div>
-                          </div>
-                          <div class="sec_two">
-                              <div class="rate">
-                                  <lib-rating [value]="4.5" [isReadOnly]="true" [showCancel]="false">
+                        </div>
+                    </lib-accordion>
+                </div>
+            </div>
 
-                                  </lib-rating>
-                              </div>
-                              <div class="date">
-                                <span class="pi pi-calendar"></span>
-                                   {{app.endDate}}
-                              </div> 
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+            <div class="col-12 md:col-9">
+                <div [ngClass]="{contant:cardList}">
+                    <div class="card" [ngClass]="{card_list:cardList}" *ngFor="let app of appList">
 
-  </div>
+                        <div class="app_img">
+                            <img src="assets/images/apps/Group.png" alt="">
+                        </div>
+                        <div class="app_description">
+                            <div class="sec_one">
+                                <div class="title" (click)="routeToDetails(app.appId)">
+                                    {{app.appName}}
+                                </div>
+                                <div class="cart">
+                                    <button (click)="Renew(app.appId)">Renew</button>
+                                </div>
+                            </div>
+                            <div class="sec_two">
+                                <div class="rate">
+                                    <lib-rating [value]="4.5" [isReadOnly]="true" [showCancel]="false">
+
+                                    </lib-rating>
+                                </div>
+                                <div class="date">
+                                    <span class="pi pi-calendar"></span>
+                                    {{app.endDate |date}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </lib-page-content>

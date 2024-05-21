@@ -1,9 +1,10 @@
 <p-dropdown
-  [disabled]="disabledMode"
+  [disabled]="readOnly"
   [optionValue]="optionValue"
   [options]="options"
   [optionLabel]="optionLabel"
   [(ngModel)]="selectedValue"
   (onChange)="change($event)"
   [placeholder]="placeholder"
+  [ngClass]="{'read':readOnly}"
 ></p-dropdown>

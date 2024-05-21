@@ -87,6 +87,7 @@
 
   .p-inputswitch-checked .p-inputswitch-slider:before {
     content: "\2713" !important;
+    -webkit-mask-image: none !important;
     mask-image: none !important;
     display: flex;
     align-items: center;
@@ -94,11 +95,10 @@
     color: #1a8eae;
     font-size: 35px;
     background: #ffffff;
-    width: 3.25rem;
-    height: 2.25rem;
-    left: -0.5rem;
-    margin-top: -1.15rem;
-    // border-radius: 50%;
+    width: 3rem;
+    height: 2rem;
+    left: -0.2rem;
+    margin-top: -1.0rem;
     border-radius: 15px;
     transition-duration: 0.2s;
   }
@@ -172,14 +172,14 @@
 
   .active {
     position: absolute;
-    top: -3px;
+    top: -6px;
     left: 20px;
     color: #fff;
   }
 
   .inactive {
     position: absolute;
-    top: -3px;
+    top: -6px;
     left: 50px;
     color: #40444c;
   }
@@ -197,6 +197,7 @@
       display: flex;
       align-items: center;
       justify-content: start;
+      margin-inline-end: 25px;
 
       .title {
         font-size: 1rem;
@@ -254,7 +255,7 @@
           position: absolute;
           width: 90%;
           left: 2px;
-          bottom: -12px;
+          bottom: -17px;
           height: 3px;
           background: #1A8EAE;
         }

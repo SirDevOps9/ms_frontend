@@ -136,10 +136,11 @@ export class UserService {
     ref = dialog.open(UserInviteFormComponent, {
       width: '600px',
       height: '600px',
-      data: { Id: id },
+       data: { Id: id },
     });
     ref.onClose.subscribe((result: UserListResponse) => {
       if (result as UserListResponse) {
+
         const updatedUserList: UserListResponse[] = [
           ...this.userDataSource.value,
           result,

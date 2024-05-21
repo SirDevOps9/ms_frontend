@@ -2,7 +2,7 @@
   <div class="company_address">
     <form [formGroup]="companyLegalForm">
       <div class="actions">
-          <button type="button" class="save" (click)="onSubmit()">
+          <button type="button" class="save body_b16" (click)="onSubmit()">
             {{
               editMode
                 ? ("Company.Save" | translate)
@@ -10,7 +10,7 @@
             }}
           </button>
           <div *ngIf="editMode">
-            <button type="button" class="cancel" (click)="onDiscard(editMode)">
+            <button type="button" class="cancel body_b16" (click)="onDiscard(editMode)">
               Discard
             </button>
           </div>
