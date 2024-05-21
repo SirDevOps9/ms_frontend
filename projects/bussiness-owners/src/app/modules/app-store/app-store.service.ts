@@ -128,7 +128,7 @@ export class AppStoreService {
         this.languageService.transalte('CartItem.Success'),
         this.languageService.transalte('AppStore.CheckedOut')
       );
-      this.router.navigateTo('/my-plans');
+      this.router.navigateTo('/app-store/paymentSuccesful');
     });
   }
 

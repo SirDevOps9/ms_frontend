@@ -4,7 +4,7 @@
         border: 1px solid #d1d5db;
         transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
         border-radius: 6px;
-        width: 100%;
+        //width: 100% !important;
       }
       .p-multiselect:not(.p-disabled):hover {
         border-color: #1A8EAE !important;
@@ -45,5 +45,8 @@
       border-color: #383a42 !important;
       background: #8e95a2 !important;
       color: #ffffff;
+    }
+    .p-multiselect {
+      width: 100% !important;
     }
 }

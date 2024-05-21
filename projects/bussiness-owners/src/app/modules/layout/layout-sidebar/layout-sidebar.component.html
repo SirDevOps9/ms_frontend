@@ -3,19 +3,19 @@
     <div class="content" *ngIf="!sidebarOpen">
       <div
         class="item"
-        routerLink="/my-subscriptions"
-        id="subscripition"
-        (click)="activeTag('subscripition')"
+        [ngClass]="{'active_link': router.getCurrentUrl() === '/my-subscriptions' }"
       >
-        <button>
+        <button      
+           (click)="setActive('my-subscriptions')"
+        >
           <div class="item_icon">
             <i class="fa fa-solid fa-globe"></i>
           </div>
-          <div class="item_text">subscripition</div>
+          <div class="item_text body_b14">{{'Layout.subscripition'|translate}}</div>
         </button>
       </div>
 
-      <!-- <button class="item" routerLink="/company"  id="company" (click)="activeTag('company')">
+      <!-- <button class="item" routerLink="/company"  id="company" (click)="setActive('company')">
         <div class="item_icon">
           <i class="fa fa-solid fa-building"></i>
         </div>
@@ -23,7 +23,7 @@
           company
         </div>
       </button>
-      <button class="item"  routerLink="/users"  id="users" (click)="activeTag('users')">
+      <button class="item"  routerLink="/users"  id="users" (click)="setActive('users')">
         <div class="item_icon">
           <i class=" fa fa-solid fa-users"></i>
         </div>
@@ -32,31 +32,45 @@
         </div>
       </button> -->
       <div
-        class="item"
-        routerLink="/app-store"
-        id="app-store"
-        (click)="activeTag('appStore')"
+        class="item body_b14"
+       
+        [ngClass]="{'active_link': router.getCurrentUrl() === '/app-store' }"
+
       >
-        <button>
+        <button           (click)="setActive('app-store')"
+        >
           <div class="item_icon">
             <i class="fa fa-solid fa-globe"></i>
           </div>
-          <div class="item_text">App store</div>
+          <div class="item_text ">{{'Layout.AppStore'|translate}}</div>
         </button>
       </div>
-      <button class="item" id="Apps" (click)="activeTag('Apps')">
-        <div class="item_icon">
-          <i class="fa fa-solid fa-globe"></i>
-        </div>
-        <div class="item_text">microtec Apps users</div>
-      </button>
+      <!-- <div
+        class="item"
+       
+        [ngClass]="{'active_link': router.getCurrentUrl() === '/app-store' }"
+
+      >
+      <button  id="Apps"
+      (click)="setActive('Apps')"
+      [ngClass]="{'active_link': router.getCurrentUrl() === '/Apps' }"
+
+      >
+       <div class="item_icon">
+         <i class="fa fa-solid fa-globe"></i>
+       </div>
+       <div class="item_text">microtec Apps users</div>
+     </button>
+      </div> -->
+     
     </div>
     <div class="content_open" *ngIf="sidebarOpen">
       <button
         class="item"
         routerLink="/company"
         id="company"
-        (click)="activeTag('company')"
+        (click)="setActive('company')"
+        [ngClass]="{'active': activeTag === 'company'}"
       >
         <div class="item_icon">
           <i class="fa fa-solid fa-building"></i>
@@ -67,20 +81,20 @@
         class="item"
         routerLink="/users"
         id="users"
-        (click)="activeTag('users')"
+        (click)="setActive('users')"
       >
         <div class="item_icon">
           <i class="fa fa-solid fa-users"></i>
         </div>
         <div class="item_text">user</div>
       </button>
-      <button class="item" id="KPI" (click)="activeTag('KPI')">
+      <button class="item" id="KPI" (click)="setActive('KPI')">
         <div class="item_icon">
           <i class="fa fa-solid fa-globe"></i>
         </div>
         <div class="item_text">KPI's</div>
       </button>
-      <button class="item" id="Apps" (click)="activeTag('Apps')">
+      <button class="item" id="Apps" (click)="setActive('Apps')">
         <div class="item_icon">
           <i class="fa fa-solid fa-globe"></i>
         </div>
@@ -93,13 +107,13 @@
           collapseIcon="fa fa-solid fa-caret-up"
         >
           <p-accordionTab header="users">
-            <button class="item" id="Apps" (click)="activeTag('Apps')">
+            <button class="item" id="Apps" (click)="setActive('Apps')">
               <div class="item_icon">
                 <i class="fa fa-solid fa-globe"></i>
               </div>
               <div class="item_text">microtec Apps users</div>
             </button>
-            <button class="item" id="Apps" (click)="activeTag('Apps')">
+            <button class="item" id="Apps" (click)="setActive('Apps')">
               <div class="item_icon">
                 <i class="fa fa-solid fa-globe"></i>
               </div>

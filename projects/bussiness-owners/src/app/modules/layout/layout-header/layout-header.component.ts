@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { EnvironmentService, LanguageService, RouterService } from 'shared-lib';
 import { UserData } from '../../user/models';
@@ -56,6 +56,12 @@ export class LayoutHeaderComponent implements OnInit {
       this.showcard = true;
     }
   }
+  @HostListener('document:click', ['$event'])
+  clickout(event: Event) {
+    if (this.showcard && !this.eRef.nativeElement.contains(event.target)) {
+      this.showcard = false;
+    }
+  }
   routeToCart() {
     this.routerService.navigateTo(`/app-store/cart`)
   }
@@ -66,6 +72,7 @@ export class LayoutHeaderComponent implements OnInit {
     private env: EnvironmentService,
     private cartService: AppStoreService,
     private routerService: RouterService,
+    private eRef: ElementRef
 
   ) {
     this.userName = this.authService.getUserName;
