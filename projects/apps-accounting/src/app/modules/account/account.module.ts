@@ -9,6 +9,9 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { MainChartOfAccountComponent } from './pages/main-chart-of-account/main-chart-of-account.component';
 import { ChartOfAccountTreeComponent } from './pages/chart-of-account-tree/chart-of-account-tree.component';
 import { ChartOfAccountConfigurationComponent } from './components/chart-of-account-configuration/chart-of-account-configuration.component';
+import { ViewChartComponent } from './components/view-chart/view-chart.component';
+import { AddChartComponent } from './components/add-chart/add-chart.component';
+import { EditChartComponent } from './components/edit-chart/edit-chart.component';
 
 const routes: Routes = [
   {
@@ -22,6 +25,16 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.chart_of_account,
         },
+        children: [
+          {
+            path: 'add',
+            component: AddChartComponent,
+            canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.chart_of_account,
+            },
+          },
+        ],
       },
     ],
   },
@@ -32,13 +45,11 @@ const routes: Routes = [
     ChatOfAccountListComponent,
     MainChartOfAccountComponent,
     ChartOfAccountTreeComponent,
-    ChartOfAccountConfigurationComponent
+    ChartOfAccountConfigurationComponent,
+    ViewChartComponent,
+    AddChartComponent,
+    EditChartComponent,
   ],
-  imports: [
-    CommonModule,
-    SharedLibModule,
-    AutoCompleteModule,
-    RouterModule.forChild(routes),
-  ],
+  imports: [CommonModule, SharedLibModule, AutoCompleteModule, RouterModule.forChild(routes)],
 })
 export class AccountModule {}
