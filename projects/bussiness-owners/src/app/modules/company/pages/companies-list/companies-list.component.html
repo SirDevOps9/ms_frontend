@@ -38,14 +38,14 @@
    
       <ng-template pTemplate="header">
         <tr>
-          <th>{{ "Company.Code" | translate }}</th>
-          <th>{{ "Company.CompaniesName" | translate }}</th>
-          <th>{{ "Company.CompaniesType" | translate }}</th>
-          <th>{{ "Company.TaxID" | translate }}</th>
-          <th>{{ "Company.CommercialID" | translate }}</th>
-          <th>{{ "Company.Phone" | translate }}</th>
-          <th>{{ "Company.status" | translate }}</th>
-          <th>{{ "Company.Actions" | translate }}</th>
+          <th class="body_b16 tab_title " >{{ "Company.Code" | translate }}</th>
+          <th class="body_b16 tab_title ">{{ "Company.CompaniesName" | translate }}</th>
+          <th class="body_b16 tab_title ">{{ "Company.CompaniesType" | translate }}</th>
+          <th class="body_b16 tab_title ">{{ "Company.TaxID" | translate }}</th>
+          <th class="body_b16 tab_title ">{{ "Company.CommercialID" | translate }}</th>
+          <th class="body_b16 tab_title ">{{ "Company.Phone" | translate }}</th>
+          <th class="body_b16 tab_title ">{{ "Company.status" | translate }}</th>
+          <th class="body_b16 tab_title ">{{ "Company.Actions" | translate }}</th>
         </tr>
       </ng-template>
 
@@ -77,10 +77,10 @@
                   (onChange)="changed($event, rowData.id)"
                 >
                 </p-inputSwitch>
-                <p class="active" *ngIf="rowData.isActive">
+                <p class="active body_b16" *ngIf="rowData.isActive">
                   {{ "User.Activate" | translate }}
                 </p>
-                <p class="inactive" *ngIf="!rowData.isActive">
+                <p class="inactive body_b16" *ngIf="!rowData.isActive">
                   {{ "User.Deactivate" | translate }}
                 </p>
               </div>

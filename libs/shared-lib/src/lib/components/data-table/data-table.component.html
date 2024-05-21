@@ -20,18 +20,18 @@
         [resizableColumns]="true"
          columnResizeMode="expand"
       >
-        <ng-template pTemplate="caption">
+        <!-- <ng-template pTemplate="caption">
           <ng-content select="[caption]"> </ng-content>
-        </ng-template>
+        </ng-template> -->
 
         <ng-template pTemplate="header">
           <tr>
             <ng-container *ngFor="let col of tableConfigs.columns">
-              <th [pSortableColumn]="col.name" *ngIf="col.isSortable">
+              <th [pSortableColumn]="col.name" *ngIf="col.isSortable" class="body_b16">
                 {{ col.headerText }}
                 <p-sortIcon [field]="col.name"></p-sortIcon>
               </th>
-              <th *ngIf="!col.isSortable">
+              <th *ngIf="!col.isSortable" class="body_b16">
                 {{ col.headerText }}
               </th>
             </ng-container>

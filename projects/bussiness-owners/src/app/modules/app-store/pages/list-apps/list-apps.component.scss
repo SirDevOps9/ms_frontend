@@ -123,6 +123,7 @@
     display: flex;
     align-items: start;
     justify-content: start;
+    flex-wrap: wrap;
 }
 .Modules{
     border-bottom:1px solid #8E95A2 ;
@@ -130,3 +131,122 @@
 .test{
     position:relative  !important;
 }
+.switch {
+    overflow: hidden;
+    font-size: 17px;
+    position: relative;
+    display: inline-block;
+    width: 4rem;
+    height: 2.3rem;
+    background: #1A8EAE;
+    margin-inline-end: 1rem;
+    border-radius: 8px;
+
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute !important;
+      top: 30% !important;
+      left: 30% !important;
+    }
+
+    .slider {
+    //   &::after {
+    //     content: "";
+    //     position: absolute;
+    //     inset: 0;
+    //    // border-radius: 30px;
+    //     backdrop-filter: blur(22.40701675415039px);
+    //     padding: 1.5px;
+    //     background: linear-gradient(
+    //       160deg,
+    //       #ffffff,
+    //       #a7a7a736,
+    //       #a7a7a736,
+    //       #ffffff
+    //     );
+
+    //     -webkit-mask: linear-gradient(#fff 0 0) content-box,
+    //       linear-gradient(#fff 0 0);
+    //     -webkit-mask-composite: xor;
+    //   }
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        134deg,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(0, 0, 0, 0.05) 100%
+      ) !important;
+
+      transition: 0.4s;
+      border-radius: 8px;
+    }
+    .moon {
+      i {
+        z-index: 1;
+        position: absolute;
+        left: 12%;
+        top: 25%;
+        color: #fff;
+        width: 1.5rem;
+        font-size: 1rem;
+        height: 1.5rem;
+      }
+    }
+    .sun {
+      i {
+        z-index: 1;
+        position: absolute;
+        top: 25%;
+        right: -1%;
+        color: #fff;
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 1rem;
+      }
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 1.7rem;
+      width: 1.7rem;
+      border-radius: 20px;
+      left: 3px;
+      bottom: 4.805px;
+      z-index: 2;
+      background-color: #fff;
+      transition: 0.4s;
+      @media (max-width: 900px) {
+        left: 2px;
+        bottom: 3px;
+      }
+    }
+
+    .moon svg {
+      fill: #181c22;
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      z-index: 1;
+      font-size: 0.8rem;
+      width: 24px;
+      height: 24px;
+    }
+
+    .input:checked + .slider {
+      background-color: #181c22;
+    }
+
+    .input:focus + .slider {
+      box-shadow: 0 0 1px #181c22;
+    }
+
+    .input:checked + .slider:before {
+      transform: translateX(1.875rem);
+    }
+  }

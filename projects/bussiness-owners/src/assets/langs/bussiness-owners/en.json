@@ -27,6 +27,7 @@
     "AddCompany": "Add company",
     "ListCompany": "Company list",
     "MyPlan": "My Plan",
+    "subscripition": "Subscripition",
     "AppStore": "App store"
   },
   "User": {
@@ -38,6 +39,9 @@
     "Phone": "Phone",
     "Status": "Status(Activate Or Deactivate)",
     "Resend": "Resend",
+    "Company": "Company",
+    "Branches": "Branches",
+    "Domain-Space": "Domain Space",
     "Deactivate": "Deactivate",
     "Activate": "Activate",
     "Succefully": "Succefully",
@@ -224,7 +228,8 @@
   },
   "AppStore": {
     "AddedToCartSuccessfully": "Successfully added to cart",
-    "CheckedOut": "Successfully checked out"
+    "CheckedOut": "Successfully checked out",
+    "App-in-Store":"App in Store"
   },
   "CartItem": {
     "ItemRemovedSuccessfully": "Successfully removed from cart"
@@ -241,6 +246,14 @@
       "Yearly": "Yearly",
       "YourDomainSpace": "Your Domain Space",
       "AddToCart": "Add To Cart",
+      "Manage_User": "Manage User",
+      "renew": "renew",
+      "Manage_aPP": "Manage aPP",
+      "Manage_Companies": "Manage Companies",
+      "User_licenses": "User licenses",
+      "ERP_Login": "ERP Login",
+      "already_exists": " Domain name already exists.",
+      "available": " domain name are available.",
       "purchase": "Purchase"
     }
   }

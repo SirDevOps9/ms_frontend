@@ -13,6 +13,7 @@
           <div class="col-12 md:col-8">
             <lib-form-group>
               <lib-label
+              class="paragraph_b18"
                 [appControl]="subdomainForm.controls['purchasingPaymentCount']"
               >
                 {{ "Subscription.Subdomain.Count" | translate }}
@@ -32,7 +33,7 @@
               <button
                 type="button"
                 id="Monthly"
-                class="btn"
+                class="btn body_b13"
                 [ngClass]="{ btn_active: period === 'Monthly' }"
                 (click)="activeButton('Monthly')"
               >
@@ -41,7 +42,7 @@
               <button
                 type="button"
                 id="Yearly"
-                class="btn"
+                class="btn body_b13"
                 [ngClass]="{ btn_active: period === 'Yearly' }"
                 (click)="activeButton('Yearly')"
               >
@@ -51,14 +52,14 @@
           </div>
           <div class="col-12 price">
             <p>
-              <sup class="currency">$</sup>
-              <span class="cost">{{ cost }}</span>
-              <sub class="period">{{ period }}</sub>
+              <sup class="currency body_b18">$</sup>
+              <span class="cost heading_b23">{{ cost }}</span>
+              <sub class="period body_b16 ">{{ period }}</sub>
             </p>
           </div>
           <div class="col-12 md:col-8">
             <lib-form-group>
-              <lib-label [appControl]="subdomainForm.controls['name']">
+              <lib-label [appControl]="subdomainForm.controls['name']" class="body_b14">
                 {{ "Subscription.Subdomain.YourDomainSpace" | translate }}
               </lib-label>
               <lib-text-input type="text" formControlName="name" (keyup)="onNameInputKeyUp($event)" />
@@ -66,17 +67,18 @@
                 [appControl]="subdomainForm.controls['name']"
               >
               </lib-field-validations>
-              <div class="domain_invalid" *ngIf="subdomainInValid">
-                Domain name already exists.
+              <div class="domain_invalid body_b14" *ngIf="subdomainInValid">
+                {{ "Subscription.Subdomain.already_exists" | translate }}
               </div>
-              <div class="domain_valid"  *ngIf="subdomainValid">
-                domain space are available
+              <div class="domain_valid body_b14"  *ngIf="subdomainValid">
+                {{ "Subscription.Subdomain.available" | translate }}
               </div>
             </lib-form-group>
           </div>
           <div class="col-12 md:col-4 domain_name">
             <lib-form-group>
               <lib-text-input
+              class="body_b14"
                 type="text"
                 placeholder="@microtec.com.sa"
                 [readOnly]="true"

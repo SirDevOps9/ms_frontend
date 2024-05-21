@@ -5,7 +5,7 @@ import { customValidators } from '../../services';
 @Component({
   selector: 'lib-label',
   templateUrl: './label.component.html',
-  styleUrls: ['./label.component.css'],
+  styleUrls: ['./label.component.scss'],
 })
 export class LabelComponent implements OnInit {
   @Input() label: string;

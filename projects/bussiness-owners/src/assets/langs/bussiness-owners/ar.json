@@ -27,6 +27,7 @@
     "AddCompany": "أضف شركة",
     "ListCompany": "قائمة الشركات",
     "MyPlan": "باقاتي",
+    "subscripition": "اشتراك",
     "AppStore": "متجر التطبيقات"
   },
   "User": {
@@ -35,6 +36,9 @@
     "Id": "الرقم",
     "Name": "الاسم",
     "Email": "البريد الالكترونى",
+    "Company": "شركة",
+    "Branches": "الفروع",
+    "Domain-Space": "مساحة المجال",
     "Phone": "رقم التليفون",
     "Status": "(تفعيل او الغاء تفعيل)الحالة",
     "Deactivate": "الغاء التفعيل",
@@ -149,15 +153,15 @@
       "BranchDeActivatedSuccessfully": "تم تعطيل الفرع بنجاح",
       "BranchDeletedSuccessfully": "تم حذف الفرع بنجاح",
       "BranchUpdatedSuccessfully": "تم تحديث الفرع بنجاح",
-      "EditBranch": "تحرير الفرع",
+      "EditBranch": "تحرير ",
       "AddNewBranch": "إضافة فرع جديد",
-      "BranchCode": "كود الفرع",
-      "BranchName": "اسم الفرع",
+      "BranchCode": "كود ",
+      "BranchName": "اسم ",
       "Country": "الدولة",
-      "BranchRegion": "منطقة الفرع",
-      "BranchCity": "مدينة الفرع",
-      "BranchEmail": "البريد الإلكتروني للفرع",
-      "BranchAddress": "عنوان الفرع",
+      "BranchRegion": "منطقة ",
+      "BranchCity": "مدينة ",
+      "BranchEmail": "البريد الإلكتروني ",
+      "BranchAddress": "عنوان ",
       "MobileNumberCode": "رمز الهاتف المحمول",
       "MobileNumber": "رقم الهاتف المحمول",
       "Phone": "الهاتف",
@@ -218,7 +222,8 @@
   },
   "AppStore": {
     "AddedToCartSuccessfully": "تم الإضافة لسلة الشراء بنجاح",
-    "CheckedOut": "تم الشراء بنجاح"
+    "CheckedOut": "تم الشراء بنجاح",
+    "App-in-Store":"التطبيق في المتجر"
   },
   "CartItem": {
     "ItemRemovedSuccessfully": "تم الحذف من السلة بنجاح"
@@ -236,6 +241,15 @@
       "TryAnotherDomain": "جرب نطاقًا آخر",
       "AddToCart": "أضف إلى السلة",
       "purchase": "شراء",
+      "Expire": "ينتهي",
+      "Manage_User": "إدارة المستخدم",
+      "renew": "تجديد",
+      "Manage_aPP": "إدارة التطبيق",
+      "Manage_Companies": "إدارة الشركات",
+      "User_licenses": "تراخيص المستخدم",
+      "ERP_Login": "تسجيل الدخول لتخطيط موارد المؤسسات",
+      " already_exists": " اسم المجال موجود بالفعل.",
+      " available": " اسم المجال متاح",
       "YourDomainSpace": "النطاق الفرعي"
 
     }

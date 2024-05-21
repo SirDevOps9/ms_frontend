@@ -11,7 +11,7 @@
             <div class="col-12">
                 <div class="sub_header">
                     <div class="count_of_apps">
-                        {{appInStore}} App in Store
+                        {{appInStore}} {{"AppStore.App-in-Store" |translate}}
                     </div>
                     <!-- <div class="paginator">
                         <lib-paginator [first]="0" [rows]="5" [totalRecords]="20">
@@ -35,6 +35,15 @@
                                 <span class="icon pi pi-bars"></span>
                             </button>
                         </div>
+                        <label class="switch" >
+                            <span class="sun">
+                                <i class="icon pi pi-bars"></i> </span>
+
+                            <span class="moon">
+                                <i class="icon pi pi-microsoft"></i></span>
+                            <input type="checkbox" class="input"  (click)="toggelview()" />
+                            <span class="slider"></span>
+                          </label>
                     </div>
                 </div>
             </div>
