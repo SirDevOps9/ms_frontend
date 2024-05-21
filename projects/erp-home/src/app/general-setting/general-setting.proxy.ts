@@ -13,7 +13,9 @@ export class GeneralSettingProxy {
       PageNumber: pageInfo.pageNumber.toString(),
       PageSize: pageInfo.pageSize.toString(),
     });
-    return this.httpService.get<PaginationVm<TagDto>>(`Tag?${pageInfo.toQuery}`);
+    const url = `Tag?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+
+    return this.httpService.get<PaginationVm<TagDto>>(url);
   }
   constructor(private httpService: HttpService) {}
 }

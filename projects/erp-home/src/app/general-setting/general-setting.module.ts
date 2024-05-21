@@ -13,7 +13,7 @@ const routes: Routes = [
     component: LayoutPageComponent,
     children: [
       {
-        path: 'TagList',
+        path: '',
         component: TagListComponent,
         canActivate: [AuthGuard],
         data: {

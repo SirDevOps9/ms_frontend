@@ -1,17 +1,29 @@
 <lib-page-content
   [title]="'tag.taglist' | translate"
   [subTitle]="'tag.taglist' | translate"
->
+ >
   <lib-bread-crumb>
-    <div class="flex justify-content-end align-items-center">
-      <button
-        pButton
-        pRipple
-        label="{{ 'Add New' | translate }}"
-        icon="pi pi-plus"
-        class="add_new mr-2"
-        (click)="NewTag()"
-      ></button>
+    <div class="flex justify-content-between align-items-center">
+      <div class="flex align-items-center">
+        <input
+          type="text"
+          pInputText
+          placeholder="{{ 'Search' | translate }}"
+          [(ngModel)]="searchTerm"
+          (input)="onSearchChange()"
+          class="mr-2"
+        />
+      </div>
+      <div>
+        <button
+          pButton
+          pRipple
+          label="{{ 'Add New' | translate }}"
+          icon="pi pi-plus"
+          class="add_new mr-2"
+          (click)="newTag()"
+        ></button>
+      </div>
     </div>
   </lib-bread-crumb>
   <div>
@@ -35,7 +47,7 @@
             },
             {
               name: 'code',
-              headerText: ('tag.Code' | translate),
+              headerText: ('tag.code' | translate),
               isGlobalFilter: true,
               isSortable: true
             },

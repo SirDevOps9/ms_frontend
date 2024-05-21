@@ -14,6 +14,7 @@ export class TagListComponent implements OnInit {
   tableData: TagDto[];
   currentPageInfo: PageInfoResult;
   modulelist : MenuModule[];
+  searchTerm: string;
   
   constructor(private routerService: RouterService, private generalSettingService: GeneralSettingService,public authService: AuthService) {}
 
@@ -23,7 +24,7 @@ export class TagListComponent implements OnInit {
   }
 
   initChartOfAccountData() {
-    this.generalSettingService.initTagList('', new PageInfo());
+    this.generalSettingService.GetTagList('', new PageInfo());
 
     this.generalSettingService.TagList.subscribe({
       next: (res) => {
@@ -37,7 +38,13 @@ export class TagListComponent implements OnInit {
   }
   
   onPageChange(pageInfo: PageInfo) {
-    this.generalSettingService.getAllTagsPaginated('', pageInfo);
+    this.generalSettingService.GetTagList('', pageInfo);
+    
+    this.generalSettingService.TagList.subscribe({
+      next: (res) => {
+        this.tableData = res;
+      },
+    });
   }
   routeToAdd() {
     this.routerService.navigateTo(`/journalentry/add`);
@@ -52,8 +59,19 @@ export class TagListComponent implements OnInit {
 
     }
 
-  NewTag(){
+  newTag(){
      this.routerService.navigateTo(`/journalentry/edit/`);
+    }
+
+    onSearchChange(){
+      this.generalSettingService.GetTagList(this.searchTerm, new PageInfo());
+      console.log(this.searchTerm,"Search");
+
+    this.generalSettingService.TagList.subscribe({
+      next: (res) => {
+        this.tableData = res;
+      },
+    });
     }
 
 

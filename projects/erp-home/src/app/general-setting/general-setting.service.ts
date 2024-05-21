@@ -13,21 +13,13 @@ export class GeneralSettingService {
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
-  initTagList(searchTerm: string, pageInfo: PageInfo) {
+  GetTagList(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getAllTagsPaginated(searchTerm, pageInfo).subscribe({
       next: (res) => {
         this.tagDataSource.next(res.result);
         this.currentPageInfo.next(res.pageInfoResult);
       },
     });
-  }
-
-  getAllTagsPaginated(searchTerm: string, pageInfo: PageInfo) {
-    return this.GeneralSettingproxy.getAllTagsPaginated(searchTerm, pageInfo).pipe(
-      map((res) => {
-        return res;
-      })
-    );
   }
  
   constructor(private GeneralSettingproxy: GeneralSettingProxy) {}
