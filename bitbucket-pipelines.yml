@@ -1,19 +1,23 @@
-
 image: node:18.13.0
 
 pipelines:
   branches:
     moataz-ci/cd:
       - step:
-          name: Install Dependencies
+          name: Installation
+          caches:
+            - node
           script:
             - npm install
-            - npm install -g @angular/cli
-            - ls -l
-            - ls -l projects
-            - ls -l projects/bussiness-owners
-            - ls -l projects/bussiness-owners/src
-            - ls -l projects/bussiness-owners/src/assets
-            - ls -l projects/bussiness-owners/src/assets/fonts
-            - cd projects/bussiness-owners
-            - ng build --project bussiness-owners
+          artifacts:
+            - node_modules/** # Save modules for next steps
+      - step:
+          name: Lint
+          script:
+            - npm run lint
+      - step:
+          name: Build
+          script:
+            - npm run build:bussiness-owners
+          artifacts:
+            - dist/** # Save build for next steps
