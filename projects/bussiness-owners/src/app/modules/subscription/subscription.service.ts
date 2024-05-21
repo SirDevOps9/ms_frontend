@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { AddDomainSpaceDto, ResponseSubdomainDto, SubscriptionDto, TenantLicenseDto } from './models';
 import {
   AddDomainSpaceDto,
   ResponseSubdomainDto,
   SubscriptionDto,
   TenantLicenseDto,
 } from './models';
+
 import { LanguageService, LoaderService, RouterService, ToasterService } from 'shared-lib';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddDomainSpaceComponent } from './components/add-domain-space/add-domain-space.component';
