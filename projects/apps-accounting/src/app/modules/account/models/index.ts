@@ -6,3 +6,6 @@ export * from './parentAcccountDto';
 export * from './accountSectionDropDownDto';
 export * from './accountTypeDropDownDto';
 export * from './tagDropDownDto';
+
+export * from './addLevelsDto';
+export * from './getLevelsDto';

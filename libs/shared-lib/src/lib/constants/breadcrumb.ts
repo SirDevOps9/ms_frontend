@@ -15,6 +15,22 @@ export class BreadcrumbLabel {
     static JOURNAL_ADD='journal Entry Add';
     static JOURNAL_Edit='journal Entry Edit';
     static chart_of_account='Chart of Account';
+    static BUSSINESS_OWNER ='Bussiness Owners';
+    static MANAGE_BUSSINESS_OWNER ='Manage Bussiness Owners';
+    static SUBDOMAIN_INFO ='Subdomain Info';
+    static COMPANIES_INFO ='Company Info';
+    static LICENCE_INFO ='licence Info';
+    static USER_INFO ='USER Info';
+    static APP_INFO ='APP Info';
+    static tag_list ='Tag List';
+    static EMPLOYEE='Employees';
+    static EMPLOYEE_ADD='Add Employee';
+    static EMPLOYEE_VIEW='View Employee';
+    static EMPLOYEE_EDIT='Edit Employee';
+
+    
+
+
 
     
 

@@ -1,8 +1,8 @@
 <div class="mt-5">
-    <!-- <lib-bread-crumb></lib-bread-crumb> -->
+    <lib-bread-crumb></lib-bread-crumb>
     <div class="companies-container">
       <lib-data-table
-        [items]="tableData"
+        [items]="dataList"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
         (pageChange)="onPageChange($event)"
@@ -14,49 +14,49 @@
             pageSize: 10,
             columns: [
               {
-                name: 'code',
+                name: 'id',
                 headerText: ('App Code' ),
                 isGlobalFilter: true,
                 isSortable: false
               },
               {
-                name: 'name',
+                name: 'appName',
                 headerText: ('App Name'),
                 isGlobalFilter: true,
                 isSortable: false
               },
               {
-                name: 'email',
+                name: 'moduleName',
                 headerText: ('Module'),
                 isGlobalFilter: true,
                 isSortable: false
               },
               {
-                name: 'country',
+                name: 'price',
                 headerText: ('App Price'),
                 isGlobalFilter: true,
                 isSortable: false
               },
               {
-                name: 'mobileNumber',
+                name: 'startDate',
                 headerText: ('Supscrition Start Date'),
                 isGlobalFilter: true,
                 isSortable: false
               },
               {
-                name: 'mob',
+                name: 'endDate',
                 headerText: ('Supscrition End Date'),
                 isGlobalFilter: true,
                 isSortable: false
               },
               {
-                name: 'mob2',
+                name: 'purchasingPaymentPeriod',
                 headerText: ('Supscrition Interval'),
                 isGlobalFilter: true,
                 isSortable: false
               },
               {
-                name: 'mob3',
+                name: 'isActive',
                 headerText: ('Supscrition Status'),
                 isGlobalFilter: true,
                 isSortable: false

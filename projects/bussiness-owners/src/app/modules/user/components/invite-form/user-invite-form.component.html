@@ -12,7 +12,7 @@
           <div class="col-md-6">
             <lib-form-group>
               <lib-label [appControl]="inviteForm.controls['email']">
-                Login Email
+              {{'User.Email' | translate}}
               </lib-label>
               <lib-text-input type="text" formControlName="email" />
               <lib-field-validations
@@ -25,7 +25,7 @@
               <lib-label
                 [appControl]="inviteForm.controls['companyId']"
               >
-                Company
+                {{'User.Company'|translate}}
               </lib-label>
               <lib-select
               formControlName="companyId"
@@ -44,8 +44,10 @@
 
             <lib-form-group>
               <lib-label [appControl]="inviteForm.controls['branchIds']">
-                Branches
+                {{'User.Branches'|translate}}
+
               </lib-label>
+              <br>
               <lib-multi-select
               formControlName="branchIds"
                 [options]="branches"
@@ -63,7 +65,7 @@
 
             <lib-form-group>
               <label>
-                Domain Space
+                {{'User.Domain-Space'|translate}}
               </label>
               <div class="view">
                 {{ subdomainName }}
@@ -79,7 +81,7 @@
               formControlName="tenantLicenseId"
               [options]="Licenses"
               optionValue="id"
-              optionLabel="description"
+              optionLabel="nameEn"
             >
             </lib-select>
               <lib-field-validations
@@ -91,12 +93,12 @@
           
       </div>
       <div class="actions">
-          <button type="submit" class="save w-6">
+          <button type="submit  " class="save w-6 paragraph_b16">
             <span class="pi pi-send"></span>
             {{ "User.Inviteform.SubmitButton" | translate }}
           </button>
 
-          <button class="cancel" type="button" (click)="onCancel()">
+          <button class="cancel paragraph_b16" type="button" (click)="onCancel()">
             {{ "User.Inviteform.CancelButton" | translate }}
           </button>
         </div>

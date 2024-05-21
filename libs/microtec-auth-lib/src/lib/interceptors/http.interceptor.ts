@@ -38,8 +38,8 @@ export class ERPInterceptor implements HttpInterceptor {
         if (error instanceof HttpErrorResponse) {
           console.log('Interceptor Error', error);
           if (error.status === 401) {
-            this.routerService.navigateTo('un-authorized');
-          //  this.routerService.navigateTo('login');
+           // this.routerService.navigateTo('un-authorized');
+            this.routerService.navigateTo('login');
           } else if (error.status === 403) {
             this.routerService.navigateTo('un-authorized');
           } else {

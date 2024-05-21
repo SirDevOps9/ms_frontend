@@ -12,6 +12,7 @@ import { EnvironmentService, LanguageService, RouterService } from 'shared-lib';
   styleUrl: './layout-header.component.scss'
 })
 export class LayoutHeaderComponent {
+  
   userName: string;
   userData: UserData;
   showcard: boolean = false;

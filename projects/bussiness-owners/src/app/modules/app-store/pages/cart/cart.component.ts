@@ -44,6 +44,7 @@ export class CartComponent implements OnInit {
 
   checkout() {
     this.appStoreService.checkout();
+    this.routerService.navigateTo('/paymentSuccesful')
   }
 
   private groupByAppName(items: any[]): { [key: string]: any[] } {

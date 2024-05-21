@@ -15,6 +15,7 @@ export class ManageAppsComponent implements OnInit {
 
   appList: subscriptionDetailsDto[] = [];
   cardList: boolean = false;
+  appInStore:number
 
   get SupdomainId(): string {
     console.log("Parent Id", this.routerService.currentId);
@@ -33,6 +34,7 @@ export class ManageAppsComponent implements OnInit {
     this.subscriptionService.getSubscriptionDetails(this.SupdomainId);
     this.subscriptionService.SubscriptionDetails.subscribe((List) => {
       this.appList = List;
+      this.appInStore=this.appList.length
     });
   }
   card() {
@@ -42,14 +44,23 @@ export class ManageAppsComponent implements OnInit {
     this.cardList = false
 
   }
+  toggelview(){
+    if(this.cardList == true){
+      this.cardList = false;
+    }else{
+      this.cardList = true;
+
+    }
+  }
+ 
   getAppDeps(_t37: any) {
     //throw new Error('Method not implemented.');
   }
   Renew(arg0: any) {
     // throw new Error('Method not implemented.');
   }
-  routeToDetails(arg0: any) {
-    // throw new Error('Method not implemented.');
+  routeToDetails(id: any) {
+    this.routerService.navigateTo('/app-store/app-detail/'+id);
   }
   constructor(private routerService: RouterService
     , private subscriptionService: SubscriptionService,

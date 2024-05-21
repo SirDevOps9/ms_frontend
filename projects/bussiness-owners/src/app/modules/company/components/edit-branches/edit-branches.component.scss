@@ -1,9 +1,14 @@
 .edit_branche{
+    box-sizing: border-box;
     .branch_header{
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 30px;
+      //background: #f7f8f8;
+      padding: 30px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid black;
       .title{
           font-size: 18px;
           font-weight: 700;

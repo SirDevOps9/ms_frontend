@@ -1,8 +1,8 @@
 <div class="mt-5">
-    <!-- <lib-bread-crumb></lib-bread-crumb> -->
+    <lib-bread-crumb></lib-bread-crumb>
     <div class="companies-container">
       <lib-data-table
-        [items]="tableData"
+      [items]="dataList"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
         (pageChange)="onPageChange($event)"
@@ -14,43 +14,43 @@
             pageSize: 10,
             columns: [
               {
-                name: 'code',
+                name: 'licenseId',
                 headerText: ('Licence Code' ),
                 isGlobalFilter: true,
                 isSortable: false
               },
               {
-                name: 'name',
+                name: 'licenseNameEn',
                 headerText: ('Licence Name'),
                 isGlobalFilter: true,
                 isSortable: false
               },
               {
-                name: 'email',
+                name: 'startDate',
                 headerText: ('Supscrition Start Date'),
                 isGlobalFilter: true,
                 isSortable: false
               },
               {
-                name: 'country',
+                name: 'endDate',
                 headerText: ('Supscrition End Date'),
                 isGlobalFilter: true,
                 isSortable: false
               },
               {
-                name: 'mobileNumber',
+                name: 'price',
                 headerText: ('Licence Price'),
                 isGlobalFilter: true,
                 isSortable: false
               },
               {
-                name: 'mob',
+                name: 'purchasingPaymentPeriod',
                 headerText: ('Licence Interval'),
                 isGlobalFilter: true,
                 isSortable: false
               },
               {
-                name: 'mob2',
+                name: 'isActive',
                 headerText: ('Licence Status'),
                 isGlobalFilter: true,
                 isSortable: false

@@ -1,0 +1,130 @@
+<lib-page-content
+  [title]="'tag.taglist' | translate"
+  [subTitle]="'tag.taglist' | translate"
+ >
+  <lib-bread-crumb>
+    <div class="flex justify-content-between align-items-center">
+      <div class="flex align-items-center">
+        <input
+          type="text"
+          pInputText
+          placeholder="{{ 'Search' | translate }}"
+          [(ngModel)]="searchTerm"
+          (input)="onSearchChange()"
+          class="mr-2"
+        />
+      </div>
+      <div>
+        <button
+          pButton
+          pRipple
+          label="{{ 'Add New' | translate }}"
+          icon="pi pi-plus"
+          class="add_new mr-2"
+          (click)="newTag()"
+        ></button>
+      </div>
+    </div>
+  </lib-bread-crumb>
+  <div>
+    <div class="user_page">
+      <lib-data-table
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: true,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'id',
+              headerText: ('tag.Id' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'code',
+              headerText: ('tag.code' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'name',
+              headerText: ('tag.Name' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'isActive',
+              headerText: ('tag.status' | translate),
+              template: status
+            },
+            {
+              name: 'modulesId',
+              headerText: ('tag.Modules' | translate),
+              template: Modules
+            },
+            {
+              name: 'id',
+              headerText: ('tag.Actions' | translate),
+              template: userCol
+            }
+          ]
+        }"
+      >
+        <ng-template #userCol let-tag>
+          <div class="actions flex align-items-center">
+            <lib-button
+              className="edit"
+              type="button"
+              (click)="routeToEdit(tag.id)"
+              icon="pi pi-pencil"
+              [rounded]="true"
+              [enableText]="true"
+              severity="secondary"
+              *ngIf="tag.isActive"
+            >
+            </lib-button>
+            <lib-button
+              icon="pi pi-trash"
+              [rounded]="true"
+              [enableText]="true"
+              severity="secondary"
+            >
+            </lib-button>
+          </div>
+        </ng-template>
+
+        <ng-template #status let-tag>
+          <div class="checked" *ngIf="tag.isActive">
+            <p-inputSwitch
+              [id]="tag.id"
+              (onChange)="changed($event, tag.id)"
+              value="user.isActive"
+            >
+            </p-inputSwitch>
+            <p class="active" *ngIf="tag.isActive">
+              {{ 'tag.Active' | translate }}
+            </p>
+            <p class="inactive" *ngIf="!tag.isActive">
+              {{ 'tag.Deactivate' | translate }}
+            </p>
+          </div>
+        </ng-template>
+        
+        <ng-template #Modules let-tag>
+          <p-multiSelect
+            [options]="modulelist"
+            [(ngModel)]="tag.modulesId"
+            defaultLabel="Select Modules"
+            [disabled]="true"
+          >
+          </p-multiSelect>
+        </ng-template>
+      </lib-data-table>
+    </div>
+  </div>
+</lib-page-content>

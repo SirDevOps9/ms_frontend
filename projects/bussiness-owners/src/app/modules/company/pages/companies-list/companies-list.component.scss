@@ -12,10 +12,15 @@
     border-radius: 50%;
     margin-inline-end: 10px;
   }
+  .tab_title{
+    color: #383A42;
+  }
 
   
   ::ng-deep {
-   
+    .user_page .p-treetable, .company_page .p-treetable {
+      padding: 0 5px;
+    }
     .user_page,
     .company_page {
         .p-treetable .p-treetable-tbody > tr > td:first-child , td:nth-child(2) {
@@ -89,7 +94,23 @@
         mask-size: 100% 100%;
       }
       .p-inputswitch-checked .p-inputswitch-slider:before {
+        // content: "\2713" !important;
+        // mask-image: none !important;
+        // display: flex;
+        // align-items: center;
+        // justify-content: center;
+        // color: #1a8eae;
+        // font-size: 35px;
+        // background: #ffffff;
+        // width: 3.25rem;
+        // height: 2.25rem;
+        // left: -0.5rem;
+        // margin-top: -1.15rem;
+        // // border-radius: 50%;
+        // border-radius: 15px;
+        // transition-duration: 0.2s;
         content: "\2713" !important;
+        -webkit-mask-image: none !important;
         mask-image: none !important;
         display: flex;
         align-items: center;
@@ -97,11 +118,10 @@
         color: #1a8eae;
         font-size: 35px;
         background: #ffffff;
-        width: 3.25rem;
-        height: 2.25rem;
-        left: -0.5rem;
-        margin-top: -1.15rem;
-        // border-radius: 50%;
+        width: 3rem;
+        height: 2rem;
+        left: -0.2rem;
+        margin-top: -1.0rem;
         border-radius: 15px;
         transition-duration: 0.2s;
       }
@@ -177,13 +197,13 @@
     position: relative;
     .active {
       position: absolute;
-      top: -3px;
+      top: -6px;
       left: 20px;
       color: #fff;
     }
     .inactive {
       position: absolute;
-      top: -3px;
+      top: -6px;
       left: 50px;
       color: #40444c;
     }

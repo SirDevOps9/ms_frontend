@@ -11,13 +11,13 @@
             <div class="col-12">
                 <div class="sub_header">
                     <div class="count_of_apps">
-                        {{appInStore}} App in Store
+                        {{appInStore}} {{"AppStore.App-in-Store" |translate}}
                     </div>
-                    <div class="paginator">
+                    <!-- <div class="paginator">
                         <lib-paginator [first]="0" [rows]="5" [totalRecords]="20">
 
                         </lib-paginator>
-                    </div>
+                    </div> -->
                     <div class="btns">
                         <div class="pay">
 
@@ -27,19 +27,28 @@
 
                             </lib-select>
                         </div> -->
-                        <div class="togel_card">
+                        <!-- <div class="togel_card">
                             <button  (click)="card()">
                                 <span class="icon pi pi-microsoft"></span>
                             </button>
                             <button  (click)="row()">
                                 <span class="icon pi pi-bars"></span>
                             </button>
-                        </div>
+                        </div> -->
+                        <label class="switch" >
+                            <span class="sun">
+                                <i class="icon pi pi-bars"></i> </span>
+
+                            <span class="moon">
+                                <i class="icon pi pi-microsoft"></i></span>
+                            <input type="checkbox" class="input"  (click)="toggelview()" />
+                            <span class="slider"></span>
+                          </label>
                     </div>
                 </div>
             </div>
 
-            <div class="filter">
+            <!-- <div class="filter">
                 <div class="grid">
                     <div class="col-12 ">
                         <lib-select
@@ -52,7 +61,7 @@
                         </lib-select>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-12 ">
                 <div [ngClass]="{contant:cardList}">
                     <div class="card" [ngClass]="{card_list:cardList}" *ngFor="let app of apps">

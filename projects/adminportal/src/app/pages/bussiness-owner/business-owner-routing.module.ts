@@ -8,19 +8,45 @@ import { AuthGuard } from 'microtec-auth-lib';
 import { UserInfoListComponent } from './pages/user-info-list/user-info-list.component';
 import { LicenceInfoListComponent } from './pages/licence-info-list/licence-info-list.component';
 import { AppInfoListComponent } from './pages/app-info-list/app-info-list.component';
+import { BreadcrumbLabel } from 'shared-lib';
 
 const routes: Routes = [
   {
-    path: '', component: BussinessOwnersListComponent
+    path: '', component: BussinessOwnersListComponent,
+    data : {
+      breadcrumb: BreadcrumbLabel.BUSSINESS_OWNER,
+
+    }
     
   },
   // , canActivate: [AuthGuard]
-  { path: 'manage', component: EditBussinessOwnerComponent },
-  { path: 'domain-space-info', component: DomainSpaceInfoComponent },
-  { path: 'companies-details-info', component: CompaniesDetailsInfoComponent },
-  { path: 'user-info', component: UserInfoListComponent },
-  { path: 'licence-info', component: LicenceInfoListComponent },
-  { path: 'apps-info', component: AppInfoListComponent },
+  { path: 'manage/:id', component: EditBussinessOwnerComponent,
+    data : {
+      breadcrumb: BreadcrumbLabel.MANAGE_BUSSINESS_OWNER,
+
+    } },
+  { path: 'domain-space-info/:id', component: DomainSpaceInfoComponent ,
+  data : {
+    breadcrumb: BreadcrumbLabel.SUBDOMAIN_INFO,
+
+  } 
+  },
+  { path: 'companies-details-info/:id', component: CompaniesDetailsInfoComponent ,  data : {
+    breadcrumb: BreadcrumbLabel.COMPANIES_INFO,
+
+  }  },
+  { path: 'user-info/:id', component: UserInfoListComponent ,  data : {
+    breadcrumb: BreadcrumbLabel.USER_INFO,
+
+  }},
+  { path: 'licence-info/:id', component: LicenceInfoListComponent ,  data : {
+    breadcrumb: BreadcrumbLabel.LICENCE_INFO,
+
+  }},
+  { path: 'apps-info/:id', component: AppInfoListComponent ,  data : {
+    breadcrumb: BreadcrumbLabel.APP_INFO,
+
+  }},
 ];
 
 @NgModule({

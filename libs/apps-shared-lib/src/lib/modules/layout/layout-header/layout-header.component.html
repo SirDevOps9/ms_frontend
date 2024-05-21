@@ -1,4 +1,4 @@
-<nav>
+<nav  (mouseleave)="modulesOpen = false">
   <div class="card">
     <div class="header_erp">
       <div class="header_content">
@@ -20,7 +20,7 @@
                 <div
                   class="menue_modules"
                   *ngIf="modulesOpen"
-                  (mouseleave)="modulesOpen = false"
+                 
                 >
                   <p class="item" *ngFor="let module of moduleList">
                     {{ module.module }}

@@ -23,6 +23,11 @@ export class RouterService {
     const value = this.route.snapshot.params['id'];
     return value;
   }
+  get snapshot() {
+    const value = this.route.snapshot
+    return value;
+  }
+
 
   get CallBackUrl() {
     return this.route.snapshot.queryParams['callBackUrl'];

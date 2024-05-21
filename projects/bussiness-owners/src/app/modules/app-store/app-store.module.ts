@@ -17,6 +17,7 @@ import { AppDetailsComponent } from './pages/app-details/app-details.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { CartItemDetailComponent } from './pages/cart-item-detail/cart-item-detail.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
+import { PaymentSuccesfulComponent } from './pages/payment-succesful/payment-succesful.component';
 
 const routes: Routes = [
   {
@@ -80,6 +81,14 @@ const routes: Routes = [
         },
       },
       {
+        path: 'paymentSuccesful',
+        component: PaymentSuccesfulComponent,
+        // canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.CART,
+        },
+      },
+      {
         path: 'cartItemDetail/:id',
         component: CartItemDetailComponent,
         canActivate: [AuthGuard],
@@ -98,6 +107,7 @@ const routes: Routes = [
     CartComponent,
     CartItemDetailComponent,
     MainPageComponent,
+    PaymentSuccesfulComponent,
   ],
   imports: [
     MicrotecAuthLibModule,

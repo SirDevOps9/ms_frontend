@@ -9,13 +9,14 @@ import {
   PreventSpecialChars,
   noSpacesValidator,
   notOnlyWhitespaceValidator,
+  onlyLettersValidator,
 } from './stringValidators';
 import { IsAgreedToTermsRequired } from './agreedToTermsValidator';
 import { IsValidCRNumber } from './saudiIdsValidators';
 import { IsValid700Number } from './saudiIdsValidators';
 import { validPassword } from './passwordValidators';
 import { ConfirmPasswordValidator } from './passwordValidators';
-import { minimumNumberOfYears } from './dateValidators';
+import { birthDateValidator, minimumNumberOfYears } from './dateValidators';
 import { lengthValidator } from './stringValidators';
 import { IsIqamaId } from './saudiIdsValidators';
 import { IsOnlySaudiId } from './saudiIdsValidators';
@@ -47,5 +48,7 @@ export const customValidators = {
   file: fileValidator,
   range:rangeValidator,
   hasSpaces: noSpacesValidator,
-  nonZero:nonZeroValidator
+  nonZero:nonZeroValidator,
+  invalidBirthDate: birthDateValidator,
+  onlyLetter: onlyLettersValidator,
 };

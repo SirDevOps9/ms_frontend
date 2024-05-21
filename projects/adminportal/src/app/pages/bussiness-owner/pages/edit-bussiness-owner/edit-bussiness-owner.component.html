@@ -1,19 +1,21 @@
 
 <div>
-  <!-- <lib-bread-crumb></lib-bread-crumb> -->
+  <lib-bread-crumb></lib-bread-crumb>
   <div class="user_page">
-    <lib-data-table [items]="tableData.Subdomains" className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
+    <lib-data-table 
+    [items]="dataList"
+    className="p-datatable-gridlines" 
       (pageChange)="onPageChange($event)"
        [tableConfigs]="{
 
-          allowPagination: true,
+          allowPagination: false,
           allowServerPagination: false,
           dataKey: 'id',
           pageSize: 10,
           columns: [
 
             {
-              name: 'SubdomainName',
+              name: 'name',
               headerText: ('Domain Space'),
               isGlobalFilter: true,
               isSortable: false
@@ -101,7 +103,7 @@
       <!--  -->
       <ng-template #domainInfo let-domainInfo>
         <div>
-          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" (onClick)="viewDomainInfo(domainInfo)">
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" (onClick)="viewDomainInfo(domainInfo.id)">
             Manage
           </lib-button>
         </div>
@@ -110,7 +112,7 @@
       <!--  -->
       <ng-template #appsInfo let-appsInfo>
         <div>
-          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" [routerLink]="['/bussiness-owners/apps-info']">
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" (onClick)="viewAppsDetails(appsInfo.id)">
             Manage
           </lib-button>
         </div>
@@ -119,7 +121,7 @@
       <!--  -->
       <ng-template #companiesInfo let-companiesInfo>
         <div>
-          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" [routerLink]="['/bussiness-owners/companies-details-info']">
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" (onClick)="viewCompaniesDetails(companiesInfo.id)">
             Manage
           </lib-button>
         </div>
@@ -128,7 +130,9 @@
       <!--  -->
       <ng-template #usersInfo let-usersInfo>
         <div>
-          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" [routerLink]="['/bussiness-owners/user-info']" >
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary"  
+          (onClick)="viewUserDetails(usersInfo.id)"
+          >
             Manage
           </lib-button>
         </div>
@@ -137,7 +141,7 @@
       <!--  -->
       <ng-template #licenceInfo let-licenceInfo>
         <div>
-          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" [routerLink]="['/bussiness-owners/licence-info']"  >
+          <lib-button className="Manage"   [rounded]="true" [enableText]="true" severity="secondary" (onClick)="viewLicenseDetails(licenceInfo.id)" >
             Manage
           </lib-button>
         </div>

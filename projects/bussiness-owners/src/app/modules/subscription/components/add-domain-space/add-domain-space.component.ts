@@ -35,12 +35,14 @@ export class AddDomainSpaceComponent implements OnInit {
 
   ngOnInit() {
     this.initializesubDomainForm();
-    this.activeButton('Monthly');
-    this.subdomainForm.controls[
-      'purchasingPaymentCount'
-    ].valueChanges.subscribe(() => {
-      this.calculateCost();
-    });
+    this.activeButton('Yearly');
+    this.subdomainForm.controls['purchasingPaymentCount'].setValue(1)
+    this.calculateCost();
+    // this.subdomainForm.controls[
+    //   'purchasingPaymentCount'
+    // ].valueChanges.subscribe(() => {
+    //   this.calculateCost();
+    // });
   }
   initializesubDomainForm() {
     this.subdomainForm = this.fb.group({

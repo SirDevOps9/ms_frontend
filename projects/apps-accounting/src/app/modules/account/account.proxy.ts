@@ -9,6 +9,8 @@ import {
   TagDropDownDto,
   AccountTypeDropDownDto,
   parentAccountDto,
+  GetLevelsDto,
+  listAddLevelsDto,
 } from './models';
 
 @Injectable({
@@ -43,6 +45,14 @@ export class AccountProxy {
 
   getTreeList(): Observable<accountTreeList[]> {
     return this.httpService.get<accountTreeList[]>(`ChartOfAccounts/GetTree`);
+  }
+
+  getLevels(): Observable<GetLevelsDto[]> {
+    return this.httpService.get<GetLevelsDto[]>(`Levels`);
+  }
+
+  addLevels(command: listAddLevelsDto): Observable<boolean> {
+    return this.httpService.post('Levels', command);
   }
 
   constructor(private httpService: HttpService) {}
