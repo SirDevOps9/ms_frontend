@@ -8,8 +8,5 @@ pipelines:
           script:
             - npm install
             - npm install -g @angular/cli
-
-      - step:
-          name: Build Business Owners Project
-          script:
+            - cd projects/bussiness-owners
             - npm run build --project bussiness-owners
