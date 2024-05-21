@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AuthService } from 'microtec-auth-lib';
 import { SideMenuModel } from 'shared-lib';
 
@@ -17,8 +18,12 @@ export class LayoutSidebarComponent {
   menuItems: any;
   ngOnInit(): void {
     this.menuList = this.authService.getSideMenu();
-    console.log('Menu list', this.menuList);
+
+    this.menuList = this.menuList.filter(
+      (x) => x.moduleId == this.router.snapshot.data['moduleId']
+    );
     this.treeData = this.mapToTreeNodes(this.menuList);
+
     console.log(this.treeData, ' this.treeData');
   }
   open(event: any, i: any) {
@@ -120,5 +125,5 @@ export class LayoutSidebarComponent {
     // Find and update the highlighted parent node
     this.highlightedParent = this.findParentNode(expandedNode);
   }
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private router: ActivatedRoute) {}
 }

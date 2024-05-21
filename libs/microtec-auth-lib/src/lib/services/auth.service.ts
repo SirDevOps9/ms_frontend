@@ -106,7 +106,7 @@ export class AuthService {
             (item) => item.moduleId === value.moduleId && item.module === value.module
           ) === index
       )
-      .map(({ key, module }) => ({ key, module }));
+      .map(({ moduleId, module }) => ({ moduleId, module }));
 
     this.localStorageService.setItem(StorageKeys.MODULES, distinctModules);
     this.localStorageService.setItem(StorageKeys.SIDEMENU, menuItems);
@@ -117,7 +117,7 @@ export class AuthService {
     let menuModules = item! as MenuModule[];
     return menuModules;
   }
-  getSideMenu() {
+  getSideMenu(): SideMenuModel[] {
     let item = this.localStorageService.getItem(StorageKeys.SIDEMENU);
     let sidemenu = item! as SideMenuModel[];
     return sidemenu;

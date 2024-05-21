@@ -40,7 +40,7 @@
     <ng-container *ngFor="let menuItem of treeData; let i = index">
       <li *ngIf="menuItem.subMenu.length > 0">
         <div class="iocn-link" id="parent{{ i }}">
-          <a [href]="menuItem.link">
+          <a>
             <i class="{{ menuItem.icon }}"></i>
             <span class="link_name">{{ menuItem.name }}</span>
           </a>
@@ -68,7 +68,7 @@
         </ul>
       </li>
       <li *ngIf="menuItem.subMenu.length === 0">
-        <a [href]="menuItem.link">
+        <a>
           <i class="{{ menuItem.icon }}"></i>
           <span class="link_name">{{ menuItem.name }}</span>
         </a>

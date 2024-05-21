@@ -13,10 +13,14 @@
               <div class="modules" (mouseenter)="modulesOpen = true">
                 <button class="btn_mod_select">
                   <i class="icon fab fa-microsoft"></i>
-                  General Setting
+                  {{ moduleName }}
                 </button>
                 <div class="menue_modules" *ngIf="modulesOpen" (mouseleave)="modulesOpen = false">
-                  <p class="item" *ngFor="let module of moduleList">
+                  <p
+                    class="item"
+                    *ngFor="let module of moduleList"
+                    (click)="navigateto(module.moduleId)"
+                  >
                     {{ module.module }}
                   </p>
                 </div>

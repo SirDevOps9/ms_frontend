@@ -1,4 +1,4 @@
 export interface MenuModule {
   module: string;
-  key: number;
+  moduleId: number;
 }
