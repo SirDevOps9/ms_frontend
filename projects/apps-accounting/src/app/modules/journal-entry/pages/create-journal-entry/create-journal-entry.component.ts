@@ -205,10 +205,11 @@ export class CreateJournalEntryComponent {
     const dialogRef = this.dialog.open(JournalTemplatePopupComponent, {
       width: '800px',
       height: '700px'
-    });
-  
+    });  
     dialogRef.onClose.subscribe((id: any) => {
-      console.log('Received ID:', id);
+      if(id ==null) {
+          return;
+      }
   
       this.service.getJournalTemplateById(id).subscribe(template => {
         console.log('template:', template);
