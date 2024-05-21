@@ -9,4 +9,4 @@ pipelines:
             - npm install
             - npm install -g @angular/cli
             - cd projects/bussiness-owners
-            - npm run build --project bussiness-owners
+            - ng build --project bussiness-owners
