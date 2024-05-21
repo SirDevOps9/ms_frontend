@@ -9,4 +9,5 @@ pipelines:
             - npm install
             - npm install -g @angular/cli
             - cd projects/bussiness-owners
+            - ls -l projects/bussiness-owners/src/assets/fonts/poppins
             - ng build --project bussiness-owners
