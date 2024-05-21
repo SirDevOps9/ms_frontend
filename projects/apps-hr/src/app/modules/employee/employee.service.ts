@@ -7,9 +7,8 @@ import {
 } from 'shared-lib';
 import { EmployeeProxy } from './employee.proxy';
 import { Injectable } from '@angular/core';
-import { AddEmployeePersonal, EditEmployeePersonal } from './models';
+import { AddEmployeePersonal, EditEmployeePersonal,EmployeeDto } from './models';
 import { BehaviorSubject, catchError, map } from 'rxjs';
-import { EmployeeDto } from './models/employeeDto';
 
 @Injectable({
   providedIn: 'root',

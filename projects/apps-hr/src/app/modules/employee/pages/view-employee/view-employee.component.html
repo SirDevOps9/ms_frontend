@@ -1,11 +1,31 @@
 <div class="view_employee">
   <div class="grid">
-    <div class="md:col-4">
-      <div class="tree"></div>
+    <div class="md:col-3">
+      <div class="sidebar">
+        <ul>
+          <li>{{ 'Employee.PersonalInfo' | translate }}</li>
+          <li>{{ 'Employee.ContactInfo' | translate }}</li>
+          <li>{{ 'Employee.AcademicInfo' | translate }}</li>
+          <li>{{ 'Employee.OfficialInfo' | translate }}</li>
+          <li>{{ 'Employee.ContractInfo' | translate }}</li>
+          <li>{{ 'Employee.FinancialInfo' | translate }}</li>
+          <li>{{ 'Employee.AttendanceInfo' | translate }}</li>
+          <li>{{ 'Employee.FunctionalInfo' | translate }}</li>
+          <li>{{ 'Employee.DependantsInfo' | translate }}</li>
+          <li>{{ 'Employee.CovenantInfo' | translate }}</li>
+          <li>{{ 'Employee.SocialInsuranceInfo' | translate }}</li>
+          <li>{{ 'Employee.MedicalInsurance' | translate }}</li>
+          <li>{{ 'Employee.AttachmentInfo' | translate }}</li>
+          <li>{{ 'Employee.HistoricalInfo' | translate }}</li>
+        </ul>
+      </div>
     </div>
-    <div class="md:col-8">
-      <div class="details_content">
+    <div class="md:col-9">
+      <div class="view_content">
         <div class="grid">
+          <div class="md:col-12 info">
+            {{ 'Employee.BasicInfo' | translate }}
+          </div>
           <div class="md:col-3">
             <lib-form-group>
               <label>
@@ -37,11 +57,10 @@
             </lib-form-group>
           </div>
           <div class="md:col-3">
-            <!-- <lib-form-group>
-              <label>
-                {{ "Employee.View.EmployeePhoto" | translate }}
-              </label>
-            </lib-form-group> -->
+            <!-- Placeholder for Employee Photo view  -->
+          </div>
+          <div class="md:col-12 info">
+            {{ 'Employee.BirthInfo' | translate }}
           </div>
           <div class="md:col-3">
             <lib-form-group>
@@ -83,6 +102,9 @@
               </div>
             </lib-form-group>
           </div>
+          <div class="md:col-12 info">
+            {{ 'Employee.OtherInfo' | translate }}
+          </div>
           <div class="md:col-3">
             <lib-form-group>
               <label>
@@ -93,6 +115,7 @@
               </div>
             </lib-form-group>
           </div>
+
           <div class="md:col-3">
             <lib-form-group>
               <label>
@@ -123,6 +146,9 @@
               </div>
             </lib-form-group>
           </div>
+          <div class="md:col-12 info">
+            {{ 'Military Information' | translate }}
+          </div>
           <div class="md:col-6">
             <lib-form-group>
               <label>
@@ -133,6 +159,7 @@
               </div>
             </lib-form-group>
           </div>
+
           <div class="md:col-6">
             <lib-form-group>
               <label>
@@ -142,6 +169,9 @@
                 {{ employee?.militaryNumber }}
               </div>
             </lib-form-group>
+          </div>
+          <div class="md:col-12 info">
+            {{ 'Employee.SpecialCare' | translate }}
           </div>
           <div class="md:col-6">
             <lib-form-group>
@@ -158,9 +188,7 @@
               <label>
                 {{ "Employee.View.WithSpecialNeeds" | translate }}
               </label>
-              <div class="view">
-                {{ employee?.withSpecialNeeds ? 'Yes' : 'No' }}
-              </div>
+              <p-checkbox [binary]="true" [(ngModel)]="employee!.withSpecialNeeds!" disabled="true"></p-checkbox>
             </lib-form-group>
           </div>
         </div>

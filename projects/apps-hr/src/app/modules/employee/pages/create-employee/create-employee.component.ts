@@ -84,7 +84,6 @@ export class CreateEmployeeComponent implements OnInit {
   onSubmit() {
     if (!this.formsService.validForm(this.addEmployeeForm, true)) return;
     const request: AddEmployeePersonal = this.addEmployeeForm.value;
-    //request.employeePhoto ="sfdsdf"
     this.employeeService.addEmployee(request);
   }
 

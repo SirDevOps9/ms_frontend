@@ -11,7 +11,7 @@ import {
   lookupDto,
 } from 'shared-lib';
 import { EmployeeService } from '../../employee.service';
-import { EditEmployeePersonal } from '../../models';
+import { EditEmployeePersonal, SharedEmployeeEnums } from '../../models';
 
 @Component({
   selector: 'app-edit-employee',
@@ -25,6 +25,14 @@ export class EditEmployeeComponent implements OnInit {
 
   Age: string = '';
   EmployeeCode = '';
+  selectedCountryOfBirth: string;
+  selectedBirthCity: number;
+  selectedNationality: string;
+  selectedGender: string;
+  selectedMaritalStatus: string;
+  selectedReligion: string;
+  selectedMilitaryStatus: string;
+  selectedBloodType?: string;
 
   lookups: { [key: string]: lookupDto[] };
 
@@ -53,8 +61,7 @@ export class EditEmployeeComponent implements OnInit {
     const birthDateControl = this.editEmployeeForm.get('birthDate');
     birthDateControl?.valueChanges.subscribe((birthDate) => {
       this.Age = '';
-      if (birthDateControl.valid) 
-        this.Age = this.ageService.calculateAge(birthDate);
+      if (birthDateControl.valid) this.Age = this.ageService.calculateAge(birthDate);
     });
   }
 
@@ -84,24 +91,32 @@ export class EditEmployeeComponent implements OnInit {
       withSpecialNeeds: new FormControl(false),
     });
   }
+
   initializeFormData() {
     this.employeeService.getEmployeeById(this.routerService.currentId).subscribe((res) => {
       this.editEmployeeForm.patchValue({
         ...res,
         birthDate: res.birthDate.substring(0, 10),
       });
+      // this.selectedCountryOfBirth = res.countryOfBirth;
+      // this.selectedBirthCity = res.birthCity;
+      // this.selectedNationality = res.nationality;
+      // this.selectedGender = res.gender.toString();
+      // this.selectedMaritalStatus = res.maritalStatus.toString();
+      // this.selectedReligion = res.religion.toString();
+      // this.selectedMilitaryStatus = res.militaryStatus.toString();
+      // this.selectedBloodType = res.bloodType?.toString();
     });
   }
   onSubmit() {
     if (!this.formsService.validForm(this.editEmployeeForm, true)) return;
     const request: EditEmployeePersonal = this.editEmployeeForm.value;
     request.id = this.routerService.currentId;
-    request.employeePhoto = 'sfdsdf';
     this.employeeService.editEmployee(request);
   }
 
   onDiscard() {
-   this.editEmployeeForm.reset();
+    this.editEmployeeForm.reset();
   }
 
   constructor(
@@ -110,6 +125,7 @@ export class EditEmployeeComponent implements OnInit {
     private formsService: FormsService,
     private employeeService: EmployeeService,
     private routerService: RouterService,
+    private enums: SharedEmployeeEnums,
     public sharedLibEnums: SharedLibraryEnums,
     private ageService: AgeService
   ) {}

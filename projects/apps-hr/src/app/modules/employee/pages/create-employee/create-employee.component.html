@@ -1,24 +1,44 @@
 <div class="new_employee">
   <div class="grid">
-    <div class="md:col-4">
-      <div class="tree"></div>
+    <div class="md:col-3">
+      <div class="sidebar">
+        <ul>
+          <li>{{ 'Employee.PersonalInfo' | translate }}</li>
+          <li>{{ 'Employee.ContactInfo' | translate }}</li>
+          <li>{{ 'Employee.AcademicInfo' | translate }}</li>
+          <li>{{ 'Employee.OfficialInfo' | translate }}</li>
+          <li>{{ 'Employee.ContractInfo' | translate }}</li>
+          <li>{{ 'Employee.FinancialInfo' | translate }}</li>
+          <li>{{ 'Employee.AttendanceInfo' | translate }}</li>
+          <li>{{ 'Employee.FunctionalInfo' | translate }}</li>
+          <li>{{ 'Employee.DependantsInfo' | translate }}</li>
+          <li>{{ 'Employee.CovenantInfo' | translate }}</li>
+          <li>{{ 'Employee.SocialInsuranceInfo' | translate }}</li>
+          <li>{{ 'Employee.MedicalInsurance' | translate }}</li>
+          <li>{{ 'Employee.AttachmentInfo' | translate }}</li>
+          <li>{{ 'Employee.HistoricalInfo' | translate }}</li>
+        </ul>
+      </div>
     </div>
-    <div class="md:col-8">
+    <div class="md:col-9">
       <div class="form_content">
         <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
           <div class="actions">
             <button type="button" class="cancel" (click)="onDiscard()">
-              {{ "Employee.Add.Discard" | translate }}
+              {{ 'Employee.Add.Discard' | translate }}
             </button>
             <button type="submit" class="save">
-              {{ "Employee.Add.Save" | translate }}
+              {{ 'Employee.Add.Save' | translate }}
             </button>
           </div>
           <div class="grid">
+            <div class="md:col-12 info">
+              {{ 'Employee.BasicInfo' | translate }}
+            </div>
             <div class="md:col-3">
               <lib-form-group>
                 <label>
-                  {{ "Employee.Add.EmployeeCode" | translate }}
+                  {{ 'Employee.Add.EmployeeCode' | translate }}
                 </label>
                 <div class="view">
                   {{ EmployeeCode }}
@@ -27,15 +47,10 @@
             </div>
             <div class="md:col-3">
               <lib-form-group>
-                <lib-label
-                  [appControl]="addEmployeeForm.controls['attendanceCode']"
-                >
-                  {{ "Employee.Add.AttendanceCode" | translate }}
+                <lib-label [appControl]="addEmployeeForm.controls['attendanceCode']">
+                  {{ 'Employee.Add.AttendanceCode' | translate }}
                 </lib-label>
-                <lib-text-input
-                  type="number"
-                  formControlName="attendanceCode"
-                ></lib-text-input>
+                <lib-text-input type="number" formControlName="attendanceCode"></lib-text-input>
                 <lib-field-validations
                   [appControl]="addEmployeeForm.controls['attendanceCode']"
                 ></lib-field-validations>
@@ -43,15 +58,10 @@
             </div>
             <div class="md:col-3">
               <lib-form-group>
-                <lib-label
-                  [appControl]="addEmployeeForm.controls['employeeName']"
-                >
-                  {{ "Employee.Add.EmployeeName" | translate }}
+                <lib-label [appControl]="addEmployeeForm.controls['employeeName']">
+                  {{ 'Employee.Add.EmployeeName' | translate }}
                 </lib-label>
-                <lib-text-input
-                  type="text"
-                  formControlName="employeeName"
-                ></lib-text-input>
+                <lib-text-input type="text" formControlName="employeeName"></lib-text-input>
                 <lib-field-validations
                   [appControl]="addEmployeeForm.controls['employeeName']"
                 ></lib-field-validations>
@@ -59,10 +69,8 @@
             </div>
             <div class="md:col-3">
               <lib-form-group>
-                <lib-label
-                  [appControl]="addEmployeeForm.controls['employeePhoto']"
-                >
-                  {{ "Employee.Add.EmployeePhoto" | translate }}
+                <lib-label [appControl]="addEmployeeForm.controls['employeePhoto']">
+                  {{ 'Employee.Add.EmployeePhoto' | translate }}
                 </lib-label>
                 <lib-file-uploader
                   formControlName="employeePhoto"
@@ -77,15 +85,15 @@
                 ></lib-field-validations>
               </lib-form-group>
             </div>
+            <div class="md:col-12 info">
+              {{ 'Employee.BirthInfo' | translate }}
+            </div>
             <div class="md:col-3">
               <lib-form-group>
                 <lib-label [appControl]="addEmployeeForm.controls['birthDate']">
-                  {{ "Employee.Add.BirthDate" | translate }}
+                  {{ 'Employee.Add.BirthDate' | translate }}
                 </lib-label>
-                <lib-text-input
-                  type="date"
-                  formControlName="birthDate"
-                ></lib-text-input>
+                <lib-text-input type="date" formControlName="birthDate"></lib-text-input>
                 <lib-field-validations
                   [appControl]="addEmployeeForm.controls['birthDate']"
                 ></lib-field-validations>
@@ -94,7 +102,7 @@
             <div class="md:col-3">
               <lib-form-group>
                 <label>
-                  {{ "Employee.Add.Age" | translate }}
+                  {{ 'Employee.Add.Age' | translate }}
                 </label>
                 <div class="view">
                   {{ Age }}
@@ -103,15 +111,10 @@
             </div>
             <div class="md:col-3">
               <lib-form-group>
-                <lib-label
-                  [appControl]="addEmployeeForm.controls['countryOfBirth']"
-                >
-                  {{ "Employee.Add.CountryOfBirth" | translate }}
+                <lib-label [appControl]="addEmployeeForm.controls['countryOfBirth']">
+                  {{ 'Employee.Add.CountryOfBirth' | translate }}
                 </lib-label>
-                <lib-text-input
-                  type="text"
-                  formControlName="countryOfBirth"
-                ></lib-text-input>
+                <lib-text-input type="text" formControlName="countryOfBirth"></lib-text-input>
                 <lib-field-validations
                   [appControl]="addEmployeeForm.controls['countryOfBirth']"
                 ></lib-field-validations>
@@ -120,37 +123,33 @@
             <div class="md:col-3">
               <lib-form-group>
                 <lib-label [appControl]="addEmployeeForm.controls['birthCity']">
-                  {{ "Employee.Add.BirthCity" | translate }}
+                  {{ 'Employee.Add.BirthCity' | translate }}
                 </lib-label>
-                <lib-text-input
-                  type="text"
-                  formControlName="birthCity"
-                ></lib-text-input>
+                <lib-text-input type="text" formControlName="birthCity"></lib-text-input>
                 <lib-field-validations
                   [appControl]="addEmployeeForm.controls['birthCity']"
                 ></lib-field-validations>
               </lib-form-group>
             </div>
+            <div class="md:col-12 info">
+              {{ 'Employee.OtherInfo' | translate }}
+            </div>
             <div class="md:col-3">
               <lib-form-group>
-                <lib-label
-                  [appControl]="addEmployeeForm.controls['nationality']"
-                >
-                  {{ "Employee.Add.Nationality" | translate }}
+                <lib-label [appControl]="addEmployeeForm.controls['nationality']">
+                  {{ 'Employee.Add.Nationality' | translate }}
                 </lib-label>
-                <lib-text-input
-                  type="text"
-                  formControlName="nationality"
-                ></lib-text-input>
+                <lib-text-input type="text" formControlName="nationality"></lib-text-input>
                 <lib-field-validations
                   [appControl]="addEmployeeForm.controls['nationality']"
                 ></lib-field-validations>
               </lib-form-group>
             </div>
+
             <div class="md:col-3">
               <lib-form-group>
                 <lib-label [appControl]="addEmployeeForm.controls['gender']">
-                  {{ "Employee.Add.Gender" | translate }}
+                  {{ 'Employee.Add.Gender' | translate }}
                 </lib-label>
                 <lib-select
                   formControlName="gender"
@@ -165,10 +164,8 @@
             </div>
             <div class="md:col-3">
               <lib-form-group>
-                <lib-label
-                  [appControl]="addEmployeeForm.controls['maritalStatus']"
-                >
-                  {{ "Employee.Add.MaritalStatus" | translate }}
+                <lib-label [appControl]="addEmployeeForm.controls['maritalStatus']">
+                  {{ 'Employee.Add.MaritalStatus' | translate }}
                 </lib-label>
                 <lib-select
                   formControlName="maritalStatus"
@@ -184,7 +181,7 @@
             <div class="md:col-3">
               <lib-form-group>
                 <lib-label [appControl]="addEmployeeForm.controls['religion']">
-                  {{ "Employee.Add.Religion" | translate }}
+                  {{ 'Employee.Add.Religion' | translate }}
                 </lib-label>
                 <lib-select
                   formControlName="religion"
@@ -197,12 +194,13 @@
                 ></lib-field-validations>
               </lib-form-group>
             </div>
+            <div class="md:col-12 info">
+              {{ 'Employee.MilitaryInfo' | translate }}
+            </div>
             <div class="md:col-6">
               <lib-form-group>
-                <lib-label
-                  [appControl]="addEmployeeForm.controls['militaryStatus']"
-                >
-                  {{ "Employee.Add.MilitaryStatus" | translate }}
+                <lib-label [appControl]="addEmployeeForm.controls['militaryStatus']">
+                  {{ 'Employee.Add.MilitaryStatus' | translate }}
                 </lib-label>
                 <lib-select
                   formControlName="militaryStatus"
@@ -217,24 +215,22 @@
             </div>
             <div class="md:col-6">
               <lib-form-group>
-                <lib-label
-                  [appControl]="addEmployeeForm.controls['militaryNumber']"
-                >
-                  {{ "Employee.Add.MilitaryNumber" | translate }}
+                <lib-label [appControl]="addEmployeeForm.controls['militaryNumber']">
+                  {{ 'Employee.Add.MilitaryNumber' | translate }}
                 </lib-label>
-                <lib-text-input
-                  type="text"
-                  formControlName="militaryNumber"
-                ></lib-text-input>
+                <lib-text-input type="text" formControlName="militaryNumber"></lib-text-input>
                 <lib-field-validations
                   [appControl]="addEmployeeForm.controls['militaryNumber']"
                 ></lib-field-validations>
               </lib-form-group>
             </div>
+            <div class="md:col-12 info">
+              {{ 'Employee.SpecialCare' | translate }}
+            </div>
             <div class="md:col-6">
               <lib-form-group>
                 <lib-label [appControl]="addEmployeeForm.controls['bloodType']">
-                  {{ "Employee.Add.BloodType" | translate }}
+                  {{ 'Employee.Add.BloodType' | translate }}
                 </lib-label>
                 <lib-select
                   formControlName="bloodType"
@@ -255,10 +251,8 @@
                     binary="true"
                     inputId="withSpecialNeedsCheckbox"
                   ></p-checkbox>
-                  <lib-label
-                    [appControl]="addEmployeeForm.controls['withSpecialNeeds']"
-                  >
-                    {{ "Employee.Add.WithSpecialNeeds" | translate }}
+                  <lib-label [appControl]="addEmployeeForm.controls['withSpecialNeeds']">
+                    {{ 'Employee.Add.WithSpecialNeeds' | translate }}
                   </lib-label>
                 </div>
                 <lib-field-validations

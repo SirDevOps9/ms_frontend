@@ -1,4 +1,4 @@
-import { BloodType, Gender, MaritalStatus, MilitaryStatus, Religion } from "./add-employee-personal";
+import { BloodType, Gender, MaritalStatus, MilitaryStatus, Religion } from "./shared-employee-enums";
 
 export interface GetEmployeeById {
     id: number;
