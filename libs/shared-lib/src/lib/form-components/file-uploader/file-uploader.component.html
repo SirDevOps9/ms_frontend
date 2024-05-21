@@ -7,7 +7,7 @@
 />
 <!-- accept="{{ cus getFileType(this.config.type).allowedExtensions }}" -->
 
-<button type="button" (click)="fileInput.click()" *ngIf="!value">
+<button type="button" (click)="fileInput.click()" *ngIf="!value" [ngClass]="uploadClassName" >
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="16"
@@ -20,7 +20,7 @@
       fill="currentColor"
     ></path>
   </svg>
-  {{ "shared.pleaseUpload" | translate }}
+  {{ "pleaseUpload" | translate }}
 </button>
 
 <div
@@ -34,7 +34,7 @@
       href="javascript:void(0)"
       (click)="deleteAttachment()"
     >
-      حذف
+    <i class="pi pi-times"></i>
     </a>
     <a
       class="attach-delete"
@@ -73,12 +73,16 @@
   "
 >
   <!-- <div id="photo" style="background-image: url('{{ photoSrc }}');"></div> -->
-  <img class="image-rounded" width="50%" *ngIf="base64" [src]="base64" alt="" />
-  <a
-    class="attach-delete"
-    href="javascript:void(0)"
-    (click)="deleteAttachment()"
-  >
-    حذف
+  <div class="flex align-items-center gap-2">
+    <img class="image-rounded"     [ngClass]="className"
+    width="50%" *ngIf="base64" [src]="base64" alt="" />
+    <a
+      class="attach-delete"
+      href="javascript:void(0)"
+      (click)="deleteAttachment()"
+    >
+    <i class="pi pi-times"></i>
   </a>
+  </div>
+
 </div>

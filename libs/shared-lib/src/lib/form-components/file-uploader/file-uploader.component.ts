@@ -33,6 +33,8 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
   @Input() placeholder: string;
   @Input() base64: string;
   @Input() id: string;
+  @Input() className: string;
+  @Input() uploadClassName: string = 'upload';
   @Input() appControl: AbstractControl;
   @Input() config: UploadFileConfigDto = { type: AttachmentFileTypeEnum.image };
   @Output() valueChanged = new EventEmitter<string>();

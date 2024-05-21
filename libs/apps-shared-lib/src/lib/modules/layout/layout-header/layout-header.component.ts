@@ -13,6 +13,7 @@ import { EnvironmentService, LanguageService, Modules, RouterService } from 'sha
   styleUrl: './layout-header.component.scss',
 })
 export class LayoutHeaderComponent {
+  
   userName: string;
   moduleName: string;
   userData: UserData;

@@ -10,4 +10,9 @@ export enum LookupEnum {
   CompanyType = 'CompanyType',
   CompanyHolding = 'CompanyHolding',
   CompanySubsidiary = 'CompanySubsidiary',
+  Gender = 'Gender',
+  MaritalStatus = 'MaritalStatus',
+  Religion = 'Religion',
+  MilitaryStatus = 'MilitaryStatus',
+  BloodType = 'BloodType'
 }

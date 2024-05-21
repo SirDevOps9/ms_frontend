@@ -2,3 +2,19 @@ img{
     width: 100%;
     height: 100%;
 }
+img.thumbnail {
+    border: 1px solid #cfcfcf;
+    border-radius: 50px;
+    padding: 3px;
+    width: 60px;
+    height: 60px;
+  }
+  .imgStyle {
+    border: 1px solid #cfcfcf;
+    border-radius: 5px;
+    padding: 3px;
+    width: 100px;
+    height: 100px;
+    margin-top: 20px;
+  }
+

@@ -52,6 +52,20 @@
         }
     }
 
+    .attach{
+        background: #1a8eae;
+        border: 0px solid #3B82F6;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+        border-radius: 6px;
+        outline-color: transparent;
+        color: #fff;
+        cursor: pointer;
+        padding: 10px;
+        margin-top: 5px;
+    }
+
    
 }
 

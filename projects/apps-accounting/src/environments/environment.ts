@@ -18,11 +18,11 @@ export const environment: IEnvironment = {
     useRefreshToken: true,
   },
   AttachmentServiceConfig: {
-    AttachmentServiceUrl: 'https://localhost:2030',
+    AttachmentServiceUrl: 'https://intmicrotec.neat-url.com:2030',
     ClientId: 'Accounting',
     SecretKey: 'secretkey',
   },
   ApiKey: '3bb564df-0f24-4ea6-82c1-d99f368cac8a',
-  BusinessOwnerUrl: 'http://localhost:2003',
+  BusinessOwnerUrl: 'https://intmicrotec.neat-url.com:2003',
   state: window.location.origin + '/accounting/',
 };
