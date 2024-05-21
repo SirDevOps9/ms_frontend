@@ -22,6 +22,7 @@ export class BreadcrumbLabel {
     static LICENCE_INFO ='licence Info';
     static USER_INFO ='USER Info';
     static APP_INFO ='APP Info';
+    static tag_list ='Tag List';
 
     
 
