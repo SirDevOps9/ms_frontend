@@ -8,13 +8,4 @@ pipelines:
           script:
             - npm install
             - npm install -g @angular/cli
-
-      - step:
-          name: Build Business Owners Project
-          script:
             - ng build --project bussiness-owners
-
-      - step:
-          name: Build Admin Portal Project
-          script:
-            - ng build --project adminportal
