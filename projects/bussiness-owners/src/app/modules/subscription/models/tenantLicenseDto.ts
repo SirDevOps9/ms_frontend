@@ -1,7 +1,8 @@
 export interface TenantLicenseDto {
     id: number;
     licenseId: number;
-    description: string;
+    nameEn: string;
+    nameAr: string;
     expireDate: Date;
   } 
 

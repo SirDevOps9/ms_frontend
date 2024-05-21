@@ -1,8 +1,8 @@
 <div class="mt-5">
-    <!-- <lib-bread-crumb></lib-bread-crumb> -->
+    <lib-bread-crumb></lib-bread-crumb>
     <div class="companies-container">
       <lib-data-table
-        [items]="tableData"
+      [items]="dataList"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
         (pageChange)="onPageChange($event)"
@@ -14,7 +14,7 @@
             pageSize: 10,
             columns: [
               {
-                name: 'code',
+                name: 'id',
                 headerText: ('User Code' ),
                 isGlobalFilter: true,
                 isSortable: false
@@ -32,7 +32,7 @@
                 isSortable: false
               },
               {
-                name: 'country',
+                name: 'licenseTypeEn',
                 headerText: ('User Type'),
                 isGlobalFilter: true,
                 isSortable: false

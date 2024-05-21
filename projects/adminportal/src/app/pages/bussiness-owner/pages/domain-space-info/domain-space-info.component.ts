@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { FormConfig, FormTypes, SharedFormComponent, SharedLibModule } from 'shared-lib';
+import { BussinessOwnerService } from '../../bussiness-owner.service';
 
 @Component({
   selector: 'app-domain-space-info',
@@ -11,10 +13,12 @@ import { FormConfig, FormTypes, SharedFormComponent, SharedLibModule } from 'sha
   imports: [CommonModule, SharedLibModule],
 })
 export class DomainSpaceInfoComponent implements AfterViewInit {
+  constructor(   private bussinessOwnerService : BussinessOwnerService,
+    private route : ActivatedRoute){}
   @ViewChild('form') form: SharedFormComponent;
   fields: FormConfig[] = [
     {
-      key: 'feesAmount',
+      key: 'sudomainName',
       placeholder: 'Domain Space',
       type: FormTypes.text,
       class: 'col-md-12',
@@ -48,33 +52,43 @@ export class DomainSpaceInfoComponent implements AfterViewInit {
 
     },
     {
-      key: 'maximumAmount',
+      key: 'price',
       placeholder: 'Subscription Price',
       type: FormTypes.text,
       class: 'col-md-12',
       label: 'Subscription Price',
     },
     {
-      key: 'maximumAmount2',
+      key: 'purchasingPaymentPeriod',
       placeholder: 'Subscription Interval',
       type: FormTypes.text,
       class: 'col-md-12',
       label: 'Subscription Interval',
     },
     {
-      key: 'maximumAmount3',
+      key: 'isActive',
       placeholder: 'Subscription Status',
       type: FormTypes.text,
       class: 'col-md-12',
       label: 'Subscription Status',
     },
   ];
+  id = this.route.snapshot.params['id']
+
+
+  getSubDomainById() {
+    this.bussinessOwnerService.getSubDomainById(this.id).subscribe(res=>{
+      this.form.form.patchValue({...res})
+      this.form.form.disable()
+
+    })
+  }
 
 
 
 
   ngAfterViewInit(): void {
-    this.form.form.disable()
+    this.getSubDomainById()
   }
 
 }

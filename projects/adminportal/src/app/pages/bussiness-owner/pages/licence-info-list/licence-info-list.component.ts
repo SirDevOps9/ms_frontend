@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { FormConfig, FormTypes, LanguageService, PageInfo, RouterService, SharedFormComponent, SharedLibModule } from 'shared-lib';
+import { FormConfig, FormTypes, LanguageService, PageInfo, PageInfoResult, RouterService, SharedFormComponent, SharedLibModule } from 'shared-lib';
+import { LicenceInfo } from '../../models';
+import { BussinessOwnerService } from '../../bussiness-owner.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-licence-info-list',
@@ -13,58 +16,7 @@ import { FormConfig, FormTypes, LanguageService, PageInfo, RouterService, Shared
 export class LicenceInfoListComponent implements OnInit {
   @ViewChild('myTab') myTab: any | undefined;
   @ViewChild('form') form: SharedFormComponent;
-  tableData = [
-    {
-      code: '101',
-      name: 'John Doe',
-      email: 'john@example.com',
-      country: 'USA',
-      mobileNumber: '+1 123 456 7890',
-      mob : 'erdf',
-      mob2 : 'wsdf',
-      mob3 : 'sadfdsf'
-    },
-    {
-      code: '102',
-      name: 'Alice Smith',
-      email: 'alice@example.com',
-      country: 'Canada',
-      mobileNumber: '+1 234 567 8901',
-      mob : 'erdf',
-      mob2 : 'wsdf',
-      mob3 : 'sadfdsf'
-    },
-    {
-      code: '103',
-      name: 'Mohammed Khan',
-      email: 'mohammed@example.com',
-      country: 'India',
-      mobileNumber: '+91 98765 43210',
-      mob : 'erdf',
-      mob2 : 'wsdf',
-      mob3 : 'sadfdsf'
-    },
-    {
-      code: '104',
-      name: 'Sophie Brown',
-      email: 'sophie@example.com',
-      country: 'UK',
-      mobileNumber: '+44 1234 567890',
-      mob : 'erdf',
-      mob2 : 'wsdf',
-      mob3 : 'sadfdsf'
-    },
-    {
-      code: '105',
-      name: 'Chen Wei',
-      email: 'chen@example.com',
-      country: 'China',
-      mobileNumber: '+86 10 1234 5678',
-      mob : 'erdf',
-      mob2 : 'wsdf',
-      mob3 : 'sadfdsf'
-    },
-  ];
+
   cols: any[] = [
     {
       field: 'Id',
@@ -123,21 +75,18 @@ export class LicenceInfoListComponent implements OnInit {
       header: 'Actions',
     },
   ];
-  fields: FormConfig[] = [
-    {
-      key: 'feesAmount',
-      placeholder: 'Search...',
-      type: FormTypes.text,
-      class: 'col-md-4',
-    },
-  ];
+  dataList : LicenceInfo[]
+
   active: boolean = false;
-  currentPageInfo: PageInfo = new PageInfo();
+  currentPageInfo: PageInfoResult = {}
+  id = this.route.snapshot.params['id']
 
   constructor(
     private routerService: RouterService,
     private titleService: Title,
     private languageService: LanguageService,
+    private bussinessOwnerService : BussinessOwnerService,
+    private route : ActivatedRoute
   
   ) {}
 
@@ -145,21 +94,23 @@ export class LicenceInfoListComponent implements OnInit {
     this.titleService.setTitle(
       this.languageService.transalte('JournalEntry.JournalEntryList')
     );
-    this.initJournalEntryData(this.currentPageInfo);
+
+    this.getLicenseInfo(new PageInfo)
+
+    
   }
 
-  patchFormValues(data: any) {}
-  initJournalEntryData(page: PageInfo) {
-    // this.journalEntryService.getAllJournalEntriesPaginated(page).subscribe({
-    //   next: (journalList: any) => {
-    //     // this.tableData = journalList.result;
-    //   },
-    // });
+  getLicenseInfo(pageInfo : PageInfo) {
+    this.bussinessOwnerService.getLicenseInfoById(pageInfo , this.id ).subscribe(res=>{
+      this.currentPageInfo = res.pageInfoResult;
+      this.dataList = res.result;
+      console.log(res)
+     })
   }
+
+
   onPageChange(pageInfo: PageInfo) {
-    this.initJournalEntryData(pageInfo);
+
   }
-  onEditOwner() {
-    this.routerService.navigateTo(`/bussiness-owners/manage`);
-  }
+
 }

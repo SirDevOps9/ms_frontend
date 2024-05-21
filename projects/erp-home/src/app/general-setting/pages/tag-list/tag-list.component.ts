@@ -1,0 +1,78 @@
+import { Component, OnInit } from '@angular/core';
+import { MenuModule, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { GeneralSettingService } from '../../general-setting.service';
+import { TagDto } from '../../models/TagDto';
+import { InputSwitchChangeEvent } from 'primeng/inputswitch';
+import { AuthService } from 'microtec-auth-lib';
+
+@Component({
+  selector: 'app-tag-list',
+  templateUrl: './tag-list.component.html',
+  styleUrls: ['./tag-list.component.scss']
+})
+export class TagListComponent implements OnInit {
+  tableData: TagDto[];
+  currentPageInfo: PageInfoResult;
+  modulelist : MenuModule[];
+  searchTerm: string;
+  
+  constructor(private routerService: RouterService, private generalSettingService: GeneralSettingService,public authService: AuthService) {}
+
+  ngOnInit() {
+    this.initChartOfAccountData();
+    this.modulelist =this.authService.getModules()
+  }
+
+  initChartOfAccountData() {
+    this.generalSettingService.GetTagList('', new PageInfo());
+
+    this.generalSettingService.TagList.subscribe({
+      next: (res) => {
+        this.tableData = res;
+      },
+    });
+
+    this.generalSettingService.currentPageInfo.subscribe((currentPageInfo) => {
+      this.currentPageInfo = currentPageInfo;
+    });
+  }
+  
+  onPageChange(pageInfo: PageInfo) {
+    this.generalSettingService.GetTagList('', pageInfo);
+    
+    this.generalSettingService.TagList.subscribe({
+      next: (res) => {
+        this.tableData = res;
+      },
+    });
+  }
+  routeToAdd() {
+    this.routerService.navigateTo(`/journalentry/add`);
+  }
+  routeToEdit(id: number) {
+    this.routerService.navigateTo(`/journalentry/edit/${id}`);
+  }
+
+
+  changed($event: InputSwitchChangeEvent,arg1: any) {
+    throw new Error('Method not implemented.');
+
+    }
+
+  newTag(){
+     this.routerService.navigateTo(`/journalentry/edit/`);
+    }
+
+    onSearchChange(){
+      this.generalSettingService.GetTagList(this.searchTerm, new PageInfo());
+      console.log(this.searchTerm,"Search");
+
+    this.generalSettingService.TagList.subscribe({
+      next: (res) => {
+        this.tableData = res;
+      },
+    });
+    }
+
+
+}

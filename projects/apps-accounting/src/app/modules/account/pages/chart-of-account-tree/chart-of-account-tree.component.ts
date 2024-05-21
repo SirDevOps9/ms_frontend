@@ -4,6 +4,8 @@ import { AccountService } from '../../account.service';
 import { accountTreeList } from '../../models';
 import { Title } from '@angular/platform-browser';
 import { LanguageService } from 'shared-lib';
+import { ChartOfAccountConfigurationComponent } from '../../components/chart-of-account-configuration/chart-of-account-configuration.component';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 @Component({
   selector: 'app-chart-of-account-tree',
   templateUrl: './chart-of-account-tree.component.html',
@@ -12,10 +14,13 @@ import { LanguageService } from 'shared-lib';
 export class ChartOfAccountTreeComponent implements OnInit {
   nodes: accountTreeList[];
   expanded: boolean = false;
+  ref: DynamicDialogRef;
+
   constructor(
     private accountService: AccountService,
     private title: Title,
-    private langService: LanguageService
+    private langService: LanguageService,
+    private dialog: DialogService
   ) {
     this.langService.setLang();
 
@@ -50,6 +55,12 @@ export class ChartOfAccountTreeComponent implements OnInit {
   getTreeList() {
     this.accountService.getTreeList().subscribe((res: any) => {
       this.nodes = this.mapToTreeNodes(res);
+    });
+  }
+  RedirectToConfiguration(){
+    this.ref = this.dialog.open(ChartOfAccountConfigurationComponent, {
+      width: '800px',
+      height: '700px'
     });
   }
 }
