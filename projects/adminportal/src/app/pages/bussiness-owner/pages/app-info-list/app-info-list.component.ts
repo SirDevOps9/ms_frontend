@@ -1,70 +1,31 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { SharedFormComponent, FormConfig, FormTypes, PageInfo, RouterService, LanguageService, SharedLibModule } from 'shared-lib';
+import { ActivatedRoute } from '@angular/router';
+import {
+  SharedFormComponent,
+  FormConfig,
+  FormTypes,
+  PageInfo,
+  RouterService,
+  LanguageService,
+  SharedLibModule,
+  PageInfoResult,
+} from 'shared-lib';
+import { BussinessOwnerService } from '../../bussiness-owner.service';
+import { AppsInfo } from '../../models';
 
 @Component({
   selector: 'app-app-info-list',
   templateUrl: './app-info-list.component.html',
   styleUrl: './app-info-list.component.scss',
-  standalone : true,
+  standalone: true,
   imports: [CommonModule, SharedLibModule],
 })
 export class AppInfoListComponent implements OnInit {
   @ViewChild('myTab') myTab: any | undefined;
   @ViewChild('form') form: SharedFormComponent;
-  tableData = [
-    {
-      code: '101',
-      name: 'John Doe',
-      email: 'john@example.com',
-      country: 'USA',
-      mobileNumber: '+1 123 456 7890',
-      mob : 'erdf',
-      mob2 : 'wsdf',
-      mob3 : 'sadfdsf'
-    },
-    {
-      code: '102',
-      name: 'Alice Smith',
-      email: 'alice@example.com',
-      country: 'Canada',
-      mobileNumber: '+1 234 567 8901',
-      mob : 'erdf',
-      mob2 : 'wsdf',
-      mob3 : 'sadfdsf'
-    },
-    {
-      code: '103',
-      name: 'Mohammed Khan',
-      email: 'mohammed@example.com',
-      country: 'India',
-      mobileNumber: '+91 98765 43210',
-      mob : 'erdf',
-      mob2 : 'wsdf',
-      mob3 : 'sadfdsf'
-    },
-    {
-      code: '104',
-      name: 'Sophie Brown',
-      email: 'sophie@example.com',
-      country: 'UK',
-      mobileNumber: '+44 1234 567890',
-      mob : 'erdf',
-      mob2 : 'wsdf',
-      mob3 : 'sadfdsf'
-    },
-    {
-      code: '105',
-      name: 'Chen Wei',
-      email: 'chen@example.com',
-      country: 'China',
-      mobileNumber: '+86 10 1234 5678',
-      mob : 'erdf',
-      mob2 : 'wsdf',
-      mob3 : 'sadfdsf'
-    },
-  ];
+
   cols: any[] = [
     {
       field: 'Id',
@@ -123,44 +84,39 @@ export class AppInfoListComponent implements OnInit {
       header: 'Actions',
     },
   ];
-  fields: FormConfig[] = [
-    {
-      key: 'feesAmount',
-      placeholder: 'Search...',
-      type: FormTypes.text,
-      class: 'col-md-4',
-    },
-  ];
+
+  dataList: AppsInfo[];
+
   active: boolean = false;
-  currentPageInfo: PageInfo = new PageInfo();
+  currentPageInfo: PageInfoResult = {};
+  id = this.route.snapshot.params['id'];
 
   constructor(
     private routerService: RouterService,
     private titleService: Title,
     private languageService: LanguageService,
-  
+    private bussinessOwnerService: BussinessOwnerService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.titleService.setTitle(
       this.languageService.transalte('JournalEntry.JournalEntryList')
     );
-    this.initJournalEntryData(this.currentPageInfo);
+
+    this.getAppsInfo(new PageInfo());
+  }
+  getAppsInfo(pageInfo: PageInfo) {
+    this.bussinessOwnerService
+      .getAppsInfo(pageInfo, this.id)
+      .subscribe((res) => {
+        this.currentPageInfo = res.pageInfoResult;
+        this.dataList = res.result;
+      });
   }
 
-  patchFormValues(data: any) {}
-  initJournalEntryData(page: PageInfo) {
-    // this.journalEntryService.getAllJournalEntriesPaginated(page).subscribe({
-    //   next: (journalList: any) => {
-    //     // this.tableData = journalList.result;
-    //   },
-    // });
-  }
-  onPageChange(pageInfo: PageInfo) {
-    this.initJournalEntryData(pageInfo);
-  }
+  onPageChange(pageInfo: PageInfo) {}
   onEditOwner() {
-    this.routerService.navigateTo(`/bussiness-owners/manage`);
+    //    this.routerService.navigateTo(`/bussiness-owners/manage`);
   }
 }
-
