@@ -1,24 +1,24 @@
-# image: node:18.13.0
+image: node:18.13.0
 
-# pipelines:
-#   branches:
-#     moataz-ci/cd:
-#       - step:
-#           name: Installation
-#           caches:
-#             - node
-#           script:
-#             - npm install
-#           artifacts:
-#             - node_modules/**  
-#       - step:
-#           name: Verify Assets
-#           script:
-#             - ls -l projects/bussiness-owners/src/app/modules/user/components/user-details
-#             - ls -l projects/bussiness-owners/src/assets/fonts/poppins
-#       - step:
-#           name: Build
-#           script:
-#             - npm run build:bussiness-owners
-#           artifacts:
-#             - dist/**  
+pipelines:
+  branches:
+    moataz-ci/cd:
+      - step:
+          name: Installation
+          caches:
+            - node
+          script:
+            - npm install
+          artifacts:
+            - node_modules/**  
+      - step:
+          name: Verify Assets
+          script:
+            - ls -l projects/bussiness-owners/src/app/modules/user/components/user-details
+            - ls -l projects/bussiness-owners/src/assets/fonts/poppins
+      - step:
+          name: Build
+          script:
+            - npm run build:bussiness-owners
+          artifacts:
+            - dist/**  
