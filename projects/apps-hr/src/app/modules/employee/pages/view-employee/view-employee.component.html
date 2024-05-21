@@ -58,10 +58,8 @@
           </div>
           <div class="md:col-3">
             <lib-form-group>
-              <label>
-                {{ 'Employee.View.EmployeePhoto' | translate }}
-              </label>
-              <lib-attachment-viewer attachmentId="{{employee?.employeePhoto}}" />
+           
+              <lib-attachment-viewer [className]="'imgStyle'" attachmentId="{{employee?.employeePhoto}}" />
 
             </lib-form-group>
 

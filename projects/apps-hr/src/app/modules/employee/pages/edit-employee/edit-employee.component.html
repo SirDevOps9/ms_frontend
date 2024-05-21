@@ -35,17 +35,17 @@
             <div class="md:col-12 info">
               {{ 'Employee.BasicInfo' | translate }}
             </div>
-            <div class="md:col-3">
+            <div class="md:col-3 employee-container">
               <lib-form-group>
                 <label>
                   {{ 'Employee.Edit.EmployeeCode' | translate }}
                 </label>
                 <div class="view">
-                  {{ EmployeeCode }}
+                  {{ employeeCode }}
                 </div>
               </lib-form-group>
             </div>
-            <div class="md:col-3">
+            <div class="md:col-3 employee-container">
               <lib-form-group>
                 <lib-label [appControl]="editEmployeeForm.controls['attendanceCode']">
                   {{ 'Employee.Edit.AttendanceCode' | translate }}
@@ -56,7 +56,7 @@
                 ></lib-field-validations>
               </lib-form-group>
             </div>
-            <div class="md:col-3">
+            <div class="md:col-3 employee-container">
               <lib-form-group>
                 <lib-label [appControl]="editEmployeeForm.controls['employeeName']">
                   {{ 'Employee.Edit.EmployeeName' | translate }}
@@ -67,13 +67,15 @@
                 ></lib-field-validations>
               </lib-form-group>
             </div>
-            <div class="md:col-3">
+            <div class="md:col-3 employee-container ">
               <lib-form-group>
-                <lib-label [appControl]="editEmployeeForm.controls['employeePhoto']">
+                <!-- <lib-label [appControl]="editEmployeeForm.controls['employeePhoto']">
                   {{ 'Employee.Edit.EmployeePhoto' | translate }}
-                </lib-label>
+                </lib-label> -->
                 <lib-file-uploader
                   formControlName="employeePhoto"
+                  [className]="'thumbnail'"
+                  [uploadClassName]="'upload'"
                   [config]="{
                     type: sharedLibEnums.AttachmentFileTypes.image,
                     viewThumbnail: true
@@ -106,7 +108,7 @@
                   {{ 'Employee.Edit.Age' | translate }}
                 </label>
                 <div class="view">
-                  {{ Age }}
+                  {{ age }}
                 </div>
               </lib-form-group>
             </div>

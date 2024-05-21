@@ -1,10 +1,4 @@
 
-img.thumbnail {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
-  width: 100px;
-}
    .btn {
         background: none;
         border: none;
@@ -19,6 +13,17 @@ img.thumbnail {
         color: #fff;
         margin-inline-start: 20px;
         justify-content: end;
+      }
+
+      .primary{
+    color: #ffffff;
+    background: #1a8eae ;
+    border: 0px solid #1a8eae ;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+    border-radius: 6px;
+    outline-color: transparent;
       }
 
       .import {

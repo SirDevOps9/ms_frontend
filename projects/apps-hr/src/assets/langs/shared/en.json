@@ -31,9 +31,11 @@
     "lengthRange": "The minimum length must be {{min}}, and the maximum length must be {{max}} ",
     "invalidFileType": "نوع الملف غير مسموح به",
     "zeroNotAllowed": "Zero is not allowed",
-   "invalidBirthDate": "The birth date cannot be in the future",
-   "onlyLetters": "Only letters are allowed.",
-   "invalidage":"Invalid age",
-   "ageAbove": "You must be at least {{age}} years old."
-  }
+    "invalidBirthDate": "The birth date cannot be in the future",
+    "onlyLetters": "Only letters are allowed.",
+    "invalidage": "Invalid age",
+    "ageAbove": "You must be at least {{age}} years old."
+  },
+
+  "pleaseUpload": "Upload"
 }

@@ -23,8 +23,8 @@ export class EditEmployeeComponent implements OnInit {
   editEmployeeForm: FormGroup;
   LookupEnum = LookupEnum;
 
-  Age: string = '';
-  EmployeeCode = '';
+  age: string = '';
+  employeeCode = '';
   employeePhoto:string = '';
   selectedCountryOfBirth: string;
   selectedBirthCity: number;
@@ -61,8 +61,8 @@ export class EditEmployeeComponent implements OnInit {
   onBirthDateChange() {
     const birthDateControl = this.editEmployeeForm.get('birthDate');
     birthDateControl?.valueChanges.subscribe((birthDate) => {
-      this.Age = '';
-      if (birthDateControl.valid) this.Age = this.ageService.calculateAge(birthDate);
+      this.age = '';
+      if (birthDateControl.valid) this.age = this.ageService.calculateAge(birthDate);
     });
   }
 
@@ -100,6 +100,7 @@ export class EditEmployeeComponent implements OnInit {
         birthDate: res.birthDate.substring(0, 10),
       });
       this.employeePhoto=res.employeePhoto;
+      this.employeeCode= res.employeeCode;
       // this.selectedCountryOfBirth = res.countryOfBirth;
       // this.selectedBirthCity = res.birthCity;
       // this.selectedNationality = res.nationality;

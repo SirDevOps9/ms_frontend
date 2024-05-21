@@ -57,12 +57,12 @@
 
           <!-- <lib-button pRipple className="add_new" label="Add New" icon="pi pi-plus">
           </lib-button> -->
-          <div>
-            <button class="btn add_new" (click)="navigateToAdd()">
+          <div class="flex justify-content-end gap-3">
+            <button class="primary" (click)="navigateToAdd()">
               <span class="pi pi-plus"></span>
               {{"Add New" | translate}}
             </button>
-            <button class="add_new btn export">
+            <button class="primary export">
               <span class="pi pi-file"></span>
               Export
             </button>
@@ -70,8 +70,8 @@
         </div>
       </ng-container>
       <ng-template #empNameCol let-employee>
-        <div class="user_info">
-          <lib-attachment-viewer attachmentId="{{employee.employeePhoto}}" />
+        <div class="user_info flex gap-3">
+          <lib-attachment-viewer [className]="'thumbnail'" attachmentId="{{employee.employeePhoto}}" />
           <p>{{ employee.employeeName }}</p>
         </div>
       </ng-template>
