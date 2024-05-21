@@ -14,6 +14,13 @@ body{
     overflow-x: hidden;
 
 }
+.p-dialog {
+    .p-dialog-header {
+      display: none !important;
+    }
+  
+  }
+  
 
 ////////////// cairo_regula ////////////
 .body_b32{

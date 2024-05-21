@@ -30,6 +30,11 @@ export class SelectsubdomainComponent implements OnInit {
       this.allSubdomains = this.config.data.subdomains;
 
   }
+  onCancel() { 
+ 
+    this.ref.close();
+    
+  }
 
   submit() {
        this.ref.close(this.selectSubdomain.value.subdomain);
