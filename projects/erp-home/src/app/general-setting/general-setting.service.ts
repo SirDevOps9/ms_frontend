@@ -25,14 +25,6 @@ export class GeneralSettingService {
     });
   }
 
-  getAllTagsPaginated(searchTerm: string, pageInfo: PageInfo) {
-    return this.GeneralSettingproxy.getAllTagsPaginated(searchTerm, pageInfo).pipe(
-      map((res) => {
-        return res;
-      })
-    );
-  }
-
   addTag(addTagDto: AddTagDto
     ,dialogRef: DynamicDialogRef
   ){

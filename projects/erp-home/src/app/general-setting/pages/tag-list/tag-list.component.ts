@@ -30,7 +30,7 @@ export class TagListComponent implements OnInit {
   }
 
   initChartOfAccountData() {
-    this.generalSettingService.GetTagList('', new PageInfo());
+    this.generalSettingService.initTagList('', new PageInfo());
 
     this.generalSettingService.TagList.subscribe({
       next: (res) => {
@@ -44,7 +44,7 @@ export class TagListComponent implements OnInit {
   }
   
   onPageChange(pageInfo: PageInfo) {
-    this.generalSettingService.GetTagList('', pageInfo);
+    this.generalSettingService.initTagList('', pageInfo);
     
     this.generalSettingService.TagList.subscribe({
       next: (res) => {
@@ -78,7 +78,7 @@ export class TagListComponent implements OnInit {
     }
 
     onSearchChange(){
-      this.generalSettingService.GetTagList(this.searchTerm, new PageInfo());
+      this.generalSettingService.initTagList(this.searchTerm, new PageInfo());
       console.log(this.searchTerm,"Search");
 
     this.generalSettingService.TagList.subscribe({
