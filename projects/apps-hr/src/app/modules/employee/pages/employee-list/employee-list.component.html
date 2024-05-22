@@ -1,5 +1,5 @@
 <div>
-  <div class="user_page">
+  <div class="user_page employees-cont">
     <lib-data-table
       [items]="tableData"
       className="p-datatable-gridlines"
@@ -53,14 +53,13 @@
             </span>
           </div>
 
-          <!-- <lib-button pRipple className="add_new" label="Add New" icon="pi pi-plus">
-          </lib-button> -->
+     
           <div class="flex justify-content-end gap-3">
             <button class="primary" (click)="navigateToAdd()">
               <span class="pi pi-plus"></span>
               {{ 'Add New' | translate }}
             </button>
-            <button class="primary export">
+            <button class="primary export" >
               <span class="pi pi-file"></span>
               Export
             </button>
@@ -85,6 +84,7 @@
             [enableText]="true"
             severity="secondary"
           >
+          
           </lib-button>
           <lib-button
             className="edit"
@@ -109,3 +109,4 @@
     </lib-data-table>
   </div>
 </div>
+
