@@ -30,7 +30,7 @@ export class TagListComponent implements OnInit {
   }
 
   initChartOfAccountData() {
-    this.generalSettingService.initTagList('', new PageInfo());
+    this.generalSettingService.GetTagList('', new PageInfo());
 
     this.generalSettingService.TagList.subscribe({
       next: (res) => {
@@ -44,7 +44,7 @@ export class TagListComponent implements OnInit {
   }
   
   onPageChange(pageInfo: PageInfo) {
-    this.generalSettingService.initTagList('', pageInfo);
+    this.generalSettingService.GetTagList('', pageInfo);
     
     this.generalSettingService.TagList.subscribe({
       next: (res) => {
@@ -70,7 +70,7 @@ export class TagListComponent implements OnInit {
 
     }
 
-  NewTag(){
+  newTag(){
      const dialogRef = this.dialog.open(TagAddComponent, {
       width: '800px',
       height: '700px'
@@ -78,7 +78,7 @@ export class TagListComponent implements OnInit {
     }
 
     onSearchChange(){
-      this.generalSettingService.initTagList(this.searchTerm, new PageInfo());
+      this.generalSettingService.GetTagList(this.searchTerm, new PageInfo());
       console.log(this.searchTerm,"Search");
 
     this.generalSettingService.TagList.subscribe({

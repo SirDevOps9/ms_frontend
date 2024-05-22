@@ -18,8 +18,8 @@ export class GeneralSettingProxy {
 
     return this.httpService.get<PaginationVm<TagDto>>(url);
   }
-  addTag(addTagDto: AddTagDto): Observable<string> {
-     return this.httpService.post<TagDto>(`Tag`,addTagDto);
+  addTag(addTagDto: AddTagDto): Observable<any> {
+     return this.httpService.post<any>(`Tag`,addTagDto);
   }
   constructor(private httpService: HttpService) {}
 }

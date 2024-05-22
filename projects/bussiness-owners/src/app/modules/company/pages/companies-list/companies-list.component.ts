@@ -17,7 +17,6 @@ export class CompaniesListComponent implements OnInit {
   @ViewChild('myTab') myTab: any | undefined;
   selectedCompanies: CompanyDto[];
   tableData: CompanyDto[];
-  tableData: CompanyDto[];
   cols: any[] = [];
   active: boolean = false;
   ref: DynamicDialogRef;

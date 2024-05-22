@@ -21,14 +21,23 @@ export class TagAddComponent implements OnInit {
     public dialogService: DialogService,
     private fb: FormBuilder,
     public authService: AuthService,
-    private formService: FormsService,
     private ref: DynamicDialogRef,
     private generalSettingService : GeneralSettingService
   ) { }
 
   ngOnInit() {
-    this.moudlelist();
+    this.modulelist = this.getStaticModuleList();
+    console.log("module", this.modulelist)
+    //this.moudlelist();
     this.initializeTagForm();
+  }
+
+  getStaticModuleList(): MenuModule[] {
+    return [
+      { key: 1, module: 'Module 1' },
+      { key: 2, module: 'Module 2' },
+      { key: 3, module: 'Module 3' }
+    ];
   }
 
   moudlelist() {
@@ -37,9 +46,9 @@ export class TagAddComponent implements OnInit {
 
   initializeTagForm() {
     this.TagForm = this.fb.group({
-      Code: new FormControl({ disabled: true }, customValidators.required),
+      Code: new FormControl({  value: '', disabled: true  }, customValidators.required),
       Name: new FormControl('', customValidators.required),
-      ModuleId: new FormControl([], customValidators.required)
+      ModuleIds: new FormControl([], customValidators.required)
     });
   }
 
@@ -49,9 +58,8 @@ export class TagAddComponent implements OnInit {
 
   onSubmit() {
     if(!this.TagForm.valid) return;
-    const dto :AddTagDto=this.TagForm.value;
-    console.log(dto);
-    this.generalSettingService.addTag(dto,this.ref);
+    const tagDto :AddTagDto=this.TagForm.value;
+    this.generalSettingService.addTag(tagDto,this.ref);
     this.TagForm.patchValue({code : this.generalSettingService.TagCode});
     
   }

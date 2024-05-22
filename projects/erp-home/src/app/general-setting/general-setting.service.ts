@@ -16,7 +16,7 @@ export class GeneralSettingService {
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   public TagCode = "";
  
-  initTagList(searchTerm: string, pageInfo: PageInfo) {
+  GetTagList(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getAllTagsPaginated(searchTerm, pageInfo).subscribe({
       next: (res) => {
         this.tagDataSource.next(res.result);
@@ -31,6 +31,7 @@ export class GeneralSettingService {
     this.loaderService.show();
     this.GeneralSettingproxy.addTag(addTagDto).subscribe({
       next: (res) => {
+        console.log("Code",res)
         this.toasterService.showSuccess(
           this.languageService.transalte('tag.addtag.Success'),
           this.languageService.transalte('tag.addtag.Success')

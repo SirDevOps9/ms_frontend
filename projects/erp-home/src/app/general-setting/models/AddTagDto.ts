@@ -1,5 +1,5 @@
 export interface AddTagDto {
     name: string;
-    moduleId: number[];
+    moduleIds: number[];
   }
   
