@@ -2,19 +2,22 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
 import { GeneralSettingProxy } from './general-setting.proxy';
-import { TagDto } from './models/TagDto';
-import { AddTagDto } from './models/AddTagDto';
+import { TagDto } from './models/tagDto';
+import { AddTagDto } from './models/addTagDto';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 @Injectable({
   providedIn: 'root',
 })
 export class GeneralSettingService {
   private tagDataSource = new BehaviorSubject<TagDto[]>([]);
+  public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
+  private currentTagDataSource = new BehaviorSubject<TagDto>({} as TagDto);
 
+
+  public currentTag = this.currentTagDataSource.asObservable();
   public TagList = this.tagDataSource.asObservable();
 
-  public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
-  public TagCode = "";
+  
  
   GetTagList(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getAllTagsPaginated(searchTerm, pageInfo).subscribe({
@@ -37,12 +40,36 @@ export class GeneralSettingService {
           this.languageService.transalte('tag.addtag.Success')
         );
         this.loaderService.hide();
-        this.TagCode=res;
         dialogRef.close(res);
       },
       error: (err) => {
         this.loaderService.hide();
       },
+    });
+  }
+
+  editTag(TagDto: TagDto
+    ,dialogRef: DynamicDialogRef
+  ){
+    this.loaderService.show();
+    this.GeneralSettingproxy.editTag(TagDto).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('tag.addtag.Success'),
+          this.languageService.transalte('tag.addtag.Success')
+        );
+        this.loaderService.hide();
+        dialogRef.close();
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+
+  getTagById(Id:number) {
+    this.GeneralSettingproxy.getTagById(Id).subscribe((response) => {
+      this.currentTagDataSource.next(response);
     });
   }
   

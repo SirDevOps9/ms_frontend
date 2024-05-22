@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuModule, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { GeneralSettingService } from '../../general-setting.service';
-import { TagDto } from '../../models/TagDto';
+import { TagDto } from '../../models/tagDto';
 import { InputSwitchChangeEvent } from 'primeng/inputswitch';
 import { AuthService } from 'microtec-auth-lib';
 import { TagAddComponent } from '../tag-add/tag-add.component';
 import { DialogService } from 'primeng/dynamicdialog';
+import { TagEditComponent } from '../tag-edit/tag-edit.component';
 
 @Component({
   selector: 'app-tag-list',
@@ -61,7 +62,11 @@ export class TagListComponent implements OnInit {
   }
 
   routeToEdit(id: number) {
-    this.routerService.navigateTo(`/journalentry/edit/${id}`);
+    const dialogRef = this.dialog.open(TagEditComponent, {
+      width: '800px',
+      height: '700px',
+      data: { Id: id},
+    }); 
   }
 
 

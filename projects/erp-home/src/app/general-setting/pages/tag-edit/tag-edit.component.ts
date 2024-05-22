@@ -2,19 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { FormsService, LoaderService, MenuModule, customValidators } from 'shared-lib';
-import { GeneralSettingProxy } from '../../general-setting.proxy';
 import { GeneralSettingService } from '../../general-setting.service';
-import { AddTagDto } from '../../models/addTagDto';
+import { MenuModule, customValidators } from 'shared-lib';
+import { TagDto } from '../../models/tagDto';
+
 @Component({
-  selector: 'app-tag-add',
-  templateUrl: './tag-add.component.html',
-  styleUrls: ['./tag-add.component.scss']
+  selector: 'app-tag-edit',
+  templateUrl: './tag-edit.component.html',
+  styleUrls: ['./tag-edit.component.scss']
 })
-export class TagAddComponent implements OnInit {
+export class TagEditComponent implements OnInit {
   TagForm: FormGroup;
   modulelist: MenuModule[];
-  
+  get Id(): string {
+    return this.config.data.Id;
+  }
 
   constructor(
     public config: DynamicDialogConfig,
@@ -27,9 +29,9 @@ export class TagAddComponent implements OnInit {
 
   ngOnInit() {
     this.modulelist = this.getStaticModuleList();
-    console.log("module", this.modulelist)
     //this.moudlelist();
     this.initializeTagForm();
+    this.getCurruntTag();
   }
 
   getStaticModuleList(): MenuModule[] {
@@ -40,15 +42,24 @@ export class TagAddComponent implements OnInit {
     ];
   }
 
+  getCurruntTag(){
+    this.generalSettingService.getTagById(parseInt(this.Id) );
+    this.generalSettingService.currentTag.subscribe((response) => {
+      this.TagForm.patchValue(response);
+  });
+}
+
   moudlelist() {
     this.modulelist = this.authService.getModules();
   }
-
+  
   initializeTagForm() {
     this.TagForm = this.fb.group({
+      Id:new FormControl(customValidators.required),
       Code: new FormControl({  value: '', disabled: true  }, customValidators.required),
       Name: new FormControl('', customValidators.required),
-      ModuleIds: new FormControl([], customValidators.required)
+      ModuleIds: new FormControl([], customValidators.required),
+      IsActive: new FormControl(customValidators.required),
     });
   }
 
@@ -58,8 +69,8 @@ export class TagAddComponent implements OnInit {
 
   onSubmit() {
     if(!this.TagForm.valid) return;
-    const tagDto :AddTagDto=this.TagForm.value;
-    this.generalSettingService.addTag(tagDto,this.ref);
+    const tagDto :TagDto=this.TagForm.value;
+    this.generalSettingService.editTag(tagDto,this.ref);
     
   }
 }

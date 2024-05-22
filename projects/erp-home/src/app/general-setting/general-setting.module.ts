@@ -7,6 +7,7 @@ import { AuthGuard } from 'microtec-auth-lib';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TagListComponent } from './pages/tag-list/tag-list.component';
 import { TagAddComponent } from './pages/tag-add/tag-add.component';
+import { TagEditComponent } from './pages/tag-edit/tag-edit.component';
 
 const routes: Routes = [
   {
@@ -28,7 +29,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     TagListComponent,
-    TagAddComponent
+    TagAddComponent,
+    TagEditComponent
   ],
   imports: [
     CommonModule,
