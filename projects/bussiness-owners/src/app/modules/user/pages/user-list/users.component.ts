@@ -30,7 +30,6 @@ export class UsersComponent implements OnInit {
     this.loadUsers();
   }
 
-
   loadUsers() {
     this.userService.getAllUsers(this.subdmainId);
 
@@ -43,35 +42,30 @@ export class UsersComponent implements OnInit {
     });
   }
 
-
   resendInvitation(id: string) {
     this.userService.resendInvitation(id);
   }
 
+  delete() {}
   openInviteModal() {
-    this.userService.openInviteUserModal(this.subdmainId,this.ref, this.dialog);
+    this.userService.openInviteUserModal(this.subdmainId, this.ref, this.dialog);
   }
-
 
   getProfilePic(id: string) {
     return this.env.photoBaseUrl + '/api/Users/GetProfilePic?userId=' + id;
   }
 
-
   async activate(id: string) {
     this.userService.activate(id, this.subdmainId);
   }
-
 
   async deactivate(id: string) {
     this.userService.deactivate(id, this.subdmainId);
   }
 
-
   applyFilterGlobal($event: any, stringVal: any) {
     this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
-
 
   async editUser(Id: string) {
     this.ref = this.dialog.open(UserDetailsComponent, {
@@ -80,7 +74,6 @@ export class UsersComponent implements OnInit {
       data: { Id: Id, subdomainId: this.subdmainId },
     });
   }
-
 
   changed(e: any, id: string) {
     if (e.checked === false) {
@@ -94,7 +87,6 @@ export class UsersComponent implements OnInit {
     console.log(pageInfo);
     this.userService.getAllUsersPaginated(pageInfo);
   }
-
 
   get subdmainId(): string {
     return this.routerService.currentId;

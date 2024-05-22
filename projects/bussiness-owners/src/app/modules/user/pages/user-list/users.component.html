@@ -94,8 +94,7 @@
     <ng-template #userCol let-user>
       <div class="user_info">
         <!-- <lib-attachment-viewer
-          attachmentId="70F8DF0D-E9E4-4BAD-BBFB-08DC49DE3DF5"
-          [width]="50"
+          [attachmentId]="user."
         /> -->
         <p>{{ user.name }}</p>
       </div>
@@ -120,7 +119,14 @@
         *ngIf="user.invitationStatus == 2"
       ></p-button> -->
 
-      <p-button icon="pi pi-trash" class="checked" [rounded]="true" [text]="true" severity="danger">
+      <p-button
+        (click)="changed($event, user.id)"
+        icon="pi pi-trash"
+        class="checked"
+        [rounded]="true"
+        [text]="true"
+        severity="danger"
+      >
       </p-button>
 
       <div class="checked" *ngIf="user.invitationStatus == 2">
