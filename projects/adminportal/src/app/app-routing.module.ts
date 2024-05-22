@@ -7,14 +7,12 @@ import { LayoutComponent } from './_metronic/layout/layout.component';
 export const routes: Routes = [
   {
     path: 'error',
-    loadChildren: () =>
-      import('./modules/errors/errors.module').then((m) => m.ErrorsModule),
+    loadChildren: () => import('./modules/errors/errors.module').then((m) => m.ErrorsModule),
   },
   {
     path: '',
-    //canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./_metronic/layout/layout.module').then((m) => m.LayoutModule),
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./_metronic/layout/layout.module').then((m) => m.LayoutModule),
   },
   // { path: '**', redirectTo: 'error/404' },
 ];

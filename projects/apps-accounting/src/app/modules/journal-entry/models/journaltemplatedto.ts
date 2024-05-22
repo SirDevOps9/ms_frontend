@@ -1,10 +1,10 @@
-import { JournalTemplateType } from "./journalentrytemplatetype";
+import { JournalTemplateType } from './journalentrytemplatetype';
 
-export class GetAllJournalTemplateDto{
-    id:string;
-    code:string;
-    PeriodName:string;
-    Type:JournalTemplateType;
-    totalDebitAmountLocal : number;
-    totalCreditAmountLocal : number;
+export class GetAllJournalTemplateDto {
+  id: string;
+  code: string;
+  periodName: string;
+  type: JournalTemplateType;
+  totalDebitAmountLocal: number;
+  totalCreditAmountLocal: number;
 }

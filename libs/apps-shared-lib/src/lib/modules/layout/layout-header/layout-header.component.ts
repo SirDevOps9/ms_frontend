@@ -1,40 +1,43 @@
 import { MenuModule } from './../../../../../../shared-lib/src/lib/models/menuModule';
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'microtec-auth-lib';
 import { AppStoreService } from 'projects/bussiness-owners/src/app/modules/app-store/app-store.service';
 import { UserData } from 'projects/bussiness-owners/src/app/modules/user/models';
 import { Observable } from 'rxjs';
-import { EnvironmentService, LanguageService, RouterService } from 'shared-lib';
+import { EnvironmentService, LanguageService, Modules, RouterService } from 'shared-lib';
 
 @Component({
   selector: 'app-layout-header',
   templateUrl: './layout-header.component.html',
-  styleUrl: './layout-header.component.scss'
+  styleUrl: './layout-header.component.scss',
 })
 export class LayoutHeaderComponent {
   
   userName: string;
+  moduleName: string;
   userData: UserData;
   showcard: boolean = false;
   sidebarOpen: boolean = false;
   modulesOpen: boolean = false;
-  moduleList:MenuModule[];
+  moduleList: MenuModule[];
   cartItemsCount$: Observable<number>;
 
   ngOnInit() {
-   this.moduleList = this.authService.getModules()
-    console.log( this.moduleList ," this.moduleList");
-    
-    
+    this.moduleList = this.authService.getModules();
+    console.log(this.moduleList, ' this.moduleList');
+    if (this.router.snapshot.data['moduleId'] === Modules.Accounting)
+      this.moduleName = 'Accounting';
+    else if (this.router.snapshot.data['moduleId'] === Modules.Hr) this.moduleName = 'Hr';
+    else if (this.router.snapshot.data['moduleId'] === Modules.GeneralSettings)
+      this.moduleName = 'General Settings';
 
+    console.log(this.moduleName);
   }
-  togelModules(){
-   
-      this.modulesOpen=false
-  
+  togelModules() {
+    this.modulesOpen = false;
   }
-  toggleLanguage(): void {
-  }
+  toggleLanguage(): void {}
   logout(): void {
     this.authService.logout();
   }
@@ -47,12 +50,9 @@ export class LayoutHeaderComponent {
     }
   }
 
-
   getProfilePic() {
     return this.userData?.userType == '4'
-      ? this.env.photoBaseUrl +
-          '/api/Users/GetProfilePic?userId=' +
-          this.userData.sub
+      ? this.env.photoBaseUrl + '/api/Users/GetProfilePic?userId=' + this.userData.sub
       : 'assets/images/users/pic.jpg';
   }
 
@@ -63,20 +63,29 @@ export class LayoutHeaderComponent {
       this.showcard = true;
     }
   }
-  routeToCart() {
-  }
+  routeToCart() {}
 
+  navigateto(key: number) {
+    console.log(key);
+
+    if (key === Modules.Hr) {
+      location.href = '../hr';
+    } else if (key === Modules.Accounting) {
+      location.href = '../accounting';
+    } else if (key === Modules.GeneralSettings) {
+      location.href = '../erp';
+    }
+  }
   constructor(
     public languageService: LanguageService,
     public authService: AuthService,
     private env: EnvironmentService,
-    private routerService: RouterService,
-
+    public routerService: RouterService,
+    private router: ActivatedRoute
   ) {
     this.userName = this.authService.getUserName;
     this.userData = this.authService.getUserData()?.userData;
     this.languageService.setLang();
     console.log(this.authService.getUserData()?.userData);
-    
   }
 }
