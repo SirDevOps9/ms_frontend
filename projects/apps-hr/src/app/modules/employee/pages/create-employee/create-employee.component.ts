@@ -9,7 +9,7 @@ import {
   customValidators,
   lookupDto,
 } from 'shared-lib';
-import { AddEmployeePersonal } from '../../models';
+import { AddEmployeePersonal, CityDto, CountryDto } from '../../models';
 import { EmployeeService } from '../../employee.service';
 
 @Component({
@@ -23,11 +23,13 @@ export class CreateEmployeeComponent implements OnInit {
 
   Age: string = '';
   EmployeeCode = '';
-
+  countries: CountryDto[] = [];
+  cities: CityDto[];
   lookups: { [key: string]: lookupDto[] };
 
   ngOnInit() {
     this.initializeForm();
+    this.loadCountries();
     this.loadLookups();
     this.subscribe();
     this.onBirthDateChange();
@@ -90,7 +92,21 @@ export class CreateEmployeeComponent implements OnInit {
   onDiscard() {
     this.addEmployeeForm.reset();
   }
-
+  loadCountries() {
+    this.employeeService.loadCountries();
+    this.employeeService.countries.subscribe({
+      next: (res) => {
+        this.countries = res;
+      },
+    });
+}
+onCountryChange(event: any) {
+  const countryId = event;
+  if (!countryId) return;
+  this.employeeService.loadCities(countryId);
+  this.employeeService.cities.subscribe((res) => {
+    this.cities = res;
+  });}
   constructor(
     public lookupsService: LookupsService,
     private formBuilder: FormBuilder,

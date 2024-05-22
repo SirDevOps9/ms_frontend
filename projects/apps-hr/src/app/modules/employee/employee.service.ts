@@ -7,7 +7,7 @@ import {
 } from 'shared-lib';
 import { EmployeeProxy } from './employee.proxy';
 import { Injectable } from '@angular/core';
-import { AddEmployeePersonal, EditEmployeePersonal,EmployeeDto } from './models';
+import { AddEmployeePersonal, CityDto, CountryDto, EditEmployeePersonal,EmployeeDto } from './models';
 import { BehaviorSubject, catchError, map } from 'rxjs';
 
 @Injectable({
@@ -20,6 +20,12 @@ export class EmployeeService {
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
+  private countryDataSource = new BehaviorSubject<CountryDto[]>([]);
+  public countries = this.countryDataSource.asObservable();
+
+  private cityDataSource = new BehaviorSubject<CityDto[]>([]);
+  public cities = this.cityDataSource.asObservable();
+
   initEmployeesList(searchTerm: string, pageInfo: PageInfo) {
     this.employeeProxy.getAllPaginated(searchTerm, pageInfo).subscribe({
       next: (res) => {
@@ -28,7 +34,16 @@ export class EmployeeService {
       },
     });
   }
-
+  loadCountries() {
+    this.employeeProxy.getAllCountries().subscribe((response) => {
+      this.countryDataSource.next(response);
+    });
+  }
+  loadCities(countryCode: string) {
+    this.employeeProxy.getCities(countryCode).subscribe((response) => {
+      this.cityDataSource.next(response);
+    });
+  }
   addEmployee(model: AddEmployeePersonal) {
     this.loaderService.show();
     this.employeeProxy.addEmployee(model).subscribe({

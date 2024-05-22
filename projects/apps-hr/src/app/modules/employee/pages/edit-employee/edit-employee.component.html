@@ -130,29 +130,43 @@
             <div class="md:col-3">
               <lib-form-group>
                 <div class="my-1">
-
-                <lib-label [appControl]="editEmployeeForm.controls['countryOfBirth']">
-                  {{ 'Employee.Edit.CountryOfBirth' | translate }}
-                </lib-label>
+                  <lib-label [appControl]="editEmployeeForm.controls['countryOfBirth']">
+                    {{ 'Employee.Add.CountryOfBirth' | translate }}
+                  </lib-label>
                 </div>
-                <lib-text-input type="text" formControlName="countryOfBirth"></lib-text-input>
-                <lib-field-validations
-                  [appControl]="editEmployeeForm.controls['countryOfBirth']"
-                ></lib-field-validations>
+
+                <lib-select
+                  formControlName="countryOfBirth"
+                  [options]="countries"
+                  optionValue="id"
+                  optionLabel="nameEn"
+                  [selectedValue]="selectedCountryOfBirth"
+
+                  (valueChanged)="onCountryChange($event)"
+                >
+                </lib-select>
+                <lib-field-validations [appControl]="editEmployeeForm.controls['countryOfBirth']">
+                </lib-field-validations>
               </lib-form-group>
             </div>
             <div class="md:col-3">
               <lib-form-group>
                 <div class="my-1">
-
-                <lib-label [appControl]="editEmployeeForm.controls['birthCity']">
-                  {{ 'Employee.Edit.BirthCity' | translate }}
-                </lib-label>
+                  <lib-label [appControl]="editEmployeeForm.controls['birthCity']">
+                    {{ 'Employee.Add.BirthCity' | translate }}
+                  </lib-label>
                 </div>
-                <lib-text-input type="text" formControlName="birthCity"></lib-text-input>
-                <lib-field-validations
-                  [appControl]="editEmployeeForm.controls['birthCity']"
-                ></lib-field-validations>
+                <lib-select
+                  formControlName="birthCity"
+                  [options]="cities"
+                  optionValue="id"
+                  optionLabel="name"
+                  [selectedValue]="selectedBirthCity"
+
+                >
+                </lib-select>
+                <lib-field-validations [appControl]="editEmployeeForm.controls['birthCity']">
+                </lib-field-validations>
               </lib-form-group>
             </div>
             <div class="md:col-12 info">
@@ -161,15 +175,22 @@
             <div class="md:col-3">
               <lib-form-group>
                 <div class="my-1">
-
-                <lib-label [appControl]="editEmployeeForm.controls['nationality']">
-                  {{ 'Employee.Edit.Nationality' | translate }}
-                </lib-label>
+                  <lib-label [appControl]="editEmployeeForm.controls['nationality']">
+                    {{ 'Employee.Add.Nationality' | translate }}
+                  </lib-label>
                 </div>
-                <lib-text-input type="text" formControlName="nationality"></lib-text-input>
-                <lib-field-validations
-                  [appControl]="editEmployeeForm.controls['nationality']"
-                ></lib-field-validations>
+
+                <lib-select
+                  formControlName="nationality"
+                  [options]="countries"
+                  optionValue="id"
+                  optionLabel="nameEn"
+                  [selectedValue]="selectedNationality"
+
+                >
+                </lib-select>
+                <lib-field-validations [appControl]="editEmployeeForm.controls['nationality']">
+                </lib-field-validations>
               </lib-form-group>
             </div>
 
