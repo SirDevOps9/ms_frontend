@@ -34,7 +34,6 @@ export class CreateEmployeeComponent implements OnInit {
     this.loadLookups();
     this.subscribe();
     this.onBirthDateChange();
-    this.navigatToList();
   }
 
 
@@ -89,6 +88,15 @@ export class CreateEmployeeComponent implements OnInit {
     if (!this.formsService.validForm(this.addEmployeeForm, true)) return;
     const request: AddEmployeePersonal = this.addEmployeeForm.value;
     this.employeeService.addEmployee(request);
+
+    this.employeeService.addEmployeeStatus.subscribe({
+      next: (success) => {
+        if (success) {
+          this.routerService.navigateTo(`/employee`);
+        }
+      },
+    });
+    //this.employeeService.addEmployeeStatus.next(false);
   }
 
   onDiscard() {
@@ -112,16 +120,6 @@ export class CreateEmployeeComponent implements OnInit {
     });
   }
 
-
-  navigatToList() {
-    this.employeeService.addEmployeeStatus.subscribe({
-      next: (success) => {
-        if (success) {
-          this.routerService.navigateTo(`/employee`);
-        }
-      },
-    });
-  }
 
   constructor(
     public lookupsService: LookupsService,

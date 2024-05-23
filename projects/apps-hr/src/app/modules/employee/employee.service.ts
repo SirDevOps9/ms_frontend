@@ -7,7 +7,13 @@ import {
 } from 'shared-lib';
 import { EmployeeProxy } from './employee.proxy';
 import { Injectable } from '@angular/core';
-import { AddEmployeePersonal, CityDto, CountryDto, EditEmployeePersonal,EmployeeDto } from './models';
+import {
+  AddEmployeePersonal,
+  CityDto,
+  CountryDto,
+  EditEmployeePersonal,
+  EmployeeDto,
+} from './models';
 import { BehaviorSubject, catchError, map } from 'rxjs';
 
 @Injectable({
@@ -28,6 +34,7 @@ export class EmployeeService {
 
   public addEmployeeStatus = new BehaviorSubject<boolean>(false);
 
+  public editEmployeeStatus = new BehaviorSubject<boolean>(false);
 
   initEmployeesList(searchTerm: string, pageInfo: PageInfo) {
     this.employeeProxy.getAllPaginated(searchTerm, pageInfo).subscribe({
@@ -37,7 +44,7 @@ export class EmployeeService {
       },
     });
   }
-loadCountries() {
+  loadCountries() {
     this.employeeProxy.getAllCountries().subscribe((response) => {
       this.countryDataSource.next(response);
     });
@@ -59,12 +66,10 @@ loadCountries() {
         );
         this.loaderService.hide();
         this.addEmployeeStatus.next(true);
-
       },
       error: () => {
         this.loaderService.hide();
         this.addEmployeeStatus.next(false);
-
       },
     });
   }
@@ -79,9 +84,11 @@ loadCountries() {
           this.languageService.transalte('Employee.EmployeeEditedSuccessfully')
         );
         this.loaderService.hide();
+        this.editEmployeeStatus.next(true);
       },
       error: () => {
         this.loaderService.hide();
+        this.editEmployeeStatus.next(false);
       },
     });
   }
@@ -123,6 +130,6 @@ loadCountries() {
     private employeeProxy: EmployeeProxy,
     private toasterService: ToasterService,
     private languageService: LanguageService,
-    private loaderService: LoaderService,
+    private loaderService: LoaderService
   ) {}
 }

@@ -52,8 +52,6 @@ export class EditEmployeeComponent implements OnInit {
     this.loadLookups();
     this.subscribe();
     this.onBirthDateChange();
-
-
   }
 
   loadLookups() {
@@ -120,8 +118,7 @@ export class EditEmployeeComponent implements OnInit {
       this.selectedReligion = this.enums.Religion[res.religion].toString();
       this.selectedMilitaryStatus = this.enums.MilitaryStatus[res.militaryStatus].toString();
 
-      if (res.bloodType)
-      this.selectedBloodType = this.enums.BloodType[res.bloodType].toString();
+      if (res.bloodType) this.selectedBloodType = this.enums.BloodType[res.bloodType].toString();
 
       this.employeeService.loadCities(this.selectedCountryOfBirth);
       this.employeeService.cities.subscribe((cities) => {
@@ -134,9 +131,22 @@ export class EditEmployeeComponent implements OnInit {
   }
   onSubmit() {
     if (!this.formsService.validForm(this.editEmployeeForm, true)) return;
+
     const request: EditEmployeePersonal = this.editEmployeeForm.value;
+
     request.id = this.routerService.currentId;
+
     this.employeeService.editEmployee(request);
+
+    this.employeeService.editEmployeeStatus.subscribe({
+      next: (success) => {
+        console.log('Success State', success);
+        if (success) {
+          alert('Success');
+          this.routerService.navigateTo(`/employee`);
+        }
+      },
+    });
   }
 
   onDiscard() {
