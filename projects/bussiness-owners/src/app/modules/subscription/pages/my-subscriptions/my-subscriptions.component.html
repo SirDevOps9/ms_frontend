@@ -3,97 +3,84 @@
     <div class="plan_header">
       <button class="btn body_b16" type="button" (click)="openSubdomainModal()">
         <span class="icon pi pi-plus"></span>
-        {{'Subscription.Subdomain.AddSubdomain' | translate}}
+        {{ 'Subscription.Subdomain.AddSubdomain' | translate }}
       </button>
     </div>
   </lib-bread-crumb>
- 
+
   <div class="plan_page">
-    <div class="card-container grid" *ngIf="subdomain ">
-      <div class=" col-12 md:col-6 " *ngFor="let subdomain of subdomainList">
+    <div class="card-container grid" *ngIf="subdomain">
+      <div class="col-12 md:col-6" *ngFor="let subdomain of subdomainList">
         <div class="card">
           <div class="card_header">
-            <div class="supdomain paragraph_b20">{{subdomain.name}}{{domainName}}</div>
+            <div class="supdomain paragraph_b20">{{ subdomain.name }}{{ domainName }}</div>
             <div class="date">
-              <p class="expire body_b13">{{'Subscription.Subdomain.Expire' | translate}}</p>
-              <p class="expire_date body_b13">{{subdomain.validTo | date: 'dd'}}/{{subdomain.validTo | date:'MM'}}/{{subdomain.validTo | date: 'yyyy'}}</p>
+              <p class="expire body_b13">{{ 'Subscription.Subdomain.Expire' | translate }}</p>
+              <p class="expire_date body_b13">
+                {{ subdomain.validTo | date : 'dd' }}/{{ subdomain.validTo | date : 'MM' }}/{{
+                  subdomain.validTo | date : 'yyyy'
+                }}
+              </p>
             </div>
           </div>
-  
+
           <div class="card_contant">
             <div class="plan_cover"></div>
             <div class="plan_description">
-              <div class="btn_manage ">
-
+              <div class="btn_manage">
                 <button
                   class="mange body_b14 user"
                   type="button"
                   (click)="navigateToManageUser(subdomain.id)"
                 >
                   <span class="pi pi-users icon_btn"></span>
-                 {{'Subscription.Subdomain.Manage_User'|translate}}
+                  {{ 'Subscription.Subdomain.Manage_User' | translate }}
                 </button>
                 <button
-                  class="mange body_b14  Companies "
+                  class="mange body_b14 Companies"
                   type="button"
                   (click)="navigateToManageCompany(subdomain.id)"
                 >
                   <span class="pi pi-building icon_btn"></span>
-                  
-                  {{'Subscription.Subdomain.Manage_Companies'|translate}}
-                
+
+                  {{ 'Subscription.Subdomain.Manage_Companies' | translate }}
                 </button>
-                <button class="mange body_b14 " type="button" >
+                <button class="mange body_b14" type="button">
                   <span class="pi pi-refresh icon_btn"></span>
-                  
-                  {{'Subscription.Subdomain.renew'|translate}}
-                  
+
+                  {{ 'Subscription.Subdomain.renew' | translate }}
                 </button>
               </div>
               <div class="mange_app">
                 <button
-                  class="btn_mange_app body_b14 "
+                  class="btn_mange_app body_b14"
                   type="button"
                   (click)="navigateToManageApp(subdomain.id)"
                 >
                   <span class="pi pi-building icon_btn"></span>
-                 
-                  {{'Subscription.Subdomain.Manage_aPP'|translate}}
-               
-                </button>
-                <button
-                  class="btn_mange_app body_b14"
-                  type="button"
-                >
-                  <span class="pi pi-building icon_btn"></span>
-                  {{'Subscription.Subdomain.User_licenses'|translate}}
 
-    
+                  {{ 'Subscription.Subdomain.Manage_aPP' | translate }}
+                </button>
+                <button class="btn_mange_app body_b14" type="button">
+                  <span class="pi pi-building icon_btn"></span>
+                  {{ 'Subscription.Subdomain.User_licenses' | translate }}
                 </button>
               </div>
               <div class="mange_erp">
-                <button
-                  class="btn_mange_erp body_b14 "
-                  type="button"
-                  
-                >
+                <button class="btn_mange_erp body_b14" type="button">
                   <span class="pi pi-building icon_btn"></span>
-                  {{'Subscription.Subdomain.ERP_Login'|translate}}
-                  
+                  {{ 'Subscription.Subdomain.ERP_Login' | translate }}
                 </button>
-              
               </div>
             </div>
           </div>
         </div>
-      
-      
       </div>
     </div>
-    <div class="card_empty_subdomain" *ngIf="showSection" >
+    <div class="card_empty_subdomain" *ngIf="showSection">
       <div class="card_subdomain">
         <div class="cover">
-            <img src="assets/images/plans/Vector.png" alt="">
+          <img src="assets/images/plans/Vector.png" alt="" />
         </div>
         <div class="text">
           <p class="desc">No Domain Space - Yet !</p>

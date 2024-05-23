@@ -1,4 +1,4 @@
-<nav  (mouseleave)="modulesOpen = false">
+<nav (mouseleave)="modulesOpen = false">
   <div class="card">
     <div class="header_erp">
       <div class="header_content">
@@ -8,21 +8,19 @@
               <!-- <div class="logo"></div> -->
               <div
                 class="suplogo"
-                style="
-                  background-image: url('assets/images/navbar/suplogo.png');
-                "
+                style="background-image: url('assets/images/navbar/suplogo.png')"
               ></div>
               <div class="modules" (mouseenter)="modulesOpen = true">
                 <button class="btn_mod_select">
                   <i class="icon fab fa-microsoft"></i>
-                  General Setting
+                  {{ moduleName }}
                 </button>
-                <div
-                  class="menue_modules"
-                  *ngIf="modulesOpen"
-                 
-                >
-                  <p class="item" *ngFor="let module of moduleList">
+                <div class="menue_modules" *ngIf="modulesOpen" (mouseleave)="modulesOpen = false">
+                  <p
+                    class="item"
+                    *ngFor="let module of moduleList"
+                    (click)="navigateto(module.moduleId)"
+                  >
                     {{ module.module }}
                   </p>
                 </div>
@@ -80,11 +78,7 @@
                     class="btn_profaile"
                     style="background-image: url('{{ getProfilePic() }}');"
                   ></button>
-                  <div
-                    class="profaile_card_drob"
-                    #profaile_card_drob
-                    *ngIf="showcard"
-                  >
+                  <div class="profaile_card_drob" #profaile_card_drob *ngIf="showcard">
                     <div class="header_card">
                       <div class="photo">
                         <img [src]="getProfilePic()" />
@@ -93,10 +87,8 @@
                         <p class="name">{{ userName }}</p>
                         <p class="description">
                           {{
-                            (userData.userType == "2"
-                              ? "User.AdminUser"
-                              : "User.InvitedUser"
-                            ) | translate
+                            (userData.userType == '2' ? 'User.AdminUser' : 'User.InvitedUser')
+                              | translate
                           }}
                         </p>
                       </div>
@@ -108,7 +100,7 @@
                     <button class="lang_link" (click)="toggleLanguage()">
                       <p class="pi pi-language"></p>
                       <p class="title">
-                        {{ languageService.Lang === "en" ? "English" : "عربى" }}
+                        {{ languageService.Lang === 'en' ? 'English' : 'عربى' }}
                       </p>
                     </button>
                     <button class="mode_link">

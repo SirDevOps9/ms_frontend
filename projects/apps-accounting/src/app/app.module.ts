@@ -35,6 +35,7 @@ import { UrlSerializer } from '@angular/router';
           new MultiTranslateHttpLoader(http, {
             resources: [
               { prefix: './assets/langs/accounting/', suffix: '.json' },
+              { prefix: './assets/langs/erphome/', suffix: '.json' },
             ],
           }),
         deps: [HttpClient],

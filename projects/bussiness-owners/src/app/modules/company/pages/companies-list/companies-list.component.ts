@@ -28,20 +28,14 @@ export class CompaniesListComponent implements OnInit {
     private companyService: CompanyService,
     private dialog: DialogService,
     public Sharedcompanyenums: Sharedcompanyenums
-  ) { }
+  ) {}
 
   newCompany() {
-    this.companyService.openNewCompanyModal(
-      this.subdomainId,
-      this.ref,
-      this.dialog
-    );
+    this.companyService.openNewCompanyModal(this.subdomainId, this.ref, this.dialog);
   }
 
   ngOnInit() {
-    this.titleService.setTitle(
-      this.languageService.transalte('Company.CompanyList')
-    );
+    this.titleService.setTitle(this.languageService.transalte('Company.CompanyList'));
     this.initCompanyData();
 
     this.cols = [
@@ -80,10 +74,7 @@ export class CompaniesListComponent implements OnInit {
     ];
   }
   applyFilterGlobal($event: any, stringVal: any) {
-    this.myTab.filterGlobal(
-      ($event.target as HTMLInputElement).value,
-      stringVal
-    );
+    this.myTab.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
 
   initCompanyData() {
@@ -96,10 +87,7 @@ export class CompaniesListComponent implements OnInit {
         console.log('this.tableData', this.tableData);
       },
     });
-
-
   }
-
 
   toggle(id: string, isActive: boolean) {
     if (!isActive) this.companyService.activate(id);

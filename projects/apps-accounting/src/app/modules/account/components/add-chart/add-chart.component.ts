@@ -46,8 +46,8 @@ export class AddChartComponent {
     private currencyService: CurrencyService,
     private formsService: FormsService,
     private lookupsService: LookupsService,
-    private toaserService : ToasterService,
-    private languageService : LanguageService
+    private toaserService: ToasterService,
+    private languageService: LanguageService
   ) {
     this.formGroup = formBuilder.group({
       nameAr: new FormControl('', customValidators.length(0, 255)),
@@ -57,7 +57,7 @@ export class AddChartComponent {
       parentId: new FormControl(''),
       accountSectionName: new FormControl(''),
       natureId: new FormControl('', customValidators.required),
-      hasNoChild: new FormControl(),
+      hasNoChild: new FormControl(false),
       accountTypeId: new FormControl('', customValidators.required),
       accountSectionId: new FormControl('', customValidators.required),
       currencyId: new FormControl(),
@@ -159,7 +159,7 @@ export class AddChartComponent {
         this.toaserService.showSuccess(
           this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
           this.languageService.transalte('ChartOfAccounts.SuccessMessage')
-        )
+        );
       }
     });
   }

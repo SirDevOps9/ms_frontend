@@ -18,11 +18,11 @@
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         class="flex flex-column"
         [resizableColumns]="true"
-         columnResizeMode="expand"
+        columnResizeMode="expand"
       >
-        <!-- <ng-template pTemplate="caption">
+        <ng-template pTemplate="caption">
           <ng-content select="[caption]"> </ng-content>
-        </ng-template> -->
+        </ng-template>
 
         <ng-template pTemplate="header">
           <tr>
@@ -39,16 +39,11 @@
         </ng-template>
 
         <ng-template pTemplate="body" let-row let-i="rowIndex">
-          <tr [ngClass]="{cssClass: i==selectedIndex}">
+          <tr [ngClass]="{ cssClass: i == selectedIndex }">
             <td *ngFor="let col of tableConfigs.columns">
               <ng-container *ngIf="!col.template; else customCellTemplate!">
                 <ng-container *ngIf="col.lookupKey">
-                  {{
-                    this.lookupsService.getLookUpText(
-                      col.lookupKey,
-                      row[col.name]
-                    )
-                  }}
+                  {{ this.lookupsService.getLookUpText(col.lookupKey, row[col.name]) }}
                 </ng-container>
                 {{ row[col.name] }}
               </ng-container>
@@ -81,25 +76,16 @@
 
             <p *ngIf="col.name !== tableConfigs.cardTitleKey">
               <strong>{{ col.headerText }}: </strong>
-              <ng-container
-                *ngIf="!col.lookupKey && col.name.indexOf('date') !== -1"
-              >
-                {{ row[col.name] | date : "d MMMM y" }}
+              <ng-container *ngIf="!col.lookupKey && col.name.indexOf('date') !== -1">
+                {{ row[col.name] | date : 'd MMMM y' }}
               </ng-container>
 
-              <ng-container
-                *ngIf="!col.lookupKey && col.name.indexOf('date') === -1"
-              >
+              <ng-container *ngIf="!col.lookupKey && col.name.indexOf('date') === -1">
                 {{ row[col.name] }}
               </ng-container>
 
               <ng-container *ngIf="col.lookupKey">
-                {{
-                  this.lookupsService.getLookUpText(
-                    col.lookupKey,
-                    row[col.name]
-                  )
-                }}
+                {{ this.lookupsService.getLookUpText(col.lookupKey, row[col.name]) }}
               </ng-container>
             </p>
           </ng-container>
