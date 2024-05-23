@@ -2,9 +2,8 @@
   <div class="invite_user_header">
     <div class="title">
       <div class="plus_icon"></div>
-      {{ "tag.addtag.Titel" | translate }}
+      {{ "tag.addtag.Title" | translate }}
     </div>
-    <div class="pi pi-times cancel" (click)="onCancel()"></div>
   </div>
   <form class="domain_form" [formGroup]="TagForm" (ngSubmit)="onSubmit()">
     <div class="domain_content">
@@ -34,12 +33,12 @@
             <lib-label [appControl]="TagForm.controls['ModuleIds']">
               {{ "tag.addtag.applicability" | translate }}
             </lib-label>
-            <p-multiSelect
+            <lib-multi-select
               [options]="modulelist"
               optionLabel="module"
               optionValue="moduleId"
               formControlName="ModuleIds"
-            ></p-multiSelect>
+            ></lib-multi-select>
             <lib-field-validations
               [appControl]="TagForm.controls['ModuleIds']"
             ></lib-field-validations>
@@ -47,13 +46,13 @@
         </div>
       </div>
       <div class="actions">
-        <button type="submit" class="save w-6" [disabled]="!TagForm.valid">
+        <lib-button type="submit" class="save w-6" >
           <span class="pi pi-send"></span>
           {{ "tag.addtag.Save" | translate }}
-        </button>
-        <button class="cancel" type="button" (click)="onCancel()">
+        </lib-button >
+        <lib-button  class="cancel" type="button" (click)="onCancel()">
           {{ "tag.addtag.Discard" | translate }}
-        </button>
+        </lib-button >
       </div>
     </div>
   </form>

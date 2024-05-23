@@ -52,14 +52,6 @@ export class TagListComponent implements OnInit {
       },
     });
   }
-
-  routeToAdd() {
-    const dialogRef = this.dialog.open(TagAddComponent, {
-      width: '800px',
-      height: '700px'
-    });  
-  }
-
   routeToEdit(id: number) {
     this.routerService.navigateTo(`/journalentry/edit/${id}`);
   }
