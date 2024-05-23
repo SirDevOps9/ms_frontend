@@ -26,6 +26,9 @@ export class EmployeeService {
   private cityDataSource = new BehaviorSubject<CityDto[]>([]);
   public cities = this.cityDataSource.asObservable();
 
+  public addEmployeeStatus = new BehaviorSubject<boolean>(false);
+
+
   initEmployeesList(searchTerm: string, pageInfo: PageInfo) {
     this.employeeProxy.getAllPaginated(searchTerm, pageInfo).subscribe({
       next: (res) => {
@@ -34,16 +37,18 @@ export class EmployeeService {
       },
     });
   }
-  loadCountries() {
+loadCountries() {
     this.employeeProxy.getAllCountries().subscribe((response) => {
       this.countryDataSource.next(response);
     });
   }
+
   loadCities(countryCode: string) {
     this.employeeProxy.getCities(countryCode).subscribe((response) => {
       this.cityDataSource.next(response);
     });
   }
+
   addEmployee(model: AddEmployeePersonal) {
     this.loaderService.show();
     this.employeeProxy.addEmployee(model).subscribe({
@@ -53,15 +58,20 @@ export class EmployeeService {
           this.languageService.transalte('Employee.EmployeeAddedSuccessfully')
         );
         this.loaderService.hide();
+        this.addEmployeeStatus.next(true);
+
       },
       error: () => {
         this.loaderService.hide();
+        this.addEmployeeStatus.next(false);
+
       },
     });
   }
 
   editEmployee(model: EditEmployeePersonal) {
     this.loaderService.show();
+
     this.employeeProxy.editEmployee(model).subscribe({
       next: () => {
         this.toasterService.showSuccess(
@@ -75,7 +85,6 @@ export class EmployeeService {
       },
     });
   }
-
   getEmployeeById(Id: number) {
     return this.employeeProxy.getEmployeeById(Id).pipe(
       map((res) => {
@@ -114,6 +123,6 @@ export class EmployeeService {
     private employeeProxy: EmployeeProxy,
     private toasterService: ToasterService,
     private languageService: LanguageService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
   ) {}
 }

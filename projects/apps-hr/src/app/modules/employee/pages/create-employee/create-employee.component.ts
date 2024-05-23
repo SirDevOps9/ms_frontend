@@ -5,6 +5,7 @@ import {
   FormsService,
   LookupEnum,
   LookupsService,
+  RouterService,
   SharedLibraryEnums,
   customValidators,
   lookupDto,
@@ -33,11 +34,13 @@ export class CreateEmployeeComponent implements OnInit {
     this.loadLookups();
     this.subscribe();
     this.onBirthDateChange();
+    this.navigatToList();
   }
+
+
 
   loadLookups() {
     this.lookupsService.loadLookups([
-      //LookupEnum.Country,
       LookupEnum.Gender,
       LookupEnum.MaritalStatus,
       LookupEnum.Religion,
@@ -52,8 +55,7 @@ export class CreateEmployeeComponent implements OnInit {
     const birthDateControl = this.addEmployeeForm.get('birthDate');
     birthDateControl?.valueChanges.subscribe((birthDate) => {
       this.Age = '';
-      if (birthDateControl.valid) 
-        this.Age = this.ageService.calculateAge(birthDate);
+      if (birthDateControl.valid) this.Age = this.ageService.calculateAge(birthDate);
     });
   }
   private initializeForm() {
@@ -92,6 +94,7 @@ export class CreateEmployeeComponent implements OnInit {
   onDiscard() {
     this.addEmployeeForm.reset();
   }
+
   loadCountries() {
     this.employeeService.loadCountries();
     this.employeeService.countries.subscribe({
@@ -99,20 +102,34 @@ export class CreateEmployeeComponent implements OnInit {
         this.countries = res;
       },
     });
-}
-onCountryChange(event: any) {
-  const countryId = event;
-  if (!countryId) return;
-  this.employeeService.loadCities(countryId);
-  this.employeeService.cities.subscribe((res) => {
-    this.cities = res;
-  });}
+  }
+  onCountryChange(event: any) {
+    const countryId = event;
+    if (!countryId) return;
+    this.employeeService.loadCities(countryId);
+    this.employeeService.cities.subscribe((res) => {
+      this.cities = res;
+    });
+  }
+
+
+  navigatToList() {
+    this.employeeService.addEmployeeStatus.subscribe({
+      next: (success) => {
+        if (success) {
+          this.routerService.navigateTo(`/employee`);
+        }
+      },
+    });
+  }
+
   constructor(
     public lookupsService: LookupsService,
     private formBuilder: FormBuilder,
     private formsService: FormsService,
     private employeeService: EmployeeService,
     public sharedLibEnums: SharedLibraryEnums,
-    private ageService: AgeService
+    private ageService: AgeService,
+    private routerService: RouterService
   ) {}
 }

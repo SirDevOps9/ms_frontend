@@ -74,6 +74,9 @@ export class EmployeeListComponent implements OnInit {
   }
   navigateToEdit(id: number) {
     this.routerService.navigateTo(`/employee/edit/${id}`);
+    console.log("rrrrrrrrrrrrrrr",    id);
+  
+    
   }
   navigateToView(id: number) {
     this.routerService.navigateTo(`/employee/view/${id}`);

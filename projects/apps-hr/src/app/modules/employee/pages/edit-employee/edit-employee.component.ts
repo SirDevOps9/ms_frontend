@@ -52,11 +52,12 @@ export class EditEmployeeComponent implements OnInit {
     this.loadLookups();
     this.subscribe();
     this.onBirthDateChange();
+
+
   }
 
   loadLookups() {
     this.lookupsService.loadLookups([
-      //LookupEnum.Country,
       LookupEnum.Gender,
       LookupEnum.MaritalStatus,
       LookupEnum.Religion,
@@ -113,23 +114,22 @@ export class EditEmployeeComponent implements OnInit {
       this.employeeCode = res.employeeCode;
       this.selectedCountryOfBirth = res.countryOfBirth;
       this.selectedNationality = res.nationality;
+      this.selectedBirthCity = res.birthCity;
       this.selectedGender = this.enums.Gender[res.gender].toString();
       this.selectedMaritalStatus = this.enums.MaritalStatus[res.maritalStatus].toString();
       this.selectedReligion = this.enums.Religion[res.religion].toString();
       this.selectedMilitaryStatus = this.enums.MilitaryStatus[res.militaryStatus].toString();
-      this.selectedBloodType = this.enums.BloodType[res.bloodType!].toString();
-      console.log(' ', this.selectedGender);
 
-      if (this.selectedCountryOfBirth) {
-        this.employeeService.loadCities(this.selectedCountryOfBirth);
-        this.employeeService.cities.subscribe((cities) => {
-          this.cities = cities;
-          this.selectedBirthCity = res.birthCity;
-          console.log('city', this.selectedBirthCity);
+      if (res.bloodType)
+      this.selectedBloodType = this.enums.BloodType[res.bloodType].toString();
 
-          this.editEmployeeForm.patchValue({ birthCity: this.selectedBirthCity });
-        });
-      }
+      this.employeeService.loadCities(this.selectedCountryOfBirth);
+      this.employeeService.cities.subscribe((cities) => {
+        this.cities = cities;
+        this.selectedBirthCity = res.birthCity;
+
+        this.editEmployeeForm.patchValue({ birthCity: this.selectedBirthCity });
+      });
     });
   }
   onSubmit() {
