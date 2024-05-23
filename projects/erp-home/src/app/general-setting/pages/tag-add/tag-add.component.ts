@@ -26,18 +26,8 @@ export class TagAddComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.modulelist = this.getStaticModuleList();
-    console.log("module", this.modulelist)
-    //this.moudlelist();
+    this.moudlelist();
     this.initializeTagForm();
-  }
-
-  getStaticModuleList(): MenuModule[] {
-    return [
-      { key: 1, module: 'Module 1' },
-      { key: 2, module: 'Module 2' },
-      { key: 3, module: 'Module 3' }
-    ];
   }
 
   moudlelist() {
@@ -60,7 +50,6 @@ export class TagAddComponent implements OnInit {
     if(!this.TagForm.valid) return;
     const tagDto :AddTagDto=this.TagForm.value;
     this.generalSettingService.addTag(tagDto,this.ref);
-    this.TagForm.patchValue({code : this.generalSettingService.TagCode});
     
   }
 }
