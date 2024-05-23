@@ -7,11 +7,7 @@ import {
   FormGroup,
 } from '@angular/forms';
 import { FormsService, customValidators } from 'shared-lib';
-import {
-  DialogService,
-  DynamicDialogConfig,
-  DynamicDialogRef,
-} from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddDomainSpaceDto, PurchasingPaymentPeriod } from '../../models';
 import { SubscriptionService } from '../../subscription.service';
 import { catchError, map, of } from 'rxjs';
@@ -36,21 +32,16 @@ export class AddDomainSpaceComponent implements OnInit {
   ngOnInit() {
     this.initializesubDomainForm();
     this.activeButton('Yearly');
-    this.subdomainForm.controls['purchasingPaymentCount'].setValue(1)
+    this.subdomainForm.controls['purchasingPaymentCount'].setValue(1);
     this.calculateCost();
-    // this.subdomainForm.controls[
-    //   'purchasingPaymentCount'
-    // ].valueChanges.subscribe(() => {
-    //   this.calculateCost();
-    // });
+    this.subdomainForm.controls['purchasingPaymentCount'].valueChanges.subscribe(() => {
+      this.calculateCost();
+    });
   }
   initializesubDomainForm() {
     this.subdomainForm = this.fb.group({
-      purchasingPaymentCount: new FormControl('', customValidators.required,),
-      name: new FormControl('', [
-        customValidators.required,
-        customValidators.noSpecialChars,
-      ]),
+      purchasingPaymentCount: new FormControl('', customValidators.required),
+      name: new FormControl('', [customValidators.required, customValidators.noSpecialChars]),
       purchasingPaymentPeriod: new FormControl([customValidators.required]),
     });
   }
@@ -59,34 +50,26 @@ export class AddDomainSpaceComponent implements OnInit {
     const domainModel: AddDomainSpaceDto = {
       ...this.subdomainForm.value,
       purchasingPaymentPeriod: this.purchasingPaymentPeriod,
-      
     };
 
-
     this.subscriptionService.addSubdomain(domainModel, this.ref);
-
   }
-  onCancel() { 
-    console.log("window.location.reload");
-    
-  window.location.reload
+  onCancel() {
+    console.log('window.location.reload');
+
+    window.location.reload;
     this.ref.close();
-    
   }
 
   activeButton(id: string) {
     this.purchasingPaymentPeriod =
-      id === 'Monthly'
-        ? PurchasingPaymentPeriod.Monthly
-        : PurchasingPaymentPeriod.Yearly;
+      id === 'Monthly' ? PurchasingPaymentPeriod.Monthly : PurchasingPaymentPeriod.Yearly;
     this.period = id;
     this.setRangeValidator(id);
   }
 
   setRangeValidator(selectedOption: string) {
-    const purchasingPaymentCountControl = this.subdomainForm.get(
-      'purchasingPaymentCount'
-    );
+    const purchasingPaymentCountControl = this.subdomainForm.get('purchasingPaymentCount');
 
     if (selectedOption === 'Monthly') {
       purchasingPaymentCountControl?.setValidators([
@@ -123,19 +106,16 @@ export class AddDomainSpaceComponent implements OnInit {
   onNameInputKeyUp(event: any) {
     const subdomainName = event.target.value;
     if (subdomainName.length > 3) {
-      this.subscriptionService
-        .checkSubdomian(subdomainName)
-        .subscribe((exists: boolean) => {
-          if (exists) {
-            this.subdomainInValid = true;
-            this.subdomainValid = false;
-          } else {
-            this.subdomainInValid = false;
-            this.subdomainValid = true;
-          }
-        });
-    }
-    else{
+      this.subscriptionService.checkSubdomian(subdomainName).subscribe((exists: boolean) => {
+        if (exists) {
+          this.subdomainInValid = true;
+          this.subdomainValid = false;
+        } else {
+          this.subdomainInValid = false;
+          this.subdomainValid = true;
+        }
+      });
+    } else {
       this.subdomainInValid = false;
       this.subdomainValid = false;
     }

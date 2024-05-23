@@ -12,12 +12,12 @@ import { ResponseSubdomainListDto } from '../../models/responseSubdomainListDto'
 })
 export class MySubscriptionsComponent implements OnInit {
   List: SubscriptionDto[];
-  subdomainList : ResponseSubdomainListDto[] = [];
+  subdomainList: ResponseSubdomainListDto[] = [];
   subdomain: boolean = false;
   emptySubdomain: boolean = false;
-  showSection : boolean = false
+  showSection: boolean = false;
   ref: DynamicDialogRef;
-  domainName:string="@microtec.com.sa"
+  domainName: string = '@microtec.com.sa';
 
   ngOnInit() {
     this.titleService.setTitle('My Subscriptions');
@@ -42,18 +42,19 @@ export class MySubscriptionsComponent implements OnInit {
   loadMySubdomains() {
     this.subscriptionService.loadSubdomains();
     this.subscriptionService.subdomains.subscribe((subdomains) => {
-      this.subdomainList = subdomains;
+      if (subdomains) {
+        this.subdomainList = subdomains;
 
-      console.log(subdomains)
-      
-      if(this.subdomainList.length > 0){
-        this.showSection = false
-        this.subdomain = true
-      } 
-      else{
-        this.subdomain = false
-        this.showSection = true
-      } 
+        console.log(subdomains);
+
+        if (this.subdomainList.length > 0) {
+          this.showSection = false;
+          this.subdomain = true;
+        } else {
+          this.subdomain = false;
+          this.showSection = true;
+        }
+      }
     });
   }
 

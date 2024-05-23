@@ -1,4 +1,17 @@
 
+::ng-deep .user-cont{
+  .p-datatable-header {
+    display: none !important;
+  }
+ 
+}
+::ng-deep .checked{
+    .p-button {
+      background: transparent !important;
+    }
+  }
+
+
 .Active {
   width: 150px;
   height: 40px;

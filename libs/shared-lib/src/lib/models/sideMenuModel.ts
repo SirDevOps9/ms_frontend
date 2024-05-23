@@ -6,6 +6,7 @@ export interface SideMenuModel {
   data: string;
   type: string;
   icon: string;
+  moduleId:number;
   parentId?: number;
   children?: SideMenuModel[];
 }

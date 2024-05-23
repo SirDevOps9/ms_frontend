@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { AddDomainSpaceDto, ResponseSubdomainDto, SubscriptionDto, TenantLicenseDto } from './models';
+import {
+  AddDomainSpaceDto,
+  ResponseSubdomainDto,
+  SubscriptionDto,
+  TenantLicenseDto,
+} from './models';
 
 import { LanguageService, LoaderService, RouterService, ToasterService } from 'shared-lib';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -15,7 +20,9 @@ export class SubscriptionService {
   private subscriptionDataSource = new BehaviorSubject<SubscriptionDto[]>([]);
   public subscriptions = this.subscriptionDataSource.asObservable();
 
-  private subdomainsDataSource = new Subject<ResponseSubdomainListDto[]>();
+  private subdomainsDataSource = new BehaviorSubject<ResponseSubdomainListDto[] | undefined>(
+    undefined
+  );
   public subdomains = this.subdomainsDataSource.asObservable();
 
   private SubscriptionDetailsDataSource = new BehaviorSubject<subscriptionDetailsDto[]>([]);
@@ -53,9 +60,16 @@ export class SubscriptionService {
           this.languageService.transalte('Subscription.Subdomain.SubdomainAddedSuccessfully')
         );
         this.loaderService.hide();
+
         dialogRef.close(res);
-        window.location.reload();
-        // this.subdomainsDataSource.next(res);
+
+        let updatedList: ResponseSubdomainListDto[] = [];
+
+        if (this.subdomainsDataSource.value)
+          updatedList = [...this.subdomainsDataSource.value, res];
+        else updatedList.push(res);
+
+        this.subdomainsDataSource.next(updatedList);
       },
       error: (err) => {
         this.loaderService.hide();

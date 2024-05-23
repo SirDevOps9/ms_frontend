@@ -43,33 +43,19 @@ export class CompanyProxy {
   }
 
   saveCompanyContact(request: CompanyContactDto): Observable<CompanyDto> {
-    return this.httpService.post<CompanyDto>(
-      'Company/Contact/AddorUpdate',
-      request
-    );
+    return this.httpService.post<CompanyDto>('Company/Contact/AddorUpdate', request);
   }
 
   saveCompanyAddress(request: CompanyAddressDto): Observable<CompanyDto> {
-    return this.httpService.post<CompanyDto>(
-      'Company/Address/AddorUpdate',
-      request
-    );
+    return this.httpService.post<CompanyDto>('Company/Address/AddorUpdate', request);
   }
 
   saveCompanyLegal(request: CompanyLegalDto): Observable<CompanyDto> {
-    return this.httpService.post<CompanyDto>(
-      'Company/Legal/AddorUpdate',
-      request
-    );
+    return this.httpService.post<CompanyDto>('Company/Legal/AddorUpdate', request);
   }
 
-  saveCompanyHierarchy(
-    request: UpdateCompanyHierarchyDto
-  ): Observable<CompanyHierarchyDto> {
-    return this.httpService.post<CompanyHierarchyDto>(
-      'Company/Hierarchy/Update',
-      request
-    );
+  saveCompanyHierarchy(request: UpdateCompanyHierarchyDto): Observable<CompanyHierarchyDto> {
+    return this.httpService.post<CompanyHierarchyDto>('Company/Hierarchy/Update', request);
   }
 
   getCompanyContactById(id: string): Observable<CompanyContactDto> {
@@ -118,14 +104,12 @@ export class CompanyProxy {
 
   getAllHoldingCompanies(subdomain: string): Observable<lookupDto[]> {
     return this.httpService.get<lookupDto[]>(
-      `Company/GetAllHoldingCompanies??subdomain=${subdomain}`
+      `Company/GetAllHoldingCompanies?subdomain=${subdomain}`
     );
   }
 
   getAllCompanies(subdomain: string): Observable<lookupDto[]> {
-    return this.httpService.get<lookupDto[]>(
-      `Company/GetCompaniesDropdown?subdomain=${subdomain}`
-    );
+    return this.httpService.get<lookupDto[]>(`Company/GetCompaniesDropdown?subdomain=${subdomain}`);
   }
 
   constructor(private httpService: HttpService) {}

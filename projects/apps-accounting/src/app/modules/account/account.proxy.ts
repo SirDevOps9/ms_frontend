@@ -25,7 +25,7 @@ export class AccountProxy {
     return this.httpService.get<AccountTypeDropDownDto[]>(`AccountType?SectionId=` + sectionId);
   }
   getTags(): Observable<TagDropDownDto[]> {
-    return this.httpService.get<TagDropDownDto[]>(`Tag`);
+    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown`);
   }
 
   getAccount(id: number): Observable<parentAccountDto> {

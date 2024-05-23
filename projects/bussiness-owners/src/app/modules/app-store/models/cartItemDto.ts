@@ -1,8 +1,9 @@
-import { Money } from "shared-lib";
+import { Money } from 'shared-lib';
 
 export interface CartItemDto {
-    id: string;
-    appName: string
-    unitPrice: Money;
-    subDomainName : string
+  id: string;
+  appName: string;
+  appId: number;
+  unitPrice: Money;
+  subDomainName: string;
 }

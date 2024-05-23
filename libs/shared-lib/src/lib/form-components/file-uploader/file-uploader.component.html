@@ -7,7 +7,20 @@
 />
 <!-- accept="{{ cus getFileType(this.config.type).allowedExtensions }}" -->
 
-<button type="button" (click)="fileInput.click()" *ngIf="!value" [ngClass]="uploadClassName" >
+
+
+<div class="upload-container" (click)="fileInput.click()"  *ngIf="!value" >
+  <div  class="upload-icon">
+    <i class="pi pi-cloud-upload"></i>
+    <p>Click to upload</p>
+    +
+  </div>
+ 
+</div>
+
+
+
+<!-- <button type="button" (click)="fileInput.click()" *ngIf="!value" [ngClass]="uploadClassName" >
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="16"
@@ -21,7 +34,7 @@
     ></path>
   </svg>
   {{ "pleaseUpload" | translate }}
-</button>
+</button> -->
 
 <div
   class="steps-form__attachments__content"
@@ -73,16 +86,36 @@
   "
 >
   <!-- <div id="photo" style="background-image: url('{{ photoSrc }}');"></div> -->
-  <div class="flex align-items-center gap-2">
-    <img class="image-rounded"     [ngClass]="className"
-    width="50%" *ngIf="base64" [src]="base64" alt="" />
-    <a
+  <div class="card" >
+   
+    <div class="card-image">
+      <div class="flex justify-content-center">
+        <img class="image-rounded"   
+        *ngIf="base64" [src]="base64" alt="" />
+      </div>
+  
+      <div class="bottom-center">
+    </div>
+    <div class="card-content">
+        <p>{{imgName}}</p>
+    </div>
+    <div class="card-footer">
+      <a
       class="attach-delete"
       href="javascript:void(0)"
       (click)="deleteAttachment()"
     >
-    <i class="pi pi-times"></i>
+    <i class="pi pi-times-circle    "></i>
+  
   </a>
+    </div>
+</div>
+
+
+
+
+
   </div>
+
 
 </div>
