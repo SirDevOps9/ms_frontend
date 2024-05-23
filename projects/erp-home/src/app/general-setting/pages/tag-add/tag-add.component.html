@@ -46,7 +46,7 @@
         </div>
       </div>
       <div class="actions">
-        <lib-button type="submit" class="save w-6" >
+        <lib-button type="submit" class="save w-6"(click)="onSubmit()" >
           <span class="pi pi-send"></span>
           {{ "tag.addtag.Save" | translate }}
         </lib-button >

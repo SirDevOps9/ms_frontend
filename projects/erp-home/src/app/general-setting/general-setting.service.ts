@@ -15,8 +15,6 @@ export class GeneralSettingService {
 
   public currentTag = this.currentTagDataSource.asObservable();
   public TagList = this.tagDataSource.asObservable();
-
-  public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
  
   GetTagList(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getAllTagsPaginated(searchTerm, pageInfo).subscribe({
@@ -53,6 +51,7 @@ export class GeneralSettingService {
     this.loaderService.show();
     this.GeneralSettingproxy.editTag(TagDto).subscribe({
       next: (res) => {
+        console.log("res",res)
         this.toasterService.showSuccess(
           this.languageService.transalte('tag.addtag.Success'),
           this.languageService.transalte('tag.addtag.Success')

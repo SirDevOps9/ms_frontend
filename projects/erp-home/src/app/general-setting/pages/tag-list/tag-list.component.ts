@@ -26,7 +26,7 @@ export class TagListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.initChartOfAccountData();
+    this.initTagData();
     this.modulelist =this.authService.getModules();
   }
 
@@ -54,7 +54,15 @@ export class TagListComponent implements OnInit {
     });
   }
   routeToEdit(id: number) {
-    this.routerService.navigateTo(`/journalentry/edit/${id}`);
+    const dialogRef = this.dialog.open(TagEditComponent, {
+      width: '800px',
+      height: '700px',
+      data:{Id:id},
+    });  
+    
+    dialogRef.onClose.subscribe(() => {
+      this.initTagData();
+    });
   }
 
 

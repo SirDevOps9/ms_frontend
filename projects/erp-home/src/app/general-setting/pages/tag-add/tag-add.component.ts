@@ -30,7 +30,12 @@ export class TagAddComponent implements OnInit {
   }
 
   moudlelist() {
-    this.modulelist = this.authService.getModules();
+    this.modulelist = [
+      { moduleId: 1, module: 'Module 1' },
+      { moduleId: 2, module: 'Module 2' },
+      { moduleId: 3, module: 'Module 3' }
+    ];
+    // this.authService.getModules();
   }
 
   initializeTagForm() {

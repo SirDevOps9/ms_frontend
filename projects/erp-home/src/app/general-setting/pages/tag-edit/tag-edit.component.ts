@@ -52,6 +52,7 @@ export class TagEditComponent implements OnInit {
         ModuleIds: response.modulesId,
         IsActive: response.isActive
       });
+      console.log("tag",this.TagForm);
   });
 }
 
@@ -75,16 +76,8 @@ export class TagEditComponent implements OnInit {
   }
 
   onSubmit() {
-    if(!this.TagForm.valid) return;
-    const tagDto: TagDto = {
-      id: this.TagForm.controls['Id'].value,
-      code: this.TagForm.controls['Code'].value,
-      name: this.TagForm.controls['Name'].value,
-      modulesId: this.TagForm.controls['ModuleIds'].value,
-      isActive: this.TagForm.controls['IsActive'].value
-    };
-   // const tagDto :TagDto=this.TagForm.value;
-    console.log("tagdto",tagDto);
+    if (!this.TagForm.valid) return;
+    const tagDto :TagDto=this.TagForm.value;
     this.generalSettingService.editTag(tagDto,this.ref);
     
   }
