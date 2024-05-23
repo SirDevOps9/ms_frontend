@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuModule, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { GeneralSettingService } from '../../general-setting.service';
-import { TagDto } from '../../models/TagDto';
+import { TagDto } from '../../models';
 import { InputSwitchChangeEvent } from 'primeng/inputswitch';
 import { AuthService } from 'microtec-auth-lib';
 import { TagAddComponent } from '../tag-add/tag-add.component';
@@ -26,7 +26,7 @@ export class TagListComponent implements OnInit {
 
   ngOnInit() {
     this.initChartOfAccountData();
-    this.modulelist =this.authService.getModules()
+    this.modulelist =this.authService.getModules();
   }
 
   initChartOfAccountData() {

@@ -3,9 +3,8 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormsService, LoaderService, MenuModule, customValidators } from 'shared-lib';
-import { GeneralSettingProxy } from '../../general-setting.proxy';
 import { GeneralSettingService } from '../../general-setting.service';
-import { AddTagDto } from '../../models/AddTagDto';
+import { AddTagDto } from '../../models';
 @Component({
   selector: 'app-tag-add',
   templateUrl: './tag-add.component.html',
