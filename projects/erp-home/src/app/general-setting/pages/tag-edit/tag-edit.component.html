@@ -58,7 +58,7 @@
               <p class="active" *ngIf="TagForm.controls['IsActive'].value">
                 {{ 'tag.Active' | translate }}
               </p>
-              <p class="inactive" *ngIf="TagForm.controls['IsActive'].value">
+              <p class="inactive" *ngIf="!TagForm.controls['IsActive'].value">
                 {{ 'tag.Deactivate' | translate }}
               </p>
             </div>

@@ -26,11 +26,11 @@ export class TagListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.initChartOfAccountData();
+    this.initTagData();
     this.modulelist =this.authService.getModules()
   }
 
-  initChartOfAccountData() {
+  initTagData() {
     this.generalSettingService.GetTagList('', new PageInfo());
 
     this.generalSettingService.TagList.subscribe({
@@ -54,19 +54,15 @@ export class TagListComponent implements OnInit {
     });
   }
 
-  routeToAdd() {
-    const dialogRef = this.dialog.open(TagAddComponent, {
-      width: '800px',
-      height: '700px'
-    });  
-  }
-
   routeToEdit(id: number) {
     const dialogRef = this.dialog.open(TagEditComponent, {
       width: '800px',
       height: '700px',
       data: { Id: id},
     }); 
+    dialogRef.onClose.subscribe(() => {
+      this.initTagData();
+    });
   }
 
 
@@ -80,6 +76,10 @@ export class TagListComponent implements OnInit {
       width: '800px',
       height: '700px'
     });  
+    
+    dialogRef.onClose.subscribe(() => {
+      this.initTagData();
+    });
     }
 
     onSearchChange(){
