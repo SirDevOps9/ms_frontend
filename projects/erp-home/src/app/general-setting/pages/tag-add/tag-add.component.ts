@@ -34,9 +34,9 @@ export class TagAddComponent implements OnInit {
 
   getStaticModuleList(): MenuModule[] {
     return [
-      { key: 1, module: 'Module 1' },
-      { key: 2, module: 'Module 2' },
-      { key: 3, module: 'Module 3' }
+      { moduleId: 1, module: 'Module 1' },
+      { moduleId: 2, module: 'Module 2' },
+      { moduleId: 3, module: 'Module 3' }
     ];
   }
 

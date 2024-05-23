@@ -36,16 +36,22 @@ export class TagEditComponent implements OnInit {
 
   getStaticModuleList(): MenuModule[] {
     return [
-      { key: 1, module: 'Module 1' },
-      { key: 2, module: 'Module 2' },
-      { key: 3, module: 'Module 3' }
+      { moduleId: 1, module: 'Module 1' },
+      { moduleId: 2, module: 'Module 2' },
+      { moduleId: 3, module: 'Module 3' }
     ];
   }
 
   getCurruntTag(){
     this.generalSettingService.getTagById(parseInt(this.Id) );
     this.generalSettingService.currentTag.subscribe((response) => {
-      this.TagForm.patchValue(response);
+      this.TagForm.patchValue({
+        Id: response.id,
+        Code: response.code,
+        Name: response.name,
+        ModuleIds: response.modulesId,
+        IsActive: response.isActive
+      });
   });
 }
 
@@ -55,13 +61,14 @@ export class TagEditComponent implements OnInit {
   
   initializeTagForm() {
     this.TagForm = this.fb.group({
-      Id:new FormControl({  value: '', disabled: true  }, customValidators.required),
-      Code: new FormControl({  value: '', disabled: true  }, customValidators.required),
-      Name: new FormControl('', customValidators.required),
-      ModuleIds: new FormControl([], customValidators.required),
-      IsActive: new FormControl(customValidators.required),
+      Id: ['', customValidators.required],
+      Code: [{ value: '', disabled: true }, customValidators.required],
+      Name: ['', customValidators.required],
+      ModuleIds: [[], customValidators.required],
+      IsActive: [false, customValidators.required]
     });
   }
+  
 
   onCancel() {
     this.ref.close();
