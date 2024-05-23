@@ -3,9 +3,8 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormsService, LoaderService, MenuModule, customValidators } from 'shared-lib';
-import { GeneralSettingProxy } from '../../general-setting.proxy';
 import { GeneralSettingService } from '../../general-setting.service';
-import { AddTagDto } from '../../models/addTagDto';
+import { AddTagDto } from '../../models';
 @Component({
   selector: 'app-tag-add',
   templateUrl: './tag-add.component.html',
@@ -26,18 +25,8 @@ export class TagAddComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.modulelist = this.getStaticModuleList();
-    console.log("module", this.modulelist)
-    //this.moudlelist();
+    this.moudlelist();
     this.initializeTagForm();
-  }
-
-  getStaticModuleList(): MenuModule[] {
-    return [
-      { moduleId: 1, module: 'Module 1' },
-      { moduleId: 2, module: 'Module 2' },
-      { moduleId: 3, module: 'Module 3' }
-    ];
   }
 
   moudlelist() {

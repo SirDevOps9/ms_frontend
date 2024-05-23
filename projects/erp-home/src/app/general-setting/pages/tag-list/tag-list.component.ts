@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuModule, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { GeneralSettingService } from '../../general-setting.service';
-import { TagDto } from '../../models/tagDto';
+import { TagDto } from '../../models';
 import { InputSwitchChangeEvent } from 'primeng/inputswitch';
 import { AuthService } from 'microtec-auth-lib';
 import { TagAddComponent } from '../tag-add/tag-add.component';
@@ -26,8 +26,8 @@ export class TagListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.initTagData();
-    this.modulelist =this.authService.getModules()
+    this.initChartOfAccountData();
+    this.modulelist =this.authService.getModules();
   }
 
   initTagData() {
@@ -53,16 +53,8 @@ export class TagListComponent implements OnInit {
       },
     });
   }
-
   routeToEdit(id: number) {
-    const dialogRef = this.dialog.open(TagEditComponent, {
-      width: '800px',
-      height: '700px',
-      data: { Id: id},
-    }); 
-    dialogRef.onClose.subscribe(() => {
-      this.initTagData();
-    });
+    this.routerService.navigateTo(`/journalentry/edit/${id}`);
   }
 
 

@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
 import { GeneralSettingProxy } from './general-setting.proxy';
-import { TagDto } from './models/tagDto';
-import { AddTagDto } from './models/addTagDto';
+import { TagDto ,AddTagDto} from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 @Injectable({
   providedIn: 'root',
@@ -17,7 +16,7 @@ export class GeneralSettingService {
   public currentTag = this.currentTagDataSource.asObservable();
   public TagList = this.tagDataSource.asObservable();
 
-  
+  public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
  
   GetTagList(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getAllTagsPaginated(searchTerm, pageInfo).subscribe({
