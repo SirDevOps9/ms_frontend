@@ -93,9 +93,11 @@
 
     <ng-template #userCol let-user>
       <div class="user_info">
-        <!-- <lib-attachment-viewer
-          [attachmentId]="user."
-        /> -->
+        <lib-attachment-viewer
+          *ngIf="user.photo"
+          [attachmentId]="user.photo"
+          [className]="'thumbnail'"
+        />
         <p>{{ user.name }}</p>
       </div>
     </ng-template>

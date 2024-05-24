@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from 'shared-lib';
-import { AppDto } from './models/appDto';
-import { AddToCartDto } from './models/addToCartDto';
-import { CartDto } from './models/cartDto';
-import { CartItemDto } from './models/cartItemDto';
+import { AddToCartDto, AppDto, CartDto, CartItemDto } from './models';
 
 @Injectable({
   providedIn: 'root',

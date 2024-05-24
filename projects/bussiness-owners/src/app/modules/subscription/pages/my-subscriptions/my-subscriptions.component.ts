@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { RouterService } from 'shared-lib';
+import { EnvironmentService, RouterService } from 'shared-lib';
 import { SubscriptionDto } from '../../models';
 import { SubscriptionService } from '../../subscription.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -36,16 +36,18 @@ export class MySubscriptionsComponent implements OnInit {
     this.routerService.navigateTo('users/' + subdomainId);
   }
   navigateToManageApp(subdomainId: any) {
-    this.routerService.navigateTo('Manage-Apps/' + subdomainId);
+    this.routerService.navigateTo('manage-apps/' + subdomainId);
   }
-
+  navigateToErp(subdomainName: any) {
+    let subdomainUrl = this.environmentService.erpLogin?.replace('*', subdomainName);
+    window.open(subdomainUrl, '_blank');
+  }
+  
   loadMySubdomains() {
     this.subscriptionService.loadSubdomains();
     this.subscriptionService.subdomains.subscribe((subdomains) => {
       if (subdomains) {
         this.subdomainList = subdomains;
-
-        console.log(subdomains);
 
         if (this.subdomainList.length > 0) {
           this.showSection = false;
@@ -62,6 +64,7 @@ export class MySubscriptionsComponent implements OnInit {
     private routerService: RouterService,
     private subscriptionService: SubscriptionService,
     private titleService: Title,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private environmentService: EnvironmentService
   ) {}
 }

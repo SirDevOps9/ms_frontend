@@ -18,16 +18,13 @@ export class RouterService {
   }
 
   get currentId() {
-    console.log('fromrouter', this.route.snapshot);
-
     const value = this.route.snapshot.params['id'];
     return value;
   }
   get snapshot() {
-    const value = this.route.snapshot
+    const value = this.route.snapshot;
     return value;
   }
-
 
   get CallBackUrl() {
     return this.route.snapshot.queryParams['callBackUrl'];
@@ -78,8 +75,6 @@ export class RouterService {
     const segments = this.currentUrl.split('/');
     return segments[segments.length - 1];
   }
-
-
 
   constructor(private router: Router, public route: ActivatedRoute) {
     this.currentUrl = this.router.url;

@@ -33,7 +33,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'Manage-Apps/:id',
+        path: 'manage-apps/:id',
         component: ManageAppsComponent,
         canActivate: [AuthGuard],
         data: {

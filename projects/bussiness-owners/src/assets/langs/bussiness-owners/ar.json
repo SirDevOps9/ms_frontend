@@ -221,9 +221,43 @@
     "Photo": "الصورة"
   },
   "AppStore": {
+    "Title": "متجر التطبيقات",
     "AddedToCartSuccessfully": "تم الإضافة لسلة الشراء بنجاح",
     "CheckedOut": "تم الشراء بنجاح",
-    "App-in-Store":"التطبيق في المتجر"
+    "App-in-Store": "التطبيق في المتجر",
+    "AddToCart": "اضافة لسلة الشراء",
+    "Dependecies": "البرامج المعتمدة",
+    "Subdomain": {
+      "Title": "يرجى اختيار نطاق فرعي",
+      "LabelHeader": "يرجى اختيار نطاق فرعي أولاً لإضافة هذا التطبيق إليه",
+      "Save": "حفظ",
+      "Discard": "تجاهل"
+    },
+    "AppDetail": {
+      "Title": "تفاصيل التطبيق",
+      "Monthly": "شهري",
+      "Category": "الفئة"
+    },
+    "ManageAppsTitle":"برامجى",
+    "Renew":"تجديد"
+  },
+  "Cart": {
+    "Title": "عربة التسوق",
+    "HeaderText": "أدخل رقم العنصر واضغط على Enter لتحميل معلومات المنتج والمتغيرات. اضغط على Tab لاختيار المتغيرات والكمية. اضغط على أسهم الكمية لإضافة المنتج إلى القائمة",
+    "CardDetails": "تفاصيل عربة التسوق",
+    "Details": "تفاصيل",
+    "Items": "العناصر",
+    "Checkout": "إتمام الشراء",
+    "Cancel": "إلغاء",
+    "StartShopping": "ابدأ التسوق",
+    "NoItems": "لا توجد عناصر في العربة",
+    "Table": {
+      "Product": "المنتج",
+      "Subdomain": "النطاق الفرعي",
+      "Price": "السعر",
+      "Total": "الإجمالي",
+      "View": "عرض"
+    }
   },
   "CartItem": {
     "ItemRemovedSuccessfully": "تم الحذف من السلة بنجاح"
@@ -251,7 +285,6 @@
       " already_exists": " اسم المجال موجود بالفعل.",
       " available": " اسم المجال متاح",
       "YourDomainSpace": "النطاق الفرعي"
-
     }
   }
 }

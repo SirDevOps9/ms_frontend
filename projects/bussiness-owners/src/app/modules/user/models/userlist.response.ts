@@ -7,4 +7,5 @@ export interface UserListResponse {
   isActive: boolean;
   lastLoginDate: string;
   invitationStatus: number;
+  photo: string;
 }

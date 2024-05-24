@@ -8,18 +8,19 @@ import { SharedLibModule, customValidators, lookupDto } from 'shared-lib';
   selector: 'app-selectsubdomain',
   templateUrl: './selectsubdomain.component.html',
   styleUrls: ['./selectsubdomain.component.scss'],
-  standalone : true,
-  imports : [SharedLibModule , CommonModule]
+  standalone: true,
+  imports: [SharedLibModule, CommonModule],
 })
-export class SelectsubdomainComponent implements OnInit {
+export class SelectSubdomainComponent implements OnInit {
   selectSubdomain: FormGroup;
 
   selectedSubdomain: any;
   allSubdomains: lookupDto[];
-  constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig,
-    private formBuilder: FormBuilder,) {
-
-  }
+  constructor(
+    public ref: DynamicDialogRef,
+    public config: DynamicDialogConfig,
+    private formBuilder: FormBuilder
+  ) {}
   private initializeForm() {
     this.selectSubdomain = this.formBuilder.group({
       subdomain: new FormControl('', [customValidators.required]),
@@ -27,18 +28,14 @@ export class SelectsubdomainComponent implements OnInit {
   }
   ngOnInit(): void {
     this.initializeForm();
-      this.allSubdomains = this.config.data.subdomains;
-
+    this.allSubdomains = this.config.data.subdomains;
   }
-  onCancel() { 
- 
+  onCancel() {
     this.ref.close();
-    
   }
 
   submit() {
-       this.ref.close(this.selectSubdomain.value.subdomain);
-      console.log(this.selectSubdomain.value);
-      
+    this.ref.close(this.selectSubdomain.value.subdomain);
+    console.log(this.selectSubdomain.value);
   }
 }

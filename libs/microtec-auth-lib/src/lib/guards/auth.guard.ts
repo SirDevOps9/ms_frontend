@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  Router,
-  UrlTree,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LogService } from 'shared-lib';
 import { AuthService } from '../services';
@@ -21,11 +16,8 @@ export class AuthGuard {
     this.authService.isAuthenticated().subscribe((isAuthenticated) => {
       let routeFilter = next.data['filter'] as RouteFilter;
 
-      console.log('requiredAction', routeFilter);
-
       if (routeFilter) {
         let hasPermission = this.authService.hasPermission(routeFilter);
-        console.log('hasPermission', hasPermission);
         if (!hasPermission) {
           this.router.navigate(['login']);
         }

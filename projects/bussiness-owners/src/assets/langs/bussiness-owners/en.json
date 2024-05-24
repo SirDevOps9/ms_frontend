@@ -227,9 +227,43 @@
     "PasswordmustcontainNumber": "Password must contain Number "
   },
   "AppStore": {
+    "Title": "Apps Store",
     "AddedToCartSuccessfully": "Successfully added to cart",
     "CheckedOut": "Successfully checked out",
-    "App-in-Store":"App in Store"
+    "App-in-Store": "App in Store",
+    "AddToCart": "Add to Cart",
+    "Dependecies": "Dependecies",
+    "Subdomain": {
+      "Title": "Please Select a Subdomain",
+      "LabelHeader": "Please choose a subdomain first to add this app to it",
+      "Save": "Save",
+      "Discard": "Discard"
+    },
+    "AppDetail": {
+      "Title": "App Details",
+      "Monthly": "Monthly",
+      "Category": "Category"
+    },
+    "ManageAppsTitle":"My Apps",
+    "Renew":"Renew"
+  },
+  "Cart": {
+    "Title": "Shopping Cart",
+    "HeaderText": "Enter an item number and press Enter to load the product inormation and variants . Tab to select variants and quantity . press on the quantity arrows to add the product to the list",
+    "CardDetails": "Shopping Cart Details",
+    "Items": "Items",
+    "Details": "Details",
+    "Checkout": "Check out",
+    "Cancel": "Cancel",
+    "StartShopping": "Start Shopping",
+    "NoItems": "No items in Cart",
+    "Table": {
+      "Product": "Product",
+      "Subdomain": "Subdomain",
+      "Price": "Price",
+      "Total": "Total",
+      "View": "View"
+    }
   },
   "CartItem": {
     "ItemRemovedSuccessfully": "Successfully removed from cart"
@@ -239,6 +273,7 @@
       "AddSubdomain": "Add Subdomain",
       "CancelButton": "Cancel",
       "Success": "Success",
+      "Expire": "Expire Date",
       "SubdomainAddedSuccessfully": "Subdomain Added Successfully",
       "AddDomainSpace": "Add Domain Space",
       "Count": "Count",
