@@ -33,8 +33,8 @@ export class GeneralSettingService {
       next: (res) => {
         console.log("Code",res)
         this.toasterService.showSuccess(
-          this.languageService.transalte('tag.addtag.Success'),
-          this.languageService.transalte('tag.addtag.Success')
+          this.languageService.transalte('tag.addtag.success'),
+          this.languageService.transalte('tag.addtag.success')
         );
         this.loaderService.hide();
         dialogRef.close(res);
@@ -53,8 +53,8 @@ export class GeneralSettingService {
       next: (res) => {
         console.log("res",res)
         this.toasterService.showSuccess(
-          this.languageService.transalte('tag.addtag.Success'),
-          this.languageService.transalte('tag.addtag.Success')
+          this.languageService.transalte('tag.addtag.success'),
+          this.languageService.transalte('tag.addtag.success')
         );
         this.loaderService.hide();
         dialogRef.close();
@@ -81,8 +81,8 @@ export class GeneralSettingService {
         next: (res) => {
           console.log("res",res)
           this.toasterService.showSuccess(
-            this.languageService.transalte('tag.addtag.Success'),
-            this.languageService.transalte('tag.addtag.Success')
+            this.languageService.transalte('tag.success'),
+            this.languageService.transalte('tag.success')
           );
           this.loaderService.hide();
           return res;
@@ -93,6 +93,62 @@ export class GeneralSettingService {
       });
 
     }
+  }
+
+  async activate(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      'Activate'
+    );
+    if (confirmed) {
+      this.GeneralSettingproxy.activateTag(id).subscribe({
+        next: () => {
+          const tagToChange = this.tagDataSource.value.find(
+            (item) => item.id === id
+          );
+          if (tagToChange) {
+            tagToChange.isActive = true;
+            this.tagDataSource.next([...this.tagDataSource.value]);
+          }
+          this.toasterService.showSuccess(
+            this.languageService.transalte('tag.success'),
+            this.languageService.transalte(
+              'tag.success'
+            )
+          );
+        },
+      });
+    } 
+    else {
+      this.tagDataSource.value.find((item) => {
+        if (item.id === id) {
+          item.isActive = false;
+        }
+      });
+    }
+  }
+  async deactivate(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      'Deactivate'
+    );
+    if (confirmed) {
+      this.GeneralSettingproxy.deactivateTag(id).subscribe({
+        next: () => {
+          const tagToChange = this.tagDataSource.value.find(
+            (item) => item.id === id
+          );
+          if (tagToChange) {
+            tagToChange.isActive = false;
+            this.tagDataSource.next([...this.tagDataSource.value]);
+          }
+          this.toasterService.showSuccess(
+            this.languageService.transalte('tag.success'),
+            this.languageService.transalte(
+              'tag.success'
+            )
+          );
+        },
+      });
+    } 
   }
 
  

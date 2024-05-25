@@ -17,7 +17,9 @@
       "Text": "لا يمكنك الرجوع فى هذا القرار!",
       "ConfirmButtonTexttodelete": "نعم, قم بالمسح!",
       "CancelButtonText": "الغاء",
-      "ConfirmButtonTexttochangstatus": "نعم, غير الحالة"
+      "ConfirmButtonTexttochangstatus": "نعم, غير الحالة",
+      "Activate": "تفعيل",
+      "Deactivate": "إلغاء التنشيط"
     }
   },
   "Layout": {
@@ -248,7 +250,7 @@
     "Delete": "حذف",
     "Add": "إضافة",
     "AddTag": "إضافة علامة",
-    "Active": "نشط",
+    "Activate": "نشط",
     "Deactivate": "إلغاء التنشيط",
     "addtag": {
       "title": "إضافة علامة",
@@ -257,18 +259,19 @@
       "save": "حفظ",
       "discard": "تجاهل",
       "code": "رمز"
+    },
+    "edittag": {
+      "title": "تعديل الوسم",
+      "name": "الاسم",
+      "applicability": "التطبيقية",
+      "status": "الحالة",
+      "save": "حفظ",
+      "discard": "تجاهل",
+      "code": "الرمز",
+      "success": "نجاح"
     }
     
-  },
-
-  "edittag": {
-    "title": "تعديل الوسم",
-    "name": "الاسم",
-    "applicability": "التطبيقية",
-    "status": "الحالة",
-    "save": "حفظ",
-    "discard": "تجاهل",
-    "code": "الرمز",
-    "success": "نجاح"
   }
+
+  
 }

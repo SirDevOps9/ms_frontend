@@ -17,7 +17,9 @@
       "Text": "You won't be able to revert this!",
       "ConfirmButtonTexttodelete": "Yes, delete it!",
       "CancelButtonText": "Cancel",
-      "ConfirmButtonTexttochangstatus": "Yes, Change Status"
+      "ConfirmButtonTexttochangstatus": "Yes, Change Status",
+      "Activate":"Activate",
+      "Deactivate":"Deactivate"
     }
   },
   "Layout": {
@@ -306,6 +308,7 @@
       "Active":"Active",
       "Deactivate":"Deactivate",
       "code":"Code",
+      "success":"Success",
       "addtag":{
         "title":"Add Tag",
         "name":"Name",

@@ -33,5 +33,13 @@ export class GeneralSettingProxy {
   return this.httpService.delete<boolean>(`Tag?Id=${Id}`);
 }
 
+activateTag(Id: number): Observable<boolean> {
+  return this.httpService.put<boolean>(`Tag/Activate?Id=${Id}`,{});
+}
+
+deactivateTag(Id: number): Observable<boolean> {
+  return this.httpService.put<boolean>(`Tag/deactivate?Id=${Id}`,{});
+}
+
   constructor(private httpService: HttpService) {}
 }

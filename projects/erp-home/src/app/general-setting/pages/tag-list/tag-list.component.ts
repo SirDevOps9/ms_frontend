@@ -66,8 +66,13 @@ export class TagListComponent implements OnInit {
   }
 
 
-  changed($event: InputSwitchChangeEvent,arg1: any) {
-    throw new Error('Method not implemented.');
+  changed(e: InputSwitchChangeEvent,id: number) {
+      if (e.checked === true) {
+        this.generalSettingService.deactivate(id);
+        console.log(id,"Deactivate");
+      } else {
+        this.generalSettingService.activate(id);
+      }
 
     }
 

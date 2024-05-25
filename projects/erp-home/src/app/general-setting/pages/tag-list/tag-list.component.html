@@ -100,7 +100,7 @@
         </ng-template>
 
         <ng-template #status let-tag>
-          <div class="checked" *ngIf="tag.isActive">
+          <div class="checked" >
             <p-inputSwitch
               [id]="tag.id"
               (onChange)="changed($event, tag.id)"
