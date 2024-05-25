@@ -225,12 +225,12 @@ export class UserService {
     this.userProxy.testTree().subscribe();
   }
 
-  async removeInvitedUser(id: string,subdomainId:string) {
+  async removeInvitedUser(email: string,subdomainId:string) {
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
-      this.userProxy.removeInvitedUser(id,subdomainId).subscribe({
+      this.userProxy.removeInvitedUser(email,subdomainId).subscribe({
         next: () => {
           this.toasterService.showSuccess(
             this.languageService.transalte('Success'),
@@ -241,7 +241,7 @@ export class UserService {
           this.loaderService.hide();
           const currentusers = this.userDataSource.getValue();
           const updateduser = currentusers.filter(
-            (user) => user.id !== id
+            (user) => user.email !== email
           );
           this.userDataSource.next(updateduser);
         },
