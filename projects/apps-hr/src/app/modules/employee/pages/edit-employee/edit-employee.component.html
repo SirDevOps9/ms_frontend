@@ -35,48 +35,7 @@
             <div class="md:col-12 info">
               {{ 'Employee.BasicInfo' | translate }}
             </div>
-            <div class="md:col-3 employee-container">
-              <lib-form-group>
-                <div class="my-1">
-
-                <label>
-                  {{ 'Employee.Edit.EmployeeCode' | translate }}
-                </label>
-                </div>
-                <div class="view">
-                  {{ employeeCode }}
-                </div>
-              </lib-form-group>
-            </div>
-            <div class="md:col-3 employee-container">
-              <lib-form-group>
-                <div class="my-1">
-
-                <lib-label [appControl]="editEmployeeForm.controls['attendanceCode']">
-                  {{ 'Employee.Edit.AttendanceCode' | translate }}
-                </lib-label>
-                </div>
-                <lib-text-input type="number" formControlName="attendanceCode"></lib-text-input>
-                <lib-field-validations
-                  [appControl]="editEmployeeForm.controls['attendanceCode']"
-                ></lib-field-validations>
-              </lib-form-group>
-            </div>
-            <div class="md:col-3 employee-container">
-              <lib-form-group>
-                <div class="my-1">
-
-                <lib-label [appControl]="editEmployeeForm.controls['employeeName']">
-                  {{ 'Employee.Edit.EmployeeName' | translate }}
-                </lib-label>
-                </div>
-                <lib-text-input type="text" formControlName="employeeName"></lib-text-input>
-                <lib-field-validations
-                  [appControl]="editEmployeeForm.controls['employeeName']"
-                ></lib-field-validations>
-              </lib-form-group>
-            </div>
-            <div class="md:col-3 employee-container ">
+            <div class="md:col-12 ">
               <lib-form-group>
                 <!-- <lib-label [appControl]="editEmployeeForm.controls['employeePhoto']">
                   {{ 'Employee.Edit.EmployeePhoto' | translate }}
@@ -97,10 +56,52 @@
                 ></lib-field-validations>
               </lib-form-group>
             </div>
+            <div class="md:col-4 ">
+              <lib-form-group>
+                <div class="my-1">
+
+                <label>
+                  {{ 'Employee.Edit.EmployeeCode' | translate }}
+                </label>
+                </div>
+                <div class="view">
+                  {{ employeeCode }}
+                </div>
+              </lib-form-group>
+            </div>
+            <div class="md:col-4 ">
+              <lib-form-group>
+                <div class="my-1">
+
+                <lib-label [appControl]="editEmployeeForm.controls['attendanceCode']">
+                  {{ 'Employee.Edit.AttendanceCode' | translate }}
+                </lib-label>
+                </div>
+                <lib-text-input type="number" formControlName="attendanceCode"></lib-text-input>
+                <lib-field-validations
+                  [appControl]="editEmployeeForm.controls['attendanceCode']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="md:col-4 ">
+              <lib-form-group>
+                <div class="my-1">
+
+                <lib-label [appControl]="editEmployeeForm.controls['employeeName']">
+                  {{ 'Employee.Edit.EmployeeName' | translate }}
+                </lib-label>
+                </div>
+                <lib-text-input type="text" formControlName="employeeName"></lib-text-input>
+                <lib-field-validations
+                  [appControl]="editEmployeeForm.controls['employeeName']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
+
             <div class="md:col-12 info">
               {{ 'Employee.BirthInfo' | translate }}
             </div>
-            <div class="md:col-3">
+            <div class="md:col-4">
               <lib-form-group>
                 <div class="my-1">
 

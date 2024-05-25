@@ -48,7 +48,6 @@ export class EditEmployeeComponent implements OnInit {
     this.initializeForm();
     this.initializeFormData();
     this.loadCountries();
-
     this.loadLookups();
     this.subscribe();
     this.onBirthDateChange();
@@ -142,7 +141,6 @@ export class EditEmployeeComponent implements OnInit {
       next: (success) => {
         console.log('Success State', success);
         if (success) {
-          alert('Success');
           this.routerService.navigateTo(`/employee`);
         }
       },
