@@ -1,15 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { FormsService, customValidators, lookupDto } from 'shared-lib';
-import {
-  DialogService,
-  DynamicDialogConfig,
-  DynamicDialogRef,
-} from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CreateInvitedUser } from '../../models';
 import { UserService } from '../../user.service';
 import { CompanyService } from '../../../company/company.service';
@@ -30,8 +22,6 @@ export class UserInviteFormComponent implements OnInit {
   selected: any = [];
   subdomainName: string;
 
-
-
   ngOnInit() {
     this.getSubdomainById();
     this.getCompanies();
@@ -41,19 +31,20 @@ export class UserInviteFormComponent implements OnInit {
 
   initializesubDomainForm() {
     this.inviteForm = this.fb.group({
-      email: new FormControl('', [customValidators.required,customValidators.email],),
-      companyId: new FormControl('', customValidators.required,),
-      branchIds: new FormControl('', customValidators.required,),
-      tenantLicenseId: new FormControl('', customValidators.required,),
+      email: new FormControl('', [customValidators.required, customValidators.email]),
+      companyId: new FormControl('', customValidators.required),
+      branchIds: new FormControl('', customValidators.required),
+      tenantLicenseId: new FormControl('', customValidators.required),
     });
   }
-
 
   onSubmit() {
     if (!this.formService.validForm(this.inviteForm, true)) return;
     const userModel: CreateInvitedUser = this.inviteForm.value;
     userModel.subdomainId = this.subdomainId;
-    const licenseLabel = this.Licenses.find(l => l.id == this.inviteForm.value.tenantLicenseId)!.nameEn;
+    const licenseLabel = this.Licenses.find(
+      (l) => l.id == this.inviteForm.value.tenantLicenseId
+    )!.nameEn;
     this.userService.inviteUser(userModel, licenseLabel, this.ref);
   }
 
@@ -62,33 +53,24 @@ export class UserInviteFormComponent implements OnInit {
   }
 
   getCompanies() {
-    this.companyService
-      .getAllCompanies(this.subdomainId)
-      .subscribe((res) => {
-        this.Companies = res;
-      });
+    this.companyService.getAllCompanies(this.subdomainId).subscribe((res) => {
+      this.Companies = res;
+    });
   }
 
   getSubdomainById() {
-    this.subscriptionService
-      .getSubdomainById(this.subdomainId)
-      .subscribe((res) => {
-        this.subdomainName = res.name;
-      });
+    this.subscriptionService.getSubdomainById(this.subdomainId).subscribe((res) => {
+      this.subdomainName = res.name;
+    });
   }
 
   getTenantLicense() {
-    this.subscriptionService
-      .getTenantLicense(this.subdomainId)
-      .subscribe((res) => {
-        this.Licenses = res;
-      });
+    this.subscriptionService.getTenantLicense(this.subdomainId).subscribe((res) => {
+      this.Licenses = res;
+    });
   }
 
-
-
   onCompanyChange(event: any) {
-    console.log("Calling onCompanyChange")
     const companyId = event;
     if (!companyId) return;
     this.companyService.loadBranches(companyId);
@@ -96,15 +78,13 @@ export class UserInviteFormComponent implements OnInit {
       this.branches = branchList;
     });
 
-    this.inviteForm.patchValue({ branchIds: [] })
+    this.inviteForm.patchValue({ branchIds: [] });
     this.selected = [];
   }
 
   get subdomainId(): string {
     return this.config.data.Id;
   }
-
-
 
   constructor(
     public config: DynamicDialogConfig,
@@ -115,6 +95,5 @@ export class UserInviteFormComponent implements OnInit {
     private userService: UserService,
     private companyService: CompanyService,
     private subscriptionService: SubscriptionService
-
-  ) { }
+  ) {}
 }

@@ -36,6 +36,5 @@ export class SelectSubdomainComponent implements OnInit {
 
   submit() {
     this.ref.close(this.selectSubdomain.value.subdomain);
-    console.log(this.selectSubdomain.value);
   }
 }

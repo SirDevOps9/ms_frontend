@@ -107,6 +107,7 @@ export class AppStoreService {
 
   private addModelToCart(model: AddToCartDto) {
     this.appStoreProxy.addToCart(model).subscribe((r) => {
+      console.log('return data', r);
       this.getCartData();
       this.toasterService.showSuccess(
         this.languageService.transalte('Company.Success'),
