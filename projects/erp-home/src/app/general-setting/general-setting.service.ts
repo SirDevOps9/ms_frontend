@@ -70,7 +70,30 @@ export class GeneralSettingService {
       this.currentTagDataSource.next(response);
     });
   }
-  
+
+  async deleteTag(id: number){
+    const confirmed = await this.toasterService.showConfirm(
+      'Delete'
+    );
+    if (confirmed) {
+      this.loaderService.show();
+      this.GeneralSettingproxy.deleteTag(id).subscribe({
+        next: (res) => {
+          console.log("res",res)
+          this.toasterService.showSuccess(
+            this.languageService.transalte('tag.addtag.Success'),
+            this.languageService.transalte('tag.addtag.Success')
+          );
+          this.loaderService.hide();
+          return res;
+        },
+        error: (err) => {
+          this.loaderService.hide();
+        },
+      });
+
+    }
+  }
 
  
   constructor(private GeneralSettingproxy: GeneralSettingProxy,

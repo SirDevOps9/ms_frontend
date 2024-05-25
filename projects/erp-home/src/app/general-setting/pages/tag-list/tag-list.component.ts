@@ -92,6 +92,12 @@ export class TagListComponent implements OnInit {
       },
     });
     }
-
+    Delete(id:number){
+      this.generalSettingService.deleteTag(id);
+      const index = this.tableData.findIndex(item => item.id === id);
+        if (index !== -1) {
+         this.tableData.splice(index, 1);
+        }
+    }
 
 }

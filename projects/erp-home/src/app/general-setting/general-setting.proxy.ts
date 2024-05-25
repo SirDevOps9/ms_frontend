@@ -29,5 +29,9 @@ export class GeneralSettingProxy {
   return this.httpService.get<TagDto>(`Tag/GetById?Id=${Id}`);
 }
 
+ deleteTag(Id: number): Observable<boolean> {
+  return this.httpService.delete<boolean>(`Tag?Id=${Id}`);
+}
+
   constructor(private httpService: HttpService) {}
 }
