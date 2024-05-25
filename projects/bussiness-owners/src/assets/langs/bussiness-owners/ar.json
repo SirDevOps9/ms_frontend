@@ -31,6 +31,7 @@
     "AppStore": "متجر التطبيقات"
   },
   "User": {
+    "UserRemovedSuccessfully":"تمت إزالة المستخدم بنجاح",
     "License": "الرخصة",
     "PageName": "صفحة المستخدمين",
     "Id": "الرقم",

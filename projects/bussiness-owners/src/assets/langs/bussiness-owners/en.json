@@ -31,6 +31,7 @@
     "AppStore": "App store"
   },
   "User": {
+    "UserRemovedSuccessfully":"User Removed Successfully",
     "License": "License",
     "PageName": "Users Index",
     "Id": "Id",
