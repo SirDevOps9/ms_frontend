@@ -307,14 +307,24 @@
       "Deactivate":"Deactivate",
       "code":"Code",
       "addtag":{
-        "Titel":"Add Tag",
-        "Name":"Name",
+        "title":"Add Tag",
+        "name":"Name",
         "applicability":"Applicability",
-        "Status":"Status",
-        "Save":"Save",
-        "Discard":"Discard",
+        "save":"Save",
+        "discard":"Discard",
         "code":"Code",
-        "Success":"Success"
+        "success":"Success"
+      },
+      "edittag":{
+        "title":"Edit Tag",
+        "name":"Name",
+        "applicability":"Applicability",
+        "status":"Status",
+        "save":"Save",
+        "discard":"Discard",
+        "code":"Code",
+        "success":"Success"
+
       }
   
     }

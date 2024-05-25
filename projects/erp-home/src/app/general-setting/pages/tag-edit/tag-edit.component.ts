@@ -14,6 +14,7 @@ import { TagDto } from '../../models/tagDto';
 export class TagEditComponent implements OnInit {
   TagForm: FormGroup;
   modulelist: MenuModule[];
+  selectedModules:  number[] = [];
   get Id(): string {
     return this.config.data.Id;
   }
@@ -28,11 +29,11 @@ export class TagEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.modulelist = this.getStaticModuleList();
-    //this.moudlelist();
     this.initializeTagForm();
+    this.modulelist = this.getStaticModuleList();
     this.getCurruntTag();
-  }
+    //this.moudlelist();
+     }
 
   getStaticModuleList(): MenuModule[] {
     return [
@@ -50,8 +51,10 @@ export class TagEditComponent implements OnInit {
         Code: response.code,
         Name: response.name,
         ModuleIds: response.modulesId,
-        IsActive: response.isActive
+        IsActive: response.isActive,
+        
       });
+      this.selectedModules = response.modulesId;
       console.log("tag",this.TagForm);
   });
 }

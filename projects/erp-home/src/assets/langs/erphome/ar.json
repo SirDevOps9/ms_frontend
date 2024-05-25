@@ -251,14 +251,24 @@
     "Active": "نشط",
     "Deactivate": "إلغاء التنشيط",
     "addtag": {
-      "Titel": "إضافة علامة",
-      "Name": "الاسم",
+      "title": "إضافة علامة",
+      "name": "الاسم",
       "applicability": "قابلية التطبيق",
-      "Status": "الحالة",
-      "Save": "حفظ",
-      "Discard": "تجاهل",
+      "save": "حفظ",
+      "discard": "تجاهل",
       "code": "رمز"
     }
     
+  },
+
+  "edittag": {
+    "title": "تعديل الوسم",
+    "name": "الاسم",
+    "applicability": "التطبيقية",
+    "status": "الحالة",
+    "save": "حفظ",
+    "discard": "تجاهل",
+    "code": "الرمز",
+    "success": "نجاح"
   }
 }

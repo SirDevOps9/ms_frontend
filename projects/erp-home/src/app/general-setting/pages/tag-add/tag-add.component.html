@@ -2,7 +2,7 @@
   <div class="invite_user_header">
     <div class="title">
       <div class="plus_icon"></div>
-      {{ "tag.addtag.Title" | translate }}
+      {{ "tag.addtag.title" | translate }}
     </div>
   </div>
   <form class="domain_form" [formGroup]="TagForm" (ngSubmit)="onSubmit()">
@@ -21,7 +21,7 @@
 
           <lib-form-group>
             <lib-label [appControl]="TagForm.controls['Name']">
-              {{ "tag.addtag.Name" | translate }}
+              {{ "tag.addtag.name" | translate }}
             </lib-label>
             <lib-text-input type="text" formControlName="Name" />
             <lib-field-validations
@@ -48,10 +48,10 @@
       <div class="actions">
         <lib-button type="submit" class="save w-6"(click)="onSubmit()" >
           <span class="pi pi-send"></span>
-          {{ "tag.addtag.Save" | translate }}
+          {{ "tag.addtag.save" | translate }}
         </lib-button >
         <lib-button  class="cancel" type="button" (click)="onCancel()">
-          {{ "tag.addtag.Discard" | translate }}
+          {{ "tag.addtag.discard" | translate }}
         </lib-button >
       </div>
     </div>
