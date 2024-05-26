@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   EditJournalEntry,
   GetJournalEntryByIdDto,
   JournalEntryLineDto,
+  JournalEntryStatus,
   SharedJournalEnums,
 } from '../../models';
 import { JournalEntryService } from '../../journal-entry.service';
@@ -13,7 +14,7 @@ import {
   ToasterService,
   customValidators,
 } from 'shared-lib';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { JournalStatusUpdate } from '../../models/update-status';
 import { AccountService } from '../../../account/account.service';
 import { AccountDto } from '../../../account/models/accountDto';
@@ -21,6 +22,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { AccountsComponent } from '../../components/accounts/accounts.component';
 import { CurrencyService } from '../../../general/currency.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
+import { NoChildrenAccountsComponent } from '../../components/noChildrenAccounts/nochildaccounts.component';
 
 @Component({
   selector: 'app-edit-journal-entry',
@@ -41,12 +43,13 @@ export class EditJournalEntryComponent implements OnInit {
   filteredAccounts: AccountDto[] = [];
   currencies: CurrencyDto[] = [];
   fitleredCurrencies: CurrencyDto[];
+  selectedCurrency: number;
 
   ngOnInit() {
     this.getAccounts();
     this.initializeForm();
     this.initializeFormData();
-    this.getCurrencies()
+    this.getCurrencies();
   }
 
   initializeForm() {
@@ -63,7 +66,7 @@ export class EditJournalEntryComponent implements OnInit {
       sourceName: new FormControl(),
       sourceCode: new FormControl(),
       reversedJournalCode: new FormControl(),
-      status: new FormControl(),
+      status: new FormControl(''),
       totalDebitAmount: new FormControl(),
       totalCreditAmount: new FormControl(),
       journalEntryLines: this.fb.array([]),
@@ -71,64 +74,50 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   initializeFormData() {
-    this.journalEntryService
-      .getJournalEntryById(this.routerService.currentId)
-      .subscribe((res) => {
-        this.editJournalForm.patchValue({
-          ...res,
-          journalDate: res.journalDate.substring(0, 10)
-        },
-        
-      );
-
-        console.log('calling init 1', this.editJournalForm.value);
-
-        if (res.status === this.enums.JournalEntryStatus.Posted || res.status === this.enums.JournalEntryStatus.submited) {
-          this.viewMode = true;
-        }
-        this.statusName = this.enums.JournalEntryStatus[res.status];
-        this.journalTypeName = this.enums.JournalEntryType[res.type];
-
-        this.journalEntry = res;
-        this.journalEntryLines = res.journalEntryLines!;
-        console.log(this.journalEntryLines);
-        const journalEntryLinesArray = this.journalEntryLinesFormArray;
-
-        journalEntryLinesArray.clear();
-
-        this.journalEntryLines.forEach((line) => {
-          const { currencyId, ...lineData } = line;
-
-          journalEntryLinesArray.push(
-            this.fb.group({
-              id: new FormControl(lineData.id),
-              accountId: new FormControl(lineData.accountId, [
-                customValidators.required,
-              ]),
-              accountName: new FormControl(lineData.accountName),
-              accountCode: new FormControl(lineData.accountCode),
-              lineDescription: new FormControl(lineData.lineDescription),
-              debitAmount: new FormControl(lineData.debitAmount, [
-                customValidators.required,
-              ]),
-              creditAmount: new FormControl(lineData.creditAmount, [
-                customValidators.required,
-              ]),
-              currency: new FormControl(lineData.currency, [
-                customValidators.required,
-              ]),
-              currencyRate: new FormControl(lineData.currencyRate, [
-                customValidators.required,
-              ]),
-              debitAmountLocal: new FormControl(lineData.debitAmountLocal),
-              creditAmountLocal: new FormControl(lineData.creditAmountLocal),
-            })
-          );
-
-          this.currencyIdList.push(currencyId);
-        });
-        // }
+    this.journalEntryService.getJournalEntryById(this.routerService.currentId).subscribe((res) => {
+      this.editJournalForm.patchValue({
+        ...res,
+        journalDate: res.journalDate.substring(0, 10),
       });
+      if (
+        res.status === this.enums.JournalEntryStatus.Posted ||
+        res.status === this.enums.JournalEntryStatus.Submitted
+      ) {
+        this.viewMode = true;
+      }
+      this.statusName = res.status;
+      this.journalTypeName = this.enums.JournalEntryType[res.type];
+
+      this.journalEntry = res;
+      this.journalEntryLines = res.journalEntryLines!;
+      console.log(this.journalEntryLines);
+      const journalEntryLinesArray = this.journalEntryLinesFormArray;
+
+      journalEntryLinesArray.clear();
+
+      this.journalEntryLines.forEach((line) => {
+        const { currencyId, ...lineData } = line;
+
+        journalEntryLinesArray.push(
+          this.fb.group({
+            id: new FormControl(lineData.id),
+            accountId: new FormControl(lineData.accountId, [customValidators.required]),
+            accountName: new FormControl(lineData.accountName),
+            accountCode: new FormControl(lineData.accountCode),
+            lineDescription: new FormControl(lineData.lineDescription),
+            debitAmount: new FormControl(lineData.debitAmount, [customValidators.required]),
+            creditAmount: new FormControl(lineData.creditAmount, [customValidators.required]),
+            currency: new FormControl(lineData.currency, [customValidators.required]),
+            currencyRate: new FormControl(lineData.currencyRate, [customValidators.required]),
+            debitAmountLocal: new FormControl(lineData.debitAmountLocal),
+            creditAmountLocal: new FormControl(lineData.creditAmountLocal),
+          })
+        );
+
+        this.currencyIdList.push(currencyId);
+      });
+      // }
+    });
   }
 
   onSubmit() {
@@ -138,13 +127,16 @@ export class EditJournalEntryComponent implements OnInit {
     request.id = this.routerService.currentId;
 
     request.journalEntryLines = request.journalEntryLines?.map((item) => {
-      const currencyId = typeof item.currency == 'string'? this.currencies.find(c=>c.currencyName==item.currency)!.id : item.currency.id;
-      return {...item, currencyId: currencyId }
-    })
-    this.journalEntryService.editJournalEntry(request)
+      const currencyId =
+        typeof item.currency == 'string'
+          ? this.currencies.find((c) => c.currencyName == item.currency)!.id
+          : item.currency.id;
+      return { ...item, currencyId: currencyId };
+    });
+    this.journalEntryService.editJournalEntry(request);
   }
 
-  ChangeStatus(status: number) {
+  ChangeStatus(status: JournalEntryStatus) {
     let journalStatus = new JournalStatusUpdate();
     journalStatus.id = this.routerService.currentId;
     journalStatus.status = status;
@@ -166,63 +158,10 @@ export class EditJournalEntryComponent implements OnInit {
     return this.editJournalForm.get('journalEntryLines') as FormArray;
   }
   oncurrencyChange(e: any, journalLine: FormGroup) {
-    journalLine.get('currencyRate')?.setValue(journalLine?.value?.currency?.ratePerUnit)
-
+    journalLine.get('currencyRate')?.setValue(journalLine?.value?.currency?.ratePerUnit);
   }
-  valueChanges(event: any, index: number) {
-    const journalLine = this.journalEntryLinesFormArray.at(index);
-
-    const currencyRateControl = journalLine.get('currencyRate');
-    const debitAmountControl = journalLine.get('debitAmount');
-    const creditAmountControl = journalLine.get('creditAmount');
-    const debitAmountLocalControl = journalLine.get('debitAmountLocal');
-    const creditAmountLocalControl = journalLine.get('creditAmountLocal');
 
 
-    // Subscribe to changes in debit amount
-    debitAmountControl?.valueChanges.subscribe((value) => {
-      console.log(value)
-      console.log(currencyRateControl?.value)
-      const debitAmountLocal = event * currencyRateControl?.value;
-      debitAmountLocalControl?.setValue(debitAmountLocal);
-    });
-    console.log(index, debitAmountControl);
-    console.log(event);
-
-    // Subscribe to changes in credit amount
-    // creditAmountControl?.valueChanges.subscribe((value) => {
-    //   const creditAmountLocal = value * currencyRateControl?.value;
-
-    // });
-
-    console.log(journalLine.get('creditAmount')?.value)
-    console.log(journalLine.get('currencyRate')?.value)
-
-    creditAmountLocalControl?.setValue(journalLine.get('creditAmount')?.value * journalLine.get('currencyRate')?.value);
-    debitAmountLocalControl?.setValue(journalLine.get('debitAmount')?.value * journalLine.get('currencyRate')?.value);
-
-
-    // Subscribe to changes in currency rate
-    currencyRateControl?.valueChanges.subscribe((value) => {
-      // Update debit amount local only if debit amount exists
-      if (
-        debitAmountControl?.value !== null &&
-        debitAmountControl?.value !== undefined
-      ) {
-        const debitAmountLocal = debitAmountControl?.value * value;
-        debitAmountLocalControl?.setValue(debitAmountLocal);
-      }
-
-      // Update credit amount local only if credit amount exists
-      if (
-        creditAmountControl?.value !== null &&
-        creditAmountControl?.value !== undefined
-      ) {
-        const creditAmountLocal = creditAmountControl?.value * value;
-        creditAmountLocalControl?.setValue(creditAmountLocal);
-      }
-    });
-  }
   async deleteJournalEntryLine(index: number) {
     const journalLine = this.journalEntryLinesFormArray.at(index);
     const status = this.editJournalForm.get('status')?.value;
@@ -230,20 +169,19 @@ export class EditJournalEntryComponent implements OnInit {
     if (!journalLine.get('id')?.value) {
       // If it's a new record, just remove it
       this.journalEntryLinesFormArray.removeAt(index);
-    }
-    else if (
+    } else if (
       status === this.enums.JournalEntryStatus.DraftUnbalanced ||
       status === this.enums.JournalEntryStatus.Draftbalanced
     ) {
       // If it's not new and status is draft balanced or unbalanced, delete it from the backend
-      const result = await this.journalEntryService.deleteJournalEntryLine(journalLine.get('id')?.value!);
-      if (result)
-        this.journalEntryLinesFormArray.removeAt(index);
-
+      const result = await this.journalEntryService.deleteJournalEntryLine(
+        journalLine.get('id')?.value!
+      );
+      if (result) this.journalEntryLinesFormArray.removeAt(index);
     } else {
       // Otherwise, show an error message based on the status
       let message: string = '';
-      if (status === this.enums.JournalEntryStatus.submited) {
+      if (status === this.enums.JournalEntryStatus.Submitted) {
         message = "Can't be deleted, the entry is already submitted.";
       } else if (status === this.enums.JournalEntryStatus.Posted) {
         message = "Can't be deleted, the entry is already posted.";
@@ -253,30 +191,28 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   addNewRow() {
-    this.journalEntryLinesFormArray.push(
-      this.fb.group({
-        id: new FormControl(0),
-        accountCode: new FormControl('', [
-          customValidators.required,
-        ]),
-        accountId: new FormControl(),
-        accountName: new FormControl(),
-        lineDescription: new FormControl(),
-        debitAmount: new FormControl(0),
-        creditAmount: new FormControl(0),
-        currency: new FormControl(null, [
-          customValidators.required,
-        ]),
-        currencyRate: new FormControl(),
-        debitAmountLocal: new FormControl(),
-        creditAmountLocal: new FormControl(),
-      })
-    );
+    let newLine = this.fb.group({
+      id: new FormControl(0),
+      accountCode: new FormControl('', [customValidators.required]),
+      accountId: new FormControl(),
+      accountName: new FormControl(),
+      lineDescription: new FormControl(),
+      debitAmount: new FormControl(0, [customValidators.required, Validators.min(0)]),
+      creditAmount: new FormControl(0, [customValidators.required, Validators.min(0)]),
+      currency: new FormControl(null, [customValidators.required]),
+      currencyRate: new FormControl(),
+      debitAmountLocal: new FormControl(),
+      creditAmountLocal: new FormControl(),
+    });
+    this.journalEntryLinesFormArray.push(newLine);
+
+
+    
   }
 
   getAccounts() {
     this.accountService
-      .getAllChartOfAccountPaginated('', new PageInfo())
+      .getAccountsHasNoChildren('', new PageInfo())
       .subscribe((r) => (this.filteredAccounts = r.result));
   }
 
@@ -289,44 +225,105 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   openDialog(index: number) {
-    const ref = this.dialog.open(AccountsComponent, {});
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {});
     ref.onClose.subscribe((account: AccountDto) => {
       if (account) {
         const journalLine = this.journalEntryLinesFormArray.at(index);
         const accountId = journalLine.get('accountId');
         accountId?.setValue(account.id);
         const accountName = journalLine.get('accountName');
-        accountName?.setValue(account.nameEn);
+        accountName?.setValue(account.name);
         journalLine.get('accountCode')?.setValue(account.accountCode);
       }
     });
   }
 
-  updateAccount(event: any, index: number){
+  updateAccount(event: any, index: number) {
     console.log(event.value);
     const journalLine = this.journalEntryLinesFormArray.at(index);
     journalLine.get('accountId')?.setValue(event.value.id);
     const accountName = journalLine.get('accountName');
-    accountName?.setValue(event.value.nameEn);
+    accountName?.setValue(event.value.name);
     journalLine.get('accountCode')?.setValue(event.value.accountCode);
+    const currencyControl = journalLine.get('currency');
+    const currencyRateControl = journalLine.get('currencyRate')!;
+
+    currencyControl?.setValue(event.value.currencyId);
+    this.selectedCurrency = event.value.currencyId;
+
+    var currencyData = this.currencies.find((c) => c.id == event.value.currencyId);
+
+    console.log('Currency Data', currencyData);
+
+    currencyRateControl.setValue(currencyData!.ratePerUnit);
   }
 
   getCurrencies() {
     this.currencyService.getCurrencies('');
 
-      this.currencyService.currencies.subscribe((res) => {
-        this.currencies = res;
-      })
+    this.currencyService.currencies.subscribe((res) => {
+      this.currencies = res;
+    });
   }
 
-  filterCurrency(event: any,) {
-    console.log(event)
+  filterCurrency(event: any) {
+    console.log(event);
     let query = event.query.toLowerCase();
-    console.log(this.currencies)
-    this.fitleredCurrencies = this.currencies.filter(c =>
-      c.currencyName?.toLowerCase().includes(query));
+    console.log(this.currencies);
+    this.fitleredCurrencies = this.currencies.filter((c) =>
+      c.currencyName?.toLowerCase().includes(query)
+    );
+  }
 
+  debitValueChanges( index: number) {
+    const journalLine = this.journalEntryLinesFormArray.at(index);
+    const creditAmountControl = journalLine.get('creditAmount');
+    const creditAmountLocalControl = journalLine.get('creditAmountLocal');
+    const debitAmountLocalControl = journalLine.get('debitAmountLocal');
 
+    creditAmountControl!.setValue(0);
+    creditAmountLocalControl?.setValue(0);
+    debitAmountLocalControl?.setValue(
+      journalLine.get('debitAmount')?.value * journalLine.get('currencyRate')?.value
+    );
+
+  }
+
+  creditValueChanges(index: number) {
+    const journalLine = this.journalEntryLinesFormArray.at(index);
+    const debitAmountControl = journalLine.get('debitAmount');
+    const debitAmountLocalControl = journalLine.get('debitAmountLocal');
+    const creditAmountLocalControl = journalLine.get('creditAmountLocal');
+
+    debitAmountControl!.setValue(0);
+    debitAmountLocalControl?.setValue(0);
+
+    creditAmountLocalControl?.setValue(
+      journalLine.get('creditAmount')?.value * journalLine.get('currencyRate')?.value
+    );    
+  }
+
+  currencyValueChanges(event: any, index: number) {
+    const journalLine = this.journalEntryLinesFormArray.at(index);
+    const currencyRateControl = journalLine.get('currencyRate');
+    const debitAmountControl = journalLine.get('debitAmount');
+    const creditAmountControl = journalLine.get('creditAmount');
+    const debitAmountLocalControl = journalLine.get('debitAmountLocal');
+    const creditAmountLocalControl = journalLine.get('creditAmountLocal');
+
+    currencyRateControl?.valueChanges.subscribe((value) => {
+      // Update debit amount local only if debit amount exists
+      if (debitAmountControl?.value !== null && debitAmountControl?.value !== undefined) {
+        const debitAmountLocal = debitAmountControl?.value * value;
+        debitAmountLocalControl?.setValue(debitAmountLocal);
+      }
+
+      // Update credit amount local only if credit amount exists
+      if (creditAmountControl?.value !== null && creditAmountControl?.value !== undefined) {
+        const creditAmountLocal = creditAmountControl?.value * value;
+        creditAmountLocalControl?.setValue(creditAmountLocal);
+      }
+    });
   }
 
   constructor(
@@ -338,7 +335,6 @@ export class EditJournalEntryComponent implements OnInit {
     private dialog: DialogService,
     public enums: SharedJournalEnums,
     private toasterService: ToasterService,
-    private currencyService: CurrencyService,
-
-  ) { }
+    private currencyService: CurrencyService
+  ) {}
 }

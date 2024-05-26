@@ -7,6 +7,10 @@
                 <lib-text-input  placeholder="Reference Number" [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'" formControlName="refrenceNumber">
 
                 </lib-text-input>
+                <lib-field-validations
+                [appControl]="fg.controls['referenceNumber']"
+              >
+              </lib-field-validations>
             </div>
             <div class="col-12 md:col-3 ">
                 <lib-text-input placeholder="Journal Date" type="date" formControlName="journalDate"></lib-text-input>
@@ -20,6 +24,10 @@
             </div>
             <div class="col-12 md:col-12 ">
                 <lib-text-input placeholder="Description" formControlName="description"></lib-text-input>
+                <lib-field-validations
+                [appControl]="fg.controls['description']"
+              >
+              </lib-field-validations>
             </div>
         </div>
     </div>
@@ -74,7 +82,7 @@
                             </p-cellEditor>
                         </td>
                         <td>
-                            {{ (fg.controls['account']?.value | getElementByID : filteredAccounts)?.name }}
+                            {{ fg.controls['account'].value?.name }}
                         </td>
                         <td [pEditableColumn]="fg.controls['lineDescription']" pEditableColumnField="lineDescription">
                             <p-cellEditor>
@@ -87,10 +95,13 @@
                             </p-cellEditor>
                         </td>
 
-                        <td [pEditableColumn]="fg.controls['debitAmount']" pEditableColumnField="debitAmount">
+                        <td 
+                        [pEditableColumn]="fg.controls['debitAmount']"
+                         pEditableColumnField="debitAmount"
+                         >
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <lib-text-input formControlName="debitAmount"  type="number"></lib-text-input>
+                                    <lib-text-input formControlName="debitAmount"  type="number" (valueChanged)="debitChanged(i)"></lib-text-input>
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{ fg.controls['debitAmount'].value }}
@@ -98,10 +109,13 @@
                             </p-cellEditor>
                         </td>
 
-                        <td [pEditableColumn]="fg.controls['creditAmount']" pEditableColumnField="creditAmount">
+                        <td
+                         [pEditableColumn]="fg.controls['creditAmount']"
+                          pEditableColumnField="creditAmount"
+                          >
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <lib-text-input formControlName="creditAmount"  type="number"></lib-text-input>
+                                    <lib-text-input formControlName="creditAmount"  type="number" (valueChanged)="creditChanged(i)"></lib-text-input>
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{ fg.controls['creditAmount'].value }}
@@ -110,14 +124,29 @@
                         </td>
 
                         <td [pEditableColumn]="fg.controls['currency']" pEditableColumnField="currency">
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <p-autoComplete formControlName="currency" appendTo="body" [forceSelection]="true" [suggestions]="fitleredCurrencies" (completeMethod)="filterCurrency($event)" field="currencyName"></p-autoComplete>
+                                <!-- <ng-template pTemplate="input">
+                                    <p-autoComplete formControlName="currency" [forceSelection]="true" [suggestions]="fitleredCurrencies" (completeMethod)="filterCurrency($event)" field="currencyName"></p-autoComplete>
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{ fg.controls['currency'].value?.currencyName }}
-                                </ng-template>
-                            </p-cellEditor>
+                                </ng-template> -->
+                                <lib-form-group>
+                        
+                                    <lib-select
+                                    formControlName="currency"
+                                    [options]="currencies"
+                                    optionValue="id"
+                                    optionLabel="currencyName"
+                                    [selectedValue]="selectedCurrency"
+                                    (valueChanged)="currencyChanged(i)"
+                                  >
+                                  </lib-select>
+                                    <lib-field-validations
+                                      [appControl]="fg.controls['currency']"
+                                    >
+                                    </lib-field-validations>
+                                  </lib-form-group>
+
                         </td>
 
                         <td [pEditableColumn]="fg.controls['currencyRate']" pEditableColumnField="currencyRate">
@@ -172,7 +201,7 @@
             <button class="btn discard">
                 discard
             </button>
-            <button class="btn save" [disabled]="!fg.valid" (click)="save()">
+            <button class="btn save"  (click)="save()">
                 Save
             </button>
         </div>

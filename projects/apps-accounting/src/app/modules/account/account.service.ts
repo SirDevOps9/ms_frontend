@@ -51,6 +51,13 @@ export class AccountService {
       })
     );
   }
+  getAccountsHasNoChildren(quieries: string, pageInfo: PageInfo) {
+    return this.accountproxy.getAccountsHasNoChildren(quieries, pageInfo).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
   getTreeList() {
     return this.accountproxy.getTreeList().pipe(
       map((res) => {

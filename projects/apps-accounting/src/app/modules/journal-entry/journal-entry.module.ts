@@ -11,6 +11,7 @@ import { JournalTemplatePopupComponent } from './pages/components/journal-templa
 import { EditJournalEntryComponent } from './pages/edit-journal-entry/edit-journal-entry.component';
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { AuthGuard } from 'microtec-auth-lib';
+import { NoChildrenAccountsComponent } from './components/noChildrenAccounts/nochildaccounts.component';
 
 const routes: Routes = [
   {
@@ -36,7 +37,7 @@ const routes: Routes = [
       {
         path: 'journalentry/edit/:id',
         component: EditJournalEntryComponent,
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.JOURNAL_Edit,
         },
@@ -51,6 +52,7 @@ const routes: Routes = [
     CreateJournalEntryComponent,
     JournalEntryListComponent,
     AccountsComponent,
+    NoChildrenAccountsComponent,
     AttachmentsComponent,
     JournalTemplatePopupComponent,
     EditJournalEntryComponent

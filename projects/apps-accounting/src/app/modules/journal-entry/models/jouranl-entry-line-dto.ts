@@ -9,6 +9,6 @@ export interface JournalEntryLineDto {
   debitAmountLocal: number;
   creditAmountLocal: number;
   currency?: string;
-  currencyId: any;
+  currencyId: number;
   currencyRate: number;
 }
