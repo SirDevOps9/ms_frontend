@@ -17,7 +17,9 @@
       "Text": "You won't be able to revert this!",
       "ConfirmButtonTexttodelete": "Yes, delete it!",
       "CancelButtonText": "Cancel",
-      "ConfirmButtonTexttochangstatus": "Yes, Change Status"
+      "ConfirmButtonTexttochangstatus": "Yes, Change Status",
+      "Activate":"Activate",
+      "Deactivate":"Deactivate"
     }
   },
   "Layout": {
@@ -305,7 +307,28 @@
       "AddTag":"Add Tag",
       "Active":"Active",
       "Deactivate":"Deactivate",
-      "code":"Code"
+      "code":"Code",
+      "success":"Success",
+      "addtag":{
+        "title":"Add Tag",
+        "name":"Name",
+        "applicability":"Applicability",
+        "save":"Save",
+        "discard":"Discard",
+        "code":"Code",
+        "success":"Success"
+      },
+      "edittag":{
+        "title":"Edit Tag",
+        "name":"Name",
+        "applicability":"Applicability",
+        "status":"Status",
+        "save":"Save",
+        "discard":"Discard",
+        "code":"Code",
+        "success":"Success"
+
+      }
   
     }
   
