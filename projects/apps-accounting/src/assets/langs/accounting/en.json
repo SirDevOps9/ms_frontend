@@ -27,8 +27,7 @@
   "add_new_line": "Add New Line",
   "add_template": "Add Template",
   "discard": "discard",
-  "save": "Save"
-  },
+  "save": "Save",
   "EditJournal":{
     "JournalCode": "Journal Code",
     "JournalStatus": "Journal Status",

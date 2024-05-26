@@ -294,11 +294,11 @@
               </td>
 
               <td>
-                {{ journalLine.controls['debitAmountLocal'].value | number : '1.0-2' }}
+                {{ journalLine.get("debitAmountLocal").value  }}
               </td>
 
               <td>
-                {{ journalLine.controls['creditAmountLocal'].value | number : '1.0-2' }}
+                {{  journalLine.get("creditAmountLocal").value  }}
               </td>
 
               <!-- <td>

@@ -19,7 +19,6 @@ import { JournalStatusUpdate } from '../../models/update-status';
 import { AccountService } from '../../../account/account.service';
 import { AccountDto } from '../../../account/models/accountDto';
 import { DialogService } from 'primeng/dynamicdialog';
-import { AccountsComponent } from '../../components/accounts/accounts.component';
 import { CurrencyService } from '../../../general/currency.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
 import { NoChildrenAccountsComponent } from '../../components/noChildrenAccounts/nochildaccounts.component';
@@ -44,6 +43,9 @@ export class EditJournalEntryComponent implements OnInit {
   currencies: CurrencyDto[] = [];
   fitleredCurrencies: CurrencyDto[];
   selectedCurrency: string;
+
+  debitLocal: string;
+  creditLocal: string;
 
   ngOnInit() {
     this.getAccounts();
@@ -96,7 +98,7 @@ export class EditJournalEntryComponent implements OnInit {
       journalEntryLinesArray.clear();
 
       this.journalEntryLines.forEach((line) => {
-        const { currencyId, ...lineData } = line;
+        const { currencyId, debitAmount, creditAmount, currencyRate, ...lineData } = line;
 
         journalEntryLinesArray.push(
           this.fb.group({
@@ -105,12 +107,12 @@ export class EditJournalEntryComponent implements OnInit {
             accountName: new FormControl(lineData.accountName),
             accountCode: new FormControl(lineData.accountCode),
             lineDescription: new FormControl(lineData.lineDescription),
-            debitAmount: new FormControl(lineData.debitAmount, [customValidators.required]),
-            creditAmount: new FormControl(lineData.creditAmount, [customValidators.required]),
+            debitAmount: new FormControl(debitAmount, [customValidators.required]),
+            creditAmount: new FormControl(creditAmount, [customValidators.required]),
             currency: new FormControl(lineData.currency, [customValidators.required]),
-            currencyRate: new FormControl(lineData.currencyRate, [customValidators.required]),
-            debitAmountLocal: new FormControl(lineData.debitAmountLocal),
-            creditAmountLocal: new FormControl(lineData.creditAmountLocal),
+            currencyRate: new FormControl(currencyRate, [customValidators.required]),
+            debitAmountLocal: new FormControl(debitAmount * currencyRate),
+            creditAmountLocal: new FormControl(creditAmount * currencyRate),
           })
         );
 
@@ -286,6 +288,7 @@ export class EditJournalEntryComponent implements OnInit {
       journalLine.get('debitAmount')?.value * journalLine.get('currencyRate')?.value
     );
   }
+  
 
   creditValueChanges(index: number) {
     const journalLine = this.journalEntryLinesFormArray.at(index);
