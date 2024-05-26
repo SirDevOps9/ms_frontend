@@ -6,5 +6,26 @@
     "AddNewLine": "Add New Line",
     "discard": "discard",
     "Save": "Save"
-  }
+  },
+  "JournalTitle":"Add Journal",
+  "journal_entry_header": "Please Enter journal entry Header",
+  "reference_number": "Reference Number",
+  "journal_date": "Journal Date",
+  "journal_period": "Journal Period",
+  "attach": "Attach",
+  "description": "Description",
+  "id": "Id",
+  "account_code": "Acc. Code",
+  "account_name": "Acc. Name",
+  "line_description": "Line Description",
+  "debit_amount": "DB Amount",
+  "credit_amount": "CR Amount",
+  "currency": "Currency",
+  "rate": "Rate",
+  "debit_amount_local": "DB Amount Local",
+  "credit_amount_local": "CR Amount Local",
+  "add_new_line": "Add New Line",
+  "add_template": "Add Template",
+  "discard": "discard",
+  "save": "Save"
 }

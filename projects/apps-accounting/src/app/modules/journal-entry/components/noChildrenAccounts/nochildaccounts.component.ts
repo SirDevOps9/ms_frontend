@@ -11,10 +11,9 @@ import { SearchFunc } from 'libs/shared-lib/src/lib/models/sendQueries';
 @Component({
   selector: 'app-nochildaccounts',
   templateUrl: './nochildaccounts.component.html',
-  styleUrl: './nochildaccounts.component.scss'
+  styleUrl: './nochildaccounts.component.scss',
 })
 export class NoChildrenAccountsComponent implements OnInit {
-
   pageInfo = new PageInfo();
   items: AccountDto[];
   paging: PageInfoResult;
@@ -22,17 +21,17 @@ export class NoChildrenAccountsComponent implements OnInit {
   lang: string;
   selectedIndex: number = -1;
   selectedAccount: AccountDto | null;
-  searchForm : FormGroup = this.fb.group({
-    SearchTerm : ['']
+  searchForm: FormGroup = this.fb.group({
+    SearchTerm: [''],
   });
 
-  @Input() hasNoChildren :boolean = true;
+  @Input() hasNoChildren: boolean = true;
 
-  constructor(private accountService: AccountService,
+  constructor(
+    private accountService: AccountService,
     private translate: TranslateService,
     private ref: DynamicDialogRef,
-    private fb : FormBuilder
-
+    private fb: FormBuilder
   ) {
     this.lang = (translate.currentLang || 'EN').toLowerCase();
   }
@@ -40,17 +39,16 @@ export class NoChildrenAccountsComponent implements OnInit {
   ngOnInit(): void {
     this.getAccounts(this.searchForm.get('SearchTerm')?.value);
 
-    this.searchForm.valueChanges.pipe(
-      debounceTime(1000)
-    ).subscribe(res=>{
-      console.log(res)
+    this.searchForm.valueChanges.pipe(debounceTime(1000)).subscribe((res) => {
+      //console.log(res);
       this.getAccounts(SearchFunc(this.searchForm.value));
-
-    })
+    });
   }
 
-  getAccounts(searchTerm : string) {
-    this.accountService.getAccountsHasNoChildren(searchTerm, this.pageInfo).subscribe(r => {
+  getAccounts(searchTerm: string) {
+    this.accountService.getAccountsHasNoChildren(searchTerm, this.pageInfo).subscribe((r) => {
+      //console.log('account List', r.result);
+
       this.items = r.result;
       this.paging = r.pageInfoResult;
     });
@@ -69,18 +67,15 @@ export class NoChildrenAccountsComponent implements OnInit {
   selectRow(event: any, account: AccountDto) {
     if (event.target.checked) {
       this.selectedAccount = account;
-      this.selectedIndex = this.items.findIndex(i => i.id == account.id);
-    }
-    else {
+      this.selectedIndex = this.items.findIndex((i) => i.id == account.id);
+    } else {
       this.selectedAccount = null;
       this.selectedIndex = -1;
     }
 
     setTimeout(() => {
-      this.onSubmit()
-
+      this.onSubmit();
     }, 100);
-
   }
 
   onSubmit() {
