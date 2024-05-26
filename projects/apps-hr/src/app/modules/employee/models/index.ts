@@ -5,3 +5,5 @@ export * from './get-employee-by-id';
 export * from './shared-employee-enums';
 export * from './country-dto';
 export * from './city-dto';
+export * from './nationality-dto';
+export * from './get-employee-view';

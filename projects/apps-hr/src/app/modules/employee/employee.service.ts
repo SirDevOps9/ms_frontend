@@ -13,6 +13,7 @@ import {
   CountryDto,
   EditEmployeePersonal,
   EmployeeDto,
+  NationalityDto
 } from './models';
 import { BehaviorSubject, catchError, map } from 'rxjs';
 
@@ -31,6 +32,10 @@ export class EmployeeService {
 
   private cityDataSource = new BehaviorSubject<CityDto[]>([]);
   public cities = this.cityDataSource.asObservable();
+
+  private nationalityDataSource = new BehaviorSubject<NationalityDto[]>([]);
+  public nationalities = this.nationalityDataSource.asObservable();
+
 
   public addEmployeeStatus = new BehaviorSubject<boolean>(false);
 
@@ -56,6 +61,11 @@ export class EmployeeService {
     });
   }
 
+  loadNationalities() {
+    this.employeeProxy.getAllNationalities().subscribe((response) => {
+      this.nationalityDataSource.next(response);
+    });
+  }
   addEmployee(model: AddEmployeePersonal) {
     this.loaderService.show();
     this.employeeProxy.addEmployee(model).subscribe({
@@ -94,6 +104,17 @@ export class EmployeeService {
   }
   getEmployeeById(Id: number) {
     return this.employeeProxy.getEmployeeById(Id).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((err: string) => {
+        throw err!;
+      })
+    );
+  }
+
+  getEmployeeView(Id: number) {
+    return this.employeeProxy.getEmployeeView(Id).pipe(
       map((res) => {
         return res;
       }),
