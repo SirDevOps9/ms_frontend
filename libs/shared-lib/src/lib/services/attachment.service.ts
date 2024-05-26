@@ -154,6 +154,9 @@ export class AttachmentsService {
     );
   }
 
+  clearState(){
+    this.attachmentIdDataSource.next('');
+  }
   constructor(
     private httpService: HttpService,
     private languageService: LanguageService,

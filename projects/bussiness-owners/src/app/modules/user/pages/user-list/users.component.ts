@@ -46,7 +46,7 @@ export class UsersComponent implements OnInit {
     this.userService.resendInvitation(id);
   }
 
-  delete() {}
+
   openInviteModal() {
     this.userService.openInviteUserModal(this.subdmainId, this.ref, this.dialog);
   }
@@ -91,6 +91,11 @@ export class UsersComponent implements OnInit {
   get subdmainId(): string {
     return this.routerService.currentId;
   }
+
+  removeUser(email:string) {
+    this.userService.removeInvitedUser(email,this.subdmainId);
+  }
+
 
   constructor(
     public languageService: LanguageService,

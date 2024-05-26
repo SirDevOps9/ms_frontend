@@ -103,5 +103,9 @@ export class UserProxy {
     return this.baseService.get<SubscriptionDto[]>(`Subscription`);
   }
 
+  removeInvitedUser(email: string,subdomainId:string): Observable<InvitedUserDto> {
+    return this.baseService.post<InvitedUserDto>(`InvitedUser/RemoveInvitedUser/${email}/${subdomainId}`, {});
+  }
+
   constructor(private baseService: HttpService) {}
 }

@@ -47,8 +47,7 @@
           {
             name: 'lastLoginDate',
             headerText: ('User.LastLogin' | translate),
-            isGlobalFilter: true,
-            isSortable: true
+           template:lastloginCol
           },
           {
             name: 'license',
@@ -90,6 +89,11 @@
         </div>
       </ng-container> -->
     </lib-data-table>
+    <ng-template #lastloginCol let-user>
+      <div class="user_info">
+        <p>{{ user.lastLoginDate | date }}</p>
+      </div>
+    </ng-template>
 
     <ng-template #userCol let-user>
       <div class="user_info">
@@ -120,7 +124,7 @@
       ></p-button> -->
 
       <p-button
-        (click)="changed($event, user.id)"
+        (click)="removeUser(user.email)"
         icon="pi pi-trash"
         class="checked"
         [rounded]="true"
