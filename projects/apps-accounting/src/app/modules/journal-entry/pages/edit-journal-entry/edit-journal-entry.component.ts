@@ -43,7 +43,7 @@ export class EditJournalEntryComponent implements OnInit {
   filteredAccounts: AccountDto[] = [];
   currencies: CurrencyDto[] = [];
   fitleredCurrencies: CurrencyDto[];
-  selectedCurrency: number;
+  selectedCurrency: string;
 
   ngOnInit() {
     this.getAccounts();
@@ -161,7 +161,6 @@ export class EditJournalEntryComponent implements OnInit {
     journalLine.get('currencyRate')?.setValue(journalLine?.value?.currency?.ratePerUnit);
   }
 
-
   async deleteJournalEntryLine(index: number) {
     const journalLine = this.journalEntryLinesFormArray.at(index);
     const status = this.editJournalForm.get('status')?.value;
@@ -205,9 +204,6 @@ export class EditJournalEntryComponent implements OnInit {
       creditAmountLocal: new FormControl(),
     });
     this.journalEntryLinesFormArray.push(newLine);
-
-
-    
   }
 
   getAccounts() {
@@ -239,23 +235,26 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   updateAccount(event: any, index: number) {
-    console.log(event.value);
     const journalLine = this.journalEntryLinesFormArray.at(index);
-    journalLine.get('accountId')?.setValue(event.value.id);
+
+    journalLine.get('accountId')?.setValue(event);
+    var accountData = this.filteredAccounts.find((c) => c.id == event);
+
     const accountName = journalLine.get('accountName');
-    accountName?.setValue(event.value.name);
-    journalLine.get('accountCode')?.setValue(event.value.accountCode);
+    accountName?.setValue(accountData?.name);
+
+    journalLine.get('accountCode')?.setValue(accountData?.accountCode);
+
+    var currencyData = this.currencies.find((c) => c.id == accountData?.currencyId);
+
     const currencyControl = journalLine.get('currency');
     const currencyRateControl = journalLine.get('currencyRate')!;
 
-    currencyControl?.setValue(event.value.currencyId);
-    this.selectedCurrency = event.value.currencyId;
+    currencyControl?.setValue(currencyData?.currencyName);
+    this.selectedCurrency = currencyData?.currencyName!;
+    console.log('aaaaaaaa', this.selectedCurrency);
 
-    var currencyData = this.currencies.find((c) => c.id == event.value.currencyId);
-
-    console.log('Currency Data', currencyData);
-
-    currencyRateControl.setValue(currencyData!.ratePerUnit);
+    currencyRateControl.setValue(currencyData?.ratePerUnit);
   }
 
   getCurrencies() {
@@ -275,7 +274,7 @@ export class EditJournalEntryComponent implements OnInit {
     );
   }
 
-  debitValueChanges( index: number) {
+  debitValueChanges(index: number) {
     const journalLine = this.journalEntryLinesFormArray.at(index);
     const creditAmountControl = journalLine.get('creditAmount');
     const creditAmountLocalControl = journalLine.get('creditAmountLocal');
@@ -286,7 +285,6 @@ export class EditJournalEntryComponent implements OnInit {
     debitAmountLocalControl?.setValue(
       journalLine.get('debitAmount')?.value * journalLine.get('currencyRate')?.value
     );
-
   }
 
   creditValueChanges(index: number) {
@@ -300,7 +298,7 @@ export class EditJournalEntryComponent implements OnInit {
 
     creditAmountLocalControl?.setValue(
       journalLine.get('creditAmount')?.value * journalLine.get('currencyRate')?.value
-    );    
+    );
   }
 
   currencyValueChanges(event: any, index: number) {

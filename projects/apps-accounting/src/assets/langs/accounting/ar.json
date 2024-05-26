@@ -6,5 +6,35 @@
     "AddNewLine": "إضافة سطر جديد",
     "discard": "تجاهل",
     "Save": "حفظ"
+},
+
+"EditJournal":{
+  "JournalCode": "رمز اليومية",
+  "JournalStatus": "حالة اليومية",
+  "JournalReference": "مرجع اليومية",
+  "Date": "التاريخ",
+  "JournalPeriod": "فترة اليومية",
+  "JournalType": "نوع اليومية",
+  "SourceDocumentName": "اسم المستند المصدر",
+  "SourceDocumentCode": "رمز المستند المصدر",
+  "ReversedJournal": "اليومية المعكوسة",
+  "JournalDescription": "وصف اليومية",
+  "Id": "الرقم",
+  "AccountCode": "كود الحساب",
+  "AccountName": "اسم الحساب",
+  "LineDescription": "وصف السطر",
+  "DbAmount": "المبلغ مدين",
+  "CrAmount": "المبلغ دائن",
+  "Currency": "العملة",
+  "Rate": "السعر",
+  "DbAmountLocal": "المبلغ مدين محلي",
+  "CrAmountLocal": "المبلغ دائن محلي",
+  "Actions": "الإجراءات",
+  "Delete": "حذف",
+  "AddNewLine": "إضافة سطر جديد",
+  "Discard": "تجاهل",
+  "Save": "حفظ",
+  "Submit": "إرسال",
+  "Post": "ترحيل"
 }
 }
