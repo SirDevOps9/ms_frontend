@@ -14,9 +14,9 @@ export class GeneralSettingService {
 
 
   public currentTag = this.currentTagDataSource.asObservable();
-  public TagList = this.tagDataSource.asObservable();
+  public tagList = this.tagDataSource.asObservable();
  
-  GetTagList(searchTerm: string, pageInfo: PageInfo) {
+  getTagList(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getAllTagsPaginated(searchTerm, pageInfo).subscribe({
       next: (res) => {
         this.tagDataSource.next(res.result);
@@ -45,11 +45,11 @@ export class GeneralSettingService {
     });
   }
 
-  editTag(TagDto: TagDto
+  editTag(tagDto: TagDto
     ,dialogRef: DynamicDialogRef
   ){
     this.loaderService.show();
-    this.GeneralSettingproxy.editTag(TagDto).subscribe({
+    this.GeneralSettingproxy.editTag(tagDto).subscribe({
       next: (res) => {
         console.log("res",res)
         this.toasterService.showSuccess(
@@ -65,8 +65,8 @@ export class GeneralSettingService {
     });
   }
 
-  getTagById(Id:number) {
-    this.GeneralSettingproxy.getTagById(Id).subscribe((response) => {
+  getTagById(id:number) {
+    this.GeneralSettingproxy.getTagById(id).subscribe((response) => {
       this.currentTagDataSource.next(response);
     });
   }

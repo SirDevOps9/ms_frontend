@@ -21,24 +21,24 @@ export class GeneralSettingProxy {
      return this.httpService.post<TagDto>(`Tag`,addTagDto);
   }
 
-  editTag(TagDto: TagDto): Observable<boolean> {
-    return this.httpService.put<boolean>(`Tag`,TagDto);
+  editTag(tagDto: TagDto): Observable<boolean> {
+    return this.httpService.put<boolean>(`Tag`,tagDto);
  }
 
- getTagById(Id: number): Observable<TagDto> {
-  return this.httpService.get<TagDto>(`Tag/GetById?Id=${Id}`);
+ getTagById(id: number): Observable<TagDto> {
+  return this.httpService.get<TagDto>(`Tag/GetById?Id=${id}`);
 }
 
- deleteTag(Id: number): Observable<boolean> {
-  return this.httpService.delete<boolean>(`Tag?Id=${Id}`);
+ deleteTag(id: number): Observable<boolean> {
+  return this.httpService.delete<boolean>(`Tag?Id=${id}`);
 }
 
-activateTag(Id: number): Observable<boolean> {
-  return this.httpService.put<boolean>(`Tag/Activate?Id=${Id}`,{});
+activateTag(id: number): Observable<boolean> {
+  return this.httpService.put<boolean>(`Tag/Activate?Id=${id}`,{});
 }
 
-deactivateTag(Id: number): Observable<boolean> {
-  return this.httpService.put<boolean>(`Tag/deactivate?Id=${Id}`,{});
+deactivateTag(id: number): Observable<boolean> {
+  return this.httpService.put<boolean>(`Tag/deactivate?Id=${id}`,{});
 }
 
   constructor(private httpService: HttpService) {}

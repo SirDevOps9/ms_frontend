@@ -31,9 +31,9 @@ export class TagListComponent implements OnInit {
   }
 
   initTagData() {
-    this.generalSettingService.GetTagList('', new PageInfo());
+    this.generalSettingService.getTagList('', new PageInfo());
 
-    this.generalSettingService.TagList.subscribe({
+    this.generalSettingService.tagList.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -45,9 +45,9 @@ export class TagListComponent implements OnInit {
   }
   
   onPageChange(pageInfo: PageInfo) {
-    this.generalSettingService.GetTagList('', pageInfo);
+    this.generalSettingService.getTagList('', pageInfo);
     
-    this.generalSettingService.TagList.subscribe({
+    this.generalSettingService.tagList.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -88,10 +88,10 @@ export class TagListComponent implements OnInit {
     }
 
     onSearchChange(){
-      this.generalSettingService.GetTagList(this.searchTerm, new PageInfo());
+      this.generalSettingService.getTagList(this.searchTerm, new PageInfo());
       console.log(this.searchTerm,"Search");
 
-    this.generalSettingService.TagList.subscribe({
+    this.generalSettingService.tagList.subscribe({
       next: (res) => {
         this.tableData = res;
       },
