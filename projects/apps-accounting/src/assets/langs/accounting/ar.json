@@ -6,6 +6,28 @@
     "AddNewLine": "إضافة سطر جديد",
     "discard": "تجاهل",
     "Save": "حفظ"
+  },
+  "JournalTitle":"انشاء قيد اليومية",
+  "journal_entry_header": "الرجاء إدخال عنوان دفتر اليومية",
+  "reference_number": "رقم المرجع",
+  "journal_date": "تاريخ دفتر اليومية",
+  "journal_period": "فترة دفتر اليومية",
+  "attach": "إرفاق",
+  "description": "الوصف",
+  "id": "المعرف",
+  "account_code": "رمز الحساب",
+  "account_name": "اسم الحساب",
+  "line_description": "وصف السطر",
+  "debit_amount": "مبلغ المدين",
+  "credit_amount": "مبلغ الدائن",
+  "currency": "العملة",
+  "rate": "السعر",
+  "debit_amount_local": "مبلغ المدين المحلي",
+  "credit_amount_local": "مبلغ الدائن المحلي",
+  "add_new_line": "إضافة سطر جديد",
+  "add_template": "إضافة قالب",
+  "discard": "تجاهل",
+  "save": "حفظ"
 },
 
 "EditJournal":{

@@ -5,6 +5,7 @@
      top: 0;
      position: fixed;
      left: 0;
+     background: #fff;
      z-index: 1000;
      .header_content{
          width: 100%;
@@ -402,7 +403,12 @@
  
  }
  ::ng-deep {
- 
+  .p-menubar {
+    width: 100%;
+    background: #fff !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
  
  .header_bussiness{
    .p-menubar-end{
@@ -410,7 +416,7 @@
      margin-inline-start: auto !important;
    }
   .p-menubar {
-    width: 100%;
+         width: 100%;
          background: #fff !important;
          border: none !important;
          border-radius: 0 !important;

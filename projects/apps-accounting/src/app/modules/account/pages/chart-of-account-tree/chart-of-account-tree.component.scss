@@ -6,7 +6,13 @@
         
     }
     ::ng-deep {
-
+        #label_tree{
+            cursor: pointer !important;
+        }
+        .grid{
+            margin: 0 !important;
+            box-sizing: border-box !important;
+        }
       
         .ui-tree-node-content {
             display: flex !important;
@@ -67,11 +73,12 @@
             padding: 0 !important;
         }
         .p-tree{
-            height: 700px;
+            height: 775px !important;
             overflow: auto;
         }
       
     }
+   
     
     .btn_add {
         width: 20px;
@@ -87,6 +94,7 @@
         margin-inline-start: 20px;
         cursor: pointer;
     }
+  
     
     .folder_icon,
     .file_icon {
@@ -139,4 +147,5 @@
         font-size: 16px;
         font-family: $cairo_regular;
     }
+  
 }

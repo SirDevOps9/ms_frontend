@@ -1,3 +1,4 @@
+@import '../../../../../assets/styling/scss/variables/font-family';
 .confirm_invitation_pages {
   background: linear-gradient(
     345deg,
@@ -28,6 +29,7 @@
       }
     }
     .form_card {
+    
       height: 100%;
       padding: 10px 20px;
       width: 60%;
@@ -42,10 +44,15 @@
         .title {
           font-size: 20px;
           color: #1a8eae;
-          font-weight: 900;
+          // font-weight: 900;
+          font-family: $cairo_bold;
         }
       }
       .form_content {
+    .photo{
+      height: 100px;
+      margin-bottom: 20px;
+    }
         .uplode_photo {
           //max-width: 50%;
           display: flex;
@@ -106,6 +113,7 @@
         #policy {
           accent-color: #1a8eae !important;
         }
+        
       }
       .actions {
         width: 100%;
@@ -116,7 +124,7 @@
           width: 20%;
           height: 50px;
           text-transform: capitalize;
-          font-size: 22px;
+        //  font-size: 22px;
           background-color: #1a8eae;
           color: #fff;
           padding: 5px 20px;
@@ -129,7 +137,7 @@
           width: 20%;
           height: 50px;
           text-transform: capitalize;
-          font-size: 22px;
+        //  font-size: 22px;
           background-color: #fff;
           color: #1a8eae;
           border: 2px solid #1a8eae;

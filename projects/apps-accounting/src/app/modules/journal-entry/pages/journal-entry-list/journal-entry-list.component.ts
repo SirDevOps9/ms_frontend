@@ -95,7 +95,7 @@ export class JournalEntryListComponent implements OnInit {
     this.journalEntryService.journalEntries.subscribe({
       next: (data) => {
         this.tableData = data;
-        console.log('data', this.journalEntries);
+        //console.log('data', this.journalEntries);
       },
     });
 

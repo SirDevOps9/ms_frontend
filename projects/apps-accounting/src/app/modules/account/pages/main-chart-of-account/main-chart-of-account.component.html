@@ -1,6 +1,15 @@
 <lib-page-content>
     <lib-bread-crumb>
         <div class="actions">
+            <lib-button-micro 
+            title="configration"
+            nameClass="save"
+            (click)="RedirectToConfiguration()"
+            *ngIf="!Viewlist && view "
+            style="width:100%"
+            >
+            
+            </lib-button-micro>
             <button class="btn import ">
                 <i class="btn_icon pi pi-cloud-download"></i>
                  import
@@ -9,7 +18,7 @@
                 <i class="btn_icon pi pi-user-edit"></i>
                 Edit
             </button>
-            <button class="btn save " *ngIf="!Viewlist && edit ||add "  >
+            <button class="btn save " *ngIf="!Viewlist && edit || !add && !view"  >
                 <i class="btn_icon pi pi-user-edit"></i>
                 save
             </button>
@@ -23,7 +32,7 @@
         </div>
     </lib-bread-crumb>
     <div class="main_chat_of_account">
-        <app-chart-of-account-tree *ngIf="!Viewlist" [edit]="edit" [view]="view"  [add]="add"></app-chart-of-account-tree>
+        <app-chart-of-account-tree *ngIf="!Viewlist" [edit]="edit" [view]="view"  [add]="add" (addmode)="changeMode($event)"></app-chart-of-account-tree>
         <app-chat-of-account-list *ngIf="Viewlist"></app-chat-of-account-list>
     </div>
 

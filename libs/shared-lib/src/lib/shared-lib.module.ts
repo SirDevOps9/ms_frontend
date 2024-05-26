@@ -9,6 +9,10 @@ import {
   LoaderComponent,
   DataTableComponent,
   TablePaginatorComponent,
+  ButtonMicroComponent,
+  
+  
+  
 } from './components';
 import {
   FieldValidationsComponent,
@@ -19,6 +23,7 @@ import {
   MultiSelectComponent,
   ButtonComponent,
   SharedFormComponent,
+  ToggelComponent,
 } from './form-components';
 import { DropdownModule } from 'primeng/dropdown';
 import { GetLookupPipe } from './pipes/lookupList';
@@ -64,6 +69,8 @@ import { GetElementByIDPipe } from './pipes/get-element-by-id.pipe';
     AccordionComponent,
     SharedFormComponent,
     FildestComponent,
+    ButtonMicroComponent,
+    ToggelComponent, 
     GetElementByIDPipe
   ],
   imports: [
@@ -110,6 +117,9 @@ import { GetElementByIDPipe } from './pipes/get-element-by-id.pipe';
     TreeModule,
     SharedFormComponent,
     FildestComponent,
+    ButtonMicroComponent,
+    ToggelComponent,
+    
     GetElementByIDPipe
   ],
 })

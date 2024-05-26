@@ -90,6 +90,17 @@ span{
     color: #fff !important;
     background: #1a8eae !important;
   }
+  .p-datatable .p-sortable-column.p-highlight:hover {
+    background: #EFF6FF;
+    color: #1a8eae;
+  }
+  .p-datatable .p-sortable-column.p-highlight {
+    background: #EFF6FF;
+    color: #1a8eae !important;
+  }
+  .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
+    color: #1a8eae !important;
+  }
 }
 
 .cssClass{
