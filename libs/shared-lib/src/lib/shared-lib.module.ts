@@ -36,6 +36,7 @@ import { AttachmentViewerComponent } from './components/attachment-viewer/attach
 import { TreeModule } from 'primeng/tree';
 import { NamedFileUploaderComponent } from './form-components/named-file-uploader/named-file-uploader.component';
 import { FildestComponent } from './components/fildest/fildest.component';
+import { GetElementByIDPipe } from './pipes/get-element-by-id.pipe';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { FildestComponent } from './components/fildest/fildest.component';
     AccordionComponent,
     SharedFormComponent,
     FildestComponent,
+    GetElementByIDPipe
   ],
   imports: [
     CommonModule,
@@ -108,6 +110,7 @@ import { FildestComponent } from './components/fildest/fildest.component';
     TreeModule,
     SharedFormComponent,
     FildestComponent,
+    GetElementByIDPipe
   ],
 })
 export class SharedLibModule {}

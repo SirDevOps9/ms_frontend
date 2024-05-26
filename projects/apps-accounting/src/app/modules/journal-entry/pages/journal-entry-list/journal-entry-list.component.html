@@ -118,7 +118,11 @@
         </div>
       </ng-container>
       <ng-template #userCol let-journal>
-        <div class="actions flex align-items-center">
+        <div class="actions flex align-items-center gap-2">
+          <lib-button icon="pi pi-eye"      [rounded]="true"
+          [enableText]="true"
+          severity="secondary">
+          </lib-button>
           <lib-button
             className="edit"
             type="button"
@@ -129,8 +133,12 @@
             severity="secondary"
           >
           </lib-button>
-          <lib-button icon="pi pi-trash" [rounded]="true" [enableText]="true" severity="secondary">
-          </lib-button>
+
+          <lib-button [icon]="'pi pi-trash'"    [rounded]="true"
+          [enableText]="true"
+          severity="secondary"></lib-button>
+          
+      
         </div>
       </ng-template>
       <ng-template #userStatus let-journal>
@@ -150,7 +158,7 @@
         </div>
         <div
           class="status unposted"
-          *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.submited"
+          *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Submitted"
         >
           <p class="dot"></p>
           <p>Unposted</p>

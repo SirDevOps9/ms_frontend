@@ -87,3 +87,12 @@
  
 }
 
+::ng-deep .add-journal {
+  .p-dropdown {
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    transition: none !important;
+    border-radius: 6px;
+    width: 130px !important;
+  }
+}
