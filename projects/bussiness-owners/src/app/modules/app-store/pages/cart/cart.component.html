@@ -4,19 +4,19 @@
     <div class="grid" *ngIf="cartData; else noItems">
       <div class="col-12 md:col-9">
         <div class="cart_header">
-          <h2>{{ 'Cart.Title' | translate }}</h2>
-          <p>
+          <p class="title body_b20">{{ 'Cart.Title' | translate }}</p>
+          <p  class="body_b16">
             {{ 'Cart.HeaderText' | translate }}
           </p>
         </div>
         <div class="data_table">
           <div class="data_head">
             <div class="grid">
-              <div class="col-4">{{ 'Cart.Table.Product' | translate }}</div>
-              <div class="col-2">{{ 'Cart.Table.Subdomain' | translate }}</div>
-              <div class="col-2">{{ 'Cart.Table.Price' | translate }}</div>
+              <div class="col-4 body_b18" >{{ 'Cart.Table.Product' | translate }}</div>
+              <div class="col-2 body_b18">{{ 'Cart.Table.Subdomain' | translate }}</div>
+              <div class="col-2 body_b18">{{ 'Cart.Table.Price' | translate }}</div>
 
-              <div class="col-2">{{ 'Cart.Table.Total' | translate }}</div>
+              <div class="col-2 body_b18">{{ 'Cart.Table.Total' | translate }}</div>
             </div>
           </div>
           <div class="data_body" *ngFor="let group of groupedItems | keyvalue">

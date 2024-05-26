@@ -1,0 +1,29 @@
+.btn{
+    padding:10px 40px ;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    .icon{
+        margin-inline-end: 5px;
+    }
+}
+.save{
+    background: #1A8EAE;
+    border: 1px solid #1A8EAE;
+    color: #fff;
+    &:hover{
+        background: #fff;
+        color: #1A8EAE;
+        border: 1px solid #1A8EAE;
+    }
+}
+.cancel{
+    background: #fff;
+    border: 1px solid #CB3F2D;
+    color: #CB3F2D;
+    &:hover{
+        background: #CB3F2D;
+        color: #fff;
+        border: 1px solid #CB3F2D;
+    }
+}

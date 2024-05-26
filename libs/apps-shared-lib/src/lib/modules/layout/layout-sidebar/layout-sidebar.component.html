@@ -2,7 +2,7 @@
   <div class="logo-details">
     <button
       class="pi"
-      [ngClass]="{ 'pi-arrow-right': !sidebarOpen, 'pi-arrow-left': sidebarOpen }"
+      [ngClass]="{ 'pi-angle-right': !sidebarOpen, 'pi-angle-left': sidebarOpen }"
       (click)="toggleSidebar()"
     ></button>
   </div>
@@ -42,22 +42,22 @@
         <div class="iocn-link" id="parent{{ i }}">
           <a>
             <i class="{{ menuItem.icon }}"></i>
-            <span class="link_name">{{ menuItem.name }}</span>
+            <span class="link_name  body_b18">{{ menuItem.name }}</span>
           </a>
-          <i class="pi pi-caret-down arrow" (click)="open($event, i)"></i>
+          <i class="pi pi-sort-down-fill arrow" (click)="open($event, i)"></i>
         </div>
         <ul class="sub-menu">
           <li *ngFor="let subItem of menuItem.subMenu; let x = index">
             <ng-container *ngIf="subItem.subMenu?.length">
               <div class="iocn-link" id="parent{{ x }}">
                 <a [routerLink]="subItem.link">
-                  <span class="link_name">{{ subItem.name }}</span>
+                  <span class="link_name body_b18" >{{ subItem.name }}</span>
                 </a>
                 <i class="pi pi-caret-down arrow" (click)="open($event, x)"></i>
               </div>
               <ul class="sub-menu">
                 <li *ngFor="let subSubItem of subItem.subMenu">
-                  <a [routerLink]="subSubItem.link">{{ subSubItem.name }}</a>
+                  <a [routerLink]="subSubItem.link" class="body_b18">{{ subSubItem.name }}</a>
                 </li>
               </ul>
             </ng-container>
@@ -70,11 +70,11 @@
       <li *ngIf="menuItem.subMenu.length === 0">
         <a>
           <i class="{{ menuItem.icon }}"></i>
-          <span class="link_name">{{ menuItem.name }}</span>
+          <span class="link_name body_b18">{{ menuItem.name }}</span>
         </a>
         <ul class="sub-menu blank">
           <li>
-            <a class="link_name" [href]="menuItem.link">{{ menuItem.name }}</a>
+            <a class="link_name body_b18" [href]="menuItem.link">{{ menuItem.name }}</a>
           </li>
         </ul>
       </li>

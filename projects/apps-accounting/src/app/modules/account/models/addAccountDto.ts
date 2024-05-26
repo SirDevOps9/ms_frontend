@@ -1,8 +1,7 @@
 import { AccountNature } from "./accountNature";
 
 export interface AddAccountDto {
-  nameAr: string;
-  nameEn: string;
+  name: string;
   parentId:number;
   natureId:number;
   hasNoChild: boolean;

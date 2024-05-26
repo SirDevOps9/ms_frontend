@@ -14,23 +14,25 @@
       </div>
       <div class="form_content pb-6">
         <form [formGroup]="userForm" (ngSubmit)="submitForm()">
-       
-          <lib-form-group>
-            <lib-label [appControl]="userForm.controls['photo']">
-              {{ "photo" }}
-            </lib-label>
-            <lib-file-uploader
-              type="photo"
-              formControlName="photo"
-              [config]="{
-                type: sharedLibEnums.AttachmentFileTypes.image,
-                viewThumbnail: true
-              }"
-              [appControl]="userForm.controls['photo']"
-            />
-            <lib-field-validations [appControl]="userForm.controls['photo']">
-            </lib-field-validations>
-          </lib-form-group>
+       <div class="photo">
+        <lib-form-group>
+          <lib-label [appControl]="userForm.controls['photo']">
+            {{ "photo" }}
+          </lib-label>
+          <lib-file-uploader
+            type="photo"
+            formControlName="photo"
+            [config]="{
+              type: sharedLibEnums.AttachmentFileTypes.image,
+              viewThumbnail: true
+            }"
+            [appControl]="userForm.controls['photo']"
+          />
+          <lib-field-validations [appControl]="userForm.controls['photo']">
+          </lib-field-validations>
+        </lib-form-group>
+       </div>
+        
           <div class="user_name_email mb-6">
             <div class="user_name">
               <label for="fullName">{{
@@ -196,15 +198,16 @@
               formControlName="acceptPolicy"
               class="form-check-input"
             />
-            <label for="policy" class="form-check-label">{{
+            <label for="policy" class="form-check-label body_b16">{{
               "UserConfirmation.policy" | translate
             }}</label>
           </div>
+
           <div class="actions mb-6">
-            <button type="button" class="disabled" *ngIf="userForm.invalid">
+            <button type="button " class="disabled body_b16" *ngIf="userForm.invalid">
               {{ "UserConfirmation.Save" | translate }}
             </button>
-            <button type="submit" class="save" *ngIf="userForm.valid">
+            <button type="submit " class="save body_b16" *ngIf="userForm.valid">
               {{ "UserConfirmation.Save" | translate }}
             </button>
           </div>

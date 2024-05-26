@@ -9,3 +9,4 @@ export * from './tagDropDownDto';
 
 export * from './addLevelsDto';
 export * from './getLevelsDto';
+export * from './accountByIdDto'

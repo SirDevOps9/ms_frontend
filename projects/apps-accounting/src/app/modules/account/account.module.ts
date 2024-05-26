@@ -25,9 +25,12 @@ const routes: Routes = [
         path: 'chartofaccounts',
         component: MainChartOfAccountComponent,
         canActivate: [AuthGuard],
-        data: {
+        data:{
           breadcrumb: BreadcrumbLabel.chart_of_account,
-        },
+         },
+          
+     
+      
         children: [
           {
             path: 'add',
