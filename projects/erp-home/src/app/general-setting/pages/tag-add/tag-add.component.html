@@ -1,0 +1,59 @@
+<div class="invite_user">
+  <div class="invite_user_header">
+    <div class="title">
+      <div class="plus_icon"></div>
+      {{ "tag.addtag.title" | translate }}
+    </div>
+  </div>
+  <form class="domain_form" [formGroup]="tagForm" (ngSubmit)="onSubmit()">
+    <div class="domain_content">
+      <div class="data_content">
+        <div class="col-md-6">
+          <lib-form-group>
+            <lib-label [appControl]="tagForm.controls['Code']">
+              {{ "tag.addtag.code" | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="Code" [readOnly]="true" class="form-control" />
+            <lib-field-validations
+              [appControl]="tagForm.controls['Code']"
+            ></lib-field-validations>
+          </lib-form-group>
+
+          <lib-form-group>
+            <lib-label [appControl]="tagForm.controls['Name']">
+              {{ "tag.addtag.name" | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="Name" />
+            <lib-field-validations
+              [appControl]="tagForm.controls['Name']"
+            ></lib-field-validations>
+          </lib-form-group>
+
+          <lib-form-group>
+            <lib-label [appControl]="tagForm.controls['ModuleIds']">
+              {{ "tag.addtag.applicability" | translate }}
+            </lib-label>
+            <lib-multi-select
+              [options]="modulelist"
+              optionLabel="module"
+              optionValue="moduleId"
+              formControlName="ModuleIds"
+            ></lib-multi-select>
+            <lib-field-validations
+              [appControl]="tagForm.controls['ModuleIds']"
+            ></lib-field-validations>
+          </lib-form-group>
+        </div>
+      </div>
+      <div class="actions">
+        <lib-button type="submit" class="save w-6"(click)="onSubmit()" >
+          <span class="pi pi-send"></span>
+          {{ "tag.addtag.save" | translate }}
+        </lib-button >
+        <lib-button  class="cancel" type="button" (click)="onCancel()">
+          {{ "tag.addtag.discard" | translate }}
+        </lib-button >
+      </div>
+    </div>
+  </form>
+</div>
