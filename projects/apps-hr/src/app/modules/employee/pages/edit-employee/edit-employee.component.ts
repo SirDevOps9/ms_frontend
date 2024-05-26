@@ -139,7 +139,6 @@ export class EditEmployeeComponent implements OnInit {
 
     this.employeeService.editEmployeeStatus.subscribe({
       next: (success) => {
-        console.log('Success State', success);
         if (success) {
           this.routerService.navigateTo(`/employee`);
         }

@@ -27,7 +27,7 @@ export class CreateEmployeeComponent implements OnInit {
   countries: CountryDto[] = [];
   cities: CityDto[];
   lookups: { [key: string]: lookupDto[] };
-  selectedNationality:string;
+  selectedNationality: string;
 
   ngOnInit() {
     this.initializeForm();
@@ -37,8 +37,6 @@ export class CreateEmployeeComponent implements OnInit {
     this.onBirthDateChange();
     this.onCountryOfBirthChange();
   }
-
-
 
   loadLookups() {
     this.lookupsService.loadLookups([
@@ -59,14 +57,13 @@ export class CreateEmployeeComponent implements OnInit {
       if (birthDateControl.valid) this.Age = this.ageService.calculateAge(birthDate);
     });
   }
-  
+
   onCountryOfBirthChange() {
     const countryOfBirthControl = this.addEmployeeForm.get('countryOfBirth');
     countryOfBirthControl?.valueChanges.subscribe((countryId) => {
       if (countryId) {
         this.addEmployeeForm.get('nationality')?.setValue(countryId);
         this.selectedNationality = countryId;
-
       }
     });
   }
@@ -132,7 +129,6 @@ export class CreateEmployeeComponent implements OnInit {
       this.cities = res;
     });
   }
-
 
   constructor(
     public lookupsService: LookupsService,

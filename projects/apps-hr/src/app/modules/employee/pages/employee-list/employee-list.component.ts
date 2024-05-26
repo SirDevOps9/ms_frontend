@@ -74,15 +74,12 @@ export class EmployeeListComponent implements OnInit {
   }
   navigateToEdit(id: number) {
     this.routerService.navigateTo(`/employee/edit/${id}`);
-    console.log("rrrrrrrrrrrrrrr",    id);
-  
-    
   }
   navigateToView(id: number) {
     this.routerService.navigateTo(`/employee/view/${id}`);
   }
-   deletEmployee(id: number) {
-     this.employeeService.deleteEmployee(id);
+  deletEmployee(id: number) {
+    this.employeeService.deleteEmployee(id);
   }
 
   searchTermChange(event: Event) {
@@ -90,5 +87,4 @@ export class EmployeeListComponent implements OnInit {
     this.searchTerm = inputElement.value;
     this.initEmployeeData(this.searchTerm, new PageInfo());
   }
-
 }
