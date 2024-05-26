@@ -5,11 +5,12 @@ import {
   FormsService,
   LookupEnum,
   LookupsService,
+  RouterService,
   SharedLibraryEnums,
   customValidators,
   lookupDto,
 } from 'shared-lib';
-import { AddEmployeePersonal } from '../../models';
+import { AddEmployeePersonal, CityDto, CountryDto ,NationalityDto} from '../../models';
 import { EmployeeService } from '../../employee.service';
 
 @Component({
@@ -23,19 +24,25 @@ export class CreateEmployeeComponent implements OnInit {
 
   Age: string = '';
   EmployeeCode = '';
+  countries: CountryDto[] = [];
+  nationalities: NationalityDto[] = [];
 
+  cities: CityDto[];
   lookups: { [key: string]: lookupDto[] };
+  selectedNationality: string;
 
   ngOnInit() {
     this.initializeForm();
+    this.loadCountries();
+    this.loadNationalities();
     this.loadLookups();
     this.subscribe();
     this.onBirthDateChange();
+    this.onCountryOfBirthChange();
   }
 
   loadLookups() {
     this.lookupsService.loadLookups([
-      //LookupEnum.Country,
       LookupEnum.Gender,
       LookupEnum.MaritalStatus,
       LookupEnum.Religion,
@@ -50,8 +57,17 @@ export class CreateEmployeeComponent implements OnInit {
     const birthDateControl = this.addEmployeeForm.get('birthDate');
     birthDateControl?.valueChanges.subscribe((birthDate) => {
       this.Age = '';
-      if (birthDateControl.valid) 
-        this.Age = this.ageService.calculateAge(birthDate);
+      if (birthDateControl.valid) this.Age = this.ageService.calculateAge(birthDate);
+    });
+  }
+
+  onCountryOfBirthChange() {
+    const countryOfBirthControl = this.addEmployeeForm.get('countryOfBirth');
+    countryOfBirthControl?.valueChanges.subscribe((countryId) => {
+      if (countryId) {
+        this.addEmployeeForm.get('nationality')?.setValue(countryId);
+        this.selectedNationality = countryId;
+      }
     });
   }
   private initializeForm() {
@@ -85,10 +101,44 @@ export class CreateEmployeeComponent implements OnInit {
     if (!this.formsService.validForm(this.addEmployeeForm, true)) return;
     const request: AddEmployeePersonal = this.addEmployeeForm.value;
     this.employeeService.addEmployee(request);
+
+    this.employeeService.addEmployeeStatus.subscribe({
+      next: (success) => {
+        if (success) {
+          this.routerService.navigateTo(`/employee`);
+        }
+      },
+    });
+    //this.employeeService.addEmployeeStatus.next(false);
   }
 
   onDiscard() {
     this.addEmployeeForm.reset();
+  }
+
+  loadCountries() {
+    this.employeeService.loadCountries();
+    this.employeeService.countries.subscribe({
+      next: (res) => {
+        this.countries = res;
+      },
+    });
+  }
+  loadNationalities() {
+    this.employeeService.loadNationalities();
+    this.employeeService.nationalities.subscribe({
+      next: (res) => {
+        this.nationalities = res;
+      },
+    });
+  }
+  onCountryChange(event: any) {
+    const countryId = event;
+    if (!countryId) return;
+    this.employeeService.loadCities(countryId);
+    this.employeeService.cities.subscribe((res) => {
+      this.cities = res;
+    });
   }
 
   constructor(
@@ -97,6 +147,7 @@ export class CreateEmployeeComponent implements OnInit {
     private formsService: FormsService,
     private employeeService: EmployeeService,
     public sharedLibEnums: SharedLibraryEnums,
-    private ageService: AgeService
+    private ageService: AgeService,
+    private routerService: RouterService
   ) {}
 }

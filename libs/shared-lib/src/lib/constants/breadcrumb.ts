@@ -27,6 +27,7 @@ export class BreadcrumbLabel {
     static EMPLOYEE_ADD='Add Employee';
     static EMPLOYEE_VIEW='View Employee';
     static EMPLOYEE_EDIT='Edit Employee';
+    static Add_Tag ='Add Tag';
 
     
 

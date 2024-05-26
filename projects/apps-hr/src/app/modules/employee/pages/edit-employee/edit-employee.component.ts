@@ -11,7 +11,13 @@ import {
   lookupDto,
 } from 'shared-lib';
 import { EmployeeService } from '../../employee.service';
-import { EditEmployeePersonal, SharedEmployeeEnums } from '../../models';
+import {
+  CityDto,
+  CountryDto,
+  EditEmployeePersonal,
+  Gender,
+  SharedEmployeeEnums,
+} from '../../models';
 
 @Component({
   selector: 'app-edit-employee',
@@ -22,10 +28,11 @@ import { EditEmployeePersonal, SharedEmployeeEnums } from '../../models';
 export class EditEmployeeComponent implements OnInit {
   editEmployeeForm: FormGroup;
   LookupEnum = LookupEnum;
-
+  countries: CountryDto[] = [];
+  cities: CityDto[];
   age: string = '';
   employeeCode = '';
-  employeePhoto:string = '';
+  employeePhoto: string = '';
   selectedCountryOfBirth: string;
   selectedBirthCity: number;
   selectedNationality: string;
@@ -40,6 +47,7 @@ export class EditEmployeeComponent implements OnInit {
   ngOnInit() {
     this.initializeForm();
     this.initializeFormData();
+    this.loadCountries();
     this.loadLookups();
     this.subscribe();
     this.onBirthDateChange();
@@ -47,7 +55,6 @@ export class EditEmployeeComponent implements OnInit {
 
   loadLookups() {
     this.lookupsService.loadLookups([
-      //LookupEnum.Country,
       LookupEnum.Gender,
       LookupEnum.MaritalStatus,
       LookupEnum.Religion,
@@ -98,31 +105,66 @@ export class EditEmployeeComponent implements OnInit {
       this.editEmployeeForm.patchValue({
         ...res,
         birthDate: res.birthDate.substring(0, 10),
+        gender: res.gender,
       });
-      this.employeePhoto=res.employeePhoto;
-      this.employeeCode= res.employeeCode;
-      // this.selectedCountryOfBirth = res.countryOfBirth;
-      // this.selectedBirthCity = res.birthCity;
-      // this.selectedNationality = res.nationality;
-      this.selectedGender = res.gender.toString();
-      // this.selectedMaritalStatus = res.maritalStatus.toString();
-      // this.selectedReligion = res.religion.toString();
-      // this.selectedMilitaryStatus = res.militaryStatus.toString();
-      // this.selectedBloodType = res.bloodType?.toString();
+      this.employeePhoto = res.employeePhoto;
+      this.employeeCode = res.employeeCode;
+      this.selectedCountryOfBirth = res.countryOfBirth;
+      this.selectedNationality = res.nationality;
+      this.selectedBirthCity = res.birthCity;
+      this.selectedGender = this.enums.Gender[res.gender].toString();
+      this.selectedMaritalStatus = this.enums.MaritalStatus[res.maritalStatus].toString();
+      this.selectedReligion = this.enums.Religion[res.religion].toString();
+      this.selectedMilitaryStatus = this.enums.MilitaryStatus[res.militaryStatus].toString();
+
+      if (res.bloodType) this.selectedBloodType = this.enums.BloodType[res.bloodType].toString();
+
+      this.employeeService.loadCities(this.selectedCountryOfBirth);
+      this.employeeService.cities.subscribe((cities) => {
+        this.cities = cities;
+        this.selectedBirthCity = res.birthCity;
+
+        this.editEmployeeForm.patchValue({ birthCity: this.selectedBirthCity });
+      });
     });
   }
   onSubmit() {
     if (!this.formsService.validForm(this.editEmployeeForm, true)) return;
+
     const request: EditEmployeePersonal = this.editEmployeeForm.value;
+
     request.id = this.routerService.currentId;
+
     this.employeeService.editEmployee(request);
-  
+
+    this.employeeService.editEmployeeStatus.subscribe({
+      next: (success) => {
+        if (success) {
+          this.routerService.navigateTo(`/employee`);
+        }
+      },
+    });
   }
 
   onDiscard() {
     this.editEmployeeForm.reset();
   }
-
+  loadCountries() {
+    this.employeeService.loadCountries();
+    this.employeeService.countries.subscribe({
+      next: (res) => {
+        this.countries = res;
+      },
+    });
+  }
+  onCountryChange(event: any) {
+    const countryId = event;
+    if (!countryId) return;
+    this.employeeService.loadCities(countryId);
+    this.employeeService.cities.subscribe((res) => {
+      this.cities = res;
+    });
+  }
   constructor(
     public lookupsService: LookupsService,
     private formBuilder: FormBuilder,

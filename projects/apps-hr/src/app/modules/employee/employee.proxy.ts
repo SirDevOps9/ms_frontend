@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AddEmployeePersonal, EditEmployeePersonal, EmployeeDto, GetEmployeeById } from './models';
+import { AddEmployeePersonal, CityDto, CountryDto, EditEmployeePersonal, EmployeeDto, GetEmployeeById } from './models';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
+import { NationalityDto } from './models/nationality-dto';
+import { GetEmployeeView } from './models/get-employee-view';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +35,18 @@ export class EmployeeProxy {
   deleteEmployee(id: number): Observable<boolean> {
     return this.httpService.delete<boolean>(`Employee/Delete?id=${id}`);
   }
+  getAllCountries(): Observable<CountryDto[]> {
+    return this.httpService.get<CountryDto[]>(`Country`);
+  }
+  getCities(countryCode: string): Observable<CityDto[]> {
+    return this.httpService.get<CityDto[]>(`Country/GetCities?CountryCode=${countryCode}`);
+  }
+  getAllNationalities(): Observable<NationalityDto[]> {
+    return this.httpService.get<NationalityDto[]>(`Country/GetNationality`);
+  }
 
+  getEmployeeView(id: number): Observable<GetEmployeeView> {
+    return this.httpService.get<GetEmployeeView>(`Employee/View?Id=${id}`);
+  }
   constructor(private httpService: HttpService) {}
 }

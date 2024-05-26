@@ -128,6 +128,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
     }
   }
   private updateImageBase64() {
+    if (this.value != '') {
     this.attachmentService
       .getAttachment(this.value)
       .subscribe((response: AttachmentDto) => {
@@ -136,6 +137,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
           this.base64 = source;
         }
       });
+    }
   }
 
   constructor(
@@ -147,6 +149,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
     if (this.controlDir) {
       this.controlDir.valueAccessor = this;
     }
+    this.attachmentService.clearState();
     this.subscribe();
   }
 }

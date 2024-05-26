@@ -225,6 +225,32 @@ export class UserService {
     this.userProxy.testTree().subscribe();
   }
 
+  async removeInvitedUser(email: string,subdomainId:string) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.userProxy.removeInvitedUser(email,subdomainId).subscribe({
+        next: () => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('Success'),
+            this.languageService.transalte(
+              'User.UserRemovedSuccessfully'
+            )
+          );
+          this.loaderService.hide();
+          const currentusers = this.userDataSource.getValue();
+          const updateduser = currentusers.filter(
+            (user) => user.email !== email
+          );
+          this.userDataSource.next(updateduser);
+        },
+      });
+    } else {
+    }
+  }
+
+
   constructor(
     private userProxy: UserProxy,
     private routerService: RouterService,
