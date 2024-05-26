@@ -122,8 +122,7 @@ export class EmployeeService {
           this.employeeDataSource.next(updatedEmployees);
         },
       });
-    } else {
-    }
+    } 
   }
 
   constructor(
