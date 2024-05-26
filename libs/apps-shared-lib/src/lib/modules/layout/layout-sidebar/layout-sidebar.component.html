@@ -62,7 +62,7 @@
               </ul>
             </ng-container>
             <ng-container *ngIf="!subItem.subMenu?.length">
-              <a [href]="subItem.link">{{ subItem.name }}</a>
+              <a [routerLink]="subItem.link">{{ subItem.name }}</a>
             </ng-container>
           </li>
         </ul>

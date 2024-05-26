@@ -24,7 +24,7 @@ export class AuthService {
     if (this.environmentService.state) {
       this.oidcSecurityService
         .setState(this.environmentService.state)
-        .subscribe((res) => this.logService.log(res,'set state'));
+        .subscribe((res) => this.logService.log(res, 'set state'));
     }
     var storageCulutre = this.languageService.getLang();
     this.oidcSecurityService.authorize(undefined, {
@@ -141,6 +141,11 @@ export class AuthService {
     return loggedUser?.userData?.name;
   }
 
+  get getUserPhoto(): string {
+    let item = this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
+    let loggedUser = item! as LoginResponse;
+    return loggedUser?.userData?.Photo;
+  }
   getUserTokenModel(): TokenModel {
     let tokenModel: TokenModel = {
       AccessToken: this.localStorageService.getItem(StorageKeys.USER_TOKEN)!,

@@ -13,7 +13,6 @@ import { EnvironmentService, LanguageService, Modules, RouterService } from 'sha
   styleUrl: './layout-header.component.scss',
 })
 export class LayoutHeaderComponent {
-  
   userName: string;
   moduleName: string;
   userData: UserData;
@@ -22,7 +21,7 @@ export class LayoutHeaderComponent {
   modulesOpen: boolean = false;
   moduleList: MenuModule[];
   cartItemsCount$: Observable<number>;
-
+  userPhoto: string;
   ngOnInit() {
     this.moduleList = this.authService.getModules();
     console.log(this.moduleList, ' this.moduleList');
@@ -37,7 +36,10 @@ export class LayoutHeaderComponent {
   togelModules() {
     this.modulesOpen = false;
   }
-  toggleLanguage(): void {}
+
+  toggleLanguage(): void {
+    this.languageService.toggleLanguage();
+  }
   logout(): void {
     this.authService.logout();
   }
@@ -84,8 +86,7 @@ export class LayoutHeaderComponent {
     private router: ActivatedRoute
   ) {
     this.userName = this.authService.getUserName;
-    this.userData = this.authService.getUserData()?.userData;
     this.languageService.setLang();
-    console.log(this.authService.getUserData()?.userData);
+    this.userPhoto = this.authService.getUserPhoto;
   }
 }
