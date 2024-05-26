@@ -3,7 +3,7 @@ import { BehaviorSubject, map } from 'rxjs';
 import { LanguageService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
 import { AccountProxy } from './account.proxy';
 import { AddAccountDto } from './models/addAccountDto';
-import { AccountDto, GetLevelsDto, listAddLevelsDto } from './models';
+import { AccountByIdDto, AccountDto, GetLevelsDto, listAddLevelsDto } from './models';
 import { AccountTypeDropDownDto } from './models/accountTypeDropDownDto';
 import { TagDropDownDto } from './models/tagDropDownDto';
 import { CurrencyDto } from '../general/models/currencyDto';
@@ -17,6 +17,7 @@ export class AccountService {
   private accountsDataSource = new BehaviorSubject<AccountDto[]>([]);
   private parentAccountsDataSource = new BehaviorSubject<parentAccountDto[]>([]);
   private currentAccountDataSource = new BehaviorSubject<parentAccountDto>({} as parentAccountDto);
+  private accountDetailsDataSource = new BehaviorSubject<AccountByIdDto>({} as AccountByIdDto );
   private accountTypesDataSource = new BehaviorSubject<AccountTypeDropDownDto[]>([]);
   private accountSectionsDataSource = new BehaviorSubject<AccountTypeDropDownDto[]>([]);
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
@@ -24,6 +25,7 @@ export class AccountService {
 
   public accountsList = this.accountsDataSource.asObservable();
   public parentAccounts = this.parentAccountsDataSource.asObservable();
+  public AccountViewDetails = this.accountDetailsDataSource.asObservable();
   public selectedAccount = this.currentAccountDataSource.asObservable();
   public accountTypes = this.accountTypesDataSource.asObservable();
   public accountSections = this.accountSectionsDataSource.asObservable();
@@ -109,6 +111,11 @@ export class AccountService {
   getAccount(id: number) {
     this.accountproxy.getAccount(id).subscribe((response) => {
       this.currentAccountDataSource.next(response);
+    });
+  }
+  getAccountDetails(id: number) {
+    this.accountproxy.getAccountDetails(id).subscribe((response) => {
+      this.accountDetailsDataSource.next(response);
     });
   }
   addAccount(command: AddAccountDto) {

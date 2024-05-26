@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ChartOfAccountConfigurationComponent } from '../../components/chart-of-account-configuration/chart-of-account-configuration.component';
 
 @Component({
   selector: 'app-main-chart-of-account',
@@ -9,7 +11,9 @@ export class MainChartOfAccountComponent {
   Viewlist:boolean=false;
   edit:boolean=false;
   view:boolean=false;
-  add:boolean=true;
+  add:boolean=false;
+  ref: DynamicDialogRef;
+
   //@Output() edit = new EventEmitter<boolean>();
   
   // toggleView(){
@@ -29,4 +33,19 @@ export class MainChartOfAccountComponent {
     console.log("edit");
     
   }
+  changeMode(event:boolean){
+    this.edit=!event;
+    this.view=!event;
+    this.add=event;
+  }
+  RedirectToConfiguration() {
+    this.ref = this.dialog.open(ChartOfAccountConfigurationComponent, {
+      width: '647px',
+      height: '886px',
+    });
+  }
+  constructor(
+    private dialog: DialogService
+
+  ){}
 }

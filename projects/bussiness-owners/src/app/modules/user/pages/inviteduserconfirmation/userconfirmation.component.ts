@@ -26,11 +26,13 @@ export class UserconfirmationComponent implements OnInit {
   userForm: FormGroup;
   email: string;
   dto: InvitedUserDto;
-  validId = false;
+  validId:boolean= true;
   photo: any;
   errorMessage: string;
   photoSrc: string = 'assets/images/users/pic.jpg';
   ngOnInit() {
+    console.log(this.dto, "this.dtothis.dtothis.dtothis.dtothis.dto");
+
     this.initializeForm();
     this.getEmail();
   }
@@ -49,14 +51,22 @@ export class UserconfirmationComponent implements OnInit {
     });
   }
   getEmail() {
-    this.userService.getInvitedById(this.invitedUserId).subscribe((dto) => {
+    this.userService.getInvitedById(this.invitedUserId).subscribe({
+
+    
+      next:(dto) => {
         this.dto = dto;
+        console.log(this.dto, "this.dtothis.dtothis.dtothis.dtothis.dto");
         this.email = dto.email;
         this.validId = true;
         this.userForm.patchValue({
           email: dto.email,
         });
-      });
+      },
+      error:(error:any)=>{
+        this.validId=false
+      }
+  });
   }
 
   submitForm() {

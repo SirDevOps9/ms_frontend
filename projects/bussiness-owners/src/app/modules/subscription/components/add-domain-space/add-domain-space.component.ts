@@ -6,7 +6,7 @@ import {
   FormControl,
   FormGroup,
 } from '@angular/forms';
-import { FormsService, customValidators } from 'shared-lib';
+import { FormsService, LoaderService, customValidators } from 'shared-lib';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddDomainSpaceDto, PurchasingPaymentPeriod } from '../../models';
 import { SubscriptionService } from '../../subscription.service';
@@ -126,6 +126,7 @@ export class AddDomainSpaceComponent implements OnInit {
     private fb: FormBuilder,
     private formService: FormsService,
     private ref: DynamicDialogRef,
-    private subscriptionService: SubscriptionService
+    private subscriptionService: SubscriptionService,
+    private LoaderService: LoaderService
   ) {}
 }
