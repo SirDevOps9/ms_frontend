@@ -72,6 +72,10 @@ export class AccountsComponent implements OnInit {
       this.selectedAccount = null;
       this.selectedIndex = -1;
     }
+
+    setTimeout(() => {
+      this.onSubmit()
+    }, 100);
   }
 
   onSubmit() {

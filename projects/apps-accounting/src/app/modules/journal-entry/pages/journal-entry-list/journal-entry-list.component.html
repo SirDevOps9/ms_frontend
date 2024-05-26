@@ -119,18 +119,24 @@
       </ng-container>
       <ng-template #userCol let-journal>
         <div class="actions flex align-items-center gap-2">
-          <lib-button icon="pi pi-eye"    [className]="'orange'">
+          <lib-button icon="pi pi-eye"      [rounded]="true"
+          [enableText]="true"
+          severity="secondary">
           </lib-button>
           <lib-button
             className="edit"
             type="button"
             (click)="routeToEdit(journal.id)"
             icon="pi pi-pencil"
-            [className]="'light-blue'"
+            [rounded]="true"
+            [enableText]="true"
+            severity="secondary"
           >
           </lib-button>
 
-          <lib-button [icon]="'pi pi-trash'"  [className]="'red'"></lib-button>
+          <lib-button [icon]="'pi pi-trash'"    [rounded]="true"
+          [enableText]="true"
+          severity="secondary"></lib-button>
           
       
         </div>

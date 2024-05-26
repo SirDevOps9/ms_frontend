@@ -36,7 +36,7 @@ export class NamedFileUploaderComponent implements OnInit {
   @Input() uploadClassName: string = 'upload';
   @Input() appControl: AbstractControl;
   @Input() config: UploadFileConfigDto = { type: AttachmentFileTypeEnum.image };
-
+  imgName : string = ''
   value: string;
   public get fg(): FormGroup {
     return this.appControl as FormGroup;
@@ -62,6 +62,8 @@ export class NamedFileUploaderComponent implements OnInit {
         attachmentId: result.attachmentId,
         name: result.name
       });
+      this.imgName = result.name
+
     })
   }
 

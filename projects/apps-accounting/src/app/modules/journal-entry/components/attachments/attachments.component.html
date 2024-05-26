@@ -4,15 +4,13 @@
 
     </div>
 
-    <ul>
-        <li *ngFor="let item of attachments.controls; let i = index">
-            <div class="grid ">
-                <div class="col-9"><lib-named-file-uploader [appControl]="item"></lib-named-file-uploader></div>
-                <div class="col-3 mt-2">
+        <div *ngFor="let item of attachments.controls; let i = index">
+            <div class="grid align-items-center">
+                <div class="col-10"><lib-named-file-uploader [appControl]="item"></lib-named-file-uploader></div>
+                <!-- <div class="col-2 mt-2">
                         
-                    <i class="pi pi-times" (click)="removeAttachment(i)"></i>
-                    </div>
+                    <i class="pi pi-times delete" (click)="removeAttachment(i)"></i>
+                    </div> -->
             </div>
-        </li>
-    </ul>
+        </div>
 </div>

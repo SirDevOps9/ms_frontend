@@ -138,9 +138,9 @@
 
                 <p-cellEditor>
                   <ng-template pTemplate="input">
-                    <div class="flex gap-2">
+                    <div class="flex gap-2 align-items-center">
 
-                    <p-autoComplete
+                    <!-- <p-autoComplete
                       [forceSelection]="true"
                       [suggestions]="filteredAccounts"
                       #autocomplete
@@ -149,19 +149,30 @@
                       (completeMethod)="filterAccount($event)"
                       field="accountCode"
                       (onSelect)="updateAccount($event, rowIndex)"
-                    ></p-autoComplete>
-                    <lib-button  (click)="openDialog(rowIndex)"   [severity]="'primary'">
-                      Open
-                  </lib-button>
+                    ></p-autoComplete> -->
+
+                    <lib-select
+                    formControlName="accountId"
+                    [options]="filteredAccounts"
+                    optionValue="id"
+                    optionLabel="id"
+                    [customClass]="'add-journal'"
+                  >
+                  </lib-select>
+         
+                  <i class="pi pi-search search-circle"  (click)="openDialog(rowIndex)"></i>
+
+
+                  
                   </div>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ journalLine.get("accountCode").value }}
+                    {{ journalLine.get("accountId").value }}
                   </ng-template>
                 </p-cellEditor>
               </td>
               <td>
-                {{ journalLine.get("accountName").value }}
+                {{ (journalLine.controls['accountId']?.value | getElementByID : filteredAccounts)?.name }}
               </td>
               <td>
                 <lib-text-input

@@ -44,27 +44,37 @@
                 <ng-template pTemplate="body" let-fg let-editing="editing" let-i="rowIndex"> 
                     <tr [formGroup]="fg">
                         <td>{{fg.controls['id'].value}}</td>
-                        <td [pEditableColumn]="fg.controls['account']" pEditableColumnField="fg.controls['account']">
+                        <td [pEditableColumn]="fg.controls['account']" pEditableColumnField="fg.controls['account']" >
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <div class="flex gap-2">
-                                        <p-autoComplete appendTo="body" formControlName="account" (onSelect)="accountSelected($event, i)" 
-                                        [forceSelection]="true" [suggestions]="filteredAccounts" 
+                                    <div class="flex gap-2 align-items-center">
+                                        <!-- <p-autoComplete appendTo="body" formControlName="account" (onSelect)="accountSelected($event, i)" 
+                                        [forceSelection]="true"  [suggestions]="filteredAccounts" 
                                         #autocomplete (onFocus)="!autocomplete.value && autocomplete.show()"
-                                        (completeMethod)="filterAccount($event)" field="accountCode"></p-autoComplete>
-                                        <lib-button  (click)="openDialog(i)"   [severity]="'primary'">
-                                            Open
-                                        </lib-button>
+                                        (completeMethod)="filterAccount($event)" field="accountCode"></p-autoComplete> -->
+                                        
+
+                                        <lib-select
+                                        formControlName="account"
+                                        [options]="filteredAccounts"
+                                        optionValue="id"
+                                        optionLabel="id"
+                                        [customClass]="'add-journal'"
+                                      >
+                                      </lib-select>
+                                       
+                                        <i class="pi pi-search search-circle" (click)="openDialog(i)"></i>
+
                                     </div>
                                     
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{ fg.controls['account'].value?.accountCode }}
+                                    {{ fg.controls['account'].value }}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
                         <td>
-                            {{ fg.controls['account'].value?.nameEn }}
+                            {{ (fg.controls['account']?.value | getElementByID : filteredAccounts)?.name }}
                         </td>
                         <td [pEditableColumn]="fg.controls['lineDescription']" pEditableColumnField="lineDescription">
                             <p-cellEditor>
@@ -131,7 +141,10 @@
 
                         <td>
 
-                            <lib-button [icon]="'pi pi-trash'" (click)="deleteLine(i)"  [className]="'red'">
+                            <lib-button [icon]="'pi pi-trash'" (click)="deleteLine(i)"  
+                            [rounded]="true"
+                            [enableText]="true"
+                            severity="secondary">
                                 
                             </lib-button>
                         </td>
