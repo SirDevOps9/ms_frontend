@@ -169,11 +169,11 @@
                   [readOnly]="viewMode"
                 ></lib-text-input>
               </td>
-              <td>
+              <!-- <td >
                 <lib-form-group>
                   <lib-text-input
                     type="number"
-                    (keyUp)="valueChanges($event, rowIndex)"
+                    (valueChanged)="debitValueChanges(rowIndex)"
                     formControlName="debitAmount"
                     [readOnly]="viewMode"
                   ></lib-text-input>
@@ -187,7 +187,7 @@
                 <lib-form-group>
                   <lib-text-input
                     type="number"
-                    (valueChanged)="valueChanges($event, rowIndex)"
+                    (valueChanged)="creditValueChanges( rowIndex)"
                     formControlName="creditAmount"
                     [readOnly]="viewMode"
                   ></lib-text-input>
@@ -196,7 +196,36 @@
                   >
                   </lib-field-validations>
                 </lib-form-group>
+              </td> -->
+
+              <td 
+              [pEditableColumn]="journalLine.controls['debitAmount']"
+               pEditableColumnField="debitAmount"
+               >
+                  <p-cellEditor>
+                      <ng-template pTemplate="input">
+                          <lib-text-input formControlName="debitAmount"  type="number" (valueChanged)="debitValueChanges(rowIndex)"></lib-text-input>
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                          {{ journalLine.controls['debitAmount'].value }}
+                      </ng-template>
+                  </p-cellEditor>
               </td>
+
+              <td
+               [pEditableColumn]="journalLine.controls['creditAmount']"
+                pEditableColumnField="creditAmount"
+                >
+                  <p-cellEditor>
+                      <ng-template pTemplate="input">
+                          <lib-text-input formControlName="creditAmount"  type="number" (valueChanged)="creditValueChanges(rowIndex)"></lib-text-input>
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                          {{ journalLine.controls['creditAmount'].value }}
+                      </ng-template>
+                  </p-cellEditor>
+              </td>
+
               <!-- <td
                 [pEditableColumn]="journalLine.currency"
                 pEditableColumnField="currency"
@@ -210,22 +239,22 @@
                       field="currency"
                     
                     ></p-autoComplete>
-                  </ng-template>
+                  </ng-template>valueChanges
                   <ng-template pTemplate="output">
                     {{ journalLine.get("currency").value }}
                   </ng-template>
                 </p-cellEditor>
               </td> -->
              <td [pEditableColumn]="journalLine?.value?.currency" [pEditableColumnField]="journalLine?.value?.currency">
-                  <!-- <p-cellEditor>
+                  <p-cellEditor>
                      <ng-template pTemplate="input">
                             <p-autoComplete formControlName="currency" appendTo="body" [forceSelection]="true" [suggestions]="fitleredCurrencies" (completeMethod)="filterCurrency($event)" field="currencyName" (ngModelChange)="oncurrencyChange($event , journalLine)"></p-autoComplete>
                                 </ng-template>
                              <ng-template pTemplate="output">
                                     {{ journalLine?.value?.currency?.currencyName ? journalLine?.value?.currency?.currencyName : journalLine?.value?.currency }}
                       </ng-template>
-                    </p-cellEditor> -->
-                    <lib-form-group>
+                    </p-cellEditor>
+                    <!-- <lib-form-group>
                         
                       <lib-select
                       formControlName="fg.controls['currency']"
@@ -239,14 +268,14 @@
                         [appControl]="journalLine.controls['currency']"
                       >
                       </lib-field-validations>
-                    </lib-form-group>
+                    </lib-form-group> -->
              </td>
 
               <td>
                 <lib-form-group>
                   <lib-text-input
                     type="number"
-                    (keyUp)="valueChanges($event, rowIndex)"
+                    (valueChanged)="currencyValueChanges($event, rowIndex)"
                     formControlName="currencyRate"
                     [readOnly]="viewMode"
                    
@@ -258,12 +287,21 @@
                   </lib-field-validations>
                 </lib-form-group>
               </td>
+
               <td>
+                {{ journalLine.controls['debitAmountLocal'].value | number:'1.0-2'}}
+            </td>
+
+            <td>
+                {{ journalLine.controls['creditAmountLocal'].value | number:'1.0-2' }}
+            </td>
+
+              <!-- <td>
                 {{ journalLine.get("debitAmountLocal").value }}
               </td>
               <td>
                 {{ journalLine.get("creditAmountLocal").value }}
-              </td>
+              </td> -->
               <!-- <td
               *ngIf="
                 journalEntry?.status ==
