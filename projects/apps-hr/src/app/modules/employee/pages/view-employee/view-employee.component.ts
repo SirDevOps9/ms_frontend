@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../../employee.service';
 import { AgeService, RouterService } from 'shared-lib';
-import { GetEmployeeById } from '../../models';
+import { GetEmployeeView } from '../../models/get-employee-view';
 
 @Component({
   selector: 'app-view-employee',
@@ -10,7 +10,7 @@ import { GetEmployeeById } from '../../models';
   providers: [RouterService],
 })
 export class ViewEmployeeComponent implements OnInit {
-  employee?: GetEmployeeById;
+  employee?: GetEmployeeView;
 
   ngOnInit() {
     this.loadEmployee();
@@ -18,7 +18,7 @@ export class ViewEmployeeComponent implements OnInit {
 
   loadEmployee() {
     const employeeId = this.routerService.currentId;
-    this.employeeService.getEmployeeById(employeeId).subscribe((res) => {
+    this.employeeService.getEmployeeView(employeeId).subscribe((res) => {
       this.employee = res;
     });
   }

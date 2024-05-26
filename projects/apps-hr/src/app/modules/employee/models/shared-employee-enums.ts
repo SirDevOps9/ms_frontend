@@ -31,10 +31,10 @@ export enum Gender {
 }
 
 export enum MaritalStatus {
-  single = 1,
-  married = 2,
-  divorced = 3,
-  widower = 4,
+  Single = 1,
+  Married = 2,
+  Divorced = 3,
+  Widower = 4,
 }
 
 export enum Religion {
@@ -44,10 +44,10 @@ export enum Religion {
 }
 
 export enum MilitaryStatus {
-  finished = 1,
-  exempted = 2,
-  postponed = 3,
-  unbidden = 4,
+  Finished = 1,
+  Exempted = 2,
+  Postponed = 3,
+  Unbidden = 4,
 }
 
 export enum BloodType {

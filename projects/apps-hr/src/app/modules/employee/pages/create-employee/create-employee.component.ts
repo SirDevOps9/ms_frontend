@@ -12,6 +12,7 @@ import {
 } from 'shared-lib';
 import { AddEmployeePersonal, CityDto, CountryDto } from '../../models';
 import { EmployeeService } from '../../employee.service';
+import { NationalityDto } from '../../models/nationality-dto';
 
 @Component({
   selector: 'app-create-employee',
@@ -25,6 +26,8 @@ export class CreateEmployeeComponent implements OnInit {
   Age: string = '';
   EmployeeCode = '';
   countries: CountryDto[] = [];
+  nationalities: NationalityDto[] = [];
+
   cities: CityDto[];
   lookups: { [key: string]: lookupDto[] };
   selectedNationality: string;
@@ -32,6 +35,7 @@ export class CreateEmployeeComponent implements OnInit {
   ngOnInit() {
     this.initializeForm();
     this.loadCountries();
+    this.loadNationalities();
     this.loadLookups();
     this.subscribe();
     this.onBirthDateChange();
@@ -118,6 +122,14 @@ export class CreateEmployeeComponent implements OnInit {
     this.employeeService.countries.subscribe({
       next: (res) => {
         this.countries = res;
+      },
+    });
+  }
+  loadNationalities() {
+    this.employeeService.loadNationalities();
+    this.employeeService.nationalities.subscribe({
+      next: (res) => {
+        this.nationalities = res;
       },
     });
   }
