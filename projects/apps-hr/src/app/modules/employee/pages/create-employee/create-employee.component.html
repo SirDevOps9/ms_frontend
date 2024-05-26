@@ -20,6 +20,7 @@
         </ul>
       </div>
     </div>
+
     <div class="md:col-10">
       <div class="form_content">
         <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
@@ -31,11 +32,12 @@
               {{ 'Employee.Add.Save' | translate }}
             </button>
           </div>
+
           <div class="grid">
             <div class="md:col-12 info">
               {{ 'Employee.BasicInfo' | translate }}
             </div>
-            <div class="md:col-12">
+            <div class="md:col-12 ">
               <lib-form-group>
                 <lib-file-uploader
                   formControlName="employeePhoto"
@@ -47,12 +49,14 @@
                   }"
                   [appControl]="addEmployeeForm.controls['employeePhoto']"
                 ></lib-file-uploader>
+
                 <lib-field-validations
                   [appControl]="addEmployeeForm.controls['employeePhoto']"
                 ></lib-field-validations>
               </lib-form-group>
             </div>
-
+      
+            
             <div class="md:col-4">
               <lib-form-group>
                 <div class="my-1">
@@ -63,7 +67,7 @@
                 </div>
               </lib-form-group>
             </div>
-            <div class="md:col-4">
+            <div class="md:col-4 employee-container">
               <lib-form-group>
                 <div class="my-1">
                   <lib-label [appControl]="addEmployeeForm.controls['attendanceCode']">
@@ -76,7 +80,7 @@
                 ></lib-field-validations>
               </lib-form-group>
             </div>
-            <div class="md:col-4">
+            <div class="md:col-4 employee-container">
               <lib-form-group>
                 <div class="my-1">
                   <lib-label [appControl]="addEmployeeForm.controls['employeeName']">
@@ -89,9 +93,7 @@
                 ></lib-field-validations>
               </lib-form-group>
             </div>
-            <!-- <div class="md:col-3">
-              
-            </div> -->
+            
             <div class="md:col-12 info">
               {{ 'Employee.BirthInfo' | translate }}
             </div>

@@ -1,9 +1,62 @@
-// ::ng-deep{
-//     .p-button{
-//       background: #1A8EAE !important;
-//       border: none !important;
-//       border-radius: 12px;
-//       margin-inline-start: 30px !important;
-//     }
-//   }
+
+
+::ng-deep .red {
+  .p-button {
+    color: #ffffff;
+    background: #CB3F2D;
+    border: 1px solid #CB3F2D;
+}
+    .p-button:hover {
+    background: #d14a38;
+    color: #ffffff;
+    border-color: #d14a38;
+    }
+}
+::ng-deep .orange {
+  .p-button {
+    color: #ffffff;
+    background: #E17F24;
+    border: 1px solid #E17F24;
+}
+    .p-button:hover {
+    background: #db7e27;
+    color: #ffffff;
+    border-color: #db7e27;
+    }
+}
+::ng-deep .light-blue {
+  .p-button {
+    color: #ffffff;
+    background: #4FB2CD;
+    border: 1px solid #4FB2CD;
+
+    background: #1a8eae;
+    border: 0px solid #3B82F6;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+    border-radius: 6px;
+    outline-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    margin-top: 5px;
+}
+    .p-button:hover {
+    background: #4FB2CD;
+    border: 1px solid #4FB2CD;
+
+    background: #1a8eae;
+    border: 0px solid #3B82F6;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+    border-radius: 6px;
+    outline-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    margin-top: 5px;
+    }
+}
 

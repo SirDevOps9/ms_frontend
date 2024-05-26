@@ -26,7 +26,14 @@
           <div class="md:col-12 info">
             {{ 'Employee.BasicInfo' | translate }}
           </div>
-          <div class="md:col-3">
+          <div class="md:col-12">
+            <lib-form-group>
+           
+              <lib-attachment-viewer [className]="'imgStyle'" attachmentId="{{employee?.employeePhoto}}" />
+
+            </lib-form-group>
+          </div>
+          <div class="md:col-4">
             <lib-form-group>
               <label>
                 {{ 'Employee.View.EmployeeCode' | translate }}
@@ -36,7 +43,7 @@
               </div>
             </lib-form-group>
           </div>
-          <div class="md:col-3">
+          <div class="md:col-4">
             <lib-form-group>
               <label>
                 {{ 'Employee.View.AttendanceCode' | translate }}
@@ -46,7 +53,7 @@
               </div>
             </lib-form-group>
           </div>
-          <div class="md:col-3">
+          <div class="md:col-4">
             <lib-form-group>
               <label>
                 {{ 'Employee.View.EmployeeName' | translate }}
@@ -56,14 +63,7 @@
               </div>
             </lib-form-group>
           </div>
-          <div class="md:col-3">
-            <lib-form-group>
-           
-              <lib-attachment-viewer [className]="'imgStyle'" attachmentId="{{employee?.employeePhoto}}" />
-
-            </lib-form-group>
-
-          </div>
+         
           <div class="md:col-12 info">
             {{ 'Employee.BirthInfo' | translate }}
           </div>
@@ -193,7 +193,7 @@
               <div class="p-field-checkbox special_care">
                 <p-checkbox
                   [binary]="true"
-                  [(ngModel)]="employee!.withSpecialNeeds!"
+                  [ngModel]="employee?.withSpecialNeeds!"
                   disabled="true"
                 ></p-checkbox>
                 <label>

@@ -2,8 +2,7 @@ import { AccountNature } from "./accountNature";
 
 export interface AccountDto {
   id: number;
-  nameAr: string;
-  nameEn: string;
+  name:string;
   accountCode?: string;
   mainType?: string;
   natureId:AccountNature;

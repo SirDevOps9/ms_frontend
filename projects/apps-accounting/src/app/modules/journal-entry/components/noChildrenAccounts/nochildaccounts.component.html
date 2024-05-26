@@ -53,10 +53,7 @@
     </ng-template>
 
     <ng-template #actions let-account>
-    <div class="check">
-      <input type="checkbox" (change)="selectRow($event, account)" [checked]="account.id == selectedAccount?.id" />
-    </div>
+      <input type="checkbox" class="check" (change)="selectRow($event, account)" [checked]="account.id == selectedAccount?.id"/>
     </ng-template>
 </lib-data-table>
-
 
