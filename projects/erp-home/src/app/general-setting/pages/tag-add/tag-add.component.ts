@@ -11,7 +11,7 @@ import { AddTagDto } from '../../models';
   styleUrls: ['./tag-add.component.scss']
 })
 export class TagAddComponent implements OnInit {
-  TagForm: FormGroup;
+  tagForm: FormGroup;
   modulelist: MenuModule[];
   
 
@@ -39,7 +39,7 @@ export class TagAddComponent implements OnInit {
   }
 
   initializeTagForm() {
-    this.TagForm = this.fb.group({
+    this.tagForm = this.fb.group({
       Code: new FormControl({  value: '', disabled: true  }, customValidators.required),
       Name: new FormControl('', customValidators.required),
       ModuleIds: new FormControl([], customValidators.required)
@@ -51,8 +51,8 @@ export class TagAddComponent implements OnInit {
   }
 
   onSubmit() {
-    if(!this.TagForm.valid) return;
-    const tagDto :AddTagDto=this.TagForm.value;
+    if(!this.tagForm.valid) return;
+    const tagDto :AddTagDto=this.tagForm.value;
     this.generalSettingService.addTag(tagDto,this.ref);
     
   }

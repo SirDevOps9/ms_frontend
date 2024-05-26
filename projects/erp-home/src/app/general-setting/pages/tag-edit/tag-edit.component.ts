@@ -12,7 +12,7 @@ import { TagDto } from '../../models/tagDto';
   styleUrls: ['./tag-edit.component.scss']
 })
 export class TagEditComponent implements OnInit {
-  TagForm: FormGroup;
+  tagForm: FormGroup;
   modulelist: MenuModule[];
   selectedModules:  number[] = [];
   get Id(): string {
@@ -46,7 +46,7 @@ export class TagEditComponent implements OnInit {
   getCurruntTag(){
     this.generalSettingService.getTagById(parseInt(this.Id) );
     this.generalSettingService.currentTag.subscribe((response) => {
-      this.TagForm.patchValue({
+      this.tagForm.patchValue({
         Id: response.id,
         Code: response.code,
         Name: response.name,
@@ -55,7 +55,7 @@ export class TagEditComponent implements OnInit {
         
       });
       this.selectedModules = response.modulesId;
-      console.log("tag",this.TagForm);
+      console.log("tag",this.tagForm);
   });
 }
 
@@ -64,7 +64,7 @@ export class TagEditComponent implements OnInit {
   }
   
   initializeTagForm() {
-    this.TagForm = this.fb.group({
+    this.tagForm = this.fb.group({
       Id: ['', customValidators.required],
       Code: [{ value: '', disabled: true }, customValidators.required],
       Name: ['', customValidators.required],
@@ -79,8 +79,8 @@ export class TagEditComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.TagForm.valid) return;
-    const tagDto :TagDto=this.TagForm.value;
+    if (!this.tagForm.valid) return;
+    const tagDto :TagDto=this.tagForm.value;
     this.generalSettingService.editTag(tagDto,this.ref);
     
   }
