@@ -69,7 +69,6 @@ export class TagListComponent implements OnInit {
   changed(e: InputSwitchChangeEvent,id: number) {
       if (e.checked === true) {
         this.generalSettingService.deactivate(id);
-        console.log(id,"Deactivate");
       } else {
         this.generalSettingService.activate(id);
       }
@@ -89,7 +88,6 @@ export class TagListComponent implements OnInit {
 
     onSearchChange(){
       this.generalSettingService.getTagList(this.searchTerm, new PageInfo());
-      console.log(this.searchTerm,"Search");
 
     this.generalSettingService.tagList.subscribe({
       next: (res) => {

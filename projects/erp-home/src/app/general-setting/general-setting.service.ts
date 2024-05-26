@@ -31,7 +31,6 @@ export class GeneralSettingService {
     this.loaderService.show();
     this.GeneralSettingproxy.addTag(addTagDto).subscribe({
       next: (res) => {
-        console.log("Code",res)
         this.toasterService.showSuccess(
           this.languageService.transalte('tag.addtag.success'),
           this.languageService.transalte('tag.addtag.success')
@@ -51,7 +50,6 @@ export class GeneralSettingService {
     this.loaderService.show();
     this.GeneralSettingproxy.editTag(tagDto).subscribe({
       next: (res) => {
-        console.log("res",res)
         this.toasterService.showSuccess(
           this.languageService.transalte('tag.addtag.success'),
           this.languageService.transalte('tag.addtag.success')
@@ -79,7 +77,6 @@ export class GeneralSettingService {
       this.loaderService.show();
       this.GeneralSettingproxy.deleteTag(id).subscribe({
         next: (res) => {
-          console.log("res",res)
           this.toasterService.showSuccess(
             this.languageService.transalte('tag.success'),
             this.languageService.transalte('tag.success')

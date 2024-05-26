@@ -47,7 +47,6 @@ export class TagEditComponent implements OnInit {
         
       });
       this.selectedModules = response.modulesId;
-      console.log("tag",this.tagForm);
   });
 }
 
