@@ -82,7 +82,7 @@
                             </p-cellEditor>
                         </td>
                         <td>
-                            {{ fg.controls['account'].value?.name }}
+                            {{ (fg.controls['account']?.value | getElementByID : filteredAccounts)?.name }}                                
                         </td>
                         <td [pEditableColumn]="fg.controls['lineDescription']" pEditableColumnField="lineDescription">
                             <p-cellEditor>

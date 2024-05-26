@@ -16,6 +16,7 @@ import { AttachmentsComponent } from '../../components/attachments/attachments.c
 import { JournalItemModel } from '../../models/journalItemModel';
 import { JournalTemplatePopupComponent } from '../components/journal-template-popup/journal-template-popup.component';
 import { NoChildrenAccountsComponent } from '../../components/noChildrenAccounts/nochildaccounts.component';
+import { tap } from 'rxjs';
 
 export interface JournalEntryLineFormValue {
   id: number;
@@ -52,7 +53,9 @@ export class CreateJournalEntryComponent {
   
   ngOnInit() {
     this.accountService
-      .getAccountsHasNoChildren('', new PageInfo())
+      .getAccountsHasNoChildren('', new PageInfo()).pipe(
+        tap(elem=>console.log(elem))
+      )
       .subscribe((r) => (this.filteredAccounts = r.result));
 
     this.currencyService.getCurrencies('');

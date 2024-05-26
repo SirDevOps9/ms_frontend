@@ -53,25 +53,7 @@
     </ng-template>
 
     <ng-template #actions let-account>
-      <input type="checkbox" (change)="selectRow($event, account)" [checked]="account.id == selectedAccount?.id"/>
+      <input type="checkbox" class="check" (change)="selectRow($event, account)" [checked]="account.id == selectedAccount?.id"/>
     </ng-template>
 </lib-data-table>
 
-<div class="actions ">
-
-  <div class="flex gap-2">
-    <lib-button  (click)="onSubmit()"   [severity]="'success'">
-      {{ "Save" | translate }}
-               
-    </lib-button>
-    <lib-button (click)="onCancel()"   [severity]="'danger'">
-      {{ "User.Inviteform.CancelButton" | translate }}
-               
-    </lib-button>
-   
-  
-  
-  </div>
-
- 
-</div>

@@ -325,7 +325,9 @@
                 enums.JournalEntryStatus.DraftUnbalanced ||
               journalEntry?.status == enums.JournalEntryStatus.Draftbalanced
             ">
-                <lib-button [icon]="'pi pi-trash'" (click)="deleteJournalEntryLine(rowIndex)"  [className]="'red'">
+                <lib-button [icon]="'pi pi-trash'" (click)="deleteJournalEntryLine(rowIndex)"    [rounded]="true"
+                [enableText]="true"
+                severity="secondary">
                                 
                 </lib-button>
               </td>
