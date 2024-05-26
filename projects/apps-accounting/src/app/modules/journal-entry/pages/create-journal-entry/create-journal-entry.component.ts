@@ -113,6 +113,19 @@ export class CreateJournalEntryComponent {
     // }
     console.log(event);
   }
+  currencyChanged(index: number) {
+    const journalLine = this.items.at(index);
+    const currencyControl = journalLine.get('currency');
+    const currencyRateControl = journalLine.get('currencyRate')!;
+    console.log('currencyRateControl', currencyRateControl);
+
+    currencyControl?.valueChanges.subscribe((value) => {
+      var currencyData = this.currencies.find((c) => c.id == value);
+
+      console.log('currency rate', currencyData?.ratePerUnit);
+      currencyRateControl.setValue(currencyData!.ratePerUnit);
+    });
+  }
 
   openDialog(index: number) {
     const ref = this.dialog.open(AccountsComponent, {});
@@ -140,7 +153,10 @@ export class CreateJournalEntryComponent {
     const dbControl = new FormControl(null, [customValidators.required, Validators.min(0)]);
     const crControl = new FormControl(null, [customValidators.required, Validators.min(0)]);
     const currencyControl = new FormControl(null, customValidators.required);
-    const rateControl = new FormControl(null, [customValidators.required, Validators.min(0)]);
+    const rateControl = new FormControl<number | null>(null, [
+      customValidators.required,
+      Validators.min(0),
+    ]);
     //events
     dbControl.valueChanges.subscribe((value) => {
       if (rateControl.value) {
@@ -167,9 +183,15 @@ export class CreateJournalEntryComponent {
         crLocalControl.setValue(value * crControl.value);
       }
     });
-    currencyControl.valueChanges.subscribe((value) => {
-      currencyControl.parent!.get('currencyRate')!.setValue((value as any)?.ratePerUnit);
+
+    currencyControl?.valueChanges.subscribe((value) => {
+      var currencyData = this.currencies.find((c) => c.id == value);
+
+      console.log('currency rate', currencyData?.ratePerUnit);
+
+      rateControl.setValue(currencyData?.ratePerUnit!);
     });
+
     //set group
     const fg = this.fb.group({
       id: new FormControl(id),
@@ -182,6 +204,7 @@ export class CreateJournalEntryComponent {
       debitAmountLocal: new FormControl(),
       creditAmountLocal: new FormControl(),
     });
+
     this.fa.push(fg);
   }
 

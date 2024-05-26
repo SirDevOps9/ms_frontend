@@ -36,7 +36,7 @@ const routes: Routes = [
       {
         path: 'journalentry/edit/:id',
         component: EditJournalEntryComponent,
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.JOURNAL_Edit,
         },

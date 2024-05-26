@@ -1,4 +1,6 @@
+import { JournalEntryStatus } from "./journalentrystatus";
+
 export class JournalStatusUpdate{
     id:number;
-    status:number;
+    status:JournalEntryStatus;
 }

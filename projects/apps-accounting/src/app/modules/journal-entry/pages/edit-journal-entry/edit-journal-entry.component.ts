@@ -3,6 +3,7 @@ import {
   EditJournalEntry,
   GetJournalEntryByIdDto,
   JournalEntryLineDto,
+  JournalEntryStatus,
   SharedJournalEnums,
 } from '../../models';
 import { JournalEntryService } from '../../journal-entry.service';
@@ -63,7 +64,7 @@ export class EditJournalEntryComponent implements OnInit {
       sourceName: new FormControl(),
       sourceCode: new FormControl(),
       reversedJournalCode: new FormControl(),
-      status: new FormControl(),
+      status: new FormControl(''),
       totalDebitAmount: new FormControl(),
       totalCreditAmount: new FormControl(),
       journalEntryLines: this.fb.array([]),
@@ -80,13 +81,10 @@ export class EditJournalEntryComponent implements OnInit {
         },
         
       );
-
-        console.log('calling init 1', this.editJournalForm.value);
-
-        if (res.status === this.enums.JournalEntryStatus.Posted || res.status === this.enums.JournalEntryStatus.submited) {
+        if (res.status === this.enums.JournalEntryStatus.Posted || res.status === this.enums.JournalEntryStatus.Submitted) {
           this.viewMode = true;
         }
-        this.statusName = this.enums.JournalEntryStatus[res.status];
+        this.statusName = res.status;
         this.journalTypeName = this.enums.JournalEntryType[res.type];
 
         this.journalEntry = res;
@@ -144,7 +142,7 @@ export class EditJournalEntryComponent implements OnInit {
     this.journalEntryService.editJournalEntry(request)
   }
 
-  ChangeStatus(status: number) {
+  ChangeStatus(status: JournalEntryStatus) {
     let journalStatus = new JournalStatusUpdate();
     journalStatus.id = this.routerService.currentId;
     journalStatus.status = status;
@@ -243,7 +241,7 @@ export class EditJournalEntryComponent implements OnInit {
     } else {
       // Otherwise, show an error message based on the status
       let message: string = '';
-      if (status === this.enums.JournalEntryStatus.submited) {
+      if (status === this.enums.JournalEntryStatus.Submitted) {
         message = "Can't be deleted, the entry is already submitted.";
       } else if (status === this.enums.JournalEntryStatus.Posted) {
         message = "Can't be deleted, the entry is already posted.";
