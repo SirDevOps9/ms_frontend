@@ -3,6 +3,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { AuthGuard } from 'microtec-auth-lib';
 import { TagListComponent } from './general-setting/pages/tag-list/tag-list.component';
 import { Modules } from 'shared-lib';
+import { TagAddComponent } from './general-setting/pages/tag-add/tag-add.component';
 
 export const ERPRoutes = [
   {

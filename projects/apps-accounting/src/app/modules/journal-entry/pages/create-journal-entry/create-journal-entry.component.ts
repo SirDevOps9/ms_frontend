@@ -15,6 +15,7 @@ import { JournalEntryService } from '../../journal-entry.service';
 import { AttachmentsComponent } from '../../components/attachments/attachments.component';
 import { JournalItemModel } from '../../models/journalItemModel';
 import { JournalTemplatePopupComponent } from '../components/journal-template-popup/journal-template-popup.component';
+import { tap } from 'rxjs';
 
 export interface JournalEntryLineFormValue {
   id: number;
@@ -46,7 +47,7 @@ export class CreateJournalEntryComponent {
   filteredAccounts: AccountDto[] = [];
   currencies: CurrencyDto[];
   fitleredCurrencies: CurrencyDto[];
-
+  accountName : string = ''
   getTodaysDate() {
     var date = new Date();
     return date.toISOString().substring(0, 10);
@@ -81,13 +82,17 @@ export class CreateJournalEntryComponent {
 
   openAttachments() {
     this.dialog.open(AttachmentsComponent, {
+      header : 'Attachments',
       data: { attachments: this.attachments },
+      width : '500px'
     });
   }
 
   ngOnInit() {
     this.accountService
-      .getAllChartOfAccountPaginated('', new PageInfo())
+      .getAllChartOfAccountPaginated('', new PageInfo()).pipe(
+        tap(elem=>console.log(elem))
+      )
       .subscribe((r) => (this.filteredAccounts = r.result));
 
     this.currencyService.getCurrencies('');
@@ -97,12 +102,12 @@ export class CreateJournalEntryComponent {
     });
   }
 
-  filterAccount(event: any) {
-    let query = event.query;
-    this.accountService
-      .getAllChartOfAccountPaginated(query, new PageInfo())
-      .subscribe((r) => (this.filteredAccounts = r.result));
-  }
+  // filterAccount(event: any) {
+  //   let query = event.query;
+  //   this.accountService
+  //     .getAllChartOfAccountPaginated(query, new PageInfo())
+  //     .subscribe((r) => (this.filteredAccounts = r.result));
+  // }
 
   accountSelected(event: any, id: number) {
     const selected = event.value as AccountDto;
@@ -116,7 +121,7 @@ export class CreateJournalEntryComponent {
     const ref = this.dialog.open(AccountsComponent, {});
     ref.onClose.subscribe((r) => {
       if (r) {
-        this.fa.at(index).get('account')?.setValue(r);
+        this.fa.at(index).get('account')?.setValue(r.id);
       }
     });
   }
@@ -131,6 +136,15 @@ export class CreateJournalEntryComponent {
   public get fa(): FormArray {
     return this.fg.get('journalEntryLines') as FormArray;
   }
+
+  // onValChange(e : any , fg : FormGroup) {
+  //   console.log(e)
+  //   let accName = this.filteredAccounts.find(elem=>elem.id == e)?.nameEn
+
+  //  fg.get('account')?.setValue() 
+
+  //  console.log(fg.controls['account']?.value)
+  // }
 
   addThing() {
     const id = this.fa.length + 1;
@@ -189,16 +203,19 @@ export class CreateJournalEntryComponent {
 
   save() {
     const value = this.fg.value as JournalEntryFormValue;
+    console.log(this.fa)
     let obj: AddJournalEntryCommand = {
       ...value,
-      journalEntryLines: value.journalEntryLines.map((l) => ({
-        accountId: l.account.id,
+      journalEntryLines: value.journalEntryLines.map((l , i) => ({
+        
+        accountId:this.fa.value[i].account,
         creditAmount: l.creditAmount,
         currencyId: l.currency.id,
         currencyRate: l.currencyRate,
         debitAmount: l.debitAmount,
         lineDescription: l.lineDescription,
       })),
+      
     };
     console.log(obj);
     this.service

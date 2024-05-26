@@ -39,13 +39,13 @@ export class AccountProxy {
   addAccount(command: AddAccountDto): Observable<AccountDto> {
     return this.httpService.post('ChartOfAccounts/AddAccount', command);
   }
-  getAllPaginated(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<AccountDto>> {
-    return this.httpService.get<PaginationVm<AccountDto>>(`ChartOfAccounts?${pageInfo.toQuery}`);
+  getAllPaginated(quieries: string, pageInfo: PageInfo): Observable<PaginationVm<AccountDto>> {
+    return this.httpService.get<PaginationVm<AccountDto>>(`ChartOfAccounts?${pageInfo.toQuery}&${quieries ?quieries : '' }`);
   }
 
   getAllParentAccounts(): Observable<parentAccountDto[]> {
     return this.httpService.get<parentAccountDto[]>(`ChartOfAccounts/GetParentAccounts`);
-  }
+  } 
 
   getTreeList(): Observable<accountTreeList[]> {
     return this.httpService.get<accountTreeList[]>(`ChartOfAccounts/GetTree`);

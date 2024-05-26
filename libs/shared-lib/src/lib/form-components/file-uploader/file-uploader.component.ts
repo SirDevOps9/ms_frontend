@@ -34,11 +34,11 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
   @Input() base64: string;
   @Input() id: string;
   @Input() className: string;
-  @Input() uploadClassName: string = 'upload';
+  @Input() uploadClassName: string ;
   @Input() appControl: AbstractControl;
   @Input() config: UploadFileConfigDto = { type: AttachmentFileTypeEnum.image };
   @Output() valueChanged = new EventEmitter<string>();
-
+  imgName : string = ''
   value: string = '';
   onChange = (value: any) => {};
   onTouched = () => {};
@@ -80,6 +80,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
 
   uploadFile(event: any) {
     this.attachmentService.uploadFile(event.target.files, this.config);
+    this.imgName = event.target.files[0].name
   }
 
   // resetErrorMessages() {
@@ -127,6 +128,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
     }
   }
   private updateImageBase64() {
+    if (this.value != '') {
     this.attachmentService
       .getAttachment(this.value)
       .subscribe((response: AttachmentDto) => {
@@ -135,6 +137,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
           this.base64 = source;
         }
       });
+    }
   }
 
   constructor(
@@ -146,6 +149,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
     if (this.controlDir) {
       this.controlDir.valueAccessor = this;
     }
+    this.attachmentService.clearState();
     this.subscribe();
   }
 }

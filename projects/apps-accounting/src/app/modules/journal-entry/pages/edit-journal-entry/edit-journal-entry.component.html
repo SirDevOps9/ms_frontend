@@ -138,26 +138,41 @@
 
                 <p-cellEditor>
                   <ng-template pTemplate="input">
-                    <p-autoComplete
+                    <div class="flex gap-2 align-items-center">
+
+                    <!-- <p-autoComplete
                       [forceSelection]="true"
                       [suggestions]="filteredAccounts"
                       #autocomplete
+                      appendTo="body"
                       (onFocus)="!autocomplete.value && autocomplete.show()"
                       (completeMethod)="filterAccount($event)"
                       field="accountCode"
                       (onSelect)="updateAccount($event, rowIndex)"
-                    ></p-autoComplete>
-                    <button type="button" (click)="openDialog(rowIndex)">
-                      open
-                    </button>
+                    ></p-autoComplete> -->
+
+                    <lib-select
+                    formControlName="accountId"
+                    [options]="filteredAccounts"
+                    optionValue="id"
+                    optionLabel="id"
+                    [customClass]="'add-journal'"
+                  >
+                  </lib-select>
+         
+                  <i class="pi pi-search search-circle"  (click)="openDialog(rowIndex)"></i>
+
+
+                  
+                  </div>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ journalLine.get("accountCode").value }}
+                    {{ journalLine.get("accountId").value }}
                   </ng-template>
                 </p-cellEditor>
               </td>
               <td>
-                {{ journalLine.get("accountName").value }}
+                {{ (journalLine.controls['accountId']?.value | getElementByID : filteredAccounts)?.name }}
               </td>
               <td>
                 <lib-text-input
@@ -218,7 +233,8 @@
                 <td [pEditableColumn]="journalLine?.value?.currency" [pEditableColumnField]="journalLine?.value?.currency">
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <p-autoComplete formControlName="currency" appendTo="body" [forceSelection]="true" [suggestions]="fitleredCurrencies" (completeMethod)="filterCurrency($event)" field="currencyName" (ngModelChange)="oncurrencyChange($event , journalLine)"></p-autoComplete>
+                                    <p-autoComplete                       appendTo="body"
+                                    formControlName="currency" appendTo="body" [forceSelection]="true" [suggestions]="fitleredCurrencies" (completeMethod)="filterCurrency($event)" field="currencyName" (ngModelChange)="oncurrencyChange($event , journalLine)"></p-autoComplete>
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{ journalLine?.value?.currency?.currencyName ? journalLine?.value?.currency?.currencyName : journalLine?.value?.currency }}
@@ -259,10 +275,9 @@
                 enums.JournalEntryStatus.DraftUnbalanced ||
               journalEntry?.status == enums.JournalEntryStatus.Draftbalanced
             ">
-                <div
-                  class="pi pi-trash"
-                  (click)="deleteJournalEntryLine(rowIndex)"
-                ></div>
+                <lib-button [icon]="'pi pi-trash'" (click)="deleteJournalEntryLine(rowIndex)"  [className]="'red'">
+                                
+                </lib-button>
               </td>
             </tr>
           </ng-template>

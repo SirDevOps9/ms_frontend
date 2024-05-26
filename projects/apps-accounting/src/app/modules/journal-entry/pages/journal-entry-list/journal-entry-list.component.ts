@@ -16,7 +16,7 @@ export class JournalEntryListComponent implements OnInit {
   tableData: JournalEntryDto[];
   cols: any[] = [];
   active: boolean = false;
-  currentPageInfo: PageInfoResult;
+  currentPageInfo: PageInfoResult = {};
 
   constructor(
     private routerService: RouterService,

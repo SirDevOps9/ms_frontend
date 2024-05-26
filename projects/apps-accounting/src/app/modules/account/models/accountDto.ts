@@ -9,5 +9,6 @@ export interface AccountDto {
   natureId:AccountNature;
   AccountTypeName:string;
   accountSectionName:string;
+  name ? :string
 
 }

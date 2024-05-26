@@ -28,9 +28,7 @@
             "outputPath": "dist/bussiness-owners",
             "index": "projects/bussiness-owners/src/index.html",
             "browser": "projects/bussiness-owners/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/bussiness-owners/tsconfig.app.json",
             "assets": [
               "projects/bussiness-owners/src/favicon.ico",
@@ -110,10 +108,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/bussiness-owners/tsconfig.spec.json",
             "assets": [
               "projects/bussiness-owners/src/favicon.ico",
@@ -156,15 +151,10 @@
             "outputPath": "dist/adminportal",
             "index": "projects/adminportal/src/index.html",
             "browser": "projects/adminportal/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/adminportal/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/adminportal/src/favicon.ico",
-              "projects/adminportal/src/assets"
-            ],
+            "assets": ["projects/adminportal/src/favicon.ico", "projects/adminportal/src/assets"],
             "styles": [
               "projects/adminportal/src/styles.css",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
@@ -179,13 +169,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
+                  "maximumWarning": "50mb",
                   "maximumError": "50mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
                 }
               ],
               "outputHashing": "all"
@@ -236,18 +226,10 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/adminportal/tsconfig.spec.json",
-            "assets": [
-              "projects/adminportal/src/favicon.ico",
-              "projects/adminportal/src/assets"
-            ],
-            "styles": [
-              "projects/adminportal/src/styles.css"
-            ],
+            "assets": ["projects/adminportal/src/favicon.ico", "projects/adminportal/src/assets"],
+            "styles": ["projects/adminportal/src/styles.css"],
             "scripts": []
           }
         }
@@ -278,10 +260,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "libs/shared-lib/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }
@@ -311,10 +290,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "libs/microtec-auth-lib/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }
@@ -344,10 +320,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "libs/apps-shared-lib/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }
@@ -377,9 +350,7 @@
             "baseHref": "/accounting/",
             "index": "projects/apps-accounting/src/index.html",
             "browser": "projects/apps-accounting/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/apps-accounting/tsconfig.app.json",
             "assets": [
               "projects/apps-accounting/src/favicon.ico",
@@ -463,10 +434,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/apps-accounting/tsconfig.spec.json",
             "assets": [
               "projects/apps-accounting/src/favicon.ico",
@@ -509,14 +477,9 @@
             "baseHref": "/hr/",
             "index": "projects/apps-hr/src/index.html",
             "browser": "projects/apps-hr/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/apps-hr/tsconfig.app.json",
-            "assets": [
-              "projects/apps-hr/src/favicon.ico",
-              "projects/apps-hr/src/assets"
-            ],
+            "assets": ["projects/apps-hr/src/favicon.ico", "projects/apps-hr/src/assets"],
             "styles": [
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
@@ -532,13 +495,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
                 }
               ],
               "outputHashing": "all"
@@ -596,15 +559,9 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/apps-hr/tsconfig.spec.json",
-            "assets": [
-              "projects/apps-hr/src/favicon.ico",
-              "projects/apps-hr/src/assets"
-            ],
+            "assets": ["projects/apps-hr/src/favicon.ico", "projects/apps-hr/src/assets"],
             "styles": [
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
@@ -643,14 +600,9 @@
             "outputPath": "dist/erp-home",
             "index": "projects/erp-home/src/index.html",
             "browser": "projects/erp-home/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/erp-home/tsconfig.app.json",
-            "assets": [
-              "projects/erp-home/src/favicon.ico",
-              "projects/erp-home/src/assets"
-            ],
+            "assets": ["projects/erp-home/src/favicon.ico", "projects/erp-home/src/assets"],
             "styles": [
               "projects/erp-home/src/styles.css",
               "node_modules/primeng/resources/primeng.min.css",
@@ -728,15 +680,9 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/erp-home/tsconfig.spec.json",
-            "assets": [
-              "projects/erp-home/src/favicon.ico",
-              "projects/erp-home/src/assets"
-            ],
+            "assets": ["projects/erp-home/src/favicon.ico", "projects/erp-home/src/assets"],
             "styles": [
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",

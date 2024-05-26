@@ -57,7 +57,7 @@
 
     .info{
       height: 46px;
-      background-color: #F7F8F8;
+      background-color: #ebebeb;
       border-radius: 4px;
       margin-top: 24px;
       display: flex; /* Use flexbox */
@@ -128,11 +128,12 @@
             width: 18px;
             height: 18px;
             border-color: #1a8eae; 
-            background-color: #1a8eae;
           }
     
           .p-checkbox-icon {
             color: white;
+            background-color: #1a8eae;
+
           }
         }
       }

@@ -7,7 +7,14 @@ import {
 } from 'shared-lib';
 import { EmployeeProxy } from './employee.proxy';
 import { Injectable } from '@angular/core';
-import { AddEmployeePersonal, EditEmployeePersonal,EmployeeDto } from './models';
+import {
+  AddEmployeePersonal,
+  CityDto,
+  CountryDto,
+  EditEmployeePersonal,
+  EmployeeDto,
+  NationalityDto
+} from './models';
 import { BehaviorSubject, catchError, map } from 'rxjs';
 
 @Injectable({
@@ -20,6 +27,20 @@ export class EmployeeService {
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
+  private countryDataSource = new BehaviorSubject<CountryDto[]>([]);
+  public countries = this.countryDataSource.asObservable();
+
+  private cityDataSource = new BehaviorSubject<CityDto[]>([]);
+  public cities = this.cityDataSource.asObservable();
+
+  private nationalityDataSource = new BehaviorSubject<NationalityDto[]>([]);
+  public nationalities = this.nationalityDataSource.asObservable();
+
+
+  public addEmployeeStatus = new BehaviorSubject<boolean>(false);
+
+  public editEmployeeStatus = new BehaviorSubject<boolean>(false);
+
   initEmployeesList(searchTerm: string, pageInfo: PageInfo) {
     this.employeeProxy.getAllPaginated(searchTerm, pageInfo).subscribe({
       next: (res) => {
@@ -28,7 +49,23 @@ export class EmployeeService {
       },
     });
   }
+  loadCountries() {
+    this.employeeProxy.getAllCountries().subscribe((response) => {
+      this.countryDataSource.next(response);
+    });
+  }
 
+  loadCities(countryCode: string) {
+    this.employeeProxy.getCities(countryCode).subscribe((response) => {
+      this.cityDataSource.next(response);
+    });
+  }
+
+  loadNationalities() {
+    this.employeeProxy.getAllNationalities().subscribe((response) => {
+      this.nationalityDataSource.next(response);
+    });
+  }
   addEmployee(model: AddEmployeePersonal) {
     this.loaderService.show();
     this.employeeProxy.addEmployee(model).subscribe({
@@ -38,15 +75,18 @@ export class EmployeeService {
           this.languageService.transalte('Employee.EmployeeAddedSuccessfully')
         );
         this.loaderService.hide();
+        this.addEmployeeStatus.next(true);
       },
       error: () => {
         this.loaderService.hide();
+        this.addEmployeeStatus.next(false);
       },
     });
   }
 
   editEmployee(model: EditEmployeePersonal) {
     this.loaderService.show();
+
     this.employeeProxy.editEmployee(model).subscribe({
       next: () => {
         this.toasterService.showSuccess(
@@ -54,15 +94,27 @@ export class EmployeeService {
           this.languageService.transalte('Employee.EmployeeEditedSuccessfully')
         );
         this.loaderService.hide();
+        this.editEmployeeStatus.next(true);
       },
       error: () => {
         this.loaderService.hide();
+        this.editEmployeeStatus.next(false);
       },
     });
   }
-
   getEmployeeById(Id: number) {
     return this.employeeProxy.getEmployeeById(Id).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((err: string) => {
+        throw err!;
+      })
+    );
+  }
+
+  getEmployeeView(Id: number) {
+    return this.employeeProxy.getEmployeeView(Id).pipe(
       map((res) => {
         return res;
       }),
@@ -91,8 +143,7 @@ export class EmployeeService {
           this.employeeDataSource.next(updatedEmployees);
         },
       });
-    } else {
-    }
+    } 
   }
 
   constructor(
