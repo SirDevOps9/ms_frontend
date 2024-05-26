@@ -1,6 +1,9 @@
 <div>
-    Attachments
-    <button (click)="addAttachment()" class="add-attachment">add</button>
+    <div class="flex justify-content-end">
+        <button (click)="addAttachment()" class="add-attachment">add</button>
+
+    </div>
+
     <ul>
         <li *ngFor="let item of attachments.controls; let i = index">
             <div class="grid ">

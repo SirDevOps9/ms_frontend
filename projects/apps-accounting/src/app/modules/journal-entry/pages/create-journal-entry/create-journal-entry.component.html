@@ -47,11 +47,16 @@
                         <td [pEditableColumn]="fg.controls['account']" pEditableColumnField="fg.controls['account']">
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <p-autoComplete formControlName="account" (onSelect)="accountSelected($event, i)" 
-                                    [forceSelection]="true" [suggestions]="filteredAccounts" 
-                                    #autocomplete (onFocus)="!autocomplete.value && autocomplete.show()"
-                                    (completeMethod)="filterAccount($event)" field="accountCode"></p-autoComplete>
-                                    <button (click)="openDialog(i)">open</button>
+                                    <div class="flex gap-2">
+                                        <p-autoComplete appendTo="body" formControlName="account" (onSelect)="accountSelected($event, i)" 
+                                        [forceSelection]="true" [suggestions]="filteredAccounts" 
+                                        #autocomplete (onFocus)="!autocomplete.value && autocomplete.show()"
+                                        (completeMethod)="filterAccount($event)" field="accountCode"></p-autoComplete>
+                                        <lib-button  (click)="openDialog(i)"   [severity]="'primary'">
+                                            Open
+                                        </lib-button>
+                                    </div>
+                                    
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{ fg.controls['account'].value?.accountCode }}
@@ -97,7 +102,7 @@
                         <td [pEditableColumn]="fg.controls['currency']" pEditableColumnField="currency">
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <p-autoComplete formControlName="currency" [forceSelection]="true" [suggestions]="fitleredCurrencies" (completeMethod)="filterCurrency($event)" field="currencyName"></p-autoComplete>
+                                    <p-autoComplete formControlName="currency" appendTo="body" [forceSelection]="true" [suggestions]="fitleredCurrencies" (completeMethod)="filterCurrency($event)" field="currencyName"></p-autoComplete>
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{ fg.controls['currency'].value?.currencyName }}
@@ -125,7 +130,10 @@
                         </td>
 
                         <td>
-                            <button (click)="deleteLine(i)">Delete</button>
+
+                            <lib-button [icon]="'pi pi-trash'" (click)="deleteLine(i)"  [className]="'red'">
+                                
+                            </lib-button>
                         </td>
                     </tr>
                 </ng-template>

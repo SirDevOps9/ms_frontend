@@ -1,6 +1,8 @@
 <div [formGroup]="fg">
   <input formControlName="name" pInputText >
 </div>
+
+<!-- <img [src]="base64" alt="" style="height: 150px;width: 150px;" *ngIf="base64"> -->
 <input
   #fileInput
   type="file"
@@ -11,18 +13,7 @@
 <!-- accept="{{ cus getFileType(this.config.type).allowedExtensions }}" -->
 
 <button type="button" (click)="fileInput.click()" *ngIf="!value" [ngClass]="uploadClassName">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="15.998"
-    viewBox="0 0 16 15.998"
-  >
-    <path
-      d="M9.25,12H6.75a.748.748,0,0,1-.75-.75V6H3.259a.624.624,0,0,1-.441-1.066L7.572.181a.605.605,0,0,1,.853,0l4.756,4.756A.624.624,0,0,1,12.741,6H10v5.25A.748.748,0,0,1,9.25,12Zm6.75-.25v3.5a.748.748,0,0,1-.75.75H.75a.748.748,0,0,1-.75-.75v-3.5A.748.748,0,0,1,.75,11H5v.25A1.751,1.751,0,0,0,6.75,13h2.5A1.751,1.751,0,0,0,11,11.253V11h4.25A.748.748,0,0,1,16,11.753ZM12.125,14.5a.625.625,0,1,0-.625.625A.627.627,0,0,0,12.125,14.5Zm2,0a.625.625,0,1,0-.625.625A.627.627,0,0,0,14.125,14.5Z"
-      transform="translate(0 -0.005)"
-      fill="currentColor"
-    ></path>
-  </svg>
+ 
   {{ "Upload" | translate }}
 </button>
 
@@ -30,14 +21,14 @@
   class="steps-form__attachments__content"
   *ngIf="value && !config.viewThumbnail"
 >
-  <div class="steps-form__attachments__item__updated">
+  <div class="steps-form__attachments__item__updated flex justify-content-end align-items-center gap-2">
     <p class="attach-name">الملف المرفق</p>
     <a
-      class="attach-delete"
+      class="attach-delete pi pi-times"
       href="javascript:void(0)"
       (click)="deleteAttachment()"
     >
-      حذف
+      
     </a>
     <a
       class="attach-delete"
@@ -66,22 +57,21 @@
     </a>
   </div>
 </div>
+  <!-- <div id="photo" style="background-image: url('{{ photoSrc }}');"></div> -->
 
-<div
+<!-- <div
   class="uplode_photo mb-6"
   *ngIf="
-    config.type === sharedLibEnums.AttachmentFileTypes.image &&
-    config.viewThumbnail &&
+    
     base64
   "
 >
-  <!-- <div id="photo" style="background-image: url('{{ photoSrc }}');"></div> -->
   <img class="image-rounded" width="50%" *ngIf="base64" [src]="base64" alt="" />
   <a
-    class="attach-delete"
+    class="attach-delete pi pi-times"
     href="javascript:void(0)"
     (click)="deleteAttachment()"
   >
-    حذف
+  
   </a>
-</div>
+</div> -->

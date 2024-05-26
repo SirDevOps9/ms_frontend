@@ -44,8 +44,8 @@ export class AccountService {
     });
   }
 
-  getAllChartOfAccountPaginated(searchTerm: string, pageInfo: PageInfo) {
-    return this.accountproxy.getAllPaginated(searchTerm, pageInfo).pipe(
+  getAllChartOfAccountPaginated(quieries: string, pageInfo: PageInfo) {
+    return this.accountproxy.getAllPaginated(quieries, pageInfo).pipe(
       map((res) => {
         return res;
       })

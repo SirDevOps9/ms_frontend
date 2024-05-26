@@ -38,22 +38,13 @@
 
     <ng-container caption>
         <div class="group">
-            <div>
+            <div [formGroup]="searchForm">
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
-                    <input pInputText  [(ngModel)]="searchTerm" type="text" placeholder="Search..." />
+                    <input pInputText formControlName="SearchTerm" type="text" placeholder="Search..." />
                 </span>
-                <button (click)="onSearch()">Search</button>
             </div>
 
-            <!-- <lib-button pRipple className="add_new" label="Add New" icon="pi pi-plus">
-          </lib-button> -->
-            <div>
-                <button class="add_new export">
-                    <span class="pi pi-file"></span>
-                    Export
-                </button>
-            </div>
         </div>
     </ng-container>
 
@@ -66,13 +57,21 @@
     </ng-template>
 </lib-data-table>
 
-<div class="actions">
-  <button (click)="onSubmit()" type="submit" class="save w-6">
-    <span class="pi pi-send"></span>
-    {{ "User.Inviteform.SubmitButton" | translate }}
-  </button>
+<div class="actions ">
 
-  <button class="cancel" type="button" (click)="onCancel()">
-    {{ "User.Inviteform.CancelButton" | translate }}
-  </button>
+  <div class="flex gap-2">
+    <lib-button  (click)="onSubmit()"   [severity]="'success'">
+      {{ "User.Inviteform.SubmitButton" | translate }}
+               
+    </lib-button>
+    <lib-button (click)="onCancel()"   [severity]="'danger'">
+      {{ "User.Inviteform.CancelButton" | translate }}
+               
+    </lib-button>
+   
+  
+  
+  </div>
+
+ 
 </div>

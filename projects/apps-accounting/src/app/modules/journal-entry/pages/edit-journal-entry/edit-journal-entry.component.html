@@ -138,18 +138,22 @@
 
                 <p-cellEditor>
                   <ng-template pTemplate="input">
+                    <div class="flex gap-2">
+
                     <p-autoComplete
                       [forceSelection]="true"
                       [suggestions]="filteredAccounts"
                       #autocomplete
+                      appendTo="body"
                       (onFocus)="!autocomplete.value && autocomplete.show()"
                       (completeMethod)="filterAccount($event)"
                       field="accountCode"
                       (onSelect)="updateAccount($event, rowIndex)"
                     ></p-autoComplete>
-                    <button type="button" (click)="openDialog(rowIndex)">
-                      open
-                    </button>
+                    <lib-button  (click)="openDialog(rowIndex)"   [severity]="'primary'">
+                      Open
+                  </lib-button>
+                  </div>
                   </ng-template>
                   <ng-template pTemplate="output">
                     {{ journalLine.get("accountCode").value }}
@@ -218,7 +222,8 @@
                 <td [pEditableColumn]="journalLine?.value?.currency" [pEditableColumnField]="journalLine?.value?.currency">
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <p-autoComplete formControlName="currency" appendTo="body" [forceSelection]="true" [suggestions]="fitleredCurrencies" (completeMethod)="filterCurrency($event)" field="currencyName" (ngModelChange)="oncurrencyChange($event , journalLine)"></p-autoComplete>
+                                    <p-autoComplete                       appendTo="body"
+                                    formControlName="currency" appendTo="body" [forceSelection]="true" [suggestions]="fitleredCurrencies" (completeMethod)="filterCurrency($event)" field="currencyName" (ngModelChange)="oncurrencyChange($event , journalLine)"></p-autoComplete>
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{ journalLine?.value?.currency?.currencyName ? journalLine?.value?.currency?.currencyName : journalLine?.value?.currency }}
@@ -259,10 +264,9 @@
                 enums.JournalEntryStatus.DraftUnbalanced ||
               journalEntry?.status == enums.JournalEntryStatus.Draftbalanced
             ">
-                <div
-                  class="pi pi-trash"
-                  (click)="deleteJournalEntryLine(rowIndex)"
-                ></div>
+                <lib-button [icon]="'pi pi-trash'" (click)="deleteJournalEntryLine(rowIndex)"  [className]="'red'">
+                                
+                </lib-button>
               </td>
             </tr>
           </ng-template>

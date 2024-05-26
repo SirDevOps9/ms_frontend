@@ -81,7 +81,9 @@ export class CreateJournalEntryComponent {
 
   openAttachments() {
     this.dialog.open(AttachmentsComponent, {
+      header : 'Attachments',
       data: { attachments: this.attachments },
+      width : '500px'
     });
   }
 
