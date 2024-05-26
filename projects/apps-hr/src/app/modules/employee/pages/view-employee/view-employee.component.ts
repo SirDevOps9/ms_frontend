@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../../employee.service';
 import { AgeService, RouterService } from 'shared-lib';
-import { GetEmployeeView } from '../../models/get-employee-view';
+import { GetEmployeeView } from '../../models';
 
 @Component({
   selector: 'app-view-employee',

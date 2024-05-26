@@ -10,9 +10,8 @@ import {
   customValidators,
   lookupDto,
 } from 'shared-lib';
-import { AddEmployeePersonal, CityDto, CountryDto } from '../../models';
+import { AddEmployeePersonal, CityDto, CountryDto ,NationalityDto} from '../../models';
 import { EmployeeService } from '../../employee.service';
-import { NationalityDto } from '../../models/nationality-dto';
 
 @Component({
   selector: 'app-create-employee',

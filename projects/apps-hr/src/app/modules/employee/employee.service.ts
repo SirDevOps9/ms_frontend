@@ -13,9 +13,9 @@ import {
   CountryDto,
   EditEmployeePersonal,
   EmployeeDto,
+  NationalityDto
 } from './models';
 import { BehaviorSubject, catchError, map } from 'rxjs';
-import { NationalityDto } from './models/nationality-dto';
 
 @Injectable({
   providedIn: 'root',
