@@ -38,6 +38,9 @@ export class AccountProxy {
   getAllPaginated(quieries: string, pageInfo: PageInfo): Observable<PaginationVm<AccountDto>> {
     return this.httpService.get<PaginationVm<AccountDto>>(`ChartOfAccounts?${pageInfo.toQuery}&${quieries ?quieries : '' }`);
   }
+  getAccountsHasNoChildren(quieries: string, pageInfo: PageInfo): Observable<PaginationVm<AccountDto>> {
+    return this.httpService.get<PaginationVm<AccountDto>>(`ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}&${quieries ?quieries : '' }`);
+  }
 
   getAllParentAccounts(): Observable<parentAccountDto[]> {
     return this.httpService.get<parentAccountDto[]>(`ChartOfAccounts/GetParentAccounts`);

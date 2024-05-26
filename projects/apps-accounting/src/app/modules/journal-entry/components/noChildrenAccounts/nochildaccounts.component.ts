@@ -9,11 +9,11 @@ import { debounceTime } from 'rxjs';
 import { SearchFunc } from 'libs/shared-lib/src/lib/models/sendQueries';
 
 @Component({
-  selector: 'app-accounts',
-  templateUrl: './accounts.component.html',
-  styleUrl: './accounts.component.scss'
+  selector: 'app-nochildaccounts',
+  templateUrl: './nochildaccounts.component.html',
+  styleUrl: './nochildaccounts.component.scss'
 })
-export class AccountsComponent implements OnInit {
+export class NoChildrenAccountsComponent implements OnInit {
 
   pageInfo = new PageInfo();
   items: AccountDto[];
@@ -50,7 +50,7 @@ export class AccountsComponent implements OnInit {
   }
 
   getAccounts(searchTerm : string) {
-    this.accountService.getAllChartOfAccountPaginated(searchTerm, this.pageInfo).subscribe(r => {
+    this.accountService.getAccountsHasNoChildren(searchTerm, this.pageInfo).subscribe(r => {
       this.items = r.result;
       this.paging = r.pageInfoResult;
     });

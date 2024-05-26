@@ -64,7 +64,7 @@
                             </p-cellEditor>
                         </td>
                         <td>
-                            {{ fg.controls['account'].value?.nameEn }}
+                            {{ fg.controls['account'].value?.name }}
                         </td>
                         <td [pEditableColumn]="fg.controls['lineDescription']" pEditableColumnField="lineDescription">
                             <p-cellEditor>
@@ -113,6 +113,7 @@
                                     [options]="currencies"
                                     optionValue="id"
                                     optionLabel="currencyName"
+                                    [selectedValue]="selectedCurrency"
                                     (valueChanged)="currencyChanged(i)"
                                   >
                                   </lib-select>
@@ -173,7 +174,7 @@
             <button class="btn discard">
                 discard
             </button>
-            <button class="btn save" [disabled]="!fg.valid" (click)="save()">
+            <button class="btn save"  (click)="save()">
                 Save
             </button>
         </div>

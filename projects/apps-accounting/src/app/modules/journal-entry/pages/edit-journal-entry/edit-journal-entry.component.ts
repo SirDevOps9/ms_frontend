@@ -22,6 +22,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { AccountsComponent } from '../../components/accounts/accounts.component';
 import { CurrencyService } from '../../../general/currency.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
+import { NoChildrenAccountsComponent } from '../../components/noChildrenAccounts/nochildaccounts.component';
 
 @Component({
   selector: 'app-edit-journal-entry',
@@ -42,6 +43,7 @@ export class EditJournalEntryComponent implements OnInit {
   filteredAccounts: AccountDto[] = [];
   currencies: CurrencyDto[] = [];
   fitleredCurrencies: CurrencyDto[];
+  selectedCurrency:number;
 
   ngOnInit() {
     this.getAccounts();
@@ -274,7 +276,7 @@ export class EditJournalEntryComponent implements OnInit {
 
   getAccounts() {
     this.accountService
-      .getAllChartOfAccountPaginated('', new PageInfo())
+      .getAccountsHasNoChildren('', new PageInfo())
       .subscribe((r) => (this.filteredAccounts = r.result));
   }
 
@@ -287,14 +289,14 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   openDialog(index: number) {
-    const ref = this.dialog.open(AccountsComponent, {});
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {});
     ref.onClose.subscribe((account: AccountDto) => {
       if (account) {
         const journalLine = this.journalEntryLinesFormArray.at(index);
         const accountId = journalLine.get('accountId');
         accountId?.setValue(account.id);
         const accountName = journalLine.get('accountName');
-        accountName?.setValue(account.nameEn);
+        accountName?.setValue(account.name);
         journalLine.get('accountCode')?.setValue(account.accountCode);
       }
     });
@@ -307,6 +309,15 @@ export class EditJournalEntryComponent implements OnInit {
     const accountName = journalLine.get('accountName');
     accountName?.setValue(event.value.nameEn);
     journalLine.get('accountCode')?.setValue(event.value.accountCode);
+    const currencyControl = journalLine.get('currency');
+    const currencyRateControl = journalLine.get('currencyRate')!;
+
+    currencyControl?.setValue(event.currencyId);
+    this.selectedCurrency=event.currencyId;
+
+    var currencyData = this.currencies.find((c) => c.id == event.currencyId);
+
+    currencyRateControl.setValue(currencyData!.ratePerUnit);
   }
 
   getCurrencies() {

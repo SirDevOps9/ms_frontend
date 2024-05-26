@@ -15,6 +15,7 @@ import { JournalEntryService } from '../../journal-entry.service';
 import { AttachmentsComponent } from '../../components/attachments/attachments.component';
 import { JournalItemModel } from '../../models/journalItemModel';
 import { JournalTemplatePopupComponent } from '../components/journal-template-popup/journal-template-popup.component';
+import { NoChildrenAccountsComponent } from '../../components/noChildrenAccounts/nochildaccounts.component';
 
 export interface JournalEntryLineFormValue {
   id: number;
@@ -22,7 +23,7 @@ export interface JournalEntryLineFormValue {
   lineDescription: string;
   debitAmount: number;
   creditAmount: number;
-  currency: CurrencyDto;
+  currency: number;
   currencyRate: number;
   debitAmountLocal: number;
   creditAmountLocal: number;
@@ -46,6 +47,7 @@ export class CreateJournalEntryComponent {
   filteredAccounts: AccountDto[] = [];
   currencies: CurrencyDto[];
   fitleredCurrencies: CurrencyDto[];
+  selectedCurrency: number;
 
   getTodaysDate() {
     var date = new Date();
@@ -81,15 +83,15 @@ export class CreateJournalEntryComponent {
 
   openAttachments() {
     this.dialog.open(AttachmentsComponent, {
-      header : 'Attachments',
+      header: 'Attachments',
       data: { attachments: this.attachments },
-      width : '500px'
+      width: '500px',
     });
   }
 
   ngOnInit() {
     this.accountService
-      .getAllChartOfAccountPaginated('', new PageInfo())
+      .getAccountsHasNoChildren('', new PageInfo())
       .subscribe((r) => (this.filteredAccounts = r.result));
 
     this.currencyService.getCurrencies('');
@@ -102,7 +104,7 @@ export class CreateJournalEntryComponent {
   filterAccount(event: any) {
     let query = event.query;
     this.accountService
-      .getAllChartOfAccountPaginated(query, new PageInfo())
+      .getAccountsHasNoChildren(query, new PageInfo())
       .subscribe((r) => (this.filteredAccounts = r.result));
   }
 
@@ -111,8 +113,18 @@ export class CreateJournalEntryComponent {
     // if(selected.accountCode=='11'){
     //   this.things.find(t=>t.id==id)!.account = null;
     // }
-    console.log(event);
+    const journalLine = this.items.at(id);
+    const currencyControl = journalLine.get('currency');
+    const currencyRateControl = journalLine.get('currencyRate')!;
+
+    currencyControl?.setValue(selected.currencyId);
+    this.selectedCurrency = selected.currencyId;
+
+    var currencyData = this.currencies.find((c) => c.id == selected.currencyId);
+
+    currencyRateControl.setValue(currencyData!.ratePerUnit);
   }
+
   currencyChanged(index: number) {
     const journalLine = this.items.at(index);
     const currencyControl = journalLine.get('currency');
@@ -128,7 +140,7 @@ export class CreateJournalEntryComponent {
   }
 
   openDialog(index: number) {
-    const ref = this.dialog.open(AccountsComponent, {});
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {});
     ref.onClose.subscribe((r) => {
       if (r) {
         this.fa.at(index).get('account')?.setValue(r);
@@ -214,12 +226,15 @@ export class CreateJournalEntryComponent {
 
   save() {
     const value = this.fg.value as JournalEntryFormValue;
+
+    console.log('Form Value', value);
+
     let obj: AddJournalEntryCommand = {
       ...value,
       journalEntryLines: value.journalEntryLines.map((l) => ({
         accountId: l.account.id,
         creditAmount: l.creditAmount,
-        currencyId: l.currency.id,
+        currencyId: l.currency,
         currencyRate: l.currencyRate,
         debitAmount: l.debitAmount,
         lineDescription: l.lineDescription,
@@ -231,15 +246,13 @@ export class CreateJournalEntryComponent {
       .subscribe((r) => this.routerService.navigateTo('journalentry'));
   }
 
-  test() {
-    console.log(this.fa.value);
-    // console.log(this.fg.value);
-  }
-
   RedirectToTemplate() {
     const dialogRef = this.dialog.open(JournalTemplatePopupComponent, {
       width: '800px',
       height: '700px',
+      data: {
+        hasNoChildren: false,
+      },
     });
 
     dialogRef.onClose.subscribe((id: any) => {
