@@ -5,7 +5,9 @@ export interface AccountDto {
   name: string;
   accountCode?: string;
   mainType?: string;
-  natureId: AccountNature;
-  AccountTypeName: string;
-  accountSectionName: string;
+  natureId:AccountNature;
+  AccountTypeName:string;
+  accountSectionName:string;
+  currencyId:number;
+
 }

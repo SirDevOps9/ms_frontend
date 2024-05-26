@@ -120,15 +120,32 @@ export class CreateJournalEntryComponent {
     //   this.things.find(t=>t.id==id)!.account = null;
     // }
     const journalLine = this.items.at(id);
+    // const currencyControl = journalLine.get('currency');
+    // const currencyRateControl = journalLine.get('currencyRate')!;
+
+    // currencyControl?.setValue(selected.currencyId);
+    // this.selectedCurrency = selected.currencyId;
+
+    // var currencyData = this.currencies.find((c) => c.id == selected.currencyId);
+
+    // currencyRateControl.setValue(currencyData!.ratePerUnit);
+
+
+    var accountData = this.filteredAccounts.find((c) => c.id == event);
+
+    const accountName = journalLine.get('accountName');
+    accountName?.setValue(accountData?.name);
+
+    journalLine.get('accountCode')?.setValue(accountData?.accountCode);
+
+    var currencyData = this.currencies.find((c) => c.id == accountData?.currencyId);
+
     const currencyControl = journalLine.get('currency');
     const currencyRateControl = journalLine.get('currencyRate')!;
 
-    currencyControl?.setValue(selected.currencyId);
-    this.selectedCurrency = selected.currencyId;
+    currencyControl?.setValue(accountData?.currencyId);
 
-    var currencyData = this.currencies.find((c) => c.id == selected.currencyId);
-
-    currencyRateControl.setValue(currencyData!.ratePerUnit);
+    currencyRateControl.setValue(currencyData?.ratePerUnit);
   }
 
   currencyChanged(index: number) {
