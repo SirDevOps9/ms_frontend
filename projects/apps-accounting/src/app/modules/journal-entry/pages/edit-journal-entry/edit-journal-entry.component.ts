@@ -185,15 +185,19 @@ export class EditJournalEntryComponent implements OnInit {
       console.log(currencyRateControl?.value)
       const debitAmountLocal = event * currencyRateControl?.value;
       debitAmountLocalControl?.setValue(debitAmountLocal);
+      creditAmountControl!.setValue(0);
+
     });
     console.log(index, debitAmountControl);
     console.log(event);
 
     // Subscribe to changes in credit amount
-    // creditAmountControl?.valueChanges.subscribe((value) => {
-    //   const creditAmountLocal = value * currencyRateControl?.value;
+    creditAmountControl?.valueChanges.subscribe((value) => {
+      const creditAmountLocal = value * currencyRateControl?.value;
+      debitAmountControl!.setValue(0);
 
-    // });
+
+     });
 
     console.log(journalLine.get('creditAmount')?.value)
     console.log(journalLine.get('currencyRate')?.value)
@@ -211,6 +215,7 @@ export class EditJournalEntryComponent implements OnInit {
       ) {
         const debitAmountLocal = debitAmountControl?.value * value;
         debitAmountLocalControl?.setValue(debitAmountLocal);
+
       }
 
       // Update credit amount local only if credit amount exists
@@ -220,6 +225,7 @@ export class EditJournalEntryComponent implements OnInit {
       ) {
         const creditAmountLocal = creditAmountControl?.value * value;
         creditAmountLocalControl?.setValue(creditAmountLocal);
+
       }
     });
   }
@@ -337,6 +343,7 @@ export class EditJournalEntryComponent implements OnInit {
 
 
   }
+
 
   constructor(
     private journalEntryService: JournalEntryService,

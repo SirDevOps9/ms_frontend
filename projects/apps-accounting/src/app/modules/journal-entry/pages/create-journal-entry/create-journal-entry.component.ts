@@ -49,9 +49,17 @@ export class CreateJournalEntryComponent {
   fitleredCurrencies: CurrencyDto[];
   selectedCurrency: number;
 
-  getTodaysDate() {
-    var date = new Date();
-    return date.toISOString().substring(0, 10);
+  
+  ngOnInit() {
+    this.accountService
+      .getAccountsHasNoChildren('', new PageInfo())
+      .subscribe((r) => (this.filteredAccounts = r.result));
+
+    this.currencyService.getCurrencies('');
+
+    this.currencyService.currencies.subscribe((res) => {
+      this.currencies = res;
+    });
   }
 
   constructor(
@@ -89,18 +97,7 @@ export class CreateJournalEntryComponent {
     });
   }
 
-  ngOnInit() {
-    this.accountService
-      .getAccountsHasNoChildren('', new PageInfo())
-      .subscribe((r) => (this.filteredAccounts = r.result));
-
-    this.currencyService.getCurrencies('');
-
-    this.currencyService.currencies.subscribe((res) => {
-      this.currencies = res;
-    });
-  }
-
+  
   filterAccount(event: any) {
     let query = event.query;
     this.accountService
@@ -304,5 +301,20 @@ export class CreateJournalEntryComponent {
         }
       });
     });
+  }
+
+  debitChanged(index:number){
+    const journalLine = this.items.at(index);
+    const creditAmountControl = journalLine.get('creditAmount');
+    creditAmountControl!.setValue(0);
+  }
+  creditChanged(index:number){
+    const journalLine = this.items.at(index);
+    const debitAmountControl = journalLine.get('debitAmount');
+    debitAmountControl!.setValue(0);
+  }
+  getTodaysDate() {
+    var date = new Date();
+    return date.toISOString().substring(0, 10);
   }
 }
