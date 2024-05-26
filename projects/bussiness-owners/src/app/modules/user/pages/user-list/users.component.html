@@ -48,7 +48,8 @@
             name: 'lastLoginDate',
             headerText: ('User.LastLogin' | translate),
             isGlobalFilter: true,
-            isSortable: true
+            isSortable: true,
+            template: date
           },
           {
             name: 'license',
@@ -164,6 +165,10 @@
           <p class="ico_mail pi pi-envelope"></p>
         </button> -->
       </div>
+    </ng-template>
+    <ng-template #date let-user>
+  <p>{{user.lastLoginDate | date : 'dd/MM/yyyy'}}</p>
+ 
     </ng-template>
   </div>
 </lib-page-content>

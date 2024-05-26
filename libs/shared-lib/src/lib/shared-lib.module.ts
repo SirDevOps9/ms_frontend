@@ -9,6 +9,10 @@ import {
   LoaderComponent,
   DataTableComponent,
   TablePaginatorComponent,
+  ButtonMicroComponent,
+  
+  
+  
 } from './components';
 import {
   FieldValidationsComponent,
@@ -19,6 +23,7 @@ import {
   MultiSelectComponent,
   ButtonComponent,
   SharedFormComponent,
+  ToggelComponent,
 } from './form-components';
 import { DropdownModule } from 'primeng/dropdown';
 import { GetLookupPipe } from './pipes/lookupList';
@@ -63,6 +68,8 @@ import { FildestComponent } from './components/fildest/fildest.component';
     AccordionComponent,
     SharedFormComponent,
     FildestComponent,
+    ButtonMicroComponent,
+    ToggelComponent, 
   ],
   imports: [
     CommonModule,
@@ -108,6 +115,9 @@ import { FildestComponent } from './components/fildest/fildest.component';
     TreeModule,
     SharedFormComponent,
     FildestComponent,
+    ButtonMicroComponent,
+    ToggelComponent,
+    
   ],
 })
 export class SharedLibModule {}

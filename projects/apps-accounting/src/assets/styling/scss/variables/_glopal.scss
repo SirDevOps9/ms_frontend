@@ -1,4 +1,4 @@
-@import './_font-family';
+@import './font-family';
 body{
     margin: 0;
     padding: 0;
@@ -7,6 +7,7 @@ body{
 .p-dialog-mask{
     justify-content: end !important;
     align-items: end !important;
+    z-index: 1000 !important;
 }
 .p-dialog .p-dialog-content:last-of-type {
     border-top-left-radius: 15px !important;
@@ -20,10 +21,7 @@ body{
     }
   
   }
-  .text-danger{
-    color:#CB3F2D ;
-  }
-  
+
 
 ////////////// cairo_regula ////////////
 .body_b32{

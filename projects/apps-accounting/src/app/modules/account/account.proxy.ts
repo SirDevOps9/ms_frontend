@@ -11,6 +11,7 @@ import {
   parentAccountDto,
   GetLevelsDto,
   listAddLevelsDto,
+  AccountByIdDto,
 } from './models';
 
 @Injectable({
@@ -30,6 +31,9 @@ export class AccountProxy {
 
   getAccount(id: number): Observable<parentAccountDto> {
     return this.httpService.get<parentAccountDto>(`ChartOfAccounts/Get?id=${id}`);
+  }
+  getAccountDetails(id: number): Observable<AccountByIdDto> {
+    return this.httpService.get<AccountByIdDto>(`ChartOfAccounts/GetAccountDetails?id=${id}`);
   }
 
   addAccount(command: AddAccountDto): Observable<AccountDto> {

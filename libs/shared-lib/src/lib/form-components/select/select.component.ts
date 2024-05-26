@@ -19,7 +19,8 @@ import {
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })
-export class SelectComponent implements ControlValueAccessor, Validator {
+export class 
+SelectComponent implements ControlValueAccessor, Validator {
   @Input() label: string;
   @Input() options: any[];
   @Input() optionValue = 'code';

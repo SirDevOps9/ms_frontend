@@ -13,19 +13,30 @@
 .sidebar.close{
   width: 78px;
 }
-.sidebar .logo-details{
-  height: 60px;
-  width: 100%;
-  display: flex;
+.sidebar {
+
+
+.logo-details{
+  position: absolute;
+  bottom: 100px;
+  right: -22px;
+  height: 40px;
+  width: 40px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;  display: flex;
   align-items: center;
   justify-content: center;
+ 
   button{
     background: none;
     border: none;
     font-size: 20px;
     color: #000;
+    cursor: pointer;
 
   }
+}
 }
 .sidebar .logo-details i{
   font-size: 30px;
@@ -53,6 +64,9 @@
 }
 .sidebar.close .nav-links{
   overflow: visible;
+  li{
+    height: 50px !important;
+  }
 }
 .sidebar .nav-links::-webkit-scrollbar{
   display: none;
@@ -61,6 +75,7 @@
   position: relative;
   list-style: none;
   transition: all 0.4s ease;
+  min-height: 15px !important;
 }
 .sidebar .nav-links li:hover{
   background: #fff;
@@ -69,9 +84,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: 10px;
 }
 .sidebar.close .nav-links li .iocn-link{
-  display: block
+  display: block;
+  min-height: 10px;
 }
 .sidebar .nav-links li i{
   height: 30px;
@@ -108,7 +125,7 @@
   pointer-events: none;
 }
 .sidebar .nav-links li .sub-menu{
-  padding: 6px 6px 14px 80px;
+ // padding: 6px 6px 14px 80px;
   margin-top: -10px;
   background: #fff;
   display: none;
@@ -303,6 +320,7 @@
 
 .nav-links li {
   padding: 10px;
+  min-height: 20px !important;
  // border-bottom: 1px solid #444;
 }
 
@@ -356,7 +374,7 @@
 
 }
 ul li {
-  list-style-type: '-' !important; /* Use a dash as the list marker */
+  list-style-type: '\2212' !important; /* Use a dash as the list marker */
   list-style-position: outside !important; /* Place the list markers outside the content */
   //padding-left: 20px !important; /* Add padding to the left of the list items */
 }

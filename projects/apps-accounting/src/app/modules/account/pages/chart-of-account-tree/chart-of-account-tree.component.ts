@@ -1,11 +1,11 @@
-import { Component, Input, OnInit, input } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { Component, EventEmitter, Input, OnInit, Output, input, output } from '@angular/core';
 import { AccountService } from '../../account.service';
-import { accountTreeList } from '../../models';
+import { AccountByIdDto, accountTreeList } from '../../models';
 import { Title } from '@angular/platform-browser';
 import { LanguageService } from 'shared-lib';
 import { ChartOfAccountConfigurationComponent } from '../../components/chart-of-account-configuration/chart-of-account-configuration.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+
 @Component({
   selector: 'app-chart-of-account-tree',
   templateUrl: './chart-of-account-tree.component.html',
@@ -15,9 +15,15 @@ export class ChartOfAccountTreeComponent implements OnInit {
   @Input() edit: boolean;
   @Input() view: boolean;
   @Input() add: boolean;
+  parentAddedId:number
+  account:AccountByIdDto
+  @Output() addmode = new EventEmitter<boolean>();
   nodes: accountTreeList[];
   expanded: boolean = false;
   ref: DynamicDialogRef;
+  parentAdded:any
+  activeNode: any = null;
+
 
   constructor(
     private accountService: AccountService,
@@ -37,25 +43,46 @@ export class ChartOfAccountTreeComponent implements OnInit {
   mapToTreeNodes(data: any[]) {
     data = data.map((item, index) => {
       return {
-        //expanded: true,
-        expanded: index === 0,
-        label: item.nameEn, // Assuming you want to display the English label
+        hasNoChild:item.hasNoChild,
+        id:item.id,
+        accountCode:item.accountCode,
+        ParentId:item.ParentId,
+        LevelId:item.LevelId,
+        label: item.name, // Assuming you want to display the English label
         children: item.childrens ? this.mapToTreeNodes(item.childrens) : [],
       };
     });
     return data;
   }
-  addChild(parentNode: TreeNode) {
-    if (!parentNode.children) {
-      parentNode.children = [];
-    }
-    parentNode.children.push({ label: 'New Child Node' });
+  addChild(parentNode: any) {
+   this.parentAdded=parentNode
+      this.add=true
+      this.addmode.emit(true);
+      this.parentAddedId=parentNode.id
+     
+      if (!parentNode.children) {
+        parentNode.children = [];
+      }
+     // parentNode.children.push({ label: 'New Child', children: [] });
+    
+   
   }
+  getAccountDetails(id:number){
+    this.accountService.getAccountDetails(id);
+    this.accountService.AccountViewDetails.subscribe((res)=>{
+      this.account=res
+  })}
   // toggleNode(node: any) {
   //   node.expanded = !node.expanded;
   // }
   handleTabClick(node: any) {
+    this.view=false
+    this.activeNode = node;
+    this.parentAddedId=node.id
+    this.getAccountDetails(this.parentAddedId);
+    this.view=true
     console.log(node);
+
   }
   getTreeList() {
     this.accountService.getTreeList().subscribe((res: any) => {
@@ -67,5 +94,12 @@ export class ChartOfAccountTreeComponent implements OnInit {
       width: '800px',
       height: '700px',
     });
+  }
+  handleOperationCompleted(event:any) {
+    this.parentAdded.children.push({ label: event.name, id:event.id, children: [] });
+    this.add=false;
+    //this.view=true
+   
+   
   }
 }

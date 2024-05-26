@@ -50,6 +50,7 @@ export class ChartOfAccountConfigurationComponent implements OnInit {
     const formData = this.fa.value;
     let mappedData: listAddLevelsDto = { levels: formData };
     this.accountService.addLevels(mappedData);
+    this.ref.close();
   }
 
   close() {
