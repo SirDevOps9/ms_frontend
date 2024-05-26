@@ -1,6 +1,6 @@
-<div [formGroup]="fg">
+<!-- <div [formGroup]="fg">
   <input formControlName="name" pInputText >
-</div>
+</div> -->
 
 <!-- <img [src]="base64" alt="" style="height: 150px;width: 150px;" *ngIf="base64"> -->
 <input
@@ -12,10 +12,20 @@
 />
 <!-- accept="{{ cus getFileType(this.config.type).allowedExtensions }}" -->
 
+<div class="upload-container" (click)="fileInput.click()"  *ngIf="!value" >
+  <div  class="upload-icon">
+    <i class="pi pi-cloud-upload"></i>
+    <p>Click to upload</p>
+    +
+  </div>
+ 
+</div>
+
+<!-- 
 <button type="button" (click)="fileInput.click()" *ngIf="!value" [ngClass]="uploadClassName">
  
   {{ "Upload" | translate }}
-</button>
+</button> -->
 
 <div
   class="steps-form__attachments__content"
@@ -59,7 +69,7 @@
 </div>
   <!-- <div id="photo" style="background-image: url('{{ photoSrc }}');"></div> -->
 
-<!-- <div
+<div
   class="uplode_photo mb-6"
   *ngIf="
     
@@ -74,4 +84,4 @@
   >
   
   </a>
-</div> -->
+</div>
