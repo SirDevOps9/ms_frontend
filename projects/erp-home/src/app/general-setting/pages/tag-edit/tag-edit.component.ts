@@ -30,18 +30,10 @@ export class TagEditComponent implements OnInit {
 
   ngOnInit() {
     this.initializeTagForm();
-    this.modulelist = this.getStaticModuleList();
+    this.moudlelist();
     this.getCurruntTag();
-    //this.moudlelist();
      }
 
-  getStaticModuleList(): MenuModule[] {
-    return [
-      { moduleId: 1, module: 'Module 1' },
-      { moduleId: 2, module: 'Module 2' },
-      { moduleId: 3, module: 'Module 3' }
-    ];
-  }
 
   getCurruntTag(){
     this.generalSettingService.getTagById(parseInt(this.Id) );
