@@ -1,161 +1,200 @@
 <div class="chart_view_page">
   <form>
     <div class="grid">
-      <lib-fildest header='{{"ChartOfAccounts.AccountCode" | translate}}' class="md:col-12">
+      <lib-fildest header="{{ 'ChartOfAccounts.AccountCode' | translate }}" class="md:col-12">
         <div class="md:col-4">
-          <lib-text-input [readOnly]="true" [placeholder]="parent?.accountCode!">
-
-
-          </lib-text-input>
+          <lib-text-input [readOnly]="true" [placeholder]="parent?.accountCode!"> </lib-text-input>
         </div>
         <div class="md:col-12">
-
           <lib-form-group>
-            <label> {{ "ChartOfAccounts.ParentAccountCode" | translate }}</label>
-            <lib-text-input [readOnly]="true" type="text" [placeholder]="parent?.parentAccountCode!" />
-
+            <label> {{ 'ChartOfAccounts.ParentAccountCode' | translate }}</label>
+            <lib-text-input
+              [readOnly]="true"
+              type="text"
+              [placeholder]="parent?.parentAccountCode!"
+            />
           </lib-form-group>
         </div>
       </lib-fildest>
-      <lib-fildest header='{{"ChartOfAccounts.ParentAccount" | translate}}' class="md:col-12" *ngIf="parent?.parentAccountName !== ''" >
+      <lib-fildest
+        header="{{ 'ChartOfAccounts.ParentAccount' | translate }}"
+        class="md:col-12"
+        *ngIf="parent?.parentAccountName !== ''"
+      >
         <div class="md:col-12">
           <lib-form-group>
-            <lib-text-input [readOnly]="true" type="text" [placeholder]="parent?.parentAccountName!"></lib-text-input>
+            <lib-text-input
+              [readOnly]="true"
+              type="text"
+              [placeholder]="parent?.parentAccountName!"
+            ></lib-text-input>
           </lib-form-group>
         </div>
       </lib-fildest>
-      <lib-fildest header='{{"ChartOfAccounts.Account" | translate}}' class="md:col-12">
+      <lib-fildest header="{{ 'ChartOfAccounts.Account' | translate }}" class="md:col-12">
         <div class="grid">
           <div class="md:col-4">
             <lib-form-group>
-              <label> {{ "ChartOfAccounts.name" | translate }}</label>
+              <label> {{ 'ChartOfAccounts.name' | translate }}</label>
 
               <lib-text-input [readOnly]="true" type="text" [placeholder]="parent?.accountName!" />
-
             </lib-form-group>
           </div>
           <div class="md:col-4">
             <lib-form-group>
-              <label> {{ "ChartOfAccounts.ParentLevel" | translate }}</label>
+              <label> {{ 'ChartOfAccounts.ParentLevel' | translate }}</label>
 
               <lib-text-input [readOnly]="true" type="text" [placeholder]="parent?.accountLevel!" />
-
             </lib-form-group>
           </div>
           <div class="md:col-4">
             <lib-form-group>
-
-              <label> {{ "ChartOfAccounts.AccountNature" | translate }}</label>
-              <lib-text-input [readOnly]="true" type="text" [placeholder]="parent?.accountNature!"></lib-text-input>
+              <label> {{ 'ChartOfAccounts.AccountNature' | translate }}</label>
+              <lib-text-input
+                [readOnly]="true"
+                type="text"
+                [placeholder]="parent?.accountNature!"
+              ></lib-text-input>
             </lib-form-group>
           </div>
         </div>
         <div class="grid">
           <div class="md:col-6">
             <lib-form-group>
-              <label> {{ "ChartOfAccounts.AccountSection" | translate }}</label>
-              <lib-text-input [readOnly]="true" type="text" [placeholder]="parent?.accountSection!"></lib-text-input>
-
+              <label> {{ 'ChartOfAccounts.AccountSection' | translate }}</label>
+              <lib-text-input
+                [readOnly]="true"
+                type="text"
+                [placeholder]="parent?.accountSection!"
+              ></lib-text-input>
             </lib-form-group>
           </div>
           <div class="md:col-6">
             <lib-form-group>
-              <label> {{ "ChartOfAccounts.AccountType" | translate }}</label>
-              <lib-text-input [readOnly]="true" type="text" [placeholder]="parent?.accountType!"></lib-text-input>
+              <label> {{ 'ChartOfAccounts.AccountType' | translate }}</label>
+              <lib-text-input
+                [readOnly]="true"
+                type="text"
+                [placeholder]="parent?.accountType!"
+              ></lib-text-input>
             </lib-form-group>
           </div>
         </div>
         <div class="grid">
-          <div class="md:col-4" *ngif="accountTags !==''">
+          <div class="md:col-4" *ngif="accountTags !== ''">
             <lib-form-group>
-              <label> {{ "ChartOfAccounts.Tags" | translate }}</label>
+              <label> {{ 'ChartOfAccounts.Tags' | translate }}</label>
 
-              <lib-text-input [readOnly]="true" type="text" [placeholder]="accountTags!"></lib-text-input>
-
+              <lib-text-input
+                [readOnly]="true"
+                type="text"
+                [placeholder]="accountTags!"
+              ></lib-text-input>
             </lib-form-group>
           </div>
           <div class="md:col-2">
-            <label> {{ "ChartOfAccounts.HasNoChild" | translate }}</label>
+            <label> {{ 'ChartOfAccounts.HasNoChild' | translate }}</label>
 
             <div class="checked mt-2">
               <!-- <p-inputSwitch [(ngModel)]="checked" [disabled]="true"> </p-inputSwitch> -->
-              <div *ngIf="!yes" >
-                <p-radioButton  name="Yes" value="Yes"  [disabled]="true">
-                </p-radioButton>
+              <div *ngIf="!yes">
+                <p-radioButton name="Yes" value="Yes" [disabled]="true"> </p-radioButton>
 
-                <label class="title" for="Yes">{{"ChartOfAccounts.Yes" | translate}}</label>
-
+                <label class="title" for="Yes">{{ 'ChartOfAccounts.Yes' | translate }}</label>
               </div>
-              <div *ngIf="yes" >
-                <p-radioButton  name="No" value="No"  [disabled]="true">
-                </p-radioButton>
+              <div *ngIf="yes">
+                <p-radioButton name="No" value="No" [disabled]="true"> </p-radioButton>
 
-                <label class="title" for="No">{{"ChartOfAccounts.No" | translate}}</label>
-
+                <label class="title" for="No">{{ 'ChartOfAccounts.No' | translate }}</label>
               </div>
-
             </div>
           </div>
           <div class="md:col-6">
             <lib-form-group *if(parent.accountCurrency)>
-              <label> {{ "ChartOfAccounts.Currency" | translate }}</label>
-              <lib-text-input [readOnly]="true" type="text" [placeholder]="parent?.accountCurrency!"></lib-text-input>
+              <label> {{ 'ChartOfAccounts.Currency' | translate }}</label>
+              <lib-text-input
+                [readOnly]="true"
+                type="text"
+                [placeholder]="parent?.accountCurrency!"
+              ></lib-text-input>
             </lib-form-group>
           </div>
         </div>
 
-        <lib-fildest header='{{"ChartOfAccounts.AccountActivation" | translate}}' class="md:col-12">
+        <lib-fildest
+          header="{{ 'ChartOfAccounts.AccountActivation' | translate }}"
+          class="md:col-12"
+        >
           <div class="grid">
             <div class="md:col-6">
-
               <lib-form-group>
                 <div class="account_activation">
                   <div *ngIf="Active">
-                    <p-radioButton name="AccountActivation" value="Active" inputId="Active" [disabled]="true">
+                    <p-radioButton
+                      name="AccountActivation"
+                      value="Active"
+                      inputId="Active"
+                      [disabled]="true"
+                    >
                     </p-radioButton>
 
-                    <label class="title" for="Active">{{"ChartOfAccounts.Active" | translate}}</label>
-
+                    <label class="title" for="Active">{{
+                      'ChartOfAccounts.Active' | translate
+                    }}</label>
                   </div>
                   <div *ngIf="Inactive">
-                    <p-radioButton name="AccountActivation" value="Inactive" inputId="Inactive" [disabled]="true">
+                    <p-radioButton
+                      name="AccountActivation"
+                      value="Inactive"
+                      inputId="Inactive"
+                      [disabled]="true"
+                    >
                     </p-radioButton>
 
-                    <label class="title" for="Inactive">{{"ChartOfAccounts.Inactive" | translate}}</label>
+                    <label class="title" for="Inactive">{{
+                      'ChartOfAccounts.Inactive' | translate
+                    }}</label>
                   </div>
                   <div *ngIf="Period">
-                    <p-radioButton name="AccountActivation" value="Period" inputId="Period" [disabled]="true">
+                    <p-radioButton
+                      name="AccountActivation"
+                      value="Period"
+                      inputId="Period"
+                      [disabled]="true"
+                    >
                     </p-radioButton>
-                    <label class="title" for="Period">{{"ChartOfAccounts.periodicActive" | translate}}</label>
+                    <label class="title" for="Period">{{
+                      'ChartOfAccounts.periodicActive' | translate
+                    }}</label>
                   </div>
                 </div>
-
-
-
               </lib-form-group>
             </div>
             <div class="md:col-3" *ngIf="Period">
               <lib-form-group>
+                <label> {{ 'ChartOfAccounts.periodicActiveFrom' | translate }}</label>
 
-                <label> {{ "ChartOfAccounts.periodicActiveFrom" | translate }}</label>
-
-                <lib-text-input [readOnly]="true" type="text" [placeholder]="parent?.periodicActiveFrom!" />
-
+                <lib-text-input
+                  [readOnly]="true"
+                  type="text"
+                  [placeholder]="parent?.periodicActiveFrom!"
+                />
               </lib-form-group>
             </div>
             <div class="md:col-3" *ngIf="Period">
               <lib-form-group>
+                <label> {{ 'ChartOfAccounts.periodicActiveTo' | translate }}</label>
 
-                <label> {{ "ChartOfAccounts.periodicActiveTo" | translate }}</label>
-
-                <lib-text-input [readOnly]="true" type="text" [placeholder]="parent?.periodicActiveTo!" />
-
+                <lib-text-input
+                  [readOnly]="true"
+                  type="text"
+                  [placeholder]="parent?.periodicActiveTo!"
+                />
               </lib-form-group>
             </div>
           </div>
         </lib-fildest>
       </lib-fildest>
     </div>
-
   </form>
 </div>

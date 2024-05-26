@@ -2,7 +2,6 @@ import { MenuModule } from './../../../../../../shared-lib/src/lib/models/menuMo
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'microtec-auth-lib';
-import { AppStoreService } from 'projects/bussiness-owners/src/app/modules/app-store/app-store.service';
 import { UserData } from 'projects/bussiness-owners/src/app/modules/user/models';
 import { Observable } from 'rxjs';
 import { EnvironmentService, LanguageService, Modules, RouterService } from 'shared-lib';
@@ -24,14 +23,14 @@ export class LayoutHeaderComponent {
   userPhoto: string;
   ngOnInit() {
     this.moduleList = this.authService.getModules();
-    console.log(this.moduleList, ' this.moduleList');
+   // console.log(this.moduleList, ' this.moduleList');
     if (this.router.snapshot.data['moduleId'] === Modules.Accounting)
       this.moduleName = 'Accounting';
     else if (this.router.snapshot.data['moduleId'] === Modules.Hr) this.moduleName = 'Hr';
     else if (this.router.snapshot.data['moduleId'] === Modules.GeneralSettings)
       this.moduleName = 'General Settings';
 
-    console.log(this.moduleName);
+    //console.log(this.moduleName);
   }
   togelModules() {
     this.modulesOpen = false;

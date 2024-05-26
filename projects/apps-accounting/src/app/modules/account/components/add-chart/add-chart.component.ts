@@ -1,4 +1,3 @@
-import { SelectsubdomainComponent } from './../../../../../../../bussiness-owners/src/app/modules/app-store/components/selectsubdomain/selectsubdomain.component';
 import { Component, EventEmitter, Input, Output, input } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import {
@@ -15,7 +14,6 @@ import { AccountService } from '../../account.service';
 import { AddAccountDto } from '../../models';
 import { CurrencyService } from '../../../general/currency.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
-import { AccountDto } from '../../models';
 import { AccountSectionDropDownDto } from '../../models';
 import { AccountTypeDropDownDto } from '../../models';
 import { TagDropDownDto } from '../../models';
@@ -38,7 +36,7 @@ export class AddChartComponent {
   lookups: { [key: string]: lookupDto[] };
   currencyIsVisible: boolean = false;
   hasParentAccount: boolean = false;
-  parentAcountName?: parentAccountDto
+  parentAcountName?: parentAccountDto;
 
   selectedPeriodOption: string = '';
   @Input() parentAddedId: number;
@@ -75,19 +73,14 @@ export class AddChartComponent {
     this.Subscribe();
     this.accountService.getAllParentAccounts();
 
-    console.log(this.parentAddedId, "parentAddedIdparentAddedIdparentAddedId");
     if (this.parentAddedId) {
-
-      this.onParentAccountChange(this.parentAddedId)
+      this.onParentAccountChange(this.parentAddedId);
     }
 
-
     this.accountService.parentAccounts.subscribe((res) => {
-      console.log(res, "83");
       if (res) {
         this.parentAccounts = res;
       }
-
     });
 
     this.currencyService.getCurrencies('');
@@ -135,25 +128,21 @@ export class AddChartComponent {
   }
 
   onParentAccountChange(event: any) {
-
-
     const parentAccountId = event;
-    console.log(parentAccountId);
     if (!parentAccountId) return;
     this.hasParentAccount = true;
     this.accountService.getAccount(parentAccountId);
     this.accountService.selectedAccount.subscribe((response) => {
-     
       this.parentAcountName = response;
-      console.log("Parent",this.parentAcountName);
-      
+
+      console.log('parent Data', response);
       const newAccountData = {
         levelId: response.levelId,
         accountCode: response.accountCode,
         accountSectionId: response.accountSectionId,
         accountSectionName: response.accountSectionName,
         natureId: response.natureId,
-        parentId: parentAccountId
+        parentId: parentAccountId,
       };
 
       this.onAccountSectionChange(response.accountSectionId);
@@ -171,7 +160,8 @@ export class AddChartComponent {
   }
 
   onSubmit() {
-    
+    console.log('form value', this.formGroup);
+
     if (!this.formsService.validForm(this.formGroup, true)) return;
 
     let obj: AddAccountDto = this.formGroup.value;
@@ -189,5 +179,4 @@ export class AddChartComponent {
       }
     });
   }
-
 }

@@ -24,7 +24,7 @@ export class LayoutSidebarComponent {
     );
     this.treeData = this.mapToTreeNodes(this.menuList);
 
-    console.log(this.treeData, ' this.treeData');
+    //console.log(this.treeData, ' this.treeData');
   }
   open(event: any, i: any) {
     // Check if the clicked element has the class 'arrow'
@@ -35,7 +35,7 @@ export class LayoutSidebarComponent {
       if (arrowParent) {
         // Find the sibling element of the parent, which should be the menu element
         const menuElement = arrowParent.nextElementSibling;
-        console.log(arrowParent, 'm');
+        //console.log(arrowParent, 'm');
 
         // Ensure the menu element is found
         if (menuElement) {

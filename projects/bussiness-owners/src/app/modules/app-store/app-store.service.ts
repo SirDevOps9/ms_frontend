@@ -106,13 +106,18 @@ export class AppStoreService {
   }
 
   private addModelToCart(model: AddToCartDto) {
-    this.appStoreProxy.addToCart(model).subscribe((r) => {
-      console.log('return data', r);
-      this.getCartData();
-      this.toasterService.showSuccess(
-        this.languageService.transalte('Company.Success'),
-        this.languageService.transalte('AppStore.AddedToCartSuccessfully')
-      );
+    this.appStoreProxy.addToCart(model).subscribe({
+      next: () => {
+        // console.log('return data', r);
+        this.getCartData();
+        this.toasterService.showSuccess(
+          this.languageService.transalte('Company.Success'),
+          this.languageService.transalte('AppStore.AddedToCartSuccessfully')
+        );
+      },
+      error: (err) => {
+        this.toasterService.showError('Operation Fail', err.message);
+      },
     });
   }
 
