@@ -92,7 +92,7 @@ export class EditJournalEntryComponent implements OnInit {
 
       this.journalEntry = res;
       this.journalEntryLines = res.journalEntryLines!;
-      console.log(this.journalEntryLines);
+     // console.log(this.journalEntryLines);
       const journalEntryLinesArray = this.journalEntryLinesFormArray;
 
       journalEntryLinesArray.clear();
@@ -142,8 +142,8 @@ export class EditJournalEntryComponent implements OnInit {
     let journalStatus = new JournalStatusUpdate();
     journalStatus.id = this.routerService.currentId;
     journalStatus.status = status;
-    console.log(status);
-    console.log(journalStatus.id);
+    //console.log(status);
+   // console.log(journalStatus.id);
     this.journalEntryService.ChangeStatus(journalStatus).subscribe(() => {
       setTimeout(() => {
         location.reload();
@@ -215,7 +215,7 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   filterAccount(event: any) {
-    console.log(this.filteredAccounts);
+   //console.log(this.filteredAccounts);
     let query = event.query;
     this.accountService
       .getAllChartOfAccountPaginated(query, new PageInfo())
@@ -226,12 +226,13 @@ export class EditJournalEntryComponent implements OnInit {
     const ref = this.dialog.open(NoChildrenAccountsComponent, {});
     ref.onClose.subscribe((account: AccountDto) => {
       if (account) {
-        const journalLine = this.journalEntryLinesFormArray.at(index);
-        const accountId = journalLine.get('accountId');
-        accountId?.setValue(account.id);
-        const accountName = journalLine.get('accountName');
-        accountName?.setValue(account.name);
-        journalLine.get('accountCode')?.setValue(account.accountCode);
+        this.updateAccount(account.id, index);
+        // const journalLine = this.journalEntryLinesFormArray.at(index);
+        // const accountId = journalLine.get('accountId');
+        // accountId?.setValue(account.id);
+        // const accountName = journalLine.get('accountName');
+        // accountName?.setValue(account.name);
+        // journalLine.get('accountCode')?.setValue(account.accountCode);
       }
     });
   }
@@ -254,8 +255,6 @@ export class EditJournalEntryComponent implements OnInit {
 
     currencyControl?.setValue(currencyData?.currencyName);
     this.selectedCurrency = currencyData?.currencyName!;
-    console.log('aaaaaaaa', this.selectedCurrency);
-
     currencyRateControl.setValue(currencyData?.ratePerUnit);
   }
 
@@ -268,9 +267,9 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   filterCurrency(event: any) {
-    console.log(event);
+    //console.log(event);
     let query = event.query.toLowerCase();
-    console.log(this.currencies);
+    //console.log(this.currencies);
     this.fitleredCurrencies = this.currencies.filter((c) =>
       c.currencyName?.toLowerCase().includes(query)
     );
@@ -288,7 +287,6 @@ export class EditJournalEntryComponent implements OnInit {
       journalLine.get('debitAmount')?.value * journalLine.get('currencyRate')?.value
     );
   }
-  
 
   creditValueChanges(index: number) {
     const journalLine = this.journalEntryLinesFormArray.at(index);

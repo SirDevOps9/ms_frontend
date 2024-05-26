@@ -130,7 +130,6 @@ export class CreateJournalEntryComponent {
 
     // currencyRateControl.setValue(currencyData!.ratePerUnit);
 
-
     var accountData = this.filteredAccounts.find((c) => c.id == event);
 
     const accountName = journalLine.get('accountName');
@@ -167,6 +166,8 @@ export class CreateJournalEntryComponent {
     ref.onClose.subscribe((r) => {
       if (r) {
         this.fa.at(index).get('account')?.setValue(r.id);
+        this.accountSelected(r.id, index);
+
       }
     });
   }
@@ -182,13 +183,13 @@ export class CreateJournalEntryComponent {
     return this.fg.get('journalEntryLines') as FormArray;
   }
 
-  // onValChange(e : any , fg : FormGroup) {
-  //   console.log(e)
-  //   let accName = this.filteredAccounts.find(elem=>elem.id == e)?.nameEn
+  // onValChange(e: any, fg: FormGroup) {
+  //   console.log(e);
+  //   let accName = this.filteredAccounts.find((elem) => elem.id == e)?.name;
 
-  //  fg.get('account')?.setValue()
+  //   fg.get('account')?.setValue(accName);
 
-  //  console.log(fg.controls['account']?.value)
+  //   console.log(fg.controls['account']?.value);
   // }
 
   addThing() {
@@ -291,7 +292,7 @@ export class CreateJournalEntryComponent {
       //console.log('Received ID:', id);
 
       this.service.getJournalTemplateById(id).subscribe((template) => {
-          console.log('template:', template);
+        console.log('template:', template);
 
         // Set template values to the form group
         this.fg.patchValue({
