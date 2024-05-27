@@ -7,6 +7,10 @@ export * from './jouranl-entry-line-dto';
 export * from './edit-journal-entry-dto';
 export * from './edit-journal-entry-line-dto';
 export * from './addJournalEntryCommand';
+export * from './journal-entry-lines-view-dto';
+export * from './journal-entry-view-dto';
+
+
 
 
 

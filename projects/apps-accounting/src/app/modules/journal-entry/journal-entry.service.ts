@@ -58,6 +58,16 @@ export class JournalEntryService {
     );
   }
 
+  getJournalEntryViewById(Id: number) {
+    return this.journalEntryProxy.getJournalView(Id).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((err: string) => {
+        throw err!;
+      })
+    );
+  }
   ChangeStatus(journalStatusUpdate: JournalStatusUpdate) {
     return this.journalEntryProxy.ChangeStatus(journalStatusUpdate).pipe(
       map((res) => {

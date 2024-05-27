@@ -57,5 +57,9 @@
     "Discard": "Discard",
     "Save": "Save",
     "Submit": "Submit",
-    "Post": "Post"  }
+    "Post": "Post" ,
+  "viewJournal":{
+    
+  }
+ }
 }

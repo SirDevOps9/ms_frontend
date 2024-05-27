@@ -68,7 +68,6 @@ const routes: Routes = [
     JournalTemplatePopupComponent,
     EditJournalEntryComponent,
     ViewJournalEntryComponent,
-    ViewJournalEntryComponent
   ],
   imports: [ 
     CommonModule,

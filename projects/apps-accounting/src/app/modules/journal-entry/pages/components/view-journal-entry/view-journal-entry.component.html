@@ -3,101 +3,58 @@
     <div class="my-3 grid-item">
       <p class="headsCont paragraph_b16">{{ 'viewJournal.JornalCode' | translate }}</p>
       <small class="subHead heading_b16">
-        {{ data?.name }}
-        dfsgsd
+        {{ journalView?.journalCode }}
       </small>
     </div>
     <!--  -->
     <div class="my-3 grid-item">
       <p class="headsCont paragraph_b16">{{ 'viewJournal.Jornalstatus' | translate }}</p>
       <small class="subHead heading_b16">
-        {{ data?.name }}
-        sdfds
+        {{ journalView?.status }}
       </small>
     </div>
     <!--  -->
     <div class="my-3 grid-item">
       <p class="headsCont paragraph_b16">{{ 'viewJournal.journalReference' | translate }}</p>
       <small class="subHead heading_b16">
-        {{ data?.name }}
-        ersafgdf
+        {{ journalView?.referenceNumber }}
       </small>
     </div>
     <!--  -->
     <div class="my-3 grid-item">
       <p class="headsCont paragraph_b16">{{ 'viewJournal.date' | translate }}</p>
       <small class="subHead heading_b16">
-        {{ data?.name | date : 'DD/MM/YY' }}
-        resfgdfg
+        {{ journalView?.journalDate | date : 'DD/MM/YY' }}
       </small>
     </div>
     <!--  -->
     <div class="my-3 grid-item">
       <p class="headsCont paragraph_b16">{{ 'viewJournal.JournalPeriod' | translate }}</p>
       <small class="subHead heading_b16">
-        {{ data?.name }}
-        ersafgdf
+        {{ journalView?.journalPeriod }}
       </small>
     </div>
     <!--  -->
     <div class="my-3 grid-item">
       <p class="headsCont paragraph_b16">{{ 'viewJournal.JournalType' | translate }}</p>
       <small class="subHead heading_b16">
-        {{ data?.name }}
-        ersafgdf
+        {{ journalView?.type }}
       </small>
     </div>
     <!--  -->
   </div>
     <!--  -->
   <div class="grid-cont">
+    <!-- 
     <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{ 'viewJournal.JornalCode' | translate }}</p>
+      <p class="headsCont paragraph_b16">{{ 'Reversed Journal Code' | translate }}</p>
       <small class="subHead heading_b16">
-        {{ data?.name }}
-        dfsgsd
+        {{ journalView?.reversedJournalCode }}
       </small>
     </div>
-    <!--  -->
-    <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{ 'viewJournal.Jornalstatus' | translate }}</p>
-      <small class="subHead heading_b16">
-        {{ data?.name }}
-        sdfds
-      </small>
-    </div>
-    <!--  -->
-    <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{ 'viewJournal.journalReference' | translate }}</p>
-      <small class="subHead heading_b16">
-        {{ data?.name }}
-        ersafgdf
-      </small>
-    </div>
-    <!--  -->
-    <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{ 'viewJournal.date' | translate }}</p>
-      <small class="subHead heading_b16">
-        {{ data?.name | date : 'DD/MM/YY' }}
-        resfgdfg
-      </small>
-    </div>
-    <!--  -->
-    <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{ 'viewJournal.JournalPeriod' | translate }}</p>
-      <small class="subHead heading_b16">
-        {{ data?.name }}
-        ersafgdf
-      </small>
-    </div>
-    <!--  -->
-    <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{ 'viewJournal.JournalType' | translate }}</p>
-      <small class="subHead heading_b16">
-        {{ data?.name }}
-        ersafgdf
-      </small>
-    </div>
+    
+    -->
+  
   </div>
   <!--  -->
   <div class="grid-cont">
@@ -105,55 +62,24 @@
       <p class="headsCont paragraph_b16">{{ 'viewJournal.description' | translate }}</p>
       <div >
         <p class="subHead heading_b16">
-            عملية تسجيل قيد محاسبي لشراء جهاز كمبيوتلر من شركة استيراد اجهزة كمبيوتر وتوزيعه علي مراكز تكلفة تعد جزءا اساسيا من العملية المحاسبية للشركةو تبدأ هذه المعاملة المالية التي تمثل شراء الجهاز وتحديد طريقة الدفع و سواء كانت نقدية او عن طريق حوالة بنكية و بعد ذلك و يتم توزيع تكلفة الجهاز علي المراكز المختلفة التي ستستفيد من استخدامه وذلك استنادا الي استخداماته المحتملة داخل المنظمة و يتم ذلك من خلال تعيين نسبة مئوية او تحديد مبلغ محدد لكل مركز تكلفة . 
-             </p>
+          {{ journalView?.description }}
+
+        </p>
       </div>
     
     </div>
   
   </div>
   <!--  -->
-  <div class="grid">
-    <div class="col-3">
-        <div class="my-3 grid-item">
-            <p class="headsCont paragraph_b16">{{ 'viewJournal.returned' | translate }}</p>
-            <div >
-              <p class="subHead heading_b16">
-                 xvcxv
-                   </p>
-            </div>
-            <p class="headsCont paragraph_b16">{{ 'viewJournal.returnedBy' | translate }}</p>
-            <div >
-              <p class="subHead heading_b16">
-                 xvcxv
-                   </p>
-            </div>
-          </div>
-    </div>
 
-    <div class="col-9">
-        <div class="my-3 grid-item">
-            <p class="headsCont paragraph_b16">{{ 'viewJournal.cfoComment' | translate }}</p>
-            <div >
-              <p class="subHead heading_b16">
-                  عملية تسجيل قيد محاسبي لشراء جهاز كمبيوتلر من شركة استيراد اجهزة كمبيوتر وتوزيعه علي مراكز تكلفة تعد جزءا اساسيا من العملية المحاسبية للشركةو تبدأ هذه المعاملة المالية التي تمثل شراء الجهاز وتحديد طريقة الدفع و سواء كانت نقدية او عن طريق حوالة بنكية و بعد ذلك و يتم توزيع تكلفة الجهاز علي المراكز المختلفة التي ستستفيد من استخدامه وذلك استنادا الي استخداماته المحتملة داخل المنظمة و يتم ذلك من خلال تعيين نسبة مئوية او تحديد مبلغ محدد لكل مركز تكلفة . 
-                   </p>
-            </div>
-          
-          </div>
-    </div>
-   
 
   
-  
-  </div>
   <!--  -->
   <div class="journal_page">
     <lib-data-table
-      [items]="tableData"
+      [items]="journalView?.journalEntryLines!"
       className="p-datatable-gridlines"
       [currentPageResult]="currentPageInfo"
-      (pageChange)="onPageChange($event)"
       [tableConfigs]="{
         allowPagination: false,
         allowServerPagination: false,
@@ -161,65 +87,61 @@
         pageSize: 10,
         columns: [
           {
-            name: 'code',
-            headerText: 'ID',
+            name: 'accountCode',
+            headerText: 'Code ',
             isGlobalFilter: true,
             isSortable: true
           },
           {
-            name: 'periodName',
-            headerText: 'Account Code',
+            name: 'accountName',
+            headerText: 'Name',
             isGlobalFilter: true,
             isSortable: true
           },
           {
-            name: 'Type',
-            headerText: 'Account Name',
+            name: 'lineDescription',
+            headerText: 'Description',
             isGlobalFilter: true,
             isSortable: true
           },
           {
-            name: 'totalDebitAmountLocal',
-            headerText: 'line Description',
-            isGlobalFilter: true,
-            isSortable: true
-          },
-          {
-            name: 'totalCreditAmountLocal',
+            name: 'debitAmount',
             headerText: 'DB Amount',
             isGlobalFilter: true,
             isSortable: true
           },
           {
-            name: 'totalCreditAmountLocal',
+            name: 'creditAmount',
             headerText: 'CR Amount',
             isGlobalFilter: true,
             isSortable: true
           },
           {
-            name: 'totalCreditAmountLocal',
-            headerText: 'Currency',
-            isGlobalFilter: true,
-            isSortable: true
-          },
-          {
-            name: 'totalCreditAmountLocal',
-            headerText: 'Rate',
-            isGlobalFilter: true,
-            isSortable: true
-          },
-          {
-            name: 'totalCreditAmountLocal',
+            name: 'currency',
             headerText: 'DB Amount Local',
             isGlobalFilter: true,
             isSortable: true
           },
           {
-            name: 'totalCreditAmountLocal',
-            headerText: 'CR Amount Local',
+            name: 'currencyRate',
+            headerText: 'Currency Rate',
             isGlobalFilter: true,
             isSortable: true
           },
+          {
+            name: 'debitAmountLocal',
+            headerText: 'DB Amount  Local',
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'creditAmountLocal',
+            headerText: 'CR Amount  Local',
+            isGlobalFilter: true,
+            isSortable: true
+          },
+       
+        
         
         ]
       }"
