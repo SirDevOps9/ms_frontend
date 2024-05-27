@@ -16,7 +16,7 @@ export class TagEditComponent implements OnInit {
   modulelist: MenuModule[];
   selectedModules:  number[] = [];
   get Id(): string {
-    return this.config.data.Id;
+    return this.config?.data?.id;
   }
 
   constructor(
@@ -38,6 +38,7 @@ export class TagEditComponent implements OnInit {
   getCurruntTag(){
     this.generalSettingService.getTagById(parseInt(this.Id) );
     this.generalSettingService.currentTag.subscribe((response) => {
+      console.log(response)
       this.tagForm.patchValue({
         Id: response.id,
         Code: response.code,

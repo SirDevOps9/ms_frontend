@@ -12,6 +12,7 @@ import { EditJournalEntryComponent } from './pages/edit-journal-entry/edit-journ
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { AuthGuard } from 'microtec-auth-lib';
 import { NoChildrenAccountsComponent } from './components/noChildrenAccounts/nochildaccounts.component';
+import { ViewJournalEntryComponent } from './pages/components/view-journal-entry/view-journal-entry.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,16 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.JOURNAL_ADD,
         },
       },
+    
+      {
+        path: 'journalentry/view/:id',
+        component: ViewJournalEntryComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.JOURNAL_VIEW,
+        },
+      },
+    
       {
         path: 'journalentry/edit/:id',
         component: EditJournalEntryComponent,
@@ -55,9 +66,10 @@ const routes: Routes = [
     NoChildrenAccountsComponent,
     AttachmentsComponent,
     JournalTemplatePopupComponent,
-    EditJournalEntryComponent
+    EditJournalEntryComponent,
+    ViewJournalEntryComponent,
   ],
-  imports: [
+  imports: [ 
     CommonModule,
     SharedLibModule,
     AutoCompleteModule,

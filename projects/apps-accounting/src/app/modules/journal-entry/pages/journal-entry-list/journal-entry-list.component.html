@@ -121,7 +121,9 @@
         <div class="actions flex align-items-center gap-2">
           <lib-button icon="pi pi-eye"      [rounded]="true"
           [enableText]="true"
-          severity="secondary">
+          severity="secondary" (onClick)="viewJournal(journal.id)">
+       
+          
           </lib-button>
           <lib-button
             className="edit"
@@ -134,24 +136,25 @@
           >
           </lib-button>
 
-          <lib-button [icon]="'pi pi-trash'"    [rounded]="true"
+          <!-- <lib-button [icon]="'pi pi-trash'"    [rounded]="true"
           [enableText]="true"
-          severity="secondary"></lib-button>
+          severity="secondary"></lib-button> -->
           
+
       
         </div>
       </ng-template>
       <ng-template #userStatus let-journal>
         <div
           class="status unbalanced"
-          *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.DraftUnbalanced"
+          *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Unbalanced"
         >
           <p class="dot"></p>
           <p>Unbalanced</p>
         </div>
         <div
           class="status draft"
-          *ngIf="journal.status == sharedJouralEnum.JournalEntryStatus.Draftbalanced"
+          *ngIf="journal.status == sharedJouralEnum.JournalEntryStatus.Draft"
         >
           <p class="dot"></p>
           <p>Draft</p>

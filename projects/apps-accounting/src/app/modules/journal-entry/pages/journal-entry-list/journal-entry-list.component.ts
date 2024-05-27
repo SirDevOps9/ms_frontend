@@ -112,6 +112,11 @@ export class JournalEntryListComponent implements OnInit {
     this.routerService.navigateTo(`/journalentry/add`);
   }
 
+  viewJournal(id : number) {
+    this.routerService.navigateTo(`/journalentry/view/${id}`);
+
+  }
+
   routeToEdit(id: number) {
     this.routerService.navigateTo(`/journalentry/edit/${id}`);
   }

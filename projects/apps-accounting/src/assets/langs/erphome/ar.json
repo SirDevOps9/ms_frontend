@@ -259,5 +259,13 @@
     "Yes": "نعم",
     "No": "لا",
     "Save": "حفظ"
+  },
+  "viewJournal": {
+    "JornalCode": "Journal Code",
+    "Jornalstatus": "Journal Status",
+    "journalReference": "Journal Reference",
+    "date": "Date",
+    "JournalPeriod": "Journal Period",
+    "JournalType": "Journal Type"
   }
 }

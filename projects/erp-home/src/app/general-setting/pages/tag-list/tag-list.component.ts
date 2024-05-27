@@ -54,11 +54,12 @@ export class TagListComponent implements OnInit {
       },
     });
   }
-  routeToEdit(id: number) {
+  routeToEdit(data: any) {
     const dialogRef = this.dialog.open(TagEditComponent, {
+      header : "Edit Tag",
       width: '800px',
-      height: '700px',
-      data: { Id: id },
+      position: 'bottom-right' ,// A
+      data : data
     });
 
     dialogRef.onClose.subscribe(() => {
@@ -76,8 +77,10 @@ export class TagListComponent implements OnInit {
 
   newTag() {
     const dialogRef = this.dialog.open(TagAddComponent, {
-      width: '800px',
-      height: '700px',
+      header : "Add New Tag",
+      width: '600px',
+      position: 'bottom-right' // Adjust position as needed
+    
     });
 
     dialogRef.onClose.subscribe(() => {

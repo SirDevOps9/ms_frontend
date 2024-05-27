@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EditJournalEntry, JournalEntryDto } from './models';
+import { EditJournalEntry, JournalEntryDto, JournalEntryStatus } from './models';
 import { BehaviorSubject, catchError, map } from 'rxjs';
 import {
   LanguageService,
@@ -21,6 +21,9 @@ export class JournalEntryService {
   public journalEntries = this.journalEntriesDataSource.asObservable();
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
+
+  public  journalStatus= new BehaviorSubject<JournalEntryStatus>(JournalEntryStatus.Unbalanced);
+
 
   constructor(
     private journalEntryProxy: JournalEntryProxy,
@@ -55,6 +58,16 @@ export class JournalEntryService {
     );
   }
 
+  getJournalEntryViewById(Id: number) {
+    return this.journalEntryProxy.getJournalView(Id).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((err: string) => {
+        throw err!;
+      })
+    );
+  }
   ChangeStatus(journalStatusUpdate: JournalStatusUpdate) {
     return this.journalEntryProxy.ChangeStatus(journalStatusUpdate).pipe(
       map((res) => {
@@ -90,19 +103,21 @@ export class JournalEntryService {
     });
   }
 
-  async deleteJournalEntryLine(id: number): Promise<boolean> {
+  async deleteJournalEntryLine(id: number): Promise<boolean > {
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     const p = new Promise<boolean>((res, rej) => {
       if (confirmed) {
         this.journalEntryProxy.deleteJounralEntryLine(id).subscribe({
-          next: () => {
+          next: (status) => {
             this.toasterService.showSuccess(
               this.languageService.transalte('Success'),
               this.languageService.transalte('Deleted Successfully')
             );
             this.loaderService.hide();
+            this.journalStatus.next(status);
+
             res(true);
           },
         });

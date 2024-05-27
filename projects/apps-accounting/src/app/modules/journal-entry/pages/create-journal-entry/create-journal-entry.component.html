@@ -13,6 +13,8 @@
           [appControl]="fg.controls['referenceNumber']"
         ></lib-field-validations>
       </div>
+      <!--  -->
+      
       <div class="col-12 md:col-3">
         <lib-text-input
           placeholder="{{ 'journal_date' | translate }}"
@@ -30,6 +32,25 @@
       <div class="col-12 md:col-3">
         <button (click)="openAttachments()" class="attach">{{ 'attach' | translate }}</button>
       </div>
+
+      <!-- <div class="col-12 md:col-3">
+        <lib-text-input
+          placeholder="{{ 'total_credit' | translate }}"
+          formControlName="refrenceNumber"
+        ></lib-text-input>
+        <lib-field-validations
+          [appControl]="fg.controls['referenceNumber']"
+        ></lib-field-validations>
+      </div>
+      <div class="col-12 md:col-3">
+        <lib-text-input
+          placeholder="{{ 'total_dedit' | translate }}"
+          formControlName="refrenceNumber"
+        ></lib-text-input>
+        <lib-field-validations
+          [appControl]="fg.controls['referenceNumber']"
+        ></lib-field-validations>
+      </div> -->
       <div class="col-12 md:col-12">
         <lib-text-input
           placeholder="{{ 'description' | translate }}"
@@ -79,6 +100,7 @@
                       optionLabel="accountCode"
                       [customClass]="'add-journal'"
                       (valueChanged)="accountSelected($event,i)"
+                      
                     ></lib-select>
                     <i class="pi pi-search search-circle" (click)="openDialog(i)"></i>
                   </div>
@@ -146,7 +168,12 @@
                   [appControl]="fg.controls['currency']"
                 ></lib-field-validations>
               </lib-form-group> -->
-              {{ fg.get('currency').value }}
+              <div class="hidden">
+                {{ fg.get('currency').value }}
+              </div>
+              <div>
+                {{ fg.get('currencyName').value }}
+              </div>
             </td>
             <td [pEditableColumn]="fg.controls['currencyRate']" pEditableColumnField="currencyRate">
               <p-cellEditor>

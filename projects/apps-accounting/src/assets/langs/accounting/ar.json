@@ -10,6 +10,8 @@
   "JournalTitle":"انشاء قيد اليومية",
   "journal_entry_header": "الرجاء إدخال عنوان دفتر اليومية",
   "reference_number": "رقم المرجع",
+  "total_credit": "إجمالي الائتمان",
+  "total_dedit": "إجمالي الائتمان",
   "journal_date": "تاريخ دفتر اليومية",
   "journal_period": "فترة دفتر اليومية",
   "attach": "إرفاق",

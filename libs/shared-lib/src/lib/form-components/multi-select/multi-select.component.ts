@@ -31,7 +31,9 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
   @Input() placeholder: string;
   @Input() maxLength: string;
   @Input() id: string;
+  @Input() className: string;
   @Input() selectedValue: any[];
+  
   @Output() valueChanged = new EventEmitter<string>();
 
   value: string = '';

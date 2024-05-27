@@ -1,0 +1,155 @@
+<div style="margin-left: 20px;overflow-x: hidden;">
+  <div class="grid-cont">
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{ 'viewJournal.JornalCode' | translate }}</p>
+      <small class="subHead heading_b16">
+        {{ journalView?.journalCode }}
+      </small>
+    </div>
+    <!--  -->
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{ 'viewJournal.Jornalstatus' | translate }}</p>
+      <small class="subHead heading_b16">
+        {{ journalView?.status }}
+      </small>
+    </div>
+    <!--  -->
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{ 'viewJournal.journalReference' | translate }}</p>
+      <small class="subHead heading_b16">
+        {{ journalView?.referenceNumber }}
+      </small>
+    </div>
+    <!--  -->
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{ 'viewJournal.date' | translate }}</p>
+      <small class="subHead heading_b16">
+        {{ journalView?.journalDate | date : 'DD/MM/YY' }}
+      </small>
+    </div>
+    <!--  -->
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{ 'viewJournal.JournalPeriod' | translate }}</p>
+      <small class="subHead heading_b16">
+        {{ journalView?.journalPeriod }}
+      </small>
+    </div>
+    <!--  -->
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{ 'viewJournal.JournalType' | translate }}</p>
+      <small class="subHead heading_b16">
+        {{ journalView?.type }}
+      </small>
+    </div>
+    <!--  -->
+  </div>
+    <!--  -->
+  <div class="grid-cont">
+    <!-- 
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{ 'Reversed Journal Code' | translate }}</p>
+      <small class="subHead heading_b16">
+        {{ journalView?.reversedJournalCode }}
+      </small>
+    </div>
+    
+    -->
+  
+  </div>
+  <!--  -->
+  <div class="grid-cont">
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{ 'viewJournal.description' | translate }}</p>
+      <div >
+        <p class="subHead heading_b16">
+          {{ journalView?.description }}
+
+        </p>
+      </div>
+    
+    </div>
+  
+  </div>
+  <!--  -->
+
+
+  
+  <!--  -->
+  <div class="journal_page">
+    <lib-data-table
+      [items]="journalView?.journalEntryLines!"
+      className="p-datatable-gridlines"
+      [currentPageResult]="currentPageInfo"
+      [tableConfigs]="{
+        allowPagination: false,
+        allowServerPagination: false,
+        dataKey: 'id',
+        pageSize: 10,
+        columns: [
+          {
+            name: 'accountCode',
+            headerText: 'Code ',
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'accountName',
+            headerText: 'Name',
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'lineDescription',
+            headerText: 'Description',
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'debitAmount',
+            headerText: 'DB Amount',
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'creditAmount',
+            headerText: 'CR Amount',
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'currency',
+            headerText: 'DB Amount Local',
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'currencyRate',
+            headerText: 'Currency Rate',
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'debitAmountLocal',
+            headerText: 'DB Amount  Local',
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'creditAmountLocal',
+            headerText: 'CR Amount  Local',
+            isGlobalFilter: true,
+            isSortable: true
+          },
+       
+        
+        
+        ]
+      }"
+    >
+     
+    </lib-data-table>
+  </div>
+
+ 
+
+</div>
