@@ -234,30 +234,30 @@
       "TryAnotherDomain": "جرب نطاقًا آخر",
       "AddToCart": "أضف إلى السلة",
       "YourDomainSpace": "النطاق الفرعي"
-
     }
   },
-  "ChartOfAccounts":{
-    "name":"الاسم",
-    "nameEn":"الاسم بالإنجليزية",
-    "ParentAccount":"الحساب الرئيسي",
-    "Account":"الحساب",
-    "ParentAccountCode":"رمز الحساب الرئيسي",
-    "AccountCode":"رمز الحساب ",
-    "ParentLevel":"المستوى الرئيسي",
-    "AccountNature":"طبيعة الحساب",
-    "AccountSection":"قسم الحساب",
-    "AccountType":"نوع الحساب",
-    "Tags":"الوسوم",
-    "HasNoChild":"ليس لديه أطفال",
-    "Currency":"العملة",
-    "AccountActivation":"تفعيل الحساب",
-    "periodicActiveFrom":"نشط دوريًا من",
-    "periodicActiveTo":"نشط دوريًا إلى",
-    "Active":"نشط",
-    "Inactive":"غير نشط",
-    "periodicActive":"نشط دوريًا",
+  "ChartOfAccounts": {
+    "name": "الاسم",
+    "nameEn": "الاسم بالإنجليزية",
+    "ParentAccount": "الحساب الرئيسي",
+    "Account": "الحساب",
+    "ParentAccountCode": "رمز الحساب الرئيسي",
+    "AccountCode": "رمز الحساب ",
+    "ParentLevel": "المستوى الرئيسي",
+    "AccountNature": "طبيعة الحساب",
+    "AccountSection": "قسم الحساب",
+    "AccountType": "نوع الحساب",
+    "Tags": "الوسوم",
+    "HasNoChild": "حساب تفصيلى",
+    "Currency": "العملة",
+    "AccountActivation": "تفعيل الحساب",
+    "periodicActiveFrom": "نشط دوريًا من",
+    "periodicActiveTo": "نشط دوريًا إلى",
+    "Active": "نشط",
+    "Inactive": "غير نشط",
+    "periodicActive": "نشط دوريًا",
     "Yes": "نعم",
     "No": "لا",
-    "Save": "حفظ"}
+    "Save": "حفظ"
+  }
 }

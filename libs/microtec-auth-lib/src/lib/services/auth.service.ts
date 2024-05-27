@@ -137,8 +137,8 @@ export class AuthService {
   get getUserName(): string {
     let item = this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
     let loggedUser = item! as LoginResponse;
-    this.logService.log('authService.UserName', loggedUser.userData.name);
-    return loggedUser?.userData?.name;
+    this.logService.log('authService.UserName', loggedUser.userData.fullname);
+    return loggedUser?.userData?.fullname ? loggedUser.userData.fullname! : '';
   }
 
   get getUserPhoto(): string {
