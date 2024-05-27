@@ -76,8 +76,8 @@ export class TagListComponent implements OnInit {
 
   newTag() {
     const dialogRef = this.dialog.open(TagAddComponent, {
-      width: '800px',
-      height: '700px',
+      header : "Add New Tag",
+      width: '600px',
     });
 
     dialogRef.onClose.subscribe(() => {

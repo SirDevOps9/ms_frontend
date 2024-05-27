@@ -121,7 +121,9 @@
         <div class="actions flex align-items-center gap-2">
           <lib-button icon="pi pi-eye"      [rounded]="true"
           [enableText]="true"
-          severity="secondary">
+          severity="secondary" (onClick)="viewJournal(journal.id)">
+       
+          
           </lib-button>
           <lib-button
             className="edit"
@@ -138,6 +140,7 @@
           [enableText]="true"
           severity="secondary"></lib-button>
           
+
       
         </div>
       </ng-template>

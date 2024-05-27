@@ -1,5 +1,5 @@
 import { CurrencyService } from './../../../general/currency.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   LanguageService,
@@ -46,6 +46,7 @@ export interface JournalEntryFormValue {
   styleUrl: './create-journal-entry.component.scss',
 })
 export class CreateJournalEntryComponent {
+
   fg: FormGroup;
   filteredAccounts: AccountDto[] = [];
   currencies: CurrencyDto[];
@@ -60,15 +61,18 @@ export class CreateJournalEntryComponent {
     this.titleService.setTitle;
     this.accountService
       .getAccountsHasNoChildren('', new PageInfo())
-      // .pipe(tap((elem) => console.log(elem)))
+       .pipe(tap((elem) => console.log(elem)))
       .subscribe((r) => (this.filteredAccounts = r.result));
 
     this.currencyService.getCurrencies('');
 
     this.currencyService.currencies.subscribe((res) => {
       this.currencies = res;
+      console.log(res)
     });
   }
+
+
 
   constructor(
     private fb: FormBuilder,
@@ -145,6 +149,8 @@ export class CreateJournalEntryComponent {
     currencyControl?.setValue(accountData?.currencyId);
 
     currencyRateControl.setValue(currencyData?.ratePerUnit);
+    const currencyNameControl = journalLine.get('currencyName');
+currencyNameControl?.setValue(currencyData?.currencyName);
   }
 
   currencyChanged(index: number) {
@@ -248,6 +254,8 @@ export class CreateJournalEntryComponent {
       currencyRate: rateControl,
       debitAmountLocal: new FormControl(),
       creditAmountLocal: new FormControl(),
+      currencyName : new FormControl(''),
+
     });
 
     this.fa.push(fg);
