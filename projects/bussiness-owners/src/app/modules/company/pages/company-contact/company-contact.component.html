@@ -15,7 +15,7 @@
             </button>
           </div>
       </div>
-      <fieldset [disabled]="!editMode">
+    
         <div class="contact_form">
           <div class="grid">
             <div class="col-2">
@@ -26,7 +26,7 @@
                   {{ "Company.Contanct.MobileNumberCode" | translate }}
                 </lib-label>
                 <lib-select
-                  [disabledMode]="!editMode"
+                  [readOnly]="!editMode"
                   formControlName="mobileNumberCode"
                   [options]="lookups[LookupEnum.MobileCode]"
                   [selectedValue]="selectedMobileCode"
@@ -47,7 +47,7 @@
                 >
                   {{ "Company.Contanct.MobileNumber" | translate }}
                 </lib-label>
-                <lib-text-input type="tel" formControlName="mobileNumber" />
+                <lib-text-input [readOnly]="!editMode" type="tel" formControlName="mobileNumber" />
                 <lib-field-validations
                   [appControl]="companyContactForm.controls['mobileNumber']"
                 >
@@ -61,7 +61,7 @@
                 >
                   {{ "Company.Contanct.companyEmail" | translate }}
                 </lib-label>
-                <lib-text-input type="text" formControlName="companyEmail" />
+                <lib-text-input [readOnly]="!editMode" type="text" formControlName="companyEmail" />
                 <lib-field-validations
                   [appControl]="companyContactForm.controls['companyEmail']"
                 >
@@ -75,7 +75,7 @@
                 >
                   {{ "Company.Contanct.companyAddress" | translate }}
                 </lib-label>
-                <lib-text-input type="text" formControlName="companyAddress" />
+                <lib-text-input [readOnly]="!editMode" type="text" formControlName="companyAddress" />
                 <lib-field-validations
                   [appControl]="companyContactForm.controls['companyAddress']"
                 >
@@ -89,7 +89,7 @@
                 >
                   {{ "Company.Contanct.contactPersonal" | translate }}
                 </lib-label>
-                <lib-text-input type="text" formControlName="contactPersonal" />
+                <lib-text-input [readOnly]="!editMode" type="text" formControlName="contactPersonal" />
                 <lib-field-validations
                   [appControl]="companyContactForm.controls['contactPersonal']"
                 >
@@ -106,6 +106,7 @@
                   {{ "Company.Contanct.contactPersonalPosition" | translate }}
                 </lib-label>
                 <lib-text-input
+                [readOnly]="!editMode"
                   type="text"
                   formControlName="contactPersonalPosition"
                 />
@@ -127,6 +128,7 @@
                   {{ "Company.Contanct.contactPersonalEmail" | translate }}
                 </lib-label>
                 <lib-text-input
+                [readOnly]="!editMode"
                   type="text"
                   formControlName="contactPersonalEmail"
                 />
@@ -140,7 +142,7 @@
             </div>
           </div>
         </div>
-      </fieldset>
+    
 
 
     </form>

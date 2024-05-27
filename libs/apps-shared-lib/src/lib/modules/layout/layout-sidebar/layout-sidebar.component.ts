@@ -77,7 +77,7 @@ export class LayoutSidebarComponent {
       return {
         key: item.key.toString(),
         name: item.labelEn, // Assuming you want to display the English label
-        icon: 'pi pi-user',
+        icon: 'pi '+item.icon,
         type: item.type.toLowerCase(),
         link: item.routePath,
         subMenu: item.children ? this.mapToTreeNodes(item.children) : [],

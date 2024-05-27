@@ -15,7 +15,7 @@
             </button>
           </div>
       </div>
-      <fieldset [disabled]="!editMode">
+      
         <div class="contact_form">
           <div class="grid">
             <div class="col-12 md:col-6">
@@ -25,7 +25,7 @@
                 >
                   {{ "Company.Legal.companyName" | translate }}
                 </lib-label>
-                <lib-text-input type="text" formControlName="companyName" />
+                <lib-text-input [readOnly]="!editMode" type="text" formControlName="companyName" />
               </lib-form-group>
             </div>
             <div class="col-12 md:col-6">
@@ -35,7 +35,7 @@
                 >
                   {{ "Company.Legal.companyEmail" | translate }}
                 </lib-label>
-                <lib-text-input type="text" formControlName="companyEmail" />
+                <lib-text-input [readOnly]="!editMode" type="text" formControlName="companyEmail" />
                 <lib-field-validations
                 [appControl]="companyLegalForm.controls['companyEmail']"
               >
@@ -50,6 +50,7 @@
                   {{ "Company.Legal.organizationUnit" | translate }}
                 </lib-label>
                 <lib-text-input
+                [readOnly]="!editMode"
                   type="text"
                   formControlName="organizationUnit"
                 />
@@ -62,7 +63,7 @@
                 >
                   {{ "Company.Legal.organization" | translate }}
                 </lib-label>
-                <lib-text-input type="text" formControlName="organization" />
+                <lib-text-input [readOnly]="!editMode" type="text" formControlName="organization" />
               </lib-form-group>
             </div>
             <div class="col-12 md:col-6">
@@ -70,7 +71,7 @@
                 <lib-label [appControl]="companyLegalForm.controls['taxId']">
                   {{ "Company.Legal.taxId" | translate }}
                 </lib-label>
-                <lib-text-input type="text" formControlName="taxId" />
+                <lib-text-input [readOnly]="!editMode" type="text" formControlName="taxId" />
               </lib-form-group>
             </div>
             <div class="col-12 md:col-6">
@@ -80,7 +81,7 @@
                 >
                   {{ "Company.Legal.commercialId" | translate }}
                 </lib-label>
-                <lib-text-input type="text" formControlName="commercialId" />
+                <lib-text-input [readOnly]="!editMode" type="text" formControlName="commercialId" />
               </lib-form-group>
             </div>
             <div class="col-12 md:col-6">
@@ -91,6 +92,7 @@
                   {{ "Company.Legal.registeredAddress" | translate }}
                 </lib-label>
                 <lib-text-input
+                [readOnly]="!editMode"
                   type="text"
                   formControlName="registeredAddress"
                 />
@@ -104,6 +106,7 @@
                   {{ "Company.Legal.businessCategory" | translate }}
                 </lib-label>
                 <lib-text-input
+                [readOnly]="!editMode"
                   type="text"
                   formControlName="businessCategory"
                 />
@@ -116,7 +119,7 @@
                 >
                   {{ "Company.Legal.streetName" | translate }}
                 </lib-label>
-                <lib-text-input type="text" formControlName="streetName" />
+                <lib-text-input [readOnly]="!editMode" type="text" formControlName="streetName" />
               </lib-form-group>
             </div>
             <div class="col-12 md:col-6">
@@ -129,6 +132,7 @@
                   {{ "Company.Legal.citySubDivisionName" | translate }}
                 </lib-label>
                 <lib-text-input
+                [readOnly]="!editMode"
                   type="text"
                   formControlName="citySubDivisionName"
                 />
@@ -139,7 +143,7 @@
                 <lib-label [appControl]="companyLegalForm.controls['cityName']">
                   {{ "Company.Add.cityName" | translate }}
                 </lib-label>
-                <lib-text-input type="text" formControlName="cityName" />
+                <lib-text-input [readOnly]="!editMode" type="text" formControlName="cityName" />
               </lib-form-group>
             </div>
             <div class="col-12 md:col-6">
@@ -149,7 +153,7 @@
                 >
                   {{ "Company.Legal.postalZone" | translate }}
                 </lib-label>
-                <lib-text-input type="text" formControlName="postalZone" />
+                <lib-text-input [readOnly]="!editMode" type="text" formControlName="postalZone" />
               </lib-form-group>
             </div>
             <div class="col-12 md:col-6">
@@ -160,6 +164,7 @@
                   {{ "Company.Legal.countrySubEntity" | translate }}
                 </lib-label>
                 <lib-text-input
+                [readOnly]="!editMode"
                   type="text"
                   formControlName="countrySubEntity"
                 />
@@ -172,7 +177,7 @@
                 >
                   {{ "Company.Legal.buildingNumber" | translate }}
                 </lib-label>
-                <lib-text-input type="text" formControlName="buildingNumber" />
+                <lib-text-input [readOnly]="!editMode" type="text" formControlName="buildingNumber" />
               </lib-form-group>
             </div>
             <div class="col-12">
@@ -185,6 +190,7 @@
                   {{ "Company.Legal.additionalStreetName" | translate }}
                 </lib-label>
                 <lib-text-input
+                [readOnly]="!editMode"
                   type="text"
                   formControlName="additionalStreetName"
                 />
@@ -198,6 +204,7 @@
                   {{ "Company.Legal.registrationName" | translate }}
                 </lib-label>
                 <lib-text-input
+                [readOnly]="!editMode"
                   type="text"
                   formControlName="registrationName"
                 />
@@ -205,7 +212,7 @@
             </div>
           </div>
         </div>
-      </fieldset>
+      
 
       <!-- <div class="actions mb-6">
         <div class="edit_btn">

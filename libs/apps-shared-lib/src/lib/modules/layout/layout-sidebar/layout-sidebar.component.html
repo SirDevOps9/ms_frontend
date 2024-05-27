@@ -41,7 +41,7 @@
       <li *ngIf="menuItem.subMenu.length > 0">
         <div class="iocn-link" id="parent{{ i }}">
           <a>
-            <i class="{{ menuItem.icon }}"></i>
+            <i class=" {{ menuItem.icon }}"></i>
             <span class="link_name  body_b18">{{ menuItem.name }}</span>
           </a>
           <i class="pi pi-sort-down-fill arrow" (click)="open($event, i)"></i>

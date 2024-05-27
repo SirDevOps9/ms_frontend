@@ -28,6 +28,12 @@ export class BreadcrumbLabel {
     static EMPLOYEE_VIEW='View Employee';
     static EMPLOYEE_EDIT='Edit Employee';
     static Add_Tag ='Add Tag';
+    static EDIT_ADDRESS ='Edit Address';
+    static EDIT_BRANCHES ='Edit Branches';
+    static EDIT_HIERARCHY ='Edit Hierarchy';
+    static EDIT_LEGAL ='Edit Legal';
+    static EDIT_CONTACT ='Edit Contact';
+   
 
     
 

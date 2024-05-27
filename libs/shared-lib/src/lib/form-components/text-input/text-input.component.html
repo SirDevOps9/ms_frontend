@@ -1,4 +1,4 @@
-<input
+<input *ngIf="iconUrl"
   class="p-inputtext p-component p-element "
   [type]="type"
   (change)="change($event)"
@@ -6,6 +6,7 @@
   [readOnly]="readOnly"
   [disabled]="readOnly"
   [placeholder]="placeholder"
+  [ngClass]="{'read':readOnly}"
   (keyup)="keyupChange($event)"
    
     [ngStyle]="{
@@ -13,4 +14,17 @@
     'background': 'url(' + iconUrl + ') no-repeat right',
     'background-size': '20px'
   }"
+  />
+<input *ngIf="!iconUrl"
+  class="p-inputtext p-component p-element "
+  [type]="type"
+  (change)="change($event)"
+  [value]="value"
+  [readOnly]="readOnly"
+  [disabled]="readOnly"
+  [placeholder]="placeholder"
+  [ngClass]="{'reads':readOnly}"
+  (keyup)="keyupChange($event)"
+   
+ 
   />

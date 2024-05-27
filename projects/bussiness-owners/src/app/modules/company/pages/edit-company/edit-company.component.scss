@@ -214,12 +214,20 @@
   }
 
   .company_nav {
-    display: flex;
-    align-items: center;
+ 
     border-bottom: 1px solid #B6BAC3;
     padding: 10px;
+    
+    .company_nav_content{
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      width: 90%;
+      margin: auto;
+    }
     .company_name{
       width: 50%;
+      
       .title{
         
       margin: 0;
@@ -233,6 +241,7 @@
 
       .tab {
         margin-inline-end: 20px;
+        text-transform: capitalize;
 
         a {
           color: #B6BAC3;
