@@ -14,7 +14,7 @@
         ></lib-field-validations>
       </div>
       <!--  -->
-      
+
       <div class="col-12 md:col-3">
         <lib-text-input
           placeholder="{{ 'journal_date' | translate }}"
@@ -99,8 +99,7 @@
                       optionValue="id"
                       optionLabel="accountCode"
                       [customClass]="'add-journal'"
-                      (valueChanged)="accountSelected($event,i)"
-                      
+                      (valueChanged)="accountSelected($event, i)"
                     ></lib-select>
                     <i class="pi pi-search search-circle" (click)="openDialog(i)"></i>
                   </div>
@@ -154,7 +153,7 @@
                 </ng-template>
               </p-cellEditor>
             </td>
-            <td >
+            <td>
               <!-- <lib-form-group>
                 <lib-select
                   formControlName="currency"

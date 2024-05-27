@@ -46,7 +46,6 @@ export interface JournalEntryFormValue {
   styleUrl: './create-journal-entry.component.scss',
 })
 export class CreateJournalEntryComponent {
-
   fg: FormGroup;
   filteredAccounts: AccountDto[] = [];
   currencies: CurrencyDto[];
@@ -61,18 +60,16 @@ export class CreateJournalEntryComponent {
     this.titleService.setTitle;
     this.accountService
       .getAccountsHasNoChildren('', new PageInfo())
-       .pipe(tap((elem) => console.log(elem)))
+      .pipe(tap((elem) => console.log(elem)))
       .subscribe((r) => (this.filteredAccounts = r.result));
 
     this.currencyService.getCurrencies('');
 
     this.currencyService.currencies.subscribe((res) => {
       this.currencies = res;
-      console.log(res)
+      console.log(res);
     });
   }
-
-
 
   constructor(
     private fb: FormBuilder,
@@ -150,7 +147,7 @@ export class CreateJournalEntryComponent {
 
     currencyRateControl.setValue(currencyData?.ratePerUnit);
     const currencyNameControl = journalLine.get('currencyName');
-currencyNameControl?.setValue(currencyData?.currencyName);
+    currencyNameControl?.setValue(currencyData?.currencyName);
   }
 
   currencyChanged(index: number) {
@@ -173,7 +170,6 @@ currencyNameControl?.setValue(currencyData?.currencyName);
       if (r) {
         this.fa.at(index).get('account')?.setValue(r.id);
         this.accountSelected(r.id, index);
-
       }
     });
   }
@@ -254,8 +250,7 @@ currencyNameControl?.setValue(currencyData?.currencyName);
       currencyRate: rateControl,
       debitAmountLocal: new FormControl(),
       creditAmountLocal: new FormControl(),
-      currencyName : new FormControl(''),
-
+      currencyName: new FormControl(''),
     });
 
     this.fa.push(fg);
@@ -305,7 +300,7 @@ currencyNameControl?.setValue(currencyData?.currencyName);
         // Set template values to the form group
         this.fg.patchValue({
           refrenceNumber: template.code,
-          periodId: template.periodId,
+          periodId: 'Period1',
           description: template.description,
         });
 
@@ -320,21 +315,15 @@ currencyNameControl?.setValue(currencyData?.currencyName);
           template.getJournalTemplateLinesByIdDto.forEach((line) => {
             const newLine = this.fb.group({
               id: new FormControl(line.id),
-              account: new FormControl({ id: line.accountId }, customValidators.required),
+              account: new FormControl(line.accountId, customValidators.required),
+              accountName: new FormControl(line.accountName, customValidators.required),
+              accountCode: new FormControl(line.accountCode, customValidators.required),
               lineDescription: new FormControl(line.lineDescription, customValidators.required),
-              debitAmount: new FormControl(line.debitAmount, [
-                customValidators.required,
-                Validators.min(0),
-              ]),
-              creditAmount: new FormControl(line.creditAmount, [
-                customValidators.required,
-                Validators.min(0),
-              ]),
-              currency: new FormControl({ id: line.currencyId }, customValidators.required),
-              currencyRate: new FormControl(line.currencyRate, [
-                customValidators.required,
-                Validators.min(0),
-              ]),
+              debitAmount: new FormControl(line.debitAmount, [customValidators.required]),
+              creditAmount: new FormControl(line.creditAmount, [customValidators.required]),
+              currency: new FormControl(line.currencyId, customValidators.required),
+              currencyName: new FormControl(line.currency, customValidators.required),
+              currencyRate: new FormControl(line.currencyRate, [customValidators.required]),
               debitAmountLocal: new FormControl(line.debitAmountLocal),
               creditAmountLocal: new FormControl(line.creditAmountLocal),
             });
