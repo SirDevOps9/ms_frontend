@@ -63,7 +63,7 @@ export class AddChartComponent {
       accountSectionId: new FormControl('', customValidators.required),
       currencyId: new FormControl(),
       tags: new FormControl([]),
-      AccountActivation: new FormControl(['Active']),
+      AccountActivation: new FormControl('Active'),
       periodicActiveFrom: new FormControl(),
       periodicActiveTo: new FormControl(),
     });

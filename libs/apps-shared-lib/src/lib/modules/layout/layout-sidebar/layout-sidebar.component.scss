@@ -1,3 +1,4 @@
+
 .sidebar{
   position: fixed;
   top: 70px;
@@ -7,8 +8,17 @@
   background: #fff;
   z-index: 100;
   transition: all 0.5s ease;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  border-right: 1px solid gray;
+  box-shadow: rgba(149, 157, 165, 0) 0px 8px 24px;
+  border-right: 1px solid #80808038;
+}
+:dir(ltr) .sidebar {
+  left: 0;
+  right: auto;
+}
+
+:dir(rtl) .sidebar {
+  left: auto;
+  right: 0;
 }
 .sidebar.close{
   width: 78px;
