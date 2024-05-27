@@ -24,7 +24,7 @@ export class AuthService {
     if (this.environmentService.state) {
       this.oidcSecurityService
         .setState(this.environmentService.state)
-        .subscribe((res) => console.log('set state', res));
+        .subscribe((res) => this.logService.log(res, 'set state'));
     }
     var storageCulutre = this.languageService.getLang();
     this.oidcSecurityService.authorize(undefined, {
@@ -91,7 +91,6 @@ export class AuthService {
   refreshToken(): Observable<LoginResponse> {
     return this.oidcSecurityService.forceRefreshSession().pipe(
       map((loginResponse: LoginResponse) => {
-        console.log('refresh Token', loginResponse);
         this.saveUserData(loginResponse);
         return loginResponse;
       })
@@ -138,10 +137,15 @@ export class AuthService {
   get getUserName(): string {
     let item = this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
     let loggedUser = item! as LoginResponse;
-    this.logService.log(loggedUser, 'authService.UserName');
-    return loggedUser?.userData?.fullname;
+    this.logService.log('authService.UserName', loggedUser.userData.name);
+    return loggedUser?.userData?.name;
   }
 
+  get getUserPhoto(): string {
+    let item = this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
+    let loggedUser = item! as LoginResponse;
+    return loggedUser?.userData?.Photo;
+  }
   getUserTokenModel(): TokenModel {
     let tokenModel: TokenModel = {
       AccessToken: this.localStorageService.getItem(StorageKeys.USER_TOKEN)!,

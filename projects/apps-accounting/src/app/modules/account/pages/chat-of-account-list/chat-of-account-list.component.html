@@ -26,7 +26,8 @@
           {
             name: 'natureId',
             headerText: 'Nature',
-            template: Nature
+            isGlobalFilter: true,
+            isSortable: true
           },
           {
             name: 'accountTypeName',
@@ -65,16 +66,6 @@
         </div>
       </ng-template>
 
-      <ng-template #Nature let-Account>
-        <div class="status Credit" *ngIf="Account.natureId == 1">
-          <p class="dot"></p>
-          <p>Credit</p>
-        </div>
-        <div class="status Debit" *ngIf="Account.natureId == 2">
-          <p class="dot"></p>
-          <p>Debit</p>
-        </div>
-      </ng-template>
     </lib-data-table>
   </div>
 </div>

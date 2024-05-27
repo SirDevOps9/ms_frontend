@@ -2,7 +2,6 @@ import { MenuModule } from './../../../../../../shared-lib/src/lib/models/menuMo
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'microtec-auth-lib';
-import { AppStoreService } from 'projects/bussiness-owners/src/app/modules/app-store/app-store.service';
 import { UserData } from 'projects/bussiness-owners/src/app/modules/user/models';
 import { Observable } from 'rxjs';
 import { EnvironmentService, LanguageService, Modules, RouterService } from 'shared-lib';
@@ -13,7 +12,6 @@ import { EnvironmentService, LanguageService, Modules, RouterService } from 'sha
   styleUrl: './layout-header.component.scss',
 })
 export class LayoutHeaderComponent {
-  
   userName: string;
   moduleName: string;
   userData: UserData;
@@ -22,22 +20,25 @@ export class LayoutHeaderComponent {
   modulesOpen: boolean = false;
   moduleList: MenuModule[];
   cartItemsCount$: Observable<number>;
-
+  userPhoto: string;
   ngOnInit() {
     this.moduleList = this.authService.getModules();
-    console.log(this.moduleList, ' this.moduleList');
+   // console.log(this.moduleList, ' this.moduleList');
     if (this.router.snapshot.data['moduleId'] === Modules.Accounting)
       this.moduleName = 'Accounting';
     else if (this.router.snapshot.data['moduleId'] === Modules.Hr) this.moduleName = 'Hr';
     else if (this.router.snapshot.data['moduleId'] === Modules.GeneralSettings)
       this.moduleName = 'General Settings';
 
-    console.log(this.moduleName);
+    //console.log(this.moduleName);
   }
   togelModules() {
     this.modulesOpen = false;
   }
-  toggleLanguage(): void {}
+
+  toggleLanguage(): void {
+    this.languageService.toggleLanguage();
+  }
   logout(): void {
     this.authService.logout();
   }
@@ -84,8 +85,7 @@ export class LayoutHeaderComponent {
     private router: ActivatedRoute
   ) {
     this.userName = this.authService.getUserName;
-    this.userData = this.authService.getUserData()?.userData;
     this.languageService.setLang();
-    console.log(this.authService.getUserData()?.userData);
+    this.userPhoto = this.authService.getUserPhoto;
   }
 }

@@ -67,7 +67,11 @@
                 </button>
               </div>
               <div class="mange_erp">
-                <button class="btn_mange_erp body_b14" type="button">
+                <button
+                  class="btn_mange_erp body_b14"
+                  type="button"
+                  (click)="navigateToErp(subdomain.name)"
+                >
                   <span class="pi pi-building icon_btn"></span>
                   {{ 'Subscription.Subdomain.ERP_Login' | translate }}
                 </button>

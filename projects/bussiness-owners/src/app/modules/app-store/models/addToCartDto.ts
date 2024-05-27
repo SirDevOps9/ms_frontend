@@ -1,5 +1,4 @@
-
 export interface AddToCartDto {
-    appId: number;
-    subdomainId: string;
+  appId: number;
+  subdomainId: string;
 }

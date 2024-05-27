@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AuthGuard } from 'microtec-auth-lib';
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { Modules } from 'shared-lib';

@@ -1,114 +1,64 @@
 <lib-page-content>
-    <lib-bread-crumb>
-  
-    </lib-bread-crumb>
-    <div *ngIf="app" class="app_details">
-        <div class="grid">
-            <div class="col-12 ">
-
-                <div class="card">
-                    <div class="grid">
-                       
-                        <div class="col-12 md:col-4">
-                            <div class="gallary">
-                                <div class="app_img">
-                                    <lib-attachment-viewer [attachmentId]="cover" class="cover" ></lib-attachment-viewer>
-                                </div>
-                                <div class="taps_img">
-    
-                                    <div *ngFor="let item of app.appGallery; let i = index" class="tap" [ngClass]="{active: i==activeIndex}" (click)="clickImg(item, i)">
-                                        <lib-attachment-viewer [attachmentId]="item" style="width: 100%;height: 100%;"></lib-attachment-viewer>
-                                    </div>
-    
-                                </div>
-                            </div>
-                          
-                        </div>
-                        <div class="col-12 md:col-8">
-                            <div class="app_description">
-                                <div class="sec_one">
-                                    <div class="title">
-                                        {{app.name}}
-                                    </div>
-                                    <div class="re_new">
-                                        {{app.price.amount}} {{app.price.currencyName}} / monthly
-
-                                    </div>
-                                </div>
-                                <!-- <div class="sec_two">
-                                    <div class="rate">
-                                        <lib-rating [value]="4.5" [isReadOnly]="true" [showCancel]="false">
-
-                                        </lib-rating>
-                                        <p class="rate_count">7.5</p>
-                                    </div>
-                                    <div class="date">
-
-                                        10,000+
-                                    </div>
-
-                                </div> -->
-                                <div class="sec_desription">
-                                    {{app.description}}
-
-                                </div>
-                                <div class="item">
-                                    <p class="title">
-                                        Category
-                                    </p>
-                                    <p class="text">
-                                        {{app.categoryName}}
-                                    </p>
-                                </div>
-                                <!-- <div class="item item_odd">
-                                    <p class="title">
-                                        Brands
-                                    </p>
-                                    <p class="text">
-                                        Plastic material
-                                    </p>
-                                </div>
-                                <div class="item">
-                                    <p class="title">
-                                        Features
-                                    </p>
-                                    <p class="text">
-                                        Modern nice
-                                    </p>
-                                </div>
-                                <div class="item item_odd">
-                                    <p class="title">
-                                        Customization
-                                    </p>
-                                    <p class="text">
-                                        Customized App
-                                    </p>
-                                </div>
-                                <div class="item">
-                                    <p class="title">
-                                        Category
-                                    </p>
-                                    <p class="text">
-                                        HR
-                                    </p>
-                                </div> -->
-                                <div class="cart">
-
-                                    <button (click)="addToCart()"><span class="pi pi-shopping-cart icon_cart"></span>
-                                        Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
+  <lib-bread-crumb> </lib-bread-crumb>
+  <div *ngIf="app" class="app_details">
+    <div class="grid">
+      <div class="col-12">
+        <div class="card">
+          <div class="grid">
+            <div class="col-12 md:col-4">
+              <div class="gallary">
+                <div class="app_img">
+                  <lib-attachment-viewer
+                    [attachmentId]="cover"
+                    class="cover"
+                  ></lib-attachment-viewer>
                 </div>
-
+                <div class="taps_img">
+                  <div
+                    *ngFor="let item of app.appGallery; let i = index"
+                    class="tap"
+                    [ngClass]="{ active: i == activeIndex }"
+                    (click)="clickImg(item, i)"
+                  >
+                    <lib-attachment-viewer
+                      [attachmentId]="item"
+                      style="width: 100%; height: 100%"
+                    ></lib-attachment-viewer>
+                  </div>
+                </div>
+              </div>
             </div>
+            <div class="col-12 md:col-8">
+              <div class="app_description">
+                <div class="sec_one">
+                  <div class="title">
+                    {{ app.name }}
+                  </div>
+                  <div class="re_new">
+                    {{ app.price.amount }} {{ app.price.currencyName }} /
+                    {{ 'AppStore.AppDetail.Monthly' | translate }}
+                  </div>
+                </div>
+                <div class="sec_desription">
+                  {{ app.description }}
+                </div>
+                <div class="item">
+                  <p class="title">{{ 'AppStore.AppDetail.Category' | translate }}</p>
+                  <p class="text">
+                    {{ app.categoryName }}
+                  </p>
+                </div>
+                <div class="cart">
+                  <button (click)="addToCart()">
+                    <span class="pi pi-shopping-cart icon_cart"></span>
+                    {{ 'AppStore.AddToCart' | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-
-
+  </div>
 </lib-page-content>

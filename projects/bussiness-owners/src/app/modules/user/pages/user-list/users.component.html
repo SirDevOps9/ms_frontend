@@ -10,21 +10,27 @@
           placeholder="Search..."
         />
         <!-- </span> -->
-        <lib-button
-          className="add_new mr-2"
+        <!-- <lib-button
           label="Add New"
           icon="pi pi-plus"
           (onClick)="openInviteModal()"
         >
-        </lib-button>
+        </lib-button> -->
+
+        <button
+          pButton
+          pRipple
+          label="{{ 'User.AddNew' | translate }}"
+          icon="pi pi-plus"
+          class="add_new mr-2"
+          (click)="openInviteModal()"
+        ></button>
       </div>
     </ng-container>
   </lib-bread-crumb>
   <div class="user_page user-cont">
     <lib-data-table
       [items]="userData"
-      [currentPageResult]="currentPageInfo"
-      (pageChange)="onPageChange($event)"
       [tableConfigs]="{
         allowPagination: true,
         allowServerPagination: false,
@@ -97,9 +103,11 @@
 
     <ng-template #userCol let-user>
       <div class="user_info">
-        <!-- <lib-attachment-viewer
-          [attachmentId]="user."
-        /> -->
+        <lib-attachment-viewer
+          *ngIf="user.photo"
+          [attachmentId]="user.photo"
+          [className]="'thumbnail'"
+        />
         <p>{{ user.name }}</p>
       </div>
     </ng-template>

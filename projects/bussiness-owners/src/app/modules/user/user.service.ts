@@ -163,7 +163,7 @@ export class UserService {
           this.languageService.transalte('User.Inviteform.InviationSent')
         );
         this.loaderService.hide();
-        res.license = licenseLabel;
+        //res.license = licenseLabel;
         dialogRef.close(res);
       },
       error: (err) => {

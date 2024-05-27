@@ -66,30 +66,34 @@
                     <span class="pi pi-star icon_link"></span>
                   </button>
                 </div>
-                <div class="link_sec" (click)="routeToCart()">
+                <!-- <div class="link_sec" (click)="routeToCart()">
                   <div class="count">0</div>
                   <button class="btn_count">
                     <span class="pi pi-shopping-cart icon_link"></span>
                   </button>
-                </div>
+                </div> -->
                 <div class="profaile_sec">
-                  <button
-                    (click)="cardDrob()"
-                    class="btn_profaile"
-                    style="background-image: url('{{ getProfilePic() }}');"
-                  ></button>
+                  <button (click)="cardDrob()" class="btn_profaile">
+                    <lib-attachment-viewer
+                      *ngIf="userPhoto"
+                      [attachmentId]="userPhoto"
+                      className="headerImg"
+                    ></lib-attachment-viewer>
+                  </button>
                   <div class="profaile_card_drob" #profaile_card_drob *ngIf="showcard">
                     <div class="header_card">
                       <div class="photo">
-                        <img [src]="getProfilePic()" />
+                        <lib-attachment-viewer
+                          *ngIf="userPhoto"
+                          [attachmentId]="userPhoto"
+                          className="dropdown_img"
+                        ></lib-attachment-viewer>
+                        <img *ngIf="!userPhoto" [src]="getProfilePic()" />
                       </div>
                       <div class="title">
                         <p class="name">{{ userName }}</p>
                         <p class="description">
-                          {{
-                            (userData.userType == '2' ? 'User.AdminUser' : 'User.InvitedUser')
-                              | translate
-                          }}
+                          {{ userName }}
                         </p>
                       </div>
                     </div>

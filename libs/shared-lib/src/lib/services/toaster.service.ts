@@ -19,7 +19,7 @@ export class ToasterService {
   //     position: model.position,
   //   });
   // }
-  showConfirm(ConfirmButtonText:string ): Promise<boolean> {
+  showConfirm(ConfirmButtonText: string): Promise<boolean> {
     return Swal.fire({
       title: this.languageService.transalte('Toaster.Confirm.Title'),
       text: this.languageService.transalte('Toaster.Confirm.Text'),
@@ -27,13 +27,9 @@ export class ToasterService {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      cancelButtonText: this.languageService.transalte(
-        'Toaster.Confirm.CancelButtonText'
-      ),
-      confirmButtonText: this.languageService.transalte(
-        'Toaster.Confirm.'+ConfirmButtonText
-        ),
-        
+      cancelButtonText: this.languageService.transalte('Toaster.Confirm.CancelButtonText'),
+      confirmButtonText:
+        this.languageService.transalte('Toaster.Confirm.ConfirmButtonTexttochangstatus') 
     }).then((result) => {
       return result.isConfirmed;
     });

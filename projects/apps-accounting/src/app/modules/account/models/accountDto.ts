@@ -1,12 +1,12 @@
-import { AccountNature } from "./accountNature";
+import { AccountNature } from './accountNature';
 
 export interface AccountDto {
   id: number;
-  name:string;
+  name: string;
   accountCode?: string;
   mainType?: string;
-  natureId:AccountNature;
-  AccountTypeName:string;
-  accountSectionName:string;
-
+  natureId: AccountNature;
+  AccountTypeName: string;
+  accountSectionName: string;
+  currencyId: number;
 }

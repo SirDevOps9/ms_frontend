@@ -1,17 +1,9 @@
-import {
-  Actions,
-  Apps,
-  AuthGuard,
-  Licenses,
-  MicrotecAuthLibModule,
-  RouteFilter,
-  Services,
-} from 'microtec-auth-lib';
+import { AuthGuard, MicrotecAuthLibModule } from 'microtec-auth-lib';
 import { NgModule } from '@angular/core';
 import { ListAppsComponent } from './pages/list-apps/list-apps.component';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../layout/layout-page/layout.component';
-import { BreadcrumbLabel, SharedLibModule } from 'shared-lib';
+import { BreadcrumbLabel, RouterService, SharedLibModule } from 'shared-lib';
 import { HttpClientModule } from '@angular/common/http';
 import { AppDetailsComponent } from './pages/app-details/app-details.component';
 import { CartComponent } from './pages/cart/cart.component';
@@ -26,52 +18,20 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: MainPageComponent,
+        component: ListAppsComponent,
         canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.APP_STORE,
         },
-        children: [
-          {
-            path: '',
-            component: ListAppsComponent,
-            canActivate: [AuthGuard],
-            data: {
-              breadcrumb: BreadcrumbLabel.APP_STORE,
-              // filter: {
-              //   Action: Actions.Update,
-              //   License: Licenses.Advanced,
-              //   App: Apps.Hr,
-              //   Service: Services.Contract,
-              // } as RouteFilter,
-            },
-          },
-          {
-            path: 'app-detail/:id',
-            component: AppDetailsComponent,
-            canActivate: [AuthGuard],
-            data: {
-              breadcrumb: BreadcrumbLabel.APP_STORE_Details,
-            },
-          },
-        ],
       },
-      // {
-      //   path: 'app-detail/:id',
-      //   component: AppDetailsComponent,
-      //   canActivate: [AuthGuard],
-      //   data: {
-      //     breadcrumb: BreadcrumbLabel.APP_STORE_Details,
-      //   },
-      // },
-      // {
-      //   path: 'cards',
-      //   component: CardAppsComponent,
-      //   canActivate: [AuthGuard],
-      //   data: {
-      //     breadcrumb: BreadcrumbLabel.APP_STORE,
-      //   },
-      // },
+      {
+        path: 'app-detail/:id',
+        component: AppDetailsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.APP_STORE_Details,
+        },
+      },
       {
         path: 'cart',
         component: CartComponent,
@@ -114,6 +74,7 @@ const routes: Routes = [
     SharedLibModule,
     HttpClientModule,
     RouterModule.forChild(routes),
-  ]
+  ],
+  providers: [RouterService],
 })
 export class AppStoreModule {}

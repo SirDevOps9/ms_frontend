@@ -1,32 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { CartDto } from '../../models/cartDto';
+import { CartDto } from '../../models';
 import { AppStoreService } from '../../app-store.service';
-import { RouterModule } from '@angular/router';
-import { RouterService } from 'shared-lib';
+import { LanguageService, RouterService } from 'shared-lib';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   templateUrl: './cart.component.html',
-  styleUrl: './cart.component.scss'
+  styleUrl: './cart.component.scss',
 })
-
 export class CartComponent implements OnInit {
   cartData: CartDto | null;
   totalItems: number;
   totalPrice: number;
   groupedItems: { [key: string]: any[] };
-  constructor(private appStoreService: AppStoreService, private routerService: RouterService) {
-  }
+  constructor(
+    private appStoreService: AppStoreService,
+    private routerService: RouterService,
+    private titleService: Title,
+    private languageService: LanguageService
+  ) {}
 
   ngOnInit(): void {
-    this.appStoreService.getCartData()
-    this.appStoreService.cartData.subscribe(cartData => {
-      if (!cartData)
-        return;
-      this.cartData = cartData;
-      this.totalItems = cartData!.items.length
-      this.totalPrice = cartData!.total.amount
-      this.groupedItems = this.groupByAppName(this.cartData!.items);
-      console.log(cartData?.total.amount, "this.groupedItems");
+    this.languageService.getTranslation('Cart.Title').subscribe((title) => {
+      this.titleService.setTitle(title);
+    });
+
+    this.appStoreService.getCartData();
+
+    this.appStoreService.cartData.subscribe((cartData) => {
+      if (cartData) {
+        this.cartData = cartData;
+        this.totalItems = cartData!.items.length;
+        this.totalPrice = cartData!.total.amount;
+        this.groupedItems = this.groupByAppName(this.cartData!.items);
+      }
     });
   }
 
@@ -35,16 +42,12 @@ export class CartComponent implements OnInit {
   }
 
   async removeItemFromCart(id: string) {
-    let removeResult = await this.appStoreService.removeFromCart(id);
-    removeResult.subscribe(r => {
-      if (r)
-        this.groupedItems = this.groupByAppName(this.cartData!.items.filter(item => item.id != id));
-    })
+    await this.appStoreService.removeFromCart(id);
   }
 
   checkout() {
     this.appStoreService.checkout();
-    this.routerService.navigateTo('/paymentSuccesful')
+    this.routerService.navigateTo('/paymentSuccesful');
   }
 
   private groupByAppName(items: any[]): { [key: string]: any[] } {

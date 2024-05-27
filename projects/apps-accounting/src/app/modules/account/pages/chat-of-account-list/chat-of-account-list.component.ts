@@ -11,7 +11,7 @@ import { AccountNature, AccountDto } from '../../models';
 export class ChatOfAccountListComponent implements OnInit {
   tableData: AccountDto[];
   currentPageInfo: PageInfoResult;
-  accountNature: AccountNature;
+  accountNature= AccountNature;
 
   constructor(private routerService: RouterService, private accountService: AccountService) {}
 

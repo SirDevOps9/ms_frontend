@@ -1,17 +1,17 @@
 import { AppStoreProxy } from './../../app-store.proxy';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { AppDto } from '../../models/appDto';
-import { AttachmentsService, BaseDto, EnvironmentService, SubdomainService } from 'shared-lib';
-import { Observable } from 'rxjs';
+import { AppDto } from '../../models';
+import { LanguageService, RouterService, SubdomainService } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AppStoreService } from '../../app-store.service';
 import { ResponseSubdomainDto } from '../../../subscription/models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-app-details',
   templateUrl: './app-details.component.html',
-  styleUrl: './app-details.component.scss'
+  styleUrl: './app-details.component.scss',
+  providers: [RouterService],
 })
 export class AppDetailsComponent implements OnInit {
   cover: string;
@@ -20,24 +20,17 @@ export class AppDetailsComponent implements OnInit {
   app: AppDto;
   subdomains: ResponseSubdomainDto[];
 
-  constructor(route: ActivatedRoute,
-    private attachmentService: AttachmentsService,
-    private dialog: DialogService,
-    private appStoreService: AppStoreService,
-    private subdomainService: SubdomainService,
-    private appStoreProxy: AppStoreProxy) {
-    this.id = route.snapshot.params['id']
-
-  }
-
   ngOnInit(): void {
-    
-    this.appStoreProxy.getById(this.id).subscribe(r => {
-      r.appGallery = [ ...r.appGallery!];
+    this.langService
+      .getTranslation('AppStore.AppDetail.Title')
+      .subscribe((title) => this.titleService.setTitle(title));
+
+    this.appStoreProxy.getById(this.appId).subscribe((r) => {
+      r.appGallery = [...r.appGallery!];
       this.app = r;
       this.cover = r.appGallery[0];
     });
-    this.subdomainService.getAllSubdomains().subscribe(s => this.subdomains = s);
+    this.subdomainService.getAllSubdomains().subscribe((s) => (this.subdomains = s));
   }
 
   addToCart() {
@@ -48,4 +41,18 @@ export class AppDetailsComponent implements OnInit {
     this.cover = photoId;
     this.activeIndex = index;
   }
+
+  get appId() {
+    return this.routerService.currentId;
+  }
+
+  constructor(
+    private routerService: RouterService,
+    private dialog: DialogService,
+    private appStoreService: AppStoreService,
+    private subdomainService: SubdomainService,
+    private appStoreProxy: AppStoreProxy,
+    private titleService: Title,
+    private langService: LanguageService
+  ) {}
 }

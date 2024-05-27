@@ -1,22 +1,24 @@
 import { CurrencyService } from './../../../general/currency.service';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { PageInfo, RouterService, SharedLibraryEnums, customValidators } from 'shared-lib';
+import {
+  LanguageService,
+  PageInfo,
+  RouterService,
+  SharedLibraryEnums,
+  customValidators,
+} from 'shared-lib';
 import { AccountDto } from '../../../account/models/accountDto';
 import { AccountService } from '../../../account/account.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
 import { DialogService } from 'primeng/dynamicdialog';
-import { AccountsComponent } from '../../components/accounts/accounts.component';
-import {
-  AddJournalEntryCommand,
-  CreateJournalEntryLine,
-} from '../../models/addJournalEntryCommand';
+import { AddJournalEntryCommand } from '../../models/addJournalEntryCommand';
 import { JournalEntryService } from '../../journal-entry.service';
 import { AttachmentsComponent } from '../../components/attachments/attachments.component';
-import { JournalItemModel } from '../../models/journalItemModel';
 import { JournalTemplatePopupComponent } from '../components/journal-template-popup/journal-template-popup.component';
 import { NoChildrenAccountsComponent } from '../../components/noChildrenAccounts/nochildaccounts.component';
 import { tap } from 'rxjs';
+import { Title } from '@angular/platform-browser';
 
 export interface JournalEntryLineFormValue {
   id: number;
@@ -50,12 +52,15 @@ export class CreateJournalEntryComponent {
   fitleredCurrencies: CurrencyDto[];
   selectedCurrency: number;
 
-  
   ngOnInit() {
+    this.langService.getTranslation('JournalTitle').subscribe((title) => {
+      this.titleService.setTitle(title);
+    });
+
+    this.titleService.setTitle;
     this.accountService
-      .getAccountsHasNoChildren('', new PageInfo()).pipe(
-        tap(elem=>console.log(elem))
-      )
+      .getAccountsHasNoChildren('', new PageInfo())
+      // .pipe(tap((elem) => console.log(elem)))
       .subscribe((r) => (this.filteredAccounts = r.result));
 
     this.currencyService.getCurrencies('');
@@ -72,7 +77,9 @@ export class CreateJournalEntryComponent {
     private dialog: DialogService,
     public sharedLibEnums: SharedLibraryEnums,
     private service: JournalEntryService,
-    private routerService: RouterService
+    private routerService: RouterService,
+    private titleService: Title,
+    private langService: LanguageService
   ) {
     this.fg = fb.group({
       refrenceNumber: ['', customValidators.required],
@@ -100,7 +107,6 @@ export class CreateJournalEntryComponent {
     });
   }
 
-  
   filterAccount(event: any) {
     let query = event.query;
     this.accountService
@@ -109,32 +115,48 @@ export class CreateJournalEntryComponent {
   }
 
   accountSelected(event: any, id: number) {
-    const selected : any = event.value as AccountDto;
+    const selected: any = event.value as AccountDto;
     // if(selected.accountCode=='11'){
     //   this.things.find(t=>t.id==id)!.account = null;
     // }
     const journalLine = this.items.at(id);
-    const currencyControl  = journalLine.get('currency');
+    // const currencyControl = journalLine.get('currency');
+    // const currencyRateControl = journalLine.get('currencyRate')!;
+
+    // currencyControl?.setValue(selected.currencyId);
+    // this.selectedCurrency = selected.currencyId;
+
+    // var currencyData = this.currencies.find((c) => c.id == selected.currencyId);
+
+    // currencyRateControl.setValue(currencyData!.ratePerUnit);
+
+    var accountData = this.filteredAccounts.find((c) => c.id == event);
+
+    const accountName = journalLine.get('accountName');
+    accountName?.setValue(accountData?.name);
+
+    journalLine.get('accountCode')?.setValue(accountData?.accountCode);
+
+    var currencyData = this.currencies.find((c) => c.id == accountData?.currencyId);
+
+    const currencyControl = journalLine.get('currency');
     const currencyRateControl = journalLine.get('currencyRate')!;
 
-    currencyControl?.setValue(selected.currencyId);
-    this.selectedCurrency = selected.currencyId;
+    currencyControl?.setValue(accountData?.currencyId);
 
-    var currencyData = this.currencies.find((c) => c.id == selected.currencyId);
-
-    currencyRateControl.setValue(currencyData!.ratePerUnit);
+    currencyRateControl.setValue(currencyData?.ratePerUnit);
   }
 
   currencyChanged(index: number) {
     const journalLine = this.items.at(index);
     const currencyControl = journalLine.get('currency');
     const currencyRateControl = journalLine.get('currencyRate')!;
-    console.log('currencyRateControl', currencyRateControl);
+    //console.log('currencyRateControl', currencyRateControl);
 
     currencyControl?.valueChanges.subscribe((value) => {
       var currencyData = this.currencies.find((c) => c.id == value);
 
-      console.log('currency rate', currencyData?.ratePerUnit);
+      //console.log('currency rate', currencyData?.ratePerUnit);
       currencyRateControl.setValue(currencyData!.ratePerUnit);
     });
   }
@@ -144,6 +166,8 @@ export class CreateJournalEntryComponent {
     ref.onClose.subscribe((r) => {
       if (r) {
         this.fa.at(index).get('account')?.setValue(r.id);
+        this.accountSelected(r.id, index);
+
       }
     });
   }
@@ -159,13 +183,13 @@ export class CreateJournalEntryComponent {
     return this.fg.get('journalEntryLines') as FormArray;
   }
 
-  // onValChange(e : any , fg : FormGroup) {
-  //   console.log(e)
-  //   let accName = this.filteredAccounts.find(elem=>elem.id == e)?.nameEn
+  // onValChange(e: any, fg: FormGroup) {
+  //   console.log(e);
+  //   let accName = this.filteredAccounts.find((elem) => elem.id == e)?.name;
 
-  //  fg.get('account')?.setValue() 
+  //   fg.get('account')?.setValue(accName);
 
-  //  console.log(fg.controls['account']?.value)
+  //   console.log(fg.controls['account']?.value);
   // }
 
   addThing() {
@@ -208,7 +232,7 @@ export class CreateJournalEntryComponent {
     currencyControl?.valueChanges.subscribe((value) => {
       var currencyData = this.currencies.find((c) => c.id == value);
 
-      console.log('currency rate', currencyData?.ratePerUnit);
+      //console.log('currency rate', currencyData?.ratePerUnit);
 
       rateControl.setValue(currencyData?.ratePerUnit!);
     });
@@ -236,22 +260,20 @@ export class CreateJournalEntryComponent {
   save() {
     const value = this.fg.value as JournalEntryFormValue;
 
-    console.log('Form Value', value);
+    //console.log('Form Value', value);
 
     let obj: AddJournalEntryCommand = {
       ...value,
-      journalEntryLines: value.journalEntryLines.map((l , i) => ({
-        
-        accountId:this.fa.value[i].account,
+      journalEntryLines: value.journalEntryLines.map((l, i) => ({
+        accountId: this.fa.value[i].account,
         creditAmount: l.creditAmount,
         currencyId: l.currency,
         currencyRate: l.currencyRate,
         debitAmount: l.debitAmount,
         lineDescription: l.lineDescription,
       })),
-      
     };
-    console.log(obj);
+    // console.log(obj);
     this.service
       .addJournalEntry(obj)
       .subscribe((r) => this.routerService.navigateTo('journalentry'));
@@ -267,7 +289,7 @@ export class CreateJournalEntryComponent {
     });
 
     dialogRef.onClose.subscribe((id: any) => {
-      console.log('Received ID:', id);
+      //console.log('Received ID:', id);
 
       this.service.getJournalTemplateById(id).subscribe((template) => {
         console.log('template:', template);
@@ -309,20 +331,20 @@ export class CreateJournalEntryComponent {
               creditAmountLocal: new FormControl(line.creditAmountLocal),
             });
             this.fa.push(newLine);
-            console.log('new line', newLine);
-            console.log(this.fa, 'test');
+            //console.log('new line', newLine);
+            // console.log(this.fa, 'test');
           });
         }
       });
     });
   }
 
-  debitChanged(index:number){
+  debitChanged(index: number) {
     const journalLine = this.items.at(index);
     const creditAmountControl = journalLine.get('creditAmount');
     creditAmountControl!.setValue(0);
   }
-  creditChanged(index:number){
+  creditChanged(index: number) {
     const journalLine = this.items.at(index);
     const debitAmountControl = journalLine.get('debitAmount');
     debitAmountControl!.setValue(0);
