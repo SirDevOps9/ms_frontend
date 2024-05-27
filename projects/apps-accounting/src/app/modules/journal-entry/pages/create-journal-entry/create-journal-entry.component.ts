@@ -86,7 +86,7 @@ export class CreateJournalEntryComponent {
     private langService: LanguageService
   ) {
     this.fg = fb.group({
-      refrenceNumber: ['', customValidators.required],
+      refrenceNumber: [null, customValidators.required],
       journalDate: [this.getTodaysDate(), customValidators.required],
       periodId: ['Period1', customValidators.required],
       description: ['', customValidators.required],

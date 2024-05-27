@@ -31,6 +31,7 @@ export class TagAddComponent implements OnInit {
 
   moudlelist() {
     this.modulelist = this.authService.getModules();
+    console.log(this.modulelist)
   }
 
   initializeTagForm() {

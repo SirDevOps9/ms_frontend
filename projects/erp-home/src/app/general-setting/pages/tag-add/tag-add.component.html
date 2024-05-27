@@ -1,70 +1,57 @@
 <div class="invite_user">
-
   <form class="domain_form" [formGroup]="tagForm" (ngSubmit)="onSubmit()">
     <div class="domain_content">
       <div class="grid">
         <div class="col-12 my-2">
           <lib-form-group>
-            <lib-label [appControl]="tagForm.controls['Code']">
-              {{ "tag.addtag.code" | translate }}
-            </lib-label>
-            <lib-text-input type="text" formControlName="Code" [readOnly]="true" class="form-control" />
-            <lib-field-validations
-              [appControl]="tagForm.controls['Code']"
-            ></lib-field-validations>
+            
+            <lib-text-input
+              type="text"
+              formControlName="Code"
+              placeholder="{{ 'tag.addtag.code' | translate }}"
+              [readOnly]="true"
+              class="form-control"
+            />
+            <lib-field-validations [appControl]="tagForm.controls['Code']"></lib-field-validations>
           </lib-form-group>
-
-       
         </div>
         <div class="col-12 my-2">
           <lib-form-group>
-            <lib-label [appControl]="tagForm.controls['Name']">
-              {{ "tag.addtag.name" | translate }}
-            </lib-label>
-            <lib-text-input type="text" formControlName="Name" />
+     
+            <lib-text-input type="text" formControlName="Name"               placeholder="{{ 'tag.addtag.name' | translate }}"
+            />
+            <lib-field-validations [appControl]="tagForm.controls['Name']"></lib-field-validations>
+          </lib-form-group>
+        </div>
+
+        <div class="col-12 my-2 multi-cont">
+          <lib-form-group [className]="'customWidth'">
+           
+            <lib-multi-select
+            placeholder="{{ 'tag.addtag.applicability' | translate }}"
+              [options]="modulelist"
+              optionLabel="module"
+              optionValue="moduleId"
+              formControlName="ModuleIds"
+            ></lib-multi-select>
             <lib-field-validations
-              [appControl]="tagForm.controls['Name']"
+              [appControl]="tagForm.controls['ModuleIds']"
             ></lib-field-validations>
           </lib-form-group>
         </div>
-    
-        <div class="col-12 my-2 multi-cont">
-
-       
-
-              <lib-form-group [className]="'customWidth'"
-              >
-                  <lib-label [appControl]="tagForm.controls['ModuleIds']">
-                    {{ "tag.addtag.applicability" | translate }}
-                  </lib-label>
-                <lib-multi-select
-                  [options]="modulelist"
-                  optionLabel="module"
-                  optionValue="moduleId"
-                  formControlName="ModuleIds"
-                ></lib-multi-select>
-                <lib-field-validations
-                  [appControl]="tagForm.controls['ModuleIds']"
-                ></lib-field-validations>
-                </lib-form-group>
-
-                
-           
-       </div>
       </div>
-
-     
     </div>
   </form>
-  <div class="flex gap-2">
-    <div>
-      <lib-button  [severity]="'danger'" type="button" (click)="onCancel()">
-        {{ "tag.addtag.discard" | translate }}
-      </lib-button >
+  <div class="grid justify-content-center">
+    <div class="col-6">
+      <lib-button type="button" [className]="'custom-danger-outline'" (click)="onCancel()">
+        {{ 'tag.addtag.discard' | translate }}
+      </lib-button>
     </div>
-    <lib-button type="submit" class="save w-6"(click)="onSubmit()" >
-      {{ "tag.addtag.save" | translate }}
-    </lib-button >
-  
+    <div class="col-6">
+      <lib-button type="submit" [className]="'custom-light-blue'" class="save" (click)="onSubmit()">
+        {{ 'tag.addtag.save' | translate }}
+      </lib-button>
+    </div>
   </div>
 </div>
