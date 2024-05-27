@@ -1,5 +1,5 @@
 import { FilterDto, HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { JournalEntryDto } from './models';
+import { JournalEntryDto, JournalEntryStatus } from './models';
 import { Observable } from 'rxjs';
 import { AddJournalEntryCommand } from './models/addJournalEntryCommand';
 import { EditJournalEntry, GetJournalEntryByIdDto } from './models';
@@ -37,7 +37,7 @@ export class JournalEntryProxy {
     return this.httpService.put<boolean>(`JournalEntry/ChangeStatus`, request);
   }
 
-  deleteJounralEntryLine(id: number): Observable<boolean> {
+  deleteJounralEntryLine(id: number): Observable<JournalEntryStatus> {
     return this.httpService.delete<number>(`JournalEntry/DeleteLine?Id=${id}`);
   }
   getAllJournalTemplate(filterDto: FilterDto): Observable<PaginationVm<GetAllJournalTemplateDto>> {

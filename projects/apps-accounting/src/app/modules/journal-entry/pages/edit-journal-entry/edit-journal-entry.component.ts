@@ -4,6 +4,7 @@ import {
   GetJournalEntryByIdDto,
   JournalEntryLineDto,
   JournalEntryStatus,
+  JournalEntryType,
   SharedJournalEnums,
 } from '../../models';
 import { JournalEntryService } from '../../journal-entry.service';
@@ -37,7 +38,7 @@ export class EditJournalEntryComponent implements OnInit {
   currencyIdList: number[] = [];
   viewMode: boolean = false;
   statusName: string;
-  journalTypeName: string;
+  journalTypeName: JournalEntryType;
 
   filteredAccounts: AccountDto[] = [];
   currencies: CurrencyDto[] = [];
@@ -88,7 +89,7 @@ export class EditJournalEntryComponent implements OnInit {
         this.viewMode = true;
       }
       this.statusName = res.status;
-      this.journalTypeName = this.enums.JournalEntryType[res.type];
+      this.journalTypeName = res.type;
 
       this.journalEntry = res;
       this.journalEntryLines = res.journalEntryLines!;
@@ -171,14 +172,17 @@ export class EditJournalEntryComponent implements OnInit {
       // If it's a new record, just remove it
       this.journalEntryLinesFormArray.removeAt(index);
     } else if (
-      status === this.enums.JournalEntryStatus.DraftUnbalanced ||
-      status === this.enums.JournalEntryStatus.Draftbalanced
+      status === this.enums.JournalEntryStatus.Unbalanced ||
+      status === this.enums.JournalEntryStatus.Draft
     ) {
       // If it's not new and status is draft balanced or unbalanced, delete it from the backend
       const result = await this.journalEntryService.deleteJournalEntryLine(
         journalLine.get('id')?.value!
       );
       if (result) this.journalEntryLinesFormArray.removeAt(index);
+      this.journalEntryService.journalStatus.subscribe((res) => {
+        this.statusName = res;
+      });
     } else {
       // Otherwise, show an error message based on the status
       let message: string = '';

@@ -147,14 +147,14 @@
       <ng-template #userStatus let-journal>
         <div
           class="status unbalanced"
-          *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.DraftUnbalanced"
+          *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Unbalanced"
         >
           <p class="dot"></p>
           <p>Unbalanced</p>
         </div>
         <div
           class="status draft"
-          *ngIf="journal.status == sharedJouralEnum.JournalEntryStatus.Draftbalanced"
+          *ngIf="journal.status == sharedJouralEnum.JournalEntryStatus.Draft"
         >
           <p class="dot"></p>
           <p>Draft</p>

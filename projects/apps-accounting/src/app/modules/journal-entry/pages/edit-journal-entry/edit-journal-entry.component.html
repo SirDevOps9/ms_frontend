@@ -111,8 +111,8 @@
               <th
                 style="width: 10%"
                 *ngIf="
-                  journalEntry?.status == enums.JournalEntryStatus.DraftUnbalanced ||
-                  journalEntry?.status == enums.JournalEntryStatus.Draftbalanced
+                  journalEntry?.status == enums.JournalEntryStatus.Unbalanced ||
+                  journalEntry?.status == enums.JournalEntryStatus.Draft
                 "
               >
                 Actions
@@ -316,8 +316,8 @@
             > -->
               <td
                 *ngIf="
-                  journalEntry?.status == enums.JournalEntryStatus.DraftUnbalanced ||
-                  journalEntry?.status == enums.JournalEntryStatus.Draftbalanced
+                  journalEntry?.status == enums.JournalEntryStatus.Unbalanced ||
+                  journalEntry?.status == enums.JournalEntryStatus.Draft
                 "
               >
                 <lib-button
@@ -363,8 +363,8 @@
 
         <div
           *ngIf="
-            journalEntry?.status == enums.JournalEntryStatus.DraftUnbalanced ||
-            journalEntry?.status == enums.JournalEntryStatus.Draftbalanced
+            journalEntry?.status == enums.JournalEntryStatus.Unbalanced ||
+            journalEntry?.status == enums.JournalEntryStatus.Draft
           "
         >
           <button
