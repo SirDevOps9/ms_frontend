@@ -1,6 +1,6 @@
     export enum JournalEntryStatus {
-        DraftUnbalanced = 'DraftUnbalanced',
-        Draftbalanced = 'Draftbalanced',
+        Unbalanced = 'Unbalanced',
+        Draft = 'Draft',
         Submitted = 'unPosted',
         Posted = 'Posted'
       }
