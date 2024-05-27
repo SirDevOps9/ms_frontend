@@ -13,6 +13,7 @@ export class LayoutSidebarComponent {
   sidebarVisible: boolean = true;
   sidebarOpen: boolean = false;
   menuList: SideMenuModel[];
+  openStates: boolean[] = [];
   treeData: any;
   highlightedParent: any = null; // To track the highlighted parent node
   menuItems: any;
@@ -27,6 +28,7 @@ export class LayoutSidebarComponent {
     //console.log(this.treeData, ' this.treeData');
   }
   open(event: any, i: any) {
+    
     // Check if the clicked element has the class 'arrow'
     if (event.target.classList.contains('arrow')) {
       // Get the parent element with the class 'iocn-link'
@@ -52,6 +54,8 @@ export class LayoutSidebarComponent {
             line.classList.remove('parent');
           }
         }
+        this.openStates[i] = !this.openStates[i];
+
       }
     }
   }
@@ -77,7 +81,7 @@ export class LayoutSidebarComponent {
       return {
         key: item.key.toString(),
         name: item.labelEn, // Assuming you want to display the English label
-        icon: 'pi '+item.icon,
+        icon: item.icon,
         type: item.type.toLowerCase(),
         link: item.routePath,
         subMenu: item.children ? this.mapToTreeNodes(item.children) : [],

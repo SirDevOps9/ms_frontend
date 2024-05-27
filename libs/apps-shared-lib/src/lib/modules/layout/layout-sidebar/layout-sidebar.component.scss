@@ -10,11 +10,10 @@
   transition: all 0.5s ease;
   box-shadow: rgba(149, 157, 165, 0) 0px 8px 24px;
   border-right: 1px solid #80808038;
-  display: flex;
-  align-items: start;
+
 }
 
-.sidebar.close{
+.sidebar .close{
   width: 78px;
 }
 .sidebar {
@@ -86,7 +85,7 @@
 }
 .sidebar .nav-links li .iocn-link{
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
   min-height: 10px;
 }
