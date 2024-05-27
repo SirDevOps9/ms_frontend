@@ -1,20 +1,20 @@
-<ng-container *ngIf="!validId">
-  <div class="not_valid">NOT VALID ACOUNT</div>
+<ng-container *ngIf="notvalid">
+  <div class="not_valid">  {{ "UserConfirmation.NOTVALIDACOUNT" | translate }}</div>
 </ng-container>
 
 <div class="confirm_invitation_pages" *ngIf="validId">
   <div class="container_page">
     <div class="welcome_card">
-      <h2 class="title">Hello!</h2>
-      <h2 class="sub_title">Welcome</h2>
+      <h2 class="title">  {{ "UserConfirmation.Hello" | translate }}!</h2>
+      <h2 class="sub_title">  {{ "UserConfirmation.Welcome" | translate }}</h2>
     </div>
     <div class="form_card">
-      <div class="sec_header mb-6">
-        <p class="title">Confirm Invitation</p>
+      <div class="sec_header mb-3">
+        <p class="title">  {{ "UserConfirmation.ConfirmInvitation" | translate }}</p>
       </div>
-      <div class="form_content pb-6">
+      <div class="form_content ">
         <form [formGroup]="userForm" (ngSubmit)="submitForm()">
-       <div class="photo">
+       <div >
         <lib-form-group>
           <lib-label [appControl]="userForm.controls['photo']">
             {{ "photo" }}

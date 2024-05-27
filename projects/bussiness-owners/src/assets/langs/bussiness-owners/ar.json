@@ -220,6 +220,10 @@
     "ConfirmPassword": "تأكيد كلمة المرور",
     "policy": "أنا أوافق على سياسة المستخدم",
     "Save": "حفظ",
+    "Hello": "مرحبا",
+    "Welcome": "أهلاً وسهلاً",
+    "ConfirmInvitation": "تأكيد الدعوة",
+    "NOTVALIDACOUNT": "حساب غير صالح",
     "Photo": "الصورة"
   },
   "AppStore": {

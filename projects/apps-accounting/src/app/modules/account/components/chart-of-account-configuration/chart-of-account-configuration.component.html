@@ -26,22 +26,22 @@
         <ng-template pTemplate="body" let-sandra let-editing="editing" let-i="rowIndex"> 
             <tr [formGroup]="sandra">
 
-              <td>
+              <td [pEditableColumn]="sandra.controls['levelNumber']" pEditableColumnField="levelNumber">
                   <p-cellEditor>
-                      <!-- <ng-template pTemplate="input">
+                      <ng-template pTemplate="input">
                           <lib-text-input formControlName="levelNumber"  type="number"></lib-text-input>
-                      </ng-template> -->
+                      </ng-template>
                       <ng-template pTemplate="output">
                           {{ sandra.controls['levelNumber'].value }}
                       </ng-template>
                   </p-cellEditor>
               </td>
 
-              <td>
+              <td [pEditableColumn]="sandra.controls['name']" pEditableColumnField="name">
                   <p-cellEditor>
-                    <!-- <ng-template pTemplate="input">
+                    <ng-template pTemplate="input">
                       <lib-text-input formControlName="name" type="text"></lib-text-input>
-                    </ng-template> -->
+                    </ng-template>
                     <ng-template pTemplate="output">
                       {{ sandra.controls['name'].value }}
                     </ng-template>

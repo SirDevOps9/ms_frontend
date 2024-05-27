@@ -6,6 +6,11 @@
         
     }
     ::ng-deep {
+        .p-tree .p-tree-container .p-treenode:focus > .p-treenode-content {
+            outline:none !important;
+            outline-offset: none !important;
+            box-shadow: none !important;
+          }
         #label_tree{
             cursor: pointer !important;
         }
@@ -73,10 +78,35 @@
             padding: 0 !important;
         }
         .p-tree{
-            height: 775px !important;
+            min-height: 75vh;
+            max-height: 775px !important;
+             //max-height: 100% !important;
             overflow: auto;
+            
+        }
+        .tree{
+            /* For WebKit browsers */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #1A8EAE;
+            border-radius: 6px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
         }
       
+       
+        
+
     }
    
     
@@ -86,7 +116,7 @@
         border-radius: 50%;
         border: 2px solid #0D4859;
         color: #0D4859;
-        font-size: 20px;
+        font-size: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -149,3 +179,26 @@
     }
   
 }
+
+
+    ::ng-deep{
+        .main_chat_of_account{
+        .p-dialog-mask{
+        justify-content: end !important;
+        align-items: end !important;
+        z-index: 1000 !important;
+      }
+      .p-dialog .p-dialog-content:last-of-type {
+        border-top-left-radius: 15px !important;
+        border-bottom-left-radius: 15px !important;
+        overflow-x: hidden;
+      
+      }
+      .p-dialog {
+        .p-dialog-header {
+          display: none !important;
+        }
+      
+      }
+      }
+      }

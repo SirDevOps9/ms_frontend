@@ -1,9 +1,8 @@
 <div class="chart_view_page">
-  <form>
     <div class="grid">
       <lib-fildest header="{{ 'ChartOfAccounts.AccountCode' | translate }}" class="md:col-12">
         <div class="md:col-4">
-          <lib-text-input [readOnly]="true" [placeholder]="parent?.accountCode!"> </lib-text-input>
+          <lib-text-input [readOnly]="true" [placeholder]="parent?.accountCode!" > </lib-text-input>
         </div>
         <div class="md:col-12">
           <lib-form-group>
@@ -81,7 +80,7 @@
           </div>
         </div>
         <div class="grid">
-          <div class="md:col-4" *ngif="accountTags !== ''">
+          <div class="md:col-4" *ngIf="accountTags !== ''">
             <lib-form-group>
               <label> {{ 'ChartOfAccounts.Tags' | translate }}</label>
 
@@ -98,13 +97,14 @@
             <div class="checked mt-2">
               <!-- <p-inputSwitch [(ngModel)]="checked" [disabled]="true"> </p-inputSwitch> -->
               <div *ngIf="!yes">
-                <p-radioButton name="Yes" value="Yes" [disabled]="true"> </p-radioButton>
+                <!-- <p-radioButton [(ng)]  value="Yes" [disabled]="true"> </p-radioButton> -->
+                <input type="radio" [disabled]="true">
 
                 <label class="title" for="Yes">{{ 'ChartOfAccounts.Yes' | translate }}</label>
               </div>
               <div *ngIf="yes">
-                <p-radioButton name="No" value="No" [disabled]="true"> </p-radioButton>
-
+                <!-- <p-radioButton  value="No" [disabled]="true"> </p-radioButton> -->
+                <input type="radio" [disabled]="true">
                 <label class="title" for="No">{{ 'ChartOfAccounts.No' | translate }}</label>
               </div>
             </div>
@@ -130,39 +130,22 @@
               <lib-form-group>
                 <div class="account_activation">
                   <div *ngIf="Active">
-                    <p-radioButton
-                      name="AccountActivation"
-                      value="Active"
-                      inputId="Active"
-                      [disabled]="true"
-                    >
-                    </p-radioButton>
+                    
+                    <input type="radio" [disabled]="true">
 
                     <label class="title" for="Active">{{
                       'ChartOfAccounts.Active' | translate
                     }}</label>
                   </div>
                   <div *ngIf="Inactive">
-                    <p-radioButton
-                      name="AccountActivation"
-                      value="Inactive"
-                      inputId="Inactive"
-                      [disabled]="true"
-                    >
-                    </p-radioButton>
+                    <input type="radio" [disabled]="true">
 
                     <label class="title" for="Inactive">{{
                       'ChartOfAccounts.Inactive' | translate
                     }}</label>
                   </div>
                   <div *ngIf="Period">
-                    <p-radioButton
-                      name="AccountActivation"
-                      value="Period"
-                      inputId="Period"
-                      [disabled]="true"
-                    >
-                    </p-radioButton>
+                    <input type="radio" [disabled]="true">
                     <label class="title" for="Period">{{
                       'ChartOfAccounts.periodicActive' | translate
                     }}</label>
@@ -196,5 +179,4 @@
         </lib-fildest>
       </lib-fildest>
     </div>
-  </form>
 </div>

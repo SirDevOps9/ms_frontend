@@ -29,15 +29,24 @@
 
 /////////
 .chart_view_page{
-    //margin-top: 20px;
+    input[type="radio"]:disabled {
+        background-color: #1A8EAE;
+        border: 2px solid #ccc;
+        cursor: not-allowed;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        position: relative;
+    }
     background-color: #fff;
-   // padding: 20px 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
     .account_activation{
         display: flex !important;
         align-items: center !important;
-        //justify-content: space-evenly !important;
         .title{
             margin-inline-start: 5px;
         }
@@ -51,7 +60,7 @@
     ::ng-deep{
         .chart_view_page{
             .p-inputtext::placeholder {
-                color: #B6BAC3 !important;
+                color: #6B7280 !important;
                 font-size: 16px;
                 font-family: $cairo_regular;
               }
@@ -82,10 +91,11 @@
     ::ng-deep{
         .chart_view_page{
             .p-inputtext::placeholder {
-                color: #B6BAC3 !important;
+                color: #000 !important;
                 font-size: 16px;
                 font-family: $cairo_regular;
               }
+          
               .p-radiobutton .p-radiobutton-box {
                 border: 2px solid #d1d5db;
                 background: #1A8EAE !important;

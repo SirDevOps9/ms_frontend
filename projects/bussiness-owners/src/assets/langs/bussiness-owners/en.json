@@ -226,6 +226,10 @@
     "LowerCaseLetter": "Password must contain Lower Case Letter ",
     "UpperCaseLetter": "Password must contain Upper Case Letter ",
     "SpecialCharacter": "Password must contain Special Character ",
+    "Hello": "Hello",
+    "Welcome": "Welcome",
+    "ConfirmInvitation": "Confirm Invitation",
+    "NOTVALIDACOUNT": "NOT VALID ACOUNT",
     "PasswordmustcontainNumber": "Password must contain Number "
   },
   "AppStore": {

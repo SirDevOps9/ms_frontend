@@ -13,7 +13,7 @@
                 *ngIf="node.children.length == 0"></span> -->
               <span id="label_tree"  *ngIf="node.children" (click)="handleTabClick(node)">{{node.label}}</span>
               <!-- *ngIf="node.children && node.children.length != 0 " -->
-              <button class="btn_add"   (click)="addChild(node)" *ngIf="node.hasNoChild">+</button>
+              <button class="btn_add pi pi-plus"   (click)="addChild(node)" *ngIf="node.hasNoChild" ></button>
 
             </div>
           </ng-template>

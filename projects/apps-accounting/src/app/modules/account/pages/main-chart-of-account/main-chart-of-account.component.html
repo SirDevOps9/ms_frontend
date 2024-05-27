@@ -1,11 +1,15 @@
+<div class="parent">
+
+
 <lib-page-content>
+
     <lib-bread-crumb>
         <div class="actions">
             <lib-button-micro 
             title="configration"
             nameClass="save"
             (click)="RedirectToConfiguration()"
-            *ngIf="!Viewlist && view "
+            *ngIf="!Viewlist "
             style="width:100%"
             >
             
@@ -37,3 +41,4 @@
     </div>
 
 </lib-page-content>
+</div>

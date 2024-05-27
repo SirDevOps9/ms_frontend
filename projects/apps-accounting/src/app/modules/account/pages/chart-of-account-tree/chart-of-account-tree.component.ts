@@ -39,6 +39,7 @@ export class ChartOfAccountTreeComponent implements OnInit {
   }
   ngOnInit() {
     this.getTreeList();
+    
   }
   mapToTreeNodes(data: any[]) {
     data = data.map((item, index) => {
@@ -55,14 +56,18 @@ export class ChartOfAccountTreeComponent implements OnInit {
     return data;
   }
   addChild(parentNode: any) {
+    this.activeNode = parentNode;
    this.parentAdded=parentNode
-      this.add=true
+      this.view=false
+      this.edit=false
+      this.add=false
       this.addmode.emit(true);
       this.parentAddedId=parentNode.id
      
       if (!parentNode.children) {
         parentNode.children = [];
       }
+      this.add=true
      // parentNode.children.push({ label: 'New Child', children: [] });
     
    
@@ -76,6 +81,8 @@ export class ChartOfAccountTreeComponent implements OnInit {
   //   node.expanded = !node.expanded;
   // }
   handleTabClick(node: any) {
+    this.edit=false
+    this.add=false
     this.view=false
     this.activeNode = node;
     this.parentAddedId=node.id
@@ -87,6 +94,7 @@ export class ChartOfAccountTreeComponent implements OnInit {
   getTreeList() {
     this.accountService.getTreeList().subscribe((res: any) => {
       this.nodes = this.mapToTreeNodes(res);
+      
     });
   }
   RedirectToConfiguration() {

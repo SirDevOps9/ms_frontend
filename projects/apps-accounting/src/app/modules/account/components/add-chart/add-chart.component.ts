@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges, input } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import {
   FormsService,
@@ -63,10 +63,11 @@ export class AddChartComponent {
       accountSectionId: new FormControl('', customValidators.required),
       currencyId: new FormControl(),
       tags: new FormControl([]),
-      AccountActivation: new FormControl(''),
+      AccountActivation: new FormControl(['Active']),
       periodicActiveFrom: new FormControl(),
       periodicActiveTo: new FormControl(),
     });
+ 
   }
   ngOnInit() {
     this.loadLookups();
@@ -135,7 +136,7 @@ export class AddChartComponent {
     this.accountService.selectedAccount.subscribe((response) => {
       this.parentAcountName = response;
 
-      console.log('parent Data', response);
+      //console.log('parent Data', response);
       const newAccountData = {
         levelId: response.levelId,
         accountCode: response.accountCode,
@@ -155,12 +156,12 @@ export class AddChartComponent {
   }
 
   onRadioButtonChange(value: string) {
-    console.log(value);
+   // console.log(value);
     this.selectedPeriodOption = value;
   }
 
   onSubmit() {
-    console.log('form value', this.formGroup);
+   // console.log('form value', this.formGroup);
 
     if (!this.formsService.validForm(this.formGroup, true)) return;
 
@@ -170,7 +171,7 @@ export class AddChartComponent {
 
     this.accountService.savedAddedAccount.subscribe((res) => {
       if (res) {
-        console.log(res);
+        //console.log(res);
         this.operationCompleted.emit(res);
         this.toaserService.showSuccess(
           this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
@@ -178,5 +179,10 @@ export class AddChartComponent {
         );
       }
     });
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['parentAddedId']) {
+      this.onParentAccountChange(this.parentAddedId);
+    }
   }
 }
