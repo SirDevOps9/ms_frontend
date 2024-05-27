@@ -19,6 +19,9 @@ export class GetJournalTemplateLinesDto {
   debitAmountLocal: number;
   creditAmountLocal: number;
   accountId: number;
+  accountName:string;
+  accountCode:string;
   currencyId: number;
+  currency: string;
   partnerId: number;
 }

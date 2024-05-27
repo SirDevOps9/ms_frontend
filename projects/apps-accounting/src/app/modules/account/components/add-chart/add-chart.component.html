@@ -62,14 +62,10 @@
                 {{ 'ChartOfAccounts.AccountNature' | translate }}
               </lib-label>
               <lib-select
-                [readOnly]="hasParentAccount"
-                formControlName="natureId"
-                [selectedValue]="parentAcountName?.natureId?.toString()"
-                [options]="lookups[LookupEnum.AccountNature]"
-                optionValue="id"
-                optionLabel="name"
-              >
-              </lib-select>
+                  [options]="lookups[LookupEnum.JournalTemplateType]"
+                  optionValue="id"
+                  optionLabel="name"
+                ></lib-select>
             </lib-form-group>
           </div>
         </div>

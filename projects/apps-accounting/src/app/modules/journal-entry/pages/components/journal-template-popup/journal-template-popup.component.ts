@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { JournalEntryService } from '../../../journal-entry.service';
-import { PageInfo } from 'shared-lib';
-import { GetAllJournalTemplateDto } from '../../../models/journaltemplatedto';
+import { LookupEnum, LookupsService, PageInfo, lookupDto } from 'shared-lib';
+import { GetAllJournalTemplateDto ,JournalTemplateType} from '../../../models';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
@@ -13,15 +13,22 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 export class JournalTemplatePopupComponent implements OnInit {
   currentPageInfo: PageInfo = new PageInfo();
   tableData: GetAllJournalTemplateDto[];
+  typeOptions:JournalTemplateType;
+
+
 
   ngOnInit() {
+
     this.getAllJournalTemplate(this.currentPageInfo);
+
   }
 
   getAllJournalTemplate(page:PageInfo){
     this.journalEntryService.getAllJournalTemplatesPaginated(page).subscribe({
       next: (journalTemplateList: any) => {
         this.tableData = journalTemplateList.result;
+        console.log("table",this.tableData);
+
       },
     });
   }
@@ -38,6 +45,7 @@ export class JournalTemplatePopupComponent implements OnInit {
   
   constructor(
     private journalEntryService:JournalEntryService,
-    private ref: DynamicDialogRef) { }
+    private ref: DynamicDialogRef,
+    private lookupsService: LookupsService,) { }
 
 }

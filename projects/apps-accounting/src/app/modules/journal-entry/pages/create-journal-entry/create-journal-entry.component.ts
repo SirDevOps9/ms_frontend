@@ -273,7 +273,7 @@ export class CreateJournalEntryComponent {
         lineDescription: l.lineDescription,
       })),
     };
-    // console.log(obj);
+     console.log("save",obj);
     this.service
       .addJournalEntry(obj)
       .subscribe((r) => this.routerService.navigateTo('journalentry'));
@@ -289,50 +289,30 @@ export class CreateJournalEntryComponent {
     });
 
     dialogRef.onClose.subscribe((id: any) => {
-      //console.log('Received ID:', id);
-
       this.service.getJournalTemplateById(id).subscribe((template) => {
         console.log('template:', template);
-
-        // Set template values to the form group
         this.fg.patchValue({
           refrenceNumber: template.code,
-          periodId: template.periodId,
+          periodId: 'Period1',
           description: template.description,
         });
-
-        // Clear existing journal entry lines
-        while (this.items.length !== 0) {
-          this.items.removeAt(0);
-        }
-
-        // Add new journal entry lines
-
+    
         if (template.getJournalTemplateLinesByIdDto.length > 0) {
           template.getJournalTemplateLinesByIdDto.forEach((line) => {
             const newLine = this.fb.group({
               id: new FormControl(line.id),
-              account: new FormControl({ id: line.accountId }, customValidators.required),
+              account: new FormControl( line.accountId , customValidators.required),
+              accountName:new FormControl( line.accountName , customValidators.required),
+              accountCode:new FormControl( line.accountCode , customValidators.required),
               lineDescription: new FormControl(line.lineDescription, customValidators.required),
-              debitAmount: new FormControl(line.debitAmount, [
-                customValidators.required,
-                Validators.min(0),
-              ]),
-              creditAmount: new FormControl(line.creditAmount, [
-                customValidators.required,
-                Validators.min(0),
-              ]),
-              currency: new FormControl({ id: line.currencyId }, customValidators.required),
-              currencyRate: new FormControl(line.currencyRate, [
-                customValidators.required,
-                Validators.min(0),
-              ]),
+              debitAmount: new FormControl(line.debitAmount, [customValidators.required]),
+              creditAmount: new FormControl(line.creditAmount, [customValidators.required]),
+              currency: new FormControl(line.currencyId , customValidators.required),
+              currencyRate: new FormControl(line.currencyRate, [customValidators.required]),
               debitAmountLocal: new FormControl(line.debitAmountLocal),
               creditAmountLocal: new FormControl(line.creditAmountLocal),
             });
             this.fa.push(newLine);
-            //console.log('new line', newLine);
-            // console.log(this.fa, 'test');
           });
         }
       });
