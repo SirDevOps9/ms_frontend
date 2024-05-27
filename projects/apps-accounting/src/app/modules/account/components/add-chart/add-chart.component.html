@@ -61,11 +61,17 @@
               <lib-label [appControl]="formGroup.controls['natureId']">
                 {{ 'ChartOfAccounts.AccountNature' | translate }}
               </lib-label>
-              <lib-select
+              <!-- <lib-select
                 [readOnly]="hasParentAccount"
                 formControlName="natureId"
                 [selectedValue]="parentAcountName?.natureId?.toString()"
                 [options]="lookups[LookupEnum.AccountNature]"
+                optionValue="id"
+                optionLabel="name"
+              >
+              </lib-select> -->
+              <lib-select
+                [options]="lookups[LookupEnum.JournalTemplateType]"
                 optionValue="id"
                 optionLabel="name"
               >
