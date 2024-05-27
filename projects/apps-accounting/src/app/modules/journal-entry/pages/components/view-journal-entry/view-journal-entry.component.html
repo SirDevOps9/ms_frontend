@@ -1,4 +1,4 @@
-<div style="margin-left: 20px;overflow-x: hidden;">
+<div style="margin-left: 20px; overflow-x: hidden">
   <div class="grid-cont">
     <div class="my-3 grid-item">
       <p class="headsCont paragraph_b16">{{ 'viewJournal.JornalCode' | translate }}</p>
@@ -43,37 +43,29 @@
     </div>
     <!--  -->
   </div>
-    <!--  -->
+  <!--  -->
   <div class="grid-cont">
-    <!-- 
+    <!--
     <div class="my-3 grid-item">
       <p class="headsCont paragraph_b16">{{ 'Reversed Journal Code' | translate }}</p>
       <small class="subHead heading_b16">
         {{ journalView?.reversedJournalCode }}
       </small>
     </div>
-    
     -->
-  
   </div>
   <!--  -->
   <div class="grid-cont">
     <div class="my-3 grid-item">
       <p class="headsCont paragraph_b16">{{ 'viewJournal.description' | translate }}</p>
-      <div >
+      <div>
         <p class="subHead heading_b16">
           {{ journalView?.description }}
-
         </p>
       </div>
-    
     </div>
-  
   </div>
   <!--  -->
-
-
-  
   <!--  -->
   <div class="journal_page">
     <lib-data-table
@@ -88,68 +80,61 @@
         columns: [
           {
             name: 'accountCode',
-            headerText: 'Code ',
+            headerText: 'viewJournal.code' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'accountName',
-            headerText: 'Name',
+            headerText: 'viewJournal.name' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'lineDescription',
-            headerText: 'Description',
+            headerText: 'viewJournal.lineDescription' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'debitAmount',
-            headerText: 'DB Amount',
+            headerText: 'viewJournal.debitAmount' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'creditAmount',
-            headerText: 'CR Amount',
+            headerText: 'viewJournal.creditAmount' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'currency',
-            headerText: 'DB Amount Local',
+            headerText: 'viewJournal.currency' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'currencyRate',
-            headerText: 'Currency Rate',
+            headerText: 'viewJournal.currencyRate' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'debitAmountLocal',
-            headerText: 'DB Amount  Local',
+            headerText: 'viewJournal.debitAmountLocal' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'creditAmountLocal',
-            headerText: 'CR Amount  Local',
+            headerText: 'viewJournal.creditAmountLocal' | translate,
             isGlobalFilter: true,
             isSortable: true
-          },
-       
-        
-        
+          }
         ]
       }"
     >
-     
     </lib-data-table>
   </div>
-
- 
-
 </div>

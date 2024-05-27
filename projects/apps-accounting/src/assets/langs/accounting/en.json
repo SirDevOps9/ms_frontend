@@ -7,7 +7,7 @@
     "discard": "discard",
     "Save": "Save"
   },
-  "JournalTitle":"Add Journal",
+  "JournalTitle": "Add Journal",
   "journal_entry_header": "Please Enter journal entry Header",
   "reference_number": "Reference Number",
   "total_credit": "Total Credit",
@@ -30,7 +30,7 @@
   "add_template": "Add Template",
   "discard": "discard",
   "save": "Save",
-  "EditJournal":{
+  "EditJournal": {
     "JournalCode": "Journal Code",
     "JournalStatus": "Journal Status",
     "JournalReference": "Journal Reference",
@@ -57,9 +57,25 @@
     "Discard": "Discard",
     "Save": "Save",
     "Submit": "Submit",
-    "Post": "Post" ,
-  "viewJournal":{
-    
+    "Post": "Post",
+    "viewJournal": {
+      "JornalCode": "Journal Code",
+      "Jornalstatus": "Journal Status",
+      "journalReference": "Journal Reference",
+      "date": "Date",
+      "JournalPeriod": "Journal Period",
+      "JournalType": "Journal Type",
+      "Reversed Journal Code": "Reversed Journal Code",
+      "description": "Description",
+      "code": "Code",
+      "name": "Name",
+      "lineDescription": "Line Description",
+      "debitAmount": "Debit Amount",
+      "creditAmount": "Credit Amount",
+      "currency": "Currency",
+      "currencyRate": "Currency Rate",
+      "debitAmountLocal": "Debit Amount (Local)",
+      "creditAmountLocal": "Credit Amount (Local)"
+    }
   }
- }
 }

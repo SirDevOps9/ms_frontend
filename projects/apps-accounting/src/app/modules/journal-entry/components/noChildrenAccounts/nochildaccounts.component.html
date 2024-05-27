@@ -29,12 +29,7 @@
         isGlobalFilter: true,
         isSortable: true
       },
-      {
-        name: 'mainType',
-        headerText: 'Main Type',
-        isGlobalFilter: true,
-        isSortable: true
-      },
+
       {
         name: 'actions',
         headerText: 'Actions',
@@ -55,11 +50,20 @@
   </ng-container>
 
   <ng-template #actions let-account>
-    <input
+    <!-- <input
       type="checkbox"
       class="check"
       (change)="selectRow($event, account)"
       [checked]="account.id == selectedAccount?.id"
-    />
+    /> -->
+    <lib-button
+      className="Manage"
+      [rounded]="true"
+      [enableText]="true"
+      severity="secondary"
+      (onClick)="selectRow($event, account)"
+    >
+      Select
+    </lib-button>
   </ng-template>
 </lib-data-table>
