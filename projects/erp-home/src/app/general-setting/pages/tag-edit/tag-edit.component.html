@@ -1,48 +1,54 @@
 <div class="invite_user">
- 
   <form class="domain_form" [formGroup]="tagForm" (ngSubmit)="onSubmit()">
     <div class="domain_content">
       <div class="grid">
         <div class="col-12">
           <lib-form-group>
-           
-            <lib-text-input               placeholder="{{ 'tag.addtag.code' | translate }}"
-            type="text" formControlName="Code" [readOnly]="true" class="form-control"></lib-text-input>
+            <lib-text-input
+              [iconUrl]="'assets/images/Vector.png'"
+              placeholder="{{ 'tag.addtag.code' | translate }}"
+              type="text"
+              formControlName="Code"
+              [readOnly]="true"
+              class="form-control"
+            ></lib-text-input>
             <lib-field-validations [appControl]="tagForm.controls['Code']"></lib-field-validations>
           </lib-form-group>
         </div>
         <!--  -->
         <div class="col-12">
           <lib-form-group>
-           
-            <lib-text-input placeholder="{{ 'tag.addtag.name' | translate }}" type="text" formControlName="Name"></lib-text-input>
+            <lib-text-input
+              placeholder="{{ 'tag.addtag.name' | translate }}"
+              [iconUrl]="'assets/images/fi-rr-text-check@2x.png'"
+              type="text"
+              formControlName="Name"
+            ></lib-text-input>
             <lib-field-validations [appControl]="tagForm.controls['Name']"></lib-field-validations>
           </lib-form-group>
-          </div>
+        </div>
 
-          <!--  -->
-       
-          <div class="col-12">
+        <!--  -->
+
+        <div class="col-12">
           <lib-form-group>
-          
             <lib-multi-select
-            placeholder="{{ 'tag.addtag.applicability' | translate }}"
-
-            [options]="modulelist"
-            optionLabel="module"
-            optionValue="moduleId"
-            formControlName="ModulesId"
-            [selectedValue]="selectedModules!"
-          >
-        </lib-multi-select>
-            <lib-field-validations [appControl]="tagForm.controls['ModuleIds']"></lib-field-validations>
+              placeholder="{{ 'tag.addtag.applicability' | translate }}"
+              [options]="modulelist"
+              optionLabel="module"
+              optionValue="moduleId"
+              formControlName="ModulesId"
+              [selectedValue]="selectedModules!"
+            >
+            </lib-multi-select>
+            <lib-field-validations
+              [appControl]="tagForm.controls['ModuleIds']"
+            ></lib-field-validations>
           </lib-form-group>
+        </div>
 
-          </div>
-
-          <div class="col-12">
+        <div class="col-12">
           <lib-form-group>
-      
             <div class="checked">
               <p-inputSwitch formControlName="IsActive"></p-inputSwitch>
               <p class="active" *ngIf="tagForm.controls['IsActive'].value">
@@ -52,11 +58,13 @@
                 {{ 'tag.Deactivate' | translate }}
               </p>
             </div>
-            <lib-field-validations [appControl]="tagForm.controls['IsActive']"></lib-field-validations>
+            <lib-field-validations
+              [appControl]="tagForm.controls['IsActive']"
+            ></lib-field-validations>
           </lib-form-group>
         </div>
       </div>
-    
+
       <div class="grid justify-content-center">
         <div class="col-6">
           <lib-button type="button" [className]="'custom-danger-outline'" (click)="onCancel()">
@@ -64,7 +72,12 @@
           </lib-button>
         </div>
         <div class="col-6">
-          <lib-button type="submit" [className]="'custom-light-blue'" class="save" (click)="onSubmit()">
+          <lib-button
+            type="submit"
+            [className]="'custom-light-blue'"
+            class="save"
+            (click)="onSubmit()"
+          >
             {{ 'tag.addtag.save' | translate }}
           </lib-button>
         </div>
