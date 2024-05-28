@@ -71,7 +71,6 @@ export class TagEditComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.tagForm.valid) return;
     const tagDto :TagDto=this.tagForm.value;
     this.generalSettingService.editTag(tagDto,this.ref);
     
