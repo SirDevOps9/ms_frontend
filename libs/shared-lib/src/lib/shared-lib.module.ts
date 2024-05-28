@@ -42,6 +42,7 @@ import { TreeModule } from 'primeng/tree';
 import { NamedFileUploaderComponent } from './form-components/named-file-uploader/named-file-uploader.component';
 import { FildestComponent } from './components/fildest/fildest.component';
 import { GetElementByIDPipe } from './pipes/get-element-by-id.pipe';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { GetElementByIDPipe } from './pipes/get-element-by-id.pipe';
     PrimeSharedModule,
     TreeTableModule,
     TreeModule,
+    ProgressSpinnerModule
   ],
   exports: [
     GetLookupPipe,
@@ -115,6 +117,7 @@ import { GetElementByIDPipe } from './pipes/get-element-by-id.pipe';
     PaginatorComponent,
     AccordionComponent,
     TreeModule,
+    ProgressSpinnerModule,
     SharedFormComponent,
     FildestComponent,
     ButtonMicroComponent,

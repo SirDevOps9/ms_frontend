@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { LanguageService, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { JournalEntryService } from '../../journal-entry.service';
 import { JournalEntryDto, SharedJournalEnums } from '../../models';
 
@@ -23,7 +23,8 @@ export class JournalEntryListComponent implements OnInit {
     private titleService: Title,
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
-    public sharedJouralEnum: SharedJournalEnums
+    public sharedJouralEnum: SharedJournalEnums,
+    private loaderService:LoaderService
   ) {}
 
   ngOnInit() {
