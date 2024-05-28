@@ -2,6 +2,7 @@ import { CurrencyService } from './../../../general/currency.service';
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
+  FormsService,
   LanguageService,
   PageInfo,
   RouterService,
@@ -80,10 +81,11 @@ export class CreateJournalEntryComponent {
     private service: JournalEntryService,
     private routerService: RouterService,
     private titleService: Title,
-    private langService: LanguageService
+    private langService: LanguageService,
+    private formService: FormsService
   ) {
-    this.fg = fb.group({
-      refrenceNumber: [null, customValidators.required],
+    this.fg = this.fb.group({
+      refrenceNumber: [null, [customValidators.required , customValidators.length(0,15)]],
       journalDate: [this.getTodaysDate(), customValidators.required],
       periodId: ['Period1', customValidators.required],
       description: ['', customValidators.required],
@@ -294,6 +296,7 @@ export class CreateJournalEntryComponent {
   }
 
   save() {
+    if (!this.formService.validForm(this.fg, true)) return;
     const value = this.fg.value as JournalEntryFormValue;
 
     //console.log('Form Value', value);
@@ -315,10 +318,15 @@ export class CreateJournalEntryComponent {
       .subscribe((r) => this.routerService.navigateTo('journalentry'));
   }
 
+  routeToJournal() {
+    this.routerService.navigateTo('journalentry');
+  }
+
   RedirectToTemplate() {
     const dialogRef = this.dialog.open(JournalTemplatePopupComponent, {
       width: '800px',
-      height: '700px',
+      height: 'auto',
+      position: 'bottom-right',
       data: {
         hasNoChildren: false,
       },
