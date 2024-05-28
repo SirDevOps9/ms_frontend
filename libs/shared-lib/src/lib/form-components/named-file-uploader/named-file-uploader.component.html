@@ -1,6 +1,6 @@
-<!-- <div [formGroup]="fg">
+<div [formGroup]="fg" class="form">
   <input formControlName="name" pInputText >
-</div> -->
+</div>
 
 <!-- <img [src]="base64" alt="" style="height: 150px;width: 150px;" *ngIf="base64"> -->
 <input
@@ -79,7 +79,7 @@
   
       <div class="bottom-center">
     </div>
-    <div class="card-content">
+    <div class="card-content" *ngIf="showImgName">
         <p>{{imgName}}</p>
     </div>
     <div class="card-footer">

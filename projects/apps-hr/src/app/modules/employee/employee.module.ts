@@ -16,6 +16,14 @@ const routes: Routes = [
     component: LayoutPageComponent,
     children: [
       {
+        path: '',
+        component: EmployeeListComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.EMPLOYEE,
+        },
+      },
+      {
         path: 'employee',
         component: EmployeeListComponent,
         canActivate: [AuthGuard],

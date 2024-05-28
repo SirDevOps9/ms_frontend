@@ -70,6 +70,8 @@
                 optionLabel="name"
               >
               </lib-select>
+              <lib-field-validations [appControl]="formGroup.controls['natureId']">
+              </lib-field-validations>
               <!-- <lib-select
                 [options]="lookups[LookupEnum.AccountNature]"
                 optionValue="id"
@@ -95,6 +97,8 @@
                 (valueChanged)="onAccountSectionChange($event)"
               >
               </lib-select>
+              <lib-field-validations [appControl]="formGroup.controls['accountSectionId']">
+              </lib-field-validations>
             </lib-form-group>
           </div>
           <div class="md:col-6">
@@ -106,6 +110,7 @@
                 formControlName="accountTypeId"
                 [options]="accountTypes"
                 optionValue="id"
+                [selectedValue]="formGroup.controls['accountTypeId'].value"
                 optionLabel="nameAr"
               >
               </lib-select>

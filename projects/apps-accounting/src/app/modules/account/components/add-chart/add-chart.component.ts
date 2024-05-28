@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges, input } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+  input,
+} from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import {
   FormsService,
@@ -67,7 +75,6 @@ export class AddChartComponent {
       periodicActiveFrom: new FormControl(),
       periodicActiveTo: new FormControl(),
     });
- 
   }
   ngOnInit() {
     this.loadLookups();
@@ -136,7 +143,7 @@ export class AddChartComponent {
     this.accountService.selectedAccount.subscribe((response) => {
       this.parentAcountName = response;
 
-      //console.log('parent Data', response);
+      console.log('parent Data', response);
       const newAccountData = {
         levelId: response.levelId,
         accountCode: response.accountCode,
@@ -145,6 +152,7 @@ export class AddChartComponent {
         natureId: response.natureId,
         parentId: parentAccountId,
       };
+      this.formGroup.get('accountTypeId')?.setValue([null]);
 
       this.onAccountSectionChange(response.accountSectionId);
       this.formGroup.patchValue(newAccountData);
@@ -156,14 +164,14 @@ export class AddChartComponent {
   }
 
   onRadioButtonChange(value: string) {
-   // console.log(value);
+    // console.log(value);
     this.selectedPeriodOption = value;
   }
 
   onSubmit() {
-   // console.log('form value', this.formGroup);
+    console.log('form value', this.formGroup.value);
 
-    if (!this.formsService.validForm(this.formGroup, true)) return;
+    if (!this.formsService.validForm(this.formGroup, false)) return;
 
     let obj: AddAccountDto = this.formGroup.value;
 

@@ -12,6 +12,7 @@ import {
 } from 'shared-lib';
 import { AddEmployeePersonal, CityDto, CountryDto ,NationalityDto} from '../../models';
 import { EmployeeService } from '../../employee.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-create-employee',
@@ -39,6 +40,8 @@ export class CreateEmployeeComponent implements OnInit {
     this.subscribe();
     this.onBirthDateChange();
     this.onCountryOfBirthChange();
+    this.titleService.setTitle('Add Employee');
+
   }
 
   loadLookups() {
@@ -113,7 +116,9 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   onDiscard() {
-    this.addEmployeeForm.reset();
+    //this.addEmployeeForm.reset();
+    this.routerService.navigateTo(`/employee`);
+
   }
 
   loadCountries() {
@@ -148,6 +153,8 @@ export class CreateEmployeeComponent implements OnInit {
     private employeeService: EmployeeService,
     public sharedLibEnums: SharedLibraryEnums,
     private ageService: AgeService,
-    private routerService: RouterService
+    private routerService: RouterService,
+    private titleService: Title
+
   ) {}
 }

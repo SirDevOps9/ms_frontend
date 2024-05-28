@@ -12,6 +12,18 @@
     margin-top: 23px;
 }
 
+.form {
+  width: 98%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    margin: 20px;
+
+}
+
 .upload-container {
     width: 98%;
     height: 265px;

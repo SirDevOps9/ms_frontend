@@ -2,6 +2,7 @@ import { CurrencyService } from './../../../general/currency.service';
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
+  FormsService,
   LanguageService,
   PageInfo,
   RouterService,
@@ -80,10 +81,12 @@ export class CreateJournalEntryComponent {
     private service: JournalEntryService,
     private routerService: RouterService,
     private titleService: Title,
-    private langService: LanguageService
+    private langService: LanguageService,
+    private formService: FormsService
+
   ) {
-    this.fg = fb.group({
-      refrenceNumber: [null, customValidators.required],
+    this.fg = this.fb.group({
+      refrenceNumber: [null, [customValidators.required, customValidators.length(0, 15)]],
       journalDate: [this.getTodaysDate(), customValidators.required],
       periodId: ['Period1', customValidators.required],
       description: ['', customValidators.required],
@@ -133,8 +136,33 @@ export class CreateJournalEntryComponent {
 
     var accountData = this.filteredAccounts.find((c) => c.id == event);
 
+    console.log('Selectec', accountData);
+
     const accountName = journalLine.get('accountName');
     accountName?.setValue(accountData?.name);
+
+    journalLine.get('accountCode')?.setValue(accountData?.accountCode);
+
+    var currencyData = this.currencies.find((c) => c.id == accountData?.currencyId);
+
+    const currencyControl = journalLine.get('currency');
+    const currencyRateControl = journalLine.get('currencyRate')!;
+
+    currencyControl?.setValue(accountData?.currencyId);
+
+    currencyRateControl.setValue(currencyData?.ratePerUnit);
+    const currencyNameControl = journalLine.get('currencyName');
+    currencyNameControl?.setValue(currencyData?.currencyName);
+  }
+
+  accountSelectedForDialog(accountData: any, id: number) {
+    const journalLine = this.items.at(id);
+
+    console.log('Selectec', accountData);
+
+    const accountName = journalLine.get('accountName');
+
+    accountName?.setValue(accountData.name);
 
     journalLine.get('accountCode')?.setValue(accountData?.accountCode);
 
@@ -169,7 +197,13 @@ export class CreateJournalEntryComponent {
     ref.onClose.subscribe((r) => {
       if (r) {
         this.fa.at(index).get('account')?.setValue(r.id);
-        this.accountSelected(r.id, index);
+        this.fa.at(index)?.get('accountName')?.setValue(r.name);
+        this.fa.at(index)?.get('accountCode')?.setValue(r.accountCode);
+        var currencyData = this.currencies.find((c) => c.id == r.currencyId);
+        this.fa.at(index).get('currency')?.setValue(r.currencyId);
+        this.fa.at(index).get('currencyRate')?.setValue(currencyData?.ratePerUnit);
+        this.fa.at(index).get('currencyName')?.setValue(currencyData?.currencyName);
+        // this.accountSelectedForDialog(r, index);
       }
     });
   }
@@ -243,6 +277,8 @@ export class CreateJournalEntryComponent {
     const fg = this.fb.group({
       id: new FormControl(id),
       account: new FormControl(null, customValidators.required),
+      accountName: new FormControl(null, customValidators.required),
+      accountCode: new FormControl(null, customValidators.required),
       lineDescription: new FormControl('', customValidators.required),
       debitAmount: dbControl,
       creditAmount: crControl,
@@ -261,6 +297,7 @@ export class CreateJournalEntryComponent {
   }
 
   save() {
+    if (!this.formService.validForm(this.fg, false)) return;
     const value = this.fg.value as JournalEntryFormValue;
 
     //console.log('Form Value', value);
@@ -282,10 +319,15 @@ export class CreateJournalEntryComponent {
       .subscribe((r) => this.routerService.navigateTo('journalentry'));
   }
 
+  routeToJournal() {
+    this.routerService.navigateTo('journalentry');
+  }
+
   RedirectToTemplate() {
     const dialogRef = this.dialog.open(JournalTemplatePopupComponent, {
       width: '800px',
-      height: '700px',
+      height: 'auto',
+      position: 'bottom-right',
       data: {
         hasNoChildren: false,
       },
@@ -293,46 +335,47 @@ export class CreateJournalEntryComponent {
 
     dialogRef.onClose.subscribe((id: any) => {
       //console.log('Received ID:', id);
+      if (id) {
+        this.service.getJournalTemplateById(id).subscribe((template) => {
+          console.log('template:', template);
 
-      this.service.getJournalTemplateById(id).subscribe((template) => {
-        console.log('template:', template);
-
-        // Set template values to the form group
-        this.fg.patchValue({
-          refrenceNumber: template.code,
-          periodId: 'Period1',
-          description: template.description,
-        });
-
-        // Clear existing journal entry lines
-        while (this.items.length !== 0) {
-          this.items.removeAt(0);
-        }
-
-        // Add new journal entry lines
-
-        if (template.getJournalTemplateLinesByIdDto.length > 0) {
-          template.getJournalTemplateLinesByIdDto.forEach((line) => {
-            const newLine = this.fb.group({
-              id: new FormControl(line.id),
-              account: new FormControl(line.accountId, customValidators.required),
-              accountName: new FormControl(line.accountName, customValidators.required),
-              accountCode: new FormControl(line.accountCode, customValidators.required),
-              lineDescription: new FormControl(line.lineDescription, customValidators.required),
-              debitAmount: new FormControl(line.debitAmount, [customValidators.required]),
-              creditAmount: new FormControl(line.creditAmount, [customValidators.required]),
-              currency: new FormControl(line.currencyId, customValidators.required),
-              currencyName: new FormControl(line.currency, customValidators.required),
-              currencyRate: new FormControl(line.currencyRate, [customValidators.required]),
-              debitAmountLocal: new FormControl(line.debitAmountLocal),
-              creditAmountLocal: new FormControl(line.creditAmountLocal),
-            });
-            this.fa.push(newLine);
-            //console.log('new line', newLine);
-            // console.log(this.fa, 'test');
+          // Set template values to the form group
+          this.fg.patchValue({
+            refrenceNumber: template.code,
+            periodId: 'Period1',
+            description: template.description,
           });
-        }
-      });
+
+          // Clear existing journal entry lines
+          while (this.items.length !== 0) {
+            this.items.removeAt(0);
+          }
+
+          // Add new journal entry lines
+
+          if (template.getJournalTemplateLinesByIdDto.length > 0) {
+            template.getJournalTemplateLinesByIdDto.forEach((line) => {
+              const newLine = this.fb.group({
+                id: new FormControl(line.id),
+                account: new FormControl(line.accountId, customValidators.required),
+                accountName: new FormControl(line.accountName, customValidators.required),
+                accountCode: new FormControl(line.accountCode, customValidators.required),
+                lineDescription: new FormControl(line.lineDescription, customValidators.required),
+                debitAmount: new FormControl(line.debitAmount, [customValidators.required]),
+                creditAmount: new FormControl(line.creditAmount, [customValidators.required]),
+                currency: new FormControl(line.currencyId, customValidators.required),
+                currencyName: new FormControl(line.currency, customValidators.required),
+                currencyRate: new FormControl(line.currencyRate, [customValidators.required]),
+                debitAmountLocal: new FormControl(line.debitAmountLocal),
+                creditAmountLocal: new FormControl(line.creditAmountLocal),
+              });
+              this.fa.push(newLine);
+              //console.log('new line', newLine);
+              // console.log(this.fa, 'test');
+            });
+          }
+        });
+      }
     });
   }
 

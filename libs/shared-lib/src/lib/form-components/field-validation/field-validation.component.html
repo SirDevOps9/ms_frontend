@@ -5,7 +5,7 @@
     appControl && appControl.invalid && (appControl.dirty || appControl.touched)
   "
 >
-  <span class="errorMessage" *ngIf="appControl.errors?.['required']">
+  <span class="errorMessage" *ngIf="appControl.hasError('required')">
     {{ "validation.required" | translate }}
   </span>
 

@@ -4,12 +4,12 @@
       <div class="grid">
         <div class="col-12 my-2">
           <lib-form-group>
-            
             <lib-text-input
               type="text"
               formControlName="Code"
               placeholder="{{ 'tag.addtag.code' | translate }}"
               [readOnly]="true"
+              [iconUrl]="'assets/images/Vector.png'"
               class="form-control"
             />
             <lib-field-validations [appControl]="tagForm.controls['Code']"></lib-field-validations>
@@ -17,8 +17,11 @@
         </div>
         <div class="col-12 my-2">
           <lib-form-group>
-     
-            <lib-text-input type="text" formControlName="Name"               placeholder="{{ 'tag.addtag.name' | translate }}"
+            <lib-text-input
+              type="text"
+              formControlName="Name"
+              [iconUrl]="'assets/images/fi-rr-text-check@2x.png'"
+              placeholder="{{ 'tag.addtag.name' | translate }}"
             />
             <lib-field-validations [appControl]="tagForm.controls['Name']"></lib-field-validations>
           </lib-form-group>
@@ -26,9 +29,8 @@
 
         <div class="col-12 my-2 multi-cont">
           <lib-form-group [className]="'customWidth'">
-           
             <lib-multi-select
-            placeholder="{{ 'tag.addtag.applicability' | translate }}"
+              placeholder="{{ 'tag.addtag.applicability' | translate }}"
               [options]="modulelist"
               optionLabel="module"
               optionValue="moduleId"

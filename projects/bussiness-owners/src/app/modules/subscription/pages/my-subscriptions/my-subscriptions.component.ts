@@ -17,7 +17,7 @@ export class MySubscriptionsComponent implements OnInit {
   emptySubdomain: boolean = false;
   showSection: boolean = false;
   ref: DynamicDialogRef;
-  domainName: string = '@microtec.com.sa';
+  domainName: string = '.microtecdev.com';
 
   ngOnInit() {
     this.titleService.setTitle('My Subscriptions');
@@ -42,7 +42,7 @@ export class MySubscriptionsComponent implements OnInit {
     let subdomainUrl = this.environmentService.erpLogin?.replace('*', subdomainName);
     window.open(subdomainUrl, '_blank');
   }
-  
+
   loadMySubdomains() {
     this.subscriptionService.loadSubdomains();
     this.subscriptionService.subdomains.subscribe((subdomains) => {
