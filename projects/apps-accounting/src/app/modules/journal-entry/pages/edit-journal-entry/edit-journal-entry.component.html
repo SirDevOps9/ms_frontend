@@ -153,7 +153,7 @@
                     </div>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ journalLine.get('accountId').value }}
+                    {{ journalLine.get('accountCode').value }}
                   </ng-template>
                 </p-cellEditor>
               </td>
@@ -294,11 +294,11 @@
               </td>
 
               <td>
-                {{ journalLine.get("debitAmountLocal").value  }}
+                {{ journalLine.get('debitAmountLocal').value }}
               </td>
 
               <td>
-                {{  journalLine.get("creditAmountLocal").value  }}
+                {{ journalLine.get('creditAmountLocal').value }}
               </td>
 
               <!-- <td>
