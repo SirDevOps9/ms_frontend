@@ -43,9 +43,8 @@ export class TagEditComponent implements OnInit {
         Id: response.id,
         Code: response.code,
         Name: response.name,
-        ModuleIds: response.modulesId,
+        ModulesId: response.modulesId,
         IsActive: response.isActive,
-        
       });
       this.selectedModules = response.modulesId;
   });
@@ -71,6 +70,8 @@ export class TagEditComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log("onSubmit",this.tagForm.value)
+    if(!this.tagForm.valid) return;
     const tagDto :TagDto=this.tagForm.value;
     this.generalSettingService.editTag(tagDto,this.ref);
     
