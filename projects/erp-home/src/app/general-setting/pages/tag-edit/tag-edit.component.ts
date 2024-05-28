@@ -58,9 +58,9 @@ export class TagEditComponent implements OnInit {
   initializeTagForm() {
     this.tagForm = this.fb.group({
       Id: ['', customValidators.required],
-      Code: [{ value: '', disabled: true }, customValidators.required],
+      Code: [ '', customValidators.required],
       Name: ['', customValidators.required],
-      ModuleIds: [[], customValidators.required],
+      ModulesId: [[], customValidators.required],
       IsActive: [false, customValidators.required]
     });
   }

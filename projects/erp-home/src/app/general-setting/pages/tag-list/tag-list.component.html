@@ -103,23 +103,18 @@
               [(ngModel)]="tag.isActive"
             >
             </p-inputSwitch>
-            <!-- <p class="active" *ngIf="tag.isActive">
-              {{ 'tag.Active' | translate }}
-            </p>
-            <p class="inactive" *ngIf="!tag.isActive">
-              {{ 'tag.Deactivate' | translate }}
-            </p> -->
           </div>
         </ng-template>
 
         <ng-template #Modules let-tag>
-          <p-multiSelect
+          <lib-multi-select
             [options]="modulelist"
-            [(ngModel)]="tag.modulesId"
-            defaultLabel="Select Modules"
-            [disabled]="true"
+            optionLabel="module"
+            optionValue="moduleId"
+            [selectedValue]="tag.modulesId"
+            [readOnly]="true"
           >
-          </p-multiSelect>
+        </lib-multi-select>
         </ng-template>
       </lib-data-table>
     </div>
