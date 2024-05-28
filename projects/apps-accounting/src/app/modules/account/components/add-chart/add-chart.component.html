@@ -1,5 +1,5 @@
 <div class="chart_add_page">
-  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <form [formGroup]="formGroup">
     <div class="grid">
       <lib-fildest header="{{ 'ChartOfAccounts.AccountCode' | translate }}" class="md:col-12">
         <div class="md:col-4">
@@ -109,6 +109,8 @@
                 optionLabel="nameAr"
               >
               </lib-select>
+              <lib-field-validations [appControl]="formGroup.controls['accountTypeId']">
+              </lib-field-validations>
             </lib-form-group>
           </div>
         </div>
@@ -234,7 +236,7 @@
           <lib-button-micro
             title="{{ 'ChartOfAccounts.Save' | translate }}"
             nameClass="save"
-            type="submit"
+            (click)="onSubmit()"
           >
           </lib-button-micro>
         </div>

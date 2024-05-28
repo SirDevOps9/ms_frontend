@@ -52,10 +52,10 @@ export class AddChartComponent {
     private languageService: LanguageService
   ) {
     this.formGroup = formBuilder.group({
-      name: new FormControl('', customValidators.length(0, 255)),
+      name: new FormControl('', [customValidators.length(0, 255) , customValidators.required]),
       levelId: new FormControl(''),
-      accountCode: new FormControl('', customValidators.required),
-      parentId: new FormControl(''),
+      accountCode: new FormControl(''),
+      parentId: new FormControl(null),
       accountSectionName: new FormControl(''),
       natureId: new FormControl('', customValidators.required),
       hasNoChild: new FormControl(false),

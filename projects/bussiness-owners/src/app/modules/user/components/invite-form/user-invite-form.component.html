@@ -98,9 +98,16 @@
             {{ "User.Inviteform.SubmitButton" | translate }}
           </button>
 
-          <button class="cancel paragraph_b16" type="button" (click)="onCancel()">
+          <!-- <button class="cancel paragraph_b16" type="button" (click)="onCancel()">
             {{ "User.Inviteform.CancelButton" | translate }}
-          </button>
+          </button> -->
+          <lib-button-micro 
+          title='{{ "User.Inviteform.CancelButton" | translate }}'
+          nameClass="cancel"
+          (click)="onCancel()"
+          >
+          
+          </lib-button-micro>
         </div>
     </div>
   </form>
