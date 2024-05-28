@@ -20,6 +20,7 @@ export class ChartOfAccountTreeComponent implements OnInit {
   @Output() addmode = new EventEmitter<boolean>();
   nodes: accountTreeList[];
   expanded: boolean = false;
+  showTree: boolean = true;
   ref: DynamicDialogRef;
   parentAdded:any
   activeNode: any = null;
@@ -39,6 +40,8 @@ export class ChartOfAccountTreeComponent implements OnInit {
   }
   ngOnInit() {
     this.getTreeList();
+    console.log(this.parentAddedId);
+    
     
   }
   mapToTreeNodes(data: any[]) {
@@ -63,6 +66,7 @@ export class ChartOfAccountTreeComponent implements OnInit {
       this.add=false
       this.addmode.emit(true);
       this.parentAddedId=parentNode.id
+      console.log(this.parentAddedId)
      
       if (!parentNode.children) {
         parentNode.children = [];
@@ -109,5 +113,8 @@ export class ChartOfAccountTreeComponent implements OnInit {
     //this.view=true
    
    
+  }
+  toggelTree(){
+    this.showTree = !this.showTree
   }
 }

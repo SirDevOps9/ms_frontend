@@ -18,6 +18,10 @@
   }
   .reads{
       background: #D8DBDF !important;
+      color: #000 !important;
+      &::placeholder {
+        color: #000 !important;
+      }
   }
 
 }

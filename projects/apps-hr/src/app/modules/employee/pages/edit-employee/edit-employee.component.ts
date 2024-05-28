@@ -18,6 +18,7 @@ import {
   Gender,
   SharedEmployeeEnums,
 } from '../../models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-employee',
@@ -51,6 +52,8 @@ export class EditEmployeeComponent implements OnInit {
     this.loadLookups();
     this.subscribe();
     this.onBirthDateChange();
+    this.titleService.setTitle('Edit Employee');
+
   }
 
   loadLookups() {
@@ -147,7 +150,9 @@ export class EditEmployeeComponent implements OnInit {
   }
 
   onDiscard() {
-    this.editEmployeeForm.reset();
+    //this.editEmployeeForm.reset();
+    this.routerService.navigateTo(`/employee`);
+
   }
   loadCountries() {
     this.employeeService.loadCountries();
@@ -173,6 +178,8 @@ export class EditEmployeeComponent implements OnInit {
     private routerService: RouterService,
     private enums: SharedEmployeeEnums,
     public sharedLibEnums: SharedLibraryEnums,
-    private ageService: AgeService
+    private ageService: AgeService,
+    private titleService: Title
+
   ) {}
 }
