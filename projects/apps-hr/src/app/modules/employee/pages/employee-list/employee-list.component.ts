@@ -26,7 +26,7 @@ export class EmployeeListComponent implements OnInit {
     private employeeService: EmployeeService
   ) {}
   ngOnInit() {
-    this.titleService.setTitle(this.languageService.transalte('Employee.List.Employees'));
+    this.titleService.setTitle('Employee List');
     this.initEmployeeData(this.searchTerm, new PageInfo());
     this.cols = [
       {

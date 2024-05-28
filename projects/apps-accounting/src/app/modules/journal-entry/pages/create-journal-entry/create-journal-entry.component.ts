@@ -83,9 +83,10 @@ export class CreateJournalEntryComponent {
     private titleService: Title,
     private langService: LanguageService,
     private formService: FormsService
+
   ) {
     this.fg = this.fb.group({
-      refrenceNumber: [null, [customValidators.required , customValidators.length(0,15)]],
+      refrenceNumber: [null, [customValidators.required, customValidators.length(0, 15)]],
       journalDate: [this.getTodaysDate(), customValidators.required],
       periodId: ['Period1', customValidators.required],
       description: ['', customValidators.required],
@@ -296,7 +297,7 @@ export class CreateJournalEntryComponent {
   }
 
   save() {
-    if (!this.formService.validForm(this.fg, true)) return;
+    if (!this.formService.validForm(this.fg, false)) return;
     const value = this.fg.value as JournalEntryFormValue;
 
     //console.log('Form Value', value);

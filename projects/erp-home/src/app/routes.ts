@@ -16,7 +16,8 @@ export const ERPRoutes = [
     children: [
       {
         path: '',
-        component: HomePageComponent,
+        loadChildren: () =>
+          import('./general-setting/general-setting.module').then((m) => m.GeneralSettingModule),
       },
       {
         path: 'generalsettings',
