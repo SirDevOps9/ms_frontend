@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../../employee.service';
 import { AgeService, RouterService } from 'shared-lib';
 import { GetEmployeeView } from '../../models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-view-employee',
@@ -14,6 +15,8 @@ export class ViewEmployeeComponent implements OnInit {
 
   ngOnInit() {
     this.loadEmployee();
+    this.titleService.setTitle('View Employee');
+
   }
 
   loadEmployee() {
@@ -26,6 +29,8 @@ export class ViewEmployeeComponent implements OnInit {
   constructor(
     private employeeService: EmployeeService,
     private routerService: RouterService,
-    public ageService: AgeService
+    public ageService: AgeService,
+    private titleService: Title
+
   ) {}
 }

@@ -23,6 +23,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { CurrencyService } from '../../../general/currency.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
 import { NoChildrenAccountsComponent } from '../../components/noChildrenAccounts/nochildaccounts.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-journal-entry',
@@ -49,6 +50,8 @@ export class EditJournalEntryComponent implements OnInit {
   creditLocal: string;
 
   ngOnInit() {
+    this.titleService.setTitle('Edit Journal');
+
     this.getAccounts();
     this.initializeForm();
     this.initializeFormData();
@@ -93,7 +96,7 @@ export class EditJournalEntryComponent implements OnInit {
 
       this.journalEntry = res;
       this.journalEntryLines = res.journalEntryLines!;
-     // console.log(this.journalEntryLines);
+      // console.log(this.journalEntryLines);
       const journalEntryLinesArray = this.journalEntryLinesFormArray;
 
       journalEntryLinesArray.clear();
@@ -107,7 +110,7 @@ export class EditJournalEntryComponent implements OnInit {
             accountId: new FormControl(lineData.accountId, [customValidators.required]),
             accountName: new FormControl(lineData.accountName),
             accountCode: new FormControl(lineData.accountCode),
-            lineDescription: new FormControl(lineData.lineDescription),
+            lineDescription: new FormControl(lineData.lineDescription, [customValidators.required]),
             debitAmount: new FormControl(debitAmount, [customValidators.required]),
             creditAmount: new FormControl(creditAmount, [customValidators.required]),
             currency: new FormControl(lineData.currency, [customValidators.required]),
@@ -124,7 +127,7 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.formsService.validForm(this.editJournalForm, true)) return;
+    if (!this.formsService.validForm(this.editJournalForm, false)) return;
 
     const request: EditJournalEntry = this.editJournalForm.value;
     request.id = this.routerService.currentId;
@@ -144,7 +147,7 @@ export class EditJournalEntryComponent implements OnInit {
     journalStatus.id = this.routerService.currentId;
     journalStatus.status = status;
     //console.log(status);
-   // console.log(journalStatus.id);
+    // console.log(journalStatus.id);
     this.journalEntryService.ChangeStatus(journalStatus).subscribe(() => {
       setTimeout(() => {
         location.reload();
@@ -201,7 +204,7 @@ export class EditJournalEntryComponent implements OnInit {
       accountCode: new FormControl('', [customValidators.required]),
       accountId: new FormControl(),
       accountName: new FormControl(),
-      lineDescription: new FormControl(),
+      lineDescription: new FormControl(null, [customValidators.required]),
       debitAmount: new FormControl(0, [customValidators.required, Validators.min(0)]),
       creditAmount: new FormControl(0, [customValidators.required, Validators.min(0)]),
       currency: new FormControl(null, [customValidators.required]),
@@ -219,7 +222,7 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   filterAccount(event: any) {
-   //console.log(this.filteredAccounts);
+    //console.log(this.filteredAccounts);
     let query = event.query;
     this.accountService
       .getAllChartOfAccountPaginated(query, new PageInfo())
@@ -338,6 +341,8 @@ export class EditJournalEntryComponent implements OnInit {
     private dialog: DialogService,
     public enums: SharedJournalEnums,
     private toasterService: ToasterService,
-    private currencyService: CurrencyService
+    private currencyService: CurrencyService,
+    private titleService: Title
+
   ) {}
 }

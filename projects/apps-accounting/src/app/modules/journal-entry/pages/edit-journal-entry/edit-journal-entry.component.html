@@ -156,6 +156,8 @@
                     {{ journalLine.get('accountCode').value }}
                   </ng-template>
                 </p-cellEditor>
+                <lib-field-validations [appControl]="journalLine.controls['accountId']">
+                </lib-field-validations>
               </td>
               <td>
                 {{
@@ -164,10 +166,10 @@
                 }}
               </td>
               <td>
-                <lib-text-input
-                  formControlName="lineDescription"
-                  [readOnly]="viewMode"
-                ></lib-text-input>
+                <lib-text-input formControlName="lineDescription" [readOnly]="viewMode">
+                </lib-text-input>
+                <lib-field-validations [appControl]="journalLine.controls['lineDescription']">
+                </lib-field-validations>
               </td>
               <!-- <td >
                 <lib-form-group>
@@ -197,7 +199,6 @@
                   </lib-field-validations>
                 </lib-form-group>
               </td> -->
-
               <td
                 [pEditableColumn]="journalLine.controls['debitAmount']"
                 pEditableColumnField="debitAmount"
@@ -215,7 +216,6 @@
                   </ng-template>
                 </p-cellEditor>
               </td>
-
               <td
                 [pEditableColumn]="journalLine.controls['creditAmount']"
                 pEditableColumnField="creditAmount"
@@ -233,7 +233,6 @@
                   </ng-template>
                 </p-cellEditor>
               </td>
-
               <!-- <td
                 [pEditableColumn]="journalLine.currency"
                 pEditableColumnField="currency"
@@ -279,7 +278,6 @@
                     </lib-form-group> -->
                 {{ journalLine.get('currency').value }}
               </td>
-
               <td>
                 <lib-form-group>
                   <lib-text-input
@@ -292,11 +290,9 @@
                   </lib-field-validations>
                 </lib-form-group>
               </td>
-
               <td>
                 {{ journalLine.get('debitAmountLocal').value }}
               </td>
-
               <td>
                 {{ journalLine.get('creditAmountLocal').value }}
               </td>
