@@ -12,6 +12,11 @@
     pageSize: 10,
     columns: [
       {
+        name: 'actions',
+        headerText: 'Actions',
+        template: actions
+      },
+      {
         name: 'id',
         headerText: 'Id',
         isGlobalFilter: true,
@@ -28,13 +33,9 @@
         headerText: 'Account Name',
         isGlobalFilter: true,
         isSortable: true
-      },
-
-      {
-        name: 'actions',
-        headerText: 'Actions',
-        template: actions
       }
+
+    
     ]
   }"
 >
@@ -57,7 +58,7 @@
       [checked]="account.id == selectedAccount?.id"
     /> -->
     <lib-button
-      className="Manage"
+      [className]="'light-blue'"
       [rounded]="true"
       [enableText]="true"
       severity="secondary"

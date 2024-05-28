@@ -82,8 +82,8 @@ export class CreateJournalEntryComponent {
     private titleService: Title,
     private langService: LanguageService
   ) {
-    this.fg = fb.group({
-      refrenceNumber: [null, customValidators.required],
+    this.fg = this.fb.group({
+      refrenceNumber: ['', customValidators.required],
       journalDate: [this.getTodaysDate(), customValidators.required],
       periodId: ['Period1', customValidators.required],
       description: ['', customValidators.required],
@@ -282,10 +282,15 @@ export class CreateJournalEntryComponent {
       .subscribe((r) => this.routerService.navigateTo('journalentry'));
   }
 
+  routeToJournal() {
+    this.routerService.navigateTo('journalentry')
+  }
+
   RedirectToTemplate() {
     const dialogRef = this.dialog.open(JournalTemplatePopupComponent, {
       width: '800px',
-      height: '700px',
+      height: 'auto',
+      position : 'bottom-right',
       data: {
         hasNoChildren: false,
       },

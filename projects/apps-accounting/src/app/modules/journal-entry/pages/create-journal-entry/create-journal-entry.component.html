@@ -10,7 +10,7 @@
           formControlName="refrenceNumber"
         ></lib-text-input>
         <lib-field-validations
-          [appControl]="fg.controls['referenceNumber']"
+          [appControl]="fg.controls['refrenceNumber']"
         ></lib-field-validations>
       </div>
       <!--  -->
@@ -211,7 +211,7 @@
             <lib-paginator [totalRecords]="50" [first]="0" [rows]="10"></lib-paginator>
         </div> -->
     <div class="btn_group">
-      <button class="btn discard">{{ 'discard' | translate }}</button>
+      <button class="btn discard" (click)="routeToJournal()">{{ 'discard' | translate }}</button>
       <button class="btn save" (click)="save()">{{ 'save' | translate }}</button>
     </div>
   </div>
