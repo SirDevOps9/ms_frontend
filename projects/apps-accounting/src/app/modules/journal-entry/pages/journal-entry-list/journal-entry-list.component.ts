@@ -16,7 +16,7 @@ export class JournalEntryListComponent implements OnInit {
   tableData: JournalEntryDto[];
   cols: any[] = [];
   active: boolean = false;
-  currentPageInfo: PageInfoResult = {};
+  currentPageInfo: PageInfoResult;
 
   constructor(
     private routerService: RouterService,
@@ -95,7 +95,6 @@ export class JournalEntryListComponent implements OnInit {
     this.journalEntryService.journalEntries.subscribe({
       next: (data) => {
         this.tableData = data;
-        //console.log('data', this.journalEntries);
       },
     });
 
@@ -112,9 +111,8 @@ export class JournalEntryListComponent implements OnInit {
     this.routerService.navigateTo(`/journalentry/add`);
   }
 
-  viewJournal(id : number) {
+  viewJournal(id: number) {
     this.routerService.navigateTo(`/journalentry/view/${id}`);
-
   }
 
   routeToEdit(id: number) {
