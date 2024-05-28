@@ -63,7 +63,7 @@ export class AddChartComponent {
       name: new FormControl('', [customValidators.length(0, 255), customValidators.required]),
       levelId: new FormControl(''),
       accountCode: new FormControl(''),
-      parentId: new FormControl(''),
+      parentId: new FormControl(null),
       accountSectionName: new FormControl(''),
       natureId: new FormControl('', customValidators.required),
       hasNoChild: new FormControl(false),
