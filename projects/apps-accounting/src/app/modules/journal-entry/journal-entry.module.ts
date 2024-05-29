@@ -13,6 +13,7 @@ import { LayoutPageComponent } from 'apps-shared-lib';
 import { AuthGuard } from 'microtec-auth-lib';
 import { NoChildrenAccountsComponent } from './components/noChildrenAccounts/nochildaccounts.component';
 import { ViewJournalEntryComponent } from './pages/components/view-journal-entry/view-journal-entry.component';
+import { GuidedTourModule, GuidedTourService } from "ngx-guided-tour";
 
 const routes: Routes = [
   {
@@ -76,6 +77,7 @@ const routes: Routes = [
     EditJournalEntryComponent,
     ViewJournalEntryComponent,
   ],
-  imports: [CommonModule, SharedLibModule, AutoCompleteModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, SharedLibModule, AutoCompleteModule,GuidedTourModule, RouterModule.forChild(routes)],
+  providers:[GuidedTourService]
 })
 export class JournalEntryModule {}

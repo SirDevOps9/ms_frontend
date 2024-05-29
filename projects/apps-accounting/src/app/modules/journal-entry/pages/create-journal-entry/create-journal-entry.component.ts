@@ -20,7 +20,12 @@ import { JournalTemplatePopupComponent } from '../components/journal-template-po
 import { NoChildrenAccountsComponent } from '../../components/noChildrenAccounts/nochildaccounts.component';
 import { tap } from 'rxjs';
 import { Title } from '@angular/platform-browser';
-
+import {
+  GuidedTourService,
+  Orientation,
+  GuidedTour,
+  ProgressIndicatorLocation
+} from "ngx-guided-tour"; 
 export interface JournalEntryLineFormValue {
   id: number;
   account: AccountDto;
@@ -41,6 +46,7 @@ export interface JournalEntryFormValue {
   journalEntryLines: JournalEntryLineFormValue[];
 }
 
+
 @Component({
   selector: 'app-journal-entry',
   templateUrl: './create-journal-entry.component.html',
@@ -52,7 +58,40 @@ export class CreateJournalEntryComponent {
   currencies: CurrencyDto[];
   fitleredCurrencies: CurrencyDto[];
   selectedCurrency: number;
+  private readonly TOUR: GuidedTour = {
+    tourId: "purchases-tour",
+    useOrb: false,
+    skipCallback: () => alert("skip clicked"),
+    completeCallback: () => alert("complete clicked"),
+    steps: [
+      {
+        title: "Step in h1",
+        selector: ".step-1-element",
+        content: "Content in h1 at bottom",
+        orientation: Orientation.Bottom
+      },
+      {
+        title: "Step in h1",
+        selector: ".step-2-element",
+        content: "Content in h1 at bottom",
+        orientation: Orientation.Bottom
+      },
+      {
+        title: "Step in h1",
+        selector: ".step-3-element",
+        content: "Content in h1 at bottom",
+        orientation: Orientation.Bottom
+      },
+      {
+        title: "Step in paragraph",
+        content: "Content in paragraph at bottom left",
+        selector: ".step-4-element",
 
+        orientation: Orientation.Right
+      },
+    
+    ]
+  };
   ngOnInit() {
     this.langService.getTranslation('JournalTitle').subscribe((title) => {
       this.titleService.setTitle(title);
@@ -70,8 +109,12 @@ export class CreateJournalEntryComponent {
       this.currencies = res;
       console.log(res);
     });
+  
   }
-
+ 
+  public startTour(): void {
+    this.guidedTourService.startTour(this.TOUR);
+  }
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
@@ -82,7 +125,8 @@ export class CreateJournalEntryComponent {
     private routerService: RouterService,
     private titleService: Title,
     private langService: LanguageService,
-    private formService: FormsService
+    private formService: FormsService,
+    private guidedTourService: GuidedTourService
 
   ) {
     this.fg = this.fb.group({
@@ -94,6 +138,7 @@ export class CreateJournalEntryComponent {
       journalEntryLines: fb.array([]),
     });
   }
+
 
   public get attachments(): FormArray {
     return this.fg.controls['journalEntryAttachments'] as FormArray;
