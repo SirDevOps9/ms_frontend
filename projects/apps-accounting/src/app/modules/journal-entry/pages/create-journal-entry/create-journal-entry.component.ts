@@ -65,26 +65,26 @@ export class CreateJournalEntryComponent {
     completeCallback: () => alert("complete clicked"),
     steps: [
       {
-        title: "Step in h1",
+        title: "Step 1",
         selector: ".step-1-element",
-        content: "Content in h1 at bottom",
+        content: "Fill In Reference Number",
         orientation: Orientation.Bottom
       },
       {
-        title: "Step in h1",
+        title: "Step 2",
         selector: ".step-2-element",
-        content: "Content in h1 at bottom",
+        content: "Select Date",
         orientation: Orientation.Bottom
       },
       {
-        title: "Step in h1",
+        title: "Step 3",
         selector: ".step-3-element",
-        content: "Content in h1 at bottom",
+        content: "Add Journal Entry Description",
         orientation: Orientation.Bottom
       },
       {
-        title: "Step in paragraph",
-        content: "Content in paragraph at bottom left",
+        title: "Step 4",
+        content: "Select To Add New Journal Entry",
         selector: ".step-4-element",
 
         orientation: Orientation.Right
