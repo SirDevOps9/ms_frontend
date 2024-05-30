@@ -1,14 +1,17 @@
+
 <nav (mouseleave)="modulesOpen = false">
   <div class="card">
-    <div class="header_erp">
+    <div class="header_bussiness">
       <div class="header_content">
-        <p-menubar class="menu">
+        <p-menubar>
           <ng-template pTemplate="start">
             <div class="start_nav">
-              <!-- <div class="logo"></div> -->
+             
               <div
                 class="suplogo"
-                style="background-image: url('assets/images/navbar/suplogo.png')"
+                style="
+                  background-image: url('assets/images/navbar/suplogo.png');
+                "
               ></div>
               <div class="modules" (mouseenter)="modulesOpen = true">
                 <button class="btn_mod_select">
@@ -29,19 +32,7 @@
           </ng-template>
           <ng-template pTemplate="end">
             <div class="header_sec">
-              <!-- <div class="choices">
-                <div class="choices_tnt"></div>
-                <div class="choices_com">
-                  <div class="card flex justify-content-center">
-                    <lib-select></lib-select>
-                  </div>
-                </div>
-                <div class="choices_pr">
-                  <div class="card flex justify-content-center">
-                    <lib-select></lib-select>
-                  </div>
-                </div>
-              </div> -->
+             
 
               <div class="end_header_sec">
                 <div class="link_sec">
@@ -66,29 +57,34 @@
                     <span class="pi pi-star icon_link"></span>
                   </button>
                 </div>
-                <!-- <div class="link_sec" (click)="routeToCart()">
-                  <div class="count">0</div>
-                  <button class="btn_count">
-                    <span class="pi pi-shopping-cart icon_link"></span>
-                  </button>
-                </div> -->
+           
                 <div class="profaile_sec">
-                  <button (click)="cardDrob()" class="btn_profaile">
-                    <lib-attachment-viewer
-                      *ngIf="userPhoto"
-                      [attachmentId]="userPhoto"
-                      className="headerImg"
-                    ></lib-attachment-viewer>
-                  </button>
-                  <div class="profaile_card_drob" #profaile_card_drob *ngIf="showcard">
+                  <button
+                    (click)="cardDrob()"
+                    
+                    class="btn_profaile"
+                   
+                  >
+                  <lib-attachment-viewer
+                  *ngIf="userPhoto"
+                  [attachmentId]="userPhoto"
+                  className="headerImg"
+                ></lib-attachment-viewer>
+                <img *ngIf="!userPhoto" src="assets/images/users/pic.jpg" />
+                </button>
+                  <div
+                    class="profaile_card_drob"
+                    #profaile_card_drob
+                    *ngIf="showcard"
+                  >
                     <div class="header_card">
                       <div class="photo">
                         <lib-attachment-viewer
-                          *ngIf="userPhoto"
-                          [attachmentId]="userPhoto"
-                          className="dropdown_img"
-                        ></lib-attachment-viewer>
-                        <img *ngIf="!userPhoto" [src]="getProfilePic()" />
+                        *ngIf="userPhoto"
+                        [attachmentId]="userPhoto"
+                        className="dropdown_img"
+                      ></lib-attachment-viewer>
+                        <img *ngIf="!userPhoto" src="assets/images/users/pic.jpg" />
                       </div>
                       <div class="title">
                         <p class="name">{{ userName }}</p>
@@ -104,7 +100,9 @@
                     <button class="lang_link" (click)="toggleLanguage()">
                       <p class="pi pi-language"></p>
                       <p class="title">
-                        {{ languageService.Lang === 'en' ? 'English' : 'عربى' }}
+                        {{
+                          languageService.Lang === "en" ? "English" : "عربى"
+                        }}
                       </p>
                     </button>
                     <button class="mode_link">

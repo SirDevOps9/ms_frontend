@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { LanguageService, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { JournalEntryService } from '../../journal-entry.service';
 import { JournalEntryDto, SharedJournalEnums } from '../../models';
 
@@ -16,14 +16,15 @@ export class JournalEntryListComponent implements OnInit {
   tableData: JournalEntryDto[];
   cols: any[] = [];
   active: boolean = false;
-  currentPageInfo: PageInfoResult = {};
+  currentPageInfo: PageInfoResult;
 
   constructor(
     private routerService: RouterService,
     private titleService: Title,
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
-    public sharedJouralEnum: SharedJournalEnums
+    public sharedJouralEnum: SharedJournalEnums,
+    private loaderService:LoaderService
   ) {}
 
   ngOnInit() {
@@ -95,7 +96,6 @@ export class JournalEntryListComponent implements OnInit {
     this.journalEntryService.journalEntries.subscribe({
       next: (data) => {
         this.tableData = data;
-        //console.log('data', this.journalEntries);
       },
     });
 
@@ -110,6 +110,10 @@ export class JournalEntryListComponent implements OnInit {
 
   routeToAdd() {
     this.routerService.navigateTo(`/journalentry/add`);
+  }
+
+  viewJournal(id: number) {
+    this.routerService.navigateTo(`/journalentry/view/${id}`);
   }
 
   routeToEdit(id: number) {

@@ -16,7 +16,7 @@ export class TagEditComponent implements OnInit {
   modulelist: MenuModule[];
   selectedModules:  number[] = [];
   get Id(): string {
-    return this.config.data.Id;
+    return this.config?.data?.id;
   }
 
   constructor(
@@ -38,13 +38,13 @@ export class TagEditComponent implements OnInit {
   getCurruntTag(){
     this.generalSettingService.getTagById(parseInt(this.Id) );
     this.generalSettingService.currentTag.subscribe((response) => {
+      console.log(response)
       this.tagForm.patchValue({
         Id: response.id,
         Code: response.code,
         Name: response.name,
-        ModuleIds: response.modulesId,
+        ModulesId: response.modulesId,
         IsActive: response.isActive,
-        
       });
       this.selectedModules = response.modulesId;
   });
@@ -57,9 +57,9 @@ export class TagEditComponent implements OnInit {
   initializeTagForm() {
     this.tagForm = this.fb.group({
       Id: ['', customValidators.required],
-      Code: [{ value: '', disabled: true }, customValidators.required],
+      Code: [ '', customValidators.required],
       Name: ['', customValidators.required],
-      ModuleIds: [[], customValidators.required],
+      ModulesId: [[], customValidators.required],
       IsActive: [false, customValidators.required]
     });
   }
@@ -70,7 +70,8 @@ export class TagEditComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.tagForm.valid) return;
+    console.log("onSubmit",this.tagForm.value)
+    if(!this.tagForm.valid) return;
     const tagDto :TagDto=this.tagForm.value;
     this.generalSettingService.editTag(tagDto,this.ref);
     

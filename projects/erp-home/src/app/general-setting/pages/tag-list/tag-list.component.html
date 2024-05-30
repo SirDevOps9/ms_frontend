@@ -17,7 +17,7 @@
           pRipple
           label="{{ 'Add New' | translate }}"
           icon="pi pi-plus"
-          class="add_new mr-2"
+          class="btn add_new mr-2"
           (click)="newTag()"
         ></button>
       </div>
@@ -77,7 +77,7 @@
             <lib-button
               className="edit"
               type="button"
-              (click)="routeToEdit(tag.id)"
+              (click)="routeToEdit(tag)"
               icon="pi pi-pencil"
               [rounded]="true"
               [enableText]="true"
@@ -98,28 +98,21 @@
 
         <ng-template #status let-tag>
           <div class="checked">
-            <p-inputSwitch
-              (onChange)="changed($event, tag.id)"
-              [(ngModel)]="tag.isActive"
-            >
+            <p-inputSwitch (onChange)="changed($event, tag.id)" [(ngModel)]="tag.isActive">
             </p-inputSwitch>
-            <!-- <p class="active" *ngIf="tag.isActive">
-              {{ 'tag.Active' | translate }}
-            </p>
-            <p class="inactive" *ngIf="!tag.isActive">
-              {{ 'tag.Deactivate' | translate }}
-            </p> -->
           </div>
         </ng-template>
 
         <ng-template #Modules let-tag>
-          <p-multiSelect
+          <lib-multi-select
             [options]="modulelist"
-            [(ngModel)]="tag.modulesId"
-            defaultLabel="Select Modules"
+            optionLabel="module"
+            optionValue="moduleId"
+            [selectedValue]="tag.modulesId"
+            [readOnly]="true"
             [disabled]="true"
           >
-          </p-multiSelect>
+          </lib-multi-select>
         </ng-template>
       </lib-data-table>
     </div>

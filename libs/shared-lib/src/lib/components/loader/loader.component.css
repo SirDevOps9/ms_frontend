@@ -1,0 +1,6 @@
+::ng-deep .p-progress-spinner {
+  color: red;
+}
+::ng-deep .p-progress-spinner circle {
+  stroke: #4FB2CD !important; /* Ensures the stroke color is applied */
+}

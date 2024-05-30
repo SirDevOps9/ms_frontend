@@ -15,15 +15,15 @@ export class ChartOfAccountTreeComponent implements OnInit {
   @Input() edit: boolean;
   @Input() view: boolean;
   @Input() add: boolean;
-  parentAddedId:number
-  account:AccountByIdDto
+  parentAddedId: number;
+  account: AccountByIdDto;
   @Output() addmode = new EventEmitter<boolean>();
   nodes: accountTreeList[];
   expanded: boolean = false;
+  showTree: boolean = true;
   ref: DynamicDialogRef;
-  parentAdded:any
+  parentAdded: any;
   activeNode: any = null;
-
 
   constructor(
     private accountService: AccountService,
@@ -33,21 +33,22 @@ export class ChartOfAccountTreeComponent implements OnInit {
   ) {
     this.langService.setLang();
 
-    console.log('Lang', this.langService.transalte('LoadError'));
+    //console.log('Lang', this.langService.transalte('LoadError'));
 
     this.title.setTitle('Chart of accounts');
   }
   ngOnInit() {
     this.getTreeList();
+    // console.log(this.parentAddedId);
   }
   mapToTreeNodes(data: any[]) {
     data = data.map((item, index) => {
       return {
-        hasNoChild:item.hasNoChild,
-        id:item.id,
-        accountCode:item.accountCode,
-        ParentId:item.ParentId,
-        LevelId:item.LevelId,
+        hasNoChild: item.hasNoChild,
+        id: item.id,
+        accountCode: item.accountCode,
+        ParentId: item.ParentId,
+        LevelId: item.LevelId,
         label: item.name, // Assuming you want to display the English label
         children: item.childrens ? this.mapToTreeNodes(item.childrens) : [],
       };
@@ -55,34 +56,46 @@ export class ChartOfAccountTreeComponent implements OnInit {
     return data;
   }
   addChild(parentNode: any) {
-   this.parentAdded=parentNode
-      this.add=true
-      this.addmode.emit(true);
-      this.parentAddedId=parentNode.id
-     
-      if (!parentNode.children) {
-        parentNode.children = [];
-      }
-     // parentNode.children.push({ label: 'New Child', children: [] });
-    
-   
+    this.activeNode = parentNode;
+    this.parentAdded = parentNode;
+    this.view = false;
+    this.edit = false;
+    this.add = false;
+    this.addmode.emit(true);
+    this.parentAddedId = parentNode.id;
+
+    if (!parentNode.children) {
+      parentNode.children = [];
+    }
+    this.add = true;
+    // parentNode.children.push({ label: 'New Child', children: [] });
   }
-  getAccountDetails(id:number){
+  newChild() {
+    this.parentAdded = null;
+    this.view = false;
+    this.edit = false;
+    this.add = false;
+    this.addmode.emit(true);
+    this.add = true;
+  }
+  getAccountDetails(id: number) {
     this.accountService.getAccountDetails(id);
-    this.accountService.AccountViewDetails.subscribe((res)=>{
-      this.account=res
-  })}
+    this.accountService.AccountViewDetails.subscribe((res) => {
+      this.account = res;
+    });
+  }
   // toggleNode(node: any) {
   //   node.expanded = !node.expanded;
   // }
   handleTabClick(node: any) {
-    this.view=false
+    this.edit = false;
+    this.add = false;
+    this.view = false;
     this.activeNode = node;
-    this.parentAddedId=node.id
+    this.parentAddedId = node.id;
     this.getAccountDetails(this.parentAddedId);
-    this.view=true
-    console.log(node);
-
+    this.view = true;
+    //console.log(node);
   }
   getTreeList() {
     this.accountService.getTreeList().subscribe((res: any) => {
@@ -95,11 +108,12 @@ export class ChartOfAccountTreeComponent implements OnInit {
       height: '700px',
     });
   }
-  handleOperationCompleted(event:any) {
-    this.parentAdded.children.push({ label: event.name, id:event.id, children: [] });
-    this.add=false;
+  handleOperationCompleted(event: any) {
+    this.parentAdded.children.push({ label: event.name, id: event.id, children: [] });
+    this.add = false;
     //this.view=true
-   
-   
+  }
+  toggelTree() {
+    this.showTree = !this.showTree;
   }
 }

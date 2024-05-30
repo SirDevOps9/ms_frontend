@@ -71,6 +71,8 @@ export class  TextInputComponent implements ControlValueAccessor, Validator {
   }
 
   keyupChange(m: any) {
+    this.onChange(m.target.value);
+
     this.keyUp.emit(m.target.value);
   }
 

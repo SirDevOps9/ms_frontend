@@ -65,13 +65,13 @@ export class NoChildrenAccountsComponent implements OnInit {
   }
 
   selectRow(event: any, account: AccountDto) {
-    if (event.target.checked) {
-      this.selectedAccount = account;
-      this.selectedIndex = this.items.findIndex((i) => i.id == account.id);
-    } else {
-      this.selectedAccount = null;
-      this.selectedIndex = -1;
-    }
+    // if (event.target.checked) {
+    this.selectedAccount = account;
+    this.selectedIndex = this.items.findIndex((i) => i.id == account.id);
+    // } else {
+    //   this.selectedAccount = null;
+    //   this.selectedIndex = -1;
+    // }
 
     setTimeout(() => {
       this.onSubmit();

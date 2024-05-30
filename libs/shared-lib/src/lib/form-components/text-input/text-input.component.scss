@@ -16,6 +16,13 @@
  .p-inputtext::placeholder {
     color: #1a8eae !important;
   }
+  .reads{
+      background: #D8DBDF !important;
+      color: #000 !important;
+      &::placeholder {
+        color: #000 !important;
+      }
+  }
 
 }
 .p-inputtext {

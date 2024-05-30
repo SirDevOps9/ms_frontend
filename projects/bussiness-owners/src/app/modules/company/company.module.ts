@@ -39,26 +39,44 @@ const routes: Routes = [
           {
             path: '',
             component: CompanyAddresComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_ADDRESS,
+            },
           },
           {
             path: 'address',
             component: CompanyAddresComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_ADDRESS,
+            },
           },
           {
             path: 'legal',
             component: CompanyLegalComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_LEGAL,
+            },
           },
           {
             path: 'contact',
             component: CompanyContactComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_CONTACT,
+            },
           },
           {
             path: 'hierarchy',
             component: CompanyHierarchyComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_HIERARCHY,
+            },
           },
           {
             path: 'branches',
             component: CompanyBranchesComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_BRANCHES,
+            },
           },
         ],
       },

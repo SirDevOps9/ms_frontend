@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, Output, input } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+  input,
+} from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import {
   FormsService,
@@ -39,7 +47,7 @@ export class AddChartComponent {
   parentAcountName?: parentAccountDto;
 
   selectedPeriodOption: string = '';
-  @Input() parentAddedId: number;
+  @Input() parentAddedId?: number;
   @Output() operationCompleted = new EventEmitter<any>();
   constructor(
     private formBuilder: FormBuilder,
@@ -52,10 +60,10 @@ export class AddChartComponent {
     private languageService: LanguageService
   ) {
     this.formGroup = formBuilder.group({
-      name: new FormControl('', customValidators.length(0, 255)),
+      name: new FormControl('', [customValidators.length(0, 255), customValidators.required]),
       levelId: new FormControl(''),
-      accountCode: new FormControl('', customValidators.required),
-      parentId: new FormControl(''),
+      accountCode: new FormControl(''),
+      parentId: new FormControl(null),
       accountSectionName: new FormControl(''),
       natureId: new FormControl('', customValidators.required),
       hasNoChild: new FormControl(false),
@@ -63,7 +71,7 @@ export class AddChartComponent {
       accountSectionId: new FormControl('', customValidators.required),
       currencyId: new FormControl(),
       tags: new FormControl([]),
-      AccountActivation: new FormControl(''),
+      AccountActivation: new FormControl('Active'),
       periodicActiveFrom: new FormControl(),
       periodicActiveTo: new FormControl(),
     });
@@ -134,16 +142,17 @@ export class AddChartComponent {
     this.accountService.getAccount(parentAccountId);
     this.accountService.selectedAccount.subscribe((response) => {
       this.parentAcountName = response;
+      console.log(response);
 
-      console.log('parent Data', response);
       const newAccountData = {
         levelId: response.levelId,
         accountCode: response.accountCode,
         accountSectionId: response.accountSectionId,
         accountSectionName: response.accountSectionName,
         natureId: response.natureId,
-        parentId: parentAccountId,
+        parentId: response.id,
       };
+      this.formGroup.get('accountTypeId')?.setValue([null]);
 
       this.onAccountSectionChange(response.accountSectionId);
       this.formGroup.patchValue(newAccountData);
@@ -155,14 +164,14 @@ export class AddChartComponent {
   }
 
   onRadioButtonChange(value: string) {
-    console.log(value);
+    // console.log(value);
     this.selectedPeriodOption = value;
   }
 
   onSubmit() {
-    console.log('form value', this.formGroup);
+    // console.log('form value', this.formGroup.value);
 
-    if (!this.formsService.validForm(this.formGroup, true)) return;
+    if (!this.formsService.validForm(this.formGroup, false)) return;
 
     let obj: AddAccountDto = this.formGroup.value;
 
@@ -170,7 +179,6 @@ export class AddChartComponent {
 
     this.accountService.savedAddedAccount.subscribe((res) => {
       if (res) {
-        console.log(res);
         this.operationCompleted.emit(res);
         this.toaserService.showSuccess(
           this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
@@ -178,5 +186,10 @@ export class AddChartComponent {
         );
       }
     });
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['parentAddedId']) {
+      this.onParentAccountChange(this.parentAddedId);
+    }
   }
 }

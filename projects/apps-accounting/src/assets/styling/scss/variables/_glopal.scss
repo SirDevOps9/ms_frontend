@@ -3,25 +3,28 @@ body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    text-transform: capitalize;
 }
-.p-dialog-mask{
-    justify-content: end !important;
-    align-items: end !important;
-    z-index: 1000 !important;
-}
-.p-dialog .p-dialog-content:last-of-type {
-    border-top-left-radius: 15px !important;
-    border-bottom-left-radius: 15px !important;
-    overflow-x: hidden;
+// .p-dialog-mask{
+//     justify-content: end !important;
+//     align-items: end !important;
+//     z-index: 1000 !important;
+// }
+// .p-dialog .p-dialog-content:last-of-type {
+//     border-top-left-radius: 15px !important;
+//     border-bottom-left-radius: 15px !important;
+//     overflow-x: hidden;
 
-}
-.p-dialog {
-    .p-dialog-header {
-      display: none !important;
-    }
+// }
+// .p-dialog {
+//     .p-dialog-header {
+//       display: none !important;
+//     }
   
-  }
-
+//   }
+*{
+    text-transform: capitalize !important;
+}
 
 ////////////// cairo_regula ////////////
 .body_b32{

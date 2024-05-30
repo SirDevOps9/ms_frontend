@@ -12,12 +12,22 @@ import { EditJournalEntryComponent } from './pages/edit-journal-entry/edit-journ
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { AuthGuard } from 'microtec-auth-lib';
 import { NoChildrenAccountsComponent } from './components/noChildrenAccounts/nochildaccounts.component';
+import { ViewJournalEntryComponent } from './pages/components/view-journal-entry/view-journal-entry.component';
+import { GuidedTourModule, GuidedTourService } from "ngx-guided-tour";
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutPageComponent,
     children: [
+      {
+        path: '',
+        component: JournalEntryListComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.JOURNAL_LIST,
+        },
+      },
       {
         path: 'journalentry',
         component: JournalEntryListComponent,
@@ -34,6 +44,16 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.JOURNAL_ADD,
         },
       },
+
+      {
+        path: 'journalentry/view/:id',
+        component: ViewJournalEntryComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.JOURNAL_VIEW,
+        },
+      },
+
       {
         path: 'journalentry/edit/:id',
         component: EditJournalEntryComponent,
@@ -46,7 +66,6 @@ const routes: Routes = [
   },
 ];
 
-
 @NgModule({
   declarations: [
     CreateJournalEntryComponent,
@@ -55,13 +74,10 @@ const routes: Routes = [
     NoChildrenAccountsComponent,
     AttachmentsComponent,
     JournalTemplatePopupComponent,
-    EditJournalEntryComponent
+    EditJournalEntryComponent,
+    ViewJournalEntryComponent,
   ],
-  imports: [
-    CommonModule,
-    SharedLibModule,
-    AutoCompleteModule,
-    RouterModule.forChild(routes),
-  ],
+  imports: [CommonModule, SharedLibModule, AutoCompleteModule,GuidedTourModule, RouterModule.forChild(routes)],
+  providers:[GuidedTourService]
 })
 export class JournalEntryModule {}

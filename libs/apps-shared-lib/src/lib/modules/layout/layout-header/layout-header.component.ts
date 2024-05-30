@@ -1,5 +1,5 @@
 import { MenuModule } from './../../../../../../shared-lib/src/lib/models/menuModule';
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'microtec-auth-lib';
 import { UserData } from 'projects/bussiness-owners/src/app/modules/user/models';
@@ -21,7 +21,7 @@ export class LayoutHeaderComponent {
   moduleList: MenuModule[];
   cartItemsCount$: Observable<number>;
   userPhoto: string;
-  ngOnInit() {
+  ngOnInit() {    
     this.moduleList = this.authService.getModules();
    // console.log(this.moduleList, ' this.moduleList');
     if (this.router.snapshot.data['moduleId'] === Modules.Accounting)
@@ -77,12 +77,20 @@ export class LayoutHeaderComponent {
       location.href = '../erp';
     }
   }
+  @HostListener('document:click', ['$event'])
+  clickout(event: Event) {
+    if (this.showcard && !this.eRef.nativeElement.contains(event.target)) {
+      this.showcard = false;
+    }
+  }
   constructor(
     public languageService: LanguageService,
     public authService: AuthService,
     private env: EnvironmentService,
     public routerService: RouterService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private eRef: ElementRef
+
   ) {
     this.userName = this.authService.getUserName;
     this.languageService.setLang();

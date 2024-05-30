@@ -6,6 +6,22 @@
         
     }
     ::ng-deep {
+        .p-tree {
+             border: none !important;
+            background: #F7F8F8;
+            // #F7F8F8
+            color: #4b5563;
+            padding: 0 1.25rem !important;
+            border-radius: 6px;
+        }
+        .p-tree .p-tree-container .p-treenode:focus > .p-treenode-content {
+            outline:none !important;
+            outline-offset: none !important;
+            box-shadow: none !important;
+          }
+          .p-tree-empty-message{
+            display: none !important;
+          }
         #label_tree{
             cursor: pointer !important;
         }
@@ -34,7 +50,7 @@
                 /* Adjust as needed */
                 width: 1px !important;
                 height: 100% !important;
-                background: #000 !important;
+                background: #D8DBDF !important;
                 /* Adjust color as needed */
             }
     
@@ -50,7 +66,7 @@
                     /* Adjust as needed */
                     width: 20px !important;
                     height: 1px !important;
-                    background: #000 !important;
+                    background: #D8DBDF !important;
                     /* Adjust color as needed */
     
                 }
@@ -73,10 +89,36 @@
             padding: 0 !important;
         }
         .p-tree{
-            height: 775px !important;
+            min-height: 75vh;
+            max-height: 775px !important;
+             //max-height: 100% !important;
             overflow: auto;
+            
         }
+        // .tree{
+        //     /* For WebKit browsers */
+        // ::-webkit-scrollbar {
+        //     width: 12px;
+        // }
+        
+        // ::-webkit-scrollbar-track {
+        //     background: #f1f1f1;
+        // }
+        
+        // ::-webkit-scrollbar-thumb {
+        //     background: #1A8EAE;
+        //     // B8E7F4
+        //     border-radius: 6px;
+        // }
+        
+        // ::-webkit-scrollbar-thumb:hover {
+        //     background: #B8E7F4;
+        // }
+        // }
       
+       
+        
+
     }
    
     
@@ -86,7 +128,7 @@
         border-radius: 50%;
         border: 2px solid #0D4859;
         color: #0D4859;
-        font-size: 20px;
+        font-size: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -145,7 +187,72 @@
     }
     .label_text{
         font-size: 16px;
-        font-family: $cairo_regular;
+        font-family: $cairo_semi_bold;
+        color: #475467;
     }
+ 
   
 }
+
+
+    ::ng-deep{
+        .main_chat_of_account{
+        .p-dialog-mask{
+        justify-content: end !important;
+        align-items: end !important;
+        z-index: 1000 !important;
+      }
+      .p-dialog .p-dialog-content:last-of-type {
+        border-top-left-radius: 15px !important;
+        border-bottom-left-radius: 15px !important;
+        overflow-x: hidden;
+      
+      }
+      .p-dialog {
+        .p-dialog-header {
+          display: none !important;
+        }
+      
+      }
+      }
+      }
+.chart_account{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #0D4859;
+    .chart_togel{
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    .text{
+        margin: 0;
+        padding: 0;
+        margin-inline-start: 8px;
+    }
+    &:hover{
+        background: #B8E7F4;
+    }
+}
+.chart_account_active{
+    background: #B8E7F4;
+}
+
+
+      .folder{
+        margin-inline-end: 5px;
+        width:15px !important;
+        height: 15px !important;
+        background-size: cover;
+        background-image: url('../../../../../assets/images/tree/folder.png');
+    }
+    .file{
+        margin-inline-end: 5px;
+        width:15px;
+        height: 15px;
+        background-size: cover;
+        background-image: url('../../../../../assets/images/tree/file.png');
+    }

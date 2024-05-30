@@ -1,19 +1,22 @@
 <div class="journal_entry_add_page">
-  <lib-bread-crumb></lib-bread-crumb>
+  <lib-bread-crumb>
+    <button class="btn_walk " (click)="startTour()">walk through</button>
+
+  </lib-bread-crumb>
   <div [formGroup]="fg" class="entry_header">
     <p class="title test">{{ 'journal_entry_header' | translate }}</p>
     <div class="grid">
-      <div class="col-12 md:col-3">
+      <div class="col-12 md:col-3 step-1-element">
         <lib-text-input
           placeholder="{{ 'reference_number' | translate }}"
           [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
           formControlName="refrenceNumber"
         ></lib-text-input>
-        <lib-field-validations
-          [appControl]="fg.controls['referenceNumber']"
-        ></lib-field-validations>
+        <lib-field-validations [appControl]="fg.controls['refrenceNumber']"></lib-field-validations>
       </div>
-      <div class="col-12 md:col-3">
+      <!--  -->
+
+      <div class="col-12 md:col-3 step-2-element">
         <lib-text-input
           placeholder="{{ 'journal_date' | translate }}"
           type="date"
@@ -30,7 +33,26 @@
       <div class="col-12 md:col-3">
         <button (click)="openAttachments()" class="attach">{{ 'attach' | translate }}</button>
       </div>
-      <div class="col-12 md:col-12">
+
+      <!-- <div class="col-12 md:col-3">
+        <lib-text-input
+          placeholder="{{ 'total_credit' | translate }}"
+          formControlName="refrenceNumber"
+        ></lib-text-input>
+        <lib-field-validations
+          [appControl]="fg.controls['referenceNumber']"
+        ></lib-field-validations>
+      </div>
+      <div class="col-12 md:col-3">
+        <lib-text-input
+          placeholder="{{ 'total_dedit' | translate }}"
+          formControlName="refrenceNumber"
+        ></lib-text-input>
+        <lib-field-validations
+          [appControl]="fg.controls['referenceNumber']"
+        ></lib-field-validations>
+      </div> -->
+      <div class="col-12 md:col-12 step-3-element">
         <lib-text-input
           placeholder="{{ 'description' | translate }}"
           formControlName="description"
@@ -78,18 +100,21 @@
                       optionValue="id"
                       optionLabel="accountCode"
                       [customClass]="'add-journal'"
-                      (valueChanged)="accountSelected($event,i)"
+                      (valueChanged)="accountSelected($event, i)"
                     ></lib-select>
                     <i class="pi pi-search search-circle" (click)="openDialog(i)"></i>
                   </div>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ fg.controls['account'].value }}
+                  {{ fg.controls['accountCode'].value }}
                 </ng-template>
               </p-cellEditor>
+              <lib-field-validations [appControl]="fg.controls['account']"></lib-field-validations>
             </td>
             <td>
-              {{ (fg.controls['account']?.value | getElementByID : filteredAccounts)?.name }}
+              <!-- {{ (fg.controls['account']?.value | getElementByID : filteredAccounts)?.name }} -->
+
+              {{ fg.controls['accountName']?.value }}
             </td>
             <td
               [pEditableColumn]="fg.controls['lineDescription']"
@@ -103,6 +128,9 @@
                   {{ fg.controls['lineDescription'].value }}
                 </ng-template>
               </p-cellEditor>
+              <lib-field-validations
+                [appControl]="fg.controls['lineDescription']"
+              ></lib-field-validations>
             </td>
             <td [pEditableColumn]="fg.controls['debitAmount']" pEditableColumnField="debitAmount">
               <p-cellEditor>
@@ -132,7 +160,7 @@
                 </ng-template>
               </p-cellEditor>
             </td>
-            <td >
+            <td>
               <!-- <lib-form-group>
                 <lib-select
                   formControlName="currency"
@@ -146,7 +174,12 @@
                   [appControl]="fg.controls['currency']"
                 ></lib-field-validations>
               </lib-form-group> -->
-              {{ fg.get('currency').value }}
+              <div class="hidden">
+                {{ fg.get('currency').value }}
+              </div>
+              <div>
+                {{ fg.get('currencyName').value }}
+              </div>
             </td>
             <td [pEditableColumn]="fg.controls['currencyRate']" pEditableColumnField="currencyRate">
               <p-cellEditor>
@@ -177,16 +210,21 @@
         </ng-template>
       </p-table>
     </div>
-    <div class="add_new">
-      <button class="btn Line" (click)="addThing()">{{ 'add_new_line' | translate }}</button>
+    <div class="add_new ">
+      <button class="btn Line step-4-element" (click)="addThing()">{{ 'add_new_line' | translate }}</button>
       <button class="btn" (click)="RedirectToTemplate()">{{ 'add_template' | translate }}</button>
     </div>
     <!-- <div class="paginator">
             <lib-paginator [totalRecords]="50" [first]="0" [rows]="10"></lib-paginator>
         </div> -->
     <div class="btn_group">
-      <button class="btn discard">{{ 'discard' | translate }}</button>
+      <button class="btn discard" (click)="routeToJournal()">{{ 'discard' | translate }}</button>
       <button class="btn save" (click)="save()">{{ 'save' | translate }}</button>
     </div>
+    
   </div>
+  <ngx-guided-tour
+  skipText=" skip "
+  nextText=" next "
+></ngx-guided-tour>
 </div>

@@ -1,5 +1,5 @@
   <!-- //TODO : Add arabic -->
-  
+  <div dir="{{ 'dir' | translate }}" >
   <app-layout-header></app-layout-header>
   <div class="Layout">
     <app-layout-sidebar (sidebaropend)="toggleSidebar($event)"></app-layout-sidebar>
@@ -8,3 +8,4 @@
       <router-outlet></router-outlet>
     </div>
   </div>
+</div>

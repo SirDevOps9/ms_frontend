@@ -24,6 +24,17 @@
   align-items: start;
 }
 
+::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  text-align: left;
+  padding: 1rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-width: 0 0 1px 0;
+  font-weight: 700;
+  color: #374151;
+  background:#EDEDF4 ;
+  transition: box-shadow 0.2s;
+}
+
 
 .card-component h5 {
   color: #6258a6;

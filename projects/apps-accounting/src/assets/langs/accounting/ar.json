@@ -7,9 +7,11 @@
     "discard": "تجاهل",
     "Save": "حفظ"
   },
-  "JournalTitle":"انشاء قيد اليومية",
+  "JournalTitle": "انشاء قيد اليومية",
   "journal_entry_header": "الرجاء إدخال عنوان دفتر اليومية",
   "reference_number": "رقم المرجع",
+  "total_credit": "إجمالي الائتمان",
+  "total_dedit": "إجمالي الائتمان",
   "journal_date": "تاريخ دفتر اليومية",
   "journal_period": "فترة دفتر اليومية",
   "attach": "إرفاق",
@@ -28,7 +30,7 @@
   "add_template": "إضافة قالب",
   "discard": "تجاهل",
   "save": "حفظ",
-  "EditJournal":{
+  "EditJournal": {
     "JournalCode": "رمز اليومية",
     "JournalStatus": "حالة اليومية",
     "JournalReference": "مرجع اليومية",
@@ -56,5 +58,24 @@
     "Save": "حفظ",
     "Submit": "إرسال",
     "Post": "ترحيل"
+  },
+  "viewJournal": {
+    "JornalCode": "كود اليومية",
+    "Jornalstatus": "حالة اليومية",
+    "journalReference": "المرجع اليومي",
+    "date": "التاريخ",
+    "JournalPeriod": "فترة اليومية",
+    "JournalType": "نوع اليومية",
+    "Reversed Journal Code": "كود اليومية المعكوس",
+    "description": "الوصف",
+    "code": "الكود",
+    "name": "الاسم",
+    "lineDescription": "وصف السطر",
+    "debitAmount": "مبلغ الدائن",
+    "creditAmount": "مبلغ المدين",
+    "currency": "العملة",
+    "currencyRate": "سعر العملة",
+    "debitAmountLocal": "المبلغ المحلي الدائن",
+    "creditAmountLocal": "المبلغ المحلي المدين"
   }
 }

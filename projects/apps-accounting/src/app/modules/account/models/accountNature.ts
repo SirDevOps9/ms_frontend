@@ -1,4 +1,4 @@
-export enum AccountNature{
-    Credit=1,
-    Debit=2
+export enum AccountNature {
+  Debit = 1,
+  Credit = 2,
 }

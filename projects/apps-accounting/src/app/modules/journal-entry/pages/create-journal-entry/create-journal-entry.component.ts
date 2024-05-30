@@ -1,7 +1,8 @@
 import { CurrencyService } from './../../../general/currency.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
+  FormsService,
   LanguageService,
   PageInfo,
   RouterService,
@@ -19,7 +20,12 @@ import { JournalTemplatePopupComponent } from '../components/journal-template-po
 import { NoChildrenAccountsComponent } from '../../components/noChildrenAccounts/nochildaccounts.component';
 import { tap } from 'rxjs';
 import { Title } from '@angular/platform-browser';
-
+import {
+  GuidedTourService,
+  Orientation,
+  GuidedTour,
+  ProgressIndicatorLocation
+} from "ngx-guided-tour"; 
 export interface JournalEntryLineFormValue {
   id: number;
   account: AccountDto;
@@ -40,6 +46,7 @@ export interface JournalEntryFormValue {
   journalEntryLines: JournalEntryLineFormValue[];
 }
 
+
 @Component({
   selector: 'app-journal-entry',
   templateUrl: './create-journal-entry.component.html',
@@ -51,7 +58,40 @@ export class CreateJournalEntryComponent {
   currencies: CurrencyDto[];
   fitleredCurrencies: CurrencyDto[];
   selectedCurrency: number;
+  private readonly TOUR: GuidedTour = {
+    tourId: "purchases-tour",
+    useOrb: false,
+    skipCallback: () => alert("skip clicked"),
+    completeCallback: () => alert("complete clicked"),
+    steps: [
+      {
+        title: "Step 1",
+        selector: ".step-1-element",
+        content: "Fill In Reference Number",
+        orientation: Orientation.Bottom
+      },
+      {
+        title: "Step 2",
+        selector: ".step-2-element",
+        content: "Select Date",
+        orientation: Orientation.Bottom
+      },
+      {
+        title: "Step 3",
+        selector: ".step-3-element",
+        content: "Add Journal Entry Description",
+        orientation: Orientation.Bottom
+      },
+      {
+        title: "Step 4",
+        content: "Select To Add New Journal Entry",
+        selector: ".step-4-element",
 
+        orientation: Orientation.Right
+      },
+    
+    ]
+  };
   ngOnInit() {
     this.langService.getTranslation('JournalTitle').subscribe((title) => {
       this.titleService.setTitle(title);
@@ -60,16 +100,21 @@ export class CreateJournalEntryComponent {
     this.titleService.setTitle;
     this.accountService
       .getAccountsHasNoChildren('', new PageInfo())
-      // .pipe(tap((elem) => console.log(elem)))
+      .pipe(tap((elem) => console.log(elem)))
       .subscribe((r) => (this.filteredAccounts = r.result));
 
     this.currencyService.getCurrencies('');
 
     this.currencyService.currencies.subscribe((res) => {
       this.currencies = res;
+      console.log(res);
     });
+  
   }
-
+ 
+  public startTour(): void {
+    this.guidedTourService.startTour(this.TOUR);
+  }
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
@@ -79,10 +124,13 @@ export class CreateJournalEntryComponent {
     private service: JournalEntryService,
     private routerService: RouterService,
     private titleService: Title,
-    private langService: LanguageService
+    private langService: LanguageService,
+    private formService: FormsService,
+    private guidedTourService: GuidedTourService
+
   ) {
-    this.fg = fb.group({
-      refrenceNumber: ['', customValidators.required],
+    this.fg = this.fb.group({
+      refrenceNumber: [null, [customValidators.required, customValidators.length(0, 15)]],
       journalDate: [this.getTodaysDate(), customValidators.required],
       periodId: ['Period1', customValidators.required],
       description: ['', customValidators.required],
@@ -90,6 +138,7 @@ export class CreateJournalEntryComponent {
       journalEntryLines: fb.array([]),
     });
   }
+
 
   public get attachments(): FormArray {
     return this.fg.controls['journalEntryAttachments'] as FormArray;
@@ -132,6 +181,8 @@ export class CreateJournalEntryComponent {
 
     var accountData = this.filteredAccounts.find((c) => c.id == event);
 
+    console.log('Selectec', accountData);
+
     const accountName = journalLine.get('accountName');
     accountName?.setValue(accountData?.name);
 
@@ -145,6 +196,31 @@ export class CreateJournalEntryComponent {
     currencyControl?.setValue(accountData?.currencyId);
 
     currencyRateControl.setValue(currencyData?.ratePerUnit);
+    const currencyNameControl = journalLine.get('currencyName');
+    currencyNameControl?.setValue(currencyData?.currencyName);
+  }
+
+  accountSelectedForDialog(accountData: any, id: number) {
+    const journalLine = this.items.at(id);
+
+    console.log('Selectec', accountData);
+
+    const accountName = journalLine.get('accountName');
+
+    accountName?.setValue(accountData.name);
+
+    journalLine.get('accountCode')?.setValue(accountData?.accountCode);
+
+    var currencyData = this.currencies.find((c) => c.id == accountData?.currencyId);
+
+    const currencyControl = journalLine.get('currency');
+    const currencyRateControl = journalLine.get('currencyRate')!;
+
+    currencyControl?.setValue(accountData?.currencyId);
+
+    currencyRateControl.setValue(currencyData?.ratePerUnit);
+    const currencyNameControl = journalLine.get('currencyName');
+    currencyNameControl?.setValue(currencyData?.currencyName);
   }
 
   currencyChanged(index: number) {
@@ -166,8 +242,13 @@ export class CreateJournalEntryComponent {
     ref.onClose.subscribe((r) => {
       if (r) {
         this.fa.at(index).get('account')?.setValue(r.id);
-        this.accountSelected(r.id, index);
-
+        this.fa.at(index)?.get('accountName')?.setValue(r.name);
+        this.fa.at(index)?.get('accountCode')?.setValue(r.accountCode);
+        var currencyData = this.currencies.find((c) => c.id == r.currencyId);
+        this.fa.at(index).get('currency')?.setValue(r.currencyId);
+        this.fa.at(index).get('currencyRate')?.setValue(currencyData?.ratePerUnit);
+        this.fa.at(index).get('currencyName')?.setValue(currencyData?.currencyName);
+        // this.accountSelectedForDialog(r, index);
       }
     });
   }
@@ -241,6 +322,8 @@ export class CreateJournalEntryComponent {
     const fg = this.fb.group({
       id: new FormControl(id),
       account: new FormControl(null, customValidators.required),
+      accountName: new FormControl(null, customValidators.required),
+      accountCode: new FormControl(null, customValidators.required),
       lineDescription: new FormControl('', customValidators.required),
       debitAmount: dbControl,
       creditAmount: crControl,
@@ -248,6 +331,7 @@ export class CreateJournalEntryComponent {
       currencyRate: rateControl,
       debitAmountLocal: new FormControl(),
       creditAmountLocal: new FormControl(),
+      currencyName: new FormControl(''),
     });
 
     this.fa.push(fg);
@@ -258,6 +342,7 @@ export class CreateJournalEntryComponent {
   }
 
   save() {
+    if (!this.formService.validForm(this.fg, false)) return;
     const value = this.fg.value as JournalEntryFormValue;
 
     //console.log('Form Value', value);
@@ -279,10 +364,15 @@ export class CreateJournalEntryComponent {
       .subscribe((r) => this.routerService.navigateTo('journalentry'));
   }
 
+  routeToJournal() {
+    this.routerService.navigateTo('journalentry');
+  }
+
   RedirectToTemplate() {
     const dialogRef = this.dialog.open(JournalTemplatePopupComponent, {
       width: '800px',
-      height: '700px',
+      height: 'auto',
+      position: 'bottom-right',
       data: {
         hasNoChildren: false,
       },
@@ -290,52 +380,47 @@ export class CreateJournalEntryComponent {
 
     dialogRef.onClose.subscribe((id: any) => {
       //console.log('Received ID:', id);
+      if (id) {
+        this.service.getJournalTemplateById(id).subscribe((template) => {
+          console.log('template:', template);
 
-      this.service.getJournalTemplateById(id).subscribe((template) => {
-        console.log('template:', template);
-
-        // Set template values to the form group
-        this.fg.patchValue({
-          refrenceNumber: template.code,
-          periodId: template.periodId,
-          description: template.description,
-        });
-
-        // Clear existing journal entry lines
-        while (this.items.length !== 0) {
-          this.items.removeAt(0);
-        }
-
-        // Add new journal entry lines
-
-        if (template.getJournalTemplateLinesByIdDto.length > 0) {
-          template.getJournalTemplateLinesByIdDto.forEach((line) => {
-            const newLine = this.fb.group({
-              id: new FormControl(line.id),
-              account: new FormControl({ id: line.accountId }, customValidators.required),
-              lineDescription: new FormControl(line.lineDescription, customValidators.required),
-              debitAmount: new FormControl(line.debitAmount, [
-                customValidators.required,
-                Validators.min(0),
-              ]),
-              creditAmount: new FormControl(line.creditAmount, [
-                customValidators.required,
-                Validators.min(0),
-              ]),
-              currency: new FormControl({ id: line.currencyId }, customValidators.required),
-              currencyRate: new FormControl(line.currencyRate, [
-                customValidators.required,
-                Validators.min(0),
-              ]),
-              debitAmountLocal: new FormControl(line.debitAmountLocal),
-              creditAmountLocal: new FormControl(line.creditAmountLocal),
-            });
-            this.fa.push(newLine);
-            //console.log('new line', newLine);
-            // console.log(this.fa, 'test');
+          // Set template values to the form group
+          this.fg.patchValue({
+            refrenceNumber: template.code,
+            periodId: 'Period1',
+            description: template.description,
           });
-        }
-      });
+
+          // Clear existing journal entry lines
+          while (this.items.length !== 0) {
+            this.items.removeAt(0);
+          }
+
+          // Add new journal entry lines
+
+          if (template.getJournalTemplateLinesByIdDto.length > 0) {
+            template.getJournalTemplateLinesByIdDto.forEach((line) => {
+              const newLine = this.fb.group({
+                id: new FormControl(line.id),
+                account: new FormControl(line.accountId, customValidators.required),
+                accountName: new FormControl(line.accountName, customValidators.required),
+                accountCode: new FormControl(line.accountCode, customValidators.required),
+                lineDescription: new FormControl(line.lineDescription, customValidators.required),
+                debitAmount: new FormControl(line.debitAmount, [customValidators.required]),
+                creditAmount: new FormControl(line.creditAmount, [customValidators.required]),
+                currency: new FormControl(line.currencyId, customValidators.required),
+                currencyName: new FormControl(line.currency, customValidators.required),
+                currencyRate: new FormControl(line.currencyRate, [customValidators.required]),
+                debitAmountLocal: new FormControl(line.debitAmountLocal),
+                creditAmountLocal: new FormControl(line.creditAmountLocal),
+              });
+              this.fa.push(newLine);
+              //console.log('new line', newLine);
+              // console.log(this.fa, 'test');
+            });
+          }
+        });
+      }
     });
   }
 

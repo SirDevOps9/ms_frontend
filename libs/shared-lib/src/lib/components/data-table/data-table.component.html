@@ -19,12 +19,13 @@
         class="flex flex-column"
         [resizableColumns]="true"
         columnResizeMode="expand"
+        styleClass="p-datatable-striped"
       >
         <ng-template pTemplate="caption">
           <ng-content select="[caption]"> </ng-content>
         </ng-template>
 
-        <ng-template pTemplate="header">
+        <ng-template pTemplate="header" [scrollable]="true">
           <tr>
             <ng-container *ngFor="let col of tableConfigs.columns">
               <th [pSortableColumn]="col.name" *ngIf="col.isSortable" class="body_b16">

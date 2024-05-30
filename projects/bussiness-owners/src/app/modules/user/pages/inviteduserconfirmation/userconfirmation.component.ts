@@ -16,6 +16,7 @@ import {
 
 import { UserService } from '../../user.service';
 import { AddConfirmedUserDto, InvitedUserDto } from '../../models';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-userconfirmation',
   templateUrl: './userconfirmation.component.html',
@@ -26,13 +27,13 @@ export class UserconfirmationComponent implements OnInit {
   userForm: FormGroup;
   email: string;
   dto: InvitedUserDto;
-  validId:boolean= true;
+  validId:boolean= false;
+  notvalid:boolean= false;
   photo: any;
   errorMessage: string;
   photoSrc: string = 'assets/images/users/pic.jpg';
   ngOnInit() {
-    console.log(this.dto, "this.dtothis.dtothis.dtothis.dtothis.dto");
-
+    this.titleService.setTitle('Confirm Invitation');
     this.initializeForm();
     this.getEmail();
   }
@@ -56,15 +57,16 @@ export class UserconfirmationComponent implements OnInit {
     
       next:(dto) => {
         this.dto = dto;
-        console.log(this.dto, "this.dtothis.dtothis.dtothis.dtothis.dto");
         this.email = dto.email;
         this.validId = true;
+        this.notvalid = false;
         this.userForm.patchValue({
           email: dto.email,
         });
       },
       error:(error:any)=>{
-        this.validId=false
+        this.validId = false;
+        this.notvalid = true;
       }
   });
   }
@@ -88,6 +90,7 @@ export class UserconfirmationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formsService: FormsService,
     private userService: UserService,
-    public sharedLibEnums: SharedLibraryEnums
+    public sharedLibEnums: SharedLibraryEnums,
+    private titleService: Title
   ) { }
 }

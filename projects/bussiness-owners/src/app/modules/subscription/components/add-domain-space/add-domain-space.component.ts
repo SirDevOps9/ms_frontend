@@ -55,9 +55,6 @@ export class AddDomainSpaceComponent implements OnInit {
     this.subscriptionService.addSubdomain(domainModel, this.ref);
   }
   onCancel() {
-    console.log('window.location.reload');
-
-    window.location.reload;
     this.ref.close();
   }
 

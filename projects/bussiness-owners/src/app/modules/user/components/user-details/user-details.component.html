@@ -1,83 +1,92 @@
-<div class="popup_edit h-full">
-  <h2 class="title">Edit User</h2>
+<div class="pop_up_config_page">
+  <div class="pop_up_header">
+    <div class="header_content">
+      <div class="title">
+        <div class="plus_icon"></div>
+        Edit User
+      </div>
 
-  <div class="card_edit">
-    <div class="information">
-      <div class="user_photo">
-        <img
-          [src]="getProfilePic()"
-          onerror="this.src='assets/images/users/editdefault.png'"
-          alt=""
-        />
-      </div>
-      <div class="user_name">
-        <p>{{ userName }}</p>
-      </div>
-      <div class="user_mail">
-        <p>{{ userEmail }}</p>
+      <div class="pi pi-times cancel" (click)="onCancel()"></div>
+    </div>
+  </div>
+  <div class="pop_up_content">
+    <div class="card">
+      <div class="card_edit">
+        <div class="information">
+          <div class="user_photo">
+            <!-- <img
+              [src]="getProfilePic()"
+              onerror="this.src='assets/images/users/editdefault.png'"
+              alt=""
+            /> -->
+            <lib-attachment-viewer *ngIf="userPhoto" [attachmentId]="userPhoto" />
+          </div>
+          <div class="user_name">
+            <p>{{ userName }}</p>
+          </div>
+          <div class="user_mail">
+            <p>{{ userEmail }}</p>
+          </div>
+        </div>
+        <div class="admin_edit">
+          <form
+            [formGroup]="editUserForm"
+            (ngSubmit)="onSubmit()"
+            *ngIf="lookupsService.lookupsLoaded"
+          >
+            <lib-form-group>
+              <lib-label [appControl]="editUserForm.controls['companyId']"> Company </lib-label>
+              <lib-select
+                formControlName="companyId"
+                [options]="companies"
+                [selectedValue]="selectedCompany"
+                optionValue="id"
+                optionLabel="name"
+                (valueChanged)="onCompanyChange($event)"
+              >
+              </lib-select>
+              <lib-field-validations [appControl]="editUserForm.controls['companyId']">
+              </lib-field-validations>
+            </lib-form-group>
+            <div class="mt-4">
+              <lib-form-group>
+                <lib-label [appControl]="editUserForm.controls['branchIds']"> Branches </lib-label>
+                <lib-multi-select
+                  formControlName="branchIds"
+                  [options]="branches"
+                  optionValue="id"
+                  optionLabel="branchName"
+                  [selectedValue]="selectedBranches!"
+                >
+                </lib-multi-select>
+                <lib-field-validations [appControl]="editUserForm.controls['branchIds']">
+                </lib-field-validations>
+              </lib-form-group>
+            </div>
+
+            <div *ngFor="let subdomainName of subdomains" class="mt-4">
+              <lib-form-group>
+                <label> Domain Space </label>
+                <lib-text-input [readOnly]="true" [placeholder]="subdomainName"> </lib-text-input>
+              </lib-form-group>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-    <div class="admin_edit">
-      <form
-        [formGroup]="editUserForm"
-        (ngSubmit)="onSubmit()"
-        *ngIf="lookupsService.lookupsLoaded"
+  </div>
+  <div class="pop_up_footer">
+    <div class="save_btn">
+      <lib-button-micro title=" save" nameClass="save" (click)="onSubmit()" widthNumber="100%">
+      </lib-button-micro>
+    </div>
+    <div class="cancel_btn">
+      <lib-button-micro
+        title=" {{ 'Company.Cancel' | translate }}"
+        nameClass="cancel"
+        (click)="onCancel()"
       >
-        <lib-form-group>
-          <lib-label [appControl]="editUserForm.controls['companyId']">
-            Company
-          </lib-label>
-          <lib-select
-            formControlName="companyId"
-            [options]="companies"
-            [selectedValue]="selectedCompany"
-            optionValue="id"
-            optionLabel="name"
-            (valueChanged)="onCompanyChange($event)"
-          >
-          </lib-select>
-          <lib-field-validations
-            [appControl]="editUserForm.controls['companyId']"
-          >
-          </lib-field-validations>
-        </lib-form-group>
-
-        <lib-form-group>
-          <lib-label [appControl]="editUserForm.controls['branchIds']">
-            Branches
-          </lib-label>
-          <lib-multi-select
-            formControlName="branchIds"
-            [options]="branches"
-            optionValue="id"
-            optionLabel="branchName"
-            [selectedValue]="selectedBranches!"
-          >
-          </lib-multi-select>
-          <lib-field-validations
-            [appControl]="editUserForm.controls['branchIds']"
-          >
-          </lib-field-validations>
-        </lib-form-group>
-
-        <div *ngFor="let subdomainName of subdomains">
-          <lib-form-group>
-            <label> Domain Space </label>
-            <div class="view">
-              {{ subdomainName }}
-            </div>
-          </lib-form-group>
-        </div>
-
-        <div
-          class="actions flex align-items-center justify-content-center mt-12"
-        >
-          <button class="save" type="submit">save</button>
-          <button class="cancel" type="button" (click)="onCancel()">
-            cancel
-          </button>
-        </div>
-      </form>
+      </lib-button-micro>
     </div>
   </div>
 </div>

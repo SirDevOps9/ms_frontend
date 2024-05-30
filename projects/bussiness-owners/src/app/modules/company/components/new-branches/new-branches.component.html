@@ -1,118 +1,139 @@
-<div class="new_branche">
-  <div class="branch_header">
-    <div class="title">
-      {{ "Company.Branch.AddNewBranch" | translate }}</div>
-      <div class="pi pi-times cancel" (click)="onCancel()"></div>
 
+<div class="pop_up_config_page">
+  <div class="pop_up_header">
+    <div class="header_content">
+      <div class="title">
+        <div class="plus_icon"></div>
+        {{ "Company.Branch.AddNewBranch" | translate }}
+      </div>
+        <div class="pi pi-times cancel" (click)="onCancel()"></div>
+    </div>
   </div>
-  <div class="branch_content">
-    <form [formGroup]="newBrancheForm" (ngSubmit)="onSubmit()">
-      <div class="grid">
-        <div class="col-12 md:col-6">
-          <lib-form-group>
-            <lib-label [appControl]="newBrancheForm.controls['branchName']">
-              {{ "Company.Branch.BranchName" | translate }}
-            </lib-label>
-            <lib-text-input type="text" formControlName="branchName" />
-            <lib-field-validations
-              [appControl]="newBrancheForm.controls['branchName']"
+  <div class="pop_up_content">
+   
+    <div class="card">
+      <form [formGroup]="newBrancheForm" (ngSubmit)="onSubmit()">
+        <div class="grid">
+          <div class="col-12 md:col-6">
+            <lib-form-group>
+              <lib-label [appControl]="newBrancheForm.controls['branchName']">
+                {{ "Company.Branch.BranchName" | translate }}
+              </lib-label>
+              <lib-text-input type="text" formControlName="branchName" />
+              <lib-field-validations
+                [appControl]="newBrancheForm.controls['branchName']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12 md:col-6">
+            <lib-form-group>
+              <lib-label [appControl]="newBrancheForm.controls['countryCode']">
+                {{ "Company.Branch.Country" | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="countryCode"
+                [options]="lookups[LookupEnum.Country]"
+                optionValue="id"
+                optionLabel="name"
+              >
+              </lib-select>
+              <lib-field-validations
+              [appControl]="newBrancheForm.controls['countryCode']"
             >
             </lib-field-validations>
-          </lib-form-group>
-        </div>
-        <div class="col-12 md:col-6">
-          <lib-form-group>
-            <lib-label [appControl]="newBrancheForm.controls['countryCode']">
-              {{ "Company.Branch.Country" | translate }}
-            </lib-label>
-            <lib-select
-              formControlName="countryCode"
-              [options]="lookups[LookupEnum.Country]"
-              optionValue="id"
-              optionLabel="name"
+            </lib-form-group>
+          </div>
+          <div class="col-12 md:col-6">
+            <lib-form-group>
+              <lib-label [appControl]="newBrancheForm.controls['branchRegion']">
+                {{ "Company.Branch.BranchRegion" | translate }}
+              </lib-label>
+              <lib-text-input type="text" formControlName="branchRegion" />
+            </lib-form-group>
+          </div>
+          <div class="col-12 md:col-6">
+            <lib-form-group>
+              <lib-label [appControl]="newBrancheForm.controls['branchCity']">
+                {{ "Company.Branch.BranchCity" | translate }}
+              </lib-label>
+              <lib-text-input type="text" formControlName="branchCity" />
+            </lib-form-group>
+          </div>
+          <div class="col-12">
+            <lib-form-group>
+              <lib-label [appControl]="newBrancheForm.controls['branchEmail']">
+                {{ "Company.Branch.BranchEmail" | translate }}
+              </lib-label>
+              <lib-text-input type="text" formControlName="branchEmail" />
+              <lib-field-validations
+              [appControl]="newBrancheForm.controls['branchEmail']"
             >
-            </lib-select>
-            <lib-field-validations
-            [appControl]="newBrancheForm.controls['countryCode']"
-          >
-          </lib-field-validations>
-          </lib-form-group>
-        </div>
-        <div class="col-12 md:col-6">
-          <lib-form-group>
-            <lib-label [appControl]="newBrancheForm.controls['branchRegion']">
-              {{ "Company.Branch.BranchRegion" | translate }}
-            </lib-label>
-            <lib-text-input type="text" formControlName="branchRegion" />
-          </lib-form-group>
-        </div>
-        <div class="col-12 md:col-6">
-          <lib-form-group>
-            <lib-label [appControl]="newBrancheForm.controls['branchCity']">
-              {{ "Company.Branch.BranchCity" | translate }}
-            </lib-label>
-            <lib-text-input type="text" formControlName="branchCity" />
-          </lib-form-group>
-        </div>
-        <div class="col-12">
-          <lib-form-group>
-            <lib-label [appControl]="newBrancheForm.controls['branchEmail']">
-              {{ "Company.Branch.BranchEmail" | translate }}
-            </lib-label>
-            <lib-text-input type="text" formControlName="branchEmail" />
-            <lib-field-validations
-            [appControl]="newBrancheForm.controls['branchEmail']"
-          >
-          </lib-field-validations>
-          </lib-form-group>
-        </div>
-        <div class="col-12">
-          <lib-form-group>
-            <lib-label [appControl]="newBrancheForm.controls['branchAddress']">
-              {{ "Company.Branch.BranchAddress" | translate }}
-            </lib-label>
-            <lib-text-input type="text" formControlName="branchAddress" />
-          </lib-form-group>
-        </div>
-
-        <div class="col-4">
-          <lib-form-group>
-            <lib-label
-              [appControl]="newBrancheForm.controls['mobileNumberCode']"
+            </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12">
+            <lib-form-group>
+              <lib-label [appControl]="newBrancheForm.controls['branchAddress']">
+                {{ "Company.Branch.BranchAddress" | translate }}
+              </lib-label>
+              <lib-text-input type="text" formControlName="branchAddress" />
+            </lib-form-group>
+          </div>
+  
+          <div class="col-4">
+            <lib-form-group>
+              <lib-label
+                [appControl]="newBrancheForm.controls['mobileNumberCode']"
+              >
+                {{ "Company.Branch.MobileNumberCode" | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="mobileNumberCode"
+                optionValue="id"
+                [options]="lookups[LookupEnum.MobileCode]"
+                optionLabel="name"
+              >
+              </lib-select>
+            </lib-form-group>
+          </div>
+          <div class="col-8">
+            <lib-form-group>
+              <lib-label [appControl]="newBrancheForm.controls['mobileNumber']">
+                {{ "Company.Branch.MobileNumber" | translate }}
+              </lib-label>
+              <lib-text-input type="tel" formControlName="mobileNumber" />
+              <lib-field-validations
+              [appControl]="newBrancheForm.controls['mobileNumber']"
             >
-              {{ "Company.Branch.MobileNumberCode" | translate }}
-            </lib-label>
-            <lib-select
-              formControlName="mobileNumberCode"
-              optionValue="id"
-              [options]="lookups[LookupEnum.MobileCode]"
-              optionLabel="name"
-            >
-            </lib-select>
-          </lib-form-group>
+            </lib-field-validations>
+            </lib-form-group>
+          </div>
         </div>
-        <div class="col-8">
-          <lib-form-group>
-            <lib-label [appControl]="newBrancheForm.controls['mobileNumber']">
-              {{ "Company.Branch.MobileNumber" | translate }}
-            </lib-label>
-            <lib-text-input type="tel" formControlName="mobileNumber" />
-            <lib-field-validations
-            [appControl]="newBrancheForm.controls['mobileNumber']"
-          >
-          </lib-field-validations>
-          </lib-form-group>
-        </div>
-      </div>
-
-      <div class="actions">
-        <button type="button" class="cancel" (click)="onCancel()">
-          {{ "Company.Cancel" | translate }}
-        </button>
-        <button type="submit" class="save">
-          {{ "Company.Save" | translate }}
-        </button>
-      </div>
-    </form>
+  
+      </form>
   </div>
-</div>
+  </div>
+  <div class="pop_up_footer">
+  <div class="save_btn">
+    <lib-button-micro 
+    title='{{ "Company.Save" | translate }}'
+    nameClass="save"
+    (click)="onSubmit()"
+    widthNumber ="100%"
+    >
+    
+    </lib-button-micro>
+  </div>
+    <div class="cancel_btn">
+      <lib-button-micro 
+    title='  {{ "Company.Cancel" | translate }}'
+    nameClass="cancel"
+    (click)="onCancel()"
+    >
+    
+    </lib-button-micro>
+    </div>
+    
+  </div>
+  </div>

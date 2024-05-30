@@ -1,88 +1,127 @@
-.new_branche{
-  .branch_header{
+@import '../../../../../assets/styling/scss/variables/font-family';
+
+  .pop_up_config_page{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 30px;
-    .title{
-        font-size: 18px;
-        font-weight: 700;
-        color: #383A42;
-    }
-    .code{
+    flex-direction: column;
+    .pop_up_header{
+        width: 100%;
+        .header_content{
+        width: 100%;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
+        background: #f7f8f8;
+        padding: 30px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid black;
+    
+        .title {
+          display: flex;
+          font-size: 18px;
+          font-weight: 700;
+          color: #383a42;
+          .plus_icon {
+            width: 40px;
+            height: auto;
+            margin-right: 10px;
+            background-image: url("../../../../../assets/images/plans/file-plus.svg");
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            
+          }
+        }
+        .cancel {
+          cursor: pointer;
+          font-size: 15px;
+          font-weight: 700;
+        }
+    }
+       
+    }
+    .pop_up_content{
+        width: 95% ;
+       // padding:50px 0 !important;
+
         .title{
+            background: #f7f8f8;
+            padding: 8px;
+            border-radius: 4px;
             font-size: 16px;
-            color: #383A42;
+            font-family: $cairo_regular;
+          //  padding: 0 38px !important;
         }
-        .code_text{
-            margin-inline-start: 20px;
-            font-size: 18px;
-            color: #2B6FAE;
+        .icon{
+            margin-inline-end: 5px;
         }
-    }
-  }
-  .branch_header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    //background: #f7f8f8;
-    padding: 30px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid black;
+        .add_line{
+          width: fit-content;
+            font-size:16px;
+            font-family: $cairo_regular;
+            color: #1A8EAE;
+            cursor: pointer;
+            padding-inline-start: 10px;
+        }
+        .card{
+      max-height: 400px;
+      padding: 10px;
+      overflow-x: hidden;
+      overflow-y: auto;
 
-    .title {
-      display: flex;
-      font-size: 18px;
-      font-weight: 700;
-      color: #383a42;
-      .plus_icon {
-        width: 40px;
-        height: auto;
-        margin-right: 10px;
-        background-image: url("../../../../../assets/images/plans/file-plus.svg");
-        background-size: contain;
-        background-position: center;
-        background-repeat: no-repeat;
-        
-      }
+        }
+      
     }
-    .cancel {
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: 700;
-    }
-  } 
-  .branch_content{
-    .actions{
+    .pop_up_footer{
+        position: fixed;
+        bottom: 0;
         display: flex;
         align-items: center;
-        justify-content: space-around;
-        margin: 20px 0px;
-        .save{
-            min-width: 30%;
-            background-color: #1A8EAE;
-            padding: 10px 0;
-            color: #fff;
-            border: 2px solid #1A8EAE;
-            border-radius: 12px;
-            font-size: 22px;
-            cursor: pointer;
-        }
-        .cancel{
-            min-width: 30%;
-
-            background-color: #fff;
-            padding: 10px 0;
-            color: #1A8EAE;
-            border: 2px solid #1A8EAE;
-            border-radius: 12px;
-            font-size: 22px;
-            cursor: pointer;
+        justify-content: space-evenly;
+        width: 100%;
+        background: #f7f8f8;
+        padding: 10px;
+     
+        .save_btn{
+          
+            width: 60%;
+           
         }
     }
-
-  } 
+   
+}
+::ng-deep {
+    .pop_up_config_page{
+        .p-dialog {
+         .p-dialog-content {
+            padding: 0 0 0 0 !important;
+          }
+        }
+        
+      
+        
+}
+.p-dialog {
+    .p-dialog-content {
+       padding: 0 0 0 0 !important;
+     }
+   }
+   .p-dialog-mask{
+    justify-content: end !important;
+    align-items: end !important;
+    z-index: 1000 !important;
+  }
+  .p-dialog .p-dialog-content:last-of-type {
+    border-top-left-radius: 15px !important;
+    border-bottom-left-radius: 15px !important;
+    overflow-x: hidden;
+  
+  }
+  .p-dialog {
+    .p-dialog-header {
+      display: none !important;
+    }
+  
+  }
 }

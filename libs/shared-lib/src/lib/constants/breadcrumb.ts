@@ -13,6 +13,7 @@ export class BreadcrumbLabel {
     static Manage_Apps='Manage Apps';
     static JOURNAL_LIST='journal Entry List';
     static JOURNAL_ADD='journal Entry Add';
+    static JOURNAL_VIEW='journal Entry View';
     static JOURNAL_Edit='journal Entry Edit';
     static chart_of_account='Chart of Account';
     static BUSSINESS_OWNER ='Bussiness Owners';
@@ -28,6 +29,12 @@ export class BreadcrumbLabel {
     static EMPLOYEE_VIEW='View Employee';
     static EMPLOYEE_EDIT='Edit Employee';
     static Add_Tag ='Add Tag';
+    static EDIT_ADDRESS ='Edit Address';
+    static EDIT_BRANCHES ='Edit Branches';
+    static EDIT_HIERARCHY ='Edit Hierarchy';
+    static EDIT_LEGAL ='Edit Legal';
+    static EDIT_CONTACT ='Edit Contact';
+   
 
     
 
