@@ -81,10 +81,8 @@ export class LayoutHeaderComponent {
       this.showcard = false;
     }
   }
-  openDialog(){
-    this.RedirectToConfiguration()
-  }
-  RedirectToConfiguration() {
+ 
+  openDialog() {
     this.ref = this.dialog.open(ModuleListComponent, {
       width: '612px',
       height: '435px',
