@@ -26,14 +26,11 @@ export class LayoutHeaderComponent {
 
   ngOnInit() {    
     this.moduleList = this.authService.getModules();
-   // console.log(this.moduleList, ' this.moduleList');
     if (this.router.snapshot.data['moduleId'] === Modules.Accounting)
       this.moduleName = 'Accounting';
     else if (this.router.snapshot.data['moduleId'] === Modules.Hr) this.moduleName = 'Hr';
     else if (this.router.snapshot.data['moduleId'] === Modules.GeneralSettings)
       this.moduleName = 'General Settings';
-
-    //console.log(this.moduleName);
   }
 
 
