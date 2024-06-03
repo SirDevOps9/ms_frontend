@@ -5,6 +5,8 @@ import { AuthService } from 'microtec-auth-lib';
 import { UserData } from 'projects/bussiness-owners/src/app/modules/user/models';
 import { Observable } from 'rxjs';
 import { EnvironmentService, LanguageService, Modules, RouterService } from 'shared-lib';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ModuleListComponent } from '../../../components/module-list/module-list.component';
 
 @Component({
   selector: 'app-layout-header',
@@ -17,24 +19,20 @@ export class LayoutHeaderComponent {
   userData: UserData;
   showcard: boolean = false;
   sidebarOpen: boolean = false;
-  modulesOpen: boolean = false;
   moduleList: MenuModule[];
   cartItemsCount$: Observable<number>;
   userPhoto: string;
+  ref: DynamicDialogRef;
+
   ngOnInit() {    
     this.moduleList = this.authService.getModules();
-   // console.log(this.moduleList, ' this.moduleList');
     if (this.router.snapshot.data['moduleId'] === Modules.Accounting)
       this.moduleName = 'Accounting';
     else if (this.router.snapshot.data['moduleId'] === Modules.Hr) this.moduleName = 'Hr';
     else if (this.router.snapshot.data['moduleId'] === Modules.GeneralSettings)
       this.moduleName = 'General Settings';
+  }
 
-    //console.log(this.moduleName);
-  }
-  togelModules() {
-    this.modulesOpen = false;
-  }
 
   toggleLanguage(): void {
     this.languageService.toggleLanguage();
@@ -83,13 +81,22 @@ export class LayoutHeaderComponent {
       this.showcard = false;
     }
   }
+ 
+  openDialog() {
+    this.ref = this.dialog.open(ModuleListComponent, {
+      width: '612px',
+      height: '435px',
+      header:"Choose App"
+    });
+  }
   constructor(
     public languageService: LanguageService,
     public authService: AuthService,
     private env: EnvironmentService,
     public routerService: RouterService,
     private router: ActivatedRoute,
-    private eRef: ElementRef
+    private eRef: ElementRef,
+    private dialog: DialogService
 
   ) {
     this.userName = this.authService.getUserName;

@@ -1,7 +1,8 @@
 <div class="chart_of_account_tree">
   <div class="grid">
     <div class="md:col-4">
-      <div class="tree">
+      <!-- [ngClass]="{'viewmode':view && !viewWithParent, 'viewparentmode':viewWithParent,'addmode':add , 'blank':  !view && !add && !viewWithParent}" -->
+      <div class="tree" >
         <div class="chart_account" [ngClass]="{ chart_account_active: showTree }">
           <div class="chart_togel" (click)="toggelTree()">
             <img src="assets/images/tree/folder.png" alt="" />
@@ -10,7 +11,7 @@
 
           <button class="btn_add pi pi-plus" (click)="newChild()"></button>
         </div>
-        <p-tree [value]="nodes" expanded="true" *ngIf="showTree">
+        <p-tree [value]="nodes" expanded="true" *ngIf="showTree"  >
           <ng-template let-node pTemplate="default">
             <div
               class="ui-tree-node-content label_text"
@@ -23,7 +24,7 @@
               <i class="file_icon pi pi-file" *ngIf="node.children && node.children.length == 0"></i> -->
               <!-- <span (click)="handleTabClick(node)"
                 *ngIf="node.children.length == 0"></span> -->
-              <span id="label_tree" *ngIf="node.children" (click)="handleTabClick(node)">{{
+              <span  id="label_tree" *ngIf="node.children" (click)="handleTabClick(node)">{{
                 node.label
               }}</span>
               <!-- *ngIf="node.children && node.children.length != 0 " -->
@@ -41,6 +42,7 @@
       <app-view-chart *ngIf="view" [account]="account"></app-view-chart>
       <app-add-chart
         *ngIf="add"
+        [newChiled]="newChiled"
         [parentAddedId]="parentAddedId"
         (operationCompleted)="handleOperationCompleted($event)"
       ></app-add-chart>
