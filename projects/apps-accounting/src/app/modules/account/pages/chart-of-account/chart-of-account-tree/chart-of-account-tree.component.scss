@@ -1,4 +1,4 @@
-@import "../../../../../assets/styling/scss/variables/font-family";
+@import "../../../../../../assets/styling/scss/variables/font-family";
 .chart_of_account_tree{
     background-color: #fff;
     .test{
@@ -247,12 +247,12 @@
         width:15px !important;
         height: 15px !important;
         background-size: cover;
-        background-image: url('../../../../../assets/images/tree/folder.png');
+        background-image: url('../../../../../../assets/images/tree/folder.png');
     }
     .file{
         margin-inline-end: 5px;
         width:15px;
         height: 15px;
         background-size: cover;
-        background-image: url('../../../../../assets/images/tree/file.png');
+        background-image: url('../../../../../../assets/images/tree/file.png');
     }

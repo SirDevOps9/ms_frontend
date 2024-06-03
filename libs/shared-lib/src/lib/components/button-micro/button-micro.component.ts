@@ -6,10 +6,10 @@ import { Component, EventEmitter, Input, Output, output } from '@angular/core';
   styleUrl: './button-micro.component.scss'
 })
 export class ButtonMicroComponent {
-  @Input() widthNumber:any;
-  @Input() title:string;
-  @Input() iconName:string;
-  @Input() nameClass:string;
+  @Input() widthNumber: any;
+  @Input() title: string;
+  @Input() iconName: string;
+  @Input() nameClass: 'btn_edit' | 'btn_delet' | 'save' | 'export' | 'cancel';
 
 
 }

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ChartOfAccountConfigurationComponent } from '../../components/chart-of-account-configuration/chart-of-account-configuration.component';
+import { ChartOfAccountConfigurationComponent } from '../../../components/chart-of-account-configuration/chart-of-account-configuration.component';
 
 @Component({
   selector: 'app-main-chart-of-account',

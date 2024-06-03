@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, input, output } from '@angular/core';
-import { AccountService } from '../../account.service';
-import { AccountByIdDto, accountTreeList } from '../../models';
+import { AccountService } from '../../../account.service';
+import { AccountByIdDto, accountTreeList } from '../../../models';
 import { Title } from '@angular/platform-browser';
 import { LanguageService } from 'shared-lib';
-import { ChartOfAccountConfigurationComponent } from '../../components/chart-of-account-configuration/chart-of-account-configuration.component';
+import { ChartOfAccountConfigurationComponent } from '../../../components/chart-of-account-configuration/chart-of-account-configuration.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
