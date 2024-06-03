@@ -31,14 +31,14 @@
     "AppStore": "App store"
   },
   "User": {
-    "UserRemovedSuccessfully":"User Removed Successfully",
+    "UserRemovedSuccessfully": "User Removed Successfully",
     "License": "License",
     "PageName": "Users Index",
     "Id": "Id",
     "Name": "Name",
     "Email": "Email",
     "Phone": "Phone",
-    "Status": "Status(Activate Or Deactivate)",
+    "Status": "Status",
     "Resend": "Resend",
     "Company": "Company",
     "Branches": "Branches",
@@ -55,7 +55,7 @@
     "Accepted": "Accepted",
     "Actions": "Actions",
     "Edit": "Edit",
-    "AddNew":"Add New",
+    "AddNew": "Add New",
     "AdminUser": "Admin",
     "InvitedUser": "Manager",
     "Inviteform": {
@@ -118,6 +118,7 @@
     "status": "Status",
     "Actions": "Actions",
     "Add": {
+      "cityName": "City Name",
       "CompanyLogo": "CompanyLogo",
       "AddCompany": "Add",
       "Plan": "Plan",
@@ -250,8 +251,8 @@
       "Monthly": "Monthly",
       "Category": "Category"
     },
-    "ManageAppsTitle":"My Apps",
-    "Renew":"Renew"
+    "ManageAppsTitle": "My Apps",
+    "Renew": "Renew"
   },
   "Cart": {
     "Title": "Shopping Cart",
@@ -294,7 +295,7 @@
       "User_licenses": "User licenses",
       "ERP_Login": "ERP Login",
       "already_exists": " Domain name already exists.",
-      "available": " domain name are available.",
+      "available": " domain name is available.",
       "purchase": "Purchase"
     }
   }

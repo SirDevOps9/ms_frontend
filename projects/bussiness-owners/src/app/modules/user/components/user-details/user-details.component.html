@@ -5,12 +5,11 @@
         <div class="plus_icon"></div>
         Edit User
       </div>
-   
-        <div class="pi pi-times cancel" (click)="onCancel()"></div>
+
+      <div class="pi pi-times cancel" (click)="onCancel()"></div>
     </div>
   </div>
   <div class="pop_up_content">
-  
     <div class="card">
       <div class="card_edit">
         <div class="information">
@@ -20,9 +19,7 @@
               onerror="this.src='assets/images/users/editdefault.png'"
               alt=""
             /> -->
-            <lib-attachment-viewer>
-              
-            </lib-attachment-viewer>
+            <lib-attachment-viewer *ngIf="userPhoto" [attachmentId]="userPhoto" />
           </div>
           <div class="user_name">
             <p>{{ userName }}</p>
@@ -37,10 +34,8 @@
             (ngSubmit)="onSubmit()"
             *ngIf="lookupsService.lookupsLoaded"
           >
-            <lib-form-group >
-              <lib-label [appControl]="editUserForm.controls['companyId']">
-                Company
-              </lib-label>
+            <lib-form-group>
+              <lib-label [appControl]="editUserForm.controls['companyId']"> Company </lib-label>
               <lib-select
                 formControlName="companyId"
                 [options]="companies"
@@ -50,70 +45,48 @@
                 (valueChanged)="onCompanyChange($event)"
               >
               </lib-select>
-              <lib-field-validations
-                [appControl]="editUserForm.controls['companyId']"
-              >
+              <lib-field-validations [appControl]="editUserForm.controls['companyId']">
               </lib-field-validations>
             </lib-form-group>
-    <div class="mt-4 ">
-      <lib-form-group >
-        <lib-label [appControl]="editUserForm.controls['branchIds']">
-          Branches
-        </lib-label>
-        <lib-multi-select
-          formControlName="branchIds"
-          [options]="branches"
-          optionValue="id"
-          optionLabel="branchName"
-          [selectedValue]="selectedBranches!"
-        >
-        </lib-multi-select>
-        <lib-field-validations
-          [appControl]="editUserForm.controls['branchIds']"
-        >
-        </lib-field-validations>
-      </lib-form-group>
-    </div>
-           
-    
-            <div *ngFor="let subdomainName of subdomains" class="mt-4 ">
+            <div class="mt-4">
               <lib-form-group>
-                <label> Domain Space </label>
-                <lib-text-input
-                [readOnly]="true"
-                [placeholder]="subdomainName"
+                <lib-label [appControl]="editUserForm.controls['branchIds']"> Branches </lib-label>
+                <lib-multi-select
+                  formControlName="branchIds"
+                  [options]="branches"
+                  optionValue="id"
+                  optionLabel="branchName"
+                  [selectedValue]="selectedBranches!"
                 >
-
-                </lib-text-input>
+                </lib-multi-select>
+                <lib-field-validations [appControl]="editUserForm.controls['branchIds']">
+                </lib-field-validations>
               </lib-form-group>
             </div>
-    
-         
+
+            <div *ngFor="let subdomainName of subdomains" class="mt-4">
+              <lib-form-group>
+                <label> Domain Space </label>
+                <lib-text-input [readOnly]="true" [placeholder]="subdomainName"> </lib-text-input>
+              </lib-form-group>
+            </div>
           </form>
         </div>
       </div>
-  </div>
+    </div>
   </div>
   <div class="pop_up_footer">
-  <div class="save_btn">
-    <lib-button-micro 
-    title=' save'
-    nameClass="save"
-    (click)="onSubmit()"
-    widthNumber ="100%"
-    >
-    
-    </lib-button-micro>
-  </div>
-    <div class="cancel_btn">
-      <lib-button-micro 
-    title=' {{ "Company.Cancel" | translate }}'
-    nameClass="cancel"
-    (click)="onCancel()"
-    >
-    
-    </lib-button-micro>
+    <div class="save_btn">
+      <lib-button-micro title=" save" nameClass="save" (click)="onSubmit()" widthNumber="100%">
+      </lib-button-micro>
     </div>
-    
+    <div class="cancel_btn">
+      <lib-button-micro
+        title=" {{ 'Company.Cancel' | translate }}"
+        nameClass="cancel"
+        (click)="onCancel()"
+      >
+      </lib-button-micro>
+    </div>
   </div>
-  </div>
+</div>

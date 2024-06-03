@@ -257,7 +257,7 @@
     "JournalEntryType": "Journal Entry Type",
     "JournalEntryStatus": "Journal Entry Status",
     "Edit": "Edit",
-    "JournalUpdatedSuccessfully":"Journal Updated Successfully",
+    "JournalUpdatedSuccessfully": "Journal Updated Successfully",
     "Add": {
       "CompanyLogo": "CompanyLogo",
       "AddCompany": "Add",
@@ -291,47 +291,42 @@
       "Save": "Save"
     }
   },
-  "ChartOfAccounts":{
-    "name":"Name",
-    "nameEn":"English Name",
-    "ParentAccount" :"Parent Account",
-    "Account" :"Account",
-    "ParentAccountCode":"Parent Account Code",
-    "AccountCode":"Account Code",
-    "ParentLevel":"Parent Level",
-    "AccountNature":"Account Nature",
-    "AccountSection":"Account Section",
-    "AccountType":"Account Type",
-    "Tags":"Tags",
-    "HasNoChild":"Has No Child",
-    "Currency":"Currency",
-    "AccountActivation":"Account Activation",
-    "periodicActiveFrom":"periodic Active From",
-    "periodicActiveTo":"periodic Active To",
-    "Active":"Active",
-    "Inactive":"Inactive",
-    "periodicActive":"periodic Active",
+  "ChartOfAccounts": {
+    "name": "Name",
+    "nameEn": "English Name",
+    "ParentAccount": "Parent Account",
+    "Account": "Account",
+    "ParentAccountCode": "Parent Account Code",
+    "AccountCode": "Account Code",
+    "ParentLevel": "Parent Level",
+    "AccountNature": "Account Nature",
+    "AccountSection": "Account Section",
+    "AccountType": "Account Type",
+    "Tags": "Tags",
+    "HasNoChild": "Details Account",
+    "Currency": "Currency",
+    "AccountActivation": "Account Activation",
+    "periodicActiveFrom": "periodic Active From",
+    "periodicActiveTo": "periodic Active To",
+    "Active": "Active",
+    "Inactive": "Inactive",
+    "periodicActive": "periodic Active",
     "Save": "Save",
-    "SuccessTitle":"Success",
-    "Yes":"Yes",
-    "No":"No",
-    "SuccessMessage":"Data Has Been Added Successfully"
-
+    "SuccessTitle": "Success",
+    "Yes": "Yes",
+    "No": "No",
+    "SuccessMessage": "Data Has Been Added Successfully"
   },
-  "viewJournal" : {
-
-    "JornalCode" : "Journal Code",
-    "Jornalstatus" : "Journal Status",
-    "journalReference" : "Journal Reference",
-    "date" : "Date",
-    "JournalPeriod" : "Journal Period",
-    "JournalType" : "Journal Type",
-    "description" : "Journal Description",
-    "returned" : "Returned",
-    "returnedBy" : "Returned By",
-    "cfoComment" : "CFO Comment"
-
-
+  "viewJournal": {
+    "JornalCode": "Journal Code",
+    "Jornalstatus": "Journal Status",
+    "journalReference": "Journal Reference",
+    "date": "Date",
+    "JournalPeriod": "Journal Period",
+    "JournalType": "Journal Type",
+    "description": "Journal Description",
+    "returned": "Returned",
+    "returnedBy": "Returned By",
+    "cfoComment": "CFO Comment"
   }
-  
 }

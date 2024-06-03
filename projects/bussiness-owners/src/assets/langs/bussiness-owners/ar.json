@@ -118,6 +118,7 @@
     "status": "الحالة",
     "Actions": "الإجراءات",
     "Add": {
+      "cityName":"اسم المدينة",
       "CompanyLogo": "شعار الشركة",
       "AddCompany": "إضافة",
       "Plan": "خطة",

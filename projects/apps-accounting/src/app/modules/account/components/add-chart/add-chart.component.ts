@@ -47,7 +47,7 @@ export class AddChartComponent {
   parentAcountName?: parentAccountDto;
 
   selectedPeriodOption: string = '';
-  @Input() parentAddedId: number;
+  @Input() parentAddedId?: number;
   @Output() operationCompleted = new EventEmitter<any>();
   constructor(
     private formBuilder: FormBuilder,
@@ -60,7 +60,7 @@ export class AddChartComponent {
     private languageService: LanguageService
   ) {
     this.formGroup = formBuilder.group({
-      name: new FormControl('', [customValidators.length(0, 255) , customValidators.required]),
+      name: new FormControl('', [customValidators.length(0, 255), customValidators.required]),
       levelId: new FormControl(''),
       accountCode: new FormControl(''),
       parentId: new FormControl(null),
@@ -142,15 +142,15 @@ export class AddChartComponent {
     this.accountService.getAccount(parentAccountId);
     this.accountService.selectedAccount.subscribe((response) => {
       this.parentAcountName = response;
+      console.log(response);
 
-      console.log('parent Data', response);
       const newAccountData = {
         levelId: response.levelId,
         accountCode: response.accountCode,
         accountSectionId: response.accountSectionId,
         accountSectionName: response.accountSectionName,
         natureId: response.natureId,
-        parentId: parentAccountId,
+        parentId: response.id,
       };
       this.formGroup.get('accountTypeId')?.setValue([null]);
 
@@ -169,7 +169,7 @@ export class AddChartComponent {
   }
 
   onSubmit() {
-    console.log('form value', this.formGroup.value);
+    // console.log('form value', this.formGroup.value);
 
     if (!this.formsService.validForm(this.formGroup, false)) return;
 
@@ -179,7 +179,6 @@ export class AddChartComponent {
 
     this.accountService.savedAddedAccount.subscribe((res) => {
       if (res) {
-        //console.log(res);
         this.operationCompleted.emit(res);
         this.toaserService.showSuccess(
           this.languageService.transalte('ChartOfAccounts.SuccessTitle'),

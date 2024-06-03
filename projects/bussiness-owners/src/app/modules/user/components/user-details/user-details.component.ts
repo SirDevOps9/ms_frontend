@@ -25,6 +25,7 @@ export class UserDetailsComponent implements OnInit {
   photo: string;
   userName: string;
   userEmail: string;
+  userPhoto: string;
   editUserForm: FormGroup;
   companies: lookupDto[] = [];
   branches: BranchDto[] = [];
@@ -54,6 +55,7 @@ export class UserDetailsComponent implements OnInit {
         this.userName = res.userDetails!.name;
         this.userEmail = res.userDetails!.email;
         this.subdomains = res.userDetails!.subdomains;
+        this.userPhoto = res.userDetails!.photo;
         this.selectedCompany = res.userDetails!.companyId.toUpperCase();
         this.selectedBranches = res.userDetails!.branchIds;
         this.editUserForm.patchValue({
@@ -73,31 +75,20 @@ export class UserDetailsComponent implements OnInit {
   async onSubmit() {
     if (!this.formService.validForm(this.editUserForm, true)) return;
     const UpdateUserDto: EditUserModel = this.editUserForm.value;
-    this.userService.editUser(
-      UpdateUserDto,
-      this.currentUserId,
-      this.subdomainId,
-      this.ref
-    );
+    this.userService.editUser(UpdateUserDto, this.currentUserId, this.subdomainId, this.ref);
   }
   onCancel() {
     this.ref.close();
   }
   getProfilePic() {
-    return (
-      this.env.photoBaseUrl +
-      '/api/Users/GetProfilePic?userId=' +
-      this.currentUserId
-    );
+    return this.env.photoBaseUrl + '/api/Users/GetProfilePic?userId=' + this.currentUserId;
   }
 
   getCompanies() {
-    this.companyService
-      .getAllCompanies(this.subdomainId)
-      .subscribe((res) => {
-        this.companies = res;
-        // this.selectedCompany = this.companies.find(c => c.id === this.editUserForm.value.companyId)?.name || '';
-      });
+    this.companyService.getAllCompanies(this.subdomainId).subscribe((res) => {
+      this.companies = res;
+      // this.selectedCompany = this.companies.find(c => c.id === this.editUserForm.value.companyId)?.name || '';
+    });
   }
 
   onCompanyChange(event: any) {
