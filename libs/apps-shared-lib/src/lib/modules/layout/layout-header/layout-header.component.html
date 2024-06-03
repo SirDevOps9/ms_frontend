@@ -1,5 +1,5 @@
 
-<nav (mouseleave)="modulesOpen = false">
+<nav>
   <div class="card">
     <div class="header_bussiness">
       <div class="header_content">
@@ -13,20 +13,14 @@
                   background-image: url('assets/images/navbar/suplogo.png');
                 "
               ></div>
-              <div class="modules" (mouseenter)="modulesOpen = true">
-                <button class="btn_mod_select">
+             
+              <div class="modules">
+                <button class="btn_mod_select"
+                (click)="openDialog()">
                   <i class="icon fab fa-microsoft"></i>
                   {{ moduleName }}
                 </button>
-                <div class="menue_modules" *ngIf="modulesOpen" (mouseleave)="modulesOpen = false">
-                  <p
-                    class="item"
-                    *ngFor="let module of moduleList"
-                    (click)="navigateto(module.moduleId)"
-                  >
-                    {{ module.module }}
-                  </p>
-                </div>
+             
               </div>
             </div>
           </ng-template>
