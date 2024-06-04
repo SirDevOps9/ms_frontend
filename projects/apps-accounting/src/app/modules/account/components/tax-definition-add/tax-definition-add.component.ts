@@ -44,8 +44,8 @@ export class TaxDefinitionAddComponent {
       name: new FormControl('', [customValidators.required]),
       code: new FormControl('', [customValidators.required]),
       ratio: new FormControl('', [customValidators.required]),
-      accountId: new FormControl(),
-      taxGroupId: new FormControl(''),
+      accountId: new FormControl('', [customValidators.required]),
+      taxGroupId: new FormControl('', [customValidators.required]),
     });
   }
 

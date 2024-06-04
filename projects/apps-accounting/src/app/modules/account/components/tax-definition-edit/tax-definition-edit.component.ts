@@ -39,7 +39,7 @@ export class TaxDefinitionEditComponent {
       code: new FormControl('', [customValidators.required]),
       ratio: new FormControl('', [customValidators.required]),
       accountId: new FormControl('', [customValidators.required]),
-      taxGroupId: new FormControl('', [customValidators.required]),
+      taxGroupId: new FormControl(),
     });
   }
 
