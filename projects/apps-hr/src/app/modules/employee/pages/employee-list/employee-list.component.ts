@@ -66,7 +66,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   exportToCSV() {
-    this.employeeService.ExportEmployeesList(this.searchTerm);
+    this.employeeService.exportEmployeesList(this.searchTerm);
     var data: any
     
     this.employeeService.employeesList.subscribe((res) => {

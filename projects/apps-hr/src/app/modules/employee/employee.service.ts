@@ -54,7 +54,8 @@ export class EmployeeService {
       },
     });
   }
-  ExportEmployeesList(searchTerm: string) {
+  
+  exportEmployeesList(searchTerm: string) {
     const pageInfo = new PageInfo;
     pageInfo.pageSize = -1;
     this.employeeProxy.getAllPaginated(searchTerm, pageInfo).subscribe({

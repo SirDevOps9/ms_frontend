@@ -10,7 +10,6 @@ import {
 } from 'shared-lib';
 import { CompanyService } from '../../company.service';
 import { CompanyAddressDto } from '../../models';
-import { SelectIconDto } from 'libs/shared-lib/src/lib/models/selectIcon';
 @Component({
   selector: 'app-company-addres',
   templateUrl: './company-addres.component.html',
@@ -21,7 +20,6 @@ export class CompanyAddresComponent implements OnInit {
   companyAddresForm: FormGroup;
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
- // CountryList: { [key: string]: SelectIconDto[] };
   selectedCountryCode: string | null;
   editMode: boolean = false;
 
@@ -31,24 +29,7 @@ export class CompanyAddresComponent implements OnInit {
     this.initializeFormData();
     this.Subscribe();
   }
-  // private mapLookupsToCountryList(lookups: { [key: string]: lookupDto[] }): { [key: string]: SelectIconDto[] } {
-  //   const countryList: { [key: string]: SelectIconDto[] } = {};
-
-  //   // Iterate over each key-value pair in the lookups object
-  //   for (const key in lookups) {
-  //     if (lookups.hasOwnProperty(key)) {
-  //       // Map the array of lookupDto to an array of SelectIconDto
-  //       countryList[key] = lookups[key].map((lookup) => ({
-  //         id: lookup.id,
-  //         name: lookup.name,
-  //         icon: "assets/images/flags/" +lookup.id.toString().toLowerCase()+".png", // Ensure icon is a string
-  //         // Map other properties if necessary
-  //       }));
-  //     }
-  //   }
-
-  //   return countryList;
-  // }
+  
   Subscribe() {
     this.lookupsService.lookups.subscribe((l) => this.lookups = l);
   }
