@@ -76,6 +76,24 @@
       "currencyRate": "Currency Rate",
       "debitAmountLocal": "Debit Amount (Local)",
       "creditAmountLocal": "Credit Amount (Local)"
-    }
+    },
+   "Tax":{
+    "TaxName": "Tax Name",
+    "AddTaxDefinition": "Add Tax Definition",
+    "TaxCode": "Tax Code",
+    "Ratio": "Ratio",
+    "GlAccount": "GL Account",
+    "TaxGroup": "Tax Group",
+    "TaxGroupId": "Tax Group ID",
+    "Save": "Save",
+    "Discard": "Discard",
+    "TaxList": "Tax List",
+    "Id": "ID",
+    "Name": "Name",
+    "Account": "Account",
+    "Search": "Search",
+    "AddNew": "Add New",
+    "Export": "Export"
+   }
   }
 }

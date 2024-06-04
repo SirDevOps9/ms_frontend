@@ -2,9 +2,9 @@ import { TaxDefinitionAddComponent } from './../../../components/tax-definition-
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { GeneralSettingService } from 'projects/erp-home/src/app/modules/general-setting/general-setting.service';
-import { TagDto } from 'projects/erp-home/src/app/modules/general-setting/models';
 import { PageInfoResult, MenuModule, RouterService, PageInfo } from 'shared-lib';
+import { AccountService } from '../../../account.service';
+import { AccountDto, TaxDto } from '../../../models';
 import { TaxDefinitionEditComponent } from '../../../components/tax-definition-edit/tax-definition-edit.component';
 
 
@@ -14,55 +14,42 @@ import { TaxDefinitionEditComponent } from '../../../components/tax-definition-e
   styleUrl: './tax-definition.component.scss'
 })
 export class TaxDefinitionComponent implements OnInit {
-  tableData: TagDto[];
+  tableData: TaxDto[];
   currentPageInfo: PageInfoResult;
   modulelist: MenuModule[];
   searchTerm: string;
 
-  constructor(
-    private routerService: RouterService,
-    private generalSettingService: GeneralSettingService,
-    public authService: AuthService,
-    private dialog: DialogService
-  ) {}
+
 
   ngOnInit() {
     this.modulelist = this.authService.getModules();
-    this.initTagData();
+    this.initTaxData();
   }
 
-  initTagData() {
-    this.generalSettingService.getTagList('', new PageInfo());
+  initTaxData() {
+    this.accountService.getAllTaxes('', new PageInfo());
 
-    this.generalSettingService.tagList.subscribe({
+    this.accountService.taxesDefintionList.subscribe({
       next: (res) => {
         this.tableData = res;
       },
     });
 
-    this.generalSettingService.currentPageInfo.subscribe((currentPageInfo) => {
+    this.accountService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.generalSettingService.getTagList('', pageInfo);
+    this.accountService.getAllTaxes('', pageInfo);
 
-    this.generalSettingService.tagList.subscribe({
+    this.accountService.taxesDefintionList.subscribe({
       next: (res) => {
         this.tableData = res;
       },
     });
   }
 
-
-  changed(e: any, id: number) {
-    if (e.checked === false) {
-      this.generalSettingService.deactivate(id);
-    } else {
-      this.generalSettingService.activate(id);
-    }
-  }
 
   onAdd() {
     const dialogRef = this.dialog.open(TaxDefinitionAddComponent, {
@@ -72,24 +59,42 @@ export class TaxDefinitionComponent implements OnInit {
     });
 
     dialogRef.onClose.subscribe(() => {
-      this.initTagData();
+      this.initTaxData();
     });
   }
 
-  onSearchChange() {
-    this.generalSettingService.getTagList(this.searchTerm, new PageInfo());
+  onEdit() {
+    const dialogRef = this.dialog.open(TaxDefinitionEditComponent, {
+      width: '600px',
+      height : '800px'
+    
+    });
 
-    this.generalSettingService.tagList.subscribe({
+    dialogRef.onClose.subscribe(() => {
+      this.initTaxData();
+    });
+  }
+
+
+  onSearchChange() {
+    this.accountService.getAllTaxes(this.searchTerm, new PageInfo());
+
+    this.accountService.taxesDefintionList.subscribe({
       next: (res) => {
         this.tableData = res;
+        console.log(res);
       },
     });
   }
-  Delete(id: number) {
-    this.generalSettingService.deleteTag(id);
-    const index = this.tableData.findIndex((item) => item.id === id);
-    if (index !== -1) {
-      this.tableData.splice(index, 1);
-    }
+
+  onDelete(id: number) {
+    this.accountService.deleteTax(id);
   }
+
+  constructor(
+    private routerService: RouterService,
+    public authService: AuthService,
+    private dialog: DialogService,
+    private accountService: AccountService
+  ) {}
 }
