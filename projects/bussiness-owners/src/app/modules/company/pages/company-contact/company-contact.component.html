@@ -27,15 +27,17 @@
             </div>
             <div class="col-2">
               <lib-form-group>
-                <lib-select
+                <lib-selectIcon
                   [readOnly]="!editMode"
                   formControlName="mobileNumberCode"
                   [options]="lookups[LookupEnum.MobileCode]"
                   [selectedValue]="selectedMobileCode"
                   optionValue="id"
                   optionLabel="name"
+                  icons="flags"
+
                 >
-                </lib-select>
+                </lib-selectIcon>
                 <lib-field-validations
                   [appControl]="companyContactForm.controls['mobileNumberCode']"
                 >
@@ -147,15 +149,16 @@
             <div class="col-2">
               <lib-form-group>
 
-                <lib-select
+                <lib-selectIcon
                   [readOnly]="!editMode"
                   formControlName="contactPersonalMobileNumberCode"
                   [options]="lookups[LookupEnum.MobileCode]"
                   [selectedValue]="selectedPersonalMobileCode"
                   optionValue="id"
                   optionLabel="name"
+                  icons="flags"
                 >
-                </lib-select>
+                </lib-selectIcon>
                 <lib-field-validations
                   [appControl]="companyContactForm.controls['contactPersonalMobileNumberCode']"
                 >

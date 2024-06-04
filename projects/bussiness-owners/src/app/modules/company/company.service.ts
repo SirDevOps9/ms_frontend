@@ -351,7 +351,7 @@ export class CompanyService {
     );
     if (confirmed) {
       this.companyProxy.deleteBranch(branchId).subscribe({
-        next: () => {
+        next: (res) => {          
           this.toasterService.showSuccess(
             this.languageService.transalte('Success'),
             this.languageService.transalte(
@@ -365,8 +365,12 @@ export class CompanyService {
           );
           this.branchesDataSource.next(updatedBranches);
         },
+        error: (err) => {
+          this.toasterService.showError('Operation Fail', err.message);
+        },
       });
     } else {
+
     }
   }
 
