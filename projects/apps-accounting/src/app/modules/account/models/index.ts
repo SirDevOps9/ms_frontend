@@ -9,4 +9,8 @@ export * from './tagDropDownDto';
 
 export * from './addLevelsDto';
 export * from './getLevelsDto';
-export * from './accountByIdDto'
+export * from './accountByIdDto';
+export * from './tax-group-dto';
+export * from './add-tax-group-dto';
+
+
