@@ -80,8 +80,8 @@ export class AccountProxy {
   editTaxGroup(taxgroupdto: TaxGroupDto): Observable<boolean> {
     return this.httpService.put<boolean>(`TaxGroup`,taxgroupdto);
   }
-  getTaxGroupById(id: number): Observable<boolean> {
-    return this.httpService.get<boolean>(`TaxGroup/GetById?Id=${id}`);
+  getTaxGroupById(id: number): Observable<TaxGroupDto> {
+    return this.httpService.get<TaxGroupDto>(`TaxGroup/GetById?Id=${id}`);
   }
 
   constructor(private httpService: HttpService) {}

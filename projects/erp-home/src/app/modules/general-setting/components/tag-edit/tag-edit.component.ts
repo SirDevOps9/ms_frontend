@@ -38,7 +38,6 @@ export class TagEditComponent implements OnInit {
   getCurruntTag(){
     this.generalSettingService.getTagById(parseInt(this.Id) );
     this.generalSettingService.currentTag.subscribe((response) => {
-      console.log(response)
       this.tagForm.patchValue({
         Id: response.id,
         Code: response.code,

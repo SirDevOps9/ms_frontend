@@ -12,8 +12,9 @@ import { TaxGroupDto } from '../../models';
 })
 export class TaxGroupEditComponent implements OnInit {
   taxGroupForm: FormGroup;
+
   get Id(): string {
-    return this.config?.data?.id;
+    return this.config?.data;
   }
 
   constructor(
@@ -26,13 +27,27 @@ export class TaxGroupEditComponent implements OnInit {
 
   ngOnInit() {
     this.initializeTagForm();
+    this.currentTaxGroup();
   }
 
   initializeTagForm() {
     this.taxGroupForm = this.fb.group({
+      id:new FormControl('', customValidators.required),
       code: new FormControl('', customValidators.required),
       name: new FormControl('', customValidators.required)
         });
+  }
+
+  currentTaxGroup(){
+    console.log('Id',this.Id);
+    this.accountService.getTaxGroupById(parseInt(this.Id));
+    this.accountService.currentTaxGroup.subscribe((response) => {
+      this.taxGroupForm.patchValue({
+        id: response.id,
+        code: response.code,
+        name: response.name
+      });
+  });
   }
 
   save() {

@@ -192,7 +192,7 @@ export class AccountService {
       },
     });
   }
-  getTagById(id:number) {
+  getTaxGroupById(id:number) {
     this.accountproxy.getTaxGroupById(id).subscribe((response) => {
       this.currentTaxGroupDataSource.next(response);
     });

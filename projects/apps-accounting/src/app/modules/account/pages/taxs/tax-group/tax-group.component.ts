@@ -8,6 +8,7 @@ import { TaxDefinitionAddComponent } from '../../../components/tax-definition-ad
 import { AccountService } from '../../../account.service';
 import { TaxGroupDto } from '../../../models';
 import { TaxGroupAddComponent } from '../../../components/tax-group-add/tax-group-add.component';
+import { TaxGroupEditComponent } from '../../../components/tax-group-edit/tax-group-edit.component';
 
 @Component({
   selector: 'app-tax-group',
@@ -66,13 +67,13 @@ export class TaxGroupComponent implements OnInit {
     });
   }
 
-  Edit(data:any) {
-    const dialogRef = this.dialog.open(TaxDefinitionEditComponent, {
+  Edit(Id:any) {
+    const dialogRef = this.dialog.open(TaxGroupEditComponent, {
       header : "Add New Tag",
       width: '700px',
       height: '600px',
-      data : data,
-      position: 'bottom-right' // Adjust position as needed
+      position: 'bottom-right',
+      data : Id
     
     });
     dialogRef.onClose.subscribe(() => {
