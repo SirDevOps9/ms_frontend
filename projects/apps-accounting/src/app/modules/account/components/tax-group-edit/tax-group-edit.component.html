@@ -3,7 +3,7 @@
     <div class="header_content">
       <div class="title">
         <div class="plus_icon"></div>
-        {{ "Tax.AddTaxDefinition" | translate }}
+        {{ "TaxGroup.Edit.EditTaxGroup" | translate }}
       </div>
         <div class="pi pi-times cancel" (click)="close()"></div>
     </div>
@@ -14,7 +14,7 @@
               <div class="md:col-12">
                 <lib-form-group>
                   <lib-label [appControl]="taxGroupForm.controls['code']">
-                    {{ "Tax.TaxCode" | translate }}
+                    {{ "TaxGroup.Edit.Code" | translate }}
                   </lib-label>
                   <lib-text-input type="text" formControlName="code" />
                   <lib-field-validations
@@ -26,7 +26,7 @@
               <div class="md:col-12">
                 <lib-form-group>
                   <lib-label [appControl]="taxGroupForm.controls['name']">
-                    {{ "Tax.TaxName" | translate }}
+                    {{ "TaxGroup.Edit.Name" | translate }}
                   </lib-label>
                   <lib-text-input type="text" formControlName="name" />
                   <lib-field-validations
@@ -41,7 +41,7 @@
   <div class="pop_up_footer">
   <div class="save_btn">
     <lib-button-micro
-    title="{{ 'Tax.Save' | translate }}"
+    title="{{ 'TaxGroup.Edit.Save' | translate }}"
     nameClass="save"
     (click)="save()"
     widthNumber ="100%"
@@ -50,7 +50,7 @@
   </div>
     <div class="cancel_btn">
       <lib-button-micro
-    title="{{ 'Tax.Discard' | translate }}"
+    title="{{ 'TaxGroup.Edit.Discard' | translate }}"
     nameClass="cancel"
     (click)="close()"
     widthNumber ="100%"
