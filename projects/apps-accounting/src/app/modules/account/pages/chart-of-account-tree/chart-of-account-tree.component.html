@@ -9,14 +9,16 @@
             <p class="text paragraph_b18">chart of account</p>
           </div>
 
-          <button class="btn_add pi pi-plus" (click)="newChild()"></button>
+          <button class="btn_tree_item btn_add pi pi-plus" (click)="newChild()"></button>
+         
         </div>
         <p-tree [value]="nodes" expanded="true" *ngIf="showTree"  >
           <ng-template let-node pTemplate="default">
             <div
-              class="ui-tree-node-content label_text"
+              class="ui-tree-node-content label_text tree-item-container"
               [ngClass]="{ active: node === activeNode }"
             >
+            <div class="description">
               <span class="tree-icon" *ngIf="node.children"></span>
               <span class="folder" *ngIf="!node.hasNoChild"></span>
               <span class="file" *ngIf="node.hasNoChild"></span>
@@ -28,11 +30,20 @@
                 node.label
               }}</span>
               <!-- *ngIf="node.children && node.children.length != 0 " -->
+            </div>
+            <div class="action">
+              <button class="btn_tree_item btn_edit pi pi-pencil"  (click)="editAccount(node)"></button>
+              <button class="btn_tree_item btn_delet pi pi-trash" ></button>
               <button
-                class="btn_add pi pi-plus"
+                class="btn_add btn_tree_item pi pi-plus"
                 (click)="addChild(node)"
                 *ngIf="!node.hasNoChild"
               ></button>
+            </div>
+             
+              
+            
+           
             </div>
           </ng-template>
         </p-tree>
@@ -46,7 +57,7 @@
         [parentAddedId]="parentAddedId"
         (operationCompleted)="handleOperationCompleted($event)"
       ></app-add-chart>
-      <app-edit-chart *ngIf="edit"></app-edit-chart>
+      <app-edit-chart *ngIf="edit" [parentEditedId]="parentEditedId" (operationCompleted)="viewMode($event)"></app-edit-chart>
     </div>
   </div>
 </div>

@@ -12,6 +12,7 @@ import {
   GetLevelsDto,
   listAddLevelsDto,
   AccountByIdDto,
+  accountById
 } from './models';
 
 @Injectable({
@@ -39,6 +40,9 @@ export class AccountProxy {
   addAccount(command: AddAccountDto): Observable<AccountDto> {
     return this.httpService.post('ChartOfAccounts/AddAccount', command);
   }
+  editAccount(command:accountById ): Observable<accountById> {
+    return this.httpService.put('ChartOfAccounts/EditAccount', command);
+  }
   getAllPaginated(quieries: string, pageInfo: PageInfo): Observable<PaginationVm<AccountDto>> {
     return this.httpService.get<PaginationVm<AccountDto>>(`ChartOfAccounts?${pageInfo.toQuery}&${quieries ?quieries : '' }`);
   }
@@ -60,6 +64,9 @@ export class AccountProxy {
 
   addLevels(command: listAddLevelsDto): Observable<boolean> {
     return this.httpService.post('Levels', command);
+  }
+  getAccountById(id: number): Observable<accountById> {
+    return this.httpService.get<accountById>(`ChartOfAccounts/GetById?id=${id}`);
   }
 
   constructor(private httpService: HttpService) {}

@@ -25,6 +25,7 @@ export class ChartOfAccountTreeComponent implements OnInit {
   showTree: boolean = true;
   ref: DynamicDialogRef;
   parentAdded: any;
+  parentEditedId:any
   activeNode: any = null;
 
   constructor(
@@ -103,7 +104,7 @@ export class ChartOfAccountTreeComponent implements OnInit {
   handleTabClick(node: any) {
     this.edit = false;
     this.add = false;
-    this.view = false;
+    this.view = false;    
     this.activeNode = node;
     this.parentAddedId = node.id;
     if(this.parentAddedId){
@@ -112,6 +113,22 @@ export class ChartOfAccountTreeComponent implements OnInit {
     }
     this.view = true;
     //console.log(node);
+  }
+  viewMode(event:number){
+    setTimeout(() => {
+      this.edit = false;
+    this.add = false;
+    this.view = false;    
+    //this.activeNode = node;
+    this.parentAddedId = event;
+    if(this.parentAddedId){
+      this.getAccountDetails(this.parentAddedId);
+    
+    }
+    this.view = true;
+    this.getTreeList()
+    }, 1000);
+    
   }
   getTreeList() {
     this.accountService.getTreeList().subscribe((res: any) => {
@@ -136,5 +153,15 @@ export class ChartOfAccountTreeComponent implements OnInit {
   }
   toggelTree() {
     this.showTree = !this.showTree;
+  }
+  editAccount(node:any){
+    this.edit = false;
+    this.add = false;
+    this.view = false;
+    this.activeNode = node;
+    this.parentEditedId = node.id;
+    this.edit = true;
+    //console.log(node);
+    
   }
 }

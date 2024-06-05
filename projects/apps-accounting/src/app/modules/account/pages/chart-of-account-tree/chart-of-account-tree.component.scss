@@ -6,6 +6,9 @@
         
     }
     ::ng-deep {
+        .p-treenode-label{
+            width: 100% !important;
+        }
         .p-tree .p-tree-container .p-treenode .p-treenode-content .p-tree-toggler {
             margin-right: 0 !important;
         
@@ -38,6 +41,8 @@
             display: flex !important;
             //  flex-direction: row-reverse !important;
             align-items: center;
+            justify-content: space-between;
+           
        
         }
     
@@ -165,22 +170,46 @@
 
     }
    
-    
-    .btn_add {
+    .btn_tree_item{
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        border: 2px solid #0D4859;
-        color: #0D4859;
         font-size: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
         background: none;
-        margin-inline-start: 20px;
+        margin-inline-start: 10px;
+        border: none;
         cursor: pointer;
+        position: relative;
+       
     }
-  
+    .btn_add {
+        border: 1px solid #0D4859;
+        color: #0D4859;
+        
+    }
+    .btn_edit {
+        //border: 2px solid #1a8eae;
+        color: #1a8eae;
+       display: none;
+      
+    }
+    .btn_delet {
+        //border: 2px solid #CB3F2D;
+        color: #CB3F2D;
+        display: none;
+      
+    }
+    .tree-item-container:hover {
+        .btn_delet{
+            display: block; 
+        }
+        .btn_edit{
+            display: block; 
+        }
+    }
     
     .folder_icon,
     .file_icon {
@@ -234,6 +263,10 @@
         font-size: 16px;
         font-family: $cairo_semi_bold;
         color: #475467;
+    }
+    .action{
+        display: flex;
+        align-items: center;
     }
  
   
@@ -289,15 +322,16 @@
 
       .folder{
         margin-inline-end: 5px;
+        position: relative;
         width:15px !important;
         height: 15px !important;
         background-size: cover;
-        background-image: url('../../../../../assets/images/tree/folder.png');
+        background-image: url('../../../../../assets/images/tree/folder.png') !important;
     }
     .file{
         margin-inline-end: 5px;
         width:15px;
         height: 15px;
         background-size: cover;
-        background-image: url('../../../../../assets/images/tree/file.png');
+        background-image: url('../../../../../assets/images/tree/file.png') !important;
     }
