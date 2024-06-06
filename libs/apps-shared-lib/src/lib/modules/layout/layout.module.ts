@@ -6,6 +6,7 @@ import { LayoutSidebarComponent } from './layout-sidebar/layout-sidebar.componen
 import { layoutRoutes } from './layoutRoutes';
 import { SharedLibModule } from 'shared-lib';
 import { RouterModule } from '@angular/router';
+import { ModuleListComponent } from '../../components/module-list/module-list.component';
 
 const routes = layoutRoutes;
 @NgModule({
@@ -13,6 +14,7 @@ const routes = layoutRoutes;
     LayoutPageComponent,
     LayoutSidebarComponent,
     LayoutHeaderComponent,
+    ModuleListComponent,
   ],
   imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes)],
 })

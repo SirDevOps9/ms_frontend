@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuModule, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { GeneralSettingService } from '../../general-setting.service';
+import { TagDto } from '../../models';
+import { TagAddComponent } from '../tag-add/tag-add.component';
 import { GeneralSettingService } from '../../../general-setting.service';
 import { TagDto } from '../../../models';
 import { InputSwitchChangeEvent } from 'primeng/inputswitch';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
+import { TagEditComponent } from '../tag-edit/tag-edit.component';
+import { LayoutService } from 'libs/apps-shared-lib/src/lib/modules/layout/layout.service';
 import { TagEditComponent } from '../../../components/tag-edit/tag-edit.component';
 import { TagAddComponent } from '../../../components/tag-add/tag-add.component';
 
@@ -22,12 +27,12 @@ export class TagListComponent implements OnInit {
   constructor(
     private routerService: RouterService,
     private generalSettingService: GeneralSettingService,
-    public authService: AuthService,
+    public layoutService: LayoutService,
     private dialog: DialogService
   ) {}
 
   ngOnInit() {
-    this.modulelist = this.authService.getModules();
+    this.modulelist = this.layoutService.getModules();
     this.initTagData();
   }
 

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthHttpService, AuthService } from 'microtec-auth-lib';
 import { LanguageService } from 'shared-lib';
 
 @Component({
@@ -8,19 +7,11 @@ import { LanguageService } from 'shared-lib';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  ngOnInit(): void {
-    // this.authHttp
-    //   .loadSideMenu()
-    //   .subscribe((res) => this.currentUserservice.saveSideMenu(res));
-  }
+  ngOnInit(): void {}
 
   title = 'erp-home';
 
-  constructor(
-    private currentUserservice: AuthService,
-    private authHttp: AuthHttpService,
-    public languageService: LanguageService,
-  ) {
+  constructor(public languageService: LanguageService) {
     this.languageService.setLang();
   }
 }

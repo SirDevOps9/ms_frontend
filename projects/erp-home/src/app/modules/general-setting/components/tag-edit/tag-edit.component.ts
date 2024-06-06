@@ -5,6 +5,7 @@ import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dy
 import { GeneralSettingService } from '../../general-setting.service';
 import { MenuModule, customValidators } from 'shared-lib';
 import { TagDto } from '../../models/tagDto';
+import { LayoutService } from 'libs/apps-shared-lib/src/lib/modules/layout/layout.service';
 
 @Component({
   selector: 'app-tag-edit',
@@ -23,7 +24,7 @@ export class TagEditComponent implements OnInit {
     public config: DynamicDialogConfig,
     public dialogService: DialogService,
     private fb: FormBuilder,
-    public authService: AuthService,
+    public layoutService: LayoutService,
     private ref: DynamicDialogRef,
     private generalSettingService : GeneralSettingService
   ) { }
@@ -51,7 +52,7 @@ export class TagEditComponent implements OnInit {
 }
 
   moudlelist() {
-    this.modulelist = this.authService.getModules();
+    this.modulelist = this.layoutService.getModules();
   }
   
   initializeTagForm() {

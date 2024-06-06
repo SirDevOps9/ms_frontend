@@ -11,8 +11,7 @@
               {{ 'ChartOfAccounts.ParentAccountCode' | translate }}
             </lib-label>
             <lib-text-input [readOnly]="true" type="text" formControlName="accountCode" />
-            <lib-field-validations [appControl]="formGroup.controls['accountCode']">
-            </lib-field-validations>
+           
           </lib-form-group>
         </div>
       </lib-fildest>
@@ -26,7 +25,7 @@
               formControlName="parentId"
               [options]="parentAccounts"
               optionValue="id"
-              [selectedValue]="formGroup.controls['parentId'].value"
+              [selectedValue]=" selectValue ? formGroup.controls['parentId'].value :null"
               optionLabel="name"
               (valueChanged)="onParentAccountChange($event)"
             >
@@ -64,7 +63,7 @@
               <lib-select
                 [readOnly]="hasParentAccount"
                 formControlName="natureId"
-                [selectedValue]="parentAcountName?.natureId?.toString()"
+                [selectedValue]="selectValue? parentAcountName?.natureId?.toString() : null"
                 [options]="lookups[LookupEnum.AccountNature]"
                 optionValue="id"
                 optionLabel="name"
@@ -88,9 +87,9 @@
                 {{ 'ChartOfAccounts.AccountSection' | translate }}
               </lib-label>
               <lib-select
-                [readOnly]="hasParentAccount"
+                [readOnly]="hasParentAccount "
                 formControlName="accountSectionId"
-                [selectedValue]="parentAcountName?.accountSectionId"
+                [selectedValue]="selectValue? parentAcountName?.accountSectionId :null"
                 [options]="accountSections"
                 optionValue="id"
                 optionLabel="nameAr"
