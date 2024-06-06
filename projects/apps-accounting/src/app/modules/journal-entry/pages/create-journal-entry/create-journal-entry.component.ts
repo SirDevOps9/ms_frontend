@@ -98,10 +98,7 @@ export class CreateJournalEntryComponent {
     });
 
     this.titleService.setTitle;
-    this.accountService
-      .getAccountsHasNoChildren('', new PageInfo())
-      .pipe(tap((elem) => console.log(elem)))
-      .subscribe((r) => (this.filteredAccounts = r.result));
+    this.getAccounts();
 
     this.currencyService.getCurrencies('');
 
@@ -111,7 +108,16 @@ export class CreateJournalEntryComponent {
     });
   
   }
- 
+  getAccounts() {
+    this.accountService
+      .getAccountsHasNoChildren('', new PageInfo())
+      .subscribe((r) => {
+        this.filteredAccounts = r.result.map(account => ({
+          ...account,
+          displayName: `${account.name} (${account.accountCode})`
+        }));
+      });
+  }
   public startTour(): void {
     this.guidedTourService.startTour(this.TOUR);
   }
@@ -332,8 +338,8 @@ export class CreateJournalEntryComponent {
       debitAmountLocal: new FormControl(),
       creditAmountLocal: new FormControl(),
       currencyName: new FormControl(''),
-    });
-
+    }, { validators: customValidators.debitAndCreditBothCanNotBeZero });
+    this.fg.updateValueAndValidity()
     this.fa.push(fg);
   }
 
@@ -342,6 +348,7 @@ export class CreateJournalEntryComponent {
   }
 
   save() {
+ 
     if (!this.formService.validForm(this.fg, false)) return;
     const value = this.fg.value as JournalEntryFormValue;
 
@@ -414,6 +421,7 @@ export class CreateJournalEntryComponent {
                 debitAmountLocal: new FormControl(line.debitAmountLocal),
                 creditAmountLocal: new FormControl(line.creditAmountLocal),
               });
+
               this.fa.push(newLine);
               //console.log('new line', newLine);
               // console.log(this.fa, 'test');

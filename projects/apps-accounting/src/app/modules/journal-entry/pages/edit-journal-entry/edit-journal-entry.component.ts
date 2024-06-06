@@ -104,8 +104,8 @@ export class EditJournalEntryComponent implements OnInit {
       this.journalEntryLines.forEach((line) => {
         const { currencyId, debitAmount, creditAmount, currencyRate, ...lineData } = line;
 
-        journalEntryLinesArray.push(
-          this.fb.group({
+        const lineGroup = this.fb.group(
+          {
             id: new FormControl(lineData.id),
             accountId: new FormControl(lineData.accountId, [customValidators.required]),
             accountName: new FormControl(lineData.accountName),
@@ -117,8 +117,12 @@ export class EditJournalEntryComponent implements OnInit {
             currencyRate: new FormControl(currencyRate, [customValidators.required]),
             debitAmountLocal: new FormControl(debitAmount * currencyRate),
             creditAmountLocal: new FormControl(creditAmount * currencyRate),
-          })
+          },
+          { validators: customValidators.debitAndCreditBothCanNotBeZero }
         );
+        lineGroup.updateValueAndValidity();
+
+        journalEntryLinesArray.push(lineGroup);
 
         this.currencyIdList.push(currencyId);
       });
@@ -156,8 +160,7 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   onDiscard() {
-    //this.editJournalForm.reset();
-    this.initializeFormData();
+    this.routerService.navigateTo(`/journalentry`);
   }
 
   get journalEntryLinesFormArray() {
@@ -199,28 +202,38 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   addNewRow() {
-    let newLine = this.fb.group({
-      id: new FormControl(0),
-      accountCode: new FormControl('', [customValidators.required]),
-      accountId: new FormControl(),
-      accountName: new FormControl(),
-      lineDescription: new FormControl(null, [customValidators.required]),
-      debitAmount: new FormControl(0, [customValidators.required, Validators.min(0)]),
-      creditAmount: new FormControl(0, [customValidators.required, Validators.min(0)]),
-      currency: new FormControl(null, [customValidators.required]),
-      currencyRate: new FormControl(),
-      debitAmountLocal: new FormControl(),
-      creditAmountLocal: new FormControl(),
-    });
+    let newLine = this.fb.group(
+      {
+        id: new FormControl(0),
+        accountCode: new FormControl('', [customValidators.required]),
+        accountId: new FormControl(),
+        accountName: new FormControl(),
+        lineDescription: new FormControl(null, [customValidators.required]),
+        debitAmount: new FormControl(0, [customValidators.required, Validators.min(0)]),
+        creditAmount: new FormControl(0, [customValidators.required, Validators.min(0)]),
+        currency: new FormControl(null, [customValidators.required]),
+        currencyRate: new FormControl(),
+        debitAmountLocal: new FormControl(),
+        creditAmountLocal: new FormControl(),
+      },
+      { validators: customValidators.debitAndCreditBothCanNotBeZero }
+    );
+    newLine.updateValueAndValidity();
+
     this.journalEntryLinesFormArray.push(newLine);
   }
 
-  getAccounts() {
-    this.accountService
-      .getAccountsHasNoChildren('', new PageInfo())
-      .subscribe((r) => (this.filteredAccounts = r.result));
-  }
 
+getAccounts() {
+  this.accountService
+    .getAccountsHasNoChildren('', new PageInfo())
+    .subscribe((r) => {
+      this.filteredAccounts = r.result.map(account => ({
+        ...account,
+        displayName: `${account.name} (${account.accountCode})`
+      }));
+    });
+}
   filterAccount(event: any) {
     //console.log(this.filteredAccounts);
     let query = event.query;
@@ -343,6 +356,5 @@ export class EditJournalEntryComponent implements OnInit {
     private toasterService: ToasterService,
     private currencyService: CurrencyService,
     private titleService: Title
-
   ) {}
 }
