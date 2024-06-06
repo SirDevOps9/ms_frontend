@@ -1,28 +1,16 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
-import { LanguageService, LoaderService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
-import { Injectable, Signal, WritableSignal, computed, signal } from '@angular/core';
-import { BehaviorSubject, Observable, map, of, shareReplay, take } from 'rxjs';
-import {
-  LanguageService,
-  LoaderService,
-  PageInfo,
-  PageInfoResult,
-  PaginationVm,
-  ToasterService,
-} from 'shared-lib';
 import { AccountProxy } from './account.proxy';
 import { AddAccountDto } from './models/addAccountDto';
-import { AccountByIdDto, AccountDto, AddTaxGroupDto, GetLevelsDto, TaxGroupDto, listAddLevelsDto,accountById } from './models';
+import { AccountByIdDto, AccountDto, AddTaxGroupDto, GetLevelsDto, TaxGroupDto, listAddLevelsDto,accountById, AddTax, EditTax, TaxGroupDropDown } from './models';
 
 import { AccountTypeDropDownDto } from './models/accountTypeDropDownDto';
 import { TagDropDownDto } from './models/tagDropDownDto';
 import { parentAccountDto } from './models/parentAcccountDto';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TaxDto } from './models/tax-dto';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { AccountDto, accountById, AccountByIdDto, TaxGroupDropDown, GetLevelsDto, listAddLevelsDto, AddTax, EditTax } from './models';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, map } from 'rxjs';
+import { PageInfoResult, PageInfo, LoaderService, ToasterService, LanguageService } from 'shared-lib';
 
 @Injectable({
   providedIn: 'root',
@@ -341,7 +329,6 @@ export class AccountService {
     });
   }
   constructor(
-    private loaderService: LoaderService,
     private accountproxy: AccountProxy,
     private toasterService: ToasterService,
     private languageService: LanguageService,

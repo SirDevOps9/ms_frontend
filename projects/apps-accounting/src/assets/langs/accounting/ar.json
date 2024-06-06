@@ -78,29 +78,28 @@
     "debitAmountLocal": "المبلغ المحلي الدائن",
     "creditAmountLocal": "المبلغ المحلي المدين"
   },
-    "TaxGroup": {
+  "TaxGroup": {
+    "Code": "رمز",
+    "Name": "اسم",
+    "Action": "إجراءات",
+    "TaxGrouplist": "قائمة مجموعة الضرائب",
+    "Add": {
+      "AddTaxGroup": "إضافة مجموعة ضريبية",
       "Code": "رمز",
       "Name": "اسم",
-      "Action": "إجراءات",
-      "TaxGrouplist": "قائمة مجموعة الضرائب",
-      "Add": {
-        "AddTaxGroup": "إضافة مجموعة ضريبية",
-        "Code": "رمز",
-        "Name": "اسم",
-        "Discard": "تجاهل",
-        "Save": "حفظ"
-      },
-      "Edit": {
-        "EditTaxGroup": "تحرير مجموعة ضريبية",
-        "Code": "رمز",
-        "Name": "اسم",
-        "Discard": "تجاهل",
-        "Save": "حفظ"
-      }
+      "Discard": "تجاهل",
+      "Save": "حفظ"
+    },
+    "Edit": {
+      "EditTaxGroup": "تحرير مجموعة ضريبية",
+      "Code": "رمز",
+      "Name": "اسم",
+      "Discard": "تجاهل",
+      "Save": "حفظ"
     }
-  
   },
-  "Tax":{
+
+  "Tax": {
     "TaxName": "اسم الضريبة",
     "AddTaxDefinition": "إضافة تعريف الضريبة",
     "TaxCode": "كود الضريبة",
@@ -121,5 +120,5 @@
     "CannotDeleteTaxUsedInTransactions": "لا يمكن حذف الضريبة المستخدمة في المعاملات",
     "UpdatedSuccessfully": "تم تحديث الضريبة بنجاح",
     "AddedSuccessfully": "تم إضافة الضريبة بنجاح"
-}
+  }
 }

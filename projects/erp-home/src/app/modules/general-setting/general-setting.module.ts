@@ -5,9 +5,9 @@ import { LayoutPageComponent } from 'apps-shared-lib';
 import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
 import { AuthGuard } from 'microtec-auth-lib';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-import { TagListComponent } from './pages/tags/tag-list/tag-list.component';
 import { TagAddComponent } from './components/tag-add/tag-add.component';
 import { TagEditComponent } from './components/tag-edit/tag-edit.component';
+import { TagListComponent } from './pages/tags/tag-list/tag-list.component';
 
 
 const routes: Routes = [
@@ -35,9 +35,7 @@ const routes: Routes = [
   declarations: [
     TagListComponent,
     TagAddComponent,
-    TagEditComponent,
- 
-  
+    TagEditComponent
   ],
   imports: [
     CommonModule,
