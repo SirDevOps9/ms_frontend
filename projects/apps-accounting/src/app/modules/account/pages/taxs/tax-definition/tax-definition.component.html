@@ -2,7 +2,9 @@
   <lib-bread-crumb> </lib-bread-crumb>
   <div>
     <div class="user_page">
+  
       <lib-data-table
+     
         [items]="tableData"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
@@ -92,7 +94,7 @@
         </ng-container>
         <ng-template #actions let-action>
           <div class="actions flex align-items-center gap-2">
-            <lib-button-micro iconName="pi pi-pencil" nameClass="btn_edit" (click)="onEdit()">
+            <lib-button-micro iconName="pi pi-pencil" nameClass="btn_edit" (click)="onEdit(action)">
             </lib-button-micro>
 
             <lib-button-micro
@@ -104,6 +106,7 @@
           </div>
         </ng-template>
       </lib-data-table>
+    
     </div>
   </div>
 </lib-page-content>

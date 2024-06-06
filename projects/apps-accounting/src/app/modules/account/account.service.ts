@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
+import { Injectable, Signal, WritableSignal, computed, signal } from '@angular/core';
+import { BehaviorSubject, Observable, map, of, shareReplay, take } from 'rxjs';
 import {
   LanguageService,
   LoaderService,
   PageInfo,
   PageInfoResult,
+  PaginationVm,
   ToasterService,
 } from 'shared-lib';
 import { AccountProxy } from './account.proxy';
@@ -23,6 +24,7 @@ import { TagDropDownDto } from './models/tagDropDownDto';
 import { parentAccountDto } from './models/parentAcccountDto';
 import { TaxDto } from './models/tax-dto';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -147,6 +149,8 @@ export class AccountService {
     });
   }
 
+  // taxesSignal = signal<PaginationVm<TaxDto>>({} as PaginationVm<TaxDto>);
+
   getAllTaxes(searchTerm: string, pageInfo: PageInfo) {
     this.accountproxy.getAllTaxes(searchTerm, pageInfo).subscribe({
       next: (res) => {
@@ -156,9 +160,12 @@ export class AccountService {
     });
   }
 
+  // getTaxDefinitionsSignal = signal({});
+
   getTaxById(id: number) {
     this.accountproxy.getTaxById(id).subscribe((response) => {
       this.currentTaxDataSource.next(response);
+
     });
   }
 
@@ -166,6 +173,10 @@ export class AccountService {
     this.loaderService.show();
     this.accountproxy.addTax(model).subscribe({
       next: (res) => {
+        // this.taxesSignal.update((textSignal) => ({
+        //   ...textSignal,
+        //   result: [...textSignal.result, res],
+        // }));
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
           this.languageService.transalte('Tax.AddedSuccessfully')
@@ -183,7 +194,11 @@ export class AccountService {
     this.loaderService.show();
 
     this.accountproxy.editTax(model).subscribe({
-      next: () => {
+      next: (res) => {
+        // this.taxesSignal.update((taxSignal) => ({
+        //   ...taxSignal,
+        //   result: taxSignal.result.map((tax) => (tax.id === res.id ? res : tax)),
+        // }));
         this.toasterService.showSuccess(
           this.languageService.transalte('Tax.Success'),
           this.languageService.transalte('Tax.UpdatedSuccessfully')
@@ -208,12 +223,13 @@ export class AccountService {
     );
     if (confirmed) {
       this.accountproxy.deleteTax(taxId).subscribe({
-        next: () => {
+        next: (res) => {
           this.toasterService.showSuccess(
             this.languageService.transalte('Tax.Success'),
             this.languageService.transalte('Tax.TaxDeletedSuccessfully')
           );
           this.loaderService.hide();
+          // this.getAllTaxes('', new PageInfo());
           const currentTaxes = this.taxesDefinitionsDataSource.getValue();
           const updatedTaxes = currentTaxes.filter((tax) => tax.id !== taxId);
           this.taxesDefinitionsDataSource.next(updatedTaxes);

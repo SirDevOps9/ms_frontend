@@ -3,7 +3,7 @@ export interface AddTax {
     name: string;
     code: string;
     ratio: number;
-    accountId: string;
+    accountId: number;
     taxGroupId: number;
   }
   

@@ -6,6 +6,9 @@ export interface TaxDto {
     accountName: string;
     taxGroupName: string;
     taxGroupCode: string;
+    accountId: number;
+    taxGroupId: number;
+
 
   }
   

@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { AccountService } from '../../account.service';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { PageInfoResult, PageInfo, customValidators, FormsService, RouterService, LookupsService } from 'shared-lib';
-import { AccountDto, TaxGroupDropDown, AddTax } from '../../models';
+import { AccountDto, TaxGroupDropDown, AddTax, EditTax } from '../../models';
 
 @Component({
   selector: 'app-tax-definition-edit',
@@ -11,11 +11,12 @@ import { AccountDto, TaxGroupDropDown, AddTax } from '../../models';
   styleUrl: './tax-definition-edit.component.scss'
 })
 export class TaxDefinitionEditComponent {
-  addForm: FormGroup;
+  editForm: FormGroup;
   accounts: AccountDto[];
   taxGroupList:TaxGroupDropDown[];
   paging: PageInfoResult;
   taxGroupId:string;
+  SelectedTaxGroup : string
   pageInfo = new PageInfo();
 
   ngOnInit() {
@@ -26,27 +27,44 @@ export class TaxDefinitionEditComponent {
 
     this.accountService.taxGroupsDropDown.subscribe((res) => {
       this.taxGroupList = res;
+
+      console.log(res)
     });
 
-    this.addForm.controls['taxGroupId'].valueChanges.subscribe((value) => {
+    this.editForm.controls['taxGroupId'].valueChanges.subscribe((value) => {
       this.taxGroupId = value;
     });
+
+    this.accountService.getTaxById(this.config.data.id)
+
+    this.accountService.currentTaxDataSource.subscribe(res=>{
+      console.log(res)
+      if(res) {
+        this.editForm.patchValue({...res})
+        this.SelectedTaxGroup = res.taxGroupName;
+      }
+    })
+
+ 
+
   }
 
+
   private initializeForm() {
-    this.addForm = this.formBuilder.group({
+    this.editForm = this.formBuilder.group({
+      id:null,
       name: new FormControl('', [customValidators.required]),
       code: new FormControl('', [customValidators.required]),
       ratio: new FormControl('', [customValidators.required]),
       accountId: new FormControl('', [customValidators.required]),
-      taxGroupId: new FormControl(),
+      taxGroupId: new FormControl('', [customValidators.required]),
     });
   }
 
   onSubmit() {
-    if (!this.formsService.validForm(this.addForm, true)) return;
-    const request: AddTax = this.addForm.value;
-    this.accountService.addTax(request, this.ref);
+    if (!this.formsService.validForm(this.editForm, true)) return;
+    const request: EditTax = this.editForm.getRawValue();
+    this.accountService.editTax(request, this.ref);
   }
 
   getAccounts(searchTerm: string) {
@@ -77,5 +95,6 @@ export class TaxDefinitionEditComponent {
     private formBuilder: FormBuilder,
     private formsService: FormsService,
     private routerService: RouterService,
+    public lookupsService: LookupsService
   ) {}
 }
