@@ -32,17 +32,12 @@ export class HttpService {
           'Content-Type': 'application/json-patch+json',
           Authorization: `Bearer ${token}`,
           'Accept-Language': this.storageService.getItem(StorageKeys.LANG_KEY) || 'en',
-          // [HeaderParams.TENANT_ID]: this.storageService.getItem(
-          //   StorageKeys.TENANT
-          // ),
           [HeaderParams.COMPANY_ID]: '2',
           [HeaderParams.BRANCH_ID]: '2',
           [HeaderParams.VERSION]: this.environmentService.Version,
           [HeaderParams.CLIENTID]: this.environmentService.ClientId,
           [HeaderParams.PLATFORMTYPE]: this.environmentService.Platform,
           [HeaderParams.APIKEY]: this.environmentService.ApiKey,
-          [HeaderParams.PERMISSIONTREE]:
-            this.storageService.getItem(StorageKeys.PERMISSIONTREE) || '',
         });
         return of(headers);
       })
@@ -93,6 +88,12 @@ export class HttpService {
     );
   }
 
+  getFullUrlString(url: string, showError: boolean = true) {
+    return this.addHeaders().pipe(
+      switchMap((headers) => this.http.get(`${url}`, { headers, responseType: 'text' })),
+      catchError((response: HttpErrorResponse) => this.errorHandler(url, response, null, showError))
+    );
+  }
   post<T>(url: string, data: any, showError: boolean = true) {
     return this.addHeaders().pipe(
       switchMap((headers) => this.http.post<T>(`${this.baseUrl}/${url}`, data, { headers })),

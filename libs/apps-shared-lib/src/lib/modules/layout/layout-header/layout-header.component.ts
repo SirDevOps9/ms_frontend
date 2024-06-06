@@ -1,12 +1,11 @@
-import { MenuModule } from './../../../../../../shared-lib/src/lib/models/menuModule';
 import { Component, ElementRef, HostListener } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'microtec-auth-lib';
-import { UserData } from 'projects/bussiness-owners/src/app/modules/user/models';
 import { Observable } from 'rxjs';
-import { EnvironmentService, LanguageService, Modules, RouterService } from 'shared-lib';
+import {  LanguageService, MenuModule, Modules, RouterService } from 'shared-lib';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModuleListComponent } from '../../../components/module-list/module-list.component';
+import { LayoutService } from '../layout.service';
 
 @Component({
   selector: 'app-layout-header',
@@ -16,7 +15,6 @@ import { ModuleListComponent } from '../../../components/module-list/module-list
 export class LayoutHeaderComponent {
   userName: string;
   moduleName: string;
-  userData: UserData;
   showcard: boolean = false;
   sidebarOpen: boolean = false;
   moduleList: MenuModule[];
@@ -24,15 +22,14 @@ export class LayoutHeaderComponent {
   userPhoto: string;
   ref: DynamicDialogRef;
 
-  ngOnInit() {    
-    this.moduleList = this.authService.getModules();
+  ngOnInit() {
+    this.moduleList = this.layoutService.getModules();
     if (this.router.snapshot.data['moduleId'] === Modules.Accounting)
       this.moduleName = 'Accounting';
     else if (this.router.snapshot.data['moduleId'] === Modules.Hr) this.moduleName = 'Hr';
     else if (this.router.snapshot.data['moduleId'] === Modules.GeneralSettings)
       this.moduleName = 'General Settings';
   }
-
 
   toggleLanguage(): void {
     this.languageService.toggleLanguage();
@@ -47,12 +44,6 @@ export class LayoutHeaderComponent {
     } else {
       this.sidebarOpen = true;
     }
-  }
-
-  getProfilePic() {
-    return this.userData?.userType == '4'
-      ? this.env.photoBaseUrl + '/api/Users/GetProfilePic?userId=' + this.userData.sub
-      : 'assets/images/users/pic.jpg';
   }
 
   cardDrob() {
@@ -81,23 +72,22 @@ export class LayoutHeaderComponent {
       this.showcard = false;
     }
   }
- 
+
   openDialog() {
     this.ref = this.dialog.open(ModuleListComponent, {
       width: '612px',
       height: '435px',
-      header:"Choose App"
+      header: 'Choose App',
     });
   }
   constructor(
     public languageService: LanguageService,
     public authService: AuthService,
-    private env: EnvironmentService,
+    private layoutService: LayoutService,
     public routerService: RouterService,
     private router: ActivatedRoute,
     private eRef: ElementRef,
     private dialog: DialogService
-
   ) {
     this.userName = this.authService.getUserName;
     this.languageService.setLang();
