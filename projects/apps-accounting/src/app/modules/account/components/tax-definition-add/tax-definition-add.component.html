@@ -1,0 +1,45 @@
+
+<div class="pop_up_config_page">
+    <div class="pop_up_header">
+      <div class="header_content">
+        <div class="title">
+          <div class="plus_icon"></div>
+         Account Configration
+        </div>
+          <div class="pi pi-times cancel" (click)="close()"></div>
+      </div>
+    </div>
+    <div class="pop_up_content">
+      <div class="card">
+        
+    </div>
+    </div>
+    <div class="pop_up_footer">
+    <div class="save_btn">
+      <lib-button-micro 
+      title='Save'
+      nameClass="save"
+      (click)="save()"
+      widthNumber ="100%"
+      >
+      
+      </lib-button-micro>
+    </div>
+      <div class="cancel_btn">
+        <lib-button-micro 
+      title='{{ "Discard"}}'
+      nameClass="cancel"
+      (click)="close()"
+      widthNumber ="100%"
+
+      >
+      
+      </lib-button-micro>
+      </div>
+      
+    </div>
+    </div>
+    <div class="entry_table">
+    </div>
+    
+    

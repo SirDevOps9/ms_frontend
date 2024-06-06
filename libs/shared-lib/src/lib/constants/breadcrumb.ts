@@ -34,6 +34,8 @@ export class BreadcrumbLabel {
     static EDIT_HIERARCHY ='Edit Hierarchy';
     static EDIT_LEGAL ='Edit Legal';
     static EDIT_CONTACT ='Edit Contact';
+    static TAXS_GROUP ='Taxs Group';
+    static TAXS_DEFINITION ='Taxs Definition';
    
 
     

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageInfo, PageInfoResult, RouterService } from 'shared-lib';
-import { AccountService } from '../../account.service';
-import { AccountNature, AccountDto } from '../../models';
+import { AccountService } from '../../../account.service';
+import { AccountNature, AccountDto } from '../../../models';
 
 @Component({
   selector: 'app-chat-of-account-list',

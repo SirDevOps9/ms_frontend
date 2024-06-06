@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
-import { LanguageService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
+import { LanguageService, LoaderService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
 import { AccountProxy } from './account.proxy';
 import { AddAccountDto } from './models/addAccountDto';
-import { AccountByIdDto, AccountDto, GetLevelsDto, accountById, listAddLevelsDto } from './models';
+import { AccountByIdDto, AccountDto, AddTaxGroupDto, GetLevelsDto, TaxGroupDto, listAddLevelsDto,accountById } from './models';
 import { AccountTypeDropDownDto } from './models/accountTypeDropDownDto';
 import { TagDropDownDto } from './models/tagDropDownDto';
 import { CurrencyDto } from '../general/models/currencyDto';
 import { response } from 'express';
 import { parentAccountDto } from './models/parentAcccountDto';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,11 @@ export class AccountService {
   private accountSectionsDataSource = new BehaviorSubject<AccountTypeDropDownDto[]>([]);
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
   private savedAccountDataSource = new BehaviorSubject<AccountDto | undefined>(undefined);
+  private taxGroupDataSource = new BehaviorSubject<TaxGroupDto[]>([]);
+  private currentTaxGroupDataSource = new BehaviorSubject<TaxGroupDto>({} as TaxGroupDto);
   private editAccountDataSource = new BehaviorSubject<accountById | undefined>(undefined);
+
+
 
   public accountsList = this.accountsDataSource.asObservable();
   public parentAccounts = this.parentAccountsDataSource.asObservable();
@@ -34,6 +39,8 @@ export class AccountService {
   public accountSections = this.accountSectionsDataSource.asObservable();
   public tags = this.tagsDataSource.asObservable();
   public savedAddedAccount = this.savedAccountDataSource.asObservable();
+  public taxGroupList = this.taxGroupDataSource.asObservable();
+  public currentTaxGroup = this.currentTaxGroupDataSource.asObservable();
   public editedAccount = this.editAccountDataSource.asObservable();
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
@@ -132,16 +139,86 @@ export class AccountService {
       this.savedAccountDataSource.next(res);
     });
   }
+  getAllTaxGroupPaginated(searchTerm: string, pageInfo: PageInfo) {
+    return this.accountproxy.getAllTaxGroup(searchTerm, pageInfo).subscribe((response) => {
+      this.taxGroupDataSource.next(response.result);
+    });
+  }
+  async deleteTaxGroup(id: number): Promise<boolean > {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    const p = new Promise<boolean>((res, rej) => {
+      if (confirmed) {
+        this.accountproxy.deleteTaxGroup(id).subscribe({
+          next: (status) => {
+            this.toasterService.showSuccess(
+              this.languageService.transalte('Success'),
+              this.languageService.transalte('Deleted Successfully')
+            );
+            this.loaderService.hide();
+            res(true);
+          },
+        });
+      } else {
+        res(false);
+      }
+    });
+    return await p;
+  }
+  addTaxGroup(addTaxGroupDto: AddTaxGroupDto
+    ,dialogRef: DynamicDialogRef
+  ){
+    this.loaderService.show();
+    this.accountproxy.addTaxGroup(addTaxGroupDto).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('tag.addtag.success'),
+          this.languageService.transalte('tag.addtag.success')
+        );
+        this.loaderService.hide();
+        dialogRef.close(res);
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+  editTaxGroup(TaxGroupDto: TaxGroupDto
+    ,dialogRef: DynamicDialogRef
+  ){
+    this.loaderService.show();
+    this.accountproxy.editTaxGroup(TaxGroupDto).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('tag.addtag.success'),
+          this.languageService.transalte('tag.addtag.success')
+        );
+        this.loaderService.hide();
+        dialogRef.close(res);
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+  getTaxGroupById(id:number) {
+    this.accountproxy.getTaxGroupById(id).subscribe((response) => {
+      this.currentTaxGroupDataSource.next(response);
+    });
+  }
   editAccount(test:accountById) {
     this.accountproxy.editAccount(test).subscribe((res) => {
       this.editAccountDataSource.next(res);
     });
   }
- 
+
+
 
   constructor(
     private accountproxy: AccountProxy,
     private toasterService: ToasterService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private loaderService: LoaderService
   ) {}
 }

@@ -27,3 +27,47 @@
         border: 1px solid #CB3F2D;
     }
 }
+.export{
+    background: #36A19B;
+    border: 1px solid #36A19B;
+    color: #fff;
+    &:hover{
+        background: #fff;
+        border: 1px solid #36A19B;
+        color: #36A19B;
+    }
+}
+.btn_edit {
+    border: 0;
+    background-color: transparent;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    color: #1A8EAE;
+
+    &:hover {
+        background-color: rgba(100, 116, 139, 0.04);
+    }
+}
+.btn_delet {
+    border: 0;
+    background-color: transparent;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    color: #CB3F2D;
+
+    &:hover {
+        background-color: rgba(100, 116, 139, 0.04);
+    }
+}

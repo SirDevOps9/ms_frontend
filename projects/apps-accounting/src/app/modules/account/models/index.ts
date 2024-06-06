@@ -11,3 +11,5 @@ export * from './addLevelsDto';
 export * from './getLevelsDto';
 export * from './accountByIdDto';
 export * from './account-by-id';
+export * from './tax-group-dto';
+export * from './add-tax-group-dto';

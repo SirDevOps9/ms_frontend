@@ -12,7 +12,9 @@ import {
   GetLevelsDto,
   listAddLevelsDto,
   AccountByIdDto,
-  accountById
+  TaxGroupDto,
+  AddTaxGroupDto,
+  accountById,
 } from './models';
 
 @Injectable({
@@ -67,6 +69,26 @@ export class AccountProxy {
   }
   getAccountById(id: number): Observable<accountById> {
     return this.httpService.get<accountById>(`ChartOfAccounts/GetById?id=${id}`);
+  }
+
+  getAllTaxGroup(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<TaxGroupDto>> {
+    
+    return this.httpService.get<PaginationVm<TaxGroupDto>>(`TaxGroup?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`);
+  } 
+  
+  deleteTaxGroup(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`TaxGroup?Id=${id}`);
+  }
+
+  addTaxGroup(taxgroupdto: AddTaxGroupDto): Observable<boolean> {
+    return this.httpService.post<boolean>(`TaxGroup`,taxgroupdto);
+  }
+
+  editTaxGroup(taxgroupdto: TaxGroupDto): Observable<boolean> {
+    return this.httpService.put<boolean>(`TaxGroup`,taxgroupdto);
+  }
+  getTaxGroupById(id: number): Observable<TaxGroupDto> {
+    return this.httpService.get<TaxGroupDto>(`TaxGroup/GetById?Id=${id}`);
   }
 
   constructor(private httpService: HttpService) {}

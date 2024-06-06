@@ -1,18 +1,20 @@
+import { TaxDefinitionAddComponent } from './../../../components/tax-definition-add/tax-definition-add.component';
 import { Component, OnInit } from '@angular/core';
-import { MenuModule, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
-import { GeneralSettingService } from '../../general-setting.service';
-import { TagDto } from '../../models';
-import { TagAddComponent } from '../tag-add/tag-add.component';
+import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { TagEditComponent } from '../tag-edit/tag-edit.component';
-import { LayoutService } from 'libs/apps-shared-lib/src/lib/modules/layout/layout.service';
+import { GeneralSettingService } from 'projects/erp-home/src/app/modules/general-setting/general-setting.service';
+import { TagDto } from 'projects/erp-home/src/app/modules/general-setting/models';
+import { PageInfoResult, MenuModule, RouterService, PageInfo } from 'shared-lib';
+import { TaxDefinitionEditComponent } from '../../../components/tax-definition-edit/tax-definition-edit.component';
+import { LayoutService } from 'apps-shared-lib';
+
 
 @Component({
-  selector: 'app-tag-list',
-  templateUrl: './tag-list.component.html',
-  styleUrls: ['./tag-list.component.scss'],
+  selector: 'app-tax-definition',
+  templateUrl: './tax-definition.component.html',
+  styleUrl: './tax-definition.component.scss'
 })
-export class TagListComponent implements OnInit {
+export class TaxDefinitionComponent implements OnInit {
   tableData: TagDto[];
   currentPageInfo: PageInfoResult;
   modulelist: MenuModule[];
@@ -21,12 +23,13 @@ export class TagListComponent implements OnInit {
   constructor(
     private routerService: RouterService,
     private generalSettingService: GeneralSettingService,
-    public layoutService: LayoutService,
-    private dialog: DialogService
+    public authService: AuthService,
+    private dialog: DialogService,
+    private layoutService: LayoutService,
   ) {}
 
   ngOnInit() {
-    this.modulelist = this.layoutService.getModules();
+    this.modulelist =this.layoutService.getModules();
     this.initTagData();
   }
 
@@ -53,18 +56,7 @@ export class TagListComponent implements OnInit {
       },
     });
   }
-  routeToEdit(data: any) {
-    const dialogRef = this.dialog.open(TagEditComponent, {
-      header : "Edit Tag",
-      width: '800px',
-      position: 'bottom-right' ,// A
-      data : data
-    });
 
-    dialogRef.onClose.subscribe(() => {
-      this.initTagData();
-    });
-  }
 
   changed(e: any, id: number) {
     if (e.checked === false) {
@@ -74,11 +66,10 @@ export class TagListComponent implements OnInit {
     }
   }
 
-  newTag() {
-    const dialogRef = this.dialog.open(TagAddComponent, {
-      header : "Add New Tag",
+  onAdd() {
+    const dialogRef = this.dialog.open(TaxDefinitionAddComponent, {
       width: '600px',
-      position: 'bottom-right' // Adjust position as needed
+      height : '800px'
     
     });
 
