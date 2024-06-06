@@ -1,17 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuModule, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
-import { GeneralSettingService } from '../../general-setting.service';
-import { TagDto } from '../../models';
-import { TagAddComponent } from '../tag-add/tag-add.component';
+import { DialogService } from 'primeng/dynamicdialog';
+import { LayoutService } from 'apps-shared-lib';
+import { TagAddComponent } from '../../../components/tag-add/tag-add.component';
+import { TagEditComponent } from '../../../components/tag-edit/tag-edit.component';
 import { GeneralSettingService } from '../../../general-setting.service';
 import { TagDto } from '../../../models';
-import { InputSwitchChangeEvent } from 'primeng/inputswitch';
-import { AuthService } from 'microtec-auth-lib';
-import { DialogService } from 'primeng/dynamicdialog';
-import { TagEditComponent } from '../tag-edit/tag-edit.component';
-import { LayoutService } from 'libs/apps-shared-lib/src/lib/modules/layout/layout.service';
-import { TagEditComponent } from '../../../components/tag-edit/tag-edit.component';
-import { TagAddComponent } from '../../../components/tag-add/tag-add.component';
+
 
 @Component({
   selector: 'app-tag-list',
