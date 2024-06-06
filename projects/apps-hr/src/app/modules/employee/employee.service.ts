@@ -23,6 +23,11 @@ import { BehaviorSubject, catchError, map } from 'rxjs';
 export class EmployeeService {
   private employeeDataSource = new BehaviorSubject<EmployeeDto[]>([]);
 
+  private allEmployeeDataSource = new BehaviorSubject<EmployeeDto[]>([]);
+
+  public allEmployeeList = this.allEmployeeDataSource.asObservable();
+
+
   public employeesList = this.employeeDataSource.asObservable();
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
@@ -46,6 +51,16 @@ export class EmployeeService {
       next: (res) => {
         this.employeeDataSource.next(res.result);
         this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+  }
+  
+  exportEmployeesList(searchTerm: string) {
+    const pageInfo = new PageInfo;
+    pageInfo.pageSize = -1;
+    this.employeeProxy.getAllPaginated(searchTerm, pageInfo).subscribe({
+      next: (res) => {
+        this.allEmployeeDataSource.next(res.result);
       },
     });
   }
@@ -143,7 +158,7 @@ export class EmployeeService {
           this.employeeDataSource.next(updatedEmployees);
         },
       });
-    } 
+    }
   }
 
   constructor(
@@ -151,5 +166,5 @@ export class EmployeeService {
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private loaderService: LoaderService
-  ) {}
+  ) { }
 }
