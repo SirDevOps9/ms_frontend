@@ -1,0 +1,22 @@
+export interface accountById {
+  id: number,
+  name: string,
+  levelId: number,
+  accountCode: string,
+  parentAccountCode: string,
+  parentId: number,
+  hasNoChild: true,
+  accountTypeId: number,
+  accountSectionId: number,
+  currencyId: number,
+  periodicActive: true,
+  periodicActiveFrom: string,
+  periodicActiveTo: string,
+  isActive: true,
+  isDeleted: true,
+  createdBy: string,
+  createdOn: string,
+  updatedBy: string,
+  updatedOn: string,
+  natureId:string
+}

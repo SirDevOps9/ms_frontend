@@ -14,3 +14,5 @@ export * from './add-tax';
 export * from './edit-tax';
 export * from './tax-dto';
 export * from './tax-group-drop-down';
+export * from './accountByIdDto';
+export * from './account-by-id';

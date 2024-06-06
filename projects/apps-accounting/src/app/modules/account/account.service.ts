@@ -19,6 +19,7 @@ import {
   TaxGroupDropDown,
   listAddLevelsDto,
 } from './models';
+import { AccountByIdDto, AccountDto, GetLevelsDto, accountById, listAddLevelsDto } from './models';
 import { AccountTypeDropDownDto } from './models/accountTypeDropDownDto';
 import { TagDropDownDto } from './models/tagDropDownDto';
 import { parentAccountDto } from './models/parentAcccountDto';
@@ -33,21 +34,26 @@ export class AccountService {
   private accountsDataSource = new BehaviorSubject<AccountDto[]>([]);
   private parentAccountsDataSource = new BehaviorSubject<parentAccountDto[]>([]);
   private currentAccountDataSource = new BehaviorSubject<parentAccountDto>({} as parentAccountDto);
+  private currentAccountDataSourceById = new BehaviorSubject<accountById>({} as accountById);
+  private accountDetailsDataSource = new BehaviorSubject<AccountByIdDto>({} as AccountByIdDto );
   private accountDetailsDataSource = new BehaviorSubject<AccountByIdDto>({} as AccountByIdDto);
   private accountTypesDataSource = new BehaviorSubject<AccountTypeDropDownDto[]>([]);
   private accountSectionsDataSource = new BehaviorSubject<AccountTypeDropDownDto[]>([]);
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
   private savedAccountDataSource = new BehaviorSubject<AccountDto | undefined>(undefined);
+  private editAccountDataSource = new BehaviorSubject<accountById | undefined>(undefined);
   private taxesDefinitionsDataSource = new BehaviorSubject<TaxDto[]>([]);
 
   public accountsList = this.accountsDataSource.asObservable();
   public parentAccounts = this.parentAccountsDataSource.asObservable();
   public AccountViewDetails = this.accountDetailsDataSource.asObservable();
   public selectedAccount = this.currentAccountDataSource.asObservable();
+  public selectedAccountById = this.currentAccountDataSourceById.asObservable();
   public accountTypes = this.accountTypesDataSource.asObservable();
   public accountSections = this.accountSectionsDataSource.asObservable();
   public tags = this.tagsDataSource.asObservable();
   public savedAddedAccount = this.savedAccountDataSource.asObservable();
+  public editedAccount = this.editAccountDataSource.asObservable();
 
   public taxesDefintionList = this.taxesDefinitionsDataSource.asObservable();
 
@@ -138,6 +144,11 @@ export class AccountService {
       this.currentAccountDataSource.next(response);
     });
   }
+  getAccountById(id: number) {
+    this.accountproxy.getAccountById(id).subscribe((response) => {
+      this.currentAccountDataSourceById.next(response);
+    });
+  }
   getAccountDetails(id: number) {
     this.accountproxy.getAccountDetails(id).subscribe((response) => {
       this.accountDetailsDataSource.next(response);
@@ -148,6 +159,12 @@ export class AccountService {
       this.savedAccountDataSource.next(res);
     });
   }
+  editAccount(test:accountById) {
+    this.accountproxy.editAccount(test).subscribe((res) => {
+      this.editAccountDataSource.next(res);
+    });
+  }
+ 
 
   // taxesSignal = signal<PaginationVm<TaxDto>>({} as PaginationVm<TaxDto>);
 
