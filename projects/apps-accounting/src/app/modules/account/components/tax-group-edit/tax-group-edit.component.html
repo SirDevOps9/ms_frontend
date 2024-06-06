@@ -1,0 +1,63 @@
+<div class="pop_up_config_page">
+  <div class="pop_up_header">
+    <div class="header_content">
+      <div class="title">
+        <div class="plus_icon"></div>
+        {{ "TaxGroup.Edit.EditTaxGroup" | translate }}
+      </div>
+        <div class="pi pi-times cancel" (click)="close()"></div>
+    </div>
+  </div>
+  <div class="pop_up_content">
+      <form [formGroup]="taxGroupForm" >
+            <div class="grid">
+              <div class="md:col-12">
+                <lib-form-group>
+                  <lib-label [appControl]="taxGroupForm.controls['code']">
+                    {{ "TaxGroup.Edit.Code" | translate }}
+                  </lib-label>
+                  <lib-text-input type="text" formControlName="code" />
+                  <lib-field-validations
+                    [appControl]="taxGroupForm.controls['code']"
+                  >
+                  </lib-field-validations>
+                </lib-form-group>
+              </div>
+              <div class="md:col-12">
+                <lib-form-group>
+                  <lib-label [appControl]="taxGroupForm.controls['name']">
+                    {{ "TaxGroup.Edit.Name" | translate }}
+                  </lib-label>
+                  <lib-text-input type="text" formControlName="name" />
+                  <lib-field-validations
+                    [appControl]="taxGroupForm.controls['name']"
+                  >
+                  </lib-field-validations>
+                </lib-form-group>
+              </div>
+        </div>
+      </form>
+  </div>
+  <div class="pop_up_footer">
+  <div class="save_btn">
+    <lib-button-micro
+    title="{{ 'TaxGroup.Edit.Save' | translate }}"
+    nameClass="save"
+    (click)="save()"
+    widthNumber ="100%"
+    >
+    </lib-button-micro>
+  </div>
+    <div class="cancel_btn">
+      <lib-button-micro
+    title="{{ 'TaxGroup.Edit.Discard' | translate }}"
+    nameClass="cancel"
+    (click)="close()"
+    widthNumber ="100%"
+    >
+    </lib-button-micro>
+    </div>
+  </div>
+  </div>
+  <div class="entry_table">
+  </div>

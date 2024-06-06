@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterService, LookupsService, StorageService } from 'shared-lib';
+import { RouterService, LookupsService } from 'shared-lib';
 import { CompanyService } from '../../company.service';
 
 @Component({
@@ -21,29 +21,26 @@ export class EditCompanyComponent implements OnInit {
     return this.routerService.currentId;
   }
 
-
   ngOnInit() {
     this.currentTab = this.routerService.lastRouteSegement();
     this.getCompanyData();
+    this.companyService.selectedCompanyActive.subscribe((res) => (this.isActive = res));
+
     this.companyId;
   }
 
   activeTag(id: string) {
     this.currentTab = id;
   }
-  
+
   navigateToAddress() {
     console.log(this.companyId);
 
-    this.routerService.navigateTo(
-      'company/edit/' + this.companyId + '/address'
-    );
+    this.routerService.navigateTo('company/edit/' + this.companyId + '/address');
   }
 
   navigateToContact() {
-    this.routerService.navigateTo(
-      'company/edit/' + this.companyId + '/contact'
-    );
+    this.routerService.navigateTo('company/edit/' + this.companyId + '/contact');
   }
 
   navigateToLegal() {
@@ -51,19 +48,18 @@ export class EditCompanyComponent implements OnInit {
   }
 
   navigateToHierarchy() {
-    this.routerService.navigateTo(
-      'company/edit/' + this.companyId + '/hierarchy'
-    );
+    this.routerService.navigateTo('company/edit/' + this.companyId + '/hierarchy');
   }
   navigateToBranches() {
-    this.routerService.navigateTo(
-      'company/edit/' + this.companyId + '/branches'
-    );
+    this.routerService.navigateTo('company/edit/' + this.companyId + '/branches');
   }
 
   toggle() {
-    if (!this.isActive) this.companyService.activate(this.companyId);
-    else this.companyService.deactivate(this.companyId);
+    if (this.isActive) {
+      this.companyService.activate(this.companyId);
+    } else {
+      this.companyService.deactivate(this.companyId);
+    }
   }
 
   toggleEditMode() {
@@ -72,14 +68,14 @@ export class EditCompanyComponent implements OnInit {
 
   getCompanyData() {
     this.companyService.getCompanyById(this.companyId).subscribe((res) => {
-      this.isActive = res.data.isActive;
       this.companyCode = res.data.code;
       this.companyName = res.data.name;
+      this.isActive = res.data.isActive;
     });
   }
   constructor(
     private companyService: CompanyService,
     public lookupsService: LookupsService,
-    private routerService: RouterService,
+    private routerService: RouterService
   ) {}
 }

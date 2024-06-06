@@ -78,6 +78,28 @@
     "debitAmountLocal": "المبلغ المحلي الدائن",
     "creditAmountLocal": "المبلغ المحلي المدين"
   },
+    "TaxGroup": {
+      "Code": "رمز",
+      "Name": "اسم",
+      "Action": "إجراءات",
+      "TaxGrouplist": "قائمة مجموعة الضرائب",
+      "Add": {
+        "AddTaxGroup": "إضافة مجموعة ضريبية",
+        "Code": "رمز",
+        "Name": "اسم",
+        "Discard": "تجاهل",
+        "Save": "حفظ"
+      },
+      "Edit": {
+        "EditTaxGroup": "تحرير مجموعة ضريبية",
+        "Code": "رمز",
+        "Name": "اسم",
+        "Discard": "تجاهل",
+        "Save": "حفظ"
+      }
+    }
+  
+  },
   "Tax":{
     "TaxName": "اسم الضريبة",
     "AddTaxDefinition": "إضافة تعريف الضريبة",

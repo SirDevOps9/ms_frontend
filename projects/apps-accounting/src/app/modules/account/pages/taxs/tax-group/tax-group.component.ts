@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { GeneralSettingService } from 'projects/erp-home/src/app/modules/general-setting/general-setting.service';
 import { TagDto } from 'projects/erp-home/src/app/modules/general-setting/models';
 import { PageInfoResult, MenuModule, RouterService, PageInfo } from 'shared-lib';
 import { TaxDefinitionEditComponent } from '../../../components/tax-definition-edit/tax-definition-edit.component';
 import { TaxDefinitionAddComponent } from '../../../components/tax-definition-add/tax-definition-add.component';
+import { AccountService } from '../../../account.service';
+import { TaxGroupDto } from '../../../models';
+import { TaxGroupAddComponent } from '../../../components/tax-group-add/tax-group-add.component';
+import { TaxGroupEditComponent } from '../../../components/tax-group-edit/tax-group-edit.component';
 
 @Component({
   selector: 'app-tax-group',
@@ -13,83 +16,84 @@ import { TaxDefinitionAddComponent } from '../../../components/tax-definition-ad
   styleUrl: './tax-group.component.scss'
 })
 export class TaxGroupComponent implements OnInit {
-  tableData: TagDto[];
+  tableData: TaxGroupDto[];
   currentPageInfo: PageInfoResult;
   modulelist: MenuModule[];
   searchTerm: string;
 
   constructor(
     private routerService: RouterService,
-    private generalSettingService: GeneralSettingService,
+    private accountService: AccountService,
     public authService: AuthService,
     private dialog: DialogService
   ) {}
 
   ngOnInit() {
-    //this.modulelist = this.authService.getModules();
-    this.initTagData();
+    this.initTaxGroupData();
   }
 
-  initTagData() {
-    this.generalSettingService.getTagList('', new PageInfo());
-
-    this.generalSettingService.tagList.subscribe({
+  initTaxGroupData() {
+    this.accountService.getAllTaxGroupPaginated('',new PageInfo());
+    this.accountService.taxGroupList.subscribe({
       next: (res) => {
         this.tableData = res;
       },
     });
 
-    this.generalSettingService.currentPageInfo.subscribe((currentPageInfo) => {
+    this.accountService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.generalSettingService.getTagList('', pageInfo);
-
-    this.generalSettingService.tagList.subscribe({
+    this.accountService.getAllTaxGroupPaginated('',pageInfo);
+    this.accountService.taxGroupList.subscribe({
       next: (res) => {
         this.tableData = res;
       },
     });
   }
 
-
-  changed(e: any, id: number) {
-    if (e.checked === false) {
-      this.generalSettingService.deactivate(id);
-    } else {
-      this.generalSettingService.activate(id);
-    }
-  }
-
-  newTag() {
-    const dialogRef = this.dialog.open(TaxDefinitionAddComponent, {
-      header : "Add New Tag",
+  Add() {
+    const dialogRef = this.dialog.open(TaxGroupAddComponent, {
       width: '600px',
-      position: 'bottom-right' // Adjust position as needed
+      height : '700px'
     
     });
-
     dialogRef.onClose.subscribe(() => {
-      this.initTagData();
+      this.initTaxGroupData();
+    });
+  }
+
+  Edit(Id:any) {
+    const dialogRef = this.dialog.open(TaxGroupEditComponent, {
+      width: '600px',
+      height : '700px',
+      data : Id
+    
+    });
+    dialogRef.onClose.subscribe(() => {
+      this.initTaxGroupData();
     });
   }
 
   onSearchChange() {
-    this.generalSettingService.getTagList(this.searchTerm, new PageInfo());
-
-    this.generalSettingService.tagList.subscribe({
-      next: (res:any) => {
+    this.accountService.getAllTaxGroupPaginated(this.searchTerm,new PageInfo());
+    this.accountService.taxGroupList.subscribe({
+      next: (res) => {
         this.tableData = res;
       },
     });
   }
-  Delete(id: number) {
-    this.generalSettingService.deleteTag(id);
-    const index = this.tableData.findIndex((item) => item.id === id);
+
+ async Delete(id: number) {
+    const deleted =await this.accountService.deleteTaxGroup(id);
+    if( deleted)
+      {
+        const index = this.tableData.findIndex((item) => item.id === id);
     if (index !== -1) {
       this.tableData.splice(index, 1);
     }
+      }
   }
 }

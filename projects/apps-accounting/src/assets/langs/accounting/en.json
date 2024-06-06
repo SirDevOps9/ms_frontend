@@ -57,7 +57,8 @@
     "Discard": "Discard",
     "Save": "Save",
     "Submit": "Submit",
-    "Post": "Post",
+    "Post": "Post" 
+  },
     "viewJournal": {
       "JornalCode": "Journal Code",
       "Jornalstatus": "Journal Status",
@@ -77,6 +78,27 @@
       "debitAmountLocal": "Debit Amount (Local)",
       "creditAmountLocal": "Credit Amount (Local)"
     }
+  },
+  "TaxGroup": {
+    "Code": "Code",
+    "Name": "Name",
+    "Action":"Actions",
+    "TaxGrouplist": "Tax Group list",
+    "Add":{
+      "AddTaxGroup": "Add Tax Group",
+      "Code": "Code",
+      "Name": "Name",
+      "Discard": "Discard",
+      "Save": "Save"
+    },
+    "Edit":{
+      "EditTaxGroup": "Edit Tax Group",
+      "Code": "Code",
+      "Name": "Name",
+      "Discard": "Discard",
+      "Save": "Save"
+    }
+  }
   },
   "Tax":{
     "TaxName": "Tax Name",

@@ -131,14 +131,15 @@
                   </lib-label>
                 </div>
 
-                <lib-select
+                <lib-selectIcon
                   formControlName="countryOfBirth"
                   [options]="countries"
                   optionValue="id"
                   optionLabel="nameEn"
                   (valueChanged)="onCountryChange($event)"
+                  icons="flags"
                 >
-                </lib-select>
+                </lib-selectIcon>
                 <lib-field-validations [appControl]="addEmployeeForm.controls['countryOfBirth']">
                 </lib-field-validations>
               </lib-form-group>
@@ -172,14 +173,15 @@
                   </lib-label>
                 </div>
 
-                <lib-select
+                <lib-selectIcon
                   formControlName="nationality"
                   [options]="nationalities"
                   optionValue="id"
                   optionLabel="nameEn"
                   [selectedValue]="selectedNationality"
+                  icons="flags"
                 >
-                </lib-select>
+                </lib-selectIcon>
                 <lib-field-validations [appControl]="addEmployeeForm.controls['nationality']">
                 </lib-field-validations>
               </lib-form-group>

@@ -6,5 +6,7 @@ export interface CompanyContactDto {
   contactPersonalPosition: string | null;
   contactPersonalEmail: string | null;
   companyAdress: string | null;
+  contactPersonalMobileNumberCode: string | null;
+  contactPersonalMobileNumber: string | null;
   id: string;
 }

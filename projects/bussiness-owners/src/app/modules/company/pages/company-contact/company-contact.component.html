@@ -18,35 +18,34 @@
     
         <div class="contact_form">
           <div class="grid">
+            <div class="col-12">
+              <lib-label
+              [appControl]="companyContactForm.controls['mobileNumberCode']"
+            >
+              {{ "Company.Contanct.MobileNumber" | translate }}
+            </lib-label>
+            </div>
             <div class="col-2">
               <lib-form-group>
-                <lib-label
-                  [appControl]="companyContactForm.controls['mobileNumberCode']"
-                >
-                  {{ "Company.Contanct.MobileNumberCode" | translate }}
-                </lib-label>
-                <lib-select
+                <lib-selectIcon
                   [readOnly]="!editMode"
                   formControlName="mobileNumberCode"
                   [options]="lookups[LookupEnum.MobileCode]"
                   [selectedValue]="selectedMobileCode"
                   optionValue="id"
                   optionLabel="name"
+                  icons="flags"
+
                 >
-                </lib-select>
+                </lib-selectIcon>
                 <lib-field-validations
                   [appControl]="companyContactForm.controls['mobileNumberCode']"
                 >
                 </lib-field-validations>
               </lib-form-group>
             </div>
-            <div class="col-10">
+            <div class="col-10 ">
               <lib-form-group>
-                <lib-label
-                  [appControl]="companyContactForm.controls['mobileNumber']"
-                >
-                  {{ "Company.Contanct.MobileNumber" | translate }}
-                </lib-label>
                 <lib-text-input [readOnly]="!editMode" type="tel" formControlName="mobileNumber" />
                 <lib-field-validations
                   [appControl]="companyContactForm.controls['mobileNumber']"
@@ -136,6 +135,41 @@
                   [appControl]="
                     companyContactForm.controls['contactPersonalEmail']
                   "
+                >
+                </lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="col-12">
+              <lib-label
+              [appControl]="companyContactForm.controls['contactPersonalMobileNumberCode']"
+            >
+              {{ "Company.Contanct.ContactPersonalMobileNumber" | translate }}
+            </lib-label>
+            </div>
+            <div class="col-2">
+              <lib-form-group>
+
+                <lib-selectIcon
+                  [readOnly]="!editMode"
+                  formControlName="contactPersonalMobileNumberCode"
+                  [options]="lookups[LookupEnum.MobileCode]"
+                  [selectedValue]="selectedPersonalMobileCode"
+                  optionValue="id"
+                  optionLabel="name"
+                  icons="flags"
+                >
+                </lib-selectIcon>
+                <lib-field-validations
+                  [appControl]="companyContactForm.controls['contactPersonalMobileNumberCode']"
+                >
+                </lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="col-10">
+              <lib-form-group>
+                <lib-text-input [readOnly]="!editMode" type="tel" formControlName="contactPersonalMobileNumber" />
+                <lib-field-validations
+                  [appControl]="companyContactForm.controls['contactPersonalMobileNumber']"
                 >
                 </lib-field-validations>
               </lib-form-group>

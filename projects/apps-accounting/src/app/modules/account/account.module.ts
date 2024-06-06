@@ -16,6 +16,8 @@ import { TaxDefinitionComponent } from './pages/taxs/tax-definition/tax-definiti
 import { TaxGroupComponent } from './pages/taxs/tax-group/tax-group.component';
 import { TaxDefinitionAddComponent } from './components/tax-definition-add/tax-definition-add.component';
 import { TaxDefinitionEditComponent } from './components/tax-definition-edit/tax-definition-edit.component';
+import { TaxGroupAddComponent } from './components/tax-group-add/tax-group-add.component';
+import { TaxGroupEditComponent } from './components/tax-group-edit/tax-group-edit.component';
 
 const routes: Routes = [
   {
@@ -78,7 +80,9 @@ const routes: Routes = [
     TaxGroupComponent,
     TaxDefinitionComponent,
     TaxDefinitionAddComponent,
-    TaxDefinitionEditComponent
+    TaxDefinitionEditComponent,
+    TaxGroupAddComponent,
+    TaxGroupEditComponent
   ],
   imports: [CommonModule, SharedLibModule, AutoCompleteModule, RouterModule.forChild(routes)],
 })
