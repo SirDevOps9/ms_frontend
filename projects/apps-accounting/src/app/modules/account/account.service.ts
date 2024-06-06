@@ -26,6 +26,8 @@ export class AccountService {
   private savedAccountDataSource = new BehaviorSubject<AccountDto | undefined>(undefined);
   private taxGroupDataSource = new BehaviorSubject<TaxGroupDto[]>([]);
   private currentTaxGroupDataSource = new BehaviorSubject<TaxGroupDto>({} as TaxGroupDto);
+  private editAccountDataSource = new BehaviorSubject<accountById | undefined>(undefined);
+
 
 
   public accountsList = this.accountsDataSource.asObservable();
@@ -39,6 +41,7 @@ export class AccountService {
   public savedAddedAccount = this.savedAccountDataSource.asObservable();
   public taxGroupList = this.taxGroupDataSource.asObservable();
   public currentTaxGroup = this.currentTaxGroupDataSource.asObservable();
+  public editedAccount = this.editAccountDataSource.asObservable();
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
@@ -202,6 +205,11 @@ export class AccountService {
   getTaxGroupById(id:number) {
     this.accountproxy.getTaxGroupById(id).subscribe((response) => {
       this.currentTaxGroupDataSource.next(response);
+    });
+  }
+  editAccount(test:accountById) {
+    this.accountproxy.editAccount(test).subscribe((res) => {
+      this.editAccountDataSource.next(res);
     });
   }
 
