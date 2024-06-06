@@ -77,5 +77,27 @@
     "currencyRate": "سعر العملة",
     "debitAmountLocal": "المبلغ المحلي الدائن",
     "creditAmountLocal": "المبلغ المحلي المدين"
-  }
+  },
+  "Tax":{
+    "TaxName": "اسم الضريبة",
+    "AddTaxDefinition": "إضافة تعريف الضريبة",
+    "TaxCode": "كود الضريبة",
+    "Ratio": "النسبة",
+    "GlAccount": "حساب الأستاذ العام",
+    "TaxGroup": "مجموعة الضرائب",
+    "TaxGroupId": "معرف مجموعة الضرائب",
+    "Save": "حفظ",
+    "Discard": "تجاهل",
+    "TaxList": "قائمة الضرائب",
+    "Id": "المعرف",
+    "Name": "الاسم",
+    "Account": "الحساب",
+    "Search": "بحث",
+    "AddNew": "إضافة جديد",
+    "Export": "تصدير",
+    "CannotEditTaxGroupUsedInTransactions": "لا يمكن تعديل مجموعة الضرائب المستخدمة في المعاملات",
+    "CannotDeleteTaxUsedInTransactions": "لا يمكن حذف الضريبة المستخدمة في المعاملات",
+    "UpdatedSuccessfully": "تم تحديث الضريبة بنجاح",
+    "AddedSuccessfully": "تم إضافة الضريبة بنجاح"
+}
 }

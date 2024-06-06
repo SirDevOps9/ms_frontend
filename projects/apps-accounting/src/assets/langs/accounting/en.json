@@ -76,8 +76,9 @@
       "currencyRate": "Currency Rate",
       "debitAmountLocal": "Debit Amount (Local)",
       "creditAmountLocal": "Credit Amount (Local)"
-    },
-   "Tax":{
+    }
+  },
+  "Tax":{
     "TaxName": "Tax Name",
     "AddTaxDefinition": "Add Tax Definition",
     "TaxCode": "Tax Code",
@@ -93,7 +94,10 @@
     "Account": "Account",
     "Search": "Search",
     "AddNew": "Add New",
-    "Export": "Export"
+    "Export": "Export",
+    "CannotEditTaxGroupUsedInTransactions":"Cannot Edit Tax Group Used In Transactions",
+    "CannotDeleteTaxUsedInTransactions":"Cannot Delete Tax Used In Transactions",
+    "UpdatedSuccessfully":"Tax Updated Successfully",
+    "AddedSuccessfully":"Tax Added Successfully"
    }
-  }
 }

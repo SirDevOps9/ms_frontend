@@ -44,7 +44,7 @@
                   <lib-label [appControl]="editForm.controls['ratio']">
                     {{ "Tax.Ratio" | translate }}
                   </lib-label>
-                  <lib-text-input type="text" formControlName="ratio" />
+                  <lib-text-input type="number" formControlName="ratio" />
                   <lib-field-validations
                     [appControl]="editForm.controls['ratio']"
                   >
@@ -63,6 +63,8 @@
                     [options]="accounts"
                     optionValue="id"
                     optionLabel="name"
+                    [selectedValue]="selectedAccount"
+
                     >
                   </lib-select>
                   <lib-field-validations
@@ -83,7 +85,7 @@
                     [options]="taxGroupList"
                     optionValue="id"
                     optionLabel="name"
-                    [selectedValue]="SelectedTaxGroup"
+                    [selectedValue]="selectedTaxGroup"
                     >
                   </lib-select>
                   <lib-field-validations
