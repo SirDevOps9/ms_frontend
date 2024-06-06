@@ -65,6 +65,8 @@ export class LookupsService {
       });
   }
 
+  
+
   loadServiceLookups(url: string) {
     this.httpService
       .get<lookupsListDto[]>(url)

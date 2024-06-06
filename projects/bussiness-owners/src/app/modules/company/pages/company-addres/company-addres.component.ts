@@ -29,8 +29,9 @@ export class CompanyAddresComponent implements OnInit {
     this.initializeFormData();
     this.Subscribe();
   }
+  
   Subscribe() {
-    this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
+    this.lookupsService.lookups.subscribe((l) => this.lookups = l);
   }
   initializeForm() {
     this.companyAddresForm = this.fb.group({
@@ -75,9 +76,9 @@ export class CompanyAddresComponent implements OnInit {
     return this.routerService.currentParetId;
   }
 
-  onDiscard(editMode: boolean){
-    if(editMode)
-    this.initializeFormData();
+  onDiscard(editMode: boolean) {
+    if (editMode)
+      this.initializeFormData();
     this.editMode = false;
   }
 
@@ -88,5 +89,5 @@ export class CompanyAddresComponent implements OnInit {
     private routerService: RouterService,
     private formsService: FormsService,
     public sharedLibEnums: SharedLibraryEnums,
-  ) {}
+  ) { }
 }
