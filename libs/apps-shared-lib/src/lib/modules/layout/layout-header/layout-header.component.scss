@@ -1,10 +1,8 @@
  .header_bussiness{
-  // position: relative !important;
    height: 80px;
    width: 100%;
    top: 0;
    left: 0;
-   //padding: 0px 10px;
    position: fixed;
    z-index: 1000;
    .header_content{
@@ -323,54 +321,6 @@
   .pages_sid_open{
    width: calc(100% - 170px) !important;
   }
-
-   // .sidebar{
-   //     width: 88px;
-   //     transition: all 2s;
-   //     height: 90vh;
-   //     background-color: red;
-   //     // position: fixed;
-   //     .sidebar_content{
-   //         position: relative;
-   //         width: 100%;
-   //         height: 100%;
-   //         .btn_side{
-               
-   //             border-radius: 8%;
-   //             position: absolute;
-   //             bottom: 10px;
-   //             left: 100%;
-   //             transform: translate(-50% , -50%);
-            
-   //             button{
-   //                 width: 40px;
-   //                 height: 40px;
-   //                 border-radius: 8%;
-   //                 background-color: #fff;
-   //                border: none;
-   //                 position: relative;
-   //                 display: flex;
-   //                 align-items: center;
-   //                 justify-content: center;
-   //                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
-   //             }
-   //         }
-   //     }
-    
-   // }
-   // .sidebar_open{
-   //     width: 200px;
-   //     transition: all 2s;
-   // }
-   // .new_sidebar{
-   //   .sidebar_content{
-   //     width: 80px;
-   //     height: 90vh;
-   //     background-color: red;  
-   //   }
-   // }
-
 }
 ::ng-deep {
 

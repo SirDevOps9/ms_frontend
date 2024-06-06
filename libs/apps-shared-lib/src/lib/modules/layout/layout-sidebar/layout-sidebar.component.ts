@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { AuthService } from 'microtec-auth-lib';
+import { Component, EventEmitter, Output, effect, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { SideMenuModel } from 'shared-lib';
+import { LayoutService } from '../layout.service';
 
 @Component({
   selector: 'app-layout-sidebar',
@@ -12,23 +12,27 @@ export class LayoutSidebarComponent {
   @Output() sidebaropend = new EventEmitter<boolean>();
   sidebarVisible: boolean = true;
   sidebarOpen: boolean = false;
-  menuList: SideMenuModel[];
+  menuList?: SideMenuModel[];
   openStates: boolean[] = [];
   treeData: any;
   highlightedParent: any = null; // To track the highlighted parent node
   menuItems: any;
   ngOnInit(): void {
-    this.menuList = this.authService.getSideMenu();
+    this.layoutService.getSideMenu();
 
-    this.menuList = this.menuList.filter(
-      (x) => x.moduleId == this.router.snapshot.data['moduleId']
-    );
-    this.treeData = this.mapToTreeNodes(this.menuList);
-
-    //console.log(this.treeData, ' this.treeData');
+    this.layoutService.sideMenuItems.subscribe({
+      next: (value) => {
+        if (value) {
+          this.menuList = value;
+          this.menuList = this.menuList.filter(
+            (x) => x.moduleId == this.router.snapshot.data['moduleId']
+          );
+          this.treeData = this.mapToTreeNodes(this.menuList);
+        }
+      },
+    });
   }
   open(event: any, i: any) {
-    
     // Check if the clicked element has the class 'arrow'
     if (event.target.classList.contains('arrow')) {
       // Get the parent element with the class 'iocn-link'
@@ -55,7 +59,6 @@ export class LayoutSidebarComponent {
           }
         }
         this.openStates[i] = !this.openStates[i];
-
       }
     }
   }
@@ -76,11 +79,12 @@ export class LayoutSidebarComponent {
       this.sidebaropend.emit(true);
     }
   }
+
   mapToTreeNodes(data: any[]) {
     data = data.map((item) => {
       return {
         key: item.key.toString(),
-        name: item.labelEn, // Assuming you want to display the English label
+        name: item.labelEn,
         icon: item.icon,
         type: item.type.toLowerCase(),
         link: item.routePath,
@@ -129,5 +133,5 @@ export class LayoutSidebarComponent {
     // Find and update the highlighted parent node
     this.highlightedParent = this.findParentNode(expandedNode);
   }
-  constructor(public authService: AuthService, private router: ActivatedRoute) {}
+  constructor(public layoutService: LayoutService, private router: ActivatedRoute) {}
 }

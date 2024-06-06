@@ -3,7 +3,7 @@ import { BehaviorSubject, map } from 'rxjs';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
 import { AccountProxy } from './account.proxy';
 import { AddAccountDto } from './models/addAccountDto';
-import { AccountByIdDto, AccountDto, AddTaxGroupDto, GetLevelsDto, TaxGroupDto, listAddLevelsDto } from './models';
+import { AccountByIdDto, AccountDto, AddTaxGroupDto, GetLevelsDto, TaxGroupDto, listAddLevelsDto,accountById } from './models';
 import { AccountTypeDropDownDto } from './models/accountTypeDropDownDto';
 import { TagDropDownDto } from './models/tagDropDownDto';
 import { CurrencyDto } from '../general/models/currencyDto';
@@ -18,6 +18,7 @@ export class AccountService {
   private accountsDataSource = new BehaviorSubject<AccountDto[]>([]);
   private parentAccountsDataSource = new BehaviorSubject<parentAccountDto[]>([]);
   private currentAccountDataSource = new BehaviorSubject<parentAccountDto>({} as parentAccountDto);
+  private currentAccountDataSourceById = new BehaviorSubject<accountById>({} as accountById);
   private accountDetailsDataSource = new BehaviorSubject<AccountByIdDto>({} as AccountByIdDto );
   private accountTypesDataSource = new BehaviorSubject<AccountTypeDropDownDto[]>([]);
   private accountSectionsDataSource = new BehaviorSubject<AccountTypeDropDownDto[]>([]);
@@ -31,6 +32,7 @@ export class AccountService {
   public parentAccounts = this.parentAccountsDataSource.asObservable();
   public AccountViewDetails = this.accountDetailsDataSource.asObservable();
   public selectedAccount = this.currentAccountDataSource.asObservable();
+  public selectedAccountById = this.currentAccountDataSourceById.asObservable();
   public accountTypes = this.accountTypesDataSource.asObservable();
   public accountSections = this.accountSectionsDataSource.asObservable();
   public tags = this.tagsDataSource.asObservable();
@@ -117,6 +119,11 @@ export class AccountService {
   getAccount(id: number) {
     this.accountproxy.getAccount(id).subscribe((response) => {
       this.currentAccountDataSource.next(response);
+    });
+  }
+  getAccountById(id: number) {
+    this.accountproxy.getAccountById(id).subscribe((response) => {
+      this.currentAccountDataSourceById.next(response);
     });
   }
   getAccountDetails(id: number) {

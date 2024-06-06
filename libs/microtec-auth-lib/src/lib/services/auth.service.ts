@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { LoginResponse, OidcSecurityService } from 'angular-auth-oidc-client';
 import {
@@ -7,19 +7,16 @@ import {
   SessionStorageService,
   LogService,
   CookieStorageService,
-  RouterService,
   LanguageService,
-  SideMenuModel,
-  MenuModule,
   EnvironmentService,
 } from 'shared-lib';
-import { TokenModel } from '../models/tokenmodel';
 import { PermissionTreeNode, RouteFilter } from '../models';
-import { Nullable } from 'primeng/ts-helpers';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  currentUser = signal<any>(undefined);
+
   authorize() {
     if (this.environmentService.state) {
       this.oidcSecurityService
@@ -41,6 +38,7 @@ export class AuthService {
     this.localStorageService.clearAll();
     this.cookieService.clearAll();
   }
+
   getAuthToken(): Observable<string> {
     return this.oidcSecurityService.getAccessToken();
   }
@@ -50,10 +48,12 @@ export class AuthService {
   }
 
   getUserData(): LoginResponse {
-    return this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
+    let userData = this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
+    this.currentUser.set(userData);
+    return userData;
   }
 
-  getUserPermissions(): PermissionTreeNode[] | Nullable {
+  getUserPermissions(): PermissionTreeNode[] | null {
     let encrypted = this.localStorageService.getItem(StorageKeys.PERMISSIONTREE);
 
     if (encrypted === null) return null;
@@ -97,39 +97,8 @@ export class AuthService {
     );
   }
 
-  saveSideMenu(menuItems: SideMenuModel[]) {
-    const distinctModules = menuItems
-      .filter(
-        (value, index, self) =>
-          self.findIndex(
-            (item) => item.moduleId === value.moduleId && item.module === value.module
-          ) === index
-      )
-      .map(({ moduleId, module }) => ({ moduleId, module }));
-
-    this.localStorageService.setItem(StorageKeys.MODULES, distinctModules);
-    this.localStorageService.setItem(StorageKeys.SIDEMENU, menuItems);
-  }
-
-  getModules() {
-    let item = this.localStorageService.getItem(StorageKeys.MODULES);
-    let menuModules = item! as MenuModule[];
-    return menuModules;
-  }
-  getSideMenu(): SideMenuModel[] {
-    let item = this.localStorageService.getItem(StorageKeys.SIDEMENU);
-    let sidemenu = item! as SideMenuModel[];
-    return sidemenu;
-  }
-
-  afterLoginRedirect() {
-    this.oidcSecurityService.checkAuth().subscribe((loginResponse: LoginResponse) => {
-      this.saveUserData(loginResponse);
-      this.routerService.navigateTo('');
-    });
-  }
-
   saveUserData(model: LoginResponse) {
+    this.currentUser.set(model);
     this.sessionService.setItem(StorageKeys.USER_TOKEN, model.accessToken);
     this.localStorageService.setItem(StorageKeys.LOGIN_RESPONSE, model);
   }
@@ -146,20 +115,12 @@ export class AuthService {
     let loggedUser = item! as LoginResponse;
     return loggedUser?.userData?.Photo;
   }
-  getUserTokenModel(): TokenModel {
-    let tokenModel: TokenModel = {
-      AccessToken: this.localStorageService.getItem(StorageKeys.USER_TOKEN)!,
-      RefreshToken: this.localStorageService.getItem(StorageKeys.USER_REFRESH_TOKEN)!,
-    };
-    return tokenModel;
-  }
 
   constructor(
     private localStorageService: StorageService,
     private sessionService: SessionStorageService,
     private oidcSecurityService: OidcSecurityService,
     private logService: LogService,
-    private routerService: RouterService,
     private cookieService: CookieStorageService,
     private languageService: LanguageService,
     private environmentService: EnvironmentService
