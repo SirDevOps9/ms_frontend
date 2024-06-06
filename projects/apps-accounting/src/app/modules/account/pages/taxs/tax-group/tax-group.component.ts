@@ -56,10 +56,8 @@ export class TaxGroupComponent implements OnInit {
 
   Add() {
     const dialogRef = this.dialog.open(TaxGroupAddComponent, {
-      header : "Add New Tag",
-      width: '700px',
-      height: '600px',
-      position: 'bottom-right' // Adjust position as needed
+      width: '600px',
+      height : '700px'
     
     });
     dialogRef.onClose.subscribe(() => {
@@ -69,10 +67,8 @@ export class TaxGroupComponent implements OnInit {
 
   Edit(Id:any) {
     const dialogRef = this.dialog.open(TaxGroupEditComponent, {
-      header : "Add New Tag",
-      width: '700px',
-      height: '600px',
-      position: 'bottom-right',
+      width: '600px',
+      height : '700px',
       data : Id
     
     });
