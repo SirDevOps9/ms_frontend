@@ -25,7 +25,7 @@
           <ng-content select="[caption]"> </ng-content>
         </ng-template>
 
-        <ng-template pTemplate="header" [scrollable]="true">
+        <ng-template pTemplate="header" scrollable="true">
           <tr>
             <ng-container *ngFor="let col of tableConfigs.columns">
               <th [pSortableColumn]="col.name" *ngIf="col.isSortable" class="body_b16">

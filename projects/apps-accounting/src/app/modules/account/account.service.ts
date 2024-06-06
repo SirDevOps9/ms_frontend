@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
-import { LanguageService, LoaderService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
 import { AccountProxy } from './account.proxy';
 import { AddAccountDto } from './models/addAccountDto';
-import { AccountByIdDto, AccountDto, AddTaxGroupDto, GetLevelsDto, TaxGroupDto, listAddLevelsDto,accountById } from './models';
+import { AccountByIdDto, AccountDto, AddTaxGroupDto, GetLevelsDto, TaxGroupDto, listAddLevelsDto,accountById, AddTax, EditTax, TaxGroupDropDown } from './models';
+
 import { AccountTypeDropDownDto } from './models/accountTypeDropDownDto';
 import { TagDropDownDto } from './models/tagDropDownDto';
-import { CurrencyDto } from '../general/models/currencyDto';
-import { response } from 'express';
 import { parentAccountDto } from './models/parentAcccountDto';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { TaxDto } from './models/tax-dto';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, map } from 'rxjs';
+import { PageInfoResult, PageInfo, LoaderService, ToasterService, LanguageService } from 'shared-lib';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,7 @@ export class AccountService {
   private editAccountDataSource = new BehaviorSubject<accountById | undefined>(undefined);
 
 
+  private taxesDefinitionsDataSource = new BehaviorSubject<TaxDto[]>([]);
 
   public accountsList = this.accountsDataSource.asObservable();
   public parentAccounts = this.parentAccountsDataSource.asObservable();
@@ -43,10 +45,18 @@ export class AccountService {
   public currentTaxGroup = this.currentTaxGroupDataSource.asObservable();
   public editedAccount = this.editAccountDataSource.asObservable();
 
+  public taxesDefintionList = this.taxesDefinitionsDataSource.asObservable();
+
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
+  public currentTaxDataSource = new BehaviorSubject<TaxDto>({} as TaxDto);
+  public taxGroupsDropDown = new BehaviorSubject<TaxGroupDropDown[]>([]);
 
   private levelsSource = new BehaviorSubject<GetLevelsDto[]>([]);
   public levels = this.levelsSource.asObservable();
+
+  public addTaxStatus = new BehaviorSubject<boolean>(false);
+
+  public editTaxStatus = new BehaviorSubject<boolean>(false);
 
   initAccountList(searchTerm: string, pageInfo: PageInfo) {
     this.accountproxy.getAllPaginated(searchTerm, pageInfo).subscribe({
@@ -215,6 +225,109 @@ export class AccountService {
 
 
 
+  // taxesSignal = signal<PaginationVm<TaxDto>>({} as PaginationVm<TaxDto>);
+
+  getAllTaxes(searchTerm: string, pageInfo: PageInfo) {
+    this.accountproxy.getAllTaxes(searchTerm, pageInfo).subscribe({
+      next: (res) => {
+        this.taxesDefinitionsDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+  }
+
+  // getTaxDefinitionsSignal = signal({});
+
+  getTaxById(id: number) {
+    this.accountproxy.getTaxById(id).subscribe((response) => {
+      this.currentTaxDataSource.next(response);
+
+    });
+  }
+
+  addTax(model: AddTax, dialogRef: DynamicDialogRef) {
+    this.loaderService.show();
+    this.accountproxy.addTax(model).subscribe({
+      next: (res) => {
+        // this.taxesSignal.update((textSignal) => ({
+        //   ...textSignal,
+        //   result: [...textSignal.result, res],
+        // }));
+        this.toasterService.showSuccess(
+          this.languageService.transalte('success'),
+          this.languageService.transalte('Tax.AddedSuccessfully')
+        );
+        this.loaderService.hide();
+        dialogRef.close(res);
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+
+  editTax(model: EditTax, dialogRef: DynamicDialogRef) {
+    this.loaderService.show();
+
+    this.accountproxy.editTax(model).subscribe({
+      next: (res) => {
+        // this.taxesSignal.update((taxSignal) => ({
+        //   ...taxSignal,
+        //   result: taxSignal.result.map((tax) => (tax.id === res.id ? res : tax)),
+        // }));
+        this.toasterService.showSuccess(
+          this.languageService.transalte('Tax.Success'),
+          this.languageService.transalte('Tax.UpdatedSuccessfully')
+        );
+        this.loaderService.hide();
+        this.editTaxStatus.next(true);
+        dialogRef.close();
+      },
+      error: () => {
+        this.loaderService.hide();
+        this.toasterService.showError(
+          this.languageService.transalte('Tax.Error'),
+          this.languageService.transalte('Tax.CannotEditTaxGroupUsedInTransactions')
+        );
+        this.editTaxStatus.next(true);
+      },
+    });
+  }
+  async deleteTax(taxId: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.accountproxy.deleteTax(taxId).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('Tax.Success'),
+            this.languageService.transalte('Tax.TaxDeletedSuccessfully')
+          );
+          this.loaderService.hide();
+          // this.getAllTaxes('', new PageInfo());
+          const currentTaxes = this.taxesDefinitionsDataSource.getValue();
+          const updatedTaxes = currentTaxes.filter((tax) => tax.id !== taxId);
+          this.taxesDefinitionsDataSource.next(updatedTaxes);
+        },
+        error: () => {
+          this.loaderService.hide();
+          this.toasterService.showError(
+            this.languageService.transalte('Tax.Error'),
+            this.languageService.transalte('Tax.CannotDeleteTaxUsedInTransactions')
+          );
+        },
+      });
+    }
+  }
+
+  getAllTaxGroups() {
+    this.accountproxy.getAllTaxGroups().subscribe({
+      next: (res) => {
+        this.taxGroupsDropDown.next(res);
+      },
+    });
+  }
   constructor(
     private accountproxy: AccountProxy,
     private toasterService: ToasterService,

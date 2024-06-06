@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { TagDto } from 'projects/erp-home/src/app/modules/general-setting/models';
 import { PageInfoResult, MenuModule, RouterService, PageInfo } from 'shared-lib';
 import { TaxDefinitionEditComponent } from '../../../components/tax-definition-edit/tax-definition-edit.component';
 import { TaxDefinitionAddComponent } from '../../../components/tax-definition-add/tax-definition-add.component';
