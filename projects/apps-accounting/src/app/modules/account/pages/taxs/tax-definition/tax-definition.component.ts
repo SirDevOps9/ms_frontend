@@ -29,7 +29,7 @@ export class TaxDefinitionComponent implements OnInit {
   searchTerm: string;
  
   ngOnInit() {
-    this.modulelist = this.authService.getModules();
+    //this.modulelist = this.authService.getModules();
     //  this.getTaxes();
      this.initTaxData();
 

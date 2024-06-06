@@ -26,7 +26,7 @@ export class TaxGroupComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.modulelist = this.authService.getModules();
+    //this.modulelist = this.authService.getModules();
     this.initTagData();
   }
 
