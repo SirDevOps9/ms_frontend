@@ -10,22 +10,14 @@ import {
 } from 'shared-lib';
 import { AccountProxy } from './account.proxy';
 import { AddAccountDto } from './models/addAccountDto';
-import {
-  AccountByIdDto,
-  AccountDto,
-  AddTax,
-  EditTax,
-  GetLevelsDto,
-  TaxGroupDropDown,
-  listAddLevelsDto,
-} from './models';
-import { AccountByIdDto, AccountDto, GetLevelsDto, accountById, listAddLevelsDto } from './models';
+
 import { AccountTypeDropDownDto } from './models/accountTypeDropDownDto';
 import { TagDropDownDto } from './models/tagDropDownDto';
 import { parentAccountDto } from './models/parentAcccountDto';
 import { TaxDto } from './models/tax-dto';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { AccountDto, accountById, AccountByIdDto, TaxGroupDropDown, GetLevelsDto, listAddLevelsDto, AddTax, EditTax } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +28,6 @@ export class AccountService {
   private currentAccountDataSource = new BehaviorSubject<parentAccountDto>({} as parentAccountDto);
   private currentAccountDataSourceById = new BehaviorSubject<accountById>({} as accountById);
   private accountDetailsDataSource = new BehaviorSubject<AccountByIdDto>({} as AccountByIdDto );
-  private accountDetailsDataSource = new BehaviorSubject<AccountByIdDto>({} as AccountByIdDto);
   private accountTypesDataSource = new BehaviorSubject<AccountTypeDropDownDto[]>([]);
   private accountSectionsDataSource = new BehaviorSubject<AccountTypeDropDownDto[]>([]);
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
