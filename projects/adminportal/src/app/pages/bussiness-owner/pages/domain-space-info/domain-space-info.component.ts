@@ -79,6 +79,8 @@ export class DomainSpaceInfoComponent implements AfterViewInit {
   getSubDomainById() {
     this.bussinessOwnerService.getSubDomainById(this.id).subscribe(res=>{
       this.form.form.patchValue({...res})
+      this.form.form.get('startDate')?.patchValue(new Date(res.startDate))
+      this.form.form.get('endDate')?.patchValue(new Date(res.endDate))
       this.form.form.disable()
 
     })

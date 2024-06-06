@@ -125,3 +125,33 @@
 
   }
 }
+
+::ng-deep .adminPortal {
+  
+
+  button{
+    width: auto;
+    display: block;
+  }
+  .p-button {
+  background-color: #009ef7;
+  color:#fff ;
+  border: 1px solid;
+  padding: 10px;
+  margin-top: 5px;
+  font-size: 1rem;
+  border-radius: 5px;
+
+  }
+
+  .p-button:hover {
+    background-color: #009cf7d7;
+    color:#fff ;
+    border: 1px solid;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 1rem;
+    border-radius: 5px;
+
+  }
+}
