@@ -6,6 +6,7 @@ import { GeneralSettingService } from 'projects/erp-home/src/app/modules/general
 import { TagDto } from 'projects/erp-home/src/app/modules/general-setting/models';
 import { PageInfoResult, MenuModule, RouterService, PageInfo } from 'shared-lib';
 import { TaxDefinitionEditComponent } from '../../../components/tax-definition-edit/tax-definition-edit.component';
+import { LayoutService } from 'apps-shared-lib';
 
 
 @Component({
@@ -23,11 +24,12 @@ export class TaxDefinitionComponent implements OnInit {
     private routerService: RouterService,
     private generalSettingService: GeneralSettingService,
     public authService: AuthService,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private layoutService: LayoutService,
   ) {}
 
   ngOnInit() {
-    this.modulelist = this.authService.getModules();
+    this.modulelist =this.layoutService.getModules();
     this.initTagData();
   }
 

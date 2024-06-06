@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { AuthHttpService, AuthService } from 'microtec-auth-lib';
-import { forkJoin } from 'rxjs';
+import { AuthProxy, AuthService } from 'microtec-auth-lib';
 import { EnvironmentService, RouterService } from 'shared-lib';
 
 @Component({
@@ -17,14 +16,11 @@ export class LoginRedirectComponent implements OnInit {
       console.log('Get State', stateRes);
       this.authService.saveTokenData().subscribe({
         next: (data: any) => {
-          this.authHttp.updateLastLoggingTime().subscribe({});
+          this.authProxy.updateLastLoggingTime().subscribe({});
           if (stateRes === 'noredirect') {
             this.routerservice.navigateTo('');
           } else {
-            forkJoin([this.authHttp.loadSideMenu()]).subscribe(([sideMenuRes]) => {
-              this.authService.saveSideMenu(sideMenuRes);
-              location.href = stateRes;
-            });
+            location.href = stateRes;
           }
         },
       });
@@ -33,7 +29,7 @@ export class LoginRedirectComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private authHttp: AuthHttpService,
+    private authProxy: AuthProxy,
     private routerservice: RouterService,
     private oidservice: OidcSecurityService,
     private environmentService: EnvironmentService
