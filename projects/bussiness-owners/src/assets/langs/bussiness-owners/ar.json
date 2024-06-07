@@ -186,6 +186,7 @@
     },
     "Contanct": {
       "MobileNumberCode": "رمز الهاتف المحمول",
+      "companyName": "اسم الشركة",
       "MobileNumber": "رقم هاتف الشركة",
       "companyEmail": "البريد الإلكتروني للشركة",
       "companyAddress": "عنوان الشركة",
