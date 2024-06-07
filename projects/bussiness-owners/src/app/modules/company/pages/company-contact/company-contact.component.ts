@@ -42,7 +42,7 @@ export class CompanyContactComponent implements OnInit {
     console.log(this.editMode);
 
     if (this.editMode) {
-      if (!this.formsService.validForm(this.companyContactForm, true)) return;
+      if (!this.formsService.validForm(this.companyContactForm, false)) return;
       const request: CompanyContactDto = this.companyContactForm.value;
       request.id = this.companyId;
       this.companyService.saveCompanyContact(request);
@@ -55,6 +55,8 @@ export class CompanyContactComponent implements OnInit {
 
   initializeForm() {
     this.companyContactForm = this.fb.group({
+      companyName: new FormControl('', [customValidators.required]),
+      companyLogo: new FormControl(),
       mobileNumberCode: new FormControl('', [customValidators.required]),
       mobileNumber: new FormControl('', [customValidators.required, customValidators.hasSpaces]),
       companyEmail: new FormControl('', [customValidators.required, customValidators.email]),
@@ -89,10 +91,10 @@ export class CompanyContactComponent implements OnInit {
       this.companyContactForm.patchValue({
         ...res,
       });
-      if (res){
+      if (res) {
         this.selectedMobileCode = res.mobileNumberCode!;
         this.selectedPersonalMobileCode = res.contactPersonalMobileNumberCode!;
-      } 
+      }
     });
   }
   get companyId(): string {

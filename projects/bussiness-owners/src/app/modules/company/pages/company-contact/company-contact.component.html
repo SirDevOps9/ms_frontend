@@ -1,184 +1,186 @@
 <lib-page-content>
   <div class="company_address">
     <form [formGroup]="companyContactForm">
-      <div class="actions ">
-          <button type="button" class="save body_b16" (click)="onSubmit()">
-            {{
-              editMode
-                ? ("Company.Save" | translate)
-                : ("Company.Edit" | translate)
-            }}
+      <div class="actions">
+        <button type="button" class="save body_b16" (click)="onSubmit()">
+          {{ editMode ? ('Company.Save' | translate) : ('Company.Edit' | translate) }}
+        </button>
+        <div *ngIf="editMode">
+          <button type="button" class="cancel body_b16" (click)="onDiscard(editMode)">
+            Discard
           </button>
-          <div *ngIf="editMode">
-            <button type="button" class="cancel body_b16" (click)="onDiscard(editMode)">
-              Discard
-            </button>
-          </div>
+        </div>
       </div>
-    
-        <div class="contact_form">
-          <div class="grid">
-            <div class="col-12">
-              <lib-label
-              [appControl]="companyContactForm.controls['mobileNumberCode']"
-            >
-              {{ "Company.Contanct.MobileNumber" | translate }}
-            </lib-label>
-            </div>
-            <div class="col-2">
-              <lib-form-group>
-                <lib-selectIcon
-                  [readOnly]="!editMode"
-                  formControlName="mobileNumberCode"
-                  [options]="lookups[LookupEnum.MobileCode]"
-                  [selectedValue]="selectedMobileCode"
-                  optionValue="id"
-                  optionLabel="name"
-                  icons="flags"
 
-                >
-                </lib-selectIcon>
-                <lib-field-validations
-                  [appControl]="companyContactForm.controls['mobileNumberCode']"
-                >
-                </lib-field-validations>
-              </lib-form-group>
-            </div>
-            <div class="col-10 ">
-              <lib-form-group>
-                <lib-text-input [readOnly]="!editMode" type="tel" formControlName="mobileNumber" />
-                <lib-field-validations
-                  [appControl]="companyContactForm.controls['mobileNumber']"
-                >
-                </lib-field-validations>
-              </lib-form-group>
-            </div>
-            <div class="col-12 md:col-6">
-              <lib-form-group>
-                <lib-label
-                  [appControl]="companyContactForm.controls['companyEmail']"
-                >
-                  {{ "Company.Contanct.companyEmail" | translate }}
-                </lib-label>
-                <lib-text-input [readOnly]="!editMode" type="text" formControlName="companyEmail" />
-                <lib-field-validations
-                  [appControl]="companyContactForm.controls['companyEmail']"
-                >
-                </lib-field-validations>
-              </lib-form-group>
-            </div>
-            <div class="col-12 md:col-6">
-              <lib-form-group>
-                <lib-label
-                  [appControl]="companyContactForm.controls['companyAddress']"
-                >
-                  {{ "Company.Contanct.companyAddress" | translate }}
-                </lib-label>
-                <lib-text-input [readOnly]="!editMode" type="text" formControlName="companyAddress" />
-                <lib-field-validations
-                  [appControl]="companyContactForm.controls['companyAddress']"
-                >
-                </lib-field-validations>
-              </lib-form-group>
-            </div>
-            <div class="col-12">
-              <lib-form-group>
-                <lib-label
-                  [appControl]="companyContactForm.controls['contactPersonal']"
-                >
-                  {{ "Company.Contanct.contactPersonal" | translate }}
-                </lib-label>
-                <lib-text-input [readOnly]="!editMode" type="text" formControlName="contactPersonal" />
-                <lib-field-validations
-                  [appControl]="companyContactForm.controls['contactPersonal']"
-                >
-                </lib-field-validations>
-              </lib-form-group>
-            </div>
-            <div class="col-12">
-              <lib-form-group>
-                <lib-label
-                  [appControl]="
-                    companyContactForm.controls['contactPersonalPosition']
-                  "
-                >
-                  {{ "Company.Contanct.contactPersonalPosition" | translate }}
-                </lib-label>
-                <lib-text-input
+      <div class="contact_form">
+        <div class="grid">
+          <div class="md:col-12">
+            <lib-form-group>
+              <lib-file-uploader
+                *ngIf="editMode"
+                formControlName="companyLogo"
+                [uploadClassName]="'rounded'"
+                [className]="'rounded'"
+                [showImgName]="false"
+                [config]="{
+                  type: sharedLibEnums.AttachmentFileTypes.image,
+                  viewThumbnail: true
+                }"
+                [appControl]="companyContactForm.controls['companyLogo']"
+              ></lib-file-uploader>
+              <lib-attachment-viewer
+                *ngIf="!editMode"
+                [attachmentId]="companyContactForm.controls['companyLogo'].value"
+              ></lib-attachment-viewer>
+              <lib-field-validations
+                [appControl]="companyContactForm.controls['companyLogo']"
+              ></lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12 md:col-6">
+            <lib-form-group>
+              <lib-label [appControl]="companyContactForm.controls['companyName']">
+                {{ 'Company.Contanct.companyName' | translate }}
+              </lib-label>
+              <lib-text-input [readOnly]="!editMode" type="text" formControlName="companyName" />
+              <lib-field-validations [appControl]="companyContactForm.controls['companyName']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12">
+            <lib-label [appControl]="companyContactForm.controls['mobileNumberCode']">
+              {{ 'Company.Contanct.MobileNumber' | translate }}
+            </lib-label>
+          </div>
+          <div class="col-2">
+            <lib-form-group>
+              <lib-selectIcon
                 [readOnly]="!editMode"
-                  type="text"
-                  formControlName="contactPersonalPosition"
-                />
-                <lib-field-validations
-                  [appControl]="
-                    companyContactForm.controls['contactPersonalPosition']
-                  "
-                >
-                </lib-field-validations>
-              </lib-form-group>
-            </div>
-            <div class="col-12">
-              <lib-form-group>
-                <lib-label
-                  [appControl]="
-                    companyContactForm.controls['contactPersonalEmail']
-                  "
-                >
-                  {{ "Company.Contanct.contactPersonalEmail" | translate }}
-                </lib-label>
-                <lib-text-input
+                formControlName="mobileNumberCode"
+                [options]="lookups[LookupEnum.MobileCode]"
+                [selectedValue]="selectedMobileCode"
+                optionValue="id"
+                optionLabel="name"
+                icons="flags"
+              >
+              </lib-selectIcon>
+              <lib-field-validations [appControl]="companyContactForm.controls['mobileNumberCode']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-10">
+            <lib-form-group>
+              <lib-text-input [readOnly]="!editMode" type="tel" formControlName="mobileNumber" />
+              <lib-field-validations [appControl]="companyContactForm.controls['mobileNumber']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12 md:col-6">
+            <lib-form-group>
+              <lib-label [appControl]="companyContactForm.controls['companyEmail']">
+                {{ 'Company.Contanct.companyEmail' | translate }}
+              </lib-label>
+              <lib-text-input [readOnly]="!editMode" type="text" formControlName="companyEmail" />
+              <lib-field-validations [appControl]="companyContactForm.controls['companyEmail']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12 md:col-6">
+            <lib-form-group>
+              <lib-label [appControl]="companyContactForm.controls['companyAddress']">
+                {{ 'Company.Contanct.companyAddress' | translate }}
+              </lib-label>
+              <lib-text-input [readOnly]="!editMode" type="text" formControlName="companyAddress" />
+              <lib-field-validations [appControl]="companyContactForm.controls['companyAddress']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12">
+            <lib-form-group>
+              <lib-label [appControl]="companyContactForm.controls['contactPersonal']">
+                {{ 'Company.Contanct.contactPersonal' | translate }}
+              </lib-label>
+              <lib-text-input
                 [readOnly]="!editMode"
-                  type="text"
-                  formControlName="contactPersonalEmail"
-                />
-                <lib-field-validations
-                  [appControl]="
-                    companyContactForm.controls['contactPersonalEmail']
-                  "
-                >
-                </lib-field-validations>
-              </lib-form-group>
-            </div>
-            <div class="col-12">
-              <lib-label
+                type="text"
+                formControlName="contactPersonal"
+              />
+              <lib-field-validations [appControl]="companyContactForm.controls['contactPersonal']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12">
+            <lib-form-group>
+              <lib-label [appControl]="companyContactForm.controls['contactPersonalPosition']">
+                {{ 'Company.Contanct.contactPersonalPosition' | translate }}
+              </lib-label>
+              <lib-text-input
+                [readOnly]="!editMode"
+                type="text"
+                formControlName="contactPersonalPosition"
+              />
+              <lib-field-validations
+                [appControl]="companyContactForm.controls['contactPersonalPosition']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12">
+            <lib-form-group>
+              <lib-label [appControl]="companyContactForm.controls['contactPersonalEmail']">
+                {{ 'Company.Contanct.contactPersonalEmail' | translate }}
+              </lib-label>
+              <lib-text-input
+                [readOnly]="!editMode"
+                type="text"
+                formControlName="contactPersonalEmail"
+              />
+              <lib-field-validations
+                [appControl]="companyContactForm.controls['contactPersonalEmail']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12">
+            <lib-label
               [appControl]="companyContactForm.controls['contactPersonalMobileNumberCode']"
             >
-              {{ "Company.Contanct.ContactPersonalMobileNumber" | translate }}
+              {{ 'Company.Contanct.ContactPersonalMobileNumber' | translate }}
             </lib-label>
-            </div>
-            <div class="col-2">
-              <lib-form-group>
-
-                <lib-selectIcon
-                  [readOnly]="!editMode"
-                  formControlName="contactPersonalMobileNumberCode"
-                  [options]="lookups[LookupEnum.MobileCode]"
-                  [selectedValue]="selectedPersonalMobileCode"
-                  optionValue="id"
-                  optionLabel="name"
-                  icons="flags"
-                >
-                </lib-selectIcon>
-                <lib-field-validations
-                  [appControl]="companyContactForm.controls['contactPersonalMobileNumberCode']"
-                >
-                </lib-field-validations>
-              </lib-form-group>
-            </div>
-            <div class="col-10">
-              <lib-form-group>
-                <lib-text-input [readOnly]="!editMode" type="tel" formControlName="contactPersonalMobileNumber" />
-                <lib-field-validations
-                  [appControl]="companyContactForm.controls['contactPersonalMobileNumber']"
-                >
-                </lib-field-validations>
-              </lib-form-group>
-            </div>
+          </div>
+          <div class="col-2">
+            <lib-form-group>
+              <lib-selectIcon
+                [readOnly]="!editMode"
+                formControlName="contactPersonalMobileNumberCode"
+                [options]="lookups[LookupEnum.MobileCode]"
+                [selectedValue]="selectedPersonalMobileCode"
+                optionValue="id"
+                optionLabel="name"
+                icons="flags"
+              >
+              </lib-selectIcon>
+              <lib-field-validations
+                [appControl]="companyContactForm.controls['contactPersonalMobileNumberCode']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-10">
+            <lib-form-group>
+              <lib-text-input
+                [readOnly]="!editMode"
+                type="tel"
+                formControlName="contactPersonalMobileNumber"
+              />
+              <lib-field-validations
+                [appControl]="companyContactForm.controls['contactPersonalMobileNumber']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
           </div>
         </div>
-    
-
-
+      </div>
     </form>
   </div>
 </lib-page-content>

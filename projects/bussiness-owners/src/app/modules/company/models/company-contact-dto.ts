@@ -1,4 +1,6 @@
 export interface CompanyContactDto {
+  companyName: string | null;
+  companyLogo: string | null;
   mobileNumberCode: string | null;
   mobileNumber: string | null;
   companyEmail: string | null;
