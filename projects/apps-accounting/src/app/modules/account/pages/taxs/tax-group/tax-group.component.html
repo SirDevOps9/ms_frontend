@@ -1,16 +1,18 @@
 <lib-page-content [title]="'TaxGroup.TaxGrouplist' | translate" [subTitle]="'TaxGroup.TaxGrouplist' | translate">
     <lib-bread-crumb>
-
     </lib-bread-crumb>
     <div>
         <div class="user_page">
-            <lib-data-table [items]="tableData" className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
-                (pageChange)="onPageChange($event)" [tableConfigs]="{
-            allowPagination: false,
-            allowServerPagination: true,
-            dataKey: 'id',
-            pageSize: 10,
-            columns: [
+            <lib-data-table
+            [items]="tableData"
+            [currentPageResult]="currentPageInfo"
+            (pageChange)="onPageChange($event)"
+            [tableConfigs]="{
+              allowPagination: false,
+              allowServerPagination: true,
+              dataKey: 'id',
+              pageSize: 10,
+              columns: [
               {
                 name: 'code',
                 headerText: ('TaxGroup.Code' | translate),

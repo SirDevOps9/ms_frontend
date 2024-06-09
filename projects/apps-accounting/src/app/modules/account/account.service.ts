@@ -152,6 +152,8 @@ export class AccountService {
   getAllTaxGroupPaginated(searchTerm: string, pageInfo: PageInfo) {
     return this.accountproxy.getAllTaxGroup(searchTerm, pageInfo).subscribe((response) => {
       this.taxGroupDataSource.next(response.result);
+      this.currentPageInfo.next(response.pageInfoResult);
+
     });
   }
   async deleteTaxGroup(id: number): Promise<boolean > {
@@ -325,6 +327,7 @@ export class AccountService {
     this.accountproxy.getAllTaxGroups().subscribe({
       next: (res) => {
         this.taxGroupsDropDown.next(res);
+        
       },
     });
   }
