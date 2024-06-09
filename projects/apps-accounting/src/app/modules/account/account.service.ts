@@ -88,6 +88,13 @@ export class AccountService {
       })
     );
   }
+  GetCostTree() {
+    return this.accountproxy.GetCostTree().pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
   getLevels() {
     this.levelsSource.next([]);
     this.accountproxy.getLevels().subscribe({
