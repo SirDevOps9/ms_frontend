@@ -21,6 +21,9 @@ import { TaxGroupEditComponent } from './components/tax-group-edit/tax-group-edi
 import { MainCostCenterComponent } from './pages/cost-center/main-cost-center/main-cost-center.component';
 import { CostCenterListComponent } from './pages/cost-center/cost-center-list/cost-center-list.component';
 import { CostCenterTreeComponent } from './pages/cost-center/cost-center-tree/cost-center-tree.component';
+import { AddCostCenterComponent } from './pages/cost-center/add-cost-center/add-cost-center.component';
+import { EditCostCenterComponent } from './pages/cost-center/edit-cost-center/edit-cost-center.component';
+import { ViewCostCenterComponent } from './pages/cost-center/view-cost-center/view-cost-center.component';
 
 const routes: Routes = [
   {
@@ -97,7 +100,10 @@ const routes: Routes = [
     TaxGroupEditComponent,
     MainCostCenterComponent,
     CostCenterListComponent,
-    CostCenterTreeComponent
+    CostCenterTreeComponent,
+    AddCostCenterComponent,
+    EditCostCenterComponent,
+    ViewCostCenterComponent
   ],
   imports: [CommonModule, SharedLibModule, AutoCompleteModule, RouterModule.forChild(routes)],
 })

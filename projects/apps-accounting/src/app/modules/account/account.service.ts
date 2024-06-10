@@ -1,6 +1,6 @@
 import { AccountProxy } from './account.proxy';
 import { AddAccountDto } from './models/addAccountDto';
-import { AccountByIdDto, AccountDto, AddTaxGroupDto, GetLevelsDto, TaxGroupDto, listAddLevelsDto,accountById, AddTax, EditTax, TaxGroupDropDown } from './models';
+import { AccountByIdDto, AccountDto, AddTaxGroupDto, GetLevelsDto, TaxGroupDto, listAddLevelsDto,accountById, AddTax, EditTax, TaxGroupDropDown, addCostCenter, parentCostCenter } from './models';
 
 import { AccountTypeDropDownDto } from './models/accountTypeDropDownDto';
 import { TagDropDownDto } from './models/tagDropDownDto';
@@ -28,9 +28,13 @@ export class AccountService {
   private taxGroupDataSource = new BehaviorSubject<TaxGroupDto[]>([]);
   private currentTaxGroupDataSource = new BehaviorSubject<TaxGroupDto>({} as TaxGroupDto);
   private editAccountDataSource = new BehaviorSubject<accountById | undefined>(undefined);
+  private savedCostCenter = new BehaviorSubject<addCostCenter | undefined>(undefined);
+  private parentAccountsostCenter = new BehaviorSubject<parentCostCenter[]>([]);
 
 
   private taxesDefinitionsDataSource = new BehaviorSubject<TaxDto[]>([]);
+  private costCenterData = new BehaviorSubject(false);
+  public costCenterDataObser = this.costCenterData.asObservable()
 
   public accountsList = this.accountsDataSource.asObservable();
   public parentAccounts = this.parentAccountsDataSource.asObservable();
@@ -46,6 +50,9 @@ export class AccountService {
   public editedAccount = this.editAccountDataSource.asObservable();
 
   public taxesDefintionList = this.taxesDefinitionsDataSource.asObservable();
+  public savedAddedCost = this.savedCostCenter.asObservable();
+  public costparentAccounts = this.parentAccountsostCenter.asObservable();
+
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   public currentTaxDataSource = new BehaviorSubject<TaxDto>({} as TaxDto);
@@ -335,6 +342,43 @@ export class AccountService {
       },
     });
   }
+  AddCostCenter(command: addCostCenter){
+    this.accountproxy.AddCostCenter(command).subscribe((res) => {
+      this.savedCostCenter.next(res);
+    });
+
+  }
+    async deleteCostCenter(costId: number) {
+      const confirmed = await this.toasterService.showConfirm(
+        this.languageService.transalte('ConfirmButtonTexttodelete')
+      );
+      if (confirmed) {
+        this.accountproxy.deleteCostCenter(costId).subscribe({
+          next: (res) => {
+            
+            this.toasterService.showSuccess(
+              this.languageService.transalte('costCenter.Success'),
+              this.languageService.transalte('costCenter.CostCenterDeletedSuccessfully')
+            );
+            this.loaderService.hide();
+            // this.getAllTaxes('', new PageInfo());
+            this.costCenterData.next(res);
+          },
+          error: () => {
+            this.loaderService.hide();
+            this.toasterService.showError(
+              this.languageService.transalte('costCenter.Error'),
+              this.languageService.transalte('costCenter.CannotDeleteCostCenter')
+            );
+          },
+        });
+      }
+    }
+    GetAllParentsCostCenters() {
+      this.accountproxy.GetAllParentsCostCenters().subscribe((response) => {
+        this.parentAccountsostCenter.next(response);
+      });
+    }
   constructor(
     private accountproxy: AccountProxy,
     private toasterService: ToasterService,

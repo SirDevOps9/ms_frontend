@@ -135,12 +135,7 @@ export class ChartOfAccountTreeComponent implements OnInit {
       this.nodes = this.mapToTreeNodes(res);
     });
   }
-  RedirectToConfiguration() {
-    this.ref = this.dialog.open(ChartOfAccountConfigurationComponent, {
-      width: '800px',
-      height: '700px',
-    });
-  }
+
   handleOperationCompleted(event: any) {
     if(this.parentAdded){
       this.parentAdded.children.push({ label: event.name, id: event.id, children: [] });

@@ -19,6 +19,7 @@ import {
   TaxDto,
   accountById,
   costTree,
+  addCostCenter,
 } from './models';
 import { TaxGroupDropDown } from './models/tax-group-drop-down';
 
@@ -122,6 +123,16 @@ export class AccountProxy {
 
   getAllTaxGroups(): Observable<TaxGroupDropDown[]> {
     return this.httpService.get<TaxGroupDropDown[]>(`TaxGroup/TaxGroupDropDown`);
+  } 
+  AddCostCenter(command: addCostCenter): Observable<addCostCenter> {
+    return this.httpService.post('CostCenter/AddCostCenter', command);
+  }
+
+  deleteCostCenter(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`CostCenter/Delete?Id=${id}`);
+  }
+  GetAllParentsCostCenters(): Observable<parentAccountDto[]> {
+    return this.httpService.get<parentAccountDto[]>(`CostCenter/GetAllParentsCostCenters`);
   } 
   constructor(private httpService: HttpService) {}
 }

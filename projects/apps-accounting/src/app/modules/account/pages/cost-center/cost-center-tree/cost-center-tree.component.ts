@@ -75,13 +75,10 @@ addChild(parentNode: any) {
   // parentNode.children.push({ label: 'New Child', children: [] });
 }
 newChild() {
-  this.activeNode = null;
-  this.parentAddedId = undefined;
-  this.parentAdded = null;
+
   this.view = false;
   this.edit = false;
   this.add = false;
-  this.addmode.emit(true);
   this.newChiled=true
   this.add = true;
 }
@@ -147,7 +144,12 @@ RedirectToConfiguration() {
   });
 }
 handleOperationCompleted(event: any) {
+  
+  console.log(event , "dddddddddddd");
+  console.log(this.parentAdded);
+  
   if(this.parentAdded){
+    
     this.parentAdded.children.push({ label: event.name, id: event.id, children: [] });
 
   }else{
@@ -168,6 +170,16 @@ editAccount(node:any){
   this.edit = true;
   //console.log(node);
   
+}
+deleteCost(id:number){  
+  this.accountService.deleteCostCenter(id)
+
+  this.accountService.costCenterDataObser.subscribe(res=>{
+    if (res){
+      this.GetCostTree();
+    }
+  })
+
 }
 }
 
