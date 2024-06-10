@@ -18,6 +18,7 @@ import {
   EditTax,
   TaxDto,
   accountById,
+  costTree,
 } from './models';
 import { TaxGroupDropDown } from './models/tax-group-drop-down';
 
@@ -63,6 +64,9 @@ export class AccountProxy {
 
   getTreeList(): Observable<accountTreeList[]> {
     return this.httpService.get<accountTreeList[]>(`ChartOfAccounts/GetTree`);
+  }
+  GetCostTree(): Observable<costTree[]> {
+    return this.httpService.get<costTree[]>(`CostCenter/GetTree`);
   }
 
   getLevels(): Observable<GetLevelsDto[]> {

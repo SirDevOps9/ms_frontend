@@ -18,6 +18,9 @@ import { TaxDefinitionAddComponent } from './components/tax-definition-add/tax-d
 import { TaxDefinitionEditComponent } from './components/tax-definition-edit/tax-definition-edit.component';
 import { TaxGroupAddComponent } from './components/tax-group-add/tax-group-add.component';
 import { TaxGroupEditComponent } from './components/tax-group-edit/tax-group-edit.component';
+import { MainCostCenterComponent } from './pages/cost-center/main-cost-center/main-cost-center.component';
+import { CostCenterListComponent } from './pages/cost-center/cost-center-list/cost-center-list.component';
+import { CostCenterTreeComponent } from './pages/cost-center/cost-center-tree/cost-center-tree.component';
 
 const routes: Routes = [
   {
@@ -64,6 +67,15 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.TAXS_DEFINITION,
         },
       }
+      ,
+      {
+        path: 'cost-center',
+        component: MainCostCenterComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.COST_CENTER,
+        },
+      }
     ],
   },
 ];
@@ -82,7 +94,10 @@ const routes: Routes = [
     TaxDefinitionAddComponent,
     TaxDefinitionEditComponent,
     TaxGroupAddComponent,
-    TaxGroupEditComponent
+    TaxGroupEditComponent,
+    MainCostCenterComponent,
+    CostCenterListComponent,
+    CostCenterTreeComponent
   ],
   imports: [CommonModule, SharedLibModule, AutoCompleteModule, RouterModule.forChild(routes)],
 })
