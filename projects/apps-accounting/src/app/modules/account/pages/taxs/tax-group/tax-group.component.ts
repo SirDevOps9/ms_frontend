@@ -44,8 +44,7 @@ export class TaxGroupComponent implements OnInit {
   }
 
   onPageChange(pageInfo: PageInfo) {
-    console.log("pageInfo",pageInfo)
-    this.accountService.getAllTaxGroupPaginated('',pageInfo);
+    this.accountService.getAllTaxGroupPaginated(this.searchTerm,pageInfo);
     this.accountService.taxGroupList.subscribe({
       next: (res) => {
         this.tableData = res;
