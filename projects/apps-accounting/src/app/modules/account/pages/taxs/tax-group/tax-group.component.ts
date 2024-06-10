@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PageInfoResult, MenuModule, RouterService, PageInfo } from 'shared-lib';
-import { TaxDefinitionEditComponent } from '../../../components/tax-definition-edit/tax-definition-edit.component';
-import { TaxDefinitionAddComponent } from '../../../components/tax-definition-add/tax-definition-add.component';
 import { AccountService } from '../../../account.service';
 import { TaxGroupDto } from '../../../models';
 import { TaxGroupAddComponent } from '../../../components/tax-group-add/tax-group-add.component';
@@ -40,12 +38,13 @@ export class TaxGroupComponent implements OnInit {
     });
 
     this.accountService.currentPageInfo.subscribe((currentPageInfo) => {
+      console.log("currentPageInfo",currentPageInfo)
       this.currentPageInfo = currentPageInfo;
     });
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.accountService.getAllTaxGroupPaginated('',pageInfo);
+    this.accountService.getAllTaxGroupPaginated(this.searchTerm,pageInfo);
     this.accountService.taxGroupList.subscribe({
       next: (res) => {
         this.tableData = res;
