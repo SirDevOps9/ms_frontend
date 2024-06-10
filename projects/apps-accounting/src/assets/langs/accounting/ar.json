@@ -98,7 +98,6 @@
       "Save": "حفظ"
     }
   },
-
   "Tax": {
     "TaxName": "اسم الضريبة",
     "AddTaxDefinition": "إضافة تعريف الضريبة",
@@ -120,5 +119,17 @@
     "CannotDeleteTaxUsedInTransactions": "لا يمكن حذف الضريبة المستخدمة في المعاملات",
     "UpdatedSuccessfully": "تم تحديث الضريبة بنجاح",
     "AddedSuccessfully": "تم إضافة الضريبة بنجاح"
+  },
+  "costCenter": {
+    "code": "رمز مركز التكلفة",
+    "name": "اسم مركز التكلفة",
+    "parentAccount": "الحساب الرئيسي",
+    "detail": "تفاصيل",
+    "yes": "نعم",
+    "save": "حفظ",
+    "CostCenterDeletedSuccessfully": "تم حذف مركز التكلفة بنجاح",
+    "Success": "نجاح",
+    "CannotDeleteCostCenter": "لا يمكن حذف مركز التكلفة المستخدم في المعاملات",
+    "Error": "خطأ"
   }
 }

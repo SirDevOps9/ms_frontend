@@ -78,7 +78,6 @@
     "debitAmountLocal": "Debit Amount (Local)",
     "creditAmountLocal": "Credit Amount (Local)"
   },
-
   "TaxGroup": {
     "Code": "Code",
     "Name": "Name",
@@ -120,5 +119,17 @@
     "CannotDeleteTaxUsedInTransactions": "Cannot Delete Tax Used In Transactions",
     "UpdatedSuccessfully": "Tax Updated Successfully",
     "AddedSuccessfully": "Tax Added Successfully"
+  },
+  "costCenter": {
+    "code": "Cost Center code",
+    "name": "Cost Center Name ",
+    "parentAccount": "Parent Account",
+    "detail": "Is Detail",
+    "yes": "yes",
+    "save": "save",
+    "CostCenterDeletedSuccessfully": "Cost Center Deleted Successfully",
+    "Success": "Success",
+    "CannotDeleteCostCenter": " Cannot Delete Cost Center Used In Transactions",
+    "Error": "Error"
   }
 }

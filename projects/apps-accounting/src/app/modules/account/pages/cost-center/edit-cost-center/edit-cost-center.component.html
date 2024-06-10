@@ -1,0 +1,54 @@
+<div class="cost_add_page">
+    <form [formGroup]="formGroup" >
+        <div class="faild">
+            <lib-form-group>
+                <lib-label [appControl]="formGroup.controls['code']">
+                    {{'costCenter.code' | translate}}
+                </lib-label>
+                <lib-text-input [readOnly]="true"  type="text" formControlName="code" />
+               
+              </lib-form-group>
+        </div>
+        <div class="faild">
+            <lib-form-group>
+                <lib-label [appControl]="formGroup.controls['name']">
+                    {{'costCenter.name' | translate}}
+                </lib-label>
+                <lib-text-input  type="text" formControlName="name" />
+               
+              </lib-form-group>
+              <lib-field-validations [appControl]="formGroup.controls['name']">
+            </lib-field-validations>
+        </div>
+        <div class="faild">
+        <lib-form-group>
+            <lib-label [appControl]="formGroup.controls['parentAccount']">
+                {{'costCenter.parentAccount' | translate}}
+            </lib-label>
+            <lib-text-input  type="text" formControlName="parentAccount" />
+            <lib-field-validations [appControl]="formGroup.controls['parentAccount']">
+            </lib-field-validations>
+        </lib-form-group>
+        </div>
+        <div class="faild">
+            <lib-form-group>
+                <p class="paragraph_b18"> Is Detail</p>
+                <input type="checkbox"  formControlName="detail"  id="detail" >
+
+                <lib-label [appControl]="formGroup.controls['detail']" >
+                    {{'costCenter.yes' | translate}}
+                </lib-label>
+                <lib-field-validations [appControl]="formGroup.controls['detail']">
+                </lib-field-validations>
+            </lib-form-group>
+        </div>
+       <div class="action">
+        <lib-button-micro nameClass="save" title="{{'costCenter.save' | translate}}"
+        (click)="test()"
+        >
+            
+        </lib-button-micro>
+       </div>
+        
+    </form>  
+</div>
