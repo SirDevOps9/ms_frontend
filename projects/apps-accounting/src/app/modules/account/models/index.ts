@@ -21,3 +21,5 @@ export * from './add-tax-group-dto';
 export * from './cost-tree';
 export * from './add-costCenter';
 export * from './parent-costCenter';
+export * from './cost-by-id';
+export * from './costCenterDetails';

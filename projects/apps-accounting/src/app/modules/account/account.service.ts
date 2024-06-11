@@ -1,6 +1,6 @@
 import { AccountProxy } from './account.proxy';
 import { AddAccountDto } from './models/addAccountDto';
-import { AccountByIdDto, AccountDto, AddTaxGroupDto, GetLevelsDto, TaxGroupDto, listAddLevelsDto,accountById, AddTax, EditTax, TaxGroupDropDown, addCostCenter, parentCostCenter } from './models';
+import { AccountByIdDto, AccountDto, AddTaxGroupDto, GetLevelsDto, TaxGroupDto, listAddLevelsDto,accountById, AddTax, EditTax, TaxGroupDropDown, addCostCenter, parentCostCenter, costById, costCenterDetails } from './models';
 
 import { AccountTypeDropDownDto } from './models/accountTypeDropDownDto';
 import { TagDropDownDto } from './models/tagDropDownDto';
@@ -30,6 +30,9 @@ export class AccountService {
   private editAccountDataSource = new BehaviorSubject<accountById | undefined>(undefined);
   private savedCostCenter = new BehaviorSubject<addCostCenter | undefined>(undefined);
   private parentAccountsostCenter = new BehaviorSubject<parentCostCenter[]>([]);
+  private costCenterById = new BehaviorSubject<costById>({} as costById);
+  private costCenterDetails = new BehaviorSubject<costCenterDetails>({} as costCenterDetails);
+  private editCostCenter = new BehaviorSubject<costById | undefined>(undefined);
 
 
   private taxesDefinitionsDataSource = new BehaviorSubject<TaxDto[]>([]);
@@ -52,6 +55,9 @@ export class AccountService {
   public taxesDefintionList = this.taxesDefinitionsDataSource.asObservable();
   public savedAddedCost = this.savedCostCenter.asObservable();
   public costparentAccounts = this.parentAccountsostCenter.asObservable();
+  public selectedCostById = this.costCenterById.asObservable();
+  public selectedCostDetails = this.costCenterDetails.asObservable();
+  public editedCost = this.editCostCenter.asObservable();
 
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
@@ -231,8 +237,8 @@ export class AccountService {
       this.currentTaxGroupDataSource.next(response);
     });
   }
-  editAccount(test:accountById) {
-    this.accountproxy.editAccount(test).subscribe((res) => {
+  editAccount(account:accountById) {
+    this.accountproxy.editAccount(account).subscribe((res) => {
       this.editAccountDataSource.next(res);
     });
   }
@@ -361,7 +367,6 @@ export class AccountService {
               this.languageService.transalte('costCenter.CostCenterDeletedSuccessfully')
             );
             this.loaderService.hide();
-            // this.getAllTaxes('', new PageInfo());
             this.costCenterData.next(res);
           },
           error: () => {
@@ -377,6 +382,21 @@ export class AccountService {
     GetAllParentsCostCenters() {
       this.accountproxy.GetAllParentsCostCenters().subscribe((response) => {
         this.parentAccountsostCenter.next(response);
+      });
+    }
+    getcostById(id: number) {
+      this.accountproxy.getCostById(id).subscribe((response) => {
+        this.costCenterById.next(response);
+      });
+    }
+    editCost(cost:costById) {
+      this.accountproxy.editCost(cost).subscribe((res) => {
+        this.editCostCenter.next(res);
+      });
+    }
+    getCostDetails(id: number) {
+      this.accountproxy.GetCostCenterDetails(id).subscribe((response) => {
+        this.costCenterDetails.next(response);
       });
     }
   constructor(
