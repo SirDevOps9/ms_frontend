@@ -26,6 +26,7 @@
   "rate": "Rate",
   "debit_amount_local": "DB Amount Local",
   "credit_amount_local": "CR Amount Local",
+  "cost_center": "Cost Center",
   "add_new_line": "Add New Line",
   "add_template": "Add Template",
   "discard": "discard",
@@ -51,6 +52,8 @@
     "Rate": "Rate",
     "DbAmountLocal": "DB Amount Local",
     "CrAmountLocal": "CR Amount Local",
+    "costCenter": "Cost Center",
+
     "Actions": "Actions",
     "Delete": "Delete",
     "AddNewLine": "Add New Line",
@@ -75,7 +78,8 @@
       "currency": "Currency",
       "currencyRate": "Currency Rate",
       "debitAmountLocal": "Debit Amount (Local)",
-      "creditAmountLocal": "Credit Amount (Local)"
+      "creditAmountLocal": "Credit Amount (Local)",
+      "costCenter": "Cost Center"
     },
    "Tax":{
     "TaxName": "Tax Name",
@@ -95,5 +99,8 @@
     "AddNew": "Add New",
     "Export": "Export"
    }
-  }
+  },
+  "Amount" : "Amount",
+  "add_line" : "Add Line"
+
 }

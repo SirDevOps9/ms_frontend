@@ -11,3 +11,5 @@ export * from './journal-entry-lines-view-dto';
 export * from './journal-entry-view-dto';
 export * from './journalentrytemplatetype';
 export * from './journaltemplatedto';
+export * from './costLookup';
+export * from './costCenters';

@@ -26,6 +26,7 @@
   "rate": "السعر",
   "debit_amount_local": "مبلغ المدين المحلي",
   "credit_amount_local": "مبلغ الدائن المحلي",
+  "cost_center": "مراكز التكلفة",
   "add_new_line": "إضافة سطر جديد",
   "add_template": "إضافة قالب",
   "discard": "تجاهل",
@@ -57,7 +58,9 @@
     "Discard": "تجاهل",
     "Save": "حفظ",
     "Submit": "إرسال",
-    "Post": "ترحيل"
+    "Post": "ترحيل",
+    "costCenter": "مركز التكلفة"
+
   },
   "viewJournal": {
     "JornalCode": "كود اليومية",
@@ -76,6 +79,11 @@
     "currency": "العملة",
     "currencyRate": "سعر العملة",
     "debitAmountLocal": "المبلغ المحلي الدائن",
-    "creditAmountLocal": "المبلغ المحلي المدين"
-  }
+    "creditAmountLocal": "المبلغ المحلي المدين",
+    "costCenter": "مركز التكلفة"
+
+  },
+  "Amount" : "الكمية",
+  "add_line" : "اضافه سطر"
+
 }

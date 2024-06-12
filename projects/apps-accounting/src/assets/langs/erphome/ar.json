@@ -251,6 +251,7 @@
     "HasNoChild": "حساب تفصيلى",
     "Currency": "العملة",
     "AccountActivation": "تفعيل الحساب",
+    "costCenterConfig": "تكوين مركز التكلفة",
     "periodicActiveFrom": "نشط دوريًا من",
     "periodicActiveTo": "نشط دوريًا إلى",
     "Active": "نشط",
@@ -267,5 +268,10 @@
     "date": "Date",
     "JournalPeriod": "Journal Period",
     "JournalType": "Journal Type"
-  }
+  },
+  "costCenter" : {
+    "mandatory" : "إلزامي",
+    "optional" : "اختياري",
+    "notAllow" : "غير مسموح"
+}
 }

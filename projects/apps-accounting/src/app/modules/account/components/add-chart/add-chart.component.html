@@ -161,6 +161,60 @@
             </lib-form-group>
           </div>
         </div>
+        <lib-fildest
+        header="{{ 'ChartOfAccounts.costCenterConfig' | translate }}"
+        class="col-12"
+      >
+        <div class="grid">
+          <div class="md:col-12">
+            <lib-form-group>
+              <div class="account_activation">
+                <div>
+                  <p-radioButton
+                    name="costCenterConfig"
+                    value=1
+                    formControlName="costCenterConfig"
+                    inputId=1
+                  >
+                  </p-radioButton>
+
+                  <label class="title" for=1>{{
+                    'costCenter.mandatory' | translate
+                  }}</label>
+                </div>
+                <div>
+                  <p-radioButton
+                    name="costCenterConfig"
+                    value=2
+                    formControlName="costCenterConfig"
+                    inputId=2
+                  >
+                  </p-radioButton>
+
+                  <label class="title" for=2>{{
+                    'costCenter.optional' | translate
+                  }}</label>
+                </div>
+                <div>
+                  <p-radioButton
+                    name="costCenterConfig"
+                    value=3
+                    formControlName="costCenterConfig"
+                    inputId=3
+                  >
+                  </p-radioButton>
+                  <label class="title" for=3>{{
+                    'costCenter.notAllow' | translate
+                  }}</label>
+                </div>
+              </div>
+
+              <!-- <lib-field-validations [appControl]="formGroup.controls['AccountActivation']">
+              </lib-field-validations> -->
+            </lib-form-group>
+          </div>
+        </div>
+        </lib-fildest>
 
         <lib-fildest
           header="{{ 'ChartOfAccounts.AccountActivation' | translate }}"

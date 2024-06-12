@@ -17,6 +17,7 @@ import {
   EditTax,
 } from './models';
 import { TaxGroupDropDown } from './models/tax-group-drop-down';
+import { costLookup } from '../journal-entry/models';
 
 @Injectable({
   providedIn: 'root',
@@ -64,6 +65,10 @@ export class AccountProxy {
 
   addLevels(command: listAddLevelsDto): Observable<boolean> {
     return this.httpService.post('Levels', command);
+  }
+
+  getAccountLookup() : Observable<costLookup[]> {
+    return this.httpService.get('CostCenter/CostCenterDropDown')
   }
 
   getAllTaxes(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<TaxDto>> {

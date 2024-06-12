@@ -108,6 +108,7 @@
               <th style="width: 10%">{{ 'EditJournal.Rate' | translate }}</th>
               <th style="width: 10%">{{ 'EditJournal.DbAmountLocal' | translate }}</th>
               <th style="width: 10%">{{ 'EditJournal.CrAmountLocal' | translate }}</th>
+              <th style="width: 10%">{{ 'EditJournal.costCenter' | translate }}</th>
               <th
                 style="width: 10%"
                 *ngIf="
@@ -297,6 +298,23 @@
                 {{ journalLine.get('creditAmountLocal').value }}
               </td>
 
+              <td>
+                <img class="costCenterImg" src="assets/images/Frame.png" (click)="openCostPopup(journalLine.value)">
+              </td>
+              <td   *ngIf="
+              journalEntry?.status == enums.JournalEntryStatus.Unbalanced ||
+              journalEntry?.status == enums.JournalEntryStatus.Draft
+            ">
+                  <lib-button
+                  [icon]="'pi pi-trash'"
+                  (click)="deleteJournalEntryLine(rowIndex)"
+                  [rounded]="true"
+                  [enableText]="true"
+                  severity="secondary"
+                >
+                </lib-button>
+              </td>
+
               <!-- <td>
                 {{ journalLine.get("debitAmountLocal").value }}
               </td>
@@ -310,21 +328,7 @@
                 journalEntry?.status == enums.JournalEntryStatus.Draftbalanced
               "
             > -->
-              <td
-                *ngIf="
-                  journalEntry?.status == enums.JournalEntryStatus.Unbalanced ||
-                  journalEntry?.status == enums.JournalEntryStatus.Draft
-                "
-              >
-                <lib-button
-                  [icon]="'pi pi-trash'"
-                  (click)="deleteJournalEntryLine(rowIndex)"
-                  [rounded]="true"
-                  [enableText]="true"
-                  severity="secondary"
-                >
-                </lib-button>
-              </td>
+             
             </tr>
           </ng-template>
         </p-table>

@@ -81,6 +81,7 @@
             <th>{{ 'rate' | translate }}</th>
             <th>{{ 'debit_amount_local' | translate }}</th>
             <th>{{ 'credit_amount_local' | translate }}</th>
+            <th>{{ 'cost_center' | translate }}</th>
             <th></th>
           </tr>
         </ng-template>
@@ -196,6 +197,9 @@
             </td>
             <td>
               {{ fg.controls['creditAmountLocal'].value | number : '1.0-2' }}
+            </td>
+            <td>
+              <img class="costCenterImg" src="assets/images/Frame.png" (click)="openCostPopup(fg.value)">
             </td>
             <td>
               <lib-button

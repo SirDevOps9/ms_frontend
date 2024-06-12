@@ -306,6 +306,7 @@
     "HasNoChild": "Details Account",
     "Currency": "Currency",
     "AccountActivation": "Account Activation",
+    "costCenterConfig": "Cost Center Configuration",
     "periodicActiveFrom": "periodic Active From",
     "periodicActiveTo": "periodic Active To",
     "Active": "Active",
@@ -328,5 +329,10 @@
     "returned": "Returned",
     "returnedBy": "Returned By",
     "cfoComment": "CFO Comment"
+  },
+  "costCenter" : {
+    "mandatory" : "Mandatory",
+    "optional" : "Optional",
+    "notAllow" : "Not Allow"
   }
 }

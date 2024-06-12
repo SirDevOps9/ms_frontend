@@ -131,10 +131,25 @@
             headerText: 'viewJournal.creditAmountLocal' | translate,
             isGlobalFilter: true,
             isSortable: true
+          },
+          {
+            name: 'costImg',
+            headerText: 'viewJournal.costCenter' | translate,
+            isGlobalFilter: true,
+            isSortable: true,
+            template : cost
           }
         ]
       }"
     >
+    <ng-template #cost let-cost>
+      <div>
+        <img class="costCenterImg" src="assets/images/Frame.png" (click)="openCostPopup(cost  , 'view')">
+
+      </div>
+
+    </ng-template>
+    
     </lib-data-table>
   </div>
 </div>
