@@ -120,7 +120,7 @@
     "Add": {
       "cityName":"اسم المدينة",
       "CompanyLogo": "شعار الشركة",
-      "AddCompany": "إضافة",
+      "AddCompany": " أضف شركة ",
       "Plan": "خطة",
       "CompanyAddedSuccessfully": "تمت إضافة الشركة بنجاح",
       "Error": "خطأ",
