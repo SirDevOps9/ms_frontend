@@ -1,7 +1,6 @@
 <div class="journal_entry_add_page">
   <lib-bread-crumb>
-    <button class="btn_walk " (click)="startTour()">walk through</button>
-
+    <button class="btn_walk" (click)="startTour()">walk through</button>
   </lib-bread-crumb>
   <div [formGroup]="fg" class="entry_header">
     <p class="title test">{{ 'journal_entry_header' | translate }}</p>
@@ -99,7 +98,7 @@
                       formControlName="account"
                       [options]="filteredAccounts"
                       optionValue="id"
-                      optionLabel="accountCode"
+                      optionLabel="displayName"
                       [customClass]="'add-journal'"
                       (valueChanged)="accountSelected($event, i)"
                     ></lib-select>
@@ -145,7 +144,11 @@
                 <ng-template pTemplate="output">
                   {{ fg.controls['debitAmount'].value }}
                 </ng-template>
+
               </p-cellEditor>
+              <lib-field-validations
+              [appControl]="fg"
+            ></lib-field-validations>
             </td>
             <td [pEditableColumn]="fg.controls['creditAmount']" pEditableColumnField="creditAmount">
               <p-cellEditor>
@@ -159,7 +162,11 @@
                 <ng-template pTemplate="output">
                   {{ fg.controls['creditAmount'].value }}
                 </ng-template>
+
               </p-cellEditor>
+            <lib-field-validations
+            [appControl]="fg"
+          ></lib-field-validations>
             </td>
             <td>
               <!-- <lib-form-group>
@@ -214,8 +221,10 @@
         </ng-template>
       </p-table>
     </div>
-    <div class="add_new ">
-      <button class="btn Line step-4-element" (click)="addThing()">{{ 'add_new_line' | translate }}</button>
+    <div class="add_new">
+      <button class="btn Line step-4-element" (click)="addThing()">
+        {{ 'add_new_line' | translate }}
+      </button>
       <button class="btn" (click)="RedirectToTemplate()">{{ 'add_template' | translate }}</button>
     </div>
     <!-- <div class="paginator">
@@ -225,10 +234,6 @@
       <button class="btn discard" (click)="routeToJournal()">{{ 'discard' | translate }}</button>
       <button class="btn save" (click)="save()">{{ 'save' | translate }}</button>
     </div>
-    
   </div>
-  <ngx-guided-tour
-  skipText=" skip "
-  nextText=" next "
-></ngx-guided-tour>
+  <ngx-guided-tour skipText=" skip " nextText=" next "></ngx-guided-tour>
 </div>

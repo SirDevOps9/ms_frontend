@@ -16,6 +16,14 @@ import { TaxDefinitionComponent } from './pages/taxs/tax-definition/tax-definiti
 import { TaxGroupComponent } from './pages/taxs/tax-group/tax-group.component';
 import { TaxDefinitionAddComponent } from './components/tax-definition-add/tax-definition-add.component';
 import { TaxDefinitionEditComponent } from './components/tax-definition-edit/tax-definition-edit.component';
+import { TaxGroupAddComponent } from './components/tax-group-add/tax-group-add.component';
+import { TaxGroupEditComponent } from './components/tax-group-edit/tax-group-edit.component';
+import { MainCostCenterComponent } from './pages/cost-center/main-cost-center/main-cost-center.component';
+import { CostCenterListComponent } from './pages/cost-center/cost-center-list/cost-center-list.component';
+import { CostCenterTreeComponent } from './pages/cost-center/cost-center-tree/cost-center-tree.component';
+import { AddCostCenterComponent } from './pages/cost-center/add-cost-center/add-cost-center.component';
+import { EditCostCenterComponent } from './pages/cost-center/edit-cost-center/edit-cost-center.component';
+import { ViewCostCenterComponent } from './pages/cost-center/view-cost-center/view-cost-center.component';
 
 const routes: Routes = [
   {
@@ -62,6 +70,15 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.TAXS_DEFINITION,
         },
       }
+      ,
+      {
+        path: 'cost-center',
+        component: MainCostCenterComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.COST_CENTER,
+        },
+      }
     ],
   },
 ];
@@ -78,7 +95,15 @@ const routes: Routes = [
     TaxGroupComponent,
     TaxDefinitionComponent,
     TaxDefinitionAddComponent,
-    TaxDefinitionEditComponent
+    TaxDefinitionEditComponent,
+    TaxGroupAddComponent,
+    TaxGroupEditComponent,
+    MainCostCenterComponent,
+    CostCenterListComponent,
+    CostCenterTreeComponent,
+    AddCostCenterComponent,
+    EditCostCenterComponent,
+    ViewCostCenterComponent
   ],
   imports: [CommonModule, SharedLibModule, AutoCompleteModule, RouterModule.forChild(routes)],
 })

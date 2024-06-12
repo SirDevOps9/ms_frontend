@@ -41,13 +41,18 @@
                 name: 'startDate',
                 headerText: ('Supscrition Start Date'),
                 isGlobalFilter: true,
-                isSortable: false
+                isSortable: false,
+                template: startDate
+
+                
               },
               {
                 name: 'endDate',
                 headerText: ('Supscrition End Date'),
                 isGlobalFilter: true,
-                isSortable: false
+                isSortable: false,
+                template: endDate
+
               },
               {
                 name: 'purchasingPaymentPeriod',
@@ -66,6 +71,14 @@
             ]
           }"
       >
+
+      <ng-template #startDate let-startDate>
+        {{startDate.startDate | date:'dd/MM/yyyy'}}
+      </ng-template>
+  
+      <ng-template #endDate let-endDate>
+        {{endDate.endDate | date:'dd/MM/yyyy'}}
+      </ng-template>
   
   
       </lib-data-table>

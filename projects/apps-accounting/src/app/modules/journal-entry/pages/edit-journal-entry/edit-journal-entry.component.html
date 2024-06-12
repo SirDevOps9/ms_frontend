@@ -129,22 +129,11 @@
                 <p-cellEditor>
                   <ng-template pTemplate="input">
                     <div class="flex gap-2 align-items-center">
-                      <!-- <p-autoComplete
-                      [forceSelection]="true"
-                      [suggestions]="filteredAccounts"
-                      #autocomplete
-                      appendTo="body"
-                      (onFocus)="!autocomplete.value && autocomplete.show()"
-                      (completeMethod)="filterAccount($event)"
-                      field="accountCode"
-                      (onSelect)="updateAccount($event, rowIndex)"
-                    ></p-autoComplete> -->
-
                       <lib-select
                         formControlName="accountId"
                         [options]="filteredAccounts"
                         optionValue="id"
-                        optionLabel="accountCode"
+                        optionLabel="displayName"
                         [customClass]="'add-journal'"
                         (valueChanged)="updateAccount($event, rowIndex)"
                       >
@@ -216,6 +205,8 @@
                     {{ journalLine.controls['debitAmount'].value }}
                   </ng-template>
                 </p-cellEditor>
+                <lib-field-validations [appControl]="journalLine">
+                </lib-field-validations>
               </td>
               <td
                 [pEditableColumn]="journalLine.controls['creditAmount']"
@@ -233,6 +224,8 @@
                     {{ journalLine.controls['creditAmount'].value }}
                   </ng-template>
                 </p-cellEditor>
+                <lib-field-validations [appControl]="journalLine">
+                </lib-field-validations>
               </td>
               <!-- <td
                 [pEditableColumn]="journalLine.currency"

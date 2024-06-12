@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CompanyProxy } from './company.proxy';
 import { BehaviorSubject, Observable, catchError, map } from 'rxjs';
-import {
-  LanguageService,
-  LoaderService,
-  ToasterService,
-  lookupDto,
-} from 'shared-lib';
+import { LanguageService, LoaderService, ToasterService, lookupDto } from 'shared-lib';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NewBranchesComponent } from './components/new-branches/new-branches.component';
 import { EditBranchesComponent } from './components/edit-branches/edit-branches.component';
@@ -32,6 +27,7 @@ export class CompanyService {
 
   public companies = this.companiesDataSource.asObservable();
   public branches = this.branchesDataSource.asObservable();
+  public selectedCompanyActive = new BehaviorSubject<boolean>(true);
 
   constructor(
     private companyProxy: CompanyProxy,
@@ -58,13 +54,12 @@ export class CompanyService {
           );
           if (companyToChange) {
             companyToChange.data.isActive = true;
+            this.selectedCompanyActive.next(true);
             this.companiesDataSource.next([...this.companiesDataSource.value]);
           }
           this.toasterService.showSuccess(
             this.languageService.transalte('Company.Success'),
-            this.languageService.transalte(
-              'Company.CompanyActivatedSuccessfully'
-            )
+            this.languageService.transalte('Company.CompanyActivatedSuccessfully')
           );
         },
         error: () => {
@@ -73,13 +68,13 @@ export class CompanyService {
           );
           if (companyToChange) {
             companyToChange.data.isActive = false;
+            this.selectedCompanyActive.next(false);
           }
         },
       });
     } else {
-      const companyToChange = this.companiesDataSource.value.find(
-        (item) => item.data.id === id
-      );
+      const companyToChange = this.companiesDataSource.value.find((item) => item.data.id === id);
+      this.selectedCompanyActive.next(false);
       if (companyToChange) {
         companyToChange.data.isActive = false;
       }
@@ -95,15 +90,14 @@ export class CompanyService {
         next: () => {
           this.toasterService.showSuccess(
             this.languageService.transalte('Company.Success'),
-            this.languageService.transalte(
-              'Company.CompanyDeactivatedSuccessfully'
-            )
+            this.languageService.transalte('Company.CompanyDeactivatedSuccessfully')
           );
           const companyToChange = this.companiesDataSource.value.find(
             (item) => item.data.id === id
           );
           if (companyToChange) {
             companyToChange.data.isActive = false;
+            this.selectedCompanyActive.next(false);
             this.companiesDataSource.next([...this.companiesDataSource.value]);
           }
         },
@@ -113,24 +107,22 @@ export class CompanyService {
           );
           if (companyToChange) {
             companyToChange.data.isActive = true;
+            this.selectedCompanyActive.next(true);
           }
         },
       });
     } else {
-      const companyToChange = this.companiesDataSource.value.find(
-        (item) => item.data.id === id
-      );
+      const companyToChange = this.companiesDataSource.value.find((item) => item.data.id === id);
+
+      this.selectedCompanyActive.next(true);
+
       if (companyToChange) {
         companyToChange.data.isActive = true;
       }
     }
   }
 
-  openNewCompanyModal(
-    Id: string,
-    ref: DynamicDialogRef,
-    dialog: DialogService
-  ) {
+  openNewCompanyModal(Id: string, ref: DynamicDialogRef, dialog: DialogService) {
     ref = dialog.open(NewCompanyComponent, {
       width: '600px',
       height: '600px',
@@ -145,20 +137,14 @@ export class CompanyService {
           parentCompany?.children?.push(result);
           this.companiesDataSource.next(this.companiesDataSource.value);
         } else {
-          const updatedCompaniesList: CompanyDto[] = [
-            ...this.companiesDataSource.value,
-            result,
-          ];
+          const updatedCompaniesList: CompanyDto[] = [...this.companiesDataSource.value, result];
           this.companiesDataSource.next(updatedCompaniesList);
         }
       }
     });
   }
 
-  addCompany(
-    company: CreateCompany,
-    dialogRef: DynamicDialogRef
-  ): Observable<CompanyDto> {
+  addCompany(company: CreateCompany, dialogRef: DynamicDialogRef): Observable<CompanyDto> {
     this.loaderService.show();
     return this.companyProxy.addCompany(company).pipe(
       map((res) => {
@@ -230,9 +216,7 @@ export class CompanyService {
       next: (response) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Company.Success'),
-          this.languageService.transalte(
-            'Company.CompanyUpdatedSuccessfully'
-          )
+          this.languageService.transalte('Company.CompanyUpdatedSuccessfully')
         );
         this.loaderService.hide();
       },
@@ -265,10 +249,7 @@ export class CompanyService {
 
     ref.onClose.subscribe((result: BranchDto) => {
       if (result as BranchDto) {
-        const updatedBranchlist: BranchDto[] = [
-          ...this.branchesDataSource.value,
-          result,
-        ];
+        const updatedBranchlist: BranchDto[] = [...this.branchesDataSource.value, result];
         this.branchesDataSource.next(updatedBranchlist);
       }
     });
@@ -291,11 +272,7 @@ export class CompanyService {
       },
     });
   }
-  openEditBranchModel(
-    branchId: string,
-    ref: DynamicDialogRef,
-    dialog: DialogService
-  ) {
+  openEditBranchModel(branchId: string, ref: DynamicDialogRef, dialog: DialogService) {
     ref = dialog.open(EditBranchesComponent, {
       width: '600px',
       height: '600px',
@@ -303,9 +280,7 @@ export class CompanyService {
     });
     ref.onClose.subscribe((result: BranchDto) => {
       if (result as BranchDto) {
-        let branchToChange = this.branchesDataSource.value.find(
-          (item) => item.id === result.id
-        );
+        let branchToChange = this.branchesDataSource.value.find((item) => item.id === result.id);
 
         if (branchToChange) {
           Object.assign(branchToChange, result);
@@ -320,9 +295,7 @@ export class CompanyService {
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Success'),
-          this.languageService.transalte(
-            'Company.Branch.BranchUpdatedSuccessfully'
-          )
+          this.languageService.transalte('Company.Branch.BranchUpdatedSuccessfully')
         );
         this.loaderService.hide();
 
@@ -351,19 +324,18 @@ export class CompanyService {
     );
     if (confirmed) {
       this.companyProxy.deleteBranch(branchId).subscribe({
-        next: () => {
+        next: (res) => {
           this.toasterService.showSuccess(
             this.languageService.transalte('Success'),
-            this.languageService.transalte(
-              'Company.Branch.BranchDeletedSuccessfully'
-            )
+            this.languageService.transalte('Company.Branch.BranchDeletedSuccessfully')
           );
           this.loaderService.hide();
           const currentBranches = this.branchesDataSource.getValue();
-          const updatedBranches = currentBranches.filter(
-            (branch) => branch.id !== branchId
-          );
+          const updatedBranches = currentBranches.filter((branch) => branch.id !== branchId);
           this.branchesDataSource.next(updatedBranches);
+        },
+        error: (err) => {
+          this.toasterService.showError('Operation Fail', err.message);
         },
       });
     } else {
@@ -377,25 +349,19 @@ export class CompanyService {
     if (confirmed) {
       this.companyProxy.activateBranch(id).subscribe({
         next: () => {
-          const branchToChange = this.branchesDataSource.value.find(
-            (item) => item.id === id
-          );
+          const branchToChange = this.branchesDataSource.value.find((item) => item.id === id);
           if (branchToChange) {
             branchToChange.isActive = true;
             this.branchesDataSource.next([...this.branchesDataSource.value]);
           }
           this.toasterService.showSuccess(
             this.languageService.transalte('Company.Success'),
-            this.languageService.transalte(
-              'Company.Branch.BranchActivatedSuccessfully'
-            )
+            this.languageService.transalte('Company.Branch.BranchActivatedSuccessfully')
           );
         },
       });
     } else {
-      const branchToChange = this.branchesDataSource.value.find(
-        (item) => item.id === id
-      );
+      const branchToChange = this.branchesDataSource.value.find((item) => item.id === id);
       if (branchToChange) {
         branchToChange.isActive = false;
         this.branchesDataSource.next([...this.branchesDataSource.value]);
@@ -412,13 +378,9 @@ export class CompanyService {
         next: () => {
           this.toasterService.showSuccess(
             this.languageService.transalte('Company.Success'),
-            this.languageService.transalte(
-              'Company.Branch.BranchDeActivatedSuccessfully'
-            )
+            this.languageService.transalte('Company.Branch.BranchDeActivatedSuccessfully')
           );
-          const branchToChange = this.branchesDataSource.value.find(
-            (item) => item.id === id
-          );
+          const branchToChange = this.branchesDataSource.value.find((item) => item.id === id);
           if (branchToChange) {
             branchToChange.isActive = false;
             this.branchesDataSource.next([...this.branchesDataSource.value]);
@@ -426,9 +388,7 @@ export class CompanyService {
         },
       });
     } else {
-      const branchToChange = this.branchesDataSource.value.find(
-        (item) => item.id === id
-      );
+      const branchToChange = this.branchesDataSource.value.find((item) => item.id === id);
       if (branchToChange) {
         branchToChange.isActive = true;
         this.branchesDataSource.next([...this.branchesDataSource.value]);

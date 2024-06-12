@@ -60,28 +60,49 @@
     "Discard": "Discard",
     "Save": "Save",
     "Submit": "Submit",
-    "Post": "Post",
-    "viewJournal": {
-      "JornalCode": "Journal Code",
-      "Jornalstatus": "Journal Status",
-      "journalReference": "Journal Reference",
-      "date": "Date",
-      "JournalPeriod": "Journal Period",
-      "JournalType": "Journal Type",
-      "Reversed Journal Code": "Reversed Journal Code",
-      "description": "Description",
-      "code": "Code",
-      "name": "Name",
-      "lineDescription": "Line Description",
-      "debitAmount": "Debit Amount",
-      "creditAmount": "Credit Amount",
-      "currency": "Currency",
-      "currencyRate": "Currency Rate",
-      "debitAmountLocal": "Debit Amount (Local)",
-      "creditAmountLocal": "Credit Amount (Local)",
-      "costCenter": "Cost Center"
+    "Post": "Post"
+  },
+  "viewJournal": {
+    "JornalCode": "Journal Code",
+    "Jornalstatus": "Journal Status",
+    "journalReference": "Journal Reference",
+    "date": "Date",
+    "JournalPeriod": "Journal Period",
+    "JournalType": "Journal Type",
+    "Reversed Journal Code": "Reversed Journal Code",
+    "description": "Description",
+    "code": "Code",
+    "name": "Name",
+    "lineDescription": "Line Description",
+    "debitAmount": "Debit Amount",
+    "creditAmount": "Credit Amount",
+    "currency": "Currency",
+    "currencyRate": "Currency Rate",
+    "debitAmountLocal": "Debit Amount (Local)",
+    "creditAmountLocal": "Credit Amount (Local)",
+    "costCenter": "Cost Center"
+  },
+  "TaxGroup": {
+    "Code": "Code",
+    "Name": "Name",
+    "Action": "Actions",
+    "TaxGrouplist": "Tax Group list",
+    "Add": {
+      "AddTaxGroup": "Add Tax Group",
+      "Code": "Code",
+      "Name": "Name",
+      "Discard": "Discard",
+      "Save": "Save"
     },
-   "Tax":{
+    "Edit": {
+      "EditTaxGroup": "Edit Tax Group",
+      "Code": "Code",
+      "Name": "Name",
+      "Discard": "Discard",
+      "Save": "Save"
+    }
+  },
+  "Tax": {
     "TaxName": "Tax Name",
     "AddTaxDefinition": "Add Tax Definition",
     "TaxCode": "Tax Code",
@@ -97,10 +118,22 @@
     "Account": "Account",
     "Search": "Search",
     "AddNew": "Add New",
-    "Export": "Export"
-   }
+    "Export": "Export",
+    "CannotEditTaxGroupUsedInTransactions": "Cannot Edit Tax Group Used In Transactions",
+    "CannotDeleteTaxUsedInTransactions": "Cannot Delete Tax Used In Transactions",
+    "UpdatedSuccessfully": "Tax Updated Successfully",
+    "AddedSuccessfully": "Tax Added Successfully"
   },
-  "Amount" : "Amount",
-  "add_line" : "Add Line"
-
+  "costCenter": {
+    "code": "Cost Center code",
+    "name": "Cost Center Name ",
+    "parentAccount": "Parent Account",
+    "detail": "Is Detail",
+    "yes": "yes",
+    "save": "save",
+    "CostCenterDeletedSuccessfully": "Cost Center Deleted Successfully",
+    "Success": "Success",
+    "CannotDeleteCostCenter": " Cannot Delete Cost Center Used In Transactions",
+    "Error": "Error"
+  }
 }

@@ -24,9 +24,12 @@ export class EmployeeListComponent implements OnInit {
     private titleService: Title,
     private languageService: LanguageService,
     private employeeService: EmployeeService
-  ) {}
+  ) { }
   ngOnInit() {
     this.titleService.setTitle('Employee List');
+    this.languageService.getTranslation('Employee.List.Employees').subscribe(title => {
+      this.titleService.setTitle(title);
+    });
     this.initEmployeeData(this.searchTerm, new PageInfo());
     this.cols = [
       {
@@ -52,7 +55,41 @@ export class EmployeeListComponent implements OnInit {
       },
     ];
   }
+  convertToCSV(objArray: any[]): string {
+    const array = [Object.keys(objArray[0])].concat(objArray);
 
+    return array
+      .map(row => {
+        return Object.values(row).toString();
+      })
+      .join('\n');
+  }
+
+  exportToCSV() {
+    this.employeeService.exportEmployeesList(this.searchTerm);
+    var data: any
+    
+    this.employeeService.employeesList.subscribe((res) => {
+      data = res;
+    });
+    const csvData = this.convertToCSV(data);
+    this.downloadCSV(csvData, this.titleService.getTitle() + Date.now() + '.csv');
+
+
+  }
+
+  downloadCSV(csvData: string, filename: string) {
+    const blob = new Blob([csvData], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.setAttribute('hidden', '');
+    a.setAttribute('href', url);
+    a.setAttribute('download', filename);
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
   initEmployeeData(searchTerm: string, page: PageInfo) {
     this.employeeService.initEmployeesList(searchTerm, page);
 

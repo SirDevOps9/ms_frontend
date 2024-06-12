@@ -22,9 +22,10 @@ export class CompanyContactComponent implements OnInit {
   companyContactForm: FormGroup;
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
-   editMode: boolean = false;
+  editMode: boolean = false;
 
   selectedMobileCode: string;
+  selectedPersonalMobileCode: string;
 
   ngOnInit() {
     this.initializeForm();
@@ -37,12 +38,11 @@ export class CompanyContactComponent implements OnInit {
     console.log(this.companyContactForm);
   }
 
-
   onSubmit() {
     console.log(this.editMode);
-    
+
     if (this.editMode) {
-      if (!this.formsService.validForm(this.companyContactForm, true)) return;
+      if (!this.formsService.validForm(this.companyContactForm, false)) return;
       const request: CompanyContactDto = this.companyContactForm.value;
       request.id = this.companyId;
       this.companyService.saveCompanyContact(request);
@@ -53,16 +53,25 @@ export class CompanyContactComponent implements OnInit {
     }
   }
 
-
   initializeForm() {
     this.companyContactForm = this.fb.group({
+      companyName: new FormControl('', [customValidators.required]),
+      companyLogo: new FormControl(),
       mobileNumberCode: new FormControl('', [customValidators.required]),
-      mobileNumber: new FormControl('', [customValidators.required,customValidators.hasSpaces]),
-      companyEmail: new FormControl('', [customValidators.required,customValidators.email]),
+      mobileNumber: new FormControl('', [customValidators.required, customValidators.hasSpaces]),
+      companyEmail: new FormControl('', [customValidators.required, customValidators.email]),
       companyAddress: new FormControl(),
       contactPersonal: new FormControl('', [customValidators.required]),
       contactPersonalPosition: new FormControl(),
-      contactPersonalEmail: new FormControl('', [customValidators.required,customValidators.email]),
+      contactPersonalEmail: new FormControl('', [
+        customValidators.required,
+        customValidators.email,
+      ]),
+      contactPersonalMobileNumberCode: new FormControl('', [customValidators.required]),
+      contactPersonalMobileNumber: new FormControl('', [
+        customValidators.required,
+        customValidators.hasSpaces,
+      ]),
     });
   }
   Subscribe() {
@@ -70,34 +79,30 @@ export class CompanyContactComponent implements OnInit {
   }
 
   loadLookups() {
-    this.lookupsService.loadLookups([
-      LookupEnum.Country,
-      LookupEnum.MobileCode,
-    ]);
+    this.lookupsService.loadLookups([LookupEnum.Country, LookupEnum.MobileCode]);
   }
 
   initializeFormData() {
     console.log('Cadgadgdg', this.companyId);
 
-    this.companyService
-      .getCompanyContactById(this.companyId)
-      .subscribe((res) => {
-        console.log('Calling get by Id', res);
+    this.companyService.getCompanyContactById(this.companyId).subscribe((res) => {
+      console.log('Calling get by Id', res);
 
-        this.companyContactForm.patchValue({
-          ...res,
-        });
-        if(res)
-        this.selectedMobileCode = res.mobileNumberCode!;
+      this.companyContactForm.patchValue({
+        ...res,
       });
+      if (res) {
+        this.selectedMobileCode = res.mobileNumberCode!;
+        this.selectedPersonalMobileCode = res.contactPersonalMobileNumberCode!;
+      }
+    });
   }
   get companyId(): string {
     return this.routerService.currentParetId;
   }
 
-  onDiscard(editMode: boolean){
-    if(editMode)
-    this.initializeFormData();
+  onDiscard(editMode: boolean) {
+    if (editMode) this.initializeFormData();
     this.editMode = false;
   }
   constructor(

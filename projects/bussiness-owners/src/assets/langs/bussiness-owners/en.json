@@ -186,13 +186,15 @@
     },
     "Contanct": {
       "MobileNumberCode": "Mobile Number Code",
-      "MobileNumber": "Mobile Number",
+      "companyName": "Company Name",
+      "MobileNumber": "Company Phone Number",
       "companyEmail": "Company Email",
       "companyAddress": "Company Address",
       "contactPersonal": "Contact Personal",
       "contactPersonalPosition": "Contact Personal Position",
       "contactPersonalEmail": "Contact Personal Email",
-      "Save": "Save"
+      "Save": "Save",
+      "ContactPersonalMobileNumber":"Contact Phone Number"
     },
     "Legal": {
       "companyName": "Company Name",

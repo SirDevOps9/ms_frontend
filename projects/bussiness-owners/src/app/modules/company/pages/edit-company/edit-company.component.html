@@ -1,84 +1,75 @@
 <lib-page-content>
-<div class="edit_company_page">
-  <lib-bread-crumb>
-    <div class="company_code">
-      <div class="code">
-        <p class="title body_b23">{{ "Company.CompanyCode" | translate }}</p>
-        <p class="code_num body_b23">{{ companyCode }}</p>
-      </div>
-      <div class="status">
-        <div class="checked">
-          <p-inputSwitch [(ngModel)]="isActive" (onChange)="toggle()">
-          </p-inputSwitch>
-          <p class="active body_b16" *ngIf="isActive">
-            {{ "User.Activate" | translate }}
-          </p>
-          <p class="inactive body_b16" *ngIf="!isActive">
-            {{ "User.Deactivate" | translate }}
-          </p>
+  <div class="edit_company_page">
+    <lib-bread-crumb>
+      <div class="company_code">
+        <div class="code">
+          <p class="title body_b23">{{ 'Company.CompanyCode' | translate }}</p>
+          <p class="code_num body_b23">{{ companyCode }}</p>
+        </div>
+        <div class="status">
+          <div class="checked">
+            <p-inputSwitch [(ngModel)]="isActive" (onChange)="toggle()"> </p-inputSwitch>
+            <p class="active body_b16" *ngIf="isActive">
+              {{ 'User.Activate' | translate }}
+            </p>
+            <p class="inactive body_b16" *ngIf="!isActive">
+              {{ 'User.Deactivate' | translate }}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  </lib-bread-crumb>
- 
-  <div class="company_nav">
-    <div class="company_nav_content">
-      <div class="company_name">
-        <p class="title body_b23">{{ companyName }}</p>
-      </div>
-      <div class="company_route">
-        <div
-           class="tab body_b16"
-          [ngClass]="{ active_link: currentTab === 'address' }"
-          id="addres"
-          (click)="activeTag('address')"
-        >
-          <a (click)="navigateToAddress()">
-            {{ "Company.AddressTab" | translate }}</a
-          >
+    </lib-bread-crumb>
+
+    <div class="company_nav">
+      <div class="company_nav_content">
+        <div class="company_name">
+          <p class="title body_b23">{{ companyName }}</p>
         </div>
-        <div
-           class="tab body_b16"
-          [ngClass]="{ active_link: currentTab === 'contact' }"
-          id="contact"
-          (click)="activeTag('contact')"
-        >
-          <a (click)="navigateToContact()">
-            {{ "Company.ContactTab" | translate }}</a
+        <div class="company_route">
+          <div
+            class="tab body_b16"
+            [ngClass]="{ active_link: currentTab === 'address' }"
+            id="addres"
+            (click)="activeTag('address')"
           >
-        </div>
-        <div
-          class="tab body_b16"
-          [ngClass]="{ active_link: currentTab === 'legal' }"
-          id="legal"
-          (click)="activeTag('legal')"
-        >
-          <a (click)="navigateToLegal()"> {{ "Company.LegalTab" | translate }}</a>
-        </div>
-        <div
-           class="tab body_b16"
-          [ngClass]="{ active_link: currentTab === 'hierarchy' }"
-          id="hierarchy"
-          (click)="activeTag('hierarchy')"
-        >
-          <a (click)="navigateToHierarchy()">
-            {{ "Company.HierarchyTab" | translate }}</a
+            <a (click)="navigateToAddress()"> {{ 'Company.AddressTab' | translate }}</a>
+          </div>
+          <div
+            class="tab body_b16"
+            [ngClass]="{ active_link: currentTab === 'contact' }"
+            id="contact"
+            (click)="activeTag('contact')"
           >
-        </div>
-        <div
-           class="tab body_b16"
-          [ngClass]="{ active_link: currentTab === 'branches' }"
-          id="branches"
-          (click)="activeTag('branches')"
-        >
-          <a (click)="navigateToBranches()">
-            {{ "Company.BranchesTab" | translate }}</a
+            <a (click)="navigateToContact()"> {{ 'Company.ContactTab' | translate }}</a>
+          </div>
+          <div
+            class="tab body_b16"
+            [ngClass]="{ active_link: currentTab === 'legal' }"
+            id="legal"
+            (click)="activeTag('legal')"
           >
+            <a (click)="navigateToLegal()"> {{ 'Company.LegalTab' | translate }}</a>
+          </div>
+          <div
+            class="tab body_b16"
+            [ngClass]="{ active_link: currentTab === 'hierarchy' }"
+            id="hierarchy"
+            (click)="activeTag('hierarchy')"
+          >
+            <a (click)="navigateToHierarchy()"> {{ 'Company.HierarchyTab' | translate }}</a>
+          </div>
+          <div
+            class="tab body_b16"
+            [ngClass]="{ active_link: currentTab === 'branches' }"
+            id="branches"
+            (click)="activeTag('branches')"
+          >
+            <a (click)="navigateToBranches()"> {{ 'Company.BranchesTab' | translate }}</a>
+          </div>
         </div>
       </div>
-    </div>
-    
-    <!-- <div class="edit_btn">
+
+      <!-- <div class="edit_btn">
       <button class="edit" (click)="toggleEditMode()">
         <i class="fa fa-regular fa-pen-to-square"></i>
         {{
@@ -86,9 +77,9 @@
         }}
       </button>
     </div> -->
+    </div>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
   </div>
-  <div class="content">
-    <router-outlet></router-outlet>
-  </div>
-</div>
 </lib-page-content>

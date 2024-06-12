@@ -24,6 +24,7 @@ import { IsValidSaudiId } from './saudiIdsValidators';
 import { IsValidEmail } from './emailValidators';
 import { IsRequired } from './requiredValidators';
 import { fileValidator } from './attachmentValidators';
+import { debitAndCreditValidator } from './debit-credit-validator';
 
 export const customValidators = {
   notOnlyWhitespaceValidator: notOnlyWhitespaceValidator,
@@ -51,4 +52,5 @@ export const customValidators = {
   nonZero:nonZeroValidator,
   invalidBirthDate: birthDateValidator,
   onlyLetter: onlyLettersValidator,
+  debitAndCreditBothCanNotBeZero:debitAndCreditValidator
 };

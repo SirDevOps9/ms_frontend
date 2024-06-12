@@ -116,7 +116,7 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   onDiscard() {
-    //this.addEmployeeForm.reset();
+   this.addEmployeeForm.reset();
     this.routerService.navigateTo(`/employee`);
 
   }

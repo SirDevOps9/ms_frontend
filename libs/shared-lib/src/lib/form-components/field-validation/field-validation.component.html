@@ -163,7 +163,9 @@
   <span class="errorMessage" *ngIf="appControl.errors?.['onlyLetters']">
     {{ "validation.onlyLetters" | translate }}
   </span>
-  
+  <span class="errorMessage" *ngIf="appControl.errors?.['debitAndCreditZero']">
+    {{ "validation.debitAndCreditZero" | translate }}
+  </span>
 </div>
 <!-- <span class="errorMessage" *ngFor="let errorKey of errorKeys">
    {{ this.appControl.errors?.[errorKey] |translate}}

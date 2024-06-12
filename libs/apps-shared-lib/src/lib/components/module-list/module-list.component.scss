@@ -1,0 +1,18 @@
+.containar_modules{
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    .card{
+        margin-inline-end: 30px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        max-width: 175px;
+        cursor: pointer;
+        .card_description{
+            margin-inline-start: 24px;
+        }
+    }
+}

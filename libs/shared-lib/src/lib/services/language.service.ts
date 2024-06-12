@@ -3,7 +3,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { StorageService } from './localstorage.service';
 import { StorageKeys } from '../constants/storagekeys';
-import { CookieService } from 'ngx-cookie';
 import { Cultures } from '../constants';
 
 @Injectable({
@@ -48,14 +47,9 @@ export class LanguageService {
   }
 
   toggleLanguage(): void {
-    let currentLanguage =
-      this.storageService.getItem(StorageKeys.LANG_KEY) === 'en' ? 'ar' : 'en';
+    let currentLanguage = this.storageService.getItem(StorageKeys.LANG_KEY) === 'en' ? 'ar' : 'en';
     this.storageService.setItem(StorageKeys.LANG_KEY, currentLanguage);
     this.transalteService.use(currentLanguage);
   }
-  constructor(
-    private transalteService: TranslateService,
-    private storageService: StorageService,
-    private cookieService: CookieService
-  ) {}
+  constructor(private transalteService: TranslateService, private storageService: StorageService) {}
 }

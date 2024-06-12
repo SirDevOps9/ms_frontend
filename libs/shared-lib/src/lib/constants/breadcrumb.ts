@@ -36,6 +36,7 @@ export class BreadcrumbLabel {
     static EDIT_CONTACT ='Edit Contact';
     static TAXS_GROUP ='Taxs Group';
     static TAXS_DEFINITION ='Taxs Definition';
+    static COST_CENTER ='Cost Center';
    
 
     

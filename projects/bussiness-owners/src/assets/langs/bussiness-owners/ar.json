@@ -186,13 +186,16 @@
     },
     "Contanct": {
       "MobileNumberCode": "رمز الهاتف المحمول",
-      "MobileNumber": "رقم الهاتف المحمول",
+      "companyName": "اسم الشركة",
+      "MobileNumber": "رقم هاتف الشركة",
       "companyEmail": "البريد الإلكتروني للشركة",
       "companyAddress": "عنوان الشركة",
       "contactPersonal": "شخص للاتصال",
       "contactPersonalPosition": "موقف الاتصال الشخصي",
       "contactPersonalEmail": "بريد الكتروني للاتصال الشخصي",
-      "Save": "حفظ"
+      "Save": "حفظ",
+      "ContactPersonalMobileNumber":"رقم الهاتف الشخصي"
+
     },
     "Legal": {
       "companyName": "اسم الشركة",

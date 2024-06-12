@@ -31,13 +31,14 @@
               <lib-label [appControl]="newBrancheForm.controls['countryCode']">
                 {{ "Company.Branch.Country" | translate }}
               </lib-label>
-              <lib-select
+              <lib-selectIcon
                 formControlName="countryCode"
                 [options]="lookups[LookupEnum.Country]"
                 optionValue="id"
                 optionLabel="name"
+                icons="flags"
               >
-              </lib-select>
+              </lib-selectIcon>
               <lib-field-validations
               [appControl]="newBrancheForm.controls['countryCode']"
             >
@@ -88,13 +89,14 @@
               >
                 {{ "Company.Branch.MobileNumberCode" | translate }}
               </lib-label>
-              <lib-select
+              <lib-selectIcon
                 formControlName="mobileNumberCode"
                 optionValue="id"
                 [options]="lookups[LookupEnum.MobileCode]"
                 optionLabel="name"
+                icons="flags"
               >
-              </lib-select>
+              </lib-selectIcon>
             </lib-form-group>
           </div>
           <div class="col-8">

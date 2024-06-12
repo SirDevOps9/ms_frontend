@@ -1,30 +1,16 @@
-import { Injectable, Signal, WritableSignal, computed, signal } from '@angular/core';
-import { BehaviorSubject, Observable, map, of, shareReplay, take } from 'rxjs';
-import {
-  LanguageService,
-  LoaderService,
-  PageInfo,
-  PageInfoResult,
-  PaginationVm,
-  ToasterService,
-} from 'shared-lib';
 import { AccountProxy } from './account.proxy';
 import { AddAccountDto } from './models/addAccountDto';
-import {
-  AccountByIdDto,
-  AccountDto,
-  AddTax,
-  EditTax,
-  GetLevelsDto,
-  TaxGroupDropDown,
-  listAddLevelsDto,
-} from './models';
+import { AccountByIdDto, AccountDto, AddTaxGroupDto, GetLevelsDto, TaxGroupDto, listAddLevelsDto,accountById, AddTax, EditTax, TaxGroupDropDown, addCostCenter, parentCostCenter } from './models';
+
 import { AccountTypeDropDownDto } from './models/accountTypeDropDownDto';
 import { TagDropDownDto } from './models/tagDropDownDto';
 import { parentAccountDto } from './models/parentAcccountDto';
-import { TaxDto } from './models/tax-dto';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { TaxDto } from './models/tax-dto';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, map } from 'rxjs';
+import { PageInfoResult, PageInfo, LoaderService, ToasterService, LanguageService } from 'shared-lib';
 
 @Injectable({
   providedIn: 'root',
@@ -33,23 +19,40 @@ export class AccountService {
   private accountsDataSource = new BehaviorSubject<AccountDto[]>([]);
   private parentAccountsDataSource = new BehaviorSubject<parentAccountDto[]>([]);
   private currentAccountDataSource = new BehaviorSubject<parentAccountDto>({} as parentAccountDto);
-  private accountDetailsDataSource = new BehaviorSubject<AccountByIdDto>({} as AccountByIdDto);
+  private currentAccountDataSourceById = new BehaviorSubject<accountById>({} as accountById);
+  private accountDetailsDataSource = new BehaviorSubject<AccountByIdDto>({} as AccountByIdDto );
   private accountTypesDataSource = new BehaviorSubject<AccountTypeDropDownDto[]>([]);
   private accountSectionsDataSource = new BehaviorSubject<AccountTypeDropDownDto[]>([]);
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
   private savedAccountDataSource = new BehaviorSubject<AccountDto | undefined>(undefined);
+  private taxGroupDataSource = new BehaviorSubject<TaxGroupDto[]>([]);
+  private currentTaxGroupDataSource = new BehaviorSubject<TaxGroupDto>({} as TaxGroupDto);
+  private editAccountDataSource = new BehaviorSubject<accountById | undefined>(undefined);
+  private savedCostCenter = new BehaviorSubject<addCostCenter | undefined>(undefined);
+  private parentAccountsostCenter = new BehaviorSubject<parentCostCenter[]>([]);
+
+
   private taxesDefinitionsDataSource = new BehaviorSubject<TaxDto[]>([]);
+  private costCenterData = new BehaviorSubject(false);
+  public costCenterDataObser = this.costCenterData.asObservable()
 
   public accountsList = this.accountsDataSource.asObservable();
   public parentAccounts = this.parentAccountsDataSource.asObservable();
   public AccountViewDetails = this.accountDetailsDataSource.asObservable();
   public selectedAccount = this.currentAccountDataSource.asObservable();
+  public selectedAccountById = this.currentAccountDataSourceById.asObservable();
   public accountTypes = this.accountTypesDataSource.asObservable();
   public accountSections = this.accountSectionsDataSource.asObservable();
   public tags = this.tagsDataSource.asObservable();
   public savedAddedAccount = this.savedAccountDataSource.asObservable();
+  public taxGroupList = this.taxGroupDataSource.asObservable();
+  public currentTaxGroup = this.currentTaxGroupDataSource.asObservable();
+  public editedAccount = this.editAccountDataSource.asObservable();
 
   public taxesDefintionList = this.taxesDefinitionsDataSource.asObservable();
+  public savedAddedCost = this.savedCostCenter.asObservable();
+  public costparentAccounts = this.parentAccountsostCenter.asObservable();
+
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   public currentTaxDataSource = new BehaviorSubject<TaxDto>({} as TaxDto);
@@ -90,6 +93,13 @@ export class AccountService {
   }
   getTreeList() {
     return this.accountproxy.getTreeList().pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+  GetCostTree() {
+    return this.accountproxy.GetCostTree().pipe(
       map((res) => {
         return res;
       })
@@ -141,6 +151,11 @@ export class AccountService {
       this.currentAccountDataSource.next(response);
     });
   }
+  getAccountById(id: number) {
+    this.accountproxy.getAccountById(id).subscribe((response) => {
+      this.currentAccountDataSourceById.next(response);
+    });
+  }
   getAccountDetails(id: number) {
     this.accountproxy.getAccountDetails(id).subscribe((response) => {
       this.accountDetailsDataSource.next(response);
@@ -151,6 +166,83 @@ export class AccountService {
       this.savedAccountDataSource.next(res);
     });
   }
+  getAllTaxGroupPaginated(searchTerm: string, pageInfo: PageInfo) {
+    return this.accountproxy.getAllTaxGroup(searchTerm, pageInfo).subscribe((response) => {
+      this.taxGroupDataSource.next(response.result);
+      this.currentPageInfo.next(response.pageInfoResult);
+
+    });
+  }
+  async deleteTaxGroup(id: number): Promise<boolean > {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    const p = new Promise<boolean>((res, rej) => {
+      if (confirmed) {
+        this.accountproxy.deleteTaxGroup(id).subscribe({
+          next: (status) => {
+            this.toasterService.showSuccess(
+              this.languageService.transalte('Success'),
+              this.languageService.transalte('Deleted Successfully')
+            );
+            this.loaderService.hide();
+            res(true);
+          },
+        });
+      } else {
+        res(false);
+      }
+    });
+    return await p;
+  }
+  addTaxGroup(addTaxGroupDto: AddTaxGroupDto
+    ,dialogRef: DynamicDialogRef
+  ){
+    this.loaderService.show();
+    this.accountproxy.addTaxGroup(addTaxGroupDto).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('tag.addtag.success'),
+          this.languageService.transalte('tag.addtag.success')
+        );
+        this.loaderService.hide();
+        dialogRef.close(res);
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+  editTaxGroup(TaxGroupDto: TaxGroupDto
+    ,dialogRef: DynamicDialogRef
+  ){
+    this.loaderService.show();
+    this.accountproxy.editTaxGroup(TaxGroupDto).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('tag.addtag.success'),
+          this.languageService.transalte('tag.addtag.success')
+        );
+        this.loaderService.hide();
+        dialogRef.close(res);
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+  getTaxGroupById(id:number) {
+    this.accountproxy.getTaxGroupById(id).subscribe((response) => {
+      this.currentTaxGroupDataSource.next(response);
+    });
+  }
+  editAccount(test:accountById) {
+    this.accountproxy.editAccount(test).subscribe((res) => {
+      this.editAccountDataSource.next(res);
+    });
+  }
+
+
 
   // taxesSignal = signal<PaginationVm<TaxDto>>({} as PaginationVm<TaxDto>);
 
@@ -269,13 +361,51 @@ export class AccountService {
     this.accountproxy.getAllTaxGroups().subscribe({
       next: (res) => {
         this.taxGroupsDropDown.next(res);
+        
       },
     });
   }
+  AddCostCenter(command: addCostCenter){
+    this.accountproxy.AddCostCenter(command).subscribe((res) => {
+      this.savedCostCenter.next(res);
+    });
+
+  }
+    async deleteCostCenter(costId: number) {
+      const confirmed = await this.toasterService.showConfirm(
+        this.languageService.transalte('ConfirmButtonTexttodelete')
+      );
+      if (confirmed) {
+        this.accountproxy.deleteCostCenter(costId).subscribe({
+          next: (res) => {
+            
+            this.toasterService.showSuccess(
+              this.languageService.transalte('costCenter.Success'),
+              this.languageService.transalte('costCenter.CostCenterDeletedSuccessfully')
+            );
+            this.loaderService.hide();
+            // this.getAllTaxes('', new PageInfo());
+            this.costCenterData.next(res);
+          },
+          error: () => {
+            this.loaderService.hide();
+            this.toasterService.showError(
+              this.languageService.transalte('costCenter.Error'),
+              this.languageService.transalte('costCenter.CannotDeleteCostCenter')
+            );
+          },
+        });
+      }
+    }
+    GetAllParentsCostCenters() {
+      this.accountproxy.GetAllParentsCostCenters().subscribe((response) => {
+        this.parentAccountsostCenter.next(response);
+      });
+    }
   constructor(
-    private loaderService: LoaderService,
     private accountproxy: AccountProxy,
     private toasterService: ToasterService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private loaderService: LoaderService
   ) {}
 }

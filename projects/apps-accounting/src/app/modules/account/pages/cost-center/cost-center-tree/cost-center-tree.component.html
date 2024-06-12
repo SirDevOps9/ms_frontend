@@ -1,0 +1,46 @@
+<div class="chart_of_account_tree">
+    <div class="grid">
+      <div class="md:col-4">
+        <div class="tree">
+          <div class="chart_account" [ngClass]="{ chart_account_active: showTree }">
+            <div class="chart_togel" (click)="toggelTree()">
+              <img src="assets/images/tree/folder.png" alt="" />
+              <p class="text paragraph_b18">Cost center</p>
+            </div>
+  
+            <button class="btn_tree_item btn_add pi pi-plus" (click)="newChild()"></button>
+  
+          </div>
+  
+          <p-tree [value]="nodes" [filter]="true" expanded="true" *ngIf="showTree">
+            <ng-template let-node pTemplate="default">
+              <div class="ui-tree-node-content label_text tree-item-container"
+                [ngClass]="{ active: node === activeNode }">
+                <div class="description">
+                  <span class="folder" *ngIf="!node.isDetail"></span>
+                  <span class="file" *ngIf="node.isDetail"></span>
+               
+                  <span id="label_tree" *ngIf="node.children" (click)="handleTabClick(node)">{{
+                    node.label
+                    }}</span>
+                </div>
+                <div class="action">
+                  <button class="btn_tree_item btn_edit pi pi-pencil" (click)="editAccount(node)"></button>
+                  <button class="btn_tree_item btn_delet pi pi-trash" (click)="deleteCost(node.id)"></button>
+                  <button class="btn_add btn_tree_item pi pi-plus" (click)="addChild(node)"
+                    *ngIf="!node.isDetail"></button>
+                </div>
+  
+  
+  
+  
+              </div>
+            </ng-template>
+          </p-tree>
+        </div>
+      </div>
+      <div class="md:col-8">
+        <app-add-cost-center *ngIf="add" [parentAddedId]="parentAddedId"  (operationCompleted)="handleOperationCompleted($event)" ></app-add-cost-center>
+      </div>
+    </div>
+  </div>

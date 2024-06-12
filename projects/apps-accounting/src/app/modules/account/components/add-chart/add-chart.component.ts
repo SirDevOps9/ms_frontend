@@ -44,10 +44,12 @@ export class AddChartComponent {
   lookups: { [key: string]: lookupDto[] };
   currencyIsVisible: boolean = false;
   hasParentAccount: boolean = false;
+  selectValue: boolean = false;
   parentAcountName?: parentAccountDto;
 
   selectedPeriodOption: string = '';
-  @Input() parentAddedId?: number;
+  @Input() parentAddedId?: number | undefined;
+  @Input() newChiled?: boolean;
   @Output() operationCompleted = new EventEmitter<any>();
   constructor(
     private formBuilder: FormBuilder,
@@ -143,8 +145,7 @@ export class AddChartComponent {
     this.accountService.getAccount(parentAccountId);
     this.accountService.selectedAccount.subscribe((response) => {
       this.parentAcountName = response;
-      console.log(response);
-
+      this.selectValue = true
       const newAccountData = {
         levelId: response.levelId,
         accountCode: response.accountCode,
@@ -165,12 +166,10 @@ export class AddChartComponent {
   }
 
   onRadioButtonChange(value: string) {
-    // console.log(value);
     this.selectedPeriodOption = value;
   }
 
   onSubmit() {
-    // console.log('form value', this.formGroup.value);
 
     if (!this.formsService.validForm(this.formGroup, false)) return;
 
@@ -191,6 +190,16 @@ export class AddChartComponent {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['parentAddedId']) {
       this.onParentAccountChange(this.parentAddedId);
+    }
+
+    if (changes['newChiled']) {
+      if (this.newChiled == true) {
+        this.hasParentAccount = false
+        this.selectValue = false
+
+        delete this.formGroup.value.accountCode
+        this.formGroup.get('accountCode')?.setValue([null]);
+      }
     }
   }
 }

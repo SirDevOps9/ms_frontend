@@ -43,6 +43,7 @@ import { NamedFileUploaderComponent } from './form-components/named-file-uploade
 import { FildestComponent } from './components/fildest/fildest.component';
 import { GetElementByIDPipe } from './pipes/get-element-by-id.pipe';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { SelectIconComponent } from './form-components/selectIcon/selectIcon.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     LabelComponent,
     TextInputComponent,
     SelectComponent,
+    SelectIconComponent,
     FormGroupComponent,
     PageContentComponent,
     FileUploaderComponent,
@@ -97,6 +99,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     LabelComponent,
     TextInputComponent,
     SelectComponent,
+    SelectIconComponent,
     FormGroupComponent,
     CommonModule,
     ReactiveFormsModule,
