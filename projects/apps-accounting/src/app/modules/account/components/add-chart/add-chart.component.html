@@ -202,7 +202,7 @@
                   <div>
                     <p-radioButton
                       name="AccountActivation"
-                      value="Period"
+                      value="PeriodicActive"
                       formControlName="AccountActivation"
                       inputId="Period"
                     >
@@ -218,7 +218,7 @@
               </lib-form-group>
             </div>
             <div class="md:col-3">
-              <lib-form-group *ngIf="selectedPeriodOption === 'Period'">
+              <lib-form-group *ngIf="selectedPeriodOption === 'PeriodicActive'">
                 <lib-label [appControl]="formGroup.controls['periodicActiveFrom']">
                   {{ 'ChartOfAccounts.periodicActiveFrom' | translate }}
                 </lib-label>
@@ -228,7 +228,7 @@
               </lib-form-group>
             </div>
             <div class="md:col-3">
-              <lib-form-group *ngIf="selectedPeriodOption === 'Period'">
+              <lib-form-group *ngIf="selectedPeriodOption === 'PeriodicActive'">
                 <lib-label [appControl]="formGroup.controls['periodicActiveTo']">
                   {{ 'ChartOfAccounts.periodicActiveTo' | translate }}
                 </lib-label>

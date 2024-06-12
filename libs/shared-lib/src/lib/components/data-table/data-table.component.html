@@ -12,23 +12,25 @@
         [tableStyle]="{ 'min-width': '75rem' }"
         [rowsPerPageOptions]="[10, 20, 50, 100]"
         [rowHover]="true"
-        [styleClass]="className"
         [dataKey]="tableConfigs.dataKey"
         [showCurrentPageReport]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         class="flex flex-column"
         [resizableColumns]="true"
         columnResizeMode="expand"
-        styleClass="p-datatable-striped"
+        styleClass="p-datatable-striped p-datatable-gridlines"
+        scrollHeight="400px" 
+        [scrollable]="true" 
+
       >
         <ng-template pTemplate="caption">
           <ng-content select="[caption]"> </ng-content>
         </ng-template>
 
-        <ng-template pTemplate="header" scrollable="true">
+        <ng-template pTemplate="header">
           <tr>
             <ng-container *ngFor="let col of tableConfigs.columns">
-              <th [pSortableColumn]="col.name" *ngIf="col.isSortable" class="body_b16">
+              <th [pSortableColumn]="col.name" *ngIf="col.isSortable" class="heading_b16">
                 {{ col.headerText }}
                 <p-sortIcon [field]="col.name"></p-sortIcon>
               </th>
@@ -41,7 +43,7 @@
 
         <ng-template pTemplate="body" let-row let-i="rowIndex">
           <tr [ngClass]="{ cssClass: i == selectedIndex }">
-            <td *ngFor="let col of tableConfigs.columns">
+            <td *ngFor="let col of tableConfigs.columns" class="body_b16">
               <ng-container *ngIf="!col.template; else customCellTemplate!">
                 <ng-container *ngIf="col.lookupKey">
                   {{ this.lookupsService.getLookUpText(col.lookupKey, row[col.name]) }}
