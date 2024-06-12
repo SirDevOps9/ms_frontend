@@ -80,12 +80,12 @@
     "currencyRate": "سعر العملة",
     "debitAmountLocal": "المبلغ المحلي الدائن",
     "creditAmountLocal": "المبلغ المحلي المدين",
-    "costCenter": "مركز التكلفة"
+    "costCenter": "مركز التكلفة",
+    "Amount" : "الكمية",
+    "add_line" : "اضافه سطر"
 
   },
-  "Amount" : "الكمية",
-  "add_line" : "اضافه سطر"
-  },
+
   "TaxGroup": {
     "Code": "رمز",
     "Name": "اسم",
