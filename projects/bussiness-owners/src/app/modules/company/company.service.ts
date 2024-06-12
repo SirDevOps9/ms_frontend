@@ -24,8 +24,10 @@ import {
 export class CompanyService {
   private companiesDataSource = new BehaviorSubject<CompanyDto[]>([]);
   private branchesDataSource = new BehaviorSubject<BranchDto[]>([]);
+  public companyName = new BehaviorSubject<string>('');
 
   public companies = this.companiesDataSource.asObservable();
+  public companyNameobs = this.companyName.asObservable();
   public branches = this.branchesDataSource.asObservable();
   public selectedCompanyActive = new BehaviorSubject<boolean>(true);
 

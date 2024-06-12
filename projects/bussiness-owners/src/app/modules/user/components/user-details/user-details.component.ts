@@ -43,7 +43,7 @@ export class UserDetailsComponent implements OnInit {
   initializeUserForm() {
     this.editUserForm = this.formBuilder.group({
       companyId: new FormControl('', customValidators.required),
-      branchIds: new FormControl('', customValidators.required),
+      branchIds: new FormControl( [],customValidators.required),
     });
   }
 
@@ -52,15 +52,17 @@ export class UserDetailsComponent implements OnInit {
 
     this.userService.userState.subscribe((res) => {
       if (res.userDetails) {
+        console.log(res.userDetails ,"uuuuuuuuuuuuuuuu");
+        
         this.userName = res.userDetails!.name;
         this.userEmail = res.userDetails!.email;
         this.subdomains = res.userDetails!.subdomains;
         this.userPhoto = res.userDetails!.photo;
         this.selectedCompany = res.userDetails!.companyId.toUpperCase();
-        this.selectedBranches = res.userDetails!.branchIds;
+        this.selectedBranches =  res.userDetails!.branchIds;
         this.editUserForm.patchValue({
           companyId: res.userDetails!.companyId,
-          branches: res.userDetails!.branchIds,
+          branchIds: res.userDetails!.branchIds,
         });
         this.companyService.loadBranches(res.userDetails!.companyId);
 
@@ -68,13 +70,18 @@ export class UserDetailsComponent implements OnInit {
           this.branches = branchList;
         });
         console.log('patched data', this.selectedCompany);
+        console.log('patched data', this.selectedBranches);
       }
     });
   }
 
   async onSubmit() {
+    console.log(this.editUserForm,"UpdateUserDtoUpdateUserDto");
+
     if (!this.formService.validForm(this.editUserForm, true)) return;
     const UpdateUserDto: EditUserModel = this.editUserForm.value;
+    console.log(UpdateUserDto ,"UpdateUserDtoUpdateUserDto");
+    
     this.userService.editUser(UpdateUserDto, this.currentUserId, this.subdomainId, this.ref);
   }
   onCancel() {
@@ -100,6 +107,7 @@ export class UserDetailsComponent implements OnInit {
     this.editUserForm.patchValue({ branchIds: [] });
     this.selectedBranches = [];
   }
+ 
 
   get currentUserId(): string {
     return this.config.data.Id;
