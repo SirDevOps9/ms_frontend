@@ -56,7 +56,7 @@ constructor(
     let obj: addCostCenter = this.formGroup.value;
 
     this.accountService.AddCostCenter(obj);
-// setTimeout(() => {
+ setTimeout(() => {
   this.accountService.savedAddedCost.subscribe((res) => {
     if (res) {
        this.operationCompleted.emit(res);
@@ -68,7 +68,7 @@ constructor(
       );
     }
   });
-// }, 500);
+ }, 500);
   
     
   }

@@ -81,6 +81,9 @@
   "TaxGroup": {
     "Code": "رمز",
     "Name": "اسم",
+    "parent": "الأصل",
+    "status": "الحالة",
+    "type": "النوع",
     "Action": "إجراءات",
     "TaxGrouplist": "قائمة مجموعة الضرائب",
     "Add": {

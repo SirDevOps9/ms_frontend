@@ -1,6 +1,6 @@
 import { AccountProxy } from './account.proxy';
 import { AddAccountDto } from './models/addAccountDto';
-import { AccountByIdDto, AccountDto, AddTaxGroupDto, GetLevelsDto, TaxGroupDto, listAddLevelsDto,accountById, AddTax, EditTax, TaxGroupDropDown, addCostCenter, parentCostCenter, costById, costCenterDetails } from './models';
+import { AccountByIdDto, AccountDto, AddTaxGroupDto, GetLevelsDto, TaxGroupDto, listAddLevelsDto,accountById, AddTax, EditTax, TaxGroupDropDown, addCostCenter, parentCostCenter, costById, costCenterDetails, costCenterList, costCenterActivation } from './models';
 
 import { AccountTypeDropDownDto } from './models/accountTypeDropDownDto';
 import { TagDropDownDto } from './models/tagDropDownDto';
@@ -33,13 +33,18 @@ export class AccountService {
   private costCenterById = new BehaviorSubject<costById>({} as costById);
   private costCenterDetails = new BehaviorSubject<costCenterDetails>({} as costCenterDetails);
   private editCostCenter = new BehaviorSubject<costById | undefined>(undefined);
+  private costCenterActivat = new BehaviorSubject<costCenterActivation | undefined>(undefined);
 
 
   private taxesDefinitionsDataSource = new BehaviorSubject<TaxDto[]>([]);
+  private costCenterList = new BehaviorSubject<costCenterList[]>([]);
   private costCenterData = new BehaviorSubject(false);
+  private accountdeleted = new BehaviorSubject<any>(false);
   public costCenterDataObser = this.costCenterData.asObservable()
+  public accountdeletedObser = this.accountdeleted.asObservable()
 
   public accountsList = this.accountsDataSource.asObservable();
+  public costActivation = this.costCenterActivat.asObservable();
   public parentAccounts = this.parentAccountsDataSource.asObservable();
   public AccountViewDetails = this.accountDetailsDataSource.asObservable();
   public selectedAccount = this.currentAccountDataSource.asObservable();
@@ -53,6 +58,7 @@ export class AccountService {
   public editedAccount = this.editAccountDataSource.asObservable();
 
   public taxesDefintionList = this.taxesDefinitionsDataSource.asObservable();
+  public costCenterListView = this.costCenterList.asObservable();
   public savedAddedCost = this.savedCostCenter.asObservable();
   public costparentAccounts = this.parentAccountsostCenter.asObservable();
   public selectedCostById = this.costCenterById.asObservable();
@@ -157,6 +163,8 @@ export class AccountService {
   getAccountById(id: number) {
     this.accountproxy.getAccountById(id).subscribe((response) => {
       this.currentAccountDataSourceById.next(response);
+      console.log("test service");
+      
     });
   }
   getAccountDetails(id: number) {
@@ -243,7 +251,31 @@ export class AccountService {
     });
   }
 
-
+  async deleteAccount(accountId: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.accountproxy.deleteAccount(accountId).subscribe({
+        next: (res) => {
+          
+          this.toasterService.showSuccess(
+            this.languageService.transalte('costCenter.Success'),
+            this.languageService.transalte('costCenter.CostCenterDeletedSuccessfully')
+          );
+          this.loaderService.hide();
+          this.accountdeleted.next(res);
+        },
+        error: () => {
+          this.loaderService.hide();
+          this.toasterService.showError(
+            this.languageService.transalte('costCenter.Error'),
+            this.languageService.transalte('costCenter.CannotDeleteCostCenter')
+          );
+        },
+      });
+    }
+  }
 
   // taxesSignal = signal<PaginationVm<TaxDto>>({} as PaginationVm<TaxDto>);
 
@@ -399,6 +431,20 @@ export class AccountService {
         this.costCenterDetails.next(response);
       });
     }
+    getAllCostCenter(searchTerm: string, pageInfo: PageInfo) {
+      this.accountproxy.getAllCostCenter(searchTerm, pageInfo).subscribe({
+        next: (res) => {
+          this.costCenterList.next(res.result);
+          this.currentPageInfo.next(res.pageInfoResult);
+        },
+      });
+    }
+    costCenterActivation(command:costCenterActivation){
+      this.accountproxy.costCenterActivation(command).subscribe((response) => {
+        this.costCenterActivat.next(response);
+      });
+   }
+  
   constructor(
     private accountproxy: AccountProxy,
     private toasterService: ToasterService,

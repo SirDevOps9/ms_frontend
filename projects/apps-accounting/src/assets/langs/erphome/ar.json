@@ -243,7 +243,7 @@
     "Account": "الحساب",
     "ParentAccountCode": "رمز الحساب الرئيسي",
     "AccountCode": "رمز الحساب ",
-    "ParentLevel": "المستوى الرئيسي",
+    "level": "المستوى",
     "AccountNature": "طبيعة الحساب",
     "AccountSection": "قسم الحساب",
     "AccountType": "نوع الحساب",

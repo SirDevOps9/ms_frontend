@@ -159,4 +159,12 @@ export class ChartOfAccountTreeComponent implements OnInit {
     //console.log(node);
     
   }
+  deleteAccount(id:number){
+    this.accountService.deleteAccount(id)
+    this.accountService.accountdeletedObser.subscribe(res=>{
+      if(res){
+        this.getTreeList()
+      }
+    })
+  }
 }
