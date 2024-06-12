@@ -26,6 +26,7 @@ import {
   costCenterActivation,
 } from './models';
 import { TaxGroupDropDown } from './models/tax-group-drop-down';
+import { costLookup } from '../journal-entry/models';
 
 
 @Injectable({
@@ -106,6 +107,10 @@ export class AccountProxy {
   }
   getTaxGroupById(id: number): Observable<TaxGroupDto> {
     return this.httpService.get<TaxGroupDto>(`TaxGroup/GetById?Id=${id}`);
+  }
+
+  getAccountLookup() : Observable<costLookup[]> {
+    return this.httpService.get('CostCenter/CostCenterDropDown')
   }
 
   getAllTaxes(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<TaxDto>> {

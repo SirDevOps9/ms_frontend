@@ -1,3 +1,5 @@
+import { costCenters } from "./costCenters";
+
 export class EditJournalEntryLine {
     id: number;
     accountId: number;
@@ -7,4 +9,5 @@ export class EditJournalEntryLine {
     currencyRate: number;
     currencyId: number;
     currency : any
+    costCenters : costCenters[]
   }

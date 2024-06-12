@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention*/
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 import { LogService } from './log.service';
 import { ToasterService } from './toaster.service';
 import { LanguageService } from './language.service';
@@ -24,10 +24,11 @@ export class FormsService {
   validFileExtensions = '.pdf,.jpg,.jpeg,.png';
   validFileExtensions2 = 'pdf,txt,doc,docx,jpg,jpeg,png,gif,mp4,wmv';
 
-  validForm(form: FormGroup, showAlert: boolean = false) {
+  validForm(form: FormGroup | FormArray, showAlert: boolean = false) {
     form.markAllAsTouched();
 
     form.markAsDirty();
+    console.log(form)
 
     if (form.status === 'VALID') {
       return true;

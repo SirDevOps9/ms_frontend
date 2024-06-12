@@ -93,6 +93,9 @@ export class AccountService {
       })
     );
   }
+  getCostCenterLookup() {
+    return this.accountproxy.getAccountLookup()
+  }
   getAccountsHasNoChildren(quieries: string, pageInfo: PageInfo) {
     return this.accountproxy.getAccountsHasNoChildren(quieries, pageInfo).pipe(
       map((res) => {
@@ -318,6 +321,23 @@ export class AccountService {
         this.loaderService.hide();
       },
     });
+  }
+
+  allocationCenter(model: any, dialogRef: DynamicDialogRef) {
+    // this.loaderService.show();
+    // this.accountproxy.addTax(model).subscribe({
+    //   next: (res) => {
+    //     this.toasterService.showSuccess(
+    //       this.languageService.transalte('success'),
+    //       this.languageService.transalte('Tax.AddedSuccessfully')
+    //     );
+    //     this.loaderService.hide();
+    //     dialogRef.close(res);
+    //   },
+    //   error: (err) => {
+    //     this.loaderService.hide();
+    //   },
+    // });
   }
 
   editTax(model: EditTax, dialogRef: DynamicDialogRef) {

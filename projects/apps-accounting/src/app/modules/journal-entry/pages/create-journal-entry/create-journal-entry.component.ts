@@ -26,6 +26,8 @@ import {
   GuidedTour,
   ProgressIndicatorLocation
 } from "ngx-guided-tour"; 
+import { CostCenterAllocationPopupComponent } from '../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
+import { costCenters } from '../../models';
 export interface JournalEntryLineFormValue {
   id: number;
   account: AccountDto;
@@ -36,6 +38,7 @@ export interface JournalEntryLineFormValue {
   currencyRate: number;
   debitAmountLocal: number;
   creditAmountLocal: number;
+  costCenters : costCenters[]
 }
 export interface JournalEntryFormValue {
   refrenceNumber: string;
@@ -57,6 +60,7 @@ export class CreateJournalEntryComponent {
   filteredAccounts: AccountDto[] = [];
   currencies: CurrencyDto[];
   fitleredCurrencies: CurrencyDto[];
+  costCenters : costCenters[] = []
   selectedCurrency: number;
   private readonly TOUR: GuidedTour = {
     tourId: "purchases-tour",
@@ -363,9 +367,17 @@ export class CreateJournalEntryComponent {
         currencyRate: l.currencyRate,
         debitAmount: l.debitAmount,
         lineDescription: l.lineDescription,
+        costCenters : l.costCenters.map(item=> {
+          return {
+            percentage : +item.percentage,
+            costCenterId : item.costCenterId
+          }
+        })
       })),
+     
+
     };
-    // console.log(obj);
+     console.log(obj);
     this.service
       .addJournalEntry(obj)
       .subscribe((r) => this.routerService.navigateTo('journalentry'));
@@ -377,9 +389,8 @@ export class CreateJournalEntryComponent {
 
   RedirectToTemplate() {
     const dialogRef = this.dialog.open(JournalTemplatePopupComponent, {
-      width: '800px',
+      width: 'auto',
       height: 'auto',
-      position: 'bottom-right',
       data: {
         hasNoChildren: false,
       },
@@ -430,6 +441,24 @@ export class CreateJournalEntryComponent {
         });
       }
     });
+  }
+
+  openCostPopup(data : any) {
+    if(!data.creditAmount && !data.debitAmount){
+      return null
+    }else {
+      const dialogRef =  this.dialog.open(CostCenterAllocationPopupComponent,{
+        width: '900px',
+        height: '500px',
+        header : 'Cost Center Allocation',
+        data : data
+      });
+      dialogRef.onClose.subscribe((res) => {
+        if(res)data.costCenters = res
+       
+      });
+    }
+    
   }
 
   debitChanged(index: number) {
