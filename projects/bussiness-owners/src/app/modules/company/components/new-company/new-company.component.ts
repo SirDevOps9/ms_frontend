@@ -28,6 +28,8 @@ export class NewCompanyComponent {
   companyId: string;
   holdingCompanies: lookupDto[] = [];
   showHoldingCompanies: boolean = false;
+  isFirstCompany: boolean = false;
+  selectedCompanyType='';
 
   get subdomainId(): string {
     return this.config.data.Id;
@@ -38,6 +40,7 @@ export class NewCompanyComponent {
     this.initializeForm();
     this.loadLookups();
     this.Subscribe();
+    this.checkFirstCompany();
   }
 
   onSubmit() {
@@ -66,6 +69,15 @@ export class NewCompanyComponent {
   }
   Subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
+  }
+  checkFirstCompany() {
+    this.companyService.checkIfFirstCompany().subscribe(isFirst => {
+      if (isFirst) {
+        this.addCompanyForm.controls['companyType'].setValue(CompanyTypes.Holding);
+        this.isFirstCompany = true;
+        this.selectedCompanyType = CompanyTypes.Holding.toString();
+      }
+    });
   }
 
   getHoldingCompanies() {

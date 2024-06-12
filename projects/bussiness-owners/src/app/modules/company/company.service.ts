@@ -449,4 +449,11 @@ export class CompanyService {
       })
     );
   }
+
+  checkIfFirstCompany(): Observable<boolean> {
+    return this.companies.pipe(
+      map(companies => companies.length === 0)
+    );
+  }
+
 }
