@@ -25,7 +25,7 @@ import { UnAuthorizedComponent } from './pages/un-authorized/un-authorized.compo
     RouterModule.forRoot(loginRoutes),
     ReactiveFormsModule,
     MatPaginatorModule,
-    TranslateModule.forRoot(),
+    TranslateModule,
   ],
   exports: [HasPermissionDirective],
 })

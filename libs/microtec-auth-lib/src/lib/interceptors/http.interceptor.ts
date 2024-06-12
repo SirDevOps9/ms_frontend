@@ -24,7 +24,7 @@ export class ERPInterceptor implements HttpInterceptor {
           if (error.status === 401) {
             return this.handleUnAuthorizedError(clonedRequest, next);
           } else if (error.status === 403) {
-            this.routerService.navigateTo('un-authorized');
+            // this.routerService.navigateTo('un-authorized');
           } else {
             return throwError(() => error);
           }
@@ -45,7 +45,7 @@ export class ERPInterceptor implements HttpInterceptor {
         return next.handle(updatedRequest);
       }),
       catchError((err) => {
-        this.routerService.navigateTo('login');
+        // this.routerService.navigateTo('login');
         return throwError(() => err);
       })
     );

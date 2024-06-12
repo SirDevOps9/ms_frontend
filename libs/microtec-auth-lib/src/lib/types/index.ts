@@ -1,5 +1,5 @@
 export * from './actions';
-export * from './authenticationResponse';
+export * from './loginresponse';
 export * from './loginmodel';
 export * from './permissiontree';
 export * from './tokenmodel';

@@ -1,11 +1,7 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { Actions, RouteFilter } from '../models';
+import { Actions, RouteFilter } from '../types';
 import { AuthService } from '../services';
-import {
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-  Router,
-} from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 
 @Directive({
   selector: '[appHasPermission]',

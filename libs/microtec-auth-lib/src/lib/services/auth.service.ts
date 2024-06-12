@@ -10,7 +10,8 @@ import {
   LanguageService,
   EnvironmentService,
 } from 'shared-lib';
-import { PermissionTreeNode, RouteFilter } from '../models';
+import { PermissionTreeNode, RouteFilter } from '../types';
+import { HttpParams } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,20 +19,19 @@ export class AuthService {
   currentUser = signal<any>(undefined);
 
   authorize() {
-    if (this.environmentService.state) {
-      this.oidcSecurityService
-        .setState(this.environmentService.state)
-        .subscribe((res) => this.logService.log(res, 'set state'));
-    }
     var storageCulutre = this.languageService.getLang();
-    this.oidcSecurityService.authorize(undefined, {
-      customParams: { lang: storageCulutre },
-    });
+
+    const params = new HttpParams().set('ReturnUrl', this.environmentService.state!);
+
+    location.href = 'https://localhost:44378/Account/Login?' + params.toString();
   }
 
   logout() {
-    this.oidcSecurityService.logoff().subscribe((result) => console.log(result));
+    location.href = 'logout';
+    //this.oidcSecurityService.logoff().subscribe((result) => console.log(result));
   }
+
+  saveCallbackData() {}
 
   clearAllStorage() {
     this.sessionService.clearAll();

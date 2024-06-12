@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, Router, UrlTree } from '@a
 import { Observable } from 'rxjs';
 import { LogService } from 'shared-lib';
 import { AuthService } from '../services';
-import { RouteFilter } from '../models';
+import { RouteFilter } from '../types';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +22,7 @@ export class AuthGuard {
           this.router.navigate(['login']);
         }
       }
-      if (!isAuthenticated) this.router.navigate(['login']);
+      //if (!isAuthenticated) this.router.navigate(['login']);
     });
     return true;
   }
