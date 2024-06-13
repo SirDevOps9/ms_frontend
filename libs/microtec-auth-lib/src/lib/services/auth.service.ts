@@ -62,12 +62,17 @@ export class AuthService {
     return tree;
   }
 
+  saveUserPermissions(treedata: string) {
+    this.localStorageService.setItem(StorageKeys.PERMISSIONTREE, treedata);
+  }
+
   hasPermission(filter: RouteFilter): boolean {
+    
     let tree = this.getUserPermissions();
     if (tree === null) return false;
 
     let userPermission = tree!.filter(
-      (x) => x.AppId == filter.App && x.LicenseId == filter.License && x.ServiceId == filter.Service
+      (x) => x.AppId == filter.App && x.ServiceId == filter.Service
     );
 
     if (userPermission.length === 0) return false;

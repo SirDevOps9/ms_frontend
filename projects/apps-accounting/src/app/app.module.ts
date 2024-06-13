@@ -41,7 +41,6 @@ import { UrlSerializer } from '@angular/router';
         deps: [HttpClient],
       },
     }),
-    MicrotecAuthLibModule,
     SharedLibModule,
     BrowserAnimationsModule,
     BrowserModule,

@@ -106,7 +106,11 @@
           <!-- <lib-button pRipple className="add_new" label="Add New" icon="pi pi-plus">
           </lib-button> -->
           <div>
-            <button class="add_new" (click)="routeToAdd()">
+            <button
+              *appHasPermission="sharedLibraryEnums.PageActions.Create"
+              class="add_new"
+              (click)="routeToAdd()"
+            >
               <span class="pi pi-plus"></span>
               Add New
             </button>
@@ -118,14 +122,19 @@
         </div>
       </ng-container>
       <ng-template #userCol let-journal>
-        <div class="actions flex align-items-center gap-2">
-          <lib-button icon="pi pi-eye"      [rounded]="true"
-          [enableText]="true"
-          severity="secondary" (onClick)="viewJournal(journal.id)">
-       
-          
+        <div
+         class="actions flex align-items-center gap-2">
+          <lib-button
+            *appHasPermission="sharedLibraryEnums.PageActions.View"
+            icon="pi pi-eye"
+            [rounded]="true"
+            [enableText]="true"
+            severity="secondary"
+            (onClick)="viewJournal(journal.id)"
+          >
           </lib-button>
           <lib-button
+            *appHasPermission="sharedLibraryEnums.PageActions.Update"
             className="edit"
             type="button"
             (click)="routeToEdit(journal.id)"
@@ -139,9 +148,6 @@
           <!-- <lib-button [icon]="'pi pi-trash'"    [rounded]="true"
           [enableText]="true"
           severity="secondary"></lib-button> -->
-          
-
-      
         </div>
       </ng-template>
       <ng-template #userStatus let-journal>

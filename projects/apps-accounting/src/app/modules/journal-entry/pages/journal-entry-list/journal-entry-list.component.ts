@@ -1,8 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import {
+  LanguageService,
+  LoaderService,
+  PageInfo,
+  PageInfoResult,
+  RouterService,
+  SharedLibraryEnums,
+} from 'shared-lib';
 import { JournalEntryService } from '../../journal-entry.service';
 import { JournalEntryDto, SharedJournalEnums } from '../../models';
+import { Actions } from 'microtec-auth-lib';
 
 @Component({
   selector: 'app-journal-entry-list',
@@ -24,7 +32,8 @@ export class JournalEntryListComponent implements OnInit {
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
     public sharedJouralEnum: SharedJournalEnums,
-    private loaderService:LoaderService
+    private loaderService: LoaderService,
+    public sharedLibraryEnums: SharedLibraryEnums
   ) {}
 
   ngOnInit() {

@@ -22,10 +22,10 @@ import { UnAuthorizedComponent } from './pages/un-authorized/un-authorized.compo
   imports: [
     CommonModule,
     RouterOutlet,
-    RouterModule.forRoot(loginRoutes),
     ReactiveFormsModule,
     MatPaginatorModule,
-    TranslateModule.forRoot(),
+    TranslateModule,
+    RouterModule.forChild(loginRoutes),
   ],
   exports: [HasPermissionDirective],
 })

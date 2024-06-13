@@ -1,4 +1,5 @@
 export enum Apps {
-  Hr = 6,
-  Accounting = 3,
+  GeneralLedger = 1,
+  Personal,
+  General_Settings,
 }

@@ -1,6 +1,7 @@
 export enum Services {
-  RecordEntry,
+  RecordEntry = 1,
   Users,
   Contract,
   EmployeeEntry,
+  JournalLine,
 }

@@ -19,7 +19,7 @@ export class AuthGuard {
       if (routeFilter) {
         let hasPermission = this.authService.hasPermission(routeFilter);
         if (!hasPermission) {
-          this.router.navigate(['login']);
+          this.router.navigate(['un-authorized']);
         }
       }
       if (!isAuthenticated) this.router.navigate(['login']);

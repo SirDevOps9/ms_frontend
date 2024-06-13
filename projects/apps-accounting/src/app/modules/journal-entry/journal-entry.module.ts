@@ -10,10 +10,17 @@ import { AttachmentsComponent } from './components/attachments/attachments.compo
 import { JournalTemplatePopupComponent } from './pages/components/journal-template-popup/journal-template-popup.component';
 import { EditJournalEntryComponent } from './pages/edit-journal-entry/edit-journal-entry.component';
 import { LayoutPageComponent } from 'apps-shared-lib';
-import { AuthGuard } from 'microtec-auth-lib';
+import {
+  Actions,
+  Apps,
+  AuthGuard,
+  MicrotecAuthLibModule,
+  RouteFilter,
+  Services,
+} from 'microtec-auth-lib';
 import { NoChildrenAccountsComponent } from './components/noChildrenAccounts/nochildaccounts.component';
 import { ViewJournalEntryComponent } from './pages/components/view-journal-entry/view-journal-entry.component';
-import { GuidedTourModule, GuidedTourService } from "ngx-guided-tour";
+import { GuidedTourModule, GuidedTourService } from 'ngx-guided-tour';
 import { CostCenterAllocationPopupComponent } from './pages/components/cost-center-allocation-popup/cost-center-allocation-popup.component';
 import { EditCostCenterAllocationPopupComponent } from './pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component';
 
@@ -28,6 +35,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.JOURNAL_LIST,
+          filter: {
+            App: Apps.GeneralLedger,
+            Service: Services.JournalLine,
+            Action: Actions.View,
+          } as RouteFilter,
         },
       },
       {
@@ -36,6 +48,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.JOURNAL_LIST,
+          filter: {
+            App: Apps.GeneralLedger,
+            Service: Services.JournalLine,
+            Action: Actions.View,
+          } as RouteFilter,
         },
       },
       {
@@ -44,6 +61,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.JOURNAL_ADD,
+          filter: {
+            App: Apps.GeneralLedger,
+            Service: Services.JournalLine,
+            Action: Actions.Create,
+          } as RouteFilter,
         },
       },
 
@@ -53,15 +75,25 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.JOURNAL_VIEW,
+          filter: {
+            App: Apps.GeneralLedger,
+            Service: Services.JournalLine,
+            Action: Actions.View,
+          } as RouteFilter,
         },
       },
 
       {
         path: 'journalentry/edit/:id',
         component: EditJournalEntryComponent,
-        //canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.JOURNAL_Edit,
+          filter: {
+            App: Apps.GeneralLedger,
+            Service: Services.JournalLine,
+            Action: Actions.Update,
+          } as RouteFilter,
         },
       },
     ],
@@ -81,7 +113,14 @@ const routes: Routes = [
     CostCenterAllocationPopupComponent,
     EditCostCenterAllocationPopupComponent,
   ],
-  imports: [CommonModule, SharedLibModule, AutoCompleteModule,GuidedTourModule, RouterModule.forChild(routes)],
-  providers:[GuidedTourService]
+  imports: [
+    CommonModule,
+    SharedLibModule,
+    AutoCompleteModule,
+    GuidedTourModule,
+    RouterModule.forChild(routes),
+    MicrotecAuthLibModule,
+  ],
+  providers: [GuidedTourService],
 })
 export class JournalEntryModule {}
