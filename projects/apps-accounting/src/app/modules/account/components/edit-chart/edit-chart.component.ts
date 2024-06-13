@@ -21,12 +21,13 @@ export class EditChartComponent {
   accountTags: TagDropDownDto[];
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
-  currencyIsVisible: boolean = false;
+  currencyIsVisible: boolean;
   hasParentAccount: boolean = false;
   selectValue: boolean = false;
   parentAcountName?: parentAccountDto;
   parent?: AccountByIdDto;
-
+  accountTypeIdValue:number
+  
   selectedPeriodOption: string = '';
   @Input() parentEditedId?: number ;
   @Output() operationCompleted = new EventEmitter<any>();
@@ -54,9 +55,10 @@ export class EditChartComponent {
       accountSectionId: new FormControl('', customValidators.required),
       currencyId: new FormControl(),
       tags: new FormControl([]),
-      AccountActivation: new FormControl('Active'),
+      accountActivation: new FormControl('Active'),
       periodicActiveFrom: new FormControl(),
       periodicActiveTo: new FormControl(),
+      costCenterConfig: new FormControl(1),
     });
   }
   ngOnInit() {
@@ -76,9 +78,9 @@ export class EditChartComponent {
     });
     this.getTags();
     this.getCurrencies();
-    this.formGroup.get('AccountActivation')?.valueChanges.subscribe((value) => {
-      this.onRadioButtonChange(value);
-    });
+    // this.formGroup.get('AccountActivation')?.valueChanges.subscribe((value) => {
+    //   this.onRadioButtonChange(value);
+    // });
 
   }
   getCurrencies(){
@@ -116,7 +118,7 @@ export class EditChartComponent {
     const parentAccountId = event;
     if (!parentAccountId) return;
     this.hasParentAccount = true;
-    this.getAccountById(this.parentEditedId);
+    this.getAccountById(parentAccountId);
 
   }
 
@@ -125,6 +127,8 @@ export class EditChartComponent {
   }
 
   onRadioButtonChange(value: string) {
+    console.log(value ,"dddddddddddddddddddddddddddddd");
+    
     this.selectedPeriodOption = value;
   }
 
@@ -155,6 +159,8 @@ export class EditChartComponent {
   getAccountById(id: any) {
     this.accountService.getAccountById(id);
     this.accountService.selectedAccountById.subscribe((res:any) => {
+      console.log(res)
+      this.currencyIsVisible=res.hasNoChild
       this.parentAcountName = res;
 
             if(res.parentId!=null){
@@ -175,17 +181,23 @@ export class EditChartComponent {
               accountSectionName: res.accountSectionName || '',
               natureId: res.natureId || '',
               hasNoChild: res.hasNoChild || false,
-              accountTypeId: res.accountTypeId || '',
+              accountTypeId: res.accountTypeId ,
               accountSectionId: res.accountSectionId || '',
               currencyId: res.currencyId ,
               tags: res.tags || [],
-              AccountActivation: res.AccountActivation || 'Active',
-              periodicActiveFrom: res.periodicActiveFrom || null,
-              periodicActiveTo: res.periodicActiveTo || null
+              accountActivation: res.accountActivation,
+              periodicActiveFrom: res.periodicActiveFrom ? res.periodicActiveFrom.replace('T00:00:00' , '') : null,
+              periodicActiveTo: res.periodicActiveTo ? res.periodicActiveTo.replace('T00:00:00' , '') : null,
+              costCenterConfig: res.costCenterConfig
             };
-            this.onAccountSectionChange(res.accountSectionId);
+            // this.formGroup.patchValue({...res});
             this.formGroup.patchValue(newAccountData);
+            this.accountTypeIdValue = res.accountTypeId 
+            this.onAccountSectionChange(res.accountSectionId);
 
+            this.onRadioButtonChange(res.accountActivation)
+
+            console.log(this.formGroup.value)
     });
   }
 }

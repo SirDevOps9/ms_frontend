@@ -79,7 +79,7 @@ export class UserService {
           this.toasterService.showSuccess(
             this.languageService.transalte('Company.Success'),
             this.languageService.transalte(
-              'Company.CompanyActivatedSuccessfully'
+              'User.UserActivatedSuccessfully'
             )
           );
         },
@@ -105,7 +105,7 @@ export class UserService {
           this.toasterService.showSuccess(
             this.languageService.transalte('Company.Success'),
             this.languageService.transalte(
-              'Company.CompanyDeactivatedSuccessfully'
+              'User.UserDeactivatedSuccessfully'
             )
           );
           const userToChange = this.userDataSource.value.find(

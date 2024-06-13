@@ -20,6 +20,10 @@ import {
   accountById,
   costTree,
   addCostCenter,
+  costById,
+  costCenterDetails,
+  costCenterList,
+  costCenterActivation,
 } from './models';
 import { TaxGroupDropDown } from './models/tax-group-drop-down';
 import { costLookup } from '../journal-entry/models';
@@ -52,6 +56,9 @@ export class AccountProxy {
   }
   editAccount(command:accountById ): Observable<accountById> {
     return this.httpService.put('ChartOfAccounts/EditAccount', command);
+  }
+  deleteAccount(id: number): Observable<number> {
+    return this.httpService.delete<number>(`ChartOfAccounts/Delete?Id=${id}`);
   }
   getAllPaginated(quieries: string, pageInfo: PageInfo): Observable<PaginationVm<AccountDto>> {
     return this.httpService.get<PaginationVm<AccountDto>>(`ChartOfAccounts?${pageInfo.toQuery}&${quieries ?quieries : '' }`);
@@ -139,5 +146,21 @@ export class AccountProxy {
   GetAllParentsCostCenters(): Observable<parentAccountDto[]> {
     return this.httpService.get<parentAccountDto[]>(`CostCenter/GetAllParentsCostCenters`);
   } 
+  getCostById(id: number): Observable<costById> {
+    return this.httpService.get<costById>(`CostCenter/GetById?id=${id}`);
+  }
+  editCost(command:costById ): Observable<costById> {
+    return this.httpService.put<costById>('CostCenter/EditCostCenter', command);
+  }
+  GetCostCenterDetails(id: number): Observable<costCenterDetails> {
+    return this.httpService.get<costCenterDetails>(`CostCenter/GetCostCenterDetails?id=${id}`);
+  }
+  getAllCostCenter(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<costCenterList>> {
+    
+    return this.httpService.get<PaginationVm<costCenterList>>(`CostCenter/GetCostCenters?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`);
+  } 
+  costCenterActivation(command:costCenterActivation): Observable<costCenterActivation> {
+    return this.httpService.put<costCenterActivation>(`CostCenter/CostCenterActivation`,command);
+  }
   constructor(private httpService: HttpService) {}
 }

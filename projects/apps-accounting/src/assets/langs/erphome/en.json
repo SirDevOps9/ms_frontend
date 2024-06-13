@@ -299,6 +299,7 @@
     "ParentAccountCode": "Parent Account Code",
     "AccountCode": "Account Code",
     "ParentLevel": "Parent Level",
+    "level": "Level",
     "AccountNature": "Account Nature",
     "AccountSection": "Account Section",
     "AccountType": "Account Type",

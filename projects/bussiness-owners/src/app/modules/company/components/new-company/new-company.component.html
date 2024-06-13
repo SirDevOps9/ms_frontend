@@ -52,6 +52,8 @@
                     optionValue="id"
                     optionLabel="name"
                     (valueChanged)="isSubsidairy($event)"
+                    [selectedValue]="selectedCompanyType"
+                    [readOnly]= isFirstCompany
                     >
                   </lib-select>
                   <lib-field-validations

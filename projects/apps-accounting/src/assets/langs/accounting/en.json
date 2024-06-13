@@ -85,12 +85,16 @@
   "TaxGroup": {
     "Code": "Code",
     "Name": "Name",
+    "parent" :"parent",
     "Action": "Actions",
+    "status": "status",
+    "type": "type",
     "TaxGrouplist": "Tax Group list",
     "Add": {
       "AddTaxGroup": "Add Tax Group",
       "Code": "Code",
       "Name": "Name",
+      "type": "type",
       "Discard": "Discard",
       "Save": "Save"
     },

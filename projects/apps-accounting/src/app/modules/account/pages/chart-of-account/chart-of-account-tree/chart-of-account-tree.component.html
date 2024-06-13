@@ -32,7 +32,7 @@
               </div>
               <div class="action">
                 <button class="btn_tree_item btn_edit pi pi-pencil" (click)="editAccount(node)"></button>
-                <button class="btn_tree_item btn_delet pi pi-trash"></button>
+                <button class="btn_tree_item btn_delet pi pi-trash" (click)="deleteAccount(node.id)"></button>
                 <button class="btn_add btn_tree_item pi pi-plus" (click)="addChild(node)"
                   *ngIf="!node.hasNoChild"></button>
               </div>
