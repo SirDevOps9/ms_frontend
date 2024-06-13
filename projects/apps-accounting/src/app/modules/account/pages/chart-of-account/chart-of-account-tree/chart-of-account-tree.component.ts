@@ -137,21 +137,8 @@ export class ChartOfAccountTreeComponent implements OnInit {
   }
 
   handleOperationCompleted(event: any) {
-    console.log(event ,"eveeeent");
     this.getTreeList()
-
-    // if(this.parentAdded){
-    //   if(event.natureId !=0){
-    //     this.parentAdded.children.push({ label: event.name, id: event.id, children: [],hasNoChild:true  });
-
-    //   }
-    //   this.parentAdded.children.push({ label: event.name, id: event.id, children: [] });
-
-    // }else{
-    // this.getTreeList()
-    // }
     this.add = false;
-    //this.view=true
   }
   toggelTree() {
     this.showTree = !this.showTree;
