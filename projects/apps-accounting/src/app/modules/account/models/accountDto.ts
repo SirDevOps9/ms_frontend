@@ -9,4 +9,5 @@ export interface AccountDto {
   AccountTypeName: string;
   accountSectionName: string;
   currencyId: number;
+  costCenterConfig : string
 }
