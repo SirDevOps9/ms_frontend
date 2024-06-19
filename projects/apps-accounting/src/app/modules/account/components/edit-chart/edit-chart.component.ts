@@ -127,8 +127,6 @@ export class EditChartComponent {
   }
 
   onRadioButtonChange(value: string) {
-    console.log(value ,"dddddddddddddddddddddddddddddd");
-    
     this.selectedPeriodOption = value;
   }
 
@@ -144,10 +142,6 @@ export class EditChartComponent {
     this.accountService.editedAccount.subscribe((res) => {
       if (res) {
         this.operationCompleted.emit(this.parentEditedId);
-        this.toaserService.showSuccess(
-          this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
-          this.languageService.transalte('ChartOfAccounts.SuccessMessage')
-        );
       }
     });
   }
@@ -159,7 +153,6 @@ export class EditChartComponent {
   getAccountById(id: any) {
     this.accountService.getAccountById(id);
     this.accountService.selectedAccountById.subscribe((res:any) => {
-      console.log(res)
       this.currencyIsVisible=res.hasNoChild
       this.parentAcountName = res;
 
@@ -191,13 +184,12 @@ export class EditChartComponent {
               costCenterConfig: res.costCenterConfig
             };
             // this.formGroup.patchValue({...res});
+            this.onAccountSectionChange(res.accountSectionId);
             this.formGroup.patchValue(newAccountData);
             this.accountTypeIdValue = res.accountTypeId 
-            this.onAccountSectionChange(res.accountSectionId);
 
             this.onRadioButtonChange(res.accountActivation)
 
-            console.log(this.formGroup.value)
     });
   }
 }
