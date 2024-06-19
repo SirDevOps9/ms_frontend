@@ -367,12 +367,12 @@ export class CreateJournalEntryComponent {
         currencyRate: l.currencyRate,
         debitAmount: l.debitAmount,
         lineDescription: l.lineDescription,
-        costCenters : l.costCenters.map(item=> {
+        costCenters :  l.costCenters ?  l.costCenters.map(item=> {
           return {
             percentage : +item.percentage,
             costCenterId : item.costCenterId
           }
-        })
+        }) : []
       })),
      
 
@@ -443,8 +443,10 @@ export class CreateJournalEntryComponent {
     });
   }
 
-  openCostPopup(data : any) {
-    if(!data.creditAmount && !data.debitAmount){
+  openCostPopup(data : any , account : number , index : number) {
+   let accountData = this.filteredAccounts.find(elem=>elem.id === account)
+    
+    if(!data.creditAmount && !data.debitAmount || !account || accountData?.costCenterConfig == 'NotAllow'){
       return null
     }else {
       const dialogRef =  this.dialog.open(CostCenterAllocationPopupComponent,{

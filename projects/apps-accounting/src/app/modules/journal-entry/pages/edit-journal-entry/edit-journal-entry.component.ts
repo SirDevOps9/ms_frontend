@@ -145,12 +145,12 @@ export class EditJournalEntryComponent implements OnInit {
 
 
     request.journalEntryLines = request.journalEntryLines?.map((item) => {
-      item.costCenters = item.costCenters.map(item=> {
+      item.costCenters = item.costCenters ?  item.costCenters.map(item=> {
         return {
           id : item.id ? item.id : 0,
           percentage :  +item.percentage,
           costCenterId : item.costCenterId
-        }})
+        }}) : []
       const currencyId =
         typeof item.currency == 'string'
           ? this.currencies.find((c) => c.currencyName == item.currency)!.id
@@ -292,9 +292,9 @@ getAccounts() {
     currencyRateControl.setValue(currencyData?.ratePerUnit);
   }
 
-  openCostPopup(data : any) {
-    console.log(data)
-    if(!data.creditAmount && !data.debitAmount){
+  openCostPopup(data : any , account : number , index : number) {
+    let accountData = this.filteredAccounts.find(elem=>elem.id === account)
+    if(!data.creditAmount && !data.debitAmount || !account || accountData?.costCenterConfig == 'NotAllow'){
       return null
     }else {
       const dialogRef =  this.dialog.open(EditCostCenterAllocationPopupComponent,{
