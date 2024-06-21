@@ -19,6 +19,12 @@ export class EnvironmentService implements IEnvironment {
   Platform: string;
   photoBaseUrl: string;
   erpLogin?: string | undefined;
+  AuthConfiguration?: {
+    authority: string;
+    redirectUrl: string;
+    logoutRedirectUri: string;
+    clientId: string;
+  };
   openIdConfig: {
     authority: string;
     redirectUrl: string;

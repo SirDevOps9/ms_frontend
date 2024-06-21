@@ -6,6 +6,12 @@ export interface IEnvironment {
   Platform: string;
   photoBaseUrl: string;
   erpLogin?: string;
+  AuthConfiguration?: {
+    authority: string;
+    redirectUrl: string;
+    logoutRedirectUri: string;
+    clientId: string;
+  };
   openIdConfig: {
     authority: string;
     redirectUrl: string;

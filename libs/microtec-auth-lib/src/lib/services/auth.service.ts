@@ -9,8 +9,10 @@ import {
   CookieStorageService,
   LanguageService,
   EnvironmentService,
+  RouteParams,
+  HttpService,
 } from 'shared-lib';
-import { PermissionTreeNode, RouteFilter } from '../types';
+import { PermissionTreeNode, RouteFilter, TokenRequestViewModel } from '../types';
 import { HttpParams } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
@@ -21,9 +23,15 @@ export class AuthService {
   authorize() {
     var storageCulutre = this.languageService.getLang();
 
-    const params = new HttpParams().set('ReturnUrl', this.environmentService.state!);
+    const params = new HttpParams()
+      .set(RouteParams.REDIRECTURL, this.environmentService.AuthConfiguration?.redirectUrl!)
+      .set(RouteParams.CLIENTKEY, this.environmentService.AuthConfiguration?.clientId!)
+      .set(RouteParams.CULTUREQUERY, storageCulutre);
 
-    location.href = 'https://localhost:44378/Account/Login?' + params.toString();
+    location.href =
+      this.environmentService.AuthConfiguration?.authority +
+      '/Connect/Authorize?' +
+      params.toString();
   }
 
   logout() {
@@ -31,7 +39,27 @@ export class AuthService {
     //this.oidcSecurityService.logoff().subscribe((result) => console.log(result));
   }
 
-  saveCallbackData() {}
+  collectToken(key: string) {
+    var storageCulutre = this.languageService.getLang();
+
+    let tokenModel: TokenRequestViewModel = {
+      clientName: this.environmentService.AuthConfiguration?.clientId!,
+      culture: storageCulutre,
+      key: key,
+      redirectUrl: this.environmentService.AuthConfiguration?.redirectUrl!,
+    };
+
+    this.httpService
+      .postFullUrl(
+        this.environmentService.AuthConfiguration?.authority + '/Connect/Token',
+        tokenModel
+      )
+      .subscribe({
+        next: (res) => {
+          console.log('tokenResult', res);
+        },
+      });
+  }
 
   clearAllStorage() {
     this.sessionService.clearAll();
@@ -123,6 +151,7 @@ export class AuthService {
     private logService: LogService,
     private cookieService: CookieStorageService,
     private languageService: LanguageService,
-    private environmentService: EnvironmentService
+    private environmentService: EnvironmentService,
+    private httpService: HttpService
   ) {}
 }
