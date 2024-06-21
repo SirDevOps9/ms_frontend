@@ -1,4 +1,4 @@
-import { Actions } from './actions';
+import { Actions } from '.';
 
 export interface PermissionTreeNode {
   UserLicenseId: number;

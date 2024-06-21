@@ -1,7 +1,4 @@
-import { Actions } from './actions';
-import { Apps } from './apps';
-import { Licenses } from './licenses';
-import { Services } from './services';
+import { Actions, Apps, Licenses, Services } from '.';
 
 export interface RouteFilter {
   Action: Actions;

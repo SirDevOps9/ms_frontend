@@ -14,6 +14,7 @@ import {
 } from 'shared-lib';
 import { PermissionTreeNode, RouteFilter, TokenRequestViewModel } from '../types';
 import { HttpParams } from '@angular/common/http';
+import { AuthProxy } from './auth.proxy';
 @Injectable({
   providedIn: 'root',
 })
@@ -49,16 +50,11 @@ export class AuthService {
       redirectUrl: this.environmentService.AuthConfiguration?.redirectUrl!,
     };
 
-    this.httpService
-      .postFullUrl(
-        this.environmentService.AuthConfiguration?.authority + '/Connect/Token',
-        tokenModel
-      )
-      .subscribe({
-        next: (res) => {
-          console.log('tokenResult', res);
-        },
-      });
+    this.authProxy.collectToken(tokenModel).subscribe({
+      next: (res) => {
+        console.log('tokenResult', res);
+      },
+    });
   }
 
   clearAllStorage() {
@@ -152,6 +148,6 @@ export class AuthService {
     private cookieService: CookieStorageService,
     private languageService: LanguageService,
     private environmentService: EnvironmentService,
-    private httpService: HttpService
+    private authProxy: AuthProxy
   ) {}
 }

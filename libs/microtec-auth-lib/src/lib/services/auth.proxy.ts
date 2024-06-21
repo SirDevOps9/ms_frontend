@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EnvironmentService, HttpService } from 'shared-lib';
-import { LoginModel, LoginResponse } from '../types';
+import { LoginModel, LoginResponse, TokenRequestViewModel } from '../types';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +11,13 @@ export class AuthProxy {
 
   formLogin(model: LoginModel): Observable<LoginResponse> {
     return this.baseService.postFullUrl('https://localhost:44330/api/Account/login', model);
+  }
+
+  collectToken(tokenModel: TokenRequestViewModel) {
+    return this.baseService.postFullUrl(
+      this.environmentService.AuthConfiguration?.authority + '/Connect/Token',
+      tokenModel
+    );
   }
 
   updateLastLoggingTime(): Observable<string> {
