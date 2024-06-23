@@ -2,9 +2,15 @@ import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
 import { ToasterModel } from '../models/toaster.model';
 import { LanguageService } from './language.service';
+
+import { MessageService } from 'primeng/api';
+
 @Injectable({ providedIn: 'root' })
 export class ToasterService {
-  constructor(private languageService: LanguageService) {}
+  constructor(
+    private languageService: LanguageService,
+    private messageService: MessageService
+  ) {}
   // ViewToaster(model: ToasterModel) {
   //   model.position = model.position || 'center';
   //   model.icon = model.icon || 'success';
@@ -36,22 +42,47 @@ export class ToasterService {
   }
 
   showSuccess(title: string, message: string) {
-    Swal.fire({
-      text: message,
-      title: title,
-      toast: true,
-      icon: 'success',
-      position: 'top-right',
+    this.messageService.add({
+      severity: 'success',
+      summary:title,
+      detail: message,
+      life: 5000,
+      
     });
+    // Swal.fire({
+    //   text: message,
+    //   title: title,
+    //   toast: true,
+    //   icon: 'success',
+    //   position: 'top-right',
+    // });
   }
 
   showError(title: string, message: string) {
-    Swal.fire({
-      text: message,
-      title: title,
-      toast: true,
-      icon: 'error',
-      position: 'top-right',
+    this.messageService.add({
+      severity: 'error',
+      summary:title,
+      detail: message,
+      life: 5000,
+      
     });
+    // Swal.fire({
+    //   text: message,
+    //   title: title,
+    //   toast: true,
+    //   icon: 'error',
+    //   position: 'top-right',
+    // });
+  }
+  showSuccessPrime() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Message Content',
+      life: 7000,
+      
+    });
+    console.log("nabiiil");
+    
   }
 }

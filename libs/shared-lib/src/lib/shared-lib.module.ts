@@ -10,6 +10,7 @@ import {
   DataTableComponent,
   TablePaginatorComponent,
   ButtonMicroComponent,
+  ToastComponent,
   
   
   
@@ -74,7 +75,8 @@ import { SelectIconComponent } from './form-components/selectIcon/selectIcon.com
     FildestComponent,
     ButtonMicroComponent,
     ToggelComponent, 
-    GetElementByIDPipe
+    GetElementByIDPipe,
+    ToastComponent
   ],
   imports: [
     CommonModule,
@@ -88,7 +90,8 @@ import { SelectIconComponent } from './form-components/selectIcon/selectIcon.com
     PrimeSharedModule,
     TreeTableModule,
     TreeModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    
   ],
   exports: [
     GetLookupPipe,
@@ -126,7 +129,8 @@ import { SelectIconComponent } from './form-components/selectIcon/selectIcon.com
     ButtonMicroComponent,
     ToggelComponent,
     
-    GetElementByIDPipe
+    GetElementByIDPipe,
+    ToastComponent
   ],
 })
 export class SharedLibModule {}
