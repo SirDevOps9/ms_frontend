@@ -16,3 +16,4 @@ export * from './subdomain.service';
 export * from './attachment.service';
 export * from './lowercaseurlserializer';
 export * from './age.service';
+export * from './breadCrumbService';

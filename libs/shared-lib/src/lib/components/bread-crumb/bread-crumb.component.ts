@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { LanguageService } from '../../services';
+import { BreadCrumbService, LanguageService } from '../../services';
 
 @Component({
   selector: 'lib-bread-crumb',
@@ -14,14 +14,16 @@ export class BreadCrumbComponent implements OnInit  {
 
 menuItems: MenuItem[] ;
   ngOnInit(): void {
-    this.menuItems = this.createBreadcrumb(this.activatedRoute.root);
+    // this.menuItems = this.createBreadcrumb(this.activatedRoute.root);
 
-    this.home ={ icon: 'pi pi-home', routerLink: '/my-subscriptions' };
-    this.router.events
-    .pipe(filter((event) => event instanceof NavigationEnd))
-    .subscribe(
-      () => (this.menuItems = this.createBreadcrumb(this.activatedRoute.root))
-    );
+    // this.home ={ icon: 'pi pi-home', routerLink: '/my-subscriptions' };
+    // this.router.events
+    // .pipe(filter((event) => event instanceof NavigationEnd))
+    // .subscribe(
+    //   () => (this.menuItems = this.createBreadcrumb(this.activatedRoute.root))
+    // );
+this.menuItems= this.breadCrumbService.getArray()
+this.home = { icon: 'pi pi-home', routerLink: `${this.breadCrumbService.getRouteHome()}` };
   }  
   private createBreadcrumb(
     route: ActivatedRoute,
@@ -58,6 +60,7 @@ menuItems: MenuItem[] ;
     public languageService: LanguageService,
 
     private router: Router,
+    private breadCrumbService: BreadCrumbService,
     private activatedRoute: ActivatedRoute
   ) {
 
