@@ -11,20 +11,7 @@ export class ToasterService {
     private languageService: LanguageService,
     private messageService: MessageService
   ) {}
-  // ViewToaster(model: ToasterModel) {
-  //   model.position = model.position || 'center';
-  //   model.icon = model.icon || 'success';
-  //   if (model.toast && model.toast === true) {
-  //     model.position = 'top-right';
-  //   }
-  //   Swal.fire({
-  //     text: model.message,
-  //     title: model.title,
-  //     toast: model.toast,
-  //     icon: model.icon,
-  //     position: model.position,
-  //   });
-  // }
+
   showConfirm(ConfirmButtonText: string): Promise<boolean> {
     return Swal.fire({
       title: this.languageService.transalte('Toaster.Confirm.Title'),
@@ -49,13 +36,7 @@ export class ToasterService {
       life: 5000,
       
     });
-    // Swal.fire({
-    //   text: message,
-    //   title: title,
-    //   toast: true,
-    //   icon: 'success',
-    //   position: 'top-right',
-    // });
+  
   }
 
   showError(title: string, message: string) {
@@ -66,23 +47,7 @@ export class ToasterService {
       life: 5000,
       
     });
-    // Swal.fire({
-    //   text: message,
-    //   title: title,
-    //   toast: true,
-    //   icon: 'error',
-    //   position: 'top-right',
-    // });
+   
   }
-  showSuccessPrime() {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Success',
-      detail: 'Message Content',
-      life: 7000,
-      
-    });
-    console.log("nabiiil");
-    
-  }
+
 }
