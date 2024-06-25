@@ -1,0 +1,125 @@
+<lib-page-content [title]="'tag.taglist' | translate" [subTitle]="'tag.taglist' | translate">
+    <lib-bread-crumb>
+   
+    </lib-bread-crumb>
+    <div>
+      <div class="user_page">
+        <lib-data-table
+          [items]="tableData"
+          className="p-datatable-gridlines"
+          [currentPageResult]="currentPageInfo"
+          (pageChange)="onPageChange($event)"
+          [tableConfigs]="{
+            allowPagination: false,
+            allowServerPagination: true,
+            dataKey: 'id',
+            pageSize: 10,
+            columns: [
+             
+              {
+                name: 'code',
+                headerText: ('tag.code' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'name',
+                headerText: ('tag.Name' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+            
+              {
+                name: 'modulesId',
+                headerText: 'Start From',
+                template: Modules
+              },
+              {
+                name: 'modulesId',
+                headerText: 'Start To',
+                template: Modules
+              },
+            
+              {
+                name: 'isActive',
+                headerText: ('tag.status' | translate),
+                template: status
+              },
+              {
+                name: 'id',
+                headerText: ('tag.Actions' | translate),
+                template: userCol
+              },
+            ]
+          }"
+        >
+          <ng-template #userCol let-tag>
+            <div class="actions flex align-items-center">
+              <lib-button
+                className="edit"
+                type="button"
+                (click)="routeToEdit(tag)"
+                icon="pi pi-pencil"
+                [rounded]="true"
+                [enableText]="true"
+                severity="secondary"
+                *ngIf="tag.isActive"
+              >
+              </lib-button>
+              <lib-button
+                icon="pi pi-trash"
+                [rounded]="true"
+                [enableText]="true"
+                severity="secondary"
+                (click)="Delete(tag.id)"
+              >
+              </lib-button>
+            </div>
+          </ng-template>
+  
+          <ng-template #status let-tag>
+            <div class="checked">
+              <p-inputSwitch (onChange)="changed($event, tag.id)" [(ngModel)]="tag.isActive">
+              </p-inputSwitch>
+            </div>
+          </ng-template>
+  
+          <ng-template #Modules let-tag>
+            <lib-multi-select
+              [options]="modulelist"
+              optionLabel="module"
+              optionValue="moduleId"
+              [selectedValue]="tag.modulesId"
+              [readOnly]="true"
+              [disabled]="true"
+            >
+            </lib-multi-select>
+          </ng-template>
+
+          <ng-container caption>
+            <div class="group">
+              <div>
+                <span class="p-input-icon-left">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text" placeholder="Search..." />
+                </span>
+              </div>
+    
+              <!-- <lib-button pRipple className="add_new" label="Add New" icon="pi pi-plus">
+              </lib-button> -->
+              <div>
+                <lib-button class="add_new" (click)="routeToAdd()" [icon]="'pi pi-plus'">
+                 {{ 'Add New' | translate }}
+                </lib-button>
+               
+              </div>
+            </div>
+          </ng-container>
+
+        
+           
+         
+        </lib-data-table>
+      </div>
+    </div>
+  </lib-page-content>

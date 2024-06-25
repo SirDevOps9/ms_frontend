@@ -21,13 +21,19 @@ import { UploadFileResult } from '../models/uploadFileResult';
 })
 export class AttachmentsService {
   private attachmentIdDataSource = new BehaviorSubject<string>('');
+  private attachmentIds = new BehaviorSubject<any>([]);
+  public attachmentIdsObservable = this.attachmentIds.asObservable()
 
   public attachemntId = this.attachmentIdDataSource.asObservable();
 
   private validationErrorsDataSource = new BehaviorSubject<{}>({});
 
   public validationErrors = this.validationErrorsDataSource.asObservable();
-
+  filesInfo : any = []
+  filesName: any = []
+  filesUrls : any = []
+  files : any = []
+  attachemntIdsList : string[] = []
   uploadFile(files: FileDto[], uploadFileConfig: UploadFileConfigDto) {
     const reader = new FileReader();
 
@@ -75,41 +81,16 @@ export class AttachmentsService {
     return validationErrors;
   }
 
-  async uploadValidatedFile(files: FileDto[]): Promise<Observable<UploadFileResult>> {
-    
-    const reader = new FileReader();
-    const [file] = files;
-    reader.readAsDataURL(file);
-
-    const p = new Promise<AttachmentDto>((res, rej) => {
-      reader.onload = () => {
-        let fileInfo: AttachmentDto = {
-          fileContent: reader.result as string,
-          fileName: file.name,
-        };
-        res(fileInfo);
-      };
-    })
-    let fileInfo: AttachmentDto = await p;
-    return this.httpService
+   uploadValidatedFile(files: AttachmentDto) {
+   return  this.httpService
       .postFullUrl(
         `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/UploadBase64Attachment`,
-        fileInfo
-      )
-      .pipe(
-        map((response: string) => {
-          if (!response) {
-            this.toasterService.showError(
-              this.languageService.transalte('Shared.Error'),
-              this.languageService.transalte('Shared.valdation.invalidForm')
-            );
-          }
-          return {
-            attachmentId : response,
-            name: file.name
-          }
-        })
-      );
+        files
+      ).subscribe((res )=>{
+       
+        this.attachemntIdsList.push(res)
+        this.attachmentIds.next(this.attachemntIdsList)
+      })
   }
 
   downloadAttachment(

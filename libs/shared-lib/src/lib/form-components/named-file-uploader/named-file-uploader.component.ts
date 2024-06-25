@@ -57,15 +57,15 @@ export class NamedFileUploaderComponent implements OnInit {
       return;
     }
     const upload$ = await this.attachmentService.uploadValidatedFile(event.target.files);
-    upload$.subscribe(result => {
-      this.setValue(result.attachmentId);
-      this.fg.setValue({
-        attachmentId: result.attachmentId,
-        name: result.name
-      });
-      this.imgName = result.name
+    // upload$.subscribe(result => {
+    //   this.setValue(result.attachmentId);
+    //   this.fg.setValue({
+    //     attachmentId: result.attachmentId,
+    //     name: result.name
+    //   });
+    //   this.imgName = result.name
 
-    })
+    // })
   }
 
   downloadAttachment() {
