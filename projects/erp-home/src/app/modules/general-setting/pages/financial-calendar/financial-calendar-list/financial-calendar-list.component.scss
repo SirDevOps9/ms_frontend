@@ -1,8 +1,4 @@
-::ng-deep user_page {
-    .p-datatable.p-datatable-gridlines .p-datatable-header {
-      display: none;
-    }
-  }
+
   .btn {
     background-color: #1a8eae;
     border: 2px solid #1a8eae;
@@ -16,4 +12,6 @@
       margin-inline-end: 5px;
     }
   }
-  
+  .pointer{
+    cursor: pointer;
+  }

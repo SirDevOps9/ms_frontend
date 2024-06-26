@@ -5,5 +5,7 @@
   appendTo="body"
   [minDate]="minDate"
   [maxDate]="maxDate"
->
-</p-calendar>
+  [(ngModel)]="value"
+  (onSelect)="handleDateChange($event)"
+  [disabled]="disabled"
+></p-calendar>

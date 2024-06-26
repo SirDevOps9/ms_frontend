@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { LayoutService } from 'apps-shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PageInfoResult, MenuModule, RouterService, PageInfo } from 'shared-lib';
-import { TagAddComponent } from '../../../components/tag-add/tag-add.component';
-import { TagEditComponent } from '../../../components/tag-edit/tag-edit.component';
+
 import { GeneralSettingService } from '../../../general-setting.service';
-import { TagDto } from '../../../models';
+import { TagDto, financialCalendar } from '../../../models';
+import { AuthService } from 'microtec-auth-lib';
+import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
+import { TaxDefinitionAddComponent } from 'projects/apps-accounting/src/app/modules/account/components/tax-definition-add/tax-definition-add.component';
+import { TaxDefinitionEditComponent } from 'projects/apps-accounting/src/app/modules/account/components/tax-definition-edit/tax-definition-edit.component';
+import { TaxDto } from 'projects/apps-accounting/src/app/modules/account/models';
 
 @Component({
   selector: 'app-financial-calendar-list',
@@ -13,27 +16,37 @@ import { TagDto } from '../../../models';
   styleUrl: './financial-calendar-list.component.scss'
 })
 export class FinancialCalendarListComponent implements OnInit {
-  tableData: TagDto[];
-  currentPageInfo: PageInfoResult;
-  modulelist: MenuModule[];
-  searchTerm: string;
-
   constructor(
-    private routerService: RouterService,
+    public authService: AuthService,
+    private dialog: DialogService,
+    private accountService: AccountService,
     private generalSettingService: GeneralSettingService,
-    public layoutService: LayoutService,
-    private dialog: DialogService
+    private routerService : RouterService
   ) {}
 
+  tableData : financialCalendar[];
+
+  currentPageInfo: PageInfoResult = {};
+  modulelist: MenuModule[];
+  searchTerm: string;
+ 
   ngOnInit() {
-    this.modulelist = this.layoutService.getModules();
-    this.initTagData();
+
+     this.initFinancialCalendarData();
+
   }
 
-  initTagData() {
-    this.generalSettingService.getTagList('', new PageInfo());
+  routeToAdd() {
+    this.routerService.navigateTo('add-financial-calendar')
+  }
+  routeToEdit(id : number) {
+    this.routerService.navigateTo(`edit-financial-calendar/${id}`)
+  }
 
-    this.generalSettingService.tagList.subscribe({
+  initFinancialCalendarData() {
+    this.generalSettingService.getfinancialCalendar('', new PageInfo());
+
+    this.generalSettingService.financialCalendarDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -44,63 +57,51 @@ export class FinancialCalendarListComponent implements OnInit {
     });
   }
 
+ 
   onPageChange(pageInfo: PageInfo) {
-    this.generalSettingService.getTagList('', pageInfo);
+    this.generalSettingService.getfinancialCalendar('', new PageInfo());
 
-    this.generalSettingService.tagList.subscribe({
+    this.generalSettingService.financialCalendarDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
       },
     });
   }
-  routeToEdit(data: any) {
-    const dialogRef = this.dialog.open(TagEditComponent, {
-      header : "Edit Tag",
-      width: '800px',
-      position: 'bottom-right' ,// A
+
+  onAdd() {
+    const dialogRef =  this.dialog.open(TaxDefinitionAddComponent, {
+      width: '600px',
+      height: '550px',
+    });
+    dialogRef.onClose.subscribe(() => {
+      this.initFinancialCalendarData();
+    });
+  }
+
+  onEdit(data : TaxDto) {
+    const dialogRef = this.dialog.open(TaxDefinitionEditComponent, {
+      width: '600px',
+      height: '550px',
       data : data
     });
-
     dialogRef.onClose.subscribe(() => {
-      this.initTagData();
+      this.initFinancialCalendarData();
     });
   }
 
-  changed(e: any, id: number) {
-    if (e.checked === false) {
-      this.generalSettingService.deactivate(id);
-    } else {
-      this.generalSettingService.activate(id);
-    }
-  }
+  onSearchChange(event : any) {
+    this.generalSettingService.getfinancialCalendar(event.target.value, new PageInfo());
 
-  newTag() {
-    const dialogRef = this.dialog.open(TagAddComponent, {
-      header : "Add New Tag",
-      width: '600px',
-      position: 'bottom-right' // Adjust position as needed
-    
-    });
-
-    dialogRef.onClose.subscribe(() => {
-      this.initTagData();
-    });
-  }
-
-  onSearchChange() {
-    this.generalSettingService.getTagList(this.searchTerm, new PageInfo());
-
-    this.generalSettingService.tagList.subscribe({
+    this.generalSettingService.financialCalendarDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
       },
     });
   }
-  Delete(id: number) {
-    this.generalSettingService.deleteTag(id);
-    const index = this.tableData.findIndex((item) => item.id === id);
-    if (index !== -1) {
-      this.tableData.splice(index, 1);
-    }
+
+  onDelete(id: number) {
+    // this.accountService.deleteTax(id);
   }
+
+ 
 }

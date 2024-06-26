@@ -10,6 +10,7 @@ import { TagEditComponent } from './components/tag-edit/tag-edit.component';
 import { TagListComponent } from './pages/tags/tag-list/tag-list.component';
 import { FinancialCalendarListComponent } from './pages/financial-calendar/financial-calendar-list/financial-calendar-list.component';
 import { CreateFinancialCalendarComponent } from './components/create-financial-calendar/create-financial-calendar.component';
+import { EditFinancialCalendarComponent } from './components/edit-financial-calendar/edit-financial-calendar.component';
 
 
 const routes: Routes = [
@@ -36,6 +37,22 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.calendar_list,
         },
       },
+      {
+        path: 'add-financial-calendar',
+        component: CreateFinancialCalendarComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.calendar_list,
+        },
+      },
+      {
+        path: 'edit-financial-calendar/:id',
+        component: EditFinancialCalendarComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.calendar_list,
+        },
+      },
 
     ],
   },
@@ -47,7 +64,8 @@ const routes: Routes = [
     TagAddComponent,
     TagEditComponent,
     FinancialCalendarListComponent,
-    CreateFinancialCalendarComponent
+    CreateFinancialCalendarComponent,
+    EditFinancialCalendarComponent
   ],
   imports: [
     CommonModule,
