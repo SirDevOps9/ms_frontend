@@ -10,11 +10,10 @@ import {
   LanguageService,
   EnvironmentService,
   RouteParams,
-  HttpService,
 } from 'shared-lib';
 import { PermissionTreeNode, RouteFilter, TokenRequestViewModel } from '../types';
 import { HttpParams } from '@angular/common/http';
-import { AuthProxy } from './auth.proxy';
+import { AuthProxy } from '.';
 @Injectable({
   providedIn: 'root',
 })
