@@ -3,12 +3,9 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { PageInfoResult, MenuModule, RouterService, PageInfo } from 'shared-lib';
 
 import { GeneralSettingService } from '../../../general-setting.service';
-import { TagDto, financialCalendar } from '../../../models';
+import {  financialCalendar } from '../../../models';
 import { AuthService } from 'microtec-auth-lib';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
-import { TaxDefinitionAddComponent } from 'projects/apps-accounting/src/app/modules/account/components/tax-definition-add/tax-definition-add.component';
-import { TaxDefinitionEditComponent } from 'projects/apps-accounting/src/app/modules/account/components/tax-definition-edit/tax-definition-edit.component';
-import { TaxDto } from 'projects/apps-accounting/src/app/modules/account/models';
 
 @Component({
   selector: 'app-financial-calendar-list',
@@ -68,26 +65,7 @@ export class FinancialCalendarListComponent implements OnInit {
     });
   }
 
-  onAdd() {
-    const dialogRef =  this.dialog.open(TaxDefinitionAddComponent, {
-      width: '600px',
-      height: '550px',
-    });
-    dialogRef.onClose.subscribe(() => {
-      this.initFinancialCalendarData();
-    });
-  }
 
-  onEdit(data : TaxDto) {
-    const dialogRef = this.dialog.open(TaxDefinitionEditComponent, {
-      width: '600px',
-      height: '550px',
-      data : data
-    });
-    dialogRef.onClose.subscribe(() => {
-      this.initFinancialCalendarData();
-    });
-  }
 
   onSearchChange(event : any) {
     this.generalSettingService.getfinancialCalendar(event.target.value, new PageInfo());

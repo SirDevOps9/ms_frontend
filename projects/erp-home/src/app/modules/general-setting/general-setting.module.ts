@@ -69,7 +69,6 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    CommonModule,
     SharedLibModule,
     AutoCompleteModule,
     RouterModule.forChild(routes),
