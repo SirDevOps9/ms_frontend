@@ -16,6 +16,7 @@ import { ViewJournalEntryComponent } from './pages/components/view-journal-entry
 import { GuidedTourModule, GuidedTourService } from "ngx-guided-tour";
 import { CostCenterAllocationPopupComponent } from './pages/components/cost-center-allocation-popup/cost-center-allocation-popup.component';
 import { EditCostCenterAllocationPopupComponent } from './pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component';
+import { TrialBlanceComponent } from './pages/report/trial-blance/trial-blance.component';
 
 const routes: Routes = [
   {
@@ -64,6 +65,14 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.JOURNAL_Edit,
         },
       },
+      {
+        path: 'reports/trial-balance',
+        component: TrialBlanceComponent,
+        //canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.JOURNAL_Edit,
+        },
+      },
     ],
   },
 ];
@@ -80,6 +89,7 @@ const routes: Routes = [
     ViewJournalEntryComponent,
     CostCenterAllocationPopupComponent,
     EditCostCenterAllocationPopupComponent,
+    TrialBlanceComponent,
   ],
   imports: [CommonModule, SharedLibModule, AutoCompleteModule,GuidedTourModule, RouterModule.forChild(routes)],
   providers:[GuidedTourService]

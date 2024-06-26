@@ -13,3 +13,5 @@ export * from './journalentrytemplatetype';
 export * from './journaltemplatedto';
 export * from './costLookup';
 export * from './costCenters';
+export * from './reportTrialDto';
+export * from './trialBalance';

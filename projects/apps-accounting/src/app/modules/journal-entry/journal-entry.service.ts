@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EditJournalEntry, JournalEntryDto, JournalEntryStatus } from './models';
+import { EditJournalEntry, JournalEntryDto, JournalEntryStatus, TrialBalance } from './models';
 import { BehaviorSubject, catchError, map } from 'rxjs';
 import {
   LanguageService,
@@ -17,8 +17,10 @@ import { JournalStatusUpdate } from './models/update-status';
 })
 export class JournalEntryService {
   private journalEntriesDataSource = new BehaviorSubject<JournalEntryDto[]>([]);
+  private trialDataSource = new BehaviorSubject<TrialBalance[]>([]);
 
   public journalEntries = this.journalEntriesDataSource.asObservable();
+  public report = this.trialDataSource.asObservable();
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
@@ -142,5 +144,10 @@ export class JournalEntryService {
         return res;
       })
     );
+  }
+  getTrialBalance(trial:TrialBalance) {
+    this.journalEntryProxy.getTrialBalance(trial).subscribe((response) => {
+      this.trialDataSource.next(response);
+    });
   }
 }
