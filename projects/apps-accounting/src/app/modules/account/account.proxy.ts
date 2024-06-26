@@ -113,6 +113,7 @@ export class AccountProxy {
     return this.httpService.get('CostCenter/CostCenterDropDown')
   }
 
+
   getAllTaxes(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<TaxDto>> {
     return this.httpService.get<PaginationVm<TaxDto>>(`Tax?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`);
   }
