@@ -251,9 +251,25 @@ export class AccountService {
     });
   }
   editAccount(account:accountById) {
-    this.accountproxy.editAccount(account).subscribe((res) => {
-      this.editAccountDataSource.next(res);
-    });
+    this.accountproxy.editAccount(account).subscribe({
+      next: (res) => {
+          
+        this.toasterService.showSuccess(
+          this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
+          this.languageService.transalte('ChartOfAccounts.SuccessMessage')
+        );
+        this.loaderService.hide();
+        this.editAccountDataSource.next(res);
+      },
+      error: (error) => {
+        this.loaderService.hide();
+        this.toasterService.showError(
+          this.languageService.transalte('ChartOfAccounts.Error'),(error.message)
+        );
+      },
+    }
+      
+    );
   }
 
   async deleteAccount(accountId: number) {

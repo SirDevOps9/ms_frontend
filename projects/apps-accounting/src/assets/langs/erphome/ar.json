@@ -257,6 +257,8 @@
     "Active": "نشط",
     "Inactive": "غير نشط",
     "periodicActive": "نشط دوريًا",
+    "SuccessTitle": "تم بنجاح",
+    "Error": "خطأ",
     "Yes": "نعم",
     "No": "لا",
     "Save": "حفظ"
