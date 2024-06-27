@@ -39,7 +39,37 @@ input[type=checkbox]{
     .group{
         .p-multiselect {
             width: 100% !important;
+            height: 45px !important;
         }
       
     }
+    
+        .p-checkbox .p-checkbox-box.p-highlight {
+            border-color: #1A8EAE !important;
+            background: #1A8EAE !important;
+          }
+          .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
+          
+            box-shadow: none !important;
+        }
+    
 }
+// #printableTable {
+//     display: none;
+//   }
+  
+//   /* Show the printable table during print */
+//   @media print {
+//     body * {
+//       visibility: hidden;
+//     }
+//     #printableTable, #printableTable * {
+//       visibility: visible;
+//     }
+//     #printableTable {
+//       position: absolute;
+//       left: 0;
+//       top: 0;
+//       display: block;
+//     }
+//   }

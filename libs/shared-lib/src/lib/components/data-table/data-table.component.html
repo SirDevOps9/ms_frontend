@@ -19,7 +19,7 @@
         styleClass="p-datatable-striped p-datatable-gridlines" 
         [scrollable]="true" 
         [resizableColumns]="resizableColumns"
-
+      [ngClass]="{'empty': items.length<=0}"
 
       >
         <ng-template pTemplate="caption">

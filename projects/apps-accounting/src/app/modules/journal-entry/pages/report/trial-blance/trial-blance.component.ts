@@ -40,8 +40,10 @@ defoultSelectedAcounts:number[]=[]
       this.getTrialBalance()
 
     }, 500);
-    this.reportTrialForm.valueChanges.subscribe(()=>{
+    this.reportTrialForm.valueChanges.subscribe((res)=>{
       this.tableData=[]
+      console.log(res ,"res change");
+      
     }
     )
 
@@ -49,24 +51,7 @@ defoultSelectedAcounts:number[]=[]
   printTable(id:string){
   this.PrintService.print(id)
   }
-//   print(){
-//     const printableTable = document.getElementById('printableTable');
 
-//   if (printableTable) {
-//     const printContents = printableTable.innerHTML;
-//     const originalContents = document.body.innerHTML;
-
-//     document.body.innerHTML = printContents;
-
-//     window.print();
-//     printableTable.style.visibility = 'hidden';
-
-//   }else{
-//     console.log("errrrrrrrrr");
-    
-//   }
-//   window.location.reload()
-// }
   getAccounts() {
     this.accountService
       .getAccountsHasNoChildren('', new PageInfo())

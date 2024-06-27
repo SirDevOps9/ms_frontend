@@ -52,7 +52,7 @@
   
             </div>
           </form>
-          <div *ngFor="let table of tableData">
+          <div class="mb-4"  *ngFor="let table of tableData">
             <lib-data-table [items]="table?.journalEntryDtos!" className="p-datatable-gridlines" [tableConfigs]="{
                 allowPagination: false,
                 allowServerPagination: false,

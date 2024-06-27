@@ -66,6 +66,9 @@ input[type=checkbox]{
     }
 }
 ::ng-deep{
+  .p-datatable-wrapper {
+    height: auto !important;
+  }
     .group{
         .p-multiselect {
             width: 100% !important;
