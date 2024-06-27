@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { reportTrialDto } from '../../../models';
-import { LanguageService, PageInfo, RouterService, ToasterService, customValidators } from 'shared-lib';
+import { LanguageService, PageInfo, PrintService, RouterService, ToasterService, customValidators } from 'shared-lib';
 import { Title } from '@angular/platform-browser';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -18,9 +18,6 @@ export class TrialBlanceComponent implements OnInit {
 defoultSelectedAcounts:number[]=[]
  
   tableData: reportTrialDto[];
-  cols: any[] = [];
- 
-
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
@@ -28,7 +25,8 @@ defoultSelectedAcounts:number[]=[]
     private titleService: Title,
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
-    private ToasterService:ToasterService
+    private ToasterService:ToasterService,
+    private PrintService:PrintService
   ) {}
 
   ngOnInit() {
@@ -48,21 +46,27 @@ defoultSelectedAcounts:number[]=[]
     )
 
   }
-  print(){
-    const printableTable = document.getElementById('printableTable');
-
-  if (printableTable) {
-    const printContents = printableTable.innerHTML;
-    const originalContents = document.body.innerHTML;
-
-    document.body.innerHTML = printContents;
-
-    window.print();
-  }else{
-    console.log("errrrrrrrrr");
-    
+  printTable(id:string){
+  this.PrintService.print(id)
   }
-}
+//   print(){
+//     const printableTable = document.getElementById('printableTable');
+
+//   if (printableTable) {
+//     const printContents = printableTable.innerHTML;
+//     const originalContents = document.body.innerHTML;
+
+//     document.body.innerHTML = printContents;
+
+//     window.print();
+//     printableTable.style.visibility = 'hidden';
+
+//   }else{
+//     console.log("errrrrrrrrr");
+    
+//   }
+//   window.location.reload()
+// }
   getAccounts() {
     this.accountService
       .getAccountsHasNoChildren('', new PageInfo())

@@ -1,8 +1,13 @@
 <lib-page-content>
   <lib-bread-crumb></lib-bread-crumb>
   <div class="user_page">
-    <lib-data-table  [items]="tableData" className="p-datatable-gridlines" [tableConfigs]="{
+    <lib-data-table  id="printableTable"  
+    [resizableColumns]="false"
+    [items]="tableData"
+     className="p-datatable-gridlines"
+      [tableConfigs]="{
           allowPagination: true,
+          
           allowServerPagination: false,
           dataKey: 'id',
           pageSize: 10,
@@ -128,7 +133,7 @@
               <div class="col-12 md:col-4 ">
                 <div class="container_checkbox body_b16">
                   <label for="unposted"> {{'reportTrial.unposted' | translate}}</label>
-                  <input id="unposted" type="checkbox" formControlName="unposted">
+                  <input id="unposted" type="checkbox" formControlName="unposted" class="custom-checkbox">
                 </div>
               </div>
               <div class="col-12 md:col-3 ">
@@ -136,7 +141,7 @@
                   <lib-button-micro title="view data" nameClass="save" iconName="pi pi-circle" (click)="getTrialBalance()">
 
                   </lib-button-micro>
-                  <button class="btn_ex" (click)="print()">
+                  <button class="btn_ex" (click)="printTable('printableTable')">
                     <span class="pi pi-print"></span>
                   </button>
                 </div>
@@ -153,7 +158,7 @@
         </div>
       </ng-template>
     </lib-data-table>
-    <lib-table-print id="printableTable" [items]="tableData" className="p-datatable-gridlines" [tableConfigs]="{
+    <!-- <lib-table-print  [items]="tableData" className="p-datatable-gridlines" [tableConfigs]="{
       allowPagination: false,
       allowServerPagination: false,
       dataKey: 'id',
@@ -304,6 +309,6 @@
       <p>{{ trial.accountName}} <span class="accountNature">({{ trial.accountNature}})</span></p>
     </div>
   </ng-template>
-</lib-table-print>
+</lib-table-print> -->
   </div>
 </lib-page-content>

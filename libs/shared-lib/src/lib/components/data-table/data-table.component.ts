@@ -20,6 +20,7 @@ import { NgIfContext } from '@angular/common';
 export class DataTableComponent implements OnInit {
   @Input() items: any[];
   @Input() selectedIndex: number;
+  @Input() resizableColumns: boolean = true;
   @Input() currentPageResult: PageInfoResult;
 
   @Input() tableConfigs: TableConfig;
