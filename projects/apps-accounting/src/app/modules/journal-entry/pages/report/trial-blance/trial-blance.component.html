@@ -1,7 +1,7 @@
 <lib-page-content>
   <lib-bread-crumb></lib-bread-crumb>
   <div class="user_page">
-    <lib-data-table [items]="tableData" className="p-datatable-gridlines" [tableConfigs]="{
+    <lib-data-table  [items]="tableData" className="p-datatable-gridlines" [tableConfigs]="{
           allowPagination: true,
           allowServerPagination: false,
           dataKey: 'id',
@@ -136,7 +136,7 @@
                   <lib-button-micro title="view data" nameClass="save" iconName="pi pi-circle" (click)="getTrialBalance()">
 
                   </lib-button-micro>
-                  <button class="btn_ex">
+                  <button class="btn_ex" (click)="print()">
                     <span class="pi pi-print"></span>
                   </button>
                 </div>
@@ -153,5 +153,157 @@
         </div>
       </ng-template>
     </lib-data-table>
+    <lib-table-print id="printableTable" [items]="tableData" className="p-datatable-gridlines" [tableConfigs]="{
+      allowPagination: false,
+      allowServerPagination: false,
+      dataKey: 'id',
+      pageSize: 10,
+      columns: [
+        {
+          name: 'accountCode',
+          headerText: ('reportTrial.accountCode'| translate),
+          isGlobalFilter: true,
+          isSortable: true,
+          rowspan:'3',
+          
+
+        
+        },
+        {
+          name: 'accountName',
+          headerText: ('reportTrial.accountName'| translate),
+          isGlobalFilter: true,
+          isSortable: true,
+          rowspan:'3',
+          template:accountName
+        },
+        {
+          name: 'openingBalance',
+          headerText: ('reportTrial.Openingbalance'| translate),
+          colspan:'2',
+          class:'trial_balance',
+          children:[
+          {
+          name: 'debit',
+          headerText: ('reportTrial.debit'| translate),
+          class:'debit',
+        },
+        {
+          name: 'credit',
+          headerText: ('reportTrial.credit'| translate),
+          class:'trial_balance credit',
+          body_class:'body_credit'
+        }
+            ]
+        },
+       
+        {
+          name: 'transactionBalance',
+          headerText:('reportTrial.transactionBalance'| translate),
+          isGlobalFilter: true,
+          isSortable: true,
+          colspan:'2',
+          class:'trial_balance',
+          children:[
+          {
+          name: 'debit',
+          headerText: ('reportTrial.debit'| translate),
+          class:'debit',
+        },
+        {
+          name: 'credit',
+          headerText: ('reportTrial.credit'| translate),
+          class:'trial_balance credit',
+          body_class:'body_credit'
+        },
+          ]
+        },
+      
+        {
+          name: 'endingBalance',
+          headerText: ('reportTrial.Closingbalance'| translate),
+          isGlobalFilter: true,
+          isSortable: true,
+          colspan:'2',
+          class:'trial_balance',
+          children:[
+          {
+          name: 'debit',
+          headerText: ('reportTrial.debit'| translate),
+          class:'debit',
+         
+        
+        },
+        {
+          name: 'credit',
+          headerText: ('reportTrial.credit'| translate),
+          class:'trial_balance credit ',
+          body_class:'body_credit'
+        },
+          ]
+        }
+      
+     
+      ]
+    }">
+  <ng-container caption>
+    <form [formGroup]="reportTrialForm">
+
+
+      <div class="group">
+        <div class="calender">
+          <div class="grid">
+            <div class="col-12 md:col-4 ">
+              <lib-text-input [type]="'date'" formControlName="dateFrom">
+
+              </lib-text-input>
+            </div>
+            <div class="col-12 md:col-4 ">
+              <lib-text-input [type]="'date'" formControlName="dateTo">
+
+              </lib-text-input>
+            </div>
+            <div class="col-12 md:col-4 ">
+              <lib-multi-select formControlName="Accounts" [options]="filteredAccounts" optionValue="id"
+                optionLabel="displayName" [selectedValue]="defoultSelectedAcounts"></lib-multi-select>
+            </div>
+          </div>
+        </div>
+        
+        <div class="grid">
+          <div class="col-12 md:col-5 ">
+            <div class="container_checkbox" for="posted">
+              <label for="posted" class=" body_b16">  {{'reportTrial.posted' | translate}}</label>
+              <input id="posted" type="checkbox" formControlName="posted">
+            </div>
+          </div>
+          <div class="col-12 md:col-4 ">
+            <div class="container_checkbox body_b16">
+              <label for="unposted"> {{'reportTrial.unposted' | translate}}</label>
+              <input id="unposted" type="checkbox" formControlName="unposted">
+            </div>
+          </div>
+          <div class="col-12 md:col-3 ">
+            <div class="all_btn">
+              <lib-button-micro title="view data" nameClass="save" iconName="pi pi-circle" (click)="getTrialBalance()">
+
+              </lib-button-micro>
+              <button class="btn_ex" (click)="print()">
+                <span class="pi pi-print"></span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </ng-container>
+  <ng-template #accountName let-trial>
+    <div>
+      <p>{{ trial.accountName}} <span class="accountNature">({{ trial.accountNature}})</span></p>
+    </div>
+  </ng-template>
+</lib-table-print>
   </div>
 </lib-page-content>

@@ -48,6 +48,21 @@ defoultSelectedAcounts:number[]=[]
     )
 
   }
+  print(){
+    const printableTable = document.getElementById('printableTable');
+
+  if (printableTable) {
+    const printContents = printableTable.innerHTML;
+    const originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+
+    window.print();
+  }else{
+    console.log("errrrrrrrrr");
+    
+  }
+}
   getAccounts() {
     this.accountService
       .getAccountsHasNoChildren('', new PageInfo())

@@ -10,6 +10,7 @@ import {
   DataTableComponent,
   TablePaginatorComponent,
   ButtonMicroComponent,
+  TablePrintComponent
   
   
   
@@ -74,7 +75,8 @@ import { SelectIconComponent } from './form-components/selectIcon/selectIcon.com
     FildestComponent,
     ButtonMicroComponent,
     ToggelComponent, 
-    GetElementByIDPipe
+    GetElementByIDPipe,
+    TablePrintComponent 
   ],
   imports: [
     CommonModule,
@@ -126,7 +128,8 @@ import { SelectIconComponent } from './form-components/selectIcon/selectIcon.com
     ButtonMicroComponent,
     ToggelComponent,
     
-    GetElementByIDPipe
+    GetElementByIDPipe,
+    TablePrintComponent
   ],
 })
 export class SharedLibModule {}
