@@ -292,7 +292,7 @@
               </td>
               <!-- fg.controls['account']?.value , i -->
               <td>
-                <img class="costCenterImg" src="assets/images/Frame.png" (click)="openCostPopup(journalLine.value , journalLine.controls['account']?.value , rowIndex)">
+                <img class="costCenterImg" src="assets/images/Frame.png" (click)="openCostPopup(journalLine.value , journalLine.controls['accountId']?.value , rowIndex)">
               </td>
               <td   *ngIf="
               journalEntry?.status == enums.JournalEntryStatus.Unbalanced ||

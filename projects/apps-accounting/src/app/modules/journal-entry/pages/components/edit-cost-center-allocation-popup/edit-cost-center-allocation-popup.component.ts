@@ -130,6 +130,11 @@ export class EditCostCenterAllocationPopupComponent implements OnInit  , AfterVi
     this.allocationform.push(this.createItem())
   }
 
+  onDelete(index:number ) {
+      this.allocationform.removeAt(index);
+    
+  }
+
   validateInput(event: any): void {
     const input = event.target as HTMLInputElement;
     const value = input.value;
