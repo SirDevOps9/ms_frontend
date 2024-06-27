@@ -1,8 +1,14 @@
 <lib-page-content>
   <lib-bread-crumb></lib-bread-crumb>
   <div class="user_page">
-    <lib-data-table [items]="tableData" className="p-datatable-gridlines" [tableConfigs]="{
+    <lib-data-table 
+    id="printableTable"   
+    [resizableColumns]="false"
+    [items]="tableData"
+     className="p-datatable-gridlines"
+      [tableConfigs]="{
           allowPagination: true,
+          
           allowServerPagination: false,
           dataKey: 'id',
           pageSize: 10,
@@ -112,7 +118,7 @@
                   </lib-text-input>
                 </div>
                 <div class="col-12 md:col-4 ">
-                  <lib-multi-select formControlName="Accounts" [options]="filteredAccounts" optionValue="id"
+                  <lib-multi-select   formControlName="Accounts" [options]="filteredAccounts" optionValue="id"
                     optionLabel="displayName" [selectedValue]="defoultSelectedAcounts"></lib-multi-select>
                 </div>
               </div>
@@ -122,13 +128,23 @@
               <div class="col-12 md:col-5 ">
                 <div class="container_checkbox" for="posted">
                   <label for="posted" class=" body_b16">  {{'reportTrial.posted' | translate}}</label>
-                  <input id="posted" type="checkbox" formControlName="posted">
+                  <!-- <input id="posted" type="checkbox" formControlName="posted"> -->
+                  <p-checkbox
+                  formControlName="posted"  
+                  binary="true"
+                  inputId="posted"
+                ></p-checkbox>
                 </div>
               </div>
               <div class="col-12 md:col-4 ">
                 <div class="container_checkbox body_b16">
                   <label for="unposted"> {{'reportTrial.unposted' | translate}}</label>
-                  <input id="unposted" type="checkbox" formControlName="unposted">
+                  <!-- <input id="unposted" type="checkbox" formControlName="unposted" class="custom-checkbox"> -->
+                  <p-checkbox
+                  formControlName="unposted"  
+                  binary="true"
+                  inputId="unposted"
+                ></p-checkbox>
                 </div>
               </div>
               <div class="col-12 md:col-3 ">
@@ -136,7 +152,7 @@
                   <lib-button-micro title="view data" nameClass="save" iconName="pi pi-circle" (click)="getTrialBalance()">
 
                   </lib-button-micro>
-                  <button class="btn_ex">
+                  <button class="btn_ex" (click)="printTable('printableTable')">
                     <span class="pi pi-print"></span>
                   </button>
                 </div>
