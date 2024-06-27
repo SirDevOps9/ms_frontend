@@ -10,7 +10,9 @@ import {
   DataTableComponent,
   TablePaginatorComponent,
   ButtonMicroComponent,
-  TablePrintComponent
+  TablePrintComponent,
+  ToastComponent
+  
   
   
   
@@ -45,6 +47,8 @@ import { FildestComponent } from './components/fildest/fildest.component';
 import { GetElementByIDPipe } from './pipes/get-element-by-id.pipe';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SelectIconComponent } from './form-components/selectIcon/selectIcon.component';
+import { UploadMultipeFilesComponent } from './form-components/upload-multipe-files/upload-multipe-files.component';
+import { CalendarComponent } from './form-components/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +80,10 @@ import { SelectIconComponent } from './form-components/selectIcon/selectIcon.com
     ButtonMicroComponent,
     ToggelComponent, 
     GetElementByIDPipe,
-    TablePrintComponent 
+    TablePrintComponent ,
+    ToastComponent,
+    UploadMultipeFilesComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule,
@@ -90,7 +97,8 @@ import { SelectIconComponent } from './form-components/selectIcon/selectIcon.com
     PrimeSharedModule,
     TreeTableModule,
     TreeModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    
   ],
   exports: [
     GetLookupPipe,
@@ -127,9 +135,11 @@ import { SelectIconComponent } from './form-components/selectIcon/selectIcon.com
     FildestComponent,
     ButtonMicroComponent,
     ToggelComponent,
-    
+    CalendarComponent,
     GetElementByIDPipe,
-    TablePrintComponent
+    TablePrintComponent,
+    ToastComponent,
+    UploadMultipeFilesComponent
   ],
 })
 export class SharedLibModule {}

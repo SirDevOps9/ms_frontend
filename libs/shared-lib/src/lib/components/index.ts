@@ -6,3 +6,4 @@ export * from './attachment-viewer/attachment-viewer.component';
 export * from './table-paginator/table-paginator.component';
 export * from  './button-micro/button-micro.component';
 export * from  './table-print/table-print.component';
+export * from  './toast/toast.component';

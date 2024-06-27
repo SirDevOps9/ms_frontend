@@ -330,6 +330,29 @@
 
       }
   
+    },
+    "financialCalendar" : {
+      "selectYear" : "Select Year",
+      "code" : "Code",
+      "fromDate" : "From Date",
+      "toDate" : "to Date",
+      "name" : "Name",
+      "generate" : "Generate Periods",
+      "open" : "Open Financial Year",
+      "close" : "Close Financial Year",
+      "month" : "Month",
+      "status" : "Status",
+      "year" : "Year",
+      "periodStart" : "Period Start",
+      "periodend" : "Period end",
+      "periodStatus" : "Period Status",
+      "actions" : "Actions"
+    },
+    "addFinancialCalendar" :  {
+       "success":"Success",
+       "successAdd":"Financial Calendar Added Successfully",
+       "successEdit":"Financial Calendar Edited Successfully",
+       "openSuccess":"Financial Calendar Opened Successfully"
     }
   
 }

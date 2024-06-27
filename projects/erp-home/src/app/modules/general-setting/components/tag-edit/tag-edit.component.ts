@@ -4,8 +4,8 @@ import { AuthService } from 'microtec-auth-lib';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { GeneralSettingService } from '../../general-setting.service';
 import { MenuModule, customValidators } from 'shared-lib';
-import { TagDto } from '../../models/tagDto';
 import { LayoutService } from 'libs/apps-shared-lib/src/lib/modules/layout/layout.service';
+import { TagDto } from '../../models';
 
 @Component({
   selector: 'app-tag-edit',

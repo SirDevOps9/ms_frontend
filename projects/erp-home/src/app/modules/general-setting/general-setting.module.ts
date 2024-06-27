@@ -8,6 +8,9 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TagAddComponent } from './components/tag-add/tag-add.component';
 import { TagEditComponent } from './components/tag-edit/tag-edit.component';
 import { TagListComponent } from './pages/tags/tag-list/tag-list.component';
+import { FinancialCalendarListComponent } from './pages/financial-calendar/financial-calendar-list/financial-calendar-list.component';
+import { CreateFinancialCalendarComponent } from './components/create-financial-calendar/create-financial-calendar.component';
+import { EditFinancialCalendarComponent } from './components/edit-financial-calendar/edit-financial-calendar.component';
 
 
 const routes: Routes = [
@@ -26,6 +29,30 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.tag_list,
         },
       },
+      {
+        path: 'financial-calendar',
+        component: FinancialCalendarListComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.calendar_list,
+        },
+      },
+      {
+        path: 'add-financial-calendar',
+        component: CreateFinancialCalendarComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.calendar_list,
+        },
+      },
+      {
+        path: 'edit-financial-calendar/:id',
+        component: EditFinancialCalendarComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.calendar_list,
+        },
+      },
 
     ],
   },
@@ -35,10 +62,12 @@ const routes: Routes = [
   declarations: [
     TagListComponent,
     TagAddComponent,
-    TagEditComponent
+    TagEditComponent,
+    FinancialCalendarListComponent,
+    CreateFinancialCalendarComponent,
+    EditFinancialCalendarComponent
   ],
   imports: [
-    CommonModule,
     CommonModule,
     SharedLibModule,
     AutoCompleteModule,

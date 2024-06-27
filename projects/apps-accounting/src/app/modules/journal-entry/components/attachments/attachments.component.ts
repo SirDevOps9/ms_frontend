@@ -11,7 +11,7 @@ import { customValidators } from 'shared-lib';
 export class AttachmentsComponent {
 
   attachments: FormArray;
-
+  filesData : any = []
   addAttachment() {
     this.attachments.push(this.fb.group({
       attachmentId: ['', customValidators.required],
@@ -27,6 +27,13 @@ export class AttachmentsComponent {
     private fb: FormBuilder,
     private ref: DynamicDialogRef,
     ) {
-      this.attachments = config.data.attachments;
+      this.filesData = config.data;
+      console.log(this.filesData)
   }
+
+  files(data:any) {
+    // this.filesData = data
+  }
+
+
 }

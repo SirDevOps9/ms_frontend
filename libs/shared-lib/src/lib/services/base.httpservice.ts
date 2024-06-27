@@ -9,6 +9,7 @@ import { ToasterService } from './toaster.service';
 import { AuthService } from 'microtec-auth-lib';
 import { EnvironmentService } from './environment.service';
 import { DefaultExceptionModel } from '../models';
+import { UploadFileResult } from '../models/uploadFileResult';
 
 @Injectable({
   providedIn: 'root',
@@ -102,6 +103,12 @@ export class HttpService {
   }
 
   postFullUrl(url: string, data: any, showError: boolean = true) {
+    return this.addHeaders().pipe(
+      switchMap((headers) => this.http.post(`${url}`, data, { headers, responseType: 'text' })),
+      catchError((response: HttpErrorResponse) => this.errorHandler(url, response, data, showError))
+    );
+  }
+  postFullUrlMulti(url: string, data: any, showError: boolean = true) : Observable<UploadFileResult> {
     return this.addHeaders().pipe(
       switchMap((headers) => this.http.post(`${url}`, data, { headers, responseType: 'text' })),
       catchError((response: HttpErrorResponse) => this.errorHandler(url, response, data, showError))

@@ -12,6 +12,15 @@
     border-color: #d14a38;
     }
 }
+
+::ng-deep .addToList {
+  .p-button {
+    color: #ffffff;
+    background: #1A8EAE;
+    text-align: center;
+    width: 200px;
+}
+}
 ::ng-deep .orange {
   .p-button {
     color: #ffffff;

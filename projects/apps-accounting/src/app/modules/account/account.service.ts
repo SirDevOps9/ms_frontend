@@ -103,6 +103,8 @@ export class AccountService {
       })
     );
   }
+
+
   getTreeList() {
     return this.accountproxy.getTreeList().pipe(
       map((res) => {
@@ -439,6 +441,9 @@ export class AccountService {
             );
             this.loaderService.hide();
             this.costCenterData.next(res);
+            const currentCostCenter = this.parentAccountsostCenter.getValue();
+            const updatedCostCenter = currentCostCenter.filter((c) => c.id !== costId);
+            this.parentAccountsostCenter.next(updatedCostCenter);
           },
           error: () => {
             this.loaderService.hide();
