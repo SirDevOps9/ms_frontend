@@ -28,13 +28,23 @@
                 <div class="col-12 md:col-5 ">
                   <div class="container_checkbox" for="posted">
                     <label for="posted" class=" body_b16">  {{'reportTrial.posted' | translate}}</label>
-                    <input id="posted" type="checkbox" formControlName="posted">
+                    <!-- <input id="posted" type="checkbox" formControlName="posted"> -->
+                    <p-checkbox
+                    formControlName="posted"  
+                    binary="true"
+                    inputId="posted"
+                  ></p-checkbox>
                   </div>
                 </div>
                 <div class="col-12 md:col-4 ">
                   <div class="container_checkbox body_b16">
                     <label for="unposted"> {{'reportTrial.unposted' | translate}}</label>
-                    <input id="unposted" type="checkbox" formControlName="unposted">
+                    <!-- <input id="unposted" type="checkbox" formControlName="unposted"> -->
+                    <p-checkbox
+                    formControlName="unposted"  
+                    binary="true"
+                    inputId="unposted"
+                  ></p-checkbox>
                   </div>
                 </div>
                 <div class="col-12 md:col-3 ">
