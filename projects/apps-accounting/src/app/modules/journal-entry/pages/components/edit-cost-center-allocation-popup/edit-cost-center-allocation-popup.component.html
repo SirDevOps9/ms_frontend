@@ -26,6 +26,7 @@
             <th>Cost Center</th>
             <th>Percentage ({{calcPercentage}}) %</th>
             <th>Amount ({{calcAmount}})</th>
+            <th>Action</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-costCenter let-i="rowIndex">
@@ -68,6 +69,9 @@
             ></lib-text-input>
             </td>
             <!--  -->
+            <td>
+              <i class="pi pi-trash pointer" (click)="onDelete(i )"></i>
+            </td>
            
             
           </tr>

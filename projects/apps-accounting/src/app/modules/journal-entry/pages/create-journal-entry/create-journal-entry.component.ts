@@ -2,6 +2,7 @@ import { CurrencyService } from './../../../general/currency.service';
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
+  AttachmentsService,
   FormsService,
   LanguageService,
   PageInfo,
@@ -58,6 +59,8 @@ export interface JournalEntryFormValue {
 export class CreateJournalEntryComponent {
   fg: FormGroup;
   filteredAccounts: AccountDto[] = [];
+  journalEntryAttachments: { attachmentId: string; name: string }[];
+
   currencies: CurrencyDto[];
   fitleredCurrencies: CurrencyDto[];
   costCenters : costCenters[] = []
@@ -136,7 +139,8 @@ export class CreateJournalEntryComponent {
     private titleService: Title,
     private langService: LanguageService,
     private formService: FormsService,
-    private guidedTourService: GuidedTourService
+    private guidedTourService: GuidedTourService,
+    private attachmentService : AttachmentsService
 
   ) {
     this.fg = this.fb.group({
@@ -144,9 +148,12 @@ export class CreateJournalEntryComponent {
       journalDate: [this.getTodaysDate(), customValidators.required],
       periodId: ['Period1', customValidators.required],
       description: ['', customValidators.required],
-      journalEntryAttachments: fb.array([]),
+      
       journalEntryLines: fb.array([]),
     });
+
+
+    
   }
 
 
@@ -159,11 +166,26 @@ export class CreateJournalEntryComponent {
   }
 
   openAttachments() {
-    this.dialog.open(AttachmentsComponent, {
+  const dialog =  this.dialog.open(AttachmentsComponent, {
       header: 'Attachments',
-      data: { attachments: this.attachments },
-      width: '500px',
+      data: this.attachmentService.filesInfo,
+      width: '700px',
     });
+
+    dialog.onClose.subscribe(res=>{
+      this.attachmentService.attachmentIdsObservable.subscribe(res=>{
+       this.journalEntryAttachments = this.attachmentService.filesInfo.map((item : any , i : number)=>{
+        return {
+          attachmentId : res[i],
+          name : this.attachmentService.filesName[i]
+        }
+       })
+
+       console.log(this.journalEntryAttachments)
+      })
+
+    })
+    
   }
 
   filterAccount(event: any) {
@@ -360,6 +382,7 @@ export class CreateJournalEntryComponent {
 
     let obj: AddJournalEntryCommand = {
       ...value,
+      journalEntryAttachments : this.journalEntryAttachments,
       journalEntryLines: value.journalEntryLines.map((l, i) => ({
         accountId: this.fa.value[i].account,
         creditAmount: l.creditAmount,

@@ -294,6 +294,9 @@ getAccounts() {
 
   openCostPopup(data : any , account : number , index : number) {
     let accountData = this.filteredAccounts.find(elem=>elem.id === account)
+    console.log(accountData)
+    console.log(this.filteredAccounts)
+    console.log(account)
     if(!data.creditAmount && !data.debitAmount || !account || accountData?.costCenterConfig == 'NotAllow'){
       return null
     }else {

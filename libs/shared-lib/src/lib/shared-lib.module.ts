@@ -45,6 +45,8 @@ import { FildestComponent } from './components/fildest/fildest.component';
 import { GetElementByIDPipe } from './pipes/get-element-by-id.pipe';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SelectIconComponent } from './form-components/selectIcon/selectIcon.component';
+import { UploadMultipeFilesComponent } from './form-components/upload-multipe-files/upload-multipe-files.component';
+import { CalendarComponent } from './form-components/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,9 @@ import { SelectIconComponent } from './form-components/selectIcon/selectIcon.com
     ButtonMicroComponent,
     ToggelComponent, 
     GetElementByIDPipe,
-    ToastComponent
+    ToastComponent,
+    UploadMultipeFilesComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule,
@@ -128,9 +132,10 @@ import { SelectIconComponent } from './form-components/selectIcon/selectIcon.com
     FildestComponent,
     ButtonMicroComponent,
     ToggelComponent,
-    
+    CalendarComponent,
     GetElementByIDPipe,
-    ToastComponent
+    ToastComponent,
+    UploadMultipeFilesComponent
   ],
 })
 export class SharedLibModule {}
