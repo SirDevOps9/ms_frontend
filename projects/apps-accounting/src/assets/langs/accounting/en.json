@@ -139,5 +139,26 @@
     "Success": "Success",
     "CannotDeleteCostCenter": " Cannot Delete Cost Center Used In Transactions",
     "Error": "Error"
+  },
+  "reportTrial":{
+     "Error": "Error",
+     "selectfaild": "At least one field must be selected Posted or unposted",
+     "posted":"posted",
+     "unposted":"unposted",
+     "viewdata":"view data",
+     "accountCode":"account Code",
+     "accountName":"account Name",
+     "Openingbalance":"Opening balance",
+     "transactionBalance":"transaction Balance",
+     "Closingbalance":"Closing balance",
+     "debit":"debit",
+     "credit":"credit",
+     "reportTrial":"report Trial",
+     "trialBalance":"Trial Balance"
+
+  },
+  "reportAccount":{
+    "AccountStatement":"Account Statement"
   }
+
 }

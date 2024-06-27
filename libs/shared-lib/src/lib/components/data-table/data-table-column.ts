@@ -14,6 +14,11 @@ export class DataTableColumn {
   isGlobalFilter?: boolean;
 
   isSortable?: boolean;
+  rowspan?: string;
+  colspan?: string;
+  children?:DataTableColumn[];
+  class?:string;
+  body_class?:string;
 }
 
 export class TableConfig {

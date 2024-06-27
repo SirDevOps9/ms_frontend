@@ -1,5 +1,5 @@
 import { FilterDto, HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { JournalEntryDto, JournalEntryStatus, JournalEntryViewDto } from './models';
+import { JournalEntryDto, JournalEntryStatus, JournalEntryViewDto, TrialBalance, reportAccount } from './models';
 import { Observable } from 'rxjs';
 import { AddJournalEntryCommand } from './models/addJournalEntryCommand';
 import { EditJournalEntry, GetJournalEntryByIdDto } from './models';
@@ -52,6 +52,12 @@ export class JournalEntryProxy {
 
   getJournalView(id: number): Observable<JournalEntryViewDto> {
     return this.httpService.get<JournalEntryViewDto>(`JournalEntry/View?Id=${id}`);
+  }
+  getTrialBalance(trial:TrialBalance){
+    return this.httpService.post<TrialBalance>(`TrialBalance`,trial);
+  }
+  getAccountingReports(accounts:reportAccount){
+    return this.httpService.post<reportAccount>(`AccountingReports/AccountStatmentReport`,accounts);
   }
 
   constructor(private httpService: HttpService) {}

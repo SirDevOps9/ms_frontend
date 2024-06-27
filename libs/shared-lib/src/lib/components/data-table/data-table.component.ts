@@ -10,6 +10,7 @@ import {
 import { LanguageService, LookupsService } from '../../services';
 import { TableConfig } from './data-table-column';
 import { PageInfo, PageInfoResult } from '../../models';
+import { NgIfContext } from '@angular/common';
 
 @Component({
   selector: 'lib-data-table',
@@ -35,6 +36,7 @@ first:any=0;
 
   @ViewChild('customCellTemplate', { static: true })
   customCellTemplate?: TemplateRef<any>;
+  customParentCellTemplate: TemplateRef<NgIfContext<boolean>> | null;
 
   ngOnInit(): void {
     this.globalFilterFields = this.tableConfigs.columns
@@ -47,6 +49,9 @@ first:any=0;
   onPageChange(pageInfo: PageInfo) {
     
     this.pageChange.emit(pageInfo);
+  }
+  hasNestedHeaders(): boolean {
+    return this.tableConfigs.columns.some(col => col.children && col.children.length > 0);
   }
 
   constructor(

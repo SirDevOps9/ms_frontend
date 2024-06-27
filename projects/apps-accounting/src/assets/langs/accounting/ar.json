@@ -142,5 +142,19 @@
     "Success": "نجاح",
     "CannotDeleteCostCenter": "لا يمكن حذف مركز التكلفة المستخدم في المعاملات",
     "Error": "خطأ"
-  }
+  },
+  "reportTrial": {
+    "Error": "خطأ",
+    "selectfaild": "يجب اختيار حقل واحد على الأقل، مُرَحَّل أو غير مُرَحَّل",
+    "posted": "مُرَحَّل",
+    "unposted": "غير مُرَحَّل",
+    "viewdata": "عرض البيانات",
+    "accountCode": "رمز الحساب",
+    "accountName": "اسم الحساب",
+    "Openingbalance": "الرصيد الافتتاحي",
+    "transactionBalance": "رصيد العمليات",
+    "Closingbalance": "الرصيد الختامي",
+    "debit": "مدين",
+    "credit": "دائن"
+}
 }
