@@ -1,3 +1,4 @@
+import { MessageModule } from 'primeng/message';
 import { NgModule } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
@@ -19,9 +20,11 @@ import { RatingModule } from 'primeng/rating';
 import { CalendarModule } from 'primeng/calendar';
 import { FieldsetModule } from 'primeng/fieldset';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
-  providers: [DialogService],
+  providers: [DialogService , MessageService],
   declarations: [
   ],
   imports: [
@@ -42,7 +45,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     CheckboxModule,
     PaginatorModule,
     RadioButtonModule,
-    CalendarModule
+    CalendarModule,
+    ToastModule,
+    MessageModule
   ],
   exports: [
     TableModule,
@@ -64,7 +69,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     RatingModule,
     CalendarModule,
     FieldsetModule,
-    RadioButtonModule
+    RadioButtonModule,
+    ToastModule,
+    MessageModule
   ],
 })
 export class PrimeSharedModule {}

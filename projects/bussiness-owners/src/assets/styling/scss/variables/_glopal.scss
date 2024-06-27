@@ -5,6 +5,9 @@ body{
     box-sizing: border-box;
     text-transform: capitalize;
 }
+.swal2-toast-shown .swal2-container {
+    z-index: 1260 !important;
+}
 .p-dialog-mask{
     justify-content: end !important;
     align-items: end !important;

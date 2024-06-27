@@ -10,6 +10,7 @@ import {
   DataTableComponent,
   TablePaginatorComponent,
   ButtonMicroComponent,
+  ToastComponent,
   
   
   
@@ -77,6 +78,7 @@ import { CalendarComponent } from './form-components/calendar/calendar.component
     ButtonMicroComponent,
     ToggelComponent, 
     GetElementByIDPipe,
+    ToastComponent,
     UploadMultipeFilesComponent,
     CalendarComponent
   ],
@@ -92,7 +94,8 @@ import { CalendarComponent } from './form-components/calendar/calendar.component
     PrimeSharedModule,
     TreeTableModule,
     TreeModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    
   ],
   exports: [
     GetLookupPipe,
@@ -131,6 +134,7 @@ import { CalendarComponent } from './form-components/calendar/calendar.component
     ToggelComponent,
     CalendarComponent,
     GetElementByIDPipe,
+    ToastComponent,
     UploadMultipeFilesComponent
   ],
 })

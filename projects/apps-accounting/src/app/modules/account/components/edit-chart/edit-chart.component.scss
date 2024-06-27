@@ -42,5 +42,10 @@
       
     }
     }
-    
+    ::ng-deep{
+        .p-checkbox .p-checkbox-box.p-highlight {
+            border-color: #1A8EAE !important;
+            background: #1A8EAE !important;
+          }
+    }
     
