@@ -8,7 +8,7 @@ export const environment: IEnvironment = {
   Platform: 'Web',
   photoBaseUrl: 'https://intmicrotec.neat-url.com:2022',
   openIdConfig: {
-    authority: 'http://localhost:44310',
+    authority: 'https://intmicrotec.neat-url.com:2020', 
     redirectUrl: window.location.origin + '/erp/login-redirect',
     postLogoutRedirectUri: window.location.origin + '/erp/logout-redirect',
     clientId: 'microtec_erp_frontend',

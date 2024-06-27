@@ -152,7 +152,13 @@
      "transactionBalance":"transaction Balance",
      "Closingbalance":"Closing balance",
      "debit":"debit",
-     "credit":"credit"
+     "credit":"credit",
+     "reportTrial":"report Trial",
+     "trialBalance":"Trial Balance"
 
+  },
+  "reportAccount":{
+    "AccountStatement":"Account Statement"
   }
+
 }

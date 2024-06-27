@@ -1,4 +1,4 @@
-<div>
+<lib-page-content>
   <lib-bread-crumb></lib-bread-crumb>
   <div class="user_page">
     <lib-data-table [items]="tableData" className="p-datatable-gridlines" [tableConfigs]="{
@@ -13,6 +13,7 @@
               isGlobalFilter: true,
               isSortable: true,
               rowspan:'3',
+              
 
             
             },
@@ -21,7 +22,8 @@
               headerText: ('reportTrial.accountName'| translate),
               isGlobalFilter: true,
               isSortable: true,
-              rowspan:'3'
+              rowspan:'3',
+              template:accountName
             },
             {
               name: 'openingBalance',
@@ -97,22 +99,25 @@
 
 
           <div class="group">
-            <div class="grid">
-              <div class="col-12 md:col-4 ">
-                <lib-text-input [type]="'date'" formControlName="dateFrom">
-
-                </lib-text-input>
-              </div>
-              <div class="col-12 md:col-4 ">
-                <lib-text-input [type]="'date'" formControlName="dateTo">
-
-                </lib-text-input>
-              </div>
-              <div class="col-12 md:col-4 ">
-                <lib-multi-select formControlName="Accounts" [options]="filteredAccounts" optionValue="id"
-                  optionLabel="displayName" [selectedValue]="defoultSelectedAcounts"></lib-multi-select>
+            <div class="calender">
+              <div class="grid">
+                <div class="col-12 md:col-4 ">
+                  <lib-text-input [type]="'date'" formControlName="dateFrom">
+  
+                  </lib-text-input>
+                </div>
+                <div class="col-12 md:col-4 ">
+                  <lib-text-input [type]="'date'" formControlName="dateTo">
+  
+                  </lib-text-input>
+                </div>
+                <div class="col-12 md:col-4 ">
+                  <lib-multi-select formControlName="Accounts" [options]="filteredAccounts" optionValue="id"
+                    optionLabel="displayName" [selectedValue]="defoultSelectedAcounts"></lib-multi-select>
+                </div>
               </div>
             </div>
+            
             <div class="grid">
               <div class="col-12 md:col-5 ">
                 <div class="container_checkbox" for="posted">
@@ -142,7 +147,11 @@
           </div>
         </form>
       </ng-container>
-
+      <ng-template #accountName let-trial>
+        <div>
+          <p>{{ trial.accountName}} <span class="accountNature">({{ trial.accountNature}})</span></p>
+        </div>
+      </ng-template>
     </lib-data-table>
   </div>
-</div>
+</lib-page-content>

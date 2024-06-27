@@ -37,6 +37,8 @@ export class BreadcrumbLabel {
     static TAXS_GROUP ='Taxs Group';
     static TAXS_DEFINITION ='Taxs Definition';
     static COST_CENTER ='Cost Center';
+    static ACCOUNT_STATEMENT ='Account Statement';
+    static TRIAL_BALANCE ='Trial Balance';
    
 
     

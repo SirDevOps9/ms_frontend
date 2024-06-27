@@ -32,65 +32,7 @@ defoultSelectedAcounts:number[]=[]
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(this.languageService.transalte('JournalEntry.JournalEntryList'));
-    this.cols = [
-      {
-        field: 'Id',
-        header: 'Id',
-      },
-      {
-        field: 'Journal Code',
-        header: 'JournalCode',
-      },
-      {
-        field: 'Reference',
-        header: 'RefrenceNumber',
-      },
-      {
-        field: 'Date',
-        header: 'CreatedOn',
-      },
-      {
-        field: 'Type',
-        header: 'Type',
-      },
-      {
-        field: 'Document Name',
-        header: 'SourceName',
-      },
-      {
-        field: 'Document Code',
-        header: 'SourceCode',
-      },
-      {
-        field: 'Repeated',
-        header: 'IsRepeated',
-      },
-      {
-        field: 'Reversed',
-        header: 'IsReversed',
-      },
-      {
-        field: 'Status',
-        header: 'Status',
-      },
-      {
-        field: 'Debit',
-        header: 'TotalDebitAmount',
-      },
-      {
-        field: 'Credit',
-        header: 'TotalCreditAmount',
-      },
-      {
-        field: 'Returned',
-        header: '',
-      },
-      {
-        field: 'Actions',
-        header: 'Actions',
-      },
-    ];
+    this.titleService.setTitle(this.languageService.transalte('reportTrial.trialBalance'));
     this.tableData=[]
     this. initializeForm()
     this.getAccounts();
@@ -144,9 +86,10 @@ defoultSelectedAcounts:number[]=[]
     });
   }
   getTrialBalance(){
-    console.log(this.reportTrialForm.value);
     
     if(this.reportTrialForm.valid){
+      if( this.reportTrialForm.get('dateFrom')?.value < this.reportTrialForm.get('dateTo')?.value ){
+
       if(this.reportTrialForm.get('posted')?.value != true && this.reportTrialForm.get('unposted')?.value != true ){
         // At least one field must be selected
         this.ToasterService.showError(
@@ -160,6 +103,11 @@ defoultSelectedAcounts:number[]=[]
           this.tableData=res
           
         }))
+      } }else{
+        this.ToasterService.showError(
+          this.languageService.transalte('reportTrial.Error'),
+              this.languageService.transalte(' date From is not before the end of dateTo.')
+          )
       }
     }
   }

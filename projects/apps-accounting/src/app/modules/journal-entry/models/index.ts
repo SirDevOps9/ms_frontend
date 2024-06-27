@@ -15,3 +15,5 @@ export * from './costLookup';
 export * from './costCenters';
 export * from './reportTrialDto';
 export * from './trialBalance';
+export * from './report-journal-account-dto';
+export * from './report-account';
