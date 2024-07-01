@@ -353,6 +353,24 @@
        "successAdd":"Financial Calendar Added Successfully",
        "successEdit":"Financial Calendar Edited Successfully",
        "openSuccess":"Financial Calendar Opened Successfully"
+    },
+    "vendorCategory" : {
+      "categoryCode" : "Category Code",
+      "categoryName" : "Category Name",
+      "payableGlAccount" : "Payable GL Account",
+      "purchaseGlAccount" : "Purchase GL Account",
+      "purchaseReturnGlAccount" : "Purchase Return GL Account",
+      "discountGlAccount" : "Discount GL Account",
+      "priceList" : "Price List",
+      "paymentTerms" : "Payment Terms",
+      "marketType" : "Market Type",
+      "actions" : "Actions"
+    },
+    "addVendorCategory" : {
+      "success":"Success",
+      "successAdd":"Vendor Category Added Successfully",
+      "successEdit":"Cendor Category Edited Successfully",
+      "openSuccess":"Cendor Category Opened Successfully"
     }
   
 }

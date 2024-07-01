@@ -25,6 +25,9 @@ export class BreadcrumbLabel {
     static APP_INFO ='APP Info';
     static tag_list ='Tag List';
     static calendar_list ='Financial Calender';
+    static vendor_list ='Vendor Category';
+    static vendor_Add ='Add Vendor Category';
+    static vendor_Edit ='Edit Vendor Category';
     static EMPLOYEE='Employees';
     static EMPLOYEE_ADD='Add Employee';
     static EMPLOYEE_VIEW='View Employee';

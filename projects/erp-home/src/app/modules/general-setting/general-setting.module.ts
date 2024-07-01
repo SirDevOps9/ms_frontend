@@ -11,6 +11,9 @@ import { TagListComponent } from './pages/tags/tag-list/tag-list.component';
 import { FinancialCalendarListComponent } from './pages/financial-calendar/financial-calendar-list/financial-calendar-list.component';
 import { CreateFinancialCalendarComponent } from './components/create-financial-calendar/create-financial-calendar.component';
 import { EditFinancialCalendarComponent } from './components/edit-financial-calendar/edit-financial-calendar.component';
+import { VendorCategoryListComponent } from './pages/vendor-category/vendor-category-list/vendor-category-list.component';
+import { CreateVendorCategoryComponent } from './components/create-vendor-category/create-vendor-category.component';
+import { EditVendorCategoryComponent } from './components/edit-vendor-category/edit-vendor-category.component';
 
 
 const routes: Routes = [
@@ -53,6 +56,30 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.calendar_list,
         },
       },
+      {
+        path: 'vendor-category',
+        component: VendorCategoryListComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.vendor_list,
+        },
+      },
+      {
+        path: 'add-vendor-category',
+        component: CreateVendorCategoryComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.vendor_Add,
+        },
+      },
+      {
+        path: 'edit-vendor-category/:id',
+        component: EditVendorCategoryComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.vendor_Edit,
+        },
+      },
 
     ],
   },
@@ -65,7 +92,10 @@ const routes: Routes = [
     TagEditComponent,
     FinancialCalendarListComponent,
     CreateFinancialCalendarComponent,
-    EditFinancialCalendarComponent
+    EditFinancialCalendarComponent,
+    VendorCategoryListComponent,
+    CreateVendorCategoryComponent,
+    EditVendorCategoryComponent
   ],
   imports: [
     CommonModule,

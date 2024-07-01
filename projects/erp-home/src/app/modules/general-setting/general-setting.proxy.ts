@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar } from './models';
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto } from './models';
 @Injectable({
   providedIn: 'root',
 })
@@ -27,6 +27,22 @@ export class GeneralSettingProxy {
 
     return this.httpService.get<PaginationVm<financialCalendar>>(url);
   }
+  getVendorCategory(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<VendorCategoryDto>> {
+
+    const url = `VendorCategory?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+
+    return this.httpService.get<PaginationVm<VendorCategoryDto>>(url);
+  }
+  addvendorCategory(addVendorCategoryDto: AddVendorCategory): Observable<AddVendorCategory> {
+    return this.httpService.post<AddVendorCategory>(`VendorCategory`,addVendorCategoryDto);
+ }
+ EditVendorCategory(EditVendorCategoryDto: EditVendorCategoryDto): Observable<EditVendorCategoryDto> {
+    return this.httpService.put<EditVendorCategoryDto>(`VendorCategory`,EditVendorCategoryDto);
+ }
+ getVendorCategoryByID(id : number) : Observable<EditVendorCategoryDto> {
+  const url = `VendorCategory/${id}`
+  return this.httpService.get(url);
+}
   addTag(addTagDto: AddTagDto): Observable<TagDto> {
      return this.httpService.post<TagDto>(`Tag`,addTagDto);
   }
@@ -50,6 +66,16 @@ export class GeneralSettingProxy {
     return this.httpService.get(url);
   }
 
+
+  getChildrenAccountsDropDown() {
+    return this.httpService.get('ChartOfAccounts/ChildrenAccountsDropDown');
+  }
+  getpriceListDropDown() {
+    return this.httpService.get('PriceList/PriceListDropDown');
+  }
+  getpaymentTermsListDropDown() {
+    return this.httpService.get('PaymentTerms/PaymentTermsDropdown');
+  }
   editTag(tagDto: TagDto): Observable<boolean> {
     return this.httpService.put<boolean>(`Tag`,tagDto);
  }

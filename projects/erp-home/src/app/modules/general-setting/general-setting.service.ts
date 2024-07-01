@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, filter, map } from 'rxjs';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
 import { GeneralSettingProxy } from './general-setting.proxy';
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar} from './models';
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto} from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 @Injectable({
   providedIn: 'root',
@@ -17,6 +17,12 @@ export class GeneralSettingService {
   private FinancialPeriodLastYearDate = new BehaviorSubject<any>(null);
   private FinancialPeriodDataByID = new BehaviorSubject<any>(null);
   private EditFinancialPeriodData = new BehaviorSubject<any>(null);
+  private vendorCategoryDataSource = new BehaviorSubject<VendorCategoryDto[]>([]);
+  private addVendorCategoryData = new BehaviorSubject<any>(null);
+  private sendChildrenAccountsDropDownData = new BehaviorSubject<any>([]);
+  private sendPriceListsDropDownData = new BehaviorSubject<any>([]);
+  private sendPaymentTermsDropDownData = new BehaviorSubject<any>([]);
+  private vendorCategoryDataByID = new BehaviorSubject<any>(null);
 
 
   public currentTag = this.currentTagDataSource.asObservable();
@@ -27,6 +33,13 @@ export class GeneralSettingService {
   public FinancialPeriodLastYearDateObservable = this.FinancialPeriodLastYearDate.asObservable();
   public FinancialPeriodDataByIDObservable = this.FinancialPeriodDataByID.asObservable();
   public EditFinancialPeriodDataObservable = this.EditFinancialPeriodData.asObservable();
+
+  public vendorCategoryDataSourceObservable = this.vendorCategoryDataSource.asObservable();
+  public sendChildrenAccountsDropDownDataObservable = this.sendChildrenAccountsDropDownData.asObservable();
+  public addVendorCategoryDataObservable = this.addVendorCategoryData.asObservable();
+  public sendPriceListsDropDownDataObservable = this.sendPriceListsDropDownData.asObservable();
+  public sendPaymentTermsDropDownDataObservable = this.sendPaymentTermsDropDownData.asObservable();
+  public vendorCategoryDataByIDObservable = this.vendorCategoryDataByID.asObservable();
  
   getTagList(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getAllTagsPaginated(searchTerm, pageInfo).subscribe({
@@ -45,6 +58,65 @@ export class GeneralSettingService {
       },
     });
   }
+  getVendorCategory(searchTerm: string, pageInfo: PageInfo) {
+    this.GeneralSettingproxy.getVendorCategory(searchTerm, pageInfo).subscribe({
+      next: (res) => {
+        this.vendorCategoryDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+  }
+
+  getVendorCategoryByID(id : number) {
+    this.GeneralSettingproxy.getVendorCategoryByID(id)
+    .subscribe(res=>{
+      if(res) {
+        this.vendorCategoryDataByID.next(res)
+
+      }
+    })
+  }
+
+  addVendorCategory(addvendorCategory : AddVendorCategory) {
+    this.loaderService.show();
+    this.GeneralSettingproxy.addvendorCategory(addvendorCategory).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('addVendorCategory.success'),
+          this.languageService.transalte('addVendorCategory.successAdd')
+        );
+        if(res) {
+          this.addVendorCategoryData.next(res)
+
+        }
+        this.loaderService.hide();
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+
+  EditVendorCategory(editvendorCategory : EditVendorCategoryDto) {
+    this.loaderService.show();
+    this.GeneralSettingproxy.EditVendorCategory(editvendorCategory).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('EditVendorCategory.success'),
+          this.languageService.transalte('EditVendorCategory.successAdd')
+        );
+        if(res) {
+          this.addVendorCategoryData.next(res)
+
+        }
+        this.loaderService.hide();
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+
 
   addTag(addTagDto: AddTagDto
     ,dialogRef: DynamicDialogRef
@@ -150,6 +222,31 @@ export class GeneralSettingService {
       if(res) {
         this.FinancialPeriodDataByID.next(res)
 
+      }
+    })
+  }
+
+  getChildrenAccountsDropDown() {
+    this.GeneralSettingproxy.getChildrenAccountsDropDown()
+    .subscribe(res=>{
+      if(res) {
+        this.sendChildrenAccountsDropDownData.next(res)
+      }
+    })
+  }
+  getpriceListDropDown() {
+    this.GeneralSettingproxy.getpriceListDropDown()
+    .subscribe(res=>{
+      if(res) {
+        this.sendPriceListsDropDownData.next(res)
+      }
+    })
+  }
+  getpaymentTermsListDropDown() {
+    this.GeneralSettingproxy.getpriceListDropDown()
+    .subscribe(res=>{
+      if(res) {
+        this.sendPaymentTermsDropDownData.next(res)
       }
     })
   }
