@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, filter, map } from 'rxjs';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
 import { GeneralSettingProxy } from './general-setting.proxy';
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto} from './models';
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto} from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 @Injectable({
   providedIn: 'root',
 })
@@ -23,6 +24,9 @@ export class GeneralSettingService {
   private sendPriceListsDropDownData = new BehaviorSubject<any>([]);
   private sendPaymentTermsDropDownData = new BehaviorSubject<any>([]);
   private vendorCategoryDataByID = new BehaviorSubject<any>(null);
+  private customerCategoryDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
+  private customerCategoryDataByID = new BehaviorSubject<any>(null);
+  private addCustomerCategoryData = new BehaviorSubject<any>(null);
 
 
   public currentTag = this.currentTagDataSource.asObservable();
@@ -40,7 +44,12 @@ export class GeneralSettingService {
   public sendPriceListsDropDownDataObservable = this.sendPriceListsDropDownData.asObservable();
   public sendPaymentTermsDropDownDataObservable = this.sendPaymentTermsDropDownData.asObservable();
   public vendorCategoryDataByIDObservable = this.vendorCategoryDataByID.asObservable();
- 
+
+  public customerCategoryDataSourceObservable = this.customerCategoryDataSource.asObservable();
+  public customerCategoryDataByIDObservable = this.customerCategoryDataByID.asObservable();
+  public addCustomerCategoryDataObservable = this.addCustomerCategoryData.asObservable();
+
+  
   getTagList(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getAllTagsPaginated(searchTerm, pageInfo).subscribe({
       next: (res) => {
@@ -71,52 +80,147 @@ export class GeneralSettingService {
     this.GeneralSettingproxy.getVendorCategoryByID(id)
     .subscribe(res=>{
       if(res) {
-        this.vendorCategoryDataByID.next(res)
+        this.customerCategoryDataByID.next(res)
 
       }
     })
   }
 
   addVendorCategory(addvendorCategory : AddVendorCategory) {
-    this.loaderService.show();
     this.GeneralSettingproxy.addvendorCategory(addvendorCategory).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('addVendorCategory.success'),
+          this.languageService.transalte('success'),
           this.languageService.transalte('addVendorCategory.successAdd')
         );
         if(res) {
-          this.addVendorCategoryData.next(res)
+          this.addCustomerCategoryData.next(res)
 
         }
-        this.loaderService.hide();
       },
-      error: (err) => {
-        this.loaderService.hide();
-      },
+    
     });
   }
 
   EditVendorCategory(editvendorCategory : EditVendorCategoryDto) {
-    this.loaderService.show();
     this.GeneralSettingproxy.EditVendorCategory(editvendorCategory).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('EditVendorCategory.success'),
-          this.languageService.transalte('EditVendorCategory.successAdd')
+          this.languageService.transalte('success'),
+          this.languageService.transalte('addVendorCategory.successEdit')
         );
         if(res) {
           this.addVendorCategoryData.next(res)
 
         }
-        this.loaderService.hide();
       },
-      error: (err) => {
-        this.loaderService.hide();
+  
+    });
+  }
+
+  
+
+  async deleteVendorCategory(id: number){
+    const confirmed = await this.toasterService.showConfirm(
+      'Delete'
+    );
+    if (confirmed) {
+      this.GeneralSettingproxy.deleteVendorCategory(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('deleteVendorCategory.delete')
+          );
+          let data = this.vendorCategoryDataSource.getValue()
+          const updatedVendor = data.filter((elem) => elem.id !== id);
+          this.vendorCategoryDataSource.next(updatedVendor);
+
+          return res;
+        },
+        error: (err) => {
+        },
+      });
+
+    }
+  }
+
+  
+
+  getcustomerCategory(searchTerm: string, pageInfo: PageInfo) {
+    this.GeneralSettingproxy.getcustomerCategory(searchTerm, pageInfo).subscribe({
+      next: (res) => {
+        this.customerCategoryDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
       },
     });
   }
 
+  
+  getCustomerCategoryByID(id : number) {
+    this.GeneralSettingproxy.getCustomerCategoryByID(id)
+    .subscribe(res=>{
+      if(res) {
+        this.vendorCategoryDataByID.next(res)
+
+      }
+    })
+  }
+
+  addCustomerCategory(addCustomerCategory : AddCustomerCategoryDto) {
+    this.GeneralSettingproxy.addCustomerCategory(addCustomerCategory).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('success'),
+          this.languageService.transalte('addCustomerCategory.successAdd')
+        );
+        if(res) {
+          this.addVendorCategoryData.next(res)
+
+        }
+      },
+    
+    });
+  }
+
+  EditCustomerCategory(editCustomerCategory : EditCustomerCategoryDto) {
+    this.GeneralSettingproxy.EditCustomerCategory(editCustomerCategory).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('success'),
+          this.languageService.transalte('addCustomerCategory.successEdit')
+        );
+        if(res) {
+          this.addVendorCategoryData.next(res)
+
+        }
+      },
+  
+    });
+  }
+
+  async deleteCustomerCategory(id: number){
+    const confirmed = await this.toasterService.showConfirm(
+      'Delete'
+    );
+    if (confirmed) {
+      this.GeneralSettingproxy.deleteVendorCategory(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('addCustomerCategory.delete')
+          );
+          let data = this.customerCategoryDataSource.getValue()
+          const updatedVendor = data.filter((elem) => elem.id !== id);
+          this.customerCategoryDataSource.next(updatedVendor);
+
+          return res;
+        },
+        error: (err) => {
+        },
+      });
+
+    }
+  }
 
   addTag(addTagDto: AddTagDto
     ,dialogRef: DynamicDialogRef
@@ -225,6 +329,8 @@ export class GeneralSettingService {
       }
     })
   }
+
+  
 
   getChildrenAccountsDropDown() {
     this.GeneralSettingproxy.getChildrenAccountsDropDown()

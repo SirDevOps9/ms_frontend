@@ -358,8 +358,11 @@
       "categoryCode" : "Category Code",
       "categoryName" : "Category Name",
       "payableGlAccount" : "Payable GL Account",
+      "recievableGlAccount" : "Recievable GL Account",
+      "salesGlAccount" : "Sales GL Account",
       "purchaseGlAccount" : "Purchase GL Account",
       "purchaseReturnGlAccount" : "Purchase Return GL Account",
+      "salesReturnGlAccount" : "Sales Return GL Account",
       "discountGlAccount" : "Discount GL Account",
       "priceList" : "Price List",
       "paymentTerms" : "Payment Terms",
@@ -369,8 +372,20 @@
     "addVendorCategory" : {
       "success":"Success",
       "successAdd":"Vendor Category Added Successfully",
-      "successEdit":"Cendor Category Edited Successfully",
-      "openSuccess":"Cendor Category Opened Successfully"
+      "successEdit":"Vendor Category Edited Successfully",
+      "openSuccess":"Vendor Category Opened Successfully"
+    },
+    "deleteVendorCategory" : {
+      "delete" : "Vendor Category Deleted Successfully"
+    },
+    "addCustomerCategory" : {
+      "success":"Success",
+      "successAdd":"Customer Category Added Successfully",
+      "successEdit":"Customer Category Edited Successfully",
+      "openSuccess":"Customer Category Opened Successfully"
+    },
+    "deleteCustomerCategory" : {
+      "delete" : "Customer Category Deleted Successfully"
     }
   
 }

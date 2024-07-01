@@ -10,8 +10,8 @@ import {
   DataTableComponent,
   TablePaginatorComponent,
   ButtonMicroComponent,
-  TablePrintComponent,
-  ToastComponent
+  ToastComponent,
+  TablePrintComponent
   
   
   
@@ -80,10 +80,10 @@ import { CalendarComponent } from './form-components/calendar/calendar.component
     ButtonMicroComponent,
     ToggelComponent, 
     GetElementByIDPipe,
-    TablePrintComponent ,
     ToastComponent,
     UploadMultipeFilesComponent,
-    CalendarComponent
+    CalendarComponent,
+    TablePrintComponent
   ],
   imports: [
     CommonModule,
@@ -97,7 +97,8 @@ import { CalendarComponent } from './form-components/calendar/calendar.component
     PrimeSharedModule,
     TreeTableModule,
     TreeModule,
-    ProgressSpinnerModule,
+    ProgressSpinnerModule
+    
     
   ],
   exports: [
@@ -137,9 +138,9 @@ import { CalendarComponent } from './form-components/calendar/calendar.component
     ToggelComponent,
     CalendarComponent,
     GetElementByIDPipe,
-    TablePrintComponent,
     ToastComponent,
-    UploadMultipeFilesComponent
+    UploadMultipeFilesComponent,
+    TablePrintComponent
   ],
 })
 export class SharedLibModule {}

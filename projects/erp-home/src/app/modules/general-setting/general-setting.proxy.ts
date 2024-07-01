@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto } from './models';
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto } from './models';
+import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 @Injectable({
   providedIn: 'root',
 })
@@ -29,18 +30,38 @@ export class GeneralSettingProxy {
   }
   getVendorCategory(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<VendorCategoryDto>> {
 
-    const url = `VendorCategory?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+    const url = `VendorCategory?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
 
     return this.httpService.get<PaginationVm<VendorCategoryDto>>(url);
   }
+  getcustomerCategory(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<CustomerCategoryDto>> {
+
+    const url = `CustomerCategory?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+
+    return this.httpService.get<PaginationVm<CustomerCategoryDto>>(url);
+  } 
   addvendorCategory(addVendorCategoryDto: AddVendorCategory): Observable<AddVendorCategory> {
     return this.httpService.post<AddVendorCategory>(`VendorCategory`,addVendorCategoryDto);
+ }
+ addCustomerCategory(addCustomerCategoryDto: AddCustomerCategoryDto): Observable<AddCustomerCategoryDto> {
+    return this.httpService.post<AddCustomerCategoryDto>(`VendorCategory`,addCustomerCategoryDto);
  }
  EditVendorCategory(EditVendorCategoryDto: EditVendorCategoryDto): Observable<EditVendorCategoryDto> {
     return this.httpService.put<EditVendorCategoryDto>(`VendorCategory`,EditVendorCategoryDto);
  }
+ EditCustomerCategory(EditCustomerCategoryDto: EditCustomerCategoryDto): Observable<EditCustomerCategoryDto> {
+    return this.httpService.put<EditVendorCategoryDto>(`VendorCategory`,EditCustomerCategoryDto);
+ }
+
+ deleteVendorCategory(id: number): Observable<boolean> {
+  return this.httpService.delete<boolean>(`VendorCategory/${id}`);
+}
  getVendorCategoryByID(id : number) : Observable<EditVendorCategoryDto> {
   const url = `VendorCategory/${id}`
+  return this.httpService.get(url);
+}
+getCustomerCategoryByID(id : number) : Observable<EditVendorCategoryDto> {
+  const url = `CustomerCategory/${id}`
   return this.httpService.get(url);
 }
   addTag(addTagDto: AddTagDto): Observable<TagDto> {
@@ -87,6 +108,7 @@ export class GeneralSettingProxy {
  deleteTag(id: number): Observable<boolean> {
   return this.httpService.delete<boolean>(`Tag?Id=${id}`);
 }
+
 
 activateTag(id: number): Observable<boolean> {
   return this.httpService.put<boolean>(`Tag/Activate?Id=${id}`,{});

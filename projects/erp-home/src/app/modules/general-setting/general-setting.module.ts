@@ -14,6 +14,9 @@ import { EditFinancialCalendarComponent } from './components/edit-financial-cale
 import { VendorCategoryListComponent } from './pages/vendor-category/vendor-category-list/vendor-category-list.component';
 import { CreateVendorCategoryComponent } from './components/create-vendor-category/create-vendor-category.component';
 import { EditVendorCategoryComponent } from './components/edit-vendor-category/edit-vendor-category.component';
+import { CustomerCategoryListComponent } from './pages/customer-category/customer-category-list/customer-category-list.component';
+import { CreateCustomerCategoryComponent } from './components/create-customer-category/create-customer-category.component';
+import { EditCustomerCategoryComponent } from './components/edit-customer-category/edit-customer-category.component';
 
 
 const routes: Routes = [
@@ -80,6 +83,30 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.vendor_Edit,
         },
       },
+      {
+        path: 'customer-category',
+        component: CustomerCategoryListComponent,
+         canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.customer_list,
+        },
+      },
+      {
+        path: 'add-customer-category',
+        component: CreateCustomerCategoryComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.customer_add,
+        },
+      },
+      {
+        path: 'edit-customer-category',
+        component: EditCustomerCategoryComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.customer_edit,
+        },
+      },
 
     ],
   },
@@ -95,7 +122,10 @@ const routes: Routes = [
     EditFinancialCalendarComponent,
     VendorCategoryListComponent,
     CreateVendorCategoryComponent,
-    EditVendorCategoryComponent
+    EditVendorCategoryComponent,
+    CustomerCategoryListComponent,
+    CreateCustomerCategoryComponent,
+    EditCustomerCategoryComponent
   ],
   imports: [
     CommonModule,

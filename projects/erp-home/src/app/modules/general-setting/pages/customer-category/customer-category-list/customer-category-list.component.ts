@@ -4,14 +4,14 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
 import { RouterService, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
 import { GeneralSettingService } from '../../../general-setting.service';
-import { VendorCategoryDto, financialCalendar } from '../../../models';
+import { CustomerCategoryDto, VendorCategoryDto } from '../../../models';
 
 @Component({
-  selector: 'app-vendor-category-list',
-  templateUrl: './vendor-category-list.component.html',
-  styleUrl: './vendor-category-list.component.scss'
+  selector: 'app-customer-category-list',
+  templateUrl: './customer-category-list.component.html',
+  styleUrl: './customer-category-list.component.scss'
 })
-export class VendorCategoryListComponent implements OnInit {
+export class CustomerCategoryListComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private dialog: DialogService,
@@ -20,7 +20,7 @@ export class VendorCategoryListComponent implements OnInit {
     private routerService : RouterService
   ) {}
 
-  tableData : VendorCategoryDto[];
+  tableData : CustomerCategoryDto[];
 
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
@@ -40,9 +40,9 @@ export class VendorCategoryListComponent implements OnInit {
   }
 
   initFinancialCalendarData() {
-    this.generalSettingService.getVendorCategory('', new PageInfo());
+    this.generalSettingService.getcustomerCategory('', new PageInfo());
 
-    this.generalSettingService.vendorCategoryDataSourceObservable.subscribe({
+    this.generalSettingService.customerCategoryDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -55,9 +55,9 @@ export class VendorCategoryListComponent implements OnInit {
 
  
   onPageChange(pageInfo: PageInfo) {
-    this.generalSettingService.getVendorCategory('', new PageInfo());
+    this.generalSettingService.getcustomerCategory('', new PageInfo());
 
-    this.generalSettingService.vendorCategoryDataSourceObservable.subscribe({
+    this.generalSettingService.customerCategoryDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -67,9 +67,9 @@ export class VendorCategoryListComponent implements OnInit {
 
 
   onSearchChange(event : any) {
-    this.generalSettingService.getVendorCategory(event.target.value, new PageInfo());
+    this.generalSettingService.getcustomerCategory(event.target.value, new PageInfo());
 
-    this.generalSettingService.vendorCategoryDataSourceObservable.subscribe({
+    this.generalSettingService.customerCategoryDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -77,7 +77,7 @@ export class VendorCategoryListComponent implements OnInit {
   }
 
   onDelete(id: number) {
-    this.generalSettingService.deleteVendorCategory(id);
+    this.generalSettingService.deleteCustomerCategory(id);
   }
 
  
