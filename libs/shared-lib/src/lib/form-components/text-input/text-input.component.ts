@@ -6,6 +6,7 @@ import {
   Optional,
   Self,
   input,
+  AfterViewInit,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -20,13 +21,15 @@ import {
   templateUrl: './text-input.component.html',
   styleUrls: ['./text-input.component.scss'],
 })
-export class  TextInputComponent implements ControlValueAccessor, Validator {
+export class  TextInputComponent implements ControlValueAccessor, Validator , AfterViewInit {
   @Input() label: string;
+  @Input() labelTest: any;
   @Input() type: 'text' | 'number' | 'tel' | 'email' | 'date' | 'radio';
   @Input() readOnly: boolean;
   @Input() inputContainerClass: string;
   @Input() placeholder: string = '';
   @Input() maxLength: string;
+  // @Input() data_testid: any = this.labelTest;
   @Input() id: string;
   @Input() iconUrl: string = '';
   @Output() valueChanged = new EventEmitter<string>();
@@ -83,4 +86,14 @@ export class  TextInputComponent implements ControlValueAccessor, Validator {
       this.controlDir.valueAccessor = this;
     }
   }
+  ngAfterViewInit(){
+    if (this.controlDir) {
+      setTimeout(() => {
+        this.labelTest=this.controlDir.name
+      }, 500);
+      
+      
+    }
+  }
+  
 }

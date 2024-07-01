@@ -34,6 +34,9 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
   @Input() id: string;
   @Input() className: string;
   @Input() selectedValue: any[];
+  @Input() data_testid: string = '';
+  @Input() labelTest: any;
+
   
   @Output() valueChanged = new EventEmitter<string>();
 
@@ -80,6 +83,15 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
   constructor(@Self() @Optional() public controlDir: NgControl) {
     if (this.controlDir) {
       this.controlDir.valueAccessor = this;
+    }
+  }
+  ngAfterViewInit(){
+    if (this.controlDir) {
+      setTimeout(() => {
+        this.labelTest=this.controlDir.name
+      }, 500);
+      
+      
     }
   }
 }
