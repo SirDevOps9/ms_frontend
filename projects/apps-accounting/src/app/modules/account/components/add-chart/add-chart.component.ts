@@ -19,13 +19,10 @@ import {
   LanguageService,
 } from 'shared-lib';
 import { AccountService } from '../../account.service';
-import { AddAccountDto } from '../../models';
+import { AddAccountDto, companyDropDownDto ,AccountSectionDropDownDto ,AccountTypeDropDownDto ,TagDropDownDto ,parentAccountDto  } from '../../models';
 import { CurrencyService } from '../../../general/currency.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
-import { AccountSectionDropDownDto } from '../../models';
-import { AccountTypeDropDownDto } from '../../models';
-import { TagDropDownDto } from '../../models';
-import { parentAccountDto } from '../../models';
+
 
 @Component({
   selector: 'app-add-chart',
@@ -40,6 +37,7 @@ export class AddChartComponent {
   accountSections: AccountSectionDropDownDto[];
   accountTypes: AccountTypeDropDownDto[];
   accountTags: TagDropDownDto[];
+  companyDropDown: companyDropDownDto[];
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   currencyIsVisible: boolean = false;
@@ -73,6 +71,7 @@ export class AddChartComponent {
       accountSectionId: new FormControl('', customValidators.required),
       currencyId: new FormControl(),
       tags: new FormControl([]),
+      companies: new FormControl([]),
       AccountActivation: new FormControl('Active'),
       periodicActiveFrom: new FormControl(),
       periodicActiveTo: new FormControl(),
@@ -105,6 +104,7 @@ export class AddChartComponent {
     });
 
     this.getTags();
+    this.getCompanyDropdown();
 
     this.formGroup.get('AccountActivation')?.valueChanges.subscribe((value) => {
       this.onRadioButtonChange(value);
@@ -117,6 +117,12 @@ export class AddChartComponent {
     this.accountService.getTags();
     this.accountService.tags.subscribe((res) => {
       this.accountTags = res;
+    });
+  }
+  getCompanyDropdown() {
+    this.accountService.getCompanyDropdown();
+    this.accountService.companyDropdown.subscribe((res) => {
+      this.companyDropDown=res
     });
   }
 

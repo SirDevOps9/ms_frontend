@@ -11,6 +11,7 @@ export interface AccountByIdDto {
     accountSection:string,
     accountType:string,
     accountTags:string[],
+    accountCompanies:string[],
     accountCurrency:string,
     accountActivation:string,
     periodicActiveFrom:string,

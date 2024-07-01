@@ -27,3 +27,4 @@ export * from './cost-center-list';
 export * from './costCenterType';
 export * from './sharedCostEnums';
 export * from './costActivation';
+export * from './companyDropDownDto';
