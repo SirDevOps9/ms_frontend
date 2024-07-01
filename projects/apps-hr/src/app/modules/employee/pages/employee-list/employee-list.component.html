@@ -1,5 +1,23 @@
 <div>
   <div class="user_page employees-cont">
+    <div class="grid">
+      <div class="md:col-4">
+        <lib-form-group>
+          <lib-multi-select
+            [options]="exportColumns"
+            optionValue="id"
+            optionLabel="name"
+            [(ngModel)]="exportSelectedCols"
+          >
+          </lib-multi-select>
+        </lib-form-group>
+      </div>
+      <div class="md:col-2">
+        <button (click)="exportTable()" class="primary export"> 
+          <span class="pi pi-file"></span>Export
+        </button>
+      </div>
+    </div>
     <lib-data-table
       [items]="tableData"
       className="p-datatable-gridlines"

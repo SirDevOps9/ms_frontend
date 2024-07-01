@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { LanguageService, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { LanguageService, PageInfo, PageInfoResult, RouterService, lookupDto } from 'shared-lib';
 import { EmployeeDto } from '../../models/employeeDto';
 import { Title } from '@angular/platform-browser';
 import { EmployeeService } from '../../employee.service';
+import { ExcelExportService } from 'libs/shared-lib/src/lib/export/exportService';
 
 @Component({
   selector: 'app-employee-list',
@@ -18,6 +19,8 @@ export class EmployeeListComponent implements OnInit {
   active: boolean = false;
   currentPageInfo: PageInfoResult;
   searchTerm: string;
+  exportColumns: lookupDto[];
+  exportSelectedCols: string[] = [];
 
   constructor(
     private routerService: RouterService,
@@ -54,6 +57,10 @@ export class EmployeeListComponent implements OnInit {
         header: 'EmployeePhoto',
       },
     ];
+    this.exportColumns = this.cols.map(col => ({
+      id: col.header,
+      name: col.field,
+    }));
   }
   convertToCSV(objArray: any[]): string {
     const array = [Object.keys(objArray[0])].concat(objArray);
@@ -123,5 +130,11 @@ export class EmployeeListComponent implements OnInit {
     const inputElement = event.target as HTMLInputElement;
     this.searchTerm = inputElement.value;
     this.initEmployeeData(this.searchTerm, new PageInfo());
+  }
+  exportTable()
+  {
+    console.log(this.exportSelectedCols);
+    //const includeColumns : string []=["id","employeeCode","attendanceCode","employeeName"]
+    ExcelExportService.exportToExcel(this.tableData, 'Employee-List.xlsx',this.exportSelectedCols);
   }
 }
