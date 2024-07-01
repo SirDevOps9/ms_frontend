@@ -8,19 +8,18 @@ import {
   ViewChild,
 } from '@angular/core';
 import { LanguageService, LookupsService } from '../../services';
-import { TableConfig } from './data-table-column';
+import { TableConfig } from './table-print-colimns';
 import { PageInfo, PageInfoResult } from '../../models';
 import { NgIfContext } from '@angular/common';
 
 @Component({
-  selector: 'lib-data-table',
-  templateUrl: './data-table.component.html',
-  styleUrls: ['./data-table.component.scss'],
+  selector: 'lib-table-print',
+  templateUrl: './table-print.component.html',
+  styleUrl: './table-print.component.scss'
 })
-export class DataTableComponent implements OnInit {
+export class TablePrintComponent {
   @Input() items: any[];
   @Input() selectedIndex: number;
-  @Input() resizableColumns: boolean = true;
   @Input() currentPageResult: PageInfoResult;
 
   @Input() tableConfigs: TableConfig;
@@ -60,3 +59,4 @@ first:any=0;
     public lookupsService: LookupsService
   ) {}
 }
+

@@ -10,7 +10,9 @@ import {
   DataTableComponent,
   TablePaginatorComponent,
   ButtonMicroComponent,
-  ToastComponent,
+  TablePrintComponent,
+  ToastComponent
+  
   
   
   
@@ -78,6 +80,7 @@ import { CalendarComponent } from './form-components/calendar/calendar.component
     ButtonMicroComponent,
     ToggelComponent, 
     GetElementByIDPipe,
+    TablePrintComponent ,
     ToastComponent,
     UploadMultipeFilesComponent,
     CalendarComponent
@@ -134,6 +137,7 @@ import { CalendarComponent } from './form-components/calendar/calendar.component
     ToggelComponent,
     CalendarComponent,
     GetElementByIDPipe,
+    TablePrintComponent,
     ToastComponent,
     UploadMultipeFilesComponent
   ],

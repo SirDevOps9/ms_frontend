@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { reportTrialDto } from '../../../models';
-import { LanguageService, PageInfo, RouterService, ToasterService, customValidators } from 'shared-lib';
+import { LanguageService, PageInfo, PrintService, RouterService, ToasterService, customValidators } from 'shared-lib';
 import { Title } from '@angular/platform-browser';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -18,9 +18,6 @@ export class TrialBlanceComponent implements OnInit {
 defoultSelectedAcounts:number[]=[]
  
   tableData: reportTrialDto[];
-  cols: any[] = [];
- 
-
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
@@ -28,7 +25,8 @@ defoultSelectedAcounts:number[]=[]
     private titleService: Title,
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
-    private ToasterService:ToasterService
+    private ToasterService:ToasterService,
+    private PrintService:PrintService
   ) {}
 
   ngOnInit() {
@@ -42,12 +40,18 @@ defoultSelectedAcounts:number[]=[]
       this.getTrialBalance()
 
     }, 500);
-    this.reportTrialForm.valueChanges.subscribe(()=>{
+    this.reportTrialForm.valueChanges.subscribe((res)=>{
       this.tableData=[]
+      console.log(res ,"res change");
+      
     }
     )
 
   }
+  printTable(id:string){
+  this.PrintService.print(id)
+  }
+
   getAccounts() {
     this.accountService
       .getAccountsHasNoChildren('', new PageInfo())

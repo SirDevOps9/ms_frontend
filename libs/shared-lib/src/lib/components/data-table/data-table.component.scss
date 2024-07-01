@@ -97,6 +97,18 @@ span{
 }
 
 ::ng-deep{
+  #dt{
+    min-width: 75rem;
+  }
+  
+  .p-datatable-wrapper{
+   height: 400px !important;
+  }
+  .empty{
+    .p-datatable-wrapper{
+      height: auto !important;
+     }
+  }
   .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
     color: #fff !important;
     background: #1a8eae !important;
@@ -129,4 +141,17 @@ background: #dbf7ff !important;
 }
 .debit{
 color: #B6BAC3 !important;
+}
+
+::ng-deep{
+  @media print {
+    
+    #dt {
+    width: 400px !important;
+    }
+    .p-datatable-wrapper{
+      height: auto !important;
+    }
+  }
+ 
 }
