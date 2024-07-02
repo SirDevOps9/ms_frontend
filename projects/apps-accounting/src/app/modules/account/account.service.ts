@@ -1,6 +1,6 @@
 import { AccountProxy } from './account.proxy';
 import { AddAccountDto } from './models/addAccountDto';
-import { AccountByIdDto, AccountDto, AddTaxGroupDto, GetLevelsDto, TaxGroupDto, listAddLevelsDto,accountById, AddTax, EditTax, TaxGroupDropDown, addCostCenter, parentCostCenter, costById, costCenterDetails, costCenterList, costCenterActivation } from './models';
+import { AccountByIdDto, AccountDto, AddTaxGroupDto, GetLevelsDto, TaxGroupDto, listAddLevelsDto,accountById, AddTax, EditTax, TaxGroupDropDown, addCostCenter, parentCostCenter, costById, costCenterDetails, costCenterList, costCenterActivation, companyDropDownDto } from './models';
 
 import { AccountTypeDropDownDto } from './models/accountTypeDropDownDto';
 import { TagDropDownDto } from './models/tagDropDownDto';
@@ -24,6 +24,7 @@ export class AccountService {
   private accountTypesDataSource = new BehaviorSubject<AccountTypeDropDownDto[]>([]);
   private accountSectionsDataSource = new BehaviorSubject<AccountTypeDropDownDto[]>([]);
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
+  private companysDataSource = new BehaviorSubject<companyDropDownDto[]>([]);
   private savedAccountDataSource = new BehaviorSubject<AccountDto | undefined>(undefined);
   private taxGroupDataSource = new BehaviorSubject<TaxGroupDto[]>([]);
   private currentTaxGroupDataSource = new BehaviorSubject<TaxGroupDto>({} as TaxGroupDto);
@@ -52,6 +53,7 @@ export class AccountService {
   public accountTypes = this.accountTypesDataSource.asObservable();
   public accountSections = this.accountSectionsDataSource.asObservable();
   public tags = this.tagsDataSource.asObservable();
+  public companyDropdown = this.companysDataSource.asObservable();
   public savedAddedAccount = this.savedAccountDataSource.asObservable();
   public taxGroupList = this.taxGroupDataSource.asObservable();
   public currentTaxGroup = this.currentTaxGroupDataSource.asObservable();
@@ -158,6 +160,11 @@ export class AccountService {
   getTags() {
     this.accountproxy.getTags().subscribe((response) => {
       this.tagsDataSource.next(response);
+    });
+  }
+  getCompanyDropdown() {
+    this.accountproxy.getCompanyDropdown().subscribe((response) => {
+      this.companysDataSource.next(response);
     });
   }
   getAccount(id: number) {

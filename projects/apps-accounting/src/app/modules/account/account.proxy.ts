@@ -24,6 +24,7 @@ import {
   costCenterDetails,
   costCenterList,
   costCenterActivation,
+  companyDropDownDto,
 } from './models';
 import { TaxGroupDropDown } from './models/tax-group-drop-down';
 import { costLookup } from '../journal-entry/models';
@@ -42,6 +43,9 @@ export class AccountProxy {
   }
   getTags(): Observable<TagDropDownDto[]> {
     return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown`);
+  }
+  getCompanyDropdown(): Observable<companyDropDownDto[]> {
+    return this.httpService.get<companyDropDownDto[]>(`Company/CompanyDropdown`);
   }
 
   getAccount(id: number): Observable<parentAccountDto> {

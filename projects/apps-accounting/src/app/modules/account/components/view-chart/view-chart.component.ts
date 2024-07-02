@@ -17,6 +17,7 @@ export class ViewChartComponent {
   Period: boolean = false;
   accountLevel?: string;
   accountTags?: string;
+  accountCompanies?: string;
   parent?: AccountByIdDto;
   constructor(private accountService: AccountService) {}
   ngOnInit() {}
@@ -67,6 +68,7 @@ export class ViewChartComponent {
       }
       this.accountLevel = this.parent?.accountLevel?.toString();
       this.accountTags = this.parent?.accountTags?.join('  ');
+      this.accountCompanies = this.parent?.accountCompanies?.join('  ');
       //console.log('Account changed:', changes['account'].currentValue);
     }
   }

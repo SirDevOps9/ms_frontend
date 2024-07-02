@@ -149,8 +149,8 @@
               </lib-toggel> -->
             </div>
           </div>
-          <div class="md:col-6">
-            <lib-form-group *ngIf="currencyIsVisible">
+          <div class="md:col-6" *ngIf="currencyIsVisible">
+            <lib-form-group >
               <lib-label [appControl]="formGroup.controls['currencyId']">
                 {{ 'ChartOfAccounts.Currency' | translate }}
               </lib-label>
@@ -163,6 +163,23 @@
               </lib-select>
             </lib-form-group>
           </div>
+          <div class="md:col-6">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['companies']">
+                {{ 'ChartOfAccounts.companies' | translate }}
+              </lib-label>
+              <lib-multi-select
+                formControlName="companies"
+                [options]="companyDropDown"
+                optionValue="id"
+                optionLabel="name"
+              >
+              </lib-multi-select>
+            </lib-form-group>
+          </div>
+        </div>
+        <div class="grid">
+          
         </div>
         <lib-fildest
         header="{{ 'ChartOfAccounts.costCenterConfig' | translate }}"
