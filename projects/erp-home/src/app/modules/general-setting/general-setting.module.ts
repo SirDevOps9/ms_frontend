@@ -17,6 +17,12 @@ import { EditVendorCategoryComponent } from './components/edit-vendor-category/e
 import { CustomerCategoryListComponent } from './pages/customer-category/customer-category-list/customer-category-list.component';
 import { CreateCustomerCategoryComponent } from './components/create-customer-category/create-customer-category.component';
 import { EditCustomerCategoryComponent } from './components/edit-customer-category/edit-customer-category.component';
+import { CustomerListComponent } from './pages/customer-definitions/customer-list/customer-list.component';
+import { AddCustomerComponent } from './pages/customer-definitions/add-customer/add-customer.component';
+import { EditCustomerComponent } from './pages/customer-definitions/edit-customer/edit-customer.component';
+import { VendorDefinitionsListComponent } from './pages/vendor-definitions/vendor-definitions-list/vendor-definitions-list.component';
+import { AddVendorDefinitionsComponent } from './pages/vendor-definitions/add-vendor-definitions/add-vendor-definitions.component';
+import { EditVendorDefinitionsComponent } from './pages/vendor-definitions/edit-vendor-definitions/edit-vendor-definitions.component';
 
 
 const routes: Routes = [
@@ -107,6 +113,54 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.customer_edit,
         },
       },
+      {
+        path: 'customer-definitions',
+        component: CustomerListComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.CUSTOMER_DEFINITIONS,
+        },
+      },
+      {
+        path: 'add-customer-definitions',
+        component: AddCustomerComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.ADD_CUSTOMER_DEFINITIONS,
+        },
+      },
+      {
+        path: 'edit-customer-definitions/:id',
+        component: EditCustomerComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.EDIT_CUSTOMER_DEFINITIONS,
+        },
+      },
+      {
+        path: 'vendor-definitions',
+        component: VendorDefinitionsListComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.VENDOR_DEFINITIONS,
+        },
+      },
+      {
+        path: 'add-vendor-definitions',
+        component: AddVendorDefinitionsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.ADD_VENDOR_DEFINITIONS,
+        },
+      },
+      {
+        path: 'edit-vendor-definitions/:id',
+        component: EditVendorDefinitionsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.EDIT_VENDOR_DEFINITIONS,
+        },
+      },
 
     ],
   },
@@ -125,7 +179,13 @@ const routes: Routes = [
     EditVendorCategoryComponent,
     CustomerCategoryListComponent,
     CreateCustomerCategoryComponent,
-    EditCustomerCategoryComponent
+    EditCustomerCategoryComponent,
+    CustomerListComponent,
+    AddCustomerComponent,
+    EditCustomerComponent,
+    VendorDefinitionsListComponent,
+    AddVendorDefinitionsComponent,
+    EditVendorDefinitionsComponent
   ],
   imports: [
     CommonModule,
