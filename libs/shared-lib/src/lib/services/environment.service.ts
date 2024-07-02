@@ -24,16 +24,8 @@ export class EnvironmentService implements IEnvironment {
     redirectUrl: string;
     logoutRedirectUri: string;
     clientId: string;
-  };
-  openIdConfig: {
-    authority: string;
-    redirectUrl: string;
-    postLogoutRedirectUri: string;
-    clientId: string;
-    scope: string;
-    responseType: string;
-    silentRenew: true;
-    useRefreshToken: true;
+    scopes: string;
+    state: string;
   };
   ApiKey: string;
   state?: string;

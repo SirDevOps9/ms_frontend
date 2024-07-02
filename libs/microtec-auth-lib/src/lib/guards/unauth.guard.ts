@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { AuthService } from '../services';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UnauthGuard {
-  constructor(public router: Router, private oidcSecurityService: OidcSecurityService) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | UrlTree | boolean {
-    this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData, accessToken }) => {
-      if (isAuthenticated) this.router.navigate(['']);
-    });
+    if (this.authService.isAuthenticated()) this.router.navigate(['login']);
+
     return true;
   }
+
+  constructor(public router: Router, private authService: AuthService) {}
 }

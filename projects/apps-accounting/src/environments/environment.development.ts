@@ -7,15 +7,13 @@ export const environment: IEnvironment = {
   ClientId: 'Erp.Accounting',
   Platform: 'Web',
   photoBaseUrl: 'https://intmicrotec.neat-url.com:2022',
-  openIdConfig: {
-    authority: 'http://localhost:44310',
-    redirectUrl: window.location.origin + '/erp/login-redirect',
-    postLogoutRedirectUri: window.location.origin + '/erp/logout-redirect',
+  AuthConfiguration: {
+    authority: 'https://localhost:7116',
     clientId: 'microtec_erp_frontend',
-    scope: 'openid profile email offline_access subdomain',
-    responseType: 'code',
-    silentRenew: true,
-    useRefreshToken: true,
+    redirectUrl: window.location.origin + '/erp/login-redirect',
+    logoutRedirectUri: window.location.origin + '/erp/logout-redirect',
+    scopes: 'subdomain',
+    state: window.location.origin + '/accounting/',
   },
   AttachmentServiceConfig: {
     AttachmentServiceUrl: 'http://localhost:2030',

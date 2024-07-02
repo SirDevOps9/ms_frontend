@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AbstractSecurityStorage, AuthModule } from 'angular-auth-oidc-client';
 import { environment } from '../environments/environment';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {
@@ -11,8 +10,8 @@ import {
   MultiTranslateHttpLoader,
   SharedLibModule,
 } from 'shared-lib';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { CustomStorageService, ERPInterceptor, MicrotecAuthLibModule } from 'microtec-auth-lib';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { ERPInterceptor, MicrotecAuthLibModule } from 'microtec-auth-lib';
 import { CookieModule } from 'ngx-cookie';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -25,9 +24,6 @@ import { UrlSerializer } from '@angular/router';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    AuthModule.forRoot({
-      config: environment.openIdConfig,
-    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -56,10 +52,6 @@ import { UrlSerializer } from '@angular/router';
       provide: HTTP_INTERCEPTORS,
       useClass: ERPInterceptor,
       multi: true,
-    },
-    {
-      provide: AbstractSecurityStorage,
-      useClass: CustomStorageService,
     },
     {
       provide: UrlSerializer,

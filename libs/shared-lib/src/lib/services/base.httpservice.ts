@@ -118,6 +118,17 @@ export class HttpService {
       );
   }
 
+  postFullUrlJson(url: string, data: any, showError: boolean = true) {
+    const headers = this.addHeaders();
+    return this.http
+      .post(`${url}`, data, { headers })
+      .pipe(
+        catchError((response: HttpErrorResponse) =>
+          this.errorHandler(url, response, data, showError)
+        )
+      );
+  }
+
   postForm<T>(url: string, data: any, showError: boolean = true) {
     const headers = this.addFormHeaders();
     return this.http

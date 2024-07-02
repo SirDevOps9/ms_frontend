@@ -11,16 +11,8 @@ export interface IEnvironment {
     redirectUrl: string;
     logoutRedirectUri: string;
     clientId: string;
-  };
-  openIdConfig: {
-    authority: string;
-    redirectUrl: string;
-    postLogoutRedirectUri: string;
-    clientId: string;
-    scope: string;
-    responseType: string;
-    silentRenew: true;
-    useRefreshToken: true;
+    scopes: string;
+    state: string;
   };
   AttachmentServiceConfig: {
     AttachmentServiceUrl: string;

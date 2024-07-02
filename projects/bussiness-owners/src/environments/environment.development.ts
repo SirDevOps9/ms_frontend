@@ -10,19 +10,11 @@ export const environment: IEnvironment = {
   erpLogin: 'https://*.localhost.com:4400/erp/login',
   AuthConfiguration: {
     authority: 'https://localhost:7116',
-    clientId: 'FrontKey',
+    clientId: 'microtecadminfrontend',
     logoutRedirectUri: window.location.origin + '/bussinessowners/logout-redirect',
     redirectUrl: window.location.origin + '/bussinessowners/login-redirect',
-  },
-  openIdConfig: {
-    authority: 'https://intmicrotec.neat-url.com:2020',
-    redirectUrl: window.location.origin + '/bussinessowners/login-redirect',
-    postLogoutRedirectUri: window.location.origin + '/bussinessowners/logout-redirect',
-    clientId: 'microtecadminfrontend',
-    scope: 'openid profile email offline_access bo',
-    responseType: 'code',
-    silentRenew: true,
-    useRefreshToken: true,
+    scopes: 'bo',
+    state: '',
   },
   AttachmentServiceConfig: {
     AttachmentServiceUrl: 'http://localhost:2030',

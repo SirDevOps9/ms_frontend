@@ -1,5 +1,10 @@
+import { UserInfoDto } from '.';
+
 export interface TokenModel {
-    AccessToken: string;
-    RefreshToken: string;
-  }
-  
+  id: string;
+  token: string;
+  refreshToken: string;
+  expireToken: Date;
+  expireRefreshToken: Date;
+  userInfo: UserInfoDto;
+}

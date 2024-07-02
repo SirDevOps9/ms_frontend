@@ -5,8 +5,7 @@ import { AppComponent } from './app.component';
 import { EnvironmentService, MultiTranslateHttpLoader, SharedLibModule } from 'shared-lib';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { CustomStorageService, ERPInterceptor, MicrotecAuthLibModule } from 'microtec-auth-lib';
-import { AbstractSecurityStorage, AuthModule } from 'angular-auth-oidc-client';
+import { ERPInterceptor, MicrotecAuthLibModule } from 'microtec-auth-lib';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -15,16 +14,10 @@ import { CookieModule } from 'ngx-cookie';
 import { HomePageComponent } from './home-page/home-page.component';
 
 @NgModule({
-  declarations: [	
-    AppComponent,
-      HomePageComponent
-   ],
+  declarations: [AppComponent, HomePageComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    AuthModule.forRoot({
-      config: environment.openIdConfig,
-    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -44,7 +37,7 @@ import { HomePageComponent } from './home-page/home-page.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    CookieModule.withOptions(),    
+    CookieModule.withOptions(),
   ],
   providers: [
     { provide: EnvironmentService, useValue: environment },
@@ -53,8 +46,7 @@ import { HomePageComponent } from './home-page/home-page.component';
       useClass: ERPInterceptor,
       multi: true,
     },
-    { provide: AbstractSecurityStorage, useClass: CustomStorageService },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

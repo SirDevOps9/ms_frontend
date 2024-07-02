@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EnvironmentService, HttpService } from 'shared-lib';
-import { LoginModel, LoginResponse, TokenRequestViewModel } from '../types';
+import { RefreshTokenDto, TokenModel, TokenRequestViewModel } from '../types';
 
 @Injectable({
   providedIn: 'root',
@@ -9,14 +9,17 @@ import { LoginModel, LoginResponse, TokenRequestViewModel } from '../types';
 export class AuthProxy {
   constructor(private baseService: HttpService, private environmentService: EnvironmentService) {}
 
-  formLogin(model: LoginModel): Observable<LoginResponse> {
-    return this.baseService.postFullUrl('https://localhost:44330/api/Account/login', model);
-  }
-
-  collectToken(tokenModel: TokenRequestViewModel) {
-    return this.baseService.postFullUrl(
+  collectToken(tokenModel: TokenRequestViewModel): Observable<TokenModel> {
+    return this.baseService.postFullUrlJson(
       this.environmentService.AuthConfiguration?.authority + '/Connect/Token',
       tokenModel
+    );
+  }
+
+  refreshToken(model: RefreshTokenDto): Observable<TokenModel> {
+    return this.baseService.postFullUrlJson(
+      this.environmentService.AuthConfiguration?.authority + '/Connect/RefreshToken',
+      model
     );
   }
 

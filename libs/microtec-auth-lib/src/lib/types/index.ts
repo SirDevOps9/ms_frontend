@@ -8,3 +8,5 @@ export * from './apps';
 export * from './licenses';
 export * from './services';
 export * from './tokenRequestViewModel';
+export * from './userInfoDto';
+export * from './refreshTokenDto';

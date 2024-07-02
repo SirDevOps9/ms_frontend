@@ -1,6 +1,5 @@
 import { Injectable, signal } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { LoginResponse, OidcSecurityService } from 'angular-auth-oidc-client';
 import {
   StorageService,
   StorageKeys,
@@ -10,8 +9,15 @@ import {
   LanguageService,
   EnvironmentService,
   RouteParams,
+  RouterService,
 } from 'shared-lib';
-import { PermissionTreeNode, RouteFilter, TokenRequestViewModel } from '../types';
+import {
+  PermissionTreeNode,
+  RefreshTokenDto,
+  RouteFilter,
+  TokenModel,
+  TokenRequestViewModel,
+} from '../types';
 import { HttpParams } from '@angular/common/http';
 import { AuthProxy } from '.';
 @Injectable({
@@ -26,7 +32,9 @@ export class AuthService {
     const params = new HttpParams()
       .set(RouteParams.REDIRECTURL, this.environmentService.AuthConfiguration?.redirectUrl!)
       .set(RouteParams.CLIENTKEY, this.environmentService.AuthConfiguration?.clientId!)
-      .set(RouteParams.CULTUREQUERY, storageCulutre);
+      .set(RouteParams.SCOPES, this.environmentService.AuthConfiguration?.scopes!)
+      .set(RouteParams.CULTUREQUERY, storageCulutre)
+      .set(RouteParams.STATE, this.environmentService.AuthConfiguration?.state!);
 
     location.href =
       this.environmentService.AuthConfiguration?.authority +
@@ -35,25 +43,42 @@ export class AuthService {
   }
 
   logout() {
-    location.href = 'logout';
-    //this.oidcSecurityService.logoff().subscribe((result) => console.log(result));
+    const params = new HttpParams()
+      .set(RouteParams.RETURNURL, this.environmentService.AuthConfiguration?.logoutRedirectUri!)
+      .set(RouteParams.CLIENTKEY, this.environmentService.AuthConfiguration?.clientId!);
+
+    location.href =
+      this.environmentService.AuthConfiguration?.authority + '/Account/Logout?' + params.toString();
   }
 
   collectToken(key: string) {
     var storageCulutre = this.languageService.getLang();
 
     let tokenModel: TokenRequestViewModel = {
-      clientName: this.environmentService.AuthConfiguration?.clientId!,
+      clientKey: this.environmentService.AuthConfiguration?.clientId!,
       culture: storageCulutre,
       key: key,
       redirectUrl: this.environmentService.AuthConfiguration?.redirectUrl!,
+      scopes: this.environmentService.AuthConfiguration?.scopes!,
+      state: this.environmentService.AuthConfiguration?.state!,
     };
 
     this.authProxy.collectToken(tokenModel).subscribe({
       next: (res) => {
         console.log('tokenResult', res);
+        this.saveLoginData(res);
+        if (this.environmentService.AuthConfiguration?.state) {
+          location.href = this.environmentService.AuthConfiguration?.state;
+        } else {
+          this.routerService.navigateTo('');
+        }
       },
     });
+  }
+
+  saveLoginData(model: TokenModel) {
+    this.localStorageService.setItem(StorageKeys.USER_TOKEN, model.token);
+    this.localStorageService.setItem(StorageKeys.LOGIN_RESPONSE, model);
   }
 
   clearAllStorage() {
@@ -62,15 +87,14 @@ export class AuthService {
     this.cookieService.clearAll();
   }
 
-  getAuthToken(): Observable<string> {
-    return this.oidcSecurityService.getAccessToken();
+  isAuthenticated() {
+    let token = this.localStorageService.getItem(StorageKeys.USER_TOKEN);
+
+    if (token) return true;
+    return false;
   }
 
-  isAuthenticated(): Observable<boolean> {
-    return this.oidcSecurityService.isAuthenticated();
-  }
-
-  getUserData(): LoginResponse {
+  getUserData(): TokenModel {
     let userData = this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
     this.currentUser.set(userData);
     return userData;
@@ -102,51 +126,41 @@ export class AuthService {
 
     return hasPermission;
   }
-
-  saveTokenData(): Observable<LoginResponse> {
-    return this.oidcSecurityService.checkAuth().pipe(
-      map((loginResponse: LoginResponse) => {
-        this.saveUserData(loginResponse);
+  refreshToken(): Observable<TokenModel> {
+    let userData = this.getUserData();
+    let refreshTokenDto: RefreshTokenDto = {
+      accessToken: userData.token,
+      refreshToken: userData.refreshToken,
+    };
+    return this.authProxy.refreshToken(refreshTokenDto).pipe(
+      map((loginResponse) => {
+        this.saveLoginData(loginResponse);
         return loginResponse;
       })
     );
-  }
-  refreshToken(): Observable<LoginResponse> {
-    return this.oidcSecurityService.forceRefreshSession().pipe(
-      map((loginResponse: LoginResponse) => {
-        this.saveUserData(loginResponse);
-        return loginResponse;
-      })
-    );
-  }
-
-  saveUserData(model: LoginResponse) {
-    this.currentUser.set(model);
-    this.sessionService.setItem(StorageKeys.USER_TOKEN, model.accessToken);
-    this.localStorageService.setItem(StorageKeys.LOGIN_RESPONSE, model);
   }
 
   get getUserName(): string {
     let item = this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
-    let loggedUser = item! as LoginResponse;
-    this.logService.log('authService.UserName', loggedUser.userData.fullname);
-    return loggedUser?.userData?.fullname ? loggedUser.userData.fullname! : '';
+    let loggedUser = item! as TokenModel;
+    this.logService.log('authService.UserName', loggedUser.userInfo.fullName);
+    return loggedUser?.userInfo?.fullName ? loggedUser.userInfo.fullName! : '';
   }
 
   get getUserPhoto(): string {
     let item = this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
-    let loggedUser = item! as LoginResponse;
-    return loggedUser?.userData?.Photo;
+    let loggedUser = item! as TokenModel;
+    return loggedUser?.userInfo?.profilePicId;
   }
 
   constructor(
     private localStorageService: StorageService,
     private sessionService: SessionStorageService,
-    private oidcSecurityService: OidcSecurityService,
     private logService: LogService,
     private cookieService: CookieStorageService,
     private languageService: LanguageService,
     private environmentService: EnvironmentService,
-    private authProxy: AuthProxy
+    private authProxy: AuthProxy,
+    private routerService: RouterService
   ) {}
 }

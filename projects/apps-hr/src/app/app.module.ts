@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CustomStorageService, ERPInterceptor, MicrotecAuthLibModule } from 'microtec-auth-lib';
+import { ERPInterceptor, MicrotecAuthLibModule } from 'microtec-auth-lib';
 import {
   EnvironmentService,
   LowerCaseUrlSerializer,
@@ -11,7 +11,6 @@ import {
   SharedLibModule,
 } from 'shared-lib';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { AbstractSecurityStorage, AuthModule } from 'angular-auth-oidc-client';
 import { environment } from '../environments/environment';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
@@ -25,9 +24,6 @@ import { UrlSerializer } from '@angular/router';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AuthModule.forRoot({
-      config: environment.openIdConfig,
-    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -51,10 +47,6 @@ import { UrlSerializer } from '@angular/router';
       provide: HTTP_INTERCEPTORS,
       useClass: ERPInterceptor,
       multi: true,
-    },
-    {
-      provide: AbstractSecurityStorage,
-      useClass: CustomStorageService,
     },
     {
       provide: UrlSerializer,

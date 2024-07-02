@@ -6,16 +6,6 @@ export const environment: IEnvironment = {
   Version: 'V1',
   ClientId: 'Apps-HR',
   Platform: 'Web',
-  openIdConfig: {
-    authority: 'https://intmicrotec.neat-url.com:2010',
-    redirectUrl: window.location.origin + '/erp/login-redirect',
-    postLogoutRedirectUri: window.location.origin + '/erp/logout-redirect',
-    clientId: 'microtec_erp_frontend',
-    scope: 'openid profile email offline_access subdomain',
-    responseType: 'code',
-    silentRenew: true,
-    useRefreshToken: true,
-  },
   AttachmentServiceConfig: {
     AttachmentServiceUrl: 'https://intmicrotec.neat-url.com:2030',
     ClientId: 'hr',

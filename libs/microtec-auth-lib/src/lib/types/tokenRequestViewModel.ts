@@ -1,6 +1,8 @@
 export interface TokenRequestViewModel {
   key: string;
   redirectUrl: string;
-  clientName: string;
+  clientKey: string;
   culture: string;
+  scopes: string;
+  state: string;
 }
