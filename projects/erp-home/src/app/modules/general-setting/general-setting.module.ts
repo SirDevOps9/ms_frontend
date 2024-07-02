@@ -100,7 +100,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'edit-customer-category',
+        path: 'edit-customer-category/:id',
         component: EditCustomerCategoryComponent,
         canActivate: [AuthGuard],
         data: {

@@ -79,10 +79,9 @@ export class GeneralSettingService {
   getVendorCategoryByID(id : number) {
     this.GeneralSettingproxy.getVendorCategoryByID(id)
     .subscribe(res=>{
-      if(res) {
-        this.customerCategoryDataByID.next(res)
+        this.vendorCategoryDataByID.next(res)
 
-      }
+      
     })
   }
 
@@ -94,7 +93,7 @@ export class GeneralSettingService {
           this.languageService.transalte('addVendorCategory.successAdd')
         );
         if(res) {
-          this.addCustomerCategoryData.next(res)
+          this.addVendorCategoryData.next(res)
 
         }
       },
@@ -109,10 +108,9 @@ export class GeneralSettingService {
           this.languageService.transalte('success'),
           this.languageService.transalte('addVendorCategory.successEdit')
         );
-        if(res) {
           this.addVendorCategoryData.next(res)
 
-        }
+        
       },
   
     });
@@ -160,7 +158,7 @@ export class GeneralSettingService {
     this.GeneralSettingproxy.getCustomerCategoryByID(id)
     .subscribe(res=>{
       if(res) {
-        this.vendorCategoryDataByID.next(res)
+        this.customerCategoryDataByID.next(res)
 
       }
     })
@@ -174,7 +172,7 @@ export class GeneralSettingService {
           this.languageService.transalte('addCustomerCategory.successAdd')
         );
         if(res) {
-          this.addVendorCategoryData.next(res)
+          this.addCustomerCategoryData.next(res)
 
         }
       },
@@ -190,7 +188,7 @@ export class GeneralSettingService {
           this.languageService.transalte('addCustomerCategory.successEdit')
         );
         if(res) {
-          this.addVendorCategoryData.next(res)
+          this.addCustomerCategoryData.next(res)
 
         }
       },
@@ -203,7 +201,7 @@ export class GeneralSettingService {
       'Delete'
     );
     if (confirmed) {
-      this.GeneralSettingproxy.deleteVendorCategory(id).subscribe({
+      this.GeneralSettingproxy.deleteCustomerCategory(id).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
             this.languageService.transalte('success'),

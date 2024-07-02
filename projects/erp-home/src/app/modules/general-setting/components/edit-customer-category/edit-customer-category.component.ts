@@ -50,8 +50,9 @@ export class EditCustomerCategoryComponent implements OnInit {
     this.paymentTermsList = res
   })
 
-  this.generalSettingService.getVendorCategoryByID(this.id)
+  this.generalSettingService.getCustomerCategoryByID(this.id)
   this.generalSettingService.customerCategoryDataByIDObservable.subscribe(res=>{
+    console.log(res)
     this.formGroup.patchValue({...res})
   })
 

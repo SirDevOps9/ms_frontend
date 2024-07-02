@@ -44,24 +44,27 @@ export class GeneralSettingProxy {
     return this.httpService.post<AddVendorCategory>(`VendorCategory`,addVendorCategoryDto);
  }
  addCustomerCategory(addCustomerCategoryDto: AddCustomerCategoryDto): Observable<AddCustomerCategoryDto> {
-    return this.httpService.post<AddCustomerCategoryDto>(`VendorCategory`,addCustomerCategoryDto);
+    return this.httpService.post<AddCustomerCategoryDto>(`CustomerCategory`,addCustomerCategoryDto);
  }
  EditVendorCategory(EditVendorCategoryDto: EditVendorCategoryDto): Observable<EditVendorCategoryDto> {
     return this.httpService.put<EditVendorCategoryDto>(`VendorCategory`,EditVendorCategoryDto);
  }
  EditCustomerCategory(EditCustomerCategoryDto: EditCustomerCategoryDto): Observable<EditCustomerCategoryDto> {
-    return this.httpService.put<EditVendorCategoryDto>(`VendorCategory`,EditCustomerCategoryDto);
+    return this.httpService.put<EditVendorCategoryDto>(`CustomerCategory`,EditCustomerCategoryDto);
  }
 
  deleteVendorCategory(id: number): Observable<boolean> {
   return this.httpService.delete<boolean>(`VendorCategory/${id}`);
+}
+deleteCustomerCategory(id: number): Observable<boolean> {
+  return this.httpService.delete<boolean>(`CustomerCategory?Id=${id}`);
 }
  getVendorCategoryByID(id : number) : Observable<EditVendorCategoryDto> {
   const url = `VendorCategory/${id}`
   return this.httpService.get(url);
 }
 getCustomerCategoryByID(id : number) : Observable<EditVendorCategoryDto> {
-  const url = `CustomerCategory/${id}`
+  const url = `CustomerCategory/GetById?id=${id}`
   return this.httpService.get(url);
 }
   addTag(addTagDto: AddTagDto): Observable<TagDto> {
