@@ -138,6 +138,9 @@ getVendorCategoryDropdown(): Observable<CategoryDropdownDto[]> {
 addNewVendorDefinition(vendor:AddVendorCommand): Observable<AddVendorCommand> {
   return this.httpService.post(`Vendor`,vendor);
 }
+getVendorById(id: number): Observable<any> {
+  return this.httpService.get<any>(`Vendor/${id}`);
+}
 
   constructor(private httpService: HttpService) {}
 }

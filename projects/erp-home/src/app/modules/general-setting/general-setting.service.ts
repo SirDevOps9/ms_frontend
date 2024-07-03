@@ -33,7 +33,9 @@ export class GeneralSettingService {
   private countryDataSource = new BehaviorSubject<CountryDto[]>([]);
   private cityDataSource = new BehaviorSubject<CityDto[]>([]);
   private currenciesDataSource = new BehaviorSubject<CurrencyDto[]>([]);
+  private vendorById = new BehaviorSubject<any>(null);
 
+  public vendorByIdObservable = this.vendorById.asObservable();
   public currencies = this.currenciesDataSource.asObservable();
 
   public cities = this.cityDataSource.asObservable();
@@ -499,6 +501,15 @@ export class GeneralSettingService {
         this.loaderService.hide();
       },
     });
+  }
+  getVendorById(id : number) {
+    this.GeneralSettingproxy.getVendorById(id)
+    .subscribe(res=>{
+      if(res) {
+        this.vendorById.next(res)
+
+      }
+    })
   }
  
   constructor(private GeneralSettingproxy: GeneralSettingProxy,

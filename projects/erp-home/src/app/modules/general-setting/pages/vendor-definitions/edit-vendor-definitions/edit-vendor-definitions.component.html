@@ -1,1 +1,779 @@
-<p>edit-vendor-definitions works!</p>
+<lib-page-content>
+    <div class="add_vendor_page">
+        <form [formGroup]="addVendorForm" (ngSubmit)="AddVendor()">
+        <lib-bread-crumb>
+            <lib-button-micro
+            nameClass="cancel"
+            title="Discard"
+            >
+
+            </lib-button-micro>
+            <lib-button-micro
+            nameClass="save"
+            title="save"
+            iconName="pi pi-save"
+            type="submit"
+            >
+
+            </lib-button-micro>
+        
+        </lib-bread-crumb>
+        
+        <div class="vendor_header">
+           
+            <div class="grid">
+                <div class="col-12 md:col-8">
+                    <div class="vendor_description">
+                        <div class="grid">
+                            <div class="col-12 md:col-6">
+                                <lib-form-group>
+                                    <lib-label
+                                    [appControl]="addVendorForm.controls['code']"
+                                    >
+                                    vendor code
+        
+                                    </lib-label>
+                                    <lib-text-input
+                                    placeholder="Auto"
+                                    [readOnly]="true"
+                                    >
+        
+                                    </lib-text-input>
+                                    <lib-field-validations>
+        
+                                    </lib-field-validations>
+                                </lib-form-group>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <lib-form-group>
+                                    <lib-label
+                                    [appControl]="addVendorForm.controls['name']"
+                                    >
+                                    vendor name
+        
+                                    </lib-label>
+                                    <lib-text-input
+                                    type="text"
+                                    formControlName="name"                                 
+                                     >
+        
+                                    </lib-text-input>
+                                    <lib-field-validations [appControl]="addVendorForm.controls['name']" >
+        
+                                    </lib-field-validations>
+                                </lib-form-group>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <lib-form-group>
+                                    <lib-label
+                                    [appControl]="addVendorForm.controls['vendorCategoryId']"
+                                    >
+                                    category
+        
+                                    </lib-label>
+                                    <lib-select
+                                    formControlName="vendorCategoryId"
+                                    [options]="categoryList"
+                                    optionValue="id"
+                                    optionLabel="name"
+                                  >
+                                  </lib-select>
+                                    <lib-field-validations>
+        
+                                    </lib-field-validations>
+                                </lib-form-group>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <lib-form-group>
+                                    <lib-label
+                                    [appControl]="addVendorForm.controls['VendorTagIds']"
+                                    >
+                                    vendor tag
+        
+                                    </lib-label>
+                                <lib-multi-select
+                                formControlName="VendorTagIds"
+                                [options]="accountTags"
+                                optionValue="id"
+                                optionLabel="name"
+                                >
+
+                                </lib-multi-select>
+                                    <lib-field-validations>
+        
+                                    </lib-field-validations>
+                                </lib-form-group>
+                            </div>
+                            <div class="col-12">
+                                <lib-form-group>
+                                    <lib-label
+                                    [appControl]="addVendorForm.controls['birthDate']"
+                                    >
+                                    birth date
+        
+                                    </lib-label>
+                                  <lib-calendar
+                                  formControlName="birthDate"
+                                  ></lib-calendar>
+                                    <lib-field-validations>
+        
+                                    </lib-field-validations>
+                                </lib-form-group>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-12 md:col-4">
+                    <div class="grid">
+                        <div class="col-12 md:col-2">
+                            <p class="photo_title body_b18 ">contact Photo</p>
+                            <p class="photo_valid body_b16 ">250px *500px  (JPG, PNG, PDF)</p>
+                        </div>
+                        <div class="col-12 md:col-2">
+                            <!-- <div class="vendor_photo"> -->
+                                <lib-form-group>
+                                    <lib-file-uploader
+                                      formControlName="photo"
+                                      [uploadClassName]="'rounded'"
+                                      [className]="'rounded'"
+                                      [showImgName]="false"
+                                      [config]="{
+                                        type: sharedLibEnums.AttachmentFileTypes.image,
+                                        viewThumbnail: true
+                                      }"
+                                      [appControl]="addVendorForm.controls['photo']"
+                                    ></lib-file-uploader>
+                    
+                                    <lib-field-validations
+                                      [appControl]="addVendorForm.controls['photo']"
+                                    ></lib-field-validations>
+                                  </lib-form-group>  
+                             <!-- </div> -->
+                        </div>
+                       
+                    </div>
+               
+               </div>
+            </div>
+            </div>
+        <div class="vendor_body">
+            <div class="card">
+                <p-tabView>
+                    <p-tabPanel header="information">
+                        <div formGroupName="vendorInformation" >
+                        <div class="information">
+                            <lib-fildest
+                            header="contact information"
+                            >
+                           
+                                <div class="grid">
+                                    <div class="col-12 md:col-4">
+                                        <div class="grid d">
+                                            
+                                            <div class="col-2">
+                                                <lib-form-group>
+                                                    <lib-label [appControl]="addVendorForm.get('vendorInformation')?.get('ContactMobileCode')">
+                                                       code
+                                                      </lib-label>
+                                                  <lib-selectIcon
+                                                    formControlName="ContactMobileCode"
+                                                    [options]="lookups[LookupEnum.MobileCode]"
+                                                    optionValue="id"
+                                                    optionLabel="name"
+                                                    icons="flags"
+                                                  >
+                                                  </lib-selectIcon>
+
+                                                  <lib-field-validations [appControl]="addVendorForm.get('vendorInformation')?.get('ContactMobileCode')">
+                                                  </lib-field-validations>
+                                                </lib-form-group>
+                                              </div>
+                                              <div class="col-10">
+                                                <lib-form-group>
+                                                    <lib-label [appControl]="addVendorForm.get('vendorInformation')?.get('contactMobile')">
+                                                        Contact Mobile
+                                                       </lib-label>
+                                                  <lib-text-input  type="tel" formControlName="contactMobile" />
+                                                  <lib-field-validations [appControl]="addVendorForm.get('vendorInformation')?.get('contactMobile')">
+                                                  </lib-field-validations>
+                                                </lib-form-group>
+                                              </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-12 md:col-4">
+                                        <lib-form-group>
+                                            <lib-label
+                                            [appControl]="addVendorForm.get('vendorInformation')?.get('contactPhone')"
+                                            >
+                                            contact Phone
+                
+                                            </lib-label>
+                                            <lib-text-input
+                                            type="text" formControlName="contactPhone"
+                                         
+                                             >
+                
+                                            </lib-text-input>
+                                            <lib-field-validations [appControl]="addVendorForm.get('vendorInformation')?.get('contactPhone')"  >
+                
+                                            </lib-field-validations>
+                                        </lib-form-group>
+                                    </div>
+                                    <div class="col-12 md:col-4">
+                                        <lib-form-group>
+                                            <lib-label
+                                            [appControl]="addVendorForm.get('vendorInformation')?.get('contactFax')"
+                                            >
+                                            contact Fax
+                
+                                            </lib-label>
+                                            <lib-text-input
+                                            type="text" formControlName="contactFax"
+                                         
+                                             >
+                
+                                            </lib-text-input>
+                                            <lib-field-validations [appControl]="addVendorForm.get('vendorInformation')?.get('contactFax')"  >
+                
+                                            </lib-field-validations>
+                                        </lib-form-group>
+                                    </div>
+                                    <div class="col-12 md:col-6">
+                                        <lib-form-group>
+                                            <lib-label
+                                            [appControl]="addVendorForm.get('vendorInformation')?.get('contactEmail')"
+                                            >
+                                            contact Email
+                
+                                            </lib-label>
+                                            <lib-text-input
+                                            type="text" formControlName="contactEmail"
+                                         
+                                             >
+                
+                                            </lib-text-input>
+                                            <lib-field-validations [appControl]="addVendorForm.get('vendorInformation')?.get('contactEmail')"  >
+                
+                                            </lib-field-validations>
+                                        </lib-form-group>
+                                    </div>
+                                    <div class="col-12 md:col-6">
+                                        <lib-form-group>
+                                            <lib-label
+                                            [appControl]="addVendorForm.get('vendorInformation')?.get('contactWebsite')"
+                                            >
+                                            contact Website
+                
+                                            </lib-label>
+                                            <lib-text-input
+                                            type="text" formControlName="contactWebsite"
+                                         
+                                             >
+                
+                                            </lib-text-input>
+                                            <lib-field-validations [appControl]="addVendorForm.get('vendorInformation')?.get('contactWebsite')"  >
+                
+                                            </lib-field-validations>
+                                        </lib-form-group>
+                                    </div>
+                                    
+                               
+                                </div>
+                           
+                           
+                            
+                            </lib-fildest>
+                            <div class="contact_person_information">
+                                <lib-fildest
+                            header="contact person information"
+                            >
+                            
+
+                            
+                            <div class="grid">
+                                <div class="col-12 md:col-4">
+                                    <lib-form-group>
+                                        <lib-label
+                                        [appControl]="addVendorForm.get('vendorInformation')?.get('contactPersonName')"
+                                        >
+                                        contact Person Name
+            
+                                        </lib-label>
+                                        <lib-text-input
+                                        type="text" formControlName="contactPersonName"
+                                     
+                                         >
+            
+                                        </lib-text-input>
+                                        <lib-field-validations [appControl]="addVendorForm.get('vendorInformation')?.get('contactPersonName')"  >
+            
+                                        </lib-field-validations>
+                                    </lib-form-group>
+                                </div>
+                                <div class="col-12 md:col-4">
+                                    <div class="grid ">
+                                        
+                                        <div class="col-2">
+                                            <lib-form-group>
+                                                <lib-label [appControl]="addVendorForm.get('vendorInformation')?.get('ContactPersonMobileCode')">
+                                                   code 
+                                                  </lib-label>
+                                              <lib-selectIcon
+                                                formControlName="ContactPersonMobileCode"
+                                                [options]="lookups[LookupEnum.MobileCode]"
+                                                optionValue="id"
+                                                optionLabel="name"
+                                                icons="flags"
+                                              >
+                                              </lib-selectIcon>
+                                              <lib-field-validations [appControl]="addVendorForm.get('vendorInformation')?.get('ContactPersonMobileCode')">
+                                              </lib-field-validations>
+                                            </lib-form-group>
+                                          </div>
+                                          <div class="col-10">
+                                            <lib-form-group>
+                                                <lib-label [appControl]="addVendorForm.get('vendorInformation')?.get('contactPersonMobile')">
+                                                    contact Person Mobile
+                                                   </lib-label>
+                                              <lib-text-input  type="tel" formControlName="contactPersonMobile" />
+                                              <lib-field-validations [appControl]="addVendorForm.get('vendorInformation')?.get('contactPersonMobile')">
+                                              </lib-field-validations>
+                                            </lib-form-group>
+                                          </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-12 md:col-4">
+                                    <lib-form-group>
+                                        <lib-label
+                                        [appControl]="addVendorForm.get('vendorInformation')?.get('contactPersonPhone')"
+                                        >
+                                        contact Person Phone
+            
+                                        </lib-label>
+                                        <lib-text-input
+                                        type="text" formControlName="contactPersonPhone"
+                                     
+                                         >
+            
+                                        </lib-text-input>
+                                        <lib-field-validations [appControl]="addVendorForm.get('vendorInformation')?.get('contactPersonPhone')"  >
+            
+                                        </lib-field-validations>
+                                    </lib-form-group>
+                                    
+                                </div>
+                              
+                                <div class="col-12 ">
+                                    <lib-form-group>
+                                        <lib-label
+                                        [appControl]="addVendorForm.get('vendorInformation')?.get('contactPersonEmail')"
+                                        >
+                                        contact Person Email
+            
+                                        </lib-label>
+                                        <lib-text-input
+                                        type="text" formControlName="contactPersonEmail"
+                                     
+                                         >
+            
+                                        </lib-text-input>
+                                        <lib-field-validations [appControl]="addVendorForm.get('vendorInformation')?.get('contactPersonEmail')"  >
+            
+                                        </lib-field-validations>
+                                    </lib-form-group>
+                                </div>
+                            </div>
+                            
+                            </lib-fildest>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="address">
+                        <div formGroupName="vendorAddress">
+                            <div class="address">
+                                <div class="grid">
+                                    <div class="col-12 md:col-8">
+                                        <div class="grid">
+                                            <div class="col-12 md:col-4 ">
+                                                <lib-form-group>
+                                                    <lib-label
+                                                    [appControl]="addVendorForm.get('vendorAddress')?.get('countryId')"
+                                                    >
+                                                    country
+                        
+                                                    </lib-label>
+                                                    <lib-selectIcon
+                                                    formControlName="countryId"
+                                                    [options]="countries"
+                                                    optionValue="id"
+                                                    optionLabel="nameEn"
+                                                    (valueChanged)="onCountryChange($event)"
+                                                    icons="flags"
+                                                  >
+                                                  </lib-selectIcon>
+                                                    <lib-field-validations [appControl]="addVendorForm.get('vendorAddress')?.get('countryId')"  >
+                        
+                                                    </lib-field-validations>
+                                                </lib-form-group>
+                                            </div>
+                                            <div class="col-12 md:col-4 ">
+                                                <lib-form-group>
+                                                    <lib-label
+                                                    [appControl]="addVendorForm.get('vendorAddress')?.get('state')"
+                                                    >
+                                                    state
+                        
+                                                    </lib-label>
+                                                    <lib-text-input
+                                                    type="text" formControlName="state"
+
+                                                    ></lib-text-input>
+                                                    <lib-field-validations [appControl]="addVendorForm.get('vendorAddress')?.get('state')"  >
+                        
+                                                    </lib-field-validations>
+                                                </lib-form-group>
+                                            </div>
+                                            <div class="col-12 md:col-4 ">
+                                                <lib-form-group>
+                                                    <lib-label
+                                                    [appControl]="addVendorForm.get('vendorAddress')?.get('cityId')"
+                                                    >
+                                                    city
+                        
+                                                    </lib-label>
+                                                    <lib-select
+                                                    formControlName="cityId"
+                                                    [options]="cities"
+                                                    optionValue="id"
+                                                    optionLabel="name"
+                                                  >
+                                                  </lib-select>
+                                                    <lib-field-validations [appControl]="addVendorForm.get('vendorAddress')?.get('cityId')"  >
+                        
+                                                    </lib-field-validations>
+                                                </lib-form-group>
+                                            </div>
+                                            
+                                             <div class="col-12 ">
+                                                <lib-form-group>
+                                                    <lib-label
+                                                    [appControl]="addVendorForm.get('vendorAddress')?.get('street')"
+                                                    >
+                                                    street
+                        
+                                                    </lib-label>
+                                                    <lib-text-input
+                                                    type="text" formControlName="street"
+                                                 
+                                                     >
+                        
+                                                    </lib-text-input>
+                                                    <lib-field-validations [appControl]="addVendorForm.get('vendorAddress')?.get('street')"  >
+                        
+                                                    </lib-field-validations>
+                                                </lib-form-group>
+                                            </div> <div class="col-12 ">
+                                                <lib-form-group>
+                                                    <lib-label
+                                                    [appControl]="addVendorForm.get('vendorAddress')?.get('longitude')"
+                                                    >
+                                                    longitude
+                        
+                                                    </lib-label>
+                                                    <lib-text-input
+                                                    type="number" formControlName="longitude"
+                                                 
+                                                     >
+                        
+                                                    </lib-text-input>
+                                                    <lib-field-validations [appControl]="addVendorForm.get('vendorAddress')?.get('longitude')"  >
+                        
+                                                    </lib-field-validations>
+                                                </lib-form-group>
+                                            </div> <div class="col-12 ">
+                                                <lib-form-group>
+                                                    <lib-label
+                                                    [appControl]="addVendorForm.get('vendorAddress')?.get('latitude')"
+                                                    >
+                                                    latitude
+                        
+                                                    </lib-label>
+                                                    <lib-text-input
+                                                    type="number" formControlName="latitude"
+                                                 
+                                                     >
+                        
+                                                    </lib-text-input>
+                                                    <lib-field-validations [appControl]="addVendorForm.get('vendorAddress')?.get('latitude')"  >
+                        
+                                                    </lib-field-validations>
+                                                </lib-form-group>
+                                            </div> 
+                                            <div class="col-12 ">
+                                                <lib-form-group>
+                                                    <lib-label
+                                                    [appControl]="addVendorForm.get('vendorAddress')?.get('radius')"
+                                                    >
+                                                    error radius
+                        
+                                                    </lib-label>
+                                                    <lib-text-input
+                                                    type="number" formControlName="radius"
+                                                 
+                                                     >
+                        
+                                                    </lib-text-input>
+                                                    <lib-field-validations [appControl]="addVendorForm.get('vendorAddress')?.get('radius')"  >
+                        
+                                                    </lib-field-validations>
+                                                </lib-form-group>
+                                            </div>
+            
+                                        </div>
+                                    </div>
+                                    <div class="col-12 md:col-4">
+                                        <div class="map_img">
+                                            <img src="assets/images/map/map.png" alt="" srcset="">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="legal">
+                        <div class="legal" formGroupName="vendorLegal">
+                            <div class="grid" >
+                                <div class="col-12 md:col-8">
+                                  
+                                    <div class="col-12 ">
+                                        <lib-form-group>
+                                            <lib-label
+                                            [appControl]="addVendorForm.get('vendorLegal')?.get('commercialId')"
+                                            >
+                                            commercial Id
+                
+                                            </lib-label>
+                                            <lib-text-input
+                                            type="text" formControlName="commercialId"
+                                         
+                                             >
+                
+                                            </lib-text-input>
+                                            <lib-field-validations [appControl]="addVendorForm.get('vendorLegal')?.get('commercialId')"  >
+                
+                                            </lib-field-validations>
+                                        </lib-form-group>
+                                    </div>
+                                    <div class="col-12 ">
+                                        <lib-form-group>
+                                            <lib-label
+                                            [appControl]="addVendorForm.get('vendorLegal')?.get('taxId')"
+                                            >
+                                            tax Id
+                
+                                            </lib-label>
+                                            <lib-text-input
+                                            type="text" formControlName="taxId"
+                                         
+                                             >
+                
+                                            </lib-text-input>
+                                            <lib-field-validations [appControl]="addVendorForm.get('vendorLegal')?.get('taxId')"  >
+                
+                                            </lib-field-validations>
+                                        </lib-form-group>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="financial">
+                        <div class="financial" formGroupName="vendorFinancial">
+                            <div class="grid">
+                                <div class="col-12 md:col-8">
+                                    <div class="col-12 ">
+                                        <lib-form-group>
+                                            <lib-label
+                                            [appControl]="addVendorForm.get('vendorFinancial')?.get('paymentTermId')"
+                                            >
+                                            payment Term
+                
+                                            </lib-label>
+                                            <lib-select
+                                            formControlName="paymentTermId"
+                                            [options]="paymentTermsList"
+                                            optionLabel="name"
+                                            optionValue="id"
+                                          >
+                                          </lib-select>
+                                            <lib-field-validations [appControl]="addVendorForm.get('vendorFinancial')?.get('paymentTermId')"  >
+                
+                                            </lib-field-validations>
+                                        </lib-form-group>
+                                    </div>
+                                    <div class="col-12 ">
+                                        <lib-form-group>
+                                            <lib-label
+                                            [appControl]="addVendorForm.get('vendorFinancial')?.get('priceListId')"
+                                            >
+                                            price List
+                
+                                            </lib-label>
+                                            <lib-select
+                                            formControlName="priceListId"
+                                            [options]="priceList"
+                                            optionLabel="name"
+                                            optionValue="id"
+                                          >
+                                          </lib-select>
+                                            <lib-field-validations [appControl]="addVendorForm.get('vendorFinancial')?.get('priceListId')"  >
+                
+                                            </lib-field-validations>
+                                        </lib-form-group>
+                                    </div>
+                                    <div class="col-12 ">
+                                        <lib-form-group>
+                                            <lib-label
+                                            [appControl]="addVendorForm.get('vendorFinancial')?.get('creditLimit')"
+                                            >
+                                            credit Limit
+                
+                                            </lib-label>
+                                            <lib-text-input
+                                            type="number" formControlName="creditLimit"
+                                         
+                                             >
+                
+                                            </lib-text-input>
+                                            <lib-field-validations [appControl]="addVendorForm.get('vendorFinancial')?.get('creditLimit')"  >
+                
+                                            </lib-field-validations>
+                                        </lib-form-group>
+                                    </div>
+                                    
+                                    <div class="col-12 ">
+                                        <lib-form-group>
+                                            <lib-label
+                                            [appControl]="addVendorForm.get('vendorFinancial')?.get('currencyId')"
+                                            >
+                                            currency
+                
+                                            </lib-label>
+                                            <lib-select
+                                            formControlName="currencyId"
+                                            [options]="currencies"
+                                            optionValue="id"
+                                            optionLabel="currencyName"
+                                          >
+                                          </lib-select>
+                                            <lib-field-validations [appControl]="addVendorForm.get('vendorFinancial')?.get('currencyId')"  >
+                
+                                            </lib-field-validations>
+                                        </lib-form-group>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="accounting">
+                        <div class="accounting" formGroupName="vendorAccounting">
+                            <div class="grid">
+                                <div class="col-12 md:col-8">
+                                    <div class="col-12 ">
+                                        <lib-form-group>
+                                            <lib-label
+                                            [appControl]="addVendorForm.get('vendorAccounting')?.get('payableAccountId')"
+                                            >
+                                            receivable account
+                
+                                            </lib-label>
+                                            <lib-select
+                                            formControlName="payableAccountId"
+                                            [options]="accountsList"
+                                            optionLabel="name"
+                                            optionValue="id"
+                                          >
+                                          </lib-select>
+                                            <lib-field-validations [appControl]="addVendorForm.get('vendorAccounting')?.get('payableAccountId')"  >
+                
+                                            </lib-field-validations>
+                                        </lib-form-group>
+                                    </div>
+                                    <div class="col-12 ">
+                                        <lib-form-group>
+                                            <lib-label
+                                            [appControl]="addVendorForm.get('vendorAccounting')?.get('purchaseAccountId')"
+                                            >
+                                            purchase Account
+                
+                                            </lib-label>
+                                            <lib-select
+                                            formControlName="purchaseAccountId"
+                                            [options]="accountsList"
+                                            optionLabel="name"
+                                            optionValue="id"
+                                          >
+                                          </lib-select>
+                                            <lib-field-validations [appControl]="addVendorForm.get('vendorAccounting')?.get('purchaseAccountId')"  >
+                
+                                            </lib-field-validations>
+                                        </lib-form-group>
+                                    </div>
+                                    <div class="col-12 ">
+                                        <lib-form-group>
+                                            <lib-label
+                                            [appControl]="addVendorForm.get('vendorAccounting')?.get('purchaseReturnAccountId')"
+                                            >
+                                            purchase Return Account
+                
+                                            </lib-label>
+                                            <lib-select
+                                            formControlName="purchaseReturnAccountId"
+                                            [options]="accountsList"
+                                            optionLabel="name"
+                                            optionValue="id"
+                                          >
+                                          </lib-select>
+                                            <lib-field-validations [appControl]="addVendorForm.get('vendorAccounting')?.get('purchaseReturnAccountId')"  >
+                
+                                            </lib-field-validations>
+                                        </lib-form-group>
+                                    </div>
+                                    <div class="col-12 ">
+                                        <lib-form-group>
+                                            <lib-label
+                                            [appControl]="addVendorForm.get('vendorAccounting')?.get('discountAccountId')"
+                                            >
+                                            discount Account 
+                
+                                            </lib-label>
+                                            <lib-select
+                                            formControlName="discountAccountId"
+                                            [options]="accountsList"
+                                            optionLabel="name"
+                                            optionValue="id"
+                                          >
+                                          </lib-select>
+                                            <lib-field-validations [appControl]="addVendorForm.get('vendorAccounting')?.get('discountAccountId')"  >
+                
+                                            </lib-field-validations>
+                                        </lib-form-group>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </p-tabPanel>
+                </p-tabView>
+            </div>
+        </div>
+    </form>
+    </div>
+</lib-page-content>
