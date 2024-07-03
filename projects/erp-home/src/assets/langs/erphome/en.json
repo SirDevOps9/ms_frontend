@@ -386,6 +386,32 @@
     },
     "deleteCustomerCategory" : {
       "delete" : "Customer Category Deleted Successfully"
+    },
+    "customerDefinition" : {
+      "code" : "Customer Code",
+      "name" : " Customer Name",
+      "category" : "Customer Category",
+      "email" : "Email",
+      "country" : "Country",
+      "paymentTerm" : "Payment Term",
+      "criditLimit" : "Credit Limit",
+      "actions" : "Actions"
+    },
+    "deleteCustomerDefinition" : {
+      "delete" : "Customer Definition Deleted Successfully"
+    },
+    "vendorDefinition" : {
+      "code" : "Vendor Code",
+      "name" : " Vendor Name",
+      "category" : "Vendor Category",
+      "email" : "Email",
+      "country" : "Country",
+      "paymentTerm" : "Payment Term",
+      "criditLimit" : "Credit Limit",
+      "actions" : "Actions"
+    },
+    "deleteVendorDefinition" : {
+      "delete" : "Vendor Definition Deleted Successfully"
     }
   
 }

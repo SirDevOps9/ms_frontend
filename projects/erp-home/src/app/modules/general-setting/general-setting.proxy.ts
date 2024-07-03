@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto } from './models';
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, vendorDefinitionDto } from './models';
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 @Injectable({
   providedIn: 'root',
@@ -57,16 +57,39 @@ export class GeneralSettingProxy {
   return this.httpService.delete<boolean>(`VendorCategory/${id}`);
 }
 deleteCustomerCategory(id: number): Observable<boolean> {
-  return this.httpService.delete<boolean>(`CustomerCategory?Id=${id}`);
+  return this.httpService.delete<boolean>(`CustomerCategory/${id}`);
 }
  getVendorCategoryByID(id : number) : Observable<EditVendorCategoryDto> {
   const url = `VendorCategory/${id}`
   return this.httpService.get(url);
 }
 getCustomerCategoryByID(id : number) : Observable<EditVendorCategoryDto> {
-  const url = `CustomerCategory/GetById?id=${id}`
+  const url = `CustomerCategory/GetById/${id}`
   return this.httpService.get(url);
 }
+
+
+getcustomerDefinition(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<CustomerCategoryDto>> {
+
+  const url = `Customer?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+
+  return this.httpService.get<PaginationVm<CustomerCategoryDto>>(url);
+} 
+
+deleteCustomerDefinition(id: number): Observable<boolean> {
+  return this.httpService.delete<boolean>(`Customer/${id}`);
+}
+getVendorDefinition(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<vendorDefinitionDto>> {
+
+  const url = `vendor?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+
+  return this.httpService.get<PaginationVm<vendorDefinitionDto>>(url);
+} 
+
+deleteVendorDefinition(id: number): Observable<boolean> {
+  return this.httpService.delete<boolean>(`vendor/${id}`);
+}
+
   addTag(addTagDto: AddTagDto): Observable<TagDto> {
      return this.httpService.post<TagDto>(`Tag`,addTagDto);
   }

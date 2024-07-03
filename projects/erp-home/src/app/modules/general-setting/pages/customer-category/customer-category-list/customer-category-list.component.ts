@@ -55,7 +55,7 @@ export class CustomerCategoryListComponent implements OnInit {
 
  
   onPageChange(pageInfo: PageInfo) {
-    this.generalSettingService.getcustomerCategory('', new PageInfo());
+    this.generalSettingService.getcustomerCategory('', pageInfo);
 
     this.generalSettingService.customerCategoryDataSourceObservable.subscribe({
       next: (res) => {

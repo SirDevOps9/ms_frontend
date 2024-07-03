@@ -9,4 +9,5 @@ export * from './editVendorCategoryDto';
 export * from './customerCategoryDto';
 export * from './addVendrorCategoryDto';
 export * from './editCustomerCategoryDto';
+export * from './vendorDefinitionDto';
 

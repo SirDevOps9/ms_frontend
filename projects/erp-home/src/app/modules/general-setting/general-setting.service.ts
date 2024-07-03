@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, filter, map } from 'rxjs';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
 import { GeneralSettingProxy } from './general-setting.proxy';
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto} from './models';
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, vendorDefinitionDto} from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 @Injectable({
@@ -27,6 +27,8 @@ export class GeneralSettingService {
   private customerCategoryDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
   private customerCategoryDataByID = new BehaviorSubject<any>(null);
   private addCustomerCategoryData = new BehaviorSubject<any>(null);
+  private customerDefinitionDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
+  private vendorDefinitionDataSource = new BehaviorSubject<vendorDefinitionDto[]>([]);
 
 
   public currentTag = this.currentTagDataSource.asObservable();
@@ -48,6 +50,9 @@ export class GeneralSettingService {
   public customerCategoryDataSourceObservable = this.customerCategoryDataSource.asObservable();
   public customerCategoryDataByIDObservable = this.customerCategoryDataByID.asObservable();
   public addCustomerCategoryDataObservable = this.addCustomerCategoryData.asObservable();
+
+  public customerDefinitionDataSourceObservable = this.customerDefinitionDataSource.asObservable();
+  public vendorDefinitionDataSourceObservable = this.vendorDefinitionDataSource.asObservable();
 
   
   getTagList(searchTerm: string, pageInfo: PageInfo) {
@@ -219,6 +224,71 @@ export class GeneralSettingService {
 
     }
   }
+  // customer definition
+
+  getcustomerDefinition(searchTerm: string, pageInfo: PageInfo) {
+    this.GeneralSettingproxy.getcustomerDefinition(searchTerm, pageInfo).subscribe({
+      next: (res) => {
+        this.customerDefinitionDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+  }
+  async deleteCustomerDefinition(id: number){
+    const confirmed = await this.toasterService.showConfirm(
+      'Delete'
+    );
+    if (confirmed) {
+      this.GeneralSettingproxy.deleteCustomerDefinition(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('deleteCustomerDefinition.delete')
+          );
+          let data = this.customerDefinitionDataSource.getValue()
+          const updatedVendor = data.filter((elem) => elem.id !== id);
+          this.customerDefinitionDataSource.next(updatedVendor);
+
+          return res;
+        },
+      });
+
+    }
+  }
+
+  // vendor
+  getVendorDefinition(searchTerm: string, pageInfo: PageInfo) {
+    this.GeneralSettingproxy.getVendorDefinition(searchTerm, pageInfo).subscribe({
+      next: (res) => {
+        this.vendorDefinitionDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+  }
+
+  async deletevendorDefinition(id: number){
+    const confirmed = await this.toasterService.showConfirm(
+      'Delete'
+    );
+    if (confirmed) {
+      this.GeneralSettingproxy.deleteVendorDefinition(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('deleteVendorDefinition.delete')
+          );
+          let data = this.vendorDefinitionDataSource.getValue()
+          const updatedVendor = data.filter((elem) => elem.id !== id);
+          this.vendorDefinitionDataSource.next(updatedVendor);
+
+          return res;
+        },
+      });
+
+    }
+  }
+
+  // 
 
   addTag(addTagDto: AddTagDto
     ,dialogRef: DynamicDialogRef
