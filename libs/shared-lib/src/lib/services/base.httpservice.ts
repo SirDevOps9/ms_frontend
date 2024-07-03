@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, of, switchMap, throwError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { StorageService } from './localstorage.service';
 import { LogService } from './log.service';
 import { StorageKeys } from '../constants/storagekeys';
