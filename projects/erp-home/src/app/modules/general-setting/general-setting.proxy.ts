@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, TagDropDownDto, CountryDto, CityDto, CurrencyDto, CategoryDropdownDto } from './models';
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, TagDropDownDto, CountryDto, CityDto, CurrencyDto, CategoryDropdownDto, AddVendorCommand } from './models';
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 @Injectable({
   providedIn: 'root',
@@ -135,7 +135,7 @@ getCurrencies(searchKey: string): Observable<CurrencyDto[]> {
 getVendorCategoryDropdown(): Observable<CategoryDropdownDto[]> {
   return this.httpService.get<CategoryDropdownDto[]>('VendorCategory/VendorCategoryDropdown');
 }
-addNewVendorDefinition(vendor:any): Observable<any> {
+addNewVendorDefinition(vendor:AddVendorCommand): Observable<AddVendorCommand> {
   return this.httpService.post(`Vendor`,vendor);
 }
 

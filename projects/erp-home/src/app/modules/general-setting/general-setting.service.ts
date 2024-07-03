@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, filter, map } from 'rxjs';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
 import { GeneralSettingProxy } from './general-setting.proxy';
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, TagDropDownDto, CountryDto, CityDto, CurrencyDto, CategoryDropdownDto} from './models';
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, TagDropDownDto, CountryDto, CityDto, CurrencyDto, CategoryDropdownDto, AddVendorCommand} from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 @Injectable({
@@ -484,7 +484,7 @@ export class GeneralSettingService {
     });
     
   }
-  addNewVendorDefinition(vendor:any){
+  addNewVendorDefinition(vendor:AddVendorCommand){
     this.loaderService.show();
     this.GeneralSettingproxy.addNewVendorDefinition(vendor).subscribe({
       next: (res) => {

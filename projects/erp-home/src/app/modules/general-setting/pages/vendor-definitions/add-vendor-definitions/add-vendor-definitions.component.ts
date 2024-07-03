@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { FormsService, LookupEnum, LookupsService, customValidators } from 'shared-lib';
-import { CategoryDropdownDto, CityDto, CountryDto, CurrencyDto, TagDropDownDto, lookupDto } from '../../../models';
+import { FormsService, LookupEnum, LookupsService, SharedLibraryEnums, customValidators } from 'shared-lib';
+import { AddVendorCommand, CategoryDropdownDto, CityDto, CountryDto, CurrencyDto, TagDropDownDto, lookupDto } from '../../../models';
 import { GeneralSettingService } from '../../../general-setting.service';
 
 @Component({
@@ -32,10 +32,14 @@ constructor(
   private formsService: FormsService,
   public lookupsService: LookupsService,
   private GeneralSettingService: GeneralSettingService,
+  public sharedLibEnums: SharedLibraryEnums,
+
+
 
 ){
   this.addVendorForm = fb.group({
     code: new FormControl(null),
+    photo: new FormControl(null),
     name: new FormControl('', [ customValidators.required]),
     birthDate: new FormControl(null),
     vendorCategoryId: new FormControl(null),
@@ -46,13 +50,13 @@ constructor(
       ContactMobileCode : new FormControl(null),
       contactMobile: new FormControl(null),
       contactFax: new FormControl(null),
-      contactEmail: new FormControl(null),
+      contactEmail: new FormControl(null,[customValidators.email]),
       contactWebsite: new FormControl(null),
       contactPersonName: new FormControl(null),
       contactPersonMobile: new FormControl(null),
       ContactPersonMobileCode : new FormControl(null),
       contactPersonPhone: new FormControl(null),
-      contactPersonEmail: new FormControl(null),
+      contactPersonEmail: new FormControl(null,[customValidators.email]),
           
         }),
         vendorAddress: this.fb.group({
@@ -99,8 +103,8 @@ constructor(
     this.loadCountries();
 
     this.getTags();
-    // this.loadLookups();
-    // this.Subscribe();
+    this.loadLookups();
+    this.Subscribe();
   }
   loadCountries() {
     this.GeneralSettingService.loadCountries();
@@ -145,16 +149,20 @@ constructor(
       this.cities = res;
     });
   }
-  print(){
-    console.log(this.addVendorForm.value);
-    this.GeneralSettingService.addNewVendorDefinition(this.addVendorForm.value)
+  AddVendor(){
+    if (!this.formsService.validForm(this.addVendorForm, true)) return;
+    
+        const vendor:AddVendorCommand =this.addVendorForm.value;
+        this.GeneralSettingService.addNewVendorDefinition(vendor)
+
+    
   }
 
 Subscribe() {
   this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
 }
 loadLookups() {
-  this.lookupsService.loadLookups([LookupEnum.Country, LookupEnum.MobileCode]);
+  this.lookupsService.loadLookups([LookupEnum.MobileCode]);
 }
 getTags() {
   this.GeneralSettingService.getTags();

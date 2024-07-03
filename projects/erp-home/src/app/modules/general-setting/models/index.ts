@@ -16,3 +16,4 @@ export * from './CountryDto';
 export * from './CityDto';
 export * from './CurrencyDto';
 export * from './CategoryDropdownDto';
+export * from './AddVendorCommand';

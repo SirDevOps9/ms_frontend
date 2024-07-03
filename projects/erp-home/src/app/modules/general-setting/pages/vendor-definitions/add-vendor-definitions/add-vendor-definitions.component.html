@@ -1,6 +1,6 @@
 <lib-page-content>
     <div class="add_vendor_page">
-        <form [formGroup]="addVendorForm">
+        <form [formGroup]="addVendorForm" (ngSubmit)="AddVendor()">
         <lib-bread-crumb>
             <lib-button-micro
             nameClass="cancel"
@@ -12,7 +12,7 @@
             nameClass="save"
             title="save"
             iconName="pi pi-save"
-            (click)="print()"
+            type="submit"
             >
 
             </lib-button-micro>
@@ -58,7 +58,7 @@
                                      >
         
                                     </lib-text-input>
-                                    <lib-field-validations>
+                                    <lib-field-validations [appControl]="addVendorForm.controls['name']" >
         
                                     </lib-field-validations>
                                 </lib-form-group>
@@ -125,12 +125,38 @@
                     </div>
                 </div>
                 <div class="col-12 md:col-4">
-                    <div class="vendor_photo">
-                        <lib-upload-multipe-files></lib-upload-multipe-files>
+                    <div class="grid">
+                        <div class="col-12 md:col-2">
+                            <p class="photo_title body_b18 ">contact Photo</p>
+                            <p class="photo_valid body_b16 ">250px *500px  (JPG, PNG, PDF)</p>
+                        </div>
+                        <div class="col-12 md:col-2">
+                            <!-- <div class="vendor_photo"> -->
+                                <lib-form-group>
+                                    <lib-file-uploader
+                                      formControlName="photo"
+                                      [uploadClassName]="'rounded'"
+                                      [className]="'rounded'"
+                                      [showImgName]="false"
+                                      [config]="{
+                                        type: sharedLibEnums.AttachmentFileTypes.image,
+                                        viewThumbnail: true
+                                      }"
+                                      [appControl]="addVendorForm.controls['photo']"
+                                    ></lib-file-uploader>
+                    
+                                    <lib-field-validations
+                                      [appControl]="addVendorForm.controls['photo']"
+                                    ></lib-field-validations>
+                                  </lib-form-group>  
+                             <!-- </div> -->
+                        </div>
+                       
                     </div>
-                </div>
+               
+               </div>
             </div>
-        </div>
+            </div>
         <div class="vendor_body">
             <div class="card">
                 <p-tabView>
@@ -150,14 +176,14 @@
                                                     <lib-label [appControl]="addVendorForm.get('vendorInformation')?.get('ContactMobileCode')">
                                                        code
                                                       </lib-label>
-                                                  <!-- <lib-selectIcon
+                                                  <lib-selectIcon
                                                     formControlName="ContactMobileCode"
                                                     [options]="lookups[LookupEnum.MobileCode]"
                                                     optionValue="id"
                                                     optionLabel="name"
                                                     icons="flags"
                                                   >
-                                                  </lib-selectIcon> -->
+                                                  </lib-selectIcon>
 
                                                   <lib-field-validations [appControl]="addVendorForm.get('vendorInformation')?.get('ContactMobileCode')">
                                                   </lib-field-validations>
@@ -165,7 +191,7 @@
                                               </div>
                                               <div class="col-10">
                                                 <lib-form-group>
-                                                    <lib-label [appControl]="addVendorForm.get('vendorInformation')?.get('ContactMobileCode')">
+                                                    <lib-label [appControl]="addVendorForm.get('vendorInformation')?.get('contactMobile')">
                                                         Contact Mobile
                                                        </lib-label>
                                                   <lib-text-input  type="tel" formControlName="contactMobile" />
@@ -291,18 +317,18 @@
                                         
                                         <div class="col-2">
                                             <lib-form-group>
-                                                <lib-label [appControl]="addVendorForm.get('vendorInformation')?.get('ContactMobileCode')">
+                                                <lib-label [appControl]="addVendorForm.get('vendorInformation')?.get('ContactPersonMobileCode')">
                                                    code 
                                                   </lib-label>
-                                              <!-- <lib-selectIcon
-                                                formControlName="ContactMobileCode"
+                                              <lib-selectIcon
+                                                formControlName="ContactPersonMobileCode"
                                                 [options]="lookups[LookupEnum.MobileCode]"
                                                 optionValue="id"
                                                 optionLabel="name"
                                                 icons="flags"
                                               >
-                                              </lib-selectIcon> -->
-                                              <lib-field-validations [appControl]="addVendorForm.get('vendorInformation')?.get('ContactMobileCode')">
+                                              </lib-selectIcon>
+                                              <lib-field-validations [appControl]="addVendorForm.get('vendorInformation')?.get('ContactPersonMobileCode')">
                                               </lib-field-validations>
                                             </lib-form-group>
                                           </div>
@@ -403,7 +429,10 @@
                                                     state
                         
                                                     </lib-label>
-                                                    <lib-select></lib-select>
+                                                    <lib-text-input
+                                                    type="text" formControlName="state"
+
+                                                    ></lib-text-input>
                                                     <lib-field-validations [appControl]="addVendorForm.get('vendorAddress')?.get('state')"  >
                         
                                                     </lib-field-validations>
@@ -457,7 +486,7 @@
                         
                                                     </lib-label>
                                                     <lib-text-input
-                                                    type="text" formControlName="longitude"
+                                                    type="number" formControlName="longitude"
                                                  
                                                      >
                         
@@ -475,7 +504,7 @@
                         
                                                     </lib-label>
                                                     <lib-text-input
-                                                    type="text" formControlName="latitude"
+                                                    type="number" formControlName="latitude"
                                                  
                                                      >
                         
@@ -494,7 +523,7 @@
                         
                                                     </lib-label>
                                                     <lib-text-input
-                                                    type="text" formControlName="radius"
+                                                    type="number" formControlName="radius"
                                                  
                                                      >
                         
@@ -507,7 +536,12 @@
             
                                         </div>
                                     </div>
-                                    
+                                    <div class="col-12 md:col-4">
+                                        <div class="map_img">
+                                            <img src="assets/images/map/map.png" alt="" srcset="">
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             
@@ -613,7 +647,7 @@
                 
                                             </lib-label>
                                             <lib-text-input
-                                            type="text" formControlName="creditLimit"
+                                            type="number" formControlName="creditLimit"
                                          
                                              >
                 

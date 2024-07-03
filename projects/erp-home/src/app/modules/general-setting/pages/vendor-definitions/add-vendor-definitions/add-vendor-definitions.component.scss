@@ -13,7 +13,24 @@
 .contact_person_information{
     margin-top: 20px;
 }
+.photo_title{
+    color: #6B7280;
+}
+.photo_valid{
+    color: #B6BAC3;
+
+}
+.map_img{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    height: 100%;
+}
 ::ng-deep{
+    .p-checkbox .p-checkbox-box.p-highlight {
+        border-color: #1A8EAE !important;
+        background: #1A8EAE !important;
+      }
     .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
         background: #ffffff;
         border-color: #1A8EAE;
