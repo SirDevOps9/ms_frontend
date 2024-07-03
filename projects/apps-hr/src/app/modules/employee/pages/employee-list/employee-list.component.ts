@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { LanguageService, PageInfo, PageInfoResult, RouterService, lookupDto } from 'shared-lib';
+import { FilterDto, LanguageService, PageInfo, PageInfoResult, RouterService, lookupDto } from 'shared-lib';
 import { EmployeeDto } from '../../models/employeeDto';
 import { Title } from '@angular/platform-browser';
 import { EmployeeService } from '../../employee.service';
-import { ExcelExportService } from 'libs/shared-lib/src/lib/export/exportService';
+import { ExportService } from 'libs/shared-lib/src/lib/export/exportService';
 
 @Component({
   selector: 'app-employee-list',
@@ -15,6 +15,7 @@ export class EmployeeListComponent implements OnInit {
   @ViewChild('myTab') myTab: any | undefined;
   selectedEntries: EmployeeDto[];
   tableData: EmployeeDto[];
+  exportData: EmployeeDto[];
   cols: any[] = [];
   active: boolean = false;
   currentPageInfo: PageInfoResult;
@@ -109,6 +110,14 @@ export class EmployeeListComponent implements OnInit {
     });
   }
 
+  exportEmployeeData(filterDto: FilterDto) {
+    this.employeeService.exportsEmployeesList(filterDto);
+
+    this.employeeService.exportedEmployeesList.subscribe((res) => {
+      this.exportData = res;
+    });
+  }
+
   onPageChange(pageInfo: PageInfo) {
     console.log(pageInfo);
     this.initEmployeeData('', pageInfo);
@@ -131,10 +140,18 @@ export class EmployeeListComponent implements OnInit {
     this.searchTerm = inputElement.value;
     this.initEmployeeData(this.searchTerm, new PageInfo());
   }
-  exportTable()
+  exportExcel()
   {
-    console.log(this.exportSelectedCols);
-    //const includeColumns : string []=["id","employeeCode","attendanceCode","employeeName"]
-    ExcelExportService.exportToExcel(this.tableData, 'Employee-List.xlsx',this.exportSelectedCols);
+
+    let filterDto : FilterDto = new FilterDto();
+    this.exportEmployeeData(filterDto);
+    ExportService.ToExcel(this.exportData, 'Employee-List.xlsx',this.exportSelectedCols);
+  }
+
+  public exportPDF():void{
+    let filterDto : FilterDto = new FilterDto();
+    this.exportEmployeeData(filterDto);
+    ExportService.ToPDF(this.exportData, 'Employee-List.pdf',this.exportSelectedCols);
+
   }
 }

@@ -13,8 +13,13 @@
         </lib-form-group>
       </div>
       <div class="md:col-2">
-        <button (click)="exportTable()" class="primary export"> 
-          <span class="pi pi-file"></span>Export
+        <button (click)="exportExcel()" class="primary export"> 
+          <span class="pi pi-file"></span>Export Excel
+        </button>
+      </div>
+      <div class="md:col-2">
+        <button (click)="exportPDF()" class="primary export"> 
+          <span class="pi pi-file"></span>Export PDF
         </button>
       </div>
     </div>
