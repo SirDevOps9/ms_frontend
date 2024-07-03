@@ -1,0 +1,22 @@
+.vendor_header{
+    margin-top: 15px;
+    .vendor_description{
+        padding: 10px 20px;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+    .vendor_photo{
+        padding: 10px 20px;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        height: 100%;
+    }
+}
+.contact_person_information{
+    margin-top: 20px;
+}
+::ng-deep{
+    .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+        background: #ffffff;
+        border-color: #1A8EAE;
+        color: #1A8EAE;
+}
+}

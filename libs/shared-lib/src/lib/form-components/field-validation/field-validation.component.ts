@@ -7,7 +7,7 @@ import { AbstractControl } from '@angular/forms';
   styleUrls: ['./field-validation.component.scss'],
 })
 export class FieldValidationsComponent implements OnInit {
-  @Input() appControl: AbstractControl;
+  @Input() appControl: AbstractControl | any;
 
   get errorKeys(): string[] {
     return Object.keys(this.appControl?.errors!);

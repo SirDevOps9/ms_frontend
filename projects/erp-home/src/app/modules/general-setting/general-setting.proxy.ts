@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto } from './models';
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, TagDropDownDto, CountryDto, CityDto, CurrencyDto, CategoryDropdownDto } from './models';
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 @Injectable({
   providedIn: 'root',
@@ -119,6 +119,24 @@ activateTag(id: number): Observable<boolean> {
 
 deactivateTag(id: number): Observable<boolean> {
   return this.httpService.put<boolean>(`Tag/deactivate?Id=${id}`,{});
+}
+getTags(): Observable<TagDropDownDto[]> {
+  return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown`);
+}
+getAllCountries(): Observable<CountryDto[]> {
+  return this.httpService.get<CountryDto[]>(`Country`);
+}
+getCities(countryCode: string): Observable<CityDto[]> {
+  return this.httpService.get<CityDto[]>(`Country/GetCities?CountryCode=${countryCode}`);
+}
+getCurrencies(searchKey: string): Observable<CurrencyDto[]> {
+  return this.httpService.get<CurrencyDto[]>('Currency?searchKey=' + searchKey);
+}
+getVendorCategoryDropdown(): Observable<CategoryDropdownDto[]> {
+  return this.httpService.get<CategoryDropdownDto[]>('VendorCategory/VendorCategoryDropdown');
+}
+addNewVendorDefinition(vendor:any): Observable<any> {
+  return this.httpService.post(`Vendor`,vendor);
 }
 
   constructor(private httpService: HttpService) {}
