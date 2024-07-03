@@ -12,6 +12,15 @@
     border-color: #d14a38;
     }
 }
+
+::ng-deep .addToList {
+  .p-button {
+    color: #ffffff;
+    background: #1A8EAE;
+    text-align: center;
+    width: 200px;
+}
+}
 ::ng-deep .orange {
   .p-button {
     color: #ffffff;
@@ -25,6 +34,7 @@
     }
 }
 ::ng-deep .light-blue {
+
  
   .p-button {
     color: #ffffff;
@@ -124,6 +134,46 @@
             font-size: 1rem;
 
   }
+}
+
+::ng-deep .saveBtn {
+  .p-button { 
+
+    width: 213px;
+    display: block;
+    padding: 12px;
+    color: #ffffff;
+    background: #4FB2CD;
+    border: 1px solid #4FB2CD;
+    background: #1a8eae;
+    border: 0px solid #3B82F6;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+    border-radius: 10px;
+    outline-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    padding: 13px;
+    margin-top: 5px;
+  }
+  
+}
+
+::ng-deep .new-line {
+  .p-button { 
+
+  width: 141px;
+    background-color: transparent;
+    border: 0;
+    color: #1A8EAE;
+    font-weight: bold;
+  
+  }
+  .p-button:focus {
+    box-shadow: none !important;
+    border: 0 !important;
+}
 }
 
 ::ng-deep .adminPortal {

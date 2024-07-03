@@ -6,6 +6,7 @@ import {
   Optional,
   Self,
   input,
+  AfterViewInit,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -20,18 +21,21 @@ import {
   templateUrl: './text-input.component.html',
   styleUrls: ['./text-input.component.scss'],
 })
-export class  TextInputComponent implements ControlValueAccessor, Validator {
+export class  TextInputComponent implements ControlValueAccessor, Validator , AfterViewInit {
   @Input() label: string;
+  @Input() labelTest: any;
   @Input() type: 'text' | 'number' | 'tel' | 'email' | 'date' | 'radio';
   @Input() readOnly: boolean;
   @Input() inputContainerClass: string;
   @Input() placeholder: string = '';
   @Input() maxLength: string;
+  // @Input() data_testid: any = this.labelTest;
   @Input() id: string;
   @Input() iconUrl: string = '';
   @Output() valueChanged = new EventEmitter<string>();
 
   @Output() keyUp = new EventEmitter<string>();
+  @Output() keyUpFullEvent = new EventEmitter<string>();
 
   value: string = '';
   onChange = (value: any) => {};
@@ -74,6 +78,7 @@ export class  TextInputComponent implements ControlValueAccessor, Validator {
     this.onChange(m.target.value);
 
     this.keyUp.emit(m.target.value);
+    this.keyUpFullEvent.emit(m)
   }
 
   constructor(@Self() @Optional() public controlDir: NgControl) {
@@ -81,4 +86,14 @@ export class  TextInputComponent implements ControlValueAccessor, Validator {
       this.controlDir.valueAccessor = this;
     }
   }
+  ngAfterViewInit(){
+    if (this.controlDir) {
+      setTimeout(() => {
+        this.labelTest=this.controlDir.name
+      }, 500);
+      
+      
+    }
+  }
+  
 }

@@ -80,6 +80,7 @@
             <th>{{ 'rate' | translate }}</th>
             <th>{{ 'debit_amount_local' | translate }}</th>
             <th>{{ 'credit_amount_local' | translate }}</th>
+            <th>{{ 'cost_center' | translate }}</th>
             <th></th>
           </tr>
         </ng-template>
@@ -111,7 +112,7 @@
               <lib-field-validations [appControl]="fg.controls['account']"></lib-field-validations>
             </td>
             <td>
-              <!-- {{ (fg.controls['account']?.value | getElementByID : filteredAccounts)?.name }} -->
+              <!-- {{ (fg.controls['account']?.value | getElementByID : filteredAccounts)?.costCenterConfig == 'Mandatory' || (fg.controls['account']?.value | getElementByID : filteredAccounts)?.costCenterConfig == 'NotAllow' }} -->
 
               {{ fg.controls['accountName']?.value }}
             </td>
@@ -203,6 +204,10 @@
             </td>
             <td>
               {{ fg.controls['creditAmountLocal'].value | number : '1.0-2' }}
+            </td>
+            <td>
+              
+              <img class="costCenterImg" src="assets/images/Frame.png" (click)="openCostPopup(fg.value ,  fg.controls['account']?.value , i)">
             </td>
             <td>
               <lib-button

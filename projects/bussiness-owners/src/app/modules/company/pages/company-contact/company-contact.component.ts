@@ -44,6 +44,7 @@ export class CompanyContactComponent implements OnInit {
     if (this.editMode) {
       if (!this.formsService.validForm(this.companyContactForm, false)) return;
       const request: CompanyContactDto = this.companyContactForm.value;
+      this.companyService.companyName.next(this.companyContactForm.value.companyName)
       request.id = this.companyId;
       this.companyService.saveCompanyContact(request);
       console.log('request', request);

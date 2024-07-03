@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
     <div class="flex justify-content-end">
         <button (click)="addAttachment()" class="add-attachment">add</button>
 
@@ -7,10 +7,9 @@
         <div *ngFor="let item of attachments.controls; let i = index">
             <div class="grid align-items-center">
                 <div class="col-10"><lib-named-file-uploader [appControl]="item"></lib-named-file-uploader></div>
-                <!-- <div class="col-2 mt-2">
-                        
-                    <i class="pi pi-times delete" (click)="removeAttachment(i)"></i>
-                    </div> -->
+              
             </div>
         </div>
-</div>
+</div> -->
+<lib-upload-multipe-files (sendFiles)="files($event)"></lib-upload-multipe-files>
+

@@ -41,7 +41,7 @@
           </div>
           <div class="md:col-4">
             <lib-form-group>
-              <label> {{ 'ChartOfAccounts.ParentLevel' | translate }}</label>
+              <label> {{ 'ChartOfAccounts.level' | translate }}</label>
 
               <lib-text-input [readOnly]="true" type="text" [placeholder]="parent?.accountLevel!" />
             </lib-form-group>
@@ -110,13 +110,24 @@
                 </div>
               </div>
             </div>
-            <div class="md:col-6" >
-              <lib-form-group *ngIf="yes">
+            <div class="md:col-6" *ngIf="yes" >
+              <lib-form-group >
                 <label> {{ 'ChartOfAccounts.Currency' | translate }}</label>
                 <lib-text-input
                   [readOnly]="true"
                   type="text"
                   [placeholder]="parent?.accountCurrency!"
+                ></lib-text-input>
+              </lib-form-group>
+            </div>
+            <div class="md:col-6" *ngIf="accountCompanies !== ''">
+              <lib-form-group>
+                <label> {{ 'ChartOfAccounts.companies' | translate }}</label>
+  
+                <lib-text-input
+                  [readOnly]="true"
+                  type="text"
+                  [placeholder]="accountCompanies!"
                 ></lib-text-input>
               </lib-form-group>
             </div>

@@ -15,23 +15,25 @@ export class AttachmentViewerComponent implements OnInit, OnChanges {
 
   ngOnInit() {
   }
-  
+
   ngOnChanges(changes: SimpleChanges) {
     if ('attachmentId' in changes) {
       this.setImage();
     }
   }
-  
+
   private setImage() {
-    this.attachmentService
-      .getAttachment(this.attachmentId)
-      .subscribe((response: AttachmentDto) => {
-        if (response?.fileContent) {
-          const source = `${response.base64Padding},${response.fileContent}`;
-          this.imageData = source;
-        }
-      });
+    if (this.attachmentId) {
+      this.attachmentService
+        .getAttachment(this.attachmentId)
+        .subscribe((response: AttachmentDto) => {
+          if (response?.fileContent) {
+            const source = `${response.base64Padding},${response.fileContent}`;
+            this.imageData = source;
+          }
+        });
+    }
   }
 
-  constructor(private attachmentService: AttachmentsService) {}
+  constructor(private attachmentService: AttachmentsService) { }
 }

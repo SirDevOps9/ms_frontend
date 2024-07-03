@@ -12,6 +12,11 @@ export interface CreateJournalEntryAttachment {
     name: string;
 }
 
+export interface costCenter {
+    costCenterId: number;
+    percentage: number
+}
+
 export interface CreateJournalEntryLine {
     lineDescription: string | null;
     debitAmount: number;
@@ -19,4 +24,7 @@ export interface CreateJournalEntryLine {
     currencyId: number;
     currencyRate: number;
     accountId: number;
+    costCenters  : costCenter[]
+
+
 }

@@ -26,6 +26,7 @@
   "rate": "السعر",
   "debit_amount_local": "مبلغ المدين المحلي",
   "credit_amount_local": "مبلغ الدائن المحلي",
+  "cost_center": "مراكز التكلفة",
   "add_new_line": "إضافة سطر جديد",
   "add_template": "إضافة قالب",
   "discard": "تجاهل",
@@ -57,7 +58,9 @@
     "Discard": "تجاهل",
     "Save": "حفظ",
     "Submit": "إرسال",
-    "Post": "ترحيل"
+    "Post": "ترحيل",
+    "costCenter": "مركز التكلفة"
+
   },
   "viewJournal": {
     "JornalCode": "كود اليومية",
@@ -76,11 +79,19 @@
     "currency": "العملة",
     "currencyRate": "سعر العملة",
     "debitAmountLocal": "المبلغ المحلي الدائن",
-    "creditAmountLocal": "المبلغ المحلي المدين"
+    "creditAmountLocal": "المبلغ المحلي المدين",
+    "costCenter": "مركز التكلفة",
+    "Amount" : "الكمية",
+    "add_line" : "اضافه سطر"
+
   },
+
   "TaxGroup": {
     "Code": "رمز",
     "Name": "اسم",
+    "parent": "الأصل",
+    "status": "الحالة",
+    "type": "النوع",
     "Action": "إجراءات",
     "TaxGrouplist": "قائمة مجموعة الضرائب",
     "Add": {
@@ -131,5 +142,19 @@
     "Success": "نجاح",
     "CannotDeleteCostCenter": "لا يمكن حذف مركز التكلفة المستخدم في المعاملات",
     "Error": "خطأ"
-  }
+  },
+  "reportTrial": {
+    "Error": "خطأ",
+    "selectfaild": "يجب اختيار حقل واحد على الأقل، مُرَحَّل أو غير مُرَحَّل",
+    "posted": "مُرَحَّل",
+    "unposted": "غير مُرَحَّل",
+    "viewdata": "عرض البيانات",
+    "accountCode": "رمز الحساب",
+    "accountName": "اسم الحساب",
+    "Openingbalance": "الرصيد الافتتاحي",
+    "transactionBalance": "رصيد العمليات",
+    "Closingbalance": "الرصيد الختامي",
+    "debit": "مدين",
+    "credit": "دائن"
+}
 }

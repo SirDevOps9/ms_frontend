@@ -29,11 +29,14 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
   @Input() readOnly: boolean;
   @Input() disabled: boolean;
   @Input() inputContainerClass: string;
-  @Input() placeholder: string;
+  @Input() placeholder: string=" Select";
   @Input() maxLength: string;
   @Input() id: string;
   @Input() className: string;
   @Input() selectedValue: any[];
+  @Input() data_testid: string = '';
+  @Input() labelTest: any;
+
   
   @Output() valueChanged = new EventEmitter<string>();
 
@@ -43,7 +46,11 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
 
   writeValue(value: any): void {
     if (value) {
+      this.selectedValue = value;
       this.value = value;
+    } else {
+      this.selectedValue = [];
+      this.value = '';
     }
   }
 
@@ -68,14 +75,23 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
     return null;
   }
 
-  change(m: any) {
-    this.onChange(m.value);
-    this.valueChanged.emit(m.value);
+  change(event: any) {
+    this.onChange(event.value);
+    this.valueChanged.emit(event.value);
   }
 
   constructor(@Self() @Optional() public controlDir: NgControl) {
     if (this.controlDir) {
       this.controlDir.valueAccessor = this;
+    }
+  }
+  ngAfterViewInit(){
+    if (this.controlDir) {
+      setTimeout(() => {
+        this.labelTest=this.controlDir.name
+      }, 500);
+      
+      
     }
   }
 }

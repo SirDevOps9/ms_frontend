@@ -1,3 +1,4 @@
+import { costCenters } from "./costCenters";
 import { JournalEntryLineDto } from "./jouranl-entry-line-dto";
 import { JournalEntryStatus } from "./journalentrystatus";
 import { JournalEntryType } from "./journalentrytype";

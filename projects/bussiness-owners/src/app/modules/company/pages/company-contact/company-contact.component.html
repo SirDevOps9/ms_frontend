@@ -28,7 +28,9 @@
                 }"
                 [appControl]="companyContactForm.controls['companyLogo']"
               ></lib-file-uploader>
+             
               <lib-attachment-viewer
+              className="imgStyle"
                 *ngIf="!editMode"
                 [attachmentId]="companyContactForm.controls['companyLogo'].value"
               ></lib-attachment-viewer>

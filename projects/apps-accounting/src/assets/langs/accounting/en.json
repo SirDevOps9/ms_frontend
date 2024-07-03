@@ -26,6 +26,7 @@
   "rate": "Rate",
   "debit_amount_local": "DB Amount Local",
   "credit_amount_local": "CR Amount Local",
+  "cost_center": "Cost Center",
   "add_new_line": "Add New Line",
   "add_template": "Add Template",
   "discard": "discard",
@@ -51,6 +52,8 @@
     "Rate": "Rate",
     "DbAmountLocal": "DB Amount Local",
     "CrAmountLocal": "CR Amount Local",
+    "costCenter": "Cost Center",
+
     "Actions": "Actions",
     "Delete": "Delete",
     "AddNewLine": "Add New Line",
@@ -76,17 +79,22 @@
     "currency": "Currency",
     "currencyRate": "Currency Rate",
     "debitAmountLocal": "Debit Amount (Local)",
-    "creditAmountLocal": "Credit Amount (Local)"
+    "creditAmountLocal": "Credit Amount (Local)",
+    "costCenter": "Cost Center"
   },
   "TaxGroup": {
     "Code": "Code",
     "Name": "Name",
+    "parent" :"parent",
     "Action": "Actions",
+    "status": "status",
+    "type": "type",
     "TaxGrouplist": "Tax Group list",
     "Add": {
       "AddTaxGroup": "Add Tax Group",
       "Code": "Code",
       "Name": "Name",
+      "type": "type",
       "Discard": "Discard",
       "Save": "Save"
     },
@@ -131,5 +139,26 @@
     "Success": "Success",
     "CannotDeleteCostCenter": " Cannot Delete Cost Center Used In Transactions",
     "Error": "Error"
+  },
+  "reportTrial":{
+     "Error": "Error",
+     "selectfaild": "At least one field must be selected Posted or unposted",
+     "posted":"posted",
+     "unposted":"unposted",
+     "viewdata":"view data",
+     "accountCode":"account Code",
+     "accountName":"account Name",
+     "Openingbalance":"Opening balance",
+     "transactionBalance":"transaction Balance",
+     "Closingbalance":"Closing balance",
+     "debit":"debit",
+     "credit":"credit",
+     "reportTrial":"report Trial",
+     "trialBalance":"Trial Balance"
+
+  },
+  "reportAccount":{
+    "AccountStatement":"Account Statement"
   }
+
 }

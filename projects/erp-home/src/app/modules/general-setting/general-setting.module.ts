@@ -8,6 +8,15 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TagAddComponent } from './components/tag-add/tag-add.component';
 import { TagEditComponent } from './components/tag-edit/tag-edit.component';
 import { TagListComponent } from './pages/tags/tag-list/tag-list.component';
+import { FinancialCalendarListComponent } from './pages/financial-calendar/financial-calendar-list/financial-calendar-list.component';
+import { CreateFinancialCalendarComponent } from './components/create-financial-calendar/create-financial-calendar.component';
+import { EditFinancialCalendarComponent } from './components/edit-financial-calendar/edit-financial-calendar.component';
+import { VendorCategoryListComponent } from './pages/vendor-category/vendor-category-list/vendor-category-list.component';
+import { CreateVendorCategoryComponent } from './components/create-vendor-category/create-vendor-category.component';
+import { EditVendorCategoryComponent } from './components/edit-vendor-category/edit-vendor-category.component';
+import { CustomerCategoryListComponent } from './pages/customer-category/customer-category-list/customer-category-list.component';
+import { CreateCustomerCategoryComponent } from './components/create-customer-category/create-customer-category.component';
+import { EditCustomerCategoryComponent } from './components/edit-customer-category/edit-customer-category.component';
 
 
 const routes: Routes = [
@@ -26,6 +35,78 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.tag_list,
         },
       },
+      {
+        path: 'financial-calendar',
+        component: FinancialCalendarListComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.calendar_list,
+        },
+      },
+      {
+        path: 'add-financial-calendar',
+        component: CreateFinancialCalendarComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.calendar_list,
+        },
+      },
+      {
+        path: 'edit-financial-calendar/:id',
+        component: EditFinancialCalendarComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.calendar_list,
+        },
+      },
+      {
+        path: 'vendor-category',
+        component: VendorCategoryListComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.vendor_list,
+        },
+      },
+      {
+        path: 'add-vendor-category',
+        component: CreateVendorCategoryComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.vendor_Add,
+        },
+      },
+      {
+        path: 'edit-vendor-category/:id',
+        component: EditVendorCategoryComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.vendor_Edit,
+        },
+      },
+      {
+        path: 'customer-category',
+        component: CustomerCategoryListComponent,
+         canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.customer_list,
+        },
+      },
+      {
+        path: 'add-customer-category',
+        component: CreateCustomerCategoryComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.customer_add,
+        },
+      },
+      {
+        path: 'edit-customer-category/:id',
+        component: EditCustomerCategoryComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.customer_edit,
+        },
+      },
 
     ],
   },
@@ -35,10 +116,18 @@ const routes: Routes = [
   declarations: [
     TagListComponent,
     TagAddComponent,
-    TagEditComponent
+    TagEditComponent,
+    FinancialCalendarListComponent,
+    CreateFinancialCalendarComponent,
+    EditFinancialCalendarComponent,
+    VendorCategoryListComponent,
+    CreateVendorCategoryComponent,
+    EditVendorCategoryComponent,
+    CustomerCategoryListComponent,
+    CreateCustomerCategoryComponent,
+    EditCustomerCategoryComponent
   ],
   imports: [
-    CommonModule,
     CommonModule,
     SharedLibModule,
     AutoCompleteModule,

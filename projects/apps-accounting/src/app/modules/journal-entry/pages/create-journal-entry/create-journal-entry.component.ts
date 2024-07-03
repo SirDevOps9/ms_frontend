@@ -2,6 +2,7 @@ import { CurrencyService } from './../../../general/currency.service';
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
+  AttachmentsService,
   FormsService,
   LanguageService,
   PageInfo,
@@ -26,6 +27,8 @@ import {
   GuidedTour,
   ProgressIndicatorLocation
 } from "ngx-guided-tour"; 
+import { CostCenterAllocationPopupComponent } from '../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
+import { costCenters } from '../../models';
 export interface JournalEntryLineFormValue {
   id: number;
   account: AccountDto;
@@ -36,6 +39,7 @@ export interface JournalEntryLineFormValue {
   currencyRate: number;
   debitAmountLocal: number;
   creditAmountLocal: number;
+  costCenters : costCenters[]
 }
 export interface JournalEntryFormValue {
   refrenceNumber: string;
@@ -55,8 +59,11 @@ export interface JournalEntryFormValue {
 export class CreateJournalEntryComponent {
   fg: FormGroup;
   filteredAccounts: AccountDto[] = [];
+  journalEntryAttachments: { attachmentId: string; name: string }[];
+
   currencies: CurrencyDto[];
   fitleredCurrencies: CurrencyDto[];
+  costCenters : costCenters[] = []
   selectedCurrency: number;
   private readonly TOUR: GuidedTour = {
     tourId: "purchases-tour",
@@ -132,7 +139,8 @@ export class CreateJournalEntryComponent {
     private titleService: Title,
     private langService: LanguageService,
     private formService: FormsService,
-    private guidedTourService: GuidedTourService
+    private guidedTourService: GuidedTourService,
+    private attachmentService : AttachmentsService
 
   ) {
     this.fg = this.fb.group({
@@ -140,9 +148,12 @@ export class CreateJournalEntryComponent {
       journalDate: [this.getTodaysDate(), customValidators.required],
       periodId: ['Period1', customValidators.required],
       description: ['', customValidators.required],
-      journalEntryAttachments: fb.array([]),
+      
       journalEntryLines: fb.array([]),
     });
+
+
+    
   }
 
 
@@ -155,11 +166,26 @@ export class CreateJournalEntryComponent {
   }
 
   openAttachments() {
-    this.dialog.open(AttachmentsComponent, {
+  const dialog =  this.dialog.open(AttachmentsComponent, {
       header: 'Attachments',
-      data: { attachments: this.attachments },
-      width: '500px',
+      data: this.attachmentService.filesInfo,
+      width: '700px',
     });
+
+    dialog.onClose.subscribe(res=>{
+      this.attachmentService.attachmentIdsObservable.subscribe(res=>{
+       this.journalEntryAttachments = this.attachmentService.filesInfo.map((item : any , i : number)=>{
+        return {
+          attachmentId : res[i],
+          name : this.attachmentService.filesName[i]
+        }
+       })
+
+       console.log(this.journalEntryAttachments)
+      })
+
+    })
+    
   }
 
   filterAccount(event: any) {
@@ -356,6 +382,7 @@ export class CreateJournalEntryComponent {
 
     let obj: AddJournalEntryCommand = {
       ...value,
+      journalEntryAttachments : this.journalEntryAttachments,
       journalEntryLines: value.journalEntryLines.map((l, i) => ({
         accountId: this.fa.value[i].account,
         creditAmount: l.creditAmount,
@@ -363,9 +390,17 @@ export class CreateJournalEntryComponent {
         currencyRate: l.currencyRate,
         debitAmount: l.debitAmount,
         lineDescription: l.lineDescription,
+        costCenters :  l.costCenters ?  l.costCenters.map(item=> {
+          return {
+            percentage : +item.percentage,
+            costCenterId : item.costCenterId
+          }
+        }) : []
       })),
+     
+
     };
-    // console.log(obj);
+     console.log(obj);
     this.service
       .addJournalEntry(obj)
       .subscribe((r) => this.routerService.navigateTo('journalentry'));
@@ -377,9 +412,8 @@ export class CreateJournalEntryComponent {
 
   RedirectToTemplate() {
     const dialogRef = this.dialog.open(JournalTemplatePopupComponent, {
-      width: '800px',
+      width: 'auto',
       height: 'auto',
-      position: 'bottom-right',
       data: {
         hasNoChildren: false,
       },
@@ -430,6 +464,26 @@ export class CreateJournalEntryComponent {
         });
       }
     });
+  }
+
+  openCostPopup(data : any , account : number , index : number) {
+   let accountData = this.filteredAccounts.find(elem=>elem.id === account)
+    
+    if(!data.creditAmount && !data.debitAmount || !account || accountData?.costCenterConfig == 'NotAllow'){
+      return null
+    }else {
+      const dialogRef =  this.dialog.open(CostCenterAllocationPopupComponent,{
+        width: '900px',
+        height: '500px',
+        header : 'Cost Center Allocation',
+        data : data
+      });
+      dialogRef.onClose.subscribe((res) => {
+        if(res)data.costCenters = res
+       
+      });
+    }
+    
   }
 
   debitChanged(index: number) {

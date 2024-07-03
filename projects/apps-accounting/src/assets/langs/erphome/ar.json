@@ -243,19 +243,23 @@
     "Account": "الحساب",
     "ParentAccountCode": "رمز الحساب الرئيسي",
     "AccountCode": "رمز الحساب ",
-    "ParentLevel": "المستوى الرئيسي",
+    "level": "المستوى",
     "AccountNature": "طبيعة الحساب",
     "AccountSection": "قسم الحساب",
     "AccountType": "نوع الحساب",
     "Tags": "الوسوم",
+    "companies": "الشركات",
     "HasNoChild": "حساب تفصيلى",
     "Currency": "العملة",
     "AccountActivation": "تفعيل الحساب",
+    "costCenterConfig": "تكوين مركز التكلفة",
     "periodicActiveFrom": "نشط دوريًا من",
     "periodicActiveTo": "نشط دوريًا إلى",
     "Active": "نشط",
     "Inactive": "غير نشط",
     "periodicActive": "نشط دوريًا",
+    "SuccessTitle": "تم بنجاح",
+    "Error": "خطأ",
     "Yes": "نعم",
     "No": "لا",
     "Save": "حفظ"
@@ -267,5 +271,10 @@
     "date": "Date",
     "JournalPeriod": "Journal Period",
     "JournalType": "Journal Type"
-  }
+  },
+  "costCenter" : {
+    "mandatory" : "إلزامي",
+    "optional" : "اختياري",
+    "notAllow" : "غير مسموح"
+}
 }

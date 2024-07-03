@@ -24,6 +24,13 @@ export class BreadcrumbLabel {
     static USER_INFO ='USER Info';
     static APP_INFO ='APP Info';
     static tag_list ='Tag List';
+    static calendar_list ='Financial Calender';
+    static vendor_list ='Vendor Category';
+    static customer_list ='Customer Category';
+    static customer_add ='Add Customer Category';
+    static customer_edit ='Edit Customer Category';
+    static vendor_Add ='Add Vendor Category';
+    static vendor_Edit ='Edit Vendor Category';
     static EMPLOYEE='Employees';
     static EMPLOYEE_ADD='Add Employee';
     static EMPLOYEE_VIEW='View Employee';
@@ -37,6 +44,8 @@ export class BreadcrumbLabel {
     static TAXS_GROUP ='Taxs Group';
     static TAXS_DEFINITION ='Taxs Definition';
     static COST_CENTER ='Cost Center';
+    static ACCOUNT_STATEMENT ='Account Statement';
+    static TRIAL_BALANCE ='Trial Balance';
    
 
     

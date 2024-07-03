@@ -8,6 +8,7 @@ import { HeaderParams } from '../constants/headerparams';
 import { ToasterService } from './toaster.service';
 import { EnvironmentService } from './environment.service';
 import { DefaultExceptionModel } from '../models';
+import { UploadFileResult } from '../models/uploadFileResult';
 
 @Injectable({
   providedIn: 'root',
@@ -122,6 +123,17 @@ export class HttpService {
     const headers = this.addHeaders();
     return this.http
       .post(`${url}`, data, { headers })
+      .pipe(
+        catchError((response: HttpErrorResponse) =>
+          this.errorHandler(url, response, data, showError)
+        )
+      );
+  }
+
+  postFullUrlMulti(url: string, data: any, showError: boolean = true) {
+    const headers = this.addHeaders();
+    return this.http
+      .post(`${url}`, data, { headers, responseType: 'text' })
       .pipe(
         catchError((response: HttpErrorResponse) =>
           this.errorHandler(url, response, data, showError)

@@ -20,8 +20,14 @@ import {
   accountById,
   costTree,
   addCostCenter,
+  costById,
+  costCenterDetails,
+  costCenterList,
+  costCenterActivation,
+  companyDropDownDto,
 } from './models';
 import { TaxGroupDropDown } from './models/tax-group-drop-down';
+import { costLookup } from '../journal-entry/models';
 
 
 @Injectable({
@@ -38,6 +44,9 @@ export class AccountProxy {
   getTags(): Observable<TagDropDownDto[]> {
     return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown`);
   }
+  getCompanyDropdown(): Observable<companyDropDownDto[]> {
+    return this.httpService.get<companyDropDownDto[]>(`Company/CompanyDropdown`);
+  }
 
   getAccount(id: number): Observable<parentAccountDto> {
     return this.httpService.get<parentAccountDto>(`ChartOfAccounts/Get?id=${id}`);
@@ -51,6 +60,9 @@ export class AccountProxy {
   }
   editAccount(command:accountById ): Observable<accountById> {
     return this.httpService.put('ChartOfAccounts/EditAccount', command);
+  }
+  deleteAccount(id: number): Observable<number> {
+    return this.httpService.delete<number>(`ChartOfAccounts/Delete?Id=${id}`);
   }
   getAllPaginated(quieries: string, pageInfo: PageInfo): Observable<PaginationVm<AccountDto>> {
     return this.httpService.get<PaginationVm<AccountDto>>(`ChartOfAccounts?${pageInfo.toQuery}&${quieries ?quieries : '' }`);
@@ -101,6 +113,11 @@ export class AccountProxy {
     return this.httpService.get<TaxGroupDto>(`TaxGroup/GetById?Id=${id}`);
   }
 
+  getAccountLookup() : Observable<costLookup[]> {
+    return this.httpService.get('CostCenter/CostCenterDropDown')
+  }
+
+
   getAllTaxes(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<TaxDto>> {
     return this.httpService.get<PaginationVm<TaxDto>>(`Tax?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`);
   }
@@ -134,5 +151,21 @@ export class AccountProxy {
   GetAllParentsCostCenters(): Observable<parentAccountDto[]> {
     return this.httpService.get<parentAccountDto[]>(`CostCenter/GetAllParentsCostCenters`);
   } 
+  getCostById(id: number): Observable<costById> {
+    return this.httpService.get<costById>(`CostCenter/GetById?id=${id}`);
+  }
+  editCost(command:costById ): Observable<costById> {
+    return this.httpService.put<costById>('CostCenter/EditCostCenter', command);
+  }
+  GetCostCenterDetails(id: number): Observable<costCenterDetails> {
+    return this.httpService.get<costCenterDetails>(`CostCenter/GetCostCenterDetails?id=${id}`);
+  }
+  getAllCostCenter(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<costCenterList>> {
+    
+    return this.httpService.get<PaginationVm<costCenterList>>(`CostCenter/GetCostCenters?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`);
+  } 
+  costCenterActivation(command:costCenterActivation): Observable<costCenterActivation> {
+    return this.httpService.put<costCenterActivation>(`CostCenter/CostCenterActivation`,command);
+  }
   constructor(private httpService: HttpService) {}
 }

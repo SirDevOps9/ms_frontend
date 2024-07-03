@@ -4,7 +4,7 @@ import { LookupEnum, lookupDto, RouterService, FormsService, LookupsService, Toa
 import { CurrencyService } from '../../../general/currency.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
 import { AccountService } from '../../account.service';
-import { parentAccountDto, AccountSectionDropDownDto, AccountTypeDropDownDto, TagDropDownDto, AddAccountDto, AccountByIdDto, accountById } from '../../models';
+import { parentAccountDto, AccountSectionDropDownDto, AccountTypeDropDownDto, TagDropDownDto, AddAccountDto, AccountByIdDto, accountById, companyDropDownDto } from '../../models';
 
 @Component({
   selector: 'app-edit-chart',
@@ -19,14 +19,17 @@ export class EditChartComponent {
   accountSections: AccountSectionDropDownDto[];
   accountTypes: AccountTypeDropDownDto[];
   accountTags: TagDropDownDto[];
+  companyDropDown: companyDropDownDto[];
+
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
-  currencyIsVisible: boolean = false;
+  currencyIsVisible: boolean;
   hasParentAccount: boolean = false;
   selectValue: boolean = false;
   parentAcountName?: parentAccountDto;
   parent?: AccountByIdDto;
-
+  accountTypeIdValue:number
+  
   selectedPeriodOption: string = '';
   @Input() parentEditedId?: number ;
   @Output() operationCompleted = new EventEmitter<any>();
@@ -53,10 +56,12 @@ export class EditChartComponent {
       accountTypeId: new FormControl('', customValidators.required),
       accountSectionId: new FormControl('', customValidators.required),
       currencyId: new FormControl(),
-      tags: new FormControl([]),
-      AccountActivation: new FormControl('Active'),
+      tags: new FormControl(),
+      companies: new FormControl(),
+      accountActivation: new FormControl('Active'),
       periodicActiveFrom: new FormControl(),
       periodicActiveTo: new FormControl(),
+      costCenterConfig: new FormControl(1),
     });
   }
   ngOnInit() {
@@ -75,10 +80,11 @@ export class EditChartComponent {
       this.accountSections = res;
     });
     this.getTags();
+    this.getCompanyDropdown();
     this.getCurrencies();
-    this.formGroup.get('AccountActivation')?.valueChanges.subscribe((value) => {
-      this.onRadioButtonChange(value);
-    });
+    // this.formGroup.get('AccountActivation')?.valueChanges.subscribe((value) => {
+    //   this.onRadioButtonChange(value);
+    // });
 
   }
   getCurrencies(){
@@ -91,6 +97,12 @@ export class EditChartComponent {
     this.accountService.getTags();
     this.accountService.tags.subscribe((res) => {
       this.accountTags = res;
+    });
+  }
+  getCompanyDropdown() {
+    this.accountService.getCompanyDropdown();
+    this.accountService.companyDropdown.subscribe((res) => {
+      this.companyDropDown=res
     });
   }
 
@@ -116,7 +128,7 @@ export class EditChartComponent {
     const parentAccountId = event;
     if (!parentAccountId) return;
     this.hasParentAccount = true;
-    this.getAccountById(this.parentEditedId);
+    this.getAccountById(parentAccountId);
 
   }
 
@@ -140,10 +152,6 @@ export class EditChartComponent {
     this.accountService.editedAccount.subscribe((res) => {
       if (res) {
         this.operationCompleted.emit(this.parentEditedId);
-        this.toaserService.showSuccess(
-          this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
-          this.languageService.transalte('ChartOfAccounts.SuccessMessage')
-        );
       }
     });
   }
@@ -155,6 +163,7 @@ export class EditChartComponent {
   getAccountById(id: any) {
     this.accountService.getAccountById(id);
     this.accountService.selectedAccountById.subscribe((res:any) => {
+      this.currencyIsVisible=res.hasNoChild
       this.parentAcountName = res;
 
             if(res.parentId!=null){
@@ -175,16 +184,22 @@ export class EditChartComponent {
               accountSectionName: res.accountSectionName || '',
               natureId: res.natureId || '',
               hasNoChild: res.hasNoChild || false,
-              accountTypeId: res.accountTypeId || '',
+              accountTypeId: res.accountTypeId ,
               accountSectionId: res.accountSectionId || '',
               currencyId: res.currencyId ,
-              tags: res.tags || [],
-              AccountActivation: res.AccountActivation || 'Active',
-              periodicActiveFrom: res.periodicActiveFrom || null,
-              periodicActiveTo: res.periodicActiveTo || null
+              tags: res.tags ,
+              companies: res.companies ,
+              accountActivation: res.accountActivation,
+              periodicActiveFrom: res.periodicActiveFrom ? res.periodicActiveFrom.replace('T00:00:00' , '') : null,
+              periodicActiveTo: res.periodicActiveTo ? res.periodicActiveTo.replace('T00:00:00' , '') : null,
+              costCenterConfig: res.costCenterConfig
             };
+            // this.formGroup.patchValue({...res});
             this.onAccountSectionChange(res.accountSectionId);
             this.formGroup.patchValue(newAccountData);
+            this.accountTypeIdValue = res.accountTypeId 
+
+            this.onRadioButtonChange(res.accountActivation)
 
     });
   }

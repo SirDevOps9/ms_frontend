@@ -1,16 +1,10 @@
-<div >
-    <p-inputSwitch
-      id="id"
-      (onChange)="changed($event)"
-      [(ngModel)]="isActive"
-    >
-    </p-inputSwitch>
 
-    <!-- <p class="active" *ngIf="isActive">
-      {{ "User.Activate" | translate }}
-    </p>
-    <p class="inactive" *ngIf="!isActive">
-      {{ "User.Deactivate" | translate }}
-    </p> -->
+<div>
+  <p-inputSwitch
+    id="{{id}}"
+    (onChange)="changed($event)"
+    [(ngModel)]="value"
+    [disabled]="disabled"
+  >
+  </p-inputSwitch>
 </div>
-<!-- [ngClass]="classToAdd" -->

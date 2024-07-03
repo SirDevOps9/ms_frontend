@@ -6,6 +6,7 @@ import {
   JournalEntryStatus,
   JournalEntryType,
   SharedJournalEnums,
+  costCenters,
 } from '../../models';
 import { JournalEntryService } from '../../journal-entry.service';
 import {
@@ -24,6 +25,8 @@ import { CurrencyService } from '../../../general/currency.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
 import { NoChildrenAccountsComponent } from '../../components/noChildrenAccounts/nochildaccounts.component';
 import { Title } from '@angular/platform-browser';
+import { CostCenterAllocationPopupComponent } from '../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
+import { EditCostCenterAllocationPopupComponent } from '../components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component';
 
 @Component({
   selector: 'app-edit-journal-entry',
@@ -37,6 +40,8 @@ export class EditJournalEntryComponent implements OnInit {
   journalEntryLines?: JournalEntryLineDto[];
   accountIdList: number[] = [];
   currencyIdList: number[] = [];
+  costCenters : costCenters[] = []
+
   viewMode: boolean = false;
   statusName: string;
   journalTypeName: JournalEntryType;
@@ -102,7 +107,8 @@ export class EditJournalEntryComponent implements OnInit {
       journalEntryLinesArray.clear();
 
       this.journalEntryLines.forEach((line) => {
-        const { currencyId, debitAmount, creditAmount, currencyRate, ...lineData } = line;
+        const { currencyId, debitAmount, creditAmount,  costCenters , currencyRate, ...lineData         } = line;
+        console.log(line)
 
         const lineGroup = this.fb.group(
           {
@@ -117,6 +123,7 @@ export class EditJournalEntryComponent implements OnInit {
             currencyRate: new FormControl(currencyRate, [customValidators.required]),
             debitAmountLocal: new FormControl(debitAmount * currencyRate),
             creditAmountLocal: new FormControl(creditAmount * currencyRate),
+            costCenters : [line.costCenters]
           },
           { validators: customValidators.debitAndCreditBothCanNotBeZero }
         );
@@ -136,7 +143,14 @@ export class EditJournalEntryComponent implements OnInit {
     const request: EditJournalEntry = this.editJournalForm.value;
     request.id = this.routerService.currentId;
 
+
     request.journalEntryLines = request.journalEntryLines?.map((item) => {
+      item.costCenters = item.costCenters ?  item.costCenters.map(item=> {
+        return {
+          id : item.id ? item.id : 0,
+          percentage :  +item.percentage,
+          costCenterId : item.costCenterId
+        }}) : []
       const currencyId =
         typeof item.currency == 'string'
           ? this.currencies.find((c) => c.currencyName == item.currency)!.id
@@ -276,6 +290,28 @@ getAccounts() {
     currencyControl?.setValue(currencyData?.currencyName);
     this.selectedCurrency = currencyData?.currencyName!;
     currencyRateControl.setValue(currencyData?.ratePerUnit);
+  }
+
+  openCostPopup(data : any , account : number , index : number) {
+    let accountData = this.filteredAccounts.find(elem=>elem.id === account)
+    console.log(accountData)
+    console.log(this.filteredAccounts)
+    console.log(account)
+    if(!data.creditAmount && !data.debitAmount || !account || accountData?.costCenterConfig == 'NotAllow'){
+      return null
+    }else {
+      const dialogRef =  this.dialog.open(EditCostCenterAllocationPopupComponent,{
+        width: '900px',
+        height: '500px',
+        header : 'Edit Cost Center Allocation',
+        data : data
+      });
+      dialogRef.onClose.subscribe((res) => {
+        if(res) data.costCenters = res
+       
+      });
+    }
+    
   }
 
   getCurrencies() {

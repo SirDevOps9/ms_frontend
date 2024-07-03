@@ -1,0 +1,90 @@
+<lib-page-content [title]="'tag.taglist' | translate" [subTitle]="'tag.taglist' | translate">
+    <div>
+        <lib-bread-crumb></lib-bread-crumb>
+        <div class="user_page">
+          <lib-data-table
+            [items]="tableData"
+            className="p-datatable-gridlines"
+            [currentPageResult]="currentPageInfo"
+            (pageChange)="onPageChange($event)"
+            [tableConfigs]="{
+              allowPagination: false,
+              allowServerPagination: true,
+              dataKey: 'id',
+              pageSize: 10,
+              columns: [
+                 
+                 {
+                   name: 'code',
+                   headerText: ('financialCalendar.code' | translate),
+                   isGlobalFilter: true,
+                   isSortable: true
+                 },
+                 {
+                   name: 'name',
+                   headerText: ('financialCalendar.name' | translate),
+                   isGlobalFilter: true,
+                   isSortable: true
+                 },
+               
+                 {
+                   name: 'fromDate',
+                   headerText: ('financialCalendar.fromDate' | translate),
+                 },
+                 {
+                   name: 'toDate',
+                   headerText: ('financialCalendar.toDate' | translate) ,
+                 },
+               
+                 {
+                   name: 'status',
+                   headerText: ('financialCalendar.status' | translate),
+                   template : status
+
+                 },
+                 {
+                   name: 'id',
+                   headerText: ('financialCalendar.actions' | translate),
+                   template : actions
+                 },
+               ]
+            }"
+          >
+            <ng-container caption>
+              <div class="group flex justify-content-between">
+                <div>
+                  <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" placeholder="Search..." (keyup)="onSearchChange($event)" />
+                  </span>
+                </div>
+      
+            
+                <div>
+                     <lib-button pRipple className="addToList" label="Add" (onClick)="routeToAdd()">
+                </lib-button> 
+                  
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #status let-status>
+              <div class="actions flex align-items-center gap-2">
+                <lib-input-switch [disabled]="true" [(ngModel)]="status.status"></lib-input-switch>
+              </div>
+            </ng-template>
+            <ng-template #actions let-actions>
+              <div class="actions flex align-items-center gap-2">
+              <i class="pi pi-pencil pointer" (click)="routeToEdit(actions.id)"></i>
+              </div>
+            </ng-template>
+
+           
+          </lib-data-table>
+        </div>
+      </div>
+  </lib-page-content>
+
+
+
+  
+  

@@ -137,14 +137,8 @@ export class ChartOfAccountTreeComponent implements OnInit {
   }
 
   handleOperationCompleted(event: any) {
-    if(this.parentAdded){
-      this.parentAdded.children.push({ label: event.name, id: event.id, children: [] });
-
-    }else{
     this.getTreeList()
-    }
     this.add = false;
-    //this.view=true
   }
   toggelTree() {
     this.showTree = !this.showTree;
@@ -158,5 +152,13 @@ export class ChartOfAccountTreeComponent implements OnInit {
     this.edit = true;
     //console.log(node);
     
+  }
+  deleteAccount(id:number){
+    this.accountService.deleteAccount(id)
+    this.accountService.accountdeletedObser.subscribe(res=>{
+      if(res){
+        this.getTreeList()
+      }
+    })
   }
 }

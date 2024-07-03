@@ -10,6 +10,7 @@ import {
 import { LanguageService, LookupsService } from '../../services';
 import { TableConfig } from './data-table-column';
 import { PageInfo, PageInfoResult } from '../../models';
+import { NgIfContext } from '@angular/common';
 
 @Component({
   selector: 'lib-data-table',
@@ -19,6 +20,7 @@ import { PageInfo, PageInfoResult } from '../../models';
 export class DataTableComponent implements OnInit {
   @Input() items: any[];
   @Input() selectedIndex: number;
+  @Input() resizableColumns: boolean = true;
   @Input() currentPageResult: PageInfoResult;
 
   @Input() tableConfigs: TableConfig;
@@ -35,6 +37,7 @@ first:any=0;
 
   @ViewChild('customCellTemplate', { static: true })
   customCellTemplate?: TemplateRef<any>;
+  customParentCellTemplate: TemplateRef<NgIfContext<boolean>> | null;
 
   ngOnInit(): void {
     this.globalFilterFields = this.tableConfigs.columns
@@ -47,6 +50,9 @@ first:any=0;
   onPageChange(pageInfo: PageInfo) {
     
     this.pageChange.emit(pageInfo);
+  }
+  hasNestedHeaders(): boolean {
+    return this.tableConfigs.columns.some(col => col.children && col.children.length > 0);
   }
 
   constructor(

@@ -22,6 +22,9 @@ export class EditCompanyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.companyService.companyNameobs.subscribe(res=>{
+      this.companyName=res
+    })
     this.currentTab = this.routerService.lastRouteSegement();
     this.getCompanyData();
     this.companyService.selectedCompanyActive.subscribe((res) => (this.isActive = res));
@@ -69,7 +72,7 @@ export class EditCompanyComponent implements OnInit {
   getCompanyData() {
     this.companyService.getCompanyById(this.companyId).subscribe((res) => {
       this.companyCode = res.data.code;
-      this.companyName = res.data.name;
+      this.companyService.companyName.next(res.data.name)
       this.isActive = res.data.isActive;
     });
   }

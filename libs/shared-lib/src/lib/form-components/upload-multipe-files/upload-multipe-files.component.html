@@ -1,0 +1,47 @@
+<input type="file" #upload hidden (change)="onSelectFile($event)" multiple />
+
+<div
+  class="uploadParent"
+  (click)="upload.click()"
+  (dragover)="onDragDrop($event)"
+  (drop)="onDragDrop($event)"
+>
+  <div class="">
+    <i class="pi pi-cloud-upload uploadIcon"></i>
+  </div>
+  <p>Drag and Drop Files Here or Click to Upload.</p>
+</div>
+
+<div class="parent gap-2">
+  <div class="card" *ngFor="let url of urls; let i = index">
+    <img
+      [src]="url"
+      class="imgMulti"
+      *ngIf="
+        files[i].type == 'image/png' ||
+        files[i].type == 'image/jpeg' ||
+        files[i].type == 'image/jpg'
+      "
+    />
+    <div
+      class="flex align-items-center justify-content-center pdfCont"
+      *ngIf="files[i].type == 'application/pdf'"
+    >
+      <i class="pi pi-file-pdf pdfFile"></i>
+    </div>
+
+    <div class="fileName" >
+      <lib-text-input *ngIf="editStates[i]" [(ngModel)]="filesName[i]"></lib-text-input>
+      <p *ngIf="!editStates[i]" (click)="toggleEditState(i)">{{ filesName[i] }}</p>
+    </div>
+
+    <div class="flex gap-2 justify-content-center mt-2">
+      <div class="circleDiv" (click)="removeFile(i)">
+        <i class="pi pi-times fileicons"></i>
+      </div>
+      <div class="circleDiv">
+        <i class="pi pi-cloud-download fileicons" (click)="downloadFile(url, files[i].name)"></i>
+      </div>
+    </div>
+  </div>
+</div>
