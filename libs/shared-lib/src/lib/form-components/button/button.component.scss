@@ -107,6 +107,39 @@
     }
 }
 
+::ng-deep .saveForm {
+  .p-button {
+    color: #ffffff;
+    background: #4FB2CD;
+    border: 1px solid #4FB2CD;
+    background: #1a8eae;
+    border: 0px solid #3B82F6;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+    border-radius: 6px;
+    outline-color: transparent;
+    color: #fff;
+    cursor: pointer;
+}
+}
+
+::ng-deep .export {
+  .p-button {
+
+  background: #36A19B;
+  border: 1px solid #36A19B;
+  color: #ffffff;
+  border: 1px solid #36A19B;
+  background: #36A19B;
+  border: 0px solid #36A19B;
+  font-size: 1rem;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+  border-radius: 6px;
+  outline-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  }
+}
 
 ::ng-deep .custom-danger-outline {
   button{

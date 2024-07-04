@@ -11,7 +11,8 @@ import {
   TablePaginatorComponent,
   ButtonMicroComponent,
   ToastComponent,
-  TablePrintComponent
+  TablePrintComponent,
+  TabviewComponent
   
   
   
@@ -83,7 +84,8 @@ import { CalendarComponent } from './form-components/calendar/calendar.component
     ToastComponent,
     UploadMultipeFilesComponent,
     CalendarComponent,
-    TablePrintComponent
+    TablePrintComponent,
+    TabviewComponent
   ],
   imports: [
     CommonModule,
@@ -140,7 +142,8 @@ import { CalendarComponent } from './form-components/calendar/calendar.component
     GetElementByIDPipe,
     ToastComponent,
     UploadMultipeFilesComponent,
-    TablePrintComponent
+    TablePrintComponent,
+    TabviewComponent
   ],
 })
 export class SharedLibModule {}
