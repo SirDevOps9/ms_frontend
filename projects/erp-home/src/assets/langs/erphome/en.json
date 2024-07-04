@@ -414,10 +414,17 @@
       "country" : "Country",
       "paymentTerm" : "Payment Term",
       "criditLimit" : "Credit Limit",
-      "actions" : "Actions"
+      "actions" : "Actions",
+      "success":"success",
+      "vendorSuccess":"vendor created successfully "
     },
     "deleteVendorDefinition" : {
       "delete" : "Vendor Definition Deleted Successfully"
+    },
+    "Shared":{
+      "Error":"Error",
+      "valdation":{
+        "invalidForm":"invalid Form"
+      }
     }
-  
 }

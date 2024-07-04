@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { LanguageService, LoaderService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
+import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
 import { GeneralSettingProxy } from './general-setting.proxy';
 
 
@@ -594,7 +594,9 @@ export class GeneralSettingService {
         this.toasterService.showSuccess(
           this.languageService.transalte('addFinancialCalendar.success'),
           this.languageService.transalte('addFinancialCalendar.openSuccess')
+        
         );
+        this.routerService.navigateTo(`/vendor-definitions`)
         // this.addVendorCategoryRes.next(res)
         this.loaderService.hide();
       },
@@ -614,9 +616,14 @@ export class GeneralSettingService {
         );
         if(res) {
           this.addCustomerDefinitionRes.next(res)
+          this.loaderService.hide();
+          this.routerService.navigateTo('/customer-definitions')
 
         }
-      }
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
       })
     }
   
@@ -625,10 +632,11 @@ export class GeneralSettingService {
     this.GeneralSettingproxy.editVendorDefinition(vendor).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('addFinancialCalendar.success'),
-          this.languageService.transalte('addFinancialCalendar.openSuccess')
+          this.languageService.transalte('vendorDefinition.success'),
+          this.languageService.transalte('vendorDefinition.vendorSuccess')
         );
         // this.addVendorCategoryRes.next(res)
+        this.routerService.navigateTo(`/vendor-definitions`)
         this.loaderService.hide();
       },
       error: (err) => {
@@ -670,10 +678,13 @@ export class GeneralSettingService {
     })
   }
 
-  constructor(private GeneralSettingproxy: GeneralSettingProxy,
+  constructor(
+    private GeneralSettingproxy: GeneralSettingProxy,
     private loaderService: LoaderService,
     private languageService: LanguageService,
     private toasterService: ToasterService,
+    private routerService: RouterService
+
 
   ) {}
 }

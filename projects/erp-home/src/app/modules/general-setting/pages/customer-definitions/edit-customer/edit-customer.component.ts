@@ -43,22 +43,22 @@ constructor(
     code: new FormControl(null),
     photo: new FormControl(null),
     name: new FormControl('',  customValidators.required),
-    birthdate: new FormControl(null),
+    birthdate: new FormControl(null,[customValidators.invalidBirthDate]),
     categoryId: new FormControl(null),
     tagIds: new FormControl(null),
  
     contactInfo: this.fb.group({
-      contactMobile: new FormControl(null),
+      contactMobile: new FormControl(null,[customValidators.invalidBirthDate]),
       ContactMobileCode : new FormControl(null),
 
-      contactPhone: new FormControl(null),
+      contactPhone: new FormControl(null,[customValidators.invalidBirthDate]),
       contactWebsite: new FormControl(null),
       contactFax: new FormControl(null),
       contactEmail: new FormControl(null,[customValidators.email]),
 
       contactPersonName: new FormControl(null),
-      contactPersonMobile: new FormControl(null),
-      contactPersonPhone: new FormControl(null),
+      contactPersonMobile: new FormControl(null,[customValidators.invalidBirthDate]),
+      contactPersonPhone: new FormControl(null,[customValidators.invalidBirthDate]),
       ContactPersonMobileCode: new FormControl(null),
           
         }),
@@ -68,8 +68,8 @@ constructor(
       longitude: new FormControl(null),
       latitude: new FormControl(null),
       errorRadius: new FormControl(null),
-      country: new FormControl(null),
-      city: new FormControl(null),
+      countryId: new FormControl(null),
+      cityId: new FormControl(null),
       
     }),
     legalInfo: this.fb.group({
