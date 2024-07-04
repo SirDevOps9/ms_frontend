@@ -4,6 +4,7 @@ import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, TagDropDownDto, CountryDto, CityDto, CurrencyDto, CategoryDropdownDto, AddVendorCommand } from './models';
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 import { EditVendorCommand } from './models/editVendorCommand';
+import { GetVendorById } from './models/getVendorById';
 @Injectable({
   providedIn: 'root',
 })
@@ -144,12 +145,12 @@ getVendorById(id: number): Observable<any> {
 }
 
 
-getVendorDefinitionByID(id : number) : Observable<EditVendorCategoryDto> {
+getVendorDefinitionByID(id : number) : Observable<GetVendorById> {
   const url = `Vendor/${id}`
   return this.httpService.get(url);
 }
 
-editVendorDefinition(vendor:EditVendorCommand): Observable<AddVendorCommand> {
+editVendorDefinition(vendor:EditVendorCommand): Observable<any> {
   return this.httpService.put(`Vendor`,vendor);
 }
   constructor(private httpService: HttpService) {}

@@ -27,21 +27,20 @@ export class EditVendorDefinitionsComponent  implements OnInit {
   paymentTermsList: { id: number; name: string }[] = [];
   accountsList: { id: number; name: string }[] = [];
   vendor:GetVendorById;
-  selectedVendorCategory:string;
-  tagValue:number[];
-  selectedMobileContactCode:string;
-  selectedMobilePersonContacCode:string;
-  selectedCountry:string;
-  selectedCity:number;
-  selectedPaymentTerm:string;
-  selectedPriceList:string;
-  selectedCurrency:string;
-  selectedPayableAccount:string;
-  selectedPurchaseAccount:string;
-  selectedPurchaseReturnAccount:string;
-  selectedDiscountAccount:string;
-
- returnedVendorInformation:VendorInformation;
+  selectedVendorCategory?:number ;
+  tagValue?:number[] ;
+  selectedMobileContactCode?:string;
+  selectedMobilePersonContacCode?:string ;
+  selectedCountry?:string ;
+  selectedCity?:number;
+  selectedPaymentTerm?:number ;
+  selectedPriceList?:number ;
+  selectedCurrency?:number ;
+  selectedPayableAccount?:number ;
+  selectedPurchaseAccount?:number ; 
+  selectedPurchaseReturnAccount?:number ;
+  selectedDiscountAccount?:number ;
+ returnedVendorInformation?:VendorInformation ;
   
 
 constructor(
@@ -138,36 +137,39 @@ constructor(
             ContactMobileCode: res.vendorInformation?.contactMobileCode ?? null,
             ContactPersonMobileCode: res.vendorInformation?.contactPersonMobileCode ?? null,
           },
+          vendorAddress: {
+            ...res.vendorAddress,
+            countryId: res.vendorAddress?.countryCode ?? null,
+            cityId: res.vendorAddress?.cityId ?? null,
+
+          },
+          VendorTagIds: res.vendorTags
+
         });
         this.vendor= res;
-        this.tagValue = res.vendorTags?.map((x:any)=>x.id) ?? '';
-        this.returnedVendorInformation =res.vendorInformation
-        this.selectedVendorCategory = res.vendorCategory?.id ?? '';
-        this.selectedCountry = res.vendorAddress?.countryCode ?? '';
-        this.selectedCity = res.vendorAddress.cityId ?? '';
-        this.selectedPaymentTerm = res.vendorFinancial?.paymentTermId ?? '';
-        this.selectedPriceList = res.vendorFinancial?.priceListId ?? '';
-        this.selectedCurrency = res.vendorFinancial?.currencyId ?? '';
-        this.selectedPayableAccount = res.vendorAccounting?.payableAccountId ?? '';
-        this.selectedPurchaseAccount = res.vendorAccounting?.purchaseAccountId ?? '';
-        this.selectedPurchaseReturnAccount = res.vendorAccounting?.purchaseReturnAccountId ?? '';
-        this.selectedDiscountAccount = res.vendorAccounting?.discountAccountId ?? '';
+        this.onCountryChange(res.vendorAddress?.countryCode )
 
+        this.tagValue = res.vendorTags;
+
+        this.returnedVendorInformation =res.vendorInformation
+        this.selectedVendorCategory = res.vendorCategory?.id ;
+        //this.selectedCountry = res.vendorAddress?.countryCode ;
+        //this.selectedCity = res.vendorAddress?.cityId ;
+        this.selectedPaymentTerm = res.vendorFinancial?.paymentTermId ;
+        this.selectedPriceList = res.vendorFinancial?.priceListId ;
+        this.selectedCurrency = res.vendorFinancial?.currencyId ;
+        this.selectedPayableAccount = res.vendorAccounting?.payableAccountId;
+        this.selectedPurchaseAccount = res.vendorAccounting?.purchaseAccountId ;
+        this.selectedPurchaseReturnAccount = res.vendorAccounting?.purchaseReturnAccountId;
+        this.selectedDiscountAccount = res.vendorAccounting?.discountAccountId ;
 
         if(this.returnedVendorInformation){
                 this.selectedMobileContactCode = this.returnedVendorInformation.contactMobileCode ?? '' ;
-                // res.vendorInformation?.contactPersonMobileCode
-                this.selectedMobilePersonContacCode = this.returnedVendorInformation.contactPersonMobileCode?? '' ;
-                console.log("selectedMobileContactCode" , this.selectedMobileContactCode)
-        }                console.log("selectedMobilePerson" , this.selectedMobilePersonContacCode)
-
-
+                this.selectedMobilePersonContacCode = this.returnedVendorInformation.contactPersonMobileCode?? '' ;   
+        }                
 
       }
-      if(this.selectedCountry){
-        this.onCountryChange(this.selectedCountry)
-      }
-      console.log(this.editVendorForm.value ,"000000000");
+
     });
   }
 
@@ -215,17 +217,15 @@ constructor(
   }
 
   editVendor(){
-   
-    
     if (!this.formsService.validForm(this.editVendorForm, true)) return;
         const vendor: EditVendorCommand = {
           ...this.editVendorForm.value,
-          vendorCategoryId: this.vendor?.vendorCategory?.id,
+          vendorCategoryId: this.editVendorForm.value.vendorCategoryId ?? this.vendor?.vendorCategory?.id,
+
           vendorInformation: {
             ...this.editVendorForm.value.vendorInformation,
             id: this.vendor?.vendorInformation?.id,
-            // contactMobileCode:this.vendor?.vendorInformation?.contactMobile,
-            // contactPersonMobileCode :this.vendor?.vendorInformation?.contactPersonMobile
+
           },
           vendorAddress: {
             ...this.editVendorForm.value.vendorAddress,
@@ -243,11 +243,11 @@ constructor(
             ...this.editVendorForm.value.vendorAccounting,
             id: this.vendor?.vendorAccounting?.id
           },
-         vendorTagIds: this.vendor?.vendorTags?.map(tag => tag.id)
+          //vendorTagIds: this.editVendorForm.value.vendorTagIds ?? this.vendor?.vendorTags?.map(tag => tag.id)
+
         };
         
         vendor.id= this.vendorId;
-        console.log("aaaaaaaaaaaaaa",this.editVendorForm.value);
         this.generalSettingService.editVendorDefinition(vendor)
   }
 

@@ -28,7 +28,9 @@ export class GeneralSettingService {
   private sendPaymentTermsDropDownData = new BehaviorSubject<any>([]);
   private sendgetVendorCategoryDropdownData = new BehaviorSubject<CategoryDropdownDto[]>([]);
   private vendorCategoryDataByID = new BehaviorSubject<any>(null);
-  private vendorDefinitionDataByID = new BehaviorSubject<any>(null);
+
+  private vendorDefinitionDataByID = new BehaviorSubject<GetVendorById | undefined>({} as GetVendorById  | undefined );
+
   private customerCategoryDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
   private customerCategoryDataByID = new BehaviorSubject<any>(null);
   private addCustomerCategoryData = new BehaviorSubject<any>(null);

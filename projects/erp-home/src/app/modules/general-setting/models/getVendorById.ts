@@ -10,7 +10,7 @@ export interface GetVendorById {
     vendorLegal?: VendorLegal;
     vendorFinancial?: VendorFinancial;
     vendorAccounting?: VendorAccounting;
-    vendorTags?: VendorTag[];
+    vendorTags?: number[];
   }
   
   export interface VendorCategory {
@@ -75,11 +75,5 @@ export interface GetVendorById {
     purchaseReturnAccountName?: string;
     discountAccountId?: number;
     discountAccountName?: string;
-  }
-  
-  export interface VendorTag {
-    id: number;
-    code: string;
-    name: string;
   }
   
