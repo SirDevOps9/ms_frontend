@@ -8,15 +8,7 @@ import {
   SharedLibraryEnums,
   customValidators,
 } from 'shared-lib';
-import {
-  AddVendorCommand,
-  CategoryDropdownDto,
-  CityDto,
-  CountryDto,
-  CurrencyDto,
-  TagDropDownDto,
-  lookupDto,
-} from '../../../models';
+
 import { GeneralSettingService } from '../../../general-setting.service';
 import { AddVendorCommand } from '../../../models/AddVendorCommand';
 import { CategoryDropdownDto } from '../../../models/CategoryDropdownDto';
@@ -24,6 +16,7 @@ import { CityDto } from '../../../models/CityDto';
 import { CountryDto } from '../../../models/CountryDto';
 import { CurrencyDto } from '../../../models/CurrencyDto';
 import { TagDropDownDto } from '../../../models/TagDropDownDto';
+import { lookupDto } from '../../../models';
 
 @Component({
   selector: 'app-add-vendor-definitions',
