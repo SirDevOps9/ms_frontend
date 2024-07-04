@@ -5,6 +5,7 @@
             <lib-button-micro
             nameClass="cancel"
             title="Discard"
+            (click)="onDiscard()"
             >
 
             </lib-button-micro>
@@ -405,22 +406,22 @@
                                             <div class="col-12 md:col-4 ">
                                                 <lib-form-group>
                                                     <lib-label
-                                                    [appControl]="addCustomerForm.get('addressInfo')?.get('country')"
+                                                    [appControl]="addCustomerForm.get('addressInfo')?.get('countryId')"
                                                     >
                                                     country
                         
                                                     </lib-label>
                                                     <lib-selectIcon
-                                                    formControlName="country"
+                                                    formControlName="countryId"
                                                     [options]="countries"
                                                     optionValue="id"
                                                     optionLabel="nameEn"
                                                     (valueChanged)="onCountryChange($event)"
                                                     icons="flags"
-                                                    [selectedValue]="addCustomerForm.get('addressInfo')?.get('country')"
+                                                    [selectedValue]="addCustomerForm.get('addressInfo')?.get('countryId')"
                                                   >
                                                   </lib-selectIcon>
-                                                    <lib-field-validations [appControl]="addCustomerForm.get('addressInfo')?.get('country')"  >
+                                                    <lib-field-validations [appControl]="addCustomerForm.get('addressInfo')?.get('countryId')"  >
                         
                                                     </lib-field-validations>
                                                 </lib-form-group>
@@ -445,20 +446,20 @@
                                             <div class="col-12 md:col-4 ">
                                                 <lib-form-group>
                                                     <lib-label
-                                                    [appControl]="addCustomerForm.get('addressInfo')?.get('city')"
+                                                    [appControl]="addCustomerForm.get('addressInfo')?.get('cityId')"
                                                     >
                                                     city
                         
                                                     </lib-label>
                                                     <lib-select
-                                                    formControlName="city"
+                                                    formControlName="cityId"
                                                     [options]="cities"
                                                     optionValue="id"
                                                     optionLabel="name"
-                                                    [selectedValue]="addCustomerForm.get('addressInfo')?.get('city')"
+                                                    [selectedValue]="addCustomerForm.get('addressInfo')?.get('cityId')"
                                                   >
                                                   </lib-select>
-                                                    <lib-field-validations [appControl]="addCustomerForm.get('addressInfo')?.get('city')"  >
+                                                    <lib-field-validations [appControl]="addCustomerForm.get('addressInfo')?.get('cityId')"  >
                         
                                                     </lib-field-validations>
                                                 </lib-form-group>

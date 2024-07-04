@@ -50,7 +50,7 @@ export class AddVendorDefinitionsComponent implements OnInit {
       code: new FormControl(null),
       photo: new FormControl(null),
       name: new FormControl('', [customValidators.required]),
-      birthDate: new FormControl(null),
+      birthDate: new FormControl(null,[customValidators.invalidBirthDate]),
       vendorCategoryId: new FormControl(null),
       VendorTagIds: new FormControl(null),
 

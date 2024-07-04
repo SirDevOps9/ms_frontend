@@ -616,9 +616,14 @@ export class GeneralSettingService {
         );
         if(res) {
           this.addCustomerDefinitionRes.next(res)
+          this.loaderService.hide();
+          this.routerService.navigateTo('/customer-definitions')
 
         }
-      }
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
       })
     }
   
