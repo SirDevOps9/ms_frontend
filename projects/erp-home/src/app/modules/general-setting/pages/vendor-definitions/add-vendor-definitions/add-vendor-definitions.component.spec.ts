@@ -8,10 +8,9 @@ describe('AddVendorDefinitionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddVendorDefinitionsComponent]
-    })
-    .compileComponents();
-    
+      declarations: [AddVendorDefinitionsComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(AddVendorDefinitionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

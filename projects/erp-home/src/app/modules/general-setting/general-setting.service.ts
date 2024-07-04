@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, filter, map } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
 import { GeneralSettingProxy } from './general-setting.proxy';
 
@@ -14,6 +14,8 @@ import { CountryDto } from './models/CountryDto';
 import { CurrencyDto } from './models/CurrencyDto';
 import { TagDropDownDto } from './models/TagDropDownDto';
 
+import { EditVendorCommand } from './models/editVendorCommand';
+import { GetVendorById } from './models/getVendorById';
 @Injectable({
   providedIn: 'root',
 })
@@ -35,6 +37,9 @@ export class GeneralSettingService {
   private sendPaymentTermsDropDownData = new BehaviorSubject<any>([]);
   private sendgetVendorCategoryDropdownData = new BehaviorSubject<CategoryDropdownDto[]>([]);
   private vendorCategoryDataByID = new BehaviorSubject<any>(null);
+
+  private vendorDefinitionDataByID = new BehaviorSubject<GetVendorById | undefined>({} as GetVendorById  | undefined );
+
   private customerCategoryDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
   private customerCategoryDataByID = new BehaviorSubject<any>(null);
   private addCustomerCategoryData = new BehaviorSubject<any>(null);
@@ -47,7 +52,9 @@ export class GeneralSettingService {
   private addCustomerDefinitionRes = new BehaviorSubject<any>(null);
   private editCustomerDefinitionRes = new BehaviorSubject<any>(null);
   private getCustomerDefinitionResByID = new BehaviorSubject<any>(null);
+  private vendorById = new BehaviorSubject<any>(null);
 
+  public vendorByIdObservable = this.vendorById.asObservable();
   public currencies = this.currenciesDataSource.asObservable();
 
   public cities = this.cityDataSource.asObservable();
@@ -71,6 +78,7 @@ export class GeneralSettingService {
   public sendPaymentTermsDropDownDataObservable = this.sendPaymentTermsDropDownData.asObservable();
   public sendgetVendorCategoryDropdownDataObservable = this.sendgetVendorCategoryDropdownData.asObservable();
   public vendorCategoryDataByIDObservable = this.vendorCategoryDataByID.asObservable();
+  public vendorDefinitionDataByIDObservable = this.vendorDefinitionDataByID.asObservable();
 
   public customerCategoryDataSourceObservable = this.customerCategoryDataSource.asObservable();
   public customerCategoryDataByIDObservable = this.customerCategoryDataByID.asObservable();
@@ -608,6 +616,19 @@ export class GeneralSettingService {
           this.addCustomerDefinitionRes.next(res)
 
         }
+      }
+      })
+    }
+  
+  editVendorDefinition(vendor:EditVendorCommand){
+    this.loaderService.show();
+    this.GeneralSettingproxy.editVendorDefinition(vendor).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('addFinancialCalendar.success'),
+          this.languageService.transalte('addFinancialCalendar.openSuccess')
+        );
+        // this.addVendorCategoryRes.next(res)
         this.loaderService.hide();
       },
       error: (err) => {
@@ -641,6 +662,14 @@ export class GeneralSettingService {
     });
   }
  
+  getVendorDefinitionByID(id : number) {
+    this.GeneralSettingproxy.getVendorDefinitionByID(id)
+    .subscribe(res=>{
+        this.vendorDefinitionDataByID.next(res)
+      
+    })
+  }
+
   constructor(private GeneralSettingproxy: GeneralSettingProxy,
     private loaderService: LoaderService,
     private languageService: LanguageService,

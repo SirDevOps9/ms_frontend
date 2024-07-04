@@ -11,6 +11,8 @@ import { CityDto } from './models/CityDto';
 import { CountryDto } from './models/CountryDto';
 import { CurrencyDto } from './models/CurrencyDto';
 import { TagDropDownDto } from './models/TagDropDownDto';
+import { EditVendorCommand } from './models/editVendorCommand';
+import { GetVendorById } from './models/getVendorById';
 @Injectable({
   providedIn: 'root',
 })
@@ -181,6 +183,18 @@ editCustomerDefinition(customer:EditCustomerDefintionsDto): Observable<EditCusto
 getCustomerDefinitionByID(id:string): Observable<AddCustomerDefinitionDto> {
   return this.httpService.get(`Customer/${id}`);
 }
+getVendorById(id: number): Observable<any> {
+  return this.httpService.get<any>(`Vendor/${id}`);
+}
 
+
+getVendorDefinitionByID(id : number) : Observable<GetVendorById> {
+  const url = `Vendor/${id}`
+  return this.httpService.get(url);
+}
+
+editVendorDefinition(vendor:EditVendorCommand): Observable<any> {
+  return this.httpService.put(`Vendor`,vendor);
+}
   constructor(private httpService: HttpService) {}
 }
