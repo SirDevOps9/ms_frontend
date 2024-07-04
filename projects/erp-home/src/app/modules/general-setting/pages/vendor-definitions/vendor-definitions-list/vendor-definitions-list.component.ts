@@ -14,8 +14,6 @@ import { CustomerCategoryDto, vendorDefinitionDto } from '../../../models';
 export class VendorDefinitionsListComponent implements OnInit {
   constructor(
     public authService: AuthService,
-    private dialog: DialogService,
-    private accountService: AccountService,
     private generalSettingService: GeneralSettingService,
     private routerService : RouterService
   ) {}
@@ -33,10 +31,10 @@ export class VendorDefinitionsListComponent implements OnInit {
   }
 
   routeToAdd() {
-    this.routerService.navigateTo('add-customer-category')
+    this.routerService.navigateTo('add-vendor-definitions')
   }
   routeToEdit(id : number) {
-    this.routerService.navigateTo(`edit-customer-category/${id}`)
+    this.routerService.navigateTo(`edit-vendor-definitions/${id}`)
   }
 
   initFinancialCalendarData() {
@@ -81,8 +79,6 @@ export class VendorDefinitionsListComponent implements OnInit {
   }
 
 
-  onColumnsChange(e:any) {
 
-  }
  
 }

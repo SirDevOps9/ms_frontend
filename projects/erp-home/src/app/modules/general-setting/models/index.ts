@@ -15,7 +15,7 @@ export * from './lookupTypes';
 export * from './TagDropDownDto';
 export * from './CountryDto';
 export * from './CityDto';
-export * from './CurrencyDto';
+export * from './CurrencyDto'; 
 export * from './CategoryDropdownDto';
 export * from './AddVendorCommand';
 export * from './addCustomerDefinitionDto';

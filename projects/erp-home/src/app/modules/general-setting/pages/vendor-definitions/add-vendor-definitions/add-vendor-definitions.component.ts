@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { FormsService, LookupEnum, LookupsService, SharedLibraryEnums, customValidators } from 'shared-lib';
-import { AddVendorCommand, CategoryDropdownDto, CityDto, CountryDto, CurrencyDto, TagDropDownDto, lookupDto } from '../../../models';
+import { FormsService, LookupEnum, LookupsService, SharedLibraryEnums, customValidators, lookupDto } from 'shared-lib';
 import { GeneralSettingService } from '../../../general-setting.service';
+import { AddVendorCommand } from '../../../models/AddVendorCommand';
+import { CategoryDropdownDto } from '../../../models/CategoryDropdownDto';
+import { CityDto } from '../../../models/CityDto';
+import { CountryDto } from '../../../models/CountryDto';
+import { CurrencyDto } from '../../../models/CurrencyDto';
+import { TagDropDownDto } from '../../../models/TagDropDownDto';
 
 @Component({
   selector: 'app-add-vendor-definitions',

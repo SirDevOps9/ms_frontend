@@ -13,12 +13,7 @@ import { CityDto } from './models/CityDto';
 import { CountryDto } from './models/CountryDto';
 import { CurrencyDto } from './models/CurrencyDto';
 import { TagDropDownDto } from './models/TagDropDownDto';
-// import { AddVendorCommand } from './models/AddVendorCommand';
-// import { CategoryDropdownDto } from './models/CategoryDropdownDto';
-// import { CityDto } from './models/CityDto';
-// import { CountryDto } from './models/CountryDto';
-// import { CurrencyDto } from './models/CurrencyDto';
-// import { TagDropDownDto } from './models/TagDropDownDto';
+
 @Injectable({
   providedIn: 'root',
 })

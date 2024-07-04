@@ -397,6 +397,12 @@
       "criditLimit" : "Credit Limit",
       "actions" : "Actions"
     },
+    "addCustomerDefinition" : {
+      "success":"Success",
+      "successAdd":"Customer Definition Added Successfully",
+      "successEdit":"Customer Definition Edited Successfully",
+      "openSuccess":"Customer Definition Opened Successfully"
+    },
     "deleteCustomerDefinition" : {
       "delete" : "Customer Definition Deleted Successfully"
     },

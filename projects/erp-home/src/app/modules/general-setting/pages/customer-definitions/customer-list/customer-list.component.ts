@@ -33,10 +33,10 @@ export class CustomerListComponent implements OnInit {
   }
 
   routeToAdd() {
-    this.routerService.navigateTo('add-customer-category')
+    this.routerService.navigateTo('add-customer-definitions')
   }
   routeToEdit(id : number) {
-    this.routerService.navigateTo(`edit-customer-category/${id}`)
+    this.routerService.navigateTo(`edit-customer-definitions/${id}`)
   }
 
   initFinancialCalendarData() {

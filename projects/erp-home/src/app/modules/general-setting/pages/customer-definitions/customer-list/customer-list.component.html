@@ -28,26 +28,26 @@
                  },
                
                  {
-                   name: 'payableAccountName',
+                   name: 'categoryName',
                    headerText: ('customerDefinition.category' | translate),
                  },
                  {
-                   name: 'purchaseAccountName',
+                   name: 'email',
                    headerText: ('customerDefinition.email' | translate) ,
                  },
                
                  {
-                   name: 'purchaseReturnAccountName',
+                   name: 'country',
                    headerText: ('customerDefinition.country' | translate),
 
                  },
                  {
-                   name: 'discountAccountName',
+                   name: 'paymentTermName',
                    headerText: ('customerDefinition.paymentTerm' | translate),
 
                  },
                  {
-                   name: 'priceListName',
+                   name: 'creditLimit',
                    headerText: ('customerDefinition.criditLimit' | translate),
 
                  },
@@ -65,28 +65,25 @@
                     <lib-text-input  [(ngModel)]="searchTerm" type="text" [placeholder]="'Search'" (keyUp)="onSearchChange($event)" [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">                   
                     </lib-text-input>
                     <!--  -->
-                    <lib-select
-              [options]="[]"
-              optionValue="id"
-              placeholder="Change Columns"
-              optionLabel="name"
-              (valueChanged)="onColumnsChange($event)"
-            >
-            </lib-select>
+    
 
                 </div>
       
             
                 <div class="flex gap-2">
                     <div>
-                        <lib-button-micro title="Add New" nameClass="save" iconName="pi pi-plus">
-                        </lib-button-micro>
+                        <!-- <lib-button-micro title="Add New" nameClass="save" iconName="pi pi-plus" (sendClickEvent)="routeToAdd()">
+                        </lib-button-micro> -->
+
+                        <lib-button className="saveForm" (onClick)="routeToAdd()">Add New</lib-button>
 
                     </div>
                     <!--  -->
                     <div>
-                        <lib-button-micro title="Export" nameClass="export" iconName="pi pi-file-plus">
-                        </lib-button-micro>
+                        <!-- <lib-button-micro title="Export" nameClass="export" iconName="pi pi-file-plus">
+                        </lib-button-micro> -->
+                        <lib-button className="export" >Export</lib-button>
+
 
                     </div>               
                   

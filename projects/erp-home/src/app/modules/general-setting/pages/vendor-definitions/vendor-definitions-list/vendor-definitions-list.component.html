@@ -65,22 +65,17 @@
                   <lib-text-input  [(ngModel)]="searchTerm" type="text" [placeholder]="'Search'" (keyUp)="onSearchChange($event)" [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">                   
                   </lib-text-input>
                   <!--  -->
-                  <lib-select
-            [options]="[]"
-            optionValue="id"
-            placeholder="Change Columns"
-            optionLabel="name"
-            (valueChanged)="onColumnsChange($event)"
-          >
-          </lib-select>
+          
 
               </div>
     
           
               <div class="flex gap-2">
                   <div>
-                      <lib-button-micro title="Add New" nameClass="save" iconName="pi pi-plus">
-                      </lib-button-micro>
+                  
+                      <lib-button pRipple className="addToList" label="Add" (onClick)="routeToAdd()">
+                        </lib-button>
+
 
                   </div>
                   <!--  -->
