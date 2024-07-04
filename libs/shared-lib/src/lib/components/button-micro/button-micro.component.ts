@@ -10,6 +10,7 @@ export class ButtonMicroComponent {
   @Input() title: string;
   @Input() iconName: string;
   @Input() nameClass: 'btn_edit' | 'btn_delet' | 'save' | 'export' | 'cancel';
-
+  @Input() disabled : boolean = false;
+  @Output() click = new EventEmitter()
 
 }

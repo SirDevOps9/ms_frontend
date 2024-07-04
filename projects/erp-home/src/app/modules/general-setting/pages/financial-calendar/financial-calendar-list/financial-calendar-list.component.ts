@@ -56,7 +56,7 @@ export class FinancialCalendarListComponent implements OnInit {
 
  
   onPageChange(pageInfo: PageInfo) {
-    this.generalSettingService.getfinancialCalendar('', new PageInfo());
+    this.generalSettingService.getfinancialCalendar('', pageInfo);
 
     this.generalSettingService.financialCalendarDataSourceObservable.subscribe({
       next: (res) => {

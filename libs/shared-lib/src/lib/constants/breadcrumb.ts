@@ -46,6 +46,12 @@ export class BreadcrumbLabel {
     static COST_CENTER ='Cost Center';
     static ACCOUNT_STATEMENT ='Account Statement';
     static TRIAL_BALANCE ='Trial Balance';
+    static VENDOR_DEFINITIONS ='Vendor Definitions';
+    static CUSTOMER_DEFINITIONS ='Customer Definitions';
+    static ADD_CUSTOMER_DEFINITIONS ='Add Customer Definitions';
+    static EDIT_CUSTOMER_DEFINITIONS ='Edit Customer Definitions';
+    static ADD_VENDOR_DEFINITIONS ='Add Vendor Definitions';
+    static EDIT_VENDOR_DEFINITIONS ='Edit Vendor Definitions';
    
 
     

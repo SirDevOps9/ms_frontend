@@ -1,10 +1,21 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, filter, map } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
 import { GeneralSettingProxy } from './general-setting.proxy';
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto} from './models';
+
+
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, vendorDefinitionDto, AddCustomerDefinitionDto, EditCustomerDefintionsDto} from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
+import { AddVendorCommand } from './models/AddVendorCommand';
+import { CategoryDropdownDto } from './models/CategoryDropdownDto';
+import { CityDto } from './models/CityDto';
+import { CountryDto } from './models/CountryDto';
+import { CurrencyDto } from './models/CurrencyDto';
+import { TagDropDownDto } from './models/TagDropDownDto';
+
+import { EditVendorCommand } from './models/editVendorCommand';
+import { GetVendorById } from './models/getVendorById';
 @Injectable({
   providedIn: 'root',
 })
@@ -15,6 +26,7 @@ export class GeneralSettingService {
   private currentTagDataSource = new BehaviorSubject<TagDto>({} as TagDto);
   private addFinancialCalendarRes = new BehaviorSubject<any>('');
   private openFinancialCalendarRes = new BehaviorSubject<any>('');
+  private addVendorCategoryRes = new BehaviorSubject<any>('');
   private FinancialPeriodLastYearDate = new BehaviorSubject<any>(null);
   private FinancialPeriodDataByID = new BehaviorSubject<any>(null);
   private EditFinancialPeriodData = new BehaviorSubject<any>(null);
@@ -23,12 +35,33 @@ export class GeneralSettingService {
   private sendChildrenAccountsDropDownData = new BehaviorSubject<any>([]);
   private sendPriceListsDropDownData = new BehaviorSubject<any>([]);
   private sendPaymentTermsDropDownData = new BehaviorSubject<any>([]);
+  private sendgetVendorCategoryDropdownData = new BehaviorSubject<CategoryDropdownDto[]>([]);
   private vendorCategoryDataByID = new BehaviorSubject<any>(null);
+
+  private vendorDefinitionDataByID = new BehaviorSubject<GetVendorById | undefined>({} as GetVendorById  | undefined );
+
   private customerCategoryDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
   private customerCategoryDataByID = new BehaviorSubject<any>(null);
   private addCustomerCategoryData = new BehaviorSubject<any>(null);
+  private customerDefinitionDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
+  private vendorDefinitionDataSource = new BehaviorSubject<vendorDefinitionDto[]>([]);
+  private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
+  private countryDataSource = new BehaviorSubject<CountryDto[]>([]);
+  private cityDataSource = new BehaviorSubject<CityDto[]>([]);
+  private currenciesDataSource = new BehaviorSubject<CurrencyDto[]>([]);
+  private addCustomerDefinitionRes = new BehaviorSubject<any>(null);
+  private editCustomerDefinitionRes = new BehaviorSubject<any>(null);
+  private getCustomerDefinitionResByID = new BehaviorSubject<any>(null);
+  private vendorById = new BehaviorSubject<any>(null);
 
+  public vendorByIdObservable = this.vendorById.asObservable();
+  public currencies = this.currenciesDataSource.asObservable();
 
+  public cities = this.cityDataSource.asObservable();
+
+  public countries = this.countryDataSource.asObservable();
+
+  public tags = this.tagsDataSource.asObservable();
   public currentTag = this.currentTagDataSource.asObservable();
   public financialCalendarDataSourceObservable = this.financialCalendarDataSource.asObservable();
   public tagList = this.tagDataSource.asObservable();
@@ -43,11 +76,21 @@ export class GeneralSettingService {
   public addVendorCategoryDataObservable = this.addVendorCategoryData.asObservable();
   public sendPriceListsDropDownDataObservable = this.sendPriceListsDropDownData.asObservable();
   public sendPaymentTermsDropDownDataObservable = this.sendPaymentTermsDropDownData.asObservable();
+  public sendgetVendorCategoryDropdownDataObservable = this.sendgetVendorCategoryDropdownData.asObservable();
   public vendorCategoryDataByIDObservable = this.vendorCategoryDataByID.asObservable();
+  public vendorDefinitionDataByIDObservable = this.vendorDefinitionDataByID.asObservable();
 
   public customerCategoryDataSourceObservable = this.customerCategoryDataSource.asObservable();
   public customerCategoryDataByIDObservable = this.customerCategoryDataByID.asObservable();
   public addCustomerCategoryDataObservable = this.addCustomerCategoryData.asObservable();
+
+  public customerDefinitionDataSourceObservable = this.customerDefinitionDataSource.asObservable();
+  public vendorDefinitionDataSourceObservable = this.vendorDefinitionDataSource.asObservable();
+
+
+  public customerDefinitionObservable = this.addCustomerDefinitionRes.asObservable();
+  public editCustomerDefinitionResObservable = this.editCustomerDefinitionRes.asObservable();
+  public getCustomerDefinitionResByIDObservable = this.getCustomerDefinitionResByID.asObservable();
 
   
   getTagList(searchTerm: string, pageInfo: PageInfo) {
@@ -219,6 +262,71 @@ export class GeneralSettingService {
 
     }
   }
+  // customer definition
+
+  getcustomerDefinition(searchTerm: string, pageInfo: PageInfo) {
+    this.GeneralSettingproxy.getcustomerDefinition(searchTerm, pageInfo).subscribe({
+      next: (res) => {
+        this.customerDefinitionDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+  }
+  async deleteCustomerDefinition(id: number){
+    const confirmed = await this.toasterService.showConfirm(
+      'Delete'
+    );
+    if (confirmed) {
+      this.GeneralSettingproxy.deleteCustomerDefinition(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('deleteCustomerDefinition.delete')
+          );
+          let data = this.customerDefinitionDataSource.getValue()
+          const updatedVendor = data.filter((elem) => elem.id !== id);
+          this.customerDefinitionDataSource.next(updatedVendor);
+
+          return res;
+        },
+      });
+
+    }
+  }
+
+  // vendor
+  getVendorDefinition(searchTerm: string, pageInfo: PageInfo) {
+    this.GeneralSettingproxy.getVendorDefinition(searchTerm, pageInfo).subscribe({
+      next: (res) => {
+        this.vendorDefinitionDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+  }
+
+  async deletevendorDefinition(id: number){
+    const confirmed = await this.toasterService.showConfirm(
+      'Delete'
+    );
+    if (confirmed) {
+      this.GeneralSettingproxy.deleteVendorDefinition(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('deleteVendorDefinition.delete')
+          );
+          let data = this.vendorDefinitionDataSource.getValue()
+          const updatedVendor = data.filter((elem) => elem.id !== id);
+          this.vendorDefinitionDataSource.next(updatedVendor);
+
+          return res;
+        },
+      });
+
+    }
+  }
+
+  // 
 
   addTag(addTagDto: AddTagDto
     ,dialogRef: DynamicDialogRef
@@ -347,10 +455,26 @@ export class GeneralSettingService {
     })
   }
   getpaymentTermsListDropDown() {
-    this.GeneralSettingproxy.getpriceListDropDown()
+    this.GeneralSettingproxy.getpaymentTermsListDropDown()
     .subscribe(res=>{
       if(res) {
         this.sendPaymentTermsDropDownData.next(res)
+      }
+    })
+  }
+  getVendorCategoryDropdown() {
+    this.GeneralSettingproxy.getVendorCategoryDropdown()
+    .subscribe(res=>{
+      if(res) {
+        this.sendgetVendorCategoryDropdownData.next(res)
+      }
+    })
+  }
+  getCustomerCategoryDropdown() {
+    this.GeneralSettingproxy.getCustomerCategoryDropdown()
+    .subscribe(res=>{
+      if(res) {
+        this.sendgetVendorCategoryDropdownData.next(res)
       }
     })
   }
@@ -442,8 +566,110 @@ export class GeneralSettingService {
       });
     } 
   }
+  getTags() {
+    this.GeneralSettingproxy.getTags().subscribe((response) => {
+      this.tagsDataSource.next(response);
+    });
+  }
+  loadCountries() {
+    this.GeneralSettingproxy.getAllCountries().subscribe((response) => {
+      this.countryDataSource.next(response);
+    });
+  }
+  loadCities(countryCode: string) {
+    this.GeneralSettingproxy.getCities(countryCode).subscribe((response) => {
+      this.cityDataSource.next(response);
+    });
+  }
+  getCurrencies(searchKey:string) {
+    this.GeneralSettingproxy.getCurrencies(searchKey).subscribe((res)=> {
+      this.currenciesDataSource.next(res);
+    });
+    
+  }
+  addNewVendorDefinition(vendor:AddVendorCommand){
+    this.loaderService.show();
+    this.GeneralSettingproxy.addNewVendorDefinition(vendor).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('addFinancialCalendar.success'),
+          this.languageService.transalte('addFinancialCalendar.openSuccess')
+        );
+        // this.addVendorCategoryRes.next(res)
+        this.loaderService.hide();
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
 
+  addNewCustomerDefinition(customer:AddCustomerDefinitionDto){
+    this.loaderService.show();
+    this.GeneralSettingproxy.addNewCustomerDefinition(customer).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('addCustomerDefinition.success'),
+          this.languageService.transalte('addCustomerDefinition.successAdd')
+        );
+        if(res) {
+          this.addCustomerDefinitionRes.next(res)
+
+        }
+      }
+      })
+    }
+  
+  editVendorDefinition(vendor:EditVendorCommand){
+    this.loaderService.show();
+    this.GeneralSettingproxy.editVendorDefinition(vendor).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('addFinancialCalendar.success'),
+          this.languageService.transalte('addFinancialCalendar.openSuccess')
+        );
+        // this.addVendorCategoryRes.next(res)
+        this.loaderService.hide();
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+  editCustomerDefinition(customer:EditCustomerDefintionsDto){
+    this.GeneralSettingproxy.editCustomerDefinition(customer).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('addCustomerDefinition.success'),
+          this.languageService.transalte('addCustomerDefinition.successEdit')
+        );
+        if(res) {
+          this.editCustomerDefinitionRes.next(res)
+
+        }
+      },
+    
+    });
+  }
+
+  getCustomerDefinitionByID(id : string){
+    this.GeneralSettingproxy.getCustomerDefinitionByID(id).subscribe({
+      next: (res) => {
+      
+         this.getCustomerDefinitionResByID.next(res)
+      },
+    
+    });
+  }
  
+  getVendorDefinitionByID(id : number) {
+    this.GeneralSettingproxy.getVendorDefinitionByID(id)
+    .subscribe(res=>{
+        this.vendorDefinitionDataByID.next(res)
+      
+    })
+  }
+
   constructor(private GeneralSettingproxy: GeneralSettingProxy,
     private loaderService: LoaderService,
     private languageService: LanguageService,

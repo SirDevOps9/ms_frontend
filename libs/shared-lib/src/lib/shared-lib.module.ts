@@ -12,6 +12,11 @@ import {
   ButtonMicroComponent,
   ToastComponent,
   TablePrintComponent,
+  TabviewComponent
+  
+  
+  
+  
 } from './components';
 import {
   FieldValidationsComponent,
@@ -81,6 +86,7 @@ import { HttpClientModule } from '@angular/common/http';
     UploadMultipeFilesComponent,
     CalendarComponent,
     TablePrintComponent,
+    TabviewComponent
   ],
   imports: [
     HttpClientModule,
@@ -137,6 +143,7 @@ import { HttpClientModule } from '@angular/common/http';
     ToastComponent,
     UploadMultipeFilesComponent,
     TablePrintComponent,
+    TabviewComponent
   ],
 })
 export class SharedLibModule {}

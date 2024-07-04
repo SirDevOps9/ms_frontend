@@ -33,7 +33,7 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
   @Input() maxLength: string;
   @Input() id: string;
   @Input() className: string;
-  @Input() selectedValue: any[];
+  @Input() selectedValue: any = [];
   @Input() data_testid: string = '';
   @Input() labelTest: any;
 

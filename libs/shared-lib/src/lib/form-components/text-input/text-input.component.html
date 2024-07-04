@@ -15,7 +15,7 @@
     'background-size': '20px'
   }"
   [attr.data-testid]="this.labelTest"
-
+  min="0"
   />
 <input *ngIf="!iconUrl"
   class="p-inputtext p-component p-element "
@@ -28,6 +28,6 @@
   [ngClass]="{'reads':readOnly}"
   (keyup)="keyupChange($event)"
   [attr.data-testid]="this.labelTest"
-
+  min="0"
 
   />
