@@ -7,3 +7,4 @@ export * from './table-paginator/table-paginator.component';
 export * from  './button-micro/button-micro.component';
 export * from  './table-print/table-print.component';
 export * from  './toast/toast.component';
+export * from  './tabview/tabview.component';

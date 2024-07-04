@@ -1,8 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, vendorDefinitionDto } from './models';
+// import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, vendorDefinitionDto } from './models';
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto , vendorDefinitionDto, AddCustomerDefinitionDto, EditCustomerDefintionsDto} from './models';
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
+import { AddVendorCommand } from './models/AddVendorCommand';
+import { CategoryDropdownDto } from './models/CategoryDropdownDto';
+import { CityDto } from './models/CityDto';
+import { CountryDto } from './models/CountryDto';
+import { CurrencyDto } from './models/CurrencyDto';
+import { TagDropDownDto } from './models/TagDropDownDto';
 @Injectable({
   providedIn: 'root',
 })
@@ -142,6 +149,36 @@ activateTag(id: number): Observable<boolean> {
 
 deactivateTag(id: number): Observable<boolean> {
   return this.httpService.put<boolean>(`Tag/deactivate?Id=${id}`,{});
+}
+getTags(): Observable<TagDropDownDto[]> {
+  return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown`);
+}
+getAllCountries(): Observable<CountryDto[]> {
+  return this.httpService.get<CountryDto[]>(`Country`);
+}
+getCities(countryCode: string): Observable<CityDto[]> {
+  return this.httpService.get<CityDto[]>(`Country/GetCities?CountryCode=${countryCode}`);
+}
+getCurrencies(searchKey: string): Observable<CurrencyDto[]> {
+  return this.httpService.get<CurrencyDto[]>('Currency?searchKey=' + searchKey);
+}
+getVendorCategoryDropdown(): Observable<CategoryDropdownDto[]> {
+  return this.httpService.get<CategoryDropdownDto[]>('VendorCategory/VendorCategoryDropdown');
+}
+getCustomerCategoryDropdown(): Observable<CategoryDropdownDto[]> {
+  return this.httpService.get<CategoryDropdownDto[]>('CustomerCategory/CustomerCategoryDropdown');
+}
+addNewVendorDefinition(vendor:AddVendorCommand): Observable<AddVendorCommand> {
+  return this.httpService.post(`Vendor`,vendor);
+}
+addNewCustomerDefinition(customer:AddCustomerDefinitionDto): Observable<AddCustomerDefinitionDto> {
+  return this.httpService.post(`Customer`,customer);
+}
+editCustomerDefinition(customer:EditCustomerDefintionsDto): Observable<EditCustomerDefintionsDto> {
+  return this.httpService.put(`Customer`,customer);
+}
+getCustomerDefinitionByID(id:string): Observable<AddCustomerDefinitionDto> {
+  return this.httpService.get(`Customer/${id}`);
 }
 
   constructor(private httpService: HttpService) {}

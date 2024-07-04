@@ -9,7 +9,7 @@ import { customValidators } from '../../services';
 })
 export class LabelComponent implements OnInit {
   @Input() label: string;
-  @Input() appControl: AbstractControl;
+  @Input() appControl: AbstractControl| any;
 
   get ControlName() {
     var controlName = null;
