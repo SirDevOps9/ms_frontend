@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { FormsService, LookupEnum, LookupsService, SharedLibraryEnums, customValidators } from 'shared-lib';
-import { AddVendorCommand, CategoryDropdownDto, CityDto, CountryDto, CurrencyDto, TagDropDownDto, lookupDto } from '../../../models';
+import { FormsService, LookupEnum, LookupsService, RouterService, SharedLibraryEnums, customValidators } from 'shared-lib';
+import { CategoryDropdownDto, CityDto, CountryDto, CurrencyDto, TagDropDownDto, lookupDto } from '../../../models';
 import { GeneralSettingService } from '../../../general-setting.service';
+import { EditVendorCommand } from '../../../models/editVendorCommand';
+import { GetVendorById } from '../../../models/getVendorById';
 
 @Component({
   selector: 'app-edit-vendor-definitions',
   templateUrl: './edit-vendor-definitions.component.html',
+  providers: [RouterService],
   styleUrl: './edit-vendor-definitions.component.scss'
 })
-export class EditVendorDefinitionsComponent {
-  addVendorForm:FormGroup;
+export class EditVendorDefinitionsComponent  implements OnInit {
+  editVendorForm:FormGroup;
   lookups: { [key: string]: lookupDto[] };
   LookupEnum = LookupEnum;
   selectedMobileCode: string;
@@ -22,20 +25,31 @@ export class EditVendorDefinitionsComponent {
   priceList: { id: number; name: string }[] = [];
   paymentTermsList: { id: number; name: string }[] = [];
   accountsList: { id: number; name: string }[] = [];
-
-
-
-
+  vendor:GetVendorById;
+  selectedVendorCategory:string;
+  tagValue:number[];
+  selectedMobileContactCode:string;
+  selectedMobilePersonContacCode:string;
+  selectedCountry:string;
+  selectedCity:number;
+  selectedPaymentTerm:string;
+  selectedPriceList:string;
+  selectedCurrency:string;
+  selectedPayableAccount:string;
+  selectedPurchaseAccount:string;
+  selectedPurchaseReturnAccount:string;
+  selectedDiscountAccount:string;
+  
 
 constructor(
   private fb :FormBuilder,
   private formsService: FormsService,
   public lookupsService: LookupsService,
-  private GeneralSettingService: GeneralSettingService,
+  private routerService: RouterService,
+  private generalSettingService: GeneralSettingService,
   public sharedLibEnums: SharedLibraryEnums,
-
 ){
-  this.addVendorForm = fb.group({
+  this.editVendorForm = fb.group({
     code: new FormControl(null),
     photo: new FormControl(null),
     name: new FormControl('', [ customValidators.required]),
@@ -93,6 +107,7 @@ constructor(
   });
 }
   ngOnInit(): void {
+    
     this. getVendorCategoryDropdown();
     this. getChildrenAccountsDropDown();
     this. getpaymentTermsListDropDown();
@@ -102,88 +117,146 @@ constructor(
     this.getTags();
     this.loadLookups();
     this.Subscribe();
-    this.getVendorById(1)
-
+    this.intitializeFormData();
   }
+
+  intitializeFormData(){
+    this.generalSettingService.getVendorDefinitionByID(this.vendorId);
+    this.generalSettingService.vendorDefinitionDataByIDObservable.subscribe((res ) => {
+    
+
+      if (res) {
+        this.editVendorForm.patchValue({ ...res,
+          birthDate: res.birthDate ? new Date(res.birthDate) : null, 
+   });
+        this.vendor= res;
+        this.tagValue = res.vendorTags?.map((x:any)=>x.id) ?? '';
+        this.selectedVendorCategory = res.vendorCategory?.id ?? '';
+        // res.vendorInformation?.contactMobileCode
+        this.selectedMobileContactCode = res.vendorInformation?.contactMobileCode ?? '';
+        // res.vendorInformation?.contactPersonMobileCode
+        this.selectedMobilePersonContacCode = res.vendorInformation?.contactPersonMobileCode ?? '';
+        this.selectedCountry = res.vendorAddress?.countryCode ?? '';
+        this.selectedCity = res.vendorAddress.cityId ?? '';
+        this.selectedPaymentTerm = res.vendorFinancial?.paymentTermId ?? '';
+        this.selectedPriceList = res.vendorFinancial?.priceListId ?? '';
+        this.selectedCurrency = res.vendorFinancial?.currencyId ?? '';
+        this.selectedPayableAccount = res.vendorAccounting?.payableAccountId ?? '';
+        this.selectedPurchaseAccount = res.vendorAccounting?.purchaseAccountId ?? '';
+        this.selectedPurchaseReturnAccount = res.vendorAccounting?.purchaseReturnAccountId ?? '';
+        this.selectedDiscountAccount = res.vendorAccounting?.discountAccountId ?? '';
+      }
+      if(this.selectedCountry){
+        this.onCountryChange(this.selectedCountry)
+      }
+      console.log(this.editVendorForm.value ,"000000000");
+    });
+  }
+
   loadCountries() {
-    this.GeneralSettingService.loadCountries();
-    this.GeneralSettingService.countries.subscribe({
+    this.generalSettingService.loadCountries();
+    this.generalSettingService.countries.subscribe({
       next: (res) => {
         this.countries = res;
       },
     });
   }
-  getVendorById(id:number){
-    this.GeneralSettingService.getVendorById(id)
-    this.GeneralSettingService.vendorByIdObservable.subscribe(res=>{
-     console.log(res);
-     
-    })
-  }
   getpriceListDropDown(){
-    this.GeneralSettingService.getpriceListDropDown()
-    this.GeneralSettingService.sendPriceListsDropDownDataObservable.subscribe(res=>{
+    this.generalSettingService.getpriceListDropDown()
+    this.generalSettingService.sendPriceListsDropDownDataObservable.subscribe(res=>{
       this.priceList = res
     })
   }
   getpaymentTermsListDropDown(){
-    this.GeneralSettingService.getpaymentTermsListDropDown()
-    this.GeneralSettingService.sendPaymentTermsDropDownDataObservable.subscribe(res=>{
+    this.generalSettingService.getpaymentTermsListDropDown()
+    this.generalSettingService.sendPaymentTermsDropDownDataObservable.subscribe(res=>{
       this.paymentTermsList = res
     })
   }
   getChildrenAccountsDropDown(){
-    this.GeneralSettingService.getChildrenAccountsDropDown()
-    this.GeneralSettingService.sendChildrenAccountsDropDownDataObservable.subscribe(res=>{
+    this.generalSettingService.getChildrenAccountsDropDown()
+    this.generalSettingService.sendChildrenAccountsDropDownDataObservable.subscribe(res=>{
       this.accountsList = res
-
     })
   }
+
   getVendorCategoryDropdown(){
-    this.GeneralSettingService.getVendorCategoryDropdown()
-    this.GeneralSettingService.sendgetVendorCategoryDropdownDataObservable.subscribe(res=>{
+    this.generalSettingService.getVendorCategoryDropdown()
+    this.generalSettingService.sendgetVendorCategoryDropdownDataObservable.subscribe(res=>{
     this.categoryList = res
-
-
     })
   }
+
   onCountryChange(event: any) {
     const countryId = event;
     if (!countryId) return;
-    this.GeneralSettingService.loadCities(countryId);
-    this.GeneralSettingService.cities.subscribe((res) => {
+    this.generalSettingService.loadCities(countryId);
+    this.generalSettingService.cities.subscribe((res) => {
       this.cities = res;
     });
   }
-  AddVendor(){
-    if (!this.formsService.validForm(this.addVendorForm, true)) return;
-    
-        const vendor:AddVendorCommand =this.addVendorForm.value;
-        this.GeneralSettingService.addNewVendorDefinition(vendor)
 
+  editVendor(){
+   
     
+    if (!this.formsService.validForm(this.editVendorForm, true)) return;
+        const vendor: EditVendorCommand = {
+          ...this.editVendorForm.value,
+          vendorCategoryId: this.vendor?.vendorCategory?.id,
+          vendorInformation: {
+            ...this.editVendorForm.value.vendorInformation,
+            id: this.vendor?.vendorInformation?.id
+          },
+          vendorAddress: {
+            ...this.editVendorForm.value.vendorAddress,
+            id: this.vendor?.vendorAddress?.id
+          },
+          vendorLegal: {
+            ...this.editVendorForm.value.vendorLegal,
+            id: this.vendor?.vendorLegal?.id
+          },
+          vendorFinancial: {
+            ...this.editVendorForm.value.vendorFinancial,
+            id: this.vendor?.vendorFinancial?.id
+          },
+          vendorAccounting: {
+            ...this.editVendorForm.value.vendorAccounting,
+            id: this.vendor?.vendorAccounting?.id
+          },
+        //  vendorTagIds: this.vendor?.vendorTags?.map(tag => tag.id)
+        };
+        
+        vendor.id= this.vendorId;
+        // console.log(this.editVendorForm.value);
+        // return
+        this.generalSettingService.editVendorDefinition(vendor)
   }
 
 Subscribe() {
   this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
 }
+
 loadLookups() {
   this.lookupsService.loadLookups([LookupEnum.MobileCode]);
 }
+
 getTags() {
-  this.GeneralSettingService.getTags();
-  this.GeneralSettingService.tags.subscribe((res) => {
+  this.generalSettingService.getTags();
+  this.generalSettingService.tags.subscribe((res) => {
     this.accountTags = res;
 
   });
 }
 getCurrencies(){
-  this.GeneralSettingService.getCurrencies('');
-  this.GeneralSettingService.currencies.subscribe((res) => {
+  this.generalSettingService.getCurrencies('');
+  this.generalSettingService.currencies.subscribe((res) => {
     this.currencies = res;
   });
 }
-
+get vendorId(): number {
+  return this.routerService.currentId;
 }
 
 
+
+}
