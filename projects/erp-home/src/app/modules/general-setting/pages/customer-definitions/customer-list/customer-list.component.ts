@@ -20,7 +20,7 @@ export class CustomerListComponent implements OnInit {
     private routerService : RouterService
   ) {}
 
-  tableData : CustomerCategoryDto[];
+  tableData : any[];
 
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
