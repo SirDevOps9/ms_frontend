@@ -4,7 +4,7 @@ import { FormsService, LookupEnum, LookupsService, RouterService, SharedLibraryE
 import { CategoryDropdownDto, CityDto, CountryDto, CurrencyDto, TagDropDownDto, lookupDto } from '../../../models';
 import { GeneralSettingService } from '../../../general-setting.service';
 import { EditVendorCommand } from '../../../models/editVendorCommand';
-import { GetVendorById } from '../../../models/getVendorById';
+import { GetVendorById, VendorInformation } from '../../../models/getVendorById';
 
 @Component({
   selector: 'app-edit-vendor-definitions',
@@ -39,6 +39,8 @@ export class EditVendorDefinitionsComponent  implements OnInit {
   selectedPurchaseAccount:string;
   selectedPurchaseReturnAccount:string;
   selectedDiscountAccount:string;
+
+ returnedVendorInformation:VendorInformation;
   
 
 constructor(
@@ -124,18 +126,41 @@ constructor(
     this.generalSettingService.getVendorDefinitionByID(this.vendorId);
     this.generalSettingService.vendorDefinitionDataByIDObservable.subscribe((res ) => {
     
-
       if (res) {
-        this.editVendorForm.patchValue({ ...res,
-          birthDate: res.birthDate ? new Date(res.birthDate) : null, 
-   });
+        this.vendor = res;
+        this.editVendorForm.patchValue({
+          ...res,
+          birthDate: res.birthDate ? new Date(res.birthDate) : null,
+          vendorCategoryId: res.vendorCategory?.id ?? null,
+          vendorInformation: {
+            ...res.vendorInformation,
+            ContactMobileCode: res.vendorInformation?.contactMobileCode ?? null,
+            ContactPersonMobileCode: res.vendorInformation?.contactPersonMobileCode ?? null,
+          },
+          vendorAddress: {
+            ...res.vendorAddress,
+            countryId: res.vendorAddress?.countryCode ?? null,
+            cityId: res.vendorAddress?.cityId ?? null,
+          },
+          vendorFinancial: {
+            ...res.vendorFinancial,
+            paymentTermId: res.vendorFinancial?.paymentTermId ?? null,
+            priceListId: res.vendorFinancial?.priceListId ?? null,
+            currencyId: res.vendorFinancial?.currencyId ?? null,
+          },
+          vendorAccounting: {
+            ...res.vendorAccounting,
+            payableAccountId: res.vendorAccounting?.payableAccountId ?? null,
+            purchaseAccountId: res.vendorAccounting?.purchaseAccountId ?? null,
+            purchaseReturnAccountId: res.vendorAccounting?.purchaseReturnAccountId ?? null,
+            discountAccountId: res.vendorAccounting?.discountAccountId ?? null,
+          },
+          //VendorTagIds: res.vendorTags?.map(tag => tag.id) ?? null
+        });
         this.vendor= res;
         this.tagValue = res.vendorTags?.map((x:any)=>x.id) ?? '';
+        this.returnedVendorInformation =res.vendorInformation
         this.selectedVendorCategory = res.vendorCategory?.id ?? '';
-        // res.vendorInformation?.contactMobileCode
-        this.selectedMobileContactCode = res.vendorInformation?.contactMobileCode ?? '';
-        // res.vendorInformation?.contactPersonMobileCode
-        this.selectedMobilePersonContacCode = res.vendorInformation?.contactPersonMobileCode ?? '';
         this.selectedCountry = res.vendorAddress?.countryCode ?? '';
         this.selectedCity = res.vendorAddress.cityId ?? '';
         this.selectedPaymentTerm = res.vendorFinancial?.paymentTermId ?? '';
@@ -145,6 +170,17 @@ constructor(
         this.selectedPurchaseAccount = res.vendorAccounting?.purchaseAccountId ?? '';
         this.selectedPurchaseReturnAccount = res.vendorAccounting?.purchaseReturnAccountId ?? '';
         this.selectedDiscountAccount = res.vendorAccounting?.discountAccountId ?? '';
+
+
+        if(this.returnedVendorInformation){
+                this.selectedMobileContactCode = this.returnedVendorInformation.contactMobileCode ?? '' ;
+                // res.vendorInformation?.contactPersonMobileCode
+                this.selectedMobilePersonContacCode = this.returnedVendorInformation.contactPersonMobileCode?? '' ;
+                console.log("selectedMobileContactCode" , this.selectedMobileContactCode)
+        }                console.log("selectedMobilePerson" , this.selectedMobilePersonContacCode)
+
+
+
       }
       if(this.selectedCountry){
         this.onCountryChange(this.selectedCountry)
@@ -205,7 +241,9 @@ constructor(
           vendorCategoryId: this.vendor?.vendorCategory?.id,
           vendorInformation: {
             ...this.editVendorForm.value.vendorInformation,
-            id: this.vendor?.vendorInformation?.id
+            id: this.vendor?.vendorInformation?.id,
+            // contactMobileCode:this.vendor?.vendorInformation?.contactMobile,
+            // contactPersonMobileCode :this.vendor?.vendorInformation?.contactPersonMobile
           },
           vendorAddress: {
             ...this.editVendorForm.value.vendorAddress,
@@ -223,12 +261,11 @@ constructor(
             ...this.editVendorForm.value.vendorAccounting,
             id: this.vendor?.vendorAccounting?.id
           },
-        //  vendorTagIds: this.vendor?.vendorTags?.map(tag => tag.id)
+         vendorTagIds: this.vendor?.vendorTags?.map(tag => tag.id)
         };
         
         vendor.id= this.vendorId;
-        // console.log(this.editVendorForm.value);
-        // return
+        console.log("aaaaaaaaaaaaaa",this.editVendorForm.value);
         this.generalSettingService.editVendorDefinition(vendor)
   }
 
