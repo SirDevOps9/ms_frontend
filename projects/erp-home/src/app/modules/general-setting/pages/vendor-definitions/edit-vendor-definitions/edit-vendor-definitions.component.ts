@@ -129,6 +129,27 @@ constructor(
       if (res) {
         this.vendor = res;
         this.vendorCode =res.code
+        this.selectedCountry = res.vendorAddress?.countryCode ;
+        this.selectedCity = res.vendorAddress?.cityId ;
+        this.vendor= res;
+        this.onCountryChange(this.selectedCountry  )
+
+        this.tagValue = res.vendorTags;
+
+        this.returnedVendorInformation =res.vendorInformation
+        this.selectedVendorCategory = res.vendorCategory?.id ;
+        this.selectedPaymentTerm = res.vendorFinancial?.paymentTermId ;
+        this.selectedPriceList = res.vendorFinancial?.priceListId ;
+        this.selectedCurrency = res.vendorFinancial?.currencyId ;
+        this.selectedPayableAccount = res.vendorAccounting?.payableAccountId;
+        this.selectedPurchaseAccount = res.vendorAccounting?.purchaseAccountId ;
+        this.selectedPurchaseReturnAccount = res.vendorAccounting?.purchaseReturnAccountId;
+        this.selectedDiscountAccount = res.vendorAccounting?.discountAccountId ;
+        
+        if(this.returnedVendorInformation){
+                this.selectedMobileContactCode = this.returnedVendorInformation.contactMobileCode ?? '' ;
+                this.selectedMobilePersonContacCode = this.returnedVendorInformation.contactPersonMobileCode?? '' ;   
+        }     
         this.editVendorForm.patchValue({
           ...res,
           birthDate: res.birthDate ? new Date(res.birthDate) : null,
@@ -139,34 +160,14 @@ constructor(
           },
           vendorAddress: {
             ...res.vendorAddress,
-            countryId: res.vendorAddress?.countryCode ?? null,
-            cityId: res.vendorAddress?.cityId ?? null,
+            countryId: this.selectedCountry?? null,
+            cityId: this.selectedCity ?? null,
 
           },
           VendorTagIds: res.vendorTags
 
         });
-        this.vendor= res;
-        this.onCountryChange(res.vendorAddress?.countryCode )
-
-        this.tagValue = res.vendorTags;
-
-        this.returnedVendorInformation =res.vendorInformation
-        this.selectedVendorCategory = res.vendorCategory?.id ;
-        //this.selectedCountry = res.vendorAddress?.countryCode ;
-        //this.selectedCity = res.vendorAddress?.cityId ;
-        this.selectedPaymentTerm = res.vendorFinancial?.paymentTermId ;
-        this.selectedPriceList = res.vendorFinancial?.priceListId ;
-        this.selectedCurrency = res.vendorFinancial?.currencyId ;
-        this.selectedPayableAccount = res.vendorAccounting?.payableAccountId;
-        this.selectedPurchaseAccount = res.vendorAccounting?.purchaseAccountId ;
-        this.selectedPurchaseReturnAccount = res.vendorAccounting?.purchaseReturnAccountId;
-        this.selectedDiscountAccount = res.vendorAccounting?.discountAccountId ;
-
-        if(this.returnedVendorInformation){
-                this.selectedMobileContactCode = this.returnedVendorInformation.contactMobileCode ?? '' ;
-                this.selectedMobilePersonContacCode = this.returnedVendorInformation.contactPersonMobileCode?? '' ;   
-        }                
+             
 
       }
 
