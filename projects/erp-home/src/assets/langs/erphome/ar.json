@@ -271,7 +271,25 @@
       "success": "نجاح"
     }
     
+  },
+  "Shared": {
+  "Error": "خطأ",
+  "validation": {
+    "invalidForm": "نموذج غير صالح"
   }
+},
+"vendorDefinition": {
+  "code": "كود البائع",
+  "name": "اسم البائع",
+  "category": "فئة البائع",
+  "email": "البريد الإلكتروني",
+  "country": "البلد",
+  "paymentTerm": "شروط الدفع",
+  "criditLimit": "حد الائتمان",
+  "actions": "الإجراءات",
+  "success": "نجاح",
+  "vendorSuccess": "تم إنشاء البائع بنجاح"
+}
 
 
   
