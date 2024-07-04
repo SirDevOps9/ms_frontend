@@ -2,7 +2,7 @@
   <div class="add_vendor_page">
     <form [formGroup]="addVendorForm" (ngSubmit)="AddVendor()">
       <lib-bread-crumb>
-        <lib-button-micro nameClass="cancel" title="Discard"> </lib-button-micro>
+        <lib-button-micro nameClass="cancel" title="Discard" (click)="onDiscard()"> </lib-button-micro>
         <lib-button-micro nameClass="save" title="save" iconName="pi pi-save" type="submit">
         </lib-button-micro>
       </lib-bread-crumb>

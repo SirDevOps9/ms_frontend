@@ -273,4 +273,10 @@ export class EditVendorDefinitionsComponent implements OnInit {
   get vendorId(): number {
     return this.routerService.currentId;
   }
+
+  onDiscard() {
+    //this.editEmployeeForm.reset();
+    this.routerService.navigateTo(`/vendor-definitions`);
+
+  }
 }

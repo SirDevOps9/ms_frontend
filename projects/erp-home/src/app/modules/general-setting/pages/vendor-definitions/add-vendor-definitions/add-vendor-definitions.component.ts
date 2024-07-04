@@ -4,6 +4,7 @@ import {
   FormsService,
   LookupEnum,
   LookupsService,
+  RouterService,
   SharedLibraryEnums,
   customValidators,
 } from 'shared-lib';
@@ -21,6 +22,7 @@ import { GeneralSettingService } from '../../../general-setting.service';
 @Component({
   selector: 'app-add-vendor-definitions',
   templateUrl: './add-vendor-definitions.component.html',
+  providers: [RouterService],
   styleUrl: './add-vendor-definitions.component.scss',
 })
 export class AddVendorDefinitionsComponent implements OnInit {
@@ -41,6 +43,7 @@ export class AddVendorDefinitionsComponent implements OnInit {
     private fb: FormBuilder,
     private formsService: FormsService,
     public lookupsService: LookupsService,
+    private routerService: RouterService,
     private GeneralSettingService: GeneralSettingService,
     public sharedLibEnums: SharedLibraryEnums
   ) {
@@ -171,5 +174,10 @@ export class AddVendorDefinitionsComponent implements OnInit {
     this.GeneralSettingService.currencies.subscribe((res) => {
       this.currencies = res;
     });
+  }
+  onDiscard() {
+    //this.editEmployeeForm.reset();
+    this.routerService.navigateTo(`/vendor-definitions`);
+
   }
 }
