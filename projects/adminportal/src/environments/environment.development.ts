@@ -7,6 +7,14 @@ export const environment: IEnvironment = {
   ClientId: 'AdminPortal',
   Platform: 'Web',
   photoBaseUrl: 'https://intmicrotec.neat-url.com:2022',
+  AuthConfiguration: {
+    authority: 'https://intmicrotec.neat-url.com:2050',
+    clientId: 'microtec_admin_portal',
+    logoutRedirectUri: window.location.origin + '/bussinessowners/logout-redirect',
+    redirectUrl: window.location.origin + '/bussinessowners/login-redirect',
+    scopes: 'bo',
+    state: '',
+  },
   AttachmentServiceConfig: {
     AttachmentServiceUrl: 'https://localhost:2030',
     ClientId: 'AdminPortal',

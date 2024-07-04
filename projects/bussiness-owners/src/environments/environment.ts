@@ -8,6 +8,14 @@ export const environment: IEnvironment = {
   Platform: 'Web',
   photoBaseUrl: 'https://intmicrotec.neat-url.com:2002',
   erpLogin: 'https://*.microtecdev.com:2050/erp/login',
+  AuthConfiguration: {
+    authority: 'https://intmicrotec.neat-url.com:2050',
+    clientId: 'microtecadminfrontend',
+    logoutRedirectUri: window.location.origin + '/bussinessowners/logout-redirect',
+    redirectUrl: window.location.origin + '/bussinessowners/login-redirect',
+    scopes: 'bo',
+    state: '',
+  },
   AttachmentServiceConfig: {
     AttachmentServiceUrl: 'https://intmicrotec.neat-url.com:2030',
     ClientId: 'BussinessOwner',
