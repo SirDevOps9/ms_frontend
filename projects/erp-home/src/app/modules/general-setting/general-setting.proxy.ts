@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, TagDropDownDto, CountryDto, CityDto, CurrencyDto, CategoryDropdownDto, AddVendorCommand } from './models';
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
+import { EditVendorCommand } from './models/editVendorCommand';
 @Injectable({
   providedIn: 'root',
 })
@@ -139,5 +140,14 @@ addNewVendorDefinition(vendor:AddVendorCommand): Observable<AddVendorCommand> {
   return this.httpService.post(`Vendor`,vendor);
 }
 
+
+getVendorDefinitionByID(id : number) : Observable<EditVendorCategoryDto> {
+  const url = `Vendor/${id}`
+  return this.httpService.get(url);
+}
+
+editVendorDefinition(vendor:EditVendorCommand): Observable<AddVendorCommand> {
+  return this.httpService.put(`Vendor`,vendor);
+}
   constructor(private httpService: HttpService) {}
 }

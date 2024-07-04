@@ -23,19 +23,12 @@ export class AddVendorDefinitionsComponent implements OnInit {
   paymentTermsList: { id: number; name: string }[] = [];
   accountsList: { id: number; name: string }[] = [];
 
-
-
-
-
 constructor(
   private fb :FormBuilder,
   private formsService: FormsService,
   public lookupsService: LookupsService,
   private GeneralSettingService: GeneralSettingService,
   public sharedLibEnums: SharedLibraryEnums,
-
-
-
 ){
   this.addVendorForm = fb.group({
     code: new FormControl(null),
@@ -154,16 +147,16 @@ constructor(
     
         const vendor:AddVendorCommand =this.addVendorForm.value;
         this.GeneralSettingService.addNewVendorDefinition(vendor)
-
-    
   }
 
 Subscribe() {
   this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
 }
+
 loadLookups() {
   this.lookupsService.loadLookups([LookupEnum.MobileCode]);
 }
+
 getTags() {
   this.GeneralSettingService.getTags();
   this.GeneralSettingService.tags.subscribe((res) => {

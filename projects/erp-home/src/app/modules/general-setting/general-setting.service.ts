@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, filter, map } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
 import { GeneralSettingProxy } from './general-setting.proxy';
 import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, TagDropDownDto, CountryDto, CityDto, CurrencyDto, CategoryDropdownDto, AddVendorCommand} from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
+import { EditVendorCommand } from './models/editVendorCommand';
+import { GetVendorById } from './models/getVendorById';
 @Injectable({
   providedIn: 'root',
 })
@@ -26,6 +28,7 @@ export class GeneralSettingService {
   private sendPaymentTermsDropDownData = new BehaviorSubject<any>([]);
   private sendgetVendorCategoryDropdownData = new BehaviorSubject<CategoryDropdownDto[]>([]);
   private vendorCategoryDataByID = new BehaviorSubject<any>(null);
+  private vendorDefinitionDataByID = new BehaviorSubject<any>(null);
   private customerCategoryDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
   private customerCategoryDataByID = new BehaviorSubject<any>(null);
   private addCustomerCategoryData = new BehaviorSubject<any>(null);
@@ -57,6 +60,7 @@ export class GeneralSettingService {
   public sendPaymentTermsDropDownDataObservable = this.sendPaymentTermsDropDownData.asObservable();
   public sendgetVendorCategoryDropdownDataObservable = this.sendgetVendorCategoryDropdownData.asObservable();
   public vendorCategoryDataByIDObservable = this.vendorCategoryDataByID.asObservable();
+  public vendorDefinitionDataByIDObservable = this.vendorDefinitionDataByID.asObservable();
 
   public customerCategoryDataSourceObservable = this.customerCategoryDataSource.asObservable();
   public customerCategoryDataByIDObservable = this.customerCategoryDataByID.asObservable();
@@ -500,7 +504,31 @@ export class GeneralSettingService {
       },
     });
   }
- 
+  
+  editVendorDefinition(vendor:EditVendorCommand){
+    this.loaderService.show();
+    this.GeneralSettingproxy.editVendorDefinition(vendor).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('addFinancialCalendar.success'),
+          this.languageService.transalte('addFinancialCalendar.openSuccess')
+        );
+        // this.addVendorCategoryRes.next(res)
+        this.loaderService.hide();
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+  getVendorDefinitionByID(id : number) {
+    this.GeneralSettingproxy.getVendorDefinitionByID(id)
+    .subscribe(res=>{
+        this.vendorDefinitionDataByID.next(res)
+      
+    })
+  }
+
   constructor(private GeneralSettingproxy: GeneralSettingProxy,
     private loaderService: LoaderService,
     private languageService: LanguageService,
