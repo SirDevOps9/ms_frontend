@@ -13,6 +13,7 @@ import { GetVendorById, VendorInformation } from '../../../models/getVendorById'
   styleUrl: './edit-vendor-definitions.component.scss'
 })
 export class EditVendorDefinitionsComponent  implements OnInit {
+  vendorCode:string="Auto"
   editVendorForm:FormGroup;
   lookups: { [key: string]: lookupDto[] };
   LookupEnum = LookupEnum;
@@ -128,34 +129,15 @@ constructor(
     
       if (res) {
         this.vendor = res;
+        this.vendorCode =res.code
         this.editVendorForm.patchValue({
           ...res,
           birthDate: res.birthDate ? new Date(res.birthDate) : null,
-          vendorCategoryId: res.vendorCategory?.id ?? null,
           vendorInformation: {
             ...res.vendorInformation,
             ContactMobileCode: res.vendorInformation?.contactMobileCode ?? null,
             ContactPersonMobileCode: res.vendorInformation?.contactPersonMobileCode ?? null,
           },
-          vendorAddress: {
-            ...res.vendorAddress,
-            countryId: res.vendorAddress?.countryCode ?? null,
-            cityId: res.vendorAddress?.cityId ?? null,
-          },
-          vendorFinancial: {
-            ...res.vendorFinancial,
-            paymentTermId: res.vendorFinancial?.paymentTermId ?? null,
-            priceListId: res.vendorFinancial?.priceListId ?? null,
-            currencyId: res.vendorFinancial?.currencyId ?? null,
-          },
-          vendorAccounting: {
-            ...res.vendorAccounting,
-            payableAccountId: res.vendorAccounting?.payableAccountId ?? null,
-            purchaseAccountId: res.vendorAccounting?.purchaseAccountId ?? null,
-            purchaseReturnAccountId: res.vendorAccounting?.purchaseReturnAccountId ?? null,
-            discountAccountId: res.vendorAccounting?.discountAccountId ?? null,
-          },
-          //VendorTagIds: res.vendorTags?.map(tag => tag.id) ?? null
         });
         this.vendor= res;
         this.tagValue = res.vendorTags?.map((x:any)=>x.id) ?? '';
