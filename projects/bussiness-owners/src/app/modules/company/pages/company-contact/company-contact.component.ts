@@ -56,22 +56,21 @@ export class CompanyContactComponent implements OnInit {
 
   initializeForm() {
     this.companyContactForm = this.fb.group({
-      companyName: new FormControl('', [customValidators.required]),
-      companyLogo: new FormControl(),
-      mobileNumberCode: new FormControl('', [customValidators.required]),
-      mobileNumber: new FormControl('', [customValidators.required, customValidators.hasSpaces]),
-      companyEmail: new FormControl('', [customValidators.required, customValidators.email]),
+      companyName: new FormControl(),
+      companyLogo: new FormControl(null),
+      mobileNumberCode: new FormControl(null),
+      mobileNumber: new FormControl(null, [customValidators.hasSpaces,customValidators.noSpecialChars]),
+      companyEmail: new FormControl(null, [ customValidators.email]),
       companyAddress: new FormControl(),
-      contactPersonal: new FormControl('', [customValidators.required]),
+      contactPersonal: new FormControl(null),
       contactPersonalPosition: new FormControl(),
-      contactPersonalEmail: new FormControl('', [
-        customValidators.required,
+      contactPersonalEmail: new FormControl(null, [
         customValidators.email,
       ]),
-      contactPersonalMobileNumberCode: new FormControl('', [customValidators.required]),
-      contactPersonalMobileNumber: new FormControl('', [
-        customValidators.required,
+      contactPersonalMobileNumberCode: new FormControl(null),
+      contactPersonalMobileNumber: new FormControl(null, [
         customValidators.hasSpaces,
+        customValidators.noSpecialChars
       ]),
     });
   }

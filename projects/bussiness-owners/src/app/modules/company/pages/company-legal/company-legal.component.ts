@@ -45,22 +45,22 @@ export class CompanyLegalComponent implements OnInit {
 
   initializeForm() {
     this.companyLegalForm = this.fb.group({
-      companyName: new FormControl(),
-      companyEmail: new FormControl(null, [customValidators.email]),
-      organizationUnit: new FormControl(),
-      organization: new FormControl(),
-      taxId: new FormControl(),
-      commercialId: new FormControl(),
-      registeredAddress: new FormControl(),
-      businessCategory: new FormControl(),
-      streetName: new FormControl(),
-      citySubDivisionName: new FormControl(),
-      cityName: new FormControl(),
-      postalZone: new FormControl(),
-      countrySubEntity: new FormControl(),
-      buildingNumber: new FormControl(),
-      additionalStreetName: new FormControl(),
-      registrationName: new FormControl(),
+      companyName: new FormControl('', [customValidators.required]),
+      companyEmail: new FormControl(null, [customValidators.required, customValidators.email]),
+      organizationUnit: new FormControl('', [customValidators.required]),
+      organization: new FormControl('', [customValidators.required]),
+      taxId: new FormControl('', [customValidators.required]),
+      commercialId: new FormControl('', [customValidators.required]),
+      registeredAddress: new FormControl('', [customValidators.required]),
+      businessCategory: new FormControl('', [customValidators.required]),
+      streetName: new FormControl('', [customValidators.required]),
+      citySubDivisionName: new FormControl('', [customValidators.required]),
+      cityName: new FormControl('', [customValidators.required]),
+      postalZone: new FormControl('', [customValidators.required]),
+      countrySubEntity: new FormControl('', [customValidators.required]),
+      buildingNumber: new FormControl('', [customValidators.required]),
+      additionalStreetName: new FormControl('', [customValidators.required]),
+      registrationName: new FormControl('', [customValidators.required]),
     });
   }
 
@@ -73,9 +73,8 @@ export class CompanyLegalComponent implements OnInit {
     });
   }
 
-  onDiscard(editMode: boolean){
-    if(editMode)
-    this.initializeFormData();
+  onDiscard(editMode: boolean) {
+    if (editMode) this.initializeFormData();
     this.editMode = false;
   }
   get companyId(): string {
