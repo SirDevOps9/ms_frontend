@@ -12,11 +12,10 @@ import {
   SharedLibModule,
 } from 'shared-lib';
 import { environment } from '../environments/environment';
-import { AbstractSecurityStorage, AuthModule } from 'angular-auth-oidc-client';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
-import { MicrotecAuthLibModule, ERPInterceptor, CustomStorageService } from 'microtec-auth-lib';
+import { MicrotecAuthLibModule, ERPInterceptor } from 'microtec-auth-lib';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CompanyModule } from './modules/company/company.module';
 import { UserModule } from './modules/user/user.module';
@@ -30,9 +29,6 @@ import { UrlSerializer } from '@angular/router';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    AuthModule.forRoot({
-      config: environment.openIdConfig,
-    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -66,10 +62,6 @@ import { UrlSerializer } from '@angular/router';
       provide: HTTP_INTERCEPTORS,
       useClass: ERPInterceptor,
       multi: true,
-    },
-    {
-      provide: AbstractSecurityStorage,
-      useClass: CustomStorageService,
     },
     // {
     //   provide: UrlSerializer,
