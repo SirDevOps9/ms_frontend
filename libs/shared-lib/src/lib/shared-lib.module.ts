@@ -50,6 +50,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SelectIconComponent } from './form-components/selectIcon/selectIcon.component';
 import { UploadMultipeFilesComponent } from './form-components/upload-multipe-files/upload-multipe-files.component';
 import { CalendarComponent } from './form-components/calendar/calendar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,7 @@ import { CalendarComponent } from './form-components/calendar/calendar.component
     SharedFormComponent,
     FildestComponent,
     ButtonMicroComponent,
-    ToggelComponent, 
+    ToggelComponent,
     GetElementByIDPipe,
     ToastComponent,
     UploadMultipeFilesComponent,
@@ -88,6 +89,7 @@ import { CalendarComponent } from './form-components/calendar/calendar.component
     TabviewComponent
   ],
   imports: [
+    HttpClientModule,
     CommonModule,
     RouterOutlet,
     RouterModule,
@@ -99,9 +101,7 @@ import { CalendarComponent } from './form-components/calendar/calendar.component
     PrimeSharedModule,
     TreeTableModule,
     TreeModule,
-    ProgressSpinnerModule
-    
-    
+    ProgressSpinnerModule,
   ],
   exports: [
     GetLookupPipe,

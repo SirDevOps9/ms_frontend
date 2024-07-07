@@ -1,10 +1,5 @@
 import { Observable } from 'rxjs';
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LanguageService } from 'shared-lib';
 import { AuthService } from 'microtec-auth-lib';
 import { RouterService } from 'shared-lib';
@@ -18,7 +13,6 @@ import { AppStoreService } from '../../app-store/app-store.service';
 })
 export class LayoutComponent implements OnInit {
   userName: string;
-  userData: UserData;
   showcard: boolean = false;
   sidebarOpen: boolean = false;
   countries: any[] | undefined;
@@ -35,14 +29,10 @@ export class LayoutComponent implements OnInit {
     private cartService: AppStoreService
   ) {
     this.userName = this.authService.getUserName;
-    this.userData = this.authService.getUserData()?.userData;
     this.languageService.setLang();
     this.cartItemsCount$ = cartService.cartItemsCount$;
   }
-  ngOnInit(): void {
-
-  }
-
+  ngOnInit(): void {}
 
   toggleLanguage(): void {
     this.languageService.toggleLanguage();
@@ -52,7 +42,7 @@ export class LayoutComponent implements OnInit {
   }
 
   toggleSidebar(event: boolean) {
-    this.sidebarOpen = event
+    this.sidebarOpen = event;
   }
   activeTag(id: any) {
     const targetElementId = document.getElementById(id);
@@ -61,8 +51,7 @@ export class LayoutComponent implements OnInit {
     targetElementId?.classList.add('active_link');
   }
 
-
   routeToCart() {
-    this.routerService.navigateTo(`/app-store/cart`)
+    this.routerService.navigateTo(`/app-store/cart`);
   }
 }

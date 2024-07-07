@@ -9,45 +9,63 @@ import {
 import { Observable, catchError, switchMap, throwError } from 'rxjs';
 import { RouterService } from 'shared-lib';
 import { AuthService } from '../services';
-import { LoginResponse } from 'angular-auth-oidc-client';
+import { TokenModel } from '../types';
 
 @Injectable()
 export class ERPInterceptor implements HttpInterceptor {
-  constructor(private routerService: RouterService, private authService: AuthService) {}
+  private isRefreshing = false;
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const clonedRequest = request.clone();
-    return next.handle(clonedRequest).pipe(
+  constructor(private authService: AuthService, private routerService: RouterService) {}
+
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    return next.handle(request).pipe(
       catchError((error: any) => {
         if (error instanceof HttpErrorResponse) {
           console.log('Interceptor Error', error);
+
           if (error.status === 401) {
-            return this.handleUnAuthorizedError(clonedRequest, next);
+            console.log('401 Unauthorized Error - Attempting to refresh token');
+            return this.handleUnAuthorizedError(request, next);
           } else if (error.status === 403) {
+            console.log('403 Forbidden Error - Navigating to un-authorized page');
             this.routerService.navigateTo('un-authorized');
-          } else {
-            return throwError(() => error);
           }
         }
+
+        console.log('Throwing error', error);
         return throwError(() => error);
       })
     );
   }
 
-  private handleUnAuthorizedError(request: HttpRequest<unknown>, next: HttpHandler) {
-    return this.authService.refreshToken().pipe(
-      switchMap((res: LoginResponse) => {
-        const updatedRequest = request.clone({
-          setHeaders: {
-            Authorization: `Bearer ${res.accessToken}`,
-          },
-        });
-        return next.handle(updatedRequest);
-      }),
-      catchError((err) => {
-        this.routerService.navigateTo('login');
-        return throwError(() => err);
-      })
-    );
+  handleUnAuthorizedError(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
+    if (!this.isRefreshing) {
+      this.isRefreshing = true;
+      return this.authService.refreshToken().pipe(
+        switchMap((data: TokenModel) => {
+          console.log('Token refreshed successfully', data);
+
+          this.authService.saveLoginData(data);
+
+          request = request.clone({
+            setHeaders: { Authorization: `Bearer ${data.token}` },
+          });
+          return next.handle(request);
+        }),
+        catchError((err) => {
+          console.log('Refresh Error', err);
+
+          if (err.status == 401) {
+            this.authService.clearAllStorage();
+            this.routerService.navigateTo('login');
+          }
+          return throwError(() => err);
+        })
+      );
+    }
+    return next.handle(request);
   }
 }

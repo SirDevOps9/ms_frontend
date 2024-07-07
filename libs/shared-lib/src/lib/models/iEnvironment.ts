@@ -6,15 +6,13 @@ export interface IEnvironment {
   Platform: string;
   photoBaseUrl: string;
   erpLogin?: string;
-  openIdConfig: {
+  AuthConfiguration?: {
     authority: string;
     redirectUrl: string;
-    postLogoutRedirectUri: string;
+    logoutRedirectUri: string;
     clientId: string;
-    scope: string;
-    responseType: string;
-    silentRenew: true;
-    useRefreshToken: true;
+    scopes: string;
+    state: string;
   };
   AttachmentServiceConfig: {
     AttachmentServiceUrl: string;
