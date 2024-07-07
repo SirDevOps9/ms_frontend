@@ -33,7 +33,7 @@ export class CompanyLegalComponent implements OnInit {
     console.log(this.editMode);
 
     if (this.editMode) {
-      if (!this.formsService.validForm(this.companyLegalForm, true)) return;
+      if (!this.formsService.validForm(this.companyLegalForm, false)) return;
       const request: CompanyLegalDto = this.companyLegalForm.value;
       request.id = this.companyId;
       this.companyService.saveCompanyLegal(request);
