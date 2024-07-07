@@ -38,7 +38,7 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
   @Input() labelTest: any;
 
   
-  @Output() valueChanged = new EventEmitter<string>();
+  @Output() valueChanged = new EventEmitter<string | []>();
 
   value: string = '';
   onChange = (value: any) => {};
@@ -52,6 +52,13 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
       this.selectedValue = [];
       this.value = '';
     }
+  }
+
+  onOptionRemoved(removedOption: any) {
+    this.selectedValue = [];
+    this.valueChanged.emit([]);
+    this.onChange(this.value);
+    this.onTouched();
   }
 
   registerOnChange(fn: any): void {
@@ -76,6 +83,7 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
   }
 
   change(event: any) {
+    console.log(event.value)
     this.onChange(event.value);
     this.valueChanged.emit(event.value);
   }
