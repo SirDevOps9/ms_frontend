@@ -56,7 +56,7 @@ export class CompanyContactComponent implements OnInit {
 
   initializeForm() {
     this.companyContactForm = this.fb.group({
-      companyName: new FormControl(),
+      companyName: new FormControl(null),
       companyLogo: new FormControl(null),
       mobileNumberCode: new FormControl(null),
       mobileNumber: new FormControl(null, [customValidators.hasSpaces,customValidators.noSpecialChars]),
@@ -94,6 +94,9 @@ export class CompanyContactComponent implements OnInit {
       if (res) {
         this.selectedMobileCode = res.mobileNumberCode!;
         this.selectedPersonalMobileCode = res.contactPersonalMobileNumberCode!;
+      }
+      else{
+
       }
     });
   }
