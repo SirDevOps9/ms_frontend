@@ -15,6 +15,9 @@ export class ViewChartComponent {
   Active: boolean = false;
   Inactive: boolean = false;
   Period: boolean = false;
+  Mandatory: boolean = false;
+  Optional: boolean = false;
+  NotAllow: boolean = false;
   accountLevel?: string;
   accountTags?: string;
   accountCompanies?: string;
@@ -24,7 +27,6 @@ export class ViewChartComponent {
   getAccountDetails(id: number) {
     this.accountService.getAccountDetails(id);
     this.accountService.AccountViewDetails.subscribe((res) => {
-     // console.log(res);
       this.parent = res;
       if (this.parent.hasNoChild === true) {
         this.yes = true;
@@ -40,13 +42,16 @@ export class ViewChartComponent {
         this.Period = true;
       }
 
-     // console.log(this.parent);
     });
+  
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['account']) {
+
       // Your logic here
       this.parent = this.account;
+      console.log(this.parent , "this.parent");
+
       if (this.parent.hasNoChild === true) {
         this.yes = true;
       } else {
@@ -65,6 +70,22 @@ export class ViewChartComponent {
         this.Period = true;
         this.Inactive = false;
         this.Active = false;
+      }
+
+      if (this.parent.costCenterConfig === 'Mandatory') {
+        console.log("MandatoryMandatoryMandatory");
+        
+        this.Mandatory = true;
+        this.NotAllow = false;
+        this.Optional = false;
+      } else if (this.parent.costCenterConfig === 'NotAllow') {
+        this.NotAllow = true;
+        this.Mandatory = false;
+        this.Optional = false;
+      } else if (this.parent.costCenterConfig === 'Optional') {
+        this.Optional = true;
+        this.Inactive = false;
+        this.Mandatory = false;
       }
       this.accountLevel = this.parent?.accountLevel?.toString();
       this.accountTags = this.parent?.accountTags?.join('  ');

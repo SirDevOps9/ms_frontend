@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, catchError, map } from 'rxjs';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
 import { GeneralSettingProxy } from './general-setting.proxy';
 
@@ -670,14 +670,23 @@ export class GeneralSettingService {
     });
   }
  
-  getVendorDefinitionByID(id : number) {
-    this.GeneralSettingproxy.getVendorDefinitionByID(id)
-    .subscribe(res=>{
-        this.vendorDefinitionDataByID.next(res)
+  // getVendorDefinitionByID(id : number) {
+  //   this.GeneralSettingproxy.getVendorDefinitionByID(id)
+  //   .subscribe(res=>{
+  //       this.vendorDefinitionDataByID.next(res)
       
-    })
+  //   })
+  // }
+  getVendorDefinitionByID(Id: number) {
+    return this.GeneralSettingproxy.getVendorDefinitionByID(Id).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((err: string) => {
+        throw err!;
+      })
+    );
   }
-
   constructor(
     private GeneralSettingproxy: GeneralSettingProxy,
     private loaderService: LoaderService,

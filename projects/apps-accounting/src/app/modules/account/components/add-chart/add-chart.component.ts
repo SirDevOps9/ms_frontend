@@ -75,7 +75,7 @@ export class AddChartComponent {
       AccountActivation: new FormControl('Active'),
       periodicActiveFrom: new FormControl(),
       periodicActiveTo: new FormControl(),
-      costCenterConfig : new FormControl(1)
+      costCenterConfig : new FormControl()
     });
   }
   ngOnInit() {

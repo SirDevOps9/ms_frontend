@@ -19,7 +19,7 @@
               isGlobalFilter: true,
               isSortable: true,
               rowspan:'3',
-              
+              template:accountCode
 
             
             },
@@ -101,7 +101,7 @@
           ]
         }">
       <ng-container caption>
-        <form [formGroup]="reportTrialForm">
+        <form [formGroup]="reportTrialForm" (ngSubmit)="getTrialBalance()">
 
 
           <div class="group">
@@ -111,15 +111,20 @@
                   <lib-text-input [type]="'date'" formControlName="dateFrom">
   
                   </lib-text-input>
+                  <lib-field-validations  [appControl]="reportTrialForm.controls['dateFrom']" ></lib-field-validations>
                 </div>
                 <div class="col-12 md:col-4 ">
                   <lib-text-input [type]="'date'" formControlName="dateTo">
   
                   </lib-text-input>
+                  <lib-field-validations  [appControl]="reportTrialForm.controls['dateTo']" ></lib-field-validations>
+
                 </div>
                 <div class="col-12 md:col-4 ">
                   <lib-multi-select   formControlName="Accounts" [options]="filteredAccounts" optionValue="id"
                     optionLabel="displayName" [selectedValue]="defoultSelectedAcounts"></lib-multi-select>
+                    <lib-field-validations  [appControl]="reportTrialForm.controls['Accounts']" ></lib-field-validations>
+
                 </div>
               </div>
             </div>
@@ -149,7 +154,7 @@
               </div>
               <div class="col-12 md:col-3 ">
                 <div class="all_btn">
-                  <lib-button-micro title="view data" nameClass="save" iconName="pi pi-circle" (click)="getTrialBalance()">
+                  <lib-button-micro title="view data" [nameClass]="reportTrialForm.valid ? 'save' :'disabled'" iconName="pi pi-circle" [ngClass]="{'disabled':!reportTrialForm.valid}"  type="submit">
 
                   </lib-button-micro>
                   <button class="btn_ex" (click)="printTable('printableTable')">
@@ -166,6 +171,11 @@
       <ng-template #accountName let-trial>
         <div>
           <p>{{ trial.accountName}} <span class="accountNature">({{ trial.accountNature}})</span></p>
+        </div>
+      </ng-template>
+      <ng-template #accountCode let-trial>
+        <div>
+          <p class="code" (click)="routeTo(trial.accountId)">{{trial.accountCode}} </p>
         </div>
       </ng-template>
     </lib-data-table>

@@ -429,8 +429,14 @@ export class AccountService {
     });
   }
   AddCostCenter(command: addCostCenter){
-    this.accountproxy.AddCostCenter(command).subscribe((res) => {
+    this.accountproxy.AddCostCenter(command).subscribe({
+      next: (res) => {
       this.savedCostCenter.next(res);
+      this.toasterService.showSuccess(
+        this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
+        this.languageService.transalte('ChartOfAccounts.SuccessMessage')
+      );
+      }
     });
 
   }
@@ -500,6 +506,7 @@ export class AccountService {
     private accountproxy: AccountProxy,
     private toasterService: ToasterService,
     private languageService: LanguageService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+
   ) {}
 }

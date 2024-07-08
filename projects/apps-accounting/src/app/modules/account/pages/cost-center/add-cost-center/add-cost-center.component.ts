@@ -60,12 +60,11 @@ constructor(
   this.accountService.savedAddedCost.subscribe((res) => {
     if (res) {
        this.operationCompleted.emit(res);
-       console.log(res ,"tooooost");
        
-       this.toaserService.showSuccess(
-        this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
-        this.languageService.transalte('ChartOfAccounts.SuccessMessage')
-      );
+      //  this.toaserService.showSuccess(
+      //   this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
+      //   this.languageService.transalte('ChartOfAccounts.SuccessMessage')
+      // );
     }
   });
  }, 500);
