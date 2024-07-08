@@ -74,7 +74,7 @@ deleteCustomerCategory(id: number): Observable<boolean> {
   return this.httpService.get(url);
 }
 getCustomerCategoryByID(id : number) : Observable<EditVendorCategoryDto> {
-  const url = `CustomerCategory/GetById/${id}`
+  const url = `CustomerCategory/${id}`
   return this.httpService.get(url);
 }
 

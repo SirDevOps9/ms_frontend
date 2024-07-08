@@ -107,6 +107,7 @@ export class AddVendorDefinitionsComponent implements OnInit {
     this.loadLookups();
     this.Subscribe();
   }
+
   loadCountries() {
     this.GeneralSettingService.loadCountries();
     this.GeneralSettingService.countries.subscribe({
@@ -140,11 +141,13 @@ export class AddVendorDefinitionsComponent implements OnInit {
     });
   }
   onCountryChange(event: any) {
+    console.log(event)
     const countryId = event;
     if (!countryId) return;
     this.GeneralSettingService.loadCities(countryId);
     this.GeneralSettingService.cities.subscribe((res) => {
       this.cities = res;
+      console.log(res)
     });
   }
   AddVendor() {

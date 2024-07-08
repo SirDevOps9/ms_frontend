@@ -174,20 +174,32 @@
                                             
                                             <div class="col-2">
                                                 <lib-form-group>
-                                                    <lib-label [appControl]="addCustomerForm.get('contactInfo')?.get('contactMobile')">
-                                                       code
-                                                      </lib-label>
+                                                  <lib-label
+                                                    [appControl]="
+                                                      addCustomerForm
+                                                        .get('contactInfo')
+                                                        ?.get('ContactMobileCode')
+                                                    "
+                                                  >
+                                                    code
+                                                  </lib-label>
                                                   <lib-selectIcon
-                                                    formControlName="contactMobile"
+                                                    formControlName="ContactMobileCode"
                                                     [options]="lookups[LookupEnum.MobileCode]"
+                                                    [selectedValue]="selectedMobileCode"
                                                     optionValue="id"
                                                     optionLabel="name"
                                                     icons="flags"
-                                                    [selectedValue]="addCustomerForm.get('contactInfo')?.get('contactMobile')?.value"
                                                   >
                                                   </lib-selectIcon>
-
-                                                  <lib-field-validations [appControl]="addCustomerForm.get('contactInfo')?.get('contactMobile')">
+                  
+                                                  <lib-field-validations
+                                                    [appControl]="
+                                                      addCustomerForm
+                                                        .get('contactInfo')
+                                                        ?.get('ContactMobileCode')
+                                                    "
+                                                  >
                                                   </lib-field-validations>
                                                 </lib-form-group>
                                               </div>
@@ -328,7 +340,7 @@
                                                 optionValue="id"
                                                 optionLabel="name"
                                                 icons="flags"
-                                                [selectedValue]="addCustomerForm.get('contactInfo')?.get('ContactPersonMobileCode')?.value"
+                                                [selectedValue]="ContactPersonMobileCode"
                                               >
                                               </lib-selectIcon>
                                               <lib-field-validations [appControl]="addCustomerForm.get('contactInfo')?.get('ContactPersonMobileCode')">

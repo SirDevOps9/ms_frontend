@@ -14,7 +14,7 @@ export class CalendarComponent implements ControlValueAccessor {
   @Input() maxDate: Date | null;
   @Input() label: string;
   @Input() disabled: boolean = false;
-  @Output() valueChanged = new EventEmitter<Date>();
+  @Output() valueChanged = new EventEmitter<Date | string>();
 
   value: Date;
   onChange = (value: any) => {};
@@ -44,10 +44,22 @@ export class CalendarComponent implements ControlValueAccessor {
     // Implement if your component supports disabling
   }
 
+  convertDateFormat(data : Date) {
+    const date = new Date(data);
+  
+    // Extract the year, month, and day
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so we add 1
+    const day = String(date.getDate()).padStart(2, '0');
+    
+    // Format the date into YYYY-MM-DD
+    return `${year}-${month}-${day}`;
+  }
+
   handleDateChange(event: any): void {
-    this.value = event;
-    this.onChange(this.value);
+    this.value =  event;
+    this.onChange(this.convertDateFormat(event));
     this.onTouched();
-    this.valueChanged.emit(this.value);
+    this.valueChanged.emit(this.convertDateFormat(event));
   }
 }

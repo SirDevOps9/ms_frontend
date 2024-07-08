@@ -15,6 +15,7 @@ export class EditCustomerComponent implements OnInit {
   lookups: { [key: string]: lookupDto[] };
   LookupEnum = LookupEnum;
   selectedMobileCode: string;
+  ContactPersonMobileCode: string;
   accountTags: TagDropDownDto[];
   countries: CountryDto[] = [];
   cities: CityDto[];
@@ -182,30 +183,34 @@ getAddResponse() {
   this.GeneralSettingService.getCustomerDefinitionResByIDObservable.subscribe(res=>{
     console.log(res)
     if(res) {
-    this.addCustomerForm.patchValue({...res})
+      this.GeneralSettingService.loadCities(res.addressInfo.countryId);
+      this.GeneralSettingService.cities.subscribe((res) => {
+        console.log(res)
+        this.cities = res;
+      });
+        this.addCustomerForm.patchValue({...res})
 
-    this.addCustomerForm.get('birthdate')?.setValue(res.birthdate ? new Date(res.birthdate) : null )
-
+        this.selectedMobileCode = res.contactInfo.contactMobileCode
+        this.ContactPersonMobileCode = res.contactInfo.contactPersonMobileCode
+    
+        console.log(this.ContactPersonMobileCode)
+       
+    
+    
+    
+        this.addCustomerForm.get('birthdate')?.setValue(res.birthdate ? new Date(res.birthdate) : null )
+    
+    
+   
     }
     
   })
 }
-convertDateFormat(data : Date) {
-  const date = new Date(data);
 
-  // Extract the year, month, and day
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so we add 1
-  const day = String(date.getDate()).padStart(2, '0');
-  
-  // Format the date into YYYY-MM-DD
-  return `${year}-${month}-${day}`;
-}
 
 editCustomer(){
   if (!this.formsService.validForm(this.addCustomerForm, true)) return;
     this.addCustomerForm.value.id = +this.id
-    this.addCustomerForm.value.birthdate = this.addCustomerForm.value.birthdate ? this.convertDateFormat(this.addCustomerForm.value.birthdate) : null
 
       const customer:EditCustomerDefintionsDto =this.addCustomerForm.value;
       this.GeneralSettingService.editCustomerDefinition(customer)

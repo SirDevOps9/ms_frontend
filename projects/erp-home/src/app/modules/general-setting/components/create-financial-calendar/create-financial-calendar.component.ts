@@ -90,8 +90,8 @@ export class CreateFinancialCalendarComponent implements OnInit {
       result.push({
         month: monthName,
         year: year,
-        periodStart:  this.convertDateFormat(periodStart),
-        periodEnd:  this.convertDateFormat(periodEnd)
+        periodStart:  periodStart,
+        periodEnd:  periodEnd
       });
   
       // Move to the next month
@@ -112,17 +112,7 @@ export class CreateFinancialCalendarComponent implements OnInit {
       return elem
     })
   }
-  convertDateFormat(data : Date) {
-    const date = new Date(data);
 
-    // Extract the year, month, and day
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so we add 1
-    const day = String(date.getDate()).padStart(2, '0');
-    
-    // Format the date into YYYY-MM-DD
-    return `${year}-${month}-${day}`;
-  }
   
   onSave() {
 
@@ -137,8 +127,8 @@ export class CreateFinancialCalendarComponent implements OnInit {
       }
     })
     delete formValues.code
-     formValues.fromDate = this.convertDateFormat(formValues.fromDate)
-     formValues.toDate = this.convertDateFormat(formValues.toDate)
+     formValues.fromDate = formValues.fromDate
+     formValues.toDate = formValues.toDate
 
     formValues.financialYearPeriods = savedData;
 

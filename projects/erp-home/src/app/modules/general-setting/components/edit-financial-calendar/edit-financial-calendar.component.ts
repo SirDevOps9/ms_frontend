@@ -122,8 +122,8 @@ export class EditFinancialCalendarComponent implements OnInit {
       result.push({
         month: monthName,
         year: year,
-        periodStart:  this.convertDateFormat(periodStart),
-        periodEnd:  this.convertDateFormat(periodEnd)
+        periodStart:  periodStart,
+        periodEnd:  periodEnd
       });
   
       // Move to the next month
@@ -143,17 +143,6 @@ export class EditFinancialCalendarComponent implements OnInit {
       elem.status = true;
       return elem
     })
-  }
-  convertDateFormat(data : Date) {
-    const date = new Date(data);
-
-    // Extract the year, month, and day
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so we add 1
-    const day = String(date.getDate()).padStart(2, '0');
-    
-    // Format the date into YYYY-MM-DD
-    return `${year}-${month}-${day}`;
   }
 
 

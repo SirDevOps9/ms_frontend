@@ -121,9 +121,10 @@
                                   <lib-calendar
                                   formControlName="birthdate"
                                   ></lib-calendar>
-                                    <lib-field-validations>
-        
-                                    </lib-field-validations>
+                                  <lib-field-validations
+                                  [appControl]="addCustomerForm.controls['birthdate']"
+                                >
+                                </lib-field-validations>
                                 </lib-form-group>
                             </div>
                         </div>
