@@ -37,7 +37,6 @@ export class EditCompanyComponent implements OnInit {
   }
 
   navigateToAddress() {
-    console.log(this.companyId);
 
     this.routerService.navigateTo('company/edit/' + this.companyId + '/address');
   }

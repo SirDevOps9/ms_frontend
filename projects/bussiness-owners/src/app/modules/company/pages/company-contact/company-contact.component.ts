@@ -34,12 +34,8 @@ export class CompanyContactComponent implements OnInit {
     this.Subscribe();
   }
 
-  submitForm() {
-    console.log(this.companyContactForm);
-  }
 
   onSubmit() {
-    console.log(this.editMode);
 
     if (this.editMode) {
       if (!this.formsService.validForm(this.companyContactForm, false)) return;
@@ -47,7 +43,6 @@ export class CompanyContactComponent implements OnInit {
       this.companyService.companyName.next(this.companyContactForm.value.companyName)
       request.id = this.companyId;
       this.companyService.saveCompanyContact(request);
-      console.log('request', request);
       this.editMode = false;
     } else {
       this.editMode = true;
@@ -83,11 +78,7 @@ export class CompanyContactComponent implements OnInit {
   }
 
   initializeFormData() {
-    console.log('Cadgadgdg', this.companyId);
-
     this.companyService.getCompanyContactById(this.companyId).subscribe((res) => {
-      console.log('Calling get by Id', res);
-
       this.companyContactForm.patchValue({
         ...res,
       });

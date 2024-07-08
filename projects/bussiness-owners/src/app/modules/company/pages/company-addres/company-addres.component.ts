@@ -54,14 +54,12 @@ export class CompanyAddresComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.editMode);
 
     if (this.editMode) {
       if (!this.formsService.validForm(this.companyAddresForm, true)) return;
       const request: CompanyAddressDto = this.companyAddresForm.value;
       request.id = this.companyId;
       this.companyService.saveCompanyAddress(request);
-      console.log('request', request);
       this.editMode = false;
     } else {
       // Enable edit mode

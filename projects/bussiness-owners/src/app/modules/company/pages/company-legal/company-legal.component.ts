@@ -30,8 +30,6 @@ export class CompanyLegalComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.editMode);
-
     if (this.editMode) {
       if (!this.formsService.validForm(this.companyLegalForm, false)) return;
       const request: CompanyLegalDto = this.companyLegalForm.value;
@@ -66,7 +64,6 @@ export class CompanyLegalComponent implements OnInit {
 
   initializeFormData() {
     this.companyService.getCompanyLegalById(this.companyId).subscribe((res) => {
-      console.log('Calling get by Id', res);
       this.companyLegalForm.patchValue({
         ...res,
       });

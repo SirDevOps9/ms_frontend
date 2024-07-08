@@ -84,19 +84,16 @@ export class CompaniesListComponent implements OnInit {
       next: (companyList) => {
         this.tableData = companyList;
 
-        console.log('this.tableData', this.tableData);
       },
     });
   }
 
   search(event: any){
-    console.log("Sssssss",event.target.value)
     this.companyService.loadCompanies(event.target.value,this.subdomainId);
     this.companyService.companies.subscribe({
       next: (companyList) => {
         this.tableData = companyList;
 
-        console.log('this.tableData', this.tableData);
       },
     });
   }
