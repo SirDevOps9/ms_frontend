@@ -34,6 +34,9 @@
                 *ngIf="!editMode"
                 [attachmentId]="companyContactForm.controls['companyLogo'].value"
               ></lib-attachment-viewer>
+              <div *ngIf="!companyContactForm.controls['companyLogo'].value && !editMode ">
+                No logo to display
+              </div>
               <lib-field-validations
                 [appControl]="companyContactForm.controls['companyLogo']"
               ></lib-field-validations>
