@@ -31,10 +31,10 @@ export class CompanyProxy {
     return this.httpService.put<boolean>(`Company/deactivatecompany/${id}`, {});
   }
 
-  getAll(subscriptionId: string): Observable<CompanyDto[]> {
+  getAll(searchTerm: string,subscriptionId: string): Observable<CompanyDto[]> {
     return this.httpService.get<CompanyDto[]>(
       // `Company?subscriptionId=${subscriptionId}`
-      `Company/GetAllBySubdomain?subdomain=${subscriptionId}`
+      `Company/GetAllBySubdomain?subdomain=${subscriptionId}&SearchTerm=${searchTerm}`
     );
   }
 

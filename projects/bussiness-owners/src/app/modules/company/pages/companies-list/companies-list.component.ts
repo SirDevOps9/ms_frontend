@@ -49,15 +49,15 @@ export class CompaniesListComponent implements OnInit {
       },
       {
         field: 'Companies Type',
-        header: 'company Type',
+        header: 'companyType',
       },
       {
         field: 'Tax ID',
-        header: 'ID',
+        header: 'taxId',
       },
       {
         field: 'Commercial ID',
-        header: 'CommercialID',
+        header: 'commercialId',
       },
       {
         field: 'Phone',
@@ -78,17 +78,25 @@ export class CompaniesListComponent implements OnInit {
   }
 
   initCompanyData() {
-    this.companyService.loadCompanies(this.subdomainId);
+    this.companyService.loadCompanies('',this.subdomainId);
 
     this.companyService.companies.subscribe({
       next: (companyList) => {
         this.tableData = companyList;
 
-        console.log('this.tableData', this.tableData);
       },
     });
   }
 
+  search(event: any){
+    this.companyService.loadCompanies(event.target.value,this.subdomainId);
+    this.companyService.companies.subscribe({
+      next: (companyList) => {
+        this.tableData = companyList;
+
+      },
+    });
+  }
   toggle(id: string, isActive: boolean) {
     if (!isActive) this.companyService.activate(id);
     else this.companyService.deactivate(id);

@@ -42,7 +42,7 @@ export class VendorDefinitionsListComponent implements OnInit {
 
     this.generalSettingService.vendorDefinitionDataSourceObservable.subscribe({
       next: (res) => {
-        this.tableData = res.reverse();
+        this.tableData = res;
         
       },
     });

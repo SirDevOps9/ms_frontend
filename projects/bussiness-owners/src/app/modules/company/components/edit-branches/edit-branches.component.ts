@@ -44,7 +44,7 @@ export class EditBranchesComponent {
       branchEmail: new FormControl(null, [customValidators.email]),
       branchAddress: new FormControl(),
       mobileNumberCode: new FormControl(),
-      mobileNumber: new FormControl(null, [customValidators.hasSpaces]),
+      mobileNumber: new FormControl(null, [customValidators.hasSpaces,customValidators.noSpecialChars]),
     });
   }
   loadLookups() {

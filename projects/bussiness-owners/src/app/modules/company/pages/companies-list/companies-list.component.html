@@ -9,7 +9,7 @@
       <input
         pInputText
         type="text"
-        (input)="applyFilterGlobal($event, 'contains')"
+        (keyup)="search($event)"
         placeholder="Search..."
       />
     </div>
