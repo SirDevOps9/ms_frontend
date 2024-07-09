@@ -86,9 +86,6 @@ export class CompanyContactComponent implements OnInit {
         this.selectedMobileCode = res.mobileNumberCode!;
         this.selectedPersonalMobileCode = res.contactPersonalMobileNumberCode!;
       }
-      else{
-
-      }
     });
   }
   get companyId(): string {
