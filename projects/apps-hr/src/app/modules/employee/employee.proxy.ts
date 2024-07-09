@@ -20,9 +20,14 @@ export class EmployeeProxy {
     return this.httpService.get<PaginationVm<EmployeeDto>>(query);
   }
   export(
-    filterDto: FilterDto,
+    searchTerm: string | undefined
   ): Observable<EmployeeDto[]> {
-    return this.httpService.post<EmployeeDto[]>(`Employee/Export`,filterDto);
+    let query = `Employee/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<EmployeeDto[]>(query);
+    //return this.httpService.get<EmployeeDto[]>(`Employee/Export`,filterDto);
   }
   
   addEmployee(employeeModel: AddEmployeePersonal): Observable<boolean> {

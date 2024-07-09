@@ -1,9 +1,11 @@
-import { Routes } from '@angular/router';
-import { LoginRedirectComponent } from './pages/login-redirect/login-redirect.component';
-import { LoginComponent } from './pages/login/login.component';
-import { LogoutRedirectComponent } from './pages/logout-redirect/logout-redirect.component';
-import { LogoutComponent } from './pages/logout/logout.component';
-import { UnAuthorizedComponent } from './pages/un-authorized/un-authorized.component';
+import {
+  LoginComponent,
+  LoginRedirectComponent,
+  LogoutComponent,
+  LogoutRedirectComponent,
+  Routes,
+  UnAuthorizedComponent,
+} from './pages';
 
 export const loginRoutes: Routes = [
   { path: 'login', component: LoginComponent },

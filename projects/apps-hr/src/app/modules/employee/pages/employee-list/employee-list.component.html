@@ -1,33 +1,14 @@
 <div>
   <div class="user_page employees-cont">
-    <div class="grid">
-      <div class="md:col-4">
-        <lib-form-group>
-          <lib-multi-select
-            [options]="exportColumns"
-            optionValue="id"
-            optionLabel="name"
-            [(ngModel)]="exportSelectedCols"
-          >
-          </lib-multi-select>
-        </lib-form-group>
-      </div>
-      <div class="md:col-2">
-        <button (click)="exportExcel()" class="primary export"> 
-          <span class="pi pi-file"></span>Export Excel
-        </button>
-      </div>
-      <div class="md:col-2">
-        <button (click)="exportPDF()" class="primary export"> 
-          <span class="pi pi-file"></span>Export PDF
-        </button>
-      </div>
-    </div>
     <lib-data-table
       [items]="tableData"
       className="p-datatable-gridlines"
       [currentPageResult]="currentPageInfo"
       (pageChange)="onPageChange($event)"
+      (exportClick)="exportClick($event)"
+
+      [exportData]="tableData"
+      [exportColumns]="exportColumns"
       [tableConfigs]="{
         allowPagination: false,
         allowServerPagination: true,

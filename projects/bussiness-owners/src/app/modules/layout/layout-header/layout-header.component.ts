@@ -1,10 +1,8 @@
 import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
-import { AuthService } from 'microtec-auth-lib';
+import { AuthService, UserInfoDto } from 'microtec-auth-lib';
 import { EnvironmentService, LanguageService, RouterService } from 'shared-lib';
-import { UserData } from '../../user/models';
 import { AppStoreService } from '../../app-store/app-store.service';
 import { Observable } from 'rxjs';
-
 
 @Component({
   selector: 'app-layout-header',
@@ -13,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class LayoutHeaderComponent implements OnInit {
   userName: string;
-  userData: UserData;
+  userData: UserInfoDto;
   showcard: boolean = false;
   sidebarOpen: boolean = false;
   cartItemsCount$: Observable<number>;
@@ -42,11 +40,10 @@ export class LayoutHeaderComponent implements OnInit {
   }
 
   getProfilePic() {
-    return this.userData?.userType == '4'
-      ? this.env.photoBaseUrl +
-          '/api/Users/GetProfilePic?userId=' +
-          this.userData.sub
-      : 'assets/images/users/pic.jpg';
+    // return this.userData?.userType == '4'
+    //   ? this.env.photoBaseUrl + '/api/Users/GetProfilePic?userId=' + this.userData.sub
+    //   :
+    return 'assets/images/users/pic.jpg';
   }
 
   cardDrob() {
@@ -63,7 +60,7 @@ export class LayoutHeaderComponent implements OnInit {
     }
   }
   routeToCart() {
-    this.routerService.navigateTo(`/app-store/cart`)
+    this.routerService.navigateTo(`/app-store/cart`);
   }
 
   constructor(
@@ -73,10 +70,9 @@ export class LayoutHeaderComponent implements OnInit {
     private cartService: AppStoreService,
     private routerService: RouterService,
     private eRef: ElementRef
-
   ) {
     this.userName = this.authService.getUserName;
-    this.userData = this.authService.getUserData()?.userData;
+    this.userData = this.authService.getUserData().userInfo;
     this.languageService.setLang();
     this.cartItemsCount$ = cartService.cartItemsCount$;
   }

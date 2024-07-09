@@ -32,6 +32,9 @@
 }
 
 ::ng-deep {
+  .p-dropdown .p-dropdown-trigger {
+    width: 2rem !important;
+  }
   .p-inputtext:enabled:hover {
     border-color: #1a8eae !important;
   }

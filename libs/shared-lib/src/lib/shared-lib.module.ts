@@ -10,8 +10,9 @@ import {
   DataTableComponent,
   TablePaginatorComponent,
   ButtonMicroComponent,
+  ToastComponent,
   TablePrintComponent,
-  ToastComponent
+  TabviewComponent
   
   
   
@@ -49,6 +50,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SelectIconComponent } from './form-components/selectIcon/selectIcon.component';
 import { UploadMultipeFilesComponent } from './form-components/upload-multipe-files/upload-multipe-files.component';
 import { CalendarComponent } from './form-components/calendar/calendar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -78,14 +80,16 @@ import { CalendarComponent } from './form-components/calendar/calendar.component
     SharedFormComponent,
     FildestComponent,
     ButtonMicroComponent,
-    ToggelComponent, 
+    ToggelComponent,
     GetElementByIDPipe,
-    TablePrintComponent ,
     ToastComponent,
     UploadMultipeFilesComponent,
-    CalendarComponent
+    CalendarComponent,
+    TablePrintComponent,
+    TabviewComponent
   ],
   imports: [
+    HttpClientModule,
     CommonModule,
     RouterOutlet,
     RouterModule,
@@ -98,7 +102,6 @@ import { CalendarComponent } from './form-components/calendar/calendar.component
     TreeTableModule,
     TreeModule,
     ProgressSpinnerModule,
-    
   ],
   exports: [
     GetLookupPipe,
@@ -137,9 +140,10 @@ import { CalendarComponent } from './form-components/calendar/calendar.component
     ToggelComponent,
     CalendarComponent,
     GetElementByIDPipe,
-    TablePrintComponent,
     ToastComponent,
-    UploadMultipeFilesComponent
+    UploadMultipeFilesComponent,
+    TablePrintComponent,
+    TabviewComponent
   ],
 })
 export class SharedLibModule {}

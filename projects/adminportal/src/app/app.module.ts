@@ -2,25 +2,13 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {
-  EnvironmentService,
-  MultiTranslateHttpLoader,
-  SharedLibModule,
-} from 'shared-lib';
+import { EnvironmentService, MultiTranslateHttpLoader, SharedLibModule } from 'shared-lib';
 import { environment } from '../environments/environment';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import {
-  HTTP_INTERCEPTORS,
-  HttpClient,
-  HttpClientModule,
-} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
-import {
-  CustomStorageService,
-  ERPInterceptor,
-  MicrotecAuthLibModule,
-} from 'microtec-auth-lib';
+import { ERPInterceptor, MicrotecAuthLibModule } from 'microtec-auth-lib';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { ClipboardModule } from 'ngx-clipboard';
@@ -29,7 +17,6 @@ import { DeferLoadModule } from '@trademe/ng-defer-load';
 import { ToastrModule } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
-import { AbstractSecurityStorage, AuthModule } from 'angular-auth-oidc-client';
 
 // @NgModule({
 //   declarations: [AppComponent, LayoutComponent],
@@ -98,9 +85,6 @@ import { AbstractSecurityStorage, AuthModule } from 'angular-auth-oidc-client';
     ToastrModule.forRoot({
       timeOut: 3000,
     }),
-    AuthModule.forRoot({
-      config: environment.openIdConfig,
-    }),
     MicrotecAuthLibModule,
     SharedLibModule,
     BrowserAnimationsModule,
@@ -116,7 +100,6 @@ import { AbstractSecurityStorage, AuthModule } from 'angular-auth-oidc-client';
       useClass: ERPInterceptor,
       multi: true,
     },
-    { provide: AbstractSecurityStorage, useClass: CustomStorageService },
   ],
   bootstrap: [AppComponent],
 })

@@ -4,7 +4,7 @@ import { LookupEnum, lookupDto, RouterService, FormsService, LookupsService, Toa
 import { CurrencyService } from '../../../general/currency.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
 import { AccountService } from '../../account.service';
-import { parentAccountDto, AccountSectionDropDownDto, AccountTypeDropDownDto, TagDropDownDto, AddAccountDto, AccountByIdDto, accountById } from '../../models';
+import { parentAccountDto, AccountSectionDropDownDto, AccountTypeDropDownDto, TagDropDownDto, AddAccountDto, AccountByIdDto, accountById, companyDropDownDto } from '../../models';
 
 @Component({
   selector: 'app-edit-chart',
@@ -19,6 +19,8 @@ export class EditChartComponent {
   accountSections: AccountSectionDropDownDto[];
   accountTypes: AccountTypeDropDownDto[];
   accountTags: TagDropDownDto[];
+  companyDropDown: companyDropDownDto[];
+
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   currencyIsVisible: boolean;
@@ -55,6 +57,7 @@ export class EditChartComponent {
       accountSectionId: new FormControl('', customValidators.required),
       currencyId: new FormControl(),
       tags: new FormControl(),
+      companies: new FormControl(),
       accountActivation: new FormControl('Active'),
       periodicActiveFrom: new FormControl(),
       periodicActiveTo: new FormControl(),
@@ -77,6 +80,7 @@ export class EditChartComponent {
       this.accountSections = res;
     });
     this.getTags();
+    this.getCompanyDropdown();
     this.getCurrencies();
     // this.formGroup.get('AccountActivation')?.valueChanges.subscribe((value) => {
     //   this.onRadioButtonChange(value);
@@ -93,6 +97,12 @@ export class EditChartComponent {
     this.accountService.getTags();
     this.accountService.tags.subscribe((res) => {
       this.accountTags = res;
+    });
+  }
+  getCompanyDropdown() {
+    this.accountService.getCompanyDropdown();
+    this.accountService.companyDropdown.subscribe((res) => {
+      this.companyDropDown=res
     });
   }
 
@@ -178,6 +188,7 @@ export class EditChartComponent {
               accountSectionId: res.accountSectionId || '',
               currencyId: res.currencyId ,
               tags: res.tags ,
+              companies: res.companies ,
               accountActivation: res.accountActivation,
               periodicActiveFrom: res.periodicActiveFrom ? res.periodicActiveFrom.replace('T00:00:00' , '') : null,
               periodicActiveTo: res.periodicActiveTo ? res.periodicActiveTo.replace('T00:00:00' , '') : null,

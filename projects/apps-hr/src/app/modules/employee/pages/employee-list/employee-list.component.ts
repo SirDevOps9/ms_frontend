@@ -110,8 +110,8 @@ export class EmployeeListComponent implements OnInit {
     });
   }
 
-  exportEmployeeData(filterDto: FilterDto) {
-    this.employeeService.exportsEmployeesList(filterDto);
+  exportEmployeeData(searchTerm: string) {
+    this.employeeService.exportsEmployeesList(searchTerm);
 
     this.employeeService.exportedEmployeesList.subscribe((res) => {
       this.exportData = res;
@@ -140,18 +140,26 @@ export class EmployeeListComponent implements OnInit {
     this.searchTerm = inputElement.value;
     this.initEmployeeData(this.searchTerm, new PageInfo());
   }
+
+  exportClick(e? : Event ) {
+
+    this.exportEmployeeData(this.searchTerm);
+    
+
+  }
   exportExcel()
   {
 
-    let filterDto : FilterDto = new FilterDto();
-    this.exportEmployeeData(filterDto);
-    ExportService.ToExcel(this.exportData, 'Employee-List.xlsx',this.exportSelectedCols);
+    // let filterDto : FilterDto = new FilterDto();
+    // console.log(filterDto)
+    // this.exportEmployeeData(filterDto);
+    // ExportService.ToExcel(this.exportData, 'Employee-List.xlsx' , this.exportSelectedCols);
   }
 
   public exportPDF():void{
-    let filterDto : FilterDto = new FilterDto();
-    this.exportEmployeeData(filterDto);
-    ExportService.ToPDF(this.exportData, 'Employee-List.pdf',this.exportSelectedCols);
+    // let filterDto : FilterDto = new FilterDto();
+    // this.exportEmployeeData(filterDto);
+    // ExportService.ToPDF(this.exportData, 'Employee-List.pdf'  , this.exportSelectedCols);
 
   }
 }

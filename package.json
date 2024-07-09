@@ -47,7 +47,6 @@
     "@ngx-translate/http-loader": "7.0.0",
     "@popperjs/core": "2.11.8",
     "@trademe/ng-defer-load": "^14.1.0",
-    "angular-auth-oidc-client": "^16.0.1",
     "angular-in-memory-web-api": "^0.17.0",
     "animate.css": "4.1.1",
     "apexcharts": "3.35.3",

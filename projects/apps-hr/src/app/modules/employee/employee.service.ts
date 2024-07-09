@@ -61,8 +61,8 @@ export class EmployeeService {
       },
     });
   }
-  exportsEmployeesList(filterDto:FilterDto) {
-    this.employeeProxy.export(filterDto).subscribe({
+  exportsEmployeesList(searchTerm:string | undefined) {
+    this.employeeProxy.export(searchTerm).subscribe({
       next: (res) => {
         this.exportedEmployeeDataSource.next(res);
       },

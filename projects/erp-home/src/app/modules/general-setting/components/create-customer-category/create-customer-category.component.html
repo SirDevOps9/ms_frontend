@@ -1,0 +1,156 @@
+<lib-page-content>
+    <lib-bread-crumb></lib-bread-crumb>
+  
+    <div class="chart_add_page">
+      <form [formGroup]="formGroup">
+        <div class="grid">
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['code']">
+                {{ 'vendorCategory.categoryCode' | translate }}
+              </lib-label>
+              <lib-text-input type="text" [readOnly]="true" formControlName="code" />
+            </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['name']">
+                {{ 'vendorCategory.categoryName' | translate }}
+              </lib-label>
+              <lib-text-input type="text" formControlName="name" />
+              <lib-field-validations [appControl]="formGroup.controls['name']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['receivableAccountId']">
+                {{ 'vendorCategory.recievableGlAccount' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="receivableAccountId"
+                [options]="accountsList"
+                [selectedValue]="formGroup.controls['receivableAccountId'].value"
+                optionLabel="name"
+                optionValue="id"
+              >
+              </lib-select>
+            </lib-form-group>
+          </div>
+          <!--  -->
+  
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['salesAccountId']">
+                {{ 'vendorCategory.salesGlAccount' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="salesAccountId"
+                [options]="accountsList"
+                [selectedValue]="formGroup.controls['salesAccountId'].value"
+                optionLabel="name"
+                optionValue="id"
+              >
+              </lib-select>
+            </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['salesReturnAccountId']">
+                {{ 'vendorCategory.salesReturnGlAccount' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="salesReturnAccountId"
+                [options]="accountsList"
+                [selectedValue]="formGroup.controls['salesReturnAccountId'].value"
+                optionLabel="name"
+                optionValue="id"
+              >
+              </lib-select>
+            </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['discountAccountId']">
+                {{ 'vendorCategory.discountGlAccount' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="discountAccountId"
+                [options]="accountsList"
+                [selectedValue]="formGroup.controls['discountAccountId'].value"
+                optionLabel="name"
+                optionValue="id"
+              >
+              </lib-select>
+            </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['priceListId']">
+                {{ 'vendorCategory.priceList' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="priceListId"
+                [options]="priceList"
+                [selectedValue]="formGroup.controls['priceListId'].value"
+                optionLabel="name"
+                optionValue="id"
+              >
+              </lib-select>
+            </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['paymentTermId']">
+                {{ 'vendorCategory.paymentTerms' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="paymentTermId"
+                [options]="paymentTermsList"
+                [selectedValue]="formGroup.controls['paymentTermId'].value"
+                optionLabel="name"
+                optionValue="id"
+              >
+              </lib-select>
+            </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['marketType']">
+                {{ 'vendorCategory.marketType' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="marketType"
+                [options]="marketTypeList"
+                [selectedValue]="formGroup.controls['marketType'].value"
+                optionLabel="label"
+                optionValue="label"
+              >
+              </lib-select>
+            </lib-form-group>
+          </div>
+          <!--  -->
+        </div>
+      </form>
+  
+      <!--  -->
+      <div class="grid justify-content-center my-2">
+        <lib-button
+          pRipple
+          className="saveBtn"
+          label="Save"
+          (onClick)="onSave()"
+          [disabled]="!formGroup.valid"
+        >
+        </lib-button>
+      </div>
+    </div>
+  </lib-page-content>
+  

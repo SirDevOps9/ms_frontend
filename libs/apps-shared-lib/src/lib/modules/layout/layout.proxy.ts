@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EnvironmentService, HttpService, SideMenuModel } from 'shared-lib';
+import { HttpService, SideMenuModel } from 'shared-lib';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LayoutProxy {
-  constructor(private baseService: HttpService, private environmentService: EnvironmentService) {}
+  constructor(private baseService: HttpService) {}
 
   loadSideMenu(): Observable<SideMenuModel[]> {
-    return this.baseService.getFullUrl<SideMenuModel[]>(
-      `${this.environmentService.BusinessOwnerUrl}/ErpMenu/GetUserMenus`
-    );
+    return this.baseService.get<SideMenuModel[]>(`SideMenu`);
   }
 }
