@@ -63,7 +63,7 @@ export class EditVendorCategoryComponent implements OnInit {
     this.formGroup.value.id = this.id;
 
     this.generalSettingService.EditVendorCategory(this.formGroup.value);
-    this.generalSettingService.addVendorCategoryDataObservable.subscribe((res) => {
+    this.generalSettingService.editVendorCategoryResObservable.subscribe((res) => {
       if (res) {
         this.routerService.navigateTo('vendor-category');
       }
