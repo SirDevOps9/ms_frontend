@@ -23,6 +23,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TabViewModule } from 'primeng/tabview';
+import { MenuModule } from 'primeng/menu';
+
 @NgModule({
   providers: [DialogService , MessageService],
   declarations: [
@@ -48,7 +50,8 @@ import { TabViewModule } from 'primeng/tabview';
     CalendarModule,
     ToastModule,
     MessageModule,
-    TabViewModule
+    TabViewModule,
+    MenuModule
   ],
   exports: [
     TableModule,
@@ -73,7 +76,8 @@ import { TabViewModule } from 'primeng/tabview';
     RadioButtonModule,
     ToastModule,
     MessageModule,
-    TabViewModule
+    TabViewModule,
+    MenuModule
   ],
 })
 export class PrimeSharedModule {}

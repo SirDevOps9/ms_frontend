@@ -99,7 +99,7 @@ constructor(
   this.id = this.route.snapshot.params['id']
 }
   ngOnInit(): void {
-   this.GeneralSettingService.getCustomerDefinitionResByID.next({});
+   this.GeneralSettingService.getCustomerDefinitionResByID.next({} as AddCustomerDefinitionDto);
     this. getVendorCategoryDropdown();
     this. getChildrenAccountsDropDown();
     this. getpaymentTermsListDropDown();

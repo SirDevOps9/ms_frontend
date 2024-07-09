@@ -1,3 +1,11 @@
+
+<div class="flex justify-content-end container">
+ 
+<p-menu #menu [model]="itemsMenu" [popup]="true" class="custom-menu"></p-menu>
+<p-button label="Export" [outlined]="true" severity="primary" icon="pi pi-caret-down" (click)="menu.toggle($event)"/>
+
+</div>
+
 <div class="viewInWeb">
   <div class="row">
     <div class="col-12">

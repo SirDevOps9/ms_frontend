@@ -15,13 +15,6 @@
   justify-content: end;
 }
 
-::ng-deep .employees-cont 
-    .p-datatable .p-datatable-tbody > tr > td {
-      text-align: left;
-      border: 1px solid #e5e7eb;
-      border-width: 0 0 1px 0;
-      padding: .5rem .5rem;
-  }
 
 
 .primary{

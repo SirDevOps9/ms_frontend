@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AddEmployeePersonal, CityDto, CountryDto, EditEmployeePersonal, EmployeeDto, GetEmployeeById } from './models';
 import { Observable } from 'rxjs';
-import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
+import { FilterDto, HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { NationalityDto } from './models/nationality-dto';
 import { GetEmployeeView } from './models/get-employee-view';
 
@@ -19,7 +19,17 @@ export class EmployeeProxy {
     }
     return this.httpService.get<PaginationVm<EmployeeDto>>(query);
   }
-
+  export(
+    searchTerm: string | undefined
+  ): Observable<EmployeeDto[]> {
+    let query = `Employee/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<EmployeeDto[]>(query);
+    //return this.httpService.get<EmployeeDto[]>(`Employee/Export`,filterDto);
+  }
+  
   addEmployee(employeeModel: AddEmployeePersonal): Observable<boolean> {
     return this.httpService.post<boolean>(`Employee/AddPersonal`, employeeModel);
   }

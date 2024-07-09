@@ -4,6 +4,7 @@ import {
   ToasterService,
   PageInfo,
   PageInfoResult,
+  FilterDto,
 } from 'shared-lib';
 import { EmployeeProxy } from './employee.proxy';
 import { Injectable } from '@angular/core';
@@ -25,10 +26,16 @@ export class EmployeeService {
 
   private allEmployeeDataSource = new BehaviorSubject<EmployeeDto[]>([]);
 
+  private exportedEmployeeDataSource = new BehaviorSubject<EmployeeDto[]>([]);
+
+
   public allEmployeeList = this.allEmployeeDataSource.asObservable();
 
 
   public employeesList = this.employeeDataSource.asObservable();
+
+  public exportedEmployeesList = this.employeeDataSource.asObservable();
+
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
@@ -54,7 +61,13 @@ export class EmployeeService {
       },
     });
   }
-  
+  exportsEmployeesList(searchTerm:string | undefined) {
+    this.employeeProxy.export(searchTerm).subscribe({
+      next: (res) => {
+        this.exportedEmployeeDataSource.next(res);
+      },
+    });
+  }
   exportEmployeesList(searchTerm: string) {
     const pageInfo = new PageInfo;
     pageInfo.pageSize = -1;

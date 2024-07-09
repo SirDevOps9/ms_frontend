@@ -5,6 +5,10 @@
       className="p-datatable-gridlines"
       [currentPageResult]="currentPageInfo"
       (pageChange)="onPageChange($event)"
+      (exportClick)="exportClick($event)"
+
+      [exportData]="tableData"
+      [exportColumns]="exportColumns"
       [tableConfigs]="{
         allowPagination: false,
         allowServerPagination: true,

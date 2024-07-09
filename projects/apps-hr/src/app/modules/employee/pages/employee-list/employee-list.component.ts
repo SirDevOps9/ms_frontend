@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { LanguageService, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { FilterDto, LanguageService, PageInfo, PageInfoResult, RouterService, lookupDto } from 'shared-lib';
 import { EmployeeDto } from '../../models/employeeDto';
 import { Title } from '@angular/platform-browser';
 import { EmployeeService } from '../../employee.service';
+import { ExportService } from 'libs/shared-lib/src/lib/export/exportService';
 
 @Component({
   selector: 'app-employee-list',
@@ -14,10 +15,13 @@ export class EmployeeListComponent implements OnInit {
   @ViewChild('myTab') myTab: any | undefined;
   selectedEntries: EmployeeDto[];
   tableData: EmployeeDto[];
+  exportData: EmployeeDto[];
   cols: any[] = [];
   active: boolean = false;
   currentPageInfo: PageInfoResult;
   searchTerm: string;
+  exportColumns: lookupDto[];
+  exportSelectedCols: string[] = [];
 
   constructor(
     private routerService: RouterService,
@@ -54,6 +58,10 @@ export class EmployeeListComponent implements OnInit {
         header: 'EmployeePhoto',
       },
     ];
+    this.exportColumns = this.cols.map(col => ({
+      id: col.header,
+      name: col.field,
+    }));
   }
   convertToCSV(objArray: any[]): string {
     const array = [Object.keys(objArray[0])].concat(objArray);
@@ -102,6 +110,14 @@ export class EmployeeListComponent implements OnInit {
     });
   }
 
+  exportEmployeeData(searchTerm: string) {
+    this.employeeService.exportsEmployeesList(searchTerm);
+
+    this.employeeService.exportedEmployeesList.subscribe((res) => {
+      this.exportData = res;
+    });
+  }
+
   onPageChange(pageInfo: PageInfo) {
     console.log(pageInfo);
     this.initEmployeeData('', pageInfo);
@@ -123,5 +139,27 @@ export class EmployeeListComponent implements OnInit {
     const inputElement = event.target as HTMLInputElement;
     this.searchTerm = inputElement.value;
     this.initEmployeeData(this.searchTerm, new PageInfo());
+  }
+
+  exportClick(e? : Event ) {
+
+    this.exportEmployeeData(this.searchTerm);
+    
+
+  }
+  exportExcel()
+  {
+
+    // let filterDto : FilterDto = new FilterDto();
+    // console.log(filterDto)
+    // this.exportEmployeeData(filterDto);
+    // ExportService.ToExcel(this.exportData, 'Employee-List.xlsx' , this.exportSelectedCols);
+  }
+
+  public exportPDF():void{
+    // let filterDto : FilterDto = new FilterDto();
+    // this.exportEmployeeData(filterDto);
+    // ExportService.ToPDF(this.exportData, 'Employee-List.pdf'  , this.exportSelectedCols);
+
   }
 }
