@@ -38,7 +38,7 @@ export class GeneralSettingService {
   private sendgetVendorCategoryDropdownData = new BehaviorSubject<CategoryDropdownDto[]>([]);
   private vendorCategoryDataByID = new BehaviorSubject<any>(null);
 
-  private vendorDefinitionDataByID = new BehaviorSubject<GetVendorById | undefined>({} as GetVendorById  | undefined );
+  public vendorDefinitionDataByID = new BehaviorSubject<GetVendorById | undefined>({} as GetVendorById  | undefined );
 
   private customerCategoryDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
   private customerCategoryDataByID = new BehaviorSubject<any>(null);
@@ -51,7 +51,10 @@ export class GeneralSettingService {
   private currenciesDataSource = new BehaviorSubject<CurrencyDto[]>([]);
   private addCustomerDefinitionRes = new BehaviorSubject<any>(null);
   private editCustomerDefinitionRes = new BehaviorSubject<any>(null);
-  private getCustomerDefinitionResByID = new BehaviorSubject<any>(null);
+
+  
+
+  public getCustomerDefinitionResByID = new BehaviorSubject<any>(null);
   private vendorById = new BehaviorSubject<any>(null);
 
   public vendorByIdObservable = this.vendorById.asObservable();
@@ -91,6 +94,10 @@ export class GeneralSettingService {
   public customerDefinitionObservable = this.addCustomerDefinitionRes.asObservable();
   public editCustomerDefinitionResObservable = this.editCustomerDefinitionRes.asObservable();
   public getCustomerDefinitionResByIDObservable = this.getCustomerDefinitionResByID.asObservable();
+
+
+  public editCustomerCategoryResObservable = this.editCustomerDefinitionRes.asObservable();
+  public editVendorCategoryResObservable = this.editCustomerDefinitionRes.asObservable();
 
   
   getTagList(searchTerm: string, pageInfo: PageInfo) {
