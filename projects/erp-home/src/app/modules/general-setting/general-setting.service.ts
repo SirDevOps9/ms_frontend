@@ -52,7 +52,7 @@ export class GeneralSettingService {
   private addCustomerDefinitionRes = new BehaviorSubject<any>(null);
   private editCustomerDefinitionRes = new BehaviorSubject<any>(null);
 
-  
+
 
   public getCustomerDefinitionResByID = new BehaviorSubject<any>(null);
   private vendorById = new BehaviorSubject<any>(null);
@@ -95,9 +95,6 @@ export class GeneralSettingService {
   public editCustomerDefinitionResObservable = this.editCustomerDefinitionRes.asObservable();
   public getCustomerDefinitionResByIDObservable = this.getCustomerDefinitionResByID.asObservable();
 
-
-  public editCustomerCategoryResObservable = this.editCustomerDefinitionRes.asObservable();
-  public editVendorCategoryResObservable = this.editCustomerDefinitionRes.asObservable();
 
   
   getTagList(searchTerm: string, pageInfo: PageInfo) {
@@ -158,7 +155,8 @@ export class GeneralSettingService {
           this.languageService.transalte('success'),
           this.languageService.transalte('addVendorCategory.successEdit')
         );
-          this.addVendorCategoryData.next(res)
+        if(res)
+        this.routerService.navigateTo('vendor-category');
 
         
       },
@@ -238,7 +236,7 @@ export class GeneralSettingService {
           this.languageService.transalte('addCustomerCategory.successEdit')
         );
         if(res) {
-          this.addCustomerCategoryData.next(res)
+          this.routerService.navigateTo('customer-category')
 
         }
       },
