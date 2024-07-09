@@ -38,13 +38,11 @@ export class ChartOfAccountTreeComponent implements OnInit {
   ) {
     this.langService.setLang();
 
-    //console.log('Lang', this.langService.transalte('LoadError'));
 
     this.title.setTitle('Chart of accounts');
   }
   ngOnInit() {
     this.getTreeList();
-    // console.log(this.parentAddedId);
   }
   mapToTreeNodes(data: any[]) {
     data = data.map((item, index) => {
@@ -91,7 +89,6 @@ export class ChartOfAccountTreeComponent implements OnInit {
     this.accountService.getAccountDetails(id);
     this.accountService.AccountViewDetails.subscribe((res) => {
       this.account = res;
-      console.log(res , "oooooooooooooo");
       
     });
     if(this.account.parentAccountName===""){
@@ -100,9 +97,7 @@ export class ChartOfAccountTreeComponent implements OnInit {
       this.viewWithParent=false
     }
   }
-  // toggleNode(node: any) {
-  //   node.expanded = !node.expanded;
-  // }
+  
   handleTabClick(node: any) {
     this.edit = false;
     this.add = false;
@@ -114,14 +109,12 @@ export class ChartOfAccountTreeComponent implements OnInit {
     
     }
     this.view = true;
-    //console.log(node);
   }
   viewMode(event:number){
     setTimeout(() => {
       this.edit = false;
     this.add = false;
     this.view = false;    
-    //this.activeNode = node;
     this.parentAddedId = event;
     if(this.parentAddedId){
       this.getAccountDetails(this.parentAddedId);
@@ -132,20 +125,6 @@ export class ChartOfAccountTreeComponent implements OnInit {
     }, 1000);
     
   }
-  // getTreeList() {
-  //   // this.accountService.getTreeList().subscribe((res: any) => {
-  //   //   this.nodes = this.mapToTreeNodes(res);
-  //   // });
-  //   const activeNodeId = this.activeNode ? this.activeNode.id : null; // Store the active node ID
-  //   this.accountService.getTreeList().subscribe((res: any) => {
-  //     this.nodes = this.mapToTreeNodes(res);
-  //     if (activeNodeId) {
-  //       setTimeout(() => {
-  //         this.setActiveNode(activeNodeId); // Set the active node after updating the tree list
-  //       }, 100); // Adjust delay if necessary
-  //     }
-  //   });
-  // }
 
   handleOperationCompleted(event: any) {
     this.getTreeList()
@@ -161,46 +140,17 @@ export class ChartOfAccountTreeComponent implements OnInit {
     this.activeNode = node;
     this.parentEditedId = node.id;
     this.edit = true;
-    //console.log(node);
     
   }
-  // deleteAccount(id:number){
-  //   this.accountService.deleteAccount(id)
-  //   this.accountService.accountdeletedObser.subscribe(res=>{
-  //     if(res){
-  //       this.getTreeList()
-  //     }
-  //   })
-  // }
-  // setActiveNode(id: number) {
-  //   const findNode = (nodes: any[]): any => {
-  //     for (let node of nodes) {
-  //       if (node.id === id) {
-  //         console.log("qqqqqqqqqq");
-  //         return node;
-         
-          
-  //       }
-  //       if (node.children) {
-  //         const foundChild = findNode(node.children);
-  //         if (foundChild) {
-  //           console.log("ttttttttttttttttt");
-  //           return foundChild;
-  //         }
-  //       }
-  //     }
-  //     return null;
-  //   };
-  //   this.activeNode = findNode(this.nodes);
-  // }
+
   getTreeList() {
-    const activeNodeId = this.activeNode ? this.activeNode.id : null; // Store the active node ID
+    const activeNodeId = this.activeNode ? this.activeNode.id : null; 
     this.accountService.getTreeList().subscribe((res: any) => {
       this.nodes = this.mapToTreeNodes(res);
       if (activeNodeId) {
         setTimeout(() => {
-          this.setActiveNode(activeNodeId); // Set the active node after updating the tree list
-        }, 100); // Adjust delay if necessary
+          this.setActiveNode(activeNodeId); 
+        }, 100); 
       }
     });
   }
