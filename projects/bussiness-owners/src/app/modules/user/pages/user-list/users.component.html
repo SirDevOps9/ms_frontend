@@ -148,7 +148,7 @@
       <div class="checked" *ngIf="user.invitationStatus == 'Accepted'">
         <p-inputSwitch
           [id]="user.id"
-          (onChange)="changed($event, user.id)"
+          (click)="changed($event, user)"
           [(ngModel)]="user.isActive"
         >
         </p-inputSwitch>

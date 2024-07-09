@@ -129,7 +129,8 @@ export class EditVendorDefinitionsComponent implements OnInit {
   }
 
   intitializeFormData() {
-    this.generalSettingService.getVendorDefinitionByID(this.vendorId()).subscribe((res) => {
+    this.generalSettingService.getVendorDefinitionByID(this.vendorId());
+    this.generalSettingService.vendorDefinitionDataByIDObservable.subscribe((res) => {
       if (res) {
         console.log(res ,"135");
         

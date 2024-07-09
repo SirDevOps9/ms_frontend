@@ -670,23 +670,14 @@ export class GeneralSettingService {
     });
   }
  
-  // getVendorDefinitionByID(id : number) {
-  //   this.GeneralSettingproxy.getVendorDefinitionByID(id)
-  //   .subscribe(res=>{
-  //       this.vendorDefinitionDataByID.next(res)
+  getVendorDefinitionByID(id : number) {
+    this.GeneralSettingproxy.getVendorDefinitionByID(id)
+    .subscribe(res=>{
+        this.vendorDefinitionDataByID.next(res)
       
-  //   })
-  // }
-  getVendorDefinitionByID(Id: number) {
-    return this.GeneralSettingproxy.getVendorDefinitionByID(Id).pipe(
-      map((res) => {
-        return res;
-      }),
-      catchError((err: string) => {
-        throw err!;
-      })
-    );
+    })
   }
+ 
   constructor(
     private GeneralSettingproxy: GeneralSettingProxy,
     private loaderService: LoaderService,

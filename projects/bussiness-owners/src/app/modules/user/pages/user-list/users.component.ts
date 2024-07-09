@@ -75,11 +75,14 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  changed(e: any, id: string) {
-    if (e.checked === false) {
-      this.deactivate(id);
+  changed(e: any, user: any) {
+    user.isActive = !user.isActive
+    
+    if (user.isActive) {
+      this.deactivate(user.id);
     } else {
-      this.activate(id);
+
+      this.activate(user.id);
     }
   }
 
