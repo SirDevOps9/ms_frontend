@@ -2,6 +2,7 @@
   class="btn  {{ nameClass }} "
   [ngStyle]="{ width: widthNumber }"
   [attr.data-testid]="nameClass"
+  [ngClass]="{'icon_btn': !title && iconName}"
 >
   <span class="icon {{ iconName }}" *ngIf="iconName"></span>
   {{ title }}

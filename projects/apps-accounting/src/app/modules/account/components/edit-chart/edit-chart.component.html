@@ -184,8 +184,9 @@
           <lib-fildest
           header="{{ 'ChartOfAccounts.costCenterConfig' | translate }}"
           class="col-12"
+          *ngIf="!currencyIsVisible"
         >
-          <div class="grid">
+          <div class="grid" >
             <div class="md:col-12">
               <lib-form-group>
                 <div class="account_activation">

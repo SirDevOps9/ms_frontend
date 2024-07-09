@@ -34,7 +34,9 @@ input[type=checkbox]{
 .calender{
     margin-bottom: 60px;
 }
-
+.code{
+    cursor: pointer;
+}
 ::ng-deep{
     .group{
         .p-multiselect {

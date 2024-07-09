@@ -122,11 +122,11 @@ getCostTree() {
   });
 }
 handleOperationCompleted(event: any) {
-  if(this.parentAdded){
-    this.parentAdded.children.push({ label: event.name, id: event.id, children: [] });
-  }else{
+  // if(this.parentAdded){
+  //   this.parentAdded.children.push({ label: event.name, id: event.id, children: [] });
+  // }else{
   this.getCostTree()
-  }
+  // }
   this.add = false;
   //this.view=true
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, catchError, map } from 'rxjs';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
 import { GeneralSettingProxy } from './general-setting.proxy';
 
@@ -676,7 +676,7 @@ export class GeneralSettingService {
       
     })
   }
-
+ 
   constructor(
     private GeneralSettingproxy: GeneralSettingProxy,
     private loaderService: LoaderService,

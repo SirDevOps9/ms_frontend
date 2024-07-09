@@ -182,7 +182,7 @@ getCurrencies(){
 getAddResponse() {
   this.GeneralSettingService.getCustomerDefinitionByID(this.id)
   this.GeneralSettingService.getCustomerDefinitionResByIDObservable.subscribe(res=>{
-    console.log(res)
+    console.log(res ,"135");
     if(res) {
     this.addCustomerForm.patchValue({...res})
 

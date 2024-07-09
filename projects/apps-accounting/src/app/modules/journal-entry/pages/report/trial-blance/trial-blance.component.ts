@@ -41,8 +41,8 @@ defoultSelectedAcounts:number[]=[]
 
     }, 500);
     this.reportTrialForm.valueChanges.subscribe((res)=>{
+      console.log(res)
       this.tableData=[]
-      console.log(res ,"res change");
       
     }
     )
@@ -123,6 +123,8 @@ defoultSelectedAcounts:number[]=[]
       dateTo: endOfMonth.toISOString().split('T')[0],
     });
   }
-
+  routeTo(id:number){
+    this.routerService.navigateTo(`/reports/account-statement/${id}`);
+  }
  
 }

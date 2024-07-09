@@ -15,5 +15,6 @@ export interface AccountByIdDto {
     accountCurrency:string,
     accountActivation:string,
     periodicActiveFrom:string,
-    periodicActiveTo:string
+    periodicActiveTo:string,
+    costCenterConfig:string,
 }

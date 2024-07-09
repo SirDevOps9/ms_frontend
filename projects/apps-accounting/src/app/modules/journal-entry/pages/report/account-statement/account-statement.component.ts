@@ -6,6 +6,7 @@ import { AccountService } from '../../../../account/account.service';
 import { AccountDto } from '../../../../account/models';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { reportAccount, reportTrialDto } from '../../../models';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-account-statement',
@@ -24,6 +25,7 @@ defoultSelectedAcounts:number[]=[]
     private fb: FormBuilder,
     private accountService: AccountService,
     private routerService: RouterService,
+    private router: ActivatedRoute,
     private titleService: Title,
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
@@ -92,6 +94,8 @@ defoultSelectedAcounts:number[]=[]
     //     ]
     //   },
     // ]
+    
+      
     this. initializeForm()
     this.getAccounts();
     this.initializeDates()
@@ -116,9 +120,14 @@ defoultSelectedAcounts:number[]=[]
           displayName: `${account.name} (${account.accountCode})`
 
         }));
-        this.filteredAccounts.forEach(element => {
-          this.defoultSelectedAcounts.push(element.id)  
-        });
+        if(this.router.snapshot.params['id']){
+          this.defoultSelectedAcounts.push(Number(this.router.snapshot.params['id']) )
+        }else{
+          this.filteredAccounts.forEach(element => {
+            this.defoultSelectedAcounts.push(element.id)  
+          });
+        }
+       
 
         this.reportAccountForm.patchValue({
           Accounts:this.defoultSelectedAcounts

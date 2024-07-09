@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import {
   FormsService,
@@ -125,12 +125,16 @@ export class EditVendorDefinitionsComponent implements OnInit {
     this.loadLookups();
     this.Subscribe();
     this.intitializeFormData();
+    
+    
   }
 
   intitializeFormData() {
-    this.generalSettingService.getVendorDefinitionByID(this.vendorId);
+    this.generalSettingService.getVendorDefinitionByID(this.vendorId());
     this.generalSettingService.vendorDefinitionDataByIDObservable.subscribe((res) => {
       if (res) {
+        console.log(res ,"135");
+        
         this.vendor = res;
         this.vendorCode = res.code;
         this.selectedCountry = res.vendorAddress?.countryCode;
@@ -247,7 +251,7 @@ export class EditVendorDefinitionsComponent implements OnInit {
       },
     };
 
-    vendor.id = this.vendorId;
+    vendor.id = this.vendorId();
     this.generalSettingService.editVendorDefinition(vendor);
   }
 
@@ -271,7 +275,7 @@ export class EditVendorDefinitionsComponent implements OnInit {
       this.currencies = res;
     });
   }
-  get vendorId(): number {
+  vendorId() {
     return this.routerService.currentId;
   }
 
@@ -280,4 +284,5 @@ export class EditVendorDefinitionsComponent implements OnInit {
     this.routerService.navigateTo(`/vendor-definitions`);
 
   }
+ 
 }

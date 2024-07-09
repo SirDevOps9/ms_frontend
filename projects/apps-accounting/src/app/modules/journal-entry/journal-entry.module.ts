@@ -82,6 +82,14 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.ACCOUNT_STATEMENT,
         },
       },
+      {
+        path: 'reports/account-statement/:id',
+        component: AccountStatementComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.ACCOUNT_STATEMENT,
+        },
+      },
     ],
   },
 ];

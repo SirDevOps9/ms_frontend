@@ -29,6 +29,11 @@ export class RouterService {
   get CallBackUrl() {
     return this.route.snapshot.queryParams['callBackUrl'];
   }
+  getId(){
+    console.log(this.route.snapshot.params['id']);
+    
+    return this.route.snapshot.params['id']
+  }
 
   navigateTo(url: string) {
     this.router.navigateByUrl(url, {

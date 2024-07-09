@@ -101,9 +101,24 @@ span{
     min-width: 75rem;
   }
   
-  .p-datatable-wrapper{
-   height: 400px !important;
+  // .p-datatable-wrapper{
+  //  height: 400px !important;
+  // }
+ 
+  
+  /* For screens larger than 1024px (e.g., tablets in landscape mode or laptops) */
+
+  @media (max-width: 1920px) {
+    .p-datatable-wrapper {
+      max-height: 400px !important;
+    }
   }
+  @media (min-width: 1920px) {
+    .p-datatable-wrapper {
+      max-height: 600px !important;
+    }
+  }
+ 
   .empty{
     .p-datatable-wrapper{
       height: auto !important;
