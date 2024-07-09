@@ -47,16 +47,12 @@ export class CreateCustomerCategoryComponent implements OnInit {
   this.generalSettingService.sendPaymentTermsDropDownDataObservable.subscribe(res=>{
     this.paymentTermsList = res
   })
-
   }
 
- 
-
-  
   onSave() {
     if (!this.formsService.validForm(this.formGroup, false)) return;
 
-
+   console.log("sandra",this.formGroup.value);
   this.generalSettingService.addCustomerCategory(this.formGroup.value)
   this.generalSettingService.addCustomerCategoryDataObservable.subscribe(res=>{
     if(res) {

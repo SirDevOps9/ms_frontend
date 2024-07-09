@@ -39,6 +39,7 @@ export class CustomerListComponent implements OnInit {
     this.routerService.navigateTo(`edit-customer-definitions/${id}`)
   }
 
+
   initFinancialCalendarData() {
     this.generalSettingService.getcustomerDefinition('', new PageInfo());
 
@@ -72,6 +73,8 @@ export class CustomerListComponent implements OnInit {
     this.generalSettingService.customerDefinitionDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
+        console.log('onSearchChange',this.tableData)
+
       },
     });
   }
