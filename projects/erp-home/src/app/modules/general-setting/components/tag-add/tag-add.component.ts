@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { MenuModule, customValidators } from 'shared-lib';
+import { FormsService, MenuModule, customValidators } from 'shared-lib';
 import { GeneralSettingService } from '../../general-setting.service';
 import { AddTagDto } from '../../models';
 import { LayoutService } from 'libs/apps-shared-lib/src/lib/modules/layout/layout.service';
@@ -13,6 +13,7 @@ import { LayoutService } from 'libs/apps-shared-lib/src/lib/modules/layout/layou
 export class TagAddComponent implements OnInit {
   tagForm: FormGroup;
   modulelist: MenuModule[];
+  selectedModules: number[] = [];
 
   constructor(
     public config: DynamicDialogConfig,
@@ -20,7 +21,9 @@ export class TagAddComponent implements OnInit {
     private fb: FormBuilder,
     public layoutService: LayoutService,
     private ref: DynamicDialogRef,
-    private generalSettingService: GeneralSettingService
+    private generalSettingService: GeneralSettingService,
+    private formsService: FormsService,
+
   ) {}
 
   ngOnInit() {
@@ -35,9 +38,9 @@ export class TagAddComponent implements OnInit {
 
   initializeTagForm() {
     this.tagForm = this.fb.group({
-      Code: new FormControl({ value: '', disabled: true }, customValidators.required),
-      Name: new FormControl('', customValidators.required),
-      ModuleIds: new FormControl([], customValidators.required),
+      code: new FormControl({ value: '', disabled: true }),
+      name: new FormControl('', [customValidators.required]),
+      moduleIds: new FormControl([],  [customValidators.required]),
     });
   }
 
@@ -46,8 +49,8 @@ export class TagAddComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.tagForm.valid) return;
-    const tagDto: AddTagDto = this.tagForm.value;
+    if (!this.formsService.validForm(this.tagForm, true)) return;   
+     const tagDto: AddTagDto = this.tagForm.value;
     this.generalSettingService.addTag(tagDto, this.ref);
   }
 }

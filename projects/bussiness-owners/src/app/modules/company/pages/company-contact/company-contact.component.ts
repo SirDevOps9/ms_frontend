@@ -34,12 +34,8 @@ export class CompanyContactComponent implements OnInit {
     this.Subscribe();
   }
 
-  submitForm() {
-    console.log(this.companyContactForm);
-  }
 
   onSubmit() {
-    console.log(this.editMode);
 
     if (this.editMode) {
       if (!this.formsService.validForm(this.companyContactForm, false)) return;
@@ -47,7 +43,6 @@ export class CompanyContactComponent implements OnInit {
       this.companyService.companyName.next(this.companyContactForm.value.companyName)
       request.id = this.companyId;
       this.companyService.saveCompanyContact(request);
-      console.log('request', request);
       this.editMode = false;
     } else {
       this.editMode = true;
@@ -56,22 +51,21 @@ export class CompanyContactComponent implements OnInit {
 
   initializeForm() {
     this.companyContactForm = this.fb.group({
-      companyName: new FormControl('', [customValidators.required]),
-      companyLogo: new FormControl(),
-      mobileNumberCode: new FormControl('', [customValidators.required]),
-      mobileNumber: new FormControl('', [customValidators.required, customValidators.hasSpaces]),
-      companyEmail: new FormControl('', [customValidators.required, customValidators.email]),
+      companyName: new FormControl(null),
+      companyLogo: new FormControl(null),
+      mobileNumberCode: new FormControl(null),
+      mobileNumber: new FormControl(null, [customValidators.hasSpaces,customValidators.noSpecialChars]),
+      companyEmail: new FormControl(null, [ customValidators.email]),
       companyAddress: new FormControl(),
-      contactPersonal: new FormControl('', [customValidators.required]),
+      contactPersonal: new FormControl(null),
       contactPersonalPosition: new FormControl(),
-      contactPersonalEmail: new FormControl('', [
-        customValidators.required,
+      contactPersonalEmail: new FormControl(null, [
         customValidators.email,
       ]),
-      contactPersonalMobileNumberCode: new FormControl('', [customValidators.required]),
-      contactPersonalMobileNumber: new FormControl('', [
-        customValidators.required,
+      contactPersonalMobileNumberCode: new FormControl(null),
+      contactPersonalMobileNumber: new FormControl(null, [
         customValidators.hasSpaces,
+        customValidators.noSpecialChars
       ]),
     });
   }
@@ -84,11 +78,7 @@ export class CompanyContactComponent implements OnInit {
   }
 
   initializeFormData() {
-    console.log('Cadgadgdg', this.companyId);
-
     this.companyService.getCompanyContactById(this.companyId).subscribe((res) => {
-      console.log('Calling get by Id', res);
-
       this.companyContactForm.patchValue({
         ...res,
       });

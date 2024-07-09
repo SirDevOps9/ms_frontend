@@ -46,7 +46,7 @@ export class GeneralSettingProxy {
   }
   getcustomerCategory(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<CustomerCategoryDto>> {
 
-    const url = `CustomerCategory?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+    const url = `CustomerCategory?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
 
     return this.httpService.get<PaginationVm<CustomerCategoryDto>>(url);
   } 
@@ -74,14 +74,14 @@ deleteCustomerCategory(id: number): Observable<boolean> {
   return this.httpService.get(url);
 }
 getCustomerCategoryByID(id : number) : Observable<EditVendorCategoryDto> {
-  const url = `CustomerCategory/GetById/${id}`
+  const url = `CustomerCategory/${id}`
   return this.httpService.get(url);
 }
 
 
 getcustomerDefinition(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<CustomerCategoryDto>> {
 
-  const url = `Customer?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+  const url = `Customer?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
 
   return this.httpService.get<PaginationVm<CustomerCategoryDto>>(url);
 } 

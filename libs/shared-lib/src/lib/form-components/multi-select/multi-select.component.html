@@ -11,5 +11,7 @@
   [disabled]="disabled"
   appendTo="body"
   [attr.data-testid]="this.labelTest"
+  (onClear)="onOptionRemoved($event)"
+
 
 ></p-multiSelect>

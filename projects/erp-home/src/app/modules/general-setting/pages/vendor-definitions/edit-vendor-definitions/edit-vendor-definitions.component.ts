@@ -114,6 +114,7 @@ export class EditVendorDefinitionsComponent implements OnInit {
     });
   }
   ngOnInit(): void {
+    this.generalSettingService.vendorDefinitionDataByID.next(undefined);
     this.getVendorCategoryDropdown();
     this.getChildrenAccountsDropDown();
     this.getpaymentTermsListDropDown();

@@ -38,8 +38,8 @@ export class CompanyService {
     private loaderService: LoaderService
   ) {}
 
-  loadCompanies(subscriptionId: string) {
-    this.companyProxy.getAll(subscriptionId).subscribe((response) => {
+  loadCompanies(searchTerm: string,subscriptionId: string) {
+    this.companyProxy.getAll(searchTerm,subscriptionId).subscribe((response) => {
       this.companiesDataSource.next(response);
     });
   }

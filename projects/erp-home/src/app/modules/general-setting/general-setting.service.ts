@@ -11,7 +11,7 @@ import { AddVendorCommand } from './models/AddVendorCommand';
 import { CategoryDropdownDto } from './models/CategoryDropdownDto';
 import { CityDto } from './models/CityDto';
 import { CountryDto } from './models/CountryDto';
-import { CurrencyDto } from './models/CurrencyDto';
+import { CurrencyDto } from './models/CurrencyDto'; 
 import { TagDropDownDto } from './models/TagDropDownDto';
 
 import { EditVendorCommand } from './models/editVendorCommand';
@@ -37,7 +37,7 @@ export class GeneralSettingService {
   private sendgetVendorCategoryDropdownData = new BehaviorSubject<CategoryDropdownDto[]>([]);
   private vendorCategoryDataByID = new BehaviorSubject<EditVendorCategoryDto>({} as EditVendorCategoryDto);
 
-  private vendorDefinitionDataByID = new BehaviorSubject<GetVendorById | undefined>({} as GetVendorById  | undefined );
+  public vendorDefinitionDataByID = new BehaviorSubject<GetVendorById | undefined>({} as GetVendorById  | undefined );
 
   private customerCategoryDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
   private customerCategoryDataByID = new BehaviorSubject<EditVendorCategoryDto>({} as EditVendorCategoryDto);
@@ -50,7 +50,7 @@ export class GeneralSettingService {
   private currenciesDataSource = new BehaviorSubject<CurrencyDto[]>([]);
   private addCustomerDefinitionRes = new BehaviorSubject<AddCustomerDefinitionDto>({} as AddCustomerDefinitionDto);
   private editCustomerDefinitionRes = new BehaviorSubject<EditCustomerDefintionsDto>({} as EditCustomerDefintionsDto);
-  private getCustomerDefinitionResByID = new BehaviorSubject<AddCustomerDefinitionDto>({} as AddCustomerDefinitionDto);
+  public getCustomerDefinitionResByID = new BehaviorSubject<AddCustomerDefinitionDto>({} as AddCustomerDefinitionDto);
 
   public currencies = this.currenciesDataSource.asObservable();
 
@@ -88,6 +88,7 @@ export class GeneralSettingService {
   public customerDefinitionObservable = this.addCustomerDefinitionRes.asObservable();
   public editCustomerDefinitionResObservable = this.editCustomerDefinitionRes.asObservable();
   public getCustomerDefinitionResByIDObservable = this.getCustomerDefinitionResByID.asObservable();
+
 
   
   getTagList(searchTerm: string, pageInfo: PageInfo) {
@@ -148,7 +149,8 @@ export class GeneralSettingService {
           this.languageService.transalte('success'),
           this.languageService.transalte('addVendorCategory.successEdit')
         );
-          this.addVendorCategoryData.next(res)
+        if(res)
+        this.routerService.navigateTo('vendor-category');
 
         
       },
@@ -228,7 +230,7 @@ export class GeneralSettingService {
           this.languageService.transalte('addCustomerCategory.successEdit')
         );
         if(res) {
-          this.addCustomerCategoryData.next(res)
+          this.routerService.navigateTo('customer-category')
 
         }
       },

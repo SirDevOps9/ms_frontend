@@ -99,6 +99,7 @@ constructor(
   this.id = this.route.snapshot.params['id']
 }
   ngOnInit(): void {
+   this.GeneralSettingService.getCustomerDefinitionResByID.next({} as AddCustomerDefinitionDto);
     this. getVendorCategoryDropdown();
     this. getChildrenAccountsDropDown();
     this. getpaymentTermsListDropDown();
@@ -109,9 +110,10 @@ constructor(
     this.getTags();
     this.loadLookups();
     this.Subscribe();
-    setTimeout(() => {
-      this.getAddResponse()
-    }, 1000);
+    this.getAddResponse()
+    // setTimeout(() => {
+    //   this.getAddResponse()
+    // }, 1000);
 
   }
   loadCountries() {
