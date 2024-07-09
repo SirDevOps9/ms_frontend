@@ -106,7 +106,7 @@ deleteVendorDefinition(id: number): Observable<boolean> {
   addFinancialCalendar(addFinancialCalendarDto: AddFinancialCalendar): Observable<AddFinancialCalendar> {
      return this.httpService.post<AddFinancialCalendar>(`FinancialYear`,addFinancialCalendarDto);
   }
-  openFinancialCalendar(openList : {}): Observable<any> {
+  openFinancialCalendar(openList : {}): Observable<number[]> {
      return this.httpService.post(`FinancialYear/openFinancialPeriod`,openList);
   }
 
@@ -127,10 +127,10 @@ deleteVendorDefinition(id: number): Observable<boolean> {
   getChildrenAccountsDropDown() {
     return this.httpService.get('ChartOfAccounts/ChildrenAccountsDropDown');
   }
-  getpriceListDropDown() {
+  getpriceListDropDown() : Observable<{ id: number; name: string }[]>  {
     return this.httpService.get('PriceList/PriceListDropDown');
   }
-  getpaymentTermsListDropDown() {
+  getpaymentTermsListDropDown() : Observable<{ id: number; name: string }[]>  {
     return this.httpService.get('PaymentTerms/PaymentTermsDropdown');
   }
   editTag(tagDto: TagDto): Observable<boolean> {

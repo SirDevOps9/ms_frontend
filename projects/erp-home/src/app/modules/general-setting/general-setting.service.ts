@@ -4,7 +4,7 @@ import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService
 import { GeneralSettingProxy } from './general-setting.proxy';
 
 
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, vendorDefinitionDto, AddCustomerDefinitionDto, EditCustomerDefintionsDto} from './models';
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, vendorDefinitionDto, AddCustomerDefinitionDto, EditCustomerDefintionsDto, editFinancialCalndar} from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 import { AddVendorCommand } from './models/AddVendorCommand';
@@ -24,37 +24,34 @@ export class GeneralSettingService {
   private financialCalendarDataSource = new BehaviorSubject<financialCalendar[]>([]);
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   private currentTagDataSource = new BehaviorSubject<TagDto>({} as TagDto);
-  private addFinancialCalendarRes = new BehaviorSubject<any>('');
-  private openFinancialCalendarRes = new BehaviorSubject<any>('');
-  private addVendorCategoryRes = new BehaviorSubject<any>('');
+  private addFinancialCalendarRes = new BehaviorSubject<AddFinancialCalendar| any>({} as AddFinancialCalendar);
+  private openFinancialCalendarRes = new BehaviorSubject<number[]>([]);
   private FinancialPeriodLastYearDate = new BehaviorSubject<any>(null);
-  private FinancialPeriodDataByID = new BehaviorSubject<any>(null);
-  private EditFinancialPeriodData = new BehaviorSubject<any>(null);
+  private FinancialPeriodDataByID = new BehaviorSubject<editFinancialCalndar>({} as editFinancialCalndar);
+  private EditFinancialPeriodData = new BehaviorSubject<{ id: number; name: string }[]>([]);
   private vendorCategoryDataSource = new BehaviorSubject<VendorCategoryDto[]>([]);
-  private addVendorCategoryData = new BehaviorSubject<any>(null);
+  private addVendorCategoryData = new BehaviorSubject<AddVendorCategory>({} as AddVendorCategory);
   private sendChildrenAccountsDropDownData = new BehaviorSubject<any>([]);
-  private sendPriceListsDropDownData = new BehaviorSubject<any>([]);
-  private sendPaymentTermsDropDownData = new BehaviorSubject<any>([]);
+  private sendPriceListsDropDownData = new BehaviorSubject<{ id: number; name: string }[]>([]);
+  private sendPaymentTermsDropDownData = new BehaviorSubject<{ id: number; name: string }[]>([]);
   private sendgetVendorCategoryDropdownData = new BehaviorSubject<CategoryDropdownDto[]>([]);
-  private vendorCategoryDataByID = new BehaviorSubject<any>(null);
+  private vendorCategoryDataByID = new BehaviorSubject<EditVendorCategoryDto>({} as EditVendorCategoryDto);
 
   private vendorDefinitionDataByID = new BehaviorSubject<GetVendorById | undefined>({} as GetVendorById  | undefined );
 
   private customerCategoryDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
-  private customerCategoryDataByID = new BehaviorSubject<any>(null);
-  private addCustomerCategoryData = new BehaviorSubject<any>(null);
+  private customerCategoryDataByID = new BehaviorSubject<EditVendorCategoryDto>({} as EditVendorCategoryDto);
+  private addCustomerCategoryData = new BehaviorSubject<AddCustomerCategoryDto>({} as AddCustomerCategoryDto);
   private customerDefinitionDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
   private vendorDefinitionDataSource = new BehaviorSubject<vendorDefinitionDto[]>([]);
-  private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
+  private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]); 
   private countryDataSource = new BehaviorSubject<CountryDto[]>([]);
   private cityDataSource = new BehaviorSubject<CityDto[]>([]);
   private currenciesDataSource = new BehaviorSubject<CurrencyDto[]>([]);
-  private addCustomerDefinitionRes = new BehaviorSubject<any>(null);
-  private editCustomerDefinitionRes = new BehaviorSubject<any>(null);
-  private getCustomerDefinitionResByID = new BehaviorSubject<any>(null);
-  private vendorById = new BehaviorSubject<any>(null);
+  private addCustomerDefinitionRes = new BehaviorSubject<AddCustomerDefinitionDto>({} as AddCustomerDefinitionDto);
+  private editCustomerDefinitionRes = new BehaviorSubject<EditCustomerDefintionsDto>({} as EditCustomerDefintionsDto);
+  private getCustomerDefinitionResByID = new BehaviorSubject<AddCustomerDefinitionDto>({} as AddCustomerDefinitionDto);
 
-  public vendorByIdObservable = this.vendorById.asObservable();
   public currencies = this.currenciesDataSource.asObservable();
 
   public cities = this.cityDataSource.asObservable();
