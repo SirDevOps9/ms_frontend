@@ -19,11 +19,11 @@
           <lib-form-group>
             <lib-text-input
               type="text"
-              formControlName="Name"
+              formControlName="name"
               [iconUrl]="'assets/images/fi-rr-text-check@2x.png'"
               placeholder="{{ 'tag.addtag.name' | translate }}"
             />
-            <lib-field-validations [appControl]="tagForm.controls['Name']"></lib-field-validations>
+            <lib-field-validations [appControl]="tagForm.controls['name']"></lib-field-validations>
           </lib-form-group>
         </div>
 
@@ -34,11 +34,11 @@
               [options]="modulelist"
               optionLabel="module"
               optionValue="moduleId"
-              formControlName="ModuleIds"
+              formControlName="moduleIds"
+              
             ></lib-multi-select>
-            <lib-field-validations
-              [appControl]="tagForm.controls['ModuleIds']"
-            ></lib-field-validations>
+            <lib-field-validations [appControl]="tagForm.controls['moduleIds']">
+            </lib-field-validations>
           </lib-form-group>
         </div>
       </div>
