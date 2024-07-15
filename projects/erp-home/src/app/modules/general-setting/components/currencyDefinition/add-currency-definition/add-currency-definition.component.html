@@ -58,7 +58,7 @@
                   </lib-field-validations>
                 </lib-form-group>
               </div>
-              <div class="md:col-6">
+              <!-- <div class="md:col-6">
                 <lib-form-group>
                   <lib-label [appControl]="addCurrencyForm.controls['subUnit']">
                     Currency rate   
@@ -69,15 +69,15 @@
                   >
                   </lib-field-validations>
                 </lib-form-group>
-              </div>
-              <div class="md:col-6">
+              </div> -->
+              <div class="md:col-12">
                 <lib-form-group>
                   <lib-label [appControl]="addCurrencyForm.controls['countryCode']">
                     Currency Country   
                   </lib-label>
                   <!-- <lib-text-input type="text" formControlName="name" /> -->
                   <lib-selectIcon
-                  formControlName="countryId"
+                  formControlName="countryCode"
                   [options]="countries"
                   optionValue="id"
                   optionLabel="nameEn"
@@ -95,7 +95,12 @@
                   <lib-label [appControl]="addCurrencyForm.controls['differenceAccount']">
                     Currency difference account                                </lib-label>
                   <!-- <lib-text-input type="text" formControlName="name" /> -->
-                  <lib-select formControlName="differenceAccount" ></lib-select>
+                  <lib-select
+                  formControlName="differenceAccount" 
+                  [options]="accountsList"
+                  optionLabel="name"
+                  optionValue="id"
+                  ></lib-select>
 
                   <lib-field-validations
                     [appControl]="addCurrencyForm.controls['differenceAccount']"

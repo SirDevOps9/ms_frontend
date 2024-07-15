@@ -680,7 +680,17 @@ export class GeneralSettingService {
       
     })
   }
-  openEditBranchModel() {
+  openCurrencyAdded() {
+    const ref:DynamicDialogRef = this.dialog.open(AddCurrencyDefinitionComponent, {
+        width: '600px',
+        height : '700px'
+     
+    });
+    ref.onClose.subscribe((result: any) => {
+     
+    });
+  }
+  openCurrencyEdit() {
     const ref:DynamicDialogRef = this.dialog.open(AddCurrencyDefinitionComponent, {
         width: '600px',
         height : '700px'
@@ -697,6 +707,50 @@ export class GeneralSettingService {
         this.currentPageInfo.next(res.pageInfoResult);
       },
     });
+  }
+  addCurrency(currency: CurrencyDefinitionDto
+    ,dialogRef: DynamicDialogRef
+  ){
+    this.loaderService.show();
+    this.GeneralSettingproxy.addCurrency(currency).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('currencyDefinition.success'),
+          this.languageService.transalte('currencyDefinition.successAdd')
+        );
+        this.loaderService.hide();
+        dialogRef.close(res);
+        this.getCurrencyList("", new PageInfo())
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+  async deleteCurrency(id: number){
+    const confirmed = await this.toasterService.showConfirm(
+      'Delete'
+    );
+    if (confirmed) {
+      this.GeneralSettingproxy.deleteCurrency(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('deleteVendorCategory.delete')
+          );
+          this.getCurrencyList("", new PageInfo())
+
+          return res;
+        },
+        error: (err) => {
+          this.toasterService.showError(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('deleteVendorCategory.delete')
+          );
+        },
+      });
+
+    }
   }
  
   constructor(

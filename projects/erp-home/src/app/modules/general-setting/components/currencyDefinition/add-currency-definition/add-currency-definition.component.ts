@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormsService, customValidators } from 'shared-lib';
 import { GeneralSettingService } from '../../../general-setting.service';
-import { CountryDto } from '../../../models';
+import { CountryDto, CurrencyDefinitionDto } from '../../../models';
 
 @Component({
   selector: 'app-add-currency-definition',
@@ -13,6 +13,8 @@ import { CountryDto } from '../../../models';
 export class AddCurrencyDefinitionComponent   {
   addCurrencyForm: FormGroup;
   countries: CountryDto[] = [];
+  accountsList: { id: number; name: string }[] = [];
+
   constructor(
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
@@ -21,24 +23,27 @@ export class AddCurrencyDefinitionComponent   {
   
   ) {}
   ngOnInit() {
-    this.initializeTagForm();
+    this.getChildrenAccountsDropDown();
     this.loadCountries();
+    this.initializeTagForm();
   }
 
   initializeTagForm() {
     this.addCurrencyForm = this.fb.group({
       code: new FormControl(''),
-      name: new FormControl('', customValidators.required),
-      symbol: new FormControl('', customValidators.required),
-      subUnit: new FormControl('', customValidators.required),
-      countryCode: new FormControl('', customValidators.required),
-      differenceAccount: new FormControl('', customValidators.required),
+      name: new FormControl('', [customValidators.required]),
+      symbol: new FormControl('', [customValidators.required]),
+      subUnit: new FormControl('', [customValidators.required]),
+      countryCode: new FormControl('', [customValidators.required]),
+      differenceAccount: new FormControl('', [customValidators.required]),
         });
   }
 
   save() {
     if (!this.formsService.validForm(this.addCurrencyForm, false)) return;
        console.log(this.addCurrencyForm);
+       
+       this.generalSettingService.addCurrency(this.addCurrencyForm.value , this.ref)
        
   }
 
@@ -52,6 +57,13 @@ export class AddCurrencyDefinitionComponent   {
         this.countries = res;
       },
     });
+  }
+  getChildrenAccountsDropDown(){
+    this.generalSettingService.getChildrenAccountsDropDown()
+    this.generalSettingService.sendChildrenAccountsDropDownDataObservable.subscribe(res=>{
+      this.accountsList = res
+
+    })
   }
 
 }

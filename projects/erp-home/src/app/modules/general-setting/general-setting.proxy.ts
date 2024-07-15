@@ -206,5 +206,11 @@ getAllCurrencyPaginated(searchTerm: string, pageInfo: PageInfo): Observable<Pagi
 
   return this.httpService.get<PaginationVm<CurrencyDefinitionDto>>(url);
 }
+addCurrency(currency: CurrencyDefinitionDto): Observable<CurrencyDefinitionDto> {
+  return this.httpService.post<CurrencyDefinitionDto>(`Currency`,currency);
+}
+deleteCurrency(id: number): Observable<boolean> {
+  return this.httpService.delete<boolean>(`Currency/${id}`);
+}
   constructor(private httpService: HttpService) {}
 }

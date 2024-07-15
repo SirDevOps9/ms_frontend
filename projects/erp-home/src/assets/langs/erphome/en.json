@@ -429,7 +429,12 @@
     },
     "currencyDefinition":{
       "code":"code",
+      "success":"success",
+      "successAdd":"Currency Definition Added Successfully",
       "name":"Name",
+      "sympol":"sympol",
+      "Subunit":"Subunit",
+      "country":"country",
       "type":"Type",
       "category":"Category",
       "UOM":"UOM",

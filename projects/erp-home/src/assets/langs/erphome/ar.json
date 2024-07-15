@@ -292,7 +292,12 @@
 },
 "currencyDefinition": {
   "code": "رمز",
+  "success": "نجاح",
+  "successAdd": "تمت إضافة تعريف العملة بنجاح",
   "name": "اسم",
+  "sympol": "رمز",
+  "Subunit": "الوحدة الفرعية",
+  "country": "بلد",
   "type": "نوع",
   "category": "فئة",
   "UOM": "وحدة القياس",
