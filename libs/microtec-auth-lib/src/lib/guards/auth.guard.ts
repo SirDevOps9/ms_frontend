@@ -12,7 +12,12 @@ export class AuthGuard {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | UrlTree | boolean {
-    if (!this.authService.isAuthenticated()) this.router.navigate(['login']);
+    const currentUrl = window.location.href;
+
+    if (!this.authService.isAuthenticated())
+      this.router.navigate(['login'], {
+        queryParams: { returnUrl: currentUrl },
+      });
 
     let routeFilter = next.data['filter'] as RouteFilter;
     if (routeFilter) {
