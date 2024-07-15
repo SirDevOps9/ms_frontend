@@ -23,6 +23,8 @@ import { EditCustomerComponent } from './pages/customer-definitions/edit-custome
 import { VendorDefinitionsListComponent } from './pages/vendor-definitions/vendor-definitions-list/vendor-definitions-list.component';
 import { AddVendorDefinitionsComponent } from './pages/vendor-definitions/add-vendor-definitions/add-vendor-definitions.component';
 import { EditVendorDefinitionsComponent } from './pages/vendor-definitions/edit-vendor-definitions/edit-vendor-definitions.component';
+import { CurrencyDefinitionComponent } from './pages/currencyDefinition/currency-definition/currency-definition.component';
+import { AddCurrencyDefinitionComponent } from './components/currencyDefinition/add-currency-definition/add-currency-definition.component';
 
 
 const routes: Routes = [
@@ -161,6 +163,26 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.EDIT_VENDOR_DEFINITIONS,
         },
       },
+      
+      {
+        path: '',
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.CURRENCY_DEFINITION,
+        },
+        children:[
+          {
+            path: 'currency-definition',
+            component: CurrencyDefinitionComponent,
+            canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.CURRENCY_DEFINITION_LIST,
+            },
+          },
+       
+        ]
+      },
+   
 
     ],
   },
@@ -185,7 +207,11 @@ const routes: Routes = [
     EditCustomerComponent,
     VendorDefinitionsListComponent,
     AddVendorDefinitionsComponent,
-    EditVendorDefinitionsComponent
+    EditVendorDefinitionsComponent,
+    CurrencyDefinitionComponent,
+    AddCurrencyDefinitionComponent
+    
+    
   ],
   imports: [
     CommonModule,

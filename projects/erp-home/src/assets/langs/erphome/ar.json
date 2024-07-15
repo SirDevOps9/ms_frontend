@@ -289,6 +289,14 @@
   "actions": "الإجراءات",
   "success": "نجاح",
   "vendorSuccess": "تم إنشاء البائع بنجاح"
+},
+"currencyDefinition": {
+  "code": "رمز",
+  "name": "اسم",
+  "type": "نوع",
+  "category": "فئة",
+  "UOM": "وحدة القياس",
+  "actions": "إجراءات"
 }
 
 

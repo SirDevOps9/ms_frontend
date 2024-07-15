@@ -426,5 +426,14 @@
       "valdation":{
         "invalidForm":"invalid Form"
       }
+    },
+    "currencyDefinition":{
+      "code":"code",
+      "name":"Name",
+      "type":"Type",
+      "category":"Category",
+      "UOM":"UOM",
+      "actions":"Actions"
+      
     }
 }

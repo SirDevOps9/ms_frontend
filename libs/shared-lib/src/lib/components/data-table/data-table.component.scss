@@ -97,6 +97,9 @@ span{
 }
 
 ::ng-deep{
+  .p-datatable .p-datatable-thead > tr > th {
+    border-width: 1px !important;
+  }
   #dt{
     min-width: 75rem;
   }

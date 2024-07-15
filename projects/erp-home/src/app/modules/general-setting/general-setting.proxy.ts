@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 // import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, vendorDefinitionDto } from './models';
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto , vendorDefinitionDto, AddCustomerDefinitionDto, EditCustomerDefintionsDto} from './models';
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto , vendorDefinitionDto, AddCustomerDefinitionDto, EditCustomerDefintionsDto, CurrencyDefinitionDto} from './models';
 
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 import { AddVendorCommand } from './models/AddVendorCommand';
@@ -195,6 +195,16 @@ getVendorDefinitionByID(id : number) : Observable<GetVendorById> {
 
 editVendorDefinition(vendor:EditVendorCommand): Observable<any> {
   return this.httpService.put(`Vendor`,vendor);
+}
+getAllCurrencyPaginated(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<CurrencyDefinitionDto>> {
+  const queryParams = new URLSearchParams({
+    SearchKey: searchTerm,
+    PageNumber: pageInfo.pageNumber.toString(),
+    PageSize: pageInfo.pageSize.toString(),
+  });
+  const url = `Currency?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+
+  return this.httpService.get<PaginationVm<CurrencyDefinitionDto>>(url);
 }
   constructor(private httpService: HttpService) {}
 }

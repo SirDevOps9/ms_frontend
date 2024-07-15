@@ -1,0 +1,131 @@
+<div class="pop_up_config_page">
+  <div class="pop_up_header">
+    <div class="header_content">
+      <div class="title">
+        edit Currency
+      </div>
+        <div class="pi pi-times cancel" (click)="close()"></div>
+    </div>
+  </div>
+  <div class="pop_up_content ">
+      <form [formGroup]="addCurrencyForm" >
+            <div class="grid">
+              <div class="md:col-12">
+                <lib-form-group>
+                  <lib-label [appControl]="addCurrencyForm.controls['code']">
+                    Currency code  
+                  </lib-label>
+                  <lib-text-input type="text" formControlName="code" [readOnly]="true" />
+                  <lib-field-validations
+                    [appControl]="addCurrencyForm.controls['code']"
+                  >
+                  </lib-field-validations>
+                </lib-form-group>
+              </div>
+              <div class="md:col-12">
+                <lib-form-group>
+                  <lib-label [appControl]="addCurrencyForm.controls['name']">
+                    Currency Name    
+                    </lib-label>
+                  <lib-text-input type="text" formControlName="name" />
+                  <lib-field-validations
+                    [appControl]="addCurrencyForm.controls['name']"
+                  >
+                  </lib-field-validations>
+                </lib-form-group>
+              </div>
+              <div class="md:col-12">
+                <lib-form-group>
+                  <lib-label [appControl]="addCurrencyForm.controls['subUnit']">
+                    Currency subunit   
+                                </lib-label>
+                  <lib-text-input type="text" formControlName="subUnit" />
+                  <lib-field-validations
+                    [appControl]="addCurrencyForm.controls['subUnit']"
+                  >
+                  </lib-field-validations>
+                </lib-form-group>
+              </div>
+              <div class="md:col-12">
+                <lib-form-group>
+                  <lib-label [appControl]="addCurrencyForm.controls['symbol']">
+                    Currency symbol   
+                                </lib-label>
+                  <lib-text-input type="text" formControlName="symbol" />
+                  <lib-field-validations
+                    [appControl]="addCurrencyForm.controls['symbol']"
+                  >
+                  </lib-field-validations>
+                </lib-form-group>
+              </div>
+              <div class="md:col-6">
+                <lib-form-group>
+                  <lib-label [appControl]="addCurrencyForm.controls['subUnit']">
+                    Currency rate   
+                                </lib-label>
+                  <lib-text-input type="text" formControlName="subUnit" />
+                  <lib-field-validations
+                    [appControl]="addCurrencyForm.controls['subUnit']"
+                  >
+                  </lib-field-validations>
+                </lib-form-group>
+              </div>
+              <div class="md:col-6">
+                <lib-form-group>
+                  <lib-label [appControl]="addCurrencyForm.controls['countryCode']">
+                    Currency Country   
+                  </lib-label>
+                  <!-- <lib-text-input type="text" formControlName="name" /> -->
+                  <lib-selectIcon
+                  formControlName="countryId"
+                  [options]="countries"
+                  optionValue="id"
+                  optionLabel="nameEn"
+                  icons="flags"
+                >
+                </lib-selectIcon>
+                  <lib-field-validations
+                    [appControl]="addCurrencyForm.controls['countryCode']"
+                  >
+                  </lib-field-validations>
+                </lib-form-group>
+              </div>
+              <div class="md:col-12">
+                <lib-form-group>
+                  <lib-label [appControl]="addCurrencyForm.controls['differenceAccount']">
+                    Currency difference account                                </lib-label>
+                  <!-- <lib-text-input type="text" formControlName="name" /> -->
+                  <lib-select formControlName="differenceAccount" ></lib-select>
+
+                  <lib-field-validations
+                    [appControl]="addCurrencyForm.controls['differenceAccount']"
+                  >
+                  </lib-field-validations>
+                </lib-form-group>
+              </div>
+        </div>
+      </form>
+  </div>
+  <div class="pop_up_footer">
+  <div class="save_btn">
+    <lib-button-micro
+    title="Save"
+    nameClass="save"
+    (click)="save()"
+    widthNumber ="100%"
+    >
+    </lib-button-micro>
+  </div>
+    <div class="cancel_btn">
+      <lib-button-micro
+    title="Discard"
+    nameClass="cancel"
+    (click)="close()"
+    widthNumber ="100%"
+    >
+    </lib-button-micro>
+    </div>
+  </div>
+  </div>
+  <div class="entry_table">
+  </div>

@@ -4,8 +4,7 @@ import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService
 import { GeneralSettingProxy } from './general-setting.proxy';
 
 
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, vendorDefinitionDto, AddCustomerDefinitionDto, EditCustomerDefintionsDto, editFinancialCalndar} from './models';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, vendorDefinitionDto, AddCustomerDefinitionDto, EditCustomerDefintionsDto, editFinancialCalndar, CurrencyDefinitionDto} from './models';
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 import { AddVendorCommand } from './models/AddVendorCommand';
 import { CategoryDropdownDto } from './models/CategoryDropdownDto';
@@ -16,11 +15,15 @@ import { TagDropDownDto } from './models/TagDropDownDto';
 
 import { EditVendorCommand } from './models/editVendorCommand';
 import { GetVendorById } from './models/getVendorById';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { AddCurrencyDefinitionComponent } from './components/currencyDefinition/add-currency-definition/add-currency-definition.component';
+
 @Injectable({
   providedIn: 'root',
 })
 export class GeneralSettingService {
   private tagDataSource = new BehaviorSubject<TagDto[]>([]);
+  private currencyDefinitionDataSource = new BehaviorSubject<CurrencyDefinitionDto[]>([]);
   private financialCalendarDataSource = new BehaviorSubject<financialCalendar[]>([]);
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   private currentTagDataSource = new BehaviorSubject<TagDto>({} as TagDto);
@@ -60,6 +63,7 @@ export class GeneralSettingService {
 
   public tags = this.tagsDataSource.asObservable();
   public currentTag = this.currentTagDataSource.asObservable();
+  public currencyDefinitionDataSourceObservable = this.currencyDefinitionDataSource.asObservable();
   public financialCalendarDataSourceObservable = this.financialCalendarDataSource.asObservable();
   public tagList = this.tagDataSource.asObservable();
   public addFinancialCalendarResObservable = this.addFinancialCalendarRes.asObservable();
@@ -676,13 +680,33 @@ export class GeneralSettingService {
       
     })
   }
+  openEditBranchModel() {
+    const ref:DynamicDialogRef = this.dialog.open(AddCurrencyDefinitionComponent, {
+        width: '600px',
+        height : '700px'
+     
+    });
+    ref.onClose.subscribe((result: any) => {
+     
+    });
+  }
+  getCurrencyList(searchTerm: string, pageInfo: PageInfo) {
+    this.GeneralSettingproxy.getAllCurrencyPaginated(searchTerm, pageInfo).subscribe({
+      next: (res) => {
+        this.currencyDefinitionDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+  }
  
   constructor(
     private GeneralSettingproxy: GeneralSettingProxy,
     private loaderService: LoaderService,
     private languageService: LanguageService,
     private toasterService: ToasterService,
-    private routerService: RouterService
+    private routerService: RouterService,
+    private dialog: DialogService,
+
 
 
   ) {}
