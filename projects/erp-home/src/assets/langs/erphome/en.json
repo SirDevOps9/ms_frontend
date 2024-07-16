@@ -430,7 +430,11 @@
     "currencyDefinition":{
       "code":"code",
       "success":"success",
+      "error":"error",
+      "errorDelet":"The currency definition is not deleted",
       "successAdd":"Currency Definition Added Successfully",
+      "successEdit":"Currency Definition Edited Successfully",
+      "successDelet":"Currency Definition Deleted Successfully",
       "name":"Name",
       "sympol":"sympol",
       "Subunit":"Subunit",

@@ -212,5 +212,11 @@ addCurrency(currency: CurrencyDefinitionDto): Observable<CurrencyDefinitionDto> 
 deleteCurrency(id: number): Observable<boolean> {
   return this.httpService.delete<boolean>(`Currency/${id}`);
 }
+EditCurrency(Currency: CurrencyDefinitionDto): Observable<CurrencyDefinitionDto> {
+  return this.httpService.put<CurrencyDefinitionDto>(`Currency`,Currency);
+}
+getCurrencyById(id: number): Observable<CurrencyDefinitionDto> {
+  return this.httpService.get<CurrencyDefinitionDto>(`Currency/${id}`);
+}
   constructor(private httpService: HttpService) {}
 }

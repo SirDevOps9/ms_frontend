@@ -2,8 +2,7 @@
   <div class="pop_up_header">
     <div class="header_content">
       <div class="title">
-        edit Currency
-      </div>
+        add Currency      </div>
         <div class="pi pi-times cancel" (click)="close()"></div>
     </div>
   </div>
@@ -46,7 +45,7 @@
                   </lib-field-validations>
                 </lib-form-group>
               </div>
-              <div class="md:col-12">
+              <div class="md:col-6">
                 <lib-form-group>
                   <lib-label [appControl]="addCurrencyForm.controls['symbol']">
                     Currency symbol   
@@ -58,19 +57,8 @@
                   </lib-field-validations>
                 </lib-form-group>
               </div>
-              <!-- <div class="md:col-6">
-                <lib-form-group>
-                  <lib-label [appControl]="addCurrencyForm.controls['subUnit']">
-                    Currency rate   
-                                </lib-label>
-                  <lib-text-input type="text" formControlName="subUnit" />
-                  <lib-field-validations
-                    [appControl]="addCurrencyForm.controls['subUnit']"
-                  >
-                  </lib-field-validations>
-                </lib-form-group>
-              </div> -->
-              <div class="md:col-12">
+          
+              <div class="md:col-6">
                 <lib-form-group>
                   <lib-label [appControl]="addCurrencyForm.controls['countryCode']">
                     Currency Country   

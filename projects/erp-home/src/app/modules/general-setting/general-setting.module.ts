@@ -25,6 +25,7 @@ import { AddVendorDefinitionsComponent } from './pages/vendor-definitions/add-ve
 import { EditVendorDefinitionsComponent } from './pages/vendor-definitions/edit-vendor-definitions/edit-vendor-definitions.component';
 import { CurrencyDefinitionComponent } from './pages/currencyDefinition/currency-definition/currency-definition.component';
 import { AddCurrencyDefinitionComponent } from './components/currencyDefinition/add-currency-definition/add-currency-definition.component';
+import { EditCurrencyDefinitionComponent } from './components/currencyDefinition/edit-currency-definition/edit-currency-definition.component';
 
 
 const routes: Routes = [
@@ -209,7 +210,8 @@ const routes: Routes = [
     AddVendorDefinitionsComponent,
     EditVendorDefinitionsComponent,
     CurrencyDefinitionComponent,
-    AddCurrencyDefinitionComponent
+    AddCurrencyDefinitionComponent,
+    EditCurrencyDefinitionComponent
     
     
   ],

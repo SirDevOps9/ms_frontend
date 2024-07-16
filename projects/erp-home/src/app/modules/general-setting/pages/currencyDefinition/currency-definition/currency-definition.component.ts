@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'microtec-auth-lib';
-import { RouterService, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
+import { PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
 import { GeneralSettingService } from '../../../general-setting.service';
 import { currencyListDto } from '../../../models';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-currency-definition',
@@ -12,10 +11,8 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class CurrencyDefinitionComponent {
   constructor(
-    public authService: AuthService,
     private generalSettingService: GeneralSettingService,
-    private routerService : RouterService,
-    private dialog: DialogService,
+
 
   ) {}
 
@@ -30,8 +27,9 @@ export class CurrencyDefinitionComponent {
 
   }
 
-  routeToEdit(id : number) {
-    this.routerService.navigateTo(`edit-vendor-definitions/${id}`)
+  Edit(id : number) {
+  this.generalSettingService.openEditBranchModel(id)
+
   }
 
  

@@ -80,8 +80,8 @@
       
           <ng-template #actions let-actions>
             <div class="actions flex align-items-center gap-4">
-            <i class="pi pi-pencil pointer" (click)="routeToEdit(actions.id)"></i>
-            <i class="pi pi-trash pointer" (click)="onDelete(actions.id)"></i>
+            <i class="edit pi pi-pencil pointer" (click)="Edit(actions.id)"></i>
+            <i class="delete pi pi-trash pointer" (click)="onDelete(actions.id)"></i>
             </div>
           </ng-template>
 

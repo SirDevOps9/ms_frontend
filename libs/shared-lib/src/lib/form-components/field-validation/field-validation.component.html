@@ -113,7 +113,8 @@
   <span class="errorMessage" *ngIf="appControl.errors?.['lengthRange']">
     {{
       'validation.lengthRange'
-        | translate: { min: this.appControl.errors?.['lengthRange'].min, max: this.appControl.errors?.['lengthRange'].max }
+        | translate: { min: this.appControl.errors?.['lengthRange'].min, 
+        max: this.appControl.errors?.['lengthRange'].max }
     }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['ageAbove']">

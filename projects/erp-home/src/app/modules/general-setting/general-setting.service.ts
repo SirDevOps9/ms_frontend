@@ -17,6 +17,7 @@ import { EditVendorCommand } from './models/editVendorCommand';
 import { GetVendorById } from './models/getVendorById';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddCurrencyDefinitionComponent } from './components/currencyDefinition/add-currency-definition/add-currency-definition.component';
+import { EditCurrencyDefinitionComponent } from './components/currencyDefinition/edit-currency-definition/edit-currency-definition.component';
 
 @Injectable({
   providedIn: 'root',
@@ -44,6 +45,7 @@ export class GeneralSettingService {
 
   private customerCategoryDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
   private customerCategoryDataByID = new BehaviorSubject<EditVendorCategoryDto>({} as EditVendorCategoryDto);
+  private currencyDataByID = new BehaviorSubject<CurrencyDefinitionDto>({} as CurrencyDefinitionDto);
   private addCustomerCategoryData = new BehaviorSubject<AddCustomerCategoryDto>({} as AddCustomerCategoryDto);
   private customerDefinitionDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
   private vendorDefinitionDataSource = new BehaviorSubject<vendorDefinitionDto[]>([]);
@@ -83,6 +85,7 @@ export class GeneralSettingService {
 
   public customerCategoryDataSourceObservable = this.customerCategoryDataSource.asObservable();
   public customerCategoryDataByIDObservable = this.customerCategoryDataByID.asObservable();
+  public currencyDataByIDObservable = this.currencyDataByID.asObservable();
   public addCustomerCategoryDataObservable = this.addCustomerCategoryData.asObservable();
 
   public customerDefinitionDataSourceObservable = this.customerDefinitionDataSource.asObservable();
@@ -699,6 +702,17 @@ export class GeneralSettingService {
     ref.onClose.subscribe((result: any) => {
      
     });
+    
+  }
+  openEditBranchModel(currencyId: number) {
+    const ref:DynamicDialogRef = this.dialog.open(EditCurrencyDefinitionComponent, {
+      width: '600px',
+      height : '700px',
+      data: { Id: currencyId },
+    });
+    ref.onClose.subscribe((result: CurrencyDefinitionDto) => {
+    
+    });
   }
   getCurrencyList(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getAllCurrencyPaginated(searchTerm, pageInfo).subscribe({
@@ -735,8 +749,8 @@ export class GeneralSettingService {
       this.GeneralSettingproxy.deleteCurrency(id).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
-            this.languageService.transalte('success'),
-            this.languageService.transalte('deleteVendorCategory.delete')
+            this.languageService.transalte('currencyDefinition.success'),
+            this.languageService.transalte('currencyDefinition.successDelet')
           );
           this.getCurrencyList("", new PageInfo())
 
@@ -744,15 +758,43 @@ export class GeneralSettingService {
         },
         error: (err) => {
           this.toasterService.showError(
-            this.languageService.transalte('success'),
-            this.languageService.transalte('deleteVendorCategory.delete')
+            this.languageService.transalte('currencyDefinition.error'),
+            this.languageService.transalte('currencyDefinition.errorDelet')
           );
         },
       });
 
     }
   }
- 
+
+  EditCurrency(currency: CurrencyDefinitionDto
+    ,dialogRef: DynamicDialogRef) {
+    this.GeneralSettingproxy.EditCurrency(currency).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('currencyDefinition.success'),
+          this.languageService.transalte('currencyDefinition.successEdit')
+        );
+        this.loaderService.hide();
+        dialogRef.close(res);
+        this.getCurrencyList("", new PageInfo())        
+
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+  
+    });
+  }
+  getCurrencyById(id : number) {
+    this.GeneralSettingproxy.getCurrencyById(id)
+    .subscribe(res=>{
+      if(res) {
+        this.currencyDataByID.next(res)
+
+      }
+    })
+  }
   constructor(
     private GeneralSettingproxy: GeneralSettingProxy,
     private loaderService: LoaderService,
