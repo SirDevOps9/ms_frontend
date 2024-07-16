@@ -4,7 +4,7 @@ import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService
 import { GeneralSettingProxy } from './general-setting.proxy';
 
 
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, vendorDefinitionDto, AddCustomerDefinitionDto, EditCustomerDefintionsDto, editFinancialCalndar, CurrencyDefinitionDto} from './models';
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, vendorDefinitionDto, AddCustomerDefinitionDto, EditCustomerDefintionsDto, editFinancialCalndar, CurrencyDefinitionDto, CurrencyConversionDto} from './models';
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 import { AddVendorCommand } from './models/AddVendorCommand';
 import { CategoryDropdownDto } from './models/CategoryDropdownDto';
@@ -25,6 +25,7 @@ import { EditCurrencyDefinitionComponent } from './components/currencyDefinition
 export class GeneralSettingService {
   private tagDataSource = new BehaviorSubject<TagDto[]>([]);
   private currencyDefinitionDataSource = new BehaviorSubject<CurrencyDefinitionDto[]>([]);
+  private currencyConversionDataSource = new BehaviorSubject<CurrencyConversionDto[]>([]);
   private financialCalendarDataSource = new BehaviorSubject<financialCalendar[]>([]);
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   private currentTagDataSource = new BehaviorSubject<TagDto>({} as TagDto);
@@ -66,6 +67,7 @@ export class GeneralSettingService {
   public tags = this.tagsDataSource.asObservable();
   public currentTag = this.currentTagDataSource.asObservable();
   public currencyDefinitionDataSourceObservable = this.currencyDefinitionDataSource.asObservable();
+  public currencyConversionDataSourceObservable = this.currencyConversionDataSource.asObservable();
   public financialCalendarDataSourceObservable = this.financialCalendarDataSource.asObservable();
   public tagList = this.tagDataSource.asObservable();
   public addFinancialCalendarResObservable = this.addFinancialCalendarRes.asObservable();
@@ -794,6 +796,14 @@ export class GeneralSettingService {
 
       }
     })
+  }
+  getCurrencyConversionList(searchTerm: string, pageInfo: PageInfo) {
+    this.GeneralSettingproxy.getAllCurrencyConversionPaginated(searchTerm, pageInfo).subscribe({
+      next: (res) => {
+        this.currencyConversionDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
   }
   constructor(
     private GeneralSettingproxy: GeneralSettingProxy,

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 // import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, vendorDefinitionDto } from './models';
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto , vendorDefinitionDto, AddCustomerDefinitionDto, EditCustomerDefintionsDto, CurrencyDefinitionDto} from './models';
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto , vendorDefinitionDto, AddCustomerDefinitionDto, EditCustomerDefintionsDto, CurrencyDefinitionDto, CurrencyConversionDto} from './models';
 
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 import { AddVendorCommand } from './models/AddVendorCommand';
@@ -217,6 +217,16 @@ EditCurrency(Currency: CurrencyDefinitionDto): Observable<CurrencyDefinitionDto>
 }
 getCurrencyById(id: number): Observable<CurrencyDefinitionDto> {
   return this.httpService.get<CurrencyDefinitionDto>(`Currency/${id}`);
+}
+getAllCurrencyConversionPaginated(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<CurrencyConversionDto>> {
+  const queryParams = new URLSearchParams({
+    SearchKey: searchTerm,
+    PageNumber: pageInfo.pageNumber.toString(),
+    PageSize: pageInfo.pageSize.toString(),
+  });
+  const url = `CurrencyConversion?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+
+  return this.httpService.get<PaginationVm<CurrencyConversionDto>>(url);
 }
   constructor(private httpService: HttpService) {}
 }

@@ -22,3 +22,4 @@ export * from './addCustomerDefinitionDto';
 export * from './editCustomerDefinitionsDto';
 export * from './currencyDefinitionDto';
 export * from './currencyListDto';
+export * from './currencyConversionDto';
