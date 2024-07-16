@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
+import { PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { GeneralSettingService } from '../../general-setting.service';
-import { customValidators, FormsService, PageInfo } from 'shared-lib';
-import { CountryDto, CurrencyConversionDto } from '../../models';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { CountryDto, CurrencyConversionDto, currencyListDto } from '../../models';
 
 @Component({
   selector: 'app-currency-conversion',
@@ -10,53 +10,22 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
   styleUrl: './currency-conversion.component.scss'
 })
 export class CurrencyConversionComponent {
-  tableData: CurrencyConversionDto[];
-  currencies: CountryDto[]=[];
-  editCurrencyForm: FormGroup;
-
-
-  clonedProducts: { [s: string]: any } = {};
-
   constructor(
-    private generalSettingService:GeneralSettingService,
-    private fb: FormBuilder,
-    private formsService: FormsService ,
-    ) {}
+    private generalSettingService: GeneralSettingService,
+
+
+  ) {}
+  tableData : CurrencyConversionDto[];
+  currencies: CountryDto[]=[];
+  currentPageInfo: PageInfoResult = {};
+  modulelist: MenuModule[];
+  searchTerm: string;
+  ref: DynamicDialogRef;
 
   ngOnInit() {
     this.getCurrencyConversionList()
     this.getCurrencies()
-  }
 
-  onRowEditInit(product: any) {
-    console.log(product ,"sssssssssssssss");
-    
-      this.clonedProducts[product.id as string] = { ...product };
-  }
-
-  onRowEditSave(product: any) {
-      if (product.price > 0) {
-          delete this.clonedProducts[product.id as string];
-          // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is updated' });
-      } else {
-          // this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Price' });
-      }
-  }
-
-  onRowEditCancel(product: any, index: number) {
-      this.tableData[index] = this.clonedProducts[product.id as string];
-      delete this.clonedProducts[product.id as string];
-  }
-
-  getSeverity(status: string) {
-      switch (status) {
-          case 'INSTOCK':
-              return 'success';
-          case 'LOWSTOCK':
-              return 'warning';
-          case 'OUTOFSTOCK':
-              return 'danger';
-      }
   }
   getCurrencyConversionList(){
     this.generalSettingService.getCurrencyConversionList('', new PageInfo())
@@ -65,21 +34,55 @@ export class CurrencyConversionComponent {
         this.tableData = res;
       },
     }
-)}
+)
+this.generalSettingService.currentPageInfo.subscribe((currentPageInfo) => {
+  this.currentPageInfo = currentPageInfo;
+});}
 getCurrencies() {
   this.generalSettingService.getCurrencies('');
   this.generalSettingService.currencies.subscribe((res:any) => {
     this.currencies = res;
   });
 }
-initializeTagForm() {
-  this.editCurrencyForm = this.fb.group({
-    fromCurrencyId: new FormControl(''),
-    fromCurrencyRate: new FormControl(''),
-    toCurrencyId: new FormControl(''),
-    note: new FormControl(''),
-    
-      });
-}
-}
+  Edit(id : number) {
+  this.generalSettingService.openCurrencyConversionEdit(id)
 
+  }
+
+ 
+  onPageChange(pageInfo: PageInfo) {
+  
+    this.generalSettingService.getCurrencyConversionList('',pageInfo)
+    this.generalSettingService.currencyConversionDataSourceObservable.subscribe({
+      next: (res) => {
+        this.tableData = res;
+      },
+    })
+  }
+
+
+
+  onSearchChange(event : any) {
+    this.generalSettingService.getCurrencyConversionList(event, new PageInfo())
+    this.generalSettingService.currencyConversionDataSourceObservable.subscribe({
+      next: (res) => {
+        this.tableData = res;
+      },
+    }
+)
+
+  }
+
+
+
+  onDelete(id: number) {
+    this.generalSettingService.deleteCurrencyConversion(id);
+  }
+  addNew(){
+    this.generalSettingService.openCurrencyConversionAdded()
+  }
+
+
+
+ 
+}

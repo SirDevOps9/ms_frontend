@@ -28,7 +28,7 @@ export class CurrencyDefinitionComponent {
   }
 
   Edit(id : number) {
-  this.generalSettingService.openEditBranchModel(id)
+  this.generalSettingService.openCurrencyEdit(id)
 
   }
 

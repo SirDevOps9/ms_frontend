@@ -224,9 +224,21 @@ getAllCurrencyConversionPaginated(searchTerm: string, pageInfo: PageInfo): Obser
     PageNumber: pageInfo.pageNumber.toString(),
     PageSize: pageInfo.pageSize.toString(),
   });
-  const url = `CurrencyConversion?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+  const url = `CurrencyConversion?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
 
   return this.httpService.get<PaginationVm<CurrencyConversionDto>>(url);
+}
+addCurrencyConversion(currency: CurrencyConversionDto): Observable<CurrencyConversionDto> {
+  return this.httpService.post<CurrencyConversionDto>(`CurrencyConversion`,currency);
+}
+deleteCurrencyConversion(id: number): Observable<boolean> {
+  return this.httpService.delete<boolean>(`CurrencyConversion/${id}`);
+}
+EditCurrencyConversion(Currency: CurrencyConversionDto): Observable<CurrencyConversionDto> {
+  return this.httpService.put<CurrencyConversionDto>(`CurrencyConversion`,Currency);
+}
+getCurrencyByIdConversion(id: number): Observable<CurrencyConversionDto> {
+  return this.httpService.get<CurrencyConversionDto>(`CurrencyConversion/${id}`);
 }
   constructor(private httpService: HttpService) {}
 }

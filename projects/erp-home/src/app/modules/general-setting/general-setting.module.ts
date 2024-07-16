@@ -27,6 +27,8 @@ import { CurrencyDefinitionComponent } from './pages/currencyDefinition/currency
 import { AddCurrencyDefinitionComponent } from './components/currencyDefinition/add-currency-definition/add-currency-definition.component';
 import { EditCurrencyDefinitionComponent } from './components/currencyDefinition/edit-currency-definition/edit-currency-definition.component';
 import { CurrencyConversionComponent } from './pages/currency-conversion/currency-conversion.component';
+import { AddCurrencyConversionComponent } from './components/currencyConversion/add-currency-conversion/add-currency-conversion.component';
+import { EditCurrencyConversionComponent } from './components/currencyConversion/edit-currency-conversion/edit-currency-conversion.component';
 
 
 const routes: Routes = [
@@ -189,7 +191,7 @@ const routes: Routes = [
         component: CurrencyConversionComponent,
         canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.EDIT_VENDOR_DEFINITIONS,
+          breadcrumb: BreadcrumbLabel.CURRENCY_CONVERSION,
         },
       },
    
@@ -221,7 +223,9 @@ const routes: Routes = [
     CurrencyDefinitionComponent,
     AddCurrencyDefinitionComponent,
     EditCurrencyDefinitionComponent,
-    CurrencyConversionComponent
+    CurrencyConversionComponent,
+    AddCurrencyConversionComponent,
+    EditCurrencyConversionComponent
     
     
   ],

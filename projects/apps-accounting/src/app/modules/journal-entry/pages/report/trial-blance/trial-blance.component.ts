@@ -36,12 +36,11 @@ defoultSelectedAcounts:number[]=[]
     this.getAccounts();
     this.initializeDates()
 
-    setTimeout(() => {
-      this.getTrialBalance()
+    // setTimeout(() => {
+    //   this.getTrialBalance()
 
-    }, 500);
+    // }, 500);
     this.reportTrialForm.valueChanges.subscribe((res)=>{
-      console.log(res)
       this.tableData=[]
       
     }

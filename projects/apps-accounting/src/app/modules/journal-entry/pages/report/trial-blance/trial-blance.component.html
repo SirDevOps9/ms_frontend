@@ -154,7 +154,7 @@
               </div>
               <div class="col-12 md:col-3 ">
                 <div class="all_btn">
-                  <lib-button-micro title="view data" [nameClass]="reportTrialForm.valid ? 'save' :'disabled'" iconName="pi pi-circle" [ngClass]="{'disabled':!reportTrialForm.valid}"   (click)="printTable('printableTable')">
+                  <lib-button-micro title="view data" [nameClass]="reportTrialForm.valid ? 'save' :'disabled'" iconName="pi pi-circle" [ngClass]="{'disabled':!reportTrialForm.valid}"   (click)="getTrialBalance()">
 
                   </lib-button-micro>
                   <button class="btn_ex" (click)="printTable('printableTable')">

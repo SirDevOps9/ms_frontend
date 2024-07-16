@@ -444,5 +444,13 @@
       "UOM":"UOM",
       "actions":"Actions"
       
+    },
+    "currencyConversion":{
+      "FromCurrency":"From Currency",
+      "CurrencyRate":"Currency Rate",
+      "ToCurrency":"To Currency",
+      "ReversedRate":"Reversed rate",
+      "Notes":"Notes",
+      "Actions":"Actions"
     }
 }

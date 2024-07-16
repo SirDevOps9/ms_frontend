@@ -306,6 +306,14 @@
   "category": "فئة",
   "UOM": "وحدة القياس",
   "actions": "إجراءات"
+},
+"currencyConversion": {
+  "FromCurrency": "من العملة",
+  "CurrencyRate": "سعر الصرف",
+  "ToCurrency": "إلى العملة",
+  "ReversedRate": "السعر المعكوس",
+  "Notes": "ملاحظات",
+  "Actions": "إجراءات"
 }
 
 

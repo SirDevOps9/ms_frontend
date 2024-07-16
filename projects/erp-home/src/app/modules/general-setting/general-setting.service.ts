@@ -18,6 +18,8 @@ import { GetVendorById } from './models/getVendorById';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddCurrencyDefinitionComponent } from './components/currencyDefinition/add-currency-definition/add-currency-definition.component';
 import { EditCurrencyDefinitionComponent } from './components/currencyDefinition/edit-currency-definition/edit-currency-definition.component';
+import { AddCurrencyConversionComponent } from './components/currencyConversion/add-currency-conversion/add-currency-conversion.component';
+import { EditCurrencyConversionComponent } from './components/currencyConversion/edit-currency-conversion/edit-currency-conversion.component';
 
 @Injectable({
   providedIn: 'root',
@@ -47,6 +49,7 @@ export class GeneralSettingService {
   private customerCategoryDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
   private customerCategoryDataByID = new BehaviorSubject<EditVendorCategoryDto>({} as EditVendorCategoryDto);
   private currencyDataByID = new BehaviorSubject<CurrencyDefinitionDto>({} as CurrencyDefinitionDto);
+  private currencyConversionDataByID = new BehaviorSubject<CurrencyConversionDto>({} as CurrencyConversionDto);
   private addCustomerCategoryData = new BehaviorSubject<AddCustomerCategoryDto>({} as AddCustomerCategoryDto);
   private customerDefinitionDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
   private vendorDefinitionDataSource = new BehaviorSubject<vendorDefinitionDto[]>([]);
@@ -88,6 +91,7 @@ export class GeneralSettingService {
   public customerCategoryDataSourceObservable = this.customerCategoryDataSource.asObservable();
   public customerCategoryDataByIDObservable = this.customerCategoryDataByID.asObservable();
   public currencyDataByIDObservable = this.currencyDataByID.asObservable();
+  public currencyConversionDataByIDObservable = this.currencyConversionDataByID.asObservable();
   public addCustomerCategoryDataObservable = this.addCustomerCategoryData.asObservable();
 
   public customerDefinitionDataSourceObservable = this.customerDefinitionDataSource.asObservable();
@@ -695,18 +699,8 @@ export class GeneralSettingService {
      
     });
   }
-  openCurrencyEdit() {
-    const ref:DynamicDialogRef = this.dialog.open(AddCurrencyDefinitionComponent, {
-        width: '600px',
-        height : '700px'
-     
-    });
-    ref.onClose.subscribe((result: any) => {
-     
-    });
-    
-  }
-  openEditBranchModel(currencyId: number) {
+
+  openCurrencyEdit(currencyId: number) {
     const ref:DynamicDialogRef = this.dialog.open(EditCurrencyDefinitionComponent, {
       width: '600px',
       height : '700px',
@@ -803,6 +797,100 @@ export class GeneralSettingService {
         this.currencyConversionDataSource.next(res.result);
         this.currentPageInfo.next(res.pageInfoResult);
       },
+    });
+  }
+  addCurrencyConversion(currency: CurrencyConversionDto
+    ,dialogRef: DynamicDialogRef
+  ){
+    this.loaderService.show();
+    this.GeneralSettingproxy.addCurrencyConversion(currency).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('currencyDefinition.success'),
+          this.languageService.transalte('currencyDefinition.successAdd')
+        );
+        this.loaderService.hide();
+        dialogRef.close(res);
+        this.getCurrencyList("", new PageInfo())
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+  async deleteCurrencyConversion(id: number){
+    const confirmed = await this.toasterService.showConfirm(
+      'Delete'
+    );
+    if (confirmed) {
+      this.GeneralSettingproxy.deleteCurrencyConversion(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('currencyDefinition.success'),
+            this.languageService.transalte('currencyDefinition.successDelet')
+          );
+          this.getCurrencyList("", new PageInfo())
+
+          return res;
+        },
+        error: (err) => {
+          this.toasterService.showError(
+            this.languageService.transalte('currencyDefinition.error'),
+            this.languageService.transalte('currencyDefinition.errorDelet')
+          );
+        },
+      });
+
+    }
+  }
+
+  EditCurrencyConversion(currency: CurrencyConversionDto
+    ,dialogRef: DynamicDialogRef) {
+    this.GeneralSettingproxy.EditCurrencyConversion(currency).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('currencyDefinition.success'),
+          this.languageService.transalte('currencyDefinition.successEdit')
+        );
+        this.loaderService.hide();
+        dialogRef.close(res);
+        this.getCurrencyList("", new PageInfo())        
+
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+  
+    });
+  }
+  getCurrencyConversionById(id : number) {
+    this.GeneralSettingproxy.getCurrencyByIdConversion(id)
+    .subscribe(res=>{
+      if(res) {
+        this.currencyConversionDataByID.next(res)
+
+      }
+    })
+  }
+  openCurrencyConversionAdded() {
+    const ref:DynamicDialogRef = this.dialog.open(AddCurrencyConversionComponent, {
+        width: '600px',
+        height : '700px'
+     
+    });
+    ref.onClose.subscribe((result: any) => {
+     
+    });
+  }
+
+  openCurrencyConversionEdit(currencyId: number) {
+    const ref:DynamicDialogRef = this.dialog.open(EditCurrencyConversionComponent, {
+      width: '600px',
+      height : '700px',
+      data: { Id: currencyId },
+    });
+    ref.onClose.subscribe((result: CurrencyDefinitionDto) => {
+    
     });
   }
   constructor(
