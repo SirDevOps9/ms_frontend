@@ -20,10 +20,6 @@ export const ERPRoutes = [
         path: 'account',
         loadChildren: () => import('./modules/account/account.module').then((m) => m.AccountModule),
       },
-      {
-        path: 'finance',
-        loadChildren: () => import('./modules/finance/finance.module').then((m) => m.FinanceModule),
-      },
     ],
   },
 ];

@@ -2,7 +2,7 @@ import { Component, ElementRef, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'microtec-auth-lib';
 import { Observable } from 'rxjs';
-import {  LanguageService, MenuModule, Modules, RouterService } from 'shared-lib';
+import { LanguageService, MenuModule, Modules, RouterService } from 'shared-lib';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModuleListComponent } from '../../../components/module-list/module-list.component';
 import { LayoutService } from '../layout.service';
@@ -29,6 +29,10 @@ export class LayoutHeaderComponent {
     else if (this.router.snapshot.data['moduleId'] === Modules.Hr) this.moduleName = 'Hr';
     else if (this.router.snapshot.data['moduleId'] === Modules.GeneralSettings)
       this.moduleName = 'General Settings';
+    else if (this.router.snapshot.data['moduleId'] === Modules.Finance) this.moduleName = 'Finance';
+    else if (this.router.snapshot.data['moduleId'] === Modules.Purchase)
+      this.moduleName = 'Purchase';
+    else if (this.router.snapshot.data['moduleId'] === Modules.Sales) this.moduleName = 'Sales';
   }
 
   toggleLanguage(): void {
@@ -64,6 +68,12 @@ export class LayoutHeaderComponent {
       location.href = '../accounting';
     } else if (key === Modules.GeneralSettings) {
       location.href = '../erp';
+    } else if (key === Modules.Sales) {
+      location.href = '../sales';
+    } else if (key === Modules.Finance) {
+      location.href = '../finance';
+    } else if (key === Modules.Purchase) {
+      location.href = '../purchase';
     }
   }
   @HostListener('document:click', ['$event'])
