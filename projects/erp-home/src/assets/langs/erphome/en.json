@@ -17,7 +17,7 @@
       "Text": "You won't be able to revert this!",
       "ConfirmButtonTexttodelete": "Yes, delete it!",
       "CancelButtonText": "Cancel",
-      "ConfirmButtonTexttochangstatus": "Yes, Change Status",
+      "ConfirmButtonTexttochangstatus": "Yes",
       "Activate":"Activate",
       "Deactivate":"Deactivate"
     }
@@ -421,6 +421,12 @@
     "deleteVendorDefinition" : {
       "delete" : "Vendor Definition Deleted Successfully"
     },
+    "addVendorDefinition" : {
+      "success":"Success",
+      "successAdd":"Vendor Definition Added Successfully",
+      "successEdit":"Vendor Definition Edited Successfully",
+      "openSuccess":"Vendor Definition Opened Successfully"
+    },
     "Shared":{
       "Error":"Error",
       "valdation":{
@@ -460,4 +466,5 @@
       "editTitle":"edit Currency conversion transaction",
       "addTitle":"add Currency conversion transaction"
     }
+
 }
