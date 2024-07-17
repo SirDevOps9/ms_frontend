@@ -45,7 +45,7 @@ export class JournalEntryListComponent implements OnInit {
       },
       {
         field: 'Date',
-        header: 'CreatedOn',
+        header: 'JournalDate',
       },
       {
         field: 'Type',

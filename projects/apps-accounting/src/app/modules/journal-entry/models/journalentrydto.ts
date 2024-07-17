@@ -7,6 +7,7 @@ export class JournalEntryDto{
     journalCode:string;
     refrenceNumber : string;
     createdOn : Date;
+    journalDate : Date;
     type:JournalEntryType;
     sourceName : string;
     sourceCode : string;
