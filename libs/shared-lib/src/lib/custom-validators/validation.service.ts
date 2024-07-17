@@ -1,4 +1,4 @@
-import { IsNumber, nonZeroValidator, rangeValidator } from './numberValidators';
+import { IsNumber, nonNegativeValidator, nonZeroValidator, rangeValidator } from './numberValidators';
 import {
   IsValidMobileWithPrefix,
   IsValidNationalMobile,
@@ -52,5 +52,6 @@ export const customValidators = {
   nonZero:nonZeroValidator,
   invalidBirthDate: birthDateValidator,
   onlyLetter: onlyLettersValidator,
-  debitAndCreditBothCanNotBeZero:debitAndCreditValidator
+  debitAndCreditBothCanNotBeZero:debitAndCreditValidator,
+  nonNegativeNumbers: nonNegativeValidator
 };

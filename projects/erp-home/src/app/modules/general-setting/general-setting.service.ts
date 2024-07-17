@@ -757,12 +757,12 @@ export class GeneralSettingService {
     this.GeneralSettingproxy.addCurrencyConversion(currency).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('currencyDefinition.success'),
-          this.languageService.transalte('currencyDefinition.successAdd')
+          this.languageService.transalte('currencyConversion.success'),
+          this.languageService.transalte('currencyConversion.successAdd')
         );
         this.loaderService.hide();
         dialogRef.close(res);
-        this.getCurrencyList("", new PageInfo())
+        this.getCurrencyConversionList("", new PageInfo())
       },
       error: (err) => {
         this.loaderService.hide();
@@ -777,17 +777,17 @@ export class GeneralSettingService {
       this.GeneralSettingproxy.deleteCurrencyConversion(id).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
-            this.languageService.transalte('currencyDefinition.success'),
-            this.languageService.transalte('currencyDefinition.successDelet')
+            this.languageService.transalte('currencyConversion.success'),
+            this.languageService.transalte('currencyConversion.successDelet')
           );
-          this.getCurrencyList("", new PageInfo())
+          this.getCurrencyConversionList("", new PageInfo())
 
           return res;
         },
         error: (err) => {
           this.toasterService.showError(
-            this.languageService.transalte('currencyDefinition.error'),
-            this.languageService.transalte('currencyDefinition.errorDelet')
+            this.languageService.transalte('currencyConversion.error'),
+            this.languageService.transalte('currencyConversion.errorDelet')
           );
         },
       });
@@ -800,12 +800,12 @@ export class GeneralSettingService {
     this.GeneralSettingproxy.EditCurrencyConversion(currency).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('currencyDefinition.success'),
-          this.languageService.transalte('currencyDefinition.successEdit')
+          this.languageService.transalte('currencyConversion.success'),
+          this.languageService.transalte('currencyConversion.successEdit')
         );
         this.loaderService.hide();
         dialogRef.close(res);
-        this.getCurrencyList("", new PageInfo())        
+        this.getCurrencyConversionList("", new PageInfo())        
 
       },
       error: (err) => {

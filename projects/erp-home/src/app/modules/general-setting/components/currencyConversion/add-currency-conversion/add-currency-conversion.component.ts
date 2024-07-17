@@ -15,6 +15,9 @@ export class AddCurrencyConversionComponent {
   addCurrencyForm: FormGroup;
   countries: CountryDto[] = [];
   accountsList: { id: number; name: string }[] = [];
+  sameCurrency:boolean=false
+  fromCurrency:number
+  toCurrency:number
 
   constructor(
     private ref: DynamicDialogRef,
@@ -24,56 +27,61 @@ export class AddCurrencyConversionComponent {
   
   ) {}
   ngOnInit() {
-    this.getChildrenAccountsDropDown();
-    this.loadCountries();
-    this.initializeTagForm();
-    ///////////
     this.getCurrencies();
+    this.initializeTagForm();
+    this.addCurrencyForm.controls['fromCurrencyRate'].valueChanges.subscribe(value => {
+      this.updateReversedRate(value);
+    });
+    this.addCurrencyForm.controls['fromCurrencyId'].valueChanges.subscribe(value => {
+      this.fromCurrency=value
+      this.checkSameCurrency();
+    });
+    this.addCurrencyForm.controls['toCurrencyId'].valueChanges.subscribe(value => {
+      this.toCurrency=value
+      this.checkSameCurrency();
+    });
   }
 
   initializeTagForm() {
     this.addCurrencyForm = this.fb.group({
-      code: new FormControl(''),
-      name: new FormControl('', [customValidators.required,customValidators.length(1,50)]),
-      symbol: new FormControl('', [customValidators.required,customValidators.length(1,5)]),
-      subUnit: new FormControl('',[customValidators.length(1,25)] ),
-      countryCode: new FormControl('', [customValidators.required]),
-      differenceAccount: new FormControl(null),
-        });
+      fromCurrencyId: new FormControl('',customValidators.required),
+      fromCurrencyRate: new FormControl('',[customValidators.required, customValidators.nonZero,customValidators.nonNegativeNumbers]),
+      toCurrencyId: new FormControl('',customValidators.required),
+      note: new FormControl(''),
+      reversedRate: [{ value: null, disabled: true }],
+    });
   }
 
   save() {
+    if(!this.sameCurrency){    
     if (!this.formsService.validForm(this.addCurrencyForm, false)) return;
-       console.log(this.addCurrencyForm);
-       
-       this.generalSettingService.addCurrency(this.addCurrencyForm.value , this.ref)
-       
+       this.generalSettingService.addCurrencyConversion(this.addCurrencyForm.value , this.ref)
+    }
   }
 
   close() {
     this.ref.close();
   }
-  loadCountries() {
-    this.generalSettingService.loadCountries();
-    this.generalSettingService.countries.subscribe({
-      next: (res:any) => {
-        this.countries = res;
-      },
-    });
-  }
-  getChildrenAccountsDropDown(){
-    this.generalSettingService.getChildrenAccountsDropDown()
-    this.generalSettingService.sendChildrenAccountsDropDownDataObservable.subscribe(res=>{
-      this.accountsList = res
-
-    })
-  }
-  ///////////
   getCurrencies() {
     this.generalSettingService.getCurrencies('');
     this.generalSettingService.currencies.subscribe((res:any) => {
       this.currencies = res;
     });
   }
+  updateReversedRate(fromCurrencyRate: number): void {
+    if(fromCurrencyRate>0){
+      const reversedRate = fromCurrencyRate ? (1 / fromCurrencyRate).toFixed(10) : null;
+      this.addCurrencyForm.controls['reversedRate'].setValue(reversedRate);
+    }else{
+      this.addCurrencyForm.controls['reversedRate'].setValue(null);
+    }
+  }
+  checkSameCurrency(){
+    if (this.toCurrency == this.fromCurrency) {
+      this.sameCurrency=true
+    }else{
+      this.sameCurrency=false
 
+    }
+  }
 }

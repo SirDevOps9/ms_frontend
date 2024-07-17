@@ -35,6 +35,8 @@
     "onlyLetters": "Only letters are allowed.",
     "invalidage":"Invalid age",
     "debitAndCreditZero":"debit and credit both cannot be zero",
-    "ageAbove": "You must be at least {{age}} years old."
+    "ageAbove": "You must be at least {{age}} years old.",
+    "nonNegativeNumbers": "it can not be a negative number"
+
   }
 }

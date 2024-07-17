@@ -451,6 +451,13 @@
       "ToCurrency":"To Currency",
       "ReversedRate":"Reversed rate",
       "Notes":"Notes",
-      "Actions":"Actions"
+      "Actions":"Actions",
+      "errorDelet":"The currency Conversion is not deleted",
+      "successAdd":"Currency Conversion Added Successfully",
+      "successEdit":"Currency Conversion Edited Successfully",
+      "successDelet":"Currency Conversion Deleted Successfully",
+      "errorSameCurrency":"From Currency and To Currency must be different.",
+      "editTitle":"edit Currency conversion transaction",
+      "addTitle":"add Currency conversion transaction"
     }
 }

@@ -147,6 +147,9 @@
   <span class="errorMessage" *ngIf="appControl.errors?.['backendValidation']">
     {{ appControl.errors?.['backendValidation'] }}
   </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['nonNegative']">
+    {{ 'validation.nonNegativeNumbers' | translate }}
+  </span>
 </div>
 <!-- <span class="errorMessage" *ngFor="let errorKey of errorKeys">
    {{ this.appControl.errors?.[errorKey] |translate}}
