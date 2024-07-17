@@ -28,6 +28,7 @@ import { ViewCostCenterComponent } from './pages/cost-center/view-cost-center/vi
 const routes: Routes = [
   {
     path: '',
+    //canActivate: [AuthGuard],
     component: LayoutPageComponent,
     data: {
       moduleId: Modules.Accounting,
@@ -36,18 +37,16 @@ const routes: Routes = [
       {
         path: 'chartofaccounts',
         component: MainChartOfAccountComponent,
-        canActivate: [AuthGuard],
-        data:{
+
+        data: {
           breadcrumb: BreadcrumbLabel.chart_of_account,
-         },
-          
-     
-      
+        },
+
         children: [
           {
             path: 'add',
             component: AddChartComponent,
-            canActivate: [AuthGuard],
+            // canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.chart_of_account,
             },
@@ -57,7 +56,7 @@ const routes: Routes = [
       {
         path: 'tax-group',
         component: TaxGroupComponent,
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.TAXS_GROUP,
         },
@@ -65,20 +64,19 @@ const routes: Routes = [
       {
         path: 'tax-definition',
         component: TaxDefinitionComponent,
-        canActivate: [AuthGuard],
+        //  canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.TAXS_DEFINITION,
         },
-      }
-      ,
+      },
       {
         path: 'cost-center',
         component: MainCostCenterComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.COST_CENTER,
         },
-      }
+      },
     ],
   },
 ];
@@ -103,7 +101,7 @@ const routes: Routes = [
     CostCenterTreeComponent,
     AddCostCenterComponent,
     EditCostCenterComponent,
-    ViewCostCenterComponent
+    ViewCostCenterComponent,
   ],
   imports: [CommonModule, SharedLibModule, AutoCompleteModule, RouterModule.forChild(routes)],
 })

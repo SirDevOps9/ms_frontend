@@ -1,4 +1,4 @@
-import { LayoutPageComponent } from 'apps-shared-lib';
+import { LandingPageComponent, LayoutPageComponent } from 'apps-shared-lib';
 import { AuthGuard } from 'microtec-auth-lib';
 import { Modules } from 'shared-lib';
 
@@ -13,13 +13,17 @@ export const ERPRoutes = [
     children: [
       {
         path: '',
-        loadChildren: () =>
-          import('./modules/general-setting/general-setting.module').then((m) => m.GeneralSettingModule),
+        component: LandingPageComponent,
+        data: {
+          moduleId: Modules.Hr,
+        },
       },
       {
         path: 'generalsettings',
         loadChildren: () =>
-          import('./modules/general-setting/general-setting.module').then((m) => m.GeneralSettingModule),
+          import('./modules/general-setting/general-setting.module').then(
+            (m) => m.GeneralSettingModule
+          ),
       },
     ],
   },

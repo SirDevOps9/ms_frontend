@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, Router, UrlTree } from '@a
 import { Observable } from 'rxjs';
 import { AuthService } from '../services';
 import { RouteFilter } from '../types';
+import { LayoutService } from 'apps-shared-lib';
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +15,25 @@ export class AuthGuard {
   ): Observable<boolean> | Promise<boolean> | UrlTree | boolean {
     const currentUrl = window.location.href;
 
+    let loadedModules = this.layoutService.getModules();
+
+    let moduleId = next.data['moduleId'];
+
     if (!this.authService.isAuthenticated())
       this.router.navigate(['login'], {
         queryParams: { returnUrl: currentUrl },
       });
+
+    console.log('Current Module', moduleId);
+    // console.log(
+    //   'Check',
+    //   loadedModules.find((x) => x.moduleId == moduleId)
+    // );
+
+    if (loadedModules)
+      if (loadedModules.find((x) => x.moduleId == moduleId) == null) {
+        this.router.navigate(['un-authorized']);
+      }
 
     let routeFilter = next.data['filter'] as RouteFilter;
     if (routeFilter) {
@@ -30,5 +46,9 @@ export class AuthGuard {
     return true;
   }
 
-  constructor(public router: Router, private authService: AuthService) {}
+  constructor(
+    public router: Router,
+    private authService: AuthService,
+    private layoutService: LayoutService
+  ) {}
 }

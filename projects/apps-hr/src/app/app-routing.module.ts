@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'microtec-auth-lib';
-import { LayoutPageComponent } from 'apps-shared-lib';
+import { LandingPageComponent, LayoutPageComponent } from 'apps-shared-lib';
 import { Modules } from 'shared-lib';
 
 export const ERPRoutes = [
@@ -15,6 +15,13 @@ export const ERPRoutes = [
     children: [
       {
         path: '',
+        component: LandingPageComponent,
+        data: {
+          moduleId: Modules.Hr,
+        },
+      },
+      {
+        path: 'employee',
         loadChildren: () =>
           import('./modules/employee/employee.module').then((m) => m.EmployeeModule),
       },

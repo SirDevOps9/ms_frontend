@@ -1,4 +1,4 @@
-import { LayoutPageComponent } from 'apps-shared-lib';
+import { LandingPageComponent, LayoutPageComponent } from 'apps-shared-lib';
 import { AuthGuard } from 'microtec-auth-lib';
 import { Modules } from 'shared-lib';
 
@@ -13,6 +13,13 @@ export const ERPRoutes = [
     children: [
       {
         path: '',
+        component: LandingPageComponent,
+        data: {
+          moduleId: Modules.Accounting,
+        },
+      },
+      {
+        path: 'journalentry',
         loadChildren: () =>
           import('./modules/journal-entry/journal-entry.module').then((m) => m.JournalEntryModule),
       },

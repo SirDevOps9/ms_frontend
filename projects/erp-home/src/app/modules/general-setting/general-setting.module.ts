@@ -24,7 +24,6 @@ import { VendorDefinitionsListComponent } from './pages/vendor-definitions/vendo
 import { AddVendorDefinitionsComponent } from './pages/vendor-definitions/add-vendor-definitions/add-vendor-definitions.component';
 import { EditVendorDefinitionsComponent } from './pages/vendor-definitions/edit-vendor-definitions/edit-vendor-definitions.component';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -92,7 +91,7 @@ const routes: Routes = [
       {
         path: 'customer-category',
         component: CustomerCategoryListComponent,
-         canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.customer_list,
         },
@@ -161,7 +160,6 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.EDIT_VENDOR_DEFINITIONS,
         },
       },
-
     ],
   },
 ];
@@ -185,13 +183,8 @@ const routes: Routes = [
     EditCustomerComponent,
     VendorDefinitionsListComponent,
     AddVendorDefinitionsComponent,
-    EditVendorDefinitionsComponent
+    EditVendorDefinitionsComponent,
   ],
-  imports: [
-    CommonModule,
-    SharedLibModule,
-    AutoCompleteModule,
-    RouterModule.forChild(routes),
-  ],
+  imports: [CommonModule, SharedLibModule, AutoCompleteModule, RouterModule.forChild(routes)],
 })
 export class GeneralSettingModule {}

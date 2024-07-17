@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { BreadcrumbLabel, SharedLibModule } from 'shared-lib';
+import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
 import { JournalEntryListComponent } from './pages/journal-entry-list/journal-entry-list.component';
 import { CreateJournalEntryComponent } from './pages/create-journal-entry/create-journal-entry.component';
 import { AccountsComponent } from './components/accounts/accounts.component';
@@ -13,7 +13,7 @@ import { LayoutPageComponent } from 'apps-shared-lib';
 import { AuthGuard } from 'microtec-auth-lib';
 import { NoChildrenAccountsComponent } from './components/noChildrenAccounts/nochildaccounts.component';
 import { ViewJournalEntryComponent } from './pages/components/view-journal-entry/view-journal-entry.component';
-import { GuidedTourModule, GuidedTourService } from "ngx-guided-tour";
+import { GuidedTourModule, GuidedTourService } from 'ngx-guided-tour';
 import { CostCenterAllocationPopupComponent } from './pages/components/cost-center-allocation-popup/cost-center-allocation-popup.component';
 import { EditCostCenterAllocationPopupComponent } from './pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component';
 import { TrialBlanceComponent } from './pages/report/trial-blance/trial-blance.component';
@@ -23,69 +23,64 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutPageComponent,
+    data: {
+      moduleId: Modules.Accounting,
+    },
     children: [
       {
         path: '',
         component: JournalEntryListComponent,
-        canActivate: [AuthGuard],
+        //  canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.JOURNAL_LIST,
         },
       },
       {
-        path: 'journalentry',
-        component: JournalEntryListComponent,
-        canActivate: [AuthGuard],
-        data: {
-          breadcrumb: BreadcrumbLabel.JOURNAL_LIST,
-        },
-      },
-      {
-        path: 'journalentry/add',
+        path: 'add',
         component: CreateJournalEntryComponent,
-        canActivate: [AuthGuard],
+        //  canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.JOURNAL_ADD,
         },
       },
 
       {
-        path: 'journalentry/view/:id',
+        path: 'view/:id',
         component: ViewJournalEntryComponent,
-        canActivate: [AuthGuard],
+        //  canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.JOURNAL_VIEW,
         },
       },
 
       {
-        path: 'journalentry/edit/:id',
+        path: 'edit/:id',
         component: EditJournalEntryComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.JOURNAL_Edit,
         },
       },
       {
-        path: 'reports/trial-balance',
+        path: 'trial-balance',
         component: TrialBlanceComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.TRIAL_BALANCE,
         },
       },
       {
-        path: 'reports/account-statement',
+        path: 'account-statement',
         component: AccountStatementComponent,
-        canActivate: [AuthGuard],
+        //  canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.ACCOUNT_STATEMENT,
         },
       },
       {
-        path: 'reports/account-statement/:id',
+        path: 'account-statement/:id',
         component: AccountStatementComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.ACCOUNT_STATEMENT,
         },
@@ -109,7 +104,13 @@ const routes: Routes = [
     TrialBlanceComponent,
     AccountStatementComponent,
   ],
-  imports: [CommonModule, SharedLibModule, AutoCompleteModule,GuidedTourModule, RouterModule.forChild(routes)],
-  providers:[GuidedTourService]
+  imports: [
+    CommonModule,
+    SharedLibModule,
+    AutoCompleteModule,
+    GuidedTourModule,
+    RouterModule.forChild(routes),
+  ],
+  providers: [GuidedTourService],
 })
 export class JournalEntryModule {}
