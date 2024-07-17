@@ -31,24 +31,24 @@ export class EditCurrencyConversionComponent {
   ngOnInit() {
     this.currencyId=this.currentCurrencyId()
     
-    this.getCurrencyConversionById(this.currencyId)
-    this.getChildrenAccountsDropDown();
-    this.loadCountries();
-    this.initializeTagForm();
      ///////////
      this.getCurrencies();
+     this.getCurrencyConversionById(this.currencyId)
+     this.initializeTagForm();
+
+
   }
   currentCurrencyId(): number {
     return this.config.data.Id;
   }
   initializeTagForm() {
     this.editCurrencyForm = this.fb.group({
-      code: new FormControl(''),
-      name: new FormControl('', [customValidators.required,customValidators.length(1,50)]),
-      symbol: new FormControl('', [customValidators.required,customValidators.length(1,5)]),
-      subUnit: new FormControl('',[customValidators.length(1,25)]),
-      countryCode: new FormControl('', [customValidators.required]),
-      differenceAccount: new FormControl(null),
+      fromCurrencyId: new FormControl(''),
+      fromCurrencyRate: new FormControl(''),
+      toCurrencyId: new FormControl(''),
+      note: new FormControl(''),
+      symbol: new FormControl(''),
+      
         });
   }
 
@@ -82,11 +82,9 @@ export class EditCurrencyConversionComponent {
   }
   getCurrencyConversionById(id:number){
     this.generalSettingService.getCurrencyConversionById(id);
-    this.generalSettingService.currencyDataByIDObservable.subscribe(res=>{
-      this.olddata=res
-      this.editCurrencyForm.patchValue({ ...res })
-      
-
+    this.generalSettingService.currencyConversionDataByIDObservable.subscribe(res=>{
+        this.olddata = res;
+        this.editCurrencyForm.patchValue({ ...res });
     })
   }
     ///////////

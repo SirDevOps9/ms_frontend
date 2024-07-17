@@ -12,11 +12,11 @@
           <div class="grid">
             <div class="md:col-12">
               <lib-form-group>
-                <lib-label [appControl]="editCurrencyForm.controls['code']">
+                <lib-label [appControl]="editCurrencyForm.controls['fromCurrencyId']">
                   From Currency  
                 </lib-label>
                   <lib-select
-                  formControlName="code"
+                  formControlName="fromCurrencyId"
                   [options]="currencies"
                   optionValue="id"
                   optionLabel="currencyName"
@@ -25,31 +25,38 @@
 s
                   </lib-select>
                 <lib-field-validations
-                  [appControl]="editCurrencyForm.controls['code']"
+                  [appControl]="editCurrencyForm.controls['fromCurrencyId']"
                 >
                 </lib-field-validations>
               </lib-form-group>
             </div>
             <div class="md:col-12">
               <lib-form-group>
-                <lib-label [appControl]="editCurrencyForm.controls['name']">
+                <lib-label [appControl]="editCurrencyForm.controls['fromCurrencyRate']">
                   Currency Rate   
                   </lib-label>
-                <lib-text-input type="text" formControlName="name" />
+                <lib-text-input type="text" formControlName="fromCurrencyRate" />
                 <lib-field-validations
-                  [appControl]="editCurrencyForm.controls['name']"
+                  [appControl]="editCurrencyForm.controls['fromCurrencyRate']"
                 >
                 </lib-field-validations>
               </lib-form-group>
             </div>
             <div class="md:col-12">
               <lib-form-group>
-                <lib-label [appControl]="editCurrencyForm.controls['subUnit']">
+                <lib-label [appControl]="editCurrencyForm.controls['toCurrencyId']">
                   To Currency   
                               </lib-label>
-                <lib-text-input type="text" formControlName="subUnit" />
-                <lib-field-validations
-                  [appControl]="editCurrencyForm.controls['subUnit']"
+                              <lib-select
+                              formControlName="toCurrencyId"
+                              [options]="currencies"
+                              optionValue="id"
+                              optionLabel="currencyName"
+            
+                              >
+            s
+                              </lib-select>                <lib-field-validations
+                  [appControl]="editCurrencyForm.controls['toCurrencyId']"
                 >
                 </lib-field-validations>
               </lib-form-group>
@@ -69,14 +76,14 @@ s
         
             <div class="md:col-12">
               <lib-form-group>
-                <lib-label [appControl]="editCurrencyForm.controls['countryCode']">
+                <lib-label [appControl]="editCurrencyForm.controls['note']">
                   Notes  
                 </lib-label>
                 <!-- <lib-text-input type="text" formControlName="name" /> -->
-                <lib-text-input  type="text" formControlName="symbol" />
+                <lib-text-input  type="text" formControlName="note" />
 
                 <lib-field-validations
-                  [appControl]="editCurrencyForm.controls['countryCode']"
+                  [appControl]="editCurrencyForm.controls['note']"
                 >
                 </lib-field-validations>
               </lib-form-group>
