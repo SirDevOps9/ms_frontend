@@ -27,7 +27,6 @@ export class EmployeeProxy {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
      return this.httpService.get<EmployeeDto[]>(query);
-    //return this.httpService.get<EmployeeDto[]>(`Employee/Export`,filterDto);
   }
   
   addEmployee(employeeModel: AddEmployeePersonal): Observable<boolean> {

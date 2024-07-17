@@ -156,5 +156,34 @@
     "Closingbalance": "الرصيد الختامي",
     "debit": "مدين",
     "credit": "دائن"
-}
+},
+"treasury": {
+    "treasuryCode": "رمز الخزانة",
+    "treasuryName": "اسم الخزانة",
+    "currency": "العملة",
+    "glAccount": "حساب دفتر الأستاذ",
+    "balance": "الرصيد",
+    "actions": "الإجراءات",
+    "Search": "بحث",
+    "AddNew": "إضافة جديد",
+    "Export": "تصدير",
+    "branches": "الفروع",
+    "code": "الرمز",
+    "name": "الاسم",
+    "openingBalance": "رصيد افتتاح الخزانة",
+    "currentBalance": "رصيد الحساب الافتتاحي",
+    "discard": "تجاهل",
+    "save": "حفظ",
+    "confirm": "رصيد افتتاح اليومية لا يساوي رصيد افتتاح الخزانة، هل تريد المتابعة؟"
+  },
+  "deleteTreasury": {
+    "success": "نجاح",
+    "delete": "تم حذف تعريف الخزانة بنجاح"
+  },
+  "addTreasury": {
+    "add": "تمت إضافة تعريف الخزانة بنجاح"
+  },
+  "editTreasury": {
+    "edit": "تم تعديل تعريف الخزانة بنجاح"
+  }
 }

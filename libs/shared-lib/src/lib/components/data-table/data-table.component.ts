@@ -22,33 +22,8 @@ import { Observable } from 'rxjs';
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss'],
 })
-export class DataTableComponent implements OnInit , OnChanges {
-  itemsMenu: MenuItem[] =  [
-    { label: 'Excell', icon: 'pi pi-file-excel', command: () =>  this.excell() },
-    { label: 'PDF', icon: 'pi pi-file-pdf', command: () =>  this.pdf()}
-  ];;
-  pdf() {
-    this.exportClick.emit()
-    
-    ExportService.ToPDF(this.exportData, 'Employee-List.pdf'  , this.exportColumns);
+export class DataTableComponent implements OnInit  {
 
-  }
-  excell() {
-    console.log(this.exportData)
-    console.log(this.exportColumns)
-    this.exportClick.emit()
-    ExportService.ToExcel(this.exportData, 'Employee-List.xlsx' , this.exportColumns);
-
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.exportData = changes['exportData']?.currentValue
-    this.exportColumns = changes['exportColumns']?.currentValue
-
-    console.log( changes)
-
-    
-  }
    
   @Input() items: any[];
   @Input() selectedIndex: number;
@@ -59,11 +34,8 @@ export class DataTableComponent implements OnInit , OnChanges {
   @Input() className:string='';
 
   @Input() rowTemplate: TemplateRef<any>;
-  @Input() exportData: any  = []; 
-  @Input() exportColumns: any  = []; 
 
   @Output() pageChange = new EventEmitter<PageInfo>();
-  @Output() exportClick: EventEmitter<any> = new EventEmitter<any>();
 
   sortingFields: string[];
 

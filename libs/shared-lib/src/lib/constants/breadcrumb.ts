@@ -52,6 +52,7 @@ export class BreadcrumbLabel {
     static EDIT_CUSTOMER_DEFINITIONS ='Edit Customer Definitions';
     static ADD_VENDOR_DEFINITIONS ='Add Vendor Definitions';
     static EDIT_VENDOR_DEFINITIONS ='Edit Vendor Definitions';
+    static TREASURY_LIST ='Treasury';
    
 
     

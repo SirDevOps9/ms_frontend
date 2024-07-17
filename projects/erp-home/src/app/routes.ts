@@ -21,6 +21,16 @@ export const ERPRoutes = [
         loadChildren: () =>
           import('./modules/general-setting/general-setting.module').then((m) => m.GeneralSettingModule),
       },
+      {
+        path: 'sales',
+        loadChildren: () =>
+          import('./modules/Sales/sales.module').then((m) => m.SalesModule),
+      },
+      {
+        path: 'purchase',
+        loadChildren: () =>
+          import('./modules/purchase/purchase.module').then((m) => m.PurchaseModule),
+      },
     ],
   },
 ];

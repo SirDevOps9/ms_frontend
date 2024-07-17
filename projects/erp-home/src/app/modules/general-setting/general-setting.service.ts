@@ -11,25 +11,11 @@ import {
 } from 'shared-lib';
 import { GeneralSettingProxy } from './general-setting.proxy';
 
-import {
-  TagDto,
-  AddTagDto,
-  financialCalendar,
-  AddFinancialCalendar,
-  VendorCategoryDto,
-  AddVendorCategory,
-  EditVendorCategoryDto,
-  CustomerCategoryDto,
-  EditCustomerCategoryDto,
-  vendorDefinitionDto,
-  AddCustomerDefinitionDto,
-  EditCustomerDefintionsDto,
-  editFinancialCalndar,
-} from './models';
+
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, vendorDefinitionDto, editFinancialCalndar} from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 import { AddVendorCommand } from './models/AddVendorCommand';
-import { CategoryDropdownDto } from './models/CategoryDropdownDto';
+import { CategoryDropdownDto } from './models/CategoryDropdownDto'; 
 import { CityDto } from './models/CityDto';
 import { CountryDto } from './models/CountryDto';
 import { CurrencyDto } from './models/CurrencyDto';
@@ -69,28 +55,13 @@ export class GeneralSettingService {
     {} as GetVendorById | undefined
   );
 
-  private customerCategoryDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
-  private customerCategoryDataByID = new BehaviorSubject<EditVendorCategoryDto>(
-    {} as EditVendorCategoryDto
-  );
-  private addCustomerCategoryData = new BehaviorSubject<AddCustomerCategoryDto>(
-    {} as AddCustomerCategoryDto
-  );
-  private customerDefinitionDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
+
   private vendorDefinitionDataSource = new BehaviorSubject<vendorDefinitionDto[]>([]);
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
   private countryDataSource = new BehaviorSubject<CountryDto[]>([]);
   private cityDataSource = new BehaviorSubject<CityDto[]>([]);
   private currenciesDataSource = new BehaviorSubject<CurrencyDto[]>([]);
-  private addCustomerDefinitionRes = new BehaviorSubject<AddCustomerDefinitionDto>(
-    {} as AddCustomerDefinitionDto
-  );
-  private editCustomerDefinitionRes = new BehaviorSubject<EditCustomerDefintionsDto>(
-    {} as EditCustomerDefintionsDto
-  );
-  public getCustomerDefinitionResByID = new BehaviorSubject<AddCustomerDefinitionDto>(
-    {} as AddCustomerDefinitionDto
-  );
+
 
   public currencies = this.currenciesDataSource.asObservable();
 
@@ -108,28 +79,24 @@ export class GeneralSettingService {
   public FinancialPeriodDataByIDObservable = this.FinancialPeriodDataByID.asObservable();
   public EditFinancialPeriodDataObservable = this.EditFinancialPeriodData.asObservable();
 
-  public vendorCategoryDataSourceObservable = this.vendorCategoryDataSource.asObservable();
-  public sendChildrenAccountsDropDownDataObservable =
-    this.sendChildrenAccountsDropDownData.asObservable();
-  public addVendorCategoryDataObservable = this.addVendorCategoryData.asObservable();
+
+  public sendChildrenAccountsDropDownDataObservable = this.sendChildrenAccountsDropDownData.asObservable();
   public sendPriceListsDropDownDataObservable = this.sendPriceListsDropDownData.asObservable();
   public sendPaymentTermsDropDownDataObservable = this.sendPaymentTermsDropDownData.asObservable();
-  public sendgetVendorCategoryDropdownDataObservable =
-    this.sendgetVendorCategoryDropdownData.asObservable();
+  
+  public addVendorCategoryDataObservable = this.addVendorCategoryData.asObservable();
+  public vendorCategoryDataSourceObservable = this.vendorCategoryDataSource.asObservable();
+  public sendgetVendorCategoryDropdownDataObservable = this.sendgetVendorCategoryDropdownData.asObservable();
   public vendorCategoryDataByIDObservable = this.vendorCategoryDataByID.asObservable();
   public vendorDefinitionDataByIDObservable = this.vendorDefinitionDataByID.asObservable();
 
-  public customerCategoryDataSourceObservable = this.customerCategoryDataSource.asObservable();
-  public customerCategoryDataByIDObservable = this.customerCategoryDataByID.asObservable();
-  public addCustomerCategoryDataObservable = this.addCustomerCategoryData.asObservable();
 
-  public customerDefinitionDataSourceObservable = this.customerDefinitionDataSource.asObservable();
   public vendorDefinitionDataSourceObservable = this.vendorDefinitionDataSource.asObservable();
 
-  public customerDefinitionObservable = this.addCustomerDefinitionRes.asObservable();
-  public editCustomerDefinitionResObservable = this.editCustomerDefinitionRes.asObservable();
-  public getCustomerDefinitionResByIDObservable = this.getCustomerDefinitionResByID.asObservable();
 
+
+
+  
   getTagList(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getAllTagsPaginated(searchTerm, pageInfo).subscribe({
       next: (res) => {
@@ -208,98 +175,9 @@ export class GeneralSettingService {
     }
   }
 
-  getcustomerCategory(searchTerm: string, pageInfo: PageInfo) {
-    this.GeneralSettingproxy.getcustomerCategory(searchTerm, pageInfo).subscribe({
-      next: (res) => {
-        this.customerCategoryDataSource.next(res.result);
-        this.currentPageInfo.next(res.pageInfoResult);
-      },
-    });
-  }
 
-  getCustomerCategoryByID(id: number) {
-    this.GeneralSettingproxy.getCustomerCategoryByID(id).subscribe((res) => {
-      if (res) {
-        this.customerCategoryDataByID.next(res);
-      }
-    });
-  }
 
-  addCustomerCategory(addCustomerCategory: AddCustomerCategoryDto) {
-    this.GeneralSettingproxy.addCustomerCategory(addCustomerCategory).subscribe({
-      next: (res) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('success'),
-          this.languageService.transalte('addCustomerCategory.successAdd')
-        );
-        if (res) {
-          this.addCustomerCategoryData.next(res);
-        }
-      },
-    });
-  }
 
-  EditCustomerCategory(editCustomerCategory: EditCustomerCategoryDto) {
-    this.GeneralSettingproxy.EditCustomerCategory(editCustomerCategory).subscribe({
-      next: (res) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('success'),
-          this.languageService.transalte('addCustomerCategory.successEdit')
-        );
-        if (res) {
-          this.routerService.navigateTo('customer-category');
-        }
-      },
-    });
-  }
-
-  async deleteCustomerCategory(id: number) {
-    const confirmed = await this.toasterService.showConfirm('Delete');
-    if (confirmed) {
-      this.GeneralSettingproxy.deleteCustomerCategory(id).subscribe({
-        next: (res) => {
-          this.toasterService.showSuccess(
-            this.languageService.transalte('success'),
-            this.languageService.transalte('addCustomerCategory.delete')
-          );
-          let data = this.customerCategoryDataSource.getValue();
-          const updatedVendor = data.filter((elem) => elem.id !== id);
-          this.customerCategoryDataSource.next(updatedVendor);
-
-          return res;
-        },
-        error: (err) => {},
-      });
-    }
-  }
-  // customer definition
-
-  getcustomerDefinition(searchTerm: string, pageInfo: PageInfo) {
-    this.GeneralSettingproxy.getcustomerDefinition(searchTerm, pageInfo).subscribe({
-      next: (res) => {
-        this.customerDefinitionDataSource.next(res.result);
-        this.currentPageInfo.next(res.pageInfoResult);
-      },
-    });
-  }
-  async deleteCustomerDefinition(id: number) {
-    const confirmed = await this.toasterService.showConfirm('Delete');
-    if (confirmed) {
-      this.GeneralSettingproxy.deleteCustomerDefinition(id).subscribe({
-        next: (res) => {
-          this.toasterService.showSuccess(
-            this.languageService.transalte('success'),
-            this.languageService.transalte('deleteCustomerDefinition.delete')
-          );
-          let data = this.customerDefinitionDataSource.getValue();
-          const updatedVendor = data.filter((elem) => elem.id !== id);
-          this.customerDefinitionDataSource.next(updatedVendor);
-
-          return res;
-        },
-      });
-    }
-  }
 
   // vendor
   getVendorDefinition(searchTerm: string, pageInfo: PageInfo) {
@@ -327,12 +205,71 @@ export class GeneralSettingService {
           return res;
         },
       });
+
     }
   }
+  getVendorCategoryDropdown() {
+    this.GeneralSettingproxy.getVendorCategoryDropdown()
+    .subscribe(res=>{
+      if(res) {
+        this.sendgetVendorCategoryDropdownData.next(res)
+      }
+    })
+  }
 
-  //
+  addNewVendorDefinition(vendor:AddVendorCommand){
+    this.loaderService.show();
+    this.GeneralSettingproxy.addNewVendorDefinition(vendor).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('addFinancialCalendar.success'),
+          this.languageService.transalte('addFinancialCalendar.openSuccess')
+        
+        );
+        this.routerService.navigateTo(`/vendor-definitions`)
+        // this.addVendorCategoryRes.next(res)
+        this.loaderService.hide();
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
 
-  addTag(addTagDto: AddTagDto, dialogRef: DynamicDialogRef) {
+  
+  
+  editVendorDefinition(vendor:EditVendorCommand){
+    this.loaderService.show();
+    this.GeneralSettingproxy.editVendorDefinition(vendor).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('vendorDefinition.success'),
+          this.languageService.transalte('vendorDefinition.vendorSuccess')
+        );
+        // this.addVendorCategoryRes.next(res)
+        this.routerService.navigateTo(`/vendor-definitions`)
+        this.loaderService.hide();
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+
+
+  getVendorDefinitionByID(id : number) {
+    this.GeneralSettingproxy.getVendorDefinitionByID(id)
+    .subscribe(res=>{
+        this.vendorDefinitionDataByID.next(res)
+      
+    })
+  }
+
+  // 
+
+  addTag(addTagDto: AddTagDto
+    ,dialogRef: DynamicDialogRef
+  ){
     this.loaderService.show();
     this.GeneralSettingproxy.addTag(addTagDto).subscribe({
       next: (res) => {
@@ -451,20 +388,9 @@ export class GeneralSettingService {
       }
     });
   }
-  getVendorCategoryDropdown() {
-    this.GeneralSettingproxy.getVendorCategoryDropdown().subscribe((res) => {
-      if (res) {
-        this.sendgetVendorCategoryDropdownData.next(res);
-      }
-    });
-  }
-  getCustomerCategoryDropdown() {
-    this.GeneralSettingproxy.getCustomerCategoryDropdown().subscribe((res) => {
-      if (res) {
-        this.sendgetVendorCategoryDropdownData.next(res);
-      }
-    });
-  }
+ 
+
+
 
   getTagById(id: number) {
     this.GeneralSettingproxy.getTagById(id).subscribe((response) => {
@@ -554,90 +480,8 @@ export class GeneralSettingService {
       this.currenciesDataSource.next(res);
     });
   }
-  addNewVendorDefinition(vendor: AddVendorCommand, vendorForm: FormGroup) {
-    this.loaderService.show();
-    this.GeneralSettingproxy.addNewVendorDefinition(vendor).subscribe({
-      next: (res) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('addFinancialCalendar.success'),
-          this.languageService.transalte('addFinancialCalendar.openSuccess')
-        );
-        this.routerService.navigateTo(`/vendor-definitions`);
-        // this.addVendorCategoryRes.next(res)
-        this.loaderService.hide();
-      },
-      error: (err) => {
-        this.formsService.setFormValidationErrors(vendorForm, err);
-        this.loaderService.hide();
-      },
-    });
-  }
 
-  addNewCustomerDefinition(customer: AddCustomerDefinitionDto) {
-    this.loaderService.show();
-    this.GeneralSettingproxy.addNewCustomerDefinition(customer).subscribe({
-      next: (res) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('addCustomerDefinition.success'),
-          this.languageService.transalte('addCustomerDefinition.successAdd')
-        );
-        if (res) {
-          this.addCustomerDefinitionRes.next(res);
-          this.loaderService.hide();
-          this.routerService.navigateTo('/customer-definitions');
-        }
-      },
-      error: (err) => {
-        this.loaderService.hide();
-      },
-    });
-  }
-
-  editVendorDefinition(vendor: EditVendorCommand) {
-    this.loaderService.show();
-    this.GeneralSettingproxy.editVendorDefinition(vendor).subscribe({
-      next: (res) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('vendorDefinition.success'),
-          this.languageService.transalte('vendorDefinition.vendorSuccess')
-        );
-        // this.addVendorCategoryRes.next(res)
-        this.routerService.navigateTo(`/vendor-definitions`);
-        this.loaderService.hide();
-      },
-      error: (err) => {
-        this.loaderService.hide();
-      },
-    });
-  }
-  editCustomerDefinition(customer: EditCustomerDefintionsDto) {
-    this.GeneralSettingproxy.editCustomerDefinition(customer).subscribe({
-      next: (res) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('addCustomerDefinition.success'),
-          this.languageService.transalte('addCustomerDefinition.successEdit')
-        );
-        if (res) {
-          this.editCustomerDefinitionRes.next(res);
-        }
-      },
-    });
-  }
-
-  getCustomerDefinitionByID(id: string) {
-    this.GeneralSettingproxy.getCustomerDefinitionByID(id).subscribe({
-      next: (res) => {
-        this.getCustomerDefinitionResByID.next(res);
-      },
-    });
-  }
-
-  getVendorDefinitionByID(id: number) {
-    this.GeneralSettingproxy.getVendorDefinitionByID(id).subscribe((res) => {
-      this.vendorDefinitionDataByID.next(res);
-    });
-  }
-
+ 
   constructor(
     private GeneralSettingproxy: GeneralSettingProxy,
     private loaderService: LoaderService,
