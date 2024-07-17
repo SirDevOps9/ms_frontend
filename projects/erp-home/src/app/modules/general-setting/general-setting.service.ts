@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map } from 'rxjs';
-import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
+import {
+  FormsService,
+  LanguageService,
+  LoaderService,
+  PageInfo,
+  PageInfoResult,
+  RouterService,
+  ToasterService,
+} from 'shared-lib';
 import { GeneralSettingProxy } from './general-setting.proxy';
 
 
@@ -10,11 +18,12 @@ import { AddVendorCommand } from './models/AddVendorCommand';
 import { CategoryDropdownDto } from './models/CategoryDropdownDto'; 
 import { CityDto } from './models/CityDto';
 import { CountryDto } from './models/CountryDto';
-import { CurrencyDto } from './models/CurrencyDto'; 
+import { CurrencyDto } from './models/CurrencyDto';
 import { TagDropDownDto } from './models/TagDropDownDto';
 
 import { EditVendorCommand } from './models/editVendorCommand';
 import { GetVendorById } from './models/getVendorById';
+import { FormGroup } from '@angular/forms';
 @Injectable({
   providedIn: 'root',
 })
@@ -23,10 +32,14 @@ export class GeneralSettingService {
   private financialCalendarDataSource = new BehaviorSubject<financialCalendar[]>([]);
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   private currentTagDataSource = new BehaviorSubject<TagDto>({} as TagDto);
-  private addFinancialCalendarRes = new BehaviorSubject<AddFinancialCalendar| any>({} as AddFinancialCalendar);
+  private addFinancialCalendarRes = new BehaviorSubject<AddFinancialCalendar | any>(
+    {} as AddFinancialCalendar
+  );
   private openFinancialCalendarRes = new BehaviorSubject<number[]>([]);
   private FinancialPeriodLastYearDate = new BehaviorSubject<any>(null);
-  private FinancialPeriodDataByID = new BehaviorSubject<editFinancialCalndar>({} as editFinancialCalndar);
+  private FinancialPeriodDataByID = new BehaviorSubject<editFinancialCalndar>(
+    {} as editFinancialCalndar
+  );
   private EditFinancialPeriodData = new BehaviorSubject<{ id: number; name: string }[]>([]);
   private vendorCategoryDataSource = new BehaviorSubject<VendorCategoryDto[]>([]);
   private addVendorCategoryData = new BehaviorSubject<AddVendorCategory>({} as AddVendorCategory);
@@ -34,13 +47,17 @@ export class GeneralSettingService {
   private sendPriceListsDropDownData = new BehaviorSubject<{ id: number; name: string }[]>([]);
   private sendPaymentTermsDropDownData = new BehaviorSubject<{ id: number; name: string }[]>([]);
   private sendgetVendorCategoryDropdownData = new BehaviorSubject<CategoryDropdownDto[]>([]);
-  private vendorCategoryDataByID = new BehaviorSubject<EditVendorCategoryDto>({} as EditVendorCategoryDto);
+  private vendorCategoryDataByID = new BehaviorSubject<EditVendorCategoryDto>(
+    {} as EditVendorCategoryDto
+  );
 
-  public vendorDefinitionDataByID = new BehaviorSubject<GetVendorById | undefined>({} as GetVendorById  | undefined );
+  public vendorDefinitionDataByID = new BehaviorSubject<GetVendorById | undefined>(
+    {} as GetVendorById | undefined
+  );
 
 
   private vendorDefinitionDataSource = new BehaviorSubject<vendorDefinitionDto[]>([]);
-  private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]); 
+  private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
   private countryDataSource = new BehaviorSubject<CountryDto[]>([]);
   private cityDataSource = new BehaviorSubject<CityDto[]>([]);
   private currenciesDataSource = new BehaviorSubject<CurrencyDto[]>([]);
@@ -79,7 +96,6 @@ export class GeneralSettingService {
 
 
 
-
   
   getTagList(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getAllTagsPaginated(searchTerm, pageInfo).subscribe({
@@ -107,53 +123,40 @@ export class GeneralSettingService {
     });
   }
 
-  getVendorCategoryByID(id : number) {
-    this.GeneralSettingproxy.getVendorCategoryByID(id)
-    .subscribe(res=>{
-        this.vendorCategoryDataByID.next(res)
-
-      
-    })
+  getVendorCategoryByID(id: number) {
+    this.GeneralSettingproxy.getVendorCategoryByID(id).subscribe((res) => {
+      this.vendorCategoryDataByID.next(res);
+    });
   }
 
-  addVendorCategory(addvendorCategory : AddVendorCategory) {
+  addVendorCategory(addvendorCategory: AddVendorCategory) {
     this.GeneralSettingproxy.addvendorCategory(addvendorCategory).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
           this.languageService.transalte('addVendorCategory.successAdd')
         );
-        if(res) {
-          this.addVendorCategoryData.next(res)
-
+        if (res) {
+          this.addVendorCategoryData.next(res);
         }
       },
-    
     });
   }
 
-  EditVendorCategory(editvendorCategory : EditVendorCategoryDto) {
+  EditVendorCategory(editvendorCategory: EditVendorCategoryDto) {
     this.GeneralSettingproxy.EditVendorCategory(editvendorCategory).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
           this.languageService.transalte('addVendorCategory.successEdit')
         );
-        if(res)
-        this.routerService.navigateTo('vendor-category');
-
-        
+        if (res) this.routerService.navigateTo('vendor-category');
       },
-  
     });
   }
 
-  
-
-  async deleteVendorCategory(id: number){
-    const confirmed = await this.toasterService.showConfirm(
-      'Delete'
-    );
+  async deleteVendorCategory(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
       this.GeneralSettingproxy.deleteVendorCategory(id).subscribe({
         next: (res) => {
@@ -161,20 +164,16 @@ export class GeneralSettingService {
             this.languageService.transalte('success'),
             this.languageService.transalte('deleteVendorCategory.delete')
           );
-          let data = this.vendorCategoryDataSource.getValue()
+          let data = this.vendorCategoryDataSource.getValue();
           const updatedVendor = data.filter((elem) => elem.id !== id);
           this.vendorCategoryDataSource.next(updatedVendor);
 
           return res;
         },
-        error: (err) => {
-        },
+        error: (err) => {},
       });
-
     }
   }
-
-  
 
 
 
@@ -190,10 +189,8 @@ export class GeneralSettingService {
     });
   }
 
-  async deletevendorDefinition(id: number){
-    const confirmed = await this.toasterService.showConfirm(
-      'Delete'
-    );
+  async deletevendorDefinition(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
       this.GeneralSettingproxy.deleteVendorDefinition(id).subscribe({
         next: (res) => {
@@ -201,7 +198,7 @@ export class GeneralSettingService {
             this.languageService.transalte('success'),
             this.languageService.transalte('deleteVendorDefinition.delete')
           );
-          let data = this.vendorDefinitionDataSource.getValue()
+          let data = this.vendorDefinitionDataSource.getValue();
           const updatedVendor = data.filter((elem) => elem.id !== id);
           this.vendorDefinitionDataSource.next(updatedVendor);
 
@@ -289,9 +286,7 @@ export class GeneralSettingService {
     });
   }
 
-  editTag(tagDto: TagDto
-    ,dialogRef: DynamicDialogRef
-  ){
+  editTag(tagDto: TagDto, dialogRef: DynamicDialogRef) {
     this.loaderService.show();
     this.GeneralSettingproxy.editTag(tagDto).subscribe({
       next: (res) => {
@@ -308,7 +303,7 @@ export class GeneralSettingService {
     });
   }
 
-  addFinancialCalendar(addFinancialCalendar: AddFinancialCalendar){
+  addFinancialCalendar(addFinancialCalendar: AddFinancialCalendar) {
     this.loaderService.show();
     this.GeneralSettingproxy.addFinancialCalendar(addFinancialCalendar).subscribe({
       next: (res) => {
@@ -316,7 +311,7 @@ export class GeneralSettingService {
           this.languageService.transalte('addFinancialCalendar.success'),
           this.languageService.transalte('addFinancialCalendar.successAdd')
         );
-        this.addFinancialCalendarRes.next(res)
+        this.addFinancialCalendarRes.next(res);
         this.loaderService.hide();
       },
       error: (err) => {
@@ -324,7 +319,7 @@ export class GeneralSettingService {
       },
     });
   }
-  OpenFinancialCalendar(openList : {}){
+  OpenFinancialCalendar(openList: {}) {
     this.loaderService.show();
     this.GeneralSettingproxy.openFinancialCalendar(openList).subscribe({
       next: (res) => {
@@ -332,7 +327,7 @@ export class GeneralSettingService {
           this.languageService.transalte('addFinancialCalendar.success'),
           this.languageService.transalte('addFinancialCalendar.openSuccess')
         );
-        this.openFinancialCalendarRes.next(res)
+        this.openFinancialCalendarRes.next(res);
         this.loaderService.hide();
       },
       error: (err) => {
@@ -342,82 +337,69 @@ export class GeneralSettingService {
   }
 
   GetFinancialPeriodLastYearDate() {
-    this.GeneralSettingproxy.GetFinancialPeriodLastYearDate()
-    .subscribe(res=>{
-      if(res) {
-        this.FinancialPeriodLastYearDate.next(res)
-
+    this.GeneralSettingproxy.GetFinancialPeriodLastYearDate().subscribe((res) => {
+      if (res) {
+        this.FinancialPeriodLastYearDate.next(res);
       }
-    })
+    });
   }
 
   editFinancialPeriod({ id, name }: { id: number; name: string }) {
-    this.GeneralSettingproxy.editFinancialPeriodLastYearDate({ id, name })
-    .subscribe({
+    this.GeneralSettingproxy.editFinancialPeriodLastYearDate({ id, name }).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('addFinancialCalendar.success'),
           this.languageService.transalte('addFinancialCalendar.successEdit')
         );
-        this.EditFinancialPeriodData.next(res)
+        this.EditFinancialPeriodData.next(res);
         this.loaderService.hide();
       },
       error: (err) => {
         this.loaderService.hide();
       },
-     
-    })
+    });
   }
-  GetFinancialPeriodByID(id : number) {
-    this.GeneralSettingproxy.GetFinancialPeriodByID(id)
-    .subscribe(res=>{
-      if(res) {
-        this.FinancialPeriodDataByID.next(res)
-
+  GetFinancialPeriodByID(id: number) {
+    this.GeneralSettingproxy.GetFinancialPeriodByID(id).subscribe((res) => {
+      if (res) {
+        this.FinancialPeriodDataByID.next(res);
       }
-    })
+    });
   }
-
-  
 
   getChildrenAccountsDropDown() {
-    this.GeneralSettingproxy.getChildrenAccountsDropDown()
-    .subscribe(res=>{
-      if(res) {
-        this.sendChildrenAccountsDropDownData.next(res)
+    this.GeneralSettingproxy.getChildrenAccountsDropDown().subscribe((res) => {
+      if (res) {
+        this.sendChildrenAccountsDropDownData.next(res);
       }
-    })
+    });
   }
   getpriceListDropDown() {
-    this.GeneralSettingproxy.getpriceListDropDown()
-    .subscribe(res=>{
-      if(res) {
-        this.sendPriceListsDropDownData.next(res)
+    this.GeneralSettingproxy.getpriceListDropDown().subscribe((res) => {
+      if (res) {
+        this.sendPriceListsDropDownData.next(res);
       }
-    })
+    });
   }
   getpaymentTermsListDropDown() {
-    this.GeneralSettingproxy.getpaymentTermsListDropDown()
-    .subscribe(res=>{
-      if(res) {
-        this.sendPaymentTermsDropDownData.next(res)
+    this.GeneralSettingproxy.getpaymentTermsListDropDown().subscribe((res) => {
+      if (res) {
+        this.sendPaymentTermsDropDownData.next(res);
       }
-    })
+    });
   }
  
 
 
 
-  getTagById(id:number) {
+  getTagById(id: number) {
     this.GeneralSettingproxy.getTagById(id).subscribe((response) => {
       this.currentTagDataSource.next(response);
     });
   }
 
-  async deleteTag(id: number){
-    const confirmed = await this.toasterService.showConfirm(
-      'Delete'
-    );
+  async deleteTag(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
       this.loaderService.show();
       this.GeneralSettingproxy.deleteTag(id).subscribe({
@@ -433,34 +415,26 @@ export class GeneralSettingService {
           this.loaderService.hide();
         },
       });
-
     }
   }
 
   async activate(id: number) {
-    const confirmed = await this.toasterService.showConfirm(
-      'Activate'
-    );
+    const confirmed = await this.toasterService.showConfirm('Activate');
     if (confirmed) {
       this.GeneralSettingproxy.activateTag(id).subscribe({
         next: () => {
-          const tagToChange = this.tagDataSource.value.find(
-            (item) => item.id === id
-          );
+          const tagToChange = this.tagDataSource.value.find((item) => item.id === id);
           if (tagToChange) {
             tagToChange.isActive = true;
             this.tagDataSource.next([...this.tagDataSource.value]);
           }
           this.toasterService.showSuccess(
             this.languageService.transalte('tag.success'),
-            this.languageService.transalte(
-              'tag.success'
-            )
+            this.languageService.transalte('tag.success')
           );
         },
       });
-    } 
-    else {
+    } else {
       this.tagDataSource.value.find((item) => {
         if (item.id === id) {
           item.isActive = false;
@@ -469,28 +443,22 @@ export class GeneralSettingService {
     }
   }
   async deactivate(id: number) {
-    const confirmed = await this.toasterService.showConfirm(
-      'Deactivate'
-    );
+    const confirmed = await this.toasterService.showConfirm('Deactivate');
     if (confirmed) {
       this.GeneralSettingproxy.deactivateTag(id).subscribe({
         next: () => {
-          const tagToChange = this.tagDataSource.value.find(
-            (item) => item.id === id
-          );
+          const tagToChange = this.tagDataSource.value.find((item) => item.id === id);
           if (tagToChange) {
             tagToChange.isActive = false;
             this.tagDataSource.next([...this.tagDataSource.value]);
           }
           this.toasterService.showSuccess(
             this.languageService.transalte('tag.success'),
-            this.languageService.transalte(
-              'tag.success'
-            )
+            this.languageService.transalte('tag.success')
           );
         },
       });
-    } 
+    }
   }
   getTags() {
     this.GeneralSettingproxy.getTags().subscribe((response) => {
@@ -507,11 +475,10 @@ export class GeneralSettingService {
       this.cityDataSource.next(response);
     });
   }
-  getCurrencies(searchKey:string) {
-    this.GeneralSettingproxy.getCurrencies(searchKey).subscribe((res)=> {
+  getCurrencies(searchKey: string) {
+    this.GeneralSettingproxy.getCurrencies(searchKey).subscribe((res) => {
       this.currenciesDataSource.next(res);
     });
-    
   }
 
  
@@ -520,8 +487,7 @@ export class GeneralSettingService {
     private loaderService: LoaderService,
     private languageService: LanguageService,
     private toasterService: ToasterService,
-    private routerService: RouterService
-
-
+    private routerService: RouterService,
+    private formsService: FormsService
   ) {}
 }

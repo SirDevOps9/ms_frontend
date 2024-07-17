@@ -1,12 +1,10 @@
 <!-- {{ appControl.errors | json }} -->
 <div
   class="error"
-  *ngIf="
-    appControl && appControl.invalid && (appControl.dirty || appControl.touched)
-  "
+  *ngIf="appControl && appControl.invalid && (appControl.dirty || appControl.touched)"
 >
   <span class="errorMessage" *ngIf="appControl.hasError('required')">
-    {{ "validation.required" | translate }}
+    {{ 'validation.required' | translate }}
   </span>
 
   <span class="errorMessage" *ngIf="appControl.errors?.['serverError']">
@@ -14,100 +12,79 @@
   </span>
 
   <span class="errorMessage" *ngIf="appControl.errors?.['invalidOnlySaudiId']">
-    {{ "validation.invalidOnlySaudiId" | translate }}
+    {{ 'validation.invalidOnlySaudiId' | translate }}
   </span>
 
   <span class="errorMessage" *ngIf="appControl.errors?.['invalidIqamaiId']">
-    {{ "validation.invalidIqamaiId" | translate }}
+    {{ 'validation.invalidIqamaiId' | translate }}
   </span>
 
   <span class="errorMessage" *ngIf="appControl.errors?.['invalidPhone']">
-    {{ "shared.invalidPhone" | translate }}
+    {{ 'shared.invalidPhone' | translate }}
   </span>
-  <span
-    class="errorMessage"
-    *ngIf="appControl.errors?.['isNotAgreedToTermsRequired']"
-  >
-    {{ "validation.agreedToTermsRequired" | translate }}
+  <span class="errorMessage" *ngIf="appControl.errors?.['isNotAgreedToTermsRequired']">
+    {{ 'validation.agreedToTermsRequired' | translate }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['pattern']">
-    {{ "validation.pattern" | translate }}
+    {{ 'validation.pattern' | translate }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['email']">
-    {{ "validation.email" | translate }}
+    {{ 'validation.email' | translate }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['invalidSaudiId']">
-    {{ "validation.invalidSaudiId" | translate }}
+    {{ 'validation.invalidSaudiId' | translate }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['inValidEmailPattern']">
-    {{ "validation.emailPattern" | translate }}
+    {{ 'validation.emailPattern' | translate }}
   </span>
-  <span
-    class="errorMessage"
-    *ngIf="appControl.errors?.['inValidMobilePattern']"
-  >
-    {{ "validation.mobilePattern" | translate }}
+  <span class="errorMessage" *ngIf="appControl.errors?.['inValidMobilePattern']">
+    {{ 'validation.mobilePattern' | translate }}
   </span>
-  <span
-    class="errorMessage"
-    *ngIf="appControl.errors?.['inValidMobilePrefixPattern']"
-  >
-    {{ "validation.mobilePrefixPattern" | translate }}
+  <span class="errorMessage" *ngIf="appControl.errors?.['inValidMobilePrefixPattern']">
+    {{ 'validation.mobilePrefixPattern' | translate }}
   </span>
 
   <span class="errorMessage" *ngIf="appControl.errors?.['withSpecialChars']">
-    {{ "validation.specialCharPattern" | translate }}
+    {{ 'validation.specialCharPattern' | translate }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['invalidNumber']">
-    {{ "validation.invalidNumber" | translate }}
+    {{ 'validation.invalidNumber' | translate }}
   </span>
-  <span
-    class="errorMessage"
-    *ngIf="appControl.errors?.['isValidNationalMobile']"
-  >
-    {{ "validation.mobileNationalPattern" | translate }}
+  <span class="errorMessage" *ngIf="appControl.errors?.['isValidNationalMobile']">
+    {{ 'validation.mobileNationalPattern' | translate }}
   </span>
-  <span
-    class="errorMessage"
-    *ngIf="appControl.errors?.['invalidUnifiedNumber']"
-  >
-    {{ "validation.invalidUnifiedNumber" | translate }}
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidUnifiedNumber']">
+    {{ 'validation.invalidUnifiedNumber' | translate }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['invalidCRNumber']">
-    {{ "validation.invalidCRNumber" | translate }}
+    {{ 'validation.invalidCRNumber' | translate }}
   </span>
 
   <span class="errorMessage" *ngIf="appControl.errors?.['maxlength']">
-    {{ "validation.maxLength" | translate }}:{{
+    {{ 'validation.maxLength' | translate }}:{{
       appControl.errors?.['maxlength.requiredLength']
     }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['minlength']">
-    {{ "validation.minLength" | translate }}:{{
+    {{ 'validation.minLength' | translate }}:{{
       appControl.errors?.['minlength.requiredLength']
     }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['max']">
-    {{
-      "validation.invalidMax" | translate
-    }}:{{ appControl.errors?.['max.max'] }}
+    {{ 'validation.invalidMax' | translate }}:{{ appControl.errors?.['max.max'] }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['min']">
-    {{
-      "validation.invalidMin" | translate
-    }}:{{ appControl.errors?.['min.min'] }}
+    {{ 'validation.invalidMin' | translate }}:{{ appControl.errors?.['min.min'] }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['age']">
-    {{
-      "validation.invalidage" | translate
-    }}:{{ appControl.errors?.['age.age'] }}
+    {{ 'validation.invalidage' | translate }}:{{ appControl.errors?.['age.age'] }}
   </span>
 
   <span class="errorMessage" *ngIf="appControl.errors?.['hasSpecialChars']">
-    {{ "validation.hasSpecialChars" | translate }}
+    {{ 'validation.hasSpecialChars' | translate }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['hasWhiteSpaces']">
-    {{ "validation.hasWhiteSpaces" | translate }}
+    {{ 'validation.hasWhiteSpaces' | translate }}
   </span>
 
   <span class="errorMessage" *ngIf="appControl.errors?.['lengthRange']">
@@ -155,16 +132,19 @@
     }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['nonZero']">
-    {{ "validation.zeroNotAllowed" | translate }}
+    {{ 'validation.zeroNotAllowed' | translate }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['invalidBirthDate']">
-    {{ "validation.invalidBirthDate" | translate }}
+    {{ 'validation.invalidBirthDate' | translate }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['onlyLetters']">
-    {{ "validation.onlyLetters" | translate }}
+    {{ 'validation.onlyLetters' | translate }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['debitAndCreditZero']">
-    {{ "validation.debitAndCreditZero" | translate }}
+    {{ 'validation.debitAndCreditZero' | translate }}
+  </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['backendValidation']">
+    {{ appControl.errors?.['backendValidation'] }}
   </span>
 </div>
 <!-- <span class="errorMessage" *ngFor="let errorKey of errorKeys">

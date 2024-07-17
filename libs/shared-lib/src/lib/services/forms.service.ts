@@ -4,6 +4,7 @@ import { FormArray, FormGroup } from '@angular/forms';
 import { LogService } from './log.service';
 import { ToasterService } from './toaster.service';
 import { LanguageService } from './language.service';
+import { DefaultExceptionModel } from 'shared-lib';
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +29,7 @@ export class FormsService {
     form.markAllAsTouched();
 
     form.markAsDirty();
-    console.log(form)
+    console.log(form);
 
     if (form.status === 'VALID') {
       return true;
@@ -57,6 +58,45 @@ export class FormsService {
     if (logDetails) {
     }
     return invalid;
+  }
+
+  public setFormValidationErrors(form: FormGroup, err: any): void {
+    let defaultError = err as DefaultExceptionModel;
+    let validationErrors = defaultError.validationErrors!;
+    validationErrors.forEach((validationError) => {
+      const keys = validationError.key.split('.');
+      const errorMessage = validationError.errorMessages[0];
+
+      if (keys.length === 1) {
+        if (keys[0] == '') {
+          this.toasterService.showError(errorMessage, errorMessage);
+        }
+        // Single level key
+        const controlName = Object.keys(form.controls).find(
+          (control) => control.toLowerCase() === keys[0].toLowerCase()
+        );
+
+        if (controlName) {
+          form.controls[controlName].setErrors({ backendValidation: errorMessage });
+        }
+      } else if (keys.length === 2) {
+        // Two level key
+        const formGroupName = Object.keys(form.controls).find(
+          (group) => group.toLowerCase() === keys[0].toLowerCase()
+        );
+
+        if (formGroupName) {
+          const formGroup = form.controls[formGroupName] as FormGroup;
+          const controlName = Object.keys(formGroup.controls).find(
+            (control) => control.toLowerCase() === keys[1].toLowerCase()
+          );
+
+          if (controlName) {
+            formGroup.controls[controlName].setErrors({ backendValidation: errorMessage });
+          }
+        }
+      }
+    });
   }
 
   download(fileSrc: string, imageName = 'image') {

@@ -16,7 +16,6 @@ import { GetVendorById } from './models/getVendorById';
   providedIn: 'root',
 })
 export class GeneralSettingProxy {
- 
   getAllTagsPaginated(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<TagDto>> {
     const queryParams = new URLSearchParams({
       SearchKey: searchTerm,
@@ -27,7 +26,10 @@ export class GeneralSettingProxy {
 
     return this.httpService.get<PaginationVm<TagDto>>(url);
   }
-  getAllfinancialCalendarPaginated(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<financialCalendar>> {
+  getAllfinancialCalendarPaginated(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<financialCalendar>> {
     const queryParams = new URLSearchParams({
       SearchKey: searchTerm,
       PageNumber: pageInfo.pageNumber.toString(),
@@ -37,8 +39,10 @@ export class GeneralSettingProxy {
 
     return this.httpService.get<PaginationVm<financialCalendar>>(url);
   }
-  getVendorCategory(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<VendorCategoryDto>> {
-
+  getVendorCategory(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<VendorCategoryDto>> {
     const url = `VendorCategory?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
 
     return this.httpService.get<PaginationVm<VendorCategoryDto>>(url);
@@ -66,12 +70,12 @@ getVendorDefinition(searchTerm: string, pageInfo: PageInfo): Observable<Paginati
 
   const url = `vendor?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
 
-  return this.httpService.get<PaginationVm<vendorDefinitionDto>>(url);
-} 
+    return this.httpService.get<PaginationVm<vendorDefinitionDto>>(url);
+  }
 
-deleteVendorDefinition(id: number): Observable<boolean> {
-  return this.httpService.delete<boolean>(`vendor/${id}`);
-}
+  deleteVendorDefinition(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`vendor/${id}`);
+  }
 
 getChildrenAccountsDropDown() {
   return this.httpService.get('ChartOfAccounts/ChildrenAccountsDropDown');
@@ -83,46 +87,46 @@ getpaymentTermsListDropDown() : Observable<{ id: number; name: string }[]>  {
   return this.httpService.get('PaymentTerms/PaymentTermsDropdown');
 }
   addTag(addTagDto: AddTagDto): Observable<TagDto> {
-     return this.httpService.post<TagDto>(`Tag`,addTagDto);
+    return this.httpService.post<TagDto>(`Tag`, addTagDto);
   }
-  addFinancialCalendar(addFinancialCalendarDto: AddFinancialCalendar): Observable<AddFinancialCalendar> {
-     return this.httpService.post<AddFinancialCalendar>(`FinancialYear`,addFinancialCalendarDto);
+  addFinancialCalendar(
+    addFinancialCalendarDto: AddFinancialCalendar
+  ): Observable<AddFinancialCalendar> {
+    return this.httpService.post<AddFinancialCalendar>(`FinancialYear`, addFinancialCalendarDto);
   }
-  openFinancialCalendar(openList : {}): Observable<number[]> {
-     return this.httpService.post(`FinancialYear/openFinancialPeriod`,openList);
+  openFinancialCalendar(openList: {}): Observable<number[]> {
+    return this.httpService.post(`FinancialYear/openFinancialPeriod`, openList);
   }
 
   GetFinancialPeriodLastYearDate() {
-    const url = 'FinancialYear/GetLastYearDate'
+    const url = 'FinancialYear/GetLastYearDate';
     return this.httpService.get(url);
   }
   editFinancialPeriodLastYearDate({ id, name }: { id: number; name: string }) {
-    const url = 'FinancialYear'
-    return this.httpService.put(url , { id, name });
+    const url = 'FinancialYear';
+    return this.httpService.put(url, { id, name });
   }
-  GetFinancialPeriodByID(id : number) : Observable<editFinancialCalndar> {
-    const url = `FinancialYear/${id}`
+  GetFinancialPeriodByID(id: number): Observable<editFinancialCalndar> {
+    const url = `FinancialYear/${id}`;
     return this.httpService.get(url);
   }
 
 
-
   editTag(tagDto: TagDto): Observable<boolean> {
-    return this.httpService.put<boolean>(`Tag`,tagDto);
- }
+    return this.httpService.put<boolean>(`Tag`, tagDto);
+  }
 
- getTagById(id: number): Observable<TagDto> {
-  return this.httpService.get<TagDto>(`Tag/GetById?Id=${id}`);
-}
+  getTagById(id: number): Observable<TagDto> {
+    return this.httpService.get<TagDto>(`Tag/GetById?Id=${id}`);
+  }
 
- deleteTag(id: number): Observable<boolean> {
-  return this.httpService.delete<boolean>(`Tag?Id=${id}`);
-}
+  deleteTag(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`Tag?Id=${id}`);
+  }
 
-
-activateTag(id: number): Observable<boolean> {
-  return this.httpService.put<boolean>(`Tag/Activate?Id=${id}`,{});
-}
+  activateTag(id: number): Observable<boolean> {
+    return this.httpService.put<boolean>(`Tag/Activate?Id=${id}`, {});
+  }
 
 deactivateTag(id: number): Observable<boolean> {
   return this.httpService.put<boolean>(`Tag/deactivate?Id=${id}`,{});
@@ -151,14 +155,13 @@ getVendorById(id: number): Observable<any> {
   return this.httpService.get<any>(`Vendor/${id}`);
 }
 
+  getVendorDefinitionByID(id: number): Observable<GetVendorById> {
+    const url = `Vendor/${id}`;
+    return this.httpService.get(url);
+  }
 
-getVendorDefinitionByID(id : number) : Observable<GetVendorById> {
-  const url = `Vendor/${id}`
-  return this.httpService.get(url);
-}
-
-editVendorDefinition(vendor:EditVendorCommand): Observable<any> {
-  return this.httpService.put(`Vendor`,vendor);
-}
+  editVendorDefinition(vendor: EditVendorCommand): Observable<any> {
+    return this.httpService.put(`Vendor`, vendor);
+  }
   constructor(private httpService: HttpService) {}
 }
