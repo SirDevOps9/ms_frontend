@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { reportTrialDto } from '../../../models';
-import { LanguageService, PageInfo, PrintService, RouterService, ToasterService, customValidators } from 'shared-lib';
+import { DateTimeService, LanguageService, PageInfo, PrintService, RouterService, ToasterService, customValidators } from 'shared-lib';
 import { Title } from '@angular/platform-browser';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -26,7 +26,8 @@ defoultSelectedAcounts:number[]=[]
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
     private ToasterService:ToasterService,
-    private PrintService:PrintService
+    private PrintService:PrintService,
+    private dateTimeService:DateTimeService
   ) {}
 
   ngOnInit() {
@@ -60,14 +61,6 @@ defoultSelectedAcounts:number[]=[]
           displayName: `${account.name} (${account.accountCode})`
 
         }));
-        this.filteredAccounts.forEach(element => {
-          this.defoultSelectedAcounts.push(element.id)  
-        });
-
-        this.reportTrialForm.patchValue({
-          Accounts:this.defoultSelectedAcounts
-        })
-        
       });
      
   }
@@ -115,11 +108,18 @@ defoultSelectedAcounts:number[]=[]
     }
   }
   initializeDates() {
-    const today = new Date();
-    const endOfMonth = new Date(today.getFullYear(), today.getMonth()+1 );
+  //   var date = new Date();
+  //  var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+   // var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  //  console.log(firstDay.toISOString().split('T')[0],"firstDay");
+  // console.log(lastDay,"lastDay");
+  // var today = new Date();
+  // var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth()+1, 0);
+
+  // console.log(formattedDate);
     this.reportTrialForm.patchValue({
-      dateFrom: today.toISOString().split('T')[0],
-      dateTo: endOfMonth.toISOString().split('T')[0],
+      dateFrom: this.dateTimeService.firstDayOfMonth(),
+      // dateTo: lastDay.toISOString().split('T')[0],
     });
   }
   routeTo(id:number){
