@@ -4,7 +4,7 @@ export const environment: IEnvironment = {
   production: false,
   baseUrl: 'http://localhost:2005',
   Version: 'V1',
-  ClientId: 'Erp.Accounting',
+  ClientId: 'Erp',
   Platform: 'Web',
   photoBaseUrl: 'https://intmicrotec.neat-url.com:2022',
   AuthConfiguration: {
@@ -13,11 +13,11 @@ export const environment: IEnvironment = {
     redirectUrl: window.location.origin + '/erp/login-redirect',
     logoutRedirectUri: window.location.origin + '/erp/logout-redirect',
     scopes: 'subdomain',
-    state: window.location.origin + '/accounting/',
+    state: window.location.origin + '/erp/',
   },
   AttachmentServiceConfig: {
     AttachmentServiceUrl: 'http://localhost:2030',
-    ClientId: 'Erp.Accounting',
+    ClientId: 'Erp',
     SecretKey: 'secretkey',
   },
   ApiKey: '3bb564df-0f24-4ea6-82c1-d99f368cac8a',

@@ -17,7 +17,9 @@
       "Text": "لا يمكنك الرجوع فى هذا القرار!",
       "ConfirmButtonTexttodelete": "نعم, قم بالمسح!",
       "CancelButtonText": "الغاء",
-      "ConfirmButtonTexttochangstatus": "نعم" 
+      "ConfirmButtonTexttochangstatus": "نعم, غير الحالة",
+      "Activate": "تفعيل",
+      "Deactivate": "إلغاء التنشيط"
     }
   },
   "Layout": {
@@ -234,47 +236,61 @@
       "TryAnotherDomain": "جرب نطاقًا آخر",
       "AddToCart": "أضف إلى السلة",
       "YourDomainSpace": "النطاق الفرعي"
+
     }
   },
-  "ChartOfAccounts": {
-    "name": "الاسم",
-    "nameEn": "الاسم بالإنجليزية",
-    "ParentAccount": "الحساب الرئيسي",
-    "Account": "الحساب",
-    "ParentAccountCode": "رمز الحساب الرئيسي",
-    "AccountCode": "رمز الحساب ",
-    "level": "المستوى",
-    "AccountNature": "طبيعة الحساب",
-    "AccountSection": "قسم الحساب",
-    "AccountType": "نوع الحساب",
-    "Tags": "الوسوم",
-    "companies": "الشركات",
-    "HasNoChild": "حساب تفصيلى",
-    "Currency": "العملة",
-    "AccountActivation": "تفعيل الحساب",
-    "costCenterConfig": "تكوين مركز التكلفة",
-    "periodicActiveFrom": "نشط دوريًا من",
-    "periodicActiveTo": "نشط دوريًا إلى",
-    "Active": "نشط",
-    "Inactive": "غير نشط",
-    "periodicActive": "نشط دوريًا",
-    "SuccessTitle": "تم بنجاح",
-    "Error": "خطأ",
-    "Yes": "نعم",
-    "No": "لا",
-    "Save": "حفظ"
+  "tag": {
+    "taglist": "قائمة العلامات",
+    "Id": "الهوية",
+    "Name": "الاسم",
+    "status": "الحالة",
+    "Modules": "الوحدات",
+    "Actions": "الإجراءات",
+    "Edit": "تحرير",
+    "Delete": "حذف",
+    "Add": "إضافة",
+    "AddTag": "إضافة علامة",
+    "Activate": "نشط",
+    "Deactivate": "إلغاء التنشيط",
+    "addtag": {
+      "title": "إضافة علامة",
+      "name": "الاسم",
+      "applicability": "قابلية التطبيق",
+      "save": "حفظ",
+      "discard": "تجاهل",
+      "code": "رمز"
+    },
+    "edittag": {
+      "title": "تعديل الوسم",
+      "name": "الاسم",
+      "applicability": "التطبيقية",
+      "status": "الحالة",
+      "save": "حفظ",
+      "discard": "تجاهل",
+      "code": "الرمز",
+      "success": "نجاح"
+    }
+    
   },
-  "viewJournal": {
-    "JornalCode": "Journal Code",
-    "Jornalstatus": "Journal Status",
-    "journalReference": "Journal Reference",
-    "date": "Date",
-    "JournalPeriod": "Journal Period",
-    "JournalType": "Journal Type"
-  },
-  "costCenter" : {
-    "mandatory" : "إلزامي",
-    "optional" : "اختياري",
-    "notAllow" : "غير مسموح"
+  "Shared": {
+  "Error": "خطأ",
+  "validation": {
+    "invalidForm": "نموذج غير صالح"
+  }
+},
+"vendorDefinition": {
+  "code": "كود البائع",
+  "name": "اسم البائع",
+  "category": "فئة البائع",
+  "email": "البريد الإلكتروني",
+  "country": "البلد",
+  "paymentTerm": "شروط الدفع",
+  "criditLimit": "حد الائتمان",
+  "actions": "الإجراءات",
+  "success": "نجاح",
+  "vendorSuccess": "تم إنشاء البائع بنجاح"
 }
+
+
+  
 }
