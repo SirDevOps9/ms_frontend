@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 // import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, vendorDefinitionDto } from './models';
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto , vendorDefinitionDto, AddCustomerDefinitionDto, EditCustomerDefintionsDto} from './models';
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto , vendorDefinitionDto} from './models';
 
-import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 import { AddVendorCommand } from './models/AddVendorCommand';
 import { CategoryDropdownDto } from './models/CategoryDropdownDto';
 import { CityDto } from './models/CityDto';
@@ -44,51 +43,25 @@ export class GeneralSettingProxy {
 
     return this.httpService.get<PaginationVm<VendorCategoryDto>>(url);
   }
-  getcustomerCategory(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<CustomerCategoryDto>> {
 
-    const url = `CustomerCategory?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
-
-    return this.httpService.get<PaginationVm<CustomerCategoryDto>>(url);
-  } 
   addvendorCategory(addVendorCategoryDto: AddVendorCategory): Observable<AddVendorCategory> {
     return this.httpService.post<AddVendorCategory>(`VendorCategory`,addVendorCategoryDto);
  }
- addCustomerCategory(addCustomerCategoryDto: AddCustomerCategoryDto): Observable<AddCustomerCategoryDto> {
-    return this.httpService.post<AddCustomerCategoryDto>(`CustomerCategory`,addCustomerCategoryDto);
- }
+
  EditVendorCategory(EditVendorCategoryDto: EditVendorCategoryDto): Observable<EditVendorCategoryDto> {
     return this.httpService.put<EditVendorCategoryDto>(`VendorCategory`,EditVendorCategoryDto);
  }
- EditCustomerCategory(EditCustomerCategoryDto: EditCustomerCategoryDto): Observable<EditCustomerCategoryDto> {
-    return this.httpService.put<EditVendorCategoryDto>(`CustomerCategory`,EditCustomerCategoryDto);
- }
+
 
  deleteVendorCategory(id: number): Observable<boolean> {
   return this.httpService.delete<boolean>(`VendorCategory/${id}`);
 }
-deleteCustomerCategory(id: number): Observable<boolean> {
-  return this.httpService.delete<boolean>(`CustomerCategory/${id}`);
-}
+
  getVendorCategoryByID(id : number) : Observable<EditVendorCategoryDto> {
   const url = `VendorCategory/${id}`
   return this.httpService.get(url);
 }
-getCustomerCategoryByID(id : number) : Observable<EditVendorCategoryDto> {
-  const url = `CustomerCategory/${id}`
-  return this.httpService.get(url);
-}
 
-
-getcustomerDefinition(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<CustomerCategoryDto>> {
-
-  const url = `Customer?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
-
-  return this.httpService.get<PaginationVm<CustomerCategoryDto>>(url);
-} 
-
-deleteCustomerDefinition(id: number): Observable<boolean> {
-  return this.httpService.delete<boolean>(`Customer/${id}`);
-}
 getVendorDefinition(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<vendorDefinitionDto>> {
 
   const url = `vendor?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
@@ -100,6 +73,15 @@ deleteVendorDefinition(id: number): Observable<boolean> {
   return this.httpService.delete<boolean>(`vendor/${id}`);
 }
 
+getChildrenAccountsDropDown() {
+  return this.httpService.get('ChartOfAccounts/ChildrenAccountsDropDown');
+}
+getpriceListDropDown() : Observable<{ id: number; name: string }[]>  {
+  return this.httpService.get('PriceList/PriceListDropDown');
+}
+getpaymentTermsListDropDown() : Observable<{ id: number; name: string }[]>  {
+  return this.httpService.get('PaymentTerms/PaymentTermsDropdown');
+}
   addTag(addTagDto: AddTagDto): Observable<TagDto> {
      return this.httpService.post<TagDto>(`Tag`,addTagDto);
   }
@@ -124,15 +106,7 @@ deleteVendorDefinition(id: number): Observable<boolean> {
   }
 
 
-  getChildrenAccountsDropDown() {
-    return this.httpService.get('ChartOfAccounts/ChildrenAccountsDropDown');
-  }
-  getpriceListDropDown() : Observable<{ id: number; name: string }[]>  {
-    return this.httpService.get('PriceList/PriceListDropDown');
-  }
-  getpaymentTermsListDropDown() : Observable<{ id: number; name: string }[]>  {
-    return this.httpService.get('PaymentTerms/PaymentTermsDropdown');
-  }
+
   editTag(tagDto: TagDto): Observable<boolean> {
     return this.httpService.put<boolean>(`Tag`,tagDto);
  }
@@ -168,21 +142,11 @@ getCurrencies(searchKey: string): Observable<CurrencyDto[]> {
 getVendorCategoryDropdown(): Observable<CategoryDropdownDto[]> {
   return this.httpService.get<CategoryDropdownDto[]>('VendorCategory/VendorCategoryDropdown');
 }
-getCustomerCategoryDropdown(): Observable<CategoryDropdownDto[]> {
-  return this.httpService.get<CategoryDropdownDto[]>('CustomerCategory/CustomerCategoryDropdown');
-}
+
 addNewVendorDefinition(vendor:AddVendorCommand): Observable<AddVendorCommand> {
   return this.httpService.post(`Vendor`,vendor);
 }
-addNewCustomerDefinition(customer:AddCustomerDefinitionDto): Observable<AddCustomerDefinitionDto> {
-  return this.httpService.post(`Customer`,customer);
-}
-editCustomerDefinition(customer:EditCustomerDefintionsDto): Observable<EditCustomerDefintionsDto> {
-  return this.httpService.put(`Customer`,customer);
-}
-getCustomerDefinitionByID(id:string): Observable<AddCustomerDefinitionDto> {
-  return this.httpService.get(`Customer/${id}`);
-}
+
 getVendorById(id: number): Observable<any> {
   return this.httpService.get<any>(`Vendor/${id}`);
 }

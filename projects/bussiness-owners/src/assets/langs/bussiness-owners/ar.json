@@ -17,7 +17,7 @@
       "Text": "لا يمكنك الرجوع فى هذا القرار!",
       "ConfirmButtonTexttodelete": "نعم, قم بالمسح!",
       "CancelButtonText": "الغاء",
-      "ConfirmButtonTexttochangstatus": "نعم, غير الحالة"
+      "ConfirmButtonTexttochangstatus":"نعم"
     }
   },
   "Layout": {

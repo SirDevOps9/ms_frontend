@@ -170,19 +170,4 @@ color: #B6BAC3 !important;
   }
  
 }
-::ng-deep .container {
-  .p-menu {
-    z-index: 1002;
-    transform-origin: center top;
-    top: 132.8px !important;
-    left: 1272.64px !important;
-    margin-top: calc(var(--p-anchor-gutter));
-    .pi-file-excel {
-      color: green; /* Change this to your desired color */
-    }
-    .pi-file-pdf {
-      color: red; /* Change this to your desired color */
-    }
-  }
-}
 
