@@ -20,6 +20,14 @@ const routes: Routes = [
     },
     children: [
       {
+        path: '',
+        component: VendorCategoryListComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.vendor_list,
+        },
+      },
+      {
         path: 'vendor-category',
         component: VendorCategoryListComponent,
         canActivate: [AuthGuard],

@@ -4,7 +4,7 @@ export const environment: IEnvironment = {
   production: false,
   baseUrl: 'http://localhost:2005',
   Version: 'V1',
-  ClientId: 'Erp',
+  ClientId: 'Apps-Purchase',
   Platform: 'Web',
   photoBaseUrl: 'https://intmicrotec.neat-url.com:2022',
   AuthConfiguration: {
@@ -17,10 +17,10 @@ export const environment: IEnvironment = {
   },
   AttachmentServiceConfig: {
     AttachmentServiceUrl: 'http://localhost:2030',
-    ClientId: 'Erp',
+    ClientId: 'Purchase',
     SecretKey: 'secretkey',
   },
   ApiKey: '3bb564df-0f24-4ea6-82c1-d99f368cac8a',
   BusinessOwnerUrl: 'http://localhost:2003',
-  state: window.location.origin + '/accounting/',
+  state: window.location.origin + '/purchase/',
 };

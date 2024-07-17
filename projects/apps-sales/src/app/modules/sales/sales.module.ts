@@ -20,10 +20,13 @@ const routes: Routes = [
     },
     children: [
       {
+        path: '',
+        component: CustomerCategoryListComponent,
+      },
+      {
         path: 'customer-category',
         component: CustomerCategoryListComponent,
       },
-
       {
         path: 'add-customer-category',
         component: CreateCustomerCategoryComponent,
