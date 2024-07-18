@@ -41,7 +41,7 @@ export class EditJournalEntryComponent implements OnInit {
   journalEntryLines?: JournalEntryLineDto[];
   accountIdList: number[] = [];
   currencyIdList: number[] = [];
-  costCenters : costCenters[] = []
+  costCenters: costCenters[] = [];
 
   viewMode: boolean = false;
   statusName: string;
@@ -108,8 +108,9 @@ export class EditJournalEntryComponent implements OnInit {
       journalEntryLinesArray.clear();
 
       this.journalEntryLines.forEach((line) => {
-        const { currencyId, debitAmount, creditAmount,  costCenters , currencyRate, ...lineData         } = line;
-        console.log(line)
+        const { currencyId, debitAmount, creditAmount, costCenters, currencyRate, ...lineData } =
+          line;
+        console.log(line);
 
         const lineGroup = this.fb.group(
           {
@@ -124,7 +125,7 @@ export class EditJournalEntryComponent implements OnInit {
             currencyRate: new FormControl(currencyRate, [customValidators.required]),
             debitAmountLocal: new FormControl(debitAmount * currencyRate),
             creditAmountLocal: new FormControl(creditAmount * currencyRate),
-            costCenters : [line.costCenters]
+            costCenters: [line.costCenters],
           },
           { validators: customValidators.debitAndCreditBothCanNotBeZero }
         );
@@ -144,14 +145,16 @@ export class EditJournalEntryComponent implements OnInit {
     const request: EditJournalEntry = this.editJournalForm.value;
     request.id = this.routerService.currentId;
 
-
     request.journalEntryLines = request.journalEntryLines?.map((item) => {
-      item.costCenters = item.costCenters ?  item.costCenters.map(item=> {
-        return {
-          id : item.id ? item.id : 0,
-          percentage :  +item.percentage,
-          costCenterId : item.costCenterId
-        }}) : []
+      item.costCenters = item.costCenters
+        ? item.costCenters.map((item) => {
+            return {
+              id: item.id ? item.id : 0,
+              percentage: +item.percentage,
+              costCenterId: item.costCenterId,
+            };
+          })
+        : [];
       const currencyId =
         typeof item.currency == 'string'
           ? this.currencies.find((c) => c.name == item.currency)!.id
@@ -175,7 +178,7 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   onDiscard() {
-    this.routerService.navigateTo(`/journalentry`);
+    this.routerService.navigateTo(`/transcations/journalentry`);
   }
 
   get journalEntryLinesFormArray() {
@@ -235,17 +238,14 @@ export class EditJournalEntryComponent implements OnInit {
     this.journalEntryLinesFormArray.push(newLine);
   }
 
-
-getAccounts() {
-  this.accountService
-    .getAccountsHasNoChildren('', new PageInfo())
-    .subscribe((r) => {
-      this.filteredAccounts = r.result.map(account => ({
+  getAccounts() {
+    this.accountService.getAccountsHasNoChildren('', new PageInfo()).subscribe((r) => {
+      this.filteredAccounts = r.result.map((account) => ({
         ...account,
-        displayName: `${account.name} (${account.accountCode})`
+        displayName: `${account.name} (${account.accountCode})`,
       }));
     });
-}
+  }
   filterAccount(event: any) {
     //console.log(this.filteredAccounts);
     let query = event.query;
@@ -287,29 +287,31 @@ getAccounts() {
     currencyControl?.setValue(currencyData?.name);
     this.selectedCurrency = currencyData?.name!;
 
-    this.getAccountCurrencyRate(currencyData?.id  as number , index)
+    this.getAccountCurrencyRate(currencyData?.id as number, index);
   }
 
-  openCostPopup(data : any , account : number , index : number) {
-    let accountData = this.filteredAccounts.find(elem=>elem.id === account)
-    console.log(accountData)
-    console.log(this.filteredAccounts)
-    console.log(account)
-    if(!data.creditAmount && !data.debitAmount || !account || accountData?.costCenterConfig == 'NotAllow'){
-      return null
-    }else {
-      const dialogRef =  this.dialog.open(EditCostCenterAllocationPopupComponent,{
+  openCostPopup(data: any, account: number, index: number) {
+    let accountData = this.filteredAccounts.find((elem) => elem.id === account);
+    console.log(accountData);
+    console.log(this.filteredAccounts);
+    console.log(account);
+    if (
+      (!data.creditAmount && !data.debitAmount) ||
+      !account ||
+      accountData?.costCenterConfig == 'NotAllow'
+    ) {
+      return null;
+    } else {
+      const dialogRef = this.dialog.open(EditCostCenterAllocationPopupComponent, {
         width: '900px',
         height: '500px',
-        header : 'Edit Cost Center Allocation',
-        data : data
+        header: 'Edit Cost Center Allocation',
+        data: data,
       });
       dialogRef.onClose.subscribe((res) => {
-        if(res) data.costCenters = res
-       
+        if (res) data.costCenters = res;
       });
     }
-    
   }
 
   getCurrencies() {
@@ -324,9 +326,7 @@ getAccounts() {
     //console.log(event);
     let query = event.query.toLowerCase();
     //console.log(this.currencies);
-    this.fitleredCurrencies = this.currencies.filter((c) =>
-      c.name?.toLowerCase().includes(query)
-    );
+    this.fitleredCurrencies = this.currencies.filter((c) => c.name?.toLowerCase().includes(query));
   }
 
   debitValueChanges(index: number) {
@@ -378,21 +378,18 @@ getAccounts() {
       }
     });
   }
-  getAccountCurrencyRate(accountCurrency: number , currentJournalId:number){
-
-    let currentCurrency : number = 1;
-    
-    let currecnyRate : CurrencyRateDto = {rate:0};
+  getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
+    let currentCurrency: number = 1;
 
     const journalLine = this.journalEntryLinesFormArray.at(currentJournalId);
 
-   this.currencyService.getAccountCurrencyRate(currentCurrency,accountCurrency);
+    this.currencyService.accountCurrencyRate.subscribe((res) => {
+      const currencyRateControl = journalLine.get('currencyRate')!;
 
-   this.currencyService.accountCurrencyRate.subscribe((res) => {currecnyRate = res});
-  
-     const currencyRateControl = journalLine.get('currencyRate')!;
+      currencyRateControl.setValue(res.rate);
+    });
 
-     currencyRateControl.setValue(currecnyRate.rate);
+    this.currencyService.getAccountCurrencyRate(currentCurrency, accountCurrency);
 
   }
   constructor(
