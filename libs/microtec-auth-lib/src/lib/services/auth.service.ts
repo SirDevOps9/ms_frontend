@@ -64,11 +64,15 @@ export class AuthService {
       scopes: this.environmentService.AuthConfiguration?.scopes!,
       state: state,
     };
-    
+
     this.authProxy.collectToken(tokenModel).subscribe({
       next: (res) => {
         this.saveLoginData(res);
-        location.href = state;
+        if (state.includes('logout-redirect')) {
+          this.router.navigate(['/']);
+        } else {
+          location.href = state;
+        }
       },
     });
   }
