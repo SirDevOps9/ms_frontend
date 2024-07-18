@@ -14,22 +14,16 @@ export const ERPRoutes = [
       {
         path: '',
         loadChildren: () =>
-          import('./modules/general-setting/general-setting.module').then((m) => m.GeneralSettingModule),
+          import('./modules/general-setting/general-setting.module').then(
+            (m) => m.GeneralSettingModule
+          ),
       },
       {
         path: 'generalsettings',
         loadChildren: () =>
-          import('./modules/general-setting/general-setting.module').then((m) => m.GeneralSettingModule),
-      },
-      {
-        path: 'sales',
-        loadChildren: () =>
-          import('./modules/Sales/sales.module').then((m) => m.SalesModule),
-      },
-      {
-        path: 'purchase',
-        loadChildren: () =>
-          import('./modules/purchase/purchase.module').then((m) => m.PurchaseModule),
+          import('./modules/general-setting/general-setting.module').then(
+            (m) => m.GeneralSettingModule
+          ),
       },
     ],
   },
