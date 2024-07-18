@@ -141,7 +141,7 @@ getCities(countryCode: string): Observable<CityDto[]> {
   return this.httpService.get<CityDto[]>(`Country/GetCities?CountryCode=${countryCode}`);
 }
 getCurrencies(searchKey: string): Observable<CurrencyDto[]> {
-  return this.httpService.get<CurrencyDto[]>('Currency?searchKey=' + searchKey);
+  return this.httpService.get<CurrencyDto[]>('Currency/CurrencyDropDown?searchKey=' + searchKey);
 }
 getVendorCategoryDropdown(): Observable<CategoryDropdownDto[]> {
   return this.httpService.get<CategoryDropdownDto[]>('VendorCategory/VendorCategoryDropdown');

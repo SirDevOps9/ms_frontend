@@ -153,7 +153,7 @@ export class EditJournalEntryComponent implements OnInit {
         }}) : []
       const currencyId =
         typeof item.currency == 'string'
-          ? this.currencies.find((c) => c.currencyName == item.currency)!.id
+          ? this.currencies.find((c) => c.name == item.currency)!.id
           : item.currency.id;
       return { ...item, currencyId: currencyId };
     });
@@ -287,8 +287,8 @@ getAccounts() {
     const currencyControl = journalLine.get('currency');
     const currencyRateControl = journalLine.get('currencyRate')!;
 
-    currencyControl?.setValue(currencyData?.currencyName);
-    this.selectedCurrency = currencyData?.currencyName!;
+    currencyControl?.setValue(currencyData?.name);
+    this.selectedCurrency = currencyData?.name!;
     currencyRateControl.setValue(currencyData?.ratePerUnit);
   }
 
@@ -327,7 +327,7 @@ getAccounts() {
     let query = event.query.toLowerCase();
     //console.log(this.currencies);
     this.fitleredCurrencies = this.currencies.filter((c) =>
-      c.currencyName?.toLowerCase().includes(query)
+      c.name?.toLowerCase().includes(query)
     );
   }
 

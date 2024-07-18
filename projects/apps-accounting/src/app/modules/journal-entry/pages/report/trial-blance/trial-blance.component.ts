@@ -124,7 +124,7 @@ defoultSelectedAcounts:number[]=[]
     });
   }
   routeTo(id:number){
-    this.routerService.navigateTo(`/reports/account-statement/${id}`);
+    this.routerService.navigateTo(`/transcations/account-statement/${id}`);
   }
  
 }

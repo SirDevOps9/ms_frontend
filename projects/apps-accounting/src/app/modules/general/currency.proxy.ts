@@ -8,7 +8,7 @@ import { CurrencyDto } from './models/currencyDto';
 })
 export class CurrencyProxy {
     getCurrencies(searchKey: string): Observable<CurrencyDto[]> {
-        return this.httpService.get<CurrencyDto[]>('Currency?searchKey=' + searchKey);
+        return this.httpService.get<CurrencyDto[]>('Currency/CurrencyDropDown?searchKey=' + searchKey);
       }
 
 

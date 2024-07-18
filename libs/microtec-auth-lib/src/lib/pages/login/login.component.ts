@@ -10,13 +10,16 @@ import { LanguageService, RouteParams, RouterService } from 'shared-lib';
 })
 export class LoginComponent implements OnInit {
   ngOnInit(): void {
-    if (this.authService.isAuthenticated()) {
-      this.routerService.navigateTo('');
-    }
     this.titleService.setTitle('Login');
-    let culture = this.routerService.getRouteParams(RouteParams.CULTUREQUERY);
-    this.languageService.setDefaultLang(culture);
-    this.authService.authorize();
+    if (this.authService.isAuthenticated()) {
+      console.log('Is Authenticated', this.authService.isAuthenticated());
+
+      this.routerService.navigateTo('');
+    } else {
+      let culture = this.routerService.getRouteParams(RouteParams.CULTUREQUERY);
+      this.languageService.setDefaultLang(culture);
+      this.authService.authorize();
+    }
   }
 
   constructor(

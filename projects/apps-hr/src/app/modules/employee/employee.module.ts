@@ -35,7 +35,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'add',
+        path: 'employee/add',
         component: CreateEmployeeComponent,
         //canActivate: [AuthGuard],
         data: {
@@ -43,7 +43,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'view/:id',
+        path: 'employee/view/:id',
         component: ViewEmployeeComponent,
         //canActivate: [AuthGuard],
         data: {
@@ -51,7 +51,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'edit/:id',
+        path: 'employee/edit/:id',
         component: EditEmployeeComponent,
         //canActivate: [AuthGuard],
         data: {

@@ -28,7 +28,7 @@ const routes: Routes = [
     },
     children: [
       {
-        path: '',
+        path: 'journalentry',
         component: JournalEntryListComponent,
         //  canActivate: [AuthGuard],
         data: {
@@ -36,7 +36,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'add',
+        path: 'journalentry/add',
         component: CreateJournalEntryComponent,
         //  canActivate: [AuthGuard],
         data: {
@@ -45,7 +45,7 @@ const routes: Routes = [
       },
 
       {
-        path: 'view/:id',
+        path: 'journalentry/view/:id',
         component: ViewJournalEntryComponent,
         //  canActivate: [AuthGuard],
         data: {
@@ -54,7 +54,7 @@ const routes: Routes = [
       },
 
       {
-        path: 'edit/:id',
+        path: 'journalentry/edit/:id',
         component: EditJournalEntryComponent,
         // canActivate: [AuthGuard],
         data: {

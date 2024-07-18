@@ -25,10 +25,6 @@ export class AuthGuard {
       });
 
     console.log('Current Module', moduleId);
-    // console.log(
-    //   'Check',
-    //   loadedModules.find((x) => x.moduleId == moduleId)
-    // );
 
     if (loadedModules)
       if (loadedModules.find((x) => x.moduleId == moduleId) == null) {

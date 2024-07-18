@@ -41,10 +41,10 @@ export class VendorCategoryListComponent implements OnInit {
   }
 
   routeToAdd() {
-    this.routerService.navigateTo('/purchase/add-vendor-category')
+    this.routerService.navigateTo('/masterdata/add-vendor-category')
   }
   routeToEdit(id : number) {
-    this.routerService.navigateTo(`/purchase/edit-vendor-category/${id}`)
+    this.routerService.navigateTo(`/masterdata/edit-vendor-category/${id}`)
   }
 
   initFinancialCalendarData() {

@@ -12,7 +12,6 @@ import { FinancialCalendarListComponent } from './pages/financial-calendar/finan
 import { CreateFinancialCalendarComponent } from './components/create-financial-calendar/create-financial-calendar.component';
 import { EditFinancialCalendarComponent } from './components/edit-financial-calendar/edit-financial-calendar.component';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -24,7 +23,15 @@ const routes: Routes = [
       {
         path: '',
         component: TagListComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.tag_list,
+        },
+      },
+      {
+        path: 'tags',
+        component: TagListComponent,
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.tag_list,
         },
@@ -32,31 +39,27 @@ const routes: Routes = [
       {
         path: 'financial-calendar',
         component: FinancialCalendarListComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.calendar_list,
         },
       },
       {
-        path: 'add-financial-calendar',
+        path: 'financial-calendar/add-financial-calendar',
         component: CreateFinancialCalendarComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.calendar_list,
         },
       },
       {
-        path: 'edit-financial-calendar/:id',
+        path: 'financial-calendar/edit-financial-calendar/:id',
         component: EditFinancialCalendarComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.calendar_list,
         },
       },
-     
-    
-    
-
     ],
   },
 ];
@@ -69,7 +72,6 @@ const routes: Routes = [
     FinancialCalendarListComponent,
     CreateFinancialCalendarComponent,
     EditFinancialCalendarComponent,
-   
   ],
   imports: [CommonModule, SharedLibModule, AutoCompleteModule, RouterModule.forChild(routes)],
 })

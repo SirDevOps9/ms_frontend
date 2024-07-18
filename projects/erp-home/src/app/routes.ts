@@ -14,12 +14,9 @@ export const ERPRoutes = [
       {
         path: '',
         component: LandingPageComponent,
-        data: {
-          moduleId: Modules.Hr,
-        },
       },
       {
-        path: 'generalsettings',
+        path: 'masterdata',
         loadChildren: () =>
           import('./modules/general-setting/general-setting.module').then(
             (m) => m.GeneralSettingModule

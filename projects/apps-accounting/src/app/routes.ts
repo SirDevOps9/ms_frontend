@@ -14,17 +14,14 @@ export const ERPRoutes = [
       {
         path: '',
         component: LandingPageComponent,
-        data: {
-          moduleId: Modules.Accounting,
-        },
       },
       {
-        path: 'journalentry',
+        path: 'transcations',
         loadChildren: () =>
           import('./modules/journal-entry/journal-entry.module').then((m) => m.JournalEntryModule),
       },
       {
-        path: 'account',
+        path: 'masterdata',
         loadChildren: () => import('./modules/account/account.module').then((m) => m.AccountModule),
       },
     ],

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { LayoutPageComponent } from 'apps-shared-lib';
+import { LandingPageComponent, LayoutPageComponent } from 'apps-shared-lib';
 import { AuthGuard } from 'microtec-auth-lib';
 import { Modules } from 'shared-lib';
 
@@ -15,10 +15,13 @@ export const ERPRoutes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./modules/finance/finance.module').then((m) => m.FinanceModule),
+        component: LandingPageComponent,
+        data: {
+          moduleId: Modules.Finance,
+        },
       },
       {
-        path: 'finance',
+        path: 'masterdata',
         loadChildren: () => import('./modules/finance/finance.module').then((m) => m.FinanceModule),
       },
     ],

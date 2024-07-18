@@ -229,7 +229,7 @@ export class CreateJournalEntryComponent {
 
     currencyRateControl.setValue(currencyData?.ratePerUnit);
     const currencyNameControl = journalLine.get('currencyName');
-    currencyNameControl?.setValue(currencyData?.currencyName);
+    currencyNameControl?.setValue(currencyData?.name);
   }
 
   accountSelectedForDialog(accountData: any, id: number) {
@@ -252,7 +252,7 @@ export class CreateJournalEntryComponent {
 
     currencyRateControl.setValue(currencyData?.ratePerUnit);
     const currencyNameControl = journalLine.get('currencyName');
-    currencyNameControl?.setValue(currencyData?.currencyName);
+    currencyNameControl?.setValue(currencyData?.name);
   }
 
   currencyChanged(index: number) {
@@ -279,7 +279,7 @@ export class CreateJournalEntryComponent {
         var currencyData = this.currencies.find((c) => c.id == r.currencyId);
         this.fa.at(index).get('currency')?.setValue(r.currencyId);
         this.fa.at(index).get('currencyRate')?.setValue(currencyData?.ratePerUnit);
-        this.fa.at(index).get('currencyName')?.setValue(currencyData?.currencyName);
+        this.fa.at(index).get('currencyName')?.setValue(currencyData?.name);
         // this.accountSelectedForDialog(r, index);
       }
     });
@@ -288,7 +288,7 @@ export class CreateJournalEntryComponent {
   filterCurrency(event: any) {
     let query = event.query.toLowerCase();
     this.fitleredCurrencies = this.currencies.filter((c) =>
-      c.currencyName?.toLowerCase().includes(query)
+      c.name?.toLowerCase().includes(query)
     );
   }
 

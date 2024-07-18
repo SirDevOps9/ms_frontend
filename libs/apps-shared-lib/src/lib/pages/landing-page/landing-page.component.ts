@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Modules } from 'shared-lib';
 
@@ -9,27 +10,6 @@ import { Modules } from 'shared-lib';
 })
 export class LandingPageComponent implements OnInit {
   moduleName: string;
-  apps = [
-    {
-      name: 'Sales Management',
-      description: 'Manage your sales and customer relationships.',
-      icon: 'bi bi-briefcase',
-      link: '/sales',
-    },
-    {
-      name: 'Inventory Control',
-      description: 'Track and manage your inventory effectively.',
-      icon: 'bi bi-box',
-      link: '/inventory',
-    },
-    {
-      name: 'Finance Management',
-      description: 'Handle your financial operations with ease.',
-      icon: 'bi bi-currency-dollar',
-      link: '/finance',
-    },
-    // Add more apps as needed
-  ];
 
   ngOnInit() {
     console.log('Landing Page');
@@ -37,9 +17,14 @@ export class LandingPageComponent implements OnInit {
     if (this.router.snapshot.data['moduleId'] === Modules.Accounting)
       this.moduleName = 'Accounting';
     else if (this.router.snapshot.data['moduleId'] === Modules.Hr) this.moduleName = 'Hr';
+    else if (this.router.snapshot.data['moduleId'] === Modules.Finance) this.moduleName = 'Finance';
+    else if (this.router.snapshot.data['moduleId'] === Modules.Sales) this.moduleName = 'Sales';
+    else if (this.router.snapshot.data['moduleId'] === Modules.Purchase) this.moduleName = 'Purchase';
     else if (this.router.snapshot.data['moduleId'] === Modules.GeneralSettings)
       this.moduleName = 'General Settings';
+
+    this.titleService.setTitle(this.moduleName);
   }
 
-  constructor(private router: ActivatedRoute) {}
+  constructor(private router: ActivatedRoute, private titleService: Title) {}
 }

@@ -21,7 +21,7 @@ const routes: Routes = [
       {
         path: '',
         component: TreauryDefinitionListComponent,
-        canActivate: [AuthGuard],
+        //  canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.TREASURY_LIST,
         },
@@ -29,7 +29,7 @@ const routes: Routes = [
       {
         path: 'treasury-list',
         component: TreauryDefinitionListComponent,
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.TREASURY_LIST,
         },

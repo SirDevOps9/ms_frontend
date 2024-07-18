@@ -1,7 +1,7 @@
 export interface CurrencyDto {
   id: number;
-  currencyName: string | null;
-  currencyCode: string | null;
-  currencySymbol: string | null;
+  name: string | null;
+  code: string | null;
+  symbol: string | null;
   ratePerUnit: number;
 }
