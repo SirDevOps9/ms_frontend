@@ -182,6 +182,7 @@
       "address": "العنوان",
       "longitude": "خط الطول",
       "latitude": "خط العرض",
+      "currency":"العملة",
       "Save": "حفظ"
     },
     "Contanct": {
