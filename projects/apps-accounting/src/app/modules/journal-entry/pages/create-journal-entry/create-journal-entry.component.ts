@@ -271,9 +271,9 @@ export class CreateJournalEntryComponent {
         this.fa.at(index)?.get('accountCode')?.setValue(r.accountCode);
         var currencyData = this.currencies.find((c) => c.id == r.currencyId);
         this.fa.at(index).get('currency')?.setValue(r.currencyId);
-        this.fa.at(index).get('currencyRate')?.setValue(currencyData?.ratePerUnit);
         this.fa.at(index).get('currencyName')?.setValue(currencyData?.name);
         // this.accountSelectedForDialog(r, index);
+        this.getAccountCurrencyRate(r.currencyId , index);
       }
     });
   }
