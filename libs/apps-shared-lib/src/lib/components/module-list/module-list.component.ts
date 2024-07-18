@@ -32,6 +32,12 @@ export class ModuleListComponent implements OnInit {
       location.href = '../accounting';
     } else if (key === Modules.GeneralSettings) {
       location.href = '../erp';
+    } else if (key === Modules.Sales) {
+      location.href = '../sales';
+    } else if (key === Modules.Finance) {
+      location.href = '../finance';
+    } else if (key === Modules.Purchase) {
+      location.href = '../purchase';
     }
   }
 

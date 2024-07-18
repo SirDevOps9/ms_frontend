@@ -142,10 +142,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   exportClick(e? : Event ) {
-
     this.exportEmployeeData(this.searchTerm);
-    
-
   }
   exportExcel()
   {

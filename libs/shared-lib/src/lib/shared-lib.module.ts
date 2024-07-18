@@ -51,6 +51,7 @@ import { SelectIconComponent } from './form-components/selectIcon/selectIcon.com
 import { UploadMultipeFilesComponent } from './form-components/upload-multipe-files/upload-multipe-files.component';
 import { CalendarComponent } from './form-components/calendar/calendar.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ExportComponent } from './components/export/export.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { HttpClientModule } from '@angular/common/http';
     UploadMultipeFilesComponent,
     CalendarComponent,
     TablePrintComponent,
-    TabviewComponent
+    TabviewComponent,
+    ExportComponent
   ],
   imports: [
     HttpClientModule,
@@ -139,11 +141,12 @@ import { HttpClientModule } from '@angular/common/http';
     ButtonMicroComponent,
     ToggelComponent,
     CalendarComponent,
-    GetElementByIDPipe,
+    GetElementByIDPipe, 
     ToastComponent,
     UploadMultipeFilesComponent,
     TablePrintComponent,
-    TabviewComponent
+    TabviewComponent,
+    ExportComponent
   ],
 })
 export class SharedLibModule {}
