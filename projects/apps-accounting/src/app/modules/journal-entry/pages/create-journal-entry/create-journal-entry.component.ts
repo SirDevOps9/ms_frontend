@@ -401,9 +401,7 @@ export class CreateJournalEntryComponent {
 
     };
      console.log(obj);
-    this.service
-      .addJournalEntry(obj)
-      .subscribe((r) => this.routerService.navigateTo('journalentry'));
+    this.service.addJournalEntry(obj).subscribe((r) => this.routerService.navigateTo('journalentry'));
   }
 
   routeToJournal() {

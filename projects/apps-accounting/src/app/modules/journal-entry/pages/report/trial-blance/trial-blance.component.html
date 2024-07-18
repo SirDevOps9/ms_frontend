@@ -19,7 +19,8 @@
               isGlobalFilter: true,
               isSortable: true,
               rowspan:'3',
-              template:accountCode
+              template:accountCode,
+              class:'center'
 
             
             },
@@ -29,23 +30,27 @@
               isGlobalFilter: true,
               isSortable: true,
               rowspan:'3',
+              class:'center',
               template:accountName
             },
             {
               name: 'openingBalance',
               headerText: ('reportTrial.Openingbalance'| translate),
               colspan:'2',
-              class:'trial_balance',
+           
+
+              class:'trial_balance center',
               children:[
               {
               name: 'debit',
               headerText: ('reportTrial.debit'| translate),
-              class:'debit',
+              class:'debit center',
+
             },
             {
               name: 'credit',
               headerText: ('reportTrial.credit'| translate),
-              class:'trial_balance credit',
+              class:'trial_balance credit center',
               body_class:'body_credit'
             }
                 ]
@@ -57,17 +62,21 @@
               isGlobalFilter: true,
               isSortable: true,
               colspan:'2',
-              class:'trial_balance',
+              class:'trial_balance center',
+              
+
               children:[
               {
               name: 'debit',
               headerText: ('reportTrial.debit'| translate),
-              class:'debit',
+              class:'debit center',
+              
+
             },
             {
               name: 'credit',
               headerText: ('reportTrial.credit'| translate),
-              class:'trial_balance credit',
+              class:'trial_balance credit center',
               body_class:'body_credit'
             },
               ]
@@ -79,19 +88,21 @@
               isGlobalFilter: true,
               isSortable: true,
               colspan:'2',
-              class:'trial_balance',
+              class:'trial_balance center',
+             
+
               children:[
               {
               name: 'debit',
               headerText: ('reportTrial.debit'| translate),
-              class:'debit',
+              class:'debit center',
              
             
             },
             {
               name: 'credit',
               headerText: ('reportTrial.credit'| translate),
-              class:'trial_balance credit ',
+              class:'trial_balance credit center ',
               body_class:'body_credit'
             },
               ]
