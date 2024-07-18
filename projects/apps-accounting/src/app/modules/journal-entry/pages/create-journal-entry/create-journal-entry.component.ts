@@ -29,6 +29,7 @@ import {
 } from "ngx-guided-tour"; 
 import { CostCenterAllocationPopupComponent } from '../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
 import { costCenters } from '../../models';
+import { CurrencyRateDto } from '../../../general/models/currencyRateDto';
 export interface JournalEntryLineFormValue {
   id: number;
   account: AccountDto;
@@ -230,6 +231,9 @@ export class CreateJournalEntryComponent {
     currencyRateControl.setValue(currencyData?.ratePerUnit);
     const currencyNameControl = journalLine.get('currencyName');
     currencyNameControl?.setValue(currencyData?.name);
+
+
+    this.getAccountCurrencyRate(currencyData?.id as number , id)
   }
 
   accountSelectedForDialog(accountData: any, id: number) {
@@ -499,5 +503,24 @@ export class CreateJournalEntryComponent {
   getTodaysDate() {
     var date = new Date();
     return date.toISOString().substring(0, 10);
+  }
+
+  getAccountCurrencyRate(accountCurrency: number , currentJournalId:number){
+
+    let currentCurrency : number = 1;
+    
+    let currecnyRate : CurrencyRateDto = {rate:0};
+
+    const journalLine = this.items.at(currentJournalId);
+
+   this.currencyService.getAccountCurrencyRate(currentCurrency,accountCurrency);
+
+   this.currencyService.accountCurrencyRate.subscribe((res) => {currecnyRate = res});
+  
+     const currencyRateControl = journalLine.get('currencyRate')!;
+
+     currencyRateControl.setValue(currecnyRate.rate);
+
+
   }
 }

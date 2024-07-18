@@ -59,6 +59,7 @@ export class JournalEntryProxy {
   getAccountingReports(accounts:reportAccount){
     return this.httpService.post<reportAccount>(`AccountingReports/AccountStatmentReport`,accounts);
   }
+  
 
   constructor(private httpService: HttpService) {}
 }

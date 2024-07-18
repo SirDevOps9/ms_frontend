@@ -20,9 +20,12 @@ export class JournalEntryService {
   private trialDataSource = new BehaviorSubject<TrialBalance[]>([]);
   private accountReportsDataSource = new BehaviorSubject<reportAccount[]>([]);
 
+
   public journalEntries = this.journalEntriesDataSource.asObservable();
   public report = this.trialDataSource.asObservable();
   public accountReport = this.accountReportsDataSource.asObservable();
+
+
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
@@ -157,5 +160,7 @@ export class JournalEntryService {
       this.accountReportsDataSource.next(response);
     });
   }
+
+  
  
 }

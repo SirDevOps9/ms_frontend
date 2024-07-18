@@ -27,6 +27,7 @@ import { NoChildrenAccountsComponent } from '../../components/noChildrenAccounts
 import { Title } from '@angular/platform-browser';
 import { CostCenterAllocationPopupComponent } from '../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
 import { EditCostCenterAllocationPopupComponent } from '../components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component';
+import { CurrencyRateDto } from '../../../general/models/currencyRateDto';
 
 @Component({
   selector: 'app-edit-journal-entry',
@@ -180,9 +181,6 @@ export class EditJournalEntryComponent implements OnInit {
   get journalEntryLinesFormArray() {
     return this.editJournalForm.get('journalEntryLines') as FormArray;
   }
-  oncurrencyChange(e: any, journalLine: FormGroup) {
-    journalLine.get('currencyRate')?.setValue(journalLine?.value?.currency?.ratePerUnit);
-  }
 
   async deleteJournalEntryLine(index: number) {
     const journalLine = this.journalEntryLinesFormArray.at(index);
@@ -285,11 +283,11 @@ getAccounts() {
     var currencyData = this.currencies.find((c) => c.id == accountData?.currencyId);
 
     const currencyControl = journalLine.get('currency');
-    const currencyRateControl = journalLine.get('currencyRate')!;
 
     currencyControl?.setValue(currencyData?.name);
     this.selectedCurrency = currencyData?.name!;
-    currencyRateControl.setValue(currencyData?.ratePerUnit);
+
+    this.getAccountCurrencyRate(currencyData?.id  as number , index)
   }
 
   openCostPopup(data : any , account : number , index : number) {
@@ -380,7 +378,23 @@ getAccounts() {
       }
     });
   }
+  getAccountCurrencyRate(accountCurrency: number , currentJournalId:number){
 
+    let currentCurrency : number = 1;
+    
+    let currecnyRate : CurrencyRateDto = {rate:0};
+
+    const journalLine = this.journalEntryLinesFormArray.at(currentJournalId);
+
+   this.currencyService.getAccountCurrencyRate(currentCurrency,accountCurrency);
+
+   this.currencyService.accountCurrencyRate.subscribe((res) => {currecnyRate = res});
+  
+     const currencyRateControl = journalLine.get('currencyRate')!;
+
+     currencyRateControl.setValue(currecnyRate.rate);
+
+  }
   constructor(
     private journalEntryService: JournalEntryService,
     private routerService: RouterService,
