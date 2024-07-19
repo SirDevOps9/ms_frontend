@@ -177,7 +177,7 @@ export class AddVendorDefinitionsComponent implements OnInit {
   }
   onDiscard() {
     //this.editEmployeeForm.reset();
-    this.routerService.navigateTo(`/vendor-definitions`);
+    this.routerService.navigateTo(`/masterdata/vendor-definitions`);
 
   }
 }

@@ -122,7 +122,7 @@ export class SalesService {
           this.languageService.transalte('addCustomerCategory.successEdit')
         );
         if (res) {
-          this.routerService.navigateTo('/sales/customer-category');
+          this.routerService.navigateTo('/masterdata/customer-category');
         }
       },
     });
@@ -226,7 +226,7 @@ export class SalesService {
         if (res) {
           this.addCustomerDefinitionRes.next(res);
           this.loaderService.hide();
-          this.routerService.navigateTo('/sales/customer-definitions');
+          this.routerService.navigateTo('/masterdata/customer-definitions');
         }
       },
       error: (err) => {

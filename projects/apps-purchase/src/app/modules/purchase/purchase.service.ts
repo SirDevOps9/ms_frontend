@@ -111,7 +111,7 @@ export class PurchaseService {
           this.languageService.transalte('success'),
           this.languageService.transalte('addVendorCategory.successEdit')
         );
-        if (res) this.routerService.navigateTo('/purchase/vendor-category');
+        if (res) this.routerService.navigateTo('/masterdata/vendor-category');
       },
     });
   }
@@ -180,7 +180,7 @@ export class PurchaseService {
           this.languageService.transalte('success'),
           this.languageService.transalte('addVendorDefinition.successAdd')
         );
-        this.routerService.navigateTo(`/purchase/vendor-definitions`);
+        this.routerService.navigateTo(`/masterdata/vendor-definitions`);
         // this.addVendorCategoryRes.next(res)
         this.loaderService.hide();
       },
@@ -199,7 +199,7 @@ export class PurchaseService {
           this.languageService.transalte('addVendorDefinition.successEdit')
         );
         // this.addVendorCategoryRes.next(res)
-        this.routerService.navigateTo(`/purchase/vendor-definitions`);
+        this.routerService.navigateTo(`/masterdata/vendor-definitions`);
         this.loaderService.hide();
       },
       error: (err) => {

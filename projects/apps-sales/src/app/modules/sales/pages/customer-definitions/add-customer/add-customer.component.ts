@@ -207,7 +207,7 @@ AddCustomer(){
 }
 onDiscard() {
   //this.editEmployeeForm.reset();
-  this.router.navigateTo(`/sales/customer-definitions`);
+  this.router.navigateTo(`/masterdata/customer-definitions`);
 
 }
 

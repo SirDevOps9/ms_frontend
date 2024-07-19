@@ -60,7 +60,7 @@ export class CreateVendorCategoryComponent implements OnInit {
   this.purchaseService.addVendorCategory(this.formGroup.value)
   this.purchaseService.addVendorCategoryDataObservable.subscribe(res=>{
     if(res) {
-      this.routerService.navigateTo('purchase/vendor-category')
+      this.routerService.navigateTo('masterdata/vendor-category')
 
     }
 
