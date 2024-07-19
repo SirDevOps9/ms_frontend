@@ -67,26 +67,17 @@ const routes: Routes = [
         },
       },
       {
-        path: '',
-        canActivate: [AuthGuard],
+        path: 'currency-definition',
+        component: CurrencyDefinitionComponent,
+        // canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.CURRENCY_DEFINITION,
+          breadcrumb: BreadcrumbLabel.CURRENCY_DEFINITION_LIST,
         },
-        children: [
-          {
-            path: 'currency-definition',
-            component: CurrencyDefinitionComponent,
-            // canActivate: [AuthGuard],
-            data: {
-              breadcrumb: BreadcrumbLabel.CURRENCY_DEFINITION_LIST,
-            },
-          },
-        ],
       },
       {
         path: 'currency-conversion',
         component: CurrencyConversionComponent,
-      //  canActivate: [AuthGuard],
+        //  canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.CURRENCY_CONVERSION,
         },
