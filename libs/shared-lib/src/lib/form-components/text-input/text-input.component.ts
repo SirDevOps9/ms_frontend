@@ -26,6 +26,7 @@ export class  TextInputComponent implements ControlValueAccessor, Validator , Af
   @Input() labelTest: any;
   @Input() type: 'text' | 'number' | 'tel' | 'email' | 'date' | 'radio';
   @Input() readOnly: boolean;
+  @Input() textbox: boolean;
   @Input() inputContainerClass: string;
   @Input() placeholder: string = '';
   @Input() maxLength: string;

@@ -97,6 +97,9 @@ span{
 }
 
 ::ng-deep{
+  .p-datatable .p-datatable-thead > tr > th {
+    border-width: 1px !important;
+  }
   #dt{
     min-width: 75rem;
   }
@@ -156,6 +159,9 @@ background: #dbf7ff !important;
 }
 .debit{
 color: #B6BAC3 !important;
+}
+.center{
+  text-align: center !important;
 }
 
 ::ng-deep{

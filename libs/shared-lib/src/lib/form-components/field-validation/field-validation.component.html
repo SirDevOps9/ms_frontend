@@ -90,7 +90,8 @@
   <span class="errorMessage" *ngIf="appControl.errors?.['lengthRange']">
     {{
       'validation.lengthRange'
-        | translate: { min: this.appControl.errors?.['lengthRange'].min, max: this.appControl.errors?.['lengthRange'].max }
+        | translate: { min: this.appControl.errors?.['lengthRange'].min, 
+        max: this.appControl.errors?.['lengthRange'].max }
     }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['ageAbove']">
@@ -145,6 +146,9 @@
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['backendValidation']">
     {{ appControl.errors?.['backendValidation'] }}
+  </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['nonNegative']">
+    {{ 'validation.nonNegativeNumbers' | translate }}
   </span>
 </div>
 <!-- <span class="errorMessage" *ngFor="let errorKey of errorKeys">

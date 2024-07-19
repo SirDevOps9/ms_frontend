@@ -163,7 +163,7 @@ export class AddVendorDefinitionsComponent implements OnInit {
     if (!this.formsService.validForm(this.addVendorForm, true)) return;
 
     const vendor: AddVendorCommand = this.addVendorForm.value;
-    this.GeneralSettingService.addNewVendorDefinition(vendor, this.addVendorForm);
+    this.GeneralSettingService.addNewVendorDefinition(vendor);
   }
 
   Subscribe() {

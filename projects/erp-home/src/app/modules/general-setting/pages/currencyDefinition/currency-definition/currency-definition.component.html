@@ -1,0 +1,94 @@
+<lib-page-content>
+<lib-bread-crumb>
+
+</lib-bread-crumb>
+<lib-data-table
+          [items]="tableData"
+          className="p-datatable-gridlines"
+          [currentPageResult]="currentPageInfo"
+          (pageChange)="onPageChange($event)"
+          [tableConfigs]="{
+            allowPagination: false,
+            allowServerPagination: true,
+            dataKey: 'id',
+            pageSize: 10,
+            columns: [
+               
+               {
+                 name: 'code',
+                 headerText: ('currencyDefinition.code' | translate),
+                 isGlobalFilter: true,
+                 isSortable: true
+               },
+               {
+                 name: 'name',
+                 headerText: ('currencyDefinition.name' | translate),
+                 isGlobalFilter: true,
+                 isSortable: true
+               },
+             
+               {
+                 name: 'symbol',
+                 headerText: ('currencyDefinition.sympol' | translate),
+               },
+               {
+                 name: 'subUnit',
+                 headerText: ('currencyDefinition.Subunit' | translate) ,
+               },
+               {
+                 name: 'countryName',
+                 headerText: ('currencyDefinition.country' | translate) ,
+               },
+         
+               {
+                 name: 'id',
+                 headerText: ('currencyDefinition.actions' | translate),
+                 template : actions
+               },
+             ]
+          }"
+        >
+
+          <ng-container caption>
+            <div class="group flex justify-content-between">
+              <div class="flex gap-2">
+                  <lib-text-input  [(ngModel)]="searchTerm" type="text" [placeholder]="'Search'" (keyUp)="onSearchChange($event)" [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">                   
+                  </lib-text-input>          
+
+              </div>
+    
+          
+              <div class="flex gap-2">
+                  <div>
+                  
+                      
+                        <lib-button-micro title="Add New" nameClass="save" iconName="pi pi-plus-circle" (click)="addNew()" >
+                        </lib-button-micro>
+
+
+                  </div>
+                 
+                  <div>
+                    <lib-export  
+                    (exportClick)="exportClick($event)"
+                    [exportData]="tableData"
+                    [exportColumns]="exportColumns"
+                    [ExportName]="'Currency Conversion'">
+                  </lib-export>
+
+                  </div>               
+                
+              </div>
+            </div>
+          </ng-container>
+      
+          <ng-template #actions let-actions>
+            <div class="actions flex align-items-center gap-4">
+            <i class="edit pi pi-pencil pointer" (click)="Edit(actions.id)"></i>
+            <i class="delete pi pi-trash pointer" (click)="onDelete(actions.id)"></i>
+            </div>
+          </ng-template>
+
+         
+        </lib-data-table>
+</lib-page-content>

@@ -6,7 +6,7 @@
   [readOnly]="readOnly"
   [disabled]="readOnly"
   [placeholder]="placeholder"
-  [ngClass]="{'read':readOnly}"
+  [ngClass]="{'read':readOnly ,'textbox':textbox}"
   (keyup)="keyupChange($event)"
    
     [ngStyle]="{
@@ -25,7 +25,7 @@
   [readOnly]="readOnly"
   [disabled]="readOnly"
   [placeholder]="placeholder"
-  [ngClass]="{'reads':readOnly}"
+  [ngClass]="{'read':readOnly ,'textbox':textbox}"
   (keyup)="keyupChange($event)"
   [attr.data-testid]="this.labelTest"
   min="0"
