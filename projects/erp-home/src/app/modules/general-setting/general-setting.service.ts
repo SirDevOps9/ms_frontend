@@ -38,6 +38,8 @@ export class GeneralSettingService {
 
 
   private tagDataSource = new BehaviorSubject<TagDto[]>([]);
+  private exportsCurrencyListDataSource = new BehaviorSubject<CurrencyConversionDto[]>([]);
+  private exportcurrencyDefinitionDataSource = new BehaviorSubject<CurrencyDefinitionDto[]>([]);
   private currencyDefinitionDataSource = new BehaviorSubject<CurrencyDefinitionDto[]>([]);
   private currencyConversionDataSource = new BehaviorSubject<CurrencyConversionDto[]>([]);
   private financialCalendarDataSource = new BehaviorSubject<financialCalendar[]>([]);
@@ -92,7 +94,9 @@ export class GeneralSettingService {
   public tags = this.tagsDataSource.asObservable();
   public currentTag = this.currentTagDataSource.asObservable();
   public currencyDefinitionDataSourceObservable = this.currencyDefinitionDataSource.asObservable();
+  public exportcurrencyDefinitionDataSourceObservable = this.exportcurrencyDefinitionDataSource.asObservable();
   public currencyConversionDataSourceObservable = this.currencyConversionDataSource.asObservable();
+  public exportsCurrencyListDataSourceObservable = this.exportsCurrencyListDataSource.asObservable();
   public financialCalendarDataSourceObservable = this.financialCalendarDataSource.asObservable();
   public tagList = this.tagDataSource.asObservable();
   public addFinancialCalendarResObservable = this.addFinancialCalendarRes.asObservable();
@@ -508,6 +512,7 @@ export class GeneralSettingService {
     });
   }
 
+
    openCurrencyAdded() {
     const ref:DynamicDialogRef = this.dialog.open(AddCurrencyDefinitionComponent, {
         width: '600px',
@@ -710,6 +715,20 @@ export class GeneralSettingService {
     });
     ref.onClose.subscribe((result: CurrencyDefinitionDto) => {
     
+    });
+  }
+  exportcurrencyData(searchTerm:string | undefined) {
+    this.GeneralSettingproxy.exportcurrencyData(searchTerm).subscribe({
+      next: (res) => {
+         this.exportsCurrencyListDataSource.next(res);
+      },
+    });
+  }
+  exportcurrencyDefinitionData(searchTerm:string | undefined) {
+    this.GeneralSettingproxy.exportcurrencyDefinitionData(searchTerm).subscribe({
+      next: (res) => {
+         this.exportcurrencyDefinitionDataSource.next(res);
+      },
     });
   }
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
+import { PageInfoResult, MenuModule, PageInfo, lookupDto } from 'shared-lib';
 import { GeneralSettingService } from '../../../general-setting.service';
-import { currencyListDto } from '../../../models';
+import { CurrencyDefinitionDto, currencyListDto } from '../../../models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
@@ -15,16 +15,62 @@ export class CurrencyDefinitionComponent {
 
 
   ) {}
+  exportColumns: lookupDto[];
 
   tableData : currencyListDto[];
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
   ref: DynamicDialogRef;
+  exportData: CurrencyDefinitionDto[];
+  columns: [
+                   
+    {
+      name: 'code',
+      headerText: 'code',
+    },
+    {
+      name: 'name',
+      headerText: 'name',
+    },
+  
+    {
+      name: 'symbol',
+      headerText: 'symbol',
+    },
+    {
+      name: 'subUnit',
+      headerText: 'subUnit' ,
+    },
+    {
+      name: 'countryName',
+      headerText: 'country Name' ,
+    },
+
+    {
+      name: 'id',
+      headerText: 'Actions',
+
+    },
+  ]
 
   ngOnInit() {
      this.getCurrencyList();
-
+     this.exportColumns = this.columns.map((col) => ({
+      id: col.headerText,
+      name: col.name,
+    }));
+     
+  }
+  exportClick(e?: Event){
+    this.exportcurrencyDefinitionData(this.searchTerm);
+    
+  }
+  exportcurrencyDefinitionData(searchTerm: string) {
+    this.generalSettingService.exportcurrencyDefinitionData(searchTerm);
+    this.generalSettingService.exportcurrencyDefinitionDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
   }
 
   Edit(id : number) {

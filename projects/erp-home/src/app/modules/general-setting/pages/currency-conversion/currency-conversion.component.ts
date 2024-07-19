@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
+import { PageInfoResult, MenuModule, PageInfo, lookupDto } from 'shared-lib';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { GeneralSettingService } from '../../general-setting.service';
 import { CountryDto, CurrencyConversionDto, currencyListDto } from '../../models';
@@ -21,11 +21,57 @@ export class CurrencyConversionComponent {
   modulelist: MenuModule[];
   searchTerm: string;
   ref: DynamicDialogRef;
+  exportColumns: lookupDto[];
+  exportData: CurrencyConversionDto[];
 
+  columns: [
+                   
+    {
+      name: 'fromCurrencyName',
+      headerText: 'treasury Name',
+    },
+    {
+      name: 'fromCurrencyRate',
+      headerText: 'Currency Rate',
+    },
+  
+    {
+      name: 'toCurrencyName',
+      headerText: 'To Currency',
+    },
+    {
+      name: 'reversedRate',
+      headerText: 'Reversed Rate' ,
+    },
+    {
+      name: 'note',
+      headerText: 'Notes' ,
+    },
+
+    {
+      name: 'id',
+      headerText: 'Actions',
+
+    },
+  ]
   ngOnInit() {
     this.getCurrencyConversionList()
     this.getCurrencies()
+    this.exportColumns = this.columns.map((col) => ({
+      id: col.headerText,
+      name: col.name,
+    }));
 
+  }
+  exportClick(e?: Event){
+    this.exportcurrencyData(this.searchTerm);
+    
+  }
+  exportcurrencyData(searchTerm: string) {
+    this.generalSettingService.exportcurrencyData(searchTerm);
+    this.generalSettingService.exportsCurrencyListDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
   }
   getCurrencyConversionList(){
     this.generalSettingService.getCurrencyConversionList('', new PageInfo())

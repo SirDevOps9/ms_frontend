@@ -222,5 +222,25 @@ EditCurrencyConversion(Currency: CurrencyConversionDto): Observable<CurrencyConv
 getCurrencyByIdConversion(id: number): Observable<CurrencyConversionDto> {
   return this.httpService.get<CurrencyConversionDto>(`CurrencyConversion/${id}`);
 }
+exportcurrencyData(
+  searchTerm: string | undefined
+): Observable<CurrencyConversionDto[]> {
+  let query = `TCurrencyConversion/Export?`;
+  if (searchTerm) {
+    query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+  }
+   return this.httpService.get<CurrencyConversionDto[]>(query);
+}
+exportcurrencyDefinitionData(
+  searchTerm: string | undefined
+): Observable<CurrencyDefinitionDto[]> {
+  let query = `Currency/Export?`;
+  if (searchTerm) {
+    query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+  }
+   return this.httpService.get<CurrencyDefinitionDto[]>(query);
+}
+
+
   constructor(private httpService: HttpService) {}
 }
