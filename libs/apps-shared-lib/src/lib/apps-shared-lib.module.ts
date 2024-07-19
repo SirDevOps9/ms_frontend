@@ -4,9 +4,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LayoutModule } from './modules/layout/layout.module';
+import { LandingPageComponent } from 'apps-shared-lib';
 
 @NgModule({
-  declarations: [],
+  declarations: [LandingPageComponent],
   imports: [
     LayoutModule,
     CommonModule,

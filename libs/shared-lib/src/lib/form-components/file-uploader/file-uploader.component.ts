@@ -1,11 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  Optional,
-  Self,
-} from '@angular/core';
+import { Component, Input, Output, EventEmitter, Optional, Self, ElementRef, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -14,11 +7,7 @@ import {
   Validator,
 } from '@angular/forms';
 import { AttachmentsService } from '../../services';
-import {
-  AttachmentDto,
-  AttachmentFileTypeEnum,
-  UploadFileConfigDto,
-} from '../../models';
+import { AttachmentDto, AttachmentFileTypeEnum, UploadFileConfigDto } from '../../models';
 import { SharedLibraryEnums } from '../../constants';
 
 @Component({
@@ -35,11 +24,13 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
   @Input() id: string;
   @Input() showImgName: boolean = true;
   @Input() className: string;
-  @Input() uploadClassName: string ;
+  @Input() uploadClassName: string;
   @Input() appControl: AbstractControl;
   @Input() config: UploadFileConfigDto = { type: AttachmentFileTypeEnum.image };
   @Output() valueChanged = new EventEmitter<string>();
-  imgName : string = ''
+  @ViewChild('fileInput') fileInput: ElementRef;
+
+  imgName: string = '';
   value: string = '';
   onChange = (value: any) => {};
   onTouched = () => {};
@@ -81,7 +72,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
 
   uploadFile(event: any) {
     this.attachmentService.uploadFile(event.target.files, this.config);
-    this.imgName = event.target.files[0].name
+    this.imgName = event.target.files[0].name;
   }
 
   // resetErrorMessages() {
@@ -92,17 +83,14 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
   // }
 
   downloadAttachment() {
-    this.attachmentService.downloadAttachment(
-      this.value,
-      this.label,
-      this.config.type!
-    );
+    this.attachmentService.downloadAttachment(this.value, this.label, this.config.type!);
   }
   deleteAttachment() {
     this.value = '';
     this.onChange('');
     this.valueChanged.emit('');
     this.base64 = '';
+    this.fileInput.nativeElement.value = '';
   }
 
   private subscribe() {
@@ -130,9 +118,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
   }
   private updateImageBase64() {
     if (this.value != '') {
-    this.attachmentService
-      .getAttachment(this.value)
-      .subscribe((response: AttachmentDto) => {
+      this.attachmentService.getAttachment(this.value).subscribe((response: AttachmentDto) => {
         if (response?.fileContent) {
           const source = `${response.base64Padding},${response.fileContent}`;
           this.base64 = source;

@@ -216,7 +216,7 @@ editCustomer(){
       this.salesService.editCustomerDefinition(customer)
       this.salesService.editCustomerDefinitionResObservable.subscribe(res=>{
         if(res){
-          this.router.navigateTo('/sales/customer-definitions')
+          this.router.navigateTo('/masterdata/customer-definitions')
 
         }
       })
@@ -226,7 +226,7 @@ editCustomer(){
 }
 
 onCancel() {
-  this.router.navigateTo('/sales/customer-definitions')
+  this.router.navigateTo('/masterdata/customer-definitions')
 }
 
 }

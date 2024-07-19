@@ -108,7 +108,7 @@ export class CreateEmployeeComponent implements OnInit {
     this.employeeService.addEmployeeStatus.subscribe({
       next: (success) => {
         if (success) {
-          this.routerService.navigateTo(`/employee`);
+          this.routerService.navigateTo(`/masterdata/employee`);
         }
       },
     });
@@ -117,7 +117,7 @@ export class CreateEmployeeComponent implements OnInit {
 
   onDiscard() {
    this.addEmployeeForm.reset();
-    this.routerService.navigateTo(`/employee`);
+    this.routerService.navigateTo(`/masterdata/employee`);
 
   }
 

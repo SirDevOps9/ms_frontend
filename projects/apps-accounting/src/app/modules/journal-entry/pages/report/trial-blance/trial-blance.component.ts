@@ -109,8 +109,8 @@ export class TrialBlanceComponent implements OnInit {
       dateTo: this.dateTimeService.lastDayOfMonth(),
     });
   }
-  routeTo(id: number) {
-    this.routerService.navigateTo(`/reports/account-statement/${id}`);
+  routeTo(id:number){
+    this.routerService.navigateTo(`/transcations/account-statement/${id}`);
   }
 
 }

@@ -56,7 +56,7 @@ export class CreateCustomerCategoryComponent implements OnInit {
   this.salesService.addCustomerCategory(this.formGroup.value)
   this.salesService.addCustomerCategoryDataObservable.subscribe(res=>{
     if(res) {
-      this.routerService.navigateTo('/sales/customer-category')
+      this.routerService.navigateTo('/masterdata/customer-category')
 
     }
 

@@ -9,12 +9,12 @@ import { RouteParams, RouterService } from 'shared-lib';
 })
 export class LoginRedirectComponent implements OnInit {
   loginResponse: any;
+
   ngOnInit() {
     let loginKey = this.routerservice.getRouteParams(RouteParams.LOGINKEY);
+    let state = this.routerservice.getRouteParams(RouteParams.STATE);
 
-    this.authService.collectToken(loginKey);
-
-    console.log('Login Key', loginKey);
+    this.authService.collectToken(loginKey, state);
   }
 
   constructor(private authService: AuthService, private routerservice: RouterService) {}

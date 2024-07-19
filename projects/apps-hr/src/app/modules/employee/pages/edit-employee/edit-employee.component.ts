@@ -143,7 +143,7 @@ export class EditEmployeeComponent implements OnInit {
     this.employeeService.editEmployeeStatus.subscribe({
       next: (success) => {
         if (success) {
-          this.routerService.navigateTo(`/employee`);
+          this.routerService.navigateTo(`/masterdata/employee`);
         }
       },
     });
@@ -151,7 +151,7 @@ export class EditEmployeeComponent implements OnInit {
 
   onDiscard() {
     //this.editEmployeeForm.reset();
-    this.routerService.navigateTo(`/employee`);
+    this.routerService.navigateTo(`/masterdata/employee`);
 
   }
   loadCountries() {

@@ -1,0 +1,14 @@
+.landing-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to right, #198EAF, #1A94B5); /* Gradient background */
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.content {
+  max-width: 600px;
+}

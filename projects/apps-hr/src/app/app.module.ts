@@ -17,6 +17,7 @@ import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { CookieModule } from 'ngx-cookie';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UrlSerializer } from '@angular/router';
+import { AppsSharedLibModule } from 'apps-shared-lib';
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent],
@@ -40,6 +41,7 @@ import { UrlSerializer } from '@angular/router';
     SharedLibModule,
     MicrotecAuthLibModule,
     CookieModule.withOptions(),
+    AppsSharedLibModule,
   ],
   providers: [
     { provide: EnvironmentService, useValue: environment },

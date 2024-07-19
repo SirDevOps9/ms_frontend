@@ -60,7 +60,6 @@
     "Submit": "إرسال",
     "Post": "ترحيل",
     "costCenter": "مركز التكلفة"
-
   },
   "viewJournal": {
     "JornalCode": "كود اليومية",
@@ -81,9 +80,8 @@
     "debitAmountLocal": "المبلغ المحلي الدائن",
     "creditAmountLocal": "المبلغ المحلي المدين",
     "costCenter": "مركز التكلفة",
-    "Amount" : "الكمية",
-    "add_line" : "اضافه سطر"
-
+    "Amount": "الكمية",
+    "add_line": "اضافه سطر"
   },
 
   "TaxGroup": {
@@ -93,12 +91,14 @@
     "status": "الحالة",
     "type": "النوع",
     "Action": "إجراءات",
+    "CountryName": "اسم البلد",
     "TaxGrouplist": "قائمة مجموعة الضرائب",
     "Add": {
       "AddTaxGroup": "إضافة مجموعة ضريبية",
       "Code": "رمز",
       "Name": "اسم",
       "Discard": "تجاهل",
+      "CountryName": "اسم البلد",
       "Save": "حفظ"
     },
     "Edit": {
@@ -106,6 +106,7 @@
       "Code": "رمز",
       "Name": "اسم",
       "Discard": "تجاهل",
+      "CountryName": "اسم البلد",
       "Save": "حفظ"
     }
   },
@@ -156,8 +157,8 @@
     "Closingbalance": "الرصيد الختامي",
     "debit": "مدين",
     "credit": "دائن"
-},
-"treasury": {
+  },
+  "treasury": {
     "treasuryCode": "رمز الخزانة",
     "treasuryName": "اسم الخزانة",
     "currency": "العملة",
