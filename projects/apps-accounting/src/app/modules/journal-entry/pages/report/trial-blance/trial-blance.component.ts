@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { reportTrialDto } from '../../../models';
-import { LanguageService, PageInfo, PrintService, RouterService, ToasterService, customValidators } from 'shared-lib';
+import { DateTimeService, LanguageService, PageInfo, PrintService, RouterService, ToasterService, customValidators } from 'shared-lib';
 import { Title } from '@angular/platform-browser';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -15,8 +15,8 @@ import { AccountService } from '../../../../account/account.service';
 export class TrialBlanceComponent implements OnInit {
   reportTrialForm: FormGroup;
   filteredAccounts: AccountDto[] = [];
-defoultSelectedAcounts:number[]=[]
- 
+  defoultSelectedAcounts: number[] = []
+
   tableData: reportTrialDto[];
   constructor(
     private fb: FormBuilder,
@@ -25,31 +25,26 @@ defoultSelectedAcounts:number[]=[]
     private titleService: Title,
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
-    private ToasterService:ToasterService,
-    private PrintService:PrintService
-  ) {}
+    private ToasterService: ToasterService,
+    private PrintService: PrintService,
+    private dateTimeService: DateTimeService
+  ) { }
 
   ngOnInit() {
     this.titleService.setTitle(this.languageService.transalte('reportTrial.trialBalance'));
-    this.tableData=[]
-    this. initializeForm()
+    this.tableData = []
+    this.initializeForm()
     this.getAccounts();
     this.initializeDates()
+    this.reportTrialForm.valueChanges.subscribe((res) => {
+      this.tableData = []
 
-    setTimeout(() => {
-      this.getTrialBalance()
-
-    }, 500);
-    this.reportTrialForm.valueChanges.subscribe((res)=>{
-      console.log(res)
-      this.tableData=[]
-      
     }
     )
 
   }
-  printTable(id:string){
-  this.PrintService.print(id)
+  printTable(id: string) {
+    this.PrintService.print(id)
   }
 
   getAccounts() {
@@ -61,20 +56,12 @@ defoultSelectedAcounts:number[]=[]
           displayName: `${account.name} (${account.accountCode})`
 
         }));
-        this.filteredAccounts.forEach(element => {
-          this.defoultSelectedAcounts.push(element.id)  
-        });
-
-        this.reportTrialForm.patchValue({
-          Accounts:this.defoultSelectedAcounts
-        })
-        
       });
-     
+
   }
   initializeForm() {
     this.reportTrialForm = this.fb.group({
-    
+
       dateFrom: new FormControl('', [
         customValidators.required,
       ]),
@@ -86,45 +73,44 @@ defoultSelectedAcounts:number[]=[]
       Accounts: new FormControl('', [
         customValidators.required,
       ]),
-     
+
     });
   }
-  getTrialBalance(){
-    
-    if(this.reportTrialForm.valid){
-      if( this.reportTrialForm.get('dateFrom')?.value < this.reportTrialForm.get('dateTo')?.value ){
+  getTrialBalance() {
 
-      if(this.reportTrialForm.get('posted')?.value != true && this.reportTrialForm.get('unposted')?.value != true ){
-        // At least one field must be selected
+    if (this.reportTrialForm.valid) {
+      if (this.reportTrialForm.get('dateFrom')?.value < this.reportTrialForm.get('dateTo')?.value) {
+
+        if (this.reportTrialForm.get('posted')?.value != true && this.reportTrialForm.get('unposted')?.value != true) {
+          // At least one field must be selected
+          this.ToasterService.showError(
+            this.languageService.transalte('reportTrial.Error'),
+            this.languageService.transalte('reportTrial.selectfaild')
+          )
+        }
+        else {
+          this.journalEntryService.getTrialBalance(this.reportTrialForm.value);
+          this.journalEntryService.report.subscribe(((res: any) => {
+            this.tableData = res
+
+          }))
+        }
+      } else {
         this.ToasterService.showError(
           this.languageService.transalte('reportTrial.Error'),
-              this.languageService.transalte('reportTrial.selectfaild')
-          )
-      }
-      else{
-        this.journalEntryService.getTrialBalance(this.reportTrialForm.value);
-        this.journalEntryService.report.subscribe(((res:any)=>{
-          this.tableData=res
-          
-        }))
-      } }else{
-        this.ToasterService.showError(
-          this.languageService.transalte('reportTrial.Error'),
-              this.languageService.transalte(' date From is not before the end of dateTo.')
-          )
+          this.languageService.transalte(' date From is not before the end of dateTo.')
+        )
       }
     }
   }
   initializeDates() {
-    const today = new Date();
-    const endOfMonth = new Date(today.getFullYear(), today.getMonth()+1 );
     this.reportTrialForm.patchValue({
-      dateFrom: today.toISOString().split('T')[0],
-      dateTo: endOfMonth.toISOString().split('T')[0],
+      dateFrom: this.dateTimeService.firstDayOfMonth(),
+      dateTo: this.dateTimeService.lastDayOfMonth(),
     });
   }
   routeTo(id:number){
     this.routerService.navigateTo(`/transcations/account-statement/${id}`);
   }
- 
+
 }

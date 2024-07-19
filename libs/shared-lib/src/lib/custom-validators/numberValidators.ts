@@ -64,3 +64,17 @@ export function nonZeroValidator(control: AbstractControl) {
   }
 };
 
+export function nonNegativeValidator(control: AbstractControl) {
+  if (
+    control.value == null ||
+    control.value === '' 
+  ) {
+    return null;
+  }
+
+  if (control.value > 0) {
+    return null; // Validation passed
+  } else {
+    return { nonNegative: true }; // Validation failed
+  }
+};

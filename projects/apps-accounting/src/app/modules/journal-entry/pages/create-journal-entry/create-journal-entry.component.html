@@ -3,7 +3,7 @@
     <button class="btn_walk" (click)="startTour()">walk through</button>
   </lib-bread-crumb>
   <div [formGroup]="fg" class="entry_header">
-    <p class="title test">{{ 'journal_entry_header' | translate }}</p>
+    <!-- <p class="title test">{{ 'journal_entry_header' | translate }}</p> -->
     <div class="grid">
       <div class="col-12 md:col-3 step-1-element">
         <lib-text-input
@@ -20,13 +20,6 @@
           placeholder="{{ 'journal_date' | translate }}"
           type="date"
           formControlName="journalDate"
-        ></lib-text-input>
-      </div>
-      <div class="col-12 md:col-3">
-        <lib-text-input
-          placeholder="{{ 'journal_period' | translate }}"
-          formControlName="periodId"
-          [readOnly]="true"
         ></lib-text-input>
       </div>
       <div class="col-12 md:col-3">
@@ -53,6 +46,8 @@
       </div> -->
       <div class="col-12 md:col-12 step-3-element">
         <lib-text-input
+        class="description"
+        [textbox]="true"
           placeholder="{{ 'description' | translate }}"
           formControlName="description"
         ></lib-text-input>

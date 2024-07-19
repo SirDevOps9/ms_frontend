@@ -35,7 +35,7 @@ export class JournalEntryListComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle(this.languageService.transalte('JournalEntry.JournalEntryList'));
-    this.initJournalEntryData(new PageInfo());
+    this.initJournalEntryData();
     this.cols = [
       {
         field: 'Id',
@@ -51,7 +51,7 @@ export class JournalEntryListComponent implements OnInit {
       },
       {
         field: 'Date',
-        header: 'CreatedOn',
+        header: 'JournalDate',
       },
       {
         field: 'Type',
@@ -96,8 +96,8 @@ export class JournalEntryListComponent implements OnInit {
     ];
   }
 
-  initJournalEntryData(page: PageInfo) {
-    this.journalEntryService.getAllJournalEntriesPaginated(page);
+  initJournalEntryData() {
+    this.journalEntryService.getAllJournalEntriesPaginated('', new PageInfo());
 
     this.journalEntryService.journalEntries.subscribe({
       next: (data) => {
@@ -110,9 +110,9 @@ export class JournalEntryListComponent implements OnInit {
     });
   }
 
-  onPageChange(pageInfo: PageInfo) {
-    this.initJournalEntryData(pageInfo);
-  }
+  // onPageChange(pageInfo: PageInfo) {
+  //   this.initJournalEntryData(pageInfo);
+  // }
 
   routeToAdd() {
     this.routerService.navigateTo(`/transcations/journalentry/add`);
@@ -125,4 +125,23 @@ export class JournalEntryListComponent implements OnInit {
   routeToEdit(id: number) {
     this.routerService.navigateTo(`transcations/journalentry/edit/${id}`);
   }
+  onSearchChange(event : any) {
+    this.journalEntryService.getAllJournalEntriesPaginated(event, new PageInfo())
+    this.journalEntryService.journalEntries.subscribe({
+      next: (res) => {
+        this.tableData = res;
+      },
+    }
+)
+
+  }
+onPageChange(pageInfo: PageInfo) {
+  
+  this.journalEntryService.getAllJournalEntriesPaginated('',pageInfo)
+  this.journalEntryService.journalEntries.subscribe({
+    next: (res) => {
+      this.tableData = res;
+    },
+  })
+}
 }
