@@ -35,6 +35,26 @@
                   </lib-field-validations>
                 </lib-form-group>
               </div>
+              <div class="md:col-12">
+                <lib-form-group>
+                  <lib-label [appControl]="taxGroupForm.controls['countryCode']">
+                    {{ "TaxGroup.Add.CountryCode" | translate }}
+                  </lib-label>
+                  <lib-selectIcon
+                                                    formControlName="countryCode"
+                                                    [options]="countries"
+                                                    optionValue="id"
+                                                    optionLabel="nameEn"
+                                                    icons="flags"
+                                                    [selectedValue]="taxGroupForm.get('countryCode')?.value"
+                                                  >
+                                                  </lib-selectIcon>
+                  <lib-field-validations
+                    [appControl]="taxGroupForm.controls['CountryCode']"
+                  >
+                  </lib-field-validations>
+                </lib-form-group>
+              </div>
         </div>
       </form>
   </div>

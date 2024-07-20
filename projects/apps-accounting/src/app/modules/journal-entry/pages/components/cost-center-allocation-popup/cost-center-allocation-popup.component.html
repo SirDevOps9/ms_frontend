@@ -55,6 +55,8 @@
               type="text"
               (keyUpFullEvent)="validateInput($event)"
               [readOnly]="config?.data?.text == 'view'"
+   
+      
               
             ></lib-text-input>
             <small class="text-danger" *ngIf="calcPercentage > 100">Percentage Calculation Shouldn't be more than 100</small>

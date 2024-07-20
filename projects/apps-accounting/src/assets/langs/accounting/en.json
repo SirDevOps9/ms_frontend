@@ -94,6 +94,7 @@
       "AddTaxGroup": "Add Tax Group",
       "Code": "Code",
       "Name": "Name",
+      "CountryCode":"البلد",
       "type": "type",
       "Discard": "Discard",
       "Save": "Save"

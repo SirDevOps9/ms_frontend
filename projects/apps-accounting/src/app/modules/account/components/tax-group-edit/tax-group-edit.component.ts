@@ -4,6 +4,8 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AccountService } from '../../account.service';
 import { customValidators } from 'shared-lib';
 import { TaxGroupDto } from '../../models';
+import { SalesService } from 'projects/erp-home/src/app/modules/Sales/sales.service';
+import { CountryDto } from 'projects/apps-hr/src/app/modules/employee/models';
 
 @Component({
   selector: 'app-tax-group-edit',
@@ -12,6 +14,8 @@ import { TaxGroupDto } from '../../models';
 })
 export class TaxGroupEditComponent implements OnInit {
   taxGroupForm: FormGroup;
+  countries: CountryDto[] = [];
+
 
   get Id(): string {
     return this.config?.data;
@@ -22,19 +26,22 @@ export class TaxGroupEditComponent implements OnInit {
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
     public config: DynamicDialogConfig,
+    private salesService: SalesService
   
   ) {}
 
   ngOnInit() {
     this.initializeTagForm();
     this.currentTaxGroup();
+    this.loadCountries();
   }
 
   initializeTagForm() {
     this.taxGroupForm = this.fb.group({
       id:new FormControl('', customValidators.required),
       code: new FormControl('', customValidators.required),
-      name: new FormControl('', customValidators.required)
+      name: new FormControl('', customValidators.required),
+      countryCode: new FormControl('', customValidators.required)
         });
   }
 
@@ -45,7 +52,8 @@ export class TaxGroupEditComponent implements OnInit {
       this.taxGroupForm.patchValue({
         id: response.id,
         code: response.code,
-        name: response.name
+        name: response.name,
+        countryCode: response.countryCode
       });
   });
   }
@@ -54,6 +62,15 @@ export class TaxGroupEditComponent implements OnInit {
     if(!this.taxGroupForm.valid) return;
     const taxGroupDto :TaxGroupDto=this.taxGroupForm.value;
     this.accountService.editTaxGroup(taxGroupDto,this.ref);
+  }
+
+  loadCountries() {
+    this.salesService.loadCountries();
+    this.salesService.countries.subscribe({
+      next: (res) => {
+        this.countries = res;
+      },
+    });
   }
 
   close() {

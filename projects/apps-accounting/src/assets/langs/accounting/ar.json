@@ -98,6 +98,7 @@
       "AddTaxGroup": "إضافة مجموعة ضريبية",
       "Code": "رمز",
       "Name": "اسم",
+      "CountryCode":"البلد",
       "Discard": "تجاهل",
       "Save": "حفظ"
     },
