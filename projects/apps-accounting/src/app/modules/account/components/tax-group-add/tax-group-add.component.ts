@@ -10,7 +10,7 @@ import { SalesService } from 'projects/erp-home/src/app/modules/Sales/sales.serv
 @Component({
   selector: 'app-tax-group-add',
   templateUrl: './tax-group-add.component.html',
-  styleUrls: ['./tax-group-add.component.scss']
+  styleUrls: ['./tax-group-add.component.scss'],
 })
 export class TaxGroupAddComponent implements OnInit {
   taxGroupForm: FormGroup;
@@ -27,8 +27,17 @@ export class TaxGroupAddComponent implements OnInit {
   ngOnInit() {
     this.initializeTagForm();
     this.loadCountries();
+    this.loadCountries();
   }
 
+  loadCountries() {
+    this.accountService.loadCountries();
+    this.accountService.countries.subscribe({
+      next: (res) => {
+        this.countries = res;
+      },
+    });
+  }
   initializeTagForm() {
     this.taxGroupForm = this.fb.group({
       code: new FormControl('', customValidators.required),
@@ -57,5 +66,4 @@ export class TaxGroupAddComponent implements OnInit {
   close() {
     this.ref.close();
   }
-
 }

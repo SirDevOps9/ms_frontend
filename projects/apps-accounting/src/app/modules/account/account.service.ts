@@ -1,6 +1,25 @@
 import { AccountProxy } from './account.proxy';
 import { AddAccountDto } from './models/addAccountDto';
-import { AccountByIdDto, AccountDto, AddTaxGroupDto, GetLevelsDto, TaxGroupDto, listAddLevelsDto,accountById, AddTax, EditTax, TaxGroupDropDown, addCostCenter, parentCostCenter, costById, costCenterDetails, costCenterList, costCenterActivation, companyDropDownDto } from './models';
+import {
+  AccountByIdDto,
+  AccountDto,
+  AddTaxGroupDto,
+  GetLevelsDto,
+  TaxGroupDto,
+  listAddLevelsDto,
+  accountById,
+  AddTax,
+  EditTax,
+  TaxGroupDropDown,
+  addCostCenter,
+  parentCostCenter,
+  costById,
+  costCenterDetails,
+  costCenterList,
+  costCenterActivation,
+  companyDropDownDto,
+  CountryDto,
+} from './models';
 
 import { AccountTypeDropDownDto } from './models/accountTypeDropDownDto';
 import { TagDropDownDto } from './models/tagDropDownDto';
@@ -10,7 +29,13 @@ import { TaxDto } from './models/tax-dto';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
-import { PageInfoResult, PageInfo, LoaderService, ToasterService, LanguageService } from 'shared-lib';
+import {
+  PageInfoResult,
+  PageInfo,
+  LoaderService,
+  ToasterService,
+  LanguageService,
+} from 'shared-lib';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +45,7 @@ export class AccountService {
   private parentAccountsDataSource = new BehaviorSubject<parentAccountDto[]>([]);
   private currentAccountDataSource = new BehaviorSubject<parentAccountDto>({} as parentAccountDto);
   private currentAccountDataSourceById = new BehaviorSubject<accountById>({} as accountById);
-  private accountDetailsDataSource = new BehaviorSubject<AccountByIdDto>({} as AccountByIdDto );
+  private accountDetailsDataSource = new BehaviorSubject<AccountByIdDto>({} as AccountByIdDto);
   private accountTypesDataSource = new BehaviorSubject<AccountTypeDropDownDto[]>([]);
   private accountSectionsDataSource = new BehaviorSubject<AccountTypeDropDownDto[]>([]);
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
@@ -36,13 +61,12 @@ export class AccountService {
   private editCostCenter = new BehaviorSubject<costById | undefined>(undefined);
   private costCenterActivat = new BehaviorSubject<costCenterActivation | undefined>(undefined);
 
-
   private taxesDefinitionsDataSource = new BehaviorSubject<TaxDto[]>([]);
   private costCenterList = new BehaviorSubject<costCenterList[]>([]);
   private costCenterData = new BehaviorSubject(false);
   private accountdeleted = new BehaviorSubject<any>(false);
-  public costCenterDataObser = this.costCenterData.asObservable()
-  public accountdeletedObser = this.accountdeleted.asObservable()
+  public costCenterDataObser = this.costCenterData.asObservable();
+  public accountdeletedObser = this.accountdeleted.asObservable();
 
   public accountsList = this.accountsDataSource.asObservable();
   public costActivation = this.costCenterActivat.asObservable();
@@ -67,7 +91,6 @@ export class AccountService {
   public selectedCostDetails = this.costCenterDetails.asObservable();
   public editedCost = this.editCostCenter.asObservable();
 
-
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   public currentTaxDataSource = new BehaviorSubject<TaxDto>({} as TaxDto);
   public taxGroupsDropDown = new BehaviorSubject<TaxGroupDropDown[]>([]);
@@ -75,6 +98,9 @@ export class AccountService {
   private levelsSource = new BehaviorSubject<GetLevelsDto[]>([]);
   public levels = this.levelsSource.asObservable();
 
+  private countryDataSource = new BehaviorSubject<CountryDto[]>([]);
+  public countries = this.countryDataSource.asObservable();
+  
   public addTaxStatus = new BehaviorSubject<boolean>(false);
 
   public editTaxStatus = new BehaviorSubject<boolean>(false);
@@ -96,7 +122,7 @@ export class AccountService {
     );
   }
   getCostCenterLookup() {
-    return this.accountproxy.getAccountLookup()
+    return this.accountproxy.getAccountLookup();
   }
   getAccountsHasNoChildren(quieries: string, pageInfo: PageInfo) {
     return this.accountproxy.getAccountsHasNoChildren(quieries, pageInfo).pipe(
@@ -105,7 +131,6 @@ export class AccountService {
       })
     );
   }
-
 
   getTreeList() {
     return this.accountproxy.getTreeList().pipe(
@@ -175,8 +200,7 @@ export class AccountService {
   getAccountById(id: number) {
     this.accountproxy.getAccountById(id).subscribe((response) => {
       this.currentAccountDataSourceById.next(response);
-      console.log("test service");
-      
+      console.log('test service');
     });
   }
   getAccountDetails(id: number) {
@@ -193,10 +217,9 @@ export class AccountService {
     return this.accountproxy.getAllTaxGroup(searchTerm, pageInfo).subscribe((response) => {
       this.taxGroupDataSource.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
-
     });
   }
-  async deleteTaxGroup(id: number): Promise<boolean > {
+  async deleteTaxGroup(id: number): Promise<boolean> {
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
@@ -218,9 +241,7 @@ export class AccountService {
     });
     return await p;
   }
-  addTaxGroup(addTaxGroupDto: AddTaxGroupDto
-    ,dialogRef: DynamicDialogRef
-  ){
+  addTaxGroup(addTaxGroupDto: AddTaxGroupDto, dialogRef: DynamicDialogRef) {
     this.loaderService.show();
     this.accountproxy.addTaxGroup(addTaxGroupDto).subscribe({
       next: (res) => {
@@ -236,9 +257,7 @@ export class AccountService {
       },
     });
   }
-  editTaxGroup(TaxGroupDto: TaxGroupDto
-    ,dialogRef: DynamicDialogRef
-  ){
+  editTaxGroup(TaxGroupDto: TaxGroupDto, dialogRef: DynamicDialogRef) {
     this.loaderService.show();
     this.accountproxy.editTaxGroup(TaxGroupDto).subscribe({
       next: (res) => {
@@ -254,15 +273,14 @@ export class AccountService {
       },
     });
   }
-  getTaxGroupById(id:number) {
+  getTaxGroupById(id: number) {
     this.accountproxy.getTaxGroupById(id).subscribe((response) => {
       this.currentTaxGroupDataSource.next(response);
     });
   }
-  editAccount(account:accountById) {
+  editAccount(account: accountById) {
     this.accountproxy.editAccount(account).subscribe({
       next: (res) => {
-          
         this.toasterService.showSuccess(
           this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
           this.languageService.transalte('ChartOfAccounts.SuccessMessage')
@@ -273,12 +291,11 @@ export class AccountService {
       error: (error) => {
         this.loaderService.hide();
         this.toasterService.showError(
-          this.languageService.transalte('ChartOfAccounts.Error'),(error.message)
+          this.languageService.transalte('ChartOfAccounts.Error'),
+          error.message
         );
       },
-    }
-      
-    );
+    });
   }
 
   async deleteAccount(accountId: number) {
@@ -288,7 +305,6 @@ export class AccountService {
     if (confirmed) {
       this.accountproxy.deleteAccount(accountId).subscribe({
         next: (res) => {
-          
           this.toasterService.showSuccess(
             this.languageService.transalte('costCenter.Success'),
             this.languageService.transalte('costCenter.CostCenterDeletedSuccessfully')
@@ -323,7 +339,6 @@ export class AccountService {
   getTaxById(id: number) {
     this.accountproxy.getTaxById(id).subscribe((response) => {
       this.currentTaxDataSource.next(response);
-
     });
   }
 
@@ -424,89 +439,90 @@ export class AccountService {
     this.accountproxy.getAllTaxGroups().subscribe({
       next: (res) => {
         this.taxGroupsDropDown.next(res);
-        
       },
     });
   }
-  AddCostCenter(command: addCostCenter){
+  AddCostCenter(command: addCostCenter) {
     this.accountproxy.AddCostCenter(command).subscribe({
       next: (res) => {
-      this.savedCostCenter.next(res);
-      this.toasterService.showSuccess(
-        this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
-        this.languageService.transalte('ChartOfAccounts.SuccessMessage')
-      );
-      }
+        this.savedCostCenter.next(res);
+        this.toasterService.showSuccess(
+          this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
+          this.languageService.transalte('ChartOfAccounts.SuccessMessage')
+        );
+      },
     });
-
   }
-    async deleteCostCenter(costId: number) {
-      const confirmed = await this.toasterService.showConfirm(
-        this.languageService.transalte('ConfirmButtonTexttodelete')
-      );
-      if (confirmed) {
-        this.accountproxy.deleteCostCenter(costId).subscribe({
-          next: (res) => {
-            
-            this.toasterService.showSuccess(
-              this.languageService.transalte('costCenter.Success'),
-              this.languageService.transalte('costCenter.CostCenterDeletedSuccessfully')
-            );
-            this.loaderService.hide();
-            this.costCenterData.next(res);
-            const currentCostCenter = this.parentAccountsostCenter.getValue();
-            const updatedCostCenter = currentCostCenter.filter((c) => c.id !== costId);
-            this.parentAccountsostCenter.next(updatedCostCenter);
-          },
-          error: () => {
-            this.loaderService.hide();
-            this.toasterService.showError(
-              this.languageService.transalte('costCenter.Error'),
-              this.languageService.transalte('costCenter.CannotDeleteCostCenter')
-            );
-          },
-        });
-      }
-    }
-    GetAllParentsCostCenters() {
-      this.accountproxy.GetAllParentsCostCenters().subscribe((response) => {
-        this.parentAccountsostCenter.next(response);
-      });
-    }
-    getcostById(id: number) {
-      this.accountproxy.getCostById(id).subscribe((response) => {
-        this.costCenterById.next(response);
-      });
-    }
-    editCost(cost:costById) {
-      this.accountproxy.editCost(cost).subscribe((res) => {
-        this.editCostCenter.next(res);
-      });
-    }
-    getCostDetails(id: number) {
-      this.accountproxy.GetCostCenterDetails(id).subscribe((response) => {
-        this.costCenterDetails.next(response);
-      });
-    }
-    getAllCostCenter(searchTerm: string, pageInfo: PageInfo) {
-      this.accountproxy.getAllCostCenter(searchTerm, pageInfo).subscribe({
+  async deleteCostCenter(costId: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.accountproxy.deleteCostCenter(costId).subscribe({
         next: (res) => {
-          this.costCenterList.next(res.result);
-          this.currentPageInfo.next(res.pageInfoResult);
+          this.toasterService.showSuccess(
+            this.languageService.transalte('costCenter.Success'),
+            this.languageService.transalte('costCenter.CostCenterDeletedSuccessfully')
+          );
+          this.loaderService.hide();
+          this.costCenterData.next(res);
+          const currentCostCenter = this.parentAccountsostCenter.getValue();
+          const updatedCostCenter = currentCostCenter.filter((c) => c.id !== costId);
+          this.parentAccountsostCenter.next(updatedCostCenter);
+        },
+        error: () => {
+          this.loaderService.hide();
+          this.toasterService.showError(
+            this.languageService.transalte('costCenter.Error'),
+            this.languageService.transalte('costCenter.CannotDeleteCostCenter')
+          );
         },
       });
     }
-    costCenterActivation(command:costCenterActivation){
-      this.accountproxy.costCenterActivation(command).subscribe((response) => {
-        this.costCenterActivat.next(response);
-      });
-   }
-  
+  }
+  GetAllParentsCostCenters() {
+    this.accountproxy.GetAllParentsCostCenters().subscribe((response) => {
+      this.parentAccountsostCenter.next(response);
+    });
+  }
+  getcostById(id: number) {
+    this.accountproxy.getCostById(id).subscribe((response) => {
+      this.costCenterById.next(response);
+    });
+  }
+  editCost(cost: costById) {
+    this.accountproxy.editCost(cost).subscribe((res) => {
+      this.editCostCenter.next(res);
+    });
+  }
+  getCostDetails(id: number) {
+    this.accountproxy.GetCostCenterDetails(id).subscribe((response) => {
+      this.costCenterDetails.next(response);
+    });
+  }
+  getAllCostCenter(searchTerm: string, pageInfo: PageInfo) {
+    this.accountproxy.getAllCostCenter(searchTerm, pageInfo).subscribe({
+      next: (res) => {
+        this.costCenterList.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+  }
+  costCenterActivation(command: costCenterActivation) {
+    this.accountproxy.costCenterActivation(command).subscribe((response) => {
+      this.costCenterActivat.next(response);
+    });
+  }
+
+  loadCountries() {
+    this.accountproxy.getAllCountries().subscribe((response) => {
+      this.countryDataSource.next(response);
+    });
+  }
   constructor(
     private accountproxy: AccountProxy,
     private toasterService: ToasterService,
     private languageService: LanguageService,
-    private loaderService: LoaderService,
-
+    private loaderService: LoaderService
   ) {}
 }

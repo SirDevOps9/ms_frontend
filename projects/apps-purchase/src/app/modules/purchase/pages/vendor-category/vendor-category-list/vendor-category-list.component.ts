@@ -1,0 +1,92 @@
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'microtec-auth-lib';
+import { DialogService } from 'primeng/dynamicdialog';
+import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
+import { RouterService, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
+import { PurchaseService } from '../../../purchase.service';
+import { VendorCategoryDto } from '../../../models';
+
+
+@Component({
+  selector: 'app-vendor-category-list',
+  templateUrl: './vendor-category-list.component.html',
+  styleUrl: './vendor-category-list.component.scss'
+})
+export class VendorCategoryListComponent implements OnInit {
+  constructor(
+    public authService: AuthService,
+    private dialog: DialogService,
+    private accountService: AccountService,
+    private purchaseService: PurchaseService,
+    private routerService : RouterService
+  ) {}
+
+  tableData : VendorCategoryDto[];
+
+  currentPageInfo: PageInfoResult = {};
+  modulelist: MenuModule[];
+  searchTerm: string;
+ 
+  ngOnInit() {
+
+     this.initFinancialCalendarData();
+
+     this.purchaseService.addVendorCategoryDataObservable.subscribe(res=>{
+      if(res) {
+        this.initFinancialCalendarData();
+
+      }
+     })
+
+  }
+
+  routeToAdd() {
+    this.routerService.navigateTo('/masterdata/add-vendor-category')
+  }
+  routeToEdit(id : number) {
+    this.routerService.navigateTo(`/masterdata/edit-vendor-category/${id}`)
+  }
+
+  initFinancialCalendarData() {
+    this.purchaseService.getVendorCategory('', new PageInfo());
+
+    this.purchaseService.vendorCategoryDataSourceObservable.subscribe({
+      next: (res) => {
+        this.tableData = res;
+      },
+    });
+
+    this.purchaseService.currentPageInfo.subscribe((currentPageInfo) => {
+      this.currentPageInfo = currentPageInfo;
+    });
+  }
+
+ 
+  onPageChange(pageInfo: PageInfo) {
+    this.purchaseService.getVendorCategory('', new PageInfo());
+
+    this.purchaseService.vendorCategoryDataSourceObservable.subscribe({
+      next: (res) => {
+        this.tableData = res;
+      },
+    });
+  }
+
+
+
+  onSearchChange(event : any) {
+    this.purchaseService.getVendorCategory(event.target.value, new PageInfo());
+
+    this.purchaseService.vendorCategoryDataSourceObservable.subscribe({
+      next: (res) => {
+        this.tableData = res;
+      },
+    });
+  }
+
+  onDelete(id: number) {
+    this.purchaseService.deleteVendorCategory(id);
+  }
+
+ 
+}

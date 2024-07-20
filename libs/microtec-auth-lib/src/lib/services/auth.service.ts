@@ -20,6 +20,7 @@ import {
 } from '../types';
 import { HttpParams } from '@angular/common/http';
 import { AuthProxy } from '.';
+import { ActivatedRoute, Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
@@ -28,13 +29,14 @@ export class AuthService {
 
   authorize() {
     var storageCulutre = this.languageService.getLang();
+    const currentUrl = this.routerService.getRouteParams('returnUrl') || '/';
 
     const params = new HttpParams()
       .set(RouteParams.REDIRECTURL, this.environmentService.AuthConfiguration?.redirectUrl!)
       .set(RouteParams.CLIENTKEY, this.environmentService.AuthConfiguration?.clientId!)
       .set(RouteParams.SCOPES, this.environmentService.AuthConfiguration?.scopes!)
       .set(RouteParams.CULTUREQUERY, storageCulutre)
-      .set(RouteParams.STATE, this.environmentService.AuthConfiguration?.state!);
+      .set(RouteParams.STATE, currentUrl);
 
     location.href =
       this.environmentService.AuthConfiguration?.authority +
@@ -51,7 +53,7 @@ export class AuthService {
       this.environmentService.AuthConfiguration?.authority + '/Account/Logout?' + params.toString();
   }
 
-  collectToken(key: string) {
+  collectToken(key: string, state: string) {
     var storageCulutre = this.languageService.getLang();
 
     let tokenModel: TokenRequestViewModel = {
@@ -60,17 +62,16 @@ export class AuthService {
       key: key,
       redirectUrl: this.environmentService.AuthConfiguration?.redirectUrl!,
       scopes: this.environmentService.AuthConfiguration?.scopes!,
-      state: this.environmentService.AuthConfiguration?.state!,
+      state: state,
     };
 
     this.authProxy.collectToken(tokenModel).subscribe({
       next: (res) => {
-        console.log('tokenResult', res);
         this.saveLoginData(res);
-        if (this.environmentService.AuthConfiguration?.state) {
-          location.href = this.environmentService.AuthConfiguration?.state;
+        if (state.includes('logout-redirect')) {
+          this.router.navigate(['/']);
         } else {
-          this.routerService.navigateTo('');
+          location.href = state;
         }
       },
     });
@@ -161,6 +162,8 @@ export class AuthService {
     private languageService: LanguageService,
     private environmentService: EnvironmentService,
     private authProxy: AuthProxy,
-    private routerService: RouterService
+    private routerService: RouterService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 }

@@ -2,8 +2,23 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 // import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, EditCustomerCategoryDto, vendorDefinitionDto } from './models';
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, editFinancialCalndar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto , vendorDefinitionDto} from './models';
+import {
+  TagDto,
+  AddTagDto,
+  financialCalendar,
+  AddFinancialCalendar,
+  editFinancialCalndar,
+  VendorCategoryDto,
+  AddVendorCategory,
+  EditVendorCategoryDto,
+  CustomerCategoryDto,
+  EditCustomerCategoryDto,
+  vendorDefinitionDto,
+  AddCustomerDefinitionDto,
+  EditCustomerDefintionsDto, CurrencyDefinitionDto, CurrencyConversionDto,
+} from './models';
 
+import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 import { AddVendorCommand } from './models/AddVendorCommand';
 import { CategoryDropdownDto } from './models/CategoryDropdownDto';
 import { CityDto } from './models/CityDto';
@@ -141,7 +156,7 @@ getCities(countryCode: string): Observable<CityDto[]> {
   return this.httpService.get<CityDto[]>(`Country/GetCities?CountryCode=${countryCode}`);
 }
 getCurrencies(searchKey: string): Observable<CurrencyDto[]> {
-  return this.httpService.get<CurrencyDto[]>('Currency?searchKey=' + searchKey);
+  return this.httpService.get<CurrencyDto[]>('Currency/CurrencyDropDown?searchKey=' + searchKey);
 }
 getVendorCategoryDropdown(): Observable<CategoryDropdownDto[]> {
   return this.httpService.get<CategoryDropdownDto[]>('VendorCategory/VendorCategoryDropdown');
@@ -163,5 +178,69 @@ getVendorById(id: number): Observable<any> {
   editVendorDefinition(vendor: EditVendorCommand): Observable<any> {
     return this.httpService.put(`Vendor`, vendor);
   }
+getAllCurrencyPaginated(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<CurrencyDefinitionDto>> {
+  const queryParams = new URLSearchParams({
+    SearchKey: searchTerm,
+    PageNumber: pageInfo.pageNumber.toString(),
+    PageSize: pageInfo.pageSize.toString(),
+  });
+  const url = `Currency?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+
+  return this.httpService.get<PaginationVm<CurrencyDefinitionDto>>(url);
+}
+addCurrency(currency: CurrencyDefinitionDto): Observable<CurrencyDefinitionDto> {
+  return this.httpService.post<CurrencyDefinitionDto>(`Currency`,currency);
+}
+deleteCurrency(id: number): Observable<boolean> {
+  return this.httpService.delete<boolean>(`Currency/${id}`);
+}
+EditCurrency(Currency: CurrencyDefinitionDto): Observable<CurrencyDefinitionDto> {
+  return this.httpService.put<CurrencyDefinitionDto>(`Currency`,Currency);
+}
+getCurrencyById(id: number): Observable<CurrencyDefinitionDto> {
+  return this.httpService.get<CurrencyDefinitionDto>(`Currency/${id}`);
+}
+getAllCurrencyConversionPaginated(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<CurrencyConversionDto>> {
+  const queryParams = new URLSearchParams({
+    SearchKey: searchTerm,
+    PageNumber: pageInfo.pageNumber.toString(),
+    PageSize: pageInfo.pageSize.toString(),
+  });
+  const url = `CurrencyConversion?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+
+  return this.httpService.get<PaginationVm<CurrencyConversionDto>>(url);
+}
+addCurrencyConversion(currency: CurrencyConversionDto): Observable<CurrencyConversionDto> {
+  return this.httpService.post<CurrencyConversionDto>(`CurrencyConversion`,currency);
+}
+deleteCurrencyConversion(id: number): Observable<boolean> {
+  return this.httpService.delete<boolean>(`CurrencyConversion/${id}`);
+}
+EditCurrencyConversion(Currency: CurrencyConversionDto): Observable<CurrencyConversionDto> {
+  return this.httpService.put<CurrencyConversionDto>(`CurrencyConversion`,Currency);
+}
+getCurrencyByIdConversion(id: number): Observable<CurrencyConversionDto> {
+  return this.httpService.get<CurrencyConversionDto>(`CurrencyConversion/${id}`);
+}
+exportcurrencyData(
+  searchTerm: string | undefined
+): Observable<CurrencyConversionDto[]> {
+  let query = `TCurrencyConversion/Export?`;
+  if (searchTerm) {
+    query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+  }
+   return this.httpService.get<CurrencyConversionDto[]>(query);
+}
+exportcurrencyDefinitionData(
+  searchTerm: string | undefined
+): Observable<CurrencyDefinitionDto[]> {
+  let query = `Currency/Export?`;
+  if (searchTerm) {
+    query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+  }
+   return this.httpService.get<CurrencyDefinitionDto[]>(query);
+}
+
+
   constructor(private httpService: HttpService) {}
 }

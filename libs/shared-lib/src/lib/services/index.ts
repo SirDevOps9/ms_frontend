@@ -17,3 +17,4 @@ export * from './attachment.service';
 export * from './lowercaseurlserializer';
 export * from './age.service';
 export * from './print.service';
+export * from './datetime.service';

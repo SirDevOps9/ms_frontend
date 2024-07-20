@@ -24,6 +24,7 @@ import { UrlSerializer } from '@angular/router';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    AppRoutingModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -42,7 +43,6 @@ import { UrlSerializer } from '@angular/router';
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
-    AppRoutingModule,
     CookieModule.withOptions(),
     AppsSharedLibModule,
   ],

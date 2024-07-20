@@ -37,21 +37,21 @@
               </div>
               <div class="md:col-12">
                 <lib-form-group>
-                  <lib-label [appControl]="taxGroupForm.controls['countryCode']">
-                    {{ "TaxGroup.Add.CountryCode" | translate }}
-                  </lib-label>
+                  <div class="my-1">
+                    <lib-label [appControl]="taxGroupForm.controls['countryCode']">
+                      {{ 'TaxGroup.Edit.CountryName' | translate }}
+                    </lib-label>
+                  </div>
                   <lib-selectIcon
-                                                    formControlName="countryCode"
-                                                    [options]="countries"
-                                                    optionValue="id"
-                                                    optionLabel="nameEn"
-                                                    icons="flags"
-                                                    [selectedValue]="taxGroupForm.get('countryCode')?.value"
-                                                  >
-                                                  </lib-selectIcon>
-                  <lib-field-validations
-                    [appControl]="taxGroupForm.controls['CountryCode']"
+                    formControlName="countryCode"
+                    [options]="countries"
+                    [selectedValue]="taxGroupForm.controls['countryCode'].value"
+                    optionValue="id"
+                    optionLabel="nameEn"
+                    icons="flags"
                   >
+                  </lib-selectIcon>
+                  <lib-field-validations [appControl]="taxGroupForm.controls['countryCode']">
                   </lib-field-validations>
                 </lib-form-group>
               </div>

@@ -432,6 +432,39 @@
       "valdation":{
         "invalidForm":"invalid Form"
       }
+    },
+    "currencyDefinition":{
+      "code":"code",
+      "success":"success",
+      "error":"error",
+      "errorDelet":"The currency definition is not deleted",
+      "successAdd":"Currency Definition Added Successfully",
+      "successEdit":"Currency Definition Edited Successfully",
+      "successDelet":"Currency Definition Deleted Successfully",
+      "name":"Name",
+      "sympol":"sympol",
+      "Subunit":"Subunit",
+      "country":"country",
+      "type":"Type",
+      "category":"Category",
+      "UOM":"UOM",
+      "actions":"Actions"
+      
+    },
+    "currencyConversion":{
+      "FromCurrency":"From Currency",
+      "CurrencyRate":"Currency Rate",
+      "ToCurrency":"To Currency",
+      "ReversedRate":"Reversed rate",
+      "Notes":"Notes",
+      "Actions":"Actions",
+      "errorDelet":"The currency Conversion is not deleted",
+      "successAdd":"Currency Conversion Added Successfully",
+      "successEdit":"Currency Conversion Edited Successfully",
+      "successDelet":"Currency Conversion Deleted Successfully",
+      "errorSameCurrency":"From Currency and To Currency must be different.",
+      "editTitle":"edit Currency conversion transaction",
+      "addTitle":"add Currency conversion transaction"
     }
 
 }

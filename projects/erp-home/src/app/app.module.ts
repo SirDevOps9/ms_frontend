@@ -12,6 +12,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
 import { HomePageComponent } from './home-page/home-page.component';
+import { AppsSharedLibModule } from 'apps-shared-lib';
 
 @NgModule({
   declarations: [AppComponent, HomePageComponent],
@@ -38,6 +39,7 @@ import { HomePageComponent } from './home-page/home-page.component';
     FormsModule,
     AppRoutingModule,
     CookieModule.withOptions(),
+    AppsSharedLibModule,
   ],
   providers: [
     { provide: EnvironmentService, useValue: environment },
