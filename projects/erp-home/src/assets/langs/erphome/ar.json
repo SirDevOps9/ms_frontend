@@ -239,39 +239,45 @@
 
     }
   },
-  "tag": {
-    "taglist": "قائمة العلامات",
-    "Id": "الهوية",
-    "Name": "الاسم",
-    "status": "الحالة",
-    "Modules": "الوحدات",
-    "Actions": "الإجراءات",
-    "Edit": "تحرير",
-    "Delete": "حذف",
-    "Add": "إضافة",
-    "AddTag": "إضافة علامة",
-    "Activate": "نشط",
-    "Deactivate": "إلغاء التنشيط",
-    "addtag": {
-      "title": "إضافة علامة",
-      "name": "الاسم",
-      "applicability": "قابلية التطبيق",
-      "save": "حفظ",
-      "discard": "تجاهل",
-      "code": "رمز"
-    },
-    "edittag": {
-      "title": "تعديل الوسم",
-      "name": "الاسم",
-      "applicability": "التطبيقية",
-      "status": "الحالة",
-      "save": "حفظ",
-      "discard": "تجاهل",
-      "code": "الرمز",
-      "success": "نجاح"
-    }
-    
+ "tag":{
+  "taglist":"قائمة العلامات",
+  "Search": "البحث",
+  "AddNew":"إضافة جديدة",
+  "AddNewTag": "إضافة علامة جديدة",
+  "EditTag": "تعديل العلامة",
+  "Id":"المعرف",
+  "code":"الكود",
+  "Name":"الاسم",
+  "status":"الحالة",
+  "Modules":"الوحدات",
+  "Actions":"الإجراءات",
+  "Edit":"تعديل",
+  "Delete":"حذف",
+  "Add":"إضافة",
+  "AddTag":"إضافة علامة",
+  "Active":"نشط",
+  "Deactivate":"إلغاء التنشيط",
+  "success":"نجاح",
+  "addtag":{
+    "title":"إضافة علامة",
+    "name":"الاسم",
+    "applicability":"التطبيق",
+    "save":"حفظ",
+    "cancel":"اغلاق",
+    "code":"الكود",
+    "success":"نجاح"
   },
+  "edittag":{
+    "title":"تعديل علامة",
+    "name":"الاسم",
+    "applicability":"التطبيق",
+    "status":"الحالة",
+    "save":"حفظ",
+    "cancel":"اغلاق",
+    "code":"الكود",
+    "success":"نجاح"
+  }
+},
   "Shared": {
   "Error": "خطأ",
   "validation": {

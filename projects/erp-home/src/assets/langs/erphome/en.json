@@ -296,6 +296,10 @@
   
     "tag":{
       "taglist":"Tag list",
+      "Search": "Search",
+      "AddNew":"AddNew",
+      "AddNewTag":"AddNewTag",
+      "EditTag":"EditTag",
       "Id":"Id",
       "Name":"Name",
       "status":"Status",
@@ -314,7 +318,7 @@
         "name":"Name",
         "applicability":"Applicability",
         "save":"Save",
-        "discard":"Discard",
+        "cancel":"Cancel",
         "code":"Code",
         "success":"Success"
       },
@@ -324,7 +328,7 @@
         "applicability":"Applicability",
         "status":"Status",
         "save":"Save",
-        "discard":"Discard",
+        "cancel":"Cancel",
         "code":"Code",
         "success":"Success"
 

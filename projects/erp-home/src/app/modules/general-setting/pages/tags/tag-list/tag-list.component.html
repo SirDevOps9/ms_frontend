@@ -5,7 +5,7 @@
         <input
           type="text"
           pInputText
-          placeholder="{{ 'Search' | translate }}"
+          placeholder="{{ 'tag.Search' | translate }}"
           [(ngModel)]="searchTerm"
           (input)="onSearchChange()"
           class="mr-2"
@@ -15,7 +15,7 @@
         <button
           pButton
           pRipple
-          label="{{ 'Add New' | translate }}"
+          label="{{ 'tag.AddNew' | translate }}"
           icon="pi pi-plus"
           class="btn add_new mr-2"
           (click)="newTag()"
