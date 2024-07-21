@@ -20,9 +20,17 @@ const routes: Routes = [
     },
     children: [
       {
+        path: '',
+        component: VendorCategoryListComponent,
+      //  canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.vendor_list,
+        },
+      },
+      {
         path: 'vendor-category',
         component: VendorCategoryListComponent,
-        canActivate: [AuthGuard],
+      //  canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.vendor_list,
         },
@@ -30,7 +38,7 @@ const routes: Routes = [
       {
         path: 'add-vendor-category',
         component: CreateVendorCategoryComponent,
-        canActivate: [AuthGuard],
+       // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.vendor_Add,
         },
@@ -38,7 +46,7 @@ const routes: Routes = [
       {
         path: 'edit-vendor-category/:id',
         component: EditVendorCategoryComponent,
-        canActivate: [AuthGuard],
+       // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.vendor_Edit,
         },
@@ -46,7 +54,7 @@ const routes: Routes = [
       {
         path: 'vendor-definitions',
         component: VendorDefinitionsListComponent,
-        canActivate: [AuthGuard],
+       // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.VENDOR_DEFINITIONS,
         },
@@ -54,7 +62,7 @@ const routes: Routes = [
       {
         path: 'add-vendor-definitions',
         component: AddVendorDefinitionsComponent,
-        canActivate: [AuthGuard],
+       // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.ADD_VENDOR_DEFINITIONS,
         },
@@ -62,7 +70,7 @@ const routes: Routes = [
       {
         path: 'edit-vendor-definitions/:id',
         component: EditVendorDefinitionsComponent,
-        canActivate: [AuthGuard],
+       // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.EDIT_VENDOR_DEFINITIONS,
         },

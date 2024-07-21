@@ -69,6 +69,8 @@ export class RouterService {
   }
 
   public getPreviousUrl() {
+    console.log("sss");
+    
     return this.previousUrl;
   }
 

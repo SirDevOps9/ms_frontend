@@ -97,10 +97,9 @@
       <ng-container caption>
         <div class="group">
           <div>
-            <span class="p-input-icon-left">
-              <i class="pi pi-search"></i>
-              <input pInputText type="text" placeholder="Search..." />
-            </span>
+            
+              <lib-text-input   type="text" [placeholder]="'Search'" (keyUp)="onSearchChange($event)" [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">                   
+              </lib-text-input>            
           </div>
 
           <!-- <lib-button pRipple className="add_new" label="Add New" icon="pi pi-plus">
@@ -176,7 +175,7 @@
       </ng-template>
       <ng-template #journalDate let-journal>
         <div>
-          <p>{{ journal.createdOn | date : 'dd/MM/yyyy' }}</p>
+          <p>{{ journal.journalDate | date : 'dd/MM/yyyy' }}</p>
         </div>
       </ng-template>
       <ng-template #journalIsRepeated let-journal>

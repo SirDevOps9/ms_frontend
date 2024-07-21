@@ -18,8 +18,8 @@ export class JournalEntryProxy {
       `JournalEntry`
     );
   }
-  getAllPaginated(pageInfo: PageInfo): Observable<PaginationVm<JournalEntryDto>> {
-    return this.httpService.get<PaginationVm<JournalEntryDto>>(`JournalEntry?${pageInfo.toQuery}`);
+  getAllPaginated(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<JournalEntryDto>> {
+    return this.httpService.get<PaginationVm<JournalEntryDto>>(`JournalEntry?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`);
   }
 
   create(command: AddJournalEntryCommand): Observable<any> {
@@ -59,6 +59,7 @@ export class JournalEntryProxy {
   getAccountingReports(accounts:reportAccount){
     return this.httpService.post<reportAccount>(`AccountingReports/AccountStatmentReport`,accounts);
   }
+  
 
   constructor(private httpService: HttpService) {}
 }

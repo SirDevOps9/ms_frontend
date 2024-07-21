@@ -3,14 +3,14 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { PageInfoResult, MenuModule, RouterService, PageInfo } from 'shared-lib';
 
 import { GeneralSettingService } from '../../../general-setting.service';
-import {  financialCalendar } from '../../../models';
+import { financialCalendar } from '../../../models';
 import { AuthService } from 'microtec-auth-lib';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
 
 @Component({
   selector: 'app-financial-calendar-list',
   templateUrl: './financial-calendar-list.component.html',
-  styleUrl: './financial-calendar-list.component.scss'
+  styleUrl: './financial-calendar-list.component.scss',
 })
 export class FinancialCalendarListComponent implements OnInit {
   constructor(
@@ -18,26 +18,26 @@ export class FinancialCalendarListComponent implements OnInit {
     private dialog: DialogService,
     private accountService: AccountService,
     private generalSettingService: GeneralSettingService,
-    private routerService : RouterService
+    private routerService: RouterService
   ) {}
 
-  tableData : financialCalendar[];
+  tableData: financialCalendar[];
 
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
- 
+
   ngOnInit() {
-
-     this.initFinancialCalendarData();
-
+    this.initFinancialCalendarData();
   }
 
   routeToAdd() {
-    this.routerService.navigateTo('add-financial-calendar')
+    this.routerService.navigateTo('masterdata/financial-calendar/add-financial-calendar');
   }
-  routeToEdit(id : number) {
-    this.routerService.navigateTo(`edit-financial-calendar/${id}`)
+  routeToEdit(id: number) {
+    this.routerService.navigateTo(
+      `masterdata/financial-calendar/edit-financial-calendar/${id}`
+    );
   }
 
   initFinancialCalendarData() {
@@ -54,7 +54,6 @@ export class FinancialCalendarListComponent implements OnInit {
     });
   }
 
- 
   onPageChange(pageInfo: PageInfo) {
     this.generalSettingService.getfinancialCalendar('', pageInfo);
 
@@ -65,9 +64,7 @@ export class FinancialCalendarListComponent implements OnInit {
     });
   }
 
-
-
-  onSearchChange(event : any) {
+  onSearchChange(event: any) {
     this.generalSettingService.getfinancialCalendar(event.target.value, new PageInfo());
 
     this.generalSettingService.financialCalendarDataSourceObservable.subscribe({
@@ -80,6 +77,4 @@ export class FinancialCalendarListComponent implements OnInit {
   onDelete(id: number) {
     // this.accountService.deleteTax(id);
   }
-
- 
 }

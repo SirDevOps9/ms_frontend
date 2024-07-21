@@ -9,7 +9,7 @@ import { EditCustomerCategoryComponent } from './pages/customer-category/edit-cu
 import { AddCustomerComponent } from './pages/customer-definitions/add-customer/add-customer.component';
 import { CustomerListComponent } from './pages/customer-definitions/customer-list/customer-list.component';
 import { EditCustomerComponent } from './pages/customer-definitions/edit-customer/edit-customer.component';
-import { LayoutPageComponent } from 'apps-shared-lib';
+import { LandingPageComponent, LayoutPageComponent } from 'apps-shared-lib';
 
 const routes: Routes = [
   {
@@ -23,11 +23,10 @@ const routes: Routes = [
         path: 'customer-category',
         component: CustomerCategoryListComponent,
       },
-
       {
         path: 'add-customer-category',
         component: CreateCustomerCategoryComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.customer_add,
         },
@@ -35,7 +34,7 @@ const routes: Routes = [
       {
         path: 'edit-customer-category/:id',
         component: EditCustomerCategoryComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.customer_edit,
         },
@@ -43,7 +42,7 @@ const routes: Routes = [
       {
         path: 'customer-definitions',
         component: CustomerListComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.CUSTOMER_DEFINITIONS,
         },
@@ -51,7 +50,7 @@ const routes: Routes = [
       {
         path: 'add-customer-definitions',
         component: AddCustomerComponent,
-        canActivate: [AuthGuard],
+        //  canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.ADD_CUSTOMER_DEFINITIONS,
         },
@@ -59,7 +58,7 @@ const routes: Routes = [
       {
         path: 'edit-customer-definitions/:id',
         component: EditCustomerComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.EDIT_CUSTOMER_DEFINITIONS,
         },

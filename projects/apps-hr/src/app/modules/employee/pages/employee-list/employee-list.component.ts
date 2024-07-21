@@ -1,5 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FilterDto, LanguageService, PageInfo, PageInfoResult, RouterService, lookupDto } from 'shared-lib';
+import {
+  FilterDto,
+  LanguageService,
+  PageInfo,
+  PageInfoResult,
+  RouterService,
+  lookupDto,
+} from 'shared-lib';
 import { EmployeeDto } from '../../models/employeeDto';
 import { Title } from '@angular/platform-browser';
 import { EmployeeService } from '../../employee.service';
@@ -28,10 +35,10 @@ export class EmployeeListComponent implements OnInit {
     private titleService: Title,
     private languageService: LanguageService,
     private employeeService: EmployeeService
-  ) { }
+  ) {}
   ngOnInit() {
     this.titleService.setTitle('Employee List');
-    this.languageService.getTranslation('Employee.List.Employees').subscribe(title => {
+    this.languageService.getTranslation('Employee.List.Employees').subscribe((title) => {
       this.titleService.setTitle(title);
     });
     this.initEmployeeData(this.searchTerm, new PageInfo());
@@ -58,7 +65,7 @@ export class EmployeeListComponent implements OnInit {
         header: 'EmployeePhoto',
       },
     ];
-    this.exportColumns = this.cols.map(col => ({
+    this.exportColumns = this.cols.map((col) => ({
       id: col.header,
       name: col.field,
     }));
@@ -67,7 +74,7 @@ export class EmployeeListComponent implements OnInit {
     const array = [Object.keys(objArray[0])].concat(objArray);
 
     return array
-      .map(row => {
+      .map((row) => {
         return Object.values(row).toString();
       })
       .join('\n');
@@ -75,15 +82,13 @@ export class EmployeeListComponent implements OnInit {
 
   exportToCSV() {
     this.employeeService.exportEmployeesList(this.searchTerm);
-    var data: any
-    
+    var data: any;
+
     this.employeeService.employeesList.subscribe((res) => {
       data = res;
     });
     const csvData = this.convertToCSV(data);
     this.downloadCSV(csvData, this.titleService.getTitle() + Date.now() + '.csv');
-
-
   }
 
   downloadCSV(csvData: string, filename: string) {
@@ -123,13 +128,13 @@ export class EmployeeListComponent implements OnInit {
     this.initEmployeeData('', pageInfo);
   }
   navigateToAdd() {
-    this.routerService.navigateTo(`/employee/add`);
+    this.routerService.navigateTo(`/masterdata/employee/add`);
   }
   navigateToEdit(id: number) {
-    this.routerService.navigateTo(`/employee/edit/${id}`);
+    this.routerService.navigateTo(`/masterdata/employee/edit/${id}`);
   }
   navigateToView(id: number) {
-    this.routerService.navigateTo(`/employee/view/${id}`);
+    this.routerService.navigateTo(`/masterdata/employee/view/${id}`);
   }
   deletEmployee(id: number) {
     this.employeeService.deleteEmployee(id);
@@ -141,22 +146,19 @@ export class EmployeeListComponent implements OnInit {
     this.initEmployeeData(this.searchTerm, new PageInfo());
   }
 
-  exportClick(e? : Event ) {
+  exportClick(e?: Event) {
     this.exportEmployeeData(this.searchTerm);
   }
-  exportExcel()
-  {
-
+  exportExcel() {
     // let filterDto : FilterDto = new FilterDto();
     // console.log(filterDto)
     // this.exportEmployeeData(filterDto);
     // ExportService.ToExcel(this.exportData, 'Employee-List.xlsx' , this.exportSelectedCols);
   }
 
-  public exportPDF():void{
+  public exportPDF(): void {
     // let filterDto : FilterDto = new FilterDto();
     // this.exportEmployeeData(filterDto);
     // ExportService.ToPDF(this.exportData, 'Employee-List.pdf'  , this.exportSelectedCols);
-
   }
 }

@@ -25,10 +25,10 @@ import {
   costCenterList,
   costCenterActivation,
   companyDropDownDto,
+  CountryDto,
 } from './models';
 import { TaxGroupDropDown } from './models/tax-group-drop-down';
 import { costLookup } from '../journal-entry/models';
-
 
 @Injectable({
   providedIn: 'root',
@@ -58,22 +58,29 @@ export class AccountProxy {
   addAccount(command: AddAccountDto): Observable<AccountDto> {
     return this.httpService.post('ChartOfAccounts/AddAccount', command);
   }
-  editAccount(command:accountById ): Observable<accountById> {
+  editAccount(command: accountById): Observable<accountById> {
     return this.httpService.put('ChartOfAccounts/EditAccount', command);
   }
   deleteAccount(id: number): Observable<number> {
     return this.httpService.delete<number>(`ChartOfAccounts/Delete?Id=${id}`);
   }
   getAllPaginated(quieries: string, pageInfo: PageInfo): Observable<PaginationVm<AccountDto>> {
-    return this.httpService.get<PaginationVm<AccountDto>>(`ChartOfAccounts?${pageInfo.toQuery}&${quieries ?quieries : '' }`);
+    return this.httpService.get<PaginationVm<AccountDto>>(
+      `ChartOfAccounts?${pageInfo.toQuery}&${quieries ? quieries : ''}`
+    );
   }
-  getAccountsHasNoChildren(quieries: string, pageInfo: PageInfo): Observable<PaginationVm<AccountDto>> {
-    return this.httpService.get<PaginationVm<AccountDto>>(`ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}&${quieries ?quieries : '' }`);
+  getAccountsHasNoChildren(
+    quieries: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<AccountDto>> {
+    return this.httpService.get<PaginationVm<AccountDto>>(
+      `ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}&${quieries ? quieries : ''}`
+    );
   }
 
   getAllParentAccounts(): Observable<parentAccountDto[]> {
     return this.httpService.get<parentAccountDto[]>(`ChartOfAccounts/GetParentAccounts`);
-  } 
+  }
 
   getTreeList(): Observable<accountTreeList[]> {
     return this.httpService.get<accountTreeList[]>(`ChartOfAccounts/GetTree`);
@@ -94,32 +101,34 @@ export class AccountProxy {
   }
 
   getAllTaxGroup(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<TaxGroupDto>> {
-    
-    return this.httpService.get<PaginationVm<TaxGroupDto>>(`TaxGroup?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`);
-  } 
-  
+    return this.httpService.get<PaginationVm<TaxGroupDto>>(
+      `TaxGroup?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`
+    );
+  }
+
   deleteTaxGroup(id: number): Observable<boolean> {
     return this.httpService.delete<boolean>(`TaxGroup?Id=${id}`);
   }
 
   addTaxGroup(taxgroupdto: AddTaxGroupDto): Observable<boolean> {
-    return this.httpService.post<boolean>(`TaxGroup`,taxgroupdto);
+    return this.httpService.post<boolean>(`TaxGroup`, taxgroupdto);
   }
 
   editTaxGroup(taxgroupdto: TaxGroupDto): Observable<boolean> {
-    return this.httpService.put<boolean>(`TaxGroup`,taxgroupdto);
+    return this.httpService.put<boolean>(`TaxGroup`, taxgroupdto);
   }
   getTaxGroupById(id: number): Observable<TaxGroupDto> {
     return this.httpService.get<TaxGroupDto>(`TaxGroup/GetById?Id=${id}`);
   }
 
-  getAccountLookup() : Observable<costLookup[]> {
-    return this.httpService.get('CostCenter/CostCenterDropDown')
+  getAccountLookup(): Observable<costLookup[]> {
+    return this.httpService.get('CostCenter/CostCenterDropDown');
   }
 
-
   getAllTaxes(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<TaxDto>> {
-    return this.httpService.get<PaginationVm<TaxDto>>(`Tax?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`);
+    return this.httpService.get<PaginationVm<TaxDto>>(
+      `Tax?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`
+    );
   }
 
   getTaxById(id: number): Observable<TaxDto> {
@@ -140,7 +149,7 @@ export class AccountProxy {
 
   getAllTaxGroups(): Observable<TaxGroupDropDown[]> {
     return this.httpService.get<TaxGroupDropDown[]>(`TaxGroup/TaxGroupDropDown`);
-  } 
+  }
   AddCostCenter(command: addCostCenter): Observable<addCostCenter> {
     return this.httpService.post('CostCenter/AddCostCenter', command);
   }
@@ -150,22 +159,30 @@ export class AccountProxy {
   }
   GetAllParentsCostCenters(): Observable<parentAccountDto[]> {
     return this.httpService.get<parentAccountDto[]>(`CostCenter/GetAllParentsCostCenters`);
-  } 
+  }
   getCostById(id: number): Observable<costById> {
     return this.httpService.get<costById>(`CostCenter/GetById?id=${id}`);
   }
-  editCost(command:costById ): Observable<costById> {
+  editCost(command: costById): Observable<costById> {
     return this.httpService.put<costById>('CostCenter/EditCostCenter', command);
   }
   GetCostCenterDetails(id: number): Observable<costCenterDetails> {
     return this.httpService.get<costCenterDetails>(`CostCenter/GetCostCenterDetails?id=${id}`);
   }
-  getAllCostCenter(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<costCenterList>> {
-    
-    return this.httpService.get<PaginationVm<costCenterList>>(`CostCenter/GetCostCenters?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`);
-  } 
-  costCenterActivation(command:costCenterActivation): Observable<costCenterActivation> {
-    return this.httpService.put<costCenterActivation>(`CostCenter/CostCenterActivation`,command);
+  getAllCostCenter(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<costCenterList>> {
+    return this.httpService.get<PaginationVm<costCenterList>>(
+      `CostCenter/GetCostCenters?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`
+    );
+  }
+  costCenterActivation(command: costCenterActivation): Observable<costCenterActivation> {
+    return this.httpService.put<costCenterActivation>(`CostCenter/CostCenterActivation`, command);
+  }
+
+  getAllCountries(): Observable<CountryDto[]> {
+    return this.httpService.get<CountryDto[]>(`Country`);
   }
   constructor(private httpService: HttpService) {}
 }

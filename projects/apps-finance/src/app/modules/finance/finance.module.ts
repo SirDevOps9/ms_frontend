@@ -23,9 +23,17 @@ const routes: Routes = [
     },
     children: [
       {
+        path: '',
+        component: TreauryDefinitionListComponent,
+        //  canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.TREASURY_LIST,
+        },
+      },
+      {
         path: 'treasury-list',
         component: TreauryDefinitionListComponent,
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.TREASURY_LIST,
         },

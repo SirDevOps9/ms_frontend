@@ -20,9 +20,12 @@ export class JournalEntryService {
   private trialDataSource = new BehaviorSubject<TrialBalance[]>([]);
   private accountReportsDataSource = new BehaviorSubject<reportAccount[]>([]);
 
+
   public journalEntries = this.journalEntriesDataSource.asObservable();
   public report = this.trialDataSource.asObservable();
   public accountReport = this.accountReportsDataSource.asObservable();
+
+
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
@@ -36,9 +39,9 @@ export class JournalEntryService {
     private loaderService: LoaderService
   ) {}
 
-  getAllJournalEntriesPaginated(pageInfo: PageInfo) {
+  getAllJournalEntriesPaginated(searchTerm: string ,pageInfo: PageInfo) {
 
-    this.journalEntryProxy.getAllPaginated(pageInfo).subscribe({
+    this.journalEntryProxy.getAllPaginated(searchTerm , pageInfo).subscribe({
       next: (res) => {
         this.journalEntriesDataSource.next(res.result);
         this.currentPageInfo.next(res.pageInfoResult);
@@ -157,5 +160,7 @@ export class JournalEntryService {
       this.accountReportsDataSource.next(response);
     });
   }
+
+  
  
 }

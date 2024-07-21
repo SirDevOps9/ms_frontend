@@ -2,6 +2,7 @@
 // @import "../../../../assets/styling/scss/variables/font-family";
 @import ' ../../../../../../../assets/styling/scss/variables/font-family';
 .journal_entry_add_page{
+   
     .entry_header{
         background: #F7F8F8;
         box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -69,7 +70,12 @@
 
    
 }
+.description{
+    input{
+        padding: 20px !important;
 
+    }
+}
 button:disabled,
 button[disabled]{
     cursor: not-allowed !important;

@@ -11,7 +11,12 @@ import { TagListComponent } from './pages/tags/tag-list/tag-list.component';
 import { FinancialCalendarListComponent } from './pages/financial-calendar/financial-calendar-list/financial-calendar-list.component';
 import { CreateFinancialCalendarComponent } from './components/create-financial-calendar/create-financial-calendar.component';
 import { EditFinancialCalendarComponent } from './components/edit-financial-calendar/edit-financial-calendar.component';
-
+import { CurrencyDefinitionComponent } from './pages/currencyDefinition/currency-definition/currency-definition.component';
+import { AddCurrencyDefinitionComponent } from './components/currencyDefinition/add-currency-definition/add-currency-definition.component';
+import { EditCurrencyDefinitionComponent } from './components/currencyDefinition/edit-currency-definition/edit-currency-definition.component';
+import { CurrencyConversionComponent } from './pages/currency-conversion/currency-conversion.component';
+import { AddCurrencyConversionComponent } from './components/currencyConversion/add-currency-conversion/add-currency-conversion.component';
+import { EditCurrencyConversionComponent } from './components/currencyConversion/edit-currency-conversion/edit-currency-conversion.component';
 
 const routes: Routes = [
   {
@@ -24,7 +29,15 @@ const routes: Routes = [
       {
         path: '',
         component: TagListComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.tag_list,
+        },
+      },
+      {
+        path: 'tags',
+        component: TagListComponent,
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.tag_list,
         },
@@ -32,31 +45,43 @@ const routes: Routes = [
       {
         path: 'financial-calendar',
         component: FinancialCalendarListComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.calendar_list,
         },
       },
       {
-        path: 'add-financial-calendar',
+        path: 'financial-calendar/add-financial-calendar',
         component: CreateFinancialCalendarComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.calendar_list,
         },
       },
       {
-        path: 'edit-financial-calendar/:id',
+        path: 'financial-calendar/edit-financial-calendar/:id',
         component: EditFinancialCalendarComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.calendar_list,
         },
       },
-     
-    
-    
-
+      {
+        path: 'currency-definition',
+        component: CurrencyDefinitionComponent,
+        // canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.CURRENCY_DEFINITION_LIST,
+        },
+      },
+      {
+        path: 'currency-conversion',
+        component: CurrencyConversionComponent,
+        //  canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.CURRENCY_CONVERSION,
+        },
+      },
     ],
   },
 ];
@@ -69,13 +94,13 @@ const routes: Routes = [
     FinancialCalendarListComponent,
     CreateFinancialCalendarComponent,
     EditFinancialCalendarComponent,
-   
+    CurrencyDefinitionComponent,
+    AddCurrencyDefinitionComponent,
+    EditCurrencyDefinitionComponent,
+    CurrencyConversionComponent,
+    AddCurrencyConversionComponent,
+    EditCurrencyConversionComponent,
   ],
-  imports: [
-    CommonModule,
-    SharedLibModule,
-    AutoCompleteModule,
-    RouterModule.forChild(routes),
-  ],
+  imports: [CommonModule, SharedLibModule, AutoCompleteModule, RouterModule.forChild(routes)],
 })
 export class GeneralSettingModule {}

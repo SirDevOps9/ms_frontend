@@ -12,6 +12,7 @@ import { CookieModule } from 'ngx-cookie';
 import { HomePageComponent } from 'projects/erp-home/src/app/home-page/home-page.component';
 import { MultiTranslateHttpLoader, SharedLibModule, EnvironmentService } from 'shared-lib';
 import { environment } from '../environments/environment.development';
+import { AppsSharedLibModule } from 'apps-shared-lib';
 
 @NgModule({
   declarations: [AppComponent, HomePageComponent],
@@ -38,6 +39,7 @@ import { environment } from '../environments/environment.development';
     FormsModule,
     AppRoutingModule,
     CookieModule.withOptions(),
+    AppsSharedLibModule,
   ],
   providers: [
     { provide: EnvironmentService, useValue: environment },
