@@ -297,6 +297,8 @@
   "vendorSuccess": "تم إنشاء البائع بنجاح"
 },
 "currencyDefinition": {
+  "AddNew": "إضافة جديدة",
+"Search": "بحث",
   "code": "رمز",
   "success": "نجاح",
   "error": "خطأ",
@@ -313,7 +315,24 @@
   "UOM": "وحدة القياس",
   "actions": "إجراءات"
 },
+"addcurrency": {
+    "title": "إضافة عملة",
+    "cancel": "إلغاء",
+    "currencyCode": "كود العملة",
+    "currencyName": "اسم العملة",
+    "currencySubunit": "وحدة فرعية للعملة",
+    "currencySymbol": "رمز العملة",
+    "currencyCountry": "بلد العملة",
+    "currencyDifferenceAccount": "حساب الفرق في العملة",
+    "save": "حفظ"
+    },
 "currencyConversion": {
+   "AddNewcurrency": "إضافة عملة جديدة",
+    "Editcurrency": "تعديل العملة",
+  "search": "بحث",
+    "addNew": "إضافة جديدة",
+    "save": "حفظ",
+    "cancel": "إلغاء",
   "FromCurrency": "من العملة",
   "CurrencyRate": "سعر الصرف",
   "ToCurrency": "إلى العملة",

@@ -441,6 +441,8 @@
       }
     },
     "currencyDefinition":{
+      "AddNew":"AddNew",
+      "Search":"Search",
       "code":"code",
       "success":"success",
       "error":"error",
@@ -458,7 +460,24 @@
       "actions":"Actions"
       
     },
+     "addcurrency": {
+      "title": "Add Currency",
+      "cancel": "Cancel",
+      "currencyCode": "Currency code",
+      "currencyName": "Currency Name",
+      "currencySubunit": "Currency subunit",
+      "currencySymbol": "Currency symbol",
+      "currencyCountry": "Currency Country",
+      "currencyDifferenceAccount": "Currency difference account",
+      "save": "Save"
+        },
     "currencyConversion":{
+      "AddNewcurrency":"Add New Currency",
+      "Editcurrency":"Edit Currency",
+      "search":"Search",
+      "addNew":"AddNew",
+      "save":"Save",
+      "cancel": "Cancel",
       "FromCurrency":"From Currency",
       "CurrencyRate":"Currency Rate",
       "ToCurrency":"To Currency",
