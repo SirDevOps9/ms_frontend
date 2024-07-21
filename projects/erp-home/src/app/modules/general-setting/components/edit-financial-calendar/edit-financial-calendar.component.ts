@@ -28,19 +28,14 @@ export class EditFinancialCalendarComponent implements OnInit {
   FinancialPeriodData : editFinancialCalndar 
   id:number = this.route.snapshot.params['id']
   ngOnInit(): void {
-    this.formGroup = this.fb.group({
-      name: new FormControl(null,  customValidators.required),
-      code : null,
-      payableAccountId : null,
-      purchaseAccountId : null,
-      purchaseReturnAccountId : null,
-      discountAccountId : null,
-      priceListId : null,
-      paymentTermId : null,
-      marketType : null,
-     
-    
-    })
+  this.formGroup = this.fb.group({
+    name : new FormControl('',  customValidators.required),
+    year : 0,
+    code : '',
+    fromDate : '',
+    toDate : '',
+    noOfExtraPeriods : 0
+  })
 
   this.formGroup.get('year')?.valueChanges.subscribe(res=>{
     this.formGroup.get('code')?.setValue(res)
@@ -81,7 +76,7 @@ export class EditFinancialCalendarComponent implements OnInit {
       this.tableData = res.periods
       const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-      this.tableData = this.tableData.map((elem : any)=>{
+      this.tableData = this.tableData?.map((elem : any)=>{
         elem.month = months[elem.month - 1]
         return elem
       })

@@ -169,6 +169,8 @@
   }
 }
 
+
+
 ::ng-deep .saveBtn {
   .p-button { 
 
@@ -235,6 +237,36 @@
     margin-top: 5px;
     font-size: 1rem;
     border-radius: 5px;
+
+  }
+
+  
+}
+
+::ng-deep .outline-primary {
+  button{
+    width: 100%;
+    display: block;
+  }
+  .p-button {
+  background-color: transparent;
+  color: #4FB2CD;
+  border: 1px solid #4FB2CD;
+   padding: 10px;
+   margin-top: 5px;
+
+       font-size: 1rem;
+
+  }
+
+  .p-button:hover {
+    background-color: #4FB2CD;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 10px;
+
+        margin-top: 5px;
+            font-size: 1rem;
 
   }
 }

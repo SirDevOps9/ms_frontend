@@ -21,6 +21,7 @@ export const ERPRoutes = [
         path: 'finance',
         loadChildren: () => import('./modules/finance/finance.module').then((m) => m.FinanceModule),
       },
+     
     ],
   },
 ];

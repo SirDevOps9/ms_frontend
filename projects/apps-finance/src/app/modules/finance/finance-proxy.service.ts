@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
 import { AddTreasuryDto, Balance, EditTreasuryDto, GetTreasuryDtoById } from './models';
+import { BankDefinitionDto } from './models/BankDefinitionDto';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +53,26 @@ export class FinanceProxyService {
     }
      return this.httpService.get<TreasureDefinitionDto[]>(query);
   }
-  
+  getBankDefinitions(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<BankDefinitionDto>> {
+    let query = `Bank?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<BankDefinitionDto>>(query);
+  }
+
+  deleteBank(id : number) {
+    return this.httpService.get(`Bank/${id}`);
+
+  }
+
+  exportsBankList(
+    searchTerm: string | undefined
+  ): Observable<BankDefinitionDto[]> {
+    let query = `Bank/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<BankDefinitionDto[]>(query);
+  }
 }

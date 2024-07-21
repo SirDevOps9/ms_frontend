@@ -36,5 +36,41 @@
     "invalidage":"Invalid age",
     "debitAndCreditZero":"debit and credit both cannot be zero",
     "ageAbove": "You must be at least {{age}} years old."
+  },
+  "bank" : {
+    "actions" : "Actions",
+    "Search" : "Search",
+    "AddNew" : "Add New",
+    "Export" : "Export",
+    "branches" : "branches",
+    "code" : "Code",
+    "name" : "Name",
+    "shortName" : "Short Name",
+    "bankAddress" : "Bank Address",
+    "contactName" : "Contact Name",
+    "bankEmail" : "Bank Email",
+    "phone" : "Phone",
+    "fax" : "Fax",
+    "add_new" : "Add New Line",
+    "accountNumber" : "Account Number",
+    "glAccountCode" : "GL Account Code",
+    "glAccountName" : "GL Account Name",
+    "branch" : "Branch",
+    "Iban" : "IBAN",
+    "currency" : "Currency",
+    "currentBalance" : "Current Balance",
+    "userPermission" : "User Permission",
+    "openingBalance" : "Opening Balance"
+  },
+  "deleteBank" : {
+    "success" : "Success",
+    "delete" : "Bank Definition Deleted Successfully"
+  },
+  "addBank" : {
+    "add" : "Bank Definition Added Successfully"
+  },
+  "editBank" : {
+    "edit" : "Bank Definition Edited Successfully"
+
   }
 }

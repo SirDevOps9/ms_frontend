@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
 import { AddTreasuryDto, EditTreasuryDto, GetTreasuryDtoById } from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { BankDefinitionDto } from './models/BankDefinitionDto';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +19,16 @@ export class FinanceService {
   public getTreasureDefinitionsByID = new BehaviorSubject<GetTreasuryDtoById>({} as GetTreasuryDtoById);
   public exportedTreasuryListDataSource = new BehaviorSubject<TreasureDefinitionDto []>([]);
   public confirmSendTreasuryData = new BehaviorSubject<boolean>(false);
-
+  public sendBankDataSource = new BehaviorSubject<BankDefinitionDto[]>([])
+  public exportedBankListDataSource = new BehaviorSubject<BankDefinitionDto []>([]);
 
   sendTreasuryDataSourceObservable = this.sendTreasuryDataSource.asObservable()
   addTreasureDefinitionsObservable = this.treasureDefinitions.asObservable()
   getTreasureDefinitionsByIDObservable = this.getTreasureDefinitionsByID.asObservable()
   exportedTreasuryListDataSourceObservable = this.exportedTreasuryListDataSource.asObservable()
   confirmSendTreasuryDataObservable = this.confirmSendTreasuryData.asObservable()
+  sendBankDataSourceObservable = this.sendTreasuryDataSource.asObservable()
+  exportedBankListDataSourceObservable = this.exportedBankListDataSource.asObservable()
 
   getTreasureDefinitions(quieries: string, pageInfo: PageInfo)  {
     this.financeProxy.getTreasureDefinitions(quieries, pageInfo).subscribe((response) => {
@@ -96,6 +100,27 @@ export class FinanceService {
       });
     }
   }
+  async deleteBank(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.financeProxy.deleteBank(id).subscribe({
+        next: (res) => {
+          
+          this.toasterService.showSuccess(
+            this.languageService.transalte('deleteBank.success'),
+            this.languageService.transalte('deleteBank.delete')
+          );
+          this.loaderService.hide();
+          const currentCostCenter = this.sendBankDataSource.getValue();
+          const updatedCostCenter = currentCostCenter.filter((c : any) => c.id !== id);
+          this.sendBankDataSource.next(updatedCostCenter);
+        },
+        
+      });
+    }
+  }
   async confirmSendTreasury() {
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
@@ -126,4 +151,21 @@ export class FinanceService {
       },
     });
   }
+
+  getBankDefinitions(quieries: string, pageInfo: PageInfo)  {
+    this.financeProxy.getBankDefinitions(quieries, pageInfo).subscribe((response) => {
+    //  this.sendTreasuryDataSource.next(response.result)
+    //  this.currentPageInfo.next(response.pageInfoResult)
+    });
+  }
+
+  exportsBankList(searchTerm:string | undefined) {
+    this.financeProxy.exportsBankList(searchTerm).subscribe({
+      next: (res : any) => {
+         this.exportedTreasuryListDataSource.next(res);
+      },
+    });
+  }
+
+  
 }

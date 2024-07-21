@@ -80,13 +80,13 @@
         className="addToList"
         label="Save"
         (onClick)="onEdit()"
-        [disabled]="!tableData.length || !formGroup.valid"
+        [disabled]="!tableData?.length || !formGroup.valid"
       >
       </lib-button>
     </div>
   
   
-    <div class="user_pages" *ngIf="tableData.length">
+    <div class="user_pages" *ngIf="tableData?.length">
       <lib-data-table
         [items]="tableData"
         className="p-datatable-gridlines"
