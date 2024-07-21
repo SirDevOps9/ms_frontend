@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
-import { PageInfoResult, MenuModule, RouterService, PageInfo } from 'shared-lib';
+import { PageInfoResult, MenuModule, RouterService, PageInfo, lookupDto } from 'shared-lib';
 
 import { GeneralSettingService } from '../../../general-setting.service';
 import { financialCalendar } from '../../../models';
@@ -26,6 +26,9 @@ export class FinancialCalendarListComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
+
+  exportColumns: lookupDto[];
+  exportData: financialCalendar[];
 
   ngOnInit() {
     this.initFinancialCalendarData();
@@ -74,6 +77,16 @@ export class FinancialCalendarListComponent implements OnInit {
     });
   }
 
+  exportClick(e?: Event){
+    this.exportcurrencyData(this.searchTerm);
+    
+  }
+  exportcurrencyData(searchTerm: string) {
+    this.generalSettingService.exportcurrencyData(searchTerm);
+    this.generalSettingService.exportsFinancialCalendarDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
+  }
   onDelete(id: number) {
     // this.accountService.deleteTax(id);
   }

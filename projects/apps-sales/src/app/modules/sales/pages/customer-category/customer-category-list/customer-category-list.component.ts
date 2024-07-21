@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
-import { RouterService, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
+import { RouterService, PageInfoResult, MenuModule, PageInfo, lookupDto } from 'shared-lib';
 import { SalesService } from '../../../sales.service';
 import { CustomerCategoryDto } from '../../../models';
 
@@ -25,7 +25,8 @@ export class CustomerCategoryListComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
- 
+  exportColumns: lookupDto[];
+  exportData: CustomerCategoryDto[];
   ngOnInit() {
 
      this.initFinancialCalendarData();
@@ -86,5 +87,10 @@ export class CustomerCategoryListComponent implements OnInit {
     this.salesService.deleteCustomerCategory(id);
   }
 
- 
+  exportCustomerCategoriesData(searchTerm: string) {
+    this.salesService.exportCustomerCategoriesData(searchTerm);
+    this.salesService.exportsCustomerCateogiesDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
+  }
 }

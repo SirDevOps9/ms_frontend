@@ -67,12 +67,17 @@
                   >
                   </lib-button-micro>
                 </div>
-                <!--  -->
+
                 <div>
-                  <lib-button-micro title="Export" nameClass="export" iconName="pi pi-file-plus">
-                  </lib-button-micro>
+                  <lib-export  
+                  (exportClick)="exportTaxGroupData($event)"
+                  [exportData]="tableData"
+                  [exportColumns]="exportColumns"
+                  [ExportName]="'Tax Group'">
+                </lib-export>
+          
                 </div>
-                <!--  -->
+  
               </div>
             </div>
           </div>

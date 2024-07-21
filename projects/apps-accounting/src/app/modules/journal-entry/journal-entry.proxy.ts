@@ -60,6 +60,14 @@ export class JournalEntryProxy {
     return this.httpService.post<reportAccount>(`AccountingReports/AccountStatmentReport`,accounts);
   }
   
-
+  exportJournalEntriesData(
+    searchTerm: string | undefined
+  ): Observable<JournalEntryDto[]> {
+    let query = `JournalEntry/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<JournalEntryDto[]>(query);
+  }
   constructor(private httpService: HttpService) {}
 }

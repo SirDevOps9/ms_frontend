@@ -184,5 +184,45 @@ export class AccountProxy {
   getAllCountries(): Observable<CountryDto[]> {
     return this.httpService.get<CountryDto[]>(`Country`);
   }
+
+  exportTaxGroupData(
+    searchTerm: string | undefined
+  ): Observable<TaxGroupDto[]> {
+    let query = `TaxGroup/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<TaxGroupDto[]>(query);
+  }
+  
+  exportAccountsData(
+    searchTerm: string | undefined
+  ): Observable<AccountDto[]> {
+    let query = `ChartOfAccounts/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<AccountDto[]>(query);
+  }
+
+  exportCostCentersData(
+    searchTerm: string | undefined
+  ): Observable<costCenterList[]> {
+    let query = `CostCenter/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<costCenterList[]>(query);
+  }
+
+  exportTaxesData(
+    searchTerm: string | undefined
+  ): Observable<TaxDto[]> {
+    let query = `Tax/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<TaxDto[]>(query);
+  }
   constructor(private httpService: HttpService) {}
 }

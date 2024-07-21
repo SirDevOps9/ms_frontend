@@ -44,6 +44,17 @@
         ]
       }"
     >
+      <ng-container caption>
+        <div>
+          <lib-export
+            (exportClick)="exportAccountsData($event)"
+            [exportData]="tableData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Accounts'"
+          >
+          </lib-export>
+        </div>
+      </ng-container>
       <ng-template #userCol let-Account>
         <div class="actions flex align-items-center">
           <lib-button

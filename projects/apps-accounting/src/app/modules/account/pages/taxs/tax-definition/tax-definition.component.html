@@ -80,12 +80,13 @@
                 </div>
                 <!--  -->
                 <div>
-                  <lib-button-micro
-                    [title]="'Tax.Export' | translate"
-                    nameClass="export"
-                    iconName="pi pi-file-plus"
+                  <lib-export
+                    (exportClick)="exportCostCentersData($event)"
+                    [exportData]="tableData"
+                    [exportColumns]="exportColumns"
+                    [ExportName]="'Taxes'"
                   >
-                  </lib-button-micro>
+                  </lib-export>
                 </div>
                 <!--  -->
               </div>

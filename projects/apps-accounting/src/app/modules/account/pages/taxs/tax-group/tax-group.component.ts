@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { PageInfoResult, MenuModule, RouterService, PageInfo } from 'shared-lib';
+import { PageInfoResult, MenuModule, RouterService, PageInfo, lookupDto } from 'shared-lib';
 import { AccountService } from '../../../account.service';
 import { TaxGroupDto } from '../../../models';
 import { TaxGroupAddComponent } from '../../../components/tax-group-add/tax-group-add.component';
@@ -17,7 +17,8 @@ export class TaxGroupComponent implements OnInit {
   currentPageInfo: PageInfoResult;
   modulelist: MenuModule[];
   searchTerm: string;
-
+  exportColumns: lookupDto[];
+  exportData: TaxGroupDto[];
   constructor(
     private routerService: RouterService,
     private accountService: AccountService,
@@ -84,6 +85,12 @@ export class TaxGroupComponent implements OnInit {
     });
   }
 
+  exportTaxGroupData(searchTerm: string) {
+    this.accountService.exportTaxGroupData(searchTerm);
+    this.accountService.exportsTaxGroupDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
+  }
  async Delete(id: number) {
     const deleted =await this.accountService.deleteTaxGroup(id);
     if( deleted)

@@ -63,8 +63,18 @@
                 <div>
                      <lib-button pRipple className="addToList" label="Add" (onClick)="routeToAdd()">
                 </lib-button> 
-                  
+
                 </div>
+                <div>
+                  <lib-export
+                    (exportClick)="exportClick($event)"
+                    [exportData]="tableData"
+                    [exportColumns]="exportColumns"
+                    [ExportName]="'Financial Calendar'"
+                  >
+                  </lib-export>
+                </div>
+
               </div>
             </ng-container>
             <ng-template #status let-status>

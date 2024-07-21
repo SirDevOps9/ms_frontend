@@ -2,7 +2,7 @@ import { TaxDefinitionAddComponent } from './../../../components/tax-definition-
 import { Component, OnInit, Signal, computed, effect, signal } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { PageInfoResult, MenuModule, RouterService, PageInfo, PaginationVm } from 'shared-lib';
+import { PageInfoResult, MenuModule, RouterService, PageInfo, PaginationVm, lookupDto } from 'shared-lib';
 import { AccountService } from '../../../account.service';
 import { AccountDto, TaxDto } from '../../../models';
 import { TaxDefinitionEditComponent } from '../../../components/tax-definition-edit/tax-definition-edit.component';
@@ -27,6 +27,9 @@ export class TaxDefinitionComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
+
+  exportColumns: lookupDto[];
+  exportData: TaxDto[];
  
   ngOnInit() {
     //this.modulelist = this.authService.getModules();
@@ -95,6 +98,12 @@ export class TaxDefinitionComponent implements OnInit {
   onDelete(id: number) {
     this.accountService.deleteTax(id);
   }
-
+  
+  exportCostCentersData(searchTerm: string) {
+    this.accountService.exportCostCentersData(searchTerm);
+    this.accountService.exportsTaxesDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
+  }
  
 }

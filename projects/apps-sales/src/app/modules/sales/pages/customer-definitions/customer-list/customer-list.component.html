@@ -78,14 +78,14 @@
 
                     </div>
                     <!--  -->
-                    <div>
-                        <!-- <lib-button-micro title="Export" nameClass="export" iconName="pi pi-file-plus">
-                        </lib-button-micro> -->
-                        <lib-button className="export" >Export</lib-button>
-
-
-                    </div>               
-                  
+  
+                    <lib-export
+                    (exportClick)="exportCustomersData($event)"
+                    [exportData]="tableData"
+                    [exportColumns]="exportColumns"
+                    [ExportName]="'Customers'"
+                  >
+                  </lib-export>
                 </div>
               </div>
             </ng-container>

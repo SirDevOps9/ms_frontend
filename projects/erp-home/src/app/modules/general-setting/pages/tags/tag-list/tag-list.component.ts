@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuModule, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { lookupDto, MenuModule, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { LayoutService } from 'libs/apps-shared-lib/src/lib/modules/layout/layout.service';
 import { GeneralSettingService } from '../../../general-setting.service';
@@ -17,7 +17,8 @@ export class TagListComponent implements OnInit {
   currentPageInfo: PageInfoResult;
   modulelist: MenuModule[];
   searchTerm: string;
-
+  exportColumns: lookupDto[];
+  exportData: TagDto[];
   constructor(
     private routerService: RouterService,
     private generalSettingService: GeneralSettingService,
@@ -96,6 +97,14 @@ export class TagListComponent implements OnInit {
       },
     });
   }
+
+  exportTagData(searchTerm: string) {
+    this.generalSettingService.exportTagData(searchTerm);
+    this.generalSettingService.exportsTagDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
+  }
+
   Delete(id: number) {
     this.generalSettingService.deleteTag(id);
     const index = this.tableData.findIndex((item) => item.id === id);

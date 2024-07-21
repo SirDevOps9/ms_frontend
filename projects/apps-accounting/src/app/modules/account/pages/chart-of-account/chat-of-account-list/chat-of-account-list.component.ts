@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { lookupDto, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { AccountService } from '../../../account.service';
 import { AccountNature, AccountDto } from '../../../models';
 
@@ -12,7 +12,8 @@ export class ChatOfAccountListComponent implements OnInit {
   tableData: AccountDto[];
   currentPageInfo: PageInfoResult;
   accountNature= AccountNature;
-
+  exportColumns: lookupDto[];
+  exportData: AccountDto[];
   constructor(private routerService: RouterService, private accountService: AccountService) {}
 
   ngOnInit() {
@@ -40,5 +41,12 @@ export class ChatOfAccountListComponent implements OnInit {
   }
   routeToEdit(id: number) {
     this.routerService.navigateTo(`/journalentry/edit/${id}`);
+  }
+
+  exportAccountsData(searchTerm: string) {
+    this.accountService.exportAccountsData(searchTerm);
+    this.accountService.exportsAccountsDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
   }
 }

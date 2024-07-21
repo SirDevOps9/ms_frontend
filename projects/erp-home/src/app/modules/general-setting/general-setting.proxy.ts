@@ -241,6 +241,25 @@ exportcurrencyDefinitionData(
    return this.httpService.get<CurrencyDefinitionDto[]>(query);
 }
 
+exportFinancialCalendarData(
+  searchTerm: string | undefined
+): Observable<financialCalendar[]> {
+  let query = `FinancialYear/Export?`;
+  if (searchTerm) {
+    query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+  }
+   return this.httpService.get<financialCalendar[]>(query);
+}
+
+exportTagData(
+  searchTerm: string | undefined
+): Observable<TagDto[]> {
+  let query = `Tag/Export?`;
+  if (searchTerm) {
+    query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+  }
+   return this.httpService.get<TagDto[]>(query);
+}
 
   constructor(private httpService: HttpService) {}
 }
