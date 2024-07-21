@@ -336,6 +336,9 @@
   
     },
     "financialCalendar" : {
+      "Search":"Search",
+      "add":"Add",
+      "Save":"Save",
       "selectYear" : "Select Year",
       "code" : "Code",
       "fromDate" : "From Date",

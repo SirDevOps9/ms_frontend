@@ -326,8 +326,33 @@
   "successDelet": "تم حذف تحويل العملة بنجاح",
   "errorSameCurrency": "يجب أن تكون العملة الأصلية والعملة المحولة مختلفة."
 
+},
+"financialCalendar": {
+  "Search": "بحث",
+  "add":"إضافة",
+  "Save":"حفظ",
+  "selectYear": "اختر السنة",
+  "code": "الرمز",
+  "fromDate": "من تاريخ",
+  "toDate": "إلى تاريخ",
+  "name": "الاسم",
+  "generate": "إنشاء الفترات",
+  "open": "فتح السنة المالية",
+  "close": "إغلاق السنة المالية",
+  "month": "الشهر",
+  "status": "الحالة",
+  "year": "السنة",
+  "periodStart": "بداية الفترة",
+  "periodend": "نهاية الفترة",
+  "periodStatus": "حالة الفترة",
+  "actions": "الإجراءات"
+},
+"addFinancialCalendar": {
+  "success": "نجاح",
+  "successAdd": "تم إضافة التقويم المالي بنجاح",
+  "successEdit": "تم تعديل التقويم المالي بنجاح",
+  "openSuccess": "تم فتح التقويم المالي بنجاح"
 }
-
 
   
 }
