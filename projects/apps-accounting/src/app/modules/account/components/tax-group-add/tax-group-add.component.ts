@@ -45,8 +45,6 @@ export class TaxGroupAddComponent implements OnInit {
   save() {
     if (!this.formsService.validForm(this.taxGroupForm, false)) return;
     const taxGroupDto: AddTaxGroupDto = this.taxGroupForm.value;
-    taxGroupDto.branchId = 'd69e6813-2646-41e7-a56c-538b7f91da39';
-    taxGroupDto.companyId = '98c91af6-16f4-477f-9b4a-db046a04b525';
     this.accountService.addTaxGroup(taxGroupDto, this.ref);
   }
 
