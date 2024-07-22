@@ -18,7 +18,7 @@ import {
   EnvironmentService,
   LowerCaseUrlSerializer,
 } from 'shared-lib';
-import { environment } from '../environments/environment.development';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
