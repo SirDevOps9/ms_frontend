@@ -11,7 +11,7 @@ import { MicrotecAuthLibModule, ERPInterceptor } from 'microtec-auth-lib';
 import { CookieModule } from 'ngx-cookie';
 import { HomePageComponent } from 'projects/erp-home/src/app/home-page/home-page.component';
 import { MultiTranslateHttpLoader, SharedLibModule, EnvironmentService } from 'shared-lib';
-import { environment } from '../environments/environment.development';
+import { environment } from '../environments/environment';
 import { AppsSharedLibModule } from 'apps-shared-lib';
 
 @NgModule({

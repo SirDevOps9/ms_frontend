@@ -16,8 +16,8 @@
               {{'currencyConversion.FromCurrency' | translate}}
             </lib-label>
             <lib-select formControlName="fromCurrencyId" [options]="currencies" optionValue="id"
-              optionLabel="currencyName">
-              s
+              optionLabel="name">
+              
             </lib-select>
             <lib-field-validations [appControl]="addCurrencyForm.controls['fromCurrencyId']">
             </lib-field-validations>
@@ -42,8 +42,8 @@
               {{'currencyConversion.ToCurrency' | translate}}
             </lib-label>
             <lib-select formControlName="toCurrencyId" [options]="currencies" optionValue="id"
-              optionLabel="currencyName">
-              s
+              optionLabel="name">
+              
             </lib-select> <lib-field-validations [appControl]="addCurrencyForm.controls['toCurrencyId']">
             </lib-field-validations>
             <div *ngIf="sameCurrency" class="error body_b16">
