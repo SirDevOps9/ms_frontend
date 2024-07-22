@@ -171,6 +171,18 @@ export class EditFinancialCalendarComponent implements OnInit {
       elem.status = true;
       return elem;
     });
+    let periodIDS = this.tableData.filter((elem:any)=>elem.status)
+    console.log(periodIDS)
+    periodIDS =  periodIDS.map((elem : any)=>elem.id)
+    this.generalSettingService.OpenFinancialCalendar({periods : periodIDS})
+    this.generalSettingService.openFinancialCalendarResObservable.subscribe(res=>{
+      console.log(res)
+      if(res) {
+        
+        
+      }
+    })
+    // this.generalSettingService.onOpenPeriod({periods : })
   }
   convertDateFormat(data: Date) {
     const date = new Date(data);

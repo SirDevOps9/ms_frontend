@@ -1,18 +1,22 @@
 import { Injectable } from '@angular/core';
 import { FinanceProxyService } from './finance-proxy.service';
-import { LanguageService, LoaderService, PageInfo, PageInfoResult, PaginationVm, ToasterService } from 'shared-lib';
+import { HttpService, LanguageService, LoaderService, PageInfo, PageInfoResult, PaginationVm, RouterService, ToasterService } from 'shared-lib';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
 import { AddTreasuryDto, EditTreasuryDto, GetTreasuryDtoById } from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
+import { HttpClient } from '@angular/common/http';
+import { AddBankDto } from './models/addBankDto';
+import { UserPermission } from './models/user-permission';
+import { bankByID } from './models/getBankByID';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FinanceService {
 
-  constructor(private financeProxy : FinanceProxyService , private toasterService : ToasterService , private languageService : LanguageService , private loaderService : LoaderService) { }
+  constructor(private financeProxy : FinanceProxyService , private toasterService : ToasterService , private languageService : LanguageService , private loaderService : LoaderService, private http : HttpClient , private routerService : RouterService) { }
   sendTreasuryDataSource  = new BehaviorSubject<TreasureDefinitionDto[]>([])
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   public treasureDefinitions = new BehaviorSubject<AddTreasuryDto>({} as AddTreasuryDto);
@@ -21,14 +25,20 @@ export class FinanceService {
   public confirmSendTreasuryData = new BehaviorSubject<boolean>(false);
   public sendBankDataSource = new BehaviorSubject<BankDefinitionDto[]>([])
   public exportedBankListDataSource = new BehaviorSubject<BankDefinitionDto []>([]);
+  public sendBankDefinition = new BehaviorSubject<AddBankDto>({} as AddBankDto)
+  public getUsersPermissionData = new BehaviorSubject<UserPermission[]>([])
+  public sendBankByID = new BehaviorSubject<bankByID>({} as bankByID)
 
   sendTreasuryDataSourceObservable = this.sendTreasuryDataSource.asObservable()
   addTreasureDefinitionsObservable = this.treasureDefinitions.asObservable()
   getTreasureDefinitionsByIDObservable = this.getTreasureDefinitionsByID.asObservable()
   exportedTreasuryListDataSourceObservable = this.exportedTreasuryListDataSource.asObservable()
   confirmSendTreasuryDataObservable = this.confirmSendTreasuryData.asObservable()
-  sendBankDataSourceObservable = this.sendTreasuryDataSource.asObservable()
+  sendBankDataSourceObservable = this.sendBankDataSource.asObservable()
   exportedBankListDataSourceObservable = this.exportedBankListDataSource.asObservable()
+  sendBankDefinitionObservable = this.sendBankDefinition.asObservable()
+  getUsersPermissionDataObservable = this.getUsersPermissionData.asObservable()
+  sendBankByIDObservable = this.sendBankByID.asObservable()
 
   getTreasureDefinitions(quieries: string, pageInfo: PageInfo)  {
     this.financeProxy.getTreasureDefinitions(quieries, pageInfo).subscribe((response) => {
@@ -40,6 +50,7 @@ export class FinanceService {
   getTreasureDefinitionsByIdData(id : number)  {
    return this.financeProxy.getTreasureDefinitionsById(id)
   }
+
 
   EditTreasureDefinitionsById(model: EditTreasuryDto, dialogRef: DynamicDialogRef)  {
     this.loaderService.show();
@@ -154,11 +165,47 @@ export class FinanceService {
 
   getBankDefinitions(quieries: string, pageInfo: PageInfo)  {
     this.financeProxy.getBankDefinitions(quieries, pageInfo).subscribe((response) => {
-    //  this.sendTreasuryDataSource.next(response.result)
-    //  this.currentPageInfo.next(response.pageInfoResult)
+     this.sendBankDataSource.next(response.result)
+     this.currentPageInfo.next(response.pageInfoResult)
     });
   }
-
+  addBankDefinition(obj:AddBankDto) {
+    this.financeProxy.addBankDefinition(obj).subscribe(res=>{
+      if(res) {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('success'),
+          this.languageService.transalte('addBank.add')
+        );
+        this.routerService.navigateTo('/masterdata/bank-definition')
+        
+      }
+    })
+  }
+  editBankDefinition(obj : bankByID) {
+    this.financeProxy.editBankDefinition(obj).subscribe(res=>{
+      if(res) {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('success'),
+          this.languageService.transalte('editBank.edit')
+        );
+        this.routerService.navigateTo('/masterdata/bank-definition')
+        
+      }
+    })
+  }
+  getBankDefinitionByID(id : number) {
+    this.financeProxy.getBankDefinitionByID(id).subscribe(res=>{
+      if(res) {
+       this.sendBankByID.next(res)
+        
+      }
+    })
+  }
+  getUserPermissionLookupData() {
+    this.financeProxy.getUserPermissionLookupData().subscribe(res=>{
+      this.getUsersPermissionData.next(res)
+    })
+  }
   exportsBankList(searchTerm:string | undefined) {
     this.financeProxy.exportsBankList(searchTerm).subscribe({
       next: (res : any) => {

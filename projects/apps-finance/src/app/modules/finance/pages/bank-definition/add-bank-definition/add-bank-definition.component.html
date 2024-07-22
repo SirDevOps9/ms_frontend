@@ -123,6 +123,7 @@
               <th>{{ 'bank.currentBalance' | translate }}</th>
               <th>{{ 'bank.userPermission' | translate }}</th>
               <th>{{ 'bank.openingBalance' | translate }}</th>
+              <th>{{ 'bank.actions' | translate }}</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-bankGroup let-editing="editing" let-i="rowIndex">
@@ -197,6 +198,9 @@
                         [selectedValue]="bankGroup.controls['branches'].value"
                         (valueChanged)="branchSelected($event , bankGroup , i)"
                       ></lib-multi-select>
+                      <lib-field-validations
+                      [appControl]="bankGroup.controls['branches']"
+                    ></lib-field-validations>
                     </lib-form-group>
                   </ng-template>
                   <ng-template pTemplate="output">
@@ -238,19 +242,20 @@
                         placeholder="{{ 'bank.currency' | translate }}"
                         [options]="currenciesList"
                         optionValue="id"
-                        optionLabel="currencyName"
+                        optionLabel="name"
                         [selectedValue]="bankGroup.controls['currencyId'].value"
+                        (valueChanged)="currencyselected($event , bankGroup , i)"
                       ></lib-select>
                     </lib-form-group>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ bankGroup.controls['currencyId'].value  }}
+                    {{ bankGroup.controls['currencyName'].value  }}
                   </ng-template>
                 </p-cellEditor>
               </td>
               <!--  -->
               <td>
-                {{ bankGroup.controls['currentBalance'].value ?? '--' }}
+                {{ bankGroup.controls['openingBalance'].value ?? '--' }}
               </td>
               <!--  -->
 
@@ -299,6 +304,9 @@
                 ></lib-field-validations>
               </td>
               <!--  -->
+              <td>
+                <i class="pi pi-trash" (click)="onDelete(i)"></i>
+            </td>
             </tr>
           </ng-template>
         </p-table>

@@ -4,6 +4,9 @@ import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
 import { AddTreasuryDto, Balance, EditTreasuryDto, GetTreasuryDtoById } from './models';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
+import { AddBankDto } from './models/addBankDto';
+import { UserPermission } from './models/user-permission';
+import { bankByID } from './models/getBankByID';
 
 @Injectable({
   providedIn: 'root'
@@ -61,8 +64,27 @@ export class FinanceProxyService {
     return this.httpService.get<PaginationVm<BankDefinitionDto>>(query);
   }
 
+  addBankDefinition(obj : AddBankDto) {
+    return this.httpService.post('Bank' , obj)
+
+  }
+
+  editBankDefinition(  obj : bankByID) : Observable<bankByID> {
+    return this.httpService.put(`Bank/Edit` , obj);
+
+  }
+
   deleteBank(id : number) {
-    return this.httpService.get(`Bank/${id}`);
+    return this.httpService.delete(`Bank/${id}`);
+
+  }
+
+  getBankDefinitionByID(id:number) : Observable<bankByID> {
+    return this.httpService.get(`Bank/${id}`)
+  }
+
+  getUserPermissionLookupData() : Observable<UserPermission[]>{
+    return this.httpService.get(`user/UsersDropdownQuery`);
 
   }
 

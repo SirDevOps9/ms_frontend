@@ -6,9 +6,12 @@ import { CurrencyDto } from '../../../../general/models';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AccountDto } from 'projects/apps-accounting/src/app/modules/account/models';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
-import { customValidators, PageInfo, RouterService } from 'shared-lib';
+import { customValidators, FormsService, PageInfo, RouterService } from 'shared-lib';
 import { Balance } from '../../../models';
 import { NoChildrenAccountsComponent } from '../../../components/bank/no-children-accounts/no-children-accounts.component';
+import { AddBankDto } from '../../../models/addBankDto';
+import { UserPermission } from '../../../models/user-permission';
+import { ConfirmOpeningBalanceComponent } from '../../../components/bank/confirm-opening-balance/confirm-opening-balance.component';
 
 @Component({
   selector: 'app-add-bank-definition',
@@ -18,12 +21,13 @@ import { NoChildrenAccountsComponent } from '../../../components/bank/no-childre
 export class AddBankDefinitionComponent implements OnInit {
   bankForm: FormArray;
   bankormGroup : FormGroup
-  constructor(private fb: FormBuilder , private financeService : FinanceService , private currencyService : CurrencyService , private dialog : DialogService , private accountService : AccountService , private routerService : RouterService) {}
+  constructor(private fb: FormBuilder , private financeService : FinanceService , private currencyService : CurrencyService , private dialog : DialogService , private accountService : AccountService , private routerService : RouterService , private formsService  : FormsService) {}
   branchesLookup :   { id: number; name: string }[]
   accountsLookup: { id: number; name: string }[];
   currenciesList: CurrencyDto[];
   filteredAccounts: AccountDto[] = [];
-  usersList : any = []
+  usersList : UserPermission[]
+  openingBalanceDataList :    any = []
   OpeningBalanceData : Balance
   ngOnInit(): void {
     this.bankForm = this.fb.array([this.createBankFormGroup()]);
@@ -40,6 +44,7 @@ export class AddBankDefinitionComponent implements OnInit {
     this.getAccounts();
     this.getBranchLookup()
     this.getCurrencies()
+    this.getUserPermissionLookupData()
   }
 
   public get items(): FormArray {
@@ -50,15 +55,9 @@ export class AddBankDefinitionComponent implements OnInit {
     const ref = this.dialog.open(NoChildrenAccountsComponent, {});
     ref.onClose.subscribe((r) => {
       if (r) {
-        // this.fa.at(index).get('account')?.setValue(r.id);
-        console.log(r)
         this.bankForm.at(index)?.get('accountName')?.setValue(r.name);
         this.bankForm.at(index)?.get('glAccountId')?.setValue(r.accountCode);
-        // var currencyData = this.currencies.find((c) => c.id == r.currencyId);
-        // this.fa.at(index).get('currency')?.setValue(r.currencyId);
-        // this.fa.at(index).get('currencyRate')?.setValue(currencyData?.ratePerUnit);
-        // this.fa.at(index).get('currencyName')?.setValue(currencyData?.currencyName);
-        // this.accountSelectedForDialog(r, index);
+      
       }
     });
   }
@@ -112,6 +111,7 @@ export class AddBankDefinitionComponent implements OnInit {
       openingBalance: null,
       currentBalance : null,
       accountName :null ,
+      currencyName : null ,
       branchName : new FormControl('', Validators.required) ,
       displayName : null,
       userPermission: [
@@ -136,11 +136,23 @@ export class AddBankDefinitionComponent implements OnInit {
    let branchName = data.map(elem=>elem.name)
    bankForm.controls['branchName'].setValue(branchName)
   }
+  currencyselected(event : any , bankForm:FormGroup , i : number) {
+    let data : any  = this.currenciesList.find(item=>item.id == event )
+
+    bankForm.controls['currencyName'].setValue(data.name)
+  }
+
+  getUserPermissionLookupData() {
+    this.financeService.getUserPermissionLookupData()
+    this.financeService.getUsersPermissionDataObservable.subscribe(res=>{
+      this.usersList = res
+    })
+  }
 
   userPermissionSelect(event : any , bankForm:FormGroup , i : number) {
-    // let data  = this.usersList.filter(item=>event.includes(item.id) )
-    // let userPermissionName = data.map(elem=>elem.name)
-    // bankForm.controls['userPermissionName'].setValue(userPermissionName)
+    let data  = this.usersList.filter(item=>event.includes(item.id) )
+    let userPermissionName = data.map(elem=>elem.name)
+    bankForm.controls['userPermissionName'].setValue(userPermissionName)
   }
   getBranchLookup() {
     this.financeService.getBranchLookup().subscribe((res) => {
@@ -178,7 +190,50 @@ export class AddBankDefinitionComponent implements OnInit {
     this.routerService.navigateTo('/bank-definition')
   }
 
-  onSave() {
+  onDelete(i : number) {
+    this.items.removeAt(i)
+  }
 
+  onSave() {
+    this.openingBalanceDataList = []
+    let data : any = {...this.bankormGroup.value , bankAccounts :this.items.value}
+ 
+
+    if (!this.formsService.validForm(this.bankormGroup, false)) return;
+    if (!this.formsService.validForm(this.items, false)) return;
+   let formData =   this.items.value
+  formData.forEach((element : any) => {
+    let accountBalance = element.currentBalance;
+    let openingBalance = Number( element.openingBalance);
+    if (accountBalance !== openingBalance) {
+      this.openingBalanceDataList.push(element)
+
+      const dialogRef = this.dialog.open(ConfirmOpeningBalanceComponent, {
+        header : 'Confirm',
+            width: '400px',
+            height: '330px',
+            data : this.openingBalanceDataList
+          });
+          dialogRef.onClose.subscribe((res) => {
+            if (res) {
+               this.financeService.addBankDefinition(data)
+            }
+          });
+        }
+      
+    
+ });
+
+ if( !this.openingBalanceDataList.length) {
+  this.financeService.addBankDefinition(data)
+
+}
+ 
+ 
+   
+
+
+
+   
   }
 }

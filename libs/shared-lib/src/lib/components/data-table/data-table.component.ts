@@ -50,6 +50,8 @@ first:any=0;
     this.globalFilterFields = this.tableConfigs.columns
       .filter((c) => c.isSortable)
       .map((c) => c.name);
+      console.log(this.globalFilterFields)
+    
   }
 
   selectRow(row: any) {}

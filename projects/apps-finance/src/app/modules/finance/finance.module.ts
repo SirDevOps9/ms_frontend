@@ -13,6 +13,7 @@ import { BankDefinitionListComponent } from './pages/bank-definition/bank-defini
 import { AddBankDefinitionComponent } from './pages/bank-definition/add-bank-definition/add-bank-definition.component';
 import { EditBankDefinitionComponent } from './pages/bank-definition/edit-bank-definition/edit-bank-definition.component';
 import { NoChildrenAccountsComponent } from './components/bank/no-children-accounts/no-children-accounts.component';
+import { ConfirmOpeningBalanceComponent } from './components/bank/confirm-opening-balance/confirm-opening-balance.component';
 
 const routes: Routes = [
   {
@@ -41,7 +42,7 @@ const routes: Routes = [
       {
         path: 'bank-definition',
         component: BankDefinitionListComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.BANK_LIST,
         },
@@ -49,15 +50,15 @@ const routes: Routes = [
       {
         path: 'add-bank-definition',
         component: AddBankDefinitionComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.BANK_LIST_ADD,
         },
       },
       {
-        path: 'edit-bank-definition',
+        path: 'edit-bank-definition/:id',
         component: EditBankDefinitionComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.BANK_LIST_EDIT,
         },
@@ -77,6 +78,7 @@ const routes: Routes = [
     AddBankDefinitionComponent,
     EditBankDefinitionComponent,
     NoChildrenAccountsComponent,
+    ConfirmOpeningBalanceComponent,
   ],
   imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes)],
 })

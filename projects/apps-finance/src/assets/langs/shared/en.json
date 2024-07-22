@@ -60,7 +60,9 @@
     "currency" : "Currency",
     "currentBalance" : "Current Balance",
     "userPermission" : "User Permission",
-    "openingBalance" : "Opening Balance"
+    "openingBalance" : "Opening Balance",
+   "confirm" : "the opening balance of journal not equal Bank opening balance In Account",
+   "confirm2" : "Do you want to Continue ?"
   },
   "deleteBank" : {
     "success" : "Success",

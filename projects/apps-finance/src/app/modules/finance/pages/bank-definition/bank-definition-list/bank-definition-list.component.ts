@@ -21,12 +21,10 @@ export class BankDefinitionListComponent implements OnInit {
   ) {}
 
   tableData: BankDefinitionDto[];
+
   exportData: BankDefinitionDto[];
   cols = [
-    {
-      field: 'Id',
-      header: 'id',
-    },
+   
     {
       field: 'Code',
       header: 'code',
@@ -37,17 +35,10 @@ export class BankDefinitionListComponent implements OnInit {
       header: 'name',
     },
     {
-      field: 'Currency Name',
-      header: 'currencyName',
+      field: 'Short Name',
+      header: 'shortName',
     },
-    {
-      field: 'Account Name',
-      header: 'accountName',
-    },
-    {
-      field: 'Opening Balance',
-      header: 'openingBalance',
-    },
+   
   ];
   exportColumns: lookupDto[];
   exportSelectedCols: string[] = [];
@@ -100,11 +91,12 @@ export class BankDefinitionListComponent implements OnInit {
   }
 
   onAdd() {
-  this.routerService.navigateTo('/add-bank-definition')
+  this.routerService.navigateTo('/masterdata/add-bank-definition')
   }
 
-  onEdit(data: TaxDto) {
-    this.routerService.navigateTo('/edit-bank-definition')
+  onEdit(data: any) {
+          this.routerService.navigateTo(`/masterdata/edit-bank-definition/${data.id}`);
+
 
   }
 
