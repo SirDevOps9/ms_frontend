@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CompanyService } from '../../company.service';
 import { BranchDto } from '../../models/branch-dto';
-import { RouterService } from 'shared-lib';
+import { lookupDto, RouterService } from 'shared-lib';
 @Component({
   selector: 'app-company-branches',
   templateUrl: './company-branches.component.html',
@@ -12,6 +12,10 @@ export class CompanyBranchesComponent implements OnInit {
   branches: BranchDto[];
   ref: DynamicDialogRef;
   editMode: boolean = false;
+  exportColumns: lookupDto[];
+  exportData: BranchDto[];
+  tableData : BranchDto[];
+
   //@Input() companyId: string;
 
   toggleEditMode() {
@@ -56,7 +60,12 @@ export class CompanyBranchesComponent implements OnInit {
     else this.companyService.deActivateBranch(id);
   }
 
-  
+  exportBranchesData() {
+    this.companyService.exportBranchesData(this.companyId);
+    this.companyService.exportsBranchesDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
+  }
 
   constructor(
     private dialog: DialogService,

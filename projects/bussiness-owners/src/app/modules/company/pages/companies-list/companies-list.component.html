@@ -21,6 +21,13 @@
       class="add_new mr-2"
       (click)="newCompany()"
     ></button>
+    <lib-export
+    (exportClick)="exportCompaniesData($event)"
+    [exportData]="exportTableData"
+    [exportColumns]="exportColumns"
+    [ExportName]="'Companies'"
+  >
+  </lib-export>
   </div>
 </lib-bread-crumb>
   <div class="company_page">
