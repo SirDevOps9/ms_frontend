@@ -48,11 +48,14 @@ export class EditFinancialCalendarComponent implements OnInit {
     });
     this.formGroup.valueChanges.subscribe((res) => {
       if (res.fromDate) {
+        this.tableData = []
+
         this.minDateTo = new Date(res.fromDate);
       }
       // this.maxDatefrom = new Date(res.toDate)
       //   this.minDateTo = res.fromDate ? new Date(res.fromDate) : null
       if (res.fromDate && res.toDate) {
+
         this.tableList = this.generateDateArray(res.fromDate, res.toDate);
       }
     });

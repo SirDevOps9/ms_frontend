@@ -130,7 +130,7 @@ export class AddBankDefinitionComponent implements OnInit {
     }
   }
   branchSelected(event : any , bankForm:FormGroup , i : number) {
-    let data  = this.branchesLookup.filter(item=>event.includes(item.id) )
+   let data  = this.branchesLookup.filter(item=>event.includes(item.id) )
    let branchName = data.map(elem=>elem.name)
    bankForm.controls['branchName'].setValue(branchName)
   }

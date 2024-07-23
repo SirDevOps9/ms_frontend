@@ -38,8 +38,10 @@ export class CreateFinancialCalendarComponent implements OnInit {
   })
   this.formGroup.valueChanges.subscribe(res=>{
     if(res.toDate) {
+      this.tableData = []
       this.maxDatefrom = new Date(res.toDate)
     }else if(res.fromDate) {
+      this.tableData = []
       this.minDateTo =  new Date(res.fromDate)
     }
     // this.maxDatefrom = new Date(res.toDate)
