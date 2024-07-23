@@ -12,7 +12,7 @@ export const environment: IEnvironment = {
     redirectUrl: window.location.origin + '/erp/login-redirect',
     logoutRedirectUri: window.location.origin + '/erp/logout-redirect',
     scopes: 'subdomain',
-    state: window.location.origin + '/accounting/',
+    state: window.location.origin + '/hr/',
   },
   AttachmentServiceConfig: {
     AttachmentServiceUrl: 'https://intmicrotec.neat-url.com:2030',
