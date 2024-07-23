@@ -6,5 +6,6 @@ export interface CompanyAddressDto {
   city: string | null;
   address: string | null;
   countryCode: string | null;
+  currencyId : number | null;
   id: string;
 }

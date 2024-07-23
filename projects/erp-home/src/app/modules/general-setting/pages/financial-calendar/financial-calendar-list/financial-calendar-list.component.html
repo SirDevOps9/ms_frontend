@@ -55,13 +55,13 @@
                 <div>
                   <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
-                    <input pInputText type="text" placeholder="Search..." (keyup)="onSearchChange($event)" />
+                    <input pInputText type="text" placeholder="{{ 'financialCalendar.Search' | translate }}" (keyup)="onSearchChange($event)" />
                   </span>
                 </div>
       
             
                 <div>
-                     <lib-button pRipple className="addToList" label="Add" (onClick)="routeToAdd()">
+                     <lib-button pRipple className="addToList" label="{{ 'financialCalendar.add' | translate }}" (onClick)="routeToAdd()">
                 </lib-button> 
                   
                 </div>
