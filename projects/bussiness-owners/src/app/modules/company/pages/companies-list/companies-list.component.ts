@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { LanguageService, RouterService } from 'shared-lib';
+import { LanguageService, lookupDto, RouterService } from 'shared-lib';
 import { Title } from '@angular/platform-browser';
 import { CompanyDto, Sharedcompanyenums } from '../../models';
 import { CompanyService } from '../../company.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ExportCompanyDto } from '../../models/export-company-dto';
 
 @Component({
   selector: 'app-companies-list',
@@ -20,6 +21,9 @@ export class CompaniesListComponent implements OnInit {
   cols: any[] = [];
   active: boolean = false;
   ref: DynamicDialogRef;
+  exportColumns: lookupDto[];
+  exportTableData: ExportCompanyDto[];
+  exportData: ExportCompanyDto[];
 
   constructor(
     private routerService: RouterService,
@@ -78,22 +82,20 @@ export class CompaniesListComponent implements OnInit {
   }
 
   initCompanyData() {
-    this.companyService.loadCompanies('',this.subdomainId);
+    this.companyService.loadCompanies('', this.subdomainId);
 
     this.companyService.companies.subscribe({
       next: (companyList) => {
         this.tableData = companyList;
-
       },
     });
   }
 
-  search(event: any){
-    this.companyService.loadCompanies(event.target.value,this.subdomainId);
+  search(event: any) {
+    this.companyService.loadCompanies(event.target.value, this.subdomainId);
     this.companyService.companies.subscribe({
       next: (companyList) => {
         this.tableData = companyList;
-
       },
     });
   }
@@ -115,5 +117,12 @@ export class CompaniesListComponent implements OnInit {
   }
   routeToEdit(id: string) {
     this.routerService.navigateTo(`/company/edit/${id}/address`);
+  }
+
+  exportCompaniesData(searchTerm: string) {
+    this.companyService.exportCompaniesData(searchTerm, this.subdomainId);
+    this.companyService.exportsCompaniesDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
   }
 }

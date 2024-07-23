@@ -11,6 +11,7 @@ import { editBranch } from './models/edit-branch';
 import { CompanyHierarchyDto } from './models/company-hierarchy-dto';
 import { UpdateCompanyHierarchyDto } from './models/update-company-hierarchy-dto';
 import { CompanyDto } from './models';
+import { ExportCompanyDto } from './models/export-company-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -110,6 +111,33 @@ export class CompanyProxy {
 
   getAllCompanies(subdomain: string): Observable<lookupDto[]> {
     return this.httpService.get<lookupDto[]>(`Company/GetCompaniesDropdown?subdomain=${subdomain}`);
+  }
+  exportCompaniesData(
+    searchTerm: string | undefined,
+    subscriptionId: string,
+  ): Observable<ExportCompanyDto[]> {
+    let query = `Company/Export?`;
+    const params = [];
+  
+    if (searchTerm) {
+      params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    }
+  
+    params.push(`subscriptionId=${encodeURIComponent(subscriptionId)}`);
+  
+    query += params.join('&');
+  
+    return this.httpService.get<ExportCompanyDto[]>(query);
+  }
+
+  exportBranchesData(
+    companyId: string
+  ): Observable<BranchDto[]> {
+    let query = `Branch/Export?`;
+
+      query += `companyId=${encodeURIComponent(companyId)}`;
+    
+     return this.httpService.get<BranchDto[]>(query);
   }
 
   constructor(private httpService: HttpService) {}
