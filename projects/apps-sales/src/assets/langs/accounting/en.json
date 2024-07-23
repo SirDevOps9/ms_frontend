@@ -213,7 +213,7 @@
     "branch" : "Branch",
     "Iban" : "IBAN",
     "currency" : "Currency",
-    "currentBalance" : "Current Balance",
+    "currentBalance" : "GL Opening Balance",
     "userPermission" : "User Permission",
     "openingBalance" : "Opening Balance"
   },
