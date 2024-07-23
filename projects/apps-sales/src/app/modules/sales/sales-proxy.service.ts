@@ -71,12 +71,12 @@ export class SalesProxyService {
   addNewCustomerDefinition(
     customer: AddCustomerDefinitionDto
   ): Observable<AddCustomerDefinitionDto> {
-    return this.httpService.post(`Customer`, customer);
+    return this.httpService.post(`Customer`, customer, false);
   }
   editCustomerDefinition(
     customer: EditCustomerDefintionsDto
   ): Observable<EditCustomerDefintionsDto> {
-    return this.httpService.put(`Customer`, customer);
+    return this.httpService.put(`Customer`, customer, false);
   }
   getCustomerDefinitionByID(id: string): Observable<AddCustomerDefinitionDto> {
     return this.httpService.get(`Customer/${id}`);

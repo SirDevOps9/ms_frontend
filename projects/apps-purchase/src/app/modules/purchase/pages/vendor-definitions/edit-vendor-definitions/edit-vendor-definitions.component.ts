@@ -8,13 +8,7 @@ import {
   SharedLibraryEnums,
   customValidators,
 } from 'shared-lib';
-import {
-  CityDto,
-  CountryDto,
-  CurrencyDto,
-  TagDropDownDto,
-  lookupDto,
-} from '../../../models';
+import { CityDto, CountryDto, CurrencyDto, TagDropDownDto, lookupDto } from '../../../models';
 import { EditVendorCommand } from '../../../models/editVendorCommand';
 import { GetVendorById, VendorInformation } from '../../../models/getVendorById';
 import { PurchaseService } from '../../../purchase.service';
@@ -68,21 +62,33 @@ export class EditVendorDefinitionsComponent implements OnInit {
       code: new FormControl(null),
       photo: new FormControl(null),
       name: new FormControl('', [customValidators.required]),
-      birthDate: new FormControl(null,[customValidators.invalidBirthDate]),
+      birthDate: new FormControl(null, [customValidators.invalidBirthDate]),
       vendorCategoryId: new FormControl(null),
       VendorTagIds: new FormControl(null),
 
       vendorInformation: this.fb.group({
-        contactPhone: new FormControl(null ,[customValidators.hasSpaces,customValidators.noSpecialChars]),
+        contactPhone: new FormControl(null, [
+          customValidators.hasSpaces,
+          customValidators.noSpecialChars,
+        ]),
         ContactMobileCode: new FormControl(null),
-        contactMobile: new FormControl(null,[customValidators.hasSpaces,customValidators.noSpecialChars]),
+        contactMobile: new FormControl(null, [
+          customValidators.hasSpaces,
+          customValidators.noSpecialChars,
+        ]),
         contactFax: new FormControl(null),
         contactEmail: new FormControl(null, [customValidators.email]),
         contactWebsite: new FormControl(null),
         contactPersonName: new FormControl(null),
-        contactPersonMobile: new FormControl(null,[customValidators.hasSpaces,customValidators.noSpecialChars]),
+        contactPersonMobile: new FormControl(null, [
+          customValidators.hasSpaces,
+          customValidators.noSpecialChars,
+        ]),
         ContactPersonMobileCode: new FormControl(null),
-        contactPersonPhone: new FormControl(null,[customValidators.hasSpaces,customValidators.noSpecialChars]),
+        contactPersonPhone: new FormControl(null, [
+          customValidators.hasSpaces,
+          customValidators.noSpecialChars,
+        ]),
         contactPersonEmail: new FormControl(null, [customValidators.email]),
       }),
       vendorAddress: this.fb.group({
@@ -125,16 +131,14 @@ export class EditVendorDefinitionsComponent implements OnInit {
     this.loadLookups();
     this.Subscribe();
     this.intitializeFormData();
-    
-    
   }
 
   intitializeFormData() {
     this.purchaseService.getVendorDefinitionByID(this.vendorId());
     this.purchaseService.vendorDefinitionDataByIDObservable.subscribe((res) => {
       if (res) {
-        console.log(res ,"135");
-        
+        console.log(res, '135');
+
         this.vendor = res;
         this.vendorCode = res.code;
         this.selectedCountry = res.vendorAddress?.countryCode;
@@ -252,7 +256,7 @@ export class EditVendorDefinitionsComponent implements OnInit {
     };
 
     vendor.id = this.vendorId();
-    this.purchaseService.editVendorDefinition(vendor);
+    this.purchaseService.editVendorDefinition(vendor, this.editVendorForm);
   }
 
   Subscribe() {
@@ -282,7 +286,5 @@ export class EditVendorDefinitionsComponent implements OnInit {
   onDiscard() {
     //this.editEmployeeForm.reset();
     this.routerService.navigateTo(`/masterdata/vendor-definitions`);
-
   }
- 
 }
