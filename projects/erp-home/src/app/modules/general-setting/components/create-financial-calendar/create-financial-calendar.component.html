@@ -75,7 +75,7 @@
         <div
           class="md:col-2 grid align-items-end"
           (click)="onOpenPeriod()"
-          [class.none]="!showOpenBtn"
+          [class.none]="!showOpenBtn || opened"
         >
           <div class="flex gap-1 gernerateCont">
             <i class="pi pi-clock clockIcon"></i>

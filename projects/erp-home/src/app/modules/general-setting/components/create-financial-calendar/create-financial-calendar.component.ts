@@ -22,8 +22,10 @@ export class CreateFinancialCalendarComponent implements OnInit {
   formGroup  :FormGroup
   yearsList : any = []
   showOpenBtn : boolean = false
+  opened : boolean = false
   disablrFromDateFlag : boolean = false
   tableData : any = [];
+  clonedTableData : any = [];
   tableList : any = []
   ngOnInit(): void {
     this.titleService.setTitle(
@@ -41,12 +43,18 @@ export class CreateFinancialCalendarComponent implements OnInit {
   this.formGroup.get('year')?.valueChanges.subscribe(res=>{
     this.formGroup.get('code')?.setValue(res)
   })
+
+  this.formGroup.get('fromDate')?.valueChanges.subscribe(res=>{
+    this.tableData = []
+  })
+  this.formGroup.get('toDate')?.valueChanges.subscribe(res=>{
+    this.tableData = []
+  })
+
   this.formGroup.valueChanges.subscribe(res=>{
     if(res.toDate) {
-      this.tableData = []
       this.maxDatefrom = new Date(res.toDate)
     }else if(res.fromDate) {
-      this.tableData = []
       this.minDateTo =  new Date(res.fromDate)
     }
     // this.maxDatefrom = new Date(res.toDate)
@@ -60,9 +68,15 @@ export class CreateFinancialCalendarComponent implements OnInit {
   this.generalSettingService.GetFinancialPeriodLastYearDate()
   this.generalSettingService.FinancialPeriodLastYearDateObservable.subscribe(res=>{
     console.log(res)
+    console.log(this.yearsList)
+    
+  
+
     if(res) {
+      let year = new Date(res).getFullYear()
       this.formGroup.get('fromDate')?.patchValue(new Date(res));
       this.disablrFromDateFlag = true
+      this.yearsList = this.yearsList.filter((elem : any)=> elem.name > year)
     } 
   })
   }
@@ -111,10 +125,11 @@ export class CreateFinancialCalendarComponent implements OnInit {
 
   onGenerate() {
     this.tableData = this.tableList 
+    this.clonedTableData = this.tableList 
   }
   onOpenPeriod() {
     this.statusFlag = false
-    this.tableData = this.tableData.map((elem : any)=>{
+    this.tableData = this.clonedTableData?.map((elem : any)=>{
       elem.status = true;
       return elem
     })
@@ -179,7 +194,7 @@ export class CreateFinancialCalendarComponent implements OnInit {
     this.generalSettingService.openFinancialCalendarResObservable.subscribe(res=>{
       console.log(res)
       if(res) {
-        
+        this.opened = true
         
       }
     })

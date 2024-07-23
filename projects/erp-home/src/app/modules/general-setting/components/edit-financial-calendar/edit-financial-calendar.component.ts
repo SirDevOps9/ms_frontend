@@ -205,15 +205,15 @@ export class EditFinancialCalendarComponent implements OnInit {
       name: this.formGroup.get('name')?.value,
     });
     this.generalSettingService.EditFinancialPeriodDataObservable.subscribe((res) => {
-      if (res) {
+      if(!this.FinancialPeriodData.status && this.periodIDS?.length) {
+        this.generalSettingService.OpenFinancialCalendar({periods : this.periodIDS})
+        this.generalSettingService.openFinancialCalendarResObservable.subscribe(res=>{
+          if(res) {
+            this.FinancialPeriodData.status = true
+          }
+        })
       }
-      this.generalSettingService.OpenFinancialCalendar({periods : this.periodIDS})
-      this.generalSettingService.openFinancialCalendarResObservable.subscribe(res=>{
-        if(res) {
-          
-          
-        }
-      })
+  
     });
   }
 }

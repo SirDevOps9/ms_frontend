@@ -46,7 +46,7 @@ export class GeneralSettingService {
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   private currentTagDataSource = new BehaviorSubject<TagDto>({} as TagDto);
   private addFinancialCalendarRes = new BehaviorSubject<AddFinancialCalendar | any>(
-    {} as AddFinancialCalendar
+    null
   );
   private openFinancialCalendarRes = new BehaviorSubject<number[]>([]);
   private FinancialPeriodLastYearDate = new BehaviorSubject<any>(null);
