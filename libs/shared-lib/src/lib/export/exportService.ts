@@ -36,10 +36,51 @@ export class ExportService {
   //   XLSX.writeFile(wb, fileName);
   // }
   
+  // static ToPDF(jsonData: any[], fileName: string, includeColumns: string[] = []): void {
+  //   const doc = new jsPDF();
+  
+  //   const filteredData = jsonData.map((row) => {
+  //     const filteredRow: any = {};
+  //     if (includeColumns && includeColumns.length > 0) {
+  //       for (const key in row) {
+  //         if (row.hasOwnProperty(key) && includeColumns.map(col => col.toLowerCase()).includes(key.toLowerCase())) {
+  //           filteredRow[key] = row[key];
+  //         }
+  //       }
+  //     } else {
+  //       // Include all columns
+  //       for (const key in row) {
+  //         if (row.hasOwnProperty(key)) {
+  //           filteredRow[key] = row[key];
+  //         }
+  //       }
+  //     }
+  //     return filteredRow;
+  //   });
+  
+  //   // Extract headers dynamically from filtered data
+  //   const headers = [Object.keys(filteredData[0])];
+  
+  //   // Generate table
+  //   autoTable(doc, {
+  //     head: headers,
+  //     body: filteredData.map(item => Object.values(item))
+  //   });
+  
+  //   doc.save(fileName);
+  // }
   static ToPDF(jsonData: any[], fileName: string, includeColumns: string[] = []): void {
     const doc = new jsPDF();
+    let flattenData: any[];
   
-    const filteredData = jsonData.map((row) => {
+    // Check if jsonData is in a tree structure and flatten if necessary
+    if (this.isTreeStructure(jsonData)) {
+      flattenData = this.flattenTree(jsonData);
+    } else {
+      flattenData = jsonData;
+    }
+  
+    const filteredData = flattenData.map((row) => {
       const filteredRow: any = {};
       if (includeColumns && includeColumns.length > 0) {
         for (const key in row) {
@@ -69,6 +110,35 @@ export class ExportService {
   
     doc.save(fileName);
   }
+  
+  // Helper function to check if jsonData is in tree structure
+  // private static isTreeStructure(jsonData: any[]): boolean {
+  //   if (jsonData.length === 0) return false;
+  //   const firstItem = jsonData[0];
+  //   return firstItem.hasOwnProperty('data') && firstItem.hasOwnProperty('children');
+  // }
+  
+  // // Helper function to recursively flatten the tree structure
+  // private static flattenTree(data: any[]): any[] {
+  //   const result: any[] = [];
+  
+  //   function flatten(node: any) {
+  //     result.push(node.data); // Add current node
+  
+  //     if (node.children && node.children.length > 0) {
+  //       node.children.forEach((child: any) => {
+  //         flatten(child); // Recursively flatten children
+  //       });
+  //     }
+  //   }
+  
+  //   // Start flattening from the root nodes
+  //   data.forEach((node) => {
+  //     flatten(node);
+  //   });
+  
+  //   return result;
+  // }
 
     // static ToExcel(jsonData: any[], fileName: string, includeColumns: string[] = []): void {
   //   console.log(jsonData)
@@ -161,6 +231,8 @@ export class ExportService {
 
   static ToExcel(jsonData: any[], fileName: string, includeColumns: string[] = []): void {
     let flattenData: any[];
+
+    console.log(jsonData)
 
     if (this.isTreeStructure(jsonData)) {
       // Function to flatten the nested tree structure

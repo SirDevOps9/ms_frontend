@@ -5,6 +5,7 @@ import { CompanyDto, Sharedcompanyenums } from '../../models';
 import { CompanyService } from '../../company.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ExportCompanyDto } from '../../models/export-company-dto';
+import { mappedData } from '../../models/mappedCompany';
 
 @Component({
   selector: 'app-companies-list',
@@ -16,8 +17,9 @@ export class CompaniesListComponent implements OnInit {
   [x: string]: any;
   companies: CompanyDto[];
   @ViewChild('myTab') myTab: any | undefined;
-  selectedCompanies: CompanyDto[];
+  selectedCompanies: any = [];
   tableData: CompanyDto[];
+  mappedTableData: CompanyDto[];
   cols: any[] = [];
   active: boolean = false;
   ref: DynamicDialogRef;
@@ -87,16 +89,31 @@ export class CompaniesListComponent implements OnInit {
     this.companyService.companies.subscribe({
       next: (companyList) => {
         this.tableData = companyList;
+        this.mappedTableData = companyList
+      //  this.mappedTableData = this.convertChildren( companyList)
+         
       },
     });
   }
+
+  convertChildren(data : any) {
+  let mappedData = data.forEach((elem : any)=>{
+
+  const { parentId,id, subdomainId , countryCode ,mobileNumberCode , subdomainName  , countryName,...filteredData } = elem.data;
+  elem.data = filteredData
+  if(elem.children)this.convertChildren(elem.children)
+
+ })  
+ console.log(this.tableData)
+ return mappedData
+}
 
   search(event: any) {
     this.companyService.loadCompanies(event.target.value, this.subdomainId);
     this.companyService.companies.subscribe({
       next: (companyList) => {
         this.tableData = companyList;
-      },
+      }, 
     });
   }
   toggle(id: string, isActive: boolean) {

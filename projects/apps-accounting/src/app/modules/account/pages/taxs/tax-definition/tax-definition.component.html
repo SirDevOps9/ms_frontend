@@ -81,8 +81,8 @@
                 <!--  -->
                 <div>
                   <lib-export
-                    (exportClick)="exportCostCentersData($event)"
-                    [exportData]="tableData"
+                    (exportClick)="exportTaxesData($event)"
+                    [exportData]="mappedExportData"
                     [exportColumns]="exportColumns"
                     [ExportName]="'Taxes'"
                   >

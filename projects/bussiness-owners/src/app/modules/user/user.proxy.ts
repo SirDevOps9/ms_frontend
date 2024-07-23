@@ -14,6 +14,7 @@ import {
   CreateInvitedUser,
   UserListResponse,
   InvitedUserDto,
+  ExportUserListResponse,
 } from './models';
 import { SubscriptionDto } from '../subscription/models';
 import { PermissionTreeNode } from 'microtec-auth-lib';
@@ -108,12 +109,12 @@ export class UserProxy {
   }
   exportUsersData(
     subdomainId: string
-  ): Observable<UserListResponse[]> {
+  ): Observable<ExportUserListResponse[]> {
     let query = `User/Export?`;
 
       query += `subdomainId=${encodeURIComponent(subdomainId)}`;
     
-     return this.baseService.get<UserListResponse[]>(query);
+     return this.baseService.get<ExportUserListResponse[]>(query);
   }
 
   constructor(private baseService: HttpService) {}

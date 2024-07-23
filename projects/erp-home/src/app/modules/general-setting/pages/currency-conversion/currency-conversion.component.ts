@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { PageInfoResult, MenuModule, PageInfo, lookupDto } from 'shared-lib';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { GeneralSettingService } from '../../general-setting.service';
-import { CountryDto, CurrencyConversionDto, currencyListDto } from '../../models';
+import { CountryDto, CurrencyConversionDto, currencyListDto, ExportCurrencyConversionDto } from '../../models';
 
 @Component({
   selector: 'app-currency-conversion',
@@ -22,13 +22,15 @@ export class CurrencyConversionComponent {
   searchTerm: string;
   ref: DynamicDialogRef;
   exportColumns: lookupDto[];
-  exportData: CurrencyConversionDto[];
+  mappedExportData: CurrencyConversionDto[];
+
+  exportData: ExportCurrencyConversionDto[];
 
   columns: [
                    
     {
       name: 'fromCurrencyName',
-      headerText: 'treasury Name',
+      headerText: 'Currency Name',
     },
     {
       name: 'fromCurrencyRate',
@@ -57,7 +59,7 @@ export class CurrencyConversionComponent {
   ngOnInit() {
     this.getCurrencyConversionList()
     this.getCurrencies()
-    this.exportColumns = this.columns.map((col) => ({
+    this.exportColumns = this.columns?.map((col) => ({
       id: col.headerText,
       name: col.name,
     }));
@@ -78,6 +80,12 @@ export class CurrencyConversionComponent {
     this.generalSettingService.currencyConversionDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
+        this.mappedExportData = this.tableData.map(elem=>{
+          let {id , ...args} = elem
+          return args
+          
+        })
+        console.log(this.mappedExportData)
       },
     }
 )
@@ -118,7 +126,6 @@ getCurrencies() {
 )
 
   }
-
 
 
   onDelete(id: number) {

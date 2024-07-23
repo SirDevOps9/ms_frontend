@@ -19,6 +19,7 @@ import {
   costCenterActivation,
   companyDropDownDto,
   CountryDto,
+  ExportTaxDto,
 } from './models';
 
 import { AccountTypeDropDownDto } from './models/accountTypeDropDownDto';
@@ -62,7 +63,7 @@ export class AccountService {
   private costCenterActivat = new BehaviorSubject<costCenterActivation | undefined>(undefined);
   private exportsTaxGroupDataSource = new BehaviorSubject<TaxGroupDto[]>([]);
   public exportsTaxGroupDataSourceObservable = this.exportsTaxGroupDataSource.asObservable();
-  private exportsTaxesDataSource = new BehaviorSubject<TaxDto[]>([]);
+  private exportsTaxesDataSource = new BehaviorSubject<ExportTaxDto[]>([]);
   public exportsTaxesDataSourceObservable = this.exportsTaxesDataSource.asObservable();
   private exportsAccountsDataSource = new BehaviorSubject<AccountDto[]>([]);
   public exportsAccountsDataSourceObservable = this.exportsAccountsDataSource.asObservable();

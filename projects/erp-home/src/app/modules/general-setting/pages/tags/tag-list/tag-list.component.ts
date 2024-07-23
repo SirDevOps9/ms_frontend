@@ -3,7 +3,7 @@ import { lookupDto, MenuModule, PageInfo, PageInfoResult, RouterService } from '
 import { DialogService } from 'primeng/dynamicdialog';
 import { LayoutService } from 'libs/apps-shared-lib/src/lib/modules/layout/layout.service';
 import { GeneralSettingService } from '../../../general-setting.service';
-import { TagDto } from '../../../models';
+import { ExportTagDto, TagDto } from '../../../models';
 import { TagEditComponent } from '../../../components/tag-edit/tag-edit.component';
 import { TagAddComponent } from '../../../components/tag-add/tag-add.component';
 
@@ -18,7 +18,7 @@ export class TagListComponent implements OnInit {
   modulelist: MenuModule[];
   searchTerm: string;
   exportColumns: lookupDto[];
-  exportData: TagDto[];
+  exportData: ExportTagDto[];
   constructor(
     private routerService: RouterService,
     private generalSettingService: GeneralSettingService,

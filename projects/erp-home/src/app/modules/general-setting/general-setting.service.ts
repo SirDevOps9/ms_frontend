@@ -12,7 +12,7 @@ import {
 import { GeneralSettingProxy } from './general-setting.proxy';
 
 
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, vendorDefinitionDto, editFinancialCalndar, CurrencyDefinitionDto, CurrencyConversionDto} from './models';
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, vendorDefinitionDto, editFinancialCalndar, CurrencyDefinitionDto, CurrencyConversionDto, ExportCurrencyConversionDto, ExportTagDto} from './models';
 
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 import { AddVendorCommand } from './models/AddVendorCommand';
@@ -38,10 +38,10 @@ export class GeneralSettingService {
 
 
   private tagDataSource = new BehaviorSubject<TagDto[]>([]);
-  private exportsCurrencyListDataSource = new BehaviorSubject<CurrencyConversionDto[]>([]);
+  private exportsCurrencyListDataSource = new BehaviorSubject<ExportCurrencyConversionDto[]>([]);
   private exportcurrencyDefinitionDataSource = new BehaviorSubject<CurrencyDefinitionDto[]>([]);
   private exportsFinancialCalendarDataSource = new BehaviorSubject<financialCalendar[]>([]);
-  private exportsTagDataSource = new BehaviorSubject<TagDto[]>([]);
+  private exportsTagDataSource = new BehaviorSubject<ExportTagDto[]>([]);
 
   public exportsFinancialCalendarDataSourceObservable = this.exportsFinancialCalendarDataSource.asObservable();
 

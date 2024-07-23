@@ -9,7 +9,7 @@ import {
 } from 'shared-lib';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Title } from '@angular/platform-browser';
-import { UserListResponse } from '../../models';
+import {  ExportUserListResponse, UserListResponse } from '../../models';
 import { UserInviteFormComponent } from '../../components/invite-form/user-invite-form.component';
 import { UserService } from '../../user.service';
 import { UserDetailsComponent } from '../../components/user-details/user-details.component';
@@ -21,8 +21,37 @@ import { UserDetailsComponent } from '../../components/user-details/user-details
 })
 export class UsersComponent implements OnInit {
   userData: UserListResponse[];
+  mappedUserData: UserListResponse[];
+
+  ExportUserData: ExportUserListResponse[];
+
   checked: boolean = true;
   value: string | undefined;
+  cols: any[] = [
+   
+    {
+      field: 'Name',
+      header: 'name',
+    },
+
+    {
+      field: 'Email',
+      header: 'email',
+    },
+    {
+      field: 'Last Login Date',
+      header: 'lastLoginDate',
+    },
+    {
+      field: 'License',
+      header: 'license',
+    },
+    {
+      field: 'Status',
+      header: 'invitationStatus',
+    },
+  ];
+
   ref: DynamicDialogRef;
   @ViewChild('dt') dt: any | undefined;
   currentPageInfo: PageInfoResult;
@@ -36,6 +65,10 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Users');
     this.loadUsers();
+    this.exportColumns = this.cols.map((col) => ({
+      id: col.header,
+      name: col.field,
+    }));
   }
 
   loadUsers() {
@@ -43,6 +76,12 @@ export class UsersComponent implements OnInit {
 
     this.userService.users.subscribe((users) => {
       this.userData = users;
+      this.mappedUserData = this.userData.map(elem=>{
+        let {identityId , id  , photo, ...args} = elem
+        return args
+        
+      })
+      console.log(this.mappedUserData )
     });
 
     this.userService.currentPageInfo.subscribe((currentPageInfo) => {
