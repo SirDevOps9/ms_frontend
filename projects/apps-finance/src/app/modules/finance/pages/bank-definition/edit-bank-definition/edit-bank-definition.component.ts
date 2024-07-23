@@ -213,7 +213,7 @@ export class EditBankDefinitionComponent implements OnInit {
   }
 
   discard() {
-    this.routerService.navigateTo('/bank-definition')
+    this.routerService.navigateTo('/masterdata/bank-definition')
   }
 
   onDelete(i : number) {

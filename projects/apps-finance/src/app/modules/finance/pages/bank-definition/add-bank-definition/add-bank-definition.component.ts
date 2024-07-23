@@ -104,7 +104,7 @@ export class AddBankDefinitionComponent implements OnInit {
   createBankFormGroup(): FormGroup {
     return this.fb.group({
       
-      accountNumber:  new FormControl('', Validators.required),
+      accountNumber:  new FormControl('', customValidators.required),
       glAccountId: null,
       iban: null,
       currencyId: null,
@@ -112,13 +112,11 @@ export class AddBankDefinitionComponent implements OnInit {
       currentBalance : null,
       accountName :null ,
       currencyName : null ,
-      branchName : new FormControl('', Validators.required) ,
+      branchName : new FormControl('', customValidators.required) ,
       displayName : null,
-      userPermission: [
-      ],
+      userPermission: [],
       userPermissionName : '',
-      branches: [
-      ]
+      branches: new FormControl('', customValidators.required) 
         });
   }
 
@@ -187,7 +185,7 @@ export class AddBankDefinitionComponent implements OnInit {
   }
 
   discard() {
-    this.routerService.navigateTo('/bank-definition')
+    this.routerService.navigateTo('/masterdata/bank-definition')
   }
 
   onDelete(i : number) {

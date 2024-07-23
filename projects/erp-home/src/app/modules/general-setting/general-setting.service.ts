@@ -354,10 +354,10 @@ export class GeneralSettingService {
     this.loaderService.show();
     this.GeneralSettingproxy.openFinancialCalendar(openList).subscribe({
       next: (res) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('addFinancialCalendar.success'),
-          this.languageService.transalte('addFinancialCalendar.openSuccess')
-        );
+        // this.toasterService.showSuccess(
+        //   this.languageService.transalte('addFinancialCalendar.success'),
+        //   this.languageService.transalte('addFinancialCalendar.openSuccess')
+        // );
         this.openFinancialCalendarRes.next(res);
         this.loaderService.hide();
       },

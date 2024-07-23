@@ -11,6 +11,7 @@ import { FormsService, customValidators } from 'shared-lib';
   styleUrl: './edit-financial-calendar.component.scss',
 })
 export class EditFinancialCalendarComponent implements OnInit {
+  periodIDS: any;
   constructor(
     private fb: FormBuilder,
     private generalSettingService: GeneralSettingService,
@@ -172,16 +173,8 @@ export class EditFinancialCalendarComponent implements OnInit {
       return elem;
     });
     let periodIDS = this.tableData.filter((elem:any)=>elem.status)
-    console.log(periodIDS)
-    periodIDS =  periodIDS.map((elem : any)=>elem.id)
-    this.generalSettingService.OpenFinancialCalendar({periods : periodIDS})
-    this.generalSettingService.openFinancialCalendarResObservable.subscribe(res=>{
-      console.log(res)
-      if(res) {
-        
-        
-      }
-    })
+    this.periodIDS =  periodIDS.map((elem : any)=>elem.id)
+  
     // this.generalSettingService.onOpenPeriod({periods : })
   }
   convertDateFormat(data: Date) {
@@ -206,6 +199,13 @@ export class EditFinancialCalendarComponent implements OnInit {
     this.generalSettingService.EditFinancialPeriodDataObservable.subscribe((res) => {
       if (res) {
       }
+      this.generalSettingService.OpenFinancialCalendar({periods : this.periodIDS})
+      this.generalSettingService.openFinancialCalendarResObservable.subscribe(res=>{
+        if(res) {
+          
+          
+        }
+      })
     });
   }
 }

@@ -198,14 +198,14 @@
                         [selectedValue]="bankGroup.controls['branches'].value"
                         (valueChanged)="branchSelected($event , bankGroup , i)"
                       ></lib-multi-select>
-                      <lib-field-validations
-                      [appControl]="bankGroup.controls['branches']"
-                    ></lib-field-validations>
+                 
                     </lib-form-group>
                   </ng-template>
                   <ng-template pTemplate="output">
                     {{ bankGroup.controls['branchName'].value }}
-
+                    <lib-field-validations
+                    [appControl]="bankGroup.controls['branches']"
+                  ></lib-field-validations>
                   </ng-template>
                 </p-cellEditor>
               </td>

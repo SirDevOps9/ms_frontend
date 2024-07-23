@@ -16,6 +16,7 @@ import { NgIfContext } from '@angular/common';
 import { MenuItem } from 'primeng/api';
 import { ExportService } from 'libs/shared-lib/src/lib/export/exportService';
 import { Observable } from 'rxjs';
+import { GeneralService } from '../../services/general.service';
 
 @Component({
   selector: 'lib-data-table',
@@ -51,6 +52,7 @@ first:any=0;
       .filter((c) => c.isSortable)
       .map((c) => c.name);
       console.log(this.globalFilterFields)
+      this.generalService.sendColumns.next(this.globalFilterFields)
     
   }
 
@@ -69,7 +71,8 @@ first:any=0;
 
   constructor(
     public languageService: LanguageService,
-    public lookupsService: LookupsService
+    public lookupsService: LookupsService,
+    private generalService : GeneralService
   ) {}
  
 }
