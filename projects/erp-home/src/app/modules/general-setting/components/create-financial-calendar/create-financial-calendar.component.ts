@@ -21,6 +21,7 @@ export class CreateFinancialCalendarComponent implements OnInit {
   maxDateTo : Date | null
   formGroup  :FormGroup
   yearsList : any = []
+  periodIDS : any = []
   showOpenBtn : boolean = false
   opened : boolean = false
   disablrFromDateFlag : boolean = false
@@ -128,11 +129,13 @@ export class CreateFinancialCalendarComponent implements OnInit {
     this.clonedTableData = this.tableList 
   }
   onOpenPeriod() {
-    this.statusFlag = false
-    this.tableData = this.clonedTableData?.map((elem : any)=>{
+    this.statusFlag = false;
+    this.tableData = this.tableData.map((elem: any) => {
       elem.status = true;
-      return elem
-    })
+      return elem;
+    });
+    let periodIDS = this.tableData.filter((elem:any)=>elem.status)
+    this.periodIDS =  periodIDS.map((elem : any)=>elem.id)
   }
   convertDateFormat(data : Date) {
     const date = new Date(data);
@@ -179,6 +182,8 @@ export class CreateFinancialCalendarComponent implements OnInit {
           elem.month = months[elem.month - 1]
           return elem
         })
+
+        console.log(this.tableData)
       
         
       }
@@ -186,18 +191,23 @@ export class CreateFinancialCalendarComponent implements OnInit {
   }
 
   onOpen() {
+    this.statusFlag = false;
+    this.tableData = this.tableData.map((elem: any) => {
+      elem.status = true;
+      return elem;
+    });
     
-    let periodIDS = this.tableData.filter((elem:any)=>elem.status)
-    console.log(periodIDS)
-    periodIDS =  periodIDS.map((elem : any)=>elem.id)
+    let periodIDS =  this.tableData.map((elem : any)=>elem.id)
     this.generalSettingService.OpenFinancialCalendar({periods : periodIDS})
     this.generalSettingService.openFinancialCalendarResObservable.subscribe(res=>{
-      console.log(res)
       if(res) {
         this.opened = true
-        
+
       }
-    })
+
+          
+        })
+    
   }
   
 }
