@@ -50,21 +50,33 @@ export class AddVendorDefinitionsComponent implements OnInit {
       code: new FormControl(null),
       photo: new FormControl(null),
       name: new FormControl('', [customValidators.required]),
-      birthDate: new FormControl(null,[customValidators.invalidBirthDate]),
+      birthDate: new FormControl(null, [customValidators.invalidBirthDate]),
       vendorCategoryId: new FormControl(null),
       VendorTagIds: new FormControl(null),
 
       vendorInformation: this.fb.group({
-        contactPhone: new FormControl(null ,[customValidators.hasSpaces,customValidators.noSpecialChars]),
+        contactPhone: new FormControl(null, [
+          customValidators.hasSpaces,
+          customValidators.noSpecialChars,
+        ]),
         ContactMobileCode: new FormControl(null),
-        contactMobile: new FormControl(null,[customValidators.hasSpaces,customValidators.noSpecialChars]),
+        contactMobile: new FormControl(null, [
+          customValidators.hasSpaces,
+          customValidators.noSpecialChars,
+        ]),
         contactFax: new FormControl(null),
         contactEmail: new FormControl(null, [customValidators.email]),
         contactWebsite: new FormControl(null),
         contactPersonName: new FormControl(null),
-        contactPersonMobile: new FormControl(null,[customValidators.hasSpaces,customValidators.noSpecialChars]),
+        contactPersonMobile: new FormControl(null, [
+          customValidators.hasSpaces,
+          customValidators.noSpecialChars,
+        ]),
         ContactPersonMobileCode: new FormControl(null),
-        contactPersonPhone: new FormControl(null,[customValidators.hasSpaces,customValidators.noSpecialChars]),
+        contactPersonPhone: new FormControl(null, [
+          customValidators.hasSpaces,
+          customValidators.noSpecialChars,
+        ]),
         contactPersonEmail: new FormControl(null, [customValidators.email]),
       }),
       vendorAddress: this.fb.group({
@@ -151,8 +163,7 @@ export class AddVendorDefinitionsComponent implements OnInit {
     if (!this.formsService.validForm(this.addVendorForm, false)) return;
 
     const vendor: AddVendorCommand = this.addVendorForm.value;
-    this.purchaseService.addNewVendorDefinition(vendor);
-    
+    this.purchaseService.addNewVendorDefinition(vendor, this.addVendorForm);
   }
 
   Subscribe() {
@@ -178,6 +189,5 @@ export class AddVendorDefinitionsComponent implements OnInit {
   onDiscard() {
     //this.editEmployeeForm.reset();
     this.routerService.navigateTo(`/masterdata/vendor-definitions`);
-
   }
 }
