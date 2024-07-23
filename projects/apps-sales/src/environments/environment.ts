@@ -13,7 +13,7 @@ export const environment: IEnvironment = {
     redirectUrl: window.location.origin + '/erp/login-redirect',
     logoutRedirectUri: window.location.origin + '/erp/logout-redirect',
     scopes: 'subdomain',
-    state: window.location.origin + '/accounting/',
+    state: window.location.origin + '/sales/',
   },
   AttachmentServiceConfig: {
     AttachmentServiceUrl: 'https://intmicrotec.neat-url.com:2030',
@@ -22,5 +22,5 @@ export const environment: IEnvironment = {
   },
   ApiKey: '3bb564df-0f24-4ea6-82c1-d99f368cac8a',
   BusinessOwnerUrl: 'https://intmicrotec.neat-url.com:2003',
-  state: window.location.origin + '/erp/',
+  state: window.location.origin + '/sales/',
 };

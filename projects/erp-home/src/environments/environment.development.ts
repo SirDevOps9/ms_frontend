@@ -22,5 +22,5 @@ export const environment: IEnvironment = {
   },
   ApiKey: '3bb564df-0f24-4ea6-82c1-d99f368cac8a',
   BusinessOwnerUrl: 'http://localhost:2003',
-  state: window.location.origin + '/accounting/',
+  state: window.location.origin + '/erp/',
 };
