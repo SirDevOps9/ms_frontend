@@ -33,7 +33,7 @@ export class FinanceProxyService {
   }
 
   deleteTreasury(id : number) {
-    return this.httpService.get(`Treasury/${id}`);
+    return this.httpService.delete(`Treasury/${id}`);
 
   }
   getBranchLookup() : Observable<{ id: number; name: string }[]> {

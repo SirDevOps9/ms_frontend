@@ -332,6 +332,9 @@
   
     },
     "financialCalendar" : {
+      "financialCalendar" : "Financial Calendar",
+      "addfinancialCalendar" : "Add Financial Calendar",
+      "editfinancialCalendar" : "Edit Financial Calendar",
       "selectYear" : "Select Year",
       "code" : "Code",
       "fromDate" : "From Date",

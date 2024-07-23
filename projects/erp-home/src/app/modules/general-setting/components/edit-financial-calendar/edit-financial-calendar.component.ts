@@ -3,7 +3,8 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { GeneralSettingService } from '../../general-setting.service';
 import { ActivatedRoute } from '@angular/router';
 import { editFinancialCalndar } from '../../models';
-import { FormsService, customValidators } from 'shared-lib';
+import { FormsService, LanguageService, customValidators } from 'shared-lib';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-financial-calendar',
@@ -16,7 +17,9 @@ export class EditFinancialCalendarComponent implements OnInit {
     private fb: FormBuilder,
     private generalSettingService: GeneralSettingService,
     private route: ActivatedRoute,
-    private formsService: FormsService
+    private formsService: FormsService,
+    private titleService: Title,
+    private languageService : LanguageService
   ) {
     this.generateYearsList();
   }
@@ -34,6 +37,9 @@ export class EditFinancialCalendarComponent implements OnInit {
   FinancialPeriodData: editFinancialCalndar;
   id: number = this.route.snapshot.params['id'];
   ngOnInit(): void {
+    this.titleService.setTitle(
+      this.languageService.transalte('financialCalendar.editfinancialCalendar')
+    );
     this.formGroup = this.fb.group({
       name: new FormControl('', customValidators.required),
       year: 0,
@@ -48,7 +54,6 @@ export class EditFinancialCalendarComponent implements OnInit {
     });
     this.formGroup.valueChanges.subscribe((res) => {
       if (res.fromDate) {
-        this.tableData = []
 
         this.minDateTo = new Date(res.fromDate);
       }

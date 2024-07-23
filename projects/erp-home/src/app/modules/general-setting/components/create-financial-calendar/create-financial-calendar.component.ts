@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { GeneralSettingService } from '../../general-setting.service';
-import { FormsService, customValidators } from 'shared-lib';
+import { FormsService, LanguageService, customValidators } from 'shared-lib';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-create-financial-calendar',
@@ -9,7 +10,8 @@ import { FormsService, customValidators } from 'shared-lib';
   styleUrl: './create-financial-calendar.component.scss'
 })
 export class CreateFinancialCalendarComponent implements OnInit {
-  constructor(private fb :FormBuilder , private generalSettingService: GeneralSettingService, private formsService: FormsService){
+  constructor(private fb :FormBuilder , private generalSettingService: GeneralSettingService, private formsService: FormsService ,  private titleService: Title,
+    private languageService : LanguageService){
     this.generateYearsList()
   }
   statusFlag : boolean = true
@@ -24,6 +26,9 @@ export class CreateFinancialCalendarComponent implements OnInit {
   tableData : any = [];
   tableList : any = []
   ngOnInit(): void {
+    this.titleService.setTitle(
+      this.languageService.transalte('financialCalendar.addfinancialCalendar')
+    );
   this.formGroup = this.fb.group({
     name: new FormControl('',  customValidators.required),
     year : 0,
