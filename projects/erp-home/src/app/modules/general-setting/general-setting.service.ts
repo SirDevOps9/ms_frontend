@@ -698,6 +698,7 @@ export class GeneralSettingService {
   }
   openCurrencyConversionAdded() {
     const ref:DynamicDialogRef = this.dialog.open(AddCurrencyConversionComponent, {
+      header : this.languageService.transalte('currencyConversion.AddNewcurrency'),
         width: '600px',
         height : '700px'
      
@@ -709,6 +710,7 @@ export class GeneralSettingService {
 
   openCurrencyConversionEdit(currencyId: number) {
     const ref:DynamicDialogRef = this.dialog.open(EditCurrencyConversionComponent, {
+      header : this.languageService.transalte('currencyConversion.Editcurrency'),
       width: '600px',
       height : '700px',
       data: { Id: currencyId },
