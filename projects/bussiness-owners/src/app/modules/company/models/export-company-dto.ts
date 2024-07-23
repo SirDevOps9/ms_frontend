@@ -7,5 +7,5 @@ export interface ExportCompanyDto {
     companyType: string;
     commercialId?: string;
     taxId?: string;
-    status: boolean;
+    isActive: boolean;
   }
