@@ -21,6 +21,7 @@ export class CompanyAddresComponent implements OnInit {
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   selectedCountryCode: string | null;
+  selectedCurrency?: string ;
   editMode: boolean = false;
 
   ngOnInit() {
@@ -29,14 +30,15 @@ export class CompanyAddresComponent implements OnInit {
     this.initializeFormData();
     this.Subscribe();
   }
-  
+
   Subscribe() {
-    this.lookupsService.lookups.subscribe((l) => this.lookups = l);
+    this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
   }
   initializeForm() {
     this.companyAddresForm = this.fb.group({
       countryCode: new FormControl(),
       city: new FormControl(),
+      currencyId: new FormControl(),
       region: new FormControl(),
       address: new FormControl(),
       longitude: new FormControl(),
@@ -45,16 +47,17 @@ export class CompanyAddresComponent implements OnInit {
   }
   initializeFormData() {
     this.companyService.getCompanyAddressId(this.companyId).subscribe((res) => {
-      console.log('Calling Get Company AddressId', res);
       this.companyAddresForm.patchValue({
         ...res,
       });
-      if (res) this.selectedCountryCode = res.countryCode;
+      if (res) {
+        this.selectedCountryCode = res.countryCode;
+        this.selectedCurrency = res.currencyId?.toString();
+      }
     });
   }
 
   onSubmit() {
-
     if (this.editMode) {
       if (!this.formsService.validForm(this.companyAddresForm, true)) return;
       const request: CompanyAddressDto = this.companyAddresForm.value;
@@ -68,15 +71,14 @@ export class CompanyAddresComponent implements OnInit {
   }
 
   loadLookups() {
-    this.lookupsService.loadLookups([LookupEnum.Country]);
+    this.lookupsService.loadLookups([LookupEnum.Country, LookupEnum.Currency]);
   }
   get companyId(): string {
     return this.routerService.currentParetId;
   }
 
   onDiscard(editMode: boolean) {
-    if (editMode)
-      this.initializeFormData();
+    if (editMode) this.initializeFormData();
     this.editMode = false;
   }
 
@@ -86,6 +88,6 @@ export class CompanyAddresComponent implements OnInit {
     private companyService: CompanyService,
     private routerService: RouterService,
     private formsService: FormsService,
-    public sharedLibEnums: SharedLibraryEnums,
-  ) { }
+    public sharedLibEnums: SharedLibraryEnums
+  ) {}
 }

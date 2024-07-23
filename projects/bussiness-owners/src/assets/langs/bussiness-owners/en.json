@@ -182,6 +182,7 @@
       "address": "Address",
       "longitude": "Longitude",
       "latitude": "Latitude",
+      "currency":"currency",
       "Save": "Save"
     },
     "Contanct": {
