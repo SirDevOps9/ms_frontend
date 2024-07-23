@@ -9,3 +9,5 @@ export interface UserListResponse {
   invitationStatus: number;
   photo: string;
 }
+
+

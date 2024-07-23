@@ -106,6 +106,15 @@ export class UserProxy {
   removeInvitedUser(email: string,subdomainId:string): Observable<InvitedUserDto> {
     return this.baseService.post<InvitedUserDto>(`InvitedUser/RemoveInvitedUser/${email}/${subdomainId}`, {});
   }
+  exportUsersData(
+    subdomainId: string
+  ): Observable<UserListResponse[]> {
+    let query = `User/Export?`;
+
+      query += `subdomainId=${encodeURIComponent(subdomainId)}`;
+    
+     return this.baseService.get<UserListResponse[]>(query);
+  }
 
   constructor(private baseService: HttpService) {}
 }

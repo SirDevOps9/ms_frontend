@@ -14,7 +14,6 @@ export class CompanyBranchesComponent implements OnInit {
   editMode: boolean = false;
   exportColumns: lookupDto[];
   exportData: BranchDto[];
-  tableData : BranchDto[];
 
   //@Input() companyId: string;
 

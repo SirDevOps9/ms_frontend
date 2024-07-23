@@ -34,6 +34,9 @@ export class UserService {
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
+  private exportsUsersDataSource = new BehaviorSubject<UserListResponse[]>([]);
+  public exportsUsersDataSourceObservable = this.exportsUsersDataSource.asObservable();
+
   getAllUsers(subscriptionId: string) {
     this.userProxy.getAll(subscriptionId).subscribe({
       next: (res) => {
@@ -250,6 +253,14 @@ export class UserService {
     }
   }
 
+  exportUsersData(companyId: string,
+  ) {
+    this.userProxy.exportUsersData(companyId).subscribe({
+      next: (res) => {
+         this.exportsUsersDataSource.next(res);
+      },
+    });
+  }
 
   constructor(
     private userProxy: UserProxy,

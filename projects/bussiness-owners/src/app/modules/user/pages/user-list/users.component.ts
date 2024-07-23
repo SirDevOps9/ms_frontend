@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   EnvironmentService,
   LanguageService,
+  lookupDto,
   PageInfo,
   PageInfoResult,
   RouterService,
@@ -25,6 +26,13 @@ export class UsersComponent implements OnInit {
   ref: DynamicDialogRef;
   @ViewChild('dt') dt: any | undefined;
   currentPageInfo: PageInfoResult;
+
+  
+  exportColumns: lookupDto[];
+
+  exportData: UserListResponse[];
+
+
   ngOnInit() {
     this.titleService.setTitle('Users');
     this.loadUsers();
@@ -97,6 +105,13 @@ export class UsersComponent implements OnInit {
 
   removeUser(email:string) {
     this.userService.removeInvitedUser(email,this.subdmainId);
+  }
+
+  exportUsersData() {
+    this.userService.exportUsersData(this.subdmainId);
+    this.userService.exportsUsersDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
   }
 
 

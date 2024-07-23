@@ -25,6 +25,14 @@
           class="add_new mr-2"
           (click)="openInviteModal()"
         ></button>
+
+        <lib-export
+        (exportClick)="exportUsersData()"
+        [exportData]="userData"
+        [exportColumns]="exportColumns"
+        [ExportName]="'Users'"
+      >
+      </lib-export>
       </div>
     </ng-container>
   </lib-bread-crumb>
