@@ -489,6 +489,12 @@ export class GeneralSettingService {
           );
         },
       });
+    }else {
+      this.tagDataSource.value.find((item) => {
+        if (item.id === id) {
+          item.isActive = true;
+        }
+      });
     }
   }
   getTags() {
