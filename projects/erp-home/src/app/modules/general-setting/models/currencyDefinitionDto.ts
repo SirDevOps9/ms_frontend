@@ -5,4 +5,6 @@ export interface CurrencyDefinitionDto {
     symbol: string ;
     subUnit: string;
     countryName: string;
+    selectCountry: string;
+    selectedDifferenceAccount: number;
   }
