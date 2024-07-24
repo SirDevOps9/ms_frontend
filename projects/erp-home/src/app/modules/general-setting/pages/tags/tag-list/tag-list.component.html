@@ -19,7 +19,16 @@
           icon="pi pi-plus"
           class="btn add_new mr-2"
           (click)="newTag()"
-        ></button>
+        ></button>      
+      </div>
+      <div>
+        <lib-export  
+        (exportClick)="exportTagData($event)"
+        [exportData]="tableData"
+        [exportColumns]="exportColumns"
+        [ExportName]="'Tag'">
+      </lib-export>
+
       </div>
     </div>
   </lib-bread-crumb>

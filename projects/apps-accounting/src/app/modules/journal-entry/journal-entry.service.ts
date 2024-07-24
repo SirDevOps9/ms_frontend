@@ -31,7 +31,8 @@ export class JournalEntryService {
 
   public  journalStatus= new BehaviorSubject<JournalEntryStatus>(JournalEntryStatus.Unbalanced);
 
-
+  private exportsJournalEntriesDataSource = new BehaviorSubject<JournalEntryDto[]>([]);
+  public exportsJournalEntriesDataSourceObservable = this.exportsJournalEntriesDataSource.asObservable();
   constructor(
     private journalEntryProxy: JournalEntryProxy,
     private toasterService: ToasterService,
@@ -161,6 +162,13 @@ export class JournalEntryService {
     });
   }
 
-  
+  exportJournalEntriesData(searchTerm:string | undefined) {
+    this.journalEntryProxy.exportJournalEntriesData(searchTerm).subscribe({
+      next: (res) => {
+         this.exportsJournalEntriesDataSource.next(res);
+      },
+    });
+  }
+
  
 }

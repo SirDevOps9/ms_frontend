@@ -19,6 +19,13 @@
             class="add_new mr-2"
             (click)="addBranch()"
           ></button>
+          <lib-export
+          (exportClick)="exportBranchesData()"
+          [exportData]="mappedExportData"
+          [exportColumns]="exportColumns"
+          [ExportName]="'Branches'"
+        >
+        </lib-export>
         </div>
       </ng-template>
       <ng-template pTemplate="header">

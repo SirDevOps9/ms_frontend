@@ -12,7 +12,7 @@ import {
 import { GeneralSettingProxy } from './general-setting.proxy';
 
 
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, vendorDefinitionDto, editFinancialCalndar, CurrencyDefinitionDto, CurrencyConversionDto} from './models';
+import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, vendorDefinitionDto, editFinancialCalndar, CurrencyDefinitionDto, CurrencyConversionDto, ExportCurrencyConversionDto, ExportTagDto} from './models';
 
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 import { AddVendorCommand } from './models/AddVendorCommand';
@@ -38,8 +38,15 @@ export class GeneralSettingService {
 
 
   private tagDataSource = new BehaviorSubject<TagDto[]>([]);
-  private exportsCurrencyListDataSource = new BehaviorSubject<CurrencyConversionDto[]>([]);
+  private exportsCurrencyListDataSource = new BehaviorSubject<ExportCurrencyConversionDto[]>([]);
   private exportcurrencyDefinitionDataSource = new BehaviorSubject<CurrencyDefinitionDto[]>([]);
+  private exportsFinancialCalendarDataSource = new BehaviorSubject<financialCalendar[]>([]);
+  private exportsTagDataSource = new BehaviorSubject<ExportTagDto[]>([]);
+
+  public exportsFinancialCalendarDataSourceObservable = this.exportsFinancialCalendarDataSource.asObservable();
+
+  public exportsTagDataSourceObservable = this.exportsTagDataSource.asObservable();
+
   private currencyDefinitionDataSource = new BehaviorSubject<CurrencyDefinitionDto[]>([]);
   private currencyConversionDataSource = new BehaviorSubject<CurrencyConversionDto[]>([]);
   private financialCalendarDataSource = new BehaviorSubject<financialCalendar[]>([]);
@@ -733,7 +740,21 @@ export class GeneralSettingService {
       },
     });
   }
+  exportFinancialCalendarData(searchTerm:string | undefined) {
+    this.GeneralSettingproxy.exportFinancialCalendarData(searchTerm).subscribe({
+      next: (res) => {
+         this.exportsFinancialCalendarDataSource.next(res);
+      },
+    });
+  }
 
+  exportTagData(searchTerm:string | undefined) {
+    this.GeneralSettingproxy.exportTagData(searchTerm).subscribe({
+      next: (res) => {
+         this.exportsTagDataSource.next(res);
+      },
+    });
+  }
   constructor(
     private GeneralSettingproxy: GeneralSettingProxy,
     private loaderService: LoaderService,

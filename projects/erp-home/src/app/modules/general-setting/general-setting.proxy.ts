@@ -16,6 +16,8 @@ import {
   vendorDefinitionDto,
   AddCustomerDefinitionDto,
   EditCustomerDefintionsDto, CurrencyDefinitionDto, CurrencyConversionDto,
+  ExportCurrencyConversionDto,
+  ExportTagDto,
 } from './models';
 
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
@@ -224,12 +226,12 @@ getCurrencyByIdConversion(id: number): Observable<CurrencyConversionDto> {
 }
 exportcurrencyData(
   searchTerm: string | undefined
-): Observable<CurrencyConversionDto[]> {
-  let query = `TCurrencyConversion/Export?`;
+): Observable<ExportCurrencyConversionDto[]> {
+  let query = `CurrencyConversion/Export?`;
   if (searchTerm) {
     query += `searchTerm=${encodeURIComponent(searchTerm)}`;
   }
-   return this.httpService.get<CurrencyConversionDto[]>(query);
+   return this.httpService.get<ExportCurrencyConversionDto[]>(query);
 }
 exportcurrencyDefinitionData(
   searchTerm: string | undefined
@@ -241,6 +243,25 @@ exportcurrencyDefinitionData(
    return this.httpService.get<CurrencyDefinitionDto[]>(query);
 }
 
+exportFinancialCalendarData(
+  searchTerm: string | undefined
+): Observable<financialCalendar[]> {
+  let query = `FinancialYear/Export?`;
+  if (searchTerm) {
+    query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+  }
+   return this.httpService.get<financialCalendar[]>(query);
+}
+
+exportTagData(
+  searchTerm: string | undefined
+): Observable<ExportTagDto[]> {
+  let query = `Tag/Export?`;
+  if (searchTerm) {
+    query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+  }
+   return this.httpService.get<ExportTagDto[]>(query);
+}
 
   constructor(private httpService: HttpService) {}
 }

@@ -16,8 +16,8 @@ export class TaxDefinitionEditComponent {
   taxGroupList:TaxGroupDropDown[];
   paging: PageInfoResult;
   taxGroupId:string;
-  selectedAccount:number;
-  selectedTaxGroup : number
+  selectedAccount?:number;
+  selectedTaxGroup? : number
   pageInfo = new PageInfo();
 
   ngOnInit() {

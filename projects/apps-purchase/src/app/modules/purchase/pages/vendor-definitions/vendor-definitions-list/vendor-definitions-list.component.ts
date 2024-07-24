@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
-import { RouterService, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
+import { RouterService, PageInfoResult, MenuModule, PageInfo, lookupDto } from 'shared-lib';
 import {  vendorDefinitionDto } from '../../../models';
 import { PurchaseService } from '../../../purchase.service';
 
@@ -23,7 +23,9 @@ export class VendorDefinitionsListComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
- 
+  
+  exportColumns: lookupDto[];
+  exportData: vendorDefinitionDto[];
   ngOnInit() {
 
      this.initFinancialCalendarData();
@@ -80,6 +82,11 @@ export class VendorDefinitionsListComponent implements OnInit {
   }
 
 
-
+  exportVendorsData(searchTerm: string) {
+    this.purchaseService.exportVendorsData(searchTerm);
+    this.purchaseService.exportsVendorsDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
+  }
  
 }

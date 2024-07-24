@@ -481,6 +481,7 @@
       "addNew":"AddNew",
       "save":"Save",
       "cancel": "Cancel",
+      "success":"Success",
       "FromCurrency":"From Currency",
       "CurrencyRate":"Currency Rate",
       "ToCurrency":"To Currency",

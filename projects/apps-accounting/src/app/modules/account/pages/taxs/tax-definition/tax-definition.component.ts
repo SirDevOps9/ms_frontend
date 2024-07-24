@@ -2,12 +2,11 @@ import { TaxDefinitionAddComponent } from './../../../components/tax-definition-
 import { Component, OnInit, Signal, computed, effect, signal } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { PageInfoResult, MenuModule, RouterService, PageInfo, PaginationVm } from 'shared-lib';
+import { PageInfoResult, MenuModule, RouterService, PageInfo, PaginationVm, lookupDto } from 'shared-lib';
 import { AccountService } from '../../../account.service';
-import { AccountDto, TaxDto } from '../../../models';
+import { ExportTaxDto, TaxDto } from '../../../models';
 import { TaxDefinitionEditComponent } from '../../../components/tax-definition-edit/tax-definition-edit.component';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { filter } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-tax-definition',
@@ -27,6 +26,36 @@ export class TaxDefinitionComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
+
+  mappedExportData: TaxDto[];
+
+  exportData: ExportTaxDto[];
+
+  exportColumns: lookupDto[] = [
+   
+    {
+      id: 'code',
+      name: 'Id',
+    },
+
+    {
+      id: 'name',
+      name: 'Name',
+    },
+    {
+      id: 'ratio',
+      name: 'Ratio',
+    },
+    {
+      id: 'accountName',
+      name: 'Account',
+    },
+    {
+      id: 'taxGroupName',
+      name: 'Tax Group',
+    }
+  ];
+
  
   ngOnInit() {
     //this.modulelist = this.authService.getModules();
@@ -38,12 +67,16 @@ export class TaxDefinitionComponent implements OnInit {
   initTaxData() {
     this.accountService.getAllTaxes('', new PageInfo());
 
-    this.accountService.taxesDefintionList.subscribe({
-      next: (res) => {
-        this.tableData = res;
-      },
+    this.accountService.taxesDefintionList.subscribe((res) => {
+      this.tableData = res;
+      
+      this.mappedExportData = this.tableData.map(elem=>{
+        let {accountId , taxGroupId  , taxGroupCode, ...args} = elem
+        return args
+        
+      })
+      console.log(this.mappedExportData )
     });
-
     this.accountService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
@@ -95,6 +128,12 @@ export class TaxDefinitionComponent implements OnInit {
   onDelete(id: number) {
     this.accountService.deleteTax(id);
   }
-
+  
+  exportTaxesData(searchTerm: string) {
+    this.accountService.exportTaxesData(searchTerm);
+    this.accountService.exportsTaxesDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
+  }
  
 }

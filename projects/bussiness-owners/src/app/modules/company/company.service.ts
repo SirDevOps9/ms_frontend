@@ -16,7 +16,9 @@ import {
   editBranch,
   CompanyDto,
   UpdateCompanyHierarchyDto,
+  ExportBranchesDto,
 } from './models';
+import { ExportCompanyDto } from './models/export-company-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +32,12 @@ export class CompanyService {
   public companyNameobs = this.companyName.asObservable();
   public branches = this.branchesDataSource.asObservable();
   public selectedCompanyActive = new BehaviorSubject<boolean>(true);
+
+  private exportsCompaniesDataSource = new BehaviorSubject<ExportCompanyDto[]>([]);
+  public exportsCompaniesDataSourceObservable = this.exportsCompaniesDataSource.asObservable();
+
+  private exportsBranchesDataSource = new BehaviorSubject<ExportBranchesDto[]>([]);
+  public exportsBranchesDataSourceObservable = this.exportsBranchesDataSource.asObservable();
 
   constructor(
     private companyProxy: CompanyProxy,
@@ -456,6 +464,24 @@ export class CompanyService {
     return this.companies.pipe(
       map(companies => companies.length === 0)
     );
+  }
+
+  exportCompaniesData(searchTerm:string | undefined,subscriptionId: string,
+  ) {
+    this.companyProxy.exportCompaniesData(searchTerm,subscriptionId).subscribe({
+      next: (res) => {
+         this.exportsCompaniesDataSource.next(res);
+      },
+    });
+  }
+
+  exportBranchesData(companyId: string,
+  ) {
+    this.companyProxy.exportBranchesData(companyId).subscribe({
+      next: (res) => {
+         this.exportsBranchesDataSource.next(res);
+      },
+    });
   }
 
 }

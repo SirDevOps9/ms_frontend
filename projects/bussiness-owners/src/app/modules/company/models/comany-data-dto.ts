@@ -3,7 +3,7 @@ export interface CompanyDataDto {
   name: string;
   code: string;
   countryCode: string;
-  parentId: string | null;
+  parentId?: string | null;
   countryName: string;
   mobileNumberCode: string;
   mobileNumber: string;
