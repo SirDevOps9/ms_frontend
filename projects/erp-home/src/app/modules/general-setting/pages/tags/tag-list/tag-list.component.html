@@ -113,7 +113,13 @@
         </ng-template>
 
         <ng-template #Modules let-tag>
-          <lib-multi-select
+          <div class="flex ">
+            <p  >
+              {{viewModulesName(tag.modulesId)}}
+            </p>
+          </div>
+         
+          <!-- <lib-multi-select
             [options]="modulelist"
             optionLabel="module"
             optionValue="moduleId"
@@ -121,7 +127,7 @@
             [readOnly]="true"
             [disabled]="true"
           >
-          </lib-multi-select>
+          </lib-multi-select> -->
         </ng-template>
       </lib-data-table>
     </div>

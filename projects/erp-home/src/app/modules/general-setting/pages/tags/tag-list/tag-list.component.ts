@@ -55,6 +55,7 @@ export class TagListComponent implements OnInit {
   ngOnInit() {
 
     this.modulelist = this.layoutService.getModules();
+    console.log(this.modulelist)
     this.initTagData();
 
   }
@@ -72,6 +73,13 @@ export class TagListComponent implements OnInit {
     this.generalSettingService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
+  }
+
+  viewModulesName(tag : number[]) {
+    let moduleName : any = this.modulelist
+    moduleName = moduleName.filter((elem : any)=> tag.includes(elem.moduleId)).map((elem : any)=>elem.module)
+    return moduleName
+
   }
 
   onPageChange(pageInfo: PageInfo) {

@@ -12,7 +12,7 @@ export class ChatOfAccountListComponent implements OnInit {
   tableData: AccountDto[];
   currentPageInfo: PageInfoResult;
   accountNature = AccountNature;
-
+  searchTerm : string
   mappedExportData: AccountDto[];
 
   exportData: ExportAccountsDto[];
@@ -44,11 +44,18 @@ export class ChatOfAccountListComponent implements OnInit {
   ];
 
   ngOnInit() {
-    this.initChartOfAccountData();
+    this.initChartOfAccountData(this.searchTerm, new PageInfo());
   }
 
-  initChartOfAccountData() {
-    this.accountService.initAccountList('', new PageInfo());
+  searchTermChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.searchTerm = inputElement.value;
+    console.log( this.searchTerm)
+    this.initChartOfAccountData(this.searchTerm, new PageInfo());
+  }
+
+  initChartOfAccountData(searchTerm: string, page: PageInfo) {
+    this.accountService.initAccountList(searchTerm, new PageInfo());
 
     this.accountService.accountsList.subscribe({
       next: (ChartOfAccountList) => {
@@ -65,7 +72,8 @@ export class ChatOfAccountListComponent implements OnInit {
     });
   }
   onPageChange(pageInfo: PageInfo) {
-    this.accountService.initAccountList('', pageInfo);
+    this.initChartOfAccountData('', pageInfo);
+    
   }
   routeToAdd() {
     this.routerService.navigateTo(`/journalentry/add`);

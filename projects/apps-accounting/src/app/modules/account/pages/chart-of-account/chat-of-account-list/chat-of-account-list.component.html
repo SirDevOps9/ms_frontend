@@ -11,9 +11,10 @@
         dataKey: 'id',
         pageSize: 10,
         columns: [
+          
           {
-            name: 'id',
-            headerText: 'Id',
+            name: 'name',
+            headerText: 'Account Name',
             isGlobalFilter: true,
             isSortable: true
           },
@@ -23,6 +24,7 @@
             isGlobalFilter: true,
             isSortable: true
           },
+          
           {
             name: 'natureId',
             headerText: 'Nature',
@@ -44,7 +46,19 @@
         ]
       }"
     >
-      <ng-container caption>
+    <ng-container caption>
+      <div class="group flex justify-content-between">
+        <div>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              (input)="searchTermChange($event)"
+              placeholder="Search..."
+            />
+          </span>
+        </div>
         <div>
           <lib-export
             (exportClick)="exportAccountsData($event)"
@@ -54,7 +68,26 @@
           >
           </lib-export>
         </div>
-      </ng-container>
+        <!-- <div class="flex justify-content-end gap-3">
+          <button class="primary" (click)="navigateToAdd()">
+            <span class="pi pi-plus"></span>
+            {{ 'Add New' | translate }}
+          </button>
+      
+          <div>
+            <lib-export  
+              (exportClick)="exportClick($event)"
+              [exportData]="tableData"
+              [exportColumns]="exportColumns"
+              [ExportName]="'Employees List'">
+            </lib-export>
+            </div>
+        </div> -->
+   
+    
+      </div>
+    </ng-container>
+      
       <ng-template #userCol let-Account>
         <div class="actions flex align-items-center">
           <lib-button
@@ -62,7 +95,7 @@
             type="button"
             (click)="routeToEdit(Account.id)"
             icon="pi pi-pencil"
-            [rounded]="true"
+            [rounded]="true" 
             [enableText]="true"
             severity="secondary"
           >
@@ -74,3 +107,4 @@
     </lib-data-table>
   </div>
 </div>
+ 
