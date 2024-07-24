@@ -34,13 +34,11 @@ export class CompanyContactComponent implements OnInit {
     this.Subscribe();
   }
 
-
   onSubmit() {
-
     if (this.editMode) {
       if (!this.formsService.validForm(this.companyContactForm, false)) return;
       const request: CompanyContactDto = this.companyContactForm.value;
-      this.companyService.companyName.next(this.companyContactForm.value.companyName)
+      this.companyService.companyName.next(this.companyContactForm.value.companyName);
       request.id = this.companyId;
       this.companyService.saveCompanyContact(request);
       this.editMode = false;
@@ -54,18 +52,25 @@ export class CompanyContactComponent implements OnInit {
       companyName: new FormControl(null),
       companyLogo: new FormControl(null),
       mobileNumberCode: new FormControl(null),
-      mobileNumber: new FormControl(null, [customValidators.hasSpaces,customValidators.noSpecialChars]),
-      companyEmail: new FormControl(null, [ customValidators.email]),
-      companyAddress: new FormControl(),
-      contactPersonal: new FormControl(null,[customValidators.hasSpaces,customValidators.noSpecialChars]),
-      contactPersonalPosition: new FormControl(),
-      contactPersonalEmail: new FormControl(null, [
-        customValidators.email,
+      mobileNumber: new FormControl(null, [
+        customValidators.hasSpaces,
+        customValidators.noSpecialChars,
+        customValidators.noAlphabeticCharacter,
       ]),
+      companyEmail: new FormControl(null, [customValidators.email]),
+      companyAddress: new FormControl(),
+      contactPersonal: new FormControl(null, [
+        customValidators.hasSpaces,
+        customValidators.noSpecialChars,
+      ]),
+      contactPersonalPosition: new FormControl(),
+      contactPersonalEmail: new FormControl(null, [customValidators.email]),
       contactPersonalMobileNumberCode: new FormControl(null),
       contactPersonalMobileNumber: new FormControl(null, [
         customValidators.hasSpaces,
-        customValidators.noSpecialChars
+        customValidators.noSpecialChars,
+        customValidators.noAlphabeticCharacter,
+
       ]),
     });
   }

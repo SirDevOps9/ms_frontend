@@ -34,8 +34,10 @@
     "zeroNotAllowed": "الصفر غير مسموح به",
     "invalidBirthDate": "لا يمكن أن يكون تاريخ الميلاد في المستقبل",
     "onlyLetters": "يُسمح فقط بالحروف.",
-    "invalidage":"عمر غير مسموح",
-    "debitAndCreditZero":"لا يمكن أن يكون المدين والمدان صفراً",
-    "ageAbove": "يجب أن يكون عمرك على الأقل {{age}} عامًا."
+    "invalidage": "عمر غير مسموح",
+    "debitAndCreditZero": "لا يمكن أن يكون المدين والمدان صفراً",
+    "ageAbove": "يجب أن يكون عمرك على الأقل {{age}} عامًا.",
+    "nonNegativeNumbers": "يجب ان يكون رقما موجبا",
+    "noAlphabeticCharacter": "يجب أن لا يحتوي الحقل على أحرف أبجدية."
   }
 }

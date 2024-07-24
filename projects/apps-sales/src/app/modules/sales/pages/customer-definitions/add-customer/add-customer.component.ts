@@ -46,7 +46,7 @@ export class AddCustomerComponent implements OnInit {
     this.addCustomerForm = fb.group({
       code: new FormControl(null),
       photo: new FormControl(null),
-      name: new FormControl('', customValidators.required),
+      name: new FormControl('',[customValidators.required] ,),
       birthdate: new FormControl(null, [customValidators.invalidBirthDate]),
       categoryId: new FormControl(null),
       tagIds: new FormControl(null),
@@ -55,24 +55,33 @@ export class AddCustomerComponent implements OnInit {
         contactMobile: new FormControl(null, [
           customValidators.hasSpaces,
           customValidators.noSpecialChars,
+          customValidators.noAlphabeticCharacter
         ]),
         ContactMobileCode: new FormControl(null),
         contactPhone: new FormControl(null, [
           customValidators.hasSpaces,
           customValidators.noSpecialChars,
+          customValidators.noAlphabeticCharacter
         ]),
         contactWebsite: new FormControl(null),
-        contactFax: new FormControl(null),
+        contactFax:  new FormControl(null, [
+          customValidators.hasSpaces,
+          customValidators.noSpecialChars,
+          customValidators.noAlphabeticCharacter,
+        ]),
         contactEmail: new FormControl(null, [customValidators.email]),
 
         contactPersonName: new FormControl(null),
         contactPersonMobile: new FormControl(null, [
           customValidators.hasSpaces,
           customValidators.noSpecialChars,
+          customValidators.noAlphabeticCharacter
         ]),
         contactPersonPhone: new FormControl(null, [
           customValidators.hasSpaces,
           customValidators.noSpecialChars,
+          customValidators.noAlphabeticCharacter
+
         ]),
         ContactPersonMobileCode: new FormControl(null),
       }),
