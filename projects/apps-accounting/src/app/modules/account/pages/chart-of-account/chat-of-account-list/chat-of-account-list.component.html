@@ -59,6 +59,15 @@
             />
           </span>
         </div>
+        <div>
+          <lib-export
+            (exportClick)="exportAccountsData($event)"
+            [exportData]="mappedExportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Accounts'"
+          >
+          </lib-export>
+        </div>
         <!-- <div class="flex justify-content-end gap-3">
           <button class="primary" (click)="navigateToAdd()">
             <span class="pi pi-plus"></span>
@@ -78,17 +87,7 @@
     
       </div>
     </ng-container>
-      <ng-container caption>
-        <div>
-          <lib-export
-            (exportClick)="exportAccountsData($event)"
-            [exportData]="mappedExportData"
-            [exportColumns]="exportColumns"
-            [ExportName]="'Accounts'"
-          >
-          </lib-export>
-        </div>
-      </ng-container>
+      
       <ng-template #userCol let-Account>
         <div class="actions flex align-items-center">
           <lib-button
