@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { lookupDto, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { AccountService } from '../../../account.service';
-import { AccountNature, AccountDto } from '../../../models';
+import { AccountNature, AccountDto, ExportAccountsDto } from '../../../models';
 
 @Component({
   selector: 'app-chat-of-account-list',
@@ -12,12 +12,46 @@ export class ChatOfAccountListComponent implements OnInit {
   tableData: AccountDto[];
   currentPageInfo: PageInfoResult;
   accountNature= AccountNature;
+
+  mappedExportData: AccountDto[];
+
   exportColumns: lookupDto[];
-  exportData: AccountDto[];
+  exportData: ExportAccountsDto[];
+
   constructor(private routerService: RouterService, private accountService: AccountService) {}
+
+  cols: any[] = [
+   
+    {
+      field: 'Id',
+      header: 'id',
+    },
+
+    {
+      field: 'Account Code',
+      header: 'accountCode',
+    },
+    {
+      field: 'Nature',
+      header: 'natureId',
+    },
+    {
+      field: 'accountTypeName',
+      header: 'Account Type',
+    },
+    {
+      field: 'accountSectionName',
+      header: 'Account Section',
+    }
+  ];
+
 
   ngOnInit() {
     this.initChartOfAccountData();
+    this.exportColumns = this.cols.map((col) => ({
+      id: col.header,
+      name: col.field,
+    }));
   }
 
   initChartOfAccountData() {
@@ -26,6 +60,11 @@ export class ChatOfAccountListComponent implements OnInit {
     this.accountService.accountsList.subscribe({
       next: (ChartOfAccountList) => {
         this.tableData = ChartOfAccountList;
+        this.mappedExportData = this.tableData.map(elem=>{
+          let {currencyId, ...args} = elem
+          return args
+          
+        })
       },
     });
 

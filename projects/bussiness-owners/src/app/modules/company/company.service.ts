@@ -16,6 +16,7 @@ import {
   editBranch,
   CompanyDto,
   UpdateCompanyHierarchyDto,
+  ExportBranchesDto,
 } from './models';
 import { ExportCompanyDto } from './models/export-company-dto';
 
@@ -35,7 +36,7 @@ export class CompanyService {
   private exportsCompaniesDataSource = new BehaviorSubject<ExportCompanyDto[]>([]);
   public exportsCompaniesDataSourceObservable = this.exportsCompaniesDataSource.asObservable();
 
-  private exportsBranchesDataSource = new BehaviorSubject<BranchDto[]>([]);
+  private exportsBranchesDataSource = new BehaviorSubject<ExportBranchesDto[]>([]);
   public exportsBranchesDataSourceObservable = this.exportsBranchesDataSource.asObservable();
 
   constructor(

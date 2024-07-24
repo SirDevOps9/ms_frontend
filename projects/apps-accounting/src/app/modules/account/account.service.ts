@@ -20,6 +20,7 @@ import {
   companyDropDownDto,
   CountryDto,
   ExportTaxDto,
+  ExportAccountsDto,
 } from './models';
 
 import { AccountTypeDropDownDto } from './models/accountTypeDropDownDto';
@@ -65,7 +66,7 @@ export class AccountService {
   public exportsTaxGroupDataSourceObservable = this.exportsTaxGroupDataSource.asObservable();
   private exportsTaxesDataSource = new BehaviorSubject<ExportTaxDto[]>([]);
   public exportsTaxesDataSourceObservable = this.exportsTaxesDataSource.asObservable();
-  private exportsAccountsDataSource = new BehaviorSubject<AccountDto[]>([]);
+  private exportsAccountsDataSource = new BehaviorSubject<ExportAccountsDto[]>([]);
   public exportsAccountsDataSourceObservable = this.exportsAccountsDataSource.asObservable();
   private exportsCostCentersDataSource = new BehaviorSubject<costCenterList[]>([]);
   public exportsCostCentersDataSourceObservable = this.exportsCostCentersDataSource.asObservable();

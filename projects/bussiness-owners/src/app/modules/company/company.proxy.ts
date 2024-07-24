@@ -10,7 +10,7 @@ import { CreateBranch } from './models/create-branch';
 import { editBranch } from './models/edit-branch';
 import { CompanyHierarchyDto } from './models/company-hierarchy-dto';
 import { UpdateCompanyHierarchyDto } from './models/update-company-hierarchy-dto';
-import { CompanyDto } from './models';
+import { CompanyDto, ExportBranchesDto } from './models';
 import { ExportCompanyDto } from './models/export-company-dto';
 
 @Injectable({
@@ -132,12 +132,12 @@ export class CompanyProxy {
 
   exportBranchesData(
     companyId: string
-  ): Observable<BranchDto[]> {
+  ): Observable<ExportBranchesDto[]> {
     let query = `Branch/Export?`;
 
       query += `companyId=${encodeURIComponent(companyId)}`;
     
-     return this.httpService.get<BranchDto[]>(query);
+     return this.httpService.get<ExportBranchesDto[]>(query);
   }
 
   constructor(private httpService: HttpService) {}

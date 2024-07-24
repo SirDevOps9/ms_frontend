@@ -27,6 +27,7 @@ import {
   companyDropDownDto,
   CountryDto,
   ExportTaxDto,
+  ExportAccountsDto,
 } from './models';
 import { TaxGroupDropDown } from './models/tax-group-drop-down';
 import { costLookup } from '../journal-entry/models';
@@ -198,12 +199,12 @@ export class AccountProxy {
   
   exportAccountsData(
     searchTerm: string | undefined
-  ): Observable<AccountDto[]> {
+  ): Observable<ExportAccountsDto[]> {
     let query = `ChartOfAccounts/Export?`;
     if (searchTerm) {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-     return this.httpService.get<AccountDto[]>(query);
+     return this.httpService.get<ExportAccountsDto[]>(query);
   }
 
   exportCostCentersData(
