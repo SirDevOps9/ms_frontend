@@ -21,48 +21,44 @@ export class CurrencyConversionComponent {
   modulelist: MenuModule[];
   searchTerm: string;
   ref: DynamicDialogRef;
-  exportColumns: lookupDto[];
+
   mappedExportData: CurrencyConversionDto[];
 
   exportData: ExportCurrencyConversionDto[];
 
-  columns: [
+  exportColumns: lookupDto[] = [
                    
     {
-      name: 'fromCurrencyName',
-      headerText: 'Currency Name',
+      id: 'fromCurrencyName',
+      name: 'Currency Name',
     },
     {
-      name: 'fromCurrencyRate',
-      headerText: 'Currency Rate',
+      id: 'fromCurrencyRate',
+      name: 'Currency Rate',
     },
   
     {
-      name: 'toCurrencyName',
-      headerText: 'To Currency',
+      id: 'toCurrencyName',
+      name: 'To Currency',
     },
     {
-      name: 'reversedRate',
-      headerText: 'Reversed Rate' ,
+      id: 'reversedRate',
+      name: 'Reversed Rate' ,
     },
     {
-      name: 'note',
-      headerText: 'Notes' ,
+      id: 'note',
+      name: 'Notes' ,
     },
 
     {
-      name: 'id',
-      headerText: 'Actions',
+      id: 'id',
+      name: 'Actions',
 
     },
   ]
   ngOnInit() {
     this.getCurrencyConversionList()
     this.getCurrencies()
-    this.exportColumns = this.columns?.map((col) => ({
-      id: col.headerText,
-      name: col.name,
-    }));
 
   }
   exportClick(e?: Event){

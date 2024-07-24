@@ -29,31 +29,30 @@ export class TaxDefinitionComponent implements OnInit {
 
   mappedExportData: TaxDto[];
 
-  exportColumns: lookupDto[];
   exportData: ExportTaxDto[];
 
-  cols: any[] = [
+  exportColumns: lookupDto[] = [
    
     {
-      field: 'Id',
-      header: 'code',
+      id: 'code',
+      name: 'Id',
     },
 
     {
-      field: 'Name',
-      header: 'name',
+      id: 'name',
+      name: 'Name',
     },
     {
-      field: 'Ratio',
-      header: 'ratio',
+      id: 'ratio',
+      name: 'Ratio',
     },
     {
-      field: 'Account',
-      header: 'accountName',
+      id: 'accountName',
+      name: 'Account',
     },
     {
-      field: 'Tax Group',
-      header: 'taxGroupName',
+      id: 'taxGroupName',
+      name: 'Tax Group',
     }
   ];
 
@@ -78,11 +77,6 @@ export class TaxDefinitionComponent implements OnInit {
       })
       console.log(this.mappedExportData )
     });
-
-    this.exportColumns = this.cols.map((col) => ({
-      id: col.header,
-      name: col.field,
-    }));
     this.accountService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });

@@ -3,5 +3,5 @@ export interface ExportTagDto {
     code: string;
     name: string;
     isActive: boolean;
-    moduleNames: string;
+    modules: string;
 }

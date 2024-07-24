@@ -17,8 +17,10 @@ export class TagListComponent implements OnInit {
   currentPageInfo: PageInfoResult;
   modulelist: MenuModule[];
   searchTerm: string;
-  exportColumns: lookupDto[];
-  exportData: ExportTagDto[];
+
+  mappedExportData: TagDto[];
+  exportData: ExportTagDto[]; 
+
   constructor(
     private routerService: RouterService,
     private generalSettingService: GeneralSettingService,
@@ -26,9 +28,33 @@ export class TagListComponent implements OnInit {
     private dialog: DialogService
   ) {}
 
+   exportColumns: lookupDto[] = [
+    {
+      id: 'id',
+      name: 'Id',
+    },
+    {
+      id: 'code',
+      name: 'Code',
+    },
+    {
+      id: 'name',
+      name: 'Name',
+    },
+    {
+      id: 'isActive',
+      name: 'Status',
+    },
+    {
+      id: 'modules',
+      name: 'Modules',
+    },
+  ];
   ngOnInit() {
+
     this.modulelist = this.layoutService.getModules();
     this.initTagData();
+
   }
 
   initTagData() {
@@ -39,6 +65,7 @@ export class TagListComponent implements OnInit {
         this.tableData = res;
       },
     });
+
 
     this.generalSettingService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
@@ -102,6 +129,7 @@ export class TagListComponent implements OnInit {
     this.generalSettingService.exportTagData(searchTerm);
     this.generalSettingService.exportsTagDataSourceObservable.subscribe((res) => {
       this.exportData = res;
+
     });
   }
 

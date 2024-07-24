@@ -11,47 +11,40 @@ import { AccountNature, AccountDto, ExportAccountsDto } from '../../../models';
 export class ChatOfAccountListComponent implements OnInit {
   tableData: AccountDto[];
   currentPageInfo: PageInfoResult;
-  accountNature= AccountNature;
+  accountNature = AccountNature;
 
   mappedExportData: AccountDto[];
 
-  exportColumns: lookupDto[];
   exportData: ExportAccountsDto[];
 
   constructor(private routerService: RouterService, private accountService: AccountService) {}
 
-  cols: any[] = [
-   
+  exportColumns: lookupDto[] = [
     {
-      field: 'Id',
-      header: 'id',
+      id: 'id',
+      name: 'Id',
     },
 
     {
-      field: 'Account Code',
-      header: 'accountCode',
+      id: 'accountCode',
+      name: 'Account Code',
     },
     {
-      field: 'Nature',
-      header: 'natureId',
+      id: 'natureId',
+      name: 'Nature',
     },
     {
-      field: 'accountTypeName',
-      header: 'Account Type',
+      id: 'Account Type',
+      name: 'accountTypeName',
     },
     {
-      field: 'accountSectionName',
-      header: 'Account Section',
-    }
+      id: 'Account Section',
+      name: 'accountSectionName',
+    },
   ];
-
 
   ngOnInit() {
     this.initChartOfAccountData();
-    this.exportColumns = this.cols.map((col) => ({
-      id: col.header,
-      name: col.field,
-    }));
   }
 
   initChartOfAccountData() {
@@ -60,11 +53,10 @@ export class ChatOfAccountListComponent implements OnInit {
     this.accountService.accountsList.subscribe({
       next: (ChartOfAccountList) => {
         this.tableData = ChartOfAccountList;
-        this.mappedExportData = this.tableData.map(elem=>{
-          let {currencyId, ...args} = elem
-          return args
-          
-        })
+        this.mappedExportData = this.tableData.map((elem) => {
+          let { currencyId, ...args } = elem;
+          return args;
+        });
       },
     });
 

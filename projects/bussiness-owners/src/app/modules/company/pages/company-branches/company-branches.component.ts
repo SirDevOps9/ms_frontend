@@ -17,41 +17,41 @@ export class CompanyBranchesComponent implements OnInit {
 
   mappedExportData: BranchDto[];
 
-  exportColumns: lookupDto[];
+
   exportData: ExportBranchesDto[];
 
   //@Input() companyId: string;
 
-  cols: any[] = [
+  exportColumns: lookupDto[] = [
    
     {
-      field: 'Id',
-      header: 'code',
+      id: 'code',
+      name: 'Id',
     },
 
     {
-      field: 'Name',
-      header: 'branchName',
+      id: 'branchName',
+      name: 'Name',
     },
     {
-      field: 'Branch Region',
-      header: 'branchRegion',
+      id: 'branchRegion',
+      name: 'Branch Region',
     },
     {
-      field: 'Branch City',
-      header: 'branchCity',
+      id: 'branchCity',
+      name: 'Branch City',
     },
     {
-      field: 'Branch Address',
-      header: 'branchAddress',
+      id: 'branchAddress',
+      name: 'Branch Address',
     },
     {
-      field: 'Mobile Number',
-      header: 'mobileNumber',
+      id: 'mobileNumber',
+      name: 'Mobile Number',
     },
     {
-      field: 'Branch Email',
-      header: 'branchEmail',
+      id: 'branchEmail',
+      name: 'Branch Email',
     }
   ];
 
@@ -63,10 +63,6 @@ export class CompanyBranchesComponent implements OnInit {
 
   ngOnInit() {
     this.initBranchData();
-    this.exportColumns = this.cols.map((col) => ({
-      id: col.header,
-      name: col.field,
-    }));
   }
 
   get companyId(): string {
