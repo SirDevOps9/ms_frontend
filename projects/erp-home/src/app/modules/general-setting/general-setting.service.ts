@@ -439,7 +439,10 @@ export class GeneralSettingService {
             this.languageService.transalte('tag.success'),
             this.languageService.transalte('tag.success')
           );
+          this.getTagList("", new PageInfo())
+
           this.loaderService.hide();
+          
           return res;
         },
         error: (err) => {
