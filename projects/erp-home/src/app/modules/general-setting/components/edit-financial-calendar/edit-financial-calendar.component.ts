@@ -64,14 +64,13 @@ export class EditFinancialCalendarComponent implements OnInit {
         this.tableList = this.generateDateArray(res.fromDate, res.toDate);
       }
     });
-    this.generalSettingService.GetFinancialPeriodLastYearDate();
-    this.generalSettingService.FinancialPeriodLastYearDateObservable.subscribe((res) => {
-      console.log(res);
-      if (res) {
-        this.formGroup.get('fromDate')?.patchValue(new Date(res));
-        this.disablrFromDateFlag = true;
-      }
-    });
+    // this.generalSettingService.GetFinancialPeriodLastYearDate();
+    // this.generalSettingService.FinancialPeriodLastYearDateObservable.subscribe((res) => {
+    //   if (res) {
+    //     this.formGroup.get('fromDate')?.patchValue(new Date(res));
+    //     this.disablrFromDateFlag = true;
+    //   }
+    // });
 
     this.generalSettingService.GetFinancialPeriodByID(this.id);
     this.generalSettingService.FinancialPeriodDataByIDObservable.subscribe(
@@ -86,6 +85,7 @@ export class EditFinancialCalendarComponent implements OnInit {
             fromDate: res.fromDate ? new Date(res.fromDate) : null,
             toDate: res.toDate ? new Date(res.toDate) : null,
           });
+          this.disablrFromDateFlag = true;
           this.tableData = res.periods;
           const months = [
             'Jan',
