@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
-import { PageInfoResult, MenuModule, RouterService, PageInfo } from 'shared-lib';
+import { PageInfoResult, MenuModule, RouterService, PageInfo, lookupDto, LanguageService } from 'shared-lib';
 
 import { GeneralSettingService } from '../../../general-setting.service';
 import { financialCalendar } from '../../../models';
 import { AuthService } from 'microtec-auth-lib';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-financial-calendar-list',
@@ -18,7 +19,10 @@ export class FinancialCalendarListComponent implements OnInit {
     private dialog: DialogService,
     private accountService: AccountService,
     private generalSettingService: GeneralSettingService,
-    private routerService: RouterService
+    private routerService: RouterService,
+    private titleService: Title,
+    private languageService : LanguageService
+
   ) {}
 
   tableData: financialCalendar[];
@@ -27,8 +31,14 @@ export class FinancialCalendarListComponent implements OnInit {
   modulelist: MenuModule[];
   searchTerm: string;
 
+  exportColumns: lookupDto[];
+  exportData: financialCalendar[];
+
   ngOnInit() {
     this.initFinancialCalendarData();
+    this.titleService.setTitle(
+      this.languageService.transalte('financialCalendar.financialCalendar')
+    );
   }
 
   routeToAdd() {
@@ -74,6 +84,16 @@ export class FinancialCalendarListComponent implements OnInit {
     });
   }
 
+  exportClick(e?: Event){
+    this.exportcurrencyData(this.searchTerm);
+    
+  }
+  exportcurrencyData(searchTerm: string) {
+    this.generalSettingService.exportcurrencyData(searchTerm);
+    this.generalSettingService.exportsFinancialCalendarDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
+  }
   onDelete(id: number) {
     // this.accountService.deleteTax(id);
   }

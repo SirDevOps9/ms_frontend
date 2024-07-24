@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
-import { RouterService, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
+import { RouterService, PageInfoResult, MenuModule, PageInfo, lookupDto } from 'shared-lib';
 import { PurchaseService } from '../../../purchase.service';
 import { VendorCategoryDto } from '../../../models';
 
@@ -26,6 +26,9 @@ export class VendorCategoryListComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
+
+  exportColumns: lookupDto[];
+  exportData: VendorCategoryDto[];
  
   ngOnInit() {
 
@@ -88,5 +91,10 @@ export class VendorCategoryListComponent implements OnInit {
     this.purchaseService.deleteVendorCategory(id);
   }
 
- 
+  exportVendorCategoriesData(searchTerm: string) {
+    this.purchaseService.exportVendorCategoriesData(searchTerm);
+    this.purchaseService.exportsVendorCateogiesDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
+  }
 }

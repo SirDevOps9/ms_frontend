@@ -1,5 +1,5 @@
-<lib-page-content [title]="'tag.taglist' | translate" [subTitle]="'tag.taglist' | translate">
-    <div>
+<lib-page-content [title]="'financialCalendar.financialCalendar' | translate" [subTitle]="'financialCalendar.financialCalendar' | translate">
+  <div>
         <lib-bread-crumb></lib-bread-crumb>
         <div class="user_page">
           <lib-data-table
@@ -55,16 +55,26 @@
                 <div>
                   <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
-                    <input pInputText type="text" placeholder="Search..." (keyup)="onSearchChange($event)" />
+                    <input pInputText type="text" placeholder="{{ 'financialCalendar.Search' | translate }}" (keyup)="onSearchChange($event)" />
                   </span>
                 </div>
       
             
                 <div>
-                     <lib-button pRipple className="addToList" label="Add" (onClick)="routeToAdd()">
+                     <lib-button pRipple className="addToList" label="{{ 'financialCalendar.add' | translate }}" (onClick)="routeToAdd()">
                 </lib-button> 
-                  
+
                 </div>
+                <div>
+                  <lib-export
+                    (exportClick)="exportClick($event)"
+                    [exportData]="tableData"
+                    [exportColumns]="exportColumns"
+                    [ExportName]="'Financial Calendar'"
+                  >
+                  </lib-export>
+                </div>
+
               </div>
             </ng-container>
             <ng-template #status let-status>

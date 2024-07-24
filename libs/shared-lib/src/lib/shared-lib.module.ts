@@ -52,6 +52,8 @@ import { UploadMultipeFilesComponent } from './form-components/upload-multipe-fi
 import { CalendarComponent } from './form-components/calendar/calendar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ExportComponent } from './components/export/export.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { ChangeColumnComponent } from './components/change-column/change-column.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +90,8 @@ import { ExportComponent } from './components/export/export.component';
     CalendarComponent,
     TablePrintComponent,
     TabviewComponent,
-    ExportComponent
+    ExportComponent,
+    ChangeColumnComponent
   ],
   imports: [
     HttpClientModule,
@@ -104,6 +107,7 @@ import { ExportComponent } from './components/export/export.component';
     TreeTableModule,
     TreeModule,
     ProgressSpinnerModule,
+    PdfViewerModule
   ],
   exports: [
     GetLookupPipe,
@@ -146,7 +150,9 @@ import { ExportComponent } from './components/export/export.component';
     UploadMultipeFilesComponent,
     TablePrintComponent,
     TabviewComponent,
-    ExportComponent
+    ExportComponent,
+    PdfViewerModule,
+    ChangeColumnComponent
   ],
 })
 export class SharedLibModule {}

@@ -36,7 +36,7 @@
     "onlyLetters": "يُسمح فقط بالحروف.",
     "invalidage":"عمر غير مسموح",
     "ageAbove": "يجب أن يكون عمرك على الأقل {{age}} عامًا.",
-    "nonNegativeNumbers": "لا يمكن أن يكون رقماً سالباً"
+    "nonNegativeNumbers": "يجب ان يكون رقما موجبا"
 
   }
 }

@@ -52,21 +52,22 @@
           <ng-container caption>
             <div class="group flex justify-content-between">
               <div class="flex gap-2">
-                  <lib-text-input  [(ngModel)]="searchTerm" type="text" [placeholder]="'Search'" (keyUp)="onSearchChange($event)" [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">                   
+                  <lib-text-input  [(ngModel)]="searchTerm" type="text" placeholder="{{ 'currencyDefinition.Search' | translate }}" (keyUp)="onSearchChange($event)" [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">                   
                   </lib-text-input>          
 
               </div>
     
           
-              <div class="flex gap-2">
+              <!--   <div class="flex gap-2">
                   <div>
                   
                       
-                        <lib-button-micro title="Add New" nameClass="save" iconName="pi pi-plus-circle" (click)="addNew()" >
+                        <lib-button-micro title="{{ 'currencyDefinition.AddNew' | translate }}" nameClass="save" iconName="pi pi-plus-circle" (click)="addNew()" >
                         </lib-button-micro>
 
 
                   </div>
+                -->
                  
                   <div>
                     <lib-export  

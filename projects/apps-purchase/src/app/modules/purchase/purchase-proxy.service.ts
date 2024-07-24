@@ -77,10 +77,10 @@ export class PurchaseProxyService {
   }
 
   editVendorDefinition(vendor: EditVendorCommand): Observable<any> {
-    return this.httpService.put(`Vendor`, vendor);
+    return this.httpService.put(`Vendor`, vendor, false);
   }
   addNewVendorDefinition(vendor: AddVendorCommand): Observable<AddVendorCommand> {
-    return this.httpService.post(`Vendor`, vendor);
+    return this.httpService.post(`Vendor`, vendor, false);
   }
 
   getCities(countryCode: string): Observable<CityDto[]> {
@@ -99,5 +99,25 @@ export class PurchaseProxyService {
 
   getTags(): Observable<TagDropDownDto[]> {
     return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown`);
+  }
+
+  exportVendorCategoriesData(
+    searchTerm: string | undefined
+  ): Observable<VendorCategoryDto[]> {
+    let query = `VendorCategory/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<VendorCategoryDto[]>(query);
+  }
+
+  exportVendorsData(
+    searchTerm: string | undefined
+  ): Observable<vendorDefinitionDto[]> {
+    let query = `vendor/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<vendorDefinitionDto[]>(query);
   }
 }

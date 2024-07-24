@@ -84,6 +84,14 @@
                 </lib-button> 
                   
                 </div>
+
+                <lib-export
+                (exportClick)="exportVendorCategoriesData($event)"
+                [exportData]="tableData"
+                [exportColumns]="exportColumns"
+                [ExportName]="'Vendor Cateogries'"
+              >
+              </lib-export>
               </div>
             </ng-container>
         

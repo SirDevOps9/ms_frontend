@@ -95,7 +95,7 @@
       }"
     >
       <ng-container caption>
-        <div class="group">
+        <div class="flex justify-content-between">
           <div>
             
               <lib-text-input   type="text" [placeholder]="'Search'" (keyUp)="onSearchChange($event)" [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">                   
@@ -104,16 +104,23 @@
 
           <!-- <lib-button pRipple className="add_new" label="Add New" icon="pi pi-plus">
           </lib-button> -->
-          <div>
+          <div class="flex gap-1">
             <button class="add_new" (click)="routeToAdd()">
               <span class="pi pi-plus"></span>
               Add New
             </button>
-            <button class="add_new export">
-              <span class="pi pi-file"></span>
-              Export
-            </button>
+            
+              <lib-export
+                (exportClick)="exportJournalEntriesData($event)"
+                [exportData]="tableData"
+                [exportColumns]="exportColumns"
+                [ExportName]="'Journal Entries'"
+              >
+              </lib-export>
+          
           </div>
+
+       
         </div>
       </ng-container>
       <ng-template #userCol let-journal>

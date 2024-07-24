@@ -57,6 +57,9 @@ export class BreadcrumbLabel {
     static CURRENCY_DEFINITION_LIST ='Currency Definition List';
     static CURRENCY_CONVERSION ='Currency Conversion';
     static TREASURY_LIST ='Treasury';
+    static BANK_LIST ='Bank Definition';
+    static BANK_LIST_ADD ='Add Bank Definition';
+    static BANK_LIST_EDIT ='Edit Bank Definition';
    
 
     

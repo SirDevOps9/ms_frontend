@@ -15,6 +15,7 @@ import {
   CurrencyDto,
   TagDropDownDto,
 } from '../general-setting/models';
+import { CustomerDefinitionDto } from './models/customerDefinitionDto';
 
 @Injectable({
   providedIn: 'root',
@@ -60,10 +61,10 @@ export class SalesProxyService {
   getcustomerDefinition(
     searchTerm: string,
     pageInfo: PageInfo
-  ): Observable<PaginationVm<CustomerCategoryDto>> {
+  ): Observable<PaginationVm<CustomerDefinitionDto>> {
     const url = `Customer?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
 
-    return this.httpService.get<PaginationVm<CustomerCategoryDto>>(url);
+    return this.httpService.get<PaginationVm<CustomerDefinitionDto>>(url);
   }
   deleteCustomerDefinition(id: number): Observable<boolean> {
     return this.httpService.delete<boolean>(`Customer/${id}`);
@@ -71,12 +72,12 @@ export class SalesProxyService {
   addNewCustomerDefinition(
     customer: AddCustomerDefinitionDto
   ): Observable<AddCustomerDefinitionDto> {
-    return this.httpService.post(`Customer`, customer);
+    return this.httpService.post(`Customer`, customer, false);
   }
   editCustomerDefinition(
     customer: EditCustomerDefintionsDto
   ): Observable<EditCustomerDefintionsDto> {
-    return this.httpService.put(`Customer`, customer);
+    return this.httpService.put(`Customer`, customer, false);
   }
   getCustomerDefinitionByID(id: string): Observable<AddCustomerDefinitionDto> {
     return this.httpService.get(`Customer/${id}`);
@@ -107,5 +108,25 @@ export class SalesProxyService {
 
   getTags(): Observable<TagDropDownDto[]> {
     return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown`);
+  }
+
+  exportCustomerCategoriesData(
+    searchTerm: string | undefined
+  ): Observable<CustomerCategoryDto[]> {
+    let query = `CustomerCategory/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<CustomerCategoryDto[]>(query);
+  }
+
+  exportCustomersData(
+    searchTerm: string | undefined
+  ): Observable<CustomerDefinitionDto[]> {
+    let query = `Customer/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<CustomerDefinitionDto[]>(query);
   }
 }

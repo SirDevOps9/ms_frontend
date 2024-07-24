@@ -29,7 +29,7 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
   @Input() readOnly: boolean;
   @Input() disabled: boolean;
   @Input() inputContainerClass: string;
-  @Input() placeholder: string=" Select";
+  @Input() placeholder: string = ' Select';
   @Input() maxLength: string;
   @Input() id: string;
   @Input() className: string;
@@ -37,10 +37,9 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
   @Input() data_testid: string = '';
   @Input() labelTest: any;
 
-  
   @Output() valueChanged = new EventEmitter<string | []>();
 
-  value: string = '';
+  value: string | null = '';
   onChange = (value: any) => {};
   onTouched = () => {};
 
@@ -50,12 +49,13 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
       this.value = value;
     } else {
       this.selectedValue = [];
-      this.value = '';
+      this.value = null;
     }
   }
 
   onOptionRemoved(removedOption: any) {
     this.selectedValue = [];
+    this.value = null;
     this.valueChanged.emit([]);
     this.onChange(this.value);
     this.onTouched();
@@ -83,7 +83,7 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
   }
 
   change(event: any) {
-    console.log(event.value)
+    // console.log(event.value);
     this.onChange(event.value);
     this.valueChanged.emit(event.value);
   }
@@ -93,13 +93,11 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
       this.controlDir.valueAccessor = this;
     }
   }
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     if (this.controlDir) {
       setTimeout(() => {
-        this.labelTest=this.controlDir.name
+        this.labelTest = this.controlDir.name;
       }, 500);
-      
-      
     }
   }
 }
