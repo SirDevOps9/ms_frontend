@@ -24,3 +24,5 @@ export * from './editCustomerDefinitionsDto';
 export * from './currencyDefinitionDto';
 export * from './currencyListDto';
 export * from './currencyConversionDto';
+export * from './export-currency-conversion-dto';
+export * from './export-tag-dto';

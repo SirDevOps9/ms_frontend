@@ -11,4 +11,5 @@ export * from './update-company-hierarchy-dto';
 export * from './subsidiary-dto';
 export * from './company-type';
 export * from './comany-data-dto';
+export * from './export-branches-dto';
 export * from './sharedcompanyenums';

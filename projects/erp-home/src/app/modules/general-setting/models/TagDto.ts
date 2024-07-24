@@ -3,6 +3,6 @@ export interface TagDto {
     code: string;
     name: string;
     isActive: boolean;
-    modulesId: number[];
+    modulesId?: number[];
   }
   

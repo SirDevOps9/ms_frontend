@@ -15,7 +15,7 @@ import { TagDto } from '../../models';
 export class TagEditComponent implements OnInit {
   tagForm: FormGroup;
   modulelist: MenuModule[];
-  selectedModules:  number[] = [];
+  selectedModules?:  number[] = [];
   get Id(): string {
     return this.config?.data?.id;
   }

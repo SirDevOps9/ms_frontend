@@ -8,6 +8,6 @@ export interface AccountDto {
   natureId: AccountNature;
   AccountTypeName: string;
   accountSectionName: string;
-  currencyId: number;
+  currencyId?: number;
   costCenterConfig : string
 }

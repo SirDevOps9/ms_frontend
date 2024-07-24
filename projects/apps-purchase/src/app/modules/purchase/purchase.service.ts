@@ -78,6 +78,12 @@ export class PurchaseService {
   public countries = this.countryDataSource.asObservable();
   public tags = this.tagsDataSource.asObservable();
 
+  private exportsVendorCateogiesDataSource = new BehaviorSubject<VendorCategoryDto[]>([]);
+  public exportsVendorCateogiesDataSourceObservable = this.exportsVendorCateogiesDataSource.asObservable();
+
+  private exportsVendorsDataSource = new BehaviorSubject<vendorDefinitionDto[]>([]);
+  public exportsVendorsDataSourceObservable = this.exportsVendorsDataSource.asObservable();
+
   getVendorCategory(searchTerm: string, pageInfo: PageInfo) {
     this.purchaseProxy.getVendorCategory(searchTerm, pageInfo).subscribe({
       next: (res) => {
@@ -262,6 +268,20 @@ export class PurchaseService {
   getTags() {
     this.purchaseProxy.getTags().subscribe((response) => {
       this.tagsDataSource.next(response);
+    });
+  }
+  exportVendorCategoriesData(searchTerm:string | undefined) {
+    this.purchaseProxy.exportVendorCategoriesData(searchTerm).subscribe({
+      next: (res) => {
+         this.exportsVendorCateogiesDataSource.next(res);
+      },
+    });
+  }
+  exportVendorsData(searchTerm:string | undefined) {
+    this.purchaseProxy.exportVendorsData(searchTerm).subscribe({
+      next: (res) => {
+         this.exportsVendorsDataSource.next(res);
+      },
     });
   }
 }

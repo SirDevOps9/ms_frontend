@@ -22,6 +22,7 @@ import { SalesProxyService } from './sales-proxy.service';
 import { BehaviorSubject } from 'rxjs';
 import { CategoryDropdownDto } from './models/CategoryDropdownDto';
 import { TagDropDownDto } from 'projects/apps-accounting/src/app/modules/account/models/tagDropDownDto';
+import { CustomerDefinitionDto } from './models/customerDefinitionDto';
 import { FormGroup } from '@angular/forms';
 
 @Injectable({
@@ -35,7 +36,7 @@ export class SalesService {
   private addCustomerCategoryData = new BehaviorSubject<AddCustomerCategoryDto>(
     {} as AddCustomerCategoryDto
   );
-  private customerDefinitionDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
+  private customerDefinitionDataSource = new BehaviorSubject<CustomerDefinitionDto[]>([]);
   private addCustomerDefinitionRes = new BehaviorSubject<AddCustomerDefinitionDto>(
     {} as AddCustomerDefinitionDto
   );
@@ -76,6 +77,13 @@ export class SalesService {
 
   public countries = this.countryDataSource.asObservable();
   public tags = this.tagsDataSource.asObservable();
+
+  private exportsCustomerCateogiesDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
+  public exportsCustomerCateogiesDataSourceObservable = this.exportsCustomerCateogiesDataSource.asObservable();
+
+  private exportsCustomersDataSource = new BehaviorSubject<CustomerDefinitionDto[]>([]);
+  public exportsCustomersDataSourceObservable = this.exportsCustomersDataSource.asObservable();
+
 
   constructor(
     private loaderService: LoaderService,
@@ -274,5 +282,20 @@ export class SalesService {
         },
       });
     }
+  }
+
+  exportCustomerCategoriesData(searchTerm:string | undefined) {
+    this.salesProxy.exportCustomerCategoriesData(searchTerm).subscribe({
+      next: (res) => {
+         this.exportsCustomerCateogiesDataSource.next(res);
+      },
+    });
+  }
+  exportCustomersData(searchTerm:string | undefined) {
+    this.salesProxy.exportCustomersData(searchTerm).subscribe({
+      next: (res) => {
+         this.exportsCustomersDataSource.next(res);
+      },
+    });
   }
 }
