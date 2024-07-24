@@ -292,10 +292,13 @@
     }
   },
   "ChartOfAccounts": {
+    "main" :"Main",
     "name": "Name",
     "nameEn": "English Name",
     "ParentAccount": "Parent Account",
+    "parentName" : "Parent Name",
     "Account": "Account",
+    "details" :"Details",
     "ParentAccountCode": "Parent Account Code",
     "AccountCode": "Account Code",
     "ParentLevel": "Parent Level",
