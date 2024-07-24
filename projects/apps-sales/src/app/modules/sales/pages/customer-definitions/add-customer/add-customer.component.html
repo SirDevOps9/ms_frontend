@@ -82,7 +82,7 @@
                                     optionLabel="name"
                                   >
                                   </lib-select>
-                                    <lib-field-validations>
+                                    <lib-field-validations [appControl]="addCustomerForm.controls['categoryId']">
         
                                     </lib-field-validations>
                                 </lib-form-group>
@@ -105,7 +105,7 @@
                                 >
 
                                 </lib-multi-select>
-                                    <lib-field-validations>
+                                    <lib-field-validations [appControl]="addCustomerForm.controls['tagIds']">
         
                                     </lib-field-validations>
                                 </lib-form-group>
@@ -121,7 +121,7 @@
                                   <lib-calendar
                                   formControlName="birthdate"
                                   ></lib-calendar>
-                                    <lib-field-validations>
+                                    <lib-field-validations [appControl]="addCustomerForm.controls['birthdate']">
         
                                     </lib-field-validations>
                                 </lib-form-group>
