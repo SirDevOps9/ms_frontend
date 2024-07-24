@@ -62,6 +62,8 @@ export class CompanyContactComponent implements OnInit {
       contactPersonal: new FormControl(null, [
         customValidators.hasSpaces,
         customValidators.noSpecialChars,
+        customValidators.noAlphabeticCharacter,
+
       ]),
       contactPersonalPosition: new FormControl(),
       contactPersonalEmail: new FormControl(null, [customValidators.email]),
