@@ -13,7 +13,7 @@ export const environment: IEnvironment = {
     redirectUrl: window.location.origin + '/erp/login-redirect',
     logoutRedirectUri: window.location.origin + '/erp/logout-redirect',
     scopes: 'subdomain',
-    state: window.location.origin + '/erp/',
+    state: window.location.origin + '/sales/',
   },
   AttachmentServiceConfig: {
     AttachmentServiceUrl: 'http://localhost:2030',

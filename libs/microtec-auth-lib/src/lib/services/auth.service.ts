@@ -71,7 +71,12 @@ export class AuthService {
         if (state.includes('logout-redirect')) {
           this.router.navigate(['/']);
         } else {
-          location.href = state;
+          if (state == '' || state == '/') {
+            alert(this.environmentService.AuthConfiguration!.state!);
+            location.href = this.environmentService.AuthConfiguration!.state!;
+          } else {
+            location.href = state;
+          }
         }
       },
     });

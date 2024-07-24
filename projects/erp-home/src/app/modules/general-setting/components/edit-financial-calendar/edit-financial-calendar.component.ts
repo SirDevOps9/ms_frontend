@@ -3,7 +3,8 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { GeneralSettingService } from '../../general-setting.service';
 import { ActivatedRoute } from '@angular/router';
 import { editFinancialCalndar } from '../../models';
-import { FormsService, customValidators } from 'shared-lib';
+import { FormsService, LanguageService, customValidators } from 'shared-lib';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-financial-calendar',
@@ -11,11 +12,14 @@ import { FormsService, customValidators } from 'shared-lib';
   styleUrl: './edit-financial-calendar.component.scss',
 })
 export class EditFinancialCalendarComponent implements OnInit {
+  periodIDS: any;
   constructor(
     private fb: FormBuilder,
     private generalSettingService: GeneralSettingService,
     private route: ActivatedRoute,
-    private formsService: FormsService
+    private formsService: FormsService,
+    private titleService: Title,
+    private languageService : LanguageService
   ) {
     this.generateYearsList();
   }
@@ -33,6 +37,9 @@ export class EditFinancialCalendarComponent implements OnInit {
   FinancialPeriodData: editFinancialCalndar;
   id: number = this.route.snapshot.params['id'];
   ngOnInit(): void {
+    this.titleService.setTitle(
+      this.languageService.transalte('financialCalendar.editfinancialCalendar')
+    );
     this.formGroup = this.fb.group({
       name: new FormControl('', customValidators.required),
       year: 0,
@@ -47,22 +54,23 @@ export class EditFinancialCalendarComponent implements OnInit {
     });
     this.formGroup.valueChanges.subscribe((res) => {
       if (res.fromDate) {
+
         this.minDateTo = new Date(res.fromDate);
       }
       // this.maxDatefrom = new Date(res.toDate)
       //   this.minDateTo = res.fromDate ? new Date(res.fromDate) : null
       if (res.fromDate && res.toDate) {
+
         this.tableList = this.generateDateArray(res.fromDate, res.toDate);
       }
     });
-    this.generalSettingService.GetFinancialPeriodLastYearDate();
-    this.generalSettingService.FinancialPeriodLastYearDateObservable.subscribe((res) => {
-      console.log(res);
-      if (res) {
-        this.formGroup.get('fromDate')?.patchValue(new Date(res));
-        this.disablrFromDateFlag = true;
-      }
-    });
+    // this.generalSettingService.GetFinancialPeriodLastYearDate();
+    // this.generalSettingService.FinancialPeriodLastYearDateObservable.subscribe((res) => {
+    //   if (res) {
+    //     this.formGroup.get('fromDate')?.patchValue(new Date(res));
+    //     this.disablrFromDateFlag = true;
+    //   }
+    // });
 
     this.generalSettingService.GetFinancialPeriodByID(this.id);
     this.generalSettingService.FinancialPeriodDataByIDObservable.subscribe(
@@ -77,6 +85,7 @@ export class EditFinancialCalendarComponent implements OnInit {
             fromDate: res.fromDate ? new Date(res.fromDate) : null,
             toDate: res.toDate ? new Date(res.toDate) : null,
           });
+          this.disablrFromDateFlag = true;
           this.tableData = res.periods;
           const months = [
             'Jan',
@@ -171,6 +180,10 @@ export class EditFinancialCalendarComponent implements OnInit {
       elem.status = true;
       return elem;
     });
+    let periodIDS = this.tableData.filter((elem:any)=>elem.status)
+    this.periodIDS =  periodIDS.map((elem : any)=>elem.id)
+  
+    // this.generalSettingService.onOpenPeriod({periods : })
   }
   convertDateFormat(data: Date) {
     const date = new Date(data);
@@ -192,8 +205,15 @@ export class EditFinancialCalendarComponent implements OnInit {
       name: this.formGroup.get('name')?.value,
     });
     this.generalSettingService.EditFinancialPeriodDataObservable.subscribe((res) => {
-      if (res) {
+      if(!this.FinancialPeriodData.status && this.periodIDS?.length) {
+        this.generalSettingService.OpenFinancialCalendar({periods : this.periodIDS})
+        this.generalSettingService.openFinancialCalendarResObservable.subscribe(res=>{
+          if(res) {
+            this.FinancialPeriodData.status = true
+          }
+        })
       }
+  
     });
   }
 }

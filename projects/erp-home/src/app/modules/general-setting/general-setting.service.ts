@@ -46,7 +46,7 @@ export class GeneralSettingService {
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   private currentTagDataSource = new BehaviorSubject<TagDto>({} as TagDto);
   private addFinancialCalendarRes = new BehaviorSubject<AddFinancialCalendar | any>(
-    {} as AddFinancialCalendar
+    null
   );
   private openFinancialCalendarRes = new BehaviorSubject<number[]>([]);
   private FinancialPeriodLastYearDate = new BehaviorSubject<any>(null);
@@ -354,10 +354,10 @@ export class GeneralSettingService {
     this.loaderService.show();
     this.GeneralSettingproxy.openFinancialCalendar(openList).subscribe({
       next: (res) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('addFinancialCalendar.success'),
-          this.languageService.transalte('addFinancialCalendar.openSuccess')
-        );
+        // this.toasterService.showSuccess(
+        //   this.languageService.transalte('addFinancialCalendar.success'),
+        //   this.languageService.transalte('addFinancialCalendar.openSuccess')
+        // );
         this.openFinancialCalendarRes.next(res);
         this.loaderService.hide();
       },

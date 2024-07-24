@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
-import { PageInfoResult, MenuModule, RouterService, PageInfo } from 'shared-lib';
+import { PageInfoResult, MenuModule, RouterService, PageInfo, LanguageService } from 'shared-lib';
 
 import { GeneralSettingService } from '../../../general-setting.service';
 import { financialCalendar } from '../../../models';
 import { AuthService } from 'microtec-auth-lib';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-financial-calendar-list',
@@ -18,7 +19,10 @@ export class FinancialCalendarListComponent implements OnInit {
     private dialog: DialogService,
     private accountService: AccountService,
     private generalSettingService: GeneralSettingService,
-    private routerService: RouterService
+    private routerService: RouterService,
+    private titleService: Title,
+    private languageService : LanguageService
+
   ) {}
 
   tableData: financialCalendar[];
@@ -29,6 +33,9 @@ export class FinancialCalendarListComponent implements OnInit {
 
   ngOnInit() {
     this.initFinancialCalendarData();
+    this.titleService.setTitle(
+      this.languageService.transalte('financialCalendar.financialCalendar')
+    );
   }
 
   routeToAdd() {

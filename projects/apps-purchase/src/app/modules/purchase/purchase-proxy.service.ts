@@ -77,10 +77,10 @@ export class PurchaseProxyService {
   }
 
   editVendorDefinition(vendor: EditVendorCommand): Observable<any> {
-    return this.httpService.put(`Vendor`, vendor);
+    return this.httpService.put(`Vendor`, vendor, false);
   }
   addNewVendorDefinition(vendor: AddVendorCommand): Observable<AddVendorCommand> {
-    return this.httpService.post(`Vendor`, vendor);
+    return this.httpService.post(`Vendor`, vendor, false);
   }
 
   getCities(countryCode: string): Observable<CityDto[]> {
