@@ -8,11 +8,7 @@ import {
   customValidators,
   lookupDto,
 } from 'shared-lib';
-import {
-  DialogService,
-  DynamicDialogConfig,
-  DynamicDialogRef,
-} from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CompanyService } from '../../company.service';
 import { editBranch } from '../../models';
 
@@ -26,8 +22,8 @@ export class EditBranchesComponent {
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   branchCode: string;
-  selectecCountry:string;
-  selectecMobile:string;
+  selectecCountry: string;
+  selectecMobile: string;
 
   ngOnInit() {
     this.initializeForm();
@@ -44,14 +40,15 @@ export class EditBranchesComponent {
       branchEmail: new FormControl(null, [customValidators.email]),
       branchAddress: new FormControl(),
       mobileNumberCode: new FormControl(),
-      mobileNumber: new FormControl(null, [customValidators.hasSpaces,customValidators.noSpecialChars]),
+      mobileNumber: new FormControl(null, [
+        customValidators.hasSpaces,
+        customValidators.noSpecialChars,
+        customValidators.noAlphabeticCharacter,
+      ]),
     });
   }
   loadLookups() {
-    this.lookupsService.loadLookups([
-      LookupEnum.Country,
-      LookupEnum.MobileCode,
-    ]);
+    this.lookupsService.loadLookups([LookupEnum.Country, LookupEnum.MobileCode]);
   }
 
   initializeBranchFormData() {
@@ -61,7 +58,7 @@ export class EditBranchesComponent {
         ...res,
       });
       this.selectecCountry = res.countryCode!;
-      this.selectecMobile=res.mobileNumberCode!;
+      this.selectecMobile = res.mobileNumberCode!;
     });
   }
   Subscribe() {

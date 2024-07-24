@@ -58,24 +58,35 @@ export class AddVendorDefinitionsComponent implements OnInit {
         contactPhone: new FormControl(null, [
           customValidators.hasSpaces,
           customValidators.noSpecialChars,
+          customValidators.noAlphabeticCharacter
         ]),
         ContactMobileCode: new FormControl(null),
         contactMobile: new FormControl(null, [
           customValidators.hasSpaces,
           customValidators.noSpecialChars,
+          customValidators.noAlphabeticCharacter
+
         ]),
-        contactFax: new FormControl(null),
+        contactFax: new FormControl(null, [
+          customValidators.hasSpaces,
+          customValidators.noSpecialChars,
+          customValidators.noAlphabeticCharacter,
+        ]),
         contactEmail: new FormControl(null, [customValidators.email]),
         contactWebsite: new FormControl(null),
         contactPersonName: new FormControl(null),
         contactPersonMobile: new FormControl(null, [
           customValidators.hasSpaces,
           customValidators.noSpecialChars,
+          customValidators.noAlphabeticCharacter
+
         ]),
         ContactPersonMobileCode: new FormControl(null),
         contactPersonPhone: new FormControl(null, [
           customValidators.hasSpaces,
           customValidators.noSpecialChars,
+          customValidators.noAlphabeticCharacter
+
         ]),
         contactPersonEmail: new FormControl(null, [customValidators.email]),
       }),

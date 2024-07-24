@@ -150,6 +150,9 @@
   <span class="errorMessage" *ngIf="appControl.errors?.['nonNegative']">
     {{ 'validation.nonNegativeNumbers' | translate }}
   </span>
+  <span class="errorMessage" *ngIf="appControl.errors?.['hasAlphabetic']">
+    {{ 'validation.noAlphabeticCharacter' | translate }}
+  </span>
 </div>
 <!-- <span class="errorMessage" *ngFor="let errorKey of errorKeys">
    {{ this.appControl.errors?.[errorKey] |translate}}

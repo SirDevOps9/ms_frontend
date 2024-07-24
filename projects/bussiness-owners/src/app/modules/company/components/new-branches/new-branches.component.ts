@@ -8,11 +8,7 @@ import {
   customValidators,
   lookupDto,
 } from 'shared-lib';
-import {
-  DialogService,
-  DynamicDialogConfig,
-  DynamicDialogRef,
-} from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CreateBranch } from '../../models/create-branch';
 import { CompanyService } from '../../company.service';
 
@@ -40,14 +36,15 @@ export class NewBranchesComponent implements OnInit {
       branchEmail: new FormControl(null, [customValidators.email]),
       branchAddress: new FormControl(),
       mobileNumberCode: new FormControl(),
-      mobileNumber: new FormControl(null, [customValidators.hasSpaces,customValidators.noSpecialChars]),
+      mobileNumber: new FormControl(null, [
+        customValidators.hasSpaces,
+        customValidators.noSpecialChars,
+        customValidators.noAlphabeticCharacter,
+      ]),
     });
   }
   loadLookups() {
-    this.lookupsService.loadLookups([
-      LookupEnum.MobileCode,
-      LookupEnum.Country,
-    ]);
+    this.lookupsService.loadLookups([LookupEnum.MobileCode, LookupEnum.Country]);
   }
   Subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
@@ -56,7 +53,6 @@ export class NewBranchesComponent implements OnInit {
     if (!this.formsService.validForm(this.newBrancheForm, true)) return;
     const request: CreateBranch = this.newBrancheForm.value;
     request.companyId = this.currentCompanyId;
-
 
     console.log('sending branch', request);
     this.companyService.addBranch(request, this.ref);

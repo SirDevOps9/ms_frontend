@@ -126,26 +126,26 @@
                             <lib-form-group>
                               <lib-label
                                 [appControl]="
-                                  addCustomerForm.get('contactInfo')?.get('contactMobile')
+                                  addCustomerForm.get('contactInfo')?.get('ContactMobileCode')
                                 "
                               >
                                 code
                               </lib-label>
                               <lib-selectIcon
-                                formControlName="contactMobile"
+                                formControlName="ContactMobileCode"
                                 [options]="lookups[LookupEnum.MobileCode]"
                                 optionValue="id"
                                 optionLabel="name"
                                 icons="flags"
                                 [selectedValue]="
-                                  addCustomerForm.get('contactInfo')?.get('contactMobile')?.value
+                                  addCustomerForm.get('contactInfo')?.get('ContactMobileCode')?.value
                                 "
                               >
                               </lib-selectIcon>
 
                               <lib-field-validations
                                 [appControl]="
-                                  addCustomerForm.get('contactInfo')?.get('contactMobile')
+                                  addCustomerForm.get('contactInfo')?.get('ContactMobileCode')
                                 "
                               >
                               </lib-field-validations>
