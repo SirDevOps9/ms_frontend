@@ -75,7 +75,7 @@
         <div
           class="md:col-2 grid align-items-end"
           (click)="onOpenPeriod()"
-          [class.none]="!showOpenBtn"
+          [class.none]="!showOpenBtn || opened"
         >
           <div class="flex gap-1 gernerateCont">
             <i class="pi pi-clock clockIcon"></i>
@@ -90,26 +90,26 @@
     <lib-button
       pRipple
       className="addToList"
-      label="Save"
+      label="{{ 'financialCalendar.Save' | translate }}"
       (onClick)="onSave()"
-      [disabled]="!tableData.length || !formGroup.valid"
+      [disabled]="!tableData?.length || !formGroup.valid"
     >
     </lib-button>
   </div>
   <!--  -->
   <div class="flex justify-content-end mt-5" *ngIf="showOpenBtn">
     <lib-button
-      pRipple
+      pRipple 
       className="addToList"
-      label="Save"
+      label="{{ 'financialCalendar.Save' | translate }}"
       (onClick)="onOpen()"
-      [disabled]="!tableData.length"
+      [disabled]="!tableData?.length"
     >
     </lib-button>
   </div>
   <!--  -->
 
-  <div class="user_pages" *ngIf="tableData.length">
+  <div class="user_pages" *ngIf="tableData?.length">
     <lib-data-table
       [items]="tableData"
       className="p-datatable-gridlines"

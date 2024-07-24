@@ -53,7 +53,7 @@ export class GeneralSettingService {
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   private currentTagDataSource = new BehaviorSubject<TagDto>({} as TagDto);
   private addFinancialCalendarRes = new BehaviorSubject<AddFinancialCalendar | any>(
-    {} as AddFinancialCalendar
+    null
   );
   private openFinancialCalendarRes = new BehaviorSubject<number[]>([]);
   private FinancialPeriodLastYearDate = new BehaviorSubject<any>(null);
@@ -361,10 +361,10 @@ export class GeneralSettingService {
     this.loaderService.show();
     this.GeneralSettingproxy.openFinancialCalendar(openList).subscribe({
       next: (res) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('addFinancialCalendar.success'),
-          this.languageService.transalte('addFinancialCalendar.openSuccess')
-        );
+        // this.toasterService.showSuccess(
+        //   this.languageService.transalte('addFinancialCalendar.success'),
+        //   this.languageService.transalte('addFinancialCalendar.openSuccess')
+        // );
         this.openFinancialCalendarRes.next(res);
         this.loaderService.hide();
       },
@@ -705,6 +705,7 @@ export class GeneralSettingService {
   }
   openCurrencyConversionAdded() {
     const ref:DynamicDialogRef = this.dialog.open(AddCurrencyConversionComponent, {
+      header : this.languageService.transalte('currencyConversion.AddNewcurrency'),
         width: '600px',
         height : '700px'
      
@@ -716,6 +717,7 @@ export class GeneralSettingService {
 
   openCurrencyConversionEdit(currencyId: number) {
     const ref:DynamicDialogRef = this.dialog.open(EditCurrencyConversionComponent, {
+      header : this.languageService.transalte('currencyConversion.Editcurrency'),
       width: '600px',
       height : '700px',
       data: { Id: currencyId },

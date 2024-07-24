@@ -7,6 +7,7 @@ import {
   RouterService,
   PageInfo,
   PageInfoResult,
+  FormsService,
 } from 'shared-lib';
 import {
   VendorCategoryDto,
@@ -23,6 +24,7 @@ import {
   GetVendorById,
 } from './models';
 import { PurchaseProxyService } from './purchase-proxy.service';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +35,8 @@ export class PurchaseService {
     private languageService: LanguageService,
     private toasterService: ToasterService,
     private routerService: RouterService,
-    private purchaseProxy: PurchaseProxyService
+    private purchaseProxy: PurchaseProxyService,
+    private formsService: FormsService
   ) {}
   private vendorCategoryDataSource = new BehaviorSubject<VendorCategoryDto[]>([]);
   private addVendorCategoryData = new BehaviorSubject<AddVendorCategory>({} as AddVendorCategory);
@@ -178,7 +181,7 @@ export class PurchaseService {
     });
   }
 
-  addNewVendorDefinition(vendor: AddVendorCommand) {
+  addNewVendorDefinition(vendor: AddVendorCommand, vendorForm: FormGroup) {
     this.loaderService.show();
     this.purchaseProxy.addNewVendorDefinition(vendor).subscribe({
       next: (res) => {
@@ -191,12 +194,13 @@ export class PurchaseService {
         this.loaderService.hide();
       },
       error: (err) => {
+        this.formsService.setFormValidationErrors(vendorForm, err);
         this.loaderService.hide();
       },
     });
   }
 
-  editVendorDefinition(vendor: EditVendorCommand) {
+  editVendorDefinition(vendor: EditVendorCommand, vendorForm: FormGroup) {
     this.loaderService.show();
     this.purchaseProxy.editVendorDefinition(vendor).subscribe({
       next: (res) => {
@@ -209,6 +213,7 @@ export class PurchaseService {
         this.loaderService.hide();
       },
       error: (err) => {
+        this.formsService.setFormValidationErrors(vendorForm, err);
         this.loaderService.hide();
       },
     });

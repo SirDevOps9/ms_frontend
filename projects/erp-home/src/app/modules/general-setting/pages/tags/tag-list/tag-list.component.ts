@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { lookupDto, MenuModule, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { lookupDto, LanguageService, MenuModule, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { LayoutService } from 'libs/apps-shared-lib/src/lib/modules/layout/layout.service';
 import { GeneralSettingService } from '../../../general-setting.service';
@@ -25,7 +25,9 @@ export class TagListComponent implements OnInit {
     private routerService: RouterService,
     private generalSettingService: GeneralSettingService,
     public layoutService: LayoutService,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private languageService: LanguageService,
+
   ) {}
 
    exportColumns: lookupDto[] = [
@@ -83,7 +85,7 @@ export class TagListComponent implements OnInit {
   }
   routeToEdit(data: any) {
     const dialogRef = this.dialog.open(TagEditComponent, {
-      header : "Edit Tag",
+      header : this.languageService.transalte('tag.EditTag'),
       width: '800px',
       position: 'bottom-right' ,// A
       data : data
@@ -104,7 +106,7 @@ export class TagListComponent implements OnInit {
 
   newTag() {
     const dialogRef = this.dialog.open(TagAddComponent, {
-      header : "Add New Tag",
+      header : this.languageService.transalte('tag.AddNewTag'),
       width: '600px',
       position: 'bottom-right' // Adjust position as needed
     

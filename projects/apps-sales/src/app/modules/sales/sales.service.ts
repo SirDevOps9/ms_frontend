@@ -6,6 +6,7 @@ import {
   RouterService,
   PageInfoResult,
   PageInfo,
+  FormsService,
 } from 'shared-lib';
 import {
   AddCustomerCategoryDto,
@@ -22,6 +23,7 @@ import { BehaviorSubject } from 'rxjs';
 import { CategoryDropdownDto } from './models/CategoryDropdownDto';
 import { TagDropDownDto } from 'projects/apps-accounting/src/app/modules/account/models/tagDropDownDto';
 import { CustomerDefinitionDto } from './models/customerDefinitionDto';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -88,7 +90,8 @@ export class SalesService {
     private languageService: LanguageService,
     private toasterService: ToasterService,
     private routerService: RouterService,
-    private salesProxy: SalesProxyService
+    private salesProxy: SalesProxyService,
+    private formsService: FormsService
   ) {}
 
   getcustomerCategory(searchTerm: string, pageInfo: PageInfo) {
@@ -210,7 +213,7 @@ export class SalesService {
     });
   }
 
-  editCustomerDefinition(customer: EditCustomerDefintionsDto) {
+  editCustomerDefinition(customer: EditCustomerDefintionsDto, vendorForm: FormGroup) {
     this.salesProxy.editCustomerDefinition(customer).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
@@ -221,9 +224,13 @@ export class SalesService {
           this.editCustomerDefinitionRes.next(res);
         }
       },
+      error: (err) => {
+        this.formsService.setFormValidationErrors(vendorForm, err);
+        this.loaderService.hide();
+      },
     });
   }
-  addNewCustomerDefinition(customer: AddCustomerDefinitionDto) {
+  addNewCustomerDefinition(customer: AddCustomerDefinitionDto, vendorForm: FormGroup) {
     this.loaderService.show();
     this.salesProxy.addNewCustomerDefinition(customer).subscribe({
       next: (res) => {
@@ -238,6 +245,7 @@ export class SalesService {
         }
       },
       error: (err) => {
+        this.formsService.setFormValidationErrors(vendorForm, err);
         this.loaderService.hide();
       },
     });
