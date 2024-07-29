@@ -3,7 +3,7 @@ import { FinanceProxyService } from './finance-proxy.service';
 import { HttpService, LanguageService, LoaderService, PageInfo, PageInfoResult, PaginationVm, RouterService, ToasterService } from 'shared-lib';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
-import { AddTreasuryDto, EditTreasuryDto, GetTreasuryDtoById } from './models';
+import { AddTreasuryDto, EditTreasuryDto, GetTreasuryDtoById, PaymentTermDto } from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { HttpClient } from '@angular/common/http';
@@ -28,6 +28,10 @@ export class FinanceService {
   public sendBankDefinition = new BehaviorSubject<AddBankDto>({} as AddBankDto)
   public getUsersPermissionData = new BehaviorSubject<UserPermission[]>([])
   public sendBankByID = new BehaviorSubject<bankByID>({} as bankByID)
+  public paymentTermDataSource = new BehaviorSubject<PaymentTermDto[]>([])
+  public exportedpaymentTermListDataSource = new BehaviorSubject<PaymentTermDto[]>([]);
+
+
 
   sendTreasuryDataSourceObservable = this.sendTreasuryDataSource.asObservable()
   addTreasureDefinitionsObservable = this.treasureDefinitions.asObservable()
@@ -39,6 +43,10 @@ export class FinanceService {
   sendBankDefinitionObservable = this.sendBankDefinition.asObservable()
   getUsersPermissionDataObservable = this.getUsersPermissionData.asObservable()
   sendBankByIDObservable = this.sendBankByID.asObservable()
+  paymentTermDataSourceObservable = this.paymentTermDataSource.asObservable()
+  exportedPaymentTermDataSourceObservable = this.exportedpaymentTermListDataSource.asObservable()
+
+
 
   getTreasureDefinitions(quieries: string, pageInfo: PageInfo)  {
     this.financeProxy.getTreasureDefinitions(quieries, pageInfo).subscribe((response) => {
@@ -214,5 +222,40 @@ export class FinanceService {
     });
   }
 
-  
+  getAllPaymentTerm(quieries: string, pageInfo: PageInfo)  {
+    this.financeProxy.getAllPymentTerm(quieries, pageInfo).subscribe((response) => {
+     this.paymentTermDataSource.next(response.result)
+     this.currentPageInfo.next(response.pageInfoResult)
+    });
+  }
+
+  exportsPaymentTermList(searchTerm:string | undefined) {
+    this.financeProxy.exportsPaymentTermList(searchTerm).subscribe({
+      next: (res : any) => {
+         this.exportedpaymentTermListDataSource.next(res);
+      },
+    });
+  }
+
+  async deletePaymentTerm(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.financeProxy.deletePaymentTerm(id).subscribe({
+        next: (res) => {
+          
+          this.toasterService.showSuccess(
+            this.languageService.transalte('deleteBank.success'),
+            this.languageService.transalte('deleteBank.delete')
+          );
+          this.loaderService.hide();
+          const currentPaymentTerm = this.paymentTermDataSource.getValue();
+          const updatedcurrentPaymentTerm = currentPaymentTerm.filter((c : any) => c.id !== id);
+          this.paymentTermDataSource.next(updatedcurrentPaymentTerm);
+        },
+        
+      });
+    }
+  }
 }

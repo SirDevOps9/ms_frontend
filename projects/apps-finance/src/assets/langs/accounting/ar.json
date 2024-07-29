@@ -185,5 +185,18 @@
   },
   "editTreasury": {
     "edit": "تم تعديل تعريف الخزانة بنجاح"
+  },
+  "paymentterm": {
+    "payment-term-list": "قائمة شروط الدفع",
+    "code": "رمز",
+    "name": "اسم",
+    "term-type": "نوع المصطلح",
+    "Search": "بحث",
+    "AddNew": "إضافة جديدة",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "save": "حفظ",
+    "export": "تصدير",
+    "ExportName": "تعريف البنك"
   }
 }

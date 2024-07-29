@@ -191,6 +191,19 @@
   "editTreasury" : {
     "edit" : "Treasury Definition Edited Successfully"
 
+  },
+  "paymentterm": {
+    "payment-term-list": "Payment Term List",
+    "code": "Code",
+    "name": "Name",
+    "term-type": "Term Type",
+    "Search": "Search",
+    "AddNew": "Add New",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "export": "Export",
+    "ExportName": "Bank Definition"
   }
 
 }

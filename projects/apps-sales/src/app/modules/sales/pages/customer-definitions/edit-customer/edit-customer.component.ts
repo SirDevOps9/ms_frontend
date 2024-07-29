@@ -64,7 +64,7 @@ export class EditCustomerComponent implements OnInit {
           customValidators.noSpecialChars,
           customValidators.noAlphabeticCharacter,
         ]),
-        ContactMobileCode: new FormControl(null),
+        contactMobileCode: new FormControl(null),
 
         contactPhone: new FormControl(null, [
           customValidators.hasSpaces,
