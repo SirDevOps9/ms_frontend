@@ -266,6 +266,7 @@ export class CreateJournalEntryComponent {
     const ref = this.dialog.open(NoChildrenAccountsComponent, {});
     ref.onClose.subscribe((r) => {
       if (r) {
+        console.log(r,"r");
         this.fa.at(index).get('account')?.setValue(r.id);
         this.fa.at(index)?.get('accountName')?.setValue(r.name);
         this.fa.at(index)?.get('accountCode')?.setValue(r.accountCode);

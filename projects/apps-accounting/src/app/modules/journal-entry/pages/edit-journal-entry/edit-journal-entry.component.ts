@@ -102,13 +102,12 @@ export class EditJournalEntryComponent implements OnInit {
 
       this.journalEntry = res;
       this.journalEntryLines = res.journalEntryLines!;
-      // console.log(this.journalEntryLines);
       const journalEntryLinesArray = this.journalEntryLinesFormArray;
 
       journalEntryLinesArray.clear();
 
       this.journalEntryLines.forEach((line) => {
-        const { currencyId, debitAmount, creditAmount, costCenters, currencyRate, ...lineData } =
+        const {  debitAmount, creditAmount, costCenters, currencyRate, ...lineData } =
           line;
         console.log(line);
 
@@ -121,6 +120,7 @@ export class EditJournalEntryComponent implements OnInit {
             lineDescription: new FormControl(lineData.lineDescription, [customValidators.required]),
             debitAmount: new FormControl(debitAmount, [customValidators.required]),
             creditAmount: new FormControl(creditAmount, [customValidators.required]),
+            currencyId: new FormControl(lineData.currencyId, [customValidators.required]),
             currency: new FormControl(lineData.currency, [customValidators.required]),
             currencyRate: new FormControl(currencyRate, [customValidators.required]),
             debitAmountLocal: new FormControl(debitAmount * currencyRate),
@@ -132,10 +132,7 @@ export class EditJournalEntryComponent implements OnInit {
         lineGroup.updateValueAndValidity();
 
         journalEntryLinesArray.push(lineGroup);
-
-        this.currencyIdList.push(currencyId);
       });
-      // }
     });
   }
 
@@ -155,11 +152,7 @@ export class EditJournalEntryComponent implements OnInit {
             };
           })
         : [];
-      const currencyId =
-        typeof item.currency == 'string'
-          ? this.currencies.find((c) => c.name == item.currency)!.id
-          : item.currency.id;
-      return { ...item, currencyId: currencyId };
+      return item ;
     });
     this.journalEntryService.editJournalEntry(request);
   }
@@ -168,8 +161,7 @@ export class EditJournalEntryComponent implements OnInit {
     let journalStatus = new JournalStatusUpdate();
     journalStatus.id = this.routerService.currentId;
     journalStatus.status = status;
-    //console.log(status);
-    // console.log(journalStatus.id);
+
     this.journalEntryService.ChangeStatus(journalStatus).subscribe(() => {
       setTimeout(() => {
         location.reload();
@@ -224,9 +216,10 @@ export class EditJournalEntryComponent implements OnInit {
         accountId: new FormControl(),
         accountName: new FormControl(),
         lineDescription: new FormControl(null, [customValidators.required]),
-        debitAmount: new FormControl(0, [customValidators.required, Validators.min(0)]),
-        creditAmount: new FormControl(0, [customValidators.required, Validators.min(0)]),
-        currency: new FormControl(null, [customValidators.required]),
+        debitAmount: new FormControl(null, [customValidators.required, Validators.min(0)]),
+        creditAmount: new FormControl(null, [customValidators.required, Validators.min(0)]),
+        currencyId: new FormControl(null,[customValidators.required]),
+        currency:new FormControl(null),
         currencyRate: new FormControl(),
         debitAmountLocal: new FormControl(),
         creditAmountLocal: new FormControl(),
@@ -247,10 +240,9 @@ export class EditJournalEntryComponent implements OnInit {
     });
   }
   filterAccount(event: any) {
-    //console.log(this.filteredAccounts);
     let query = event.query;
     this.accountService
-      .getAllChartOfAccountPaginated(query, new PageInfo())
+      .getAccountsHasNoChildren(query, new PageInfo())
       .subscribe((r) => (this.filteredAccounts = r.result));
   }
 
@@ -258,36 +250,29 @@ export class EditJournalEntryComponent implements OnInit {
     const ref = this.dialog.open(NoChildrenAccountsComponent, {});
     ref.onClose.subscribe((account: AccountDto) => {
       if (account) {
-        this.updateAccount(account.id, index);
-        // const journalLine = this.journalEntryLinesFormArray.at(index);
-        // const accountId = journalLine.get('accountId');
-        // accountId?.setValue(account.id);
-        // const accountName = journalLine.get('accountName');
-        // accountName?.setValue(account.name);
-        // journalLine.get('accountCode')?.setValue(account.accountCode);
+        this.updateAccount(account, index);
       }
     });
   }
+  accountSelected(event: any, id: number) {
 
-  updateAccount(event: any, index: number) {
+    var accountData = this.filteredAccounts.find((c) => c.id == event);
+    this.updateAccount(accountData as AccountDto , id);
+  }
+
+  updateAccount(selectedAccount: AccountDto, index: number) {
+
     const journalLine = this.journalEntryLinesFormArray.at(index);
 
-    journalLine.get('accountId')?.setValue(event);
-    var accountData = this.filteredAccounts.find((c) => c.id == event);
+    journalLine.get('accountId')?.setValue(selectedAccount.id);
+    journalLine.get('accountName')?.setValue(selectedAccount.name);
+    journalLine.get('accountCode')?.setValue(selectedAccount.accountCode);
 
-    const accountName = journalLine.get('accountName');
-    accountName?.setValue(accountData?.name);
+    var currencyData = this.currencies.find((c) => c.id == selectedAccount.currencyId);
+    journalLine.get('currencyId')?.setValue(selectedAccount.currencyId);
+    journalLine.get('currency')?.setValue(currencyData?.name);
 
-    journalLine.get('accountCode')?.setValue(accountData?.accountCode);
-
-    var currencyData = this.currencies.find((c) => c.id == accountData?.currencyId);
-
-    const currencyControl = journalLine.get('currency');
-
-    currencyControl?.setValue(currencyData?.name);
-    this.selectedCurrency = currencyData?.name!;
-
-    this.getAccountCurrencyRate(currencyData?.id as number, index);
+    this.getAccountCurrencyRate(selectedAccount.currencyId as number, index);
   }
 
   openCostPopup(data: any, account: number, index: number) {
@@ -379,6 +364,7 @@ export class EditJournalEntryComponent implements OnInit {
     });
   }
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
+    console.log(accountCurrency,"test");
     let currentCurrency: number = 1;
 
     const journalLine = this.journalEntryLinesFormArray.at(currentJournalId);
