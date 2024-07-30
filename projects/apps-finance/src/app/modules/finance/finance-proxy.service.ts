@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
-import { AddTreasuryDto, Balance, EditTreasuryDto, GetTreasuryDtoById, PaymentTermDto } from './models';
+import { AddPaymentTermDto, AddTreasuryDto, Balance, EditTreasuryDto, GetTreasuryDtoById, PaymentTermDto } from './models';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { AddBankDto } from './models/addBankDto';
 import { UserPermission } from './models/user-permission';
 import { bankByID } from './models/getBankByID';
+import { AddPaymentTermComponent } from './pages/payment-term/add-payment-term/add-payment-term.component';
 
 @Injectable({
   providedIn: 'root'
@@ -116,6 +117,10 @@ export class FinanceProxyService {
   }
   deletePaymentTerm(id : number) {
     return this.httpService.delete(`PaymentTerms/${id}`);
+
+  }
+  addPaymentTerm(obj : AddPaymentTermDto) {
+    return this.httpService.post('PaymentTerms' , obj)
 
   }
 }

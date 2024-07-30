@@ -6,7 +6,7 @@ import { lookupDto, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 @Component({
   selector: 'app-payment-term-list',
   templateUrl: './payment-term-list.component.html',
-  styleUrls: ['./payment-term-list.component.css']
+  styleUrls: ['./payment-term-list.component.scss']
 })
 export class PaymentTermListComponent implements OnInit {
 
@@ -24,10 +24,6 @@ export class PaymentTermListComponent implements OnInit {
     {
       field: 'Name',
       header: 'name',
-    },
-    {
-      field: 'Term Type',
-      header: 'dueTermType',
     }
   ];
   exportColumns: lookupDto[];

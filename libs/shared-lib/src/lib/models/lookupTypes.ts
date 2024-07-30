@@ -17,4 +17,6 @@ export enum LookupEnum {
   BloodType = 'BloodType',
   AccountNature = 'AccountNature',
   JournalTemplateType = 'JournalTemplateType',
+  PeriodType='PeriodType'
+
 }

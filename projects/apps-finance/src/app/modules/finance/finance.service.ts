@@ -3,7 +3,7 @@ import { FinanceProxyService } from './finance-proxy.service';
 import { HttpService, LanguageService, LoaderService, PageInfo, PageInfoResult, PaginationVm, RouterService, ToasterService } from 'shared-lib';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
-import { AddTreasuryDto, EditTreasuryDto, GetTreasuryDtoById, PaymentTermDto } from './models';
+import { AddPaymentTermDto, AddTreasuryDto, EditTreasuryDto, GetTreasuryDtoById, PaymentTermDto } from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { HttpClient } from '@angular/common/http';
@@ -257,5 +257,17 @@ export class FinanceService {
         
       });
     }
+  }
+  addPaymentTerm(obj:AddPaymentTermDto) {
+    this.financeProxy.addPaymentTerm(obj).subscribe(res=>{
+      if(res) {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('success'),
+          this.languageService.transalte('addBank.add')
+        );
+        this.routerService.navigateTo('/masterdata/paymentterm')
+        
+      }
+    })
   }
 }

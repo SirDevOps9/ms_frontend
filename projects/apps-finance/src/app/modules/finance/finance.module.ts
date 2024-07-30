@@ -15,6 +15,8 @@ import { EditBankDefinitionComponent } from './pages/bank-definition/edit-bank-d
 import { NoChildrenAccountsComponent } from './components/bank/no-children-accounts/no-children-accounts.component';
 import { ConfirmOpeningBalanceComponent } from './components/bank/confirm-opening-balance/confirm-opening-balance.component';
 import { PaymentTermListComponent } from './pages/payment-term/payment-term-list/payment-term-list.component';
+import { AddPaymentTermComponent } from './pages/payment-term/add-payment-term/add-payment-term.component';
+import { EditPaymentTermComponent } from './pages/payment-term/edit-payment-term/edit-payment-term.component';
 
 const routes: Routes = [
   {
@@ -73,14 +75,14 @@ const routes: Routes = [
       },
       {
         path: 'add-payment-term',
-        component: PaymentTermListComponent,
+        component: AddPaymentTermComponent,
         data: {
           breadcrumb: BreadcrumbLabel.PAYMENT_TERM_LIST,
         },
       },
       {
         path: 'edit-payment-term',
-        component: PaymentTermListComponent,
+        component: EditPaymentTermComponent,
         data: {
           breadcrumb: BreadcrumbLabel.PAYMENT_TERM_LIST,
         },
@@ -101,7 +103,9 @@ const routes: Routes = [
     EditBankDefinitionComponent,
     NoChildrenAccountsComponent,
     ConfirmOpeningBalanceComponent,
-    PaymentTermListComponent
+    PaymentTermListComponent,
+    AddPaymentTermComponent,
+    EditPaymentTermComponent
   ],
   imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes)],
 })
