@@ -261,8 +261,10 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   updateAccount(selectedAccount: AccountDto, index: number) {
+    const journalLine = this.journalEntryLinesFormArray.at(index);  
 
-    const journalLine = this.journalEntryLinesFormArray.at(index);
+      journalLine.get('costCenters')?.setValue([]);
+    
 
     journalLine.get('accountId')?.setValue(selectedAccount.id);
     journalLine.get('accountName')?.setValue(selectedAccount.name);
@@ -271,6 +273,7 @@ export class EditJournalEntryComponent implements OnInit {
     var currencyData = this.currencies.find((c) => c.id == selectedAccount.currencyId);
     journalLine.get('currencyId')?.setValue(selectedAccount.currencyId);
     journalLine.get('currency')?.setValue(currencyData?.name);
+
 
     this.getAccountCurrencyRate(selectedAccount.currencyId as number, index);
   }

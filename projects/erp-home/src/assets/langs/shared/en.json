@@ -37,7 +37,7 @@
     "debitAndCreditZero":"debit and credit both cannot be zero",
     "ageAbove": "You must be at least {{age}} years old.",
     "Range": "The minimum range must be {{min}}, and the maximum range must be {{max}} ",
-    "nonNegativeNumbers": "يجب ان يكون رقما موجبا",
-    "noAlphabeticCharacter": "يجب أن لا يحتوي الحقل على أحرف أبجدية."
+    "nonNegativeNumbers": "it should be a positive number",
+    "noAlphabeticCharacter": "The field must not contain alphabetic characters."
   }
 }
