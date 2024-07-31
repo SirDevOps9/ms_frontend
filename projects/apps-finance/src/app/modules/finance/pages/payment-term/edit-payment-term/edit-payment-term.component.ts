@@ -20,6 +20,7 @@ export class EditPaymentTermComponent implements OnInit {
   id: number = this.route.snapshot.params['id']
 
 
+
   constructor(private fb: FormBuilder ,
     private financeService : FinanceService ,
         private routerService : RouterService ,
@@ -57,20 +58,18 @@ export class EditPaymentTermComponent implements OnInit {
     if (res?.paymentTermLines?.length) {
       res.paymentTermLines.forEach((elem, i) => {
         // Create a new FormGroup for each bank account
-        let paymentTermGroup = this.fb.group({
+        let paymentTerm = this.fb.group({
           id: [elem.id],
           dueTermValue: [elem.dueTermValue, Validators.required],
           note:  [elem.note],
           afterValue: [elem.afterValue, Validators.required],
           afterPeriod: [elem.afterPeriod, Validators.required],
         });
-
         // Add the FormGroup to the FormArray
-        this.items.push(paymentTermGroup);
+        this.items.push(paymentTerm);
           })
       }
     
-      
     })
   }
 
@@ -120,7 +119,6 @@ export class EditPaymentTermComponent implements OnInit {
       name:  this.paymentTermGroup.get('name')?.value,
       paymentTermLines: paymentTermLines,
     };
-    console.log("sandra : ",formData);
    this.financeService.editPaymentTerm(formData);
  }
 }

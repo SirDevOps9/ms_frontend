@@ -250,8 +250,8 @@ export class FinanceService {
         next: (res) => {
           
           this.toasterService.showSuccess(
-            this.languageService.transalte('deleteBank.success'),
-            this.languageService.transalte('deleteBank.delete')
+            this.languageService.transalte('success'),
+            this.languageService.transalte('delete')
           );
           this.loaderService.hide();
           const currentPaymentTerm = this.paymentTermDataSource.getValue();
@@ -267,7 +267,7 @@ export class FinanceService {
       if(res) {
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
-          this.languageService.transalte('addBank.add')
+          this.languageService.transalte('add-paymentterm.add')
         );
         this.routerService.navigateTo('/masterdata/paymentterm')
         
@@ -287,7 +287,7 @@ export class FinanceService {
       if(res) {
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
-          this.languageService.transalte('editBank.edit')
+          this.languageService.transalte('add-paymentterm.edit')
         );
         this.routerService.navigateTo('/masterdata/paymentterm')
         

@@ -204,6 +204,17 @@
     "save": "Save",
     "export": "Export",
     "ExportName": "Bank Definition"
+  },
+  "add-paymentterm": {
+    "dueTermValue": "Due Term Value",
+    "afterValue": "After Value",
+    "afterPeriod": "After Period",
+    "note": "Note",
+    "add_new": "Add New Line",
+    "actions":"Actions",
+    "totalerror":"The total of Due Term Values must be exactly 100.",
+    "add":"Payment Term Added Successfully",
+    "edit":"Payment Term Edited Successfully"
   }
 
 }

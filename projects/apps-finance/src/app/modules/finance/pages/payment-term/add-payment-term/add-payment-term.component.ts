@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { FinanceService } from '../../../finance.service';
-import { customValidators, FormsService, lookupDto, LookupEnum, LookupsService, RouterService } from 'shared-lib';
+import { customValidators, FormsService, LanguageService, lookupDto, LookupEnum, LookupsService, RouterService, ToasterService } from 'shared-lib';
 import { AddPaymentTermDto, AddPaymentTermLinesDto } from '../../../models';
 
 @Component({
@@ -23,6 +23,8 @@ export class AddPaymentTermComponent implements OnInit {
          private routerService : RouterService ,
           private formsService  : FormsService,
           private lookupsService: LookupsService,
+           private toasterService : ToasterService, 
+           private languageService : LanguageService ,
   ) {}
 
   ngOnInit() {
@@ -46,7 +48,6 @@ export class AddPaymentTermComponent implements OnInit {
   getPeriodTypeLookup() {
     this.lookupsService.loadLookups([LookupEnum.PeriodType]);
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
-   // console.log("sandraaa : " ,this.lookupsService.loadLookups([LookupEnum.PeriodType]));
 
   }
 
@@ -75,14 +76,23 @@ export class AddPaymentTermComponent implements OnInit {
   onSave() {
     if (!this.formsService.validForm(this.paymentTermGroup, false)) return;
     if (!this.formsService.validForm(this.items, false)) return;
+
+    const totalDueTermValue = this.items.controls.reduce((sum, control) => {
+      return sum + control.get('dueTermValue')?.value;
+    }, 0);
+
+    if (totalDueTermValue != 100) {
+      this.toasterService.showError( 
+        this.languageService.transalte('failure') , this.languageService.transalte('add-paymentterm.totalerror'));
+      return;
+    }
+
     const paymentTermLines: AddPaymentTermLinesDto[] = this.items.value;
     const formData: AddPaymentTermDto = {
       name: this.paymentTermGroup.get('name')?.value,
       paymentTermLines: paymentTermLines
     };
-   // const formData = this.paymentTermGroup.value;
-   //let formData =   this.items.value
-   console.log("sandra : ",formData);
+  
    this.financeService.addPaymentTerm(formData);
 
   }
