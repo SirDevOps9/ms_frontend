@@ -55,6 +55,8 @@ export class EditJournalEntryComponent implements OnInit {
   debitLocal: string;
   creditLocal: string;
 
+  currentAccounts: number[] = [];
+
   ngOnInit() {
     this.titleService.setTitle('Edit Journal');
 
@@ -133,6 +135,9 @@ export class EditJournalEntryComponent implements OnInit {
 
         journalEntryLinesArray.push(lineGroup);
       });
+
+      this.currentAccounts = this.journalEntryLines.map(line => line.accountId);
+
     });
   }
 
@@ -223,12 +228,17 @@ export class EditJournalEntryComponent implements OnInit {
         currencyRate: new FormControl(),
         debitAmountLocal: new FormControl(),
         creditAmountLocal: new FormControl(),
+        costCenters: new FormControl(),
       },
       { validators: customValidators.debitAndCreditBothCanNotBeZero }
     );
     newLine.updateValueAndValidity();
-
     this.journalEntryLinesFormArray.push(newLine);
+    
+    const accountId = newLine.get('accountId')?.value;
+    if (accountId) {
+      this.currentAccounts.push(accountId);
+    }
   }
 
   getAccounts() {
@@ -263,8 +273,9 @@ export class EditJournalEntryComponent implements OnInit {
   updateAccount(selectedAccount: AccountDto, index: number) {
     const journalLine = this.journalEntryLinesFormArray.at(index);  
 
-      journalLine.get('costCenters')?.setValue([]);
-    
+  if (this.currentAccounts[index] !== selectedAccount.id) {
+    journalLine.get('costCenters')?.setValue([]);
+  }    
 
     journalLine.get('accountId')?.setValue(selectedAccount.id);
     journalLine.get('accountName')?.setValue(selectedAccount.name);
@@ -278,7 +289,30 @@ export class EditJournalEntryComponent implements OnInit {
     this.getAccountCurrencyRate(selectedAccount.currencyId as number, index);
   }
 
-  openCostPopup(data: any, account: number, index: number) {
+  // openCostPopup(data: any, account: number, index: number) {
+  //   let accountData = this.filteredAccounts.find((elem) => elem.id === account);
+  //   console.log(accountData);
+  //   console.log(this.filteredAccounts);
+  //   console.log(account);
+  //   if (
+  //     (!data.creditAmount && !data.debitAmount) ||
+  //     !account ||
+  //     accountData?.costCenterConfig == 'NotAllow'
+  //   ) {
+  //     return null;
+  //   } else {
+  //     const dialogRef = this.dialog.open(EditCostCenterAllocationPopupComponent, {
+  //       width: '900px',
+  //       height: '500px',
+  //       header: 'Edit Cost Center Allocation',
+  //       data: data,
+  //     });
+  //     dialogRef.onClose.subscribe((res) => {
+  //       if (res) data.costCenters = res;
+  //     });
+  //   }
+  // }
+  openCostPopup(data: any, journal : FormGroup, account: number, index: number) {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
     console.log(accountData);
     console.log(this.filteredAccounts);
@@ -297,11 +331,13 @@ export class EditJournalEntryComponent implements OnInit {
         data: data,
       });
       dialogRef.onClose.subscribe((res) => {
-        if (res) data.costCenters = res;
+        if (res) {
+          journal.get('costCenters')?.setValue(res)
+          console.log(res)
+        }
       });
     }
   }
-
   getCurrencies() {
     this.currencyService.getCurrencies('');
 

@@ -357,6 +357,8 @@ export class CreateJournalEntryComponent {
         debitAmountLocal: new FormControl(),
         creditAmountLocal: new FormControl(),
         currencyName: new FormControl(''),
+        costCenters: new FormControl(),
+
       },
       { validators: customValidators.debitAndCreditBothCanNotBeZero }
     );
@@ -460,7 +462,7 @@ export class CreateJournalEntryComponent {
     });
   }
 
-  openCostPopup(data: any, account: number, index: number) {
+  openCostPopup(data: any ,journal : FormGroup,  account: number, index: number) {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
 
     if (
@@ -477,7 +479,8 @@ export class CreateJournalEntryComponent {
         data: data,
       });
       dialogRef.onClose.subscribe((res) => {
-        if (res) data.costCenters = res;
+        if (res) 
+          journal.get('costCenters')?.setValue(res)
       });
     }
   }
