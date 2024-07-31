@@ -1,9 +1,9 @@
-import { costCenters } from "./costCenters";
 import { JournalEntryLineDto } from "./jouranl-entry-line-dto";
+import { JournalEntryGlBalanceLineDto } from "./JournalEntryGlBalanceLineDto";
 import { JournalEntryStatus } from "./journalentrystatus";
 import { JournalEntryType } from "./journalentrytype";
 
-export interface GetJournalEntryByIdDto {
+export class GetGlOpeningBalanceById {
     id: number;
     journalCode: string;
     referenceNumber?: string;
@@ -17,7 +17,5 @@ export interface GetJournalEntryByIdDto {
     status: JournalEntryStatus;
     totalDebitAmount: number;
     totalCreditAmount: number;
-    journalEntryLines?: JournalEntryLineDto[];
-  }
-  
-
+    openingBalanceJournalEntryLines?: JournalEntryGlBalanceLineDto[];
+}

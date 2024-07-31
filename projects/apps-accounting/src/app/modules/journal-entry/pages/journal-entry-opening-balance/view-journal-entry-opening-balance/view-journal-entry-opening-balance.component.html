@@ -1,0 +1,156 @@
+<div style="margin-left: 20px; overflow-x: hidden">
+    <div class="grid-cont">
+      <div class="my-3 grid-item">
+        <p class="headsCont paragraph_b16">{{ 'viewJournal.JornalCode' | translate }}</p>
+        <small class="subHead heading_b16">
+          {{ journalView?.journalCode }}
+        </small>
+      </div>
+      <!--  -->
+      <div class="my-3 grid-item">
+        <p class="headsCont paragraph_b16">{{ 'viewJournal.Jornalstatus' | translate }}</p>
+        <small class="subHead heading_b16">
+          {{ journalView?.status }}
+        </small>
+      </div>
+      <!--  -->
+      <div class="my-3 grid-item">
+        <p class="headsCont paragraph_b16">{{ 'viewJournal.journalReference' | translate }}</p>
+        <small class="subHead heading_b16">
+          {{ journalView?.referenceNumber }}
+        </small>
+      </div>
+      <!--  -->
+      <div class="my-3 grid-item">
+        <p class="headsCont paragraph_b16">{{ 'viewJournal.date' | translate }}</p>
+        <small class="subHead heading_b16">
+          {{ journalView?.journalDate | date : 'dd/MM/yyyy' }}
+        </small>
+      </div>
+      <!--  -->
+      <div class="my-3 grid-item">
+        <p class="headsCont paragraph_b16">{{ 'viewJournal.JournalPeriod' | translate }}</p>
+        <small class="subHead heading_b16">
+          {{ journalView?.journalPeriod }}
+        </small>
+      </div>
+      <!--  -->
+      <div class="my-3 grid-item">
+        <p class="headsCont paragraph_b16">{{ 'viewJournal.JournalType' | translate }}</p>
+        <small class="subHead heading_b16">
+          {{ journalView?.type }}
+        </small>
+      </div>
+      <!--  -->
+    </div>
+    <!--  -->
+    <div class="grid-cont">
+      <!--
+      <div class="my-3 grid-item">
+        <p class="headsCont paragraph_b16">{{ 'Reversed Journal Code' | translate }}</p>
+        <small class="subHead heading_b16">
+          {{ journalView?.reversedJournalCode }}
+        </small>
+      </div>  
+      -->
+    </div>
+    <!--  -->
+    <div class="grid-cont">
+      <div class="my-3 grid-item">
+        <p class="headsCont paragraph_b16">{{ 'viewJournal.description' | translate }}</p>
+        <div>
+          <p class="subHead heading_b16">
+            {{ journalView?.description }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+    <!--  -->
+    <div class="journal_page">
+      <lib-data-table
+        [items]="journalView?.openingBalanceJournalEntryLines!"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: false,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'accountCode',
+              headerText: 'viewJournal.code' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'accountName',
+              headerText: 'viewJournal.name' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'lineDescription',
+              headerText: 'viewJournal.lineDescription' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'debitAmount',
+              headerText: 'viewJournal.debitAmount' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'creditAmount',
+              headerText: 'viewJournal.creditAmount' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'currency',
+              headerText: 'viewJournal.currency' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'currencyRate',
+              headerText: 'viewJournal.currencyRate' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'debitAmountLocal',
+              headerText: 'viewJournal.debitAmountLocal' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'creditAmountLocal',
+              headerText: 'viewJournal.creditAmountLocal' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'costImg',
+              headerText: 'viewJournal.costCenter' | translate,
+              isGlobalFilter: true,
+              isSortable: true,
+              template : cost
+            }
+          ]
+        }"
+      >
+      <ng-template #cost let-cost>
+        <div>
+          <img class="costCenterImg" src="assets/images/Frame.png" (click)="openCostPopup(cost  , 'view')">
+  
+        </div>
+  
+      </ng-template>
+      
+      </lib-data-table>
+    </div>
+  </div>
+  

@@ -375,7 +375,7 @@
       "successEdit":"Vendor Category Edited Successfully",
       "openSuccess":"Vendor Category Opened Successfully"
     },
-    "deleteVendorCategory" : {
+    "deleteVendorCategory" : { 
       "delete" : "Vendor Category Deleted Successfully"
     },
     "addCustomerCategory" : {

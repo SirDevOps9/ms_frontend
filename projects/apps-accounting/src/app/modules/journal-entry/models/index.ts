@@ -17,3 +17,6 @@ export * from './reportTrialDto';
 export * from './trialBalance';
 export * from './report-journal-account-dto';
 export * from './report-account';
+export * from './journalOpeningBalance';
+export * from './getGlOpeningBalance';
+export * from './JournalEntryGlBalanceLineDto';
