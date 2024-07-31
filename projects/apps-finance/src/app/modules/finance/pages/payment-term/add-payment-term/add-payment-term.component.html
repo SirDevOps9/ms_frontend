@@ -78,7 +78,7 @@
                 ></lib-field-validations>
               </td>
               <td>
-                <lib-selectIcon
+                <lib-select
                                 formControlName="afterPeriod"
                                 [options]="lookups[LookupEnum.PeriodType]"
                                 optionValue="id"
@@ -87,7 +87,7 @@
                                 paymentTermGroup.controls['afterPeriod']
                                 "
                               >
-                              </lib-selectIcon>
+                              </lib-select>
 
                 <lib-field-validations
                   [appControl]="paymentTermGroup.controls['afterPeriod']"

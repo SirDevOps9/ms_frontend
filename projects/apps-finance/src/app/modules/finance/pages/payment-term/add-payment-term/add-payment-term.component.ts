@@ -32,7 +32,7 @@ export class AddPaymentTermComponent implements OnInit {
       name: new FormControl('', [customValidators.required,customValidators.length(0,50) ])
     });
 
-    this.getafterPeriodLookup()
+    this.getPeriodTypeLookup()
 
   }
   createPaymentTermFormGroup(): FormGroup {
@@ -43,11 +43,11 @@ export class AddPaymentTermComponent implements OnInit {
       afterPeriod: new FormControl('', customValidators.required),
         });
   }
-  getafterPeriodLookup() {
-   
-  }
-  loadLookups() {
+  getPeriodTypeLookup() {
     this.lookupsService.loadLookups([LookupEnum.PeriodType]);
+    this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
+   // console.log("sandraaa : " ,this.lookupsService.loadLookups([LookupEnum.PeriodType]));
+
   }
 
   public get items(): FormArray {

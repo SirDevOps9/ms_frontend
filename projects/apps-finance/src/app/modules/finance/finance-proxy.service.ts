@@ -8,6 +8,7 @@ import { AddBankDto } from './models/addBankDto';
 import { UserPermission } from './models/user-permission';
 import { bankByID } from './models/getBankByID';
 import { AddPaymentTermComponent } from './pages/payment-term/add-payment-term/add-payment-term.component';
+import { GetPaymentTermById } from './models/get-payment-term-by-id-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -121,6 +122,15 @@ export class FinanceProxyService {
   }
   addPaymentTerm(obj : AddPaymentTermDto) {
     return this.httpService.post('PaymentTerms' , obj)
+
+  }
+
+  getPaymentTermByID(id:number) : Observable<GetPaymentTermById> {
+    return this.httpService.get(`PaymentTerms/${id}`)
+  }
+
+  editPaymentTerm(  obj : GetPaymentTermById) : Observable<GetPaymentTermById> {
+    return this.httpService.put(`PaymentTerms` , obj);
 
   }
 }

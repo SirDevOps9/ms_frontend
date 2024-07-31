@@ -81,7 +81,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'edit-payment-term',
+        path: 'edit-payment-term/:id',
         component: EditPaymentTermComponent,
         data: {
           breadcrumb: BreadcrumbLabel.PAYMENT_TERM_LIST,

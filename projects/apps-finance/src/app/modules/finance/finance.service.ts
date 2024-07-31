@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { AddBankDto } from './models/addBankDto';
 import { UserPermission } from './models/user-permission';
 import { bankByID } from './models/getBankByID';
+import { GetPaymentTermById } from './models/get-payment-term-by-id-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,8 @@ export class FinanceService {
   public sendBankByID = new BehaviorSubject<bankByID>({} as bankByID)
   public paymentTermDataSource = new BehaviorSubject<PaymentTermDto[]>([])
   public exportedpaymentTermListDataSource = new BehaviorSubject<PaymentTermDto[]>([]);
+  public sendPaymentTermByID = new BehaviorSubject<GetPaymentTermById>({} as GetPaymentTermById)
+
 
 
 
@@ -45,6 +48,7 @@ export class FinanceService {
   sendBankByIDObservable = this.sendBankByID.asObservable()
   paymentTermDataSourceObservable = this.paymentTermDataSource.asObservable()
   exportedPaymentTermDataSourceObservable = this.exportedpaymentTermListDataSource.asObservable()
+  sendPaymentTermByIDObservable = this.sendPaymentTermByID.asObservable()
 
 
 
@@ -264,6 +268,26 @@ export class FinanceService {
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
           this.languageService.transalte('addBank.add')
+        );
+        this.routerService.navigateTo('/masterdata/paymentterm')
+        
+      }
+    })
+  }
+  getPaymentTermByID(id : number) {
+    this.financeProxy.getPaymentTermByID(id).subscribe(res=>{
+      if(res) {
+       this.sendPaymentTermByID.next(res)
+        
+      }
+    })
+  }
+  editPaymentTerm(obj : any) {
+    this.financeProxy.editPaymentTerm(obj).subscribe(res=>{
+      if(res) {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('success'),
+          this.languageService.transalte('editBank.edit')
         );
         this.routerService.navigateTo('/masterdata/paymentterm')
         
