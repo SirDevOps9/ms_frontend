@@ -78,8 +78,11 @@ export class AddPaymentTermComponent implements OnInit {
     if (!this.formsService.validForm(this.items, false)) return;
 
     const totalDueTermValue = this.items.controls.reduce((sum, control) => {
-      return sum + control.get('dueTermValue')?.value;
+      const value = parseFloat(control.get('dueTermValue')?.value) || 0;
+      return sum + value;
     }, 0);
+
+    console.log("totalDueTermValue",totalDueTermValue)
 
     if (totalDueTermValue != 100) {
       this.toasterService.showError( 

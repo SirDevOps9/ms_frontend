@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FinanceService } from '../../../finance.service';
-import { customValidators, FormsService, lookupDto, LookupEnum, LookupsService, RouterService } from 'shared-lib';
+import { customValidators, FormsService, LanguageService, lookupDto, LookupEnum, LookupsService, RouterService, ToasterService } from 'shared-lib';
 import { ActivatedRoute } from '@angular/router';
 import { GetPaymentTermById, GetPaymentTermLineById } from '../../../models/get-payment-term-by-id-dto';
 
@@ -26,7 +26,9 @@ export class EditPaymentTermComponent implements OnInit {
         private routerService : RouterService ,
          private formsService  : FormsService,
          private lookupsService: LookupsService,
-          private route : ActivatedRoute
+          private route : ActivatedRoute,
+          private toasterService : ToasterService, 
+          private languageService : LanguageService ,
  ) {}
 
   ngOnInit() {
@@ -75,7 +77,7 @@ export class EditPaymentTermComponent implements OnInit {
 
   createPaymentTermFormGroup(): FormGroup {
     return this.fb.group({
-      id:new FormControl(''),
+      id:new FormControl(0),
       dueTermValue:  new FormControl('', customValidators.required),
       note:  new FormControl('', customValidators.required),
       afterValue: new FormControl('', customValidators.required),
@@ -113,12 +115,27 @@ export class EditPaymentTermComponent implements OnInit {
  onSave() {
   if (!this.formsService.validForm(this.paymentTermGroup, false)) return;
     if (!this.formsService.validForm(this.items, false)) return;
+
+    const totalDueTermValue = this.items.controls.reduce((sum, control) => {
+      const value = parseFloat(control.get('dueTermValue')?.value) || 0;
+      return sum + value;
+    }, 0);
+
+    console.log("totalDueTermValue",totalDueTermValue)
+
+    if (totalDueTermValue != 100) {
+      this.toasterService.showError( 
+        this.languageService.transalte('failure') , this.languageService.transalte('add-paymentterm.totalerror'));
+      return;
+    }
     const paymentTermLines: GetPaymentTermLineById[] = this.items.value;
     const formData = {
       id: this.paymentTermGroup.get('id')?.value,
       name:  this.paymentTermGroup.get('name')?.value,
       paymentTermLines: paymentTermLines,
     };
+    
+    console.log("formData",formData)
    this.financeService.editPaymentTerm(formData);
  }
 }
