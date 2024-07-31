@@ -446,7 +446,10 @@ export class GeneralSettingService {
             this.languageService.transalte('tag.success'),
             this.languageService.transalte('tag.success')
           );
+          this.getTagList("", new PageInfo())
+
           this.loaderService.hide();
+          
           return res;
         },
         error: (err) => {
@@ -495,6 +498,12 @@ export class GeneralSettingService {
             this.languageService.transalte('tag.success')
           );
         },
+      });
+    }else {
+      this.tagDataSource.value.find((item) => {
+        if (item.id === id) {
+          item.isActive = true;
+        }
       });
     }
   }
