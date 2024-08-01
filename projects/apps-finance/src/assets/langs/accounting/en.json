@@ -191,6 +191,30 @@
   "editTreasury" : {
     "edit" : "Treasury Definition Edited Successfully"
 
+  },
+  "paymentterm": {
+    "payment-term-list": "Payment Term List",
+    "code": "Code",
+    "name": "Name",
+    "term-type": "Term Type",
+    "Search": "Search",
+    "AddNew": "Add New",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "export": "Export",
+    "ExportName": "Bank Definition"
+  },
+  "add-paymentterm": {
+    "dueTermValue": "Due Term Value",
+    "afterValue": "After Value",
+    "afterPeriod": "After Period",
+    "note": "Note",
+    "add_new": "Add New Line",
+    "actions":"Actions",
+    "totalerror":"The total of Due Term Values must be exactly 100.",
+    "add":"Payment Term Added Successfully",
+    "edit":"Payment Term Edited Successfully"
   }
 
 }
