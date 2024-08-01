@@ -9,10 +9,12 @@ import { CurrencyService } from '../../../../general/currency.service';
 import { CurrencyDto } from '../../../../general/models/currencyDto';
 import { NoChildrenAccountsComponent } from '../../../components/noChildrenAccounts/nochildaccounts.component';
 import { JournalEntryService } from '../../../journal-entry.service';
-import { GetJournalEntryByIdDto, JournalEntryLineDto, costCenters, JournalEntryType, EditJournalEntry, JournalEntryStatus, SharedJournalEnums, GetGlOpeningBalanceById, JournalEntryGlBalanceLineDto } from '../../../models';
+import { GetJournalEntryByIdDto, JournalEntryLineDto, costCenters, JournalEntryType, EditJournalEntry, JournalEntryStatus, SharedJournalEnums, GetGlOpeningBalanceById, JournalEntryGlBalanceLineDto, EditJournalEntryLine } from '../../../models';
 import { JournalStatusUpdate } from '../../../models/update-status';
 import { EditCostCenterAllocationPopupComponent } from '../../components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component';
 import { ActivatedRoute } from '@angular/router';
+import { debounceTime } from 'rxjs/operators';
+import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 
 @Component({
   selector: 'app-edit-journal-entry-opening-balance',
@@ -30,7 +32,9 @@ export class EditJournalEntryOpeningBalanceComponent {
   viewMode: boolean = false;
   statusName: string;
   journalTypeName: JournalEntryType;
+  dirtyTouchedGroups: { index: number, value: any }[] = [];
 
+  journalFilteredData : EditJournalEntryLine[]
   filteredAccounts: AccountDto[] = [];
   currencies: CurrencyDto[] = [];
   fitleredCurrencies: CurrencyDto[];
@@ -47,8 +51,22 @@ export class EditJournalEntryOpeningBalanceComponent {
     this.initializeForm();
     this.initializeFormData();
     this.getCurrencies();
-
+   
+    this.journalEntryLinesArray.valueChanges.subscribe(() => {
+      this.journalFilteredData = this.generalService.getDirtyTouchedGroups(this.journalEntryLinesArray);
+    });
+  
+   
   }
+
+ 
+  
+
+  get journalEntryLinesArray(): FormArray {
+    return this.editJournalForm.get('journalEntryLines') as FormArray;
+  }
+
+
 
   initializeForm() {
     this.editJournalForm = this.fb.group({
@@ -96,7 +114,6 @@ export class EditJournalEntryOpeningBalanceComponent {
       this.journalEntryLines.forEach((line) => {
         const { currencyId, debitAmount, creditAmount, costCenters, currencyRate, ...lineData } =
           line;
-        console.log(line);
 
         const lineGroup = this.fb.group(
           {
@@ -126,12 +143,13 @@ export class EditJournalEntryOpeningBalanceComponent {
   }
 
   onSubmit() {
+
     if (!this.formsService.validForm(this.editJournalForm, false)) return;
 
     const request: EditJournalEntry = this.editJournalForm.value;
     request.id = this.ID
 
-    request.journalEntryLines = request.journalEntryLines?.map((item) => {
+    request.journalEntryLines = this.journalFilteredData?.map((item) => {
       item.costCenters = item.costCenters
         ? item.costCenters.map((item) => {
             return {
@@ -158,16 +176,25 @@ export class EditJournalEntryOpeningBalanceComponent {
   }
 
   ChangeStatus(status: JournalEntryStatus) {
+    console.log(status)
+    console.log(this.journalEntryLinesFormArray.value.length)
     let journalStatus = new JournalStatusUpdate();
     journalStatus.id = this.ID
     journalStatus.status = status;
     //console.log(status);
     // console.log(journalStatus.id);
-    this.journalEntryService.ChangeStatusOpeneingBalance(journalStatus).subscribe(() => {
-      setTimeout(() => {
-        location.reload();
-      }, 1500);
-    });
+    if(status == 'unPosted' && !this.journalEntryLinesFormArray.value.length  ) {
+      this.toasterService.showError('Failure', 'journalEntryLinesFormArray is req');
+      return
+    }else{
+      this.journalEntryService.ChangeStatusOpeneingBalance(journalStatus).subscribe(() => {
+        setTimeout(() => {
+          location.reload();
+        }, 1500);
+      });
+    }
+  
+   
   }
 
   onDiscard() {
@@ -223,6 +250,7 @@ export class EditJournalEntryOpeningBalanceComponent {
         currencyRate: new FormControl(),
         debitAmountLocal: new FormControl(),
         creditAmountLocal: new FormControl(),
+        costCenters: new FormControl(),
       },
       { validators: customValidators.debitAndCreditBothCanNotBeZero }
     );
@@ -283,11 +311,13 @@ export class EditJournalEntryOpeningBalanceComponent {
     this.getAccountCurrencyRate(currencyData?.id as number, index);
   }
 
-  openCostPopup(data: any, account: number, index: number) {
+  openCostPopup(data: any, journal : FormGroup, account: number, index: number) {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
     console.log(accountData);
     console.log(this.filteredAccounts);
     console.log(account);
+    const journalLine = this.journalEntryLinesFormArray.at(index);
+
     if (
       (!data.creditAmount && !data.debitAmount) ||
       !account ||
@@ -302,8 +332,9 @@ export class EditJournalEntryOpeningBalanceComponent {
         data: data,
       });
       dialogRef.onClose.subscribe((res) => {
+
         if (res) {
-          data.costCenters = res;
+          journal.get('costCenters')?.setValue(res)
           console.log(res)
         }
       });
@@ -399,6 +430,7 @@ export class EditJournalEntryOpeningBalanceComponent {
     private toasterService: ToasterService,
     private currencyService: CurrencyService,
     private titleService: Title,
-    private route : ActivatedRoute
+    private route : ActivatedRoute,
+    private generalService : GeneralService
   ) {}
 }
