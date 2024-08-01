@@ -111,7 +111,6 @@ export class EditJournalEntryComponent implements OnInit {
       this.journalEntryLines.forEach((line) => {
         const {  debitAmount, creditAmount, costCenters, currencyRate, ...lineData } =
           line;
-        console.log(line);
 
         const lineGroup = this.fb.group(
           {
@@ -289,34 +288,8 @@ export class EditJournalEntryComponent implements OnInit {
     this.getAccountCurrencyRate(selectedAccount.currencyId as number, index);
   }
 
-  // openCostPopup(data: any, account: number, index: number) {
-  //   let accountData = this.filteredAccounts.find((elem) => elem.id === account);
-  //   console.log(accountData);
-  //   console.log(this.filteredAccounts);
-  //   console.log(account);
-  //   if (
-  //     (!data.creditAmount && !data.debitAmount) ||
-  //     !account ||
-  //     accountData?.costCenterConfig == 'NotAllow'
-  //   ) {
-  //     return null;
-  //   } else {
-  //     const dialogRef = this.dialog.open(EditCostCenterAllocationPopupComponent, {
-  //       width: '900px',
-  //       height: '500px',
-  //       header: 'Edit Cost Center Allocation',
-  //       data: data,
-  //     });
-  //     dialogRef.onClose.subscribe((res) => {
-  //       if (res) data.costCenters = res;
-  //     });
-  //   }
-  // }
   openCostPopup(data: any, journal : FormGroup, account: number, index: number) {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
-    console.log(accountData);
-    console.log(this.filteredAccounts);
-    console.log(account);
     if (
       (!data.creditAmount && !data.debitAmount) ||
       !account ||
@@ -333,7 +306,6 @@ export class EditJournalEntryComponent implements OnInit {
       dialogRef.onClose.subscribe((res) => {
         if (res) {
           journal.get('costCenters')?.setValue(res)
-          console.log(res)
         }
       });
     }
@@ -347,9 +319,7 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   filterCurrency(event: any) {
-    //console.log(event);
     let query = event.query.toLowerCase();
-    //console.log(this.currencies);
     this.fitleredCurrencies = this.currencies.filter((c) => c.name?.toLowerCase().includes(query));
   }
 
@@ -403,7 +373,6 @@ export class EditJournalEntryComponent implements OnInit {
     });
   }
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
-    console.log(accountCurrency,"test");
     let currentCurrency: number = 1;
 
     const journalLine = this.journalEntryLinesFormArray.at(currentJournalId);
