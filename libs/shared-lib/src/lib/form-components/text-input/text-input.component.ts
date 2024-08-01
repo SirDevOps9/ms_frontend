@@ -21,7 +21,7 @@ import {
   templateUrl: './text-input.component.html',
   styleUrls: ['./text-input.component.scss'],
 })
-export class  TextInputComponent implements ControlValueAccessor, Validator , AfterViewInit {
+export class TextInputComponent implements ControlValueAccessor, Validator, AfterViewInit {
   @Input() label: string;
   @Input() labelTest: any;
   @Input() type: 'text' | 'number' | 'tel' | 'email' | 'date' | 'radio';
@@ -79,7 +79,23 @@ export class  TextInputComponent implements ControlValueAccessor, Validator , Af
     this.onChange(m.target.value);
 
     this.keyUp.emit(m.target.value);
-    this.keyUpFullEvent.emit(m)
+    this.keyUpFullEvent.emit(m);
+  }
+
+  filterInput(event: KeyboardEvent): boolean {
+    const key = event.key;
+    const isNotWanted = key === 'e' || key === 'E'; // 'E' and 'e'
+    return !isNotWanted;
+  }
+  
+  handlePaste(event: ClipboardEvent): void {
+    const clipboardData = event.clipboardData || (window as any).clipboardData;
+    const pastedData = clipboardData.getData('Text').toUpperCase();
+
+    if (pastedData.includes('E')) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
   }
 
   constructor(@Self() @Optional() public controlDir: NgControl) {
@@ -87,14 +103,11 @@ export class  TextInputComponent implements ControlValueAccessor, Validator , Af
       this.controlDir.valueAccessor = this;
     }
   }
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     if (this.controlDir) {
       setTimeout(() => {
-        this.labelTest=this.controlDir.name
+        this.labelTest = this.controlDir.name;
       }, 500);
-      
-      
     }
   }
-  
 }
