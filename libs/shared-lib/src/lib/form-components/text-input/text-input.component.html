@@ -10,7 +10,6 @@
   (keyup)="keyupChange($event)"
   (keydown)="type === 'number' ? filterInput($event) : null"
   (paste)="type === 'number' ? handlePaste($event) : null"
-   
     [ngStyle]="{
     'padding-right': '25px',
     'background': 'url(' + iconUrl + ') no-repeat right 8px center / 19px',
