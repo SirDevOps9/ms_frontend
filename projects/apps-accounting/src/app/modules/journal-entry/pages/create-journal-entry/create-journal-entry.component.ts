@@ -110,7 +110,6 @@ export class CreateJournalEntryComponent {
 
     this.currencyService.currencies.subscribe((res) => {
       this.currencies = res;
-      console.log(res);
     });
   }
   getAccounts() {
@@ -174,7 +173,6 @@ export class CreateJournalEntryComponent {
           }
         );
 
-        console.log(this.journalEntryAttachments);
       });
     });
   }
@@ -188,23 +186,12 @@ export class CreateJournalEntryComponent {
 
   accountSelected(event: any, id: number) {
     const selected: any = event.value as AccountDto;
-    // if(selected.accountCode=='11'){
-    //   this.things.find(t=>t.id==id)!.account = null;
-    // }
+
     const journalLine = this.items.at(id);
-    // const currencyControl = journalLine.get('currency');
-    // const currencyRateControl = journalLine.get('currencyRate')!;
 
-    // currencyControl?.setValue(selected.currencyId);
-    // this.selectedCurrency = selected.currencyId;
-
-    // var currencyData = this.currencies.find((c) => c.id == selected.currencyId);
-
-    // currencyRateControl.setValue(currencyData!.ratePerUnit);
 
     var accountData = this.filteredAccounts.find((c) => c.id == event);
 
-    console.log('Selectec', accountData);
 
     const accountName = journalLine.get('accountName');
     accountName?.setValue(accountData?.name);
@@ -228,7 +215,6 @@ export class CreateJournalEntryComponent {
   accountSelectedForDialog(accountData: any, id: number) {
     const journalLine = this.items.at(id);
 
-    console.log('Selectec', accountData);
 
     const accountName = journalLine.get('accountName');
 
@@ -252,12 +238,10 @@ export class CreateJournalEntryComponent {
     const journalLine = this.items.at(index);
     const currencyControl = journalLine.get('currency');
     const currencyRateControl = journalLine.get('currencyRate')!;
-    //console.log('currencyRateControl', currencyRateControl);
 
     currencyControl?.valueChanges.subscribe((value) => {
       var currencyData = this.currencies.find((c) => c.id == value);
 
-      //console.log('currency rate', currencyData?.ratePerUnit);
       currencyRateControl.setValue(currencyData!.ratePerUnit);
     });
   }
@@ -272,7 +256,6 @@ export class CreateJournalEntryComponent {
         var currencyData = this.currencies.find((c) => c.id == r.currencyId);
         this.fa.at(index).get('currency')?.setValue(r.currencyId);
         this.fa.at(index).get('currencyName')?.setValue(currencyData?.name);
-        // this.accountSelectedForDialog(r, index);
         this.getAccountCurrencyRate(r.currencyId , index);
       }
     });
@@ -287,14 +270,7 @@ export class CreateJournalEntryComponent {
     return this.fg.get('journalEntryLines') as FormArray;
   }
 
-  // onValChange(e: any, fg: FormGroup) {
-  //   console.log(e);
-  //   let accName = this.filteredAccounts.find((elem) => elem.id == e)?.name;
 
-  //   fg.get('account')?.setValue(accName);
-
-  //   console.log(fg.controls['account']?.value);
-  // }
 
   addThing() {
     const id = this.fa.length + 1;
@@ -336,7 +312,6 @@ export class CreateJournalEntryComponent {
     currencyControl?.valueChanges.subscribe((value) => {
       var currencyData = this.currencies.find((c) => c.id == value);
 
-      //console.log('currency rate', currencyData?.ratePerUnit);
 
       rateControl.setValue(currencyData?.ratePerUnit!);
     });
@@ -356,6 +331,8 @@ export class CreateJournalEntryComponent {
         debitAmountLocal: new FormControl(),
         creditAmountLocal: new FormControl(),
         currencyName: new FormControl(''),
+        costCenters: new FormControl(),
+
       },
       { validators: customValidators.debitAndCreditBothCanNotBeZero }
     );
@@ -371,7 +348,6 @@ export class CreateJournalEntryComponent {
     if (!this.formService.validForm(this.fg, false)) return;
     const value = this.fg.value as JournalEntryFormValue;
 
-    //console.log('Form Value', value);
 
     let obj: AddJournalEntryCommand = {
       ...value,
@@ -393,7 +369,6 @@ export class CreateJournalEntryComponent {
           : [],
       })),
     };
-    console.log(obj);
     this.service
       .addJournalEntry(obj)
       .subscribe((r) => this.routerService.navigateTo('transcations/journalentry'));
@@ -413,10 +388,8 @@ export class CreateJournalEntryComponent {
     });
 
     dialogRef.onClose.subscribe((id: any) => {
-      //console.log('Received ID:', id);
       if (id) {
         this.service.getJournalTemplateById(id).subscribe((template) => {
-          console.log('template:', template);
 
           // Set template values to the form group
           this.fg.patchValue({
@@ -450,8 +423,6 @@ export class CreateJournalEntryComponent {
               });
 
               this.fa.push(newLine);
-              //console.log('new line', newLine);
-              // console.log(this.fa, 'test');
             });
           }
         });
@@ -459,7 +430,7 @@ export class CreateJournalEntryComponent {
     });
   }
 
-  openCostPopup(data: any, account: number, index: number) {
+  openCostPopup(data: any ,journal : FormGroup,  account: number, index: number) {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
 
     if (
@@ -476,7 +447,8 @@ export class CreateJournalEntryComponent {
         data: data,
       });
       dialogRef.onClose.subscribe((res) => {
-        if (res) data.costCenters = res;
+        if (res) 
+          journal.get('costCenters')?.setValue(res)
       });
     }
   }
