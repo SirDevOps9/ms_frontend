@@ -1,6 +1,7 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export function PreventSpecialChars(control: AbstractControl) {
+
   const hasSpacesAround = HasWhitespaceAroundString(control?.value);
 
   if (hasSpacesAround) return { hasWhitespaceAroundString: true };
@@ -96,3 +97,4 @@ export function onlyLettersValidator(control: AbstractControl) {
     return null;  
   }
 }
+

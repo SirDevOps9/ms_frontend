@@ -19,7 +19,16 @@
           icon="pi pi-plus"
           class="btn add_new mr-2"
           (click)="newTag()"
-        ></button>
+        ></button>      
+      </div>
+      <div>
+        <lib-export  
+        (exportClick)="exportTagData($event)"
+        [exportData]="tableData"
+        [exportColumns]="exportColumns"
+        [ExportName]="'Tag'">
+      </lib-export>
+
       </div>
     </div>
   </lib-bread-crumb>
@@ -60,9 +69,8 @@
               template: status
             },
             {
-              name: 'modulesId',
+              name: 'modules',
               headerText: ('tag.Modules' | translate),
-              template: Modules
             },
             {
               name: 'id',
@@ -104,7 +112,13 @@
         </ng-template>
 
         <ng-template #Modules let-tag>
-          <lib-multi-select
+          <div class="flex ">
+            <p  >
+              {{viewModulesName(tag.modulesId)}}
+            </p>
+          </div>
+         
+          <!-- <lib-multi-select
             [options]="modulelist"
             optionLabel="module"
             optionValue="moduleId"
@@ -112,7 +126,7 @@
             [readOnly]="true"
             [disabled]="true"
           >
-          </lib-multi-select>
+          </lib-multi-select> -->
         </ng-template>
       </lib-data-table>
     </div>

@@ -72,7 +72,7 @@ export class AuthService {
           this.router.navigate(['/']);
         } else {
           if (state == '' || state == '/') {
-            alert(this.environmentService.AuthConfiguration!.state!);
+            //alert(this.environmentService.AuthConfiguration!.state!);
             location.href = this.environmentService.AuthConfiguration!.state!;
           } else {
             location.href = state;

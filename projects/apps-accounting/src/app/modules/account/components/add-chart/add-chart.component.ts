@@ -122,7 +122,15 @@ export class AddChartComponent {
   getCompanyDropdown() {
     this.accountService.getCompanyDropdown();
     this.accountService.companyDropdown.subscribe((res) => {
-      this.companyDropDown=res
+      this.companyDropDown = res
+      if (res && res.length > 0 && this.formGroup) {
+        // Assuming the company object has an 'id' property that needs to be assigned
+        const companiesControl = this.formGroup.get('companies');
+        if (companiesControl) {
+            companiesControl.setValue([res[0].id]);
+        }
+    }
+      
     });
   }
 
@@ -153,7 +161,7 @@ export class AddChartComponent {
       this.parentAcountName = response;
       this.selectValue = true
       const newAccountData = {
-        levelId: response.levelId,
+        levelId: response.levelId! + 1 ,
         accountCode: response.accountCode,
         accountSectionId: response.accountSectionId,
         accountSectionName: response.accountSectionName,

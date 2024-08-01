@@ -19,6 +19,8 @@ import {
   costCenterActivation,
   companyDropDownDto,
   CountryDto,
+  ExportTaxDto,
+  ExportAccountsDto,
 } from './models';
 
 import { AccountTypeDropDownDto } from './models/accountTypeDropDownDto';
@@ -60,7 +62,14 @@ export class AccountService {
   private costCenterDetails = new BehaviorSubject<costCenterDetails>({} as costCenterDetails);
   private editCostCenter = new BehaviorSubject<costById | undefined>(undefined);
   private costCenterActivat = new BehaviorSubject<costCenterActivation | undefined>(undefined);
-
+  private exportsTaxGroupDataSource = new BehaviorSubject<TaxGroupDto[]>([]);
+  public exportsTaxGroupDataSourceObservable = this.exportsTaxGroupDataSource.asObservable();
+  private exportsTaxesDataSource = new BehaviorSubject<ExportTaxDto[]>([]);
+  public exportsTaxesDataSourceObservable = this.exportsTaxesDataSource.asObservable();
+  private exportsAccountsDataSource = new BehaviorSubject<ExportAccountsDto[]>([]);
+  public exportsAccountsDataSourceObservable = this.exportsAccountsDataSource.asObservable();
+  private exportsCostCentersDataSource = new BehaviorSubject<costCenterList[]>([]);
+  public exportsCostCentersDataSourceObservable = this.exportsCostCentersDataSource.asObservable();
   private taxesDefinitionsDataSource = new BehaviorSubject<TaxDto[]>([]);
   private costCenterList = new BehaviorSubject<costCenterList[]>([]);
   private costCenterData = new BehaviorSubject(false);
@@ -519,6 +528,39 @@ export class AccountService {
       this.countryDataSource.next(response);
     });
   }
+
+  exportTaxGroupData(searchTerm:string | undefined) {
+    this.accountproxy.exportTaxGroupData(searchTerm).subscribe({
+      next: (res) => {
+         this.exportsTaxGroupDataSource.next(res);
+      },
+    });
+  }
+
+  exportAccountsData(searchTerm:string | undefined) {
+    this.accountproxy.exportAccountsData(searchTerm).subscribe({
+      next: (res) => {
+         this.exportsAccountsDataSource.next(res);
+      },
+    });
+  }
+
+  exportCostCentersData(searchTerm:string | undefined) {
+    this.accountproxy.exportCostCentersData(searchTerm).subscribe({
+      next: (res) => {
+         this.exportsCostCentersDataSource.next(res);
+      },
+    });
+  }
+
+  exportTaxesData(searchTerm:string | undefined) {
+    this.accountproxy.exportTaxesData(searchTerm).subscribe({
+      next: (res) => {
+         this.exportsTaxesDataSource.next(res);
+      },
+    });
+  }
+
   constructor(
     private accountproxy: AccountProxy,
     private toasterService: ToasterService,

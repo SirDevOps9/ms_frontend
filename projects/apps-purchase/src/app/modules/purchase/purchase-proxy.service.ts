@@ -100,4 +100,24 @@ export class PurchaseProxyService {
   getTags(): Observable<TagDropDownDto[]> {
     return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown`);
   }
+
+  exportVendorCategoriesData(
+    searchTerm: string | undefined
+  ): Observable<VendorCategoryDto[]> {
+    let query = `VendorCategory/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<VendorCategoryDto[]>(query);
+  }
+
+  exportVendorsData(
+    searchTerm: string | undefined
+  ): Observable<vendorDefinitionDto[]> {
+    let query = `vendor/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<vendorDefinitionDto[]>(query);
+  }
 }

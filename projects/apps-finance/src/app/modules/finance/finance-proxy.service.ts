@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
-import { AddTreasuryDto, Balance, EditTreasuryDto, GetTreasuryDtoById } from './models';
+import { AddPaymentTermDto, AddTreasuryDto, Balance, EditTreasuryDto, GetTreasuryDtoById, PaymentTermDto } from './models';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { AddBankDto } from './models/addBankDto';
 import { UserPermission } from './models/user-permission';
 import { bankByID } from './models/getBankByID';
+import { AddPaymentTermComponent } from './pages/payment-term/add-payment-term/add-payment-term.component';
+import { GetPaymentTermById } from './models/get-payment-term-by-id-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -96,5 +98,39 @@ export class FinanceProxyService {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
      return this.httpService.get<BankDefinitionDto[]>(query);
+  }
+  getAllPymentTerm(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<PaymentTermDto>> {
+    let query = `PaymentTerms?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<PaymentTermDto>>(query);
+  }
+
+  exportsPaymentTermList(
+    searchTerm: string | undefined
+  ): Observable<PaymentTermDto[]> {
+    let query = `PaymentTerms/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<PaymentTermDto[]>(query);
+  }
+  deletePaymentTerm(id : number) {
+    return this.httpService.delete(`PaymentTerms/${id}`);
+
+  }
+  addPaymentTerm(obj : AddPaymentTermDto) {
+    return this.httpService.post('PaymentTerms' , obj)
+
+  }
+
+  getPaymentTermByID(id:number) : Observable<GetPaymentTermById> {
+    return this.httpService.get(`PaymentTerms/${id}`)
+  }
+
+  editPaymentTerm(  obj : GetPaymentTermById) : Observable<GetPaymentTermById> {
+    return this.httpService.put(`PaymentTerms` , obj);
+
   }
 }

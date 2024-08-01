@@ -56,7 +56,15 @@
 
                             
                         </div> -->
-
+                        <div>
+                          <lib-export
+                            (exportClick)="exportCostCentersData($event)"
+                            [exportData]="tableData"
+                            [exportColumns]="exportColumns"
+                            [ExportName]="'Cost Centers'"
+                          >
+                          </lib-export>
+                        </div>
 
                     </div>
 

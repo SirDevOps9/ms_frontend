@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { PageInfoResult, MenuModule, PageInfo, lookupDto } from 'shared-lib';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { GeneralSettingService } from '../../general-setting.service';
-import { CountryDto, CurrencyConversionDto, currencyListDto } from '../../models';
+import { CountryDto, CurrencyConversionDto, currencyListDto, ExportCurrencyConversionDto } from '../../models';
 
 @Component({
   selector: 'app-currency-conversion',
@@ -21,46 +21,44 @@ export class CurrencyConversionComponent {
   modulelist: MenuModule[];
   searchTerm: string;
   ref: DynamicDialogRef;
-  exportColumns: lookupDto[];
-  exportData: CurrencyConversionDto[];
 
-  columns: [
+  mappedExportData: CurrencyConversionDto[];
+
+  exportData: ExportCurrencyConversionDto[];
+
+  exportColumns: lookupDto[] = [
                    
     {
-      name: 'fromCurrencyName',
-      headerText: 'treasury Name',
+      id: 'fromCurrencyName',
+      name: 'Currency Name',
     },
     {
-      name: 'fromCurrencyRate',
-      headerText: 'Currency Rate',
+      id: 'fromCurrencyRate',
+      name: 'Currency Rate',
     },
   
     {
-      name: 'toCurrencyName',
-      headerText: 'To Currency',
+      id: 'toCurrencyName',
+      name: 'To Currency',
     },
     {
-      name: 'reversedRate',
-      headerText: 'Reversed Rate' ,
+      id: 'reversedRate',
+      name: 'Reversed Rate' ,
     },
     {
-      name: 'note',
-      headerText: 'Notes' ,
+      id: 'note',
+      name: 'Notes' ,
     },
 
     {
-      name: 'id',
-      headerText: 'Actions',
+      id: 'id',
+      name: 'Actions',
 
     },
   ]
   ngOnInit() {
     this.getCurrencyConversionList()
     this.getCurrencies()
-    this.exportColumns = this.columns.map((col) => ({
-      id: col.headerText,
-      name: col.name,
-    }));
 
   }
   exportClick(e?: Event){
@@ -78,6 +76,12 @@ export class CurrencyConversionComponent {
     this.generalSettingService.currencyConversionDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
+        this.mappedExportData = this.tableData.map(elem=>{
+          let {id , ...args} = elem
+          return args
+          
+        })
+        console.log(this.mappedExportData)
       },
     }
 )
@@ -118,7 +122,6 @@ getCurrencies() {
 )
 
   }
-
 
 
   onDelete(id: number) {

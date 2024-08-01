@@ -26,6 +26,8 @@ import {
   costCenterActivation,
   companyDropDownDto,
   CountryDto,
+  ExportTaxDto,
+  ExportAccountsDto,
 } from './models';
 import { TaxGroupDropDown } from './models/tax-group-drop-down';
 import { costLookup } from '../journal-entry/models';
@@ -64,10 +66,14 @@ export class AccountProxy {
   deleteAccount(id: number): Observable<number> {
     return this.httpService.delete<number>(`ChartOfAccounts/Delete?Id=${id}`);
   }
-  getAllPaginated(quieries: string, pageInfo: PageInfo): Observable<PaginationVm<AccountDto>> {
-    return this.httpService.get<PaginationVm<AccountDto>>(
-      `ChartOfAccounts?${pageInfo.toQuery}&${quieries ? quieries : ''}`
-    );
+  getAllPaginated(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<AccountDto>> {
+
+    let query = `ChartOfAccounts?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<AccountDto>>(query);
+   
   }
   getAccountsHasNoChildren(
     quieries: string,
@@ -183,6 +189,46 @@ export class AccountProxy {
 
   getAllCountries(): Observable<CountryDto[]> {
     return this.httpService.get<CountryDto[]>(`Country`);
+  }
+
+  exportTaxGroupData(
+    searchTerm: string | undefined
+  ): Observable<TaxGroupDto[]> {
+    let query = `TaxGroup/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<TaxGroupDto[]>(query);
+  }
+  
+  exportAccountsData(
+    searchTerm: string | undefined
+  ): Observable<ExportAccountsDto[]> {
+    let query = `ChartOfAccounts/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<ExportAccountsDto[]>(query);
+  }
+
+  exportCostCentersData(
+    searchTerm: string | undefined
+  ): Observable<costCenterList[]> {
+    let query = `CostCenter/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<costCenterList[]>(query);
+  }
+
+  exportTaxesData(
+    searchTerm: string | undefined
+  ): Observable<ExportTaxDto[]> {
+    let query = `Tax/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<ExportTaxDto[]>(query);
   }
   constructor(private httpService: HttpService) {}
 }

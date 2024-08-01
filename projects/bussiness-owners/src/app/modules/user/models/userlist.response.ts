@@ -1,5 +1,5 @@
 export interface UserListResponse {
-  id: string;
+  id?: string;
   name: string;
   email: string;
   license: string;
@@ -7,5 +7,7 @@ export interface UserListResponse {
   isActive: boolean;
   lastLoginDate: string;
   invitationStatus: number;
-  photo: string;
+  photo?: string;
 }
+
+

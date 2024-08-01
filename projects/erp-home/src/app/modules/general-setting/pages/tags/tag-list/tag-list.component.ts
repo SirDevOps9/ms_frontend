@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { LanguageService, MenuModule, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { lookupDto, LanguageService, MenuModule, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { LayoutService } from 'libs/apps-shared-lib/src/lib/modules/layout/layout.service';
 import { GeneralSettingService } from '../../../general-setting.service';
-import { TagDto } from '../../../models';
+import { ExportTagDto, TagDto } from '../../../models';
 import { TagEditComponent } from '../../../components/tag-edit/tag-edit.component';
 import { TagAddComponent } from '../../../components/tag-add/tag-add.component';
 
@@ -18,6 +18,9 @@ export class TagListComponent implements OnInit {
   modulelist: MenuModule[];
   searchTerm: string;
 
+  mappedExportData: TagDto[];
+  exportData: ExportTagDto[]; 
+
   constructor(
     private routerService: RouterService,
     private generalSettingService: GeneralSettingService,
@@ -27,9 +30,34 @@ export class TagListComponent implements OnInit {
 
   ) {}
 
+   exportColumns: lookupDto[] = [
+    {
+      id: 'id',
+      name: 'Id',
+    },
+    {
+      id: 'code',
+      name: 'Code',
+    },
+    {
+      id: 'name',
+      name: 'Name',
+    },
+    {
+      id: 'isActive',
+      name: 'Status',
+    },
+    {
+      id: 'modules',
+      name: 'Modules',
+    },
+  ];
   ngOnInit() {
+
     this.modulelist = this.layoutService.getModules();
+    console.log(this.modulelist)
     this.initTagData();
+
   }
 
   initTagData() {
@@ -41,9 +69,17 @@ export class TagListComponent implements OnInit {
       },
     });
 
+
     this.generalSettingService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
+  }
+
+  viewModulesName(tag : number[]) {
+    let moduleName : any = this.modulelist
+    moduleName = moduleName.filter((elem : any)=> tag.includes(elem.moduleId)).map((elem : any)=>elem.module)
+    return moduleName
+
   }
 
   onPageChange(pageInfo: PageInfo) {
@@ -98,11 +134,19 @@ export class TagListComponent implements OnInit {
       },
     });
   }
+
+  exportTagData(searchTerm: string) {
+    this.generalSettingService.exportTagData(searchTerm);
+    this.generalSettingService.exportsTagDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+
+    });
+  }
+
   Delete(id: number) {
     this.generalSettingService.deleteTag(id);
-    const index = this.tableData.findIndex((item) => item.id === id);
-    if (index !== -1) {
-      this.tableData.splice(index, 1);
-    }
+   
+    
+    
   }
 }

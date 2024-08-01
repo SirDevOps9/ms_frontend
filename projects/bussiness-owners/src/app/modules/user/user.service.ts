@@ -6,6 +6,7 @@ import {
   CreateInvitedUser,
   UserListResponse,
   UserState,
+  ExportUserListResponse,
 } from './models';
 import { UserProxy } from './user.proxy';
 import {
@@ -33,6 +34,9 @@ export class UserService {
   public users = this.userDataSource.asObservable();
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
+
+  private exportsUsersDataSource = new BehaviorSubject<ExportUserListResponse[]>([]);
+  public exportsUsersDataSourceObservable = this.exportsUsersDataSource.asObservable();
 
   getAllUsers(subscriptionId: string) {
     this.userProxy.getAll(subscriptionId).subscribe({
@@ -250,6 +254,14 @@ export class UserService {
     }
   }
 
+  exportUsersData(companyId: string,
+  ) {
+    this.userProxy.exportUsersData(companyId).subscribe({
+      next: (res) => {
+         this.exportsUsersDataSource.next(res);
+      },
+    });
+  }
 
   constructor(
     private userProxy: UserProxy,

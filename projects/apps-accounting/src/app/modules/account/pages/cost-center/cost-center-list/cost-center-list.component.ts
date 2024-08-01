@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { PageInfoResult, MenuModule, RouterService, PageInfo, ToasterService } from 'shared-lib';
+import { PageInfoResult, MenuModule, RouterService, PageInfo, ToasterService, lookupDto } from 'shared-lib';
 import { AccountService } from '../../../account.service';
 import { TaxGroupAddComponent } from '../../../components/tax-group-add/tax-group-add.component';
 import { TaxGroupEditComponent } from '../../../components/tax-group-edit/tax-group-edit.component';
@@ -17,7 +17,8 @@ export class CostCenterListComponent implements OnInit {
   currentPageInfo: PageInfoResult;
   modulelist: MenuModule[];
   searchTerm: string;
-
+  exportColumns: lookupDto[];
+  exportData: costCenterList[];
   constructor(
     private routerService: RouterService,
     private accountService: AccountService,
@@ -111,8 +112,14 @@ export class CostCenterListComponent implements OnInit {
       this.accountService.costCenterActivation(command)
     } else {
       user.isActive = !user.isActive;
-      console.log("fffffffffff");
     }
+  }
+
+  exportCostCentersData(searchTerm: string) {
+    this.accountService.exportCostCentersData(searchTerm);
+    this.accountService.exportsCostCentersDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
   }
 }
 

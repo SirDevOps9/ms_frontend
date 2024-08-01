@@ -78,3 +78,25 @@ export function nonNegativeValidator(control: AbstractControl) {
     return { nonNegative: true }; // Validation failed
   }
 };
+
+
+export function noAlphabeticValidator(control: AbstractControl): ValidationErrors | null {
+  if (
+    control.value == null ||
+    control.value === '' ||
+    control.value.length === 0
+  ) {
+    return null;
+  }
+
+  // Regular expression to match any alphabetic characters
+  const regularExpression = /[a-zA-Z]/;
+
+  const isValid = !regularExpression.test(control.value);
+
+  if (!isValid) {
+    return { hasAlphabetic: true };
+  } else {
+    return null;
+  }
+}

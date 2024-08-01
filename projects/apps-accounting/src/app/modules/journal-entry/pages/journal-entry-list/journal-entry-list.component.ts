@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import {
   LanguageService,
   LoaderService,
+  lookupDto,
   PageInfo,
   PageInfoResult,
   RouterService,
@@ -23,7 +24,8 @@ export class JournalEntryListComponent implements OnInit {
   cols: any[] = [];
   active: boolean = false;
   currentPageInfo: PageInfoResult;
-
+  exportColumns: lookupDto[];
+  exportData: JournalEntryDto[];
   constructor(
     private routerService: RouterService,
     private titleService: Title,
@@ -144,4 +146,12 @@ onPageChange(pageInfo: PageInfo) {
     },
   })
 }
+
+exportJournalEntriesData(searchTerm: string) {
+  this.journalEntryService.exportJournalEntriesData(searchTerm);
+  this.journalEntryService.exportsJournalEntriesDataSourceObservable.subscribe((res) => {
+    this.exportData = res;
+  });
+}
+
 }

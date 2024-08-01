@@ -52,7 +52,6 @@ import { UploadMultipeFilesComponent } from './form-components/upload-multipe-fi
 import { CalendarComponent } from './form-components/calendar/calendar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ExportComponent } from './components/export/export.component';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ChangeColumnComponent } from './components/change-column/change-column.component';
 
 @NgModule({
@@ -106,8 +105,7 @@ import { ChangeColumnComponent } from './components/change-column/change-column.
     PrimeSharedModule,
     TreeTableModule,
     TreeModule,
-    ProgressSpinnerModule,
-    PdfViewerModule
+    ProgressSpinnerModule
   ],
   exports: [
     GetLookupPipe,
@@ -151,7 +149,6 @@ import { ChangeColumnComponent } from './components/change-column/change-column.
     TablePrintComponent,
     TabviewComponent,
     ExportComponent,
-    PdfViewerModule,
     ChangeColumnComponent
   ],
 })

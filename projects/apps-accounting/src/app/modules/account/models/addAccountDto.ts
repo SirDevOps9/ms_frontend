@@ -9,6 +9,7 @@ export interface AddAccountDto {
   accountSectionId: number;
   currencyId : number;
   tags : number[];
+  Companies : string[];
   AccountActivation: string;
   periodicActiveFrom : Date;
   periodicActiveTo : Date;

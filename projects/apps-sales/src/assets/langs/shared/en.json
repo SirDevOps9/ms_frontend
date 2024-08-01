@@ -34,6 +34,8 @@
     "invalidBirthDate": "The birth date cannot be in the future",
     "onlyLetters": "Only letters are allowed.",
     "invalidage":"Invalid age",
-    "ageAbove": "You must be at least {{age}} years old."
+    "ageAbove": "You must be at least {{age}} years old.",
+    "nonNegativeNumbers": "it should be a positive number",
+    "noAlphabeticCharacter": "The field must not contain alphabetic characters."   
   }
 }

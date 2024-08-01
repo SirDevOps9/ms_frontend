@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { lookupDto, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { AccountService } from '../../../account.service';
-import { AccountNature, AccountDto } from '../../../models';
+import { AccountNature, AccountDto, ExportAccountsDto } from '../../../models';
 
 @Component({
   selector: 'app-chat-of-account-list',
@@ -11,20 +11,59 @@ import { AccountNature, AccountDto } from '../../../models';
 export class ChatOfAccountListComponent implements OnInit {
   tableData: AccountDto[];
   currentPageInfo: PageInfoResult;
-  accountNature= AccountNature;
+  accountNature = AccountNature;
+  searchTerm : string
+  mappedExportData: AccountDto[];
+
+  exportData: ExportAccountsDto[];
 
   constructor(private routerService: RouterService, private accountService: AccountService) {}
 
+  exportColumns: lookupDto[] = [
+    {
+      id: 'id',
+      name: 'Id',
+    },
+
+    {
+      id: 'accountCode',
+      name: 'Account Code',
+    },
+    {
+      id: 'natureId',
+      name: 'Nature',
+    },
+    {
+      id: 'Account Type',
+      name: 'accountTypeName',
+    },
+    {
+      id: 'Account Section',
+      name: 'accountSectionName',
+    },
+  ];
+
   ngOnInit() {
-    this.initChartOfAccountData();
+    this.initChartOfAccountData(this.searchTerm, new PageInfo());
   }
 
-  initChartOfAccountData() {
-    this.accountService.initAccountList('', new PageInfo());
+  searchTermChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.searchTerm = inputElement.value;
+    console.log( this.searchTerm)
+    this.initChartOfAccountData(this.searchTerm, new PageInfo());
+  }
+
+  initChartOfAccountData(searchTerm: string, page: PageInfo) {
+    this.accountService.initAccountList(searchTerm, new PageInfo());
 
     this.accountService.accountsList.subscribe({
       next: (ChartOfAccountList) => {
         this.tableData = ChartOfAccountList;
+        this.mappedExportData = this.tableData.map((elem) => {
+          let { currencyId, ...args } = elem;
+          return args;
+        });
       },
     });
 
@@ -33,12 +72,20 @@ export class ChatOfAccountListComponent implements OnInit {
     });
   }
   onPageChange(pageInfo: PageInfo) {
-    this.accountService.initAccountList('', pageInfo);
+    this.initChartOfAccountData('', pageInfo);
+    
   }
   routeToAdd() {
     this.routerService.navigateTo(`/journalentry/add`);
   }
   routeToEdit(id: number) {
     this.routerService.navigateTo(`/journalentry/edit/${id}`);
+  }
+
+  exportAccountsData(searchTerm: string) {
+    this.accountService.exportAccountsData(searchTerm);
+    this.accountService.exportsAccountsDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
   }
 }

@@ -29,6 +29,7 @@ export class AddBankDefinitionComponent implements OnInit {
   usersList : UserPermission[]
   openingBalanceDataList :    any = []
   OpeningBalanceData : Balance
+  
   ngOnInit(): void {
     this.bankForm = this.fb.array([this.createBankFormGroup()]);
     this.bankormGroup = new FormGroup({
