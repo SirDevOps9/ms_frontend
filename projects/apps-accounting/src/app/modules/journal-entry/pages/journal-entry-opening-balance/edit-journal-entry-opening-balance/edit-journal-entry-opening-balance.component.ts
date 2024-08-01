@@ -28,6 +28,8 @@ export class EditJournalEntryOpeningBalanceComponent {
   accountIdList: number[] = [];
   currencyIdList: number[] = [];
   costCenters: costCenters[] = [];
+  currentAccounts: number[] = [];
+
   ID : number
   viewMode: boolean = false;
   statusName: string;
@@ -44,7 +46,7 @@ export class EditJournalEntryOpeningBalanceComponent {
   creditLocal: string;
 
   ngOnInit() {
-    this.titleService.setTitle('Edit Journal');
+    this.titleService.setTitle('Edit Journal Opening Balance');
     this.ID = this.route.snapshot.params['id']
 
     this.getAccounts();
@@ -63,7 +65,7 @@ export class EditJournalEntryOpeningBalanceComponent {
   
 
   get journalEntryLinesArray(): FormArray {
-    return this.editJournalForm.get('journalEntryLines') as FormArray;
+    return this.editJournalForm.get('journalEntryLines') as FormArray; 
   }
 
 
@@ -87,6 +89,7 @@ export class EditJournalEntryOpeningBalanceComponent {
       totalCreditAmount: new FormControl(),
       journalEntryLines: this.fb.array([]),
     });
+    
   }
 
   initializeFormData() {
@@ -106,13 +109,12 @@ export class EditJournalEntryOpeningBalanceComponent {
 
       this.journalEntry = res;
       this.journalEntryLines = res.openingBalanceJournalEntryLines!;
-      // console.log(this.journalEntryLines);
       const journalEntryLinesArray = this.journalEntryLinesFormArray;
 
       journalEntryLinesArray.clear();
 
       this.journalEntryLines.forEach((line) => {
-        const { currencyId, debitAmount, creditAmount, costCenters, currencyRate, ...lineData } =
+        const {  debitAmount, creditAmount, costCenters, currencyRate, ...lineData } =
           line;
 
         const lineGroup = this.fb.group(
@@ -124,6 +126,7 @@ export class EditJournalEntryOpeningBalanceComponent {
             lineDescription: new FormControl(lineData.lineDescription, [customValidators.required]),
             debitAmount: new FormControl(debitAmount, [customValidators.required]),
             creditAmount: new FormControl(creditAmount, [customValidators.required]),
+            currencyId: new FormControl(lineData.currencyId, [customValidators.required]),
             currency: new FormControl(lineData.currency, [customValidators.required]),
             currencyRate: new FormControl(currencyRate, [customValidators.required]),
             debitAmountLocal: new FormControl(debitAmount * currencyRate),
@@ -136,9 +139,9 @@ export class EditJournalEntryOpeningBalanceComponent {
 
         journalEntryLinesArray.push(lineGroup);
 
-        this.currencyIdList.push(currencyId);
+     
       });
-      // }
+      this.currentAccounts  = this.journalEntryLines.map(line => line.accountId);
     });
   }
 
@@ -159,32 +162,21 @@ export class EditJournalEntryOpeningBalanceComponent {
             };
           })
         : [];
-      const currencyId =
-        typeof item.currency == 'string'
-          ? this.currencies.find((c) => c.name == item.currency)!.id
-          : item.currency.id;
-      return { ...item, currencyId: currencyId };
+        return item ;
+
     });
-    const data = {
-      id : request.id,
-      journalDate : request.journalDate,
-      referenceNumber : request.referenceNumber,
-       description : request.description,
-       journalEntryLines : request.journalEntryLines
-    }
-    this.journalEntryService.editJournalEntryOpeningBalance(data);
+
+    this.journalEntryService.editJournalEntryOpeningBalance(request);
   }
 
   ChangeStatus(status: JournalEntryStatus) {
-    console.log(status)
-    console.log(this.journalEntryLinesFormArray.value.length)
+  
     let journalStatus = new JournalStatusUpdate();
     journalStatus.id = this.ID
     journalStatus.status = status;
-    //console.log(status);
-    // console.log(journalStatus.id);
+ 
     if(status == 'unPosted' && !this.journalEntryLinesFormArray.value.length  ) {
-      this.toasterService.showError('Failure', 'journalEntryLinesFormArray is req');
+      this.toasterService.showError('Failure', 'journalEntry Lines is required');
       return
     }else{
       this.journalEntryService.ChangeStatusOpeneingBalance(journalStatus).subscribe(() => {
@@ -244,9 +236,10 @@ export class EditJournalEntryOpeningBalanceComponent {
         accountId: new FormControl(),
         accountName: new FormControl(),
         lineDescription: new FormControl(null, [customValidators.required]),
-        debitAmount: new FormControl(0, [customValidators.required, Validators.min(0)]),
-        creditAmount: new FormControl(0, [customValidators.required, Validators.min(0)]),
-        currency: new FormControl(null, [customValidators.required]),
+        debitAmount: new FormControl(null, [customValidators.required, Validators.min(0)]),
+        creditAmount: new FormControl(null, [customValidators.required, Validators.min(0)]),
+        currencyId: new FormControl(null,[customValidators.required]),
+        currency:new FormControl(null),
         currencyRate: new FormControl(),
         debitAmountLocal: new FormControl(),
         creditAmountLocal: new FormControl(),
@@ -257,6 +250,10 @@ export class EditJournalEntryOpeningBalanceComponent {
     newLine.updateValueAndValidity();
 
     this.journalEntryLinesFormArray.push(newLine);
+    const accountId = newLine.get('accountId')?.value;
+    if (accountId) {
+      this.journalEntryLinesFormArray.push(accountId);
+    }
   }
 
   getAccounts() {
@@ -268,7 +265,6 @@ export class EditJournalEntryOpeningBalanceComponent {
     });
   }
   filterAccount(event: any) {
-    //console.log(this.filteredAccounts);
     let query = event.query;
     this.accountService
       .getAllChartOfAccountPaginated(query, new PageInfo())
@@ -279,45 +275,39 @@ export class EditJournalEntryOpeningBalanceComponent {
     const ref = this.dialog.open(NoChildrenAccountsComponent, {});
     ref.onClose.subscribe((account: AccountDto) => {
       if (account) {
-        this.updateAccount(account.id, index);
-        // const journalLine = this.journalEntryLinesFormArray.at(index);
-        // const accountId = journalLine.get('accountId');
-        // accountId?.setValue(account.id);
-        // const accountName = journalLine.get('accountName');
-        // accountName?.setValue(account.name);
-        // journalLine.get('accountCode')?.setValue(account.accountCode);
+        this.updateAccount(account, index);
+   
       }
     });
   }
 
-  updateAccount(event: any, index: number) {
-    const journalLine = this.journalEntryLinesFormArray.at(index);
+  accountSelected(event: any, id: number) {
 
-    journalLine.get('accountId')?.setValue(event);
     var accountData = this.filteredAccounts.find((c) => c.id == event);
+    this.updateAccount(accountData as AccountDto , id);
+  }
 
-    const accountName = journalLine.get('accountName');
-    accountName?.setValue(accountData?.name);
+  updateAccount(selectedAccount: AccountDto, index: number) {
+    const journalLine = this.journalEntryLinesFormArray.at(index);  
 
-    journalLine.get('accountCode')?.setValue(accountData?.accountCode);
+  if (this.currentAccounts[index] !== selectedAccount.id) {
+    journalLine.get('costCenters')?.setValue([]);
+  }    
 
-    var currencyData = this.currencies.find((c) => c.id == accountData?.currencyId);
+    journalLine.get('accountId')?.setValue(selectedAccount.id);
+    journalLine.get('accountName')?.setValue(selectedAccount.name);
+    journalLine.get('accountCode')?.setValue(selectedAccount.accountCode);
 
-    const currencyControl = journalLine.get('currency');
+    var currencyData = this.currencies.find((c) => c.id == selectedAccount.currencyId);
+    journalLine.get('currencyId')?.setValue(selectedAccount.currencyId);
+    journalLine.get('currency')?.setValue(currencyData?.name);
 
-    currencyControl?.setValue(currencyData?.name);
-    this.selectedCurrency = currencyData?.name!;
 
-    this.getAccountCurrencyRate(currencyData?.id as number, index);
+    this.getAccountCurrencyRate(selectedAccount.currencyId as number, index);
   }
 
   openCostPopup(data: any, journal : FormGroup, account: number, index: number) {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
-    console.log(accountData);
-    console.log(this.filteredAccounts);
-    console.log(account);
-    const journalLine = this.journalEntryLinesFormArray.at(index);
-
     if (
       (!data.creditAmount && !data.debitAmount) ||
       !account ||
@@ -332,10 +322,8 @@ export class EditJournalEntryOpeningBalanceComponent {
         data: data,
       });
       dialogRef.onClose.subscribe((res) => {
-
         if (res) {
           journal.get('costCenters')?.setValue(res)
-          console.log(res)
         }
       });
     }
@@ -350,9 +338,7 @@ export class EditJournalEntryOpeningBalanceComponent {
   }
 
   filterCurrency(event: any) {
-    //console.log(event);
     let query = event.query.toLowerCase();
-    //console.log(this.currencies);
     this.fitleredCurrencies = this.currencies.filter((c) => c.name?.toLowerCase().includes(query));
   }
 
