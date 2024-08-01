@@ -1,7 +1,8 @@
-<lib-select
+<lib-multi-select
   [options]="columnsList"
   optionLabel="name"
   optionValue="value"
   placeholder="Change Column"
+  (valueChanged)="columnsSelected($event)"
 >
-</lib-select>
+</lib-multi-select>

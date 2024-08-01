@@ -1,9 +1,10 @@
+<div class="cont">
+
 <lib-data-table
   [items]="items"
   [selectedIndex]="selectedIndex"
   className="p-datatable-gridlines"
   [currentPageResult]="paging"
-  *ngIf="paging"
   (pageChange)="onPageChange($event)"
   [tableConfigs]="{
     allowPagination: false,
@@ -11,11 +12,7 @@
     dataKey: 'id',
     pageSize: 10,
     columns: [
-      {
-        name: 'actions',
-        headerText: 'Actions',
-        template: actions
-      },
+   
       {
         name: 'id',
         headerText: 'Id',
@@ -33,7 +30,12 @@
         headerText: 'Account Name',
         isGlobalFilter: true,
         isSortable: true
-      }
+      },
+      {
+        name: 'actions',
+        headerText: 'Actions',
+        template: actions
+      },
 
     
     ]
@@ -68,3 +70,4 @@
     </lib-button>
   </ng-template>
 </lib-data-table>
+</div>

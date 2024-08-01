@@ -23,7 +23,7 @@ import { GeneralService } from '../../services/general.service';
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss'],
 })
-export class DataTableComponent implements OnInit  {
+export class DataTableComponent implements OnInit , OnChanges  {
 
    
   @Input() items: any[];
@@ -32,6 +32,7 @@ export class DataTableComponent implements OnInit  {
   @Input() currentPageResult: PageInfoResult;
 
   @Input() tableConfigs: TableConfig;
+  clonedTableConfigs: TableConfig;
   @Input() className:string='';
 
   @Input() rowTemplate: TemplateRef<any>;
@@ -39,6 +40,8 @@ export class DataTableComponent implements OnInit  {
   @Output() pageChange = new EventEmitter<PageInfo>();
 
   sortingFields: string[];
+  selectedColumns: any = []
+
 
 first:any=0;
   globalFilterFields: string[];
@@ -53,7 +56,31 @@ first:any=0;
       .map((c) => c.name);
       console.log(this.globalFilterFields)
       this.generalService.sendColumns.next(this.globalFilterFields)
+      this.generalService.sendFullColumns.next(this.tableConfigs.columns)
+
+      this.reactToColumnChanges()
+
+      console.log( this.globalFilterFields)
+
+   
     
+  }
+
+  reactToColumnChanges() {
+    this.generalService.sendFilteredListObs.subscribe(res=>{
+      this.items = res
+    })
+    this.generalService.sendSelectedColumnsObs.subscribe(res=>{
+      if(res) {
+        this.selectedColumns = res
+        this.tableConfigs.columns =  this.generalService.sendFullColumns.getValue().filter((elem: any) => {
+          return this.selectedColumns.includes(elem.name) || elem.headerText === 'Actions';
+      });
+        console.log(this.generalService.sendFullColumns.getValue())
+      }
+     
+
+    })
   }
 
   selectRow(row: any) {}
@@ -74,5 +101,8 @@ first:any=0;
     public lookupsService: LookupsService,
     private generalService : GeneralService
   ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+  this.clonedTableConfigs = this.tableConfigs
+  }
  
 }

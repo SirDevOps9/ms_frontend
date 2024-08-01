@@ -48,7 +48,7 @@ export class NoChildrenAccountsComponent implements OnInit {
   getAccounts(searchTerm: string) {
     this.accountService.getAccountsHasNoChildren(searchTerm, this.pageInfo).subscribe((r) => {
       //console.log('account List', r.result);
-
+      console.log(r)
       this.items = r.result;
       this.paging = r.pageInfoResult;
     });

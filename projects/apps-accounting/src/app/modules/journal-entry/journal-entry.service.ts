@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { EditJournalEntry, JournalEntryDto, JournalEntryStatus, TrialBalance, reportAccount } from './models';
+import { AddJournalEntryCommandOpeningBalance, EditJournalEntry, JournalEntryDto, JournalEntryStatus, TrialBalance, reportAccount } from './models';
 import { BehaviorSubject, catchError, map } from 'rxjs';
 import {
   LanguageService,
   LoaderService,
   PageInfo,
   PageInfoResult,
+  RouterService,
   ToasterService,
 } from 'shared-lib';
 import { JournalEntryProxy } from './journal-entry.proxy';
@@ -17,11 +18,13 @@ import { JournalStatusUpdate } from './models/update-status';
 })
 export class JournalEntryService {
   private journalEntriesDataSource = new BehaviorSubject<JournalEntryDto[]>([]);
+  private journalEntriesOpeningBalanceDataSource = new BehaviorSubject<JournalEntryDto[]>([]);
   private trialDataSource = new BehaviorSubject<TrialBalance[]>([]);
   private accountReportsDataSource = new BehaviorSubject<reportAccount[]>([]);
 
 
   public journalEntries = this.journalEntriesDataSource.asObservable();
+  public journalEntriesObs = this.journalEntriesOpeningBalanceDataSource.asObservable();
   public report = this.trialDataSource.asObservable();
   public accountReport = this.accountReportsDataSource.asObservable();
 
@@ -37,7 +40,8 @@ export class JournalEntryService {
     private journalEntryProxy: JournalEntryProxy,
     private toasterService: ToasterService,
     private languageService: LanguageService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private routerService  :RouterService
   ) {}
 
   getAllJournalEntriesPaginated(searchTerm: string ,pageInfo: PageInfo) {
@@ -50,13 +54,44 @@ export class JournalEntryService {
     });
     
   }
+  getAllJournalEntriesPaginatedOpeningBalance(searchTerm: string ,pageInfo: PageInfo) {
+
+    this.journalEntryProxy.getAllJournalEntriesPaginatedOpeningBalance(searchTerm , pageInfo).subscribe({
+      next: (res) => {
+        this.journalEntriesOpeningBalanceDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+    
+  }
+
+  exportsEmployeesList(searchTerm:string | undefined) {
+    this.journalEntryProxy.exportGLOpeningBalance(searchTerm).subscribe({
+      next: (res) => {
+         this.journalEntriesOpeningBalanceDataSource.next(res);
+      },
+    });
+  }
 
   addJournalEntry(command: AddJournalEntryCommand) {
     return this.journalEntryProxy.create(command);
   }
+  addJournalEntryopeningBalance(command: AddJournalEntryCommandOpeningBalance) {
+    return this.journalEntryProxy.addJournalEntryopeningBalance(command);
+  }
 
   getJournalEntryById(Id: number) {
     return this.journalEntryProxy.getById(Id).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((err: string) => {
+        throw err!;
+      })
+    );
+  }
+  getJournalEntryOpeningBalanceById(Id: number) {
+    return this.journalEntryProxy.getJournalEntryOpeningBalanceById(Id).pipe(
       map((res) => {
         return res;
       }),
@@ -90,6 +125,20 @@ export class JournalEntryService {
       })
     );
   }
+  ChangeStatusOpeneingBalance(journalStatusUpdate: JournalStatusUpdate) {
+    return this.journalEntryProxy.ChangeStatusOpeneingBalance(journalStatusUpdate).pipe(
+      map((res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('Success'),
+          this.languageService.transalte('JournalEntry.JournalUpdatedSuccessfully')
+        );
+        return res;
+      }),
+      catchError((err: string) => {
+        throw err!;
+      })
+    );
+  }
 
   editJournalEntry(request: EditJournalEntry) {
     this.loaderService.show();
@@ -110,6 +159,21 @@ export class JournalEntryService {
       },
     });
   }
+  editJournalEntryOpeningBalance(request: EditJournalEntry) {
+    this.journalEntryProxy.editJournalEntryOpeningBalance(request).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('Success'),
+          this.languageService.transalte('JournalEntry.JournalUpdatedSuccessfully')
+        );
+
+        this.routerService.navigateTo('transcations/journal-entry-opening-balance')
+
+       
+      },
+     
+    });
+  }
 
   async deleteJournalEntryLine(id: number): Promise<boolean > {
     const confirmed = await this.toasterService.showConfirm(
@@ -118,6 +182,30 @@ export class JournalEntryService {
     const p = new Promise<boolean>((res, rej) => {
       if (confirmed) {
         this.journalEntryProxy.deleteJounralEntryLine(id).subscribe({
+          next: (status) => {
+            this.toasterService.showSuccess(
+              this.languageService.transalte('Success'),
+              this.languageService.transalte('Deleted Successfully')
+            );
+            this.loaderService.hide();
+            this.journalStatus.next(status);
+
+            res(true);
+          },
+        });
+      } else {
+        res(false);
+      }
+    });
+    return await p;
+  }
+  async deleteJournalEntryLineOpeningBalance(id: number): Promise<boolean > {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    const p = new Promise<boolean>((res, rej) => {
+      if (confirmed) {
+        this.journalEntryProxy.deleteJournalEntryLineOpeningBalance(id).subscribe({
           next: (status) => {
             this.toasterService.showSuccess(
               this.languageService.transalte('Success'),
