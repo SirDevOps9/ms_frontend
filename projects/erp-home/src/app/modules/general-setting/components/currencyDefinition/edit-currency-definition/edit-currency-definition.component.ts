@@ -14,7 +14,7 @@ export class EditCurrencyDefinitionComponent {
   olddata: any;
   editCurrencyForm: FormGroup;
   currencyId: number;
-  countries: CountryDto[] = [];
+  countries: CountryDto[] = []
   accountsList: { id: number; name: string }[] = [];
 
   constructor(
@@ -29,9 +29,10 @@ export class EditCurrencyDefinitionComponent {
   ngOnInit() {
     this.currencyId=this.currentCurrencyId()
     
-    this.getCurrencyById(this.currencyId)
     this.getChildrenAccountsDropDown();
     this.loadCountries();
+    this.getCurrencyById(this.currencyId)
+
     this.initializeTagForm();
   }
   currentCurrencyId(): number {
@@ -80,8 +81,10 @@ export class EditCurrencyDefinitionComponent {
     this.generalSettingService.getCurrencyById(id);
     this.generalSettingService.currencyDataByIDObservable.subscribe(res=>{
       this.olddata=res
-      this.editCurrencyForm.patchValue({ ...res })
+
       
+      this.editCurrencyForm.patchValue({ ...res })
+
 
     })
   }

@@ -185,5 +185,28 @@
   },
   "editTreasury": {
     "edit": "تم تعديل تعريف الخزانة بنجاح"
+  },
+  "paymentterm": {
+    "payment-term-list": "قائمة شروط الدفع",
+    "code": "رمز",
+    "name": "اسم",
+    "term-type": "نوع المصطلح",
+    "Search": "بحث",
+    "AddNew": "إضافة جديدة",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "save": "حفظ",
+    "export": "تصدير",
+    "ExportName": "تعريف البنك"
+  },
+  "add-paymentterm": {
+    "dueTermValue": "قيمة الاستحقاق",
+    "afterValue": "القيمة بعد",
+    "afterPeriod": "الفترة بعد",
+    "note": "ملاحظة",
+    "add_new": "إضافة سطر جديد",
+    "actions":"الإجراءات",
+      "add": "تمت إضافة شرط الدفع بنجاح",
+    "edit": "تم تعديل شرط الدفع بنجاح"
   }
 }

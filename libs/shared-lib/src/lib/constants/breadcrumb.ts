@@ -60,6 +60,8 @@ export class BreadcrumbLabel {
     static BANK_LIST ='Bank Definition';
     static BANK_LIST_ADD ='Add Bank Definition';
     static BANK_LIST_EDIT ='Edit Bank Definition';
+    static PAYMENT_TERM_LIST ='Payment term list';
+
    
 
     
