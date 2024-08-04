@@ -495,6 +495,15 @@
       "errorSameCurrency":"From Currency and To Currency must be different.",
       "editTitle":"edit Currency conversion transaction",
       "addTitle":"add Currency conversion transaction"
+    },
+    "openeingBalance" : {
+      "openingJournal" : "Opening Journal",
+      "fromOpening" : "From Opening Balance Transaction",
+      "JournalLine" : "Journal Line",
+      "amount" : "Amount",
+      "debitCredit" : "Debit Or Credit"
+
+
     }
 
 }

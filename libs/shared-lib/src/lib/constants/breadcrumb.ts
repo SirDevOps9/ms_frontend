@@ -49,6 +49,7 @@ export class BreadcrumbLabel {
     static VENDOR_DEFINITIONS ='Vendor Definitions';
     static CUSTOMER_DEFINITIONS ='Customer Definitions';
     static ADD_CUSTOMER_DEFINITIONS ='Add Customer Definitions';
+    static ADD_CUSTOMER_OPENEING_BALANCE ='Add Customer Opening Balance';
     static EDIT_CUSTOMER_DEFINITIONS ='Edit Customer Definitions';
     static ADD_VENDOR_DEFINITIONS ='Add Vendor Definitions';
     static EDIT_VENDOR_DEFINITIONS ='Edit Vendor Definitions';
@@ -62,6 +63,10 @@ export class BreadcrumbLabel {
     static BANK_LIST_EDIT ='Edit Bank Definition';
     static PAYMENT_TERM_LIST ='Payment term list';
 
+    static JOURNAL_OPENING_BALANCE ='Journal Entry Opening Balance';
+    static ADD_JOURNAL_OPENING_BALANCE ='Add Journal Entry Opening Balance';
+    static EDIT_JOURNAL_OPENING_BALANCE ='Edit Journal Entry Opening Balance';
+    static VIEW_JOURNAL_OPENING_BALANCE ='View Journal Entry Opening Balance';
    
 
     

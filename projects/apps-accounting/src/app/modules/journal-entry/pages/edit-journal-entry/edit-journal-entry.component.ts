@@ -58,14 +58,14 @@ export class EditJournalEntryComponent implements OnInit {
   currentAccounts: number[] = [];
 
   ngOnInit() {
-    this.titleService.setTitle('Edit Journal');
+    this.titleService.setTitle('Edit Journal ');
 
     this.getAccounts();
     this.initializeForm();
     this.initializeFormData();
     this.getCurrencies();
   }
-
+   
   initializeForm() {
     this.editJournalForm = this.fb.group({
       journalCode: new FormControl(),

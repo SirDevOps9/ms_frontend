@@ -242,6 +242,17 @@
     }
   },
   "JournalEntry": {
+    "journalcode": "Journal Code",
+    "reference": "Reference",
+    "date" : "Date",
+    "type" : "Type",
+    "docName" : "Document Name",
+    "docCode" : "Document Code",
+    "repeated" : "Repeated",
+    "reversed" : "Reversed",
+    "status" : "Status",
+    "Credit" : "credit",
+    "debit" : "Debit",
     "CompanyCode": "Company Code",
     "Error": "Error",
     "Success": "Success",
