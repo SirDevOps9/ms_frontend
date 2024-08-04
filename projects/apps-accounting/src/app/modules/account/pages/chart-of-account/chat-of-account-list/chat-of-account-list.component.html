@@ -11,35 +11,33 @@
         dataKey: 'id',
         pageSize: 10,
         columns: [
-          
           {
             name: 'name',
-            headerText: 'Account Name',
+            headerText: 'ChartOfAccount.AccountName' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'accountCode',
-            headerText: 'Account Code',
+            headerText: 'ChartOfAccount.AccountCode' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
-          
           {
             name: 'natureId',
-            headerText: 'Nature',
+            headerText: 'ChartOfAccount.Nature' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'accountTypeName',
-            headerText: 'Account Type',
+            headerText: 'ChartOfAccount.AccountType' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'accountSectionName',
-            headerText: 'Account Section',
+            headerText: 'ChartOfAccount.AccountSection' | translate,
             isGlobalFilter: true,
             isSortable: true
           }
@@ -55,7 +53,7 @@
               pInputText
               type="text"
               (input)="searchTermChange($event)"
-              placeholder="Search..."
+              [placeholder]="'ChartOfAccount.Search' | translate"
             />
           </span>
         </div>

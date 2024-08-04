@@ -195,8 +195,8 @@ export class AddChartComponent {
       if (res) {
         this.operationCompleted.emit(res);
         this.toaserService.showSuccess(
-          this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
-          this.languageService.transalte('ChartOfAccounts.SuccessMessage')
+          this.languageService.transalte('ChartOfAccount.Success'),
+          this.languageService.transalte('ChartOfAccount.AddedSuccessfully')
         );
       }
     });

@@ -237,8 +237,8 @@ export class AccountService {
         this.accountproxy.deleteTaxGroup(id).subscribe({
           next: (status) => {
             this.toasterService.showSuccess(
-              this.languageService.transalte('Success'),
-              this.languageService.transalte('Deleted Successfully')
+              this.languageService.transalte('TaxGroup.Success'),
+              this.languageService.transalte('TaxGroup.DeletedSuccessfully')
             );
             this.loaderService.hide();
             res(true);
@@ -255,8 +255,8 @@ export class AccountService {
     this.accountproxy.addTaxGroup(addTaxGroupDto).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('tag.addtag.success'),
-          this.languageService.transalte('tag.addtag.success')
+          this.languageService.transalte('TaxGroup.Success'),
+          this.languageService.transalte('TaxGroup.AddedSuccessfully')
         );
         this.loaderService.hide();
         dialogRef.close(res);
@@ -271,8 +271,8 @@ export class AccountService {
     this.accountproxy.editTaxGroup(TaxGroupDto).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('tag.addtag.success'),
-          this.languageService.transalte('tag.addtag.success')
+          this.languageService.transalte('TaxGroup.Success'),
+          this.languageService.transalte('TaxGroup.UpdatedSuccessfully')
         );
         this.loaderService.hide();
         dialogRef.close(res);
@@ -291,8 +291,8 @@ export class AccountService {
     this.accountproxy.editAccount(account).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
-          this.languageService.transalte('ChartOfAccounts.SuccessMessage')
+          this.languageService.transalte('ChartOfAccount.Success'),
+          this.languageService.transalte('ChartOfAccount.UpdatedSuccessfully')
         );
         this.loaderService.hide();
         this.editAccountDataSource.next(res);
@@ -360,7 +360,7 @@ export class AccountService {
         //   result: [...textSignal.result, res],
         // }));
         this.toasterService.showSuccess(
-          this.languageService.transalte('success'),
+          this.languageService.transalte('Tax.Success'),
           this.languageService.transalte('Tax.AddedSuccessfully')
         );
         this.loaderService.hide();
@@ -425,7 +425,7 @@ export class AccountService {
         next: (res) => {
           this.toasterService.showSuccess(
             this.languageService.transalte('Tax.Success'),
-            this.languageService.transalte('Tax.TaxDeletedSuccessfully')
+            this.languageService.transalte('Tax.DeletedSuccessfully')
           );
           this.loaderService.hide();
           // this.getAllTaxes('', new PageInfo());

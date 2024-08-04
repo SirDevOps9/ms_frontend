@@ -1,12 +1,30 @@
 {
-  "COAConfigration": {
+    "COAConfigration": {
     "levelnumber": "level Number",
     "levelName": "level Name",
     "numberOfDigits": "Number Of Digits",
     "AddNewLine": "Add New Line",
     "discard": "discard",
-    "Save": "Save"
+    "Save": "Save",
+    "Actions": "Actions"
   },
+  "ChartOfAccount": {
+    "Title": "Chart of Account",
+    "AccountName": "Account Name",
+    "AccountCode": "Account Code",
+    "Nature": "Nature",
+    "AccountType": "Account Type",
+    "AccountSection": "Account Section",
+    "Search": "Search...",
+    "Accounts": "Accounts",
+    "Main": "Main",
+    "Success": "Success",
+    "Error": "Error",
+    "UpdatedSuccessfully": "Account Updated Successfully",
+    "AddedSuccessfully": "Account Added Successfully",
+    "DeletedSuccessfully": "Account Deleted Successfully"
+  },
+  
   "JournalTitle": "Add Journal",
   "journal_entry_header": "Please Enter journal entry Header",
   "reference_number": "Reference Number",
@@ -31,6 +49,7 @@
   "add_template": "Add Template",
   "discard": "discard",
   "save": "Save",
+  "Actions": "Actions",
   "EditJournal": {
     "JournalCode": "Journal Code",
     "JournalStatus": "Journal Status",
@@ -53,7 +72,6 @@
     "DbAmountLocal": "DB Amount Local",
     "CrAmountLocal": "CR Amount Local",
     "costCenter": "Cost Center",
-
     "Actions": "Actions",
     "Delete": "Delete",
     "AddNewLine": "Add New Line",
@@ -83,6 +101,11 @@
     "costCenter": "Cost Center"
   },
   "TaxGroup": {
+    "Success": "Success",
+    "Error": "Error",
+    "UpdatedSuccessfully": "Tax Group Updated Successfully",
+    "AddedSuccessfully": "Tax Group Added Successfully",
+    "DeletedSuccessfully": "Tax Group Deleted Successfully",
     "Code": "Code",
     "Name": "Name",
     "parent": "parent",
@@ -91,6 +114,9 @@
     "type": "type",
     "CountryName": "Country Name",
     "TaxGrouplist": "Tax Group list",
+    "AddNew": "Add New",
+    "Search": "Search",
+    "Actions": "Actions",
     "Add": {
       "AddTaxGroup": "Add Tax Group",
       "Code": "Code",
@@ -110,6 +136,7 @@
     }
   },
   "Tax": {
+    "Success": "Success",
     "TaxName": "Tax Name",
     "AddTaxDefinition": "Add Tax Definition",
     "TaxCode": "Tax Code",
@@ -129,9 +156,12 @@
     "CannotEditTaxGroupUsedInTransactions": "Cannot Edit Tax Group Used In Transactions",
     "CannotDeleteTaxUsedInTransactions": "Cannot Delete Tax Used In Transactions",
     "UpdatedSuccessfully": "Tax Updated Successfully",
-    "AddedSuccessfully": "Tax Added Successfully"
+    "AddedSuccessfully": "Tax Added Successfully",
+    "DeletedSuccessfully": "Tax Deleted Successfully",
+    "Actions": "Actions"
   },
   "costCenter": {
+    "costCenter":"Cost Center",
     "code": "Cost Center code",
     "name": "Cost Center Name ",
     "parentAccount": "Parent Account",
@@ -141,7 +171,8 @@
     "CostCenterDeletedSuccessfully": "Cost Center Deleted Successfully",
     "Success": "Success",
     "CannotDeleteCostCenter": " Cannot Delete Cost Center Used In Transactions",
-    "Error": "Error"
+    "Error": "Error",
+    "Actions": "Actions"
   },
   "reportTrial": {
     "Error": "Error",

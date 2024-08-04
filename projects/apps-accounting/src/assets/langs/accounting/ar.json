@@ -5,7 +5,24 @@
     "numberOfDigits": "عدد الأرقام",
     "AddNewLine": "إضافة سطر جديد",
     "discard": "تجاهل",
-    "Save": "حفظ"
+    "Save": "حفظ",
+    "Actions": "العمليات"
+  },
+  "ChartOfAccount": {
+    "Title": "شجرة الحسابات",
+    "AccountName": "اسم الحساب",
+    "AccountCode": "كود الحساب",
+    "Nature": "الطبيعة",
+    "AccountType": "نوع الحساب",
+    "AccountSection": "قسم الحساب",
+    "Search": "بحث...",
+    "Accounts": "الحسابات",
+    "Main": "رئيسي",
+    "Success": "نجاح",
+    "Error": "خطأ",
+    "UpdatedSuccessfully": "تم تحديث الحساب بنجاح",
+    "AddedSuccessfully": "تمت إضافة الحساب بنجاح",
+    "DeletedSuccessfully": "تم حذف الحساب بنجاح"
   },
   "JournalTitle": "انشاء قيد اليومية",
   "journal_entry_header": "الرجاء إدخال عنوان دفتر اليومية",
@@ -31,6 +48,7 @@
   "add_template": "إضافة قالب",
   "discard": "تجاهل",
   "save": "حفظ",
+  "Actions": "عمليات",
   "EditJournal": {
     "JournalCode": "رمز اليومية",
     "JournalStatus": "حالة اليومية",
@@ -85,14 +103,21 @@
   },
 
   "TaxGroup": {
+  "UpdatedSuccessfully": "تم تحديث مجموعة الضرائب بنجاح",
+  "AddedSuccessfully": "تمت إضافة مجموعة الضرائب بنجاح",
+  "DeletedSuccessfully": "تم حذف مجموعة الضرائب بنجاح",
+  "Success": "نجاح",
+  "Error": "خطأ",
     "Code": "رمز",
     "Name": "اسم",
     "parent": "الأصل",
     "status": "الحالة",
     "type": "النوع",
-    "Action": "إجراءات",
+    "Actions": "العمليات",
     "CountryName": "اسم البلد",
     "TaxGrouplist": "قائمة مجموعة الضرائب",
+    "AddNew": "إضافة جديد",
+    "Search": "بحث",
     "Add": {
       "AddTaxGroup": "إضافة مجموعة ضريبية",
       "Code": "رمز",
@@ -111,6 +136,7 @@
     }
   },
   "Tax": {
+    "Success": "نجاح",
     "TaxName": "اسم الضريبة",
     "AddTaxDefinition": "إضافة تعريف الضريبة",
     "TaxCode": "كود الضريبة",
@@ -130,9 +156,12 @@
     "CannotEditTaxGroupUsedInTransactions": "لا يمكن تعديل مجموعة الضرائب المستخدمة في المعاملات",
     "CannotDeleteTaxUsedInTransactions": "لا يمكن حذف الضريبة المستخدمة في المعاملات",
     "UpdatedSuccessfully": "تم تحديث الضريبة بنجاح",
-    "AddedSuccessfully": "تم إضافة الضريبة بنجاح"
+    "AddedSuccessfully": "تم إضافة الضريبة بنجاح",
+    "DeletedSuccessfully": "تم حذف الضريبة بنجاح",
+    "Actions": "العمليات"
   },
   "costCenter": {
+    "costCenter": "مركز التكلفة",
     "code": "رمز مركز التكلفة",
     "name": "اسم مركز التكلفة",
     "parentAccount": "الحساب الرئيسي",
@@ -142,7 +171,8 @@
     "CostCenterDeletedSuccessfully": "تم حذف مركز التكلفة بنجاح",
     "Success": "نجاح",
     "CannotDeleteCostCenter": "لا يمكن حذف مركز التكلفة المستخدم في المعاملات",
-    "Error": "خطأ"
+    "Error": "خطأ",
+    "Actions": "العمليات"
   },
   "reportTrial": {
     "Error": "خطأ",
