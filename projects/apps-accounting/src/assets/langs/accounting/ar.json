@@ -24,6 +24,35 @@
     "AddedSuccessfully": "تمت إضافة الحساب بنجاح",
     "DeletedSuccessfully": "تم حذف الحساب بنجاح"
   },
+  "Journal": {
+    "UpdatedSuccessfully": "تم تحديث دفتر اليومية بنجاح",
+    "AddedSuccessfully": "تمت إضافة دفتر اليومية بنجاح",
+    "DeletedSuccessfully": "تم حذف دفتر اليومية بنجاح",
+    "Success": "نجاح",
+    "Error": "خطأ",
+    "id": "الرقم التعريفي",
+    "journalCode": "كود اليومية",
+    "referenceNumber": "المرجع",
+    "createdOn": "التاريخ",
+    "type": "النوع",
+    "sourceName": "اسم المستند",
+    "sourceCode": "كود المستند",
+    "isRepeated": "متكرر",
+    "isReversed": "معكوس",
+    "status": "الحالة",
+    "totalDebitAmount": "إجمالي المدين",
+    "totalCreditAmount": "إجمالي الدائن",
+    "actions": "العمليات",
+    "search": "بحث",
+    "addNew": "إضافة جديد",
+    "journalEntries": "قيود اليومية",
+    "unbalanced": "غير متوازن",
+    "draft": "مسودة",
+    "unposted": "غير مدون",
+    "posted": "مدون",
+    "yes": "نعم",
+    "no": "لا"
+  },
   "JournalTitle": "انشاء قيد اليومية",
   "journal_entry_header": "الرجاء إدخال عنوان دفتر اليومية",
   "reference_number": "رقم المرجع",
@@ -33,7 +62,7 @@
   "journal_period": "فترة دفتر اليومية",
   "attach": "إرفاق",
   "description": "الوصف",
-  "id": "المعرف",
+  "id": "الرقم التعريفي",
   "account_code": "رمز الحساب",
   "account_name": "اسم الحساب",
   "line_description": "وصف السطر",
@@ -60,7 +89,7 @@
     "SourceDocumentCode": "رمز المستند المصدر",
     "ReversedJournal": "اليومية المعكوسة",
     "JournalDescription": "وصف اليومية",
-    "Id": "الرقم",
+    "Id": "الرقم التعريفي",
     "AccountCode": "كود الحساب",
     "AccountName": "اسم الحساب",
     "LineDescription": "وصف السطر",
@@ -70,14 +99,15 @@
     "Rate": "السعر",
     "DbAmountLocal": "المبلغ مدين محلي",
     "CrAmountLocal": "المبلغ دائن محلي",
-    "Actions": "الإجراءات",
     "Delete": "حذف",
     "AddNewLine": "إضافة سطر جديد",
     "Discard": "تجاهل",
     "Save": "حفظ",
     "Submit": "إرسال",
     "Post": "ترحيل",
-    "costCenter": "مركز التكلفة"
+    "costCenter": "مركز التكلفة",
+    "Actions": "العمليات"
+
   },
   "viewJournal": {
     "JornalCode": "كود اليومية",
@@ -101,7 +131,15 @@
     "Amount": "الكمية",
     "add_line": "اضافه سطر"
   },
-
+  "JournalTemplate": {
+    "id": "الرقم التعريفي",
+    "Select": "اختر",
+    "code": "الكود",
+    "periodName": "اسم الفترة",
+    "type": "النوع",
+    "totalDebitAmountLocal": "إجمالي المدين المحلي",
+    "totalCreditAmountLocal": "إجمالي الدائن المحلي"
+  },
   "TaxGroup": {
   "UpdatedSuccessfully": "تم تحديث مجموعة الضرائب بنجاح",
   "AddedSuccessfully": "تمت إضافة مجموعة الضرائب بنجاح",
@@ -147,7 +185,7 @@
     "Save": "حفظ",
     "Discard": "تجاهل",
     "TaxList": "قائمة الضرائب",
-    "Id": "المعرف",
+    "Id":"الرقم التعريفي",
     "Name": "الاسم",
     "Account": "الحساب",
     "Search": "بحث",
@@ -186,7 +224,20 @@
     "transactionBalance": "رصيد العمليات",
     "Closingbalance": "الرصيد الختامي",
     "debit": "مدين",
-    "credit": "دائن"
+    "credit": "دائن",
+    "viewData": "عرض البيانات"
+  },
+  "AccountStatement": {
+    "posted": "تم النشر",
+    "unposted": "لم يتم النشر",
+    "viewData": "عرض البيانات",
+    "journalEntryCode": "رمز قيد اليومية",
+    "journalEntryDate": "تاريخ قيد اليومية",
+    "description": "الوصف",
+    "debitAmount": "مقدار المدين",
+    "creditAmount": "مقدار الدائن",
+    "balance": "الرصيد",
+    "sourceDocumentCode": "رمز المستند المصدر"
   },
   "treasury": {
     "treasuryCode": "رمز الخزانة",
@@ -194,7 +245,7 @@
     "currency": "العملة",
     "glAccount": "حساب دفتر الأستاذ",
     "balance": "الرصيد",
-    "actions": "الإجراءات",
+    "actions": "العمليات",
     "Search": "بحث",
     "AddNew": "إضافة جديد",
     "Export": "تصدير",

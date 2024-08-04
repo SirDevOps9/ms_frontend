@@ -24,7 +24,35 @@
     "AddedSuccessfully": "Account Added Successfully",
     "DeletedSuccessfully": "Account Deleted Successfully"
   },
-  
+  "Journal": {
+    "Success": "Success",
+    "Error": "Error",
+    "UpdatedSuccessfully": "Journal Updated Successfully",
+    "AddedSuccessfully": "Journal Added Successfully",
+    "DeletedSuccessfully": "Journal Deleted Successfully",
+    "id": "ID",
+    "journalCode": "Journal Code",
+    "referenceNumber": "Reference",
+    "createdOn": "Date",
+    "type": "Type",
+    "sourceName": "Document Name",
+    "sourceCode": "Document Code",
+    "isRepeated": "Repeated",
+    "isReversed": "Reversed",
+    "status": "Status",
+    "totalDebitAmount": "Debit",
+    "totalCreditAmount": "Credit",
+    "actions": "Actions",
+    "search": "Search",
+    "addNew": "Add New",
+    "journalEntries": "Journal Entries",
+    "unbalanced": "Unbalanced",
+    "draft": "Draft",
+    "unposted": "Unposted",
+    "posted": "Posted",
+    "yes": "Yes",
+    "no": "No"
+  },
   "JournalTitle": "Add Journal",
   "journal_entry_header": "Please Enter journal entry Header",
   "reference_number": "Reference Number",
@@ -99,6 +127,15 @@
     "debitAmountLocal": "Debit Amount (Local)",
     "creditAmountLocal": "Credit Amount (Local)",
     "costCenter": "Cost Center"
+  },
+  "JournalTemplate": {
+    "id": "Id",
+    "Select": "Select",
+    "code": "Code",
+    "periodName": "Period Name",
+    "type": "Type",
+    "totalDebitAmountLocal": "Total Debit Amount",
+    "totalCreditAmountLocal": "Total Credit Amount"
   },
   "TaxGroup": {
     "Success": "Success",
@@ -188,10 +225,24 @@
     "debit": "debit",
     "credit": "credit",
     "reportTrial": "report Trial",
-    "trialBalance": "Trial Balance"
+    "trialBalance": "Trial Balance",
+    "viewData": "View Data"
+
   },
   "reportAccount": {
     "AccountStatement": "Account Statement"
+  },
+  "AccountStatement": {
+    "posted": "Posted",
+    "unposted": "Unposted",
+    "viewData": "View Data",
+    "journalEntryCode": "Journal Entry Code",
+    "journalEntryDate": "Journal Entry Date",
+    "description": "Description",
+    "debitAmount": "Debit Amount",
+    "creditAmount": "Credit Amount",
+    "balance": "Balance",
+    "sourceDocumentCode": "Source Document Code"
   },
   "treasury": {
     "treasuryCode": "Treasury Code",

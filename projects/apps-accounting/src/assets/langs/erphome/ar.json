@@ -266,13 +266,17 @@
     "No": "لا",
     "Save": "حفظ"
   },
-  "viewJournal": {
-    "JornalCode": "Journal Code",
-    "Jornalstatus": "Journal Status",
-    "journalReference": "Journal Reference",
-    "date": "Date",
-    "JournalPeriod": "Journal Period",
-    "JournalType": "Journal Type"
+  "AccountStatement": {
+    "posted": "تم النشر",
+    "unposted": "لم يتم النشر",
+    "viewData": "عرض البيانات",
+    "journalEntryCode": "رمز قيد اليومية",
+    "journalEntryDate": "تاريخ قيد اليومية",
+    "description": "الوصف",
+    "debitAmount": "مقدار المدين",
+    "creditAmount": "مقدار الدائن",
+    "balance": "الرصيد",
+    "sourceDocumentCode": "رمز المستند المصدر"
   },
   "costCenter" : {
     "mandatory" : "إلزامي",
