@@ -14,9 +14,20 @@ export class ButtonComponent implements OnInit {
   @Input() rounded: boolean = false;
   @Input() label: string;
   @Input() className: string;
+  @Input() labelTest: any;
+
   @Output() onClick: EventEmitter<any> = new EventEmitter();
+
 
   ngOnInit() {}
 
   constructor() {}
+
+  ngAfterViewInit() {
+    if (this.label) {
+      setTimeout(() => {
+        this.labelTest = this.label;
+      }, 500);
+    }
+  }
 }

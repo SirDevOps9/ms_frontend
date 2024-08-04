@@ -11,6 +11,8 @@ export class ExportComponent implements OnChanges {
   @Input() exportData: any  = []; 
   @Input() exportColumns: any  = []; 
   @Input() ExportName: string  = ''
+  @Input() labelTest: any;
+
   @Output() exportClick: EventEmitter<any> = new EventEmitter<any>();
 
   itemsMenu: MenuItem[] =  [
@@ -36,5 +38,12 @@ export class ExportComponent implements OnChanges {
     console.log( changes)
 
     
+  }
+  ngAfterViewInit() {
+    if (this.ExportName) {
+      setTimeout(() => {
+        this.labelTest = this.ExportName;
+      }, 500);
+    }
   }
 }
