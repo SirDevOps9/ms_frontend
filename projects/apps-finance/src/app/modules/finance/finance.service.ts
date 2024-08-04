@@ -3,7 +3,7 @@ import { FinanceProxyService } from './finance-proxy.service';
 import { HttpService, LanguageService, LoaderService, PageInfo, PageInfoResult, PaginationVm, RouterService, ToasterService } from 'shared-lib';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
-import { AddPaymentTermDto, AddTreasuryDto, EditTreasuryDto, GetTreasuryDtoById, PaymentTermDto } from './models';
+import { AddPaymentTermDto, AddTreasuryDto, EditTreasuryDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { HttpClient } from '@angular/common/http';
@@ -32,6 +32,8 @@ export class FinanceService {
   public paymentTermDataSource = new BehaviorSubject<PaymentTermDto[]>([])
   public exportedpaymentTermListDataSource = new BehaviorSubject<PaymentTermDto[]>([]);
   public sendPaymentTermByID = new BehaviorSubject<GetPaymentTermById>({} as GetPaymentTermById)
+  public paymentMethodDataSource = new BehaviorSubject<PaymentMethodDto[]>([])
+  public exportedpaymentMethodListDataSource = new BehaviorSubject<PaymentMethodDto[]>([]);
 
 
 
@@ -49,6 +51,9 @@ export class FinanceService {
   paymentTermDataSourceObservable = this.paymentTermDataSource.asObservable()
   exportedPaymentTermDataSourceObservable = this.exportedpaymentTermListDataSource.asObservable()
   sendPaymentTermByIDObservable = this.sendPaymentTermByID.asObservable()
+  paymentMethodDataSourceObservable = this.paymentMethodDataSource.asObservable()
+  exportedPaymentMethodDataSourceObservable = this.exportedpaymentMethodListDataSource.asObservable()
+  
 
 
 
@@ -293,5 +298,41 @@ export class FinanceService {
         
       }
     })
+  }
+  getAllPaymentMethod(quieries: string, pageInfo: PageInfo)  {
+    this.financeProxy.(quieries, pageInfo).subscribe((response) => {
+     this.paymentMethodDataSource.next(response.result)
+     this.currentPageInfo.next(response.pageInfoResult)
+    });
+  }
+
+  exportsPaymentMethodList(searchTerm:string | undefined) {
+    this.financeProxy.(searchTerm).subscribe({
+      next: (res : any) => {
+         this.exportedpaymentMethodListDataSource.next(res);
+      },
+    });
+  }
+
+  async deletePaymentMethod(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.financeProxy.(id).subscribe({
+        next: (res) => {
+          
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('delete')
+          );
+          this.loaderService.hide();
+          const currentPaymentTerm = this.paymentMethodDataSource.getValue();
+          const updatedcurrentPaymentTerm = currentPaymentTerm.filter((c : any) => c.id !== id);
+          this.paymentMethodDataSource.next(updatedcurrentPaymentTerm);
+        },
+        
+      });
+    }
   }
 }

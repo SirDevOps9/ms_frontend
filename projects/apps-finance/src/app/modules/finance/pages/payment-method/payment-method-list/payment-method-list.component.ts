@@ -43,7 +43,7 @@ export class PaymentMethodListComponent implements OnInit {
   }
 
   initPaymentMethodData() {
-    this.financeService.getAllPaymentTerm('', new PageInfo());
+    this.financeService.('', new PageInfo());
 
     this.financeService.paymentTermDataSourceObservable.subscribe({
       next: (res) => {
