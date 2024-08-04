@@ -35,8 +35,12 @@
             <lib-label [appControl]="formGroup.controls['fromDate']">
               {{ 'financialCalendar.fromDate' | translate }}
             </lib-label>
-            <lib-calendar formControlName="fromDate" [maxDate]="maxDatefrom" [disabled]="disablrFromDateFlag"></lib-calendar>
-            
+            <lib-calendar
+              formControlName="fromDate"
+              [maxDate]="maxDatefrom"
+              [disabled]="disablrFromDateFlag"
+            ></lib-calendar>
+
             <lib-field-validations [appControl]="formGroup.controls['fromDate']">
             </lib-field-validations>
           </div>
@@ -45,7 +49,11 @@
             <lib-label [appControl]="formGroup.controls['toDate']">
               {{ 'financialCalendar.toDate' | translate }}
             </lib-label>
-            <lib-calendar formControlName="toDate" [minDate]="minDateTo"></lib-calendar>
+            <lib-calendar
+              formControlName="toDate"
+              [defaultDate]="defaultDateTo"
+              [minDate]="minDateTo"
+            ></lib-calendar>
             <lib-field-validations [appControl]="formGroup.controls['toDate']">
             </lib-field-validations>
           </div>
@@ -99,7 +107,7 @@
   <!--  -->
   <div class="flex justify-content-end mt-5" *ngIf="showOpenBtn">
     <lib-button
-      pRipple 
+      pRipple
       className="addToList"
       label="{{ 'financialCalendar.Save' | translate }}"
       (onClick)="onOpen()"
@@ -108,8 +116,8 @@
     </lib-button>
   </div>
   <!--  -->
-
-  <div class="user_pages" *ngIf="tableData?.length">
+  {{ tableData.length }}
+  <div class="user_pages" *ngIf="tableData.length > 0">
     <lib-data-table
       [items]="tableData"
       className="p-datatable-gridlines"
@@ -119,13 +127,7 @@
         dataKey: 'id',
         pageSize: 10,
         columns: [
-           
-           {
-            name: 'id',
-            headerText: '#',
-            isGlobalFilter: true,
-            isSortable: true,
-           }, 
+       
            {
              name: 'month',
              headerText: ('financialCalendar.month' | translate),
@@ -161,54 +163,6 @@
           <lib-input-switch [disabled]="statusFlag" [(ngModel)]="status.status"></lib-input-switch>
         </div>
       </ng-template>
-  
-      <!--
-      </ng-template>
-      <ng-template #userStatus let-journal>
-        <div
-          class="status unbalanced"
-          *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Unbalanced"
-        >
-          <p class="dot"></p>
-          <p>Unbalanced</p>
-        </div>
-        <div
-          class="status draft"
-          *ngIf="journal.status == sharedJouralEnum.JournalEntryStatus.Draft"
-        >
-          <p class="dot"></p>
-          <p>Draft</p>
-        </div>
-        <div
-          class="status unposted"
-          *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Submitted"
-        >
-          <p class="dot"></p>
-          <p>Unposted</p>
-        </div>
-        <div
-          class="status Posted"
-          *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Posted"
-        >
-          <p class="dot"></p>
-          <p>Posted</p>
-        </div>
-      </ng-template>
-      <ng-template #journalDate let-journal>
-        <div>
-          <p>{{ journal.createdOn | date : 'dd/MM/yyyy' }}</p>
-        </div>
-      </ng-template>
-      <ng-template #journalIsRepeated let-journal>
-        <div>
-          <p>{{ journal.isRepeated ? 'Yes' : 'No' }}</p>
-        </div>
-      </ng-template>
-      <ng-template #journalIsReversed let-journal>
-        <div>
-          <p>{{ journal.isReversed ? 'Yes' : 'No' }}</p>
-        </div>
-      </ng-template> -->
     </lib-data-table>
   </div>
 </lib-page-content>

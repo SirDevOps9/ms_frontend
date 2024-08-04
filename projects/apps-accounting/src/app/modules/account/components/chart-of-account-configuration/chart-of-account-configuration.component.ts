@@ -4,7 +4,7 @@ import { GetLevelsDto } from '../../models/getLevelsDto';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { listAddLevelsDto } from '../../models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { customValidators } from 'shared-lib';
+import { customValidators, FormsService } from 'shared-lib';
 
 @Component({
   selector: 'app-chart-of-account-configuration',
@@ -18,7 +18,8 @@ export class ChartOfAccountConfigurationComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private ref: DynamicDialogRef,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private formService: FormsService
   ) {}
 
   ngOnInit() {
@@ -47,9 +48,10 @@ export class ChartOfAccountConfigurationComponent implements OnInit {
   }
 
   save() {
+    if (!this.formService.validForm(this.fa, false)) return;
     const formData = this.fa.value;
     let mappedData: listAddLevelsDto = { levels: formData };
-    this.accountService.addLevels(mappedData);
+    this.accountService.addLevels(mappedData, this.fa);
     this.ref.close();
   }
 
@@ -60,8 +62,8 @@ export class ChartOfAccountConfigurationComponent implements OnInit {
   addline() {
     const fg = this.fb.group({
       name: new FormControl(null, customValidators.required),
-      levelNumber: new FormControl('', customValidators.required),
-      numberOfDigits: new FormControl('', customValidators.required),
+      levelNumber: new FormControl(null, customValidators.required),
+      numberOfDigits: new FormControl(null, customValidators.required),
       id: null,
     });
     this.fa.push(fg);

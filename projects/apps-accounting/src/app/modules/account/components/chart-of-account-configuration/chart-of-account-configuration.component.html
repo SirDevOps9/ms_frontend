@@ -1,96 +1,103 @@
-
 <div class="pop_up_config_page">
-<div class="pop_up_header">
-  <div class="header_content">
-    <div class="title">
-      <div class="plus_icon"></div>
-     Account Configration
-    </div>
+  <div class="pop_up_header">
+    <div class="header_content">
+      <div class="title">
+        <div class="plus_icon"></div>
+        Account Configration
+      </div>
       <div class="pi pi-times cancel" (click)="close()"></div>
+    </div>
   </div>
-</div>
-<div class="pop_up_content">
-  <p class="title  ">chart of account levels</p>
- <p class="add_line" (click)="addline()">
-  <span class="icon fa fa-plus" ></span>  {{ "COAConfigration.AddNewLine" | translate }}
- </p>
-  <div class="card">
-    <p-table [value]="fa.controls" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped" >
+  <div class="pop_up_content">
+    <p class="title">chart of account levels</p>
+    <p class="add_line" (click)="addline()">
+      <span class="icon fa fa-plus"></span> {{ 'COAConfigration.AddNewLine' | translate }}
+    </p>
+    <div class="card">
+      <p-table
+        [value]="fa.controls"
+        dataKey="id"
+        styleClass="p-datatable-gridlines p-datatable-striped"
+      >
         <ng-template pTemplate="header">
-            <tr>
-                <th>{{ "COAConfigration.levelnumber" | translate }}</th>
-                <th>{{ "COAConfigration.levelName" | translate }}</th>
-                <th>{{ "COAConfigration.numberOfDigits" | translate }}</th>
-            </tr>
+          <tr>
+            <th>{{ 'COAConfigration.levelnumber' | translate }}</th>
+            <th>{{ 'COAConfigration.levelName' | translate }}</th>
+            <th>{{ 'COAConfigration.numberOfDigits' | translate }}</th>
+          </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-sandra let-editing="editing" let-i="rowIndex"> 
-            <tr [formGroup]="sandra">
+        <ng-template pTemplate="body" let-coaItem let-editing="editing" let-i="rowIndex">
+          <tr [formGroup]="coaItem">
+            <td
+              [pEditableColumn]="coaItem.controls['levelNumber']"
+              pEditableColumnField="levelNumber"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input formControlName="levelNumber" type="number"></lib-text-input>
+                  <lib-field-validations
+                    [appControl]="coaItem.controls['levelNumber']"
+                  ></lib-field-validations>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ coaItem.controls['levelNumber'].value }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
 
-              <td [pEditableColumn]="sandra.controls['levelNumber']" pEditableColumnField="levelNumber">
-                  <p-cellEditor>
-                      <ng-template pTemplate="input">
-                          <lib-text-input formControlName="levelNumber"  type="number"></lib-text-input>
-                      </ng-template>
-                      <ng-template pTemplate="output">
-                          {{ sandra.controls['levelNumber'].value }}
-                      </ng-template>
-                  </p-cellEditor>
-              </td>
+            <td [pEditableColumn]="coaItem.controls['name']" pEditableColumnField="name">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input formControlName="name" type="text"></lib-text-input>
+                  <lib-field-validations
+                    [appControl]="coaItem.controls['name']"
+                  ></lib-field-validations>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ coaItem.controls['name'].value }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
 
-
-
-
-              
-
-              <td [pEditableColumn]="sandra.controls['name']" pEditableColumnField="name">
-                  <p-cellEditor>
-                    <ng-template pTemplate="input">
-                      <lib-text-input formControlName="name" type="text"></lib-text-input>
-                    </ng-template>
-                    <ng-template pTemplate="output">
-                      {{ sandra.controls['name'].value }}
-                    </ng-template>
-                  </p-cellEditor>
-                </td>
-
-                <td [pEditableColumn]="sandra.controls['numberOfDigits']" pEditableColumnField="numberOfDigits">
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <lib-text-input formControlName="numberOfDigits"  type="number"></lib-text-input>
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{ sandra.controls['numberOfDigits'].value }}
-                        </ng-template>
-                    </p-cellEditor>
-                </td>
-            </tr>
+            <td
+              [pEditableColumn]="coaItem.controls['numberOfDigits']"
+              pEditableColumnField="numberOfDigits"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input formControlName="numberOfDigits" type="number"></lib-text-input>
+                  <lib-field-validations
+                    [appControl]="coaItem.controls['numberOfDigits']"
+                  ></lib-field-validations>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ coaItem.controls['numberOfDigits'].value }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+          </tr>
         </ng-template>
-    </p-table>
-</div>
-</div>
-<div class="pop_up_footer">
-<div class="save_btn">
-  <lib-button-micro 
-  title='{{ "COAConfigration.Save" | translate }}'
-  nameClass="save"
-  (click)="save()"
-  widthNumber ="100%"
-  >
-  
-  </lib-button-micro>
-</div>
-  <div class="cancel_btn">
-    <lib-button-micro 
-  title='{{ "COAConfigration.discard" | translate }}'
-  nameClass="cancel"
-  (click)="close()"
-  >
-  
-  </lib-button-micro>
+      </p-table>
+    </div>
   </div>
-  
+  <div class="pop_up_footer">
+    <div class="save_btn">
+      <lib-button-micro
+        title="{{ 'COAConfigration.Save' | translate }}"
+        nameClass="save"
+        (click)="save()"
+        widthNumber="100%"
+      >
+      </lib-button-micro>
+    </div>
+    <div class="cancel_btn">
+      <lib-button-micro
+        title="{{ 'COAConfigration.discard' | translate }}"
+        nameClass="cancel"
+        (click)="close()"
+      >
+      </lib-button-micro>
+    </div>
+  </div>
 </div>
-</div>
-<div class="entry_table">
-</div>
-
+<div class="entry_table"></div>
