@@ -28,7 +28,7 @@ import {
   CountryDto,
   ExportTaxDto,
   ExportAccountsDto,
-  AcountsCheldrenDropDownDto,
+  AccountsChildrenDropDown,
 } from './models';
 import { TaxGroupDropDown } from './models/tax-group-drop-down';
 import { costLookup } from '../journal-entry/models';
@@ -84,8 +84,8 @@ export class AccountProxy {
       `ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}&${quieries ? quieries : ''}`
     );
   }
-  getAccountsChildrenDropDown(): Observable<AcountsCheldrenDropDownDto[]> {
-    return this.httpService.get<AcountsCheldrenDropDownDto[]>(
+  getAccountsChildrenDropDown(): Observable<AccountsChildrenDropDown[]> {
+    return this.httpService.get<AccountsChildrenDropDown[]>(
       `ChartOfAccounts/ChildrenAccountsDropDown`
     );
   }

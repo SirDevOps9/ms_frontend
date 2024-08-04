@@ -91,6 +91,8 @@
     "type": "type",
     "CountryName": "Country Name",
     "TaxGrouplist": "Tax Group list",
+    "success": "Tax Group Added Successfully",
+
     "Add": {
       "AddTaxGroup": "Add Tax Group",
       "Code": "Code",

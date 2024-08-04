@@ -263,7 +263,7 @@ export class AccountService {
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
-          this.languageService.transalte('success')
+          this.languageService.transalte('TaxGroup.success')
         );
         this.loaderService.hide();
         dialogRef.close(res);
