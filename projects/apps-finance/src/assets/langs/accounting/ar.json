@@ -208,5 +208,14 @@
     "actions":"الإجراءات",
       "add": "تمت إضافة شرط الدفع بنجاح",
     "edit": "تم تعديل شرط الدفع بنجاح"
+  },
+  "paymentmethod": {
+    "payment-term-list": "قائمة شروط الدفع",
+    "code": "الرمز",
+    "name": "الاسم",
+    "PaymentPlace": "مكان الدفع",
+    "PaymentMethodType": "نوع طريقة الدفع",
+    "Search": "بحث",
+    "AddNew": "إضافة جديد"
   }
 }

@@ -43,9 +43,9 @@ export class PaymentMethodListComponent implements OnInit {
   }
 
   initPaymentMethodData() {
-    this.financeService.('', new PageInfo());
+    this.financeService.getAllPaymentMethod('', new PageInfo());
 
-    this.financeService.paymentTermDataSourceObservable.subscribe({
+    this.financeService.paymentMethodDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -57,9 +57,9 @@ export class PaymentMethodListComponent implements OnInit {
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.financeService.getAllPaymentTerm('', pageInfo);
+    this.financeService.getAllPaymentMethod('', pageInfo);
 
-    this.financeService.paymentTermDataSourceObservable.subscribe({
+    this.financeService.paymentMethodDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -67,8 +67,8 @@ export class PaymentMethodListComponent implements OnInit {
   }
 
   exportClick(e?: Event) {
-    this.financeService.exportsBankList(this.searchTerm);
-    this.financeService.exportedPaymentTermDataSourceObservable.subscribe((res) => {
+    this.financeService.exportsPaymentMethodList(this.searchTerm);
+    this.financeService.exportedPaymentMethodDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });
   }
@@ -82,8 +82,8 @@ export class PaymentMethodListComponent implements OnInit {
   }
 
   onSearchChange() {
-    this.financeService.getAllPaymentTerm(this.searchTerm, new PageInfo());
-    this.financeService.paymentTermDataSourceObservable.subscribe({
+    this.financeService.getAllPaymentMethod(this.searchTerm, new PageInfo());
+    this.financeService.paymentMethodDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
         console.log(res);

@@ -300,14 +300,14 @@ export class FinanceService {
     })
   }
   getAllPaymentMethod(quieries: string, pageInfo: PageInfo)  {
-    this.financeProxy.(quieries, pageInfo).subscribe((response) => {
+    this.financeProxy.getAllPymentMethod(quieries, pageInfo).subscribe((response) => {
      this.paymentMethodDataSource.next(response.result)
      this.currentPageInfo.next(response.pageInfoResult)
     });
   }
 
   exportsPaymentMethodList(searchTerm:string | undefined) {
-    this.financeProxy.(searchTerm).subscribe({
+    this.financeProxy.exportsPaymentMethodList(searchTerm).subscribe({
       next: (res : any) => {
          this.exportedpaymentMethodListDataSource.next(res);
       },
@@ -319,7 +319,7 @@ export class FinanceService {
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
-      this.financeProxy.(id).subscribe({
+      this.financeProxy.deletePaymentMethod(id).subscribe({
         next: (res) => {
           
           this.toasterService.showSuccess(
@@ -327,9 +327,9 @@ export class FinanceService {
             this.languageService.transalte('delete')
           );
           this.loaderService.hide();
-          const currentPaymentTerm = this.paymentMethodDataSource.getValue();
-          const updatedcurrentPaymentTerm = currentPaymentTerm.filter((c : any) => c.id !== id);
-          this.paymentMethodDataSource.next(updatedcurrentPaymentTerm);
+          const currentPaymentMethod = this.paymentMethodDataSource.getValue();
+          const updatedcurrentPaymentMethod = currentPaymentMethod.filter((c : any) => c.id !== id);
+          this.paymentMethodDataSource.next(updatedcurrentPaymentMethod);
         },
         
       });

@@ -215,6 +215,15 @@
     "totalerror":"The total of Due Term Values must be exactly 100.",
     "add":"Payment Term Added Successfully",
     "edit":"Payment Term Edited Successfully"
+  },
+  "paymentmethod": {
+    "payment-term-list": "Payment Term List",
+    "code": "Code",
+    "name": "Name",
+    "PaymentPlace": "Payment Place",
+    "PaymentMethodType": "Payment Method Type",
+    "Search": "Search",
+    "AddNew": "Add New"
   }
 
 }

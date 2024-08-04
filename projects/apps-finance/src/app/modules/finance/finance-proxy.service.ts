@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
-import { AddPaymentTermDto, AddTreasuryDto, Balance, EditTreasuryDto, GetTreasuryDtoById, PaymentTermDto } from './models';
+import { AddPaymentTermDto, AddTreasuryDto, Balance, EditTreasuryDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { AddBankDto } from './models/addBankDto';
 import { UserPermission } from './models/user-permission';
@@ -131,6 +131,27 @@ export class FinanceProxyService {
 
   editPaymentTerm(  obj : GetPaymentTermById) : Observable<GetPaymentTermById> {
     return this.httpService.put(`PaymentTerms` , obj);
+
+  }
+  getAllPymentMethod(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<PaymentMethodDto>> {
+    let query = `PaymentMethod?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<PaymentMethodDto>>(query);
+  }
+
+  exportsPaymentMethodList(
+    searchTerm: string | undefined
+  ): Observable<PaymentMethodDto[]> {
+    let query = `PaymentMethod/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<PaymentMethodDto[]>(query);
+  }
+  deletePaymentMethod(id : number) {
+    return this.httpService.delete(`PaymentMethod/${id}`);
 
   }
 }
