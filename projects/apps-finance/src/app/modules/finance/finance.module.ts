@@ -17,6 +17,7 @@ import { ConfirmOpeningBalanceComponent } from './components/bank/confirm-openin
 import { PaymentTermListComponent } from './pages/payment-term/payment-term-list/payment-term-list.component';
 import { AddPaymentTermComponent } from './pages/payment-term/add-payment-term/add-payment-term.component';
 import { EditPaymentTermComponent } from './pages/payment-term/edit-payment-term/edit-payment-term.component';
+import { PaymentMethodListComponent } from './pages/payment-method/payment-method-list/payment-method-list.component';
 
 const routes: Routes = [
   {
@@ -87,6 +88,13 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.PAYMENT_TERM_LIST,
         },
       },
+      {
+        path: 'payment-method',
+        component: PaymentMethodListComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.PAYMENT_TERM_LIST,
+        },
+      },
     ],
   },
 ];
@@ -105,7 +113,8 @@ const routes: Routes = [
     ConfirmOpeningBalanceComponent,
     PaymentTermListComponent,
     AddPaymentTermComponent,
-    EditPaymentTermComponent
+    EditPaymentTermComponent,
+    PaymentMethodListComponent
   ],
   imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes)],
 })
