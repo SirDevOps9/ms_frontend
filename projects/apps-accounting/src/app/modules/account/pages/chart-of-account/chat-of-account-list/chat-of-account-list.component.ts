@@ -55,7 +55,7 @@ export class ChatOfAccountListComponent implements OnInit {
   }
 
   initChartOfAccountData(searchTerm: string, page: PageInfo) {
-    this.accountService.initAccountList(searchTerm, new PageInfo());
+    this.accountService.initAccountList(searchTerm, page);
 
     this.accountService.accountsList.subscribe({
       next: (ChartOfAccountList) => {
@@ -85,7 +85,13 @@ export class ChatOfAccountListComponent implements OnInit {
   exportAccountsData(searchTerm: string) {
     this.accountService.exportAccountsData(searchTerm);
     this.accountService.exportsAccountsDataSourceObservable.subscribe((res) => {
-      this.exportData = res;
+      if (res !== null) {
+        this.exportData = res;
+      } else {
+        // Handle null return the first time only
+        // For example, you could show a message or handle it differently
+        console.log('Null response handled');
+      }
     });
   }
 }
