@@ -9,6 +9,7 @@ import { GeneralService } from '../../services/general.service';
 export class ChangeColumnComponent implements OnChanges {
   columnsList: any = [];
   @Input() dataTable: any = [];
+
   constructor(private generalService: GeneralService) {
     this.generalService.sendColumnsObs.subscribe((res) => {
       if (res) {
@@ -25,7 +26,34 @@ export class ChangeColumnComponent implements OnChanges {
     });
 
   }
+
+  columnsSelected(event : any) {
+
+    //  console.log(event)
+    //  console.log(this.dataTable)
+    // let data : any = this.dataTable.filter((elem : any , i : number)=>event[i] == elem)
+    // console.log(data);
+
+  console.log(this.filterProperties(this.dataTable , event))  
+  this.generalService.sendFilteredList.next(this.filterProperties(this.dataTable , event))
+  this.generalService.sendSelectedColumns.next(event)
+    
+
+  }
+
+   filterProperties = <T extends { id: number }, K extends keyof T>(array: T[], properties: K[]): Partial<T>[] => {
+    return array.map(item => {
+      const result : any = { id: item.id };
+      properties.forEach(property => {
+        if (item.hasOwnProperty(property)) {
+          result[property] = item[property];
+        }
+      });
+      return result;
+    });
+  };
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.dataTable)
     // let data : any = this.dataTable.filter((elem : any)=>!elem.id)
     // console.log(data);
 

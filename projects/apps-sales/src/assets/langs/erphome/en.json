@@ -432,6 +432,24 @@
       "valdation":{
         "invalidForm":"invalid Form"
       }
+    },
+    "openeingBalance" : {
+      "openingJournal" : "Opening Journal",
+      "fromOpening" : "From Opening Balance Transaction",
+      "JournalLine" : "Journal Line",
+      "amount" : "Amount",
+      "debitCredit" : "Debit Or Credit",
+      "glAccount" : "GL Account",
+      "balance" : "Balance",
+      "balanceType" : "Balance Type",
+      "dueDate" : "Due Date Distribution",
+      "add_new" : "Add New Line",
+      "distribute" : "Distribute",
+      "debit" : "Debit",
+      "credit" : "Credit",
+      "duedate" : "Due Date",
+      "cancel" : "Cancel",
+      "save" : "Save"
     }
 
 }

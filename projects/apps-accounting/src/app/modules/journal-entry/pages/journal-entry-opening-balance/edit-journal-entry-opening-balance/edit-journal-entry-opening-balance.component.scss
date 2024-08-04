@@ -1,0 +1,113 @@
+//@import "../../../../assets/styling/scss/variables/font-family";
+.journal_entry_add_page {
+    .entry_header {
+      background: #f7f8f8;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      padding: 20px;
+      margin-bottom: 20px;
+      .title {
+        font-size: 18px;
+        // font-family: $cairo_regular;
+      }
+    }
+    .entry_table {
+      .add_new {
+        padding: 20px;
+        .btn {
+          background: none;
+          border: none;
+          font-size: 16px;
+          color: #1a8eae;
+          cursor: pointer;
+        }
+        .Line {
+          border-inline-end: 3px solid #dde1e6ed;
+        }
+      }
+      .btn_group {
+        display: flex;
+        align-items: center;
+        margin-inline-end: 20px;
+        justify-content: end;
+  
+        .btn {
+          background: none;
+          border: none;
+          padding: 10px 50px;
+          border-radius: 12px;
+          cursor: pointer;
+          position: relative;
+        }
+        .save {
+          background: #1a8eae;
+          color: #fff;
+          margin-inline-start: 20px;
+          justify-content: end;
+        }
+  
+        .discard {
+          border: 1px solid #cb3f2d;
+          color: #cb3f2d;
+          justify-content: end;
+        }
+      }
+    }
+  
+    .view {
+      font-size: 1rem;
+      color: #000000;
+      // background: #ffffff;
+      padding: 15px;
+      min-height: 40px;
+      // border-radius: 6px;
+      // border: 1px solid #d1d5db;
+      font-weight: bold;
+    }
+    .add_new_btn {
+      margin-top: 20px;
+      margin-inline-end: 20px;
+      background: none;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      position: relative;
+      background: #1a8eae;
+      color: #fff;
+    }
+  
+    .pi.pi-trash {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: red;
+    }
+    ::ng-deep {
+      .entry_header {
+        lib-text-input input {
+          border: none;
+          color: black;
+          font-weight: bold;
+        }
+  
+        lib-label {
+          border: none;
+          color: #6b7280;
+          font-weight: 600;
+          font-size: 14px;
+        }
+      }
+      .entry_table {
+        lib-text-input input {
+          border: none;
+        }
+      }
+    }
+  }
+  .search-circle {
+    cursor: pointer;
+  }
+  .costCenterImg{
+    cursor: pointer;
+    height: 30px;
+  }

@@ -18,6 +18,10 @@ import { CostCenterAllocationPopupComponent } from './pages/components/cost-cent
 import { EditCostCenterAllocationPopupComponent } from './pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component';
 import { TrialBlanceComponent } from './pages/report/trial-blance/trial-blance.component';
 import { AccountStatementComponent } from './pages/report/account-statement/account-statement.component';
+import { JournalEntryOpeningBalanceListComponent } from './pages/journal-entry-opening-balance/journal-entry-opening-balance-list/journal-entry-opening-balance-list.component';
+import { AddJournalEntryOpeningBalanceComponent } from './pages/journal-entry-opening-balance/add-journal-entry-opening-balance/add-journal-entry-opening-balance.component';
+import { EditJournalEntryOpeningBalanceComponent } from './pages/journal-entry-opening-balance/edit-journal-entry-opening-balance/edit-journal-entry-opening-balance.component';
+import { ViewJournalEntryOpeningBalanceComponent } from './pages/journal-entry-opening-balance/view-journal-entry-opening-balance/view-journal-entry-opening-balance.component';
 
 const routes: Routes = [
   {
@@ -85,6 +89,44 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.ACCOUNT_STATEMENT,
         },
       },
+      {
+        path: 'journal-entry-opening-balance',
+        children : [
+          {path: '',  component: JournalEntryOpeningBalanceListComponent,
+          // canActivate: [AuthGuard],
+          data: {
+            breadcrumb: BreadcrumbLabel.JOURNAL_OPENING_BALANCE,
+          },
+        },
+        {
+          path: 'add',
+          component: AddJournalEntryOpeningBalanceComponent,
+          // canActivate: [AuthGuard],
+          data: {
+            breadcrumb: BreadcrumbLabel.ADD_JOURNAL_OPENING_BALANCE,
+          },
+        },
+        {
+          path: 'edit/:id',
+          component: EditJournalEntryOpeningBalanceComponent,
+          // canActivate: [AuthGuard],
+          data: {
+            breadcrumb: BreadcrumbLabel.EDIT_JOURNAL_OPENING_BALANCE,
+          },
+        },
+        {
+          path: 'view/:id',
+          component: ViewJournalEntryOpeningBalanceComponent,
+          // canActivate: [AuthGuard],
+          data: {
+            breadcrumb: BreadcrumbLabel.VIEW_JOURNAL_OPENING_BALANCE,
+          },
+        },
+        ]
+       
+        
+      },
+    
     ],
   },
 ];
@@ -103,6 +145,10 @@ const routes: Routes = [
     EditCostCenterAllocationPopupComponent,
     TrialBlanceComponent,
     AccountStatementComponent,
+    JournalEntryOpeningBalanceListComponent,
+    AddJournalEntryOpeningBalanceComponent,
+    EditJournalEntryOpeningBalanceComponent,
+    ViewJournalEntryOpeningBalanceComponent,
   ],
   imports: [
     CommonModule,
