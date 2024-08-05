@@ -170,7 +170,7 @@ export class AccountService {
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('COAConfigration.Success'),
-          this.languageService.transalte('COAConfigration.Levelsaved')
+          this.languageService.transalte('COAConfigration.LevelsSaved')
         );
       },
     });

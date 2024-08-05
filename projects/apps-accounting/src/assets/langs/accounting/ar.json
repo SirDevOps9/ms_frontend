@@ -16,6 +16,8 @@
     "ViewJournalEntryOpeningBalance": "عرض رصيد افتتاحي لقيد اليومية"
   },
   "COAConfigration": {
+    "Success": "نجاح",
+    "Error": "خطأ",
     "levelnumber": "رقم المستوى",
     "levelName": "اسم المستوى",
     "numberOfDigits": "عدد الأرقام",
@@ -24,7 +26,8 @@
     "Save": "حفظ",
     "Actions": "العمليات",
     "ChartOfAccountConfig": "إعداد شجرة الحسابات",
-    "chartOfAccountLevels": "مستويات شجرة الحسابات"
+    "chartOfAccountLevels": "مستويات شجرة الحسابات",
+    "LevelsSaved": "تم حفظ المستويات بنجاح"
   },
   "ChartOfAccount": {
     "Title": "شجرة الحسابات",

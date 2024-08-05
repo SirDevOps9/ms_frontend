@@ -16,6 +16,8 @@
     "ViewJournalEntryOpeningBalance": "View Journal Entry Opening Balance"
   },
   "COAConfigration": {
+    "Success": "Success",
+    "Error": "Error",
     "levelnumber": "level Number",
     "levelName": "level Name",
     "numberOfDigits": "Number Of Digits",
@@ -24,7 +26,8 @@
     "Save": "Save",
     "Actions": "Actions",
     "ChartOfAccountConfig": "Chart of Account Configuration",
-    "chartOfAccountLevels": "Chart of Account Levels"
+    "chartOfAccountLevels": "Chart of Account Levels",
+    "LevelsSaved":"Levels Saved Successfully"
   },
   "ChartOfAccount": {
     "Title": "Chart of Account Tree",
