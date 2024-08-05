@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { lookupDto, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { LanguageService, lookupDto, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { AccountService } from '../../../account.service';
 import { AccountNature, AccountDto, ExportAccountsDto } from '../../../models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-chat-of-account-list',
@@ -12,12 +13,18 @@ export class ChatOfAccountListComponent implements OnInit {
   tableData: AccountDto[];
   currentPageInfo: PageInfoResult;
   accountNature = AccountNature;
-  searchTerm : string
+  searchTerm: string;
   mappedExportData: AccountDto[];
 
   exportData: ExportAccountsDto[];
 
-  constructor(private routerService: RouterService, private accountService: AccountService) {}
+  constructor(private routerService: RouterService,
+    private title: Title,
+    private langService: LanguageService,
+     private accountService: AccountService) {
+      this.title.setTitle(this.langService.transalte('ChartOfAccount.ChartOfAccountList'));
+
+     }
 
   exportColumns: lookupDto[] = [
     {
@@ -45,17 +52,19 @@ export class ChatOfAccountListComponent implements OnInit {
 
   ngOnInit() {
     this.initChartOfAccountData(this.searchTerm, new PageInfo());
+
+   
   }
 
   searchTermChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     this.searchTerm = inputElement.value;
-    console.log( this.searchTerm)
+    console.log(this.searchTerm);
     this.initChartOfAccountData(this.searchTerm, new PageInfo());
   }
 
   initChartOfAccountData(searchTerm: string, page: PageInfo) {
-    this.accountService.initAccountList(searchTerm, new PageInfo());
+    this.accountService.initAccountList(searchTerm, page);
 
     this.accountService.accountsList.subscribe({
       next: (ChartOfAccountList) => {
@@ -73,7 +82,6 @@ export class ChatOfAccountListComponent implements OnInit {
   }
   onPageChange(pageInfo: PageInfo) {
     this.initChartOfAccountData('', pageInfo);
-    
   }
   routeToAdd() {
     this.routerService.navigateTo(`/journalentry/add`);
@@ -85,6 +93,7 @@ export class ChatOfAccountListComponent implements OnInit {
   exportAccountsData(searchTerm: string) {
     this.accountService.exportAccountsData(searchTerm);
     this.accountService.exportsAccountsDataSourceObservable.subscribe((res) => {
+      console.log('exported data', res);
       this.exportData = res;
     });
   }

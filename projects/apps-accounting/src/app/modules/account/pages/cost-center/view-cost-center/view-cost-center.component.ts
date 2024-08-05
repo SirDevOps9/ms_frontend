@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { AccountService } from '../../../account.service';
 import {  costCenterDetails } from '../../../models';
+import { LanguageService } from 'shared-lib';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -13,9 +15,12 @@ export class ViewCostCenterComponent implements OnInit {
   costView?:costCenterDetails
 
   constructor(
-    private accountService: AccountService
+    private accountService: AccountService,
+    private title: Title,
+    private langService: LanguageService
   ){
-  
+    this.title.setTitle(this.langService.transalte('costCenter.ViewCostCenter'));
+
   }
   ngOnInit() {
   }

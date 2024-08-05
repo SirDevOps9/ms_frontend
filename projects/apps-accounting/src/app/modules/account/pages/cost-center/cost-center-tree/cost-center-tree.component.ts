@@ -34,10 +34,8 @@ constructor(
   private langService: LanguageService,
   private dialog: DialogService
 ) {
-  this.langService.setLang();
 
-
-  this.title.setTitle('Chart of accounts');
+  this.title.setTitle(this.langService.transalte('costCenter.costCenter'));
 }
 ngOnInit() {
   this.getCostTree();

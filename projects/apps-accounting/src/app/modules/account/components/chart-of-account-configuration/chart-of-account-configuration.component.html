@@ -1,24 +1,20 @@
 <div class="pop_up_config_page">
-  <div class="pop_up_header">
-    <div class="header_content">
-      <div class="title">
-        <div class="plus_icon"></div>
-        Account Configration
-      </div>
-      <div class="pi pi-times cancel" (click)="close()"></div>
+<div class="pop_up_header">
+  <div class="header_content">
+    <div class="title">
+      <div class="plus_icon"></div>
+      {{ "COAConfigration.ChartOfAccountConfig" | translate }}
     </div>
+      <div class="pi pi-times cancel" (click)="close()"></div>
   </div>
-  <div class="pop_up_content">
-    <p class="title">chart of account levels</p>
-    <p class="add_line" (click)="addline()">
-      <span class="icon fa fa-plus"></span> {{ 'COAConfigration.AddNewLine' | translate }}
-    </p>
-    <div class="card">
-      <p-table
-        [value]="fa.controls"
-        dataKey="id"
-        styleClass="p-datatable-gridlines p-datatable-striped"
-      >
+</div>
+<div class="pop_up_content">
+  <p class="title">{{ "COAConfigration.chartOfAccountLevels" | translate }}</p>
+  <p class="add_line" (click)="addline()">
+  <span class="icon fa fa-plus" ></span>  {{ "COAConfigration.AddNewLine" | translate }}
+ </p>
+  <div class="card">
+    <p-table [value]="fa.controls" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped" >
         <ng-template pTemplate="header">
           <tr>
             <th>{{ 'COAConfigration.levelnumber' | translate }}</th>

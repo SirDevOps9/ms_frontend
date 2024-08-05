@@ -36,7 +36,7 @@ export class JournalEntryListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(this.languageService.transalte('JournalEntry.JournalEntryList'));
+    this.titleService.setTitle(this.languageService.transalte('Journal.Title'));
     this.initJournalEntryData();
     this.cols = [
       {

@@ -2,10 +2,11 @@ import { TaxDefinitionAddComponent } from './../../../components/tax-definition-
 import { Component, OnInit, Signal, computed, effect, signal } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { PageInfoResult, MenuModule, RouterService, PageInfo, PaginationVm, lookupDto } from 'shared-lib';
+import { PageInfoResult, MenuModule, RouterService, PageInfo, PaginationVm, lookupDto, LanguageService } from 'shared-lib';
 import { AccountService } from '../../../account.service';
 import { ExportTaxDto, TaxDto } from '../../../models';
 import { TaxDefinitionEditComponent } from '../../../components/tax-definition-edit/tax-definition-edit.component';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -18,8 +19,12 @@ export class TaxDefinitionComponent implements OnInit {
     private routerService: RouterService,
     public authService: AuthService,
     private dialog: DialogService,
-    private accountService: AccountService
-  ) {}
+    private accountService: AccountService,
+    private title: Title,
+    private langService: LanguageService
+  ) {
+    this.title.setTitle(this.langService.transalte('Tax.Title'));
+  }
 
   tableData : TaxDto[];
 

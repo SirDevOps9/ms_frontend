@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { PageInfoResult, MenuModule, RouterService, PageInfo, lookupDto } from 'shared-lib';
+import { PageInfoResult, MenuModule, RouterService, PageInfo, lookupDto, LanguageService } from 'shared-lib';
 import { AccountService } from '../../../account.service';
 import { TaxGroupDto } from '../../../models';
 import { TaxGroupAddComponent } from '../../../components/tax-group-add/tax-group-add.component';
 import { TaxGroupEditComponent } from '../../../components/tax-group-edit/tax-group-edit.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tax-group',
@@ -23,8 +24,13 @@ export class TaxGroupComponent implements OnInit {
     private routerService: RouterService,
     private accountService: AccountService,
     public authService: AuthService,
-    private dialog: DialogService
-  ) {}
+    private dialog: DialogService,
+    private title: Title,
+    private langService: LanguageService
+  ) {
+    this.title.setTitle(this.langService.transalte('TaxGroup.Title'));
+
+  }
 
   ngOnInit() {
     this.initTaxGroupData();
