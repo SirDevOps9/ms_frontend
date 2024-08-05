@@ -5,7 +5,7 @@ import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dy
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
 import {
   AccountDto,
-  AcountsCheldrenDropDownDto,
+  AccountsChildrenDropDown,
   AddTax,
   GetLevelsDto,
   TaxGroupDropDown,
@@ -20,7 +20,7 @@ import { FormsService, LanguageService, LookupsService, PageInfo, PageInfoResult
 })
 export class TaxDefinitionAddComponent {
   addForm: FormGroup;
-  accounts: AcountsCheldrenDropDownDto[];
+  accounts: AccountsChildrenDropDown[];
   taxGroupList:TaxGroupDropDown[];
   paging: PageInfoResult;
   taxGroupId:string;
