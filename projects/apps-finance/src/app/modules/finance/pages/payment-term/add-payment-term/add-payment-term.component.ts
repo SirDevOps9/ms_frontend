@@ -40,7 +40,7 @@ export class AddPaymentTermComponent implements OnInit {
   createPaymentTermFormGroup(): FormGroup {
     return this.fb.group({
       dueTermValue:  new FormControl('', [customValidators.required,customValidators.range(0,100)]),
-      note:  new FormControl('', customValidators.required),
+      note:  new FormControl(''),
       afterValue: new FormControl('', customValidators.required),
       afterPeriod: new FormControl('', customValidators.required),
         });
