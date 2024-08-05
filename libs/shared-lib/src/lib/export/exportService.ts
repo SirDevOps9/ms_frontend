@@ -107,7 +107,7 @@ export class ExportService {
 
   // Helper function to check if jsonData is in tree structure
   private static isTreeStructure(jsonData: any[]): boolean {
-    if (jsonData.length === 0) return false;
+    if (jsonData === undefined || jsonData.length === 0) return false;
     const firstItem = jsonData[0];
     return firstItem.hasOwnProperty('data') && firstItem.hasOwnProperty('children');
   }

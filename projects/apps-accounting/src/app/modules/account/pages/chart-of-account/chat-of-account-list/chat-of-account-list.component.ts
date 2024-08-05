@@ -12,7 +12,7 @@ export class ChatOfAccountListComponent implements OnInit {
   tableData: AccountDto[];
   currentPageInfo: PageInfoResult;
   accountNature = AccountNature;
-  searchTerm : string
+  searchTerm: string;
   mappedExportData: AccountDto[];
 
   exportData: ExportAccountsDto[];
@@ -45,12 +45,14 @@ export class ChatOfAccountListComponent implements OnInit {
 
   ngOnInit() {
     this.initChartOfAccountData(this.searchTerm, new PageInfo());
+
+   
   }
 
   searchTermChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     this.searchTerm = inputElement.value;
-    console.log( this.searchTerm)
+    console.log(this.searchTerm);
     this.initChartOfAccountData(this.searchTerm, new PageInfo());
   }
 
@@ -73,7 +75,6 @@ export class ChatOfAccountListComponent implements OnInit {
   }
   onPageChange(pageInfo: PageInfo) {
     this.initChartOfAccountData('', pageInfo);
-    
   }
   routeToAdd() {
     this.routerService.navigateTo(`/journalentry/add`);
@@ -85,13 +86,8 @@ export class ChatOfAccountListComponent implements OnInit {
   exportAccountsData(searchTerm: string) {
     this.accountService.exportAccountsData(searchTerm);
     this.accountService.exportsAccountsDataSourceObservable.subscribe((res) => {
-      if (res !== null) {
-        this.exportData = res;
-      } else {
-        // Handle null return the first time only
-        // For example, you could show a message or handle it differently
-        console.log('Null response handled');
-      }
+      console.log('exported data', res);
+      this.exportData = res;
     });
   }
 }

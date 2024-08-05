@@ -109,7 +109,7 @@ export class AccountService {
 
   private countryDataSource = new BehaviorSubject<CountryDto[]>([]);
   public countries = this.countryDataSource.asObservable();
-  
+
   public addTaxStatus = new BehaviorSubject<boolean>(false);
 
   public editTaxStatus = new BehaviorSubject<boolean>(false);
@@ -529,35 +529,36 @@ export class AccountService {
     });
   }
 
-  exportTaxGroupData(searchTerm:string | undefined) {
+  exportTaxGroupData(searchTerm: string | undefined) {
     this.accountproxy.exportTaxGroupData(searchTerm).subscribe({
       next: (res) => {
-         this.exportsTaxGroupDataSource.next(res);
+        this.exportsTaxGroupDataSource.next(res);
       },
     });
   }
 
-  exportAccountsData(searchTerm:string | undefined) {
+  exportAccountsData(searchTerm: string | undefined) {
     this.accountproxy.exportAccountsData(searchTerm).subscribe({
       next: (res) => {
-        
-         this.exportsAccountsDataSource.next(res);
+        console.log('Api Data', res);
+
+        this.exportsAccountsDataSource.next(res);
       },
     });
   }
 
-  exportCostCentersData(searchTerm:string | undefined) {
+  exportCostCentersData(searchTerm: string | undefined) {
     this.accountproxy.exportCostCentersData(searchTerm).subscribe({
       next: (res) => {
-         this.exportsCostCentersDataSource.next(res);
+        this.exportsCostCentersDataSource.next(res);
       },
     });
   }
 
-  exportTaxesData(searchTerm:string | undefined) {
+  exportTaxesData(searchTerm: string | undefined) {
     this.accountproxy.exportTaxesData(searchTerm).subscribe({
       next: (res) => {
-         this.exportsTaxesDataSource.next(res);
+        this.exportsTaxesDataSource.next(res);
       },
     });
   }
