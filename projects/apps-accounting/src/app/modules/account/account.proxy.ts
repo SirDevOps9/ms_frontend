@@ -28,6 +28,7 @@ import {
   CountryDto,
   ExportTaxDto,
   ExportAccountsDto,
+  AccountsChildrenDropDown,
 } from './models';
 import { TaxGroupDropDown } from './models/tax-group-drop-down';
 import { costLookup } from '../journal-entry/models';
@@ -81,6 +82,11 @@ export class AccountProxy {
   ): Observable<PaginationVm<AccountDto>> {
     return this.httpService.get<PaginationVm<AccountDto>>(
       `ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}&${quieries ? quieries : ''}`
+    );
+  }
+  getAccountsChildrenDropDown(): Observable<AccountsChildrenDropDown[]> {
+    return this.httpService.get<AccountsChildrenDropDown[]>(
+      `ChartOfAccounts/ChildrenAccountsDropDown`
     );
   }
 

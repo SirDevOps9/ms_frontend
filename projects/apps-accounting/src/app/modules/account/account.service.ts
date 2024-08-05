@@ -140,6 +140,13 @@ export class AccountService {
       })
     );
   }
+  getAccountsChildrenDropDown() {
+    return this.accountproxy.getAccountsChildrenDropDown().pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
 
   getTreeList() {
     return this.accountproxy.getTreeList().pipe(

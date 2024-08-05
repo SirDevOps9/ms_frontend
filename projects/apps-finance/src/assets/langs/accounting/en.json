@@ -203,7 +203,8 @@
     "delete": "Delete",
     "save": "Save",
     "export": "Export",
-    "ExportName": "Bank Definition"
+    "ExportName": "Bank Definition",
+    "deleted":"Payment Term Deleted Successfully"
   },
   "add-paymentterm": {
     "dueTermValue": "Due Term Value",

@@ -251,7 +251,7 @@ export class FinanceService {
           
           this.toasterService.showSuccess(
             this.languageService.transalte('success'),
-            this.languageService.transalte('delete')
+            this.languageService.transalte('paymentterm.deleted')
           );
           this.loaderService.hide();
           const currentPaymentTerm = this.paymentTermDataSource.getValue();
