@@ -34,59 +34,50 @@ const routes: Routes = [
       {
         path: 'journalentry',
         component: JournalEntryListComponent,
-        // canActivate: [AuthGuard],
         data: {
-          breadcrumb: 'BreadCrumb.JournalEntryList',
+          breadcrumb: BreadcrumbLabel.JournalEntryList,
         },
       },
       {
         path: 'journalentry/add',
         component: CreateJournalEntryComponent,
-        // canActivate: [AuthGuard],
         data: {
-          breadcrumb: 'BreadCrumb.JournalEntryAdd',
+          breadcrumb: BreadcrumbLabel.JournalEntryAdd,
         },
       },
-
       {
         path: 'journalentry/view/:id',
         component: ViewJournalEntryComponent,
-        // canActivate: [AuthGuard],
         data: {
-          breadcrumb: 'BreadCrumb.JournalEntryView',
+          breadcrumb: BreadcrumbLabel.JournalEntryView,
         },
       },
-
       {
         path: 'journalentry/edit/:id',
         component: EditJournalEntryComponent,
-        // canActivate: [AuthGuard],
         data: {
-          breadcrumb: 'BreadCrumb.JournalEntryEdit',
+          breadcrumb: BreadcrumbLabel.JournalEntryEdit,
         },
       },
       {
         path: 'trial-balance',
         component: TrialBlanceComponent,
-        // canActivate: [AuthGuard],
         data: {
-          breadcrumb: 'BreadCrumb.TrialBalance',
+          breadcrumb: BreadcrumbLabel.TrialBalance,
         },
       },
       {
         path: 'account-statement',
         component: AccountStatementComponent,
-        // canActivate: [AuthGuard],
         data: {
-          breadcrumb: 'BreadCrumb.AccountStatement',
+          breadcrumb: BreadcrumbLabel.AccountStatement,
         },
       },
       {
         path: 'account-statement/:id',
         component: AccountStatementComponent,
-        // canActivate: [AuthGuard],
         data: {
-          breadcrumb: 'BreadCrumb.AccountStatement',
+          breadcrumb: BreadcrumbLabel.AccountStatement,
         },
       },
       {
@@ -95,33 +86,29 @@ const routes: Routes = [
           {
             path: '',
             component: JournalEntryOpeningBalanceListComponent,
-            // canActivate: [AuthGuard],
             data: {
-              breadcrumb: 'BreadCrumb.JournalEntryOpeningBalance',
+              breadcrumb: BreadcrumbLabel.JournalEntryOpeningBalance,
             },
           },
           {
             path: 'add',
             component: AddJournalEntryOpeningBalanceComponent,
-            // canActivate: [AuthGuard],
             data: {
-              breadcrumb: 'BreadCrumb.AddJournalEntryOpeningBalance',
+              breadcrumb: BreadcrumbLabel.AddJournalEntryOpeningBalance,
             },
           },
           {
             path: 'edit/:id',
             component: EditJournalEntryOpeningBalanceComponent,
-            // canActivate: [AuthGuard],
             data: {
-              breadcrumb: 'BreadCrumb.EditJournalEntryOpeningBalance',
+              breadcrumb: BreadcrumbLabel.EditJournalEntryOpeningBalance,
             },
           },
           {
             path: 'view/:id',
             component: ViewJournalEntryOpeningBalanceComponent,
-            // canActivate: [AuthGuard],
             data: {
-              breadcrumb: 'BreadCrumb.ViewJournalEntryOpeningBalance',
+              breadcrumb: BreadcrumbLabel.ViewJournalEntryOpeningBalance,
             },
           },
         ]

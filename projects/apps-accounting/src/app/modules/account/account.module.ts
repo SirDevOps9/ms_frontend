@@ -37,14 +37,14 @@ const routes: Routes = [
         path: 'chartofaccounts',
         component: MainChartOfAccountComponent,
         data: {
-          breadcrumb: 'BreadCrumb.ChartOfAccount'
+          breadcrumb: BreadcrumbLabel.ChartOfAccount
         },
         children: [
           {
             path: 'add',
             component: AddChartComponent,
             data: {
-              breadcrumb: 'BreadCrumb.ChartOfAccount'
+              breadcrumb: BreadcrumbLabel.ChartOfAccount
             },
           },
         ],
@@ -53,26 +53,27 @@ const routes: Routes = [
         path: 'tax-group',
         component: TaxGroupComponent,
         data: {
-          breadcrumb: 'BreadCrumb.TaxGroup'
+          breadcrumb: BreadcrumbLabel.TaxGroup
         },
       },
       {
         path: 'tax-definition',
         component: TaxDefinitionComponent,
         data: {
-          breadcrumb: 'BreadCrumb.TaxDefinition'
+          breadcrumb: BreadcrumbLabel.TaxDefinition
         },
       },
       {
         path: 'cost-center',
         component: MainCostCenterComponent,
         data: {
-          breadcrumb: 'BreadCrumb.CostCenter'
+          breadcrumb: BreadcrumbLabel.CostCenter
         },
       },
     ],
   },
 ];
+
 
 @NgModule({
   declarations: [
