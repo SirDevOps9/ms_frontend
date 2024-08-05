@@ -315,8 +315,8 @@ export class AccountService {
       this.accountproxy.deleteAccount(accountId).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
-            this.languageService.transalte('costCenter.Success'),
-            this.languageService.transalte('costCenter.CostCenterDeletedSuccessfully')
+            this.languageService.transalte('ChartOfAccount.Success'),
+            this.languageService.transalte('ChartOfAccount.DeletedSuccessfully')
           );
           this.loaderService.hide();
           this.accountdeleted.next(res);
@@ -456,8 +456,8 @@ export class AccountService {
       next: (res) => {
         this.savedCostCenter.next(res);
         this.toasterService.showSuccess(
-          this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
-          this.languageService.transalte('ChartOfAccounts.SuccessMessage')
+          this.languageService.transalte('costCenter.Success'),
+          this.languageService.transalte('costCenter.AddedSuccessfully')
         );
       },
     });

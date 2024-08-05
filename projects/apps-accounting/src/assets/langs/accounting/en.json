@@ -172,7 +172,12 @@
     "Title": "Journal Entry Opening Balance List",
     "AddJournal": "Add Journal Entry Opening Balance",
     "EditJournal": "Edit Journal Entry Opening Balance",
-    "ViewJournal": "View Journal Entry Opening Balance"
+    "ViewJournal": "View Journal Entry Opening Balance",
+    "Success": "Success",
+    "Error": "Error",
+    "UpdatedSuccessfully": "Journal Entry Opening Balance Updated Successfully",
+    "AddedSuccessfully": "Journal Entry Opening Balance Added Successfully",
+    "DeletedSuccessfully": "Journal Entry Opening Balance Deleted Successfully"
   },
   "TaxGroup": {
     "Title": "Tax Group List",
@@ -246,6 +251,11 @@
     "AddCostCenter": "Add Cost Center",
     "EditCostCenter": "Edit Cost Center",
     "ViewCostCenter": "View Cost Center",
+    "Success": "Success",
+    "Error": "Error",
+    "UpdatedSuccessfully": "Cost Center Updated Successfully",
+    "AddedSuccessfully": "Cost Center Added Successfully",
+    "DeletedSuccessfully": "Cost Center Deleted Successfully",
     "code": "Cost Center code",
     "name": "Cost Center Name ",
     "parentAccount": "Parent Account",
@@ -253,9 +263,7 @@
     "yes": "yes",
     "save": "save",
     "CostCenterDeletedSuccessfully": "Cost Center Deleted Successfully",
-    "Success": "Success",
     "CannotDeleteCostCenter": " Cannot Delete Cost Center Used In Transactions",
-    "Error": "Error",
     "Actions": "Actions"
   },
   "reportTrial": {

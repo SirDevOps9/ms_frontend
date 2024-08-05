@@ -87,7 +87,12 @@
     "Title": "قائمة أرصدة القيود الافتتاحية",
     "AddJournal": "إضافة قيد افتتاحي",
     "EditJournal": "تعديل قيد افتتاحي",
-    "ViewJournal": "عرض قيد افتتاحي"
+    "ViewJournal": "عرض قيد افتتاحي",
+    "Success": "نجاح",
+    "Error": "خطأ",
+    "UpdatedSuccessfully": "تم تحديث رصيد افتتاحية قيد اليومية بنجاح",
+    "AddedSuccessfully": "تم إضافة رصيد افتتاحية قيد اليومية بنجاح",
+    "DeletedSuccessfully": "تم حذف رصيد افتتاحية قيد اليومية بنجاح"
   },
   "JournalTitle": "انشاء قيد اليومية",
   "journal_entry_header": "الرجاء إدخال عنوان دفتر اليومية",
@@ -245,6 +250,9 @@
     "AddCostCenter": "إضافة مركز تكلفة",
     "EditCostCenter": "تعديل مركز التكلفة",
     "ViewCostCenter": "عرض مركز التكلفة",
+    "UpdatedSuccessfully": "تم تحديث مركز التكلفة بنجاح",
+    "AddedSuccessfully": "تم إضافة مركز التكلفة بنجاح",
+    "DeletedSuccessfully": "تم حذف مركز التكلفة بنجاح",
     "code": "رمز مركز التكلفة",
     "name": "اسم مركز التكلفة",
     "parentAccount": "الحساب الرئيسي",

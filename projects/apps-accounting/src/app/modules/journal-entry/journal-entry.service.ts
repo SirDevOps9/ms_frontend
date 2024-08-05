@@ -129,8 +129,8 @@ export class JournalEntryService {
     return this.journalEntryProxy.ChangeStatusOpeneingBalance(journalStatusUpdate).pipe(
       map((res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('Success'),
-          this.languageService.transalte('JournalEntry.JournalUpdatedSuccessfully')
+          this.languageService.transalte('OpeningBalance.Success'),
+          this.languageService.transalte('OpeningBalance.UpdatedSuccessfully')
         );
         return res;
       }),
@@ -163,8 +163,8 @@ export class JournalEntryService {
     this.journalEntryProxy.editJournalEntryOpeningBalance(request).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('Success'),
-          this.languageService.transalte('JournalEntry.JournalUpdatedSuccessfully')
+          this.languageService.transalte('OpeningBalance.Success'),
+          this.languageService.transalte('OpeningBalance.UpdatedSuccessfully')
         );
 
         this.routerService.navigateTo('transcations/journal-entry-opening-balance')
@@ -208,8 +208,8 @@ export class JournalEntryService {
         this.journalEntryProxy.deleteJournalEntryLineOpeningBalance(id).subscribe({
           next: (status) => {
             this.toasterService.showSuccess(
-              this.languageService.transalte('Success'),
-              this.languageService.transalte('Deleted Successfully')
+              this.languageService.transalte('OpeningBalance.Success'),
+              this.languageService.transalte('OpeningBalance.DeletedSuccessfully')
             );
             this.loaderService.hide();
             this.journalStatus.next(status);

@@ -69,8 +69,8 @@ constructor(
       if (res) {
         this.operationCompleted.emit(this.parentEditedId);
         this.toaserService.showSuccess(
-          this.langService.transalte('ChartOfAccounts.SuccessTitle'),
-          this.langService.transalte('ChartOfAccounts.SuccessMessage')
+            this.langService.transalte('costCenter.Success'),
+            this.langService.transalte('costCenter.UpdatedSuccessfully')
         );
       }
     });
