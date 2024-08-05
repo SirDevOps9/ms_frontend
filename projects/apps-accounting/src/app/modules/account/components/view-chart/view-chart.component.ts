@@ -1,6 +1,8 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { AccountByIdDto } from '../../models';
 import { AccountService } from '../../account.service';
+import { LanguageService } from 'shared-lib';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-view-chart',
@@ -22,7 +24,13 @@ export class ViewChartComponent {
   accountTags?: string;
   accountCompanies?: string;
   parent?: AccountByIdDto;
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AccountService,
+    private title: Title,
+    private langService: LanguageService
+  ) {
+    this.title.setTitle(this.langService.transalte('ChartOfAccount.ViewChartOfAccount'));
+
+  }
   ngOnInit() {}
   getAccountDetails(id: number) {
     this.accountService.getAccountDetails(id);

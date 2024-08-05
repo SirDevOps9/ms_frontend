@@ -11,6 +11,7 @@ import {
 import { JournalEntryService } from '../../journal-entry.service';
 import {
   FormsService,
+  LanguageService,
   PageInfo,
   RouterService,
   ToasterService,
@@ -58,7 +59,6 @@ export class EditJournalEntryComponent implements OnInit {
   currentAccounts: number[] = [];
 
   ngOnInit() {
-    this.titleService.setTitle('Edit Journal ');
 
     this.getAccounts();
     this.initializeForm();
@@ -396,6 +396,11 @@ export class EditJournalEntryComponent implements OnInit {
     public enums: SharedJournalEnums,
     private toasterService: ToasterService,
     private currencyService: CurrencyService,
-    private titleService: Title
-  ) {}
+    private titleService: Title,
+    private langService: LanguageService
+
+  ) {
+    this.titleService.setTitle(this.langService.transalte('Journal.EditJournal'));
+
+  }
 }

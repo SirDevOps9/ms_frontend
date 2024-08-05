@@ -2,8 +2,9 @@ import { Component, effect } from '@angular/core';
 import { AccountService } from '../../account.service';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { PageInfoResult, PageInfo, customValidators, FormsService, RouterService, LookupsService } from 'shared-lib';
+import { PageInfoResult, PageInfo, customValidators, FormsService, RouterService, LookupsService, LanguageService } from 'shared-lib';
 import { AccountDto, TaxGroupDropDown, AddTax, EditTax } from '../../models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tax-definition-edit',
@@ -99,6 +100,11 @@ export class TaxDefinitionEditComponent {
     private formBuilder: FormBuilder,
     private formsService: FormsService,
     private routerService: RouterService,
+    private title: Title,
+    private langService: LanguageService,
     public lookupsService: LookupsService
-  ) {}
+  ) {
+    this.title.setTitle(this.langService.transalte('Tax.EditTax'));
+
+  }
 }

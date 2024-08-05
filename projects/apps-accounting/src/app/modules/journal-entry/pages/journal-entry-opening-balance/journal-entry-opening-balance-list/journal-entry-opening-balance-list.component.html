@@ -15,26 +15,26 @@
           
             {
               name: 'journalCode',
-              headerText: ('JournalEntry.journalcode' | translate),
+              headerText: 'Journal.journalCode' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'refrenceNumber',
-              headerText: ('JournalEntry.reference' | translate),
+              headerText: 'Journal.referenceNumber' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'createdOn',
-              headerText:  ('JournalEntry.date' | translate),
+              headerText: 'Journal.createdOn' | translate,
               isGlobalFilter: true,
               isSortable: true,
               template: journalDate
             },
             {
               name: 'type',
-              headerText:  ('JournalEntry.type' | translate),
+              headerText: 'Journal.type' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
@@ -42,24 +42,24 @@
           
             {
               name: 'status',
-              headerText:  ('JournalEntry.status' | translate),
+              headerText: 'Journal.status' | translate,
               template: userStatus
             },
             {
               name: 'totalDebitAmount',
-              headerText:  ('JournalEntry.debit' | translate),
+              headerText: 'Journal.totalDebitAmount' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'totalCreditAmount',
-              headerText:  ('JournalEntry.Credit' | translate),
+              headerText: 'Journal.totalCreditAmount' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'id',
-              headerText: 'Actions',
+              headerText: 'Journal.actions' | translate,
               template: userCol
             }
           ]
@@ -69,7 +69,7 @@
           <div class="group">
             <div>
               
-                <lib-text-input   type="text" [placeholder]="'Search'" (keyUp)="onSearchChange($event)" [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">                   
+                <lib-text-input   type="text" [placeholder]="'Journal.search' | translate"  (keyUp)="onSearchChange($event)" [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">                   
                 </lib-text-input>            
             </div>
   
@@ -78,7 +78,7 @@
             <div class="flex gap-2 align-items-center">
               <button class="add_new" (click)="routeToAdd()">
                 <span class="pi pi-plus"></span>
-                Add New
+                {{ 'Journal.addNew' | translate }}
               </button>
               <lib-export  
               (exportClick)="exportClick($event)"
@@ -122,28 +122,28 @@
             *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Unbalanced"
           >
             <p class="dot"></p>
-            <p>Unbalanced</p>
+            <p>{{ 'Journal.unbalanced' | translate }}</p>
           </div>
           <div
             class="status draft"
             *ngIf="journal.status == sharedJouralEnum.JournalEntryStatus.Draft"
           >
             <p class="dot"></p>
-            <p>Draft</p>
+            <p>{{ 'Journal.draft' | translate }}</p>
           </div>
           <div
             class="status unposted"
             *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Submitted"
           >
             <p class="dot"></p>
-            <p>Unposted</p>
+            <p>{{ 'Journal.unposted' | translate }}</p>
           </div>
           <div
             class="status Posted"
             *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Posted"
           >
             <p class="dot"></p>
-            <p>Posted</p>
+            <p>{{ 'Journal.posted' | translate }}</p>
           </div>
         </ng-template>
         <ng-template #journalDate let-journal>
@@ -153,12 +153,12 @@
         </ng-template>
         <ng-template #journalIsRepeated let-journal>
           <div>
-            <p>{{ journal.isRepeated ? 'Yes' : 'No' }}</p>
+            <p>{{ journal.isRepeated ? ('Journal.yes' | translate) : ('Journal.no' | translate) }}</p>
           </div>
         </ng-template>
         <ng-template #journalIsReversed let-journal>
           <div>
-            <p>{{ journal.isReversed ? 'Yes' : 'No' }}</p>
+            <p>{{ journal.isReversed ? ('Journal.yes' | translate) : ('Journal.no' | translate) }}</p>
           </div>
         </ng-template>
       </lib-data-table>

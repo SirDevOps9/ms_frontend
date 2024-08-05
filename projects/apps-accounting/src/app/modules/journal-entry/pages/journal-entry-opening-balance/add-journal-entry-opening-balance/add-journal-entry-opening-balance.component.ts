@@ -64,11 +64,6 @@ export class AddJournalEntryOpeningBalanceComponent {
     ],
   };
   ngOnInit() {
-    this.langService.getTranslation('JournalTitle').subscribe((title) => {
-      this.titleService.setTitle(title);
-    });
-
-    this.titleService.setTitle;
     this.getAccounts();
 
     this.currencyService.getCurrencies('');
@@ -103,6 +98,8 @@ export class AddJournalEntryOpeningBalanceComponent {
     private guidedTourService: GuidedTourService,
     private attachmentService: AttachmentsService
   ) {
+    this.titleService.setTitle(this.langService.transalte('OpeningBalance.AddJournal'));
+
     this.fg = this.fb.group({
       refrenceNumber: [null, [customValidators.required, customValidators.length(0, 15)]],
       journalDate: [this.getTodaysDate(), customValidators.required],

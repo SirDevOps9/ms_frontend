@@ -10,43 +10,41 @@
       dataKey: 'id',
       pageSize: 10,
       columns: [
-         {
+        {
           name: 'id',
-          headerText: 'Select',
+          headerText: ('JournalTemplate.id' | translate),
           template: selectedTemplate
         },
-        
         {
           name: 'code',
-          headerText: 'Code',
+          headerText: ('JournalTemplate.code' | translate),
           isGlobalFilter: true,
           isSortable: true
         },
         {
           name: 'periodName',
-          headerText: 'Period Name',
+          headerText: ('JournalTemplate.periodName' | translate),
           isGlobalFilter: true,
           isSortable: true
         },
         {
           name: 'type',
-          headerText: 'Type',
+          headerText: ('JournalTemplate.type' | translate),
           isGlobalFilter: true,
           isSortable: true
         },
         {
           name: 'totalDebitAmountLocal',
-          headerText: 'Total Debit Amount',
+          headerText: ('JournalTemplate.totalDebitAmountLocal' | translate),
           isGlobalFilter: true,
           isSortable: true
         },
         {
           name: 'totalCreditAmountLocal',
-          headerText: 'Total Credit Amount',
+          headerText: ('JournalTemplate.totalCreditAmountLocal' | translate),
           isGlobalFilter: true,
           isSortable: true
-        },
-       
+        }
       ]
     }"
   >
@@ -55,7 +53,8 @@
         <lib-button
           [className]="'light-blue'"
           
-          [label]="'Select'"
+          [label]="'JournalTemplate.Select' | translate"
+
           
           
           (onClick)="RoutToAddJournal(journal.id)"

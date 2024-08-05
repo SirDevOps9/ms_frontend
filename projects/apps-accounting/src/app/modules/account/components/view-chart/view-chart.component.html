@@ -20,7 +20,6 @@
         <div class="md:col-12">
           <lib-form-group>
             <label> {{ 'ChartOfAccounts.name' | translate }}</label>
-
             <lib-text-input [readOnly]="true" type="text" [placeholder]="parent?.accountName!" />
           </lib-form-group>
         </div>
@@ -35,6 +34,9 @@
 
       <div class="md:col-6">
         <lib-form-group>
+          <label >
+            {{"ChartOfAccounts.parentName" | translate}}
+          </label>
           <lib-text-input
             [readOnly]="true"
             type="text"
@@ -44,6 +46,7 @@
       </div>
       <div class="md:col-6">
         <lib-form-group>
+          
           <label> {{ 'ChartOfAccounts.ParentAccountCode' | translate }}</label>
           <lib-text-input
             [readOnly]="true"

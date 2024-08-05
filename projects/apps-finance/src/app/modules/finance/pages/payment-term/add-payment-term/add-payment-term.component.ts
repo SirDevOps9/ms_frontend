@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FinanceService } from '../../../finance.service';
 import { customValidators, FormsService, LanguageService, lookupDto, LookupEnum, LookupsService, RouterService, ToasterService } from 'shared-lib';
 import { AddPaymentTermDto, AddPaymentTermLinesDto } from '../../../models';
@@ -39,7 +39,7 @@ export class AddPaymentTermComponent implements OnInit {
   }
   createPaymentTermFormGroup(): FormGroup {
     return this.fb.group({
-      dueTermValue:  new FormControl('', customValidators.required),
+      dueTermValue:  new FormControl('', [customValidators.required,customValidators.range(0,100)]),
       note:  new FormControl('', customValidators.required),
       afterValue: new FormControl('', customValidators.required),
       afterPeriod: new FormControl('', customValidators.required),
