@@ -24,6 +24,7 @@ export class JournalEntryOpeningBalanceListComponent implements OnInit {
 
   selectedEntries: JournalEntryDto[];
   tableData: JournalEntryDto[];
+  exportData: JournalEntryDto[];
   cols: any[] = [];
   active: boolean = false;
   currentPageInfo: PageInfoResult;
@@ -109,9 +110,9 @@ export class JournalEntryOpeningBalanceListComponent implements OnInit {
   exportGLOpeningBalanceData(searchTerm: string) {
     this.journalEntryService.exportsEmployeesList(searchTerm);
 
-    // this.journalEntryService.journalEntriesObs.subscribe((res) => {
-    //   this.exportData = res;
-    // });
+     this.journalEntryService.journalEntriesObs.subscribe((res) => {
+      this.exportData = res;
+     });
   }
 
   initJournalEntryData() {
