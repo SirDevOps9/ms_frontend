@@ -1,15 +1,38 @@
 {
-    "COAConfigration": {
+  "BreadCrumb": {
+    "ChartOfAccount": "Chart of Account",
+    "TaxGroup": "Tax Group",
+    "TaxDefinition": "Tax Definition",
+    "CostCenter": "Cost Center",
+    "JournalEntryList": "Journal Entry List",
+    "JournalEntryAdd": "Add Journal Entry",
+    "JournalEntryView": "View Journal Entry",
+    "JournalEntryEdit": "Edit Journal Entry",
+    "TrialBalance": "Trial Balance",
+    "AccountStatement": "Account Statement",
+    "JournalEntryOpeningBalance": "Journal Entry Opening Balance",
+    "AddJournalEntryOpeningBalance": "Add Journal Entry Opening Balance",
+    "EditJournalEntryOpeningBalance": "Edit Journal Entry Opening Balance",
+    "ViewJournalEntryOpeningBalance": "View Journal Entry Opening Balance"
+  },
+  "COAConfigration": {
     "levelnumber": "level Number",
     "levelName": "level Name",
     "numberOfDigits": "Number Of Digits",
     "AddNewLine": "Add New Line",
     "discard": "discard",
     "Save": "Save",
-    "Actions": "Actions"
+    "Actions": "Actions",
+    "ChartOfAccountConfig": "Chart of Account Configuration",
+    "chartOfAccountLevels": "Chart of Account Levels"
   },
   "ChartOfAccount": {
-    "Title": "Chart of Account",
+    "Title": "Chart of Account Tree",
+    "ChartOfAccountList": "Chart of Account List",
+    "AddChartOfAccount": "Add Chart of Account",
+    "EditChartOfAccount": "Edit Chart of Account",
+    "ViewChartOfAccount": "View Chart of Account",
+    "ChartOfAccountConfig": "Chart of Account Configuration",
     "AccountName": "Account Name",
     "AccountCode": "Account Code",
     "Nature": "Nature",
@@ -22,9 +45,17 @@
     "Error": "Error",
     "UpdatedSuccessfully": "Account Updated Successfully",
     "AddedSuccessfully": "Account Added Successfully",
-    "DeletedSuccessfully": "Account Deleted Successfully"
+    "DeletedSuccessfully": "Account Deleted Successfully",
+    "import": "Import",
+    "edit": "Edit",
+    "Configration": "Configuration"
+
   },
   "Journal": {
+    "Title": "Journal Entry List",
+    "AddJournal": "Add Journal Entry",
+    "EditJournal": "Edit Journal Entry",
+    "ViewJournal": "View Journal Entry",
     "Success": "Success",
     "Error": "Error",
     "UpdatedSuccessfully": "Journal Updated Successfully",
@@ -137,7 +168,16 @@
     "totalDebitAmountLocal": "Total Debit Amount",
     "totalCreditAmountLocal": "Total Credit Amount"
   },
+  "OpeningBalance": {
+    "Title": "Journal Entry Opening Balance List",
+    "AddJournal": "Add Journal Entry Opening Balance",
+    "EditJournal": "Edit Journal Entry Opening Balance",
+    "ViewJournal": "View Journal Entry Opening Balance"
+  },
   "TaxGroup": {
+    "Title": "Tax Group List",
+    "AddTaxGroup": "Add Tax Group",
+    "EditTaxGroup": "Edit Tax Group",
     "Success": "Success",
     "Error": "Error",
     "UpdatedSuccessfully": "Tax Group Updated Successfully",
@@ -173,6 +213,9 @@
     }
   },
   "Tax": {
+    "Title": "Tax List",
+    "AddTax": "Add Tax",
+    "EditTax": "Edit Tax",
     "Success": "Success",
     "TaxName": "Tax Name",
     "AddTaxDefinition": "Add Tax Definition",
@@ -198,7 +241,11 @@
     "Actions": "Actions"
   },
   "costCenter": {
-    "costCenter":"Cost Center",
+    "costCenter": "Cost Center Tree",
+    "CostCenterList": "Cost Center List",
+    "AddCostCenter": "Add Cost Center",
+    "EditCostCenter": "Edit Cost Center",
+    "ViewCostCenter": "View Cost Center",
     "code": "Cost Center code",
     "name": "Cost Center Name ",
     "parentAccount": "Parent Account",
@@ -227,7 +274,6 @@
     "reportTrial": "report Trial",
     "trialBalance": "Trial Balance",
     "viewData": "View Data"
-
   },
   "reportAccount": {
     "AccountStatement": "Account Statement"

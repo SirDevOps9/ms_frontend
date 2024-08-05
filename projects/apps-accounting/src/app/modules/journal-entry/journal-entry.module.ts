@@ -34,26 +34,26 @@ const routes: Routes = [
       {
         path: 'journalentry',
         component: JournalEntryListComponent,
-        //  canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.JOURNAL_LIST,
+          breadcrumb: 'BreadCrumb.JournalEntryList',
         },
       },
       {
         path: 'journalentry/add',
         component: CreateJournalEntryComponent,
-        //  canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.JOURNAL_ADD,
+          breadcrumb: 'BreadCrumb.JournalEntryAdd',
         },
       },
 
       {
         path: 'journalentry/view/:id',
         component: ViewJournalEntryComponent,
-        //  canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.JOURNAL_VIEW,
+          breadcrumb: 'BreadCrumb.JournalEntryView',
         },
       },
 
@@ -62,7 +62,7 @@ const routes: Routes = [
         component: EditJournalEntryComponent,
         // canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.JOURNAL_Edit,
+          breadcrumb: 'BreadCrumb.JournalEntryEdit',
         },
       },
       {
@@ -70,15 +70,15 @@ const routes: Routes = [
         component: TrialBlanceComponent,
         // canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.TRIAL_BALANCE,
+          breadcrumb: 'BreadCrumb.TrialBalance',
         },
       },
       {
         path: 'account-statement',
         component: AccountStatementComponent,
-        //  canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.ACCOUNT_STATEMENT,
+          breadcrumb: 'BreadCrumb.AccountStatement',
         },
       },
       {
@@ -86,50 +86,50 @@ const routes: Routes = [
         component: AccountStatementComponent,
         // canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.ACCOUNT_STATEMENT,
+          breadcrumb: 'BreadCrumb.AccountStatement',
         },
       },
       {
         path: 'journal-entry-opening-balance',
-        children : [
-          {path: '',  component: JournalEntryOpeningBalanceListComponent,
-          // canActivate: [AuthGuard],
-          data: {
-            breadcrumb: BreadcrumbLabel.JOURNAL_OPENING_BALANCE,
+        children: [
+          {
+            path: '',
+            component: JournalEntryOpeningBalanceListComponent,
+            // canActivate: [AuthGuard],
+            data: {
+              breadcrumb: 'BreadCrumb.JournalEntryOpeningBalance',
+            },
           },
-        },
-        {
-          path: 'add',
-          component: AddJournalEntryOpeningBalanceComponent,
-          // canActivate: [AuthGuard],
-          data: {
-            breadcrumb: BreadcrumbLabel.ADD_JOURNAL_OPENING_BALANCE,
+          {
+            path: 'add',
+            component: AddJournalEntryOpeningBalanceComponent,
+            // canActivate: [AuthGuard],
+            data: {
+              breadcrumb: 'BreadCrumb.AddJournalEntryOpeningBalance',
+            },
           },
-        },
-        {
-          path: 'edit/:id',
-          component: EditJournalEntryOpeningBalanceComponent,
-          // canActivate: [AuthGuard],
-          data: {
-            breadcrumb: BreadcrumbLabel.EDIT_JOURNAL_OPENING_BALANCE,
+          {
+            path: 'edit/:id',
+            component: EditJournalEntryOpeningBalanceComponent,
+            // canActivate: [AuthGuard],
+            data: {
+              breadcrumb: 'BreadCrumb.EditJournalEntryOpeningBalance',
+            },
           },
-        },
-        {
-          path: 'view/:id',
-          component: ViewJournalEntryOpeningBalanceComponent,
-          // canActivate: [AuthGuard],
-          data: {
-            breadcrumb: BreadcrumbLabel.VIEW_JOURNAL_OPENING_BALANCE,
+          {
+            path: 'view/:id',
+            component: ViewJournalEntryOpeningBalanceComponent,
+            // canActivate: [AuthGuard],
+            data: {
+              breadcrumb: 'BreadCrumb.ViewJournalEntryOpeningBalance',
+            },
           },
-        },
         ]
-       
-        
       },
-    
     ],
   },
 ];
+
 
 @NgModule({
   declarations: [

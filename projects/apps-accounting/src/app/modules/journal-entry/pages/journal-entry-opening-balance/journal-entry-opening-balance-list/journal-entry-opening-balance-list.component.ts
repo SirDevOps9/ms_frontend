@@ -35,10 +35,12 @@ export class JournalEntryOpeningBalanceListComponent implements OnInit {
     private journalEntryService: JournalEntryService,
     public sharedJouralEnum: SharedJournalEnums,
     private loaderService: LoaderService
-  ) {}
+  ) {
+    this.titleService.setTitle(this.languageService.transalte('OpeningBalance.Title')); 
+
+  }
 
   ngOnInit() {
-    this.titleService.setTitle(this.languageService.transalte('JournalEntry.JournalEntryList'));
     this.initJournalEntryData();
     this.cols = [
       {

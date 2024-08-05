@@ -28,7 +28,6 @@ import { ViewCostCenterComponent } from './pages/cost-center/view-cost-center/vi
 const routes: Routes = [
   {
     path: '',
-    //canActivate: [AuthGuard],
     component: LayoutPageComponent,
     data: {
       moduleId: Modules.Accounting,
@@ -37,18 +36,15 @@ const routes: Routes = [
       {
         path: 'chartofaccounts',
         component: MainChartOfAccountComponent,
-
         data: {
-          breadcrumb: BreadcrumbLabel.chart_of_account,
+          breadcrumb: 'BreadCrumb.ChartOfAccount'
         },
-
         children: [
           {
             path: 'add',
             component: AddChartComponent,
-            // canActivate: [AuthGuard],
             data: {
-              breadcrumb: BreadcrumbLabel.chart_of_account,
+              breadcrumb: 'BreadCrumb.ChartOfAccount'
             },
           },
         ],
@@ -56,25 +52,22 @@ const routes: Routes = [
       {
         path: 'tax-group',
         component: TaxGroupComponent,
-        //canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.TAXS_GROUP,
+          breadcrumb: 'BreadCrumb.TaxGroup'
         },
       },
       {
         path: 'tax-definition',
         component: TaxDefinitionComponent,
-        //  canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.TAXS_DEFINITION,
+          breadcrumb: 'BreadCrumb.TaxDefinition'
         },
       },
       {
         path: 'cost-center',
         component: MainCostCenterComponent,
-        // canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.COST_CENTER,
+          breadcrumb: 'BreadCrumb.CostCenter'
         },
       },
     ],

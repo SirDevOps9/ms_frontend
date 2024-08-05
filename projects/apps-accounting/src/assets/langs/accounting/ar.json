@@ -1,4 +1,20 @@
-{
+{ 
+  "BreadCrumb": {
+    "ChartOfAccount": "شجرة الحسابات",
+    "TaxGroup": "مجموعة الضرائب",
+    "TaxDefinition": "تعريف الضرائب",
+    "CostCenter": "مركز التكلفة",
+    "JournalEntryList": "قائمة قيود اليومية",
+    "JournalEntryAdd": "إضافة قيد يومية",
+    "JournalEntryView": "عرض قيد يومية",
+    "JournalEntryEdit": "تعديل قيد يومية",
+    "TrialBalance": "ميزان المراجعة",
+    "AccountStatement": "كشف حساب",
+    "JournalEntryOpeningBalance": "رصيد افتتاحي لقيد اليومية",
+    "AddJournalEntryOpeningBalance": "إضافة رصيد افتتاحي لقيد اليومية",
+    "EditJournalEntryOpeningBalance": "تعديل رصيد افتتاحي لقيد اليومية",
+    "ViewJournalEntryOpeningBalance": "عرض رصيد افتتاحي لقيد اليومية"
+  },
   "COAConfigration": {
     "levelnumber": "رقم المستوى",
     "levelName": "اسم المستوى",
@@ -6,10 +22,17 @@
     "AddNewLine": "إضافة سطر جديد",
     "discard": "تجاهل",
     "Save": "حفظ",
-    "Actions": "العمليات"
+    "Actions": "العمليات",
+    "ChartOfAccountConfig": "إعداد شجرة الحسابات",
+    "chartOfAccountLevels": "مستويات شجرة الحسابات"
   },
   "ChartOfAccount": {
     "Title": "شجرة الحسابات",
+    "ChartOfAccountList": "قائمة شجرة الحسابات",
+    "AddChartOfAccount": "إضافة شجرة الحسابات",
+    "EditChartOfAccount": "تعديل شجرة الحسابات",
+    "ChartOfAccountConfig": "إعداد شجرة الحسابات",
+    "ViewChartOfAccount": "عرض شجرة الحسابات",
     "AccountName": "اسم الحساب",
     "AccountCode": "كود الحساب",
     "Nature": "الطبيعة",
@@ -22,9 +45,16 @@
     "Error": "خطأ",
     "UpdatedSuccessfully": "تم تحديث الحساب بنجاح",
     "AddedSuccessfully": "تمت إضافة الحساب بنجاح",
-    "DeletedSuccessfully": "تم حذف الحساب بنجاح"
+    "DeletedSuccessfully": "تم حذف الحساب بنجاح",
+    "import": "استيراد",
+    "edit": "تعديل",
+    "Configration": "إعدادات"
   },
   "Journal": {
+    "Title": " قائمة القيود اليومية",
+    "AddJournal": "إضافة قيد يومية",
+    "EditJournal": "تعديل قيد يومية",
+    "ViewJournal": "عرض قيد يومية",
     "UpdatedSuccessfully": "تم تحديث دفتر اليومية بنجاح",
     "AddedSuccessfully": "تمت إضافة دفتر اليومية بنجاح",
     "DeletedSuccessfully": "تم حذف دفتر اليومية بنجاح",
@@ -52,6 +82,12 @@
     "posted": "مدون",
     "yes": "نعم",
     "no": "لا"
+  },
+  "OpeningBalance": {
+    "Title": "قائمة أرصدة القيود الافتتاحية",
+    "AddJournal": "إضافة قيد افتتاحي",
+    "EditJournal": "تعديل قيد افتتاحي",
+    "ViewJournal": "عرض قيد افتتاحي"
   },
   "JournalTitle": "انشاء قيد اليومية",
   "journal_entry_header": "الرجاء إدخال عنوان دفتر اليومية",
@@ -107,7 +143,6 @@
     "Post": "ترحيل",
     "costCenter": "مركز التكلفة",
     "Actions": "العمليات"
-
   },
   "viewJournal": {
     "JornalCode": "كود اليومية",
@@ -141,11 +176,14 @@
     "totalCreditAmountLocal": "إجمالي الدائن المحلي"
   },
   "TaxGroup": {
-  "UpdatedSuccessfully": "تم تحديث مجموعة الضرائب بنجاح",
-  "AddedSuccessfully": "تمت إضافة مجموعة الضرائب بنجاح",
-  "DeletedSuccessfully": "تم حذف مجموعة الضرائب بنجاح",
-  "Success": "نجاح",
-  "Error": "خطأ",
+    "Title": "قائمة مجموعات الضرائب",
+    "AddTaxGroup": "إضافة مجموعة ضرائب",
+    "EditTaxGroup": "تعديل مجموعة الضرائب",
+    "UpdatedSuccessfully": "تم تحديث مجموعة الضرائب بنجاح",
+    "AddedSuccessfully": "تمت إضافة مجموعة الضرائب بنجاح",
+    "DeletedSuccessfully": "تم حذف مجموعة الضرائب بنجاح",
+    "Success": "نجاح",
+    "Error": "خطأ",
     "Code": "رمز",
     "Name": "اسم",
     "parent": "الأصل",
@@ -174,6 +212,9 @@
     }
   },
   "Tax": {
+    "Title": "قائمة الضرائب",
+    "AddTax": "إضافة ضريبة",
+    "EditTax": "تعديل الضريبة",
     "Success": "نجاح",
     "TaxName": "اسم الضريبة",
     "AddTaxDefinition": "إضافة تعريف الضريبة",
@@ -185,7 +226,7 @@
     "Save": "حفظ",
     "Discard": "تجاهل",
     "TaxList": "قائمة الضرائب",
-    "Id":"الرقم التعريفي",
+    "Id": "الرقم التعريفي",
     "Name": "الاسم",
     "Account": "الحساب",
     "Search": "بحث",
@@ -199,7 +240,11 @@
     "Actions": "العمليات"
   },
   "costCenter": {
-    "costCenter": "مركز التكلفة",
+    "costCenter": "شجرة مراكز التكلفة",
+    "CostCenterList": "قائمة مراكز التكلفة",
+    "AddCostCenter": "إضافة مركز تكلفة",
+    "EditCostCenter": "تعديل مركز التكلفة",
+    "ViewCostCenter": "عرض مركز التكلفة",
     "code": "رمز مركز التكلفة",
     "name": "اسم مركز التكلفة",
     "parentAccount": "الحساب الرئيسي",
@@ -225,7 +270,11 @@
     "Closingbalance": "الرصيد الختامي",
     "debit": "مدين",
     "credit": "دائن",
-    "viewData": "عرض البيانات"
+    "viewData": "عرض البيانات",
+    "trialBalance": "ميزان المراجعة"
+  },
+  "reportAccount": {
+    "AccountStatement": "كشف الحساب"
   },
   "AccountStatement": {
     "posted": "تم النشر",

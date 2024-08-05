@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { DialogService } from 'primeng/dynamicdialog';
-import { customValidators, PageInfo, RouterService, FormsService, ToasterService } from 'shared-lib';
+import { customValidators, PageInfo, RouterService, FormsService, ToasterService, LanguageService } from 'shared-lib';
 import { AccountService } from '../../../../account/account.service';
 import { AccountDto } from '../../../../account/models';
 import { CurrencyService } from '../../../../general/currency.service';
@@ -46,7 +46,6 @@ export class EditJournalEntryOpeningBalanceComponent {
   creditLocal: string;
 
   ngOnInit() {
-    this.titleService.setTitle('Edit Journal Opening Balance');
     this.ID = this.route.snapshot.params['id']
 
     this.getAccounts();
@@ -416,7 +415,10 @@ export class EditJournalEntryOpeningBalanceComponent {
     private toasterService: ToasterService,
     private currencyService: CurrencyService,
     private titleService: Title,
+    private langService: LanguageService,
     private route : ActivatedRoute,
     private generalService : GeneralService
-  ) {}
+  ) {
+    this.titleService.setTitle(this.langService.transalte('OpeningBalance.EditJournal')); 
+  }
 }

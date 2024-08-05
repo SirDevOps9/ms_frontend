@@ -4,7 +4,8 @@ import { GetLevelsDto } from '../../models/getLevelsDto';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { listAddLevelsDto } from '../../models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { customValidators } from 'shared-lib';
+import { customValidators, LanguageService } from 'shared-lib';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-chart-of-account-configuration',
@@ -18,8 +19,13 @@ export class ChartOfAccountConfigurationComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private ref: DynamicDialogRef,
+    private title: Title,
+    private langService: LanguageService,
     private fb: FormBuilder
-  ) {}
+  ) {
+    this.title.setTitle(this.langService.transalte('ChartOfAccount.ChartOfAccountConfig'));
+
+  }
 
   ngOnInit() {
     this.fa = this.fb.array([]);
