@@ -1,11 +1,91 @@
 {
+  "BreadCrumb": {
+    "ChartOfAccount": "Chart of Account",
+    "TaxGroup": "Tax Group",
+    "TaxDefinition": "Tax Definition",
+    "CostCenter": "Cost Center",
+    "JournalEntryList": "Journal Entry List",
+    "JournalEntryAdd": "Add Journal Entry",
+    "JournalEntryView": "View Journal Entry",
+    "JournalEntryEdit": "Edit Journal Entry",
+    "TrialBalance": "Trial Balance",
+    "AccountStatement": "Account Statement",
+    "JournalEntryOpeningBalance": "Journal Entry Opening Balance",
+    "AddJournalEntryOpeningBalance": "Add Journal Entry Opening Balance",
+    "EditJournalEntryOpeningBalance": "Edit Journal Entry Opening Balance",
+    "ViewJournalEntryOpeningBalance": "View Journal Entry Opening Balance"
+  },
   "COAConfigration": {
+    "Success": "Success",
+    "Error": "Error",
     "levelnumber": "level Number",
     "levelName": "level Name",
     "numberOfDigits": "Number Of Digits",
     "AddNewLine": "Add New Line",
     "discard": "discard",
-    "Save": "Save"
+    "Save": "Save",
+    "Actions": "Actions",
+    "ChartOfAccountConfig": "Chart of Account Configuration",
+    "chartOfAccountLevels": "Chart of Account Levels",
+    "LevelsSaved":"Levels Saved Successfully"
+  },
+  "ChartOfAccount": {
+    "Title": "Chart of Account Tree",
+    "ChartOfAccountList": "Chart of Account List",
+    "AddChartOfAccount": "Add Chart of Account",
+    "EditChartOfAccount": "Edit Chart of Account",
+    "ViewChartOfAccount": "View Chart of Account",
+    "ChartOfAccountConfig": "Chart of Account Configuration",
+    "AccountName": "Account Name",
+    "AccountCode": "Account Code",
+    "Nature": "Nature",
+    "AccountType": "Account Type",
+    "AccountSection": "Account Section",
+    "Search": "Search...",
+    "Accounts": "Accounts",
+    "Main": "Main",
+    "Success": "Success",
+    "Error": "Error",
+    "UpdatedSuccessfully": "Account Updated Successfully",
+    "AddedSuccessfully": "Account Added Successfully",
+    "DeletedSuccessfully": "Account Deleted Successfully",
+    "import": "Import",
+    "edit": "Edit",
+    "Configration": "Configuration"
+
+  },
+  "Journal": {
+    "Title": "Journal Entry List",
+    "AddJournal": "Add Journal Entry",
+    "EditJournal": "Edit Journal Entry",
+    "ViewJournal": "View Journal Entry",
+    "Success": "Success",
+    "Error": "Error",
+    "UpdatedSuccessfully": "Journal Updated Successfully",
+    "AddedSuccessfully": "Journal Added Successfully",
+    "DeletedSuccessfully": "Journal Deleted Successfully",
+    "id": "ID",
+    "journalCode": "Journal Code",
+    "referenceNumber": "Reference",
+    "createdOn": "Date",
+    "type": "Type",
+    "sourceName": "Document Name",
+    "sourceCode": "Document Code",
+    "isRepeated": "Repeated",
+    "isReversed": "Reversed",
+    "status": "Status",
+    "totalDebitAmount": "Debit",
+    "totalCreditAmount": "Credit",
+    "actions": "Actions",
+    "search": "Search",
+    "addNew": "Add New",
+    "journalEntries": "Journal Entries",
+    "unbalanced": "Unbalanced",
+    "draft": "Draft",
+    "unposted": "Unposted",
+    "posted": "Posted",
+    "yes": "Yes",
+    "no": "No"
   },
   "JournalTitle": "Add Journal",
   "journal_entry_header": "Please Enter journal entry Header",
@@ -31,6 +111,7 @@
   "add_template": "Add Template",
   "discard": "discard",
   "save": "Save",
+  "Actions": "Actions",
   "EditJournal": {
     "JournalCode": "Journal Code",
     "JournalStatus": "Journal Status",
@@ -53,7 +134,6 @@
     "DbAmountLocal": "DB Amount Local",
     "CrAmountLocal": "CR Amount Local",
     "costCenter": "Cost Center",
-
     "Actions": "Actions",
     "Delete": "Delete",
     "AddNewLine": "Add New Line",
@@ -82,7 +162,35 @@
     "creditAmountLocal": "Credit Amount (Local)",
     "costCenter": "Cost Center"
   },
+  "JournalTemplate": {
+    "id": "Id",
+    "Select": "Select",
+    "code": "Code",
+    "periodName": "Period Name",
+    "type": "Type",
+    "totalDebitAmountLocal": "Total Debit Amount",
+    "totalCreditAmountLocal": "Total Credit Amount"
+  },
+  "OpeningBalance": {
+    "Title": "Journal Entry Opening Balance List",
+    "AddJournal": "Add Journal Entry Opening Balance",
+    "EditJournal": "Edit Journal Entry Opening Balance",
+    "ViewJournal": "View Journal Entry Opening Balance",
+    "Success": "Success",
+    "Error": "Error",
+    "UpdatedSuccessfully": "Journal Entry Opening Balance Updated Successfully",
+    "AddedSuccessfully": "Journal Entry Opening Balance Added Successfully",
+    "DeletedSuccessfully": "Journal Entry Opening Balance Deleted Successfully"
+  },
   "TaxGroup": {
+    "Title": "Tax Group List",
+    "AddTaxGroup": "Add Tax Group",
+    "EditTaxGroup": "Edit Tax Group",
+    "Success": "Success",
+    "Error": "Error",
+    "UpdatedSuccessfully": "Tax Group Updated Successfully",
+    "AddedSuccessfully": "Tax Group Added Successfully",
+    "DeletedSuccessfully": "Tax Group Deleted Successfully",
     "Code": "Code",
     "Name": "Name",
     "parent": "parent",
@@ -91,8 +199,9 @@
     "type": "type",
     "CountryName": "Country Name",
     "TaxGrouplist": "Tax Group list",
-    "success": "Tax Group saved Successfully",
-
+    "AddNew": "Add New",
+    "Search": "Search",
+    "Actions": "Actions",
     "Add": {
       "AddTaxGroup": "Add Tax Group",
       "Code": "Code",
@@ -112,6 +221,10 @@
     }
   },
   "Tax": {
+    "Title": "Tax List",
+    "AddTax": "Add Tax",
+    "EditTax": "Edit Tax",
+    "Success": "Success",
     "TaxName": "Tax Name",
     "AddTaxDefinition": "Add Tax Definition",
     "TaxCode": "Tax Code",
@@ -131,9 +244,21 @@
     "CannotEditTaxGroupUsedInTransactions": "Cannot Edit Tax Group Used In Transactions",
     "CannotDeleteTaxUsedInTransactions": "Cannot Delete Tax Used In Transactions",
     "UpdatedSuccessfully": "Tax Updated Successfully",
-    "AddedSuccessfully": "Tax Added Successfully"
+    "AddedSuccessfully": "Tax Added Successfully",
+    "DeletedSuccessfully": "Tax Deleted Successfully",
+    "Actions": "Actions"
   },
   "costCenter": {
+    "costCenter": "Cost Center Tree",
+    "CostCenterList": "Cost Center List",
+    "AddCostCenter": "Add Cost Center",
+    "EditCostCenter": "Edit Cost Center",
+    "ViewCostCenter": "View Cost Center",
+    "Success": "Success",
+    "Error": "Error",
+    "UpdatedSuccessfully": "Cost Center Updated Successfully",
+    "AddedSuccessfully": "Cost Center Added Successfully",
+    "DeletedSuccessfully": "Cost Center Deleted Successfully",
     "code": "Cost Center code",
     "name": "Cost Center Name ",
     "parentAccount": "Parent Account",
@@ -141,9 +266,8 @@
     "yes": "yes",
     "save": "save",
     "CostCenterDeletedSuccessfully": "Cost Center Deleted Successfully",
-    "Success": "Success",
     "CannotDeleteCostCenter": " Cannot Delete Cost Center Used In Transactions",
-    "Error": "Error"
+    "Actions": "Actions"
   },
   "reportTrial": {
     "Error": "Error",
@@ -159,10 +283,23 @@
     "debit": "debit",
     "credit": "credit",
     "reportTrial": "report Trial",
-    "trialBalance": "Trial Balance"
+    "trialBalance": "Trial Balance",
+    "viewData": "View Data"
   },
   "reportAccount": {
     "AccountStatement": "Account Statement"
+  },
+  "AccountStatement": {
+    "posted": "Posted",
+    "unposted": "Unposted",
+    "viewData": "View Data",
+    "journalEntryCode": "Journal Entry Code",
+    "journalEntryDate": "Journal Entry Date",
+    "description": "Description",
+    "debitAmount": "Debit Amount",
+    "creditAmount": "Credit Amount",
+    "balance": "Balance",
+    "sourceDocumentCode": "Source Document Code"
   },
   "treasury": {
     "treasuryCode": "Treasury Code",

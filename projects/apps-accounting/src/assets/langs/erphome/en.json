@@ -335,17 +335,17 @@
     "No": "No",
     "SuccessMessage": "Data Has Been Added Successfully"
   },
-  "viewJournal": {
-    "JornalCode": "Journal Code",
-    "Jornalstatus": "Journal Status",
-    "journalReference": "Journal Reference",
-    "date": "Date",
-    "JournalPeriod": "Journal Period",
-    "JournalType": "Journal Type",
-    "description": "Journal Description",
-    "returned": "Returned",
-    "returnedBy": "Returned By",
-    "cfoComment": "CFO Comment"
+  "AccountStatement": {
+    "posted": "Posted",
+    "unposted": "Unposted",
+    "viewData": "View Data",
+    "journalEntryCode": "Journal Entry Code",
+    "journalEntryDate": "Journal Entry Date",
+    "description": "Description",
+    "debitAmount": "Debit Amount",
+    "creditAmount": "Credit Amount",
+    "balance": "Balance",
+    "sourceDocumentCode": "Source Document Code"
   },
   "costCenter" : {
     "mandatory" : "Mandatory",

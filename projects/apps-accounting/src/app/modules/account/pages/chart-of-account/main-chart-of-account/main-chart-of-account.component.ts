@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ChartOfAccountConfigurationComponent } from '../../../components/chart-of-account-configuration/chart-of-account-configuration.component';
+import { Title } from '@angular/platform-browser';
+import { LanguageService } from 'shared-lib';
 
 @Component({
   selector: 'app-main-chart-of-account',
@@ -45,7 +47,10 @@ export class MainChartOfAccountComponent {
     });
   }
   constructor(
-    private dialog: DialogService
-
-  ){}
+    private dialog: DialogService,
+    private title: Title,
+    private langService: LanguageService,
+  ){
+    this.title.setTitle(this.langService.transalte('ChartOfAccount.Title'));
+  }
 }
