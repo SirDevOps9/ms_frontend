@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AccountService } from '../../../account/account.service';
-import { FilterDto, FilterOptions, PageInfo, PageInfoResult } from 'shared-lib';
+import { PageInfo, PageInfoResult } from 'shared-lib';
 import { AccountDto } from '../../../account/models/accountDto';
-import { TranslateService } from '@ngx-translate/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs';
@@ -29,12 +28,9 @@ export class NoChildrenAccountsComponent implements OnInit {
 
   constructor(
     private accountService: AccountService,
-    private translate: TranslateService,
     private ref: DynamicDialogRef,
     private fb: FormBuilder
-  ) {
-    this.lang = (translate.currentLang || 'EN').toLowerCase();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getAccounts(this.searchForm.get('SearchTerm')?.value);
@@ -43,15 +39,18 @@ export class NoChildrenAccountsComponent implements OnInit {
       //console.log(res);
       this.getAccounts(SearchFunc(this.searchForm.value));
     });
+
+    this.accountService.childrenAccountList.subscribe((res) => {
+      this.items = res;
+    });
+
+    this.accountService.childrenAccountPageInfo.subscribe((res) => {
+      this.paging = res;
+    });
   }
 
   getAccounts(searchTerm: string) {
-    this.accountService.getAccountsHasNoChildren(searchTerm, this.pageInfo).subscribe((r) => {
-      //console.log('account List', r.result);
-      console.log(r)
-      this.items = r.result;
-      this.paging = r.pageInfoResult;
-    });
+    this.accountService.getAccountChildrenList(searchTerm, this.pageInfo);
   }
 
   onPageChange(pageInfo: PageInfo) {

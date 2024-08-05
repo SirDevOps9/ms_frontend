@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { GeneralSettingService } from '../../general-setting.service';
 import { FormsService, LanguageService, customValidators } from 'shared-lib';
@@ -15,8 +15,7 @@ export class CreateFinancialCalendarComponent implements OnInit {
     private generalSettingService: GeneralSettingService,
     private formsService: FormsService,
     private titleService: Title,
-    private languageService: LanguageService,
-    private cdr: ChangeDetectorRef
+    private languageService: LanguageService
   ) {
     this.generateYearsList();
   }
@@ -146,9 +145,7 @@ export class CreateFinancialCalendarComponent implements OnInit {
     let formValue = this.formGroup.value;
     if (formValue.fromDate && formValue.toDate) {
       this.tableList = this.generateDateArray(formValue.fromDate, formValue.toDate);
-      this.tableData = [...this.tableList];
-      this.cdr.detectChanges();
-      //console.log('this.tableList', this.tableData);
+      this.tableData = this.tableList;
     }
   }
   onOpenPeriod() {

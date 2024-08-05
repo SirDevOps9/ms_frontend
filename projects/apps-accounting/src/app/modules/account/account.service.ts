@@ -112,10 +112,13 @@ export class AccountService {
   private countryDataSource = new BehaviorSubject<CountryDto[]>([]);
   public countries = this.countryDataSource.asObservable();
 
-
   public addTaxStatus = new BehaviorSubject<boolean>(false);
 
   public editTaxStatus = new BehaviorSubject<boolean>(false);
+
+  private childrenAccountDataSource = new BehaviorSubject<AccountDto[]>([]);
+  public childrenAccountList = this.childrenAccountDataSource.asObservable();
+  public childrenAccountPageInfo = new BehaviorSubject<PageInfoResult>({});
 
   initAccountList(searchTerm: string, pageInfo: PageInfo) {
     this.accountproxy.getAllPaginated(searchTerm, pageInfo).subscribe({
@@ -143,6 +146,13 @@ export class AccountService {
       })
     );
   }
+  getAccountChildrenList(quieries: string, pageInfo: PageInfo) {
+    this.accountproxy.getAccountsHasNoChildren(quieries, pageInfo).subscribe((res) => {
+      this.childrenAccountDataSource.next(res.result);
+      this.childrenAccountPageInfo.next(res.pageInfoResult);
+    });
+  }
+
   getAccountsChildrenDropDown() {
     return this.accountproxy.getAccountsChildrenDropDown().pipe(
       map((res) => {
