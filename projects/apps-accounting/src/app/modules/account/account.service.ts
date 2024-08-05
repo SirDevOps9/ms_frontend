@@ -140,6 +140,13 @@ export class AccountService {
       })
     );
   }
+  getAccountsChildrenDropDown() {
+    return this.accountproxy.getAccountsChildrenDropDown().pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
 
   getTreeList() {
     return this.accountproxy.getTreeList().pipe(
@@ -255,8 +262,8 @@ export class AccountService {
     this.accountproxy.addTaxGroup(addTaxGroupDto).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('tag.addtag.success'),
-          this.languageService.transalte('tag.addtag.success')
+          this.languageService.transalte('success'),
+          this.languageService.transalte('TaxGroup.success')
         );
         this.loaderService.hide();
         dialogRef.close(res);
@@ -271,8 +278,8 @@ export class AccountService {
     this.accountproxy.editTaxGroup(TaxGroupDto).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('tag.addtag.success'),
-          this.languageService.transalte('tag.addtag.success')
+          this.languageService.transalte('success'),
+          this.languageService.transalte('TaxGroup.success')
         );
         this.loaderService.hide();
         dialogRef.close(res);

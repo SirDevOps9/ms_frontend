@@ -31,4 +31,5 @@ export * from './companyDropDownDto';
 export * from './countryDto';
 export * from './export-tax-dto';
 export * from './export-accounts-dto';
+export* from './accounts-children-dropdown-dto';
 
