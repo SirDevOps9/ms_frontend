@@ -6,7 +6,7 @@
         <div class="chart_account" [ngClass]="{ chart_account_active: showTree }">
           <div class="chart_togel" (click)="toggelTree()">
             <img src="assets/images/tree/folder.png" alt="" />
-            <p class="text paragraph_b18">chart of account</p>
+            <p class="text paragraph_b18">{{ 'ChartOfAccount.Title' | translate }}</p>
           </div>
 
           <button class="btn_tree_item btn_add pi pi-plus" (click)="newChild()"></button>
