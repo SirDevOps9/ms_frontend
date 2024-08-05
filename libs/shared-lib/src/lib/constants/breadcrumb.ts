@@ -68,4 +68,10 @@ export class BreadcrumbLabel {
     static BANK_LIST_ADD ='Add Bank Definition';
     static BANK_LIST_EDIT ='Edit Bank Definition';
     static PAYMENT_TERM_LIST ='Payment term list';
+    static PAYMENT_TERM_ADD ='Add Payment term';
+    static PAYMENT_TERM_EDIT ='Edit Payment term';
+    static PAYMENT_METHOD_LIST ='Payment Method list';
+    static PAYMENT_METHOD_ADD ='Add Payment Method ';
+    static PAYMENT_METHOD_EDIT ='Edit Payment Method ';
+
   }

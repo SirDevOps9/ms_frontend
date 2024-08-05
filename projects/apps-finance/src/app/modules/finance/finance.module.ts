@@ -18,6 +18,7 @@ import { PaymentTermListComponent } from './pages/payment-term/payment-term-list
 import { AddPaymentTermComponent } from './pages/payment-term/add-payment-term/add-payment-term.component';
 import { EditPaymentTermComponent } from './pages/payment-term/edit-payment-term/edit-payment-term.component';
 import { PaymentMethodListComponent } from './pages/payment-method/payment-method-list/payment-method-list.component';
+import { AddPaymentMethodComponent } from './pages/payment-method/add-payment-method/add-payment-method.component';
 
 const routes: Routes = [
   {
@@ -78,21 +79,28 @@ const routes: Routes = [
         path: 'add-payment-term',
         component: AddPaymentTermComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.PAYMENT_TERM_LIST,
+          breadcrumb: BreadcrumbLabel.PAYMENT_TERM_ADD,
         },
       },
       {
         path: 'edit-payment-term/:id',
         component: EditPaymentTermComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.PAYMENT_TERM_LIST,
+          breadcrumb: BreadcrumbLabel.PAYMENT_TERM_EDIT,
         },
       },
       {
         path: 'payment-method',
         component: PaymentMethodListComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.PAYMENT_TERM_LIST,
+          breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_LIST,
+        },
+      },
+      {
+        path: 'add-payment-method',
+        component: AddPaymentMethodComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_ADD,
         },
       },
     ],
@@ -114,7 +122,8 @@ const routes: Routes = [
     PaymentTermListComponent,
     AddPaymentTermComponent,
     EditPaymentTermComponent,
-    PaymentMethodListComponent
+    PaymentMethodListComponent,
+    AddPaymentMethodComponent
   ],
   imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes)],
 })

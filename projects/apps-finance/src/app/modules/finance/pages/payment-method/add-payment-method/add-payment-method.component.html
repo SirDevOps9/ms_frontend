@@ -1,3 +1,37 @@
-<p>
-  add-payment-method works!
-</p>
+<lib-page-content [title]="'paymentTerm.title' | translate" [subTitle]="'paymentTerm.title' | translate">
+  <lib-bread-crumb> </lib-bread-crumb>
+  <div class="flex justify-content-end my-2">
+    <lib-button-micro nameClass="cancel" title="Discard" (click)="discard()"> </lib-button-micro>
+    <lib-button-micro nameClass="save" title="save" iconName="pi pi-save" type="button" (click)="onSave()">
+    </lib-button-micro>
+  </div>
+
+  <div class="bank">
+    <div [formGroup]="PaymentMethodForm" class="entry_header">
+      <div class="grid">
+        <div class="col-12 md:col-6">
+          <lib-text-input
+          [readOnly]="true"
+            placeholder="{{ 'paymentterm.code' | translate }}"
+            formControlName="code"
+          ></lib-text-input>
+          <lib-field-validations
+            [appControl]="PaymentMethodForm.controls['code']"
+          ></lib-field-validations>
+        </div>
+        <!--  -->
+        <div class="col-12 md:col-6">
+          <lib-text-input
+            placeholder="{{ 'paymentterm.name' | translate }}"
+            formControlName="name"
+          ></lib-text-input>
+          <lib-field-validations
+            [appControl]="PaymentMethodForm.controls['name']"
+          ></lib-field-validations>
+        </div>
+        <!--  -->
+      </div>
+    
+  </div>
+</div>
+</lib-page-content>
