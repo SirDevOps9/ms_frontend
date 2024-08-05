@@ -51,7 +51,9 @@
     "DeletedSuccessfully": "تم حذف الحساب بنجاح",
     "import": "استيراد",
     "edit": "تعديل",
-    "Configration": "إعدادات"
+    "Configration": "إعدادات",
+    "Actions": "العمليات",
+    "Select": "اختيار"
   },
   "Journal": {
     "Title": " قائمة القيود اليومية",

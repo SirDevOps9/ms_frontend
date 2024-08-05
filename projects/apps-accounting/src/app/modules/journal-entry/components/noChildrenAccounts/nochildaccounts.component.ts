@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../../../account/account.service';
 import { PageInfo, PageInfoResult } from 'shared-lib';
 import { AccountDto } from '../../../account/models/accountDto';
@@ -17,20 +17,18 @@ export class NoChildrenAccountsComponent implements OnInit {
   items: AccountDto[];
   paging: PageInfoResult;
   searchTerm: string = '';
-  lang: string;
   selectedIndex: number = -1;
   selectedAccount: AccountDto | null;
   searchForm: FormGroup = this.fb.group({
     SearchTerm: [''],
   });
 
-  @Input() hasNoChildren: boolean = true;
-
   constructor(
     private accountService: AccountService,
     private ref: DynamicDialogRef,
     private fb: FormBuilder
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.getAccounts(this.searchForm.get('SearchTerm')?.value);

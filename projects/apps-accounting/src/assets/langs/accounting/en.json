@@ -27,7 +27,7 @@
     "Actions": "Actions",
     "ChartOfAccountConfig": "Chart of Account Configuration",
     "chartOfAccountLevels": "Chart of Account Levels",
-    "LevelsSaved":"Levels Saved Successfully"
+    "LevelsSaved": "Levels Saved Successfully"
   },
   "ChartOfAccount": {
     "Title": "Chart of Account Tree",
@@ -51,8 +51,9 @@
     "DeletedSuccessfully": "Account Deleted Successfully",
     "import": "Import",
     "edit": "Edit",
-    "Configration": "Configuration"
-
+    "Configration": "Configuration",
+    "Actions": "Actions",
+    "Select": "Select"
   },
   "Journal": {
     "Title": "Journal Entry List",
