@@ -22,7 +22,7 @@ export class BreadcrumbLabel {
   static readonly customer_edit ='BreadCrumb.EditCustomerCategory';
   static readonly BANK_LIST ='BreadCrumb.BankDefinition';
   static readonly BANK_LIST_ADD ='BreadCrumb.AddBankDefinition';
-  static readonly  BANK_LIST_EDIT ='BreadCrumb.EditBankDefinition';
+  static readonly BANK_LIST_EDIT ='BreadCrumb.EditBankDefinition';
   static readonly PAYMENT_TERM_LIST ='BreadCrumb.PaymentTermList';
   static readonly TREASURY_LIST ='BreadCrumb.Treasury';
 
