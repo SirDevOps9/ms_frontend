@@ -6,3 +6,41 @@
     overflow: hidden !important;
   }
     /* Ensure the body does not scroll when the dialog is open */
+
+    ::ng-deep {
+      .p-dialog {
+        // position: absolute !important;
+        // bottom: 0 !important;
+        // right: 0 !important;
+        .p-dialog-header {
+          display: none !important;
+        }
+      }
+      .p-dialog .p-dialog-content {
+        padding: 0 !important;
+      }
+    }
+    
+
+    .domain_header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f7f8f8;
+      padding: 30px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid black;
+  
+      .title {
+        display: flex;
+        font-size: 18px;
+        font-weight: 700;
+        color: #383a42;
+      }
+      .cancel {
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 700;
+      }
+    }
+  
