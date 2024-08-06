@@ -234,6 +234,8 @@
   "AppStore": {
     "Title": "متجر التطبيقات",
     "AddedToCartSuccessfully": "تم الإضافة لسلة الشراء بنجاح",
+    "Error": "خطأ",
+    "YouShouldAddSubdomainFirst":"يجب عليك إضافة النطاق أولاً",
     "CheckedOut": "تم الشراء بنجاح",
     "App-in-Store": "التطبيق في المتجر",
     "AddToCart": "اضافة لسلة الشراء",
