@@ -331,5 +331,14 @@
   },
   "editTreasury": {
     "edit": "Treasury Definition Edited Successfully"
+  },
+  "reportCost":{
+    "AccountName":"Account name",
+    "date":"date",
+    "description":"description",
+    "debit":"debit",
+    "credit":"credit",
+    "balance":"balance",
+    "title":"Cost Center Report"
   }
 }
