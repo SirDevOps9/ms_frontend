@@ -51,10 +51,10 @@ export class DataTableComponent implements OnInit, OnChanges {
     this.globalFilterFields = this.tableConfigs.columns
       .filter((c) => c.isSortable)
       .map((c) => c.name);
-    this.generalService.sendColumns.next(this.globalFilterFields);
-    this.generalService.sendFullColumns.next(this.tableConfigs.columns);
+    // this.generalService.sendColumns.next(this.globalFilterFields);
+    // this.generalService.sendFullColumns.next(this.tableConfigs.columns);
 
-    this.reactToColumnChanges();
+    // this.reactToColumnChanges();
   }
 
   reactToColumnChanges() {
