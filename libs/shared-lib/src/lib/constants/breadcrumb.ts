@@ -69,4 +69,5 @@ export class BreadcrumbLabel {
     static CURRENCY_DEFINITION_LIST ='Currency Definition List';
     static CURRENCY_CONVERSION ='Currency Conversion';
 
+    static COST_CENTER ='Cost Center';
   }

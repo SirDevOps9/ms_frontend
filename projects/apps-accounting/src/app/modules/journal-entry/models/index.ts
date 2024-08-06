@@ -20,3 +20,5 @@ export * from './report-account';
 export * from './journalOpeningBalance';
 export * from './getGlOpeningBalance';
 export * from './JournalEntryGlBalanceLineDto';
+export * from './reportCostCenter';
+export * from './reportCostAllData';

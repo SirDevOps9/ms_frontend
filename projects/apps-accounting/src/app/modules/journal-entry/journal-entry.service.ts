@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AddJournalEntryCommandOpeningBalance, EditJournalEntry, JournalEntryDto, JournalEntryStatus, TrialBalance, reportAccount } from './models';
+import { AddJournalEntryCommandOpeningBalance, EditJournalEntry, JournalEntryDto, JournalEntryStatus, TrialBalance, reportAccount, reportCostAllData, reportCostCenter } from './models';
 import { BehaviorSubject, catchError, map } from 'rxjs';
 import {
   LanguageService,
@@ -21,12 +21,14 @@ export class JournalEntryService {
   private journalEntriesOpeningBalanceDataSource = new BehaviorSubject<JournalEntryDto[]>([]);
   private trialDataSource = new BehaviorSubject<TrialBalance[]>([]);
   private accountReportsDataSource = new BehaviorSubject<reportAccount[]>([]);
+  private CostCenterReportsDataSource = new BehaviorSubject<reportCostAllData[]>([]);
 
 
   public journalEntries = this.journalEntriesDataSource.asObservable();
   public journalEntriesObs = this.journalEntriesOpeningBalanceDataSource.asObservable();
   public report = this.trialDataSource.asObservable();
   public accountReport = this.accountReportsDataSource.asObservable();
+  public CostCenterReport = this.CostCenterReportsDataSource.asObservable();
 
 
 
@@ -258,5 +260,12 @@ export class JournalEntryService {
     });
   }
 
- 
+  getCostCenterLookup() {
+    return this.journalEntryProxy.getAccountLookup();
+  }
+  getCostCenterReports(cost:reportCostAllData) {
+    this.journalEntryProxy.getCostCenterReports(cost).subscribe((response) => {
+      this.CostCenterReportsDataSource.next(response);
+    });
+  }
 }

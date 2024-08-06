@@ -332,5 +332,14 @@
   },
   "editTreasury": {
     "edit": "تم تعديل تعريف الخزانة بنجاح"
-  }
+  },
+  "reportCost": {
+    "AccountName": "اسم الحساب",
+    "date": "التاريخ",
+    "description": "الوصف",
+    "debit": "مدين",
+    "credit": "دائن",
+    "balance": "الرصيد",
+    "title": "تقرير مركز التكلفة"
+}
 }

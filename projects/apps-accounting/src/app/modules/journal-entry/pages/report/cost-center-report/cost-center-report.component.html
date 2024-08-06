@@ -1,0 +1,167 @@
+<lib-page-content>
+    <lib-bread-crumb></lib-bread-crumb>
+    <div class="user_page group">
+        <form [formGroup]="reportCostForm">
+  
+  
+            <div class="group">
+                <div class="calender">
+                    <div class="grid">
+                        <div class="col-12 md:col-4 ">
+                          <lib-text-input [type]="'date'" formControlName="dateFrom" >
+          
+                          </lib-text-input>
+                        </div>
+                        <div class="col-12 md:col-4 ">
+                          <lib-text-input [type]="'date'" formControlName="dateTo" >
+          
+                          </lib-text-input>
+                        </div>
+                        <div class="col-12 md:col-4 ">
+                          <lib-multi-select formControlName="costCenters" [options]="filteredAccounts" optionValue="id"
+                            optionLabel="displayName" [selectedValue]="defoultSelectedAcounts"></lib-multi-select>
+                        </div>
+                      </div>
+                </div>
+              
+              <div class="grid">
+                <div class="col-12 md:col-5 ">
+                  <div class="container_checkbox" for="posted">
+                    <label for="posted" class=" body_b16">  {{'reportTrial.posted' | translate}}</label>
+                    <!-- <input id="posted" type="checkbox" formControlName="posted"> -->
+                    <p-checkbox
+                    formControlName="posted"  
+                    binary="true"
+                    inputId="posted"
+                  ></p-checkbox>
+                  </div>
+                </div>
+                <div class="col-12 md:col-4 ">
+                  <div class="container_checkbox body_b16">
+                    <label for="unposted"> {{'reportTrial.unposted' | translate}}</label>
+                    <!-- <input id="unposted" type="checkbox" formControlName="unposted"> -->
+                    <p-checkbox
+                    formControlName="unposted"  
+                    binary="true"
+                    inputId="unposted"
+                  ></p-checkbox>
+                  </div>
+                </div>
+                <div class="col-12 md:col-3 ">
+                  <div class="all_btn">
+                    <lib-button-micro title="view data" nameClass="save" iconName="pi pi-circle" (click)="getCostCenterReports()">
+  
+                    </lib-button-micro>
+                    <button class="btn_ex">
+                      <span class="pi pi-print"></span>
+                    </button>
+                  </div>
+  
+                </div>
+              </div>
+  
+            </div>
+          </form>
+          <div class="mb-4"  *ngFor="let table of tableData">
+            <lib-data-table [items]="table.transactions" className="p-datatable-gridlines" 
+            [tableConfigs]="{
+                allowPagination: false,
+                allowServerPagination: false,
+                dataKey: 'id',
+                pageSize: 10,
+                columns: [
+                  {
+                    name: 'accountName',
+                    headerText:('reportCost.AccountName'| translate),
+
+                  },
+                  {
+                    name: 'date',
+                    headerText: ('reportCost.date'| translate),
+                    template: costDate
+                   
+                  },
+                  {
+                    name: 'description',
+                    headerText: ('reportCost.description'| translate),
+                    isGlobalFilter: true,
+                    isSortable: true,
+                    
+                
+                  },
+                 
+                  {
+                    name: 'debit',
+                    headerText:('reportCost.debit'| translate),
+                    isGlobalFilter: true,
+                    isSortable: true,
+                   
+                   
+                  },
+                
+                  {
+                    name: 'credit',
+                    headerText: ('reportCost.credit'| translate),
+                    isGlobalFilter: true,
+                    isSortable: true,
+                  
+              
+                  },
+                  {
+                    name: 'balance',
+                    headerText: ('reportCost.balance'| translate),
+                    isGlobalFilter: true,
+                    isSortable: true,
+                  
+              
+                  },
+                ]
+              }">
+            <ng-container caption>
+              
+                <div class="grid">
+                    <div class="md:col-8">
+                        <div class="account_description">
+                        <div class="grid">
+                            <div class="md:col-4">
+                                <div class=" item Accounts_code">
+                                    <p>{{table.code}}</p>
+                                </div>
+                            </div>
+                            <div class="md:col-8">
+                                <div class="item Accounts_name">
+                                    <p class="name">{{table.name}}</p>
+                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                
+              
+                
+              </div>
+            </ng-container>
+            <ng-template #costDate let-cost>
+              <div>
+                <p>{{ cost.date | date : 'dd/MM/yyyy' }}</p>
+              </div>
+            </ng-template>
+            <ng-container footer>
+              <tr>
+                <td class="imptyData" ></td>
+                <td class="imptyData" ></td>
+                <td class="imptyData" ></td>
+                <td class="total" >{{table.totalDebit}}</td>
+                <td class="total" >{{table.totalCredit}}</td>
+                <td class="imptyData">
+                </td>
+              </tr>
+            </ng-container>
+      
+          </lib-data-table> 
+          </div>
+      
+    </div>
+  </lib-page-content>
