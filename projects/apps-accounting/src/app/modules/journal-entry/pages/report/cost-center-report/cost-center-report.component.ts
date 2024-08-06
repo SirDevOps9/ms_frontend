@@ -29,90 +29,6 @@ defoultSelectedAcounts:number[]=[]
   ) {}
 
   ngOnInit() {
-    this.test= [
-      {
-          "id": 1,
-          "code": "1",
-          "name": "nnnnnnn",
-          "transactions": [
-              {
-                  "id": 1,
-                  "accountName": "صندوق 1",
-                  "description": "test",
-                  "date": "2024-08-06T00:00:00",
-                  "debit": 48250,
-                  "credit": 0,
-                  "balance": 48250
-              },
-              {
-                  "id": 2,
-                  "accountName": "صندوق 1",
-                  "description": "test2",
-                  "date": "2024-08-06T00:00:00",
-                  "debit": 0,
-                  "credit": 48250,
-                  "balance": 0
-              }
-          ],
-          "totalDebit": 48250,
-          "totalCredit": 48250
-      },
-      {
-          "id": 1,
-          "code": "1",
-          "name": "nnnnnnn",
-          "transactions": [
-              {
-                  "id": 1,
-                  "accountName": "صندوق 1",
-                  "description": "test",
-                  "date": "2024-08-06T00:00:00",
-                  "debit": 48250,
-                  "credit": 0,
-                  "balance": 48250
-              },
-              {
-                  "id": 2,
-                  "accountName": "صندوق 1",
-                  "description": "test2",
-                  "date": "2024-08-06T00:00:00",
-                  "debit": 0,
-                  "credit": 48250,
-                  "balance": 0
-              }
-          ],
-          "totalDebit": 48250,
-          "totalCredit": 48250
-      },
-      {
-          "id": 1,
-          "code": "1",
-          "name": "nnnnnnn",
-          "transactions": [
-              {
-                  "id": 1,
-                  "accountName": "صندوق 1",
-                  "description": "test",
-                  "date": "2024-08-06T00:00:00",
-                  "debit": 48250,
-                  "credit": 0,
-                  "balance": 48250
-              },
-              {
-                  "id": 2,
-                  "accountName": "صندوق 1",
-                  "description": "test2",
-                  "date": "2024-08-06T00:00:00",
-                  "debit": 0,
-                  "credit": 48250,
-                  "balance": 0
-              }
-          ],
-          "totalDebit": 48250,
-          "totalCredit": 48250
-      }
-  ]
-  
     this.titleService.setTitle(this.languageService.transalte('reportCost.title'));     
     this.initializeForm()
     this.getAccounts();
@@ -142,9 +58,6 @@ defoultSelectedAcounts:number[]=[]
       ]),
       posted: new FormControl(true),
       unposted: new FormControl(false),
-      // costCenters: new FormControl('', [
-      //   customValidators.required,
-      // ]),
       costCenters: new FormControl(null),
     });
   }
