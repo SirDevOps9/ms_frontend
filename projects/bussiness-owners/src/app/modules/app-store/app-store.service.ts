@@ -32,8 +32,12 @@ export class AppStoreService {
 
   addToCart(appId: number, dialog: DialogService, subdomains: ResponseSubdomainDto[]) {
     if (!subdomains.length) {
-      throw 'No subdomains';
-    }
+      this.toasterService.showError(
+        this.languageService.transalte('AppStore.Error'),
+        this.languageService.transalte('AppStore.YouShouldAddSubdomainFirst')
+      );
+      return;
+    } 
     if (subdomains.length == 1) {
       this.addModelToCart({ subdomainId: subdomains[0].id, appId });
     } else {
@@ -116,7 +120,7 @@ export class AppStoreService {
         );
       },
       error: (err) => {
-        this.toasterService.showError('Operation Fail', err.message);
+        this.toasterService.showError(this.languageService.transalte('AppStore.Error'), err.message);
       },
     });
   }

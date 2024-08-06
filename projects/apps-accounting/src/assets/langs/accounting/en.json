@@ -53,6 +53,7 @@
     "edit": "Edit",
     "Configration": "Configuration",
     "Actions": "Actions",
+    "ChooseAnAccount":"Choose An Account",
     "Select": "Select",
     "Id": "Id"
   },
@@ -99,8 +100,8 @@
   "attach": "Attach",
   "description": "Description",
   "id": "Id",
-  "account_code": "Acc. Code",
-  "account_name": "Acc. Name",
+  "account_code": "Account Code",
+  "account_name": "Account Name",
   "line_description": "Line Description",
   "debit_amount": "DB Amount",
   "credit_amount": "CR Amount",

@@ -290,7 +290,70 @@
   "success": "نجاح",
   "vendorSuccess": "تم إنشاء البائع بنجاح"
 }
+,
+"financialCalendar": {
+  "selectYear": "اختر السنة",
+  "code": "الرمز",
+  "fromDate": "من تاريخ",
+  "toDate": "إلى تاريخ",
+  "name": "الاسم",
+  "generate": "توليد الفترات",
+  "open": "فتح السنة المالية",
+  "close": "إغلاق السنة المالية",
+  "month": "الشهر",
+  "status": "الحالة",
+  "year": "السنة",
+  "periodStart": "بداية الفترة",
+  "periodend": "نهاية الفترة",
+  "periodStatus": "حالة الفترة",
+  "actions": "العمليات"
+},
+"addFinancialCalendar": {
+  "success": "نجاح",
+  "successAdd": "تمت إضافة التقويم المالي بنجاح",
+  "successEdit": "تم تعديل التقويم المالي بنجاح",
+  "openSuccess": "تم فتح التقويم المالي بنجاح"
+},
+"vendorCategory": {
+  "categoryCode": "رمز الفئة",
+  "categoryName": "اسم الفئة",
+  "payableGlAccount": "حساب المدفوعات",
+  "recievableGlAccount": "حساب المقبوضات",
+  "salesGlAccount": "حساب المبيعات",
+  "purchaseGlAccount": "حساب المشتريات",
+  "purchaseReturnGlAccount": "حساب إرجاع المشتريات",
+  "salesReturnGlAccount": "حساب إرجاع المبيعات",
+  "discountGlAccount": "حساب الخصومات",
+  "priceList": "قائمة الأسعار",
+  "paymentTerms": "شروط الدفع",
+  "marketType": "نوع السوق",
+  "actions": "العمليات"
+},
+"addVendorCategory": {
+  "success": "نجاح",
+  "successAdd": "تمت إضافة فئة المورد بنجاح",
+  "successEdit": "تم تعديل فئة المورد بنجاح",
+  "openSuccess": "تم فتح فئة المورد بنجاح"
+},
+"deleteVendorCategory": {
+  "delete": "تم حذف فئة المورد بنجاح"
+},
+"addCustomerCategory": {
+  "success": "نجاح",
+  "successAdd": "تمت إضافة فئة العميل بنجاح",
+  "successEdit": "تم تعديل فئة العميل بنجاح",
+  "openSuccess": "تم فتح فئة العميل بنجاح"
+},
 
-
-  
+"deleteVendorDefinition": {
+  "delete": "تم حذف تعريف المورد بنجاح"
+},
+"addVendorDefinition": {
+  "success": "نجاح",
+  "successAdd": "تمت إضافة تعريف المورد بنجاح",
+  "successEdit": "تم تعديل تعريف المورد بنجاح",
+  "openSuccess": "تم فتح تعريف المورد بنجاح"
 }
+}
+  
+

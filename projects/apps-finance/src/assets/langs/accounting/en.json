@@ -1,4 +1,10 @@
-{
+{  "BreadCrumb": {
+  "BankDefinition": "Bank Definition",
+  "AddBankDefinition":"Add Bank Definition",
+  "EditBankDefinition":"Edit Bank Definition",
+  "PaymentTermList":"Payment Term List",
+  "Treasury":"Treasury"
+},
   "COAConfigration": {
     "levelnumber": "level Number",
     "levelName": "level Name",
@@ -177,18 +183,19 @@
     "currentBalance" : "Opening Account Balance",
     "discard" : "Discard",
     "save" : "Save",
+    "addTreasury":"Add Treasury",
     "confirm" : "the opening balance of journal not equal treasury opening balance, do you want to Continue ?"
-
-
   },
   "deleteTreasury" : {
     "success" : "Success",
     "delete" : "Treasury Definition Deleted Successfully"
   },
   "addTreasury" : {
+    "success" : "Success",
     "add" : "Treasury Definition Added Successfully"
   },
   "editTreasury" : {
+    "success" : "Success",
     "edit" : "Treasury Definition Edited Successfully"
 
   },
@@ -204,7 +211,12 @@
     "save": "Save",
     "export": "Export",
     "ExportName": "Bank Definition",
-    "deleted":"Payment Term Deleted Successfully"
+    "deleted":"Payment Term Deleted Successfully",
+    "success" : "Success",
+    "actions" : "Actions",
+    "ChangeColumn":"Change Columns",
+    "discard" : "Discard"
+
   },
   "add-paymentterm": {
     "dueTermValue": "Due Term Value",
@@ -215,7 +227,60 @@
     "actions":"Actions",
     "totalerror":"The total of Due Term Values must be exactly 100.",
     "add":"Payment Term Added Successfully",
-    "edit":"Payment Term Edited Successfully"
+    "edit":"Payment Term Edited Successfully",
+    "success" : "Success"
+
+  },
+  "bank" : {
+    "actions" : "Actions",
+    "Search" : "Search",
+    "AddNew" : "Add New",
+    "Export" : "Export",
+    "branches" : "branches",
+    "code" : "Code",
+    "name" : "Name",
+    "shortName" : "Short Name",
+    "bankAddress" : "Bank Address",
+    "contactName" : "Contact Name",
+    "bankEmail" : "Bank Email",
+    "phone" : "Phone",
+    "fax" : "Fax",
+    "add_new" : "Add New Line",
+    "accountNumber" : "Account Number",
+    "glAccountCode" : "GL Account Code",
+    "glAccountName" : "GL Account Name",
+    "branch" : "Branch",
+    "Iban" : "IBAN",
+    "currency" : "Currency",
+    "currentBalance" : "Current Balance",
+    "userPermission" : "User Permission",
+    "openingBalance" : "Opening Balance",
+   "confirm" : "the opening balance of journal not equal Bank opening balance In Account",
+   "confirm2" : "Do you want to Continue ?",
+   "TaxList": "Tax List",
+   "Edit": "Edit",
+   "Delete": "Delete",
+   "ChangeColumn":"Change Columns",
+    "discard": "discard",
+    "save": "Save",
+    "success" : "Success"
+
+  },
+  "deleteBank" : {
+    "success" : "Success",
+    "delete" : "Bank Definition Deleted Successfully"
+  },
+  "addBank" : {
+    "success" : "Success",
+    "add" : "Bank Definition Added Successfully"
+  },
+  "editBank" : {
+    "success" : "Success",
+    "edit" : "Bank Definition Edited Successfully"
+  },
+  "confirm": {
+    "cancel": "Cancel",
+    "submit": "Submit"
   }
 
 }

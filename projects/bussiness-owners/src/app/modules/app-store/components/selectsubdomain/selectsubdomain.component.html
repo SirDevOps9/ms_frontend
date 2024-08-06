@@ -19,7 +19,7 @@
 
   <div class="btns">
     <div class="btn">
-      <button class="btn_discard">{{ 'AppStore.Subdomain.Discard' | translate }}</button>
+      <button class="btn_discard" (click)="onCancel()">{{ 'AppStore.Subdomain.Discard' | translate }}</button>
     </div>
     <div class="btn">
       <button class="btn_save" (click)="submit()">

@@ -1,4 +1,11 @@
 {
+  "BreadCrumb": {
+    "BankDefinition": "تعريف البنك",
+    "AddBankDefinition": "إضافة تعريف بنك",
+    "EditBankDefinition": "تعديل تعريف بنك",
+    "PaymentTermList": "قائمة شروط الدفع",
+    "Treasury":"الخزينة"
+  },
   "COAConfigration": {
     "levelnumber": "رقم المستوى",
     "levelName": "اسم المستوى",
@@ -52,7 +59,7 @@
     "Rate": "السعر",
     "DbAmountLocal": "المبلغ مدين محلي",
     "CrAmountLocal": "المبلغ دائن محلي",
-    "Actions": "الإجراءات",
+    "Actions": "العمليات",
     "Delete": "حذف",
     "AddNewLine": "إضافة سطر جديد",
     "Discard": "تجاهل",
@@ -92,7 +99,7 @@
     "parent": "الأصل",
     "status": "الحالة",
     "type": "النوع",
-    "Action": "إجراءات",
+    "Action": "العمليات",
     "TaxGrouplist": "قائمة مجموعة الضرائب",
     "Add": {
       "AddTaxGroup": "إضافة مجموعة ضريبية",
@@ -163,7 +170,7 @@
     "currency": "العملة",
     "glAccount": "حساب دفتر الأستاذ",
     "balance": "الرصيد",
-    "actions": "الإجراءات",
+    "actions": "العمليات",
     "Search": "بحث",
     "AddNew": "إضافة جديد",
     "Export": "تصدير",
@@ -174,16 +181,19 @@
     "currentBalance": "رصيد الحساب الافتتاحي",
     "discard": "تجاهل",
     "save": "حفظ",
-    "confirm": "رصيد افتتاح اليومية لا يساوي رصيد افتتاح الخزانة، هل تريد المتابعة؟"
+    "confirm": "رصيد افتتاح اليومية لا يساوي رصيد افتتاح الخزانة، هل تريد المتابعة؟",
+    "addTreasury": "إضافة خزينة"
   },
   "deleteTreasury": {
     "success": "نجاح",
     "delete": "تم حذف تعريف الخزانة بنجاح"
   },
   "addTreasury": {
+    "success": "نجاح",
     "add": "تمت إضافة تعريف الخزانة بنجاح"
   },
   "editTreasury": {
+    "success": "نجاح",
     "edit": "تم تعديل تعريف الخزانة بنجاح"
   },
   "paymentterm": {
@@ -197,7 +207,13 @@
     "delete": "حذف",
     "save": "حفظ",
     "export": "تصدير",
-    "ExportName": "تعريف البنك"
+    "ExportName": "تعريف البنك",
+    "success": "نجاح",
+    "ChangeColumn": "تغيير الأعمدة",
+    "actions": "العمليات",
+    "deleted": "تم حذف شرط الدفع بنجاح",
+    "discard": "تجاهل"
+
   },
   "add-paymentterm": {
     "dueTermValue": "قيمة الاستحقاق",
@@ -205,8 +221,61 @@
     "afterPeriod": "الفترة بعد",
     "note": "ملاحظة",
     "add_new": "إضافة سطر جديد",
-    "actions":"الإجراءات",
+    "actions":"العمليات",
       "add": "تمت إضافة شرط الدفع بنجاح",
-    "edit": "تم تعديل شرط الدفع بنجاح"
+    "edit": "تم تعديل شرط الدفع بنجاح",
+    "success": "نجاح"
+
+  },
+  "bank": {
+    "actions": "العمليات",
+    "Search": "بحث",
+    "AddNew": "إضافة جديد",
+    "Export": "تصدير",
+    "branches": "فروع",
+    "code": "رمز",
+    "name": "اسم",
+    "shortName": "اسم مختصر",
+    "bankAddress": "عنوان البنك",
+    "contactName": "اسم جهة الاتصال",
+    "bankEmail": "البريد الإلكتروني للبنك",
+    "phone": "هاتف",
+    "fax": "فاكس",
+    "add_new": "إضافة سطر جديد",
+    "accountNumber": "رقم الحساب",
+    "glAccountCode": "رمز الحساب العام",
+    "glAccountName": "اسم الحساب العام",
+    "branch": "فرع",
+    "Iban": "رقم الحساب الدولي",
+    "currency": "عملة",
+    "currentBalance": "الرصيد الحالي",
+    "userPermission": "إذن المستخدم",
+    "openingBalance": "الرصيد الافتتاحي",
+    "confirm": "الرصيد الافتتاحي في اليومية لا يساوي الرصيد الافتتاحي في البنك في الحساب",
+    "confirm2": "هل تريد المتابعة؟",
+    "TaxList": "قائمة الضرائب",
+    "Edit": "تحرير",
+    "Delete": "حذف",
+    "ChangeColumn": "تغيير الأعمدة",
+    "discard": "تجاهل",
+    "save": "حفظ",
+    "success": "نجاح"
+
+  },
+  "deleteBank": {
+    "success": "نجاح",
+    "delete": "تم حذف تعريف البنك بنجاح"
+  },
+  "addBank": {
+    "success": "نجاح",
+    "add": "تم إضافة تعريف البنك بنجاح"
+  },
+  "editBank": {
+    "success": "نجاح",
+    "edit": "تم تحرير تعريف البنك بنجاح"
+  },
+  "confirm": {
+    "cancel": "إلغاء",
+    "submit": "تأكيد"
   }
 }

@@ -1,5 +1,11 @@
 <div class="cont">
-  <lib-data-table
+  <div class="domain_header">
+    <div class="title">
+      <div class="plus_icon"></div>
+      {{ 'ChartOfAccount.ChooseAnAccount' | translate }}
+    </div>
+    <div class="pi pi-times cancel" (click)="onCancel()"></div>
+  </div>  <lib-data-table
     [items]="items"
     [selectedIndex]="selectedIndex"
     className="p-datatable-gridlines"
@@ -13,7 +19,7 @@
       columns: [
         {
           name: 'id',
-          headerText: 'ChartOfAccount.Id' | translate,
+          headerText: 'ChartOfAccount.Id' | translate | translate,
           isGlobalFilter: true,
           isSortable: true
         },
