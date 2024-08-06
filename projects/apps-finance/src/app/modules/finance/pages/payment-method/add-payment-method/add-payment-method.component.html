@@ -1,37 +1,140 @@
 <lib-page-content [title]="'paymentTerm.title' | translate" [subTitle]="'paymentTerm.title' | translate">
-  <lib-bread-crumb> </lib-bread-crumb>
+  <lib-bread-crumb></lib-bread-crumb>
   <div class="flex justify-content-end my-2">
-    <lib-button-micro nameClass="cancel" title="Discard" (click)="discard()"> </lib-button-micro>
-    <lib-button-micro nameClass="save" title="save" iconName="pi pi-save" type="button" (click)="onSave()">
-    </lib-button-micro>
+    <lib-button-micro nameClass="cancel" title="Discard" (click)="discard()"></lib-button-micro>
+    <lib-button-micro nameClass="save" title="save" iconName="pi pi-save" type="button" (click)="onSave()"></lib-button-micro>
   </div>
 
   <div class="bank">
     <div [formGroup]="PaymentMethodForm" class="entry_header">
       <div class="grid">
         <div class="col-12 md:col-6">
-          <lib-text-input
-          [readOnly]="true"
-            placeholder="{{ 'paymentterm.code' | translate }}"
-            formControlName="code"
-          ></lib-text-input>
-          <lib-field-validations
-            [appControl]="PaymentMethodForm.controls['code']"
-          ></lib-field-validations>
+          <lib-form-group>
+            <lib-label [appControl]="PaymentMethodForm.controls['code']">
+              {{ 'paymentMethod.code' | translate }}
+            </lib-label>
+            <lib-text-input type="text" [readOnly]="true" formControlName="code" />
+          </lib-form-group>
         </div>
-        <!--  -->
         <div class="col-12 md:col-6">
-          <lib-text-input
-            placeholder="{{ 'paymentterm.name' | translate }}"
-            formControlName="name"
-          ></lib-text-input>
-          <lib-field-validations
-            [appControl]="PaymentMethodForm.controls['name']"
-          ></lib-field-validations>
+          <lib-form-group>
+            <lib-label [appControl]="PaymentMethodForm.controls['name']">
+              {{ 'paymentMethod.name' | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="name" />
+            <lib-field-validations [appControl]="PaymentMethodForm.controls['name']">
+            </lib-field-validations>
+          </lib-form-group>
         </div>
-        <!--  -->
+        <div class="col-12 md:col-6">
+          <lib-form-group>
+            <lib-label [appControl]="PaymentMethodForm.controls['paymentplace']">
+              {{ 'paymentMethod.paymentplace' | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="paymentplace" />
+            <lib-field-validations [appControl]="PaymentMethodForm.controls['paymentplace']">
+            </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="col-12 md:col-6">
+          <lib-form-group>
+            <lib-label [appControl]="PaymentMethodForm.controls['paymentmethod']">
+              {{ 'paymentMethod.paymentmethod' | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="paymentmethod" />
+            <lib-field-validations [appControl]="PaymentMethodForm.controls['paymentmethod']">
+            </lib-field-validations>
+          </lib-form-group>
+        </div>
+
+        <div class="col-12">
+          <div class="card">
+            <lib-fildest header="bank information">
+              <div class="grid">
+                <div class="col-12 md:col-4" [formGroupName]="'bankInfo'">
+                  <lib-form-group>
+                    <lib-label [appControl]="PaymentMethodForm.get('bankInfo.relatedbank')">
+                      Related Bank
+                    </lib-label>
+                    <lib-text-input type="tel" formControlName="relatedbank" />
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('bankInfo.relatedbank')">
+                    </lib-field-validations>
+                  </lib-form-group>
+                </div>
+                <div class="col-12 md:col-4" [formGroupName]="'bankInfo'">
+                  <lib-form-group>
+                    <lib-label [appControl]="PaymentMethodForm.get('bankInfo.bankaccount')">
+                      Bank Account
+                    </lib-label>
+                    <lib-text-input type="text" formControlName="bankaccount" />
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('bankInfo.bankaccount')">
+                    </lib-field-validations>
+                  </lib-form-group>
+                </div>
+                <div class="col-12 md:col-4" [formGroupName]="'bankInfo'">
+                  <lib-form-group>
+                    <lib-label [appControl]="PaymentMethodForm.get('bankInfo.currency')">
+                      Currency
+                    </lib-label>
+                    <lib-text-input type="text" formControlName="currency" />
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('bankInfo.currency')">
+                    </lib-field-validations>
+                  </lib-form-group>
+                </div>
+              </div>
+            </lib-fildest>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="card">
+            <lib-fildest header="commission information">
+              <div class="grid">
+                <div class="col-12 md:col-6" [formGroupName]="'commissionInfo'">
+                  <lib-form-group>
+                    <lib-label [appControl]="PaymentMethodForm.get('commissionInfo.commissiontype')">
+                      Commission Type
+                    </lib-label>
+                    <lib-text-input type="text" formControlName="commissiontype" />
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('commissionInfo.commissiontype')">
+                    </lib-field-validations>
+                  </lib-form-group>
+                </div>
+                <div class="col-12 md:col-6" [formGroupName]="'commissionInfo'">
+                  <lib-form-group>
+                    <lib-label [appControl]="PaymentMethodForm.get('commissionInfo.commissionvalue')">
+                      Commission Value
+                    </lib-label>
+                    <lib-text-input type="text" formControlName="commissionvalue" />
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('commissionInfo.commissionvalue')">
+                    </lib-field-validations>
+                  </lib-form-group>
+                </div>
+                <div class="col-12 md:col-6" [formGroupName]="'commissionInfo'">
+                  <lib-form-group>
+                    <lib-label [appControl]="PaymentMethodForm.get('commissionInfo.commissionaccount')">
+                      Commission Account
+                    </lib-label>
+                    <lib-text-input type="text" formControlName="commissionaccount" />
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('commissionInfo.commissionaccount')">
+                    </lib-field-validations>
+                  </lib-form-group>
+                </div>
+                <div class="col-12 md:col-6" [formGroupName]="'commissionInfo'">
+                  <lib-form-group>
+                    <lib-label [appControl]="PaymentMethodForm.get('commissionInfo.allowvat')">
+                      Allow VAT
+                    </lib-label>
+                    <lib-text-input type="text" formControlName="allowvat" />
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('commissionInfo.allowvat')">
+                    </lib-field-validations>
+                  </lib-form-group>
+                </div>
+              </div>
+            </lib-fildest>
+          </div>
+        </div>
       </div>
-    
+    </div>
   </div>
-</div>
 </lib-page-content>
