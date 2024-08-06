@@ -24,6 +24,7 @@ export class CreateFinancialCalendarComponent implements OnInit {
   maxDatefrom: Date | null;
   minDateTo: Date | null;
   maxDateTo: Date | null;
+  defaultDateTo: Date | null;
   formGroup: FormGroup;
   yearsList: any = [];
   periodIDS: any = [];
@@ -31,7 +32,6 @@ export class CreateFinancialCalendarComponent implements OnInit {
   opened: boolean = false;
   disablrFromDateFlag: boolean = false;
   tableData: any = [];
-  clonedTableData: any = [];
   tableList: any = [];
   ngOnInit(): void {
     this.titleService.setTitle(
@@ -62,23 +62,16 @@ export class CreateFinancialCalendarComponent implements OnInit {
         this.maxDatefrom = new Date(res.toDate);
       } else if (res.fromDate) {
         this.minDateTo = new Date(res.fromDate);
-      }
-      // this.maxDatefrom = new Date(res.toDate)
-      //   this.minDateTo = res.fromDate ? new Date(res.fromDate) : null
-      if (res.fromDate && res.toDate) {
-        this.tableList = this.generateDateArray(res.fromDate, res.toDate);
+        this.defaultDateTo = new Date(res.fromDate.getFullYear(), 11, 31);
       }
     });
     this.generalSettingService.GetFinancialPeriodLastYearDate();
     this.generalSettingService.FinancialPeriodLastYearDateObservable.subscribe((res) => {
-      console.log(res);
-      console.log(this.yearsList);
-
       if (res) {
         let year = new Date(res).getFullYear();
         this.formGroup.get('fromDate')?.patchValue(new Date(res));
         this.disablrFromDateFlag = true;
-        this.yearsList = this.yearsList.filter((elem: any) => elem.name >= year);
+        this.yearsList = this.yearsList.filter((elem: any) => elem.name > year);
       }
     });
   }
@@ -106,7 +99,7 @@ export class CreateFinancialCalendarComponent implements OnInit {
       'Dec',
     ];
     let result = [];
-    let currentDate = new Date(fromDate);
+    let currentDate = fromDate;
     let code = 0;
 
     while (currentDate <= toDate) {
@@ -143,8 +136,11 @@ export class CreateFinancialCalendarComponent implements OnInit {
   }
 
   onGenerate() {
-    this.tableData = this.tableList;
-    this.clonedTableData = this.tableList;
+    let formValue = this.formGroup.value;
+    if (formValue.fromDate && formValue.toDate) {
+      this.tableList = this.generateDateArray(formValue.fromDate, formValue.toDate);
+      this.tableData = this.tableList;
+    }
   }
   onOpenPeriod() {
     this.statusFlag = false;
@@ -184,11 +180,8 @@ export class CreateFinancialCalendarComponent implements OnInit {
 
     formValues.financialYearPeriods = savedData;
 
-    console.log(formValues);
-
     this.generalSettingService.addFinancialCalendar(formValues);
     this.generalSettingService.addFinancialCalendarResObservable.subscribe((res) => {
-      console.log(res);
       const months = [
         'Jan',
         'Feb',
@@ -212,8 +205,6 @@ export class CreateFinancialCalendarComponent implements OnInit {
           elem.month = months[elem.month - 1];
           return elem;
         });
-
-        console.log(this.tableData);
       }
     });
   }

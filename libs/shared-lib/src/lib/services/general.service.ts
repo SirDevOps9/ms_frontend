@@ -8,7 +8,8 @@ import { BehaviorSubject, debounceTime, Observable } from 'rxjs';
 export class GeneralService {
 sendColumns = new BehaviorSubject<any>(null)
 sendColumnsObs = this.sendColumns.asObservable()
-sendFilteredList= new BehaviorSubject<any>(null)
+// sendFilteredList= new BehaviorSubject<any>(null)
+sendFilteredList= new BehaviorSubject<any>([])
 sendFilteredListObs = this.sendFilteredList.asObservable()
 sendSelectedColumns= new BehaviorSubject<any>(null)
 sendSelectedColumnsObs = this.sendSelectedColumns.asObservable()

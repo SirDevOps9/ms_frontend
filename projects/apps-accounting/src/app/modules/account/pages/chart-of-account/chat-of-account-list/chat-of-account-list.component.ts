@@ -52,6 +52,8 @@ export class ChatOfAccountListComponent implements OnInit {
 
   ngOnInit() {
     this.initChartOfAccountData(this.searchTerm, new PageInfo());
+
+   
   }
 
   searchTermChange(event: Event) {
@@ -62,7 +64,7 @@ export class ChatOfAccountListComponent implements OnInit {
   }
 
   initChartOfAccountData(searchTerm: string, page: PageInfo) {
-    this.accountService.initAccountList(searchTerm, new PageInfo());
+    this.accountService.initAccountList(searchTerm, page);
 
     this.accountService.accountsList.subscribe({
       next: (ChartOfAccountList) => {
@@ -91,6 +93,7 @@ export class ChatOfAccountListComponent implements OnInit {
   exportAccountsData(searchTerm: string) {
     this.accountService.exportAccountsData(searchTerm);
     this.accountService.exportsAccountsDataSourceObservable.subscribe((res) => {
+      console.log('exported data', res);
       this.exportData = res;
     });
   }

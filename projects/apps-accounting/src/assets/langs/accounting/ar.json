@@ -53,7 +53,10 @@
     "edit": "تعديل",
     "Configration": "إعدادات",
     "ChooseAnAccount":"اختر حساب",
-    "Select": "اختر"
+    "Select": "اختر",
+    "Actions": "العمليات",
+    "Select": "اختيار",
+    "Id": "الرقم التعريفي"
   },
   "Journal": {
     "Title": " قائمة القيود اليومية",

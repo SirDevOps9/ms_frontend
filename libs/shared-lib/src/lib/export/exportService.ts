@@ -1,12 +1,15 @@
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+  
 
 export class ExportService {
 
+  static async ToPDF(jsonData: any[], fileName: string, includeColumns: string[] = []): Promise<void> {
+    
+    const doc =  await addFontFromUrl('/erp/media/Cairo-Regular.ttf', 'Cairo');
 
-  static ToPDF(jsonData: any[], fileName: string, includeColumns: string[] = []): void {
-    const doc = new jsPDF();
+    
     let flattenData: any[];
   
     // Check if jsonData is in a tree structure and flatten if necessary
@@ -39,12 +42,21 @@ export class ExportService {
     const headers = [Object.keys(filteredData[0])];
   
     // Generate table
+    // Set document language to Arabic for RTL support
+    doc.setLanguage('ar');
+
+    // Generate table
     autoTable(doc, {
       head: headers,
-      body: filteredData.map(item => Object.values(item))
+      body: filteredData.map(item => Object.values(item)),
+      styles: { font: 'Cairo',halign: "center" },
+      didDrawCell: (data) => {
+        doc.setFont('Cairo');
+      }
     });
+
   
-    doc.save(fileName);
+      doc.save(fileName);
   }
   
 
@@ -95,7 +107,7 @@ export class ExportService {
 
   // Helper function to check if jsonData is in tree structure
   private static isTreeStructure(jsonData: any[]): boolean {
-    if (jsonData.length === 0) return false;
+    if (jsonData === undefined || jsonData.length === 0) return false;
     const firstItem = jsonData[0];
     return firstItem.hasOwnProperty('data') && firstItem.hasOwnProperty('children');
   }
@@ -122,7 +134,46 @@ export class ExportService {
     return result;
   }
 
+ 
+}
+async function addFontFromUrl(url: string, fontName: string, style: string = 'normal'): Promise<jsPDF> {
+  try {
+    console.log(`Fetching font from URL: ${url}`);
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Network response was not ok. Status: ${response.status}`);
+    }
 
+    const fontBlob = await response.blob();
+    console.log('Font fetched successfully');
+
+    // Convert blob to base64
+    const fontBase64 =  await blobToBase64(fontBlob);
+    const base64Data = fontBase64.split(',')[1]; // Extract base64 data from data URL
+
+    const doc = new jsPDF();
+    doc.addFileToVFS(`${fontName}.ttf`, base64Data);
+    doc.addFont(`${fontName}.ttf`, fontName, style);
+    doc.setFont(fontName);
+    doc.setFontSize(12);
+
+    console.log('Font added to jsPDF successfully');
+    return doc;
+
+  } catch (error) {
+    console.error('Error fetching or using font:', error);
+    throw error;
+  }
+}
+
+
+function blobToBase64(blob: Blob): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
 }
 
 
