@@ -64,12 +64,6 @@ export class CreateFinancialCalendarComponent implements OnInit {
         this.minDateTo = new Date(res.fromDate);
         this.defaultDateTo = new Date(res.fromDate.getFullYear(), 11, 31);
       }
-      // this.maxDatefrom = new Date(res.toDate)
-      //   this.minDateTo = res.fromDate ? new Date(res.fromDate) : null
-      // if (res.fromDate && res.toDate) {
-      //   alert('Hi');
-      //   this.tableList = this.generateDateArray(res.fromDate, res.toDate);
-      // }
     });
     this.generalSettingService.GetFinancialPeriodLastYearDate();
     this.generalSettingService.FinancialPeriodLastYearDateObservable.subscribe((res) => {
@@ -77,7 +71,7 @@ export class CreateFinancialCalendarComponent implements OnInit {
         let year = new Date(res).getFullYear();
         this.formGroup.get('fromDate')?.patchValue(new Date(res));
         this.disablrFromDateFlag = true;
-        this.yearsList = this.yearsList.filter((elem: any) => elem.name >= year);
+        this.yearsList = this.yearsList.filter((elem: any) => elem.name > year);
       }
     });
   }
