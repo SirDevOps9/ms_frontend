@@ -18,7 +18,6 @@ export class ViewJournalEntryComponent implements OnInit {
   journalView?: JournalEntryViewDto;
 
   ngOnInit() {
-    this.titleService.setTitle('View Journal');
 
     this.loadJournalView();
   }
@@ -58,5 +57,8 @@ export class ViewJournalEntryComponent implements OnInit {
     private langService: LanguageService,
     private titleService: Title,
     private dialog: DialogService,
-  ) {}
+  ) {
+    this.titleService.setTitle(this.langService.transalte('Journal.ViewJournal'));
+
+  }
 }

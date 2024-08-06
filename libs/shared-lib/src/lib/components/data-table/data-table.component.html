@@ -1,11 +1,9 @@
-
-
 <div class="viewInWeb">
   <div class="row">
     <div class="col-12">
       <p-table
         *ngIf="items"
-        #dt 
+        #dt
         [value]="items"
         [rows]="tableConfigs.pageSize"
         [paginator]="tableConfigs.allowPagination"
@@ -18,11 +16,10 @@
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         class="flex flex-column"
         columnResizeMode="expand"
-        styleClass="p-datatable-striped p-datatable-gridlines" 
-        [scrollable]="true" 
+        styleClass="p-datatable-striped p-datatable-gridlines"
+        [scrollable]="true"
         [resizableColumns]="resizableColumns"
-      [ngClass]="{'empty': items.length<=0}"
-
+        [ngClass]="{ empty: items.length <= 0 }"
       >
         <ng-template pTemplate="caption">
           <ng-content select="[caption]"> </ng-content>
@@ -47,22 +44,36 @@
           <tr>
             <ng-container *ngFor="let col of tableConfigs.columns">
               <ng-container *ngIf="col.children && col.children.length">
-                <th [attr.rowspan]="col.rowspan" [attr.colspan]="col.colspan" [ngClass]="col.class" class="heading_b16">
-                  {{ col.headerText }} 
-                  
+                <th
+                  [attr.rowspan]="col.rowspan"
+                  [attr.colspan]="col.colspan"
+                  [ngClass]="col.class"
+                  class="heading_b16"
+                >
+                  {{ col.headerText }}
                 </th>
               </ng-container>
               <ng-container *ngIf="!col.children || !col.children.length">
-                <th [attr.rowspan]="col.rowspan || 1" [attr.colspan]="col.colspan" [ngClass]="col.class"
-                  [pSortableColumn]="col.name" *ngIf="col.isSortable " class="heading_b16">
-                  
+                <th
+                  [attr.rowspan]="col.rowspan || 1"
+                  [attr.colspan]="col.colspan"
+                  [ngClass]="col.class"
+                  [pSortableColumn]="col.name"
+                  *ngIf="col.isSortable"
+                  class="heading_b16"
+                >
                   {{ col.headerText }}
-                
+
                   <p-sortIcon [field]="col.name"></p-sortIcon>
                 </th>
-                <th [attr.rowspan]="col.rowspan || 1" [attr.colspan]="col.colspan" [ngClass]="col.class"
-                  *ngIf="!col.isSortable" class="body_b16">
-                {{ col.headerText }}
+                <th
+                  [attr.rowspan]="col.rowspan || 1"
+                  [attr.colspan]="col.colspan"
+                  [ngClass]="col.class"
+                  *ngIf="!col.isSortable"
+                  class="body_b16"
+                >
+                  {{ col.headerText }}
                 </th>
               </ng-container>
             </ng-container>
@@ -73,14 +84,25 @@
             <ng-container *ngFor="let col of tableConfigs.columns">
               <ng-container *ngIf="col.children && col.children.length">
                 <ng-container *ngFor="let child of col.children">
-                  <th [attr.rowspan]="child.rowspan || 1" [attr.colspan]="child.colspan" [ngClass]="child.class"
-                    [pSortableColumn]="child.name" *ngIf="child.isSortable" class="heading_b16">
+                  <th
+                    [attr.rowspan]="child.rowspan || 1"
+                    [attr.colspan]="child.colspan"
+                    [ngClass]="child.class"
+                    [pSortableColumn]="child.name"
+                    *ngIf="child.isSortable"
+                    class="heading_b16"
+                  >
                     {{ child.headerText }}
 
                     <p-sortIcon [field]="child.name"></p-sortIcon>
                   </th>
-                  <th [attr.rowspan]="child.rowspan || 1" [attr.colspan]="child.colspan" [ngClass]="child.class"
-                    *ngIf="!child.isSortable" class="body_b16">
+                  <th
+                    [attr.rowspan]="child.rowspan || 1"
+                    [attr.colspan]="child.colspan"
+                    [ngClass]="child.class"
+                    *ngIf="!child.isSortable"
+                    class="body_b16"
+                  >
                     {{ child.headerText }}
                   </th>
                 </ng-container>
@@ -113,7 +135,7 @@
               <!-- Check if the column has children -->
               <ng-container *ngIf="col.children && col.children.length; else parentCol">
                 <ng-container *ngFor="let child of col.children">
-                  <td class="body_b16" [ngClass]=" child.class ">
+                  <td class="body_b16" [ngClass]="child.class">
                     <ng-container *ngIf="!child.template; else customCellTemplate!">
                       <ng-container *ngIf="child.lookupKey">
                         {{ this.lookupsService.getLookUpText(child.lookupKey, row[child.name]) }}
@@ -121,10 +143,11 @@
 
                       <!-- {{ row?.[col?.name]?.row?.[child?.name] }} -->
                       {{ row[col.name]?.[child.name] ??row[col.name] }}
-
                     </ng-container>
-                    <ng-template #customChildCellTemplate
-                      *ngTemplateOutlet="child.template!; context: { $implicit: row }">
+                    <ng-template
+                      #customChildCellTemplate
+                      *ngTemplateOutlet="child.template!; context: { $implicit: row }"
+                    >
                     </ng-template>
                   </td>
                 </ng-container>
@@ -138,7 +161,10 @@
                     </ng-container>
                     {{ row[col.name] }}
                   </ng-container>
-                  <ng-template #customParentCellTemplate *ngTemplateOutlet="col.template!; context: { $implicit: row }">
+                  <ng-template
+                    #customParentCellTemplate
+                    *ngTemplateOutlet="col.template!; context: { $implicit: row }"
+                  >
                   </ng-template>
                 </td>
               </ng-template>
@@ -157,7 +183,11 @@
 
 <div class="viewInMob" *ngIf="false">
   <div class="row table__card__mob">
-    <div *ngFor="let row of items; let i = index" (click)="selectRow(row)" class="col-md-6 col-sm-12 mb-2">
+    <div
+      *ngFor="let row of items; let i = index"
+      (click)="selectRow(row)"
+      class="col-md-6 col-sm-12 mb-2"
+    >
       <div class="card-component">
         <div *ngFor="let col of tableConfigs.columns">
           <ng-container *ngIf="!col.template; else customCellTemplate!">
@@ -180,7 +210,10 @@
               </ng-container>
             </p>
           </ng-container>
-          <ng-template #customCellTemplate *ngTemplateOutlet="col.template!; context: { $implicit: row }">
+          <ng-template
+            #customCellTemplate
+            *ngTemplateOutlet="col.template!; context: { $implicit: row }"
+          >
           </ng-template>
         </div>
       </div>
@@ -189,5 +222,9 @@
   </div>
 </div>
 
-<lib-table-paginator *ngIf="tableConfigs.allowServerPagination" (pageChange)="onPageChange($event)"
-  [totalRecords]="currentPageResult.totalItems!" [rows]="currentPageResult.pageSize!"></lib-table-paginator>
+<lib-table-paginator
+  *ngIf="tableConfigs.allowServerPagination"
+  (pageChange)="onPageChange($event)"
+  [totalRecords]="currentPageResult.totalItems!"
+  [rows]="currentPageResult.pageSize!"
+></lib-table-paginator>

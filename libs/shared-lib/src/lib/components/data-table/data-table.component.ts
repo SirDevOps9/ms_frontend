@@ -23,9 +23,7 @@ import { GeneralService } from '../../services/general.service';
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss'],
 })
-export class DataTableComponent implements OnInit , OnChanges  {
-
-   
+export class DataTableComponent implements OnInit, OnChanges {
   @Input() items: any[];
   @Input() selectedIndex: number;
   @Input() resizableColumns: boolean = true;
@@ -33,17 +31,16 @@ export class DataTableComponent implements OnInit , OnChanges  {
 
   @Input() tableConfigs: TableConfig;
   clonedTableConfigs: TableConfig;
-  @Input() className:string='';
+  @Input() className: string = '';
 
   @Input() rowTemplate: TemplateRef<any>;
 
   @Output() pageChange = new EventEmitter<PageInfo>();
 
   sortingFields: string[];
-  selectedColumns: any = []
+  selectedColumns: any = [];
 
-
-first:any=0;
+  first: any = 0;
   globalFilterFields: string[];
 
   @ViewChild('customCellTemplate', { static: true })
@@ -54,60 +51,44 @@ first:any=0;
     this.globalFilterFields = this.tableConfigs.columns
       .filter((c) => c.isSortable)
       .map((c) => c.name);
-      console.log(this.globalFilterFields)
-      this.generalService.sendColumns.next(this.globalFilterFields)
-      this.generalService.sendFullColumns.next(this.tableConfigs.columns)
+    // this.generalService.sendColumns.next(this.globalFilterFields);
+    // this.generalService.sendFullColumns.next(this.tableConfigs.columns);
 
-      this.reactToColumnChanges()
-
-      console.log( this.globalFilterFields)
-
-   
-    
+    // this.reactToColumnChanges();
   }
 
   reactToColumnChanges() {
-    this.generalService.sendFilteredListObs.subscribe(res=>{
-      this.items = res
-    })
-    this.generalService.sendSelectedColumnsObs.subscribe(res=>{
-      if(res) {
-        this.selectedColumns = res
-        this.tableConfigs.columns =  this.generalService.sendFullColumns.getValue().filter((elem: any) => {
-          return this.selectedColumns.includes(elem.name) || elem.headerText === 'Actions';
-      });
-        console.log(this.generalService.sendFullColumns.getValue())
+    this.generalService.sendFilteredListObs.subscribe((res) => {
+      this.items = res;
+    });
+    this.generalService.sendSelectedColumnsObs.subscribe((res) => {
+      if (res) {
+        this.selectedColumns = res;
+        this.tableConfigs.columns = this.generalService.sendFullColumns
+          .getValue()
+          .filter((elem: any) => {
+            return this.selectedColumns.includes(elem.name) || elem.headerText === 'Actions';
+          });
+        console.log(this.generalService.sendFullColumns.getValue());
       }
-     
-
-    })
+    });
   }
 
   selectRow(row: any) {}
 
   onPageChange(pageInfo: PageInfo) {
-    
     this.pageChange.emit(pageInfo);
   }
   hasNestedHeaders(): boolean {
-    return this.tableConfigs.columns.some(col => col.children && col.children.length > 0);
+    return this.tableConfigs.columns.some((col) => col.children && col.children.length > 0);
   }
-
-
-  
 
   constructor(
     public languageService: LanguageService,
     public lookupsService: LookupsService,
-    private generalService : GeneralService
+    private generalService: GeneralService
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
-  this.clonedTableConfigs = this.tableConfigs
-  console.log( this.items,"44444")
-  console.log( changes,"44444")
- this.items=changes["items"].currentValue
- console.log(  this.items,"666666")
-
+    this.clonedTableConfigs = this.tableConfigs;
   }
- 
 }

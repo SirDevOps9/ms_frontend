@@ -75,7 +75,6 @@ export class EditFinancialCalendarComponent implements OnInit {
     this.generalSettingService.GetFinancialPeriodByID(this.id);
     this.generalSettingService.FinancialPeriodDataByIDObservable.subscribe(
       (res: editFinancialCalndar) => {
-        console.log('Edit', res);
         if (res) {
           this.FinancialPeriodData = res;
           this.formGroup.patchValue({

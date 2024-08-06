@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../../account.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { FormsService, customValidators } from 'shared-lib';
+import { FormsService, LanguageService, customValidators } from 'shared-lib';
 import { AddTaxGroupDto, CountryDto } from '../../models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tax-group-add',
@@ -18,8 +19,13 @@ export class TaxGroupAddComponent implements OnInit {
     private accountService: AccountService,
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
-    private formsService: FormsService
-  ) {}
+    private formsService: FormsService,
+    private title: Title,
+    private langService: LanguageService
+  ) {
+    this.title.setTitle(this.langService.transalte('TaxGroup.AddTaxGroup'));
+
+  }
 
   ngOnInit() {
     this.initializeTagForm();

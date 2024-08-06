@@ -89,7 +89,7 @@ export class FinancialCalendarListComponent implements OnInit {
     
   }
   exportcurrencyData(searchTerm: string) {
-    this.generalSettingService.exportcurrencyData(searchTerm);
+    this.generalSettingService.exportFinancialCalendarData(searchTerm);
     this.generalSettingService.exportsFinancialCalendarDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });

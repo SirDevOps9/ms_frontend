@@ -49,7 +49,7 @@
                   <lib-text-input
                     [(ngModel)]="searchTerm"
                     type="text"
-                    [placeholder]="'Search'"
+                    [placeholder]="'TaxGroup.Search' | translate"
                     (keyUp)="onSearchChange()"
                   >
                   </lib-text-input>
@@ -60,7 +60,7 @@
               <div class="col-9 flex gap-2 justify-content-end align-items-center">
                 <div>
                   <lib-button-micro
-                    title="Add New"
+                    title="{{ 'TaxGroup.AddNew' | translate }}"
                     nameClass="save"
                     iconName="pi pi-plus"
                     (click)="Add()"
@@ -71,7 +71,7 @@
                 <div>
                   <lib-export  
                   (exportClick)="exportTaxGroupData($event)"
-                  [exportData]="tableData"
+                  [exportData]="exportData"
                   [exportColumns]="exportColumns"
                   [ExportName]="'Tax Group'">
                 </lib-export>

@@ -25,17 +25,17 @@ export class TablePaginatorComponent implements OnInit {
 
   ngOnInit() {
     this.first.subscribe(res=>{
-      console.log(res)
+     // console.log(res)
     })
   }
 
   onPageChange(e: any) {
-    console.log(e)
+    //console.log(e)
     
 
     let pageInfo = new PageInfo(e.page + 1, e.rows , e.first);
     this.paginationInfo = pageInfo
-    console.log(this.paginationInfo)
+   // console.log(this.paginationInfo)
     this.pageChange.emit(pageInfo);
 
     this.first.next(e['first']) 

@@ -5,6 +5,7 @@ import { CurrencyService } from '../../../general/currency.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
 import { AccountService } from '../../account.service';
 import { parentAccountDto, AccountSectionDropDownDto, AccountTypeDropDownDto, TagDropDownDto, AddAccountDto, AccountByIdDto, accountById, companyDropDownDto } from '../../models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-chart',
@@ -40,9 +41,12 @@ export class EditChartComponent {
     private currencyService: CurrencyService,
     private formsService: FormsService,
     private lookupsService: LookupsService,
+    private title: Title,
+    private langService: LanguageService,
     private toaserService: ToasterService,
-    private languageService: LanguageService
   ) {
+    this.title.setTitle(this.langService.transalte('ChartOfAccount.EditChartOfAccount'));
+
     this.formGroup = formBuilder.group({
       id: new FormControl(),
       name: new FormControl('', [customValidators.length(0, 255), customValidators.required]),
