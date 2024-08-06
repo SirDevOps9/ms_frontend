@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { customValidators, FormsService, LanguageService, LookupsService, RouterService, ToasterService } from 'shared-lib';
+import { customValidators, FormsService, LanguageService, lookupDto, LookupEnum, LookupsService, RouterService, ToasterService } from 'shared-lib';
 import { FinanceService } from '../../../finance.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { paymentplace } from '../../../models';
 
 @Component({
   selector: 'app-add-payment-method',
@@ -11,6 +12,26 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class AddPaymentMethodComponent implements OnInit {
 
   PaymentMethodForm: FormGroup;
+  LookupEnum = LookupEnum;
+  lookups: { [key: string]: lookupDto[] };
+  paymentPlaceOptions = [
+    { label: 'Treasury', value: 'Treasury' },
+    { label: 'Bank', value: 'Bank' }
+  ];
+  paymentMethodOptions = [
+    { label: 'Cash', value: 'Cash' },
+    { label: 'Check', value: 'Check' },
+    { label: 'Transfer', value: 'Transfer' },
+    { label: 'Visa', value: 'Visa' },
+    { label: 'Master', value: 'Master' },
+    { label: 'Span', value: 'Span' }
+  ];
+
+  commissionTypeOptions = [
+    { label: 'Amount', value: 'Amount' },
+    { label: 'Percent', value: 'Percent' }
+  ];
+
 
 
   constructor(private fb: FormBuilder ,
@@ -65,6 +86,13 @@ export class AddPaymentMethodComponent implements OnInit {
   }
   discard() {
     this.routerService.navigateTo('/masterdata/payment-method')
+  }
+
+  loadLookups() {
+    this.lookupsService.loadLookups([LookupEnum.AccountNature]);
+  }
+  Subscribe() {
+    this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
   }
 
 

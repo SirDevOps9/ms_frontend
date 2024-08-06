@@ -22,8 +22,7 @@
               {{ 'paymentMethod.name' | translate }}
             </lib-label>
             <lib-text-input type="text" formControlName="name" />
-            <lib-field-validations [appControl]="PaymentMethodForm.controls['name']">
-            </lib-field-validations>
+            <lib-field-validations [appControl]="PaymentMethodForm.controls['name']"></lib-field-validations>
           </lib-form-group>
         </div>
         <div class="col-12 md:col-6">
@@ -31,9 +30,14 @@
             <lib-label [appControl]="PaymentMethodForm.controls['paymentplace']">
               {{ 'paymentMethod.paymentplace' | translate }}
             </lib-label>
-            <lib-text-input type="text" formControlName="paymentplace" />
-            <lib-field-validations [appControl]="PaymentMethodForm.controls['paymentplace']">
-            </lib-field-validations>
+            <lib-select
+              formControlName="paymentplace"
+              [options]="paymentPlaceOptions"
+              optionValue="value"
+              optionLabel="label"
+            >
+            </lib-select>
+            <lib-field-validations [appControl]="PaymentMethodForm.controls['paymentplace']"></lib-field-validations>
           </lib-form-group>
         </div>
         <div class="col-12 md:col-6">
@@ -41,9 +45,14 @@
             <lib-label [appControl]="PaymentMethodForm.controls['paymentmethod']">
               {{ 'paymentMethod.paymentmethod' | translate }}
             </lib-label>
-            <lib-text-input type="text" formControlName="paymentmethod" />
-            <lib-field-validations [appControl]="PaymentMethodForm.controls['paymentmethod']">
-            </lib-field-validations>
+            <lib-select
+              formControlName="paymentmethod"
+              [options]="paymentMethodOptions"
+              optionValue="value"
+              optionLabel="label"
+            >
+            </lib-select>
+            <lib-field-validations [appControl]="PaymentMethodForm.controls['paymentmethod']"></lib-field-validations>
           </lib-form-group>
         </div>
 
@@ -57,8 +66,7 @@
                       Related Bank
                     </lib-label>
                     <lib-text-input type="tel" formControlName="relatedbank" />
-                    <lib-field-validations [appControl]="PaymentMethodForm.get('bankInfo.relatedbank')">
-                    </lib-field-validations>
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('bankInfo.relatedbank')"></lib-field-validations>
                   </lib-form-group>
                 </div>
                 <div class="col-12 md:col-4" [formGroupName]="'bankInfo'">
@@ -67,8 +75,7 @@
                       Bank Account
                     </lib-label>
                     <lib-text-input type="text" formControlName="bankaccount" />
-                    <lib-field-validations [appControl]="PaymentMethodForm.get('bankInfo.bankaccount')">
-                    </lib-field-validations>
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('bankInfo.bankaccount')"></lib-field-validations>
                   </lib-form-group>
                 </div>
                 <div class="col-12 md:col-4" [formGroupName]="'bankInfo'">
@@ -77,8 +84,7 @@
                       Currency
                     </lib-label>
                     <lib-text-input type="text" formControlName="currency" />
-                    <lib-field-validations [appControl]="PaymentMethodForm.get('bankInfo.currency')">
-                    </lib-field-validations>
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('bankInfo.currency')"></lib-field-validations>
                   </lib-form-group>
                 </div>
               </div>
@@ -95,9 +101,14 @@
                     <lib-label [appControl]="PaymentMethodForm.get('commissionInfo.commissiontype')">
                       Commission Type
                     </lib-label>
-                    <lib-text-input type="text" formControlName="commissiontype" />
-                    <lib-field-validations [appControl]="PaymentMethodForm.get('commissionInfo.commissiontype')">
-                    </lib-field-validations>
+                    <lib-select
+                      formControlName="commissiontype"
+                      [options]="commissionTypeOptions"
+                      optionValue="value"
+                      optionLabel="label"
+                    >
+                    </lib-select>
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('commissionInfo.commissiontype')"></lib-field-validations>
                   </lib-form-group>
                 </div>
                 <div class="col-12 md:col-6" [formGroupName]="'commissionInfo'">
@@ -106,8 +117,7 @@
                       Commission Value
                     </lib-label>
                     <lib-text-input type="text" formControlName="commissionvalue" />
-                    <lib-field-validations [appControl]="PaymentMethodForm.get('commissionInfo.commissionvalue')">
-                    </lib-field-validations>
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('commissionInfo.commissionvalue')"></lib-field-validations>
                   </lib-form-group>
                 </div>
                 <div class="col-12 md:col-6" [formGroupName]="'commissionInfo'">
@@ -116,8 +126,7 @@
                       Commission Account
                     </lib-label>
                     <lib-text-input type="text" formControlName="commissionaccount" />
-                    <lib-field-validations [appControl]="PaymentMethodForm.get('commissionInfo.commissionaccount')">
-                    </lib-field-validations>
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('commissionInfo.commissionaccount')"></lib-field-validations>
                   </lib-form-group>
                 </div>
                 <div class="col-12 md:col-6" [formGroupName]="'commissionInfo'">
@@ -126,8 +135,7 @@
                       Allow VAT
                     </lib-label>
                     <lib-text-input type="text" formControlName="allowvat" />
-                    <lib-field-validations [appControl]="PaymentMethodForm.get('commissionInfo.allowvat')">
-                    </lib-field-validations>
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('commissionInfo.allowvat')"></lib-field-validations>
                   </lib-form-group>
                 </div>
               </div>
