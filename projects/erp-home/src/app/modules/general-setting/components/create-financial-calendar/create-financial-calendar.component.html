@@ -35,8 +35,12 @@
             <lib-label [appControl]="formGroup.controls['fromDate']">
               {{ 'financialCalendar.fromDate' | translate }}
             </lib-label>
-            <lib-calendar formControlName="fromDate" [maxDate]="maxDatefrom" [disabled]="disablrFromDateFlag"></lib-calendar>
-            
+            <lib-calendar
+              formControlName="fromDate"
+              [maxDate]="maxDatefrom"
+              [disabled]="disablrFromDateFlag"
+            ></lib-calendar>
+
             <lib-field-validations [appControl]="formGroup.controls['fromDate']">
             </lib-field-validations>
           </div>
@@ -45,7 +49,11 @@
             <lib-label [appControl]="formGroup.controls['toDate']">
               {{ 'financialCalendar.toDate' | translate }}
             </lib-label>
-            <lib-calendar formControlName="toDate" [minDate]="minDateTo"></lib-calendar>
+            <lib-calendar
+              formControlName="toDate"
+              [defaultDate]="defaultDateTo"
+              [minDate]="minDateTo"
+            ></lib-calendar>
             <lib-field-validations [appControl]="formGroup.controls['toDate']">
             </lib-field-validations>
           </div>
@@ -99,7 +107,7 @@
   <!--  -->
   <div class="flex justify-content-end mt-5" *ngIf="showOpenBtn">
     <lib-button
-      pRipple 
+      pRipple
       className="addToList"
       label="{{ 'financialCalendar.Save' | translate }}"
       (onClick)="onOpen()"
@@ -120,12 +128,6 @@
         pageSize: 10,
         columns: [
            
-           {
-            name: 'id',
-            headerText: '#',
-            isGlobalFilter: true,
-            isSortable: true,
-           }, 
            {
              name: 'month',
              headerText: ('financialCalendar.month' | translate),
@@ -161,7 +163,7 @@
           <lib-input-switch [disabled]="statusFlag" [(ngModel)]="status.status"></lib-input-switch>
         </div>
       </ng-template>
-  
+
       <!--
       </ng-template>
       <ng-template #userStatus let-journal>

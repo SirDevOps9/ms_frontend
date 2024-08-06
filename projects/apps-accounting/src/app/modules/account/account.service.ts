@@ -37,7 +37,9 @@ import {
   LoaderService,
   ToasterService,
   LanguageService,
+  FormsService,
 } from 'shared-lib';
+import { FormArray } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -114,6 +116,10 @@ export class AccountService {
 
   public editTaxStatus = new BehaviorSubject<boolean>(false);
 
+  private childrenAccountDataSource = new BehaviorSubject<AccountDto[]>([]);
+  public childrenAccountList = this.childrenAccountDataSource.asObservable();
+  public childrenAccountPageInfo = new BehaviorSubject<PageInfoResult>({});
+
   initAccountList(searchTerm: string, pageInfo: PageInfo) {
     this.accountproxy.getAllPaginated(searchTerm, pageInfo).subscribe({
       next: (res) => {
@@ -140,6 +146,13 @@ export class AccountService {
       })
     );
   }
+  getAccountChildrenList(quieries: string, pageInfo: PageInfo) {
+    this.accountproxy.getAccountsHasNoChildren(quieries, pageInfo).subscribe((res) => {
+      this.childrenAccountDataSource.next(res.result);
+      this.childrenAccountPageInfo.next(res.pageInfoResult);
+    });
+  }
+
   getAccountsChildrenDropDown() {
     return this.accountproxy.getAccountsChildrenDropDown().pipe(
       map((res) => {
@@ -172,13 +185,18 @@ export class AccountService {
     return;
   }
 
-  addLevels(command: listAddLevelsDto) {
+  addLevels(command: listAddLevelsDto, form: FormArray) {
     this.accountproxy.addLevels(command).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('COAConfigration.Success'),
           this.languageService.transalte('COAConfigration.LevelsSaved')
         );
+      },
+      error: (err) => {
+        console.log('back Valid', err);
+
+        // this.formsService.setFormValidationErrors(form, err);
       },
     });
   }
@@ -547,8 +565,6 @@ export class AccountService {
   exportAccountsData(searchTerm: string | undefined) {
     this.accountproxy.exportAccountsData(searchTerm).subscribe({
       next: (res) => {
-        console.log('Api Data', res);
-
         this.exportsAccountsDataSource.next(res);
       },
     });
@@ -574,6 +590,7 @@ export class AccountService {
     private accountproxy: AccountProxy,
     private toasterService: ToasterService,
     private languageService: LanguageService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private formsService: FormsService
   ) {}
 }
