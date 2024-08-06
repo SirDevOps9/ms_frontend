@@ -25,6 +25,9 @@ const routes: Routes = [
       {
         path: 'customer-category',
         component: CustomerCategoryListComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.customer_list,
+        },
       },
       {
         path: 'add-customer-category',

@@ -16,54 +16,54 @@
                  
                  {
                    name: 'code',
-                   headerText: ('vendorCategory.categoryCode' | translate),
+                   headerText: ('CustomerCategory.categoryCode' | translate),
                    isGlobalFilter: true,
                    isSortable: true
                  },
                  {
                    name: 'name',
-                   headerText: ('vendorCategory.categoryName' | translate),
+                   headerText: ('CustomerCategory.categoryName' | translate),
                    isGlobalFilter: true,
                    isSortable: true
                  },
                
                  {
                    name: 'receivableAccountName',
-                   headerText: ('vendorCategory.recievableGlAccount' | translate),
+                   headerText: ('CustomerCategory.recievableGlAccount' | translate),
                  },
                  {
                    name: 'salesAccountName',
-                   headerText: ('vendorCategory.salesGlAccount' | translate) ,
+                   headerText: ('CustomerCategory.salesGlAccount' | translate) ,
                  },
                
                  {
                    name: 'salesReturnAccountName',
-                   headerText: ('vendorCategory.salesReturnGlAccount' | translate),
+                   headerText: ('CustomerCategory.salesReturnGlAccount' | translate),
 
                  },
                  {
                    name: 'discountAccountName',
-                   headerText: ('vendorCategory.discountGlAccount' | translate),
+                   headerText: ('CustomerCategory.discountGlAccount' | translate),
 
                  },
                  {
                    name: 'priceListName',
-                   headerText: ('vendorCategory.priceList' | translate),
+                   headerText: ('CustomerCategory.priceList' | translate),
 
                  },
                  {
                    name: 'paymentTermName',
-                   headerText: ('vendorCategory.paymentTerms' | translate),
+                   headerText: ('CustomerCategory.paymentTerms' | translate),
 
                  },
                  {
                    name: 'marketTypeName',
-                   headerText: ('vendorCategory.marketType' | translate),
+                   headerText: ('CustomerCategory.marketType' | translate),
 
                  },
                  {
                    name: 'id',
-                   headerText: ('vendorCategory.actions' | translate),
+                   headerText: ('CustomerCategory.actions' | translate),
                    template : actions
                  },
                ]
@@ -74,13 +74,14 @@
                 <div>
                   <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
-                    <input pInputText type="text" placeholder="Search..." (keyup)="onSearchChange($event)" />
+                    <input pInputText type="text"   [placeholder]="'CustomerCategory.Search' | translate"
+                    (keyup)="onSearchChange($event)" />
                   </span>
                 </div>
       
             
                 <div>
-                     <lib-button pRipple className="addToList" label="Add" (onClick)="routeToAdd()">
+                     <lib-button pRipple className="addToList" [label]="'CustomerCategory.add' | translate" (onClick)="routeToAdd()">
                 </lib-button> 
                   
                 </div>

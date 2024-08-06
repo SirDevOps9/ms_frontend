@@ -14,6 +14,17 @@ export class BreadcrumbLabel {
   static readonly AddJournalEntryOpeningBalance = 'BreadCrumb.AddJournalEntryOpeningBalance';
   static readonly EditJournalEntryOpeningBalance = 'BreadCrumb.EditJournalEntryOpeningBalance';
   static readonly ViewJournalEntryOpeningBalance = 'BreadCrumb.ViewJournalEntryOpeningBalance';
+  static readonly CUSTOMER_DEFINITIONS ='BreadCrumb.CustomerDefinition';
+  static readonly ADD_CUSTOMER_DEFINITIONS ='BreadCrumb.AddCustomerDefinition';
+  static readonly EDIT_CUSTOMER_DEFINITIONS ='BreadCrumb.EditCustomerDefinition';
+  static readonly customer_list ='BreadCrumb.CustomerCategory';
+  static readonly customer_add ='BreadCrumb.AddCustomerCategory';
+  static readonly customer_edit ='BreadCrumb.EditCustomerCategory';
+  static readonly BANK_LIST ='BreadCrumb.BankDefinition';
+  static readonly BANK_LIST_ADD ='BreadCrumb.AddBankDefinition';
+  static readonly  BANK_LIST_EDIT ='BreadCrumb.EditBankDefinition';
+  static readonly PAYMENT_TERM_LIST ='BreadCrumb.PaymentTermList';
+  static readonly TREASURY_LIST ='BreadCrumb.Treasury';
 
     static SUBSCRIPTION ='Subscription'
     static USERS = 'Users';
@@ -37,9 +48,6 @@ export class BreadcrumbLabel {
     static tag_list ='Tag List';
     static calendar_list ='Financial Calender';
     static vendor_list ='Vendor Category';
-    static customer_list ='Customer Category';
-    static customer_add ='Add Customer Category';
-    static customer_edit ='Edit Customer Category';
     static vendor_Add ='Add Vendor Category';
     static vendor_Edit ='Edit Vendor Category';
     static EMPLOYEE='Employees';
@@ -53,19 +61,12 @@ export class BreadcrumbLabel {
     static EDIT_LEGAL ='Edit Legal';
     static EDIT_CONTACT ='Edit Contact';
     static VENDOR_DEFINITIONS ='Vendor Definitions';
-    static CUSTOMER_DEFINITIONS ='Customer Definitions';
-    static ADD_CUSTOMER_DEFINITIONS ='Add Customer Definitions';
     static ADD_CUSTOMER_OPENEING_BALANCE ='Add Customer Opening Balance';
-    static EDIT_CUSTOMER_DEFINITIONS ='Edit Customer Definitions';
     static ADD_VENDOR_DEFINITIONS ='Add Vendor Definitions';
     static EDIT_VENDOR_DEFINITIONS ='Edit Vendor Definitions';
     static CURRENCY_DEFINITION ='Currency Definition';
     static ADD_CURRENCY_DEFINITION ='Add Currency Definition';
     static CURRENCY_DEFINITION_LIST ='Currency Definition List';
     static CURRENCY_CONVERSION ='Currency Conversion';
-    static TREASURY_LIST ='Treasury';
-    static BANK_LIST ='Bank Definition';
-    static BANK_LIST_ADD ='Add Bank Definition';
-    static BANK_LIST_EDIT ='Edit Bank Definition';
-    static PAYMENT_TERM_LIST ='Payment term list';
+
   }

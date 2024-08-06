@@ -52,7 +52,8 @@
     "import": "استيراد",
     "edit": "تعديل",
     "Configration": "إعدادات",
-    "ChooseAnAccount":"اختر حساب"
+    "ChooseAnAccount":"اختر حساب",
+    "Select": "اختر"
   },
   "Journal": {
     "Title": " قائمة القيود اليومية",

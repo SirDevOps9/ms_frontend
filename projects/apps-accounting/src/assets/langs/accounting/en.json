@@ -52,7 +52,8 @@
     "import": "Import",
     "edit": "Edit",
     "Configration": "Configuration",
-    "ChooseAnAccount":"Choose An Account"
+    "ChooseAnAccount":"Choose An Account",
+    "Select": "Select"
   },
   "Journal": {
     "Title": "Journal Entry List",

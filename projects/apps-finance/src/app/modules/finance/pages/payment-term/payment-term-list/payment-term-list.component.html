@@ -31,7 +31,7 @@
             },
             {
               name: 'id',
-              headerText: 'Actions',
+              headerText: ('paymentterm.actions' | translate),
               template: actions
             }
           ]
@@ -55,7 +55,7 @@
                   </lib-form-group>
                 </div>
                 <div class="col-3">
-                  <lib-change-column [dataTable]="tableData"></lib-change-column>
+                  <lib-change-column [placeholder]="'paymentterm.ChangeColumn' | translate" [dataTable]="tableData"></lib-change-column>
                 </div>
               </div>
       
