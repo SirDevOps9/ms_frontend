@@ -53,7 +53,8 @@
     "edit": "Edit",
     "Configration": "Configuration",
     "Actions": "Actions",
-    "Select": "Select"
+    "Select": "Select",
+    "Id": "Id"
   },
   "Journal": {
     "Title": "Journal Entry List",
