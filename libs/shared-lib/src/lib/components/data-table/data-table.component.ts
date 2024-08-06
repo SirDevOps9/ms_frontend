@@ -103,6 +103,11 @@ first:any=0;
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
   this.clonedTableConfigs = this.tableConfigs
+  console.log( this.items,"44444")
+  console.log( changes,"44444")
+ this.items=changes["items"].currentValue
+ console.log(  this.items,"666666")
+
   }
  
 }

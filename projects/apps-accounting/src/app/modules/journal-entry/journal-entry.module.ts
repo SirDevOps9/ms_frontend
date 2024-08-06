@@ -22,6 +22,7 @@ import { JournalEntryOpeningBalanceListComponent } from './pages/journal-entry-o
 import { AddJournalEntryOpeningBalanceComponent } from './pages/journal-entry-opening-balance/add-journal-entry-opening-balance/add-journal-entry-opening-balance.component';
 import { EditJournalEntryOpeningBalanceComponent } from './pages/journal-entry-opening-balance/edit-journal-entry-opening-balance/edit-journal-entry-opening-balance.component';
 import { ViewJournalEntryOpeningBalanceComponent } from './pages/journal-entry-opening-balance/view-journal-entry-opening-balance/view-journal-entry-opening-balance.component';
+import { CostCenterReportComponent } from './pages/report/cost-center-report/cost-center-report.component';
 
 const routes: Routes = [
   {
@@ -71,6 +72,14 @@ const routes: Routes = [
         // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.TRIAL_BALANCE,
+        },
+      },
+      {
+        path: 'cost-center',
+        component: CostCenterReportComponent,
+        // canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.COST_CENTER,
         },
       },
       {
@@ -149,6 +158,7 @@ const routes: Routes = [
     AddJournalEntryOpeningBalanceComponent,
     EditJournalEntryOpeningBalanceComponent,
     ViewJournalEntryOpeningBalanceComponent,
+    CostCenterReportComponent,
   ],
   imports: [
     CommonModule,
