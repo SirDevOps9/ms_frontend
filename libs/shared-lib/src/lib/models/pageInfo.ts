@@ -4,7 +4,7 @@
 // }
 
 export class PageInfo {
-  constructor(pageNumber: number = 1, pageSize: number = 10 , first : number = 0) {
+  constructor(pageNumber: number = 1, pageSize: number = 25 , first : number = 0) {
     this.pageSize = pageSize;
     this.pageNumber = pageNumber;
     this.first = first;

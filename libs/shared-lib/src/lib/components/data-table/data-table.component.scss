@@ -66,6 +66,14 @@
   padding: inherit !important;
 }
 
+::ng-deep.p-column-filter-overlay-menu .p-column-filter-buttonbar {
+ padding: 0 !important;
+}
+::ng-deep.custom-column-filter .p-column-filter-menu {
+  top: 100% !important; /* Position the popup below */
+  margin-top: 4px; /* Add some spacing if needed */
+  transform: none !important; /* Reset any transforms applied by PrimeNG */
+}
 
 span{
   margin: 8px 0;
@@ -113,12 +121,12 @@ span{
 
   @media (max-width: 1920px) {
     .p-datatable-wrapper {
-      max-height: 400px !important;
+      max-height: 700px !important;
     }
   }
   @media (min-width: 1920px) {
     .p-datatable-wrapper {
-      max-height: 600px !important;
+      max-height: 800px !important;
     }
   }
  

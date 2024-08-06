@@ -17,7 +17,7 @@ export class TrialBlanceComponent implements OnInit {
   filteredAccounts: AccountDto[] = [];
   defoultSelectedAcounts: number[] = []
 
-  tableData: reportTrialDto[];
+  tableData: reportTrialDto[] = [];
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,

@@ -8,12 +8,18 @@ import { BehaviorSubject, debounceTime, Observable } from 'rxjs';
 export class GeneralService {
 sendColumns = new BehaviorSubject<any>(null)
 sendColumnsObs = this.sendColumns.asObservable()
-sendFilteredList= new BehaviorSubject<any>(null)
+sendFilteredList= new BehaviorSubject<any>([])
 sendFilteredListObs = this.sendFilteredList.asObservable()
 sendSelectedColumns= new BehaviorSubject<any>(null)
 sendSelectedColumnsObs = this.sendSelectedColumns.asObservable()
 sendFullColumns = new BehaviorSubject<any>([])
 sendFullColumnsObs = this.sendFullColumns.asObservable()
+
+sendPageChanges = new BehaviorSubject<any>(null)
+sendPageChangesObs = this.sendPageChanges.asObservable()
+
+sendPageChangesFromMainPagination = new BehaviorSubject<any>(null)
+sendPageChangesFromMainPaginationsObs = this.sendPageChanges.asObservable()
 
 
   constructor() { 
@@ -40,4 +46,6 @@ sendFullColumnsObs = this.sendFullColumns.asObservable()
     });
     return Array.from(uniqueGroups.values());
   }
+
+
 }

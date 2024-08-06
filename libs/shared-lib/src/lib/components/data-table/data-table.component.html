@@ -1,4 +1,17 @@
 
+<!-- <div class="flex align-items-center justify-content-end gap-2">  
+       <p-paginator
+      (onPageChange)="onPageChange2($event)"
+      [rows]="currentPageResult.pageSize!"
+      [totalRecords]="currentPageResult.totalItems!"
+      [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[25, 50, 100]"
+      [showPageLinks]="false"
+      [showFirstLastIcon]="false"
+      currentPageReportTemplate="{first} - {last} of {totalRecords}"
+      [first]="first"
+    ></p-paginator>
+</div> -->
 
 <div class="viewInWeb">
   <div class="row">
@@ -59,13 +72,48 @@
                   {{ col.headerText }}
                 
                   <p-sortIcon [field]="col.name"></p-sortIcon>
+
+
+                  
                 </th>
                 <th [attr.rowspan]="col.rowspan || 1" [attr.colspan]="col.colspan" [ngClass]="col.class"
                   *ngIf="!col.isSortable" class="body_b16">
+               <div class="flex gap-3 justify-content-between align-content-center">
                 {{ col.headerText }}
+
+                <!-- <i class="pi pi-filter-slash"></i> -->
+                <!-- <div class="p-d-flex p-jc-between p-ai-center">
+                  
+                  <p-columnFilter  field="activity" 
+                  matchMode="between" 
+                  display="menu" 
+                  [showMatchModes]="false" 
+                  [showOperator]="false" 
+                  [showAddButton]="false"
+                  [showApplyButton]="false"  
+                  [showClearButton]="false" 
+                  class="custom-column-filter"> 
+                    <ng-template pTemplate="filter" let-filter="filterCallback">
+                    
+                      <div class="custom-filter-content">
+                        <input type="text" pInputText placeholder="Search" class="p-inputtext p-component" />
+                      </div>
+                      <div class="flex gap-3" *ngFor="let col of tableConfigs.columns">
+                        <p-checkbox 
+                        [binary]="true" 
+                        inputId="binary" />
+                        <p>{{ col.headerText }}</p>
+                      </div>
+                    </ng-template>
+                  </p-columnFilter>
+                </div> -->
+               </div>
+
                 </th>
+
               </ng-container>
             </ng-container>
+
           </tr>
 
           <!-- Second level header row -->
@@ -87,6 +135,7 @@
               </ng-container>
             </ng-container>
           </tr>
+         
         </ng-template>
         <!-- ///////////// -->
         <!-- <ng-template pTemplate="body" let-row let-i="rowIndex">
@@ -186,6 +235,7 @@
     <span></span>
   </div>
 </div>
-
-<lib-table-paginator *ngIf="tableConfigs.allowServerPagination" (pageChange)="onPageChange($event)"
+<div class="flex justify-content-end">
+  <lib-table-paginator *ngIf="tableConfigs.allowServerPagination" (pageChange)="onPageChange($event)"
   [totalRecords]="currentPageResult.totalItems!" [rows]="currentPageResult.pageSize!"></lib-table-paginator>
+</div>

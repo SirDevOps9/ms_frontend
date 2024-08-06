@@ -2,7 +2,7 @@
     (onPageChange)="onPageChange($event)"
     [rows]="rows"
     [totalRecords]="totalRecords"
-    [rowsPerPageOptions]="[10, 20, 30]"
-    [first]="first | async"
+    [rowsPerPageOptions]="[25, 50, 100]"
+    [first]="test.first ? test.first : 0"
 
   ></p-paginator>

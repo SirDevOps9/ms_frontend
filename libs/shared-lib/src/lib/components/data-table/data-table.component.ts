@@ -17,6 +17,7 @@ import { MenuItem } from 'primeng/api';
 import { ExportService } from 'libs/shared-lib/src/lib/export/exportService';
 import { Observable } from 'rxjs';
 import { GeneralService } from '../../services/general.service';
+import { PaginatorState } from 'primeng/paginator';
 
 @Component({
   selector: 'lib-data-table',
@@ -30,7 +31,7 @@ export class DataTableComponent implements OnInit , OnChanges  {
   @Input() selectedIndex: number;
   @Input() resizableColumns: boolean = true;
   @Input() currentPageResult: PageInfoResult;
-
+  first : number = 0
   @Input() tableConfigs: TableConfig;
   clonedTableConfigs: TableConfig;
   @Input() className:string='';
@@ -43,7 +44,6 @@ export class DataTableComponent implements OnInit , OnChanges  {
   selectedColumns: any = []
 
 
-first:any=0;
   globalFilterFields: string[];
 
   @ViewChild('customCellTemplate', { static: true })
@@ -55,14 +55,16 @@ first:any=0;
       .filter((c) => c.isSortable)
       .map((c) => c.name);
       console.log(this.globalFilterFields)
-      this.generalService.sendColumns.next(this.globalFilterFields)
-      this.generalService.sendFullColumns.next(this.tableConfigs.columns)
+      // this.generalService.sendColumns.next(this.globalFilterFields)
+      // this.generalService.sendFullColumns.next(this.tableConfigs.columns)
 
-      this.reactToColumnChanges()
+      //  this.reactToColumnChanges()
 
-      console.log( this.globalFilterFields)
+      // console.log( this.globalFilterFields)
 
-   
+      // this.generalService.sendPageChangesFromMainPaginationsObs.subscribe(res=>{
+      //   console.log(res)
+      // })
     
   }
 
@@ -72,7 +74,9 @@ first:any=0;
     })
     this.generalService.sendSelectedColumnsObs.subscribe(res=>{
       if(res) {
+
         this.selectedColumns = res
+        console.log( this.selectedColumns)
         this.tableConfigs.columns =  this.generalService.sendFullColumns.getValue().filter((elem: any) => {
           return this.selectedColumns.includes(elem.name) || elem.headerText === 'Actions';
       });
@@ -83,11 +87,32 @@ first:any=0;
     })
   }
 
-  selectRow(row: any) {}
+  options = [
+    { label: 25, value: 25},
+    { label: 50, value: 50 },
+    { label: 100, value: 100 },
+];
 
+first2: number  = 0;
+
+rows2: any = 25;
+
+onPageChange2(pageInfoData: PageInfo | any) {
+this.generalService.sendPageChanges.next(pageInfoData)
+
+}
+
+  
+  selectRow(row: any) {}
+ 
   onPageChange(pageInfo: PageInfo) {
-    
     this.pageChange.emit(pageInfo);
+
+    this.rows2 = pageInfo.first
+    this.first = pageInfo.first
+    console.log(this.currentPageResult)
+
+
   }
   hasNestedHeaders(): boolean {
     return this.tableConfigs.columns.some(col => col.children && col.children.length > 0);
@@ -99,7 +124,8 @@ first:any=0;
   constructor(
     public languageService: LanguageService,
     public lookupsService: LookupsService,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
   this.clonedTableConfigs = this.tableConfigs

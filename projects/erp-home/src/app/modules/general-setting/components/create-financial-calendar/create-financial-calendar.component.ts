@@ -67,6 +67,7 @@ export class CreateFinancialCalendarComponent implements OnInit {
       //   this.minDateTo = res.fromDate ? new Date(res.fromDate) : null
       if (res.fromDate && res.toDate) {
         this.tableList = this.generateDateArray(res.fromDate, res.toDate);
+        console.log(this.tableList)
       }
     });
     this.generalSettingService.GetFinancialPeriodLastYearDate();
@@ -143,6 +144,7 @@ export class CreateFinancialCalendarComponent implements OnInit {
   }
 
   onGenerate() {
+    console.log(this.tableList)
     this.tableData = this.tableList;
     this.clonedTableData = this.tableList;
   }
