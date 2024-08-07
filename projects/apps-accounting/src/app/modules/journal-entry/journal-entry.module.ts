@@ -170,7 +170,9 @@ const routes: Routes = [
           {
             path: '',
             component: JournalEntryListComponent,
-        
+            data: {
+              breadcrumb: "",
+            },
           },
           {
             path: 'add',
