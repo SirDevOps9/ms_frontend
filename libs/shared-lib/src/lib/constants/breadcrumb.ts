@@ -25,6 +25,12 @@ export class BreadcrumbLabel {
   static readonly BANK_LIST_EDIT ='BreadCrumb.EditBankDefinition';
   static readonly PAYMENT_TERM_LIST ='BreadCrumb.PaymentTermList';
   static readonly TREASURY_LIST ='BreadCrumb.Treasury';
+  static readonly vendor_list ='BreadCrumb.VendorCategory';
+  static readonly vendor_Add ='BreadCrumb.AddVendorCategory';
+  static readonly vendor_Edit ='BreadCrumb.EditVendorCategory';
+  static readonly VENDOR_DEFINITIONS ='BreadCrumb.VendorDefinitions';
+  static readonly ADD_VENDOR_DEFINITIONS ='BreadCrumb.AddVendorDefinition';
+  static readonly EDIT_VENDOR_DEFINITIONS ='BreadCrumb.EditVendorDefinition';
 
     static SUBSCRIPTION ='Subscription'
     static USERS = 'Users';
@@ -47,9 +53,7 @@ export class BreadcrumbLabel {
     static APP_INFO ='APP Info';
     static tag_list ='Tag List';
     static calendar_list ='Financial Calender';
-    static vendor_list ='Vendor Category';
-    static vendor_Add ='Add Vendor Category';
-    static vendor_Edit ='Edit Vendor Category';
+
     static EMPLOYEE='Employees';
     static EMPLOYEE_ADD='Add Employee';
     static EMPLOYEE_VIEW='View Employee';
@@ -60,10 +64,7 @@ export class BreadcrumbLabel {
     static EDIT_HIERARCHY ='Edit Hierarchy';
     static EDIT_LEGAL ='Edit Legal';
     static EDIT_CONTACT ='Edit Contact';
-    static VENDOR_DEFINITIONS ='Vendor Definitions';
     static ADD_CUSTOMER_OPENEING_BALANCE ='Add Customer Opening Balance';
-    static ADD_VENDOR_DEFINITIONS ='Add Vendor Definitions';
-    static EDIT_VENDOR_DEFINITIONS ='Edit Vendor Definitions';
     static CURRENCY_DEFINITION ='Currency Definition';
     static ADD_CURRENCY_DEFINITION ='Add Currency Definition';
     static CURRENCY_DEFINITION_LIST ='Currency Definition List';

@@ -1,4 +1,13 @@
 {
+  "BreadCrumb": {
+    "VendorCategoryList": "قائمة فئات الموردين",
+    "VendorCategory": "فئة المورد",
+    "AddVendorCategory": "إضافة فئة المورد",
+    "EditVendorCategory": "تعديل فئة المورد",
+    "VendorDefinitions": "تعريفات الموردين",
+    "AddVendorDefinition": "إضافة تعريف المورد",
+    "EditVendorDefinition": "تعديل تعريف المورد"
+  },
   "dir": "rtl",
   "Welcome": "مرحبا",
   "Submit": "حفظ",
@@ -288,7 +297,9 @@
   "criditLimit": "حد الائتمان",
   "actions": "الإجراءات",
   "success": "نجاح",
-  "vendorSuccess": "تم إنشاء البائع بنجاح"
+  "vendorSuccess": "تم إنشاء البائع بنجاح",
+  "Add": "اضافة",
+  "Search":"بحث..."
 }
 ,
 "financialCalendar": {
@@ -327,15 +338,19 @@
   "priceList": "قائمة الأسعار",
   "paymentTerms": "شروط الدفع",
   "marketType": "نوع السوق",
-  "actions": "العمليات"
+  "actions": "العمليات",
+  "Add": "اضافة",
+  "Search":"بحث..."
+
 },
-"addVendorCategory": {
+"VendorCategory": {
   "success": "نجاح",
   "successAdd": "تمت إضافة فئة المورد بنجاح",
   "successEdit": "تم تعديل فئة المورد بنجاح",
   "openSuccess": "تم فتح فئة المورد بنجاح"
 },
 "deleteVendorCategory": {
+  "success": "نجاح",
   "delete": "تم حذف فئة المورد بنجاح"
 },
 "addCustomerCategory": {
@@ -346,13 +361,112 @@
 },
 
 "deleteVendorDefinition": {
+  "success": "نجاح",
   "delete": "تم حذف تعريف المورد بنجاح"
 },
-"addVendorDefinition": {
+"VendorDefinition": {
   "success": "نجاح",
   "successAdd": "تمت إضافة تعريف المورد بنجاح",
   "successEdit": "تم تعديل تعريف المورد بنجاح",
   "openSuccess": "تم فتح تعريف المورد بنجاح"
+},
+"AddVendorDefinition": {
+  "vendorCode": "رمز المورد",
+  "auto": "تلقائي",
+  "vendorName": "اسم المورد",
+  "category": "الفئة",
+  "vendorTag": "علامة المورد",
+  "birthdate": "تاريخ الميلاد",
+  "contactPhoto": "صورة الاتصال",
+  "photoDimensions": "250px * 500px (JPG, PNG, PDF)",
+  "select": "اختر",
+  "Information": "معلومات",
+  "ContactInformation": "معلومات الاتصال",
+  "Code": "الرمز",
+  "ContactMobileCode": "رمز الهاتف المحمول",
+  "ContactMobile": "الهاتف المحمول",
+  "ContactPhone": "الهاتف",
+  "ContactFax": "الفاكس",
+  "ContactEmail": "البريد الإلكتروني",
+  "ContactWebsite": "الموقع الإلكتروني",
+  "ContactPersonInformation": "معلومات الشخص المسؤول",
+  "ContactPersonName": "اسم الشخص المسؤول",
+  "ContactPersonMobileCode": "رمز الهاتف المحمول للشخص المسؤول",
+  "ContactPersonMobile": "الهاتف المحمول للشخص المسؤول",
+  "ContactPersonPhone": "الهاتف للشخص المسؤول",
+  "ContactPersonEmail": "البريد الإلكتروني للشخص المسؤول",
+  "Address": "العنوان",
+  "Country": "البلد",
+  "State": "الولاية",
+  "City": "المدينة",
+  "Street": "الشارع",
+  "Longitude": "خط الطول",
+  "Latitude": "خط العرض",
+  "ErrorRadius": "نصف قطر الخطأ",
+  "Legal": "قانوني",
+  "CommercialId": "رقم تجاري",
+  "TaxId": "رقم ضريبي",
+  "Financial": "مالي",
+  "PaymentTerm": "أجل الدفع",
+  "PriceList": "قائمة الأسعار",
+  "CreditLimit": "حد الائتمان",
+  "Currency": "العملة",
+  "Accounting": "محاسبة",
+  "PayableAccount": "حساب المستحقات",
+  "PurchaseAccount": "حساب المشتريات",
+  "PurchaseReturnAccount": "حساب إرجاع المشتريات",
+  "DiscountAccount": "حساب الخصم",
+  "Save": "حفظ",
+  "Discard": "تجاهل"
+},
+"EditVendorDefinition": {
+  "vendorCode": "رمز المورد",
+  "auto": "تلقائي",
+  "vendorName": "اسم المورد",
+  "category": "الفئة",
+  "vendorTag": "علامة المورد",
+  "birthdate": "تاريخ الميلاد",
+  "contactPhoto": "صورة الاتصال",
+  "photoDimensions": "250px * 500px (JPG, PNG, PDF)",
+  "select": "اختر",
+  "Information": "معلومات",
+  "ContactInformation": "معلومات الاتصال",
+  "Code": "الرمز",
+  "ContactMobileCode": "رمز الهاتف المحمول",
+  "ContactMobile": "الهاتف المحمول",
+  "ContactPhone": "الهاتف",
+  "ContactFax": "الفاكس",
+  "ContactEmail": "البريد الإلكتروني",
+  "ContactWebsite": "الموقع الإلكتروني",
+  "ContactPersonInformation": "معلومات الشخص المسؤول",
+  "ContactPersonName": "اسم الشخص المسؤول",
+  "ContactPersonMobileCode": "رمز الهاتف المحمول للشخص المسؤول",
+  "ContactPersonMobile": "الهاتف المحمول للشخص المسؤول",
+  "ContactPersonPhone": "الهاتف للشخص المسؤول",
+  "ContactPersonEmail": "البريد الإلكتروني للشخص المسؤول",
+  "Address": "العنوان",
+  "Country": "البلد",
+  "State": "الولاية",
+  "City": "المدينة",
+  "Street": "الشارع",
+  "Longitude": "خط الطول",
+  "Latitude": "خط العرض",
+  "ErrorRadius": "نصف قطر الخطأ",
+  "Legal": "قانوني",
+  "CommercialId": "رقم تجاري",
+  "TaxId": "رقم ضريبي",
+  "Financial": "مالي",
+  "PaymentTerm": "أجل الدفع",
+  "PriceList": "قائمة الأسعار",
+  "CreditLimit": "حد الائتمان",
+  "Currency": "العملة",
+  "Accounting": "محاسبة",
+  "PayableAccount": "حساب المستحقات",
+  "PurchaseAccount": "حساب المشتريات",
+  "PurchaseReturnAccount": "حساب إرجاع المشتريات",
+  "DiscountAccount": "حساب الخصم",
+  "Save": "حفظ",
+  "Discard": "تجاهل"
 }
 }
   
