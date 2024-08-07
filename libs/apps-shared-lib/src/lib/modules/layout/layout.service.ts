@@ -17,7 +17,7 @@ export class LayoutService {
             (item) => item.moduleId === value.moduleId && item.module === value.module
           ) === index
       )
-      .map(({ moduleId, module }) => ({ moduleId, module }));
+      .map(({ moduleId, module, moduleLogo }) => ({ moduleId, module, moduleLogo }));
 
     this.localStorageService.setItem(StorageKeys.MODULES, distinctModules);
     this.localStorageService.setItem(StorageKeys.SIDEMENU, menuItems);

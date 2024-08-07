@@ -63,17 +63,20 @@ export class CreateFinancialCalendarComponent implements OnInit {
       } else if (res.fromDate) {
         this.minDateTo = new Date(res.fromDate);
         this.defaultDateTo = new Date(res.fromDate.getFullYear(), 11, 31);
+        this.formGroup.get('toDate')?.patchValue(this.defaultDateTo);
       }
     });
-    this.generalSettingService.GetFinancialPeriodLastYearDate();
+
     this.generalSettingService.FinancialPeriodLastYearDateObservable.subscribe((res) => {
       if (res) {
-        let year = new Date(res).getFullYear();
-        this.formGroup.get('fromDate')?.patchValue(new Date(res));
+        let year = res.year;
+        this.formGroup.get('fromDate')?.patchValue(new Date(res.fromDate));
         this.disablrFromDateFlag = true;
         this.yearsList = this.yearsList.filter((elem: any) => elem.name > year);
       }
     });
+
+    this.generalSettingService.GetFinancialPeriodLastYearDate();
   }
 
   generateYearsList(): void {

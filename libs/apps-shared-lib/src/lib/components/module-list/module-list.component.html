@@ -4,7 +4,7 @@
   <div class="containar_modules">
     <div class="card" *ngFor="let module of moduleList" (click)="navigateto(module.moduleId)">
       <div class="card_photo">
-        <img src="assets/lib-assets/images/module.svg" alt="" />
+        <img src="assets/lib-assets/images/{{ module.moduleLogo }}" alt="" />
       </div>
       <div class="card_description">
         <p class="heading_b16">{{ module.module }}</p>
