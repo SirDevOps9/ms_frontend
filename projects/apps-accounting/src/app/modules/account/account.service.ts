@@ -348,10 +348,6 @@ export class AccountService {
         },
         error: () => {
           this.loaderService.hide();
-          this.toasterService.showError(
-            this.languageService.transalte('costCenter.Error'),
-            this.languageService.transalte('costCenter.CannotDeleteCostCenter')
-          );
         },
       });
     }

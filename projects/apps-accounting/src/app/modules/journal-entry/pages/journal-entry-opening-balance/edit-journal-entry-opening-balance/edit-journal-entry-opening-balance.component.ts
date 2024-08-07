@@ -15,6 +15,7 @@ import { EditCostCenterAllocationPopupComponent } from '../../components/edit-co
 import { ActivatedRoute } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
+import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 
 @Component({
   selector: 'app-edit-journal-entry-opening-balance',
@@ -391,8 +392,7 @@ export class EditJournalEntryOpeningBalanceComponent {
     });
   }
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
-    let currentCurrency: number = 1;
-
+    
     const journalLine = this.journalEntryLinesFormArray.at(currentJournalId);
 
     this.currencyService.accountCurrencyRate.subscribe((res) => {
@@ -401,7 +401,7 @@ export class EditJournalEntryOpeningBalanceComponent {
       currencyRateControl.setValue(res.rate);
     });
 
-    this.currencyService.getAccountCurrencyRate(currentCurrency, accountCurrency);
+    this.currencyService.getAccountCurrencyRate(accountCurrency, this.currentUserService.getCurrency());
 
   }
   constructor(
@@ -417,7 +417,8 @@ export class EditJournalEntryOpeningBalanceComponent {
     private titleService: Title,
     private langService: LanguageService,
     private route : ActivatedRoute,
-    private generalService : GeneralService
+    private generalService : GeneralService,
+    private currentUserService : CurrentUserService
   ) {
     this.titleService.setTitle(this.langService.transalte('OpeningBalance.EditJournal')); 
   }
