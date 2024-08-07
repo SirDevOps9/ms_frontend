@@ -3,7 +3,7 @@ import { FinanceProxyService } from './finance-proxy.service';
 import { HttpService, LanguageService, LoaderService, PageInfo, PageInfoResult, PaginationVm, RouterService, ToasterService } from 'shared-lib';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
-import { AddPaymentTermDto, AddTreasuryDto, EditTreasuryDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
+import { AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, EditTreasuryDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { HttpClient } from '@angular/common/http';
@@ -334,5 +334,28 @@ export class FinanceService {
         
       });
     }
+  }
+
+  BankAccountDropDown(id: number) {
+    return this.financeProxy.BankAccountDropDown(id)
+
+  }
+
+  BankDropDown() {
+    return this.financeProxy.BankDropDown()
+
+  }
+  
+  addPaymentMethod(obj:AddPaymentMethodDto) {
+    this.financeProxy.addPaymentMethod(obj).subscribe(res=>{
+      if(res) {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('success'),
+          this.languageService.transalte('add-paymentterm.add')
+        );
+        this.routerService.navigateTo('/masterdata/payment-method')
+        
+      }
+    })
   }
 }

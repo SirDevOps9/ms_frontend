@@ -2,7 +2,7 @@
   <lib-bread-crumb></lib-bread-crumb>
   <div class="flex justify-content-end my-2">
     <lib-button-micro nameClass="cancel" title="Discard" (click)="discard()"></lib-button-micro>
-    <lib-button-micro nameClass="save" title="save" iconName="pi pi-save" type="button" (click)="onSave()"></lib-button-micro>
+    <lib-button-micro nameClass="save" title="Save" iconName="pi pi-save" type="button" (click)="onSave()"></lib-button-micro>
   </div>
 
   <div class="bank">
@@ -27,64 +27,82 @@
         </div>
         <div class="col-12 md:col-6">
           <lib-form-group>
-            <lib-label [appControl]="PaymentMethodForm.controls['paymentplace']">
-              {{ 'paymentMethod.paymentplace' | translate }}
+            <lib-label [appControl]="PaymentMethodForm.controls['paymentPlace']">
+              {{ 'paymentMethod.paymentPlace' | translate }}
             </lib-label>
             <lib-select
-              formControlName="paymentplace"
+              formControlName="paymentPlace"
               [options]="paymentPlaceOptions"
               optionValue="value"
               optionLabel="label"
             >
             </lib-select>
-            <lib-field-validations [appControl]="PaymentMethodForm.controls['paymentplace']"></lib-field-validations>
+            <lib-field-validations [appControl]="PaymentMethodForm.controls['paymentPlace']"></lib-field-validations>
           </lib-form-group>
         </div>
         <div class="col-12 md:col-6">
           <lib-form-group>
-            <lib-label [appControl]="PaymentMethodForm.controls['paymentmethod']">
-              {{ 'paymentMethod.paymentmethod' | translate }}
+            <lib-label [appControl]="PaymentMethodForm.controls['paymentMethodType']">
+              {{ 'paymentMethod.paymentMethodType' | translate }}
             </lib-label>
             <lib-select
-              formControlName="paymentmethod"
-              [options]="paymentMethodOptions"
+              formControlName="paymentMethodType"
+              [options]="paymentMethodType"
               optionValue="value"
               optionLabel="label"
             >
             </lib-select>
-            <lib-field-validations [appControl]="PaymentMethodForm.controls['paymentmethod']"></lib-field-validations>
+            <lib-field-validations [appControl]="PaymentMethodForm.controls['paymentMethodType']"></lib-field-validations>
           </lib-form-group>
         </div>
 
         <div class="col-12">
           <div class="card">
-            <lib-fildest header="bank information">
+            <lib-fildest header="Bank Information">
               <div class="grid">
-                <div class="col-12 md:col-4" [formGroupName]="'bankInfo'">
+                <div class="col-12 md:col-4" [formGroupName]="'paymentMethodCommissionData'">
                   <lib-form-group>
-                    <lib-label [appControl]="PaymentMethodForm.get('bankInfo.relatedbank')">
-                      Related Bank
+                    <lib-label [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('bankId')">
+                      {{ 'paymentMethod.Related Bank' | translate }}
                     </lib-label>
-                    <lib-text-input type="tel" formControlName="relatedbank" />
-                    <lib-field-validations [appControl]="PaymentMethodForm.get('bankInfo.relatedbank')"></lib-field-validations>
+                    <lib-select
+                      formControlName="bankId"
+                      [options]="BankList"
+                      optionLabel="name"
+                      optionValue="id"
+                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury"
+                    >
+                    </lib-select>
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('bankId')"></lib-field-validations>
                   </lib-form-group>
                 </div>
-                <div class="col-12 md:col-4" [formGroupName]="'bankInfo'">
+                <div class="col-12 md:col-4" [formGroupName]="'paymentMethodCommissionData'">
                   <lib-form-group>
-                    <lib-label [appControl]="PaymentMethodForm.get('bankInfo.bankaccount')">
+                    <lib-label [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('bankAccountId')">
                       Bank Account
                     </lib-label>
-                    <lib-text-input type="text" formControlName="bankaccount" />
-                    <lib-field-validations [appControl]="PaymentMethodForm.get('bankInfo.bankaccount')"></lib-field-validations>
+                    <lib-select
+                      formControlName="bankAccountId"
+                      [options]="BankAccountList"
+                      optionLabel="accountNumber"
+                      optionValue="id"
+                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury"
+                    >
+                    </lib-select>
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('bankAccountId')"></lib-field-validations>
                   </lib-form-group>
                 </div>
-                <div class="col-12 md:col-4" [formGroupName]="'bankInfo'">
+                <div class="col-12 md:col-4" [formGroupName]="'paymentMethodCommissionData'">
                   <lib-form-group>
-                    <lib-label [appControl]="PaymentMethodForm.get('bankInfo.currency')">
+                    <lib-label [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('currency')">
                       Currency
                     </lib-label>
-                    <lib-text-input type="text" formControlName="currency" />
-                    <lib-field-validations [appControl]="PaymentMethodForm.get('bankInfo.currency')"></lib-field-validations>
+                    <lib-text-input 
+                      type="text" 
+                      formControlName="currency" 
+                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury" 
+                    />
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('currency')"></lib-field-validations>
                   </lib-form-group>
                 </div>
               </div>
@@ -94,48 +112,68 @@
 
         <div class="col-12">
           <div class="card">
-            <lib-fildest header="commission information">
+            <lib-fildest header="Commission Information">
               <div class="grid">
-                <div class="col-12 md:col-6" [formGroupName]="'commissionInfo'">
+                <div class="col-12 md:col-4" [formGroupName]="'paymentMethodCommissionData'">
                   <lib-form-group>
-                    <lib-label [appControl]="PaymentMethodForm.get('commissionInfo.commissiontype')">
+                    <lib-label [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('commissionType')">
                       Commission Type
                     </lib-label>
                     <lib-select
-                      formControlName="commissiontype"
+                      formControlName="commissionType"
                       [options]="commissionTypeOptions"
                       optionValue="value"
                       optionLabel="label"
+                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury"
                     >
                     </lib-select>
-                    <lib-field-validations [appControl]="PaymentMethodForm.get('commissionInfo.commissiontype')"></lib-field-validations>
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('commissionType')"></lib-field-validations>
                   </lib-form-group>
                 </div>
-                <div class="col-12 md:col-6" [formGroupName]="'commissionInfo'">
+                <div class="col-12 md:col-4" [formGroupName]="'paymentMethodCommissionData'">
                   <lib-form-group>
-                    <lib-label [appControl]="PaymentMethodForm.get('commissionInfo.commissionvalue')">
+                    <lib-label [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('commissionValue')">
                       Commission Value
                     </lib-label>
-                    <lib-text-input type="text" formControlName="commissionvalue" />
-                    <lib-field-validations [appControl]="PaymentMethodForm.get('commissionInfo.commissionvalue')"></lib-field-validations>
+                    <lib-text-input 
+                      type="number" 
+                      formControlName="commissionValue" 
+                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury" 
+                    />
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('commissionValue')"></lib-field-validations>
                   </lib-form-group>
                 </div>
-                <div class="col-12 md:col-6" [formGroupName]="'commissionInfo'">
+                <div class="col-12 md:col-4" [formGroupName]="'paymentMethodCommissionData'">
                   <lib-form-group>
-                    <lib-label [appControl]="PaymentMethodForm.get('commissionInfo.commissionaccount')">
+                    <lib-label [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('commissionAccountId')">
                       Commission Account
                     </lib-label>
-                    <lib-text-input type="text" formControlName="commissionaccount" />
-                    <lib-field-validations [appControl]="PaymentMethodForm.get('commissionInfo.commissionaccount')"></lib-field-validations>
+                    <lib-select
+                      formControlName="commissionAccountId"
+                      [options]="accountsList"
+                      optionLabel="name"
+                      optionValue="id"
+                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury"
+                    >
+                    </lib-select>
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('commissionAccountId')"></lib-field-validations>
                   </lib-form-group>
                 </div>
-                <div class="col-12 md:col-6" [formGroupName]="'commissionInfo'">
+              </div>
+
+              <div class="grid">
+                <div class="col-12" [formGroupName]="'paymentMethodCommissionData'">
                   <lib-form-group>
-                    <lib-label [appControl]="PaymentMethodForm.get('commissionInfo.allowvat')">
+                    <input 
+                      type="radio" 
+                      formControlName="allowVAT" 
+                      [value]="true"
+                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury" 
+                    />
+                    <lib-label [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('allowVAT')">
                       Allow VAT
                     </lib-label>
-                    <lib-text-input type="text" formControlName="allowvat" />
-                    <lib-field-validations [appControl]="PaymentMethodForm.get('commissionInfo.allowvat')"></lib-field-validations>
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('allowVAT')"></lib-field-validations>
                   </lib-form-group>
                 </div>
               </div>
