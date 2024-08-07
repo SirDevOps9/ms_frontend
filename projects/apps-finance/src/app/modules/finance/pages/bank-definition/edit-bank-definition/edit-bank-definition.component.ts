@@ -57,8 +57,9 @@ export class EditBankDefinitionComponent implements OnInit {
     const ref = this.dialog.open(NoChildrenAccountsComponent, {});
     ref.onClose.subscribe((r) => {
       if (r) {
-        this.bankForm.at(index)?.get('accountName')?.setValue(r.name);
-        this.bankForm.at(index)?.get('glAccountId')?.setValue(r.accountCode);
+
+        this.bankForm.at(index)?.get('glAccountId')?.setValue(r.id);
+        this.bankForm.at(index)?.get('accountName')?.setValue(`${r.name} (${r.accountCode})`);
       
       }
     });
@@ -79,19 +80,23 @@ export class EditBankDefinitionComponent implements OnInit {
             currencyId: elem.currencyId,
             openingBalance: elem.openingBalance,
             currentBalance : null,
-            accountName :null ,
+            accountName :elem.glAccountName ,
             currencyName : null ,
-            branchName : new FormControl('', Validators.required) ,
-            displayName : null,
+            branchName : null,
+            displayName : null ,
             userPermission: [elem.userPermission],
             userPermissionName : '',
             branches: [elem.branches]
               })
           this.items.push(bankGroup)  
-              this.accountSelected(elem.glAccountId , i)
-              this.branchSelected(elem.branches , bankGroup , i)
-              this.userPermissionSelect(elem.userPermission , bankGroup , i)
-              this.currencyselected(elem.currencyId , bankGroup , i)
+          console.log(elem.glAccountId)
+          setTimeout(() => {
+            this.accountSelected(elem.glAccountId , i)
+            this.branchSelected(elem.branches , bankGroup , i)
+            this.userPermissionSelect(elem.userPermission , bankGroup , i)
+            this.currencyselected(elem.currencyId , bankGroup , i)
+          }, 1000);
+             
           })
       }
     
@@ -118,10 +123,10 @@ export class EditBankDefinitionComponent implements OnInit {
   accountSelected(event: any, id: number) {
     const bankLine = this.items.at(id);
     var accountData : any = this.filteredAccounts.find((c) => c.id == event);
-    const accountName = bankLine.get('accountName');
-    accountName?.setValue(accountData?.name);
+    console.log(accountData)
     bankLine.get('accountCode')?.setValue(accountData?.accountCode);
-    bankLine.get('displayName')?.setValue(`${accountData.name} (${accountData.accountCode})`);
+    if(accountData!=null)
+    bankLine.get('accountName')?.setValue(`${accountData?.name} (${accountData?.accountCode})`);
     this.GetAccountOpeningBalance(event ,id)
     console.log(this.items.value)
   }
@@ -136,7 +141,7 @@ export class EditBankDefinitionComponent implements OnInit {
       currentBalance : null,
       accountName :null ,
       currencyName : null ,
-      branchName : new FormControl('', Validators.required) ,
+      branchName : new FormControl('') ,
       displayName : null,
       userPermission: [
       ],

@@ -234,7 +234,9 @@
                 [pEditableColumn]="bankGroup.controls['currencyId']"
                 pEditableColumnField="bankGroup.controls['currencyId']"
               >
+            
                 <p-cellEditor>
+
                   <ng-template pTemplate="input">
                     <lib-form-group>
                       <lib-select
@@ -246,12 +248,18 @@
                         [selectedValue]="bankGroup.controls['currencyId'].value"
                         (valueChanged)="currencyselected($event , bankGroup , i)"
                       ></lib-select>
+                      
                     </lib-form-group>
+                    
                   </ng-template>
+                  
                   <ng-template pTemplate="output">
                     {{ bankGroup.controls['currencyName'].value  }}
                   </ng-template>
                 </p-cellEditor>
+                <lib-field-validations
+                [appControl]="bankGroup.controls['currencyId']"
+              ></lib-field-validations>
               </td>
               <!--  -->
               <td>

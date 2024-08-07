@@ -254,6 +254,9 @@
                     {{ bankGroup.controls['currencyName']?.value  }}
                   </ng-template>
                 </p-cellEditor>
+                <lib-field-validations
+                [appControl]="bankGroup.controls['currencyId']"
+              ></lib-field-validations>
                 </td>
                 <!--  -->
                 <td>

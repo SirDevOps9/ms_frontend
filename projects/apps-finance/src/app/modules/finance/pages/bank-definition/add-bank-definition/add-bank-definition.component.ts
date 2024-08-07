@@ -70,8 +70,10 @@ export class AddBankDefinitionComponent implements OnInit {
     const ref = this.dialog.open(NoChildrenAccountsComponent, {});
     ref.onClose.subscribe((r) => {
       if (r) {
-        this.bankForm.at(index)?.get('accountName')?.setValue(r.name);
-        this.bankForm.at(index)?.get('glAccountId')?.setValue(r.accountCode);
+        console.log(r)
+        this.bankForm.at(index)?.get('glAccountId')?.setValue(r.id);
+        this.bankForm.at(index)?.get('accountName')?.setValue(`${r.name} (${r.accountCode})`);
+
       }
     });
   }
@@ -95,11 +97,9 @@ export class AddBankDefinitionComponent implements OnInit {
 
     console.log('Selectec', accountData);
 
-    const accountName = bankLine.get('accountName');
-    accountName?.setValue(accountData?.name);
-
+  
     bankLine.get('accountCode')?.setValue(accountData?.accountCode);
-    bankLine.get('displayName')?.setValue(`${accountData.name} (${accountData.accountCode})`);
+    bankLine.get('accountName')?.setValue(`${accountData.name} (${accountData.accountCode})`);
 
     this.GetAccountOpeningBalance(event, id);
   }
@@ -108,8 +108,8 @@ export class AddBankDefinitionComponent implements OnInit {
       accountNumber: new FormControl('', customValidators.required),
       glAccountId: null,
       iban: null,
-      currencyId: null,
-      openingBalance: null,
+      currencyId: new FormControl('', customValidators.required),
+      openingBalance: new FormControl('', customValidators.required),
       currentBalance: null,
       accountName: null,
       currencyName: null,

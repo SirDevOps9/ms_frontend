@@ -14,81 +14,81 @@
         columns: [
           {
             name: 'id',
-            headerText: 'Journal.id' | translate,
+            headerText: 'Id',
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'journalCode',
-            headerText: 'Journal.journalCode' | translate,
+            headerText: 'Journal Code',
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'refrenceNumber',
-            headerText: 'Journal.referenceNumber' | translate,
+            headerText: 'Reference',
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'createdOn',
-            headerText: 'Journal.createdOn' | translate,
+            headerText: 'Date',
             isGlobalFilter: true,
             isSortable: true,
             template: journalDate
           },
           {
             name: 'type',
-            headerText: 'Journal.type' | translate,
+            headerText: 'Type',
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'sourceName',
-            headerText: 'Journal.sourceName' | translate,
+            headerText: 'Document Name',
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'sourceCode',
-            headerText: 'Journal.sourceCode' | translate,
+            headerText: 'Document Code',
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'isRepeated',
-            headerText: 'Journal.isRepeated' | translate,
+            headerText: 'Repeated',
             isGlobalFilter: true,
             isSortable: true,
             template: journalIsRepeated
           },
           {
             name: 'isReversed',
-            headerText: 'Journal.isReversed' | translate,
+            headerText: 'Reversed',
             isGlobalFilter: true,
             isSortable: true,
             template: journalIsReversed
           },
           {
             name: 'status',
-            headerText: 'Journal.status' | translate,
+            headerText: 'Status',
             template: userStatus
           },
           {
             name: 'totalDebitAmount',
-            headerText: 'Journal.totalDebitAmount' | translate,
+            headerText: 'Debit',
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'totalCreditAmount',
-            headerText: 'Journal.totalCreditAmount' | translate,
+            headerText: 'Credit',
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'id',
-            headerText: 'Journal.actions' | translate,
+            headerText: 'Actions',
             template: userCol
           }
         ]
@@ -98,7 +98,7 @@
         <div class="flex justify-content-between">
           <div>
             
-              <lib-text-input   type="text" [placeholder]="'Journal.search' | translate" (keyUp)="onSearchChange($event)" [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">                   
+              <lib-text-input   type="text" [placeholder]="'Search'" (keyUp)="onSearchChange($event)" [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">                   
               </lib-text-input>            
           </div>
 
@@ -107,12 +107,12 @@
           <div class="flex gap-1">
             <button class="add_new" (click)="routeToAdd()">
               <span class="pi pi-plus"></span>
-              {{ 'Journal.addNew' | translate }}
+              Add New
             </button>
             
               <lib-export
                 (exportClick)="exportJournalEntriesData($event)"
-                [exportData]="exportData"
+                [exportData]="tableData"
                 [exportColumns]="exportColumns"
                 [ExportName]="'Journal Entries'"
               >
@@ -156,28 +156,28 @@
           *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Unbalanced"
         >
           <p class="dot"></p>
-          <p>{{ 'Journal.unbalanced' | translate }}</p>
+          <p>Unbalanced</p>
         </div>
         <div
           class="status draft"
           *ngIf="journal.status == sharedJouralEnum.JournalEntryStatus.Draft"
         >
           <p class="dot"></p>
-          <p>{{ 'Journal.draft' | translate }}</p>
+          <p>Draft</p>
         </div>
         <div
           class="status unposted"
           *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Submitted"
         >
           <p class="dot"></p>
-          <p>{{ 'Journal.unposted' | translate }}</p>
+          <p>Unposted</p>
         </div>
         <div
           class="status Posted"
           *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Posted"
         >
           <p class="dot"></p>
-          <p>{{ 'Journal.posted' | translate }}</p>
+          <p>Posted</p>
         </div>
       </ng-template>
       <ng-template #journalDate let-journal>
@@ -187,12 +187,12 @@
       </ng-template>
       <ng-template #journalIsRepeated let-journal>
         <div>
-          <p>{{ journal.isRepeated ? ('Journal.yes' | translate) : ('Journal.no' | translate) }}</p>
+          <p>{{ journal.isRepeated ? 'Yes' : 'No' }}</p>
         </div>
       </ng-template>
       <ng-template #journalIsReversed let-journal>
         <div>
-          <p>{{ journal.isReversed ? ('Journal.yes' | translate) : ('Journal.no' | translate) }}</p>
+          <p>{{ journal.isReversed ? 'Yes' : 'No' }}</p>
         </div>
       </ng-template>
     </lib-data-table>
