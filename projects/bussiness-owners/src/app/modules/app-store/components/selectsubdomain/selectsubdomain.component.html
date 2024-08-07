@@ -6,20 +6,26 @@
   <div class="w-full">
     <p>{{ 'AppStore.Subdomain.LabelHeader' | translate }}</p>
     <form [formGroup]="selectSubdomain">
-      <lib-select
-        [options]="allSubdomains"
-        formControlName="subdomain"
-        optionValue="id"
-        optionLabel="name"
-        placeholder="Select Subdomains"
-      >
-      </lib-select>
+      <lib-form-group>
+        <lib-select
+          [options]="allSubdomains"
+          formControlName="subdomain"
+          optionValue="id"
+          optionLabel="name"
+          placeholder="Select Subdomains"
+        >
+        </lib-select>
+        <lib-field-validations [appControl]="selectSubdomain.controls['subdomain']">
+        </lib-field-validations>
+      </lib-form-group>
     </form>
   </div>
 
   <div class="btns">
     <div class="btn">
-      <button class="btn_discard" (click)="onCancel()">{{ 'AppStore.Subdomain.Discard' | translate }}</button>
+      <button class="btn_discard" (click)="onCancel()">
+        {{ 'AppStore.Subdomain.Discard' | translate }}
+      </button>
     </div>
     <div class="btn">
       <button class="btn_save" (click)="submit()">
