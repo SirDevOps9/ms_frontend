@@ -17,7 +17,7 @@ import { AppsSharedLibModule } from 'apps-shared-lib';
 @NgModule({
   declarations: [AppComponent, HomePageComponent],
   imports: [
-    CommonModule,
+    CommonModule, 
     ReactiveFormsModule,
     TranslateModule.forRoot({
       loader: {

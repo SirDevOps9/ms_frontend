@@ -22,6 +22,13 @@ export const ERPRoutes = [
             (m) => m.GeneralSettingModule
           ),
       },
+      {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('./modules/home/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
+      },
     ],
   },
 ];
