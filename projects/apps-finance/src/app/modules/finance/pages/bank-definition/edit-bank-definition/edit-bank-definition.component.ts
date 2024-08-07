@@ -59,7 +59,7 @@ export class EditBankDefinitionComponent implements OnInit {
       if (r) {
 
         this.bankForm.at(index)?.get('glAccountId')?.setValue(r.id);
-        this.bankForm.at(index)?.get('accountName')?.setValue(`${r.name} (${r.accountCode})`);
+        this.bankForm.at(index)?.get('displayName')?.setValue(`${r.name} (${r.accountCode})`);
       
       }
     });
@@ -80,10 +80,10 @@ export class EditBankDefinitionComponent implements OnInit {
             currencyId: elem.currencyId,
             openingBalance: elem.openingBalance,
             currentBalance : null,
-            accountName :elem.glAccountName ,
+            accountName :null ,
             currencyName : null ,
             branchName : null,
-            displayName : null ,
+            displayName : elem.glAccountName  ,
             userPermission: [elem.userPermission],
             userPermissionName : '',
             branches: [elem.branches]
@@ -126,7 +126,7 @@ export class EditBankDefinitionComponent implements OnInit {
     console.log(accountData)
     bankLine.get('accountCode')?.setValue(accountData?.accountCode);
     if(accountData!=null)
-    bankLine.get('accountName')?.setValue(`${accountData?.name} (${accountData?.accountCode})`);
+    bankLine.get('displayName')?.setValue(`${accountData?.name} (${accountData?.accountCode})`);
     this.GetAccountOpeningBalance(event ,id)
     console.log(this.items.value)
   }

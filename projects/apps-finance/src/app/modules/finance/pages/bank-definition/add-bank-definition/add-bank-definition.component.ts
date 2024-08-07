@@ -72,7 +72,7 @@ export class AddBankDefinitionComponent implements OnInit {
       if (r) {
         console.log(r)
         this.bankForm.at(index)?.get('glAccountId')?.setValue(r.id);
-        this.bankForm.at(index)?.get('accountName')?.setValue(`${r.name} (${r.accountCode})`);
+        this.bankForm.at(index)?.get('displayName')?.setValue(`${r.name} (${r.accountCode})`);
 
       }
     });
@@ -99,7 +99,7 @@ export class AddBankDefinitionComponent implements OnInit {
 
   
     bankLine.get('accountCode')?.setValue(accountData?.accountCode);
-    bankLine.get('accountName')?.setValue(`${accountData.name} (${accountData.accountCode})`);
+    bankLine.get('displayName')?.setValue(`${accountData.name} (${accountData.accountCode})`);
 
     this.GetAccountOpeningBalance(event, id);
   }
