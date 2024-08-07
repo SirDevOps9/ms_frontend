@@ -136,8 +136,10 @@ export class CreateJournalEntryComponent {
     private langService: LanguageService,
     private formService: FormsService,
     private guidedTourService: GuidedTourService,
-    private attachmentService: AttachmentsService
+    private attachmentService: AttachmentsService,
   ) {
+    this.titleService.setTitle(this.langService.transalte('Journal.AddJournal'));
+
     this.fg = this.fb.group({
       refrenceNumber: [null, [customValidators.required, customValidators.length(0, 15)]],
       journalDate: [this.getTodaysDate(), customValidators.required],

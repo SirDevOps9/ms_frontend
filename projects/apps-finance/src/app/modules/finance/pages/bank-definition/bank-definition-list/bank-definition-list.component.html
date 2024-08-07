@@ -39,7 +39,7 @@
              
               {
                 name: 'id',
-                headerText: 'Actions',
+                headerText: ('bank.actions' | translate),
                 template: actions
               },
              
@@ -61,7 +61,7 @@
                 </div>
                 <!--  -->
                 <div class="col-3">
-                  <lib-change-column [dataTable]="tableData"></lib-change-column>
+                  <lib-change-column [placeholder]="'bank.ChangeColumn' | translate" [dataTable]="tableData"></lib-change-column>
                 </div>
   
                 <div class="col-6 flex gap-2 justify-content-end align-items-center">
@@ -78,7 +78,7 @@
                   <div>
                 <lib-export  
                   (exportClick)="exportClick($event)"
-                  [exportData]="tableData"
+                  [exportData]="exportData"
                   [exportColumns]="exportColumns"
                   [ExportName]="'Bank Definition'">
                 </lib-export>

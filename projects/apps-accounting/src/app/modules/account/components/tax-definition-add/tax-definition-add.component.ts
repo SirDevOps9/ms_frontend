@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
 import {
   AccountDto,
+  AccountsChildrenDropDown,
   AddTax,
   GetLevelsDto,
   TaxGroupDropDown,
   listAddLevelsDto,
 } from 'projects/apps-accounting/src/app/modules/account/models';
-import { FormsService, LookupsService, PageInfo, PageInfoResult, RouterService, customValidators } from 'shared-lib';
+import { FormsService, LanguageService, LookupsService, PageInfo, PageInfoResult, RouterService, customValidators } from 'shared-lib';
 
 @Component({
   selector: 'app-tax-definition-add',
@@ -18,7 +20,7 @@ import { FormsService, LookupsService, PageInfo, PageInfoResult, RouterService, 
 })
 export class TaxDefinitionAddComponent {
   addForm: FormGroup;
-  accounts: AccountDto[];
+  accounts: AccountsChildrenDropDown[];
   taxGroupList:TaxGroupDropDown[];
   paging: PageInfoResult;
   taxGroupId:string;
@@ -56,10 +58,9 @@ export class TaxDefinitionAddComponent {
   }
 
   getAccounts(searchTerm: string) {
-    this.accountService.getAccountsHasNoChildren(searchTerm, this.pageInfo).subscribe((r) => {
+    this.accountService.getAccountsChildrenDropDown().subscribe((r) => {
 
-      this.accounts = r.result;
-      this.paging = r.pageInfoResult;
+      this.accounts = r;
     });
   }
 
@@ -82,7 +83,12 @@ export class TaxDefinitionAddComponent {
     private ref: DynamicDialogRef,
     private formBuilder: FormBuilder,
     private formsService: FormsService,
+    private title: Title,
+    private langService: LanguageService,
     private routerService: RouterService,
     public lookupsService: LookupsService
-  ) {}
+  ) {
+    this.title.setTitle(this.langService.transalte('Tax.AddTax'));
+
+  }
 }

@@ -24,9 +24,7 @@ import { PaginatorState } from 'primeng/paginator';
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss'],
 })
-export class DataTableComponent implements OnInit , OnChanges  {
-
-   
+export class DataTableComponent implements OnInit, OnChanges {
   @Input() items: any[];
   @Input() selectedIndex: number;
   @Input() resizableColumns: boolean = true;
@@ -34,15 +32,16 @@ export class DataTableComponent implements OnInit , OnChanges  {
   first : number = 0
   @Input() tableConfigs: TableConfig;
   clonedTableConfigs: TableConfig;
-  @Input() className:string='';
+  @Input() className: string = '';
 
   @Input() rowTemplate: TemplateRef<any>;
 
   @Output() pageChange = new EventEmitter<PageInfo>();
 
   sortingFields: string[];
-  selectedColumns: any = []
+  selectedColumns: any = [];
 
+  first: any = 0;
 
   globalFilterFields: string[];
 
@@ -54,6 +53,8 @@ export class DataTableComponent implements OnInit , OnChanges  {
     this.globalFilterFields = this.tableConfigs.columns
       .filter((c) => c.isSortable)
       .map((c) => c.name);
+    // this.generalService.sendColumns.next(this.globalFilterFields);
+    // this.generalService.sendFullColumns.next(this.tableConfigs.columns);
       console.log(this.globalFilterFields)
       // this.generalService.sendColumns.next(this.globalFilterFields)
       // this.generalService.sendFullColumns.next(this.tableConfigs.columns)
@@ -66,25 +67,26 @@ export class DataTableComponent implements OnInit , OnChanges  {
       //   console.log(res)
       // })
     
+    // this.reactToColumnChanges();
   }
 
   reactToColumnChanges() {
-    this.generalService.sendFilteredListObs.subscribe(res=>{
-      this.items = res
-    })
-    this.generalService.sendSelectedColumnsObs.subscribe(res=>{
-      if(res) {
+    this.generalService.sendFilteredListObs.subscribe((res) => {
+      this.items = res;
+    });
+    this.generalService.sendSelectedColumnsObs.subscribe((res) => {
+      if (res) {
 
-        this.selectedColumns = res
+        this.selectedColumns = res;
         console.log( this.selectedColumns)
-        this.tableConfigs.columns =  this.generalService.sendFullColumns.getValue().filter((elem: any) => {
-          return this.selectedColumns.includes(elem.name) || elem.headerText === 'Actions';
-      });
-        console.log(this.generalService.sendFullColumns.getValue())
+        this.tableConfigs.columns = this.generalService.sendFullColumns
+          .getValue()
+          .filter((elem: any) => {
+            return this.selectedColumns.includes(elem.name) || elem.headerText === 'Actions';
+          });
+        console.log(this.generalService.sendFullColumns.getValue());
       }
-     
-
-    })
+    });
   }
 
   options = [
@@ -115,20 +117,17 @@ this.generalService.sendPageChanges.next(pageInfoData)
 
   }
   hasNestedHeaders(): boolean {
-    return this.tableConfigs.columns.some(col => col.children && col.children.length > 0);
+    return this.tableConfigs.columns.some((col) => col.children && col.children.length > 0);
   }
-
-
-  
 
   constructor(
     public languageService: LanguageService,
     public lookupsService: LookupsService,
     private generalService : GeneralService,
     
+    private generalService: GeneralService
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
-  this.clonedTableConfigs = this.tableConfigs
+    this.clonedTableConfigs = this.tableConfigs;
   }
- 
 }

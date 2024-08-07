@@ -17,11 +17,13 @@ export class ExportComponent implements OnChanges {
     { label: 'Excell', icon: 'pi pi-file-excel', command: () =>  this.excell() },
     { label: 'PDF', icon: 'pi pi-file-pdf', command: () =>  this.pdf()}
   ];;
-  pdf() {
+    pdf() {
     this.exportClick.emit()
-    
-    ExportService.ToPDF(this.exportData, `${this.ExportName}.pdf`  , this.exportColumns);
-
+    if(this.exportData.length>0){
+      console.log("Export service data",this.exportData);
+      
+     ExportService.ToPDF(this.exportData, `${this.ExportName}.pdf`  , this.exportColumns);
+    }
   }
   excell() {
     this.exportClick.emit()
@@ -30,6 +32,7 @@ export class ExportComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+
     this.exportData = changes['exportData']?.currentValue
     this.exportColumns = changes['exportColumns']?.currentValue
 

@@ -27,7 +27,15 @@ export class TablePaginatorComponent implements OnInit {
 
   ngOnInit() {
     this.first.subscribe(res=>{
-      console.log(res)
+     // console.log(res)
+    })
+    this.generalService.sendPageChangesObs.subscribe(res=>{
+      if(res) {
+        console.log(res)
+        this.test = res
+        this.onPageChange(res)
+
+      }
     })
     this.generalService.sendPageChangesObs.subscribe(res=>{
       if(res) {
@@ -40,10 +48,12 @@ export class TablePaginatorComponent implements OnInit {
   }
 
   onPageChange(e: any) {
+    //console.log(e)
     
 
     let pageInfo = new PageInfo(e.page + 1, e.rows , e.first);
     this.paginationInfo = pageInfo
+   // console.log(this.paginationInfo)
     this.pageChange.emit(pageInfo);
 
     this.first.next(e['first']) 

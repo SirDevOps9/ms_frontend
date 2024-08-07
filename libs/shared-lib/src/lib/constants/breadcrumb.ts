@@ -1,4 +1,31 @@
 export class BreadcrumbLabel {
+
+  static readonly ChartOfAccount = 'BreadCrumb.ChartOfAccount';
+  static readonly TaxGroup = 'BreadCrumb.TaxGroup';
+  static readonly TaxDefinition = 'BreadCrumb.TaxDefinition';
+  static readonly CostCenter = 'BreadCrumb.CostCenter';
+  static readonly JournalEntryList = 'BreadCrumb.JournalEntryList';
+  static readonly JournalEntryAdd = 'BreadCrumb.JournalEntryAdd';
+  static readonly JournalEntryView = 'BreadCrumb.JournalEntryView';
+  static readonly JournalEntryEdit = 'BreadCrumb.JournalEntryEdit';
+  static readonly TrialBalance = 'BreadCrumb.TrialBalance';
+  static readonly AccountStatement = 'BreadCrumb.AccountStatement';
+  static readonly JournalEntryOpeningBalance = 'BreadCrumb.JournalEntryOpeningBalance';
+  static readonly AddJournalEntryOpeningBalance = 'BreadCrumb.AddJournalEntryOpeningBalance';
+  static readonly EditJournalEntryOpeningBalance = 'BreadCrumb.EditJournalEntryOpeningBalance';
+  static readonly ViewJournalEntryOpeningBalance = 'BreadCrumb.ViewJournalEntryOpeningBalance';
+  static readonly CUSTOMER_DEFINITIONS ='BreadCrumb.CustomerDefinition';
+  static readonly ADD_CUSTOMER_DEFINITIONS ='BreadCrumb.AddCustomerDefinition';
+  static readonly EDIT_CUSTOMER_DEFINITIONS ='BreadCrumb.EditCustomerDefinition';
+  static readonly customer_list ='BreadCrumb.CustomerCategory';
+  static readonly customer_add ='BreadCrumb.AddCustomerCategory';
+  static readonly customer_edit ='BreadCrumb.EditCustomerCategory';
+  static readonly BANK_LIST ='BreadCrumb.BankDefinition';
+  static readonly BANK_LIST_ADD ='BreadCrumb.AddBankDefinition';
+  static readonly BANK_LIST_EDIT ='BreadCrumb.EditBankDefinition';
+  static readonly PAYMENT_TERM_LIST ='BreadCrumb.PaymentTermList';
+  static readonly TREASURY_LIST ='BreadCrumb.Treasury';
+
     static SUBSCRIPTION ='Subscription'
     static USERS = 'Users';
     static ADD_COMPANY = 'Add company';
@@ -11,11 +38,6 @@ export class BreadcrumbLabel {
     static CART = 'Cart List';
     static DOMAIN = 'Domain Details';
     static Manage_Apps='Manage Apps';
-    static JOURNAL_LIST='journal Entry List';
-    static JOURNAL_ADD='journal Entry Add';
-    static JOURNAL_VIEW='journal Entry View';
-    static JOURNAL_Edit='journal Entry Edit';
-    static chart_of_account='Chart of Account';
     static BUSSINESS_OWNER ='Bussiness Owners';
     static MANAGE_BUSSINESS_OWNER ='Manage Bussiness Owners';
     static SUBDOMAIN_INFO ='Subdomain Info';
@@ -26,9 +48,6 @@ export class BreadcrumbLabel {
     static tag_list ='Tag List';
     static calendar_list ='Financial Calender';
     static vendor_list ='Vendor Category';
-    static customer_list ='Customer Category';
-    static customer_add ='Add Customer Category';
-    static customer_edit ='Edit Customer Category';
     static vendor_Add ='Add Vendor Category';
     static vendor_Edit ='Edit Vendor Category';
     static EMPLOYEE='Employees';
@@ -41,16 +60,8 @@ export class BreadcrumbLabel {
     static EDIT_HIERARCHY ='Edit Hierarchy';
     static EDIT_LEGAL ='Edit Legal';
     static EDIT_CONTACT ='Edit Contact';
-    static TAXS_GROUP ='Taxs Group';
-    static TAXS_DEFINITION ='Taxs Definition';
-    static COST_CENTER ='Cost Center';
-    static ACCOUNT_STATEMENT ='Account Statement';
-    static TRIAL_BALANCE ='Trial Balance';
     static VENDOR_DEFINITIONS ='Vendor Definitions';
-    static CUSTOMER_DEFINITIONS ='Customer Definitions';
-    static ADD_CUSTOMER_DEFINITIONS ='Add Customer Definitions';
     static ADD_CUSTOMER_OPENEING_BALANCE ='Add Customer Opening Balance';
-    static EDIT_CUSTOMER_DEFINITIONS ='Edit Customer Definitions';
     static ADD_VENDOR_DEFINITIONS ='Add Vendor Definitions';
     static EDIT_VENDOR_DEFINITIONS ='Edit Vendor Definitions';
     static CURRENCY_DEFINITION ='Currency Definition';
@@ -78,4 +89,5 @@ export class BreadcrumbLabel {
 
  
 
+    static COST_CENTER ='Cost Center';
   }

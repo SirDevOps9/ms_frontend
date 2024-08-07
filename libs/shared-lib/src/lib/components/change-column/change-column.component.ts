@@ -9,6 +9,7 @@ import { GeneralService } from '../../services/general.service';
 export class ChangeColumnComponent implements OnChanges {
   columnsList: any = [];
   @Input() dataTable: any = [];
+  @Input() placeholder: string = 'Change Column'; 
 
   constructor(private generalService: GeneralService) {
     this.generalService.sendColumnsObs.subscribe((res) => {

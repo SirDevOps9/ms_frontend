@@ -1,11 +1,10 @@
-import { Component, EventEmitter, forwardRef, Input, Output, Optional, Self } from "@angular/core";
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl } from "@angular/forms";
+import { Component, EventEmitter, forwardRef, Input, Output, Optional, Self } from '@angular/core';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
   selector: 'lib-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
-
 })
 export class CalendarComponent implements ControlValueAccessor {
   @Input() placeholder: string;
@@ -15,7 +14,7 @@ export class CalendarComponent implements ControlValueAccessor {
   @Input() label: string;
   @Input() disabled: boolean = false;
   @Output() valueChanged = new EventEmitter<Date>();
-
+  @Input() defaultDate: Date | null;
   value: Date;
   onChange = (value: any) => {};
   onTouched = () => {};

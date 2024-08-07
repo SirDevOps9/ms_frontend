@@ -7,7 +7,7 @@ export interface ExportAccountsDto {
     mainType?: string;
     natureId: AccountNature;
     AccountTypeName: string;
-    accountSectionName: string;
+    accountSectionName: string; 
     costCenterConfig : string
   }
   
