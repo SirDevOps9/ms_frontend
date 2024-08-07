@@ -20,11 +20,7 @@ export class BreadcrumbLabel {
   static readonly customer_list ='BreadCrumb.CustomerCategory';
   static readonly customer_add ='BreadCrumb.AddCustomerCategory';
   static readonly customer_edit ='BreadCrumb.EditCustomerCategory';
-  static readonly BANK_LIST ='BreadCrumb.BankDefinition';
-  static readonly BANK_LIST_ADD ='BreadCrumb.AddBankDefinition';
-  static readonly BANK_LIST_EDIT ='BreadCrumb.EditBankDefinition';
-  static readonly PAYMENT_TERM_LIST ='BreadCrumb.PaymentTermList';
-  static readonly TREASURY_LIST ='BreadCrumb.Treasury';
+ 
 
     static SUBSCRIPTION ='Subscription'
     static USERS = 'Users';

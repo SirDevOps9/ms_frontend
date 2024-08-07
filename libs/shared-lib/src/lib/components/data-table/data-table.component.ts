@@ -41,7 +41,6 @@ export class DataTableComponent implements OnInit, OnChanges {
   sortingFields: string[];
   selectedColumns: any = [];
 
-  first: any = 0;
 
   globalFilterFields: string[];
 
@@ -123,7 +122,6 @@ this.generalService.sendPageChanges.next(pageInfoData)
   constructor(
     public languageService: LanguageService,
     public lookupsService: LookupsService,
-    private generalService : GeneralService,
     
     private generalService: GeneralService
   ) {}
