@@ -4,7 +4,7 @@
     "AddBankDefinition": "إضافة تعريف بنك",
     "EditBankDefinition": "تعديل تعريف بنك",
     "PaymentTermList": "قائمة شروط الدفع",
-    "Treasury":"الخزينة"
+    "Treasury": "الخزينة"
   },
   "COAConfigration": {
     "levelnumber": "رقم المستوى",
@@ -67,7 +67,6 @@
     "Submit": "إرسال",
     "Post": "ترحيل",
     "costCenter": "مركز التكلفة"
-
   },
   "viewJournal": {
     "JornalCode": "كود اليومية",
@@ -88,9 +87,8 @@
     "debitAmountLocal": "المبلغ المحلي الدائن",
     "creditAmountLocal": "المبلغ المحلي المدين",
     "costCenter": "مركز التكلفة",
-    "Amount" : "الكمية",
-    "add_line" : "اضافه سطر"
-
+    "Amount": "الكمية",
+    "add_line": "اضافه سطر"
   },
 
   "TaxGroup": {
@@ -163,8 +161,8 @@
     "Closingbalance": "الرصيد الختامي",
     "debit": "مدين",
     "credit": "دائن"
-},
-"treasury": {
+  },
+  "treasury": {
     "treasuryCode": "رمز الخزانة",
     "treasuryName": "اسم الخزانة",
     "currency": "العملة",
@@ -182,7 +180,9 @@
     "discard": "تجاهل",
     "save": "حفظ",
     "confirm": "رصيد افتتاح اليومية لا يساوي رصيد افتتاح الخزانة، هل تريد المتابعة؟",
-    "addTreasury": "إضافة خزينة"
+    "addTreasury": "إضافة خزينة",
+    "editTreasury": "تعديل خزينة",
+    "treasuryList": "قائمة الخزائن"
   },
   "deleteTreasury": {
     "success": "نجاح",
@@ -198,6 +198,8 @@
   },
   "paymentterm": {
     "payment-term-list": "قائمة شروط الدفع",
+     "AddPaymentTerm": "إضافة شرط دفع",
+    "EditPaymentTerm": "تعديل شرط دفع",
     "code": "رمز",
     "name": "اسم",
     "term-type": "نوع المصطلح",
@@ -213,7 +215,6 @@
     "actions": "العمليات",
     "deleted": "تم حذف شرط الدفع بنجاح",
     "discard": "تجاهل"
-
   },
   "add-paymentterm": {
     "dueTermValue": "قيمة الاستحقاق",
@@ -221,11 +222,10 @@
     "afterPeriod": "الفترة بعد",
     "note": "ملاحظة",
     "add_new": "إضافة سطر جديد",
-    "actions":"العمليات",
-      "add": "تمت إضافة شرط الدفع بنجاح",
+    "actions": "العمليات",
+    "add": "تمت إضافة شرط الدفع بنجاح",
     "edit": "تم تعديل شرط الدفع بنجاح",
     "success": "نجاح"
-
   },
   "bank": {
     "actions": "العمليات",
@@ -259,8 +259,10 @@
     "ChangeColumn": "تغيير الأعمدة",
     "discard": "تجاهل",
     "save": "حفظ",
-    "success": "نجاح"
-
+    "success": "نجاح",
+    "AddBank": "إضافة بنك",
+    "EditBank": "تعديل بنك",
+    "BankDefinitonsList": "قائمة تعريفات البنوك"
   },
   "deleteBank": {
     "success": "نجاح",
@@ -275,6 +277,7 @@
     "edit": "تم تحرير تعريف البنك بنجاح"
   },
   "confirm": {
+    "confirm": "تأكيد",
     "cancel": "إلغاء",
     "submit": "تأكيد"
   }

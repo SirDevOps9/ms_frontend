@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, of } from 'rxjs';
 import { AppStoreProxy } from './app-store.proxy';
 import { AppDto, AddToCartDto, CartDto } from './models';
-import { LanguageService, ToasterService, RouterService } from 'shared-lib';
-import { DialogService } from 'primeng/dynamicdialog';
+import { LanguageService, ToasterService, RouterService, FormsService } from 'shared-lib';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { SelectSubdomainComponent } from './components/selectsubdomain/selectsubdomain.component';
 import { ResponseSubdomainDto } from '../subscription/models';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -37,22 +38,18 @@ export class AppStoreService {
         this.languageService.transalte('AppStore.YouShouldAddSubdomainFirst')
       );
       return;
-    } 
+    }
     if (subdomains.length == 1) {
-      this.addModelToCart({ subdomainId: subdomains[0].id, appId });
+      this.addModelToCart({ subdomainId: subdomains[0].id, appId }, undefined, undefined);
     } else {
       const ref = dialog.open(SelectSubdomainComponent, {
         width: '600px',
         height: '600px',
         data: {
           subdomains: subdomains,
+          appId: appId,
         },
         header: 'Select a Subdomain',
-      });
-      ref.onClose.subscribe((result: string) => {
-        if (result) {
-          this.addModelToCart({ subdomainId: result, appId });
-        }
       });
     }
   }
@@ -109,7 +106,7 @@ export class AppStoreService {
     });
   }
 
-  private addModelToCart(model: AddToCartDto) {
+  public addModelToCart(model: AddToCartDto, dialogRef?: DynamicDialogRef, form?: FormGroup) {
     this.appStoreProxy.addToCart(model).subscribe({
       next: () => {
         // console.log('return data', r);
@@ -118,9 +115,17 @@ export class AppStoreService {
           this.languageService.transalte('Company.Success'),
           this.languageService.transalte('AppStore.AddedToCartSuccessfully')
         );
+
+        dialogRef?.close();
       },
       error: (err) => {
-        this.toasterService.showError(this.languageService.transalte('AppStore.Error'), err.message);
+        if (form) {
+           form.controls['subdomain'].setErrors({ backendValidation: err.validationErrors[0].errorMessages });
+        } else
+          this.toasterService.showError(
+            this.languageService.transalte('AppStore.Error'),
+            err.message
+          );
       },
     });
   }
@@ -129,6 +134,7 @@ export class AppStoreService {
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private router: RouterService,
-    private appStoreProxy: AppStoreProxy
+    private appStoreProxy: AppStoreProxy,
+    private formService: FormsService
   ) {}
 }

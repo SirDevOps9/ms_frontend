@@ -2,8 +2,18 @@
   <div class="add_vendor_page">
     <form [formGroup]="editVendorForm" (ngSubmit)="editVendor()">
       <lib-bread-crumb>
-        <lib-button-micro nameClass="cancel" title="Discard" (click)="onDiscard()"> </lib-button-micro>
-        <lib-button-micro nameClass="save" title="save" iconName="pi pi-save" type="submit">
+        <lib-button-micro
+          nameClass="cancel"
+          [title]="'EditVendorDefinition.Discard' | translate"
+          (click)="onDiscard()"
+        >
+        </lib-button-micro>
+        <lib-button-micro
+          nameClass="save"
+          [title]="'EditVendorDefinition.Save' | translate"
+          iconName="pi pi-save"
+          type="submit"
+        >
         </lib-button-micro>
       </lib-bread-crumb>
 
@@ -15,7 +25,7 @@
                 <div class="col-12 md:col-6">
                   <lib-form-group>
                     <lib-label [appControl]="editVendorForm.controls['code']">
-                      vendor code
+                      {{ 'EditVendorDefinition.vendorCode' | translate }}
                     </lib-label>
                     <lib-text-input placeholder="{{ vendorCode }}" [readOnly]="true">
                     </lib-text-input>
@@ -25,7 +35,7 @@
                 <div class="col-12 md:col-6">
                   <lib-form-group>
                     <lib-label [appControl]="editVendorForm.controls['name']">
-                      vendor name
+                      {{ 'EditVendorDefinition.vendorName' | translate }}
                     </lib-label>
                     <lib-text-input type="text" formControlName="name"> </lib-text-input>
                     <lib-field-validations [appControl]="editVendorForm.controls['name']">
@@ -35,7 +45,7 @@
                 <div class="col-12 md:col-6">
                   <lib-form-group>
                     <lib-label [appControl]="editVendorForm.controls['vendorCategoryId']">
-                      category
+                      {{ 'EditVendorDefinition.category' | translate }}
                     </lib-label>
                     <lib-select
                       formControlName="vendorCategoryId"
@@ -51,11 +61,12 @@
                 <div class="col-12 md:col-6">
                   <lib-form-group>
                     <lib-label [appControl]="editVendorForm.controls['VendorTagIds']">
-                      vendor tag
+                      {{ 'EditVendorDefinition.vendorTag' | translate }}
                     </lib-label>
                     <lib-multi-select
                       formControlName="VendorTagIds"
                       [options]="accountTags"
+                      [placeholder]="'EditVendorDefinition.select' | translate" 
                       optionValue="id"
                       optionLabel="name"
                       [selectedValue]="editVendorForm.controls['VendorTagIds'].value"
@@ -67,10 +78,11 @@
                 <div class="col-12">
                   <lib-form-group>
                     <lib-label [appControl]="editVendorForm.controls['birthDate']">
-                      birth date
+                      {{ 'EditVendorDefinition.birthdate' | translate }}
                     </lib-label>
                     <lib-calendar formControlName="birthDate"></lib-calendar>
-                    <lib-field-validations [appControl]="editVendorForm.controls['birthDate']" > </lib-field-validations>
+                    <lib-field-validations [appControl]="editVendorForm.controls['birthDate']">
+                    </lib-field-validations>
                   </lib-form-group>
                 </div>
               </div>
@@ -81,8 +93,8 @@
               <!-- <div class="text"> -->
               <!-- <div class="vendor_photo"> -->
               <div class="text">
-                <p class="photo_title body_b18">contact Photo</p>
-                <p class="photo_valid body_b16">250px *500px (JPG, PNG, PDF)</p>
+                <p class="photo_title body_b18">{{ 'EditVendorDefinition.contactPhoto' | translate }}</p>
+                <p class="photo_valid body_b16">{{ 'EditVendorDefinition.photoDimensions' | translate }}</p>
               </div>
               <!-- <div class="col-12 md:col-2"> -->
               <!-- <div class="photo"> -->
@@ -112,10 +124,10 @@
         <div class="vendor_body">
           <div class="card">
             <p-tabView>
-              <p-tabPanel header="information">
+              <p-tabPanel [header]="'EditVendorDefinition.Information' | translate">
                 <div formGroupName="vendorInformation">
                   <div class="information">
-                    <lib-fildest header="contact information">
+                    <lib-fildest [header]="'EditVendorDefinition.ContactInformation' | translate">
                       <div class="grid">
                         <div class="col-12 md:col-4">
                           <div class="grid d">
@@ -128,8 +140,8 @@
                                       ?.get('ContactMobileCode')
                                   "
                                 >
-                                  code
-                                </lib-label>
+                                {{ 'EditVendorDefinition.Code' | translate }}
+                              </lib-label>
                                 <lib-selectIcon
                                   formControlName="ContactMobileCode"
                                   [options]="lookups[LookupEnum.MobileCode]"
@@ -157,8 +169,8 @@
                                     editVendorForm.get('vendorInformation')?.get('contactMobile')
                                   "
                                 >
-                                  Contact Mobile
-                                </lib-label>
+                                {{ 'EditVendorDefinition.ContactMobile' | translate }}
+                              </lib-label>
                                 <lib-text-input type="tel" formControlName="contactMobile" />
                                 <lib-field-validations
                                   [appControl]="
@@ -177,8 +189,8 @@
                                 editVendorForm.get('vendorInformation')?.get('contactPhone')
                               "
                             >
-                              contact Phone
-                            </lib-label>
+                            {{ 'EditVendorDefinition.ContactPhone' | translate }}
+                          </lib-label>
                             <lib-text-input type="text" formControlName="contactPhone">
                             </lib-text-input>
                             <lib-field-validations
@@ -196,8 +208,8 @@
                                 editVendorForm.get('vendorInformation')?.get('contactFax')
                               "
                             >
-                              contact Fax
-                            </lib-label>
+                            {{ 'EditVendorDefinition.ContactFax' | translate }}
+                          </lib-label>
                             <lib-text-input type="text" formControlName="contactFax">
                             </lib-text-input>
                             <lib-field-validations
@@ -215,8 +227,8 @@
                                 editVendorForm.get('vendorInformation')?.get('contactEmail')
                               "
                             >
-                              contact Email
-                            </lib-label>
+                            {{ 'EditVendorDefinition.ContactEmail' | translate }}
+                          </lib-label>
                             <lib-text-input type="text" formControlName="contactEmail">
                             </lib-text-input>
                             <lib-field-validations
@@ -234,8 +246,8 @@
                                 editVendorForm.get('vendorInformation')?.get('contactWebsite')
                               "
                             >
-                              contact Website
-                            </lib-label>
+                            {{ 'EditVendorDefinition.ContactWebsite' | translate }}
+                          </lib-label>
                             <lib-text-input type="text" formControlName="contactWebsite">
                             </lib-text-input>
                             <lib-field-validations
@@ -249,7 +261,7 @@
                       </div>
                     </lib-fildest>
                     <div class="contact_person_information">
-                      <lib-fildest header="contact person information">
+                      <lib-fildest [header]="'EditVendorDefinition.ContactPersonInformation' | translate">
                         <div class="grid">
                           <div class="col-12 md:col-4">
                             <lib-form-group>
@@ -258,8 +270,8 @@
                                   editVendorForm.get('vendorInformation')?.get('contactPersonName')
                                 "
                               >
-                                contact Person Name
-                              </lib-label>
+                              {{ 'EditVendorDefinition.ContactPersonName' | translate }}
+                            </lib-label>
                               <lib-text-input type="text" formControlName="contactPersonName">
                               </lib-text-input>
                               <lib-field-validations
@@ -281,8 +293,8 @@
                                         ?.get('ContactPersonMobileCode')
                                     "
                                   >
-                                    code
-                                  </lib-label>
+                                  {{ 'EditVendorDefinition.Code' | translate }}
+                                </lib-label>
                                   <lib-selectIcon
                                     formControlName="ContactPersonMobileCode"
                                     [options]="lookups[LookupEnum.MobileCode]"
@@ -311,8 +323,8 @@
                                         ?.get('contactPersonMobile')
                                     "
                                   >
-                                    contact Person Mobile
-                                  </lib-label>
+                                  {{ 'EditVendorDefinition.ContactPersonMobile' | translate }}
+                                </lib-label>
                                   <lib-text-input
                                     type="tel"
                                     formControlName="contactPersonMobile"
@@ -336,8 +348,8 @@
                                   editVendorForm.get('vendorInformation')?.get('contactPersonPhone')
                                 "
                               >
-                                contact Person Phone
-                              </lib-label>
+                              {{ 'EditVendorDefinition.ContactPersonPhone' | translate }}
+                            </lib-label>
                               <lib-text-input type="text" formControlName="contactPersonPhone">
                               </lib-text-input>
                               <lib-field-validations
@@ -356,8 +368,8 @@
                                   editVendorForm.get('vendorInformation')?.get('contactPersonEmail')
                                 "
                               >
-                                contact Person Email
-                              </lib-label>
+                              {{ 'EditVendorDefinition.ContactPersonEmail' | translate }}
+                            </lib-label>
                               <lib-text-input type="text" formControlName="contactPersonEmail">
                               </lib-text-input>
                               <lib-field-validations
@@ -385,8 +397,8 @@
                               <lib-label
                                 [appControl]="editVendorForm.get('vendorAddress')?.get('countryId')"
                               >
-                                country
-                              </lib-label>
+                              {{ 'EditVendorDefinition.Country' | translate }}
+                            </lib-label>
                               <lib-selectIcon
                                 formControlName="countryId"
                                 [options]="countries"
@@ -408,8 +420,8 @@
                               <lib-label
                                 [appControl]="editVendorForm.get('vendorAddress')?.get('state')"
                               >
-                                state
-                              </lib-label>
+                              {{ 'EditVendorDefinition.State' | translate }}
+                            </lib-label>
                               <lib-text-input type="text" formControlName="state"></lib-text-input>
                               <lib-field-validations
                                 [appControl]="editVendorForm.get('vendorAddress')?.get('state')"
@@ -422,8 +434,8 @@
                               <lib-label
                                 [appControl]="editVendorForm.get('vendorAddress')?.get('cityId')"
                               >
-                                city
-                              </lib-label>
+                              {{ 'EditVendorDefinition.City' | translate }}
+                            </lib-label>
                               <lib-select
                                 formControlName="cityId"
                                 [options]="cities"
@@ -444,7 +456,8 @@
                               <lib-label
                                 [appControl]="editVendorForm.get('vendorAddress')?.get('street')"
                               >
-                                street
+                              {{ 'EditVendorDefinition.Street' | translate }}
+
                               </lib-label>
                               <lib-text-input type="text" formControlName="street">
                               </lib-text-input>
@@ -459,8 +472,8 @@
                               <lib-label
                                 [appControl]="editVendorForm.get('vendorAddress')?.get('longitude')"
                               >
-                                longitude
-                              </lib-label>
+                              {{ 'EditVendorDefinition.Longitude' | translate }}
+                            </lib-label>
                               <lib-text-input type="number" formControlName="longitude">
                               </lib-text-input>
                               <lib-field-validations
@@ -474,8 +487,8 @@
                               <lib-label
                                 [appControl]="editVendorForm.get('vendorAddress')?.get('latitude')"
                               >
-                                latitude
-                              </lib-label>
+                              {{ 'EditVendorDefinition.Latitude' | translate }}
+                            </lib-label>
                               <lib-text-input type="number" formControlName="latitude">
                               </lib-text-input>
                               <lib-field-validations
@@ -489,8 +502,8 @@
                               <lib-label
                                 [appControl]="editVendorForm.get('vendorAddress')?.get('radius')"
                               >
-                                error radius
-                              </lib-label>
+                              {{ 'EditVendorDefinition.ErrorRadius' | translate }}
+                            </lib-label>
                               <lib-text-input type="number" formControlName="radius">
                               </lib-text-input>
                               <lib-field-validations
@@ -519,8 +532,8 @@
                           <lib-label
                             [appControl]="editVendorForm.get('vendorLegal')?.get('commercialId')"
                           >
-                            commercial Id
-                          </lib-label>
+                          {{ 'EditVendorDefinition.CommercialId' | translate }}
+                        </lib-label>
                           <lib-text-input type="text" formControlName="commercialId">
                           </lib-text-input>
                           <lib-field-validations
@@ -532,7 +545,7 @@
                       <div class="col-12">
                         <lib-form-group>
                           <lib-label [appControl]="editVendorForm.get('vendorLegal')?.get('taxId')">
-                            tax Id
+                            {{ 'EditVendorDefinition.TaxId' | translate }}
                           </lib-label>
                           <lib-text-input type="text" formControlName="taxId"> </lib-text-input>
                           <lib-field-validations
@@ -545,7 +558,7 @@
                   </div>
                 </div>
               </p-tabPanel>
-              <p-tabPanel header="financial">
+              <p-tabPanel [header]="'EditVendorDefinition.Financial' | translate">
                 <div class="financial" formGroupName="vendorFinancial">
                   <div class="grid">
                     <div class="col-12 md:col-8">
@@ -556,8 +569,8 @@
                               editVendorForm.get('vendorFinancial')?.get('paymentTermId')
                             "
                           >
-                            payment Term
-                          </lib-label>
+                          {{ 'EditVendorDefinition.PaymentTerm' | translate }}
+                        </lib-label>
                           <lib-select
                             formControlName="paymentTermId"
                             [options]="paymentTermsList"
@@ -579,8 +592,8 @@
                           <lib-label
                             [appControl]="editVendorForm.get('vendorFinancial')?.get('priceListId')"
                           >
-                            price List
-                          </lib-label>
+                          {{ 'EditVendorDefinition.PriceList' | translate }}
+                        </lib-label>
                           <lib-select
                             formControlName="priceListId"
                             [options]="priceList"
@@ -600,8 +613,8 @@
                           <lib-label
                             [appControl]="editVendorForm.get('vendorFinancial')?.get('creditLimit')"
                           >
-                            credit Limit
-                          </lib-label>
+                          {{ 'EditVendorDefinition.CreditLimit' | translate }}
+                        </lib-label>
                           <lib-text-input type="number" formControlName="creditLimit">
                           </lib-text-input>
                           <lib-field-validations
@@ -616,7 +629,7 @@
                           <lib-label
                             [appControl]="editVendorForm.get('vendorFinancial')?.get('currencyId')"
                           >
-                            currency
+                          {{ 'EditVendorDefinition.Currency' | translate }}
                           </lib-label>
                           <lib-select
                             formControlName="currencyId"
@@ -636,7 +649,7 @@
                   </div>
                 </div>
               </p-tabPanel>
-              <p-tabPanel header="accounting">
+              <p-tabPanel [header]="'EditVendorDefinition.Accounting' | translate">
                 <div class="accounting" formGroupName="vendorAccounting">
                   <div class="grid">
                     <div class="col-12 md:col-8">
@@ -647,8 +660,8 @@
                               editVendorForm.get('vendorAccounting')?.get('payableAccountId')
                             "
                           >
-                            receivable account
-                          </lib-label>
+                          {{ 'EditVendorDefinition.PayableAccount' | translate }}
+                        </lib-label>
                           <lib-select
                             formControlName="payableAccountId"
                             [selectedValue]="selectedPayableAccount"
@@ -672,8 +685,8 @@
                               editVendorForm.get('vendorAccounting')?.get('purchaseAccountId')
                             "
                           >
-                            purchase Account
-                          </lib-label>
+                          {{ 'EditVendorDefinition.PurchaseAccount' | translate }}
+                        </lib-label>
                           <lib-select
                             formControlName="purchaseAccountId"
                             [options]="accountsList"
@@ -697,8 +710,8 @@
                               editVendorForm.get('vendorAccounting')?.get('purchaseReturnAccountId')
                             "
                           >
-                            purchase Return Account
-                          </lib-label>
+                          {{ 'EditVendorDefinition.PurchaseReturnAccount' | translate }}
+                        </lib-label>
                           <lib-select
                             formControlName="purchaseReturnAccountId"
                             [selectedValue]="selectedPurchaseReturnAccount"
@@ -722,8 +735,8 @@
                               editVendorForm.get('vendorAccounting')?.get('discountAccountId')
                             "
                           >
-                            discount Account
-                          </lib-label>
+                          {{ 'EditVendorDefinition.DiscountAccount' | translate }}
+                        </lib-label>
                           <lib-select
                             formControlName="discountAccountId"
                             [options]="accountsList"
