@@ -68,6 +68,7 @@ export class BreadcrumbLabel {
     static ADD_CURRENCY_DEFINITION ='Add Currency Definition';
     static CURRENCY_DEFINITION_LIST ='Currency Definition List';
     static CURRENCY_CONVERSION ='Currency Conversion';
+    static VENDOR_OPENING_BALANCE ='Vendor Opening Balancy';
 
     static COST_CENTER ='Cost Center';
   }

@@ -10,6 +10,7 @@ import { VendorCategoryListComponent } from './pages/vendor-category/vendor-cate
 import { EditVendorDefinitionsComponent } from './pages/vendor-definitions/edit-vendor-definitions/edit-vendor-definitions.component';
 import { AddVendorDefinitionsComponent } from './pages/vendor-definitions/add-vendor-definitions/add-vendor-definitions.component';
 import { VendorDefinitionsListComponent } from './pages/vendor-definitions/vendor-definitions-list/vendor-definitions-list.component';
+import { VendorOpeningBalanceComponent } from './pages/vendor-opening-balance/vendor-opening-balance.component';
 
 const routes: Routes = [
   {
@@ -75,6 +76,14 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.EDIT_VENDOR_DEFINITIONS,
         },
       },
+      {
+        path: 'vendor-opening',
+        component: VendorOpeningBalanceComponent,
+       // canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE,
+        },
+      },
     ],
   },
 ];
@@ -87,6 +96,7 @@ const routes: Routes = [
     VendorDefinitionsListComponent,
     AddVendorDefinitionsComponent,
     EditVendorDefinitionsComponent,
+    VendorOpeningBalanceComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })
