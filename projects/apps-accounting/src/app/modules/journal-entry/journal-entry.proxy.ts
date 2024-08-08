@@ -68,7 +68,6 @@ export class JournalEntryProxy {
     return this.httpService.delete<number>(`JournalEntry/DeleteLine?Id=${id}`);
   }
   deleteJournalEntryLineOpeningBalance(id: number): Observable<JournalEntryStatus> {
-   //return this.httpService.delete<number>(`JournalEntry/OpeningBalanceJournalEntry?Id=${id}`);
     return this.httpService.delete<number>(`OpeningBalanceJournalEntry/DeleteLine?Id=${id}`);
   }
   getAllJournalTemplate(filterDto: FilterDto): Observable<PaginationVm<GetAllJournalTemplateDto>> {
