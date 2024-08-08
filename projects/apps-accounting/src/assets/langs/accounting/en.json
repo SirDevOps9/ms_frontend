@@ -27,7 +27,7 @@
     "Actions": "Actions",
     "ChartOfAccountConfig": "Chart of Account Configuration",
     "chartOfAccountLevels": "Chart of Account Levels",
-    "LevelsSaved":"Levels Saved Successfully"
+    "LevelsSaved": "Levels Saved Successfully"
   },
   "ChartOfAccount": {
     "Title": "Chart of Account Tree",
@@ -51,8 +51,11 @@
     "DeletedSuccessfully": "Account Deleted Successfully",
     "import": "Import",
     "edit": "Edit",
-    "Configration": "Configuration"
-
+    "Configration": "Configuration",
+    "Actions": "Actions",
+    "ChooseAnAccount":"Choose An Account",
+    "Select": "Select",
+    "Id": "Id"
   },
   "Journal": {
     "Title": "Journal Entry List",
@@ -97,8 +100,8 @@
   "attach": "Attach",
   "description": "Description",
   "id": "Id",
-  "account_code": "Acc. Code",
-  "account_name": "Acc. Name",
+  "account_code": "Account Code",
+  "account_name": "Account Name",
   "line_description": "Line Description",
   "debit_amount": "DB Amount",
   "credit_amount": "CR Amount",
@@ -329,5 +332,14 @@
   },
   "editTreasury": {
     "edit": "Treasury Definition Edited Successfully"
+  },
+  "reportCost":{
+    "AccountName":"Account name",
+    "date":"date",
+    "description":"description",
+    "debit":"debit",
+    "credit":"credit",
+    "balance":"balance",
+    "title":"Cost Center Report"
   }
 }

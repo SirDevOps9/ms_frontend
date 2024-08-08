@@ -51,7 +51,12 @@
     "DeletedSuccessfully": "تم حذف الحساب بنجاح",
     "import": "استيراد",
     "edit": "تعديل",
-    "Configration": "إعدادات"
+    "Configration": "إعدادات",
+    "ChooseAnAccount":"اختر حساب",
+    "Select": "اختر",
+    "Actions": "العمليات",
+    "Select": "اختيار",
+    "Id": "الرقم التعريفي"
   },
   "Journal": {
     "Title": " قائمة القيود اليومية",
@@ -327,5 +332,14 @@
   },
   "editTreasury": {
     "edit": "تم تعديل تعريف الخزانة بنجاح"
-  }
+  },
+  "reportCost": {
+    "AccountName": "اسم الحساب",
+    "date": "التاريخ",
+    "description": "الوصف",
+    "debit": "مدين",
+    "credit": "دائن",
+    "balance": "الرصيد",
+    "title": "تقرير مركز التكلفة"
+}
 }

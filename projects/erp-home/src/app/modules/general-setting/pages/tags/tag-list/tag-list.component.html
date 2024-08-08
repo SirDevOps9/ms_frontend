@@ -1,37 +1,4 @@
 <lib-page-content [title]="'tag.taglist' | translate" [subTitle]="'tag.taglist' | translate">
-  <lib-bread-crumb>
-    <div class="flex justify-content-between align-items-center">
-      <div class="flex align-items-center">
-        <input
-          type="text"
-          pInputText
-          placeholder="{{ 'tag.Search' | translate }}"
-          [(ngModel)]="searchTerm"
-          (input)="onSearchChange()"
-          class="mr-2"
-        />
-      </div>
-      <div>
-        <button
-          pButton
-          pRipple
-          label="{{ 'tag.AddNew' | translate }}"
-          icon="pi pi-plus"
-          class="btn add_new mr-2"
-          (click)="newTag()"
-        ></button>      
-      </div>
-      <div>
-        <lib-export  
-        (exportClick)="exportTagData($event)"
-        [exportData]="tableData"
-        [exportColumns]="exportColumns"
-        [ExportName]="'Tag'">
-      </lib-export>
-
-      </div>
-    </div>
-  </lib-bread-crumb>
   <div>
     <div class="user_page">
       <lib-data-table
@@ -80,6 +47,39 @@
           ]
         }"
       >
+      <ng-container caption>
+        <div class="flex justify-content-between align-items-center">
+          <div class="flex align-items-center">
+            <input
+              type="text"
+              pInputText
+              placeholder="{{ 'tag.Search' | translate }}"
+              [(ngModel)]="searchTerm"
+              (input)="onSearchChange()"
+              class="mr-2"
+            />
+          </div>
+          <div>
+            <button
+              pButton
+              pRipple
+              label="{{ 'tag.AddNew' | translate }}"
+              icon="pi pi-plus"
+              class="btn add_new mr-2"
+              (click)="newTag()"
+            ></button>      
+          </div>
+          <div>
+            <lib-export  
+            (exportClick)="exportTagData($event)"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Tag'">
+          </lib-export>
+    
+          </div>
+        </div>
+      </ng-container>
         <ng-template #userCol let-tag>
           <div class="actions flex align-items-center">
             <lib-button

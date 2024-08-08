@@ -4,12 +4,12 @@
       
         <div class="col-6">
           <lib-button type="button"  [className]="'custom-danger-outline'" class="save" (click)="onCancel()">
-            Cancel
+            {{'confirm.cancel' | translate}}
           </lib-button>
         </div>
         <div class="col-6">
             <lib-button type="button" [className]="'custom-light-blue'"  (click)="onSubmit()">
-             Submit
+              {{'confirm.submit' | translate}}
             </lib-button>
           </div>
       </div>

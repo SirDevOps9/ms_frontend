@@ -1,8 +1,7 @@
 <lib-page-content [title]="'bank.TaxList' | translate" [subTitle]="'bank.TaxList' | translate">
-  <lib-bread-crumb> </lib-bread-crumb>
   <div class="flex justify-content-end my-2">
-    <lib-button-micro nameClass="cancel" title="Discard" (click)="discard()"> </lib-button-micro>
-    <lib-button-micro nameClass="save" title="save" iconName="pi pi-save" type="button" (click)="onSave()">
+    <lib-button-micro nameClass="cancel" title="{{ 'bank.discard' | translate }}" (click)="discard()"> </lib-button-micro>
+    <lib-button-micro nameClass="save" title="{{ 'bank.save' | translate }}"  iconName="pi pi-save" type="button" (click)="onSave()">
     </lib-button-micro>
   </div>
 

@@ -1,20 +1,27 @@
 <lib-page-content>
   <div class="add_vendor_page">
     <form [formGroup]="addCustomerForm">
-      <lib-bread-crumb>
-        <lib-button-micro nameClass="cancel" title="Discard" (click)="onCancel()">
+      <div class="grid top_header">
+        <div class="col-12 md:col-9">
+        </div>
+        <div class="col-12 md:col-3 ">
+          <lib-button-micro
+          nameClass="cancel"
+          [title]="'EditCustomerDefinition.Discard' | translate"
+          (click)="onCancel()"
+        >
         </lib-button-micro>
         <lib-button-micro
           nameClass="save"
-          title="save"
+          [title]="'EditCustomerDefinition.Save' | translate"
           iconName="pi pi-save"
           type="submit"
           [disabled]="!addCustomerForm.valid"
           (click)="editCustomer()"
         >
         </lib-button-micro>
-      </lib-bread-crumb>
-
+        </div>
+      </div>
       <div class="vendor_header">
         <div class="grid">
           <div class="col-12 md:col-8">
@@ -23,7 +30,7 @@
                 <div class="col-12 md:col-6">
                   <lib-form-group>
                     <lib-label [appControl]="addCustomerForm.controls['code']">
-                      Category code
+                      {{ 'EditCustomerDefinition.customerCode' | translate }}
                     </lib-label>
                     <lib-text-input formControlName="code" [readOnly]="true"> </lib-text-input>
                     <lib-field-validations> </lib-field-validations>
@@ -32,7 +39,7 @@
                 <div class="col-12 md:col-6">
                   <lib-form-group>
                     <lib-label [appControl]="addCustomerForm.controls['name']">
-                      Category name
+                      {{ 'EditCustomerDefinition.customerName' | translate }}
                     </lib-label>
                     <lib-text-input type="text" formControlName="name"> </lib-text-input>
                     <lib-field-validations [appControl]="addCustomerForm.controls['name']">
@@ -42,7 +49,7 @@
                 <div class="col-12 md:col-6">
                   <lib-form-group>
                     <lib-label [appControl]="addCustomerForm.controls['categoryId']">
-                      category
+                      {{ 'EditCustomerDefinition.category' | translate }}
                     </lib-label>
                     <lib-select
                       formControlName="categoryId"
@@ -58,13 +65,14 @@
                 <div class="col-12 md:col-6">
                   <lib-form-group>
                     <lib-label [appControl]="addCustomerForm.controls['tagIds']">
-                      Category tag
+                      {{ 'EditCustomerDefinition.customerTag' | translate }}
                     </lib-label>
                     <lib-multi-select
                       formControlName="tagIds"
                       [options]="accountTags"
                       optionValue="id"
                       optionLabel="name"
+                      [placeholder]="'EditCustomerDefinition.select' | translate"
                       [selectedValue]="addCustomerForm.controls['tagIds']!.value"
                     >
                     </lib-multi-select>
@@ -74,7 +82,7 @@
                 <div class="col-12">
                   <lib-form-group>
                     <lib-label [appControl]="addCustomerForm.controls['birthdate']">
-                      Birth date
+                      {{ 'EditCustomerDefinition.birthdate' | translate }}
                     </lib-label>
                     <lib-calendar formControlName="birthdate"></lib-calendar>
                     <lib-field-validations> </lib-field-validations>
@@ -86,8 +94,12 @@
           <div class="col-12 md:col-4">
             <div class="vendor_photo">
               <div class="text">
-                <p class="photo_title body_b18">contact Photo</p>
-                <p class="photo_valid body_b16">250px *500px (JPG, PNG, PDF)</p>
+                <p class="photo_title body_b18">
+                  {{ 'EditCustomerDefinition.contactPhoto' | translate }}
+                </p>
+                <p class="photo_valid body_b16">
+                  {{ 'EditCustomerDefinition.photoDimensions' | translate }}
+                </p>
               </div>
               <div class="photo">
                 <lib-form-group>
@@ -115,10 +127,10 @@
       <div class="vendor_body">
         <div class="card">
           <p-tabView>
-            <p-tabPanel header="information">
+            <p-tabPanel [header]="'EditCustomerDefinition.Information' | translate">
               <div formGroupName="contactInfo">
                 <div class="information">
-                  <lib-fildest header="contact information">
+                  <lib-fildest [header]="'EditCustomerDefinition.ContactInformation' | translate">
                     <div class="grid">
                       <div class="col-12 md:col-4">
                         <div class="grid d">
@@ -129,7 +141,7 @@
                                   addCustomerForm.get('contactInfo')?.get('contactMobileCode')
                                 "
                               >
-                                code
+                                {{ 'EditCustomerDefinition.Code' | translate }}
                               </lib-label>
                               <lib-selectIcon
                                 formControlName="contactMobileCode"
@@ -138,7 +150,8 @@
                                 optionLabel="name"
                                 icons="flags"
                                 [selectedValue]="
-                                  addCustomerForm.get('contactInfo')?.get('contactMobileCode')?.value
+                                  addCustomerForm.get('contactInfo')?.get('contactMobileCode')
+                                    ?.value
                                 "
                               >
                               </lib-selectIcon>
@@ -158,7 +171,7 @@
                                   addCustomerForm.get('contactInfo')?.get('contactMobile')
                                 "
                               >
-                                Contact Mobile
+                                {{ 'EditCustomerDefinition.ContactMobile' | translate }}
                               </lib-label>
                               <lib-text-input type="tel" formControlName="contactMobile" />
                               <lib-field-validations
@@ -176,7 +189,7 @@
                           <lib-label
                             [appControl]="addCustomerForm.get('contactInfo')?.get('contactPhone')"
                           >
-                            Contact Phone
+                            {{ 'EditCustomerDefinition.ContactPhone' | translate }}
                           </lib-label>
                           <lib-text-input type="text" formControlName="contactPhone">
                           </lib-text-input>
@@ -191,7 +204,7 @@
                           <lib-label
                             [appControl]="addCustomerForm.get('contactInfo')?.get('contactFax')"
                           >
-                            contact Fax
+                            {{ 'EditCustomerDefinition.ContactFax' | translate }}
                           </lib-label>
                           <lib-text-input type="text" formControlName="contactFax">
                           </lib-text-input>
@@ -206,7 +219,7 @@
                           <lib-label
                             [appControl]="addCustomerForm.get('contactInfo')?.get('contactEmail')"
                           >
-                            contact Email
+                            {{ 'EditCustomerDefinition.ContactEmail' | translate }}
                           </lib-label>
                           <lib-text-input type="text" formControlName="contactEmail">
                           </lib-text-input>
@@ -221,7 +234,7 @@
                           <lib-label
                             [appControl]="addCustomerForm.get('contactInfo')?.get('contactWebsite')"
                           >
-                            contact Website
+                            {{ 'EditCustomerDefinition.ContactWebsite' | translate }}
                           </lib-label>
                           <lib-text-input type="text" formControlName="contactWebsite">
                           </lib-text-input>
@@ -234,7 +247,9 @@
                     </div>
                   </lib-fildest>
                   <div class="contact_person_information">
-                    <lib-fildest header="contact person information">
+                    <lib-fildest
+                      [header]="'EditCustomerDefinition.ContactPersonInformation' | translate"
+                    >
                       <div class="grid">
                         <div class="col-12 md:col-4">
                           <lib-form-group>
@@ -243,7 +258,7 @@
                                 addCustomerForm.get('contactInfo')?.get('contactPersonName')
                               "
                             >
-                              contact Person Name
+                              {{ 'EditCustomerDefinition.ContactPersonName' | translate }}
                             </lib-label>
                             <lib-text-input type="text" formControlName="contactPersonName">
                             </lib-text-input>
@@ -266,7 +281,7 @@
                                       ?.get('contactPersonMobileCode')
                                   "
                                 >
-                                  code
+                                  {{ 'EditCustomerDefinition.Code' | translate }}
                                 </lib-label>
                                 <lib-selectIcon
                                   formControlName="contactPersonMobileCode"
@@ -298,7 +313,7 @@
                                     addCustomerForm.get('contactInfo')?.get('contactPersonMobile')
                                   "
                                 >
-                                  contact Person Mobile
+                                  {{ 'EditCustomerDefinition.ContactPersonMobile' | translate }}
                                 </lib-label>
                                 <lib-text-input type="tel" formControlName="contactPersonMobile" />
                                 <lib-field-validations
@@ -318,7 +333,7 @@
                                 addCustomerForm.get('contactInfo')?.get('contactPersonPhone')
                               "
                             >
-                              contact Person Phone
+                              {{ 'EditCustomerDefinition.ContactPersonPhone' | translate }}
                             </lib-label>
                             <lib-text-input type="text" formControlName="contactPersonPhone">
                             </lib-text-input>
@@ -356,7 +371,7 @@
                 </div>
               </div>
             </p-tabPanel>
-            <p-tabPanel header="address">
+            <p-tabPanel [header]="'EditCustomerDefinition.Address' | translate">
               <div formGroupName="addressInfo">
                 <div class="address">
                   <div class="grid">
@@ -367,7 +382,7 @@
                             <lib-label
                               [appControl]="addCustomerForm.get('addressInfo')?.get('countryId')"
                             >
-                              country
+                              {{ 'EditCustomerDefinition.Country' | translate }}
                             </lib-label>
                             <lib-selectIcon
                               formControlName="countryId"
@@ -392,7 +407,7 @@
                             <lib-label
                               [appControl]="addCustomerForm.get('addressInfo')?.get('state')"
                             >
-                              state
+                              {{ 'EditCustomerDefinition.State' | translate }}
                             </lib-label>
                             <lib-text-input type="text" formControlName="state"></lib-text-input>
                             <lib-field-validations
@@ -406,7 +421,7 @@
                             <lib-label
                               [appControl]="addCustomerForm.get('addressInfo')?.get('cityId')"
                             >
-                              city
+                              {{ 'EditCustomerDefinition.City' | translate }}
                             </lib-label>
                             <lib-select
                               formControlName="cityId"
@@ -430,7 +445,7 @@
                             <lib-label
                               [appControl]="addCustomerForm.get('addressInfo')?.get('street')"
                             >
-                              street
+                              {{ 'EditCustomerDefinition.Street' | translate }}
                             </lib-label>
                             <lib-text-input type="text" formControlName="street"> </lib-text-input>
                             <lib-field-validations
@@ -444,7 +459,7 @@
                             <lib-label
                               [appControl]="addCustomerForm.get('addressInfo')?.get('longitude')"
                             >
-                              longitude
+                              {{ 'EditCustomerDefinition.Longitude' | translate }}
                             </lib-label>
                             <lib-text-input type="number" formControlName="longitude">
                             </lib-text-input>
@@ -459,7 +474,7 @@
                             <lib-label
                               [appControl]="addCustomerForm.get('addressInfo')?.get('latitude')"
                             >
-                              latitude
+                              {{ 'EditCustomerDefinition.Latitude' | translate }}
                             </lib-label>
                             <lib-text-input type="number" formControlName="latitude">
                             </lib-text-input>
@@ -474,7 +489,7 @@
                             <lib-label
                               [appControl]="addCustomerForm.get('addressInfo')?.get('errorRadius')"
                             >
-                              error radius
+                              {{ 'EditCustomerDefinition.ErrorRadius' | translate }}
                             </lib-label>
                             <lib-text-input type="number" formControlName="errorRadius">
                             </lib-text-input>
@@ -495,7 +510,7 @@
                 </div>
               </div>
             </p-tabPanel>
-            <p-tabPanel header="legal">
+            <p-tabPanel [header]="'EditCustomerDefinition.Legal' | translate">
               <div class="legal" formGroupName="legalInfo">
                 <div class="grid">
                   <div class="col-12 md:col-8">
@@ -504,7 +519,7 @@
                         <lib-label
                           [appControl]="addCustomerForm.get('legalInfo')?.get('commercialId')"
                         >
-                          Commercial ID
+                          {{ 'EditCustomerDefinition.CommercialId' | translate }}
                         </lib-label>
                         <lib-text-input type="text" formControlName="commercialId">
                         </lib-text-input>
@@ -517,7 +532,7 @@
                     <div class="col-12">
                       <lib-form-group>
                         <lib-label [appControl]="addCustomerForm.get('legalInfo')?.get('taxId')">
-                          Tax ID
+                          {{ 'EditCustomerDefinition.TaxId' | translate }}
                         </lib-label>
                         <lib-text-input type="text" formControlName="taxId"> </lib-text-input>
                         <lib-field-validations
@@ -530,7 +545,7 @@
                 </div>
               </div>
             </p-tabPanel>
-            <p-tabPanel header="financial">
+            <p-tabPanel [header]="'EditCustomerDefinition.Financial' | translate">
               <div class="financial" formGroupName="financialInfo">
                 <div class="grid">
                   <div class="col-12 md:col-8">
@@ -539,7 +554,7 @@
                         <lib-label
                           [appControl]="addCustomerForm.get('financialInfo')?.get('paymentTermId')"
                         >
-                          payment Term
+                          {{ 'EditCustomerDefinition.PaymentTerm' | translate }}
                         </lib-label>
                         <lib-select
                           formControlName="paymentTermId"
@@ -562,7 +577,7 @@
                         <lib-label
                           [appControl]="addCustomerForm.get('financialInfo')?.get('priceListId')"
                         >
-                          price List
+                          {{ 'EditCustomerDefinition.PriceList' | translate }}
                         </lib-label>
                         <lib-select
                           formControlName="priceListId"
@@ -585,7 +600,7 @@
                         <lib-label
                           [appControl]="addCustomerForm.get('financialInfo')?.get('creditLimit')"
                         >
-                          credit Limit
+                          {{ 'EditCustomerDefinition.CreditLimit' | translate }}
                         </lib-label>
                         <lib-text-input type="number" formControlName="creditLimit">
                         </lib-text-input>
@@ -601,7 +616,7 @@
                         <lib-label
                           [appControl]="addCustomerForm.get('financialInfo')?.get('currencyId')"
                         >
-                          currency
+                          {{ 'EditCustomerDefinition.Currency' | translate }}
                         </lib-label>
                         <lib-select
                           formControlName="currencyId"
@@ -623,7 +638,7 @@
                 </div>
               </div>
             </p-tabPanel>
-            <p-tabPanel header="accounting">
+            <p-tabPanel [header]="'EditCustomerDefinition.Accounting' | translate">
               <div class="accounting" formGroupName="accountingInfo">
                 <div class="grid">
                   <div class="col-12 md:col-8">
@@ -634,7 +649,7 @@
                             addCustomerForm.get('accountingInfo')?.get('receivableAccountId')
                           "
                         >
-                          Receivable Account
+                          {{ 'EditCustomerDefinition.ReceivableAccount' | translate }}
                         </lib-label>
                         <lib-select
                           formControlName="receivableAccountId"
@@ -661,7 +676,7 @@
                             addCustomerForm.get('accountingInfo')?.get('salesAccountId')
                           "
                         >
-                          Sales Account
+                          {{ 'EditCustomerDefinition.SalesAccount' | translate }}
                         </lib-label>
                         <lib-select
                           formControlName="salesAccountId"
@@ -688,7 +703,7 @@
                             addCustomerForm.get('accountingInfo')?.get('salesReturnAccountId')
                           "
                         >
-                          Sales Return Account
+                          {{ 'EditCustomerDefinition.SalesReturnAccount' | translate }}
                         </lib-label>
                         <lib-select
                           formControlName="salesReturnAccountId"
@@ -716,7 +731,7 @@
                             addCustomerForm.get('accountingInfo')?.get('discountAccountId')
                           "
                         >
-                          Discount Account
+                          {{ 'EditCustomerDefinition.DiscountAccount' | translate }}
                         </lib-label>
                         <lib-select
                           formControlName="discountAccountId"

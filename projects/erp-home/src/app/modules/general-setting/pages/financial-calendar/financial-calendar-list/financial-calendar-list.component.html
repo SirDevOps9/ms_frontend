@@ -1,6 +1,5 @@
 <lib-page-content [title]="'financialCalendar.financialCalendar' | translate" [subTitle]="'financialCalendar.financialCalendar' | translate">
   <div>
-        <lib-bread-crumb></lib-bread-crumb>
         <div class="user_page">
           <lib-data-table
             [items]="tableData"
@@ -68,7 +67,7 @@
                 <div>
                   <lib-export
                     (exportClick)="exportClick($event)"
-                    [exportData]="tableData"
+                    [exportData]="exportData"
                     [exportColumns]="exportColumns"
                     [ExportName]="'Financial Calendar'"
                   >

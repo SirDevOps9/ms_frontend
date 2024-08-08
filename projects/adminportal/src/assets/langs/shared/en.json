@@ -1,5 +1,6 @@
 {
-    "dir": "ltr",
-    "Submit":"Submit",
-    "Export": "Export"
+  "dir": "ltr",
+  "Submit": "Submit",
+  "Export": "Export",
+  "Error": "Error"
 }

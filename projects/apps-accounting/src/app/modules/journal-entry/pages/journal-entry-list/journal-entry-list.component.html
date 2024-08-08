@@ -1,5 +1,4 @@
-<div>
-  <lib-bread-crumb></lib-bread-crumb>
+<lib-page-content>
   <div class="user_page">
     <lib-data-table
       [items]="tableData"
@@ -112,7 +111,7 @@
             
               <lib-export
                 (exportClick)="exportJournalEntriesData($event)"
-                [exportData]="tableData"
+                [exportData]="exportData"
                 [exportColumns]="exportColumns"
                 [ExportName]="'Journal Entries'"
               >
@@ -197,4 +196,4 @@
       </ng-template>
     </lib-data-table>
   </div>
-</div>
+</lib-page-content>

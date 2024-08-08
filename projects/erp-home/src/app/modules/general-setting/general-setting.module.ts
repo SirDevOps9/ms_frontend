@@ -17,6 +17,7 @@ import { EditCurrencyDefinitionComponent } from './components/currencyDefinition
 import { CurrencyConversionComponent } from './pages/currency-conversion/currency-conversion.component';
 import { AddCurrencyConversionComponent } from './components/currencyConversion/add-currency-conversion/add-currency-conversion.component';
 import { EditCurrencyConversionComponent } from './components/currencyConversion/edit-currency-conversion/edit-currency-conversion.component';
+import { MainFinancialCalendarComponent } from './pages/financial-calendar/main-financial-calendar/main-financial-calendar.component';
 
 const routes: Routes = [
   {
@@ -44,27 +45,37 @@ const routes: Routes = [
       },
       {
         path: 'financial-calendar',
-        component: FinancialCalendarListComponent,
+        component: MainFinancialCalendarComponent,
         // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.calendar_list,
         },
-      },
-      {
-        path: 'financial-calendar/add-financial-calendar',
-        component: CreateFinancialCalendarComponent,
-        // canActivate: [AuthGuard],
-        data: {
-          breadcrumb: BreadcrumbLabel.calendar_list,
-        },
-      },
-      {
-        path: 'financial-calendar/edit-financial-calendar/:id',
-        component: EditFinancialCalendarComponent,
-        // canActivate: [AuthGuard],
-        data: {
-          breadcrumb: BreadcrumbLabel.calendar_list,
-        },
+        children:[
+          {
+            path: '',
+            component: FinancialCalendarListComponent,
+            // canActivate: [AuthGuard],
+            data: {
+              breadcrumb: '',
+            },
+          },
+          {
+            path: 'add-financial-calendar',
+            component: CreateFinancialCalendarComponent,
+            // canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.calendar_Add,
+            },
+          },
+          {
+            path: 'edit-financial-calendar/:id',
+            component: EditFinancialCalendarComponent,
+            // canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.calendar_Edit,
+            },
+          },
+        ]
       },
       {
         path: 'currency-definition',
@@ -100,6 +111,7 @@ const routes: Routes = [
     CurrencyConversionComponent,
     AddCurrencyConversionComponent,
     EditCurrencyConversionComponent,
+    MainFinancialCalendarComponent
   ],
   imports: [CommonModule, SharedLibModule, AutoCompleteModule, RouterModule.forChild(routes)],
 })

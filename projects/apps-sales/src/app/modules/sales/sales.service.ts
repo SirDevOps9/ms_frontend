@@ -115,7 +115,7 @@ export class SalesService {
     this.salesProxy.addCustomerCategory(addCustomerCategory).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('success'),
+          this.languageService.transalte('addCustomerCategory.success'),
           this.languageService.transalte('addCustomerCategory.successAdd')
         );
         if (res) {
@@ -129,7 +129,7 @@ export class SalesService {
     this.salesProxy.EditCustomerCategory(editCustomerCategory).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('success'),
+          this.languageService.transalte('addCustomerCategory.success'),
           this.languageService.transalte('addCustomerCategory.successEdit')
         );
         if (res) {
@@ -145,7 +145,7 @@ export class SalesService {
       this.salesProxy.deleteCustomerCategory(id).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
-            this.languageService.transalte('success'),
+            this.languageService.transalte('deleteCustomerCategory.success'),
             this.languageService.transalte('deleteCustomerCategory.delete')
           );
           let data = this.customerCategoryDataSource.getValue();
@@ -271,7 +271,7 @@ export class SalesService {
       this.salesProxy.deleteCustomerDefinition(id).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
-            this.languageService.transalte('success'),
+            this.languageService.transalte('deleteCustomerDefinition.success'),
             this.languageService.transalte('deleteCustomerDefinition.delete')
           );
           let data = this.customerDefinitionDataSource.getValue();

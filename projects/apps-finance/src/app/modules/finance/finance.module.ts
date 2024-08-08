@@ -17,6 +17,8 @@ import { ConfirmOpeningBalanceComponent } from './components/bank/confirm-openin
 import { PaymentTermListComponent } from './pages/payment-term/payment-term-list/payment-term-list.component';
 import { AddPaymentTermComponent } from './pages/payment-term/add-payment-term/add-payment-term.component';
 import { EditPaymentTermComponent } from './pages/payment-term/edit-payment-term/edit-payment-term.component';
+import { MainBankDefinitionComponent } from './pages/bank-definition/main-bank-definition/main-bank-definition.component';
+import { MainPaymentTermComponent } from './pages/payment-term/main-payment-term/main-payment-term.component';
 import { PaymentMethodListComponent } from './pages/payment-method/payment-method-list/payment-method-list.component';
 import { AddPaymentMethodComponent } from './pages/payment-method/add-payment-method/add-payment-method.component';
 import { EditPaymentMethodComponent } from './pages/payment-method/edit-payment-method/edit-payment-method.component';
@@ -47,33 +49,67 @@ const routes: Routes = [
       },
       {
         path: 'bank-definition',
-        component: BankDefinitionListComponent,
+        component: MainBankDefinitionComponent,
         // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.BANK_LIST,
         },
-      },
-      {
-        path: 'add-bank-definition',
-        component: AddBankDefinitionComponent,
-        // canActivate: [AuthGuard],
-        data: {
-          breadcrumb: BreadcrumbLabel.BANK_LIST_ADD,
-        },
-      },
-      {
-        path: 'edit-bank-definition/:id',
-        component: EditBankDefinitionComponent,
-        // canActivate: [AuthGuard],
-        data: {
-          breadcrumb: BreadcrumbLabel.BANK_LIST_EDIT,
-        },
+        children:[
+          {
+            path: '',
+            component: BankDefinitionListComponent,
+            // canActivate: [AuthGuard],
+            data: {
+              breadcrumb: '',
+            },
+          },
+          {
+            path: 'add-bank-definition',
+            component: AddBankDefinitionComponent,
+            // canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.BANK_LIST_ADD,
+            },
+          },
+          {
+            path: 'edit-bank-definition/:id',
+            component: EditBankDefinitionComponent,
+            // canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.BANK_LIST_EDIT,
+            },
+          },
+        ]
       },
       {
         path: 'paymentterm',
-        component: PaymentTermListComponent,
+        component: MainPaymentTermComponent,
         data: {
           breadcrumb: BreadcrumbLabel.PAYMENT_TERM_LIST,
+        },
+        children:[
+          {
+            path: '',
+            component: PaymentTermListComponent,
+            data: {
+              breadcrumb: '',
+            },
+          },
+          {
+            path: 'add-payment-term',
+            component: AddPaymentTermComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.PAYMENT_TERM_Add,
+            },
+          },
+          {
+            path: 'edit-payment-term/:id',
+            component: EditPaymentTermComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.PAYMENT_TERM_Edit,
+            },
+          },
+        ]
         },
       },
       {
@@ -97,6 +133,7 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_LIST,
         },
       },
+
       {
         path: 'add-payment-method',
         component: AddPaymentMethodComponent,
@@ -129,6 +166,9 @@ const routes: Routes = [
     ConfirmOpeningBalanceComponent,
     PaymentTermListComponent,
     AddPaymentTermComponent,
+    EditPaymentTermComponent,
+    MainBankDefinitionComponent,
+    MainPaymentTermComponent
     EditPaymentTermComponent,
     PaymentMethodListComponent,
     AddPaymentMethodComponent,

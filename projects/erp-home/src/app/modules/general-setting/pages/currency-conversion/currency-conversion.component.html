@@ -1,7 +1,5 @@
 <lib-page-content>
-    <lib-bread-crumb>
-    
-    </lib-bread-crumb>
+=
     <lib-data-table
               [items]="tableData"
               className="p-datatable-gridlines"
@@ -71,7 +69,7 @@
                       <div>
                         <lib-export  
                         (exportClick)="exportClick($event)"
-                        [exportData]="mappedExportData"
+                        [exportData]="exportData"
                         [exportColumns]="exportColumns"
                         [ExportName]="'Currency Conversion'">
                       </lib-export>
