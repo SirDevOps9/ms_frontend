@@ -1,5 +1,5 @@
 <lib-page-content>
-    <lib-bread-crumb>
+    <div class="page_content_header">
         <div class="actions">
             <button class="icon_btn" [ngClass]="{ active: Viewlist }" (click)="listView()">
               <i class="pi pi-bars"></i>
@@ -8,7 +8,7 @@
               <i class="pi pi-sitemap"></i>
             </button>
           </div>
-    </lib-bread-crumb>
+    </div>
     <div class="main_chat_of_account">
       <app-cost-center-tree
         *ngIf="!Viewlist"

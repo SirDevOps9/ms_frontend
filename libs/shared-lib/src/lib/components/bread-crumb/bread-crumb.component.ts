@@ -3,6 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { LanguageService } from '../../services';
+import { breadCrumbHome } from 'shared-lib';
 
 @Component({
   selector: 'lib-bread-crumb',
@@ -16,7 +17,7 @@ export class BreadCrumbComponent implements OnInit {
   ngOnInit(): void {
     this.menuItems = this.createBreadcrumb(this.activatedRoute.root);
 
-    this.home = { icon: 'pi pi-home', routerLink: '/my-subscriptions' };
+    this.home = { icon: 'pi pi-home', routerLink:'/' };
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => (this.menuItems = this.createBreadcrumb(this.activatedRoute.root)));
@@ -57,6 +58,7 @@ export class BreadCrumbComponent implements OnInit {
     public languageService: LanguageService,
 
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private breadcrumbhome:breadCrumbHome
   ) {}
 }

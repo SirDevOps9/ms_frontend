@@ -160,7 +160,7 @@ export class EmployeeService {
       this.employeeProxy.deleteEmployee(employeeId).subscribe({
         next: () => {
           this.toasterService.showSuccess(
-            this.languageService.transalte('Success'),
+            this.languageService.transalte('Employee.Success'),
             this.languageService.transalte('Employee.EmployeeDeletedSuccessfully')
           );
           this.loaderService.hide();
