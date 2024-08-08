@@ -1,17 +1,5 @@
 
-<div class="flex align-items-center justify-content-end gap-2" *ngIf="tableConfigs.allowServerPagination">  
-       <p-paginator
-      (onPageChange)="onPageChange2($event)"
-      [rows]="currentPageResult.pageSize!"
-      [totalRecords]="currentPageResult.totalItems!"
-      [showCurrentPageReport]="true"
-      [rowsPerPageOptions]="[25, 50, 100]"
-      [showPageLinks]="false"
-      [showFirstLastIcon]="false"
-      currentPageReportTemplate="{first} - {last} of {totalRecords}"
-      [first]="first"
-    ></p-paginator>
-</div>
+
 
 <div class="viewInWeb">
   <div class="row">
@@ -37,6 +25,19 @@
         [ngClass]="{ empty: items.length <= 0 }"
       >
         <ng-template pTemplate="caption">
+       
+          <div class="flex align-items-center justify-content-end gap-2" *ngIf="tableConfigs.allowServerPagination">  
+            <p-paginator
+            (onPageChange)="onPageChange2($event)"
+            [rows]="currentPageResult.pageSize!"
+            [totalRecords]="currentPageResult.totalItems!"
+            [showCurrentPageReport]="true"
+            [showPageLinks]="false"
+            [showFirstLastIcon]="false"
+            currentPageReportTemplate="{first} - {last} of {totalRecords}"
+            [first]="first"
+            ></p-paginator>
+     </div>
           <ng-content select="[caption]"> </ng-content>
         </ng-template>
 

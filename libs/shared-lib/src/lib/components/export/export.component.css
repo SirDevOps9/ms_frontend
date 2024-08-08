@@ -15,7 +15,7 @@
         width: 160px !important;
         transform-origin: center top;
         top: 63.8px !important;
-        left: 1235.8px !important;
+        left: 1090.8px !important;
         margin-top: calc(var(--p-anchor-gutter));
       
     }
@@ -25,4 +25,7 @@
   }
   ::ng-deep  .pi-file-pdf {
     color: red; /* Change this to your desired color */
+  }
+  .exportImg{
+    height: 43px;
   }

@@ -1,41 +1,16 @@
 <div class="sidebar" [ngClass]="{ close: !sidebarOpen }" >
-  <div class="logo-details">
-    <button
-      class="pi"
-      [ngClass]="{ 'pi-angle-right': !sidebarOpen, 'pi-angle-left': sidebarOpen }"
+
+<div class="flex justify-content-between imgCont" [class.imgContDiv]="!sidebarOpen">
+  <img src="assets/images/group.png" style="height: 24px;" [class.smallImg]="!sidebarOpen"/>
+  <div >
+    <i
+      class="pi pi-align-justify switch"
       (click)="toggleSidebar()"
-    ></button>
+    ></i>
   </div>
 
-  <!-- <ul class="nav-links">
-    <ng-container *ngFor="let menuItem of menuItems">
-      <li *ngIf="menuItem.subMenu.length > 0">
-        <div class="iocn-link">
-          <a [href]="menuItem.link">
-            <i class="{{ menuItem.icon }}"></i>
-            <span class="link_name">{{ menuItem.name }}</span>
-          </a>
-          <i class="pi pi-user arrow" (click)="open($event)"></i>
-        </div>
-        <ul class="sub-menu">
-          <li *ngFor="let subItem of menuItem.subMenu">
-            <a [href]="subItem.link">{{ subItem.name }}</a>
-          </li>
-        </ul>
-      </li>
-      <li *ngIf="menuItem.subMenu.length === 0">
-        <a [href]="menuItem.link">
-          <i class="{{ menuItem.icon }}"></i>
-          <span class="link_name">{{ menuItem.name }}</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li>
-            <a class="link_name" [href]="menuItem.link">{{ menuItem.name }}</a>
-          </li>
-        </ul>
-      </li>
-    </ng-container>
-  </ul> -->
+</div>
+
   <ul class="nav-links">
     <ng-container *ngFor="let menuItem of treeData; let i = index">
       <li *ngIf="menuItem.subMenu.length > 0">
@@ -57,10 +32,7 @@
                 <a [href]="subItem.link">
                   <span class="link_name body_b18" >{{ subItem.name }}</span>
                 </a>
-                <!-- <i  class="arrow" [ngClass]="{
-                  'pi pi-sort-down-fill': !openStates[i],
-                  'pi pi-sort-up-fill': openStates[i]
-                }" (click)="open($event, x)"></i> -->
+        
               <i  class="pi pi-caret-down arrow" 
                 (click)="open($event, x)"></i>
               </div>
