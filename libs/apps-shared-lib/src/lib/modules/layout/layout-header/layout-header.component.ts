@@ -6,6 +6,7 @@ import { LanguageService, MenuModule, Modules, RouterService ,breadCrumbHome} fr
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModuleListComponent } from '../../../components/module-list/module-list.component';
 import { LayoutService } from '../layout.service';
+import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 
 @Component({
   selector: 'app-layout-header',
@@ -85,8 +86,8 @@ export class LayoutHeaderComponent {
 
   openDialog() {
     this.ref = this.dialog.open(ModuleListComponent, {
-      width: '612px',
-      height: '435px',
+      width: '650px',
+      height: '500px',
       header: 'Choose App',
     });
   }
@@ -98,10 +99,16 @@ export class LayoutHeaderComponent {
     private router: ActivatedRoute,
     private eRef: ElementRef,
     private dialog: DialogService,
-    private breadCrumbHome:breadCrumbHome
+    private breadCrumbHome:breadCrumbHome,
+    public generalService : GeneralService
   ) {
     this.userName = this.authService.getUserName;
     this.languageService.setLang();
     this.userPhoto = this.authService.getUserPhoto;
+    console.log(this.generalService.sendSideBarState.getValue())
+
+    
+
+    
   }
 }

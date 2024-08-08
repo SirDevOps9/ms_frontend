@@ -1,54 +1,16 @@
 <lib-page-content>
  <lib-bread-crumb></lib-bread-crumb>
  <div class="grid">
-    <div class="md:col-4">
+    <div class="md:col-4" *ngFor="let module of moduleList" (click)="navigateto(module.moduleId)">
         <div class="container">
-            <img src="assets/images/card.png" class="background" alt="Background Image">
-            <img src="assets/images/accounting.png" class="foreground" alt="Foreground Image">
-            <p class="caption">Accounting Software</p>
+            <img src="assets/images/card.png" class="background" >
+            <img src="assets/lib-assets/images/{{ module.moduleLogo }}" class="foreground" alt="not loaded">
+            <p class="caption">{{ module.module }}</p>
         
           </div>
     </div>
-    <div class="md:col-4">
-        <div class="container">
-            <img src="assets/images/card.png" class="background" alt="Background Image">
-            <img src="assets/images/accounting.png" class="foreground" alt="Foreground Image">
-            <p class="caption">Accounting Software</p>
-        
-          </div>
-    </div>
-    <div class="md:col-4">
-        <div class="container">
-            <img src="assets/images/card.png" class="background" alt="Background Image">
-            <img src="assets/images/accounting.png" class="foreground" alt="Foreground Image">
-            <p class="caption">Accounting Software</p>
-        
-          </div>
-    </div>
-    <div class="md:col-4">
-        <div class="container">
-            <img src="assets/images/card.png" class="background" alt="Background Image">
-            <img src="assets/images/accounting.png" class="foreground" alt="Foreground Image">
-            <p class="caption">Accounting Software</p>
-        
-          </div>
-    </div>
-    <div class="md:col-4">
-        <div class="container">
-            <img src="assets/images/card.png" class="background" alt="Background Image">
-            <img src="assets/images/accounting.png" class="foreground" alt="Foreground Image">
-            <p class="caption">Accounting Software</p>
-        
-          </div>
-    </div>
-    <div class="md:col-4">
-        <div class="container">
-            <img src="assets/images/card.png" class="background" alt="Background Image">
-            <img src="assets/images/accounting.png" class="foreground" alt="Foreground Image">
-            <p class="caption">Accounting Software</p>
-        
-          </div>
-    </div>
+  
  </div>
 
 </lib-page-content>
+

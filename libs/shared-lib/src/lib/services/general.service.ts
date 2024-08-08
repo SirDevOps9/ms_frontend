@@ -21,6 +21,8 @@ sendPageChangesObs = this.sendPageChanges.asObservable()
 sendPageChangesFromMainPagination = new BehaviorSubject<any>(null)
 sendPageChangesFromMainPaginationsObs = this.sendPageChanges.asObservable()
 
+sendSideBarState = new BehaviorSubject<boolean>(false)
+
 
   constructor() { 
     

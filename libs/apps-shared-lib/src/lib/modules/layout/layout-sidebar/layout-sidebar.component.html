@@ -1,13 +1,18 @@
 <div class="sidebar" [ngClass]="{ close: !sidebarOpen }" >
 
-<div class="flex justify-content-between imgCont" [class.imgContDiv]="!sidebarOpen">
-  <img src="assets/images/group.png" style="height: 24px;" [class.smallImg]="!sidebarOpen"/>
+<div class="flex justify-content-between imgCont" [class.imgContDiv]="!sidebarOpen" *ngIf="sidebarOpen">
+  <img src="assets/images/group.png" style="height: 24px;" [class.smallImg]="!sidebarOpen" *ngIf="sidebarOpen"/>
   <div >
     <i
       class="pi pi-align-justify switch"
       (click)="toggleSidebar()"
     ></i>
   </div>
+
+</div>
+<div class="flex justify-content-center arrowIconDiv" [class.imgContDiv]="!sidebarOpen" *ngIf="!sidebarOpen"  (click)="toggleSidebar()">
+  <i class="pi pi-angle-double-right arrowIcon"      
+  ></i>
 
 </div>
 

@@ -44,16 +44,35 @@
   text-align: center;
   line-height: 50px;
 }
+.arrowIconDiv{
+  border-radius: 50% 50%;
+  border: 1px solid #ddd;
+  height: 38px;
+  width: 37px;
+  margin-left: 7px;
+  display: flex !important;
+  margin-top: 11px;
+  align-items: center;
+  cursor: pointer;
+}
+.arrowIcon{
+  color: #fff;
+  cursor: pointer;
+}
 
 .smallImg{
   height: 19px;
+  
   width: 42px;
 }
 .imgCont{
   padding: 22px 10px;
+  text-align: center;
 }
 .imgContDiv {
   padding: 16px 4px;
+  text-align: center;
+
   }
 .sidebar .logo-details .logo_name{
   font-size: 22px;
