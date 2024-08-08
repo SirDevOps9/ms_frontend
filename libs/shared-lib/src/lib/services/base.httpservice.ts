@@ -9,6 +9,8 @@ import { ToasterService } from './toaster.service';
 import { EnvironmentService } from './environment.service';
 import { DefaultExceptionModel } from '../models';
 import { UploadFileResult } from '../models/uploadFileResult';
+import { transcode } from 'buffer';
+import { LanguageService } from 'shared-lib';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +23,8 @@ export class HttpService {
     protected storageService: StorageService,
     private logService: LogService,
     private toasterService: ToasterService,
-    private environmentService: EnvironmentService
+    private environmentService : EnvironmentService,
+    private languageService : LanguageService
   ) {}
 
   private addHeaders(): HttpHeaders {
@@ -193,7 +196,7 @@ export class HttpService {
         if (showError && exceptionModel.validationErrors) {
           for (let index = 0; index < exceptionModel.validationErrors!.length; index++) {
             this.toasterService.showError(
-              exceptionModel.message,
+              "Error",
               exceptionModel.validationErrors![index].errorMessages[0]
             );
           }
