@@ -59,7 +59,8 @@ export class EditBankDefinitionComponent implements OnInit {
       if (r) {
 
         this.bankForm.at(index)?.get('glAccountId')?.setValue(r.id);
-        this.bankForm.at(index)?.get('displayName')?.setValue(`${r.name} (${r.accountCode})`);
+        this.bankForm.at(index)?.get('accountName')?.setValue(r.name);
+        this.bankForm.at(index)?.get('displayName')?.setValue(r.accountCode);
       
       }
     });
@@ -80,10 +81,10 @@ export class EditBankDefinitionComponent implements OnInit {
             currencyId: elem.currencyId,
             openingBalance: elem.openingBalance,
             currentBalance : null,
-            accountName :null ,
+            accountName : elem.glAccountName,
             currencyName : null ,
             branchName : null,
-            displayName : elem.glAccountName  ,
+            displayName : elem.glAccountCode,
             userPermission: [elem.userPermission],
             userPermissionName : '',
             branches: [elem.branches]
@@ -126,7 +127,7 @@ export class EditBankDefinitionComponent implements OnInit {
     console.log(accountData)
     bankLine.get('accountCode')?.setValue(accountData?.accountCode);
     if(accountData!=null)
-    bankLine.get('displayName')?.setValue(`${accountData?.name} (${accountData?.accountCode})`);
+    bankLine.get('displayName')?.setValue(`${accountData?.name}`);
     this.GetAccountOpeningBalance(event ,id)
     console.log(this.items.value)
   }
@@ -135,9 +136,9 @@ export class EditBankDefinitionComponent implements OnInit {
       id : 0 ,
       accountNumber:  new FormControl('', Validators.required),
       glAccountId: null,
-      iban: null,
+      iban: new FormControl('', Validators.required),
       currencyId: null,
-      openingBalance: null,
+      openingBalance: new FormControl('', Validators.required),
       currentBalance : null,
       accountName :null ,
       currencyName : null ,

@@ -117,6 +117,7 @@
               <tr>
                 <th>{{ 'bank.accountNumber' | translate }}</th>
                 <th>{{ 'bank.glAccountCode' | translate }}</th>
+                <th>{{ 'bank.accountName' | translate }}</th>
                 <th>{{ 'bank.branch' | translate }}</th>
                 <th>{{ 'bank.Iban' | translate }}</th>
                 <th>{{ 'bank.currency' | translate }}</th>
@@ -173,12 +174,13 @@
                       </div>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{ bankGroup.controls['displayName']?.value }}
+                      {{ bankGroup.controls['accountCode']?.value }}
                     </ng-template>
                   </p-cellEditor>
                 </td>
                 <!--  -->
-               
+                {{ bankGroup.controls['accountName'].value }}
+
                 <!--  -->
   
                 <td
