@@ -111,7 +111,6 @@ const routes: Routes = [
           },
         ]
         },
-      },
       {
         path: 'add-payment-term',
         component: AddPaymentTermComponent,
@@ -168,8 +167,7 @@ const routes: Routes = [
     AddPaymentTermComponent,
     EditPaymentTermComponent,
     MainBankDefinitionComponent,
-    MainPaymentTermComponent
-    EditPaymentTermComponent,
+    MainPaymentTermComponent,
     PaymentMethodListComponent,
     AddPaymentMethodComponent,
     EditPaymentMethodComponent

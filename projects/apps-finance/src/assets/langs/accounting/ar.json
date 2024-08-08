@@ -282,5 +282,31 @@
     "confirm": "تأكيد",
     "cancel": "إلغاء",
     "submit": "تأكيد"
+  },
+  "paymentmethod": {
+    "payment-term-list": "Payment Term List",
+    "code": "Code",
+    "name": "Name",
+    "PaymentPlace": "Payment Place",
+    "PaymentMethodType": "Payment Method Type",
+    "Search": "Search",
+    "AddNew": "Add New"
+  },
+  "add-paymentMethod": {
+    "title": "Add Payment Method",
+    "code": "Code",
+    "name": "Name",
+    "paymentPlace": "Payment Place",
+    "paymentMethodType": "Payment Method Type",
+    "Related Bank": "Related Bank",
+    "BankAccount": "Bank Account",
+    "Currency": "Currency",
+    "CommissionType": "Commission Type",
+    "CommissionValue": "Commission Value",
+    "CommissionAccount": "Commission Account",
+    "AllowVAT": "Allow VAT",
+    "edit":"Payment Method Edited Successfully",
+    "add":"Payment Method Added Successfully"	
   }
+
 }
