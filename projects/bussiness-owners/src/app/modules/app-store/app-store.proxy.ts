@@ -19,7 +19,7 @@ export class AppStoreProxy {
   }
 
   addToCart(model: AddToCartDto): Observable<any> {
-    return this.httpService.post<any>('Cart', model);
+    return this.httpService.post<any>('Cart', model, false);
   }
   getFromCart(id: string): Observable<CartItemDto> {
     return this.httpService.get<CartItemDto>('Cart/GetCartItem/' + id, true);
