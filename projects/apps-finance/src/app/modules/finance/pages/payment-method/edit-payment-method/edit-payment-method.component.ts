@@ -6,6 +6,7 @@ import { AddPaymentMethodDto, paymentplace } from '../../../models';
 import { FinanceService } from '../../../finance.service';
 import { SharedFinanceEnums } from '../../../models/shared-finance-enums';
 import { ActivatedRoute } from '@angular/router';
+import { GetPaymentMethodByIdDto } from '../../../models/get-payment-method-by-id-dto';
 
 @Component({
   selector: 'app-edit-payment-method',
@@ -16,6 +17,7 @@ export class EditPaymentMethodComponent implements OnInit {
   PaymentMethodForm: FormGroup;
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
+
   paymentPlaceOptions = [
     { label: 'Treasury', value: 'Treasury' },
     { label: 'Bank', value: 'Bank' }
@@ -47,7 +49,7 @@ export class EditPaymentMethodComponent implements OnInit {
  
   accountsList: { id: number; name: string }[];
   BankList: { id: number; name: string }[];
-  BankAccountList: BankAccountWithCurrency[];
+  BankAccountList: BankAccountWithCurrency[] = [];
   paymentplaceEnum: paymentplace;
   id: number = this.route.snapshot.params['id']
 
@@ -60,6 +62,7 @@ export class EditPaymentMethodComponent implements OnInit {
               private languageService: LanguageService,
               private route : ActivatedRoute,
               public sharedFinanceEnum: SharedFinanceEnums) {
+
     this.PaymentMethodForm = fb.group({
       id: new FormControl(null),
       code: new FormControl(null),
@@ -124,17 +127,23 @@ export class EditPaymentMethodComponent implements OnInit {
         name: res.name,
         paymentPlace: res.paymentPlace,
         paymentMethodType: res.paymentMethodType,
-        paymentMethodCommissionData: {
-          bankId: res.paymentMethodCommissionData.bankId,
-          bankAccountId: res.paymentMethodCommissionData.bankAccountId,
-          commissionType: res.paymentMethodCommissionData.commissionType,
-          commissionValue: res.paymentMethodCommissionData.commissionValue,
-          commissionAccountId: res.paymentMethodCommissionData.commissionAccountId,
-          allowVAT: res.paymentMethodCommissionData.allowVAT
-        }
+         paymentMethodCommissionData: {
+           bankId: res.paymentMethodCommissionData.bankId,
+           bankAccountId: res.paymentMethodCommissionData.bankAccountId,
+           commissionType: res.paymentMethodCommissionData.commissionType,
+           commissionValue: res.paymentMethodCommissionData.commissionValue,
+           commissionAccountId: res.paymentMethodCommissionData.commissionAccountId,
+           allowVAT: res.paymentMethodCommissionData.allowVAT
+         }
       });
     
     })
+   
+      const selectedAccount = this.BankAccountList.find(account => account.id === this.PaymentMethodForm.get('paymentMethodCommissionData.bankAccountId')?.value);
+      if (selectedAccount) {
+        this.PaymentMethodForm.get('paymentMethodCommissionData.currency')!.setValue(selectedAccount.currencyName);
+      }
+    
   }
 
   discard() {
@@ -247,12 +256,12 @@ export class EditPaymentMethodComponent implements OnInit {
   }
 
   onSave() {
-    const formData = this.PaymentMethodForm.value as AddPaymentMethodDto;
+    const formData = this.PaymentMethodForm.value as GetPaymentMethodByIdDto;
     console.log("sandra",formData);
 
     if (!this.formsService.validForm(this.PaymentMethodForm, false)) return;
   
-   this.financeService.addPaymentMethod(formData);
+   this.financeService.editPaymentMethod(formData);
   }
 }
 

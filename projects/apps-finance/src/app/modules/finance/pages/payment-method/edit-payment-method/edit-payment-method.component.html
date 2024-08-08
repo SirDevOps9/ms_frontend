@@ -30,13 +30,14 @@
             <lib-label [appControl]="PaymentMethodForm.controls['paymentPlace']">
               {{ 'add-paymentMethod.paymentPlace' | translate }}
             </lib-label>
-            <lib-select
+             <lib-select
               formControlName="paymentPlace"
               [options]="paymentPlaceOptions"
+              [selectedValue]="PaymentMethodForm.controls['paymentPlace'].value"
               optionValue="value"
               optionLabel="label"
             >
-            </lib-select>
+            </lib-select> 
             <lib-field-validations [appControl]="PaymentMethodForm.controls['paymentPlace']"></lib-field-validations>
           </lib-form-group>
         </div>
@@ -48,6 +49,7 @@
             <lib-select
               formControlName="paymentMethodType"
               [options]="paymentMethodType"
+              [selectedValue]="PaymentMethodForm.controls['paymentMethodType'].value"
               optionValue="value"
               optionLabel="label"
             >
@@ -70,6 +72,7 @@
                       [options]="BankList"
                       optionLabel="name"
                       optionValue="id"
+                      [selectedValue]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('bankId')!.value"
                       [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury"
                     >
                     </lib-select>
@@ -86,6 +89,7 @@
                       [options]="BankAccountList"
                       optionLabel="accountNumber"
                       optionValue="id"
+                      [selectedValue]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('bankAccountId')!.value"
                       [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury"
                     >
                     </lib-select>
@@ -125,6 +129,7 @@
                       [options]="commissionTypeOptions"
                       optionValue="value"
                       optionLabel="label"
+                      [selectedValue]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('commissionType')!.value"
                       [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury"
                     >
                     </lib-select>

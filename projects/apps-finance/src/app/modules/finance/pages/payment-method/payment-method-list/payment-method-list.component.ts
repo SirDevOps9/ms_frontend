@@ -92,7 +92,7 @@ export class PaymentMethodListComponent implements OnInit {
   }
 
   onDelete(id: number) {
-    this.financeService.deletePaymentTerm(id);
+    this.financeService.deletePaymentMethod(id);
   }
 
 }

@@ -371,4 +371,16 @@ export class FinanceService {
       }
     })
   }
+  editPaymentMethod(obj : any) {
+    this.financeProxy.editPaymentMethod(obj).subscribe(res=>{
+      if(res) {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('success'),
+          this.languageService.transalte('add-paymentterm.edit')
+        );
+        this.routerService.navigateTo('/masterdata/payment-method')
+        
+      }
+    })
+  }
 }

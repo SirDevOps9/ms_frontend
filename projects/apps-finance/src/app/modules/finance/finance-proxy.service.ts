@@ -172,4 +172,8 @@ export class FinanceProxyService {
   getPaymentMethodByID(id:number) : Observable<GetPaymentMethodByIdDto> {
     return this.httpService.get(`PaymentMethod/${id}`)
   }
+  editPaymentMethod(  obj : GetPaymentMethodByIdDto) : Observable<boolean> {
+    return this.httpService.put(`PaymentMethod` , obj);
+
+  }
 }
