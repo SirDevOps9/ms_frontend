@@ -238,7 +238,9 @@
     "CommissionType": "Commission Type",
     "CommissionValue": "Commission Value",
     "CommissionAccount": "Commission Account",
-    "AllowVAT": "Allow VAT"
+    "AllowVAT": "Allow VAT",
+    "edit":"Payment Method Edited Successfully",
+    "add":"Payment Method Added Successfully"	
   }
 
 }

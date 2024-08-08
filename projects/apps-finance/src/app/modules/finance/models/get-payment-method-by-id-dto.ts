@@ -1,4 +1,3 @@
-import { paymentMethodCommissionData } from "./add-payment-method-dto";
 
 export interface GetPaymentMethodByIdDto {
     id: number,
@@ -6,6 +5,15 @@ export interface GetPaymentMethodByIdDto {
     name: string,
     paymentPlace: string,
     paymentMethodType: string,
-    paymentMethodCommissionData:paymentMethodCommissionData
+    paymentMethodCommissionData:getpaymentMethodCommissionData
     }
+    export interface getpaymentMethodCommissionData {
+        bankId: number,
+        bankAccountId: number,
+        commissionType: string,
+        commissionValue: number,
+        commissionAccountId: number,
+        allowVAT: boolean,
+        currencyName: string
+      }
     

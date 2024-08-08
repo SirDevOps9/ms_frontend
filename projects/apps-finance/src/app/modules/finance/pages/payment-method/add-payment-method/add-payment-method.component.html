@@ -101,7 +101,7 @@
                     <lib-text-input 
                       type="text" 
                       formControlName="currency" 
-                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury" 
+                      [readOnly]="true" 
                     />
                     <lib-field-validations [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('currency')"></lib-field-validations>
                   </lib-form-group>

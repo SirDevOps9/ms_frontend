@@ -356,7 +356,7 @@ export class FinanceService {
       if(res) {
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
-          this.languageService.transalte('add-paymentterm.add')
+          this.languageService.transalte('add-paymentMethod.add')
         );
         this.routerService.navigateTo('/masterdata/payment-method')
         
@@ -376,7 +376,7 @@ export class FinanceService {
       if(res) {
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
-          this.languageService.transalte('add-paymentterm.edit')
+          this.languageService.transalte('add-paymentMethod.edit')
         );
         this.routerService.navigateTo('/masterdata/payment-method')
         

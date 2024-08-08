@@ -119,7 +119,6 @@ export class EditPaymentMethodComponent implements OnInit {
   getPaymentMethodInfoById(id:number) {
     this.financeService.getPaymentMethodByID(id)
     this.financeService.sendPaymentMethodByIDObservable.subscribe(res=>{
-  
       this.PaymentMethodForm.patchValue({
 
         id: res.id,
@@ -128,22 +127,16 @@ export class EditPaymentMethodComponent implements OnInit {
         paymentPlace: res.paymentPlace,
         paymentMethodType: res.paymentMethodType,
          paymentMethodCommissionData: {
-           bankId: res.paymentMethodCommissionData.bankId,
-           bankAccountId: res.paymentMethodCommissionData.bankAccountId,
-           commissionType: res.paymentMethodCommissionData.commissionType,
-           commissionValue: res.paymentMethodCommissionData.commissionValue,
-           commissionAccountId: res.paymentMethodCommissionData.commissionAccountId,
-           allowVAT: res.paymentMethodCommissionData.allowVAT
+          bankId: res.paymentMethodCommissionData?.bankId ,
+          bankAccountId: res.paymentMethodCommissionData?.bankAccountId ,
+          commissionType: res.paymentMethodCommissionData?.commissionType ,
+          commissionValue: res.paymentMethodCommissionData?.commissionValue ,
+          commissionAccountId: res.paymentMethodCommissionData?.commissionAccountId ,
+          allowVAT: res.paymentMethodCommissionData?.allowVAT ,
+          currency: res.paymentMethodCommissionData?.currencyName
          }
       });
-    
     })
-   
-      const selectedAccount = this.BankAccountList.find(account => account.id === this.PaymentMethodForm.get('paymentMethodCommissionData.bankAccountId')?.value);
-      if (selectedAccount) {
-        this.PaymentMethodForm.get('paymentMethodCommissionData.currency')!.setValue(selectedAccount.currencyName);
-      }
-    
   }
 
   discard() {
@@ -180,6 +173,7 @@ export class EditPaymentMethodComponent implements OnInit {
       this.resetCommissionFields();
       bankInfoGroup!.disable();
       commissionInfoGroup!.disable();
+      this.PaymentMethodForm.get('paymentMethodCommissionData')?.setValue(null)
     } else if (paymentPlace === 'Bank') {
       this.paymentMethodType = this.bankPaymentMethodType;
       paymentMethodControl!.setValue(null);
@@ -202,12 +196,11 @@ export class EditPaymentMethodComponent implements OnInit {
 
   private disableBankFields() {
     const bankInfoGroup = this.PaymentMethodForm.get('paymentMethodCommissionData');
-    bankInfoGroup!.get('bankId')!.disable();
-    bankInfoGroup!.get('bankAccountId')!.disable();
-    bankInfoGroup!.get('currency')!.disable();
-    bankInfoGroup!.get('bankId')!.reset();
-    bankInfoGroup!.get('bankAccountId')!.reset();
-    bankInfoGroup!.get('currency')!.reset();
+    console.log(bankInfoGroup);
+    bankInfoGroup!.get('bankId')!.setValue(null);
+    console.log(bankInfoGroup!.get('bankId'));
+    bankInfoGroup!.get('bankAccountId')!.setValue(null);
+    bankInfoGroup!.get('currency')!.setValue(null);
   }
 
   private enableBankFields() {
@@ -262,6 +255,15 @@ export class EditPaymentMethodComponent implements OnInit {
     if (!this.formsService.validForm(this.PaymentMethodForm, false)) return;
   
    this.financeService.editPaymentMethod(formData);
+  }
+  changebankaccount(e: any) 
+  {
+      const selectedAccount = this.BankAccountList.find(account => account.id === e);
+      console.log("selectedAccount", selectedAccount)
+      if (selectedAccount) {
+        this.PaymentMethodForm.get('paymentMethodCommissionData.currency')!.setValue(selectedAccount.currencyName);
+      }
+    
   }
 }
 

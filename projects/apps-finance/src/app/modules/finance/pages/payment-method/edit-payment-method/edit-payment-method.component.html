@@ -89,6 +89,7 @@
                       [options]="BankAccountList"
                       optionLabel="accountNumber"
                       optionValue="id"
+                      (valueChanged)="changebankaccount($event)"
                       [selectedValue]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('bankAccountId')!.value"
                       [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury"
                     >
@@ -159,6 +160,7 @@
                       [options]="accountsList"
                       optionLabel="name"
                       optionValue="id"
+                      [selectedValue]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('commissionAccountId')!.value"
                       [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury"
                     >
                     </lib-select>
