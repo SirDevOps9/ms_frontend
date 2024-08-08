@@ -1,5 +1,5 @@
 <lib-page-content>
-  <lib-bread-crumb>
+  <div class="page_content_header">
     <div class="actions">
       <lib-button-micro
       [title]="'ChartOfAccount.Configration' | translate"
@@ -28,7 +28,7 @@
         <i class="pi pi-sitemap"></i>
       </button>
     </div>
-  </lib-bread-crumb>
+  </div>
   <div class="main_chat_of_account">
     <app-chart-of-account-tree
       *ngIf="!Viewlist"
