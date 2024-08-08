@@ -184,6 +184,8 @@
     "discard" : "Discard",
     "save" : "Save",
     "addTreasury":"Add Treasury",
+    "editTreasury":"Edit Treasury",
+    "treasuryList": "Treasury List",
     "confirm" : "the opening balance of journal not equal treasury opening balance, do you want to Continue ?"
   },
   "deleteTreasury" : {
@@ -201,6 +203,8 @@
   },
   "paymentterm": {
     "payment-term-list": "Payment Term List",
+    "AddPaymentTerm":"Add Payment Term",
+    "EditPaymentTerm":"Edit Payment Term",
     "code": "Code",
     "name": "Name",
     "term-type": "Term Type",
@@ -263,7 +267,10 @@
    "ChangeColumn":"Change Columns",
     "discard": "discard",
     "save": "Save",
-    "success" : "Success"
+    "success" : "Success",
+    "AddBank":"Add Bank",
+    "EditBank":"Edit Bank",
+    "BankDefinitonsList":"Bank Definitons List"
 
   },
   "deleteBank" : {
@@ -279,6 +286,7 @@
     "edit" : "Bank Definition Edited Successfully"
   },
   "confirm": {
+    "confirm":"confirm",
     "cancel": "Cancel",
     "submit": "Submit"
   }

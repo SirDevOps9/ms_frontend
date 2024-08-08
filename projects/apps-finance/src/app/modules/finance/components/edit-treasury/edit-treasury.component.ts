@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LayoutService } from 'apps-shared-lib';
 import { DynamicDialogConfig, DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { customValidators, FormsService, MenuModule } from 'shared-lib';
+import { customValidators, FormsService, LanguageService, MenuModule } from 'shared-lib';
 import { CurrencyService } from '../../../general/currency.service';
 import { FinanceService } from '../../finance.service';
-import { BranchDto } from 'projects/bussiness-owners/src/app/modules/company/models';
 import { CurrencyDto } from '../../../general/models/currencyDto';
-import { AddTreasuryDto, EditTreasuryDto, GetTreasuryDtoById } from '../../models';
+import { EditTreasuryDto, GetTreasuryDtoById } from '../../models';
 import { ConfirmComponent } from '../confirm/confirm.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-treasury',
@@ -33,8 +33,13 @@ export class EditTreasuryComponent implements OnInit {
     private formsService: FormsService,
     private currencyService: CurrencyService,
     private financeService: FinanceService,
+    private title: Title,
+    private langService: LanguageService,
     private dialog: DialogService
-  ) {}
+  ) {
+    this.title.setTitle(this.langService.transalte('treasury.editTreasury'));
+
+  }
 
   ngOnInit() {
     this.initializeTreasuryForm();

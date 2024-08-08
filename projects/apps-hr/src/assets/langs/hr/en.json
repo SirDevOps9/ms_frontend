@@ -29,11 +29,11 @@
     "MyPlan": "My Plan",
     "AppStore": "App store"
   },
-  "Employee":{
-    "Success":"Success",
-    "EmployeeAddedSuccessfully":"Employee Added Successfully",
-    "EmployeeEditedSuccessfully":"Employee Edited Successfully",
-    "EmployeeDeletedSuccessfully":"Employee Deleted Successfully",
+  "Employee": {
+    "Success": "Success",
+    "EmployeeAddedSuccessfully": "Employee Added Successfully",
+    "EmployeeEditedSuccessfully": "Employee Edited Successfully",
+    "EmployeeDeletedSuccessfully": "Employee Deleted Successfully",
     "PersonalInfo": "Personal Information",
     "ContactInfo": "Contact Information",
     "AcademicInfo": "Academic Information",
@@ -54,7 +54,7 @@
     "MilitaryInfo": "Military Information",
     "SpecialCare": "Special Care",
 
-    "Add":{
+    "Add": {
       "AddEmployee": "Add Employee",
       "EmployeeCode": "Employee Code",
       "AttendanceCode": "Attendance Code",
@@ -62,7 +62,7 @@
       "EmployeePhoto": "Employee Photo",
       "BirthDate": "Birth Date",
       "CountryOfBirth": "Country of Birth",
-      "Age":"Age",
+      "Age": "Age",
       "BirthCity": "Birth City",
       "Nationality": "Nationality",
       "Gender": "Gender",
@@ -75,7 +75,7 @@
       "Discard": "Discard",
       "Save": "Save"
     },
-    "Edit":{
+    "Edit": {
       "AddEmployee": "Add Employee",
       "EmployeeCode": "Employee Code",
       "AttendanceCode": "Attendance Code",
@@ -83,7 +83,7 @@
       "EmployeePhoto": "Employee Photo",
       "BirthDate": "Birth Date",
       "CountryOfBirth": "Country of Birth",
-      "Age":"Age",
+      "Age": "Age",
       "BirthCity": "Birth City",
       "Nationality": "Nationality",
       "Gender": "Gender",
@@ -117,11 +117,15 @@
       "Discard": "Discard",
       "Save": "Save"
     },
-    "List":{
-      "Employees":"Employees",
-      "Code":"Code",
-      "Name":"Name",
-      "AttendanceCode":"Attendance Code"
+    "List": {
+      "Employees": "Employees",
+      "Code": "Code",
+      "Name": "Name",
+      "AttendanceCode": "Attendance Code",
+      "Add": "Add",
+      "Search": "Search...",
+      "Actions": "Actions"
+
     }
   }
 }
