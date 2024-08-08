@@ -10,6 +10,7 @@ import { bankByID } from './models/getBankByID';
 import { AddPaymentTermComponent } from './pages/payment-term/add-payment-term/add-payment-term.component';
 import { GetPaymentTermById } from './models/get-payment-term-by-id-dto';
 import { BankAccountWithCurrency } from './models/bank-account-with-currency-dto';
+import { GetPaymentMethodByIdDto } from './models/get-payment-method-by-id-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -167,5 +168,8 @@ export class FinanceProxyService {
   addPaymentMethod(obj : AddPaymentMethodDto) {
     return this.httpService.post('PaymentMethod' , obj)
 
+  }
+  getPaymentMethodByID(id:number) : Observable<GetPaymentMethodByIdDto> {
+    return this.httpService.get(`PaymentMethod/${id}`)
   }
 }

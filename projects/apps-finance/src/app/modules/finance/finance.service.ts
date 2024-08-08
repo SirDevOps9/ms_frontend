@@ -11,6 +11,7 @@ import { AddBankDto } from './models/addBankDto';
 import { UserPermission } from './models/user-permission';
 import { bankByID } from './models/getBankByID';
 import { GetPaymentTermById } from './models/get-payment-term-by-id-dto';
+import { GetPaymentMethodByIdDto } from './models/get-payment-method-by-id-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,8 @@ export class FinanceService {
   public sendPaymentTermByID = new BehaviorSubject<GetPaymentTermById>({} as GetPaymentTermById)
   public paymentMethodDataSource = new BehaviorSubject<PaymentMethodDto[]>([])
   public exportedpaymentMethodListDataSource = new BehaviorSubject<PaymentMethodDto[]>([]);
+  public sendPaymentMethodByID = new BehaviorSubject<GetPaymentMethodByIdDto>({} as GetPaymentMethodByIdDto)
+
 
 
 
@@ -53,6 +56,8 @@ export class FinanceService {
   sendPaymentTermByIDObservable = this.sendPaymentTermByID.asObservable()
   paymentMethodDataSourceObservable = this.paymentMethodDataSource.asObservable()
   exportedPaymentMethodDataSourceObservable = this.exportedpaymentMethodListDataSource.asObservable()
+  sendPaymentMethodByIDObservable = this.sendPaymentMethodByID.asObservable()
+
   
 
 
@@ -354,6 +359,14 @@ export class FinanceService {
           this.languageService.transalte('add-paymentterm.add')
         );
         this.routerService.navigateTo('/masterdata/payment-method')
+        
+      }
+    })
+  }
+  getPaymentMethodByID(id : number) {
+    this.financeProxy.getPaymentMethodByID(id).subscribe(res=>{
+      if(res) {
+       this.sendPaymentMethodByID.next(res)
         
       }
     })

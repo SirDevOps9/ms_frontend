@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { customValidators, FormsService, LanguageService, lookupDto, LookupEnum, LookupsService, RouterService, ToasterService } from 'shared-lib';
-import { FinanceService } from '../../../finance.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { AddPaymentMethodDto, paymentmethodtype, paymentplace } from '../../../models';
-import { SharedFinanceEnums } from '../../../models/shared-finance-enums';
+import { customValidators, FormsService, LanguageService, lookupDto, LookupEnum, LookupsService, RouterService, ToasterService } from 'shared-lib';
 import { BankAccountWithCurrency } from '../../../models/bank-account-with-currency-dto';
+import { AddPaymentMethodDto, paymentplace } from '../../../models';
+import { FinanceService } from '../../../finance.service';
+import { SharedFinanceEnums } from '../../../models/shared-finance-enums';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-add-payment-method',
-  templateUrl: './add-payment-method.component.html',
-  styleUrls: ['./add-payment-method.component.scss']
+  selector: 'app-edit-payment-method',
+  templateUrl: './edit-payment-method.component.html',
+  styleUrls: ['./edit-payment-method.component.scss']
 })
-export class AddPaymentMethodComponent implements OnInit {
-
+export class EditPaymentMethodComponent implements OnInit {
   PaymentMethodForm: FormGroup;
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
@@ -49,6 +49,7 @@ export class AddPaymentMethodComponent implements OnInit {
   BankList: { id: number; name: string }[];
   BankAccountList: BankAccountWithCurrency[];
   paymentplaceEnum: paymentplace;
+  id: number = this.route.snapshot.params['id']
 
   constructor(private fb: FormBuilder,
               private financeService: FinanceService,
@@ -57,8 +58,10 @@ export class AddPaymentMethodComponent implements OnInit {
               private lookupsService: LookupsService,
               private toasterService: ToasterService,
               private languageService: LanguageService,
+              private route : ActivatedRoute,
               public sharedFinanceEnum: SharedFinanceEnums) {
     this.PaymentMethodForm = fb.group({
+      id: new FormControl(null),
       code: new FormControl(null),
       name: new FormControl('', [customValidators.required]),
       paymentPlace: new FormControl('', [customValidators.required]),
@@ -78,6 +81,7 @@ export class AddPaymentMethodComponent implements OnInit {
   ngOnInit() {
     this.getChildrenAccountsDropDownLookup();
     this.getBankDropDown();
+    this.getPaymentMethodInfoById(this.id);
 
     this.PaymentMethodForm.get('paymentPlace')!.valueChanges.subscribe(value => {
       this.onPaymentPlaceChange(value);
@@ -107,6 +111,30 @@ export class AddPaymentMethodComponent implements OnInit {
       this.PaymentMethodForm.get('paymentMethodCommissionData.commissionAccountId')!.updateValueAndValidity();
       this.PaymentMethodForm.get('paymentMethodCommissionData.commissionValue')!.updateValueAndValidity();
     });
+  }
+
+  getPaymentMethodInfoById(id:number) {
+    this.financeService.getPaymentMethodByID(id)
+    this.financeService.sendPaymentMethodByIDObservable.subscribe(res=>{
+  
+      this.PaymentMethodForm.patchValue({
+
+        id: res.id,
+        code: res.code,
+        name: res.name,
+        paymentPlace: res.paymentPlace,
+        paymentMethodType: res.paymentMethodType,
+        paymentMethodCommissionData: {
+          bankId: res.paymentMethodCommissionData.bankId,
+          bankAccountId: res.paymentMethodCommissionData.bankAccountId,
+          commissionType: res.paymentMethodCommissionData.commissionType,
+          commissionValue: res.paymentMethodCommissionData.commissionValue,
+          commissionAccountId: res.paymentMethodCommissionData.commissionAccountId,
+          allowVAT: res.paymentMethodCommissionData.allowVAT
+        }
+      });
+    
+    })
   }
 
   discard() {
@@ -227,3 +255,4 @@ export class AddPaymentMethodComponent implements OnInit {
    this.financeService.addPaymentMethod(formData);
   }
 }
+

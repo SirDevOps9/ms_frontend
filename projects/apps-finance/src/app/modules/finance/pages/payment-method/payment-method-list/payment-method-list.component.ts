@@ -78,7 +78,7 @@ export class PaymentMethodListComponent implements OnInit {
   }
 
   onEdit(data: any) {
-    this.routerService.navigateTo(`/masterdata/edit-payment-term/${data.id}`);
+    this.routerService.navigateTo(`/masterdata/edit-payment-method/${data.id}`);
   }
 
   onSearchChange() {
