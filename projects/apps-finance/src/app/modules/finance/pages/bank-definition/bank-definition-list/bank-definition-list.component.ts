@@ -96,11 +96,11 @@ export class BankDefinitionListComponent implements OnInit {
   }
 
   onAdd() {
-  this.routerService.navigateTo('/masterdata/add-bank-definition')
+  this.routerService.navigateTo('/masterdata/bank-definition/add-bank-definition')
   }
 
   onEdit(data: any) {
-          this.routerService.navigateTo(`/masterdata/edit-bank-definition/${data.id}`);
+          this.routerService.navigateTo(`/masterdata/bank-definition/edit-bank-definition/${data.id}`);
 
 
   }

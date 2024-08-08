@@ -1,13 +1,11 @@
-<lib-page-content>
-    <lib-bread-crumb></lib-bread-crumb>
-  
+<lib-page-content>  
     <div class="chart_add_page">
       <form [formGroup]="formGroup">
         <div class="grid">
           <div class="md:col-4">
             <lib-form-group>
               <lib-label [appControl]="formGroup.controls['code']">
-                {{ 'vendorCategory.categoryCode' | translate }}
+                {{ 'CustomerCategory.categoryCode' | translate }}
               </lib-label>
               <lib-text-input type="text" [readOnly]="true" formControlName="code" />
             </lib-form-group>
@@ -16,7 +14,7 @@
           <div class="md:col-4">
             <lib-form-group>
               <lib-label [appControl]="formGroup.controls['name']">
-                {{ 'vendorCategory.categoryName' | translate }}
+                {{ 'CustomerCategory.categoryName' | translate }}
               </lib-label>
               <lib-text-input type="text" formControlName="name" />
               <lib-field-validations [appControl]="formGroup.controls['name']">
@@ -27,7 +25,7 @@
           <div class="md:col-4">
             <lib-form-group>
               <lib-label [appControl]="formGroup.controls['receivableAccountId']">
-                {{ 'vendorCategory.recievableGlAccount' | translate }}
+                {{ 'CustomerCategory.recievableGlAccount' | translate }}
               </lib-label>
               <lib-select
                 formControlName="receivableAccountId"
@@ -44,7 +42,7 @@
           <div class="md:col-4">
             <lib-form-group>
               <lib-label [appControl]="formGroup.controls['salesAccountId']">
-                {{ 'vendorCategory.salesGlAccount' | translate }}
+                {{ 'CustomerCategory.salesGlAccount' | translate }}
               </lib-label>
               <lib-select
                 formControlName="salesAccountId"
@@ -60,7 +58,7 @@
           <div class="md:col-4">
             <lib-form-group>
               <lib-label [appControl]="formGroup.controls['salesReturnAccountId']">
-                {{ 'vendorCategory.salesReturnGlAccount' | translate }}
+                {{ 'CustomerCategory.salesReturnGlAccount' | translate }}
               </lib-label>
               <lib-select
                 formControlName="salesReturnAccountId"
@@ -76,7 +74,7 @@
           <div class="md:col-4">
             <lib-form-group>
               <lib-label [appControl]="formGroup.controls['discountAccountId']">
-                {{ 'vendorCategory.discountGlAccount' | translate }}
+                {{ 'CustomerCategory.discountGlAccount' | translate }}
               </lib-label>
               <lib-select
                 formControlName="discountAccountId"
@@ -92,7 +90,7 @@
           <div class="md:col-4">
             <lib-form-group>
               <lib-label [appControl]="formGroup.controls['priceListId']">
-                {{ 'vendorCategory.priceList' | translate }}
+                {{ 'CustomerCategory.priceList' | translate }}
               </lib-label>
               <lib-select
                 formControlName="priceListId"
@@ -108,7 +106,7 @@
           <div class="md:col-4">
             <lib-form-group>
               <lib-label [appControl]="formGroup.controls['paymentTermId']">
-                {{ 'vendorCategory.paymentTerms' | translate }}
+                {{ 'CustomerCategory.paymentTerms' | translate }}
               </lib-label>
               <lib-select
                 formControlName="paymentTermId"
@@ -124,7 +122,7 @@
           <div class="md:col-4">
             <lib-form-group>
               <lib-label [appControl]="formGroup.controls['marketType']">
-                {{ 'vendorCategory.marketType' | translate }}
+                {{ 'CustomerCategory.marketType' | translate }}
               </lib-label>
               <lib-select
                 formControlName="marketType"

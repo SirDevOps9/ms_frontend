@@ -1,37 +1,43 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, MaxLengthValidator, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  MaxLengthValidator,
+  Validators,
+} from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { FormsService, customValidators } from 'shared-lib';
+import { FormsService, LanguageService, customValidators } from 'shared-lib';
 import { GeneralSettingService } from '../../../general-setting.service';
 import { CountryDto } from '../../../models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-currency-definition',
   templateUrl: './edit-currency-definition.component.html',
-  styleUrl: './edit-currency-definition.component.scss'
+  styleUrl: './edit-currency-definition.component.scss',
 })
 export class EditCurrencyDefinitionComponent {
   olddata: any;
   editCurrencyForm: FormGroup;
   currencyId: number;
-  countries: CountryDto[] = []
+  countries: CountryDto[] = [];
   accountsList: { id: number; name: string }[] = [];
 
   constructor(
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
-    private formsService: FormsService ,
-    private generalSettingService :GeneralSettingService,
+    private formsService: FormsService,
+    private generalSettingService: GeneralSettingService,
     public config: DynamicDialogConfig,
-
-  
-  ) {}
+  ) {
+  }
   ngOnInit() {
-    this.currencyId=this.currentCurrencyId()
-    
+    this.currencyId = this.currentCurrencyId();
+
     this.getChildrenAccountsDropDown();
     this.loadCountries();
-    this.getCurrencyById(this.currencyId)
+    this.getCurrencyById(this.currencyId);
 
     this.initializeTagForm();
   }
@@ -41,22 +47,21 @@ export class EditCurrencyDefinitionComponent {
   initializeTagForm() {
     this.editCurrencyForm = this.fb.group({
       code: new FormControl(''),
-      name: new FormControl('', [customValidators.required,customValidators.length(1,50)]),
-      symbol: new FormControl('', [customValidators.required,customValidators.length(1,5)]),
-      subUnit: new FormControl('',[customValidators.length(1,25)]),
+      name: new FormControl('', [customValidators.required, customValidators.length(1, 50)]),
+      symbol: new FormControl('', [customValidators.required, customValidators.length(1, 5)]),
+      subUnit: new FormControl('', [customValidators.length(1, 25)]),
       countryCode: new FormControl('', [customValidators.required]),
       differenceAccount: new FormControl(null),
-        });
+    });
   }
 
   save() {
     if (!this.formsService.validForm(this.editCurrencyForm, false)) return;
     const currencyEdited = {
       ...this.editCurrencyForm.value,
-      id:this.currencyId
-    } 
-        this.generalSettingService.EditCurrency(currencyEdited, this.ref)      
-       
+      id: this.currencyId,
+    };
+    this.generalSettingService.EditCurrency(currencyEdited, this.ref);
   }
 
   close() {
@@ -65,29 +70,23 @@ export class EditCurrencyDefinitionComponent {
   loadCountries() {
     this.generalSettingService.loadCountries();
     this.generalSettingService.countries.subscribe({
-      next: (res:any) => {
+      next: (res: any) => {
         this.countries = res;
       },
     });
   }
-  getChildrenAccountsDropDown(){
-    this.generalSettingService.getChildrenAccountsDropDown()
-    this.generalSettingService.sendChildrenAccountsDropDownDataObservable.subscribe(res=>{
-      this.accountsList = res
-
-    })
+  getChildrenAccountsDropDown() {
+    this.generalSettingService.getChildrenAccountsDropDown();
+    this.generalSettingService.sendChildrenAccountsDropDownDataObservable.subscribe((res) => {
+      this.accountsList = res;
+    });
   }
-  getCurrencyById(id:number){
+  getCurrencyById(id: number) {
     this.generalSettingService.getCurrencyById(id);
-    this.generalSettingService.currencyDataByIDObservable.subscribe(res=>{
-      this.olddata=res
+    this.generalSettingService.currencyDataByIDObservable.subscribe((res) => {
+      this.olddata = res;
 
-      
-      this.editCurrencyForm.patchValue({ ...res })
-
-
-    })
+      this.editCurrencyForm.patchValue({ ...res });
+    });
   }
-
 }
-
