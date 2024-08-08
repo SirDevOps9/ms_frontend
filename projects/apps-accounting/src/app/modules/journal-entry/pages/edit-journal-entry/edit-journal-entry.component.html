@@ -160,7 +160,6 @@
                 </lib-field-validations>
               </td>
               <td class="hidden">{{journalLine.get('currencyId').value}}</td>
-             
               <td
                 [pEditableColumn]="journalLine.controls['debitAmount']"
                 pEditableColumnField="debitAmount"
@@ -220,11 +219,10 @@
               <td>
                 {{ journalLine.get('creditAmountLocal').value }}
               </td>
-
               <td>
                 <img class="costCenterImg" src="assets/images/Frame.png" (click)="openCostPopup(journalLine.value  , journalLine , journalLine.controls['accountId']?.value , rowIndex)">
               </td>
-              <td   *ngIf="
+              <td *ngIf="
               journalEntry?.status == enums.JournalEntryStatus.Unbalanced ||
               journalEntry?.status == enums.JournalEntryStatus.Draft
             ">

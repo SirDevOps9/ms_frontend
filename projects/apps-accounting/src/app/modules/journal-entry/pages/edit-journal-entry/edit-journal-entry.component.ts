@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {  Component, OnInit } from '@angular/core';
 import {
   EditJournalEntry,
   GetJournalEntryByIdDto,
@@ -64,7 +64,9 @@ export class EditJournalEntryComponent implements OnInit {
     this.initializeFormData();
     this.getCurrencies();
   }
-   
+  get journalEntryLinesFormArray() {
+    return this.editJournalForm.get('journalEntryLines') as FormArray;
+  }
   initializeForm() {
     this.editJournalForm = this.fb.group({
       journalCode: new FormControl(),
@@ -176,9 +178,6 @@ export class EditJournalEntryComponent implements OnInit {
     this.routerService.navigateTo(`/transcations/journalentry`);
   }
 
-  get journalEntryLinesFormArray() {
-    return this.editJournalForm.get('journalEntryLines') as FormArray;
-  }
 
   async deleteJournalEntryLine(index: number) {
     const journalLine = this.journalEntryLinesFormArray.at(index);
