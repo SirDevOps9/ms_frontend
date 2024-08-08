@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { FormsService, customValidators } from 'shared-lib';
+import { FormsService, LanguageService, customValidators } from 'shared-lib';
 import { GeneralSettingService } from '../../../general-setting.service';
 import { CountryDto } from '../../../models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-currency-conversion',
@@ -27,8 +28,8 @@ export class EditCurrencyConversionComponent {
     private generalSettingService: GeneralSettingService,
     public config: DynamicDialogConfig,
 
-
-  ) { }
+  ) {    
+  }
   ngOnInit() {
     this.currencyId = this.currentCurrencyId()
     this.getCurrencies();

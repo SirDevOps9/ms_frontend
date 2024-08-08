@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { RouterService, PageInfoResult, MenuModule, PageInfo, lookupDto, LanguageService } from 'shared-lib';
+import { RouterService, PageInfoResult, MenuModule, PageInfo, lookupDto } from 'shared-lib';
 import { FinanceService } from '../../../finance.service';
 import { TreasureDefinitionDto } from '../../../models/treasureDefinitionsDto';
 import { AddTreasuryComponent } from '../../../components/add-treasury/add-treasury.component';
 import { EditTreasuryComponent } from '../../../components/edit-treasury/edit-treasury.component';
 import { TaxDto } from '../../../../general/models';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-treaury-definition-list',
@@ -19,13 +18,8 @@ export class TreauryDefinitionListComponent implements OnInit {
     private routerService: RouterService,
     public authService: AuthService,
     private dialog: DialogService,
-    private financeService: FinanceService,
-    private title: Title,
-    private languageService:LanguageService
-  ) {
-    this.title.setTitle(this.languageService.transalte('treasury.treasuryList'));
-
-  }
+    private financeService: FinanceService
+  ) {}
 
   tableData: TreasureDefinitionDto[];
   exportData: TreasureDefinitionDto[];
@@ -108,7 +102,7 @@ export class TreauryDefinitionListComponent implements OnInit {
 
   onAdd() {
     const dialogRef = this.dialog.open(AddTreasuryComponent, {
-      header: this.languageService.transalte("treasury.addTreasury"),
+      header: 'Add Treasury',
       width: '600px',
       position: 'bottom-right', // Adjust position as needed
     });

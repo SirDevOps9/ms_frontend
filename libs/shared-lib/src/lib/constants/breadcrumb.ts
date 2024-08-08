@@ -20,13 +20,31 @@ export class BreadcrumbLabel {
   static readonly customer_list ='BreadCrumb.CustomerCategory';
   static readonly customer_add ='BreadCrumb.AddCustomerCategory';
   static readonly customer_edit ='BreadCrumb.EditCustomerCategory';
- 
+  static readonly BANK_LIST ='BreadCrumb.BankDefinition';
+  static readonly BANK_LIST_ADD ='BreadCrumb.AddBankDefinition';
+  static readonly BANK_LIST_EDIT ='BreadCrumb.EditBankDefinition';
+  static readonly PAYMENT_TERM_LIST ='BreadCrumb.PaymentTermList';
+  static readonly PAYMENT_TERM_Add ='BreadCrumb.AddPaymentTerm';
+  static readonly PAYMENT_TERM_Edit ='BreadCrumb.EditPaymentTerm';
+
+  static readonly TREASURY_LIST ='BreadCrumb.Treasury';
   static readonly vendor_list ='BreadCrumb.VendorCategory';
   static readonly vendor_Add ='BreadCrumb.AddVendorCategory';
   static readonly vendor_Edit ='BreadCrumb.EditVendorCategory';
   static readonly VENDOR_DEFINITIONS ='BreadCrumb.VendorDefinitions';
   static readonly ADD_VENDOR_DEFINITIONS ='BreadCrumb.AddVendorDefinition';
   static readonly EDIT_VENDOR_DEFINITIONS ='BreadCrumb.EditVendorDefinition';
+  static readonly calendar_list ='BreadCrumb.FinancialCalendar';
+  static readonly calendar_Add ='BreadCrumb.AddFinancialCalendar';
+  static readonly calendar_Edit ='BreadCrumb.EditFinancialCalendar';
+  static readonly CURRENCY_DEFINITION_LIST ='BreadCrumb.CurrencyDefinition';
+  static readonly CURRENCY_CONVERSION ='BreadCrumb.CurrencyConversion';
+  static readonly tag_list ='BreadCrumb.TagList';
+  static EMPLOYEE='BreadCrumb.Employees';
+  static EMPLOYEE_ADD='BreadCrumb.AddEmployee';
+  static EMPLOYEE_VIEW='BreadCrumb.ViewEmployee';
+  static EMPLOYEE_EDIT='BreadCrumb.EditEmployee';
+
 
     static SUBSCRIPTION ='Subscription'
     static USERS = 'Users';
@@ -47,13 +65,6 @@ export class BreadcrumbLabel {
     static LICENCE_INFO ='licence Info';
     static USER_INFO ='USER Info';
     static APP_INFO ='APP Info';
-    static tag_list ='Tag List';
-    static calendar_list ='Financial Calender';
-
-    static EMPLOYEE='Employees';
-    static EMPLOYEE_ADD='Add Employee';
-    static EMPLOYEE_VIEW='View Employee';
-    static EMPLOYEE_EDIT='Edit Employee';
     static Add_Tag ='Add Tag';
     static EDIT_ADDRESS ='Edit Address';
     static EDIT_BRANCHES ='Edit Branches';
@@ -63,8 +74,7 @@ export class BreadcrumbLabel {
     static ADD_CUSTOMER_OPENEING_BALANCE ='Add Customer Opening Balance';
     static CURRENCY_DEFINITION ='Currency Definition';
     static ADD_CURRENCY_DEFINITION ='Add Currency Definition';
-    static CURRENCY_DEFINITION_LIST ='Currency Definition List';
-    static CURRENCY_CONVERSION ='Currency Conversion';
+
     static TREASURY_LIST ='Treasury';
     static BANK_LIST ='Bank Definition';
     static BANK_LIST_ADD ='Add Bank Definition';

@@ -1,4 +1,12 @@
 {
+  "BreadCrumb": {
+    "FinancialCalendar": "Financial Calendar",
+    "AddFinancialCalendar": "Add Financial Calendar",
+    "EditFinancialCalendar": "Edit Financial Calendar",
+    "CurrencyDefinition": "Currency Definitions",
+    "CurrencyConversion":"Currency Conversion",
+    "TagList":"Tag List"
+  },
   "dir": "ltr",
   "Welcome": "Welcome",
   "Submit": "Submit",
@@ -445,6 +453,9 @@
       }
     },
     "currencyDefinition":{
+      "Title":"Currencies Definitions",
+      "AddTitle":"Add Currency Defintion",
+      "EditTitle":"Edit Currency Defintion",
       "AddNew":"AddNew",
       "Search":"Search",
       "code":"code",
@@ -476,6 +487,9 @@
       "save": "Save"
         },
     "currencyConversion":{
+      "Title":"Currencies Conversions",
+      "AddTitle":"Add Currency Converion",
+      "EditTitle":"Edit Currency Conversion",
       "AddNewcurrency":"Add New Currency",
       "Editcurrency":"Edit Currency",
       "search":"Search",

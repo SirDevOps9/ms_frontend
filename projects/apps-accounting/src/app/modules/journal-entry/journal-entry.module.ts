@@ -111,7 +111,7 @@ const routes: Routes = [
             path: '',
             component: JournalEntryOpeningBalanceListComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.JournalEntryOpeningBalance,
+              breadcrumb: '',
             },
           },
           {

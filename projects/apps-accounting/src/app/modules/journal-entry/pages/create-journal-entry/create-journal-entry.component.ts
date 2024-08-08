@@ -30,6 +30,7 @@ import {
 import { CostCenterAllocationPopupComponent } from '../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
 import { costCenters } from '../../models';
 import { CurrencyRateDto } from '../../../general/models/currencyRateDto';
+import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 export interface JournalEntryLineFormValue {
   id: number;
   account: AccountDto;
@@ -137,6 +138,7 @@ export class CreateJournalEntryComponent {
     private formService: FormsService,
     private guidedTourService: GuidedTourService,
     private attachmentService: AttachmentsService,
+    private currentUserService : CurrentUserService
   ) {
     this.titleService.setTitle(this.langService.transalte('Journal.AddJournal'));
 
@@ -188,11 +190,9 @@ export class CreateJournalEntryComponent {
   }
 
   accountSelected(event: any, id: number) {
-    const selected: any = event.value as AccountDto;
 
 
     const journalLine = this.items.at(id);
-
 
     this.accountData = this.filteredAccounts.find((c) => c.id == event);
 
@@ -279,7 +279,6 @@ export class CreateJournalEntryComponent {
   public get fa(): FormArray {
     return this.fg.get('journalEntryLines') as FormArray;
   }
-
 
 
   addThing() {
@@ -481,7 +480,6 @@ export class CreateJournalEntryComponent {
   }
 
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
-    let currentCurrency: number = 1;
 
     const journalLine = this.items.at(currentJournalId);
     this.currencyService.accountCurrencyRate.subscribe((res) => {
@@ -490,6 +488,6 @@ export class CreateJournalEntryComponent {
       currencyRateControl.setValue(res.rate);
     });
 
-    this.currencyService.getAccountCurrencyRate(currentCurrency, accountCurrency);
+    this.currencyService.getAccountCurrencyRate(accountCurrency,this.currentUserService.getCurrency());
   }
 }
