@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { SharedLibModule, customValidators, lookupDto } from 'shared-lib';
+import { AppStoreService } from '../../app-store.service';
 
 @Component({
   selector: 'app-selectsubdomain',
@@ -16,10 +17,12 @@ export class SelectSubdomainComponent implements OnInit {
 
   selectedSubdomain: any;
   allSubdomains: lookupDto[];
+  appId: number;
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private appStoreService: AppStoreService
   ) {}
   private initializeForm() {
     this.selectSubdomain = this.formBuilder.group({
@@ -29,12 +32,21 @@ export class SelectSubdomainComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
     this.allSubdomains = this.config.data.subdomains;
+    this.appId = this.config.data.appId;
   }
   onCancel() {
     this.ref.close();
   }
 
   submit() {
-    this.ref.close(this.selectSubdomain.value.subdomain);
+    this.appStoreService.addModelToCart(
+      {
+        subdomainId: this.selectSubdomain.value.subdomain,
+        appId: this.appId,
+      },
+      this.ref,
+      this.selectSubdomain
+    );
+    // this.ref.close;
   }
 }
