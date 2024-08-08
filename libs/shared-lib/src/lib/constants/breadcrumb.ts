@@ -75,11 +75,7 @@ export class BreadcrumbLabel {
     static CURRENCY_DEFINITION ='Currency Definition';
     static ADD_CURRENCY_DEFINITION ='Add Currency Definition';
 
-    static TREASURY_LIST ='Treasury';
-    static BANK_LIST ='Bank Definition';
-    static BANK_LIST_ADD ='Add Bank Definition';
-    static BANK_LIST_EDIT ='Edit Bank Definition';
-    static PAYMENT_TERM_LIST ='Payment term list';
+ 
     static DASHBOARD ='Dashboard';
 
     static JOURNAL_OPENING_BALANCE ='Journal Entry Opening Balance';
