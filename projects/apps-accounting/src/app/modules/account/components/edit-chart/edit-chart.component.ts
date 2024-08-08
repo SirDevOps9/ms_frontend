@@ -86,9 +86,9 @@ export class EditChartComponent {
     this.getTags();
     this.getCompanyDropdown();
     this.getCurrencies();
-    // this.formGroup.get('AccountActivation')?.valueChanges.subscribe((value) => {
-    //   this.onRadioButtonChange(value);
-    // });
+    this.formGroup.get('accountActivation')?.valueChanges.subscribe((value) => {
+      this.onRadioButtonChange(value);
+    });
 
   }
   getCurrencies(){

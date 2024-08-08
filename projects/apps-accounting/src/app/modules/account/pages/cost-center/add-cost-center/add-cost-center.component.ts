@@ -47,11 +47,9 @@ constructor(
     this.accountService.costparentAccounts.subscribe((res) => {
       if (res) {
         this.parentAccounts = res;
-
       }
     });
 
-   
   }
   addChiled(){
     if (!this.formsService.validForm(this.formGroup, false)) return;

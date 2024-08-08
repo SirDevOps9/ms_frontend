@@ -42,28 +42,12 @@ constructor(
     this.GetAllParentsCostCenters()
     this.accountService.costparentAccounts.subscribe((res) => {
       if (res) {
-        this.parentAccounts = res;
+        this.parentAccounts = res.filter(item => item.id != this.parentEditedId);
 
       }
     });
     this.getCostById(this.parentEditedId)
-   
-  }
-  test(){
-    if (!this.formsService.validForm(this.formGroup, false)) return;
-
-    console.log(this.formGroup.value);
-    
-  }
   
-  onSubmit() {
-
-    if (!this.formsService.validForm(this.formGroup, false)) return;
-
-
-    let obj: costById = this.formGroup.value;
-
-    this.accountService.editCost(obj);
 
     this.accountService.editedCost.subscribe((res) => {
       if (res) {
@@ -74,6 +58,16 @@ constructor(
         );
       }
     });
+  }
+  
+  
+  onSubmit() {
+
+    if (!this.formsService.validForm(this.formGroup, false)) return;
+
+    let obj: costById = this.formGroup.value;
+
+    this.accountService.editCost(obj);
   }
   getCostById(id: any) {
     this.accountService.getcostById(id);

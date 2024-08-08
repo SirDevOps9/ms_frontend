@@ -76,7 +76,7 @@ export class AddChartComponent {
       currencyId: new FormControl(),
       tags: new FormControl([]),
       companies: new FormControl([]),
-      AccountActivation: new FormControl('Active'),
+      accountActivation: new FormControl('Active'),
       periodicActiveFrom: new FormControl(),
       periodicActiveTo: new FormControl(),
       costCenterConfig : new FormControl()
@@ -110,7 +110,7 @@ export class AddChartComponent {
     this.getTags();
     this.getCompanyDropdown();
 
-    this.formGroup.get('AccountActivation')?.valueChanges.subscribe((value) => {
+    this.formGroup.get('accountActivation')?.valueChanges.subscribe((value) => {
       this.onRadioButtonChange(value);
     });
 
