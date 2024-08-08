@@ -80,11 +80,11 @@ export class PaymentTermListComponent implements OnInit {
   }
 
   onAdd() {
-  this.routerService.navigateTo('/masterdata/add-payment-term')
+  this.routerService.navigateTo('/masterdata/paymentterm/add-payment-term')
   }
 
   onEdit(data: any) {
-    this.routerService.navigateTo(`/masterdata/edit-payment-term/${data.id}`);
+    this.routerService.navigateTo(`/masterdata/paymentterm/edit-payment-term/${data.id}`);
   }
 
   onSearchChange() {

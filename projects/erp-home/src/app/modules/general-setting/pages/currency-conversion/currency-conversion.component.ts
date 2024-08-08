@@ -1,22 +1,30 @@
 import { Component } from '@angular/core';
-import { PageInfoResult, MenuModule, PageInfo, lookupDto } from 'shared-lib';
+import { PageInfoResult, MenuModule, PageInfo, lookupDto, LanguageService } from 'shared-lib';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { GeneralSettingService } from '../../general-setting.service';
-import { CountryDto, CurrencyConversionDto, currencyListDto, ExportCurrencyConversionDto } from '../../models';
+import {
+  CountryDto,
+  CurrencyConversionDto,
+  currencyListDto,
+  ExportCurrencyConversionDto,
+} from '../../models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-currency-conversion',
   templateUrl: './currency-conversion.component.html',
-  styleUrl: './currency-conversion.component.scss'
+  styleUrl: './currency-conversion.component.scss',
 })
 export class CurrencyConversionComponent {
-  constructor(
-    private generalSettingService: GeneralSettingService,
+  constructor(private generalSettingService: GeneralSettingService,
+    private title: Title,
+    private langService: LanguageService
+  ) {
+    this.title.setTitle(this.langService.transalte('currencyConversion.Title'));
 
-
-  ) {}
-  tableData : CurrencyConversionDto[];
-  currencies: CountryDto[]=[];
+  }
+  tableData: CurrencyConversionDto[];
+  currencies: CountryDto[] = [];
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
@@ -27,7 +35,6 @@ export class CurrencyConversionComponent {
   exportData: ExportCurrencyConversionDto[];
 
   exportColumns: lookupDto[] = [
-                   
     {
       id: 'fromCurrencyName',
       name: 'Currency Name',
@@ -36,34 +43,31 @@ export class CurrencyConversionComponent {
       id: 'fromCurrencyRate',
       name: 'Currency Rate',
     },
-  
+
     {
       id: 'toCurrencyName',
       name: 'To Currency',
     },
     {
       id: 'reversedRate',
-      name: 'Reversed Rate' ,
+      name: 'Reversed Rate',
     },
     {
       id: 'note',
-      name: 'Notes' ,
+      name: 'Notes',
     },
 
     {
       id: 'id',
       name: 'Actions',
-
     },
-  ]
+  ];
   ngOnInit() {
-    this.getCurrencyConversionList()
-    this.getCurrencies()
-
+    this.getCurrencyConversionList();
+    this.getCurrencies();
   }
-  exportClick(e?: Event){
+  exportClick(e?: Event) {
     this.exportcurrencyData(this.searchTerm);
-    
   }
   exportcurrencyData(searchTerm: string) {
     this.generalSettingService.exportcurrencyData(searchTerm);
@@ -71,67 +75,54 @@ export class CurrencyConversionComponent {
       this.exportData = res;
     });
   }
-  getCurrencyConversionList(){
-    this.generalSettingService.getCurrencyConversionList('', new PageInfo())
+  getCurrencyConversionList() {
+    this.generalSettingService.getCurrencyConversionList('', new PageInfo());
     this.generalSettingService.currencyConversionDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
-        this.mappedExportData = this.tableData.map(elem=>{
-          let {id , ...args} = elem
-          return args
-          
-        })
-        console.log(this.mappedExportData)
+        this.mappedExportData = this.tableData.map((elem) => {
+          let { id, ...args } = elem;
+          return args;
+        });
+        console.log(this.mappedExportData);
       },
-    }
-)
-this.generalSettingService.currentPageInfo.subscribe((currentPageInfo) => {
-  this.currentPageInfo = currentPageInfo;
-});}
-getCurrencies() {
-  this.generalSettingService.getCurrencies('');
-  this.generalSettingService.currencies.subscribe((res:any) => {
-    this.currencies = res;
-  });
-}
-  Edit(id : number) {
-  this.generalSettingService.openCurrencyConversionEdit(id)
-
+    });
+    this.generalSettingService.currentPageInfo.subscribe((currentPageInfo) => {
+      this.currentPageInfo = currentPageInfo;
+    });
+  }
+  getCurrencies() {
+    this.generalSettingService.getCurrencies('');
+    this.generalSettingService.currencies.subscribe((res: any) => {
+      this.currencies = res;
+    });
+  }
+  Edit(id: number) {
+    this.generalSettingService.openCurrencyConversionEdit(id);
   }
 
- 
   onPageChange(pageInfo: PageInfo) {
-  
-    this.generalSettingService.getCurrencyConversionList('',pageInfo)
+    this.generalSettingService.getCurrencyConversionList('', pageInfo);
     this.generalSettingService.currencyConversionDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
       },
-    })
+    });
   }
 
-
-
-  onSearchChange(event : any) {
-    this.generalSettingService.getCurrencyConversionList(event, new PageInfo())
+  onSearchChange(event: any) {
+    this.generalSettingService.getCurrencyConversionList(event, new PageInfo());
     this.generalSettingService.currencyConversionDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
       },
-    }
-)
-
+    });
   }
-
 
   onDelete(id: number) {
     this.generalSettingService.deleteCurrencyConversion(id);
   }
-  addNew(){
-    this.generalSettingService.openCurrencyConversionAdded()
+  addNew() {
+    this.generalSettingService.openCurrencyConversionAdded();
   }
-
-
-
- 
 }

@@ -1,10 +1,12 @@
 {
   "BreadCrumb": {
-    "BankDefinition": "تعريف البنك",
+    "BankDefinition": "تعريف البنوك",
     "AddBankDefinition": "إضافة تعريف بنك",
     "EditBankDefinition": "تعديل تعريف بنك",
-    "PaymentTermList": "قائمة شروط الدفع",
-    "Treasury": "الخزينة"
+    "PaymentTermList": "شروط الدفع",
+    "AddPaymentTerm": "إضافة شرط دفع",
+  "EditPaymentTerm": "تعديل شرط دفع",
+    "Treasury": "الخزائن"
   },
   "COAConfigration": {
     "levelnumber": "رقم المستوى",

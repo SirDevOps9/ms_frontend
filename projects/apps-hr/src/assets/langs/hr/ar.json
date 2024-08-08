@@ -1,4 +1,10 @@
 {
+  "BreadCrumb": {
+    "Employees": "الموظفين",
+    "AddEmployee": "إضافة موظف",
+    "ViewEmployee": "عرض الموظف",
+    "EditEmployee": "تعديل الموظف"
+  },
   "dir": "rtl",
   "Welcome": "مرحبا",
   "Submit": "حفظ",

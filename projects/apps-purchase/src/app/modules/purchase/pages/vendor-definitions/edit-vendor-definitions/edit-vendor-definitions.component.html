@@ -1,8 +1,10 @@
 <lib-page-content>
   <div class="add_vendor_page">
     <form [formGroup]="editVendorForm" (ngSubmit)="editVendor()">
-      <lib-bread-crumb>
-        <lib-button-micro
+      <div class="grid top_header">
+        <div class="col-9"></div>
+        <div class="col-3">
+          <lib-button-micro
           nameClass="cancel"
           [title]="'EditVendorDefinition.Discard' | translate"
           (click)="onDiscard()"
@@ -15,7 +17,9 @@
           type="submit"
         >
         </lib-button-micro>
-      </lib-bread-crumb>
+        </div>
+      </div>
+
 
       <div class="vendor_header">
         <div class="grid">

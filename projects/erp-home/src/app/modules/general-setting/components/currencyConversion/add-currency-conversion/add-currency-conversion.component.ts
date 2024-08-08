@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { FormsService, customValidators } from 'shared-lib';
+import { FormsService, LanguageService, customValidators } from 'shared-lib';
 import { GeneralSettingService } from '../../../general-setting.service';
 import { CountryDto } from '../../../models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-currency-conversion',
@@ -23,9 +24,11 @@ export class AddCurrencyConversionComponent {
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
     private formsService: FormsService ,
-    private generalSettingService :GeneralSettingService
-  
-  ) {}
+    private generalSettingService :GeneralSettingService,
+
+  ) {
+
+  }
   ngOnInit() {
     this.getCurrencies();
     this.initializeTagForm();

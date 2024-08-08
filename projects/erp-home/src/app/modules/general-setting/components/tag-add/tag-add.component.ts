@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { FormsService, MenuModule, customValidators } from 'shared-lib';
+import { FormsService, LanguageService, MenuModule, customValidators } from 'shared-lib';
 import { GeneralSettingService } from '../../general-setting.service';
 import { AddTagDto } from '../../models';
 import { LayoutService } from 'libs/apps-shared-lib/src/lib/modules/layout/layout.service';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-tag-add',
   templateUrl: './tag-add.component.html',
@@ -23,8 +24,9 @@ export class TagAddComponent implements OnInit {
     private ref: DynamicDialogRef,
     private generalSettingService: GeneralSettingService,
     private formsService: FormsService,
+  ) {
 
-  ) {}
+  }
 
   ngOnInit() {
     this.moudlelist();

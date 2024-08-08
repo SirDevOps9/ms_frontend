@@ -1,8 +1,10 @@
 {  "BreadCrumb": {
-  "BankDefinition": "Bank Definition",
+  "BankDefinition": "Bank Definitions",
   "AddBankDefinition":"Add Bank Definition",
   "EditBankDefinition":"Edit Bank Definition",
-  "PaymentTermList":"Payment Term List",
+  "PaymentTermList":"Payment Terms",
+  "AddPaymentTerm":"Add Payment Term",
+  "EditPaymentTerm":"Edit Payment Term",
   "Treasury":"Treasury"
 },
   "COAConfigration": {
