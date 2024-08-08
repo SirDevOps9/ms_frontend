@@ -101,7 +101,6 @@ export class AddBankDefinitionComponent implements OnInit {
   
     bankLine.get('accountCode')?.setValue(accountData?.accountCode);
     bankLine.get('accountName')?.setValue(accountData.name);
-    bankLine.get('displayName')?.setValue(accountData.accountCode);
 
     this.GetAccountOpeningBalance(event, id);
   }

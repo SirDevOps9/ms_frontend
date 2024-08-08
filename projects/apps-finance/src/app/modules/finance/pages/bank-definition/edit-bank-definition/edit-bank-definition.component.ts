@@ -60,7 +60,7 @@ export class EditBankDefinitionComponent implements OnInit {
 
         this.bankForm.at(index)?.get('glAccountId')?.setValue(r.id);
         this.bankForm.at(index)?.get('accountName')?.setValue(r.name);
-        this.bankForm.at(index)?.get('displayName')?.setValue(r.accountCode);
+        this.bankForm.at(index)?.get('accountCode')?.setValue(r.accountCode);
       
       }
     });
@@ -84,13 +84,12 @@ export class EditBankDefinitionComponent implements OnInit {
             accountName : elem.glAccountName,
             currencyName : null ,
             branchName : null,
-            displayName : elem.glAccountCode,
+            accountCode : elem.glAccountCode,
             userPermission: [elem.userPermission],
             userPermissionName : '',
             branches: [elem.branches]
               })
           this.items.push(bankGroup)  
-          console.log(elem.glAccountId)
           setTimeout(() => {
             this.accountSelected(elem.glAccountId , i)
             this.branchSelected(elem.branches , bankGroup , i)
@@ -125,9 +124,12 @@ export class EditBankDefinitionComponent implements OnInit {
     const bankLine = this.items.at(id);
     var accountData : any = this.filteredAccounts.find((c) => c.id == event);
     console.log(accountData)
-    bankLine.get('accountCode')?.setValue(accountData?.accountCode);
     if(accountData!=null)
-    bankLine.get('displayName')?.setValue(`${accountData?.name}`);
+    {
+      bankLine.get('glAccountId')?.setValue(accountData?.id);
+      bankLine.get('accountCode')?.setValue(accountData?.accountCode);
+      bankLine.get('accountName')?.setValue(accountData?.name);
+    }
     this.GetAccountOpeningBalance(event ,id)
     console.log(this.items.value)
   }
