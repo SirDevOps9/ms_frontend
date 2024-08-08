@@ -40,10 +40,10 @@ export class CustomerCategoryListComponent implements OnInit {
   }
 
   routeToAdd() {
-    this.routerService.navigateTo('masterdata/add-customer-category')
+    this.routerService.navigateTo('masterdata/customer-category/add-customer-category')
   }
   routeToEdit(id : number) {
-    this.routerService.navigateTo(`masterdata/edit-customer-category/${id}`)
+    this.routerService.navigateTo(`masterdata/customer-category/edit-customer-category/${id}`)
   }
 
   initFinancialCalendarData() {

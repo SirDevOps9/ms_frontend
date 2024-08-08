@@ -3,19 +3,20 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { GeneralSettingService } from '../../general-setting.service';
-import { MenuModule, customValidators } from 'shared-lib';
+import { LanguageService, MenuModule, customValidators } from 'shared-lib';
 import { LayoutService } from 'libs/apps-shared-lib/src/lib/modules/layout/layout.service';
 import { TagDto } from '../../models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tag-edit',
   templateUrl: './tag-edit.component.html',
-  styleUrls: ['./tag-edit.component.scss']
+  styleUrls: ['./tag-edit.component.scss'],
 })
 export class TagEditComponent implements OnInit {
   tagForm: FormGroup;
   modulelist: MenuModule[];
-  selectedModules?:  number[] = [];
+  selectedModules?: number[] = [];
   get Id(): string {
     return this.config?.data?.id;
   }
@@ -26,18 +27,18 @@ export class TagEditComponent implements OnInit {
     private fb: FormBuilder,
     public layoutService: LayoutService,
     private ref: DynamicDialogRef,
-    private generalSettingService : GeneralSettingService
-  ) { }
+    private generalSettingService: GeneralSettingService,
+  ) {
+  }
 
   ngOnInit() {
     this.initializeTagForm();
     this.moudlelist();
     this.getCurruntTag();
-     }
+  }
 
-
-  getCurruntTag(){
-    this.generalSettingService.getTagById(parseInt(this.Id) );
+  getCurruntTag() {
+    this.generalSettingService.getTagById(parseInt(this.Id));
     this.generalSettingService.currentTag.subscribe((response) => {
       this.tagForm.patchValue({
         Id: response.id,
@@ -47,33 +48,31 @@ export class TagEditComponent implements OnInit {
         IsActive: response.isActive,
       });
       this.selectedModules = response.modulesId;
-  });
-}
+    });
+  }
 
   moudlelist() {
     this.modulelist = this.layoutService.getModules();
   }
-  
+
   initializeTagForm() {
     this.tagForm = this.fb.group({
       Id: ['', customValidators.required],
-      Code: [ '', customValidators.required],
+      Code: ['', customValidators.required],
       Name: ['', customValidators.required],
       ModulesId: [[], customValidators.required],
-      IsActive: [false, customValidators.required]
+      IsActive: [false, customValidators.required],
     });
   }
-  
 
   onCancel() {
     this.ref.close();
   }
 
   onSubmit() {
-    console.log("onSubmit",this.tagForm.value)
-    if(!this.tagForm.valid) return;
-    const tagDto :TagDto=this.tagForm.value;
-    this.generalSettingService.editTag(tagDto,this.ref);
-    
+    console.log('onSubmit', this.tagForm.value);
+    if (!this.tagForm.valid) return;
+    const tagDto: TagDto = this.tagForm.value;
+    this.generalSettingService.editTag(tagDto, this.ref);
   }
 }

@@ -1,4 +1,10 @@
 {
+  "BreadCrumb": {
+    "Employees": "Employees",
+    "AddEmployee": "Add Employee",
+    "ViewEmployee": "View Employee",
+    "EditEmployee": "Edit Employee"
+  },
   "dir": "ltr",
   "Welcome": "Welcome",
   "Submit": "Submit",
