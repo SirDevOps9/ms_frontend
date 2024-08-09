@@ -91,6 +91,7 @@ export class BreadcrumbLabel {
     
 
  
+    static VENDOR_OPENING_BALANCE ='Vendor Opening Balancy';
 
     static COST_CENTER ='Cost Center';
     static PAYMENT_TERM_ADD ='Add Payment term';

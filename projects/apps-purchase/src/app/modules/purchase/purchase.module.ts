@@ -12,6 +12,7 @@ import { AddVendorDefinitionsComponent } from './pages/vendor-definitions/add-ve
 import { VendorDefinitionsListComponent } from './pages/vendor-definitions/vendor-definitions-list/vendor-definitions-list.component';
 import { MainVendorCategoryComponent } from './pages/vendor-category/main-vendor-category/main-vendor-category.component';
 import { MainVendorDefintionsComponent } from './pages/vendor-definitions/main-vendor-defintions/main-vendor-defintions.component';
+import { VendorOpeningBalanceComponent } from './pages/vendor-opening-balance/vendor-opening-balance.component';
 
 const routes: Routes = [
   {
@@ -89,6 +90,14 @@ const routes: Routes = [
           },
         ]
       },
+      {
+        path: 'vendor-opening',
+        component: VendorOpeningBalanceComponent,
+       // canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE,
+        },
+      },
     ],
   },
 ];
@@ -101,6 +110,7 @@ const routes: Routes = [
     VendorDefinitionsListComponent,
     AddVendorDefinitionsComponent,
     EditVendorDefinitionsComponent,
+    VendorOpeningBalanceComponent,
     MainVendorCategoryComponent,
     MainVendorDefintionsComponent
   ],

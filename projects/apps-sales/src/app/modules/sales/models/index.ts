@@ -6,3 +6,4 @@ export * from './editCustomerDefinitionsDto';
 export * from './CityDto';
 export * from './CountryDto';
 export * from './CurrencyDto';
+export * from './CategoryDropdownDto';
