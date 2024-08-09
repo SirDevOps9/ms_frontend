@@ -144,5 +144,8 @@ export class SalesProxyService {
     GetCustomerOpeningBalance(): Observable<any[]> {
       return this.httpService.get<any[]>(`CustomerOpeningBalance`);
     }
+    deleteCustomerOpeningBalance(id: number): Observable<boolean> {
+      return this.httpService.delete<boolean>(`CustomerOpeningBalance/${id}`);
+    }
 
   }

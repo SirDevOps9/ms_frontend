@@ -83,17 +83,17 @@
               [value]="customerForm.controls"
               dataKey="id"
               styleClass="p-datatable-gridlines p-datatable-striped"
+              [paginator]="true"
+              [rows]="10"
               [tableStyle]="{ 'min-width': '50rem' }"
-            >
+              [rowsPerPageOptions]="[5, 10, 20]"            >
               <ng-template pTemplate="header">
                 <tr>
                   <th>{{ 'customerDefinition.code' | translate }}</th>
                   <th>{{ 'customerDefinition.name' | translate }}</th>
-                  <!-- <th>{{ 'openeingBalance.glAccount' | translate }}</th> -->
                   <th>{{ 'openeingBalance.balance' | translate }}</th>
                   <th>{{ 'openeingBalance.balanceType' | translate }}</th>
                   <th>{{ 'openeingBalance.dueDate' | translate }}</th>
-                
                   <th>{{ 'customerDefinition.actions' | translate }}</th>
                 </tr>
               </ng-template>
@@ -118,19 +118,14 @@
                             >
                             </lib-select>
                           </lib-form-group>
-                          <!-- <i class="pi pi-search search-circle" (click)="openDialog(i)"></i> -->
                       </ng-template>
                       <ng-template pTemplate="output">
-                        {{ customerGroup.controls['displayName'].value }}
+                        {{ customerGroup.controls['accountName'].value }}
                       </ng-template>
                     </p-cellEditor>
                   </td>
-                  <td
-                 
-                  
-                >
+                  <td>
                 {{ customerGroup.controls['accountName'].value }}
-
                 </td>
                 
                   <td 
@@ -189,7 +184,7 @@
                
                   <!--  -->
                   <td>
-                    <i class="pi pi-trash pointer" (click)="onDelete(i)"></i>
+                    <i class="pi pi-trash pointer" (click)="onDelete(customerGroup.controls['id'].value, i)"></i>
                 </td>
                 </tr>
               </ng-template>

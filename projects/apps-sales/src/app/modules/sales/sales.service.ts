@@ -59,6 +59,8 @@ export class SalesService {
   private cityDataSource = new BehaviorSubject<CityDto[]>([]);
   private currenciesDataSource = new BehaviorSubject<CurrencyDto[]>([]);
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
+  private customerDeleted = new BehaviorSubject<boolean>(false);
+  public customerDeletedObser = this.customerDeleted.asObservable();
 
   public customerCategoryDataSourceObservable = this.customerCategoryDataSource.asObservable();
   public customerCategoryDataByIDObservable = this.customerCategoryDataByID.asObservable();
@@ -353,4 +355,31 @@ export class SalesService {
       }
     });
   }
+ 
+  async deleteCustomerOpeningBalance(id: number) {
+
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      this.loaderService.show();
+
+      this.salesProxy.deleteCustomerOpeningBalance(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('deleteCustomerDefinition.success'),
+            this.languageService.transalte('deleteCustomerDefinition.delete')
+          );
+          this.loaderService.hide();
+          this.customerDeleted.next(res)
+        },
+        error: () => {
+          this.loaderService.hide();
+          this.toasterService.showError(
+            this.languageService.transalte('deleteCustomerDefinition.success'),
+            this.languageService.transalte('deleteCustomerDefinition.delete')
+         );
+        },
+      });
+    }
+  }
+
 }
