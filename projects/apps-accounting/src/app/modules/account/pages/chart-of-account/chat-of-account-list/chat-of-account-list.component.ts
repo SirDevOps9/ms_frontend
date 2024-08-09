@@ -65,6 +65,7 @@ export class ChatOfAccountListComponent implements OnInit {
 
   initChartOfAccountData(searchTerm: string, page: PageInfo) {
     this.accountService.initAccountList(searchTerm, page);
+    this.accountService.initAccountList(searchTerm, page);
 
     this.accountService.accountsList.subscribe({
       next: (ChartOfAccountList) => {
@@ -81,7 +82,16 @@ export class ChatOfAccountListComponent implements OnInit {
     });
   }
   onPageChange(pageInfo: PageInfo) {
+    console.log(pageInfo)
     this.initChartOfAccountData('', pageInfo);
+    // this.accountService.getAllTaxes('', pageInfo);
+
+    // this.accountService.taxesDefintionList.subscribe({
+    //   next: (res) => {
+    //     this.tableData = res;
+    //   },
+    // });
+    
   }
   routeToAdd() {
     this.routerService.navigateTo(`/journalentry/add`);

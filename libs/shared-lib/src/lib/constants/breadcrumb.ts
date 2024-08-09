@@ -74,6 +74,24 @@ export class BreadcrumbLabel {
     static ADD_CUSTOMER_OPENEING_BALANCE ='Add Customer Opening Balance';
     static CURRENCY_DEFINITION ='Currency Definition';
     static ADD_CURRENCY_DEFINITION ='Add Currency Definition';
+
+ 
+    static DASHBOARD ='Dashboard';
+
+    static JOURNAL_OPENING_BALANCE ='Journal Entry Opening Balance';
+    static ADD_JOURNAL_OPENING_BALANCE ='Add Journal Entry Opening Balance';
+    static EDIT_JOURNAL_OPENING_BALANCE ='Edit Journal Entry Opening Balance';
+    static VIEW_JOURNAL_OPENING_BALANCE ='View Journal Entry Opening Balance';
+   
+
+    
+
+
+
+    
+
+ 
+
     static COST_CENTER ='Cost Center';
     static PAYMENT_TERM_ADD ='Add Payment term';
     static PAYMENT_TERM_EDIT ='Edit Payment term';

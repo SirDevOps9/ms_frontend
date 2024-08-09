@@ -1,18 +1,18 @@
 
 <nav>
   <div class="card">
-    <div class="header_bussiness">
+    <div class="header_bussiness"  [class.header_bussinessCont]="(generalService.sendSideBarState | async) === true">
       <div class="header_content">
         <p-menubar>
           <ng-template pTemplate="start">
             <div class="start_nav">
              
-              <div
+              <!-- <div
                 class="suplogo"
                 style="
                   background-image: url('assets/images/navbar/suplogo.png');
                 "
-              ></div>
+              ></div> -->
              
               <div class="modules">
                 <button class="btn_mod_select"

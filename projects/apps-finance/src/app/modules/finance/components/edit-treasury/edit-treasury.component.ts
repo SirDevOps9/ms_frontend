@@ -37,7 +37,6 @@ export class EditTreasuryComponent implements OnInit {
     private langService: LanguageService,
     private dialog: DialogService
   ) {
-    this.title.setTitle(this.langService.transalte('treasury.editTreasury'));
 
   }
 

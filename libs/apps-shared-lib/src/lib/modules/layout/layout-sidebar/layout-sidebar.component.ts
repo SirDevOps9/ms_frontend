@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, effect, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SideMenuModel } from 'shared-lib';
 import { LayoutService } from '../layout.service';
+import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 
 @Component({
   selector: 'app-layout-sidebar',
@@ -78,6 +79,8 @@ export class LayoutSidebarComponent {
       this.sidebarOpen = true;
       this.sidebaropend.emit(true);
     }
+
+    this.generalService.sendSideBarState.next(this.sidebarOpen)
   }
 
   mapToTreeNodes(data: any[]) {
@@ -133,5 +136,5 @@ export class LayoutSidebarComponent {
     // Find and update the highlighted parent node
     this.highlightedParent = this.findParentNode(expandedNode);
   }
-  constructor(public layoutService: LayoutService, private router: ActivatedRoute) {}
+  constructor(public layoutService: LayoutService, private router: ActivatedRoute , private generalService : GeneralService) {}
 }
