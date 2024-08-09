@@ -1,13 +1,12 @@
 <lib-page-content [title]="'tag.taglist' | translate" [subTitle]="'tag.taglist' | translate">
   <div>
-      <lib-bread-crumb></lib-bread-crumb>
-      <div class="user_page">
-        <lib-data-table
-          [items]="tableData"
-          className="p-datatable-gridlines"
-          [currentPageResult]="currentPageInfo"
-          (pageChange)="onPageChange($event)"
-          [tableConfigs]="{
+    <div class="user_page">
+      <lib-data-table
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        [tableConfigs]="{
             allowPagination: false,
             allowServerPagination: true,
             dataKey: 'id',
@@ -58,51 +57,49 @@
                },
              ]
           }"
-        >
-
-          <ng-container caption>
-            <div class="group flex justify-content-between">
-              <div class="flex gap-2">
-                  <lib-text-input  [(ngModel)]="searchTerm" type="text" [placeholder]="'Search'" (keyUp)="onSearchChange($event)" [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">                   
-                  </lib-text-input>          
-
-              </div>
-    
-          
-              <div class="flex gap-2">
-                  <div>
-                  
-                      <lib-button pRipple className="addToList" label="Add" (onClick)="routeToAdd()">
-                        </lib-button>
-
-
-                  </div>
-                  <!--  -->
-                  <lib-export
-                  (exportClick)="exportVendorsData($event)"
-                  [exportData]="exportData"
-                  [exportColumns]="exportColumns"
-                  [ExportName]="'Vendors'"
-                >
-                </lib-export>          
-                
-              </div>
+      >
+        <ng-container caption>
+          <div class="group flex justify-content-between">
+            <div class="flex gap-2">
+              <lib-text-input
+                [(ngModel)]="searchTerm"
+                type="text"
+                [placeholder]="'vendorDefinition.Search' | translate"
+                (keyUp)="onSearchChange($event)"
+                [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+              >
+              </lib-text-input>
             </div>
-          </ng-container>
-      
-          <ng-template #actions let-actions>
-            <div class="actions flex align-items-center gap-4">
+
+            <div class="flex gap-2">
+              <div>
+                <lib-button
+                  pRipple
+                  className="addToList"
+                  [label]="'vendorDefinition.Add' | translate"
+                  (onClick)="routeToAdd()"
+                >
+                </lib-button>
+              </div>
+              <!--  -->
+              <lib-export
+                (exportClick)="exportVendorsData($event)"
+                [exportData]="exportData"
+                [exportColumns]="exportColumns"
+                [ExportName]="'Vendors'"
+              >
+              </lib-export>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #actions let-actions>
+          <div class="actions flex align-items-center gap-4">
             <i class="pi pi-pencil pointer" (click)="routeToEdit(actions.id)"></i>
             <i class="pi pi-trash pointer" (click)="onDelete(actions.id)"></i>
-            </div>
-          </ng-template>
-
-         
-        </lib-data-table>
-      </div>
+          </div>
+        </ng-template>
+      </lib-data-table>
     </div>
+  </div>
 </lib-page-content>
-
-
-
-

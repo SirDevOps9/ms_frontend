@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FinanceService } from '../../../finance.service';
 import { PaymentTermDto } from '../../../models';
-import { lookupDto, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { LanguageService, lookupDto, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-payment-term-list',
@@ -30,9 +31,14 @@ export class PaymentTermListComponent implements OnInit {
 
   constructor(
     private financeService: FinanceService,
-    private routerService: RouterService
+    private routerService: RouterService,
+    private title: Title,
+    private langService: LanguageService,
 
-  ) {}
+  ) {
+    this.title.setTitle(this.langService.transalte('paymentterm.payment-term-list'));
+
+  }
 
   ngOnInit() {
     this.initPaymentTermData();
@@ -74,11 +80,11 @@ export class PaymentTermListComponent implements OnInit {
   }
 
   onAdd() {
-  this.routerService.navigateTo('/masterdata/add-payment-term')
+  this.routerService.navigateTo('/masterdata/paymentterm/add-payment-term')
   }
 
   onEdit(data: any) {
-    this.routerService.navigateTo(`/masterdata/edit-payment-term/${data.id}`);
+    this.routerService.navigateTo(`/masterdata/paymentterm/edit-payment-term/${data.id}`);
   }
 
   onSearchChange() {

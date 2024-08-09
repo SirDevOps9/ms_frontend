@@ -1,8 +1,15 @@
 <lib-page-content>
   <div class="add_vendor_page">
     <form [formGroup]="addCustomerForm">
-      <lib-bread-crumb>
-        <lib-button-micro nameClass="cancel" [title]="'EditCustomerDefinition.Discard' | translate" (click)="onCancel()">
+      <div class="grid top_header">
+        <div class="col-12 md:col-9">
+        </div>
+        <div class="col-12 md:col-3 ">
+          <lib-button-micro
+          nameClass="cancel"
+          [title]="'EditCustomerDefinition.Discard' | translate"
+          (click)="onCancel()"
+        >
         </lib-button-micro>
         <lib-button-micro
           nameClass="save"
@@ -13,8 +20,8 @@
           (click)="editCustomer()"
         >
         </lib-button-micro>
-      </lib-bread-crumb>
-
+        </div>
+      </div>
       <div class="vendor_header">
         <div class="grid">
           <div class="col-12 md:col-8">
@@ -65,7 +72,7 @@
                       [options]="accountTags"
                       optionValue="id"
                       optionLabel="name"
-                      [placeholder]="'EditCustomerDefinition.select' | translate" 
+                      [placeholder]="'EditCustomerDefinition.select' | translate"
                       [selectedValue]="addCustomerForm.controls['tagIds']!.value"
                     >
                     </lib-multi-select>
@@ -87,8 +94,12 @@
           <div class="col-12 md:col-4">
             <div class="vendor_photo">
               <div class="text">
-                <p class="photo_title body_b18">{{ 'EditCustomerDefinition.contactPhoto' | translate }}</p>
-                <p class="photo_valid body_b16">{{ 'EditCustomerDefinition.photoDimensions' | translate }}</p>
+                <p class="photo_title body_b18">
+                  {{ 'EditCustomerDefinition.contactPhoto' | translate }}
+                </p>
+                <p class="photo_valid body_b16">
+                  {{ 'EditCustomerDefinition.photoDimensions' | translate }}
+                </p>
               </div>
               <div class="photo">
                 <lib-form-group>
@@ -130,8 +141,8 @@
                                   addCustomerForm.get('contactInfo')?.get('contactMobileCode')
                                 "
                               >
-                              {{ 'EditCustomerDefinition.Code' | translate }}
-                            </lib-label>
+                                {{ 'EditCustomerDefinition.Code' | translate }}
+                              </lib-label>
                               <lib-selectIcon
                                 formControlName="contactMobileCode"
                                 [options]="lookups[LookupEnum.MobileCode]"
@@ -139,7 +150,8 @@
                                 optionLabel="name"
                                 icons="flags"
                                 [selectedValue]="
-                                  addCustomerForm.get('contactInfo')?.get('contactMobileCode')?.value
+                                  addCustomerForm.get('contactInfo')?.get('contactMobileCode')
+                                    ?.value
                                 "
                               >
                               </lib-selectIcon>
@@ -159,8 +171,8 @@
                                   addCustomerForm.get('contactInfo')?.get('contactMobile')
                                 "
                               >
-                              {{ 'EditCustomerDefinition.ContactMobile' | translate }}
-                            </lib-label>
+                                {{ 'EditCustomerDefinition.ContactMobile' | translate }}
+                              </lib-label>
                               <lib-text-input type="tel" formControlName="contactMobile" />
                               <lib-field-validations
                                 [appControl]="
@@ -177,8 +189,8 @@
                           <lib-label
                             [appControl]="addCustomerForm.get('contactInfo')?.get('contactPhone')"
                           >
-                          {{ 'EditCustomerDefinition.ContactPhone' | translate }}
-                        </lib-label>
+                            {{ 'EditCustomerDefinition.ContactPhone' | translate }}
+                          </lib-label>
                           <lib-text-input type="text" formControlName="contactPhone">
                           </lib-text-input>
                           <lib-field-validations
@@ -192,8 +204,8 @@
                           <lib-label
                             [appControl]="addCustomerForm.get('contactInfo')?.get('contactFax')"
                           >
-                          {{ 'EditCustomerDefinition.ContactFax' | translate }}
-                        </lib-label>
+                            {{ 'EditCustomerDefinition.ContactFax' | translate }}
+                          </lib-label>
                           <lib-text-input type="text" formControlName="contactFax">
                           </lib-text-input>
                           <lib-field-validations
@@ -207,8 +219,8 @@
                           <lib-label
                             [appControl]="addCustomerForm.get('contactInfo')?.get('contactEmail')"
                           >
-                          {{ 'EditCustomerDefinition.ContactEmail' | translate }}
-                        </lib-label>
+                            {{ 'EditCustomerDefinition.ContactEmail' | translate }}
+                          </lib-label>
                           <lib-text-input type="text" formControlName="contactEmail">
                           </lib-text-input>
                           <lib-field-validations
@@ -222,8 +234,8 @@
                           <lib-label
                             [appControl]="addCustomerForm.get('contactInfo')?.get('contactWebsite')"
                           >
-                          {{ 'EditCustomerDefinition.ContactWebsite' | translate }}
-                        </lib-label>
+                            {{ 'EditCustomerDefinition.ContactWebsite' | translate }}
+                          </lib-label>
                           <lib-text-input type="text" formControlName="contactWebsite">
                           </lib-text-input>
                           <lib-field-validations
@@ -235,7 +247,9 @@
                     </div>
                   </lib-fildest>
                   <div class="contact_person_information">
-                    <lib-fildest [header]="'EditCustomerDefinition.ContactPersonInformation' | translate">
+                    <lib-fildest
+                      [header]="'EditCustomerDefinition.ContactPersonInformation' | translate"
+                    >
                       <div class="grid">
                         <div class="col-12 md:col-4">
                           <lib-form-group>
@@ -244,8 +258,8 @@
                                 addCustomerForm.get('contactInfo')?.get('contactPersonName')
                               "
                             >
-                            {{ 'EditCustomerDefinition.ContactPersonName' | translate }}
-                          </lib-label>
+                              {{ 'EditCustomerDefinition.ContactPersonName' | translate }}
+                            </lib-label>
                             <lib-text-input type="text" formControlName="contactPersonName">
                             </lib-text-input>
                             <lib-field-validations
@@ -267,8 +281,8 @@
                                       ?.get('contactPersonMobileCode')
                                   "
                                 >
-                                {{ 'EditCustomerDefinition.Code' | translate }}
-                              </lib-label>
+                                  {{ 'EditCustomerDefinition.Code' | translate }}
+                                </lib-label>
                                 <lib-selectIcon
                                   formControlName="contactPersonMobileCode"
                                   [options]="lookups[LookupEnum.MobileCode]"
@@ -299,8 +313,8 @@
                                     addCustomerForm.get('contactInfo')?.get('contactPersonMobile')
                                   "
                                 >
-                                {{ 'EditCustomerDefinition.ContactPersonMobile' | translate }}
-                              </lib-label>
+                                  {{ 'EditCustomerDefinition.ContactPersonMobile' | translate }}
+                                </lib-label>
                                 <lib-text-input type="tel" formControlName="contactPersonMobile" />
                                 <lib-field-validations
                                   [appControl]="
@@ -319,8 +333,8 @@
                                 addCustomerForm.get('contactInfo')?.get('contactPersonPhone')
                               "
                             >
-                            {{ 'EditCustomerDefinition.ContactPersonPhone' | translate }}
-                          </lib-label>
+                              {{ 'EditCustomerDefinition.ContactPersonPhone' | translate }}
+                            </lib-label>
                             <lib-text-input type="text" formControlName="contactPersonPhone">
                             </lib-text-input>
                             <lib-field-validations
@@ -368,7 +382,7 @@
                             <lib-label
                               [appControl]="addCustomerForm.get('addressInfo')?.get('countryId')"
                             >
-                            {{ 'EditCustomerDefinition.Country' | translate }}
+                              {{ 'EditCustomerDefinition.Country' | translate }}
                             </lib-label>
                             <lib-selectIcon
                               formControlName="countryId"
@@ -393,7 +407,7 @@
                             <lib-label
                               [appControl]="addCustomerForm.get('addressInfo')?.get('state')"
                             >
-                            {{ 'EditCustomerDefinition.State' | translate }}
+                              {{ 'EditCustomerDefinition.State' | translate }}
                             </lib-label>
                             <lib-text-input type="text" formControlName="state"></lib-text-input>
                             <lib-field-validations
@@ -407,7 +421,7 @@
                             <lib-label
                               [appControl]="addCustomerForm.get('addressInfo')?.get('cityId')"
                             >
-                            {{ 'EditCustomerDefinition.City' | translate }}
+                              {{ 'EditCustomerDefinition.City' | translate }}
                             </lib-label>
                             <lib-select
                               formControlName="cityId"
@@ -431,7 +445,7 @@
                             <lib-label
                               [appControl]="addCustomerForm.get('addressInfo')?.get('street')"
                             >
-                            {{ 'EditCustomerDefinition.Street' | translate }}
+                              {{ 'EditCustomerDefinition.Street' | translate }}
                             </lib-label>
                             <lib-text-input type="text" formControlName="street"> </lib-text-input>
                             <lib-field-validations
@@ -445,7 +459,7 @@
                             <lib-label
                               [appControl]="addCustomerForm.get('addressInfo')?.get('longitude')"
                             >
-                            {{ 'EditCustomerDefinition.Longitude' | translate }}
+                              {{ 'EditCustomerDefinition.Longitude' | translate }}
                             </lib-label>
                             <lib-text-input type="number" formControlName="longitude">
                             </lib-text-input>
@@ -460,7 +474,7 @@
                             <lib-label
                               [appControl]="addCustomerForm.get('addressInfo')?.get('latitude')"
                             >
-                            {{ 'EditCustomerDefinition.Latitude' | translate }}
+                              {{ 'EditCustomerDefinition.Latitude' | translate }}
                             </lib-label>
                             <lib-text-input type="number" formControlName="latitude">
                             </lib-text-input>
@@ -475,7 +489,7 @@
                             <lib-label
                               [appControl]="addCustomerForm.get('addressInfo')?.get('errorRadius')"
                             >
-                            {{ 'EditCustomerDefinition.ErrorRadius' | translate }}
+                              {{ 'EditCustomerDefinition.ErrorRadius' | translate }}
                             </lib-label>
                             <lib-text-input type="number" formControlName="errorRadius">
                             </lib-text-input>
@@ -505,7 +519,7 @@
                         <lib-label
                           [appControl]="addCustomerForm.get('legalInfo')?.get('commercialId')"
                         >
-                        {{ 'EditCustomerDefinition.CommercialId' | translate }}
+                          {{ 'EditCustomerDefinition.CommercialId' | translate }}
                         </lib-label>
                         <lib-text-input type="text" formControlName="commercialId">
                         </lib-text-input>
@@ -540,7 +554,7 @@
                         <lib-label
                           [appControl]="addCustomerForm.get('financialInfo')?.get('paymentTermId')"
                         >
-                        {{ 'EditCustomerDefinition.PaymentTerm' | translate }}
+                          {{ 'EditCustomerDefinition.PaymentTerm' | translate }}
                         </lib-label>
                         <lib-select
                           formControlName="paymentTermId"
@@ -563,7 +577,7 @@
                         <lib-label
                           [appControl]="addCustomerForm.get('financialInfo')?.get('priceListId')"
                         >
-                        {{ 'EditCustomerDefinition.PriceList' | translate }}
+                          {{ 'EditCustomerDefinition.PriceList' | translate }}
                         </lib-label>
                         <lib-select
                           formControlName="priceListId"
@@ -586,7 +600,7 @@
                         <lib-label
                           [appControl]="addCustomerForm.get('financialInfo')?.get('creditLimit')"
                         >
-                        {{ 'EditCustomerDefinition.CreditLimit' | translate }}
+                          {{ 'EditCustomerDefinition.CreditLimit' | translate }}
                         </lib-label>
                         <lib-text-input type="number" formControlName="creditLimit">
                         </lib-text-input>
@@ -602,7 +616,7 @@
                         <lib-label
                           [appControl]="addCustomerForm.get('financialInfo')?.get('currencyId')"
                         >
-                        {{ 'EditCustomerDefinition.Currency' | translate }}
+                          {{ 'EditCustomerDefinition.Currency' | translate }}
                         </lib-label>
                         <lib-select
                           formControlName="currencyId"
@@ -635,7 +649,7 @@
                             addCustomerForm.get('accountingInfo')?.get('receivableAccountId')
                           "
                         >
-                        {{ 'EditCustomerDefinition.ReceivableAccount' | translate }}
+                          {{ 'EditCustomerDefinition.ReceivableAccount' | translate }}
                         </lib-label>
                         <lib-select
                           formControlName="receivableAccountId"
@@ -662,7 +676,7 @@
                             addCustomerForm.get('accountingInfo')?.get('salesAccountId')
                           "
                         >
-                        {{ 'EditCustomerDefinition.SalesAccount' | translate }}
+                          {{ 'EditCustomerDefinition.SalesAccount' | translate }}
                         </lib-label>
                         <lib-select
                           formControlName="salesAccountId"
@@ -689,7 +703,7 @@
                             addCustomerForm.get('accountingInfo')?.get('salesReturnAccountId')
                           "
                         >
-                        {{ 'EditCustomerDefinition.SalesReturnAccount' | translate }}
+                          {{ 'EditCustomerDefinition.SalesReturnAccount' | translate }}
                         </lib-label>
                         <lib-select
                           formControlName="salesReturnAccountId"
@@ -717,7 +731,7 @@
                             addCustomerForm.get('accountingInfo')?.get('discountAccountId')
                           "
                         >
-                        {{ 'EditCustomerDefinition.DiscountAccount' | translate }}
+                          {{ 'EditCustomerDefinition.DiscountAccount' | translate }}
                         </lib-label>
                         <lib-select
                           formControlName="discountAccountId"

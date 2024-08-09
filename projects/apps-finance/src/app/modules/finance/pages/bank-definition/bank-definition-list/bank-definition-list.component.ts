@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { RouterService, lookupDto, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
-import { TaxDto } from '../../../../general/models';
+import { RouterService, lookupDto, PageInfoResult, MenuModule, PageInfo, LanguageService } from 'shared-lib';
 
 import { FinanceService } from '../../../finance.service';
 import { BankDefinitionDto } from '../../../models/BankDefinitionDto';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-bank-definition-list',
@@ -17,8 +17,13 @@ export class BankDefinitionListComponent implements OnInit {
     private routerService: RouterService,
     public authService: AuthService,
     private dialog: DialogService,
+    private title: Title,
+    private langService: LanguageService,
     private financeService: FinanceService
-  ) {}
+  ) {
+    this.title.setTitle(this.langService.transalte('bank.BankDefinitonsList'));
+
+  }
 
   tableData: BankDefinitionDto[];
 
@@ -91,11 +96,11 @@ export class BankDefinitionListComponent implements OnInit {
   }
 
   onAdd() {
-  this.routerService.navigateTo('/masterdata/add-bank-definition')
+  this.routerService.navigateTo('/masterdata/bank-definition/add-bank-definition')
   }
 
   onEdit(data: any) {
-          this.routerService.navigateTo(`/masterdata/edit-bank-definition/${data.id}`);
+          this.routerService.navigateTo(`/masterdata/bank-definition/edit-bank-definition/${data.id}`);
 
 
   }

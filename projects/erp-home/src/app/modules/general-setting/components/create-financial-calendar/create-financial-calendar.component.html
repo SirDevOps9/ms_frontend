@@ -1,6 +1,4 @@
 <lib-page-content>
-  <lib-bread-crumb></lib-bread-crumb>
-
   <div class="chart_add_page">
     <form [formGroup]="formGroup">
       <div class="grid">
@@ -128,6 +126,14 @@
         pageSize: 10,
         columns: [
            
+           {
+            name: 'id',
+            headerText: '#',
+            isGlobalFilter: true,
+            isSortable: true,
+            
+
+           }, 
            {
              name: 'month',
              headerText: ('financialCalendar.month' | translate),

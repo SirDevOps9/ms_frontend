@@ -1,5 +1,4 @@
 <lib-page-content [title]="'Tax.TaxList' | translate" [subTitle]="'Tax.TaxList' | translate">
-  <lib-bread-crumb> </lib-bread-crumb>
   <div>
     <div class="user_page">
   
@@ -54,9 +53,8 @@
         }"
       >
         <ng-container caption>
-          <div class="">
-            <div class="grid">
-              <div class="col-3">
+            <div class="flex justify-content-between align-items-center">
+              <div >
                 <lib-form-group>
                   <lib-text-input
                     type="text"
@@ -68,30 +66,21 @@
               </div>
               <!--  -->
 
-              <div class="col-9 flex gap-2 justify-content-end align-items-center">
-                <div>
-                  <lib-button-micro
-                    [title]="'Tax.AddNew' | translate"
-                    nameClass="save"
-                    iconName="pi pi-plus"
-                    (click)="onAdd()"
-                  >
-                  </lib-button-micro>
-                </div>
-                <!--  -->
-                <div>
-                  <lib-export
-                    (exportClick)="exportTaxesData($event)"
-                    [exportData]="mappedExportData"
-                    [exportColumns]="exportColumns"
-                    [ExportName]="'Taxes'"
-                  >
-                  </lib-export>
-                </div>
-                <!--  -->
-              </div>
+              <div class="flex gap-2">
+                <lib-export
+                (exportClick)="exportTaxesData($event)"
+                [exportData]="mappedExportData"
+                [exportColumns]="exportColumns"
+                [ExportName]="'Taxes'"
+              >
+              </lib-export>
+                 <lib-button pRipple className="addToList" label="{{ 'Tax.AddNew' | translate }}" (onClick)="onAdd()" [icon]="'pi pi-plus'">
+            </lib-button> 
+
             </div>
-          </div>
+
+            
+            </div>
         </ng-container>
         <ng-template #actions let-action>
           <div class="actions flex align-items-center gap-2">

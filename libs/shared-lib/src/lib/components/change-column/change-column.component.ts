@@ -13,6 +13,8 @@ export class ChangeColumnComponent implements OnChanges {
 
   constructor(private generalService: GeneralService) {
     this.generalService.sendColumnsObs.subscribe((res) => {
+      console.log(res)
+
       if (res) {
         let data = this.transformArray(res);
         res = res.map((elem: any, i: number) => {
@@ -35,9 +37,13 @@ export class ChangeColumnComponent implements OnChanges {
     // let data : any = this.dataTable.filter((elem : any , i : number)=>event[i] == elem)
     // console.log(data);
 
-  console.log(this.filterProperties(this.dataTable , event))  
-  this.generalService.sendFilteredList.next(this.filterProperties(this.dataTable , event))
-  this.generalService.sendSelectedColumns.next(event)
+ 
+  if(event) {
+    console.log(this.filterProperties(this.dataTable , event))  
+    this.generalService.sendFilteredList.next(this.filterProperties(this.dataTable , event))
+    this.generalService.sendSelectedColumns.next(event)
+
+  }
     
 
   }

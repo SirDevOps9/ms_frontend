@@ -1,7 +1,5 @@
 <lib-page-content>
-    <lib-bread-crumb>
-    
-    </lib-bread-crumb>
+=
     <lib-data-table
               [items]="tableData"
               className="p-datatable-gridlines"
@@ -56,29 +54,25 @@
                       </lib-text-input>          
     
                   </div>
+
+                  <div class="flex gap-2">
+           
+            
+                    <lib-export  
+                    (exportClick)="exportClick($event)"
+                    [exportData]="exportData"
+                    [exportColumns]="exportColumns"
+                    [ExportName]="'Currency Conversion'">
+                  </lib-export>
+
+      
+                    <lib-button pRipple className="addToList" label="{{ 'currencyConversion.addNew' | translate }}" (onClick)="addNew()" [icon]="'pi pi-plus'"></lib-button>
+      
+                
+                </div>
         
               
-                  <div class="flex gap-2">
-                      <div>
-                      
-                          
-                            <lib-button-micro title="{{ 'currencyConversion.addNew' | translate }}" nameClass="save" iconName="pi pi-plus-circle" (click)="addNew()" >
-                            </lib-button-micro>
-    
-    
-                      </div>
-                     
-                      <div>
-                        <lib-export  
-                        (exportClick)="exportClick($event)"
-                        [exportData]="exportData"
-                        [exportColumns]="exportColumns"
-                        [ExportName]="'Currency Conversion'">
-                      </lib-export>
-    
-                      </div>               
-                    
-                  </div>
+             
                 </div>
               </ng-container>
           

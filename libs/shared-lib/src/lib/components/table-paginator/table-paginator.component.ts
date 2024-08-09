@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { PageInfo } from '../../models';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { GeneralService } from '../../services/general.service';
 
 @Component({
   selector: 'lib-table-paginator',
@@ -19,6 +20,7 @@ export class TablePaginatorComponent implements OnInit {
   @Input() paginationInfo : any = 0
   @Input() totalRecords: number;
   first : Subject<any> = new Subject()
+  test : any = {}
   @Input() rows: number;
 
   @Output() pageChange = new EventEmitter<PageInfo>();
@@ -26,6 +28,22 @@ export class TablePaginatorComponent implements OnInit {
   ngOnInit() {
     this.first.subscribe(res=>{
      // console.log(res)
+    })
+    this.generalService.sendPageChangesObs.subscribe(res=>{
+      if(res) {
+        console.log(res)
+        this.test = res
+        this.onPageChange(res)
+
+      }
+    })
+    this.generalService.sendPageChangesObs.subscribe(res=>{
+      if(res) {
+        console.log(res)
+        this.test = res
+        this.onPageChange(res)
+
+      }
     })
   }
 
@@ -39,9 +57,10 @@ export class TablePaginatorComponent implements OnInit {
     this.pageChange.emit(pageInfo);
 
     this.first.next(e['first']) 
+    console.log("sdfsd")
     // this.cdr.detectChanges();
 
   }
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef , private generalService : GeneralService) {}
 }

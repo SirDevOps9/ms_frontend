@@ -1,8 +1,10 @@
 {  "BreadCrumb": {
-  "BankDefinition": "Bank Definition",
+  "BankDefinition": "Bank Definitions",
   "AddBankDefinition":"Add Bank Definition",
   "EditBankDefinition":"Edit Bank Definition",
-  "PaymentTermList":"Payment Term List",
+  "PaymentTermList":"Payment Terms",
+  "AddPaymentTerm":"Add Payment Term",
+  "EditPaymentTerm":"Edit Payment Term",
   "Treasury":"Treasury"
 },
   "COAConfigration": {
@@ -184,6 +186,8 @@
     "discard" : "Discard",
     "save" : "Save",
     "addTreasury":"Add Treasury",
+    "editTreasury":"Edit Treasury",
+    "treasuryList": "Treasury List",
     "confirm" : "the opening balance of journal not equal treasury opening balance, do you want to Continue ?"
   },
   "deleteTreasury" : {
@@ -201,6 +205,8 @@
   },
   "paymentterm": {
     "payment-term-list": "Payment Term List",
+    "AddPaymentTerm":"Add Payment Term",
+    "EditPaymentTerm":"Edit Payment Term",
     "code": "Code",
     "name": "Name",
     "term-type": "Term Type",
@@ -263,7 +269,10 @@
    "ChangeColumn":"Change Columns",
     "discard": "discard",
     "save": "Save",
-    "success" : "Success"
+    "success" : "Success",
+    "AddBank":"Add Bank",
+    "EditBank":"Edit Bank",
+    "BankDefinitonsList":"Bank Definitons List"
 
   },
   "deleteBank" : {
@@ -279,8 +288,35 @@
     "edit" : "Bank Definition Edited Successfully"
   },
   "confirm": {
+    "confirm":"confirm",
     "cancel": "Cancel",
     "submit": "Submit"
+  },
+  "paymentmethod": {
+    "payment-term-list": "قائمة شروط الدفع",
+    "code": "الرمز",
+    "name": "الاسم",
+    "PaymentPlace": "مكان الدفع",
+    "PaymentMethodType": "نوع طريقة الدفع",
+    "Search": "بحث",
+    "AddNew": "إضافة جديد"
+  },
+  "add-paymentMethod": {
+    "title": "إضافة طريقة دفع",
+    "code": "كود",
+    "name": "اسم",
+    "paymentPlace": "مكان الدفع",
+    "paymentMethodType": "نوع طريقة الدفع",
+    "Related Bank": "البنك المرتبط",
+    "BankAccount": "حساب البنك",
+    "Currency": "العملة",
+    "CommissionType": "نوع العمولة",
+    "CommissionValue": "قيمة العمولة",
+    "CommissionAccount": "حساب العمولة",
+    "AllowVAT": "السماح بضريبة القيمة المضافة",
+    "edit":"تم تعديل  طريقةالدفع بنجاح",
+    "add":"تمت إضافة طريقة الدفع بنجاح"
   }
+
 
 }

@@ -1,4 +1,12 @@
 {
+  "BreadCrumb": {
+    "FinancialCalendar": "السنة المالية",
+    "AddFinancialCalendar": "إضافة سنة مالية",
+    "EditFinancialCalendar": "تعديل سنة مالية",
+    "CurrencyDefinition": "تعريفات العملة",
+    "CurrencyConversion": "تحويلات العملة",
+    "TagList": "قائمة العلامات"
+  },
   "dir": "rtl",
   "Welcome": "مرحبا",
   "Submit": "حفظ",
@@ -236,86 +244,88 @@
       "TryAnotherDomain": "جرب نطاقًا آخر",
       "AddToCart": "أضف إلى السلة",
       "YourDomainSpace": "النطاق الفرعي"
-
     }
   },
- "tag":{
-  "taglist":"قائمة العلامات",
-  "Search": "البحث",
-  "AddNew":"إضافة جديدة",
-  "AddNewTag": "إضافة علامة جديدة",
-  "EditTag": "تعديل العلامة",
-  "Id":"المعرف",
-  "code":"الكود",
-  "Name":"الاسم",
-  "status":"الحالة",
-  "Modules":"الوحدات",
-  "Actions":"الإجراءات",
-  "Edit":"تعديل",
-  "Delete":"حذف",
-  "Add":"إضافة",
-  "AddTag":"إضافة علامة",
-  "Active":"نشط",
-  "Deactivate":"إلغاء التنشيط",
-  "success":"نجاح",
-  "addtag":{
-    "title":"إضافة علامة",
-    "name":"الاسم",
-    "applicability":"التطبيق",
-    "save":"حفظ",
-    "cancel":"اغلاق",
-    "code":"الكود",
-    "success":"نجاح"
+  "tag": {
+    "taglist": "قائمة العلامات",
+    "Search": "البحث",
+    "AddNew": "إضافة جديدة",
+    "AddNewTag": "إضافة علامة جديدة",
+    "EditTag": "تعديل العلامة",
+    "Id": "المعرف",
+    "code": "الكود",
+    "Name": "الاسم",
+    "status": "الحالة",
+    "Modules": "الوحدات",
+    "Actions": "الإجراءات",
+    "Edit": "تعديل",
+    "Delete": "حذف",
+    "Add": "إضافة",
+    "AddTag": "إضافة علامة",
+    "Active": "نشط",
+    "Deactivate": "إلغاء التنشيط",
+    "success": "نجاح",
+    "addtag": {
+      "title": "إضافة علامة",
+      "name": "الاسم",
+      "applicability": "التطبيق",
+      "save": "حفظ",
+      "cancel": "اغلاق",
+      "code": "الكود",
+      "success": "نجاح"
+    },
+    "edittag": {
+      "title": "تعديل علامة",
+      "name": "الاسم",
+      "applicability": "التطبيق",
+      "status": "الحالة",
+      "save": "حفظ",
+      "cancel": "اغلاق",
+      "code": "الكود",
+      "success": "نجاح"
+    }
   },
-  "edittag":{
-    "title":"تعديل علامة",
-    "name":"الاسم",
-    "applicability":"التطبيق",
-    "status":"الحالة",
-    "save":"حفظ",
-    "cancel":"اغلاق",
-    "code":"الكود",
-    "success":"نجاح"
-  }
-},
   "Shared": {
-  "Error": "خطأ",
-  "validation": {
-    "invalidForm": "نموذج غير صالح"
-  }
-},
-"vendorDefinition": {
-  "code": "كود البائع",
-  "name": "اسم البائع",
-  "category": "فئة البائع",
-  "email": "البريد الإلكتروني",
-  "country": "البلد",
-  "paymentTerm": "شروط الدفع",
-  "criditLimit": "حد الائتمان",
-  "actions": "الإجراءات",
-  "success": "نجاح",
-  "vendorSuccess": "تم إنشاء البائع بنجاح"
-},
-"currencyDefinition": {
-  "AddNew": "إضافة جديدة",
-"Search": "بحث",
-  "code": "رمز",
-  "success": "نجاح",
-  "error": "خطأ",
-  "errorDelet": "لم يتم حذف تعريف العملة",
-  "successAdd": "تمت إضافة تعريف العملة بنجاح",
-  "successEdit": "تم تعديل تعريف العملة بنجاح",
-  "successDelet": "تم حذف تعريف العملة بنجاح",
-  "name": "اسم",
-  "sympol": "رمز",
-  "Subunit": "الوحدة الفرعية",
-  "country": "بلد",
-  "type": "نوع",
-  "category": "فئة",
-  "UOM": "وحدة القياس",
-  "actions": "إجراءات"
-},
-"addcurrency": {
+    "Error": "خطأ",
+    "validation": {
+      "invalidForm": "نموذج غير صالح"
+    }
+  },
+  "vendorDefinition": {
+    "code": "كود البائع",
+    "name": "اسم البائع",
+    "category": "فئة البائع",
+    "email": "البريد الإلكتروني",
+    "country": "البلد",
+    "paymentTerm": "شروط الدفع",
+    "criditLimit": "حد الائتمان",
+    "actions": "الإجراءات",
+    "success": "نجاح",
+    "vendorSuccess": "تم إنشاء البائع بنجاح"
+  },
+  "currencyDefinition": {
+    "Title": "تعريفات العملات",
+    "AddTitle": "إضافة تعريف عملة",
+    "EditTitle": "تعديل تعريف عملة",
+    "AddNew": "إضافة جديدة",
+    "Search": "بحث",
+    "code": "رمز",
+    "success": "نجاح",
+    "error": "خطأ",
+    "errorDelet": "لم يتم حذف تعريف العملة",
+    "successAdd": "تمت إضافة تعريف العملة بنجاح",
+    "successEdit": "تم تعديل تعريف العملة بنجاح",
+    "successDelet": "تم حذف تعريف العملة بنجاح",
+    "name": "اسم",
+    "sympol": "رمز",
+    "Subunit": "الوحدة الفرعية",
+    "country": "بلد",
+    "type": "نوع",
+    "category": "فئة",
+    "UOM": "وحدة القياس",
+    "actions": "إجراءات"
+  },
+  "addcurrency": {
     "title": "إضافة عملة",
     "cancel": "إلغاء",
     "currencyCode": "كود العملة",
@@ -325,53 +335,56 @@
     "currencyCountry": "بلد العملة",
     "currencyDifferenceAccount": "حساب الفرق في العملة",
     "save": "حفظ"
-    },
-"currencyConversion": {
-   "AddNewcurrency": "إضافة عملة جديدة",
+  },
+  "currencyConversion": {
+    "Title": "تحويلات العملات",
+    "AddTitle": "إضافة تحويل عملة",
+    "EditTitle": "تعديل تحويل عملة",
+    "AddNewcurrency": "إضافة عملة جديدة",
     "Editcurrency": "تعديل العملة",
-  "search": "بحث",
+    "search": "بحث",
     "addNew": "إضافة جديدة",
     "save": "حفظ",
     "cancel": "إلغاء",
-  "FromCurrency": "من العملة",
-  "CurrencyRate": "سعر الصرف",
-  "ToCurrency": "إلى العملة",
-  "ReversedRate": "السعر المعكوس",
-  "Notes": "ملاحظات",
-  "Actions": "إجراءات",
-  "errorDelet": "لم يتم حذف تحويل العملة",
-  "successAdd": "تمت إضافة تحويل العملة بنجاح",
-  "successEdit": "تم تعديل تحويل العملة بنجاح",
-  "successDelet": "تم حذف تحويل العملة بنجاح",
-  "errorSameCurrency": "يجب أن تكون العملة الأصلية والعملة المحولة مختلفة."
-
-},
-"financialCalendar": {
-  "Search": "بحث",
-  "add":"إضافة",
-  "Save":"حفظ",
-  "selectYear": "اختر السنة",
-  "code": "الرمز",
-  "fromDate": "من تاريخ",
-  "toDate": "إلى تاريخ",
-  "name": "الاسم",
-  "generate": "إنشاء الفترات",
-  "open": "فتح السنة المالية",
-  "close": "إغلاق السنة المالية",
-  "month": "الشهر",
-  "status": "الحالة",
-  "year": "السنة",
-  "periodStart": "بداية الفترة",
-  "periodend": "نهاية الفترة",
-  "periodStatus": "حالة الفترة",
-  "actions": "الإجراءات"
-},
-"addFinancialCalendar": {
-  "success": "نجاح",
-  "successAdd": "تم إضافة التقويم المالي بنجاح",
-  "successEdit": "تم تعديل التقويم المالي بنجاح",
-  "openSuccess": "تم فتح التقويم المالي بنجاح"
-}
-
-  
+    "FromCurrency": "من العملة",
+    "CurrencyRate": "سعر الصرف",
+    "ToCurrency": "إلى العملة",
+    "ReversedRate": "السعر المعكوس",
+    "Notes": "ملاحظات",
+    "Actions": "إجراءات",
+    "errorDelet": "لم يتم حذف تحويل العملة",
+    "successAdd": "تمت إضافة تحويل العملة بنجاح",
+    "successEdit": "تم تعديل تحويل العملة بنجاح",
+    "successDelet": "تم حذف تحويل العملة بنجاح",
+    "errorSameCurrency": "يجب أن تكون العملة الأصلية والعملة المحولة مختلفة."
+  },
+  "financialCalendar": {
+    "financialCalendar": "السنة المالية",
+    "addfinancialCalendar": "إضافة سنة مالية",
+    "editfinancialCalendar": "تعديل سنة مالية",
+    "Search": "بحث",
+    "add": "إضافة",
+    "Save": "حفظ",
+    "selectYear": "اختر السنة",
+    "code": "الرمز",
+    "fromDate": "من تاريخ",
+    "toDate": "إلى تاريخ",
+    "name": "الاسم",
+    "generate": "إنشاء الفترات",
+    "open": "فتح السنة المالية",
+    "close": "إغلاق السنة المالية",
+    "month": "الشهر",
+    "status": "الحالة",
+    "year": "السنة",
+    "periodStart": "بداية الفترة",
+    "periodend": "نهاية الفترة",
+    "periodStatus": "حالة الفترة",
+    "actions": "الإجراءات"
+  },
+  "addFinancialCalendar": {
+    "success": "نجاح",
+    "successAdd": "تم إضافة التقويم المالي بنجاح",
+    "successEdit": "تم تعديل التقويم المالي بنجاح",
+    "openSuccess": "تم فتح التقويم المالي بنجاح"
+  }
 }

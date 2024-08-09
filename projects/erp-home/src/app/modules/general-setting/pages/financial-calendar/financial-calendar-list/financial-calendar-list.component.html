@@ -1,6 +1,5 @@
 <lib-page-content [title]="'financialCalendar.financialCalendar' | translate" [subTitle]="'financialCalendar.financialCalendar' | translate">
   <div>
-        <lib-bread-crumb></lib-bread-crumb>
         <div class="user_page">
           <lib-data-table
             [items]="tableData"
@@ -60,20 +59,19 @@
                 </div>
       
             
-                <div>
-                     <lib-button pRipple className="addToList" label="{{ 'financialCalendar.add' | translate }}" (onClick)="routeToAdd()">
+                <div class="flex gap-2">
+                    <lib-export
+                      (exportClick)="exportClick($event)"
+                      [exportData]="exportData"
+                      [exportColumns]="exportColumns"
+                      [ExportName]="'Financial Calendar'"
+                    >
+                    </lib-export>
+                     <lib-button pRipple className="addToList" label="{{ 'financialCalendar.addNew' | translate }}" (onClick)="routeToAdd()" [icon]="'pi pi-plus'">
                 </lib-button> 
 
                 </div>
-                <div>
-                  <lib-export
-                    (exportClick)="exportClick($event)"
-                    [exportData]="exportData"
-                    [exportColumns]="exportColumns"
-                    [ExportName]="'Financial Calendar'"
-                  >
-                  </lib-export>
-                </div>
+             
 
               </div>
             </ng-container>

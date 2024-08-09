@@ -30,6 +30,7 @@ import {
 import { CostCenterAllocationPopupComponent } from '../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
 import { costCenters } from '../../models';
 import { CurrencyRateDto } from '../../../general/models/currencyRateDto';
+import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 export interface JournalEntryLineFormValue {
   id: number;
   account: AccountDto;
@@ -65,6 +66,7 @@ export class CreateJournalEntryComponent {
   fitleredCurrencies: CurrencyDto[];
   costCenters: costCenters[] = [];
   selectedCurrency: number;
+  accountData : any = {}
   private readonly TOUR: GuidedTour = {
     tourId: 'purchases-tour',
     useOrb: false,
@@ -136,6 +138,7 @@ export class CreateJournalEntryComponent {
     private formService: FormsService,
     private guidedTourService: GuidedTourService,
     private attachmentService: AttachmentsService,
+    private currentUserService : CurrentUserService
   ) {
     this.titleService.setTitle(this.langService.transalte('Journal.AddJournal'));
 
@@ -187,25 +190,28 @@ export class CreateJournalEntryComponent {
   }
 
   accountSelected(event: any, id: number) {
-    const selected: any = event.value as AccountDto;
+
 
     const journalLine = this.items.at(id);
 
+    this.accountData = this.filteredAccounts.find((c) => c.id == event);
 
-    var accountData = this.filteredAccounts.find((c) => c.id == event);
+    console.log(this.accountData.costCenterConfig)
 
 
     const accountName = journalLine.get('accountName');
-    accountName?.setValue(accountData?.name);
+    accountName?.setValue(this.accountData?.name);
 
-    journalLine.get('accountCode')?.setValue(accountData?.accountCode);
+    journalLine.get('accountCode')?.setValue(this.accountData?.accountCode);
+    journalLine.get('costCenterConfig')?.setValue(this.accountData.costCenterConfig);
+    console.log(journalLine.get('costCenterConfig')?.value)
 
-    var currencyData = this.currencies.find((c) => c.id == accountData?.currencyId);
+    var currencyData = this.currencies.find((c) => c.id == this.accountData?.currencyId);
 
     const currencyControl = journalLine.get('currency');
     const currencyRateControl = journalLine.get('currencyRate')!;
 
-    currencyControl?.setValue(accountData?.currencyId);
+    currencyControl?.setValue(this.accountData?.currencyId);
 
     currencyRateControl.setValue(currencyData?.ratePerUnit);
     const currencyNameControl = journalLine.get('currencyName');
@@ -220,16 +226,16 @@ export class CreateJournalEntryComponent {
 
     const accountName = journalLine.get('accountName');
 
-    accountName?.setValue(accountData.name);
+    accountName?.setValue(this.accountData.name);
 
-    journalLine.get('accountCode')?.setValue(accountData?.accountCode);
+    journalLine.get('accountCode')?.setValue(this.accountData?.accountCode);
 
-    var currencyData = this.currencies.find((c) => c.id == accountData?.currencyId);
+    var currencyData = this.currencies.find((c) => c.id == this.accountData?.currencyId);
 
     const currencyControl = journalLine.get('currency');
     const currencyRateControl = journalLine.get('currencyRate')!;
 
-    currencyControl?.setValue(accountData?.currencyId);
+    currencyControl?.setValue(this.accountData?.currencyId);
 
     currencyRateControl.setValue(currencyData?.ratePerUnit);
     const currencyNameControl = journalLine.get('currencyName');
@@ -252,9 +258,11 @@ export class CreateJournalEntryComponent {
     const ref = this.dialog.open(NoChildrenAccountsComponent, {});
     ref.onClose.subscribe((r) => {
       if (r) {
+        console.log(r)
         this.fa.at(index).get('account')?.setValue(r.id);
         this.fa.at(index)?.get('accountName')?.setValue(r.name);
         this.fa.at(index)?.get('accountCode')?.setValue(r.accountCode);
+        this.fa.at(index)?.get('costCenterConfig')?.setValue(r.costCenterConfig);
         var currencyData = this.currencies.find((c) => c.id == r.currencyId);
         this.fa.at(index).get('currency')?.setValue(r.currencyId);
         this.fa.at(index).get('currencyName')?.setValue(currencyData?.name);
@@ -271,7 +279,6 @@ export class CreateJournalEntryComponent {
   public get fa(): FormArray {
     return this.fg.get('journalEntryLines') as FormArray;
   }
-
 
 
   addThing() {
@@ -325,6 +332,7 @@ export class CreateJournalEntryComponent {
         account: new FormControl(null, customValidators.required),
         accountName: new FormControl(null, customValidators.required),
         accountCode: new FormControl(null, customValidators.required),
+        costCenterConfig: new FormControl(null),
         lineDescription: new FormControl('', customValidators.required),
         debitAmount: dbControl,
         creditAmount: crControl,
@@ -414,6 +422,7 @@ export class CreateJournalEntryComponent {
                 account: new FormControl(line.accountId, customValidators.required),
                 accountName: new FormControl(line.accountName, customValidators.required),
                 accountCode: new FormControl(line.accountCode, customValidators.required),
+                costCenterConfig: new FormControl(line.costCenterConfig, customValidators.required),
                 lineDescription: new FormControl(line.lineDescription, customValidators.required),
                 debitAmount: new FormControl(line.debitAmount, [customValidators.required]),
                 creditAmount: new FormControl(line.creditAmount, [customValidators.required]),
@@ -471,7 +480,6 @@ export class CreateJournalEntryComponent {
   }
 
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
-    let currentCurrency: number = 1;
 
     const journalLine = this.items.at(currentJournalId);
     this.currencyService.accountCurrencyRate.subscribe((res) => {
@@ -480,6 +488,6 @@ export class CreateJournalEntryComponent {
       currencyRateControl.setValue(res.rate);
     });
 
-    this.currencyService.getAccountCurrencyRate(currentCurrency, accountCurrency);
+    this.currencyService.getAccountCurrencyRate(accountCurrency,this.currentUserService.getCurrency());
   }
 }

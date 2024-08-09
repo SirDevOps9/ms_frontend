@@ -11,12 +11,27 @@ import {
 } from 'shared-lib';
 import { GeneralSettingProxy } from './general-setting.proxy';
 
-
-import { TagDto ,AddTagDto, financialCalendar, AddFinancialCalendar, VendorCategoryDto, AddVendorCategory, EditVendorCategoryDto, CustomerCategoryDto, vendorDefinitionDto, editFinancialCalndar, CurrencyDefinitionDto, CurrencyConversionDto, ExportCurrencyConversionDto, ExportTagDto} from './models';
+import {
+  TagDto,
+  AddTagDto,
+  financialCalendar,
+  AddFinancialCalendar,
+  VendorCategoryDto,
+  AddVendorCategory,
+  EditVendorCategoryDto,
+  CustomerCategoryDto,
+  vendorDefinitionDto,
+  editFinancialCalndar,
+  CurrencyDefinitionDto,
+  CurrencyConversionDto,
+  ExportCurrencyConversionDto,
+  ExportTagDto,
+  GetLastYearInfoDto,
+} from './models';
 
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
 import { AddVendorCommand } from './models/AddVendorCommand';
-import { CategoryDropdownDto } from './models/CategoryDropdownDto'; 
+import { CategoryDropdownDto } from './models/CategoryDropdownDto';
 import { CityDto } from './models/CityDto';
 import { CountryDto } from './models/CountryDto';
 import { CurrencyDto } from './models/CurrencyDto';
@@ -35,15 +50,14 @@ import { FormGroup } from '@angular/forms';
   providedIn: 'root',
 })
 export class GeneralSettingService {
-
-
   private tagDataSource = new BehaviorSubject<TagDto[]>([]);
   private exportsCurrencyListDataSource = new BehaviorSubject<ExportCurrencyConversionDto[]>([]);
   private exportcurrencyDefinitionDataSource = new BehaviorSubject<CurrencyDefinitionDto[]>([]);
   private exportsFinancialCalendarDataSource = new BehaviorSubject<financialCalendar[]>([]);
   private exportsTagDataSource = new BehaviorSubject<ExportTagDto[]>([]);
 
-  public exportsFinancialCalendarDataSourceObservable = this.exportsFinancialCalendarDataSource.asObservable();
+  public exportsFinancialCalendarDataSourceObservable =
+    this.exportsFinancialCalendarDataSource.asObservable();
 
   public exportsTagDataSourceObservable = this.exportsTagDataSource.asObservable();
 
@@ -52,11 +66,11 @@ export class GeneralSettingService {
   private financialCalendarDataSource = new BehaviorSubject<financialCalendar[]>([]);
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   private currentTagDataSource = new BehaviorSubject<TagDto>({} as TagDto);
-  private addFinancialCalendarRes = new BehaviorSubject<AddFinancialCalendar | any>(
-    null
-  );
+  private addFinancialCalendarRes = new BehaviorSubject<AddFinancialCalendar | any>(null);
   private openFinancialCalendarRes = new BehaviorSubject<number[]>([]);
-  private FinancialPeriodLastYearDate = new BehaviorSubject<any>(null);
+  private FinancialPeriodLastYearDate = new BehaviorSubject<GetLastYearInfoDto | undefined>(
+    undefined
+  );
   private FinancialPeriodDataByID = new BehaviorSubject<editFinancialCalndar>(
     {} as editFinancialCalndar
   );
@@ -79,8 +93,12 @@ export class GeneralSettingService {
   private customerCategoryDataByID = new BehaviorSubject<EditVendorCategoryDto>(
     {} as EditVendorCategoryDto
   );
- private currencyDataByID = new BehaviorSubject<CurrencyDefinitionDto>({} as CurrencyDefinitionDto);
-  private currencyConversionDataByID = new BehaviorSubject<CurrencyConversionDto>({} as CurrencyConversionDto);
+  private currencyDataByID = new BehaviorSubject<CurrencyDefinitionDto>(
+    {} as CurrencyDefinitionDto
+  );
+  private currencyConversionDataByID = new BehaviorSubject<CurrencyConversionDto>(
+    {} as CurrencyConversionDto
+  );
   private addCustomerCategoryData = new BehaviorSubject<AddCustomerCategoryDto>(
     {} as AddCustomerCategoryDto
   );
@@ -91,7 +109,6 @@ export class GeneralSettingService {
   private cityDataSource = new BehaviorSubject<CityDto[]>([]);
   private currenciesDataSource = new BehaviorSubject<CurrencyDto[]>([]);
 
-
   public currencies = this.currenciesDataSource.asObservable();
 
   public cities = this.cityDataSource.asObservable();
@@ -101,9 +118,11 @@ export class GeneralSettingService {
   public tags = this.tagsDataSource.asObservable();
   public currentTag = this.currentTagDataSource.asObservable();
   public currencyDefinitionDataSourceObservable = this.currencyDefinitionDataSource.asObservable();
-  public exportcurrencyDefinitionDataSourceObservable = this.exportcurrencyDefinitionDataSource.asObservable();
+  public exportcurrencyDefinitionDataSourceObservable =
+    this.exportcurrencyDefinitionDataSource.asObservable();
   public currencyConversionDataSourceObservable = this.currencyConversionDataSource.asObservable();
-  public exportsCurrencyListDataSourceObservable = this.exportsCurrencyListDataSource.asObservable();
+  public exportsCurrencyListDataSourceObservable =
+    this.exportsCurrencyListDataSource.asObservable();
   public financialCalendarDataSourceObservable = this.financialCalendarDataSource.asObservable();
   public tagList = this.tagDataSource.asObservable();
   public addFinancialCalendarResObservable = this.addFinancialCalendarRes.asObservable();
@@ -112,14 +131,15 @@ export class GeneralSettingService {
   public FinancialPeriodDataByIDObservable = this.FinancialPeriodDataByID.asObservable();
   public EditFinancialPeriodDataObservable = this.EditFinancialPeriodData.asObservable();
 
-
-  public sendChildrenAccountsDropDownDataObservable = this.sendChildrenAccountsDropDownData.asObservable();
+  public sendChildrenAccountsDropDownDataObservable =
+    this.sendChildrenAccountsDropDownData.asObservable();
   public sendPriceListsDropDownDataObservable = this.sendPriceListsDropDownData.asObservable();
   public sendPaymentTermsDropDownDataObservable = this.sendPaymentTermsDropDownData.asObservable();
-  
+
   public addVendorCategoryDataObservable = this.addVendorCategoryData.asObservable();
   public vendorCategoryDataSourceObservable = this.vendorCategoryDataSource.asObservable();
-  public sendgetVendorCategoryDropdownDataObservable = this.sendgetVendorCategoryDropdownData.asObservable();
+  public sendgetVendorCategoryDropdownDataObservable =
+    this.sendgetVendorCategoryDropdownData.asObservable();
   public vendorCategoryDataByIDObservable = this.vendorCategoryDataByID.asObservable();
   public vendorDefinitionDataByIDObservable = this.vendorDefinitionDataByID.asObservable();
 
@@ -131,10 +151,6 @@ export class GeneralSettingService {
 
   public vendorDefinitionDataSourceObservable = this.vendorDefinitionDataSource.asObservable();
 
-
-
-
-  
   getTagList(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getAllTagsPaginated(searchTerm, pageInfo).subscribe({
       next: (res) => {
@@ -213,10 +229,6 @@ export class GeneralSettingService {
     }
   }
 
-
-
-
-
   // vendor
   getVendorDefinition(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getVendorDefinition(searchTerm, pageInfo).subscribe({
@@ -243,28 +255,25 @@ export class GeneralSettingService {
           return res;
         },
       });
-
     }
   }
   getVendorCategoryDropdown() {
-    this.GeneralSettingproxy.getVendorCategoryDropdown()
-    .subscribe(res=>{
-      if(res) {
-        this.sendgetVendorCategoryDropdownData.next(res)
+    this.GeneralSettingproxy.getVendorCategoryDropdown().subscribe((res) => {
+      if (res) {
+        this.sendgetVendorCategoryDropdownData.next(res);
       }
-    })
+    });
   }
 
-  addNewVendorDefinition(vendor:AddVendorCommand){
+  addNewVendorDefinition(vendor: AddVendorCommand) {
     this.loaderService.show();
     this.GeneralSettingproxy.addNewVendorDefinition(vendor).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('addFinancialCalendar.success'),
           this.languageService.transalte('addFinancialCalendar.openSuccess')
-        
         );
-        this.routerService.navigateTo(`/vendor-definitions`)
+        this.routerService.navigateTo(`/vendor-definitions`);
         // this.addVendorCategoryRes.next(res)
         this.loaderService.hide();
       },
@@ -274,9 +283,7 @@ export class GeneralSettingService {
     });
   }
 
-  
-  
-  editVendorDefinition(vendor:EditVendorCommand){
+  editVendorDefinition(vendor: EditVendorCommand) {
     this.loaderService.show();
     this.GeneralSettingproxy.editVendorDefinition(vendor).subscribe({
       next: (res) => {
@@ -285,7 +292,7 @@ export class GeneralSettingService {
           this.languageService.transalte('vendorDefinition.vendorSuccess')
         );
         // this.addVendorCategoryRes.next(res)
-        this.routerService.navigateTo(`/vendor-definitions`)
+        this.routerService.navigateTo(`/vendor-definitions`);
         this.loaderService.hide();
       },
       error: (err) => {
@@ -294,20 +301,15 @@ export class GeneralSettingService {
     });
   }
 
-
-  getVendorDefinitionByID(id : number) {
-    this.GeneralSettingproxy.getVendorDefinitionByID(id)
-    .subscribe(res=>{
-        this.vendorDefinitionDataByID.next(res)
-      
-    })
+  getVendorDefinitionByID(id: number) {
+    this.GeneralSettingproxy.getVendorDefinitionByID(id).subscribe((res) => {
+      this.vendorDefinitionDataByID.next(res);
+    });
   }
 
-  // 
+  //
 
-  addTag(addTagDto: AddTagDto
-    ,dialogRef: DynamicDialogRef
-  ){
+  addTag(addTagDto: AddTagDto, dialogRef: DynamicDialogRef) {
     this.loaderService.show();
     this.GeneralSettingproxy.addTag(addTagDto).subscribe({
       next: (res) => {
@@ -426,9 +428,6 @@ export class GeneralSettingService {
       }
     });
   }
- 
-
-
 
   getTagById(id: number) {
     this.GeneralSettingproxy.getTagById(id).subscribe((response) => {
@@ -446,10 +445,10 @@ export class GeneralSettingService {
             this.languageService.transalte('tag.success'),
             this.languageService.transalte('tag.success')
           );
-          this.getTagList("", new PageInfo())
+          this.getTagList('', new PageInfo());
 
           this.loaderService.hide();
-          
+
           return res;
         },
         error: (err) => {
@@ -499,7 +498,7 @@ export class GeneralSettingService {
           );
         },
       });
-    }else {
+    } else {
       this.tagDataSource.value.find((item) => {
         if (item.id === id) {
           item.isActive = true;
@@ -528,27 +527,21 @@ export class GeneralSettingService {
     });
   }
 
-
-   openCurrencyAdded() {
-    const ref:DynamicDialogRef = this.dialog.open(AddCurrencyDefinitionComponent, {
-        width: '600px',
-        height : '700px'
-     
+  openCurrencyAdded() {
+    const ref: DynamicDialogRef = this.dialog.open(AddCurrencyDefinitionComponent, {
+      width: '600px',
+      height: '700px',
     });
-    ref.onClose.subscribe((result: any) => {
-     
-    });
+    ref.onClose.subscribe((result: any) => {});
   }
 
   openCurrencyEdit(currencyId: number) {
-    const ref:DynamicDialogRef = this.dialog.open(EditCurrencyDefinitionComponent, {
+    const ref: DynamicDialogRef = this.dialog.open(EditCurrencyDefinitionComponent, {
       width: '600px',
-      height : '700px',
+      height: '700px',
       data: { Id: currencyId },
     });
-    ref.onClose.subscribe((result: CurrencyDefinitionDto) => {
-    
-    });
+    ref.onClose.subscribe((result: CurrencyDefinitionDto) => {});
   }
   getCurrencyList(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getAllCurrencyPaginated(searchTerm, pageInfo).subscribe({
@@ -558,9 +551,7 @@ export class GeneralSettingService {
       },
     });
   }
-  addCurrency(currency: CurrencyDefinitionDto
-    ,dialogRef: DynamicDialogRef
-  ){
+  addCurrency(currency: CurrencyDefinitionDto, dialogRef: DynamicDialogRef) {
     this.loaderService.show();
     this.GeneralSettingproxy.addCurrency(currency).subscribe({
       next: (res) => {
@@ -570,17 +561,15 @@ export class GeneralSettingService {
         );
         this.loaderService.hide();
         dialogRef.close(res);
-        this.getCurrencyList("", new PageInfo())
+        this.getCurrencyList('', new PageInfo());
       },
       error: (err) => {
         this.loaderService.hide();
       },
     });
   }
-  async deleteCurrency(id: number){
-    const confirmed = await this.toasterService.showConfirm(
-      'Delete'
-    );
+  async deleteCurrency(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
       this.GeneralSettingproxy.deleteCurrency(id).subscribe({
         next: (res) => {
@@ -588,7 +577,7 @@ export class GeneralSettingService {
             this.languageService.transalte('currencyDefinition.success'),
             this.languageService.transalte('currencyDefinition.successDelet')
           );
-          this.getCurrencyList("", new PageInfo())
+          this.getCurrencyList('', new PageInfo());
 
           return res;
         },
@@ -599,12 +588,10 @@ export class GeneralSettingService {
           );
         },
       });
-
     }
   }
 
-  EditCurrency(currency: CurrencyDefinitionDto
-    ,dialogRef: DynamicDialogRef) {
+  EditCurrency(currency: CurrencyDefinitionDto, dialogRef: DynamicDialogRef) {
     this.GeneralSettingproxy.EditCurrency(currency).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
@@ -613,23 +600,19 @@ export class GeneralSettingService {
         );
         this.loaderService.hide();
         dialogRef.close(res);
-        this.getCurrencyList("", new PageInfo())        
-
+        this.getCurrencyList('', new PageInfo());
       },
       error: (err) => {
         this.loaderService.hide();
       },
-  
     });
   }
-  getCurrencyById(id : number) {
-    this.GeneralSettingproxy.getCurrencyById(id)
-    .subscribe(res=>{
-      if(res) {
-        this.currencyDataByID.next(res)
-
+  getCurrencyById(id: number) {
+    this.GeneralSettingproxy.getCurrencyById(id).subscribe((res) => {
+      if (res) {
+        this.currencyDataByID.next(res);
       }
-    })
+    });
   }
   getCurrencyConversionList(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getAllCurrencyConversionPaginated(searchTerm, pageInfo).subscribe({
@@ -639,9 +622,7 @@ export class GeneralSettingService {
       },
     });
   }
-  addCurrencyConversion(currency: CurrencyConversionDto
-    ,dialogRef: DynamicDialogRef
-  ){
+  addCurrencyConversion(currency: CurrencyConversionDto, dialogRef: DynamicDialogRef) {
     this.loaderService.show();
     this.GeneralSettingproxy.addCurrencyConversion(currency).subscribe({
       next: (res) => {
@@ -651,17 +632,15 @@ export class GeneralSettingService {
         );
         this.loaderService.hide();
         dialogRef.close(res);
-        this.getCurrencyConversionList("", new PageInfo())
+        this.getCurrencyConversionList('', new PageInfo());
       },
       error: (err) => {
         this.loaderService.hide();
       },
     });
   }
-  async deleteCurrencyConversion(id: number){
-    const confirmed = await this.toasterService.showConfirm(
-      'Delete'
-    );
+  async deleteCurrencyConversion(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
       this.GeneralSettingproxy.deleteCurrencyConversion(id).subscribe({
         next: (res) => {
@@ -669,7 +648,7 @@ export class GeneralSettingService {
             this.languageService.transalte('currencyConversion.success'),
             this.languageService.transalte('currencyConversion.successDelet')
           );
-          this.getCurrencyConversionList("", new PageInfo())
+          this.getCurrencyConversionList('', new PageInfo());
 
           return res;
         },
@@ -680,12 +659,10 @@ export class GeneralSettingService {
           );
         },
       });
-
     }
   }
 
-  EditCurrencyConversion(currency: CurrencyConversionDto
-    ,dialogRef: DynamicDialogRef) {
+  EditCurrencyConversion(currency: CurrencyConversionDto, dialogRef: DynamicDialogRef) {
     this.GeneralSettingproxy.EditCurrencyConversion(currency).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
@@ -694,73 +671,64 @@ export class GeneralSettingService {
         );
         this.loaderService.hide();
         dialogRef.close(res);
-        this.getCurrencyConversionList("", new PageInfo())        
-
+        this.getCurrencyConversionList('', new PageInfo());
       },
       error: (err) => {
         this.loaderService.hide();
       },
-  
     });
   }
-  getCurrencyConversionById(id : number) {
-    this.GeneralSettingproxy.getCurrencyByIdConversion(id)
-    .subscribe(res=>{
-      if(res) {
-        this.currencyConversionDataByID.next(res)
-
+  getCurrencyConversionById(id: number) {
+    this.GeneralSettingproxy.getCurrencyByIdConversion(id).subscribe((res) => {
+      if (res) {
+        this.currencyConversionDataByID.next(res);
       }
-    })
+    });
   }
   openCurrencyConversionAdded() {
-    const ref:DynamicDialogRef = this.dialog.open(AddCurrencyConversionComponent, {
-      header : this.languageService.transalte('currencyConversion.AddNewcurrency'),
-        width: '600px',
-        height : '700px'
-     
+    const ref: DynamicDialogRef = this.dialog.open(AddCurrencyConversionComponent, {
+      header: this.languageService.transalte('currencyConversion.AddNewcurrency'),
+      width: '600px',
+      height: '700px',
     });
-    ref.onClose.subscribe((result: any) => {
-     
-    });
+    ref.onClose.subscribe((result: any) => {});
   }
 
   openCurrencyConversionEdit(currencyId: number) {
-    const ref:DynamicDialogRef = this.dialog.open(EditCurrencyConversionComponent, {
-      header : this.languageService.transalte('currencyConversion.Editcurrency'),
+    const ref: DynamicDialogRef = this.dialog.open(EditCurrencyConversionComponent, {
+      header: this.languageService.transalte('currencyConversion.Editcurrency'),
       width: '600px',
-      height : '700px',
+      height: '700px',
       data: { Id: currencyId },
     });
-    ref.onClose.subscribe((result: CurrencyDefinitionDto) => {
-    
-    });
+    ref.onClose.subscribe((result: CurrencyDefinitionDto) => {});
   }
-  exportcurrencyData(searchTerm:string | undefined) {
+  exportcurrencyData(searchTerm: string | undefined) {
     this.GeneralSettingproxy.exportcurrencyData(searchTerm).subscribe({
       next: (res) => {
-         this.exportsCurrencyListDataSource.next(res);
+        this.exportsCurrencyListDataSource.next(res);
       },
     });
   }
-  exportcurrencyDefinitionData(searchTerm:string | undefined) {
+  exportcurrencyDefinitionData(searchTerm: string | undefined) {
     this.GeneralSettingproxy.exportcurrencyDefinitionData(searchTerm).subscribe({
       next: (res) => {
-         this.exportcurrencyDefinitionDataSource.next(res);
+        this.exportcurrencyDefinitionDataSource.next(res);
       },
     });
   }
-  exportFinancialCalendarData(searchTerm:string | undefined) {
+  exportFinancialCalendarData(searchTerm: string | undefined) {
     this.GeneralSettingproxy.exportFinancialCalendarData(searchTerm).subscribe({
       next: (res) => {
-         this.exportsFinancialCalendarDataSource.next(res);
+        this.exportsFinancialCalendarDataSource.next(res);
       },
     });
   }
 
-  exportTagData(searchTerm:string | undefined) {
+  exportTagData(searchTerm: string | undefined) {
     this.GeneralSettingproxy.exportTagData(searchTerm).subscribe({
       next: (res) => {
-         this.exportsTagDataSource.next(res);
+        this.exportsTagDataSource.next(res);
       },
     });
   }

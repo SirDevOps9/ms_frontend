@@ -1,5 +1,4 @@
 <lib-page-content [title]="'bank.TaxList' | translate" [subTitle]="'bank.TaxList' | translate">
-  <lib-bread-crumb> </lib-bread-crumb>
   <div class="flex justify-content-end my-2">
     <lib-button-micro nameClass="cancel" title="{{ 'bank.discard' | translate }}" (click)="discard()"> </lib-button-micro>
     <lib-button-micro nameClass="save" title="{{ 'bank.save' | translate }}"  iconName="pi pi-save" type="button" (click)="onSave()">
@@ -234,7 +233,9 @@
                 [pEditableColumn]="bankGroup.controls['currencyId']"
                 pEditableColumnField="bankGroup.controls['currencyId']"
               >
+            
                 <p-cellEditor>
+
                   <ng-template pTemplate="input">
                     <lib-form-group>
                       <lib-select
@@ -246,12 +247,18 @@
                         [selectedValue]="bankGroup.controls['currencyId'].value"
                         (valueChanged)="currencyselected($event , bankGroup , i)"
                       ></lib-select>
+                      
                     </lib-form-group>
+                    
                   </ng-template>
+                  
                   <ng-template pTemplate="output">
                     {{ bankGroup.controls['currencyName'].value  }}
                   </ng-template>
                 </p-cellEditor>
+                <lib-field-validations
+                [appControl]="bankGroup.controls['currencyId']"
+              ></lib-field-validations>
               </td>
               <!--  -->
               <td>

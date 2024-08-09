@@ -1,7 +1,10 @@
+<lib-page-content>
 <div class="journal_entry_add_page">
-  <lib-bread-crumb>
+  
+  <div class="add_page_header">
     <button class="btn_walk" (click)="startTour()">walk through</button>
-  </lib-bread-crumb>
+
+  </div>
   <div [formGroup]="fg" class="entry_header">
     <!-- <p class="title test">{{ 'journal_entry_header' | translate }}</p> -->
     <div class="grid">
@@ -185,7 +188,9 @@
             </td>
             <td>
               
-              <img class="costCenterImg" src="assets/images/Frame.png" (click)="openCostPopup(fg.value ,fg,  fg.controls['account']?.value , i)">
+              <img class="costCenterImg" src="assets/images/Frame.png" (click)="openCostPopup(fg.value ,fg,  fg.controls['account']?.value , i)" *ngIf="!fg.controls['costCenterConfig'].value  || fg.controls['costCenterConfig'].value == 'Mandatory'">
+              <p *ngIf="fg.controls['costCenterConfig'].value == 'NotAllow'">test</p>
+              <p *ngIf="fg.controls['costCenterConfig'].value == 'Optional'">ggggg</p>
             </td>
             <td>
               <lib-button
@@ -216,3 +221,4 @@
   </div>
   <ngx-guided-tour skipText=" skip " nextText=" next "></ngx-guided-tour>
 </div>
+</lib-page-content>

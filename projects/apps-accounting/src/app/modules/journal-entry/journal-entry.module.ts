@@ -23,6 +23,8 @@ import { AddJournalEntryOpeningBalanceComponent } from './pages/journal-entry-op
 import { EditJournalEntryOpeningBalanceComponent } from './pages/journal-entry-opening-balance/edit-journal-entry-opening-balance/edit-journal-entry-opening-balance.component';
 import { ViewJournalEntryOpeningBalanceComponent } from './pages/journal-entry-opening-balance/view-journal-entry-opening-balance/view-journal-entry-opening-balance.component';
 import { CostCenterReportComponent } from './pages/report/cost-center-report/cost-center-report.component';
+import { MainJournalComponent } from './pages/main-journal/main-journal.component';
+import { MainOpeningBalanceComponent } from './pages/journal-entry-opening-balance/main-opening-balance/main-opening-balance.component';
 
 const routes: Routes = [
   {
@@ -34,31 +36,41 @@ const routes: Routes = [
     children: [
       {
         path: 'journalentry',
-        component: JournalEntryListComponent,
+        component: MainJournalComponent,
         data: {
           breadcrumb: BreadcrumbLabel.JournalEntryList,
         },
-      },
-      {
-        path: 'journalentry/add',
-        component: CreateJournalEntryComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.JournalEntryAdd,
-        },
-      },
-      {
-        path: 'journalentry/view/:id',
-        component: ViewJournalEntryComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.JournalEntryView,
-        },
-      },
-      {
-        path: 'journalentry/edit/:id',
-        component: EditJournalEntryComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.JournalEntryEdit,
-        },
+       
+        children: [
+          {
+            path: '',
+            component: JournalEntryListComponent,
+            data: {
+              breadcrumb: "",
+            },
+          },
+          {
+            path: 'add',
+            component: CreateJournalEntryComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.JournalEntryAdd,
+            },
+          },
+          {
+            path: 'view/:id',
+            component: ViewJournalEntryComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.JournalEntryView,
+            },
+          },
+          {
+            path: 'edit/:id',
+            component: EditJournalEntryComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.JournalEntryEdit,
+            },
+          },
+        ],
       },
       {
         path: 'trial-balance',
@@ -70,7 +82,6 @@ const routes: Routes = [
       {
         path: 'cost-center',
         component: CostCenterReportComponent,
-        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.COST_CENTER,
         },
@@ -91,12 +102,16 @@ const routes: Routes = [
       },
       {
         path: 'journal-entry-opening-balance',
+        component: MainOpeningBalanceComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.JournalEntryOpeningBalance,
+        },
         children: [
           {
             path: '',
             component: JournalEntryOpeningBalanceListComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.JournalEntryOpeningBalance,
+              breadcrumb: '',
             },
           },
           {
@@ -120,12 +135,11 @@ const routes: Routes = [
               breadcrumb: BreadcrumbLabel.ViewJournalEntryOpeningBalance,
             },
           },
-        ]
+        ],
       },
     ],
   },
 ];
-
 
 @NgModule({
   declarations: [
@@ -146,6 +160,8 @@ const routes: Routes = [
     EditJournalEntryOpeningBalanceComponent,
     ViewJournalEntryOpeningBalanceComponent,
     CostCenterReportComponent,
+    MainJournalComponent,
+    MainOpeningBalanceComponent,
   ],
   imports: [
     CommonModule,
