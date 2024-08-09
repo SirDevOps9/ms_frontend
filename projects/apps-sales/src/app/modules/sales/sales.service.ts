@@ -336,11 +336,12 @@ export class SalesService {
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('addCustomerDefinition.success'),
-          this.languageService.transalte('addCustomerDefinition.successAdd')
+          this.languageService.transalte('addCustomerDefinition.successAdded')
         );
         if (res) {
           this.addCustomerDefinitionRes.next(res);
           this.loaderService.hide();
+         
         }
       },
       error: (err) => {
@@ -366,7 +367,7 @@ export class SalesService {
         next: (res) => {
           this.toasterService.showSuccess(
             this.languageService.transalte('deleteCustomerDefinition.success'),
-            this.languageService.transalte('deleteCustomerDefinition.delete')
+            this.languageService.transalte('deleteCustomerDefinition.deleted')
           );
           this.loaderService.hide();
           this.customerDeleted.next(res)
@@ -374,8 +375,8 @@ export class SalesService {
         error: () => {
           this.loaderService.hide();
           this.toasterService.showError(
-            this.languageService.transalte('deleteCustomerDefinition.success'),
-            this.languageService.transalte('deleteCustomerDefinition.delete')
+            this.languageService.transalte('Company.Error'),
+            this.languageService.transalte('DeleteError')
          );
         },
       });

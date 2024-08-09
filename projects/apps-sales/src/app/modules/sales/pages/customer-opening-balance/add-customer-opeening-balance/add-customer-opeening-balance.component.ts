@@ -36,7 +36,7 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.getCustomerOpeningBalance()
-    // Initialize formGroup
+    // Initialize formGroup 
     this.formGroup = this.fb.group({
       open: new FormControl('', customValidators.required),
       open2: new FormControl('', customValidators.required),
@@ -199,71 +199,10 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
       customerOpeningBalanceDetails: this.items.value
     }
     this.SalesService.AddCustomerOpeningBalance(body)
-    
+      
   
   }
 
-  // getCustomerOpeningBalance() {
-  //   this.SalesService.getCustomerOpeningBalance();
-  //   this.SalesService.CustomerOpeningBalancelistObservable.subscribe((res: any) => {
-  //     // Initialize or clear the customerForm array
-  //     if (!this.customerForm) {
-  //       this.customerForm = this.fb.array([]);
-  //     } else {
-  //       this.customerForm.clear();
-  //     }
-  
-  //     if (res) {
-  //       // Patch main form values
-  //       this.formGroup.patchValue({
-  //         open: res.openingBalanceJournalEntryId || '',
-  //         open2: res.openingBalanceJournalEntryLineId || '',
-  //         name1: res.amount || '',
-  //         name2: res.amountNature || ''
-  //       });
-  
-  //       // Get dropdown options for lines
-  //       this.getLinesDropDown(res.openingBalanceJournalEntryId);
-  
-  //       setTimeout(() => {
-  //         if (this.LinesDropDown.length !== 0) {
-  //           this.LinesDropDown.forEach((element: any) => {
-  //             if (element.id === res.openingBalanceJournalEntryLineId) {
-  //               this.getCustomerDropDownByAccountId(element.accountId);
-  //               this.openingBalanceJournalEntryLineId = element.id;
-  //               this.amountNature = element.amountNature;
-  //             }
-  //           });
-  //         }
-  //       }, 500);
-  
-  //       // Check if customerOpeningDetails is an array and process each item
-  //       if (res.customerOpeningDetails && Array.isArray(res.customerOpeningDetails)) {
-  //         res.customerOpeningDetails.forEach((detail: any, index: number) => {
-  //           const formGroup = this.createBankFormGroup();
-  
-  //           if (detail) {
-  //             formGroup.patchValue({
-  //               id: detail.id,
-  //               customerId: detail.customerId || '',
-  //               accountName: detail.customerName || '',
-  //               balance: detail.balance || null,
-  //               balanceType: detail.balanceType || '',
-  //               displayName: detail.displayName || '',
-  //               dueDates: detail.balanceDueDates || []
-  //             });
-  //           }
-  
-  //           // Push the form group to the customerForm array
-  //           this.customerForm.push(formGroup);
-  
-  //           // Call accountSelected to handle any additional logic for the selected customerId
-  //           this.accountSelected(detail.customerId, index);
-  //         });
-  //       }
-  //     }
-  //   });
-  // }
   getCustomerOpeningBalance() {
     this.SalesService.getCustomerOpeningBalance();
     this.SalesService.CustomerOpeningBalancelistObservable.subscribe((res: any) => {

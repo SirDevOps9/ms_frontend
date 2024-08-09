@@ -411,12 +411,14 @@
     "addCustomerDefinition" : {
       "success":"Success",
       "successAdd":"Customer Definition Added Successfully",
+      "successAdded":"Customer  Added Successfully",
       "successEdit":"Customer Definition Edited Successfully",
       "openSuccess":"Customer Definition Opened Successfully"
     },
     "deleteCustomerDefinition" : {
       "success":"Success",
-      "delete" : "Customer Definition Deleted Successfully"
+      "delete" : "Customer Definition Deleted Successfully",
+      "deleted" : "Customer Deleted Successfully"
     },
     "vendorDefinition" : {
       "code" : "Vendor Code",
