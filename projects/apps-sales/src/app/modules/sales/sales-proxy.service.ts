@@ -129,4 +129,20 @@ export class SalesProxyService {
     }
      return this.httpService.get<CustomerDefinitionDto[]>(query);
   }
-}
+  openingBalanceJournalEntryDropdown(): Observable<CategoryDropdownDto[]> {
+    return this.httpService.get<CategoryDropdownDto[]>('OpeningBalanceJournalEntry/GetDropDown');
+  }
+  GetLinesDropDown(id: number): Observable<any[]> {
+    return this.httpService.get<any[]>(`OpeningBalanceJournalEntry/GetLinesDropDown/${id}`);
+  }
+  CustomerDropDownByAccountId(id: number): Observable<any[]> {
+    return this.httpService.get<any[]>(`Customer/DropDownByAccountId/${id}`);
+  }
+  AddCustomerOpeningBalance(customer:any): Observable<any>{
+    return this.httpService.post(`CustomerOpeningBalance`, customer);
+  }
+    GetCustomerOpeningBalance(): Observable<any[]> {
+      return this.httpService.get<any[]>(`CustomerOpeningBalance`);
+    }
+
+  }

@@ -1,3 +1,10 @@
 .pointer {
     cursor: pointer;
 }
+.action_header{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 15px  0;
+    background-color: #EDEEF1;
+}

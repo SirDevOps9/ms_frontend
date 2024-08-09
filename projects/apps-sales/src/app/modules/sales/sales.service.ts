@@ -51,6 +51,10 @@ export class SalesService {
   private sendPaymentTermsDropDownData = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   private sendgetVendorCategoryDropdownData = new BehaviorSubject<CategoryDropdownDto[]>([]);
+  private openingBalanceJournalEntryDropdownData = new BehaviorSubject<CategoryDropdownDto[]>([]);
+  private LinesDropDownData = new BehaviorSubject<any[]>([]);
+  private CustomerDropDownByAccountId = new BehaviorSubject<any[]>([]);
+  private CustomerOpeningBalancelist = new BehaviorSubject<any[]>([]);
   private countryDataSource = new BehaviorSubject<CountryDto[]>([]);
   private cityDataSource = new BehaviorSubject<CityDto[]>([]);
   private currenciesDataSource = new BehaviorSubject<CurrencyDto[]>([]);
@@ -71,6 +75,11 @@ export class SalesService {
   public sendPaymentTermsDropDownDataObservable = this.sendPaymentTermsDropDownData.asObservable();
   public sendgetVendorCategoryDropdownDataObservable =
     this.sendgetVendorCategoryDropdownData.asObservable();
+  public openingBalanceJournalEntryDropdownDataObservable =
+    this.openingBalanceJournalEntryDropdownData.asObservable();
+  public LinesDropDownDataObservable = this.LinesDropDownData.asObservable();
+  public CustomerDropDownByAccountIdObservable = this.CustomerDropDownByAccountId.asObservable();
+  public CustomerOpeningBalancelistObservable = this.CustomerOpeningBalancelist.asObservable();
   public currencies = this.currenciesDataSource.asObservable();
 
   public cities = this.cityDataSource.asObservable();
@@ -296,6 +305,52 @@ export class SalesService {
       next: (res) => {
          this.exportsCustomersDataSource.next(res);
       },
+    });
+  }
+  openingBalanceJournalEntryDropdown() {
+    this.salesProxy.openingBalanceJournalEntryDropdown().subscribe((res) => {
+      if (res) {
+        this.openingBalanceJournalEntryDropdownData.next(res);
+      }
+    });
+  }
+  getLinesDropDown(id:number){
+    this.salesProxy.GetLinesDropDown(id).subscribe((res) => {
+      if (res) {
+        this.LinesDropDownData.next(res);
+      }
+    });
+  }
+  getCustomerDropDownByAccountId(id:number){
+    this.salesProxy.CustomerDropDownByAccountId(id).subscribe((res) => {
+      if (res) {
+        this.CustomerDropDownByAccountId.next(res);
+      }
+    });
+  }
+  AddCustomerOpeningBalance(customer: any) {
+    this.loaderService.show();
+    this.salesProxy.AddCustomerOpeningBalance(customer).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('addCustomerDefinition.success'),
+          this.languageService.transalte('addCustomerDefinition.successAdd')
+        );
+        if (res) {
+          this.addCustomerDefinitionRes.next(res);
+          this.loaderService.hide();
+        }
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+  getCustomerOpeningBalance(){
+    this.salesProxy.GetCustomerOpeningBalance().subscribe((res) => {
+      if (res) {
+        this.CustomerOpeningBalancelist.next(res);
+      }
     });
   }
 }
