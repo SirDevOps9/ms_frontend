@@ -3,7 +3,7 @@ import { FinanceProxyService } from './finance-proxy.service';
 import { HttpService, LanguageService, LoaderService, PageInfo, PageInfoResult, PaginationVm, RouterService, ToasterService } from 'shared-lib';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
-import { AddPaymentTermDto, AddTreasuryDto, EditTreasuryDto, GetTreasuryDtoById, PaymentTermDto } from './models';
+import { AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, EditTreasuryDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { HttpClient } from '@angular/common/http';
@@ -11,6 +11,7 @@ import { AddBankDto } from './models/addBankDto';
 import { UserPermission } from './models/user-permission';
 import { bankByID } from './models/getBankByID';
 import { GetPaymentTermById } from './models/get-payment-term-by-id-dto';
+import { GetPaymentMethodByIdDto } from './models/get-payment-method-by-id-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,10 @@ export class FinanceService {
   public paymentTermDataSource = new BehaviorSubject<PaymentTermDto[]>([])
   public exportedpaymentTermListDataSource = new BehaviorSubject<PaymentTermDto[]>([]);
   public sendPaymentTermByID = new BehaviorSubject<GetPaymentTermById>({} as GetPaymentTermById)
+  public paymentMethodDataSource = new BehaviorSubject<PaymentMethodDto[]>([])
+  public exportedpaymentMethodListDataSource = new BehaviorSubject<PaymentMethodDto[]>([]);
+  public sendPaymentMethodByID = new BehaviorSubject<GetPaymentMethodByIdDto>({} as GetPaymentMethodByIdDto)
+
 
 
 
@@ -49,6 +54,11 @@ export class FinanceService {
   paymentTermDataSourceObservable = this.paymentTermDataSource.asObservable()
   exportedPaymentTermDataSourceObservable = this.exportedpaymentTermListDataSource.asObservable()
   sendPaymentTermByIDObservable = this.sendPaymentTermByID.asObservable()
+  paymentMethodDataSourceObservable = this.paymentMethodDataSource.asObservable()
+  exportedPaymentMethodDataSourceObservable = this.exportedpaymentMethodListDataSource.asObservable()
+  sendPaymentMethodByIDObservable = this.sendPaymentMethodByID.asObservable()
+
+  
 
 
 
@@ -290,6 +300,85 @@ export class FinanceService {
           this.languageService.transalte('add-paymentterm.edit')
         );
         this.routerService.navigateTo('/masterdata/paymentterm')
+        
+      }
+    })
+  }
+  getAllPaymentMethod(quieries: string, pageInfo: PageInfo)  {
+    this.financeProxy.getAllPymentMethod(quieries, pageInfo).subscribe((response) => {
+     this.paymentMethodDataSource.next(response.result)
+     this.currentPageInfo.next(response.pageInfoResult)
+    });
+  }
+
+  exportsPaymentMethodList(searchTerm:string | undefined) {
+    this.financeProxy.exportsPaymentMethodList(searchTerm).subscribe({
+      next: (res : any) => {
+         this.exportedpaymentMethodListDataSource.next(res);
+      },
+    });
+  }
+
+  async deletePaymentMethod(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.financeProxy.deletePaymentMethod(id).subscribe({
+        next: (res) => {
+          
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('delete')
+          );
+          this.loaderService.hide();
+          const currentPaymentMethod = this.paymentMethodDataSource.getValue();
+          const updatedcurrentPaymentMethod = currentPaymentMethod.filter((c : any) => c.id !== id);
+          this.paymentMethodDataSource.next(updatedcurrentPaymentMethod);
+        },
+        
+      });
+    }
+  }
+
+  BankAccountDropDown(id: number) {
+    return this.financeProxy.BankAccountDropDown(id)
+
+  }
+
+  BankDropDown() {
+    return this.financeProxy.BankDropDown()
+
+  }
+  
+  addPaymentMethod(obj:AddPaymentMethodDto) {
+    this.financeProxy.addPaymentMethod(obj).subscribe(res=>{
+      if(res) {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('success'),
+          this.languageService.transalte('add-paymentMethod.add')
+        );
+        this.routerService.navigateTo('/masterdata/payment-method')
+        
+      }
+    })
+  }
+  getPaymentMethodByID(id : number) {
+    this.financeProxy.getPaymentMethodByID(id).subscribe(res=>{
+      if(res) {
+       this.sendPaymentMethodByID.next(res)
+        
+      }
+    })
+  }
+  editPaymentMethod(obj : any) {
+    this.financeProxy.editPaymentMethod(obj).subscribe(res=>{
+      if(res) {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('success'),
+          this.languageService.transalte('add-paymentMethod.edit')
+        );
+        this.routerService.navigateTo('/masterdata/payment-method')
         
       }
     })

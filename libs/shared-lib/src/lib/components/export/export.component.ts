@@ -14,7 +14,7 @@ export class ExportComponent implements OnChanges {
   @Output() exportClick: EventEmitter<any> = new EventEmitter<any>();
 
   itemsMenu: MenuItem[] =  [
-    { label: 'Excell', icon: 'pi pi-file-excel', command: () =>  this.excell() },
+    { label: 'Excel', icon: 'pi pi-file-excel', command: () =>  this.excell() },
     { label: 'PDF', icon: 'pi pi-file-pdf', command: () =>  this.pdf()}
   ];;
     pdf() {
@@ -40,4 +40,5 @@ export class ExportComponent implements OnChanges {
 
     
   }
+  
 }
