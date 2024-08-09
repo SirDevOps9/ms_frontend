@@ -14,6 +14,7 @@ import { TreasureDefinitionDto } from '../../../models/treasureDefinitionsDto';
 import { AddTreasuryComponent } from '../../../components/add-treasury/add-treasury.component';
 import { EditTreasuryComponent } from '../../../components/edit-treasury/edit-treasury.component';
 import { TaxDto } from '../../../../general/models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-treaury-definition-list',
@@ -26,7 +27,8 @@ export class TreauryDefinitionListComponent implements OnInit {
     public authService: AuthService,
     private dialog: DialogService,
     private financeService: FinanceService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private titleService:Title
   ) {}
 
   tableData: TreasureDefinitionDto[];
@@ -71,6 +73,7 @@ export class TreauryDefinitionListComponent implements OnInit {
       id: col.header,
       name: col.field,
     }));
+    this.titleService.setTitle(this.languageService.transalte('treasury.treasuryList'));
   }
 
   initTreasurData() {

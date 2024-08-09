@@ -39,7 +39,6 @@ export class AddTreasuryComponent implements OnInit {
     private langService: LanguageService,
     private dialog: DialogService
   ) {
-    this.title.setTitle(this.langService.transalte('treasury.addTreasury'));
   }
 
   ngOnInit() {
