@@ -15,7 +15,9 @@ export interface bankByID {
     id: number
     accountNumber: string
     bankId: number
-    glAccountId: number
+    glAccountId: number,
+    glAccountName: string
+    glAccountCode: string
     iban: string
     currencyId: number
     currentBalance: number

@@ -173,14 +173,14 @@
                       </div>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{ bankGroup.controls['displayName']?.value }}
+                      {{ bankGroup.controls['accountCode']?.value }}
                     </ng-template>
                   </p-cellEditor>
                 </td>
                 <!--  -->
-                <td>
-                  {{ bankGroup.controls['accountName']?.value }}
-                </td>
+                <td> {{ bankGroup.controls['accountName'].value }}</td>
+               
+
                 <!--  -->
   
                 <td
@@ -253,6 +253,9 @@
                     {{ bankGroup.controls['currencyName']?.value  }}
                   </ng-template>
                 </p-cellEditor>
+                <lib-field-validations
+                [appControl]="bankGroup.controls['currencyId']"
+              ></lib-field-validations>
                 </td>
                 <!--  -->
                 <td>
