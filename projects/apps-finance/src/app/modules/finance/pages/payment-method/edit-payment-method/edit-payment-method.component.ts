@@ -250,7 +250,9 @@ export class EditPaymentMethodComponent implements OnInit {
 
   onSave() {
     const formData = this.PaymentMethodForm.value as GetPaymentMethodByIdDto;
-    console.log("sandra",formData);
+    if (formData.paymentPlace == this.sharedFinanceEnum.PaymentPlace.Treasury.toString()) {
+      formData.paymentMethodCommissionData = null;
+  }
 
     if (!this.formsService.validForm(this.PaymentMethodForm, false)) return;
   
