@@ -66,6 +66,9 @@ export class CostCenterReportComponent {
             this.languageService.transalte('reportTrial.selectfaild')
           );
         } else {
+          if(this.reportCostForm.get('costCenters')?.value == null)
+            this.reportCostForm.get('costCenters')?.setValue([]);
+          
           this.journalEntryService.getCostCenterReports(this.reportCostForm.value);
           this.journalEntryService.CostCenterReport.subscribe((res: any) => {
             if (res.length > 0) {

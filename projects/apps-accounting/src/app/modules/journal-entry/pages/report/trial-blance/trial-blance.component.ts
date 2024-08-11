@@ -70,9 +70,7 @@ export class TrialBlanceComponent implements OnInit {
       ]),
       posted: new FormControl(true),
       unposted: new FormControl(false),
-      Accounts: new FormControl('', [
-        customValidators.required,
-      ]),
+      Accounts: new FormControl([]),
 
     });
   }
@@ -89,6 +87,8 @@ export class TrialBlanceComponent implements OnInit {
           )
         }
         else {
+          if(this.reportTrialForm.get('Accounts')?.value == null)
+            this.reportTrialForm.get('Accounts')?.setValue([]);
           this.journalEntryService.getTrialBalance(this.reportTrialForm.value);
           this.journalEntryService.report.subscribe(((res: any) => {
             this.tableData = res
