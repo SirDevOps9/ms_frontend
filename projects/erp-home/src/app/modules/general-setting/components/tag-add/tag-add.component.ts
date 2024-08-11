@@ -51,7 +51,7 @@ export class TagAddComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.formsService.validForm(this.tagForm, true)) return;   
+    if (!this.formsService.validForm(this.tagForm)) return;   
      const tagDto: AddTagDto = this.tagForm.value;
     this.generalSettingService.addTag(tagDto, this.ref);
   }

@@ -52,7 +52,7 @@ export class TaxDefinitionAddComponent {
   }
 
   onSubmit() {
-    if (!this.formsService.validForm(this.addForm, true)) return;
+    if (!this.formsService.validForm(this.addForm)) return;
     const request: AddTax = this.addForm.value;
     this.accountService.addTax(request, this.ref);
   }

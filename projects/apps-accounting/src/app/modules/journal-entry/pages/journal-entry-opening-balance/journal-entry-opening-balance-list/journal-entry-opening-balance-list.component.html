@@ -65,26 +65,26 @@
         }"
       >
         <ng-container caption>
-          <div class="group">
+          <div class="group flex justify-content-between">
             <div>
-              
-                <lib-text-input   type="text" [placeholder]="'Journal.search' | translate"  (keyUp)="onSearchChange($event)" [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">                   
-                </lib-text-input>            
+              <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" placeholder="{{ 'Journal.search' | translate }}" (keyup)="onSearchChange($event)" />
+              </span>           
             </div>
   
             <!-- <lib-button pRipple className="add_new" label="Add New" icon="pi pi-plus">
             </lib-button> -->
-            <div class="flex gap-2 align-items-center">
-              <button class="add_new" (click)="routeToAdd()">
-                <span class="pi pi-plus"></span>
-                {{ 'Journal.addNew' | translate }}
-              </button>
+            <div class="flex gap-2">
+    
               <lib-export  
               (exportClick)="exportClick($event)"
               [exportData]="exportData"
               [exportColumns]="exportColumns"
               [ExportName]="'Journal Openeing Balance List'">
             </lib-export>
+            <lib-button pRipple className="addToList" label="{{ 'Journal.addNew' | translate }}" (onClick)="routeToAdd()" [icon]="'pi pi-plus'">
+            </lib-button> 
             </div>
           </div>
         </ng-container>
