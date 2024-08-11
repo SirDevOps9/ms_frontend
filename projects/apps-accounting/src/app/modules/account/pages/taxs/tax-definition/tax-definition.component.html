@@ -53,16 +53,12 @@
         }"
       >
         <ng-container caption>
-            <div class="flex justify-content-between align-items-center">
+            <div class="group flex justify-content-between">
               <div >
-                <lib-form-group>
-                  <lib-text-input
-                    type="text"
-                    [placeholder]="'Tax.Search' | translate"
-                    [(ngModel)]="searchTerm"
-                    (keyUp)="onSearchChange()"
-                  ></lib-text-input>
-                </lib-form-group>
+                <span class="p-input-icon-left">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text" placeholder="{{ 'Tax.Search' | translate }}" (keyup)="onSearchChange()" />
+                </span>
               </div>
               <!--  -->
 
