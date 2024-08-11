@@ -38,7 +38,7 @@
   .p-inputtext:enabled:focus {
     outline: 0 none;
     outline-offset: 0;
-    box-shadow: 0 0 0 0.2rem #1a8eae !important;
+    // box-shadow: 0 0 0 0.2rem #1a8eae !important;
     border-color: #1a8eae !important;
   }
   .p-autocomplete:not(.p-disabled):hover .p-autocomplete-multiple-container {
@@ -47,7 +47,7 @@
   .p-autocomplete:not(.p-disabled).p-focus .p-autocomplete-multiple-container {
     outline: 0 none;
     outline-offset: 0;
-    box-shadow: 0 0 0 0.2rem #1a8eae !important;
+    // box-shadow: 0 0 0 0.2rem #1a8eae !important;
     border-color: #1a8eae !important;
   }
   .p-autocomplete:not(.p-disabled):hover .p-autocomplete-multiple-container {
@@ -56,7 +56,7 @@
   .p-autocomplete:not(.p-disabled).p-focus .p-autocomplete-multiple-container {
     outline: 0 none;
     outline-offset: 0;
-    box-shadow: 0 0 0 0.2rem #1a8eae !important;
+    // box-shadow: 0 0 0 0.2rem #1a8eae !important;
     border-color: #1a8eae !important;
   }
   .p-dropdown {
@@ -72,7 +72,7 @@
   .p-dropdown:not(.p-disabled).p-focus {
     outline: 0 none;
     outline-offset: 0;
-    box-shadow: 0 0 0 0.2rem #1a8eae !important;
+    // box-shadow: 0 0 0 0.2rem #1a8eae !important;
     border-color: #1a8eae !important;
   }
   .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight.p-focus {

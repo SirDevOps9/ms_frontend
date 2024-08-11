@@ -102,7 +102,8 @@ export class SalesService {
     private toasterService: ToasterService,
     private routerService: RouterService,
     private salesProxy: SalesProxyService,
-    private formsService: FormsService
+    private formsService: FormsService,
+    private router: RouterService,
   ) {}
 
   getcustomerCategory(searchTerm: string, pageInfo: PageInfo) {
@@ -233,6 +234,7 @@ export class SalesService {
         );
         if (res) {
           this.editCustomerDefinitionRes.next(res);
+          this.router.navigateTo('/masterdata/customer-definitions');
         }
       },
       error: (err) => {

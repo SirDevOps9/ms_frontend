@@ -5,14 +5,14 @@ export interface GetPaymentMethodByIdDto {
     name: string,
     paymentPlace: string,
     paymentMethodType: string,
-    paymentMethodCommissionData:getpaymentMethodCommissionData
+    paymentMethodCommissionData:getpaymentMethodCommissionData|null
     }
     export interface getpaymentMethodCommissionData {
         bankId: number,
         bankAccountId: number,
-        commissionType: string,
-        commissionValue: number,
-        commissionAccountId: number,
+        commissionType: string|null,
+        commissionValue: number|null,
+        commissionAccountId: number|null,
         allowVAT: boolean,
         currencyName: string
       }

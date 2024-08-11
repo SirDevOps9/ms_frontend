@@ -289,6 +289,7 @@
       "SubdomainAddedSuccessfully": "Subdomain Added Successfully",
       "AddDomainSpace": "Add Domain Space",
       "Count": "Count",
+      "Duration":"Duration",
       "Monthly": "Monthly",
       "Yearly": "Yearly",
       "YourDomainSpace": "Your Domain Space",

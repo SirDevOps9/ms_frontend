@@ -232,11 +232,7 @@ export class EditCustomerComponent implements OnInit {
 
     const customer: EditCustomerDefintionsDto = this.addCustomerForm.value;
     this.salesService.editCustomerDefinition(customer, this.addCustomerForm);
-    this.salesService.editCustomerDefinitionResObservable.subscribe((res) => {
-      if (res) {
-        this.router.navigateTo('/masterdata/customer-definitions');
-      }
-    });
+
   }
 
   onCancel() {
