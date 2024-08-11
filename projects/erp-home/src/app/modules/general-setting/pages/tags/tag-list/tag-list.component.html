@@ -49,38 +49,28 @@
         }"
       >
       <ng-container caption>
-        <div class="flex justify-content-between align-items-center">
-          <div class="flex align-items-center">
-            <input
-              type="text"
-              pInputText
-              placeholder="{{ 'tag.Search' | translate }}"
-              [(ngModel)]="searchTerm"
-              (input)="onSearchChange()"
-              class="mr-2"
-            />
-          </div>
+        <div class="group flex justify-content-between">
           <div>
-            <button
-              pButton
-              pRipple
-              label="{{ 'tag.AddNew' | translate }}"
-              icon="pi pi-plus"
-              class="btn add_new mr-2"
-              (click)="newTag()"
-            ></button>      
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" placeholder="{{ 'tag.Search' | translate }}" (keyup)="onSearchChange()" />
+            </span>
           </div>
-          <div>
-            <lib-export  
-            (exportClick)="exportTagData($event)"
-            [exportData]="exportData"
-            [exportColumns]="exportColumns"
-            [ExportName]="'Tag'">
-          </lib-export>
-    
-          </div>
+          <div class="flex gap-2">
+            <lib-export
+              (exportClick)="exportTagData($event)"
+              [exportData]="exportData"
+              [exportColumns]="exportColumns"
+              [ExportName]="'Tag'"
+            >
+            </lib-export>
+             <lib-button pRipple className="addToList" label="{{ 'tag.AddNew' | translate }}" (onClick)="newTag()" [icon]="'pi pi-plus'">
+        </lib-button> 
+
+        </div>
         </div>
       </ng-container>
+      
         <ng-template #userCol let-tag>
           <div class="actions flex align-items-center">
             <lib-button

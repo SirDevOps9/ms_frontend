@@ -8,13 +8,13 @@
     
   }
   .p-inputtext:enabled:focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: 0 0 0 0.2rem #1a8eae !important;
-    border-color: #1a8eae !important;
+    // outline: 0 none;
+    // outline-offset: 0;
+    // box-shadow: 0 0 0 0.2rem #1a8eae !important;
+    // border-color: #1a8eae !important;
   }
  .p-inputtext::placeholder {
-    color: #1a8eae !important;
+    color: #C7C7C7 !important;
   }
   .reads{
       background: #D8DBDF !important;
@@ -31,6 +31,8 @@
   background-size: 20px;
   background-repeat: no-repeat;
   background-position: right;
+
+  
 }
 .textbox{
   padding: 35px 10px !important;

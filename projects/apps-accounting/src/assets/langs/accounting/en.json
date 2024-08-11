@@ -13,7 +13,8 @@
     "JournalEntryOpeningBalance": "Journal Entry Opening Balance",
     "AddJournalEntryOpeningBalance": "Add Journal Entry Opening Balance",
     "EditJournalEntryOpeningBalance": "Edit Journal Entry Opening Balance",
-    "ViewJournalEntryOpeningBalance": "View Journal Entry Opening Balance"
+    "ViewJournalEntryOpeningBalance": "View Journal Entry Opening Balance",
+    "CostCenterReport":"Cost Center Report"
   },
   "COAConfigration": {
     "Success": "Success",
@@ -30,7 +31,7 @@
     "LevelsSaved": "Levels Saved Successfully"
   },
   "ChartOfAccount": {
-    "Title": "Chart of Account Tree",
+    "Title": "Chart of Accounts",
     "ChartOfAccountList": "Chart of Account List",
     "AddChartOfAccount": "Add Chart of Account",
     "EditChartOfAccount": "Edit Chart of Account",
@@ -41,7 +42,7 @@
     "Nature": "Nature",
     "AccountType": "Account Type",
     "AccountSection": "Account Section",
-    "Search": "Search...",
+    "Search": "Search",
     "Accounts": "Accounts",
     "Main": "Main",
     "Success": "Success",
@@ -252,7 +253,7 @@
     "Actions": "Actions"
   },
   "costCenter": {
-    "costCenter": "Cost Center Tree",
+    "costCenter": "Cost Centers",
     "CostCenterList": "Cost Center List",
     "AddCostCenter": "Add Cost Center",
     "EditCostCenter": "Edit Cost Center",
@@ -340,6 +341,9 @@
     "debit":"debit",
     "credit":"credit",
     "balance":"balance",
-    "title":"Cost Center Report"
+    "title":"Cost Center Report",
+    "ViewData":"View Data",
+    "Select": "Select"
+
   }
 }

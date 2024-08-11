@@ -1,7 +1,8 @@
 <div class="sidebar" [ngClass]="{ close: !sidebarOpen }" >
 
 <div class="flex justify-content-between imgCont" [class.imgContDiv]="!sidebarOpen" *ngIf="sidebarOpen">
-  <img src="assets/images/group.png" style="height: 24px;" [class.smallImg]="!sidebarOpen" *ngIf="sidebarOpen"/>
+  
+  <img src="assets/images/logo.svg" style="height: 24px;" [class.smallImg]="!sidebarOpen" *ngIf="sidebarOpen"/>
   <div >
     <i
       class="pi pi-align-justify switch"
@@ -18,7 +19,7 @@
 
   <ul class="nav-links">
     <ng-container *ngFor="let menuItem of treeData; let i = index">
-      <li *ngIf="menuItem.subMenu.length > 0">
+      <li *ngIf="menuItem.subMenu.length > 0" (click)="open($event, i)">
         <div class="iocn-link" id="parent{{ i }}">
           <a>
             <i class="{{ menuItem.icon }}"></i>
@@ -28,12 +29,16 @@
             'pi-sort-down-fill': !openStates[i],
             'pi-sort-up-fill': openStates[i]
           }" 
-          (click)="open($event, i)"></i>
+          ></i>
         </div>
         <ul class="sub-menu">
           <li *ngFor="let subItem of menuItem.subMenu; let x = index">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 5L11 7.33333M9 19L15 12L13.5 10.25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             <ng-container *ngIf="subItem.subMenu?.length">
               <div class="iocn-link" id="parent{{ x }}">
+                
                 <a [href]="subItem.link">
                   <span class="link_name body_b18 pointer" >{{ subItem.name }}</span>
                 </a>
@@ -42,6 +47,7 @@
                 (click)="open($event, x)"></i>
               </div>
               <ul class="sub-menu">
+                
                 <li *ngFor="let subSubItem of subItem.subMenu">
                   <a [href]="subSubItem.link" class="body_b18">{{ subSubItem.name }}</a>
                 </li>

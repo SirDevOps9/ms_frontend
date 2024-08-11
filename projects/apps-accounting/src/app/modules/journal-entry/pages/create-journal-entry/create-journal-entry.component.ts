@@ -354,7 +354,7 @@ export class CreateJournalEntryComponent {
         selectedFalg: new FormControl(false),
 
       },
-      { validators: customValidators.debitAndCreditBothCanNotBeZero }
+      //{ validators: customValidators.debitAndCreditBothCanNotBeZero }
     );
     this.fg.updateValueAndValidity();
     this.fa.push(fg);
