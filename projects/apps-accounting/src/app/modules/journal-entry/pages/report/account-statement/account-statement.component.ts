@@ -34,76 +34,12 @@ defoultSelectedAcounts:number[]=[]
 
   ngOnInit() {
     this.titleService.setTitle(this.languageService.transalte('reportAccount.AccountStatement'));
-    // this.tableData=[
-    //   {
-    //     "accountCode": "1101001004",
-    //     "accountName": "صندوق 4",
-    //     "natuar": "Debit",
-    //     "journalEntryDtos": []
-    // },
-    //   {
-    //     "accountCode": "string",
-    //     "accountName": "string",
-    //     "natuar": "string",
-    //     "journalEntryDtos": [
-    //       {
-    //         "journalEntryCode": "string",
-    //         "journalEntryDate": "2024-06-26T11:25:17.813Z",
-    //         "description": "string",
-    //         "debitAmount": 0,
-    //         "creditAmount": 0,
-    //         "balance": 0,
-    //         "sourceDocumentCode": "string",
-    //         "sourceDocumentName": "string"
-    //       },{
-    //         "journalEntryCode": "string",
-    //         "journalEntryDate": "2024-06-26T11:25:17.813Z",
-    //         "description": "string",
-    //         "debitAmount": 0,
-    //         "creditAmount": 0,
-    //         "balance": 0,
-    //         "sourceDocumentCode": "string",
-    //         "sourceDocumentName": "string"
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     "accountCode": "string",
-    //     "accountName": "string",
-    //     "natuar": "string",
-    //     "journalEntryDtos": [
-    //       {
-    //         "journalEntryCode": "string",
-    //         "journalEntryDate": "2024-06-26T11:25:17.813Z",
-    //         "description": "string",
-    //         "debitAmount": 0,
-    //         "creditAmount": 0,
-    //         "balance": 0,
-    //         "sourceDocumentCode": "string",
-    //         "sourceDocumentName": "string"
-    //       },{
-    //         "journalEntryCode": "string",
-    //         "journalEntryDate": "2024-06-26T11:25:17.813Z",
-    //         "description": "string",
-    //         "debitAmount": 0,
-    //         "creditAmount": 0,
-    //         "balance": 0,
-    //         "sourceDocumentCode": "string",
-    //         "sourceDocumentName": "string"
-    //       }
-    //     ]
-    //   },
-    // ]
-    
+
       
     this. initializeForm()
     this.getAccounts();
     this.initializeDates()
 
-    setTimeout(() => {
-      this.getAccountingReports()
-
-    }, 500);
 
     this.reportAccountForm.valueChanges.subscribe(()=>{
         this.tableData=[]
@@ -129,9 +65,9 @@ defoultSelectedAcounts:number[]=[]
         }
        
 
-        this.reportAccountForm.patchValue({
-          Accounts:this.defoultSelectedAcounts
-        })
+        // this.reportAccountForm.patchValue({
+        //   Accounts:this.defoultSelectedAcounts
+        // })
         
       });
      
@@ -147,9 +83,7 @@ defoultSelectedAcounts:number[]=[]
       ]),
       posted: new FormControl(true),
       unposted: new FormControl(false),
-      Accounts: new FormControl('', [
-        customValidators.required,
-      ]),
+      Accounts: new FormControl([]),
      
     });
   }
@@ -165,7 +99,11 @@ defoultSelectedAcounts:number[]=[]
             )
         }
         else{
-          this.journalEntryService.getAccountingReports(this.reportAccountForm.value);
+           if(this.reportAccountForm.get('Accounts')?.value == null)
+            this.reportAccountForm.get('Accounts')?.setValue([]);
+
+           this.journalEntryService.getAccountingReports(this.reportAccountForm.value);
+        
           this.journalEntryService.accountReport.subscribe(((res:any)=>{
              this.tableData=res
             
