@@ -149,6 +149,8 @@ export class AddPaymentMethodComponent implements OnInit {
                option.id == this.sharedFinanceEnum.paymentMethodType.Transfer || 
                option.id == this.sharedFinanceEnum.paymentMethodType.Visa
        );
+       this.PaymentMethodForm.get('paymentMethodCommissionData.bankId')!.setValidators([customValidators.required]);
+       this.PaymentMethodForm.get('paymentMethodCommissionData.bankAccountId')!.setValidators([customValidators.required]);
    }
    this.lookups[LookupEnum.PaymentMethodType] = paymentMethodTypeOptions;
 

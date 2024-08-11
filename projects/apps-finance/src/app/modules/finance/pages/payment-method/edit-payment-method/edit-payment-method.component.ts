@@ -17,41 +17,13 @@ export class EditPaymentMethodComponent implements OnInit {
   PaymentMethodForm: FormGroup;
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
-
-  paymentPlaceOptions = [
-    { label: 'Treasury', value: 'Treasury' },
-    { label: 'Bank', value: 'Bank' }
-  ];
-  
-  commissionTypeOptions = [
-    { label: 'Amount', value: 'Amount' },
-    { label: 'Percent', value: 'Percent' }
-  ];
-  paymentMethodType =[
-    { label: 'Cash', value: 'Cash' },
-    { label: 'Check', value: 'Check' },
-    { label: 'Transfer', value: 'Transfer' },
-    { label: 'Visa', value: 'Visa' },
-    { label: 'Master', value: 'Master' },
-    { label: 'Span', value: 'Span' }
-  ];
-  treasuryPaymentMethodType = [
-    { label: 'Cash', value: 'Cash' }
-  ];
-
-  bankPaymentMethodType = [
-    { label: 'Check', value: 'Check' },
-    { label: 'Transfer', value: 'Transfer' },
-    { label: 'Visa', value: 'Visa' },
-    { label: 'Master', value: 'Master' },
-    { label: 'Span', value: 'Span' }
-  ];
- 
   accountsList: { id: number; name: string }[];
   BankList: { id: number; name: string }[];
   BankAccountList: BankAccountWithCurrency[] = [];
   paymentplaceEnum: paymentplace;
   id: number = this.route.snapshot.params['id']
+  originalPaymentMethodTypeLookups: lookupDto[] = [];
+
 
   constructor(private fb: FormBuilder,
               private financeService: FinanceService,
@@ -84,7 +56,9 @@ export class EditPaymentMethodComponent implements OnInit {
   ngOnInit() {
     this.getChildrenAccountsDropDownLookup();
     this.getBankDropDown();
+    this.loadLookups();
     this.getPaymentMethodInfoById(this.id);
+    
 
     this.PaymentMethodForm.get('paymentPlace')!.valueChanges.subscribe(value => {
       this.onPaymentPlaceChange(value);
@@ -121,7 +95,7 @@ export class EditPaymentMethodComponent implements OnInit {
     this.financeService.sendPaymentMethodByIDObservable.subscribe(res=>{
       this.PaymentMethodForm.patchValue({
 
-        id: res.id,
+        id: res.id, 
         code: res.code,
         name: res.name,
         paymentPlace: res.paymentPlace,
@@ -137,6 +111,19 @@ export class EditPaymentMethodComponent implements OnInit {
          }
       });
     })
+  }
+
+  loadLookups() {
+    this.lookupsService.loadLookups([
+      LookupEnum.PaymentMethodType,
+      LookupEnum.PaymentPlace,
+      LookupEnum.CommissionType
+    ]);
+    this.lookupsService.lookups.subscribe((l) => {
+      this.lookups = l;
+      this.originalPaymentMethodTypeLookups =l["PaymentMethodType"] ;
+    });
+
   }
 
   discard() {
@@ -161,91 +148,33 @@ export class EditPaymentMethodComponent implements OnInit {
     });
   }
 
-  onPaymentPlaceChange(paymentPlace: string) {
-    const paymentMethodControl = this.PaymentMethodForm.get('paymentMethodType');
-    const bankInfoGroup = this.PaymentMethodForm.get('paymentMethodCommissionData');
-    const commissionInfoGroup = this.PaymentMethodForm.get('paymentMethodCommissionData');
+  onPaymentPlaceChange(paymentPlace: any) {
 
-    if (paymentPlace === 'Treasury') {
-      this.paymentMethodType = this.treasuryPaymentMethodType;
-      paymentMethodControl!.setValue('Cash');
-      this.disableBankFields();
-      this.resetCommissionFields();
-      bankInfoGroup!.disable();
-      commissionInfoGroup!.disable();
-      this.PaymentMethodForm.get('paymentMethodCommissionData')?.setValue(null)
-    } else if (paymentPlace === 'Bank') {
-      this.paymentMethodType = this.bankPaymentMethodType;
-      paymentMethodControl!.setValue(null);
-      this.PaymentMethodForm.get('paymentMethodCommissionData.bankId')!.setValidators([customValidators.required]);
-        this.PaymentMethodForm.get('paymentMethodCommissionData.bankAccountId')!.setValidators([customValidators.required]);
-      this.enableBankFields();
-      bankInfoGroup!.enable();
-      commissionInfoGroup!.enable();
-    } else {
-      this.paymentMethodType = [];
-      paymentMethodControl!.setValue(null);
-      this.disableBankFields();
-      this.resetCommissionFields();
-      bankInfoGroup!.disable();
-      commissionInfoGroup!.disable();
-    }
-    paymentMethodControl!.updateValueAndValidity();
-    this.checkForCommissionRequirements();
-  }
+   this.PaymentMethodForm.get('paymentMethodType')?.setValue(null);
+   
+   let paymentMethodTypeOptions: lookupDto[] = [];
 
-  private disableBankFields() {
-    const bankInfoGroup = this.PaymentMethodForm.get('paymentMethodCommissionData');
-    console.log(bankInfoGroup);
-    bankInfoGroup!.get('bankId')!.setValue(null);
-    console.log(bankInfoGroup!.get('bankId'));
-    bankInfoGroup!.get('bankAccountId')!.setValue(null);
-    bankInfoGroup!.get('currency')!.setValue(null);
-  }
+   if (paymentPlace == this.sharedFinanceEnum.PaymentPlace.Treasury)
+     {
+      console.log('Treasury')
+       paymentMethodTypeOptions = this.originalPaymentMethodTypeLookups?.filter(
+           option => option.id == this.sharedFinanceEnum.paymentMethodType.Cash.toString()
+       );
+     }
+    else if (paymentPlace == this.sharedFinanceEnum.PaymentPlace.Bank) 
+      {
+       paymentMethodTypeOptions = this.originalPaymentMethodTypeLookups?.filter(
+           option => 
+               option.id == this.sharedFinanceEnum.paymentMethodType.Check.toString() || 
+               option.id == this.sharedFinanceEnum.paymentMethodType.Master.toString() || 
+               option.id == this.sharedFinanceEnum.paymentMethodType.Span.toString()|| 
+               option.id == this.sharedFinanceEnum.paymentMethodType.Transfer.toString() || 
+               option.id == this.sharedFinanceEnum.paymentMethodType.Visa.toString()
+       );
+       console.log(paymentMethodTypeOptions)
+   }
+   this.lookups[LookupEnum.PaymentMethodType] = paymentMethodTypeOptions;
 
-  private enableBankFields() {
-    const bankInfoGroup = this.PaymentMethodForm.get('paymentMethodCommissionData');
-    bankInfoGroup!.get('bankId')!.enable();
-    bankInfoGroup!.get('bankAccountId')!.enable();
-    bankInfoGroup!.get('currency')!.enable();
-  }
-
-  private resetCommissionFields() {
-    const commissionControls = this.PaymentMethodForm.get('paymentMethodCommissionData');
-    commissionControls!.get('commissionType')!.setValue(null);
-    commissionControls!.get('commissionValue')!.setValue(null);
-    commissionControls!.get('commissionAccountId')!.setValue(null);
-    commissionControls!.get('allowVAT')!.setValue(false);
-    commissionControls!.get('commissionType')!.updateValueAndValidity();
-    commissionControls!.get('commissionValue')!.updateValueAndValidity();
-    commissionControls!.get('commissionAccountId')!.updateValueAndValidity();
-    commissionControls!.get('allowVAT')!.updateValueAndValidity();
-    commissionControls!.disable();
-  }
-
-  private checkForCommissionRequirements() {
-    const paymentMethodControl = this.PaymentMethodForm.get('paymentMethodType');
-    const commissionTypeControl = this.PaymentMethodForm.get('paymentMethodCommissionData.commissionType');
-    const commissionValueControl = this.PaymentMethodForm.get('paymentMethodCommissionData.commissionValue');
-
-    if (paymentMethodControl!.value === 'Check') {
-      this.PaymentMethodForm.get('paymentMethodCommissionData.bankId')!.setValidators([customValidators.required]);
-      this.PaymentMethodForm.get('paymentMethodCommissionData.bankAccountId')!.setValidators([customValidators.required]);
-    } else {
-      this.PaymentMethodForm.get('paymentMethodCommissionData.bankId')!.clearValidators();
-      this.PaymentMethodForm.get('paymentMethodCommissionData.bankAccountId')!.clearValidators();
-    }
-
-    if (['Transfer', 'Visa', 'Master', 'Span'].includes(paymentMethodControl!.value)) {
-      commissionTypeControl!.setValidators([customValidators.required]);
-      commissionValueControl!.setValidators([customValidators.required]);
-    } else {
-      commissionTypeControl!.clearValidators();
-      commissionValueControl!.clearValidators();
-    }
-
-    commissionTypeControl!.updateValueAndValidity();
-    commissionValueControl!.updateValueAndValidity();
   }
 
   onSave() {
