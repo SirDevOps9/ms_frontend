@@ -196,7 +196,6 @@ export class CreateJournalEntryComponent {
 
     this.accountData = this.filteredAccounts.find((c) => c.id == event);
 
-    console.log(this.accountData.costCenterConfig)
 
 
     const accountName = journalLine.get('accountName');
@@ -204,7 +203,6 @@ export class CreateJournalEntryComponent {
 
     journalLine.get('accountCode')?.setValue(this.accountData?.accountCode);
     journalLine.get('costCenterConfig')?.setValue(this.accountData.costCenterConfig);
-    console.log(journalLine.get('costCenterConfig')?.value)
 
     var currencyData = this.currencies.find((c) => c.id == this.accountData?.currencyId);
 
@@ -258,7 +256,6 @@ export class CreateJournalEntryComponent {
     const ref = this.dialog.open(NoChildrenAccountsComponent, {});
     ref.onClose.subscribe((r) => {
       if (r) {
-        console.log(r)
         this.fa.at(index).get('account')?.setValue(r.id);
         this.fa.at(index)?.get('accountName')?.setValue(r.name);
         this.fa.at(index)?.get('accountCode')?.setValue(r.accountCode);
