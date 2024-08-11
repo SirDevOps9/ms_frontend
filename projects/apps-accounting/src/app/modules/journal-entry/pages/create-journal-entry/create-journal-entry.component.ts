@@ -282,6 +282,9 @@ export class CreateJournalEntryComponent {
 
 
   addThing() {
+    
+    if (!this.formService.validForm(this.fg, false)) return;
+
     const id = this.fa.length + 1;
     //controls
     const dbControl = new FormControl(null, [customValidators.required, Validators.min(0)]);
