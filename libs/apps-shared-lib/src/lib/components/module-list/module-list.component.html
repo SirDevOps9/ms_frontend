@@ -10,14 +10,17 @@
         <p class="heading_b16">{{ module.module }}</p>
       </div>
     </div> -->
-    <div class="grid " style="margin: 2%;">
-      <div class="md:col-4" *ngFor="let module of moduleList" (click)="navigateto(module.moduleId)">
+    <div class="grid " >
+      <div class="md:col-12" *ngFor="let module of moduleList" (click)="navigateto(module.moduleId)">
         <div class="flex gap-3">
-          <div class="card_photo">
-            <img class="mdoduleImage" src="assets/lib-assets/images/{{ module.moduleLogo }}" alt="" />
-          </div>
-          <div class="card_description">
-            <p class="heading_b16">{{ module.module }}</p>
+          <div class="modal-card">
+            <div class="card_photo">
+              <img class="mdoduleImage" src="assets/lib-assets/images/{{ module.moduleLogo }}" alt="" />
+            </div>
+            <div class="card_description">
+              <p class="heading_b16">{{ module.module }}</p>
+            </div>
+
           </div>
         </div>
        
