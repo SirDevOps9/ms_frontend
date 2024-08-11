@@ -22,7 +22,7 @@
         <div class="iocn-link" id="parent{{ i }}">
           <a>
             <i class="{{ menuItem.icon }}"></i>
-            <span class="link_name  body_b18">{{ menuItem.name }}</span>
+            <span class="link_name  body_b18 pointer">{{ menuItem.name }}</span>
           </a>
           <i  class="arrow pi"   [ngClass]="{
             'pi-sort-down-fill': !openStates[i],
@@ -35,7 +35,7 @@
             <ng-container *ngIf="subItem.subMenu?.length">
               <div class="iocn-link" id="parent{{ x }}">
                 <a [href]="subItem.link">
-                  <span class="link_name body_b18" >{{ subItem.name }}</span>
+                  <span class="link_name body_b18 pointer" >{{ subItem.name }}</span>
                 </a>
         
               <i  class="pi pi-caret-down arrow" 

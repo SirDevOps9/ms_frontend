@@ -123,11 +123,14 @@
   display: block;
   min-height: 10px;
 }
+.pointer{
+  cursor: pointer;
+}
 .sidebar .nav-links li i{
   height: 30px;
   min-width: 30px;
   text-align: center;
-  line-height: 50px;
+  line-height: 25px;
   color: #fff !important;
   font-size: 20px;
   cursor: pointer;

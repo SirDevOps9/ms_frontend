@@ -13,6 +13,7 @@ export interface JournalEntryLineDto {
   currency?: string;
   currencyId: number;
   currencyRate: number;
-  costCenters : costCenters[]
+  costCenters : costCenters[],
+  costCenterConfig : []
 
 }

@@ -37,6 +37,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() rowTemplate: TemplateRef<any>;
 
   @Output() pageChange = new EventEmitter<PageInfo>();
+  @Output() addNew = new EventEmitter<boolean>(false);
 
   sortingFields: string[];
   selectedColumns: any = [];
@@ -101,6 +102,10 @@ rows2: any = 25;
 onPageChange2(pageInfoData: PageInfo | any) {
 this.generalService.sendPageChanges.next(pageInfoData)
 
+}
+
+addNewItem() {
+  this.addNew.emit(true)
 }
 
   

@@ -196,7 +196,6 @@ export class CreateJournalEntryComponent {
 
     this.accountData = this.filteredAccounts.find((c) => c.id == event);
 
-    console.log(this.accountData.costCenterConfig)
 
 
     const accountName = journalLine.get('accountName');
@@ -204,6 +203,7 @@ export class CreateJournalEntryComponent {
 
     journalLine.get('accountCode')?.setValue(this.accountData?.accountCode);
     journalLine.get('costCenterConfig')?.setValue(this.accountData.costCenterConfig);
+    journalLine.get('selectedFalg')?.setValue(true);
     console.log(journalLine.get('costCenterConfig')?.value)
 
     var currencyData = this.currencies.find((c) => c.id == this.accountData?.currencyId);
@@ -269,6 +269,15 @@ export class CreateJournalEntryComponent {
         this.getAccountCurrencyRate(r.currencyId , index);
       }
     });
+  }
+
+  formatNumber(value: number, fractionDigits: string = '1.0-2'): string {
+    const formattedNumber = new Intl.NumberFormat('en-US', {
+      minimumFractionDigits: parseInt(fractionDigits.split('-')[0], 10),
+      maximumFractionDigits: parseInt(fractionDigits.split('-')[1], 10),
+    }).format(value);
+
+    return formattedNumber;
   }
 
   filterCurrency(event: any) {
@@ -341,7 +350,8 @@ export class CreateJournalEntryComponent {
         debitAmountLocal: new FormControl(),
         creditAmountLocal: new FormControl(),
         currencyName: new FormControl(''),
-        costCenters: new FormControl(),
+        costCenters: new FormControl(null),
+        selectedFalg: new FormControl(false),
 
       },
       { validators: customValidators.debitAndCreditBothCanNotBeZero }
