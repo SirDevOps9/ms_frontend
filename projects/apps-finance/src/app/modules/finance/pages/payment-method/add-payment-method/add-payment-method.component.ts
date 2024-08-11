@@ -137,6 +137,11 @@ export class AddPaymentMethodComponent implements OnInit {
        paymentMethodTypeOptions = this.originalPaymentMethodTypeLookups?.filter(
            option => option.id == this.sharedFinanceEnum.paymentMethodType.Cash
        );
+       this.PaymentMethodForm.get('paymentMethodCommissionData.bankId')?.clearValidators();
+       this.PaymentMethodForm.get('paymentMethodCommissionData.bankAccountId')?.clearValidators();
+       this.PaymentMethodForm.get('paymentMethodCommissionData.bankId')?.updateValueAndValidity();
+       this.PaymentMethodForm.get('paymentMethodCommissionData.bankAccountId')?.updateValueAndValidity();
+     
      }
     else if (paymentPlace == this.sharedFinanceEnum.PaymentPlace.Bank) 
       {
@@ -149,9 +154,11 @@ export class AddPaymentMethodComponent implements OnInit {
                option.id == this.sharedFinanceEnum.paymentMethodType.Transfer || 
                option.id == this.sharedFinanceEnum.paymentMethodType.Visa
        );
-       this.PaymentMethodForm.get('paymentMethodCommissionData.bankId')!.setValidators([customValidators.required]);
-       this.PaymentMethodForm.get('paymentMethodCommissionData.bankAccountId')!.setValidators([customValidators.required]);
-   }
+       this.PaymentMethodForm.get('paymentMethodCommissionData.bankId')?.setValidators([customValidators.required]);
+       this.PaymentMethodForm.get('paymentMethodCommissionData.bankAccountId')?.setValidators([customValidators.required]);
+       this.PaymentMethodForm.get('paymentMethodCommissionData.bankId')?.updateValueAndValidity();
+       this.PaymentMethodForm.get('paymentMethodCommissionData.bankAccountId')?.updateValueAndValidity();
+  }
    this.lookups[LookupEnum.PaymentMethodType] = paymentMethodTypeOptions;
 
   }

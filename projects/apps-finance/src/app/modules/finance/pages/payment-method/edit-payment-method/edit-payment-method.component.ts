@@ -60,22 +60,22 @@ export class EditPaymentMethodComponent implements OnInit {
     this.getPaymentMethodInfoById(this.id);
     
 
-    this.PaymentMethodForm.get('paymentPlace')!.valueChanges.subscribe(value => {
-      this.onPaymentPlaceChange(value);
-    });
+    // this.PaymentMethodForm.get('paymentPlace')!.valueChanges.subscribe(value => {
+    //   this.onPaymentPlaceChange(value);
+    // });
 
-    this.PaymentMethodForm.get('paymentMethodCommissionData.bankId')!.valueChanges.subscribe(bankId => {
-      if (bankId) {
-        this.getBankAccountDropDown(bankId);
-      }
-    });
+     this.PaymentMethodForm.get('paymentMethodCommissionData.bankId')!.valueChanges.subscribe(bankId => {
+       if (bankId) {
+         this.getBankAccountDropDown(bankId);
+       }
+     });
 
-    this.PaymentMethodForm.get('paymentMethodCommissionData.bankAccountId')!.valueChanges.subscribe(accountId => {
-      const selectedAccount = this.BankAccountList.find(account => account.id === accountId);
-      if (selectedAccount) {
-        this.PaymentMethodForm.get('paymentMethodCommissionData.currency')!.setValue(selectedAccount.currencyName);
-      }
-    });
+    // this.PaymentMethodForm.get('paymentMethodCommissionData.bankAccountId')!.valueChanges.subscribe(accountId => {
+    //   const selectedAccount = this.BankAccountList.find(account => account.id === accountId);
+    //   if (selectedAccount) {
+    //     this.PaymentMethodForm.get('paymentMethodCommissionData.currency')!.setValue(selectedAccount.currencyName);
+    //   }
+    // });
 
     this.PaymentMethodForm.get('paymentMethodCommissionData.commissionType')!.valueChanges.subscribe(commissionType => {
       if (commissionType) {
