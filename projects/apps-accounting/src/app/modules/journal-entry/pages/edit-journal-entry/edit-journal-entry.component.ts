@@ -129,7 +129,7 @@ export class EditJournalEntryComponent implements OnInit {
             creditAmountLocal: new FormControl(creditAmount * currencyRate),
             costCenters: [line.costCenters],
           },
-          { validators: customValidators.debitAndCreditBothCanNotBeZero }
+         // { validators: customValidators.debitAndCreditBothCanNotBeZero }
         );
         lineGroup.updateValueAndValidity();
 
@@ -227,7 +227,7 @@ export class EditJournalEntryComponent implements OnInit {
         creditAmountLocal: new FormControl(),
         costCenters: new FormControl(),
       },
-      { validators: customValidators.debitAndCreditBothCanNotBeZero }
+      //{ validators: customValidators.debitAndCreditBothCanNotBeZero }
     );
     newLine.updateValueAndValidity();
     this.journalEntryLinesFormArray.push(newLine);

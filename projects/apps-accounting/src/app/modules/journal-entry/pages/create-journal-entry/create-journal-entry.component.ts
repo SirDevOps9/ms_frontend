@@ -344,7 +344,7 @@ export class CreateJournalEntryComponent {
         costCenters: new FormControl(),
 
       },
-      { validators: customValidators.debitAndCreditBothCanNotBeZero }
+      //{ validators: customValidators.debitAndCreditBothCanNotBeZero }
     );
     this.fg.updateValueAndValidity();
     this.fa.push(fg);
