@@ -34,30 +34,31 @@ export class LayoutSidebarComponent {
     });
   }
   open(event: any, i: any) {
+    if (!this.sidebarOpen) {
+      return;
+    }
+
     // Check if the clicked element has the class 'arrow'
-    if (event.target.classList.contains('arrow')) {
+    if (event.target.closest('li')) {
       // Get the parent element with the class 'iocn-link'
-      const arrowParent = event.target.closest('.iocn-link');
+      const liElement = event.target.closest('li');
+      // const arrowParent = event.target.closest('.iocn-link');
+      const menuElement = liElement.querySelector('.sub-menu, .sub-menuu2');
       // Ensure the parent element is found
-      if (arrowParent) {
+      if (menuElement) {
         // Find the sibling element of the parent, which should be the menu element
-        const menuElement = arrowParent.nextElementSibling;
+        // const menuElement = arrowParent.nextElementSibling;
         //console.log(arrowParent, 'm');
 
         // Ensure the menu element is found
-        if (menuElement) {
-          // Toggle the 'showMenu' class on the menu element
-          if (menuElement.classList.contains('sub-menu')) {
-            menuElement.classList.add('sub-menuu2');
-            menuElement.classList.remove('sub-menu');
-            const line: any = arrowParent;
-            line.classList.add('parent');
-          } else {
-            menuElement.classList.add('sub-menu');
-            menuElement.classList.remove('sub-menuu2');
-            const line: any = arrowParent;
-            line.classList.remove('parent');
-          }
+        if (menuElement.classList.contains('sub-menu')) {
+          menuElement.classList.add('sub-menuu2');
+          menuElement.classList.remove('sub-menu');
+          liElement.querySelector('.iocn-link').classList.add('parent');
+        } else {
+          menuElement.classList.add('sub-menu');
+          menuElement.classList.remove('sub-menuu2');
+          liElement.querySelector('.iocn-link').classList.remove('parent');
         }
         this.openStates[i] = !this.openStates[i];
       }

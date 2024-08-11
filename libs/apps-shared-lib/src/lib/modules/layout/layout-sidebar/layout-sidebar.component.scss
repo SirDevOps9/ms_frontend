@@ -1,5 +1,4 @@
-
-.sidebar{
+.sidebar {
   position: fixed;
   top: 0 !important;
   left: 0;
@@ -9,42 +8,38 @@
   transition: all 0.5s ease;
   box-shadow: rgba(149, 157, 165, 0) 0px 8px 24px;
   border-right: 1px solid #80808038;
-  background-color: #10566A !important;
-
+  background-color: #10566a !important;
 }
 
-.sidebar .close{
+.sidebar .close {
   width: 78px;
 }
 .sidebar {
+  .logo-details {
+    width: 40px;
+    border-radius: 8px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-
-.logo-details{
-
-  width: 40px;
-  border-radius: 8px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;  display: flex;
-  align-items: center;
-  justify-content: center;
- 
-  button{
-    background: none;
-    border: none;
-    font-size: 20px;
-    color: #000;
-    cursor: pointer;
-
+    button {
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: #000;
+      cursor: pointer;
+    }
   }
 }
-}
-.sidebar .logo-details i{
+.sidebar .logo-details i {
   font-size: 30px;
   color: #000;
- 
+
   text-align: center;
   line-height: 50px;
 }
-.arrowIconDiv{
+.arrowIconDiv {
   border-radius: 50% 50%;
   border: 1px solid #ddd;
   height: 38px;
@@ -55,175 +50,176 @@
   align-items: center;
   cursor: pointer;
 }
-.arrowIcon{
+.arrowIcon {
   color: #fff;
   cursor: pointer;
 }
 
-.smallImg{
+.smallImg {
   height: 19px;
-  
+
   width: 42px;
 }
-.imgCont{
+.imgCont {
   padding: 22px 10px;
   text-align: center;
 }
 .imgContDiv {
   padding: 16px 4px;
   text-align: center;
-
-  }
-.sidebar .logo-details .logo_name{
+}
+.sidebar .logo-details .logo_name {
   font-size: 22px;
   color: #000;
   font-weight: 600;
   transition: 0.3s ease;
   transition-delay: 0.1s;
 }
-.sidebar.close .logo-details .logo_name{
+.sidebar.close .logo-details .logo_name {
   transition-delay: 0s;
   opacity: 0;
   pointer-events: none;
 }
-.sidebar .nav-links{
+.sidebar .nav-links {
   height: 100%;
   padding: 0px 0 150px 0;
   overflow: auto;
 }
-.sidebar.close .nav-links{
+.sidebar.close .nav-links {
   overflow: visible;
-  li{
+  li {
     height: 50px !important;
   }
 }
-.sidebar .nav-links::-webkit-scrollbar{
+.sidebar .nav-links::-webkit-scrollbar {
   display: none;
 }
-.sidebar .nav-links li{
+.sidebar .nav-links li {
   position: relative;
   list-style: none;
   transition: all 0.4s ease;
   min-height: 15px !important;
   color: #fff !important;
-
-}
-.sidebar .nav-links li:hover{
-  background: #397c8f;
-
+  cursor: pointer;
   
 }
-.sidebar .nav-links li .iocn-link{
+
+
+.sidebar .nav-links li:hover {
+  background: #397c8f;
+}
+.sidebar .nav-links li .iocn-link {
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: space-between;
   min-height: 10px;
 }
-.sidebar.close .nav-links li .iocn-link{
+.sidebar.close .nav-links li .iocn-link {
   display: block;
   min-height: 10px;
 }
-.sidebar .nav-links li i{
-  height: 30px;
-  min-width: 30px;
+.sidebar .nav-links li i {
+  // height: 30px;
+  // min-width: 30px;
   text-align: center;
-  line-height: 50px;
+  // line-height: 50px;
   color: #fff !important;
-  font-size: 20px;
+  // font-size: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
-.sidebar .nav-links li.sub-menuu2 i.arrow{
+.sidebar .nav-links li.sub-menuu2 i.arrow {
   transform: rotate(-180deg);
 }
 // .sidebar .nav-links i.arrow{
 //   display: block;
 // }
-.sidebar.close .nav-links i.arrow{
+.sidebar.close .nav-links i.arrow {
   display: none;
 }
-.sidebar .nav-links li a{
+.sidebar .nav-links li a {
   display: flex;
   align-items: baseline;
   text-decoration: none;
 }
-.sidebar .nav-links li a .link_name{
+.sidebar .nav-links li a .link_name {
   font-size: 18px;
   font-weight: 400;
   color: #fff !important;
-    transition: all 0.4s ease;
+  transition: all 0.4s ease;
 }
-.sidebar.close .nav-links li a .link_name{
+.sidebar.close .nav-links li a .link_name {
   opacity: 0;
   pointer-events: none;
 }
-.sidebar .nav-links li .sub-menu{
- // padding: 6px 6px 14px 80px;
+.sidebar .nav-links li .sub-menu {
+  // padding: 6px 6px 14px 80px;
   margin-top: -10px;
   background: #fff;
+  
   display: none;
 }
-.sidebar .nav-links li.showMenu .sub-menu{
+
+.sidebar .nav-links li.showMenu .sub-menu {
   display: block;
 }
-.sidebar .nav-links li .sub-menu a{
- color: #000 !important;
+.sidebar .nav-links li .sub-menu a {
+  color: #000 !important;
   font-size: 15px;
-  padding: 5px 0;
+  // padding: 5px 0;
+  padding: 10px 16px;
   white-space: nowrap;
   opacity: 0.6;
   transition: all 0.3s ease;
 }
-.sidebar .nav-links li .sub-menu a:hover{
+.sidebar .nav-links li .sub-menu a:hover {
   opacity: 1;
   color: #fff !important;
-
 }
-.sidebar.close .nav-links li .sub-menu{
+.sidebar.close .nav-links li .sub-menu {
   position: absolute;
   left: 100%;
   top: -10px;
   margin-top: 0;
-  padding: 10px 20px;
+  padding: 0;
   border-radius: 0 6px 6px 0;
   opacity: 0;
   display: block;
   pointer-events: none;
   transition: 0s;
 }
-.sidebar.close .nav-links li:hover .sub-menu{
+.sidebar.close .nav-links li:hover .sub-menu {
   top: 0;
   opacity: 1;
   pointer-events: auto;
   transition: all 0.4s ease;
   color: #000;
-  
-
+  border: 1px solid #e3e3e3;
 }
-.sidebar .nav-links li .sub-menu .link_name{
+.sidebar .nav-links li .sub-menu .link_name {
   display: none;
 }
-.switch{
+.switch {
   color: #fff;
   cursor: pointer;
 }
-.sidebar.close .nav-links li .sub-menu .link_name{
+.sidebar.close .nav-links li .sub-menu .link_name {
   font-size: 18px;
   opacity: 1;
   display: block;
 }
-.sidebar .nav-links li .sub-menu.blank{
+.sidebar .nav-links li .sub-menu.blank {
   opacity: 1;
   pointer-events: auto;
   padding: 3px 20px 6px 16px;
   opacity: 0;
   pointer-events: none;
 }
-.sidebar .nav-links li:hover .sub-menu.blank{
+.sidebar .nav-links li:hover .sub-menu.blank {
   top: 50%;
   transform: translateY(-50%);
 }
-.sidebar .profile-details{
+.sidebar .profile-details {
   position: fixed;
   bottom: 0;
   width: 260px;
@@ -234,17 +230,17 @@
   padding: 12px 0;
   transition: all 0.5s ease;
 }
-.sidebar.close .profile-details{
+.sidebar.close .profile-details {
   background: none;
 }
-.sidebar.close .profile-details{
+.sidebar.close .profile-details {
   width: 78px;
 }
-.sidebar .profile-details .profile-content{
+.sidebar .profile-details .profile-content {
   display: flex;
   align-items: center;
 }
-.sidebar .profile-details img{
+.sidebar .profile-details img {
   height: 52px;
   width: 52px;
   object-fit: cover;
@@ -253,11 +249,11 @@
   background: #fff;
   transition: all 0.5s ease;
 }
-.sidebar.close .profile-details img{
+.sidebar.close .profile-details img {
   padding: 10px;
 }
 .sidebar .profile-details .profile_name,
-.sidebar .profile-details .job{
+.sidebar .profile-details .job {
   color: #000;
   font-size: 18px;
   font-weight: 500;
@@ -265,70 +261,69 @@
 }
 .sidebar.close .profile-details i,
 .sidebar.close .profile-details .profile_name,
-.sidebar.close .profile-details .job{
+.sidebar.close .profile-details .job {
   display: none;
 }
-.sidebar .profile-details .job{
+.sidebar .profile-details .job {
   font-size: 12px;
 }
-.home-section{
+.home-section {
   position: relative;
-  background: #E4E9F7;
+  background: #e4e9f7;
   height: 100vh;
   left: 260px;
   width: calc(100% - 260px);
   transition: all 0.5s ease;
   padding: 12px;
 }
-.sidebar.close ~ .home-section{
+.sidebar.close ~ .home-section {
   left: 78px;
   width: calc(100% - 78px);
 }
-.home-content{
+.home-content {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 }
 .home-section .home-content .bx-menu,
-.home-section .home-content .text{
+.home-section .home-content .text {
   color: #11101d;
   font-size: 35px;
 }
-.home-section .home-content .bx-menu{
+.home-section .home-content .bx-menu {
   cursor: pointer;
   margin-right: 10px;
 }
-.home-section .home-content .text{
+.home-section .home-content .text {
   font-size: 26px;
   font-weight: 600;
 }
 
-@media screen and (max-width: 400px){
-  .sidebar{
+@media screen and (max-width: 400px) {
+  .sidebar {
     width: 240px;
   }
-  .sidebar.close{
+  .sidebar.close {
     width: 78px;
   }
-  .sidebar .profile-details{
+  .sidebar .profile-details {
     width: 240px;
   }
-  .sidebar.close .profile-details{
+  .sidebar.close .profile-details {
     background: none;
   }
-  .sidebar.close .profile-details{
+  .sidebar.close .profile-details {
     width: 78px;
   }
-  .home-section{
+  .home-section {
     left: 240px;
     width: calc(100% - 240px);
   }
-  .sidebar.close ~ .home-section{
+  .sidebar.close ~ .home-section {
     left: 78px;
     width: calc(100% - 78px);
   }
 }
-
 
 /* Sidebar Styling */
 .sidebar {
@@ -349,7 +344,8 @@
   justify-content: space-between;
 }
 
-.pi-arrow-right, .pi-arrow-left {
+.pi-arrow-right,
+.pi-arrow-left {
   cursor: pointer;
   font-size: 20px;
 }
@@ -363,7 +359,7 @@
 .nav-links li {
   padding: 10px;
   min-height: 20px !important;
- // border-bottom: 1px solid #444;
+  // border-bottom: 1px solid #444;
 }
 
 /* Links and icons */
@@ -403,20 +399,36 @@
 .iocn-link .arrow {
   margin-left: auto;
 }
-.sub-menuu{
-  display: none ;
+.sub-menuu {
+  display: none;
 }
-.sub-menuu2{
+.sub-menuu2 {
   display: block !important;
 }
-.parent{
-  a , i ,.link_name{
-    color: #1A8EAE !important;
-  } 
-
+.sidebar .nav-links li .sub-menu li,
+.sidebar .nav-links li .sub-menuu2 li {
+  display: flex !important;
+  align-items: center !important;
 }
-ul li {
-  list-style-type: '\2212' !important; /* Use a dash as the list marker */
-  list-style-position: outside !important; /* Place the list markers outside the content */
-  //padding-left: 20px !important; /* Add padding to the left of the list items */
+.sidebar .nav-links li .sub-menuu2 li svg{
+  stroke: #fff;
 }
+.sidebar .nav-links li .sub-menu li svg{
+  stroke: #10566A;
+}
+.sidebar .nav-links li .sub-menu li:hover svg{
+  stroke: #fff;
+}
+.parent {
+  a,
+  i,
+  .link_name {
+    color: #1a8eae !important;
+  }
+}
+// ul li {
+//   padding-inline-start: 24px;
+//   list-style-type: '\2212' !important; /* Use a dash as the list marker */
+//   list-style-position: outside !important; /* Place the list markers outside the content */
+//   //padding-left: 20px !important; /* Add padding to the left of the list items */
+// }
