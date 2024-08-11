@@ -5,15 +5,14 @@ import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LayoutPageComponent } from 'apps-shared-lib';
 
-
-const routes : Routes = [
+const routes: Routes = [
   {
     path: '',
     component: LayoutPageComponent,
     data: {
       moduleId: Modules.GeneralSettings,
     },
-    children : [
+    children: [
       {
         path: '',
         component: DashboardComponent,
@@ -22,18 +21,11 @@ const routes : Routes = [
           breadcrumb: BreadcrumbLabel.DASHBOARD,
         },
       },
-    ]
-  }
- 
-] 
+    ],
+  },
+];
 @NgModule({
-  declarations: [
-    DashboardComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    SharedLibModule
-  ]
+  declarations: [DashboardComponent],
+  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })
-export class DashboardModule { }
+export class DashboardModule {}

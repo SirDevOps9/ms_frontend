@@ -14,7 +14,8 @@ export const ERPRoutes = [
     children: [
       {
         path: '',
-        component: DashboardComponent,
+        loadChildren: () =>
+          import('./modules/home/dashboard.module').then((m) => m.DashboardModule),
       },
       {
         path: 'masterdata',
@@ -26,9 +27,7 @@ export const ERPRoutes = [
       {
         path: 'dashboard',
         loadChildren: () =>
-          import('./modules/home/dashboard.module').then(
-            (m) => m.DashboardModule
-          ),
+          import('./modules/home/dashboard.module').then((m) => m.DashboardModule),
       },
     ],
   },

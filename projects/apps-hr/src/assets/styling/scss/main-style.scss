@@ -1,8 +1,12 @@
-@import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
-@import "primeicons/primeicons.css";
-@import "font-awesome/css/font-awesome.min.css";
+@import 'primeng/resources/themes/lara-light-blue/theme.css';
+@import 'primeng/resources/primeng.css';
+@import 'primeicons/primeicons.css';
+@import 'font-awesome/css/font-awesome.min.css';
 //fonts
-@import "./fonts/fonts";
+@import '../../../../../../libs/apps-shared-lib/src/assets/styling/fonts/fonts';
 // variable
-@import "./variables/font-family";
+@import '../../../../../../libs/apps-shared-lib/src/assets/styling/variables/font-family';
+//glopal
+@import '../../../../../../libs/apps-shared-lib/src/assets/styling/variables/_glopal';
+@import '../../../../../../libs/apps-shared-lib/src/assets/styling/utils/';
+@import '../../../../../../libs/apps-shared-lib/src/assets/styling/components/';

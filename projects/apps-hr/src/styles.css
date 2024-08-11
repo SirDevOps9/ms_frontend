@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../../../libs/apps-shared-lib/src/assets/styling/variables/_font-family.scss";
+@import "./assets/styling/scss/main-style.scss";
+
+.cssClass{
+    background-color: #1a8eae;
+  }
