@@ -129,10 +129,7 @@ export class EditChartComponent {
   }
 
   onParentAccountChange(event: any) {
-    const parentAccountId = event;
-    if (!parentAccountId) return;
-    this.hasParentAccount = true;
-    this.getAccountById(parentAccountId);
+    this.formGroup.controls['parentAccountCode'].setValue(event);
 
   }
 
@@ -161,7 +158,7 @@ export class EditChartComponent {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['parentEditedId']) {
-      this.onParentAccountChange(this.parentEditedId);
+      this.getAccountById(this.parentEditedId);
     }
   }
   getAccountById(id: any) {
