@@ -1,0 +1,5 @@
+
+
+@mixin transition-ease($time: 0.5s, $property: all, $type: ease-in-out) {
+  transition: $property $time $type;
+}
