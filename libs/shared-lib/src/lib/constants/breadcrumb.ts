@@ -40,11 +40,11 @@ export class BreadcrumbLabel {
   static readonly CURRENCY_DEFINITION_LIST ='BreadCrumb.CurrencyDefinition';
   static readonly CURRENCY_CONVERSION ='BreadCrumb.CurrencyConversion';
   static readonly tag_list ='BreadCrumb.TagList';
-  static EMPLOYEE='BreadCrumb.Employees';
-  static EMPLOYEE_ADD='BreadCrumb.AddEmployee';
-  static EMPLOYEE_VIEW='BreadCrumb.ViewEmployee';
-  static EMPLOYEE_EDIT='BreadCrumb.EditEmployee';
-
+  static readonly EMPLOYEE='BreadCrumb.Employees';
+  static readonly EMPLOYEE_ADD='BreadCrumb.AddEmployee';
+  static readonly EMPLOYEE_VIEW='BreadCrumb.ViewEmployee';
+  static readonly EMPLOYEE_EDIT='BreadCrumb.EditEmployee';
+  static readonly COST_CENTER_REPORT = 'BreadCrumb.CostCenterReport';
 
     static SUBSCRIPTION ='Subscription'
     static USERS = 'Users';

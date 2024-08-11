@@ -13,7 +13,8 @@
     "JournalEntryOpeningBalance": "رصيد افتتاحي لقيد اليومية",
     "AddJournalEntryOpeningBalance": "إضافة رصيد افتتاحي لقيد اليومية",
     "EditJournalEntryOpeningBalance": "تعديل رصيد افتتاحي لقيد اليومية",
-    "ViewJournalEntryOpeningBalance": "عرض رصيد افتتاحي لقيد اليومية"
+    "ViewJournalEntryOpeningBalance": "عرض رصيد افتتاحي لقيد اليومية",
+    "CostCenterReport": "تقرير مركز التكلفة"
   },
   "COAConfigration": {
     "Success": "نجاح",
@@ -55,7 +56,6 @@
     "ChooseAnAccount":"اختر حساب",
     "Select": "اختر",
     "Actions": "العمليات",
-    "Select": "اختيار",
     "Id": "الرقم التعريفي"
   },
   "Journal": {
@@ -253,7 +253,7 @@
     "Actions": "العمليات"
   },
   "costCenter": {
-    "costCenter": "شجرة مراكز التكلفة",
+    "costCenter": " مراكز التكلفة",
     "CostCenterList": "قائمة مراكز التكلفة",
     "AddCostCenter": "إضافة مركز تكلفة",
     "EditCostCenter": "تعديل مركز التكلفة",
@@ -340,6 +340,9 @@
     "debit": "مدين",
     "credit": "دائن",
     "balance": "الرصيد",
-    "title": "تقرير مركز التكلفة"
+    "title": "تقرير مركز التكلفة",
+    "ViewData": "عرض البيانات",
+    "Select": "اختر"
+
 }
 }

@@ -83,7 +83,7 @@ const routes: Routes = [
         path: 'cost-center',
         component: CostCenterReportComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.COST_CENTER,
+          breadcrumb: BreadcrumbLabel.COST_CENTER_REPORT,
         },
       },
       {
