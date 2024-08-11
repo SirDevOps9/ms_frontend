@@ -12,7 +12,7 @@
   [ngClass]="{'read':readOnly}"
   appendTo="body"
   [attr.data-testid]="this.labelTest"
-
+  (onFilter)="onFilter($event)"
 ></p-dropdown>
 
 </div>
