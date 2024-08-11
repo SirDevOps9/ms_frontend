@@ -14,7 +14,7 @@
     "AddJournalEntryOpeningBalance": "Add Journal Entry Opening Balance",
     "EditJournalEntryOpeningBalance": "Edit Journal Entry Opening Balance",
     "ViewJournalEntryOpeningBalance": "View Journal Entry Opening Balance",
-    "CostCenterReport":"Cost Center Repot"
+    "CostCenterReport":"Cost Center Report"
   },
   "COAConfigration": {
     "Success": "Success",
@@ -31,7 +31,7 @@
     "LevelsSaved": "Levels Saved Successfully"
   },
   "ChartOfAccount": {
-    "Title": "Chart of Account",
+    "Title": "Chart of Accounts",
     "ChartOfAccountList": "Chart of Account List",
     "AddChartOfAccount": "Add Chart of Account",
     "EditChartOfAccount": "Edit Chart of Account",
@@ -42,7 +42,7 @@
     "Nature": "Nature",
     "AccountType": "Account Type",
     "AccountSection": "Account Section",
-    "Search": "Search...",
+    "Search": "Search",
     "Accounts": "Accounts",
     "Main": "Main",
     "Success": "Success",
