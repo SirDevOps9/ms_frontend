@@ -1,0 +1,68 @@
+.btn-primary {
+  background-color: $shams-blue-dark;
+  color: $shams-white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  cursor: pointer;
+  @include transition-ease;
+  &:hover {
+    background-color: $shams-yellow;
+  }
+}
+.btn-outline {
+  background-color: transparent;
+  color: $shams-blue-dark;
+  border: 1px solid $shams-blue-dark;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  cursor: pointer;
+  @include transition-ease;
+  &:hover {
+    background-color: $shams-yellow;
+    border-color: $shams-yellow;
+    color: $shams-white;
+  }
+}
+.btn-secondary {
+  background-color: $shams-white;
+  color: $shams-blue-dark;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  @include transition-ease;
+  &:hover {
+    background-color: $shams-yellow;
+    color: $shams-white;
+  }
+}
+.btn-yellow {
+  background-color: $shams-yellow;
+  color: $shams-white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  @include transition-ease;
+  &:hover {
+    background-color: $shams-white;
+    color: $shams-yellow;
+  }
+}
+
+.scroll-top-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 0 rgba($shams-blue-dark, 0.2);
+  position: fixed;
+  bottom: $spacing-48;
+  z-index: 99999999;
+  inset-inline-end: $spacing-48;
+  display: none;
+  padding: unset !important;
+  &.show {
+    display: block;
+  }
+}
