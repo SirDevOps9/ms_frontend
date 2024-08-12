@@ -14,7 +14,7 @@
     "AddJournalEntryOpeningBalance": "Add Journal Entry Opening Balance",
     "EditJournalEntryOpeningBalance": "Edit Journal Entry Opening Balance",
     "ViewJournalEntryOpeningBalance": "View Journal Entry Opening Balance",
-    "CostCenterReport":"Cost Center Report"
+    "CostCenterReport": "Cost Center Report"
   },
   "COAConfigration": {
     "Success": "Success",
@@ -54,10 +54,10 @@
     "edit": "Edit",
     "Configration": "Configuration",
     "Actions": "Actions",
-    "ChooseAnAccount":"Choose An Account",
+    "ChooseAnAccount": "Choose An Account",
     "Select": "Select",
     "Id": "Id",
-    "levelNumber":"Account Level"
+    "levelNumber": "Account Level"
   },
   "Journal": {
     "Title": "Journal Entry List",
@@ -270,6 +270,7 @@
     "detail": "Is Detail",
     "yes": "yes",
     "save": "save",
+    "Cancel": "Cancel",
     "CostCenterDeletedSuccessfully": "Cost Center Deleted Successfully",
     "CannotDeleteCostCenter": " Cannot Delete Cost Center Used In Transactions",
     "Actions": "Actions"
@@ -290,7 +291,7 @@
     "reportTrial": "report Trial",
     "trialBalance": "Trial Balance",
     "viewData": "View Data",
-    "allowZero":"Allow value zero in report"
+    "allowZero": "Allow value zero in report"
   },
   "reportAccount": {
     "AccountStatement": "Account Statement"
@@ -336,16 +337,15 @@
   "editTreasury": {
     "edit": "Treasury Definition Edited Successfully"
   },
-  "reportCost":{
-    "AccountName":"Account name",
-    "date":"date",
-    "description":"description",
-    "debit":"debit",
-    "credit":"credit",
-    "balance":"balance",
-    "title":"Cost Center Report",
-    "ViewData":"View Data",
+  "reportCost": {
+    "AccountName": "Account name",
+    "date": "date",
+    "description": "description",
+    "debit": "debit",
+    "credit": "credit",
+    "balance": "balance",
+    "title": "Cost Center Report",
+    "ViewData": "View Data",
     "Select": "Select"
-
   }
 }

@@ -11,7 +11,15 @@ import {
   TaxGroupDropDown,
   listAddLevelsDto,
 } from 'projects/apps-accounting/src/app/modules/account/models';
-import { FormsService, LanguageService, LookupsService, PageInfo, PageInfoResult, RouterService, customValidators } from 'shared-lib';
+import {
+  FormsService,
+  LanguageService,
+  LookupsService,
+  PageInfo,
+  PageInfoResult,
+  RouterService,
+  customValidators,
+} from 'shared-lib';
 
 @Component({
   selector: 'app-tax-definition-add',
@@ -21,9 +29,9 @@ import { FormsService, LanguageService, LookupsService, PageInfo, PageInfoResult
 export class TaxDefinitionAddComponent {
   addForm: FormGroup;
   accounts: AccountsChildrenDropDown[];
-  taxGroupList:TaxGroupDropDown[];
+  taxGroupList: TaxGroupDropDown[];
   paging: PageInfoResult;
-  taxGroupId:string;
+  taxGroupId: string;
   pageInfo = new PageInfo();
 
   ngOnInit() {
@@ -37,7 +45,7 @@ export class TaxDefinitionAddComponent {
     });
 
     this.addForm.controls['taxGroupId'].valueChanges.subscribe((value) => {
-      this.taxGroupId = value;
+      this.taxGroupId = this.taxGroupList.find((x) => x.id == value)?.code!;
     });
   }
 
@@ -59,7 +67,6 @@ export class TaxDefinitionAddComponent {
 
   getAccounts(searchTerm: string) {
     this.accountService.getAccountsChildrenDropDown().subscribe((r) => {
-
       this.accounts = r;
     });
   }
@@ -89,6 +96,5 @@ export class TaxDefinitionAddComponent {
     public lookupsService: LookupsService
   ) {
     this.title.setTitle(this.langService.transalte('Tax.AddTax'));
-
   }
 }

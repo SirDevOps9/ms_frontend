@@ -82,8 +82,8 @@ export class TaxGroupComponent implements OnInit {
     });
   }
 
-  onSearchChange() {
-    this.accountService.getAllTaxGroupPaginated(this.searchTerm,new PageInfo());
+  onSearchChange(e : any) {
+    this.accountService.getAllTaxGroupPaginated(e.target.value,new PageInfo());
     this.accountService.taxGroupList.subscribe({
       next: (res) => {
         this.tableData = res;
