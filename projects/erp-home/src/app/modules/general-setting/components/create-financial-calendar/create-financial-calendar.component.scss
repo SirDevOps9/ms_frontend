@@ -1,22 +1,27 @@
+.chart_add {
+  padding-inline-start: 10px;
+}
 .clockIcon {
-    color: #1A8EAE;
+  color: #1a8eae;
 }
-.gernerateCont{
-    margin-bottom: 12px;
-    cursor: pointer;
-    margin-left: 15px;
+.gernerateCont {
+  margin-bottom: 12px;
+  cursor: pointer;
+  margin-left: 15px;
 }
-.generateBtn{
-    color: #1A8EAE;
-    font-size: 15px;
-
+.generateBtn {
+  color: #1a8eae;
+  font-size: 15px;
 }
 ::ng-deep .user_pages {
-    .p-datatable-header {
-        display: none !important;
-    }
+  .p-datatable-header {
+    display: none !important;
+  }
 }
 
 .none {
-    display: none;
+  display: none;
+}
+.generate{
+  margin-bottom: 10px;
 }

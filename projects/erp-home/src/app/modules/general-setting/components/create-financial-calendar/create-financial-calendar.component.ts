@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { GeneralSettingService } from '../../general-setting.service';
-import { FormsService, LanguageService, customValidators } from 'shared-lib';
+import { FormsService, LanguageService, RouterService, customValidators } from 'shared-lib';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -15,7 +15,8 @@ export class CreateFinancialCalendarComponent implements OnInit {
     private generalSettingService: GeneralSettingService,
     private formsService: FormsService,
     private titleService: Title,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private router: RouterService
   ) {
     this.generateYearsList();
   }
@@ -226,5 +227,8 @@ export class CreateFinancialCalendarComponent implements OnInit {
         this.opened = true;
       }
     });
+  }
+  routeToList() {
+    this.router.navigateTo('/masterdata/financial-calendar');
   }
 }

@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { lookupDto, LanguageService, MenuModule, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import {
+  lookupDto,
+  LanguageService,
+  MenuModule,
+  PageInfo,
+  PageInfoResult,
+  RouterService,
+} from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { LayoutService } from 'libs/apps-shared-lib/src/lib/modules/layout/layout.service';
 import { GeneralSettingService } from '../../../general-setting.service';
@@ -20,7 +27,7 @@ export class TagListComponent implements OnInit {
   searchTerm: string;
 
   mappedExportData: TagDto[];
-  exportData: ExportTagDto[]; 
+  exportData: ExportTagDto[];
 
   constructor(
     private routerService: RouterService,
@@ -32,10 +39,9 @@ export class TagListComponent implements OnInit {
     private langService: LanguageService
   ) {
     this.title.setTitle(this.langService.transalte('tag.taglist'));
-
   }
 
-   exportColumns: lookupDto[] = [
+  exportColumns: lookupDto[] = [
     {
       id: 'id',
       name: 'Id',
@@ -58,18 +64,15 @@ export class TagListComponent implements OnInit {
     },
   ];
 
-  addNew(e : boolean) {
-    if(e) {
-      this.newTag()
+  addNew(e: boolean) {
+    if (e) {
+      this.newTag();
     }
-
   }
   ngOnInit() {
-
     this.modulelist = this.layoutService.getModules();
-    console.log(this.modulelist)
+    console.log(this.modulelist);
     this.initTagData();
-
   }
 
   initTagData() {
@@ -81,17 +84,17 @@ export class TagListComponent implements OnInit {
       },
     });
 
-
     this.generalSettingService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
   }
 
-  viewModulesName(tag : number[]) {
-    let moduleName : any = this.modulelist
-    moduleName = moduleName.filter((elem : any)=> tag.includes(elem.moduleId)).map((elem : any)=>elem.module)
-    return moduleName
-
+  viewModulesName(tag: number[]) {
+    let moduleName: any = this.modulelist;
+    moduleName = moduleName
+      .filter((elem: any) => tag.includes(elem.moduleId))
+      .map((elem: any) => elem.module);
+    return moduleName;
   }
 
   onPageChange(pageInfo: PageInfo) {
@@ -105,10 +108,10 @@ export class TagListComponent implements OnInit {
   }
   routeToEdit(data: any) {
     const dialogRef = this.dialog.open(TagEditComponent, {
-      header : this.languageService.transalte('tag.EditTag'),
+      header: this.languageService.transalte('tag.EditTag'),
       width: '800px',
-      position: 'bottom-right' ,// A
-      data : data
+      position: 'bottom-right', // A
+      data: data,
     });
 
     dialogRef.onClose.subscribe(() => {
@@ -126,10 +129,9 @@ export class TagListComponent implements OnInit {
 
   newTag() {
     const dialogRef = this.dialog.open(TagAddComponent, {
-      header : this.languageService.transalte('tag.AddNewTag'),
+      header: this.languageService.transalte('tag.AddNewTag'),
       width: '600px',
-      position: 'bottom-right' // Adjust position as needed
-    
+      position: 'bottom-right', // Adjust position as needed
     });
 
     dialogRef.onClose.subscribe(() => {
@@ -137,8 +139,8 @@ export class TagListComponent implements OnInit {
     });
   }
 
-  onSearchChange() {
-    this.generalSettingService.getTagList(this.searchTerm, new PageInfo());
+  onSearchChange(e: any) {
+    this.generalSettingService.getTagList(e.target.value, new PageInfo());
 
     this.generalSettingService.tagList.subscribe({
       next: (res) => {
@@ -151,14 +153,10 @@ export class TagListComponent implements OnInit {
     this.generalSettingService.exportTagData(searchTerm);
     this.generalSettingService.exportsTagDataSourceObservable.subscribe((res) => {
       this.exportData = res;
-
     });
   }
 
   Delete(id: number) {
     this.generalSettingService.deleteTag(id);
-   
-    
-    
   }
 }
