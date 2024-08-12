@@ -8,22 +8,7 @@ body{
 .swal2-toast-shown .swal2-container {
     z-index: 1260 !important;
 }
-.p-dialog-mask{
-    justify-content: end !important;
-    align-items: end !important;
-}
-.p-dialog .p-dialog-content:last-of-type {
-    border-top-left-radius: 15px !important;
-    border-bottom-left-radius: 15px !important;
-    overflow-x: hidden;
 
-}
-.p-dialog {
-    .p-dialog-header {
-      display: none !important;
-    }
-  
-  }
   .text-danger{
     color:#CB3F2D ;
   }

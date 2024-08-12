@@ -37,6 +37,11 @@
         width: 32px;
         height: 32px;
       }
+      .pi-times{
+        &::before{
+          content: none !important;
+        }
+      }
     }
   }
   .pop_up_content {
@@ -78,6 +83,10 @@
     
     // background: #f7f8f8;
     // padding: 10px;
+    .cancel_btn,
+    .save_btn{
+      width: 100% !important;
+    }
   }
 }
   .pop_up_config_page {
@@ -108,7 +117,3 @@
     }
   }
 
-// .cancel_btn,
-// .save_btn {
-//   width: 49%;
-// }

@@ -7,19 +7,7 @@
   }
     /* Ensure the body does not scroll when the dialog is open */
 
-    ::ng-deep {
-      .p-dialog {
-        // position: absolute !important;
-        // bottom: 0 !important;
-        // right: 0 !important;
-        .p-dialog-header {
-          display: none !important;
-        }
-      }
-      .p-dialog .p-dialog-content {
-        padding: 0 !important;
-      }
-    }
+    
     
 
     .domain_header {
