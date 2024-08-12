@@ -154,7 +154,7 @@
     }
 
     .btn_edit {
-        color: #1a8eae;
+        color: #1a90b0;
         display: none;
     }
 
@@ -246,19 +246,19 @@
         }
 
         .p-inputtext:enabled:hover {
-            border-color: #1a8eae !important;
+            border-color: #1a90b0 !important;
 
         }
 
         .p-inputtext:enabled:focus {
             outline: 0 none;
             outline-offset: 0;
-            // box-shadow: 0 0 0 0.2rem #1a8eae !important;
-            border-color: #1a8eae !important;
+            // box-shadow: 0 0 0 0.2rem #1a90b0 !important;
+            border-color: #1a90b0 !important;
         }
 
         .p-inputtext::placeholder {
-            color: #1a8eae !important;
+            color: #1a90b0 !important;
         }
 
         .reads {

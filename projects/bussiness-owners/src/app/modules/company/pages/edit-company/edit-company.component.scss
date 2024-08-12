@@ -27,7 +27,7 @@
 
     button {
       padding: 10px 40px;
-      background-color: #1A8EAE;
+      background-color: #1a90b0;
       font-size: 18px;
       color: #fff;
       border: none;
@@ -43,7 +43,7 @@
 
 ::ng-deep {
   .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
-    background: #1a8eae !important;
+    background: #1a90b0 !important;
   }
 
   .p-inputswitch.p-focus .p-inputswitch-slider {
@@ -92,7 +92,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #1a8eae;
+    color: #1a90b0;
     font-size: 35px;
     background: #ffffff;
     width: 3rem;
@@ -108,36 +108,36 @@
   }
 
   .p-inputtext:enabled:hover {
-    border-color: #1A8EAE !important;
+    border-color: #1a90b0 !important;
   }
 
   .p-inputtext:enabled:focus {
     outline: 0 none;
     outline-offset: 0;
-    // box-shadow: 0 0 0 0.2rem #1a8eae !important;
-    border-color: #1A8EAE !important;
+    // box-shadow: 0 0 0 0.2rem #1a90b0 !important;
+    border-color: #1a90b0 !important;
   }
 
   .p-autocomplete:not(.p-disabled):hover .p-autocomplete-multiple-container {
-    border-color: #1A8EAE !important;
+    border-color: #1a90b0 !important;
   }
 
   .p-autocomplete:not(.p-disabled).p-focus .p-autocomplete-multiple-container {
     outline: 0 none;
     outline-offset: 0;
-    // box-shadow: 0 0 0 0.2rem #1a8eae !important;
-    border-color: #1A8EAE !important;
+    // box-shadow: 0 0 0 0.2rem #1a90b0 !important;
+    border-color: #1a90b0 !important;
   }
 
   .p-autocomplete:not(.p-disabled):hover .p-autocomplete-multiple-container {
-    border-color: #1A8EAE !important;
+    border-color: #1a90b0 !important;
   }
 
   .p-autocomplete:not(.p-disabled).p-focus .p-autocomplete-multiple-container {
     outline: 0 none;
     outline-offset: 0;
-    // box-shadow: 0 0 0 0.2rem #1a8eae !important;
-    border-color: #1A8EAE !important;
+    // box-shadow: 0 0 0 0.2rem #1a90b0 !important;
+    border-color: #1a90b0 !important;
   }
 
   .p-dropdown {
@@ -149,19 +149,19 @@
   }
 
   .p-dropdown:not(.p-disabled):hover {
-    border-color: #1A8EAE !important;
+    border-color: #1a90b0 !important;
   }
 
   .p-dropdown:not(.p-disabled).p-focus {
     outline: 0 none;
     outline-offset: 0;
-    // box-shadow: 0 0 0 0.2rem #1a8eae !important;
-    border-color: #1A8EAE !important;
+    // box-shadow: 0 0 0 0.2rem #1a90b0 !important;
+    border-color: #1a90b0 !important;
   }
 
   .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight.p-focus {
     color: #fff !important;
-    background: #1A8EAE !important;
+    background: #1a90b0 !important;
   }
 
 
@@ -207,7 +207,7 @@
 
       .code_num {
         font-size: 1rem;
-        color: #1A8EAE;
+        color: #1a90b0;
 
       }
     }
@@ -266,7 +266,7 @@
           left: 2px;
           bottom: -17px;
           height: 3px;
-          background: #1A8EAE;
+          background: #1a90b0;
         }
       }
     }
@@ -275,13 +275,13 @@
       .edit {
         background: #fff;
         padding: 10px 20px;
-        color: #1A8EAE;
-        border: 1px solid #1A8EAE;
+        color: #1a90b0;
+        border: 1px solid #1a90b0;
         border-radius: 12px;
         cursor: pointer;
 
         &:hover {
-          background: #1A8EAE;
+          background: #1a90b0;
           color: #fff;
         }
       }

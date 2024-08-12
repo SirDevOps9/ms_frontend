@@ -40,8 +40,7 @@
     }
   }
   .pop_up_content {
-    // width: 95%;
-    // padding:50px 0 !important;
+    width: 100%;
 
     .title {
       background: #f7f8f8;
@@ -49,7 +48,6 @@
       border-radius: 4px;
       font-size: 16px;
       font-family: $cairo_regular;
-      //  padding: 0 38px !important;
     }
     .icon {
       margin-inline-end: 5px;
@@ -58,7 +56,7 @@
       width: fit-content;
       font-size: 16px;
       font-family: $cairo_regular;
-      color: #1a8eae;
+      color: #1a90b0;
       cursor: pointer;
       padding-inline-start: 10px;
     }
@@ -78,9 +76,8 @@
 
     // background: #f7f8f8;
     // padding: 10px;
-    .cancel_btn,
-    .save_btn{
-      width: 100% !important;
+    .cancel_btn,.save_btn{
+      width: 100%;
     }
   }
 }
@@ -111,3 +108,4 @@
     display: none !important;
   }
 }
+

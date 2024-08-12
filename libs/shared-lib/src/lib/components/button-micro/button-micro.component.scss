@@ -1,13 +1,25 @@
 .btn{
-    // padding:10px 40px ;
-    // border-radius: 12px;
-    // font-size: 16px;
-    // margin-inline-start: 10px;
-    // margin-inline-end: 10px;
+    // margin-inline-start: 0 !important;
+    // margin-inline-end: 0 !important;
+    // font-size: $body-b16-size;
+    // font-weight: $body-b16-weight;
+    // border-radius: $spacing-8;
+    // padding: $spacing-10 $spacing-16;
+    
+    transition: all ease 0.5s;
+    font-weight: 400;
+    padding:10px 16px ;
+    border-radius: 8px;
+    font-size: 16px;
+    text-transform: capitalize;
+    margin-inline-start: 0 !important;
+    margin-inline-end: 0 !important;
+    width: 100%;
     cursor: pointer;
     .icon{
         margin-inline-end: 5px;
     }
+    
 }
 .icon_btn{
     padding: 0 ;
@@ -40,13 +52,23 @@
     }
 }
 .save{
-    background: #1A8EAE;
-    border: 1px solid #1A8EAE;
+    background: #1a90b0;
+    border: 1px solid #1a90b0;
     color: #fff;
     &:hover{
         background: #fff;
-        color: #1A8EAE;
-        border: 1px solid #1A8EAE;
+        color: #1a90b0;
+        border: 1px solid #1a90b0;
+    }
+}
+.outline{
+    background: #fff;
+    border: 1px solid #1a90b0;
+    color: #1a90b0;
+    &:hover{
+        background: #1a90b0;
+        color: #fff;
+        border: 1px solid #1a90b0;
     }
 }
 .cancel{
@@ -80,7 +102,7 @@
     align-items: center;
     padding: 0;
     margin: 0;
-    color: #1A8EAE;
+    color: #1a90b0;
 
     &:hover {
         background-color: rgba(100, 116, 139, 0.04);
