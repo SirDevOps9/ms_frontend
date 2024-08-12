@@ -22,7 +22,7 @@
       <li *ngIf="menuItem.subMenu.length > 0" (click)="open($event, i)">
         <div class="iocn-link" id="parent{{ i }}">
           <a>
-            <i class="{{ menuItem.icon }}"></i>
+            <img class="icon_flag" src="assets/images/{{ menuItem.icon }}" alt="">
             <span class="link_name  body_b18 pointer">{{ menuItem.name }}</span>
           </a>
           <i  class="arrow pi"   [ngClass]="{
