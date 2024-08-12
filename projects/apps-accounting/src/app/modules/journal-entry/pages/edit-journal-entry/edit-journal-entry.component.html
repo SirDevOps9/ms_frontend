@@ -220,7 +220,15 @@
                 {{ journalLine.get('creditAmountLocal').value }}
               </td>
               <td>
-                <img class="costCenterImg" src="assets/images/Frame.png" (click)="openCostPopup(journalLine.value  , journalLine , journalLine.controls['accountId']?.value , rowIndex)">
+                <img src="assets/images/groups.png" *ngIf="!journalLine.controls['selectedFalg'].value && !journalLine.controls['costCenters'].value.length">
+
+                <img src="assets/images/groups-mandtory-optional.png" alt="" *ngIf="journalLine.controls['costCenterConfig'].value == 'Optional' || journalLine.controls['costCenterConfig'].value == 'Mandatory' && !journalLine.controls['costCenters'].value.length" (click)="openCostPopup(journalLine.value ,journalLine,  journalLine.controls['accountId']?.value , rowIndex)">
+
+                <img src="assets/images/groups.png" alt="" *ngIf="journalLine.controls['costCenterConfig'].value == 'NotAllow' && !journalLine.controls['costCenters'].value.length" (click)="openCostPopup(journalLine.value ,journalLine,  journalLine.controls['accountId']?.value , rowIndex)">
+
+                <img src="assets/images/groups-data.png" alt="" *ngIf="journalLine.controls['costCenters'].value.length" (click)="openCostPopup(journalLine.value ,journalLine,  journalLine.controls['accountId']?.value , rowIndex)">
+
+
               </td>
               <td *ngIf="
               journalEntry?.status == enums.JournalEntryStatus.Unbalanced ||
