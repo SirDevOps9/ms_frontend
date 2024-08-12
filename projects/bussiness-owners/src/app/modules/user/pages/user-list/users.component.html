@@ -153,7 +153,7 @@
     </ng-template>
     <ng-template #status let-user>
       
-      <div class="checked" *ngIf="user.invitationStatus == 'Accepted'">
+      <div  *ngIf="user.invitationStatus == 'Accepted'">
         <lib-input-switch
           [id]="user.id"
           (click)="changed($event, user)"

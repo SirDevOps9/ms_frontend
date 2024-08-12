@@ -90,7 +90,7 @@
             <!-- <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger "></p-button> -->
           </td>
           <td>
-            <div class="checked" *ngIf="user.invitationStatus == 2">
+            <div  *ngIf="user.invitationStatus == 2">
             <lib-input-switch
                 [id]="user.id"
                 (onChange)="changed($event, user.id)"

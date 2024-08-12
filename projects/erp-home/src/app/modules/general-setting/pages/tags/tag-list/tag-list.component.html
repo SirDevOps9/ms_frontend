@@ -100,7 +100,7 @@
         </ng-template>
 
         <ng-template #status let-tag>
-          <div class="checked">
+          <div >
             <lib-input-switch [disabled]="true" (onChange)="changed($event, tag.id)" [(ngModel)]="tag.isActive">
             </lib-input-switch>
           </div>
