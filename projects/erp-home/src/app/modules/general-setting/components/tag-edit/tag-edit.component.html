@@ -63,23 +63,23 @@
             </lib-form-group>
           </div>
 
-          <div class="col-12">
-            <lib-form-group>
-              <div class="checked">
-                <p-inputSwitch formControlName="IsActive"></p-inputSwitch>
-                <p class="active" *ngIf="tagForm.controls['IsActive'].value">
-                  {{ 'tag.Active' | translate }}
-                </p>
-                <p class="inactive" *ngIf="!tagForm.controls['IsActive'].value">
-                  {{ 'tag.Deactivate' | translate }}
-                </p>
-              </div>
-              <lib-field-validations
-                [appControl]="tagForm.controls['IsActive']"
-              ></lib-field-validations>
-            </lib-form-group>
-          </div>
+        <div class="col-12">
+          <lib-form-group>
+            <div >
+              <lib-input-switch formControlName="IsActive"></lib-input-switch>
+              <p class="active" *ngIf="tagForm.controls['IsActive'].value">
+                {{ 'tag.Active' | translate }}
+              </p>
+              <p class="inactive" *ngIf="!tagForm.controls['IsActive'].value">
+                {{ 'tag.Deactivate' | translate }}
+              </p>
+            </div>
+            <lib-field-validations
+              [appControl]="tagForm.controls['IsActive']"
+            ></lib-field-validations>
+          </lib-form-group>
         </div>
+      </div>
 
         <!-- <div class="grid justify-content-center">
           <div class="col-6">

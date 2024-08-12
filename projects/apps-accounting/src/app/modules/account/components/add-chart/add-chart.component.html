@@ -176,9 +176,9 @@
                 <lib-label [appControl]="formGroup.controls['hasNoChild']">
                   {{ 'ChartOfAccounts.HasNoChild' | translate }}
                 </lib-label>
-                <div class="checked">
-                  <p-inputSwitch formControlName="hasNoChild" (onChange)="toggleCurrencyVisibility()">
-                  </p-inputSwitch>
+                <div >
+                  <lib-input-switch formControlName="hasNoChild" (onChange)="toggleCurrencyVisibility()">
+                  </lib-input-switch>
       
                   <!-- <lib-toggel formControlName="hasNoChild" (valueChanged)="toggleCurrencyVisibility()">
                   </lib-toggel> -->

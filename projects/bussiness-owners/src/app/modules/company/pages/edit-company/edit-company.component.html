@@ -7,8 +7,8 @@
           <p class="code_num body_b23">{{ companyCode }}</p>
         </div>
         <div class="status">
-          <div class="checked">
-            <p-inputSwitch [(ngModel)]="isActive" (onChange)="toggle()"> </p-inputSwitch>
+          <div >
+           <lib-input-switch [(ngModel)]="isActive" (onChange)="toggle()"> </lib-input-switch>
             <p class="active body_b16" *ngIf="isActive">
               {{ 'User.Activate' | translate }}
             </p>
