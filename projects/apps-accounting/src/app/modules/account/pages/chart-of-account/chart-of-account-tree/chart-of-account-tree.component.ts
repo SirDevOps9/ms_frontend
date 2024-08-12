@@ -15,7 +15,7 @@ export class ChartOfAccountTreeComponent implements OnInit {
   @Input() edit: boolean;
   @Input() view: boolean;
   @Input() add: boolean;
-  parentAddedId: number |undefined ;
+  parentAddedId: number | undefined;
   account: AccountByIdDto;
   @Output() addmode = new EventEmitter<boolean>();
   nodes: accountTreeList[];
@@ -25,10 +25,9 @@ export class ChartOfAccountTreeComponent implements OnInit {
   showTree: boolean = true;
   ref: DynamicDialogRef;
   parentAdded: any;
-  parentEditedId:any
+  parentEditedId: any;
   activeNode: any = null;
   activeNodeId: number | null = null; // Store the active node ID
-
 
   constructor(
     private accountService: AccountService,
@@ -36,10 +35,7 @@ export class ChartOfAccountTreeComponent implements OnInit {
     private langService: LanguageService,
     private dialog: DialogService
   ) {
-    this.langService.setLang();
-
-
-    this.title.setTitle('Chart of accounts');
+    this.title.setTitle(this.langService.transalte('ChartOfAccount.Title'));
   }
   ngOnInit() {
     this.getTreeList();
@@ -61,7 +57,7 @@ export class ChartOfAccountTreeComponent implements OnInit {
   addChild(parentNode: any) {
     this.activeNode = parentNode;
     this.parentAdded = parentNode;
-    this.newChiled=false
+    this.newChiled = false;
     this.view = false;
     this.edit = false;
     this.add = false;
@@ -82,75 +78,70 @@ export class ChartOfAccountTreeComponent implements OnInit {
     this.edit = false;
     this.add = false;
     this.addmode.emit(true);
-    this.newChiled=true
+    this.newChiled = true;
     this.add = true;
   }
   getAccountDetails(id: number) {
     this.accountService.getAccountDetails(id);
     this.accountService.AccountViewDetails.subscribe((res) => {
       this.account = res;
-      
     });
-    if(this.account.parentAccountName===""){
-      this.viewWithParent=true
-    }else{
-      this.viewWithParent=false
+    if (this.account.parentAccountName === '') {
+      this.viewWithParent = true;
+    } else {
+      this.viewWithParent = false;
     }
   }
-  
+
   handleTabClick(node: any) {
     this.edit = false;
     this.add = false;
-    this.view = false;    
+    this.view = false;
     this.activeNode = node;
     this.parentAddedId = node.id;
-    if(this.parentAddedId){
+    if (this.parentAddedId) {
       this.getAccountDetails(this.parentAddedId);
-    
     }
     this.view = true;
   }
-  viewMode(event:number){
+  viewMode(event: number) {
     setTimeout(() => {
       this.edit = false;
-    this.add = false;
-    this.view = false;    
-    this.parentAddedId = event;
-    if(this.parentAddedId){
-      this.getAccountDetails(this.parentAddedId);
-    
-    }
-    this.view = true;
-    this.getTreeList()
+      this.add = false;
+      this.view = false;
+      this.parentAddedId = event;
+      if (this.parentAddedId) {
+        this.getAccountDetails(this.parentAddedId);
+      }
+      this.view = true;
+      this.getTreeList();
     }, 1000);
-    
   }
 
   handleOperationCompleted(event: any) {
-    this.getTreeList()
+    this.getTreeList();
     this.add = false;
   }
   toggelTree() {
     this.showTree = !this.showTree;
   }
-  editAccount(node:any){
+  editAccount(node: any) {
     this.edit = false;
     this.add = false;
     this.view = false;
     this.activeNode = node;
     this.parentEditedId = node.id;
     this.edit = true;
-    
   }
 
   getTreeList() {
-    const activeNodeId = this.activeNode ? this.activeNode.id : null; 
+    const activeNodeId = this.activeNode ? this.activeNode.id : null;
     this.accountService.getTreeList().subscribe((res: any) => {
       this.nodes = this.mapToTreeNodes(res);
       if (activeNodeId) {
         setTimeout(() => {
-          this.setActiveNode(activeNodeId); 
-        }, 100); 
+          this.setActiveNode(activeNodeId);
+        }, 100);
       }
     });
   }
@@ -200,21 +191,20 @@ export class ChartOfAccountTreeComponent implements OnInit {
   }
   deleteAccount(id: number) {
     const parentNode = this.findParentNodeById(this.nodes, id);
-    this.accountService.deleteAccount(id)
-      this.accountService.accountdeletedObser.subscribe(res=>{
-
+    this.accountService.deleteAccount(id);
+    this.accountService.accountdeletedObser.subscribe((res) => {
       if (res) {
         if (parentNode) {
-           this.setActiveNode(parentNode.id);
+          this.setActiveNode(parentNode.id);
         }
         this.getTreeList();
       }
-      });
+    });
   }
 
   findParentNodeById(nodes: any[], childId: number): any {
     for (let node of nodes) {
-      if (node.children && node.children.some((child:any) => child.id === childId)) {
+      if (node.children && node.children.some((child: any) => child.id === childId)) {
         return node;
       }
       if (node.children) {

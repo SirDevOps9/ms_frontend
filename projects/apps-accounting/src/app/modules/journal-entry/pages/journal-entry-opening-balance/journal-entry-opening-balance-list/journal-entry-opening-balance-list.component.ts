@@ -24,6 +24,7 @@ export class JournalEntryOpeningBalanceListComponent implements OnInit {
 
   selectedEntries: JournalEntryDto[];
   tableData: JournalEntryDto[];
+  exportData: JournalEntryDto[];
   cols: any[] = [];
   active: boolean = false;
   currentPageInfo: PageInfoResult;
@@ -35,10 +36,12 @@ export class JournalEntryOpeningBalanceListComponent implements OnInit {
     private journalEntryService: JournalEntryService,
     public sharedJouralEnum: SharedJournalEnums,
     private loaderService: LoaderService
-  ) {}
+  ) {
+    this.titleService.setTitle(this.languageService.transalte('OpeningBalance.Title')); 
+
+  }
 
   ngOnInit() {
-    this.titleService.setTitle(this.languageService.transalte('JournalEntry.JournalEntryList'));
     this.initJournalEntryData();
     this.cols = [
       {
@@ -107,9 +110,9 @@ export class JournalEntryOpeningBalanceListComponent implements OnInit {
   exportGLOpeningBalanceData(searchTerm: string) {
     this.journalEntryService.exportsEmployeesList(searchTerm);
 
-    // this.journalEntryService.journalEntriesObs.subscribe((res) => {
-    //   this.exportData = res;
-    // });
+     this.journalEntryService.journalEntriesObs.subscribe((res) => {
+      this.exportData = res;
+     });
   }
 
   initJournalEntryData() {

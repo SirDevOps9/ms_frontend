@@ -16,14 +16,16 @@ export class ExportComponent implements OnChanges {
   @Output() exportClick: EventEmitter<any> = new EventEmitter<any>();
 
   itemsMenu: MenuItem[] =  [
-    { label: 'Excell', icon: 'pi pi-file-excel', command: () =>  this.excell() },
+    { label: 'Excel', icon: 'pi pi-file-excel', command: () =>  this.excell() },
     { label: 'PDF', icon: 'pi pi-file-pdf', command: () =>  this.pdf()}
   ];;
-  pdf() {
+    pdf() {
     this.exportClick.emit()
-    
-    ExportService.ToPDF(this.exportData, `${this.ExportName}.pdf`  , this.exportColumns);
-
+    if(this.exportData.length>0){
+      console.log("Export service data",this.exportData);
+      
+     ExportService.ToPDF(this.exportData, `${this.ExportName}.pdf`  , this.exportColumns);
+    }
   }
   excell() {
     this.exportClick.emit()
@@ -32,6 +34,7 @@ export class ExportComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+
     this.exportData = changes['exportData']?.currentValue
     this.exportColumns = changes['exportColumns']?.currentValue
 
@@ -39,11 +42,5 @@ export class ExportComponent implements OnChanges {
 
     
   }
-  ngAfterViewInit() {
-    if (this.ExportName) {
-      setTimeout(() => {
-        this.labelTest = this.ExportName;
-      }, 500);
-    }
-  }
+  
 }

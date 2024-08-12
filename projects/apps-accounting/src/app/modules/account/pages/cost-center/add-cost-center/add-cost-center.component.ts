@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { FormsService, LanguageService, ToasterService, customValidators } from 'shared-lib';
 import { AccountService } from '../../../account.service';
 import { addCostCenter, parentCostCenter } from '../../../models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-cost-center',
@@ -22,11 +23,13 @@ constructor(
   private formsService: FormsService,
   private accountService: AccountService,
   private toaserService: ToasterService,
-  private languageService: LanguageService
-
+  private title: Title,
+  private langService: LanguageService
 
 
 ){
+  this.title.setTitle(this.langService.transalte('costCenter.AddCostCenter'));
+
   this.formGroup = this.formBuilder.group({
    
     name: new FormControl('',customValidators.required),
@@ -44,11 +47,9 @@ constructor(
     this.accountService.costparentAccounts.subscribe((res) => {
       if (res) {
         this.parentAccounts = res;
-
       }
     });
 
-   
   }
   addChiled(){
     if (!this.formsService.validForm(this.formGroup, false)) return;
@@ -61,10 +62,6 @@ constructor(
     if (res) {
        this.operationCompleted.emit(res);
        
-      //  this.toaserService.showSuccess(
-      //   this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
-      //   this.languageService.transalte('ChartOfAccounts.SuccessMessage')
-      // );
     }
   });
  }, 500);

@@ -239,6 +239,8 @@
   "AppStore": {
     "Title": "Apps Store",
     "AddedToCartSuccessfully": "Successfully added to cart",
+    "Error": "Error",
+    "YouShouldAddSubdomainFirst":"You Should Add Subdomain First",
     "CheckedOut": "Successfully checked out",
     "App-in-Store": "App in Store",
     "AddToCart": "Add to Cart",

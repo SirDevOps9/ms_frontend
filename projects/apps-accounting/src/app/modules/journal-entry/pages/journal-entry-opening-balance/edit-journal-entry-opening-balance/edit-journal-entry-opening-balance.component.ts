@@ -2,19 +2,19 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { DialogService } from 'primeng/dynamicdialog';
-import { customValidators, PageInfo, RouterService, FormsService, ToasterService } from 'shared-lib';
+import { customValidators, PageInfo, RouterService, FormsService, ToasterService, LanguageService } from 'shared-lib';
 import { AccountService } from '../../../../account/account.service';
 import { AccountDto } from '../../../../account/models';
 import { CurrencyService } from '../../../../general/currency.service';
 import { CurrencyDto } from '../../../../general/models/currencyDto';
 import { NoChildrenAccountsComponent } from '../../../components/noChildrenAccounts/nochildaccounts.component';
 import { JournalEntryService } from '../../../journal-entry.service';
-import { GetJournalEntryByIdDto, JournalEntryLineDto, costCenters, JournalEntryType, EditJournalEntry, JournalEntryStatus, SharedJournalEnums, GetGlOpeningBalanceById, JournalEntryGlBalanceLineDto, EditJournalEntryLine } from '../../../models';
+import {  costCenters, JournalEntryType, EditJournalEntry, JournalEntryStatus, SharedJournalEnums, GetGlOpeningBalanceById, JournalEntryGlBalanceLineDto, EditJournalEntryLine } from '../../../models';
 import { JournalStatusUpdate } from '../../../models/update-status';
 import { EditCostCenterAllocationPopupComponent } from '../../components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component';
 import { ActivatedRoute } from '@angular/router';
-import { debounceTime } from 'rxjs/operators';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
+import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 
 @Component({
   selector: 'app-edit-journal-entry-opening-balance',
@@ -46,7 +46,6 @@ export class EditJournalEntryOpeningBalanceComponent {
   creditLocal: string;
 
   ngOnInit() {
-    this.titleService.setTitle('Edit Journal Opening Balance');
     this.ID = this.route.snapshot.params['id']
 
     this.getAccounts();
@@ -61,14 +60,9 @@ export class EditJournalEntryOpeningBalanceComponent {
    
   }
 
- 
-  
-
   get journalEntryLinesArray(): FormArray {
     return this.editJournalForm.get('journalEntryLines') as FormArray; 
   }
-
-
 
   initializeForm() {
     this.editJournalForm = this.fb.group({
@@ -392,8 +386,7 @@ export class EditJournalEntryOpeningBalanceComponent {
     });
   }
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
-    let currentCurrency: number = 1;
-
+    
     const journalLine = this.journalEntryLinesFormArray.at(currentJournalId);
 
     this.currencyService.accountCurrencyRate.subscribe((res) => {
@@ -402,7 +395,7 @@ export class EditJournalEntryOpeningBalanceComponent {
       currencyRateControl.setValue(res.rate);
     });
 
-    this.currencyService.getAccountCurrencyRate(currentCurrency, accountCurrency);
+    this.currencyService.getAccountCurrencyRate(accountCurrency, this.currentUserService.getCurrency());
 
   }
   constructor(
@@ -416,7 +409,11 @@ export class EditJournalEntryOpeningBalanceComponent {
     private toasterService: ToasterService,
     private currencyService: CurrencyService,
     private titleService: Title,
+    private langService: LanguageService,
     private route : ActivatedRoute,
-    private generalService : GeneralService
-  ) {}
+    private generalService : GeneralService,
+    private currentUserService : CurrentUserService
+  ) {
+    this.titleService.setTitle(this.langService.transalte('OpeningBalance.EditJournal')); 
+  }
 }

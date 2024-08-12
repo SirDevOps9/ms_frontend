@@ -19,7 +19,6 @@ export class ViewJournalEntryOpeningBalanceComponent implements OnInit {
   ID : number
   ngOnInit() {
     this.ID = this.route.snapshot.params['id']
-    this.titleService.setTitle('View Journal');
 
     this.loadJournalView();
   }
@@ -60,5 +59,8 @@ export class ViewJournalEntryOpeningBalanceComponent implements OnInit {
     private titleService: Title,
     private dialog: DialogService,
     private route : ActivatedRoute
-  ) {}
+  ) {
+    this.titleService.setTitle(this.langService.transalte('OpeningBalance.ViewJournal')); 
+
+  }
 }

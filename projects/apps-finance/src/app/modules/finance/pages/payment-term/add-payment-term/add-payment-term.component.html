@@ -1,8 +1,7 @@
 <lib-page-content [title]="'paymentTerm.title' | translate" [subTitle]="'paymentTerm.title' | translate">
-  <lib-bread-crumb> </lib-bread-crumb>
   <div class="flex justify-content-end my-2">
-    <lib-button-micro nameClass="cancel" title="Discard" (click)="discard()"> </lib-button-micro>
-    <lib-button-micro nameClass="save" title="save" iconName="pi pi-save" type="button" (click)="onSave()">
+    <lib-button-micro nameClass="cancel" title="{{ 'paymentterm.discard' | translate }}" (click)="discard()"> </lib-button-micro>
+    <lib-button-micro nameClass="save" title="{{ 'paymentterm.save' | translate }}" iconName="pi pi-save" type="button" (click)="onSave()">
     </lib-button-micro>
   </div>
 

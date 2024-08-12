@@ -1,54 +1,67 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FinanceService } from '../../../finance.service';
-import { customValidators, FormsService, LanguageService, lookupDto, LookupEnum, LookupsService, RouterService, ToasterService } from 'shared-lib';
+import {
+  customValidators,
+  FormsService,
+  LanguageService,
+  lookupDto,
+  LookupEnum,
+  LookupsService,
+  RouterService,
+  ToasterService,
+} from 'shared-lib';
 import { AddPaymentTermDto, AddPaymentTermLinesDto } from '../../../models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-payment-term',
   templateUrl: './add-payment-term.component.html',
-  styleUrls: ['./add-payment-term.component.scss']
+  styleUrls: ['./add-payment-term.component.scss'],
 })
 export class AddPaymentTermComponent implements OnInit {
   paymentTermForm: FormArray;
-  paymentTermGroup : FormGroup;
-  afterPeriodLookup :   { id: number; name: string }[]
+  paymentTermGroup: FormGroup;
+  afterPeriodLookup: { id: number; name: string }[];
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
 
-  
-
-  constructor(private fb: FormBuilder ,
-     private financeService : FinanceService ,
-         private routerService : RouterService ,
-          private formsService  : FormsService,
-          private lookupsService: LookupsService,
-           private toasterService : ToasterService, 
-           private languageService : LanguageService ,
-  ) {}
+  constructor(
+    private fb: FormBuilder,
+    private financeService: FinanceService,
+    private routerService: RouterService,
+    private formsService: FormsService,
+    private lookupsService: LookupsService,
+    private toasterService: ToasterService,
+    private title: Title,
+    private languageService: LanguageService
+  ) {
+    this.title.setTitle(this.languageService.transalte('paymentterm.AddPaymentTerm'));
+  }
 
   ngOnInit() {
     this.paymentTermForm = this.fb.array([this.createPaymentTermFormGroup()]);
     this.paymentTermGroup = new FormGroup({
       code: new FormControl(''),
-      name: new FormControl('', [customValidators.required,customValidators.length(0,50) ])
+      name: new FormControl('', [customValidators.required, customValidators.length(0, 50)]),
     });
 
-    this.getPeriodTypeLookup()
-
+    this.getPeriodTypeLookup();
   }
   createPaymentTermFormGroup(): FormGroup {
     return this.fb.group({
-      dueTermValue:  new FormControl('', customValidators.required),
-      note:  new FormControl('', customValidators.required),
+      dueTermValue: new FormControl('', [
+        customValidators.required,
+        customValidators.range(0, 100),
+      ]),
+      note: new FormControl('', customValidators.required),
       afterValue: new FormControl('', customValidators.required),
       afterPeriod: new FormControl('', customValidators.required),
-        });
+    });
   }
   getPeriodTypeLookup() {
     this.lookupsService.loadLookups([LookupEnum.PeriodType]);
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
-
   }
 
   public get items(): FormArray {
@@ -56,7 +69,7 @@ export class AddPaymentTermComponent implements OnInit {
   }
 
   addLine() {
-    this.items.push(this.createPaymentTermFormGroup())
+    this.items.push(this.createPaymentTermFormGroup());
   }
 
   deleteLine(index: number): void {
@@ -65,12 +78,12 @@ export class AddPaymentTermComponent implements OnInit {
     }
   }
 
-  onDelete(i : number) {
-    this.items.removeAt(i)
+  onDelete(i: number) {
+    this.items.removeAt(i);
   }
 
   discard() {
-    this.routerService.navigateTo('/masterdata/paymentterm')
+    this.routerService.navigateTo('/masterdata/paymentterm');
   }
 
   onSave() {
@@ -82,22 +95,22 @@ export class AddPaymentTermComponent implements OnInit {
       return sum + value;
     }, 0);
 
-    console.log("totalDueTermValue",totalDueTermValue)
+    console.log('totalDueTermValue', totalDueTermValue);
 
     if (totalDueTermValue != 100) {
-      this.toasterService.showError( 
-        this.languageService.transalte('failure') , this.languageService.transalte('add-paymentterm.totalerror'));
+      this.toasterService.showError(
+        this.languageService.transalte('failure'),
+        this.languageService.transalte('add-paymentterm.totalerror')
+      );
       return;
     }
 
     const paymentTermLines: AddPaymentTermLinesDto[] = this.items.value;
     const formData: AddPaymentTermDto = {
       name: this.paymentTermGroup.get('name')?.value,
-      paymentTermLines: paymentTermLines
+      paymentTermLines: paymentTermLines,
     };
-  
-   this.financeService.addPaymentTerm(formData);
 
+    this.financeService.addPaymentTerm(formData);
   }
-
 }

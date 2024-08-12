@@ -1,6 +1,8 @@
 {
   "dir": "ltr",
   "submit": "Submit",
+  "Export": "Export",
+  "Error": "Error",
   "validation": {
     "invalidForm": "Please, complete all required sections",
     "invalidOnlySaudiId": "only saudi ID is allowed",
@@ -38,43 +40,5 @@
     "ageAbove": "You must be at least {{age}} years old.",
     "nonNegativeNumbers": "it should be a positive number",
     "noAlphabeticCharacter": "The field must not contain alphabetic characters."
-  },
-  "bank" : {
-    "actions" : "Actions",
-    "Search" : "Search",
-    "AddNew" : "Add New",
-    "Export" : "Export",
-    "branches" : "branches",
-    "code" : "Code",
-    "name" : "Name",
-    "shortName" : "Short Name",
-    "bankAddress" : "Bank Address",
-    "contactName" : "Contact Name",
-    "bankEmail" : "Bank Email",
-    "phone" : "Phone",
-    "fax" : "Fax",
-    "add_new" : "Add New Line",
-    "accountNumber" : "Account Number",
-    "glAccountCode" : "GL Account Code",
-    "glAccountName" : "GL Account Name",
-    "branch" : "Branch",
-    "Iban" : "IBAN",
-    "currency" : "Currency",
-    "currentBalance" : "Current Balance",
-    "userPermission" : "User Permission",
-    "openingBalance" : "Opening Balance",
-   "confirm" : "the opening balance of journal not equal Bank opening balance In Account",
-   "confirm2" : "Do you want to Continue ?"
-  },
-  "deleteBank" : {
-    "success" : "Success",
-    "delete" : "Bank Definition Deleted Successfully"
-  },
-  "addBank" : {
-    "add" : "Bank Definition Added Successfully"
-  },
-  "editBank" : {
-    "edit" : "Bank Definition Edited Successfully"
-
   }
 }

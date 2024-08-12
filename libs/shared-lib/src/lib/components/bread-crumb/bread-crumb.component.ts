@@ -3,26 +3,25 @@ import { MenuItem } from 'primeng/api';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { LanguageService } from '../../services';
+import { breadCrumbHome } from 'shared-lib';
 
 @Component({
   selector: 'lib-bread-crumb',
   templateUrl: './bread-crumb.component.html',
-  styleUrl: './bread-crumb.component.scss'
+  styleUrl: './bread-crumb.component.scss',
 })
-export class BreadCrumbComponent implements OnInit  {
- home: MenuItem | undefined;
+export class BreadCrumbComponent implements OnInit {
+  home: MenuItem | undefined;
 
-menuItems: MenuItem[] ;
+  menuItems: MenuItem[];
   ngOnInit(): void {
     this.menuItems = this.createBreadcrumb(this.activatedRoute.root);
 
-    this.home ={ icon: 'pi pi-home', routerLink: '/my-subscriptions' };
+    this.home = { icon: 'pi pi-home', routerLink:'/' };
     this.router.events
-    .pipe(filter((event) => event instanceof NavigationEnd))
-    .subscribe(
-      () => (this.menuItems = this.createBreadcrumb(this.activatedRoute.root))
-    );
-  }  
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => (this.menuItems = this.createBreadcrumb(this.activatedRoute.root)));
+  }
   private createBreadcrumb(
     route: ActivatedRoute,
     url: string = '',
@@ -35,15 +34,16 @@ menuItems: MenuItem[] ;
     }
 
     for (const child of children) {
-      const routeURL: string = child.snapshot.url
-        .map((segment) => segment.path)
-        .join('/');
+      const routeURL: string = child.snapshot.url.map((segment) => segment.path).join('/');
       if (routeURL !== '') {
         url += `/${routeURL}`;
       }
 
       const label = child.snapshot.data['breadcrumb'];
       if (label) {
+        // this.languageService.getTranslation(label).subscribe((localized) => {
+        //   breadcrumbs.push({ label: localized, routerLink: url });
+        // });
         const localized = this.languageService.transalte(label);
         breadcrumbs.push({ label: localized, routerLink: url });
       }
@@ -58,8 +58,7 @@ menuItems: MenuItem[] ;
     public languageService: LanguageService,
 
     private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {
-
-  }
+    private activatedRoute: ActivatedRoute,
+    private breadcrumbhome:breadCrumbHome
+  ) {}
 }

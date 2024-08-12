@@ -1,6 +1,8 @@
 {
   "dir": "ltr",
   "submit": "Submit",
+  "Export": "Export",
+  "Error": "Error",
   "validation": {
     "invalidForm": "Please, complete all required sections",
     "invalidOnlySaudiId": "only saudi ID is allowed",

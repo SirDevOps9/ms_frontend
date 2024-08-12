@@ -1,8 +1,7 @@
 <lib-page-content [title]="'bank.TaxList' | translate" [subTitle]="'bank.TaxList' | translate">
-    <lib-bread-crumb> </lib-bread-crumb>
     <div class="flex justify-content-end my-2">
-      <lib-button-micro nameClass="cancel" title="Discard" (click)="discard()"> </lib-button-micro>
-      <lib-button-micro nameClass="save" title="save" iconName="pi pi-save" type="button" (click)="onSave()">
+      <lib-button-micro nameClass="cancel" title="{{ 'bank.discard' | translate }}" (click)="discard()"> </lib-button-micro>
+      <lib-button-micro nameClass="save" title="{{ 'bank.save' | translate }}" iconName="pi pi-save" type="button" (click)="onSave()">
       </lib-button-micro>
     </div>
   
@@ -174,14 +173,14 @@
                       </div>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{ bankGroup.controls['displayName']?.value }}
+                      {{ bankGroup.controls['accountCode']?.value }}
                     </ng-template>
                   </p-cellEditor>
                 </td>
                 <!--  -->
-                <td>
-                  {{ bankGroup.controls['accountName']?.value }}
-                </td>
+                <td> {{ bankGroup.controls['accountName'].value }}</td>
+               
+
                 <!--  -->
   
                 <td
@@ -254,6 +253,9 @@
                     {{ bankGroup.controls['currencyName']?.value  }}
                   </ng-template>
                 </p-cellEditor>
+                <lib-field-validations
+                [appControl]="bankGroup.controls['currencyId']"
+              ></lib-field-validations>
                 </td>
                 <!--  -->
                 <td>

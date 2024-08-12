@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { FormsService, customValidators,LanguageService ,ToasterService } from 'shared-lib';
 import { AccountService } from '../../../account.service';
 import { costById, parentCostCenter } from '../../../models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-cost-center',
@@ -22,11 +23,12 @@ constructor(
   private formsService: FormsService,
   private accountService: AccountService,
   private toaserService: ToasterService,
-
-  private languageService: LanguageService,
-
+  private title: Title,
+  private langService: LanguageService
 
 ){
+  this.title.setTitle(this.langService.transalte('costCenter.EditCostCenter'));
+
   this.formGroup = this.formBuilder.group({
     id:new FormControl(''),
     name: new FormControl('',customValidators.required),
@@ -40,38 +42,32 @@ constructor(
     this.GetAllParentsCostCenters()
     this.accountService.costparentAccounts.subscribe((res) => {
       if (res) {
-        this.parentAccounts = res;
+        this.parentAccounts = res.filter(item => item.id != this.parentEditedId);
 
       }
     });
     this.getCostById(this.parentEditedId)
-   
-  }
-  test(){
-    if (!this.formsService.validForm(this.formGroup, false)) return;
-
-    console.log(this.formGroup.value);
-    
-  }
   
-  onSubmit() {
-
-    if (!this.formsService.validForm(this.formGroup, false)) return;
-
-
-    let obj: costById = this.formGroup.value;
-
-    this.accountService.editCost(obj);
 
     this.accountService.editedCost.subscribe((res) => {
       if (res) {
         this.operationCompleted.emit(this.parentEditedId);
         this.toaserService.showSuccess(
-          this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
-          this.languageService.transalte('ChartOfAccounts.SuccessMessage')
+            this.langService.transalte('costCenter.Success'),
+            this.langService.transalte('costCenter.UpdatedSuccessfully')
         );
       }
     });
+  }
+  
+  
+  onSubmit() {
+
+    if (!this.formsService.validForm(this.formGroup, false)) return;
+
+    let obj: costById = this.formGroup.value;
+
+    this.accountService.editCost(obj);
   }
   getCostById(id: any) {
     this.accountService.getcostById(id);

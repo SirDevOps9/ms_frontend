@@ -1,5 +1,4 @@
-<div>
-  <lib-bread-crumb></lib-bread-crumb>
+<lib-page-content>
   <div class="user_page">
     <lib-data-table
       [items]="tableData"
@@ -14,81 +13,81 @@
         columns: [
           {
             name: 'id',
-            headerText: 'Id',
+            headerText: 'Journal.id' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'journalCode',
-            headerText: 'Journal Code',
+            headerText: 'Journal.journalCode' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'refrenceNumber',
-            headerText: 'Reference',
+            headerText: 'Journal.referenceNumber' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'createdOn',
-            headerText: 'Date',
+            headerText: 'Journal.createdOn' | translate,
             isGlobalFilter: true,
             isSortable: true,
             template: journalDate
           },
           {
             name: 'type',
-            headerText: 'Type',
+            headerText: 'Journal.type' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'sourceName',
-            headerText: 'Document Name',
+            headerText: 'Journal.sourceName' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'sourceCode',
-            headerText: 'Document Code',
+            headerText: 'Journal.sourceCode' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'isRepeated',
-            headerText: 'Repeated',
+            headerText: 'Journal.isRepeated' | translate,
             isGlobalFilter: true,
             isSortable: true,
             template: journalIsRepeated
           },
           {
             name: 'isReversed',
-            headerText: 'Reversed',
+            headerText: 'Journal.isReversed' | translate,
             isGlobalFilter: true,
             isSortable: true,
             template: journalIsReversed
           },
           {
             name: 'status',
-            headerText: 'Status',
+            headerText: 'Journal.status' | translate,
             template: userStatus
           },
           {
             name: 'totalDebitAmount',
-            headerText: 'Debit',
+            headerText: 'Journal.totalDebitAmount' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'totalCreditAmount',
-            headerText: 'Credit',
+            headerText: 'Journal.totalCreditAmount' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'id',
-            headerText: 'Actions',
+            headerText: 'Journal.actions' | translate,
             template: userCol
           }
         ]
@@ -98,25 +97,24 @@
         <div class="flex justify-content-between">
           <div>
             
-              <lib-text-input   type="text" [placeholder]="'Search'" (keyUp)="onSearchChange($event)" [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">                   
+              <lib-text-input   type="text" [placeholder]="'Journal.search' | translate" (keyUp)="onSearchChange($event)" [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">                   
               </lib-text-input>            
           </div>
 
-          <!-- <lib-button pRipple className="add_new" label="Add New" icon="pi pi-plus">
-          </lib-button> -->
-          <div class="flex gap-1">
-            <button class="add_new" (click)="routeToAdd()">
-              <span class="pi pi-plus"></span>
-              Add New
-            </button>
+       
+          <div class="flex gap-2">
+           
             
               <lib-export
                 (exportClick)="exportJournalEntriesData($event)"
-                [exportData]="tableData"
+                [exportData]="exportData"
                 [exportColumns]="exportColumns"
                 [ExportName]="'Journal Entries'"
               >
               </lib-export>
+
+              <lib-button pRipple className="addToList" label="{{ 'Journal.addNew' | translate }}" (onClick)="routeToAdd()" [icon]="'pi pi-plus'"></lib-button>
+
           
           </div>
 
@@ -156,28 +154,28 @@
           *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Unbalanced"
         >
           <p class="dot"></p>
-          <p>Unbalanced</p>
+          <p>{{ 'Journal.unbalanced' | translate }}</p>
         </div>
         <div
           class="status draft"
           *ngIf="journal.status == sharedJouralEnum.JournalEntryStatus.Draft"
         >
           <p class="dot"></p>
-          <p>Draft</p>
+          <p>{{ 'Journal.draft' | translate }}</p>
         </div>
         <div
           class="status unposted"
           *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Submitted"
         >
           <p class="dot"></p>
-          <p>Unposted</p>
+          <p>{{ 'Journal.unposted' | translate }}</p>
         </div>
         <div
           class="status Posted"
           *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Posted"
         >
           <p class="dot"></p>
-          <p>Posted</p>
+          <p>{{ 'Journal.posted' | translate }}</p>
         </div>
       </ng-template>
       <ng-template #journalDate let-journal>
@@ -187,14 +185,14 @@
       </ng-template>
       <ng-template #journalIsRepeated let-journal>
         <div>
-          <p>{{ journal.isRepeated ? 'Yes' : 'No' }}</p>
+          <p>{{ journal.isRepeated ? ('Journal.yes' | translate) : ('Journal.no' | translate) }}</p>
         </div>
       </ng-template>
       <ng-template #journalIsReversed let-journal>
         <div>
-          <p>{{ journal.isReversed ? 'Yes' : 'No' }}</p>
+          <p>{{ journal.isReversed ? ('Journal.yes' | translate) : ('Journal.no' | translate) }}</p>
         </div>
       </ng-template>
     </lib-data-table>
   </div>
-</div>
+</lib-page-content>

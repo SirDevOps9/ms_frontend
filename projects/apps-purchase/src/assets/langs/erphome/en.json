@@ -1,4 +1,13 @@
 {
+  "BreadCrumb": {
+    "VendorCategoryList": "Vendor Category List",
+    "VendorCategory": "Vendor Category",
+    "AddVendorCategory": "Add Vendor Category",
+    "EditVendorCategory": "Edit Vendor Category",
+    "VendorDefinitions":"Vendor Definitions",
+    "AddVendorDefinition":"Add Vendor Definition",
+    "EditVendorDefinition":"Edit Vendor Definition"
+  },
   "dir": "ltr",
   "Welcome": "Welcome",
   "Submit": "Submit",
@@ -367,15 +376,19 @@
       "priceList" : "Price List",
       "paymentTerms" : "Payment Terms",
       "marketType" : "Market Type",
-      "actions" : "Actions"
+      "actions" : "Actions",
+      "Add": "Add",
+      "Search":"Search..."
+
     },
-    "addVendorCategory" : {
+    "VendorCategory" : {
       "success":"Success",
       "successAdd":"Vendor Category Added Successfully",
       "successEdit":"Vendor Category Edited Successfully",
       "openSuccess":"Vendor Category Opened Successfully"
     },
-    "deleteVendorCategory" : { 
+    "deleteVendorCategory" : {
+      "success":"Success", 
       "delete" : "Vendor Category Deleted Successfully"
     },
     "addCustomerCategory" : {
@@ -385,6 +398,7 @@
       "openSuccess":"Customer Category Opened Successfully"
     },
     "deleteCustomerCategory" : {
+      "success":"Success",
       "delete" : "Customer Category Deleted Successfully"
     },
     "customerDefinition" : {
@@ -416,22 +430,141 @@
       "criditLimit" : "Credit Limit",
       "actions" : "Actions",
       "success":"success",
-      "vendorSuccess":"vendor created successfully "
+      "vendorSuccess":"vendor created successfully ",
+      "Add": "Add",
+      "Search":"Search..."
     },
     "deleteVendorDefinition" : {
+      "success":"Success",
       "delete" : "Vendor Definition Deleted Successfully"
     },
-    "addVendorDefinition" : {
+    "VendorDefinition" : {
       "success":"Success",
       "successAdd":"Vendor Definition Added Successfully",
       "successEdit":"Vendor Definition Edited Successfully",
       "openSuccess":"Vendor Definition Opened Successfully"
+    },
+    "AddVendorDefinition": {
+      "vendorCode": "Vendor Code",
+      "auto": "Auto",
+      "vendorName": "Vendor Name",
+      "category": "Category",
+      "vendorTag": "Vendor Tag",
+      "birthdate": "Birth Date",
+      "contactPhoto": "Contact Photo",
+      "photoDimensions": "250px * 500px (JPG, PNG, PDF)",
+      "select":"Select",
+      "Information": "Information",
+      "ContactInformation": "Contact Information",
+      "Code": "Code",
+      "ContactMobileCode": "Contact Mobile Code",
+      "ContactMobile": "Contact Mobile",
+      "ContactPhone": "Contact Phone",
+      "ContactFax": "Contact Fax",
+      "ContactEmail": "Contact Email",
+      "ContactWebsite": "Contact Website",
+      "ContactPersonInformation": "Contact Person Information",
+      "ContactPersonName": "Contact Person Name",
+      "ContactPersonMobileCode": "Contact Person Mobile Code",
+      "ContactPersonMobile": "Contact Person Mobile",
+      "ContactPersonPhone": "Contact Person Phone",
+      "ContactPersonEmail": "Contact Person Email",
+      "Address": "Address",
+      "Country": "Country",
+      "State": "State",
+      "City": "City",
+      "Street": "Street",
+      "Longitude": "Longitude",
+      "Latitude": "Latitude",
+      "ErrorRadius": "Error Radius",
+      "Legal": "Legal",
+      "CommercialId": "Commercial ID",
+      "TaxId": "Tax ID",
+      "Financial": "Financial",
+      "PaymentTerm": "Payment Term",
+      "PriceList": "Price List",
+      "CreditLimit": "Credit Limit",
+      "Currency": "Currency",
+      "Accounting": "Accounting",
+      "PayableAccount": "Payable Account",
+      "PurchaseAccount": "Purchase Account",
+      "PurchaseReturnAccount": "Purchase Return Account",
+      "DiscountAccount": "Discount Account",
+      "Save" : "Save",
+      "Discard":"Discard"
+    },
+    "EditVendorDefinition": {
+      "vendorCode": "Vendor Code",
+      "auto": "Auto",
+      "vendorName": "Vendor Name",
+      "category": "Category",
+      "vendorTag": "Vendor Tag",
+      "birthdate": "Birth Date",
+      "contactPhoto": "Contact Photo",
+      "photoDimensions": "250px * 500px (JPG, PNG, PDF)",
+      "select":"Select",
+      "Information": "Information",
+      "ContactInformation": "Contact Information",
+      "Code": "Code",
+      "ContactMobileCode": "Contact Mobile Code",
+      "ContactMobile": "Contact Mobile",
+      "ContactPhone": "Contact Phone",
+      "ContactFax": "Contact Fax",
+      "ContactEmail": "Contact Email",
+      "ContactWebsite": "Contact Website",
+      "ContactPersonInformation": "Contact Person Information",
+      "ContactPersonName": "Contact Person Name",
+      "ContactPersonMobileCode": "Contact Person Mobile Code",
+      "ContactPersonMobile": "Contact Person Mobile",
+      "ContactPersonPhone": "Contact Person Phone",
+      "ContactPersonEmail": "Contact Person Email",
+      "Address": "Address",
+      "Country": "Country",
+      "State": "State",
+      "City": "City",
+      "Street": "Street",
+      "Longitude": "Longitude",
+      "Latitude": "Latitude",
+      "ErrorRadius": "Error Radius",
+      "Legal": "Legal",
+      "CommercialId": "Commercial ID",
+      "TaxId": "Tax ID",
+      "Financial": "Financial",
+      "PaymentTerm": "Payment Term",
+      "PriceList": "Price List",
+      "CreditLimit": "Credit Limit",
+      "Currency": "Currency",
+      "Accounting": "Accounting",
+      "PayableAccount": "Payable Account",
+      "PurchaseAccount": "Purchase Account",
+      "PurchaseReturnAccount": "Purchase Return Account",
+      "DiscountAccount": "Discount Account",
+      "Save" : "Save",
+      "Discard":"Discard"
     },
     "Shared":{
       "Error":"Error",
       "valdation":{
         "invalidForm":"invalid Form"
       }
+    },
+    "openeingBalance" : {
+      "openingJournal" : "Opening Journal",
+      "fromOpening" : "From Opening Balance Transaction",
+      "JournalLine" : "Journal Line",
+      "amount" : "Amount",
+      "debitCredit" : "Debit Or Credit",
+      "glAccount" : "GL Account",
+      "balance" : "Balance",
+      "balanceType" : "Balance Type",
+      "dueDate" : "Due Date Distribution",
+      "add_new" : "Add New Line",
+      "distribute" : "Distribute",
+      "debit" : "Debit",
+      "credit" : "Credit",
+      "duedate" : "Due Date",
+      "cancel" : "Cancel",
+      "save" : "Save"
     }
 
 }

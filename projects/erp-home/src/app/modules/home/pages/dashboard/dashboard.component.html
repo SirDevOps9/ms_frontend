@@ -1,0 +1,16 @@
+<lib-page-content >
+  <!-- <lib-bread-crumb></lib-bread-crumb> -->
+  <div class="grid" style="margin: 5%;margin-left: 1%;">
+    <div class="md:col-4" *ngFor="let module of moduleList" (click)="navigateto(module.moduleId)">
+      <div class="container">
+        <img src="assets/images/card.png" class="background" />
+        <img
+          src="assets/lib-assets/images/{{ module.moduleLogo }}"
+          class="foreground"
+          alt="not loaded"
+        />
+        <p class="caption">{{ module.module }}</p>
+      </div>
+    </div>
+  </div>
+</lib-page-content>

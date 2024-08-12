@@ -24,4 +24,5 @@ export class GetJournalTemplateLinesDto {
   currencyId: number;
   currency: string;
   partnerId: number;
+  costCenterConfig?:string
 }

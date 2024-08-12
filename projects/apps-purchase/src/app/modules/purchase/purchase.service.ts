@@ -103,8 +103,8 @@ export class PurchaseService {
     this.purchaseProxy.addvendorCategory(addvendorCategory).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('success'),
-          this.languageService.transalte('addVendorCategory.successAdd')
+          this.languageService.transalte('VendorCategory.success'),
+          this.languageService.transalte('VendorCategory.successAdd')
         );
         if (res) {
           this.addVendorCategoryData.next(res);
@@ -117,8 +117,8 @@ export class PurchaseService {
     this.purchaseProxy.EditVendorCategory(editvendorCategory).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('success'),
-          this.languageService.transalte('addVendorCategory.successEdit')
+          this.languageService.transalte('VendorCategory.success'),
+          this.languageService.transalte('VendorCategory.successEdit')
         );
         if (res) this.routerService.navigateTo('/masterdata/vendor-category');
       },
@@ -131,7 +131,7 @@ export class PurchaseService {
       this.purchaseProxy.deleteVendorCategory(id).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
-            this.languageService.transalte('success'),
+            this.languageService.transalte('deleteVendorCategory.success'),
             this.languageService.transalte('deleteVendorCategory.delete')
           );
           let data = this.vendorCategoryDataSource.getValue();
@@ -161,7 +161,7 @@ export class PurchaseService {
       this.purchaseProxy.deleteVendorDefinition(id).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
-            this.languageService.transalte('success'),
+            this.languageService.transalte('deleteVendorDefinition.success'),
             this.languageService.transalte('deleteVendorDefinition.delete')
           );
           let data = this.vendorDefinitionDataSource.getValue();
@@ -186,8 +186,8 @@ export class PurchaseService {
     this.purchaseProxy.addNewVendorDefinition(vendor).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('success'),
-          this.languageService.transalte('addVendorDefinition.successAdd')
+          this.languageService.transalte('VendorDefinition.success'),
+          this.languageService.transalte('VendorDefinition.successAdd')
         );
         this.routerService.navigateTo(`/masterdata/vendor-definitions`);
         // this.addVendorCategoryRes.next(res)
@@ -205,8 +205,8 @@ export class PurchaseService {
     this.purchaseProxy.editVendorDefinition(vendor).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('success'),
-          this.languageService.transalte('addVendorDefinition.successEdit')
+          this.languageService.transalte('VendorDefinition.success'),
+          this.languageService.transalte('VendorDefinition.successEdit')
         );
         // this.addVendorCategoryRes.next(res)
         this.routerService.navigateTo(`/masterdata/vendor-definitions`);

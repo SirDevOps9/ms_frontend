@@ -33,10 +33,10 @@ export class VendorDefinitionsListComponent implements OnInit {
   }
 
   routeToAdd() {
-    this.routerService.navigateTo('/masterdata/add-vendor-definitions')
+    this.routerService.navigateTo('/masterdata/vendor-definitions/add-vendor-definitions')
   }
   routeToEdit(id : number) {
-    this.routerService.navigateTo(`/masterdata/edit-vendor-definitions/${id}`)
+    this.routerService.navigateTo(`/masterdata/vendor-definitions/edit-vendor-definitions/${id}`)
   }
 
   initFinancialCalendarData() {

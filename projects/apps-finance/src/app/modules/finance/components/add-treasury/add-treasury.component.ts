@@ -3,13 +3,14 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { LayoutService } from 'apps-shared-lib';
 import { DynamicDialogConfig, DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
-import { MenuModule, FormsService, customValidators } from 'shared-lib';
+import { MenuModule, FormsService, customValidators, LanguageService } from 'shared-lib';
 import { CurrencyService } from '../../../general/currency.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
 
 import { FinanceService } from '../../finance.service';
 import { AddTreasuryDto, Balance } from '../../models';
 import { ConfirmComponent } from '../confirm/confirm.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-treasury',
@@ -34,8 +35,11 @@ export class AddTreasuryComponent implements OnInit {
     private formsService: FormsService,
     private currencyService: CurrencyService,
     private financeService: FinanceService,
+    private title: Title,
+    private langService: LanguageService,
     private dialog: DialogService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.moudlelist();

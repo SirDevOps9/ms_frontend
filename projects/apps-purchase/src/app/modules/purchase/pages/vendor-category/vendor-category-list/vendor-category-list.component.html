@@ -1,13 +1,12 @@
 <lib-page-content [title]="'tag.taglist' | translate" [subTitle]="'tag.taglist' | translate">
-    <div>
-        <lib-bread-crumb></lib-bread-crumb>
-        <div class="user_page">
-          <lib-data-table
-            [items]="tableData"
-            className="p-datatable-gridlines"
-            [currentPageResult]="currentPageInfo"
-            (pageChange)="onPageChange($event)"
-            [tableConfigs]="{
+  <div>
+    <div class="user_page">
+      <lib-data-table
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        [tableConfigs]="{
               allowPagination: false,
               allowServerPagination: true,
               dataKey: 'id',
@@ -68,47 +67,48 @@
                  },
                ]
             }"
-          >
-            <ng-container caption>
-              <div class="group flex justify-content-between">
-                <div>
-                  <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="text" placeholder="Search..." (keyup)="onSearchChange($event)" />
-                  </span>
-                </div>
-      
-            
-                <div>
-                     <lib-button pRipple className="addToList" label="Add" (onClick)="routeToAdd()">
-                </lib-button> 
-                  
-                </div>
+      >
+        <ng-container caption>
+          <div class="group flex justify-content-between">
+            <div>
+              <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  [placeholder]="'vendorCategory.Search' | translate"
+                  (keyup)="onSearchChange($event)"
+                />
+              </span>
+            </div>
 
-                <lib-export
-                (exportClick)="exportVendorCategoriesData($event)"
-                [exportData]="tableData"
-                [exportColumns]="exportColumns"
-                [ExportName]="'Vendor Cateogries'"
+            <div>
+              <lib-button
+                pRipple
+                className="addToList"
+                [label]="'vendorCategory.Add' | translate"
+                (onClick)="routeToAdd()"
               >
-              </lib-export>
-              </div>
-            </ng-container>
-        
-            <ng-template #actions let-actions>
-              <div class="actions flex align-items-center gap-4">
-              <i class="pi pi-pencil pointer" (click)="routeToEdit(actions.id)"></i>
-              <i class="pi pi-trash pointer" (click)="onDelete(actions.id)"></i>
-              </div>
-            </ng-template>
+              </lib-button>
+            </div>
 
-           
-          </lib-data-table>
-        </div>
-      </div>
-  </lib-page-content>
+            <lib-export
+              (exportClick)="exportVendorCategoriesData($event)"
+              [exportData]="exportData"
+              [exportColumns]="exportColumns"
+              [ExportName]="'Vendor Cateogries'"
+            >
+            </lib-export>
+          </div>
+        </ng-container>
 
-
-
-  
-  
+        <ng-template #actions let-actions>
+          <div class="actions flex align-items-center gap-4">
+            <i class="pi pi-pencil pointer" (click)="routeToEdit(actions.id)"></i>
+            <i class="pi pi-trash pointer" (click)="onDelete(actions.id)"></i>
+          </div>
+        </ng-template>
+      </lib-data-table>
+    </div>
+  </div>
+</lib-page-content>

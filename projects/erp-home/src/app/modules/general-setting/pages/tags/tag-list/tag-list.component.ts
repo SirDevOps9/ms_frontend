@@ -6,6 +6,7 @@ import { GeneralSettingService } from '../../../general-setting.service';
 import { ExportTagDto, TagDto } from '../../../models';
 import { TagEditComponent } from '../../../components/tag-edit/tag-edit.component';
 import { TagAddComponent } from '../../../components/tag-add/tag-add.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tag-list',
@@ -27,8 +28,12 @@ export class TagListComponent implements OnInit {
     public layoutService: LayoutService,
     private dialog: DialogService,
     private languageService: LanguageService,
+    private title: Title,
+    private langService: LanguageService
+  ) {
+    this.title.setTitle(this.langService.transalte('tag.taglist'));
 
-  ) {}
+  }
 
    exportColumns: lookupDto[] = [
     {

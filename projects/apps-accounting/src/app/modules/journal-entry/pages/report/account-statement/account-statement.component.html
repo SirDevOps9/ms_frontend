@@ -1,5 +1,4 @@
 <lib-page-content>
-    <lib-bread-crumb></lib-bread-crumb>
     <div class="user_page group">
         <form [formGroup]="reportAccountForm">
   
@@ -49,7 +48,7 @@
                 </div>
                 <div class="col-12 md:col-3 ">
                   <div class="all_btn">
-                    <lib-button-micro title="view data" nameClass="save" iconName="pi pi-circle" (click)="getAccountingReports()">
+                    <lib-button-micro title="{{'AccountStatement.viewData' | translate}}" nameClass="save" iconName="pi pi-circle" (click)="getAccountingReports()">
   
                     </lib-button-micro>
                     <button class="btn_ex">
@@ -71,53 +70,40 @@
                 columns: [
                   {
                     name: 'journalEntryCode',
-                    headerText: 'journalEntryCode',
+                    headerText: 'AccountStatement.journalEntryCode' | translate,
                   },
                   {
                     name: 'journalEntryDate',
-                    headerText: 'journalEntryDate',
-                   
+                    headerText: 'AccountStatement.journalEntryDate' | translate,
                   },
                   {
                     name: 'description',
-                    headerText: 'description',
+                    headerText: 'AccountStatement.description' | translate,
                     isGlobalFilter: true,
                     isSortable: true,
-                    
-                
                   },
-                 
                   {
                     name: 'debitAmount',
-                    headerText:'debitAmount',
+                    headerText: 'AccountStatement.debitAmount' | translate,
                     isGlobalFilter: true,
                     isSortable: true,
-                   
-                   
                   },
-                
                   {
                     name: 'creditAmount',
-                    headerText: 'creditAmount',
+                    headerText: 'AccountStatement.creditAmount' | translate,
                     isGlobalFilter: true,
                     isSortable: true,
-                  
-              
                   },
                   {
                     name: 'balance',
-                    headerText: 'balance',
+                    headerText: 'AccountStatement.balance' | translate,
                     isGlobalFilter: true,
                     isSortable: true,
-                  
-              
                   },
                   {
                     name: 'sourceDocumentCode',
-                    headerText: 'sourceDocumentCode',
-                  },
-                
-               
+                    headerText: 'AccountStatement.sourceDocumentCode' | translate,
+                  }
                 ]
               }">
             <ng-container caption>

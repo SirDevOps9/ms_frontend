@@ -10,6 +10,7 @@ import {
 } from 'shared-lib';
 import { JournalEntryService } from '../../journal-entry.service';
 import { JournalEntryDto, SharedJournalEnums } from '../../models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-journal-entry-list',
@@ -32,11 +33,12 @@ export class JournalEntryListComponent implements OnInit {
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
     public sharedJouralEnum: SharedJournalEnums,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(this.languageService.transalte('JournalEntry.JournalEntryList'));
+    this.titleService.setTitle(this.languageService.transalte('Journal.Title'));
     this.initJournalEntryData();
     this.cols = [
       {
@@ -117,7 +119,9 @@ export class JournalEntryListComponent implements OnInit {
   // }
 
   routeToAdd() {
-    this.routerService.navigateTo(`/transcations/journalentry/add`);
+    // this.routerService.navigateTo(`/add`);
+    this.router.navigate(['/transcations/journalentry/add']);
+
   }
 
   viewJournal(id: number) {

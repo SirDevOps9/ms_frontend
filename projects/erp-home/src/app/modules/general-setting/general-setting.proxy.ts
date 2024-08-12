@@ -15,9 +15,12 @@ import {
   EditCustomerCategoryDto,
   vendorDefinitionDto,
   AddCustomerDefinitionDto,
-  EditCustomerDefintionsDto, CurrencyDefinitionDto, CurrencyConversionDto,
+  EditCustomerDefintionsDto,
+  CurrencyDefinitionDto,
+  CurrencyConversionDto,
   ExportCurrencyConversionDto,
   ExportTagDto,
+  GetLastYearInfoDto,
 } from './models';
 
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
@@ -29,6 +32,7 @@ import { CurrencyDto } from './models/CurrencyDto';
 import { TagDropDownDto } from './models/TagDropDownDto';
 import { EditVendorCommand } from './models/editVendorCommand';
 import { GetVendorById } from './models/getVendorById';
+import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 @Injectable({
   providedIn: 'root',
 })
@@ -66,26 +70,29 @@ export class GeneralSettingProxy {
   }
 
   addvendorCategory(addVendorCategoryDto: AddVendorCategory): Observable<AddVendorCategory> {
-    return this.httpService.post<AddVendorCategory>(`VendorCategory`,addVendorCategoryDto);
- }
+    return this.httpService.post<AddVendorCategory>(`VendorCategory`, addVendorCategoryDto);
+  }
 
- EditVendorCategory(EditVendorCategoryDto: EditVendorCategoryDto): Observable<EditVendorCategoryDto> {
-    return this.httpService.put<EditVendorCategoryDto>(`VendorCategory`,EditVendorCategoryDto);
- }
+  EditVendorCategory(
+    EditVendorCategoryDto: EditVendorCategoryDto
+  ): Observable<EditVendorCategoryDto> {
+    return this.httpService.put<EditVendorCategoryDto>(`VendorCategory`, EditVendorCategoryDto);
+  }
 
+  deleteVendorCategory(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`VendorCategory/${id}`);
+  }
 
- deleteVendorCategory(id: number): Observable<boolean> {
-  return this.httpService.delete<boolean>(`VendorCategory/${id}`);
-}
+  getVendorCategoryByID(id: number): Observable<EditVendorCategoryDto> {
+    const url = `VendorCategory/${id}`;
+    return this.httpService.get(url);
+  }
 
- getVendorCategoryByID(id : number) : Observable<EditVendorCategoryDto> {
-  const url = `VendorCategory/${id}`
-  return this.httpService.get(url);
-}
-
-getVendorDefinition(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<vendorDefinitionDto>> {
-
-  const url = `vendor?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+  getVendorDefinition(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<vendorDefinitionDto>> {
+    const url = `vendor?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
 
     return this.httpService.get<PaginationVm<vendorDefinitionDto>>(url);
   }
@@ -94,15 +101,15 @@ getVendorDefinition(searchTerm: string, pageInfo: PageInfo): Observable<Paginati
     return this.httpService.delete<boolean>(`vendor/${id}`);
   }
 
-getChildrenAccountsDropDown() {
-  return this.httpService.get('ChartOfAccounts/ChildrenAccountsDropDown');
-}
-getpriceListDropDown() : Observable<{ id: number; name: string }[]>  {
-  return this.httpService.get('PriceList/PriceListDropDown');
-}
-getpaymentTermsListDropDown() : Observable<{ id: number; name: string }[]>  {
-  return this.httpService.get('PaymentTerms/PaymentTermsDropdown');
-}
+  getChildrenAccountsDropDown() {
+    return this.httpService.get('ChartOfAccounts/ChildrenAccountsDropDown');
+  }
+  getpriceListDropDown(): Observable<{ id: number; name: string }[]> {
+    return this.httpService.get('PriceList/PriceListDropDown');
+  }
+  getpaymentTermsListDropDown(): Observable<{ id: number; name: string }[]> {
+    return this.httpService.get('PaymentTerms/PaymentTermsDropdown');
+  }
   addTag(addTagDto: AddTagDto): Observable<TagDto> {
     return this.httpService.post<TagDto>(`Tag`, addTagDto);
   }
@@ -115,19 +122,15 @@ getpaymentTermsListDropDown() : Observable<{ id: number; name: string }[]>  {
     return this.httpService.post(`FinancialYear/openFinancialPeriod`, openList);
   }
 
-  GetFinancialPeriodLastYearDate() {
-    const url = 'FinancialYear/GetLastYearDate';
-    return this.httpService.get(url);
+  GetFinancialPeriodLastYearDate(): Observable<GetLastYearInfoDto> {
+    return this.httpService.get('FinancialYear/GetLastYearDate');
   }
   editFinancialPeriodLastYearDate({ id, name }: { id: number; name: string }) {
-    const url = 'FinancialYear';
-    return this.httpService.put(url, { id, name });
+    return this.httpService.put('FinancialYear', { id, name });
   }
   GetFinancialPeriodByID(id: number): Observable<editFinancialCalndar> {
-    const url = `FinancialYear/${id}`;
-    return this.httpService.get(url);
+    return this.httpService.get(`FinancialYear/${id}`);
   }
-
 
   editTag(tagDto: TagDto): Observable<boolean> {
     return this.httpService.put<boolean>(`Tag`, tagDto);
@@ -145,32 +148,32 @@ getpaymentTermsListDropDown() : Observable<{ id: number; name: string }[]>  {
     return this.httpService.put<boolean>(`Tag/Activate?Id=${id}`, {});
   }
 
-deactivateTag(id: number): Observable<boolean> {
-  return this.httpService.put<boolean>(`Tag/deactivate?Id=${id}`,{});
-}
-getTags(): Observable<TagDropDownDto[]> {
-  return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown`);
-}
-getAllCountries(): Observable<CountryDto[]> {
-  return this.httpService.get<CountryDto[]>(`Country`);
-}
-getCities(countryCode: string): Observable<CityDto[]> {
-  return this.httpService.get<CityDto[]>(`Country/GetCities?CountryCode=${countryCode}`);
-}
-getCurrencies(searchKey: string): Observable<CurrencyDto[]> {
-  return this.httpService.get<CurrencyDto[]>('Currency/CurrencyDropDown?searchKey=' + searchKey);
-}
-getVendorCategoryDropdown(): Observable<CategoryDropdownDto[]> {
-  return this.httpService.get<CategoryDropdownDto[]>('VendorCategory/VendorCategoryDropdown');
-}
+  deactivateTag(id: number): Observable<boolean> {
+    return this.httpService.put<boolean>(`Tag/deactivate?Id=${id}`, {});
+  }
+  getTags(): Observable<TagDropDownDto[]> {
+    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown`);
+  }
+  getAllCountries(): Observable<CountryDto[]> {
+    return this.httpService.get<CountryDto[]>(`Country`);
+  }
+  getCities(countryCode: string): Observable<CityDto[]> {
+    return this.httpService.get<CityDto[]>(`Country/GetCities?CountryCode=${countryCode}`);
+  }
+  getCurrencies(searchKey: string): Observable<CurrencyDto[]> {
+    return this.httpService.get<CurrencyDto[]>('Currency/CurrencyDropDown?searchKey=' + searchKey);
+  }
+  getVendorCategoryDropdown(): Observable<CategoryDropdownDto[]> {
+    return this.httpService.get<CategoryDropdownDto[]>('VendorCategory/VendorCategoryDropdown');
+  }
 
-addNewVendorDefinition(vendor:AddVendorCommand): Observable<AddVendorCommand> {
-  return this.httpService.post(`Vendor`,vendor);
-}
+  addNewVendorDefinition(vendor: AddVendorCommand): Observable<AddVendorCommand> {
+    return this.httpService.post(`Vendor`, vendor);
+  }
 
-getVendorById(id: number): Observable<any> {
-  return this.httpService.get<any>(`Vendor/${id}`);
-}
+  getVendorById(id: number): Observable<any> {
+    return this.httpService.get<any>(`Vendor/${id}`);
+  }
 
   getVendorDefinitionByID(id: number): Observable<GetVendorById> {
     const url = `Vendor/${id}`;
@@ -180,88 +183,88 @@ getVendorById(id: number): Observable<any> {
   editVendorDefinition(vendor: EditVendorCommand): Observable<any> {
     return this.httpService.put(`Vendor`, vendor);
   }
-getAllCurrencyPaginated(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<CurrencyDefinitionDto>> {
-  const queryParams = new URLSearchParams({
-    SearchKey: searchTerm,
-    PageNumber: pageInfo.pageNumber.toString(),
-    PageSize: pageInfo.pageSize.toString(),
-  });
-  const url = `Currency?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+  getAllCurrencyPaginated(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<CurrencyDefinitionDto>> {
+    const queryParams = new URLSearchParams({
+      SearchKey: searchTerm,
+      PageNumber: pageInfo.pageNumber.toString(),
+      PageSize: pageInfo.pageSize.toString(),
+    });
+    const url = `Currency?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
 
-  return this.httpService.get<PaginationVm<CurrencyDefinitionDto>>(url);
-}
-addCurrency(currency: CurrencyDefinitionDto): Observable<CurrencyDefinitionDto> {
-  return this.httpService.post<CurrencyDefinitionDto>(`Currency`,currency);
-}
-deleteCurrency(id: number): Observable<boolean> {
-  return this.httpService.delete<boolean>(`Currency/${id}`);
-}
-EditCurrency(Currency: CurrencyDefinitionDto): Observable<CurrencyDefinitionDto> {
-  return this.httpService.put<CurrencyDefinitionDto>(`Currency`,Currency);
-}
-getCurrencyById(id: number): Observable<CurrencyDefinitionDto> {
-  return this.httpService.get<CurrencyDefinitionDto>(`Currency/${id}`);
-}
-getAllCurrencyConversionPaginated(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<CurrencyConversionDto>> {
-  const queryParams = new URLSearchParams({
-    SearchKey: searchTerm,
-    PageNumber: pageInfo.pageNumber.toString(),
-    PageSize: pageInfo.pageSize.toString(),
-  });
-  const url = `CurrencyConversion?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+    return this.httpService.get<PaginationVm<CurrencyDefinitionDto>>(url);
+  }
+  addCurrency(currency: CurrencyDefinitionDto): Observable<CurrencyDefinitionDto> {
+    return this.httpService.post<CurrencyDefinitionDto>(`Currency`, currency);
+  }
+  deleteCurrency(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`Currency/${id}`);
+  }
+  EditCurrency(Currency: CurrencyDefinitionDto): Observable<CurrencyDefinitionDto> {
+    return this.httpService.put<CurrencyDefinitionDto>(`Currency`, Currency);
+  }
+  getCurrencyById(id: number): Observable<CurrencyDefinitionDto> {
+    return this.httpService.get<CurrencyDefinitionDto>(`Currency/${id}`);
+  }
+  getAllCurrencyConversionPaginated(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<CurrencyConversionDto>> {
+    const queryParams = new URLSearchParams({
+      SearchKey: searchTerm,
+      PageNumber: pageInfo.pageNumber.toString(),
+      PageSize: pageInfo.pageSize.toString(),
+    });
+    const url = `CurrencyConversion?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
 
-  return this.httpService.get<PaginationVm<CurrencyConversionDto>>(url);
-}
-addCurrencyConversion(currency: CurrencyConversionDto): Observable<CurrencyConversionDto> {
-  return this.httpService.post<CurrencyConversionDto>(`CurrencyConversion`,currency);
-}
-deleteCurrencyConversion(id: number): Observable<boolean> {
-  return this.httpService.delete<boolean>(`CurrencyConversion/${id}`);
-}
-EditCurrencyConversion(Currency: CurrencyConversionDto): Observable<CurrencyConversionDto> {
-  return this.httpService.put<CurrencyConversionDto>(`CurrencyConversion`,Currency);
-}
-getCurrencyByIdConversion(id: number): Observable<CurrencyConversionDto> {
-  return this.httpService.get<CurrencyConversionDto>(`CurrencyConversion/${id}`);
-}
-exportcurrencyData(
-  searchTerm: string | undefined
-): Observable<ExportCurrencyConversionDto[]> {
-  let query = `CurrencyConversion/Export?`;
-  if (searchTerm) {
-    query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    return this.httpService.get<PaginationVm<CurrencyConversionDto>>(url);
   }
-   return this.httpService.get<ExportCurrencyConversionDto[]>(query);
-}
-exportcurrencyDefinitionData(
-  searchTerm: string | undefined
-): Observable<CurrencyDefinitionDto[]> {
-  let query = `Currency/Export?`;
-  if (searchTerm) {
-    query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+  addCurrencyConversion(currency: CurrencyConversionDto): Observable<CurrencyConversionDto> {
+    return this.httpService.post<CurrencyConversionDto>(`CurrencyConversion`, currency);
   }
-   return this.httpService.get<CurrencyDefinitionDto[]>(query);
-}
+  deleteCurrencyConversion(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`CurrencyConversion/${id}`);
+  }
+  EditCurrencyConversion(Currency: CurrencyConversionDto): Observable<CurrencyConversionDto> {
+    return this.httpService.put<CurrencyConversionDto>(`CurrencyConversion`, Currency);
+  }
+  getCurrencyByIdConversion(id: number): Observable<CurrencyConversionDto> {
+    return this.httpService.get<CurrencyConversionDto>(`CurrencyConversion/${id}`);
+  }
+  exportcurrencyData(searchTerm: string | undefined): Observable<ExportCurrencyConversionDto[]> {
+    let query = `CurrencyConversion/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<ExportCurrencyConversionDto[]>(query);
+  }
+  exportcurrencyDefinitionData(
+    searchTerm: string | undefined
+  ): Observable<CurrencyDefinitionDto[]> {
+    let query = `Currency/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<CurrencyDefinitionDto[]>(query);
+  }
 
-exportFinancialCalendarData(
-  searchTerm: string | undefined
-): Observable<financialCalendar[]> {
-  let query = `FinancialYear/Export?`;
-  if (searchTerm) {
-    query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+  exportFinancialCalendarData(searchTerm: string | undefined): Observable<financialCalendar[]> {
+    let query = `FinancialYear/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<financialCalendar[]>(query);
   }
-   return this.httpService.get<financialCalendar[]>(query);
-}
 
-exportTagData(
-  searchTerm: string | undefined
-): Observable<ExportTagDto[]> {
-  let query = `Tag/Export?`;
-  if (searchTerm) {
-    query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+  exportTagData(searchTerm: string | undefined): Observable<ExportTagDto[]> {
+    let query = `Tag/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<ExportTagDto[]>(query);
   }
-   return this.httpService.get<ExportTagDto[]>(query);
-}
 
   constructor(private httpService: HttpService) {}
 }

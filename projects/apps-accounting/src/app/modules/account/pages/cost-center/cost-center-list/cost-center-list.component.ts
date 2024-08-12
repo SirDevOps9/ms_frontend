@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { PageInfoResult, MenuModule, RouterService, PageInfo, ToasterService, lookupDto } from 'shared-lib';
+import { PageInfoResult, MenuModule, RouterService, PageInfo, ToasterService, lookupDto, LanguageService } from 'shared-lib';
 import { AccountService } from '../../../account.service';
 import { TaxGroupAddComponent } from '../../../components/tax-group-add/tax-group-add.component';
 import { TaxGroupEditComponent } from '../../../components/tax-group-edit/tax-group-edit.component';
 import { SharedCostEnums, TaxGroupDto, costCenterActivation, costCenterList } from '../../../models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cost-center-list',
@@ -25,8 +26,13 @@ export class CostCenterListComponent implements OnInit {
     public authService: AuthService,
     private toaserService: ToasterService,
     public sharedCostEnums:SharedCostEnums,
-    private dialog: DialogService
-  ) {}
+    private dialog: DialogService,
+    private title: Title,
+    private langService: LanguageService
+  ) {
+    this.title.setTitle(this.langService.transalte('costCenter.CostCenterList'));
+
+  }
 
   ngOnInit() {
     this.initTaxGroupData();

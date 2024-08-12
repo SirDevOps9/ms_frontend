@@ -15,6 +15,7 @@ import { costCenters, AddJournalEntryCommand, AddJournalEntryCommandOpeningBalan
 import { CostCenterAllocationPopupComponent } from '../../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
 import { JournalTemplatePopupComponent } from '../../components/journal-template-popup/journal-template-popup.component';
 import { JournalEntryFormValue } from '../../create-journal-entry/create-journal-entry.component';
+import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 
 @Component({
   selector: 'app-add-journal-entry-opening-balance',
@@ -64,11 +65,6 @@ export class AddJournalEntryOpeningBalanceComponent {
     ],
   };
   ngOnInit() {
-    this.langService.getTranslation('JournalTitle').subscribe((title) => {
-      this.titleService.setTitle(title);
-    });
-
-    this.titleService.setTitle;
     this.getAccounts();
 
     this.currencyService.getCurrencies('');
@@ -101,8 +97,11 @@ export class AddJournalEntryOpeningBalanceComponent {
     private langService: LanguageService,
     private formService: FormsService,
     private guidedTourService: GuidedTourService,
-    private attachmentService: AttachmentsService
+    private attachmentService: AttachmentsService,
+    private currentUserService : CurrentUserService
   ) {
+    this.titleService.setTitle(this.langService.transalte('OpeningBalance.AddJournal'));
+
     this.fg = this.fb.group({
       refrenceNumber: [null, [customValidators.required, customValidators.length(0, 15)]],
       journalDate: [this.getTodaysDate(), customValidators.required],
@@ -152,24 +151,10 @@ export class AddJournalEntryOpeningBalanceComponent {
   }
 
   accountSelected(event: any, id: number) {
-    const selected: any = event.value as AccountDto;
-    // if(selected.accountCode=='11'){
-    //   this.things.find(t=>t.id==id)!.account = null;
-    // }
+
     const journalLine = this.items.at(id);
-    // const currencyControl = journalLine.get('currency');
-    // const currencyRateControl = journalLine.get('currencyRate')!;
-
-    // currencyControl?.setValue(selected.currencyId);
-    // this.selectedCurrency = selected.currencyId;
-
-    // var currencyData = this.currencies.find((c) => c.id == selected.currencyId);
-
-    // currencyRateControl.setValue(currencyData!.ratePerUnit);
 
     var accountData = this.filteredAccounts.find((c) => c.id == event);
-
-    console.log('Selectec', accountData);
 
     const accountName = journalLine.get('accountName');
     accountName?.setValue(accountData?.name);
@@ -190,43 +175,6 @@ export class AddJournalEntryOpeningBalanceComponent {
     this.getAccountCurrencyRate(currencyData?.id as number, id);
   }
 
-  accountSelectedForDialog(accountData: any, id: number) {
-    const journalLine = this.items.at(id);
-
-    console.log('Selectec', accountData);
-
-    const accountName = journalLine.get('accountName');
-
-    accountName?.setValue(accountData.name);
-
-    journalLine.get('accountCode')?.setValue(accountData?.accountCode);
-
-    var currencyData = this.currencies.find((c) => c.id == accountData?.currencyId);
-
-    const currencyControl = journalLine.get('currency');
-    const currencyRateControl = journalLine.get('currencyRate')!;
-
-    currencyControl?.setValue(accountData?.currencyId);
-
-    currencyRateControl.setValue(currencyData?.ratePerUnit);
-    const currencyNameControl = journalLine.get('currencyName');
-    currencyNameControl?.setValue(currencyData?.name);
-  }
-
-  currencyChanged(index: number) {
-    const journalLine = this.items.at(index);
-    const currencyControl = journalLine.get('currency');
-    const currencyRateControl = journalLine.get('currencyRate')!;
-    //console.log('currencyRateControl', currencyRateControl);
-
-    currencyControl?.valueChanges.subscribe((value) => {
-      var currencyData = this.currencies.find((c) => c.id == value);
-
-      //console.log('currency rate', currencyData?.ratePerUnit);
-      currencyRateControl.setValue(currencyData!.ratePerUnit);
-    });
-  }
-
   openDialog(index: number) {
     const ref = this.dialog.open(NoChildrenAccountsComponent, {
       height : '100%'
@@ -240,7 +188,6 @@ export class AddJournalEntryOpeningBalanceComponent {
         var currencyData = this.currencies.find((c) => c.id == r.currencyId);
         this.fa.at(index).get('currency')?.setValue(r.currencyId);
         this.fa.at(index).get('currencyName')?.setValue(currencyData?.name);
-        // this.accountSelectedForDialog(r, index);
         this.getAccountCurrencyRate(r.currencyId , index);
       }
     });
@@ -254,8 +201,6 @@ export class AddJournalEntryOpeningBalanceComponent {
   public get fa(): FormArray {
     return this.fg.get('journalEntryLines') as FormArray;
   }
-
-
 
   addThing() {
     const id = this.fa.length + 1;
@@ -297,7 +242,6 @@ export class AddJournalEntryOpeningBalanceComponent {
     currencyControl?.valueChanges.subscribe((value) => {
       var currencyData = this.currencies.find((c) => c.id == value);
 
-      //console.log('currency rate', currencyData?.ratePerUnit);
 
       rateControl.setValue(currencyData?.ratePerUnit!);
     });
@@ -327,14 +271,9 @@ export class AddJournalEntryOpeningBalanceComponent {
   deleteLine(index: number) {
     this.fa.removeAt(index);
   }
-
- 
-
   save() {
     if (!this.formService.validForm(this.fg, false)) return;
     const value = this.fg.value as JournalEntryFormValue;
-
-    //console.log('Form Value', value);
 
     let obj: AddJournalEntryCommandOpeningBalance = {
       ...value,
@@ -413,8 +352,7 @@ export class AddJournalEntryOpeningBalanceComponent {
               });
 
               this.fa.push(newLine);
-              //console.log('new line', newLine);
-              // console.log(this.fa, 'test');
+
             });
           }
         });
@@ -460,7 +398,6 @@ export class AddJournalEntryOpeningBalanceComponent {
   }
 
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
-    let currentCurrency: number = 1;
 
     const journalLine = this.items.at(currentJournalId);
     this.currencyService.accountCurrencyRate.subscribe((res) => {
@@ -469,6 +406,6 @@ export class AddJournalEntryOpeningBalanceComponent {
       currencyRateControl.setValue(res.rate);
     });
 
-    this.currencyService.getAccountCurrencyRate(currentCurrency, accountCurrency);
+    this.currencyService.getAccountCurrencyRate(accountCurrency, this.currentUserService.getCurrency());
   }
 }

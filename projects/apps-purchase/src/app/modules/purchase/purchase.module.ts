@@ -10,6 +10,9 @@ import { VendorCategoryListComponent } from './pages/vendor-category/vendor-cate
 import { EditVendorDefinitionsComponent } from './pages/vendor-definitions/edit-vendor-definitions/edit-vendor-definitions.component';
 import { AddVendorDefinitionsComponent } from './pages/vendor-definitions/add-vendor-definitions/add-vendor-definitions.component';
 import { VendorDefinitionsListComponent } from './pages/vendor-definitions/vendor-definitions-list/vendor-definitions-list.component';
+import { MainVendorCategoryComponent } from './pages/vendor-category/main-vendor-category/main-vendor-category.component';
+import { MainVendorDefintionsComponent } from './pages/vendor-definitions/main-vendor-defintions/main-vendor-defintions.component';
+import { VendorOpeningBalanceComponent } from './pages/vendor-opening-balance/vendor-opening-balance.component';
 
 const routes: Routes = [
   {
@@ -20,59 +23,79 @@ const routes: Routes = [
     },
     children: [
       {
-        path: '',
-        component: VendorCategoryListComponent,
-      //  canActivate: [AuthGuard],
-        data: {
-          breadcrumb: BreadcrumbLabel.vendor_list,
-        },
-      },
-      {
         path: 'vendor-category',
-        component: VendorCategoryListComponent,
+        component: MainVendorCategoryComponent,
       //  canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.vendor_list,
         },
-      },
-      {
-        path: 'add-vendor-category',
-        component: CreateVendorCategoryComponent,
-       // canActivate: [AuthGuard],
-        data: {
-          breadcrumb: BreadcrumbLabel.vendor_Add,
-        },
-      },
-      {
-        path: 'edit-vendor-category/:id',
-        component: EditVendorCategoryComponent,
-       // canActivate: [AuthGuard],
-        data: {
-          breadcrumb: BreadcrumbLabel.vendor_Edit,
-        },
+        children:[
+          {
+            path: '',
+            component: VendorCategoryListComponent,
+          //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: '',
+            },
+          },
+          {
+            path: 'add-vendor-category',
+            component: CreateVendorCategoryComponent,
+           // canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.vendor_Add,
+            },
+          },
+          {
+            path: 'edit-vendor-category/:id',
+            component: EditVendorCategoryComponent,
+           // canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.vendor_Edit,
+            },
+          },
+        ]
       },
       {
         path: 'vendor-definitions',
-        component: VendorDefinitionsListComponent,
+        component: MainVendorDefintionsComponent,
        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.VENDOR_DEFINITIONS,
         },
+        children:[
+          {
+            path: '',
+            component: VendorDefinitionsListComponent,
+           // canActivate: [AuthGuard],
+            data: {
+              breadcrumb: '',
+            },
+          },
+          {
+            path: 'add-vendor-definitions',
+            component: AddVendorDefinitionsComponent,
+           // canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_VENDOR_DEFINITIONS,
+            },
+          },
+          {
+            path: 'edit-vendor-definitions/:id',
+            component: EditVendorDefinitionsComponent,
+           // canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_VENDOR_DEFINITIONS,
+            },
+          },
+        ]
       },
       {
-        path: 'add-vendor-definitions',
-        component: AddVendorDefinitionsComponent,
+        path: 'vendor-opening',
+        component: VendorOpeningBalanceComponent,
        // canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.ADD_VENDOR_DEFINITIONS,
-        },
-      },
-      {
-        path: 'edit-vendor-definitions/:id',
-        component: EditVendorDefinitionsComponent,
-       // canActivate: [AuthGuard],
-        data: {
-          breadcrumb: BreadcrumbLabel.EDIT_VENDOR_DEFINITIONS,
+          breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE,
         },
       },
     ],
@@ -87,6 +110,9 @@ const routes: Routes = [
     VendorDefinitionsListComponent,
     AddVendorDefinitionsComponent,
     EditVendorDefinitionsComponent,
+    VendorOpeningBalanceComponent,
+    MainVendorCategoryComponent,
+    MainVendorDefintionsComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })

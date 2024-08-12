@@ -51,10 +51,16 @@ export class SalesService {
   private sendPaymentTermsDropDownData = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   private sendgetVendorCategoryDropdownData = new BehaviorSubject<CategoryDropdownDto[]>([]);
+  private openingBalanceJournalEntryDropdownData = new BehaviorSubject<CategoryDropdownDto[]>([]);
+  private LinesDropDownData = new BehaviorSubject<any[]>([]);
+  private CustomerDropDownByAccountId = new BehaviorSubject<any[]>([]);
+  private CustomerOpeningBalancelist = new BehaviorSubject<any[]>([]);
   private countryDataSource = new BehaviorSubject<CountryDto[]>([]);
   private cityDataSource = new BehaviorSubject<CityDto[]>([]);
   private currenciesDataSource = new BehaviorSubject<CurrencyDto[]>([]);
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
+  private customerDeleted = new BehaviorSubject<boolean>(false);
+  public customerDeletedObser = this.customerDeleted.asObservable();
 
   public customerCategoryDataSourceObservable = this.customerCategoryDataSource.asObservable();
   public customerCategoryDataByIDObservable = this.customerCategoryDataByID.asObservable();
@@ -71,6 +77,11 @@ export class SalesService {
   public sendPaymentTermsDropDownDataObservable = this.sendPaymentTermsDropDownData.asObservable();
   public sendgetVendorCategoryDropdownDataObservable =
     this.sendgetVendorCategoryDropdownData.asObservable();
+  public openingBalanceJournalEntryDropdownDataObservable =
+    this.openingBalanceJournalEntryDropdownData.asObservable();
+  public LinesDropDownDataObservable = this.LinesDropDownData.asObservable();
+  public CustomerDropDownByAccountIdObservable = this.CustomerDropDownByAccountId.asObservable();
+  public CustomerOpeningBalancelistObservable = this.CustomerOpeningBalancelist.asObservable();
   public currencies = this.currenciesDataSource.asObservable();
 
   public cities = this.cityDataSource.asObservable();
@@ -115,7 +126,7 @@ export class SalesService {
     this.salesProxy.addCustomerCategory(addCustomerCategory).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('success'),
+          this.languageService.transalte('addCustomerCategory.success'),
           this.languageService.transalte('addCustomerCategory.successAdd')
         );
         if (res) {
@@ -129,7 +140,7 @@ export class SalesService {
     this.salesProxy.EditCustomerCategory(editCustomerCategory).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('success'),
+          this.languageService.transalte('addCustomerCategory.success'),
           this.languageService.transalte('addCustomerCategory.successEdit')
         );
         if (res) {
@@ -145,7 +156,7 @@ export class SalesService {
       this.salesProxy.deleteCustomerCategory(id).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
-            this.languageService.transalte('success'),
+            this.languageService.transalte('deleteCustomerCategory.success'),
             this.languageService.transalte('deleteCustomerCategory.delete')
           );
           let data = this.customerCategoryDataSource.getValue();
@@ -271,7 +282,7 @@ export class SalesService {
       this.salesProxy.deleteCustomerDefinition(id).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
-            this.languageService.transalte('success'),
+            this.languageService.transalte('deleteCustomerDefinition.success'),
             this.languageService.transalte('deleteCustomerDefinition.delete')
           );
           let data = this.customerDefinitionDataSource.getValue();
@@ -298,4 +309,78 @@ export class SalesService {
       },
     });
   }
+  openingBalanceJournalEntryDropdown() {
+    this.salesProxy.openingBalanceJournalEntryDropdown().subscribe((res) => {
+      if (res) {
+        this.openingBalanceJournalEntryDropdownData.next(res);
+      }
+    });
+  }
+  getLinesDropDown(id:number){
+    this.salesProxy.GetLinesDropDown(id).subscribe((res) => {
+      if (res) {
+        this.LinesDropDownData.next(res);
+      }
+    });
+  }
+  getCustomerDropDownByAccountId(id:number){
+    this.salesProxy.CustomerDropDownByAccountId(id).subscribe((res) => {
+      if (res) {
+        this.CustomerDropDownByAccountId.next(res);
+      }
+    });
+  }
+  AddCustomerOpeningBalance(customer: any) {
+    this.loaderService.show();
+    this.salesProxy.AddCustomerOpeningBalance(customer).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('addCustomerDefinition.success'),
+          this.languageService.transalte('addCustomerDefinition.successAdded')
+        );
+        if (res) {
+          this.addCustomerDefinitionRes.next(res);
+          this.loaderService.hide();
+         
+        }
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+  getCustomerOpeningBalance(){
+    this.salesProxy.GetCustomerOpeningBalance().subscribe((res) => {
+      if (res) {
+        this.CustomerOpeningBalancelist.next(res);
+      }
+    });
+  }
+ 
+  async deleteCustomerOpeningBalance(id: number) {
+
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      this.loaderService.show();
+
+      this.salesProxy.deleteCustomerOpeningBalance(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('deleteCustomerDefinition.success'),
+            this.languageService.transalte('deleteCustomerDefinition.deleted')
+          );
+          this.loaderService.hide();
+          this.customerDeleted.next(res)
+        },
+        error: () => {
+          this.loaderService.hide();
+          this.toasterService.showError(
+            this.languageService.transalte('Company.Error'),
+            this.languageService.transalte('DeleteError')
+         );
+        },
+      });
+    }
+  }
+
 }

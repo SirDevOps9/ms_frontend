@@ -2,7 +2,6 @@
   [title]="'TaxGroup.TaxGrouplist' | translate"
   [subTitle]="'TaxGroup.TaxGrouplist' | translate"
 >
-  <lib-bread-crumb> </lib-bread-crumb>
   <div>
     <div class="user_page">
       <lib-data-table
@@ -42,14 +41,13 @@
         }"
       >
         <ng-container caption>
-          <div class="">
-            <div class="grid">
-              <div class="col-3">
+            <div class="flex justify-content-between align-content-center">
+              <div >
                 <lib-form-group>
                   <lib-text-input
                     [(ngModel)]="searchTerm"
                     type="text"
-                    [placeholder]="'Search'"
+                    [placeholder]="'TaxGroup.Search' | translate"
                     (keyUp)="onSearchChange()"
                   >
                   </lib-text-input>
@@ -57,30 +55,21 @@
               </div>
               <!--  -->
 
-              <div class="col-9 flex gap-2 justify-content-end align-items-center">
-                <div>
-                  <lib-button-micro
-                    title="Add New"
-                    nameClass="save"
-                    iconName="pi pi-plus"
-                    (click)="Add()"
-                  >
-                  </lib-button-micro>
-                </div>
+              <div class="flex gap-2">
+                <lib-export  
+                (exportClick)="exportTaxGroupData($event)"
+                [exportData]="exportData"
+                [exportColumns]="exportColumns"
+                [ExportName]="'Tax Group'">
+              </lib-export>
+                 <lib-button pRipple className="addToList" label="{{ 'Tax.AddNew' | translate }}" (onClick)="Add()" [icon]="'pi pi-plus'">
+            </lib-button> 
 
-                <div>
-                  <lib-export  
-                  (exportClick)="exportTaxGroupData($event)"
-                  [exportData]="tableData"
-                  [exportColumns]="exportColumns"
-                  [ExportName]="'Tax Group'">
-                </lib-export>
-          
-                </div>
-  
-              </div>
             </div>
-          </div>
+
+
+           
+            </div>
         </ng-container>
         <ng-template #actions let-action>
           <div class="actions flex align-items-center gap-2">

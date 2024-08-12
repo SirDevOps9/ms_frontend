@@ -143,6 +143,7 @@
                   [options]="accountTags"
                   optionValue="id"
                   optionLabel="name"
+                  [placeholder]="'ChartOfAccount.Select' | translate"
                   [selectedValue]="formGroup.controls['tags'].value"
                 >
                 </lib-multi-select>
@@ -159,8 +160,6 @@
                   <p-inputSwitch formControlName="hasNoChild" (ngModelChange)="toggleCurrencyVisibility()">
                   </p-inputSwitch>
     
-                  <!-- <lib-toggel formControlName="hasNoChild" (valueChanged)="toggleCurrencyVisibility()">
-                  </lib-toggel> -->
                 </div>
               </div>
               <div class="md:col-6" *ngIf="!currencyIsVisible">

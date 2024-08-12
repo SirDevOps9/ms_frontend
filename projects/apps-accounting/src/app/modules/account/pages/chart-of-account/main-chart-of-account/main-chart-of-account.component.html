@@ -1,9 +1,9 @@
 <lib-page-content>
-  <lib-bread-crumb>
+  <div class="page_content_header">
     <div class="actions">
       <lib-button-micro
-        title="Configration"
-        nameClass="save"
+      [title]="'ChartOfAccount.Configration' | translate"
+      nameClass="save"
         (click)="RedirectToConfiguration()"
         *ngIf="!Viewlist"
         style="width: 100%"
@@ -11,11 +11,11 @@
       </lib-button-micro>
       <button class="btn import">
         <i class="btn_icon pi pi-cloud-download"></i>
-        import
+        {{ 'ChartOfAccount.import' | translate }}
       </button>
       <button class="btn save" *ngIf="!Viewlist && view" (click)="editMode()">
         <i class="btn_icon pi pi-user-edit"></i>
-        Edit
+        {{ 'ChartOfAccount.edit' | translate }}
       </button>
       <!-- <button class="btn save" *ngIf="(!Viewlist && edit) || (!add && !view)">
         <i class="btn_icon pi pi-user-edit"></i>
@@ -28,7 +28,7 @@
         <i class="pi pi-sitemap"></i>
       </button>
     </div>
-  </lib-bread-crumb>
+  </div>
   <div class="main_chat_of_account">
     <app-chart-of-account-tree
       *ngIf="!Viewlist"

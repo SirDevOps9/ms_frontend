@@ -1,11 +1,10 @@
 <lib-page-content>
-  <lib-bread-crumb></lib-bread-crumb>
   <div class="user_page">
-    <lib-data-table 
-    id="printableTable"   
-    [resizableColumns]="false"
-    [items]="tableData"
-     className="p-datatable-gridlines"
+    <lib-data-table
+      id="printableTable"
+      [resizableColumns]="false"
+      [items]="tableData"
+      className="p-datatable-gridlines"
       [tableConfigs]="{
           allowPagination: true,
           
@@ -110,83 +109,90 @@
           
          
           ]
-        }">
+        }"
+    >
       <ng-container caption>
         <form [formGroup]="reportTrialForm" (ngSubmit)="getTrialBalance()">
-
-
           <div class="group">
             <div class="calender">
               <div class="grid">
-                <div class="col-12 md:col-4 ">
-                  <lib-text-input [type]="'date'" formControlName="dateFrom" >
-  
-                  </lib-text-input>
-                  <lib-field-validations  [appControl]="reportTrialForm.controls['dateFrom']" ></lib-field-validations>
+                <div class="col-12 md:col-4">
+                  <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input>
+                  <lib-field-validations
+                    [appControl]="reportTrialForm.controls['dateFrom']"
+                  ></lib-field-validations>
                 </div>
-                <div class="col-12 md:col-4 ">
-                  <lib-text-input [type]="'date'" formControlName="dateTo">
-  
-                  </lib-text-input>
-                  <lib-field-validations  [appControl]="reportTrialForm.controls['dateTo']" ></lib-field-validations>
-
+                <div class="col-12 md:col-4">
+                  <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input>
+                  <lib-field-validations
+                    [appControl]="reportTrialForm.controls['dateTo']"
+                  ></lib-field-validations>
                 </div>
-                <div class="col-12 md:col-4 ">
-                  <lib-multi-select   formControlName="Accounts" [options]="filteredAccounts" optionValue="id"
-                    optionLabel="displayName" [selectedValue]="defoultSelectedAcounts"></lib-multi-select>
-                    <lib-field-validations  [appControl]="reportTrialForm.controls['Accounts']" ></lib-field-validations>
-
+                <div class="col-12 md:col-4">
+                  <lib-multi-select
+                    formControlName="Accounts"
+                    [options]="filteredAccounts"
+                    optionValue="id"
+                    optionLabel="displayName"
+                    [selectedValue]="defoultSelectedAcounts"
+                  ></lib-multi-select>
+                  <lib-field-validations
+                    [appControl]="reportTrialForm.controls['Accounts']"
+                  ></lib-field-validations>
                 </div>
               </div>
             </div>
-            
+
             <div class="grid">
-              <div class="col-12 md:col-5 ">
+              <div class="col-12 md:col-5">
                 <div class="container_checkbox" for="posted">
-                  <label for="posted" class=" body_b16">  {{'reportTrial.posted' | translate}}</label>
+                  <label for="posted" class="body_b16">
+                    {{ 'reportTrial.posted' | translate }}</label
+                  >
                   <!-- <input id="posted" type="checkbox" formControlName="posted"> -->
-                  <p-checkbox
-                  formControlName="posted"  
-                  binary="true"
-                  inputId="posted"
-                ></p-checkbox>
+                  <p-checkbox formControlName="posted" binary="true" inputId="posted"></p-checkbox>
                 </div>
               </div>
-              <div class="col-12 md:col-4 ">
+              <div class="col-12 md:col-4">
                 <div class="container_checkbox body_b16">
-                  <label for="unposted"> {{'reportTrial.unposted' | translate}}</label>
+                  <label for="unposted"> {{ 'reportTrial.unposted' | translate }}</label>
                   <!-- <input id="unposted" type="checkbox" formControlName="unposted" class="custom-checkbox"> -->
                   <p-checkbox
-                  formControlName="unposted"  
-                  binary="true"
-                  inputId="unposted"
-                ></p-checkbox>
+                    formControlName="unposted"
+                    binary="true"
+                    inputId="unposted"
+                  ></p-checkbox>
                 </div>
               </div>
-              <div class="col-12 md:col-3 ">
+              <div class="col-12 md:col-3">
                 <div class="all_btn">
-                  <lib-button-micro title="view data" [nameClass]="reportTrialForm.valid ? 'save' :'disabled'" iconName="pi pi-circle" [ngClass]="{'disabled':!reportTrialForm.valid}"   (click)="getTrialBalance()">
-
+                  <lib-button-micro
+                    [title]="'reportTrial.viewData' | translate"
+                    [nameClass]="reportTrialForm.valid ? 'save' : 'disabled'"
+                    iconName="pi pi-circle"
+                    [ngClass]="{ disabled: !reportTrialForm.valid }"
+                    (click)="getTrialBalance()"
+                  >
                   </lib-button-micro>
                   <button class="btn_ex" (click)="printTable('printableTable')">
                     <span class="pi pi-print"></span>
                   </button>
                 </div>
-
               </div>
             </div>
-
           </div>
         </form>
       </ng-container>
       <ng-template #accountName let-trial>
         <div>
-          <p>{{ trial.accountName}} <span class="accountNature">({{ trial.accountNature}})</span></p>
+          <p>
+            {{ trial.accountName }} <span class="accountNature">({{ trial.accountNature }})</span>
+          </p>
         </div>
       </ng-template>
       <ng-template #accountCode let-trial>
         <div>
-          <p class="code" (click)="routeTo(trial.accountId)">{{trial.accountCode}} </p>
+          <p class="code" (click)="routeTo(trial.accountId)">{{ trial.accountCode }}</p>
         </div>
       </ng-template>
     </lib-data-table>

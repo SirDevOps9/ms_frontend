@@ -1,4 +1,11 @@
-{
+{"BreadCrumb": {
+    "CustomerCategory": "فئة العملاء",
+    "AddCustomerCategory": "إضافة فئة العميل",
+    "EditCustomerCategory": "تعديل فئة العميل",
+    "CustomerDefinition": "تعريف العملاء",
+    "AddCustomerDefinition": "إضافة تعريف العميل",
+    "EditCustomerDefinition": "تعديل تعريف العميل"
+  },
   "dir": "rtl",
   "Welcome": "مرحبا",
   "Submit": "حفظ",
@@ -289,8 +296,171 @@
   "actions": "الإجراءات",
   "success": "نجاح",
   "vendorSuccess": "تم إنشاء البائع بنجاح"
+},
+"deleteCustomerCategory": {
+  "success": "نجاح",
+  "delete": "تم حذف فئة العميل بنجاح"
+},
+"customerDefinition": {
+  "code": "رمز العميل",
+  "name": "اسم العميل",
+  "category": "فئة العميل",
+  "email": "البريد الإلكتروني",
+  "country": "البلد",
+  "paymentTerm": "شرط الدفع",
+  "criditLimit": "حد الائتمان",
+  "actions": "العمليات",
+  "add": "إضافة",
+  "Search":"بحث..."
+},
+"addCustomerDefinition": {
+  "success": "نجاح",
+  "successAdd": "تمت إضافة تعريف العميل بنجاح",
+  "successEdit": "تم تعديل تعريف العميل بنجاح",
+  "openSuccess": "تم فتح تعريف العميل بنجاح"
+},
+"deleteCustomerDefinition": {
+  "success": "نجاح",
+  "delete": "تم حذف تعريف العميل بنجاح"
+},
+"CustomerCategory": {
+  "categoryCode": "رمز الفئة",
+  "categoryName": "اسم الفئة",
+  "recievableGlAccount": "حساب المستحق",
+  "salesGlAccount": "حساب المبيعات",
+  "salesReturnGlAccount": "حساب لإرجاع المبيعات",
+  "discountGlAccount": "حساب الخصومات",
+  "priceList": "قائمة الأسعار",
+  "paymentTerms": "شروط الدفع",
+  "marketType": "نوع السوق",
+  "actions": "العمليات",
+  "add": "إضافة",
+  "Search":"بحث..."
+},
+"addVendorCategory": {
+  "success": "نجاح",
+  "successAdd": "تمت إضافة فئة المورد بنجاح",
+  "successEdit": "تم تعديل فئة المورد بنجاح",
+  "openSuccess": "تم فتح فئة المورد بنجاح"
+},
+"deleteVendorCategory": {
+  "success": "نجاح",
+  "delete": "تم حذف فئة المورد بنجاح"
+},
+"addCustomerCategory": {
+  "success": "نجاح",
+  "successAdd": "تمت إضافة فئة العميل بنجاح",
+  "successEdit": "تم تعديل فئة العميل بنجاح",
+  "openSuccess": "تم فتح فئة العميل بنجاح"
+},
+
+"deleteVendorDefinition": {
+  "success": "نجاح",
+  "delete": "تم حذف تعريف المورد بنجاح"
+},
+"addVendorDefinition": {
+  "success": "نجاح",
+  "successAdd": "تمت إضافة تعريف المورد بنجاح",
+  "successEdit": "تم تعديل تعريف المورد بنجاح",
+  "openSuccess": "تم فتح تعريف المورد بنجاح"
+},
+"AddCustomerDefinition": {
+  "customerCode": "رمز العميل",
+  "auto": "تلقائي",
+  "customerName": "اسم العميل",
+  "category": "الفئة",
+  "customerTag": "وسم العميل",
+  "birthdate": "تاريخ الميلاد",
+  "contactPhoto": "صورة الاتصال",
+  "photoDimensions": "250px * 500px (JPG, PNG, PDF)",
+  "select": "اختر",
+  "Information": "المعلومات",
+  "ContactInformation": "معلومات الاتصال",
+  "Code": "الرمز",
+  "ContactMobileCode": "رمز الهاتف المحمول",
+  "ContactMobile": "الهاتف المحمول",
+  "ContactPhone": "الهاتف",
+  "ContactFax": "الفاكس",
+  "ContactEmail": "البريد الإلكتروني",
+  "ContactWebsite": "الموقع الإلكتروني",
+  "ContactPersonInformation": "معلومات الشخص المسؤول",
+  "ContactPersonName": "اسم الشخص المسؤول",
+  "ContactPersonMobileCode": "رمز هاتف الشخص المسؤول",
+  "ContactPersonMobile": "هاتف الشخص المسؤول",
+  "ContactPersonPhone": "هاتف الشخص المسؤول",
+  "ContactPersonEmail": "البريد الإلكتروني للشخص المسؤول",
+  "Address": "العنوان",
+  "Country": "البلد",
+  "State": "الولاية",
+  "City": "المدينة",
+  "Street": "الشارع",
+  "Longitude": "خط الطول",
+  "Latitude": "خط العرض",
+  "ErrorRadius": "نصف القطر الخطأ",
+  "Legal": "القانوني",
+  "CommercialId": "الرقم التجاري",
+  "TaxId": "رقم الضريبة",
+  "Financial": "المالي",
+  "PaymentTerm": "مدة الدفع",
+  "PriceList": "قائمة الأسعار",
+  "CreditLimit": "حد الائتمان",
+  "Currency": "العملة",
+  "Accounting": "المحاسبة",
+  "ReceivableAccount": "حساب القبض",
+  "SalesAccount": "حساب المبيعات",
+  "SalesReturnAccount": "حساب إرجاع المبيعات",
+  "DiscountAccount": "حساب الخصم",
+  "Discard": "تجاهل",
+  "Save": "حفظ"
+},
+"EditCustomerDefinition": {
+  "customerCode": "رمز العميل",
+  "auto": "تلقائي",
+  "customerName": "اسم العميل",
+  "category": "الفئة",
+  "customerTag": "وسم العميل",
+  "birthdate": "تاريخ الميلاد",
+  "contactPhoto": "صورة الاتصال",
+  "photoDimensions": "250px * 500px (JPG, PNG, PDF)",
+  "select": "اختر",
+  "Information": "المعلومات",
+  "ContactInformation": "معلومات الاتصال",
+  "Code": "الرمز",
+  "ContactMobileCode": "رمز الهاتف المحمول",
+  "ContactMobile": "الهاتف المحمول",
+  "ContactPhone": "الهاتف",
+  "ContactFax": "الفاكس",
+  "ContactEmail": "البريد الإلكتروني",
+  "ContactWebsite": "الموقع الإلكتروني",
+  "ContactPersonInformation": "معلومات الشخص المسؤول",
+  "ContactPersonName": "اسم الشخص المسؤول",
+  "ContactPersonMobileCode": "رمز هاتف الشخص المسؤول",
+  "ContactPersonMobile": "هاتف الشخص المسؤول",
+  "ContactPersonPhone": "هاتف الشخص المسؤول",
+  "ContactPersonEmail": "البريد الإلكتروني للشخص المسؤول",
+  "Address": "العنوان",
+  "Country": "البلد",
+  "State": "الولاية",
+  "City": "المدينة",
+  "Street": "الشارع",
+  "Longitude": "خط الطول",
+  "Latitude": "خط العرض",
+  "ErrorRadius": "نصف القطر الخطأ",
+  "Legal": "القانوني",
+  "CommercialId": "الرقم التجاري",
+  "TaxId": "رقم الضريبة",
+  "Financial": "المالي",
+  "PaymentTerm": "مدة الدفع",
+  "PriceList": "قائمة الأسعار",
+  "CreditLimit": "حد الائتمان",
+  "Currency": "العملة",
+  "Accounting": "المحاسبة",
+  "ReceivableAccount": "حساب القبض",
+  "SalesAccount": "حساب المبيعات",
+  "SalesReturnAccount": "حساب إرجاع المبيعات",
+  "DiscountAccount": "حساب الخصم",
+  "Discard": "تجاهل",
+  "Save": "حفظ"
+}
 }
 
-
-  
-}

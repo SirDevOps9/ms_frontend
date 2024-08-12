@@ -1,6 +1,5 @@
 <lib-page-content [title]="'tag.taglist' | translate" [subTitle]="'tag.taglist' | translate">
     <div>
-        <lib-bread-crumb></lib-bread-crumb>
         <div class="user_page">
           <lib-data-table
             [items]="tableData"
@@ -64,7 +63,7 @@
                 <div>
                   <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
-                    <input pInputText type="text" placeholder="Search..." (keyup)="onSearchChange($event)" />
+                    <input pInputText type="text"  [placeholder]="'customerDefinition.Search' | translate" (keyup)="onSearchChange($event)" />
                   </span>
                 </div>
       
@@ -74,14 +73,14 @@
                         <!-- <lib-button-micro title="Add New" nameClass="save" iconName="pi pi-plus" (sendClickEvent)="routeToAdd()">
                         </lib-button-micro> -->
 
-                        <lib-button className="saveForm" (onClick)="routeToAdd()">Add New</lib-button>
+                        <lib-button className="saveForm" (onClick)="routeToAdd()">{{'customerDefinition.add' | translate}}</lib-button>
 
                     </div>
                     <!--  -->
   
                     <lib-export
                     (exportClick)="exportCustomersData($event)"
-                    [exportData]="tableData"
+                    [exportData]="exportData"
                     [exportColumns]="exportColumns"
                     [ExportName]="'Customers'"
                   >

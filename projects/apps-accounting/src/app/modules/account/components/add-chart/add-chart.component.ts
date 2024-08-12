@@ -22,6 +22,7 @@ import { AccountService } from '../../account.service';
 import { AddAccountDto, companyDropDownDto ,AccountSectionDropDownDto ,AccountTypeDropDownDto ,TagDropDownDto ,parentAccountDto  } from '../../models';
 import { CurrencyService } from '../../../general/currency.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -57,8 +58,11 @@ export class AddChartComponent {
     private formsService: FormsService,
     private lookupsService: LookupsService,
     private toaserService: ToasterService,
-    private languageService: LanguageService
+    private title: Title,
+    private langService: LanguageService
   ) {
+    this.title.setTitle(this.langService.transalte('ChartOfAccount.AddChartOfAccount'));
+
     this.formGroup = formBuilder.group({
       name: new FormControl('', [customValidators.length(0, 255), customValidators.required]),
       levelId: new FormControl(''),
@@ -72,7 +76,7 @@ export class AddChartComponent {
       currencyId: new FormControl(),
       tags: new FormControl([]),
       companies: new FormControl([]),
-      AccountActivation: new FormControl('Active'),
+      accountActivation: new FormControl('Active'),
       periodicActiveFrom: new FormControl(),
       periodicActiveTo: new FormControl(),
       costCenterConfig : new FormControl()
@@ -106,7 +110,7 @@ export class AddChartComponent {
     this.getTags();
     this.getCompanyDropdown();
 
-    this.formGroup.get('AccountActivation')?.valueChanges.subscribe((value) => {
+    this.formGroup.get('accountActivation')?.valueChanges.subscribe((value) => {
       this.onRadioButtonChange(value);
     });
 
@@ -195,8 +199,8 @@ export class AddChartComponent {
       if (res) {
         this.operationCompleted.emit(res);
         this.toaserService.showSuccess(
-          this.languageService.transalte('ChartOfAccounts.SuccessTitle'),
-          this.languageService.transalte('ChartOfAccounts.SuccessMessage')
+          this.langService.transalte('ChartOfAccount.Success'),
+          this.langService.transalte('ChartOfAccount.AddedSuccessfully')
         );
       }
     });

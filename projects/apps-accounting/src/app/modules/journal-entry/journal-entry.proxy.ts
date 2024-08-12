@@ -1,5 +1,5 @@
 import { FilterDto, HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { AddJournalEntryCommandOpeningBalance, GetGlOpeningBalanceById, JournalEntryDto, JournalEntryStatus, JournalEntryViewDto, TrialBalance, reportAccount } from './models';
+import { AddJournalEntryCommandOpeningBalance, GetGlOpeningBalanceById, JournalEntryDto, JournalEntryStatus, JournalEntryViewDto, TrialBalance, costLookup, reportAccount, reportCostAllData, reportCostCenter } from './models';
 import { Observable } from 'rxjs';
 import { AddJournalEntryCommand } from './models/addJournalEntryCommand';
 import { EditJournalEntry, GetJournalEntryByIdDto } from './models';
@@ -68,7 +68,7 @@ export class JournalEntryProxy {
     return this.httpService.delete<number>(`JournalEntry/DeleteLine?Id=${id}`);
   }
   deleteJournalEntryLineOpeningBalance(id: number): Observable<JournalEntryStatus> {
-    return this.httpService.delete<number>(`JournalEntry/OpeningBalanceJournalEntry?Id=${id}`);
+    return this.httpService.delete<number>(`OpeningBalanceJournalEntry/DeleteLine?Id=${id}`);
   }
   getAllJournalTemplate(filterDto: FilterDto): Observable<PaginationVm<GetAllJournalTemplateDto>> {
     return this.httpService.get<PaginationVm<GetAllJournalTemplateDto>>(
@@ -89,6 +89,9 @@ export class JournalEntryProxy {
   getAccountingReports(accounts:reportAccount){
     return this.httpService.post<reportAccount>(`AccountingReports/AccountStatmentReport`,accounts);
   }
+  getAccountLookup(): Observable<costLookup[]> {
+    return this.httpService.get('CostCenter/CostCenterDropDown');
+  }
   
   exportJournalEntriesData(
     searchTerm: string | undefined
@@ -98,6 +101,9 @@ export class JournalEntryProxy {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
      return this.httpService.get<JournalEntryDto[]>(query);
+  }
+  getCostCenterReports(cost:reportCostAllData){
+    return this.httpService.post<reportAccount>(`CostCenterReports`,cost);
   }
   constructor(private httpService: HttpService) {}
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {  Component, OnInit } from '@angular/core';
 import {
   EditJournalEntry,
   GetJournalEntryByIdDto,
@@ -11,6 +11,7 @@ import {
 import { JournalEntryService } from '../../journal-entry.service';
 import {
   FormsService,
+  LanguageService,
   PageInfo,
   RouterService,
   ToasterService,
@@ -25,9 +26,8 @@ import { CurrencyService } from '../../../general/currency.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
 import { NoChildrenAccountsComponent } from '../../components/noChildrenAccounts/nochildaccounts.component';
 import { Title } from '@angular/platform-browser';
-import { CostCenterAllocationPopupComponent } from '../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
 import { EditCostCenterAllocationPopupComponent } from '../components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component';
-import { CurrencyRateDto } from '../../../general/models/currencyRateDto';
+import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 
 @Component({
   selector: 'app-edit-journal-entry',
@@ -58,14 +58,15 @@ export class EditJournalEntryComponent implements OnInit {
   currentAccounts: number[] = [];
 
   ngOnInit() {
-    this.titleService.setTitle('Edit Journal ');
 
     this.getAccounts();
     this.initializeForm();
     this.initializeFormData();
     this.getCurrencies();
   }
-   
+  get journalEntryLinesFormArray() {
+    return this.editJournalForm.get('journalEntryLines') as FormArray;
+  }
   initializeForm() {
     this.editJournalForm = this.fb.group({
       journalCode: new FormControl(),
@@ -177,9 +178,6 @@ export class EditJournalEntryComponent implements OnInit {
     this.routerService.navigateTo(`/transcations/journalentry`);
   }
 
-  get journalEntryLinesFormArray() {
-    return this.editJournalForm.get('journalEntryLines') as FormArray;
-  }
 
   async deleteJournalEntryLine(index: number) {
     const journalLine = this.journalEntryLinesFormArray.at(index);
@@ -373,7 +371,6 @@ export class EditJournalEntryComponent implements OnInit {
     });
   }
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
-    let currentCurrency: number = 1;
 
     const journalLine = this.journalEntryLinesFormArray.at(currentJournalId);
 
@@ -383,8 +380,7 @@ export class EditJournalEntryComponent implements OnInit {
       currencyRateControl.setValue(res.rate);
     });
 
-    this.currencyService.getAccountCurrencyRate(currentCurrency, accountCurrency);
-
+    this.currencyService.getAccountCurrencyRate(accountCurrency, this.currentUserService.getCurrency());
   }
   constructor(
     private journalEntryService: JournalEntryService,
@@ -396,6 +392,12 @@ export class EditJournalEntryComponent implements OnInit {
     public enums: SharedJournalEnums,
     private toasterService: ToasterService,
     private currencyService: CurrencyService,
-    private titleService: Title
-  ) {}
+    private titleService: Title,
+    private langService: LanguageService,
+    private currentUserService : CurrentUserService
+
+  ) {
+    this.titleService.setTitle(this.langService.transalte('Journal.EditJournal'));
+
+  }
 }

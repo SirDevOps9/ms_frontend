@@ -1,4 +1,51 @@
 export class BreadcrumbLabel {
+
+  static readonly ChartOfAccount = 'BreadCrumb.ChartOfAccount';
+  static readonly TaxGroup = 'BreadCrumb.TaxGroup';
+  static readonly TaxDefinition = 'BreadCrumb.TaxDefinition';
+  static readonly CostCenter = 'BreadCrumb.CostCenter';
+  static readonly JournalEntryList = 'BreadCrumb.JournalEntryList';
+  static readonly JournalEntryAdd = 'BreadCrumb.JournalEntryAdd';
+  static readonly JournalEntryView = 'BreadCrumb.JournalEntryView';
+  static readonly JournalEntryEdit = 'BreadCrumb.JournalEntryEdit';
+  static readonly TrialBalance = 'BreadCrumb.TrialBalance';
+  static readonly AccountStatement = 'BreadCrumb.AccountStatement';
+  static readonly JournalEntryOpeningBalance = 'BreadCrumb.JournalEntryOpeningBalance';
+  static readonly AddJournalEntryOpeningBalance = 'BreadCrumb.AddJournalEntryOpeningBalance';
+  static readonly EditJournalEntryOpeningBalance = 'BreadCrumb.EditJournalEntryOpeningBalance';
+  static readonly ViewJournalEntryOpeningBalance = 'BreadCrumb.ViewJournalEntryOpeningBalance';
+  static readonly CUSTOMER_DEFINITIONS ='BreadCrumb.CustomerDefinition';
+  static readonly ADD_CUSTOMER_DEFINITIONS ='BreadCrumb.AddCustomerDefinition';
+  static readonly EDIT_CUSTOMER_DEFINITIONS ='BreadCrumb.EditCustomerDefinition';
+  static readonly customer_list ='BreadCrumb.CustomerCategory';
+  static readonly customer_add ='BreadCrumb.AddCustomerCategory';
+  static readonly customer_edit ='BreadCrumb.EditCustomerCategory';
+  static readonly BANK_LIST ='BreadCrumb.BankDefinition';
+  static readonly BANK_LIST_ADD ='BreadCrumb.AddBankDefinition';
+  static readonly BANK_LIST_EDIT ='BreadCrumb.EditBankDefinition';
+  static readonly PAYMENT_TERM_LIST ='BreadCrumb.PaymentTermList';
+  static readonly PAYMENT_TERM_Add ='BreadCrumb.AddPaymentTerm';
+  static readonly PAYMENT_TERM_Edit ='BreadCrumb.EditPaymentTerm';
+
+  static readonly TREASURY_LIST ='BreadCrumb.Treasury';
+  static readonly vendor_list ='BreadCrumb.VendorCategory';
+  static readonly vendor_Add ='BreadCrumb.AddVendorCategory';
+  static readonly vendor_Edit ='BreadCrumb.EditVendorCategory';
+  static readonly VENDOR_DEFINITIONS ='BreadCrumb.VendorDefinitions';
+  static readonly ADD_VENDOR_DEFINITIONS ='BreadCrumb.AddVendorDefinition';
+  static readonly EDIT_VENDOR_DEFINITIONS ='BreadCrumb.EditVendorDefinition';
+  static readonly calendar_list ='BreadCrumb.FinancialCalendar';
+  static readonly calendar_Add ='BreadCrumb.AddFinancialCalendar';
+  static readonly calendar_Edit ='BreadCrumb.EditFinancialCalendar';
+  static readonly CURRENCY_DEFINITION_LIST ='BreadCrumb.CurrencyDefinition';
+  static readonly CURRENCY_CONVERSION ='BreadCrumb.CurrencyConversion';
+  static readonly tag_list ='BreadCrumb.TagList';
+  static EMPLOYEE='BreadCrumb.Employees';
+  static EMPLOYEE_ADD='BreadCrumb.AddEmployee';
+  static EMPLOYEE_VIEW='BreadCrumb.ViewEmployee';
+  static EMPLOYEE_EDIT='BreadCrumb.EditEmployee';
+
+
     static SUBSCRIPTION ='Subscription'
     static USERS = 'Users';
     static ADD_COMPANY = 'Add company';
@@ -11,11 +58,6 @@ export class BreadcrumbLabel {
     static CART = 'Cart List';
     static DOMAIN = 'Domain Details';
     static Manage_Apps='Manage Apps';
-    static JOURNAL_LIST='journal Entry List';
-    static JOURNAL_ADD='journal Entry Add';
-    static JOURNAL_VIEW='journal Entry View';
-    static JOURNAL_Edit='journal Entry Edit';
-    static chart_of_account='Chart of Account';
     static BUSSINESS_OWNER ='Bussiness Owners';
     static MANAGE_BUSSINESS_OWNER ='Manage Bussiness Owners';
     static SUBDOMAIN_INFO ='Subdomain Info';
@@ -23,45 +65,18 @@ export class BreadcrumbLabel {
     static LICENCE_INFO ='licence Info';
     static USER_INFO ='USER Info';
     static APP_INFO ='APP Info';
-    static tag_list ='Tag List';
-    static calendar_list ='Financial Calender';
-    static vendor_list ='Vendor Category';
-    static customer_list ='Customer Category';
-    static customer_add ='Add Customer Category';
-    static customer_edit ='Edit Customer Category';
-    static vendor_Add ='Add Vendor Category';
-    static vendor_Edit ='Edit Vendor Category';
-    static EMPLOYEE='Employees';
-    static EMPLOYEE_ADD='Add Employee';
-    static EMPLOYEE_VIEW='View Employee';
-    static EMPLOYEE_EDIT='Edit Employee';
     static Add_Tag ='Add Tag';
     static EDIT_ADDRESS ='Edit Address';
     static EDIT_BRANCHES ='Edit Branches';
     static EDIT_HIERARCHY ='Edit Hierarchy';
     static EDIT_LEGAL ='Edit Legal';
     static EDIT_CONTACT ='Edit Contact';
-    static TAXS_GROUP ='Taxs Group';
-    static TAXS_DEFINITION ='Taxs Definition';
-    static COST_CENTER ='Cost Center';
-    static ACCOUNT_STATEMENT ='Account Statement';
-    static TRIAL_BALANCE ='Trial Balance';
-    static VENDOR_DEFINITIONS ='Vendor Definitions';
-    static CUSTOMER_DEFINITIONS ='Customer Definitions';
-    static ADD_CUSTOMER_DEFINITIONS ='Add Customer Definitions';
     static ADD_CUSTOMER_OPENEING_BALANCE ='Add Customer Opening Balance';
-    static EDIT_CUSTOMER_DEFINITIONS ='Edit Customer Definitions';
-    static ADD_VENDOR_DEFINITIONS ='Add Vendor Definitions';
-    static EDIT_VENDOR_DEFINITIONS ='Edit Vendor Definitions';
     static CURRENCY_DEFINITION ='Currency Definition';
     static ADD_CURRENCY_DEFINITION ='Add Currency Definition';
-    static CURRENCY_DEFINITION_LIST ='Currency Definition List';
-    static CURRENCY_CONVERSION ='Currency Conversion';
-    static TREASURY_LIST ='Treasury';
-    static BANK_LIST ='Bank Definition';
-    static BANK_LIST_ADD ='Add Bank Definition';
-    static BANK_LIST_EDIT ='Edit Bank Definition';
-    static PAYMENT_TERM_LIST ='Payment term list';
+
+ 
+    static DASHBOARD ='Dashboard';
 
     static JOURNAL_OPENING_BALANCE ='Journal Entry Opening Balance';
     static ADD_JOURNAL_OPENING_BALANCE ='Add Journal Entry Opening Balance';
@@ -76,5 +91,12 @@ export class BreadcrumbLabel {
     
 
  
+    static VENDOR_OPENING_BALANCE ='Vendor Opening Balancy';
 
+    static COST_CENTER ='Cost Center';
+    static PAYMENT_TERM_ADD ='Add Payment term';
+    static PAYMENT_TERM_EDIT ='Edit Payment term';
+    static PAYMENT_METHOD_LIST ='Payment Method list';
+    static PAYMENT_METHOD_ADD ='Add Payment Method ';
+    static PAYMENT_METHOD_EDIT ='Edit Payment Method ';
   }

@@ -2,7 +2,13 @@
 // @import "../../../../assets/styling/scss/variables/font-family";
 @import ' ../../../../../../../assets/styling/scss/variables/font-family';
 .journal_entry_add_page{
-   
+   .add_page_header{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 0 10px;
+   }
     .entry_header{
         background: #F7F8F8;
         box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;

@@ -1,0 +1,185 @@
+<lib-page-content>
+    <form [formGroup]="formGroup">
+        <div class="grid">
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['open']">
+                {{ 'openeingBalance.openingJournal' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="open"
+                [options]="[]"
+                [selectedValue]="formGroup.controls['open'].value"
+                optionLabel="name"
+                optionValue="id"
+              >
+              </lib-select>
+            </lib-form-group>
+          </div>
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['open2']">
+                {{ 'openeingBalance.JournalLine' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="open2"
+                [options]="[]"
+                [selectedValue]="formGroup.controls['open'].value"
+                optionLabel="name"
+                optionValue="id"
+              >
+              </lib-select>
+            </lib-form-group>
+          </div>
+          <div class="md:col-2">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['name1']">
+                {{ 'openeingBalance.amount' | translate }}
+              </lib-label>
+              <lib-text-input type="text" formControlName="name1" [readOnly]="true"/>
+              <lib-field-validations [appControl]="formGroup.controls['name1']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+         
+          <div class="md:col-2">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['name2']">
+                {{ 'openeingBalance.debitCredit' | translate }}
+              </lib-label>
+              <lib-text-input type="text" formControlName="name2" [readOnly]="true"/>
+              <lib-field-validations [appControl]="formGroup.controls['name2']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+         
+          </div>
+        </form>
+        <div class="add_new my-2 flex justify-content-end">
+          <lib-button (onClick)="addLine()" className="outline-primary">
+            {{ 'openeingBalance.add_new' | translate }}
+          </lib-button>
+        </div>
+       
+        <div class="entry_table">
+          <div class="card">
+            <p-table
+              [value]="customerForm.controls"
+              dataKey="id"
+              styleClass="p-datatable-gridlines p-datatable-striped"
+              [tableStyle]="{ 'min-width': '50rem' }"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>{{ 'customerDefinition.code' | translate }}</th>
+                  <th>{{ 'customerDefinition.name' | translate }}</th>
+                  <th>{{ 'openeingBalance.glAccount' | translate }}</th>
+                  <th>{{ 'openeingBalance.balance' | translate }}</th>
+                  <th>{{ 'openeingBalance.balanceType' | translate }}</th>
+                  <th>{{ 'openeingBalance.dueDate' | translate }}</th>
+                
+                  <th>{{ 'customerDefinition.actions' | translate }}</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-customerGroup let-editing="editing" let-i="rowIndex">
+                <tr [formGroup]="customerGroup">
+             
+                  <td
+                    [pEditableColumn]="customerGroup.controls['glAccountId']"
+                    pEditableColumnField="customerGroup.controls['glAccountId']"
+                  >
+                    <p-cellEditor>
+                      <ng-template pTemplate="input">
+                          <lib-form-group>
+                            <lib-select
+                              formControlName="glAccountId"
+                              [options]="filteredAccounts"
+                              optionValue="id"
+                              optionLabel="displayName"
+                              placeholder="{{ 'customerDefinition.code' | translate }}"
+                              (valueChanged)="accountSelected($event, i)"
+                              [selectedValue]="customerGroup.controls['glAccountId'].value"
+                            >
+                            </lib-select>
+                          </lib-form-group>
+                          <!-- <i class="pi pi-search search-circle" (click)="openDialog(i)"></i> -->
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                        {{ customerGroup.controls['displayName'].value }}
+                      </ng-template>
+                    </p-cellEditor>
+                  </td>
+                  <!--  -->
+                  <td
+                  [pEditableColumn]="customerGroup.controls['accountNumber']"
+                  pEditableColumnField="accountNumber"
+                >
+                
+                  <p-cellEditor>
+                    <ng-template pTemplate="input">
+                      <lib-text-input
+                        placeholder="{{ 'customerDefinition.name' | translate }}"
+                        formControlName="accountNumber"
+                      ></lib-text-input>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                      {{ customerGroup.controls['accountNumber'].value }}
+                    </ng-template>
+                  </p-cellEditor>
+                  <lib-field-validations
+                    [appControl]="customerGroup.controls['accountNumber']"
+                  ></lib-field-validations>
+                </td>
+                <!--  -->
+                  <td>
+                    {{ customerGroup.controls['accountName'].value }}
+                  </td>
+                  <td>
+                    {{ customerGroup.controls['balance'].value }}
+                  </td>
+                  <td
+                  [pEditableColumn]="customerGroup.controls['balanceType']"
+                  pEditableColumnField="customerGroup.controls['balanceType']"
+                >
+                  <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <lib-form-group>
+                          <lib-select
+                            formControlName="balanceType"
+                            [options]="balanceType"
+                            optionValue="value"
+                            optionLabel="label"
+                            placeholder="{{ 'openeingBalance.balanceType' | translate }}"
+                            (valueChanged)="accountSelected($event, i)"
+                            [selectedValue]="customerGroup.controls['balanceType'].value"
+                          >
+                          </lib-select>
+                        </lib-form-group>
+                        <!-- <i class="pi pi-search search-circle" (click)="openDialog(i)"></i> -->
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                      {{ customerGroup.controls['displayName'].value }}
+                    </ng-template>
+                    <lib-field-validations
+                    [appControl]="customerGroup.controls['balanceType']"
+                  ></lib-field-validations>
+                  </p-cellEditor>
+                </td>
+
+                <td>
+                  <lib-button (onClick)="openDistribute()" className="outline-primary">
+                    {{ 'openeingBalance.distribute' | translate }}
+                  </lib-button>
+                </td>
+    
+               
+                  <!--  -->
+                  <td>
+                    <i class="pi pi-trash pointer" (click)="onDelete(i)"></i>
+                </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+</lib-page-content>
