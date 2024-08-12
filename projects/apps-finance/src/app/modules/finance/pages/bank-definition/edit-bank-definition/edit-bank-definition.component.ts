@@ -79,7 +79,8 @@ export class EditBankDefinitionComponent implements OnInit {
             glAccountId: elem.glAccountId,
             iban: elem.iban,
             currencyId: elem.currencyId,
-            openingBalance: elem.openingBalance,
+            openingBalance: new FormControl(elem.openingBalance, [customValidators.required,customValidators.noAlphabeticCharacter,customValidators.noSpecialChars]),
+
             currentBalance : null,
             accountName : elem.glAccountName,
             currencyName : null ,

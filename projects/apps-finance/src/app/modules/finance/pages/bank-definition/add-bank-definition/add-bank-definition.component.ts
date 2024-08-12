@@ -118,7 +118,7 @@ export class AddBankDefinitionComponent implements OnInit {
       glAccountId: null,
       iban: null,
       currencyId: new FormControl('', customValidators.required),
-      openingBalance: new FormControl('', customValidators.required),
+      openingBalance: new FormControl('', [customValidators.required,customValidators.noAlphabeticCharacter,customValidators.noSpecialChars]),
       currentBalance: null,
       accountName: null,
       currencyName: null,
