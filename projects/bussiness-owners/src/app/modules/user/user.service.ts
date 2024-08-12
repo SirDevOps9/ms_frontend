@@ -38,8 +38,8 @@ export class UserService {
   private exportsUsersDataSource = new BehaviorSubject<ExportUserListResponse[]>([]);
   public exportsUsersDataSourceObservable = this.exportsUsersDataSource.asObservable();
 
-  getAllUsers(subscriptionId: string) {
-    this.userProxy.getAll(subscriptionId).subscribe({
+  getAllUsers(searchTerm:string,subscriptionId: string) {
+    this.userProxy.getAll(searchTerm,subscriptionId).subscribe({
       next: (res) => {
         this.userDataSource.next(res);
       },
@@ -171,8 +171,6 @@ export class UserService {
         dialogRef.close(res);
       },
       error: (err) => {
-        console.log('Invite Error', err);
-
         this.loaderService.hide();
       },
     });
