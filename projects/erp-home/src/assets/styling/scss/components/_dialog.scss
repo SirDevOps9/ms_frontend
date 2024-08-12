@@ -10,7 +10,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-    //   background: #f7f8f8;
+      //   background: #f7f8f8;
       padding-bottom: $spacing-16;
       margin-bottom: $spacing-32;
       border-bottom: 1px solid $gray-100;
@@ -30,7 +30,7 @@
         // }
       }
       .cancel {
-        background: url("../../../images/close.svg");
+        background: url('../../../images/close.svg');
         cursor: pointer;
         font-size: 15px;
         font-weight: 700;
@@ -75,23 +75,27 @@
     justify-content: space-evenly;
     width: 100%;
     margin-top: $spacing-32;
-    
+
     // background: #f7f8f8;
     // padding: 10px;
+    .cancel_btn,
+    .save_btn{
+      width: 100% !important;
+    }
   }
 }
-  .pop_up_config_page {
-    .p-dialog {
-      .p-dialog-content {
-        padding: 0 0 0 0 !important;
-      }
-    }
-  }
+.pop_up_config_page {
   .p-dialog {
     .p-dialog-content {
-      padding: $spacing-24 !important;
+      padding: 0 0 0 0 !important;
     }
   }
+}
+.p-dialog {
+  .p-dialog-content {
+    padding: $spacing-24 !important;
+  }
+}
 //   .p-dialog-mask {
 //     justify-content: start !important;
 //     align-items: start !important;
@@ -102,13 +106,8 @@
 //     border-bottom-left-radius: 15px !important;
 //     overflow-x: hidden;
 //   }
-  .p-dialog {
-    .p-dialog-header {
-      display: none !important;
-    }
+.p-dialog {
+  .p-dialog-header {
+    display: none !important;
   }
-
-// .cancel_btn,
-// .save_btn {
-//   width: 49%;
-// }
+}

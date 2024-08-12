@@ -43,7 +43,7 @@ export class MainChartOfAccountComponent {
   RedirectToConfiguration() {
     this.ref = this.dialog.open(ChartOfAccountConfigurationComponent, {
       width: '647px',
-      height: '886px',
+      height: 'auto',
     });
   }
   constructor(

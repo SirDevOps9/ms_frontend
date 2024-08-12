@@ -2,11 +2,11 @@
   <div class="pop_up_header">
     <div class="header_content">
       <div class="title">
-        <div class="plus_icon"></div>
+        <!-- <div class="plus_icon"></div> -->
         Edit User
       </div>
 
-      <div class="pi pi-times cancel" (click)="onCancel()"></div>
+      <div class=" cancel" (click)="onCancel()"></div>
     </div>
   </div>
   <div class="pop_up_content">
@@ -78,17 +78,26 @@
     </div>
   </div>
   <div class="pop_up_footer">
-    <div class="save_btn">
-      <lib-button-micro title=" save" nameClass="save" (click)="onSubmit()" widthNumber="100%">
-      </lib-button-micro>
+    <div class="grid">
+      <div class="md:col-6">
+        <div class="cancel_btn">
+          <lib-button-micro
+            title=" {{ 'Company.Cancel' | translate }}"
+            nameClass="cancel"
+            (click)="onCancel()"
+            widthNumber="100%"
+          >
+          </lib-button-micro>
+        </div>
+      </div>
+      <div class="md:col-6">
+        <div class="save_btn">
+          <lib-button-micro title=" save" nameClass="save" (click)="onSubmit()" widthNumber="100%">
+          </lib-button-micro>
+        </div>
+      </div>
     </div>
-    <div class="cancel_btn">
-      <lib-button-micro
-        title=" {{ 'Company.Cancel' | translate }}"
-        nameClass="cancel"
-        (click)="onCancel()"
-      >
-      </lib-button-micro>
-    </div>
+    
+    
   </div>
 </div>

@@ -129,16 +129,4 @@
   }
 
 }
-::ng-deep {
-  .p-dialog {
-    // position: absolute !important;
-    // bottom: 0 !important;
-    // right: 0 !important;
-    .p-dialog-header {
-      display: none !important;
-    }
-  }
-  .p-dialog .p-dialog-content {
-    padding: 0 !important;
-  }
-}
+
