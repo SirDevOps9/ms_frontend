@@ -279,7 +279,7 @@
     <span></span>
   </div>
 </div>
-<div class="flex justify-content-end" [class.none]="currentPageResult.totalItems! <= 25">
-  <lib-table-paginator *ngIf="tableConfigs.allowServerPagination" (pageChange)="onPageChange($event)"
+<div class="flex justify-content-end" *ngIf="tableConfigs.allowServerPagination" [class.none]="currentPageResult.totalItems! <= 25">
+  <lib-table-paginator  (pageChange)="onPageChange($event)"
   [totalRecords]="currentPageResult.totalItems!" [rows]="currentPageResult.pageSize!"></lib-table-paginator>
 </div>
