@@ -288,7 +288,8 @@
     "credit": "credit",
     "reportTrial": "report Trial",
     "trialBalance": "Trial Balance",
-    "viewData": "View Data"
+    "viewData": "View Data",
+    "allowZero":"Allow value zero in report"
   },
   "reportAccount": {
     "AccountStatement": "Account Statement"
