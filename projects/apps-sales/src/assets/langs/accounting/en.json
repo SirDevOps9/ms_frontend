@@ -80,7 +80,8 @@
     "currencyRate": "Currency Rate",
     "debitAmountLocal": "Debit Amount (Local)",
     "creditAmountLocal": "Credit Amount (Local)",
-    "costCenter": "Cost Center"
+    "costCenter": "Cost Center",
+    "add_line" : "Add Line"
   },
   "TaxGroup": {
     "Code": "Code",

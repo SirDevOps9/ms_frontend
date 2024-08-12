@@ -53,6 +53,7 @@ export class CreateEmployeeComponent implements OnInit {
       LookupEnum.BloodType,
     ]);
   }
+  
   subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
   }

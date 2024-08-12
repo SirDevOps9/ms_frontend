@@ -1,5 +1,4 @@
 <lib-page-content [title]="'add-paymentMethod.title' | translate" [subTitle]="'add-paymentMethod.title' | translate">
-  <lib-bread-crumb></lib-bread-crumb>
   <div class="flex justify-content-end my-2">
     <lib-button-micro nameClass="cancel" title="cancel" (click)="discard()"></lib-button-micro>
     <lib-button-micro nameClass="save" title="Save" iconName="pi pi-save" type="button" (click)="onSave()"></lib-button-micro>
@@ -32,9 +31,10 @@
             </lib-label>
             <lib-select
               formControlName="paymentPlace"
-              [options]="paymentPlaceOptions"
-              optionValue="value"
-              optionLabel="label"
+              [options]="lookups[LookupEnum.PaymentPlace]"
+              optionValue="id"
+              optionLabel="name"
+             
             >
             </lib-select>
             <lib-field-validations [appControl]="PaymentMethodForm.controls['paymentPlace']"></lib-field-validations>
@@ -47,9 +47,9 @@
             </lib-label>
             <lib-select
               formControlName="paymentMethodType"
-              [options]="paymentMethodType"
-              optionValue="value"
-              optionLabel="label"
+              [options]="lookups[LookupEnum.PaymentMethodType]"
+              optionValue="id"
+              optionLabel="name"
             >
             </lib-select>
             <lib-field-validations [appControl]="PaymentMethodForm.controls['paymentMethodType']"></lib-field-validations>
@@ -70,7 +70,7 @@
                       [options]="BankList"
                       optionLabel="name"
                       optionValue="id"
-                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury"
+                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury.toString()"
                     >
                     </lib-select>
                     <lib-field-validations [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('bankId')"></lib-field-validations>
@@ -86,7 +86,7 @@
                       [options]="BankAccountList"
                       optionLabel="accountNumber"
                       optionValue="id"
-                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury"
+                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value == sharedFinanceEnum.PaymentPlace.Treasury.toString()"
                     >
                     </lib-select>
                     <lib-field-validations [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('bankAccountId')"></lib-field-validations>
@@ -122,10 +122,11 @@
                     </lib-label>
                     <lib-select
                       formControlName="commissionType"
-                      [options]="commissionTypeOptions"
-                      optionValue="value"
-                      optionLabel="label"
-                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury"
+                      [options]="lookups[LookupEnum.CommissionType]"
+                      optionValue="id"
+                      optionLabel="name"
+                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value == sharedFinanceEnum.PaymentPlace.Treasury.toString()||
+                      PaymentMethodForm.get('paymentMethodType')?.value == sharedFinanceEnum.paymentMethodType.Check.toString()"
                     >
                     </lib-select>
                     <lib-field-validations [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('commissionType')"></lib-field-validations>
@@ -139,7 +140,8 @@
                     <lib-text-input 
                       type="number" 
                       formControlName="commissionValue" 
-                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury" 
+                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value == sharedFinanceEnum.PaymentPlace.Treasury.toString()||
+                      PaymentMethodForm.get('paymentMethodType')?.value == sharedFinanceEnum.paymentMethodType.Check.toString()" 
                     />
                     <lib-field-validations [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('commissionValue')"></lib-field-validations>
                   </lib-form-group>
@@ -154,7 +156,8 @@
                       [options]="accountsList"
                       optionLabel="name"
                       optionValue="id"
-                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury"
+                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value == sharedFinanceEnum.PaymentPlace.Treasury.toString()||
+                      PaymentMethodForm.get('paymentMethodType')?.value == sharedFinanceEnum.paymentMethodType.Check.toString()"
                     >
                     </lib-select>
                     <lib-field-validations [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('commissionAccountId')"></lib-field-validations>
@@ -169,7 +172,8 @@
                       type="radio" 
                       formControlName="allowVAT" 
                       [value]="true"
-                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value === sharedFinanceEnum.PaymentPlace.Treasury" 
+                      [readOnly]="PaymentMethodForm.get('paymentPlace')?.value == sharedFinanceEnum.PaymentPlace.Treasury.toString() ||
+                      PaymentMethodForm.get('paymentMethodType')?.value == sharedFinanceEnum.paymentMethodType.Check.toString()" 
                     />
                     <lib-label [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('allowVAT')">
                       {{ 'add-paymentMethod.AllowVAT' | translate }}

@@ -44,6 +44,7 @@
                 {{"ChartOfAccounts.parentName" | translate}}
               </lib-label>
                 <lib-select
+                [readOnly]="currencyIsVisible"
                   formControlName="parentId"
                   [options]="parentAccounts"
                   optionValue="id"

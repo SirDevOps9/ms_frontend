@@ -1,6 +1,6 @@
 { 
   "BreadCrumb": {
-    "ChartOfAccount": "شجرة الحسابات",
+    "ChartOfAccount": "دليل الحسابات",
     "TaxGroup": "مجموعة الضرائب",
     "TaxDefinition": "تعريف الضرائب",
     "CostCenter": "مركز التكلفة",
@@ -13,7 +13,8 @@
     "JournalEntryOpeningBalance": "رصيد افتتاحي لقيد اليومية",
     "AddJournalEntryOpeningBalance": "إضافة رصيد افتتاحي لقيد اليومية",
     "EditJournalEntryOpeningBalance": "تعديل رصيد افتتاحي لقيد اليومية",
-    "ViewJournalEntryOpeningBalance": "عرض رصيد افتتاحي لقيد اليومية"
+    "ViewJournalEntryOpeningBalance": "عرض رصيد افتتاحي لقيد اليومية",
+    "CostCenterReport": "تقرير مركز التكلفة"
   },
   "COAConfigration": {
     "Success": "نجاح",
@@ -25,23 +26,23 @@
     "discard": "تجاهل",
     "Save": "حفظ",
     "Actions": "العمليات",
-    "ChartOfAccountConfig": "إعداد شجرة الحسابات",
-    "chartOfAccountLevels": "مستويات شجرة الحسابات",
+    "ChartOfAccountConfig": "إعداد دليل الحسابات",
+    "chartOfAccountLevels": "مستويات دليل الحسابات",
     "LevelsSaved": "تم حفظ المستويات بنجاح"
   },
   "ChartOfAccount": {
-    "Title": "شجرة الحسابات",
-    "ChartOfAccountList": "قائمة شجرة الحسابات",
-    "AddChartOfAccount": "إضافة شجرة الحسابات",
-    "EditChartOfAccount": "تعديل شجرة الحسابات",
-    "ChartOfAccountConfig": "إعداد شجرة الحسابات",
-    "ViewChartOfAccount": "عرض شجرة الحسابات",
+    "Title": "دليل الحسابات",
+    "ChartOfAccountList": "قائمة دليل الحسابات",
+    "AddChartOfAccount": "إضافة دليل الحسابات",
+    "EditChartOfAccount": "تعديل دليل الحسابات",
+    "ChartOfAccountConfig": "إعداد دليل الحسابات",
+    "ViewChartOfAccount": "عرض دليل الحسابات",
     "AccountName": "اسم الحساب",
     "AccountCode": "كود الحساب",
     "Nature": "الطبيعة",
     "AccountType": "نوع الحساب",
     "AccountSection": "قسم الحساب",
-    "Search": "بحث...",
+    "Search": "بحث",
     "Accounts": "الحسابات",
     "Main": "رئيسي",
     "Success": "نجاح",
@@ -55,7 +56,6 @@
     "ChooseAnAccount":"اختر حساب",
     "Select": "اختر",
     "Actions": "العمليات",
-    "Select": "اختيار",
     "Id": "الرقم التعريفي"
   },
   "Journal": {
@@ -253,7 +253,7 @@
     "Actions": "العمليات"
   },
   "costCenter": {
-    "costCenter": "شجرة مراكز التكلفة",
+    "costCenter": " مراكز التكلفة",
     "CostCenterList": "قائمة مراكز التكلفة",
     "AddCostCenter": "إضافة مركز تكلفة",
     "EditCostCenter": "تعديل مركز التكلفة",
@@ -287,7 +287,8 @@
     "debit": "مدين",
     "credit": "دائن",
     "viewData": "عرض البيانات",
-    "trialBalance": "ميزان المراجعة"
+    "trialBalance": "ميزان المراجعة",
+    "allowZero":"عرض القيم الصفرية في التقرير"
   },
   "reportAccount": {
     "AccountStatement": "كشف الحساب"
@@ -340,6 +341,9 @@
     "debit": "مدين",
     "credit": "دائن",
     "balance": "الرصيد",
-    "title": "تقرير مركز التكلفة"
+    "title": "تقرير مركز التكلفة",
+    "ViewData": "عرض البيانات",
+    "Select": "اختر"
+
 }
 }

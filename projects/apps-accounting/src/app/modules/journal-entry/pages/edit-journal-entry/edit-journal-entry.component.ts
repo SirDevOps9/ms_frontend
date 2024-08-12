@@ -42,7 +42,7 @@ export class EditJournalEntryComponent implements OnInit {
   accountIdList: number[] = [];
   currencyIdList: number[] = [];
   costCenters: costCenters[] = [];
-
+  
   viewMode: boolean = false;
   statusName: string;
   journalTypeName: JournalEntryType;
@@ -110,7 +110,7 @@ export class EditJournalEntryComponent implements OnInit {
       journalEntryLinesArray.clear();
 
       this.journalEntryLines.forEach((line) => {
-        const {  debitAmount, creditAmount, costCenters, currencyRate, ...lineData } =
+        const {  debitAmount, creditAmount, costCenters, currencyRate , ...lineData } =
           line;
 
         const lineGroup = this.fb.group(
@@ -118,9 +118,13 @@ export class EditJournalEntryComponent implements OnInit {
             id: new FormControl(lineData.id),
             accountId: new FormControl(lineData.accountId, [customValidators.required]),
             accountName: new FormControl(lineData.accountName),
+            
             accountCode: new FormControl(lineData.accountCode),
             lineDescription: new FormControl(lineData.lineDescription, [customValidators.required]),
             debitAmount: new FormControl(debitAmount, [customValidators.required]),
+            costCenterConfig: new FormControl(lineData.costCenterConfig),
+            selectedFalg: new FormControl(false),
+
             creditAmount: new FormControl(creditAmount, [customValidators.required]),
             currencyId: new FormControl(lineData.currencyId, [customValidators.required]),
             currency: new FormControl(lineData.currency, [customValidators.required]),
@@ -129,7 +133,7 @@ export class EditJournalEntryComponent implements OnInit {
             creditAmountLocal: new FormControl(creditAmount * currencyRate),
             costCenters: [line.costCenters],
           },
-          { validators: customValidators.debitAndCreditBothCanNotBeZero }
+         // { validators: customValidators.debitAndCreditBothCanNotBeZero }
         );
         lineGroup.updateValueAndValidity();
 
@@ -211,12 +215,15 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   addNewRow() {
+    if (!this.formsService.validForm(this.editJournalForm, false)) return;
     let newLine = this.fb.group(
       {
         id: new FormControl(0),
         accountCode: new FormControl('', [customValidators.required]),
         accountId: new FormControl(),
         accountName: new FormControl(),
+        selectedFalg: new FormControl(false),
+        costCenterConfig: new FormControl(null),
         lineDescription: new FormControl(null, [customValidators.required]),
         debitAmount: new FormControl(null, [customValidators.required, Validators.min(0)]),
         creditAmount: new FormControl(null, [customValidators.required, Validators.min(0)]),
@@ -225,9 +232,9 @@ export class EditJournalEntryComponent implements OnInit {
         currencyRate: new FormControl(),
         debitAmountLocal: new FormControl(),
         creditAmountLocal: new FormControl(),
-        costCenters: new FormControl(),
+        costCenters: new FormControl([]),
       },
-      { validators: customValidators.debitAndCreditBothCanNotBeZero }
+      //{ validators: customValidators.debitAndCreditBothCanNotBeZero }
     );
     newLine.updateValueAndValidity();
     this.journalEntryLinesFormArray.push(newLine);
@@ -277,6 +284,11 @@ export class EditJournalEntryComponent implements OnInit {
     journalLine.get('accountId')?.setValue(selectedAccount.id);
     journalLine.get('accountName')?.setValue(selectedAccount.name);
     journalLine.get('accountCode')?.setValue(selectedAccount.accountCode);
+    journalLine.get('costCenterConfig')?.setValue(selectedAccount.costCenterConfig);
+    journalLine.get('selectedFalg')?.setValue(true);
+    console.log(selectedAccount)
+
+    
 
     var currencyData = this.currencies.find((c) => c.id == selectedAccount.currencyId);
     journalLine.get('currencyId')?.setValue(selectedAccount.currencyId);
@@ -288,6 +300,7 @@ export class EditJournalEntryComponent implements OnInit {
 
   openCostPopup(data: any, journal : FormGroup, account: number, index: number) {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
+    console.log(accountData)
     if (
       (!data.creditAmount && !data.debitAmount) ||
       !account ||

@@ -157,3 +157,10 @@ button[disabled]{
         font-family: $cairo_regular;
 
       }
+      .imptyData{
+        border: none !important;
+    }
+    .total{
+        background: #EDEDF4 !important;
+        border: 1px solid #e5e7eb;
+    }

@@ -25,8 +25,9 @@
         [ngClass]="{ empty: items.length <= 0 }"
       >
         <ng-template pTemplate="caption">
+
        
-          <div class="flex align-items-center justify-content-end gap-2 paginationHead" *ngIf="tableConfigs.allowServerPagination">  
+          <div class="flex align-items-center justify-content-end gap-2 paginationHead" *ngIf="tableConfigs.allowServerPagination" [class.none]="currentPageResult.totalItems! <= 25">  
             <p-paginator
             (onPageChange)="onPageChange2($event)"
             [rows]="currentPageResult.pageSize!"
@@ -224,6 +225,16 @@
 
 
       </p-table>
+      <ng-container *ngIf="!items.length">
+       
+        <div class="flex justify-content-center mt-4" (click)="addNewItem()">
+          <div class="flex gap-2 align-content-center pointer">
+          <i class="pi pi-plus"></i>  <small>There is no data</small>
+          </div>
+        </div>
+      </ng-container>
+
+     
     </div>
   </div>
 </div>
@@ -268,7 +279,7 @@
     <span></span>
   </div>
 </div>
-<div class="flex justify-content-end">
+<div class="flex justify-content-end" [class.none]="currentPageResult.totalItems! <= 25">
   <lib-table-paginator *ngIf="tableConfigs.allowServerPagination" (pageChange)="onPageChange($event)"
   [totalRecords]="currentPageResult.totalItems!" [rows]="currentPageResult.pageSize!"></lib-table-paginator>
 </div>

@@ -71,7 +71,6 @@ export class AddJournalEntryOpeningBalanceComponent {
 
     this.currencyService.currencies.subscribe((res) => {
       this.currencies = res;
-      console.log(res);
     });
   }
   getAccounts() {
@@ -138,7 +137,6 @@ export class AddJournalEntryOpeningBalanceComponent {
           }
         );
 
-        console.log(this.journalEntryAttachments);
       });
     });
   }
@@ -295,7 +293,6 @@ export class AddJournalEntryOpeningBalanceComponent {
           : [],
       })),
     };
-    console.log(obj);
     this.service
       .addJournalEntryopeningBalance(obj)
       .subscribe((r) => this.routerService.navigateTo('transcations/journal-entry-opening-balance'));
@@ -315,10 +312,8 @@ export class AddJournalEntryOpeningBalanceComponent {
     });
 
     dialogRef.onClose.subscribe((id: any) => {
-      //console.log('Received ID:', id);
       if (id) {
         this.service.getJournalTemplateById(id).subscribe((template) => {
-          console.log('template:', template);
 
           // Set template values to the form group
           this.fg.patchValue({
