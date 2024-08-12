@@ -86,7 +86,6 @@
               [rounded]="true"
               [enableText]="true"
               severity="secondary"
-              *ngIf="tag.isActive"
             >
             </lib-button>
             <lib-button
@@ -102,7 +101,7 @@
 
         <ng-template #status let-tag>
           <div class="checked">
-            <lib-input-switch (onChange)="changed($event, tag.id)" [(ngModel)]="tag.isActive">
+            <lib-input-switch [disabled]="true" (onChange)="changed($event, tag.id)" [(ngModel)]="tag.isActive">
             </lib-input-switch>
           </div>
         </ng-template>
