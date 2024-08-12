@@ -287,7 +287,8 @@
     "debit": "مدين",
     "credit": "دائن",
     "viewData": "عرض البيانات",
-    "trialBalance": "ميزان المراجعة"
+    "trialBalance": "ميزان المراجعة",
+    "allowZero":"عرض القيم الصفرية في التقرير"
   },
   "reportAccount": {
     "AccountStatement": "كشف الحساب"

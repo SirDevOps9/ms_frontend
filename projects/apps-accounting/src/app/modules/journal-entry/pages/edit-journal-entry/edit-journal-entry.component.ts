@@ -215,6 +215,7 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   addNewRow() {
+    if (!this.formsService.validForm(this.editJournalForm, false)) return;
     let newLine = this.fb.group(
       {
         id: new FormControl(0),

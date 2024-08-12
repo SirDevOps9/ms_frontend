@@ -70,6 +70,7 @@ export class TrialBlanceComponent implements OnInit {
       ]),
       posted: new FormControl(true),
       unposted: new FormControl(false),
+      allowZero : new FormControl(false),
       Accounts: new FormControl([]),
 
     });

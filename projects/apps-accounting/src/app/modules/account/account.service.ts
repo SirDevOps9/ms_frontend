@@ -152,6 +152,12 @@ export class AccountService {
       this.childrenAccountPageInfo.next(res.pageInfoResult);
     });
   }
+  getAccountsHasNoChildrenNew(quieries: string, pageInfo: PageInfo) {
+    this.accountproxy.getAccountsHasNoChildrenNew(quieries, pageInfo).subscribe((res) => {
+      this.childrenAccountDataSource.next(res.result);
+      this.childrenAccountPageInfo.next(res.pageInfoResult);
+    });
+  }
 
   getAccountsChildrenDropDown() {
     return this.accountproxy.getAccountsChildrenDropDown().pipe(
