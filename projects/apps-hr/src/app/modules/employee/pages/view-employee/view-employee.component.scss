@@ -9,12 +9,12 @@
         margin: 0;
         overflow: hidden;
         background-color: #fff;
-        color: #1a8eae;
+        color: #1a90b0;
       }
   
       li {
         padding: 1rem;
-        border: 1px solid #1a8eae;
+        border: 1px solid #1a90b0;
         border-radius: 8px;
         margin: 10px;
         cursor: pointer;
@@ -24,11 +24,11 @@
 
 
         &:hover {
-          background-color: #1a8eae;
+          background-color: #1a90b0;
           color: #fff;        }
       }
       .active {
-        background-color: #1a8eae;
+        background-color: #1a90b0;
         color: #fff;  
       }
     }
@@ -73,7 +73,7 @@
       }
     
       .save {
-          background-color: #1a8eae;
+          background-color: #1a90b0;
           color: #fff;
       }
     
@@ -84,8 +84,8 @@
     
       .save:hover {
           background-color: #fff;
-          color: #1a8eae;
-          border: 1px solid #1a8eae;
+          color: #1a90b0;
+          border: 1px solid #1a90b0;
       }
     
       .cancel:hover {
@@ -107,7 +107,7 @@
     
     .special_care {
         margin-top: 18px;
-        color: #1a8eae;
+        color: #1a90b0;
         font-size: 16px;
       
         ::ng-deep {
@@ -115,12 +115,12 @@
             .p-checkbox-box {
               width: 18px;
               height: 18px;
-              border-color: #1a8eae; 
+              border-color: #1a90b0; 
             }
       
             .p-checkbox-icon {
               color: white;
-              background-color: #1a8eae;
+              background-color: #1a90b0;
 
             }
           }

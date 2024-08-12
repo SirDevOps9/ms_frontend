@@ -21,7 +21,7 @@
     justify-content: center;
     button {
       padding: 10px 40px;
-      background-color: #1a8eae;
+      background-color: #1a90b0;
       font-size: 18px;
       color: #fff;
       border: none;
@@ -33,31 +33,31 @@
 
 ::ng-deep {
   .p-inputtext:enabled:hover {
-    border-color: #1a8eae !important;
+    border-color: #1a90b0 !important;
   }
   .p-inputtext:enabled:focus {
     outline: 0 none;
     outline-offset: 0;
-    // box-shadow: 0 0 0 0.2rem #1a8eae !important;
-    border-color: #1a8eae !important;
+    // box-shadow: 0 0 0 0.2rem #1a90b0 !important;
+    border-color: #1a90b0 !important;
   }
   .p-autocomplete:not(.p-disabled):hover .p-autocomplete-multiple-container {
-    border-color: #1a8eae !important;
+    border-color: #1a90b0 !important;
   }
   .p-autocomplete:not(.p-disabled).p-focus .p-autocomplete-multiple-container {
     outline: 0 none;
     outline-offset: 0;
-    // box-shadow: 0 0 0 0.2rem #1a8eae !important;
-    border-color: #1a8eae !important;
+    // box-shadow: 0 0 0 0.2rem #1a90b0 !important;
+    border-color: #1a90b0 !important;
   }
   .p-autocomplete:not(.p-disabled):hover .p-autocomplete-multiple-container {
-    border-color: #1a8eae !important;
+    border-color: #1a90b0 !important;
   }
   .p-autocomplete:not(.p-disabled).p-focus .p-autocomplete-multiple-container {
     outline: 0 none;
     outline-offset: 0;
-    // box-shadow: 0 0 0 0.2rem #1a8eae !important;
-    border-color: #1a8eae !important;
+    // box-shadow: 0 0 0 0.2rem #1a90b0 !important;
+    border-color: #1a90b0 !important;
   }
   .p-dropdown {
     background: #ffffff;
@@ -67,17 +67,17 @@
     width: 100% !important;
   }
   .p-dropdown:not(.p-disabled):hover {
-    border-color: #1a8eae !important;
+    border-color: #1a90b0 !important;
   }
   .p-dropdown:not(.p-disabled).p-focus {
     outline: 0 none;
     outline-offset: 0;
-    // box-shadow: 0 0 0 0.2rem #1a8eae !important;
-    border-color: #1a8eae !important;
+    // box-shadow: 0 0 0 0.2rem #1a90b0 !important;
+    border-color: #1a90b0 !important;
   }
   .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight.p-focus {
     color: #fff !important;
-    background: #1a8eae !important;
+    background: #1a90b0 !important;
   }
   .read{
     .p-dropdown .p-dropdown-trigger {

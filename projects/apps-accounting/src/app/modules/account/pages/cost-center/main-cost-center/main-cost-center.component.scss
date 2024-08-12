@@ -9,15 +9,15 @@
         text-transform: capitalize;
       }
       .save {
-        background: #1a8eae;
+        background: #1a90b0;
         color: #fff;
         margin-inline-start: 20px;
         justify-content: end;
       }
 
       .import {
-        border: 1px solid #1a8eae;
-        color: #1a8eae;
+        border: 1px solid #1a90b0;
+        color: #1a90b0;
         justify-content: end;
         margin-inline-start: 20px;
       }
@@ -30,18 +30,18 @@
         background: none;
         border: none;
         cursor: pointer;
-        //color: #1a8eae;
+        //color: #1a90b0;
         border-radius: 8px;
         margin-inline-start: 5px;
         background-color: #fff;
-        color: #1a8eae;
+        color: #1a90b0;
         &:hover{
-            background-color: #1a8eae;
+            background-color: #1a90b0;
             color: #fff;
         }
       }
       .active{
-        background-color: #1a8eae;
+        background-color: #1a90b0;
         color: #fff;
       }
 }

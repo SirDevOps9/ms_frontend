@@ -26,7 +26,7 @@
                 background: none;
                 border: none;
                 font-size: 16px;
-                color: #1A8EAE;
+                color: #1a90b0;
                 cursor: pointer;
             }
             .Line{
@@ -38,6 +38,10 @@
             align-items: center;
             justify-content: end;
             margin-inline-end: 20px;
+            .grid{
+                width: 100%;
+                justify-content: end;
+            }
             .btn{
                 background: none;
                 border: none;
@@ -48,7 +52,7 @@
 
             }
             .save{
-                background: #1A8EAE;
+                background: #1a90b0;
                 color: #fff;
                 margin-inline-start: 20px;
 
@@ -61,7 +65,7 @@
     }
 
     .attach{
-        background: #1a8eae;
+        background: #1a90b0;
         border: 0px solid #3B82F6;
         padding: 0.5rem 1rem;
         font-size: 1rem;
@@ -130,14 +134,14 @@ button[disabled]{
     .next-button{
         border-radius: 8px !important;
         padding: 5px 20px !important;
-        background-color: #1A8EAE !important;
-        border: 1px solid #1A8EAE !important;
+        background-color: #1a90b0 !important;
+        border: 1px solid #1a90b0 !important;
         color: #fff !important;
         font-size: 16px !important;
         font-family: $cairo_regular !important;
         text-transform: capitalize !important;
         &:hover{
-            color: #1A8EAE !important;
+            color: #1a90b0 !important;
             background: #fff !important;
         }
     }
@@ -147,7 +151,7 @@ button[disabled]{
       }
       .btn_walk{
         text-transform: capitalize;
-        background-color: #1A8EAE;
+        background-color: #1a90b0;
         color: #fff;
         padding: 5px 10px ;
         border-radius: 8px;
