@@ -72,7 +72,7 @@
                 <ng-template #actions let-user>
       
                     <div class="checked" *ngIf="user.isActive !=null">
-                      <lib-input-switch>
+                      <lib-input-switch
                         [id]="user.id"
                         (onChange)="confirmChange($event, user)"
                         [(ngModel)]="user.isActive"

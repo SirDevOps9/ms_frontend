@@ -79,7 +79,7 @@
             </ng-container>
             <ng-container *ngIf="i == 6">
               <div class="checked">
-              <lib-input-switch>
+              <lib-input-switch
                   [(ngModel)]="rowData.isActive"
                   (onChange)="changed($event, rowData.id)"
                 >
