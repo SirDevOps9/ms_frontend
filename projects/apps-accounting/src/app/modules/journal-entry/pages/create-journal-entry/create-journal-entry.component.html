@@ -5,6 +5,7 @@
     <button class="btn_walk" (click)="startTour()">walk through</button>
 
   </div>
+
   <div [formGroup]="fg" class="entry_header">
     <!-- <p class="title test">{{ 'journal_entry_header' | translate }}</p> -->
     <div class="grid">
@@ -188,11 +189,17 @@
             <td>
               {{ fg.controls['creditAmountLocal'].value | number : '1.0-2' }}
             </td>
-            <td>
-              
-              <img class="costCenterImg" src="assets/images/Frame.png" (click)="openCostPopup(fg.value ,fg,  fg.controls['account']?.value , i)" *ngIf="!fg.controls['costCenterConfig'].value  || fg.controls['costCenterConfig'].value == 'Mandatory'">
-              <p *ngIf="fg.controls['costCenterConfig'].value == 'NotAllow'">test</p>
-              <p *ngIf="fg.controls['costCenterConfig'].value == 'Optional'">ggggg</p>
+            <td>    
+              <div class="flex justify-content-center">
+                <img src="assets/images/groups.png" *ngIf="!fg.controls['selectedFalg'].value && !fg.controls['costCenters'].value">
+                <img src="assets/images/groups-mandtory-optional.png" alt="" *ngIf="fg.controls['costCenterConfig'].value == 'Optional' || fg.controls['costCenterConfig'].value == 'Mandatory' && !fg.controls['costCenters'].value" (click)="openCostPopup(fg.value ,fg,  fg.controls['account']?.value , i)">
+
+                <img src="assets/images/groups.png" alt="" *ngIf="fg.controls['costCenterConfig'].value == 'NotAllow' && !fg.controls['costCenters'].value" (click)="openCostPopup(fg.value ,fg,  fg.controls['account']?.value , i)">
+
+                <img src="assets/images/groups-data.png" alt="" *ngIf="fg.controls['costCenters'].value" (click)="openCostPopup(fg.value ,fg,  fg.controls['account']?.value , i)">
+
+              </div>          
+            
             </td>
             <td>
               <lib-button

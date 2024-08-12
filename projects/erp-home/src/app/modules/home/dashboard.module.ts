@@ -9,20 +9,20 @@ import { LayoutPageComponent } from 'apps-shared-lib';
 const routes : Routes = [
   {
     path: '',
-    component: LayoutPageComponent,
+    component: DashboardComponent,
     data: {
-      moduleId: Modules.GeneralSettings,
-    },
-    children : [
-      {
-        path: '',
-        component: DashboardComponent,
-        // canActivate: [AuthGuard],
-        data: {
-          breadcrumb: BreadcrumbLabel.DASHBOARD,
-        },
-      },
-    ]
+      breadcrumb: BreadcrumbLabel.DASHBOARD,   
+     },
+    // children : [
+    //   {
+    //     path: '',
+    //     component: DashboardComponent,
+    //     // canActivate: [AuthGuard],
+    //     data: {
+    //       breadcrumb: BreadcrumbLabel.DASHBOARD,
+    //     },
+    //   },
+    // ]
   }
  
 ] 

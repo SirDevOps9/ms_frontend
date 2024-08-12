@@ -94,6 +94,10 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
 
   }
 
+  onRemove(i:number) {
+    this.allocationform.removeAt(i)
+  }
+
 
 
   initValueChangeHandlers() {
