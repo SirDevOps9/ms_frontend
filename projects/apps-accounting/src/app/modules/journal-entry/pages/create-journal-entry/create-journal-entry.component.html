@@ -82,6 +82,8 @@
                       optionLabel="displayName"
                       [customClass]="'add-journal'"
                       (valueChanged)="accountSelected($event, i)"
+                      (valueSearchChanged)="onFilter($event)"
+
                     ></lib-select>
                     <i class="pi pi-search search-circle" (click)="openDialog(i)"></i>
                   </div>
@@ -201,6 +203,21 @@
                 severity="secondary"
               ></lib-button>
             </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr>
+            <td class="imptyData" ></td>
+            <td class="imptyData" ></td>
+            <td class="imptyData" ></td>
+            <td class="imptyData" ></td>
+            <td class="total" >{{totalDebitAmount}}</td>
+            <td class="total" >{{totalCreditAmount}}</td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
           </tr>
         </ng-template>
       </p-table>

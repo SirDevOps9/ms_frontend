@@ -211,12 +211,13 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   addNewRow() {
+    if (!this.formsService.validForm(this.editJournalForm, false)) return;
     let newLine = this.fb.group(
       {
         id: new FormControl(0),
-        accountCode: new FormControl('', [customValidators.required]),
-        accountId: new FormControl(),
-        accountName: new FormControl(),
+        accountCode: new FormControl(null, [customValidators.required]),
+        accountId: new FormControl(null, [customValidators.required]),
+        accountName: new FormControl(null),
         lineDescription: new FormControl(null, [customValidators.required]),
         debitAmount: new FormControl(null, [customValidators.required, Validators.min(0)]),
         creditAmount: new FormControl(null, [customValidators.required, Validators.min(0)]),

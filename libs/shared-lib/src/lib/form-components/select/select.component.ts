@@ -37,6 +37,7 @@ SelectComponent implements ControlValueAccessor, Validator {
   @Input() labelTest: any;
 
   @Output() valueChanged = new EventEmitter<string>();
+  @Output() valueSearchChanged = new EventEmitter<any>();
 
   value: string = '';
   onChange = (value: any) => {};
@@ -82,6 +83,9 @@ SelectComponent implements ControlValueAccessor, Validator {
     if (this.controlDir) {
       this.controlDir.valueAccessor = this;
     }
+  }
+  onFilter(e: any){
+    this.valueSearchChanged.emit(e.filter);
   }
   ngAfterViewInit(){
     if (this.controlDir) {
