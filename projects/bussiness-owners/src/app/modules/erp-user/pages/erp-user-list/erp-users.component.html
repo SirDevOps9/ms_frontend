@@ -91,12 +91,12 @@
           </td>
           <td>
             <div class="checked" *ngIf="user.invitationStatus == 2">
-              <p-inputSwitch
+            <lib-input-switch>
                 [id]="user.id"
                 (onChange)="changed($event, user.id)"
                 value="user.isActive"
               >
-              </p-inputSwitch>
+            </lib-input-switch>
               <p class="active" *ngIf="user.isActive">
                 {{ "User.Activate" | translate }}
               </p>

@@ -79,11 +79,11 @@
             </ng-container>
             <ng-container *ngIf="i == 6">
               <div class="checked">
-                <p-inputSwitch
+              <lib-input-switch>
                   [(ngModel)]="rowData.isActive"
                   (onChange)="changed($event, rowData.id)"
                 >
-                </p-inputSwitch>
+              </lib-input-switch>
                 <p class="active body_b16" *ngIf="rowData.isActive">
                   {{ "User.Activate" | translate }}
                 </p>

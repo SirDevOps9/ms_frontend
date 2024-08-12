@@ -85,12 +85,12 @@
           </td>
           <td>
             <div class="checked">
-              <p-inputSwitch
+             <lib-input-switch>
                 [id]="branch.id"
                 (onChange)="toggle(branch.id, branch.isActive)"
                 [(ngModel)]="branch.isActive"
               >
-              </p-inputSwitch>
+             </lib-input-switch>
               <p class="active" *ngIf="branch.isActive">
                 {{ "Company.Activate" | translate }}
               </p>
