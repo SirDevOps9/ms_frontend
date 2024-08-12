@@ -108,9 +108,9 @@ export class TagListComponent implements OnInit {
   }
   routeToEdit(data: any) {
     const dialogRef = this.dialog.open(TagEditComponent, {
-      header: this.languageService.transalte('tag.EditTag'),
+      // header: this.languageService.transalte('tag.EditTag'),
       width: '800px',
-      position: 'bottom-right', // A
+    //  position: 'bottom-right', // A
       data: data,
     });
 
@@ -129,9 +129,9 @@ export class TagListComponent implements OnInit {
 
   newTag() {
     const dialogRef = this.dialog.open(TagAddComponent, {
-      header: this.languageService.transalte('tag.AddNewTag'),
+      // header: this.languageService.transalte('tag.AddNewTag'),
       width: '600px',
-      position: 'bottom-right', // Adjust position as needed
+      // position: 'bottom-right', // Adjust position as needed
     });
 
     dialogRef.onClose.subscribe(() => {

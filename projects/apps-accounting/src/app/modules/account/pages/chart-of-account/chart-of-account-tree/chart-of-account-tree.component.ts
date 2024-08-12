@@ -48,7 +48,7 @@ export class ChartOfAccountTreeComponent implements OnInit {
         accountCode: item.accountCode,
         ParentId: item.ParentId,
         LevelId: item.LevelId,
-        label: item.name, // Assuming you want to display the English label
+        label: item.name + ' - ' + item.accountCode, // Assuming you want to display the English label
         children: item.childrens ? this.mapToTreeNodes(item.childrens) : [],
       };
     });

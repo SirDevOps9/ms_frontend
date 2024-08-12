@@ -56,7 +56,8 @@
     "Actions": "Actions",
     "ChooseAnAccount":"Choose An Account",
     "Select": "Select",
-    "Id": "Id"
+    "Id": "Id",
+    "levelNumber":"Account Level"
   },
   "Journal": {
     "Title": "Journal Entry List",

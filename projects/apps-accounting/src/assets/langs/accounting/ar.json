@@ -1,4 +1,4 @@
-{ 
+{
   "BreadCrumb": {
     "ChartOfAccount": "دليل الحسابات",
     "TaxGroup": "مجموعة الضرائب",
@@ -53,10 +53,11 @@
     "import": "استيراد",
     "edit": "تعديل",
     "Configration": "إعدادات",
-    "ChooseAnAccount":"اختر حساب",
+    "ChooseAnAccount": "اختر حساب",
     "Select": "اختر",
     "Actions": "العمليات",
-    "Id": "الرقم التعريفي"
+    "Id": "الرقم التعريفي",
+    "levelNumber": "مستوى الحساب"
   },
   "Journal": {
     "Title": " قائمة القيود اليومية",
@@ -288,7 +289,7 @@
     "credit": "دائن",
     "viewData": "عرض البيانات",
     "trialBalance": "ميزان المراجعة",
-    "allowZero":"عرض القيم الصفرية في التقرير"
+    "allowZero": "عرض القيم الصفرية في التقرير"
   },
   "reportAccount": {
     "AccountStatement": "كشف الحساب"
@@ -344,6 +345,5 @@
     "title": "تقرير مركز التكلفة",
     "ViewData": "عرض البيانات",
     "Select": "اختر"
-
-}
+  }
 }

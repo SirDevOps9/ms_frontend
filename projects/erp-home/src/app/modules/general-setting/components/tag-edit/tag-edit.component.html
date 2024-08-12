@@ -1,87 +1,130 @@
-<div class="invite_user">
-  <form class="domain_form" [formGroup]="tagForm" (ngSubmit)="onSubmit()">
-    <div class="domain_content">
-      <div class="grid">
-        <div class="col-12">
-          <lib-form-group>
-            <lib-text-input
-              [iconUrl]="'assets/images/Vector.png'"
-              placeholder="{{ 'tag.addtag.code' | translate }}"
-              type="text"
-              formControlName="Code"
-              [readOnly]="true"
-              class="form-control"
-            ></lib-text-input>
-            <lib-field-validations [appControl]="tagForm.controls['Code']"></lib-field-validations>
-          </lib-form-group>
-        </div>
-        <!--  -->
-        <div class="col-12">
-          <lib-form-group>
-            <lib-text-input
-              placeholder="{{ 'tag.addtag.name' | translate }}"
-              [iconUrl]="'assets/images/fi-rr-text-check@2x.png'"
-              type="text"
-              formControlName="Name"
-            ></lib-text-input>
-            <lib-field-validations [appControl]="tagForm.controls['Name']"></lib-field-validations>
-          </lib-form-group>
+<div class="pop_up_config_page">
+  <div class="pop_up_header">
+    <div class="header_content">
+      <div class="title">
+        <!-- <div class="plus_icon"></div> -->
+        {{ 'tag.AddNewTag' | translate }}
+      </div>
+      <div class="cancel" (click)="onCancel()">
+        <!-- <img src="/projects/apps-accounting/src/assets/images/close.svg" alt=""> -->
+      </div>
+    </div>
+  </div>
+  <div class="pop_up_content">
+    <form class="domain_form" [formGroup]="tagForm" (ngSubmit)="onSubmit()">
+      <div class="domain_content">
+        <div class="grid">
+          <div class="col-12">
+            <lib-form-group>
+              <lib-text-input
+                [iconUrl]="'assets/images/Vector.png'"
+                placeholder="{{ 'tag.addtag.code' | translate }}"
+                type="text"
+                formControlName="Code"
+                [readOnly]="true"
+                class="form-control"
+              ></lib-text-input>
+              <lib-field-validations
+                [appControl]="tagForm.controls['Code']"
+              ></lib-field-validations>
+            </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="col-12">
+            <lib-form-group>
+              <lib-text-input
+                placeholder="{{ 'tag.addtag.name' | translate }}"
+                [iconUrl]="'assets/images/fi-rr-text-check@2x.png'"
+                type="text"
+                formControlName="Name"
+              ></lib-text-input>
+              <lib-field-validations
+                [appControl]="tagForm.controls['Name']"
+              ></lib-field-validations>
+            </lib-form-group>
+          </div>
+
+          <!--  -->
+
+          <div class="col-12">
+            <lib-form-group>
+              <lib-multi-select
+                placeholder="{{ 'tag.addtag.applicability' | translate }}"
+                [options]="modulelist"
+                optionLabel="module"
+                optionValue="moduleId"
+                formControlName="ModulesId"
+                [selectedValue]="selectedModules!"
+              >
+              </lib-multi-select>
+              <lib-field-validations
+                [appControl]="tagForm.controls['ModulesId']"
+              ></lib-field-validations>
+            </lib-form-group>
+          </div>
+
+          <div class="col-12">
+            <lib-form-group>
+              <div class="checked">
+                <p-inputSwitch formControlName="IsActive"></p-inputSwitch>
+                <p class="active" *ngIf="tagForm.controls['IsActive'].value">
+                  {{ 'tag.Active' | translate }}
+                </p>
+                <p class="inactive" *ngIf="!tagForm.controls['IsActive'].value">
+                  {{ 'tag.Deactivate' | translate }}
+                </p>
+              </div>
+              <lib-field-validations
+                [appControl]="tagForm.controls['IsActive']"
+              ></lib-field-validations>
+            </lib-form-group>
+          </div>
         </div>
 
-        <!--  -->
-
-        <div class="col-12">
-          <lib-form-group>
-            <lib-multi-select
-              placeholder="{{ 'tag.addtag.applicability' | translate }}"
-              [options]="modulelist"
-              optionLabel="module"
-              optionValue="moduleId"
-              formControlName="ModulesId"
-              [selectedValue]="selectedModules!"
+        <!-- <div class="grid justify-content-center">
+          <div class="col-6">
+            <lib-button type="button" [className]="'custom-danger-outline'" (click)="onCancel()">
+              {{ 'tag.addtag.cancel' | translate }}
+            </lib-button>
+          </div>
+          <div class="col-6">
+            <lib-button
+              type="submit"
+              [className]="'custom-light-blue'"
+              class="save"
+              (click)="onSubmit()"
             >
-            </lib-multi-select>
-            <lib-field-validations
-              [appControl]="tagForm.controls['ModulesId']"
-            ></lib-field-validations>
-          </lib-form-group>
-        </div>
-
-        <div class="col-12">
-          <lib-form-group>
-            <div class="checked">
-              <p-inputSwitch formControlName="IsActive"></p-inputSwitch>
-              <p class="active" *ngIf="tagForm.controls['IsActive'].value">
-                {{ 'tag.Active' | translate }}
-              </p>
-              <p class="inactive" *ngIf="!tagForm.controls['IsActive'].value">
-                {{ 'tag.Deactivate' | translate }}
-              </p>
-            </div>
-            <lib-field-validations
-              [appControl]="tagForm.controls['IsActive']"
-            ></lib-field-validations>
-          </lib-form-group>
+              {{ 'tag.addtag.save' | translate }}
+            </lib-button>
+          </div>
+        </div> -->
+      </div>
+    </form>
+  </div>
+  <div class="pop_up_footer">
+    <div class="grid">
+      <div class="md:col-6">
+        <div class="cancel_btn">
+          <lib-button-micro
+            title="{{ 'tag.addtag.cancel' | translate }}"
+            nameClass="cancel"
+            (click)="onCancel()"
+            widthNumber="100%"
+          >
+          </lib-button-micro>
         </div>
       </div>
-
-      <div class="grid justify-content-center">
-        <div class="col-6">
-          <lib-button type="button" [className]="'custom-danger-outline'" (click)="onCancel()">
-            {{ 'tag.addtag.cancel' | translate }}
-          </lib-button>
-        </div>
-        <div class="col-6">
-          <lib-button
-            type="submit"
-            [className]="'custom-light-blue'"
-            class="save"
+      <div class="md:col-6">
+        <div class="save_btn">
+          <lib-button-micro
+            title="{{ 'tag.addtag.save' | translate }}"
+            nameClass="save"
             (click)="onSubmit()"
+            widthNumber="100%"
           >
-            {{ 'tag.addtag.save' | translate }}
-          </lib-button>
+          </lib-button-micro>
         </div>
       </div>
     </div>
-  </form>
+  </div>
 </div>

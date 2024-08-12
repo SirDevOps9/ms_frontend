@@ -46,12 +46,7 @@ export class GeneralSettingProxy {
     searchTerm: string,
     pageInfo: PageInfo
   ): Observable<PaginationVm<financialCalendar>> {
-    const queryParams = new URLSearchParams({
-      SearchKey: searchTerm,
-      PageNumber: pageInfo.pageNumber.toString(),
-      PageSize: pageInfo.pageSize.toString(),
-    });
-    const url = `FinancialYear?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+    const url = `FinancialYear?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
 
     return this.httpService.get<PaginationVm<financialCalendar>>(url);
   }

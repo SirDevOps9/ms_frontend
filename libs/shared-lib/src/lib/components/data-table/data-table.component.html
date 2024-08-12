@@ -1,6 +1,6 @@
 <div class="viewInWeb">
   <div class="row">
-    <div >
+    <div>
       <p-table
         *ngIf="items"
         #dt
@@ -13,7 +13,7 @@
         [rowHover]="true"
         [dataKey]="tableConfigs.dataKey"
         [showCurrentPageReport]="true"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        currentPageReportTemplate="Showing {first} to {last} / {totalRecords} entries"
         class="flex flex-column"
         columnResizeMode="expand"
         styleClass="p-datatable-striped p-datatable-gridlines"
@@ -34,7 +34,7 @@
               [showCurrentPageReport]="true"
               [showPageLinks]="false"
               [showFirstLastIcon]="false"
-              currentPageReportTemplate="{first} - {last} of {totalRecords}"
+              currentPageReportTemplate="{first} - {last} / {totalRecords}"
               [first]="first"
             ></p-paginator>
           </div>
