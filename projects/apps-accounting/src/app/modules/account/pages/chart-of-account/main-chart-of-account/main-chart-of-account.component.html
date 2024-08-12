@@ -6,7 +6,24 @@
       nameClass="save"
         (click)="RedirectToConfiguration()"
         *ngIf="!Viewlist"
-        style="width: 100%"
+      >
+      </lib-button-micro>
+
+     
+      <lib-button-micro
+      [title]="'ChartOfAccount.import' | translate"
+      nameClass="outline"
+        iconName=" pi pi-cloud-download"
+      >
+      </lib-button-micro>
+
+
+      <lib-button-micro
+      [title]="'ChartOfAccount.edit' | translate"
+      nameClass="save"
+        (click)="editMode()"
+        iconName=" pi pi-user-edit"
+        *ngIf="!Viewlist && view"
       >
       </lib-button-micro>
        <lib-button-micro
