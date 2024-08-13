@@ -101,6 +101,17 @@ defoultSelectedAcounts:number[]=[]
         
           this.journalEntryService.accountReport.subscribe(((res:any)=>{
              this.tableData=res
+             this.tableData = this.tableData.map(x => {
+              return {
+                ...x,
+                journalEntry: x.journalEntryDtos.map(t => {
+                  return {
+                    ...t,
+                    balance: t.balance < 0 ? Math.abs(t.balance) : t.balance
+                  };
+                })
+              };
+            });
             
           }))
         }
