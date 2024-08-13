@@ -80,13 +80,16 @@
             <lib-label [appControl]="editCurrencyForm.controls['differenceAccount']">
               {{ 'addcurrency.currencyDifferenceAccount' | translate }}
             </lib-label>
-            <lib-select
+            <div class="flex gap-2 align-items-center">
+              <lib-select
               [selectedValue]="editCurrencyForm.controls['differenceAccount'].value"
               formControlName="differenceAccount"
               [options]="accountsList"
               optionLabel="name"
               optionValue="id"
-            ></lib-select>
+              ></lib-select>
+              <i class="pi pi-search search-circle" (click)="openDialog()"></i>
+             </div>
             <lib-field-validations
               [appControl]="editCurrencyForm.controls['differenceAccount']"
             ></lib-field-validations>

@@ -4,6 +4,7 @@ import { debounceTime } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { TextInputComponent } from 'libs/shared-lib/src/lib/form-components';
 import { LayoutService } from '../../modules/layout/layout.service';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'lib-module-list',
@@ -25,6 +26,10 @@ export class ModuleListComponent implements OnInit {
     });
   }
 
+
+close(){
+  this.ref.close()
+}
   navigateto(key: number) {
     if (key === Modules.Hr) {
       location.href = '../hr';
@@ -41,5 +46,5 @@ export class ModuleListComponent implements OnInit {
     }
   }
 
-  constructor(public layoutService: LayoutService) {}
+  constructor(public layoutService: LayoutService , private ref : DynamicDialogRef) {}
 }

@@ -1,12 +1,13 @@
 .landing-page {
+  background: url("../../../../../../projects/apps-accounting/src/assets/images/dashboard-bg.png") no-repeat center center;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to right, #198EAF, #1A94B5); /* Gradient background */
-  color: white;
-  font-family: Arial, sans-serif;
-  text-align: center;
+  /* background: linear-gradient(to right, #198EAF, #1A94B5);  */
+  /* color: white; */
+  /* font-family: Arial, sans-serif; */
+  /* text-align: center; */
 }
 
 .content {

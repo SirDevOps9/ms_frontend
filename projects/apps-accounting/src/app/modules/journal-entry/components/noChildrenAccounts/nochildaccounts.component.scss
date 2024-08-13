@@ -31,4 +31,11 @@
         font-weight: 700;
       }
     }
-  
+  ::ng-deep .contChild {
+    .paginationHead {
+      position: absolute;
+      top: 8px !important;
+      left: 414px !important;
+      right : 0 !important
+  }
+  }

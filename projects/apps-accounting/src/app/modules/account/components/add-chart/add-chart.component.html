@@ -177,7 +177,7 @@
                   {{ 'ChartOfAccounts.HasNoChild' | translate }}
                 </lib-label>
                 <div >
-                  <lib-input-switch formControlName="hasNoChild" (onChange)="toggleCurrencyVisibility()">
+                  <lib-input-switch formControlName="hasNoChild" (ngModelChange)="toggleCurrencyVisibility()">
                   </lib-input-switch>
       
                   <!-- <lib-toggel formControlName="hasNoChild" (valueChanged)="toggleCurrencyVisibility()">
@@ -194,6 +194,7 @@
                     [options]="currencies"
                     optionValue="id"
                     optionLabel="name"
+                    [selectedValue]="formGroup.controls['currencyId'].value"
                   >
                   </lib-select>
                 </lib-form-group>
@@ -335,12 +336,37 @@
     
     </div>
   </form>
-  <div class="action">
-    <lib-button-micro
-      title="{{ 'ChartOfAccounts.Save' | translate }}"
-      nameClass="save"
-      (click)="onSubmit()"
+  <div class="btn_group ">
+    <div class="grid">
+      <div class="md:col-3">
+        <div class="grid">
+          <div class="md:col-6">
+            <lib-button-micro
+      title="{{ 'ChartOfAccounts.Cancel' | translate }}"
+      nameClass="cancel"
+      (click)="cancel()"
+      widthNumber=100%
+     
     >
     </lib-button-micro>
+          </div>
+          <div class="md:col-6">
+            <lib-button-micro
+    title="{{ 'ChartOfAccounts.Save' | translate }}"
+    nameClass="save"
+    (click)="onSubmit()"
+    widthNumber=100%
+  >
+  </lib-button-micro>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="action">
+ 
+    
+    
   </div>
 </div>

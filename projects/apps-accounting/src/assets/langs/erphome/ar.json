@@ -264,7 +264,8 @@
     "Error": "خطأ",
     "Yes": "نعم",
     "No": "لا",
-    "Save": "حفظ"
+    "Save": "حفظ",
+    "Cancel": "إلغاء"
   },
   "AccountStatement": {
     "posted": "تم النشر",

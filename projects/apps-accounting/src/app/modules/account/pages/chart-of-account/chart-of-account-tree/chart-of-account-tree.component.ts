@@ -54,7 +54,7 @@ export class ChartOfAccountTreeComponent implements OnInit {
     });
     return data;
   }
-  addChild(parentNode: any) {
+  addChild(parentNode: any) {  
     this.activeNode = parentNode;
     this.parentAdded = parentNode;
     this.newChiled = false;
@@ -105,6 +105,12 @@ export class ChartOfAccountTreeComponent implements OnInit {
     this.view = true;
   }
   viewMode(event: number) {
+    if (event === -1) {
+      this.edit = false;
+      this.add = false;
+      this.view = false;
+      return;
+    }
     setTimeout(() => {
       this.edit = false;
       this.add = false;
@@ -119,7 +125,16 @@ export class ChartOfAccountTreeComponent implements OnInit {
   }
 
   handleOperationCompleted(event: any) {
+    console.log(event,"eveeeee");
+    console.log(event.id);
+    
     this.getTreeList();
+    if(event.id){
+      this.viewMode(event.id)
+
+      this.expandParents(event)
+      this.setActiveNode(event.id)
+    }
     this.add = false;
   }
   toggelTree() {
@@ -154,7 +169,7 @@ export class ChartOfAccountTreeComponent implements OnInit {
         }
         if (node.children) {
           const foundChild = findNode(node.children);
-          if (foundChild) {
+          if (foundChild ) {
             return foundChild;
           }
         }

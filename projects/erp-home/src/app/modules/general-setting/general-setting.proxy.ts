@@ -21,6 +21,7 @@ import {
   ExportCurrencyConversionDto,
   ExportTagDto,
   GetLastYearInfoDto,
+  AccountDto,
 } from './models';
 
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
@@ -255,6 +256,16 @@ export class GeneralSettingProxy {
     }
     return this.httpService.get<ExportTagDto[]>(query);
   }
+
+  getAccountsHasNoChildren(
+    quieries: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<AccountDto>> { 
+    return this.httpService.get<PaginationVm<AccountDto>>(
+      `ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}&${quieries ? quieries : ''}`
+    );
+  }
+  
 
   constructor(private httpService: HttpService) {}
 }

@@ -28,3 +28,5 @@ export * from './export-currency-conversion-dto';
 export * from './export-tag-dto';
 export * from './getLastYearInfoDto';
 export * from './monthDto';
+export * from './accountDto';
+
