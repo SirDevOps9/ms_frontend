@@ -143,8 +143,8 @@
             <td class="imptyData"></td>
             <td class="imptyData"></td>
             <td class="imptyData"></td>
-            <td class="total">{{ table.totalDebit }}</td>
-            <td class="total">{{ table.totalCredit }}</td>
+            <td class="total">{{ generalService.formatNumber(  table.totalDebit, generalService.fraction) }}</td>
+            <td class="total">{{ generalService.formatNumber(  table.totalCredit, generalService.fraction)}}</td>
             <td class="imptyData"></td>
           </tr>
         </ng-container>

@@ -110,7 +110,6 @@ defoultSelectedAcounts:number[]=[]
                   const formatdebitAmount=this.generalService.formatNumber(t?.debitAmount, this.generalService.fraction)
                 const formatcreditAmount=this.generalService.formatNumber(t?.creditAmount, this.generalService.fraction)
                 const balance=this.generalService.formatNumber(t?.balance, this.generalService.fraction)
-                console.log("sandra",formatdebitAmount)
                   return {
                     ...t,
                     creditAmount:formatcreditAmount,
