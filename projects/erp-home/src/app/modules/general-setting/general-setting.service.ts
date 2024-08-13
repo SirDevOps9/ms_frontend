@@ -27,6 +27,7 @@ import {
   ExportCurrencyConversionDto,
   ExportTagDto,
   GetLastYearInfoDto,
+  AccountDto,
 } from './models';
 
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
@@ -150,6 +151,11 @@ export class GeneralSettingService {
   public addCustomerCategoryDataObservable = this.addCustomerCategoryData.asObservable();
 
   public vendorDefinitionDataSourceObservable = this.vendorDefinitionDataSource.asObservable();
+
+  private childrenAccountDataSource = new BehaviorSubject<AccountDto[]>([]);
+  public childrenAccountList = this.childrenAccountDataSource.asObservable();
+  public childrenAccountPageInfo = new BehaviorSubject<PageInfoResult>({});
+
 
   getTagList(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getAllTagsPaginated(searchTerm, pageInfo).subscribe({
@@ -732,6 +738,14 @@ export class GeneralSettingService {
       },
     });
   }
+
+  getAccountChildrenList(quieries: string, pageInfo: PageInfo) {
+    this.GeneralSettingproxy.getAccountsHasNoChildren(quieries, pageInfo).subscribe((res) => {
+      this.childrenAccountDataSource.next(res.result);
+      this.childrenAccountPageInfo.next(res.pageInfoResult);
+    });
+  }
+
   constructor(
     private GeneralSettingproxy: GeneralSettingProxy,
     private loaderService: LoaderService,
