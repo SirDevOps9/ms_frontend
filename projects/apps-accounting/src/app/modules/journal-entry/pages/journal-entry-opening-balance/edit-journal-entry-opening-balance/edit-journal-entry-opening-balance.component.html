@@ -180,7 +180,7 @@
                       ></lib-text-input>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{ journalLine.controls['debitAmount'].value }}
+                      {{generalService.formatNumber( journalLine.controls['debitAmount'].value , generalService.fraction) }}
                     </ng-template>
                   </p-cellEditor>
                   <lib-field-validations [appControl]="journalLine">
@@ -199,7 +199,7 @@
                       ></lib-text-input>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{ journalLine.controls['creditAmount'].value }}
+                      {{generalService.formatNumber(journalLine.controls['creditAmount'].value, generalService.fraction) }}
                     </ng-template>
                   </p-cellEditor>
                   <lib-field-validations [appControl]="journalLine">
@@ -223,10 +223,11 @@
                   </lib-form-group>
                 </td>
                 <td>
-                  {{ journalLine.get('debitAmountLocal').value }}
+                  {{generalService.formatNumber(journalLine.get('debitAmountLocal').value , generalService.fraction) }}
+
                 </td>
                 <td>
-                  {{ journalLine.get('creditAmountLocal').value }}
+                  {{generalService.formatNumber(journalLine.get('creditAmountLocal').value , generalService.fraction) }}
                 </td>
                 <td>
                   <img class="costCenterImg" src="assets/images/Frame.png" (click)="openCostPopup(journalLine.value , journalLine , journalLine.controls['accountId']?.value , rowIndex)">
