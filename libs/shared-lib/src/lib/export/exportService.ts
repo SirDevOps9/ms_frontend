@@ -1,46 +1,53 @@
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-  
+import { lookupDto } from 'shared-lib';
 
 export class ExportService {
-
-  static async ToPDF(jsonData: any[], fileName: string, includeColumns: string[] = []): Promise<void> {
-    
-    const doc =  await addFontFromUrl('/erp/media/Cairo-Regular.ttf', 'Cairo');
-
-    
+  static async ToPDF(
+    jsonData: any[],
+    fileName: string,
+    includeColumns: lookupDto[] = []
+  ): Promise<void> {
+    const doc = await addFontFromUrl('/erp/media/Cairo-Regular.ttf', 'Cairo');
     let flattenData: any[];
-  
+
     // Check if jsonData is in a tree structure and flatten if necessary
     if (this.isTreeStructure(jsonData)) {
       flattenData = this.flattenTree(jsonData);
     } else {
       flattenData = jsonData;
     }
-  
+
     const filteredData = flattenData.map((row) => {
       const filteredRow: any = {};
-      if (includeColumns && includeColumns.length > 0) {
-        for (const key in row) {
-          if (row.hasOwnProperty(key) && includeColumns.map(col => col.toLowerCase()).includes(key.toLowerCase())) {
-            filteredRow[key] = row[key];
-          }
-        }
-      } else {
-        // Include all columns
-        for (const key in row) {
-          if (row.hasOwnProperty(key)) {
+      // if (includeColumns && includeColumns.length > 0) {
+      //   for (const key in row) {
+      //     if (
+      //       row.hasOwnProperty(key) &&
+      //       includeColumns
+      //         .map((col) => col.name.toString().toLowerCase())
+      //         .includes(key.toLowerCase())
+      //     ) {
+      //       filteredRow[key] = row[key];
+      //     }
+      //   }
+      // } else {
+      // Include all columns
+      for (const key in row) {
+        if (row.hasOwnProperty(key)) {
+          if (row.hasOwnProperty(key) && key.toLowerCase() !== 'id') {
             filteredRow[key] = row[key];
           }
         }
       }
+      //}
       return filteredRow;
     });
-  
+
     // Extract headers dynamically from filtered data
     const headers = [Object.keys(filteredData[0])];
-  
+
     // Generate table
     // Set document language to Arabic for RTL support
     doc.setLanguage('ar');
@@ -48,23 +55,20 @@ export class ExportService {
     // Generate table
     autoTable(doc, {
       head: headers,
-      body: filteredData.map(item => Object.values(item)),
-      styles: { font: 'Cairo',halign: "center" },
+      body: filteredData.map((item) => Object.values(item)),
+      styles: { font: 'Cairo', halign: 'center' },
       didDrawCell: (data) => {
         doc.setFont('Cairo');
-      }
+      },
     });
 
-  
-      doc.save(fileName);
+    doc.save(fileName);
   }
-  
 
-
-  static ToExcel(jsonData: any[], fileName: string, includeColumns: string[] = []): void {
+  static ToExcel(jsonData: any[], fileName: string, includeColumns: lookupDto[] = []): void {
     let flattenData: any[];
 
-    console.log(jsonData)
+    console.log(jsonData);
 
     if (this.isTreeStructure(jsonData)) {
       // Function to flatten the nested tree structure
@@ -77,20 +81,25 @@ export class ExportService {
     // Apply filtering and prepare final data for export
     const filteredData = flattenData.map((row) => {
       const filteredRow: any = {};
-      if (includeColumns && includeColumns.length > 0) {
-        for (const key in row) {
-          if (row.hasOwnProperty(key) && includeColumns.map(col => col.toLowerCase()).includes(key.toLowerCase())) {
-            filteredRow[key] = row[key];
-          }
-        }
-      } else {
-        // Include all columns except 'id'
-        for (const key in row) {
-          if (row.hasOwnProperty(key) && key.toLowerCase() !== 'id') {
-            filteredRow[key] = row[key];
-          }
+      // if (includeColumns && includeColumns.length > 0) {
+      //   for (const key in row) {
+      //     if (
+      //       row.hasOwnProperty(key) &&
+      //       includeColumns
+      //         .map((col) => col.name.toString().toLowerCase())
+      //         .includes(key.toLowerCase())
+      //     ) {
+      //       filteredRow[key] = row[key];
+      //     }
+      //   }
+      // } else {
+      // Include all columns except 'id'
+      for (const key in row) {
+        if (row.hasOwnProperty(key) && key.toLowerCase() !== 'id') {
+          filteredRow[key] = row[key];
         }
       }
+      // }
       return filteredRow;
     });
 
@@ -133,10 +142,12 @@ export class ExportService {
 
     return result;
   }
-
- 
 }
-async function addFontFromUrl(url: string, fontName: string, style: string = 'normal'): Promise<jsPDF> {
+async function addFontFromUrl(
+  url: string,
+  fontName: string,
+  style: string = 'normal'
+): Promise<jsPDF> {
   try {
     console.log(`Fetching font from URL: ${url}`);
     const response = await fetch(url);
@@ -148,7 +159,7 @@ async function addFontFromUrl(url: string, fontName: string, style: string = 'no
     console.log('Font fetched successfully');
 
     // Convert blob to base64
-    const fontBase64 =  await blobToBase64(fontBlob);
+    const fontBase64 = await blobToBase64(fontBlob);
     const base64Data = fontBase64.split(',')[1]; // Extract base64 data from data URL
 
     const doc = new jsPDF();
@@ -159,13 +170,11 @@ async function addFontFromUrl(url: string, fontName: string, style: string = 'no
 
     console.log('Font added to jsPDF successfully');
     return doc;
-
   } catch (error) {
     console.error('Error fetching or using font:', error);
     throw error;
   }
 }
-
 
 function blobToBase64(blob: Blob): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -175,5 +184,3 @@ function blobToBase64(blob: Blob): Promise<string> {
     reader.readAsDataURL(blob);
   });
 }
-
-
