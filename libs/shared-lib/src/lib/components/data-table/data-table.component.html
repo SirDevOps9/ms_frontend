@@ -1,9 +1,6 @@
-
-
-
 <div class="viewInWeb">
   <div class="row">
-    <div class="col-12">
+    <div>
       <p-table
         *ngIf="items"
         #dt
@@ -16,7 +13,7 @@
         [rowHover]="true"
         [dataKey]="tableConfigs.dataKey"
         [showCurrentPageReport]="true"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        currentPageReportTemplate="Showing {first} to {last} / {totalRecords} entries"
         class="flex flex-column"
         columnResizeMode="expand"
         styleClass="p-datatable-striped p-datatable-gridlines"
@@ -25,20 +22,22 @@
         [ngClass]="{ empty: items.length <= 0 }"
       >
         <ng-template pTemplate="caption">
-
-       
-          <div class="flex align-items-center justify-content-end gap-2 paginationHead" *ngIf="tableConfigs.allowServerPagination" [class.none]="currentPageResult.totalItems! <= 25">  
+          <div
+            class="flex align-items-center justify-content-end gap-2 paginationHead"
+            *ngIf="tableConfigs.allowServerPagination"
+            [class.none]="currentPageResult.totalItems! <= 25"
+          >
             <p-paginator
-            (onPageChange)="onPageChange2($event)"
-            [rows]="currentPageResult.pageSize!"
-            [totalRecords]="currentPageResult.totalItems!"
-            [showCurrentPageReport]="true"
-            [showPageLinks]="false"
-            [showFirstLastIcon]="false"
-            currentPageReportTemplate="{first} - {last} of {totalRecords}"
-            [first]="first"
+              (onPageChange)="onPageChange2($event)"
+              [rows]="currentPageResult.pageSize!"
+              [totalRecords]="currentPageResult.totalItems!"
+              [showCurrentPageReport]="true"
+              [showPageLinks]="false"
+              [showFirstLastIcon]="false"
+              currentPageReportTemplate="{first} - {last} / {totalRecords}"
+              [first]="first"
             ></p-paginator>
-     </div>
+          </div>
           <ng-content select="[caption]"> </ng-content>
         </ng-template>
 
@@ -82,17 +81,19 @@
                   {{ col.headerText }}
 
                   <p-sortIcon [field]="col.name"></p-sortIcon>
-
-
-                  
                 </th>
-                <th [attr.rowspan]="col.rowspan || 1" [attr.colspan]="col.colspan" [ngClass]="col.class"
-                  *ngIf="!col.isSortable" class="body_b16">
-               <div class="flex gap-3 justify-content-between align-content-center">
-                {{ col.headerText }}
+                <th
+                  [attr.rowspan]="col.rowspan || 1"
+                  [attr.colspan]="col.colspan"
+                  [ngClass]="col.class"
+                  *ngIf="!col.isSortable"
+                  class="body_b16"
+                >
+                  <div class="flex gap-3 justify-content-between align-content-center">
+                    {{ col.headerText }}
 
-                <!-- <i class="pi pi-filter-slash"></i> -->
-                <!-- <div class="p-d-flex p-jc-between p-ai-center">
+                    <!-- <i class="pi pi-filter-slash"></i> -->
+                    <!-- <div class="p-d-flex p-jc-between p-ai-center">
                   
                   <p-columnFilter  field="activity" 
                   matchMode="between" 
@@ -117,13 +118,10 @@
                     </ng-template>
                   </p-columnFilter>
                 </div> -->
-               </div>
-
+                  </div>
                 </th>
-
               </ng-container>
             </ng-container>
-
           </tr>
 
           <!-- Second level header row -->
@@ -156,7 +154,6 @@
               </ng-container>
             </ng-container>
           </tr>
-         
         </ng-template>
         <!-- ///////////// -->
         <!-- <ng-template pTemplate="body" let-row let-i="rowIndex">
@@ -222,19 +219,14 @@
         <ng-template pTemplate="footer">
           <ng-content select="[footer]"> </ng-content>
         </ng-template>
-
-
       </p-table>
       <ng-container *ngIf="!items.length">
-       
         <div class="flex justify-content-center mt-4" (click)="addNewItem()">
           <div class="flex gap-2 align-content-center pointer">
-          <i class="pi pi-plus"></i>  <small>There is no data</small>
+            <i class="pi pi-plus"></i> <small>There is no data</small>
           </div>
         </div>
       </ng-container>
-
-     
     </div>
   </div>
 </div>
@@ -279,7 +271,14 @@
     <span></span>
   </div>
 </div>
-<div class="flex justify-content-end" [class.none]="currentPageResult.totalItems! <= 25">
-  <lib-table-paginator *ngIf="tableConfigs.allowServerPagination" (pageChange)="onPageChange($event)"
-  [totalRecords]="currentPageResult.totalItems!" [rows]="currentPageResult.pageSize!"></lib-table-paginator>
+<div
+  *ngIf="tableConfigs.allowServerPagination"
+  class="flex justify-content-end"
+  [class.none]="currentPageResult.totalItems! <= 25"
+>
+  <lib-table-paginator
+    (pageChange)="onPageChange($event)"
+    [totalRecords]="currentPageResult.totalItems!"
+    [rows]="currentPageResult.pageSize!"
+  ></lib-table-paginator>
 </div>

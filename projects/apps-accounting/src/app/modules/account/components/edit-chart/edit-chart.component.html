@@ -157,9 +157,9 @@
                 <lib-label [appControl]="formGroup.controls['hasNoChild']">
                   {{ 'ChartOfAccounts.HasNoChild' | translate }}
                 </lib-label>
-                <div class="checked">
-                  <p-inputSwitch formControlName="hasNoChild" (ngModelChange)="toggleCurrencyVisibility()">
-                  </p-inputSwitch>
+                <div >
+                  <lib-input-switch formControlName="hasNoChild" (ngModelChange)="toggleCurrencyVisibility()">
+                  </lib-input-switch>
     
                 </div>
               </div>

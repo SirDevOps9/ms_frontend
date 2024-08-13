@@ -2,10 +2,10 @@
   <div class="pop_up_header">
     <div class="header_content">
       <div class="title">
-        {{ 'addcurrency.title' | translate }}
+        {{ 'currencyConversion.EditTitle' | translate }}
       </div>
-      <div class=" cancel" (click)="close()">
-        {{ 'addcurrency.cancel' | translate }}
+      <div class="cancel" (click)="close()">
+        <!-- {{ 'addcurrency.cancel' | translate }} -->
       </div>
     </div>
   </div>
@@ -18,16 +18,20 @@
               {{ 'addcurrency.currencyCode' | translate }}
             </lib-label>
             <lib-text-input type="text" formControlName="code" [readOnly]="true" />
-            <lib-field-validations [appControl]="editCurrencyForm.controls['code']"></lib-field-validations>
+            <lib-field-validations
+              [appControl]="editCurrencyForm.controls['code']"
+            ></lib-field-validations>
           </lib-form-group>
-      </div>
+        </div>
         <div class="md:col-12">
           <lib-form-group>
             <lib-label [appControl]="editCurrencyForm.controls['name']">
               {{ 'addcurrency.currencyName' | translate }}
             </lib-label>
             <lib-text-input type="text" formControlName="name" />
-            <lib-field-validations [appControl]="editCurrencyForm.controls['name']"></lib-field-validations>
+            <lib-field-validations
+              [appControl]="editCurrencyForm.controls['name']"
+            ></lib-field-validations>
           </lib-form-group>
         </div>
         <div class="md:col-12">
@@ -36,7 +40,9 @@
               {{ 'addcurrency.currencySubunit' | translate }}
             </lib-label>
             <lib-text-input type="text" formControlName="subUnit" />
-            <lib-field-validations [appControl]="editCurrencyForm.controls['subUnit']"></lib-field-validations>
+            <lib-field-validations
+              [appControl]="editCurrencyForm.controls['subUnit']"
+            ></lib-field-validations>
           </lib-form-group>
         </div>
         <div class="md:col-6">
@@ -45,7 +51,9 @@
               {{ 'addcurrency.currencySymbol' | translate }}
             </lib-label>
             <lib-text-input type="text" formControlName="symbol" />
-            <lib-field-validations [appControl]="editCurrencyForm.controls['symbol']"></lib-field-validations>
+            <lib-field-validations
+              [appControl]="editCurrencyForm.controls['symbol']"
+            ></lib-field-validations>
           </lib-form-group>
         </div>
         <div class="md:col-6">
@@ -53,9 +61,18 @@
             <lib-label [appControl]="editCurrencyForm.controls['countryCode']">
               {{ 'addcurrency.currencyCountry' | translate }}
             </lib-label>
-            <lib-selectIcon  [selectedValue]="editCurrencyForm.controls['countryCode'].value" formControlName="countryCode" [options]="countries" optionValue="id" optionLabel="nameEn" icons="flags">
+            <lib-selectIcon
+              [selectedValue]="editCurrencyForm.controls['countryCode'].value"
+              formControlName="countryCode"
+              [options]="countries"
+              optionValue="id"
+              optionLabel="nameEn"
+              icons="flags"
+            >
             </lib-selectIcon>
-            <lib-field-validations [appControl]="editCurrencyForm.controls['countryCode']"></lib-field-validations>
+            <lib-field-validations
+              [appControl]="editCurrencyForm.controls['countryCode']"
+            ></lib-field-validations>
           </lib-form-group>
         </div>
         <div class="md:col-12">
@@ -63,8 +80,16 @@
             <lib-label [appControl]="editCurrencyForm.controls['differenceAccount']">
               {{ 'addcurrency.currencyDifferenceAccount' | translate }}
             </lib-label>
-            <lib-select [selectedValue]="editCurrencyForm.controls['differenceAccount'].value"  formControlName="differenceAccount" [options]="accountsList" optionLabel="name" optionValue="id"></lib-select>
-            <lib-field-validations [appControl]="editCurrencyForm.controls['differenceAccount']"></lib-field-validations>
+            <lib-select
+              [selectedValue]="editCurrencyForm.controls['differenceAccount'].value"
+              formControlName="differenceAccount"
+              [options]="accountsList"
+              optionLabel="name"
+              optionValue="id"
+            ></lib-select>
+            <lib-field-validations
+              [appControl]="editCurrencyForm.controls['differenceAccount']"
+            ></lib-field-validations>
           </lib-form-group>
         </div>
       </div>
@@ -74,19 +99,27 @@
     <div class="grid">
       <div class="md:col-6">
         <div class="cancel_btn">
-          <lib-button-micro title="{{ 'addcurrency.cancel' | translate }}" nameClass="cancel" (click)="close()" widthNumber="100%">
+          <lib-button-micro
+            title="{{ 'addcurrency.cancel' | translate }}"
+            nameClass="cancel"
+            (click)="close()"
+            widthNumber="100%"
+          >
           </lib-button-micro>
         </div>
       </div>
       <div class="md:col-6">
         <div class="save_btn">
-          <lib-button-micro title="{{ 'addcurrency.save' | translate }}" nameClass="save" (click)="save()" widthNumber="100%">
+          <lib-button-micro
+            title="{{ 'addcurrency.save' | translate }}"
+            nameClass="save"
+            (click)="save()"
+            widthNumber="100%"
+          >
           </lib-button-micro>
         </div>
       </div>
     </div>
-    
-    
   </div>
 </div>
 <div class="entry_table">

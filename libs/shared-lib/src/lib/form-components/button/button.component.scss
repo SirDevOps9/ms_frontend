@@ -2,8 +2,10 @@
   .p-button {
     color: #ffffff;
     background: #cb3f2d;
+    padding: 10px 16px;
+    border-radius: 8px;
     border: 1px solid #cb3f2d;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s,
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
   }
   .p-button:hover {
     background: #d14a38;
@@ -14,6 +16,8 @@
 
 ::ng-deep .addToList {
   .p-button {
+    margin-inline-start: 5px;
+    margin-inline-end: 5px;
     color: #ffffff;
     background: #1a90b0;
     padding: 10px 16px;
@@ -260,5 +264,3 @@
     font-size: 1rem;
   }
 }
-
-

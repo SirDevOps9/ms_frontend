@@ -2,14 +2,13 @@
 <div class="pop_up_header">
   <div class="header_content">
     <div class="title">
-      <!-- <div class="plus_icon"></div> -->
       {{ "COAConfigration.ChartOfAccountConfig" | translate }}
     </div>
       <div class=" cancel" (click)="close()"></div>
   </div>
 </div>
 <div class="pop_up_content">
-  <p class="title">{{ "COAConfigration.chartOfAccountLevels" | translate }}</p>
+  <!-- <p class="title">{{ "COAConfigration.chartOfAccountLevels" | translate }}</p> -->
   <p class="add_line" (click)="addline()">
   <span class="icon fa fa-plus" ></span>  {{ "COAConfigration.AddNewLine" | translate }}
  </p>
@@ -31,28 +30,32 @@
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-text-input formControlName="levelNumber" type="number"></lib-text-input>
-                  <lib-field-validations
-                    [appControl]="coaItem.controls['levelNumber']"
-                  ></lib-field-validations>
+                 
                 </ng-template>
                 <ng-template pTemplate="output">
                   {{ coaItem.controls['levelNumber'].value }}
                 </ng-template>
+              
               </p-cellEditor>
+              <lib-field-validations
+              [appControl]="coaItem.controls['levelNumber']"
+            ></lib-field-validations>
             </td>
 
             <td [pEditableColumn]="coaItem.controls['name']" pEditableColumnField="name">
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-text-input formControlName="name" type="text"></lib-text-input>
-                  <lib-field-validations
-                    [appControl]="coaItem.controls['name']"
-                  ></lib-field-validations>
+                 
                 </ng-template>
                 <ng-template pTemplate="output">
                   {{ coaItem.controls['name'].value }}
                 </ng-template>
+                
               </p-cellEditor>
+              <lib-field-validations
+                [appControl]="coaItem.controls['name']"
+              ></lib-field-validations>
             </td>
 
             <td
@@ -62,15 +65,18 @@
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-text-input formControlName="numberOfDigits" type="number"></lib-text-input>
-                  <lib-field-validations
-                    [appControl]="coaItem.controls['numberOfDigits']"
-                  ></lib-field-validations>
+                 
                 </ng-template>
                 <ng-template pTemplate="output">
                   {{ coaItem.controls['numberOfDigits'].value }}
                 </ng-template>
+              
               </p-cellEditor>
+              <lib-field-validations
+              [appControl]="coaItem.controls['numberOfDigits']"
+            ></lib-field-validations>
             </td>
+          
           </tr>
         </ng-template>
       </p-table>

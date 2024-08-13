@@ -1,13 +1,12 @@
 <lib-page-content [title]="'Tax.TaxList' | translate" [subTitle]="'Tax.TaxList' | translate">
   <div>
     <div class="user_page">
-  
       <lib-data-table
-     
         [items]="tableData"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
         (pageChange)="onPageChange($event)"
+        (addNew)="onAdd()"
         [tableConfigs]="{
           allowPagination: false,
           allowServerPagination: true,
@@ -53,30 +52,38 @@
         }"
       >
         <ng-container caption>
-            <div class="group flex justify-content-between">
-              <div >
-                <span class="p-input-icon-left">
-                  <i class="pi pi-search"></i>
-                  <input pInputText type="text" placeholder="{{ 'Tax.Search' | translate }}" (keyup)="onSearchChange()" />
-                </span>
-              </div>
-              <!--  -->
+          <div class="group flex justify-content-between">
+            <div>
+              <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  placeholder="{{ 'Tax.Search' | translate }}"
+                  (keyup)="onSearchChange($event)"
+                />
+              </span>
+            </div>
+            <!--  -->
 
-              <div class="flex gap-2">
-                <lib-export
+            <div class="flex gap-2">
+              <lib-export
                 (exportClick)="exportTaxesData($event)"
                 [exportData]="mappedExportData"
                 [exportColumns]="exportColumns"
                 [ExportName]="'Taxes'"
               >
               </lib-export>
-                 <lib-button pRipple className="addToList" label="{{ 'Tax.AddNew' | translate }}" (onClick)="onAdd()" [icon]="'pi pi-plus'">
-            </lib-button> 
-
+              <lib-button
+                pRipple
+                className="addToList"
+                label="{{ 'Tax.AddNew' | translate }}"
+                (onClick)="onAdd()"
+                [icon]="'pi pi-plus'"
+              >
+              </lib-button>
             </div>
-
-            
-            </div>
+          </div>
         </ng-container>
         <ng-template #actions let-action>
           <div class="actions flex align-items-center gap-2">
@@ -92,7 +99,6 @@
           </div>
         </ng-template>
       </lib-data-table>
-    
     </div>
   </div>
 </lib-page-content>

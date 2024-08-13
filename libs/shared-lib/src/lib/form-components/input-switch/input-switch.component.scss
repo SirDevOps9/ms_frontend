@@ -1,4 +1,7 @@
 ::ng-deep{
+  .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+    background: #1a8eae !important;
+  }
     .checked{
       position: relative;
       .active {

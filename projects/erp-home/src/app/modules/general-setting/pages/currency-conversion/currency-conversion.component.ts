@@ -16,12 +16,12 @@ import { Title } from '@angular/platform-browser';
   styleUrl: './currency-conversion.component.scss',
 })
 export class CurrencyConversionComponent {
-  constructor(private generalSettingService: GeneralSettingService,
+  constructor(
+    private generalSettingService: GeneralSettingService,
     private title: Title,
     private langService: LanguageService
   ) {
     this.title.setTitle(this.langService.transalte('currencyConversion.Title'));
-
   }
   tableData: CurrencyConversionDto[];
   currencies: CountryDto[] = [];
@@ -111,7 +111,7 @@ export class CurrencyConversionComponent {
   }
 
   onSearchChange(event: any) {
-    this.generalSettingService.getCurrencyConversionList(event, new PageInfo());
+    this.generalSettingService.getCurrencyConversionList(event.target.value, new PageInfo());
     this.generalSettingService.currencyConversionDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;

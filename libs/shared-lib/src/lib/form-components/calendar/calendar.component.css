@@ -4,3 +4,6 @@
     max-width: 100%;
     width: 100%;
 }
+::ng-deep .p-datepicker-trigger {
+        background-color: #10566a !important;
+    }

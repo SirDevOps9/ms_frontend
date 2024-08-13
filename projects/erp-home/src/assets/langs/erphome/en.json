@@ -4,8 +4,8 @@
     "AddFinancialCalendar": "Add Financial Calendar",
     "EditFinancialCalendar": "Edit Financial Calendar",
     "CurrencyDefinition": "Currency Definitions",
-    "CurrencyConversion":"Currency Conversion",
-    "TagList":"Tag List"
+    "CurrencyConversion": "Currency Conversion",
+    "TagList": "Tag List"
   },
   "dir": "ltr",
   "Welcome": "Welcome",
@@ -26,8 +26,8 @@
       "ConfirmButtonTexttodelete": "Yes, delete it!",
       "CancelButtonText": "Cancel",
       "ConfirmButtonTexttochangstatus": "Yes",
-      "Activate":"Activate",
-      "Deactivate":"Deactivate"
+      "Activate": "Activate",
+      "Deactivate": "Deactivate"
     }
   },
   "Layout": {
@@ -126,7 +126,7 @@
       "CompanyAddedSuccessfully": "Company added successfully",
       "Error": "Error",
       "Success": "Success",
-      "AddNewCompany": "Add New company",
+      "AddNewCompany": "Add",
       "Country": "Country",
       "PleaseFillInAllTheRequiredFields": "Please fill in all the required fields.",
       "Status": "Status(Activate Or Deactivate)",
@@ -267,7 +267,7 @@
     "JournalEntryType": "Journal Entry Type",
     "JournalEntryStatus": "Journal Entry Status",
     "Edit": "Edit",
-    "JournalUpdatedSuccessfully":"Journal Updated Successfully",
+    "JournalUpdatedSuccessfully": "Journal Updated Successfully",
     "Add": {
       "CompanyLogo": "CompanyLogo",
       "AddCompany": "Add",
@@ -301,224 +301,219 @@
       "Save": "Save"
     }
   },
-  
-    "tag":{
-      "taglist":"Tag list",
-      "Search": "Search",
-      "AddNew":"AddNew",
-      "AddNewTag":"AddNewTag",
-      "EditTag":"EditTag",
-      "Id":"Id",
-      "Name":"Name",
-      "status":"Status",
-      "Modules":"Modules",
-      "Actions":"Actions",
-      "Edit":"Edit",
-      "Delete":"Delete",
-      "Add":"Add",
-      "AddTag":"Add Tag",
-      "Active":"Active",
-      "Deactivate":"Deactivate",
-      "code":"Code",
-      "success":"Success",
-      "addtag":{
-        "title":"Add Tag",
-        "name":"Name",
-        "applicability":"Applicability",
-        "save":"Save",
-        "cancel":"Cancel",
-        "code":"Code",
-        "success":"Success"
-      },
-      "edittag":{
-        "title":"Edit Tag",
-        "name":"Name",
-        "applicability":"Applicability",
-        "status":"Status",
-        "save":"Save",
-        "cancel":"Cancel",
-        "code":"Code",
-        "success":"Success"
 
-      }
-  
-    },
-    "financialCalendar" : {
-      "Search":"Search",
-      "add":"Add",
-      "addNew":"Add New",
-      "Save":"Save",
-      "financialCalendar" : "Financial Calendar",
-      "addfinancialCalendar" : "Add Financial Calendar",
-      "editfinancialCalendar" : "Edit Financial Calendar",
-      "selectYear" : "Select Year",
-      "code" : "Code",
-      "fromDate" : "From Date",
-      "toDate" : "to Date",
-      "name" : "Name",
-      "generate" : "Generate Periods",
-      "open" : "Open Financial Year",
-      "close" : "Close Financial Year",
-      "month" : "Month",
-      "status" : "Status",
-      "year" : "Year",
-      "periodStart" : "Period Start",
-      "periodend" : "Period end",
-      "periodStatus" : "Period Status",
-      "actions" : "Actions"
-    },
-    "addFinancialCalendar" :  {
-       "success":"Success",
-       "successAdd":"Financial Calendar Added Successfully",
-       "successEdit":"Financial Calendar Edited Successfully",
-       "openSuccess":"Financial Calendar Opened Successfully"
-    },
-    "vendorCategory" : {
-      "categoryCode" : "Category Code",
-      "categoryName" : "Category Name",
-      "payableGlAccount" : "Payable GL Account",
-      "recievableGlAccount" : "Recievable GL Account",
-      "salesGlAccount" : "Sales GL Account",
-      "purchaseGlAccount" : "Purchase GL Account",
-      "purchaseReturnGlAccount" : "Purchase Return GL Account",
-      "salesReturnGlAccount" : "Sales Return GL Account",
-      "discountGlAccount" : "Discount GL Account",
-      "priceList" : "Price List",
-      "paymentTerms" : "Payment Terms",
-      "marketType" : "Market Type",
-      "actions" : "Actions"
-    },
-    "addVendorCategory" : {
-      "success":"Success",
-      "successAdd":"Vendor Category Added Successfully",
-      "successEdit":"Vendor Category Edited Successfully",
-      "openSuccess":"Vendor Category Opened Successfully"
-    },
-    "deleteVendorCategory" : {
-      "delete" : "Vendor Category Deleted Successfully"
-    },
-    "addCustomerCategory" : {
-      "success":"Success",
-      "successAdd":"Customer Category Added Successfully",
-      "successEdit":"Customer Category Edited Successfully",
-      "openSuccess":"Customer Category Opened Successfully"
-    },
-    "deleteCustomerCategory" : {
-      "delete" : "Customer Category Deleted Successfully"
-    },
-    "customerDefinition" : {
-      "code" : "Customer Code",
-      "name" : " Customer Name",
-      "category" : "Customer Category",
-      "email" : "Email",
-      "country" : "Country",
-      "paymentTerm" : "Payment Term",
-      "criditLimit" : "Credit Limit",
-      "actions" : "Actions"
-    },
-    "addCustomerDefinition" : {
-      "success":"Success",
-      "successAdd":"Customer Definition Added Successfully",
-      "successEdit":"Customer Definition Edited Successfully",
-      "openSuccess":"Customer Definition Opened Successfully"
-    },
-    "deleteCustomerDefinition" : {
-      "delete" : "Customer Definition Deleted Successfully"
-    },
-    "vendorDefinition" : {
-      "code" : "Vendor Code",
-      "name" : " Vendor Name",
-      "category" : "Vendor Category",
-      "email" : "Email",
-      "country" : "Country",
-      "paymentTerm" : "Payment Term",
-      "criditLimit" : "Credit Limit",
-      "actions" : "Actions",
-      "success":"success",
-      "vendorSuccess":"vendor created successfully "
-    },
-    "deleteVendorDefinition" : {
-      "delete" : "Vendor Definition Deleted Successfully"
-    },
-    "addVendorDefinition" : {
-      "success":"Success",
-      "successAdd":"Vendor Definition Added Successfully",
-      "successEdit":"Vendor Definition Edited Successfully",
-      "openSuccess":"Vendor Definition Opened Successfully"
-    },
-    "Shared":{
-      "Error":"Error",
-      "valdation":{
-        "invalidForm":"invalid Form"
-      }
-    },
-    "currencyDefinition":{
-      "Title":"Currencies Definitions",
-      "AddTitle":"Add Currency Defintion",
-      "EditTitle":"Edit Currency Defintion",
-      "AddNew":"AddNew",
-      "Search":"Search",
-      "code":"code",
-      "success":"success",
-      "error":"error",
-      "errorDelet":"The currency definition is not deleted",
-      "successAdd":"Currency Definition Added Successfully",
-      "successEdit":"Currency Definition Edited Successfully",
-      "successDelet":"Currency Definition Deleted Successfully",
-      "name":"Name",
-      "sympol":"sympol",
-      "Subunit":"Subunit",
-      "country":"country",
-      "type":"Type",
-      "category":"Category",
-      "UOM":"UOM",
-      "actions":"Actions"
-      
-    },
-     "addcurrency": {
-      "title": "Add Currency",
+  "tag": {
+    "taglist": "Tag list",
+    "Search": "Search",
+    "AddNew": "Add",
+    "AddNewTag": "Add",
+    "EditTag": "EditTag",
+    "Id": "Id",
+    "Name": "Name",
+    "status": "Status",
+    "Modules": "Modules",
+    "Actions": "Actions",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Add": "Add",
+    "AddTag": "Add Tag",
+    "Active": "Active",
+    "Deactivate": "Deactivate",
+    "code": "Code",
+    "success": "Success",
+    "addtag": {
+      "title": "Add Tag",
+      "name": "Name",
+      "applicability": "Applicability",
+      "save": "Save",
       "cancel": "Cancel",
-      "currencyCode": "Currency code",
-      "currencyName": "Currency Name",
-      "currencySubunit": "Currency subunit",
-      "currencySymbol": "Currency symbol",
-      "currencyCountry": "Currency Country",
-      "currencyDifferenceAccount": "Currency difference account",
-      "save": "Save"
-        },
-    "currencyConversion":{
-      "Title":"Currencies Conversions",
-      "AddTitle":"Add Currency Converion",
-      "EditTitle":"Edit Currency Conversion",
-      "AddNewcurrency":"Add New Currency",
-      "Editcurrency":"Edit Currency",
-      "search":"Search",
-      "addNew":"AddNew",
-      "save":"Save",
-      "cancel": "Cancel",
-      "success":"Success",
-      "FromCurrency":"From Currency",
-      "CurrencyRate":"Currency Rate",
-      "ToCurrency":"To Currency",
-      "ReversedRate":"Reversed rate",
-      "Notes":"Notes",
-      "Actions":"Actions",
-      "errorDelet":"The currency Conversion is not deleted",
-      "successAdd":"Currency Conversion Added Successfully",
-      "successEdit":"Currency Conversion Edited Successfully",
-      "successDelet":"Currency Conversion Deleted Successfully",
-      "errorSameCurrency":"From Currency and To Currency must be different.",
-      "editTitle":"edit Currency conversion transaction",
-      "addTitle":"add Currency conversion transaction"
+      "code": "Code",
+      "success": "Success"
     },
-    "openeingBalance" : {
-      "openingJournal" : "Opening Journal",
-      "fromOpening" : "From Opening Balance Transaction",
-      "JournalLine" : "Journal Line",
-      "amount" : "Amount",
-      "debitCredit" : "Debit Or Credit"
-
-
+    "edittag": {
+      "title": "Edit Tag",
+      "name": "Name",
+      "applicability": "Applicability",
+      "status": "Status",
+      "save": "Save",
+      "cancel": "Cancel",
+      "code": "Code",
+      "success": "Success"
     }
-
+  },
+  "financialCalendar": {
+    "Search": "Search",
+    "add": "Add",
+    "addNew": "Add",
+    "Save": "Save",
+    "cancel": "cancel",
+    "financialCalendar": "Financial Calendar",
+    "addfinancialCalendar": "Add Financial Calendar",
+    "editfinancialCalendar": "Edit Financial Calendar",
+    "selectYear": "Select Year",
+    "code": "Code",
+    "fromDate": "From Date",
+    "toDate": "to Date",
+    "name": "Name",
+    "generate": "Generate Periods",
+    "open": "Open Financial Year",
+    "close": "Close Financial Year",
+    "month": "Month",
+    "status": "Status",
+    "year": "Year",
+    "periodStart": "Period Start",
+    "periodend": "Period end",
+    "periodStatus": "Period Status",
+    "actions": "Actions"
+  },
+  "addFinancialCalendar": {
+    "success": "Success",
+    "successAdd": "Financial Calendar Added Successfully",
+    "successEdit": "Financial Calendar Edited Successfully",
+    "openSuccess": "Financial Calendar Opened Successfully"
+  },
+  "vendorCategory": {
+    "categoryCode": "Category Code",
+    "categoryName": "Category Name",
+    "payableGlAccount": "Payable GL Account",
+    "recievableGlAccount": "Recievable GL Account",
+    "salesGlAccount": "Sales GL Account",
+    "purchaseGlAccount": "Purchase GL Account",
+    "purchaseReturnGlAccount": "Purchase Return GL Account",
+    "salesReturnGlAccount": "Sales Return GL Account",
+    "discountGlAccount": "Discount GL Account",
+    "priceList": "Price List",
+    "paymentTerms": "Payment Terms",
+    "marketType": "Market Type",
+    "actions": "Actions"
+  },
+  "addVendorCategory": {
+    "success": "Success",
+    "successAdd": "Vendor Category Added Successfully",
+    "successEdit": "Vendor Category Edited Successfully",
+    "openSuccess": "Vendor Category Opened Successfully"
+  },
+  "deleteVendorCategory": {
+    "delete": "Vendor Category Deleted Successfully"
+  },
+  "addCustomerCategory": {
+    "success": "Success",
+    "successAdd": "Customer Category Added Successfully",
+    "successEdit": "Customer Category Edited Successfully",
+    "openSuccess": "Customer Category Opened Successfully"
+  },
+  "deleteCustomerCategory": {
+    "delete": "Customer Category Deleted Successfully"
+  },
+  "customerDefinition": {
+    "code": "Customer Code",
+    "name": " Customer Name",
+    "category": "Customer Category",
+    "email": "Email",
+    "country": "Country",
+    "paymentTerm": "Payment Term",
+    "criditLimit": "Credit Limit",
+    "actions": "Actions"
+  },
+  "addCustomerDefinition": {
+    "success": "Success",
+    "successAdd": "Customer Definition Added Successfully",
+    "successEdit": "Customer Definition Edited Successfully",
+    "openSuccess": "Customer Definition Opened Successfully"
+  },
+  "deleteCustomerDefinition": {
+    "delete": "Customer Definition Deleted Successfully"
+  },
+  "vendorDefinition": {
+    "code": "Vendor Code",
+    "name": " Vendor Name",
+    "category": "Vendor Category",
+    "email": "Email",
+    "country": "Country",
+    "paymentTerm": "Payment Term",
+    "criditLimit": "Credit Limit",
+    "actions": "Actions",
+    "success": "success",
+    "vendorSuccess": "vendor created successfully "
+  },
+  "deleteVendorDefinition": {
+    "delete": "Vendor Definition Deleted Successfully"
+  },
+  "addVendorDefinition": {
+    "success": "Success",
+    "successAdd": "Vendor Definition Added Successfully",
+    "successEdit": "Vendor Definition Edited Successfully",
+    "openSuccess": "Vendor Definition Opened Successfully"
+  },
+  "Shared": {
+    "Error": "Error",
+    "valdation": {
+      "invalidForm": "invalid Form"
+    }
+  },
+  "currencyDefinition": {
+    "Title": "Currencies Definitions",
+    "AddTitle": "Add Currency Defintion",
+    "EditTitle": "Edit Currency Defintion",
+    "AddNew": "AddNew",
+    "Search": "Search",
+    "code": "code",
+    "success": "success",
+    "error": "error",
+    "errorDelet": "The currency definition is not deleted",
+    "successAdd": "Currency Definition Added Successfully",
+    "successEdit": "Currency Definition Edited Successfully",
+    "successDelet": "Currency Definition Deleted Successfully",
+    "name": "Name",
+    "sympol": "sympol",
+    "Subunit": "Subunit",
+    "country": "country",
+    "type": "Type",
+    "category": "Category",
+    "UOM": "UOM",
+    "actions": "Actions"
+  },
+  "addcurrency": {
+    "title": "Add Currency",
+    "cancel": "Cancel",
+    "currencyCode": "Code",
+    "currencyName": "Name",
+    "currencySubunit": "Subunit",
+    "currencySymbol": "Symbol",
+    "currencyCountry": "Country",
+    "currencyDifferenceAccount": "Difference account",
+    "save": "Save"
+  },
+  "currencyConversion": {
+    "Title": "Currencies Conversions",
+    "AddTitle": "Add Currency Converion",
+    "EditTitle": "Edit",
+    "AddNewcurrency": "Add",
+    "Editcurrency": "Edit Currency",
+    "search": "Search",
+    "addNew": "Add",
+    "save": "Save",
+    "cancel": "Cancel",
+    "success": "Success",
+    "FromCurrency": "From Currency",
+    "CurrencyRate": "Currency Rate",
+    "ToCurrency": "To Currency",
+    "ReversedRate": "Reversed rate",
+    "Notes": "Notes",
+    "Actions": "Actions",
+    "errorDelet": "The currency Conversion is not deleted",
+    "successAdd": "Currency Conversion Added Successfully",
+    "successEdit": "Currency Conversion Edited Successfully",
+    "successDelet": "Currency Conversion Deleted Successfully",
+    "errorSameCurrency": "From Currency and To Currency must be different.",
+    "editTitle": "edit Currency conversion transaction",
+    "addTitle": "add Currency conversion transaction"
+  },
+  "openeingBalance": {
+    "openingJournal": "Opening Journal",
+    "fromOpening": "From Opening Balance Transaction",
+    "JournalLine": "Journal Line",
+    "amount": "Amount",
+    "debitCredit": "Debit Or Credit"
+  }
 }
