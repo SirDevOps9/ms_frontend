@@ -48,13 +48,13 @@
       padding: 10px 10px;
       &:hover {
         background: #fff;
-        color: #1a8eae;
+        color: #1a90b0;
       }
     }
 
     .btn_active {
       background: #fff;
-      color: #1a8eae;
+      color: #1a90b0;
     }
   }
 
@@ -84,7 +84,7 @@
           padding-inline-end: 40px;
           .currency,
           .period {
-            color: #1a8eae;
+            color: #1a90b0;
            // font-size: 18px;
           }
           .cost {
@@ -109,9 +109,9 @@
           border-radius: 12px;
         }
         .valid_btn {
-          background-color: #1a8eae;
+          background-color: #1a90b0;
           color: #fff;
-          border: 2px solid #1a8eae;
+          border: 2px solid #1a90b0;
         }
 
         .invaild_btn {
@@ -132,16 +132,4 @@
   }
 
 }
-::ng-deep {
-  .p-dialog {
-    // position: absolute !important;
-    // bottom: 0 !important;
-    // right: 0 !important;
-    .p-dialog-header {
-      display: none !important;
-    }
-  }
-  .p-dialog .p-dialog-content {
-    padding: 0 !important;
-  }
-}
+

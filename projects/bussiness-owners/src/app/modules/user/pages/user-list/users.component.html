@@ -154,13 +154,13 @@
     </ng-template>
     <ng-template #status let-user>
       
-      <div class="checked" *ngIf="user.invitationStatus == 'Accepted'">
-        <p-inputSwitch
+      <div  *ngIf="user.invitationStatus == 'Accepted'">
+        <lib-input-switch
           [id]="user.id"
           (click)="changed($event, user)"
           [(ngModel)]="user.isActive"
         >
-        </p-inputSwitch>
+      </lib-input-switch>
 
         <p class="active" *ngIf="user.isActive">
           {{ 'User.Activate' | translate }}

@@ -17,7 +17,7 @@
         background: none;
         border: none;
         font-size: 16px;
-        color: #1a8eae;
+        color: #1a90b0;
         cursor: pointer;
       }
       .Line {
@@ -29,7 +29,10 @@
       align-items: center;
       margin-inline-end: 20px;
       justify-content: end;
-
+      .grid{
+        width: 100%;
+        justify-content: end;
+    }
       .btn {
         background: none;
         border: none;
@@ -39,7 +42,7 @@
         position: relative;
       }
       .save {
-        background: #1a8eae;
+        background: #1a90b0;
         color: #fff;
         margin-inline-start: 20px;
         justify-content: end;
@@ -72,7 +75,7 @@
     border-radius: 12px;
     cursor: pointer;
     position: relative;
-    background: #1a8eae;
+    background: #1a90b0;
     color: #fff;
   }
 

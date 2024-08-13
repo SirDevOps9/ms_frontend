@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { GeneralSettingService } from '../../general-setting.service';
 import { ActivatedRoute } from '@angular/router';
-import { editFinancialCalndar } from '../../models';
-import { FormsService, LanguageService, customValidators } from 'shared-lib';
+import { editFinancialCalndar, monthDto } from '../../models';
+import { FormsService, LanguageService, RouterService, customValidators } from 'shared-lib';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -19,7 +19,8 @@ export class EditFinancialCalendarComponent implements OnInit {
     private route: ActivatedRoute,
     private formsService: FormsService,
     private titleService: Title,
-    private languageService : LanguageService
+    private languageService: LanguageService,
+    private router: RouterService
   ) {
     this.generateYearsList();
   }
@@ -34,8 +35,24 @@ export class EditFinancialCalendarComponent implements OnInit {
   disablrFromDateFlag: boolean = false;
   tableData: any = [];
   tableList: any = [];
+  months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+  test: any = [];
   FinancialPeriodData: editFinancialCalndar;
   id: number = this.route.snapshot.params['id'];
+  month=monthDto
   ngOnInit(): void {
     this.titleService.setTitle(
       this.languageService.transalte('financialCalendar.editfinancialCalendar')
@@ -54,13 +71,11 @@ export class EditFinancialCalendarComponent implements OnInit {
     });
     this.formGroup.valueChanges.subscribe((res) => {
       if (res.fromDate) {
-
         this.minDateTo = new Date(res.fromDate);
       }
       // this.maxDatefrom = new Date(res.toDate)
       //   this.minDateTo = res.fromDate ? new Date(res.fromDate) : null
       if (res.fromDate && res.toDate) {
-
         this.tableList = this.generateDateArray(res.fromDate, res.toDate);
       }
     });
@@ -101,10 +116,11 @@ export class EditFinancialCalendarComponent implements OnInit {
             'Dec',
           ];
 
-          this.tableData = this.tableData?.map((elem: any) => {
-            elem.month = months[elem.month - 1];
-            return elem;
-          });
+          // this.tableData = this.tableData?.map((elem: any) => {
+          //   elem.month = months[elem.month - 1];
+          //   return elem;
+          // });
+          console.log(this.tableData)
         }
       }
     );
@@ -179,9 +195,9 @@ export class EditFinancialCalendarComponent implements OnInit {
       elem.status = true;
       return elem;
     });
-    let periodIDS = this.tableData.filter((elem:any)=>elem.status)
-    this.periodIDS =  periodIDS.map((elem : any)=>elem.id)
-  
+    let periodIDS = this.tableData.filter((elem: any) => elem.status);
+    this.periodIDS = periodIDS.map((elem: any) => elem.id);
+
     // this.generalSettingService.onOpenPeriod({periods : })
   }
   convertDateFormat(data: Date) {
@@ -204,15 +220,17 @@ export class EditFinancialCalendarComponent implements OnInit {
       name: this.formGroup.get('name')?.value,
     });
     this.generalSettingService.EditFinancialPeriodDataObservable.subscribe((res) => {
-      if(!this.FinancialPeriodData.status && this.periodIDS?.length) {
-        this.generalSettingService.OpenFinancialCalendar({periods : this.periodIDS})
-        this.generalSettingService.openFinancialCalendarResObservable.subscribe(res=>{
-          if(res) {
-            this.FinancialPeriodData.status = true
+      if (!this.FinancialPeriodData.status && this.periodIDS?.length) {
+        this.generalSettingService.OpenFinancialCalendar({ periods: this.periodIDS });
+        this.generalSettingService.openFinancialCalendarResObservable.subscribe((res) => {
+          if (res) {
+            this.FinancialPeriodData.status = true;
           }
-        })
+        });
       }
-  
     });
+  }
+  routeToList() {
+    this.router.navigateTo('/masterdata/financial-calendar');
   }
 }

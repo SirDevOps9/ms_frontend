@@ -30,7 +30,7 @@
 /////////
 .chart_view_page{
     input[type="radio"]:disabled {
-        background-color: #1A8EAE;
+        background-color: #1a90b0;
         border: 2px solid #ccc;
         cursor: not-allowed;
         -webkit-appearance: none;
@@ -69,16 +69,16 @@
             width: 100% !important;
         }
         .p-radiobutton .p-radiobutton-box.p-highlight {
-            border-color: #1A8EAE !important;
-            background: #1A8EAE !important;
+            border-color: #1a90b0 !important;
+            background: #1a90b0 !important;
         }
         
             
             .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
-                background: #1A8EAE !important;
+                background: #1a90b0 !important;
               }
               .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider {
-                background: #1A8EAE !important;
+                background: #1a90b0 !important;
               }
               .p-inputswitch.p-focus .p-inputswitch-slider {
                 box-shadow:  none !important;
@@ -98,7 +98,7 @@
           
               .p-radiobutton .p-radiobutton-box {
                 border: 2px solid #d1d5db;
-                background: #1A8EAE !important;
+                background: #1a90b0 !important;
                 width: 15px !important;
                 height: 15px !important;
                 color: #4b5563;

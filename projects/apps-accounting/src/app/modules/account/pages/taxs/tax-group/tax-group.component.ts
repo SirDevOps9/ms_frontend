@@ -62,7 +62,7 @@ export class TaxGroupComponent implements OnInit {
   Add() {
     const dialogRef = this.dialog.open(TaxGroupAddComponent, {
       width: '600px',
-      height : '700px'
+      height : 'auto'
     
     });
     dialogRef.onClose.subscribe(() => {
@@ -73,7 +73,7 @@ export class TaxGroupComponent implements OnInit {
   Edit(Id:any) {
     const dialogRef = this.dialog.open(TaxGroupEditComponent, {
       width: '600px',
-      height : '700px',
+      height : 'auto',
       data : Id
     
     });
@@ -82,8 +82,8 @@ export class TaxGroupComponent implements OnInit {
     });
   }
 
-  onSearchChange() {
-    this.accountService.getAllTaxGroupPaginated(this.searchTerm,new PageInfo());
+  onSearchChange(e : any) {
+    this.accountService.getAllTaxGroupPaginated(e.target.value,new PageInfo());
     this.accountService.taxGroupList.subscribe({
       next: (res) => {
         this.tableData = res;

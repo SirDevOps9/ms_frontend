@@ -2,7 +2,7 @@ import { Component, ElementRef, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'microtec-auth-lib';
 import { Observable } from 'rxjs';
-import { LanguageService, MenuModule, Modules, RouterService ,breadCrumbHome} from 'shared-lib';
+import { LanguageService, MenuModule, Modules, RouterService, breadCrumbHome } from 'shared-lib';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModuleListComponent } from '../../../components/module-list/module-list.component';
 import { LayoutService } from '../layout.service';
@@ -22,6 +22,7 @@ export class LayoutHeaderComponent {
   cartItemsCount$: Observable<number>;
   userPhoto: string;
   ref: DynamicDialogRef;
+  userEmail: string;
 
   ngOnInit() {
     this.moduleList = this.layoutService.getModules();
@@ -99,16 +100,13 @@ export class LayoutHeaderComponent {
     private router: ActivatedRoute,
     private eRef: ElementRef,
     private dialog: DialogService,
-    private breadCrumbHome:breadCrumbHome,
-    public generalService : GeneralService
+    private breadCrumbHome: breadCrumbHome,
+    public generalService: GeneralService
   ) {
     this.userName = this.authService.getUserName;
     this.languageService.setLang();
     this.userPhoto = this.authService.getUserPhoto;
-    console.log(this.generalService.sendSideBarState.getValue())
-
-    
-
-    
+    // console.log(this.generalService.sendSideBarState.getValue())
+    this.userEmail = this.authService.getUserEmail;
   }
 }

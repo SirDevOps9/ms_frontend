@@ -75,7 +75,7 @@
                       <div class="title">
                         <p class="name">{{ userName }}</p>
                         <p class="description">
-                          {{ userName }}
+                          {{ userEmail }}
                         </p>
                       </div>
                     </div>
@@ -84,7 +84,7 @@
                         <p class="title">My Subscription</p>
                       </button>
                       <button class="profaile_link">
-                        <p class="title">My favorite </p>
+                        <p class="title">My favorite</p>
                       </button>
                     </div>
                     <div class="card-items">
@@ -94,14 +94,20 @@
                           <p class="title">
                             {{ languageService.Lang === 'en' ? 'English' : 'عربى' }}
                           </p>
-                          <img [src]="languageService.Lang === 'en' ? 'assets/images/header-icons/lang-eng.svg' : 'assets/images/header-icons/lang-arabic.svg'" />
+                          <img
+                            [src]="
+                              languageService.Lang === 'en'
+                                ? 'assets/images/header-icons/lang-eng.svg'
+                                : 'assets/images/header-icons/lang-arabic.svg'
+                            "
+                          />
                         </button>
                       </button>
                       <button class="profaile_link">
                         <p class="title">Account Settings</p>
                       </button>
                     </div>
-<!--                     
+                    <!--                     
                     <button class="mode_link">
                       <p class="pi pi-moon"></p>
                       <p class="title">Dark Mood</p>
@@ -110,7 +116,7 @@
                       <div class="logout">
                         <button class="log_link" (click)="logout()">
                           <p class="title">logout</p>
-                          <img  src="assets/images/header-icons/Logout.svg" />
+                          <img src="assets/images/header-icons/Logout.svg" />
                         </button>
                       </div>
                     </div>

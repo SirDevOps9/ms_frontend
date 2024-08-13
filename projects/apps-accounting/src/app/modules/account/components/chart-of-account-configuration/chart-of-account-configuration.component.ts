@@ -44,6 +44,7 @@ export class ChartOfAccountConfigurationComponent implements OnInit {
     });
   }
 
+
   createLevelFormGroup(level: GetLevelsDto): FormGroup {
     return this.fb.group({
       levelNumber: [level.levelNumber],
@@ -72,6 +73,7 @@ export class ChartOfAccountConfigurationComponent implements OnInit {
       numberOfDigits: new FormControl(null, customValidators.required),
       id: null,
     });
+    if (!this.formService.validForm(this.fa, false)) return;
     this.fa.push(fg);
   }
 }

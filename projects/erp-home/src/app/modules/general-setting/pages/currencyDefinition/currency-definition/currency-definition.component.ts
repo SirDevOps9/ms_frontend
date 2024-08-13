@@ -87,7 +87,7 @@ export class CurrencyDefinitionComponent {
   }
 
   onSearchChange(event: any) {
-    this.generalSettingService.getCurrencyList(event, new PageInfo());
+    this.generalSettingService.getCurrencyList(event.target.value, new PageInfo());
 
     this.generalSettingService.currencyDefinitionDataSourceObservable.subscribe({
       next: (res) => {

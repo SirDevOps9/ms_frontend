@@ -71,13 +71,13 @@
                 </ng-container>
                 <ng-template #actions let-user>
       
-                    <div class="checked" *ngIf="user.isActive !=null">
-                      <p-inputSwitch
+                    <div *ngIf="user.isActive !=null">
+                      <lib-input-switch
                         [id]="user.id"
                         (onChange)="confirmChange($event, user)"
                         [(ngModel)]="user.isActive"
                       >
-                      </p-inputSwitch>
+                      </lib-input-switch>
               
                       <p class="active" *ngIf="user.isActive">
                         {{ 'User.Activate' | translate }}

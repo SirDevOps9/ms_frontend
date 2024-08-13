@@ -2,8 +2,10 @@
   .p-button {
     color: #ffffff;
     background: #cb3f2d;
+    padding: 10px 16px;
+    border-radius: 8px;
     border: 1px solid #cb3f2d;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s,
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
   }
   .p-button:hover {
     background: #d14a38;
@@ -14,8 +16,10 @@
 
 ::ng-deep .addToList {
   .p-button {
+    margin-inline-start: 5px;
+    margin-inline-end: 5px;
     color: #ffffff;
-    background: #1a8eae;
+    background: #1a90b0;
     padding: 10px 16px;
     border-radius: 8px;
     // width: 140px;
@@ -40,7 +44,7 @@
     color: #ffffff;
     background: #4fb2cd;
     border: 1px solid #4fb2cd;
-    background: #1a8eae;
+    background: #1a90b0;
     border: 0px solid #3b82f6;
     padding: 0.5rem 1rem;
     font-size: 1rem;
@@ -57,7 +61,7 @@
     color: #ffffff;
     background: #5fb2ca;
     border: 1px solid #4fb2cd;
-    background: #1a8eae;
+    background: #1a90b0;
     border: 0px solid #3b82f6;
     padding: 0.5rem 1rem;
     font-size: 1rem;
@@ -81,7 +85,7 @@
     color: #ffffff;
     background: #4fb2cd;
     border: 1px solid #4fb2cd;
-    background: #1a8eae;
+    background: #1a90b0;
     border: 0px solid #3b82f6;
     font-size: 1rem;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s,
@@ -97,7 +101,7 @@
     color: #ffffff;
     background: #5fb2ca;
     border: 1px solid #4fb2cd;
-    background: #1a8eae;
+    background: #1a90b0;
     border: 0px solid #3b82f6;
     font-size: 1rem;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s,
@@ -116,7 +120,7 @@
     color: #ffffff;
     background: #4fb2cd;
     border: 1px solid #4fb2cd;
-    background: #1a8eae;
+    background: #1a90b0;
     border: 0px solid #3b82f6;
     font-size: 1rem;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s,
@@ -180,7 +184,7 @@
     color: #ffffff;
     background: #4fb2cd;
     border: 1px solid #4fb2cd;
-    background: #1a8eae;
+    background: #1a90b0;
     border: 0px solid #3b82f6;
     padding: 0.5rem 1rem;
     font-size: 1rem;
@@ -200,7 +204,7 @@
     width: 141px;
     background-color: transparent;
     border: 0;
-    color: #1a8eae;
+    color: #1a90b0;
     font-weight: bold;
   }
   .p-button:focus {
@@ -260,5 +264,3 @@
     font-size: 1rem;
   }
 }
-
-

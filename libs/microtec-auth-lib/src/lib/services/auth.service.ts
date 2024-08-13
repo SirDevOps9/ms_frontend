@@ -159,6 +159,12 @@ export class AuthService {
     return loggedUser?.userInfo?.profilePicId;
   }
 
+  get getUserEmail(): string {
+    let item = this.localStorageService.getItem(StorageKeys.LOGIN_RESPONSE);
+    let loggedUser = item! as TokenModel;
+    return loggedUser?.userInfo?.email;
+  }
+
   constructor(
     private localStorageService: StorageService,
     private sessionService: SessionStorageService,

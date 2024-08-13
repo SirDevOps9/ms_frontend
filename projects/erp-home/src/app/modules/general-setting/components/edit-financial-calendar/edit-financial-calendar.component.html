@@ -1,5 +1,5 @@
 <lib-page-content>
-  <div class="chart_add_page">
+  <div class="chart_add_page p">
     <form [formGroup]="formGroup">
       <div class="grid">
         <div class="md:col-10 grid">
@@ -64,7 +64,7 @@
             </lib-form-group>
           </div>
         </div>
-        <div
+        <!-- <div
           class="md:col-2 grid align-items-end"
           (click)="onOpenPeriod()"
           *ngIf="!FinancialPeriodData.status"
@@ -73,12 +73,26 @@
             <i class="pi pi-clock clockIcon"></i>
             <p class="m-0 generateBtn">{{ 'financialCalendar.open' | translate }}</p>
           </div>
-        </div>
+        </div> -->
       </div>
     </form>
   </div>
   <!--  -->
   <div class="flex justify-content-end mt-5">
+    <lib-button
+      className="red"
+      label="{{ 'financialCalendar.cancel' | translate }}"
+      (click)="routeToList()"
+    >
+    </lib-button>
+    <lib-button
+      className="addToList"
+      label="{{ 'financialCalendar.open' | translate }}"
+      [disabled]="!formGroup.valid"
+      (click)="onOpenPeriod()"
+      *ngIf="!FinancialPeriodData.status"
+    >
+    </lib-button>
     <lib-button
       pRipple
       className="addToList"
@@ -110,7 +124,9 @@
              name: 'month',
              headerText: ('financialCalendar.month' | translate),
              isGlobalFilter: true,
-             isSortable: true
+             isSortable: true,
+             template : month
+
            },
          
            {
@@ -140,6 +156,9 @@
         <div class="actions flex align-items-center gap-2">
           <lib-input-switch [disabled]="statusFlag" [(ngModel)]="status.status"></lib-input-switch>
         </div>
+      </ng-template>
+      <ng-template #month let-month>
+        <p>{{ months[month.month -1]   }}</p>
       </ng-template>
     </lib-data-table>
   </div>

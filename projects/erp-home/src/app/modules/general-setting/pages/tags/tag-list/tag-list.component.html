@@ -13,12 +13,7 @@
           dataKey: 'id',
           pageSize: 10,
           columns: [
-            {
-              name: 'id',
-              headerText: ('tag.Id' | translate),
-              isGlobalFilter: true,
-              isSortable: true
-            },
+         
             {
               name: 'code',
               headerText: ('tag.code' | translate),
@@ -48,29 +43,39 @@
           ]
         }"
       >
-      <ng-container caption>
-        <div class="group flex justify-content-between">
-          <div>
-            <span class="p-input-icon-left">
-              <i class="pi pi-search"></i>
-              <input pInputText type="text" placeholder="{{ 'tag.Search' | translate }}" (keyup)="onSearchChange()" />
-            </span>
+        <ng-container caption>
+          <div class="group flex justify-content-between">
+            <div>
+              <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  placeholder="{{ 'tag.Search' | translate }}"
+                  (keyup)="onSearchChange($event)"
+                />
+              </span>
+            </div>
+            <div class="flex gap-2">
+              <lib-export
+                (exportClick)="exportTagData($event)"
+                [exportData]="exportData"
+                [exportColumns]="exportColumns"
+                [ExportName]="'Tag'"
+              >
+              </lib-export>
+              <lib-button
+                pRipple
+                className="addToList"
+                label="{{ 'tag.AddNew' | translate }}"
+                (onClick)="newTag()"
+                [icon]="'pi pi-plus'"
+              >
+              </lib-button>
+            </div>
           </div>
-          <div class="flex gap-2">
-            <lib-export
-              (exportClick)="exportTagData($event)"
-              [exportData]="exportData"
-              [exportColumns]="exportColumns"
-              [ExportName]="'Tag'"
-            >
-            </lib-export>
-             <lib-button pRipple className="addToList" label="{{ 'tag.AddNew' | translate }}" (onClick)="newTag()" [icon]="'pi pi-plus'">
-        </lib-button> 
+        </ng-container>
 
-        </div>
-        </div>
-      </ng-container>
-      
         <ng-template #userCol let-tag>
           <div class="actions flex align-items-center">
             <lib-button
@@ -81,7 +86,6 @@
               [rounded]="true"
               [enableText]="true"
               severity="secondary"
-              *ngIf="tag.isActive"
             >
             </lib-button>
             <lib-button
@@ -96,19 +100,19 @@
         </ng-template>
 
         <ng-template #status let-tag>
-          <div class="checked">
-            <p-inputSwitch (onChange)="changed($event, tag.id)" [(ngModel)]="tag.isActive">
-            </p-inputSwitch>
+          <div >
+            <lib-input-switch [disabled]="true" (onChange)="changed($event, tag.id)" [(ngModel)]="tag.isActive">
+            </lib-input-switch>
           </div>
         </ng-template>
 
         <ng-template #Modules let-tag>
-          <div class="flex ">
-            <p  >
-              {{viewModulesName(tag.modulesId)}}
+          <div class="flex">
+            <p>
+              {{ viewModulesName(tag.modulesId) }}
             </p>
           </div>
-         
+
           <!-- <lib-multi-select
             [options]="modulelist"
             optionLabel="module"

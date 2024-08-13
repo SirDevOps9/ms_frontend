@@ -174,7 +174,7 @@
         // }
 
         // ::-webkit-scrollbar-thumb {
-        //     background: #1A8EAE;
+        //     background: #1a90b0;
         //     // B8E7F4
         //     border-radius: 6px;
         // }
@@ -212,8 +212,8 @@
     }
 
     .btn_edit {
-        //border: 2px solid #1a8eae;
-        color: #1a8eae;
+        //border: 2px solid #1a90b0;
+        color: #1a90b0;
         display: none;
 
     }
@@ -315,17 +315,17 @@
           width: 100%;
         }
         .p-inputtext:enabled:hover {
-          border-color: #1a8eae !important;
+          border-color: #1a90b0 !important;
           
         }
         .p-inputtext:enabled:focus {
           outline: 0 none;
           outline-offset: 0;
-          // box-shadow: 0 0 0 0.2rem #1a8eae !important;
-          border-color: #1a8eae !important;
+          // box-shadow: 0 0 0 0.2rem #1a90b0 !important;
+          border-color: #1a90b0 !important;
         }
        .p-inputtext::placeholder {
-          color: #1a8eae !important;
+          color: #1a90b0 !important;
         }
         .reads{
             background: #D8DBDF !important;
@@ -337,25 +337,7 @@
       
       }
     .main_chat_of_account {
-        .p-dialog-mask {
-            justify-content: end !important;
-            align-items: end !important;
-            z-index: 1000 !important;
-        }
-
-        .p-dialog .p-dialog-content:last-of-type {
-            border-top-left-radius: 15px !important;
-            border-bottom-left-radius: 15px !important;
-            overflow-x: hidden;
-
-        }
-
-        .p-dialog {
-            .p-dialog-header {
-                display: none !important;
-            }
-
-        }
+        
     }
 }
 
