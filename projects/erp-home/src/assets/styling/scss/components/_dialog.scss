@@ -91,6 +91,10 @@
 .p-dialog {
   .p-dialog-content {
     padding: $spacing-24 !important;
+    border-radius: $spacing-8 ;
+  }
+  .p-dialog-header {
+    display: none !important;
   }
 }
 //   .p-dialog-mask {
@@ -103,9 +107,5 @@
 //     border-bottom-left-radius: 15px !important;
 //     overflow-x: hidden;
 //   }
-.p-dialog {
-  .p-dialog-header {
-    display: none !important;
-  }
-}
+
 

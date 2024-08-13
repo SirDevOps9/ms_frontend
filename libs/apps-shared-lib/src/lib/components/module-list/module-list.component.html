@@ -1,6 +1,17 @@
-<div class="popup_module mt-3">
-  <lib-text-input [placeholder]="'Search App'" #inputElement [formControl]="nameControl">
-  </lib-text-input>
+<div class="pop_up_config_page ">
+  <div class="pop_up_header">
+    <div class="header_content">
+      <div class="title">
+        <!-- <div class="plus_icon"></div> -->
+        <!-- {{ 'Tax.AddTaxDefinition' | translate }} -->
+        Choose App
+      </div>
+      <div class="cancel" (click)="close()">
+        <!-- <img src="/projects/apps-accounting/src/assets/images/close.svg" alt=""> -->
+      </div>
+    </div>
+  </div>
+  
   <div class="containar_modules">
     <!-- <div class="card" *ngFor="let module of moduleList" (click)="navigateto(module.moduleId)">
       <div class="card_photo">
@@ -11,6 +22,10 @@
       </div>
     </div> -->
     <div class="grid">
+      <div class="col-12">
+        <lib-text-input [placeholder]="'Search App'" #inputElement [formControl]="nameControl">
+        </lib-text-input>
+      </div>
       <div class="col-12 md:col-6 pointer" *ngFor="let module of moduleList" (click)="navigateto(module.moduleId)">
         <div class="flex gap-3">
           <div class="modal-card">
