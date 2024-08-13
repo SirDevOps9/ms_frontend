@@ -21,10 +21,10 @@ export class ChatOfAccountListComponent implements OnInit {
   constructor(private routerService: RouterService,
     private title: Title,
     private langService: LanguageService,
-     private accountService: AccountService) {
-      this.title.setTitle(this.langService.transalte('ChartOfAccount.ChartOfAccountList'));
+    private accountService: AccountService) {
+    this.title.setTitle(this.langService.transalte('ChartOfAccount.ChartOfAccountList'));
 
-     }
+  }
 
   exportColumns: lookupDto[] = [
     {
@@ -48,12 +48,18 @@ export class ChatOfAccountListComponent implements OnInit {
       id: 'Account Section',
       name: 'accountSectionName',
     },
+    // {
+    //   id: 'Account Type',
+    //   name: 'accountTypeName',
+    // },
+    // {
+    //   id: 'Account Nature',
+    //   name: 'natureId',
+    // },
   ];
 
   ngOnInit() {
     this.initChartOfAccountData(this.searchTerm, new PageInfo());
-
-   
   }
 
   searchTermChange(event: Event) {
@@ -91,7 +97,7 @@ export class ChatOfAccountListComponent implements OnInit {
     //     this.tableData = res;
     //   },
     // });
-    
+
   }
   routeToAdd() {
     this.routerService.navigateTo(`/journalentry/add`);
@@ -103,7 +109,6 @@ export class ChatOfAccountListComponent implements OnInit {
   exportAccountsData(searchTerm: string) {
     this.accountService.exportAccountsData(searchTerm);
     this.accountService.exportsAccountsDataSourceObservable.subscribe((res) => {
-      console.log('exported data', res);
       this.exportData = res;
     });
   }

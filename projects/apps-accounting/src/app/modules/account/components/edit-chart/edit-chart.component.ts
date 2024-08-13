@@ -6,6 +6,7 @@ import { CurrencyDto } from '../../../general/models/currencyDto';
 import { AccountService } from '../../account.service';
 import { parentAccountDto, AccountSectionDropDownDto, AccountTypeDropDownDto, TagDropDownDto, AddAccountDto, AccountByIdDto, accountById, companyDropDownDto } from '../../models';
 import { Title } from '@angular/platform-browser';
+import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 
 @Component({
   selector: 'app-edit-chart',
@@ -44,6 +45,8 @@ export class EditChartComponent {
     private title: Title,
     private langService: LanguageService,
     private toaserService: ToasterService,
+    private currentUserService : CurrentUserService
+
   ) {
     this.title.setTitle(this.langService.transalte('ChartOfAccount.EditChartOfAccount'));
 
@@ -94,7 +97,9 @@ export class EditChartComponent {
   getCurrencies(){
   this.currencyService.getCurrencies('');
   this.currencyService.currencies.subscribe((res) => {
-    this.currencies = res;
+  this.currencies = res;
+  this.formGroup.controls['currencyId'].setValue(this.currentUserService.getCurrency())
+
   });
  }
   getTags() {
@@ -203,5 +208,9 @@ export class EditChartComponent {
             this.onRadioButtonChange(res.accountActivation)
 
     });
+  }
+  cancel(){
+    this.operationCompleted.emit(-1);
+
   }
 }
