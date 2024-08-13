@@ -7,6 +7,7 @@ import { AccountDto, AccountsChildrenDropDown } from '../../../../account/models
 import { JournalEntryService } from '../../../journal-entry.service';
 import { reportAccount } from '../../../models';
 import { ActivatedRoute } from '@angular/router';
+import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 
 @Component({
   selector: 'app-account-statement',
@@ -30,6 +31,7 @@ defoultSelectedAcounts:number[]=[]
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
     private ToasterService:ToasterService
+    ,public generalService: GeneralService
   ) {}
 
   ngOnInit() {
@@ -105,9 +107,15 @@ defoultSelectedAcounts:number[]=[]
               return {
                 ...x,
                 journalEntryDtos: x.journalEntryDtos.map(t => {
+                  const formatdebitAmount=this.generalService.formatNumber(t?.debitAmount, this.generalService.fraction)
+                const formatcreditAmount=this.generalService.formatNumber(t?.creditAmount, this.generalService.fraction)
+                const balance=this.generalService.formatNumber(t?.balance, this.generalService.fraction)
+                console.log("sandra",formatdebitAmount)
                   return {
                     ...t,
-                    balance: t.balance < 0 ? Math.abs(t.balance) : t.balance
+                    creditAmount:formatcreditAmount,
+                    debitAmount: formatdebitAmount,
+                    balance:  balance
                   };
                 })
               };
