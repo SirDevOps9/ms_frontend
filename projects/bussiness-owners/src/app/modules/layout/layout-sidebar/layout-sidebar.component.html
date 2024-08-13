@@ -1,8 +1,8 @@
-<div class="bar" [ngClass]="{ bar_opened: sidebarOpen }" id="bar">
+<div class="bar" [ngClass]="{ bar_opened: sidebarOpen }" dir="{{ 'dir' | translate }}" id="bar">
   <div class="sidebar_container">
     <div class="content" *ngIf="!sidebarOpen">
       <div
-        class="item"
+        class="item" 
         [ngClass]="{'active_link': router.getCurrentUrl() === '/my-subscriptions' }"
       >
         <button      

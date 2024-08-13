@@ -12,7 +12,7 @@
 
 </div>
 <div class="flex justify-content-center arrowIconDiv" [class.imgContDiv]="!sidebarOpen" *ngIf="!sidebarOpen"  (click)="toggleSidebar()">
-  <i class="pi pi-angle-double-right arrowIcon"      
+  <i class="pi pi-angle-double-right arrowIcon" dir="{{ 'dir' | translate }}"      
   ></i>
 
 </div>
@@ -31,9 +31,9 @@
           }" 
           ></i>
         </div>
-        <ul class="sub-menu">
+        <ul class="sub-menu" dir="{{ 'dir' | translate }}" >
           <li *ngFor="let subItem of menuItem.subMenu; let x = index">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg   width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M9 5L11 7.33333M9 19L15 12L13.5 10.25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             <ng-container *ngIf="subItem.subMenu?.length">
@@ -46,7 +46,7 @@
               <i  class="pi pi-caret-down arrow" 
                 (click)="open($event, x)"></i>
               </div>
-              <ul class="sub-menu">
+              <ul class="sub-menu" dir="{{ 'dir' | translate }}">
                 
                 <li *ngFor="let subSubItem of subItem.subMenu">
                   <a [href]="subSubItem.link" class="body_b18">{{ subSubItem.name }}</a>
