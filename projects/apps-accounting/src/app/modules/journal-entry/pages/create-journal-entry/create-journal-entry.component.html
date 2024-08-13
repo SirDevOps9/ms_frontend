@@ -203,10 +203,11 @@
                 </p-cellEditor>
               </td>
               <td>
-                {{ fg.controls['debitAmountLocal'].value | number : '1.0-2' }}
+                {{ fg.controls['debitAmountLocal'].value ? (fg.controls['debitAmountLocal'].value | number:'1.0-2') : '0' }}
               </td>
               <td>
-                {{ fg.controls['creditAmountLocal'].value | number : '1.0-2' }}
+                {{ fg.controls['creditAmountLocal'].value ? (fg.controls['creditAmountLocal'].value | number:'1.0-2') : '0' }}
+
               </td>
               <td>
                 <div class="flex justify-content-center">

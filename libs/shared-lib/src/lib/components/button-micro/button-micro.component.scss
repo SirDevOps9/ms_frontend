@@ -79,10 +79,12 @@
   background: #fff;
   border: 1px solid #cb3f2d;
   color: #cb3f2d;
+  width: 100% !important;
   &:hover {
     background: #cb3f2d;
     color: #fff;
     border: 1px solid #cb3f2d;
+    width: 100% !important;
   }
 }
 .export {

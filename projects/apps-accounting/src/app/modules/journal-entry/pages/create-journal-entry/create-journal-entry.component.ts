@@ -32,6 +32,7 @@ import { CostCenterAllocationPopupComponent } from '../components/cost-center-al
 import { costCenters } from '../../models';
 import { CurrencyRateDto } from '../../../general/models/currencyRateDto';
 import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
+import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 export interface JournalEntryLineFormValue {
   id: number;
   account: AccountDto;
@@ -150,7 +151,8 @@ export class CreateJournalEntryComponent {
     private formService: FormsService,
     private guidedTourService: GuidedTourService,
     private attachmentService: AttachmentsService,
-    private currentUserService : CurrentUserService
+    private currentUserService : CurrentUserService,
+    public generalService : GeneralService
   ) {
     this.titleService.setTitle(this.langService.transalte('Journal.AddJournal'));
 
@@ -289,14 +291,7 @@ export class CreateJournalEntryComponent {
     });
   }
 
-  formatNumber(value: number, fractionDigits: string = '1.0-2'): string {
-    const formattedNumber = new Intl.NumberFormat('en-US', {
-      minimumFractionDigits: parseInt(fractionDigits.split('-')[0], 10),
-      maximumFractionDigits: parseInt(fractionDigits.split('-')[1], 10),
-    }).format(value);
 
-    return formattedNumber;
-  }
 
   filterCurrency(event: any) {
     let query = event.query.toLowerCase();
@@ -314,8 +309,8 @@ export class CreateJournalEntryComponent {
 
     const id = this.fa.length + 1;
     //controls
-    const dbControl = new FormControl(null, [customValidators.required, Validators.min(0)]);
-    const crControl = new FormControl(null, [customValidators.required, Validators.min(0)]);
+    const dbControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
+    const crControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
     const currencyControl = new FormControl(null, customValidators.required);
     const rateControl = new FormControl<number | null>(null, [
       customValidators.required,
@@ -364,7 +359,7 @@ export class CreateJournalEntryComponent {
         accountCode: new FormControl(null, customValidators.required),
         costCenterConfig: new FormControl(null),
         lineDescription: new FormControl('', customValidators.required),
-        debitAmount: dbControl,
+        debitAmount: dbControl ,
         creditAmount: crControl,
         currency: currencyControl,
         currencyRate: rateControl,

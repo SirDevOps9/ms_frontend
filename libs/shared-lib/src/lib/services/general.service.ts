@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { BehaviorSubject, debounceTime, Observable } from 'rxjs';
 
-@Injectable({
+@Injectable({ 
   providedIn: 'root'
 })
 export class GeneralService {
+  fraction : string = '1.1-2'
 sendColumns = new BehaviorSubject<any>(null)
 sendColumnsObs = this.sendColumns.asObservable()
 sendFilteredList= new BehaviorSubject<any>([])
@@ -47,6 +48,15 @@ sendSideBarState = new BehaviorSubject<boolean>(false)
       uniqueGroups.set(item.index, item.value);
     });
     return Array.from(uniqueGroups.values());
+  }
+
+  formatNumber(value: any, fractionDigits: string = this.fraction) {
+    const formattedNumber = new Intl.NumberFormat('en-US', {
+      minimumFractionDigits: parseInt(fractionDigits.split('-')[0], 10),
+      maximumFractionDigits: parseInt(fractionDigits.split('-')[1], 10),
+    }).format(value);
+
+    return formattedNumber;
   }
 
 

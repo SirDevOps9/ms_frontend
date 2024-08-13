@@ -46,7 +46,7 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
 
   ngOnInit(): void {
     this.amountForm = this.fb.group({
-      amount : this.config.data.creditAmount ? this.config.data.creditAmount : this.config.data.debitAmount,
+      amount : this.config.data.creditAmount  ? this.config.data.creditAmount : this.config.data.debitAmount,
     })
 
     this.allocationform.push(this.createItem())
@@ -143,7 +143,7 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
     return this.fb.group({
       costCenterId: new FormControl('',customValidators.required),
       name: [''],
-      amount :  new FormControl(''),
+      amount :  new FormControl('' , customValidators.required),
       percentage :  new FormControl('',customValidators.required)
     });
   }
