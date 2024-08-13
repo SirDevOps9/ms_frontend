@@ -6,18 +6,18 @@ import {
   MaxLengthValidator,
   Validators,
 } from '@angular/forms';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormsService, LanguageService, customValidators } from 'shared-lib';
 import { GeneralSettingService } from '../../../general-setting.service';
 import { CountryDto } from '../../../models';
 import { Title } from '@angular/platform-browser';
-
 @Component({
   selector: 'app-edit-currency-definition',
   templateUrl: './edit-currency-definition.component.html',
   styleUrl: './edit-currency-definition.component.scss',
 })
 export class EditCurrencyDefinitionComponent {
+
   olddata: any;
   editCurrencyForm: FormGroup;
   currencyId: number;
@@ -30,6 +30,8 @@ export class EditCurrencyDefinitionComponent {
     private formsService: FormsService,
     private generalSettingService: GeneralSettingService,
     public config: DynamicDialogConfig,
+    private dialog: DialogService,
+
   ) {
   }
   ngOnInit() {
@@ -85,8 +87,11 @@ export class EditCurrencyDefinitionComponent {
     this.generalSettingService.getCurrencyById(id);
     this.generalSettingService.currencyDataByIDObservable.subscribe((res) => {
       this.olddata = res;
-
-      this.editCurrencyForm.patchValue({ ...res });
+      this.editCurrencyForm?.patchValue({ ...res });
     });
   }
+  openDialog() {
+   // const ref = this.dialog.open(NoChildrenAccountsComponent, {});
+    }
+    
 }
