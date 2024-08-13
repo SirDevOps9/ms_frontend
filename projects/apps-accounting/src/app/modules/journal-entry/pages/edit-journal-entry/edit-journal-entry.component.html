@@ -293,15 +293,15 @@
             journalEntry?.status != enums.JournalEntryStatus.Posted
           "
         >
-          <button class="btn Line" type="button" (click)="addNewRow()">
-            {{ 'EditJournal.add' | translate }}
+          <button class="btn " type="button" (click)="addNewRow()">
+            {{ 'add_new_line' | translate }}
           </button>
         </div>
       </div>
      
       <div class="btn_group">
         <button class="btn discard" type="button" (click)="onDiscard()">
-          {{ 'EditJournal.Discard' | translate }}
+          {{ 'discard' | translate }}
         </button>
         <div
           *ngIf="

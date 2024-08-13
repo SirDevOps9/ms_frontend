@@ -287,7 +287,11 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   openDialog(index: number) {
-    const ref = this.dialog.open(NoChildrenAccountsComponent, {});
+    const ref = this.dialog.open(NoChildrenAccountsComponent,
+       { 
+         width: 'auto',
+          height : 'auto'
+      });
     ref.onClose.subscribe((account: AccountDto) => {
       if (account) {
         this.updateAccount(account, index);

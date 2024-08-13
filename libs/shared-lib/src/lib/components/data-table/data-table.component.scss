@@ -134,6 +134,13 @@ padding-top: 16px;}
       height: auto !important;
      }
   }
+  .popup{
+    .p-datatable-wrapper{
+      height: auto !important;
+      max-height: none !important;
+      width: 100%;
+     }
+  }
   .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
     color: #fff !important;
     background: #1a90b0 !important;
