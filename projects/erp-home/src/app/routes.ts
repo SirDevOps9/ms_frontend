@@ -1,7 +1,6 @@
-import { LandingPageComponent, LayoutPageComponent } from 'apps-shared-lib';
+import { LayoutPageComponent } from 'apps-shared-lib';
 import { AuthGuard } from 'microtec-auth-lib';
 import { Modules } from 'shared-lib';
-import { DashboardComponent } from './modules/home/pages/dashboard/dashboard.component';
 
 export const ERPRoutes = [
   {
@@ -14,7 +13,8 @@ export const ERPRoutes = [
     children: [
       {
         path: '',
-        component: DashboardComponent,
+        loadChildren: () =>
+          import('./modules/home/dashboard.module').then((m) => m.DashboardModule),
       },
       {
         path: 'masterdata',
@@ -26,9 +26,7 @@ export const ERPRoutes = [
       {
         path: 'dashboard',
         loadChildren: () =>
-          import('./modules/home/dashboard.module').then(
-            (m) => m.DashboardModule
-          ),
+          import('./modules/home/dashboard.module').then((m) => m.DashboardModule),
       },
     ],
   },
