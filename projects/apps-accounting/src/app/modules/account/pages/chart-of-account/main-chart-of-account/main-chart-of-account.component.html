@@ -26,18 +26,7 @@
         *ngIf="!Viewlist && view"
       >
       </lib-button-micro>
-       <lib-button-micro
-       nameClass="save"
-       [title]="'ChartOfAccount.import' | translate"
-       iconName="pi pi-cloud-download"
-
-       >
-
-       </lib-button-micro>
-      <!-- <button class="btn import">
-        <i class="btn_icon pi pi-cloud-download"></i>
-        {{ 'ChartOfAccount.import' | translate }}
-      </button> -->
+    
       <button class="btn save" *ngIf="!Viewlist && view" (click)="editMode()">
         <i class="btn_icon pi pi-user-edit"></i>
         {{ 'ChartOfAccount.edit' | translate }}

@@ -339,6 +339,13 @@
     </form>
     <div class="action">
       <lib-button-micro
+        title="{{ 'ChartOfAccounts.Cancel' | translate }}"
+        nameClass="cancel"
+        (click)="cancel()"
+      >
+      </lib-button-micro>
+      
+      <lib-button-micro
         title="{{ 'ChartOfAccounts.Save' | translate }}"
         nameClass="save"
         (click)="onSubmit()"

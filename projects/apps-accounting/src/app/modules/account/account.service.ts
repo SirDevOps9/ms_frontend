@@ -54,7 +54,7 @@ export class AccountService {
   private accountSectionsDataSource = new BehaviorSubject<AccountTypeDropDownDto[]>([]);
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
   private companysDataSource = new BehaviorSubject<companyDropDownDto[]>([]);
-  private savedAccountDataSource = new BehaviorSubject<AccountDto | undefined>(undefined);
+  public savedAccountDataSource = new BehaviorSubject<AccountDto | undefined>(undefined);
   private taxGroupDataSource = new BehaviorSubject<TaxGroupDto[]>([]);
   private currentTaxGroupDataSource = new BehaviorSubject<TaxGroupDto>({} as TaxGroupDto);
   private editAccountDataSource = new BehaviorSubject<accountById | undefined>(undefined);

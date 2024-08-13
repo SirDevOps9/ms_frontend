@@ -19,10 +19,12 @@ import {
   LanguageService,
 } from 'shared-lib';
 import { AccountService } from '../../account.service';
-import { AddAccountDto, companyDropDownDto ,AccountSectionDropDownDto ,AccountTypeDropDownDto ,TagDropDownDto ,parentAccountDto  } from '../../models';
+import { AddAccountDto, companyDropDownDto, AccountSectionDropDownDto, AccountTypeDropDownDto, TagDropDownDto, parentAccountDto } from '../../models';
 import { CurrencyService } from '../../../general/currency.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
 import { Title } from '@angular/platform-browser';
+import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -45,11 +47,13 @@ export class AddChartComponent {
   hasParentAccount: boolean = false;
   selectValue: boolean = false;
   parentAcountName?: parentAccountDto;
-
+  currenciesDefault: number
   selectedPeriodOption: string = '';
   @Input() parentAddedId?: number | undefined;
   @Input() newChiled?: boolean;
   @Output() operationCompleted = new EventEmitter<any>();
+  private savedAddedAccountSubscription: Subscription;
+
   constructor(
     private formBuilder: FormBuilder,
     private accountService: AccountService,
@@ -59,7 +63,9 @@ export class AddChartComponent {
     private lookupsService: LookupsService,
     private toaserService: ToasterService,
     private title: Title,
-    private langService: LanguageService
+    private langService: LanguageService,
+    private currentUserService: CurrentUserService
+
   ) {
     this.title.setTitle(this.langService.transalte('ChartOfAccount.AddChartOfAccount'));
 
@@ -79,7 +85,7 @@ export class AddChartComponent {
       accountActivation: new FormControl('Active'),
       periodicActiveFrom: new FormControl(),
       periodicActiveTo: new FormControl(),
-      costCenterConfig : new FormControl()
+      costCenterConfig: new FormControl()
     });
   }
   ngOnInit() {
@@ -101,6 +107,8 @@ export class AddChartComponent {
     this.currencyService.currencies.subscribe((res) => {
       this.currencies = res;
     });
+    this.formGroup.controls['currencyId'].setValue(this.currentUserService.getCurrency())
+    // this.currenciesDefault= this.currentUserService.getCurrency()
 
     this.accountService.getAccountSections();
     this.accountService.accountSections.subscribe((res) => {
@@ -131,10 +139,10 @@ export class AddChartComponent {
         // Assuming the company object has an 'id' property that needs to be assigned
         const companiesControl = this.formGroup.get('companies');
         if (companiesControl) {
-            companiesControl.setValue([res[0].id]);
+          companiesControl.setValue([res[0].id]);
         }
-    }
-      
+      }
+
     });
   }
 
@@ -143,6 +151,16 @@ export class AddChartComponent {
   }
   Subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
+
+    this.savedAddedAccountSubscription = this.accountService.savedAddedAccount.subscribe((res) => {
+      if (res) {
+        this.operationCompleted.emit(res);
+        this.toaserService.showSuccess(
+          this.langService.transalte('ChartOfAccount.Success'),
+          this.langService.transalte('ChartOfAccount.AddedSuccessfully')
+        );
+      }
+    });
   }
 
   onAccountSectionChange(event: any) {
@@ -165,7 +183,7 @@ export class AddChartComponent {
       this.parentAcountName = response;
       this.selectValue = true
       const newAccountData = {
-        levelId: response.levelId! + 1 ,
+        levelId: response.levelId! + 1,
         accountCode: response.accountCode,
         accountSectionId: response.accountSectionId,
         accountSectionName: response.accountSectionName,
@@ -195,15 +213,6 @@ export class AddChartComponent {
 
     this.accountService.addAccount(obj);
 
-    this.accountService.savedAddedAccount.subscribe((res) => {
-      if (res) {
-        this.operationCompleted.emit(res);
-        this.toaserService.showSuccess(
-          this.langService.transalte('ChartOfAccount.Success'),
-          this.langService.transalte('ChartOfAccount.AddedSuccessfully')
-        );
-      }
-    });
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['parentAddedId']) {
@@ -219,5 +228,15 @@ export class AddChartComponent {
         this.formGroup.get('accountCode')?.setValue([null]);
       }
     }
+  }
+  cancel() {
+    this.operationCompleted.emit(false);
+  }
+  ngOnDestroy() {
+    if (this.savedAddedAccountSubscription) {
+      this.accountService.savedAccountDataSource.next(undefined);
+      this.savedAddedAccountSubscription.unsubscribe();
+    }
+
   }
 }
