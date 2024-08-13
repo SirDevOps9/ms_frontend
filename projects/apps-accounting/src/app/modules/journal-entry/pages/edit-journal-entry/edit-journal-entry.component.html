@@ -85,7 +85,7 @@
           </lib-label>
           <lib-text-input formControlName="description" [readOnly]="viewMode"></lib-text-input>
         </div>
-        <div class="col-12 md:col-3">
+        <div class="col-12 md:col-3 total">
           <small>{{'JournalTemplate.totalDebitAmountLocal' | translate}}</small>
           <lib-text-input
           [(ngModel)]="totalDebitAmountLocal"
@@ -96,7 +96,7 @@
         ></lib-text-input>
       </div>
 
-      <div class="col-12 md:col-3">
+      <div class="col-12 md:col-3 total">
         <small>{{'JournalTemplate.totalCreditAmountLocal' | translate}}</small>
         <lib-text-input
         [(ngModel)]="totalCreditAmountLocal"
