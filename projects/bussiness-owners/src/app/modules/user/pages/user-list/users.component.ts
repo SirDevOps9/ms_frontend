@@ -65,15 +65,20 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Users');
     this.loadUsers();
+    this.usersSubscription();
     this.exportColumns = this.cols.map((col) => ({
       id: col.header,
       name: col.field,
     }));
   }
-
+  search(event: any) {
+    this.userService.getAllUsers(event.target.value, this.subdmainId);
+  }
   loadUsers() {
-    this.userService.getAllUsers(this.subdmainId);
+    this.userService.getAllUsers('',this.subdmainId);
+  }
 
+  usersSubscription(){
     this.userService.users.subscribe((users) => {
       this.userData = users;
       this.mappedUserData = this.userData.map(elem=>{
