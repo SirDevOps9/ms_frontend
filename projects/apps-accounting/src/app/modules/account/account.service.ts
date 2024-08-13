@@ -62,7 +62,7 @@ export class AccountService {
   private parentAccountsostCenter = new BehaviorSubject<parentCostCenter[]>([]);
   private costCenterById = new BehaviorSubject<costById>({} as costById);
   private costCenterDetails = new BehaviorSubject<costCenterDetails>({} as costCenterDetails);
-  private editCostCenter = new BehaviorSubject<costById | undefined>(undefined);
+  public  editCostCenter = new BehaviorSubject<costById | undefined>(undefined);
   private costCenterActivat = new BehaviorSubject<costCenterActivation | undefined>(undefined);
   private exportsTaxGroupDataSource = new BehaviorSubject<TaxGroupDto[]>([]);
   public exportsTaxGroupDataSourceObservable = this.exportsTaxGroupDataSource.asObservable();
