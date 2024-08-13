@@ -4,6 +4,7 @@
       <button class="btn_walk" (click)="startTour()">walk through</button>
     </div>
 
+
     <div [formGroup]="fg" class="entry_header">
       <!-- <p class="title test">{{ 'journal_entry_header' | translate }}</p> -->
       <div class="grid">
@@ -41,7 +42,25 @@
         </div>
       </div>
     </div>
+
     <div class="entry_table">
+      <div class="flex gap-2 my-2">
+        <lib-text-input
+        [(ngModel)]="totalDebitAmountLocal"
+        placeholder="{{'JournalTemplate.totalDebitAmountLocal' | translate}}"
+        [readOnly]="true"
+
+      ></lib-text-input>
+        <lib-text-input
+        [(ngModel)]="totalCreditAmountLocal"
+        placeholder="{{'JournalTemplate.totalCreditAmountLocal' | translate}}"
+        [readOnly]="true"
+      ></lib-text-input>
+      </div>
+      <div>
+
+      </div> 
+
       <div class="card">
         <p-table
           [value]="fa.controls"
@@ -237,16 +256,16 @@
           </ng-template>
           <ng-template pTemplate="footer">
             <tr>
+              <td colspan="4" class="imptyData total" style="text-align: center;">{{'JournalTemplate.total' | translate}}</td>
+              <!-- <td class="imptyData"></td>
               <td class="imptyData"></td>
-              <td class="imptyData"></td>
-              <td class="imptyData"></td>
-              <td class="imptyData"></td>
+              <td class="imptyData"></td> -->
               <td class="total">{{ totalDebitAmount }}</td>
               <td class="total">{{ totalCreditAmount }}</td>
               <td class="imptyData"></td>
               <td class="imptyData"></td>
-              <td class="imptyData"></td>
-              <td class="imptyData"></td>
+              <td class="total">{{ totalDebitAmountLocal }}</td>
+              <td class="total">{{ totalCreditAmountLocal }}</td>
               <td class="imptyData"></td>
             </tr>
           </ng-template>
@@ -276,7 +295,7 @@
               </div>
               <div class="md:col-6">
                 <lib-button-micro
-              [title]="'save' | translate"
+              title="{{'Journal.save' | translate}}"
               nameClass="save"
               (click)="save()"
               widthNumber=100%

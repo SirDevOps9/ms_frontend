@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormsService, LanguageService, customValidators } from 'shared-lib';
 import { GeneralSettingService } from '../../../general-setting.service';
 import { CountryDto, CurrencyDefinitionDto } from '../../../models';
 import { Title } from '@angular/platform-browser';
+import { NoChildrenAccountsComponent } from '../../noChildrenAccounts/nochildaccounts.component';
 
 @Component({
   selector: 'app-add-currency-definition',
@@ -21,6 +22,7 @@ export class AddCurrencyDefinitionComponent   {
     private fb: FormBuilder,
     private formsService: FormsService ,
     private generalSettingService :GeneralSettingService,
+    private dialog: DialogService,
   ) {
   }
   ngOnInit() {
@@ -66,5 +68,13 @@ export class AddCurrencyDefinitionComponent   {
 
     })
   }
+  openDialog() {
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {});
+    ref.onClose.subscribe((r) => {
+      if (r) {
+        this.addCurrencyForm.get('differenceAccount')?.setValue(r.id);
+      }
+    });
+    }
 
 }

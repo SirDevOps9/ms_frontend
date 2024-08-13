@@ -53,6 +53,7 @@ import { CalendarComponent } from './form-components/calendar/calendar.component
 import { HttpClientModule } from '@angular/common/http';
 import { ExportComponent } from './components/export/export.component';
 import { ChangeColumnComponent } from './components/change-column/change-column.component';
+import { NumberFormatPipe } from './pipes/number-format.pipe';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { ChangeColumnComponent } from './components/change-column/change-column.
     TablePrintComponent,
     TabviewComponent,
     ExportComponent,
-    ChangeColumnComponent
+    ChangeColumnComponent,
+    NumberFormatPipe
   ],
   imports: [
     HttpClientModule,
@@ -149,7 +151,8 @@ import { ChangeColumnComponent } from './components/change-column/change-column.
     TablePrintComponent,
     TabviewComponent,
     ExportComponent,
-    ChangeColumnComponent
+    ChangeColumnComponent,
+    NumberFormatPipe
   ],
 })
 export class SharedLibModule {}

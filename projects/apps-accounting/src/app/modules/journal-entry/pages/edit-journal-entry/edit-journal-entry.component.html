@@ -88,7 +88,7 @@
       </div>
     </div>
 
-    <div class="entry_table">
+    <div class="entry_tableCont">
       <div class="card">
         <p-table
           [value]="journalEntryLinesFormArray.controls"
@@ -198,6 +198,7 @@
                 <lib-field-validations [appControl]="journalLine">
                 </lib-field-validations>
               </td>
+              
               <td>
                 {{ journalLine.get('currency').value }}
               </td>
@@ -255,7 +256,7 @@
           "
         >
           <button class="btn Line" type="button" (click)="addNewRow()">
-            {{ 'EditJournal.AddNewLine' | translate }}
+            {{ 'EditJournal.add' | translate }}
           </button>
         </div>
       </div>
@@ -270,7 +271,7 @@
             journalEntry?.status != enums.JournalEntryStatus.Posted
           "
         >
-          <button class="btn save" type="submit">{{ 'EditJournal.Save' | translate }}</button>
+          <button class="btn save" type="submit" >{{ 'Journal.save' | translate }}</button>
         </div>
 
         <div
@@ -283,8 +284,9 @@
             class="btn btn save"
             type="button"
             (click)="ChangeStatus(enums.JournalEntryStatus.Submitted)"
+            [disabled]="disFlag"
           >
-            {{ 'EditJournal.Submit' | translate }}
+            {{ 'EditJournal.SaveSubmit' | translate }}
           </button>
         </div>
 

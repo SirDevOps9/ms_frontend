@@ -57,7 +57,7 @@ export class CurrencyDefinitionComponent {
 
   ngOnInit() {
     this.getCurrencyList();
-    this.exportColumns = this.columns.map((col) => ({
+    this.exportColumns = this.columns?.map((col) => ({
       id: col.headerText,
       name: col.name,
     }));

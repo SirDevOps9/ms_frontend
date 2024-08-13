@@ -18,6 +18,7 @@ import { CurrencyConversionComponent } from './pages/currency-conversion/currenc
 import { AddCurrencyConversionComponent } from './components/currencyConversion/add-currency-conversion/add-currency-conversion.component';
 import { EditCurrencyConversionComponent } from './components/currencyConversion/edit-currency-conversion/edit-currency-conversion.component';
 import { MainFinancialCalendarComponent } from './pages/financial-calendar/main-financial-calendar/main-financial-calendar.component';
+import { NoChildrenAccountsComponent } from './components/noChildrenAccounts/nochildaccounts.component';
 
 const routes: Routes = [
   {
@@ -111,7 +112,8 @@ const routes: Routes = [
     CurrencyConversionComponent,
     AddCurrencyConversionComponent,
     EditCurrencyConversionComponent,
-    MainFinancialCalendarComponent
+    MainFinancialCalendarComponent,
+    NoChildrenAccountsComponent
   ],
   imports: [CommonModule, SharedLibModule, AutoCompleteModule, RouterModule.forChild(routes)],
 })

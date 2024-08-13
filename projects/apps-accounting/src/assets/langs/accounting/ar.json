@@ -69,6 +69,8 @@
     "DeletedSuccessfully": "تم حذف دفتر اليومية بنجاح",
     "Success": "نجاح",
     "Error": "خطأ",
+    "save" : "حفظ المسودة",
+    "cannotDuplicate" : "لا يمكن التوزيع لنفس مركز التكلفة اكثر من مرة",
     "id": "الرقم التعريفي",
     "journalCode": "كود اليومية",
     "referenceNumber": "المرجع",
@@ -151,9 +153,11 @@
     "CrAmountLocal": "المبلغ دائن محلي",
     "Delete": "حذف",
     "AddNewLine": "إضافة سطر جديد",
+    "add" : "اضافة",
     "Discard": "تجاهل",
     "Save": "حفظ",
     "Submit": "إرسال",
+    "SaveSubmit": "حفظ",
     "Post": "ترحيل",
     "costCenter": "مركز التكلفة",
     "Actions": "العمليات"
@@ -187,7 +191,10 @@
     "periodName": "اسم الفترة",
     "type": "النوع",
     "totalDebitAmountLocal": "إجمالي المدين المحلي",
-    "totalCreditAmountLocal": "إجمالي الدائن المحلي"
+    "totalCreditAmountLocal": "إجمالي الدائن المحلي",
+     "total" : "الاجمالي",
+     "add" : "اضافه"
+
   },
   "TaxGroup": {
     "Title": "قائمة مجموعات الضرائب",
