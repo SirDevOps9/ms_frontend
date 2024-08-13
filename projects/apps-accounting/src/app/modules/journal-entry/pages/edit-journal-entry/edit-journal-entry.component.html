@@ -215,10 +215,10 @@
                 </lib-form-group>
               </td>
               <td>
-                {{ journalLine.get('debitAmountLocal').value }}
+                {{ generalService.formatNumber(journalLine.get('debitAmountLocal').value  , generalService.fraction)}}
               </td>
               <td>
-                {{ journalLine.get('creditAmountLocal').value }}
+                {{ generalService.formatNumber(journalLine.get('creditAmountLocal').value  , generalService.fraction)}}
               </td>
               <td>
                 <img src="assets/images/groups.png" *ngIf="!journalLine.controls['selectedFalg'].value && !journalLine.controls['costCenters'].value.length">

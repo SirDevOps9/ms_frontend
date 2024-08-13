@@ -28,6 +28,7 @@ import { NoChildrenAccountsComponent } from '../../components/noChildrenAccounts
 import { Title } from '@angular/platform-browser';
 import { EditCostCenterAllocationPopupComponent } from '../components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component';
 import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
+import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 
 @Component({
   selector: 'app-edit-journal-entry',
@@ -416,7 +417,8 @@ export class EditJournalEntryComponent implements OnInit {
     private currencyService: CurrencyService,
     private titleService: Title,
     private langService: LanguageService,
-    private currentUserService : CurrentUserService
+    private currentUserService : CurrentUserService,
+    public generalService : GeneralService
 
   ) {
     this.titleService.setTitle(this.langService.transalte('Journal.EditJournal'));
