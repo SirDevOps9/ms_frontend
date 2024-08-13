@@ -26,7 +26,10 @@ export class AddJournalEntryOpeningBalanceComponent {
   fg: FormGroup;
   filteredAccounts: AccountDto[] = [];
   journalEntryAttachments: { attachmentId: string; name: string }[];
-
+  totalDebitAmount: number;
+  totalDebitAmountLocal: number;
+  totalCreditAmountLocal: number;
+  totalCreditAmount: number;
   currencies: CurrencyDto[];
   fitleredCurrencies: CurrencyDto[];
   costCenters: costCenters[] = [];
@@ -264,13 +267,18 @@ export class AddJournalEntryOpeningBalanceComponent {
     );
     this.fg.updateValueAndValidity();
     this.fa.push(fg);
+    this.getAccounts()
   }
 
   deleteLine(index: number) {
     this.fa.removeAt(index);
+    this.calculateTotalCreditAmount();
+    this.calculateTotalDebitAmount();
+    this.calculateTotalDebitAmountLocal();
+    this.calculateTotalCreditAmountLocal();
   }
   save() {
-    if (!this.formService.validForm(this.fg, false)) return;
+    if (!this.formService.validForm(this.fa, false)) return;
     const value = this.fg.value as JournalEntryFormValue;
 
     let obj: AddJournalEntryCommandOpeningBalance = {
@@ -301,6 +309,8 @@ export class AddJournalEntryOpeningBalanceComponent {
   routeToJournal() {
     this.routerService.navigateTo('/transcations/journal-entry-opening-balance');
   }
+
+  
 
   RedirectToTemplate() {
     const dialogRef = this.dialog.open(JournalTemplatePopupComponent, {
@@ -355,6 +365,36 @@ export class AddJournalEntryOpeningBalanceComponent {
     });
   }
 
+  calculateTotalDebitAmount() {
+    this.totalDebitAmount = this.items.controls.reduce((acc, control) => {
+      // Ensure that debitAmount is treated as a number
+      const debitValue = parseFloat(control.get('debitAmount')?.value) || 0;
+      return acc + debitValue;
+    }, 0);
+  }
+  calculateTotalCreditAmount() {
+    this.totalCreditAmount = this.items.controls.reduce((acc, control) => {
+      // Ensure that debitAmount is treated as a number
+      const debitValue = parseFloat(control.get('creditAmount')?.value) || 0;
+      return acc + debitValue;
+    }, 0);
+  }
+
+  calculateTotalDebitAmountLocal() {
+    this.totalDebitAmountLocal = this.items.controls.reduce((acc, control) => {
+      // Ensure that debitAmount is treated as a number
+      const debitValue = parseFloat(control.get('debitAmountLocal')?.value) || 0;
+      return acc + debitValue;
+    }, 0);
+  }
+  calculateTotalCreditAmountLocal() {
+    this.totalCreditAmountLocal = this.items.controls.reduce((acc, control) => {
+      // Ensure that debitAmount is treated as a number
+      const debitValue = parseFloat(control.get('creditAmountLocal')?.value) || 0;
+      return acc + debitValue;
+    }, 0);
+  }
+
   openCostPopup(data: any, account: number, index: number) {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
 
@@ -380,12 +420,29 @@ export class AddJournalEntryOpeningBalanceComponent {
   debitChanged(index: number) {
     const journalLine = this.items.at(index);
     const creditAmountControl = journalLine.get('creditAmount');
-    creditAmountControl!.setValue(0);
+    const debitAmountControl = journalLine.get('debitAmount');
+    if (debitAmountControl?.value === '' || !debitAmountControl?.value) {
+
+      debitAmountControl!.setValue(0);
+    }
+    this.calculateTotalDebitAmount();
+    this.calculateTotalCreditAmount();
+    this.calculateTotalDebitAmountLocal();
+    this.calculateTotalCreditAmountLocal();
   }
   creditChanged(index: number) {
     const journalLine = this.items.at(index);
     const debitAmountControl = journalLine.get('debitAmount');
-    debitAmountControl!.setValue(0);
+    const creditAmountControl = journalLine.get('creditAmount');
+    if (creditAmountControl?.value === '' || !creditAmountControl?.value) {
+
+      creditAmountControl!.setValue(0);
+    }
+
+    this.calculateTotalCreditAmount();
+    this.calculateTotalDebitAmount();
+    this.calculateTotalDebitAmountLocal();
+    this.calculateTotalCreditAmountLocal();
   }
   getTodaysDate() {
     var date = new Date();
