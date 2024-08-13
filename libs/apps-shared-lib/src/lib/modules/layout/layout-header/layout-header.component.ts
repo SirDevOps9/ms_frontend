@@ -89,7 +89,7 @@ export class LayoutHeaderComponent {
     this.ref = this.dialog.open(ModuleListComponent, {
       width: '650px',
       height: '500px',
-      header: 'Choose App',
+      // header: 'Choose App',
     });
   }
   constructor(

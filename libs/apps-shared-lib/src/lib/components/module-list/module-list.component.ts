@@ -25,6 +25,8 @@ export class ModuleListComponent implements OnInit {
     });
   }
 
+
+
   navigateto(key: number) {
     if (key === Modules.Hr) {
       location.href = '../hr';
