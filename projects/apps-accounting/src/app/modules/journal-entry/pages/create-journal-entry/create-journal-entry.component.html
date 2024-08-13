@@ -270,13 +270,8 @@
                 </div>
               </td>
               <td>
-                <lib-button
-                  [icon]="'pi pi-trash'"
-                  (click)="deleteLine(i)"
-                  [rounded]="true"
-                  [enableText]="true"
-                  severity="secondary"
-                ></lib-button>
+                <img src="assets/images/table/delete.svg" alt="" (click)="deleteLine(i)">
+
               </td>
             </tr>
           </ng-template>

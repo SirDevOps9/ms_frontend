@@ -18,7 +18,7 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
   calcAmount : number
   lookupValues : any = []
 
-  constructor(private fb : FormBuilder , public config : DynamicDialogConfig , private accountService : AccountService , private formsService : FormsService , private ref : DynamicDialogRef , private cdr : ChangeDetectorRef ,     private toasterService: ToasterService, private languageService : LanguageService
+  constructor( private fb : FormBuilder , public config : DynamicDialogConfig , private accountService : AccountService , private formsService : FormsService , private ref : DynamicDialogRef , private cdr : ChangeDetectorRef ,     private toasterService: ToasterService, private languageService : LanguageService
   ){}
   ngAfterViewInit(): void {
 
@@ -44,6 +44,9 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
    
   }
 
+  close(){
+    this.ref.close();
+  }
   ngOnInit(): void {
    
     this.amountForm = this.fb.group({

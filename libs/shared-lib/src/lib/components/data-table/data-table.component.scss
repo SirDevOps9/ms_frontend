@@ -117,7 +117,7 @@ padding-top: 16px;}
  
   
   /* For screens larger than 1024px (e.g., tablets in landscape mode or laptops) */
-
+.viewInWeb{
   @media (max-width: 1920px) {
     .p-datatable-wrapper {
       max-height: 700px !important;

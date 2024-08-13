@@ -26,6 +26,7 @@ export class ChartOfAccountTreeComponent implements OnInit {
   ref: DynamicDialogRef;
   parentAdded: any;
   parentEditedId: any;
+  test: any;
   activeNode: any = null;
   activeNodeId: number | null = null; // Store the active node ID
 
@@ -125,16 +126,17 @@ export class ChartOfAccountTreeComponent implements OnInit {
   }
 
   handleOperationCompleted(event: any) {
-    console.log(event,"eveeeee");
-    console.log(event.id);
+  //  this.test=event
     
-    this.getTreeList();
-    if(event.id){
-      this.viewMode(event.id)
+     this.getTreeList();
+    // if(event.id){
+    //  this.viewMode(event.id)
 
-      this.expandParents(event)
-      this.setActiveNode(event.id)
-    }
+      //this.expandParents(event)
+     // this.setActiveNode(event.id)
+      this.test=event.id
+      
+    // }
     this.add = false;
   }
   toggelTree() {
@@ -164,22 +166,51 @@ export class ChartOfAccountTreeComponent implements OnInit {
   setActiveNode(id: number) {
     const findNode = (nodes: any[]): any => {
       for (let node of nodes) {
+        
         if (node.id === id) {
+          //  this.test=node
+
           return node;
         }
-        if (node.children) {
+         if (node.children) {
           const foundChild = findNode(node.children);
           if (foundChild ) {
+            if(node.children.id===id){
+              
+            }
+            
             return foundChild;
           }
         }
       }
       return null;
     };
-    this.activeNode = findNode(this.nodes);
-    if (this.activeNode) {
-      this.expandParents(this.activeNode);
+
+    const x:any = findNode(this.nodes);
+    x.expanded = true;
+
+    if (x.children.length!=0) {
+      x.children.forEach((element:any) => {
+        if(element.id===this.test){
+          this.activeNode=element 
+            this.getAccountDetails(element.id);
+          
+          this.view = true;
+        }else{
+          // this.activeNode=x
+          // this.getAccountDetails(x.id);
+          
+          // this.view = true; 
+
+        }
+      });
+    }else if(x.children.length[0]){
+
+                this.activeNode=x 
+
     }
+
+
   }
 
   expandParents(node: any) {
@@ -187,22 +218,28 @@ export class ChartOfAccountTreeComponent implements OnInit {
     while (parentNode) {
       parentNode.expanded = true;
       parentNode = this.findParentNode(this.nodes, parentNode);
+      
+      
     }
+    
   }
 
   findParentNode(nodes: any[], childNode: any): any {
+    
     for (let node of nodes) {
-      if (node.children && node.children.includes(childNode)) {
+      if (node.children.includes(childNode)) {
+        
         return node;
       }
       if (node.children) {
         const parent = this.findParentNode(node.children, childNode);
         if (parent) {
+
           return parent;
         }
       }
     }
-    return null;
+    // return null;
   }
   deleteAccount(id: number) {
     const parentNode = this.findParentNodeById(this.nodes, id);

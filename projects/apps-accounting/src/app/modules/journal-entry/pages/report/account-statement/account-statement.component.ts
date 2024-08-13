@@ -26,7 +26,7 @@ export class AccountStatementComponent {
 
   tableData: reportAccount[];
   cols: any[] = [];
-
+  total:number=0
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
@@ -98,12 +98,15 @@ export class AccountStatementComponent {
             this.tableData = this.tableData.map((x) => {
               return {
                 ...x,
-                // journalEntryDtos: x.journalEntryDtos.map(t => {
-                //   return {
-                //     ...t,
-                //     balance: t.balance < 0 ? Math.abs(t.balance) : t.balance
-                //   };
-                // })
+                totalDebitAmount:x.journalEntryDtos.reduce((sum, transaction) => sum + transaction.debitAmount, 0),
+                totalCreditAmount:x.journalEntryDtos.reduce((sum, transaction) => sum + transaction.creditAmount, 0),
+
+                journalEntryDtos: x.journalEntryDtos.map(t => {
+                  return {
+                    ...t,
+                    balance: t.balance < 0 ? Math.abs(t.balance) : t.balance
+                  };
+                })
               };
             });
           });
