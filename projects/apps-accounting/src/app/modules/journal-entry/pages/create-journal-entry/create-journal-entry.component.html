@@ -169,7 +169,7 @@
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ fg.controls['debitAmount'].value }}
+                    {{  generalService.formatNumber(fg.controls['debitAmount'].value , generalService.fraction)  }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations [appControl]="fg"></lib-field-validations>
@@ -188,7 +188,8 @@
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ fg.controls['creditAmount'].value }}
+                    {{  generalService.formatNumber(fg.controls['creditAmount'].value , generalService.fraction)  }}
+
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations [appControl]="fg"></lib-field-validations>

@@ -5,6 +5,7 @@ import { AccountService } from '../../../../account/account.service';
 import { costLookup } from '../../../models';
 import { FormsService, LanguageService, ToasterService, customValidators } from 'shared-lib';
 import { SelectComponent } from 'libs/shared-lib/src/lib/form-components';
+import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 
 @Component({
   selector: 'app-cost-center-allocation-popup',
@@ -18,7 +19,8 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
   calcAmount : number
   lookupValues : any = []
 
-  constructor(private fb : FormBuilder , public config : DynamicDialogConfig , private accountService : AccountService , private formsService : FormsService , private ref : DynamicDialogRef , private cdr : ChangeDetectorRef ,     private toasterService: ToasterService, private languageService : LanguageService
+  constructor(private fb : FormBuilder , public config : DynamicDialogConfig , private accountService : AccountService , private formsService : FormsService , private ref : DynamicDialogRef , private cdr : ChangeDetectorRef 
+    ,     private toasterService: ToasterService, private languageService : LanguageService,public generalService: GeneralService
   ){}
   ngAfterViewInit(): void {
 
@@ -49,11 +51,14 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
     this.amountForm = this.fb.group({
       amount : 0
     })
+    const formatdebitAmount=this.generalService.formatNumber(this.config.data.debitAmount, this.generalService.fraction)
+    const formatcreditAmount=this.generalService.formatNumber(this.config.data.creditAmount, this.generalService.fraction)
+
     if(this.config.data.creditAmount == 0) {
-      this.amountForm.get('amount')?.setValue(this.config.data.debitAmount)
+      this.amountForm.get('amount')?.setValue(formatdebitAmount)
     }
      if(this.config.data.debitAmount == 0) {
-      this.amountForm.get('amount')?.setValue(this.config.data.creditAmount)
+      this.amountForm.get('amount')?.setValue(formatcreditAmount)
 
     }
     this.allocationform.push(this.createItem())
