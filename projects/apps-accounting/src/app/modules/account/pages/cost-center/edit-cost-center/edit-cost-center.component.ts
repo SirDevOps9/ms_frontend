@@ -4,6 +4,7 @@ import { FormsService, customValidators, LanguageService, ToasterService } from 
 import { AccountService } from '../../../account.service';
 import { costById, parentCostCenter } from '../../../models';
 import { Title } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-edit-cost-center',
@@ -15,6 +16,7 @@ export class EditCostCenterComponent implements OnInit {
   code: string;
   parentAccounts: parentCostCenter[] = [];
   editParentId: number;
+  private subscription: Subscription;
 
   @Input() parentEditedId?: number;
   @Output() operationCompleted = new EventEmitter<any>();
@@ -44,7 +46,7 @@ export class EditCostCenterComponent implements OnInit {
     });
     this.getCostById(this.parentEditedId);
 
-    this.accountService.editedCost.subscribe((res) => {
+    this.subscription =this.accountService.editedCost.subscribe((res) => {
       if (res) {
         this.operationCompleted.emit(this.parentEditedId);
         this.toaserService.showSuccess(
@@ -90,4 +92,11 @@ export class EditCostCenterComponent implements OnInit {
   cancelClick() {
     this.operationCompleted.emit(-1);
   }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.accountService.editCostCenter.next(undefined);
+      this.subscription.unsubscribe();
+    }
+}
 }
