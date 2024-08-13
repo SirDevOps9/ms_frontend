@@ -78,24 +78,8 @@
 
         <ng-template #userCol let-tag>
           <div class="actions flex align-items-center">
-            <lib-button
-              className="edit"
-              type="button"
-              (click)="routeToEdit(tag)"
-              icon="pi pi-pencil"
-              [rounded]="true"
-              [enableText]="true"
-              severity="secondary"
-            >
-            </lib-button>
-            <lib-button
-              icon="pi pi-trash"
-              [rounded]="true"
-              [enableText]="true"
-              severity="secondary"
-              (click)="Delete(tag.id)"
-            >
-            </lib-button>
+            <img src="assets/images/table/edit.svg" alt="" (click)="routeToEdit(tag)" />
+            <img src="assets/images/table/delete.svg" alt="" (click)="Delete(tag.id)" />
           </div>
         </ng-template>
 

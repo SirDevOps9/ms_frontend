@@ -282,13 +282,14 @@
         </div> -->
       <div class="btn_group">
         <div class="grid">
-          <div class="md:col-4">
+          <div class="md:col-3">
             <div class="grid">
               <div class="md:col-6">
                 <lib-button-micro
               [title]="'discard' | translate"
               nameClass="cancel"
               (click)="routeToJournal()"
+              widthNumber=100%
             >
             </lib-button-micro>
               </div>
@@ -297,6 +298,7 @@
               title="{{'Journal.save' | translate}}"
               nameClass="save"
               (click)="save()"
+              widthNumber=100%
             >
             </lib-button-micro>
               </div>
