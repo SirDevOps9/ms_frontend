@@ -42,7 +42,7 @@ export class EditJournalEntryComponent implements OnInit {
   accountIdList: number[] = [];
   currencyIdList: number[] = [];
   costCenters: costCenters[] = [];
-  
+  disFlag : boolean = false
   viewMode: boolean = false;
   statusName: string;
   journalTypeName: JournalEntryType;
@@ -63,6 +63,11 @@ export class EditJournalEntryComponent implements OnInit {
     this.initializeForm();
     this.initializeFormData();
     this.getCurrencies();
+    // this.journalEntryLinesFormArray.valueChanges.subscribe(res=>{
+    //   if(res) {
+    //     this.disFlag = false
+    //   }
+    // })
   }
   get journalEntryLinesFormArray() {
     return this.editJournalForm.get('journalEntryLines') as FormArray;
@@ -287,6 +292,10 @@ export class EditJournalEntryComponent implements OnInit {
     journalLine.get('costCenterConfig')?.setValue(selectedAccount.costCenterConfig);
     journalLine.get('selectedFalg')?.setValue(true);
     console.log(selectedAccount)
+    journalLine.get('selectedFalg')?.setValue(true);
+    journalLine.get('lineDescription')?.setValue(selectedAccount.name);
+
+
 
     
 

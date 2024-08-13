@@ -10,7 +10,7 @@
       // font-family: $cairo_regular;
     }
   }
-  .entry_table {
+  .entry_tableCont {
     .add_new {
       padding: 20px;
       .btn {
@@ -20,6 +20,12 @@
         color: #1a90b0;
         cursor: pointer;
       }
+      .btn:disabled {
+  background-color: #1a90b0; /* Keep the same color */
+  opacity: 0.5;  /* Make the button appear dimmed */
+  cursor: not-allowed; /* Change the cursor to indicate the button is not clickable */
+  color: #fff;
+}
       .Line {
         border-inline-end: 3px solid #dde1e6ed;
       }
@@ -40,6 +46,12 @@
         border-radius: 12px;
         cursor: pointer;
         position: relative;
+      }
+      .btn:disabled {
+        background-color: #1a90b0; /* Keep the same color */
+        opacity: 0.5;  /* Make the button appear dimmed */
+        cursor: not-allowed; /* Change the cursor to indicate the button is not clickable */
+        color: #fff;
       }
       .save {
         background: #1a90b0;
@@ -100,9 +112,15 @@
         font-size: 14px;
       }
     }
-    .entry_table {
-      lib-text-input input {
-        border: none;
+    .entry_tableCont {
+      // lib-text-input input {
+      //   border: none;
+      // }
+      .p-inputtext{
+        width: 100px !important;
+        padding-inline-start: 5px !important;
+       padding-inline-end:5px !important;
+       width: 150px !important;
       }
     }
   }

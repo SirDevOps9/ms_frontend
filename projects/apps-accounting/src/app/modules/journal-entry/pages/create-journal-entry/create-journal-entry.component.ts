@@ -61,6 +61,8 @@ export interface JournalEntryFormValue {
 export class CreateJournalEntryComponent {
   fg: FormGroup;
   totalDebitAmount :number;
+  totalDebitAmountLocal :number;
+  totalCreditAmountLocal :number;
   totalCreditAmount :number;
   filteredAccounts: AccountDto[] = [];
   journalEntryAttachments: { attachmentId: string; name: string }[];
@@ -106,6 +108,8 @@ export class CreateJournalEntryComponent {
   ngOnInit() {
     this.totalDebitAmount = 0
     this.totalCreditAmount = 0
+    this.totalDebitAmountLocal = 0
+    this.totalCreditAmountLocal = 0
     this.langService.getTranslation('JournalTitle').subscribe((title) => {
       this.titleService.setTitle(title);
     });
@@ -209,6 +213,7 @@ export class CreateJournalEntryComponent {
     accountName?.setValue(this.accountData?.name);
 
     journalLine.get('accountCode')?.setValue(this.accountData?.accountCode);
+    journalLine.get('lineDescription')?.setValue(this.accountData.name);
     journalLine.get('costCenterConfig')?.setValue(this.accountData.costCenterConfig);
     journalLine.get('selectedFalg')?.setValue(true);
     console.log(journalLine.get('costCenterConfig')?.value)
@@ -234,6 +239,7 @@ export class CreateJournalEntryComponent {
 
     const accountName = journalLine.get('accountName');
 
+
     accountName?.setValue(this.accountData.name);
 
     journalLine.get('accountCode')?.setValue(this.accountData?.accountCode);
@@ -242,6 +248,7 @@ export class CreateJournalEntryComponent {
 
     const currencyControl = journalLine.get('currency');
     const currencyRateControl = journalLine.get('currencyRate')!;
+
 
     currencyControl?.setValue(this.accountData?.currencyId);
 
@@ -265,15 +272,19 @@ export class CreateJournalEntryComponent {
   openDialog(index: number) {
     const ref = this.dialog.open(NoChildrenAccountsComponent, {});
     ref.onClose.subscribe((r) => {
+
       if (r) {
         this.fa.at(index).get('account')?.setValue(r.id);
         this.fa.at(index)?.get('accountName')?.setValue(r.name);
+        this.fa.at(index)?.get('lineDescription')?.setValue(r.name);
         this.fa.at(index)?.get('accountCode')?.setValue(r.accountCode);
         this.fa.at(index)?.get('costCenterConfig')?.setValue(r.costCenterConfig);
         var currencyData = this.currencies.find((c) => c.id == r.currencyId);
         this.fa.at(index).get('currency')?.setValue(r.currencyId);
         this.fa.at(index).get('currencyName')?.setValue(currencyData?.name);
         this.getAccountCurrencyRate(r.currencyId , index);
+        this.fa.at(index).get('selectedFalg')?.setValue(true);
+
       }
     });
   }
@@ -494,20 +505,24 @@ export class CreateJournalEntryComponent {
   debitChanged(index: number) {
     const journalLine = this.items.at(index);
     const creditAmountControl = journalLine.get('creditAmount');
-    creditAmountControl!.setValue(0);
+    // creditAmountControl!.setValue(0);
     
     this.calculateTotalDebitAmount()
     this.calculateTotalCreditAmount();
+    this.calculateTotalDebitAmountLocal()
+    this.calculateTotalCreditAmountLocal()
 
   }
   creditChanged(index: number) {
     const journalLine = this.items.at(index);
     const debitAmountControl = journalLine.get('debitAmount');
-    debitAmountControl!.setValue(0);
+    // debitAmountControl!.setValue(0);
     //  journalLine.get('debitAmount');
 
     this.calculateTotalCreditAmount();
     this.calculateTotalDebitAmount()
+    this.calculateTotalDebitAmountLocal()
+    this.calculateTotalCreditAmountLocal()
 
   }
   getTodaysDate() {
@@ -570,6 +585,22 @@ if(res.length) {
     this.totalCreditAmount = this.items.controls.reduce((acc, control) => {
       // Ensure that debitAmount is treated as a number
       const debitValue = parseFloat(control.get('creditAmount')?.value) || 0;
+      return acc + debitValue;
+    }, 0);
+  }
+  
+
+  calculateTotalDebitAmountLocal() {
+    this.totalDebitAmountLocal  = this.items.controls.reduce((acc, control) => {
+      // Ensure that debitAmount is treated as a number
+      const debitValue = parseFloat(control.get('debitAmountLocal')?.value) || 0;
+      return acc + debitValue;
+    }, 0);
+  }
+  calculateTotalCreditAmountLocal() {
+    this.totalCreditAmountLocal = this.items.controls.reduce((acc, control) => {
+      // Ensure that debitAmount is treated as a number
+      const debitValue = parseFloat(control.get('creditAmountLocal')?.value) || 0;
       return acc + debitValue;
     }, 0);
   }
