@@ -11,6 +11,7 @@ import { FormsService, LanguageService, customValidators } from 'shared-lib';
 import { GeneralSettingService } from '../../../general-setting.service';
 import { CountryDto } from '../../../models';
 import { Title } from '@angular/platform-browser';
+import { NoChildrenAccountsComponent } from '../../noChildrenAccounts/nochildaccounts.component';
 @Component({
   selector: 'app-edit-currency-definition',
   templateUrl: './edit-currency-definition.component.html',
@@ -91,7 +92,12 @@ export class EditCurrencyDefinitionComponent {
     });
   }
   openDialog() {
-   // const ref = this.dialog.open(NoChildrenAccountsComponent, {});
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {});
+    ref.onClose.subscribe((r) => {
+      if (r) {
+        this.editCurrencyForm.get('differenceAccount')?.setValue(r.id);
+      }
+    });
     }
     
 }
