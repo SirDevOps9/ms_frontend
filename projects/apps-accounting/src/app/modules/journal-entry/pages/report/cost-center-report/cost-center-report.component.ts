@@ -73,7 +73,17 @@ export class CostCenterReportComponent {
           this.journalEntryService.CostCenterReport.subscribe((res: any) => {
             if (res.length > 0) {
               this.tableData = res;
-              console.log(this.tableData, '00000000');
+              this.tableData = this.tableData.map(x => {
+                return {
+                  ...x,
+                  transactions: x.transactions.map(t => {
+                    return {
+                      ...t,
+                      balance: t.balance < 0 ? Math.abs(t.balance) : t.balance
+                    };
+                  })
+                };
+              });
             }
           });
         }
