@@ -23,7 +23,7 @@
       >
       <!-- [class.none]="currentPageResult.totalItems! <= 25" -->
         <ng-template pTemplate="caption">
-          <!-- <div
+          <div
             class="flex align-items-center justify-content-end gap-2 paginationHead"
             *ngIf="tableConfigs.allowServerPagination"
         
@@ -38,20 +38,8 @@
               currentPageReportTemplate="{first} - {last} / {totalRecords}"
               [first]="first"
             ></p-paginator>
-          </div> -->
+          </div>
           <ng-content select="[caption]"> </ng-content>
-        </ng-template>
-        <ng-template #paginatorTemplate>
-          <p-paginator
-            (onPageChange)="onPageChange2($event)"
-            [rows]="currentPageResult.pageSize!"
-            [totalRecords]="currentPageResult.totalItems!"
-            [showCurrentPageReport]="true"
-            [showPageLinks]="false"
-            [showFirstLastIcon]="false"
-            currentPageReportTemplate="{first} - {last} / {totalRecords}"
-            [first]="first"
-          ></p-paginator>
         </ng-template>
         
 
