@@ -5,7 +5,7 @@ import { RouterService, LanguageService, PageInfo, customValidators, ToasterServ
 import { AccountService } from '../../../../account/account.service';
 import { AccountDto } from '../../../../account/models';
 import { JournalEntryService } from '../../../journal-entry.service';
-import { reportAccount, reportTrialDto } from '../../../models';
+import { reportAccount } from '../../../models';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -63,11 +63,6 @@ defoultSelectedAcounts:number[]=[]
             this.defoultSelectedAcounts.push(element.id)  
           });
         }
-       
-
-        // this.reportAccountForm.patchValue({
-        //   Accounts:this.defoultSelectedAcounts
-        // })
         
       });
      
