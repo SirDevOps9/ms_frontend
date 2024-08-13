@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AccountService } from '../../../../account/account.service';
 import { costLookup } from '../../../models';
-import { FormsService, customValidators } from 'shared-lib';
+import { FormsService, LanguageService, ToasterService, customValidators } from 'shared-lib';
 import { SelectComponent } from 'libs/shared-lib/src/lib/form-components';
 
 @Component({
@@ -18,7 +18,8 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
   calcAmount : number
   lookupValues : any = []
 
-  constructor(private fb : FormBuilder , public config : DynamicDialogConfig , private accountService : AccountService , private formsService : FormsService , private ref : DynamicDialogRef , private cdr : ChangeDetectorRef){}
+  constructor(private fb : FormBuilder , public config : DynamicDialogConfig , private accountService : AccountService , private formsService : FormsService , private ref : DynamicDialogRef , private cdr : ChangeDetectorRef ,     private toasterService: ToasterService, private languageService : LanguageService
+  ){}
   ngAfterViewInit(): void {
 
     console.log(this.select)
@@ -167,8 +168,19 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
 
   
   }
+  checkForDuplicateCostCenters(): boolean {
+    const costCenterIds = this.allocationform.value.map((item: any) => item.costCenterId);
+    const duplicateIds = costCenterIds.filter((id: string, index: number) => costCenterIds.indexOf(id) !== index);
+    return duplicateIds.length > 0;
+  }
   onSave() {
     if (!this.formsService.validForm(this.allocationform, false)) return;
+    if (this.checkForDuplicateCostCenters()) {
+      this.toasterService.showError(this.languageService.transalte('Journal.Error') , this.languageService.transalte('Journal.cannotDuplicate'))
+   
+      return;
+    }
+    
     this.ref.close(this.allocationform.value)
 
   }
