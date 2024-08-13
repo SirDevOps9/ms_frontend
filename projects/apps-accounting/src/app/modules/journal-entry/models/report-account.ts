@@ -3,7 +3,9 @@ import { reportJurnalAccountDto } from ".";
 export class reportAccount {
     accountCode: string;
     accountName: string;
-    natuar: string;
-    journalEntryDtos: reportJurnalAccountDto[]
+    nature: string;
+    journalEntryDtos: reportJurnalAccountDto[];
+    totalDebitAmount:number;
+    totalCreditAmount:number;
   }
     

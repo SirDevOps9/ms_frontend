@@ -20,7 +20,7 @@ defoultSelectedAcounts:number[]=[]
  
   tableData: reportAccount[];
   cols: any[] = [];
-
+  total:number=0
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
@@ -104,6 +104,9 @@ defoultSelectedAcounts:number[]=[]
              this.tableData = this.tableData.map(x => {
               return {
                 ...x,
+                totalDebitAmount:x.journalEntryDtos.reduce((sum, transaction) => sum + transaction.debitAmount, 0),
+                totalCreditAmount:x.journalEntryDtos.reduce((sum, transaction) => sum + transaction.creditAmount, 0),
+
                 journalEntryDtos: x.journalEntryDtos.map(t => {
                   return {
                     ...t,
