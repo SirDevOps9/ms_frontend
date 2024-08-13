@@ -30,42 +30,7 @@
         border-inline-end: 3px solid #dde1e6ed;
       }
     }
-    .btn_group {
-      display: flex;
-      align-items: center;
-      margin-inline-end: 20px;
-      justify-content: end;
-      .grid{
-        width: 100%;
-        justify-content: end;
-    }
-      .btn {
-        background: none;
-        border: none;
-        padding: 10px 50px;
-        border-radius: 12px;
-        cursor: pointer;
-        position: relative;
-      }
-      .btn:disabled {
-        background-color: #1a90b0; /* Keep the same color */
-        opacity: 0.5;  /* Make the button appear dimmed */
-        cursor: not-allowed; /* Change the cursor to indicate the button is not clickable */
-        color: #fff;
-      }
-      .save {
-        background: #1a90b0;
-        color: #fff;
-        margin-inline-start: 20px;
-        justify-content: end;
-      }
-
-      .discard {
-        border: 1px solid #cb3f2d;
-        color: #cb3f2d;
-        justify-content: end;
-      }
-    }
+    
   }
 
   .view {

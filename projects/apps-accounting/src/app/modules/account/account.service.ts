@@ -146,6 +146,15 @@ export class AccountService {
       })
     );
   }
+
+  getDetailedAccounts() {
+    return this.accountproxy.getAccountsChildrenDropDown().pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+
   getAccountChildrenList(quieries: string, pageInfo: PageInfo) {
     this.accountproxy.getAccountsHasNoChildren(quieries, pageInfo).subscribe((res) => {
       this.childrenAccountDataSource.next(res.result);

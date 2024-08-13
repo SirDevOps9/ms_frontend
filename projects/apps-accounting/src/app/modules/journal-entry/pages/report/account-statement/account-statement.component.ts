@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { RouterService, LanguageService, PageInfo, customValidators, ToasterService } from 'shared-lib';
 import { AccountService } from '../../../../account/account.service';
-import { AccountDto } from '../../../../account/models';
+import { AccountDto, AccountsChildrenDropDown } from '../../../../account/models';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { reportAccount } from '../../../models';
 import { ActivatedRoute } from '@angular/router';
@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AccountStatementComponent {
   reportAccountForm: FormGroup;
-  filteredAccounts: AccountDto[] = [];
+  filteredAccounts: AccountsChildrenDropDown[] = [];
 defoultSelectedAcounts:number[]=[]
  
   tableData: reportAccount[];
@@ -49,9 +49,9 @@ defoultSelectedAcounts:number[]=[]
   }
   getAccounts() {
     this.accountService
-      .getAccountsHasNoChildren('', new PageInfo())
+      .getDetailedAccounts()
       .subscribe((r) => {
-        this.filteredAccounts = r.result.map(account => ({
+        this.filteredAccounts = r.map(account => ({
           ...account,
           displayName: `${account.name} (${account.accountCode})`
 

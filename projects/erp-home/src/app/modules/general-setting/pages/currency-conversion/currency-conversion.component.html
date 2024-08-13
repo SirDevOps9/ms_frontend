@@ -77,9 +77,9 @@
               </ng-container>
           
               <ng-template #actions let-actions>
-                <div class="actions flex align-items-center gap-4">
-                <i class="edit pi pi-pencil pointer" (click)="Edit(actions.id)"></i>
-                <i class="delete pi pi-trash pointer" (click)="onDelete(actions.id)"></i>
+                <div class="actions flex align-items-center ">
+                  <img src="assets/images/table/edit.svg" alt="" (click)="Edit(actions.id)" />
+                  <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(actions.id)" />
                 </div>
               </ng-template>
     
