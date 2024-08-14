@@ -60,10 +60,10 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
 
   
     if(this.config.data.creditAmount == '0.0' || !this.config.data.creditAmount) {
-      this.amountForm.get('amount')?.setValue(formatdebitAmount)
+      this.amountForm.get('amount')?.setValue(this.config.data.debitAmount)
     }
      if(this.config.data.debitAmount == '0.0' || !this.config.data.debitAmount) {
-      this.amountForm.get('amount')?.setValue(formatcreditAmount)
+      this.amountForm.get('amount')?.setValue(this.config.data.creditAmount)
 
     }
     this.allocationform.push(this.createItem())

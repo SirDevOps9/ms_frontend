@@ -31,13 +31,14 @@
           <p class="totals">
             {{ 'journal_date' | translate }}
           </p>
-          <lib-text-input
-            placeholder="{{ 'journal_date' | translate }}"
-            type="date"
+        
+        
+          <lib-calendar
             formControlName="journalDate"
-          ></lib-text-input>
+           
+          ></lib-calendar>
         </div>
-        <div class="col-12 md:col-3 mt-4">
+        <div class="col-12 md:col-3 mt-3">
           <button (click)="openAttachments()" class="attach">{{ 'attach' | translate }}</button>
         </div>
 
