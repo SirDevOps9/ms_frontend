@@ -85,3 +85,22 @@ input[type=checkbox]{
       
     }
 }
+#printableTable {
+    display: none;
+  }
+  
+  /* Show the printable table during print */
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+    #printableTable, #printableTable * {
+      visibility: visible;
+    }
+    #printableTable {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: block;
+    }
+  }

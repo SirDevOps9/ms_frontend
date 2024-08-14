@@ -247,9 +247,19 @@ export class JournalEntryService {
     });
   }
   getAccountingReports(trial:reportAccount) {
-    this.journalEntryProxy.getAccountingReports(trial).subscribe((response) => {
+    this.loaderService.show();
+    this.journalEntryProxy.getAccountingReports(trial).subscribe({
+      next:(response) => {
+        this.loaderService.hide();
+
       this.accountReportsDataSource.next(response);
-    });
+    },
+  error:(error)=>{
+    this.loaderService.hide();
+
+  }});
+
+
   }
 
   exportJournalEntriesData(searchTerm:string | undefined) {

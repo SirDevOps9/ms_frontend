@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { LanguageService, customValidators, ToasterService, DateTimeService } from 'shared-lib';
+import { LanguageService, customValidators, ToasterService, DateTimeService , PrintService } from 'shared-lib';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { reportCostAllData } from '../../../models';
 
@@ -24,7 +24,9 @@ export class CostCenterReportComponent {
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
     private ToasterService: ToasterService,
-    private dateTimeService: DateTimeService
+    private dateTimeService: DateTimeService,
+    private PrintService: PrintService,
+
   ) {}
 
   ngOnInit() {
@@ -100,5 +102,8 @@ export class CostCenterReportComponent {
       dateFrom: this.dateTimeService.firstDayOfMonth(),
       dateTo: this.dateTimeService.lastDayOfMonth(),
     });
+  }
+  printTable(id: string) {
+    this.PrintService.print(id)
   }
 }

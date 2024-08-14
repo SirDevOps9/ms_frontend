@@ -7,6 +7,7 @@ import {
   PageInfo,
   customValidators,
   ToasterService,
+  PrintService
 } from 'shared-lib';
 import { AccountService } from '../../../../account/account.service';
 import { AccountDto, AccountsChildrenDropDown } from '../../../../account/models';
@@ -35,7 +36,9 @@ export class AccountStatementComponent {
     private titleService: Title,
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
-    private ToasterService: ToasterService
+    private ToasterService: ToasterService,
+    private PrintService: PrintService,
+
   ) {}
 
   ngOnInit() {
@@ -126,5 +129,8 @@ export class AccountStatementComponent {
       dateFrom: today.toISOString().split('T')[0],
       dateTo: endOfMonth.toISOString().split('T')[0],
     });
+  }
+  printTable(id: string) {
+    this.PrintService.print(id)
   }
 }

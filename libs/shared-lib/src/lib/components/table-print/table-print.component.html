@@ -25,21 +25,6 @@
           <ng-template pTemplate="caption">
             <ng-content select="[caption]"> </ng-content>
           </ng-template>
-  
-          <!-- <ng-template pTemplate="header">
-            <tr>
-              <ng-container *ngFor="let col of tableConfigs.columns">
-                <th  [attr.rowspan]="3" [attr.colspan]="4" [pSortableColumn]="col.name" *ngIf="col.isSortable" class="heading_b16">
-                  {{ col.headerText }}
-                  <p-sortIcon [field]="col.name"></p-sortIcon>
-                </th>
-                <th   [attr.rowspan]="col.rowspan" [attr.colspan]="4" *ngIf="!col.isSortable" class="body_b14">
-                  {{ col.headerText }}
-                </th>
-              </ng-container>
-            </tr>
-          </ng-template> -->
-          <!-- ////////// -->
           <ng-template pTemplate="header">
             <!-- First level header row -->
             <tr>
@@ -83,25 +68,6 @@
               </ng-container>
             </tr>
           </ng-template>
-          <!-- ///////////// -->
-          <!-- <ng-template pTemplate="body" let-row let-i="rowIndex">
-            <tr [ngClass]="{ cssClass: i == selectedIndex }">
-              <td *ngFor="let col of tableConfigs.columns" class="body_b14">
-                <ng-container *ngIf="!col.template; else customCellTemplate!">
-                  <ng-container *ngIf="col.lookupKey">
-                    {{ this.lookupsService.getLookUpText(col.lookupKey, row[col.name]) }}
-                  </ng-container>
-                  {{ row[col.name] }}
-                </ng-container>
-                <ng-template
-                  #customCellTemplate
-                  *ngTemplateOutlet="col.template!; context: { $implicit: row }"
-                >
-                </ng-template>
-              </td>
-            </tr>
-          </ng-template> -->
-  
           <ng-template pTemplate="body" let-row let-i="rowIndex">
             <tr [ngClass]="{ cssClass: i == selectedIndex }">
               <ng-container *ngFor="let col of tableConfigs.columns">
@@ -140,7 +106,9 @@
               </ng-container>
             </tr>
           </ng-template>
-  
+          <ng-template pTemplate="footer">
+            <ng-content select="[footer]"> </ng-content>
+          </ng-template>
   
   
         </p-table>
