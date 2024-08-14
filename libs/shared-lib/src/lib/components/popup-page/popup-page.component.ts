@@ -1,13 +1,30 @@
-import { Component, Input, input } from '@angular/core';
+import { Component, EventEmitter, Input, input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'lib-popup-page',
-  standalone: true,
-  imports: [],
   templateUrl: './popup-page.component.html',
   styleUrl: './popup-page.component.scss'
 })
 export class PopupPageComponent {
-  @Input() title: number;
-  @Input() Cancel: any;
+  @Input() title: string;
+  @Input() save: boolean=true;
+  @Input() disabled: boolean;
+  @Input() closeFunction: () => void;
+  @Input() saveFunction: () => void;
+  @Output() Submit = new EventEmitter<boolean>();
+
+  close() {
+    if (this.closeFunction) {
+      this.closeFunction();  // Execute the passed function
+    }
+  }
+  
+  onSubmit() {
+    this.Submit.emit(true);
+    
+  }
+  constructor(
+    private ref: DynamicDialogRef,
+  ) {}
 }

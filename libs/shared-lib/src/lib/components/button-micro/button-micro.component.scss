@@ -61,6 +61,11 @@
     border: 1px solid #1a90b0;
   }
 }
+.saveDisabled{
+  background: gray;
+  color: #fff;
+  cursor: no-drop;
+}
 .outline {
   background: #fff;
   border: 1px solid #1a90b0;
