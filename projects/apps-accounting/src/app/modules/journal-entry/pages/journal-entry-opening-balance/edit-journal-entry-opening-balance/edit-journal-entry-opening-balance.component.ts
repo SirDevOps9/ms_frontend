@@ -169,6 +169,8 @@ export class EditJournalEntryOpeningBalanceComponent {
     const request: EditJournalEntry = this.editJournalForm.value;
     request.id = this.ID
 
+    
+
     request.journalEntryLines = this.journalFilteredData?.map((item) => {
       item.costCenters = item.costCenters
         ? item.costCenters.map((item) => {
@@ -185,6 +187,8 @@ export class EditJournalEntryOpeningBalanceComponent {
 
     this.journalEntryService.editJournalEntryOpeningBalance(request);
   }
+
+  
 
   ChangeStatus(status: JournalEntryStatus) {
   
@@ -412,6 +416,8 @@ export class EditJournalEntryOpeningBalanceComponent {
 
 
     this.getAccountCurrencyRate(selectedAccount.currencyId as number, index);
+
+    
   }
 
   openCostPopup(data: any, journal : FormGroup, account: number, index: number) {
@@ -541,5 +547,17 @@ export class EditJournalEntryOpeningBalanceComponent {
     private currentUserService : CurrentUserService
   ) {
     this.titleService.setTitle(this.langService.transalte('OpeningBalance.EditJournal')); 
+  }
+
+  convertDateFormat(data: Date | string) {
+    const date = new Date(data);
+
+    // Extract the year, month, and day
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so we add 1
+    const day = String(date.getDate()).padStart(2, '0');
+
+    // Format the date into YYYY-MM-DD
+    return `${year}-${month}-${day}`;
   }
 }
