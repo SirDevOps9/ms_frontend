@@ -52,10 +52,10 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
     this.amountForm = this.fb.group({
       amount : 0
     })
-    if(this.config.data.creditAmount == 0) {
+    if(this.config.data.creditAmount == 0 || !this.config.data.creditAmount) {
       this.amountForm.get('amount')?.setValue(this.config.data.debitAmount)
     }
-     if(this.config.data.debitAmount == 0) {
+     if(this.config.data.debitAmount == 0 || !this.config.data.debitAmount) {
       this.amountForm.get('amount')?.setValue(this.config.data.creditAmount)
 
     }

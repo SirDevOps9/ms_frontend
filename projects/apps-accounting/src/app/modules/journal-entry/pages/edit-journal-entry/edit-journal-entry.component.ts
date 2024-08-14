@@ -370,15 +370,23 @@ export class EditJournalEntryComponent implements OnInit {
 
   debitValueChanges(index: number) {
     const journalLine = this.journalEntryLinesFormArray.at(index);
-    const creditAmountControl = journalLine.get('creditAmount');
-    const creditAmountLocalControl = journalLine.get('creditAmountLocal');
+
     const debitAmountLocalControl = journalLine.get('debitAmountLocal');
 
-    creditAmountControl!.setValue(0);
-    creditAmountLocalControl?.setValue(0);
+
+    const debitAmountControl = journalLine.get('debitAmount');
+    if (debitAmountControl?.value === '' || !debitAmountControl?.value) {
+
+      debitAmountControl!.setValue(0);
+    }
+
     debitAmountLocalControl?.setValue(
       journalLine.get('debitAmount')?.value * journalLine.get('currencyRate')?.value
     );
+    this.calculateTotalDebitAmount();
+    this.calculateTotalCreditAmount();
+    this.calculateTotalDebitAmountLocal();
+    this.calculateTotalCreditAmountLocal();
   }
 
   creditValueChanges(index: number) {
