@@ -382,7 +382,10 @@ export class EditJournalEntryOpeningBalanceComponent {
   }
 
   openDialog(index: number) {
-    const ref = this.dialog.open(NoChildrenAccountsComponent, {});
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {
+      width: '900px',
+      height: '600px',
+    });
     ref.onClose.subscribe((account: AccountDto) => {
       if (account) {
         this.updateAccount(account, index);
@@ -431,7 +434,7 @@ export class EditJournalEntryOpeningBalanceComponent {
     } else {
       const dialogRef = this.dialog.open(EditCostCenterAllocationPopupComponent, {
         width: '900px',
-        height: '500px',
+        height: '600px',
         header: 'Edit Cost Center Allocation',
         data: data,
       });

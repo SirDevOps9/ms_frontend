@@ -1,8 +1,8 @@
-.user_page{
-    padding: 0;
-    margin: 0;
+.user_page {
+  padding: 0;
+  margin: 0;
 }
-.status{
+.status {
     padding: 0px 20px;
     border-radius: 12px;
     display: flex;
@@ -40,25 +40,25 @@
     margin-inline-end: 5px;
     margin-block: 0;
 }
-.edit{
-    color: red !important;
+.edit {
+  color: red !important;
 }
 .add_new {
-    background: #1a90b0 !important;
-    border: none !important;
-    border-radius: 12px;
-    padding: 15px 20px;
-    color: #fff;
-    margin-inline-start: 30px !important;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  .export{
-    background: #36A19B !important;
-  }
-  .group{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+  background: #1a90b0 !important;
+  border: none !important;
+  border-radius: 12px;
+  padding: 15px 20px;
+  color: #fff;
+  margin-inline-start: 30px !important;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.export {
+  background: #36a19b !important;
+}
+.group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

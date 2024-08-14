@@ -14,6 +14,7 @@ export class DataTableColumn {
   isGlobalFilter?: boolean;
 
   isSortable?: boolean;
+  applyClass?: boolean;
   rowspan?: string;
   colspan?: string;
   children?:DataTableColumn[];
