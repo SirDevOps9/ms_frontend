@@ -13,9 +13,9 @@
       <!-- <p class="title test">{{ 'journal_entry_header' | translate }}</p> -->
       <div class="grid">
         <div class="col-12 md:col-3 step-1-element">
-          <small>
+          <p class="totals">
             {{ 'reference_number' | translate }}
-          </small>
+          </p>
           <lib-text-input
             placeholder="{{ 'reference_number' | translate }}"
             [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
@@ -28,9 +28,9 @@
         <!--  -->
 
         <div class="col-12 md:col-3 step-2-element">
-          <small>
+          <p class="totals">
             {{ 'journal_date' | translate }}
-          </small>
+          </p>
           <lib-text-input
             placeholder="{{ 'journal_date' | translate }}"
             type="date"
@@ -42,9 +42,9 @@
         </div>
 
         <div class="col-12 md:col-12 step-3-element">
-          <small>
+          <p class="totals">
             {{ 'description' | translate }}
-          </small>
+          </p>
           <lib-text-input
             class="description"
             [textbox]="true"
@@ -54,7 +54,7 @@
           <lib-field-validations [appControl]="fg.controls['description']"></lib-field-validations>
         </div>
         <div class="col-12 md:col-3">
-          <small>{{'JournalTemplate.totalDebitAmountLocal' | translate}}</small>
+          <p class="totals">{{'JournalTemplate.totalDebitAmountLocal' | translate}}</p>
           <lib-text-input
           [(ngModel)]="totalDebitAmountLocal"
           placeholder="0"
@@ -65,7 +65,7 @@
       </div>
 
       <div class="col-12 md:col-3">
-        <small>{{'JournalTemplate.totalCreditAmountLocal' | translate}}</small>
+        <p class="totals">{{'JournalTemplate.totalCreditAmountLocal' | translate}}</p>
         <lib-text-input
         [(ngModel)]="totalCreditAmountLocal"
         placeholder="0"
@@ -104,7 +104,7 @@
               <th>{{ 'debit_amount_local' | translate }}</th>
               <th>{{ 'credit_amount_local' | translate }}</th>
               <th>{{ 'cost_center' | translate }}</th>
-              <th></th>
+              <th>{{'Actions' | translate}}</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-fg let-editing="editing" let-i="rowIndex">
@@ -169,7 +169,7 @@
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{  generalService.formatNumber(fg.controls['debitAmount'].value , generalService.fraction)  }}
+                    {{ fg.controls['debitAmount'].value ?? 0 }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations [appControl]="fg"></lib-field-validations>
@@ -188,8 +188,7 @@
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{  generalService.formatNumber(fg.controls['creditAmount'].value , generalService.fraction)  }}
-
+                    {{ fg.controls['creditAmount'].value ?? 0 }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations [appControl]="fg"></lib-field-validations>
@@ -288,6 +287,8 @@
               <td class="total"></td>
               <td class="total">{{generalService.formatNumber(totalDebitAmountLocal , generalService.fraction)  }}</td>
               <td class="total">{{ generalService.formatNumber(totalCreditAmountLocal , generalService.fraction) }}</td>
+              <td class="total"></td>
+
               <td class="total"></td>
             </tr>
           </ng-template>

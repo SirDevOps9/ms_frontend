@@ -267,14 +267,14 @@ export class CreateJournalEntryComponent {
       if (r) {
         this.fa.at(index).get('account')?.setValue(r.id);
         this.fa.at(index)?.get('accountName')?.setValue(r.name);
-        this.fa.at(index)?.get('lineDescription')?.setValue(r.name);
         this.fa.at(index)?.get('accountCode')?.setValue(r.accountCode);
         this.fa.at(index)?.get('costCenterConfig')?.setValue(r.costCenterConfig);
+        this.fa.at(index)?.get('lineDescription')?.setValue(r.name);
+        this.fa.at(index).get('selectedFalg')?.setValue(true);
         var currencyData = this.currencies.find((c) => c.id == r.currencyId);
         this.fa.at(index).get('currency')?.setValue(r.currencyId);
         this.fa.at(index).get('currencyName')?.setValue(currencyData?.name);
         this.getAccountCurrencyRate(r.currencyId, index);
-        this.fa.at(index).get('selectedFalg')?.setValue(true);
       }
     });
   }
@@ -293,8 +293,8 @@ export class CreateJournalEntryComponent {
 
     const id = this.fa.length + 1;
     //controls
-    const dbControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
-    const crControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
+    const dbControl = new FormControl(null, [customValidators.required, Validators.min(0)]);
+    const crControl = new FormControl(null, [customValidators.required, Validators.min(0)]);
     const currencyControl = new FormControl(null, customValidators.required);
     const rateControl = new FormControl<number | null>(null, [
       customValidators.required,
@@ -349,7 +349,7 @@ export class CreateJournalEntryComponent {
         debitAmountLocal: new FormControl(),
         creditAmountLocal: new FormControl(),
         currencyName: new FormControl(''),
-        costCenters: new FormControl(null),
+        costCenters: new FormControl(),
         selectedFalg: new FormControl(false),
       }
       //{ validators: customValidators.debitAndCreditBothCanNotBeZero }
