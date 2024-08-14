@@ -100,3 +100,15 @@
 .total{
   margin-top: 17px;
 }
+::ng-deep .desc{
+  lib-text-input input {
+    border: none;
+    color: black;
+    font-weight: bold;
+    height: 100px;
+}
+}
+
+.none {
+  display: none;
+}

@@ -34,7 +34,7 @@
               {{ 'EditJournal.JournalReference' | translate }}
             </lib-label>
             <div class="view">
-            <lib-text-input formControlName="referenceNumber" [readOnly]="viewMode"></lib-text-input>
+            <lib-text-input formControlName="referenceNumber" [readOnly]="true" [disabled]="true"></lib-text-input>
             </div>
           </div>
           <div class="col-12 md:col-3">
@@ -47,7 +47,7 @@
               <lib-text-input
                 type="date"
                 formControlName="journalDate"
-                [readOnly]="viewMode"
+                [readOnly]="true" [disabled]="true"
               ></lib-text-input>
               </div>
               <lib-field-validations [appControl]="editJournalForm.controls['journalDate']">
@@ -88,7 +88,7 @@
             </lib-label>
             <div class="view">
 
-            <lib-text-input formControlName="description" [readOnly]="viewMode"></lib-text-input>
+            <lib-text-input formControlName="description" [readOnly]="true" [disabled]="true"></lib-text-input>
             </div>
           </div>
           <div class="col-12 md:col-3 ">
@@ -186,7 +186,7 @@
 
                 </td>
                 <td>
-                  <lib-text-input formControlName="lineDescription" [readOnly]="viewMode">
+                  <lib-text-input formControlName="lineDescription" [readOnly]="true" [disabled]="true">
                   </lib-text-input>
                   <lib-field-validations [appControl]="journalLine.controls['lineDescription']">
                   </lib-field-validations>
@@ -244,7 +244,7 @@
                       type="number"
                       (valueChanged)="currencyValueChanges($event, rowIndex)"
                       formControlName="currencyRate"
-                      [readOnly]="viewMode"
+                      [readOnly]="true" [disabled]="true"
                     ></lib-text-input>
                     <lib-field-validations [appControl]="journalLine?.get('currencyRate')">
                     </lib-field-validations>
