@@ -223,7 +223,8 @@
               >
                 <p-cellEditor>
                   <ng-template pTemplate="input">
-                    <lib-text-input formControlName="currencyRate" type="number"></lib-text-input>
+                    <lib-text-input formControlName="currencyRate"    (keyUp)="currencyValueChanges($event, i)"
+                     type="number"></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
                     {{ fg.controls['currencyRate'].value }}

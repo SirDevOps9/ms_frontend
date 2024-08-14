@@ -7,21 +7,15 @@
             <lib-label [appControl]="editJournalForm.controls['journalCode']">
               {{ 'EditJournal.JournalCode' | translate }}
             </lib-label>
-      
-            <lib-text-input
-            formControlName="journalCode"
-            [readOnly]="true"
-          ></lib-text-input>
+
+            <lib-text-input formControlName="journalCode" [readOnly]="true"></lib-text-input>
           </div>
           <div class="col-12 md:col-3">
             <lib-label [appControl]="editJournalForm.controls['status']">
               {{ 'EditJournal.JournalStatus' | translate }}
             </lib-label>
-          
-            <lib-text-input
-            formControlName="status"
-            [readOnly]="true"
-          ></lib-text-input>
+
+            <lib-text-input formControlName="status" [readOnly]="true"></lib-text-input>
           </div>
           <div class="col-12 md:col-3">
             <lib-label [appControl]="editJournalForm.controls['referenceNumber']">
@@ -50,41 +44,29 @@
             <lib-label [appControl]="editJournalForm.controls['journalPeriod']">
               {{ 'EditJournal.JournalPeriod' | translate }}
             </lib-label>
-          
-            <lib-text-input
-            formControlName="journalPeriod"
-            [readOnly]="true"
-          ></lib-text-input>
+
+            <lib-text-input formControlName="journalPeriod" [readOnly]="true"></lib-text-input>
           </div>
           <div class="col-12 md:col-3">
             <lib-label [appControl]="editJournalForm.controls['type']">
               {{ 'EditJournal.JournalType' | translate }}
             </lib-label>
-          
-            <lib-text-input
-            formControlName="type"
-            [readOnly]="true"
-          ></lib-text-input>
+
+            <lib-text-input formControlName="type" [readOnly]="true"></lib-text-input>
           </div>
           <div class="col-12 md:col-3">
             <lib-label [appControl]="editJournalForm.controls['sourceName']">
               {{ 'EditJournal.SourceDocumentName' | translate }}
             </lib-label>
-           
-            <lib-text-input
-            formControlName="sourceName"
-            [readOnly]="true"
-          ></lib-text-input>
+
+            <lib-text-input formControlName="sourceName" [readOnly]="true"></lib-text-input>
           </div>
           <div class="col-12 md:col-3">
             <lib-label [appControl]="editJournalForm.controls['sourceCode']">
               {{ 'EditJournal.SourceDocumentCode' | translate }}
             </lib-label>
-          
-            <lib-text-input
-            formControlName="sourceCode"
-            [readOnly]="true"
-          ></lib-text-input>
+
+            <lib-text-input formControlName="sourceCode" [readOnly]="true"></lib-text-input>
           </div>
           <div class="col-12 md:col-3">
             <lib-label [appControl]="editJournalForm.controls['reversedJournalCode']">
@@ -92,11 +74,11 @@
             </lib-label>
 
             <lib-text-input
-            formControlName="reversedJournalCode"
-            [readOnly]="true"
-          ></lib-text-input>
+              formControlName="reversedJournalCode"
+              [readOnly]="true"
+            ></lib-text-input>
           </div>
-          
+
           <div class="col-12 md:col-3 total">
             <small>{{ 'JournalTemplate.totalDebitAmountLocal' | translate }}</small>
             <lib-text-input
@@ -173,6 +155,8 @@
                           optionLabel="displayName"
                           [customClass]="'add-journal'"
                           (valueChanged)="accountSelected($event, rowIndex)"
+                          (valueSearchChanged)="onFilter($event)"
+
                         >
                         </lib-select>
 
@@ -210,8 +194,12 @@
                       ></lib-text-input>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{generalService.formatNumber( journalLine.controls['debitAmount'].value , generalService.fraction) }}
-
+                      {{
+                        generalService.formatNumber(
+                          journalLine.controls['debitAmount'].value,
+                          generalService.fraction
+                        )
+                      }}
                     </ng-template>
                   </p-cellEditor>
                   <lib-field-validations [appControl]="journalLine"> </lib-field-validations>
@@ -230,8 +218,12 @@
                       ></lib-text-input>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{generalService.formatNumber( journalLine.controls['creditAmount'].value , generalService.fraction) }}
-
+                      {{
+                        generalService.formatNumber(
+                          journalLine.controls['creditAmount'].value,
+                          generalService.fraction
+                        )
+                      }}
                     </ng-template>
                   </p-cellEditor>
                   <lib-field-validations [appControl]="journalLine"> </lib-field-validations>
@@ -244,7 +236,7 @@
                   <lib-form-group>
                     <lib-text-input
                       type="number"
-                      (valueChanged)="currencyValueChanges($event, rowIndex)"
+                      (keyUp)="currencyValueChanges($event, rowIndex)"
                       formControlName="currencyRate"
                       [readOnly]="viewMode"
                     ></lib-text-input>
@@ -355,14 +347,28 @@
                 <!-- <td class="imptyData"></td>
                 <td class="imptyData"></td>
                 <td class="imptyData"></td> -->
-                <td class="total">{{generalService.formatNumber( totalDebitAmount , generalService.fraction) }}                </td>
-                <td class="total"> {{generalService.formatNumber( totalCreditAmount , generalService.fraction) }} </td>
+                <td class="total">
+                  {{ generalService.formatNumber(totalDebitAmount, generalService.fraction) }}
+                </td>
+                <td class="total">
+                  {{ generalService.formatNumber(totalCreditAmount, generalService.fraction) }}
+                </td>
                 <td class="total"></td>
                 <td class="total"></td>
-                <td class="total"> {{generalService.formatNumber( totalDebitAmountLocal , generalService.fraction) }}</td>
-                <td class="total">{{generalService.formatNumber( totalCreditAmountLocal , generalService.fraction) }}</td>
+                <td class="total">
+                  {{ generalService.formatNumber(totalDebitAmountLocal, generalService.fraction) }}
+                </td>
+                <td class="total">
+                  {{ generalService.formatNumber(totalCreditAmountLocal, generalService.fraction) }}
+                </td>
                 <td class="total"></td>
-                <td class="total" *ngIf="journalEntry?.status !== enums.JournalEntryStatus.Posted" ></td>
+                <td
+                  class="total"
+                  *ngIf="
+                    journalEntry?.status !== enums.JournalEntryStatus.Posted &&
+                    journalEntry?.status !== enums.JournalEntryStatus.Submitted
+                  "
+                ></td>
               </tr>
             </ng-template>
           </p-table>
@@ -383,7 +389,10 @@
         <div class="grid">
           <div class="md:col-12 flex justify-content-end">
             <div class="flex justify-content-end">
-              <div class="md:col-6 m-1" [class.none]="journalEntry?.status == enums.JournalEntryStatus.Posted">
+              <div
+                class="md:col-6 m-1"
+                [class.none]="journalEntry?.status == enums.JournalEntryStatus.Posted"
+              >
                 <lib-button-micro
                   title="{{ 'discard' | translate }}"
                   nameClass="cancel"
@@ -430,7 +439,6 @@
                     title="{{ 'EditJournal.SaveSubmit' | translate }}"
                     nameClass="save"
                     (click)="ChangeStatus(enums.JournalEntryStatus.Submitted)"
-                    [disabled]="!disFlag"
                     widthNumber="100%"
                     type="button"
                   >
@@ -446,7 +454,6 @@
                     title="{{ 'EditJournal.Post' | translate }}"
                     nameClass="save"
                     (click)="ChangeStatus(enums.JournalEntryStatus.Posted)"
-                    [disabled]="!disFlag"
                     widthNumber="100%"
                     type="button"
                   >

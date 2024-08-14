@@ -581,4 +581,29 @@ export class CreateJournalEntryComponent {
       return acc + debitValue;
     }, 0);
   }
+
+  currencyValueChanges(event: any, index: number) {
+    const journalLine = this.fa.at(index);
+    const currencyRateControl = journalLine.get('currencyRate');
+    const debitAmountControl = journalLine.get('debitAmount');
+    const creditAmountControl = journalLine.get('creditAmount');
+    const debitAmountLocalControl = journalLine.get('debitAmountLocal');
+    const creditAmountLocalControl = journalLine.get('creditAmountLocal');
+
+    currencyRateControl?.valueChanges.subscribe((value) => {
+      // Update debit amount local only if debit amount exists
+      if (debitAmountControl?.value !== null && debitAmountControl?.value !== undefined) {
+        const debitAmountLocal = debitAmountControl?.value * value;
+        debitAmountLocalControl?.setValue(debitAmountLocal);
+        this.calculateTotalDebitAmountLocal();
+      }
+
+      // Update credit amount local only if credit amount exists
+      if (creditAmountControl?.value !== null && creditAmountControl?.value !== undefined) {
+        const creditAmountLocal = creditAmountControl?.value * value;
+        creditAmountLocalControl?.setValue(creditAmountLocal);
+        this.calculateTotalCreditAmountLocal();
+      }
+    });
+  }
 }

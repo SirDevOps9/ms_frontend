@@ -249,7 +249,33 @@ export class EditJournalEntryComponent implements OnInit {
       this.toasterService.showError('Failure', message);
     }
   }
+  onFilter(event: any) {
+    this.accountService.getAccountsHasNoChildrenNew(event, new PageInfo());
 
+    this.accountService.childrenAccountList.subscribe((res: any) => {
+      if (res.length) {
+        this.filteredAccounts = res.map((account: any) => ({
+          ...account,
+          displayName: `${account.name} (${account.accountCode})`,
+        }));
+
+        console.log(this.filteredAccounts);
+      }
+
+      //          this.filteredAccounts=res.result.map((account:any) => ({
+      //   ...account,
+      //   displayName: `${account.name} (${account.accountCode})`,
+      // }));
+    });
+    console.log(event);
+
+    // this.accountService.getAccountsHasNoChildrenNew(event, new PageInfo()).subscribe((r) => {
+    //   this.filteredAccounts = r.result.map((account) => ({
+    //     ...account,
+    //     displayName: `${account.name} (${account.accountCode})`,
+    //   }));
+    // });
+  }
   addNewRow() {
     if (!this.formsService.validForm(this.journalEntryLinesFormArray, false)) return;
 
@@ -492,12 +518,14 @@ export class EditJournalEntryComponent implements OnInit {
       if (debitAmountControl?.value !== null && debitAmountControl?.value !== undefined) {
         const debitAmountLocal = debitAmountControl?.value * value;
         debitAmountLocalControl?.setValue(debitAmountLocal);
+        this.calculateTotalDebitAmountLocal();
       }
 
       // Update credit amount local only if credit amount exists
       if (creditAmountControl?.value !== null && creditAmountControl?.value !== undefined) {
         const creditAmountLocal = creditAmountControl?.value * value;
         creditAmountLocalControl?.setValue(creditAmountLocal);
+        this.calculateTotalCreditAmountLocal();
       }
     });
   }
