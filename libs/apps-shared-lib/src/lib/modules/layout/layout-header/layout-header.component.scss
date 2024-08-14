@@ -357,11 +357,13 @@
    margin-inline-start: auto !important;
  }
 .p-menubar {
-  width: 94% !important;
+  // width: 94% !important;
+  width: 100% !important;
   background: #fff !important;
   border: none !important;
   border-radius: 0 !important;
-  margin-left: 79px !important;
+  // margin-left: 79px !important;
+  padding-inline-start: 79px !important;
 
 
 
@@ -375,11 +377,13 @@
  }
 .p-menubar {
 
-  width: 83% !important;
+  // width: 83% !important;
+  width: 100% !important;
   background: #fff !important;
   border: none !important;
   border-radius: 0 !important;
-  margin-left: 251px !important;
+  // margin-left: 251px !important;
+  padding-inline-start: 251px !important;
 
 }
 
