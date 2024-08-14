@@ -1,5 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AddJournalEntryCommandOpeningBalance, EditJournalEntry, JournalEntryDto, JournalEntryStatus, TrialBalance, reportAccount, reportCostAllData, reportCostCenter } from './models';
+import {
+  AddJournalEntryCommandOpeningBalance,
+  EditJournalEntry,
+  JournalEntryDto,
+  JournalEntryStatus,
+  TrialBalance,
+  reportAccount,
+  reportCostAllData,
+  reportCostCenter,
+} from './models';
 import { BehaviorSubject, catchError, map } from 'rxjs';
 import {
   LanguageService,
@@ -22,7 +31,7 @@ export class JournalEntryService {
   private trialDataSource = new BehaviorSubject<TrialBalance[]>([]);
   private accountReportsDataSource = new BehaviorSubject<reportAccount[]>([]);
   private CostCenterReportsDataSource = new BehaviorSubject<reportCostAllData[]>([]);
-
+  public editJournalLineStatusDataSource = new BehaviorSubject<boolean | undefined>(undefined);
 
   public journalEntries = this.journalEntriesDataSource.asObservable();
   public journalEntriesObs = this.journalEntriesOpeningBalanceDataSource.asObservable();
@@ -30,47 +39,44 @@ export class JournalEntryService {
   public accountReport = this.accountReportsDataSource.asObservable();
   public CostCenterReport = this.CostCenterReportsDataSource.asObservable();
 
-
-
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
-  public  journalStatus= new BehaviorSubject<JournalEntryStatus>(JournalEntryStatus.Unbalanced);
+  public journalStatus = new BehaviorSubject<JournalEntryStatus>(JournalEntryStatus.Unbalanced);
 
   private exportsJournalEntriesDataSource = new BehaviorSubject<JournalEntryDto[]>([]);
-  public exportsJournalEntriesDataSourceObservable = this.exportsJournalEntriesDataSource.asObservable();
+  public exportsJournalEntriesDataSourceObservable =
+    this.exportsJournalEntriesDataSource.asObservable();
   constructor(
     private journalEntryProxy: JournalEntryProxy,
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private loaderService: LoaderService,
-    private routerService  :RouterService
+    private routerService: RouterService
   ) {}
 
-  getAllJournalEntriesPaginated(searchTerm: string ,pageInfo: PageInfo) {
-
-    this.journalEntryProxy.getAllPaginated(searchTerm , pageInfo).subscribe({
+  getAllJournalEntriesPaginated(searchTerm: string, pageInfo: PageInfo) {
+    this.journalEntryProxy.getAllPaginated(searchTerm, pageInfo).subscribe({
       next: (res) => {
         this.journalEntriesDataSource.next(res.result);
         this.currentPageInfo.next(res.pageInfoResult);
       },
     });
-    
   }
-  getAllJournalEntriesPaginatedOpeningBalance(searchTerm: string ,pageInfo: PageInfo) {
-
-    this.journalEntryProxy.getAllJournalEntriesPaginatedOpeningBalance(searchTerm , pageInfo).subscribe({
-      next: (res) => {
-        this.journalEntriesOpeningBalanceDataSource.next(res.result);
-        this.currentPageInfo.next(res.pageInfoResult);
-      },
-    });
-    
+  getAllJournalEntriesPaginatedOpeningBalance(searchTerm: string, pageInfo: PageInfo) {
+    this.journalEntryProxy
+      .getAllJournalEntriesPaginatedOpeningBalance(searchTerm, pageInfo)
+      .subscribe({
+        next: (res) => {
+          this.journalEntriesOpeningBalanceDataSource.next(res.result);
+          this.currentPageInfo.next(res.pageInfoResult);
+        },
+      });
   }
 
-  exportsEmployeesList(searchTerm:string | undefined) {
+  exportsEmployeesList(searchTerm: string | undefined) {
     this.journalEntryProxy.exportGLOpeningBalance(searchTerm).subscribe({
       next: (res) => {
-         this.journalEntriesOpeningBalanceDataSource.next(res);
+        this.journalEntriesOpeningBalanceDataSource.next(res);
       },
     });
   }
@@ -152,11 +158,13 @@ export class JournalEntryService {
         );
         this.loaderService.hide();
 
-        setTimeout(() => {
-          location.reload();
-        }, 1500);
+        this.editJournalLineStatusDataSource.next(true);
+        // setTimeout(() => {
+        //   location.reload();
+        // }, 1500);
       },
       error: () => {
+        this.editJournalLineStatusDataSource.next(false);
         this.loaderService.hide();
       },
     });
@@ -169,15 +177,12 @@ export class JournalEntryService {
           this.languageService.transalte('OpeningBalance.UpdatedSuccessfully')
         );
 
-        this.routerService.navigateTo('transcations/journal-entry-opening-balance')
-
-       
+        this.routerService.navigateTo('transcations/journal-entry-opening-balance');
       },
-     
     });
   }
 
-  async deleteJournalEntryLine(id: number): Promise<boolean > {
+  async deleteJournalEntryLine(id: number): Promise<boolean> {
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
@@ -201,7 +206,7 @@ export class JournalEntryService {
     });
     return await p;
   }
-  async deleteJournalEntryLineOpeningBalance(id: number): Promise<boolean > {
+  async deleteJournalEntryLineOpeningBalance(id: number): Promise<boolean> {
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
@@ -241,31 +246,29 @@ export class JournalEntryService {
       })
     );
   }
-  getTrialBalance(trial:TrialBalance) {
+  getTrialBalance(trial: TrialBalance) {
     this.journalEntryProxy.getTrialBalance(trial).subscribe((response) => {
       this.trialDataSource.next(response);
     });
   }
-  getAccountingReports(trial:reportAccount) {
+  getAccountingReports(trial: reportAccount) {
     this.loaderService.show();
     this.journalEntryProxy.getAccountingReports(trial).subscribe({
-      next:(response) => {
+      next: (response) => {
         this.loaderService.hide();
 
-      this.accountReportsDataSource.next(response);
-    },
-  error:(error)=>{
-    this.loaderService.hide();
-
-  }});
-
-
+        this.accountReportsDataSource.next(response);
+      },
+      error: (error) => {
+        this.loaderService.hide();
+      },
+    });
   }
 
-  exportJournalEntriesData(searchTerm:string | undefined) {
+  exportJournalEntriesData(searchTerm: string | undefined) {
     this.journalEntryProxy.exportJournalEntriesData(searchTerm).subscribe({
       next: (res) => {
-         this.exportsJournalEntriesDataSource.next(res);
+        this.exportsJournalEntriesDataSource.next(res);
       },
     });
   }
@@ -273,7 +276,7 @@ export class JournalEntryService {
   getCostCenterLookup() {
     return this.journalEntryProxy.getAccountLookup();
   }
-  getCostCenterReports(cost:reportCostAllData) {
+  getCostCenterReports(cost: reportCostAllData) {
     this.journalEntryProxy.getCostCenterReports(cost).subscribe((response) => {
       this.CostCenterReportsDataSource.next(response);
     });
