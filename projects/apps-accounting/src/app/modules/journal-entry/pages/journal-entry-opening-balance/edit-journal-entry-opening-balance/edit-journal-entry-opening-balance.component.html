@@ -9,7 +9,7 @@
             </lib-label>
             <div class="view">
               <!-- {{ journalEntry?.journalCode }} -->
-              <lib-text-input
+              <lib-text-input 
               formControlName="journalCode"
               [disabled]="true" 
               [readOnly]="true"
@@ -91,6 +91,32 @@
             <lib-text-input formControlName="description" [readOnly]="viewMode"></lib-text-input>
             </div>
           </div>
+          <div class="col-12 md:col-3 ">
+            <div>
+              <p class="totals">{{'JournalTemplate.totalDebitAmountLocal' | translate}}</p>
+
+            </div>
+            <lib-text-input
+            [(ngModel)]="totalDebitAmountLocal"
+            placeholder="0"
+            [readOnly]="true"
+         
+            [ngModelOptions]="{standalone: true}"
+          ></lib-text-input>
+        </div>
+  
+        <div class="col-12 md:col-3 total">
+          <div>
+            <p class="totals">{{'JournalTemplate.totalCreditAmountLocal' | translate}}</p>
+
+          </div>
+          <lib-text-input
+          [(ngModel)]="totalCreditAmountLocal"
+          placeholder="0"
+          [readOnly]="true"
+          [ngModelOptions]="{standalone: true}"
+        ></lib-text-input>
+        </div>
         </div>
       </div>
   
@@ -177,6 +203,7 @@
                         formControlName="debitAmount"
                         type="number"
                         (valueChanged)="debitValueChanges(rowIndex)"
+                        (keyUp)="debitValueChanges(rowIndex)"
                       ></lib-text-input>
                     </ng-template>
                     <ng-template pTemplate="output">
@@ -196,6 +223,7 @@
                         formControlName="creditAmount"
                         type="number"
                         (valueChanged)="creditValueChanges(rowIndex)"
+                        (keyUp)="creditValueChanges(rowIndex)"
                       ></lib-text-input>
                     </ng-template>
                     <ng-template pTemplate="output">
@@ -246,6 +274,21 @@
                   </lib-button>
                 </td>
 
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+              <tr>
+                <td colspan="4" class="imptyData total" style="text-align: center;">{{'JournalTemplate.total' | translate}}</td>
+                <!-- <td class="imptyData"></td>
+                <td class="imptyData"></td>
+                <td class="imptyData"></td> -->
+                <td class="total">{{ totalDebitAmount }}</td>
+                <td class="total">{{ totalCreditAmount }}</td>
+                <td class="total"></td>
+                <td class="total"></td>
+                <td class="total">{{ totalDebitAmountLocal }}</td>
+                <td class="total">{{ totalCreditAmountLocal }}</td>
+                <td class="total"></td>
               </tr>
             </ng-template>
           </p-table>

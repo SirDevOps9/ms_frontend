@@ -271,13 +271,8 @@
                 </div>
               </td>
               <td>
-                <lib-button
-                  [icon]="'pi pi-trash'"
-                  (click)="deleteLine(i)"
-                  [rounded]="true"
-                  [enableText]="true"
-                  severity="secondary"
-                ></lib-button>
+                <img src="assets/images/table/delete.svg" alt="" (click)="deleteLine(i)">
+
               </td>
             </tr>
           </ng-template>
@@ -296,13 +291,13 @@
               <td class="total"></td>
             </tr>
           </ng-template>
-        </p-table>
+        </p-table> 
       </div>
       <div class="add_new">
-        <button class="btn Line step-4-element" (click)="addThing()">
+        <button class="btn step-4-element" (click)="addThing()">
           {{ 'add_new_line' | translate }}
         </button>
-        <button class="btn" (click)="RedirectToTemplate()">{{ 'add_template' | translate }}</button>
+        <!-- <button class="btn" (click)="RedirectToTemplate()">{{ 'add_template' | translate }}</button> -->
       </div>
       <!-- <div class="paginator">
             <lib-paginator [totalRecords]="50" [first]="0" [rows]="10"></lib-paginator>

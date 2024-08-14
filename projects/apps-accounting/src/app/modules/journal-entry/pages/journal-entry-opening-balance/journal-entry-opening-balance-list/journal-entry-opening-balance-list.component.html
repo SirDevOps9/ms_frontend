@@ -83,7 +83,7 @@
               [exportColumns]="exportColumns"
               [ExportName]="'Journal Openeing Balance List'">
             </lib-export>
-            <lib-button pRipple className="addToList" label="{{ 'Journal.addNew' | translate }}" (onClick)="routeToAdd()" [icon]="'pi pi-plus'">
+            <lib-button *ngIf="tableData.length==0" pRipple className="addToList" label="{{ 'EditJournal.add'| translate }}" (onClick)="routeToAdd()" [icon]="'pi pi-plus'">
             </lib-button> 
             </div>
           </div>

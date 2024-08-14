@@ -8,7 +8,7 @@ import { MenuModule, Modules } from 'shared-lib';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
   @ViewChild('inputElement', { static: false }) inputElement: TextInputComponent;
@@ -16,7 +16,19 @@ export class DashboardComponent implements OnInit {
   moduleList: MenuModule[];
 
   ngOnInit() {
+    console.log('Hello from dashboard');
+
     this.moduleList = this.layoutService.getModules();
+
+    if (!this.moduleList) {
+      this.layoutService.modulItems.subscribe((res) => {
+        if (res) {
+          this.moduleList = res;
+        }
+      });
+    }
+    console.log('module List', this.moduleList);
+
     this.nameControl.valueChanges.pipe(debounceTime(500)).subscribe((res: any) => {
       const searchTerm = res.toLowerCase();
       this.moduleList = this.layoutService

@@ -28,6 +28,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() items: any[];
   @Input() selectedIndex: number;
   @Input() resizableColumns: boolean = true;
+  @Input() popup: boolean = false;
   @Input() currentPageResult: PageInfoResult;
   first : number = 0
   @Input() tableConfigs: TableConfig;

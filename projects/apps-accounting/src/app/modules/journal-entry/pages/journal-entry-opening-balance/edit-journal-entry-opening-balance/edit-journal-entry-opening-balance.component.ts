@@ -16,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 
-@Component({
+@Component({ 
   selector: 'app-edit-journal-entry-opening-balance',
   templateUrl: './edit-journal-entry-opening-balance.component.html',
   styleUrl: './edit-journal-entry-opening-balance.component.scss'
@@ -26,10 +26,13 @@ export class EditJournalEntryOpeningBalanceComponent {
   journalEntry?: GetGlOpeningBalanceById;
   journalEntryLines?: JournalEntryGlBalanceLineDto[];
   accountIdList: number[] = [];
-  currencyIdList: number[] = [];
+  currencyIdList: number[] = []; 
   costCenters: costCenters[] = [];
   currentAccounts: number[] = [];
-
+  totalDebitAmount: number;
+  totalDebitAmountLocal: number;
+  totalCreditAmountLocal: number;
+  totalCreditAmount: number;
   ID : number
   viewMode: boolean = false;
   statusName: string;
@@ -136,12 +139,17 @@ export class EditJournalEntryOpeningBalanceComponent {
      
       });
       this.currentAccounts  = this.journalEntryLines.map(line => line.accountId);
+
+      this.calculateTotalCreditAmount();
+      this.calculateTotalDebitAmount();
+      this.calculateTotalDebitAmountLocal();
+      this.calculateTotalCreditAmountLocal();
     });
   }
 
   onSubmit() {
 
-    if (!this.formsService.validForm(this.editJournalForm, false)) return;
+    if (!this.formsService.validForm(this.journalEntryLinesFormArray, false)) return;
 
     const request: EditJournalEntry = this.editJournalForm.value;
     request.id = this.ID
@@ -206,10 +214,16 @@ export class EditJournalEntryOpeningBalanceComponent {
       const result = await this.journalEntryService.deleteJournalEntryLineOpeningBalance(
         journalLine.get('id')?.value!
       );
-      if (result) this.journalEntryLinesFormArray.removeAt(index);
-      this.journalEntryService.journalStatus.subscribe((res) => {
-        this.statusName = res;
-      });
+      if (result) {
+        this.journalEntryLinesFormArray.removeAt(index);
+        this.journalEntryService.journalStatus.subscribe((res) => {
+          this.statusName = res;
+        });
+        this.calculateTotalCreditAmount();
+        this.calculateTotalDebitAmount();
+        this.calculateTotalDebitAmountLocal();
+        this.calculateTotalCreditAmountLocal();
+      } 
     } else {
       // Otherwise, show an error message based on the status
       let message: string = '';
@@ -220,6 +234,36 @@ export class EditJournalEntryOpeningBalanceComponent {
       }
       this.toasterService.showError('Failure', message);
     }
+  }
+
+  calculateTotalDebitAmount() {
+    this.totalDebitAmount = this.journalEntryLinesFormArray.controls.reduce((acc, control) => {
+      // Ensure that debitAmount is treated as a number
+      const debitValue = parseFloat(control.get('debitAmount')?.value) || 0;
+      return acc + debitValue;
+    }, 0);
+  }
+  calculateTotalCreditAmount() {
+    this.totalCreditAmount = this.journalEntryLinesFormArray.controls.reduce((acc, control) => {
+      // Ensure that debitAmount is treated as a number
+      const debitValue = parseFloat(control.get('creditAmount')?.value) || 0;
+      return acc + debitValue;
+    }, 0);
+  }
+
+  calculateTotalDebitAmountLocal() {
+    this.totalDebitAmountLocal = this.journalEntryLinesFormArray.controls.reduce((acc, control) => {
+      // Ensure that debitAmount is treated as a number
+      const debitValue = parseFloat(control.get('debitAmountLocal')?.value) || 0;
+      return acc + debitValue;
+    }, 0);
+  }
+  calculateTotalCreditAmountLocal() {
+    this.totalCreditAmountLocal = this.journalEntryLinesFormArray.controls.reduce((acc, control) => {
+      // Ensure that debitAmount is treated as a number
+      const debitValue = parseFloat(control.get('creditAmountLocal')?.value) || 0;
+      return acc + debitValue;
+    }, 0);
   }
 
   addNewRow() {

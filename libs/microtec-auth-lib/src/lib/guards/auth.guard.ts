@@ -24,7 +24,6 @@ export class AuthGuard {
         queryParams: { returnUrl: currentUrl },
       });
 
-    console.log('Current Module', moduleId);
 
     if (loadedModules)
       if (loadedModules.find((x) => x.moduleId == moduleId) == null) {

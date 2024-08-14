@@ -75,6 +75,7 @@
                   {
                     name: 'journalEntryDate',
                     headerText: 'AccountStatement.journalEntryDate' | translate,
+                    template:date
                   },
                   {
                     name: 'description',
@@ -125,7 +126,7 @@
                             </div>
                             <div class="md:col-2">
                                 <div class="item Accounts_natuar">
-                                    <p>{{table.natuar}}</p>
+                                    <p>{{table.nature}}</p>
                     
                                 </div>
                             </div>
@@ -138,7 +139,21 @@
                 
               </div>
             </ng-container>
-      
+            <ng-template #date let-account>
+              <div>
+                <p>{{ account.journalEntryDate | date : 'MM/dd/yyyy' }}</p>
+              </div>
+            </ng-template>
+            <ng-container footer>
+              <tr>
+                <td class="imptyData"></td>
+                <td class="imptyData"></td>
+                <td class="imptyData"></td>
+                <td class="total">{{ table.totalDebitAmount}}</td>
+                <td class="total">{{  table.totalCreditAmount}}</td>
+                <td class="imptyData"></td>
+              </tr>
+            </ng-container>
           </lib-data-table> 
           </div>
       

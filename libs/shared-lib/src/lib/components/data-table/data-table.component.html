@@ -1,4 +1,5 @@
-<div class="viewInWeb">
+<div class="viewInWeb"         [ngClass]="{popup:popup }"
+>
   <div class="row">
     <div>
       <p-table
@@ -19,7 +20,7 @@
         styleClass="p-datatable-striped p-datatable-gridlines"
         [scrollable]="true"
         [resizableColumns]="resizableColumns"
-        [ngClass]="{ empty: items.length <= 0 }"
+        [ngClass]="{ empty: items.length <= 0 ,popup:popup }"
       >
       <!-- [class.none]="currentPageResult.totalItems! <= 25" -->
         <ng-template pTemplate="caption">

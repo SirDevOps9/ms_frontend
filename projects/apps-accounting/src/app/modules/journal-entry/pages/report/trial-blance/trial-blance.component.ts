@@ -7,6 +7,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import {  AccountsChildrenDropDown } from '../../../../account/models';
 import { AccountService } from '../../../../account/account.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trial-blance',
@@ -29,7 +30,8 @@ export class TrialBlanceComponent implements OnInit {
     private ToasterService: ToasterService,
     private PrintService: PrintService,
     private dateTimeService: DateTimeService
-    ,public generalService: GeneralService
+    ,public generalService: GeneralService,
+    private router:Router
 
   ) { }
 
@@ -135,7 +137,12 @@ export class TrialBlanceComponent implements OnInit {
     });
   }
   routeTo(id:number){
-    this.routerService.navigateTo(`/transcations/account-statement/${id}`);
+const test =location.href.split("/")
+    console.log(test[3]);
+const url = this.router.serializeUrl(
+  this.router.createUrlTree([`${test[3]}/transcations/account-statement/${id}`])
+);
+window.open(url, '_blank');
   }
 
 }

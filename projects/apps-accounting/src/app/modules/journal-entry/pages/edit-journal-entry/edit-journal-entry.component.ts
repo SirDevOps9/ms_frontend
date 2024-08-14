@@ -9,7 +9,7 @@ import {
   costCenters,
 } from '../../models';
 import { JournalEntryService } from '../../journal-entry.service';
-import {
+import { 
   FormsService,
   LanguageService,
   PageInfo,
@@ -288,7 +288,11 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   openDialog(index: number) {
-    const ref = this.dialog.open(NoChildrenAccountsComponent, {});
+    const ref = this.dialog.open(NoChildrenAccountsComponent,
+       { 
+         width: 'auto',
+          height : 'auto'
+      });
     ref.onClose.subscribe((account: AccountDto) => {
       if (account) {
         this.updateAccount(account, index);
