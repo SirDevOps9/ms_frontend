@@ -252,6 +252,48 @@ export class EditJournalEntryComponent implements OnInit {
 
   addNewRow() {
     if (!this.formsService.validForm(this.journalEntryLinesFormArray, false)) return;
+
+    const id = this.journalEntryLinesFormArray.length + 1;
+    //controls
+    const dbControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
+    const crControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
+    const currencyControl = new FormControl(null, customValidators.required);
+    const rateControl = new FormControl<number | null>(null, [
+      customValidators.required,
+      Validators.min(0),
+    ]);
+    //events
+    dbControl.valueChanges.subscribe((value) => {
+      if (rateControl.value) {
+        rateControl.parent?.get('debitAmountLocal')!.setValue(value! * rateControl.value);
+      }
+    });
+    crControl.valueChanges.subscribe((value) => {
+      if (rateControl.value) {
+        crControl.parent?.get('creditAmountLocal')!.setValue(value! * rateControl.value);
+      }
+    });
+    rateControl.valueChanges.subscribe((value) => {
+      const dbLocalControl = rateControl.parent?.get('debitAmountLocal')!;
+      const crLocalControl = rateControl.parent?.get('creditAmountLocal')!;
+      if (!value) {
+        dbLocalControl.setValue(null);
+        crLocalControl.setValue(null);
+        return;
+      }
+      if (dbControl.value) {
+        dbLocalControl.setValue(value * dbControl.value);
+      }
+      if (crControl.value) {
+        crLocalControl.setValue(value * crControl.value);
+      }
+    });
+
+    currencyControl?.valueChanges.subscribe((value) => {
+      var currencyData = this.currencies.find((c) => c.id == value);
+
+      rateControl.setValue(currencyData?.ratePerUnit!);
+    });
     let newLine = this.fb.group(
       {
         id: new FormControl(0),
@@ -261,13 +303,13 @@ export class EditJournalEntryComponent implements OnInit {
         selectedFalg: new FormControl(false),
         costCenterConfig: new FormControl(null),
         lineDescription: new FormControl(null, [customValidators.required]),
-        debitAmount: new FormControl(null, [customValidators.required, Validators.min(0)]),
-        creditAmount: new FormControl(null, [customValidators.required, Validators.min(0)]),
+        debitAmount: dbControl,
+        creditAmount: crControl,
         currencyId: new FormControl(null, [customValidators.required]),
         currency: new FormControl(null),
         currencyRate: new FormControl(),
-        debitAmountLocal: new FormControl(),
-        creditAmountLocal: new FormControl(),
+        debitAmountLocal: new FormControl(0),
+        creditAmountLocal: new FormControl(0),
         costCenters: new FormControl([]),
       }
       //{ validators: customValidators.debitAndCreditBothCanNotBeZero }
@@ -325,8 +367,6 @@ export class EditJournalEntryComponent implements OnInit {
     journalLine.get('accountCode')?.setValue(selectedAccount.accountCode);
     journalLine.get('costCenterConfig')?.setValue(selectedAccount.costCenterConfig);
     journalLine.get('selectedFalg')?.setValue(true);
-    console.log(selectedAccount);
-    journalLine.get('selectedFalg')?.setValue(true);
     journalLine.get('lineDescription')?.setValue(selectedAccount.name);
 
     var currencyData = this.currencies.find((c) => c.id == selectedAccount.currencyId);
@@ -377,8 +417,10 @@ export class EditJournalEntryComponent implements OnInit {
 
     const debitAmountLocalControl = journalLine.get('debitAmountLocal');
 
+
     const debitAmountControl = journalLine.get('debitAmount');
     if (debitAmountControl?.value === '' || !debitAmountControl?.value) {
+
       debitAmountControl!.setValue(0);
     }
 
@@ -393,19 +435,12 @@ export class EditJournalEntryComponent implements OnInit {
 
   creditValueChanges(index: number) {
     const journalLine = this.journalEntryLinesFormArray.at(index);
-    const debitAmountControl = journalLine.get('debitAmount');
     const creditAmountControl = journalLine.get('creditAmount');
-
-    const debitAmountLocalControl = journalLine.get('debitAmountLocal');
-    const creditAmountLocalControl = journalLine.get('creditAmountLocal');
-
     if (creditAmountControl?.value === '' || !creditAmountControl?.value) {
+
       creditAmountControl!.setValue(0);
     }
 
-    creditAmountLocalControl?.setValue(
-      journalLine.get('creditAmount')?.value * journalLine.get('currencyRate')?.value
-    );
     this.calculateTotalCreditAmount();
     this.calculateTotalDebitAmount();
     this.calculateTotalDebitAmountLocal();

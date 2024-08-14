@@ -13,7 +13,7 @@
               formControlName="journalCode" 
               [disabled]="true" 
               [readOnly]="true"
-            ></lib-text-input>
+            ></lib-text-input> 
             </div>
           </div>
           <div class="col-12 md:col-3">
@@ -327,18 +327,20 @@
             </ng-template>
             <ng-template pTemplate="footer">
               <tr>
-                <td colspan="4" class="imptyData total" style="text-align: center;">{{'JournalTemplate.total' | translate}}</td>
+                <td colspan="4" class="imptyData total" style="text-align: center">
+                  {{ 'JournalTemplate.total' | translate }}
+                </td>
                 <!-- <td class="imptyData"></td>
                 <td class="imptyData"></td>
                 <td class="imptyData"></td> -->
-                <td class="total">{{ totalDebitAmount }}</td>
-                <td class="total">{{ totalCreditAmount }}</td>
+                <td class="total">{{generalService.formatNumber( totalDebitAmount , generalService.fraction) }}                </td>
+                <td class="total"> {{generalService.formatNumber( totalCreditAmount , generalService.fraction) }} </td>
                 <td class="total"></td>
                 <td class="total"></td>
-                <td class="total">{{ totalDebitAmountLocal }}</td>
-                <td class="total">{{ totalCreditAmountLocal }}</td>
+                <td class="total"> {{generalService.formatNumber( totalDebitAmountLocal , generalService.fraction) }}</td>
+                <td class="total">{{generalService.formatNumber( totalCreditAmountLocal , generalService.fraction) }}</td>
                 <td class="total"></td>
-                <td class="total"></td>
+                <td class="total" *ngIf="journalEntry?.status !== enums.JournalEntryStatus.Posted" ></td>
               </tr>
             </ng-template>
           </p-table>

@@ -199,7 +199,7 @@ export class AddJournalEntryOpeningBalanceComponent {
         this.fa.at(index).get('selectedFalg')?.setValue(true);
         this.getAccountCurrencyRate(r.currencyId , index);
       }
-    });
+    }); 
   }
 
   filterCurrency(event: any) {
@@ -214,8 +214,8 @@ export class AddJournalEntryOpeningBalanceComponent {
   addThing() {
     const id = this.fa.length + 1;
     //controls
-    const dbControl = new FormControl(null, [customValidators.required, Validators.min(0)]);
-    const crControl = new FormControl(null, [customValidators.required, Validators.min(0)]);
+    const dbControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
+    const crControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
     const currencyControl = new FormControl(null, customValidators.required);
     const rateControl = new FormControl<number | null>(null, [
       customValidators.required,

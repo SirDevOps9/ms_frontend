@@ -210,7 +210,8 @@
                       ></lib-text-input>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{ journalLine.controls['debitAmount'].value ?? 0 }}
+                      {{generalService.formatNumber( journalLine.controls['debitAmount'].value , generalService.fraction) }}
+
                     </ng-template>
                   </p-cellEditor>
                   <lib-field-validations [appControl]="journalLine"> </lib-field-validations>
@@ -229,7 +230,8 @@
                       ></lib-text-input>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{ journalLine.controls['creditAmount'].value ?? 0 }}
+                      {{generalService.formatNumber( journalLine.controls['creditAmount'].value , generalService.fraction) }}
+
                     </ng-template>
                   </p-cellEditor>
                   <lib-field-validations [appControl]="journalLine"> </lib-field-validations>
@@ -353,14 +355,14 @@
                 <!-- <td class="imptyData"></td>
                 <td class="imptyData"></td>
                 <td class="imptyData"></td> -->
-                <td class="total">{{ totalDebitAmount }}</td>
-                <td class="total">{{ totalCreditAmount }}</td>
+                <td class="total">{{generalService.formatNumber( totalDebitAmount , generalService.fraction) }}                </td>
+                <td class="total"> {{generalService.formatNumber( totalCreditAmount , generalService.fraction) }} </td>
                 <td class="total"></td>
                 <td class="total"></td>
-                <td class="total">{{ totalDebitAmountLocal }}</td>
-                <td class="total">{{ totalCreditAmountLocal }}</td>
+                <td class="total"> {{generalService.formatNumber( totalDebitAmountLocal , generalService.fraction) }}</td>
+                <td class="total">{{generalService.formatNumber( totalCreditAmountLocal , generalService.fraction) }}</td>
                 <td class="total"></td>
-                <td class="total" journalEntry?.status != enums.JournalEntryStatus.Posted></td>
+                <td class="total" *ngIf="journalEntry?.status !== enums.JournalEntryStatus.Posted" ></td>
               </tr>
             </ng-template>
           </p-table>

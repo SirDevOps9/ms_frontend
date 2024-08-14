@@ -7,47 +7,41 @@
     border-radius: 12px;
     display: flex;
     align-items: center;
+    p{
+        margin-block: 8px;
+    }
 }
 .draft{
     background:#F7F8F8 ;
     color: #383A42;
 }
 .unbalanced{
-    background:#CB3F2D ;
-    color: #fff;
+    background:#F5D9D5 ;
+    color: #CC3F2D;
 }
 .unposted{
-    background:#8E95A2 ;
-    color: #fff;
+    background:#D1E9EF ;
+    color: #737374;
 }
 .returned{
-    background:#E17F24 ;
-    color: #fff;
+    background:#F9E5D3 ;
+    color: #E17F24;
 }
 .Posted{
-    background:#36A19B ;
-    color: #fff;
+    background:#D1E9EF ;
+    color: #1A90B0;
 }
 .dot{
+    display: none;
     width: 10px;
     height: 10px;
     border-radius: 50%;
     background-color: #fff;
     margin-inline-end: 5px;
+    margin-block: 0;
 }
 .edit{
     color: red !important;
-}
-::ng-deep .entry_tableCont {
-    // lib-text-input input {
-    //   border: none;
-    // }
-    .p-inputtext{
-      width: 100px !important;
-      padding-inline-start: 5px !important;
-     padding-inline-end:5px !important;
-     width: 150px !important;
-    }
 }
 .add_new {
     background: #1a90b0 !important;

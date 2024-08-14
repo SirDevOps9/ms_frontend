@@ -150,7 +150,7 @@
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ fg.controls['debitAmount'].value ?? 0 }}
+                    {{ fg.controls['debitAmount'].value }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations [appControl]="fg"></lib-field-validations>
@@ -169,7 +169,7 @@
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ fg.controls['creditAmount'].value ?? 0 }}
+                    {{ fg.controls['creditAmount'].value }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations [appControl]="fg"></lib-field-validations>
