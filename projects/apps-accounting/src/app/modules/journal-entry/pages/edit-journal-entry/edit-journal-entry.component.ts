@@ -9,7 +9,7 @@ import {
   costCenters,
 } from '../../models';
 import { JournalEntryService } from '../../journal-entry.service';
-import {
+import { 
   FormsService,
   LanguageService,
   PageInfo,
@@ -46,6 +46,10 @@ export class EditJournalEntryComponent implements OnInit {
   viewMode: boolean = false;
   statusName: string;
   journalTypeName: JournalEntryType;
+  totalDebitAmount: number;
+  totalDebitAmountLocal: number;
+  totalCreditAmountLocal: number;
+  totalCreditAmount: number;
 
   filteredAccounts: AccountDto[] = [];
   currencies: CurrencyDto[] = [];
@@ -147,6 +151,11 @@ export class EditJournalEntryComponent implements OnInit {
 
       this.currentAccounts = this.journalEntryLines.map(line => line.accountId);
 
+      this.calculateTotalCreditAmount();
+      this.calculateTotalDebitAmount();
+      this.calculateTotalDebitAmountLocal();
+      this.calculateTotalCreditAmountLocal();
+
     });
   }
 
@@ -203,10 +212,17 @@ export class EditJournalEntryComponent implements OnInit {
       const result = await this.journalEntryService.deleteJournalEntryLine(
         journalLine.get('id')?.value!
       );
-      if (result) this.journalEntryLinesFormArray.removeAt(index);
+      if (result) {
+        this.journalEntryLinesFormArray.removeAt(index);
       this.journalEntryService.journalStatus.subscribe((res) => {
         this.statusName = res;
+        
+    this.calculateTotalCreditAmount();
+    this.calculateTotalDebitAmount();
+    this.calculateTotalDebitAmountLocal();
+    this.calculateTotalCreditAmountLocal();
       });
+      } 
     } else {
       // Otherwise, show an error message based on the status
       let message: string = '';
@@ -216,11 +232,14 @@ export class EditJournalEntryComponent implements OnInit {
         message = "Can't be deleted, the entry is already posted.";
       }
       this.toasterService.showError('Failure', message);
+
+      
     }
+
   }
 
   addNewRow() {
-    if (!this.formsService.validForm(this.editJournalForm, false)) return;
+    if (!this.formsService.validForm(this.journalEntryLinesFormArray, false)) return;
     let newLine = this.fb.group(
       {
         id: new FormControl(0),
@@ -248,6 +267,8 @@ export class EditJournalEntryComponent implements OnInit {
     if (accountId) {
       this.currentAccounts.push(accountId);
     }
+    this.getAccounts();
+
   }
 
   getAccounts() {
@@ -266,7 +287,11 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   openDialog(index: number) {
-    const ref = this.dialog.open(NoChildrenAccountsComponent, {});
+    const ref = this.dialog.open(NoChildrenAccountsComponent,
+       { 
+         width: 'auto',
+          height : 'auto'
+      });
     ref.onClose.subscribe((account: AccountDto) => {
       if (account) {
         this.updateAccount(account, index);
@@ -359,15 +384,52 @@ export class EditJournalEntryComponent implements OnInit {
   creditValueChanges(index: number) {
     const journalLine = this.journalEntryLinesFormArray.at(index);
     const debitAmountControl = journalLine.get('debitAmount');
+    const creditAmountControl = journalLine.get('creditAmount');
+
     const debitAmountLocalControl = journalLine.get('debitAmountLocal');
     const creditAmountLocalControl = journalLine.get('creditAmountLocal');
 
-    debitAmountControl!.setValue(0);
-    debitAmountLocalControl?.setValue(0);
+    if (creditAmountControl?.value === '' || !creditAmountControl?.value) {
+
+      creditAmountControl!.setValue(0);
+    }
 
     creditAmountLocalControl?.setValue(
       journalLine.get('creditAmount')?.value * journalLine.get('currencyRate')?.value
     );
+    this.calculateTotalCreditAmount();
+    this.calculateTotalDebitAmount();
+    this.calculateTotalDebitAmountLocal();
+    this.calculateTotalCreditAmountLocal();
+  }
+  calculateTotalDebitAmount() {
+    this.totalDebitAmount = this.journalEntryLinesFormArray.controls.reduce((acc, control) => {
+      // Ensure that debitAmount is treated as a number
+      const debitValue = parseFloat(control.get('debitAmount')?.value) || 0;
+      return acc + debitValue;
+    }, 0);
+  }
+  calculateTotalCreditAmount() {
+    this.totalCreditAmount = this.journalEntryLinesFormArray.controls.reduce((acc, control) => {
+      // Ensure that debitAmount is treated as a number
+      const debitValue = parseFloat(control.get('creditAmount')?.value) || 0;
+      return acc + debitValue;
+    }, 0);
+  }
+
+  calculateTotalDebitAmountLocal() {
+    this.totalDebitAmountLocal = this.journalEntryLinesFormArray.controls.reduce((acc, control) => {
+      // Ensure that debitAmount is treated as a number
+      const debitValue = parseFloat(control.get('debitAmountLocal')?.value) || 0;
+      return acc + debitValue;
+    }, 0);
+  }
+  calculateTotalCreditAmountLocal() {
+    this.totalCreditAmountLocal = this.journalEntryLinesFormArray.controls.reduce((acc, control) => {
+      // Ensure that debitAmount is treated as a number
+      const debitValue = parseFloat(control.get('creditAmountLocal')?.value) || 0;
+      return acc + debitValue;
+    }, 0);
   }
 
   currencyValueChanges(event: any, index: number) {

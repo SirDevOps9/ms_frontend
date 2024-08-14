@@ -9,7 +9,6 @@ import {
   RouterService,
   SharedLibraryEnums,
   customValidators,
-  
 } from 'shared-lib';
 import { AccountDto } from '../../../account/models/accountDto';
 import { AccountService } from '../../../account/account.service';
@@ -32,6 +31,7 @@ import { CostCenterAllocationPopupComponent } from '../components/cost-center-al
 import { costCenters } from '../../models';
 import { CurrencyRateDto } from '../../../general/models/currencyRateDto';
 import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
+import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 export interface JournalEntryLineFormValue {
   id: number;
   account: AccountDto;
@@ -60,10 +60,10 @@ export interface JournalEntryFormValue {
 })
 export class CreateJournalEntryComponent {
   fg: FormGroup;
-  totalDebitAmount :number;
-  totalDebitAmountLocal :number;
-  totalCreditAmountLocal :number;
-  totalCreditAmount :number;
+  totalDebitAmount: number;
+  totalDebitAmountLocal: number;
+  totalCreditAmountLocal: number;
+  totalCreditAmount: number;
   filteredAccounts: AccountDto[] = [];
   journalEntryAttachments: { attachmentId: string; name: string }[];
 
@@ -71,7 +71,7 @@ export class CreateJournalEntryComponent {
   fitleredCurrencies: CurrencyDto[];
   costCenters: costCenters[] = [];
   selectedCurrency: number;
-  accountData : any = {}
+  accountData: any = {};
   private readonly TOUR: GuidedTour = {
     tourId: 'purchases-tour',
     useOrb: false,
@@ -106,10 +106,10 @@ export class CreateJournalEntryComponent {
     ],
   };
   ngOnInit() {
-    this.totalDebitAmount = 0
-    this.totalCreditAmount = 0
-    this.totalDebitAmountLocal = 0
-    this.totalCreditAmountLocal = 0
+    this.totalDebitAmount = 0;
+    this.totalCreditAmount = 0;
+    this.totalDebitAmountLocal = 0;
+    this.totalCreditAmountLocal = 0;
     this.langService.getTranslation('JournalTitle').subscribe((title) => {
       this.titleService.setTitle(title);
     });
@@ -124,7 +124,6 @@ export class CreateJournalEntryComponent {
     });
     // this.calculateTotalDebitAmount();
     // this.calculateTotalCreditAmount();
-
   }
   getAccounts() {
     this.accountService.getAccountsHasNoChildren('', new PageInfo()).subscribe((r) => {
@@ -150,7 +149,8 @@ export class CreateJournalEntryComponent {
     private formService: FormsService,
     private guidedTourService: GuidedTourService,
     private attachmentService: AttachmentsService,
-    private currentUserService : CurrentUserService
+    private currentUserService: CurrentUserService,
+    public generalService: GeneralService
   ) {
     this.titleService.setTitle(this.langService.transalte('Journal.AddJournal'));
 
@@ -189,7 +189,6 @@ export class CreateJournalEntryComponent {
             };
           }
         );
-
       });
     });
   }
@@ -202,12 +201,9 @@ export class CreateJournalEntryComponent {
   }
 
   accountSelected(event: any, id: number) {
-
     const journalLine = this.items.at(id);
 
     this.accountData = this.filteredAccounts.find((c) => c.id == event);
-
-
 
     const accountName = journalLine.get('accountName');
     accountName?.setValue(this.accountData?.name);
@@ -216,7 +212,7 @@ export class CreateJournalEntryComponent {
     journalLine.get('lineDescription')?.setValue(this.accountData.name);
     journalLine.get('costCenterConfig')?.setValue(this.accountData.costCenterConfig);
     journalLine.get('selectedFalg')?.setValue(true);
-    console.log(journalLine.get('costCenterConfig')?.value)
+    console.log(journalLine.get('costCenterConfig')?.value);
 
     var currencyData = this.currencies.find((c) => c.id == this.accountData?.currencyId);
 
@@ -230,15 +226,12 @@ export class CreateJournalEntryComponent {
     currencyNameControl?.setValue(currencyData?.name);
 
     this.getAccountCurrencyRate(currencyData?.id as number, id);
-    
   }
 
   accountSelectedForDialog(accountData: any, id: number) {
     const journalLine = this.items.at(id);
 
-
     const accountName = journalLine.get('accountName');
-
 
     accountName?.setValue(this.accountData.name);
 
@@ -248,7 +241,6 @@ export class CreateJournalEntryComponent {
 
     const currencyControl = journalLine.get('currency');
     const currencyRateControl = journalLine.get('currencyRate')!;
-
 
     currencyControl?.setValue(this.accountData?.currencyId);
 
@@ -272,7 +264,6 @@ export class CreateJournalEntryComponent {
   openDialog(index: number) {
     const ref = this.dialog.open(NoChildrenAccountsComponent, {});
     ref.onClose.subscribe((r) => {
-
       if (r) {
         this.fa.at(index).get('account')?.setValue(r.id);
         this.fa.at(index)?.get('accountName')?.setValue(r.name);
@@ -282,20 +273,10 @@ export class CreateJournalEntryComponent {
         var currencyData = this.currencies.find((c) => c.id == r.currencyId);
         this.fa.at(index).get('currency')?.setValue(r.currencyId);
         this.fa.at(index).get('currencyName')?.setValue(currencyData?.name);
-        this.getAccountCurrencyRate(r.currencyId , index);
+        this.getAccountCurrencyRate(r.currencyId, index);
         this.fa.at(index).get('selectedFalg')?.setValue(true);
-
       }
     });
-  }
-
-  formatNumber(value: number, fractionDigits: string = '1.0-2'): string {
-    const formattedNumber = new Intl.NumberFormat('en-US', {
-      minimumFractionDigits: parseInt(fractionDigits.split('-')[0], 10),
-      maximumFractionDigits: parseInt(fractionDigits.split('-')[1], 10),
-    }).format(value);
-
-    return formattedNumber;
   }
 
   filterCurrency(event: any) {
@@ -307,15 +288,13 @@ export class CreateJournalEntryComponent {
     return this.fg.get('journalEntryLines') as FormArray;
   }
 
-
   addThing() {
-    
-    if (!this.formService.validForm(this.fg, false)) return;
+    if (!this.formService.validForm(this.fa, false)) return;
 
     const id = this.fa.length + 1;
     //controls
-    const dbControl = new FormControl(null, [customValidators.required, Validators.min(0)]);
-    const crControl = new FormControl(null, [customValidators.required, Validators.min(0)]);
+    const dbControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
+    const crControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
     const currencyControl = new FormControl(null, customValidators.required);
     const rateControl = new FormControl<number | null>(null, [
       customValidators.required,
@@ -351,7 +330,6 @@ export class CreateJournalEntryComponent {
     currencyControl?.valueChanges.subscribe((value) => {
       var currencyData = this.currencies.find((c) => c.id == value);
 
-
       rateControl.setValue(currencyData?.ratePerUnit!);
     });
 
@@ -373,26 +351,28 @@ export class CreateJournalEntryComponent {
         currencyName: new FormControl(''),
         costCenters: new FormControl(null),
         selectedFalg: new FormControl(false),
-
-      },
+      }
       //{ validators: customValidators.debitAndCreditBothCanNotBeZero }
     );
     this.fg.updateValueAndValidity();
-    
+
     this.fa.push(fg);
     // this.calculateTotalDebitAmount();
     // this.calculateTotalCreditAmount();
-
+    this.getAccounts();
   }
 
   deleteLine(index: number) {
     this.fa.removeAt(index);
+    this.calculateTotalDebitAmount();
+    this.calculateTotalCreditAmount();
+    this.calculateTotalDebitAmountLocal();
+    this.calculateTotalCreditAmountLocal();
   }
 
   save() {
     if (!this.formService.validForm(this.fg, false)) return;
     const value = this.fg.value as JournalEntryFormValue;
-
 
     let obj: AddJournalEntryCommand = {
       ...value,
@@ -423,7 +403,6 @@ export class CreateJournalEntryComponent {
     this.routerService.navigateTo('transcations/journalentry');
     // this.calculateTotalDebitAmount();
     // this.calculateTotalCreditAmount();
-
   }
 
   RedirectToTemplate() {
@@ -438,7 +417,6 @@ export class CreateJournalEntryComponent {
     dialogRef.onClose.subscribe((id: any) => {
       if (id) {
         this.service.getJournalTemplateById(id).subscribe((template) => {
-
           // Set template values to the form group
           this.fg.patchValue({
             refrenceNumber: template.code,
@@ -479,7 +457,7 @@ export class CreateJournalEntryComponent {
     });
   }
 
-  openCostPopup(data: any ,journal : FormGroup,  account: number, index: number) {
+  openCostPopup(data: any, journal: FormGroup, account: number, index: number) {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
 
     if (
@@ -496,8 +474,7 @@ export class CreateJournalEntryComponent {
         data: data,
       });
       dialogRef.onClose.subscribe((res) => {
-        if (res) 
-          journal.get('costCenters')?.setValue(res)
+        if (res) journal.get('costCenters')?.setValue(res);
       });
     }
   }
@@ -505,25 +482,29 @@ export class CreateJournalEntryComponent {
   debitChanged(index: number) {
     const journalLine = this.items.at(index);
     const creditAmountControl = journalLine.get('creditAmount');
-    // creditAmountControl!.setValue(0);
-    
-    this.calculateTotalDebitAmount()
-    this.calculateTotalCreditAmount();
-    this.calculateTotalDebitAmountLocal()
-    this.calculateTotalCreditAmountLocal()
+    const debitAmountControl = journalLine.get('debitAmount');
+    if (debitAmountControl?.value === '' || !debitAmountControl?.value) {
 
+      debitAmountControl!.setValue(0);
+    }
+    this.calculateTotalDebitAmount();
+    this.calculateTotalCreditAmount();
+    this.calculateTotalDebitAmountLocal();
+    this.calculateTotalCreditAmountLocal();
   }
   creditChanged(index: number) {
     const journalLine = this.items.at(index);
     const debitAmountControl = journalLine.get('debitAmount');
-    // debitAmountControl!.setValue(0);
-    //  journalLine.get('debitAmount');
+    const creditAmountControl = journalLine.get('creditAmount');
+    if (creditAmountControl?.value === '' || !creditAmountControl?.value) {
+
+      creditAmountControl!.setValue(0);
+    }
 
     this.calculateTotalCreditAmount();
-    this.calculateTotalDebitAmount()
-    this.calculateTotalDebitAmountLocal()
-    this.calculateTotalCreditAmountLocal()
-
+    this.calculateTotalDebitAmount();
+    this.calculateTotalDebitAmountLocal();
+    this.calculateTotalCreditAmountLocal();
   }
   getTodaysDate() {
     var date = new Date();
@@ -531,7 +512,6 @@ export class CreateJournalEntryComponent {
   }
 
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
-
     const journalLine = this.items.at(currentJournalId);
     this.currencyService.accountCurrencyRate.subscribe((res) => {
       const currencyRateControl = journalLine.get('currencyRate')!;
@@ -539,43 +519,40 @@ export class CreateJournalEntryComponent {
       currencyRateControl.setValue(res.rate);
     });
 
-    this.currencyService.getAccountCurrencyRate(accountCurrency,this.currentUserService.getCurrency());
+    this.currencyService.getAccountCurrencyRate(
+      accountCurrency,
+      this.currentUserService.getCurrency()
+    );
   }
-  onFilter(event:any){    
-      this.accountService.getAccountsHasNoChildrenNew(event, new PageInfo())
+  onFilter(event: any) {
+    this.accountService.getAccountsHasNoChildrenNew(event, new PageInfo());
 
-      this.accountService.childrenAccountList.subscribe((res:any)=>{
-if(res.length) {
-  this.filteredAccounts = res.map((account:any) => ({
-    ...account,
-    displayName: `${account.name} (${account.accountCode})`,
-  }));
+    this.accountService.childrenAccountList.subscribe((res: any) => {
+      if (res.length) {
+        this.filteredAccounts = res.map((account: any) => ({
+          ...account,
+          displayName: `${account.name} (${account.accountCode})`,
+        }));
 
-  console.log(this.filteredAccounts)
-}
-     
+        console.log(this.filteredAccounts);
+      }
 
-        //          this.filteredAccounts=res.result.map((account:any) => ({
-        //   ...account,
-        //   displayName: `${account.name} (${account.accountCode})`,
-        // }));
+      //          this.filteredAccounts=res.result.map((account:any) => ({
+      //   ...account,
+      //   displayName: `${account.name} (${account.accountCode})`,
+      // }));
+    });
+    console.log(event);
 
-
-     
-
-
-      })
-      console.log(event);
-      
-      // this.accountService.getAccountsHasNoChildrenNew(event, new PageInfo()).subscribe((r) => {
-      //   this.filteredAccounts = r.result.map((account) => ({
-      //     ...account,
-      //     displayName: `${account.name} (${account.accountCode})`,
-      //   }));
-      // });
+    // this.accountService.getAccountsHasNoChildrenNew(event, new PageInfo()).subscribe((r) => {
+    //   this.filteredAccounts = r.result.map((account) => ({
+    //     ...account,
+    //     displayName: `${account.name} (${account.accountCode})`,
+    //   }));
+    // });
   }
   calculateTotalDebitAmount() {
-    this.totalDebitAmount  = this.items.controls.reduce((acc, control) => {
+    this.totalDebitAmount = this.items.controls.reduce((acc, control) => {
       // Ensure that debitAmount is treated as a number
       const debitValue = parseFloat(control.get('debitAmount')?.value) || 0;
       return acc + debitValue;
@@ -588,10 +565,9 @@ if(res.length) {
       return acc + debitValue;
     }, 0);
   }
-  
 
   calculateTotalDebitAmountLocal() {
-    this.totalDebitAmountLocal  = this.items.controls.reduce((acc, control) => {
+    this.totalDebitAmountLocal = this.items.controls.reduce((acc, control) => {
       // Ensure that debitAmount is treated as a number
       const debitValue = parseFloat(control.get('debitAmountLocal')?.value) || 0;
       return acc + debitValue;
@@ -604,7 +580,4 @@ if(res.length) {
       return acc + debitValue;
     }, 0);
   }
-  
-
-
 }

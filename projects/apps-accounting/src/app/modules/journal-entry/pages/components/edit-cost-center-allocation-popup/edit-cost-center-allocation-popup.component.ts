@@ -38,8 +38,15 @@ export class EditCostCenterAllocationPopupComponent implements OnInit  , AfterVi
 
   ngOnInit(): void {
     this.amountForm = this.fb.group({
-      amount : this.config.data.creditAmount ? this.config.data.creditAmount : this.config.data.debitAmount,
+      amount : 0
     })
+    if(this.config.data.creditAmount == 0) {
+      this.amountForm.get('amount')?.setValue(this.config.data.debitAmount)
+    }
+     if(this.config.data.debitAmount == 0) {
+      this.amountForm.get('amount')?.setValue(this.config.data.creditAmount)
+
+    }
 
     this.allocationform.push(this.createItem())
 

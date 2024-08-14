@@ -113,7 +113,7 @@
               >
               </lib-export>
 
-              <lib-button pRipple className="addToList" label="{{ 'Journal.addNew' | translate }}" (onClick)="routeToAdd()" [icon]="'pi pi-plus'"></lib-button>
+              <lib-button pRipple className="addToList" label="{{ 'EditJournal.add' | translate }}" (onClick)="routeToAdd()" [icon]="'pi pi-plus'"></lib-button>
 
           
           </div>
@@ -121,6 +121,7 @@
        
         </div>
       </ng-container>
+      
       <ng-template #userCol let-journal>
         <div class="actions flex align-items-center ">
           <img src="assets/images/table/view.svg" alt="" (onClick)="viewJournal(journal.id)">
