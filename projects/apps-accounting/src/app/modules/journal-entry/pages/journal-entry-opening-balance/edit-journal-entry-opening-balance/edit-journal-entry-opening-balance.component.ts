@@ -470,7 +470,7 @@ export class EditJournalEntryOpeningBalanceComponent {
     private titleService: Title,
     private langService: LanguageService,
     private route : ActivatedRoute,
-    private generalService : GeneralService,
+    public generalService : GeneralService,
     private currentUserService : CurrentUserService
   ) {
     this.titleService.setTitle(this.langService.transalte('OpeningBalance.EditJournal')); 

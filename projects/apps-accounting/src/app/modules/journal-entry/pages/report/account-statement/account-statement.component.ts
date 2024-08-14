@@ -7,12 +7,14 @@ import {
   PageInfo,
   customValidators,
   ToasterService,
+  PrintService
 } from 'shared-lib';
 import { AccountService } from '../../../../account/account.service';
 import { AccountDto, AccountsChildrenDropDown } from '../../../../account/models';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { reportAccount } from '../../../models';
 import { ActivatedRoute } from '@angular/router';
+import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 
 @Component({
   selector: 'app-account-statement',
@@ -35,7 +37,9 @@ export class AccountStatementComponent {
     private titleService: Title,
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
-    private ToasterService: ToasterService
+    private ToasterService:ToasterService,
+    private PrintService: PrintService,
+    public generalService: GeneralService
   ) {}
 
   ngOnInit() {
@@ -102,9 +106,14 @@ export class AccountStatementComponent {
                 totalCreditAmount:x.journalEntryDtos.reduce((sum, transaction) => sum + transaction.creditAmount, 0),
 
                 journalEntryDtos: x.journalEntryDtos.map(t => {
+                  const formatdebitAmount=this.generalService.formatNumber(t?.debitAmount, this.generalService.fraction)
+                const formatcreditAmount=this.generalService.formatNumber(t?.creditAmount, this.generalService.fraction)
+                const balance=this.generalService.formatNumber(t?.balance, this.generalService.fraction)
                   return {
                     ...t,
-                    balance: t.balance < 0 ? Math.abs(t.balance) : t.balance
+                    creditAmount:formatcreditAmount,
+                    debitAmount: formatdebitAmount,
+                    balance:  balance
                   };
                 })
               };
@@ -126,5 +135,8 @@ export class AccountStatementComponent {
       dateFrom: today.toISOString().split('T')[0],
       dateTo: endOfMonth.toISOString().split('T')[0],
     });
+  }
+  printTable(id: string) {
+    this.PrintService.print(id)
   }
 }

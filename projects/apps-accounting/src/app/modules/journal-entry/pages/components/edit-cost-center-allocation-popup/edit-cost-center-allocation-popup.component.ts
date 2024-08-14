@@ -5,6 +5,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormsService, LanguageService, ToasterService, customValidators } from 'shared-lib';
 import { AccountService } from '../../../../account/account.service';
 import { costLookup } from '../../../models';
+import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 
 @Component({
   selector: 'app-edit-cost-center-allocation-popup',
@@ -18,7 +19,9 @@ export class EditCostCenterAllocationPopupComponent implements OnInit  , AfterVi
   calcAmount : number
   lookupValues : any = []
 
-  constructor(private fb : FormBuilder , private config : DynamicDialogConfig , private accountService : AccountService , private formsService : FormsService , private ref : DynamicDialogRef , private cdr : ChangeDetectorRef , private toasterService : ToasterService , private languageService : LanguageService){}
+  constructor(private fb : FormBuilder , private config : DynamicDialogConfig , private accountService : AccountService 
+    , private formsService : FormsService , private ref : DynamicDialogRef , private cdr : ChangeDetectorRef 
+    , private toasterService : ToasterService , private languageService : LanguageService,public generalService: GeneralService){}
   ngAfterViewInit(): void {
     console.log(this.config.data)
 

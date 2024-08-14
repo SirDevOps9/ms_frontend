@@ -238,10 +238,10 @@
                 </lib-form-group>
               </td>
               <td>
-                {{ journalLine.controls['debitAmountLocal'].value ? (journalLine.controls['debitAmountLocal'].value | number:'1.0-2') : '0' }}
+                {{ journalLine.controls['debitAmountLocal'].value ?  generalService.formatNumber(journalLine.controls['debitAmountLocal'].value  , generalService.fraction): '0' }}
               </td>
               <td>
-                {{ journalLine.controls['creditAmountLocal'].value ? (journalLine.controls['creditAmountLocal'].value | number:'1.0-2') : '0' }}
+                {{ journalLine.controls['creditAmountLocal'].value ?  generalService.formatNumber(journalLine.controls['creditAmountLocal'].value  , generalService.fraction) : '0' }}
               </td>
               <td>
                 <img src="assets/images/groups.png" *ngIf="!journalLine.controls['selectedFalg'].value && !journalLine.controls['costCenters'].value.length">

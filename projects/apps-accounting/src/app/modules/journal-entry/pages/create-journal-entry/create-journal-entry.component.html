@@ -4,7 +4,7 @@
 <lib-page-content>
   <div class="journal_entry_add_page">
     <div class="add_page_header">
-      <button class="btn_walk" (click)="startTour()">walk through</button>
+      <button class="btn_walk" (click)="startTour()">{{ 'walkThrough' | translate }}</button>
     </div>
 
 
@@ -228,10 +228,10 @@
                 </p-cellEditor>
               </td>
               <td>
-                {{ fg.controls['debitAmountLocal'].value ? (fg.controls['debitAmountLocal'].value | number:'1.0-2') : '0' }}
+                {{ fg.controls['debitAmountLocal'].value ? generalService.formatNumber(fg.controls['debitAmountLocal'].value , generalService.fraction) : '0' }}
               </td>
               <td>
-                {{ fg.controls['creditAmountLocal'].value ? (fg.controls['creditAmountLocal'].value | number:'1.0-2') : '0' }}
+                {{ fg.controls['creditAmountLocal'].value ? generalService.formatNumber(fg.controls['creditAmountLocal'].value , generalService.fraction): '0' }}
 
               </td>
               <td>
@@ -281,13 +281,14 @@
               <!-- <td class="imptyData"></td>
               <td class="imptyData"></td>
               <td class="imptyData"></td> -->
-              <td class="total">{{ totalDebitAmount }}</td>
-              <td class="total">{{ totalCreditAmount }}</td>
+              <td class="total">{{ generalService.formatNumber(totalDebitAmount , generalService.fraction) }}</td>
+              <td class="total">{{generalService.formatNumber(totalCreditAmount , generalService.fraction)  }}</td>
               <td class="total"></td>
               <td class="total"></td>
-              <td class="total">{{ totalDebitAmountLocal }}</td>
-              <td class="total">{{ totalCreditAmountLocal }}</td>
+              <td class="total">{{generalService.formatNumber(totalDebitAmountLocal , generalService.fraction)  }}</td>
+              <td class="total">{{ generalService.formatNumber(totalCreditAmountLocal , generalService.fraction) }}</td>
               <td class="total"></td>
+
               <td class="total"></td>
             </tr>
           </ng-template>

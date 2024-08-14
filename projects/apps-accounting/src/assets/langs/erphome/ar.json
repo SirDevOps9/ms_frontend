@@ -5,6 +5,8 @@
   "Logout": "تسجيل الخروج",
   "DeleteError": "حدث خطاء فى المسح",
   "LoadError": "حدث خطاء فى التحميل",
+  "walkThrough": "إرشادات",
+
   "Table": {
     "Actions": "اجراءات",
     "Edit": "تعديل",
