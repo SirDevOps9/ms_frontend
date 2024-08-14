@@ -60,7 +60,6 @@ export interface JournalEntryFormValue {
   styleUrl: './create-journal-entry.component.scss',
 })
 export class CreateJournalEntryComponent {
-
   fg: FormGroup;
   totalDebitAmount: number;
   totalDebitAmountLocal: number;
@@ -126,7 +125,7 @@ export class CreateJournalEntryComponent {
     });
     // this.calculateTotalDebitAmount();
     // this.calculateTotalCreditAmount();
-    this.addThing()
+    this.addThing();
   }
   getAccounts() {
     this.accountService.getAccountsHasNoChildren('', new PageInfo()).subscribe((r) => {
@@ -165,6 +164,7 @@ export class CreateJournalEntryComponent {
 
       journalEntryLines: fb.array([]),
     });
+    this.fg.controls['journalDate'].setValue(this.getTodaysDate());
   }
 
   public get attachments(): FormArray {
@@ -363,7 +363,6 @@ export class CreateJournalEntryComponent {
     // this.calculateTotalDebitAmount();
     // this.calculateTotalCreditAmount();
     this.getAccounts();
-
   }
 
   deleteLine(index: number) {
@@ -488,7 +487,6 @@ export class CreateJournalEntryComponent {
     const creditAmountControl = journalLine.get('creditAmount');
     const debitAmountControl = journalLine.get('debitAmount');
     if (debitAmountControl?.value === '' || !debitAmountControl?.value) {
-
       debitAmountControl!.setValue(0);
     }
     this.calculateTotalDebitAmount();
@@ -501,7 +499,6 @@ export class CreateJournalEntryComponent {
     const debitAmountControl = journalLine.get('debitAmount');
     const creditAmountControl = journalLine.get('creditAmount');
     if (creditAmountControl?.value === '' || !creditAmountControl?.value) {
-
       creditAmountControl!.setValue(0);
     }
 
@@ -512,7 +509,7 @@ export class CreateJournalEntryComponent {
   }
   getTodaysDate() {
     var date = new Date();
-    return date.toISOString().substring(0, 10);
+    return date;
   }
 
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
