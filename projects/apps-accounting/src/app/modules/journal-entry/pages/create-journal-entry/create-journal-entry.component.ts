@@ -1,5 +1,5 @@
 import { CurrencyService } from './../../../general/currency.service';
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   AttachmentsService,
@@ -32,6 +32,7 @@ import { costCenters } from '../../models';
 import { CurrencyRateDto } from '../../../general/models/currencyRateDto';
 import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
+import { Dropdown } from 'primeng/dropdown';
 export interface JournalEntryLineFormValue {
   id: number;
   account: AccountDto;
@@ -59,6 +60,7 @@ export interface JournalEntryFormValue {
   styleUrl: './create-journal-entry.component.scss',
 })
 export class CreateJournalEntryComponent {
+
   fg: FormGroup;
   totalDebitAmount: number;
   totalDebitAmountLocal: number;
@@ -124,6 +126,7 @@ export class CreateJournalEntryComponent {
     });
     // this.calculateTotalDebitAmount();
     // this.calculateTotalCreditAmount();
+    this.addThing()
   }
   getAccounts() {
     this.accountService.getAccountsHasNoChildren('', new PageInfo()).subscribe((r) => {
@@ -293,8 +296,8 @@ export class CreateJournalEntryComponent {
 
     const id = this.fa.length + 1;
     //controls
-    const dbControl = new FormControl(null, [customValidators.required, Validators.min(0)]);
-    const crControl = new FormControl(null, [customValidators.required, Validators.min(0)]);
+    const dbControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
+    const crControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
     const currencyControl = new FormControl(null, customValidators.required);
     const rateControl = new FormControl<number | null>(null, [
       customValidators.required,
@@ -360,6 +363,7 @@ export class CreateJournalEntryComponent {
     // this.calculateTotalDebitAmount();
     // this.calculateTotalCreditAmount();
     this.getAccounts();
+
   }
 
   deleteLine(index: number) {
