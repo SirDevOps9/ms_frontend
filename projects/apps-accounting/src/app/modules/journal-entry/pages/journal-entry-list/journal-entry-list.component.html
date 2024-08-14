@@ -69,11 +69,6 @@
             template: journalIsReversed
           },
           {
-            name: 'status',
-            headerText: 'Journal.status' | translate,
-            template: userStatus
-          },
-          {
             name: 'totalDebitAmount',
             headerText: 'Journal.totalDebitAmount' | translate,
             isGlobalFilter: true,
@@ -84,6 +79,11 @@
             headerText: 'Journal.totalCreditAmount' | translate,
             isGlobalFilter: true,
             isSortable: true
+          },
+          {
+            name: 'status',
+            headerText: 'Journal.status' | translate,
+            template: userStatus
           },
           {
             name: 'id',
