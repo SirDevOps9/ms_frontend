@@ -55,13 +55,15 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
     })
     const formatdebitAmount=this.generalService.formatNumber(this.config.data.debitAmount, this.generalService.fraction)
     const formatcreditAmount=this.generalService.formatNumber(this.config.data.creditAmount, this.generalService.fraction)
+    console.log(formatdebitAmount)
+    console.log(formatcreditAmount)
 
   
-    if(this.config.data.creditAmount == 0 || !this.config.data.creditAmount) {
-      this.amountForm.get('amount')?.setValue(formatdebitAmount)
+    if(this.config.data.creditAmount == '0.0' || !this.config.data.creditAmount) {
+      this.amountForm.get('amount')?.setValue(this.config.data.debitAmount)
     }
-     if(this.config.data.debitAmount == 0 || !this.config.data.debitAmount) {
-      this.amountForm.get('amount')?.setValue(formatcreditAmount)
+     if(this.config.data.debitAmount == '0.0' || !this.config.data.debitAmount) {
+      this.amountForm.get('amount')?.setValue(this.config.data.creditAmount)
 
     }
     this.allocationform.push(this.createItem())

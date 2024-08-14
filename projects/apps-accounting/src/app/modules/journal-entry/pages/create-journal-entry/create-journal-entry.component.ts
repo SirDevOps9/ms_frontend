@@ -1,5 +1,5 @@
 import { CurrencyService } from './../../../general/currency.service';
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   AttachmentsService,
@@ -32,6 +32,7 @@ import { costCenters } from '../../models';
 import { CurrencyRateDto } from '../../../general/models/currencyRateDto';
 import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
+import { Dropdown } from 'primeng/dropdown';
 export interface JournalEntryLineFormValue {
   id: number;
   account: AccountDto;
@@ -124,6 +125,7 @@ export class CreateJournalEntryComponent {
     });
     // this.calculateTotalDebitAmount();
     // this.calculateTotalCreditAmount();
+    this.addThing();
   }
   getAccounts() {
     this.accountService.getAccountsHasNoChildren('', new PageInfo()).subscribe((r) => {
@@ -162,6 +164,7 @@ export class CreateJournalEntryComponent {
 
       journalEntryLines: fb.array([]),
     });
+    this.fg.controls['journalDate'].setValue(this.getTodaysDate());
   }
 
   public get attachments(): FormArray {
@@ -293,8 +296,8 @@ export class CreateJournalEntryComponent {
 
     const id = this.fa.length + 1;
     //controls
-    const dbControl = new FormControl(null, [customValidators.required, Validators.min(0)]);
-    const crControl = new FormControl(null, [customValidators.required, Validators.min(0)]);
+    const dbControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
+    const crControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
     const currencyControl = new FormControl(null, customValidators.required);
     const rateControl = new FormControl<number | null>(null, [
       customValidators.required,
@@ -373,7 +376,7 @@ export class CreateJournalEntryComponent {
   save() {
     if (!this.formService.validForm(this.fg, false)) return;
     const value = this.fg.value as JournalEntryFormValue;
-
+    value.journalDate = this.convertDateFormat(value.journalDate)
     let obj: AddJournalEntryCommand = {
       ...value,
       journalEntryAttachments: this.journalEntryAttachments,
@@ -484,7 +487,6 @@ export class CreateJournalEntryComponent {
     const creditAmountControl = journalLine.get('creditAmount');
     const debitAmountControl = journalLine.get('debitAmount');
     if (debitAmountControl?.value === '' || !debitAmountControl?.value) {
-
       debitAmountControl!.setValue(0);
     }
     this.calculateTotalDebitAmount();
@@ -497,7 +499,6 @@ export class CreateJournalEntryComponent {
     const debitAmountControl = journalLine.get('debitAmount');
     const creditAmountControl = journalLine.get('creditAmount');
     if (creditAmountControl?.value === '' || !creditAmountControl?.value) {
-
       creditAmountControl!.setValue(0);
     }
 
@@ -508,7 +509,7 @@ export class CreateJournalEntryComponent {
   }
   getTodaysDate() {
     var date = new Date();
-    return date.toISOString().substring(0, 10);
+    return date;
   }
 
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
@@ -579,5 +580,42 @@ export class CreateJournalEntryComponent {
       const debitValue = parseFloat(control.get('creditAmountLocal')?.value) || 0;
       return acc + debitValue;
     }, 0);
+  }
+  convertDateFormat(data: Date | string) {
+    const date = new Date(data);
+
+    // Extract the year, month, and day
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so we add 1
+    const day = String(date.getDate()).padStart(2, '0');
+
+    // Format the date into YYYY-MM-DD
+    return `${year}-${month}-${day}`;
+  }
+
+
+  currencyValueChanges(event: any, index: number) {
+    const journalLine = this.fa.at(index);
+    const currencyRateControl = journalLine.get('currencyRate');
+    const debitAmountControl = journalLine.get('debitAmount');
+    const creditAmountControl = journalLine.get('creditAmount');
+    const debitAmountLocalControl = journalLine.get('debitAmountLocal');
+    const creditAmountLocalControl = journalLine.get('creditAmountLocal');
+
+    currencyRateControl?.valueChanges.subscribe((value) => {
+      // Update debit amount local only if debit amount exists
+      if (debitAmountControl?.value !== null && debitAmountControl?.value !== undefined) {
+        const debitAmountLocal = debitAmountControl?.value * value;
+        debitAmountLocalControl?.setValue(debitAmountLocal);
+        this.calculateTotalDebitAmountLocal();
+      }
+
+      // Update credit amount local only if credit amount exists
+      if (creditAmountControl?.value !== null && creditAmountControl?.value !== undefined) {
+        const creditAmountLocal = creditAmountControl?.value * value;
+        creditAmountLocalControl?.setValue(creditAmountLocal);
+        this.calculateTotalCreditAmountLocal();
+      }
+    });
   }
 }

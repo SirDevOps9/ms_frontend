@@ -106,6 +106,7 @@
                         optionLabel="displayName"
                         [customClass]="'add-journal'"
                         (valueChanged)="accountSelected($event, i)"
+                        (valueSearchChanged)="onFilter($event)"
                       ></lib-select>
                       <i class="pi pi-search search-circle" (click)="openDialog(i)"></i>
                     </div>
@@ -150,7 +151,7 @@
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ fg.controls['debitAmount'].value ?? 0 }}
+                    {{ fg.controls['debitAmount'].value }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations [appControl]="fg"></lib-field-validations>
@@ -169,7 +170,7 @@
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ fg.controls['creditAmount'].value ?? 0 }}
+                    {{ fg.controls['creditAmount'].value }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations [appControl]="fg"></lib-field-validations>
@@ -201,7 +202,7 @@
               >
                 <p-cellEditor>
                   <ng-template pTemplate="input">
-                    <lib-text-input formControlName="currencyRate" type="number"></lib-text-input>
+                    <lib-text-input formControlName="currencyRate"   (keyUp)="currencyValueChanges($event, i)" type="number"></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
                     {{ fg.controls['currencyRate'].value }}

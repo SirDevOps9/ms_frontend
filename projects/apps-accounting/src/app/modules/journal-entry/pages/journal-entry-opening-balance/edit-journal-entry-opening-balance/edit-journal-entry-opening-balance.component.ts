@@ -35,6 +35,7 @@ export class EditJournalEntryOpeningBalanceComponent {
   totalCreditAmount: number;
   ID : number
   viewMode: boolean = false;
+  disFlag : boolean = true
   statusName: string;
   journalTypeName: JournalEntryType;
   dirtyTouchedGroups: { index: number, value: any }[] = [];
@@ -44,6 +45,7 @@ export class EditJournalEntryOpeningBalanceComponent {
   currencies: CurrencyDto[] = [];
   fitleredCurrencies: CurrencyDto[];
   selectedCurrency: string;
+  isPatching: boolean = false;
 
   debitLocal: string;
   creditLocal: string;
@@ -55,7 +57,13 @@ export class EditJournalEntryOpeningBalanceComponent {
     this.initializeForm();
     this.initializeFormData();
     this.getCurrencies();
-   
+    this.journalEntryLinesFormArray.valueChanges.subscribe((res) => {
+      if (res && !this.isPatching) {
+        console.log('changed', this.disFlag);
+
+        this.disFlag = false;
+      }
+    });
     this.journalEntryLinesArray.valueChanges.subscribe(() => {
       this.journalFilteredData = this.generalService.getDirtyTouchedGroups(this.journalEntryLinesArray);
     });
@@ -90,6 +98,8 @@ export class EditJournalEntryOpeningBalanceComponent {
   }
 
   initializeFormData() {
+    this.isPatching = true;
+
     this.journalEntryService.getJournalEntryOpeningBalanceById(this.ID).subscribe((res) => {
       this.editJournalForm.patchValue({
         ...res,
@@ -138,6 +148,8 @@ export class EditJournalEntryOpeningBalanceComponent {
         lineGroup.updateValueAndValidity();
 
         journalEntryLinesArray.push(lineGroup);
+        this.isPatching = false;
+
 
      
       });
@@ -150,12 +162,29 @@ export class EditJournalEntryOpeningBalanceComponent {
     });
   }
 
+  onFilter(event: any) {
+    this.accountService.getAccountsHasNoChildrenNew(event, new PageInfo());
+
+    this.accountService.childrenAccountList.subscribe((res: any) => {
+      if (res.length) {
+        this.filteredAccounts = res.map((account: any) => ({
+          ...account,
+          displayName: `${account.name} (${account.accountCode})`,
+        }));
+
+      }
+    });
+
+  }
+
   onSubmit() {
 
-    if (!this.formsService.validForm(this.journalEntryLinesFormArray, false)) return;
+    if (!this.formsService.validForm(this.editJournalForm, false)) return;
 
     const request: EditJournalEntry = this.editJournalForm.value;
     request.id = this.ID
+
+    
 
     request.journalEntryLines = this.journalFilteredData?.map((item) => {
       item.costCenters = item.costCenters
@@ -174,22 +203,30 @@ export class EditJournalEntryOpeningBalanceComponent {
     this.journalEntryService.editJournalEntryOpeningBalance(request);
   }
 
+  
+
   ChangeStatus(status: JournalEntryStatus) {
   
     let journalStatus = new JournalStatusUpdate();
     journalStatus.id = this.ID
     journalStatus.status = status;
  
+
     if(status == 'unPosted' && !this.journalEntryLinesFormArray.value.length  ) {
       this.toasterService.showError('Failure', 'journalEntry Lines is required');
       return
     }else{
       this.journalEntryService.ChangeStatusOpeneingBalance(journalStatus).subscribe(() => {
         setTimeout(() => {
-          location.reload();
+          this.getAccounts();
+          this.initializeForm();
+          this.initializeFormData();
+          this.getCurrencies();
+          //location.reload();
         }, 1500);
       });
     }
+  
   
    
   }
@@ -270,11 +307,54 @@ export class EditJournalEntryOpeningBalanceComponent {
   }
 
   addNewRow() {
+    if (!this.formsService.validForm(this.journalEntryLinesFormArray, false)) return;
+
+    const id = this.journalEntryLinesFormArray.length + 1;
+    //controls
+    const dbControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
+    const crControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
+    const currencyControl = new FormControl(null, customValidators.required);
+    const rateControl = new FormControl<number | null>(null, [
+      customValidators.required,
+      Validators.min(0),
+    ]);
+    //events
+    dbControl.valueChanges.subscribe((value) => {
+      if (rateControl.value) {
+        rateControl.parent?.get('debitAmountLocal')!.setValue(value! * rateControl.value);
+      }
+    });
+    crControl.valueChanges.subscribe((value) => {
+      if (rateControl.value) {
+        crControl.parent?.get('creditAmountLocal')!.setValue(value! * rateControl.value);
+      }
+    });
+    rateControl.valueChanges.subscribe((value) => {
+      const dbLocalControl = rateControl.parent?.get('debitAmountLocal')!;
+      const crLocalControl = rateControl.parent?.get('creditAmountLocal')!;
+      if (!value) {
+        dbLocalControl.setValue(null);
+        crLocalControl.setValue(null);
+        return;
+      }
+      if (dbControl.value) {
+        dbLocalControl.setValue(value * dbControl.value);
+      }
+      if (crControl.value) {
+        crLocalControl.setValue(value * crControl.value);
+      }
+    });
+
+    currencyControl?.valueChanges.subscribe((value) => {
+      var currencyData = this.currencies.find((c) => c.id == value);
+
+      rateControl.setValue(currencyData?.ratePerUnit!);
+    });
     let newLine = this.fb.group(
       {
         id: new FormControl(0),
         accountCode: new FormControl('', [customValidators.required]),
-        accountId: new FormControl(),
+        accountId: new FormControl('' ,  [customValidators.required]),
         accountName: new FormControl(),
         lineDescription: new FormControl(null, [customValidators.required]),
         debitAmount: new FormControl(null, [customValidators.required, Validators.min(0)]),
@@ -282,13 +362,13 @@ export class EditJournalEntryOpeningBalanceComponent {
         currencyId: new FormControl(null,[customValidators.required]),
         currency:new FormControl(null),
         currencyRate: new FormControl(),
-        debitAmountLocal: new FormControl(),
-        creditAmountLocal: new FormControl(),
+        debitAmountLocal: new FormControl(0),
+        creditAmountLocal: new FormControl(0),
         costCenters: new FormControl([]),
         selectedFalg: new FormControl(false),
         costCenterConfig: new FormControl(null),
       },
-      { validators: customValidators.debitAndCreditBothCanNotBeZero }
+      // { validators: customValidators.debitAndCreditBothCanNotBeZero }
     );
     newLine.updateValueAndValidity();
 
@@ -297,6 +377,8 @@ export class EditJournalEntryOpeningBalanceComponent {
     if (accountId) {
       this.journalEntryLinesFormArray.push(accountId);
     }
+    this.getAccounts();
+
   }
 
   getAccounts() {
@@ -352,6 +434,8 @@ export class EditJournalEntryOpeningBalanceComponent {
 
 
     this.getAccountCurrencyRate(selectedAccount.currencyId as number, index);
+
+    
   }
 
   openCostPopup(data: any, journal : FormGroup, account: number, index: number) {
@@ -413,16 +497,20 @@ export class EditJournalEntryOpeningBalanceComponent {
 
   creditValueChanges(index: number) {
     const journalLine = this.journalEntryLinesFormArray.at(index);
-    const debitAmountControl = journalLine.get('debitAmount');
-    const debitAmountLocalControl = journalLine.get('debitAmountLocal');
+  
+    const creditAmountControl = journalLine.get('creditAmount');
+    if (creditAmountControl?.value === '' || !creditAmountControl?.value) {
+
+      creditAmountControl!.setValue(0);
+    }
     const creditAmountLocalControl = journalLine.get('creditAmountLocal');
-
-    debitAmountControl!.setValue(0);
-    debitAmountLocalControl?.setValue(0);
-
     creditAmountLocalControl?.setValue(
       journalLine.get('creditAmount')?.value * journalLine.get('currencyRate')?.value
     );
+    this.calculateTotalCreditAmount();
+    this.calculateTotalDebitAmount();
+    this.calculateTotalDebitAmountLocal();
+    this.calculateTotalCreditAmountLocal();
   }
 
   currencyValueChanges(event: any, index: number) {
@@ -438,15 +526,39 @@ export class EditJournalEntryOpeningBalanceComponent {
       if (debitAmountControl?.value !== null && debitAmountControl?.value !== undefined) {
         const debitAmountLocal = debitAmountControl?.value * value;
         debitAmountLocalControl?.setValue(debitAmountLocal);
+        this.calculateTotalDebitAmountLocal();
       }
 
       // Update credit amount local only if credit amount exists
       if (creditAmountControl?.value !== null && creditAmountControl?.value !== undefined) {
         const creditAmountLocal = creditAmountControl?.value * value;
         creditAmountLocalControl?.setValue(creditAmountLocal);
+        this.calculateTotalCreditAmountLocal();
       }
     });
   }
+  // currencyValueChanges(event: any, index: number) {
+  //   const journalLine = this.journalEntryLinesFormArray.at(index);
+  //   const currencyRateControl = journalLine.get('currencyRate');
+  //   const debitAmountControl = journalLine.get('debitAmount');
+  //   const creditAmountControl = journalLine.get('creditAmount');
+  //   const debitAmountLocalControl = journalLine.get('debitAmountLocal');
+  //   const creditAmountLocalControl = journalLine.get('creditAmountLocal');
+
+  //   currencyRateControl?.valueChanges.subscribe((value) => {
+  //     // Update debit amount local only if debit amount exists
+  //     if (debitAmountControl?.value !== null && debitAmountControl?.value !== undefined) {
+  //       const debitAmountLocal = debitAmountControl?.value * value;
+  //       debitAmountLocalControl?.setValue(debitAmountLocal);
+  //     }
+
+  //     // Update credit amount local only if credit amount exists
+  //     if (creditAmountControl?.value !== null && creditAmountControl?.value !== undefined) {
+  //       const creditAmountLocal = creditAmountControl?.value * value;
+  //       creditAmountLocalControl?.setValue(creditAmountLocal);
+  //     }
+  //   });
+  // }
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
     
     const journalLine = this.journalEntryLinesFormArray.at(currentJournalId);
@@ -477,5 +589,17 @@ export class EditJournalEntryOpeningBalanceComponent {
     private currentUserService : CurrentUserService
   ) {
     this.titleService.setTitle(this.langService.transalte('OpeningBalance.EditJournal')); 
+  }
+
+  convertDateFormat(data: Date | string) {
+    const date = new Date(data);
+
+    // Extract the year, month, and day
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so we add 1
+    const day = String(date.getDate()).padStart(2, '0');
+
+    // Format the date into YYYY-MM-DD
+    return `${year}-${month}-${day}`;
   }
 }

@@ -29,7 +29,7 @@ export class FormsService {
     form.markAllAsTouched();
 
     form.markAsDirty();
-    console.log(form);
+    this.logService.log(form);
 
     if (form.status === 'VALID') {
       return true;

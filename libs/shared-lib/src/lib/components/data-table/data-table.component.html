@@ -1,5 +1,4 @@
-<div class="viewInWeb"         [ngClass]="{popup:popup }"
->
+<div class="viewInWeb" [ngClass]="{ popup: popup }">
   <div class="row">
     <div>
       <p-table
@@ -20,14 +19,14 @@
         styleClass="p-datatable-striped p-datatable-gridlines"
         [scrollable]="true"
         [resizableColumns]="resizableColumns"
-        [ngClass]="{ empty: items.length <= 0 ,popup:popup }"
+        [ngClass]="{ empty: items.length <= 0, popup: popup }"
       >
-      <!-- [class.none]="currentPageResult.totalItems! <= 25" -->
+        <!-- [class.none]="currentPageResult.totalItems! <= 25" -->
         <ng-template pTemplate="caption">
           <div
             class="flex align-items-center justify-content-end gap-2 paginationHead"
             *ngIf="tableConfigs.allowServerPagination"
-        
+            [class.none]="currentPageResult.totalItems! <= 25"
           >
             <p-paginator
               (onPageChange)="onPageChange2($event)"
@@ -42,7 +41,6 @@
           </div>
           <ng-content select="[caption]"> </ng-content>
         </ng-template>
-        
 
         <!-- <ng-template pTemplate="header">
           <tr>

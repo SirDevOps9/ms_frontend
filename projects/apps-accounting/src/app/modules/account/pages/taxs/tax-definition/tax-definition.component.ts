@@ -7,7 +7,6 @@ import {
   MenuModule,
   RouterService,
   PageInfo,
-  PaginationVm,
   lookupDto,
   LanguageService,
 } from 'shared-lib';
@@ -39,8 +38,6 @@ export class TaxDefinitionComponent implements OnInit {
   modulelist: MenuModule[];
   searchTerm: string;
 
-  mappedExportData: TaxDto[];
-
   exportData: ExportTaxDto[];
 
   exportColumns: lookupDto[] = [
@@ -68,8 +65,6 @@ export class TaxDefinitionComponent implements OnInit {
   ];
 
   ngOnInit() {
-    //this.modulelist = this.authService.getModules();
-    //  this.getTaxes();
     this.initTaxData();
   }
 
@@ -78,12 +73,6 @@ export class TaxDefinitionComponent implements OnInit {
 
     this.accountService.taxesDefintionList.subscribe((res) => {
       this.tableData = res;
-
-      this.mappedExportData = this.tableData.map((elem) => {
-        let { accountId, taxGroupId, taxGroupCode, ...args } = elem;
-        return args;
-      });
-      console.log(this.mappedExportData);
     });
     this.accountService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
@@ -91,8 +80,6 @@ export class TaxDefinitionComponent implements OnInit {
   }
 
   onPageChange(pageInfo: PageInfo) {
-    // this.accountService.getAllTaxes('', pageInfo);
-
     this.accountService.getAllTaxes('', pageInfo);
 
     this.accountService.taxesDefintionList.subscribe({
@@ -128,7 +115,6 @@ export class TaxDefinitionComponent implements OnInit {
     this.accountService.taxesDefintionList.subscribe({
       next: (res) => {
         this.tableData = res;
-        console.log(res);
       },
     });
   }

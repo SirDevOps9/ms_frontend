@@ -31,13 +31,14 @@
           <p class="totals">
             {{ 'journal_date' | translate }}
           </p>
-          <lib-text-input
-            placeholder="{{ 'journal_date' | translate }}"
-            type="date"
+        
+        
+          <lib-calendar
             formControlName="journalDate"
-          ></lib-text-input>
+           
+          ></lib-calendar>
         </div>
-        <div class="col-12 md:col-3 mt-4">
+        <div class="col-12 md:col-3 mt-3">
           <button (click)="openAttachments()" class="attach">{{ 'attach' | translate }}</button>
         </div>
 
@@ -125,6 +126,7 @@
                         [customClass]="'add-journal'"
                         (valueChanged)="accountSelected($event, i)"
                         (valueSearchChanged)="onFilter($event)"
+                        
                       ></lib-select>
                       <i class="pi pi-search search-circle" (click)="openDialog(i)"></i>
                     </div>
@@ -169,7 +171,8 @@
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ fg.controls['debitAmount'].value ?? 0 }}
+                    {{   generalService.formatNumber(fg.controls['debitAmount'].value , generalService.fraction)}}
+
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations [appControl]="fg"></lib-field-validations>
@@ -188,7 +191,7 @@
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ fg.controls['creditAmount'].value ?? 0 }}
+                    {{   generalService.formatNumber(fg.controls['creditAmount'].value , generalService.fraction)}}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations [appControl]="fg"></lib-field-validations>
@@ -220,7 +223,8 @@
               >
                 <p-cellEditor>
                   <ng-template pTemplate="input">
-                    <lib-text-input formControlName="currencyRate" type="number"></lib-text-input>
+                    <lib-text-input formControlName="currencyRate"    (keyUp)="currencyValueChanges($event, i)"
+                     type="number"></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
                     {{ fg.controls['currencyRate'].value }}
