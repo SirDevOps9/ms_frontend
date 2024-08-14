@@ -20,7 +20,7 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
   lookupValues : any = []
 
   constructor( private fb : FormBuilder , public config : DynamicDialogConfig , private accountService : AccountService , private formsService : FormsService , private ref : DynamicDialogRef , private cdr : ChangeDetectorRef ,     private toasterService: ToasterService, private languageService : LanguageService
-  ){}
+    ,public generalService: GeneralService){}
   ngAfterViewInit(): void {
 
     console.log(this.select)
