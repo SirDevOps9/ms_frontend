@@ -2,9 +2,9 @@ export class reportJurnalAccountDto {
     journalEntryCode: string;
     journalEntryDate: string;
     description: string;
-    debitAmount: number;
-    creditAmount: number;
-    balance: number;
+    debitAmount: any;
+    creditAmount: any;
+    balance: any;
     sourceDocumentCode: string;
     sourceDocumentName: string;
   }

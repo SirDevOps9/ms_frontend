@@ -3,7 +3,7 @@ export class reportCostCenter {
     accountName: string;
     description: string;
     date: string;
-    debit: number;
-    credit: number;
-    balance: number
+    debit: any;
+    credit: any;
+    balance: any
   }

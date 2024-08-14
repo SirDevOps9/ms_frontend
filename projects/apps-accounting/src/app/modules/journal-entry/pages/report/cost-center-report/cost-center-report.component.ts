@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { LanguageService, customValidators, ToasterService, DateTimeService , PrintService } from 'shared-lib';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { reportCostAllData } from '../../../models';
+import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 
 @Component({
   selector: 'app-cost-center-report',
@@ -26,7 +27,7 @@ export class CostCenterReportComponent {
     private ToasterService: ToasterService,
     private dateTimeService: DateTimeService,
     private PrintService: PrintService,
-
+    public generalService: GeneralService
   ) {}
 
   ngOnInit() {
@@ -79,9 +80,14 @@ export class CostCenterReportComponent {
                 return {
                   ...x,
                   transactions: x.transactions.map(t => {
+                    const formatdebitAmount=this.generalService.formatNumber(t?.debit, this.generalService.fraction)
+                    const formatcreditAmount=this.generalService.formatNumber(t?.credit, this.generalService.fraction)
+                    const balance=this.generalService.formatNumber(t?.balance, this.generalService.fraction)
                     return {
                       ...t,
-                      balance: t.balance < 0 ? Math.abs(t.balance) : t.balance
+                      debit: formatdebitAmount,
+                      credit: formatcreditAmount,
+                      balance:balance
                     };
                   })
                 };

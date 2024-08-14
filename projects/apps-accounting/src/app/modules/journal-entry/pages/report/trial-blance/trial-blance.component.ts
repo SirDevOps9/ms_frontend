@@ -6,6 +6,7 @@ import { JournalEntryService } from '../../../journal-entry.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import {  AccountsChildrenDropDown } from '../../../../account/models';
 import { AccountService } from '../../../../account/account.service';
+import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -28,8 +29,10 @@ export class TrialBlanceComponent implements OnInit {
     private journalEntryService: JournalEntryService,
     private ToasterService: ToasterService,
     private PrintService: PrintService,
-    private dateTimeService: DateTimeService,
+    private dateTimeService: DateTimeService
+    ,public generalService: GeneralService,
     private router:Router
+
   ) { }
 
   ngOnInit() {
@@ -78,35 +81,55 @@ export class TrialBlanceComponent implements OnInit {
     });
   }
   getTrialBalance() {
-
     if (this.reportTrialForm.valid) {
-      if (this.reportTrialForm.get('dateFrom')?.value < this.reportTrialForm.get('dateTo')?.value) {
-
-        if (this.reportTrialForm.get('posted')?.value != true && this.reportTrialForm.get('unposted')?.value != true) {
-          // At least one field must be selected
-          this.ToasterService.showError(
-            this.languageService.transalte('reportTrial.Error'),
-            this.languageService.transalte('reportTrial.selectfaild')
-          )
+        const dateFrom = this.reportTrialForm.get('dateFrom')?.value;
+        const dateTo = this.reportTrialForm.get('dateTo')?.value;
+        
+        if (dateFrom >= dateTo) {
+            this.ToasterService.showError(
+                this.languageService.transalte('reportTrial.Error'),
+                this.languageService.transalte('reportTrial.DateFromNotBeforeDateTo')
+            );
+            return; // Exit the function if dateFrom is not before dateTo
         }
-        else {
-          if(this.reportTrialForm.get('Accounts')?.value == null)
+
+        const isPostedChecked = this.reportTrialForm.get('posted')?.value;
+        const isUnpostedChecked = this.reportTrialForm.get('unposted')?.value;
+
+        if (!isPostedChecked && !isUnpostedChecked) {
+            this.ToasterService.showError(
+                this.languageService.transalte('reportTrial.Error'),
+                this.languageService.transalte('reportTrial.selectField')
+            );
+            return; // Exit the function if neither posted nor unposted is selected
+        }
+
+        if (this.reportTrialForm.get('Accounts')?.value == null) {
             this.reportTrialForm.get('Accounts')?.setValue([]);
-          this.journalEntryService.getTrialBalance(this.reportTrialForm.value);
-          this.journalEntryService.report.subscribe(((res: any) => {
-             this.tableData = res
-          
-
-          }))
         }
-      } else {
-        this.ToasterService.showError(
-          this.languageService.transalte('reportTrial.Error'),
-          this.languageService.transalte(' date From is not before the end of dateTo.')
-        )
-      }
+
+        this.journalEntryService.getTrialBalance(this.reportTrialForm.value);
+        this.journalEntryService.report.subscribe((res: any) => {
+          this.tableData = res.map((x: any) => ({
+              accountId: x.accountId,
+              accountCode: x.accountCode,
+              accountName: x.accountName,
+              openingBalance: {
+                  debit: this.generalService.formatNumber(x.openingBalance.debit , this.generalService.fraction) ,
+                  credit:this.generalService.formatNumber(x.openingBalance.credit , this.generalService.fraction) ,
+              },
+              transactionBalance: {
+                  debit:this.generalService.formatNumber(x.transactionBalance.debit , this.generalService.fraction) ,
+                  credit:this.generalService.formatNumber(x.transactionBalance.credit , this.generalService.fraction) ,
+              },
+              endingBalance: {
+                  debit: this.generalService.formatNumber( x.endingBalance.debit , this.generalService.fraction),
+                  credit:this.generalService.formatNumber( x.endingBalance.credit , this.generalService.fraction) ,
+              }
+          } as reportTrialDto));
+      });
     }
-  }
+}
   initializeDates() {
     this.reportTrialForm.patchValue({
       dateFrom: this.dateTimeService.firstDayOfMonth(),
