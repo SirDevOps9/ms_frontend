@@ -1,0 +1,25 @@
+.landing-page {
+  /* background: url("../../../../../../projects/apps-accounting/src/assets/images/dashboard-bg.png") no-repeat center center; */
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background: linear-gradient(to right, #198EAF, #1A94B5);  */
+  /* color: white; */
+  /* font-family: Arial, sans-serif; */
+  /* text-align: center; */
+}
+
+.content {
+  width: 100%;
+  margin-top: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+     width: 90%;
+    //  margin: auto;
+    
+    height: 100%;
+  }
+}
