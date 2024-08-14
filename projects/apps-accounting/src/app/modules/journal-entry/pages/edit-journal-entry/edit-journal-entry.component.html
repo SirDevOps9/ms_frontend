@@ -7,21 +7,15 @@
             <lib-label [appControl]="editJournalForm.controls['journalCode']">
               {{ 'EditJournal.JournalCode' | translate }}
             </lib-label>
-      
-            <lib-text-input
-            formControlName="journalCode"
-            [readOnly]="viewMode"
-          ></lib-text-input>
+
+            <lib-text-input formControlName="journalCode" [readOnly]="viewMode"></lib-text-input>
           </div>
           <div class="col-12 md:col-3">
             <lib-label [appControl]="editJournalForm.controls['status']">
               {{ 'EditJournal.JournalStatus' | translate }}
             </lib-label>
-          
-            <lib-text-input
-            formControlName="status"
-            [readOnly]="viewMode"
-          ></lib-text-input>
+
+            <lib-text-input formControlName="status" [readOnly]="viewMode"></lib-text-input>
           </div>
           <div class="col-12 md:col-3">
             <lib-label [appControl]="editJournalForm.controls['referenceNumber']">
@@ -50,52 +44,39 @@
             <lib-label [appControl]="editJournalForm.controls['journalPeriod']">
               {{ 'EditJournal.JournalPeriod' | translate }}
             </lib-label>
-          
-            <lib-text-input
-            formControlName="journalPeriod"
-            [readOnly]="viewMode"
-          ></lib-text-input>
+
+            <lib-text-input formControlName="journalPeriod" [readOnly]="viewMode"></lib-text-input>
           </div>
           <div class="col-12 md:col-3">
             <lib-label [appControl]="editJournalForm.controls['type']">
               {{ 'EditJournal.JournalType' | translate }}
             </lib-label>
-          
-            <lib-text-input
-            formControlName="type"
-            [readOnly]="viewMode"
-          ></lib-text-input>
+
+            <lib-text-input formControlName="type" [readOnly]="viewMode"></lib-text-input>
           </div>
           <div class="col-12 md:col-3">
             <lib-label [appControl]="editJournalForm.controls['sourceName']">
               {{ 'EditJournal.SourceDocumentName' | translate }}
             </lib-label>
-           
-            <lib-text-input
-            formControlName="sourceName"
-            [readOnly]="viewMode"
-          ></lib-text-input>
+
+            <lib-text-input formControlName="sourceName" [readOnly]="viewMode"></lib-text-input>
           </div>
           <div class="col-12 md:col-3">
             <lib-label [appControl]="editJournalForm.controls['sourceCode']">
               {{ 'EditJournal.SourceDocumentCode' | translate }}
             </lib-label>
-          
-            <lib-text-input
-            formControlName="sourceCode"
-            [readOnly]="viewMode"
-          ></lib-text-input>
+
+            <lib-text-input formControlName="sourceCode" [readOnly]="viewMode"></lib-text-input>
           </div>
           <div class="col-12 md:col-3">
             <lib-label [appControl]="editJournalForm.controls['reversedJournalCode']">
               {{ 'EditJournal.ReversedJournal' | translate }}
             </lib-label>
-         
-            
+
             <lib-text-input
-            formControlName="reversedJournalCode"
-            [readOnly]="viewMode"
-          ></lib-text-input>
+              formControlName="reversedJournalCode"
+              [readOnly]="viewMode"
+            ></lib-text-input>
           </div>
           <div class="col-12 md:col-3">
             <lib-label [appControl]="editJournalForm.controls['description']">
@@ -428,7 +409,7 @@
                     title="{{ 'EditJournal.SaveSubmit' | translate }}"
                     nameClass="save"
                     (click)="ChangeStatus(enums.JournalEntryStatus.Submitted)"
-                    [disabled]="disFlag"
+                    [disabled]="!disFlag"
                     widthNumber="100%"
                     type="button"
                   >
@@ -444,7 +425,7 @@
                     title="{{ 'EditJournal.Post' | translate }}"
                     nameClass="save"
                     (click)="ChangeStatus(enums.JournalEntryStatus.Posted)"
-                    [disabled]="disFlag"
+                    [disabled]="!disFlag"
                     widthNumber="100%"
                     type="button"
                   >
