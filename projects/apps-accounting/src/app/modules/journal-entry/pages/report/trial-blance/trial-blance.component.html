@@ -150,29 +150,35 @@
                     {{ 'reportTrial.posted' | translate }}</label
                   >
                   <!-- <input id="posted" type="checkbox" formControlName="posted"> -->
-                  <p-checkbox formControlName="posted" binary="true" inputId="posted"></p-checkbox>
+                  <!-- <p-checkbox formControlName="posted" binary="true" inputId="posted"></p-checkbox> -->
+                  <lib-input-switch formControlName="posted" binary="true" inputId="posted"></lib-input-switch>
+
                 </div>
               </div>
               <div class="col-12 md:col-3">
                 <div class="container_checkbox body_b16">
                   <label for="unposted"> {{ 'reportTrial.unposted' | translate }}</label>
                   <!-- <input id="unposted" type="checkbox" formControlName="unposted" class="custom-checkbox"> -->
-                  <p-checkbox
+                  <!-- <p-checkbox
                     formControlName="unposted"
                     binary="true"
                     inputId="unposted"
-                  ></p-checkbox>
+                  ></p-checkbox> -->
+                  <lib-input-switch formControlName="unposted" binary="true" inputId="unposted"></lib-input-switch>
+
                 </div>
               </div>
               <div class="col-12 md:col-3">
                 <div class="container_checkbox body_b16">
                   <label for="allowZero"> {{ 'reportTrial.allowZero' | translate }}</label>
                   <!-- <input id="unposted" type="checkbox" formControlName="unposted" class="custom-checkbox"> -->
-                  <p-checkbox
+                  <!-- <p-checkbox
                     formControlName="allowZero"
                     binary="true"
                     inputId="allowZero"
-                  ></p-checkbox>
+                  ></p-checkbox> -->
+                  <lib-input-switch formControlName="allowZero" binary="true" inputId="allowZero"></lib-input-switch>
+
                 </div>
               </div>
               <div class="col-12 md:col-3">
