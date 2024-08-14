@@ -16,8 +16,6 @@ export class DashboardComponent implements OnInit {
   moduleList: MenuModule[];
 
   ngOnInit() {
-    console.log('Hello from dashboard');
-
     this.moduleList = this.layoutService.getModules();
 
     if (!this.moduleList) {
@@ -27,8 +25,6 @@ export class DashboardComponent implements OnInit {
         }
       });
     }
-    console.log('module List', this.moduleList);
-
     this.nameControl.valueChanges.pipe(debounceTime(500)).subscribe((res: any) => {
       const searchTerm = res.toLowerCase();
       this.moduleList = this.layoutService

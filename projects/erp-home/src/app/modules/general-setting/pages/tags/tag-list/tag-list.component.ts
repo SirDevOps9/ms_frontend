@@ -71,7 +71,6 @@ export class TagListComponent implements OnInit {
   }
   ngOnInit() {
     this.modulelist = this.layoutService.getModules();
-    console.log(this.modulelist);
     this.initTagData();
   }
 
