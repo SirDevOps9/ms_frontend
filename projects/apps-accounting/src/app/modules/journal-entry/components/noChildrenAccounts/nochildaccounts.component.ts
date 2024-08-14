@@ -15,6 +15,7 @@ import { SearchFunc } from 'libs/shared-lib/src/lib/models/sendQueries';
 export class NoChildrenAccountsComponent implements OnInit {
   pageInfo = new PageInfo();
   items: AccountDto[];
+  shouldShowPaginatorBefore = true;
   paging: PageInfoResult;
   searchTerm: string = '';
   selectedIndex: number = -1;

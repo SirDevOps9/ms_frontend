@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LayoutService {
   sideMenuItems = new BehaviorSubject<SideMenuModel[] | undefined>(undefined);
+  modulItems = new BehaviorSubject<MenuModule[] | undefined>(undefined);
 
   saveSideMenu(menuItems: SideMenuModel[]) {
     const distinctModules = menuItems
@@ -21,6 +22,7 @@ export class LayoutService {
 
     this.localStorageService.setItem(StorageKeys.MODULES, distinctModules);
     this.localStorageService.setItem(StorageKeys.SIDEMENU, menuItems);
+    this.modulItems.next(distinctModules);
   }
 
   getModules() {

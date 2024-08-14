@@ -18,7 +18,7 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
   calcAmount : number
   lookupValues : any = []
 
-  constructor(private fb : FormBuilder , public config : DynamicDialogConfig , private accountService : AccountService , private formsService : FormsService , private ref : DynamicDialogRef , private cdr : ChangeDetectorRef ,     private toasterService: ToasterService, private languageService : LanguageService
+  constructor( private fb : FormBuilder , public config : DynamicDialogConfig , private accountService : AccountService , private formsService : FormsService , private ref : DynamicDialogRef , private cdr : ChangeDetectorRef ,     private toasterService: ToasterService, private languageService : LanguageService
   ){}
   ngAfterViewInit(): void {
 
@@ -44,11 +44,21 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
    
   }
 
+  close(){
+    this.ref.close();
+  }
   ngOnInit(): void {
+   
     this.amountForm = this.fb.group({
-      amount : this.config.data.creditAmount ? this.config.data.creditAmount : this.config.data.debitAmount,
+      amount : 0
     })
+    if(this.config.data.creditAmount == 0) {
+      this.amountForm.get('amount')?.setValue(this.config.data.debitAmount)
+    }
+     if(this.config.data.debitAmount == 0) {
+      this.amountForm.get('amount')?.setValue(this.config.data.creditAmount)
 
+    }
     this.allocationform.push(this.createItem())
 
 
@@ -143,7 +153,7 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
     return this.fb.group({
       costCenterId: new FormControl('',customValidators.required),
       name: [''],
-      amount :  new FormControl(''),
+      amount :  new FormControl('' , customValidators.required),
       percentage :  new FormControl('',customValidators.required)
     });
   }

@@ -5,7 +5,6 @@
       className="p-datatable-gridlines"
       [currentPageResult]="currentPageInfo"
       (pageChange)="onPageChange($event)"
-     
       [tableConfigs]="{
         allowPagination: false,
         allowServerPagination: true,
@@ -50,26 +49,26 @@
                 type="text"
                 (input)="searchTermChange($event)"
                 [placeholder]="'Employee.List.Search' | translate"
-                />
+              />
             </span>
           </div>
           <div class="flex justify-content-end gap-3">
+            <div>
+              <lib-export
+                (exportClick)="exportClick($event)"
+                [exportData]="exportData"
+                [exportColumns]="exportColumns"
+                [ExportName]="'Employees List'"
+              >
+              </lib-export>
+            </div>
             <button class="primary" (click)="navigateToAdd()">
               <span class="pi pi-plus"></span>
               {{ 'Employee.List.Add' | translate }}
             </button>
-        
-            <div>
-              <lib-export  
-                (exportClick)="exportClick($event)"
-                [exportData]="exportData"
-                [exportColumns]="exportColumns"
-                [ExportName]="'Employees List'">
-              </lib-export>
-              </div>
+
+            
           </div>
-     
-      
         </div>
       </ng-container>
       <ng-template #empNameCol let-employee>
@@ -83,36 +82,11 @@
       </ng-template>
       <ng-template #userCol let-employee>
         <div class="actions flex align-items-center">
-          <lib-button
-            (click)="navigateToView(employee.id)"
-            icon="pi pi-eye"
-            [rounded]="true"
-            [enableText]="true"
-            severity="secondary"
-          >
-          
-          </lib-button>
-          <lib-button
-            className="edit"
-            type="button"
-            (click)="navigateToEdit(employee.id)"
-            icon="pi pi-pencil"
-            [rounded]="true"
-            [enableText]="true"
-            severity="secondary"
-          >
-          </lib-button>
-          <lib-button
-            (click)="deletEmployee(employee.id)"
-            icon="pi pi-trash"
-            [rounded]="true"
-            [enableText]="true"
-            severity="secondary"
-          >
-          </lib-button>
+          <img src="assets/images/table/view.svg" alt="" (click)="navigateToView(employee.id)" />
+          <img src="assets/images/table/edit.svg" alt="" (click)="navigateToEdit(employee.id)" />
+          <img src="assets/images/table/delete.svg" alt="" (click)="deletEmployee(employee.id)" />
         </div>
       </ng-template>
     </lib-data-table>
   </div>
 </div>
-

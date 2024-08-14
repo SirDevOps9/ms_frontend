@@ -94,9 +94,9 @@
         </ng-container>
 
         <ng-template #actions let-actions>
-          <div class="actions flex align-items-center gap-4">
-            <i class="pi pi-pencil pointer" (click)="routeToEdit(actions.id)"></i>
-            <i class="pi pi-trash pointer" (click)="onDelete(actions.id)"></i>
+          <div class="actions flex align-items-center">
+            <img src="assets/images/table/edit.svg" alt="" (click)="routeToEdit(actions.id)">
+          <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(actions.id)">
           </div>
         </ng-template>
       </lib-data-table>

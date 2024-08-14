@@ -83,16 +83,9 @@
       </ng-container>
         
         <ng-template #actions let-action>
-          <div class="actions flex align-items-center gap-2">
-            <lib-button-micro iconName="pi pi-pencil" nameClass="btn_edit" (click)="onEdit(action)">
-            </lib-button-micro>
-
-            <lib-button-micro
-              iconName="pi pi-trash"
-              nameClass="btn_delet"
-              (click)="onDelete(action.id)"
-            >
-            </lib-button-micro>
+          <div class="actions flex align-items-center ">
+            <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
+            <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
           </div>
         </ng-template>
       </lib-data-table>

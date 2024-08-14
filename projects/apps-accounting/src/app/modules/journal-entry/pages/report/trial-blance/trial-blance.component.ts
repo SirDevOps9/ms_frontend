@@ -4,8 +4,9 @@ import { DateTimeService, LanguageService, PageInfo, PrintService, RouterService
 import { Title } from '@angular/platform-browser';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { AccountDto } from '../../../../account/models';
+import {  AccountsChildrenDropDown } from '../../../../account/models';
 import { AccountService } from '../../../../account/account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trial-blance',
@@ -14,7 +15,7 @@ import { AccountService } from '../../../../account/account.service';
 })
 export class TrialBlanceComponent implements OnInit {
   reportTrialForm: FormGroup;
-  filteredAccounts: AccountDto[] = [];
+  filteredAccounts: AccountsChildrenDropDown[] = [];
   defoultSelectedAcounts: number[] = []
 
   tableData: reportTrialDto[] = [];
@@ -27,7 +28,8 @@ export class TrialBlanceComponent implements OnInit {
     private journalEntryService: JournalEntryService,
     private ToasterService: ToasterService,
     private PrintService: PrintService,
-    private dateTimeService: DateTimeService
+    private dateTimeService: DateTimeService,
+    private router:Router
   ) { }
 
   ngOnInit() {
@@ -49,13 +51,13 @@ export class TrialBlanceComponent implements OnInit {
 
   getAccounts() {
     this.accountService
-      .getAccountsHasNoChildren('', new PageInfo())
-      .subscribe((r) => {
-        this.filteredAccounts = r.result.map(account => ({
-          ...account,
-          displayName: `${account.name} (${account.accountCode})`
+    .getDetailedAccounts()
+    .subscribe((r) => {
+      this.filteredAccounts = r.map(account => ({
+        ...account,
+        displayName: `${account.name} (${account.accountCode})`
 
-        }));
+      }));
       });
 
   }
@@ -92,7 +94,8 @@ export class TrialBlanceComponent implements OnInit {
             this.reportTrialForm.get('Accounts')?.setValue([]);
           this.journalEntryService.getTrialBalance(this.reportTrialForm.value);
           this.journalEntryService.report.subscribe(((res: any) => {
-            this.tableData = res
+             this.tableData = res
+          
 
           }))
         }
@@ -111,7 +114,12 @@ export class TrialBlanceComponent implements OnInit {
     });
   }
   routeTo(id:number){
-    this.routerService.navigateTo(`/transcations/account-statement/${id}`);
+const test =location.href.split("/")
+    console.log(test[3]);
+const url = this.router.serializeUrl(
+  this.router.createUrlTree([`${test[3]}/transcations/account-statement/${id}`])
+);
+window.open(url, '_blank');
   }
 
 }

@@ -26,6 +26,30 @@
           <button (click)="openAttachments()" class="attach">{{ 'attach' | translate }}</button>
         </div>
 
+        <div class="col-12 md:col-3">
+          <small>{{'JournalTemplate.totalDebitAmountLocal' | translate}}</small>
+          <lib-text-input
+          [(ngModel)]="totalDebitAmountLocal"
+          placeholder="0"
+          [readOnly]="true"
+       
+          [ngModelOptions]="{standalone: true}"
+        ></lib-text-input>
+      </div>
+
+      <div class="col-12 md:col-3">
+        <small>{{'JournalTemplate.totalCreditAmountLocal' | translate}}</small>
+        <lib-text-input
+        [(ngModel)]="totalCreditAmountLocal"
+        placeholder="0"
+        [readOnly]="true"
+        [ngModelOptions]="{standalone: true}"
+      ></lib-text-input>
+      </div>
+    
+
+        
+
         <div class="col-12 md:col-12 step-3-element">
           <lib-text-input
             class="description"
@@ -118,6 +142,7 @@
                       formControlName="debitAmount"
                       type="number"
                       (valueChanged)="debitChanged(i)"
+                      (keyUp)="debitChanged(i)"
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
@@ -136,6 +161,7 @@
                       formControlName="creditAmount"
                       type="number"
                       (valueChanged)="creditChanged(i)"
+                      (keyUp)="creditChanged(i)"
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
@@ -179,10 +205,11 @@
                 </p-cellEditor>
               </td>
               <td>
-                {{ fg.controls['debitAmountLocal'].value | number : '1.0-2' }}
+                {{ fg.controls['debitAmountLocal'].value ? (fg.controls['debitAmountLocal'].value | number:'1.0-2') : '0' }}
               </td>
               <td>
-                {{ fg.controls['creditAmountLocal'].value | number : '1.0-2' }}
+                {{ fg.controls['creditAmountLocal'].value ? (fg.controls['creditAmountLocal'].value | number:'1.0-2') : '0' }}
+
               </td>
               <td>
                 <img
@@ -202,10 +229,25 @@
               </td>
             </tr>
           </ng-template>
+          <ng-template pTemplate="footer">
+            <tr>
+              <td colspan="4" class="imptyData total" style="text-align: center;">{{'JournalTemplate.total' | translate}}</td>
+              <!-- <td class="imptyData"></td>
+              <td class="imptyData"></td>
+              <td class="imptyData"></td> -->
+              <td class="total">{{ totalDebitAmount }}</td>
+              <td class="total">{{ totalCreditAmount }}</td>
+              <td class="total"></td>
+              <td class="total"></td>
+              <td class="total">{{ totalDebitAmountLocal }}</td>
+              <td class="total">{{ totalCreditAmountLocal }}</td>
+              <td class="total"></td>
+            </tr>
+          </ng-template>
         </p-table>
       </div>
       <div class="add_new">
-        <button class="btn Line step-4-element" (click)="addThing()">
+        <button class="btn  step-4-element" (click)="addThing()">
           {{ 'add_new_line' | translate }}
         </button>
       </div>
@@ -214,18 +256,19 @@
           </div> -->
       <div class="btn_group">
         <div class="grid">
-          <div class="md:col-4">
+          <div class="md:col-3">
             <div class="grid">
               <div class="md:col-6">
                 <lib-button-micro
                   [title]="'discard' | translate"
                   nameClass="cancel"
                   (click)="routeToJournal()"
+                  widthNumber=100%
                 >
                 </lib-button-micro>
               </div>
               <div class="md:col-6">
-                <lib-button-micro [title]="'save' | translate" nameClass="save" (click)="save()">
+                <lib-button-micro [title]="'save' | translate" nameClass="save"  widthNumber=100% (click)="save()">
                 </lib-button-micro>
               </div>
               

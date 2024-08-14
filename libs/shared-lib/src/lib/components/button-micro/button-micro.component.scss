@@ -12,8 +12,10 @@
   border-radius: 8px;
   font-size: 16px;
   text-transform: capitalize;
-  margin-inline-start: 10px !important;
-  margin-inline-end: 10px !important;
+  background: none;
+    border: none;
+  // margin-inline-start: 10px !important;
+  // margin-inline-end: 10px !important;
   //width: 100%;
   cursor: pointer;
   .icon {
@@ -79,10 +81,12 @@
   background: #fff;
   border: 1px solid #cb3f2d;
   color: #cb3f2d;
+  width: 100% !important;
   &:hover {
     background: #cb3f2d;
     color: #fff;
     border: 1px solid #cb3f2d;
+    width: 100% !important;
   }
 }
 .export {
