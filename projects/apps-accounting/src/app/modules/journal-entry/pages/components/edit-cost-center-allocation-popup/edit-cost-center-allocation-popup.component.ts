@@ -23,14 +23,12 @@ export class EditCostCenterAllocationPopupComponent implements OnInit  , AfterVi
     , private formsService : FormsService , private ref : DynamicDialogRef , private cdr : ChangeDetectorRef 
     , private toasterService : ToasterService , private languageService : LanguageService,public generalService: GeneralService){}
   ngAfterViewInit(): void {
-    console.log(this.config.data)
 
     if(this.config.data?.costCenters?.length) {
       this.allocationform.clear();
       this.config.data.costCenters.forEach((element : any) => {
          this.lookupValues.push(Number(element.costCenterId) ) 
         this.cdr.detectChanges()
-         console.log(this.lookupValues)
 
         this.allocationform.push(this.fb.group({
           ...element
@@ -102,7 +100,6 @@ export class EditCostCenterAllocationPopupComponent implements OnInit  , AfterVi
       const percentageControl = formGroup.get('percentage');
       if (percentageControl && amount !== null && amount !== undefined && !isNaN(amount)) {
         const percentage = (amount / this.amountForm.get('amount')?.value) * 100;
-        console.log("heypercentage" , percentage)
 
         if (percentageControl.value !== percentage) {
           percentageControl.setValue(percentage, { emitEvent: false });
@@ -116,7 +113,6 @@ export class EditCostCenterAllocationPopupComponent implements OnInit  , AfterVi
       const amountControl = formGroup.get('amount');
       if (amountControl && percentage !== null && percentage !== undefined && !isNaN(percentage)) {
         const amount = (percentage * this.amountForm.get('amount')?.value) / 100;
-        console.log("heyAmount" , amount)
         if (amountControl.value !== amount) {
           amountControl.setValue(amount, { emitEvent: false });
         }
@@ -176,6 +172,12 @@ export class EditCostCenterAllocationPopupComponent implements OnInit  , AfterVi
     this.ref.close(this.allocationform.value)
 
   }
+  clickSave(event:any){
+    this.onSave()
+  }
+close(){
+  this.ref.close()
 
+}
 
 }

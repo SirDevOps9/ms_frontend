@@ -290,8 +290,8 @@ export class EditJournalEntryComponent implements OnInit {
   openDialog(index: number) {
     const ref = this.dialog.open(NoChildrenAccountsComponent,
        { 
-         width: 'auto',
-          height : 'auto'
+         width: '900px',
+         height : '600px'
       });
     ref.onClose.subscribe((account: AccountDto) => {
       if (account) {
@@ -345,7 +345,7 @@ export class EditJournalEntryComponent implements OnInit {
     } else {
       const dialogRef = this.dialog.open(EditCostCenterAllocationPopupComponent, {
         width: '900px',
-        height: '500px',
+        height: '600px',
         header: 'Edit Cost Center Allocation',
         data: data,
       });

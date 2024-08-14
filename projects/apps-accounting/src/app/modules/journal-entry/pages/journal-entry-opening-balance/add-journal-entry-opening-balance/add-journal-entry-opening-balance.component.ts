@@ -183,7 +183,8 @@ export class AddJournalEntryOpeningBalanceComponent {
 
   openDialog(index: number) {
     const ref = this.dialog.open(NoChildrenAccountsComponent, {
-      height : '100%'
+      width: '900px',
+      height: '600px',
     });
     
     ref.onClose.subscribe((r) => {
@@ -419,7 +420,7 @@ export class AddJournalEntryOpeningBalanceComponent {
     } else {
       const dialogRef = this.dialog.open(CostCenterAllocationPopupComponent, {
         width: '900px',
-        height: '500px',
+        height: '600px',
         header: 'Cost Center Allocation',
         data: data,
       });

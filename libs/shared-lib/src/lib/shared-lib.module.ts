@@ -12,7 +12,8 @@ import {
   ButtonMicroComponent,
   ToastComponent,
   TablePrintComponent,
-  TabviewComponent
+  TabviewComponent,
+  
   
   
   
@@ -54,7 +55,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ExportComponent } from './components/export/export.component';
 import { ChangeColumnComponent } from './components/change-column/change-column.component';
 import { NumberFormatPipe } from './pipes/number-format.pipe';
-
+import { PopupPageComponent } from './components/popup-page/popup-page.component';
 @NgModule({
   declarations: [
     GetLookupPipe,
@@ -92,7 +93,8 @@ import { NumberFormatPipe } from './pipes/number-format.pipe';
     TabviewComponent,
     ExportComponent,
     ChangeColumnComponent,
-    NumberFormatPipe
+    NumberFormatPipe,
+    PopupPageComponent
   ],
   imports: [
     HttpClientModule,
@@ -152,7 +154,8 @@ import { NumberFormatPipe } from './pipes/number-format.pipe';
     TabviewComponent,
     ExportComponent,
     ChangeColumnComponent,
-    NumberFormatPipe
+    NumberFormatPipe,
+    PopupPageComponent
   ],
 })
 export class SharedLibModule {}
