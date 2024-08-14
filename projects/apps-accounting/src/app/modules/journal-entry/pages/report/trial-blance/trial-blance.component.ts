@@ -114,6 +114,7 @@ export class TrialBlanceComponent implements OnInit {
               accountId: x.accountId,
               accountCode: x.accountCode,
               accountName: x.accountName,
+              accountNature:x.accountNature,
               openingBalance: {
                   debit: this.generalService.formatNumber(x.openingBalance.debit , this.generalService.fraction) ,
                   credit:this.generalService.formatNumber(x.openingBalance.credit , this.generalService.fraction) ,

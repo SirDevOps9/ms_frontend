@@ -70,8 +70,6 @@ export class EditJournalEntryComponent implements OnInit {
     this.getCurrencies();
     this.journalEntryLinesFormArray.valueChanges.subscribe((res) => {
       if (res && !this.isPatching) {
-        console.log('changed', this.disFlag);
-
         this.disFlag = false;
       }
     });
@@ -259,22 +257,9 @@ export class EditJournalEntryComponent implements OnInit {
           displayName: `${account.name} (${account.accountCode})`,
         }));
 
-        console.log(this.filteredAccounts);
       }
-
-      //          this.filteredAccounts=res.result.map((account:any) => ({
-      //   ...account,
-      //   displayName: `${account.name} (${account.accountCode})`,
-      // }));
     });
-    console.log(event);
 
-    // this.accountService.getAccountsHasNoChildrenNew(event, new PageInfo()).subscribe((r) => {
-    //   this.filteredAccounts = r.result.map((account) => ({
-    //     ...account,
-    //     displayName: `${account.name} (${account.accountCode})`,
-    //   }));
-    // });
   }
   addNewRow() {
     if (!this.formsService.validForm(this.journalEntryLinesFormArray, false)) return;

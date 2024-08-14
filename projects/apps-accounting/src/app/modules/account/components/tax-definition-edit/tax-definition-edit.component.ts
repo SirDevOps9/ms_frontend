@@ -29,8 +29,6 @@ export class TaxDefinitionEditComponent {
 
     this.accountService.taxGroupsDropDown.subscribe((res) => {
       this.taxGroupList = res;
-
-      console.log(res)
     });
 
     this.editForm.controls['taxGroupId'].valueChanges.subscribe((value) => {
@@ -40,13 +38,10 @@ export class TaxDefinitionEditComponent {
     this.accountService.getTaxById(this.config.data.id)
 
     this.accountService.currentTaxDataSource.subscribe(res=>{
-      console.log(res)
       if(res) {
         this.editForm.patchValue({...res})
         this.selectedTaxGroup = res.taxGroupId;
         this.selectedAccount = res.accountId;
-
-        console.log("selected value",res );
       }
     })
 

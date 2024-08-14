@@ -121,7 +121,6 @@ export class JournalEntryListComponent implements OnInit {
   routeToAdd() {
     // this.routerService.navigateTo(`/add`);
     this.router.navigate(['/transcations/journalentry/add']);
-
   }
 
   viewJournal(id: number) {
@@ -131,31 +130,27 @@ export class JournalEntryListComponent implements OnInit {
   routeToEdit(id: number) {
     this.routerService.navigateTo(`transcations/journalentry/edit/${id}`);
   }
-  onSearchChange(event : any) {
-    this.journalEntryService.getAllJournalEntriesPaginated(event, new PageInfo())
+  onSearchChange(event: any) {
+    this.journalEntryService.getAllJournalEntriesPaginated(event, new PageInfo());
     this.journalEntryService.journalEntries.subscribe({
       next: (res) => {
         this.tableData = res;
       },
-    }
-)
-
+    });
   }
-onPageChange(pageInfo: PageInfo) {
-  
-  this.journalEntryService.getAllJournalEntriesPaginated('',pageInfo)
-  this.journalEntryService.journalEntries.subscribe({
-    next: (res) => {
-      this.tableData = res;
-    },
-  })
-}
+  onPageChange(pageInfo: PageInfo) {
+    this.journalEntryService.getAllJournalEntriesPaginated('', pageInfo);
+    this.journalEntryService.journalEntries.subscribe({
+      next: (res) => {
+        this.tableData = res;
+      },
+    });
+  }
 
-exportJournalEntriesData(searchTerm: string) {
-  this.journalEntryService.exportJournalEntriesData(searchTerm);
-  this.journalEntryService.exportsJournalEntriesDataSourceObservable.subscribe((res) => {
-    this.exportData = res;
-  });
-}
-
+  exportJournalEntriesData(searchTerm: string) {
+    this.journalEntryService.exportJournalEntriesData(searchTerm);
+    this.journalEntryService.exportsJournalEntriesDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
+  }
 }
