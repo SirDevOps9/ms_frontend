@@ -4,15 +4,15 @@ export class reportTrialDto {
     accountName: string;
     accountNature: string;
     openingBalance: {
-      debit: number,
-      credit: number
+      debit: any,
+      credit: any
     };
     transactionBalance: {
-      debit: number,
-      credit: number
+      debit: any,
+      credit: any
     };
     endingBalance: {
-      debit: number,
-      credit: number
+      debit: any,
+      credit: any
     }
   }
