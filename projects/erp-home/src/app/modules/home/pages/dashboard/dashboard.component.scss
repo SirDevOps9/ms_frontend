@@ -22,10 +22,10 @@
 .modal-card {
   cursor: pointer;
   border-radius: 8px;
-  background: #f5f5f5 
+  background: #fff 
     url('../../../../../assets/images/apps/lg-bg.png') no-repeat
     right bottom;
-  border: 1px solid #10566A;
+  border: 1px solid #E3E3E3;
   border-radius: 8px;
   padding-inline-start: 24px;
   display: flex;
@@ -42,18 +42,18 @@
     // }
   }
   .caption {
-    font-size: 23px; /* Adjust as needed */
-    color: #383A42; /* Adjust as needed */
+    font-size: 20px; /* Adjust as needed */
+    color: #5E6278; /* Adjust as needed */
     font-weight: 700;
   }
   
 }
 
 .modal-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
-  animation: blurScaleChange 2s forwards;
-  animation: bkChange 1s forwards;
+  // transform: scale(1.05);
+  // box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+  // animation: blurScaleChange 2s forwards;
+  // animation: bkChange 1s forwards;
 
 }
 

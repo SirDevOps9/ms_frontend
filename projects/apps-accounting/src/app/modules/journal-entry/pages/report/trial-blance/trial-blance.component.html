@@ -36,21 +36,23 @@
               name: 'openingBalance',
               headerText: ('reportTrial.Openingbalance'| translate),
               colspan:'2',
-           
 
-              class:'trial_balance center',
+              class:'left_Balance center',
               children:[
               {
               name: 'debit',
               headerText: ('reportTrial.debit'| translate),
-              class:'debit center',
+              class:'left_Balance debit center',
+              applyClass:false
 
             },
             {
               name: 'credit',
               headerText: ('reportTrial.credit'| translate),
-              class:'trial_balance credit center',
-              body_class:'body_credit'
+              class:'left_Balance credit center',
+              body_class:'body_credit',
+              applyClass:true
+
             }
                 ]
             },
@@ -61,22 +63,24 @@
               isGlobalFilter: true,
               isSortable: true,
               colspan:'2',
-              class:'trial_balance center',
+              class:'right_Balance center',
               
 
               children:[
               {
               name: 'debit',
               headerText: ('reportTrial.debit'| translate),
-              class:'debit center',
+              class:'right_Balance debit center',
+              applyClass:false
               
 
             },
             {
               name: 'credit',
               headerText: ('reportTrial.credit'| translate),
-              class:'trial_balance credit center',
-              body_class:'body_credit'
+              class:'right_Balance credit center',
+              body_class:'body_credit',
+              applyClass:true
             },
               ]
             },
@@ -87,22 +91,23 @@
               isGlobalFilter: true,
               isSortable: true,
               colspan:'2',
-              class:'trial_balance center',
+              class:' left_Balance center',
              
 
               children:[
               {
               name: 'debit',
               headerText: ('reportTrial.debit'| translate),
-              class:'debit center',
-             
+              class:' left_Balance debit center',
+              applyClass:false
             
             },
             {
               name: 'credit',
               headerText: ('reportTrial.credit'| translate),
-              class:'trial_balance credit center ',
-              body_class:'body_credit'
+              class:' left_Balance credit center ',
+              body_class:'body_credit',
+              applyClass:true
             },
               ]
             }

@@ -107,6 +107,7 @@ span {
   #dt {
     min-width: 75rem;
   }
+  
 }
 
 // .p-datatable-wrapper{
@@ -156,21 +157,30 @@ span {
 }
 
 .cssClass {
-  background-color: #1a90b0;
+  background-color: #000;
 }
-.trial_balance {
-  background: #83d6ec !important;
+// .trial_balance {
+//   background: #EFEFEF !important;
+//   // color: #374151;
+// }
+.right_Balance{
+  background: #A3D3DF !important;
   color: #fff !important;
 }
-.credit {
-  color: #383a42 !important;
+.left_Balance{
+  background: #76BCD0 !important;
+  color: #fff !important;
 }
-.body_credit {
-  background: #dbf7ff !important;
-}
-.debit {
-  color: #b6bac3 !important;
-}
+
+// .credit {
+//   color: #383a42 !important;
+// }
+// .body_credit {
+//   background: #dbf7ff !important;
+// }
+// .debit {
+//   // color: #b6bac3 !important;
+// }
 .center {
   text-align: center !important;
 }

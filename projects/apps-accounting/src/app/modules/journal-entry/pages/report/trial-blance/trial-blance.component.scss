@@ -38,13 +38,6 @@ input[type=checkbox]{
     cursor: pointer;
 }
 ::ng-deep{
-    .group{
-        .p-multiselect {
-            width: 100% !important;
-            height: 45px !important;
-        }
-      
-    }
     
         .p-checkbox .p-checkbox-box.p-highlight {
             border-color: #1a90b0 !important;
