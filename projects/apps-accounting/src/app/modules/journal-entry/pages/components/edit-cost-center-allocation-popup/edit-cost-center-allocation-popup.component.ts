@@ -43,13 +43,11 @@ export class EditCostCenterAllocationPopupComponent implements OnInit  , AfterVi
     this.amountForm = this.fb.group({
       amount : 0
     })
-    const formatdebitAmount=this.generalService.formatNumber(this.config.data.debitAmount, this.generalService.fraction)
-    const formatcreditAmount=this.generalService.formatNumber(this.config.data.creditAmount, this.generalService.fraction)
-    if(this.config.data.creditAmount == 0) {
-      this.amountForm.get('amount')?.setValue(formatdebitAmount)
+    if(this.config.data.creditAmount == 0 || !this.config.data.creditAmount) {
+      this.amountForm.get('amount')?.setValue(this.config.data.debitAmount)
     }
-     if(this.config.data.debitAmount == 0) {
-      this.amountForm.get('amount')?.setValue(formatcreditAmount)
+     if(this.config.data.debitAmount == 0 || !this.config.data.debitAmount) {
+      this.amountForm.get('amount')?.setValue(this.config.data.creditAmount)
 
     }
 

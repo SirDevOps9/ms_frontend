@@ -14,5 +14,6 @@ export class JournalEntryGlBalanceLineDto {
     currencyId: number;
     currencyRate: number;
     costCenters : costCenters[]
+    costCenterConfig : string
 }
 

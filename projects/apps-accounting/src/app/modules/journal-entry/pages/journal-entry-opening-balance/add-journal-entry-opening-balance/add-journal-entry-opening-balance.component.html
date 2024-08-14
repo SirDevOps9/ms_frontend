@@ -4,6 +4,7 @@
       <!-- <p class="title test">{{ 'journal_entry_header' | translate }}</p> -->
       <div class="grid">
         <div class="col-12 md:col-3 step-1-element">
+          <p class="totals">{{ 'reference_number' | translate }}</p>
           <lib-text-input
             placeholder="{{ 'reference_number' | translate }}"
             [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
@@ -16,6 +17,7 @@
         <!--  -->
 
         <div class="col-12 md:col-3 step-2-element">
+          <p class="totals">{{ 'journal_date' | translate }}</p>
           <lib-text-input
             placeholder="{{ 'journal_date' | translate }}"
             type="date"
@@ -24,10 +26,25 @@
         </div>
         <div class="col-12 md:col-3">
           <button (click)="openAttachments()" class="attach">{{ 'attach' | translate }}</button>
-        </div>
+        </div> 
 
+      
+    
+
+        
+
+        <div class="col-12 md:col-12 step-3-element">
+          <p class="totals">{{ 'description' | translate }}</p>
+          <lib-text-input
+            class="description"
+            [textbox]="true"
+            placeholder="{{ 'description' | translate }}"
+            formControlName="description"
+          ></lib-text-input>
+          <lib-field-validations [appControl]="fg.controls['description']"></lib-field-validations>
+        </div>
         <div class="col-12 md:col-3">
-          <small>{{'JournalTemplate.totalDebitAmountLocal' | translate}}</small>
+          <p class="totals">{{'JournalTemplate.totalDebitAmountLocal' | translate}}</p>
           <lib-text-input
           [(ngModel)]="totalDebitAmountLocal"
           placeholder="0"
@@ -38,7 +55,7 @@
       </div>
 
       <div class="col-12 md:col-3">
-        <small>{{'JournalTemplate.totalCreditAmountLocal' | translate}}</small>
+        <p class="totals">{{'JournalTemplate.totalCreditAmountLocal' | translate}}</p>
         <lib-text-input
         [(ngModel)]="totalCreditAmountLocal"
         placeholder="0"
@@ -46,19 +63,6 @@
         [ngModelOptions]="{standalone: true}"
       ></lib-text-input>
       </div>
-    
-
-        
-
-        <div class="col-12 md:col-12 step-3-element">
-          <lib-text-input
-            class="description"
-            [textbox]="true"
-            placeholder="{{ 'description' | translate }}"
-            formControlName="description"
-          ></lib-text-input>
-          <lib-field-validations [appControl]="fg.controls['description']"></lib-field-validations>
-        </div>
       </div>
     </div>
     <div class="entry_table">
@@ -82,7 +86,7 @@
               <th>{{ 'debit_amount_local' | translate }}</th>
               <th>{{ 'credit_amount_local' | translate }}</th>
               <th>{{ 'cost_center' | translate }}</th>
-              <th></th>
+              <th>{{'Actions' | translate}}</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-fg let-editing="editing" let-i="rowIndex">
@@ -146,11 +150,11 @@
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ fg.controls['debitAmount'].value }}
+                    {{ fg.controls['debitAmount'].value ?? 0 }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations [appControl]="fg"></lib-field-validations>
-              </td>
+              </td> 
               <td
                 [pEditableColumn]="fg.controls['creditAmount']"
                 pEditableColumnField="creditAmount"
@@ -165,7 +169,7 @@
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ fg.controls['creditAmount'].value }}
+                    {{ fg.controls['creditAmount'].value ?? 0 }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations [appControl]="fg"></lib-field-validations>
@@ -204,6 +208,7 @@
                   </ng-template>
                 </p-cellEditor>
               </td>
+              
               <td>
                 {{ fg.controls['debitAmountLocal'].value ? (fg.controls['debitAmountLocal'].value | number:'1.0-2') : '0' }}
               </td>
@@ -212,11 +217,39 @@
 
               </td>
               <td>
-                <img
-                  class="costCenterImg"
-                  src="assets/images/Frame.png"
-                  (click)="openCostPopup(fg.value, fg.controls['account']?.value, i)"
-                />
+                <div class="flex justify-content-center">
+                  <img
+                    src="assets/images/groups.png"
+                    *ngIf="!fg.controls['selectedFalg'].value && !fg.controls['costCenters']?.value"
+                  />
+                  <img
+                    src="assets/images/groups-mandtory-optional.png"
+                    alt=""
+                    *ngIf="
+                      fg.controls['costCenterConfig'].value == 'Optional' ||
+                      (fg.controls['costCenterConfig'].value == 'Mandatory' &&
+                        !fg.controls['costCenters'].value)
+                    "
+                    (click)="openCostPopup(fg.value, fg, fg.controls['account']?.value,i)"
+                  />
+
+                  <img
+                    src="assets/images/groups.png"
+                    alt=""
+                    *ngIf="
+                      fg.controls['costCenterConfig'].value == 'NotAllow' &&
+                      !fg.controls['costCenters'].value
+                    "
+                    (click)="openCostPopup(fg.value, fg, fg.controls['account']?.value,i)"
+                  />
+
+                  <img
+                    src="assets/images/groups-data.png"
+                    alt=""
+                    *ngIf="fg.controls['costCenters'].value"
+                    (click)="openCostPopup(fg.value, fg, fg.controls['account']?.value,i)"
+                  />
+                </div>
               </td>
               <td>
                 <lib-button
@@ -241,6 +274,7 @@
               <td class="total"></td>
               <td class="total">{{ totalDebitAmountLocal }}</td>
               <td class="total">{{ totalCreditAmountLocal }}</td>
+              <td class="total"></td>
               <td class="total"></td>
             </tr>
           </ng-template>
