@@ -183,7 +183,7 @@
               <!-- Check if the column has children -->
               <ng-container *ngIf="col.children && col.children.length; else parentCol">
                 <ng-container *ngFor="let child of col.children">
-                  <td class="body_b16" [ngClass]="child.class">
+                  <td class="body_b16" [ngClass]="child.applyClass ? child['class']: null">
                     <ng-container *ngIf="!child.template; else customCellTemplate!">
                       <ng-container *ngIf="child.lookupKey">
                         {{ this.lookupsService.getLookUpText(child.lookupKey, row[child.name]) }}
