@@ -43,7 +43,7 @@ export class EditJournalEntryComponent implements OnInit {
   accountIdList: number[] = [];
   currencyIdList: number[] = [];
   costCenters: costCenters[] = [];
-  disFlag: boolean = false;
+  disFlag: boolean = true;
   viewMode: boolean = false;
   statusName: string;
   journalTypeName: JournalEntryType;
@@ -61,17 +61,20 @@ export class EditJournalEntryComponent implements OnInit {
   creditLocal: string;
 
   currentAccounts: number[] = [];
+  isPatching: boolean = false;
 
   ngOnInit() {
     this.getAccounts();
     this.initializeForm();
     this.initializeFormData();
     this.getCurrencies();
-    // this.journalEntryLinesFormArray.valueChanges.subscribe(res=>{
-    //   if(res) {
-    //     this.disFlag = false
-    //   }
-    // })
+    this.journalEntryLinesFormArray.valueChanges.subscribe((res) => {
+      if (res && !this.isPatching) {
+        console.log('changed', this.disFlag);
+
+        this.disFlag = false;
+      }
+    });
 
     this.journalEntryService.editJournalLineStatusDataSource.subscribe((res) => {
       if (res) {
@@ -107,6 +110,7 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   initializeFormData() {
+    this.isPatching = true;
     this.journalEntryService.getJournalEntryById(this.routerService.currentId).subscribe((res) => {
       this.editJournalForm.patchValue({
         ...res,
@@ -155,6 +159,7 @@ export class EditJournalEntryComponent implements OnInit {
         lineGroup.updateValueAndValidity();
 
         journalEntryLinesArray.push(lineGroup);
+        this.isPatching = false;
       });
 
       this.currentAccounts = this.journalEntryLines.map((line) => line.accountId);
