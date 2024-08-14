@@ -26,10 +26,10 @@ export class AddJournalEntryOpeningBalanceComponent {
   fg: FormGroup;
   filteredAccounts: AccountDto[] = [];
   journalEntryAttachments: { attachmentId: string; name: string }[];
-  totalDebitAmount: number;
-  totalDebitAmountLocal: number;
-  totalCreditAmountLocal: number;
-  totalCreditAmount: number;
+  totalDebitAmount: number = 0;
+  totalDebitAmountLocal: number = 0;
+  totalCreditAmountLocal: number = 0;
+  totalCreditAmount: number = 0;
   currencies: CurrencyDto[];
   fitleredCurrencies: CurrencyDto[];
   costCenters: costCenters[] = [];
@@ -155,12 +155,17 @@ export class AddJournalEntryOpeningBalanceComponent {
 
     const journalLine = this.items.at(id);
 
-    var accountData = this.filteredAccounts.find((c) => c.id == event);
+    var accountData : any = this.filteredAccounts.find((c) => c.id == event);
 
     const accountName = journalLine.get('accountName');
     accountName?.setValue(accountData?.name);
 
     journalLine.get('accountCode')?.setValue(accountData?.accountCode);
+    journalLine.get('lineDescription')?.setValue(accountData.name);
+    journalLine.get('costCenterConfig')?.setValue(accountData.costCenterConfig);
+    journalLine.get('selectedFalg')?.setValue(true);
+    console.log(journalLine.get('costCenterConfig')?.value);
+
 
     var currencyData = this.currencies.find((c) => c.id == accountData?.currencyId);
 
@@ -185,10 +190,13 @@ export class AddJournalEntryOpeningBalanceComponent {
       if (r) {
         this.fa.at(index).get('account')?.setValue(r.id);
         this.fa.at(index)?.get('accountName')?.setValue(r.name);
+        this.fa.at(index)?.get('lineDescription')?.setValue(r.name);
         this.fa.at(index)?.get('accountCode')?.setValue(r.accountCode);
         var currencyData = this.currencies.find((c) => c.id == r.currencyId);
         this.fa.at(index).get('currency')?.setValue(r.currencyId);
         this.fa.at(index).get('currencyName')?.setValue(currencyData?.name);
+        this.fa.at(index)?.get('costCenterConfig')?.setValue(r.costCenterConfig);
+        this.fa.at(index).get('selectedFalg')?.setValue(true);
         this.getAccountCurrencyRate(r.currencyId , index);
       }
     });
@@ -259,15 +267,19 @@ export class AddJournalEntryOpeningBalanceComponent {
         creditAmount: crControl,
         currency: currencyControl,
         currencyRate: rateControl,
-        debitAmountLocal: new FormControl(),
-        creditAmountLocal: new FormControl(),
+        debitAmountLocal: new FormControl(0),
+        creditAmountLocal: new FormControl(0),
         currencyName: new FormControl(''),
+        costCenters: new FormControl(),
+        selectedFalg: new FormControl(false),
+        costCenterConfig : new FormControl(null)
       },
       { validators: customValidators.debitAndCreditBothCanNotBeZero }
     );
     this.fg.updateValueAndValidity();
     this.fa.push(fg);
     this.getAccounts()
+    
   }
 
   deleteLine(index: number) {
@@ -395,12 +407,12 @@ export class AddJournalEntryOpeningBalanceComponent {
     }, 0);
   }
 
-  openCostPopup(data: any, account: number, index: number) {
+  openCostPopup(data: any, journal: FormGroup, account: number, index: number) {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
 
     if (
       (!data.creditAmount && !data.debitAmount) ||
-      !account ||
+      !account || 
       accountData?.costCenterConfig == 'NotAllow'
     ) {
       return null;
@@ -412,7 +424,7 @@ export class AddJournalEntryOpeningBalanceComponent {
         data: data,
       });
       dialogRef.onClose.subscribe((res) => {
-        if (res) data.costCenters = res;
+        if (res) journal.get('costCenters')?.setValue(res);
       });
     }
   }

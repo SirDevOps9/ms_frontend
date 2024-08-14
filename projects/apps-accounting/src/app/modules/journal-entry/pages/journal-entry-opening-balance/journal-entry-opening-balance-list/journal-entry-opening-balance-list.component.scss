@@ -43,6 +43,17 @@
 .edit {
   color: red !important;
 }
+::ng-deep .entry_tableCont {
+    // lib-text-input input {
+    //   border: none;
+    // }
+    .p-inputtext{
+      width: 100px !important;
+      padding-inline-start: 5px !important;
+     padding-inline-end:5px !important;
+     width: 150px !important;
+    }
+}
 .add_new {
   background: #1a90b0 !important;
   border: none !important;
