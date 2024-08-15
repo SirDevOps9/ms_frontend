@@ -1,0 +1,17 @@
+.cost_add_page{
+    padding: 10px;
+    border: 1px solid #E6E4E4;
+    border-radius: 8px;
+    .faild{
+        margin-bottom: 24px;
+    }
+    .action{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #isDetail{
+        accent-color: #1a90b0;
+
+    }
+}

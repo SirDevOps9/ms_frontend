@@ -1,0 +1,115 @@
+<lib-page-content [title]="'paymentTerm.title' | translate" [subTitle]="'paymentTerm.title' | translate">
+  <div class="flex justify-content-end my-2">
+    <lib-button-micro nameClass="cancel" title="{{ 'paymentterm.discard' | translate }}" (click)="discard()"> </lib-button-micro>
+    <lib-button-micro nameClass="save" title="{{ 'paymentterm.save' | translate }}" iconName="pi pi-save" type="button" (click)="onSave()">
+    </lib-button-micro>
+  </div>
+
+  <div class="bank">
+    <div [formGroup]="paymentTermGroup" class="entry_header">
+      <div class="grid">
+        <div class="col-12 md:col-6">
+          <lib-text-input
+          [readOnly]="true"
+            placeholder="{{ 'paymentterm.code' | translate }}"
+            formControlName="code"
+          ></lib-text-input>
+          <lib-field-validations
+            [appControl]="paymentTermGroup.controls['code']"
+          ></lib-field-validations>
+        </div>
+        <!--  -->
+        <div class="col-12 md:col-6">
+          <lib-text-input
+            placeholder="{{ 'paymentterm.name' | translate }}"
+            formControlName="name"
+          ></lib-text-input>
+          <lib-field-validations
+            [appControl]="paymentTermGroup.controls['name']"
+          ></lib-field-validations>
+        </div>
+        <!--  -->
+      </div>
+      
+    <div class="add_new my-2 flex justify-content-end">
+      <lib-button (onClick)="addLine()" className="outline-primary">
+        {{ 'add-paymentterm.add_new' | translate }}
+      </lib-button>
+    </div>
+
+
+    <div class="entry_table">
+      <div class="card">
+        <p-table
+          [value]="paymentTermForm.controls"
+          dataKey="id"
+          styleClass="p-datatable-gridlines p-datatable-striped"
+          [tableStyle]="{ 'min-width': '50rem' }"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th>{{ 'add-paymentterm.dueTermValue' | translate }}</th>
+              <th>{{ 'add-paymentterm.afterValue' | translate }}</th>
+              <th>{{ 'add-paymentterm.afterPeriod' | translate }}</th>
+              <th>{{ 'add-paymentterm.note' | translate }}</th>
+              <th>{{ 'add-paymentterm.actions' | translate }}</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-paymentTermGroup let-i="rowIndex">
+            <tr [formGroup]="paymentTermGroup">
+              <td>
+                <lib-text-input
+                 type="number"
+                  placeholder="{{ 'add-paymentterm.dueTermValue' | translate }}"
+                  formControlName="dueTermValue"
+                ></lib-text-input>
+                <lib-field-validations
+                  [appControl]="paymentTermGroup.controls['dueTermValue']"
+                ></lib-field-validations>
+              </td>
+              <td>
+                <lib-text-input
+                  type="number"
+                  placeholder="{{ 'add-paymentterm.afterValue' | translate }}"
+                  formControlName="afterValue"
+                ></lib-text-input>
+                <lib-field-validations
+                  [appControl]="paymentTermGroup.controls['afterValue']"
+                ></lib-field-validations>
+              </td>
+              <td>
+                <lib-select
+                                formControlName="afterPeriod"
+                                [options]="lookups[LookupEnum.PeriodType]"
+                                optionValue="id"
+                                optionLabel="name"
+                                [selectedValue]="
+                                paymentTermGroup.controls['afterPeriod']
+                                "
+                              >
+                              </lib-select>
+
+                <lib-field-validations
+                  [appControl]="paymentTermGroup.controls['afterPeriod']"
+                ></lib-field-validations>
+              </td>
+              <td>
+                <lib-text-input
+                  placeholder="{{ 'add-paymentterm.note' | translate }}"
+                  formControlName="note"
+                ></lib-text-input>
+                <lib-field-validations
+                  [appControl]="paymentTermGroup.controls['note']"
+                ></lib-field-validations>
+              </td>
+              <td>
+                <i class="pi pi-trash" (click)="onDelete(i)"></i>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>
+</lib-page-content>

@@ -1,0 +1,132 @@
+<nav>
+  <div class="card">
+    <div
+      class="header_bussiness"
+      [class.header_bussinessCont]="(generalService.sendSideBarState | async) === true"
+    >
+      <div class="header_content">
+        <p-menubar>
+          <ng-template pTemplate="start">
+            <div class="start_nav">
+              <!-- <div
+                class="suplogo"
+                style="
+                  background-image: url('assets/images/navbar/suplogo.png');
+                "
+              ></div> -->
+
+              <div>
+                <lib-bread-crumb></lib-bread-crumb>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="end">
+            <div class="header_sec">
+              <div class="modules">
+                <button class="btn_mod_select" (click)="openDialog()">
+                  <img src="assets/images/header-icons/change-app.svg" alt="" />
+                  <!-- <i class="icon fab fa-microsoft"></i> -->
+                  <!-- {{ moduleName }} -->
+                </button>
+              </div>
+              <div class="end_header_sec">
+                <div class="link_sec">
+                  <div class="count">10</div>
+                  <button>
+                    <img src="assets/images/header-icons/notification.svg" alt="" />
+                  </button>
+                </div>
+                <!-- <div class="link_sec">
+                  <div class="count">5</div>
+                  <button class="btn_count">
+                    <span class="pi pi-comment icon_link"></span>
+                  </button>
+                </div>
+                <div class="link_sec">
+                  <button>
+                    <span class="pi pi-cog icon_link"></span>
+                  </button>
+                </div>
+                <div class="link_sec">
+                  <button>
+                    <span class="pi pi-star icon_link"></span>
+                  </button>
+                </div> -->
+
+                <div class="profaile_sec">
+                  <button (click)="cardDrob()" class="btn_profaile">
+                    <lib-attachment-viewer
+                      *ngIf="userPhoto"
+                      [attachmentId]="userPhoto"
+                      className="headerImg"
+                    ></lib-attachment-viewer>
+                    <img *ngIf="!userPhoto" src="assets/images/users/avatar-logo.svg" />
+                  </button>
+                  <div class="profaile_card_drob" #profaile_card_drob *ngIf="showcard">
+                    <div class="header_card card-items">
+                      <div class="photo">
+                        <lib-attachment-viewer
+                          *ngIf="userPhoto"
+                          [attachmentId]="userPhoto"
+                          className="dropdown_img"
+                        ></lib-attachment-viewer>
+                        <img *ngIf="!userPhoto" src="assets/images/users/avatar-logo.svg" />
+                      </div>
+                      <div class="title">
+                        <p class="name">{{ userName }}</p>
+                        <p class="description">
+                          {{ userEmail }}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="card-items">
+                      <button class="profaile_link">
+                        <p class="title">My Subscription</p>
+                      </button>
+                      <button class="profaile_link">
+                        <p class="title">My favorite</p>
+                      </button>
+                    </div>
+                    <div class="card-items">
+                      <button class="profaile_link">
+                        <p class="title">Language</p>
+                        <button class="lang_link" (click)="toggleLanguage()">
+                          <p class="title">
+                            {{ languageService.Lang === 'en' ? 'English' : 'عربى' }}
+                          </p>
+                          <img
+                            [src]="
+                              languageService.Lang === 'en'
+                                ? 'assets/images/header-icons/lang-eng.svg'
+                                : 'assets/images/header-icons/lang-arabic.svg'
+                            "
+                          />
+                        </button>
+                      </button>
+                      <button class="profaile_link">
+                        <p class="title">Account Settings</p>
+                      </button>
+                    </div>
+                    <!--                     
+                    <button class="mode_link">
+                      <p class="pi pi-moon"></p>
+                      <p class="title">Dark Mood</p>
+                    </button> -->
+                    <div class="footer_card card-items">
+                      <div class="logout">
+                        <button class="log_link" (click)="logout()">
+                          <p class="title">logout</p>
+                          <img src="assets/images/header-icons/Logout.svg" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-menubar>
+      </div>
+    </div>
+  </div>
+</nav>

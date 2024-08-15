@@ -1,0 +1,47 @@
+.actions {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-top: 20px;
+  .save, .cancel {
+     // height: 50px;
+      text-transform: capitalize;
+      //font-size: 22px;
+      padding: 5px 20px;
+      border-radius: 12px;
+      border: 1px  solid;
+      cursor: pointer;
+      margin-inline-end: 20px;
+  }
+
+  .save {
+      background-color: #1a90b0;
+      color: #fff;
+  }
+
+  .cancel {
+      background-color: #cb3f2d;
+      color: #fff;
+  }
+
+  .save:hover {
+      background-color: #fff;
+      color: #1a90b0;
+      border: 1px solid #1a90b0;
+  }
+
+  .cancel:hover {
+      background-color: #fff;
+      color: #cb3f2d;
+      border: 1px solid #cb3f2d;
+  }
+}
+
+fieldset {
+  border: none; 
+}
+.company_address{
+    width: 90%;
+    margin: auto;
+}

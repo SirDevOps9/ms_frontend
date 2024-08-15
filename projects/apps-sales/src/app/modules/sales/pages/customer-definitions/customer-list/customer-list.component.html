@@ -1,0 +1,108 @@
+<lib-page-content [title]="'tag.taglist' | translate" [subTitle]="'tag.taglist' | translate">
+    <div>
+        <div class="user_page">
+          <lib-data-table
+            [items]="tableData"
+            className="p-datatable-gridlines"
+            [currentPageResult]="currentPageInfo"
+            (pageChange)="onPageChange($event)"
+            [tableConfigs]="{
+              allowPagination: false,
+              allowServerPagination: true,
+              dataKey: 'id',
+              pageSize: 10,
+              columns: [
+                 
+                 {
+                   name: 'code',
+                   headerText: ('customerDefinition.code' | translate),
+                   isGlobalFilter: true,
+                   isSortable: true
+                 },
+                 {
+                   name: 'name',
+                   headerText: ('customerDefinition.name' | translate),
+                   isGlobalFilter: true,
+                   isSortable: true
+                 },
+               
+                 {
+                   name: 'categoryName',
+                   headerText: ('customerDefinition.category' | translate),
+                 },
+                 {
+                   name: 'email',
+                   headerText: ('customerDefinition.email' | translate) ,
+                 },
+               
+                 {
+                   name: 'country',
+                   headerText: ('customerDefinition.country' | translate),
+
+                 },
+                 {
+                   name: 'paymentTermName',
+                   headerText: ('customerDefinition.paymentTerm' | translate),
+
+                 },
+                 {
+                   name: 'creditLimit',
+                   headerText: ('customerDefinition.criditLimit' | translate),
+
+                 },
+                 {
+                   name: 'id',
+                   headerText: ('customerDefinition.actions' | translate),
+                   template : actions
+                 },
+               ]
+            }"
+          >
+            <ng-container caption>
+              <div class="group flex justify-content-between">
+                <div>
+                  <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text"  [placeholder]="'customerDefinition.Search' | translate" (keyup)="onSearchChange($event)" />
+                  </span>
+                </div>
+      
+            
+                <div class="flex gap-2">
+                    <div>
+                        <!-- <lib-button-micro title="Add New" nameClass="save" iconName="pi pi-plus" (sendClickEvent)="routeToAdd()">
+                        </lib-button-micro> -->
+
+                        <lib-button className="saveForm" (onClick)="routeToAdd()">{{'customerDefinition.add' | translate}}</lib-button>
+
+                    </div>
+                    <!--  -->
+  
+                    <lib-export
+                    (exportClick)="exportCustomersData($event)"
+                    [exportData]="exportData"
+                    [exportColumns]="exportColumns"
+                    [ExportName]="'Customers'"
+                  >
+                  </lib-export>
+                </div>
+              </div>
+            </ng-container>
+        
+            <ng-template #actions let-actions>
+              <div class="actions flex align-items-center">
+                <img src="assets/images/table/edit.svg" alt="" (click)="routeToEdit(actions.id)">
+                <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(actions.id)">
+              </div>
+            </ng-template>
+
+           
+          </lib-data-table>
+        </div>
+      </div>
+  </lib-page-content>
+
+
+
+  
+  

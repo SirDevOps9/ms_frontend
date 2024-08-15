@@ -1,0 +1,36 @@
+<div class="domain_header">
+  <div class="title">{{ 'AppStore.Subdomain.Title' | translate }}</div>
+  <div class="pi pi-times cancel" (click)="onCancel()"></div>
+</div>
+<div class="selected_subdomain_page">
+  <div class="w-full">
+    <p>{{ 'AppStore.Subdomain.LabelHeader' | translate }}</p>
+    <form [formGroup]="selectSubdomain">
+      <lib-form-group>
+        <lib-select
+          [options]="allSubdomains"
+          formControlName="subdomain"
+          optionValue="id"
+          optionLabel="name"
+          placeholder="Select Subdomains"
+        >
+        </lib-select>
+        <lib-field-validations [appControl]="selectSubdomain.controls['subdomain']">
+        </lib-field-validations>
+      </lib-form-group>
+    </form>
+  </div>
+
+  <div class="btns">
+    <div class="btn">
+      <button class="btn_discard" (click)="onCancel()">
+        {{ 'AppStore.Subdomain.Discard' | translate }}
+      </button>
+    </div>
+    <div class="btn">
+      <button class="btn_save" (click)="submit()">
+        {{ 'AppStore.Subdomain.Save' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

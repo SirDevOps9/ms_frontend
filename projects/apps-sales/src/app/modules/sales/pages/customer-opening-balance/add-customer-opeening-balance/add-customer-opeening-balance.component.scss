@@ -1,0 +1,16 @@
+.pointer {
+    cursor: pointer;
+}
+.action_header{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 15px  0;
+    background-color: #EDEEF1;
+}
+::ng-deep{
+    .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+        color: #fff !important;
+        background: #1a90b0 !important;
+      }
+}

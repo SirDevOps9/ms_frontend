@@ -1,0 +1,105 @@
+.add_company_page {
+  width: 95%;
+  margin: auto;
+  .group {
+    display: flex;
+    flex-direction: column;
+  }
+  input {
+    padding: 5px;
+  }
+  .error {
+    color: red;
+  }
+  .form-label {
+    margin-bottom: 5px;
+  }
+  .Actions {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button {
+      padding: 10px 40px;
+      background-color: #1a90b0;
+      font-size: 18px;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+  }
+}
+
+::ng-deep {
+  .p-inputtext:enabled:hover {
+    border-color: #1a90b0 !important;
+  }
+  .p-inputtext:enabled:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    // box-shadow: 0 0 0 0.2rem #1a90b0 !important;
+    border-color: #1a90b0 !important;
+  }
+  .p-autocomplete:not(.p-disabled):hover .p-autocomplete-multiple-container {
+    border-color: #1a90b0 !important;
+  }
+  .p-autocomplete:not(.p-disabled).p-focus .p-autocomplete-multiple-container {
+    outline: 0 none;
+    outline-offset: 0;
+    // box-shadow: 0 0 0 0.2rem #1a90b0 !important;
+    border-color: #1a90b0 !important;
+  }
+  .p-autocomplete:not(.p-disabled):hover .p-autocomplete-multiple-container {
+    border-color: #1a90b0 !important;
+  }
+  .p-autocomplete:not(.p-disabled).p-focus .p-autocomplete-multiple-container {
+    outline: 0 none;
+    outline-offset: 0;
+    // box-shadow: 0 0 0 0.2rem #1a90b0 !important;
+    border-color: #1a90b0 !important;
+  }
+  .p-dropdown {
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    transition: none !important;
+    border-radius: 6px;
+    width: 100% !important;
+  }
+  .p-dropdown:not(.p-disabled):hover {
+    border-color: #1a90b0 !important;
+  }
+  .p-dropdown:not(.p-disabled).p-focus {
+    outline: 0 none;
+    outline-offset: 0;
+    // box-shadow: 0 0 0 0.2rem #1a90b0 !important;
+    border-color: #1a90b0 !important;
+  }
+  .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight.p-focus {
+    color: #fff !important;
+    background: #1a90b0 !important;
+  }
+  .read{
+    .p-dropdown .p-dropdown-trigger {
+      display: none !important;
+    }
+    .p-dropdown {
+      background: #D8DBDF;
+      border: 1px solid #d1d5db;
+      transition: none !important;
+      border-radius: 6px;
+      width: 100% !important;
+    }
+  }
+ 
+}
+
+::ng-deep .add-journal {
+  .p-dropdown {
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    transition: none !important;
+    border-radius: 6px;
+    width: 130px !important;
+  }
+}

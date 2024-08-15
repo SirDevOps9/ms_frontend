@@ -1,0 +1,25 @@
+::ng-deep{
+    .p-accordion .p-accordion-header .p-accordion-header-link {
+        padding: 10px !important;
+        border: 0px solid #e5e7eb !important;
+        color: #6b7280;
+        background: transparent !important;
+        font-weight: 700;
+        border-radius: 0px !important;
+        transition: box-shadow 0.2s;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row-reverse;
+      } 
+      .p-accordion .p-accordion-content {
+        padding: 10px !important;
+        border: 0px solid #e5e7eb !important;
+        background: transparent !important;
+        color: #4b5563;
+    
+        border-bottom-right-radius: 0px !important;
+        border-bottom-left-radius: 0px !important;
+        
+        
+      }
+}

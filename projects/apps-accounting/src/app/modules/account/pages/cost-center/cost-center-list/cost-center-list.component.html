@@ -1,0 +1,104 @@
+ 
+        <div class="user_page">
+            <lib-data-table [items]="tableData" className="p-datatable-gridlines"
+             [currentPageResult]="currentPageInfo"
+              
+
+                (pageChange)="onPageChange($event)" [tableConfigs]="{
+            allowPagination: false,
+            allowServerPagination: true,
+            dataKey: 'id',
+            pageSize: 10,
+            columns: [
+              {
+                name: 'code',
+                headerText: ('TaxGroup.Code' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'name',
+                headerText: ('TaxGroup.Name' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'parentCostCenter',
+                headerText: ('TaxGroup.parent' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'type',
+                headerText: ('TaxGroup.type' | translate),
+                template: type
+              },
+              {
+              name: 'status',
+              headerText: ('TaxGroup.status' | translate),
+              template: actions
+
+            },
+       
+            ]
+          }">
+
+                <ng-container caption>
+
+                  <div class="group flex justify-content-between">
+                    
+                                <!-- <lib-form-group>
+                                    <lib-text-input type="text" [placeholder]="'Search'" (keyUp)="onSearchChange($event)"></lib-text-input>
+                                </lib-form-group> -->
+                                <div>
+                                  <span class="p-input-icon-left">
+                                    <i class="pi pi-search"></i>
+                                    <input
+                                      pInputText
+                                      type="text"
+                                      (input)="onSearchChange($event)"
+                                      [placeholder]="'ChartOfAccount.Search' | translate"
+                                    />
+                                  </span>
+                                </div>
+                        <div>
+                          <lib-export
+                            (exportClick)="exportCostCentersData($event)"
+                            [exportData]="exportData"
+                            [exportColumns]="exportColumns"
+                            [ExportName]="'Cost Centers'"
+                          >
+                          </lib-export>
+                        </div>
+
+                    </div>
+
+                </ng-container>
+                <ng-template #actions let-user>
+      
+                    <div *ngIf="user.isActive !=null">
+                      <lib-input-switch
+                        [id]="user.id"
+                        (onChange)="confirmChange($event, user)"
+                        [(ngModel)]="user.isActive"
+                        [disabled]="true"
+                      >
+                      </lib-input-switch>
+              
+                      <!-- <p class="active" *ngIf="user.isActive">
+                        {{ 'User.Activate' | translate }}
+                      </p>
+                      <p class="inactive" *ngIf="!user.isActive">
+                        {{ 'User.Deactivate' | translate }}
+                      </p> -->
+                    </div>
+                   
+                  </ng-template>
+                <ng-template #type let-user>
+      
+                 <p class="body_b14" [ngClass]="{'detail':user.type==sharedCostEnums.costType.Detail ,'main':user.type==sharedCostEnums.costType.Main }"> {{user.type}}</p>
+                  </ng-template>
+
+            </lib-data-table>
+        </div>
+   

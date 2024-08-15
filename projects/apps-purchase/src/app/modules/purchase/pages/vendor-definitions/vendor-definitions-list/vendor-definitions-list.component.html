@@ -1,0 +1,105 @@
+<lib-page-content [title]="'tag.taglist' | translate" [subTitle]="'tag.taglist' | translate">
+  <div>
+    <div class="user_page">
+      <lib-data-table
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        [tableConfigs]="{
+            allowPagination: false,
+            allowServerPagination: true,
+            dataKey: 'id',
+            pageSize: 10,
+            columns: [
+               
+               {
+                 name: 'code',
+                 headerText: ('vendorDefinition.code' | translate),
+                 isGlobalFilter: true,
+                 isSortable: true
+               },
+               {
+                 name: 'name',
+                 headerText: ('vendorDefinition.name' | translate),
+                 isGlobalFilter: true,
+                 isSortable: true
+               },
+             
+               {
+                 name: 'vendorCategoryName',
+                 headerText: ('vendorDefinition.category' | translate),
+               },
+               {
+                 name: 'vendorInformationContactEmail',
+                 headerText: ('vendorDefinition.email' | translate) ,
+               },
+             
+               {
+                 name: 'vendorAddressCountryNameEn',
+                 headerText: ('vendorDefinition.country' | translate),
+
+               },
+               {
+                 name: 'vendorFinancialPaymentTermName',
+                 headerText: ('vendorDefinition.paymentTerm' | translate),
+
+               },
+               {
+                 name: 'vendorFinancialCreditLimit',
+                 headerText: ('vendorDefinition.criditLimit' | translate),
+
+               },
+               {
+                 name: 'id',
+                 headerText: ('vendorDefinition.actions' | translate),
+                 template : actions
+               },
+             ]
+          }"
+      >
+        <ng-container caption>
+          <div class="group flex justify-content-between">
+            <div class="flex gap-2">
+              <lib-text-input
+                [(ngModel)]="searchTerm"
+                type="text"
+                [placeholder]="'vendorDefinition.Search' | translate"
+                (keyUp)="onSearchChange($event)"
+                [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+              >
+              </lib-text-input>
+            </div>
+
+            <div class="flex gap-2">
+              <div>
+                <lib-button
+                  pRipple
+                  className="addToList"
+                  [label]="'vendorDefinition.Add' | translate"
+                  (onClick)="routeToAdd()"
+                >
+                </lib-button>
+              </div>
+              <!--  -->
+              <lib-export
+                (exportClick)="exportVendorsData($event)"
+                [exportData]="exportData"
+                [exportColumns]="exportColumns"
+                [ExportName]="'Vendors'"
+              >
+              </lib-export>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #actions let-actions>
+          <div class="actions flex align-items-center">
+            <img src="assets/images/table/edit.svg" alt="" (click)="routeToEdit(actions.id)">
+          <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(actions.id)">
+          </div>
+        </ng-template>
+      </lib-data-table>
+    </div>
+  </div>
+</lib-page-content>

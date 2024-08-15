@@ -1,0 +1,18 @@
+<p-multiSelect
+  required
+  [optionValue]="optionValue"
+  [options]="options"
+  [optionLabel]="optionLabel"
+  [showClear]="true"
+  [(ngModel)]="selectedValue"
+  (onChange)="change($event)"
+  [placeholder]="placeholder"
+  [ngClass]="className"
+  [disabled]="disabled"
+  appendTo="body"
+  [attr.data-testid]="this.labelTest"
+  (onClear)="onOptionRemoved($event)"
+  display="chip"
+
+
+></p-multiSelect>

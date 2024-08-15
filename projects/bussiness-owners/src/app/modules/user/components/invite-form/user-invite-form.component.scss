@@ -1,0 +1,190 @@
+.invite_user {
+    height: 100%;
+    .invite_user_header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f7f8f8;
+      padding: 30px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid black;
+  
+      .title {
+        display: flex;
+        font-size: 18px;
+        font-weight: 700;
+        color: #383a42;
+        .plus_icon {
+          width: 40px;
+          height: auto;
+          margin-right: 10px;
+          background-image: url("../../../../../assets/images/plans/file-plus.svg");
+          background-size: contain;
+          background-position: center;
+          background-repeat: no-repeat;
+          
+        }
+      }
+      .cancel {
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 700;
+      }
+    }
+  
+    .button-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f7f8f8;
+      margin-top: 18px;
+      border-radius: 8px;
+  
+      .btn {
+        cursor: pointer;
+        font-size: 16px;
+        background: none;
+        border: none;
+        padding: 15px 10px;
+        &:hover {
+          background: #fff;
+          color: #1a90b0;
+        }
+      }
+  
+      .btn_active {
+        background: #fff;
+        color: #1a90b0;
+      }
+    }
+  
+    .domain_form {
+      height: calc(100% - 93px);
+      .domain_content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+  
+        .data_content {
+          padding: 20px;
+  
+          .domain_name {
+            margin-top: 20px;
+          }
+  
+        //   .price {
+        //     margin: 0;
+        //     padding: 0;
+        //     text-align: end;
+        //     margin-bottom: 10px;
+        //     padding-inline-end: 40px;
+        //     .currency,
+        //     .period {
+        //       color: #1a90b0;
+        //       font-size: 18px;
+        //     }
+        //     .cost {
+        //       color: #000;
+        //       font-weight: 700;
+        //       font-size: 20px;
+        //       margin: 0 2px;
+        //     }
+        //   }
+        }
+        // .actions {
+        //   padding: 20px 0px;
+        //   display: flex;
+        //   align-items: center;
+        //   justify-content: center;
+        //   background: #f7f8f8;
+        //   .btn {
+        //     min-width: 30%;
+        //     padding: 10px 0;
+        //     font-size: 16px;
+        //     cursor: pointer;
+        //     border-radius: 12px;
+        //   }
+        //   .valid_btn {
+        //     background-color: #1a90b0;
+        //     color: #fff;
+        //     border: 2px solid #1a90b0;
+        //   }
+  
+        //   .invaild_btn {
+        //     background-color: #b6bac3;
+        //     color: #383a42;
+        //     border: none;
+        //   }
+        // }
+
+        .actions{
+            padding: 20px 0px;
+            background-color: #F7F8F8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          
+              .save{
+                min-width: 30%;
+                  text-transform: capitalize;
+                  //font-size: 22px;
+                  background-color: #1a90b0 !important;
+                  color: #fff;
+                  padding: 10px 0;
+                  border-radius: 12px;
+                  border: none;
+                  cursor: pointer;
+                  margin-inline-end: 20px;
+              }
+              .cancel{
+                  
+                  text-transform: capitalize;
+                 // font-size: 20px;
+                  background-color: #EDEEF1;
+                  color: #383A42;
+                  padding: 5px 20px;
+                  height: 50px;
+                  border-radius: 12px;
+                  border: none;
+                  cursor: pointer;
+                  margin-inline-end: 20px;
+              }
+          }
+          .error{
+              color: red;
+          }
+      }
+    }
+    .domain_invalid{
+      margin-top: 10px;
+      color: red;
+    }
+    .domain_valid{
+      margin-top: 10px;
+      color: #36A19B;
+    }
+  
+  }
+
+  .view{
+    font-size: 1rem;
+    color: #4b5563;
+    background: #ffffff;
+    padding:15px;
+    min-height: 40px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+  }
+  ::ng-deep {
+    .p-dialog .p-dialog-header {
+      display: none !important;
+    }
+    .p-dialog .p-dialog-content {
+      padding: 0 !important;
+    }
+    .p-multiselect {
+      width: 100% !important;
+    }
+  }
+  

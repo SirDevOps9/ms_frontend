@@ -1,0 +1,106 @@
+<lib-page-content>
+  <div class="company_address">
+    <form [formGroup]="companyAddresForm">
+      <div class="actions">
+        <button type="button" class="save body_b16" (click)="onSubmit()">
+          {{ editMode ? ('Company.Save' | translate) : ('Company.Edit' | translate) }}
+        </button>
+        <div *ngIf="editMode">
+          <button type="button" class="cancel body_b16" (click)="onDiscard(editMode)">
+            Discard
+          </button>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="form_select col-12 md:col-6">
+          <div class="grid">
+            <div class="col-12">
+              <div class="">
+                <!-- <lib-file-uploader> </lib-file-uploader> -->
+              </div>
+            </div>
+            <div class="col-12">
+              <lib-form-group>
+                <lib-label [appControl]="companyAddresForm.controls['countryCode']">
+                  {{ 'Company.Address.country' | translate }}
+                </lib-label>
+                <lib-selectIcon
+                  [readOnly]="!editMode"
+                  formControlName="countryCode"
+                  icons="flags"
+                  [options]="lookups[LookupEnum.Country]"
+                  [selectedValue]="selectedCountryCode"
+                  optionValue="id"
+                  icons="flags"
+                  optionLabel="name"
+                >
+                </lib-selectIcon>
+              </lib-form-group>
+            </div>
+            <div class="col-12 md:col-6">
+              <lib-form-group>
+                <lib-label [appControl]="companyAddresForm.controls['city']">
+                  {{ 'Company.Address.city' | translate }}
+                </lib-label>
+                <lib-text-input [readOnly]="!editMode" type="text" formControlName="city" />
+              </lib-form-group>
+            </div>
+
+            <div class="col-12 md:col-6">
+              <lib-form-group>
+                <lib-label [appControl]="companyAddresForm.controls['region']">
+                  {{ 'Company.Address.region' | translate }}
+                </lib-label>
+                <lib-text-input [readOnly]="!editMode" type="text" formControlName="region" />
+              </lib-form-group>
+            </div>
+            <div class="col-12 md:col-6">
+              <lib-form-group>
+                <lib-label [appControl]="companyAddresForm.controls['address']">
+                  {{ 'Company.Address.address' | translate }}
+                </lib-label>
+                <lib-text-input [readOnly]="!editMode" type="text" formControlName="address" />
+              </lib-form-group>
+            </div>
+            <div class="col-12 md:col-6">
+              <lib-form-group>
+                <lib-label [appControl]="companyAddresForm.controls['currencyId']">
+                  {{ 'Company.Address.currency' | translate }}
+                </lib-label>
+                <lib-select
+                  [readOnly]="!editMode"
+                  formControlName="currencyId"
+                  [options]="lookups[LookupEnum.Currency]"
+                  optionValue="id"
+                  optionLabel="name"
+                  [selectedValue]="selectedCurrency"
+                >
+                </lib-select>
+              </lib-form-group>
+            </div>
+            <div class="col-12 md:col-6">
+              <lib-form-group>
+                <lib-label [appControl]="companyAddresForm.controls['longitude']">
+                  {{ 'Company.Address.longitude' | translate }}
+                </lib-label>
+                <lib-text-input [readOnly]="!editMode" type="text" formControlName="longitude" />
+              </lib-form-group>
+            </div>
+            <div class="col-12 md:col-6">
+              <lib-form-group>
+                <lib-label [appControl]="companyAddresForm.controls['latitude']">
+                  {{ 'Company.Address.latitude' | translate }}
+                </lib-label>
+                <lib-text-input [readOnly]="!editMode" type="text" formControlName="latitude" />
+              </lib-form-group>
+            </div>
+          </div>
+        </div>
+        <div class="form map col-12 md:col-6">
+          <!-- <google-map ></google-map> -->
+        </div>
+      </div>
+    </form>
+  </div>
+</lib-page-content>

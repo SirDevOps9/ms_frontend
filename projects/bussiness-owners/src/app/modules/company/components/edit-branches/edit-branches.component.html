@@ -1,0 +1,171 @@
+<div class="pop_up_config_page">
+  <div class="pop_up_header">
+    <div class="header_content">
+      <div class="title">
+        <!-- <div class="plus_icon"></div> -->
+        {{ "Company.Branch.EditBranch" | translate }}
+      </div>
+      <div class="code">
+        <div class="title">
+          {{ "Company.Branch.BranchCode" | translate }}
+        </div>
+        <div class="code_text">
+          {{ branchCode }}
+        </div>
+      </div>
+        <div class=" cancel" (click)="onCancel()"></div>
+    </div>
+  </div>
+  <div class="pop_up_content">
+  
+    <div class="card">
+      <form [formGroup]="editBrancheForm" >
+        <div class="grid">
+          <div class="col-12 md:col-6">
+            <lib-form-group>
+              <lib-label [appControl]="editBrancheForm.controls['branchName']">
+                {{ "Company.Branch.BranchName" | translate }}
+              </lib-label>
+              <lib-text-input type="text" formControlName="branchName" />
+              <lib-field-validations
+                [appControl]="editBrancheForm.controls['branchName']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12 md:col-6">
+            <lib-form-group>
+              <lib-label [appControl]="editBrancheForm.controls['countryCode']">
+                {{ "Company.Branch.Country" | translate }}
+              </lib-label>
+              <lib-selectIcon
+                formControlName="countryCode"
+                [options]="lookups[LookupEnum.Country]"
+                optionValue="id"
+                optionLabel="name"
+                [selectedValue]="selectecCountry"
+                icons="flags"
+              >
+              </lib-selectIcon>
+              <lib-field-validations
+              [appControl]="editBrancheForm.controls['countryCode']"
+            >
+            </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12 md:col-6">
+            <lib-form-group>
+              <lib-label [appControl]="editBrancheForm.controls['branchRegion']">
+                {{ "Company.Branch.BranchRegion" | translate }}
+              </lib-label>
+              <lib-text-input type="text" formControlName="branchRegion" />
+              <lib-field-validations
+                [appControl]="editBrancheForm.controls['branchRegion']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12 md:col-6">
+            <lib-form-group>
+              <lib-label [appControl]="editBrancheForm.controls['branchCity']">
+                {{ "Company.Branch.BranchCity" | translate }}
+              </lib-label>
+              <lib-text-input type="text" formControlName="branchCity" />
+              <lib-field-validations
+                [appControl]="editBrancheForm.controls['branchCity']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12">
+            <lib-form-group>
+              <lib-label [appControl]="editBrancheForm.controls['branchEmail']">
+                {{ "Company.Branch.BranchEmail" | translate }}
+              </lib-label>
+              <lib-text-input type="text" formControlName="branchEmail" />
+              <lib-field-validations
+                [appControl]="editBrancheForm.controls['branchEmail']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12">
+            <lib-form-group>
+              <lib-label [appControl]="editBrancheForm.controls['branchAddress']">
+                {{ "Company.Branch.BranchAddress" | translate }}
+              </lib-label>
+              <lib-text-input type="text" formControlName="branchAddress" />
+              <lib-field-validations
+                [appControl]="editBrancheForm.controls['branchAddress']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+  
+          <div class="col-4">
+            <lib-form-group>
+              <lib-label
+                [appControl]="editBrancheForm.controls['mobileNumberCode']"
+              >
+                {{ "Company.Branch.MobileNumberCode" | translate }}
+              </lib-label>
+              <lib-selectIcon
+                formControlName="mobileNumberCode"
+                optionValue="id"
+                [options]="lookups[LookupEnum.MobileCode]"
+                optionLabel="name"
+                [selectedValue]="selectecMobile"
+                icons="flags"
+  
+              >
+              </lib-selectIcon>
+            </lib-form-group>
+          </div>
+          <div class="col-8">
+            <lib-form-group>
+              <lib-label [appControl]="editBrancheForm.controls['mobileNumber']">
+                {{ "Company.Branch.MobileNumber" | translate }}
+              </lib-label>
+              <lib-text-input type="tel" formControlName="mobileNumber" />
+              <lib-field-validations
+                [appControl]="editBrancheForm.controls['mobileNumber']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+        </div>
+      </form>
+  </div>
+  </div>
+  <div class="pop_up_footer">
+    <div class="grid">
+      <div class="md:col-6">
+        <div class="cancel_btn">
+          <lib-button-micro 
+        title=' {{ "Company.Cancel" | translate }}'
+        nameClass="cancel"
+        (click)="onCancel()"
+        widthNumber="100%"
+        >
+        
+        </lib-button-micro>
+        </div>
+      </div>
+      <div class="md:col-6">
+        <div class="save_btn">
+          <lib-button-micro 
+          title=' {{ "Company.Save" | translate }}'
+          nameClass="save"
+          (click)="onSubmit()"
+          widthNumber ="100%"
+          >
+          
+          </lib-button-micro>
+        </div>
+      </div>
+    </div>
+ 
+    
+    
+  </div>
+  </div>

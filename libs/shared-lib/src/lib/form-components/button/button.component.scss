@@ -1,0 +1,266 @@
+::ng-deep .red {
+  .p-button {
+    color: #ffffff;
+    background: #cb3f2d;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid #cb3f2d;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+  .p-button:hover {
+    background: #d14a38;
+    color: #ffffff;
+    border-color: #d14a38;
+  }
+}
+
+::ng-deep .addToList {
+  .p-button {
+    margin-inline-start: 5px;
+    margin-inline-end: 5px;
+    color: #ffffff;
+    background: #1a90b0;
+    padding: 10px 16px;
+    border-radius: 8px;
+    // width: 140px;
+    text-align: center;
+    transition: all 0.5s ease;
+  }
+}
+::ng-deep .orange {
+  .p-button {
+    color: #ffffff;
+    background: #e17f24;
+    border: 1px solid #e17f24;
+  }
+  .p-button:hover {
+    background: #db7e27;
+    color: #ffffff;
+    border-color: #db7e27;
+  }
+}
+::ng-deep .light-blue {
+  .p-button {
+    color: #ffffff;
+    background: #4fb2cd;
+    border: 1px solid #4fb2cd;
+    background: #1a90b0;
+    border: 0px solid #3b82f6;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s,
+      outline-color 0.2s;
+    border-radius: 6px;
+    outline-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    margin-top: 5px;
+  }
+  .p-button:hover {
+    color: #ffffff;
+    background: #5fb2ca;
+    border: 1px solid #4fb2cd;
+    background: #1a90b0;
+    border: 0px solid #3b82f6;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s,
+      outline-color 0.2s;
+    border-radius: 6px;
+    outline-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    margin-top: 5px;
+  }
+}
+
+::ng-deep .custom-light-blue {
+  button {
+    width: 100%;
+    display: block;
+  }
+  .p-button {
+    color: #ffffff;
+    background: #4fb2cd;
+    border: 1px solid #4fb2cd;
+    background: #1a90b0;
+    border: 0px solid #3b82f6;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s,
+      outline-color 0.2s;
+    border-radius: 6px;
+    outline-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    margin-top: 5px;
+  }
+  .p-button:hover {
+    color: #ffffff;
+    background: #5fb2ca;
+    border: 1px solid #4fb2cd;
+    background: #1a90b0;
+    border: 0px solid #3b82f6;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s,
+      outline-color 0.2s;
+    border-radius: 6px;
+    outline-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    margin-top: 5px;
+  }
+}
+
+::ng-deep .saveForm {
+  .p-button {
+    color: #ffffff;
+    background: #4fb2cd;
+    border: 1px solid #4fb2cd;
+    background: #1a90b0;
+    border: 0px solid #3b82f6;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s,
+      outline-color 0.2s;
+    border-radius: 6px;
+    outline-color: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+::ng-deep .export {
+  .p-button {
+    background: #36a19b;
+    border: 1px solid #36a19b;
+    color: #ffffff;
+    border: 1px solid #36a19b;
+    background: #36a19b;
+    border: 0px solid #36a19b;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s,
+      outline-color 0.2s;
+    border-radius: 6px;
+    outline-color: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+::ng-deep .custom-danger-outline {
+  button {
+    width: 100%;
+    display: block;
+  }
+  .p-button {
+    background-color: transparent;
+    color: #ef4444;
+    border: 1px solid;
+    padding: 10px;
+    margin-top: 5px;
+
+    font-size: 1rem;
+  }
+
+  .p-button:hover {
+    background-color: #ef4444;
+    color: #fff;
+    border: 1px solid;
+    padding: 10px;
+
+    margin-top: 5px;
+    font-size: 1rem;
+  }
+}
+
+::ng-deep .saveBtn {
+  .p-button {
+    width: 213px;
+    display: block;
+    padding: 12px;
+    color: #ffffff;
+    background: #4fb2cd;
+    border: 1px solid #4fb2cd;
+    background: #1a90b0;
+    border: 0px solid #3b82f6;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s,
+      outline-color 0.2s;
+    border-radius: 10px;
+    outline-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    padding: 13px;
+    margin-top: 5px;
+  }
+}
+
+::ng-deep .new-line {
+  .p-button {
+    width: 141px;
+    background-color: transparent;
+    border: 0;
+    color: #1a90b0;
+    font-weight: bold;
+  }
+  .p-button:focus {
+    box-shadow: none !important;
+    border: 0 !important;
+  }
+}
+
+::ng-deep .adminPortal {
+  button {
+    width: auto;
+    display: block;
+  }
+  .p-button {
+    background-color: #009ef7;
+    color: #fff;
+    border: 1px solid;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 1rem;
+    border-radius: 5px;
+  }
+
+  .p-button:hover {
+    background-color: #009cf7d7;
+    color: #fff;
+    border: 1px solid;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 1rem;
+    border-radius: 5px;
+  }
+}
+
+::ng-deep .outline-primary {
+  button {
+    width: 100%;
+    display: block;
+  }
+  .p-button {
+    background-color: transparent;
+    color: #4fb2cd;
+    border: 1px solid #4fb2cd;
+    padding: 10px;
+    margin-top: 5px;
+
+    font-size: 1rem;
+  }
+
+  .p-button:hover {
+    background-color: #4fb2cd;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 10px;
+
+    margin-top: 5px;
+    font-size: 1rem;
+  }
+}

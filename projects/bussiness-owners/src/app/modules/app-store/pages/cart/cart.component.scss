@@ -1,0 +1,117 @@
+// .FDFEFE
+.cart_page{
+    background: #FDFEFE;
+    padding: 20px;
+    .cart_header{
+        .title{
+
+        }
+    }
+    .data_table{
+        .data_head{
+            padding: 10px 0px;
+            border-bottom:1px solid #B6BAC3 ;
+        }
+        .data_body{
+            margin-top: 20px;
+            padding: 30px 5px;
+            border: 1px solid #cfd2d7;
+           // box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; 
+               }
+           
+            .item{
+                display: flex;
+                align-items: center;
+                justify-content: start;
+
+                .app_name{
+                    .view{
+                        margin-top: 10px;
+                      .btn_view{
+                        padding: 5px 10px;
+                        background: #F7F8F8;
+                        color: #1a90b0;
+                        border: none;
+                        border-radius: 8px;
+                        font-size: 16px;
+                        cursor: pointer;
+                      }  
+                    }
+                }
+            }
+            .btn_action{
+                button{
+                    background: none;
+                    cursor: pointer;
+                    border: none;
+                   
+                }
+                .edit{
+                    color: #0D4859;
+                    border:1px solid #0D4859;
+                    padding: 20px 5px;
+                    margin-inline-end: 5px;
+
+                }
+                .delet{
+                    color: #CB3F2D;
+                    border:1px solid #CB3F2D;
+                    padding: 20px 5px;
+                }
+            }
+        }
+        .cart_Details{
+            box-shadow: rgba(33, 35, 38, 0.1) 0px -10px 50px -10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            //min-height: 90vh;
+            height: 100%;
+            .text{
+               .title{
+                font-size: 32px;
+                color: #383A42;
+               } 
+               
+                .total_items , .singel_item{
+                    margin-top: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    .title{
+                        font-size: 17px;
+                    }
+                    .price{
+                        font-size: 17px;
+                    }
+                
+              
+               }
+            }
+            
+            .btn_action{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                button{
+                    width: 90%;
+                    margin: auto;
+                    padding: 10px 0px;
+                    border-radius: 12px;
+                    margin-top: 20px;
+                    cursor: pointer;
+                }
+                .Check_out{
+                    background:#1a90b0 ;
+                    border: 1px solid #1a90b0;
+                    color: #fff;
+                }
+                .Cancel{
+                    background:#fff ;
+                    border: 1px solid #1a90b0;
+                    color: #1a90b0;
+                }
+            }
+        }
+}

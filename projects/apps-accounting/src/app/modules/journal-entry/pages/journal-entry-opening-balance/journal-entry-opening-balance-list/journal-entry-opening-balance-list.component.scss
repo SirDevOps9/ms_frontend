@@ -1,0 +1,64 @@
+.user_page {
+  padding: 0;
+  margin: 0;
+}
+.status {
+    padding: 0px 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    p{
+        margin-block: 8px;
+    }
+}
+.draft{
+    background:#F7F8F8 ;
+    color: #383A42;
+}
+.unbalanced{
+    background:#F5D9D5 ;
+    color: #CC3F2D;
+}
+.unposted{
+    background:#D1E9EF ;
+    color: #737374;
+}
+.returned{
+    background:#F9E5D3 ;
+    color: #E17F24;
+}
+.Posted{
+    background:#D1E9EF ;
+    color: #1A90B0;
+}
+.dot{
+    display: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #fff;
+    margin-inline-end: 5px;
+    margin-block: 0;
+}
+.edit {
+  color: red !important;
+}
+.add_new {
+  background: #1a90b0 !important;
+  border: none !important;
+  border-radius: 12px;
+  padding: 15px 20px;
+  color: #fff;
+  margin-inline-start: 30px !important;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.export {
+  background: #36a19b !important;
+}
+.group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

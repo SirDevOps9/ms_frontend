@@ -1,0 +1,45 @@
+.containar_modules {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  .card {
+    margin-inline-end: 30px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    max-width: 175px;
+    cursor: pointer;
+    .card_description {
+      margin-inline-start: 24px;
+    }
+  }
+  .modal-card {
+    border-radius: 8px;
+    background: #fff
+      url('../../../../../../projects/apps-accounting/src/assets/images/apps/small-bg.png')
+      no-repeat right bottom;
+    border: 1px solid #e3e3e3;
+    border-radius: 8px;
+    padding-inline-start: 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    .card_photo {
+      margin-block: 16px;
+      img {
+        height: 50px;
+      }
+    }
+  }
+}
+
+.mdoduleImage {
+  height: 66px;
+}
+
+.pointer {
+  cursor: pointer;
+}

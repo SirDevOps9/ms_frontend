@@ -1,0 +1,162 @@
+.upload {
+    background: #1a90b0;
+    border: 0px solid #3B82F6;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+    border-radius: 6px;
+    outline-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    margin-top: 23px;
+}
+
+.form {
+  width: 98%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    margin: 20px;
+
+}
+
+.upload-container {
+    width: 98%;
+    height: 265px;
+    margin: 20px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+  
+  .upload-container:hover {
+    border-color: #007bff;
+  }
+  
+  .upload-icon {
+    text-align: center;
+    color: #ccc;
+  }
+  
+  .upload-icon i {
+    font-size: 48px;
+  }
+  
+  .upload-icon p {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+  
+  .uploaded-image img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+  .container li {
+    font-weight: 500;
+    background-color: #eff5ff;
+    color: #025bee;
+    margin-bottom: 1em;
+    padding: 1.1em 1em;
+    border-radius: 0.3em;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .image-container {
+    position: relative;
+    display: inline-block; /* or any other display property that fits your layout */
+}
+
+.bottom-center {
+    position: absolute;
+    bottom: 0;
+    color: #f97316;
+    left: 20%; /* Adjusted to 50% for true center */
+    transform: translateX(-50%);
+    background-color: transparent; /* Optional: Background for better readability */
+    color: white; /* Text color */
+    text-align: center; /* Center the text inside the div */
+}
+
+.attach-delete i {
+    transition: transform 0.3s ease-in-out;
+    color: #f97316;
+
+}
+
+.attach-delete i:hover {
+    transform: scale(1.4); /* Scale the icon to 1.2 times its size */
+    color: #f97316;
+ 
+}
+
+
+.card {
+  width: 97%;
+  height: 265px;
+    margin: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+
+
+/* Card header */
+.card-header {
+  background-color: #f5f5f5;
+  padding: 10px;
+  font-size: 1.25em;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Card image */
+.card-image img {
+  width: 70%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+/* Card content */
+.card-content {
+  padding: 15px;
+  font-size: 1em;
+  color: #333;
+  text-align: center;
+}
+
+/* Card footer */
+.card-footer {
+  padding: 5px;
+  background-color: #f5f5f5;
+  text-align: center;
+  border-top: 1px solid #ddd;
+}
+
+/* Card button */
+.card-button {
+  padding: 10px 20px;
+  font-size: 1em;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}

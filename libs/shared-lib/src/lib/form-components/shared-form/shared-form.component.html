@@ -1,0 +1,406 @@
+<form
+  class="row d-flex align-items-center sharedForm"
+  [class.form]="formClass"
+  [formGroup]="form"
+>
+  <div *ngFor="let elem of fields" class=" {{ elem.class }} ">
+    <!----- input ------>
+    <div
+      *ngIf="
+        (elem.type === 'text' && !elem?.hidden) ||
+        (elem.type === 'number' && !elem?.hidden)
+      "
+    >
+      <label
+        *ngIf="(elem.label && elem.type === 'text') || elem.type === 'number'"
+        class="fw-bold"
+        >{{ elem.label }}</label
+      >
+      <span
+        class="text-danger pt-1"
+        style="font-size: 20px"
+        *ngIf="elem.required"
+        >*</span
+      >
+      <span
+        class="text-danger pt-1"
+        style="font-size: 20px"
+        *ngIf="!elem.required"
+      ></span>
+
+      <input
+        pInputText
+        placeholder="{{ elem.placeholder }}"
+        type="{{ elem.type }}"
+        [formControlName]="elem.key"
+        class="w-100"
+        *ngIf="elem.type === 'text' || elem.type === 'number'"
+        (ngModelChange)="formValues.emit(this.form.getRawValue())"
+      />
+      <div *ngIf="elem.customError">
+        <span class="text-danger">{{ elem.customErrorMessage }}</span>
+      </div>
+    </div>
+
+    <!----- Date ------->
+    <div
+      *ngIf="elem.type === 'date' && !elem?.hidden"
+      class="select p-input-icon-right w-100"
+    >
+      <label class="fw-bold">{{ elem.label }}</label>
+      <span
+        class="text-danger pt-1"
+        style="font-size: 20px"
+        *ngIf="form.controls[elem.key]?.hasError('required')"
+        >*</span
+      >
+      <span
+        class="text-danger pt-1"
+        style="font-size: 20px"
+        *ngIf="!form.controls[elem.key]?.hasError('required')"
+      ></span>
+
+      <div class="d-flex align-items-center">
+        <p-calendar
+          class="w-100"
+          placeholder="{{ elem.placeholder }}"
+          dateFormat="{{ elem?.dataOptions?.dateFormat || 'dd/mm/yy' }}"
+          [formControlName]="elem.key"
+          appendTo="body"
+          [minDate]="elem?.dataOptions?.minDate"
+          [maxDate]="elem?.dataOptions?.maxDate"
+          [showIcon]="true"
+        >
+        </p-calendar>
+
+        <i
+          class="pi pi-times pointerMouseIcon fw-bold mr-4"
+          (click)="
+            form.controls[elem.key].disabled
+              ? null
+              : form.controls[elem.key].reset()
+          "
+          *ngIf="form.controls[elem.key]?.value"
+        ></i>
+      </div>
+    </div>
+
+    <!-------  ------->
+    <div *ngIf="elem.type === 'password' && !elem?.hidden">
+      <div class="d-flex justify-content-start align-items-center">
+        <label class="fw-bold">{{ elem.label }}</label>
+        <span
+          class="text-danger pt-1"
+          style="font-size: 20px"
+          *ngIf="elem.required"
+          >*</span
+        >
+        <span
+          class="text-danger pt-1"
+          style="font-size: 20px"
+          *ngIf="!elem.required"
+        ></span>
+      </div>
+
+      <p-password
+        [toggleMask]="true"
+        placeholder="{{ elem.placeholder }}"
+        [formControlName]="elem.key"
+        class="w-100"
+      ></p-password>
+    </div>
+
+    <!----- Year Date ----->
+    <div *ngIf="elem.type === 'dateYear' && !elem?.hidden">
+      <label class="fw-bold">{{ elem.label }}</label>
+      <span
+        class="text-danger pt-1"
+        style="font-size: 20px"
+        *ngIf="form.controls[elem.key]?.hasError('required')"
+        >*</span
+      >
+      <span
+        class="text-danger pt-1"
+        style="font-size: 20px"
+        *ngIf="!form.controls[elem.key]?.hasError('required')"
+      ></span>
+      <p-calendar
+        view="year"
+        class="w-100"
+        dateFormat="yy"
+        inputId="yearpicker"
+        [formControlName]="elem.key"
+        appendTo="body"
+        placeholder="{{ elem.placeholder }}"
+        [showIcon]="true"
+      >
+      </p-calendar>
+    </div>
+
+    <!------ time picker ------>
+    <div *ngIf="elem.type === 'time' && !elem?.hidden" class="timerPicker">
+      <label class="fw-bold">{{ elem.label }}</label>
+      <span
+        class="text-danger pt-1"
+        style="font-size: 20px"
+        *ngIf="form.controls[elem.key]?.hasError('required')"
+        >*</span
+      >
+      <span
+        class="text-danger pt-1"
+        style="font-size: 20px"
+        *ngIf="!form.controls[elem.key]?.hasError('required')"
+      ></span>
+
+      <div class="d-flex align-items-center">
+        <!-- Time Icon -->
+        <div class="time d-flex align-items-center justify-content-center">
+          <i class="fas fa-clock mr-2" style="font-size: 20px"></i>
+        </div>
+
+        <!-- Calendar Input -->
+        <p-calendar
+          [showTime]="true"
+          hourFormat="12"
+          [timeOnly]="true"
+          [formControlName]="elem.key"
+          class="w-100"
+          appendTo="body"
+          placeholder="{{ elem.placeholder }}"
+        ></p-calendar>
+      </div>
+    </div>
+
+    <!------ dropdown lookup ------>
+    <div
+      *ngIf="elem.type === 'select' && !elem?.hidden"
+      class="select p-input-icon-right w-100"
+    >
+      <label class="fw-bold">{{ elem.label }}</label>
+      <span
+        class="text-danger pt-1"
+        style="font-size: 20px"
+        *ngIf="form.controls[elem.key]?.hasError('required')"
+        >*</span
+      >
+      <span
+        class="text-danger pt-1"
+        style="font-size: 20px"
+        *ngIf="!form.controls[elem.key]?.hasError('required')"
+      ></span>
+      <div class="d-flex align-items-center">
+        <p-dropdown
+          [options]="(elem.options | async) || []"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="{{ elem.placeholder }}"
+          [formControlName]="elem.key"
+          class="w-100"
+          appendTo="body"
+        ></p-dropdown>
+        <i
+          class="pi pi-times pointerMouseIcon fw-bold"
+          (click)="
+            form.controls[elem.key].disabled
+              ? null
+              : form.controls[elem.key].reset()
+          "
+          *ngIf="form.controls[elem.key]?.value"
+        ></i>
+      </div>
+    </div>
+
+    <!------- dropdown lookup ------->
+    <div *ngIf="elem.type === 'multiSelect' && !elem?.hidden">
+      <label class="fw-bold">{{ elem.label }}</label>
+      <span
+        class="text-danger pt-1"
+        style="font-size: 20px"
+        *ngIf="form.controls[elem.key]?.hasError('required')"
+        >*</span
+      >
+      <span
+        class="text-danger pt-1"
+        style="font-size: 20px"
+        *ngIf="!form.controls[elem.key]?.hasError('required')"
+      ></span>
+      <p-multiSelect
+        [options]="(elem.options | async) || []"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="{{ elem.placeholder }}"
+        [formControlName]="elem.key"
+        class="w-100"
+        (onChange)="onMultiSelected($event)"
+        appendTo="body"
+      >
+      </p-multiSelect>
+    </div>
+
+    <!--------- Test Area -------->
+    <div *ngIf="elem.type === 'textArea' && !elem?.hidden">
+      <label class="fw-bold">{{ elem.label }}</label>
+      <span
+        class="text-danger pt-1"
+        style="font-size: 20px"
+        *ngIf="form.controls[elem.key]?.hasError('required')"
+        >*</span
+      >
+      <span
+        class="text-danger pt-1"
+        style="font-size: 20px"
+        *ngIf="!form.controls[elem.key]?.hasError('required')"
+      ></span>
+      <textarea
+        class="py-3 mt-2"
+        rows="2"
+        cols="5"
+        pInputTextarea
+        placeholder="{{ elem.placeholder }}"
+        [formControlName]="elem.key"
+      ></textarea>
+    </div>
+
+    <!--------- switch -------->
+    <div *ngIf="elem.type === 'switch' && !elem?.hidden">
+      <label class="fw-bold" *ngIf="elem.label">{{ elem.label }}</label>
+      <span
+        class="text-danger pt-1"
+        style="font-size: 20px"
+        *ngIf="form.controls[elem.key]?.hasError('required')"
+        >*</span
+      >
+      <span
+        class="text-danger pt-1"
+        style="font-size: 20px"
+        *ngIf="!form.controls[elem.key]?.hasError('required')"
+      ></span>
+      <div class="py-2 d-flex gap-2">
+        <p class="fw-bold">
+          {{ form.controls[elem.key].value === true ? "Active" : "Deactive" }}
+        </p>
+        <p-inputSwitch [formControlName]="elem.key"></p-inputSwitch>
+      </div>
+    </div>
+
+    <!------- checkBox ------>
+    <div *ngIf="elem.type === 'checkBox' && !elem?.hidden">
+      <label class="fw-bold">{{ elem.label }}</label>
+      <span
+        class="text-danger pt-1"
+        style="font-size: 20px"
+        *ngIf="form.controls[elem.key]?.hasError('required')"
+        >*</span
+      >
+      <span
+        class="text-danger pt-1"
+        style="font-size: 20px"
+        *ngIf="!form.controls[elem.key]?.hasError('required')"
+      ></span>
+      <div class="py-2 d-flex gap-2 align-items-center">
+        <p-checkbox [binary]="true" [formControlName]="elem.key"></p-checkbox>
+        <p class="fw-bold m-0">{{ elem.placeholder }}</p>
+      </div>
+    </div>
+
+   
+
+    <!-------- inline Template ------->
+    <div *ngIf="elem.template" class="mt-5 pt-4" [class]="elem.class">
+      <p>
+        {{ elem.template }}
+      </p>
+    </div>
+
+    <div [class]="elem.class" *ngIf="elem.type === 'empty'"></div>
+
+    <!-------- blocked Template -------->
+    <div *ngIf="elem.templateBlocked" class="{{ elem.class }}">
+      <p class="m-0 p-0">{{ elem.label }}</p>
+      <small> {{ elem.templateBlocked }}</small>
+    </div>
+
+    <!------ Add Button To Save Form ------>
+    <div
+      *ngIf="elem.addBtn && !elem?.hidden"
+      class="{{ elem.class }} mt-5 pt-4"
+    >
+      <p-button
+        icon="pi pi-plus"
+        styleClass="p-button-rounded"
+        [disabled]="!form.valid"
+        (onClick)="sendFormValues()"
+      ></p-button>
+    </div>
+
+    <!-------------------------------------- validations ---------------------------------->
+
+    <!-- first Validation for required and pattern -->
+    <div
+      *ngIf="
+        form.controls[elem.key]?.hasError('required') &&
+        form.controls[elem.key]?.touched
+      "
+      class="text-danger"
+    >
+      {{ elem.label }} Is Required
+    </div>
+
+    <!---- second for Pattern  ----->
+    <div
+      *ngIf="
+        form.controls[elem.key]?.hasError('pattern') &&
+        form.controls[elem.key]?.touched &&
+        form.controls[elem.key]?.dirty &&
+        !form.controls[elem.key]?.hasError('minlength') &&
+        !form.controls[elem.key]?.hasError('maxlength')
+      "
+      class="text-danger"
+    >
+      {{ elem.label }} {{ elem.validators.PatternMessage }}
+    </div>
+
+    <!----- third for min length  ---->
+
+    <div
+      *ngIf="
+        form.controls[elem.key]?.touched &&
+        form.controls[elem.key]?.hasError('minlength') &&
+        form.controls[elem.key]?.dirty
+      "
+      class="text-danger"
+    >
+      {{ elem.label }}
+      {{ elem.validators.minLengthMessage }}
+    </div>
+
+    <!----- fourth for Max length  ----->
+    <div
+      *ngIf="
+        form.controls[elem.key]?.touched &&
+        form.controls[elem.key]?.hasError('maxlength') &&
+        form.controls[elem.key]?.dirty
+      "
+      class="text-danger"
+    >
+      {{ elem.label }}
+      {{ elem.validators.maxLengthMessage }}
+    </div>
+  </div>
+
+
+  <!------ Save To Send Form ------>
+  <div
+    class="d-flex justify-content-center"
+    style="margin-top: 10px"
+    *ngIf="showSaveBtn"
+  >
+    <button
+      class="btn btn-primary saveBtn"
+      (click)="sendFormValues()"
+      [disabled]="!form.valid || disSave || disSaveBtn"
+    >
+      Save
+    </button>
+  </div>
+</form>

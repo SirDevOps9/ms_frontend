@@ -1,0 +1,88 @@
+<lib-page-content>
+    <lib-data-table
+              [items]="tableData"
+              className="p-datatable-gridlines"
+              [currentPageResult]="currentPageInfo"
+              (pageChange)="onPageChange($event)"
+              [tableConfigs]="{
+                allowPagination: false,
+                allowServerPagination: true,
+                dataKey: 'id',
+                pageSize: 10,
+                columns: [
+                   
+                   {
+                     name: 'fromCurrencyName',
+                     headerText: ('currencyConversion.FromCurrency' | translate),
+                     isGlobalFilter: true,
+                     isSortable: true
+                   },
+                   {
+                     name: 'fromCurrencyRate',
+                     headerText: ('currencyConversion.CurrencyRate' | translate),
+                     isGlobalFilter: true,
+                     isSortable: true
+                   },
+                 
+                   {
+                     name: 'toCurrencyName',
+                     headerText: ('currencyConversion.ToCurrency' | translate),
+                   },
+                   {
+                     name: 'reversedRate',
+                     headerText: ('currencyConversion.ReversedRate' | translate) ,
+                   },
+                   {
+                     name: 'note',
+                     headerText: ('currencyConversion.Notes' | translate) ,
+                   },
+             
+                   {
+                     name: 'id',
+                     headerText: ('currencyConversion.Actions' | translate),
+                     template : actions
+                   },
+                 ]
+              }"
+            >
+    
+              <ng-container caption>
+                <div class="group flex justify-content-between">
+                  <div>
+                    <span class="p-input-icon-left">
+                      <i class="pi pi-search"></i>
+                      <input pInputText type="text" placeholder="{{ 'currencyConversion.search' | translate }}" (keyup)="onSearchChange($event)" />
+                    </span>
+                  </div>
+
+                  <div class="flex gap-2">
+           
+            
+                    <lib-export  
+                    (exportClick)="exportClick($event)"
+                    [exportData]="exportData"
+                    [exportColumns]="exportColumns"
+                    [ExportName]="'Currency Conversion'">
+                  </lib-export>
+
+      
+                    <lib-button pRipple className="addToList" label="{{ 'currencyConversion.addNew' | translate }}" (onClick)="addNew()" [icon]="'pi pi-plus'"></lib-button>
+      
+                
+                </div>
+        
+              
+             
+                </div>
+              </ng-container>
+          
+              <ng-template #actions let-actions>
+                <div class="actions flex align-items-center ">
+                  <img src="assets/images/table/edit.svg" alt="" (click)="Edit(actions.id)" />
+                  <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(actions.id)" />
+                </div>
+              </ng-template>
+    
+             
+            </lib-data-table>
+    </lib-page-content>

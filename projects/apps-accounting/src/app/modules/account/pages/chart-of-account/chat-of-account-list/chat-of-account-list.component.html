@@ -1,0 +1,112 @@
+<div>
+  <div class="user_page">
+    <lib-data-table
+      [items]="tableData"
+      className="p-datatable-gridlines"
+      [currentPageResult]="currentPageInfo"
+      (pageChange)="onPageChange($event)"
+      [tableConfigs]="{
+        allowPagination: false,
+        allowServerPagination: true,
+        dataKey: 'id',
+        pageSize: 10,
+        columns: [
+          {
+            name: 'accountCode',
+            headerText: 'ChartOfAccount.AccountCode' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'name',
+            headerText: 'ChartOfAccount.AccountName' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+
+          {
+            name: 'levelNumber',
+            headerText: 'ChartOfAccount.levelNumber' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'accountSectionName',
+            headerText: 'ChartOfAccount.AccountSection' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'accountTypeName',
+            headerText: 'ChartOfAccount.AccountType' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'natureId',
+            headerText: 'ChartOfAccount.Nature' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          }
+        ]
+      }"
+    >
+      <ng-container caption>
+        <div class="group flex justify-content-between">
+          <div>
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                (input)="searchTermChange($event)"
+                [placeholder]="'ChartOfAccount.Search' | translate"
+              />
+            </span>
+          </div>
+          <div>
+            <lib-export
+              (exportClick)="exportAccountsData($event)"
+              [exportData]="exportData"
+              [exportColumns]="exportColumns"
+              [ExportName]="'Accounts'"
+            >
+            </lib-export>
+          </div>
+          <!-- <div class="flex justify-content-end gap-3">
+          <button class="primary" (click)="navigateToAdd()">
+            <span class="pi pi-plus"></span>
+            {{ 'Add New' | translate }}
+          </button>
+      
+          <div>
+            <lib-export  
+              (exportClick)="exportClick($event)"
+              [exportData]="tableData"
+              [exportColumns]="exportColumns"
+              [ExportName]="'Employees List'">
+            </lib-export>
+            </div>
+        </div> -->
+        </div>
+      </ng-container>
+
+      <ng-template #userCol let-Account>
+        <div class="actions flex align-items-center">
+          <lib-button
+            className="edit"
+            type="button"
+            (click)="routeToEdit(Account.id)"
+            icon="pi pi-pencil"
+            [rounded]="true"
+            [enableText]="true"
+            severity="secondary"
+          >
+          </lib-button>
+          <lib-button icon="pi pi-trash" [rounded]="true" [enableText]="true" severity="secondary">
+          </lib-button>
+        </div>
+      </ng-template>
+    </lib-data-table>
+  </div>
+</div>

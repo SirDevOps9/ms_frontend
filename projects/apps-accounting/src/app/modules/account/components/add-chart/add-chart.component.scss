@@ -1,0 +1,45 @@
+.chart_add_page{
+margin-top: 20px;
+background-color: #fff;
+padding: 20px 10px;
+border: 1px solid #ddd;
+border-radius: 8px;
+.account_activation{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .title{
+        margin-inline-start: 5px;
+    }
+}
+.action{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+::ng-deep{
+    .p-multiselect {
+        width: 100% !important;
+    }
+    .p-radiobutton .p-radiobutton-box.p-highlight {
+        border-color: #1a90b0 !important;
+        background: #1a90b0 !important;
+    }
+    
+        
+        .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+            background: #1a90b0 !important;
+          }
+          .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider {
+            background: #1a90b0 !important;
+          }
+          .p-inputswitch.p-focus .p-inputswitch-slider {
+            box-shadow:  none !important;
+          }
+    
+
+  
+}
+}
+

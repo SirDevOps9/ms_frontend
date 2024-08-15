@@ -1,0 +1,28 @@
+.chart_add {
+  padding-inline-start: 10px;
+}
+.clockIcon {
+    color: #1a90b0;
+}
+.gernerateCont {
+  margin-bottom: 12px;
+  cursor: pointer;
+  margin-left: 15px;
+}
+.generateBtn{
+    color: #1a90b0;
+    font-size: 15px;
+
+}
+::ng-deep .user_pages {
+  .p-datatable-header {
+    display: none !important;
+  }
+}
+
+.none {
+  display: none;
+}
+.generate{
+  margin-bottom: 10px;
+}

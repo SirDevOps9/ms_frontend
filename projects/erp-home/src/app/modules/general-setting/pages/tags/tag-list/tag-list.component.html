@@ -1,0 +1,113 @@
+<lib-page-content [title]="'tag.taglist' | translate" [subTitle]="'tag.taglist' | translate">
+  <div>
+    <div class="user_page">
+      <lib-data-table
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        (addNew)="addNew($event)"
+        [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: true,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+         
+            {
+              name: 'code',
+              headerText: ('tag.code' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'name',
+              headerText: ('tag.Name' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'modules',
+              headerText: ('tag.Modules' | translate),
+            },
+            {
+              name: 'isActive',
+              headerText: ('tag.status' | translate),
+              template: status
+            },
+            {
+              name: 'id',
+              headerText: ('tag.Actions' | translate),
+              template: userCol
+            }
+          ]
+        }"
+      >
+        <ng-container caption>
+          <div class="group flex justify-content-between">
+            <div>
+              <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  placeholder="{{ 'tag.Search' | translate }}"
+                  (keyup)="onSearchChange($event)"
+                />
+              </span>
+            </div>
+            <div class="flex gap-2">
+              <lib-export
+                (exportClick)="exportTagData($event)"
+                [exportData]="exportData"
+                [exportColumns]="exportColumns"
+                [ExportName]="'Tag'"
+              >
+              </lib-export>
+              <lib-button
+                pRipple
+                className="addToList"
+                label="{{ 'tag.AddNew' | translate }}"
+                (onClick)="newTag()"
+                [icon]="'pi pi-plus'"
+              >
+              </lib-button>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #userCol let-tag>
+          <div class="actions flex align-items-center">
+            <img src="assets/images/table/edit.svg" alt="" (click)="routeToEdit(tag)" />
+            <img src="assets/images/table/delete.svg" alt="" (click)="Delete(tag.id)" />
+          </div>
+        </ng-template>
+
+        <ng-template #status let-tag>
+          <div >
+            <lib-input-switch [disabled]="true" (onChange)="changed($event, tag.id)" [(ngModel)]="tag.isActive">
+            </lib-input-switch>
+          </div>
+        </ng-template>
+
+        <ng-template #Modules let-tag>
+          <div class="flex">
+            <p>
+              {{ viewModulesName(tag.modulesId) }}
+            </p>
+          </div>
+
+          <!-- <lib-multi-select
+            [options]="modulelist"
+            optionLabel="module"
+            optionValue="moduleId"
+            [selectedValue]="tag.modulesId"
+            [readOnly]="true"
+            [disabled]="true"
+          >
+          </lib-multi-select> -->
+        </ng-template>
+      </lib-data-table>
+    </div>
+  </div>
+</lib-page-content>

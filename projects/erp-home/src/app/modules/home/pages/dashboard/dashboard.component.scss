@@ -1,0 +1,85 @@
+.card-container {
+  // position: relative;
+  // width: 470px; /* Adjust as needed */
+  // padding: 5px;
+  padding: 1rem;
+}
+
+// .background {
+//   width: 100%;
+//   height: 110px
+// }
+
+// .foreground {
+//   position: absolute;
+//   top: 18px;
+//   left: 50px;
+//   width: 90px;
+//   height: 81px;
+// }
+
+
+.modal-card {
+  cursor: pointer;
+  border-radius: 8px;
+  background: #fff 
+    url('../../../../../assets/images/apps/lg-bg.png') no-repeat
+    right bottom;
+  border: 1px solid #E3E3E3;
+  border-radius: 8px;
+  padding-inline-start: 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  margin-bottom: 24px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+
+  .card_photo {
+    margin-block: 16px;
+    // img {
+    //   height: 50px;
+    // }
+  }
+  .caption {
+    font-size: 20px; /* Adjust as needed */
+    color: #5E6278; /* Adjust as needed */
+    font-weight: 700;
+  }
+  
+}
+
+.modal-card:hover {
+  // transform: scale(1.05);
+  // box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+  // animation: blurScaleChange 2s forwards;
+  // animation: bkChange 1s forwards;
+
+}
+
+
+
+@keyframes blurScaleChange {
+  0% {
+      filter: blur(0px);
+      
+  }
+  30% {
+      filter: blur(1px);
+      
+  }
+  100% {
+      filter: blur(0px);
+      transform: scale(1.05);
+  }
+}
+@keyframes bkChange {
+  0% {
+    background: #eeeeee url('../../../../../assets/images/apps/lg-bg-f.png') no-repeat right bottom;
+  }
+  
+  
+  100% {
+    background: #eeeeee url('../../../../../assets/images/apps/lg-bg-f.png') no-repeat right top;
+  }
+}

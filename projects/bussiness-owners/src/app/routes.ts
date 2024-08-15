@@ -1,13 +1,27 @@
-import { AuthGuard } from '../../../shared-lib/src/lib/guards/auth.guard';
-import { sharedRoutes } from '../../../shared-lib/src/lib/shared.routes';
-import { AppComponent } from './app.component';
-import { LayoutComponent } from './compnents/layout/layout.component';
+import { LayoutComponent } from './modules/layout/layout-page/layout.component';
+import { UserconfirmationComponent } from './modules/user/pages/inviteduserconfirmation/userconfirmation.component';
+import { AuthGuard } from 'microtec-auth-lib';
+import { MySubscriptionsComponent } from './modules/subscription/pages/my-subscriptions/my-subscriptions.component';
+import { BreadcrumbLabel } from 'shared-lib';
 
 export const BORoutes = [
-  ...sharedRoutes,
   {
     path: '',
     component: LayoutComponent,
-    children: [{ path: '', component: AppComponent, }],
+    children: [
+      {
+        path: '',
+        component: MySubscriptionsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.my_subscription,
+        },
+      },
+    ],
   },
+  { path: 'users/userconfirmation/:id', component: UserconfirmationComponent },
+  // {
+  //   path: '**',
+  //   component: NotFoundComponent,
+  // },
 ];

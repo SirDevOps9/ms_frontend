@@ -1,0 +1,218 @@
+<ng-container *ngIf="notvalid">
+  <div class="not_valid">  {{ "UserConfirmation.NOTVALIDACOUNT" | translate }}</div>
+</ng-container>
+
+<div class="confirm_invitation_pages" *ngIf="validId">
+  <div class="container_page">
+    <div class="welcome_card">
+      <h2 class="title">  {{ "UserConfirmation.Hello" | translate }}!</h2>
+      <h2 class="sub_title">  {{ "UserConfirmation.Welcome" | translate }}</h2>
+    </div>
+    <div class="form_card">
+      <div class="sec_header mb-3">
+        <p class="title">  {{ "UserConfirmation.ConfirmInvitation" | translate }}</p>
+      </div>
+      <div class="form_content ">
+        <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+       <div >
+        <lib-form-group>
+          <lib-label [appControl]="userForm.controls['photo']">
+            {{ "photo" }}
+          </lib-label>
+          <lib-file-uploader
+            type="photo"
+            formControlName="photo"
+            [config]="{
+              type: sharedLibEnums.AttachmentFileTypes.image,
+              viewThumbnail: true
+            }"
+            [appControl]="userForm.controls['photo']"
+          />
+          <lib-field-validations [appControl]="userForm.controls['photo']">
+          </lib-field-validations>
+        </lib-form-group>
+       </div>
+        
+          <div class="user_name_email mb-6">
+            <div class="user_name">
+              <label for="fullName">{{
+                "UserConfirmation.Name" | translate
+              }}</label>
+              <input
+                type="text"
+                placeholder="Name here"
+                id="fullName"
+                pInputText
+                formControlName="fullName"
+              />
+              <!-- <p *ngIf="!fullName.valid" >name is a required</p> -->
+              <!-- <div *ngIf=" userForm.fullName.errors?.required ">Name is required.</div> -->
+              <span
+                *ngIf="
+                  (userForm.controls['fullName'].dirty ||
+                    userForm.controls['fullName'].touched) &&
+                  userForm.hasError('required', 'fullName')
+                "
+                class="text-danger"
+              >
+                {{ "UserConfirmation.Name" | translate }}
+                {{ "UserConfirmation.IsRequired" | translate }}
+              </span>
+            </div>
+            <div class="user_email">
+              <label for="email">{{
+                "UserConfirmation.Email" | translate
+              }}</label>
+              <input
+                type="email"
+                [readOnly]="true"
+                placeholder="Email  here"
+                id="email"
+                pInputText
+                formControlName="email"
+              />
+              <span
+                *ngIf="
+                  (userForm.controls['email'].dirty ||
+                    userForm.controls['email'].touched) &&
+                  userForm.hasError('required', 'email')
+                "
+                class="text-danger"
+              >
+                {{ "UserConfirmation.Email" | translate }}
+                {{ "UserConfirmation.IsRequired" | translate }}
+              </span>
+            </div>
+          </div>
+          <div class="user_name_email mb-6">
+            <div class="user_name">
+              <label for="password">{{
+                "UserConfirmation.Password" | translate
+              }}</label>
+              <p-password
+                class="w-full"
+                formControlName="password"
+                id="password"
+                [feedback]="false"
+                [toggleMask]="true"
+              ></p-password>
+              <span
+                *ngIf="
+                  (userForm.controls['password'].dirty ||
+                    userForm.controls['password'].touched) &&
+                  userForm.hasError('required', 'password')
+                "
+                class="text-danger"
+              >
+                {{ "UserConfirmation.Password" | translate }}
+                {{ "UserConfirmation.IsRequired" | translate }}
+              </span>
+              <div class="my-1">
+                <span
+                  class="d-block"
+                  *ngIf="
+                    userForm.get('password')?.hasError('pattern') &&
+                    userForm.controls['password'].dirty
+                  "
+                  class="text-danger"
+                >
+                  <span
+                    class="d-block"
+                    class="d-block"
+                    *ngIf="
+                      !userForm.controls['password'].value?.match(
+                        '^(?=.*[A-Z])'
+                      )
+                    "
+                  >
+                    {{ "UserConfirmation.UpperCaseLetter" | translate }}</span
+                  >
+                  <span
+                    class="d-block"
+                    class="d-block"
+                    *ngIf="
+                      !userForm.controls['password'].value?.match('(?=.*[a-z])')
+                    "
+                  >
+                    {{ "UserConfirmation.LowerCaseLetter" | translate }}</span
+                  >
+                  <span
+                    class="d-block"
+                    class="d-block"
+                    *ngIf="
+                      !userForm.controls['password'].value?.match('(.*[0-9].*)')
+                    "
+                  >
+                    {{
+                      "UserConfirmation.PasswordmustcontainNumber" | translate
+                    }}</span
+                  >
+                  <span
+                    class="d-block"
+                    class="d-block"
+                    *ngIf="
+                      !userForm.controls['password'].value?.match(
+                        '(?=.*[!@#$%^&*])'
+                      )
+                    "
+                  >
+                    {{ "UserConfirmation.SpecialCharacter" | translate }}</span
+                  >
+                </span>
+              </div>
+            </div>
+            <div class="user_email">
+              <label for="confirmPassword">{{
+                "UserConfirmation.ConfirmPassword" | translate
+              }}</label>
+              <p-password
+                formControlName="confirmPassword"
+                id="confirmPassword"
+                [feedback]="false"
+                [toggleMask]="true"
+              ></p-password>
+              <span
+                *ngIf="
+                  (userForm.controls['confirmPassword'].dirty ||
+                    userForm.controls['confirmPassword'].touched) &&
+                  userForm.hasError('required', 'confirmPassword')
+                "
+                class="text-danger"
+              >
+                {{ "UserConfirmation.ConfirmPassword" | translate }}
+                {{ "UserConfirmation.IsRequired" | translate }}
+              </span>
+              <span *ngIf="userForm.errors?.['passwordmatcherror']">
+                {{ "UserConfirmation.ConfirmPassword" | translate }}
+                {{ "UserConfirmation.Doesnotmatch" | translate }}
+              </span>
+            </div>
+          </div>
+          <div class="policy mb-6">
+            <!-- <p-checkbox formControlName="acceptPolicy"  inputId="policy"></p-checkbox>
+          <label for="policy">I Agree to the <span>terms of use</span>  and <span>privacy policy</span> </label>
+          -->
+            <input
+              type="checkbox"
+              id="policy"
+              formControlName="acceptPolicy"
+              class="form-check-input"
+            />
+            <label for="policy" class="form-check-label body_b16">{{
+              "UserConfirmation.policy" | translate
+            }}</label>
+          </div>
+
+          <div class="actions mb-6">
+            <button type="button " class="disabled body_b16" *ngIf="userForm.invalid">
+              {{ "UserConfirmation.Save" | translate }}
+            </button>
+            <button type="submit " class="save body_b16" *ngIf="userForm.valid">
+              {{ "UserConfirmation.Save" | translate }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

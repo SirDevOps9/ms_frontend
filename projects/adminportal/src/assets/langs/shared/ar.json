@@ -1,4 +1,6 @@
 {
-    "dir": "rtl",
-    "Submit":"حفظ"
+  "dir": "rtl",
+  "Submit": "حفظ",
+  "Export": "تصدير",
+  "Error": "خطأ"
 }

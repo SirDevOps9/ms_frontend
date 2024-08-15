@@ -1,0 +1,45 @@
+<div class="cost_add_page">
+  
+        <div class="faild">
+            <lib-form-group>
+                <p class="paragraph_b18 code">  {{'costCenter.code' | translate}}</p>
+
+                
+                <lib-text-input [readOnly]="true" [placeholder]="costView?.code!"  type="text" />
+               
+              </lib-form-group>
+        </div>
+        <div class="faild">
+            <lib-form-group>
+                <p class="paragraph_b18 code">  {{'costCenter.name' | translate}}</p>
+
+                <lib-text-input  [readOnly]="true"  type="text" [placeholder]="costView?.name!" />
+               
+              </lib-form-group>
+        
+        </div>
+        <div class="faild" *ngIf="costView?.parentName !=''">
+        <lib-form-group>
+            <p class="paragraph_b18 code">    {{'costCenter.parentAccount' | translate}}</p>
+
+            <lib-text-input [readOnly]="true"   type="text" [placeholder]="costView?.parentName!" />
+
+      
+  
+        </lib-form-group>
+        </div>
+        <div class="faild">
+            <lib-form-group>
+                <p class="paragraph_b18"> Is Detail</p>
+                <input type="checkbox"    id="isDetail" disabled="disabled" [checked]="costView?.isDetail" >
+                <label for="isDetail"> {{'costCenter.yes' | translate}}</label>
+                
+                
+            </lib-form-group>
+        </div>
+       <div class="action">
+     
+       </div>
+        
+   
+</div>

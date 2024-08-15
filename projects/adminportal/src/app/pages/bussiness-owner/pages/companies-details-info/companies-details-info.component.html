@@ -1,0 +1,56 @@
+<div class="mt-5">
+  <lib-bread-crumb></lib-bread-crumb>
+  <div class="companies-container">
+    <lib-data-table
+      [items]="dataList"
+      className="p-datatable-gridlines"
+      [currentPageResult]="currentPageInfo"
+      (pageChange)="onPageChange($event)"
+      [tableConfigs]="{
+
+          allowPagination: true,
+          allowServerPagination: false,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'code',
+              headerText: ('Company Code' ),
+              isGlobalFilter: true,
+              isSortable: false
+            },
+            {
+              name: 'name',
+              headerText: ('Company Name'),
+              isGlobalFilter: true,
+              isSortable: false
+            },
+            {
+              name: 'companyType',
+              headerText: ('Company Type'),
+              isGlobalFilter: true,
+              isSortable: false,
+              template: companyType
+
+            },
+
+
+          ]
+        }"
+    >
+
+    <ng-template #companyType let-companyType>
+      <div *ngIf="companyType.companyType == SharedBussinessOwnerEnums.companyTypes.Holding">
+        <p> Holding</p>
+      </div>
+      <div *ngIf="companyType.companyType == SharedBussinessOwnerEnums.companyTypes.Subsidiary">
+        <p> Subsidiary</p>
+      </div>
+      </ng-template>
+
+    
+
+
+    </lib-data-table>
+  </div>
+</div>

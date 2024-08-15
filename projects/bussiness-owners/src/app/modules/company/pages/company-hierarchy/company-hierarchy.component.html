@@ -1,0 +1,54 @@
+<lib-page-content>
+  <div class="company_addres">
+    <form [formGroup]="companyHierarchyForm">
+      <fieldset [disabled]="true">
+        <div class="contact_form">
+          <div class="grid">
+            <div class="col-12">
+              <lib-form-group>
+                <lib-label
+                  [appControl]="companyHierarchyForm.controls['companyType']"
+                >
+                  {{ "Company.Hierarchy.CompanyType" | translate }}
+                </lib-label>
+                <div class="view body_b16">
+                  {{ companyTypeName }}
+                </div>
+              </lib-form-group>
+            </div>
+            <div class="col-12 md:col-3">
+              <div *ngIf="companyType === holdingCompany">
+                <div *ngFor="let subsidiary of subsidiaryList">
+                  <lib-form-group>
+                    <lib-label
+                      [appControl]="companyHierarchyForm.controls['subsidiary']"
+                    >
+                      {{ companyTypeLabel }}
+                    </lib-label>
+                    <div class="view body_b16">
+                      {{ subsidiary.name }}
+                    </div>
+                  </lib-form-group>
+                </div>
+              </div>
+              <div *ngIf="companyType === subsidiaryCompany">
+                <lib-form-group>
+                  <lib-label
+                    [appControl]="companyHierarchyForm.controls['subsidiary']"
+                  >
+                    {{ companyTypeLabel }}
+                  </lib-label>
+                  <div class="view body_b16">
+                    {{ holdingCompanyName }}
+                  </div>
+                </lib-form-group>
+              </div>
+            </div>
+          </div>
+        </div>
+        </fieldset>
+      </form>
+    
+   
+  </div>
+</lib-page-content>

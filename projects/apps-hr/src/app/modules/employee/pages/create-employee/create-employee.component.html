@@ -1,0 +1,322 @@
+<div class="new_employee">
+  <div class="grid">
+    <div class="md:col-2">
+      <div class="sidebar">
+        <ul>
+          <li class="active">{{ 'Employee.PersonalInfo' | translate }}</li>
+          <li>{{ 'Employee.ContactInfo' | translate }}</li>
+          <li>{{ 'Employee.AcademicInfo' | translate }}</li>
+          <li>{{ 'Employee.OfficialInfo' | translate }}</li>
+          <li>{{ 'Employee.ContractInfo' | translate }}</li>
+          <li>{{ 'Employee.FinancialInfo' | translate }}</li>
+          <li>{{ 'Employee.AttendanceInfo' | translate }}</li>
+          <li>{{ 'Employee.FunctionalInfo' | translate }}</li>
+          <li>{{ 'Employee.DependantsInfo' | translate }}</li>
+          <li>{{ 'Employee.CovenantInfo' | translate }}</li>
+          <li>{{ 'Employee.SocialInsuranceInfo' | translate }}</li>
+          <li>{{ 'Employee.MedicalInsurance' | translate }}</li>
+          <li>{{ 'Employee.AttachmentInfo' | translate }}</li>
+          <li>{{ 'Employee.HistoricalInfo' | translate }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="md:col-10">
+      <div class="form_content">
+        <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
+          <div class="actions">
+            <button type="button" class="cancel" (click)="onDiscard()">
+              {{ 'Employee.Add.Discard' | translate }}
+            </button>
+            <button type="submit" class="save">
+              {{ 'Employee.Add.Save' | translate }}
+            </button>
+          </div>
+
+          <div class="grid">
+            <div class="md:col-12 info">
+              {{ 'Employee.BasicInfo' | translate }}
+            </div>
+            <div class="md:col-12 ">
+              <lib-form-group>
+                <lib-file-uploader
+                  formControlName="employeePhoto"
+                  [uploadClassName]="'rounded'"
+                  [className]="'rounded'"
+                  [showImgName]="false"
+                  [config]="{
+                    type: sharedLibEnums.AttachmentFileTypes.image,
+                    viewThumbnail: true
+                  }"
+                  [appControl]="addEmployeeForm.controls['employeePhoto']"
+                ></lib-file-uploader>
+
+                <lib-field-validations
+                  [appControl]="addEmployeeForm.controls['employeePhoto']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
+      
+            
+            <div class="md:col-4">
+              <lib-form-group>
+                <div class="my-1">
+                  {{ 'Employee.Add.EmployeeCode' | translate }}
+                </div>
+                <div class="view">
+                  {{ EmployeeCode }}
+                </div>
+              </lib-form-group>
+            </div>
+            <div class="md:col-4 employee-container">
+              <lib-form-group>
+                <div class="my-1">
+                  <lib-label [appControl]="addEmployeeForm.controls['attendanceCode']">
+                    {{ 'Employee.Add.AttendanceCode' | translate }}
+                  </lib-label>
+                </div>
+                <lib-text-input type="number" formControlName="attendanceCode"></lib-text-input>
+                <lib-field-validations
+                  [appControl]="addEmployeeForm.controls['attendanceCode']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="md:col-4 employee-container">
+              <lib-form-group>
+                <div class="my-1">
+                  <lib-label [appControl]="addEmployeeForm.controls['employeeName']">
+                    {{ 'Employee.Add.EmployeeName' | translate }}
+                  </lib-label>
+                </div>
+                <lib-text-input type="text" formControlName="employeeName"></lib-text-input>
+                <lib-field-validations
+                  [appControl]="addEmployeeForm.controls['employeeName']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
+            
+            <div class="md:col-12 info">
+              {{ 'Employee.BirthInfo' | translate }}
+            </div>
+            <div class="md:col-3">
+              <lib-form-group>
+                <div class="my-1">
+                  <lib-label [appControl]="addEmployeeForm.controls['birthDate']">
+                    {{ 'Employee.Add.BirthDate' | translate }}
+                  </lib-label>
+                </div>
+                <lib-text-input type="date" formControlName="birthDate"></lib-text-input>
+                <lib-field-validations
+                  [appControl]="addEmployeeForm.controls['birthDate']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="md:col-3">
+              <lib-form-group>
+                <div class="my-1">
+                  <label>
+                    {{ 'Employee.Add.Age' | translate }}
+                  </label>
+                </div>
+                <div class="view">
+                  {{ Age }}
+                </div>
+              </lib-form-group>
+            </div>
+            <div class="md:col-3">
+              <lib-form-group>
+                <div class="my-1">
+                  <lib-label [appControl]="addEmployeeForm.controls['countryOfBirth']">
+                    {{ 'Employee.Add.CountryOfBirth' | translate }}
+                  </lib-label>
+                </div>
+
+                <lib-selectIcon
+                  formControlName="countryOfBirth"
+                  [options]="countries"
+                  optionValue="id"
+                  optionLabel="nameEn"
+                  (valueChanged)="onCountryChange($event)"
+                  icons="flags"
+                >
+                </lib-selectIcon>
+                <lib-field-validations [appControl]="addEmployeeForm.controls['countryOfBirth']">
+                </lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="md:col-3">
+              <lib-form-group>
+                <div class="my-1">
+                  <lib-label [appControl]="addEmployeeForm.controls['birthCity']">
+                    {{ 'Employee.Add.BirthCity' | translate }}
+                  </lib-label>
+                </div>
+                <lib-select
+                  formControlName="birthCity"
+                  [options]="cities"
+                  optionValue="id"
+                  optionLabel="name"
+                >
+                </lib-select>
+                <lib-field-validations [appControl]="addEmployeeForm.controls['birthCity']">
+                </lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="md:col-12 info">
+              {{ 'Employee.OtherInfo' | translate }}
+            </div>
+            <div class="md:col-3">
+              <lib-form-group>
+                <div class="my-1">
+                  <lib-label [appControl]="addEmployeeForm.controls['nationality']">
+                    {{ 'Employee.Add.Nationality' | translate }}
+                  </lib-label>
+                </div>
+
+                <lib-selectIcon
+                  formControlName="nationality"
+                  [options]="nationalities"
+                  optionValue="id"
+                  optionLabel="nameEn"
+                  [selectedValue]="selectedNationality"
+                  icons="flags"
+                >
+                </lib-selectIcon>
+                <lib-field-validations [appControl]="addEmployeeForm.controls['nationality']">
+                </lib-field-validations>
+              </lib-form-group>
+            </div>
+
+            <div class="md:col-3">
+              <lib-form-group>
+                <div class="my-1">
+                  <lib-label [appControl]="addEmployeeForm.controls['gender']">
+                    {{ 'Employee.Add.Gender' | translate }}
+                  </lib-label>
+                </div>
+                <lib-select
+                  formControlName="gender"
+                  [options]="lookups[LookupEnum.Gender]"
+                  optionValue="id"
+                  optionLabel="name"
+                ></lib-select>
+                <lib-field-validations
+                  [appControl]="addEmployeeForm.controls['gender']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="md:col-3">
+              <lib-form-group>
+                <div class="my-1">
+                  <lib-label [appControl]="addEmployeeForm.controls['maritalStatus']">
+                    {{ 'Employee.Add.MaritalStatus' | translate }}
+                  </lib-label>
+                </div>
+                <lib-select
+                  formControlName="maritalStatus"
+                  [options]="lookups[LookupEnum.MaritalStatus]"
+                  optionValue="id"
+                  optionLabel="name"
+                ></lib-select>
+                <lib-field-validations
+                  [appControl]="addEmployeeForm.controls['maritalStatus']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="md:col-3">
+              <lib-form-group>
+                <div class="my-1">
+                  <lib-label [appControl]="addEmployeeForm.controls['religion']">
+                    {{ 'Employee.Add.Religion' | translate }}
+                  </lib-label>
+                </div>
+                <lib-select
+                  formControlName="religion"
+                  [options]="lookups[LookupEnum.Religion]"
+                  optionValue="id"
+                  optionLabel="name"
+                ></lib-select>
+                <lib-field-validations
+                  [appControl]="addEmployeeForm.controls['religion']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="md:col-12 info">
+              {{ 'Employee.MilitaryInfo' | translate }}
+            </div>
+            <div class="md:col-6">
+              <lib-form-group>
+                <div class="my-1">
+                  <lib-label [appControl]="addEmployeeForm.controls['militaryStatus']">
+                    {{ 'Employee.Add.MilitaryStatus' | translate }}
+                  </lib-label>
+                </div>
+                <lib-select
+                  formControlName="militaryStatus"
+                  [options]="lookups[LookupEnum.MilitaryStatus]"
+                  optionValue="id"
+                  optionLabel="name"
+                ></lib-select>
+                <lib-field-validations
+                  [appControl]="addEmployeeForm.controls['militaryStatus']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="md:col-6">
+              <lib-form-group>
+                <div class="my-1">
+                  <lib-label [appControl]="addEmployeeForm.controls['militaryNumber']">
+                    {{ 'Employee.Add.MilitaryNumber' | translate }}
+                  </lib-label>
+                </div>
+                <lib-text-input type="text" formControlName="militaryNumber"></lib-text-input>
+                <lib-field-validations
+                  [appControl]="addEmployeeForm.controls['militaryNumber']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="md:col-12 info">
+              {{ 'Employee.SpecialCare' | translate }}
+            </div>
+            <div class="md:col-6">
+              <lib-form-group>
+                <div class="my-1">
+                  <lib-label [appControl]="addEmployeeForm.controls['bloodType']">
+                    {{ 'Employee.Add.BloodType' | translate }}
+                  </lib-label>
+                </div>
+                <lib-select
+                  formControlName="bloodType"
+                  [options]="lookups[LookupEnum.BloodType]"
+                  optionValue="id"
+                  optionLabel="name"
+                ></lib-select>
+                <lib-field-validations
+                  [appControl]="addEmployeeForm.controls['bloodType']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="md:col-6">
+              <lib-form-group>
+                <div class="p-field-checkbox special_care">
+                  <p-checkbox
+                    formControlName="withSpecialNeeds"
+                    binary="true"
+                    inputId="withSpecialNeedsCheckbox"
+                  ></p-checkbox>
+
+                  <lib-label [appControl]="addEmployeeForm.controls['withSpecialNeeds']">
+                    {{ 'Employee.Add.WithSpecialNeeds' | translate }}
+                  </lib-label>
+                </div>
+                <lib-field-validations
+                  [appControl]="addEmployeeForm.controls['withSpecialNeeds']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

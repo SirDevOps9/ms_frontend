@@ -1,0 +1,44 @@
+.actions {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    .save {
+      
+      height: 50px;
+      text-transform: capitalize;
+      font-size: 22px;
+      background-color: #1a90b0;
+      color: #fff;
+      padding: 5px 20px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      margin-inline-end: 20px;
+      &:hover{
+        background-color: #fff;
+        color: #1a90b0;
+        border: 1px solid #1a90b0;
+      }
+    }
+}
+
+fieldset {
+  border: none; 
+}
+.view{
+  color: #4b5563;
+  background: #D8DBDF;
+  border-radius: 8px;
+  padding: 0 15px;
+  min-height: 40px;
+  border: 1px solid #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+.company_addres{
+  padding-top: 50px;
+  width: 90%;
+  margin: auto;
+}

@@ -1,0 +1,18 @@
+<div [ngClass]="customClass">
+  <p-dropdown
+  [filter]="true"
+  [disabled]="readOnly"
+  [optionValue]="optionValue"
+  [options]="options"
+  [optionLabel]="optionLabel"
+  [(ngModel)]="selectedValue"
+  
+  (onChange)="change($event)"
+  [placeholder]="placeholder"
+  [ngClass]="{'read':readOnly}"
+  appendTo="body"
+  [attr.data-testid]="this.labelTest"
+  (onFilter)="onFilter($event)"
+></p-dropdown>
+
+</div>

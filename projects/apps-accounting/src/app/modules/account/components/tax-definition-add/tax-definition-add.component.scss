@@ -1,0 +1,134 @@
+// @import "../../../../../assets/styling/scss/variables/_font-family";
+// .pop_up_config_page{
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     flex-direction: column;
+//     .pop_up_header{
+//         width: 100%;
+//         .header_content{
+//         width: 100%;
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-between;
+//         background: #f7f8f8;
+//         padding: 30px;
+//         margin-bottom: 10px;
+//         border-bottom: 1px solid black;
+    
+//         .title {
+//           display: flex;
+//           font-size: 18px;
+//           font-weight: 700;
+//           color: #383a42;
+//           .plus_icon {
+//             width: 40px;
+//             height: auto;
+//             margin-right: 10px;
+//             background-image: url("../../../../../assets/images/plans/file-plus.svg");
+//             background-size: contain;
+//             background-position: center;
+//             background-repeat: no-repeat;
+            
+//           }
+//         }
+//         .cancel {
+//           cursor: pointer;
+//           font-size: 15px;
+//           font-weight: 700;
+//         }
+//     }
+       
+//     }
+//     .pop_up_content{
+//         width: 95% ;
+//        // padding:50px 0 !important;
+
+//         .title{
+//             background: #f7f8f8;
+//             padding: 8px;
+//             border-radius: 4px;
+//             font-size: 16px;
+//             font-family: $cairo_regular;
+//           //  padding: 0 38px !important;
+//         }
+//         .icon{
+//             margin-inline-end: 5px;
+//         }
+//         .add_line{
+//           width: fit-content;
+//             font-size:16px;
+//             font-family: $cairo_regular;
+//             color: #1a90b0;
+//             cursor: pointer;
+//             padding-inline-start: 10px;
+//         }
+//         .card{
+//       max-height: 400px;
+//       overflow: auto;
+
+//         }
+      
+//     }
+//     .pop_up_footer{
+//         position: fixed;
+//         bottom: 0;
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-evenly;
+//         width: 100%;
+//         background: #f7f8f8;
+//         padding: 10px;
+     
+     
+//     }
+   
+// }
+// ::ng-deep {
+//     .pop_up_config_page{
+//         .p-dialog {
+//          .p-dialog-content {
+//             padding: 0 0 0 0 !important;
+//           }
+//         }
+        
+      
+        
+// }
+// .p-dialog {
+//     .p-dialog-content {
+//        padding: 0 0 0 0 !important;
+//      }
+//    }
+//    .p-dialog-mask{
+//     justify-content: end !important;
+//     align-items: end !important;
+//     z-index: 1000 !important;
+//   }
+//   .p-dialog .p-dialog-content:last-of-type {
+//     border-top-left-radius: 15px !important;
+//     border-bottom-left-radius: 15px !important;
+//     overflow-x: hidden;
+  
+//   }
+//   .p-dialog {
+//     .p-dialog-header {
+//       display: none !important;
+//     }
+  
+//   }
+// }
+
+// .cancel_btn , .save_btn {
+//   width: 49%;
+// }
+
+// .view{
+//   font-size: 1rem;
+//   color: #4b5563;
+//   background: #ffffff;
+//   padding:15px;
+//   min-height: 45px;
+//   border-radius: 6px;
+//   border: 1px solid #d1d5db;
+// }

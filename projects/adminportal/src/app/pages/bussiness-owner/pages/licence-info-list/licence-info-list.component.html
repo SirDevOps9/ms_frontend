@@ -1,0 +1,83 @@
+<div class="mt-5">
+    <lib-bread-crumb></lib-bread-crumb>
+    <div class="companies-container">
+      <lib-data-table
+      [items]="dataList"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        [tableConfigs]="{
+  
+            allowPagination: true,
+            allowServerPagination: false,
+            dataKey: 'id',
+            pageSize: 10,
+            columns: [
+              {
+                name: 'licenseId',
+                headerText: ('Licence Code' ),
+                isGlobalFilter: true,
+                isSortable: false
+              },
+              {
+                name: 'licenseNameEn',
+                headerText: ('Licence Name'),
+                isGlobalFilter: true,
+                isSortable: false
+              },
+              {
+                name: 'startDate',
+                headerText: ('Supscrition Start Date'),
+                isGlobalFilter: true,
+                isSortable: false,
+                template: startDate
+              },
+              {
+                name: 'endDate',
+                headerText: ('Supscrition End Date'),
+                isGlobalFilter: true,
+                isSortable: false,
+                template: endDate
+
+              },
+              {
+                name: 'price',
+                headerText: ('Licence Price'),
+                isGlobalFilter: true,
+                isSortable: false
+              },
+              {
+                name: 'purchasingPaymentPeriod',
+                headerText: ('Licence Interval'),
+                isGlobalFilter: true,
+                isSortable: false
+              },
+              {
+                name: 'isActive',
+                headerText: ('Licence Status'),
+                isGlobalFilter: true,
+                isSortable: false
+              },
+              {
+                name: 'mob3',
+                headerText: ('Linked User'),
+                isGlobalFilter: true,
+                isSortable: false
+              },
+  
+  
+            ]
+          }"
+      >
+      <ng-template #startDate let-startDate>
+        {{startDate.startDate | date:'dd/MM/yyyy'}}
+      </ng-template>
+  
+      <ng-template #endDate let-endDate>
+        {{endDate.endDate | date:'dd/MM/yyyy'}}
+      </ng-template>
+  
+      </lib-data-table>
+    </div>
+  </div>
+  

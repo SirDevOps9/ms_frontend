@@ -2,24 +2,69 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SharedLibModule } from '../../../shared-lib/src/public-api';
-import { AbstractSecurityStorage, AuthModule } from 'angular-auth-oidc-client';
+import { EnvironmentService, MultiTranslateHttpLoader, SharedLibModule } from 'shared-lib';
 import { environment } from '../environments/environment';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { MultiTranslateHttpLoader } from '../../../shared-lib/src/lib/services/translationHttpLoader';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
-import { ERPInterceptor } from '../../../shared-lib/src/lib/interceptors/http.interceptor';
-import { LayoutComponent } from './components/layout/layout.component';
+import { ERPInterceptor, MicrotecAuthLibModule } from 'microtec-auth-lib';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { InlineSVGModule } from 'ng-inline-svg-2';
+import { ClipboardModule } from 'ngx-clipboard';
+import { DeferLoadModule } from '@trademe/ng-defer-load';
 
+import { ToastrModule } from 'ngx-toastr';
+import { MessageService } from 'primeng/api';
+import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
+
+// @NgModule({
+//   declarations: [AppComponent, LayoutComponent],
+//   imports: [
+//     BrowserModule,
+//     AppRoutingModule,
+//     TranslateModule.forRoot({
+//       loader: {
+//         provide: TranslateLoader,
+//         useFactory: (http: HttpClient) =>
+//           new MultiTranslateHttpLoader(http, {
+//             resources: [
+//               { prefix: './assets/langs/shared/', suffix: '.json' },
+//               { prefix: './assets/langs/adminportal/', suffix: '.json' },
+//             ],
+//           }),
+//         deps: [HttpClient],
+//       },
+//     }),
+//     AuthModule.forRoot({
+//       config: environment.openIdConfig,
+//     }),
+//     MicrotecAuthLibModule,
+//     SharedLibModule,
+//     BrowserAnimationsModule,
+//     CookieModule.withOptions(),
+//   ],
+//   providers: [
+//     { provide: EnvironmentService, useValue: environment },
+//     {
+//       provide: HTTP_INTERCEPTORS,
+//       useClass: ERPInterceptor,
+//       multi: true,
+//     },
+//     { provide: AbstractSecurityStorage, useClass: CustomStorageService },
+//   ],
+//   bootstrap: [AppComponent],
+// })
 @NgModule({
-  declarations: [
-    AppComponent,
-    LayoutComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    TranslateModule.forRoot(),
+    HttpClientModule,
+    ClipboardModule,
+    // #fake-start#
+    // #fake-end#
     AppRoutingModule,
     TranslateModule.forRoot({
       loader: {
@@ -27,21 +72,29 @@ import { LayoutComponent } from './components/layout/layout.component';
         useFactory: (http: HttpClient) =>
           new MultiTranslateHttpLoader(http, {
             resources: [
-              { prefix: './assets/langs/shared/', suffix: '.json' },
-              { prefix: './assets/langs/adminportal/', suffix: '.json' },
+              { prefix: './assets/langs/auth/', suffix: '.json' },
+              { prefix: './assets/langs/bussiness-owners/', suffix: '.json' },
             ],
           }),
         deps: [HttpClient],
       },
     }),
-    AuthModule.forRoot({
-      config: environment.openIdConfig,
+    InlineSVGModule.forRoot(),
+    NgbModule,
+    DeferLoadModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
     }),
-    SharedLibModule.forRoot(environment),
+    MicrotecAuthLibModule,
+    SharedLibModule,
     BrowserAnimationsModule,
     CookieModule.withOptions(),
   ],
   providers: [
+    DynamicDialogRef,
+    MessageService,
+    DialogService,
+    { provide: EnvironmentService, useValue: environment },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ERPInterceptor,

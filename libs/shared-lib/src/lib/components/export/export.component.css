@@ -1,0 +1,36 @@
+::ng-deep .primary-export .p-button {
+    color: #ffffff;
+    background: #1a90b0;
+    border: 0px solid #1a90b0;
+    padding: 11px 43px;
+    font-size: 14px;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+    border-radius: 10px;
+    outline-color: transparent;
+    cursor: pointer;
+   
+}
+.container {
+  position: relative;
+  width: 157px;
+}
+::ng-deep .container .p-menu {
+        z-index: 1002;
+        width: 160px !important;
+        position: absolute;
+        top: 50.8px !important;
+        left: 0 !important; 
+        margin-right: 50px !important;
+      
+    }
+  
+  ::ng-deep .pi-file-excel {
+    color: green; /* Change this to your desired color */
+  }
+  ::ng-deep  .pi-file-pdf {
+    color: red; /* Change this to your desired color */
+  }
+  .exportImg{
+    height: 43px;
+    cursor: pointer;
+  }

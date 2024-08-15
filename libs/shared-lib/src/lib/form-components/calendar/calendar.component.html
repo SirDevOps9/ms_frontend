@@ -1,0 +1,13 @@
+<p-calendar
+  class="w-100"
+  [placeholder]="placeholder"
+  [dateFormat]="dateFormat"
+  appendTo="body"
+  [minDate]="minDate"
+  [maxDate]="maxDate"
+  [(ngModel)]="value"
+  (onSelect)="handleDateChange($event)"
+  [disabled]="disabled"
+  [defaultDate]="defaultDate!"
+  [showIcon]="true"
+></p-calendar>

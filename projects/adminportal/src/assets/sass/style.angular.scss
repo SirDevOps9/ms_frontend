@@ -1,0 +1,31 @@
+// Angular vendors
+@import "./core/base/functions";
+@import "./core/base/mixins";
+@import "./core/components/mixins";
+@import "./core/vendors/plugins/mixins";
+
+// Custom variables
+@import "components/variables.custom";
+@import "./core/components/variables";
+@import "./core/components/variables-dark";
+
+// Bootstrap initializaton
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+// 3rd-Party plugins variables
+@import "./core/vendors/plugins/variables";
+@import "./core/vendors/plugins/variables-dark";
+
+@import "node_modules/socicon/css/socicon.css";
+@import "node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+@import "node_modules/line-awesome/dist/line-awesome/css/line-awesome.css";
+@import "node_modules/prism-themes/themes/prism-shades-of-purple.css";
+@import "node_modules/bootstrap-icons/font/bootstrap-icons.css";
+@import "node_modules/animate.css/animate.css";
+@import "./core/vendors/plugins/prismjs";
+@import "./core/vendors/plugins/formvalidation";

@@ -1,0 +1,11 @@
+::ng-deep .bank {
+    .p-datatable.p-datatable-gridlines:has(.p-datatable-thead):has(.p-datatable-tbody) .p-datatable-tbody > tr > td {
+        border-width: 0 0 1px 1px;
+        padding: 12px !important;
+        text-align: center;
+    }
+    margin-top: 20px;
+}
+.pointer {
+    cursor: pointer;
+}

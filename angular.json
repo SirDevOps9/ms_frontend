@@ -7,6 +7,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
+          "style": "scss",
           "standalone": false
         },
         "@schematics/angular:directive": {
@@ -34,14 +35,13 @@
               "projects/bussiness-owners/src/assets"
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/indigo-pink.css",
-              "node_modules/bootstrap/scss/bootstrap.scss",
-              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "projects/bussiness-owners/src/styles.css"
             ],
-            "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -53,8 +53,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
                 }
               ],
               "outputHashing": "all"
@@ -114,7 +114,13 @@
               "projects/bussiness-owners/src/favicon.ico",
               "projects/bussiness-owners/src/assets"
             ],
-            "styles": ["projects/bussiness-owners/src/styles.css"],
+            "styles": [
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "/node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "projects/bussiness-owners/src/styles.css"
+            ],
             "scripts": []
           }
         }
@@ -124,7 +130,8 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "standalone": false
+          "standalone": false,
+          "style": "scss"
         },
         "@schematics/angular:directive": {
           "standalone": false
@@ -146,32 +153,29 @@
             "browser": "projects/adminportal/src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "projects/adminportal/tsconfig.app.json",
-            "assets": [
-              "projects/adminportal/src/favicon.ico",
-              "projects/adminportal/src/assets"
-            ],
+            "inlineStyleLanguage": "scss",
+            "assets": ["projects/adminportal/src/favicon.ico", "projects/adminportal/src/assets"],
             "styles": [
-              "@angular/material/prebuilt-themes/indigo-pink.css",
-              "node_modules/bootstrap/scss/bootstrap.scss",
-              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
-              "projects/adminportal/src/styles.css"
+              "projects/adminportal/src/styles.css",
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
-            "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
+                  "maximumWarning": "50mb",
                   "maximumError": "50mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
                 }
               ],
               "outputHashing": "all"
@@ -179,7 +183,24 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/adminportal/src/environments/environment.ts",
+                  "with": "projects/adminportal/src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "stage": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-accounting/src/environments/environment.ts",
+                  "with": "projects/apps-accounting/src/environments/environment.stage.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -207,10 +228,7 @@
           "options": {
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/adminportal/tsconfig.spec.json",
-            "assets": [
-              "projects/adminportal/src/favicon.ico",
-              "projects/adminportal/src/assets"
-            ],
+            "assets": ["projects/adminportal/src/favicon.ico", "projects/adminportal/src/assets"],
             "styles": ["projects/adminportal/src/styles.css"],
             "scripts": []
           }
@@ -219,21 +237,21 @@
     },
     "shared-lib": {
       "projectType": "library",
-      "root": "projects/shared-lib",
-      "sourceRoot": "projects/shared-lib/src",
+      "root": "libs/shared-lib",
+      "sourceRoot": "libs/shared-lib/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/shared-lib/ng-package.json"
+            "project": "libs/shared-lib/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/shared-lib/tsconfig.lib.prod.json"
+              "tsConfig": "libs/shared-lib/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/shared-lib/tsconfig.lib.json"
+              "tsConfig": "libs/shared-lib/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -241,11 +259,812 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/shared-lib/tsconfig.spec.json",
+            "tsConfig": "libs/shared-lib/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }
+    },
+    "microtec-auth-lib": {
+      "projectType": "library",
+      "root": "libs/microtec-auth-lib",
+      "sourceRoot": "libs/microtec-auth-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libs/microtec-auth-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/microtec-auth-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/microtec-auth-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "libs/microtec-auth-lib/tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
+        }
+      }
+    },
+    "apps-shared-lib": {
+      "projectType": "library",
+      "root": "libs/apps-shared-lib",
+      "sourceRoot": "libs/apps-shared-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libs/apps-shared-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/apps-shared-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/apps-shared-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "libs/apps-shared-lib/tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
+        }
+      }
+    },
+    "apps-accounting": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "standalone": false
+        },
+        "@schematics/angular:directive": {
+          "standalone": false
+        },
+        "@schematics/angular:pipe": {
+          "standalone": false
+        }
+      },
+      "root": "projects/apps-accounting",
+      "sourceRoot": "projects/apps-accounting/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/apps-accounting",
+            "baseHref": "/accounting/",
+            "index": "projects/apps-accounting/src/index.html",
+            "browser": "projects/apps-accounting/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/apps-accounting/tsconfig.app.json",
+            "assets": [
+              "projects/apps-accounting/src/favicon.ico",
+              "projects/apps-accounting/src/assets"
+            ],
+            "styles": [
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "projects/apps-accounting/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-accounting/src/environments/environment.ts",
+                  "with": "projects/apps-accounting/src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "stage": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-accounting/src/environments/environment.ts",
+                  "with": "projects/apps-accounting/src/environments/environment.stage.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "ssl": true,
+            "disableHostCheck": true,
+            "sslKey": "ssl\\localhost.key",
+            "sslCert": "ssl\\localhost.crt",
+            "port": 4402
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "apps-accounting:build:production"
+            },
+            "development": {
+              "buildTarget": "apps-accounting:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "apps-accounting:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "projects/apps-accounting/tsconfig.spec.json",
+            "assets": [
+              "projects/apps-accounting/src/favicon.ico",
+              "projects/apps-accounting/src/assets"
+            ],
+            "styles": [
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "/node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "projects/apps-accounting/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "apps-hr": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "standalone": false,
+          "style": "scss"
+        },
+        "@schematics/angular:directive": {
+          "standalone": false
+        },
+        "@schematics/angular:pipe": {
+          "standalone": false
+        }
+      },
+      "root": "projects/apps-hr",
+      "sourceRoot": "projects/apps-hr/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/apps-hr",
+            "baseHref": "/hr/",
+            "index": "projects/apps-hr/src/index.html",
+            "browser": "projects/apps-hr/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/apps-hr/tsconfig.app.json",
+            "assets": ["projects/apps-hr/src/favicon.ico", "projects/apps-hr/src/assets"],
+            "styles": [
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "projects/apps-hr/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-hr/src/environments/environment.ts",
+                  "with": "projects/apps-hr/src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "stage": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-hr/src/environments/environment.ts",
+                  "with": "projects/apps-hr/src/environments/environment.stage.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "ssl": true,
+            "disableHostCheck": true,
+            "sslKey": "ssl\\localhost.key",
+            "sslCert": "ssl\\localhost.crt",
+            "port": 4403
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "apps-hr:build:production"
+            },
+            "development": {
+              "buildTarget": "apps-hr:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "apps-hr:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "projects/apps-hr/tsconfig.spec.json",
+            "assets": ["projects/apps-hr/src/favicon.ico", "projects/apps-hr/src/assets"],
+            "styles": [
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "projects/apps-hr/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "erp-home": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "standalone": false,
+          "style": "scss"
+        },
+        "@schematics/angular:directive": {
+          "standalone": false
+        },
+        "@schematics/angular:pipe": {
+          "standalone": false
+        }
+      },
+      "root": "projects/erp-home",
+      "sourceRoot": "projects/erp-home/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "baseHref": "/erp/",
+            "outputPath": "dist/erp-home",
+            "index": "projects/erp-home/src/index.html",
+            "browser": "projects/erp-home/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/erp-home/tsconfig.app.json",
+            "assets": ["projects/erp-home/src/favicon.ico", "projects/erp-home/src/assets"],
+            "styles": [
+              "projects/erp-home/src/styles.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/erp-home/src/environments/environment.ts",
+                  "with": "projects/erp-home/src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "stage": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/erp-home/src/environments/environment.ts",
+                  "with": "projects/erp-home/src/environments/environment.stage.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "ssl": true,
+            "disableHostCheck": true,
+            "sslKey": "ssl\\localhost.key",
+            "sslCert": "ssl\\localhost.crt",
+            "port": 4401
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "erp-home:build:production"
+            },
+            "development": {
+              "buildTarget": "erp-home:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "erp-home:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "projects/erp-home/tsconfig.spec.json",
+            "assets": ["projects/erp-home/src/favicon.ico", "projects/erp-home/src/assets"],
+            "styles": [
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "projects/erp-home/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "apps-finance": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "standalone": false
+        },
+        "@schematics/angular:directive": {
+          "standalone": false
+        },
+        "@schematics/angular:pipe": {
+          "standalone": false
+        }
+      },
+      "root": "projects/apps-finance",
+      "sourceRoot": "projects/apps-finance/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "baseHref": "/finance/",
+            "outputPath": "dist/apps-finance",
+            "index": "projects/apps-finance/src/index.html",
+            "browser": "projects/apps-finance/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/apps-finance/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["projects/apps-finance/src/favicon.ico", "projects/apps-finance/src/assets"],
+            "styles": [
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "projects/apps-finance/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-finance/src/environments/environment.ts",
+                  "with": "projects/apps-finance/src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "stage": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-finance/src/environments/environment.ts",
+                  "with": "projects/apps-finance/src/environments/environment.stage.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "ssl": true,
+            "disableHostCheck": true,
+            "sslKey": "ssl\\localhost.key",
+            "sslCert": "ssl\\localhost.crt",
+            "port": 4404
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "apps-finance:build:production"
+            },
+            "development": {
+              "buildTarget": "apps-finance:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "apps-finance:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "projects/apps-finance/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["projects/apps-finance/src/favicon.ico", "projects/apps-finance/src/assets"],
+            "styles": [
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "projects/apps-finance/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "apps-sales": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "standalone": false
+        },
+        "@schematics/angular:directive": {
+          "standalone": false
+        },
+        "@schematics/angular:pipe": {
+          "standalone": false
+        }
+      },
+      "root": "projects/apps-sales",
+      "sourceRoot": "projects/apps-sales/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "baseHref": "/sales/",
+            "outputPath": "dist/apps-sales",
+            "index": "projects/apps-sales/src/index.html",
+            "browser": "projects/apps-sales/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/apps-sales/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["projects/apps-sales/src/favicon.ico", "projects/apps-sales/src/assets"],
+            "styles": [
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "projects/apps-sales/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-sales/src/environments/environment.ts",
+                  "with": "projects/apps-sales/src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "stage": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-sales/src/environments/environment.ts",
+                  "with": "projects/apps-sales/src/environments/environment.stage.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "ssl": true,
+            "disableHostCheck": true,
+            "sslKey": "ssl\\localhost.key",
+            "sslCert": "ssl\\localhost.crt",
+            "port": 4405
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "apps-sales:build:production"
+            },
+            "development": {
+              "buildTarget": "apps-sales:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "apps-sales:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "projects/apps-sales/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["projects/apps-sales/src/favicon.ico", "projects/apps-sales/src/assets"],
+            "styles": [
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "projects/apps-sales/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "apps-purchase": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "standalone": false
+        },
+        "@schematics/angular:directive": {
+          "standalone": false
+        },
+        "@schematics/angular:pipe": {
+          "standalone": false
+        }
+      },
+      "root": "projects/apps-purchase",
+      "sourceRoot": "projects/apps-purchase/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "baseHref": "/purchase/",
+            "outputPath": "dist/apps-purchase",
+            "index": "projects/apps-purchase/src/index.html",
+            "browser": "projects/apps-purchase/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/apps-purchase/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/apps-purchase/src/favicon.ico",
+              "projects/apps-purchase/src/assets"
+            ],
+            "styles": [
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "projects/apps-purchase/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-purchase/src/environments/environment.ts",
+                  "with": "projects/apps-purchase/src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "stage": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-purchase/src/environments/environment.ts",
+                  "with": "projects/apps-purchase/src/environments/environment.stage.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "ssl": true,
+            "disableHostCheck": true,
+            "sslKey": "ssl\\localhost.key",
+            "sslCert": "ssl\\localhost.crt",
+            "port": 4406
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "apps-purchase:build:production"
+            },
+            "development": {
+              "buildTarget": "apps-purchase:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "apps-purchase:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "projects/apps-purchase/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/apps-purchase/src/favicon.ico",
+              "projects/apps-purchase/src/assets"
+            ],
+            "styles": [
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "projects/apps-purchase/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

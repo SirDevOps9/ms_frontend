@@ -1,0 +1,62 @@
+<lib-data-table [items]="items" [selectedIndex]="selectedIndex" className="p-datatable-gridlines" [currentPageResult]="paging" *ngIf="paging"
+    (pageChange)="onPageChange($event)" [tableConfigs]="{        
+        allowPagination: false,
+        allowServerPagination: true,
+        dataKey: 'id',
+        pageSize: 10,
+        columns: [
+          {
+            name: 'id',
+            headerText: ('Id'),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'accountCode',
+            headerText: 'Code',
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'name',
+            headerText: ('Account Name'),
+            template: nameCol
+          },
+          {
+            name: 'mainType',
+            headerText: 'Main Type',
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'actions',
+            headerText: 'Actions',
+            template: actions
+          }
+        ]
+    }">
+
+    <ng-container caption>
+        <div class="group">
+            <div [formGroup]="searchForm">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText formControlName="SearchTerm" type="text" placeholder="Search..." />
+                </span>
+            </div>
+
+        </div>
+    </ng-container>
+
+    <ng-template #nameCol let-account>
+        {{lang.includes('ar') ? account.nameAr : account.nameEn}}
+    </ng-template>
+
+    <ng-template #actions let-account>
+    <div class="check">
+      <input type="checkbox" (change)="selectRow($event, account)" [checked]="account.id == selectedAccount?.id" />
+    </div>
+    </ng-template>
+</lib-data-table>
+
+

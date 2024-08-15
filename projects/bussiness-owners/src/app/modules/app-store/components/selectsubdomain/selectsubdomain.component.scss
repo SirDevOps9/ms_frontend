@@ -1,0 +1,70 @@
+@import"../../../../../assets/styling/scss/variables/font-family";
+.domain_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    //background: #f7f8f8;
+    width: 100%;
+    padding: 30px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid black;
+
+    .title {
+      display: flex;
+      font-size: 18px;
+      font-weight: 700;
+      color: #383a42;
+      .plus_icon {
+        width: 40px;
+        height: auto;
+        margin-right: 10px;
+        background-image: url("../../../../../assets/images/plans/file-plus.svg");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        
+      }
+    }
+    .cancel {
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 700;
+    }
+  }
+.selected_subdomain_page{
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 80%;
+   
+   .btns{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content:space-evenly ;
+    .btn{
+        width: 40%;
+        .btn_save , .btn_discard{
+            width: 100%;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: $cairo_regular;
+            padding: 5px 0;
+            cursor: pointer;
+        }
+        
+        .btn_discard{
+            color: #CB3F2D;
+            border: 1px solid #CB3F2D;
+            background: #fff;
+        }
+        .btn_save{
+            background-color: #1a90b0;
+            color: #fff;
+            border: 1px solid #1a90b0;
+           
+        }
+    }
+   } 
+}

@@ -1,0 +1,17 @@
+
+  .btn {
+    background-color: #1a90b0;
+    border: 2px solid #1a90b0;
+    color: #fff;
+    padding: 10px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    .icon {
+      margin-inline-end: 5px;
+    }
+  }
+  .pointer{
+    cursor: pointer;
+  }

@@ -1,0 +1,213 @@
+.card-component {
+  background: #fff;
+  box-shadow: 0px 3px 25px rgba(0, 0, 0, 0.05);
+  // padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  min-width: 200px;
+  justify-content: center;
+  text-align: start;
+  position: relative;
+  transition: ease-out 0.4s;
+}
+
+.card-component *,
+.card-component > * {
+  transition: ease-out 0.4s;
+}
+
+.card-component div {
+  display: flex;
+  flex-flow: column;
+  align-items: start;
+}
+
+::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  text-align: left;
+  padding: 1rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-width: 0 0 1px 0;
+  font-weight: 700;
+  color: #374151;
+  background: #ededf4;
+  transition: box-shadow 0.2s;
+}
+
+.card-component h5 {
+  color: #6258a6;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.card-component p {
+  color: #919191;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-component::after {
+  content: '';
+  background: url('/assets/images/style_images/card-pattern.svg') no-repeat;
+  max-width: 700px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.table__status {
+  padding: inherit !important;
+}
+
+::ng-deep.p-column-filter-overlay-menu .p-column-filter-buttonbar {
+  padding: 0 !important;
+}
+::ng-deep.custom-column-filter .p-column-filter-menu {
+  top: 100% !important; /* Position the popup below */
+  margin-top: 4px; /* Add some spacing if needed */
+  transform: none !important; /* Reset any transforms applied by PrimeNG */
+}
+
+span {
+  margin: 8px 0;
+  width: 100%;
+  display: block;
+}
+
+.viewInWeb {
+  padding-top: 16px;
+}
+
+.viewInMob {
+  display: block;
+  width: 100%;
+}
+
+// @media (min-width: 1400px) {
+//   .viewInWeb {
+//     display: block;
+//   }
+
+//   .viewInMob {
+//     display: none;
+//   }
+// }
+
+.table__card__mob > .col-md-6 div:nth-of-type(1) .headerTExt {
+  margin-top: 30px;
+}
+
+::ng-deep {
+  .p-datatable .p-datatable-thead > tr > th {
+    border-width: 1px !important;
+  }
+  #dt {
+    min-width: 75rem;
+  }
+  
+}
+
+// .p-datatable-wrapper{
+//  height: 400px !important;
+// }
+
+/* For screens larger than 1024px (e.g., tablets in landscape mode or laptops) */
+.viewInWeb {
+  @media (max-width: 1920px) {
+    .p-datatable-wrapper {
+      max-height: 700px !important;
+    }
+  }
+  @media (min-width: 1920px) {
+    .p-datatable-wrapper {
+      max-height: 800px !important;
+    }
+  }
+
+  .empty {
+    .p-datatable-wrapper {
+      height: auto !important;
+    }
+  }
+  .popup {
+    .p-datatable-wrapper {
+      height: auto !important;
+      max-height: none !important;
+      width: 100%;
+    }
+  }
+  .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    color: #fff !important;
+    background: #1a90b0 !important;
+  }
+  .p-datatable .p-sortable-column.p-highlight:hover {
+    background: #eff6ff;
+    color: #1a90b0;
+  }
+  .p-datatable .p-sortable-column.p-highlight {
+    background: #eff6ff;
+    color: #1a90b0 !important;
+  }
+  .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
+    color: #1a90b0 !important;
+  }
+}
+
+.cssClass {
+  background-color: #000;
+}
+// .trial_balance {
+//   background: #EFEFEF !important;
+//   // color: #374151;
+// }
+.right_Balance{
+  background: #A3D3DF !important;
+  color: #fff !important;
+}
+.left_Balance{
+  background: #76BCD0 !important;
+  color: #fff !important;
+}
+
+// .credit {
+//   color: #383a42 !important;
+// }
+// .body_credit {
+//   background: #dbf7ff !important;
+// }
+// .debit {
+//   // color: #b6bac3 !important;
+// }
+.center {
+  text-align: center !important;
+}
+
+::ng-deep {
+  @media print {
+    #dt {
+      width: 400px !important;
+    }
+    .p-datatable-wrapper {
+      height: auto !important;
+    }
+  }
+}
+
+::ng-deep .paginationHead {
+  position: relative;
+  top: 52px;
+  right: 233px;
+  .p-paginator {
+    background-color: transparent;
+  }
+}
+
+.none {
+  display: none !important;
+}
+.pointer {
+  cursor: pointer;
+}

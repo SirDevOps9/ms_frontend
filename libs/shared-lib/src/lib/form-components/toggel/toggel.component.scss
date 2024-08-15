@@ -1,0 +1,16 @@
+::ng-deep{
+    .toggel{
+        
+            .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+                background: #1a90b0 !important;
+              }
+              .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider {
+                background: #1a90b0 !important;
+              }
+              .p-inputswitch.p-focus .p-inputswitch-slider {
+                box-shadow:  none !important;
+              }
+        
+    }
+   
+}

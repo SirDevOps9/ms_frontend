@@ -1,0 +1,108 @@
+<lib-page-content
+  [title]="'Company.CompanyList' | translate"
+  [subTitle]="'Company.CompanyList' | translate"
+>
+<lib-bread-crumb>
+  <div class="flex justify-content-end align-items-center">
+    <div class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input
+        pInputText
+        type="text"
+        (keyup)="search($event)"
+        placeholder="Search..."
+      />
+    </div>
+    <button
+      pButton
+      pRipple
+      label="Add New"
+      icon="pi pi-plus"
+      class="add_new mr-2"
+      (click)="newCompany()"
+    ></button>
+    <lib-export
+    (exportClick)="exportCompaniesData($event)"
+    [exportData]="mappedTableData"
+    [exportColumns]="exportColumns"
+    [ExportName]="'Companies'"
+  >
+  </lib-export>
+  </div>
+</lib-bread-crumb>
+  <div class="company_page">
+    <p-treeTable
+      #myTab
+      [columns]="cols"
+      [value]="tableData"
+      [paginator]="true"
+      [rows]="10"
+      [scrollable]="true"
+      [showCurrentPageReport]="true"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [rowsPerPageOptions]="[5, 10, 15]"
+    >
+   
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="body_b16 tab_title " >{{ "Company.Code" | translate }}</th>
+          <th class="body_b16 tab_title ">{{ "Company.CompaniesName" | translate }}</th>
+          <th class="body_b16 tab_title ">{{ "Company.CompaniesType" | translate }}</th>
+          <th class="body_b16 tab_title ">{{ "Company.TaxID" | translate }}</th>
+          <th class="body_b16 tab_title ">{{ "Company.CommercialID" | translate }}</th>
+          <th class="body_b16 tab_title ">{{ "Company.Phone" | translate }}</th>
+          <th class="body_b16 tab_title ">{{ "Company.status" | translate }}</th>
+          <th class="body_b16 tab_title ">{{ "Company.Actions" | translate }}</th>
+        </tr>
+      </ng-template>
+
+      <ng-template
+        pTemplate="body"
+        let-rowNode
+        let-rowData="rowData"
+        let-columns="columns"
+      >
+        <tr>
+          <td *ngFor="let col of columns; let i = index">
+            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0">
+            </p-treeTableToggler>
+            {{ rowData[col.header] }}
+            <ng-container *ngIf="i == 7">
+              <p-button
+                icon="pi pi-pencil"
+                (click)="routeToEdit(rowData.id)"
+                [rounded]="true"
+                [text]="true"
+                severity="secondary "
+              >
+              </p-button>
+            </ng-container>
+            <ng-container *ngIf="i == 6">
+              <div >
+              <lib-input-switch
+                  [(ngModel)]="rowData.isActive"
+                  (onChange)="changed($event, rowData.id)"
+                >
+              </lib-input-switch>
+                <p class="active body_b16" *ngIf="rowData.isActive">
+                  {{ "User.Activate" | translate }}
+                </p>
+                <p class="inactive body_b16" *ngIf="!rowData.isActive">
+                  {{ "User.Deactivate" | translate }}
+                </p>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="i == 2">
+              <div class="status" *ngIf="rowData.companyType==Sharedcompanyenums.CompanyTypes.Holding">
+                <p> Holding</p>
+              </div>
+              <div class="status" *ngIf="rowData.companyType==Sharedcompanyenums.CompanyTypes.Subsidiary">
+                <p> Subsidiary</p>
+              </div>
+            </ng-container>
+          </td>
+        </tr>
+      </ng-template>
+    </p-treeTable>
+  </div>
+</lib-page-content>

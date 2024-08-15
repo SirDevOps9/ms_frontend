@@ -1,0 +1,114 @@
+<div class="invite_user">
+  <div class="invite_user_header">
+    <div class="title">
+      <!-- <div class="plus_icon"></div> -->
+     Invite user
+    </div>
+    <div class="pi pi-times cancel" (click)="onCancel()"></div>
+  </div>
+  <form class="domain_form" [formGroup]="inviteForm" (ngSubmit)="onSubmit()">
+    <div class="domain_content">
+      <div class="data_content">
+          <div class="col-md-6">
+            <lib-form-group>
+              <lib-label [appControl]="inviteForm.controls['email']">
+              {{'User.Email' | translate}}
+              </lib-label>
+              <lib-text-input type="text" formControlName="email" />
+              <lib-field-validations
+                [appControl]="inviteForm.controls['email']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+
+            <lib-form-group>
+              <lib-label
+                [appControl]="inviteForm.controls['companyId']"
+              >
+                {{'User.Company'|translate}}
+              </lib-label>
+              <lib-select
+              formControlName="companyId"
+              [options]="Companies"
+              optionValue="id"
+              optionLabel="name"
+              (valueChanged)="onCompanyChange($event)"
+
+            >
+            </lib-select>
+              <lib-field-validations
+                [appControl]="inviteForm.controls['companyId']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+
+            <lib-form-group>
+              <lib-label [appControl]="inviteForm.controls['branchIds']">
+                {{'User.Branches'|translate}}
+
+              </lib-label>
+              <br>
+              <lib-multi-select
+              formControlName="branchIds"
+                [options]="branches"
+                optionValue="id"
+                optionLabel="branchName"
+                [selectedValue]="selected"
+              >
+              </lib-multi-select>
+              <lib-field-validations
+                [appControl]="inviteForm.controls['branchIds']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+
+
+            <lib-form-group>
+              <label>
+                {{'User.Domain-Space'|translate}}
+              </label>
+              <div class="view">
+                {{ subdomainName }}
+              </div>
+            </lib-form-group>
+            <lib-form-group>
+              <lib-label
+                [appControl]="inviteForm.controls['tenantLicenseId']"
+              >
+              select Licence
+              </lib-label>
+              <lib-select
+              formControlName="tenantLicenseId"
+              [options]="Licenses"
+              optionValue="id"
+              optionLabel="nameEn"
+            >
+            </lib-select>
+              <lib-field-validations
+                [appControl]="inviteForm.controls['tenantLicenseId']"
+              >
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          
+      </div>
+      <div class="actions">
+          <button type="submit  " class="save w-6 paragraph_b16">
+            <span class="pi pi-send"></span>
+            {{ "User.Inviteform.SubmitButton" | translate }}
+          </button>
+
+          <!-- <button class="cancel paragraph_b16" type="button" (click)="onCancel()">
+            {{ "User.Inviteform.CancelButton" | translate }}
+          </button> -->
+          <lib-button-micro 
+          title='{{ "User.Inviteform.CancelButton" | translate }}'
+          nameClass="cancel"
+          (click)="onCancel()"
+          >
+          
+          </lib-button-micro>
+        </div>
+    </div>
+  </form>
+</div>

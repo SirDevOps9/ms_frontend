@@ -1,0 +1,210 @@
+<div class="view_employee">
+  <div class="grid">
+    <div class="md:col-2">
+      <div class="sidebar">
+        <ul>
+          <li class="active">{{ 'Employee.PersonalInfo' | translate }}</li>
+          <li>{{ 'Employee.ContactInfo' | translate }}</li>
+          <li>{{ 'Employee.AcademicInfo' | translate }}</li>
+          <li>{{ 'Employee.OfficialInfo' | translate }}</li>
+          <li>{{ 'Employee.ContractInfo' | translate }}</li>
+          <li>{{ 'Employee.FinancialInfo' | translate }}</li>
+          <li>{{ 'Employee.AttendanceInfo' | translate }}</li>
+          <li>{{ 'Employee.FunctionalInfo' | translate }}</li>
+          <li>{{ 'Employee.DependantsInfo' | translate }}</li>
+          <li>{{ 'Employee.CovenantInfo' | translate }}</li>
+          <li>{{ 'Employee.SocialInsuranceInfo' | translate }}</li>
+          <li>{{ 'Employee.MedicalInsurance' | translate }}</li>
+          <li>{{ 'Employee.AttachmentInfo' | translate }}</li>
+          <li>{{ 'Employee.HistoricalInfo' | translate }}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="md:col-10">
+      <div class="view_content">
+        <div class="grid">
+          <div class="md:col-12 info">
+            {{ 'Employee.BasicInfo' | translate }}
+          </div>
+          <div class="md:col-12">
+            <lib-form-group>
+           
+              <lib-attachment-viewer [className]="'imgStyle'" attachmentId="{{employee?.employeePhoto}}" />
+
+            </lib-form-group>
+          </div>
+          <div class="md:col-4">
+            <lib-form-group>
+              <label>
+                {{ 'Employee.View.EmployeeCode' | translate }}
+              </label>
+              <div class="view">
+                {{ employee?.employeeCode }}
+              </div>
+            </lib-form-group>
+          </div>
+          <div class="md:col-4">
+            <lib-form-group>
+              <label>
+                {{ 'Employee.View.AttendanceCode' | translate }}
+              </label>
+              <div class="view">
+                {{ employee?.attendanceCode }}
+              </div>
+            </lib-form-group>
+          </div>
+          <div class="md:col-4">
+            <lib-form-group>
+              <label>
+                {{ 'Employee.View.EmployeeName' | translate }}
+              </label>
+              <div class="view">
+                {{ employee?.employeeName }}
+              </div>
+            </lib-form-group>
+          </div>
+         
+          <div class="md:col-12 info">
+            {{ 'Employee.BirthInfo' | translate }}
+          </div>
+          <div class="md:col-3">
+            <lib-form-group>
+              <label>
+                {{ 'Employee.View.BirthDate' | translate }}
+              </label>
+              <div class="view">
+                {{ employee?.birthDate | date }}
+              </div>
+            </lib-form-group>
+          </div>
+          <div class="md:col-3">
+            <lib-form-group>
+              <label>
+                {{ 'Employee.View.Age' | translate }}
+              </label>
+              <div class="view">
+                {{ ageService.calculateAge(employee?.birthDate!) }}
+              </div>
+            </lib-form-group>
+          </div>
+          <div class="md:col-3">
+            <lib-form-group>
+              <label>
+                {{ 'Employee.View.CountryOfBirth' | translate }}
+              </label>
+              <div class="view">
+                {{ employee?.countryOfBirth }}
+              </div>
+            </lib-form-group>
+          </div>
+          <div class="md:col-3">
+            <lib-form-group>
+              <label>
+                {{ 'Employee.View.BirthCity' | translate }}
+              </label>
+              <div class="view">
+                {{ employee?.birthCity }}
+              </div>
+            </lib-form-group>
+          </div>
+          <div class="md:col-12 info">
+            {{ 'Employee.OtherInfo' | translate }}
+          </div>
+          <div class="md:col-3">
+            <lib-form-group>
+              <label>
+                {{ 'Employee.View.Nationality' | translate }}
+              </label>
+              <div class="view">
+                {{ employee?.nationality }}
+              </div>
+            </lib-form-group>
+          </div>
+
+          <div class="md:col-3">
+            <lib-form-group>
+              <label>
+                {{ 'Employee.View.Gender' | translate }}
+              </label>
+              <div class="view">
+                {{ employee?.gender }}
+              </div>
+            </lib-form-group>
+          </div>
+          <div class="md:col-3">
+            <lib-form-group>
+              <label>
+                {{ 'Employee.View.MaritalStatus' | translate }}
+              </label>
+              <div class="view">
+                {{ employee?.maritalStatus }}
+              </div>
+            </lib-form-group>
+          </div>
+          <div class="md:col-3">
+            <lib-form-group>
+              <label>
+                {{ 'Employee.View.Religion' | translate }}
+              </label>
+              <div class="view">
+                {{ employee?.religion }}
+              </div>
+            </lib-form-group>
+          </div>
+          <div class="md:col-12 info">
+            {{ 'Employee.MilitaryInfo' | translate }}
+          </div>
+          <div class="md:col-6">
+            <lib-form-group>
+              <label>
+                {{ 'Employee.View.MilitaryStatus' | translate }}
+              </label>
+              <div class="view">
+                {{ employee?.militaryStatus }}
+              </div>
+            </lib-form-group>
+          </div>
+
+          <div class="md:col-6">
+            <lib-form-group>
+              <label>
+                {{ 'Employee.View.MilitaryNumber' | translate }}
+              </label>
+              <div class="view">
+                {{ employee?.militaryNumber }}
+              </div>
+            </lib-form-group>
+          </div>
+          <div class="md:col-12 info">
+            {{ 'Employee.SpecialCare' | translate }}
+          </div>
+          <div class="md:col-6">
+            <lib-form-group>
+              <label>
+                {{ 'Employee.View.BloodType' | translate }}
+              </label>
+              <div class="view">
+                {{ employee?.bloodType }}
+              </div>
+            </lib-form-group>
+          </div>
+          <div class="md:col-6">
+            <lib-form-group>
+              <div class="p-field-checkbox special_care">
+                <p-checkbox
+                  [binary]="true"
+                  [ngModel]="employee?.withSpecialNeeds!"
+                  disabled="true"
+                ></p-checkbox>
+                <label>
+                  {{ 'Employee.View.WithSpecialNeeds' | translate }}
+                </label>
+              </div>
+
+            </lib-form-group>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

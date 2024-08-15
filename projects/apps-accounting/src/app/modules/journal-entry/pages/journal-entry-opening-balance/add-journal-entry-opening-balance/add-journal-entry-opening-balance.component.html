@@ -1,0 +1,317 @@
+<lib-page-content>
+  <div class="journal_entry_add_page">
+    <div [formGroup]="fg" class="entry_header">
+      <!-- <p class="title test">{{ 'journal_entry_header' | translate }}</p> -->
+      <div class="grid">
+        <div class="col-12 md:col-3 step-1-element">
+          <p class="totals">{{ 'reference_number' | translate }}</p>
+          <lib-text-input
+            placeholder="{{ 'reference_number' | translate }}"
+            [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+            formControlName="refrenceNumber"
+          ></lib-text-input>
+          <lib-field-validations
+            [appControl]="fg.controls['refrenceNumber']"
+          ></lib-field-validations>
+        </div>
+        <!--  -->
+
+        <div class="col-12 md:col-3 step-2-element">
+          <p class="totals">{{ 'journal_date' | translate }}</p>
+          <lib-text-input
+            placeholder="{{ 'journal_date' | translate }}"
+            type="date"
+            formControlName="journalDate"
+          ></lib-text-input>
+        </div>
+        <div class="col-12 md:col-3">
+          <button (click)="openAttachments()" class="attach">{{ 'attach' | translate }}</button>
+        </div> 
+
+      
+    
+
+        
+
+        <div class="col-12 md:col-12 step-3-element">
+          <p class="totals">{{ 'description' | translate }}</p>
+          <lib-text-input
+            class="description"
+            [textbox]="true"
+            placeholder="{{ 'description' | translate }}"
+            formControlName="description"
+          ></lib-text-input>
+          <lib-field-validations [appControl]="fg.controls['description']"></lib-field-validations>
+        </div>
+        <div class="col-12 md:col-3">
+          <p class="totals">{{'JournalTemplate.totalDebitAmountLocal' | translate}}</p>
+          <lib-text-input
+          [(ngModel)]="totalDebitAmountLocal"
+          placeholder="0"
+          [readOnly]="true"
+       
+          [ngModelOptions]="{standalone: true}"
+        ></lib-text-input>
+      </div>
+
+      <div class="col-12 md:col-3">
+        <p class="totals">{{'JournalTemplate.totalCreditAmountLocal' | translate}}</p>
+        <lib-text-input
+        [(ngModel)]="totalCreditAmountLocal"
+        placeholder="0"
+        [readOnly]="true"
+        [ngModelOptions]="{standalone: true}"
+      ></lib-text-input>
+      </div>
+      </div>
+    </div>
+    <div class="entry_table">
+      <div class="card">
+        <p-table
+          [value]="fa.controls"
+          dataKey="id"
+          styleClass="p-datatable-gridlines p-datatable-striped"
+          [tableStyle]="{ 'min-width': '50rem' }"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th>{{ 'id' | translate }}</th>
+              <th>{{ 'account_code' | translate }}</th>
+              <th>{{ 'account_name' | translate }}</th>
+              <th>{{ 'line_description' | translate }}</th>
+              <th>{{ 'debit_amount' | translate }}</th>
+              <th>{{ 'credit_amount' | translate }}</th>
+              <th>{{ 'currency' | translate }}</th>
+              <th>{{ 'rate' | translate }}</th>
+              <th>{{ 'debit_amount_local' | translate }}</th>
+              <th>{{ 'credit_amount_local' | translate }}</th>
+              <th>{{ 'cost_center' | translate }}</th>
+              <th>{{'Actions' | translate}}</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-fg let-editing="editing" let-i="rowIndex">
+            <tr [formGroup]="fg">
+              <td>{{ fg.controls['id'].value }}</td>
+              <td
+                [pEditableColumn]="fg.controls['account']"
+                pEditableColumnField="fg.controls['account']"
+              >
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <div class="flex gap-2 align-items-center">
+                      <lib-select
+                        formControlName="account"
+                        [options]="filteredAccounts"
+                        optionValue="id"
+                        optionLabel="displayName"
+                        [customClass]="'add-journal'"
+                        (valueChanged)="accountSelected($event, i)"
+                        (valueSearchChanged)="onFilter($event)"
+                      ></lib-select>
+                      <i class="pi pi-search search-circle" (click)="openDialog(i)"></i>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ fg.controls['accountCode'].value }}
+                  </ng-template>
+                </p-cellEditor>
+                <lib-field-validations
+                  [appControl]="fg.controls['account']"
+                ></lib-field-validations>
+              </td>
+              <td>
+                <!-- {{ (fg.controls['account']?.value | getElementByID : filteredAccounts)?.costCenterConfig == 'Mandatory' || (fg.controls['account']?.value | getElementByID : filteredAccounts)?.costCenterConfig == 'NotAllow' }} -->
+
+                {{ fg.controls['accountName']?.value }}
+              </td>
+              <td
+                [pEditableColumn]="fg.controls['lineDescription']"
+                pEditableColumnField="lineDescription"
+              >
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <lib-text-input formControlName="lineDescription"></lib-text-input>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ fg.controls['lineDescription'].value }}
+                  </ng-template>
+                </p-cellEditor>
+                <lib-field-validations
+                  [appControl]="fg.controls['lineDescription']"
+                ></lib-field-validations>
+              </td>
+              <td [pEditableColumn]="fg.controls['debitAmount']" pEditableColumnField="debitAmount">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <lib-text-input
+                      formControlName="debitAmount"
+                      type="number"
+                      (valueChanged)="debitChanged(i)"
+                      (keyUp)="debitChanged(i)"
+                    ></lib-text-input>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ fg.controls['debitAmount'].value }}
+                  </ng-template>
+                </p-cellEditor>
+                <lib-field-validations [appControl]="fg"></lib-field-validations>
+              </td> 
+              <td
+                [pEditableColumn]="fg.controls['creditAmount']"
+                pEditableColumnField="creditAmount"
+              >
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <lib-text-input
+                      formControlName="creditAmount"
+                      type="number"
+                      (valueChanged)="creditChanged(i)"
+                      (keyUp)="creditChanged(i)"
+                    ></lib-text-input>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ fg.controls['creditAmount'].value }}
+                  </ng-template>
+                </p-cellEditor>
+                <lib-field-validations [appControl]="fg"></lib-field-validations>
+              </td>
+              <td>
+                <!-- <lib-form-group>
+                  <lib-select
+                    formControlName="currency"
+                    [options]="currencies"
+                    optionValue="id"
+                    optionLabel="currencyName"
+                    [selectedValue]="selectedCurrency"
+                    (valueChanged)="currencyChanged(i)"
+                  ></lib-select>
+                  <lib-field-validations
+                    [appControl]="fg.controls['currency']"
+                  ></lib-field-validations>
+                </lib-form-group> -->
+                <div class="hidden">
+                  {{ fg.get('currency').value }}
+                </div>
+                <div>
+                  {{ fg.get('currencyName').value }}
+                </div>
+              </td>
+              <td
+                [pEditableColumn]="fg.controls['currencyRate']"
+                pEditableColumnField="currencyRate"
+              >
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <lib-text-input formControlName="currencyRate"   (keyUp)="currencyValueChanges($event, i)" type="number"></lib-text-input>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ fg.controls['currencyRate'].value }}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              
+              <td>
+                {{ fg.controls['debitAmountLocal'].value ? (fg.controls['debitAmountLocal'].value | number:'1.0-2') : '0' }}
+              </td>
+              <td>
+                {{ fg.controls['creditAmountLocal'].value ? (fg.controls['creditAmountLocal'].value | number:'1.0-2') : '0' }}
+
+              </td>
+              <td>
+                <div class="flex justify-content-center">
+                  <img
+                    src="assets/images/groups.png"
+                    *ngIf="!fg.controls['selectedFalg'].value && !fg.controls['costCenters']?.value"
+                  />
+                  <img
+                    src="assets/images/groups-mandtory-optional.png"
+                    alt=""
+                    *ngIf="
+                      fg.controls['costCenterConfig'].value == 'Optional' ||
+                      (fg.controls['costCenterConfig'].value == 'Mandatory' &&
+                        !fg.controls['costCenters'].value)
+                    "
+                    (click)="openCostPopup(fg.value, fg, fg.controls['account']?.value,i)"
+                  />
+
+                  <img
+                    src="assets/images/groups.png"
+                    alt=""
+                    *ngIf="
+                      fg.controls['costCenterConfig'].value == 'NotAllow' &&
+                      !fg.controls['costCenters'].value
+                    "
+                    (click)="openCostPopup(fg.value, fg, fg.controls['account']?.value,i)"
+                  />
+
+                  <img
+                    src="assets/images/groups-data.png"
+                    alt=""
+                    *ngIf="fg.controls['costCenters'].value"
+                    (click)="openCostPopup(fg.value, fg, fg.controls['account']?.value,i)"
+                  />
+                </div>
+              </td>
+              <td>
+                <lib-button
+                  [icon]="'pi pi-trash'"
+                  (click)="deleteLine(i)"
+                  [rounded]="true"
+                  [enableText]="true"
+                  severity="secondary"
+                ></lib-button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr>
+              <td colspan="4" class="imptyData total" style="text-align: center;">{{'JournalTemplate.total' | translate}}</td>
+              <!-- <td class="imptyData"></td>
+              <td class="imptyData"></td>
+              <td class="imptyData"></td> -->
+              <td class="total">{{ totalDebitAmount }}</td>
+              <td class="total">{{ totalCreditAmount }}</td>
+              <td class="total"></td>
+              <td class="total"></td>
+              <td class="total">{{ totalDebitAmountLocal }}</td>
+              <td class="total">{{ totalCreditAmountLocal }}</td>
+              <td class="total"></td>
+              <td class="total"></td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div class="add_new">
+        <button class="btn  step-4-element" (click)="addThing()">
+          {{ 'add_new_line' | translate }}
+        </button>
+      </div>
+      <!-- <div class="paginator">
+              <lib-paginator [totalRecords]="50" [first]="0" [rows]="10"></lib-paginator>
+          </div> -->
+      <div class="btn_group">
+        <div class="grid">
+          <div class="md:col-3">
+            <div class="grid">
+              <div class="md:col-6">
+                <lib-button-micro
+                  [title]="'discard' | translate"
+                  nameClass="cancel"
+                  (click)="routeToJournal()"
+                  widthNumber=100%
+                >
+                </lib-button-micro>
+              </div>
+              <div class="md:col-6">
+                <lib-button-micro [title]="'save' | translate" nameClass="save"  widthNumber=100% (click)="save()">
+                </lib-button-micro>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ngx-guided-tour skipText=" skip " nextText=" next "></ngx-guided-tour>
+  </div>
+</lib-page-content>

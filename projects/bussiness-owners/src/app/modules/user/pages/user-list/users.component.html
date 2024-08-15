@@ -1,0 +1,198 @@
+<lib-page-content>
+  <lib-bread-crumb>
+    <ng-container caption>
+      <div class="flex align-items-center justify-content-end">
+        <!-- <span class="p-input-icon-left"> -->
+        <!-- <i class="pi pi-search"></i> -->
+        <lib-text-input
+          type="text"
+          (input)="applyFilterGlobal($event, 'contains')"
+          (keyup)="search($event)"
+          placeholder="Search..."
+        />
+        <!-- </span> -->
+        <!-- <lib-button
+          label="Add New"
+          icon="pi pi-plus"
+          (onClick)="openInviteModal()"
+        >
+        </lib-button> -->
+
+        <button
+          pButton
+          pRipple
+          label="{{ 'User.AddNew' | translate }}"
+          icon="pi pi-plus"
+          class="add_new mr-2"
+          (click)="openInviteModal()"
+        ></button>
+
+        <lib-export
+        (exportClick)="exportUsersData()"
+        [exportData]="mappedUserData"
+        [exportColumns]="exportColumns"
+        [ExportName]="'Users'"
+      >
+      </lib-export>
+      </div>
+    </ng-container>
+  </lib-bread-crumb>
+  <div class="user_page user-cont">
+    <lib-data-table
+      [items]="userData"
+      [tableConfigs]="{
+        allowPagination: true,
+        allowServerPagination: false,
+        dataKey: 'id',
+        pageSize: 10,
+        columns: [
+          {
+            name: 'name',
+            headerText: ('User.Name' | translate),
+            isGlobalFilter: true,
+            isSortable: true,
+            template: userCol
+          },
+          {
+            name: 'email',
+            headerText: ('User.Email' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'lastLoginDate',
+            headerText: ('User.LastLogin' | translate),
+           template:lastloginCol
+          },
+          {
+            name: 'license',
+            headerText: ('User.License' | translate),
+            isGlobalFilter: true,
+          },
+          {
+            name: 'invitationStatus',
+            headerText: ('User.Status' | translate),
+            template: status
+          },
+          {
+            name: 'name',
+            headerText: ('User.Actions' | translate),
+            template: actionsCol
+          }
+        ]
+      }"
+    >
+      <!-- <ng-container caption>
+        <div class="flex align-items-center justify-content-end">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              (input)="applyFilterGlobal($event, 'contains')"
+              placeholder="Search..."
+            />
+          </span>
+          <lib-button
+            pRipple
+            className="add_new mr-2"
+            label="Add New"
+            icon="pi pi-plus"
+            (onClick)="openInviteModal()"
+          >
+          </lib-button>
+        </div>
+      </ng-container> -->
+    </lib-data-table>
+    <ng-template #lastloginCol let-user>
+      <div class="user_info">
+        <p>{{ user.lastLoginDate | date }}</p>
+      </div>
+    </ng-template>
+
+    <ng-template #userCol let-user>
+      <div class="user_info">
+        <lib-attachment-viewer
+          *ngIf="user.photo"
+          [attachmentId]="user.photo"
+          [className]="'thumbnail'"
+        />
+        <p>{{ user.name }}</p>
+      </div>
+    </ng-template>
+
+    <ng-template #actionsCol let-user>
+      <lib-button
+        *ngIf="user.invitationStatus == 'Accepted'"
+        icon="pi pi-pencil"
+        [rounded]="true"
+        [enableText]="true"
+        severity="secondary"
+        (onClick)="editUser(user.id)"
+      >
+      </lib-button>
+      
+      <!-- <p-button
+        icon="pi pi-pencil"
+        (click)="editUser(user.id)"
+        [rounded]="true"
+        [text]="true"
+        severity="secondary "
+        *ngIf="user.invitationStatus == 2"
+      ></p-button> -->
+
+      <p-button
+        (click)="removeUser(user.email)"
+        icon="pi pi-trash"
+        class="checked"
+        [rounded]="true"
+        [text]="true"
+        severity="danger"
+      >
+      </p-button>
+
+    </ng-template>
+    <ng-template #status let-user>
+      
+      <div  *ngIf="user.invitationStatus == 'Accepted'">
+        <lib-input-switch
+          [id]="user.id"
+          (click)="changed($event, user)"
+          [(ngModel)]="user.isActive"
+        >
+      </lib-input-switch>
+
+        <p class="active" *ngIf="user.isActive">
+          {{ 'User.Activate' | translate }}
+        </p>
+        <p class="inactive" *ngIf="!user.isActive">
+          {{ 'User.Deactivate' | translate }}
+        </p>
+      </div>
+      <div class="checked">
+        <!-- <lib-button
+          *ngIf="user.invitationStatus == 'Invited'"
+          className="resend"
+          [rounded]="true"
+          (onClick)="resendInvitation(user.id)"
+        >
+          <p class="title">{{ 'User.Resend' | translate }}</p>
+          <p class="ico_mail pi pi-envelope"></p>
+        </lib-button> -->
+
+        <button
+          class="resend"
+          (click)="resendInvitation(user.id)"
+          *ngIf="user.invitationStatus == 'Invited'"
+        >
+          <p class="title">{{ "User.Resend" | translate }}</p>
+          <p class="ico_mail pi pi-envelope"></p>
+        </button>
+      </div>
+    </ng-template>
+    <ng-template #date let-user>
+  <p>{{user.lastLoginDate | date : 'dd/MM/yyyy'}}</p>
+ 
+    </ng-template>
+  </div>
+</lib-page-content>

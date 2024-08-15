@@ -1,0 +1,85 @@
+<div class="cost_add_page">
+  <form [formGroup]="formGroup">
+    <div class="faild">
+      <lib-form-group>
+        <p class="paragraph_b18 code">{{ 'costCenter.code' | translate }}</p>
+
+        <lib-text-input [readOnly]="true" [placeholder]="code" type="text" />
+      </lib-form-group>
+    </div>
+    <div class="faild">
+      <lib-form-group>
+        <lib-label [appControl]="formGroup.controls['name']">
+          {{ 'costCenter.name' | translate }}
+        </lib-label>
+        <lib-text-input type="text" formControlName="name" />
+      </lib-form-group>
+      <lib-field-validations [appControl]="formGroup.controls['name']"> </lib-field-validations>
+    </div>
+    <div class="faild">
+      <lib-form-group>
+        <lib-label [appControl]="formGroup.controls['parentId']">
+          {{ 'costCenter.parentAccount' | translate }}
+        </lib-label>
+        <!-- <lib-text-input  type="text" formControlName="parentAccount" /> -->
+        <lib-select
+          formControlName="parentId"
+          optionValue="id"
+          [options]="parentAccounts"
+          optionLabel="name"
+          [selectedValue]="editParentId ? editParentId : null"
+        >
+        </lib-select>
+        <lib-field-validations [appControl]="formGroup.controls['parentId']">
+        </lib-field-validations>
+      </lib-form-group>
+    </div>
+    <div class="faild">
+      <lib-form-group>
+        <p class="paragraph_b18">{{ 'costCenter.detail' | translate }}</p>
+        <input
+          type="checkbox"
+          formControlName="isDetail"
+          id="isDetail"
+          [checked]="formGroup.controls['isDetail']"
+        />
+
+        <lib-label [appControl]="formGroup.controls['isDetail']">
+          {{ 'costCenter.yes' | translate }}
+        </lib-label>
+        <lib-field-validations [appControl]="formGroup.controls['isDetail']">
+        </lib-field-validations>
+      </lib-form-group>
+    </div>
+    <div class="btn_group">
+      <div class="grid">
+        <div class="md:col-3">
+          <div class="grid">
+            <div class="md:col-6">
+              <lib-button-micro
+              nameClass="cancel"
+              title="{{ 'costCenter.Cancel' | translate }}"
+              (click)="cancelClick()"
+              widthNumber=100%
+            >
+            </lib-button-micro>
+            </div>
+            <div class="md:col-6">
+              <lib-button-micro
+        nameClass="save"
+        title="{{ 'costCenter.save' | translate }}"
+        (click)="onSubmit()"
+        widthNumber=100%
+      >
+      </lib-button-micro>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="action">
+      
+      
+    </div>
+  </form>
+</div>

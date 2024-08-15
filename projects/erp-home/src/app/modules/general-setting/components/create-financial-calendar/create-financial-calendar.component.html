@@ -1,0 +1,245 @@
+<lib-page-content>
+  <div class="chart_add">
+    <div class="chart_add_page">
+      <form [formGroup]="formGroup">
+        <div class="grid">
+          <div class="md:col-10 grid">
+            <div class="md:col-6">
+              <lib-form-group>
+                <lib-label [appControl]="formGroup.controls['year']">
+                  {{ 'financialCalendar.selectYear' | translate }}
+                </lib-label>
+                <lib-select
+                  formControlName="year"
+                  [options]="yearsList"
+                  [selectedValue]="formGroup.controls['year'].value"
+                  optionLabel="name"
+                  optionValue="name"
+                >
+                </lib-select>
+              </lib-form-group>
+            </div>
+            <!--  -->
+
+            <div class="md:col-6">
+              <lib-form-group>
+                <lib-label [appControl]="formGroup.controls['code']">
+                  {{ 'financialCalendar.code' | translate }}
+                </lib-label>
+                <lib-text-input [readOnly]="true" type="text" formControlName="code" />
+              </lib-form-group>
+            </div>
+            <!--  -->
+            <div class="md:col-3">
+              <lib-label [appControl]="formGroup.controls['fromDate']">
+                {{ 'financialCalendar.fromDate' | translate }}
+              </lib-label>
+              <lib-calendar
+                formControlName="fromDate"
+                [maxDate]="maxDatefrom"
+                [disabled]="disablrFromDateFlag"
+              ></lib-calendar>
+
+              <lib-field-validations [appControl]="formGroup.controls['fromDate']">
+              </lib-field-validations>
+            </div>
+            <!--  -->
+            <div class="md:col-3">
+              <lib-label [appControl]="formGroup.controls['toDate']">
+                {{ 'financialCalendar.toDate' | translate }}
+              </lib-label>
+              <lib-calendar
+                formControlName="toDate"
+                [defaultDate]="defaultDateTo"
+                [minDate]="minDateTo"
+              ></lib-calendar>
+              <lib-field-validations [appControl]="formGroup.controls['toDate']">
+              </lib-field-validations>
+            </div>
+
+            <!--  -->
+            <div class="md:col-6">
+              <lib-form-group>
+                <lib-label [appControl]="formGroup.controls['name']">
+                  {{ 'financialCalendar.name' | translate }}
+                </lib-label>
+                <lib-text-input type="text" formControlName="name" />
+                <lib-field-validations [appControl]="formGroup.controls['name']">
+                </lib-field-validations>
+              </lib-form-group>
+            </div>
+          </div>
+
+          <!-- <div class="md:col-2 grid align-items-end">
+            <lib-button
+              pRipple
+              className="addToList"
+              label="{{ 'financialCalendar.open' | translate }}"
+              (click)="onOpenPeriod()"
+              [class.none]="!showOpenBtn || opened"
+              [disabled]="!formGroup.valid"
+            >
+            </lib-button>
+          </div> -->
+        </div>
+      </form>
+    </div>
+    <!--  -->
+    <div class="flex justify-content-end mt-5 gap-2" *ngIf="!showOpenBtn">
+      <lib-button
+        className="red"
+        label="{{ 'financialCalendar.cancel' | translate }}"
+        (click)="routeToList()"
+      >
+      </lib-button>
+
+      <lib-button
+        pRipple
+        className="addToList"
+        label="{{ 'financialCalendar.generate' | translate }}"
+        (click)="onGenerate()"
+        [class.none]="showOpenBtn"
+        [disabled]="!formGroup.valid"
+        *ngIf="!showOpenBtn"
+      >
+      </lib-button>
+
+      <lib-button
+        pRipple
+        className="addToList"
+        label="{{ 'financialCalendar.Save' | translate }}"
+        (onClick)="onSave()"
+        [disabled]="!tableData?.length || !formGroup.valid"
+      >
+      </lib-button>
+    </div>
+    <!--  -->
+    <div class="flex justify-content-end mt-5" *ngIf="showOpenBtn">
+      <lib-button
+        className="red"
+        label="{{ 'financialCalendar.cancel' | translate }}"
+        (click)="routeToList()"
+      >
+      </lib-button>
+      <lib-button
+        pRipple
+        className="addToList"
+        label="{{ 'financialCalendar.open' | translate }}"
+        (click)="onOpenPeriod()"
+        [class.none]="!showOpenBtn || opened"
+        [disabled]="!formGroup.valid"
+      >
+      </lib-button>
+      <lib-button
+        pRipple
+        className="addToList"
+        label="{{ 'financialCalendar.Save' | translate }}"
+        (onClick)="onOpen()"
+        [disabled]="!tableData?.length"
+      >
+      </lib-button>
+    </div>
+    <!--  -->
+
+    <div class="user_pages" *ngIf="tableData?.length">
+      <lib-data-table
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [tableConfigs]="{
+          allowPagination: true,
+          allowServerPagination: false,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+             
+            
+             {
+               name: 'month',
+               headerText: ('financialCalendar.month' | translate),
+               isGlobalFilter: true,
+               isSortable: true
+             },
+           
+             {
+               name: 'year',
+               headerText: ('financialCalendar.year' | translate),
+             },
+             {
+               name: 'periodStart',
+               headerText: ('financialCalendar.periodStart' | translate),
+             },
+           
+             {
+               name: 'periodEnd',
+               headerText: ('financialCalendar.periodend' | translate),
+             },
+           
+             {
+               name: 'status',
+               headerText: ('financialCalendar.periodStatus' | translate),
+               template : status
+             },
+            
+           ]
+        }"
+      >
+        <ng-template #status let-status>
+          <div class="actions flex align-items-center gap-2">
+            <lib-input-switch
+              [disabled]="statusFlag"
+              [(ngModel)]="status.status"
+            ></lib-input-switch>
+          </div>
+        </ng-template>
+
+        <!--
+        </ng-template>
+        <ng-template #userStatus let-journal>
+          <div
+            class="status unbalanced"
+            *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Unbalanced"
+          >
+            <p class="dot"></p>
+            <p>Unbalanced</p>
+          </div>
+          <div
+            class="status draft"
+            *ngIf="journal.status == sharedJouralEnum.JournalEntryStatus.Draft"
+          >
+            <p class="dot"></p>
+            <p>Draft</p>
+          </div>
+          <div
+            class="status unposted"
+            *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Submitted"
+          >
+            <p class="dot"></p>
+            <p>Unposted</p>
+          </div>
+          <div
+            class="status Posted"
+            *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Posted"
+          >
+            <p class="dot"></p>
+            <p>Posted</p>
+          </div>
+        </ng-template>
+        <ng-template #journalDate let-journal>
+          <div>
+            <p>{{ journal.createdOn | date : 'dd/MM/yyyy' }}</p>
+          </div>
+        </ng-template>
+        <ng-template #journalIsRepeated let-journal>
+          <div>
+            <p>{{ journal.isRepeated ? 'Yes' : 'No' }}</p>
+          </div>
+        </ng-template>
+        <ng-template #journalIsReversed let-journal>
+          <div>
+            <p>{{ journal.isReversed ? 'Yes' : 'No' }}</p>
+          </div>
+        </ng-template> -->
+      </lib-data-table>
+    </div>
+  </div>
+</lib-page-content>

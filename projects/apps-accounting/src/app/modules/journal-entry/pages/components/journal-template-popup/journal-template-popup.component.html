@@ -1,0 +1,67 @@
+<div class="temp_page">
+  <lib-data-table
+    [items]="tableData"
+    className="p-datatable-gridlines"
+    [currentPageResult]="currentPageInfo"
+    (pageChange)="onPageChange($event)"
+    [tableConfigs]="{
+      allowPagination: true,
+      allowServerPagination: false,
+      dataKey: 'id',
+      pageSize: 10,
+      columns: [
+        {
+          name: 'id',
+          headerText: ('JournalTemplate.id' | translate),
+          template: selectedTemplate
+        },
+        {
+          name: 'code',
+          headerText: ('JournalTemplate.code' | translate),
+          isGlobalFilter: true,
+          isSortable: true
+        },
+        {
+          name: 'periodName',
+          headerText: ('JournalTemplate.periodName' | translate),
+          isGlobalFilter: true,
+          isSortable: true
+        },
+        {
+          name: 'type',
+          headerText: ('JournalTemplate.type' | translate),
+          isGlobalFilter: true,
+          isSortable: true
+        },
+        {
+          name: 'totalDebitAmountLocal',
+          headerText: ('JournalTemplate.totalDebitAmountLocal' | translate),
+          isGlobalFilter: true,
+          isSortable: true
+        },
+        {
+          name: 'totalCreditAmountLocal',
+          headerText: ('JournalTemplate.totalCreditAmountLocal' | translate),
+          isGlobalFilter: true,
+          isSortable: true
+        }
+      ]
+    }"
+  >
+    <ng-template #selectedTemplate let-journal>
+      <div class="actions flex align-items-center">
+        <lib-button
+          [className]="'light-blue'"
+          
+          [label]="'JournalTemplate.Select' | translate"
+
+          
+          
+          (onClick)="RoutToAddJournal(journal.id)"
+        >
+        
+        </lib-button>
+      </div>
+    </ng-template>
+  </lib-data-table>
+</div>

@@ -1,31 +1,34 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent } from './app.component/app.component';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { SharedLibModule } from '../../../shared-lib/src/public-api';
+import {
+  EnvironmentService,
+  LowerCaseUrlSerializer,
+  MultiTranslateHttpLoader,
+  SharedLibModule,
+} from 'shared-lib';
 import { environment } from '../environments/environment';
-import { AbstractSecurityStorage, AuthModule } from 'angular-auth-oidc-client';
-import { MultiTranslateHttpLoader } from '../../../shared-lib/src/lib/services/translationHttpLoader';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ERPInterceptor } from '../../../shared-lib/src/lib/interceptors/http.interceptor';
 import { CookieModule } from 'ngx-cookie';
-import { LayoutComponent } from './compnents/layout/layout.component';
-
+import { MicrotecAuthLibModule, ERPInterceptor } from 'microtec-auth-lib';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { CompanyModule } from './modules/company/company.module';
+import { UserModule } from './modules/user/user.module';
+import { LayoutModule } from './modules/layout/layout.module';
+import { ERPUserModule } from './modules/erp-user/erp-user.module';
+import { AppStoreModule } from './modules/app-store/app-store.module';
+import { SubscriptionModule } from './modules/subscription/subscription.module';
+import { UrlSerializer } from '@angular/router';
 @NgModule({
-  declarations: [
-    AppComponent,
-    LayoutComponent
-  ],
+  declarations: [AppComponent, NotFoundComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    AuthModule.forRoot({
-      config: environment.openIdConfig,
-    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -39,18 +42,31 @@ import { LayoutComponent } from './compnents/layout/layout.component';
         deps: [HttpClient],
       },
     }),
-    SharedLibModule.forRoot(environment),
+    MicrotecAuthLibModule,
+    SharedLibModule,
     BrowserAnimationsModule,
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
-    CookieModule.withOptions()
+    CookieModule.withOptions(),
+    LayoutModule,
+    CompanyModule,
+    SubscriptionModule,
+    UserModule,
+    ERPUserModule,
+    AppStoreModule,
   ],
   providers: [
+    { provide: EnvironmentService, useValue: environment },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ERPInterceptor,
       multi: true,
-    }
+    },
+    // {
+    //   provide: UrlSerializer,
+    //   useClass: LowerCaseUrlSerializer,
+    // },
   ],
   bootstrap: [AppComponent],
 })

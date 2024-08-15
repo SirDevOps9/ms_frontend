@@ -1,0 +1,19 @@
+<lib-page-content>
+    <div class="page_content_header">
+        <div class="actions">
+            <button class="icon_btn" [ngClass]="{ active: Viewlist }" (click)="listView()">
+              <i class="pi pi-bars"></i>
+            </button>
+            <button class="icon_btn" [ngClass]="{ active: !Viewlist }" (click)="treeView()">
+              <i class="pi pi-sitemap"></i>
+            </button>
+          </div>
+    </div>
+    <div class="main_chat_of_account">
+      <app-cost-center-tree
+        *ngIf="!Viewlist"
+       
+      ></app-cost-center-tree>
+      <app-cost-center-list *ngIf="Viewlist"></app-cost-center-list>
+    </div>
+  </lib-page-content>

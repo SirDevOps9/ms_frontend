@@ -1,0 +1,15 @@
+<p-button
+  [icon]="icon"
+  [rounded]="rounded"
+  [text]="enableText"
+  [severity]="severity"
+  [outlined]="outlined" 
+  [label]="label"
+  (click)="onClick.emit($event)"
+  [class]="className"
+  [disabled]="disabled"
+
+  
+>
+  <ng-content> </ng-content>
+</p-button>

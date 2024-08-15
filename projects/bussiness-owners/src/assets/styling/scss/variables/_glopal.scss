@@ -1,0 +1,129 @@
+@import './_font-family';
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-transform: capitalize;
+}
+.swal2-toast-shown .swal2-container {
+    z-index: 1260 !important;
+}
+
+  .text-danger{
+    color:#CB3F2D ;
+  }
+  
+
+////////////// cairo_regula ////////////
+.body_b32{
+    font-size: 32px;
+    font-family: $cairo_regular;
+}
+.body_b29{
+    font-size: 29px;
+    font-family: $cairo_regular;
+}
+.body_b26{
+    font-size: 26px;
+    font-family: $cairo_regular;
+}
+.body_b23{
+    font-size: 23px;
+    font-family: $cairo_regular;
+}
+.body_b20{
+    font-size: 20px;
+    font-family: $cairo_regular;
+}
+.body_b18{
+    font-size: 18px;
+    font-family: $cairo_regular;
+}
+.body_b16{
+    font-size: 16px;
+    font-family: $cairo_regular;
+}
+.body_b14{
+    font-size: 14px !important;
+    font-family: $cairo_regular;
+}
+.body_b13{
+    font-size: 13px;
+    font-family: $cairo_regular;
+}
+////////////// cairo_semebold ////////////
+.paragraph_b32{
+    font-size: 32px;
+    font-family: $cairo_semi_bold;
+}
+.paragraph_b29{
+    font-size: 29px;
+    font-family:$cairo_semi_bold;
+}
+.paragraph_b26{
+    font-size: 26px;
+    font-family:$cairo_semi_bold;
+}
+.paragraph_b23{
+    font-size: 23px;
+    font-family:$cairo_semi_bold;
+}
+.paragraph_b20{
+    font-size: 20px;
+    font-family:$cairo_semi_bold;
+}
+.paragraph_b18{
+    font-size: 18px;
+    font-family:$cairo_semi_bold;
+}
+.paragraph_b16{
+    font-size: 16px;
+    font-family:$cairo_semi_bold;
+}
+.paragraph_b14{
+    font-size: 14px;
+    font-family:$cairo_semi_bold;
+}
+.paragraph_b13{
+    font-size: 13px;
+    font-family:$cairo_semi_bold;
+}
+////////////// cairo_bold ////////////
+.heading_b32{
+    font-size: 32px;
+    font-family: $cairo_bold;
+}
+.heading_b29{
+    font-size: 29px;
+    font-family:$cairo_bold;
+}
+.heading_b26{
+    font-size: 26px;
+    font-family:$cairo_bold;
+}
+.heading_b23{
+    font-size: 23px;
+    font-family:$cairo_bold;
+}
+.heading_b20{
+    font-size: 20px;
+    font-family:$cairo_bold;
+}
+.heading_b18{
+    font-size: 18px;
+    font-family:$cairo_bold;
+}
+.heading_b16{
+    font-size: 16px;
+    font-family:$cairo_bold;
+}
+.heading_b14{
+    font-size: 14px;
+    font-family:$cairo_bold;
+}
+.heading_b13{
+    font-size: 13px;
+    font-family:$cairo_bold;
+}
+
+ 

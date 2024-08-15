@@ -1,0 +1,113 @@
+//@import "../../../../assets/styling/scss/variables/font-family";
+.journal_entry_add_page {
+    .entry_header {
+      background: #f7f8f8;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      padding: 20px;
+      margin-bottom: 20px;
+      .title {
+        font-size: 18px;
+        // font-family: $cairo_regular;
+      }
+    }
+    .entry_table {
+      .add_new {
+        padding: 20px;
+        .btn {
+          background: none;
+          border: none;
+          font-size: 16px;
+          color: #1a90b0;
+          cursor: pointer;
+        }
+        .Line {
+          border-inline-end: 3px solid #dde1e6ed;
+        }
+      }
+      
+    }
+  
+    .view {
+      font-size: 1rem;
+      color: #000000;
+      // background: #ffffff;
+      padding: 15px;
+      min-height: 40px;
+      // border-radius: 6px;
+      // border: 1px solid #d1d5db;
+      font-weight: bold;
+    }
+    .add_new_btn {
+      margin-top: 20px;
+      margin-inline-end: 20px;
+      background: none;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      position: relative;
+      background: #1a90b0;
+      color: #fff;
+    }
+  
+    .pi.pi-trash {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: red;
+    }
+    ::ng-deep {
+      .entry_header {
+        lib-text-input input {
+          border: none;
+          color: black;
+          font-weight: bold;
+        }
+
+     
+  
+        lib-label {
+          border: none;
+          color: #6b7280;
+          font-weight: 600;
+          font-size: 14px;
+        }
+      }
+
+    }
+  }
+  .search-circle {
+    cursor: pointer;
+  }
+  .costCenterImg{
+    cursor: pointer;
+    height: 30px;
+  }
+ .totals {
+  color: #6b7280;
+  font-weight: 500;
+ }
+ ::ng-deep    .entry_table {
+  // lib-text-input input {
+  //   border: none;
+  // }
+  .p-inputtext{
+    width: 100px !important;
+    padding-inline-start: 5px !important;
+   padding-inline-end:5px !important;
+   width: 150px !important;
+  }
+}
+
+::ng-deep .desc{
+  lib-text-input input {
+    border: none;
+    color: black;
+    font-weight: bold;
+    height: 100px;
+}
+}
+
+.none {
+  display: none;
+}

@@ -1,0 +1,9 @@
+<img
+  class="image-rounded"
+  *ngIf="imageData"
+  [src]="imageData"
+  alt=""
+  [width]="style"
+  [ngClass]="className"
+  onerror="this.src='assets/images/users/pic.jpg'"
+/>

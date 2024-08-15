@@ -1,0 +1,111 @@
+.pop_up_config_page {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  .pop_up_header {
+    width: 100%;
+    .header_content {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      //   background: #f7f8f8;
+      padding-bottom: $spacing-16;
+      margin-bottom: $spacing-32;
+      border-bottom: 1px solid $gray-100;
+
+      .title {
+        display: flex;
+        font-size: $heading-h20-size;
+        font-weight: $heading-h20-weight;
+        color: $text-black;
+        // .plus_icon {
+        //   width: 40px;
+        //   height: auto;
+        //   margin-right: 10px;
+        //   background-size: contain;
+        //   background-position: center;
+        //   background-repeat: no-repeat;
+        // }
+      }
+      .cancel {
+        background: url('../../../images/close.svg');
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 700;
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+  .pop_up_content {
+    width: 100%;
+
+    .title {
+      background: #f7f8f8;
+      padding: 8px;
+      border-radius: 4px;
+      font-size: 16px;
+      font-family: $cairo_regular;
+    }
+    .icon {
+      margin-inline-end: 5px;
+    }
+    .add_line {
+      width: fit-content;
+      font-size: 16px;
+      font-family: $cairo_regular;
+      color: #1a90b0;
+      cursor: pointer;
+      padding-inline-start: 10px;
+    }
+    // .card {
+    //   max-height: 400px;
+    //   overflow: auto;
+    // }
+  }
+  .pop_up_footer {
+    // position: fixed;
+    // bottom: 0;
+    // display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-top: $spacing-32;
+
+    // background: #f7f8f8;
+    // padding: 10px;
+    .cancel_btn,.save_btn{
+      width: 100%;
+    }
+  }
+}
+.pop_up_config_page {
+  .p-dialog {
+    .p-dialog-content {
+      padding: 0 0 0 0 !important;
+    }
+  }
+}
+.p-dialog {
+  // .p-dialog-content {
+  //   padding: $spacing-24 !important;
+  //   border-radius: $spacing-8 ;
+  // }
+  .p-dialog-header {
+    display: none !important;
+  }
+}
+//   .p-dialog-mask {
+//     justify-content: start !important;
+//     align-items: start !important;
+//     z-index: 1000 !important;
+//   }
+//   .p-dialog .p-dialog-content:last-of-type {
+//     border-top-left-radius: 15px !important;
+//     border-bottom-left-radius: 15px !important;
+//     overflow-x: hidden;
+//   }
+
+
