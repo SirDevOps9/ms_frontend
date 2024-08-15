@@ -201,6 +201,8 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
     this.ref.close(this.allocationform.value)
 
   }
-
+  clickSave(e:any){
+    this.onSave()
+  }
 
 }

@@ -35,18 +35,14 @@
           }
         ]
     }">
-
-    <ng-container caption>
-        <div class="group">
-            <div [formGroup]="searchForm">
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input pInputText formControlName="SearchTerm" type="text" placeholder="Search..." />
-                </span>
-            </div>
-
+        <ng-container search>
+          <div [formGroup]="searchForm">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText formControlName="SearchTerm" type="text" placeholder="Search..." />
+            </span>
         </div>
-    </ng-container>
+        </ng-container>
 
     <ng-template #nameCol let-account>
         {{lang.includes('ar') ? account.nameAr : account.nameEn}}

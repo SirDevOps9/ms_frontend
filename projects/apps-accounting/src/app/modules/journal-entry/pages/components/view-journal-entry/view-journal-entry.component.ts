@@ -39,7 +39,7 @@ export class ViewJournalEntryComponent implements OnInit {
     }else {
       const dialogRef =  this.dialog.open(CostCenterAllocationPopupComponent,{
         width: '900px',
-        height: '500px',
+        height: '600px',
         header : 'View Cost Center Allocation',
         data : {...data , text}
       });

@@ -472,7 +472,7 @@ export class CreateJournalEntryComponent {
     } else {
       const dialogRef = this.dialog.open(CostCenterAllocationPopupComponent, {
         width: '900px',
-        height: '500px',
+        height: '600px',
         // header: 'Cost Center Allocation',
         data: data,
       });

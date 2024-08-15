@@ -29,6 +29,7 @@ import { Title } from '@angular/platform-browser';
 import { EditCostCenterAllocationPopupComponent } from '../components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component';
 import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
+import { CostCenterAllocationPopupComponent } from '../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
 
 @Component({
   selector: 'app-edit-journal-entry',
@@ -397,18 +398,34 @@ export class EditJournalEntryComponent implements OnInit {
       accountData?.costCenterConfig == 'NotAllow'
     ) {
       return null;
-    } else {
-      const dialogRef = this.dialog.open(EditCostCenterAllocationPopupComponent, {
-        width: '900px',
-        height: '600px',
-        header: 'Edit Cost Center Allocation',
-        data: data,
-      });
-      dialogRef.onClose.subscribe((res) => {
-        if (res) {
-          journal.get('costCenters')?.setValue(res);
-        }
-      });
+    } 
+    else {
+      if(this.viewMode){
+        const text:string='view'
+        const dialogRef =  this.dialog.open(CostCenterAllocationPopupComponent,{
+          width: '900px',
+          height: '600px',
+          header : 'View Cost Center Allocation',
+          data : {...data , text}
+        });
+        dialogRef.onClose.subscribe((res) => {
+          if(res)data.costCenters = res
+         
+        });
+      }else{
+        const dialogRef = this.dialog.open(EditCostCenterAllocationPopupComponent, {
+          width: '900px',
+          height: '600px',
+          header: 'Edit Cost Center Allocation',
+          data: data,
+        });
+        dialogRef.onClose.subscribe((res) => {
+          if (res) {
+            journal.get('costCenters')?.setValue(res);
+          }
+        });
+      }
+   
     }
   }
   getCurrencies() {

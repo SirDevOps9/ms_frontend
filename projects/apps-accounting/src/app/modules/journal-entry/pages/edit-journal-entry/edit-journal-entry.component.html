@@ -156,11 +156,13 @@
                           [customClass]="'add-journal'"
                           (valueChanged)="accountSelected($event, rowIndex)"
                           (valueSearchChanged)="onFilter($event)"
+                          placeholder=" {{ journalLine.get('accountCode').value }}"
+                          [readOnly]="viewMode"
 
                         >
                         </lib-select>
 
-                        <i class="pi pi-search search-circle" (click)="openDialog(rowIndex)"></i>
+                        <i *ngIf="!viewMode" class="pi pi-search search-circle" (click)="openDialog(rowIndex)"></i>
                       </div>
                     </ng-template>
                     <ng-template pTemplate="output">
@@ -191,6 +193,8 @@
                         type="number"
                         (valueChanged)="debitValueChanges(rowIndex)"
                         (keyUp)="debitValueChanges(rowIndex)"
+                        [readOnly]="viewMode"
+
                       ></lib-text-input>
                     </ng-template>
                     <ng-template pTemplate="output">
@@ -215,6 +219,8 @@
                         type="number"
                         (valueChanged)="creditValueChanges(rowIndex)"
                         (keyUp)="creditValueChanges(rowIndex)"
+                        [readOnly]="viewMode"
+
                       ></lib-text-input>
                     </ng-template>
                     <ng-template pTemplate="output">

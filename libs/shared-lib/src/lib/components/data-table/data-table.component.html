@@ -23,8 +23,14 @@
       >
         <!-- [class.none]="currentPageResult.totalItems! <= 25" -->
         <ng-template pTemplate="caption">
+       <div class="parent ">
+        <ng-content select="[search]">
+            
+          
+        </ng-content>
+        <div class=" flex align-items-center">
           <div
-            class="flex align-items-center justify-content-end gap-2 paginationHead"
+          class="paginationHead"
             *ngIf="tableConfigs.allowServerPagination"
             [class.none]="currentPageResult.totalItems! <= 25"
           >
@@ -39,7 +45,18 @@
               [first]="first"
             ></p-paginator>
           </div>
-          <ng-content select="[caption]"> </ng-content>
+          <ng-content select="[action]">
+              
+            
+          </ng-content>
+        </div>
+       
+       </div>
+       <ng-content select="[caption]">
+            
+          
+       </ng-content>
+         
         </ng-template>
 
         <!-- <ng-template pTemplate="header">

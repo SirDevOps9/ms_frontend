@@ -15,6 +15,7 @@ import { EditCostCenterAllocationPopupComponent } from '../../components/edit-co
 import { ActivatedRoute } from '@angular/router';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
+import { CostCenterAllocationPopupComponent } from '../../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
 
 @Component({ 
   selector: 'app-edit-journal-entry-opening-balance',
@@ -447,17 +448,32 @@ export class EditJournalEntryOpeningBalanceComponent {
     ) {
       return null;
     } else {
-      const dialogRef = this.dialog.open(EditCostCenterAllocationPopupComponent, {
-        width: '900px',
-        height: '600px',
-        header: 'Edit Cost Center Allocation',
-        data: data,
-      });
-      dialogRef.onClose.subscribe((res) => {
-        if (res) {
-          journal.get('costCenters')?.setValue(res)
-        }
-      });
+      if(this.viewMode){
+        const text:String= 'view'
+        const dialogRef =  this.dialog.open(CostCenterAllocationPopupComponent,{
+          width: '900px',
+          height: '500px',
+          header : 'View Cost Center Allocation',
+          data : {...data , text}
+        });
+        dialogRef.onClose.subscribe((res) => {
+          if(res)data.costCenters = res
+         
+        });
+      }else{
+        const dialogRef = this.dialog.open(EditCostCenterAllocationPopupComponent, {
+          width: '900px',
+          height: '600px',
+          header: 'Edit Cost Center Allocation',
+          data: data,
+        });
+        dialogRef.onClose.subscribe((res) => {
+          if (res) {
+            journal.get('costCenters')?.setValue(res)
+          }
+        });
+      }
+     
     }
   }
 

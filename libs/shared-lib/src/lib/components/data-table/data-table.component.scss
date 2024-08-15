@@ -195,15 +195,20 @@ span {
     }
   }
 }
-
-::ng-deep .paginationHead {
-  position: relative;
-  top: 52px;
-  right: 233px;
-  .p-paginator {
-    background-color: transparent;
-  }
+.parent{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
+// ::ng-deep .paginationHead {
+//   position: relative;
+//   top: 52px;
+//   right: 233px;
+//   .p-paginator {
+//     background-color: transparent;
+//   }
+// }
 
 .none {
   display: none !important;

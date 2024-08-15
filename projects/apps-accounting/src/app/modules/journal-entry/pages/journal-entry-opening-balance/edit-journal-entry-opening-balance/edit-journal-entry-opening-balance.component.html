@@ -169,10 +169,12 @@
                           [customClass]="'add-journal'"
                           (valueChanged)="accountSelected($event, rowIndex)"
                           (valueSearchChanged)="onFilter($event)"
+                          placeholder=" {{ journalLine.get('accountCode').value }}"
+                          [readOnly]="viewMode"
                           >
                         </lib-select>
   
-                        <i class="pi pi-search search-circle" (click)="openDialog(rowIndex)"></i>
+                        <i *ngIf="!viewMode" class="pi pi-search search-circle" (click)="openDialog(rowIndex)"></i>
                       </div>
                     </ng-template>
                     <ng-template pTemplate="output">

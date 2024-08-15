@@ -1,10 +1,6 @@
- 
-        <div class="user_page">
-            <lib-data-table [items]="tableData" className="p-datatable-gridlines"
-             [currentPageResult]="currentPageInfo"
-              
-
-                (pageChange)="onPageChange($event)" [tableConfigs]="{
+<div class="user_page">
+  <lib-data-table [items]="tableData" className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
+    (pageChange)="onPageChange($event)" [tableConfigs]="{
             allowPagination: false,
             allowServerPagination: true,
             dataKey: 'id',
@@ -42,63 +38,45 @@
        
             ]
           }">
+    <ng-container search>
+      <div>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="onSearchChange($event)"
+            [placeholder]="'ChartOfAccount.Search' | translate" />
+        </span>
+      </div>
+    </ng-container>
+    <ng-container action>
+      <div>
+        <lib-export (exportClick)="exportCostCentersData($event)" [exportData]="exportData"
+          [exportColumns]="exportColumns" [ExportName]="'Cost Centers'">
+        </lib-export>
+      </div>
+    </ng-container>
 
-                <ng-container caption>
+    <ng-template #actions let-user>
 
-                  <div class="group flex justify-content-between">
-                    
-                                <!-- <lib-form-group>
-                                    <lib-text-input type="text" [placeholder]="'Search'" (keyUp)="onSearchChange($event)"></lib-text-input>
-                                </lib-form-group> -->
-                                <div>
-                                  <span class="p-input-icon-left">
-                                    <i class="pi pi-search"></i>
-                                    <input
-                                      pInputText
-                                      type="text"
-                                      (input)="onSearchChange($event)"
-                                      [placeholder]="'ChartOfAccount.Search' | translate"
-                                    />
-                                  </span>
-                                </div>
-                        <div>
-                          <lib-export
-                            (exportClick)="exportCostCentersData($event)"
-                            [exportData]="exportData"
-                            [exportColumns]="exportColumns"
-                            [ExportName]="'Cost Centers'"
-                          >
-                          </lib-export>
-                        </div>
+      <div *ngIf="user.isActive !=null">
+        <lib-input-switch [id]="user.id" (onChange)="confirmChange($event, user)" [(ngModel)]="user.isActive"
+          [disabled]="true">
+        </lib-input-switch>
 
-                    </div>
-
-                </ng-container>
-                <ng-template #actions let-user>
-      
-                    <div *ngIf="user.isActive !=null">
-                      <lib-input-switch
-                        [id]="user.id"
-                        (onChange)="confirmChange($event, user)"
-                        [(ngModel)]="user.isActive"
-                        [disabled]="true"
-                      >
-                      </lib-input-switch>
-              
-                      <!-- <p class="active" *ngIf="user.isActive">
+        <!-- <p class="active" *ngIf="user.isActive">
                         {{ 'User.Activate' | translate }}
                       </p>
                       <p class="inactive" *ngIf="!user.isActive">
                         {{ 'User.Deactivate' | translate }}
                       </p> -->
-                    </div>
-                   
-                  </ng-template>
-                <ng-template #type let-user>
-      
-                 <p class="body_b14" [ngClass]="{'detail':user.type==sharedCostEnums.costType.Detail ,'main':user.type==sharedCostEnums.costType.Main }"> {{user.type}}</p>
-                  </ng-template>
+      </div>
 
-            </lib-data-table>
-        </div>
-   
+    </ng-template>
+    <ng-template #type let-user>
+
+      <p class="body_b14"
+        [ngClass]="{'detail':user.type==sharedCostEnums.costType.Detail ,'main':user.type==sharedCostEnums.costType.Main }">
+        {{user.type}}</p>
+    </ng-template>
+
+  </lib-data-table>
+</div>
