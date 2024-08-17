@@ -44,16 +44,15 @@ columns: [
 ]
 }"
 >
-<ng-container caption>
-<div class="group flex justify-content-between">
+<ng-container search>
   <div [formGroup]="searchForm">
     <span class="p-input-icon-left">
       <i class="pi pi-search"></i>
       <input pInputText formControlName="SearchTerm" type="text" placeholder="{{ 'ChartOfAccount.Search' | translate }}" />
     </span>
   </div>
-</div>
-</ng-container>
+  </ng-container>
+
 
 <ng-template #actions let-account>
 <!-- <input

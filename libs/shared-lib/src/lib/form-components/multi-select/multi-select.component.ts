@@ -33,10 +33,10 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
   @Input() maxLength: string;
   @Input() id: string;
   @Input() className: string;
-  @Input() selectedValue: any = [];
+  @Input() selectedValue: any;
   @Input() data_testid: string = '';
   @Input() labelTest: any;
-
+  
   @Output() valueChanged = new EventEmitter<string | []>();
 
   value: string | null = '';
@@ -45,12 +45,11 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
 
   writeValue(value: any): void {
     if (value) {
-      this.selectedValue = value;
       this.value = value;
-    } else {
-      this.selectedValue = [];
-      this.value = null;
     }
+    //  else {
+    //   this.value = null;
+    // }
   }
 
   onOptionRemoved(removedOption: any) {

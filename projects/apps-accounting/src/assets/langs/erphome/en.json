@@ -6,6 +6,7 @@
   "DeleteError": "Error in Delete",
   "LoadError": "Error in loading Data",
   "walkThrough": "walk Through",
+  "CostCenterAllocation":"Cost Center Allocation",
 
   "Table": {
     "Actions": "Actions",

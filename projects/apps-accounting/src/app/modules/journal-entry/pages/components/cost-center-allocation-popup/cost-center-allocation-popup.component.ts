@@ -10,116 +10,93 @@ import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service
 @Component({
   selector: 'app-cost-center-allocation-popup',
   templateUrl: './cost-center-allocation-popup.component.html',
-  styleUrl: './cost-center-allocation-popup.component.scss'
+  styleUrl: './cost-center-allocation-popup.component.scss',
 })
-export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewInit{
-  @ViewChild('select')select : SelectComponent
-  accountLookup : any  = [];
-  calcPercentage : number
-  calcAmount : number
-  lookupValues : any = []
+export class CostCenterAllocationPopupComponent implements OnInit, AfterViewInit {
+  @ViewChild('select') select: SelectComponent;
+  accountLookup: any = [];
+  calcPercentage: number;
+  calcAmount: number;
+  lookupValues: any = [];
 
-  constructor( private fb : FormBuilder , public config : DynamicDialogConfig , private accountService : AccountService , private formsService : FormsService , private ref : DynamicDialogRef , private cdr : ChangeDetectorRef ,     private toasterService: ToasterService, private languageService : LanguageService
-    ,public generalService: GeneralService){}
+  constructor(
+    private fb: FormBuilder,
+    public config: DynamicDialogConfig,
+    private accountService: AccountService,
+    private formsService: FormsService,
+    private ref: DynamicDialogRef,
+    private cdr: ChangeDetectorRef,
+    private toasterService: ToasterService,
+    private languageService: LanguageService,
+    public generalService: GeneralService
+  ) {}
   ngAfterViewInit(): void {
-
-    console.log(this.select)
-
-    if(this.config.data?.costCenters?.length) {
+    if (this.config.data?.costCenters?.length) {
       this.allocationform.clear();
-      this.config.data.costCenters.forEach((element : any) => {
-         this.lookupValues.push(Number(element.costCenterId) ) 
-        this.cdr.detectChanges()
-         console.log(this.lookupValues)
-
+      this.config.data.costCenters.forEach((element: any) => {
+        this.lookupValues.push(Number(element.costCenterId));
+        this.cdr.detectChanges();
         // this.select.selectedValue = element.costCenterId
-        this.allocationform.push(this.fb.group({
-          ...element
-        }))
+        this.allocationform.push(
+          this.fb.group({
+            ...element,
+          })
+        );
       });
-
-    
-
-     
     }
-   
   }
 
-  close(){
+  close() {
     this.ref.close();
   }
   ngOnInit(): void {
-   
     this.amountForm = this.fb.group({
-      amount : 0
-    })
-    const formatdebitAmount=this.generalService.formatNumber(this.config.data.debitAmount, this.generalService.fraction)
-    const formatcreditAmount=this.generalService.formatNumber(this.config.data.creditAmount, this.generalService.fraction)
-    console.log(formatdebitAmount)
-    console.log(formatcreditAmount)
+      amount: 0,
+    });
+    const formatdebitAmount = this.generalService.formatNumber(
+      this.config.data.debitAmount,
+      this.generalService.fraction
+    );
+    const formatcreditAmount = this.generalService.formatNumber(
+      this.config.data.creditAmount,
+      this.generalService.fraction
+    );
 
-  
-    if(this.config.data.creditAmount == '0.0' || !this.config.data.creditAmount) {
-      this.amountForm.get('amount')?.setValue(this.config.data.debitAmount)
+    const creditAmount = parseFloat(this.config.data.creditAmount);
+    const debitAmount = parseFloat(this.config.data.debitAmount);
+    if (creditAmount == 0 || !this.config.data.creditAmount) {
+      this.amountForm.get('amount')?.setValue(debitAmount);
     }
-     if(this.config.data.debitAmount == '0.0' || !this.config.data.debitAmount) {
-      this.amountForm.get('amount')?.setValue(this.config.data.creditAmount)
-
+    if (debitAmount == 0 || !this.config.data.debitAmount) {
+      this.amountForm.get('amount')?.setValue(creditAmount);
     }
-    this.allocationform.push(this.createItem())
+    this.allocationform.push(this.createItem());
 
-
-  
-
-
-
-    this.allocationform.valueChanges.subscribe(res=>{
+    this.allocationform.valueChanges.subscribe((res) => {
       this.initValueChangeHandlers();
 
-      this.calcPercentage = res.reduce((accumulator : any, currentValue : any) => {
-    
+      this.calcPercentage = res.reduce((accumulator: any, currentValue: any) => {
         return accumulator + Number(currentValue.percentage);
       }, 0);
-      this.calcAmount = res.reduce((accumulator : any, currentValue : any) => {
+      this.calcAmount = res.reduce((accumulator: any, currentValue: any) => {
         return accumulator + Number(currentValue.amount);
       }, 0);
-    })
-
-    // if(this.config?.data?.text && this.config?.data?.text == 'view') {
-       
-      // this.allocationform.controls.forEach(control=>{
-      
-      //   // control.get('costCenterId')?.disable()
-      //   // control.get('amount')?.disable()
-      //   // control.get('percentage')?.disable()
-      // })
-    // }
-
-
-
-
-    this.accountService.getCostCenterLookup().subscribe((res : costLookup[])=>{
-      this.accountLookup = res.map(costCenter => ({
-          ...costCenter,
-          displayName: `${costCenter.name} (${costCenter.code})`
-        }));
-
-
-      
- 
-      
-    })
-
+    });
+    
+    this.accountService.getCostCenterLookup().subscribe((res: costLookup[]) => {
+      this.accountLookup = res.map((costCenter) => ({
+        ...costCenter,
+        displayName: `${costCenter.name} (${costCenter.code})`,
+      }));
+    });
   }
 
-  onRemove(i:number) {
-    this.allocationform.removeAt(i)
+  onRemove(i: number) {
+    this.allocationform.removeAt(i);
   }
-
-
 
   initValueChangeHandlers() {
-    this.allocationform.controls.forEach(control => {
+    this.allocationform.controls.forEach((control) => {
       const formGroup = control as FormGroup;
       this.subscribeToAmountChanges(formGroup);
       this.subscribeToPercentageChanges(formGroup);
@@ -127,12 +104,10 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
   }
 
   subscribeToAmountChanges(formGroup: FormGroup) {
-    formGroup.get('amount')?.valueChanges.subscribe(amount => {
+    formGroup.get('amount')?.valueChanges.subscribe((amount) => {
       const percentageControl = formGroup.get('percentage');
       if (percentageControl && amount !== null && amount !== undefined && !isNaN(amount)) {
         const percentage = (amount / this.amountForm.get('amount')?.value) * 100;
-        console.log("heypercentage" , percentage)
-
         if (percentageControl.value !== percentage) {
           percentageControl.setValue(percentage, { emitEvent: false });
         }
@@ -141,32 +116,31 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
   }
 
   subscribeToPercentageChanges(formGroup: FormGroup) {
-    formGroup.get('percentage')?.valueChanges.subscribe(percentage => {
+    formGroup.get('percentage')?.valueChanges.subscribe((percentage) => {
       const amountControl = formGroup.get('amount');
       if (amountControl && percentage !== null && percentage !== undefined && !isNaN(percentage)) {
         const amount = (percentage * this.amountForm.get('amount')?.value) / 100;
-        console.log("heyAmount" , amount)
         if (amountControl.value !== amount) {
           amountControl.setValue(amount, { emitEvent: false });
         }
       }
     });
   }
-  allocationform : FormArray = this.fb.array([])
+  allocationform: FormArray = this.fb.array([]);
 
-  amountForm : FormGroup
+  amountForm: FormGroup;
 
   createItem(): FormGroup {
     return this.fb.group({
-      costCenterId: new FormControl('',customValidators.required),
+      costCenterId: new FormControl('', customValidators.required),
       name: [''],
-      amount :  new FormControl('' , customValidators.required),
-      percentage :  new FormControl('',customValidators.required)
+      amount: new FormControl('', customValidators.required),
+      percentage: new FormControl('', customValidators.required),
     });
   }
 
   addItem() {
-    this.allocationform.push(this.createItem())
+    this.allocationform.push(this.createItem());
   }
 
   validateInput(event: any): void {
@@ -182,25 +156,28 @@ export class CostCenterAllocationPopupComponent implements OnInit  , AfterViewIn
 
       input.value = value.slice(0, -1);
     }
-
-  
   }
   checkForDuplicateCostCenters(): boolean {
     const costCenterIds = this.allocationform.value.map((item: any) => item.costCenterId);
-    const duplicateIds = costCenterIds.filter((id: string, index: number) => costCenterIds.indexOf(id) !== index);
+    const duplicateIds = costCenterIds.filter(
+      (id: string, index: number) => costCenterIds.indexOf(id) !== index
+    );
     return duplicateIds.length > 0;
   }
   onSave() {
     if (!this.formsService.validForm(this.allocationform, false)) return;
     if (this.checkForDuplicateCostCenters()) {
-      this.toasterService.showError(this.languageService.transalte('Journal.Error') , this.languageService.transalte('Journal.cannotDuplicate'))
-   
+      this.toasterService.showError(
+        this.languageService.transalte('Journal.Error'),
+        this.languageService.transalte('Journal.cannotDuplicate')
+      );
+
       return;
     }
-    
-    this.ref.close(this.allocationform.value)
 
+    this.ref.close(this.allocationform.value);
   }
-
-
+  clickSave(e: any) {
+    this.onSave();
+  }
 }

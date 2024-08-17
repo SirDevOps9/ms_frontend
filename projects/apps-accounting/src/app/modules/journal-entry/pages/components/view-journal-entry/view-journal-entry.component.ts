@@ -13,33 +13,70 @@ import { CostCenterAllocationPopupComponent } from '../cost-center-allocation-po
   providers: [RouterService],
 })
 export class ViewJournalEntryComponent implements OnInit {
-  currentPageInfo: PageInfo = new PageInfo();
   data: any = {};
   journalView?: JournalEntryViewDto;
-
+  totalDebitAmount: number;
+  totalDebitAmountLocal: number;
+  totalCreditAmountLocal: number;
+  totalCreditAmount: number;
   ngOnInit() {
 
     this.loadJournalView();
   }
 
-  onPageChange(pageInfo: PageInfo) {
-    console.log(pageInfo);
-  }
-
   loadJournalView() {
-    const employeeId = this.routerService.currentId;
-    this.journalEntryService.getJournalEntryViewById(employeeId).subscribe((res) => {
+    this.journalEntryService.getJournalEntryViewById(this.routerService.currentId).subscribe((res) => {
       this.journalView = res;
+      this.calculateTotalCreditAmount();
+      this.calculateTotalDebitAmount();
+      this.calculateTotalDebitAmountLocal();
+      this.calculateTotalCreditAmountLocal();
     });
   }
+  calculateTotalDebitAmount() {
+    this.totalDebitAmount = this.journalView?.journalEntryLines!.reduce(
+      (acc, control) => {
+        const debitValue = control.debitAmount;
+        return acc + debitValue;
+      },
+      0
+    )!;
+  }
+  calculateTotalCreditAmount() {
+    this.totalCreditAmount = this.journalView?.journalEntryLines!.reduce(
+      (acc, control) => {
+        const debitValue = control.creditAmount;
+        return acc + debitValue;
+      },
+      0
+    )!;
+  }
 
+  calculateTotalDebitAmountLocal() {
+    this.totalDebitAmountLocal = this.journalView?.journalEntryLines!.reduce(
+      (acc, control) => {
+        const debitValue = control.debitAmountLocal;
+        return acc + debitValue;
+      },
+      0
+    )!;
+  }
+  calculateTotalCreditAmountLocal() {
+    this.totalCreditAmountLocal = this.journalView?.journalEntryLines!.reduce(
+      (acc, control) => {
+        const debitValue = control.creditAmountLocal;
+        return acc + debitValue;
+      },
+      0
+    )!;
+  }
   openCostPopup(data : any , text : string) {
     if(!data.creditAmount && !data.debitAmount){
       return null
     }else {
       const dialogRef =  this.dialog.open(CostCenterAllocationPopupComponent,{
         width: '900px',
-        height: '500px',
+        height: '600px',
         header : 'View Cost Center Allocation',
         data : {...data , text}
       });

@@ -137,3 +137,16 @@ button[disabled] {
   background: #ededf4 !important;
   border: 1px solid #e5e7eb;
 }
+.label_total{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  color: #6b7280;
+}
+::ng-deep{
+  .totals{
+    .p-inputtext::placeholder {
+        color: black !important;
+       font-weight: bold !important;
+    }
+  }
+}

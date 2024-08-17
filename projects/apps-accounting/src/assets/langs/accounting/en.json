@@ -92,7 +92,9 @@
     "unposted": "Unposted",
     "posted": "Posted",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "CostCenterNotAllowed":"This Account doesn't allow cost centers",
+    "InvalidAmount":"please enter valid debit or credit amounts"
   },
   "JournalTitle": "Add Journal",
   "journal_entry_header": "Please Enter journal entry Header",

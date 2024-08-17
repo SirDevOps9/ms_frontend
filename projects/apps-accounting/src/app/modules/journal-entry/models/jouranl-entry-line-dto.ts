@@ -1,4 +1,4 @@
-import { costCenters } from "./costCenters";
+import { costCenters } from './costCenters';
 
 export interface JournalEntryLineDto {
   id: number;
@@ -13,7 +13,6 @@ export interface JournalEntryLineDto {
   currency?: string;
   currencyId: number;
   currencyRate: number;
-  costCenters : costCenters[],
-  costCenterConfig : []
-
+  costCenters: costCenters[];
+  costCenterConfig: string;
 }

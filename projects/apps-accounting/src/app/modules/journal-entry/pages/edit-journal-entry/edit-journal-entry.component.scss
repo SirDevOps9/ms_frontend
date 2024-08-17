@@ -97,9 +97,9 @@
   cursor: pointer;
   height: 30px;
 }
-.total{
-  margin-top: 17px;
-}
+// .total{
+//   margin-top: 17px;
+// }
 ::ng-deep .desc{
   lib-text-input input {
     border: none;
@@ -111,4 +111,17 @@
 
 .none {
   display: none;
+}
+.label_total{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  color: #6b7280;
+}
+::ng-deep{
+  .total{
+    .p-inputtext::placeholder {
+        color: black !important;
+       font-weight: bold !important;
+    }
+  }
 }
