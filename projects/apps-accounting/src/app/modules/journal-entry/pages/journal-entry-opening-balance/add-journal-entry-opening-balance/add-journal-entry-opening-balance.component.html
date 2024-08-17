@@ -40,26 +40,36 @@
           ></lib-text-input>
           <lib-field-validations [appControl]="fg.controls['description']"></lib-field-validations>
         </div>
-        <div class="col-12 md:col-3">
-          <p class="totals">{{ 'JournalTemplate.totalDebitAmountLocal' | translate }}</p>
+        <div class="col-12 md:col-3 total">
+          <!-- <p class="totals">{{ 'JournalTemplate.totalDebitAmountLocal' | translate }}</p> -->
           <!-- <lib-text-input
             [(ngModel)]="totalDebitAmountLocal"
             placeholder="0"
             [readOnly]="true"
             [ngModelOptions]="{ standalone: true }"
           ></lib-text-input> -->
-          <label >{{totalDebitAmountLocal | numberFormat }}</label>
+          <p class="label_total paragraph_b18">{{ 'JournalTemplate.totalDebitAmountLocal' | translate }}</p>
+          <lib-text-input
+            placeholder=" {{totalDebitAmountLocal | numberFormat }}"
+            [readOnly]="true"
+          ></lib-text-input>
+          <!-- <label >{{totalDebitAmountLocal | numberFormat }}</label> -->
         </div>
 
-        <div class="col-12 md:col-3">
-          <p class="totals">{{ 'JournalTemplate.totalCreditAmountLocal' | translate }}</p>
+        <div class="col-12 md:col-3 total">
+          <!-- <p class="totals">{{ 'JournalTemplate.totalCreditAmountLocal' | translate }}</p> -->
           <!-- <lib-text-input
             [(ngModel)]="totalCreditAmountLocal"
             placeholder="0"
             [readOnly]="true"
             [ngModelOptions]="{ standalone: true }"
           ></lib-text-input> -->
-          <label >{{totalCreditAmountLocal | numberFormat }}</label>
+          <p class="label_total paragraph_b18">{{ 'JournalTemplate.totalCreditAmountLocal' | translate }}</p>
+            <lib-text-input
+              placeholder=" {{totalCreditAmountLocal | numberFormat }}"
+              [readOnly]="true"
+            ></lib-text-input>
+          <!-- <label >{{totalCreditAmountLocal | numberFormat }}</label> -->
         </div>
       </div>
     </div>

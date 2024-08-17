@@ -76,25 +76,29 @@
           </div>
 
           <div class="col-12 md:col-3 total">
-            <small>{{ 'JournalTemplate.totalDebitAmountLocal' | translate }}</small>
-            <!-- <lib-text-input
-              [(ngModel)]="totalDebitAmountLocal"
-              placeholder="0"
+            <!-- <small>{{ 'JournalTemplate.totalDebitAmountLocal' | translate }}</small> -->
+             <p class="label_total paragraph_b18"> {{ 'JournalTemplate.totalDebitAmountLocal' | translate }}</p>
+            <lib-text-input
+              placeholder="{{totalDebitAmountLocal | numberFormat }}"
               [readOnly]="true"
-              [ngModelOptions]="{ standalone: true }"
-            ></lib-text-input> -->
-            <label>{{totalDebitAmountLocal | numberFormat }}</label>
+            ></lib-text-input>
+            <!-- <label>{{totalDebitAmountLocal | numberFormat }}</label> -->
           </div>
 
           <div class="col-12 md:col-3 total">
-            <small>{{ 'JournalTemplate.totalCreditAmountLocal' | translate }}</small>
+            <!-- <small>{{ 'JournalTemplate.totalCreditAmountLocal' | translate }}</small> -->
             <!-- <lib-text-input
               [(ngModel)]="totalCreditAmountLocal"
               placeholder="0"
               [readOnly]="true"
               [ngModelOptions]="{ standalone: true }"
             ></lib-text-input> -->
-            <label >{{totalCreditAmountLocal | numberFormat }}</label>
+            <p class="label_total paragraph_b18"> {{ 'JournalTemplate.totalCreditAmountLocal' | translate }}</p>
+            <lib-text-input
+              placeholder="{{totalCreditAmountLocal | numberFormat }}"
+              [readOnly]="true"
+            ></lib-text-input>
+            <!-- <label >{{totalCreditAmountLocal | numberFormat }}</label> -->
           </div>
           <div class="col-12 desc">
             <lib-label [appControl]="editJournalForm.controls['description']">
