@@ -74,8 +74,8 @@ export class CostCenterListComponent implements OnInit {
 
   Add() {
     const dialogRef = this.dialog.open(TaxGroupAddComponent, {
-      width: '600px',
-      height: 'auto',
+      width: '700px',
+      height: '500px',
     });
     dialogRef.onClose.subscribe(() => {
       this.initTaxGroupData();
@@ -85,7 +85,7 @@ export class CostCenterListComponent implements OnInit {
   Edit(Id: any) {
     const dialogRef = this.dialog.open(TaxGroupEditComponent, {
       width: '600px',
-      height: 'auto',
+      height: '500px',
       data: Id,
     });
     dialogRef.onClose.subscribe(() => {
