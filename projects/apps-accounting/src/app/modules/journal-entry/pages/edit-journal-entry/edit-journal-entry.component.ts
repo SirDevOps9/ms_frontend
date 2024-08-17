@@ -391,7 +391,10 @@ export class EditJournalEntryComponent implements OnInit {
 
     if (!account || accountData?.costCenterConfig == 'NotAllow') {
       if (data.costCenterConfig == 'NotAllow') {
-        this.toasterService.showError('error', "this account doesn't allow cost centers");
+        this.toasterService.showError(
+          this.langService.transalte('Journal.Error'),
+          this.langService.transalte('Journal.CostCenterNotAllowed')
+        );
         return;
       }
     }
@@ -404,7 +407,10 @@ export class EditJournalEntryComponent implements OnInit {
       (!creditAmount && !debitAmount) ||
       (creditAmount === 0 && debitAmount === 0)
     ) {
-      this.toasterService.showError('error', 'please enter valid debit or credit amounts');
+      this.toasterService.showError(
+        this.langService.transalte('Journal.Error'),
+        this.langService.transalte('Journal.InvalidAmount')
+      );
       return;
     }
 

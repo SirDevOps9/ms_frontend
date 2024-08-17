@@ -20,10 +20,7 @@ import { CurrencyDto } from '../../../../general/models/currencyDto';
 import { AttachmentsComponent } from '../../../components/attachments/attachments.component';
 import { NoChildrenAccountsComponent } from '../../../components/noChildrenAccounts/nochildaccounts.component';
 import { JournalEntryService } from '../../../journal-entry.service';
-import {
-  costCenters,
-  AddJournalEntryCommandOpeningBalance,
-} from '../../../models';
+import { costCenters, AddJournalEntryCommandOpeningBalance } from '../../../models';
 import { CostCenterAllocationPopupComponent } from '../../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
 import { JournalTemplatePopupComponent } from '../../components/journal-template-popup/journal-template-popup.component';
 import { JournalEntryFormValue } from '../../create-journal-entry/create-journal-entry.component';
@@ -452,11 +449,13 @@ export class AddJournalEntryOpeningBalanceComponent {
   }
 
   openCostPopup(data: any, journal: FormGroup, account: number, index: number) {
-    
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
 
     if (!account || accountData?.costCenterConfig == 'NotAllow') {
-      this.toasterService.showError('error', "this account doesn't allow cost centers");
+      this.toasterService.showError(
+        this.langService.transalte('Journal.Error'),
+        this.langService.transalte('Journal.CostCenterNotAllowed')
+      );
       return;
     }
 
@@ -468,7 +467,10 @@ export class AddJournalEntryOpeningBalanceComponent {
       (!creditAmount && !debitAmount) ||
       (creditAmount === 0 && debitAmount === 0)
     ) {
-      this.toasterService.showError('error', 'please enter valid debit or credit amounts');
+      this.toasterService.showError(
+        this.langService.transalte('Journal.Error'),
+        this.langService.transalte('Journal.InvalidAmount')
+      );
       return;
     }
 
@@ -512,7 +514,6 @@ export class AddJournalEntryOpeningBalanceComponent {
     var date = new Date();
     return date.toISOString().substring(0, 10);
   }
-  
 
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
     const journalLine = this.items.at(currentJournalId);
@@ -539,7 +540,6 @@ export class AddJournalEntryOpeningBalanceComponent {
     return `${year}-${month}-${day}`;
   }
 
-  
   isCostCenterallowed(costCenterConfig: string): boolean {
     if (costCenterConfig === 'Optional' || costCenterConfig === 'Mandatory') return true;
     return false;
@@ -551,6 +551,6 @@ export class AddJournalEntryOpeningBalanceComponent {
       (sum: number, item: any) => sum + parseFloat(item.percentage),
       0
     );
-    return totalPercentage ;
+    return totalPercentage;
   }
 }

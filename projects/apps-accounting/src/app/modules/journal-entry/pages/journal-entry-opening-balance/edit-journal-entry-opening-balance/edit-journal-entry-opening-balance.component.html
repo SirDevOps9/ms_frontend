@@ -223,10 +223,7 @@
                       ></lib-text-input>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{
-                      
-                          journalLine.controls['debitAmount'].value|numberFormat
-                      }}
+                      {{ journalLine.controls['debitAmount'].value | numberFormat }}
                     </ng-template>
                   </p-cellEditor>
                   <lib-field-validations [appControl]="journalLine"> </lib-field-validations>
@@ -372,18 +369,18 @@
                 <td class="imptyData"></td>
                 <td class="imptyData"></td> -->
                 <td class="total">
-                  {{ generalService.formatNumber(totalDebitAmount, generalService.fraction) }}
+                  {{ totalDebitAmount | numberFormat }}
                 </td>
                 <td class="total">
-                  {{ generalService.formatNumber(totalCreditAmount, generalService.fraction) }}
+                  {{ generalService.fraction | numberFormat }}
                 </td>
                 <td class="total"></td>
                 <td class="total"></td>
                 <td class="total">
-                  {{ generalService.formatNumber(totalDebitAmountLocal, generalService.fraction) }}
+                  {{ totalDebitAmountLocal | numberFormat }}
                 </td>
                 <td class="total">
-                  {{ generalService.formatNumber(totalCreditAmountLocal, generalService.fraction) }}
+                  {{ totalCreditAmountLocal | numberFormat }}
                 </td>
                 <td class="total"></td>
                 <td
