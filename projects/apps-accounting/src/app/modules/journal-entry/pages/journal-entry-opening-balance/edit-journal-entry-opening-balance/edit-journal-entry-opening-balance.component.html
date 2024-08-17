@@ -104,24 +104,26 @@
             <div>
               <p class="totals">{{ 'JournalTemplate.totalDebitAmountLocal' | translate }}</p>
             </div>
-            <lib-text-input
+            <!-- <lib-text-input
               [(ngModel)]="totalDebitAmountLocal"
               placeholder="0"
               [readOnly]="true"
               [ngModelOptions]="{ standalone: true }"
-            ></lib-text-input>
+            ></lib-text-input> -->
+            <label>{{totalDebitAmountLocal | numberFormat }}</label>
           </div>
 
           <div class="col-12 md:col-3 total">
             <div>
               <p class="totals">{{ 'JournalTemplate.totalCreditAmountLocal' | translate }}</p>
             </div>
-            <lib-text-input
+            <!-- <lib-text-input
               [(ngModel)]="totalCreditAmountLocal"
               placeholder="0"
               [readOnly]="true"
               [ngModelOptions]="{ standalone: true }"
-            ></lib-text-input>
+            ></lib-text-input> -->
+            <label>{{totalCreditAmountLocal | numberFormat }}</label>
           </div>
         </div>
       </div>
