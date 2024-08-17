@@ -63,11 +63,11 @@
   <!--  -->
   <div class="journal_page">
     <lib-data-table
-      [items]="journalView?.journalEntryLines!"
+      *ngIf="journalView!"
+      [items]="journalView!.journalEntryLines!"
       className="p-datatable-gridlines"
-      [currentPageResult]="currentPageInfo"
       [tableConfigs]="{
-        allowPagination: false,
+        allowPagination: true,
         allowServerPagination: false,
         dataKey: 'id',
         pageSize: 10,
@@ -94,13 +94,15 @@
             name: 'debitAmount',
             headerText: 'viewJournal.debitAmount' | translate,
             isGlobalFilter: true,
-            isSortable: true
+            isSortable: true,
+            applyNumberFormat:true,
           },
           {
             name: 'creditAmount',
             headerText: 'viewJournal.creditAmount' | translate,
             isGlobalFilter: true,
-            isSortable: true
+            isSortable: true,
+            applyNumberFormat:true,
           },
           {
             name: 'currency',
@@ -118,13 +120,15 @@
             name: 'debitAmountLocal',
             headerText: 'viewJournal.debitAmountLocal' | translate,
             isGlobalFilter: true,
-            isSortable: true
+            isSortable: true,
+            applyNumberFormat:true,
           },
           {
             name: 'creditAmountLocal',
             headerText: 'viewJournal.creditAmountLocal' | translate,
             isGlobalFilter: true,
-            isSortable: true
+            isSortable: true,
+            applyNumberFormat:true,
           },
           {
             name: 'costImg',
@@ -136,14 +140,33 @@
         ]
       }"
     >
-    <ng-template #cost let-cost>
-      <div>
-        <img class="costCenterImg" src="assets/images/Frame.png" (click)="openCostPopup(cost  , 'view')">
-
-      </div>
-
-    </ng-template>
-    
+      <ng-template #cost let-cost>
+        <div>
+          <img
+            *ngIf="cost.costCenters.length > 0"
+            class="costCenterImg pointer"
+            src="assets/images/groups-mandtory-optional.png"
+            (click)="openCostPopup(cost, 'view')"
+          />
+          <img
+          *ngIf="cost.costCenters.length ==0"
+            src="assets/images/groups.png"
+          />
+        </div>
+      </ng-template>
+      <ng-container footer>
+        <tr>
+          <td colspan="4" class="imptyData total" style="text-align: center">
+            {{ 'JournalTemplate.total' | translate }}
+          </td>
+          <td class="total">{{ totalDebitAmount | numberFormat }}</td>
+          <td class="total">{{ totalCreditAmount | numberFormat }}</td>
+          <td class="total"></td>
+          <td class="total">{{ totalDebitAmountLocal | numberFormat }}</td>
+          <td class="total">{{ totalCreditAmountLocal | numberFormat }}</td>
+          <td class="total"></td>
+        </tr>
+      </ng-container>
     </lib-data-table>
   </div>
 </div>

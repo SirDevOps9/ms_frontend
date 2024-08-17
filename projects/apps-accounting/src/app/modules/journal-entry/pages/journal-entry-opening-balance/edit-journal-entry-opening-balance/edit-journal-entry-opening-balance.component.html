@@ -1,5 +1,5 @@
 <lib-page-content>
-<div class="journal_entry_add_page">
+  <div class="journal_entry_add_page">
     <form [formGroup]="editJournalForm" (ngSubmit)="onSubmit()">
       <div class="entry_header">
         <div class="grid">
@@ -9,24 +9,24 @@
             </lib-label>
             <div class="view">
               <!-- {{ journalEntry?.journalCode }} -->
-              <lib-text-input 
-              formControlName="journalCode" 
-              [disabled]="true" 
-              [readOnly]="true"
-            ></lib-text-input> 
+              <lib-text-input
+                formControlName="journalCode"
+                [disabled]="true"
+                [readOnly]="true"
+              ></lib-text-input>
             </div>
           </div>
           <div class="col-12 md:col-3">
             <lib-label [appControl]="editJournalForm.controls['status']">
               {{ 'EditJournal.JournalStatus' | translate }}
             </lib-label>
-          
+
             <div class="view">
               <lib-text-input
-              formControlName="status"
-              [disabled]="true"
-              [readOnly]="true"
-            ></lib-text-input>
+                formControlName="status"
+                [disabled]="true"
+                [readOnly]="true"
+              ></lib-text-input>
             </div>
           </div>
           <div class="col-12 md:col-3">
@@ -34,7 +34,11 @@
               {{ 'EditJournal.JournalReference' | translate }}
             </lib-label>
             <div class="view">
-            <lib-text-input formControlName="referenceNumber" [readOnly]="true" [disabled]="true"></lib-text-input>
+              <lib-text-input
+                formControlName="referenceNumber"
+                [readOnly]="true"
+                [disabled]="true"
+              ></lib-text-input>
             </div>
           </div>
           <div class="col-12 md:col-3">
@@ -43,12 +47,12 @@
                 {{ 'EditJournal.Date' | translate }}
               </lib-label>
               <div class="view">
-
-              <lib-text-input
-                type="date"
-                formControlName="journalDate"
-                [readOnly]="true" [disabled]="true"
-              ></lib-text-input>
+                <lib-text-input
+                  type="date"
+                  formControlName="journalDate"
+                  [readOnly]="true"
+                  [disabled]="true"
+                ></lib-text-input>
               </div>
               <lib-field-validations [appControl]="editJournalForm.controls['journalDate']">
               </lib-field-validations>
@@ -63,10 +67,10 @@
             </div> -->
             <div class="view">
               <lib-text-input
-              formControlName="journalPeriod"
-              [disabled]="true"
-              [readOnly]="true"
-            ></lib-text-input>
+                formControlName="journalPeriod"
+                [disabled]="true"
+                [readOnly]="true"
+              ></lib-text-input>
             </div>
           </div>
           <div class="col-12 md:col-3">
@@ -74,52 +78,52 @@
               {{ 'EditJournal.JournalType' | translate }}
             </lib-label>
             <div class="view">
-                <lib-text-input
+              <lib-text-input
                 formControlName="type"
                 [disabled]="true"
                 [readOnly]="true"
               ></lib-text-input>
             </div>
           </div>
-    
+
           <div class="col-12 md:col-3">
             <lib-label [appControl]="editJournalForm.controls['description']">
               {{ 'EditJournal.JournalDescription' | translate }}
             </lib-label>
             <div class="view">
-
-            <lib-text-input formControlName="description" [readOnly]="true" [disabled]="true"></lib-text-input>
+              <lib-text-input
+                formControlName="description"
+                [readOnly]="true"
+                [disabled]="true"
+              ></lib-text-input>
             </div>
           </div>
-          <div class="col-12 md:col-3 ">
+          <div class="col-12 md:col-3">
             <div>
-              <p class="totals">{{'JournalTemplate.totalDebitAmountLocal' | translate}}</p>
-
+              <p class="totals">{{ 'JournalTemplate.totalDebitAmountLocal' | translate }}</p>
             </div>
             <lib-text-input
-            [(ngModel)]="totalDebitAmountLocal"
-            placeholder="0"
-            [readOnly]="true"
-         
-            [ngModelOptions]="{standalone: true}"
-          ></lib-text-input>
-        </div>
-  
-        <div class="col-12 md:col-3 total">
-          <div>
-            <p class="totals">{{'JournalTemplate.totalCreditAmountLocal' | translate}}</p>
-
+              [(ngModel)]="totalDebitAmountLocal"
+              placeholder="0"
+              [readOnly]="true"
+              [ngModelOptions]="{ standalone: true }"
+            ></lib-text-input>
           </div>
-          <lib-text-input
-          [(ngModel)]="totalCreditAmountLocal"
-          placeholder="0"
-          [readOnly]="true"
-          [ngModelOptions]="{standalone: true}"
-        ></lib-text-input>
-        </div>
+
+          <div class="col-12 md:col-3 total">
+            <div>
+              <p class="totals">{{ 'JournalTemplate.totalCreditAmountLocal' | translate }}</p>
+            </div>
+            <lib-text-input
+              [(ngModel)]="totalCreditAmountLocal"
+              placeholder="0"
+              [readOnly]="true"
+              [ngModelOptions]="{ standalone: true }"
+            ></lib-text-input>
+          </div>
         </div>
       </div>
-  
+
       <div class="entry_table">
         <div class="card">
           <p-table
@@ -171,10 +175,14 @@
                           (valueSearchChanged)="onFilter($event)"
                           placeholder=" {{ journalLine.get('accountCode').value }}"
                           [readOnly]="viewMode"
-                          >
+                        >
                         </lib-select>
-  
-                        <i *ngIf="!viewMode" class="pi pi-search search-circle" (click)="openDialog(rowIndex)"></i>
+
+                        <i
+                          *ngIf="!viewMode"
+                          class="pi pi-search search-circle"
+                          (click)="openDialog(rowIndex)"
+                        ></i>
                       </div>
                     </ng-template>
                     <ng-template pTemplate="output">
@@ -185,16 +193,19 @@
                   </lib-field-validations>
                 </td>
                 <td>
-                    {{ journalLine.controls['accountName']?.value }}
-
+                  {{ journalLine.controls['accountName']?.value }}
                 </td>
                 <td>
-                  <lib-text-input formControlName="lineDescription" [readOnly]="viewMode" [disabled]="viewMode">
+                  <lib-text-input
+                    formControlName="lineDescription"
+                    [readOnly]="viewMode"
+                    [disabled]="viewMode"
+                  >
                   </lib-text-input>
                   <lib-field-validations [appControl]="journalLine.controls['lineDescription']">
                   </lib-field-validations>
                 </td>
-                <td class="hidden">{{journalLine.get('currencyId').value}}</td>
+                <td class="hidden">{{ journalLine.get('currencyId').value }}</td>
 
                 <td
                   [pEditableColumn]="journalLine.controls['debitAmount']"
@@ -207,15 +218,18 @@
                         type="number"
                         (valueChanged)="debitValueChanges(rowIndex)"
                         (keyUp)="debitValueChanges(rowIndex)"
-                        [readOnly]="viewMode" [disabled]="viewMode"
+                        [readOnly]="viewMode"
+                        [disabled]="viewMode"
                       ></lib-text-input>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{generalService.formatNumber( journalLine.controls['debitAmount'].value , generalService.fraction) }}
+                      {{
+                      
+                          journalLine.controls['debitAmount'].value|numberFormat
+                      }}
                     </ng-template>
                   </p-cellEditor>
-                  <lib-field-validations [appControl]="journalLine">
-                  </lib-field-validations>
+                  <lib-field-validations [appControl]="journalLine"> </lib-field-validations>
                 </td>
                 <td
                   [pEditableColumn]="journalLine.controls['creditAmount']"
@@ -228,19 +242,18 @@
                         type="number"
                         (valueChanged)="creditValueChanges(rowIndex)"
                         (keyUp)="creditValueChanges(rowIndex)"
-                        [readOnly]="viewMode" [disabled]="viewMode"
+                        [readOnly]="viewMode"
+                        [disabled]="viewMode"
                       ></lib-text-input>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{generalService.formatNumber(journalLine.controls['creditAmount'].value, generalService.fraction) }}
+                      {{ journalLine.controls['creditAmount'].value | numberFormat }}
                     </ng-template>
                   </p-cellEditor>
-                  <lib-field-validations [appControl]="journalLine">
-                  </lib-field-validations>
+                  <lib-field-validations [appControl]="journalLine"> </lib-field-validations>
                 </td>
-  
+
                 <td>
-              
                   {{ journalLine.get('currency').value }}
                 </td>
                 <td>
@@ -250,85 +263,104 @@
                       (valueChanged)="currencyValueChanges($event, rowIndex)"
                       formControlName="currencyRate"
                       (keyUp)="currencyValueChanges($event, rowIndex)"
-                      [readOnly]="viewMode" [disabled]="viewMode"
+                      [readOnly]="viewMode"
+                      [disabled]="viewMode"
                     ></lib-text-input>
                     <lib-field-validations [appControl]="journalLine?.get('currencyRate')">
                     </lib-field-validations>
                   </lib-form-group>
                 </td>
                 <td>
-                  {{generalService.formatNumber(journalLine.get('debitAmountLocal').value , generalService.fraction) }}
+                  {{ journalLine.get('debitAmountLocal').value | numberFormat }}
+                </td>
+                <td>
+                  {{ journalLine.get('creditAmountLocal').value | numberFormat }}
+                </td>
+                <td>
+                  <img
+                    src="assets/images/groups.png"
+                    *ngIf="
+                      (!journalLine.controls['selectedFalg'].value &&
+                        !journalLine.controls['costCenters'].value.length) ||
+                      journalLine.controls['costCenterConfig'].value == 'NotAllow'
+                    "
+                  />
 
+                  <img
+                    src="assets/images/groups-mandtory-optional.png"
+                    alt=""
+                    class="pointer"
+                    *ngIf="
+                      isCostCenterallowed(journalLine.controls['costCenterConfig'].value) &&
+                      shouldShowCostCenterImage(journalLine.controls['costCenters'].value) <= 0
+                    "
+                    (click)="
+                      openCostPopup(
+                        journalLine.value,
+                        journalLine,
+                        journalLine.controls['accountId']?.value,
+                        rowIndex
+                      )
+                    "
+                  />
+                  <img
+                    class="pointer"
+                    src="assets/images/costcenterfull.png"
+                    *ngIf="
+                      isCostCenterallowed(journalLine.controls['costCenterConfig'].value) &&
+                      shouldShowCostCenterImage(journalLine.controls['costCenters'].value) === 100
+                    "
+                    (click)="
+                      openCostPopup(
+                        journalLine.value,
+                        journalLine,
+                        journalLine.controls['account']?.value,
+                        rowIndex
+                      )
+                    "
+                  />
+                  <!-- <img
+                    src="assets/images/groups.png"
+                    alt=""
+                    *ngIf="journalLine.controls['costCenterConfig'].value == 'NotAllow'"
+                  /> -->
+
+                  <!-- <img
+                    src="assets/images/groups-data.png"
+                    alt=""
+                    class="pointer"
+                    *ngIf="journalLine.controls['costCenters'].value.length"
+                    (click)="
+                      openCostPopup(
+                        journalLine.value,
+                        journalLine,
+                        journalLine.controls['accountId']?.value,
+                        rowIndex
+                      )
+                    "
+                  /> -->
                 </td>
-                <td>
-                  {{generalService.formatNumber(journalLine.get('creditAmountLocal').value , generalService.fraction) }}
-                </td>
-                <td>
-                  <img src="assets/images/groups.png" *ngIf="!journalLine.controls['selectedFalg'].value && !journalLine.controls['costCenters'].value.length">
-  
-                    <img
-                      src="assets/images/groups-mandtory-optional.png"
-                      alt=""
-                      *ngIf="
-                        journalLine.controls['costCenterConfig'].value == 'Optional' ||
-                        (journalLine.controls['costCenterConfig'].value == 'Mandatory' &&
-                          !journalLine.controls['costCenters'].value.length)
-                      "
-                      (click)="
-                        openCostPopup(
-                          journalLine.value,
-                          journalLine,
-                          journalLine.controls['accountId']?.value,
-                          rowIndex
-                        )
-                      "
-                    />
-  
-                    <img
-                      src="assets/images/groups.png"
-                      alt=""
-                      *ngIf="
-                        journalLine.controls['costCenterConfig'].value == 'NotAllow' &&
-                        !journalLine.controls['costCenters'].value.length
-                      "
-                      (click)="
-                        openCostPopup(
-                          journalLine.value,
-                          journalLine,
-                          journalLine.controls['accountId']?.value,
-                          rowIndex
-                        )
-                      "
-                    />
-  
-                    <img
-                      src="assets/images/groups-data.png"
-                      alt=""
-                      *ngIf="journalLine.controls['costCenters'].value.length"
-                      (click)="
-                        openCostPopup(
-                          journalLine.value,
-                          journalLine,
-                          journalLine.controls['accountId']?.value,
-                          rowIndex
-                        )
-                      "
-                    />
-                  </td>
-                <td   *ngIf="
-                journalEntry?.status == enums.JournalEntryStatus.Unbalanced ||
-                journalEntry?.status == enums.JournalEntryStatus.Draft
-              ">
-                    <lib-button
+                <td
+                  *ngIf="
+                    journalEntry?.status == enums.JournalEntryStatus.Unbalanced ||
+                    journalEntry?.status == enums.JournalEntryStatus.Draft
+                  "
+                >
+                  <!-- <lib-button
                     [icon]="'pi pi-trash'"
                     (click)="deleteJournalEntryLine(rowIndex)"
                     [rounded]="true"
                     [enableText]="true"
                     severity="secondary"
                   >
-                  </lib-button>
+                  </lib-button> -->
+                  <img
+                    src="assets/images/table/delete.svg"
+                    class="pointer"
+                    alt=""
+                    (click)="deleteJournalEntryLine(rowIndex)"
+                  />
                 </td>
-
               </tr>
             </ng-template>
             <ng-template pTemplate="footer">
@@ -339,18 +371,29 @@
                 <!-- <td class="imptyData"></td>
                 <td class="imptyData"></td>
                 <td class="imptyData"></td> -->
-                <td class="total">{{generalService.formatNumber( totalDebitAmount , generalService.fraction) }}                </td>
-                <td class="total"> {{generalService.formatNumber( totalCreditAmount , generalService.fraction) }} </td>
+                <td class="total">
+                  {{ generalService.formatNumber(totalDebitAmount, generalService.fraction) }}
+                </td>
+                <td class="total">
+                  {{ generalService.formatNumber(totalCreditAmount, generalService.fraction) }}
+                </td>
                 <td class="total"></td>
                 <td class="total"></td>
-                <td class="total"> {{generalService.formatNumber( totalDebitAmountLocal , generalService.fraction) }}</td>
-                <td class="total">{{generalService.formatNumber( totalCreditAmountLocal , generalService.fraction) }}</td>
+                <td class="total">
+                  {{ generalService.formatNumber(totalDebitAmountLocal, generalService.fraction) }}
+                </td>
+                <td class="total">
+                  {{ generalService.formatNumber(totalCreditAmountLocal, generalService.fraction) }}
+                </td>
                 <td class="total"></td>
-                <td class="total" *ngIf="journalEntry?.status !== enums.JournalEntryStatus.Posted" ></td>
+                <td
+                  class="total"
+                  *ngIf="journalEntry?.status !== enums.JournalEntryStatus.Posted"
+                ></td>
               </tr>
             </ng-template>
           </p-table>
-  
+
           <div
             class="add_new"
             *ngIf="
@@ -364,24 +407,29 @@
           </div>
         </div>
 
-
         <div class="grid">
-          <div class=" md:col-12 flex justify-content-end">
+          <div class="md:col-12 flex justify-content-end">
             <div class="flex justify-content-end">
-              <div class="md:col-6 m-1"
-              [class.none]="journalEntry?.status == enums.JournalEntryStatus.Posted">
+              <div
+                class="md:col-6 m-1"
+                [class.none]="journalEntry?.status == enums.JournalEntryStatus.Posted"
+              >
                 <lib-button-micro
                   title="{{ 'discard' | translate }}"
                   nameClass="cancel"
                   (click)="onDiscard()"
                   widthNumber="100%"
+                  type="button"
                 >
                 </lib-button-micro>
               </div>
-              <div class="md:col-6 m-1"  *ngIf="
-              journalEntry?.status != enums.JournalEntryStatus.Submitted &&
-              journalEntry?.status != enums.JournalEntryStatus.Posted
-            ">
+              <div
+                class="md:col-6 m-1"
+                *ngIf="
+                  journalEntry?.status != enums.JournalEntryStatus.Submitted &&
+                  journalEntry?.status != enums.JournalEntryStatus.Posted
+                "
+              >
                 <div
                   *ngIf="
                     journalEntry?.status != enums.JournalEntryStatus.Submitted &&
@@ -396,10 +444,13 @@
                   </lib-button-micro>
                 </div>
               </div>
-              <div class="md:col-6 m-1"        *ngIf="
-              journalEntry?.status == enums.JournalEntryStatus.Unbalanced ||
-              journalEntry?.status == enums.JournalEntryStatus.Draft
-            ">
+              <div
+                class="md:col-6 m-1"
+                *ngIf="
+                  journalEntry?.status == enums.JournalEntryStatus.Unbalanced ||
+                  journalEntry?.status == enums.JournalEntryStatus.Draft
+                "
+              >
                 <div
                   *ngIf="
                     journalEntry?.status == enums.JournalEntryStatus.Unbalanced ||
@@ -411,26 +462,30 @@
                     nameClass="save"
                     (click)="ChangeStatus(enums.JournalEntryStatus.Submitted)"
                     widthNumber="100%"
+                    type="button"
                   >
                   </lib-button-micro>
                 </div>
               </div>
-              <div class="md:col-6 m-1" *ngIf="journalEntry?.status == enums.JournalEntryStatus.Submitted">
+              <div
+                class="md:col-6 m-1"
+                *ngIf="journalEntry?.status == enums.JournalEntryStatus.Submitted"
+              >
                 <div *ngIf="journalEntry?.status == enums.JournalEntryStatus.Submitted">
                   <lib-button-micro
                     title="{{ 'EditJournal.Post' | translate }}"
                     nameClass="save"
                     (click)="ChangeStatus(enums.JournalEntryStatus.Posted)"
                     widthNumber="100%"
+                    type="button"
                   >
                   </lib-button-micro>
                 </div>
               </div>
             </div>
           </div>
-         
         </div>
-       
+
         <!-- <div class="btn_group mt-3">
           <button class="btn discard" type="button" (click)="onDiscard()">
             {{ 'EditJournal.Discard' | translate }}
@@ -471,5 +526,5 @@
         </div> -->
       </div>
     </form>
-</div>
+  </div>
 </lib-page-content>

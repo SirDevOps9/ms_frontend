@@ -13,11 +13,6 @@ import {
   ToastComponent,
   TablePrintComponent,
   TabviewComponent,
-  
-  
-  
-  
-  
 } from './components';
 import {
   FieldValidationsComponent,
@@ -56,8 +51,10 @@ import { ExportComponent } from './components/export/export.component';
 import { ChangeColumnComponent } from './components/change-column/change-column.component';
 import { NumberFormatPipe } from './pipes/number-format.pipe';
 import { PopupPageComponent } from './components/popup-page/popup-page.component';
+import { NumberFormatDirective } from './directives/numberFormatDirective';
 @NgModule({
   declarations: [
+    NumberFormatDirective,
     GetLookupPipe,
     LayoutComponent,
     SearchEngineComponent,
@@ -94,7 +91,7 @@ import { PopupPageComponent } from './components/popup-page/popup-page.component
     ExportComponent,
     ChangeColumnComponent,
     NumberFormatPipe,
-    PopupPageComponent
+    PopupPageComponent,
   ],
   imports: [
     HttpClientModule,
@@ -109,7 +106,7 @@ import { PopupPageComponent } from './components/popup-page/popup-page.component
     PrimeSharedModule,
     TreeTableModule,
     TreeModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
   ],
   exports: [
     GetLookupPipe,
@@ -147,7 +144,7 @@ import { PopupPageComponent } from './components/popup-page/popup-page.component
     ButtonMicroComponent,
     ToggelComponent,
     CalendarComponent,
-    GetElementByIDPipe, 
+    GetElementByIDPipe,
     ToastComponent,
     UploadMultipeFilesComponent,
     TablePrintComponent,
@@ -155,7 +152,8 @@ import { PopupPageComponent } from './components/popup-page/popup-page.component
     ExportComponent,
     ChangeColumnComponent,
     NumberFormatPipe,
-    PopupPageComponent
+    PopupPageComponent,
+    NumberFormatDirective
   ],
 })
 export class SharedLibModule {}

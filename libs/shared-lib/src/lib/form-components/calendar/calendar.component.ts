@@ -13,6 +13,7 @@ export class CalendarComponent implements ControlValueAccessor {
   @Input() maxDate: Date | null;
   @Input() label: string;
   @Input() disabled: boolean = false;
+  @Input() readOnly: boolean;
   @Output() valueChanged = new EventEmitter<Date>();
   @Input() defaultDate: Date | null;
   value: Date;

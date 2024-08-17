@@ -3,7 +3,16 @@ import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@ang
 import { Title } from '@angular/platform-browser';
 import { GuidedTour, Orientation, GuidedTourService } from 'ngx-guided-tour';
 import { DialogService } from 'primeng/dynamicdialog';
-import { PageInfo, SharedLibraryEnums, RouterService, LanguageService, FormsService, AttachmentsService, customValidators } from 'shared-lib';
+import {
+  PageInfo,
+  SharedLibraryEnums,
+  RouterService,
+  LanguageService,
+  FormsService,
+  AttachmentsService,
+  customValidators,
+  ToasterService,
+} from 'shared-lib';
 import { AccountService } from '../../../../account/account.service';
 import { AccountDto } from '../../../../account/models';
 import { CurrencyService } from '../../../../general/currency.service';
@@ -11,7 +20,10 @@ import { CurrencyDto } from '../../../../general/models/currencyDto';
 import { AttachmentsComponent } from '../../../components/attachments/attachments.component';
 import { NoChildrenAccountsComponent } from '../../../components/noChildrenAccounts/nochildaccounts.component';
 import { JournalEntryService } from '../../../journal-entry.service';
-import { costCenters, AddJournalEntryCommand, AddJournalEntryCommandOpeningBalance } from '../../../models';
+import {
+  costCenters,
+  AddJournalEntryCommandOpeningBalance,
+} from '../../../models';
 import { CostCenterAllocationPopupComponent } from '../../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
 import { JournalTemplatePopupComponent } from '../../components/journal-template-popup/journal-template-popup.component';
 import { JournalEntryFormValue } from '../../create-journal-entry/create-journal-entry.component';
@@ -20,7 +32,7 @@ import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser
 @Component({
   selector: 'app-add-journal-entry-opening-balance',
   templateUrl: './add-journal-entry-opening-balance.component.html',
-  styleUrl: './add-journal-entry-opening-balance.component.scss'
+  styleUrl: './add-journal-entry-opening-balance.component.scss',
 })
 export class AddJournalEntryOpeningBalanceComponent {
   fg: FormGroup;
@@ -101,7 +113,8 @@ export class AddJournalEntryOpeningBalanceComponent {
     private formService: FormsService,
     private guidedTourService: GuidedTourService,
     private attachmentService: AttachmentsService,
-    private currentUserService : CurrentUserService
+    private currentUserService: CurrentUserService,
+    private toasterService: ToasterService
   ) {
     this.titleService.setTitle(this.langService.transalte('OpeningBalance.AddJournal'));
 
@@ -113,6 +126,7 @@ export class AddJournalEntryOpeningBalanceComponent {
 
       journalEntryLines: fb.array([]),
     });
+    this.fg.controls['journalDate'].setValue(this.getTodaysDate());
   }
 
   public get attachments(): FormArray {
@@ -140,7 +154,6 @@ export class AddJournalEntryOpeningBalanceComponent {
             };
           }
         );
-
       });
     });
   }
@@ -153,10 +166,9 @@ export class AddJournalEntryOpeningBalanceComponent {
   }
 
   accountSelected(event: any, id: number) {
-
     const journalLine = this.items.at(id);
 
-    var accountData : any = this.filteredAccounts.find((c) => c.id == event);
+    var accountData: any = this.filteredAccounts.find((c) => c.id == event);
 
     const accountName = journalLine.get('accountName');
     accountName?.setValue(accountData?.name);
@@ -166,7 +178,6 @@ export class AddJournalEntryOpeningBalanceComponent {
     journalLine.get('costCenterConfig')?.setValue(accountData.costCenterConfig);
     journalLine.get('selectedFalg')?.setValue(true);
     console.log(journalLine.get('costCenterConfig')?.value);
-
 
     var currencyData = this.currencies.find((c) => c.id == accountData?.currencyId);
 
@@ -213,17 +224,15 @@ export class AddJournalEntryOpeningBalanceComponent {
           ...account,
           displayName: `${account.name} (${account.accountCode})`,
         }));
-
       }
     });
-
   }
   openDialog(index: number) {
     const ref = this.dialog.open(NoChildrenAccountsComponent, {
       width: '900px',
       height: '600px',
     });
-    
+
     ref.onClose.subscribe((r) => {
       if (r) {
         this.fa.at(index).get('account')?.setValue(r.id);
@@ -235,9 +244,9 @@ export class AddJournalEntryOpeningBalanceComponent {
         this.fa.at(index).get('currencyName')?.setValue(currencyData?.name);
         this.fa.at(index)?.get('costCenterConfig')?.setValue(r.costCenterConfig);
         this.fa.at(index).get('selectedFalg')?.setValue(true);
-        this.getAccountCurrencyRate(r.currencyId , index);
+        this.getAccountCurrencyRate(r.currencyId, index);
       }
-    }); 
+    });
   }
 
   filterCurrency(event: any) {
@@ -289,7 +298,6 @@ export class AddJournalEntryOpeningBalanceComponent {
     currencyControl?.valueChanges.subscribe((value) => {
       var currencyData = this.currencies.find((c) => c.id == value);
 
-
       rateControl.setValue(currencyData?.ratePerUnit!);
     });
 
@@ -310,14 +318,13 @@ export class AddJournalEntryOpeningBalanceComponent {
         currencyName: new FormControl(''),
         costCenters: new FormControl(),
         selectedFalg: new FormControl(false),
-        costCenterConfig : new FormControl(null)
-      },
-      { validators: customValidators.debitAndCreditBothCanNotBeZero }
+        costCenterConfig: new FormControl(null),
+      }
+      // { validators: customValidators.debitAndCreditBothCanNotBeZero }
     );
     this.fg.updateValueAndValidity();
     this.fa.push(fg);
-    this.getAccounts()
-    
+    this.getAccounts();
   }
 
   deleteLine(index: number) {
@@ -330,7 +337,7 @@ export class AddJournalEntryOpeningBalanceComponent {
   save() {
     if (!this.formService.validForm(this.fa, false)) return;
     const value = this.fg.value as JournalEntryFormValue;
-    value.journalDate = this.convertDateFormat(value.journalDate)
+    value.journalDate = this.convertDateFormat(value.journalDate);
 
     let obj: AddJournalEntryCommandOpeningBalance = {
       ...value,
@@ -354,14 +361,14 @@ export class AddJournalEntryOpeningBalanceComponent {
     };
     this.service
       .addJournalEntryopeningBalance(obj)
-      .subscribe((r) => this.routerService.navigateTo('transcations/journal-entry-opening-balance'));
+      .subscribe((r) =>
+        this.routerService.navigateTo('transcations/journal-entry-opening-balance')
+      );
   }
 
   routeToJournal() {
     this.routerService.navigateTo('/transcations/journal-entry-opening-balance');
   }
-
-  
 
   RedirectToTemplate() {
     const dialogRef = this.dialog.open(JournalTemplatePopupComponent, {
@@ -375,7 +382,6 @@ export class AddJournalEntryOpeningBalanceComponent {
     dialogRef.onClose.subscribe((id: any) => {
       if (id) {
         this.service.getJournalTemplateById(id).subscribe((template) => {
-
           // Set template values to the form group
           this.fg.patchValue({
             refrenceNumber: template.code,
@@ -408,7 +414,6 @@ export class AddJournalEntryOpeningBalanceComponent {
               });
 
               this.fa.push(newLine);
-
             });
           }
         });
@@ -447,25 +452,35 @@ export class AddJournalEntryOpeningBalanceComponent {
   }
 
   openCostPopup(data: any, journal: FormGroup, account: number, index: number) {
+    
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
 
-    if (
-      (!data.creditAmount && !data.debitAmount) ||
-      !account || 
-      accountData?.costCenterConfig == 'NotAllow'
-    ) {
-      return null;
-    } else {
-      const dialogRef = this.dialog.open(CostCenterAllocationPopupComponent, {
-        width: '900px',
-        height: '600px',
-        header: 'Cost Center Allocation',
-        data: data,
-      });
-      dialogRef.onClose.subscribe((res) => {
-        if (res) journal.get('costCenters')?.setValue(res);
-      });
+    if (!account || accountData?.costCenterConfig == 'NotAllow') {
+      this.toasterService.showError('error', "this account doesn't allow cost centers");
+      return;
     }
+
+    const creditAmount = parseFloat(data.creditAmount);
+    const debitAmount = parseFloat(data.debitAmount);
+
+    if (
+      (creditAmount && debitAmount) ||
+      (!creditAmount && !debitAmount) ||
+      (creditAmount === 0 && debitAmount === 0)
+    ) {
+      this.toasterService.showError('error', 'please enter valid debit or credit amounts');
+      return;
+    }
+
+    const dialogRef = this.dialog.open(CostCenterAllocationPopupComponent, {
+      width: '900px',
+      height: '600px',
+      header: 'Cost Center Allocation',
+      data: data,
+    });
+    dialogRef.onClose.subscribe((res) => {
+      if (res) journal.get('costCenters')?.setValue(res);
+    });
   }
 
   debitChanged(index: number) {
@@ -473,7 +488,6 @@ export class AddJournalEntryOpeningBalanceComponent {
     const creditAmountControl = journalLine.get('creditAmount');
     const debitAmountControl = journalLine.get('debitAmount');
     if (debitAmountControl?.value === '' || !debitAmountControl?.value) {
-
       debitAmountControl!.setValue(0);
     }
     this.calculateTotalDebitAmount();
@@ -486,7 +500,6 @@ export class AddJournalEntryOpeningBalanceComponent {
     const debitAmountControl = journalLine.get('debitAmount');
     const creditAmountControl = journalLine.get('creditAmount');
     if (creditAmountControl?.value === '' || !creditAmountControl?.value) {
-
       creditAmountControl!.setValue(0);
     }
 
@@ -499,9 +512,9 @@ export class AddJournalEntryOpeningBalanceComponent {
     var date = new Date();
     return date.toISOString().substring(0, 10);
   }
+  
 
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
-
     const journalLine = this.items.at(currentJournalId);
     this.currencyService.accountCurrencyRate.subscribe((res) => {
       const currencyRateControl = journalLine.get('currencyRate')!;
@@ -509,7 +522,10 @@ export class AddJournalEntryOpeningBalanceComponent {
       currencyRateControl.setValue(res.rate);
     });
 
-    this.currencyService.getAccountCurrencyRate(accountCurrency, this.currentUserService.getCurrency());
+    this.currencyService.getAccountCurrencyRate(
+      accountCurrency,
+      this.currentUserService.getCurrency()
+    );
   }
   convertDateFormat(data: Date | string) {
     const date = new Date(data);
@@ -521,5 +537,20 @@ export class AddJournalEntryOpeningBalanceComponent {
 
     // Format the date into YYYY-MM-DD
     return `${year}-${month}-${day}`;
+  }
+
+  
+  isCostCenterallowed(costCenterConfig: string): boolean {
+    if (costCenterConfig === 'Optional' || costCenterConfig === 'Mandatory') return true;
+    return false;
+  }
+
+  shouldShowCostCenterImage(costCenters: any[]): number {
+    if (!costCenters) return -1;
+    const totalPercentage = costCenters.reduce(
+      (sum: number, item: any) => sum + parseFloat(item.percentage),
+      0
+    );
+    return totalPercentage ;
   }
 }

@@ -1,182 +1,202 @@
 <div style="margin-left: 20px; overflow-x: hidden">
-    <div class="grid-cont">
-      <div class="my-3 grid-item">
-        <p class="headsCont paragraph_b16">{{ 'viewJournal.JornalCode' | translate }}</p>
- 
-        <div class="view">
-          <lib-text-input
-         [ngModel]="journalView?.journalCode"
+  <div class="grid-cont">
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{ 'viewJournal.JornalCode' | translate }}</p>
+
+      <div class="view">
+        <lib-text-input
+          [ngModel]="journalView?.journalCode"
           [disabled]="true"
           [readOnly]="true"
         ></lib-text-input>
-        </div>
       </div>
-      <!--  -->
-      <div class="my-3 grid-item">
-        <p class="headsCont paragraph_b16">{{ 'viewJournal.Jornalstatus' | translate }}</p>
-      
-        <div class="view">
-          <lib-text-input
-         [ngModel]="journalView?.status"
-          [disabled]="true"
-          [readOnly]="true"
-        ></lib-text-input>
-        </div>
-      </div>
-      <!--  -->
-      <div class="my-3 grid-item">
-        <p class="headsCont paragraph_b16">{{ 'viewJournal.journalReference' | translate }}</p>
-       
-        <div class="view">
-          <lib-text-input
-         [ngModel]="journalView?.referenceNumber"
-          [disabled]="true"
-          [readOnly]="true"
-        ></lib-text-input>
-        </div>
-      </div>
-      <!--  -->
-      <div class="my-3 grid-item">
-        <p class="headsCont paragraph_b16">{{ 'viewJournal.date' | translate }}</p>
-       
-        <div class="view">
-          <lib-text-input
-         [ngModel]="journalView?.journalDate"
-          [disabled]="true"
-          [readOnly]="true"
-        ></lib-text-input>
-        </div>
-      </div>
-      <!--  -->
-      <div class="my-3 grid-item">
-        <p class="headsCont paragraph_b16">{{ 'viewJournal.JournalPeriod' | translate }}</p>
-      
-        <div class="view">
-          <lib-text-input
-         [ngModel]="journalView?.journalPeriod"
-          [disabled]="true"
-          [readOnly]="true"
-        ></lib-text-input>
-        </div>
-      </div>
-      <!--  -->
-      <div class="my-3 grid-item">
-        <p class="headsCont paragraph_b16">{{ 'viewJournal.JournalType' | translate }}</p>
-      
-        <div class="view">
-          <lib-text-input
-         [ngModel]="journalView?.type"
-          [disabled]="true"
-          [readOnly]="true"
-        ></lib-text-input>
-        </div>
-      </div>
-      <!--  -->
     </div>
     <!--  -->
- 
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{ 'viewJournal.Jornalstatus' | translate }}</p>
+
+      <div class="view">
+        <lib-text-input
+          [ngModel]="journalView?.status"
+          [disabled]="true"
+          [readOnly]="true"
+        ></lib-text-input>
+      </div>
+    </div>
     <!--  -->
-    <div class="grid-cont">
-      <div class="my-3 grid-item">
-        <p class="headsCont paragraph_b16">{{ 'viewJournal.description' | translate }}</p>
-        <div>
-         
-          <div class="view">
-            <lib-text-input
-           [ngModel]="journalView?.description"
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{ 'viewJournal.journalReference' | translate }}</p>
+
+      <div class="view">
+        <lib-text-input
+          [ngModel]="journalView?.referenceNumber"
+          [disabled]="true"
+          [readOnly]="true"
+        ></lib-text-input>
+      </div>
+    </div>
+    <!--  -->
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{ 'viewJournal.date' | translate }}</p>
+
+      <div class="view">
+        <lib-text-input
+          [ngModel]="journalView?.journalDate"
+          [disabled]="true"
+          [readOnly]="true"
+        ></lib-text-input>
+      </div>
+    </div>
+    <!--  -->
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{ 'viewJournal.JournalPeriod' | translate }}</p>
+
+      <div class="view">
+        <lib-text-input
+          [ngModel]="journalView?.journalPeriod"
+          [disabled]="true"
+          [readOnly]="true"
+        ></lib-text-input>
+      </div>
+    </div>
+    <!--  -->
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{ 'viewJournal.JournalType' | translate }}</p>
+
+      <div class="view">
+        <lib-text-input
+          [ngModel]="journalView?.type"
+          [disabled]="true"
+          [readOnly]="true"
+        ></lib-text-input>
+      </div>
+    </div>
+    <!--  -->
+  </div>
+  <!--  -->
+
+  <!--  -->
+  <div class="grid-cont">
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{ 'viewJournal.description' | translate }}</p>
+      <div>
+        <div class="view">
+          <lib-text-input
+            [ngModel]="journalView?.description"
             [disabled]="true"
             [readOnly]="true"
           ></lib-text-input>
         </div>
-        </div>
       </div>
     </div>
-    <!--  -->
-    <!--  -->
-    <div class="journal_page">
-      <lib-data-table
-        [items]="journalView?.openingBalanceJournalEntryLines!"
-        className="p-datatable-gridlines"
-        [currentPageResult]="currentPageInfo"
-        [tableConfigs]="{
-          allowPagination: false,
-          allowServerPagination: false,
-          dataKey: 'id',
-          pageSize: 10,
-          columns: [
-            {
-              name: 'accountCode',
-              headerText: 'viewJournal.code' | translate,
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'accountName',
-              headerText: 'viewJournal.name' | translate,
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'lineDescription',
-              headerText: 'viewJournal.lineDescription' | translate,
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'debitAmount',
-              headerText: 'viewJournal.debitAmount' | translate,
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'creditAmount',
-              headerText: 'viewJournal.creditAmount' | translate,
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'currency',
-              headerText: 'viewJournal.currency' | translate,
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'currencyRate',
-              headerText: 'viewJournal.currencyRate' | translate,
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'debitAmountLocal',
-              headerText: 'viewJournal.debitAmountLocal' | translate,
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'creditAmountLocal',
-              headerText: 'viewJournal.creditAmountLocal' | translate,
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'costImg',
-              headerText: 'viewJournal.costCenter' | translate,
-              isGlobalFilter: true,
-              isSortable: true,
-              template : cost
-            }
-          ]
-        }"
-      >
+  </div>
+  <!--  -->
+  <div class="journal_page">
+    <lib-data-table
+    *ngIf="journalView!"
+      [items]="journalView!.openingBalanceJournalEntryLines!"
+      className="p-datatable-gridlines"
+      [tableConfigs]="{
+        allowPagination: true,
+        allowServerPagination: false,
+        dataKey: 'id',
+        pageSize: 10,
+        columns: [
+          {
+            name: 'accountCode',
+            headerText: 'viewJournal.code' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'accountName',
+            headerText: 'viewJournal.name' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'lineDescription',
+            headerText: 'viewJournal.lineDescription' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'debitAmount',
+            headerText: 'viewJournal.debitAmount' | translate,
+            isGlobalFilter: true,
+            isSortable: true,
+            applyNumberFormat: true
+          },
+          {
+            name: 'creditAmount',
+            headerText: 'viewJournal.creditAmount' | translate,
+            isGlobalFilter: true,
+            isSortable: true,
+            applyNumberFormat: true
+          },
+          {
+            name: 'currency',
+            headerText: 'viewJournal.currency' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'currencyRate',
+            headerText: 'viewJournal.currencyRate' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'debitAmountLocal',
+            headerText: 'viewJournal.debitAmountLocal' | translate,
+            isGlobalFilter: true,
+            isSortable: true,
+            applyNumberFormat:true
+          },
+          {
+            name: 'creditAmountLocal',
+            headerText: 'viewJournal.creditAmountLocal' | translate,
+            isGlobalFilter: true,
+            isSortable: true,
+            applyNumberFormat:true
+          },
+          {
+            name: 'costImg',
+            headerText: 'viewJournal.costCenter' | translate,
+            isGlobalFilter: true,
+            isSortable: true,
+            template: cost
+          }
+        ]
+      }"
+    >
       <ng-template #cost let-cost>
         <div>
-          <img class="costCenterImg" src="assets/images/Frame.png" (click)="openCostPopup(cost  , 'view')">
-  
+          <img
+          *ngIf="cost.costCenters.length > 0"
+            class="pointer"
+            src="assets/images/groups-mandtory-optional.png"
+            (click)="openCostPopup(cost, 'view')"
+          />
+          <img
+          *ngIf="cost.costCenters.length ==0"
+            src="assets/images/groups.png"
+          />
         </div>
-  
       </ng-template>
-      
-      </lib-data-table>
-    </div>
+      <ng-container footer>
+        <tr>
+          <td colspan="4" class="imptyData total" style="text-align: center">
+            {{ 'JournalTemplate.total' | translate }}
+          </td>
+          <td class="total">{{ totalDebitAmount | numberFormat }}</td>
+          <td class="total">{{ totalCreditAmount | numberFormat }}</td>
+          <td class="total"></td>
+          <td class="total">{{ totalDebitAmountLocal | numberFormat }}</td>
+          <td class="total">{{ totalCreditAmountLocal | numberFormat }}</td>
+          <td class="total"></td>
+        </tr>
+      </ng-container>
+    </lib-data-table>
   </div>
-  
+</div>

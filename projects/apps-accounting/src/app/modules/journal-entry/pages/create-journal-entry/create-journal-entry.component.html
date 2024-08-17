@@ -1,13 +1,8 @@
-
-
-
 <lib-page-content>
   <div class="journal_entry_add_page">
     <div class="add_page_header">
       <button class="btn_walk" (click)="startTour()">{{ 'walkThrough' | translate }}</button>
     </div>
-
-
 
     <div [formGroup]="fg" class="entry_header">
       <!-- <p class="title test">{{ 'journal_entry_header' | translate }}</p> -->
@@ -31,12 +26,8 @@
           <p class="totals">
             {{ 'journal_date' | translate }}
           </p>
-        
-        
-          <lib-calendar
-            formControlName="journalDate"
-           
-          ></lib-calendar>
+
+          <lib-calendar formControlName="journalDate"></lib-calendar>
         </div>
         <div class="col-12 md:col-3 mt-3">
           <button (click)="openAttachments()" class="attach">{{ 'attach' | translate }}</button>
@@ -55,35 +46,29 @@
           <lib-field-validations [appControl]="fg.controls['description']"></lib-field-validations>
         </div>
         <div class="col-12 md:col-3">
-          <p class="totals">{{'JournalTemplate.totalDebitAmountLocal' | translate}}</p>
+          <p class="totals">{{ 'JournalTemplate.totalDebitAmountLocal' | translate }}</p>
           <lib-text-input
-          [(ngModel)]="totalDebitAmountLocal"
-          placeholder="0"
-          [readOnly]="true"
-       
-          [ngModelOptions]="{standalone: true}"
-        ></lib-text-input>
-      </div>
+            [(ngModel)]="totalDebitAmountLocal"
+            placeholder="0"
+            [readOnly]="true"
+            [ngModelOptions]="{ standalone: true }"
+          ></lib-text-input>
+        </div>
 
-      <div class="col-12 md:col-3">
-        <p class="totals">{{'JournalTemplate.totalCreditAmountLocal' | translate}}</p>
-        <lib-text-input
-        [(ngModel)]="totalCreditAmountLocal"
-        placeholder="0"
-        [readOnly]="true"
-        [ngModelOptions]="{standalone: true}"
-      ></lib-text-input>
-      </div>
-    
-         
+        <div class="col-12 md:col-3">
+          <p class="totals">{{ 'JournalTemplate.totalCreditAmountLocal' | translate }}</p>
+          <lib-text-input
+            [(ngModel)]="totalCreditAmountLocal"
+            placeholder="0"
+            [readOnly]="true"
+            [ngModelOptions]="{ standalone: true }"
+          ></lib-text-input>
+        </div>
       </div>
     </div>
 
     <div class="entry_table">
-    
-      <div>
-
-      </div> 
+      <div></div>
 
       <div class="card">
         <p-table
@@ -105,7 +90,7 @@
               <th>{{ 'debit_amount_local' | translate }}</th>
               <th>{{ 'credit_amount_local' | translate }}</th>
               <th>{{ 'cost_center' | translate }}</th>
-              <th>{{'Actions' | translate}}</th>
+              <th>{{ 'Actions' | translate }}</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-fg let-editing="editing" let-i="rowIndex">
@@ -126,7 +111,6 @@
                         [customClass]="'add-journal'"
                         (valueChanged)="accountSelected($event, i)"
                         (valueSearchChanged)="onFilter($event)"
-                        
                       ></lib-select>
                       <i class="pi pi-search search-circle" (click)="openDialog(i)"></i>
                     </div>
@@ -171,8 +155,7 @@
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{   generalService.formatNumber(fg.controls['debitAmount'].value , generalService.fraction)}}
-
+                    {{ fg.controls['debitAmount'].value | numberFormat }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations [appControl]="fg"></lib-field-validations>
@@ -191,7 +174,7 @@
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{   generalService.formatNumber(fg.controls['creditAmount'].value , generalService.fraction)}}
+                    {{ fg.controls['creditAmount'].value | numberFormat }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations [appControl]="fg"></lib-field-validations>
@@ -223,8 +206,11 @@
               >
                 <p-cellEditor>
                   <ng-template pTemplate="input">
-                    <lib-text-input formControlName="currencyRate"    (keyUp)="currencyValueChanges($event, i)"
-                     type="number"></lib-text-input>
+                    <lib-text-input
+                      formControlName="currencyRate"
+                      (keyUp)="currencyValueChanges($event, i)"
+                      type="number"
+                    ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
                     {{ fg.controls['currencyRate'].value }}
@@ -232,11 +218,10 @@
                 </p-cellEditor>
               </td>
               <td>
-                {{ fg.controls['debitAmountLocal'].value ? generalService.formatNumber(fg.controls['debitAmountLocal'].value , generalService.fraction) : '0' }}
+                {{ fg.controls['debitAmountLocal'].value | numberFormat }}
               </td>
               <td>
-                {{ fg.controls['creditAmountLocal'].value ? generalService.formatNumber(fg.controls['creditAmountLocal'].value , generalService.fraction): '0' }}
-
+                {{ fg.controls['creditAmountLocal'].value | numberFormat }}
               </td>
               <td>
                 <div class="flex justify-content-center">
@@ -245,12 +230,21 @@
                     *ngIf="!fg.controls['selectedFalg'].value && !fg.controls['costCenters'].value"
                   />
                   <img
+                    class="pointer"
                     src="assets/images/groups-mandtory-optional.png"
-                    alt=""
                     *ngIf="
-                      fg.controls['costCenterConfig'].value == 'Optional' ||
-                      (fg.controls['costCenterConfig'].value == 'Mandatory' &&
-                        !fg.controls['costCenters'].value)
+                      isCostCenterallowed(fg.controls['costCenterConfig'].value) &&
+                      shouldShowCostCenterImage(fg.controls['costCenters'].value) <=0
+                    "
+                    (click)="openCostPopup(fg.value, fg, fg.controls['account']?.value, i)"
+                  />
+
+                  <img
+                    class="pointer"
+                    src="assets/images/costcenterfull.png"
+                    *ngIf="
+                      isCostCenterallowed(fg.controls['costCenterConfig'].value) &&
+                      shouldShowCostCenterImage(fg.controls['costCenters'].value) ===100
                     "
                     (click)="openCostPopup(fg.value, fg, fg.controls['account']?.value, i)"
                   />
@@ -265,38 +259,44 @@
                     (click)="openCostPopup(fg.value, fg, fg.controls['account']?.value, i)"
                   />
 
-                  <img
+                  <!-- <img
                     src="assets/images/groups-data.png"
                     alt=""
                     *ngIf="fg.controls['costCenters'].value"
                     (click)="openCostPopup(fg.value, fg, fg.controls['account']?.value, i)"
-                  />
+                  /> -->
                 </div>
               </td>
               <td>
-                <img src="assets/images/table/delete.svg" alt="" (click)="deleteLine(i)">
-
+                <img
+                  src="assets/images/table/delete.svg"
+                  class="pointer"
+                  alt=""
+                  (click)="deleteLine(i)"
+                />
               </td>
             </tr>
           </ng-template>
           <ng-template pTemplate="footer">
             <tr>
-              <td colspan="4" class="imptyData total" style="text-align: center;">{{'JournalTemplate.total' | translate}}</td>
+              <td colspan="4" class="imptyData total" style="text-align: center">
+                {{ 'JournalTemplate.total' | translate }}
+              </td>
               <!-- <td class="imptyData"></td>
               <td class="imptyData"></td>
               <td class="imptyData"></td> -->
-              <td class="total">{{ generalService.formatNumber(totalDebitAmount , generalService.fraction) }}</td>
-              <td class="total">{{generalService.formatNumber(totalCreditAmount , generalService.fraction)  }}</td>
+              <td class="total">{{ totalDebitAmount | numberFormat }}</td>
+              <td class="total">{{ totalCreditAmount | numberFormat }}</td>
               <td class="total"></td>
               <td class="total"></td>
-              <td class="total">{{generalService.formatNumber(totalDebitAmountLocal , generalService.fraction)  }}</td>
-              <td class="total">{{ generalService.formatNumber(totalCreditAmountLocal , generalService.fraction) }}</td>
+              <td class="total">{{ totalDebitAmountLocal | numberFormat }}</td>
+              <td class="total">{{ totalCreditAmountLocal | numberFormat }}</td>
               <td class="total"></td>
 
               <td class="total"></td>
             </tr>
           </ng-template>
-        </p-table> 
+        </p-table>
       </div>
       <div class="add_new">
         <button class="btn step-4-element" (click)="addThing()">
@@ -313,28 +313,25 @@
             <div class="grid">
               <div class="md:col-6">
                 <lib-button-micro
-              [title]="'discard' | translate"
-              nameClass="cancel"
-              (click)="routeToJournal()"
-              widthNumber=100%
-            >
-            </lib-button-micro>
+                  [title]="'discard' | translate"
+                  nameClass="cancel"
+                  (click)="routeToJournal()"
+                  widthNumber="100%"
+                >
+                </lib-button-micro>
               </div>
               <div class="md:col-6">
                 <lib-button-micro
-              title="{{'Journal.save' | translate}}"
-              nameClass="save"
-              (click)="save()"
-              widthNumber=100%
-            >
-            </lib-button-micro>
+                  title="{{ 'Journal.save' | translate }}"
+                  nameClass="save"
+                  (click)="save()"
+                  widthNumber="100%"
+                >
+                </lib-button-micro>
               </div>
-
             </div>
           </div>
         </div>
-        
-        
       </div>
     </div>
     <ngx-guided-tour skipText=" skip " nextText=" next "></ngx-guided-tour>

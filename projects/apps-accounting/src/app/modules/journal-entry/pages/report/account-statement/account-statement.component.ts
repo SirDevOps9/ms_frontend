@@ -61,10 +61,12 @@ export class AccountStatementComponent {
       }));
       if (this.router.snapshot.params['id']) {
         this.defoultSelectedAcounts.push(Number(this.router.snapshot.params['id']));
+        this.reportAccountForm.get('Accounts')?.setValue([Number(this.router.snapshot.params['id'])]);
       } else {
         this.filteredAccounts.forEach((element) => {
           this.defoultSelectedAcounts.push(element.id);
         });
+        this.reportAccountForm.get('Accounts')?.setValue(this.defoultSelectedAcounts);
       }
     });
   }

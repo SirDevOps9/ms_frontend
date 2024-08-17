@@ -1,64 +1,74 @@
 <lib-page-content>
   <div class="user_page group">
     <form [formGroup]="reportAccountForm">
-
-
       <div class="group">
         <div class="calender">
           <div class="grid">
-            <div class="col-12 md:col-4 ">
-              <lib-text-input [type]="'date'" formControlName="dateFrom">
-
-              </lib-text-input>
+            <div class="col-12 md:col-4">
+              <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input>
             </div>
-            <div class="col-12 md:col-4 ">
-              <lib-text-input [type]="'date'" formControlName="dateTo">
-
-              </lib-text-input>
+            <div class="col-12 md:col-4">
+              <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input>
             </div>
-            <div class="col-12 md:col-4 ">
-              <lib-multi-select formControlName="Accounts" [options]="filteredAccounts" optionValue="id"
-                optionLabel="displayName" [selectedValue]="defoultSelectedAcounts"></lib-multi-select>
+            <div class="col-12 md:col-4">
+              <lib-multi-select
+                formControlName="Accounts"
+                [options]="filteredAccounts"
+                optionValue="id"
+                optionLabel="displayName"
+                [selectedValue]="defoultSelectedAcounts"
+              ></lib-multi-select>
             </div>
           </div>
         </div>
 
         <div class="grid">
-          <div class="col-12 md:col-5 ">
+          <div class="col-12 md:col-5">
             <div class="container_checkbox" for="posted">
-              <label for="posted" class=" body_b16"> {{'reportTrial.posted' | translate}}</label>
+              <label for="posted" class="body_b16"> {{ 'reportTrial.posted' | translate }}</label>
               <!-- <input id="posted" type="checkbox" formControlName="posted"> -->
               <!-- <p-checkbox formControlName="posted" binary="true" inputId="posted"></p-checkbox> -->
-              <lib-input-switch formControlName="posted" binary="true" inputId="posted"></lib-input-switch>
-
+              <lib-input-switch
+                formControlName="posted"
+                binary="true"
+                inputId="posted"
+              ></lib-input-switch>
             </div>
           </div>
-          <div class="col-12 md:col-4 ">
+          <div class="col-12 md:col-4">
             <div class="container_checkbox body_b16">
-              <label for="unposted"> {{'reportTrial.unposted' | translate}}</label>
+              <label for="unposted"> {{ 'reportTrial.unposted' | translate }}</label>
               <!-- <input id="unposted" type="checkbox" formControlName="unposted"> -->
-              <lib-input-switch formControlName="unposted" binary="true" inputId="unposted"></lib-input-switch>
+              <lib-input-switch
+                formControlName="unposted"
+                binary="true"
+                inputId="unposted"
+              ></lib-input-switch>
               <!-- <p-checkbox formControlName="unposted" binary="true" inputId="unposted"></p-checkbox> -->
             </div>
           </div>
-          <div class="col-12 md:col-3 ">
+          <div class="col-12 md:col-3">
             <div class="all_btn">
-              <lib-button-micro title="{{'AccountStatement.viewData' | translate}}" nameClass="save"
-                iconName="pi pi-circle" (click)="getAccountingReports()">
-
+              <lib-button-micro
+                title="{{ 'AccountStatement.viewData' | translate }}"
+                nameClass="save"
+                iconName="pi pi-circle"
+                (click)="getAccountingReports()"
+              >
               </lib-button-micro>
               <button class="btn_ex" (click)="printTable('printableTable')">
                 <span class="pi pi-print"></span>
               </button>
             </div>
-
           </div>
         </div>
-
       </div>
     </form>
     <div class="mb-4" *ngFor="let table of tableData">
-      <lib-data-table [items]="table?.journalEntryDtos!" className="p-datatable-gridlines" [tableConfigs]="{
+      <lib-data-table
+        [items]="table?.journalEntryDtos!"
+        className="p-datatable-gridlines"
+        [tableConfigs]="{
                 allowPagination: false,
                 allowServerPagination: false,
                 dataKey: 'id',
@@ -102,37 +112,31 @@
                     headerText: 'AccountStatement.sourceDocumentCode' | translate,
                   }
                 ]
-              }">
+              }"
+      >
         <ng-container caption>
-
           <div class="grid">
             <div class="md:col-8">
               <div class="account_description">
                 <div class="grid">
                   <div class="md:col-5">
-                    <div class=" item Accounts_code">
-                      <p>{{table.accountCode}}</p>
+                    <div class="item Accounts_code">
+                      <p>{{ table.accountCode }}</p>
                     </div>
                   </div>
                   <div class="md:col-5">
                     <div class="item Accounts_name">
-                      <p class="name">{{table.accountName}}</p>
-
+                      <p class="name">{{ table.accountName }}</p>
                     </div>
                   </div>
                   <div class="md:col-2">
                     <div class="item Accounts_natuar">
-                      <p>{{table.nature}}</p>
-
+                      <p>{{ table.nature }}</p>
                     </div>
                   </div>
                 </div>
               </div>
-
             </div>
-
-
-
           </div>
         </ng-container>
         <ng-template #date let-account>
@@ -145,8 +149,8 @@
             <td class="imptyData"></td>
             <td class="imptyData"></td>
             <td class="imptyData"></td>
-            <td class="total">{{ table.totalDebitAmount}}</td>
-            <td class="total">{{ table.totalCreditAmount}}</td>
+            <td class="total">{{ table.totalDebitAmount }}</td>
+            <td class="total">{{ table.totalCreditAmount }}</td>
             <td class="imptyData"></td>
             <td class="imptyData"></td>
           </tr>
@@ -155,50 +159,54 @@
     </div>
     <div id="printableTable">
       <form [formGroup]="reportAccountForm">
-
-
         <div class="group">
           <div class="calender">
             <div class="grid">
-              <div class="col-12 md:col-4 ">
-                <lib-text-input [type]="'date'" formControlName="dateFrom">
-  
-                </lib-text-input>
+              <div class="col-12 md:col-4">
+                <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input>
               </div>
-              <div class="col-12 md:col-4 ">
-                <lib-text-input [type]="'date'" formControlName="dateTo">
-  
-                </lib-text-input>
+              <div class="col-12 md:col-4">
+                <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input>
               </div>
-              <div class="col-12 md:col-4 ">
-                <lib-multi-select formControlName="Accounts" [options]="filteredAccounts" optionValue="id"
-                  optionLabel="displayName" [selectedValue]="defoultSelectedAcounts"></lib-multi-select>
+              <div class="col-12 md:col-4">
+                <lib-multi-select
+                  formControlName="Accounts"
+                  [options]="filteredAccounts"
+                  optionValue="id"
+                  optionLabel="displayName"
+                  [selectedValue]="defoultSelectedAcounts"
+                ></lib-multi-select>
               </div>
             </div>
           </div>
-  
+
           <div class="grid">
-            <div class="col-12 md:col-5 ">
+            <div class="col-12 md:col-5">
               <div class="container_checkbox" for="posted">
-                <label for="posted" class=" body_b16"> {{'reportTrial.posted' | translate}}</label>
+                <label for="posted" class="body_b16"> {{ 'reportTrial.posted' | translate }}</label>
                 <!-- <input id="posted" type="checkbox" formControlName="posted"> -->
                 <p-checkbox formControlName="posted" binary="true" inputId="posted"></p-checkbox>
               </div>
             </div>
-            <div class="col-12 md:col-4 ">
+            <div class="col-12 md:col-4">
               <div class="container_checkbox body_b16">
-                <label for="unposted"> {{'reportTrial.unposted' | translate}}</label>
+                <label for="unposted"> {{ 'reportTrial.unposted' | translate }}</label>
                 <!-- <input id="unposted" type="checkbox" formControlName="unposted"> -->
-                <p-checkbox formControlName="unposted" binary="true" inputId="unposted"></p-checkbox>
+                <p-checkbox
+                  formControlName="unposted"
+                  binary="true"
+                  inputId="unposted"
+                ></p-checkbox>
               </div>
             </div>
-   
           </div>
-  
         </div>
       </form>
       <div class="mb-4" *ngFor="let table of tableData">
-        <lib-table-print resizableColumns="false" [items]="table?.journalEntryDtos!" className="p-datatable-gridlines"
+        <lib-table-print
+          resizableColumns="false"
+          [items]="table?.journalEntryDtos!"
+          className="p-datatable-gridlines"
           [tableConfigs]="{
       allowPagination: false,
       allowServerPagination: false,
@@ -243,37 +251,31 @@
           headerText: 'AccountStatement.sourceDocumentCode' | translate,
         }
       ]
-    }">
+    }"
+        >
           <ng-container caption>
-
             <div class="grid">
               <div class="md:col-8">
                 <div class="account_description">
                   <div class="grid">
                     <div class="md:col-5">
-                      <div class=" item Accounts_code">
-                        <p>{{table.accountCode}}</p>
+                      <div class="item Accounts_code">
+                        <p>{{ table.accountCode }}</p>
                       </div>
                     </div>
                     <div class="md:col-5">
                       <div class="item Accounts_name">
-                        <p class="name">{{table.accountName}}</p>
-
+                        <p class="name">{{ table.accountName }}</p>
                       </div>
                     </div>
                     <div class="md:col-2">
                       <div class="item Accounts_natuar">
-                        <p>{{table.nature}}</p>
-
+                        <p>{{ table.nature }}</p>
                       </div>
                     </div>
                   </div>
                 </div>
-
               </div>
-
-
-
             </div>
           </ng-container>
           <ng-template #date let-account>
@@ -286,16 +288,14 @@
               <td class="imptyData"></td>
               <td class="imptyData"></td>
               <td class="imptyData"></td>
-              <td class="total">{{ table.totalDebitAmount}}</td>
-              <td class="total">{{ table.totalCreditAmount}}</td>
+              <td class="total">{{ table.totalDebitAmount }}</td>
+              <td class="total">{{ table.totalCreditAmount }}</td>
               <td class="imptyData"></td>
               <td class="imptyData"></td>
             </tr>
           </ng-container>
-
         </lib-table-print>
       </div>
     </div>
-
   </div>
 </lib-page-content>

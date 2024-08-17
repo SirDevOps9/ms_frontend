@@ -23,40 +23,29 @@
       >
         <!-- [class.none]="currentPageResult.totalItems! <= 25" -->
         <ng-template pTemplate="caption">
-       <div class="parent ">
-        <ng-content select="[search]">
-            
-          
-        </ng-content>
-        <div class=" flex align-items-center">
-          <div
-          class="paginationHead"
-            *ngIf="tableConfigs.allowServerPagination"
-            [class.none]="currentPageResult.totalItems! <= 25"
-          >
-            <p-paginator
-              (onPageChange)="onPageChange2($event)"
-              [rows]="currentPageResult.pageSize!"
-              [totalRecords]="currentPageResult.totalItems!"
-              [showCurrentPageReport]="true"
-              [showPageLinks]="false"
-              [showFirstLastIcon]="false"
-              currentPageReportTemplate="{first} - {last} / {totalRecords}"
-              [first]="first"
-            ></p-paginator>
+          <div class="parent">
+            <ng-content select="[search]"> </ng-content>
+            <div class="flex align-items-center">
+              <div
+                class="paginationHead"
+                *ngIf="tableConfigs.allowServerPagination"
+                [class.none]="currentPageResult.totalItems! <= 25"
+              >
+                <p-paginator
+                  (onPageChange)="onPageChange2($event)"
+                  [rows]="currentPageResult.pageSize!"
+                  [totalRecords]="currentPageResult.totalItems!"
+                  [showCurrentPageReport]="true"
+                  [showPageLinks]="false"
+                  [showFirstLastIcon]="false"
+                  currentPageReportTemplate="{first} - {last} / {totalRecords}"
+                  [first]="first"
+                ></p-paginator>
+              </div>
+              <ng-content select="[action]"> </ng-content>
+            </div>
           </div>
-          <ng-content select="[action]">
-              
-            
-          </ng-content>
-        </div>
-       
-       </div>
-       <ng-content select="[caption]">
-            
-          
-       </ng-content>
-         
+          <ng-content select="[caption]"> </ng-content>
         </ng-template>
 
         <!-- <ng-template pTemplate="header">
@@ -198,7 +187,7 @@
               <!-- Check if the column has children -->
               <ng-container *ngIf="col.children && col.children.length; else parentCol">
                 <ng-container *ngFor="let child of col.children">
-                  <td class="body_b16" [ngClass]="child.applyClass ? child['class']: null">
+                  <td class="body_b16" [ngClass]="child.applyClass ? child['class'] : null">
                     <ng-container *ngIf="!child.template; else customCellTemplate!">
                       <ng-container *ngIf="child.lookupKey">
                         {{ this.lookupsService.getLookUpText(child.lookupKey, row[child.name]) }}
@@ -222,7 +211,12 @@
                     <ng-container *ngIf="col.lookupKey">
                       {{ this.lookupsService.getLookUpText(col.lookupKey, row[col.name]) }}
                     </ng-container>
-                    {{ row[col.name] }}
+                    <ng-container *ngIf="col.applyNumberFormat">
+                      {{ row[col.name] | numberFormat }}
+                    </ng-container>
+                    <ng-container *ngIf="!col.applyNumberFormat">
+                      {{ row[col.name] }}
+                    </ng-container>
                   </ng-container>
                   <ng-template
                     #customParentCellTemplate

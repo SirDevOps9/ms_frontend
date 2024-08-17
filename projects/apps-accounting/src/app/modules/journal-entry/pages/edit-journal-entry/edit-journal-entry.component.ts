@@ -257,10 +257,8 @@ export class EditJournalEntryComponent implements OnInit {
           ...account,
           displayName: `${account.name} (${account.accountCode})`,
         }));
-
       }
     });
-
   }
   addNewRow() {
     if (!this.formsService.validForm(this.journalEntryLinesFormArray, false)) return;
@@ -306,7 +304,7 @@ export class EditJournalEntryComponent implements OnInit {
 
       rateControl.setValue(currencyData?.ratePerUnit!);
     });
-    let newLine = this.fb.group(
+    let newLine = this.fb.group( 
       {
         id: new FormControl(0),
         accountCode: new FormControl('', [customValidators.required]),
@@ -352,11 +350,10 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   openDialog(index: number) {
-    const ref = this.dialog.open(NoChildrenAccountsComponent,
-       { 
-         width: '900px',
-         height : '600px'
-      });
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {
+      width: '900px',
+      height: '600px',
+    });
     ref.onClose.subscribe((account: AccountDto) => {
       if (account) {
         this.updateAccount(account, index);
@@ -391,41 +388,49 @@ export class EditJournalEntryComponent implements OnInit {
 
   openCostPopup(data: any, journal: FormGroup, account: number, index: number) {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
-    console.log(accountData);
-    if (
-      (!data.creditAmount && !data.debitAmount) ||
-      !account ||
-      accountData?.costCenterConfig == 'NotAllow'
-    ) {
-      return null;
-    } 
-    else {
-      if(this.viewMode){
-        const text:string='view'
-        const dialogRef =  this.dialog.open(CostCenterAllocationPopupComponent,{
-          width: '900px',
-          height: '600px',
-          header : 'View Cost Center Allocation',
-          data : {...data , text}
-        });
-        dialogRef.onClose.subscribe((res) => {
-          if(res)data.costCenters = res
-         
-        });
-      }else{
-        const dialogRef = this.dialog.open(EditCostCenterAllocationPopupComponent, {
-          width: '900px',
-          height: '600px',
-          header: 'Edit Cost Center Allocation',
-          data: data,
-        });
-        dialogRef.onClose.subscribe((res) => {
-          if (res) {
-            journal.get('costCenters')?.setValue(res);
-          }
-        });
+
+    if (!account || accountData?.costCenterConfig == 'NotAllow') {
+      if (data.costCenterConfig == 'NotAllow') {
+        this.toasterService.showError('error', "this account doesn't allow cost centers");
+        return;
       }
-   
+    }
+
+    const creditAmount = parseFloat(data.creditAmount);
+    const debitAmount = parseFloat(data.debitAmount);
+
+    if (
+      (creditAmount && debitAmount) ||
+      (!creditAmount && !debitAmount) ||
+      (creditAmount === 0 && debitAmount === 0)
+    ) {
+      this.toasterService.showError('error', 'please enter valid debit or credit amounts');
+      return;
+    }
+
+    if (this.viewMode) {
+      const text: string = 'view';
+      const dialogRef = this.dialog.open(CostCenterAllocationPopupComponent, {
+        width: '900px',
+        height: '600px',
+        header: 'View Cost Center Allocation',
+        data: { ...data, text },
+      });
+      dialogRef.onClose.subscribe((res) => {
+        if (res) data.costCenters = res;
+      });
+    } else {
+      const dialogRef = this.dialog.open(EditCostCenterAllocationPopupComponent, {
+        width: '900px',
+        height: '600px',
+        header: 'Edit Cost Center Allocation',
+        data: data,
+      });
+      dialogRef.onClose.subscribe((res) => {
+        if (res) {
+          journal.get('costCenters')?.setValue(res);
+        }
+      });
     }
   }
   getCurrencies() {
@@ -446,10 +451,8 @@ export class EditJournalEntryComponent implements OnInit {
 
     const debitAmountLocalControl = journalLine.get('debitAmountLocal');
 
-
     const debitAmountControl = journalLine.get('debitAmount');
     if (debitAmountControl?.value === '' || !debitAmountControl?.value) {
-
       debitAmountControl!.setValue(0);
     }
 
@@ -466,7 +469,6 @@ export class EditJournalEntryComponent implements OnInit {
     const journalLine = this.journalEntryLinesFormArray.at(index);
     const creditAmountControl = journalLine.get('creditAmount');
     if (creditAmountControl?.value === '' || !creditAmountControl?.value) {
-
       creditAmountControl!.setValue(0);
     }
 
@@ -545,6 +547,20 @@ export class EditJournalEntryComponent implements OnInit {
       accountCurrency,
       this.currentUserService.getCurrency()
     );
+  }
+
+  isCostCenterallowed(costCenterConfig: string): boolean {
+    if (costCenterConfig === 'Optional' || costCenterConfig === 'Mandatory') return true;
+    return false;
+  }
+
+  shouldShowCostCenterImage(costCenters: any[]): number {
+    if (!costCenters) return -1;
+    const totalPercentage = costCenters.reduce(
+      (sum: number, item: any) => sum + parseFloat(item.percentage),
+      0
+    );
+    return totalPercentage;
   }
   constructor(
     private journalEntryService: JournalEntryService,

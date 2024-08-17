@@ -120,7 +120,7 @@ export class EditFinancialCalendarComponent implements OnInit {
           //   elem.month = months[elem.month - 1];
           //   return elem;
           // });
-          console.log(this.tableData)
+        //  console.log(this.tableData)
         }
       }
     );
