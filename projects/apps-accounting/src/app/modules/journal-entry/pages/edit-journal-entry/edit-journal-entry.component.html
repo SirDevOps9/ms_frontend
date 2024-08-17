@@ -31,12 +31,7 @@
               <lib-label [appControl]="editJournalForm.controls['journalDate']">
                 {{ 'EditJournal.Date' | translate }}
               </lib-label>
-              <lib-text-input
-                type="date"
-                formControlName="journalDate"
-                [readOnly]="viewMode"
-              ></lib-text-input>
-              <!-- <lib-calendar   [disabled]="viewMode" formControlName="journalDate"></lib-calendar> -->
+              <lib-calendar [disabled]="viewMode" formControlName="journalDate"></lib-calendar>
               <lib-field-validations [appControl]="editJournalForm.controls['journalDate']">
               </lib-field-validations>
             </lib-form-group>
@@ -201,12 +196,7 @@
                       ></lib-text-input>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{
-                        generalService.formatNumber(
-                          journalLine.controls['debitAmount'].value,
-                          generalService.fraction
-                        )
-                      }}
+                      {{ journalLine.controls['debitAmount'].value | numberFormat }}
                     </ng-template>
                   </p-cellEditor>
                   <lib-field-validations [appControl]="journalLine"> </lib-field-validations>
@@ -226,12 +216,7 @@
                       ></lib-text-input>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{
-                        generalService.formatNumber(
-                          journalLine.controls['creditAmount'].value,
-                          generalService.fraction
-                        )
-                      }}
+                      {{ journalLine.controls['creditAmount'].value | numberFormat }}
                     </ng-template>
                   </p-cellEditor>
                   <lib-field-validations [appControl]="journalLine"> </lib-field-validations>
@@ -261,11 +246,10 @@
                 <td>
                   <img
                     src="assets/images/groups.png"
-                
                     *ngIf="
                       (!journalLine.controls['selectedFalg'].value &&
-                      !journalLine.controls['costCenters'].value.length)
-                      ||journalLine.controls['costCenterConfig'].value == 'NotAllow'
+                        !journalLine.controls['costCenters'].value.length) ||
+                      journalLine.controls['costCenterConfig'].value == 'NotAllow'
                     "
                   />
 
@@ -353,18 +337,18 @@
                   {{ 'JournalTemplate.total' | translate }}
                 </td>
                 <td class="total">
-                  {{ generalService.formatNumber(totalDebitAmount, generalService.fraction) }}
+                  {{ totalDebitAmount | numberFormat }}
                 </td>
                 <td class="total">
-                  {{ generalService.formatNumber(totalCreditAmount, generalService.fraction) }}
+                  {{ totalCreditAmount | numberFormat }}
                 </td>
                 <td class="total"></td>
                 <td class="total"></td>
                 <td class="total">
-                  {{ generalService.formatNumber(totalDebitAmountLocal, generalService.fraction) }}
+                  {{ totalDebitAmountLocal | numberFormat }}
                 </td>
                 <td class="total">
-                  {{ generalService.formatNumber(totalCreditAmountLocal, generalService.fraction) }}
+                  {{ totalCreditAmountLocal | numberFormat }}
                 </td>
                 <td class="total"></td>
                 <td

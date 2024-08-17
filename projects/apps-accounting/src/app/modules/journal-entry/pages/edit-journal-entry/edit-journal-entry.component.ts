@@ -113,7 +113,7 @@ export class EditJournalEntryComponent implements OnInit {
     this.journalEntryService.getJournalEntryById(this.routerService.currentId).subscribe((res) => {
       this.editJournalForm.patchValue({
         ...res,
-        journalDate: res.journalDate.substring(0, 10),
+        journalDate: new Date(res.journalDate),
       });
       if (
         res.status === this.enums.JournalEntryStatus.Posted ||
@@ -175,6 +175,7 @@ export class EditJournalEntryComponent implements OnInit {
 
     const request: EditJournalEntry = this.editJournalForm.value;
     request.id = this.routerService.currentId;
+    request.journalDate = this.convertDateFormat(request.journalDate);
 
     request.journalEntryLines = request.journalEntryLines?.map((item) => {
       item.costCenters = item.costCenters
@@ -304,7 +305,7 @@ export class EditJournalEntryComponent implements OnInit {
 
       rateControl.setValue(currencyData?.ratePerUnit!);
     });
-    let newLine = this.fb.group( 
+    let newLine = this.fb.group(
       {
         id: new FormControl(0),
         accountCode: new FormControl('', [customValidators.required]),
@@ -477,6 +478,11 @@ export class EditJournalEntryComponent implements OnInit {
     if (creditAmountControl?.value === '' || !creditAmountControl?.value) {
       creditAmountControl!.setValue(0);
     }
+    const creditAmountLocalControl = journalLine.get('creditAmountLocal');
+
+    creditAmountLocalControl?.setValue(
+      journalLine.get('creditAmount')?.value * journalLine.get('currencyRate')?.value
+    );
 
     this.calculateTotalCreditAmount();
     this.calculateTotalDebitAmount();
@@ -493,8 +499,8 @@ export class EditJournalEntryComponent implements OnInit {
   calculateTotalCreditAmount() {
     this.totalCreditAmount = this.journalEntryLinesFormArray.controls.reduce((acc, control) => {
       // Ensure that debitAmount is treated as a number
-      const debitValue = parseFloat(control.get('creditAmount')?.value) || 0;
-      return acc + debitValue;
+      const creditValue = parseFloat(control.get('creditAmount')?.value) || 0;
+      return acc + creditValue;
     }, 0);
   }
 
@@ -567,6 +573,18 @@ export class EditJournalEntryComponent implements OnInit {
       0
     );
     return totalPercentage;
+  }
+
+  convertDateFormat(data: Date | string) {
+    const date = new Date(data);
+
+    // Extract the year, month, and day
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so we add 1
+    const day = String(date.getDate()).padStart(2, '0');
+
+    // Format the date into YYYY-MM-DD
+    return `${year}-${month}-${day}`;
   }
   constructor(
     private journalEntryService: JournalEntryService,

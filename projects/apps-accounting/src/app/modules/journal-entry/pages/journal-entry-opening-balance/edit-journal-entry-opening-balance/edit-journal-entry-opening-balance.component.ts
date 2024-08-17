@@ -117,7 +117,7 @@ export class EditJournalEntryOpeningBalanceComponent {
     this.journalEntryService.getJournalEntryOpeningBalanceById(this.ID).subscribe((res) => {
       this.editJournalForm.patchValue({
         ...res,
-        journalDate: res.journalDate.substring(0, 10),
+        journalDate: new Date(res.journalDate),
       });
       if (
         res.status === this.enums.JournalEntryStatus.Posted ||
@@ -188,6 +188,7 @@ export class EditJournalEntryOpeningBalanceComponent {
     if (!this.formsService.validForm(this.editJournalForm, false)) return;
 
     const request: EditJournalEntry = this.editJournalForm.value;
+    request.journalDate = this.convertDateFormat(request.journalDate);
     request.id = this.ID;
 
     request.journalEntryLines = this.journalFilteredData?.map((item) => {

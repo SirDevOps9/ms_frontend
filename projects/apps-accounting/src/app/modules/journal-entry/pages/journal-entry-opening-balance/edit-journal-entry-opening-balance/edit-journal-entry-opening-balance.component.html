@@ -47,12 +47,14 @@
                 {{ 'EditJournal.Date' | translate }}
               </lib-label>
               <div class="view">
-                <lib-text-input
+                <!-- <lib-text-input
                   type="date"
                   formControlName="journalDate"
                   [readOnly]="true"
                   [disabled]="true"
-                ></lib-text-input>
+                ></lib-text-input> -->
+                <lib-calendar [disabled]="true" formControlName="journalDate"></lib-calendar>
+
               </div>
               <lib-field-validations [appControl]="editJournalForm.controls['journalDate']">
               </lib-field-validations>
@@ -372,20 +374,20 @@
                   {{ totalDebitAmount | numberFormat }}
                 </td>
                 <td class="total">
-                  {{ generalService.fraction | numberFormat }}
+                  {{ totalCreditAmount | numberFormat }}
                 </td>
                 <td class="total"></td>
-                <td class="total"></td>
+                <td  class="total"></td>
                 <td class="total">
                   {{ totalDebitAmountLocal | numberFormat }}
                 </td>
                 <td class="total">
                   {{ totalCreditAmountLocal | numberFormat }}
                 </td>
-                <td class="total"></td>
+                <td  class="total"></td>
                 <td
                   class="total"
-                  *ngIf="journalEntry?.status !== enums.JournalEntryStatus.Posted"
+                  *ngIf="journalEntry?.status === enums.JournalEntryStatus.Draft"
                 ></td>
               </tr>
             </ng-template>
