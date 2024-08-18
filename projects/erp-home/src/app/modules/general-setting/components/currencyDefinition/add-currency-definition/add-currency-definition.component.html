@@ -1,15 +1,9 @@
-<div class="pop_up_config_page">
-  <div class="pop_up_header">
-    <div class="header_content">
-      <div class="title">
-        {{ 'addcurrency.title' | translate }}
-      </div>
-      <div class="cancel" (click)="close()">
-        <!-- {{ 'addcurrency.cancel' | translate }} -->
-      </div>
-    </div>
-  </div>
-  <div class="pop_up_content">
+<lib-popup-page
+  title="{{ 'addcurrency.title' | translate }}"
+  [closeFunction]="close"
+  (Submit)="save()"
+>
+  <div>
     <form [formGroup]="addCurrencyForm">
       <div class="grid">
         <div class="md:col-12">
@@ -94,33 +88,5 @@
       </div>
     </form>
   </div>
-  <div class="pop_up_footer">
-    <div class="grid">
-      <div class="md:col-6">
-        <div class="cancel_btn">
-          <lib-button-micro
-            title="{{ 'addcurrency.cancel' | translate }}"
-            nameClass="cancel"
-            (click)="close()"
-            widthNumber="100%"
-          >
-          </lib-button-micro>
-        </div>
-      </div>
-      <div class="md:col-6">
-        <div class="save_btn">
-          <lib-button-micro
-            title="{{ 'addcurrency.save' | translate }}"
-            nameClass="save"
-            (click)="save()"
-            widthNumber="100%"
-          >
-          </lib-button-micro>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="entry_table">
-  <!-- Add your entry table content here -->
-</div>
+</lib-popup-page>
+
