@@ -286,7 +286,7 @@
                     src="assets/images/costcenterfull.png"
                     *ngIf="
                       isCostCenterallowed(journalLine.controls['costCenterConfig'].value) &&
-                      shouldShowCostCenterImage(journalLine.controls['costCenters'].value) === 100
+                      shouldShowCostCenterImage(journalLine.controls['costCenters'].value) > 0
                     "
                     (click)="
                       openCostPopup(
