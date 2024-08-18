@@ -136,9 +136,10 @@ export class AddJournalEntryOpeningBalanceComponent {
 
   openAttachments() {
     const dialog = this.dialog.open(AttachmentsComponent, {
-      header: 'Attachments',
+     // header: 'Attachments',
       data: this.attachmentService.filesInfo,
-      width: '700px',
+      width: '600px',
+      height: '350px',
     });
 
     dialog.onClose.subscribe((res) => {
