@@ -48,9 +48,11 @@
             [readOnly]="true"
             [ngModelOptions]="{ standalone: true }"
           ></lib-text-input> -->
-          <p class="label_total paragraph_b18">{{ 'JournalTemplate.totalDebitAmountLocal' | translate }}</p>
+          <p class="label_total paragraph_b18">
+            {{ 'JournalTemplate.totalDebitAmountLocal' | translate }}
+          </p>
           <lib-text-input
-            placeholder=" {{totalDebitAmountLocal | numberFormat }}"
+            placeholder=" {{ totalDebitAmountLocal | numberFormat }}"
             [readOnly]="true"
           ></lib-text-input>
           <!-- <label >{{totalDebitAmountLocal | numberFormat }}</label> -->
@@ -64,11 +66,13 @@
             [readOnly]="true"
             [ngModelOptions]="{ standalone: true }"
           ></lib-text-input> -->
-          <p class="label_total paragraph_b18">{{ 'JournalTemplate.totalCreditAmountLocal' | translate }}</p>
-            <lib-text-input
-              placeholder=" {{totalCreditAmountLocal | numberFormat }}"
-              [readOnly]="true"
-            ></lib-text-input>
+          <p class="label_total paragraph_b18">
+            {{ 'JournalTemplate.totalCreditAmountLocal' | translate }}
+          </p>
+          <lib-text-input
+            placeholder=" {{ totalCreditAmountLocal | numberFormat }}"
+            [readOnly]="true"
+          ></lib-text-input>
           <!-- <label >{{totalCreditAmountLocal | numberFormat }}</label> -->
         </div>
       </div>
@@ -248,7 +252,7 @@
                     src="assets/images/costcenterfull.png"
                     *ngIf="
                       isCostCenterallowed(fg.controls['costCenterConfig'].value) &&
-                      shouldShowCostCenterImage(fg.controls['costCenters'].value) === 100
+                      shouldShowCostCenterImage(fg.controls['costCenters'].value) > 0
                     "
                     (click)="openCostPopup(fg.value, fg, fg.controls['account']?.value, i)"
                   />
