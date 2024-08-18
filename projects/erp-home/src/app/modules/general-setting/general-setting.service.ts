@@ -544,7 +544,7 @@ export class GeneralSettingService {
   openCurrencyEdit(currencyId: number) {
     const ref: DynamicDialogRef = this.dialog.open(EditCurrencyDefinitionComponent, {
       width: '600px',
-      height: '700px',
+      height: '600px',
       data: { Id: currencyId },
     });
     ref.onClose.subscribe((result: CurrencyDefinitionDto) => {});

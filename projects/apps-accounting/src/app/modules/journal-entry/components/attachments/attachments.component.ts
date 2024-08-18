@@ -34,6 +34,9 @@ export class AttachmentsComponent {
   files(data:any) {
     // this.filesData = data
   }
+  onCancel(){
+    this.ref.close()
+  }
 
 
 }
