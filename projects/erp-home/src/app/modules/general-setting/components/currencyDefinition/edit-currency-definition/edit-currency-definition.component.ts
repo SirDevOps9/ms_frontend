@@ -92,7 +92,10 @@ export class EditCurrencyDefinitionComponent {
     });
   }
   openDialog() {
-    const ref = this.dialog.open(NoChildrenAccountsComponent, {});
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {
+      width: '900px',
+      height: '600px',
+    });
     ref.onClose.subscribe((r) => {
       if (r) {
         this.editCurrencyForm.get('differenceAccount')?.setValue(r.id);

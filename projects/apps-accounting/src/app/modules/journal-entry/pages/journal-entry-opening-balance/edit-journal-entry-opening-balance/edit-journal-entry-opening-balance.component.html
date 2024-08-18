@@ -54,7 +54,6 @@
                   [disabled]="true"
                 ></lib-text-input> -->
                 <lib-calendar [disabled]="true" formControlName="journalDate"></lib-calendar>
-
               </div>
               <lib-field-validations [appControl]="editJournalForm.controls['journalDate']">
               </lib-field-validations>
@@ -110,9 +109,11 @@
               [readOnly]="true"
               [ngModelOptions]="{ standalone: true }"
             ></lib-text-input> -->
-            <p class="label_total paragraph_b18">{{ 'JournalTemplate.totalDebitAmountLocal' | translate }}</p>
+            <p class="label_total paragraph_b18">
+              {{ 'JournalTemplate.totalDebitAmountLocal' | translate }}
+            </p>
             <lib-text-input
-              placeholder=" {{totalDebitAmountLocal | numberFormat }}"
+              placeholder=" {{ totalDebitAmountLocal | numberFormat }}"
               [readOnly]="true"
             ></lib-text-input>
             <!-- <label>{{totalDebitAmountLocal | numberFormat }}</label> -->
@@ -128,9 +129,11 @@
               [readOnly]="true"
               [ngModelOptions]="{ standalone: true }"
             ></lib-text-input> -->
-            <p class="label_total paragraph_b18">{{ 'JournalTemplate.totalCreditAmountLocal' | translate }}</p>
+            <p class="label_total paragraph_b18">
+              {{ 'JournalTemplate.totalCreditAmountLocal' | translate }}
+            </p>
             <lib-text-input
-              placeholder=" {{totalCreditAmountLocal | numberFormat }}"
+              placeholder=" {{ totalCreditAmountLocal | numberFormat }}"
               [readOnly]="true"
             ></lib-text-input>
             <!-- <label>{{totalCreditAmountLocal | numberFormat }}</label> -->
@@ -292,7 +295,8 @@
                     src="assets/images/groups.png"
                     *ngIf="
                       (!journalLine.controls['selectedFalg'].value &&
-                        !journalLine.controls['costCenters'].value.length) ||
+                        !journalLine.controls['costCenters'].value.length &&
+                        journalLine.controls['costCenterConfig'].value !== 'Optional') ||
                       journalLine.controls['costCenterConfig'].value == 'NotAllow'
                     "
                   />
@@ -389,14 +393,14 @@
                   {{ totalCreditAmount | numberFormat }}
                 </td>
                 <td class="total"></td>
-                <td  class="total"></td>
+                <td class="total"></td>
                 <td class="total">
                   {{ totalDebitAmountLocal | numberFormat }}
                 </td>
                 <td class="total">
                   {{ totalCreditAmountLocal | numberFormat }}
                 </td>
-                <td  class="total"></td>
+                <td class="total"></td>
                 <td
                   class="total"
                   *ngIf="journalEntry?.status === enums.JournalEntryStatus.Draft"
