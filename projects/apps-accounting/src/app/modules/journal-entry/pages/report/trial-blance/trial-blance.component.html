@@ -44,7 +44,8 @@
               name: 'debit',
               headerText: ('reportTrial.debit'| translate),
               class:'left_Balance debit center',
-              applyClass:false
+              applyClass:false,
+              applyNumberFormat:true,
 
             },
             {
@@ -52,7 +53,8 @@
               headerText: ('reportTrial.credit'| translate),
               class:'left_Balance credit center',
               body_class:'body_credit',
-              applyClass:true
+              applyClass:true,
+              applyNumberFormat:true,
 
             }
                 ]
@@ -73,7 +75,7 @@
               headerText: ('reportTrial.debit'| translate),
               class:'right_Balance debit center',
               applyClass:false
-              
+              , applyNumberFormat:true
 
             },
             {
@@ -81,7 +83,8 @@
               headerText: ('reportTrial.credit'| translate),
               class:'right_Balance credit center',
               body_class:'body_credit',
-              applyClass:true
+              applyClass:true,
+              applyNumberFormat:true
             },
               ]
             },
@@ -100,7 +103,8 @@
               name: 'debit',
               headerText: ('reportTrial.debit'| translate),
               class:' left_Balance debit center',
-              applyClass:false
+              applyClass:false,
+              applyNumberFormat:true
             
             },
             {
@@ -108,7 +112,8 @@
               headerText: ('reportTrial.credit'| translate),
               class:' left_Balance credit center ',
               body_class:'body_credit',
-              applyClass:true
+              applyClass:true,
+              applyNumberFormat:true,
             },
               ]
             }
@@ -218,6 +223,20 @@
           <p class="code" (click)="routeTo(trial.accountId)">{{ trial.accountCode }}</p>
         </div>
       </ng-template>
+
+      <ng-container footer>
+        <tr>
+          <td colspan="2" class="imptyData total" style="text-align: center">
+            {{ 'JournalTemplate.total' | translate }}
+          </td>
+          <td class="total">{{ totalOpeningDebit | numberFormat }}</td>
+          <td class="total">{{ totalOpeningCredit | numberFormat }}</td>
+          <td class="total">{{ totalTransacionDebit | numberFormat }}</td>
+          <td class="total">{{ totalTransactionCredit | numberFormat }}</td>
+          <td class="total">{{ totalEndingDebit | numberFormat }}</td>
+          <td class="total">{{ totalEndingCredit | numberFormat }}</td>
+        </tr>
+      </ng-container>
     </lib-data-table>
     <lib-table-print
     id="printableTable"
