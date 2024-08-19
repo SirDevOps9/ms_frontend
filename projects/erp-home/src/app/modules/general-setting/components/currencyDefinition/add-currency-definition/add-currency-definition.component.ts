@@ -69,7 +69,10 @@ export class AddCurrencyDefinitionComponent   {
     })
   }
   openDialog() {
-    const ref = this.dialog.open(NoChildrenAccountsComponent, {});
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {
+      width: '900px',
+      height: '600px',
+    });
     ref.onClose.subscribe((r) => {
       if (r) {
         this.addCurrencyForm.get('differenceAccount')?.setValue(r.id);
