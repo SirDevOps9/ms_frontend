@@ -1,114 +1,81 @@
-<div class="pop_up_config_page">
-<div class="pop_up_header">
-  <div class="header_content">
-    <div class="title">
-      {{ "COAConfigration.ChartOfAccountConfig" | translate }}
-    </div>
-      <div class=" cancel" (click)="close()"></div>
-  </div>
-</div>
-<div class="pop_up_content">
-  <!-- <p class="title">{{ "COAConfigration.chartOfAccountLevels" | translate }}</p> -->
+
+<lib-popup-page
+ title="{{ 'COAConfigration.ChartOfAccountConfig' | translate }}"
+[closeFunction]="close"
+(Submit)="save()"
+>
+<div>
   <p class="add_line" (click)="addline()">
-  <span class="icon fa fa-plus" ></span>  {{ "COAConfigration.AddNewLine" | translate }}
- </p>
-  <div class="card">
-    <p-table [value]="fa.controls" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped" >
-        <ng-template pTemplate="header">
-          <tr>
-            <th>{{ 'COAConfigration.levelnumber' | translate }}</th>
-            <th>{{ 'COAConfigration.levelName' | translate }}</th>
-            <th>{{ 'COAConfigration.numberOfDigits' | translate }}</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-coaItem let-editing="editing" let-i="rowIndex">
-          <tr [formGroup]="coaItem">
-            <td
-              [pEditableColumn]="coaItem.controls['levelNumber']"
-              pEditableColumnField="levelNumber"
-            >
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <lib-text-input formControlName="levelNumber" type="number"></lib-text-input>
-                 
-                </ng-template>
-                <ng-template pTemplate="output">
-                  {{ coaItem.controls['levelNumber'].value }}
-                </ng-template>
-              
-              </p-cellEditor>
-              <lib-field-validations
-              [appControl]="coaItem.controls['levelNumber']"
-            ></lib-field-validations>
-            </td>
-
-            <td [pEditableColumn]="coaItem.controls['name']" pEditableColumnField="name">
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <lib-text-input formControlName="name" type="text"></lib-text-input>
-                 
-                </ng-template>
-                <ng-template pTemplate="output">
-                  {{ coaItem.controls['name'].value }}
-                </ng-template>
+    <span class="icon fa fa-plus" ></span>  {{ "COAConfigration.AddNewLine" | translate }}
+   </p>
+    <div class="card">
+      <p-table [value]="fa.controls" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped" >
+          <ng-template pTemplate="header">
+            <tr>
+              <th>{{ 'COAConfigration.levelnumber' | translate }}</th>
+              <th>{{ 'COAConfigration.levelName' | translate }}</th>
+              <th>{{ 'COAConfigration.numberOfDigits' | translate }}</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-coaItem let-editing="editing" let-i="rowIndex">
+            <tr [formGroup]="coaItem">
+              <td
+                [pEditableColumn]="coaItem.controls['levelNumber']"
+                pEditableColumnField="levelNumber"
+              >
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <lib-text-input formControlName="levelNumber" type="number"></lib-text-input>
+                   
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ coaItem.controls['levelNumber'].value }}
+                  </ng-template>
                 
-              </p-cellEditor>
-              <lib-field-validations
-                [appControl]="coaItem.controls['name']"
+                </p-cellEditor>
+                <lib-field-validations
+                [appControl]="coaItem.controls['levelNumber']"
               ></lib-field-validations>
-            </td>
-
-            <td
-              [pEditableColumn]="coaItem.controls['numberOfDigits']"
-              pEditableColumnField="numberOfDigits"
-            >
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <lib-text-input formControlName="numberOfDigits" type="number"></lib-text-input>
-                 
-                </ng-template>
-                <ng-template pTemplate="output">
-                  {{ coaItem.controls['numberOfDigits'].value }}
-                </ng-template>
-              
-              </p-cellEditor>
-              <lib-field-validations
-              [appControl]="coaItem.controls['numberOfDigits']"
-            ></lib-field-validations>
-            </td>
-          
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
-  </div>
-  <div class="pop_up_footer">
-    <div class="grid">
-      <div class="md:col-6">
-        <div class="cancel_btn">
-          <lib-button-micro
-            title="{{ 'COAConfigration.discard' | translate }}"
-            nameClass="cancel"
-            (click)="close()"
-            widthNumber="100%"
-          >
-          </lib-button-micro>
-        </div>
+              </td>
+  
+              <td [pEditableColumn]="coaItem.controls['name']" pEditableColumnField="name">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <lib-text-input formControlName="name" type="text"></lib-text-input>
+                   
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ coaItem.controls['name'].value }}
+                  </ng-template>
+                  
+                </p-cellEditor>
+                <lib-field-validations
+                  [appControl]="coaItem.controls['name']"
+                ></lib-field-validations>
+              </td>
+  
+              <td
+                [pEditableColumn]="coaItem.controls['numberOfDigits']"
+                pEditableColumnField="numberOfDigits"
+              >
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <lib-text-input formControlName="numberOfDigits" type="number"></lib-text-input>
+                   
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ coaItem.controls['numberOfDigits'].value }}
+                  </ng-template>
+                
+                </p-cellEditor>
+                <lib-field-validations
+                [appControl]="coaItem.controls['numberOfDigits']"
+              ></lib-field-validations>
+              </td>
+            
+            </tr>
+          </ng-template>
+        </p-table>
       </div>
-      <div class="md:col-6">
-        <div class="save_btn">
-          <lib-button-micro
-            title="{{ 'COAConfigration.Save' | translate }}"
-            nameClass="save"
-            (click)="save()"
-            widthNumber="100%"
-          >
-          </lib-button-micro>
-        </div>
-      </div>
-    </div>
-    
-    
-  </div>
 </div>
-<div class="entry_table"></div>
+</lib-popup-page>

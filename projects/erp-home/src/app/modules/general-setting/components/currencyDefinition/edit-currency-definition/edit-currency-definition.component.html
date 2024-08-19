@@ -1,8 +1,7 @@
-
 <lib-popup-page
-title=" {{ 'tag.EditTag' | translate }}"
-[closeFunction]="close"
-(Submit)="save()"
+  title="{{ 'currencyConversion.EditTitle' | translate }}"
+  [closeFunction]="close"
+  (Submit)="save()"
 >
 <div>
   <form [formGroup]="editCurrencyForm">
@@ -94,9 +93,3 @@ title=" {{ 'tag.EditTag' | translate }}"
   </form>
 </div>
 </lib-popup-page>
-
-  
-  
-
-
-
