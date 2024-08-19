@@ -77,9 +77,11 @@
 
           <div class="col-12 md:col-3 total">
             <!-- <small>{{ 'JournalTemplate.totalDebitAmountLocal' | translate }}</small> -->
-             <p class="label_total paragraph_b18"> {{ 'JournalTemplate.totalDebitAmountLocal' | translate }}</p>
+            <p class="label_total paragraph_b18">
+              {{ 'JournalTemplate.totalDebitAmountLocal' | translate }}
+            </p>
             <lib-text-input
-              placeholder="{{totalDebitAmountLocal | numberFormat }}"
+              placeholder="{{ totalDebitAmountLocal | numberFormat }}"
               [readOnly]="true"
             ></lib-text-input>
             <!-- <label>{{totalDebitAmountLocal | numberFormat }}</label> -->
@@ -93,9 +95,11 @@
               [readOnly]="true"
               [ngModelOptions]="{ standalone: true }"
             ></lib-text-input> -->
-            <p class="label_total paragraph_b18"> {{ 'JournalTemplate.totalCreditAmountLocal' | translate }}</p>
+            <p class="label_total paragraph_b18">
+              {{ 'JournalTemplate.totalCreditAmountLocal' | translate }}
+            </p>
             <lib-text-input
-              placeholder="{{totalCreditAmountLocal | numberFormat }}"
+              placeholder="{{ totalCreditAmountLocal | numberFormat }}"
               [readOnly]="true"
             ></lib-text-input>
             <!-- <label >{{totalCreditAmountLocal | numberFormat }}</label> -->
@@ -254,7 +258,8 @@
                     src="assets/images/groups.png"
                     *ngIf="
                       (!journalLine.controls['selectedFalg'].value &&
-                        !journalLine.controls['costCenters'].value.length) ||
+                        !journalLine.controls['costCenters'].value.length &&
+                        journalLine.controls['costCenterConfig'].value !== 'Optional') ||
                       journalLine.controls['costCenterConfig'].value == 'NotAllow'
                     "
                   />
@@ -281,7 +286,7 @@
                     src="assets/images/costcenterfull.png"
                     *ngIf="
                       isCostCenterallowed(journalLine.controls['costCenterConfig'].value) &&
-                      shouldShowCostCenterImage(journalLine.controls['costCenters'].value) === 100
+                      shouldShowCostCenterImage(journalLine.controls['costCenters'].value) > 0
                     "
                     (click)="
                       openCostPopup(

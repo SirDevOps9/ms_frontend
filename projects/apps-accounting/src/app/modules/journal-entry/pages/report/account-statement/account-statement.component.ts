@@ -7,7 +7,7 @@ import {
   PageInfo,
   customValidators,
   ToasterService,
-  PrintService
+  PrintService,
 } from 'shared-lib';
 import { AccountService } from '../../../../account/account.service';
 import { AccountDto, AccountsChildrenDropDown } from '../../../../account/models';
@@ -28,7 +28,7 @@ export class AccountStatementComponent {
 
   tableData: reportAccount[];
   cols: any[] = [];
-  total:number=0
+  total: number = 0;
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
@@ -37,7 +37,7 @@ export class AccountStatementComponent {
     private titleService: Title,
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
-    private ToasterService:ToasterService,
+    private ToasterService: ToasterService,
     private PrintService: PrintService,
     public generalService: GeneralService
   ) {}
@@ -61,10 +61,12 @@ export class AccountStatementComponent {
       }));
       if (this.router.snapshot.params['id']) {
         this.defoultSelectedAcounts.push(Number(this.router.snapshot.params['id']));
-        this.reportAccountForm.get('Accounts')?.setValue([Number(this.router.snapshot.params['id'])]);
+        this.reportAccountForm
+          .get('Accounts')
+          ?.setValue([Number(this.router.snapshot.params['id'])]);
       } else {
         this.filteredAccounts.forEach((element) => {
-          this.defoultSelectedAcounts.push(element.id);
+          // this.defoultSelectedAcounts.push(element.id);
         });
         this.reportAccountForm.get('Accounts')?.setValue(this.defoultSelectedAcounts);
       }
@@ -104,20 +106,35 @@ export class AccountStatementComponent {
             this.tableData = this.tableData.map((x) => {
               return {
                 ...x,
-                totalDebitAmount:x.journalEntryDtos.reduce((sum, transaction) => sum + transaction.debitAmount, 0),
-                totalCreditAmount:x.journalEntryDtos.reduce((sum, transaction) => sum + transaction.creditAmount, 0),
+                totalDebitAmount: x.journalEntryDtos.reduce(
+                  (sum, transaction) => sum + transaction.debitAmount,
+                  0
+                ),
+                totalCreditAmount: x.journalEntryDtos.reduce(
+                  (sum, transaction) => sum + transaction.creditAmount,
+                  0
+                ),
 
-                journalEntryDtos: x.journalEntryDtos.map(t => {
-                  const formatdebitAmount=this.generalService.formatNumber(t?.debitAmount, this.generalService.fraction)
-                const formatcreditAmount=this.generalService.formatNumber(t?.creditAmount, this.generalService.fraction)
-                const balance=this.generalService.formatNumber(t?.balance, this.generalService.fraction)
+                journalEntryDtos: x.journalEntryDtos.map((t) => {
+                  const formatdebitAmount = this.generalService.formatNumber(
+                    t?.debitAmount,
+                    this.generalService.fraction
+                  );
+                  const formatcreditAmount = this.generalService.formatNumber(
+                    t?.creditAmount,
+                    this.generalService.fraction
+                  );
+                  const balance = this.generalService.formatNumber(
+                    t?.balance,
+                    this.generalService.fraction
+                  );
                   return {
                     ...t,
-                    creditAmount:formatcreditAmount,
+                    creditAmount: formatcreditAmount,
                     debitAmount: formatdebitAmount,
-                    balance:  balance
+                    balance: balance,
                   };
-                })
+                }),
               };
             });
           });
@@ -139,6 +156,6 @@ export class AccountStatementComponent {
     });
   }
   printTable(id: string) {
-    this.PrintService.print(id)
+    this.PrintService.print(id);
   }
 }

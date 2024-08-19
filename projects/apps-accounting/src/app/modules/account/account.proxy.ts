@@ -77,7 +77,7 @@ export class AccountProxy {
   getAccountsHasNoChildren(
     quieries: string,
     pageInfo: PageInfo
-  ): Observable<PaginationVm<AccountDto>> { 
+  ): Observable<PaginationVm<AccountDto>> {
     return this.httpService.get<PaginationVm<AccountDto>>(
       `ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}&${quieries ? quieries : ''}`
     );
@@ -85,7 +85,7 @@ export class AccountProxy {
   getAccountsHasNoChildrenNew(
     searchTerm: string,
     pageInfo: PageInfo
-  ): Observable<PaginationVm<AccountDto>> { 
+  ): Observable<PaginationVm<AccountDto>> {
     let query = `ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;

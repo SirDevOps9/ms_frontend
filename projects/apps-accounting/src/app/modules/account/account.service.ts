@@ -62,7 +62,7 @@ export class AccountService {
   private parentAccountsostCenter = new BehaviorSubject<parentCostCenter[]>([]);
   private costCenterById = new BehaviorSubject<costById>({} as costById);
   private costCenterDetails = new BehaviorSubject<costCenterDetails>({} as costCenterDetails);
-  public  editCostCenter = new BehaviorSubject<costById | undefined>(undefined);
+  public editCostCenter = new BehaviorSubject<costById | undefined>(undefined);
   private costCenterActivat = new BehaviorSubject<costCenterActivation | undefined>(undefined);
   private exportsTaxGroupDataSource = new BehaviorSubject<TaxGroupDto[]>([]);
   public exportsTaxGroupDataSourceObservable = this.exportsTaxGroupDataSource.asObservable();
@@ -258,8 +258,13 @@ export class AccountService {
     });
   }
   addAccount(command: AddAccountDto) {
-    this.accountproxy.addAccount(command).subscribe((res) => {
-      this.savedAccountDataSource.next(res);
+    this.accountproxy.addAccount(command).subscribe({
+      next: (res) => {
+        this.savedAccountDataSource.next(res);
+      },
+      error: (err) => {
+        this.toasterService.showError('Error', err.message);
+      },
     });
   }
   getAllTaxGroupPaginated(searchTerm: string, pageInfo: PageInfo) {

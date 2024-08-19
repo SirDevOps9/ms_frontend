@@ -54,7 +54,10 @@ export class EditBankDefinitionComponent implements OnInit {
   }
 
   openDialog(index: number) {
-    const ref = this.dialog.open(NoChildrenAccountsComponent, {});
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {
+      width: '900px',
+      height: '600px',
+    });
     ref.onClose.subscribe((r) => {
       if (r) {
 
