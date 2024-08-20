@@ -307,6 +307,20 @@
     "AllowVAT": "السماح بضريبة القيمة المضافة",
     "edit":"تم تعديل  طريقةالدفع بنجاح",
     "add":"تمت إضافة طريقة الدفع بنجاح"
+  },
+  "payment-in": {
+    "payment-in": "إيصال نقدي",
+    "code": "الكود",
+    "date": "التاريخ",
+    "paymentHub": "مركز الدفع",
+    "paymentHubDetailId": "تفاصيل مركز الدفع",
+    "branch": "الفرع",
+    "bankAccount": "الحساب البنكي",
+    "sourceDocument": "المستند المصدر",
+    "relatedSourceJournal": "اليومية المصدر المرتبطة",
+    "actions": "الإجراءات",
+    "Search": "بحث",
+    "addNew": "إضافة جديد"
   }
 
 }

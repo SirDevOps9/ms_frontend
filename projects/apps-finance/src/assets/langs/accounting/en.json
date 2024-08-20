@@ -317,6 +317,20 @@
     "AllowVAT": "Allow VAT",
     "edit":"Payment Method Edited Successfully",
     "add":"Payment Method Added Successfully"	
+  },
+  "payment-in": {
+    "payment-in": "Payment In",
+    "code": "Code",
+    "date": "Date",
+    "paymentHub": "Payment Hub",
+    "paymentHubDetailId": "Payment Hub Detail",
+    "branch": "Branch",
+    "bankAccount": "Bank Account",
+    "sourceDocument": "Source Document",
+    "relatedSourceJournal": "Related Source Journal",
+    "actions": "Actions",
+    "Search": "Search",
+    "addNew": "Add New"
   }
 
 

@@ -109,7 +109,15 @@ const routes: Routes = [
             data: {
               breadcrumb: BreadcrumbLabel.PAYMENT_TERM_Edit,
             },
+            
           },
+          {
+            path: 'payment-in',
+            component: PaymentInListComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.PAYMENT_IN_LIST,
+            },
+          }
         ]
         },
       {
@@ -149,7 +157,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'payment-in-list',
+        path: 'payment-in',
         component: PaymentInListComponent,
         data: {
           breadcrumb: BreadcrumbLabel.PAYMENT_IN_LIST,
