@@ -84,26 +84,32 @@ const routes: Routes = [
       },
       {
         path: 'paymentterm',
-        component: AddPaymentInComponent,
+        component: MainPaymentTermComponent,
         data: {
           breadcrumb: BreadcrumbLabel.PAYMENT_TERM_LIST,
         },
         children:[
           {
             path: '',
-            component: AddPaymentInComponent,
+            component: PaymentTermListComponent,
             data: {
               breadcrumb: '',
             },
           },
           {
-            path: 'add',
-            component: AddPaymentInComponent,
+            path: 'add-payment-term',
+            component: AddPaymentTermComponent,
             data: {
-              breadcrumb: '',
+              breadcrumb: BreadcrumbLabel.PAYMENT_TERM_Add,
             },
           },
-         
+          {
+            path: 'edit-payment-term/:id',
+            component: EditPaymentTermComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.PAYMENT_TERM_Edit,
+            },
+          },
         ]
         },
       {
@@ -144,30 +150,23 @@ const routes: Routes = [
       },
       {
         path: 'paymentin',
-        component: MainPaymentTermComponent,
+        component: AddPaymentInComponent,
         data: {
           breadcrumb: BreadcrumbLabel.PAYMENT_TERM_LIST,
         },
         children:[
           {
             path: '',
-            component: PaymentTermListComponent,
+            component: AddPaymentInComponent,
             data: {
               breadcrumb: '',
             },
           },
           {
-            path: 'add-payment-term',
-            component: AddPaymentTermComponent,
+            path: 'add-payment-in',
+            component: AddPaymentInComponent,
             data: {
               breadcrumb: BreadcrumbLabel.PAYMENT_TERM_Add,
-            },
-          },
-          {
-            path: 'edit-payment-term/:id',
-            component: EditPaymentTermComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.PAYMENT_TERM_Edit,
             },
           },
         ]
