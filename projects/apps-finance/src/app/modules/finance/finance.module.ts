@@ -23,6 +23,9 @@ import { PaymentMethodListComponent } from './pages/payment-method/payment-metho
 import { AddPaymentMethodComponent } from './pages/payment-method/add-payment-method/add-payment-method.component';
 import { EditPaymentMethodComponent } from './pages/payment-method/edit-payment-method/edit-payment-method.component';
 import { AddPaymentInComponent } from './pages/payment-in/add-payment-in/add-payment-in.component';
+import { EditPaymentInComponent } from './pages/payment-in/edit-payment-in/edit-payment-in.component';
+import { PaymentMethodComponent } from './components/payment-in/payment-method/payment-method.component';
+import { PaymentInListComponent } from './pages/payment-in/payment-in-list/payment-in-list.component';
 
 const routes: Routes = [
   {
@@ -152,21 +155,21 @@ const routes: Routes = [
         path: 'paymentin',
         component: AddPaymentInComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.PAYMENT_TERM_LIST,
+          breadcrumb: BreadcrumbLabel.PAYMENT_IN,
         },
         children:[
-          {
-            path: '',
-            component: AddPaymentInComponent,
-            data: {
-              breadcrumb: '',
-            },
-          },
           {
             path: 'add-payment-in',
             component: AddPaymentInComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.PAYMENT_TERM_Add,
+              breadcrumb: BreadcrumbLabel.ADD_PAYMENT_IN,
+            },
+          },
+          {
+            path: 'edit-payment-in',
+            component: EditPaymentInComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_PAYMENT_IN,
             },
           },
         ]
@@ -195,7 +198,10 @@ const routes: Routes = [
     PaymentMethodListComponent,
     AddPaymentMethodComponent,
     EditPaymentMethodComponent,
-    AddPaymentInComponent
+    AddPaymentInComponent,
+    EditPaymentInComponent,
+    PaymentMethodComponent,
+    PaymentInListComponent
   ],
   imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes)],
 })

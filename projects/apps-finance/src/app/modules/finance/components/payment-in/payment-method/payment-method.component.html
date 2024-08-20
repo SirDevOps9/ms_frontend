@@ -1,0 +1,55 @@
+<lib-popup-page title="{{ 'PaymentIn.Form.PaymentMethod' | translate }}" [closeFunction]="close">
+  <div>
+    <form [formGroup]="addForm">
+      <div class="grid">
+        <div class="md:col-6">
+          <lib-form-group>
+            <lib-label [appControl]="addForm.controls['code']">
+              {{ 'PaymentIn.Form.CheckNumber' | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="code" placeholder="000" />
+            <lib-field-validations [appControl]="addForm.controls['code']"> </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="md:col-6">
+          <lib-form-group>
+            <lib-label [appControl]="addForm.controls['code']">
+              {{ 'PaymentIn.Form.CheckDueDat' | translate }}
+            </lib-label>
+            <lib-calendar
+              formControlName="code"
+            ></lib-calendar>
+            <lib-field-validations [appControl]="addForm.controls['code']"> </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="md:col-6">
+          <lib-form-group>
+            <lib-label [appControl]="addForm.controls['code']">
+              {{ 'PaymentIn.Form.CommissionAmount' | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="code" placeholder="000" />
+            <lib-field-validations [appControl]="addForm.controls['code']"> </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="md:col-6">
+          <lib-form-group>
+            <lib-label [appControl]="addForm.controls['code']">
+              {{ 'PaymentIn.Form.VatAmount' | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="code" placeholder="000" />
+            <lib-field-validations [appControl]="addForm.controls['code']"> </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="md:col-12">
+          <lib-form-group>
+            <lib-label [appControl]="addForm.controls['code']">
+              {{ 'PaymentIn.Form.BankReference' | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="code" placeholder="text up to 25" />
+            <lib-field-validations [appControl]="addForm.controls['code']"> </lib-field-validations>
+          </lib-form-group>
+        </div>
+      </div>
+    </form>
+  </div>
+</lib-popup-page>

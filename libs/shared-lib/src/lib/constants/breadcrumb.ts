@@ -99,4 +99,10 @@ export class BreadcrumbLabel {
     static PAYMENT_METHOD_LIST ='Payment Method list';
     static PAYMENT_METHOD_ADD ='Add Payment Method ';
     static PAYMENT_METHOD_EDIT ='Edit Payment Method ';
+    
+    
+    static PAYMENT_IN ='Payment In ';
+    static ADD_PAYMENT_IN ='Add Payment In ';
+    static EDIT_PAYMENT_IN ='Edit Payment In ';
+
   }

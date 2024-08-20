@@ -1,23 +1,15 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import {
-  FormsService,
-  LanguageService,
-  LookupsService,
-  PageInfo,
-  PageInfoResult,
-  RouterService,
-  customValidators,
-} from 'shared-lib';
-import { DialogService } from 'primeng/dynamicdialog';
 import { PaymentMethodComponent } from '../../../components/payment-in/payment-method/payment-method.component';
+import { customValidators } from 'shared-lib';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
-  selector: 'app-add-payment-in',
-  templateUrl: './add-payment-in.component.html',
-  styleUrl: './add-payment-in.component.scss',
+  selector: 'app-edit-payment-in',
+  templateUrl: './edit-payment-in.component.html',
+  styleUrl: './edit-payment-in.component.scss'
 })
-export class AddPaymentInComponent {
+export class EditPaymentInComponent {
   addForm: FormGroup;
   tableData: any[] = [];
 
