@@ -23,6 +23,7 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
   balanceTypeSelect: string;
   debitOrCredit: string;
   openingJournalId: number
+  totalBalance: number
   filteredAccounts: AccountDto[] = [];
   balanceType: any = [{ label: "Debit", value: "Debit" }, { label: "Credit", value: "Credit" }]
   openingBalanceJournalEntryLineId: number
@@ -75,6 +76,8 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
         this.languageService.transalte('deleteCustomerDefinition.deleted')
       );
       this.customerForm.removeAt(index);
+      this.calculateTotalBalance()
+
     }
   }
   onDelete(id: number, index: number): void {
@@ -83,17 +86,28 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     }
     else {
       this.SalesService.deleteCustomerOpeningBalance(id)
+      this.SalesService.customerDeletedObser.subscribe((res:boolean)=>{
+        if(res==true){
+          this.customerForm.removeAt(index);
+          this.calculateTotalBalance()
+        }
+      })
+      
+
     }
+    this.calculateTotalBalance()
+
   }
   createBankFormGroup(): FormGroup {
     return this.fb.group({
       id: 0,
       customerId: new FormControl('', customValidators.required),
       accountName:  new FormControl(),
-      balance:  new FormControl( ),
+      customerCode:  new FormControl(),
+      balance:  new FormControl(0,customValidators.required ),
       balanceType: new FormControl('', customValidators.required),
       displayName:  new FormControl( ),
-      dueDates: []
+      dueDates: new FormControl([] ),
     });
   }
   accountSelected(event: any, index: number) {
@@ -102,7 +116,7 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
       var accountData: any = this.CustomerDropDownByAccountId.find((c: any) => c.id == event);
       if (accountData) {
         bankLine.get('accountName')?.setValue(accountData?.name);
-        bankLine.get('accountCode')?.setValue(accountData?.accountCode);
+        bankLine.get('customerCode')?.setValue(accountData?.code);
         bankLine.get('displayName')?.setValue(`${accountData.code}`);
       }
     } else {
@@ -115,6 +129,7 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     if (data.balanceType != "Debit") {
       return null;
     } else {
+
       const ref = this.dialog.open(CustomerOpeningBalanceDistributeComponent, {
         width: '750px',
         height: '600px',
@@ -123,6 +138,8 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
       ref.onClose.subscribe((res) => {
         if (res) {
           data.dueDates = res;
+        }else{
+          data.dueDates=[]
         }
       });
 
@@ -205,20 +222,22 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
             id: detail.id,
             customerId: detail.customerId || '',
             accountName: detail.customerName || '',
-            balance: detail.balance || null,
+            customerCode: detail.customerCode || '',
+            balance: detail.balance || 0,
             balanceType: detail.balanceType || '',
             displayName: detail.displayName || '',
-            dueDates: detail.balanceDueDates || []
+            dueDates: detail.balanceDueDates || [],
           });
           this.customerForm.push(formGroup);
           this.accountSelected(detail.customerId, index);
+          this.calculateTotalBalance()
         });
       }
     });
     this.SalesService.openingBalanceJournalEntryDropdownDataObservable.subscribe((res) => {
       this.openingJournalList = res;
     });
-    this.SalesService.customerDeletedObser.subscribe()
+   
     this.SalesService.CustomerDropDownByAccountIdObservable.subscribe((res) => {
       this.CustomerDropDownByAccountId = res;
     });
@@ -237,6 +256,19 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
  
   }
 
-  
+  calculateTotalBalance() {
+    this.totalBalance = this.customerForm.controls.reduce((acc, control) => {
+      // Ensure that debitAmount is treated as a number
+      const debitValue = parseFloat(control.get('balance')?.value) || 0;
+      console.log("2222222222");
+      
+      return acc + debitValue;
+      
+    }, 0);
+  }
+  cancel(){
+this.getCustomerOpeningBalance()   
+  }
 }
+
 

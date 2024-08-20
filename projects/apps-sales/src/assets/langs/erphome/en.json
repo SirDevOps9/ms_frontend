@@ -13,6 +13,14 @@
   "Logout": "Logout",
   "DeleteError": "Error in Delete",
   "LoadError": "Error in loading Data",
+  "add_new_line": "Add New Line",
+  "total" : "Total",
+  "errorSum":"amount of journal line is not equal to sum amount of balance",
+  "Error": "Error",
+  "InvalidAmount":"please enter valid debit or credit amounts",
+
+
+
   "Table": {
     "Actions": "Actions",
     "Edit": "Edit",

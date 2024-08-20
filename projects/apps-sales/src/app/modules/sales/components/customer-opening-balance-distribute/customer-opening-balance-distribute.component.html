@@ -20,11 +20,7 @@ title="Due Date Distribution"
     
       </div>
     </form>
-  <div class="add_new my-2 px-2 flex justify-content-end">
-    <lib-button (onClick)="addLine()" className="outline-primary">
-      {{ 'openeingBalance.add_new' | translate }}
-    </lib-button>
-  </div>
+
  
   <div class="entry_table">
     <div class="card">
@@ -74,6 +70,7 @@ title="Due Date Distribution"
                   <lib-text-input
                     formControlName="credit"
                   ></lib-text-input>
+
                 </ng-template>
                 <ng-template pTemplate="output">
                   {{ customerGroup.controls['credit'].value }}
@@ -89,18 +86,21 @@ title="Due Date Distribution"
               >
                  <p-cellEditor>
                 <ng-template pTemplate="input">
-                  <lib-text-input
+                  <!-- <lib-text-input
                   type="date"
 
                     formControlName="duedate"
-                  ></lib-text-input>
+                  ></lib-text-input> -->
+                  <lib-calendar   formControlName="dueDate"></lib-calendar>
+
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ customerGroup.controls['duedate'].value }}
+                  <!-- <lib-calendar  [disabled]="true"  formControlName="duedate" [placeholder]="customerGroup.controls['duedate'].value"></lib-calendar> -->
+                  {{customerGroup.controls['dueDate'].value}}
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations
-                [appControl]="customerGroup.controls['duedate']"
+                [appControl]="customerGroup.controls['dueDate']"
               ></lib-field-validations>
               </td>
           
@@ -116,6 +116,11 @@ title="Due Date Distribution"
         </ng-template>
       </p-table>
     </div>
+  </div>
+  <div class="add_new my-2 px-2 flex ">
+    <lib-button (onClick)="addLine()" className="outline-primary">
+      {{ 'openeingBalance.add_new' | translate }}
+    </lib-button>
   </div>
 </div>
 
