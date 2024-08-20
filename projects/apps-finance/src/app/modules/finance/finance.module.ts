@@ -84,32 +84,26 @@ const routes: Routes = [
       },
       {
         path: 'paymentterm',
-        component: MainPaymentTermComponent,
+        component: AddPaymentInComponent,
         data: {
           breadcrumb: BreadcrumbLabel.PAYMENT_TERM_LIST,
         },
         children:[
           {
             path: '',
-            component: PaymentTermListComponent,
+            component: AddPaymentInComponent,
             data: {
               breadcrumb: '',
             },
           },
           {
-            path: 'add-payment-term',
-            component: AddPaymentTermComponent,
+            path: 'add',
+            component: AddPaymentInComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.PAYMENT_TERM_Add,
+              breadcrumb: '',
             },
           },
-          {
-            path: 'edit-payment-term/:id',
-            component: EditPaymentTermComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.PAYMENT_TERM_Edit,
-            },
-          },
+         
         ]
         },
       {
@@ -147,7 +141,37 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_EDIT,
         },
-      }
+      },
+      {
+        path: 'paymentin',
+        component: MainPaymentTermComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.PAYMENT_TERM_LIST,
+        },
+        children:[
+          {
+            path: '',
+            component: PaymentTermListComponent,
+            data: {
+              breadcrumb: '',
+            },
+          },
+          {
+            path: 'add-payment-term',
+            component: AddPaymentTermComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.PAYMENT_TERM_Add,
+            },
+          },
+          {
+            path: 'edit-payment-term/:id',
+            component: EditPaymentTermComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.PAYMENT_TERM_Edit,
+            },
+          },
+        ]
+        },
     ],
   },
 ];
