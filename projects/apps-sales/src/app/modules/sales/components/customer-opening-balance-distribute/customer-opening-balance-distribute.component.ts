@@ -24,23 +24,30 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
     private ref : DynamicDialogRef ,
     public config : DynamicDialogConfig ,
     private cdr : ChangeDetectorRef,
+
     private translationService: TranslationService) { }
     ngAfterViewInit(): void {
       // console.log(this.config.data ,"this.config.data")
       // this.balance=this.config.data.balance
-      // this.formGroup.patchValue(this.config.data.dueDates)
-      console.log(this.config.data, "this.config.data");
+      //this.formGroup.patchValue(this.config.data.dueDates)
       this.balance = this.config.data.balance;
       this.customerForm.clear();
+      console.log(this.config.data ,"1212121212121");
 
-      this.config.data.dueDates.forEach((dueDate: any) => {
-        this.customerForm.push(this.fb.group({
-          id: dueDate.id,
-          duedate: dueDate.dueDate,
-          credit: dueDate.credit,
-          debit: dueDate.debit
-        }));
-      });
+if(this.config.data.dueDates){
+  this.config.data.dueDates.forEach((dueDate: any) => {
+    this.customerForm.push(this.fb.group({
+      id: dueDate.id,
+      duedate: dueDate.dueDate,
+      credit: dueDate.credit,
+      debit: dueDate.debit
+    }));
+  });
+}else{
+  this.addLine()
+}
+    
+   // console.log(this.config.data.dueDates.length ,"1212121212121");
     
       // Trigger change detection manually
       this.cdr.detectChanges();
@@ -63,6 +70,8 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
   }
 
   addLine() {
+    if (!this.formsService.validForm(this.customerForm, false)) return;
+
     this.items.push(this.createBankFormGroup())
   }
 
@@ -83,10 +92,10 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
 
 
   onCancel() {
-
+      this.ref.close()
   }
   onSubmit() {
-    if (!this.formsService.validForm(this.formGroup, false)) return;
+    if (!this.formsService.validForm(this.customerForm, false)) return;
     this.ref.close(this.items.value)
     console.log(this.items.value ,"66666666");
     

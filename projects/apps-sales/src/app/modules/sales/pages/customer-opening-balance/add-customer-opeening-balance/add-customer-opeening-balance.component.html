@@ -6,9 +6,10 @@
         iconName="pi pi-save"
         nameClass="save"
         (click)="onSubmit()"
+        
         ></lib-button-micro>
         <lib-button-micro
-        title="discard"
+        title="cancel"
         nameClass="cancel"
         ></lib-button-micro>
       </div>
@@ -24,8 +25,8 @@
                 [selectedValue]="formGroup.controls['open'].value"
                 optionLabel="code"
                 optionValue="id"
-                (valueChanged)="onopeningJournalChange($event)"
-
+                (valueChanged)="onOpeningJournalChange($event)"
+                [readOnly]="editMode"
               >
               </lib-select>
             </lib-form-group>
@@ -42,6 +43,7 @@
                 optionLabel="accountCodeName"
                 optionValue="id"
                 (valueChanged)="onLinesChange($event)"
+                [readOnly]="editMode"
 
               >
               </lib-select>
@@ -117,12 +119,15 @@
                               [selectedValue]="customerGroup.controls['customerId'].value"
                             >
                             </lib-select>
+                            
                           </lib-form-group>
                       </ng-template>
                       <ng-template pTemplate="output">
                         {{ customerGroup.controls['accountName'].value }}
                       </ng-template>
                     </p-cellEditor>
+                    <lib-field-validations [appControl]="customerGroup.controls['customerId']">
+                    </lib-field-validations>
                   </td>
                   <td>
                 {{ customerGroup.controls['accountName'].value }}
@@ -142,9 +147,7 @@
                       {{ customerGroup.controls['balance'].value }}
                     </ng-template>
                   </p-cellEditor>
-                  <lib-field-validations
-                    [appControl]="customerGroup.controls['balance']"
-                  ></lib-field-validations>
+                 
                   </td>
                   <td
                   [pEditableColumn]="customerGroup.controls['balanceType']"
@@ -163,16 +166,18 @@
                             [selectedValue]="customerGroup.controls['balanceType'].value"
                           >
                           </lib-select>
+                         
                         </lib-form-group>
                         <!-- <i class="pi pi-search search-circle" (click)="openDialog(i)"></i> -->
                     </ng-template>
                     <ng-template pTemplate="output">
                       {{ customerGroup.controls['balanceType'].value }}
                     </ng-template>
-                    <lib-field-validations
-                    [appControl]="customerGroup.controls['balanceType']"
-                  ></lib-field-validations>
+                   
                   </p-cellEditor>
+                  <lib-field-validations
+                  [appControl]="customerGroup.controls['balanceType']"
+                ></lib-field-validations>
                 </td>
 
                 <td>
