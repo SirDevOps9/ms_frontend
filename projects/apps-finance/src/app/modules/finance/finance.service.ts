@@ -414,7 +414,7 @@ export class FinanceService {
           
           this.toasterService.showSuccess(
             this.languageService.transalte('success'),
-            this.languageService.transalte('delete')
+            this.languageService.transalte('payment-in.delete')
           );
           this.loaderService.hide();
           const currentPaymentIn = this.paymentInDataSource.getValue();

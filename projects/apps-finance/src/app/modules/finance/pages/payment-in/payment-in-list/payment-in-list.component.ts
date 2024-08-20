@@ -87,4 +87,8 @@ export class PaymentInListComponent implements OnInit {
     this.financeService.deletePaymentIn(id);
   }
 
+  view(id: number) {
+    this.routerService.navigateTo(`/view/${id}`);
+  }
+
 }

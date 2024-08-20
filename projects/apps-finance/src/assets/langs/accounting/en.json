@@ -330,7 +330,8 @@
     "relatedSourceJournal": "Related Source Journal",
     "actions": "Actions",
     "Search": "Search",
-    "addNew": "Add New"
+    "addNew": "Add New",
+    "delete":"Payment In Deleted Successfully"
   }
 
 
