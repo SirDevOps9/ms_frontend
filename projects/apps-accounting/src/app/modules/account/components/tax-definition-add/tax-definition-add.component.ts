@@ -56,6 +56,20 @@ export class TaxDefinitionAddComponent {
       ratio: new FormControl('', [customValidators.required]),
       accountId: new FormControl('', [customValidators.required]),
       taxGroupId: new FormControl('', [customValidators.required]),
+
+
+      journalDate: new FormControl('', [customValidators.required]),
+      description: new FormControl('', [customValidators.required]),
+      paymentHubId: new FormControl('', [customValidators.required]),
+      paymentHubDetails: new FormControl('', [customValidators.required]),
+      bankAccountId: new FormControl('', [customValidators.required]),
+      currency: new FormControl('', [customValidators.required]),
+      rate: new FormControl('', [customValidators.required]),
+      sourceDocument: new FormControl('', [customValidators.required]),
+      createdJournal: new FormControl('', [customValidators.required]),
+
+
+
     });
   }
 
@@ -82,6 +96,17 @@ export class TaxDefinitionAddComponent {
   close() {
     this.ref.close();
   }
+
+  /// 
+  paymentHubs: { id: number, name: string }[] = [
+    { id: 1, name: 'Hub 1' },
+    { id: 2, name: 'Hub 2' },
+  ];
+
+  bankAccounts: { id: number, name: string }[] = [
+    { id: 1, name: 'Bank Account 1' },
+    { id: 2, name: 'Bank Account 2' },
+  ];
 
   constructor(
     private accountService: AccountService,
