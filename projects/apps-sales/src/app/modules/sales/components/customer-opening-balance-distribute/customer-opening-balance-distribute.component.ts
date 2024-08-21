@@ -17,7 +17,9 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
   formGroupBalance: FormGroup
   customerForm: FormArray
   balance: number
-  totalBalance:number
+  totalBalance: number
+  totalBalanceSum: number = 0
+  error:boolean
 
   balanceType: any = [{ label: "Debit", value: "Debit" }, { label: "Credit", value: "Credit" }]
 
@@ -40,8 +42,8 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
 
     if (this.config.data.dueDates) {
       this.config.data.dueDates.forEach((e: any) => {
-        console.log(this.config.data.dueDates ,"this.config.data.dueDates");
-        
+        console.log(this.config.data.dueDates, "this.config.data.dueDates");
+
         this.customerForm.push(this.fb.group({
           id: e.id,
           dueDate: e.dueDate,
@@ -49,8 +51,10 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
           debit: e.debit
         }));
       });
+      this.getTotalBalanceSum();
     } else {
-      this.addLine()
+      // this.addLine()
+      this.items.push(this.createBankFormGroup())
     }
 
     this.cdr.detectChanges();
@@ -79,15 +83,18 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
   }
 
   onDelete(index: number): void {
+
     this.customerForm.removeAt(index);
+    this.getTotalBalanceSum()
   }
+
 
   createBankFormGroup(): FormGroup {
     return this.fb.group({
       id: 0,
-      dueDate: new FormControl(this.getTodaysDate(),customValidators.required),
-      credit: new FormControl(0, customValidators.required),
-      debit: new FormControl(0, customValidators.required),
+      dueDate: new FormControl(this.getTodaysDate(), customValidators.required),
+      credit: new FormControl(0, [customValidators.required , customValidators.number ,customValidators.hasSpaces]),
+      debit: new FormControl(0, [customValidators.required , customValidators.number ,customValidators.hasSpaces ]),
 
     });
   }
@@ -116,7 +123,7 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
   //       (element.credit == 0 && element.debit == 0)
   //     ) {
   //       console.log(element.credit ,"credit" ,element.debit ,"formattedItems.debit");
-        
+
   //       this.toasterService.showError(
   //         this.langService.transalte('Journal.Error'),
   //         this.langService.transalte('Journal.InvalidAmount')
@@ -127,7 +134,7 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
   //       valid=true
 
   //     }
-      
+
   //   }
   // );
   // if(valid){
@@ -137,49 +144,48 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
   // }
   onSubmit() {
     if (!this.formsService.validForm(this.customerForm, false)) return;
-  
+
     const formattedItems = this.items.value.map((item: any) => {
       return {
         ...item,
         dueDate: this.datePipe.transform(item.dueDate, 'yyyy-MM-dd') // Format due date
       };
     });
-    
+
     let allValid = true;
 
     for (let i = 0; i < formattedItems.length; i++) {
       const element = formattedItems[i];
-      const credit = element.credit ;
+      const credit = element.credit;
       const debit = element.debit;
-  console.log(element);
-  
+      console.log(element);
+
       if (((credit != 0 && debit != 0) || (credit == 0 && debit == 0))) {
         this.toasterService.showError(
           this.langService.transalte('Error'),
           this.langService.transalte('InvalidAmount')
         );
-        console.log(allValid ,i);
-        
+        console.log(allValid, i);
+
         allValid = false;
         break; // Exit the loop early if an invalid item is found
       }
     }
-  
+
     if (!allValid) return;
     const totalCredit = this.getTotalCredit();
     const totalDebit = this.getTotalDebit();
     const totalSum = Math.round(totalCredit + totalDebit);
-    if(totalSum==this.balance){
-      console.log(totalCredit,"0000");
-      console.log(totalDebit,"111111");
-      console.log(totalSum,"22222");
-      
+    if (totalSum == this.balance) {
+      console.log(totalCredit, "0000");
+      console.log(totalDebit, "111111");
+      console.log(totalSum, "22222");
+      this.error=false
+
       this.ref.close(formattedItems);
 
-    }else{
-      console.log(totalCredit,"0000");
-      console.log(totalDebit,"111111");
-      console.log(totalSum,"22222");
+    } else {
+      this.error=true
       this.toasterService.showError(
         this.langService.transalte('Error'),
         this.langService.transalte('errorSum')
@@ -192,12 +198,31 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
       return total + credit;
     }, 0);
   }
-  
+
   getTotalDebit(): number {
     return this.customerForm.controls.reduce((total, control) => {
       const debit = Number(control.get('debit')?.value) || 0; // Convert to number
       return total + debit;
     }, 0);
   }
-  
+  getTotalBalanceSum() {
+    // if(this.getTotalCredit()>=this.getTotalDebit()){
+    //   this.totalBalanceSum = Math.round(this.getTotalCredit() - this.getTotalDebit())
+
+    // }else{
+    //   this.totalBalanceSum = Math.round( this.getTotalDebit() - this.getTotalCredit())
+
+    // }
+    this.totalBalanceSum = Math.round(Math.abs(this.getTotalDebit() - this.getTotalCredit()));
+
+    // this.totalBalanceSum = Math.round(this.getTotalCredit() + this.getTotalDebit())
+    if(this.totalBalanceSum > this.totalBalance){
+      this.error=true
+
+    }else{
+      this.error=false
+
+    }
+  }
+
 }

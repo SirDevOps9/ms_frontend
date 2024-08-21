@@ -34,3 +34,11 @@ color: #fff;
       border-inline-end: 3px solid #dde1e6ed;
     }
   }
+  .form_header{
+    margin: 20px 0px 40px ;
+  }
+  .saveDisabled{
+    background: gray !important;
+    color: #fff !important;
+    // cursor: no-drop;
+  }

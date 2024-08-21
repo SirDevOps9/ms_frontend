@@ -6,7 +6,7 @@ import { customValidators, FormsService, LanguageService, ToasterService } from 
 import { CustomerOpeningBalanceDistributeComponent } from '../../../components/customer-opening-balance-distribute/customer-opening-balance-distribute.component';
 import { TranslationService } from 'projects/adminportal/src/app/modules/i18n';
 import { SalesService } from '../../../sales.service';
-import { CategoryDropdownDto, CustomerDropDown, GetLineDropDownById } from '../../../models';
+import { CategoryDropdownDto, CustomerDropDown, GetLineDropDownById, SharedJournalEnums } from '../../../models';
 
 @Component({
   selector: 'app-add-customer-opeening-balance',
@@ -18,7 +18,7 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
   customerForm: FormArray
   openingJournalList: CategoryDropdownDto[];
   LinesDropDown: GetLineDropDownById[];
-  CustomerDropDownByAccountId: CustomerDropDown[]
+  CustomerDropDownByAccountId: CustomerDropDown[]|any 
   amount: string;
   balanceTypeSelect: string;
   debitOrCredit: string;
@@ -38,6 +38,8 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private formService: FormsService,
+    public enums: SharedJournalEnums,
+
 
   ) { }
   ngOnInit(): void {
@@ -73,7 +75,7 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     if (confirmed) {
       this.toasterService.showSuccess(
         this.languageService.transalte('deleteCustomerDefinition.success'),
-        this.languageService.transalte('deleteCustomerDefinition.deleted')
+        this.languageService.transalte('DeletedSuccessfully')
       );
       this.customerForm.removeAt(index);
       this.calculateTotalBalance()
@@ -104,13 +106,46 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
       customerId: new FormControl('', customValidators.required),
       accountName:  new FormControl(),
       customerCode:  new FormControl(),
-      balance:  new FormControl(0,customValidators.required ),
-      balanceType: new FormControl('', customValidators.required),
+      balance:  new FormControl(0, [customValidators.required , customValidators.number ,customValidators.hasSpaces ,customValidators.nonZero] ),
+      balanceType: new FormControl('',  [customValidators.required ]),
       displayName:  new FormControl( ),
       dueDates: new FormControl([] ),
     });
   }
+  // accountSelected(event: any, index: number) {
+  //   const bankLine = this.items.at(index);
+  //   if (bankLine) {
+  //     var accountData: any = this.CustomerDropDownByAccountId.find((c: any) => c.id == event);
+  //     if (accountData) {
+  //       bankLine.get('accountName')?.setValue(accountData?.name);
+  //       bankLine.get('customerCode')?.setValue(accountData?.code);
+  //       bankLine.get('displayName')?.setValue(`${accountData.code}`);
+  //       this.CustomerDropDownByAccountId.removeAt(index)
+  //     }
+  //   } else {
+  //     console.error(`No FormGroup found at index ${index}`);
+  //   }
+  // }
   accountSelected(event: any, index: number) {
+    // Check if the customer is already selected in any row except the current one
+    const isCustomerAlreadySelected = this.items.controls.some((group, i) => {
+      return group.get('customerId')?.value === event && i !== index;
+    });
+  
+    if (isCustomerAlreadySelected) {
+      this.toasterService.showError(
+        this.languageService.transalte('Error'),
+        this.languageService.transalte('customerAlreadySelected')
+      );
+      // Reset the selected customerId in the current row
+      const bankLine = this.items.at(index);
+      if (bankLine) {
+        bankLine.get('customerId')?.reset();
+      }
+      return;
+    }
+  
+    // If not already selected, proceed as usual
     const bankLine = this.items.at(index);
     if (bankLine) {
       var accountData: any = this.CustomerDropDownByAccountId.find((c: any) => c.id == event);
@@ -123,12 +158,20 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
       console.error(`No FormGroup found at index ${index}`);
     }
   }
+  
   openDistribute(data: any, account: number, index: number, customerGroup: FormGroup) {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
 
-    if (data.balanceType != "Debit") {
-      return null;
+    if (data.balanceType != this.enums.BalanceType.Debit) {
+      console.log("000000000000000000");
+      
+      this.toasterService.showError(
+        this.languageService.transalte('Error'),
+        this.languageService.transalte('Distribution')
+      );
+      return ;
     } else {
+      console.log("2222222222222222222");
 
       const ref = this.dialog.open(CustomerOpeningBalanceDistributeComponent, {
         width: '750px',

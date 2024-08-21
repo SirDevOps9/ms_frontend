@@ -18,7 +18,8 @@
   "errorSum":"amount of journal line is not equal to sum amount of balance",
   "Error": "Error",
   "InvalidAmount":"please enter valid debit or credit amounts",
-
+  "Distribution":"cannot Distribution on credit",
+  "DeletedSuccessfully": " Deleted Successfully",
 
 
   "Table": {
