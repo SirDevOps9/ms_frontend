@@ -66,21 +66,10 @@ export class PaymentInListComponent implements OnInit {
   onPageChange(pageInfo: PageInfo) {
     this.financeService.getAllPaymentIn('', pageInfo);
 
-    // this.financeService.paymentInDataSourceObservable.subscribe({
-    //   next: (res) => {
-    //     this.tableData = res;
-    //   },
-    // });
   }
 
   onSearchChange(event: any) {
     this.financeService.getAllPaymentIn(event.target.value, new PageInfo());
-
-    // this.financeService.paymentInDataSourceObservable.subscribe({
-    //   next: (res) => {
-    //     this.tableData = res;
-    //   },
-    // });
   }
 
   
