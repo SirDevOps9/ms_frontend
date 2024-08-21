@@ -5,7 +5,8 @@
   "PaymentTermList":"Payment Terms",
   "AddPaymentTerm":"Add Payment Term",
   "EditPaymentTerm":"Edit Payment Term",
-  "Treasury":"Treasury"
+  "Treasury":"Treasury",
+  "PaymentInList":"Payment In List"
 },
   "COAConfigration": {
     "levelnumber": "level Number",
@@ -317,6 +318,21 @@
     "AllowVAT": "Allow VAT",
     "edit":"Payment Method Edited Successfully",
     "add":"Payment Method Added Successfully"	
+  },
+  "payment-in": {
+    "payment-in": "Payment In",
+    "code": "Code",
+    "date": "Date",
+    "paymentHub": "Payment Hub",
+    "paymentHubDetailId": "Payment Hub Detail",
+    "branch": "Branch",
+    "bankAccount": "Bank Account",
+    "sourceDocument": "Source Document",
+    "relatedSourceJournal": "Related Source Journal",
+    "actions": "Actions",
+    "Search": "Search",
+    "addNew": "Add New",
+    "delete":"Payment In Deleted Successfully"
   }
 
 
