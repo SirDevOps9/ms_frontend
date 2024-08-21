@@ -27,23 +27,27 @@ export class PaymentInListComponent implements OnInit {
 
  
   ngOnInit() {
+    this.subscribes();
     this.initPaymentInData();
     this.title.setTitle(
-      this.langService.transalte('paayment-in.Title')
+      this.langService.transalte('payment-in.payment-in')
     );
   }
 
   routeToAdd() {
+     //todo
     this.routerService.navigateTo('');
   }
 
   routeToEdit(id: number) {
+     //todo
     this.routerService.navigateTo( `/${id}`);
   }
 
   initPaymentInData() {
     this.financeService.getAllPaymentIn('', new PageInfo());
-
+  }
+  subscribes(){
     this.financeService.paymentInDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
@@ -88,6 +92,7 @@ export class PaymentInListComponent implements OnInit {
   }
 
   view(id: number) {
+    //todo
     this.routerService.navigateTo(`/view/${id}`);
   }
 
