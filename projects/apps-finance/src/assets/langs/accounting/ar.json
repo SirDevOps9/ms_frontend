@@ -6,7 +6,9 @@
     "PaymentTermList": "شروط الدفع",
     "AddPaymentTerm": "إضافة شرط دفع",
   "EditPaymentTerm": "تعديل شرط دفع",
-    "Treasury": "الخزائن"
+    "Treasury": "الخزائن",
+    "PaymentInList":" إيصال نقدي "
+
   },
   "COAConfigration": {
     "levelnumber": "رقم المستوى",
