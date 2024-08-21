@@ -3,8 +3,8 @@ export interface GetPaymentMethodByIdDto {
     id: number,
     code: string;
     name: string,
-    paymentPlace: string,
-    paymentMethodType: string,
+    paymentPlace: number,
+    paymentMethodType: number,
     paymentMethodCommissionData:getpaymentMethodCommissionData|null
     }
     export interface getpaymentMethodCommissionData {
