@@ -5,7 +5,8 @@
   "PaymentTermList":"Payment Terms",
   "AddPaymentTerm":"Add Payment Term",
   "EditPaymentTerm":"Edit Payment Term",
-  "Treasury":"Treasury"
+  "Treasury":"Treasury",
+  "PaymentInList":"Payment In List"
 },
   "COAConfigration": {
     "levelnumber": "level Number",

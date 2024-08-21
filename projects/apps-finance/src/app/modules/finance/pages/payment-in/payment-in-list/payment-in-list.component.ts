@@ -57,34 +57,36 @@ export class PaymentInListComponent implements OnInit {
     this.financeService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
+
+    this.financeService.exportedPaymentinDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
   }
 
   onPageChange(pageInfo: PageInfo) {
     this.financeService.getAllPaymentIn('', pageInfo);
 
-    this.financeService.paymentInDataSourceObservable.subscribe({
-      next: (res) => {
-        this.tableData = res;
-      },
-    });
+    // this.financeService.paymentInDataSourceObservable.subscribe({
+    //   next: (res) => {
+    //     this.tableData = res;
+    //   },
+    // });
   }
 
   onSearchChange(event: any) {
     this.financeService.getAllPaymentIn(event.target.value, new PageInfo());
 
-    this.financeService.paymentInDataSourceObservable.subscribe({
-      next: (res) => {
-        this.tableData = res;
-      },
-    });
+    // this.financeService.paymentInDataSourceObservable.subscribe({
+    //   next: (res) => {
+    //     this.tableData = res;
+    //   },
+    // });
   }
 
   
   exportClick() {
     this.financeService.exportsPaymentInList(this.searchTerm);
-    this.financeService.exportedPaymentinDataSourceObservable.subscribe((res) => {
-      this.exportData = res;
-    });
+    
   }
 
   onDelete(id: number) {
