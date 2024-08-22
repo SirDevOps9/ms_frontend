@@ -23,6 +23,7 @@
   "AlreadySelected":"customer Already Selected",
   "deleted" : "Opening Balance Deleted Successfully",
   "successAdd":"Opening Balance Added Successfully",
+  "dueDate" : "Due Date Distribution",
 
 
 
@@ -470,6 +471,7 @@
       "balance" : "Balance",
       "balanceType" : "Balance Type",
       "dueDate" : "Due Date Distribution",
+      "dueDateDis" : "Due Date Distribution",
       "add_new" : "Add New Line",
       "distribute" : "Distribute",
       "debit" : "Debit",

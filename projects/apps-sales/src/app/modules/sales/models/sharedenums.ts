@@ -4,7 +4,7 @@ import { BalanceType } from "./balancetype";
 @Injectable({
     providedIn: 'root',
 })
-export class SharedJournalEnums {
+export class SharedSalesEnums {
     get BalanceType(): typeof BalanceType {
         return BalanceType;
     }

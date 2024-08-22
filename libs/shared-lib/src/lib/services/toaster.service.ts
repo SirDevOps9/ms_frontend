@@ -7,9 +7,7 @@ import { MessageService } from 'primeng/api';
 
 @Injectable({ providedIn: 'root' })
 export class ToasterService {
-  showInfo(arg0: string) {
-    throw new Error('Method not implemented.');
-  }
+
   constructor(
     private languageService: LanguageService,
     private messageService: MessageService

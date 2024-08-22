@@ -9,7 +9,6 @@ import { DatePipe } from '@angular/common'; // Import DatePipe
   selector: 'app-customer-opening-balance-distribute',
   templateUrl: './customer-opening-balance-distribute.component.html',
   styleUrl: './customer-opening-balance-distribute.component.scss',
-  providers: [DatePipe] // Add DatePipe to providers
 
 })
 export class CustomerOpeningBalanceDistributeComponent implements OnInit {
@@ -30,7 +29,6 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
     private cdr: ChangeDetectorRef,
-    private datePipe: DatePipe,// Inject DatePipe
     private toasterService: ToasterService,
     private langService: LanguageService,
 
@@ -113,14 +111,19 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
   onCancel() {
     this.ref.close()
   }
-
+  formatDate(date: string, format: string): string {
+    const pipe = new DatePipe('en-US');
+    return pipe.transform(date, format) || '';
+  }
   onSubmit() {
     if (!this.formsService.validForm(this.customerForm, false)) return;
 
     const formattedItems = this.items.value.map((item: any) => {
       return {
         ...item,
-        dueDate: this.datePipe.transform(item.dueDate, 'yyyy-MM-dd') // Format due date
+        // dueDate: this.datePipe.transform(item.dueDate, 'yyyy-MM-dd') // Format due date
+        dueDate: this.formatDate(item.dueDate, 'yyyy-MM-dd') // Use formatDate method
+
       };
     });
 

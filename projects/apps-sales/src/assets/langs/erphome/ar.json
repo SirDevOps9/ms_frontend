@@ -24,7 +24,25 @@
   "successAdd": "تمت إضافة الرصيد الافتتاحي بنجاح",
 
 
-
+"openeingBalance": {
+    "openingJournal": "دفتر اليومية الافتتاحي",
+    "fromOpening": "من معاملة الرصيد الافتتاحي",
+    "JournalLine": "سطر دفتر اليومية",
+    "amount": "المبلغ",
+    "debitCredit": "مدين أو دائن",
+    "glAccount": "حساب الأستاذ العام",
+    "balance": "الرصيد",
+    "balanceType": "نوع الرصيد",
+    "dueDate": "توزيع تاريخ الاستحقاق",
+    "dueDateDis": "توزيع تاريخ الاستحقاق",
+    "add_new": "إضافة سطر جديد",
+    "distribute": "توزيع",
+    "debit": "مدين",
+    "credit": "دائن",
+    "duedate": "تاريخ الاستحقاق",
+    "cancel": "إلغاء",
+    "save": "حفظ"
+  },
 
   "Table": {
     "Actions": "اجراءات",

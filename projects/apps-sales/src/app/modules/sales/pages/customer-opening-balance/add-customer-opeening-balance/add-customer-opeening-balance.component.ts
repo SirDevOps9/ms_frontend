@@ -6,7 +6,7 @@ import { customValidators, FormsService, LanguageService, ToasterService } from 
 import { CustomerOpeningBalanceDistributeComponent } from '../../../components/customer-opening-balance-distribute/customer-opening-balance-distribute.component';
 import { TranslationService } from 'projects/adminportal/src/app/modules/i18n';
 import { SalesService } from '../../../sales.service';
-import { CategoryDropdownDto, CustomerDropDown, GetLineDropDownById, SharedJournalEnums } from '../../../models';
+import { CategoryDropdownDto, CustomerDropDown, GetLineDropDownById, SharedSalesEnums } from '../../../models';
 
 @Component({
   selector: 'app-add-customer-opeening-balance',
@@ -38,7 +38,7 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private formService: FormsService,
-    public enums: SharedJournalEnums,
+    public enums: SharedSalesEnums,
 
 
   ) { }
@@ -112,22 +112,8 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
       dueDates: new FormControl([] ),
     });
   }
-  // accountSelected(event: any, index: number) {
-  //   const bankLine = this.items.at(index);
-  //   if (bankLine) {
-  //     var accountData: any = this.CustomerDropDownByAccountId.find((c: any) => c.id == event);
-  //     if (accountData) {
-  //       bankLine.get('accountName')?.setValue(accountData?.name);
-  //       bankLine.get('customerCode')?.setValue(accountData?.code);
-  //       bankLine.get('displayName')?.setValue(`${accountData.code}`);
-  //       this.CustomerDropDownByAccountId.removeAt(index)
-  //     }
-  //   } else {
-  //     console.error(`No FormGroup found at index ${index}`);
-  //   }
-  // }
+
   accountSelected(event: any, index: number) {
-    // Check if the customer is already selected in any row except the current one
     const isCustomerAlreadySelected = this.items.controls.some((group, i) => {
       return group.get('customerId')?.value === event && i !== index;
     });
