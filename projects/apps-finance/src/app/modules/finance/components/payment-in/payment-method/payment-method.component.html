@@ -1,8 +1,8 @@
 <lib-popup-page title="{{ 'PaymentIn.Form.PaymentMethod' | translate }}" [closeFunction]="close">
   <div>
     <form [formGroup]="addForm">
-      <div class="grid">
-        <div class="md:col-6">
+      <div class="grid m-0">
+        <div class="md:col-6" *ngIf="paymentmethod == SharedJournalEnums.paymentmethodtype.Check">
           <lib-form-group>
             <lib-label [appControl]="addForm.controls['code']">
               {{ 'PaymentIn.Form.CheckNumber' | translate }}
@@ -11,7 +11,7 @@
             <lib-field-validations [appControl]="addForm.controls['code']"> </lib-field-validations>
           </lib-form-group>
         </div>
-        <div class="md:col-6">
+        <div class="md:col-6" *ngIf="paymentmethod == SharedJournalEnums.paymentmethodtype.Check">
           <lib-form-group>
             <lib-label [appControl]="addForm.controls['code']">
               {{ 'PaymentIn.Form.CheckDueDat' | translate }}
@@ -22,7 +22,7 @@
             <lib-field-validations [appControl]="addForm.controls['code']"> </lib-field-validations>
           </lib-form-group>
         </div>
-        <div class="md:col-6">
+        <div class="md:col-6" *ngIf="paymentmethod == SharedJournalEnums.paymentmethodtype.Visa||paymentmethod == SharedJournalEnums.paymentmethodtype.Master">
           <lib-form-group>
             <lib-label [appControl]="addForm.controls['code']">
               {{ 'PaymentIn.Form.CommissionAmount' | translate }}
@@ -31,7 +31,7 @@
             <lib-field-validations [appControl]="addForm.controls['code']"> </lib-field-validations>
           </lib-form-group>
         </div>
-        <div class="md:col-6">
+        <div class="md:col-6" *ngIf="paymentmethod == SharedJournalEnums.paymentmethodtype.Visa||paymentmethod == SharedJournalEnums.paymentmethodtype.Master">
           <lib-form-group>
             <lib-label [appControl]="addForm.controls['code']">
               {{ 'PaymentIn.Form.VatAmount' | translate }}
@@ -40,7 +40,7 @@
             <lib-field-validations [appControl]="addForm.controls['code']"> </lib-field-validations>
           </lib-form-group>
         </div>
-        <div class="md:col-12">
+        <div class="md:col-12" *ngIf="paymentmethod == SharedJournalEnums.paymentmethodtype.Check || paymentmethod == SharedJournalEnums.paymentmethodtype.Transfer || paymentmethod == SharedJournalEnums.paymentmethodtype.Visa ||paymentmethod ==  SharedJournalEnums.paymentmethodtype.Master ||paymentmethod == SharedJournalEnums.paymentmethodtype.Span ">
           <lib-form-group>
             <lib-label [appControl]="addForm.controls['code']">
               {{ 'PaymentIn.Form.BankReference' | translate }}

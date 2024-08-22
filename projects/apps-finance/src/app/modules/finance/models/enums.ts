@@ -16,3 +16,8 @@ export enum paymentplace {
     Amount=1,
     Percent=2,
   }
+  export enum paiedDropDown {
+    customer =1,
+    vendor =2,
+    other = 3
+  }

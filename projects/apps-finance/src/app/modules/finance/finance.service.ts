@@ -36,11 +36,19 @@ export class FinanceService {
   public paymentMethodDataSource = new BehaviorSubject<PaymentMethodDto[]>([])
   public exportedpaymentMethodListDataSource = new BehaviorSubject<PaymentMethodDto[]>([]);
   public sendPaymentMethodByID = new BehaviorSubject<GetPaymentMethodByIdDto>({} as GetPaymentMethodByIdDto)
+  public getTreasuryDropDownData = new BehaviorSubject<any>([])
+  public getBankDropDownData = new BehaviorSubject<any>([])
+  public getCustomerDropdownData = new BehaviorSubject<any>([])
+  public getVendorDropdownData = new BehaviorSubject<any>([])
 
 
 
 
 
+  getVendorDropdownDataObservable = this.getVendorDropdownData.asObservable()
+  getCustomerDropdownDataObservable = this.getCustomerDropdownData.asObservable()
+  getBankDropDownDataObservable = this.getBankDropDownData.asObservable()
+  getTreasuryDropDownDataObservable = this.getTreasuryDropDownData.asObservable()
   sendTreasuryDataSourceObservable = this.sendTreasuryDataSource.asObservable()
   addTreasureDefinitionsObservable = this.treasureDefinitions.asObservable()
   getTreasureDefinitionsByIDObservable = this.getTreasureDefinitionsByID.asObservable()
@@ -345,10 +353,42 @@ export class FinanceService {
     return this.financeProxy.BankAccountDropDown(id)
 
   }
-
   BankDropDown() {
     return this.financeProxy.BankDropDown()
+  }
 
+  bankDropDown() {
+    this.financeProxy.BankDropDown().subscribe((res) => {
+      if (res) {
+        this.getBankDropDownData.next(res);
+      }
+    });
+  }
+
+  // treasuryDropDown() {
+  //   return this.financeProxy.treasuryDropDown()
+
+  // }
+  treasuryDropDown() {
+    this.financeProxy.treasuryDropDown().subscribe((res) => {
+      if (res) {
+        this.getTreasuryDropDownData.next(res);
+      }
+    });
+  }
+  customerDropdown() {
+    this.financeProxy.CustomerDropdown().subscribe((res) => {
+      if (res) {
+        this.getCustomerDropdownData.next(res);
+      }
+    });
+  }
+  vendorDropdown() {
+    this.financeProxy.VendorDropdown().subscribe((res) => {
+      if (res) {
+        this.getVendorDropdownData.next(res);
+      }
+    });
   }
   
   addPaymentMethod(obj:AddPaymentMethodDto) {

@@ -164,6 +164,16 @@ export class FinanceProxyService {
   BankDropDown() : Observable<{ id: number; name: string }[]> {
     return this.httpService.get(`Bank/BankDropDown`);
   }
+  treasuryDropDown() : Observable<{ id: number; name: string }[]> {
+    return this.httpService.get(`Treasury/TreasuryDropDown`);
+  }
+  CustomerDropdown() : Observable<{ id: number; name: string }[]> {
+    return this.httpService.get(`Customer/CustomerDropdown`);
+  }
+  VendorDropdown() : Observable<{ id: number; name: string }[]> {
+    return this.httpService.get(`Vendor/VendorDropdown`);
+  }
+ 
 
   addPaymentMethod(obj : AddPaymentMethodDto) {
     return this.httpService.post('PaymentMethod' , obj)
