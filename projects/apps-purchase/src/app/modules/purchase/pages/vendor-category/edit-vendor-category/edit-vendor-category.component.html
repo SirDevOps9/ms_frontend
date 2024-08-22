@@ -140,14 +140,8 @@
   
       <!--  -->
       <div class="grid justify-content-center my-2">
-        <lib-button
-          pRipple
-          className="saveBtn"
-          label="Save"
-          (onClick)="onSave()"
-          [disabled]="!formGroup.valid"
-        >
-        </lib-button>
+        <lib-button-micro nameClass="save" [title]="'Save' | translate" (click)="onSave()">
+        </lib-button-micro>
       </div>
     </div>
   </lib-page-content>

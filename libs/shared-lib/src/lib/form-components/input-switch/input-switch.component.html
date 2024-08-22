@@ -5,6 +5,7 @@
     (onChange)="changed($event)"
     [(ngModel)]="value"
     [disabled]="disabled"
+    [attr.data-testid]="this.labelTest"
   >
   </p-inputSwitch>
 </div>
