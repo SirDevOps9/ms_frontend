@@ -13,6 +13,20 @@
   "Logout": "Logout",
   "DeleteError": "Error in Delete",
   "LoadError": "Error in loading Data",
+  "add_new_line": "Add New Line",
+  "total" : "Total",
+  "errorSum":"amount of journal line is not equal to sum amount of balance",
+  "Error": "Error",
+  "InvalidAmount":"please enter valid debit or credit amounts",
+  "Distribution":"cannot Distribution on credit",
+  "DeletedSuccessfully": " Deleted Successfully",
+  "AlreadySelected":"customer Already Selected",
+  "deleted" : "Opening Balance Deleted Successfully",
+  "successAdd":"Opening Balance Added Successfully",
+  "dueDate" : "Due Date Distribution",
+
+
+
   "Table": {
     "Actions": "Actions",
     "Edit": "Edit",
@@ -417,8 +431,7 @@
     },
     "deleteCustomerDefinition" : {
       "success":"Success",
-      "delete" : "Customer Definition Deleted Successfully",
-      "deleted" : "Customer Deleted Successfully"
+      "delete" : "Customer Definition Deleted Successfully"
     },
     "vendorDefinition" : {
       "code" : "Vendor Code",
@@ -458,6 +471,7 @@
       "balance" : "Balance",
       "balanceType" : "Balance Type",
       "dueDate" : "Due Date Distribution",
+      "dueDateDis" : "Due Date Distribution",
       "add_new" : "Add New Line",
       "distribute" : "Distribute",
       "debit" : "Debit",

@@ -18,7 +18,7 @@ export class ButtonMicroComponent {
     | 'cancel'
     | 'btn_rounded'
     | 'disabled'
-    | 'outline'| 'saveDisabled';
+    | 'outline'| 'saveDisabled'|any;
   @Input() disabled: boolean = false;
   @Output() click = new EventEmitter();
   @Input() type: 'submit' | 'button';
