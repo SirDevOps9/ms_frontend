@@ -139,10 +139,10 @@
   }
 }
 .disabled {
-  background: #b6bac3;
-  color: #fff;
-  border: none;
-  cursor: not-allowed;
+  background: #b6bac3 !important;
+  color: #fff !important;
+  border: none !important;
+
 }
 .table_button_delete{
   width: 32px !important;

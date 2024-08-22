@@ -54,7 +54,7 @@ export class TaxDefinitionEditComponent {
     this.editForm = this.formBuilder.group({
       id:null,
       name: new FormControl('', [customValidators.required]),
-      code: new FormControl('', [customValidators.required]),
+      code: new FormControl('', [customValidators.required ]),
       ratio: new FormControl('', [customValidators.required]),
       accountId: new FormControl('', [customValidators.required]),
       taxGroupId: new FormControl('', [customValidators.required]),
