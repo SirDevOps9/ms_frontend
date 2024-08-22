@@ -20,6 +20,10 @@
   "InvalidAmount":"please enter valid debit or credit amounts",
   "Distribution":"cannot Distribution on credit",
   "DeletedSuccessfully": " Deleted Successfully",
+  "AlreadySelected":"customer Already Selected",
+  "deleted" : "Opening Balance Deleted Successfully",
+  "successAdd":"Opening Balance Added Successfully",
+
 
 
   "Table": {
@@ -426,8 +430,7 @@
     },
     "deleteCustomerDefinition" : {
       "success":"Success",
-      "delete" : "Customer Definition Deleted Successfully",
-      "deleted" : "Customer Deleted Successfully"
+      "delete" : "Customer Definition Deleted Successfully"
     },
     "vendorDefinition" : {
       "code" : "Vendor Code",

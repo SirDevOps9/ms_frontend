@@ -90,13 +90,20 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
 
 
   createBankFormGroup(): FormGroup {
-    return this.fb.group({
+    const group=  this.fb.group({
       id: 0,
-      dueDate: new FormControl(this.getTodaysDate(), customValidators.required),
+      dueDate: new FormControl(this.getTodaysDate()),
       credit: new FormControl(0, [customValidators.required , customValidators.number ,customValidators.hasSpaces]),
       debit: new FormControl(0, [customValidators.required , customValidators.number ,customValidators.hasSpaces ]),
 
     });
+    group.get('credit')?.valueChanges.subscribe(value => {
+      if (value != 0) {
+        group.get('dueDate')?.setValue(null); // Set dueDate to null
+      }
+    });
+  
+    return group;
   }
 
   getTodaysDate() {
@@ -106,42 +113,7 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
   onCancel() {
     this.ref.close()
   }
-  // onSubmit() {
-  //   if (!this.formsService.validForm(this.customerForm, false)) return;
-  //   const formattedItems = this.items.value.map((item: any) => {
-  //     return {
-  //       ...item,
-  //       duedate: this.datePipe.transform(item.duedate, 'yyyy-MM-dd') // Format due date
-  //     };
-  //   });
-  //   console.log(formattedItems,"4444");
-  //   let valid:boolean=false
-  //   formattedItems.forEach((element:any) => {
-  //     if (
-  //       (element.credit!=0 && element.debit!=0) ||
-  //       (!element.credit && !element.debit) ||
-  //       (element.credit == 0 && element.debit == 0)
-  //     ) {
-  //       console.log(element.credit ,"credit" ,element.debit ,"formattedItems.debit");
 
-  //       this.toasterService.showError(
-  //         this.langService.transalte('Journal.Error'),
-  //         this.langService.transalte('Journal.InvalidAmount')
-  //       );
-  //       valid=false
-  //       return;
-  //     }else{
-  //       valid=true
-
-  //     }
-
-  //   }
-  // );
-  // if(valid){
-  //   this.ref.close(formattedItems)
-
-  // }
-  // }
   onSubmit() {
     if (!this.formsService.validForm(this.customerForm, false)) return;
 
@@ -175,13 +147,9 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
     if (!allValid) return;
     const totalCredit = this.getTotalCredit();
     const totalDebit = this.getTotalDebit();
-    const totalSum = Math.round(totalCredit + totalDebit);
+    const totalSum = Math.round(this.getTotalDebit() - this.getTotalCredit());
     if (totalSum == this.balance) {
-      console.log(totalCredit, "0000");
-      console.log(totalDebit, "111111");
-      console.log(totalSum, "22222");
       this.error=false
-
       this.ref.close(formattedItems);
 
     } else {
@@ -206,23 +174,15 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
     }, 0);
   }
   getTotalBalanceSum() {
-    // if(this.getTotalCredit()>=this.getTotalDebit()){
-    //   this.totalBalanceSum = Math.round(this.getTotalCredit() - this.getTotalDebit())
-
-    // }else{
-    //   this.totalBalanceSum = Math.round( this.getTotalDebit() - this.getTotalCredit())
-
-    // }
-    this.totalBalanceSum = Math.round(Math.abs(this.getTotalDebit() - this.getTotalCredit()));
-
-    // this.totalBalanceSum = Math.round(this.getTotalCredit() + this.getTotalDebit())
-    if(this.totalBalanceSum > this.totalBalance){
+    this.totalBalanceSum = Math.round(this.getTotalDebit() - this.getTotalCredit());
+    if(this.totalBalanceSum != this.balance){
       this.error=true
-
     }else{
       this.error=false
-
     }
+  }
+  resetDate(e:any){
+   
   }
 
 }

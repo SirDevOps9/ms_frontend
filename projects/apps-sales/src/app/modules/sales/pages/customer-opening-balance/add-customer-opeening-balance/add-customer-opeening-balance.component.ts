@@ -135,7 +135,7 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     if (isCustomerAlreadySelected) {
       this.toasterService.showError(
         this.languageService.transalte('Error'),
-        this.languageService.transalte('customerAlreadySelected')
+        this.languageService.transalte('AlreadySelected')
       );
       // Reset the selected customerId in the current row
       const bankLine = this.items.at(index);
@@ -163,7 +163,6 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
 
     if (data.balanceType != this.enums.BalanceType.Debit) {
-      console.log("000000000000000000");
       
       this.toasterService.showError(
         this.languageService.transalte('Error'),
@@ -171,7 +170,6 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
       );
       return ;
     } else {
-      console.log("2222222222222222222");
 
       const ref = this.dialog.open(CustomerOpeningBalanceDistributeComponent, {
         width: '750px',

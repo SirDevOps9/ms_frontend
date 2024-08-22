@@ -340,7 +340,7 @@ export class SalesService {
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('addCustomerDefinition.success'),
-          this.languageService.transalte('addCustomerDefinition.successAdded')
+          this.languageService.transalte('successAdded')
         );
         if (res) {
           this.addCustomerDefinitionRes.next(res);
@@ -371,7 +371,7 @@ export class SalesService {
         next: (res) => {
           this.toasterService.showSuccess(
             this.languageService.transalte('deleteCustomerDefinition.success'),
-            this.languageService.transalte('deleteCustomerDefinition.deleted')
+            this.languageService.transalte('deleted')
           );
           this.loaderService.hide();
           this.customerDeleted.next(res)
