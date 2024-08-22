@@ -10,6 +10,7 @@ export class ChangeColumnComponent implements OnChanges {
   columnsList: any = [];
   @Input() dataTable: any = [];
   @Input() placeholder: string = 'Change Column'; 
+  @Input() labelTest: any = 'micro-button';
 
   constructor(private generalService: GeneralService) {
     this.generalService.sendColumnsObs.subscribe((res) => {
@@ -83,4 +84,14 @@ export class ChangeColumnComponent implements OnChanges {
   transformArray(array: any) {
     return array.map((item: any) => this.camelCaseToTitleCase(item));
   }
+
+  ngAfterViewInit() {
+    if (this.placeholder) {
+      setTimeout(() => {
+        this.labelTest = this.placeholder;
+      }, 500);
+    }
+  }
+
+        
 }

@@ -70,7 +70,7 @@ export class CustomerListComponent implements OnInit {
 
 
   onSearchChange(event : any) {
-    this.salesService.getcustomerDefinition(event.target.value, new PageInfo());
+    this.salesService.getcustomerDefinition(event, new PageInfo());
 
     this.salesService.customerDefinitionDataSourceObservable.subscribe({
       next: (res) => {
@@ -80,6 +80,7 @@ export class CustomerListComponent implements OnInit {
       },
     });
   }
+  
 
   onDelete(id: number) {
     this.salesService.deleteCustomerDefinition(id);

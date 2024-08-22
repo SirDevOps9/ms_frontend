@@ -46,15 +46,13 @@
         <ng-container caption>
           <div class="group flex justify-content-between">
             <div>
-              <span class="p-input-icon-left">
-                <i class="pi pi-search"></i>
-                <input
-                  pInputText
-                  type="text"
-                  placeholder="{{ 'tag.Search' | translate }}"
-                  (keyup)="onSearchChange($event)"
-                />
-              </span>
+              <lib-text-input
+              type="text"
+              [placeholder]="'tag.Search' | translate"
+              (keyUp)="onSearchChange($event)"
+              [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+            >
+            </lib-text-input>
             </div>
             <div class="flex gap-2">
               <lib-export

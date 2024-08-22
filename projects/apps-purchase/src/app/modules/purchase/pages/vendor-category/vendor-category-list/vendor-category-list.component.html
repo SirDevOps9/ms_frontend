@@ -70,15 +70,15 @@
       >
       <ng-container search>
         <div>
-          <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input
-              pInputText
-              type="text"
-              [placeholder]="'vendorCategory.Search' | translate"
-              (keyup)="onSearchChange($event)"
-            />
-          </span>
+
+          
+          <lib-text-input
+          type="text"
+          [placeholder]="'vendorCategory.Search' | translate"
+          (keyUp)="onSearchChange($event)"
+          [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+        >
+        </lib-text-input>
         </div>
       </ng-container>
       <ng-container action>

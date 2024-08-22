@@ -22,4 +22,15 @@ export class ButtonMicroComponent {
   @Input() disabled: boolean = false;
   @Output() click = new EventEmitter();
   @Input() type: 'submit' | 'button';
+  @Input() labelTest: any;
+
+  ngAfterViewInit() {
+    if (this.title) {
+      setTimeout(() => {
+        this.labelTest = this.nameClass;
+      }, 500);
+    }
+  }
+
+
 }

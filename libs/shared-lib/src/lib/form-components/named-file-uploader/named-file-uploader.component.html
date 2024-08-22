@@ -9,6 +9,7 @@
   style="display: none"
   [multiple]="false"
   (change)="uploadFile($event)"
+  [attr.data-testid]="labelTest"
 />
 <!-- accept="{{ cus getFileType(this.config.type).allowedExtensions }}" -->
 

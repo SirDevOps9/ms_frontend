@@ -3,151 +3,188 @@
   class="error"
   *ngIf="appControl && appControl.invalid && (appControl.dirty || appControl.touched)"
 >
-  <span class="errorMessage" *ngIf="appControl.hasError('required')">
+  <span class="errorMessage" *ngIf="appControl.hasError('required')"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.required' | translate }}
   </span>
 
-  <span class="errorMessage" *ngIf="appControl.errors?.['serverError']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['serverError']"   [attr.data-testid]="labelTest"
+  >
     {{appControl.errors?.['serverError']}}
   </span>
 
-  <span class="errorMessage" *ngIf="appControl.errors?.['invalidOnlySaudiId']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidOnlySaudiId']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.invalidOnlySaudiId' | translate }}
   </span>
 
-  <span class="errorMessage" *ngIf="appControl.errors?.['invalidIqamaiId']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidIqamaiId']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.invalidIqamaiId' | translate }}
   </span>
 
-  <span class="errorMessage" *ngIf="appControl.errors?.['invalidPhone']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidPhone']"   [attr.data-testid]="labelTest"
+  >
     {{ 'shared.invalidPhone' | translate }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['isNotAgreedToTermsRequired']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['isNotAgreedToTermsRequired']"  [attr.data-testid]="labelTest"
+  >
     {{ 'validation.agreedToTermsRequired' | translate }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['pattern']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['pattern']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.pattern' | translate }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['email']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['email']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.email' | translate }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['invalidSaudiId']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidSaudiId']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.invalidSaudiId' | translate }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['inValidEmailPattern']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['inValidEmailPattern']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.emailPattern' | translate }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['inValidMobilePattern']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['inValidMobilePattern']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.mobilePattern' | translate }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['inValidMobilePrefixPattern']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['inValidMobilePrefixPattern']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.mobilePrefixPattern' | translate }}
   </span>
 
-  <span class="errorMessage" *ngIf="appControl.errors?.['withSpecialChars']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['withSpecialChars']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.specialCharPattern' | translate }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['invalidNumber']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidNumber']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.invalidNumber' | translate }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['isValidNationalMobile']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['isValidNationalMobile']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.mobileNationalPattern' | translate }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['invalidUnifiedNumber']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidUnifiedNumber']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.invalidUnifiedNumber' | translate }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['invalidCRNumber']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidCRNumber']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.invalidCRNumber' | translate }}
   </span>
 
-  <span class="errorMessage" *ngIf="appControl.errors?.['maxlength']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['maxlength']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.maxLength' | translate }}:{{
       appControl.errors?.['maxlength.requiredLength']
     }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['minlength']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['minlength']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.minLength' | translate }}:{{
       appControl.errors?.['minlength.requiredLength']
     }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['max']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['max']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.invalidMax' | translate }}:{{ appControl.errors?.['max.max'] }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['min']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['min']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.invalidMin' | translate }}:{{ appControl.errors?.['min.min'] }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['age']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['age']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.invalidage' | translate }}:{{ appControl.errors?.['age.age'] }}
   </span>
 
-  <span class="errorMessage" *ngIf="appControl.errors?.['hasSpecialChars']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['hasSpecialChars']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.hasSpecialChars' | translate }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['hasWhiteSpaces']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['hasWhiteSpaces']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.hasWhiteSpaces' | translate }}
   </span>
 
-  <span class="errorMessage" *ngIf="appControl.errors?.['lengthRange']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['lengthRange']"   [attr.data-testid]="labelTest"
+  >
     {{
       'validation.lengthRange'
         | translate: { min: this.appControl.errors?.['lengthRange'].min, 
         max: this.appControl.errors?.['lengthRange'].max }
     }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['ageAbove']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['ageAbove']"   [attr.data-testid]="labelTest"
+  >
     {{
       'validation.ageAbove'
         | translate: { age: this.appControl.errors?.['ageAbove'].age}
     }}
   </span>
 
-  <span class="errorMessage" *ngIf="appControl.errors?.['invalidSize']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidSize']"   [attr.data-testid]="labelTest"
+  >
     {{
       'validation.invalidSize'
         | translate: { maxSize: this.appControl.errors?.['lengthRange'].maxSize  }
     }}
   </span>
 
-  <span class="errorMessage" *ngIf="appControl.errors?.['invalidFileSize']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidFileSize']"   [attr.data-testid]="labelTest"
+  > 
     {{
       'validation.invalidFileSize'
         | translate: { maxFileSize: this.appControl.errors?.['invalidFileSize'].maxFileSize  }
     }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['invalidFileType']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidFileType']"   [attr.data-testid]="labelTest"
+  > 
     {{
       'validation.invalidFileType'
         | translate: { allowedFileTypes: this.appControl.errors?.['invalidFileType'].allowedFileTypes  }
     }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['invalidWidth']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidWidth']"   [attr.data-testid]="labelTest"
+  >
     {{
       'validation.invalidWidth'
         | translate: { minWidth: this.appControl.errors?.['invalidWidth'].minWidth , maxWidth: this.appControl.errors?.['invalidWidth'].maxWidth  }
     }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['invalidHeight']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidHeight']"   [attr.data-testid]="labelTest"
+  >
     {{
       'validation.invalidHeight'
-        | translate: { minHeight: this.appControl.errors?.['invalidHeight'].minHeight , maxHeight: this.appControl.errors?.['invalidHeight'].maxHeight  }
+        | translate: { minHeight: this.appControl.errors?.['invalidHeight'].minHeight , maxHeight: appControl.errors?.['invalidHeight'].maxHeight  }
     }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['nonZero']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['nonZero']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.zeroNotAllowed' | translate }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['invalidBirthDate']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['invalidBirthDate']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.invalidBirthDate' | translate }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['onlyLetters']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['onlyLetters']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.onlyLetters' | translate }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['debitAndCreditZero']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['debitAndCreditZero']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.debitAndCreditZero' | translate }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['backendValidation']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['backendValidation']"   [attr.data-testid]="labelTest"
+  >
     {{ appControl.errors?.['backendValidation'] }}
   </span>
-  <span class="errorMessage" *ngIf="appControl.errors?.['nonNegative']">
+  <span class="errorMessage" *ngIf="appControl.errors?.['nonNegative']"   [attr.data-testid]="labelTest"
+  >
     {{ 'validation.nonNegativeNumbers' | translate }}
   </span>
   <span class="errorMessage" *ngIf="appControl.errors?.['hasAlphabetic']">
