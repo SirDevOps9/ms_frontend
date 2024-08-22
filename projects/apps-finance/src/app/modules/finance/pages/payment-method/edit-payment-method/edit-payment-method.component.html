@@ -32,8 +32,8 @@
              <lib-select
               formControlName="paymentPlace"
               [options]="lookups[LookupEnum.PaymentPlace]"
-              [selectedValue]="selectedPaymentPlace"
-              optionValue="id"
+              [selectedValue]="PaymentMethodForm.get('paymentPlace')!.value"
+              optionValue="name"
               optionLabel="name"
               [readOnly]="true"
             >
@@ -49,8 +49,8 @@
             <lib-select
               formControlName="paymentMethodType"
               [options]="lookups[LookupEnum.PaymentMethodType]"
-              [selectedValue]="selectedPaymentMethod"
-              optionValue="id"
+              [selectedValue]="PaymentMethodForm.get('paymentMethodType')!.value"
+              optionValue="name"
               optionLabel="name"
               [readOnly]="true"
             > 
@@ -129,9 +129,9 @@
                     <lib-select
                       formControlName="commissionType"
                       [options]="lookups[LookupEnum.CommissionType]"
-                      optionValue="id"
+                      optionValue="name"
                       optionLabel="name"
-                      [selectedValue]="selectedCommissionType"
+                      [selectedValue]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('commissionType')?.value"
                       [readOnly]="disableCommission"
                       >
                     </lib-select>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { customValidators, FormsService, LanguageService, lookupDto, LookupEnum, LookupsService, RouterService, ToasterService } from 'shared-lib';
 import { BankAccountWithCurrency } from '../../../models/bank-account-with-currency-dto';
-import { AddPaymentMethodDto, paymentplace } from '../../../models';
+import { AddPaymentMethodDto, paymentmethodtype, paymentplace } from '../../../models';
 import { FinanceService } from '../../../finance.service';
 import { SharedFinanceEnums } from '../../../models/shared-finance-enums';
 import { ActivatedRoute } from '@angular/router';
@@ -24,9 +24,6 @@ export class EditPaymentMethodComponent implements OnInit {
   id: number = this.route.snapshot.params['id']
   originalPaymentMethodTypeLookups: lookupDto[] = [];
   disableCommission: boolean = false;
-  selectedPaymentPlace:string = '';
-  selectedPaymentMethod:string = '';
-  selectedCommissionType:string = '';
 
 
 
@@ -49,19 +46,9 @@ export class EditPaymentMethodComponent implements OnInit {
     this.getBankDropDown();
     this.loadLookups();
     this.getPaymentMethodInfoById(this.id);
+    this.subscribe();
 
-    this.PaymentMethodForm.get('paymentPlace')!.valueChanges.subscribe(() => {
-      this.updateCommissionFields();
-    });
-    this.PaymentMethodForm.get('paymentMethodType')!.valueChanges.subscribe(() => {
-      this.updateCommissionFields();
-    });
-
-     this.PaymentMethodForm.get('paymentMethodCommissionData.bankId')!.valueChanges.subscribe(bankId => {
-       if (bankId) {
-         this.getBankAccountDropDown(bankId);
-       }
-     });
+   
   }
    
   initForm(){
@@ -82,13 +69,34 @@ export class EditPaymentMethodComponent implements OnInit {
       })
     });
   }
+  subscribe(){
+    this.lookupsService.lookups.subscribe((l) => {
+      this.lookups = l;
+      this.originalPaymentMethodTypeLookups =l["PaymentMethodType"] ;
+    });
+
+    this.PaymentMethodForm.get('paymentPlace')!.valueChanges.subscribe(() => {
+      this.updateCommissionFields();
+    });
+
+    this.PaymentMethodForm.get('paymentMethodType')!.valueChanges.subscribe(() => {
+      this.updateCommissionFields();
+    });
+
+     this.PaymentMethodForm.get('paymentMethodCommissionData.bankId')!.valueChanges.subscribe(bankId => {
+       if (bankId) {
+         this.getBankAccountDropDown(bankId);
+       }
+     });
+  }
 
   updateCommissionFields() {
     const paymentPlace = this.PaymentMethodForm.get('paymentPlace')!.value;
-    const paymentMethodType = this.PaymentMethodForm.get('paymentMethodType')!.value;
+    const paymentMethod = this.PaymentMethodForm.get('paymentMethodType')!.value;
 
-    if (paymentPlace == this.sharedFinanceEnum.PaymentPlace.Treasury.toString() ||
-    paymentMethodType == this.sharedFinanceEnum.paymentMethodType.Check.toString()) {
+
+    if (paymentPlace == paymentplace[paymentplace.Treasury] ||
+    paymentMethod == paymentmethodtype[paymentmethodtype.Check] ) {
       this.disableCommission=true;
     } else {
       this.disableCommission=false;
@@ -117,9 +125,6 @@ export class EditPaymentMethodComponent implements OnInit {
           currency: res.paymentMethodCommissionData?.currencyName
          }
       });
-      this.selectedPaymentPlace=res.paymentPlace?.toString();
-      this.selectedPaymentMethod = res.paymentMethodType?.toString();
-      this.selectedCommissionType = res.paymentMethodCommissionData?.commissionType?.toString()?? '';
     })
   }
 
@@ -129,11 +134,6 @@ export class EditPaymentMethodComponent implements OnInit {
       LookupEnum.PaymentPlace,
       LookupEnum.CommissionType
     ]);
-    this.lookupsService.lookups.subscribe((l) => {
-      this.lookups = l;
-      this.originalPaymentMethodTypeLookups =l["PaymentMethodType"] ;
-    });
-
   }
 
   discard() {

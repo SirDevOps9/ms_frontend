@@ -1,16 +1,17 @@
+import { commissiontype, paymentmethodtype, paymentplace } from "./enums";
 
 export interface GetPaymentMethodByIdDto {
     id: number,
     code: string;
     name: string,
-    paymentPlace: number,
-    paymentMethodType: number,
+    paymentPlace: paymentplace,
+    paymentMethodType: paymentmethodtype,
     paymentMethodCommissionData:getpaymentMethodCommissionData|null
     }
     export interface getpaymentMethodCommissionData {
         bankId: number,
         bankAccountId: number,
-        commissionType: string|null,
+        commissionType: commissiontype|null,
         commissionValue: number|null,
         commissionAccountId: number|null,
         allowVAT: boolean,
