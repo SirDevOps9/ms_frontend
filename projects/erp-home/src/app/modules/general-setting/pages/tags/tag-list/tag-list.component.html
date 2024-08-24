@@ -46,15 +46,13 @@
         <ng-container caption>
           <div class="group flex justify-content-between">
             <div>
-              <span class="p-input-icon-left">
-                <i class="pi pi-search"></i>
-                <input
-                  pInputText
-                  type="text"
-                  placeholder="{{ 'tag.Search' | translate }}"
-                  (keyup)="onSearchChange($event)"
-                />
-              </span>
+              <lib-text-input
+              type="text"
+              [placeholder]="'tag.Search' | translate"
+              (keyUp)="onSearchChange($event)"
+              [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+            >
+            </lib-text-input>
             </div>
             <div class="flex gap-2">
               <lib-export
@@ -64,22 +62,30 @@
                 [ExportName]="'Tag'"
               >
               </lib-export>
-              <lib-button
-                pRipple
-                className="addToList"
-                label="{{ 'tag.AddNew' | translate }}"
-                (onClick)="newTag()"
-                [icon]="'pi pi-plus'"
-              >
-              </lib-button>
+              
+              <lib-button-micro
+              nameClass="save"
+              [title]="'tag.AddNew' | translate"
+              (click)="newTag()"
+              [iconName]="'pi pi-plus'"
+            >
+            </lib-button-micro>
             </div>
           </div>
         </ng-container>
 
         <ng-template #userCol let-tag>
           <div class="actions flex align-items-center">
-            <img src="assets/images/table/edit.svg" alt="" (click)="routeToEdit(tag)" />
-            <img src="assets/images/table/delete.svg" alt="" (click)="Delete(tag.id)" />
+            <lib-button-micro
+            nameClass="table_button_edit"
+            (click)="routeToEdit(tag)" >
+
+            </lib-button-micro>
+            <lib-button-micro
+            nameClass="table_button_delete"
+            (click)="Delete(tag.id)"
+            >
+            </lib-button-micro>
           </div>
         </ng-template>
 

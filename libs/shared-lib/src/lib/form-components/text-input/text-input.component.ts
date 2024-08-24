@@ -23,7 +23,7 @@ import {
 })
 export class TextInputComponent implements ControlValueAccessor, Validator, AfterViewInit {
   @Input() label: string;
-  @Input() labelTest: any;
+  @Input() labelTest: any  = "input-text";
   @Input() type: 'text' | 'number' | 'tel' | 'email' | 'date' | 'radio';
   @Input() readOnly: boolean;
   @Input() textbox: boolean;
@@ -101,6 +101,8 @@ export class TextInputComponent implements ControlValueAccessor, Validator, Afte
   constructor(@Self() @Optional() public controlDir: NgControl) {
     if (this.controlDir) {
       this.controlDir.valueAccessor = this;
+      this.labelTest = this.controlDir.name;
+
     }
   }
   ngAfterViewInit() {

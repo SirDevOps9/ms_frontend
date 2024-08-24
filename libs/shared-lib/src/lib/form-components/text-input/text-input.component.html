@@ -15,7 +15,7 @@
     'background': 'url(' + iconUrl + ') no-repeat right 8px center / 19px',
     'background-size': '20px'
   }"
-  [attr.data-testid]="this.labelTest"
+  [attr.data-testid]="labelTest"
   min="0"
   />
 <input *ngIf="!iconUrl"
@@ -30,7 +30,7 @@
   (keyup)="keyupChange($event)"
   (keydown)="type === 'number' ? filterInput($event) : null"
   (paste)="type === 'number' ? handlePaste($event) : null"
-  [attr.data-testid]="this.labelTest"
+  [attr.data-testid]="labelTest"
   min="0"
 
   />

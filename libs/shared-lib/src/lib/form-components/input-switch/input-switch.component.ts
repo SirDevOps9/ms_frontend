@@ -18,6 +18,7 @@ export class InputSwitchComponent implements OnInit, ControlValueAccessor {
   @Input() id: string;
   @Input() disabled: boolean;
   @Output() valueChanged = new EventEmitter<boolean>();
+  @Input() labelTest: any = 'input-switch';
 
   value: boolean = false;
   onChange = (value: any) => {};
@@ -46,4 +47,6 @@ export class InputSwitchComponent implements OnInit, ControlValueAccessor {
     this.onChange(this.value);
     this.valueChanged.emit(this.value);
   }
+
+  
 }

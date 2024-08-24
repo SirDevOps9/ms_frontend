@@ -80,13 +80,10 @@
 
       <ng-template #userCol let-journal>
         <div class="actions flex align-items-center">
-          <img src="assets/images/table/view.svg" alt="" (click)="viewJournal(journal.id)" />
-
-          <img src="assets/images/table/edit.svg" alt="" (click)="routeToEdit(journal.id)" />
-
-          <!-- <lib-button [icon]="'pi pi-trash'"    [rounded]="true"
-            [enableText]="true"
-            severity="secondary"></lib-button> -->
+          <lib-button-micro nameClass="table_button_edit" (click)="routeToEdit(journal.id)">
+          </lib-button-micro>
+          <lib-button-micro nameClass="table_button_view" (click)="viewJournal(journal.id)">
+          </lib-button-micro>
         </div>
       </ng-template>
       <ng-template #userStatus let-journal>

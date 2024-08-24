@@ -1,19 +1,38 @@
 <div [ngClass]="customClass">
-  <p-dropdown  class="selectIcon" [filter]="true" [disabled]="readOnly" [optionValue]="optionValue" [options]="options"
-    [optionLabel]="optionLabel" [(ngModel)]="selectedValue" (onChange)="change($event)" [placeholder]="placeholder"
-    [ngClass]="{'read': readOnly}" appendTo="body">
+  <p-dropdown
+    class="selectIcon"
+    [filter]="true"
+    [disabled]="readOnly"
+    [optionValue]="optionValue"
+    [options]="options"
+    [optionLabel]="optionLabel"
+    [(ngModel)]="selectedValue"
+    (onChange)="change($event)"
+    [placeholder]="placeholder"
+    [ngClass]="{ read: readOnly }"
+    appendTo="body"
+    [attr.data-testid]="labelTest"
+  >
     <ng-template let-option pTemplate="item">
       <div class="flag-item">
-        <img [src]="'assets/images/'+ icons +'/' + option[optionValue].toLowerCase() + '.png'" alt="{{ option.name }}" width="20"
-          height="15" />
+        <img
+          [src]="'assets/images/' + icons + '/' + option[optionValue].toLowerCase() + '.png'"
+          alt="{{ option.name }}"
+          width="20"
+          height="15"
+        />
 
         <span>{{ option[optionLabel] }}</span>
       </div>
     </ng-template>
     <ng-template let-selectedValue pTemplate="selectedItem">
       <div class="flag-item">
-        <img [src]="'assets/images/'+ icons +'/' + selectedValue[optionValue].toLowerCase() + '.png'" alt="{{ selectedValue.name }}"
-          width="20" height="15" />
+        <img
+          [src]="'assets/images/' + icons + '/' + selectedValue[optionValue].toLowerCase() + '.png'"
+          alt="{{ selectedValue.name }}"
+          width="20"
+          height="15"
+        />
         <span>{{ selectedValue[optionLabel] }}</span>
       </div>
     </ng-template>
