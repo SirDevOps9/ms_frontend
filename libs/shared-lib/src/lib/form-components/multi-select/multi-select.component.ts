@@ -36,7 +36,7 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
   @Input() selectedValue: any;
   @Input() data_testid: string = '';
   @Input() labelTest: any;
-  
+
   @Output() valueChanged = new EventEmitter<string | []>();
 
   value: string | null = '';

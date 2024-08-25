@@ -141,7 +141,7 @@ export class TagListComponent implements OnInit {
   }
 
   onSearchChange(e: any) {
-    this.generalSettingService.getTagList(e.target.value, new PageInfo());
+    this.generalSettingService.getTagList(e, new PageInfo());
 
     this.generalSettingService.tagList.subscribe({
       next: (res) => {

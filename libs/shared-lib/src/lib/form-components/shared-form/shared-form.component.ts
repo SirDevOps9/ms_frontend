@@ -18,6 +18,7 @@ export class SharedFormComponent implements  OnChanges {
   @Input() showSaveBtn: boolean = true;
   @Input() list: any[] = [];
   @Input() formClass: boolean = false
+  
   form: FormGroup = new FormGroup({});
   listArray: any[] = [];
   Listvalues: string;
