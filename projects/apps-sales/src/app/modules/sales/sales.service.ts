@@ -26,6 +26,7 @@ import { CategoryDropdownDto } from './models/CategoryDropdownDto';
 import { TagDropDownDto } from 'projects/apps-accounting/src/app/modules/account/models/tagDropDownDto';
 import { CustomerDefinitionDto } from './models/customerDefinitionDto';
 import { FormGroup } from '@angular/forms';
+import { GetAllCustomerOpeningBalanceDto } from './models/get-all-customer-opening-balance-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -96,6 +97,10 @@ export class SalesService {
 
   private exportsCustomersDataSource = new BehaviorSubject<CustomerDefinitionDto[]>([]);
   public exportsCustomersDataSourceObservable = this.exportsCustomersDataSource.asObservable();
+
+  public customerOpeningBalanceDataSource = new BehaviorSubject<GetAllCustomerOpeningBalanceDto[]>([])
+
+  customerOpeningBalanceObservable = this.customerOpeningBalanceDataSource.asObservable()
 
 
   constructor(
@@ -340,7 +345,7 @@ export class SalesService {
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('addCustomerDefinition.success'),
-          this.languageService.transalte('successAdded')
+          this.languageService.transalte('openeingBalance.CustomerAdded')
         );
         if (res) {
           this.addCustomerDefinitionRes.next(res);
@@ -387,4 +392,10 @@ export class SalesService {
     }
   }
 
+  getAllCustomerOpeningBalance(quieries: string, pageInfo: PageInfo)  {
+    this.salesProxy.getAllCustomerOpeningBalance(quieries, pageInfo).subscribe((response) => {
+     this.customerOpeningBalanceDataSource.next(response.result)
+     this.currentPageInfo.next(response.pageInfoResult)
+    });
+  }
 }

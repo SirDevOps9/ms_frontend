@@ -15,6 +15,8 @@ import { CustomerOpeningBalanceNoChildrenComponent } from './components/customer
 import { CustomerOpeningBalanceDistributeComponent } from './components/customer-opening-balance-distribute/customer-opening-balance-distribute.component';
 import { MainCustomerCategoryComponent } from './pages/customer-category/main-customer-category/main-customer-category.component';
 import { MainCustomerDefintionComponent } from './pages/customer-definitions/main-customer-defintion/main-customer-defintion.component';
+import { MainCustomerOpeningBalanceComponent } from './pages/customer-opening-balance/main-customer-opening-balance/main-customer-opening-balance.component';
+import { CustomerOpeningBalanceListComponent } from './pages/customer-opening-balance/customer-opening-balance-list/customer-opening-balance-list.component';
 
 const routes: Routes = [
   {
@@ -93,12 +95,30 @@ const routes: Routes = [
       },
 
       {
-        path: 'add-customer-opening-balance',
-        component: AddCustomerOpeeningBalanceComponent,
+        path: 'customer-opening-balance',
+        component: MainCustomerOpeningBalanceComponent,
         //  canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.ADD_CUSTOMER_OPENEING_BALANCE,
+          breadcrumb: BreadcrumbLabel.CUSTOMER_OPENEING_BALANCE_List,
         },
+        children:[
+          {
+            path: '',
+            component: CustomerOpeningBalanceListComponent,
+            //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: '',
+            }
+          },
+          {
+            path: 'add-customer-opening-balance',
+            component: AddCustomerOpeeningBalanceComponent,
+            //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_CUSTOMER_OPENEING_BALANCE,
+            }
+          }
+        ]
       },
     ],
   },
@@ -116,7 +136,9 @@ const routes: Routes = [
     CustomerOpeningBalanceNoChildrenComponent,
     CustomerOpeningBalanceDistributeComponent,
     MainCustomerCategoryComponent,
-    MainCustomerDefintionComponent
+    MainCustomerDefintionComponent,
+    CustomerOpeningBalanceListComponent,
+    MainCustomerOpeningBalanceComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })

@@ -1,0 +1,94 @@
+<lib-page-content
+  [title]="'payment-in.payment-in' | translate"
+  [subTitle]="'payment-in.payment-in' | translate"
+>
+  <div>
+    <div class="user_page">
+      <lib-data-table
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        (addNew)="routeToAdd()"
+        [tableConfigs]="{
+              allowPagination: false,
+              allowServerPagination: true,
+              dataKey: 'id',
+              pageSize: 10,
+              columns: [
+                 
+                 {
+                   name: 'openingJournalCode',
+                   headerText: ('openeingBalance.OpeningJournalCode' | translate),
+                   isGlobalFilter: true,
+                   isSortable: true
+                 },
+                 {
+                   name: 'accountName',
+                   headerText: ('openeingBalance.AccountName' | translate),
+                   isGlobalFilter: true,
+                   isSortable: true
+                 },
+                 {
+                   name: 'amount',
+                   headerText: ('openeingBalance.Amount' | translate),
+                   isGlobalFilter: true,
+                     isSortable: true,
+                 },
+                 {
+                   name: 'amountNature',
+                   headerText: ('openeingBalance.AmountNature' | translate),
+                   isGlobalFilter: true,
+                     isSortable: true,
+                 },
+                 {
+                   name: 'id',
+                   headerText: ('Table.Actions' | translate),
+                   template : actions
+                 },
+               ]
+            }"
+      >
+        <ng-container caption>
+          <div class="group flex justify-content-between">
+            <div>
+              <lib-text-input
+              type="text"
+              placeholder="{{ 'Table.Search' | translate }}"
+              (keyUp)="onSearchChange($event)"
+              [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+            >
+            </lib-text-input>
+            </div>
+
+            <div class="flex gap-2">
+              <lib-button-micro
+              nameClass="save"
+              [title]="'Table.Add' | translate"
+              (click)="routeToAdd()"
+            >
+            </lib-button-micro>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #Date let-paymentIn>
+          <div>
+            <p>{{ paymentIn.date | date : 'dd/MM/yyyy' }}</p>
+          </div>
+        </ng-template>
+        <ng-template #status let-status>
+          <div class="actions flex align-items-center gap-2">
+            <lib-input-switch [disabled]="true" [(ngModel)]="status.status"></lib-input-switch>
+          </div>
+        </ng-template>
+        <ng-template #actions let-actions>
+          <div class="actions flex align-items-center">
+           <img src="assets/images/table/edit.svg" alt="" (click)="routeToEdit(actions.id)" />
+            <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(actions.id)" />
+            <img src="assets/images/table/view.svg" alt="" (click)="view(actions.id)" />
+          </div>
+        </ng-template>
+      </lib-data-table>
+    </div>
+  </div>
+</lib-page-content>

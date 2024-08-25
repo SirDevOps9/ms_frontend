@@ -16,6 +16,7 @@ import {
   TagDropDownDto,
 } from '../general-setting/models';
 import { CustomerDefinitionDto } from './models/customerDefinitionDto';
+import { GetAllCustomerOpeningBalanceDto } from './models/get-all-customer-opening-balance-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -148,4 +149,12 @@ export class SalesProxyService {
       return this.httpService.delete<boolean>(`CustomerOpeningBalance/${id}`);
     }
 
+
+    getAllCustomerOpeningBalance(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<GetAllCustomerOpeningBalanceDto>> {
+      let query = `CustomerOpeningBalance/GetAll?${pageInfo.toQuery}`;
+      if (searchTerm) {
+        query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+      }
+      return this.httpService.get<PaginationVm<GetAllCustomerOpeningBalanceDto>>(query);
+    }
   }
