@@ -171,13 +171,35 @@
               </div>
 
               <div class="grid">
-                <div class="col-12" [formGroupName]="'paymentMethodCommissionData'">
-                  <lib-form-group>
-                    <lib-input-switch formControlName="allowVAT" binary="true" inputId="allowVAT" [disabled]="disableCommission" />
-                    <lib-label [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('allowVAT')">
+                <div class="col-12 md:col-4" [formGroupName]="'paymentMethodCommissionData'">
+                  <lib-form-group class="flex align-items-center">
+                    <lib-input-switch
+                      formControlName="allowVAT"
+                      binary="true"
+                      inputId="allowVAT"
+                      [disabled]="PaymentMethodForm.get('paymentPlace')?.value == sharedFinanceEnum.PaymentPlace.Treasury.toString() ||
+                        PaymentMethodForm.get('paymentMethodType')?.value == sharedFinanceEnum.paymentMethodType.Check.toString()"/>
+                    
+                    <lib-label [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('allowVAT')" class="ml-2">
                       {{ 'add-paymentMethod.AllowVAT' | translate }}
                     </lib-label>
-                    <lib-field-validations [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('allowVAT')"></lib-field-validations>
+                  </lib-form-group>
+                </div>
+                
+                <div class="col-12 md:col-4" *ngIf="PaymentMethodForm.get('paymentMethodCommissionData')?.get('allowVAT')?.value" [formGroupName]="'paymentMethodCommissionData'">
+                  <lib-form-group>
+                    <lib-label [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('taxId')">
+                      {{ 'add-paymentMethod.Tax' | translate }}
+                    </lib-label>
+                    <lib-select
+                      formControlName="taxId"
+                      [options]="TaxList"
+                      optionLabel="name"
+                      optionValue="id"
+                      [selectedValue]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('taxId')!.value"
+                    >
+                    </lib-select>
+                    <lib-field-validations [appControl]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('taxId')"></lib-field-validations>
                   </lib-form-group>
                 </div>
               </div>

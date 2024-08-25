@@ -24,6 +24,8 @@ export class EditPaymentMethodComponent implements OnInit {
   id: number = this.route.snapshot.params['id']
   originalPaymentMethodTypeLookups: lookupDto[] = [];
   disableCommission: boolean = false;
+  TaxList: { id: number; name: string }[];
+
 
 
 
@@ -65,7 +67,8 @@ export class EditPaymentMethodComponent implements OnInit {
         commissionType: new FormControl(null),
         commissionValue: new FormControl(null),
         commissionAccountId: new FormControl(null),
-        allowVAT: new FormControl(false)
+        allowVAT: new FormControl(false),
+        taxId:new FormControl(null),
       })
     });
   }
@@ -88,6 +91,14 @@ export class EditPaymentMethodComponent implements OnInit {
          this.getBankAccountDropDown(bankId);
        }
      });
+
+     this.PaymentMethodForm.get('paymentMethodCommissionData.allowVAT')!.valueChanges.subscribe(allowVAT => {
+      if (allowVAT) {
+        this.getTaxDropDown();
+        this.PaymentMethodForm.get('paymentMethodCommissionData.taxId')!.setValidators([customValidators.required]);
+        this.PaymentMethodForm.get('paymentMethodCommissionData.taxId')!.updateValueAndValidity();
+      }
+    });
   }
 
   updateCommissionFields() {
@@ -122,7 +133,8 @@ export class EditPaymentMethodComponent implements OnInit {
           commissionValue: res.paymentMethodCommissionData?.commissionValue ,
           commissionAccountId: res.paymentMethodCommissionData?.commissionAccountId ,
           allowVAT: res.paymentMethodCommissionData?.allowVAT ,
-          currency: res.paymentMethodCommissionData?.currencyName
+          currency: res.paymentMethodCommissionData?.currencyName,
+          taxId: res.paymentMethodCommissionData?.taxId
          }
       });
     })
@@ -134,6 +146,12 @@ export class EditPaymentMethodComponent implements OnInit {
       LookupEnum.PaymentPlace,
       LookupEnum.CommissionType
     ]);
+  }
+
+  getTaxDropDown() {
+    this.financeService.getTaxDropDown().subscribe((res) => {
+      this.TaxList = res;
+    });
   }
 
   discard() {

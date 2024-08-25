@@ -19,6 +19,7 @@ export class AddPaymentMethodComponent implements OnInit {
   lookups: { [key: string]: lookupDto[] };
   accountsList: { id: number; name: string }[];
   BankList: { id: number; name: string }[];
+  TaxList: { id: number; name: string }[];
   BankAccountList: BankAccountWithCurrency[]=[];
   paymentplaceEnum: paymentplace;
   originalPaymentMethodTypeLookups: lookupDto[] = [];
@@ -47,7 +48,8 @@ export class AddPaymentMethodComponent implements OnInit {
         commissionType: new FormControl(null),
         commissionValue: new FormControl(null),
         commissionAccountId: new FormControl(null),
-        allowVAT: new FormControl(false)
+        allowVAT: new FormControl(false),
+        taxId:new FormControl(null),
       })
     });
   }
@@ -65,6 +67,14 @@ export class AddPaymentMethodComponent implements OnInit {
     this.PaymentMethodForm.get('paymentMethodCommissionData.bankId')!.valueChanges.subscribe(bankId => {
       if (bankId) {
         this.getBankAccountDropDown(bankId);
+      }
+    });
+
+    this.PaymentMethodForm.get('paymentMethodCommissionData.allowVAT')!.valueChanges.subscribe(allowVAT => {
+      if (allowVAT) {
+        this.getTaxDropDown();
+        this.PaymentMethodForm.get('paymentMethodCommissionData.taxId')!.setValidators([customValidators.required]);
+        this.PaymentMethodForm.get('paymentMethodCommissionData.taxId')!.updateValueAndValidity();
       }
     });
 
@@ -122,6 +132,12 @@ export class AddPaymentMethodComponent implements OnInit {
   getBankDropDown() {
     this.financeService.BankDropDown().subscribe((res) => {
       this.BankList = res;
+    });
+  }
+
+  getTaxDropDown() {
+    this.financeService.getTaxDropDown().subscribe((res) => {
+      this.TaxList = res;
     });
   }
 

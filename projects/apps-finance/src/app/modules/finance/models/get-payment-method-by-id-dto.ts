@@ -15,6 +15,7 @@ export interface GetPaymentMethodByIdDto {
         commissionValue: number|null,
         commissionAccountId: number|null,
         allowVAT: boolean,
-        currencyName: string
+        currencyName: string,
+        taxId: number|null
       }
     

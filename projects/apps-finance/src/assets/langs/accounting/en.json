@@ -317,7 +317,8 @@
     "CommissionAccount": "Commission Account",
     "AllowVAT": "Allow VAT",
     "edit":"Payment Method Edited Successfully",
-    "add":"Payment Method Added Successfully"	
+    "add":"Payment Method Added Successfully"	,
+    "Tax":"Tax"
   },
   "payment-in": {
     "payment-in": "Payment In",

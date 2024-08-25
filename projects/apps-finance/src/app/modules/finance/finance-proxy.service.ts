@@ -197,4 +197,7 @@ export class FinanceProxyService {
     return this.httpService.delete(`PaymentIn/${id}`);
 
   }
+  getTaxDropDown(): Observable<{ id: number; name: string }[]> {
+    return this.httpService.get('Tax/Taxdropdown');
+  }
 }

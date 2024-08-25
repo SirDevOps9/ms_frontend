@@ -425,4 +425,8 @@ export class FinanceService {
       });
     }
   }
+
+  getTaxDropDown() {
+    return this.financeProxy.getTaxDropDown()
+  }
 }
