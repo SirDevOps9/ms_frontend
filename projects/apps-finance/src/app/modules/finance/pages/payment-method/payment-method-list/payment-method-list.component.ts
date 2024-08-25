@@ -77,10 +77,12 @@ export class PaymentMethodListComponent implements OnInit {
   this.routerService.navigateTo('/masterdata/add-payment-method')
   }
 
-  onEdit(data: any) {
-    this.routerService.navigateTo(`/masterdata/edit-payment-method/${data.id}`);
+  onEdit(id: number) {
+    this.routerService.navigateTo(`/masterdata/edit-payment-method/${id}`);
   }
-
+  view(id: number){
+    this.routerService.navigateTo(`/masterdata/view-payment-method/${id}`);
+  }
   onSearchChange() {
     this.financeService.getAllPaymentMethod(this.searchTerm, new PageInfo());
     this.financeService.paymentMethodDataSourceObservable.subscribe({
@@ -94,5 +96,7 @@ export class PaymentMethodListComponent implements OnInit {
   onDelete(id: number) {
     this.financeService.deletePaymentMethod(id);
   }
+
+  
 
 }

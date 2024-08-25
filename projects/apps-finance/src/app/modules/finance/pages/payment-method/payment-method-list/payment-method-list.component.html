@@ -96,7 +96,9 @@
         
         <ng-template #actions let-action>
           <div class="actions flex align-items-center">
-            <lib-button-micro nameClass="table_button_edit" (click)="onEdit(action)">
+            <lib-button-micro nameClass="table_button_view" (click)="view(action.id)">
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_edit" (click)="onEdit(action.id)">
             </lib-button-micro>
             <lib-button-micro nameClass="table_button_delete" (click)="onDelete(action.id)">
             </lib-button-micro>

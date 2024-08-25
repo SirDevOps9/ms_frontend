@@ -94,10 +94,11 @@ export class BreadcrumbLabel {
     static VENDOR_OPENING_BALANCE ='Vendor Opening Balancy';
 
     static COST_CENTER ='Cost Center';
-    static PAYMENT_TERM_ADD ='Add Payment term';
-    static PAYMENT_TERM_EDIT ='Edit Payment term';
-    static PAYMENT_METHOD_LIST ='Payment Method list';
-    static PAYMENT_METHOD_ADD ='Add Payment Method ';
-    static PAYMENT_METHOD_EDIT ='Edit Payment Method ';
+    static PAYMENT_TERM_ADD ='BreadCrumb.AddPaymentterm';
+    static PAYMENT_TERM_EDIT ='BreadCrumb.EditPaymentterm';
+    static PAYMENT_METHOD_LIST ='BreadCrumb.PaymentMethodlist';
+    static PAYMENT_METHOD_ADD ='BreadCrumb.AddPaymentMethod ';
+    static PAYMENT_METHOD_EDIT ='BreadCrumb.EditPaymentMethod ';
+    static PAYMENT_METHOD_VIEW ='BreadCrumb.ViewPaymentMethod ';
     static PAYMENT_IN_LIST ='BreadCrumb.PaymentInList';
   }
