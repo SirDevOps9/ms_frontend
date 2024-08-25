@@ -24,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "baseHref": "/bussinessowners/",
+            "baseHref": "/bussiness-owners/",
             "outputPath": "dist/bussiness-owners",
             "index": "projects/bussiness-owners/src/index.html",
             "browser": "projects/bussiness-owners/src/main.ts",
@@ -147,7 +147,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "baseHref": "/adminportal/",
+            "baseHref": "/admin-portal/",
             "outputPath": "dist/adminportal",
             "index": "projects/adminportal/src/index.html",
             "browser": "projects/adminportal/src/main.ts",

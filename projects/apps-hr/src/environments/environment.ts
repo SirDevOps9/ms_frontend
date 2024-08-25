@@ -2,12 +2,12 @@ import { IEnvironment } from 'shared-lib';
 
 export const environment: IEnvironment = {
   production: true,
-  baseUrl: 'https://intmicrotec.neat-url.com:2005',
+  baseUrl: 'http://microtec-apis.uksouth.cloudapp.azure.com/erp-apis',
   Version: 'V1',
   ClientId: 'Apps-HR',
   Platform: 'Web',
   AuthConfiguration: {
-    authority: 'https://intmicrotec.neat-url.com:2050',
+    authority: 'http://microtec-apis.uksouth.cloudapp.azure.com:2050',
     clientId: 'microtec_erp_frontend',
     redirectUrl: window.location.origin + '/erp/login-redirect',
     logoutRedirectUri: window.location.origin + '/erp/logout-redirect',
@@ -15,12 +15,12 @@ export const environment: IEnvironment = {
     state: window.location.origin + '/hr/',
   },
   AttachmentServiceConfig: {
-    AttachmentServiceUrl: 'https://intmicrotec.neat-url.com:2030',
+    AttachmentServiceUrl: 'http://microtec-apis.uksouth.cloudapp.azure.com/attachments-apis',
     ClientId: 'hr',
     SecretKey: 'secretkey',
   },
   photoBaseUrl: '',
   ApiKey: '3bb564df-0f24-4ea6-82c1-d99f368cac8a',
-  BusinessOwnerUrl: 'https://intmicrotec.neat-url.com:2003',
+  BusinessOwnerUrl: 'http://microtec-apis.uksouth.cloudapp.azure.com/business-owners-apis',
   state: window.location.origin + '/hr/',
 };

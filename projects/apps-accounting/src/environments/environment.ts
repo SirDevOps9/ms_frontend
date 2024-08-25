@@ -2,13 +2,13 @@ import { IEnvironment } from 'shared-lib';
 
 export const environment: IEnvironment = {
   production: true,
-  baseUrl: 'https://intmicrotec.neat-url.com:2005',
+  baseUrl: 'http://microtec-apis.uksouth.cloudapp.azure.com/erp-apis',
   Version: 'V1',
   ClientId: 'Apps-Accounting',
   Platform: 'Web',
-  photoBaseUrl: 'https://intmicrotec.neat-url.com:2002',
+  photoBaseUrl: '',
   AuthConfiguration: {
-    authority: 'https://intmicrotec.neat-url.com:2050',
+    authority: 'http://microtec-apis.uksouth.cloudapp.azure.com:2050',
     clientId: 'microtec_erp_frontend',
     redirectUrl: window.location.origin + '/erp/login-redirect',
     logoutRedirectUri: window.location.origin + '/erp/logout-redirect',
@@ -16,7 +16,7 @@ export const environment: IEnvironment = {
     state: window.location.origin + '/accounting/',
   },
   AttachmentServiceConfig: {
-    AttachmentServiceUrl: 'https://intmicrotec.neat-url.com:2030',
+    AttachmentServiceUrl: 'http://microtec-apis.uksouth.cloudapp.azure.com/attachments-apis',
     ClientId: 'Accounting',
     SecretKey: 'secretkey',
   },
