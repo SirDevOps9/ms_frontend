@@ -15,6 +15,8 @@
     "build:finance": "ng build --project apps-finance",
     "build:purchase": "ng build --project apps-purchase",
     "build:accounting": "ng build --project apps-accounting",
+    "build:all": "npm run build:bussiness-owners && npm run build:adminportal && npm run build:hr && npm run build:erp && npm run build:sales && npm run build:finance && npm run build:purchase && npm run build:accounting",
+    "build:allcloud": "npm run build:bussiness-owners -- --configuration=cloud && npm run build:adminportal -- --configuration=cloud && npm run build:hr -- --configuration=cloud && npm run build:erp -- --configuration=cloud && npm run build:sales -- --configuration=cloud && npm run build:finance -- --configuration=cloud && npm run build:purchase -- --configuration=cloud && npm run build:accounting -- --configuration=cloud",
     "start:bussiness-owners": "ng serve --project bussiness-owners --port 4301",
     "start:bussiness-owners-stage": "ng serve --project bussiness-owners --port 4301 --configuration stage",
     "start:erp-home": "ng serve --project erp-home --host develop.localhost.com",
