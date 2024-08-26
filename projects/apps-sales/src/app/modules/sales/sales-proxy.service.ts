@@ -7,6 +7,7 @@ import {
   CustomerCategoryDto,
   EditCustomerCategoryDto,
   EditCustomerDefintionsDto,
+  EditCustomerOpeningBalanceDto,
 } from './models';
 import {
   CategoryDropdownDto,
@@ -111,24 +112,20 @@ export class SalesProxyService {
     return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown`);
   }
 
-  exportCustomerCategoriesData(
-    searchTerm: string | undefined
-  ): Observable<CustomerCategoryDto[]> {
+  exportCustomerCategoriesData(searchTerm: string | undefined): Observable<CustomerCategoryDto[]> {
     let query = `CustomerCategory/Export?`;
     if (searchTerm) {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-     return this.httpService.get<CustomerCategoryDto[]>(query);
+    return this.httpService.get<CustomerCategoryDto[]>(query);
   }
 
-  exportCustomersData(
-    searchTerm: string | undefined
-  ): Observable<CustomerDefinitionDto[]> {
+  exportCustomersData(searchTerm: string | undefined): Observable<CustomerDefinitionDto[]> {
     let query = `Customer/Export?`;
     if (searchTerm) {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-     return this.httpService.get<CustomerDefinitionDto[]>(query);
+    return this.httpService.get<CustomerDefinitionDto[]>(query);
   }
   openingBalanceJournalEntryDropdown(): Observable<CategoryDropdownDto[]> {
     return this.httpService.get<CategoryDropdownDto[]>('OpeningBalanceJournalEntry/GetDropDown');
@@ -139,22 +136,27 @@ export class SalesProxyService {
   CustomerDropDownByAccountId(id: number): Observable<any[]> {
     return this.httpService.get<any[]>(`Customer/DropDownByAccountId/${id}`);
   }
-  AddCustomerOpeningBalance(customer:any): Observable<any>{
+  AddCustomerOpeningBalance(customer: any): Observable<any> {
     return this.httpService.post(`CustomerOpeningBalance`, customer);
   }
-    GetCustomerOpeningBalance(): Observable<any[]> {
-      return this.httpService.get<any[]>(`CustomerOpeningBalance/GetOpeningBalance  `);
-    }
-    deleteCustomerOpeningBalance(id: number): Observable<boolean> {
-      return this.httpService.delete<boolean>(`CustomerOpeningBalance/${id}`);
-    }
-
-
-    getAllCustomerOpeningBalance(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<GetAllCustomerOpeningBalanceDto>> {
-      let query = `CustomerOpeningBalance?${pageInfo.toQuery}`;
-      if (searchTerm) {
-        query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
-      }
-      return this.httpService.get<PaginationVm<GetAllCustomerOpeningBalanceDto>>(query);
-    }
+  editCustomerOpeningBalance(customer: EditCustomerOpeningBalanceDto): Observable<any> {
+    return this.httpService.put(`CustomerOpeningBalance`, customer);
   }
+  GetCustomerOpeningBalance(id: number): Observable<any[]> {
+    return this.httpService.get<any[]>(`CustomerOpeningBalance/GetOpeningBalance/${id}`);
+  }
+  deleteCustomerOpeningBalance(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`Customer/${id}`);
+  }
+
+  getAllCustomerOpeningBalance(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<GetAllCustomerOpeningBalanceDto>> {
+    let query = `CustomerOpeningBalance?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<GetAllCustomerOpeningBalanceDto>>(query);
+  }
+}

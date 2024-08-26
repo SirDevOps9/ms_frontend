@@ -83,9 +83,9 @@
         </ng-template>
         <ng-template #actions let-actions>
           <div class="actions flex align-items-center">
+            <img src="assets/images/table/view.svg" alt="" (click)="view(actions.id)" />
            <img src="assets/images/table/edit.svg" alt="" (click)="routeToEdit(actions.id)" />
             <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(actions.id)" />
-            <img src="assets/images/table/view.svg" alt="" (click)="view(actions.id)" />
           </div>
         </ng-template>
       </lib-data-table>

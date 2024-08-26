@@ -47,6 +47,7 @@ export class BreadcrumbLabel {
   static readonly COST_CENTER_REPORT = 'BreadCrumb.CostCenterReport';
 
   static ADD_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.AddCustomerOpeningBalance';
+  static EDIT_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.EditCustomerOpeningBalance';
   static CUSTOMER_OPENEING_BALANCE_List ='BreadCrumb.CustomerOpeningBalanceList';
 
     static SUBSCRIPTION ='Subscription'

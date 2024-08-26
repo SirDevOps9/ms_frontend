@@ -117,6 +117,14 @@ const routes: Routes = [
             data: {
               breadcrumb: BreadcrumbLabel.ADD_CUSTOMER_OPENEING_BALANCE,
             }
+          },
+          {
+            path: 'edit-customer-opening-balance/:id',
+            component: EditCustomerOpeningBalanceComponent,
+            //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_CUSTOMER_OPENEING_BALANCE,
+            }
           }
         ]
       },

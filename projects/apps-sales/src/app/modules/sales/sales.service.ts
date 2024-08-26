@@ -18,6 +18,7 @@ import {
   CustomerDropDown,
   EditCustomerCategoryDto,
   EditCustomerDefintionsDto,
+  EditCustomerOpeningBalanceDto,
   GetLineDropDownById,
 } from './models';
 import { SalesProxyService } from './sales-proxy.service';
@@ -350,7 +351,7 @@ export class SalesService {
         if (res) {
           this.addCustomerDefinitionRes.next(res);
           this.loaderService.hide();
-         
+          this.routerService.navigateTo('/masterdata/customer-opening-balance');
         }
       },
       error: (err) => {
@@ -358,8 +359,21 @@ export class SalesService {
       },
     });
   }
-  getCustomerOpeningBalance(){
-    this.salesProxy.GetCustomerOpeningBalance().subscribe((res) => {
+  EditCustomerOpeningBalance(customer: EditCustomerOpeningBalanceDto) {
+    this.salesProxy.editCustomerOpeningBalance(customer).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('addCustomerCategory.success'),
+          this.languageService.transalte('openeingBalance.CustomerEdited')
+        );
+        if (res) {
+          this.routerService.navigateTo('/masterdata/customer-opening-balance');
+        }
+      },
+    });
+  }
+  getCustomerOpeningBalance(id: number){
+    this.salesProxy.GetCustomerOpeningBalance(id).subscribe((res) => {
       if (res) {
         this.CustomerOpeningBalancelist.next(res);
       }

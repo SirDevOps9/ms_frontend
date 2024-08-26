@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AccountDto } from 'projects/apps-accounting/src/app/modules/account/models';
-import { customValidators, FormsService, LanguageService, ToasterService } from 'shared-lib';
+import { customValidators, FormsService, LanguageService, RouterService, ToasterService } from 'shared-lib';
 import { CustomerOpeningBalanceDistributeComponent } from '../../../components/customer-opening-balance-distribute/customer-opening-balance-distribute.component';
 import { TranslationService } from 'projects/adminportal/src/app/modules/i18n';
 import { SalesService } from '../../../sales.service';
@@ -39,6 +39,7 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private formService: FormsService,
+    public routerService: RouterService,
     public enums: SharedSalesEnums,
 
 
@@ -47,7 +48,7 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     this.customerForm = this.fb.array([]);
     this.subscribe()
   
-    this.getCustomerOpeningBalance()
+    //this.getCustomerOpeningBalance()
     this.customerForm = this.fb.array([this.createBankFormGroup()]);
     this.openingBalanceJournalEntryDropdown()
     this.formGroup = this.fb.group({
@@ -224,44 +225,44 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
 
 
   }
-  getCustomerOpeningBalance() {
-    this.SalesService.getCustomerOpeningBalance();
-  }
+  // getCustomerOpeningBalance() {
+  //   this.SalesService.getCustomerOpeningBalance();
+  // }
   subscribe() {
-    this.SalesService.CustomerOpeningBalancelistObservable.subscribe((res: any) => {
-      this.customerForm.clear();
-      if (res.length != 0) {
-        this.formGroup?.patchValue({
-          open: res.openingBalanceJournalEntryId,
-          open2: res.openingBalanceJournalEntryLineId,
-          // name1: res.amount,
-          // name2: res.amountNature
-        }, { emitEvent: true });
-        this.onOpeningJournalChange(res.openingBalanceJournalEntryId);
-        this.onLinesChange(res.openingBalanceJournalEntryLineId);
-        this.editMode = true
-        this.formChanged = false
+    // this.SalesService.CustomerOpeningBalancelistObservable.subscribe((res: any) => {
+    //   this.customerForm.clear();
+    //   if (res.length != 0) {
+    //     this.formGroup?.patchValue({
+    //       open: res.openingBalanceJournalEntryId,
+    //       open2: res.openingBalanceJournalEntryLineId,
+    //       // name1: res.amount,
+    //       // name2: res.amountNature
+    //     }, { emitEvent: true });
+    //     this.onOpeningJournalChange(res.openingBalanceJournalEntryId);
+    //     this.onLinesChange(res.openingBalanceJournalEntryLineId);
+    //     this.editMode = true
+    //     this.formChanged = false
         
-      }
-      if (res && res.customerOpeningDetails && Array.isArray(res.customerOpeningDetails)) {
-        res.customerOpeningDetails.forEach((detail: any, index: number) => {
-          const formGroup = this.createBankFormGroup();
-          formGroup.patchValue({
-            id: detail.id,
-            customerId: detail.customerId || '',
-            accountName: detail.customerName || '',
-            customerCode: detail.customerCode || '',
-            balance: detail.balance || 0,
-            balanceType: detail.balanceType || '',
-            displayName: detail.displayName || '',
-            dueDates: detail.balanceDueDates || [],
-          });
-          this.customerForm.push(formGroup);
-          this.accountSelected(detail.customerId, index);
-          this.calculateTotalBalance()
-        });
-      }
-    });
+    //   }
+    //   if (res && res.customerOpeningDetails && Array.isArray(res.customerOpeningDetails)) {
+    //     res.customerOpeningDetails.forEach((detail: any, index: number) => {
+    //       const formGroup = this.createBankFormGroup();
+    //       formGroup.patchValue({
+    //         id: detail.id,
+    //         customerId: detail.customerId || '',
+    //         accountName: detail.customerName || '',
+    //         customerCode: detail.customerCode || '',
+    //         balance: detail.balance || 0,
+    //         balanceType: detail.balanceType || '',
+    //         displayName: detail.displayName || '',
+    //         dueDates: detail.balanceDueDates || [],
+    //       });
+    //       this.customerForm.push(formGroup);
+    //       this.accountSelected(detail.customerId, index);
+    //       this.calculateTotalBalance()
+    //     });
+    //   }
+    // });
     this.SalesService.openingBalanceJournalEntryDropdownDataObservable.subscribe((res) => {
       this.openingJournalList = res;
     });
@@ -295,7 +296,9 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     }, 0);
   }
   cancel(){
-this.getCustomerOpeningBalance()   
+//this.getCustomerOpeningBalance() 
+this.routerService.navigateTo('/masterdata/customer-opening-balance');
+
   }
 }
 

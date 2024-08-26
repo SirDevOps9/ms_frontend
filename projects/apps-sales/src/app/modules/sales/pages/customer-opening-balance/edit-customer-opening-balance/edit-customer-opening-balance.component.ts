@@ -3,7 +3,7 @@ import { FormGroup, FormArray, FormBuilder, FormControl } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
 import { TranslationService } from 'projects/adminportal/src/app/modules/i18n';
 import { AccountDto } from 'projects/apps-accounting/src/app/modules/account/models';
-import { ToasterService, LanguageService, FormsService, customValidators } from 'shared-lib';
+import { ToasterService, LanguageService, FormsService, customValidators, RouterService } from 'shared-lib';
 import { CustomerOpeningBalanceDistributeComponent } from '../../../components/customer-opening-balance-distribute/customer-opening-balance-distribute.component';
 import {
   CategoryDropdownDto,
@@ -12,11 +12,13 @@ import {
   SharedSalesEnums,
 } from '../../../models';
 import { SalesService } from '../../../sales.service';
+import { AccountNature } from 'projects/erp-home/src/app/modules/general-setting/models';
 
 @Component({
   selector: 'app-edit-customer-opening-balance',
   templateUrl: './edit-customer-opening-balance.component.html',
-  styleUrls: ['./edit-customer-opening-balance.component.css'],
+  styleUrls: ['./edit-customer-opening-balance.component.scss'],
+  providers: [RouterService],
 })
 export class EditCustomerOpeningBalanceComponent implements OnInit {
   formGroup: FormGroup;
@@ -35,8 +37,9 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
     { label: 'Credit', value: 'Credit' },
   ];
   openingBalanceJournalEntryLineId: number;
-  amountNature: string;
+  amountNature: AccountNature;
   editMode: boolean;
+
   formChanged: boolean;
   constructor(
     private fb: FormBuilder,
@@ -45,6 +48,8 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
     private salesService: SalesService,
     private toasterService: ToasterService,
     private languageService: LanguageService,
+    public routerService: RouterService,
+
     private formService: FormsService,
     public enums: SharedSalesEnums
   ) {}
@@ -52,7 +57,7 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
     this.customerForm = this.fb.array([]);
     this.subscribe();
 
-    this.getCustomerOpeningBalance();
+    this.getCustomerOpeningBalance(this.routerService.currentId,);
     this.customerForm = this.fb.array([this.createBankFormGroup()]);
     this.openingBalanceJournalEntryDropdown();
     this.formGroup = this.fb.group({
@@ -206,18 +211,18 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
   }
   onSubmit() {
     if (!this.formService.validForm(this.customerForm, false)) return;
-
     this.customerForm.updateValueAndValidity();
     this.formGroup.updateValueAndValidity();
     const body = {
+      id:  this.routerService.currentId,
       openingBalanceJournalEntryLineId: this.openingBalanceJournalEntryLineId,
       amountNature: this.amountNature,
       customerOpeningBalanceDetails: this.items.value,
     };
-    this.salesService.AddCustomerOpeningBalance(body);
+    this.salesService.EditCustomerOpeningBalance(body);
   }
-  getCustomerOpeningBalance() {
-    this.salesService.getCustomerOpeningBalance();
+  getCustomerOpeningBalance(id: number) {
+    this.salesService.getCustomerOpeningBalance(id);
   }
   subscribe() {
     this.salesService.CustomerOpeningBalancelistObservable.subscribe((res: any) => {
@@ -286,6 +291,8 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
     }, 0);
   }
   cancel() {
-    this.getCustomerOpeningBalance();
+    //this.getCustomerOpeningBalance();
+    this.routerService.navigateTo('/masterdata/customer-opening-balance');
+
   }
 }

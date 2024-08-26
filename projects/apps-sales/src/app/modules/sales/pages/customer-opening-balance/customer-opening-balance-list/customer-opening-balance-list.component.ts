@@ -7,7 +7,7 @@ import { GetAllCustomerOpeningBalanceDto } from '../../../models/get-all-custome
 @Component({
   selector: 'app-customer-opening-balance-list',
   templateUrl: './customer-opening-balance-list.component.html',
-  styleUrls: ['./customer-opening-balance-list.component.css'],
+  styleUrls: ['./customer-opening-balance-list.component.scss'],
 })
 export class CustomerOpeningBalanceListComponent implements OnInit {
   tableData: GetAllCustomerOpeningBalanceDto[];
@@ -44,7 +44,6 @@ export class CustomerOpeningBalanceListComponent implements OnInit {
     this.salesService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
-
   }
 
   onPageChange(pageInfo: PageInfo) {
@@ -52,16 +51,19 @@ export class CustomerOpeningBalanceListComponent implements OnInit {
   }
 
   onSearchChange(event: any) {
-    this.salesService.getAllCustomerOpeningBalance(event.target.value, new PageInfo());
+    this.salesService.getAllCustomerOpeningBalance(event, new PageInfo());
   }
 
   routeToAdd() {
-    //todo
-    this.routerService.navigateTo('masterdata/customer-opening-balance/add-customer-opening-balance');
+    this.routerService.navigateTo(
+      'masterdata/customer-opening-balance/add-customer-opening-balance'
+    );
   }
 
   routeToEdit(id: number) {
-    //todo
+    this.routerService.navigateTo(
+      `masterdata/customer-opening-balance/edit-customer-opening-balance/${id}`
+    );
   }
 
   onDelete(id: number) {

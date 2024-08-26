@@ -7,7 +7,8 @@
     "AddCustomerDefinition":"Add Customer Definition",
     "EditCustomerDefinition":"Edit Customer Definition",
     "CustomerOpeningBalanceList":"Customer Opening Balance list",
-    "AddCustomerOpeningBalance": "Add Customer Opening Balance"
+    "AddCustomerOpeningBalance": "Add Customer Opening Balance",
+    "EditCustomerOpeningBalance":"Edit Customer Opening Balance"
   },
   "dir": "ltr",
   "Welcome": "Welcome",
@@ -26,6 +27,7 @@
   "deleted" : "Opening Balance Deleted Successfully",
   "successAdd":"Opening Balance Added Successfully",
   "dueDate" : "Due Date Distribution",
+  "Success":"Success",
 
 
 
