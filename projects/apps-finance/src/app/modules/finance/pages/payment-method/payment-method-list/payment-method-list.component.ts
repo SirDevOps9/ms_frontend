@@ -14,19 +14,29 @@ export class PaymentMethodListComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   searchTerm: string;
   exportData: PaymentMethodDto[];
-  cols = [
+  exportColumns: lookupDto[]=[
    
     {
-      field: 'Code',
-      header: 'code',
+      id: 'id',
+      name: 'Id',
     },
-
     {
-      field: 'Name',
-      header: 'name',
+      id: 'code',
+      name: 'Code',
+    },
+    {
+      id: 'name',
+      name: 'Name',
+    },
+    {
+      id: 'paymentPlace',
+      name: 'paymentPlace',
+    },
+    {
+      id: 'paymentMethodType',
+      name: 'paymentMethodType',
     }
   ];
-  exportColumns: lookupDto[];
 
   constructor(
     private financeService: FinanceService,
@@ -36,10 +46,7 @@ export class PaymentMethodListComponent implements OnInit {
 
   ngOnInit() {
     this.initPaymentMethodData();
-    this.exportColumns = this.cols.map((col) => ({
-      id: col.header,
-      name: col.field,
-    }));
+    
   }
 
   initPaymentMethodData() {

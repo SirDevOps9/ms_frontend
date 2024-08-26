@@ -16,7 +16,45 @@ export class PaymentInListComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   searchTerm: string;
 
-  exportColumns: lookupDto[];
+  exportColumns: lookupDto[]=[
+   
+    {
+      id: 'id',
+      name: 'Id',
+    },
+    {
+      id: 'code',
+      name: 'code',
+    },
+    {
+      id: 'date',
+      name: 'date',
+    },
+    {
+      id: 'paymentHub',
+      name: 'paymentHub',
+    },
+    {
+      id: 'paymentHubDetailId',
+      name: 'paymentHubDetailId',
+    },
+    {
+      id: 'branch',
+      name: 'branch',
+    },
+    {
+      id: 'bankAccount',
+      name: 'bankAccount',
+    },
+    {
+      id: 'sourceDocument',
+      name: 'sourceDocument',
+    },
+    {
+      id: 'relatedSourceJournal',
+      name: 'relatedSourceJournal',
+    }
+  ];
   exportData: GetAllPaymentInDto[];
 
 

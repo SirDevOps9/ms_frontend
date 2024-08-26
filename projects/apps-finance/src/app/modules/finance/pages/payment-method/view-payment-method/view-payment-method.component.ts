@@ -79,13 +79,7 @@ export class ViewPaymentMethodComponent implements OnInit {
       this.originalPaymentMethodTypeLookups =l["PaymentMethodType"] ;
     });
 
-    // this.PaymentMethodForm.get('paymentPlace')!.valueChanges.subscribe(() => {
-    //   this.updateCommissionFields();
-    // });
-
-    // this.PaymentMethodForm.get('paymentMethodType')!.valueChanges.subscribe(() => {
-    //   this.updateCommissionFields();
-    // });
+    
 
      this.PaymentMethodForm.get('paymentMethodCommissionData.bankId')!.valueChanges.subscribe(bankId => {
        if (bankId) {
@@ -102,20 +96,7 @@ export class ViewPaymentMethodComponent implements OnInit {
     });
   }
 
-  // updateCommissionFields() {
-  //   const paymentPlace = this.PaymentMethodForm.get('paymentPlace')!.value;
-  //   const paymentMethod = this.PaymentMethodForm.get('paymentMethodType')!.value;
-
-
-  //   if (paymentPlace == paymentplace[paymentplace.Treasury] ||
-  //   paymentMethod == paymentmethodtype[paymentmethodtype.Check] ) {
-  //     this.disableCommission=true;
-  //   } else {
-  //     this.disableCommission=false;
-  //   }
-    
-
-  // }
+  
 
   getPaymentMethodInfoById(id:number) {
     this.financeService.getPaymentMethodByID(id)
@@ -177,34 +158,7 @@ export class ViewPaymentMethodComponent implements OnInit {
     });
   }
 
-  // onPaymentPlaceChange(paymentPlace: any) {
-
-  //  this.PaymentMethodForm.get('paymentMethodType')?.setValue(null);
-   
-  //  let paymentMethodTypeOptions: lookupDto[] = [];
-
-  //  if (paymentPlace == this.sharedFinanceEnum.PaymentPlace.Treasury)
-  //    {
-  //     console.log('Treasury')
-  //      paymentMethodTypeOptions = this.originalPaymentMethodTypeLookups?.filter(
-  //          option => option.id == this.sharedFinanceEnum.paymentMethodType.Cash.toString()
-  //      );
-  //    }
-  //   else if (paymentPlace == this.sharedFinanceEnum.PaymentPlace.Bank) 
-  //     {
-  //      paymentMethodTypeOptions = this.originalPaymentMethodTypeLookups?.filter(
-  //          option => 
-  //              option.id == this.sharedFinanceEnum.paymentMethodType.Check.toString() || 
-  //              option.id == this.sharedFinanceEnum.paymentMethodType.Master.toString() || 
-  //              option.id == this.sharedFinanceEnum.paymentMethodType.Span.toString()|| 
-  //              option.id == this.sharedFinanceEnum.paymentMethodType.Transfer.toString() || 
-  //              option.id == this.sharedFinanceEnum.paymentMethodType.Visa.toString()
-  //      );
-  //      console.log(paymentMethodTypeOptions)
-  //  }
-  //  this.lookups[LookupEnum.PaymentMethodType] = paymentMethodTypeOptions;
-
-  // }
+  
 
    changebankaccount(e: any) 
    {
