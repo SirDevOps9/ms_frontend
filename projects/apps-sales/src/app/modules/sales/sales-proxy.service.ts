@@ -143,7 +143,7 @@ export class SalesProxyService {
     return this.httpService.post(`CustomerOpeningBalance`, customer);
   }
     GetCustomerOpeningBalance(): Observable<any[]> {
-      return this.httpService.get<any[]>(`CustomerOpeningBalance`);
+      return this.httpService.get<any[]>(`CustomerOpeningBalance/GetOpeningBalance  `);
     }
     deleteCustomerOpeningBalance(id: number): Observable<boolean> {
       return this.httpService.delete<boolean>(`CustomerOpeningBalance/${id}`);
@@ -151,7 +151,7 @@ export class SalesProxyService {
 
 
     getAllCustomerOpeningBalance(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<GetAllCustomerOpeningBalanceDto>> {
-      let query = `CustomerOpeningBalance/GetAll?${pageInfo.toQuery}`;
+      let query = `CustomerOpeningBalance?${pageInfo.toQuery}`;
       if (searchTerm) {
         query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
       }

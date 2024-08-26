@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
 import { CustomerCategoryListComponent } from './pages/customer-category/customer-category-list/customer-category-list.component';
-import { AuthGuard } from 'microtec-auth-lib';
 import { CreateCustomerCategoryComponent } from './pages/customer-category/create-customer-category/create-customer-category.component';
 import { EditCustomerCategoryComponent } from './pages/customer-category/edit-customer-category/edit-customer-category.component';
 import { AddCustomerComponent } from './pages/customer-definitions/add-customer/add-customer.component';
@@ -17,6 +16,7 @@ import { MainCustomerCategoryComponent } from './pages/customer-category/main-cu
 import { MainCustomerDefintionComponent } from './pages/customer-definitions/main-customer-defintion/main-customer-defintion.component';
 import { MainCustomerOpeningBalanceComponent } from './pages/customer-opening-balance/main-customer-opening-balance/main-customer-opening-balance.component';
 import { CustomerOpeningBalanceListComponent } from './pages/customer-opening-balance/customer-opening-balance-list/customer-opening-balance-list.component';
+import { EditCustomerOpeningBalanceComponent } from './pages/customer-opening-balance/edit-customer-opening-balance/edit-customer-opening-balance.component';
 
 const routes: Routes = [
   {
@@ -138,7 +138,8 @@ const routes: Routes = [
     MainCustomerCategoryComponent,
     MainCustomerDefintionComponent,
     CustomerOpeningBalanceListComponent,
-    MainCustomerOpeningBalanceComponent
+    MainCustomerOpeningBalanceComponent,
+    EditCustomerOpeningBalanceComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })
