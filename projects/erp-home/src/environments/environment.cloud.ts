@@ -8,7 +8,7 @@ export const environment: IEnvironment = {
   Platform: 'Web',
   photoBaseUrl: '',
   AuthConfiguration: {
-    authority: 'http://microtec-apis.uksouth.cloudapp.azure.com/auth-apis',
+    authority: 'http://microtec-apis.uksouth.cloudapp.azure.com:2050',
     clientId: 'microtec_erp_frontend',
     redirectUrl: window.location.origin + '/erp/login-redirect',
     logoutRedirectUri: window.location.origin + '/erp/logout-redirect',

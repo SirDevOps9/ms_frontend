@@ -82,9 +82,19 @@
               ]
             },
             "cloud": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all",
               "fileReplacements": [
                 {
                   "replace": "projects/bussiness-owners/src/environments/environment.ts",
@@ -432,9 +442,19 @@
               ]
             },
             "cloud": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all",
               "fileReplacements": [
                 {
                   "replace": "projects/apps-accounting/src/environments/environment.ts",
@@ -571,9 +591,19 @@
               ]
             },
             "cloud": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all",
               "fileReplacements": [
                 {
                   "replace": "projects/apps-hr/src/environments/environment.ts",
@@ -706,9 +736,19 @@
               ]
             },
             "cloud": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all",
               "fileReplacements": [
                 {
                   "replace": "projects/erp-home/src/environments/environment.ts",
@@ -840,9 +880,19 @@
               ]
             },
             "cloud": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all",
               "fileReplacements": [
                 {
                   "replace": "projects/apps-finance/src/environments/environment.ts",
@@ -975,9 +1025,19 @@
               ]
             },
             "cloud": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all",
               "fileReplacements": [
                 {
                   "replace": "projects/apps-sales/src/environments/environment.ts",
@@ -1113,9 +1173,19 @@
               ]
             },
             "cloud": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all",
               "fileReplacements": [
                 {
                   "replace": "projects/apps-purchase/src/environments/environment.ts",
