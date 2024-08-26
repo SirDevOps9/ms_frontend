@@ -143,26 +143,26 @@
                             <lib-form-group>
                               <lib-label
                                 [appControl]="
-                                  addCustomerForm.get('contactInfo')?.get('ContactMobileCode')
+                                  addCustomerForm.get('contactInfo')?.get('contactMobileCode')
                                 "
                               >
                                 {{ 'AddCustomerDefinition.Code' | translate }}
                               </lib-label>
                               <lib-selectIcon
-                                formControlName="ContactMobileCode"
+                                formControlName="contactMobileCode"
                                 [options]="lookups[LookupEnum.MobileCode]"
                                 optionValue="id"
                                 optionLabel="name"
                                 icons="flags"
                                 [selectedValue]="
-                                  addCustomerForm.get('contactInfo')?.get('ContactMobileCode')
+                                  addCustomerForm.get('contactInfo')?.get('contactMobileCode')
                                 "
                               >
                               </lib-selectIcon>
 
                               <lib-field-validations
                                 [appControl]="
-                                  addCustomerForm.get('contactInfo')?.get('ContactMobileCode')
+                                  addCustomerForm.get('contactInfo')?.get('contactMobileCode')
                                 "
                               >
                               </lib-field-validations>
@@ -282,13 +282,13 @@
                                   [appControl]="
                                     addCustomerForm
                                       .get('contactInfo')
-                                      ?.get('ContactPersonMobileCode')
+                                      ?.get('contactPersonMobileCode')
                                   "
                                 >
                                   {{ 'AddCustomerDefinition.Code' | translate }}
                                 </lib-label>
                                 <lib-selectIcon
-                                  formControlName="ContactPersonMobileCode"
+                                  formControlName="contactPersonMobileCode"
                                   [options]="lookups[LookupEnum.MobileCode]"
                                   optionValue="id"
                                   optionLabel="name"
@@ -296,7 +296,7 @@
                                   [selectedValue]="
                                     addCustomerForm
                                       .get('contactInfo')
-                                      ?.get('ContactPersonMobileCode')
+                                      ?.get('contactPersonMobileCode')
                                   "
                                 >
                                 </lib-selectIcon>
@@ -304,7 +304,7 @@
                                   [appControl]="
                                     addCustomerForm
                                       .get('contactInfo')
-                                      ?.get('ContactPersonMobileCode')
+                                      ?.get('contactPersonMobileCode')
                                   "
                                 >
                                 </lib-field-validations>
