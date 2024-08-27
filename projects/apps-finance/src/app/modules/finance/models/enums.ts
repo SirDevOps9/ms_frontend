@@ -34,3 +34,7 @@ export enum paymentplace {
     Optional ="Optional",
     Mandatory = "Mandatory"
   }
+  export enum paymentplaceString {
+    Treasury='Treasury',
+    Bank='Bank',
+  }

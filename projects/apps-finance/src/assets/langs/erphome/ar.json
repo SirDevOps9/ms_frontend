@@ -330,7 +330,9 @@
   "Success": "نجاح",
   "PaymentInAddedSuccessfully": "تمت إضافة PaymentIn بنجاح",
   "addedError": "خطأ في الإضافة",
-  "Error": "خطأ"
+  "Error": "خطأ",
+  "paymentMethodTypeNotAllowed": "نوع طريقة الدفع غير مسموح به"
+
   
 },
 "popupPayment": { 
@@ -348,7 +350,9 @@
   "Amount": "المبلغ",
   "Actions": "إجراءات",
   "AddNewLine": "إضافة سطر جديد",
-  "error": "يجب ألا تتجاوز نسبة الحساب 100"
+  "error": "يجب ألا تتجاوز نسبة الحساب 100",
+  "CostCenterAllocation": "تخصيص مركز التكلفة"
+
 
 }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
-import { AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, Balance, EditTreasuryDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
+import { AccountDto, AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, Balance, CurrencyRateDto, EditTreasuryDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { AddBankDto } from './models/addBankDto';
 import { UserPermission } from './models/user-permission';
@@ -201,5 +201,27 @@ export class FinanceProxyService {
   GetAccountBalance(id:number) : Observable<number> {
     return this.httpService.get(`Bank/GetAccountBalance/${id}`);
   }
-  
+  getAccountsHasNoChildren(
+    quieries: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<AccountDto>> {
+    return this.httpService.get<PaginationVm<AccountDto>>(
+      `ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}&${quieries ? quieries : ''}`
+    );
+  }
+
+getAccountsHasNoChildrenNew(
+  searchTerm: string,
+  pageInfo: PageInfo
+): Observable<PaginationVm<AccountDto>> {
+  let query = `ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}`;
+  if (searchTerm) {
+    query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+  }
+  return this.httpService.get<PaginationVm<AccountDto>>(query);
+}
+
+getAccountCurrencyRate(currentCurrency:number,accountCurrency:number){
+  return this.httpService.get<CurrencyRateDto>(`CurrencyConversion/rate?FromCurrencyId=${currentCurrency}&ToCurrencyId=${accountCurrency}`);
+}
 }

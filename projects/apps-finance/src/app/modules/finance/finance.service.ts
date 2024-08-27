@@ -3,7 +3,7 @@ import { FinanceProxyService } from './finance-proxy.service';
 import { HttpService, LanguageService, LoaderService, PageInfo, PageInfoResult, PaginationVm, RouterService, ToasterService } from 'shared-lib';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
-import { AccountDto, AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, EditTreasuryDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
+import { AccountDto, AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, CurrencyRateDto, EditTreasuryDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { HttpClient } from '@angular/common/http';
@@ -47,6 +47,7 @@ export class FinanceService {
   public childrenAccountDataSource = new BehaviorSubject<AccountDto[]>([]);
   public childrenAccountList = this.childrenAccountDataSource.asObservable();
   public childrenAccountPageInfo = new BehaviorSubject<PageInfoResult>({});
+  private accountCurrencyRateDataSource = new BehaviorSubject<CurrencyRateDto>({rate:0});
 
 
 
@@ -76,6 +77,7 @@ export class FinanceService {
   AllTreasuriesPayMethodsDropdownObservable = this.AllTreasuriesPayMethodsDropdown.asObservable()
   AccountBalanceObservable = this.AccountBalance.asObservable()
   TreasuryBalanceObservable = this.TreasuryBalance.asObservable()
+  public accountCurrencyRate = this.accountCurrencyRateDataSource.asObservable();
 
   
 
@@ -476,5 +478,23 @@ export class FinanceService {
        this.AccountBalance.next(res)
       }
     })
+  }
+  getAccountsHasNoChildren(quieries: string, pageInfo: PageInfo) {
+    return this.financeProxy.getAccountsHasNoChildren(quieries, pageInfo).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+  getAccountsHasNoChildrenNew(quieries: string, pageInfo: PageInfo) {
+    this.financeProxy.getAccountsHasNoChildrenNew(quieries, pageInfo).subscribe((res) => {
+      this.childrenAccountDataSource.next(res.result);
+      this.childrenAccountPageInfo.next(res.pageInfoResult);
+    });
+  }
+  getAccountCurrencyRate(currentCurrency:number,accountCurrency:number){
+    this.financeProxy.getAccountCurrencyRate(currentCurrency,accountCurrency).subscribe((response) => {
+      this.accountCurrencyRateDataSource.next(response);
+    });
   }
 }

@@ -391,8 +391,8 @@
     "Success": "Success",
     "PaymentInAddedSuccessfully": "PaymentIn added successfully",
     "addedError": "Error in added",
-    "Error":"Error"
-
+    "Error":"Error",
+    "paymentMethodTypeNotAllowed":"payment Method Type Not Allowed"
   },
   "popupPayment":{ 
     "AccountName": "Account Name",
@@ -409,7 +409,8 @@
     "Amount" : "Amount",
     "Actions": "Actions",
     "AddNewLine": "Add New Line",
-    "error":"Percentage Calculation Shouldn't be more than 100"
+    "error":"Percentage Calculation Shouldn't be more than 100",
+    "CostCenterAllocation":"Cost Center Allocation"
 
 
   }

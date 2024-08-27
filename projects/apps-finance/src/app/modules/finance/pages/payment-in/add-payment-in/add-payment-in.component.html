@@ -6,26 +6,18 @@
           <lib-label [appControl]="addForm.controls['code']">
             {{ 'PaymentIn.Form.Code' | translate }}
           </lib-label>
-          <lib-text-input
-            type="text"
-            formControlName="code"
-            [readOnly]="true"
-            [placeholder]="'PaymentIn.Form.PlaceholderCode' | translate"
-          />
+          <lib-text-input type="text" formControlName="code" [readOnly]="true"
+            [placeholder]="'PaymentIn.Form.PlaceholderCode' | translate" />
         </lib-form-group>
       </div>
 
       <div class="md:col-4">
         <lib-form-group>
-          <lib-label [appControl]="addForm.controls['journalDate']">
+          <lib-label [appControl]="addForm.controls['PaymentInDate']">
             {{ 'PaymentIn.Form.Date' | translate }}
           </lib-label>
-          <lib-calendar
-                     formControlName="journalDate"
-                     [placeholder]="journalDate"
-
-          ></lib-calendar>
-          <lib-field-validations [appControl]="addForm.controls['journalDate']">
+          <lib-calendar formControlName="PaymentInDate" [placeholder]="PaymentInDate"></lib-calendar>
+          <lib-field-validations [appControl]="addForm.controls['PaymentInDate']">
           </lib-field-validations>
         </lib-form-group>
       </div>
@@ -35,106 +27,74 @@
           <lib-label [appControl]="addForm.controls['description']">
             {{ 'PaymentIn.Form.Description' | translate }}
           </lib-label>
-          <lib-text-input
-            type="text"
-            formControlName="description"
-            [placeholder]="'PaymentIn.Form.PlaceholderDescription' | translate"
-          />
+          <lib-text-input type="text" formControlName="description"
+            [placeholder]="'PaymentIn.Form.PlaceholderDescription' | translate" />
           <lib-field-validations [appControl]="addForm.controls['description']">
           </lib-field-validations>
         </lib-form-group>
       </div>
       <div class="col-12">
 
-      <div class="grid">
-      
-      <div class="md:col-4">
-        <lib-form-group>
-          <lib-label [appControl]="addForm.controls['paymentHubId']">
-            {{ 'PaymentIn.Form.PaymentHub' | translate }}
-          </lib-label>
-          <lib-select
-          formControlName="paymentHubId"
-          [options]="lookups[LookupEnum.PaymentPlace]"
-          [selectedValue]="addForm.controls['paymentHubId'].value"
-          (valueChanged)="getDetails(addForm.controls['paymentHubId'].value)"
-          optionValue="id"
-          optionLabel="name"
-        >
-        </lib-select>
-        <lib-field-validations [appControl]="addForm.controls['paymentHubId']">
-        </lib-field-validations>
-        </lib-form-group>
+        <div class="grid">
+
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="addForm.controls['paymentHub']">
+                {{ 'PaymentIn.Form.PaymentHub' | translate }}
+              </lib-label>
+              <lib-select 
+              formControlName="paymentHub"
+               [options]="lookups[LookupEnum.PaymentPlace]"
+                [selectedValue]="addForm.controls['paymentHub'].value"
+                (valueChanged)="getDetails(addForm.controls['paymentHub'].value)"
+                 optionValue="name"
+                  optionLabel="name">
+              </lib-select>
+              <lib-field-validations [appControl]="addForm.controls['paymentHub']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="addForm.controls['paymentHubDetailId']">
+                {{ 'PaymentIn.Form.PaymentHubDetails' | translate }}
+              </lib-label>
+              <lib-select *ngIf="selectedBank" formControlName="paymentHubDetailId" [options]="BankDropDown"
+                optionValue="id" optionLabel="name"
+                (valueChanged)="bankAccountDropDown(addForm.controls['paymentHubDetailId'].value)"
+                [placeholder]="'PaymentIn.Form.PlaceholderPaymentHubDetails' | translate"></lib-select>
+              <lib-select *ngIf="!selectedBank" formControlName="paymentHubDetailId" [options]="TreasuryDropDown"
+                optionValue="id" optionLabel="name"
+                (valueChanged)="bankAccountDropDown(addForm.controls['paymentHubDetailId'].value)"
+                [placeholder]="'PaymentIn.Form.PlaceholderPaymentHubDetails' | translate"></lib-select>
+              <lib-field-validations [appControl]="addForm.controls['paymentHubDetailId']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+
+          <div class="md:col-4" *ngIf="selectedBank">
+            <lib-form-group>
+              <lib-label [appControl]="addForm.controls['bankAccountId']">
+                {{ 'PaymentIn.Form.BankAccount' | translate }}
+              </lib-label>
+              <lib-select formControlName="bankAccountId" [options]="bankAccount" optionValue="id"
+                optionLabel="accountNumber"
+                (valueChanged)="getCurrencyBankAccount(addForm.controls['bankAccountId'].value)"
+                [placeholder]="'PaymentIn.Form.PlaceholderBankAccount' | translate"></lib-select>
+              <lib-field-validations [appControl]="addForm.controls['bankAccountId']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+        </div>
+
       </div>
-
-      <div class="md:col-4">
-        <lib-form-group>
-          <lib-label [appControl]="addForm.controls['paymentHubDetails']">
-            {{ 'PaymentIn.Form.PaymentHubDetails' | translate }}
-          </lib-label>
-          <!-- <lib-select
-            formControlName="paymentHubDetails"
-            [options]="paymentHubDetails"
-            optionValue="id"
-            optionLabel="name"
-            (valueChanged)="bankAccountDropDown(addForm.controls['paymentHubDetails'].value)"
-            [placeholder]="'PaymentIn.Form.PlaceholderPaymentHubDetails' | translate"
-          ></lib-select> -->
-          <lib-select
-          *ngIf="selectedBank"
-            formControlName="paymentHubDetails"
-            [options]="BankDropDown"
-            optionValue="id"
-            optionLabel="name"
-            (valueChanged)="bankAccountDropDown(addForm.controls['paymentHubDetails'].value)"
-            [placeholder]="'PaymentIn.Form.PlaceholderPaymentHubDetails' | translate"
-          ></lib-select>
-          <lib-select
-          *ngIf="!selectedBank"
-
-            formControlName="paymentHubDetails"
-            [options]="TreasuryDropDown"
-            optionValue="id"
-            optionLabel="name"
-            (valueChanged)="bankAccountDropDown(addForm.controls['paymentHubDetails'].value)"
-            [placeholder]="'PaymentIn.Form.PlaceholderPaymentHubDetails' | translate"
-          ></lib-select>
-          <lib-field-validations [appControl]="addForm.controls['paymentHubDetails']">
-          </lib-field-validations>
-        </lib-form-group>
-      </div>
-
-      <div class="md:col-4" *ngIf="selectedBank" >
-        <lib-form-group>
-          <lib-label [appControl]="addForm.controls['bankAccountId']">
-            {{ 'PaymentIn.Form.BankAccount' | translate }}
-          </lib-label>
-          <lib-select
-            formControlName="bankAccountId"
-            [options]="bankAccount"
-            optionValue="id"
-            optionLabel="accountNumber"
-            (valueChanged)="getCurrencyBankAccount(addForm.controls['bankAccountId'].value)"
-            [placeholder]="'PaymentIn.Form.PlaceholderBankAccount' | translate"
-          ></lib-select>
-          <lib-field-validations [appControl]="addForm.controls['bankAccountId']">
-          </lib-field-validations>
-        </lib-form-group>
-      </div>
-    </div>
-
-    </div>
       <div class="md:col-4">
         <lib-form-group>
           <lib-label [appControl]="addForm.controls['currency']">
             {{ 'PaymentIn.Form.Currency' | translate }}
           </lib-label>
-          <lib-text-input
-            type="text"
-            formControlName="currency"
-            [placeholder]="selectedCurrency"
-            [readOnly]="true"
-          />
+          <lib-text-input type="text" formControlName="currency" [placeholder]="selectedCurrency" [readOnly]="true" />
         </lib-form-group>
       </div>
 
@@ -143,123 +103,71 @@
           <lib-label [appControl]="addForm.controls['rate']">
             {{ 'PaymentIn.Form.Rate' | translate }}
           </lib-label>
-          <lib-text-input
-            formControlName="rate"
-            [placeholder]="'PaymentIn.Form.PlaceholderRate' | translate"
-          />
+          <lib-text-input (keyUp)="updateRateInPaymentDetails($event)"  formControlName="rate" [placeholder]="'PaymentIn.Form.PlaceholderRate' | translate" />
           <lib-field-validations [appControl]="addForm.controls['rate']">
           </lib-field-validations>
         </lib-form-group>
       </div>
-
-      <!-- <div class="md:col-4">
+    </div>
+    <div class="grid border">
+      <div class="md:col-4">
         <lib-form-group>
-          <lib-label [appControl]="addForm.controls['sourceDocument']">
-            {{ 'PaymentIn.Form.SourceDocument' | translate }}
+          <lib-label [appControl]="addForm.controls['currentBalance']">
+            {{ 'PaymentIn.Form.CurrentBalance' | translate }}
           </lib-label>
-          <lib-text-input
-            type="text"
-            formControlName="sourceDocument"
-            [placeholder]="'PaymentIn.Form.PlaceholderSourceDocument' | translate"
-            [readOnly]="true"
-          />
+          <lib-text-input type="number" formControlName="currentBalance" [readOnly]="true"
+            placeholder="{{addForm.controls['currentBalance'].value}}">
+          </lib-text-input>
         </lib-form-group>
       </div>
 
       <div class="md:col-4">
         <lib-form-group>
-          <lib-label [appControl]="addForm.controls['createdJournal']">
-            {{ 'PaymentIn.Form.CreatedJournal' | translate }}
+          <lib-label [appControl]="addForm.controls['totalReceivedAmount']">
+            {{ 'PaymentIn.Form.TotalReceivedAmount' | translate }}
           </lib-label>
-          <lib-text-input
-            type="text"
-            formControlName="createdJournal"
-            [placeholder]="'PaymentIn.Form.PlaceholderCreatedJournal' | translate"
-            [readOnly]="true"
-          />
+          <lib-text-input placeholder="{{calculateTotalLocalAmount()}}" [readOnly]="true" />
         </lib-form-group>
-      </div> -->
-    </div>
-      <div class="grid border">
-        <div class="md:col-4">
-          <lib-form-group>
-            <lib-label [appControl]="addForm.controls['currentBalance']">
-              {{ 'PaymentIn.Form.CurrentBalance' | translate }}
-            </lib-label>
-            <lib-text-input
-              type="number"
-              formControlName="currentBalance"
-              [readOnly]="true"
-              placeholder="{{addForm.controls['currentBalance'].value}}"
-            >
-            </lib-text-input>
-          </lib-form-group>
-        </div>
-
-        <div class="md:col-4">
-          <lib-form-group>
-            <lib-label [appControl]="addForm.controls['totalReceivedAmount']">
-              {{ 'PaymentIn.Form.TotalReceivedAmount' | translate }}
-            </lib-label>
-            <lib-text-input
-            placeholder="{{calculateTotalLocalAmount()}}"
-              [readOnly]="true"
-            />
-          </lib-form-group>
-        </div>
-
-        <div class="md:col-4">
-          <lib-form-group>
-            <lib-label [appControl]="addForm.controls['newBalance']">
-              {{ 'PaymentIn.Form.NewBalance' | translate }}
-            </lib-label>
-            <lib-text-input
-              type="text"
-              formControlName="newBalance"
-              class="newBalance"
-              placeholder="{{addForm.controls['totalReceivedAmount'].value + addForm.controls['currentBalance'].value }}"
-              [readOnly]="true"
-            />
-          </lib-form-group>
-        </div>
       </div>
+
+      <div class="md:col-4">
+        <lib-form-group>
+          <lib-label [appControl]="addForm.controls['newBalance']">
+            {{ 'PaymentIn.Form.NewBalance' | translate }}
+          </lib-label>
+          <lib-text-input type="text" formControlName="newBalance" class="newBalance"
+            placeholder="{{addForm.controls['totalReceivedAmount'].value + addForm.controls['currentBalance'].value }}"
+            [readOnly]="true" />
+        </lib-form-group>
+      </div>
+    </div>
   </form>
 
   <div class="entry_tableCont">
     <div class="card">
-      <p-table
-      [resizableColumns]="true" 
-      [value]="journalEntryLinesFormArray.controls"
-        dataKey="id"
-        styleClass="p-datatable-gridlines p-datatable-striped"
-        [tableStyle]="{ 'min-width': '50rem' }"
-      >
+      <p-table [resizableColumns]="true" [value]="paymentInDetailsFormArray.controls" dataKey="id"
+        styleClass="p-datatable-gridlines p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
           <tr>
-            <th >{{ 'PaymentIn.Table.Amount' | translate }}</th>
-            <th >{{ 'PaymentIn.Table.LocalAmount' | translate }}</th>
-            <th >{{ 'PaymentIn.Table.PaymentMethod' | translate }}</th>
-            <th >{{ 'PaymentIn.Table.PaymentMethodDetails' | translate }}</th>
-            <th >{{ 'PaymentIn.Table.PaidBy' | translate }}</th>
-            <th >{{ 'PaymentIn.Table.PaidByDetails' | translate }}</th>
-            <th >{{ 'PaymentIn.Table.LinkedGLAccount' | translate }}</th>
-            <th >{{ 'PaymentIn.Table.CostCenter' | translate }}</th>
-            <th >{{ 'PaymentIn.Table.Notes' | translate }}</th>
-            <th >{{ 'EditJournal.Actions' | translate }}</th>
+            <th>{{ 'PaymentIn.Table.Amount' | translate }}</th>
+            <th>{{ 'PaymentIn.Table.LocalAmount' | translate }}</th>
+            <th>{{ 'PaymentIn.Table.PaymentMethod' | translate }}</th>
+            <th>{{ 'PaymentIn.Table.PaymentMethodDetails' | translate }}</th>
+            <th>{{ 'PaymentIn.Table.PaidBy' | translate }}</th>
+            <th>{{ 'PaymentIn.Table.PaidByDetails' | translate }}</th>
+            <th>{{ 'PaymentIn.Table.LinkedGLAccount' | translate }}</th>
+            <th>{{ 'PaymentIn.Table.CostCenter' | translate }}</th>
+            <th>{{ 'PaymentIn.Table.Notes' | translate }}</th>
+            <th>{{ 'EditJournal.Actions' | translate }}</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-journalLine let-rowIndex="rowIndex">
           <tr [formGroup]="journalLine">
-            <td [pEditableColumn]="journalLine.amount"
-             pEditableColumnField="amount">
+            <td [pEditableColumn]="journalLine.amount" pEditableColumnField="amount">
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <div class="flex gap-2 align-items-center">
-                    <lib-text-input
-                    type="text"
-                    (keyUp)="calculateTotalAmount()"
-                    formControlName="amount"
-                    >
+                    <lib-text-input type="text" (keyUp)="calculateTotalAmount()" formControlName="amount">
 
                     </lib-text-input>
                   </div>
@@ -274,71 +182,43 @@
             <td>
               {{journalLine.controls['amount'].value * addForm.controls['rate'].value || 0 }}
             </td>
-            <td
-          
-             [pEditableColumn]="journalLine.paymentMethodId"
-              pEditableColumnField="paymentMethodId">
+            <td [pEditableColumn]="journalLine.paymentMethodId" pEditableColumnField="paymentMethodId">
               <p-cellEditor>
                 <ng-template pTemplate="input">
-                  <lib-select
-                  *ngIf="selectedBank"
-                  formControlName="paymentMethodId"
-                  [options]="paymentMethod"
-                  (valueChanged)="getLabelPayment(journalLine ,journalLine.controls['paymentMethodId'].value )"
-                  [selectedValue]="journalLine.controls['paymentMethodId'].value"
-                  optionValue="id"
-                  optionLabel="name"
-                 
-                  >
+                  <lib-select *ngIf="selectedBank" formControlName="paymentMethodId" [options]="paymentMethod"
+                    (valueChanged)="getLabelPayment(journalLine ,journalLine.controls['paymentMethodId'].value )"
+                    [selectedValue]="journalLine.controls['paymentMethodId'].value" optionValue="id" optionLabel="name">
                   </lib-select>
-                  <lib-select
-                  *ngIf="!selectedBank"
-                  formControlName="paymentMethodId"
-                  [options]="AllTreasuriesPayMethod"
-                  (valueChanged)="getLabelPayment(journalLine ,journalLine.controls['paymentMethodId'].value ) ; setType(journalLine)"
-                  [selectedValue]="journalLine.controls['paymentMethodId'].value"
-                  optionValue="id"
-                  optionLabel="name"
-                 
-                  >
+                  <lib-select *ngIf="!selectedBank" formControlName="paymentMethodId" [options]="AllTreasuriesPayMethod"
+                    (valueChanged)="getLabelPayment(journalLine ,journalLine.controls['paymentMethodId'].value ) ; setType(journalLine)"
+                    [selectedValue]="journalLine.controls['paymentMethodId'].value" optionValue="id" optionLabel="name">
                   </lib-select>
-                
+
                 </ng-template>
                 <ng-template pTemplate="output">
-               
+
                   {{ journalLine.controls['paymentMethodName'].value }}
-               
-                  </ng-template>
+
+                </ng-template>
               </p-cellEditor>
               <lib-field-validations [appControl]="journalLine.controls['paymentMethodId']"> </lib-field-validations>
-              
+
             </td>
-         
+
             <td>
-              <lib-button-micro 
-              title="{{ 'PaymentIn.Form.PaymentMethod' | translate }}"
-              [nameClass]="journalLine.controls['paymentMethodId'].value == SharedJournalEnums.paymentMethodTypeString.Cash ||journalLine.controls['paymentMethodId'].value == null || !selectedBank ? 'disabled' : 'save'"
-              widthNumber="100%"
-              (click)="handleButtonClick(journalLine)"
-              >
+              <lib-button-micro title="{{ 'PaymentIn.Form.PaymentMethod' | translate }}"
+                [nameClass]="journalLine.controls['paymentMethodId'].value == SharedJournalEnums.paymentMethodTypeString.Cash ||journalLine.controls['paymentMethodId'].value == null || !selectedBank ? 'disabled' : 'save'"
+                widthNumber="100%" (click)="handleButtonClick(journalLine)">
 
               </lib-button-micro>
             </td>
-            <td
-              [pEditableColumn]="journalLine.controls['paidBy']"
-              pEditableColumnField="paidBy"
-            >
+            <td [pEditableColumn]="journalLine.controls['paidBy']" pEditableColumnField="paidBy">
               <p-cellEditor>
                 <ng-template pTemplate="input">
-                  <lib-select
-                  formControlName="paidBy"
-                  [options]="paidBy"
-                  [selectedValue]="journalLine.controls['paidBy'].value"
-                  optionValue="name"
-                  optionLabel="name"
-                  (valueChanged)="getpaidByDetails( rowIndex , journalLine.controls['paidBy'].value)
-                  "
-                  >
+                  <lib-select formControlName="paidBy" [options]="paidBy"
+                    [selectedValue]="journalLine.controls['paidBy'].value" optionValue="name" optionLabel="name"
+                    (valueChanged)="getpaidByDetails( rowIndex , journalLine.controls['paidBy'].value)
+                  ">
 
                   </lib-select>
                 </ng-template>
@@ -348,180 +228,115 @@
               </p-cellEditor>
               <lib-field-validations [appControl]="journalLine.controls['paidBy']"> </lib-field-validations>
             </td>
-            <td
-              [pEditableColumn]="journalLine.controls['paidByDetailsId']"
-              pEditableColumnField="paidByDetailsId"
-            >
+            <td [pEditableColumn]="journalLine.controls['paidByDetailsId']" pEditableColumnField="paidByDetailsId">
               <p-cellEditor>
                 <ng-template pTemplate="input">
-                  <lib-select 
-                  *ngIf="journalLine.controls['paidBy'].value == this.SharedJournalEnums.paiedDropDown.vendor"
-                  formControlName="paidByDetailsId"
-                  [options]="vendorDropDown"
-                  [selectedValue]="journalLine.controls['paidByDetailsId'].value"
-                  optionValue="id"
-                  optionLabel="name"
-                  (valueChanged)="getGlAccount(rowIndex, journalLine.controls['paidByDetailsId'].value)"
-
-                  >
+                  <lib-select
+                    *ngIf="journalLine.controls['paidBy'].value == this.SharedJournalEnums.paiedDropDown.vendor"
+                    formControlName="paidByDetailsId" [options]="vendorDropDown"
+                    [selectedValue]="journalLine.controls['paidByDetailsId'].value" optionValue="id" optionLabel="name"
+                    (valueChanged)="getGlAccount(rowIndex, journalLine.controls['paidByDetailsId'].value)">
 
                   </lib-select>
-                  <lib-select 
-                  *ngIf="journalLine.controls['paidBy'].value == this.SharedJournalEnums.paiedDropDown.customer"
-                  formControlName="paidByDetailsId"
-                  [options]="customerDropDown"
-                  [selectedValue]="journalLine.controls['paidByDetailsId'].value"
-                  optionValue="id"
-                  optionLabel="name"
-                  (valueChanged)="getGlAccount(rowIndex, journalLine.controls['paidByDetailsId'].value)"
-
-                  >
+                  <lib-select
+                    *ngIf="journalLine.controls['paidBy'].value == this.SharedJournalEnums.paiedDropDown.customer"
+                    formControlName="paidByDetailsId" [options]="customerDropDown"
+                    [selectedValue]="journalLine.controls['paidByDetailsId'].value" optionValue="id" optionLabel="name"
+                    (valueChanged)="getGlAccount(rowIndex, journalLine.controls['paidByDetailsId'].value)">
 
                   </lib-select>
-                  <lib-select 
-                  *ngIf="journalLine.controls['paidBy'].value == this.SharedJournalEnums.paiedDropDown.other"
-                  formControlName="paidByDetailsId"
-                  [options]="other"
-                  [selectedValue]="journalLine.controls['paidByDetailsId'].value"
-                  optionValue="id"
-                  optionLabel="name"
-                  >
+                  <lib-select
+                    *ngIf="journalLine.controls['paidBy'].value == this.SharedJournalEnums.paiedDropDown.other"
+                    formControlName="paidByDetailsId" [options]="other"
+                    [selectedValue]="journalLine.controls['paidByDetailsId'].value" optionValue="id" optionLabel="name"
+                    (valueChanged)="getLabel(journalLine, journalLine.controls['paidByDetailsId'].value)"
+                    >
 
                   </lib-select>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ getLabel(journalLine, journalLine.controls['paidByDetailsId'].value) }}
-
-                  <!-- {{getLabel(journalLine,journalLine.controls['paidByDetailsId'].value)}} -->
+                  {{journalLine.controls['paidByDetailsName'].value}}
+                  <!-- {{ getLabel(journalLine, journalLine.controls['paidByDetailsId'].value) }} -->
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations [appControl]="journalLine.controls['paidByDetailsId']"> </lib-field-validations>
             </td>
-            <!-- <td
-  [pEditableColumn]="journalLine.controls['paidByDetailsId']"
-  pEditableColumnField="paidByDetailsId"
->
-  <p-cellEditor>
-    <ng-template pTemplate="input">
-      <lib-select
-        formControlName="paidByDetailsId"
-        [options]="journalLine.get('paidByDetails').value"
-        [selectedValue]="journalLine.controls['paidByDetailsId'].value"
-        optionValue="id"
-        optionLabel="name"
-      >
-      </lib-select>
-    </ng-template>
-    <ng-template pTemplate="output">
-      {{ getLabel(journalLine.controls['paidByDetailsId'].value) }}
-    </ng-template>
-  </p-cellEditor>
-  <lib-field-validations [appControl]="journalLine.controls['paidByDetailsId']">
-  </lib-field-validations>
-</td> -->
-
-            <td
-             [pEditableColumn]="journalLine.glAccountId" pEditableColumnField="glAccountId">
-              <p-cellEditor
-              *ngIf="journalLine.controls['paidBy'].value == this.SharedJournalEnums.paiedDropDown.other"
-
-              >
+            <td [pEditableColumn]="journalLine.glAccountId" pEditableColumnField="glAccountId">
+              <p-cellEditor *ngIf="journalLine.controls['paidBy'].value == this.SharedJournalEnums.paiedDropDown.other">
                 <ng-template pTemplate="input">
                   <div class="flex gap-2 align-items-center">
-                    <lib-select
-                      formControlName="glAccountId"
-                      [options]="filteredAccounts"
-                      optionValue="id"
-                      optionLabel="displayName"
-                      [customClass]="'add-journal'"
+                    <lib-select formControlName="glAccountId" [options]="filteredAccounts" optionValue="id"
+                      optionLabel="displayName" [customClass]="'add-journal'"
                       [selectedValue]="journalLine.controls['glAccountId'].value"
-                      (valueChanged)="accountSelected($event, rowIndex)"
-                      (valueSearchChanged)="onFilter($event)"
+                      (valueChanged)="accountSelected($event, rowIndex)" (valueSearchChanged)="onFilter($event)"
                       [placeholder]=" journalLine.controls['glAccountId'].value"
-                      [readOnly]="journalLine.controls['paidBy'].value != this.SharedJournalEnums.paiedDropDown.other"
-                    >
+                      [readOnly]="journalLine.controls['paidBy'].value != this.SharedJournalEnums.paiedDropDown.other">
                     </lib-select>
                     <i *ngIf="journalLine.controls['paidBy'].value == this.SharedJournalEnums.paiedDropDown.other"
-                      class="pi pi-search search-circle"
-                      (click)="openDialogSearch(rowIndex)"
-                    ></i>
+                      class="pi pi-search search-circle" (click)="openDialogSearch(rowIndex)"></i>
                   </div>
                 </ng-template>
                 <ng-template pTemplate="output">
                   {{journalLine.controls['accountName'].value}}
                 </ng-template>
               </p-cellEditor>
-              <p
-              *ngIf="journalLine.controls['paidBy'].value != this.SharedJournalEnums.paiedDropDown.other"
-              >
-              {{journalLine.controls['glAccountname'].value}}
-            </p>
+              <p *ngIf="journalLine.controls['paidBy'].value != this.SharedJournalEnums.paiedDropDown.other">
+                {{journalLine.controls['glAccountname'].value}}
+              </p>
               <lib-field-validations [appControl]="journalLine.controls['glAccountId']">
               </lib-field-validations>
             </td>
-            
+
             <td>
-              <img
-           *ngIf="
+              <img *ngIf="
                   journalLine.controls['paidBy'].value!=this.SharedJournalEnums.paiedDropDown.other ||
                   journalLine.controls['paidBy'].value==this.SharedJournalEnums.paiedDropDown.other && 
                   journalLine.controls['costCenterConfig'].value == this.SharedJournalEnums.costCenterConfig.NotAllow || 
                   journalLine.controls['costCenterConfig'].value == null
 
-                         "
-                 src="assets/images/groups.png"/>
+                         " src="assets/images/groups.png" />
 
-              <img
-              *ngIf="
-               isCostCenterallowed(journalLine.controls['costCenterConfig'].value) &&
+              <img *ngIf="
+               isCostCenterallowed( journalLine,journalLine.controls['costCenterConfig'].value) &&
                journalLine.controls['paymentInDetailCostCenters'].value.length == 0
               
-              "
-              (click)="
+              " (click)="
               openCostPopup(
                 journalLine.value,
                 journalLine,
                 journalLine.controls['glAccountId']?.value,
                 rowIndex
               )
-            "
-              src="assets/images/groups-mandtory-optional.png" alt="" class="pointer" />
-              <img
-              *ngIf="
-              isCostCenterallowed(journalLine.controls['costCenterConfig'].value) &&
+            " src="assets/images/groups-mandtory-optional.png" alt="" class="pointer" />
+              <img *ngIf="
+              isCostCenterallowed(journalLine, journalLine.controls['costCenterConfig'].value) &&
               journalLine.controls['paymentInDetailCostCenters'].value.length != 0
-              "
-                 (click)="
+              " (click)="
                  openCostPopup(
                    journalLine.value,
                    journalLine,
                    journalLine.controls['glAccountId']?.value,
                    rowIndex
                  )
-               "
-              
-              class="pointer" src="assets/images/costcenterfull.png" />
+               " class="pointer" src="assets/images/costcenterfull.png" />
 
             </td>
-            <td [pEditableColumn]="journalLine.notes"
-            pEditableColumnField="notes">
-             <p-cellEditor>
-               <ng-template pTemplate="input">
-                 <div class="flex gap-2 align-items-center">
-                   <lib-text-input
-                   formControlName="notes"
-                   >
+            <td [pEditableColumn]="journalLine.notes" pEditableColumnField="notes">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <div class="flex gap-2 align-items-center">
+                    <lib-text-input formControlName="notes">
 
-                   </lib-text-input>
-                 </div>
-               </ng-template>
-               <ng-template pTemplate="output">
-                 {{ journalLine.controls['notes'].value }}
-               </ng-template>
-             </p-cellEditor>
-             <lib-field-validations [appControl]="journalLine.controls['notes']">
-             </lib-field-validations>
-           </td>
+                    </lib-text-input>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ journalLine.controls['notes'].value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations [appControl]="journalLine.controls['notes']">
+              </lib-field-validations>
+            </td>
             <td>
               <img (click)="deleteLine(rowIndex)" src="assets/images/table/delete.svg" class="pointer" alt="" />
 
@@ -538,7 +353,7 @@
       </p-table>
 
       <div class="add_new">
-        <button class="btn" type="button" (click)="addNewRow()" >
+        <button class="btn" type="button" (click)="addNewRow()">
           {{ 'add_new_line' | translate }}
         </button>
       </div>
@@ -549,21 +364,12 @@
       <div class="md:col-3">
         <div class="grid">
           <div class="md:col-6">
-            <lib-button-micro
-              title="{{ 'Cancel' | translate }}"
-              nameClass="cancel"
-              widthNumber="100%"
-            >
+            <lib-button-micro title="{{ 'Cancel' | translate }}" nameClass="cancel" widthNumber="100%">
             </lib-button-micro>
           </div>
           <div class="md:col-6">
             <div>
-              <lib-button-micro
-                title="{{ 'Save' | translate }}"
-                nameClass="save"
-                widthNumber="100%"
-                (click)="save()"
-                >
+              <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%" (click)="save()">
               </lib-button-micro>
             </div>
           </div>
@@ -571,24 +377,4 @@
       </div>
     </div>
   </div>
-  <div class="btn_group">
-    <div class="grid">
-      <div class="md:col-3">
-        <div class="grid">
-          <div class="md:col-6">
-            <!-- <lib-button-micro
-              title="Payment method"
-              nameClass="save"
-              widthNumber="100%"
-              (click)="openDialog()"
-              >
-            </lib-button-micro> -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
 </lib-page-content>
