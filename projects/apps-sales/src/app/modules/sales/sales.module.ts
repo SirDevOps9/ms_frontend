@@ -17,6 +17,8 @@ import { MainCustomerDefintionComponent } from './pages/customer-definitions/mai
 import { MainCustomerOpeningBalanceComponent } from './pages/customer-opening-balance/main-customer-opening-balance/main-customer-opening-balance.component';
 import { CustomerOpeningBalanceListComponent } from './pages/customer-opening-balance/customer-opening-balance-list/customer-opening-balance-list.component';
 import { EditCustomerOpeningBalanceComponent } from './pages/customer-opening-balance/edit-customer-opening-balance/edit-customer-opening-balance.component';
+import { ViewCustomerOpeningBalanceComponent } from './pages/customer-opening-balance/view-customer-opening-balance/view-customer-opening-balance.component';
+import { CustomerObViewDistributionComponent } from './components/customer-ob-view-distribution/customer-ob-view-distribution.component';
 
 const routes: Routes = [
   {
@@ -125,6 +127,14 @@ const routes: Routes = [
             data: {
               breadcrumb: BreadcrumbLabel.EDIT_CUSTOMER_OPENEING_BALANCE,
             }
+          },
+          {
+            path: 'view-customer-opening-balance/:id',
+            component: ViewCustomerOpeningBalanceComponent,
+            //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.VIEW_CUSTOMER_OPENEING_BALANCE,
+            }
           }
         ]
       },
@@ -147,7 +157,9 @@ const routes: Routes = [
     MainCustomerDefintionComponent,
     CustomerOpeningBalanceListComponent,
     MainCustomerOpeningBalanceComponent,
-    EditCustomerOpeningBalanceComponent
+    EditCustomerOpeningBalanceComponent,
+    ViewCustomerOpeningBalanceComponent,
+    CustomerObViewDistributionComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })

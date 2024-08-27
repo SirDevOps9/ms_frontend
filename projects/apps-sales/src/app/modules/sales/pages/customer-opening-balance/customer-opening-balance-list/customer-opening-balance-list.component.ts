@@ -23,12 +23,15 @@ export class CustomerOpeningBalanceListComponent implements OnInit {
     private routerService: RouterService,
     private title: Title,
     private langService: LanguageService
-  ) {}
+  ) {
+    this.title.setTitle(this.langService.transalte('openeingBalance.CustomerOpeningBalance'));
+  }
 
   ngOnInit() {
+
     this.subscribes();
     this.initCustomerOpeningBalanceData();
-    this.title.setTitle(this.langService.transalte('payment-in.payment-in'));
+
   }
 
   initCustomerOpeningBalanceData() {
@@ -71,6 +74,7 @@ export class CustomerOpeningBalanceListComponent implements OnInit {
   }
 
   view(id: number) {
-    //todo
-  }
+    this.routerService.navigateTo(
+      `masterdata/customer-opening-balance/view-customer-opening-balance/${id}`
+    );  }
 }

@@ -4,10 +4,13 @@ import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import {
   AddCustomerCategoryDto,
   AddCustomerDefinitionDto,
+  AddCustomerOpeningBalanceDto,
   CustomerCategoryDto,
   EditCustomerCategoryDto,
   EditCustomerDefintionsDto,
   EditCustomerOpeningBalanceDto,
+  GetCustomerOpeningBalanceDto,
+  GetCustomerOpeningBalanceViewDto,
 } from './models';
 import {
   CategoryDropdownDto,
@@ -136,15 +139,19 @@ export class SalesProxyService {
   CustomerDropDownByAccountId(id: number): Observable<any[]> {
     return this.httpService.get<any[]>(`Customer/DropDownByAccountId/${id}`);
   }
-  AddCustomerOpeningBalance(customer: any): Observable<any> {
+  AddCustomerOpeningBalance(customer: AddCustomerOpeningBalanceDto): Observable<AddCustomerOpeningBalanceDto> {
     return this.httpService.post(`CustomerOpeningBalance`, customer);
   }
   editCustomerOpeningBalance(customer: EditCustomerOpeningBalanceDto): Observable<any> {
     return this.httpService.put(`CustomerOpeningBalance`, customer);
   }
-  GetCustomerOpeningBalance(id: number): Observable<any[]> {
-    return this.httpService.get<any[]>(`CustomerOpeningBalance/GetOpeningBalance/${id}`);
+  GetCustomerOpeningBalance(id: number): Observable<GetCustomerOpeningBalanceDto[]> {
+    return this.httpService.get<GetCustomerOpeningBalanceDto[]>(`CustomerOpeningBalance/GetOpeningBalance/${id}`);
   }
+  GetCustomerOpeningBalanceView(id: number): Observable<GetCustomerOpeningBalanceViewDto> {
+    return this.httpService.get<GetCustomerOpeningBalanceViewDto>(`CustomerOpeningBalance/GetOpeningBalanceView/${id}`);
+  }
+  
   deleteCustomerOpeningBalance(id: number): Observable<boolean> {
     return this.httpService.delete<boolean>(`Customer/${id}`);
   }

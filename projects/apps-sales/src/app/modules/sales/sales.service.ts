@@ -19,6 +19,8 @@ import {
   EditCustomerCategoryDto,
   EditCustomerDefintionsDto,
   EditCustomerOpeningBalanceDto,
+  GetCustomerOpeningBalanceDto,
+  GetCustomerOpeningBalanceViewDto,
   GetLineDropDownById,
 } from './models';
 import { SalesProxyService } from './sales-proxy.service';
@@ -56,9 +58,9 @@ export class SalesService {
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   private sendgetVendorCategoryDropdownData = new BehaviorSubject<CategoryDropdownDto[]>([]);
   private openingBalanceJournalEntryDropdownData = new BehaviorSubject<CategoryDropdownDto[]>([]);
-  private LinesDropDownData = new BehaviorSubject<GetLineDropDownById[]>([]);
-  private CustomerDropDownByAccountId = new BehaviorSubject<CustomerDropDown[]>([]);
-  private CustomerOpeningBalancelist = new BehaviorSubject<any[]>([]);
+  public LinesDropDownData = new BehaviorSubject<GetLineDropDownById[]>([]);
+  public CustomerDropDownByAccountId = new BehaviorSubject<CustomerDropDown[]>([]);
+  private CustomerOpeningBalancelist = new BehaviorSubject<GetCustomerOpeningBalanceDto[]>([]);
   private countryDataSource = new BehaviorSubject<CountryDto[]>([]);
   private cityDataSource = new BehaviorSubject<CityDto[]>([]);
   private currenciesDataSource = new BehaviorSubject<CurrencyDto[]>([]);
@@ -94,15 +96,22 @@ export class SalesService {
   public tags = this.tagsDataSource.asObservable();
 
   private exportsCustomerCateogiesDataSource = new BehaviorSubject<CustomerCategoryDto[]>([]);
-  public exportsCustomerCateogiesDataSourceObservable = this.exportsCustomerCateogiesDataSource.asObservable();
+  public exportsCustomerCateogiesDataSourceObservable =
+    this.exportsCustomerCateogiesDataSource.asObservable();
 
   private exportsCustomersDataSource = new BehaviorSubject<CustomerDefinitionDto[]>([]);
   public exportsCustomersDataSourceObservable = this.exportsCustomersDataSource.asObservable();
 
-  public customerOpeningBalanceDataSource = new BehaviorSubject<GetAllCustomerOpeningBalanceDto[]>([])
+  public customerOpeningBalanceDataSource = new BehaviorSubject<GetAllCustomerOpeningBalanceDto[]>(
+    []
+  );
 
-  customerOpeningBalanceObservable = this.customerOpeningBalanceDataSource.asObservable()
+  customerOpeningBalanceObservable = this.customerOpeningBalanceDataSource.asObservable();
 
+  private CustomerOpeningBalanceView = new BehaviorSubject<
+    GetCustomerOpeningBalanceViewDto | undefined
+  >(undefined);
+  public CustomerOpeningBalanceViewObservable = this.CustomerOpeningBalanceView.asObservable();
 
   constructor(
     private loaderService: LoaderService,
@@ -111,7 +120,7 @@ export class SalesService {
     private routerService: RouterService,
     private salesProxy: SalesProxyService,
     private formsService: FormsService,
-    private router: RouterService,
+    private router: RouterService
   ) {}
 
   getcustomerCategory(searchTerm: string, pageInfo: PageInfo) {
@@ -305,17 +314,17 @@ export class SalesService {
     }
   }
 
-  exportCustomerCategoriesData(searchTerm:string | undefined) {
+  exportCustomerCategoriesData(searchTerm: string | undefined) {
     this.salesProxy.exportCustomerCategoriesData(searchTerm).subscribe({
       next: (res) => {
-         this.exportsCustomerCateogiesDataSource.next(res);
+        this.exportsCustomerCateogiesDataSource.next(res);
       },
     });
   }
-  exportCustomersData(searchTerm:string | undefined) {
+  exportCustomersData(searchTerm: string | undefined) {
     this.salesProxy.exportCustomersData(searchTerm).subscribe({
       next: (res) => {
-         this.exportsCustomersDataSource.next(res);
+        this.exportsCustomersDataSource.next(res);
       },
     });
   }
@@ -326,14 +335,14 @@ export class SalesService {
       }
     });
   }
-  getLinesDropDown(id:number){
+  getLinesDropDown(id: number) {
     this.salesProxy.GetLinesDropDown(id).subscribe((res) => {
       if (res) {
         this.LinesDropDownData.next(res);
       }
     });
   }
-  getCustomerDropDownByAccountId(id:number){
+  getCustomerDropDownByAccountId(id: number) {
     this.salesProxy.CustomerDropDownByAccountId(id).subscribe((res) => {
       if (res) {
         this.CustomerDropDownByAccountId.next(res);
@@ -349,7 +358,6 @@ export class SalesService {
           this.languageService.transalte('openeingBalance.CustomerAdded')
         );
         if (res) {
-          this.addCustomerDefinitionRes.next(res);
           this.loaderService.hide();
           this.routerService.navigateTo('/masterdata/customer-opening-balance');
         }
@@ -372,16 +380,22 @@ export class SalesService {
       },
     });
   }
-  getCustomerOpeningBalance(id: number){
+  getCustomerOpeningBalance(id: number) {
     this.salesProxy.GetCustomerOpeningBalance(id).subscribe((res) => {
       if (res) {
         this.CustomerOpeningBalancelist.next(res);
       }
     });
   }
- 
-  async deleteCustomerOpeningBalance(id: number) {
 
+  getCustomerOpeningBalanceView(id: number) {
+    this.salesProxy.GetCustomerOpeningBalanceView(id).subscribe((res) => {
+      if (res) {
+        this.CustomerOpeningBalanceView.next(res);
+      }
+    });
+  }
+  async deleteCustomerOpeningBalance(id: number) {
     const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
       this.loaderService.show();
@@ -393,23 +407,23 @@ export class SalesService {
             this.languageService.transalte('deleted')
           );
           this.loaderService.hide();
-          this.customerDeleted.next(res)
+          this.customerDeleted.next(res);
         },
         error: () => {
           this.loaderService.hide();
           this.toasterService.showError(
             this.languageService.transalte('Company.Error'),
             this.languageService.transalte('DeleteError')
-         );
+          );
         },
       });
     }
   }
 
-  getAllCustomerOpeningBalance(quieries: string, pageInfo: PageInfo)  {
+  getAllCustomerOpeningBalance(quieries: string, pageInfo: PageInfo) {
     this.salesProxy.getAllCustomerOpeningBalance(quieries, pageInfo).subscribe((response) => {
-     this.customerOpeningBalanceDataSource.next(response.result)
-     this.currentPageInfo.next(response.pageInfoResult)
+      this.customerOpeningBalanceDataSource.next(response.result);
+      this.currentPageInfo.next(response.pageInfoResult);
     });
   }
 }

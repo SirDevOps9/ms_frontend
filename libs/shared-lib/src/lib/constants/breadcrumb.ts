@@ -49,6 +49,8 @@ export class BreadcrumbLabel {
   static ADD_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.AddCustomerOpeningBalance';
   static EDIT_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.EditCustomerOpeningBalance';
   static CUSTOMER_OPENEING_BALANCE_List ='BreadCrumb.CustomerOpeningBalanceList';
+  static VIEW_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.ViewCustomerOpeningBalance';
+
 
     static SUBSCRIPTION ='Subscription'
     static USERS = 'Users';

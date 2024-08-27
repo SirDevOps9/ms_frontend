@@ -27,7 +27,8 @@
   "deleted": "تم حذف الرصيد الافتتاحي بنجاح",
   "successAdd": "تمت إضافة الرصيد الافتتاحي بنجاح",
   "Success": "نجاح",
-
+  "Cancel": "إلغاء",
+  "Save": "حفظ",
 
   "openeingBalance": {
     "openingJournal": "دفتر اليومية الافتتاحي",
@@ -53,7 +54,10 @@
     "AmountNature": "طبيعة الحساب",
     "CustomerAdded": "تمت إضافة الرصيد الافتتاحي للعميل بنجاح",
     "CustomerEdited": "تم تعديل الرصيد الافتتاحي للعميل بنجاح",
-    "CustomerDeleted": "تم حذف الرصيد الافتتاحي للعميل بنجاح"
+    "CustomerDeleted": "تم حذف الرصيد الافتتاحي للعميل بنجاح",
+    "CustomerOpeningBalance": "أرصدة افتتاحية العملاء",
+    "natureMismatchWithDuplicateCustomer": "اختلاف في طبيعة المبلغ مع عميل مكرر",
+    "ViewCustomerOpeningBalance": "عرض رصيد افتتاحي للعميل"
   },
 
   "Table": {

@@ -8,7 +8,8 @@
     "EditCustomerDefinition":"Edit Customer Definition",
     "CustomerOpeningBalanceList":"Customer Opening Balance list",
     "AddCustomerOpeningBalance": "Add Customer Opening Balance",
-    "EditCustomerOpeningBalance":"Edit Customer Opening Balance"
+    "EditCustomerOpeningBalance":"Edit Customer Opening Balance",
+    "ViewCustomerOpeningBalance":"View Customer Opening Balance"
   },
   "dir": "ltr",
   "Welcome": "Welcome",
@@ -28,7 +29,8 @@
   "successAdd":"Opening Balance Added Successfully",
   "dueDate" : "Due Date Distribution",
   "Success":"Success",
-
+  "Cancel" : "Cancel",
+  "Save" : "Save",
 
 
   "Table": {
@@ -168,7 +170,9 @@
       "AmountNature":"Account Nature",
       "CustomerAdded":"Customer Opening Balance Added Successfully",
       "CustomerEdited":"Customer Opening Balance Edited Successfully",
-      "CustomerDeleted":"Customer Opening Balance Deleted Successfully"
+      "CustomerDeleted":"Customer Opening Balance Deleted Successfully",
+      "CustomerOpeningBalance":"Customer Opening Balance",
+      "natureMismatchWithDuplicateCustomer": "Amount nature mismatch with the duplicated customer"
     },
     "AddCustomerDefinition": {
       "customerCode": "Customer Code",
