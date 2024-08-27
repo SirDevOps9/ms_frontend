@@ -11,13 +11,26 @@ export enum paymentplace {
     Master = 5,
     Span = 6
   }
+  export enum paymentMethodTypeString {
+    Cash = "Cash",
+    Check = "Check",
+    Transfer = "Transfer",
+    Visa = "Visa",
+    Master = "Master",
+    Span = "Span",
+  }
 
   export enum commissiontype {
     Amount=1,
     Percent=2,
   }
   export enum paiedDropDown {
-    customer =1,
-    vendor =2,
-    other = 3
+    customer ="customer",
+    vendor ="vendor",
+    other = "other"
+  }
+  export enum costCenterConfig {
+    NotAllow ="NotAllow",
+    Optional ="Optional",
+    Mandatory = "Mandatory"
   }

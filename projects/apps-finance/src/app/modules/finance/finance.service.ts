@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FinanceProxyService } from './finance-proxy.service';
 import { HttpService, LanguageService, LoaderService, PageInfo, PageInfoResult, PaginationVm, RouterService, ToasterService } from 'shared-lib';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
-import { AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, EditTreasuryDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
+import { AccountDto, AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, EditTreasuryDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { HttpClient } from '@angular/common/http';
@@ -40,6 +40,13 @@ export class FinanceService {
   public getBankDropDownData = new BehaviorSubject<any>([])
   public getCustomerDropdownData = new BehaviorSubject<any>([])
   public getVendorDropdownData = new BehaviorSubject<any>([])
+  public AllPayMethodsDropdown = new BehaviorSubject<any>([])
+  public AllTreasuriesPayMethodsDropdown = new BehaviorSubject<any>([])
+  public AccountBalance = new BehaviorSubject<number>(0)
+  public TreasuryBalance = new BehaviorSubject<number>(0)
+  public childrenAccountDataSource = new BehaviorSubject<AccountDto[]>([]);
+  public childrenAccountList = this.childrenAccountDataSource.asObservable();
+  public childrenAccountPageInfo = new BehaviorSubject<PageInfoResult>({});
 
 
 
@@ -65,6 +72,10 @@ export class FinanceService {
   paymentMethodDataSourceObservable = this.paymentMethodDataSource.asObservable()
   exportedPaymentMethodDataSourceObservable = this.exportedpaymentMethodListDataSource.asObservable()
   sendPaymentMethodByIDObservable = this.sendPaymentMethodByID.asObservable()
+  AllPayMethodsDropdownObservable = this.AllPayMethodsDropdown.asObservable()
+  AllTreasuriesPayMethodsDropdownObservable = this.AllTreasuriesPayMethodsDropdown.asObservable()
+  AccountBalanceObservable = this.AccountBalance.asObservable()
+  TreasuryBalanceObservable = this.TreasuryBalance.asObservable()
 
   
 
@@ -365,10 +376,6 @@ export class FinanceService {
     });
   }
 
-  // treasuryDropDown() {
-  //   return this.financeProxy.treasuryDropDown()
-
-  // }
   treasuryDropDown() {
     this.financeProxy.treasuryDropDown().subscribe((res) => {
       if (res) {
@@ -420,6 +427,53 @@ export class FinanceService {
         );
         this.routerService.navigateTo('/masterdata/payment-method')
         
+      }
+    })
+  }
+  addPaymentIn(obj:AddPaymentTermDto) {
+    this.financeProxy.addPaymentIn(obj).subscribe({
+      
+      next:(res)=> {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('PaymentIn.Success'),
+          this.languageService.transalte('PaymentIn.PaymentInAddedSuccessfully')
+        );        
+      },
+      error:(error)=>{
+        this.toasterService.showError(
+          this.languageService.transalte('PaymentIn.Error'),
+          this.languageService.transalte('PaymentIn.addedError')
+        ); 
+      }
+    })
+  }
+  GetAllPayMethodsDropdown(BankId:number ,BankAccountId: number ) {
+    this.financeProxy.GetAllPayMethodsDropdown(BankId , BankAccountId).subscribe(res=>{
+      if(res) {
+       this.AllPayMethodsDropdown.next(res)
+        
+      }
+    })
+  }
+  GetAllTreasuriesPaymentMethodsDropdown() {
+    this.financeProxy.GetAllTreasuriesPaymentMethodsDropdown().subscribe(res=>{
+      if(res) {
+       this.AllTreasuriesPayMethodsDropdown.next(res)
+        
+      }
+    })
+  }
+  GetTreasuryBalance(id:number){
+    this.financeProxy.GetTreasuryBalance(id).subscribe(res=>{
+      if(res) {
+        this.TreasuryBalance.next(res)        
+      }
+    })
+  }
+  GetAccountBalance(id:number){
+    this.financeProxy.GetAccountBalance(id).subscribe(res=>{
+      if(res) {
+       this.AccountBalance.next(res)
       }
     })
   }

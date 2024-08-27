@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-import { paiedDropDown, paymentmethodtype } from "./enums";
+import { costCenterConfig, paiedDropDown, paymentmethodtype, paymentMethodTypeString } from "./enums";
+import { commissionTypeString } from "./commissionType";
 
 
 @Injectable({
@@ -12,4 +13,14 @@ export class SharedJournalEnums {
     get paiedDropDown(): typeof paiedDropDown {
         return paiedDropDown;
     }
+    get paymentMethodTypeString(): typeof paymentMethodTypeString {
+        return paymentMethodTypeString;
+    }
+    get costCenterConfig(): typeof costCenterConfig {
+        return costCenterConfig;
+    }
+    get commissionTypeString(): typeof commissionTypeString {
+        return commissionTypeString;
+    }
 }
+  

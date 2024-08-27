@@ -387,6 +387,30 @@
       "LinkedGLAccount" : "linked GL account",
       "CostCenter" : "cost center",
       "Notes" : "notes"
-    }
+    },
+    "Success": "Success",
+    "PaymentInAddedSuccessfully": "PaymentIn added successfully",
+    "addedError": "Error in added",
+    "Error":"Error"
+
+  },
+  "popupPayment":{ 
+    "AccountName": "Account Name",
+    "AccountCode": "Account Code",
+    "Search": "Search",
+    "Actions": "Actions",
+    "ChooseAnAccount": "Choose An Account",
+    "Select": "Select",
+    "Id": "Id"
+  },
+  "popupCostCenter":{
+    "CostCenter" : "cost center",
+    "Percentage": "Percentage",
+    "Amount" : "Amount",
+    "Actions": "Actions",
+    "AddNewLine": "Add New Line",
+    "error":"Percentage Calculation Shouldn't be more than 100"
+
+
   }
 }

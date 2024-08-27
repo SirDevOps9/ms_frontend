@@ -26,6 +26,10 @@ import { AddPaymentInComponent } from './pages/payment-in/add-payment-in/add-pay
 import { EditPaymentInComponent } from './pages/payment-in/edit-payment-in/edit-payment-in.component';
 import { PaymentMethodComponent } from './components/payment-in/payment-method/payment-method.component';
 import { PaymentInListComponent } from './pages/payment-in/payment-in-list/payment-in-list.component';
+import { PopupAccountsComponent } from './components/payment-in/popup-accounts/popup-accounts.component';
+import { PopupCostcenterComponent } from './components/payment-in/popup-costcenter/popup-costcenter.component';
+import { AddCostCenterComponent } from './components/payment-in/add-cost-center/add-cost-center.component';
+import { EditCostCenterComponent } from './components/payment-in/edit-cost-center/edit-cost-center.component';
 
 const routes: Routes = [
   {
@@ -201,7 +205,11 @@ const routes: Routes = [
     AddPaymentInComponent,
     EditPaymentInComponent,
     PaymentMethodComponent,
-    PaymentInListComponent
+    PaymentInListComponent,
+    PopupAccountsComponent,
+    PopupCostcenterComponent,
+    AddCostCenterComponent,
+    EditCostCenterComponent
   ],
   imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes)],
 })

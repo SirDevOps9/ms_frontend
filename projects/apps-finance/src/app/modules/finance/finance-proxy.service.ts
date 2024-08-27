@@ -165,13 +165,13 @@ export class FinanceProxyService {
     return this.httpService.get(`Bank/BankDropDown`);
   }
   treasuryDropDown() : Observable<{ id: number; name: string }[]> {
-    return this.httpService.get(`Treasury/TreasuryDropDown`);
+    return this.httpService.get(`Treasury/GetAllTreasuriesDropdown`);
   }
   CustomerDropdown() : Observable<{ id: number; name: string }[]> {
-    return this.httpService.get(`Customer/CustomerDropdown`);
+    return this.httpService.get(`Customer/GetAllCustomersDropdown`);
   }
   VendorDropdown() : Observable<{ id: number; name: string }[]> {
-    return this.httpService.get(`Vendor/VendorDropdown`);
+    return this.httpService.get(`Vendor/GetAllVendorsDropdown`);
   }
  
 
@@ -186,4 +186,20 @@ export class FinanceProxyService {
     return this.httpService.put(`PaymentMethod` , obj);
 
   }
+  addPaymentIn(obj : any) {
+    return this.httpService.post('PaymentIn' , obj)
+  }
+  GetAllPayMethodsDropdown(bankId:number ,BankAccountId:number ) : Observable<any[]> {
+    return this.httpService.get(`PaymentMethod/GetAllBankPaymentMethodsDropdown/${bankId}/${BankAccountId}`);
+  }
+  GetAllTreasuriesPaymentMethodsDropdown() : Observable<any[]> {
+    return this.httpService.get(`PaymentMethod/GetAllTreasuriesPaymentMethodsDropdown`);
+  }
+  GetTreasuryBalance(id:number) : Observable<number> {
+    return this.httpService.get(`Treasury/GetBalance/${id}`);
+  }
+  GetAccountBalance(id:number) : Observable<number> {
+    return this.httpService.get(`Bank/GetAccountBalance/${id}`);
+  }
+  
 }

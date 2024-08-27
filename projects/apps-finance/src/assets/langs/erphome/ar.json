@@ -326,7 +326,29 @@
     "LinkedGLAccount": "حساب GL المرتبط",
     "CostCenter": "مركز التكلفة",
     "Notes": "ملاحظات"
-  }
+  },
+  "Success": "نجاح",
+  "PaymentInAddedSuccessfully": "تمت إضافة PaymentIn بنجاح",
+  "addedError": "خطأ في الإضافة",
+  "Error": "خطأ"
   
+},
+"popupPayment": { 
+  "AccountName": "اسم الحساب",
+  "AccountCode": "رمز الحساب",
+  "Search": "بحث",
+  "Actions": "إجراءات",
+  "ChooseAnAccount": "اختر حساباً",
+  "Select": "اختيار",
+  "Id": "معرف"
+},
+"popupCostCenter": {
+  "CostCenter": "مركز التكلفة",
+  "Percentage": "النسبة المئوية",
+  "Amount": "المبلغ",
+  "Actions": "إجراءات",
+  "AddNewLine": "إضافة سطر جديد",
+  "error": "يجب ألا تتجاوز نسبة الحساب 100"
+
 }
 }
