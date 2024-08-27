@@ -580,7 +580,7 @@ const chequeDueDate = this.formatDate(this.paymentform.controls['chequeDueDate']
 
   }
   save() {
-    // if (!this.formsService.validForm(this.paymentInDetailsFormArray && this.addForm, false)) return;
+    if (!this.formsService.validForm(this.paymentInDetailsFormArray && this.addForm, false)) return;
 
     // const formattedChequeDueDate = this.formatDate(this.addForm.controls['chequeDueDate'].value, 'yyyy-MM-dd');
     const formattedPaymentInDate = this.formatDate(this.addForm.controls['PaymentInDate'].value, 'yyyy-MM-dd');
