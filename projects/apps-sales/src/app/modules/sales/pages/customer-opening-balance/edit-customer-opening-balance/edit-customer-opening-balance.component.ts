@@ -98,17 +98,9 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
     this.customerForm.updateValueAndValidity();
   }
 
-  async removeByFront(index: number) {
-    const confirmed = await this.toasterService.showConfirm('Delete');
-
-    if (confirmed) {
-      this.toasterService.showSuccess(
-        this.languageService.transalte('deleteCustomerDefinition.success'),
-        this.languageService.transalte('DeletedSuccessfully')
-      );
-      this.customerForm.removeAt(index);
-      this.calculateTotalBalance();
-    }
+  removeByFront(index: number) {
+    this.customerForm.removeAt(index);
+    this.calculateTotalBalance();
   }
 
   onDelete(id: number, index: number): void {
@@ -123,7 +115,6 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
         }
       });
     }
-    this.calculateTotalBalance();
   }
 
   customerLineFormGroup(): FormGroup {

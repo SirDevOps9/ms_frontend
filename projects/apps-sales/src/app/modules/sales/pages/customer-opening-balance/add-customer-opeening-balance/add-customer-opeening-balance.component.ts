@@ -99,32 +99,12 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     this.items.push(this.customerLineFormGroup());
     this.customerForm.updateValueAndValidity();
   }
-  async removeByFront(index: number) {
-    const confirmed = await this.toasterService.showConfirm('Delete');
-
-    if (confirmed) {
-      this.toasterService.showSuccess(
-        this.languageService.transalte('deleteCustomerDefinition.success'),
-        this.languageService.transalte('DeletedSuccessfully')
-      );
-      this.customerForm.removeAt(index);
-      this.calculateTotalBalance();
-    }
-  }
-  onDelete(id: number, index: number): void {
-    if (id == 0) {
-      this.removeByFront(index);
-    } else {
-      this.SalesService.deleteCustomerOpeningBalance(id);
-      this.SalesService.customerDeletedObser.subscribe((res: boolean) => {
-        if (res == true) {
-          this.customerForm.removeAt(index);
-          this.calculateTotalBalance();
-        }
-      });
-    }
+  removeByFront(index: number) {
+    this.customerForm.removeAt(index);
     this.calculateTotalBalance();
   }
+
+
   customerLineFormGroup(): FormGroup {
     return this.fb.group({
       id: 0,

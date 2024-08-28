@@ -146,14 +146,14 @@ export class SalesProxyService {
     return this.httpService.put(`CustomerOpeningBalance`, customer);
   }
   GetCustomerOpeningBalance(id: number): Observable<GetCustomerOpeningBalanceDto[]> {
-    return this.httpService.get<GetCustomerOpeningBalanceDto[]>(`CustomerOpeningBalance/GetOpeningBalance/${id}`);
+    return this.httpService.get<GetCustomerOpeningBalanceDto[]>(`CustomerOpeningBalance/GetById/${id}`);
   }
   GetCustomerOpeningBalanceView(id: number): Observable<GetCustomerOpeningBalanceViewDto> {
     return this.httpService.get<GetCustomerOpeningBalanceViewDto>(`CustomerOpeningBalance/GetOpeningBalanceView/${id}`);
   }
   
   deleteCustomerOpeningBalance(id: number): Observable<boolean> {
-    return this.httpService.delete<boolean>(`Customer/${id}`);
+    return this.httpService.delete<boolean>(`CustomerOpeningBalance/${id}`);
   }
 
   getAllCustomerOpeningBalance(
