@@ -83,9 +83,8 @@ export class AddPaymentInComponent {
     this.initializeForm();
     this.subscribe();
     this.initializeDropDown();
-
     this.loadLookups();
-
+    this.addNewRow()
 
 
   }
@@ -257,10 +256,14 @@ export class AddPaymentInComponent {
       this.AllTreasuriesPayMethod = res
     })
     this.FinanceService.TreasuryBalanceObservable.subscribe((res: any) => {
-      this.TreasuryBalance = res
+      // this.TreasuryBalance = res
+      this.addForm.controls['currentBalance'].patchValue(res)
+
     })
     this.FinanceService.AccountBalanceObservable.subscribe((res: any) => {
-      this.AccountBalance = res
+      // this.AccountBalance = res
+      this.addForm.controls['AccountBalance'].patchValue(res)
+
     })
     this.addForm.get('PaymentInDate')?.valueChanges.subscribe((res: any) => {
       this.PaymentInDate = this.formatDate(res, 'yyyy-MM-dd');
@@ -292,7 +295,10 @@ export class AddPaymentInComponent {
 
   }
   addNewRow() {
-    if (!this.formsService.validForm(this.paymentInDetailsFormArray, false)) return;
+    
+      if (!this.formsService.validForm(this.paymentInDetailsFormArray, false) ) return;
+
+    
     let newLine = this.formBuilder.group(
       {
         amount: new FormControl(0, [customValidators.required, customValidators.number, customValidators.hasSpaces]),
@@ -460,35 +466,22 @@ export class AddPaymentInComponent {
       journalLine.get('paymentMethodName')?.setValue(selectedPayment?.name);
       journalLine.get('paymentMethodType')?.setValue(selectedPayment?.paymentMethodType);
 
-      this.paymentform = this.formBuilder.group({
-        paymentMethodId: new FormControl(selectedPayment?.id),
-        chequeNumber: new FormControl(null),
-        chequeDueDate: new FormControl(null),
-        bankReference: new FormControl(null),
-        VatAmount: new FormControl(null),
-        CommissionAmount: new FormControl(null),
-      });
-      const chequeDueDate = this.formatDate(this.paymentform.controls['chequeDueDate'].value, 'yyyy-MM-dd');
-      // this.paymentform.controls['chequeDueDate'].patchValue(chequeDueDate);
-      journalLine.get('paymentInMethodDetails')?.setValue(this.paymentform.value);
+      // this.paymentform = this.formBuilder.group({
+      //   paymentMethodId: new FormControl(selectedPayment?.id),
+      //   chequeNumber: new FormControl(null),
+      //   chequeDueDate: new FormControl(null),
+      //   bankReference: new FormControl(null),
+      //   VatAmount: new FormControl(null),
+      //   CommissionAmount: new FormControl(null),
+      // });
+
+      // journalLine.get('paymentInMethodDetails')?.setValue([]);
       return selectedPayment ? selectedPayment.name : '';
 
     } else {
       const selectedPayment = this.AllTreasuriesPayMethod.find(method => method.id === paymentMethodId);
       journalLine.get('paymentMethodName')?.setValue(selectedPayment?.name);
-      this.paymentform = this.formBuilder.group({
-        paymentMethodId: new FormControl(selectedPayment?.id),
-        chequeNumber: new FormControl(null),
-        chequeDueDate: new FormControl(null),
-        bankReference: new FormControl(null),
-        VatAmount: new FormControl(null),
-        CommissionAmount: new FormControl(null),
-      });
-      const chequeDueDate = this.formatDate(this.paymentform.controls['chequeDueDate'].value, 'yyyy-MM-dd');
-      // this.paymentform.controls['chequeDueDate'].patchValue(chequeDueDate);
-
-      journalLine.get('paymentInMethodDetails')?.setValue(this.paymentform.value);
-
+      journalLine.get('paymentInMethodDetails')?.setValue([]);
       return selectedPayment ? selectedPayment.name : '';
     }
 
