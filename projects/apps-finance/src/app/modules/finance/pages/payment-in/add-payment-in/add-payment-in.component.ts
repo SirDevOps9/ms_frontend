@@ -6,22 +6,20 @@ import {
   LookupEnum,
   LookupsService,
   PageInfo,
-  PageInfoResult,
-  RouterService,
   ToasterService,
   customValidators,
   lookupDto,
 } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PaymentMethodComponent } from '../../../components/payment-in/payment-method/payment-method.component';
-import { paymentplace, paymentmethodtype, paymentplaceString } from '../../../models/enums';
+import { paymentplace, paymentplaceString } from '../../../models/enums';
 import { FinanceService } from '../../../finance.service';
 import { CurrencyDto } from '../../../../general/models';
 import { SharedJournalEnums } from '../../../models/sharedEnums';
 import { AccountDto, BankAccount, BankPaymentMethods, costCenters, CustomerDropDown, PaidByDropDown, SimpleDropDown, TreasuriesPaymentMethod, TreasuryDropDown, VendorDropDown } from '../../../models';
 import { PopupAccountsComponent } from '../../../components/payment-in/popup-accounts/popup-accounts.component';
 import { AddCostCenterComponent } from '../../../components/payment-in/add-cost-center/add-cost-center.component';
-import { DatePipe, formatDate } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 
 @Component({
@@ -217,6 +215,7 @@ export class AddPaymentInComponent {
   getpaidByDetails(index: number, name: string) {
     const journalLine = this.paymentInDetailsFormArray.at(index);
     journalLine.get('glAccountname')?.setValue(null);
+    journalLine.get('paidByDetailsName')?.setValue(null);
     if (name == this.SharedJournalEnums.paiedDropDown.customer) {
       this.paidByDetailsCustomer = this.customerDropDown
     } else if (name == this.SharedJournalEnums.paiedDropDown.vendor) {
@@ -405,16 +404,16 @@ updatecurrencyIdnPaymentDetails(currencyId: any) {
   bankAccountDropDown(id: number) {
 
     if (this.selectedBank) {
-      console.log( this.selectedBank,"44444444444");
-
       this.FinanceService.BankAccountDropDown(id).subscribe((res: any) => {
         this.bankAccount = res
         this.addForm.controls['currencyId'].patchValue(null)
       })
     } else if(!this.selectedBank) {
-      console.log( this.paymentHubDetails,"44444444444");
-
       this.TreasuryDropDown.forEach((e: any) => {
+        console.log(e ,"7777777777");
+        console.log(id ,"7777777777");
+
+        
         if(id==e.id){
           this.selectedCurrency = e.currencyName
         
