@@ -24,7 +24,7 @@ export class EditPaymentMethodComponent implements OnInit {
   id: number = this.route.snapshot.params['id']
   originalPaymentMethodTypeLookups: lookupDto[] = [];
   disableCommission: boolean = false;
-  TaxList: DropDownDto[];
+  taxList: DropDownDto[];
 
 
 
@@ -152,7 +152,7 @@ export class EditPaymentMethodComponent implements OnInit {
     this.financeService.getTaxDropDown();
     
     this.financeService.taxDropDowmSourceObservable.subscribe((res) => {
-      this.TaxList =res;
+      this.taxList =res;
     });
   }
 

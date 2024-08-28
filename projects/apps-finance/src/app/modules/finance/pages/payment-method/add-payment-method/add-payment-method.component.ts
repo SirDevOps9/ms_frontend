@@ -19,7 +19,7 @@ export class AddPaymentMethodComponent implements OnInit {
   lookups: { [key: string]: lookupDto[] };
   accountsList: { id: number; name: string }[];
   BankList: { id: number; name: string }[];
-  TaxList: DropDownDto[];
+  taxList: DropDownDto[];
   BankAccountList: BankAccountWithCurrency[]=[];
   paymentplaceEnum: paymentplace;
   originalPaymentMethodTypeLookups: lookupDto[] = [];
@@ -139,7 +139,7 @@ export class AddPaymentMethodComponent implements OnInit {
     this.financeService.getTaxDropDown();
     
     this.financeService.taxDropDowmSourceObservable.subscribe((res) => {
-      this.TaxList =res;
+      this.taxList =res;
     });
   }
 
