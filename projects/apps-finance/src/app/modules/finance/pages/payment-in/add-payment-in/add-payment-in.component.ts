@@ -378,6 +378,7 @@ export class AddPaymentInComponent {
     const journalLine = this.paymentInDetailsFormArray.at(index);
     journalLine.get('accountName')?.setValue(selectedAccount.name);
     journalLine.get('costCenterConfig')?.setValue(selectedAccount.costCenterConfig);
+    journalLine.get('glAccountId')?.setValue(selectedAccount.id);
 
   }
   accountSelected(event: any, id: number) {
@@ -579,7 +580,7 @@ export class AddPaymentInComponent {
     if (!this.formsService.validForm(this.paymentInDetailsFormArray && this.addForm, false)) return;
 
     let lineNumber = 0;
-    let validpaymentInDetails:boolean = true;
+    let validpaymentInDetails: boolean = true;
     this.paymentInDetailsFormArray.controls.forEach((control) => {
 
       lineNumber++;
@@ -590,7 +591,7 @@ export class AddPaymentInComponent {
             this.langService.transalte('PaymentIn.Error'),
             this.langService.transalte(`PaymentIn.paymentMethodTypeRequired`) + lineNumber
           );
-          validpaymentInDetails=false
+          validpaymentInDetails = false
           return
         }
 
@@ -601,7 +602,7 @@ export class AddPaymentInComponent {
             this.langService.transalte('PaymentIn.Error'),
             this.langService.transalte(`PaymentIn.paymentMethodTypeRequired`) + lineNumber
           );
-          validpaymentInDetails=false
+          validpaymentInDetails = false
 
           return
         }
@@ -613,40 +614,40 @@ export class AddPaymentInComponent {
             this.langService.transalte('PaymentIn.Error'),
             this.langService.transalte(`PaymentIn.paymentMethodTypeRequired`) + lineNumber
           );
-          validpaymentInDetails=false
+          validpaymentInDetails = false
 
           return
         }
 
       }
     });
-    if(validpaymentInDetails){
+    if (validpaymentInDetails) {
       // const formattedChequeDueDate = this.formatDate(this.addForm.controls['chequeDueDate'].value, 'yyyy-MM-dd');
-    const formattedPaymentInDate = this.formatDate(this.addForm.controls['PaymentInDate'].value, 'yyyy-MM-dd');
-    const paymentHubDetailId = this.addForm.controls['paymentHubDetailId'].value.toString();
-    this.paymentInDetailsFormArray.controls.forEach((control) => {
-      if (control instanceof FormGroup) {
-        const paidByDetailsIdControl = control.get('paidByDetailsId');
+      const formattedPaymentInDate = this.formatDate(this.addForm.controls['PaymentInDate'].value, 'yyyy-MM-dd');
+      const paymentHubDetailId = this.addForm.controls['paymentHubDetailId'].value.toString();
+      this.paymentInDetailsFormArray.controls.forEach((control) => {
+        if (control instanceof FormGroup) {
+          const paidByDetailsIdControl = control.get('paidByDetailsId');
 
-        if (paidByDetailsIdControl) {
-          const paidByDetailsId = paidByDetailsIdControl.value.toString();
-          control.get('paidByDetailsId')?.setValue(paidByDetailsId)
-          // Add your logic here to work with paidByDetailsId
+          if (paidByDetailsIdControl) {
+            const paidByDetailsId = paidByDetailsIdControl.value.toString();
+            control.get('paidByDetailsId')?.setValue(paidByDetailsId)
+            // Add your logic here to work with paidByDetailsId
+          } else {
+          }
         } else {
         }
-      } else {
-      }
-    });
-    // Update the form controls with the formatted dates if necessary
-    // this.addForm.controls['chequeDueDate'].setValue(formattedChequeDueDate);
-    this.addForm.controls['PaymentInDate'].setValue(formattedPaymentInDate);
-    this.addForm.controls['paymentHubDetailId'].setValue(paymentHubDetailId);
+      });
+      // Update the form controls with the formatted dates if necessary
+      // this.addForm.controls['chequeDueDate'].setValue(formattedChequeDueDate);
+      this.addForm.controls['PaymentInDate'].setValue(formattedPaymentInDate);
+      this.addForm.controls['paymentHubDetailId'].setValue(paymentHubDetailId);
 
-    // Now you can proceed with saving the form data
+      // Now you can proceed with saving the form data
 
-    this.FinanceService.addPaymentIn(this.addForm.value)
+      this.FinanceService.addPaymentIn(this.addForm.value)
     }
-    
+
   }
   formatDate(date: string, format: string): string {
     const pipe = new DatePipe('en-US');
