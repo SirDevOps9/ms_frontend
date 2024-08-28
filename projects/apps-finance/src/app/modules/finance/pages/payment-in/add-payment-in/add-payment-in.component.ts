@@ -660,14 +660,14 @@ const chequeDueDate = this.formatDate(this.paymentform.controls['chequeDueDate']
       const customer = this.customerDropDown.find((e) => e.id === id);
       if (customer) {
 
-        journalLine.get('glAccountId')?.setValue(customer.id);
+        journalLine.get('glAccountId')?.setValue(customer.accountId);
         journalLine.get('glAccountname')?.setValue(customer.accountName);
 
       }
     } else if (paidByValue === this.SharedJournalEnums.paiedDropDown.vendor) {
       const vendor = this.vendorDropDown.find((e) => e.id === id);
       if (vendor) {
-        journalLine.get('glAccountId')?.setValue(vendor.id);
+        journalLine.get('glAccountId')?.setValue(vendor.accountId);
         journalLine.get('glAccountname')?.setValue(vendor.accountName);
 
       }
