@@ -13,6 +13,7 @@ import { VendorDefinitionsListComponent } from './pages/vendor-definitions/vendo
 import { MainVendorCategoryComponent } from './pages/vendor-category/main-vendor-category/main-vendor-category.component';
 import { MainVendorDefintionsComponent } from './pages/vendor-definitions/main-vendor-defintions/main-vendor-defintions.component';
 import { VendorOpeningBalanceComponent } from './pages/vendor-opening-balance/vendor-opening-balance.component';
+import { VendorOpeningBalanceListComponent } from './pages/vendor-opening-balance/vendor-opening-balance-list/vendor-opening-balance-list.component';
 
 const routes: Routes = [
   {
@@ -91,13 +92,35 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'vendor-opening',
-        component: VendorOpeningBalanceComponent,
-       // canActivate: [AuthGuard],
+        path: 'vendor-opening-balance',
+        component: MainVendorDefintionsComponent,
         data: {
           breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE,
         },
-      },
+        children:[
+          {
+            path: '',
+            component: VendorOpeningBalanceListComponent,
+            data: {
+              breadcrumb: '',
+            },
+          },
+          {
+            path: 'add-vendor-opening-balance',
+            component: AddVendorDefinitionsComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE_ADD,
+            },
+          },
+          {
+            path: 'edit-vendor-opening-balance/:id',
+            component: EditVendorDefinitionsComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE_EDIT,
+            },
+          },
+        ]
+      }
     ],
   },
 ];
@@ -112,7 +135,8 @@ const routes: Routes = [
     EditVendorDefinitionsComponent,
     VendorOpeningBalanceComponent,
     MainVendorCategoryComponent,
-    MainVendorDefintionsComponent
+    MainVendorDefintionsComponent,
+    VendorOpeningBalanceListComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })
