@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
-import { AccountDto, AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, Balance, CurrencyRateDto, DropDownDto, EditTreasuryDto, GetAllPaymentInDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
+import { AccountDto, AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, Balance, CurrencyRateDto, CustomerDropDown, DropDownDto, EditTreasuryDto, GetAllPaymentInDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto, SimpleDropDown, TreasuryDropDown, VendorDropDown } from './models';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { AddBankDto } from './models/addBankDto';
 import { UserPermission } from './models/user-permission';
@@ -161,16 +161,16 @@ export class FinanceProxyService {
     return this.httpService.get(`Bank/BankAccountDropDown?bankId=${bankId}`);
   }
 
-  BankDropDown() : Observable<{ id: number; name: string }[]> {
+  BankDropDown() : Observable<DropDownDto[]> {
     return this.httpService.get(`Bank/BankDropDown`);
   }
-  treasuryDropDown() : Observable<{ id: number; name: string }[]> {
+  treasuryDropDown() : Observable<TreasuryDropDown[]> {
     return this.httpService.get(`Treasury/GetAllTreasuriesDropdown`);
   }
-  CustomerDropdown() : Observable<{ id: number; name: string }[]> {
+  CustomerDropdown() : Observable<CustomerDropDown[]> {
     return this.httpService.get(`Customer/GetAllCustomersDropdown`);
   }
-  VendorDropdown() : Observable<{ id: number; name: string }[]> {
+  VendorDropdown() : Observable<VendorDropDown[]> {
     return this.httpService.get(`Vendor/GetAllVendorsDropdown`);
   }
  

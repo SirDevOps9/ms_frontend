@@ -3,5 +3,6 @@ export interface BankPaymentMethods {
         name:string,
         paymentMethodType: string,
         commissionType: string,
-        commissionValue: number
+        commissionValue: number,
+        ratio:number,
     }

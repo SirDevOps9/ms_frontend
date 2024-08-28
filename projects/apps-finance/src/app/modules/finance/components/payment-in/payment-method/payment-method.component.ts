@@ -16,15 +16,19 @@ export class PaymentMethodComponent {
   paymentmethod?: string
   paymentmethodId?: number
   amount: number
+  ratio: number
+  vat: number
   CommissionAmount: number = 0
   paymentMethodTypeString: paymentMethodTypeString
 
   ngOnInit() {
     if (this.config.data) {
+      
       this.paymentmethod = this.config.data.paymentMethodType;
       this.paymentmethodId = this.config.data.paymentMethodId;
+      this.ratio = this.config.data.ratio;
       this.amount = parseInt(this.config.data.amount);
-
+      
       if (this.config.data?.paymentInMethodDetails) {
         const paymentDetails = this.config.data.paymentInMethodDetails;
         this.initializeForm();
@@ -48,6 +52,10 @@ export class PaymentMethodComponent {
       } else if (this.config.data.selectedPayment.commissionType == this.SharedJournalEnums.commissionTypeString.Amount) {
         this.CommissionAmount = (this.config.data.selectedPayment.commissionValue);
       }
+      if(this.config.data.selectedPayment.commissionType ){
+        this.vat = (this.CommissionAmount * this.config.data.ratio) / 100
+      }
+
 
     }
     this.initializeForm();
@@ -102,12 +110,8 @@ export class PaymentMethodComponent {
   constructor(
     private formBuilder: FormBuilder,
     private ref: DynamicDialogRef,
-    private cdr: ChangeDetectorRef,
-
     public config: DynamicDialogConfig,
     public SharedJournalEnums: SharedJournalEnums,
     private formsService: FormsService,
-
-
   ) { }
 }
