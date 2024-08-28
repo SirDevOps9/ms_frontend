@@ -30,6 +30,7 @@ import { PopupAccountsComponent } from './components/payment-in/popup-accounts/p
 import { PopupCostcenterComponent } from './components/payment-in/popup-costcenter/popup-costcenter.component';
 import { AddCostCenterComponent } from './components/payment-in/add-cost-center/add-cost-center.component';
 import { EditCostCenterComponent } from './components/payment-in/edit-cost-center/edit-cost-center.component';
+import { MainPaymentInComponent } from './pages/payment-in/main-payment-in/main-payment-in.component';
 
 const routes: Routes = [
   {
@@ -116,7 +117,15 @@ const routes: Routes = [
             data: {
               breadcrumb: BreadcrumbLabel.PAYMENT_TERM_Edit,
             },
+            
           },
+          {
+            path: 'payment-in',
+            component: PaymentInListComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.PAYMENT_IN_LIST,
+            },
+          }
         ]
         },
       {
@@ -157,13 +166,20 @@ const routes: Routes = [
       },
       {
         path: 'paymentin',
-        component: AddPaymentInComponent,
+        component: MainPaymentInComponent,
         data: {
           breadcrumb: BreadcrumbLabel.PAYMENT_IN,
         },
         children:[
           {
-            path: 'add-payment-in',
+            path: '',
+            component: PaymentInListComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.PAYMENT_IN_LIST,
+            },
+          },
+          {
+            path: 'add',
             component: AddPaymentInComponent,
             data: {
               breadcrumb: BreadcrumbLabel.ADD_PAYMENT_IN,
@@ -178,6 +194,12 @@ const routes: Routes = [
           },
         ]
         },
+      //   path: 'payment-in',
+      //   component: PaymentInListComponent,
+      //   data: {
+      //     breadcrumb: BreadcrumbLabel.PAYMENT_IN_LIST,
+      //   },
+      // }
     ],
   },
 ];
@@ -209,7 +231,9 @@ const routes: Routes = [
     PopupAccountsComponent,
     PopupCostcenterComponent,
     AddCostCenterComponent,
-    EditCostCenterComponent
+    EditCostCenterComponent,
+    MainPaymentInComponent
+    
   ],
   imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes)],
 })

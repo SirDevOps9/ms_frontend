@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { customValidators, FormsService, LanguageService, lookupDto, LookupEnum, LookupsService, RouterService, ToasterService } from 'shared-lib';
 import { BankAccountWithCurrency } from '../../../models/bank-account-with-currency-dto';
-import { AddPaymentMethodDto, paymentplace } from '../../../models';
+import { AddPaymentMethodDto, paymentmethodtype, paymentplace } from '../../../models';
 import { FinanceService } from '../../../finance.service';
 import { SharedFinanceEnums } from '../../../models/shared-finance-enums';
 import { ActivatedRoute } from '@angular/router';
@@ -23,6 +23,8 @@ export class EditPaymentMethodComponent implements OnInit {
   paymentplaceEnum: paymentplace;
   id: number = this.route.snapshot.params['id']
   originalPaymentMethodTypeLookups: lookupDto[] = [];
+  disableCommission: boolean = false;
+
 
 
   constructor(private fb: FormBuilder,
@@ -35,12 +37,27 @@ export class EditPaymentMethodComponent implements OnInit {
               private route : ActivatedRoute,
               public sharedFinanceEnum: SharedFinanceEnums) {
 
-    this.PaymentMethodForm = fb.group({
+    
+  }
+
+  ngOnInit() {
+    this.initForm();
+    this.getChildrenAccountsDropDownLookup();
+    this.getBankDropDown();
+    this.loadLookups();
+    this.getPaymentMethodInfoById(this.id);
+    this.subscribe();
+
+   
+  }
+   
+  initForm(){
+    this.PaymentMethodForm = this.fb.group({
       id: new FormControl(null),
       code: new FormControl(null),
       name: new FormControl('', [customValidators.required]),
-      paymentPlace: new FormControl('', [customValidators.required]),
-      paymentMethodType: new FormControl('', [customValidators.required]),
+      paymentPlace: new FormControl(0, [customValidators.required]),
+      paymentMethodType: new FormControl(0, [customValidators.required]),
       paymentMethodCommissionData: this.fb.group({
         bankId: new FormControl(null),
         bankAccountId: new FormControl(null),
@@ -52,42 +69,40 @@ export class EditPaymentMethodComponent implements OnInit {
       })
     });
   }
+  subscribe(){
+    this.lookupsService.lookups.subscribe((l) => {
+      this.lookups = l;
+      this.originalPaymentMethodTypeLookups =l["PaymentMethodType"] ;
+    });
 
-  ngOnInit() {
-    this.getChildrenAccountsDropDownLookup();
-    this.getBankDropDown();
-    this.loadLookups();
-    this.getPaymentMethodInfoById(this.id);
-    
+    this.PaymentMethodForm.get('paymentPlace')!.valueChanges.subscribe(() => {
+      this.updateCommissionFields();
+    });
 
-    // this.PaymentMethodForm.get('paymentPlace')!.valueChanges.subscribe(value => {
-    //   this.onPaymentPlaceChange(value);
-    // });
+    this.PaymentMethodForm.get('paymentMethodType')!.valueChanges.subscribe(() => {
+      this.updateCommissionFields();
+    });
 
      this.PaymentMethodForm.get('paymentMethodCommissionData.bankId')!.valueChanges.subscribe(bankId => {
        if (bankId) {
          this.getBankAccountDropDown(bankId);
        }
      });
+  }
 
-    // this.PaymentMethodForm.get('paymentMethodCommissionData.bankAccountId')!.valueChanges.subscribe(accountId => {
-    //   const selectedAccount = this.BankAccountList.find(account => account.id === accountId);
-    //   if (selectedAccount) {
-    //     this.PaymentMethodForm.get('paymentMethodCommissionData.currency')!.setValue(selectedAccount.currencyName);
-    //   }
-    // });
+  updateCommissionFields() {
+    const paymentPlace = this.PaymentMethodForm.get('paymentPlace')!.value;
+    const paymentMethod = this.PaymentMethodForm.get('paymentMethodType')!.value;
 
-    this.PaymentMethodForm.get('paymentMethodCommissionData.commissionType')!.valueChanges.subscribe(commissionType => {
-      if (commissionType) {
-        this.PaymentMethodForm.get('paymentMethodCommissionData.commissionAccountId')!.setValidators([customValidators.required]);
-        this.PaymentMethodForm.get('paymentMethodCommissionData.commissionValue')!.setValidators([customValidators.required]);
-      } else {
-        this.PaymentMethodForm.get('paymentMethodCommissionData.commissionAccountId')!.clearValidators();
-        this.PaymentMethodForm.get('paymentMethodCommissionData.commissionValue')!.clearValidators();
-      }
-      this.PaymentMethodForm.get('paymentMethodCommissionData.commissionAccountId')!.updateValueAndValidity();
-      this.PaymentMethodForm.get('paymentMethodCommissionData.commissionValue')!.updateValueAndValidity();
-    });
+
+    if (paymentPlace == paymentplace[paymentplace.Treasury] ||
+    paymentMethod == paymentmethodtype[paymentmethodtype.Check] ) {
+      this.disableCommission=true;
+    } else {
+      this.disableCommission=false;
+    }
+    
+
   }
 
   getPaymentMethodInfoById(id:number) {
@@ -119,11 +134,6 @@ export class EditPaymentMethodComponent implements OnInit {
       LookupEnum.PaymentPlace,
       LookupEnum.CommissionType
     ]);
-    this.lookupsService.lookups.subscribe((l) => {
-      this.lookups = l;
-      this.originalPaymentMethodTypeLookups =l["PaymentMethodType"] ;
-    });
-
   }
 
   discard() {
@@ -179,7 +189,7 @@ export class EditPaymentMethodComponent implements OnInit {
 
   onSave() {
     const formData = this.PaymentMethodForm.value as GetPaymentMethodByIdDto;
-    if (formData.paymentPlace == this.sharedFinanceEnum.PaymentPlace.Treasury.toString()) {
+    if (formData.paymentPlace == this.sharedFinanceEnum.PaymentPlace.Treasury) {
       formData.paymentMethodCommissionData = null;
   }
 

@@ -7,6 +7,7 @@ import { MessageService } from 'primeng/api';
 
 @Injectable({ providedIn: 'root' })
 export class ToasterService {
+
   constructor(
     private languageService: LanguageService,
     private messageService: MessageService

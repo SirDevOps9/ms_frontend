@@ -3,7 +3,7 @@ import { FinanceProxyService } from './finance-proxy.service';
 import { HttpService, LanguageService, LoaderService, PageInfo, PageInfoResult, PaginationVm, RouterService, ToasterService } from 'shared-lib';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
-import { AccountDto, AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, CurrencyRateDto, EditTreasuryDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
+import { AccountDto, AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, CurrencyRateDto, EditTreasuryDto, GetAllPaymentInDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { HttpClient } from '@angular/common/http';
@@ -36,6 +36,9 @@ export class FinanceService {
   public paymentMethodDataSource = new BehaviorSubject<PaymentMethodDto[]>([])
   public exportedpaymentMethodListDataSource = new BehaviorSubject<PaymentMethodDto[]>([]);
   public sendPaymentMethodByID = new BehaviorSubject<GetPaymentMethodByIdDto>({} as GetPaymentMethodByIdDto)
+  public paymentInDataSource = new BehaviorSubject<GetAllPaymentInDto[]>([])
+  public exportedpaymentinListDataSource = new BehaviorSubject<GetAllPaymentInDto[]>([]);
+
   public getTreasuryDropDownData = new BehaviorSubject<any>([])
   public getBankDropDownData = new BehaviorSubject<any>([])
   public getCustomerDropdownData = new BehaviorSubject<any>([])
@@ -78,6 +81,9 @@ export class FinanceService {
   AccountBalanceObservable = this.AccountBalance.asObservable()
   TreasuryBalanceObservable = this.TreasuryBalance.asObservable()
   public accountCurrencyRate = this.accountCurrencyRateDataSource.asObservable();
+  paymentInDataSourceObservable = this.paymentInDataSource.asObservable()
+  exportedPaymentinDataSourceObservable = this.exportedpaymentinListDataSource.asObservable()
+
 
   
 
@@ -496,5 +502,41 @@ export class FinanceService {
     this.financeProxy.getAccountCurrencyRate(currentCurrency,accountCurrency).subscribe((response) => {
       this.accountCurrencyRateDataSource.next(response);
     });
+  }
+  getAllPaymentIn(quieries: string, pageInfo: PageInfo)  {
+    this.financeProxy.getAllPymentIn(quieries, pageInfo).subscribe((response) => {
+     this.paymentInDataSource.next(response.result)
+     this.currentPageInfo.next(response.pageInfoResult)
+    });
+  }
+
+  exportsPaymentInList(searchTerm:string | undefined) {
+    this.financeProxy.exportsPaymentInList(searchTerm).subscribe({
+      next: (res : any) => {
+         this.exportedpaymentinListDataSource.next(res);
+      },
+    });
+  }
+
+  async deletePaymentIn(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.financeProxy.deletePaymentIn(id).subscribe({
+        next: (res) => {
+          
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('payment-in.delete')
+          );
+          this.loaderService.hide();
+          const currentPaymentIn = this.paymentInDataSource.getValue();
+          const updatedcurrentPaymentIn = currentPaymentIn.filter((c : any) => c.id !== id);
+          this.paymentInDataSource.next(updatedcurrentPaymentIn);
+        },
+        
+      });
+    }
   }
 }

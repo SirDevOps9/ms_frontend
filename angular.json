@@ -24,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "baseHref": "/bussinessowners/",
+            "baseHref": "/bussiness-owners/",
             "outputPath": "dist/bussiness-owners",
             "index": "projects/bussiness-owners/src/index.html",
             "browser": "projects/bussiness-owners/src/main.ts",
@@ -80,6 +80,27 @@
                   "with": "projects/bussiness-owners/src/environments/environment.stage.ts"
                 }
               ]
+            },
+            "cloud": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "projects/bussiness-owners/src/environments/environment.ts",
+                  "with": "projects/bussiness-owners/src/environments/environment.cloud.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -95,6 +116,9 @@
             },
             "stage": {
               "buildTarget": "bussiness-owners:build:stage"
+            },
+            "cloud": {
+              "buildTarget": "bussiness-owners:build:cloud"
             }
           },
           "defaultConfiguration": "development"
@@ -147,7 +171,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "baseHref": "/adminportal/",
+            "baseHref": "/admin-portal/",
             "outputPath": "dist/adminportal",
             "index": "projects/adminportal/src/index.html",
             "browser": "projects/adminportal/src/main.ts",
@@ -201,6 +225,17 @@
                   "with": "projects/apps-accounting/src/environments/environment.stage.ts"
                 }
               ]
+            },
+            "cloud": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-accounting/src/environments/environment.ts",
+                  "with": "projects/apps-accounting/src/environments/environment.cloud.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -213,6 +248,9 @@
             },
             "development": {
               "buildTarget": "adminportal:build:development"
+            },
+            "cloud": {
+              "buildTarget": "adminportal:build:cloud"
             }
           },
           "defaultConfiguration": "development"
@@ -402,6 +440,27 @@
                   "with": "projects/apps-accounting/src/environments/environment.stage.ts"
                 }
               ]
+            },
+            "cloud": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-accounting/src/environments/environment.ts",
+                  "with": "projects/apps-accounting/src/environments/environment.cloud.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -421,6 +480,9 @@
             },
             "development": {
               "buildTarget": "apps-accounting:build:development"
+            },
+            "cloud": {
+              "buildTarget": "apps-accounting:build:cloud"
             }
           },
           "defaultConfiguration": "development"
@@ -527,6 +589,27 @@
                   "with": "projects/apps-hr/src/environments/environment.stage.ts"
                 }
               ]
+            },
+            "cloud": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-hr/src/environments/environment.ts",
+                  "with": "projects/apps-hr/src/environments/environment.cloud.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -546,6 +629,9 @@
             },
             "development": {
               "buildTarget": "apps-hr:build:development"
+            },
+            "cloud": {
+              "buildTarget": "apps-hr:build:cloud"
             }
           },
           "defaultConfiguration": "development"
@@ -648,6 +734,27 @@
                   "with": "projects/erp-home/src/environments/environment.stage.ts"
                 }
               ]
+            },
+            "cloud": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "projects/erp-home/src/environments/environment.ts",
+                  "with": "projects/erp-home/src/environments/environment.cloud.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -667,6 +774,9 @@
             },
             "development": {
               "buildTarget": "erp-home:build:development"
+            },
+            "cloud": {
+              "buildTarget": "erp-home:build:cloud"
             }
           },
           "defaultConfiguration": "development"
@@ -768,6 +878,27 @@
                   "with": "projects/apps-finance/src/environments/environment.stage.ts"
                 }
               ]
+            },
+            "cloud": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-finance/src/environments/environment.ts",
+                  "with": "projects/apps-finance/src/environments/environment.cloud.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -787,6 +918,9 @@
             },
             "development": {
               "buildTarget": "apps-finance:build:development"
+            },
+            "cloud": {
+              "buildTarget": "apps-finance:build:cloud"
             }
           },
           "defaultConfiguration": "development"
@@ -889,6 +1023,27 @@
                   "with": "projects/apps-sales/src/environments/environment.stage.ts"
                 }
               ]
+            },
+            "cloud": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-sales/src/environments/environment.ts",
+                  "with": "projects/apps-sales/src/environments/environment.cloud.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -908,6 +1063,9 @@
             },
             "development": {
               "buildTarget": "apps-sales:build:development"
+            },
+            "cloud": {
+              "buildTarget": "apps-sales:build:cloud"
             }
           },
           "defaultConfiguration": "development"
@@ -1013,6 +1171,27 @@
                   "with": "projects/apps-purchase/src/environments/environment.stage.ts"
                 }
               ]
+            },
+            "cloud": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-purchase/src/environments/environment.ts",
+                  "with": "projects/apps-purchase/src/environments/environment.cloud.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -1032,6 +1211,9 @@
             },
             "development": {
               "buildTarget": "apps-purchase:build:development"
+            },
+            "cloud": {
+              "buildTarget": "apps-purchase:build:cloud"
             }
           },
           "defaultConfiguration": "development"

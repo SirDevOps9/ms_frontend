@@ -15,8 +15,10 @@ import {
   CountryDto,
   CurrencyDto,
   CustomerCategoryDto,
+  CustomerDropDown,
   EditCustomerCategoryDto,
   EditCustomerDefintionsDto,
+  GetLineDropDownById,
 } from './models';
 import { SalesProxyService } from './sales-proxy.service';
 import { BehaviorSubject } from 'rxjs';
@@ -52,8 +54,8 @@ export class SalesService {
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   private sendgetVendorCategoryDropdownData = new BehaviorSubject<CategoryDropdownDto[]>([]);
   private openingBalanceJournalEntryDropdownData = new BehaviorSubject<CategoryDropdownDto[]>([]);
-  private LinesDropDownData = new BehaviorSubject<any[]>([]);
-  private CustomerDropDownByAccountId = new BehaviorSubject<any[]>([]);
+  private LinesDropDownData = new BehaviorSubject<GetLineDropDownById[]>([]);
+  private CustomerDropDownByAccountId = new BehaviorSubject<CustomerDropDown[]>([]);
   private CustomerOpeningBalancelist = new BehaviorSubject<any[]>([]);
   private countryDataSource = new BehaviorSubject<CountryDto[]>([]);
   private cityDataSource = new BehaviorSubject<CityDto[]>([]);
@@ -338,7 +340,7 @@ export class SalesService {
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('addCustomerDefinition.success'),
-          this.languageService.transalte('addCustomerDefinition.successAdded')
+          this.languageService.transalte('successAdded')
         );
         if (res) {
           this.addCustomerDefinitionRes.next(res);
@@ -369,7 +371,7 @@ export class SalesService {
         next: (res) => {
           this.toasterService.showSuccess(
             this.languageService.transalte('deleteCustomerDefinition.success'),
-            this.languageService.transalte('deleteCustomerDefinition.deleted')
+            this.languageService.transalte('deleted')
           );
           this.loaderService.hide();
           this.customerDeleted.next(res)

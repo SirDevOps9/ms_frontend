@@ -8,6 +8,7 @@ import { AbstractControl } from '@angular/forms';
 })
 export class FieldValidationsComponent implements OnInit {
   @Input() appControl: AbstractControl | any;
+  @Input() labelTest: any = 'validation';
 
   get errorKeys(): string[] {
     return Object.keys(this.appControl?.errors!);
@@ -16,4 +17,14 @@ export class FieldValidationsComponent implements OnInit {
   ngOnInit(): void {}
 
   constructor() {}
+  
+  ngAfterViewInit() {
+    if (this.appControl) {
+      setTimeout(() => {
+        this.labelTest = this.appControl.name;
+      }, 500);
+    }
+  }
+
+     
 }

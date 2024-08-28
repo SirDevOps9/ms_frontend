@@ -27,6 +27,7 @@ import { AppsSharedLibModule } from 'apps-shared-lib';
             resources: [
               { prefix: './assets/langs/auth/', suffix: '.json' },
               { prefix: './assets/langs/erphome/', suffix: '.json' },
+              { prefix: './assets/langs/shared/', suffix: '.json' },
             ],
           }),
         deps: [HttpClient],

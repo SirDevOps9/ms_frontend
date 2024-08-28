@@ -48,15 +48,14 @@
     <ng-container caption>
       <div class="group flex justify-content-between">
         <div>
-          <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input
-              pInputText
-              type="text"
-              placeholder="{{ 'currencyDefinition.Search' | translate }}"
-              (keyup)="onSearchChange($event)"
-            />
-          </span>
+
+          <lib-text-input
+          type="text"
+          [placeholder]="'currencyDefinition.Search' | translate"
+          (keyUp)="onSearchChange($event)"
+          [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+        >
+        </lib-text-input>
         </div>
 
         <div class="flex gap-2">
@@ -85,7 +84,8 @@
 
     <ng-template #actions let-actions>
       <div class="actions flex align-items-center">
-        <img src="assets/images/table/edit.svg" alt="" (click)="Edit(actions.id)" />
+        <lib-button-micro nameClass="table_button_edit" (click)="Edit(actions.id)">
+        </lib-button-micro>
         <!-- <i class="delete pi pi-trash pointer" (click)="onDelete(actions.id)"></i> -->
       </div>
     </ng-template>

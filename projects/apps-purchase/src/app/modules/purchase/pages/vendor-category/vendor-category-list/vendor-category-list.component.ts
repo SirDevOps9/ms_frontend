@@ -78,7 +78,7 @@ export class VendorCategoryListComponent implements OnInit {
 
 
   onSearchChange(event : any) {
-    this.purchaseService.getVendorCategory(event.target.value, new PageInfo());
+    this.purchaseService.getVendorCategory(event, new PageInfo());
 
     this.purchaseService.vendorCategoryDataSourceObservable.subscribe({
       next: (res) => {

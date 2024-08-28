@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
-import { AccountDto, AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, Balance, CurrencyRateDto, EditTreasuryDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
+import { AccountDto, AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, Balance, CurrencyRateDto, EditTreasuryDto, GetAllPaymentInDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { AddBankDto } from './models/addBankDto';
 import { UserPermission } from './models/user-permission';
@@ -223,5 +223,26 @@ getAccountsHasNoChildrenNew(
 
 getAccountCurrencyRate(currentCurrency:number,accountCurrency:number){
   return this.httpService.get<CurrencyRateDto>(`CurrencyConversion/rate?FromCurrencyId=${currentCurrency}&ToCurrencyId=${accountCurrency}`);
+  }
+  getAllPymentIn(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<GetAllPaymentInDto>> {
+    let query = `PaymentIn?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<GetAllPaymentInDto>>(query);
+  }
+
+  exportsPaymentInList(
+    searchTerm: string | undefined
+  ): Observable<GetAllPaymentInDto[]> {
+    let query = `PaymentIn/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<GetAllPaymentInDto[]>(query);
+  }
+  deletePaymentIn(id : number) {
+    return this.httpService.delete(`PaymentIn/${id}`);
+
 }
 }

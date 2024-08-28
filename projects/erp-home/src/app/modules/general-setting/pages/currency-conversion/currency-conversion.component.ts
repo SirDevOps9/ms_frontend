@@ -111,7 +111,7 @@ export class CurrencyConversionComponent {
   }
 
   onSearchChange(event: any) {
-    this.generalSettingService.getCurrencyConversionList(event.target.value, new PageInfo());
+    this.generalSettingService.getCurrencyConversionList(event, new PageInfo());
     this.generalSettingService.currencyConversionDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;

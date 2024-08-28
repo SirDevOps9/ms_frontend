@@ -9,6 +9,7 @@ export * from './add-payment-term-dto';
 export * from './payment-method-list-dto';
 export * from './enums';
 export * from './add-payment-method-dto';
+export * from './get-all-payment-in-dto';
 export * from './paid-by';
 export * from './cost-center';
 export * from './accountDto';
