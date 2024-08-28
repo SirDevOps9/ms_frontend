@@ -65,4 +65,7 @@ export class EditCustomerCategoryComponent implements OnInit {
 
     this.salesService.EditCustomerCategory(this.formGroup.value);
   }
+  onDiscard(){
+    this.routerService.navigateTo(`/masterdata/customer-category`);
+  }
 }
