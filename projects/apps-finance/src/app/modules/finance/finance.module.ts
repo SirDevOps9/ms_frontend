@@ -31,6 +31,7 @@ import { PopupCostcenterComponent } from './components/payment-in/popup-costcent
 import { AddCostCenterComponent } from './components/payment-in/add-cost-center/add-cost-center.component';
 import { EditCostCenterComponent } from './components/payment-in/edit-cost-center/edit-cost-center.component';
 import { MainPaymentInComponent } from './pages/payment-in/main-payment-in/main-payment-in.component';
+import { ViewPaymentMethodComponent } from './pages/payment-method/view-payment-method/view-payment-method.component';
 
 const routes: Routes = [
   {
@@ -165,6 +166,13 @@ const routes: Routes = [
         },
       },
       {
+        path: 'view-payment-method/:id',
+        component: ViewPaymentMethodComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_VIEW,
+        },
+      },
+      {
         path: 'paymentin',
         component: MainPaymentInComponent,
         data: {
@@ -228,6 +236,7 @@ const routes: Routes = [
     EditPaymentInComponent,
     PaymentMethodComponent,
     PaymentInListComponent,
+    ViewPaymentMethodComponent,
     PopupAccountsComponent,
     PopupCostcenterComponent,
     AddCostCenterComponent,

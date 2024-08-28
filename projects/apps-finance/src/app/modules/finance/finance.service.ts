@@ -3,7 +3,7 @@ import { FinanceProxyService } from './finance-proxy.service';
 import { HttpService, LanguageService, LoaderService, PageInfo, PageInfoResult, PaginationVm, RouterService, ToasterService } from 'shared-lib';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
-import { AccountDto, AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, CurrencyRateDto, EditTreasuryDto, GetAllPaymentInDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
+import { AccountDto, AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, CurrencyRateDto, DropDownDto, EditTreasuryDto, GetAllPaymentInDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { HttpClient } from '@angular/common/http';
@@ -38,6 +38,7 @@ export class FinanceService {
   public sendPaymentMethodByID = new BehaviorSubject<GetPaymentMethodByIdDto>({} as GetPaymentMethodByIdDto)
   public paymentInDataSource = new BehaviorSubject<GetAllPaymentInDto[]>([])
   public exportedpaymentinListDataSource = new BehaviorSubject<GetAllPaymentInDto[]>([]);
+  public sendTaxDropDownDataSource = new BehaviorSubject<DropDownDto[]>([]);
 
   public getTreasuryDropDownData = new BehaviorSubject<any>([])
   public getBankDropDownData = new BehaviorSubject<any>([])
@@ -83,6 +84,9 @@ export class FinanceService {
   public accountCurrencyRate = this.accountCurrencyRateDataSource.asObservable();
   paymentInDataSourceObservable = this.paymentInDataSource.asObservable()
   exportedPaymentinDataSourceObservable = this.exportedpaymentinListDataSource.asObservable()
+  taxDropDowmSourceObservable = this.sendTaxDropDownDataSource.asObservable()
+
+
 
 
   
@@ -538,5 +542,13 @@ export class FinanceService {
         
       });
     }
+  }
+
+  getTaxDropDown() {
+    this.financeProxy.getTaxDropDown().subscribe({
+      next: (res : any) => {
+         this.sendTaxDropDownDataSource.next(res);
+      },
+    });
   }
 }
