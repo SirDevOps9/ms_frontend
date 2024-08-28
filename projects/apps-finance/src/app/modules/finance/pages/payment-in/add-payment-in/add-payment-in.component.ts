@@ -35,7 +35,7 @@ export class AddPaymentInComponent {
   tableData: any[] = [];
   costCenters: costCenters[] = [];
   paymentplaceEnum: paymentplace;
-  paymentplaceString:paymentplaceString
+  paymentplaceString: paymentplaceString
   lookups: { [key: string]: lookupDto[] };
   originalPaymentMethodTypeLookups: lookupDto[] = [];
   TreasuryDropDown: TreasuryDropDown[] = []
@@ -142,7 +142,7 @@ export class AddPaymentInComponent {
       glAccountId: new FormControl(null),
       paymentInDetails: this.formBuilder.array([]),
 
-////////
+      ////////
       code: new FormControl(''),
       currency: new FormControl(""),
       currentBalance: new FormControl(0),
@@ -191,7 +191,7 @@ export class AddPaymentInComponent {
 
   }
   getDetails(id: string) {
-    this.paymentInDetailsFormArray.clear()    
+    this.paymentInDetailsFormArray.clear()
     this.addForm.controls['currentBalance'].patchValue(0)
     this.addForm.controls['totalReceivedAmount'].patchValue(0)
 
@@ -227,16 +227,16 @@ export class AddPaymentInComponent {
       this.paidByDetailsOther = this.other
     }
   }
-updateRateInPaymentDetails(newRate: any) {
-  this.paymentInDetailsFormArray.controls.forEach((formGroup) => {
-    formGroup.get('rate')?.setValue(newRate);
-  });
-}
-updatecurrencyIdnPaymentDetails(currencyId: any) {
-  this.paymentInDetailsFormArray.controls.forEach((formGroup) => {
-    formGroup.get('currencyId')?.setValue(currencyId);
-  });
-}
+  updateRateInPaymentDetails(newRate: any) {
+    this.paymentInDetailsFormArray.controls.forEach((formGroup) => {
+      formGroup.get('rate')?.setValue(newRate);
+    });
+  }
+  updatecurrencyIdnPaymentDetails(currencyId: any) {
+    this.paymentInDetailsFormArray.controls.forEach((formGroup) => {
+      formGroup.get('currencyId')?.setValue(currencyId);
+    });
+  }
   subscribe() {
     this.FinanceService.getTreasuryDropDownDataObservable.subscribe((res: any) => {
       this.TreasuryDropDown = res
@@ -282,11 +282,11 @@ updatecurrencyIdnPaymentDetails(currencyId: any) {
         this.updateRateInPaymentDetails(res.rate)
       }
     });
-    this.addForm.controls['currencyId'].valueChanges.subscribe((currencyId:any)=>{
-      this.updatecurrencyIdnPaymentDetails(currencyId) 
+    this.addForm.controls['currencyId'].valueChanges.subscribe((currencyId: any) => {
+      this.updatecurrencyIdnPaymentDetails(currencyId)
     })
-    this.addForm.controls['currencyId'].valueChanges.subscribe((currencyId:any)=>{
-      this.updatecurrencyIdnPaymentDetails(currencyId) 
+    this.addForm.controls['currencyId'].valueChanges.subscribe((currencyId: any) => {
+      this.updatecurrencyIdnPaymentDetails(currencyId)
     })
 
 
@@ -384,14 +384,14 @@ updatecurrencyIdnPaymentDetails(currencyId: any) {
     var accountData = this.filteredAccounts.find((c) => c.id == event);
     this.updateAccount(accountData as AccountDto, id);
   }
-  isCostCenterallowed(journalLine:any ,costCenterConfig: string): boolean {
-    if (costCenterConfig === this.SharedJournalEnums.costCenterConfig.Mandatory || costCenterConfig === this.SharedJournalEnums.costCenterConfig.Optional){
+  isCostCenterallowed(journalLine: any, costCenterConfig: string): boolean {
+    if (costCenterConfig === this.SharedJournalEnums.costCenterConfig.Mandatory || costCenterConfig === this.SharedJournalEnums.costCenterConfig.Optional) {
       return true;
-    } else{
+    } else {
       this.CostCenter = this.formBuilder.group({
         costCenterId: new FormControl(null),
         percentage: new FormControl(null),
-       
+
       });
       journalLine.get('paymentInDetailCostCenters')?.setValue([]);
 
@@ -410,25 +410,21 @@ updatecurrencyIdnPaymentDetails(currencyId: any) {
         this.bankAccount = res
         this.addForm.controls['currencyId'].patchValue(null)
       })
-    } else if(!this.selectedBank) {
+    } else if (!this.selectedBank) {
       this.TreasuryDropDown.forEach((e: any) => {
-        console.log(e ,"7777777777");
-        console.log(id ,"7777777777");
-
-        
-        if(id==e.id){
+        if (id == e.id) {
           this.selectedCurrency = e.currencyName
-        
+
           this.getTreasuryBalance(e.id)
-  
+
           // this.addForm.controls['currency'].patchValue(e.currencyName)
           this.addForm.controls['currencyId'].patchValue(e.currencyId)
-  
+
           this.getAccountCurrencyRate(this.addForm.controls['currencyId'].value as number, id);
           this.addForm.controls['currentBalance'].patchValue(this.TreasuryBalance)
-  
+
         }
-     
+
       })
     }
   }
@@ -461,37 +457,37 @@ updatecurrencyIdnPaymentDetails(currencyId: any) {
     if (this.selectedBank) {
       const selectedPayment = this.paymentMethod.find(method => method.id === paymentMethodId);
       journalLine.get('paymentMethodName')?.setValue(selectedPayment?.name);
-console.log(selectedPayment ,"selectedPaymentselectedPayment");
-this.paymentform = this.formBuilder.group({
-  paymentMethodId: new FormControl(selectedPayment?.id),
-  chequeNumber: new FormControl(null),
-  chequeDueDate: new FormControl(null),
-  bankReference: new FormControl(null ),
-  VatAmount: new FormControl(null),
-  CommissionAmount: new FormControl(null),
-});
-const chequeDueDate = this.formatDate(this.paymentform.controls['chequeDueDate'].value, 'yyyy-MM-dd');
-// this.paymentform.controls['chequeDueDate'].patchValue(chequeDueDate);
-  journalLine.get('paymentInMethodDetails')?.setValue(this.paymentform.value);
+      journalLine.get('paymentMethodType')?.setValue(selectedPayment?.paymentMethodType);
+
+      this.paymentform = this.formBuilder.group({
+        paymentMethodId: new FormControl(selectedPayment?.id),
+        chequeNumber: new FormControl(null),
+        chequeDueDate: new FormControl(null),
+        bankReference: new FormControl(null),
+        VatAmount: new FormControl(null),
+        CommissionAmount: new FormControl(null),
+      });
+      const chequeDueDate = this.formatDate(this.paymentform.controls['chequeDueDate'].value, 'yyyy-MM-dd');
+      // this.paymentform.controls['chequeDueDate'].patchValue(chequeDueDate);
+      journalLine.get('paymentInMethodDetails')?.setValue(this.paymentform.value);
       return selectedPayment ? selectedPayment.name : '';
 
     } else {
       const selectedPayment = this.AllTreasuriesPayMethod.find(method => method.id === paymentMethodId);
       journalLine.get('paymentMethodName')?.setValue(selectedPayment?.name);
-      console.log(selectedPayment ,"selectedPaymentselectedPayment");
       this.paymentform = this.formBuilder.group({
         paymentMethodId: new FormControl(selectedPayment?.id),
         chequeNumber: new FormControl(null),
         chequeDueDate: new FormControl(null),
-        bankReference: new FormControl(null ),
+        bankReference: new FormControl(null),
         VatAmount: new FormControl(null),
         CommissionAmount: new FormControl(null),
       });
       const chequeDueDate = this.formatDate(this.paymentform.controls['chequeDueDate'].value, 'yyyy-MM-dd');
       // this.paymentform.controls['chequeDueDate'].patchValue(chequeDueDate);
 
-        journalLine.get('paymentInMethodDetails')?.setValue(this.paymentform.value);
-          
+      journalLine.get('paymentInMethodDetails')?.setValue(this.paymentform.value);
+
       return selectedPayment ? selectedPayment.name : '';
     }
 
@@ -501,18 +497,16 @@ const chequeDueDate = this.formatDate(this.paymentform.controls['chequeDueDate']
 
     if (paidByValue === this.SharedJournalEnums.paiedDropDown.customer) {
       const customer = this.customerDropDown.find((e: any) => e.id === id);
-      console.log(customer?.name ,"customer.namecustomer.name");
-      
-      journal.controls['paidByDetailsName'].setValue(customer ? customer.name:"")
+      journal.controls['paidByDetailsName'].setValue(customer ? customer.name : "")
       return customer ? customer.name : '';
     } else if (paidByValue === this.SharedJournalEnums.paiedDropDown.vendor) {
       const vendor = this.vendorDropDown.find((e: any) => e.id === id);
-      journal.controls['paidByDetailsName'].setValue(vendor ? vendor.name:"")
+      journal.controls['paidByDetailsName'].setValue(vendor ? vendor.name : "")
 
       return vendor ? vendor.name : '';
     } else if (paidByValue === this.SharedJournalEnums.paiedDropDown.other) {
       const other = this.other.find((e: any) => e.id === id);
-      journal.controls['paidByDetailsName'].setValue(other ? other.name:"")
+      journal.controls['paidByDetailsName'].setValue(other ? other.name : "")
 
       return other ? other.name : '';
     }
@@ -531,7 +525,7 @@ const chequeDueDate = this.formatDate(this.paymentform.controls['chequeDueDate']
         this.openDialog(journalLine.value, selectedPayment, journalLine, journalLine.get('amount').value);
       }
     } else {
-          
+
       this.toasterService.showError(
         this.langService.transalte('PaymentIn.Error'),
         this.langService.transalte('PaymentIn.paymentMethodTypeNotAllowed')
@@ -581,26 +575,83 @@ const chequeDueDate = this.formatDate(this.paymentform.controls['chequeDueDate']
 
   }
   save() {
-    
-    if (!this.formsService.validForm(this.paymentInDetailsFormArray && this.addForm, false)) return;
 
-    // const formattedChequeDueDate = this.formatDate(this.addForm.controls['chequeDueDate'].value, 'yyyy-MM-dd');
+    if (!this.formsService.validForm(this.paymentInDetailsFormArray && this.addForm, false)) return;
+    // if(){
+
+    //     if (this.paymentMethodType == paymentMethodTypeString.Check) {
+    //       this.addForm.get('chequeDueDate')?.addValidators(customValidators.required);
+    //       this.addForm.get('chequeNumber')?.addValidators(customValidators.required);
+    //     } else if (this.paymentMethodType == paymentMethodTypeString.Transfer) {
+    //       this.addForm.clearValidators()
+    //     }
+    //     else if (this.paymentmethod == paymentMethodTypeString.Span) {
+    //       this.addForm.clearValidators()
+    //     }
+    //     else if (this.paymentmethod == paymentMethodTypeString.Master) {
+    //       this.addForm.get('bankReference')?.addValidators(customValidators.required);
+    //     }
+    //     else if (this.paymentmethod == paymentMethodTypeString.Visa) {
+    //       this.addForm.get('bankReference')?.addValidators(customValidators.required);
+    //     }
+    //   }
+    let lineNumber = 0;
+    let validpaymentInDetails:boolean = true;
+    this.paymentInDetailsFormArray.controls.forEach((control) => {
+
+      lineNumber++;
+
+      if (control.value.paymentMethodType == this.SharedJournalEnums.paymentMethodTypeString.Check) {
+        if (control.value.paymentInMethodDetails.chequeNumber == null || control.value.paymentInMethodDetails.chequeDueDate == null) {
+          this.toasterService.showError(
+            this.langService.transalte('PaymentIn.Error'),
+            this.langService.transalte(`PaymentIn.paymentMethodTypeRequired`) + lineNumber
+          );
+          validpaymentInDetails=false
+          return
+        }
+
+      }
+      else if (control.value.paymentMethodType == this.SharedJournalEnums.paymentMethodTypeString.Master) {
+        if (control.value.paymentInMethodDetails.bankReference == null) {
+          this.toasterService.showError(
+            this.langService.transalte('PaymentIn.Error'),
+            this.langService.transalte(`PaymentIn.paymentMethodTypeRequired`) + lineNumber
+          );
+          validpaymentInDetails=false
+
+          return
+        }
+
+      }
+      else if (control.value.paymentMethodType == this.SharedJournalEnums.paymentMethodTypeString.Visa) {
+        if (control.value.paymentInMethodDetails.bankReference == null) {
+          this.toasterService.showError(
+            this.langService.transalte('PaymentIn.Error'),
+            this.langService.transalte(`PaymentIn.paymentMethodTypeRequired`) + lineNumber
+          );
+          validpaymentInDetails=false
+
+          return
+        }
+
+      }
+    });
+    if(validpaymentInDetails){
+      // const formattedChequeDueDate = this.formatDate(this.addForm.controls['chequeDueDate'].value, 'yyyy-MM-dd');
     const formattedPaymentInDate = this.formatDate(this.addForm.controls['PaymentInDate'].value, 'yyyy-MM-dd');
     const paymentHubDetailId = this.addForm.controls['paymentHubDetailId'].value.toString();
     this.paymentInDetailsFormArray.controls.forEach((control) => {
       if (control instanceof FormGroup) {
         const paidByDetailsIdControl = control.get('paidByDetailsId');
-        
+
         if (paidByDetailsIdControl) {
           const paidByDetailsId = paidByDetailsIdControl.value.toString();
           control.get('paidByDetailsId')?.setValue(paidByDetailsId)
-          console.log(paidByDetailsId);
           // Add your logic here to work with paidByDetailsId
         } else {
-          console.error('paidByDetailsId control not found in FormGroup');
         }
       } else {
-        console.error('Control is not a FormGroup');
       }
     });
     // Update the form controls with the formatted dates if necessary
@@ -609,9 +660,10 @@ const chequeDueDate = this.formatDate(this.paymentform.controls['chequeDueDate']
     this.addForm.controls['paymentHubDetailId'].setValue(paymentHubDetailId);
 
     // Now you can proceed with saving the form data
-    console.log(this.addForm.value);
-    
+
     this.FinanceService.addPaymentIn(this.addForm.value)
+    }
+    
   }
   formatDate(date: string, format: string): string {
     const pipe = new DatePipe('en-US');
@@ -674,7 +726,7 @@ const chequeDueDate = this.formatDate(this.paymentform.controls['chequeDueDate']
 
       }
     }
-    this.getLabel(journalLine , id)
+    this.getLabel(journalLine, id)
 
   }
 
