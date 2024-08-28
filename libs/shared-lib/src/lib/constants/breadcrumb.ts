@@ -46,6 +46,12 @@ export class BreadcrumbLabel {
   static readonly EMPLOYEE_EDIT='BreadCrumb.EditEmployee';
   static readonly COST_CENTER_REPORT = 'BreadCrumb.CostCenterReport';
 
+  static ADD_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.AddCustomerOpeningBalance';
+  static EDIT_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.EditCustomerOpeningBalance';
+  static CUSTOMER_OPENEING_BALANCE_List ='BreadCrumb.CustomerOpeningBalanceList';
+  static VIEW_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.ViewCustomerOpeningBalance';
+
+
     static SUBSCRIPTION ='Subscription'
     static USERS = 'Users';
     static ADD_COMPANY = 'Add company';
@@ -71,7 +77,8 @@ export class BreadcrumbLabel {
     static EDIT_HIERARCHY ='Edit Hierarchy';
     static EDIT_LEGAL ='Edit Legal';
     static EDIT_CONTACT ='Edit Contact';
-    static ADD_CUSTOMER_OPENEING_BALANCE ='Add Customer Opening Balance';
+
+
     static CURRENCY_DEFINITION ='Currency Definition';
     static ADD_CURRENCY_DEFINITION ='Add Currency Definition';
 
@@ -84,11 +91,12 @@ export class BreadcrumbLabel {
     static VIEW_JOURNAL_OPENING_BALANCE ='View Journal Entry Opening Balance';
    
     static COST_CENTER ='Cost Center';
-    static PAYMENT_TERM_ADD ='Add Payment term';
-    static PAYMENT_TERM_EDIT ='Edit Payment term';
-    static PAYMENT_METHOD_LIST ='Payment Method list';
-    static PAYMENT_METHOD_ADD ='Add Payment Method ';
-    static PAYMENT_METHOD_EDIT ='Edit Payment Method ';
+    static PAYMENT_TERM_ADD ='BreadCrumb.AddPaymentterm';
+    static PAYMENT_TERM_EDIT ='BreadCrumb.EditPaymentterm';
+    static PAYMENT_METHOD_LIST ='BreadCrumb.PaymentMethodlist';
+    static PAYMENT_METHOD_ADD ='BreadCrumb.AddPaymentMethod ';
+    static PAYMENT_METHOD_EDIT ='BreadCrumb.EditPaymentMethod ';
+    static PAYMENT_METHOD_VIEW ='BreadCrumb.ViewPaymentMethod ';
     static PAYMENT_IN_LIST ='BreadCrumb.PaymentInList';
 
      

@@ -3,7 +3,7 @@ import { FinanceProxyService } from './finance-proxy.service';
 import { HttpService, LanguageService, LoaderService, PageInfo, PageInfoResult, PaginationVm, RouterService, ToasterService } from 'shared-lib';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
-import { AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, EditTreasuryDto, GetAllPaymentInDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
+import { AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, DropDownDto, EditTreasuryDto, GetAllPaymentInDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { HttpClient } from '@angular/common/http';
@@ -38,6 +38,8 @@ export class FinanceService {
   public sendPaymentMethodByID = new BehaviorSubject<GetPaymentMethodByIdDto>({} as GetPaymentMethodByIdDto)
   public paymentInDataSource = new BehaviorSubject<GetAllPaymentInDto[]>([])
   public exportedpaymentinListDataSource = new BehaviorSubject<GetAllPaymentInDto[]>([]);
+  public sendTaxDropDownDataSource = new BehaviorSubject<DropDownDto[]>([]);
+
 
 
 
@@ -62,6 +64,9 @@ export class FinanceService {
   sendPaymentMethodByIDObservable = this.sendPaymentMethodByID.asObservable()
   paymentInDataSourceObservable = this.paymentInDataSource.asObservable()
   exportedPaymentinDataSourceObservable = this.exportedpaymentinListDataSource.asObservable()
+  taxDropDowmSourceObservable = this.sendTaxDropDownDataSource.asObservable()
+
+
 
 
   
@@ -424,5 +429,13 @@ export class FinanceService {
         
       });
     }
+  }
+
+  getTaxDropDown() {
+    this.financeProxy.getTaxDropDown().subscribe({
+      next: (res : any) => {
+         this.sendTaxDropDownDataSource.next(res);
+      },
+    });
   }
 }

@@ -23,6 +23,7 @@ import { PaymentMethodListComponent } from './pages/payment-method/payment-metho
 import { AddPaymentMethodComponent } from './pages/payment-method/add-payment-method/add-payment-method.component';
 import { EditPaymentMethodComponent } from './pages/payment-method/edit-payment-method/edit-payment-method.component';
 import { PaymentInListComponent } from './pages/payment-in/payment-in-list/payment-in-list.component';
+import { ViewPaymentMethodComponent } from './pages/payment-method/view-payment-method/view-payment-method.component';
 
 const routes: Routes = [
   {
@@ -157,6 +158,13 @@ const routes: Routes = [
         },
       },
       {
+        path: 'view-payment-method/:id',
+        component: ViewPaymentMethodComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_VIEW,
+        },
+      },
+      {
         path: 'payment-in',
         component: PaymentInListComponent,
         data: {
@@ -187,7 +195,8 @@ const routes: Routes = [
     PaymentMethodListComponent,
     AddPaymentMethodComponent,
     EditPaymentMethodComponent,
-    PaymentInListComponent
+    PaymentInListComponent,
+    ViewPaymentMethodComponent
   ],
   imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes)],
 })

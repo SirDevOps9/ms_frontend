@@ -8,6 +8,7 @@ import {
   customValidators,
   LookupEnum,
   lookupDto,
+  Modules,
 } from 'shared-lib';
 import { ActivatedRoute } from '@angular/router';
 import { SalesService } from '../../../sales.service';
@@ -186,7 +187,7 @@ export class EditCustomerComponent implements OnInit {
     this.lookupsService.loadLookups([LookupEnum.MobileCode]);
   }
   getTags() {
-    this.salesService.getTags();
+    this.salesService.getTags(Modules.Sales);
     this.salesService.tags.subscribe((res) => {
       this.accountTags = res;
     });

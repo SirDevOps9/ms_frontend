@@ -11,4 +11,19 @@ export * from './getLinesDropDown';
 export * from './customerDropDown';
 export * from './sharedenums';
 export * from './balancetype';
+export * from './add-customer-opening-balance-dto';
+export * from './add-customer-opening-balance-detail-dto';
+export * from './add-opening-balance-due-dates-dto';
+export * from './edit-customer-opening-balance-dto';
+export * from './edit-customer-opening-balance-detail-dto';
+export * from './edit-opening-balance-due-dates-dto';
+export * from './get-customer-opening-details-dto';
+export * from './get-balance-due-dates-dto';
+export * from './get-customer-opening-balance-dto';
+export * from './get-customer-opening-details-view-dto';
+export * from './get-balance-due-dates-view-dto';
+export * from './get-customer-opening-balance-view-dto';
+
+
+
 

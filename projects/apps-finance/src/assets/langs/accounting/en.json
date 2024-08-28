@@ -6,7 +6,13 @@
   "AddPaymentTerm":"Add Payment Term",
   "EditPaymentTerm":"Edit Payment Term",
   "Treasury":"Treasury",
-  "PaymentInList":"Payment In List"
+  "PaymentInList":"Payment In List", 
+  "AddPaymentterm": "Add Payment Term",
+  "EditPaymentterm": "Edit Payment Term",
+  "PaymentMethodlist": "Payment Method List",
+  "AddPaymentMethod": "Add Payment Method",
+  "EditPaymentMethod": "Edit Payment Method",
+  "ViewPaymentMethod": "View Payment Method"
 },
   "COAConfigration": {
     "levelnumber": "level Number",
@@ -317,7 +323,8 @@
     "CommissionAccount": "Commission Account",
     "AllowVAT": "Allow VAT",
     "edit":"Payment Method Edited Successfully",
-    "add":"Payment Method Added Successfully"	
+    "add":"Payment Method Added Successfully"	,
+    "Tax":"Tax"
   },
   "payment-in": {
     "payment-in": "Payment In",

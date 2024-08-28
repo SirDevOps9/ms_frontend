@@ -62,7 +62,9 @@ export class CreateCustomerCategoryComponent implements OnInit {
 
   })
   }
-
+  onDiscard(){
+    this.routerService.navigateTo(`/masterdata/customer-category`);
+  }
   
   
 }
