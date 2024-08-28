@@ -21,6 +21,7 @@ import { PopupAccountsComponent } from '../../../components/payment-in/popup-acc
 import { AddCostCenterComponent } from '../../../components/payment-in/add-cost-center/add-cost-center.component';
 import { DatePipe } from '@angular/common';
 import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-payment-in',
@@ -75,11 +76,16 @@ export class AddPaymentInComponent {
     private toasterService: ToasterService,
     private langService: LanguageService,
     private currentUserService: CurrentUserService,
+    private titleService: Title,
 
   ) {
   }
 
   ngOnInit() {
+    this.titleService.setTitle(
+      this.langService.transalte('PaymentIn.addpaymentin')
+    );
+
     this.initializeForm();
     this.subscribe();
     this.initializeDropDown();
@@ -256,13 +262,11 @@ export class AddPaymentInComponent {
       this.AllTreasuriesPayMethod = res
     })
     this.FinanceService.TreasuryBalanceObservable.subscribe((res: any) => {
-      // this.TreasuryBalance = res
-      this.addForm.controls['currentBalance'].patchValue(res)
+      this.AccountBalance = res
 
     })
     this.FinanceService.AccountBalanceObservable.subscribe((res: any) => {
-      // this.AccountBalance = res
-      this.addForm.controls['AccountBalance'].patchValue(res)
+      this.AccountBalance = res
 
     })
     this.addForm.get('PaymentInDate')?.valueChanges.subscribe((res: any) => {

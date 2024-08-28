@@ -393,7 +393,8 @@
     "addedError": "Error in added",
     "Error":"Error",
     "paymentMethodTypeNotAllowed":"payment Method details Not Allowed",
-    "paymentMethodTypeRequired":"payment Method details Required In line"
+    "paymentMethodTypeRequired":"payment Method details Required In line",
+    "addpaymentin":" add Paymentin"
   },
   "popupPayment":{ 
     "AccountName": "Account Name",

@@ -115,9 +115,11 @@
           <lib-label [appControl]="addForm.controls['currentBalance']">
             {{ 'PaymentIn.Form.CurrentBalance' | translate }}
           </lib-label>
-          <lib-text-input type="number" formControlName="currentBalance" [readOnly]="true"
-            placeholder="{{addForm.controls['currentBalance'].value}}">
+          <lib-text-input type="number"  [readOnly]="true"
+            placeholder="{{AccountBalance}}">
           </lib-text-input>
+          <p></p>
+          
         </lib-form-group>
       </div>
 
@@ -136,7 +138,7 @@
             {{ 'PaymentIn.Form.NewBalance' | translate }}
           </lib-label>
           <lib-text-input type="text" formControlName="newBalance" class="newBalance"
-            placeholder="{{addForm.controls['totalReceivedAmount'].value + addForm.controls['currentBalance'].value }}"
+            placeholder="{{addForm.controls['totalReceivedAmount'].value + AccountBalance }}"
             [readOnly]="true" />
         </lib-form-group>
       </div>

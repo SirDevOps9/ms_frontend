@@ -332,7 +332,9 @@
   "addedError": "خطأ في الإضافة",
   "Error": "خطأ",
   "paymentMethodTypeNotAllowed": "نوع طريقة الدفع غير مسموح به",
-  "paymentMethodTypeRequired": "تفاصيل طريقة الدفع مطلوبة في السطر"
+  "paymentMethodTypeRequired": "تفاصيل طريقة الدفع مطلوبة في السطر",
+  "addpaymentin":"إضافة الدفع"
+
 
 
   
