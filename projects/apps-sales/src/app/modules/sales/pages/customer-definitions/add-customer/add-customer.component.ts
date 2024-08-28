@@ -4,6 +4,7 @@ import {
   FormsService,
   LookupEnum,
   LookupsService,
+  Modules,
   RouterService,
   SharedLibraryEnums,
   customValidators,
@@ -174,7 +175,7 @@ export class AddCustomerComponent implements OnInit {
     this.lookupsService.loadLookups([LookupEnum.MobileCode]);
   }
   getTags() {
-    this.salesService.getTags();
+    this.salesService.getTags(Modules.Sales);
     this.salesService.tags.subscribe((res) => {
       this.accountTags = res;
     });
