@@ -135,9 +135,9 @@ export class AddPaymentInComponent {
       description: new FormControl(''),
       PaymentInDate: new FormControl(this.getTodaysDate(), [customValidators.required]),
       paymentHub: new FormControl('', [customValidators.required]),
-      bankAccountId: new FormControl(null, [customValidators.required]),
+      bankAccountId: new FormControl(null),
       paymentHubDetailId: new FormControl('', [customValidators.required]),
-      currencyId: new FormControl(null, [customValidators.required]),
+      currencyId: new FormControl(null),
       rate: new FormControl<number | undefined>(0, [customValidators.required]),
       glAccountId: new FormControl(null),
       paymentInDetails: this.formBuilder.array([]),
@@ -204,6 +204,8 @@ export class AddPaymentInComponent {
       this.getBankDropDown();
       this.paymentHubDetails = this.BankDropDown
       this.selectedBank = true
+      this.addForm.get('bankAccountId')?.addValidators(customValidators.required)
+      this.addForm.get('bankAccountId')?.updateValueAndValidity()
     } else if (id == paymentplaceString.Treasury) {
       this.getTreasuryDropDown();
       this.paymentHubDetails = this.TreasuryDropDown
@@ -295,7 +297,7 @@ updatecurrencyIdnPaymentDetails(currencyId: any) {
       {
         amount: new FormControl(0, [customValidators.required, customValidators.number, customValidators.hasSpaces]),
         paymentMethodId: new FormControl(null, [customValidators.required]),
-        paymentMethodType: new FormControl(null, [customValidators.required]),
+        paymentMethodType: new FormControl(null),
         paidBy: new FormControl('', [customValidators.required]),
         paidByDetailsId: new FormControl<string>('', [customValidators.required]),
         glAccountId: new FormControl(null, [customValidators.required]),
@@ -579,6 +581,7 @@ const chequeDueDate = this.formatDate(this.paymentform.controls['chequeDueDate']
 
   }
   save() {
+    
     if (!this.formsService.validForm(this.paymentInDetailsFormArray && this.addForm, false)) return;
 
     // const formattedChequeDueDate = this.formatDate(this.addForm.controls['chequeDueDate'].value, 'yyyy-MM-dd');
