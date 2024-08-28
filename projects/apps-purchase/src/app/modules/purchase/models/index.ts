@@ -18,3 +18,4 @@ export * from './AddVendorCommand';
 export * from './CategoryDropdownDto';
 export * from './editVendorCommand';
 export * from './getVendorById';
+export * from './vendor-opening-balance-list-dto';

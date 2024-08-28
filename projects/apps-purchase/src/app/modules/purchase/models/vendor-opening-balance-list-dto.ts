@@ -1,7 +1,9 @@
+import { AccountNature } from "projects/apps-accounting/src/app/modules/account/models";
+
 export interface VendorOpeningBalanceListDto {
     id:number;
-    OpeningJournal: string;
-    name: string;
-    isActive: boolean;
-    modulesId: number[];
+    OpeningBalanceJournalEntryCode: string;
+    OpeningBalanceJournalEntryLineDescription: string;
+    Amount: number;
+    AmountNature: AccountNature;
   }
