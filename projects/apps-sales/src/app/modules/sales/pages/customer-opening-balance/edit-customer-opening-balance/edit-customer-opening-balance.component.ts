@@ -60,6 +60,7 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
     private lookupsService: LookupsService,
     public enums: SharedSalesEnums
   ) {}
+  
   ngOnInit(): void {
     this.languageService
       .getTranslation('openeingBalance.CustomerOpeningBalance')

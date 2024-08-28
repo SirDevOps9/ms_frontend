@@ -2,8 +2,7 @@ import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, FormControl } from '@angular/forms';
 import { DynamicDialogRef, DynamicDialogConfig, DialogService } from 'primeng/dynamicdialog';
-import { TranslationService } from 'projects/adminportal/src/app/modules/i18n';
-import { ToasterService, LanguageService, customValidators, FormsService } from 'shared-lib';
+import { customValidators, FormsService } from 'shared-lib';
 
 @Component({
   selector: 'app-customer-ob-view-distribution',
@@ -25,7 +24,6 @@ export class CustomerObViewDistributionComponent implements OnInit {
   ];
 
   constructor(
-    private formsService: FormsService,
     private fb: FormBuilder,
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig,

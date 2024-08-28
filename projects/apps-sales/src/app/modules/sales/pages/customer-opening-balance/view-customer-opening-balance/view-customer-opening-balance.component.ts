@@ -21,6 +21,19 @@ export class ViewCustomerOpeningBalanceComponent implements OnInit {
   totalCreditAmountLocal: number;
   totalCreditAmount: number;
   totalBalance: number | undefined;
+  
+  constructor(
+    private salesService: SalesService,
+    private routerService: RouterService,
+    private langService: LanguageService,
+    private title: Title,
+    private dialog: DialogService,
+    public enums: SharedSalesEnums
+  ) {
+    this.langService
+      .getTranslation('openeingBalance.CustomerOpeningBalance')
+      .subscribe((res) => this.title.setTitle(res));
+  }
 
   ngOnInit() {
     this.loadCustomerView();
@@ -60,16 +73,5 @@ export class ViewCustomerOpeningBalanceComponent implements OnInit {
     }
   }
 
-  constructor(
-    private salesService: SalesService,
-    private routerService: RouterService,
-    private langService: LanguageService,
-    private title: Title,
-    private dialog: DialogService,
-    public enums: SharedSalesEnums
-  ) {
-    this.langService
-      .getTranslation('openeingBalance.CustomerOpeningBalance')
-      .subscribe((res) => this.title.setTitle(res));
-  }
+
 }
