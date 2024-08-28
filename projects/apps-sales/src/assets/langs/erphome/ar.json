@@ -56,7 +56,7 @@
     "CustomerEdited": "تم تعديل الرصيد الافتتاحي للعميل بنجاح",
     "CustomerDeleted": "تم حذف الرصيد الافتتاحي للعميل بنجاح",
     "CustomerOpeningBalance": "أرصدة افتتاحية العملاء",
-    "natureMismatchWithDuplicateCustomer": "اختلاف في طبيعة المبلغ مع عميل مكرر",
+    "natureMismatchWithDuplicateCustomer": "يجب أن تكون طبيعة الرصيد الافتتاحي للعميل من نفس النوع",
     "ViewCustomerOpeningBalance": "عرض رصيد افتتاحي للعميل",
     "ViewDistribution": "عرض التوزيع"
   },

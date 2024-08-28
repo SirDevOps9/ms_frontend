@@ -172,7 +172,7 @@
       "CustomerEdited":"Customer Opening Balance Edited Successfully",
       "CustomerDeleted":"Customer Opening Balance Deleted Successfully",
       "CustomerOpeningBalance":"Customer Opening Balance",
-      "natureMismatchWithDuplicateCustomer": "Amount nature mismatch with the duplicated customer",
+      "natureMismatchWithDuplicateCustomer": "Customer opening balance nature must be the same type",
       "ViewDistribution":"View Distribution"
     },
     "AddCustomerDefinition": {
