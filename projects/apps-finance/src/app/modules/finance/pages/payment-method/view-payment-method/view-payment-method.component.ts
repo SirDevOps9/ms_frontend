@@ -17,7 +17,7 @@ export class ViewPaymentMethodComponent implements OnInit {
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   accountsList: { id: number; name: string }[];
-  BankList: { id: number; name: string }[];
+  BankList: DropDownDto[];
   BankAccountList: BankAccountWithCurrency[] = [];
   paymentplaceEnum: paymentplace;
   id: number = this.route.snapshot.params['id']
