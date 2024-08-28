@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { customValidators, FormsService, LanguageService, lookupDto, LookupEnum, LookupsService, RouterService, ToasterService } from 'shared-lib';
-import { BankAccountWithCurrency } from '../../../models/bank-account-with-currency-dto';
-import { AddPaymentMethodDto, DropDownDto, paymentmethodtype, paymentplace } from '../../../models';
+import { BankAccountWithCurrency, DropDownDto, paymentmethodtype, paymentplace } from '../../../models';
 import { FinanceService } from '../../../finance.service';
-import { SharedFinanceEnums } from '../../../models/shared-finance-enums';
 import { ActivatedRoute } from '@angular/router';
-import { GetPaymentMethodByIdDto } from '../../../models/get-payment-method-by-id-dto';
+import { SharedFinanceEnums } from '../../../models/shared-finance-enums';
 
 @Component({
-  selector: 'app-edit-payment-method',
-  templateUrl: './edit-payment-method.component.html',
-  styleUrls: ['./edit-payment-method.component.scss']
+  selector: 'app-view-payment-method',
+  templateUrl: './view-payment-method.component.html',
+  styleUrls: ['./view-payment-method.component.scss']
 })
-export class EditPaymentMethodComponent implements OnInit {
+export class ViewPaymentMethodComponent implements OnInit {
+
   PaymentMethodForm: FormGroup;
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
@@ -78,13 +77,7 @@ export class EditPaymentMethodComponent implements OnInit {
       this.originalPaymentMethodTypeLookups =l["PaymentMethodType"] ;
     });
 
-    this.PaymentMethodForm.get('paymentPlace')!.valueChanges.subscribe(() => {
-      this.updateCommissionFields();
-    });
-
-    this.PaymentMethodForm.get('paymentMethodType')!.valueChanges.subscribe(() => {
-      this.updateCommissionFields();
-    });
+    
 
      this.PaymentMethodForm.get('paymentMethodCommissionData.bankId')!.valueChanges.subscribe(bankId => {
        if (bankId) {
@@ -101,20 +94,7 @@ export class EditPaymentMethodComponent implements OnInit {
     });
   }
 
-  updateCommissionFields() {
-    const paymentPlace = this.PaymentMethodForm.get('paymentPlace')!.value;
-    const paymentMethod = this.PaymentMethodForm.get('paymentMethodType')!.value;
-
-
-    if (paymentPlace == paymentplace[paymentplace.Treasury] ||
-    paymentMethod == paymentmethodtype[paymentmethodtype.Check] ) {
-      this.disableCommission=true;
-    } else {
-      this.disableCommission=false;
-    }
-    
-
-  }
+  
 
   getPaymentMethodInfoById(id:number) {
     this.financeService.getPaymentMethodByID(id)
@@ -178,53 +158,15 @@ export class EditPaymentMethodComponent implements OnInit {
     });
   }
 
-  onPaymentPlaceChange(paymentPlace: any) {
-
-   this.PaymentMethodForm.get('paymentMethodType')?.setValue(null);
-   
-   let paymentMethodTypeOptions: lookupDto[] = [];
-
-   if (paymentPlace == this.sharedFinanceEnum.PaymentPlace.Treasury)
-     {
-      console.log('Treasury')
-       paymentMethodTypeOptions = this.originalPaymentMethodTypeLookups?.filter(
-           option => option.id == this.sharedFinanceEnum.paymentMethodType.Cash.toString()
-       );
-     }
-    else if (paymentPlace == this.sharedFinanceEnum.PaymentPlace.Bank) 
-      {
-       paymentMethodTypeOptions = this.originalPaymentMethodTypeLookups?.filter(
-           option => 
-               option.id == this.sharedFinanceEnum.paymentMethodType.Check.toString() || 
-               option.id == this.sharedFinanceEnum.paymentMethodType.Master.toString() || 
-               option.id == this.sharedFinanceEnum.paymentMethodType.Span.toString()|| 
-               option.id == this.sharedFinanceEnum.paymentMethodType.Transfer.toString() || 
-               option.id == this.sharedFinanceEnum.paymentMethodType.Visa.toString()
-       );
-       console.log(paymentMethodTypeOptions)
-   }
-   this.lookups[LookupEnum.PaymentMethodType] = paymentMethodTypeOptions;
-
-  }
-
-  onSave() {
-    const formData = this.PaymentMethodForm.value as GetPaymentMethodByIdDto;
-    if (formData.paymentPlace == this.sharedFinanceEnum.PaymentPlace.Treasury) {
-      formData.paymentMethodCommissionData = null;
-  }
-
-    if (!this.formsService.validForm(this.PaymentMethodForm, false)) return;
   
-   this.financeService.editPaymentMethod(formData);
-  }
-  changebankaccount(e: any) 
-  {
-      const selectedAccount = this.BankAccountList.find(account => account.id === e);
-      console.log("selectedAccount", selectedAccount)
-      if (selectedAccount) {
-        this.PaymentMethodForm.get('paymentMethodCommissionData.currency')!.setValue(selectedAccount.currencyName);
-      }
-    
-  }
-}
 
+   changebankaccount(e: any) 
+   {
+       const selectedAccount = this.BankAccountList.find(account => account.id === e);
+       console.log("selectedAccount", selectedAccount)
+       if (selectedAccount) {
+         this.PaymentMethodForm.get('paymentMethodCommissionData.currency')!.setValue(selectedAccount.currencyName);
+       }
+    
+   }
+}

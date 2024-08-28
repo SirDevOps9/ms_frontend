@@ -1,4 +1,5 @@
 export interface GetAllPaymentInDto {
+    id:number,
     code: string,
     date:string,
     paymentHub: string,

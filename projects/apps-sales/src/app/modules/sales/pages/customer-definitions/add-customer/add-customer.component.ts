@@ -57,7 +57,7 @@ export class AddCustomerComponent implements OnInit {
           customValidators.noSpecialChars,
           customValidators.noAlphabeticCharacter
         ]),
-        ContactMobileCode: new FormControl(null),
+        contactMobileCode: new FormControl(null),
         contactPhone: new FormControl(null, [
           customValidators.hasSpaces,
           customValidators.noSpecialChars,
@@ -83,7 +83,7 @@ export class AddCustomerComponent implements OnInit {
           customValidators.noAlphabeticCharacter
 
         ]),
-        ContactPersonMobileCode: new FormControl(null),
+        contactPersonMobileCode: new FormControl(null),
       }),
       addressInfo: this.fb.group({
         state: new FormControl(null),
