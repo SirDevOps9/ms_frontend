@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
+import { HttpService, Modules, PageInfo, PaginationVm } from 'shared-lib';
 import {
   AddCustomerCategoryDto,
   AddCustomerDefinitionDto,
@@ -111,8 +111,8 @@ export class SalesProxyService {
     return this.httpService.get<CurrencyDto[]>('Currency/CurrencyDropDown?searchTerm=' + searchKey);
   }
 
-  getTags(): Observable<TagDropDownDto[]> {
-    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown`);
+  getTags(moduleId:Modules): Observable<TagDropDownDto[]> {
+    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown?moduleId=`+ moduleId);
   }
 
   exportCustomerCategoriesData(searchTerm: string | undefined): Observable<CustomerCategoryDto[]> {

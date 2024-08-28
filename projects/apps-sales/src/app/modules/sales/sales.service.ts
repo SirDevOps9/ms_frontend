@@ -7,6 +7,7 @@ import {
   PageInfoResult,
   PageInfo,
   FormsService,
+  Modules,
 } from 'shared-lib';
 import {
   AddCustomerCategoryDto,
@@ -281,8 +282,8 @@ export class SalesService {
     });
   }
 
-  getTags() {
-    this.salesProxy.getTags().subscribe((response) => {
+  getTags(moduleId:Modules) {
+    this.salesProxy.getTags(moduleId).subscribe((response) => {
       this.tagsDataSource.next(response);
     });
   }

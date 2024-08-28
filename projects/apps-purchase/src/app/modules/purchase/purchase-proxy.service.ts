@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
+import { HttpService, Modules, PageInfo, PaginationVm } from 'shared-lib';
 import {
   VendorCategoryDto,
   AddVendorCategory,
@@ -97,8 +97,8 @@ export class PurchaseProxyService {
     return this.httpService.get<CountryDto[]>(`Country`);
   }
 
-  getTags(): Observable<TagDropDownDto[]> {
-    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown`);
+  getTags(moduleId:Modules): Observable<TagDropDownDto[]> {
+    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown?moduleId=`+ moduleId);
   }
 
   exportVendorCategoriesData(

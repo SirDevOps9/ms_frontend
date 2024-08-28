@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
+import { HttpService, Modules, PageInfo, PaginationVm } from 'shared-lib';
 import {
   accountTreeList,
   AddAccountDto,
@@ -44,8 +44,8 @@ export class AccountProxy {
   getAccountTypes(sectionId: number): Observable<AccountTypeDropDownDto[]> {
     return this.httpService.get<AccountTypeDropDownDto[]>(`AccountType?SectionId=` + sectionId);
   }
-  getTags(): Observable<TagDropDownDto[]> {
-    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown`);
+  getTags(moduleId:Modules): Observable<TagDropDownDto[]> {
+    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown?moduleId=`+ moduleId);
   }
   getCompanyDropdown(): Observable<companyDropDownDto[]> {
     return this.httpService.get<companyDropDownDto[]>(`Company/CompanyDropdown`);
