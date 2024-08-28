@@ -35,14 +35,13 @@
               <th>{{ 'openeingBalance.debit' | translate }}</th>
               <th>{{ 'openeingBalance.credit' | translate }}</th>
               <th>{{ 'openeingBalance.duedate' | translate }}</th>
-
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-customerGroup let-editing="editing" let-i="rowIndex">
             <tr [formGroup]="customerGroup">
-              <td [pEditableColumn]="customerGroup.controls['debit']" pEditableColumnField="debit">
+              <td>
                 <p-cellEditor>
-                  <ng-template pTemplate="input">
+                  <ng-template>
                     <lib-text-input
                       formControlName="debit"
                       [readOnly]="true"
@@ -57,14 +56,11 @@
                   [appControl]="customerGroup.controls['debit']"
                 ></lib-field-validations>
               </td>
-              <td
-                [pEditableColumn]="customerGroup.controls['credit']"
-                pEditableColumnField="credit"
-              >
+              <td>
                 <p-cellEditor>
-                  <ng-template pTemplate="input">
+                  <ng-template>
                     <lib-text-input
-                    [readOnly]="true"
+                      [readOnly]="true"
                       (keyUp)="getTotalBalanceSum(); resetDate($event)"
                       formControlName="credit"
                     ></lib-text-input>
@@ -77,24 +73,12 @@
                   [appControl]="customerGroup.controls['credit']"
                 ></lib-field-validations>
               </td>
-              <td
-                [pEditableColumn]="customerGroup.controls['duedate']"
-                pEditableColumnField="duedate"
-              >
+              <td>
                 <p-cellEditor>
-                  <ng-template pTemplate="input">
-                    <!-- <lib-text-input
-                  type="date"
-
-                    formControlName="duedate"
-                  ></lib-text-input> -->
-                    <lib-calendar
-                      [disabled]="true"
-                      formControlName="dueDate"
-                    ></lib-calendar>
+                  <ng-template>
+                    <lib-calendar [disabled]="true" formControlName="dueDate"></lib-calendar>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    <!-- <lib-calendar  [disabled]="true"  formControlName="duedate" [placeholder]="customerGroup.controls['duedate'].value"></lib-calendar> -->
                     {{ customerGroup.controls['dueDate'].value }}
                   </ng-template>
                 </p-cellEditor>
@@ -102,7 +86,6 @@
                   [appControl]="customerGroup.controls['dueDate']"
                 ></lib-field-validations>
               </td>
-
             </tr>
           </ng-template>
           <ng-template pTemplate="footer">
@@ -113,7 +96,6 @@
               <td class="total" [ngClass]="{ error: error }">
                 {{ totalBalanceSum }}
               </td>
-              <td></td>
               <td></td>
             </tr>
           </ng-template>

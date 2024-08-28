@@ -26,7 +26,7 @@
             </lib-label>
             <lib-select
               formControlName="JournalLine"
-              [options]="LinesDropDown"
+              [options]="linesDropDown"
               [selectedValue]="formGroup.controls['JournalLine'].value"
               optionLabel="accountCodeName"
               optionValue="id"
@@ -103,7 +103,7 @@
                   <lib-form-group>
                     <lib-select
                       formControlName="customerId"
-                      [options]="CustomerDropDownByAccountId"
+                      [options]="customerDropDownByAccountId"
                       optionValue="id"
                       optionLabel="name"
                       placeholder="{{ 'customerDefinition.code' | translate }}"
@@ -152,7 +152,7 @@
                   <lib-form-group>
                     <lib-select
                       formControlName="balanceType"
-                      [options]="lookups[LookupEnum.AccountNature]"
+                      [options]="lookups[lookupEnum.AccountNature]"
                       optionValue="name"
                       optionLabel="name"
                       placeholder="{{ 'openeingBalance.balanceType' | translate }}"

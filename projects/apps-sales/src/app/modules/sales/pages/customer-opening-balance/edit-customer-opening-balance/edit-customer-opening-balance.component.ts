@@ -33,15 +33,15 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
   formGroup: FormGroup;
   customerForm: FormArray;
   openingJournalList: CategoryDropdownDto[];
-  LinesDropDown: GetLineDropDownById[];
-  CustomerDropDownByAccountId: CustomerDropDown[] | any;
+  linesDropDown: GetLineDropDownById[];
+  customerDropDownByAccountId: CustomerDropDown[] | any;
   amount: string;
   balanceTypeSelect: string;
   debitOrCredit: string;
   openingJournalId: number;
   totalBalance: number;
   filteredAccounts: AccountDto[] = [];
-  LookupEnum = LookupEnum;
+  lookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   openingBalanceJournalEntryLineId: number;
   amountNature: AccountNature;
@@ -59,12 +59,12 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
     private formService: FormsService,
     private lookupsService: LookupsService,
     public enums: SharedSalesEnums
-  ) {
-  }
+  ) {}
   ngOnInit(): void {
     this.languageService
       .getTranslation('openeingBalance.CustomerOpeningBalance')
-      .subscribe((res) => this.title.setTitle(res));    this.loadLookups();
+      .subscribe((res) => this.title.setTitle(res));
+    this.loadLookups();
     this.initializeMainFormGroup();
     this.subscribe();
     this.customerLineFormGroup();
@@ -184,7 +184,7 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
 
   onLinesChange(event: any) {
     setTimeout(() => {
-      this.LinesDropDown?.forEach((element: any) => {
+      this.linesDropDown?.forEach((element: any) => {
         if (element.id == event) {
           this.formGroup.patchValue({
             amount: element.amount,
@@ -207,7 +207,7 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
     if (!line) {
       return;
     }
-    const selectedCustomer = this.CustomerDropDownByAccountId.find((c: any) => c.id === event);
+    const selectedCustomer = this.customerDropDownByAccountId.find((c: any) => c.id === event);
 
     if (!selectedCustomer) {
       return;
@@ -313,10 +313,10 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
     });
 
     this.salesService.CustomerDropDownByAccountIdObservable.subscribe((res) => {
-      this.CustomerDropDownByAccountId = res;
+      this.customerDropDownByAccountId = res;
     });
     this.salesService.LinesDropDownDataObservable.subscribe((res: any) => {
-      this.LinesDropDown = res;
+      this.linesDropDown = res;
     });
     if (this.formGroup) {
       this.formGroup.get('OpeningJournal')?.valueChanges.subscribe((value) => {

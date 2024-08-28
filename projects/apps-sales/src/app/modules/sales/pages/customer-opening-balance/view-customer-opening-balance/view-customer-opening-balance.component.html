@@ -1,48 +1,32 @@
 <div style="margin-left: 20px; overflow-x: hidden">
   <div class="grid-cont">
     <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{ 'viewJournal.JornalCode' | translate }}</p>
+      <p class="headsCont paragraph_b16">{{  'openeingBalance.openingJournal' | translate }}</p>
       <small class="subHead heading_b16">
         {{ customerView?.openingBalanceJournalEntryCode }}
       </small>
     </div>
     <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{ 'viewJournal.Jornalstatus' | translate }}</p>
+      <p class="headsCont paragraph_b16">{{ 'openeingBalance.JournalLine' | translate }}</p>
       <small class="subHead heading_b16">
         {{ customerView?.journalEntryLineDescription }}
       </small>
     </div>
     <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{ 'viewJournal.journalReference' | translate }}</p>
+      <p class="headsCont paragraph_b16">{{ 'openeingBalance.amount'| translate }}</p>
       <small class="subHead heading_b16">
         {{ customerView?.amount }}
       </small>
     </div>
     <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{ 'viewJournal.date' | translate }}</p>
+      <p class="headsCont paragraph_b16">{{ 'openeingBalance.debitCredit' | translate }}</p>
       <small class="subHead heading_b16">
         {{ customerView?.amountNature }}
       </small>
     </div>
 
   </div>
-  <!--  -->
-  <div class="grid-cont">
-    <!--
-    <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{ 'Reversed Journal Code' | translate }}</p>
-      <small class="subHead heading_b16">
-        {{ customerView?.reversedJournalCode }}
-      </small>
-    </div>  
-    -->
-  </div>
-  <!--  -->
-  <div class="grid-cont">
 
-  </div>
-  <!--  -->
-  <!--  -->
   <div class="journal_page">
     <lib-data-table
       *ngIf="customerView"
@@ -91,7 +75,7 @@
       <ng-template #dueDates let-i>
         <div>
           <lib-button-micro
-          title="{{ 'openeingBalance.viewDistribution' | translate }}"
+          title="{{ 'openeingBalance.ViewDistribution' | translate }}"
           (click)="
             openDistribute(i)
           "

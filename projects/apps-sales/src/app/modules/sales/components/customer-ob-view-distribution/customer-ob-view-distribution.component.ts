@@ -27,14 +27,11 @@ export class CustomerObViewDistributionComponent implements OnInit {
   constructor(
     private formsService: FormsService,
     private fb: FormBuilder,
-    private dialog: DialogService,
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
-    private cdr: ChangeDetectorRef,
-    private toasterService: ToasterService,
-    private langService: LanguageService,
-    private translationService: TranslationService
+    private cdr: ChangeDetectorRef
   ) {}
+
   ngAfterViewInit(): void {
     this.balance = this.config.data.balance;
     this.customerForm.clear();
@@ -50,12 +47,12 @@ export class CustomerObViewDistributionComponent implements OnInit {
       });
       this.getTotalBalanceSum();
     } else {
-      // this.addLine()
-      this.items.push(this.createBankFormGroup());
+      this.items.push(this.distributionFromGroup());
     }
 
     this.cdr.detectChanges();
   }
+
   ngOnInit(): void {
     this.formGroup = this.fb.group({
       balance: '',
@@ -64,16 +61,16 @@ export class CustomerObViewDistributionComponent implements OnInit {
       balance: '',
     });
 
-    this.customerForm = this.fb.array([this.createBankFormGroup()]);
+    this.customerForm = this.fb.array([this.distributionFromGroup()]);
 
-    this.createBankFormGroup();
+    this.distributionFromGroup();
   }
 
   public get items(): FormArray {
     return this.customerForm as FormArray;
   }
 
-  createBankFormGroup(): FormGroup {
+  distributionFromGroup(): FormGroup {
     const group = this.fb.group({
       id: 0,
       dueDate: new FormControl(this.getTodaysDate()),

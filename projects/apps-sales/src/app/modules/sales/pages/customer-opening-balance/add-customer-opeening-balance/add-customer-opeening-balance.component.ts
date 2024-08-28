@@ -31,8 +31,8 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
   formGroup: FormGroup;
   customerForm: FormArray;
   openingJournalList: CategoryDropdownDto[];
-  LinesDropDown: GetLineDropDownById[];
-  CustomerDropDownByAccountId: CustomerDropDown[] | any;
+  linesDropDown: GetLineDropDownById[];
+  customerDropDownByAccountId: CustomerDropDown[] | any;
   amount: string;
   balanceTypeSelect: string;
   debitOrCredit: string;
@@ -185,7 +185,7 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
 
   onLinesChange(event: any) {
     setTimeout(() => {
-      this.LinesDropDown?.forEach((element: any) => {
+      this.linesDropDown?.forEach((element: any) => {
         if (element.id == event) {
           this.formGroup.patchValue({
             amount: element.amount,
@@ -224,10 +224,10 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     });
 
     this.SalesService.CustomerDropDownByAccountIdObservable.subscribe((res) => {
-      this.CustomerDropDownByAccountId = res;
+      this.customerDropDownByAccountId = res;
     });
     this.SalesService.LinesDropDownDataObservable.subscribe((res: any) => {
-      this.LinesDropDown = res;
+      this.linesDropDown = res;
     });
 
     if (this.formGroup) {
@@ -258,7 +258,7 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
       return;
     }
 
-    const selectedCustomer = this.CustomerDropDownByAccountId.find((c: any) => c.id === event);
+    const selectedCustomer = this.customerDropDownByAccountId.find((c: any) => c.id === event);
 
     if (!selectedCustomer) {
       return;
