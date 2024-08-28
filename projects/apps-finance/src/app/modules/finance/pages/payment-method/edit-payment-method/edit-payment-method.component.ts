@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { customValidators, FormsService, LanguageService, lookupDto, LookupEnum, LookupsService, RouterService, ToasterService } from 'shared-lib';
 import { BankAccountWithCurrency } from '../../../models/bank-account-with-currency-dto';
-import { AddPaymentMethodDto, paymentmethodtype, paymentplace } from '../../../models';
+import { AddPaymentMethodDto, DropDownDto, paymentmethodtype, paymentplace } from '../../../models';
 import { FinanceService } from '../../../finance.service';
 import { SharedFinanceEnums } from '../../../models/shared-finance-enums';
 import { ActivatedRoute } from '@angular/router';
@@ -24,7 +24,7 @@ export class EditPaymentMethodComponent implements OnInit {
   id: number = this.route.snapshot.params['id']
   originalPaymentMethodTypeLookups: lookupDto[] = [];
   disableCommission: boolean = false;
-  taxList: { id: number; name: string }[];
+  TaxList: DropDownDto[];
 
 
 
@@ -149,8 +149,10 @@ export class EditPaymentMethodComponent implements OnInit {
   }
 
   getTaxDropDown() {
-    this.financeService.getTaxDropDown().subscribe((res) => {
-      this.taxList = res;
+    this.financeService.getTaxDropDown();
+    
+    this.financeService.taxDropDowmSourceObservable.subscribe((res) => {
+      this.TaxList =res;
     });
   }
 
