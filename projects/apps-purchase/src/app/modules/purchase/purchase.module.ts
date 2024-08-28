@@ -14,6 +14,7 @@ import { MainVendorCategoryComponent } from './pages/vendor-category/main-vendor
 import { MainVendorDefintionsComponent } from './pages/vendor-definitions/main-vendor-defintions/main-vendor-defintions.component';
 import { VendorOpeningBalanceComponent } from './pages/vendor-opening-balance/vendor-opening-balance.component';
 import { VendorOpeningBalanceListComponent } from './pages/vendor-opening-balance/vendor-opening-balance-list/vendor-opening-balance-list.component';
+import { VendorOpeningBalanceMainComponent } from './pages/vendor-opening-balance/vendor-opening-balance-main/vendor-opening-balance-main.component';
 
 const routes: Routes = [
   {
@@ -136,7 +137,10 @@ const routes: Routes = [
     VendorOpeningBalanceComponent,
     MainVendorCategoryComponent,
     MainVendorDefintionsComponent,
-    VendorOpeningBalanceListComponent
+    VendorOpeningBalanceListComponent,
+    VendorOpeningBalanceMainComponent,
+    EditVendorDefinitionsComponent,
+    AddVendorDefinitionsComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })
