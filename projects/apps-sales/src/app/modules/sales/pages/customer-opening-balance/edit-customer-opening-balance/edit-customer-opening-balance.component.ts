@@ -1,33 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder, FormControl } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AccountDto } from 'projects/apps-accounting/src/app/modules/account/models';
 import {
-  customValidators,
-  FormsService,
-  LanguageService,
-  lookupDto,
-  LookupEnum,
-  LookupsService,
-  RouterService,
   ToasterService,
+  LanguageService,
+  FormsService,
+  customValidators,
+  RouterService,
+  LookupsService,
+  LookupEnum,
+  lookupDto,
 } from 'shared-lib';
 import { CustomerOpeningBalanceDistributeComponent } from '../../../components/customer-opening-balance-distribute/customer-opening-balance-distribute.component';
-import { SalesService } from '../../../sales.service';
 import {
   CategoryDropdownDto,
-  CustomerDropDown,
   GetLineDropDownById,
+  CustomerDropDown,
   SharedSalesEnums,
 } from '../../../models';
+import { SalesService } from '../../../sales.service';
+import { AccountNature } from 'projects/erp-home/src/app/modules/general-setting/models';
 import { Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-add-customer-opeening-balance',
-  templateUrl: './add-customer-opeening-balance.component.html',
-  styleUrl: './add-customer-opeening-balance.component.scss',
+  selector: 'app-edit-customer-opening-balance',
+  templateUrl: './edit-customer-opening-balance.component.html',
+  styleUrls: ['./edit-customer-opening-balance.component.scss'],
+  providers: [RouterService],
 })
-export class AddCustomerOpeeningBalanceComponent implements OnInit {
+export class EditCustomerOpeningBalanceComponent implements OnInit {
   formGroup: FormGroup;
   customerForm: FormArray;
   openingJournalList: CategoryDropdownDto[];
@@ -39,40 +41,40 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
   openingJournalId: number;
   totalBalance: number;
   filteredAccounts: AccountDto[] = [];
-  LookupEnum = LookupEnum;
+  lookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   openingBalanceJournalEntryLineId: number;
-  amountNature: string;
+  amountNature: AccountNature;
   editMode: boolean;
   formChanged: boolean;
 
   constructor(
     private fb: FormBuilder,
     private dialog: DialogService,
-    private SalesService: SalesService,
+    private salesService: SalesService,
     private toasterService: ToasterService,
     private languageService: LanguageService,
-    private formService: FormsService,
-    public routerService: RouterService,
     private title: Title,
+    public routerService: RouterService,
+    private formService: FormsService,
     private lookupsService: LookupsService,
     public enums: SharedSalesEnums
   ) {}
-
+  
   ngOnInit(): void {
     this.languageService
       .getTranslation('openeingBalance.CustomerOpeningBalance')
       .subscribe((res) => this.title.setTitle(res));
-
-    this.SalesService.LinesDropDownData.next([]);
-    this.SalesService.CustomerDropDownByAccountId.next([]);
     this.loadLookups();
-    this.customerForm = this.fb.array([]);
-    this.subscribe();
-    this.customerForm = this.fb.array([this.customerLineFormGroup()]);
-    this.openingBalanceJournalEntryDropdown();
     this.initializeMainFormGroup();
+    this.subscribe();
     this.customerLineFormGroup();
+    this.getCustomerOpeningBalance(this.routerService.currentId);
+    this.openingBalanceJournalEntryDropdown();
+  }
+
+  loadLookups() {
+    this.lookupsService.loadLookups([LookupEnum.AccountNature]);
   }
 
   private initializeMainFormGroup(): void {
@@ -86,9 +88,6 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     this.customerForm = this.fb.array([this.customerLineFormGroup()]);
   }
 
-  loadLookups() {
-    this.lookupsService.loadLookups([LookupEnum.AccountNature]);
-  }
   public get items(): FormArray {
     return this.customerForm as FormArray;
   }
@@ -99,11 +98,25 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     this.items.push(this.customerLineFormGroup());
     this.customerForm.updateValueAndValidity();
   }
+
   removeByFront(index: number) {
     this.customerForm.removeAt(index);
     this.calculateTotalBalance();
   }
 
+  onDelete(id: number, index: number): void {
+    if (id == 0) {
+      this.removeByFront(index);
+    } else {
+      this.salesService.deleteCustomerOpeningBalance(id);
+      this.salesService.customerDeletedObser.subscribe((res: boolean) => {
+        if (res == true) {
+          this.customerForm.removeAt(index);
+          this.calculateTotalBalance();
+        }
+      });
+    }
+  }
 
   customerLineFormGroup(): FormGroup {
     return this.fb.group({
@@ -125,9 +138,7 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
 
   openDistribute(data: any, account: number, index: number, customerGroup: FormGroup) {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
-
     if (!this.formService.validForm(this.customerForm, false)) return;
-
     if (data.balanceType != this.enums.BalanceType.Debit) {
       this.toasterService.showError(
         this.languageService.transalte('Error'),
@@ -151,7 +162,7 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
   }
 
   openingBalanceJournalEntryDropdown() {
-    this.SalesService.openingBalanceJournalEntryDropdown();
+    this.salesService.openingBalanceJournalEntryDropdown();
   }
 
   onOpeningJournalChange(event: any) {
@@ -160,7 +171,7 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
 
   getLinesDropDown(id: number) {
     this.openingJournalId = id;
-    this.SalesService.getLinesDropDown(id);
+    this.salesService.getLinesDropDown(id);
   }
 
   onLinesChange(event: any) {
@@ -180,56 +191,7 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
   }
 
   getCustomerDropDownByAccountId(id: number) {
-    this.SalesService.getCustomerDropDownByAccountId(id);
-  }
-
-  onSubmit() {
-    if (!this.formService.validForm(this.customerForm, false)) return;
-
-    this.customerForm.updateValueAndValidity();
-    this.formGroup.updateValueAndValidity();
-    const body = {
-      openingBalanceJournalEntryLineId: this.openingBalanceJournalEntryLineId,
-      amountNature: this.amountNature,
-      customerOpeningBalanceDetails: this.items.value,
-    };
-    this.SalesService.AddCustomerOpeningBalance(body);
-  }
-
-  subscribe() {
-    this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
-
-    this.SalesService.openingBalanceJournalEntryDropdownDataObservable.subscribe((res) => {
-      this.openingJournalList = res;
-    });
-
-    this.SalesService.CustomerDropDownByAccountIdObservable.subscribe((res) => {
-      this.customerDropDownByAccountId = res;
-    });
-    this.SalesService.LinesDropDownDataObservable.subscribe((res: any) => {
-      this.linesDropDown = res;
-    });
-
-    if (this.formGroup) {
-      this.formGroup.get('OpeningJournal')?.valueChanges.subscribe((value) => {
-        this.onOpeningJournalChange(value);
-      });
-
-      this.formGroup.get('JournalLine')?.valueChanges.subscribe((value) => {
-        this.onLinesChange(value);
-      });
-    }
-  }
-
-  calculateTotalBalance() {
-    this.totalBalance = this.customerForm.controls.reduce((acc, control) => {
-      const debitValue = parseFloat(control.get('balance')?.value) || 0;
-      return acc + debitValue;
-    }, 0);
-  }
-
-  cancel() {
-    this.routerService.navigateTo('/masterdata/customer-opening-balance');
+    this.salesService.getCustomerDropDownByAccountId(id);
   }
 
   accountSelected(event: any, index: number) {
@@ -237,7 +199,6 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     if (!line) {
       return;
     }
-
     const selectedCustomer = this.customerDropDownByAccountId.find((c: any) => c.id === event);
 
     if (!selectedCustomer) {
@@ -282,7 +243,93 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
         return;
       }
     }
-
     line.get('balanceType')?.setValue(event);
   }
+
+  onSubmit() {
+    if (!this.formService.validForm(this.customerForm, false)) return;
+    this.customerForm.updateValueAndValidity();
+    this.formGroup.updateValueAndValidity();
+    const body = {
+      id: this.routerService.currentId,
+      openingBalanceJournalEntryLineId: this.openingBalanceJournalEntryLineId,
+      amountNature: this.amountNature,
+      customerOpeningBalanceDetails: this.items.value,
+    };
+    this.salesService.EditCustomerOpeningBalance(body);
+  }
+
+  getCustomerOpeningBalance(id: number) {
+    this.salesService.getCustomerOpeningBalance(id);
+  }
+
+  subscribe() {
+    this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
+
+    this.salesService.CustomerOpeningBalancelistObservable.subscribe((res: any) => {
+      this.customerForm.clear();
+      if (res.length != 0) {
+        this.formGroup?.patchValue(
+          {
+            OpeningJournal: res.openingBalanceJournalEntryId,
+            JournalLine: res.openingBalanceJournalEntryLineId,
+          },
+          { emitEvent: true }
+        );
+        this.onOpeningJournalChange(res.openingBalanceJournalEntryId);
+        this.onLinesChange(res.openingBalanceJournalEntryLineId);
+        this.editMode = true;
+        this.formChanged = false;
+      }
+      if (res && res.customerOpeningDetails && Array.isArray(res.customerOpeningDetails)) {
+        res.customerOpeningDetails.forEach((detail: any, index: number) => {
+          const formGroup = this.customerLineFormGroup();
+          formGroup.patchValue({
+            id: detail.id,
+            customerId: detail.customerId || '',
+            accountName: detail.customerName || '',
+            customerCode: detail.customerCode || '',
+            balance: detail.balance || 0,
+            balanceType: detail.balanceType || '',
+            displayName: detail.displayName || '',
+            dueDates: detail.balanceDueDates || [],
+          });
+          this.customerForm.push(formGroup);
+          this.accountSelected(detail.customerId, index);
+          this.calculateTotalBalance();
+        });
+      }
+    });
+    this.salesService.openingBalanceJournalEntryDropdownDataObservable.subscribe((res) => {
+      this.openingJournalList = res;
+    });
+
+    this.salesService.CustomerDropDownByAccountIdObservable.subscribe((res) => {
+      this.customerDropDownByAccountId = res;
+    });
+    this.salesService.LinesDropDownDataObservable.subscribe((res: any) => {
+      this.linesDropDown = res;
+    });
+    if (this.formGroup) {
+      this.formGroup.get('OpeningJournal')?.valueChanges.subscribe((value) => {
+        this.onOpeningJournalChange(value);
+      });
+      this.formGroup.get('JournalLine')?.valueChanges.subscribe((value) => {
+        this.onLinesChange(value);
+      });
+    }
+  }
+
+  calculateTotalBalance() {
+    this.totalBalance = this.customerForm.controls.reduce((acc, control) => {
+      const debitValue = parseFloat(control.get('balance')?.value) || 0;
+      return acc + debitValue;
+    }, 0);
+  }
+
+  cancel() {
+    this.routerService.navigateTo('/masterdata/customer-opening-balance');
+  }
+
+  ngOnDestroy() {}
 }
