@@ -190,7 +190,7 @@
                     </lib-label>
                     <lib-select
                       formControlName="taxId"
-                      [options]="TaxList"
+                      [options]="taxList"
                       optionLabel="name"
                       optionValue="id"
                       [selectedValue]="PaymentMethodForm.get('paymentMethodCommissionData')?.get('taxId')!.value"
