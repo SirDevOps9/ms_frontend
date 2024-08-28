@@ -577,24 +577,7 @@ export class AddPaymentInComponent {
   save() {
 
     if (!this.formsService.validForm(this.paymentInDetailsFormArray && this.addForm, false)) return;
-    // if(){
 
-    //     if (this.paymentMethodType == paymentMethodTypeString.Check) {
-    //       this.addForm.get('chequeDueDate')?.addValidators(customValidators.required);
-    //       this.addForm.get('chequeNumber')?.addValidators(customValidators.required);
-    //     } else if (this.paymentMethodType == paymentMethodTypeString.Transfer) {
-    //       this.addForm.clearValidators()
-    //     }
-    //     else if (this.paymentmethod == paymentMethodTypeString.Span) {
-    //       this.addForm.clearValidators()
-    //     }
-    //     else if (this.paymentmethod == paymentMethodTypeString.Master) {
-    //       this.addForm.get('bankReference')?.addValidators(customValidators.required);
-    //     }
-    //     else if (this.paymentmethod == paymentMethodTypeString.Visa) {
-    //       this.addForm.get('bankReference')?.addValidators(customValidators.required);
-    //     }
-    //   }
     let lineNumber = 0;
     let validpaymentInDetails:boolean = true;
     this.paymentInDetailsFormArray.controls.forEach((control) => {
