@@ -1,0 +1,110 @@
+import { GetPaymentTermById } from './../finance/models/get-payment-term-by-id-dto';
+import { Injectable } from '@angular/core';
+import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
+import { AccountDto, AddPaymentMethodDto, BankAccountWithCurrency, CurrencyRateDto, CustomerDropDown, DropDownDto, GetAllPaymentInDto, TreasuryDropDown, VendorDropDown } from './models';
+import { Observable } from 'rxjs';
+import { GetPaymentMethodByIdDto } from './models/get-payment-method-by-id-dto';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class TranscationsProxyService {
+
+  constructor(private httpService : HttpService) { }
+  
+  BankAccountDropDown( bankId :number) : Observable<BankAccountWithCurrency[]> {
+    return this.httpService.get(`Bank/BankAccountDropDown?bankId=${bankId}`);
+  }
+
+  BankDropDown() : Observable<DropDownDto[]> {
+    return this.httpService.get(`Bank/BankDropDown`);
+  }
+  treasuryDropDown() : Observable<TreasuryDropDown[]> {
+    return this.httpService.get(`Treasury/GetAllTreasuriesDropdown`);
+  }
+  CustomerDropdown() : Observable<CustomerDropDown[]> {
+    return this.httpService.get(`Customer/GetAllCustomersDropdown`);
+  }
+  VendorDropdown() : Observable<VendorDropDown[]> {
+    return this.httpService.get(`Vendor/GetAllVendorsDropdown`);
+  }
+ 
+
+  addPaymentMethod(obj : AddPaymentMethodDto) {
+    return this.httpService.post('PaymentMethod' , obj)
+
+  }
+  getPaymentMethodByID(id:number) : Observable<GetPaymentMethodByIdDto> {
+    return this.httpService.get(`PaymentMethod/${id}`)
+  }
+  editPaymentMethod(  obj : GetPaymentMethodByIdDto) : Observable<boolean> {
+    return this.httpService.put(`PaymentMethod` , obj);
+
+  }
+  addPaymentIn(obj : any) {
+    return this.httpService.post('PaymentIn' , obj)
+  }
+  GetAllPayMethodsDropdown(bankId:number ,BankAccountId:number ) : Observable<any[]> {
+    return this.httpService.get(`PaymentMethod/GetAllBankPaymentMethodsDropdown/${bankId}/${BankAccountId}`);
+  }
+  GetAllTreasuriesPaymentMethodsDropdown() : Observable<any[]> {
+    return this.httpService.get(`PaymentMethod/GetAllTreasuriesPaymentMethodsDropdown`);
+  }
+  GetTreasuryBalance(id:number) : Observable<number> {
+    return this.httpService.get(`Treasury/GetBalance/${id}`);
+  }
+  GetAccountBalance(id:number) : Observable<number> {
+    return this.httpService.get(`Bank/GetAccountBalance/${id}`);
+  }
+  getAccountsHasNoChildren(
+    quieries: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<AccountDto>> {
+    return this.httpService.get<PaginationVm<AccountDto>>(
+      `ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}&${quieries ? quieries : ''}`
+    );
+  }
+
+getAccountsHasNoChildrenNew(
+  searchTerm: string,
+  pageInfo: PageInfo
+): Observable<PaginationVm<AccountDto>> {
+  let query = `ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}`;
+  if (searchTerm) {
+    query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+  }
+  return this.httpService.get<PaginationVm<AccountDto>>(query);
+}
+
+getAccountCurrencyRate(currentCurrency:number,accountCurrency:number){
+  return this.httpService.get<CurrencyRateDto>(`CurrencyConversion/rate?FromCurrencyId=${currentCurrency}&ToCurrencyId=${accountCurrency}`);
+  }
+  getAllPymentIn(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<GetAllPaymentInDto>> {
+    let query = `PaymentIn?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<GetAllPaymentInDto>>(query);
+  }
+
+  exportsPaymentInList(
+    searchTerm: string | undefined
+  ): Observable<GetAllPaymentInDto[]> {
+    let query = `PaymentIn/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<GetAllPaymentInDto[]>(query);
+  }
+  deletePaymentIn(id : number) {
+    return this.httpService.delete(`PaymentIn/${id}`);
+
+  }
+  getTaxDropDown(): Observable<DropDownDto[]> {
+    return this.httpService.get('Tax/Taxdropdown');
+  }
+  GetPaymentInById(id:number) : Observable<number> {
+    return this.httpService.get(`PaymentIn/${id}`);
+  }
+}
+
