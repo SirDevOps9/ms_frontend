@@ -1,10 +1,4 @@
 <lib-page-content [title]="'bank.TaxList' | translate" [subTitle]="'bank.TaxList' | translate">
-  <div class="flex justify-content-end my-2">
-    <lib-button-micro nameClass="cancel" title="{{ 'bank.discard' | translate }}" (click)="discard()"> </lib-button-micro>
-    <lib-button-micro nameClass="save" title="{{ 'bank.save' | translate }}"  iconName="pi pi-save" type="button" (click)="onSave()">
-    </lib-button-micro>
-  </div>
-
   <div class="bank">
     <div [formGroup]="bankormGroup" class="entry_header">
       <div class="grid">
@@ -131,7 +125,6 @@
                 [pEditableColumn]="bankGroup.controls['accountNumber']"
                 pEditableColumnField="accountNumber"
               >
-              
                 <p-cellEditor>
                   <ng-template pTemplate="input">
                     <lib-text-input
@@ -195,16 +188,15 @@
                         optionValue="id"
                         optionLabel="name"
                         [selectedValue]="bankGroup.controls['branches'].value"
-                        (valueChanged)="branchSelected($event , bankGroup , i)"
+                        (valueChanged)="branchSelected($event, bankGroup, i)"
                       ></lib-multi-select>
-                 
                     </lib-form-group>
                   </ng-template>
                   <ng-template pTemplate="output">
                     {{ bankGroup.controls['branchName'].value }}
                     <lib-field-validations
-                    [appControl]="bankGroup.controls['branches']"
-                  ></lib-field-validations>
+                      [appControl]="bankGroup.controls['branches']"
+                    ></lib-field-validations>
                   </ng-template>
                 </p-cellEditor>
               </td>
@@ -233,9 +225,7 @@
                 [pEditableColumn]="bankGroup.controls['currencyId']"
                 pEditableColumnField="bankGroup.controls['currencyId']"
               >
-            
                 <p-cellEditor>
-
                   <ng-template pTemplate="input">
                     <lib-form-group>
                       <lib-select
@@ -245,20 +235,18 @@
                         optionValue="id"
                         optionLabel="name"
                         [selectedValue]="bankGroup.controls['currencyId'].value"
-                        (valueChanged)="currencyselected($event , bankGroup , i)"
+                        (valueChanged)="currencyselected($event, bankGroup, i)"
                       ></lib-select>
-                      
                     </lib-form-group>
-                    
                   </ng-template>
-                  
+
                   <ng-template pTemplate="output">
-                    {{ bankGroup.controls['currencyName'].value  }}
+                    {{ bankGroup.controls['currencyName'].value }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations
-                [appControl]="bankGroup.controls['currencyId']"
-              ></lib-field-validations>
+                  [appControl]="bankGroup.controls['currencyId']"
+                ></lib-field-validations>
               </td>
               <!--  -->
               <td>
@@ -280,7 +268,7 @@
                         optionValue="id"
                         optionLabel="name"
                         [selectedValue]="bankGroup.controls['userPermission'].value"
-                        (valueChanged)="userPermissionSelect($event , bankGroup , i)"
+                        (valueChanged)="userPermissionSelect($event, bankGroup, i)"
                       ></lib-multi-select>
                     </lib-form-group>
                   </ng-template>
@@ -313,24 +301,38 @@
               <!--  -->
               <td>
                 <i class="pi pi-trash" (click)="onDelete(i)"></i>
-            </td>
+              </td>
             </tr>
           </ng-template>
         </p-table>
       </div>
     </div>
   </div>
+
+    <div class="btn_group">
+      <div class="grid mt-4">
+        <div class="md:col-3">
+          <div class="grid">
+            <div class="md:col-6">
+              <lib-button-micro
+                nameClass="cancel"
+                title="{{ 'bank.discard' | translate }}"
+                (click)="discard()"
+              >
+              </lib-button-micro>
+            </div>
+            <div class="md:col-6">
+              <lib-button-micro
+                nameClass="save w-100"
+                title="{{ 'bank.save' | translate }}"
+                iconName="pi pi-save"
+                type="button"
+                (click)="onSave()"
+              >
+              </lib-button-micro>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </lib-page-content>
-
-
-
-
-
-
-
-
-
-
-
-
-
