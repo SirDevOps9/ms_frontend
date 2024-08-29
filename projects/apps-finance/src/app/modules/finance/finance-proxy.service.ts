@@ -248,4 +248,7 @@ getAccountCurrencyRate(currentCurrency:number,accountCurrency:number){
   getTaxDropDown(): Observable<DropDownDto[]> {
     return this.httpService.get('Tax/Taxdropdown');
   }
+  postPaymentIn(id:number){
+    return this.httpService.post(`PaymentIn/${id}/Post`,null);
+  }
 }

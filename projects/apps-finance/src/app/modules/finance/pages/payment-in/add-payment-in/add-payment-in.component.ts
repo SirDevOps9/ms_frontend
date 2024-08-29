@@ -61,7 +61,9 @@ export class AddPaymentInComponent {
   TreasuryBalance: number = 0;
   totalLocalAmount: number = 0;
   newBalance: number = 0;
+  PaymentInId: number;
   selectedBank: boolean;
+  post: boolean;
   selectedCurrency: string = "";
   paymentMethod: BankPaymentMethods[] = []
   AllTreasuriesPayMethod: TreasuriesPaymentMethod[] = []
@@ -301,7 +303,17 @@ export class AddPaymentInComponent {
       this.updatecurrencyIdnPaymentDetails(currencyId)
     })
 
+    this.financeService.paymentSaved.subscribe((res:number)=>{
+      if(res){
+        this.PaymentInId=res
+        setTimeout(() => {
+          this.post=true;
 
+        }, 1000);
+      }else{
+        this.post=false;
+      }
+    })
   }
   addNewRow() {
     
@@ -591,7 +603,7 @@ export class AddPaymentInComponent {
 
   }
   save() {
-    debugger
+    
     if (!this.formsService.validForm(this.paymentInDetailsFormArray && this.addForm, false)) return;
 
     let lineNumber = 0;
@@ -756,5 +768,9 @@ export class AddPaymentInComponent {
   }
   getAccountBalance(id: number) {
     this.financeService.GetAccountBalance(id);
+  }
+  addToPost(){
+    this.financeService.postPaymentIn(this.PaymentInId)
+    
   }
 }
