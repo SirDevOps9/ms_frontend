@@ -34,6 +34,6 @@
     color: red; /* Change this to your desired color */
   }
   .exportImg{
-    height: 43px;
+    height: 100%;
     cursor: pointer;
   }

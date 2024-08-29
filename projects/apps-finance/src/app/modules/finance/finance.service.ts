@@ -39,6 +39,7 @@ export class FinanceService {
   public paymentInDataSource = new BehaviorSubject<GetAllPaymentInDto[]>([])
   public exportedpaymentinListDataSource = new BehaviorSubject<GetAllPaymentInDto[]>([]);
   public sendTaxDropDownDataSource = new BehaviorSubject<DropDownDto[]>([]);
+  public paymentSaved = new BehaviorSubject<number>(0);
 
   public getTreasuryDropDownData = new BehaviorSubject<any>([])
   public getBankDropDownData = new BehaviorSubject<any>([])
@@ -445,11 +446,13 @@ export class FinanceService {
   addPaymentIn(obj:AddPaymentTermDto) {
     this.financeProxy.addPaymentIn(obj).subscribe({
       
-      next:(res)=> {
+      next:(res:any)=> {
         this.toasterService.showSuccess(
           this.languageService.transalte('PaymentIn.Success'),
           this.languageService.transalte('PaymentIn.PaymentInAddedSuccessfully')
-        );        
+
+        );      
+        this.paymentSaved.next(res)  
       },
       error:(error)=>{
         this.toasterService.showError(
@@ -550,5 +553,24 @@ export class FinanceService {
          this.sendTaxDropDownDataSource.next(res);
       },
     });
+  }
+  postPaymentIn(id:number) {
+    this.financeProxy.postPaymentIn(id).subscribe({
+      
+      next:(res:any)=> {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('PaymentIn.Success'),
+          this.languageService.transalte('PaymentIn.PaymentInPostedSuccessfully')
+
+        );      
+        this.paymentSaved.next(res)  
+      },
+      error:(error)=>{
+        this.toasterService.showError(
+          this.languageService.transalte('PaymentIn.Error'),
+          this.languageService.transalte('PaymentIn.postedError')
+        ); 
+      }
+    })
   }
 }
