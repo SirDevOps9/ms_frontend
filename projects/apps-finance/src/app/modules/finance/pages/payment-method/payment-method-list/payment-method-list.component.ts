@@ -14,19 +14,29 @@ export class PaymentMethodListComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   searchTerm: string;
   exportData: PaymentMethodDto[];
-  cols = [
+  exportColumns: lookupDto[]=[
    
     {
-      field: 'Code',
-      header: 'code',
+      id: 'id',
+      name: 'Id',
     },
-
     {
-      field: 'Name',
-      header: 'name',
+      id: 'code',
+      name: 'Code',
+    },
+    {
+      id: 'name',
+      name: 'Name',
+    },
+    {
+      id: 'paymentPlace',
+      name: 'paymentPlace',
+    },
+    {
+      id: 'paymentMethodType',
+      name: 'paymentMethodType',
     }
   ];
-  exportColumns: lookupDto[];
 
   constructor(
     private financeService: FinanceService,
@@ -36,10 +46,7 @@ export class PaymentMethodListComponent implements OnInit {
 
   ngOnInit() {
     this.initPaymentMethodData();
-    this.exportColumns = this.cols.map((col) => ({
-      id: col.header,
-      name: col.field,
-    }));
+    
   }
 
   initPaymentMethodData() {
@@ -77,10 +84,12 @@ export class PaymentMethodListComponent implements OnInit {
   this.routerService.navigateTo('/masterdata/add-payment-method')
   }
 
-  onEdit(data: any) {
-    this.routerService.navigateTo(`/masterdata/edit-payment-method/${data.id}`);
+  onEdit(id: number) {
+    this.routerService.navigateTo(`/masterdata/edit-payment-method/${id}`);
   }
-
+  view(id: number){
+    this.routerService.navigateTo(`/masterdata/view-payment-method/${id}`);
+  }
   onSearchChange() {
     this.financeService.getAllPaymentMethod(this.searchTerm, new PageInfo());
     this.financeService.paymentMethodDataSourceObservable.subscribe({
@@ -94,5 +103,7 @@ export class PaymentMethodListComponent implements OnInit {
   onDelete(id: number) {
     this.financeService.deletePaymentMethod(id);
   }
+
+  
 
 }

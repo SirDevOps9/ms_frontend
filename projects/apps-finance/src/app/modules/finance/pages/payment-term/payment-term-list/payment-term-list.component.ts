@@ -15,19 +15,28 @@ export class PaymentTermListComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   searchTerm: string;
   exportData: PaymentTermDto[];
-  cols = [
+  exportColumns: lookupDto[]= [
    
     {
-      field: 'Code',
-      header: 'code',
+      id: 'id',
+      name: 'Id',
     },
 
     {
-      field: 'Name',
-      header: 'name',
+      id: 'code',
+      name: 'code',
+    },
+
+    {
+      id: 'name',
+      name: 'name',
+    },
+
+    {
+      id: 'shortName',
+      name: 'shortName',
     }
   ];
-  exportColumns: lookupDto[];
 
   constructor(
     private financeService: FinanceService,
@@ -42,10 +51,6 @@ export class PaymentTermListComponent implements OnInit {
 
   ngOnInit() {
     this.initPaymentTermData();
-    this.exportColumns = this.cols.map((col) => ({
-      id: col.header,
-      name: col.field,
-    }));
   }
 
   initPaymentTermData() {
@@ -73,7 +78,7 @@ export class PaymentTermListComponent implements OnInit {
   }
 
   exportClick(e?: Event) {
-    this.financeService.exportsBankList(this.searchTerm);
+    this.financeService.exportsPaymentTermList(this.searchTerm);
     this.financeService.exportedPaymentTermDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });

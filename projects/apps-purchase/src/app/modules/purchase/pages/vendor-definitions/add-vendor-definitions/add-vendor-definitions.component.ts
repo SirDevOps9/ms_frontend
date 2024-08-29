@@ -4,6 +4,7 @@ import {
   FormsService,
   LookupEnum,
   LookupsService,
+  Modules,
   RouterService,
   SharedLibraryEnums,
   customValidators,
@@ -186,7 +187,7 @@ export class AddVendorDefinitionsComponent implements OnInit {
   }
 
   getTags() {
-    this.purchaseService.getTags();
+    this.purchaseService.getTags(Modules.Purchase);
     this.purchaseService.tags.subscribe((res) => {
       this.accountTags = res;
     });

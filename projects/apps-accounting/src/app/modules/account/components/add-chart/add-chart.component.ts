@@ -17,6 +17,7 @@ import {
   LookupsService,
   ToasterService,
   LanguageService,
+  Modules,
 } from 'shared-lib';
 import { AccountService } from '../../account.service';
 import { AddAccountDto, companyDropDownDto, AccountSectionDropDownDto, AccountTypeDropDownDto, TagDropDownDto, parentAccountDto } from '../../models';
@@ -126,7 +127,7 @@ export class AddChartComponent {
   }
 
   getTags() {
-    this.accountService.getTags();
+    this.accountService.getTags(Modules.Accounting);
     this.accountService.tags.subscribe((res) => {
       this.accountTags = res;
     });
