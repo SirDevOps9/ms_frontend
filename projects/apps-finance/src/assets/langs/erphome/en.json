@@ -5,6 +5,8 @@
   "Logout": "Logout",
   "DeleteError": "Error in Delete",
   "LoadError": "Error in loading Data",
+  "Post": "Post",
+
   "Table": {
     "Actions": "Actions",
     "Edit": "Edit",
@@ -390,7 +392,9 @@
     },
     "Success": "Success",
     "PaymentInAddedSuccessfully": "PaymentIn added successfully",
+    "PaymentInPostedSuccessfully": "PaymentIn posted successfully",
     "addedError": "Error in added",
+    "postedError": "Error in posted",
     "Error":"Error",
     "paymentMethodTypeNotAllowed":"payment Method details Not Allowed",
     "paymentMethodTypeRequired":"payment Method details Required In line",
