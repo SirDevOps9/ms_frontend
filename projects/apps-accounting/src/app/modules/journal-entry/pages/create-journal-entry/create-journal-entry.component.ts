@@ -1,5 +1,5 @@
 import { CurrencyService } from './../../../general/currency.service';
-import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   AttachmentsService,
@@ -8,6 +8,7 @@ import {
   PageInfo,
   RouterService,
   SharedLibraryEnums,
+  ToasterService,
   customValidators,
 } from 'shared-lib';
 import { AccountDto } from '../../../account/models/accountDto';
@@ -19,20 +20,12 @@ import { JournalEntryService } from '../../journal-entry.service';
 import { AttachmentsComponent } from '../../components/attachments/attachments.component';
 import { JournalTemplatePopupComponent } from '../components/journal-template-popup/journal-template-popup.component';
 import { NoChildrenAccountsComponent } from '../../components/noChildrenAccounts/nochildaccounts.component';
-import { tap } from 'rxjs';
 import { Title } from '@angular/platform-browser';
-import {
-  GuidedTourService,
-  Orientation,
-  GuidedTour,
-  ProgressIndicatorLocation,
-} from 'ngx-guided-tour';
+import { GuidedTourService, Orientation, GuidedTour } from 'ngx-guided-tour';
 import { CostCenterAllocationPopupComponent } from '../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
 import { costCenters } from '../../models';
-import { CurrencyRateDto } from '../../../general/models/currencyRateDto';
 import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
-import { Dropdown } from 'primeng/dropdown';
 export interface JournalEntryLineFormValue {
   id: number;
   account: AccountDto;
@@ -152,7 +145,8 @@ export class CreateJournalEntryComponent {
     private guidedTourService: GuidedTourService,
     private attachmentService: AttachmentsService,
     private currentUserService: CurrentUserService,
-    public generalService: GeneralService
+    public generalService: GeneralService,
+    private toasterService: ToasterService
   ) {
     this.titleService.setTitle(this.langService.transalte('Journal.AddJournal'));
 
@@ -177,9 +171,10 @@ export class CreateJournalEntryComponent {
 
   openAttachments() {
     const dialog = this.dialog.open(AttachmentsComponent, {
-      header: 'Attachments',
+      // header: 'Attachments',
       data: this.attachmentService.filesInfo,
-      width: '700px',
+     width: '600px',
+      height: '350px',
     });
 
     dialog.onClose.subscribe((res) => {
@@ -265,7 +260,10 @@ export class CreateJournalEntryComponent {
   }
 
   openDialog(index: number) {
-    const ref = this.dialog.open(NoChildrenAccountsComponent, {});
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {
+      width: '900px',
+      height: '600px',
+    });
     ref.onClose.subscribe((r) => {
       if (r) {
         this.fa.at(index).get('account')?.setValue(r.id);
@@ -376,7 +374,7 @@ export class CreateJournalEntryComponent {
   save() {
     if (!this.formService.validForm(this.fg, false)) return;
     const value = this.fg.value as JournalEntryFormValue;
-    value.journalDate = this.convertDateFormat(value.journalDate)
+    value.journalDate = this.convertDateFormat(value.journalDate);
     let obj: AddJournalEntryCommand = {
       ...value,
       journalEntryAttachments: this.journalEntryAttachments,
@@ -463,23 +461,37 @@ export class CreateJournalEntryComponent {
   openCostPopup(data: any, journal: FormGroup, account: number, index: number) {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
 
-    if (
-      (!data.creditAmount && !data.debitAmount) ||
-      !account ||
-      accountData?.costCenterConfig == 'NotAllow'
-    ) {
-      return null;
-    } else {
-      const dialogRef = this.dialog.open(CostCenterAllocationPopupComponent, {
-        width: '900px',
-        height: '500px',
-        // header: 'Cost Center Allocation',
-        data: data,
-      });
-      dialogRef.onClose.subscribe((res) => {
-        if (res) journal.get('costCenters')?.setValue(res);
-      });
+    if (!account || accountData?.costCenterConfig == 'NotAllow') {
+      this.toasterService.showError(
+        this.langService.transalte('Journal.Error'),
+        this.langService.transalte('Journal.CostCenterNotAllowed')
+      );
+      return;
     }
+
+    const creditAmount = parseFloat(data.creditAmount);
+    const debitAmount = parseFloat(data.debitAmount);
+
+    if (
+      (creditAmount && debitAmount) ||
+      (!creditAmount && !debitAmount) ||
+      (creditAmount === 0 && debitAmount === 0)
+    ) {
+      this.toasterService.showError(
+        this.langService.transalte('Journal.Error'),
+        this.langService.transalte('Journal.InvalidAmount')
+      );
+      return;
+    }
+
+    const dialogRef = this.dialog.open(CostCenterAllocationPopupComponent, {
+      width: '900px',
+      height: '600px',
+      data: data,
+    });
+    dialogRef.onClose.subscribe((res) => {
+      if (res) journal.get('costCenters')?.setValue(res);
+    });
   }
 
   debitChanged(index: number) {
@@ -509,7 +521,7 @@ export class CreateJournalEntryComponent {
   }
   getTodaysDate() {
     var date = new Date();
-    return date;
+    return date.toISOString().substring(0, 10);
   }
 
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
@@ -593,7 +605,6 @@ export class CreateJournalEntryComponent {
     return `${year}-${month}-${day}`;
   }
 
-
   currencyValueChanges(event: any, index: number) {
     const journalLine = this.fa.at(index);
     const currencyRateControl = journalLine.get('currencyRate');
@@ -617,5 +628,20 @@ export class CreateJournalEntryComponent {
         this.calculateTotalCreditAmountLocal();
       }
     });
+  }
+
+  isCostCenterallowed(costCenterConfig: string): boolean {
+    if (costCenterConfig === 'Optional' || costCenterConfig === 'Mandatory') return true;
+    return false;
+  }
+
+  shouldShowCostCenterImage(costCenters: any[]): number {
+    console.log(costCenters);
+    if (!costCenters) return -1;
+    const totalPercentage = costCenters.reduce(
+      (sum: number, item: any) => sum + parseFloat(item.percentage),
+      0
+    );
+    return totalPercentage;
   }
 }

@@ -113,9 +113,11 @@ export class TreauryDefinitionListComponent implements OnInit {
 
   onAdd() {
     const dialogRef = this.dialog.open(AddTreasuryComponent, {
-      header: this.languageService.transalte('treasury.addTreasury'),
+      // header: this.languageService.transalte('treasury.addTreasury'),
       width: '600px',
-      position: 'bottom-right', // Adjust position as needed
+      height: '600px',
+
+      // position: 'bottom-right', // Adjust position as needed
     });
 
     dialogRef.onClose.subscribe(() => {
@@ -125,10 +127,11 @@ export class TreauryDefinitionListComponent implements OnInit {
 
   onEdit(data: TaxDto) {
     const dialogRef = this.dialog.open(EditTreasuryComponent, {
-      header: this.languageService.transalte('treasury.editTreasury'),
+      // header: this.languageService.transalte('treasury.editTreasury'),
       width: '600px',
+      height: '600px',
       data: data,
-      position: 'bottom-right', // Adjust position as needed
+      // position: 'bottom-right', // Adjust position as needed
     });
     dialogRef.onClose.subscribe(() => {
       this.initTreasurData();

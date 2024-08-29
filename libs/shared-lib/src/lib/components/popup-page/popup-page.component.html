@@ -1,53 +1,45 @@
-  <div class="pop_up_page">
-    <div class="pop_up_header">
-      <div class="header_content">
-        <div class="title">
-          {{title}}
-        </div>
-        <div class=" pi pi-times" (click)="close()">
-        </div>
+<div class="pop_up_page">
+  <div class="pop_up_header">
+    <div class="header_content">
+      <div class="title">
+        {{ title }}
       </div>
+      <div class="pi cancel" (click)="close()"></div>
     </div>
-    <div class="pop_up_content">
-      <div class="card">
-          <ng-content> </ng-content>
+  </div>
+  <div class="pop_up_content">
+    <div class="card">
+      <ng-content> </ng-content>
+    </div>
+  </div>
+  <div class="pop_up_footer" *ngIf="footer">
+    <div class="grid w-full flex align-items-center justify-content-center">
+      <div class="col-6">
+        <lib-button-micro
+          title="{{ 'cancel' | translate }}"
+          nameClass="cancel"
+          widthNumber="100%"
+          (click)="close()"
+        >
+        </lib-button-micro>
       </div>
-    </div>
-    <div class="pop_up_footer">
-      <div class="grid w-full flex align-items-center justify-content-center">
-        
-        <div class="col-6">
-          
-            <lib-button-micro
-              title="{{ 'cancel' | translate }}"
-              nameClass="cancel"
-              widthNumber="100%"
-              (click)="close()"
-            >
-            </lib-button-micro>
-        
-        </div>
-        <div class="col-6" *ngIf="save" >
-          
-            <lib-button-micro
-              title="{{ 'Save' | translate }}"
-              nameClass="save"
-              widthNumber="100%"
-              *ngIf="!disabled"
-
-              (click)="onSubmit()"
-            >
-            </lib-button-micro>
-            <lib-button-micro
-              title="{{ 'Save' | translate }}"
-              nameClass="saveDisabled"
-              widthNumber="100%"
-              *ngIf="disabled"
-            >
-            </lib-button-micro>
-         
-        </div>
+      <div class="col-6" *ngIf="save">
+        <lib-button-micro
+          title="{{ 'Save' | translate }}"
+          nameClass="save"
+          widthNumber="100%"
+          *ngIf="!disabled"
+          (click)="onSubmit()"
+        >
+        </lib-button-micro>
+        <lib-button-micro
+          title="{{ 'Save' | translate }}"
+          nameClass="saveDisabled"
+          widthNumber="100%"
+          *ngIf="disabled"
+        >
+        </lib-button-micro>
       </div>
     </div>
   </div>
-  
+</div>

@@ -4,4 +4,8 @@
 
 .cssClass{
     background-color: #1a90b0;
-  } 
+  }
+
+.pointer {
+  cursor: pointer;
+}

@@ -11,3 +11,16 @@
   border-radius: 6px;
   border: 1px solid #d1d5db;
 }
+.label_total{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  color: #6b7280;
+}
+::ng-deep{
+  .total{
+    .p-inputtext::placeholder {
+        color: black !important;
+       font-weight: bold !important;
+    }
+  }
+}

@@ -30,7 +30,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() tableConfigs: TableConfig;
   clonedTableConfigs: TableConfig;
   @Input() className: string = '';
-
+  @Input() reportTable: boolean = false;
   @Input() rowTemplate: TemplateRef<any>;
 
   @Output() pageChange = new EventEmitter<PageInfo>();

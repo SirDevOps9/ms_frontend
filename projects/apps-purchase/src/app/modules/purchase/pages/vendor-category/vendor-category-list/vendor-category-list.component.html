@@ -68,44 +68,55 @@
                ]
             }"
       >
-        <ng-container caption>
-          <div class="group flex justify-content-between">
-            <div>
-              <span class="p-input-icon-left">
-                <i class="pi pi-search"></i>
-                <input
-                  pInputText
-                  type="text"
-                  [placeholder]="'vendorCategory.Search' | translate"
-                  (keyup)="onSearchChange($event)"
-                />
-              </span>
-            </div>
+      <ng-container search>
+        <div>
 
-            <div>
-              <lib-button
-                pRipple
-                className="addToList"
-                [label]="'vendorCategory.Add' | translate"
-                (onClick)="routeToAdd()"
-              >
-              </lib-button>
-            </div>
+          
+          <lib-text-input
+          type="text"
+          [placeholder]="'vendorCategory.Search' | translate"
+          (keyUp)="onSearchChange($event)"
+          [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+        >
+        </lib-text-input>
+        </div>
+      </ng-container>
+      <ng-container action>
+        <div class="group flex">
+            
 
-            <lib-export
-              (exportClick)="exportVendorCategoriesData($event)"
-              [exportData]="exportData"
-              [exportColumns]="exportColumns"
-              [ExportName]="'Vendor Cateogries'"
-            >
-            </lib-export>
+          <div>
+            <lib-button-micro
+            nameClass="save"
+            [title]="'vendorCategory.Add' | translate"
+            (click)="routeToAdd()"
+          >
+          </lib-button-micro>
           </div>
-        </ng-container>
+
+          <lib-export
+            (exportClick)="exportVendorCategoriesData($event)"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Vendor Cateogries'"
+          >
+          </lib-export>
+        </div>
+      </ng-container>
+        
 
         <ng-template #actions let-actions>
           <div class="actions flex align-items-center ">
-            <img src="assets/images/table/edit.svg" alt="" (click)="routeToEdit(actions.id)">
-          <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(actions.id)">
+            <lib-button-micro
+            nameClass="table_button_edit"
+            (click)="routeToEdit(actions.id)" >
+
+            </lib-button-micro>
+            <lib-button-micro
+            nameClass="table_button_delete"
+            (click)="onDelete(actions.id)"
+            >
+            </lib-button-micro>
           </div>
         </ng-template>
       </lib-data-table>

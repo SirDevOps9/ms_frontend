@@ -3,6 +3,7 @@
         align-items: center;
         justify-content: space-between;
         flex-direction: column;
+        padding: 24px;
         .pop_up_header{
             width: 100%;
             .header_content{
@@ -10,26 +11,26 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #f7f8f8;
-            padding: 30px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid black;
+            // background: #f7f8f8;
+            padding-bottom: 16px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #E3E3E3;
         
             .title {
               display: flex;
               font-size: 18px;
               font-weight: 700;
-              color: #383a42;
-              .plus_icon {
-                width: 40px;
-                height: auto;
-                margin-right: 10px;
-                // background-image: url("../../../../../assets/images/plans/file-plus.svg");
-                background-size: contain;
-                background-position: center;
-                background-repeat: no-repeat;
+              color: #2E2E2E;
+              // .plus_icon {
+              //   width: 40px;
+              //   height: auto;
+              //   margin-right: 10px;
+              //   // background-image: url("../../../../../assets/images/plans/file-plus.svg");
+              //   background-size: contain;
+              //   background-position: center;
+              //   background-repeat: no-repeat;
                 
-              }
+              // }
             }
             .cancel {
               cursor: pointer;
@@ -40,11 +41,11 @@
            
         }
         .pop_up_content{
-            width: 95% ;
+            width: 100% ;
            // padding:50px 0 !important;
     
             .title{
-                background: #f7f8f8;
+                background: #fff;
                 padding: 8px;
                 border-radius: 4px;
                 font-size: 16px;
@@ -76,8 +77,11 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            background: #f7f8f8;
-            padding: 10px;
+            padding-left: 24px;
+            padding-right: 24px;
+            padding-bottom: 24px;
+            // background: #f7f8f8;
+            // padding: 10px;
          
          
         }
@@ -110,6 +114,7 @@
     //     overflow-x: hidden;
       
     //   }
+    // }
     //   .p-dialog {
     //     .p-dialog-header {
     //       display: none !important;
@@ -132,6 +137,15 @@
     //   border: 1px solid #d1d5db;
     // }
 ::ng-deep{
+  .p-dialog .p-dialog-content {
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
+  }
+  .pop_up_footer{
+    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+  }
+
    .p-dialog {
         .p-dialog-content {
            padding: 0 0 0 0 !important;
@@ -139,7 +153,7 @@
        }
 }
 .cancel {
-    background: url('/assets/images/close.svg');
+    background: url('../../../assets/images/close.svg');
     cursor: pointer;
     font-size: 15px;
     font-weight: 700;

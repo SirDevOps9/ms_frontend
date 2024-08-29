@@ -1,35 +1,26 @@
-
-<div class="pop_up_config_page">
-  <div class="pop_up_header">
-    <div class="header_content">
-      <div class="title">
-        <!-- <div class="plus_icon"></div> -->
-        {{ "Company.Branch.AddNewBranch" | translate }}
-      </div>
-        <div class=" cancel" (click)="onCancel()"></div>
-    </div>
-  </div>
-  <div class="pop_up_content">
-   
+<lib-popup-page
+  title="{{ 'Company.Branch.AddNewBranch' | translate }}"
+  [closeFunction]="onCancel"
+  (Submit)="onSubmit()"
+>
+  <div>
     <div class="card">
       <form [formGroup]="newBrancheForm" (ngSubmit)="onSubmit()">
         <div class="grid">
           <div class="col-12 md:col-6">
             <lib-form-group>
               <lib-label [appControl]="newBrancheForm.controls['branchName']">
-                {{ "Company.Branch.BranchName" | translate }}
+                {{ 'Company.Branch.BranchName' | translate }}
               </lib-label>
               <lib-text-input type="text" formControlName="branchName" />
-              <lib-field-validations
-                [appControl]="newBrancheForm.controls['branchName']"
-              >
+              <lib-field-validations [appControl]="newBrancheForm.controls['branchName']">
               </lib-field-validations>
             </lib-form-group>
           </div>
           <div class="col-12 md:col-6">
             <lib-form-group>
               <lib-label [appControl]="newBrancheForm.controls['countryCode']">
-                {{ "Company.Branch.Country" | translate }}
+                {{ 'Company.Branch.Country' | translate }}
               </lib-label>
               <lib-selectIcon
                 formControlName="countryCode"
@@ -39,16 +30,14 @@
                 icons="flags"
               >
               </lib-selectIcon>
-              <lib-field-validations
-              [appControl]="newBrancheForm.controls['countryCode']"
-            >
-            </lib-field-validations>
+              <lib-field-validations [appControl]="newBrancheForm.controls['countryCode']">
+              </lib-field-validations>
             </lib-form-group>
           </div>
           <div class="col-12 md:col-6">
             <lib-form-group>
               <lib-label [appControl]="newBrancheForm.controls['branchRegion']">
-                {{ "Company.Branch.BranchRegion" | translate }}
+                {{ 'Company.Branch.BranchRegion' | translate }}
               </lib-label>
               <lib-text-input type="text" formControlName="branchRegion" />
             </lib-form-group>
@@ -56,7 +45,7 @@
           <div class="col-12 md:col-6">
             <lib-form-group>
               <lib-label [appControl]="newBrancheForm.controls['branchCity']">
-                {{ "Company.Branch.BranchCity" | translate }}
+                {{ 'Company.Branch.BranchCity' | translate }}
               </lib-label>
               <lib-text-input type="text" formControlName="branchCity" />
             </lib-form-group>
@@ -64,30 +53,26 @@
           <div class="col-12">
             <lib-form-group>
               <lib-label [appControl]="newBrancheForm.controls['branchEmail']">
-                {{ "Company.Branch.BranchEmail" | translate }}
+                {{ 'Company.Branch.BranchEmail' | translate }}
               </lib-label>
               <lib-text-input type="text" formControlName="branchEmail" />
-              <lib-field-validations
-              [appControl]="newBrancheForm.controls['branchEmail']"
-            >
-            </lib-field-validations>
+              <lib-field-validations [appControl]="newBrancheForm.controls['branchEmail']">
+              </lib-field-validations>
             </lib-form-group>
           </div>
           <div class="col-12">
             <lib-form-group>
               <lib-label [appControl]="newBrancheForm.controls['branchAddress']">
-                {{ "Company.Branch.BranchAddress" | translate }}
+                {{ 'Company.Branch.BranchAddress' | translate }}
               </lib-label>
               <lib-text-input type="text" formControlName="branchAddress" />
             </lib-form-group>
           </div>
-  
+
           <div class="col-4">
             <lib-form-group>
-              <lib-label
-                [appControl]="newBrancheForm.controls['mobileNumberCode']"
-              >
-                {{ "Company.Branch.MobileNumberCode" | translate }}
+              <lib-label [appControl]="newBrancheForm.controls['mobileNumberCode']">
+                {{ 'Company.Branch.MobileNumberCode' | translate }}
               </lib-label>
               <lib-selectIcon
                 formControlName="mobileNumberCode"
@@ -102,50 +87,16 @@
           <div class="col-8">
             <lib-form-group>
               <lib-label [appControl]="newBrancheForm.controls['mobileNumber']">
-                {{ "Company.Branch.MobileNumber" | translate }}
+                {{ 'Company.Branch.MobileNumber' | translate }}
               </lib-label>
               <lib-text-input type="tel" formControlName="mobileNumber" />
-              <lib-field-validations
-              [appControl]="newBrancheForm.controls['mobileNumber']"
-            >
-            </lib-field-validations>
+              <lib-field-validations [appControl]="newBrancheForm.controls['mobileNumber']">
+              </lib-field-validations>
             </lib-form-group>
           </div>
         </div>
-  
       </form>
-  </div>
-  </div>
-  <div class="pop_up_footer">
-
-    <div class="grid">
-      <div class="md:col-6">
-        <div class="cancel_btn">
-          <lib-button-micro 
-        title='  {{ "Company.Cancel" | translate }}'
-        nameClass="cancel"
-        (click)="onCancel()"
-        widthNumber="100%"
-        >
-        
-        </lib-button-micro>
-        </div>
-      </div>
-      <div class="md:col-6">
-        <div class="save_btn">
-          <lib-button-micro 
-          title='{{ "Company.Save" | translate }}'
-          nameClass="save"
-          (click)="onSubmit()"
-          widthNumber ="100%"
-          >
-          
-          </lib-button-micro>
-        </div>
-      </div>
     </div>
-  
-    
-    
   </div>
-  </div>
+</lib-popup-page>
+

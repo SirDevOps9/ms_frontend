@@ -15,6 +15,8 @@
     "build:finance": "ng build --project apps-finance",
     "build:purchase": "ng build --project apps-purchase",
     "build:accounting": "ng build --project apps-accounting",
+    "build:all": "npm run build:bussiness-owners && npm run build:adminportal && npm run build:hr && npm run build:erp && npm run build:sales && npm run build:finance && npm run build:purchase && npm run build:accounting",
+    "build:allcloud": "npm run build:bussiness-owners -- --configuration=cloud && npm run build:adminportal -- --configuration=cloud && npm run build:hr -- --configuration=cloud && npm run build:erp -- --configuration=cloud && npm run build:sales -- --configuration=cloud && npm run build:finance -- --configuration=cloud && npm run build:purchase -- --configuration=cloud && npm run build:accounting -- --configuration=cloud",
     "start:bussiness-owners": "ng serve --project bussiness-owners --port 4301",
     "start:bussiness-owners-stage": "ng serve --project bussiness-owners --port 4301 --configuration stage",
     "start:erp-home": "ng serve --project erp-home --host develop.localhost.com",
@@ -27,7 +29,15 @@
     "start:erp": "concurrently \"npm run start:erp-gateway\" \"npm run start:erp-home\" \"npm run start:accounting\" \"npm run start:hr\" \"npm run start:sales\" \"npm run start:finance\"  \"npm run start:purchase\"",
     "start:gateway": "node proxy.js",
     "start:erp-gateway": "node erp-proxy.js",
-    "start:all": "concurrently \"npm run start:gateway\" \"npm run start:bussiness-owners\" \"npm run start:adminportal\""
+    "start:bussiness-owners-gateway": "concurrently \"npm run start:gateway\" \"npm run start:bussiness-owners\"",
+    "start:adminportal-gateway": "concurrently \"npm run start:gateway\" \"npm run start:adminportal\"",
+    "start:hr-gateway": "concurrently \"npm run start:gateway\" \"npm run start:hr\"",
+    "start:erp-home-gateway": "concurrently \"npm run start:erp-gateway\" \"npm run start:erp-home\"",
+    "start:accounting-gateway": "concurrently \"npm run start:erp-gateway\" \"npm run start:accounting\"",
+    "start:sales-gateway": "concurrently \"npm run start:erp-gateway\" \"npm run start:sales\"",
+    "start:finance-gateway": "concurrently \"npm run start:erp-gateway\" \"npm run start:finance\"",
+    "start:purchase-gateway": "concurrently \"npm run start:erp-gateway\" \"npm run start:purchase\"",
+    "start:all": "concurrently \"npm run start:erp\" \"npm run start:gateway\" \"npm run start:bussiness-owners\" \"npm run start:adminportal\""
   },
   "private": true,
   "dependencies": {

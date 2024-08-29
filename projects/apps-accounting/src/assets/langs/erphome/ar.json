@@ -6,6 +6,9 @@
   "DeleteError": "حدث خطاء فى المسح",
   "LoadError": "حدث خطاء فى التحميل",
   "walkThrough": "إرشادات",
+  "CostCenterAllocation": "تخصيص مركز التكلفة",
+  "Attachments":"المرفقات",
+
 
   "Table": {
     "Actions": "اجراءات",

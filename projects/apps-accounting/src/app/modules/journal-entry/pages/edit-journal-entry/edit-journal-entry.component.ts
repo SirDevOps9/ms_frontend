@@ -29,6 +29,7 @@ import { Title } from '@angular/platform-browser';
 import { EditCostCenterAllocationPopupComponent } from '../components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component';
 import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
+import { CostCenterAllocationPopupComponent } from '../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
 
 @Component({
   selector: 'app-edit-journal-entry',
@@ -112,7 +113,7 @@ export class EditJournalEntryComponent implements OnInit {
     this.journalEntryService.getJournalEntryById(this.routerService.currentId).subscribe((res) => {
       this.editJournalForm.patchValue({
         ...res,
-        journalDate: res.journalDate.substring(0, 10),
+        journalDate: new Date(res.journalDate),
       });
       if (
         res.status === this.enums.JournalEntryStatus.Posted ||
@@ -174,6 +175,7 @@ export class EditJournalEntryComponent implements OnInit {
 
     const request: EditJournalEntry = this.editJournalForm.value;
     request.id = this.routerService.currentId;
+    request.journalDate = this.convertDateFormat(request.journalDate);
 
     request.journalEntryLines = request.journalEntryLines?.map((item) => {
       item.costCenters = item.costCenters
@@ -256,10 +258,8 @@ export class EditJournalEntryComponent implements OnInit {
           ...account,
           displayName: `${account.name} (${account.accountCode})`,
         }));
-
       }
     });
-
   }
   addNewRow() {
     if (!this.formsService.validForm(this.journalEntryLinesFormArray, false)) return;
@@ -351,11 +351,10 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   openDialog(index: number) {
-    const ref = this.dialog.open(NoChildrenAccountsComponent,
-       { 
-         width: '900px',
-         height : '600px'
-      });
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {
+      width: '900px',
+      height: '600px',
+    });
     ref.onClose.subscribe((account: AccountDto) => {
       if (account) {
         this.updateAccount(account, index);
@@ -390,13 +389,43 @@ export class EditJournalEntryComponent implements OnInit {
 
   openCostPopup(data: any, journal: FormGroup, account: number, index: number) {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
-    console.log(accountData);
+
+    if (!account || accountData?.costCenterConfig == 'NotAllow') {
+      if (data.costCenterConfig == 'NotAllow') {
+        this.toasterService.showError(
+          this.langService.transalte('Journal.Error'),
+          this.langService.transalte('Journal.CostCenterNotAllowed')
+        );
+        return;
+      }
+    }
+
+    const creditAmount = parseFloat(data.creditAmount);
+    const debitAmount = parseFloat(data.debitAmount);
+
     if (
-      (!data.creditAmount && !data.debitAmount) ||
-      !account ||
-      accountData?.costCenterConfig == 'NotAllow'
+      (creditAmount && debitAmount) ||
+      (!creditAmount && !debitAmount) ||
+      (creditAmount === 0 && debitAmount === 0)
     ) {
-      return null;
+      this.toasterService.showError(
+        this.langService.transalte('Journal.Error'),
+        this.langService.transalte('Journal.InvalidAmount')
+      );
+      return;
+    }
+
+    if (this.viewMode) {
+      const text: string = 'view';
+      const dialogRef = this.dialog.open(CostCenterAllocationPopupComponent, {
+        width: '900px',
+        height: '600px',
+        header: 'View Cost Center Allocation',
+        data: { ...data, text },
+      });
+      dialogRef.onClose.subscribe((res) => {
+        if (res) data.costCenters = res;
+      });
     } else {
       const dialogRef = this.dialog.open(EditCostCenterAllocationPopupComponent, {
         width: '900px',
@@ -429,10 +458,8 @@ export class EditJournalEntryComponent implements OnInit {
 
     const debitAmountLocalControl = journalLine.get('debitAmountLocal');
 
-
     const debitAmountControl = journalLine.get('debitAmount');
     if (debitAmountControl?.value === '' || !debitAmountControl?.value) {
-
       debitAmountControl!.setValue(0);
     }
 
@@ -449,9 +476,13 @@ export class EditJournalEntryComponent implements OnInit {
     const journalLine = this.journalEntryLinesFormArray.at(index);
     const creditAmountControl = journalLine.get('creditAmount');
     if (creditAmountControl?.value === '' || !creditAmountControl?.value) {
-
       creditAmountControl!.setValue(0);
     }
+    const creditAmountLocalControl = journalLine.get('creditAmountLocal');
+
+    creditAmountLocalControl?.setValue(
+      journalLine.get('creditAmount')?.value * journalLine.get('currencyRate')?.value
+    );
 
     this.calculateTotalCreditAmount();
     this.calculateTotalDebitAmount();
@@ -468,8 +499,8 @@ export class EditJournalEntryComponent implements OnInit {
   calculateTotalCreditAmount() {
     this.totalCreditAmount = this.journalEntryLinesFormArray.controls.reduce((acc, control) => {
       // Ensure that debitAmount is treated as a number
-      const debitValue = parseFloat(control.get('creditAmount')?.value) || 0;
-      return acc + debitValue;
+      const creditValue = parseFloat(control.get('creditAmount')?.value) || 0;
+      return acc + creditValue;
     }, 0);
   }
 
@@ -528,6 +559,32 @@ export class EditJournalEntryComponent implements OnInit {
       accountCurrency,
       this.currentUserService.getCurrency()
     );
+  }
+
+  isCostCenterallowed(costCenterConfig: string): boolean {
+    if (costCenterConfig === 'Optional' || costCenterConfig === 'Mandatory') return true;
+    return false;
+  }
+
+  shouldShowCostCenterImage(costCenters: any[]): number {
+    if (!costCenters) return -1;
+    const totalPercentage = costCenters.reduce(
+      (sum: number, item: any) => sum + parseFloat(item.percentage),
+      0
+    );
+    return totalPercentage;
+  }
+
+  convertDateFormat(data: Date | string) {
+    const date = new Date(data);
+
+    // Extract the year, month, and day
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so we add 1
+    const day = String(date.getDate()).padStart(2, '0');
+
+    // Format the date into YYYY-MM-DD
+    return `${year}-${month}-${day}`;
   }
   constructor(
     private journalEntryService: JournalEntryService,

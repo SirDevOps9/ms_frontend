@@ -108,7 +108,8 @@ export class TagListComponent implements OnInit {
   routeToEdit(data: any) {
     const dialogRef = this.dialog.open(TagEditComponent, {
       // header: this.languageService.transalte('tag.EditTag'),
-      width: '800px',
+      width: '500px',
+      height: '500px',
     //  position: 'bottom-right', // A
       data: data,
     });
@@ -129,7 +130,8 @@ export class TagListComponent implements OnInit {
   newTag() {
     const dialogRef = this.dialog.open(TagAddComponent, {
       // header: this.languageService.transalte('tag.AddNewTag'),
-      width: '600px',
+      width: '500px',
+      height: '500px',
       // position: 'bottom-right', // Adjust position as needed
     });
 
@@ -139,7 +141,7 @@ export class TagListComponent implements OnInit {
   }
 
   onSearchChange(e: any) {
-    this.generalSettingService.getTagList(e.target.value, new PageInfo());
+    this.generalSettingService.getTagList(e, new PageInfo());
 
     this.generalSettingService.tagList.subscribe({
       next: (res) => {

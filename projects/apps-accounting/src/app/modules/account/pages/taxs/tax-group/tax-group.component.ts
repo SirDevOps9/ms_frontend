@@ -62,7 +62,7 @@ export class TaxGroupComponent implements OnInit {
   Add() {
     const dialogRef = this.dialog.open(TaxGroupAddComponent, {
       width: '600px',
-      height : 'auto'
+      height : '500px'
     
     });
     dialogRef.onClose.subscribe(() => {
@@ -73,7 +73,7 @@ export class TaxGroupComponent implements OnInit {
   Edit(Id:any) {
     const dialogRef = this.dialog.open(TaxGroupEditComponent, {
       width: '600px',
-      height : 'auto',
+      height : '500px',
       data : Id
     
     });

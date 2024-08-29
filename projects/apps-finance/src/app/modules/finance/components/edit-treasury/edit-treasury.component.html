@@ -1,4 +1,11 @@
-<div class="invite_user">
+
+
+<lib-popup-page
+title=" {{ 'treasury.editTreasury' | translate }}"
+[closeFunction]="onCancel"
+(Submit)="onSubmit()"
+>
+<div>
   <form class="domain_form" [formGroup]="treasuryForm" (ngSubmit)="onSubmit()">
     <div class="domain_content">
       <div class="grid">
@@ -141,16 +148,10 @@
       </div>
     </div>
   </form>
-  <div class="grid justify-content-center">
-    <div class="col-6">
-      <lib-button type="button" [className]="'custom-danger-outline'" (click)="onCancel()">
-        {{ 'treasury.discard' | translate }}
-      </lib-button>
-    </div>
-    <div class="col-6">
-      <lib-button type="submit" [className]="'custom-light-blue'" class="save" (click)="onSubmit()">
-        {{ 'treasury.save' | translate }}
-      </lib-button>
-    </div>
-  </div>
 </div>
+</lib-popup-page>
+
+  
+  
+
+

@@ -91,8 +91,8 @@ export class TaxDefinitionComponent implements OnInit {
 
   onAdd() {
     const dialogRef = this.dialog.open(TaxDefinitionAddComponent, {
-      width: '650px',
-      height: 'auto',
+      width: '800px',
+      height: '500px',
     });
     dialogRef.onClose.subscribe(() => {
       this.initTaxData();

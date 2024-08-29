@@ -1,6 +1,6 @@
 
   <lib-popup-page
-title="{{'Amount' | translate}}"
+title="{{'CostCenterAllocation' | translate}}"
 [closeFunction]="close"
 (Submit)="clickSave($event)"
 [disabled]="calcPercentage > 100 || !allocationform.valid"
@@ -79,7 +79,9 @@ title="{{'Amount' | translate}}"
           </td>
           <!--  -->
           <td>
-            <i class="pi pi-trash pointer" (click)="onDelete(i )"></i>
+            <img src="assets/images/table/delete.svg" 
+            class="pointer" alt="" (click)="onDelete(i)" />
+            <!-- <i class="pi pi-trash pointer" (click)="onDelete(i )"></i> -->
           </td>
          
           

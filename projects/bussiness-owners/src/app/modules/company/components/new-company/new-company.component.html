@@ -1,50 +1,38 @@
-
-<div class="pop_up_config_page">
-  <div class="pop_up_header">
-    <div class="header_content">
-      <div class="title">
-        <!-- <div class="plus_icon"></div> -->
-        {{ "Company.Add.AddCompany" | translate }}
-      </div>
-        <div class=" cancel" (click)="onCancel()"></div>
-    </div>
-  </div>
-  <div class="pop_up_content">
+<lib-popup-page
+  title="{{ 'Company.Add.AddCompany' | translate }}"
+  [closeFunction]="onSaveAndEdit"
+  (Submit)="onSubmit()"
+>
+  <div>
     <div class="card">
-      <form [formGroup]="addCompanyForm" >
+      <form [formGroup]="addCompanyForm">
         <div class="grid">
-          <div class=" md:col-12">
+          <div class="md:col-12">
             <div class="grid">
               <div class="md:col-12">
                 <lib-form-group>
                   <lib-label [appControl]="addCompanyForm.controls['name']">
-                    {{ "Company.Add.CompanyName" | translate }}
+                    {{ 'Company.Add.CompanyName' | translate }}
                   </lib-label>
                   <lib-text-input type="text" formControlName="name" />
-                  <lib-field-validations
-                    [appControl]="addCompanyForm.controls['name']"
-                  >
+                  <lib-field-validations [appControl]="addCompanyForm.controls['name']">
                   </lib-field-validations>
                 </lib-form-group>
               </div>
               <div class="md:col-12">
                 <lib-form-group>
                   <lib-label [appControl]="addCompanyForm.controls['branchName']">
-                    {{ "Company.Add.BranchName" | translate }}
+                    {{ 'Company.Add.BranchName' | translate }}
                   </lib-label>
                   <lib-text-input type="text" formControlName="branchName" />
-                  <lib-field-validations
-                    [appControl]="addCompanyForm.controls['branchName']"
-                  >
+                  <lib-field-validations [appControl]="addCompanyForm.controls['branchName']">
                   </lib-field-validations>
                 </lib-form-group>
               </div>
               <div class="md:col-12">
                 <lib-form-group>
-                  <lib-label
-                    [appControl]="addCompanyForm.controls['companyType']"
-                  >
-                    {{ "Company.Add.CompanyType" | translate }}
+                  <lib-label [appControl]="addCompanyForm.controls['companyType']">
+                    {{ 'Company.Add.CompanyType' | translate }}
                   </lib-label>
                   <lib-select
                     formControlName="companyType"
@@ -53,19 +41,17 @@
                     optionLabel="name"
                     (valueChanged)="isSubsidairy($event)"
                     [selectedValue]="selectedCompanyType"
-                    [readOnly]= isFirstCompany
-                    >
-                  </lib-select>
-                  <lib-field-validations
-                    [appControl]="addCompanyForm.controls['companyType']"
+                    [readOnly]="isFirstCompany"
                   >
+                  </lib-select>
+                  <lib-field-validations [appControl]="addCompanyForm.controls['companyType']">
                   </lib-field-validations>
                 </lib-form-group>
               </div>
-              <div class="md:col-12"  *ngIf="showHoldingCompanies">
+              <div class="md:col-12" *ngIf="showHoldingCompanies">
                 <lib-form-group>
                   <lib-label [appControl]="addCompanyForm.controls['parentId']">
-                    {{ "Company.Add.ParentCompany" | translate }}
+                    {{ 'Company.Add.ParentCompany' | translate }}
                   </lib-label>
                   <lib-select
                     formControlName="parentId"
@@ -80,37 +66,8 @@
           </div>
         </div>
       </form>
-  </div>
-  </div>
-  <div class="pop_up_footer">
-    <div class="grid">
-      <div class="md:col-16">
-        <div class="cancel_btn">
-          <lib-button-micro 
-        title='{{ "Company.Save" | translate }}'
-        nameClass="save"
-        (click)="onSubmit()"
-        widthNumber="100%"
-        >
-        
-        </lib-button-micro>
-        </div>
-      </div>
-      <div class="md:col-16">
-        <div class="save_btn">
-          <lib-button-micro 
-          title='{{ "Company.Add.SaveAndEdit" | translate }}'
-          nameClass="save"
-          (click)="onSaveAndEdit()"
-          widthNumber ="100%"
-          >
-          
-          </lib-button-micro>
-        </div>
-      </div>
     </div>
-  
-    
-    
   </div>
-  </div>
+</lib-popup-page>
+
+

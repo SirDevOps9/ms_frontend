@@ -99,4 +99,5 @@ export class BreadcrumbLabel {
     static PAYMENT_METHOD_LIST ='Payment Method list';
     static PAYMENT_METHOD_ADD ='Add Payment Method ';
     static PAYMENT_METHOD_EDIT ='Edit Payment Method ';
+    static PAYMENT_IN_LIST ='BreadCrumb.PaymentInList';
   }

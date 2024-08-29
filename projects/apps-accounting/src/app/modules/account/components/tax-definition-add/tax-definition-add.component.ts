@@ -52,7 +52,7 @@ export class TaxDefinitionAddComponent {
   private initializeForm() {
     this.addForm = this.formBuilder.group({
       name: new FormControl('', [customValidators.required]),
-      code: new FormControl('', [customValidators.required]),
+      code: new FormControl('', [customValidators.required,customValidators.length(1,5)]),
       ratio: new FormControl('', [customValidators.required]),
       accountId: new FormControl('', [customValidators.required]),
       taxGroupId: new FormControl('', [customValidators.required]),

@@ -34,6 +34,7 @@ export class
   @Input() id: string;
   @Input() selectedValue: any;
   @Input() disabledMode: boolean = false;
+  @Input() labelTest: any;
   @Output() valueChanged = new EventEmitter<string>();
 
   value: string = '';
@@ -76,6 +77,15 @@ export class
     this.onChange(m.value);
     this.valueChanged.emit(m.value);
   }
+
+  ngAfterViewInit() {
+    if (this.controlDir) {
+      setTimeout(() => {
+        this.labelTest = this.controlDir.name;
+      }, 500);
+    }
+  }
+
   constructor(@Self() @Optional() public controlDir: NgControl) {
     if (this.controlDir) {
       this.controlDir.valueAccessor = this;

@@ -21,18 +21,14 @@ export class ERPInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: any) => {
         if (error instanceof HttpErrorResponse) {
-          console.log('Interceptor Error', error);
-
           if (error.status === 401) {
-            console.log('401 Unauthorized Error - Attempting to refresh token');
+           // console.log('401 Unauthorized Error - Attempting to refresh token');
             return this.handleUnAuthorizedError(request, next);
           } else if (error.status === 403) {
-            console.log('403 Forbidden Error - Navigating to un-authorized page');
+            //console.log('403 Forbidden Error - Navigating to un-authorized page');
             this.routerService.navigateTo('un-authorized');
           }
         }
-
-        console.log('Throwing error', error);
         return throwError(() => error);
       })
     );
@@ -46,8 +42,6 @@ export class ERPInterceptor implements HttpInterceptor {
       this.isRefreshing = true;
       return this.authService.refreshToken().pipe(
         switchMap((data: TokenModel) => {
-          console.log('Token refreshed successfully', data);
-
           this.authService.saveLoginData(data);
 
           request = request.clone({
@@ -56,8 +50,6 @@ export class ERPInterceptor implements HttpInterceptor {
           return next.handle(request);
         }),
         catchError((err) => {
-          console.log('Refresh Error', err);
-
           if (err.status == 401) {
             this.authService.clearAllStorage();
             this.routerService.navigateTo('login');

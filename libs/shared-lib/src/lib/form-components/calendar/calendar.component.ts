@@ -13,6 +13,8 @@ export class CalendarComponent implements ControlValueAccessor {
   @Input() maxDate: Date | null;
   @Input() label: string;
   @Input() disabled: boolean = false;
+  @Input() readOnly: boolean;
+  @Input() labelTest: any = 'calendar';
   @Output() valueChanged = new EventEmitter<Date>();
   @Input() defaultDate: Date | null;
   value: Date;
@@ -49,4 +51,13 @@ export class CalendarComponent implements ControlValueAccessor {
     this.onTouched();
     this.valueChanged.emit(this.value);
   }
+
+  ngAfterViewInit() {
+    if (this.controlDir) {
+      setTimeout(() => {
+        this.labelTest = this.controlDir.name;
+      }, 500);
+    }
+  }
+
 }

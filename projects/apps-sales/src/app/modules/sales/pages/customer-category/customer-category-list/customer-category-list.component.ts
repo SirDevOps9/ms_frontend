@@ -74,7 +74,7 @@ export class CustomerCategoryListComponent implements OnInit {
 
 
   onSearchChange(event : any) {
-    this.salesService.getcustomerCategory(event.target.value, new PageInfo());
+    this.salesService.getcustomerCategory(event, new PageInfo());
 
     this.salesService.customerCategoryDataSourceObservable.subscribe({
       next: (res) => {

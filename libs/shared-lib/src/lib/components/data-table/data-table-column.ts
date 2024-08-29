@@ -17,9 +17,10 @@ export class DataTableColumn {
   applyClass?: boolean;
   rowspan?: string;
   colspan?: string;
-  children?:DataTableColumn[];
-  class?:string;
-  body_class?:string;
+  children?: DataTableColumn[];
+  class?: string;
+  body_class?: string;
+  applyNumberFormat?: boolean = false;
 }
 
 export class TableConfig {
