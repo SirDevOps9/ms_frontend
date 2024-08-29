@@ -18,7 +18,7 @@ export class AddPaymentMethodComponent implements OnInit {
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   accountsList: { id: number; name: string }[];
-  BankList: { id: number; name: string }[];
+  BankList: DropDownDto[];
   taxList: DropDownDto[];
   BankAccountList: BankAccountWithCurrency[]=[];
   paymentplaceEnum: paymentplace;

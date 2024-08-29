@@ -173,7 +173,7 @@ export class EditPaymentMethodComponent implements OnInit {
   }
 
   getBankDropDown() {
-    this.financeService.BankDropDown().subscribe((res) => {
+    this.financeService.BankDropDown().subscribe((res:any) => {
       this.BankList = res;
     });
   }

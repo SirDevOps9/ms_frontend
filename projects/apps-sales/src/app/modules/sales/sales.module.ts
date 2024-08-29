@@ -113,7 +113,7 @@ const routes: Routes = [
             }
           },
           {
-            path: 'add-customer-opening-balance',
+            path: 'add',
             component: AddCustomerOpeeningBalanceComponent,
             //  canActivate: [AuthGuard],
             data: {
@@ -121,7 +121,7 @@ const routes: Routes = [
             }
           },
           {
-            path: 'edit-customer-opening-balance/:id',
+            path: 'edit/:id',
             component: EditCustomerOpeningBalanceComponent,
             //  canActivate: [AuthGuard],
             data: {
@@ -129,7 +129,7 @@ const routes: Routes = [
             }
           },
           {
-            path: 'view-customer-opening-balance/:id',
+            path: 'view/:id',
             component: ViewCustomerOpeningBalanceComponent,
             //  canActivate: [AuthGuard],
             data: {
