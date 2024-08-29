@@ -38,3 +38,15 @@ export enum paymentplace {
     Treasury='Treasury',
     Bank='Bank',
   }
+  export enum commissionTypeString {
+    Amount='Amount',
+    Percent ='Percent'
+  }
+  export enum PaidBy {
+    Customer = 'customer',
+    Vendor = 'vendor',
+    Other = 'other'
+  }
+  export enum OtherOptions {
+    GLAccount = 'GL account'
+  }

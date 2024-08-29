@@ -19,7 +19,8 @@ export class AddCostCenterComponent {
   calcPercentage: number;
   calcAmount: number;
   lookupValues: any = [];
-
+  allocationform: FormArray = this.fb.array([]);
+  amountForm: FormGroup;
   constructor(
     private fb: FormBuilder,
     public config: DynamicDialogConfig,
@@ -50,47 +51,6 @@ export class AddCostCenterComponent {
   close() {
     this.ref.close();
   }
-  // ngOnInit(): void {
-  //   this.amountForm = this.fb.group({
-  //     amount: 0,
-  //   });
-  //   const formatamount = this.generalService.formatNumber(
-  //     this.config.data.amount,
-  //     this.generalService.fraction
-  //   );
-  //   const formatcreditAmount = this.generalService.formatNumber(
-  //     this.config.data.creditAmount,
-  //     this.generalService.fraction
-  //   );
-
-  //   const creditAmount = parseFloat(this.config.data.creditAmount);
-  //   const amount = parseFloat(this.config.data.amount);
-  //   if (creditAmount == 0 || !this.config.data.creditAmount) {
-  //     this.amountForm.get('amount')?.setValue(amount);
-  //   }
-  //   if (amount == 0 || !this.config.data.amount) {
-  //     this.amountForm.get('amount')?.setValue(creditAmount);
-  //   }
-  //   this.allocationform.push(this.createItem());
-
-  //   this.allocationform.valueChanges.subscribe((res) => {
-  //     this.initValueChangeHandlers();
-
-  //     this.calcPercentage = res.reduce((accumulator: any, currentValue: any) => {
-  //       return accumulator + Number(currentValue.percentage);
-  //     }, 0);
-  //     this.calcAmount = res.reduce((accumulator: any, currentValue: any) => {
-  //       return accumulator + Number(currentValue.amount);
-  //     }, 0);
-  //   });
-    
-  //   this.accountService.getCostCenterLookup().subscribe((res: costLookup[]) => {
-  //     this.accountLookup = res.map((costCenter) => ({
-  //       ...costCenter,
-  //       displayName: `${costCenter.name} (${costCenter.code})`,
-  //     }));
-  //   });
-  // }
   ngOnInit(): void {
     this.amountForm = this.fb.group({
       amount: 0,
@@ -181,9 +141,7 @@ export class AddCostCenterComponent {
       }
     });
   }
-  allocationform: FormArray = this.fb.array([]);
 
-  amountForm: FormGroup;
 
   createItem(): FormGroup {
     return this.fb.group({

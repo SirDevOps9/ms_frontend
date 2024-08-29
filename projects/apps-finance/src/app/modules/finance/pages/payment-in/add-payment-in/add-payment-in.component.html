@@ -209,7 +209,7 @@
 
             <td>
               <lib-button-micro title="{{ 'PaymentIn.Form.PaymentMethod' | translate }}"
-                [nameClass]="journalLine.controls['paymentMethodId'].value == sharedJournalEnums.paymentMethodTypeString.Cash ||journalLine.controls['paymentMethodId'].value == null || !selectedBank ? 'disabled' : 'save'"
+                [nameClass]="journalLine.controls['paymentMethodId'].value == sharedFinanceEnums.paymentMethodTypeString.Cash ||journalLine.controls['paymentMethodId'].value == null || !selectedBank ? 'disabled' : 'save'"
                 widthNumber="100%" (click)="handleButtonClick(journalLine)">
 
               </lib-button-micro>
@@ -234,21 +234,21 @@
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-select
-                    *ngIf="journalLine.controls['paidBy'].value == this.sharedJournalEnums.paiedDropDown.vendor"
+                    *ngIf="journalLine.controls['paidBy'].value == this.sharedFinanceEnums.paiedDropDown.vendor"
                     formControlName="paidByDetailsId" [options]="vendorDropDown"
                     [selectedValue]="journalLine.controls['paidByDetailsId'].value" optionValue="id" optionLabel="name"
                     (valueChanged)="getGlAccount(rowIndex, journalLine.controls['paidByDetailsId'].value)">
 
                   </lib-select>
                   <lib-select
-                    *ngIf="journalLine.controls['paidBy'].value == this.sharedJournalEnums.paiedDropDown.customer"
+                    *ngIf="journalLine.controls['paidBy'].value == this.sharedFinanceEnums.paiedDropDown.customer"
                     formControlName="paidByDetailsId" [options]="customerDropDown"
                     [selectedValue]="journalLine.controls['paidByDetailsId'].value" optionValue="id" optionLabel="name"
                     (valueChanged)="getGlAccount(rowIndex, journalLine.controls['paidByDetailsId'].value)">
 
                   </lib-select>
                   <lib-select
-                    *ngIf="journalLine.controls['paidBy'].value == this.sharedJournalEnums.paiedDropDown.other"
+                    *ngIf="journalLine.controls['paidBy'].value == this.sharedFinanceEnums.paiedDropDown.other"
                     formControlName="paidByDetailsId" [options]="other"
                     [selectedValue]="journalLine.controls['paidByDetailsId'].value" optionValue="id" optionLabel="name"
                     (valueChanged)="getLabel(journalLine, journalLine.controls['paidByDetailsId'].value)"
@@ -264,7 +264,7 @@
               <lib-field-validations [appControl]="journalLine.controls['paidByDetailsId']"> </lib-field-validations>
             </td>
             <td [pEditableColumn]="journalLine.glAccountId" pEditableColumnField="glAccountId">
-              <p-cellEditor *ngIf="journalLine.controls['paidBy'].value == this.sharedJournalEnums.paiedDropDown.other">
+              <p-cellEditor *ngIf="journalLine.controls['paidBy'].value == this.sharedFinanceEnums.paiedDropDown.other">
                 <ng-template pTemplate="input">
                   <div class="flex gap-2 align-items-center">
                     <lib-select formControlName="glAccountId" [options]="filteredAccounts" optionValue="id"
@@ -272,9 +272,9 @@
                       [selectedValue]="journalLine.controls['glAccountId'].value"
                       (valueChanged)="accountSelected($event, rowIndex)" (valueSearchChanged)="onFilter($event)"
                       [placeholder]=" journalLine.controls['glAccountId'].value"
-                      [readOnly]="journalLine.controls['paidBy'].value != this.sharedJournalEnums.paiedDropDown.other">
+                      [readOnly]="journalLine.controls['paidBy'].value != this.sharedFinanceEnums.paiedDropDown.other">
                     </lib-select>
-                    <i *ngIf="journalLine.controls['paidBy'].value == this.sharedJournalEnums.paiedDropDown.other"
+                    <i *ngIf="journalLine.controls['paidBy'].value == this.sharedFinanceEnums.paiedDropDown.other"
                       class="pi pi-search search-circle" (click)="openDialogSearch(rowIndex)"></i>
                   </div>
                 </ng-template>
@@ -282,7 +282,7 @@
                   {{journalLine.controls['accountName'].value}}
                 </ng-template>
               </p-cellEditor>
-              <p *ngIf="journalLine.controls['paidBy'].value != this.sharedJournalEnums.paiedDropDown.other">
+              <p *ngIf="journalLine.controls['paidBy'].value != this.sharedFinanceEnums.paiedDropDown.other">
                 {{journalLine.controls['glAccountname'].value}}
               </p>
               <lib-field-validations [appControl]="journalLine.controls['glAccountId']">
@@ -291,9 +291,9 @@
 
             <td>
               <img *ngIf="
-                  journalLine.controls['paidBy'].value!=this.sharedJournalEnums.paiedDropDown.other ||
-                  journalLine.controls['paidBy'].value==this.sharedJournalEnums.paiedDropDown.other && 
-                  journalLine.controls['costCenterConfig'].value == this.sharedJournalEnums.costCenterConfig.NotAllow || 
+                  journalLine.controls['paidBy'].value!=this.sharedFinanceEnums.paiedDropDown.other ||
+                  journalLine.controls['paidBy'].value==this.sharedFinanceEnums.paiedDropDown.other && 
+                  journalLine.controls['costCenterConfig'].value == this.sharedFinanceEnums.costCenterConfig.NotAllow || 
                   journalLine.controls['costCenterConfig'].value == null
 
                          " src="assets/images/groups.png" />

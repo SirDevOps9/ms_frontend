@@ -12,7 +12,9 @@
   "PaymentMethodlist": "Payment Method List",
   "AddPaymentMethod": "Add Payment Method",
   "EditPaymentMethod": "Edit Payment Method",
-  "ViewPaymentMethod": "View Payment Method"
+  "ViewPaymentMethod": "View Payment Method",
+  "PaymentIn":"Payment In " 
+
 },
   "COAConfigration": {
     "levelnumber": "level Number",

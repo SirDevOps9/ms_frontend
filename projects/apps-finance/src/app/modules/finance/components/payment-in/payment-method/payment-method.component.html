@@ -6,7 +6,7 @@ title="{{ 'PaymentIn.Form.PaymentMethod' | translate }}"
   <div>
     <form [formGroup]="addForm">
       <div class="grid m-0">
-        <div class="md:col-6" *ngIf="paymentmethod == SharedJournalEnums.paymentMethodTypeString.Check">
+        <div class="md:col-6" *ngIf="paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Check">
           <lib-form-group>
             <lib-label [appControl]="addForm.controls['chequeNumber']">
               {{ 'PaymentIn.Form.CheckNumber' | translate }}
@@ -15,7 +15,7 @@ title="{{ 'PaymentIn.Form.PaymentMethod' | translate }}"
             <lib-field-validations [appControl]="addForm.controls['chequeNumber']"> </lib-field-validations>
           </lib-form-group>
         </div>
-        <div class="md:col-6" *ngIf="paymentmethod == SharedJournalEnums.paymentMethodTypeString.Check">
+        <div class="md:col-6" *ngIf="paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Check">
           <lib-form-group>
             <lib-label [appControl]="addForm.controls['chequeDueDate']">
               {{ 'PaymentIn.Form.CheckDueDat' | translate }}
@@ -26,25 +26,25 @@ title="{{ 'PaymentIn.Form.PaymentMethod' | translate }}"
             <lib-field-validations [appControl]="addForm.controls['chequeDueDate']"> </lib-field-validations>
           </lib-form-group>
         </div>
-        <div class="md:col-6" *ngIf="paymentmethod == SharedJournalEnums.paymentMethodTypeString.Visa||paymentmethod == SharedJournalEnums.paymentMethodTypeString.Master">
+        <div class="md:col-6" *ngIf="paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Visa||paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Master">
           <lib-form-group>
-            <lib-label [appControl]="addForm.controls['CommissionAmount']">
+            <lib-label [appControl]="addForm.controls['commissionAmount']">
               {{ 'PaymentIn.Form.CommissionAmount' | translate }}
             </lib-label>
-            <lib-text-input [readOnly]="true"  formControlName="CommissionAmount" placeholder="{{CommissionAmount}}" />
-            <lib-field-validations [appControl]="addForm.controls['CommissionAmount']"> </lib-field-validations>
+            <lib-text-input [readOnly]="true"  formControlName="commissionAmount" placeholder="{{commissionAmount}}" />
+            <lib-field-validations [appControl]="addForm.controls['commissionAmount']"> </lib-field-validations>
           </lib-form-group>
         </div>
-        <div class="md:col-6" *ngIf="paymentmethod == SharedJournalEnums.paymentMethodTypeString.Visa||paymentmethod == SharedJournalEnums.paymentMethodTypeString.Master">
+        <div class="md:col-6" *ngIf="paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Visa||paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Master">
           <lib-form-group>
-            <lib-label [appControl]="addForm.controls['VatAmount']">
+            <lib-label [appControl]="addForm.controls['vatAmount']">
               {{ 'PaymentIn.Form.VatAmount' | translate }}
             </lib-label>
-            <lib-text-input [readOnly]="true" type="text" formControlName="VatAmount" placeholder="{{vat}}" />
-            <lib-field-validations [appControl]="addForm.controls['VatAmount']"> </lib-field-validations>
+            <lib-text-input [readOnly]="true" type="text" formControlName="vatAmount" placeholder="{{vat}}" />
+            <lib-field-validations [appControl]="addForm.controls['vatAmount']"> </lib-field-validations>
           </lib-form-group>
         </div>
-        <div class="md:col-12" *ngIf="paymentmethod == SharedJournalEnums.paymentMethodTypeString.Check || paymentmethod == SharedJournalEnums.paymentMethodTypeString.Transfer || paymentmethod == SharedJournalEnums.paymentMethodTypeString.Visa ||paymentmethod ==  SharedJournalEnums.paymentMethodTypeString.Master ||paymentmethod == SharedJournalEnums.paymentMethodTypeString.Span ">
+        <div class="md:col-12" *ngIf="paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Check || paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Transfer || paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Visa ||paymentmethod ==  sharedFinanceEnums.paymentMethodTypeString.Master ||paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Span ">
           <lib-form-group>
             <lib-label [appControl]="addForm.controls['bankReference']">
               {{ 'PaymentIn.Form.BankReference' | translate }}

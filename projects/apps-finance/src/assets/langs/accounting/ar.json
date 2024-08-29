@@ -13,8 +13,9 @@
     "PaymentMethodlist": "قائمة طرق الدفع",
     "AddPaymentMethod": "إضافة طريقة الدفع",
     "EditPaymentMethod": "تحرير طريقة الدفع",
-    "ViewPaymentMethod": "عرض طريقة الدفع"
-    
+    "ViewPaymentMethod": "عرض طريقة الدفع",
+    "PaymentIn": "إيصال الدفع"
+
 
   },
   "COAConfigration": {

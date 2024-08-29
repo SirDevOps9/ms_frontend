@@ -2,9 +2,8 @@ import { ChangeDetectorRef, Component, AfterViewInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { customValidators, FormsService } from 'shared-lib';
-import { SharedJournalEnums } from '../../../models/sharedEnums';
 import { DatePipe } from '@angular/common';
-import { paymentMethodTypeString, paymentplaceString } from '../../../models';
+import { paymentMethodTypeString, paymentplaceString, SharedFinanceEnums } from '../../../models';
 
 @Component({
   selector: 'app-payment-method',
@@ -18,7 +17,7 @@ export class PaymentMethodComponent {
   amount: number
   ratio: number
   vat: number
-  CommissionAmount: number = 0
+  commissionAmount: number = 0
   paymentMethodTypeString: paymentMethodTypeString
 
   ngOnInit() {
@@ -38,22 +37,22 @@ export class PaymentMethodComponent {
             chequeNumber: paymentDetails.chequeNumber || null,
             chequeDueDate: paymentDetails.chequeDueDate || new Date(),
             bankReference: paymentDetails.bankReference || null,
-            VatAmount: paymentDetails.VatAmount || null,
-            CommissionAmount: paymentDetails.CommissionAmount || null,
+            vatAmount: paymentDetails.VatAmount || null,
+            commissionAmount: paymentDetails.CommissionAmount || null,
           });
         }, 500);
      
 
       }
-      if (this.config.data.selectedPayment.commissionType === this.SharedJournalEnums.commissionTypeString.Percent) {
-        this.CommissionAmount = (this.amount * this.config.data.selectedPayment.commissionValue) / 100;
+      if (this.config.data.selectedPayment.commissionType === this.sharedFinanceEnums.commissionTypeString.Percent) {
+        this.commissionAmount = (this.amount * this.config.data.selectedPayment.commissionValue) / 100;
 
 
-      } else if (this.config.data.selectedPayment.commissionType == this.SharedJournalEnums.commissionTypeString.Amount) {
-        this.CommissionAmount = (this.config.data.selectedPayment.commissionValue);
+      } else if (this.config.data.selectedPayment.commissionType == this.sharedFinanceEnums.commissionTypeString.Amount) {
+        this.commissionAmount = (this.config.data.selectedPayment.commissionValue);
       }
       if(this.config.data.selectedPayment.commissionType ){
-        this.vat = (this.CommissionAmount * this.config.data.ratio) / 100
+        this.vat = (this.commissionAmount * this.config.data.ratio) / 100
       }
 
 
@@ -67,8 +66,8 @@ export class PaymentMethodComponent {
       chequeNumber: new FormControl(null),
       chequeDueDate: new FormControl(null),
       bankReference: new FormControl(null),
-      VatAmount: new FormControl(null),
-      CommissionAmount: new FormControl(null),
+      vatAmount: new FormControl(null),
+      commissionAmount: new FormControl(null),
     });
 
     if (this.paymentmethod == paymentMethodTypeString.Check) {
@@ -111,7 +110,7 @@ export class PaymentMethodComponent {
     private formBuilder: FormBuilder,
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
-    public SharedJournalEnums: SharedJournalEnums,
+    public sharedFinanceEnums: SharedFinanceEnums,
     private formsService: FormsService,
   ) { }
 }

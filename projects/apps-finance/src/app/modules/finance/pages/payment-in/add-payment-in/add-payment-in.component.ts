@@ -1,6 +1,7 @@
 import {  Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import {
+  CurrentUserService,
   FormsService,
   LanguageService,
   LookupEnum,
@@ -15,12 +16,11 @@ import { PaymentMethodComponent } from '../../../components/payment-in/payment-m
 import { paymentplace, paymentplaceString } from '../../../models/enums';
 import { FinanceService } from '../../../finance.service';
 import { CurrencyDto } from '../../../../general/models';
-import { SharedJournalEnums } from '../../../models/sharedEnums';
+import { SharedFinanceEnums } from '../../../models/sharedEnums';
 import { AccountDto, BankAccount, BankPaymentMethods, costCenters, CustomerDropDown, PaidByDropDown, SimpleDropDown, TreasuriesPaymentMethod, TreasuryDropDown, VendorDropDown } from '../../../models';
 import { PopupAccountsComponent } from '../../../components/payment-in/popup-accounts/popup-accounts.component';
 import { AddCostCenterComponent } from '../../../components/payment-in/add-cost-center/add-cost-center.component';
 import { DatePipe } from '@angular/common';
-import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -72,7 +72,7 @@ export class AddPaymentInComponent {
     private lookupsService: LookupsService,
     private financeService: FinanceService,
     private formsService: FormsService,
-    public  sharedJournalEnums: SharedJournalEnums,
+    public  sharedFinanceEnums: SharedFinanceEnums,
     private toasterService: ToasterService,
     private langService: LanguageService,
     private currentUserService: CurrentUserService,
@@ -110,24 +110,29 @@ export class AddPaymentInComponent {
     this.financeService.customerDropdown()
   }
   initializeDropDown() {
+    // this.paidBy = [
+    //   {
+    //     id: 1,
+    //     name: "customer"
+    //   },
+    //   {
+    //     id: 2,
+    //     name: "vendor"
+    //   },
+    //   {
+    //     id: 3,
+    //     name: "other"
+    //   },
+    // ]
     this.paidBy = [
-      {
-        id: 1,
-        name: "customer"
-      },
-      {
-        id: 2,
-        name: "vendor"
-      },
-      {
-        id: 3,
-        name: "other"
-      },
-    ]
+      { id: 1, name: this.sharedFinanceEnums.PaidBy.Customer },
+      { id: 2, name: this.sharedFinanceEnums.PaidBy.Vendor },
+      { id: 3, name: this.sharedFinanceEnums.PaidBy.Other }
+    ];
     this.other = [
       {
         id: 1,
-        name: "GL account"
+        name: this.sharedFinanceEnums.OtherOptions.GLAccount
       },
     ]
     this.getCustomerDropdown();
@@ -177,7 +182,7 @@ export class AddPaymentInComponent {
   }
 
   openDialog(value: any, selectedPayment: any, journal: any, amount: number) {
-    if (selectedPayment.paymentMethodType == this.sharedJournalEnums.paymentMethodTypeString.Cash || selectedPayment.paymentMethodType == null) {
+    if (selectedPayment.paymentMethodType == this.sharedFinanceEnums.paymentMethodTypeString.Cash || selectedPayment.paymentMethodType == null) {
       return true
     } else {
       const data = value
@@ -223,12 +228,12 @@ export class AddPaymentInComponent {
     const journalLine = this.paymentInDetailsFormArray.at(index);
     journalLine.get('glAccountname')?.setValue(null);
     journalLine.get('paidByDetailsName')?.setValue(null);
-    if (name == this.sharedJournalEnums.paiedDropDown.customer) {
+    if (name == this.sharedFinanceEnums.paiedDropDown.customer) {
       this.paidByDetailsCustomer = this.customerDropDown
-    } else if (name == this.sharedJournalEnums.paiedDropDown.vendor) {
+    } else if (name == this.sharedFinanceEnums.paiedDropDown.vendor) {
       this.paidByDetailsVendor = this.vendorDropDown
 
-    } else if (name == this.sharedJournalEnums.paiedDropDown.other) {
+    } else if (name == this.sharedFinanceEnums.paiedDropDown.other) {
       this.paidByDetailsOther = this.other
     }
   }
@@ -397,7 +402,7 @@ export class AddPaymentInComponent {
     this.updateAccount(accountData as AccountDto, id);
   }
   isCostCenterallowed(journalLine: any, costCenterConfig: string): boolean {
-    if (costCenterConfig === this.sharedJournalEnums.costCenterConfig.Mandatory || costCenterConfig === this.sharedJournalEnums.costCenterConfig.Optional) {
+    if (costCenterConfig === this.sharedFinanceEnums.costCenterConfig.Mandatory || costCenterConfig === this.sharedFinanceEnums.costCenterConfig.Optional) {
       return true;
     } else {
       this.CostCenter = this.formBuilder.group({
@@ -506,16 +511,16 @@ export class AddPaymentInComponent {
   getLabel(journal: FormGroup, id: number): string | undefined {
     const paidByValue = journal.controls['paidBy'].value;
 
-    if (paidByValue === this.sharedJournalEnums.paiedDropDown.customer) {
+    if (paidByValue === this.sharedFinanceEnums.paiedDropDown.customer) {
       const customer = this.customerDropDown.find((e: any) => e.id === id);
       journal.controls['paidByDetailsName'].setValue(customer ? customer.name : "")
       return customer ? customer.name : '';
-    } else if (paidByValue === this.sharedJournalEnums.paiedDropDown.vendor) {
+    } else if (paidByValue === this.sharedFinanceEnums.paiedDropDown.vendor) {
       const vendor = this.vendorDropDown.find((e: any) => e.id === id);
       journal.controls['paidByDetailsName'].setValue(vendor ? vendor.name : "")
 
       return vendor ? vendor.name : '';
-    } else if (paidByValue === this.sharedJournalEnums.paiedDropDown.other) {
+    } else if (paidByValue === this.sharedFinanceEnums.paiedDropDown.other) {
       const other = this.other.find((e: any) => e.id === id);
       journal.controls['paidByDetailsName'].setValue(other ? other.name : "")
 
@@ -595,7 +600,7 @@ export class AddPaymentInComponent {
 
       lineNumber++;
 
-      if (control.value.paymentMethodType == this.sharedJournalEnums.paymentMethodTypeString.Check) {
+      if (control.value.paymentMethodType == this.sharedFinanceEnums.paymentMethodTypeString.Check) {
         if (control.value.paymentInMethodDetails.chequeNumber == null || control.value.paymentInMethodDetails.chequeDueDate == null) {
           this.toasterService.showError(
             this.langService.transalte('PaymentIn.Error'),
@@ -606,7 +611,7 @@ export class AddPaymentInComponent {
         }
 
       }
-      else if (control.value.paymentMethodType == this.sharedJournalEnums.paymentMethodTypeString.Master) {
+      else if (control.value.paymentMethodType == this.sharedFinanceEnums.paymentMethodTypeString.Master) {
         if (control.value.paymentInMethodDetails.bankReference == null) {
           this.toasterService.showError(
             this.langService.transalte('PaymentIn.Error'),
@@ -618,7 +623,7 @@ export class AddPaymentInComponent {
         }
 
       }
-      else if (control.value.paymentMethodType == this.sharedJournalEnums.paymentMethodTypeString.Visa) {
+      else if (control.value.paymentMethodType == this.sharedFinanceEnums.paymentMethodTypeString.Visa) {
         if (control.value.paymentInMethodDetails.bankReference == null) {
           this.toasterService.showError(
             this.langService.transalte('PaymentIn.Error'),
@@ -698,12 +703,12 @@ export class AddPaymentInComponent {
     );
   }
   getAllPayMethodsDropdown(BankId: number, BankAccountId: number) {
-    this.financeService.GetAllPayMethodsDropdown(BankId, BankAccountId)
+    this.financeService.getAllPayMethodsDropdown(BankId, BankAccountId)
   }
   getGlAccount(index: number, id: number) {
     const journalLine: any = this.paymentInDetailsFormArray.at(index);
     const paidByValue = journalLine.controls['paidBy'].value;
-    if (paidByValue === this.sharedJournalEnums.paiedDropDown.customer) {
+    if (paidByValue === this.sharedFinanceEnums.paiedDropDown.customer) {
       const customer = this.customerDropDown.find((e) => e.id === id);
       if (customer) {
 
@@ -711,7 +716,7 @@ export class AddPaymentInComponent {
         journalLine.get('glAccountname')?.setValue(customer.accountName);
 
       }
-    } else if (paidByValue === this.sharedJournalEnums.paiedDropDown.vendor) {
+    } else if (paidByValue === this.sharedFinanceEnums.paiedDropDown.vendor) {
       const vendor = this.vendorDropDown.find((e) => e.id === id);
       if (vendor) {
         journalLine.get('glAccountId')?.setValue(vendor.accountId);
@@ -727,13 +732,13 @@ export class AddPaymentInComponent {
     const journalLine: any = this.paymentInDetailsFormArray.at(index);
     const paidByValue = journalLine.controls['paidBy'].value;
 
-    if (paidByValue === this.sharedJournalEnums.paiedDropDown.customer) {
+    if (paidByValue === this.sharedFinanceEnums.paiedDropDown.customer) {
       const customer = this.customerDropDown.find((e) => e.id === id);
       if (customer) {
         const account = customer.accountName;
         return account;
       }
-    } else if (paidByValue === this.sharedJournalEnums.paiedDropDown.vendor) {
+    } else if (paidByValue === this.sharedFinanceEnums.paiedDropDown.vendor) {
       const vendor = this.vendorDropDown.find((e) => e.id === id);
       if (vendor) {
         const account = vendor.accountName;

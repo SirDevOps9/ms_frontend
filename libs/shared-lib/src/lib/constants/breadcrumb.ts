@@ -52,6 +52,7 @@ export class BreadcrumbLabel {
   static VIEW_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.ViewCustomerOpeningBalance';
 
 
+
     static SUBSCRIPTION ='Subscription'
     static USERS = 'Users';
     static ADD_COMPANY = 'Add company';
@@ -109,7 +110,7 @@ export class BreadcrumbLabel {
     static PAYMENT_METHOD_VIEW ='BreadCrumb.ViewPaymentMethod ';
     
     
-    static PAYMENT_IN ='Payment In ';
+    static PAYMENT_IN ='BreadCrumb.PaymentIn';
     static ADD_PAYMENT_IN ='Add Payment In ';
     static EDIT_PAYMENT_IN ='Edit Payment In ';
 

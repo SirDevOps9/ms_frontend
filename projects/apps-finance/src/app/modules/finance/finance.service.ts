@@ -459,7 +459,7 @@ export class FinanceService {
       }
     })
   }
-  GetAllPayMethodsDropdown(BankId:number ,BankAccountId: number ) {
+  getAllPayMethodsDropdown(BankId:number ,BankAccountId: number ) {
     this.financeProxy.GetAllPayMethodsDropdown(BankId , BankAccountId).subscribe(res=>{
       if(res) {
        this.AllPayMethodsDropdown.next(res)
