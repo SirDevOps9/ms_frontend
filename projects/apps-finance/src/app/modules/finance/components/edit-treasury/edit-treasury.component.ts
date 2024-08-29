@@ -117,8 +117,8 @@ export class EditTreasuryComponent implements OnInit {
     this.treasuryForm.value.id = this.treasuryData.id;
     if (accountBalance !== openingBalance) {
       const dialogRef = this.dialog.open(ConfirmComponent, {
-        width: '400px',
-        height: '250px',
+        width: '500px',
+        height: '300px',
       });
       dialogRef.onClose.subscribe((res) => {
         if (res) {
