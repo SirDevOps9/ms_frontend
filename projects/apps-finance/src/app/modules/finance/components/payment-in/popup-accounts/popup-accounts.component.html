@@ -1,0 +1,76 @@
+
+<lib-popup-page
+title="{{ 'popupPayment.ChooseAnAccount' | translate }}"
+[closeFunction]="onCancel"
+[save]="false"
+>
+
+<lib-data-table
+[popup]="true"
+[items]="items"
+[selectedIndex]="selectedIndex"
+className="p-datatable-gridlines"
+[currentPageResult]="paging"
+(pageChange)="onPageChange($event)"
+[tableConfigs]="{
+allowPagination: false,
+allowServerPagination: true,
+dataKey: 'id',
+pageSize: 10,
+columns: [
+  {
+    name: 'id',
+    headerText: 'popupPayment.Id' | translate | translate,
+    isGlobalFilter: true,
+    isSortable: true
+  },
+  {
+    name: 'accountCode',
+    headerText: 'popupPayment.AccountCode' | translate,
+    isGlobalFilter: true,
+    isSortable: true
+  },
+  {
+    name: 'name',
+    headerText: 'popupPayment.AccountName' | translate,
+    isGlobalFilter: true,
+    isSortable: true
+  },
+  {
+    name: 'actions',
+    headerText: ('popupPayment.Actions' | translate),
+    template: actions
+  }
+]
+}"
+>
+<ng-container search>
+  <div [formGroup]="searchForm">
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input pInputText formControlName="SearchTerm" type="text" placeholder="{{ 'popupPayment.Search' | translate }}" />
+    </span>
+  </div>
+  </ng-container>
+
+
+<ng-template #actions let-account>
+<!-- <input
+type="checkbox"
+class="check"
+(change)="selectRow($event, account)"
+[checked]="account.id == selectedAccount?.id"
+/> -->
+<lib-button
+  [className]="'light-blue'"
+  [rounded]="true"
+  [enableText]="true"
+  severity="secondary"
+  (onClick)="selectRow($event, account)"
+>
+  {{'popupPayment.Select' | translate}}
+</lib-button>
+</ng-template>
+</lib-data-table>
+</lib-popup-page>
+

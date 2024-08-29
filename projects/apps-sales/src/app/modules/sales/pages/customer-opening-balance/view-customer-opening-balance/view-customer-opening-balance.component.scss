@@ -1,0 +1,41 @@
+.subHead {
+
+  margin: 0;
+  color: #383A42;
+  word-wrap: break-word;      /* For older browsers */
+  overflow-wrap: break-word;  /* Standard property for modern browsers */
+  word-break: break-word;
+  
+
+}
+
+.headsCont {
+  color: #6B7280;
+  padding: 0;
+  margin: 0;
+ 
+}
+
+.grid-cont{
+  display: flex;
+  justify-content: space-between;
+  word-wrap: break-word;
+  flex-wrap: wrap; /* Allow items to wrap onto multiple lines */
+
+}
+
+.grid-item {
+  flex: 1 1 200px; /* Adjust the basis value as needed */
+  margin: 10px;
+  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
+::ng-deep .journal_page {
+  .p-datatable.p-datatable-gridlines .p-datatable-header {
+      display: none;
+  }
+  
+}
+
+
+
+

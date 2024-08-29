@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
+import { HttpService, Modules, PageInfo, PaginationVm } from 'shared-lib';
 import {
   AddCustomerCategoryDto,
   AddCustomerDefinitionDto,
+  AddCustomerOpeningBalanceDto,
   CustomerCategoryDto,
   EditCustomerCategoryDto,
   EditCustomerDefintionsDto,
+  EditCustomerOpeningBalanceDto,
+  GetCustomerOpeningBalanceDto,
+  GetCustomerOpeningBalanceViewDto,
 } from './models';
 import {
   CategoryDropdownDto,
@@ -16,6 +20,7 @@ import {
   TagDropDownDto,
 } from '../general-setting/models';
 import { CustomerDefinitionDto } from './models/customerDefinitionDto';
+import { GetAllCustomerOpeningBalanceDto } from './models/get-all-customer-opening-balance-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -106,28 +111,24 @@ export class SalesProxyService {
     return this.httpService.get<CurrencyDto[]>('Currency/CurrencyDropDown?searchTerm=' + searchKey);
   }
 
-  getTags(): Observable<TagDropDownDto[]> {
-    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown`);
+  getTags(moduleId:Modules): Observable<TagDropDownDto[]> {
+    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown?moduleId=`+ moduleId);
   }
 
-  exportCustomerCategoriesData(
-    searchTerm: string | undefined
-  ): Observable<CustomerCategoryDto[]> {
+  exportCustomerCategoriesData(searchTerm: string | undefined): Observable<CustomerCategoryDto[]> {
     let query = `CustomerCategory/Export?`;
     if (searchTerm) {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-     return this.httpService.get<CustomerCategoryDto[]>(query);
+    return this.httpService.get<CustomerCategoryDto[]>(query);
   }
 
-  exportCustomersData(
-    searchTerm: string | undefined
-  ): Observable<CustomerDefinitionDto[]> {
+  exportCustomersData(searchTerm: string | undefined): Observable<CustomerDefinitionDto[]> {
     let query = `Customer/Export?`;
     if (searchTerm) {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-     return this.httpService.get<CustomerDefinitionDto[]>(query);
+    return this.httpService.get<CustomerDefinitionDto[]>(query);
   }
   openingBalanceJournalEntryDropdown(): Observable<CategoryDropdownDto[]> {
     return this.httpService.get<CategoryDropdownDto[]>('OpeningBalanceJournalEntry/GetDropDown');
@@ -138,14 +139,31 @@ export class SalesProxyService {
   CustomerDropDownByAccountId(id: number): Observable<any[]> {
     return this.httpService.get<any[]>(`Customer/DropDownByAccountId/${id}`);
   }
-  AddCustomerOpeningBalance(customer:any): Observable<any>{
+  AddCustomerOpeningBalance(customer: AddCustomerOpeningBalanceDto): Observable<AddCustomerOpeningBalanceDto> {
     return this.httpService.post(`CustomerOpeningBalance`, customer);
   }
-    GetCustomerOpeningBalance(): Observable<any[]> {
-      return this.httpService.get<any[]>(`CustomerOpeningBalance`);
-    }
-    deleteCustomerOpeningBalance(id: number): Observable<boolean> {
-      return this.httpService.delete<boolean>(`CustomerOpeningBalance/${id}`);
-    }
-
+  editCustomerOpeningBalance(customer: EditCustomerOpeningBalanceDto): Observable<any> {
+    return this.httpService.put(`CustomerOpeningBalance`, customer);
   }
+  GetCustomerOpeningBalance(id: number): Observable<GetCustomerOpeningBalanceDto[]> {
+    return this.httpService.get<GetCustomerOpeningBalanceDto[]>(`CustomerOpeningBalance/GetById/${id}`);
+  }
+  GetCustomerOpeningBalanceView(id: number): Observable<GetCustomerOpeningBalanceViewDto> {
+    return this.httpService.get<GetCustomerOpeningBalanceViewDto>(`CustomerOpeningBalance/GetOpeningBalanceView/${id}`);
+  }
+  
+  deleteCustomerOpeningBalance(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`CustomerOpeningBalance/${id}`);
+  }
+
+  getAllCustomerOpeningBalance(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<GetAllCustomerOpeningBalanceDto>> {
+    let query = `CustomerOpeningBalance?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<GetAllCustomerOpeningBalanceDto>>(query);
+  }
+}

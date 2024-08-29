@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
-import { AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, Balance, EditTreasuryDto, GetAllPaymentInDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
+import { AccountDto, AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, Balance, CurrencyRateDto, CustomerDropDown, DropDownDto, EditTreasuryDto, GetAllPaymentInDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto, SimpleDropDown, TreasuryDropDown, VendorDropDown } from './models';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { AddBankDto } from './models/addBankDto';
 import { UserPermission } from './models/user-permission';
@@ -161,9 +161,19 @@ export class FinanceProxyService {
     return this.httpService.get(`Bank/BankAccountDropDown?bankId=${bankId}`);
   }
 
-  BankDropDown() : Observable<{ id: number; name: string }[]> {
+  BankDropDown() : Observable<DropDownDto[]> {
     return this.httpService.get(`Bank/BankDropDown`);
   }
+  treasuryDropDown() : Observable<TreasuryDropDown[]> {
+    return this.httpService.get(`Treasury/GetAllTreasuriesDropdown`);
+  }
+  CustomerDropdown() : Observable<CustomerDropDown[]> {
+    return this.httpService.get(`Customer/GetAllCustomersDropdown`);
+  }
+  VendorDropdown() : Observable<VendorDropDown[]> {
+    return this.httpService.get(`Vendor/GetAllVendorsDropdown`);
+  }
+ 
 
   addPaymentMethod(obj : AddPaymentMethodDto) {
     return this.httpService.post('PaymentMethod' , obj)
@@ -175,6 +185,44 @@ export class FinanceProxyService {
   editPaymentMethod(  obj : GetPaymentMethodByIdDto) : Observable<boolean> {
     return this.httpService.put(`PaymentMethod` , obj);
 
+  }
+  addPaymentIn(obj : any) {
+    return this.httpService.post('PaymentIn' , obj)
+  }
+  GetAllPayMethodsDropdown(bankId:number ,BankAccountId:number ) : Observable<any[]> {
+    return this.httpService.get(`PaymentMethod/GetAllBankPaymentMethodsDropdown/${bankId}/${BankAccountId}`);
+  }
+  GetAllTreasuriesPaymentMethodsDropdown() : Observable<any[]> {
+    return this.httpService.get(`PaymentMethod/GetAllTreasuriesPaymentMethodsDropdown`);
+  }
+  GetTreasuryBalance(id:number) : Observable<number> {
+    return this.httpService.get(`Treasury/GetBalance/${id}`);
+  }
+  GetAccountBalance(id:number) : Observable<number> {
+    return this.httpService.get(`Bank/GetAccountBalance/${id}`);
+  }
+  getAccountsHasNoChildren(
+    quieries: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<AccountDto>> {
+    return this.httpService.get<PaginationVm<AccountDto>>(
+      `ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}&${quieries ? quieries : ''}`
+    );
+  }
+
+getAccountsHasNoChildrenNew(
+  searchTerm: string,
+  pageInfo: PageInfo
+): Observable<PaginationVm<AccountDto>> {
+  let query = `ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}`;
+  if (searchTerm) {
+    query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+  }
+  return this.httpService.get<PaginationVm<AccountDto>>(query);
+}
+
+getAccountCurrencyRate(currentCurrency:number,accountCurrency:number){
+  return this.httpService.get<CurrencyRateDto>(`CurrencyConversion/rate?FromCurrencyId=${currentCurrency}&ToCurrencyId=${accountCurrency}`);
   }
   getAllPymentIn(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<GetAllPaymentInDto>> {
     let query = `PaymentIn?${pageInfo.toQuery}`;
@@ -196,5 +244,8 @@ export class FinanceProxyService {
   deletePaymentIn(id : number) {
     return this.httpService.delete(`PaymentIn/${id}`);
 
+  }
+  getTaxDropDown(): Observable<DropDownDto[]> {
+    return this.httpService.get('Tax/Taxdropdown');
   }
 }

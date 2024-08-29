@@ -8,6 +8,7 @@ import {
   PageInfo,
   PageInfoResult,
   FormsService,
+  Modules,
 } from 'shared-lib';
 import {
   VendorCategoryDto,
@@ -265,8 +266,8 @@ export class PurchaseService {
     });
   }
 
-  getTags() {
-    this.purchaseProxy.getTags().subscribe((response) => {
+  getTags(moduleId:Modules) {
+    this.purchaseProxy.getTags(moduleId).subscribe((response) => {
       this.tagsDataSource.next(response);
     });
   }

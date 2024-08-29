@@ -7,7 +7,15 @@
     "AddPaymentTerm": "إضافة شرط دفع",
   "EditPaymentTerm": "تعديل شرط دفع",
     "Treasury": "الخزائن",
-    "PaymentInList":" إيصال نقدي "
+    "PaymentInList":" إيصال نقدي ",
+    "AddPaymentterm": "إضافة شرط الدفع",
+    "EditPaymentterm": "تحرير شرط الدفع",
+    "PaymentMethodlist": "قائمة طرق الدفع",
+    "AddPaymentMethod": "إضافة طريقة الدفع",
+    "EditPaymentMethod": "تحرير طريقة الدفع",
+    "ViewPaymentMethod": "عرض طريقة الدفع",
+    "PaymentIn": "إيصال الدفع"
+
 
   },
   "COAConfigration": {
@@ -308,7 +316,9 @@
     "CommissionAccount": "حساب العمولة",
     "AllowVAT": "السماح بضريبة القيمة المضافة",
     "edit":"تم تعديل  طريقةالدفع بنجاح",
-    "add":"تمت إضافة طريقة الدفع بنجاح"
+    "add":"تمت إضافة طريقة الدفع بنجاح",
+    "Tax":"الضريبة"
+
   },
   "payment-in": {
     "payment-in": "إيصال نقدي",
