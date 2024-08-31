@@ -228,7 +228,17 @@ export class VendorOpeningBalanceAddComponent implements OnInit {
     }, 500);
   }
   onSubmit(){
+    if (!this.formService.validForm(this.vendorForm, false)) return;
 
+    this.vendorForm.updateValueAndValidity();
+    this.formGroup.updateValueAndValidity();
+    const body = {
+      openingBalanceJournalEntryLineId: this.openingBalanceJournalEntryLineId,
+      amountNature: this.amountNature,
+      customerOpeningBalanceDetails: this.items.value,
+    };
+    this.purchaseService.AddVendorOpeningBalance(body);
   }
+  
 
 }

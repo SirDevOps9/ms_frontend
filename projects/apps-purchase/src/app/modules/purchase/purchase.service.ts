@@ -26,6 +26,7 @@ import {
   VendorOpeningBalanceListDto,
   JournalLineDropdownDto,
   DropDownDto,
+  AddVendorOpeningBalanceDto,
 } from './models';
 import { PurchaseProxyService } from './purchase-proxy.service';
 import { FormGroup } from '@angular/forms';
@@ -330,6 +331,37 @@ export class PurchaseService {
       if (res) {
         this.VendorDropDownByAccountId.next(res);
       }
+    });
+  }
+  AddVendorOpeningBalance(vendor: any) {
+    this.loaderService.show();
+    this.purchaseProxy.addVendorOpeningBalance(vendor).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('addCustomerDefinition.success'),
+          this.languageService.transalte('openeingBalance.CustomerAdded')
+        );
+        if (res) {
+          this.loaderService.hide();
+          this.routerService.navigateTo('/masterdata/vendor-opening-balance');
+        }
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+  EditVendorOpeningBalance(vendor: any) {
+    this.purchaseProxy.editVendorrOpeningBalance(vendor).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('addCustomerCategory.success'),
+          this.languageService.transalte('openeingBalance.CustomerEdited')
+        );
+        if (res) {
+          this.routerService.navigateTo('/masterdata/vendor-opening-balance');
+        }
+      },
     });
   }
 }

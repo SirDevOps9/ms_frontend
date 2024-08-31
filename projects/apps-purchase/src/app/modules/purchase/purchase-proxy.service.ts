@@ -128,6 +128,9 @@ export class PurchaseProxyService {
   addVendorOpeningBalance(data: AddVendorOpeningBalanceDto): Observable<AddVendorCommand> {
     return this.httpService.post(`VendorOpeningBalance`, data);
   }
+  editVendorrOpeningBalance(vendor: any): Observable<any> {
+    return this.httpService.put(`VendorOpeningBalance`, vendor, false);
+  }
   getVendorOpeningBalanceByID(id: number): Observable<GetVendorById> {
     const url = `VendorOpeningBalance/${id}`;
     return this.httpService.get(url);
