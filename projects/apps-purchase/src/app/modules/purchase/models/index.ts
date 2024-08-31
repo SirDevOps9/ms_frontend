@@ -19,3 +19,6 @@ export * from './CategoryDropdownDto';
 export * from './editVendorCommand';
 export * from './getVendorById';
 export * from './vendor-opening-balance-list-dto';
+export * from './add-vendor-opening-balance-dto';
+export * from './journal-line-drop-down-dto';
+export * from './Drop-Down-dto';

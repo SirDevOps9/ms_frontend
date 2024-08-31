@@ -186,5 +186,12 @@
   },
   "editTreasury": {
     "edit": "تم تعديل تعريف الخزانة بنجاح"
-  }
+  },
+  "VendorOpeningBalance": {
+    "CustomerOpeningBalance": "رصيد افتتاحي للعميل",
+    "OpeningJournalCode": "رمز القيد الافتتاحي",
+    "AccountName": "اسم الحساب",
+    "Amount": "المبلغ",
+    "AmountNature": "طبيعة المبلغ"
+  },
 }

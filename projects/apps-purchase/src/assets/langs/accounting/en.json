@@ -188,5 +188,12 @@
   },
   "editTreasury": {
     "edit": "Treasury Definition Edited Successfully"
+  },
+  "VendorOpeningBalance": {
+    "CustomerOpeningBalance": "Customer Opening Balance",
+    "OpeningJournalCode": "Opening Journal Code",
+    "AccountName": "Account Name",
+    "Amount": "Amount",
+    "AmountNature": "Amount Nature"
   }
 }

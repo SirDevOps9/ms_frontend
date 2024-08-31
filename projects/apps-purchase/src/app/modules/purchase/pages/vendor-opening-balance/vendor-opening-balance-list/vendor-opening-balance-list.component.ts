@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { VendorOpeningBalanceListDto } from '../../../models';
-import { lookupDto, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { LanguageService, lookupDto, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { PurchaseService } from '../../../purchase.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-vendor-opening-balance-list',
@@ -19,48 +20,61 @@ export class VendorOpeningBalanceListComponent implements OnInit {
   exportData: VendorOpeningBalanceListDto[];
   constructor(
     private purchaseService: PurchaseService,
-    private routerService : RouterService) { }
+    private routerService : RouterService,
+    private title: Title,
+    private langService: LanguageService) {
+      this.title.setTitle(this.langService.transalte('openeingBalance.CustomerOpeningBalance'));
+     }
 
   ngOnInit() {
+    this.subscribes();
+    this.initCustomerOpeningBalanceData();
+  }
+
+ 
+  initCustomerOpeningBalanceData() {
+    this.purchaseService.getAllVendorOpeningBalance('', new PageInfo());
+  }
+  subscribes() {
+     this.purchaseService.vendorOpeningBalanceDataSourceObservable.subscribe({
+       next: (res) => {
+         this.tableData = res;
+       },
+     });
+
+     this.purchaseService.currentPageInfo.subscribe((currentPageInfo) => {
+       this.currentPageInfo = currentPageInfo;
+     });
+  }
+
+  onPageChange(pageInfo: PageInfo) {
+    this.purchaseService.getAllVendorOpeningBalance('', new PageInfo());
+  }
+
+  onSearchChange(event: any) {
+    this.purchaseService.getAllVendorOpeningBalance(event, new PageInfo());
+
   }
 
   routeToAdd() {
-    this.routerService.navigateTo('/masterdata/vendor-definitions/add-vendor-definitions')
-  }
-  routeToEdit(id : number) {
-    this.routerService.navigateTo(`/masterdata/vendor-definitions/edit-vendor-definitions/${id}`)
-  }
-  onPageChange(pageInfo: PageInfo) {
-    // this.purchaseService.getVendorDefinition('', pageInfo);
-
-    // this.purchaseService.vendorDefinitionDataSourceObservable.subscribe({
-    //   next: (res) => {
-    //     this.tableData = res;
-    //   },
-    // });
+    this.routerService.navigateTo(
+      'masterdata/vendor-opening-balance/add-vendor-opening-balance'
+    );
   }
 
-  onSearchChange() {
-    // this.purchaseService.getVendorDefinition(event, new PageInfo());
-
-    // this.purchaseService.vendorDefinitionDataSourceObservable.subscribe({
-    //   next: (res) => {
-    //     this.tableData = res;
-    //   },
-    // });
+  routeToEdit(id: number) {
+    this.routerService.navigateTo(
+      `masterdata/customer-opening-balance/edit-vendor-opening-balance/${id}`
+    );
   }
 
-  getExportData(e?: Event) {
-    // this.purchaseService.exportVendorsData(searchTerm);
-    // this.purchaseService.exportsVendorsDataSourceObservable.subscribe((res) => {
-    //   this.exportData = res;
-    // });
+  onDelete(id: number) {
+    //todo
   }
-  onEdit(data: any) {
-    //this.routerService.navigateTo(`/masterdata/paymentterm/edit-payment-term/${data.id}`);
-  }
-  onDelete(data: any) {
-   // this.routerService.navigateTo(`/masterdata/paymentterm/edit-payment-term/${data.id}`);
-  }
+
+  view(id: number) {
+    this.routerService.navigateTo(
+      `masterdata/customer-opening-balance/view-customer-opening-balance/${id}`
+    );  }
 
 }
