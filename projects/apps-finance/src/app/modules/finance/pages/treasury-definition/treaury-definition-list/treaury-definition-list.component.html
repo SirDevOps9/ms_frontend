@@ -71,6 +71,15 @@
 
               <div class="col-9 flex gap-2 justify-content-end align-items-center">
                 <div>
+                  <lib-export
+                    (exportClick)="exportClick($event)"
+                    [exportData]="exportData"
+                    [exportColumns]="exportColumns"
+                    [ExportName]="'Treasury Definition'"
+                  >
+                  </lib-export>
+                </div>
+                <div>
                   <lib-button-micro
                     [title]="'treasury.AddNew' | translate"
                     nameClass="save"
@@ -80,15 +89,7 @@
                   </lib-button-micro>
                 </div>
                 <!--  -->
-                <div>
-                  <lib-export
-                    (exportClick)="exportClick($event)"
-                    [exportData]="exportData"
-                    [exportColumns]="exportColumns"
-                    [ExportName]="'Treasury Definition'"
-                  >
-                  </lib-export>
-                </div>
+                
                 <!--  -->
               </div>
             </div>

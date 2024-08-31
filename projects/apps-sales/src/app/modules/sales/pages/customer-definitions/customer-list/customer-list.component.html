@@ -71,6 +71,13 @@
             </div>
 
             <div class="flex gap-2">
+              <lib-export
+              (exportClick)="exportCustomersData($event)"
+              [exportData]="exportData"
+              [exportColumns]="exportColumns"
+              [ExportName]="'Customers'"
+            >
+            </lib-export>
               <div>
                 <lib-button-micro
                   nameClass="save"
@@ -81,13 +88,7 @@
               </div>
               <!--  -->
 
-              <lib-export
-                (exportClick)="exportCustomersData($event)"
-                [exportData]="exportData"
-                [exportColumns]="exportColumns"
-                [ExportName]="'Customers'"
-              >
-              </lib-export>
+             
             </div>
           </div>
         </ng-container>

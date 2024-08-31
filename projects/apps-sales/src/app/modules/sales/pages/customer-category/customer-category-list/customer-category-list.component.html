@@ -81,6 +81,13 @@
             </div>
 
             <div class="flex justify-content-between gap-3">
+              <lib-export
+                (exportClick)="exportCustomerCategoriesData($event)"
+                [exportData]="exportData"
+                [exportColumns]="exportColumns"
+                [ExportName]="'Customer Cateogries'"
+              >
+              </lib-export>
               <div>
                 <lib-button-micro
                   nameClass="save"
@@ -90,13 +97,7 @@
                 </lib-button-micro>
               </div>
   
-              <lib-export
-                (exportClick)="exportCustomerCategoriesData($event)"
-                [exportData]="exportData"
-                [exportColumns]="exportColumns"
-                [ExportName]="'Customer Cateogries'"
-              >
-              </lib-export>
+              
             </div>
           </div>
         </ng-container>

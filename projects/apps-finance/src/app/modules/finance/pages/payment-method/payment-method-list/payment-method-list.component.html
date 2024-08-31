@@ -72,6 +72,14 @@
               <!-- Right Side: Add New and Export -->
               <div class="flex gap-2 align-items-center">
                 <div>
+                  <lib-export  
+                    (exportClick)="exportClick($event)"
+                    [exportData]="exportData"
+                    [exportColumns]="exportColumns"
+                    [ExportName]="'Payment Method'">
+                  </lib-export>
+                </div>
+                <div>
                   <lib-button-micro
                     [title]="'paymentmethod.AddNew' | translate"
                     nameClass="save"
@@ -80,14 +88,7 @@
                   >
                   </lib-button-micro>
                 </div>
-                <div>
-                  <lib-export  
-                    (exportClick)="exportClick($event)"
-                    [exportData]="exportData"
-                    [exportColumns]="exportColumns"
-                    [ExportName]="'Payment Method'">
-                  </lib-export>
-                </div>
+              
               </div>
             </div>
           </div>

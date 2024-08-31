@@ -17,7 +17,14 @@
           (onClick)="openInviteModal()"
         >
         </lib-button> -->
-
+        <lib-export
+        (exportClick)="exportUsersData()"
+        [exportData]="mappedUserData"
+        [exportColumns]="exportColumns"
+        [ExportName]="'Users'"
+      >
+      </lib-export>
+      
         <button
           pButton
           pRipple
@@ -27,13 +34,7 @@
           (click)="openInviteModal()"
         ></button>
 
-        <lib-export
-        (exportClick)="exportUsersData()"
-        [exportData]="mappedUserData"
-        [exportColumns]="exportColumns"
-        [ExportName]="'Users'"
-      >
-      </lib-export>
+       
       </div>
     </ng-container>
   </lib-bread-crumb>
