@@ -7,7 +7,7 @@
       <lib-data-table
         [items]="tableData"
         className="p-datatable-gridlines"
-        [currentPageResult]="currentPageInfo"
+        [currentPageResult]="paymentOutCurrentPageInfo"
         (pageChange)="onPageChange($event)"
         (addNew)="routeToAdd()"
         [tableConfigs]="{
@@ -84,7 +84,7 @@
               (exportClick)="exportClick()"
               [exportData]="exportData"
               [exportColumns]="exportColumns"
-              [ExportName]="'Payment In'"
+              [ExportName]="'Payment Out'"
             >
             </lib-export>
             <lib-button

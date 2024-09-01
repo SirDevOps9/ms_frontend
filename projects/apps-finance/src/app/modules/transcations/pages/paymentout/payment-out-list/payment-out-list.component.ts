@@ -13,7 +13,7 @@ export class PaymentOutListComponent implements OnInit {
 
   tableData: GetAllPaymentOutDto[];
 
-  currentPageInfo: PageInfoResult = {};
+  paymentOutCurrentPageInfo: PageInfoResult = {};
   searchTerm: string;
 
   exportColumns: lookupDto[]=[
@@ -85,14 +85,14 @@ export class PaymentOutListComponent implements OnInit {
     this.financeService.getAllPaymentOut('', new PageInfo());
   }
   subscribes(){
-    this.financeService.paymentInDataSourceObservable.subscribe({
+    this.financeService.paymentOutDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
       },
     });
 
-    this.financeService.currentPageInfo.subscribe((currentPageInfo) => {
-      this.currentPageInfo = currentPageInfo;
+    this.financeService.paymentOutCurrentPageInfo.subscribe((paymentOutCurrentPageInfo) => {
+      this.paymentOutCurrentPageInfo = paymentOutCurrentPageInfo;
     });
 
     this.financeService.exportedPaymentOutDataSourceObservable.subscribe((res) => {

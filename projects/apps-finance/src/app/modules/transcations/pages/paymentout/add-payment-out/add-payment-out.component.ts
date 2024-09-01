@@ -42,7 +42,7 @@ export class AddPaymentOutComponent implements OnInit {
   filteredAccounts: AccountDto[] = [];
   accountName: string = "";
   paidName: string = "";
-  PaymentInDate: string = "";
+  paymentOutDate: string = "";
   localAmount: number;
   totalAmount: number = 0;
   AccountBalance: number = 0;
@@ -73,7 +73,7 @@ export class AddPaymentOutComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle(
-      this.langService.transalte('PaymentIn.addpaymentin')
+      this.langService.transalte('PaymentIn.addpaymentOut')
     );
 
     this.initializeForm();
@@ -84,8 +84,8 @@ export class AddPaymentOutComponent implements OnInit {
 
 
   }
-  get paymentInDetailsFormArray() {
-    return this.addForm.get('paymentInDetails') as FormArray;
+  get paymentOutDetailsFormArray() {
+    return this.addForm.get('paymentOutDetails') as FormArray;
   }
   getTreasuryDropDown() {
     this.financeService.treasuryDropDown()
@@ -133,24 +133,24 @@ export class AddPaymentOutComponent implements OnInit {
   initializeForm() {
     this.addForm = this.formBuilder.group({
       description: new FormControl(''),
-      PaymentInDate: new FormControl(this.getTodaysDate(), [customValidators.required]),
+      paymentOutDate: new FormControl(this.getTodaysDate(), [customValidators.required]),
       paymentHub: new FormControl('', [customValidators.required]),
       bankAccountId: new FormControl(null),
       paymentHubDetailId: new FormControl('', [customValidators.required]),
       currencyId: new FormControl(null),
       rate: new FormControl<number | undefined>(0, [customValidators.required]),
       glAccountId: new FormControl(null),
-      paymentInDetails: this.formBuilder.array([]),
+      paymentOutDetails: this.formBuilder.array([]),
 
       ////////
       code: new FormControl(''),
       currency: new FormControl(""),
       currentBalance: new FormControl(0),
-      totalReceivedAmount: new FormControl(0),
+      totalPaidAmount: new FormControl(0),
       newBalance: new FormControl(''),
-      paymentInDetailCostCenters: new FormControl(null),
+      paymentOutDetailCostCenters: new FormControl(null),
     });
-    this.addForm.controls['PaymentInDate'].patchValue(new Date());
+    this.addForm.controls['paymentOutDate'].patchValue(new Date());
 
   }
 
@@ -183,7 +183,7 @@ export class AddPaymentOutComponent implements OnInit {
       });
       ref.onClose.subscribe((res) => {
         if (res) {
-          journal.get('paymentInMethodDetails')?.setValue(res);
+          journal.get('paymentOutMethodDetails')?.setValue(res);
         }
       });
     }
@@ -191,9 +191,9 @@ export class AddPaymentOutComponent implements OnInit {
 
   }
   getDetails(id: string) {
-    this.paymentInDetailsFormArray.clear()
+    this.paymentOutDetailsFormArray.clear()
     this.addForm.controls['currentBalance'].patchValue(0)
-    this.addForm.controls['totalReceivedAmount'].patchValue(0)
+    this.addForm.controls['totalPaidAmount'].patchValue(0)
 
     this.calculateTotalAmount()
     this.addForm.controls['paymentHubDetailId'].setValue(null)
@@ -215,7 +215,7 @@ export class AddPaymentOutComponent implements OnInit {
   }
 
   getpaidByDetails(index: number, name: string) {
-    const journalLine = this.paymentInDetailsFormArray.at(index);
+    const journalLine = this.paymentOutDetailsFormArray.at(index);
     journalLine.get('glAccountname')?.setValue(null);
     journalLine.get('paidByDetailsName')?.setValue(null);
     if (name == this.sharedFinanceEnums.paiedDropDown.customer) {
@@ -228,12 +228,12 @@ export class AddPaymentOutComponent implements OnInit {
     }
   }
   updateRateInPaymentDetails(newRate: any) {
-    this.paymentInDetailsFormArray.controls.forEach((formGroup) => {
+    this.paymentOutDetailsFormArray.controls.forEach((formGroup) => {
       formGroup.get('rate')?.setValue(newRate);
     });
   }
   updatecurrencyIdnPaymentDetails(currencyId: any) {
-    this.paymentInDetailsFormArray.controls.forEach((formGroup) => {
+    this.paymentOutDetailsFormArray.controls.forEach((formGroup) => {
       formGroup.get('currencyId')?.setValue(currencyId);
     });
   }
@@ -264,8 +264,8 @@ export class AddPaymentOutComponent implements OnInit {
       this.AccountBalance = res
 
     })
-    this.addForm.get('PaymentInDate')?.valueChanges.subscribe((res: any) => {
-      this.PaymentInDate = this.formatDate(res, 'yyyy-MM-dd');
+    this.addForm.get('paymentOutDate')?.valueChanges.subscribe((res: any) => {
+      this.paymentOutDate = this.formatDate(res, 'yyyy-MM-dd');
     })
 
     this.addForm.get('paymentHub')?.valueChanges.subscribe((res: any) => {
@@ -295,7 +295,7 @@ export class AddPaymentOutComponent implements OnInit {
   }
   addNewRow() {
     
-      if (!this.formsService.validForm(this.paymentInDetailsFormArray, false) ) return;
+      if (!this.formsService.validForm(this.paymentOutDetailsFormArray, false) ) return;
 
     
     let newLine = this.formBuilder.group(
@@ -310,8 +310,8 @@ export class AddPaymentOutComponent implements OnInit {
         notes: new FormControl(''),
         rate: new FormControl(this.addForm.controls['rate'].value),
         currencyId: new FormControl(this.addForm.controls['currencyId'].value),
-        paymentInMethodDetails: new FormControl([]),
-        paymentInDetailCostCenters: new FormControl([]),
+        paymentOutMethodDetails: new FormControl([]),
+        paymentOutDetailCostCenters: new FormControl([]),
 
         /////////
         id: new FormControl(0),
@@ -334,7 +334,7 @@ export class AddPaymentOutComponent implements OnInit {
       //{ validators: customValidators.debitAndCreditBothCanNotBeZero }
     );
     newLine.updateValueAndValidity();
-    this.paymentInDetailsFormArray.push(newLine);
+    this.paymentOutDetailsFormArray.push(newLine);
   }
   shouldShowCostCenterImage(costCenters: any[]): number {
     if (!costCenters) return -1;
@@ -381,7 +381,7 @@ export class AddPaymentOutComponent implements OnInit {
 
   }
   updateAccount(selectedAccount: AccountDto, index: number) {
-    const journalLine = this.paymentInDetailsFormArray.at(index);
+    const journalLine = this.paymentOutDetailsFormArray.at(index);
     journalLine.get('accountName')?.setValue(selectedAccount.name);
     journalLine.get('costCenterConfig')?.setValue(selectedAccount.costCenterConfig);
     journalLine.get('glAccountId')?.setValue(selectedAccount.id);
@@ -400,7 +400,7 @@ export class AddPaymentOutComponent implements OnInit {
         percentage: new FormControl(null),
 
       });
-      journalLine.get('paymentInDetailCostCenters')?.setValue([]);
+      journalLine.get('paymentOutDetailCostCenters')?.setValue([]);
 
       return false;
 
@@ -455,7 +455,7 @@ export class AddPaymentOutComponent implements OnInit {
   }
   getPaymentMethodName(paymentMethodId: any): string {
     const paymentMethod = this.lookups[LookupEnum.PaymentMethodType]?.find(option => option.id === paymentMethodId);
-    // this.paymentInDetailsFormArray.controls['paymentMethodType']
+    // this.paymentOutDetailsFormArray.controls['paymentMethodType']
 
     return paymentMethod ? paymentMethod.name : '';
   }
@@ -476,7 +476,7 @@ export class AddPaymentOutComponent implements OnInit {
         CommissionAmount: new FormControl(null),
       });
 
-      journalLine.get('paymentInMethodDetails')?.setValue(this.paymentform.value);
+      journalLine.get('paymentOutMethodDetails')?.setValue(this.paymentform.value);
       return selectedPayment ? selectedPayment.name : '';
 
     } else {
@@ -491,9 +491,9 @@ export class AddPaymentOutComponent implements OnInit {
         CommissionAmount: new FormControl(null),
       });
 
-      journalLine.get('paymentInMethodDetails')?.setValue(this.paymentform.value);
+      journalLine.get('paymentOutMethodDetails')?.setValue(this.paymentform.value);
       journalLine.get('paymentMethodName')?.setValue(selectedPayment?.name);
-      // journalLine.get('paymentInMethodDetails')?.setValue([]);
+      // journalLine.get('paymentOutMethodDetails')?.setValue([]);
       return selectedPayment ? selectedPayment.name : '';
     }
 
@@ -575,22 +575,22 @@ export class AddPaymentOutComponent implements OnInit {
     dialogRef.onClose.subscribe((res) => {
 
       if (res) {
-        journal.get('paymentInDetailCostCenters')?.setValue(res);
+        journal.get('paymentOutDetailCostCenters')?.setValue(res);
       }
     });
 
   }
   save() {
-    if (!this.formsService.validForm(this.paymentInDetailsFormArray && this.addForm, false)) return;
+    if (!this.formsService.validForm(this.paymentOutDetailsFormArray && this.addForm, false)) return;
 
     let lineNumber = 0;
     let validpaymentInDetails: boolean = true;
-    this.paymentInDetailsFormArray.controls.forEach((control) => {
+    this.paymentOutDetailsFormArray.controls.forEach((control) => {
 
       lineNumber++;
 
       if (control.value.paymentMethodType == this.sharedFinanceEnums.paymentMethodTypeString.Check) {
-        if (control.value.paymentInMethodDetails.chequeNumber == null || control.value.paymentInMethodDetails.chequeDueDate == null) {
+        if (control.value.paymentOutMethodDetails.chequeNumber == null || control.value.paymentOutMethodDetails.chequeDueDate == null) {
           this.toasterService.showError(
             this.langService.transalte('PaymentIn.Error'),
             this.langService.transalte(`PaymentIn.paymentMethodTypeRequired`) + lineNumber
@@ -601,7 +601,7 @@ export class AddPaymentOutComponent implements OnInit {
 
       }
       else if (control.value.paymentMethodType == this.sharedFinanceEnums.paymentMethodTypeString.Master) {
-        if (control.value.paymentInMethodDetails.bankReference == null) {
+        if (control.value.paymentOutMethodDetails.bankReference == null) {
           this.toasterService.showError(
             this.langService.transalte('PaymentIn.Error'),
             this.langService.transalte(`PaymentIn.paymentMethodTypeRequired`) + lineNumber
@@ -613,7 +613,7 @@ export class AddPaymentOutComponent implements OnInit {
 
       }
       else if (control.value.paymentMethodType == this.sharedFinanceEnums.paymentMethodTypeString.Visa) {
-        if (control.value.paymentInMethodDetails.bankReference == null) {
+        if (control.value.paymentOutMethodDetails.bankReference == null) {
           this.toasterService.showError(
             this.langService.transalte('PaymentIn.Error'),
             this.langService.transalte(`PaymentIn.paymentMethodTypeRequired`) + lineNumber
@@ -628,9 +628,9 @@ export class AddPaymentOutComponent implements OnInit {
     if (validpaymentInDetails) {
       
       // const formattedChequeDueDate = this.formatDate(this.addForm.controls['chequeDueDate'].value, 'yyyy-MM-dd');
-      const formattedPaymentInDate = this.formatDate(this.addForm.controls['PaymentInDate'].value, 'yyyy-MM-dd');
+      const formattedpaymentOutDate = this.formatDate(this.addForm.controls['paymentOutDate'].value, 'yyyy-MM-dd');
       const paymentHubDetailId = this.addForm.controls['paymentHubDetailId'].value.toString();
-      this.paymentInDetailsFormArray.controls.forEach((control) => {
+      this.paymentOutDetailsFormArray.controls.forEach((control) => {
         if (control instanceof FormGroup) {
           const paidByDetailsIdControl = control.get('paidByDetailsId');
 
@@ -643,12 +643,12 @@ export class AddPaymentOutComponent implements OnInit {
       });
       // Update the form controls with the formatted dates if necessary
       // this.addForm.controls['chequeDueDate'].setValue(formattedChequeDueDate);
-      this.addForm.controls['PaymentInDate'].setValue(formattedPaymentInDate);
+      this.addForm.controls['paymentOutDate'].setValue(formattedpaymentOutDate);
       this.addForm.controls['paymentHubDetailId'].setValue(paymentHubDetailId);
 
       // Now you can proceed with saving the form data
 
-      this.financeService.addPaymentIn(this.addForm.value)
+      this.financeService.addPaymentOut(this.addForm.value)
     }
 
   }
@@ -657,15 +657,15 @@ export class AddPaymentOutComponent implements OnInit {
     return pipe.transform(date, format) || '';
   }
   deleteLine(index: number) {
-    this.paymentInDetailsFormArray.removeAt(index);
+    this.paymentOutDetailsFormArray.removeAt(index);
     this.calculateTotalAmount()
   }
   calculateTotalAmount() {
-    this.totalAmount = this.paymentInDetailsFormArray.controls.reduce((acc, control) => {
+    this.totalAmount = this.paymentOutDetailsFormArray.controls.reduce((acc, control) => {
       const debitValue = parseFloat(control.get('amount')?.value) || 0;
       return acc + debitValue;
     }, 0);
-    this.totalAmount = this.paymentInDetailsFormArray.controls.reduce((acc, control) => {
+    this.totalAmount = this.paymentOutDetailsFormArray.controls.reduce((acc, control) => {
       const debitValue = parseFloat(control.get('amount')?.value) || 0;
       return acc + debitValue;
     }, 0);
@@ -674,14 +674,14 @@ export class AddPaymentOutComponent implements OnInit {
   calculateTotalLocalAmount() {
     let total = 0;
 
-    this.paymentInDetailsFormArray.controls.forEach((journalLine: any) => {
+    this.paymentOutDetailsFormArray.controls.forEach((journalLine: any) => {
       const amount = journalLine.controls['amount'].value || 0;
       const rate = this.addForm.controls['rate'].value;
       if (rate) {
         total += amount * rate;
       }
     });
-    this.addForm.controls['totalReceivedAmount'].patchValue(total)
+    this.addForm.controls['totalPaidAmount'].patchValue(total)
 
     return total;
   }
@@ -695,7 +695,7 @@ export class AddPaymentOutComponent implements OnInit {
     this.financeService.getAllPayMethodsDropdown(BankId, BankAccountId)
   }
   getGlAccount(index: number, id: number) {
-    const journalLine: any = this.paymentInDetailsFormArray.at(index);
+    const journalLine: any = this.paymentOutDetailsFormArray.at(index);
     const paidByValue = journalLine.controls['paidBy'].value;
     if (paidByValue === this.sharedFinanceEnums.paiedDropDown.customer) {
       const customer = this.customerDropDown.find((e) => e.id === id);
@@ -718,7 +718,7 @@ export class AddPaymentOutComponent implements OnInit {
   }
 
   getGlAccountName(index: number, id: number): string {
-    const journalLine: any = this.paymentInDetailsFormArray.at(index);
+    const journalLine: any = this.paymentOutDetailsFormArray.at(index);
     const paidByValue = journalLine.controls['paidBy'].value;
 
     if (paidByValue === this.sharedFinanceEnums.paiedDropDown.customer) {
@@ -747,6 +747,6 @@ export class AddPaymentOutComponent implements OnInit {
     this.financeService.GetAccountBalance(id);
   }
   cancel(){
-    this.routerService.navigateTo(`/transcations/paymentin`);
+    this.routerService.navigateTo(`/transcations/paymentout`);
   }
 }

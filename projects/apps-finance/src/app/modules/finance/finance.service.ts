@@ -95,6 +95,7 @@ export class FinanceService {
 
 
 
+  public paymentOutCurrentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
   
 
@@ -524,7 +525,7 @@ export class FinanceService {
   getAllPaymentOut(quieries: string, pageInfo: PageInfo)  {
     this.financeProxy.getAllPymentOut(quieries, pageInfo).subscribe((response) => {
      this.paymentOutDataSource.next(response.result)
-     this.currentPageInfo.next(response.pageInfoResult)
+     this.paymentOutCurrentPageInfo.next(response.pageInfoResult)
     });
   }
 

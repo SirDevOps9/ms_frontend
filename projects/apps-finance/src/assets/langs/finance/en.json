@@ -110,7 +110,7 @@
       "SourceDocument": "Source Document",
       "CreatedJournal": "Created Journal",
       "CurrentBalance": "Current Balance",
-      "TotalReceivedAmount": "Total Received Amount",
+      "TotalPaidAmount": "Total Paid Amount",
       "NewBalance": "New Balance",
       "PlaceholderCode": "Auto from seq.",
       "PlaceholderDate": "01/05/1990",

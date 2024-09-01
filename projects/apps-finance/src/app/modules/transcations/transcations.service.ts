@@ -141,6 +141,24 @@ export class TranscationsService {
       }
     })
   }
+
+  addPaymentOut(obj:AddPaymentTermDto) {
+    this.TranscationsProxy.addPaymentOut(obj).subscribe({
+      
+      next:(res)=> {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('PaymentIn.Success'),
+          this.languageService.transalte('PaymentIn.PaymentInAddedSuccessfully')
+        );        
+      },
+      error:(error)=>{
+        this.toasterService.showError(
+          this.languageService.transalte('PaymentIn.Error'),
+          this.languageService.transalte('PaymentIn.addedError')
+        ); 
+      }
+    })
+  }
   getAllPayMethodsDropdown(BankId:number ,BankAccountId: number ) {
     this.TranscationsProxy.GetAllPayMethodsDropdown(BankId , BankAccountId).subscribe(res=>{
       if(res) {

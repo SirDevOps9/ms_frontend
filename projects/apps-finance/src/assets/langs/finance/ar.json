@@ -63,7 +63,7 @@
     "paymentMethodTypeRequired": "تفاصيل طريقة الدفع مطلوبة في السطر",
     "addpaymentin": "إضافة الدفع"
   },
-"PaymentOut": {
+  "PaymentOut": {
     "Title": "إيصال نقدي",
     "List": {
       "code": "الرمز",
@@ -93,7 +93,7 @@
       "SourceDocument": "المستند المصدر",
       "CreatedJournal": "دفتر الأستاذ المُنشأ",
       "CurrentBalance": "الرصيد الحالي",
-      "TotalReceivedAmount": "إجمالي المبلغ المستلم",
+      "TotalPaidAmount": "إجمالي المبلغ المدفوع",
       "NewBalance": "الرصيد الجديد",
       "PlaceholderCode": "تلقائي من التسلسل",
       "PlaceholderDate": "01/05/1990",
@@ -137,5 +137,4 @@
     "addpaymentin": "إضافة إيصال نقدي",
     "editpaymentin": "تعديل إيصال نقدي"
   }
-
 }

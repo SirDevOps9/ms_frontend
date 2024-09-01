@@ -4,20 +4,20 @@
       <div class="md:col-4">
         <lib-form-group>
           <lib-label [appControl]="addForm.controls['code']">
-            {{ 'PaymentIn.Form.Code' | translate }}
+            {{ 'PaymentOut.Form.Code' | translate }}
           </lib-label>
           <lib-text-input type="text" formControlName="code" [readOnly]="true"
-            [placeholder]="'PaymentIn.Form.PlaceholderCode' | translate" />
+            [placeholder]="'PaymentOut.Form.PlaceholderCode' | translate" />
         </lib-form-group>
       </div>
 
       <div class="md:col-4">
         <lib-form-group>
-          <lib-label [appControl]="addForm.controls['PaymentInDate']">
-            {{ 'PaymentIn.Form.Date' | translate }}
+          <lib-label [appControl]="addForm.controls['paymentOutDate']">
+            {{ 'PaymentOut.Form.Date' | translate }}
           </lib-label>
-          <lib-calendar formControlName="PaymentInDate" [placeholder]="PaymentInDate"></lib-calendar>
-          <lib-field-validations [appControl]="addForm.controls['PaymentInDate']">
+          <lib-calendar formControlName="paymentOutDate" [placeholder]="paymentOutDate"></lib-calendar>
+          <lib-field-validations [appControl]="addForm.controls['paymentOutDate']">
           </lib-field-validations>
         </lib-form-group>
       </div>
@@ -25,10 +25,10 @@
       <div class="md:col-4">
         <lib-form-group>
           <lib-label [appControl]="addForm.controls['description']">
-            {{ 'PaymentIn.Form.Description' | translate }}
+            {{ 'PaymentOut.Form.Description' | translate }}
           </lib-label>
           <lib-text-input type="text" formControlName="description"
-            [placeholder]="'PaymentIn.Form.PlaceholderDescription' | translate" />
+            [placeholder]="'PaymentOut.Form.PlaceholderDescription' | translate" />
           <lib-field-validations [appControl]="addForm.controls['description']">
           </lib-field-validations>
         </lib-form-group>
@@ -40,7 +40,7 @@
           <div class="md:col-4">
             <lib-form-group>
               <lib-label [appControl]="addForm.controls['paymentHub']">
-                {{ 'PaymentIn.Form.PaymentHub' | translate }}
+                {{ 'PaymentOut.Form.PaymentHub' | translate }}
               </lib-label>
               <lib-select 
               formControlName="paymentHub"
@@ -58,16 +58,16 @@
           <div class="md:col-4">
             <lib-form-group>
               <lib-label [appControl]="addForm.controls['paymentHubDetailId']">
-                {{ 'PaymentIn.Form.PaymentHubDetails' | translate }}
+                {{ 'PaymentOut.Form.PaymentHubDetails' | translate }}
               </lib-label>
               <lib-select *ngIf="selectedBank" formControlName="paymentHubDetailId" [options]="BankDropDown"
                 optionValue="id" optionLabel="name"
                 (valueChanged)="bankAccountDropDown(addForm.controls['paymentHubDetailId'].value)"
-                [placeholder]="'PaymentIn.Form.PlaceholderPaymentHubDetails' | translate"></lib-select>
+                [placeholder]="'PaymentOut.Form.PlaceholderPaymentHubDetails' | translate"></lib-select>
               <lib-select *ngIf="!selectedBank" formControlName="paymentHubDetailId" [options]="TreasuryDropDown"
                 optionValue="id" optionLabel="name"
                 (valueChanged)="bankAccountDropDown(addForm.controls['paymentHubDetailId'].value)"
-                [placeholder]="'PaymentIn.Form.PlaceholderPaymentHubDetails' | translate"></lib-select>
+                [placeholder]="'PaymentOut.Form.PlaceholderPaymentHubDetails' | translate"></lib-select>
               <lib-field-validations [appControl]="addForm.controls['paymentHubDetailId']">
               </lib-field-validations>
             </lib-form-group>
@@ -76,12 +76,12 @@
           <div class="md:col-4" *ngIf="selectedBank">
             <lib-form-group>
               <lib-label [appControl]="addForm.controls['bankAccountId']">
-                {{ 'PaymentIn.Form.BankAccount' | translate }}
+                {{ 'PaymentOut.Form.BankAccount' | translate }}
               </lib-label>
               <lib-select formControlName="bankAccountId" [options]="bankAccount" optionValue="id"
                 optionLabel="accountNumber"
                 (valueChanged)="getCurrencyBankAccount(addForm.controls['bankAccountId'].value)"
-                [placeholder]="'PaymentIn.Form.PlaceholderBankAccount' | translate"></lib-select>
+                [placeholder]="'PaymentOut.Form.PlaceholderBankAccount' | translate"></lib-select>
               <lib-field-validations [appControl]="addForm.controls['bankAccountId']">
               </lib-field-validations>
             </lib-form-group>
@@ -92,7 +92,7 @@
       <div class="md:col-4">
         <lib-form-group>
           <lib-label [appControl]="addForm.controls['currency']">
-            {{ 'PaymentIn.Form.Currency' | translate }}
+            {{ 'PaymentOut.Form.Currency' | translate }}
           </lib-label>
           <lib-text-input type="text" formControlName="currency" [placeholder]="selectedCurrency" [readOnly]="true" />
         </lib-form-group>
@@ -101,9 +101,9 @@
       <div class="md:col-4">
         <lib-form-group>
           <lib-label [appControl]="addForm.controls['rate']">
-            {{ 'PaymentIn.Form.Rate' | translate }}
+            {{ 'PaymentOut.Form.Rate' | translate }}
           </lib-label>
-          <lib-text-input (keyUp)="updateRateInPaymentDetails($event)"  formControlName="rate" [placeholder]="'PaymentIn.Form.PlaceholderRate' | translate" />
+          <lib-text-input (keyUp)="updateRateInPaymentDetails($event)"  formControlName="rate" [placeholder]="'PaymentOut.Form.PlaceholderRate' | translate" />
           <lib-field-validations [appControl]="addForm.controls['rate']">
           </lib-field-validations>
         </lib-form-group>
@@ -113,7 +113,7 @@
       <div class="md:col-4">
         <lib-form-group>
           <lib-label [appControl]="addForm.controls['currentBalance']">
-            {{ 'PaymentIn.Form.CurrentBalance' | translate }}
+            {{ 'PaymentOut.Form.CurrentBalance' | translate }}
           </lib-label>
           <lib-text-input type="number"  [readOnly]="true"
             placeholder="{{AccountBalance}}">
@@ -125,8 +125,8 @@
 
       <div class="md:col-4">
         <lib-form-group>
-          <lib-label [appControl]="addForm.controls['totalReceivedAmount']">
-            {{ 'PaymentIn.Form.TotalReceivedAmount' | translate }}
+          <lib-label [appControl]="addForm.controls['totalPaidAmount']">
+            {{ 'PaymentOut.Form.TotalPaidAmount' | translate }}
           </lib-label>
           <lib-text-input placeholder="{{calculateTotalLocalAmount()}}" [readOnly]="true" />
         </lib-form-group>
@@ -135,19 +135,21 @@
       <div class="md:col-4">
         <lib-form-group>
           <lib-label [appControl]="addForm.controls['newBalance']">
-            {{ 'PaymentIn.Form.NewBalance' | translate }}
+            {{ 'PaymentOut.Form.NewBalance' | translate }}
           </lib-label>
           <lib-text-input type="text" formControlName="newBalance" class="newBalance"
-            placeholder="{{addForm.controls['totalReceivedAmount'].value + AccountBalance }}"
+            placeholder="{{ AccountBalance -addForm.controls['totalPaidAmount'].value  }}"
             [readOnly]="true" />
         </lib-form-group>
+        <lib-field-validations [appControl]="addForm.controls['newBalance']">
+        </lib-field-validations>
       </div>
     </div>
   </form>
 
   <div class="entry_tableCont">
     <div class="card">
-      <p-table [resizableColumns]="true" [value]="paymentInDetailsFormArray.controls" dataKey="id"
+      <p-table [resizableColumns]="true" [value]="paymentOutDetailsFormArray.controls" dataKey="id"
         styleClass="p-datatable-gridlines p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
           <tr>
@@ -208,7 +210,7 @@
             </td>
 
             <td>
-              <lib-button-micro title="{{ 'PaymentIn.Form.PaymentMethod' | translate }}"
+              <lib-button-micro title="{{ 'PaymentOut.Form.PaymentMethod' | translate }}"
                 [nameClass]="journalLine.controls['paymentMethodId'].value == sharedFinanceEnums.paymentMethodTypeString.Cash ||journalLine.controls['paymentMethodId'].value == null || !selectedBank ? 'disabled' : 'save'"
                 widthNumber="100%" (click)="handleButtonClick(journalLine)">
 
@@ -300,7 +302,7 @@
 
               <img *ngIf="
                isCostCenterallowed( journalLine,journalLine.controls['costCenterConfig'].value) &&
-               journalLine.controls['paymentInDetailCostCenters'].value.length == 0
+               journalLine.controls['paymentOutDetailCostCenters'].value.length == 0
               
               " (click)="
               openCostPopup(
@@ -312,7 +314,7 @@
             " src="assets/images/groups-mandtory-optional.png" alt="" class="pointer" />
               <img *ngIf="
               isCostCenterallowed(journalLine, journalLine.controls['costCenterConfig'].value) &&
-              journalLine.controls['paymentInDetailCostCenters'].value.length != 0
+              journalLine.controls['paymentOutDetailCostCenters'].value.length != 0
               " (click)="
                  openCostPopup(
                    journalLine.value,

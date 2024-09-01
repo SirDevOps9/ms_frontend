@@ -44,6 +44,9 @@ export class TranscationsProxyService {
   addPaymentIn(obj : any) {
     return this.httpService.post('PaymentIn' , obj)
   }
+  addPaymentOut(obj : any) {
+    return this.httpService.post('PaymentOut' , obj)
+  }
   GetAllPayMethodsDropdown(bankId:number ,BankAccountId:number ) : Observable<any[]> {
     return this.httpService.get(`PaymentMethod/GetAllBankPaymentMethodsDropdown/${bankId}/${BankAccountId}`);
   }
