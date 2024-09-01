@@ -131,7 +131,7 @@ export class PurchaseProxyService {
   editVendorrOpeningBalance(vendor: any): Observable<any> {
     return this.httpService.put(`VendorOpeningBalance`, vendor, false);
   }
-  getVendorOpeningBalanceByID(id: number): Observable<GetVendorById> {
+  getVendorOpeningBalanceByID(id: number): Observable<any> {
     const url = `VendorOpeningBalance/${id}`;
     return this.httpService.get(url);
   }
@@ -153,5 +153,8 @@ export class PurchaseProxyService {
   }
   VendorDropDownByAccountId(id: number): Observable<DropDownDto[]> {
     return this.httpService.get<any[]>(`Vendor/DropDownByAccountId/${id}`);
+  }
+  deleteVendorOpeningBalance(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`VendorOpeningBalance/${id}`);
   }
 }

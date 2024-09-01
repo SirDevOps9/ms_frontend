@@ -7,11 +7,14 @@ import { Title } from '@angular/platform-browser';
 import { PurchaseService } from '../../../purchase.service';
 import { SharedPurchaseEnums } from '../../../models/sharedenums';
 import { VendorOpeningBalanceAddComponent } from '../vendor-opening-balance-add/vendor-opening-balance-add.component';
+import { VendorOpeningBalanceDistributeComponent } from '../../../components/vendor-opening-balance-distribute/vendor-opening-balance-distribute.component';
 
 @Component({
   selector: 'app-vendor-opening-balance-edit',
   templateUrl: './vendor-opening-balance-edit.component.html',
-  styleUrls: ['./vendor-opening-balance-edit.component.scss']
+  styleUrls: ['./vendor-opening-balance-edit.component.scss'],
+  providers: [RouterService]
+
 })
 export class VendorOpeningBalanceEditComponent implements OnInit {
   formGroup: FormGroup;
@@ -27,6 +30,8 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
   lookups: { [key: string]: lookupDto[] };
   amountNature: string;
   openingBalanceJournalEntryLineId: number;
+  formChanged: boolean;
+
 
   constructor(private fb: FormBuilder,
     private dialog: DialogService,
@@ -40,9 +45,22 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
     public enums: SharedPurchaseEnums,) { }
 
   ngOnInit() {
-    this.initializeMainFormGroup();
-    this.loadLookups();
-    this.subscribe();
+    this.languageService
+    .getTranslation('openeingBalance.CustomerOpeningBalance')
+    .subscribe((res) => this.title.setTitle(res));
+  this.loadLookups();
+  this.initializeMainFormGroup();
+
+  this.subscribe();
+  this.vendorLineFormGroup();
+    this.getVendorOpeningBalance(this.vendorId());
+    this.openingBalanceJournalEntryDropdown();
+
+
+  }
+
+  vendorId() {
+    return this.routerService.currentId;
   }
 
   private initializeMainFormGroup(): void {
@@ -54,6 +72,10 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
     });
 
     this.vendorForm = this.fb.array([this.vendorLineFormGroup()]);
+  }
+
+  getVendorOpeningBalance(id: number) {
+    this.purchaseService.getVendorOpeningBalanceByID(id);
   }
 
   vendorLineFormGroup(): FormGroup {
@@ -69,23 +91,67 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
         customValidators.nonZero,
       ]),
       balanceType: new FormControl('', [customValidators.required]),
-      displayName: new FormControl(),
-      dueDates: new FormControl([]),
+     // displayName: new FormControl(),
+     balanceDueDates: new FormControl([]),
     });
   }
 
   subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
 
+    this.purchaseService.vendorOpeningBalnceDataByIDObservable.subscribe((res: any) => {
+      this.vendorForm.clear();
+      if (res.length != 0) {
+
+        this.formGroup?.patchValue(
+          {
+            OpeningJournal: res.openingBalanceJournalEntryId,
+            JournalLine: res.openingBalanceJournalEntryLineId,
+          },
+          { emitEvent: true }
+        );
+        this.onOpeningJournalChange(res.openingBalanceJournalEntryId);
+        this.onLinesChange(res.openingBalanceJournalEntryLineId);
+        this.formChanged = false;
+      }
+      if (res && res.vendorOpeningDetails && Array.isArray(res.vendorOpeningDetails)) {
+        res.vendorOpeningDetails.forEach((detail: any, index: number) => {
+          const formGroup = this.vendorLineFormGroup();
+          formGroup.patchValue({
+            id: detail.id,
+            vendorId: detail.vendorId || '',
+            accountName: detail.vendorName || '',
+            vendorCode: detail.vendorCode || '',
+            balance: detail.balance || 0,
+            balanceType: detail.balanceType || '',
+           // displayName: detail.displayName || '',
+           balanceDueDates: detail.balanceDueDates || [],
+          });
+          this.vendorForm.push(formGroup);
+          this.accountSelected(detail.customerId, index);
+          this.calculateTotalBalance();
+        });
+      }
+    });
     this.purchaseService.openingBalanceJournalEntryDropdownDataObservable.subscribe((res) => {
       this.openingJournalList = res;
     });
+
     this.purchaseService.VendorDropDownByAccountIdObservable.subscribe((res) => {
       this.vendorDropDownByAccountId = res;
     });
     this.purchaseService.JournalLinesDropDownDataObservable.subscribe((res: any) => {
       this.linesDropDown = res;
     });
+    
+     if (this.formGroup) {
+       this.formGroup.get('OpeningJournal')?.valueChanges.subscribe((value) => {
+         this.onOpeningJournalChange(value);
+       });
+       this.formGroup.get('JournalLine')?.valueChanges.subscribe((value) => {
+         this.onLinesChange(value);
+       });
+     }
   }
 
   cancel() {
@@ -101,6 +167,7 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
   }
 
   getLinesDropDown(id: number) {
+    console.log('id', id);
     this.openingJournalId = id;
     this.purchaseService.getLinesDropDown(id);
   }
@@ -135,7 +202,7 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
        );
        return;
      } else {
-       const ref = this.dialog.open(VendorOpeningBalanceAddComponent, {
+       const ref = this.dialog.open(VendorOpeningBalanceDistributeComponent, {
          width: '750px',
          height: '600px',
          data: data,
@@ -211,6 +278,10 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
     line.get('vendorId')?.setValue(selectedvendor.id);
   }
 
+  getVendorDropDownByAccountId(id: number) {
+    this.purchaseService.getVendorDropDownByAccountId(id);
+  }
+
   onLinesChange(event: any) {
     setTimeout(() => {
       this.linesDropDown?.forEach((element: any) => {
@@ -219,7 +290,7 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
             amount: element.amount,
             amountNature: element.amountNature,
           });
-          this.vendorDropDownByAccountId(element.accountId);
+          this.getVendorDropDownByAccountId(element.accountId);
           this.openingBalanceJournalEntryLineId = element.id;
           this.amountNature = element.amountNature;
         }

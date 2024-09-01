@@ -53,11 +53,11 @@ export class PurchaseService {
   private sendChildrenAccountsDropDownData = new BehaviorSubject<any>([]);
   private sendPriceListsDropDownData = new BehaviorSubject<{ id: number; name: string }[]>([]);
   private sendPaymentTermsDropDownData = new BehaviorSubject<{ id: number; name: string }[]>([]);
-  public vendorDefinitionDataByID = new BehaviorSubject<GetVendorById | undefined>(
-    {} as GetVendorById | undefined
-  );
+  public vendorDefinitionDataByID = new BehaviorSubject<GetVendorById | undefined>({} as GetVendorById | undefined);
   private vendorDefinitionDataSource = new BehaviorSubject<vendorDefinitionDto[]>([]);
   private vendorOpeningBalanceDataSource = new BehaviorSubject<VendorOpeningBalanceListDto[]>([]);
+  public vendorOpeningBalnceDataByID = new BehaviorSubject<any | undefined>({} as any | undefined);
+
 
   public addVendorCategoryDataObservable = this.addVendorCategoryData.asObservable();
   public vendorCategoryDataSourceObservable = this.vendorCategoryDataSource.asObservable();
@@ -65,6 +65,8 @@ export class PurchaseService {
     this.sendgetVendorCategoryDropdownData.asObservable();
   public vendorCategoryDataByIDObservable = this.vendorCategoryDataByID.asObservable();
   public vendorDefinitionDataByIDObservable = this.vendorDefinitionDataByID.asObservable();
+  public vendorOpeningBalnceDataByIDObservable = this.vendorOpeningBalnceDataByID.asObservable();
+
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
 
   private countryDataSource = new BehaviorSubject<CountryDto[]>([]);
@@ -95,10 +97,10 @@ export class PurchaseService {
   private openingBalanceJournalEntryDropdownData = new BehaviorSubject<DropDownDto[]>([]);
   public openingBalanceJournalEntryDropdownDataObservable =this.openingBalanceJournalEntryDropdownData.asObservable();
 
-  private JournalLinesDropDownData = new BehaviorSubject<JournalLineDropdownDto[]>([]);
+  public JournalLinesDropDownData = new BehaviorSubject<JournalLineDropdownDto[]>([]);
   public JournalLinesDropDownDataObservable =this.JournalLinesDropDownData.asObservable();
   
-  private VendorDropDownByAccountId = new BehaviorSubject<DropDownDto[]>([]);
+  public VendorDropDownByAccountId = new BehaviorSubject<DropDownDto[]>([]);
   public VendorDropDownByAccountIdObservable =this.VendorDropDownByAccountId.asObservable();
   
   
@@ -362,6 +364,29 @@ export class PurchaseService {
           this.routerService.navigateTo('/masterdata/vendor-opening-balance');
         }
       },
+    });
+  }
+  async deletevendorOpeningBalance(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      this.purchaseProxy.deleteVendorOpeningBalance(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('deleteVendorDefinition.success'),
+            this.languageService.transalte('deleteVendorDefinition.delete')
+          );
+          let data = this.vendorDefinitionDataSource.getValue();
+          const updatedVendor = data.filter((elem) => elem.id !== id);
+          this.vendorDefinitionDataSource.next(updatedVendor);
+
+          return res;
+        },
+      });
+    }
+  }
+  getVendorOpeningBalanceByID(id: number) {
+    this.purchaseProxy.getVendorOpeningBalanceByID(id).subscribe((res) => {
+      this.vendorOpeningBalnceDataByID.next(res);
     });
   }
 }

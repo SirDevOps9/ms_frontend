@@ -6,6 +6,7 @@ import { customValidators, FormsService, LanguageService, lookupDto, LookupEnum,
 import { DropDownDto, JournalLineDropdownDto } from '../../../models';
 import { PurchaseService } from '../../../purchase.service';
 import { SharedPurchaseEnums } from '../../../models/sharedenums';
+import { VendorOpeningBalanceDistributeComponent } from '../../../components/vendor-opening-balance-distribute/vendor-opening-balance-distribute.component';
 
 @Component({
   selector: 'app-vendor-opening-balance-add',
@@ -27,15 +28,6 @@ export class VendorOpeningBalanceAddComponent implements OnInit {
   amountNature: string;
   openingBalanceJournalEntryLineId: number;
 
-
-
-
-
-
-
-
-
-
   constructor( private fb: FormBuilder,
     private dialog: DialogService,
     private toasterService: ToasterService,
@@ -49,9 +41,21 @@ export class VendorOpeningBalanceAddComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.initializeMainFormGroup();
-    this.loadLookups();
-    this.subscribe();
+
+    this.languageService
+    .getTranslation('openeingBalance.CustomerOpeningBalance')
+    .subscribe((res) => this.title.setTitle(res));
+
+  this.purchaseService.JournalLinesDropDownData.next([]);
+  this.purchaseService.VendorDropDownByAccountId.next([]);
+  this.loadLookups();
+  this.vendorForm = this.fb.array([]);
+  this.subscribe();
+  this.vendorForm = this.fb.array([this.vendorLineFormGroup()]);
+  this.openingBalanceJournalEntryDropdown();
+  this.initializeMainFormGroup();
+  this.vendorLineFormGroup();
+
   }
   private initializeMainFormGroup(): void {
     this.formGroup = this.fb.group({
@@ -104,11 +108,12 @@ export class VendorOpeningBalanceAddComponent implements OnInit {
   }
 
   onOpeningJournalChange(event: any) {
+   
     this.getLinesDropDown(event);
   }
 
   getLinesDropDown(id: number) {
-    this.openingJournalId = id;
+    console.log('onOpeningJournalChange' ) 
     this.purchaseService.getLinesDropDown(id);
   }
   
@@ -138,7 +143,7 @@ export class VendorOpeningBalanceAddComponent implements OnInit {
        );
        return;
      } else {
-       const ref = this.dialog.open(VendorOpeningBalanceAddComponent, {
+       const ref = this.dialog.open(VendorOpeningBalanceDistributeComponent, {
          width: '750px',
          height: '600px',
          data: data,
@@ -212,6 +217,11 @@ export class VendorOpeningBalanceAddComponent implements OnInit {
 
     line.get('vendorId')?.setValue(selectedvendor.id);
   }
+
+  getVendorDropDownByAccountId(id: number) {
+    this.purchaseService.getVendorDropDownByAccountId(id);
+  }
+
   onLinesChange(event: any) {
     setTimeout(() => {
       this.linesDropDown?.forEach((element: any) => {
@@ -220,7 +230,7 @@ export class VendorOpeningBalanceAddComponent implements OnInit {
             amount: element.amount,
             amountNature: element.amountNature,
           });
-          this.vendorDropDownByAccountId(element.accountId);
+          this.getVendorDropDownByAccountId(element.accountId);
           this.openingBalanceJournalEntryLineId = element.id;
           this.amountNature = element.amountNature;
         }
@@ -235,7 +245,7 @@ export class VendorOpeningBalanceAddComponent implements OnInit {
     const body = {
       openingBalanceJournalEntryLineId: this.openingBalanceJournalEntryLineId,
       amountNature: this.amountNature,
-      customerOpeningBalanceDetails: this.items.value,
+      vendorOpeningBalanceDetails: this.items.value,
     };
     this.purchaseService.AddVendorOpeningBalance(body);
   }

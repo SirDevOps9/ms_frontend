@@ -8,6 +8,7 @@ import { Title } from '@angular/platform-browser';
   selector: 'app-vendor-opening-balance-list',
   templateUrl: './vendor-opening-balance-list.component.html',
   styleUrls: ['./vendor-opening-balance-list.component.scss']
+
 })
 export class VendorOpeningBalanceListComponent implements OnInit {
 
@@ -35,7 +36,7 @@ export class VendorOpeningBalanceListComponent implements OnInit {
   initCustomerOpeningBalanceData() {
     this.purchaseService.getAllVendorOpeningBalance('', new PageInfo());
   }
-  
+
   subscribes() {
      this.purchaseService.vendorOpeningBalanceDataSourceObservable.subscribe({
        next: (res) => {
@@ -70,7 +71,7 @@ export class VendorOpeningBalanceListComponent implements OnInit {
   }
 
   onDelete(id: number) {
-    //todo
+    this.purchaseService.deletevendorOpeningBalance(id);
   }
 
   view(id: number) {

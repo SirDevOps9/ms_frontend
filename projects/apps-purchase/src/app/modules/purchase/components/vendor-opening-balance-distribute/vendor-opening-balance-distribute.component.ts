@@ -29,6 +29,30 @@ export class VendorOpeningBalanceDistributeComponent implements OnInit {
     private langService: LanguageService,
     private translationService: TranslationService) { }
 
+    ngAfterViewInit(): void {
+      this.balance = this.config.data.balance;
+      this.vendorForm.clear();
+  
+      if (this.config.data.dueDates) {
+        this.config.data.dueDates.forEach((e: any) => {
+          console.log(this.config.data.dueDates, "this.config.data.dueDates");
+  
+          this.vendorForm.push(this.fb.group({
+            id: e.id,
+            dueDate: e.dueDate,
+            credit: e.credit,
+            debit: e.debit
+          }));
+        });
+        this.getTotalBalanceSum();
+      } else {
+        // this.addLine()
+        this.items.push(this.createBankFormGroup())
+      }
+  
+      this.cdr.detectChanges();
+    }
+
     ngOnInit(): void {
       this.formGroup = this.fb.group({
         balance: ''

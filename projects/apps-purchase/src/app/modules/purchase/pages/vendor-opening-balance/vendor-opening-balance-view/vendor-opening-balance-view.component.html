@@ -1,3 +1,106 @@
-<p>
-  vendor-opening-balance-view works!
-</p>
+<!-- <div style="margin-left: 20px; overflow-x: hidden">
+  <div class="grid-cont">
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{  'openeingBalance.openingJournal' | translate }}</p>
+      <small class="subHead heading_b16">
+        {{ customerView?.openingBalanceJournalEntryCode }}
+      </small>
+    </div>
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{ 'openeingBalance.JournalLine' | translate }}</p>
+      <small class="subHead heading_b16">
+        {{ customerView?.journalEntryLineDescription }}
+      </small>
+    </div>
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{ 'openeingBalance.amount'| translate }}</p>
+      <small class="subHead heading_b16">
+        {{ customerView?.amount }}
+      </small>
+    </div>
+    <div class="my-3 grid-item">
+      <p class="headsCont paragraph_b16">{{ 'openeingBalance.debitCredit' | translate }}</p>
+      <small class="subHead heading_b16">
+        {{ customerView?.amountNature }}
+      </small>
+    </div>
+
+  </div>
+
+  <div class="journal_page">
+    <lib-data-table
+      *ngIf="customerView"
+      [items]="customerView!.customerOpeningDetails!"
+      className="p-datatable-gridlines"
+      [tableConfigs]="{
+        allowPagination: false,
+        allowServerPagination: false,
+        dataKey: 'id',
+        pageSize: 10,
+        columns: [
+          {
+            name: 'customerCode',
+            headerText: 'customerDefinition.code'  | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'customerName',
+            headerText: 'customerDefinition.name' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'balance',
+            headerText: 'openeingBalance.balance' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'balanceType',
+            headerText:'openeingBalance.balanceType'  | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'id',
+            headerText: 'openeingBalance.dueDate'| translate,
+            isGlobalFilter: true,
+            isSortable: true,
+            template : dueDates
+          }
+        ]
+      }"
+    >
+      <ng-template #dueDates let-i>
+        <div>
+          <lib-button-micro
+          title="{{ 'openeingBalance.ViewDistribution' | translate }}"
+          (click)="
+            openDistribute(i)
+          "
+          [nameClass]="i.balanceType === enums.BalanceType.Credit
+              ? 'outline disabled'
+              : 'outline'
+          "
+          widthNumber="100%"
+        >
+        </lib-button-micro>
+
+        </div>
+      </ng-template>
+      <ng-container footer>
+        <tr>
+          <td colspan="2" class="imptyData total" style="text-align: center">
+            {{ 'total' | translate }}
+          </td>
+          <td class="total">
+            {{ totalBalance }}
+          </td>
+          <td colspan="3" class="imptyData total" style="text-align: center"></td>
+        </tr>
+        
+      </ng-container>
+    </lib-data-table>
+  </div>
+</div> -->

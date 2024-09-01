@@ -95,29 +95,29 @@
         <ng-template pTemplate="body" let-customerGroup let-editing="editing" let-i="rowIndex">
           <tr [formGroup]="customerGroup">
             <td
-              [pEditableColumn]="customerGroup.controls['customerId']"
-              pEditableColumnField="customerGroup.controls['customerId']"
+              [pEditableColumn]="customerGroup.controls['vendorId']"
+              pEditableColumnField="customerGroup.controls['vendorId']"
             >
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-form-group>
                     <lib-select
-                      formControlName="customerId"
+                      formControlName="vendorId"
                       [options]="vendorDropDownByAccountId"
                       optionValue="id"
                       optionLabel="name"
                       placeholder="{{ 'customerDefinition.code' | translate }}"
                       (valueChanged)="accountSelected($event, i)"
-                      [selectedValue]="customerGroup.controls['customerId'].value"
+                      [selectedValue]="customerGroup.controls['vendorId'].value"
                     >
                     </lib-select>
                   </lib-form-group>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ customerGroup.controls['customerCode'].value }}
+                  {{ customerGroup.controls['vendorCode'].value }}
                 </ng-template>
               </p-cellEditor>
-              <lib-field-validations [appControl]="customerGroup.controls['customerId']">
+              <lib-field-validations [appControl]="customerGroup.controls['vendorId']">
               </lib-field-validations>
             </td>
             <td>
