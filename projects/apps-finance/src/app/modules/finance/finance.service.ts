@@ -12,6 +12,7 @@ import { UserPermission } from './models/user-permission';
 import { bankByID } from './models/getBankByID';
 import { GetPaymentTermById } from './models/get-payment-term-by-id-dto';
 import { GetPaymentMethodByIdDto } from './models/get-payment-method-by-id-dto';
+import { GetAllPaymentOutDto } from '../transcations/models';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,11 @@ export class FinanceService {
   public exportedpaymentMethodListDataSource = new BehaviorSubject<PaymentMethodDto[]>([]);
   public sendPaymentMethodByID = new BehaviorSubject<GetPaymentMethodByIdDto>({} as GetPaymentMethodByIdDto)
   public paymentInDataSource = new BehaviorSubject<GetAllPaymentInDto[]>([])
+  public paymentOutDataSource = new BehaviorSubject<GetAllPaymentOutDto[]>([])
+
   public exportedpaymentinListDataSource = new BehaviorSubject<GetAllPaymentInDto[]>([]);
+  public exportedpaymentOutListDataSource = new BehaviorSubject<GetAllPaymentOutDto[]>([]);
+
   public sendTaxDropDownDataSource = new BehaviorSubject<DropDownDto[]>([]);
 
   public getTreasuryDropDownData = new BehaviorSubject<any>([])
@@ -84,6 +89,8 @@ export class FinanceService {
   public accountCurrencyRate = this.accountCurrencyRateDataSource.asObservable();
   paymentInDataSourceObservable = this.paymentInDataSource.asObservable()
   exportedPaymentinDataSourceObservable = this.exportedpaymentinListDataSource.asObservable()
+  paymentOutDataSourceObservable = this.paymentOutDataSource.asObservable()
+  exportedPaymentOutDataSourceObservable = this.exportedpaymentOutListDataSource.asObservable()
   taxDropDowmSourceObservable = this.sendTaxDropDownDataSource.asObservable()
 
 
@@ -514,10 +521,26 @@ export class FinanceService {
     });
   }
 
+  getAllPaymentOut(quieries: string, pageInfo: PageInfo)  {
+    this.financeProxy.getAllPymentOut(quieries, pageInfo).subscribe((response) => {
+     this.paymentOutDataSource.next(response.result)
+     this.currentPageInfo.next(response.pageInfoResult)
+    });
+  }
+
   exportsPaymentInList(searchTerm:string | undefined) {
     this.financeProxy.exportsPaymentInList(searchTerm).subscribe({
       next: (res : any) => {
          this.exportedpaymentinListDataSource.next(res);
+      },
+    });
+  }
+
+  
+  exportsPaymentOutList(searchTerm:string | undefined) {
+    this.financeProxy.exportsPaymentOutList(searchTerm).subscribe({
+      next: (res : any) => {
+         this.exportedpaymentOutListDataSource.next(res);
       },
     });
   }
@@ -543,6 +566,29 @@ export class FinanceService {
       });
     }
   }
+
+  async deletePaymentOut(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.financeProxy.deletePaymentOut(id).subscribe({
+        next: (res) => {
+          
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('payment-out.delete')
+          );
+          this.loaderService.hide();
+          const currentPaymentOut = this.paymentOutDataSource.getValue();
+          const updatedcurrentPaymentOut = currentPaymentOut.filter((c : any) => c.id !== id);
+          this.paymentOutDataSource.next(updatedcurrentPaymentOut);
+        },
+        
+      });
+    }
+  }
+
 
   getTaxDropDown() {
     this.financeProxy.getTaxDropDown().subscribe({

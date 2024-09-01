@@ -10,6 +10,7 @@ export * from './payment-method-list-dto';
 export * from './enums';
 export * from './add-payment-method-dto';
 export * from './get-all-payment-in-dto';
+export * from './get-all-payment-out-dto';
 export* from './bank-account-with-currency-dto';
 export* from './dropdown-dto';
 export * from './paid-by';

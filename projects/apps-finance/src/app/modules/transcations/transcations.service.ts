@@ -124,7 +124,7 @@ export class TranscationsService {
       }
     })
   }
-  addPaymentIn(obj:AddPaymentTermDto) {
+    addPaymentIn(obj:AddPaymentTermDto) {
     this.TranscationsProxy.addPaymentIn(obj).subscribe({
       
       next:(res)=> {
