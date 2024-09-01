@@ -156,6 +156,10 @@ export class SalesProxyService {
     return this.httpService.delete<boolean>(`CustomerOpeningBalance/${id}`);
   }
 
+  deleteCustomerOpeningBalanceHeader(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`CustomerOpeningBalance/DeleteOpeningBalanceHeader/${id}`);
+  }
+
   getAllCustomerOpeningBalance(
     searchTerm: string,
     pageInfo: PageInfo
