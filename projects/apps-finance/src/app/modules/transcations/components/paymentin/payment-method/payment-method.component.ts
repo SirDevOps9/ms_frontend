@@ -26,9 +26,10 @@ export class PaymentMethodComponent {
       this.paymentmethodId = this.config.data.paymentMethodId;
       this.ratio = this.config.data.ratio;
       this.amount = parseInt(this.config.data.amount);
+      console.log(this.config.data ,"kkkkkkkkkkkkkkk");
       
-      if (this.config.data?.paymentInMethodDetails) {
-        const paymentDetails = this.config.data.paymentInMethodDetails;
+      if (this.config.data?.paymentInMethodDetail) {
+        const paymentDetails = this.config.data.paymentInMethodDetail;
         this.initializeForm();
         setTimeout(() => {
           this.addForm.patchValue({

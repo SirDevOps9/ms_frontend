@@ -231,11 +231,19 @@ export class AddPaymentInComponent {
     journalLine.get('glAccountname')?.setValue(null);
     journalLine.get('paidByDetailsName')?.setValue(null);
     if (name == this.sharedFinanceEnums.paiedDropDown.customer) {
+      journalLine.get('glAccountId')?.clearValidators()
+      journalLine.get('glAccountId')?.updateValueAndValidity()
       this.paidByDetailsCustomer = this.customerDropDown
     } else if (name == this.sharedFinanceEnums.paiedDropDown.vendor) {
+      journalLine.get('glAccountId')?.clearValidators()
+      journalLine.get('glAccountId')?.updateValueAndValidity()
       this.paidByDetailsVendor = this.vendorDropDown
 
     } else if (name == this.sharedFinanceEnums.paiedDropDown.other) {
+      journalLine.get('glAccountId')?.updateValueAndValidity()
+
+      journalLine.get('glAccountId')?.setValidators(customValidators.required)
+      journalLine.get('glAccountId')?.updateValueAndValidity()
       this.paidByDetailsOther = this.other
     }
   }
@@ -318,7 +326,7 @@ export class AddPaymentInComponent {
         ratio: new FormControl(null),
         paidBy: new FormControl('', [customValidators.required]),
         paidByDetailsId: new FormControl<string>('', [customValidators.required]),
-        glAccountId: new FormControl(null, [customValidators.required]),
+        glAccountId: new FormControl(null),
         notes: new FormControl(''),
         rate: new FormControl(this.addForm.controls['rate'].value),
         currencyId: new FormControl(this.addForm.controls['currencyId'].value),
@@ -593,7 +601,7 @@ export class AddPaymentInComponent {
 
   }
   save() {
-    debugger
+    
     if (!this.formsService.validForm(this.paymentInDetailsFormArray && this.addForm, false)) return;
 
     let lineNumber = 0;
@@ -713,17 +721,20 @@ export class AddPaymentInComponent {
     if (paidByValue === this.sharedFinanceEnums.paiedDropDown.customer) {
       const customer = this.customerDropDown.find((e) => e.id === id);
       if (customer) {
+        if(customer.accountId>0){
 
-        journalLine.get('glAccountId')?.setValue(customer.accountId);
+        
+        journalLine.get('glAccountId')?.setValue(customer.accountId );
         journalLine.get('glAccountname')?.setValue(customer.accountName);
-
+        }
       }
     } else if (paidByValue === this.sharedFinanceEnums.paiedDropDown.vendor) {
       const vendor = this.vendorDropDown.find((e) => e.id === id);
       if (vendor) {
-        journalLine.get('glAccountId')?.setValue(vendor.accountId);
+        if(vendor.accountId>0){
+        journalLine.get('glAccountId')?.setValue(vendor.accountId );
         journalLine.get('glAccountname')?.setValue(vendor.accountName);
-
+        }
       }
     }
     this.getLabel(journalLine, id)

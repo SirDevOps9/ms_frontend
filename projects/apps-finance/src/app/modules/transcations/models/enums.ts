@@ -25,9 +25,9 @@ export enum paymentplace {
     Percent=2,
   }
   export enum paiedDropDown {
-    customer ="customer",
-    vendor ="vendor",
-    other = "other"
+    customer ="Customer",
+    vendor ="Vendor",
+    other = "Other"
   }
   export enum costCenterConfig {
     NotAllow ="NotAllow",
@@ -43,9 +43,9 @@ export enum paymentplace {
     Percent ='Percent'
   }
   export enum PaidBy {
-    Customer = 'customer',
-    Vendor = 'vendor',
-    Other = 'other'
+    Customer = 'Customer',
+    Vendor = 'Vendor',
+    Other = 'Other'
   }
   export enum OtherOptions {
     GLAccount = 'GL account'

@@ -232,7 +232,18 @@ export class TranscationsService {
       }
     })
   }
-
+  editPaymentIn(obj : any) {
+    this.TranscationsProxy.editPaymentIn(obj).subscribe(res=>{
+      if(res) {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('success'),
+          this.languageService.transalte('add-paymentMethod.edit')
+        );
+        this.routerService.navigateTo('/masterdata/payment-method')
+        
+      }
+    })
+  }
 
 }
 
