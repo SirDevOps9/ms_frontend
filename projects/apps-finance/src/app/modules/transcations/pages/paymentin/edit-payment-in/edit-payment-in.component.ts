@@ -88,7 +88,7 @@ export class EditPaymentInComponent {
   ngOnInit() {
 
     this.titleService.setTitle(
-      this.langService.transalte('PaymentIn.addpaymentin')
+      this.langService.transalte('PaymentIn.editpaymentin')
     );
     this.id  = this.route.snapshot.params['id'] ;
     
@@ -200,7 +200,7 @@ export class EditPaymentInComponent {
 
   }
   getDetails(id: string) {
-    this.paymentInDetailsFormArray.clear()
+    // this.paymentInDetailsFormArray.clear()
     this.addForm.controls['currentBalance'].patchValue(0)
     this.addForm.controls['totalReceivedAmount'].patchValue(0)
 
@@ -301,10 +301,32 @@ export class EditPaymentInComponent {
     })
     this.financeService.paymentDetailsnDataObservable.subscribe((res:any)=>{
       this.paymentDetails=res
-      console.log(this.paymentDetails ,"00000000000000000000");
+        this.addForm.patchValue({
+          ...res,
+          paymentInDetailsFormArray: new Date(res.paymentInDetails),
+        });
+
+      console.log(this.paymentInDetailsFormArray.value , res.paymentInDetails ,"pppppppppppppppppppppppp");
+      
+   
+       this.addForm.controls['currency'].patchValue(res.currencyName)
+       this.addForm.controls['paymentHubDetailId'].patchValue(res.paymentHubDetailId)
 
     })
+    this.addForm.controls['paymentHub'].valueChanges.subscribe((paymentHub: any) => {
+      this.getDetails(paymentHub)
+      console.log(this.addForm.controls['paymentHubDetailId'].value ,"000000000000000");
+      
+        this.addForm.controls['paymentHubDetailId'].patchValue(this.paymentDetails.paymentHubDetailId)
 
+         this.bankAccountDropDown(this.paymentDetails.paymentHubDetailId)
+
+   
+
+    })
+    // this.addForm.controls['paidBy'].valueChanges.subscribe((res:any)=>{
+
+    // })
 
   }
   addNewRow() {
@@ -425,20 +447,26 @@ export class EditPaymentInComponent {
     return false;
   }
   bankAccountDropDown(id: number) {
+    console.log("1111111111111");
 
     if (this.selectedBank) {
+      console.log("22222222222");
+      
       this.financeService.BankAccountDropDown(id).subscribe((res: any) => {
         this.bankAccount = res
         this.addForm.controls['currencyId'].patchValue(null)
       })
     } else if (!this.selectedBank) {
+      console.log("33333333333");
+      console.log(this.TreasuryDropDown,"333333333");
+      
       this.TreasuryDropDown.forEach((e: any) => {
         if (id == e.id) {
           this.selectedCurrency = e.currencyName
 
           this.getTreasuryBalance(e.id)
 
-          // this.addForm.controls['currency'].patchValue(e.currencyName)
+           this.addForm.controls['currency'].patchValue(e.currencyName)
           this.addForm.controls['currencyId'].patchValue(e.currencyId)
 
           this.getAccountCurrencyRate(this.addForm.controls['currencyId'].value as number, id);

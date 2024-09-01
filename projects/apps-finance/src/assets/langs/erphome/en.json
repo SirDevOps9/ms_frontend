@@ -394,7 +394,8 @@
     "Error":"Error",
     "paymentMethodTypeNotAllowed":"payment Method details Not Allowed",
     "paymentMethodTypeRequired":"payment Method details Required In line",
-    "addpaymentin":" add Paymentin"
+    "addpaymentin":" add Paymentin",
+    "editpaymentin":" Edit Paymentin"
   },
   "popupPayment":{ 
     "AccountName": "Account Name",
