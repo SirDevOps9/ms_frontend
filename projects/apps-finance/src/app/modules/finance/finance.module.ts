@@ -22,16 +22,6 @@ import { MainPaymentTermComponent } from './pages/payment-term/main-payment-term
 import { PaymentMethodListComponent } from './pages/payment-method/payment-method-list/payment-method-list.component';
 import { AddPaymentMethodComponent } from './pages/payment-method/add-payment-method/add-payment-method.component';
 import { EditPaymentMethodComponent } from './pages/payment-method/edit-payment-method/edit-payment-method.component';
-import { AddPaymentInComponent } from './pages/payment-in/add-payment-in/add-payment-in.component';
-import { EditPaymentInComponent } from './pages/payment-in/edit-payment-in/edit-payment-in.component';
-import { PaymentMethodComponent } from './components/payment-in/payment-method/payment-method.component';
-import { PaymentInListComponent } from './pages/payment-in/payment-in-list/payment-in-list.component';
-import { PopupAccountsComponent } from './components/payment-in/popup-accounts/popup-accounts.component';
-import { PopupCostcenterComponent } from './components/payment-in/popup-costcenter/popup-costcenter.component';
-import { AddCostCenterComponent } from './components/payment-in/add-cost-center/add-cost-center.component';
-import { EditCostCenterComponent } from './components/payment-in/edit-cost-center/edit-cost-center.component';
-import { MainPaymentInComponent } from './pages/payment-in/main-payment-in/main-payment-in.component';
-import { ViewPaymentMethodComponent } from './pages/payment-method/view-payment-method/view-payment-method.component';
 
 const routes: Routes = [
   {
@@ -120,13 +110,7 @@ const routes: Routes = [
             },
             
           },
-          {
-            path: 'payment-in',
-            component: PaymentInListComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.PAYMENT_IN_LIST,
-            },
-          }
+      
         ]
         },
       {
@@ -165,43 +149,14 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_EDIT,
         },
       },
-      {
-        path: 'view-payment-method/:id',
-        component: ViewPaymentMethodComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_VIEW,
-        },
-      },
-      {
-        path: 'paymentin',
-        component: MainPaymentInComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.PAYMENT_IN,
-        },
-        children:[
-          {
-            path: '',
-            component: PaymentInListComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.PAYMENT_IN_LIST,
-            },
-          },
-          {
-            path: 'add',
-            component: AddPaymentInComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.ADD_PAYMENT_IN,
-            },
-          },
-          {
-            path: 'edit-payment-in',
-            component: EditPaymentInComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.EDIT_PAYMENT_IN,
-            },
-          },
-        ]
-        },
+      // {
+      //   path: 'view-payment-method/:id',
+      //   component: ViewPaymentMethodComponent,
+      //   data: {
+      //     breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_VIEW,
+      //   },
+      // },
+
       //   path: 'payment-in',
       //   component: PaymentInListComponent,
       //   data: {
@@ -232,16 +187,7 @@ const routes: Routes = [
     PaymentMethodListComponent,
     AddPaymentMethodComponent,
     EditPaymentMethodComponent,
-    AddPaymentInComponent,
-    EditPaymentInComponent,
-    PaymentMethodComponent,
-    PaymentInListComponent,
-    ViewPaymentMethodComponent,
-    PopupAccountsComponent,
-    PopupCostcenterComponent,
-    AddCostCenterComponent,
-    EditCostCenterComponent,
-    MainPaymentInComponent
+
     
   ],
   imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes)],
