@@ -17,6 +17,8 @@ import { VendorOpeningBalanceListComponent } from './pages/vendor-opening-balanc
 import { VendorOpeningBalanceMainComponent } from './pages/vendor-opening-balance/vendor-opening-balance-main/vendor-opening-balance-main.component';
 import { VendorOpeningBalanceAddComponent } from './pages/vendor-opening-balance/vendor-opening-balance-add/vendor-opening-balance-add.component';
 import { VendorOpeningBalanceEditComponent } from './pages/vendor-opening-balance/vendor-opening-balance-edit/vendor-opening-balance-edit.component';
+import { VendorOpeningBalanceDistributeComponent } from './components/vendor-opening-balance-distribute/vendor-opening-balance-distribute.component';
+import { VendorOpeningBalanceViewComponent } from './pages/vendor-opening-balance/vendor-opening-balance-view/vendor-opening-balance-view.component';
 
 const routes: Routes = [
   {
@@ -122,6 +124,13 @@ const routes: Routes = [
               breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE_EDIT,
             },
           },
+          {
+            path: 'view-vendor-opening-balance/:id',
+            component: VendorOpeningBalanceViewComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE_EDIT,
+            },
+          },
         ]
       }
     ],
@@ -142,7 +151,9 @@ const routes: Routes = [
     VendorOpeningBalanceListComponent,
     VendorOpeningBalanceMainComponent,
     VendorOpeningBalanceAddComponent,
-    VendorOpeningBalanceEditComponent
+    VendorOpeningBalanceEditComponent,
+    VendorOpeningBalanceDistributeComponent,
+    VendorOpeningBalanceViewComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })

@@ -131,26 +131,26 @@ export class VendorOpeningBalanceAddComponent implements OnInit {
   openDistribute(data: any, account: number, index: number, VendorGroup: FormGroup) {
     if (!this.formService.validForm(this.vendorForm, false)) return;
 
-    // if (data.balanceType != this.enums.BalanceType.Debit) {
-    //   this.toasterService.showError(
-    //     this.languageService.transalte('Error'),
-    //     this.languageService.transalte('Distribution')
-    //   );
-    //   return;
-    // } else {
-      // const ref = this.dialog.open(CustomerOpeningBalanceDistributeComponent, {
-      //   width: '750px',
-      //   height: '600px',
-      //   data: data,
-      // });
-    //   ref.onClose.subscribe((res) => {
-    //     if (res) {
-    //       data.dueDates = res;
-    //     } else {
-    //       data.dueDates = [];
-    //     }
-    //   });
-    // }
+     if (data.balanceType != this.enums.BalanceType.Debit) {
+       this.toasterService.showError(
+         this.languageService.transalte('Error'),
+         this.languageService.transalte('Distribution')
+       );
+       return;
+     } else {
+       const ref = this.dialog.open(VendorOpeningBalanceAddComponent, {
+         width: '750px',
+         height: '600px',
+         data: data,
+       });
+       ref.onClose.subscribe((res) => {
+         if (res) {
+           data.dueDates = res;
+         } else {
+           data.dueDates = [];
+         }
+       });
+     }
   }
   balanceTypeSelected(event: any, index: number) {
     const line = this.items.at(index);

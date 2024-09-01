@@ -35,6 +35,7 @@ export class VendorOpeningBalanceListComponent implements OnInit {
   initCustomerOpeningBalanceData() {
     this.purchaseService.getAllVendorOpeningBalance('', new PageInfo());
   }
+  
   subscribes() {
      this.purchaseService.vendorOpeningBalanceDataSourceObservable.subscribe({
        next: (res) => {
@@ -64,7 +65,7 @@ export class VendorOpeningBalanceListComponent implements OnInit {
 
   routeToEdit(id: number) {
     this.routerService.navigateTo(
-      `masterdata/customer-opening-balance/edit-vendor-opening-balance/${id}`
+      `masterdata/vendor-opening-balance/edit-vendor-opening-balance/${id}`
     );
   }
 
@@ -74,7 +75,7 @@ export class VendorOpeningBalanceListComponent implements OnInit {
 
   view(id: number) {
     this.routerService.navigateTo(
-      `masterdata/customer-opening-balance/view-customer-opening-balance/${id}`
+      `masterdata/vendor-opening-balance/view-vendor-opening-balance/${id}`
     );  }
 
 }

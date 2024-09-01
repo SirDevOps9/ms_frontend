@@ -6,6 +6,7 @@ import { customValidators, FormsService, LanguageService, LookupsService, Router
 import { Title } from '@angular/platform-browser';
 import { PurchaseService } from '../../../purchase.service';
 import { SharedPurchaseEnums } from '../../../models/sharedenums';
+import { VendorOpeningBalanceAddComponent } from '../vendor-opening-balance-add/vendor-opening-balance-add.component';
 
 @Component({
   selector: 'app-vendor-opening-balance-edit',
@@ -127,26 +128,26 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
   openDistribute(data: any, account: number, index: number, VendorGroup: FormGroup) {
     if (!this.formService.validForm(this.vendorForm, false)) return;
 
-    // if (data.balanceType != this.enums.BalanceType.Debit) {
-    //   this.toasterService.showError(
-    //     this.languageService.transalte('Error'),
-    //     this.languageService.transalte('Distribution')
-    //   );
-    //   return;
-    // } else {
-      // const ref = this.dialog.open(CustomerOpeningBalanceDistributeComponent, {
-      //   width: '750px',
-      //   height: '600px',
-      //   data: data,
-      // });
-    //   ref.onClose.subscribe((res) => {
-    //     if (res) {
-    //       data.dueDates = res;
-    //     } else {
-    //       data.dueDates = [];
-    //     }
-    //   });
-    // }
+     if (data.balanceType != this.enums.BalanceType.Debit) {
+       this.toasterService.showError(
+         this.languageService.transalte('Error'),
+         this.languageService.transalte('Distribution')
+       );
+       return;
+     } else {
+       const ref = this.dialog.open(VendorOpeningBalanceAddComponent, {
+         width: '750px',
+         height: '600px',
+         data: data,
+       });
+       ref.onClose.subscribe((res) => {
+         if (res) {
+           data.dueDates = res;
+         } else {
+           data.dueDates = [];
+         }
+       });
+     }
   }
 
   balanceTypeSelected(event: any, index: number) {
@@ -225,6 +226,7 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
       });
     }, 500);
   }
+  
   onSubmit(){
     if (!this.formService.validForm(this.vendorForm, false)) return;
 
