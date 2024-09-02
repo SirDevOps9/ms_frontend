@@ -16,7 +16,7 @@
           <lib-label [appControl]="addForm.controls['paymentOutDate']">
             {{ 'PaymentIn.Form.Date' | translate }}
           </lib-label>
-          <lib-calendar formControlName="paymentOutDate" ></lib-calendar>
+          <lib-calendar formControlName="paymentOutDate" [placeholder]="paymentOutDate"></lib-calendar>
           <lib-field-validations [appControl]="addForm.controls['paymentOutDate']">
           </lib-field-validations>
         </lib-form-group>
@@ -311,7 +311,7 @@
 
               <img *ngIf="
                  isCostCenterallowed( journalLine,journalLine.controls['costCenterConfig'].value) &&
-                 journalLine.controls['paymentOutDetailCostCenters'].value.length == 0
+                 journalLine.controls['paymentInDetailCostCenters'].value.length == 0
                 
                 " (click)="
                 openCostPopup(
@@ -323,7 +323,7 @@
               " src="assets/images/groups-mandtory-optional.png" alt="" class="pointer" />
               <img *ngIf="
                 isCostCenterallowed(journalLine, journalLine.controls['costCenterConfig'].value) &&
-                journalLine.controls['paymentOutDetailCostCenters'].value.length != 0
+                journalLine.controls['paymentInDetailCostCenters'].value.length != 0
                 " (click)="
                    openCostPopup(
                      journalLine.value,

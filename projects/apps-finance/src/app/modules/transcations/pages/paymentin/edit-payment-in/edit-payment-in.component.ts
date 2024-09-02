@@ -314,8 +314,8 @@ export class EditPaymentInComponent {
         ...res,
         // paymentInDetailsFormArray: res.paymentInDetails,
       });
-      this.addForm.get('paymentInDate')?.setValue(new Date(res.paymentInDate))
-      if(res.paymentInDetails){
+      this.addForm.get('paymentInDate')?.setValue(new Date(res?.paymentInDate))
+      if(res?.paymentInDetails){
         res.paymentInDetails.forEach((element:any) => {
           
                   this.paymentInDetailsFormArray.push(this.formBuilder.group(element))
@@ -325,9 +325,9 @@ export class EditPaymentInComponent {
 
         });
       }
-   if(res.paymentHub){
-      console.log(res.paymentHub ,"res.value.paymentHubres.value.paymentHubres.value.paymentHub");
-      if(res.paymentHub == this.sharedFinanceEnums.paymentplaceString.Bank){
+   if(res?.paymentHub){
+      console.log(res?.paymentHub ,"res.value.paymentHubres.value.paymentHubres.value.paymentHub");
+      if(res?.paymentHub == this.sharedFinanceEnums.paymentplaceString.Bank){
         console.log("000000000000000");
         this.getAccountBalance(res.bankAccountId)
         if(res.currencyId){
@@ -355,7 +355,7 @@ export class EditPaymentInComponent {
 
         // this.accountSelected( control.value.glAccountId , index )
       });
-      this.addForm.controls['currency'].patchValue(res.currencyName)
+      this.addForm.controls['currency'].patchValue(res?.currencyName)
       // this.addForm.controls['paymentHubDetailId'].patchValue(res.paymentHubDetailId)
 
     })

@@ -17,7 +17,7 @@ import { TranscationsService } from '../../../transcations.service';
   templateUrl: './edit-payment-out.component.html',
   styleUrls: ['./edit-payment-out.component.scss']
 })
-export class EditPaymentOutComponent implements OnInit {
+export class EditPaymentOutComponent implements OnInit  {
   paymentDetails: any
   LookupEnum = LookupEnum;
   addForm: FormGroup;
@@ -44,7 +44,7 @@ export class EditPaymentOutComponent implements OnInit {
   filteredAccounts: AccountDto[] = [];
   accountName: string = "";
   paidName: string = "";
-  PaymentOutDate: string = "";
+  paymentOutDate: string = "";
   localAmount: number;
   totalAmount: number = 0;
   AccountBalance: number = 0;
@@ -132,7 +132,7 @@ export class EditPaymentOutComponent implements OnInit {
     this.addForm = this.formBuilder.group({
       id:new FormControl(0),
       description: new FormControl(''),
-      PaymentOutDate: new FormControl( '', [customValidators.required]),
+      paymentOutDate: new FormControl( '', [customValidators.required]),
       paymentHub: new FormControl('', [customValidators.required]),
       bankAccountId: new FormControl(null),
       paymentHubDetailId: new FormControl('', [customValidators.required]),
@@ -149,7 +149,7 @@ export class EditPaymentOutComponent implements OnInit {
       newBalance: new FormControl(''),
       paymentOutDetailCostCenters: new FormControl(null),
     });
-    this.addForm.controls['PaymentOutDate'].patchValue(new Date());
+    this.addForm.controls['paymentOutDate'].patchValue(new Date());
 
   }
 
@@ -271,9 +271,9 @@ export class EditPaymentOutComponent implements OnInit {
       this.AccountBalance = res
 
     })
-    this.addForm.get('PaymentOutDate')?.valueChanges.subscribe((res: any) => {
-      this.PaymentOutDate = this.formatDate(res, 'yyyy-MM-dd');
-    })
+    // this.addForm.get('paymentOutDate')?.valueChanges.subscribe((res: any) => {
+    //   this.paymentOutDate = this.formatDate(res, 'yyyy-MM-dd');
+    // })
 
     this.addForm.get('paymentHub')?.valueChanges.subscribe((res: any) => {
       if (res == paymentplace.Treasury) {
@@ -301,16 +301,11 @@ export class EditPaymentOutComponent implements OnInit {
       this.paymentDetails = res
       this.addForm.patchValue({
         ...res,
-        paymentOutDate : new Date(res.PaymentOutDate)
+        // paymentOutDetailsFormArray: res.paymentOutDetails,
       });
-
-      console.log("DDDDDDDate", res.paymentOutDate)
-      this.addForm.get('PaymentOutDate')?.setValue(new Date(res.PaymentOutDate))
-
-      console.log(res ,"res.paymentOutDetails");
-      if(res.paymentOutDetails){
+      this.addForm.get('paymentOutDate')?.setValue(new Date(res?.paymentOutDate))
+      if(res?.paymentOutDetails){
         res.paymentOutDetails.forEach((element:any) => {
-          console.log(element);
           
                   this.paymentOutDetailsFormArray.push(this.formBuilder.group(element))
                   // this.getLabel(element, this.toNumber(element.paidByDetailsId))
@@ -319,48 +314,45 @@ export class EditPaymentOutComponent implements OnInit {
 
         });
       }
-      if(res.paymentHub){
-        console.log(res.paymentHub ,"res.value.paymentHubres.value.paymentHubres.value.paymentHub");
-        if(res.paymentHub == this.sharedFinanceEnums.paymentplaceString.Bank){
-          console.log("000000000000000");
-          this.getAccountBalance(res.bankAccountId)
-          if(res.currencyId){
-            this.getAccountCurrencyRate(res.currencyId )
-           }
-          
-        } else if(res.paymentHub == this.sharedFinanceEnums.paymentplaceString.Treasury){
-          console.log("111111111111");
-          this.getTreasuryBalance(res.treasuryId)
-          
-          if(res.currencyId){
-            this.getAccountCurrencyRate(res.currencyId)
-           }
-        }
-     }
+   if(res?.paymentHub){
+      console.log(res?.paymentHub ,"res.value.paymentHubres.value.paymentHubres.value.paymentHub");
+      if(res?.paymentHub == this.sharedFinanceEnums.paymentplaceString.Bank){
+        console.log("000000000000000");
+        this.getAccountBalance(res.bankAccountId)
+        if(res.currencyId){
+          this.getAccountCurrencyRate(res.currencyId )
+         }
+        
+      } else if(res.paymentHub == this.sharedFinanceEnums.paymentplaceString.Treasury){
+        console.log("111111111111");
+        this.getTreasuryBalance(res.treasuryId)
+        
+        if(res.currencyId){
+          this.getAccountCurrencyRate(res.currencyId)
+         }
+      }
+   }
+  
       this.paymentOutDetailsFormArray.controls.forEach((control: any, index: number) => {
         if(control.value.paidBy === this.sharedFinanceEnums.paiedDropDown.other ){
-          console.log(control , "555555555555555");
-          
           control.get('paidByDetailsName')?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount) 
-
         }
-        console.log(control , "333333333");
 
         //  control.value.PaidBy
         // this.getpaidByDetails(index, control.value.paidBy)
         // this.getLabel(control, this.toNumber(control.value.paidByDetailsId))
 
-        this.accountSelected( control.value.glAccountId , index )
+        // this.accountSelected( control.value.glAccountId , index )
       });
-      this.addForm.controls['currency'].patchValue(res.currencyName)
+      this.addForm.controls['currency'].patchValue(res?.currencyName)
       // this.addForm.controls['paymentHubDetailId'].patchValue(res.paymentHubDetailId)
 
     })
     this.addForm.controls['paymentHub'].valueChanges.subscribe((paymentHub: any) => {
-      this.getDetails(paymentHub)
+       this.getDetails(paymentHub)
       this.addForm.controls['paymentHubDetailId'].patchValue(this.paymentDetails.paymentHubDetailId)
 
-      this.bankAccountDropDown(this.paymentDetails.paymentHubDetailId)
+       this.bankAccountDropDown(this.paymentDetails.paymentHubDetailId)
 
 
 
@@ -467,7 +459,7 @@ export class EditPaymentOutComponent implements OnInit {
   accountSelected(event: any, id: number) {
     
     var accountData = this.filteredAccounts.find((c) => c.id == event);    
-    // this.updateAccount(accountData as AccountDto, id);
+    //  this.updateAccount(accountData as AccountDto, id);
   }
   isCostCenterallowed(journalLine: any, costCenterConfig: string): boolean {
     if (costCenterConfig === this.sharedFinanceEnums.costCenterConfig.Mandatory || costCenterConfig === this.sharedFinanceEnums.costCenterConfig.Optional) {
@@ -495,7 +487,8 @@ export class EditPaymentOutComponent implements OnInit {
         this.bankAccount = res
         this.addForm.controls['currencyId'].patchValue(null)
       })
-    } else if (!this.selectedBank) {
+    } 
+    else if (!this.selectedBank) {
 
       this.TreasuryDropDown.forEach((e: any) => {
         if (id == e.id) {
@@ -514,7 +507,6 @@ export class EditPaymentOutComponent implements OnInit {
       })
     }
   }
-
   getCurrencyBankAccount(id: number) {
     if(this.addForm.controls['paymentHubDetailId'].value&& id){
     this.bankAccount.forEach((element: any) => {
@@ -712,7 +704,7 @@ export class EditPaymentOutComponent implements OnInit {
     if (validpaymentOutDetails) {
 
       // const formattedChequeDueDate = this.formatDate(this.addForm.controls['chequeDueDate'].value, 'yyyy-MM-dd');
-      const formattedPaymentOutDate = this.formatDate(this.addForm.controls['PaymentOutDate'].value, 'yyyy-MM-dd');
+      // const formattedpaymentOutDate = this.formatDate(this.addForm.controls['paymentOutDate'].value, 'yyyy-MM-dd');
       const paymentHubDetailId = this.addForm.controls['paymentHubDetailId'].value.toString();
       this.paymentOutDetailsFormArray.controls.forEach((control) => {
         if (control instanceof FormGroup) {
@@ -727,7 +719,7 @@ export class EditPaymentOutComponent implements OnInit {
       });
       // Update the form controls with the formatted dates if necessary
       // this.addForm.controls['chequeDueDate'].setValue(formattedChequeDueDate);
-      this.addForm.controls['PaymentOutDate'].setValue(formattedPaymentOutDate);
+      // this.addForm.controls['paymentOutDate'].setValue(formattedpaymentOutDate);
       this.addForm.controls['paymentHubDetailId'].setValue(paymentHubDetailId);
 
       // Now you can proceed with saving the form data
@@ -741,10 +733,10 @@ export class EditPaymentOutComponent implements OnInit {
 
 
   }
-  formatDate(date: string, format: string): string {
-    const pipe = new DatePipe('en-US');
-    return pipe.transform(date, format) || '';
-  }
+  // formatDate(date: string, format: string): string {
+  //   const pipe = new DatePipe('en-US');
+  //   return pipe.transform(date, format) || '';
+  // }
   deleteLine(index: number) {
     this.paymentOutDetailsFormArray.removeAt(index);
     this.calculateTotalAmount()
@@ -837,9 +829,11 @@ export class EditPaymentOutComponent implements OnInit {
     this.financeService.GetAccountBalance(id);
   }
   cancel() {
-    this.routerService.navigateTo(`/transcations/paymentin`);
+    this.routerService.navigateTo(`/transcations/paymentout`);
   }
   ngOnDestroy(): void {
-    this.financeService.paymentDetails.next(null)
+    this.financeService.paymentOutDetails.next(null)
+    // this.financeService.TreasuryBalance.next(undefined)
+    // this.financeService.AccountBalance.next(undefined)
   }
 }
