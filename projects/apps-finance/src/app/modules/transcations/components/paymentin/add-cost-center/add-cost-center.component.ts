@@ -32,7 +32,16 @@ export class AddCostCenterComponent {
     public generalService: GeneralService
   ) {}
   ngAfterViewInit(): void {
+    console.log( this.config.data ,"this.config.data?.paymentInDetailCostCenters");
+    
+    // if (this.config.data.paymentInDetailCostCenters) {
+    //   console.log("ccccccccccccc");
+    //   console.log(this.config.data.paymentInDetailCostCenters);
+      
+    // }
     if (this.config.data?.paymentInDetailCostCenters?.length) {
+      console.log(this.config.data?.paymentInDetailCostCenters,"this.config.data?.paymentInDetailCostCentersthis.config.data?.paymentInDetailCostCenters");
+      
       this.allocationform.clear();
       this.config.data.paymentInDetailCostCenters.forEach((element: any) => {
         this.lookupValues.push(Number(element.costCenterId));

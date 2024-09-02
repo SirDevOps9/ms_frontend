@@ -158,7 +158,7 @@ export class EditPaymentInComponent {
       currentBalance: new FormControl(0),
       totalReceivedAmount: new FormControl(0),
       newBalance: new FormControl(''),
-      paymentInDetailCostCenters: new FormControl(null),
+      // paymentInDetailCostCenters: new FormControl(null),
     });
     this.addForm.controls['paymentInDate'].patchValue(new Date());
 
@@ -315,27 +315,44 @@ export class EditPaymentInComponent {
         // paymentInDetailsFormArray: res.paymentInDetails,
       });
       this.addForm.get('paymentInDate')?.setValue(new Date(res.paymentInDate))
-      if(res.paymentInDetails){
-        res.paymentInDetails.forEach((element:any) => {
+      // if(res.paymentInDetails){
+      //   res.paymentInDetails.forEach((element:any) => {
           
-                  this.paymentInDetailsFormArray.push(this.formBuilder.group(element))
-                  // this.getLabel(element, this.toNumber(element.paidByDetailsId))
-                  this.calculateTotalAmount()
+      //             this.paymentInDetailsFormArray.push(this.formBuilder.group(element))
+      //             // this.getLabel(element, this.toNumber(element.paidByDetailsId))
+                 
+      //             this.calculateTotalAmount()
 
 
+      //   });
+      // }
+      if (res.paymentInDetails) {
+        res.paymentInDetails.forEach((element: any) => {
+            const formGroup = this.formBuilder.group({
+                ...element,
+                paymentInDetailCostCenters: this.formBuilder.array(
+                    element.paymentInDetailCostCenters.map((costCenter: any) =>
+                        this.formBuilder.group(costCenter)
+                    )
+                )
+            });
+    
+            this.paymentInDetailsFormArray.push(formGroup);
+            this.calculateTotalAmount();
         });
-      }
+    }
+    
+      console.log(res.paymentInDetailsFormArray ,"this.paymentInDetailsFormArray77777777777777777777");
+      
    if(res.paymentHub){
       console.log(res.paymentHub ,"res.value.paymentHubres.value.paymentHubres.value.paymentHub");
       if(res.paymentHub == this.sharedFinanceEnums.paymentplaceString.Bank){
-        console.log("000000000000000");
         this.getAccountBalance(res.bankAccountId)
         if(res.currencyId){
           this.getAccountCurrencyRate(res.currencyId )
          }
         
       } else if(res.paymentHub == this.sharedFinanceEnums.paymentplaceString.Treasury){
-        console.log("111111111111");
         this.getTreasuryBalance(res.treasuryId)
         
         if(res.currencyId){
@@ -632,6 +649,8 @@ export class EditPaymentInComponent {
     journalLine.get('paymentMethodType')?.setValue(TreasuriesPayMethod?.paymentMethodType);
   }
   openCostPopup(data: any, journal: FormGroup, account: number, index: number) {
+   console.log(data ,journal ,account ,index , "coooooooooost");
+   
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
     if (!account || accountData?.costCenterConfig == 'NotAllow') {
       if (data.costCenterConfig == 'NotAllow') {
