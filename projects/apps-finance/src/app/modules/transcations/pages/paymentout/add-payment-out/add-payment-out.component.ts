@@ -74,7 +74,7 @@ export class AddPaymentOutComponent implements OnInit {
   TreasuryBalance: number = 0;
   totalLocalAmount: number = 0;
   newBalance: number = 0;
-  updatedNewBalance:number =0;
+  updatedNewBalance: number = 0;
   selectedBank: boolean;
   selectedCurrency: string = '';
   paymentMethod: BankPaymentMethods[] = [];
@@ -119,20 +119,6 @@ export class AddPaymentOutComponent implements OnInit {
     this.financeService.customerDropdown();
   }
   initializeDropDown() {
-    // this.paidBy = [
-    //   {
-    //     id: 1,
-    //     name: "customer"
-    //   },
-    //   {
-    //     id: 2,
-    //     name: "vendor"
-    //   },
-    //   {
-    //     id: 3,
-    //     name: "other"
-    //   },
-    // ]
     this.paidBy = [
       { id: 1, name: this.sharedFinanceEnums.PaidBy.Customer },
       { id: 2, name: this.sharedFinanceEnums.PaidBy.Vendor },
@@ -151,7 +137,7 @@ export class AddPaymentOutComponent implements OnInit {
   initializeForm() {
     this.addForm = this.formBuilder.group({
       description: new FormControl(''),
-      paymentOutDate: new FormControl(this.getTodaysDate(), [customValidators.required]),
+      paymentOutDate: new FormControl('', [customValidators.required]),
       paymentHub: new FormControl('', [customValidators.required]),
       bankAccountId: new FormControl(null),
       paymentHubDetailId: new FormControl('', [customValidators.required]),
@@ -159,8 +145,6 @@ export class AddPaymentOutComponent implements OnInit {
       rate: new FormControl<number | undefined>(0, [customValidators.required]),
       glAccountId: new FormControl(null),
       paymentOutDetails: this.formBuilder.array([]),
-
-      ////////
       code: new FormControl(''),
       currency: new FormControl(''),
       currentBalance: new FormControl(0),
@@ -171,10 +155,6 @@ export class AddPaymentOutComponent implements OnInit {
     this.addForm.controls['paymentOutDate'].patchValue(new Date());
   }
 
-  getTodaysDate() {
-    var date = new Date();
-    return date.toISOString().substring(0, 10);
-  }
   loadLookups() {
     this.lookupsService.loadLookups([
       LookupEnum.PaymentMethodType,
@@ -319,10 +299,7 @@ export class AddPaymentOutComponent implements OnInit {
       this.updateNewBalance();
     });
 
-
-
     this.updateNewBalance();
-
   }
   addNewRow() {
     if (!this.formsService.validForm(this.paymentOutDetailsFormArray, false)) return;
@@ -484,8 +461,6 @@ export class AddPaymentOutComponent implements OnInit {
     const paymentMethod = this.lookups[LookupEnum.PaymentMethodType]?.find(
       (option) => option.id === paymentMethodId
     );
-    // this.paymentOutDetailsFormArray.controls['paymentMethodType']
-
     return paymentMethod ? paymentMethod.name : '';
   }
   getLabelPayment(journalLine: any, paymentMethodId: any): string {
@@ -657,7 +632,6 @@ export class AddPaymentOutComponent implements OnInit {
       }
     });
     if (validpaymentInDetails) {
-      // const formattedChequeDueDate = this.formatDate(this.addForm.controls['chequeDueDate'].value, 'yyyy-MM-dd');
       const formattedpaymentOutDate = this.formatDate(
         this.addForm.controls['paymentOutDate'].value,
         'yyyy-MM-dd'
@@ -670,16 +644,12 @@ export class AddPaymentOutComponent implements OnInit {
           if (paidByDetailsIdControl) {
             const paidByDetailsId = paidByDetailsIdControl.value.toString();
             control.get('paidByDetailsId')?.setValue(paidByDetailsId);
-            // Add your logic here to work with paidByDetailsId
           }
         }
       });
-      // Update the form controls with the formatted dates if necessary
-      // this.addForm.controls['chequeDueDate'].setValue(formattedChequeDueDate);
+
       this.addForm.controls['paymentOutDate'].setValue(formattedpaymentOutDate);
       this.addForm.controls['paymentHubDetailId'].setValue(paymentHubDetailId);
-
-      // Now you can proceed with saving the form data
 
       this.financeService.addPaymentOut(this.addForm.value);
     }
@@ -782,12 +752,11 @@ export class AddPaymentOutComponent implements OnInit {
     const currentBalance = this.addForm.controls['currentBalance'].value || 0;
     const totalPaidAmount = this.addForm.controls['totalPaidAmount'].value || 0;
 
-    console.log("currentBalance", this.AccountBalance);
-    console.log("totalPaidAmount", totalPaidAmount);
+    console.log('currentBalance', this.AccountBalance);
+    console.log('totalPaidAmount', totalPaidAmount);
 
     const newBalance = this.AccountBalance - totalPaidAmount;
-    console.log("newBalance", newBalance);
-
+    console.log('newBalance', newBalance);
 
     this.addForm.controls['newBalance'].setValue(newBalance);
 
