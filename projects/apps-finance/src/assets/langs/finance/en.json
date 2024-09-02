@@ -82,6 +82,7 @@
   },
   "PaymentOut": {
     "Title":"Payment Out",
+    "delete": "Payment Out Deleted Successfully",
     "List": {
       "code": "Code",
       "date": "Date",
@@ -93,8 +94,7 @@
       "relatedSourceJournal": "Related Source Journal",
       "actions": "Actions",
       "Search": "Search",
-      "addNew": "Add",
-      "delete": "Payment Out Deleted Successfully"
+      "addNew": "Add"
     },
     "Form": {
       "Save": "Save",

@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { PageInfoResult, lookupDto, RouterService, LanguageService, PageInfo } from 'shared-lib';
 import { GetAllPaymentInDto } from '../../../models';
 import { FinanceService } from '../../../../finance/finance.service';
+import { TranscationsService } from '../../../transcations.service';
 
 @Component({
   selector: 'app-payment-in-list',
@@ -59,7 +60,7 @@ export class PaymentInListComponent {
 
 
   constructor(
-    private financeService: FinanceService,
+    private financeService: TranscationsService,
     private routerService: RouterService,
     private title: Title,
     private langService: LanguageService,) { }
@@ -106,7 +107,7 @@ export class PaymentInListComponent {
   }
 
   onSearchChange(event: any) {
-    this.financeService.getAllPaymentIn(event.target.value, new PageInfo());
+    this.financeService.getAllPaymentIn(event, new PageInfo());
   }
 
   

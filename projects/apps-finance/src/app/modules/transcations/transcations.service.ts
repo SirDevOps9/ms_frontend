@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
 import { TranscationsProxyService } from './transcations-proxy.service';
 import { BehaviorSubject, map } from 'rxjs';
-import { AccountDto, AddPaymentMethodDto, AddPaymentTermDto, CurrencyRateDto, GetAllPaymentInDto } from './models';
+import { AccountDto, AddPaymentMethodDto, AddPaymentTermDto, CurrencyRateDto, GetAllPaymentInDto, GetAllPaymentOutDto } from './models';
 import { GetPaymentMethodByIdDto } from './models/get-payment-method-by-id-dto';
 
 @Injectable({
@@ -48,8 +48,12 @@ export class TranscationsService {
   exportedPaymentinDataSourceObservable = this.exportedpaymentinListDataSource.asObservable()
 
 
+  public paymentOutDataSource = new BehaviorSubject<GetAllPaymentOutDto[]>([])
+  public exportedpaymentOutListDataSource = new BehaviorSubject<GetAllPaymentOutDto[]>([]);
+  paymentOutDataSourceObservable = this.paymentOutDataSource.asObservable()
+  exportedPaymentOutDataSourceObservable = this.exportedpaymentOutListDataSource.asObservable()
 
-
+  public paymentOutCurrentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
 
   constructor(private TranscationsProxy : TranscationsProxyService , private toasterService : ToasterService , private languageService : LanguageService , private loaderService : LoaderService, private http : HttpClient , private routerService : RouterService) { }
@@ -250,6 +254,7 @@ export class TranscationsService {
       }
     })
   }
+  
   editPaymentIn(obj : any) {
     this.TranscationsProxy.editPaymentIn(obj).subscribe(res=>{
       if(res) {
@@ -263,5 +268,43 @@ export class TranscationsService {
     })
   }
 
+  
+  getAllPaymentOut(quieries: string, pageInfo: PageInfo)  {
+    this.TranscationsProxy.getAllPymentOut(quieries, pageInfo).subscribe((response) => {
+     this.paymentOutDataSource.next(response.result)
+     this.paymentOutCurrentPageInfo.next(response.pageInfoResult)
+    });
+  }
+
+
+  
+  exportsPaymentOutList(searchTerm:string | undefined) {
+    this.TranscationsProxy.exportsPaymentOutList(searchTerm).subscribe({
+      next: (res : any) => {
+         this.exportedpaymentOutListDataSource.next(res);
+      },
+    });
+  }
+  async deletePaymentOut(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.TranscationsProxy.deletePaymentOut(id).subscribe({
+        next: (res) => {
+          
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('PaymentOut.delete')
+          );
+          this.loaderService.hide();
+          const currentPaymentOut = this.paymentOutDataSource.getValue();
+          const updatedcurrentPaymentOut = currentPaymentOut.filter((c : any) => c.id !== id);
+          this.paymentOutDataSource.next(updatedcurrentPaymentOut);
+        },
+        
+      });
+    }
+  }
 }
 

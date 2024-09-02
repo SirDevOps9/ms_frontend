@@ -247,16 +247,6 @@ export class FinanceProxyService {
     return this.httpService.get<PaginationVm<GetAllPaymentInDto>>(query);
   }
 
-  getAllPymentOut(
-    searchTerm: string,
-    pageInfo: PageInfo
-  ): Observable<PaginationVm<GetAllPaymentOutDto>> {
-    let query = `PaymentOut?${pageInfo.toQuery}`;
-    if (searchTerm) {
-      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
-    return this.httpService.get<PaginationVm<GetAllPaymentOutDto>>(query);
-  }
 
   exportsPaymentInList(searchTerm: string | undefined): Observable<GetAllPaymentInDto[]> {
     let query = `PaymentIn/Export?`;
@@ -265,19 +255,11 @@ export class FinanceProxyService {
     }
     return this.httpService.get<GetAllPaymentInDto[]>(query);
   }
-  exportsPaymentOutList(searchTerm: string | undefined): Observable<GetAllPaymentInDto[]> {
-    let query = `PaymentOut/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
-    return this.httpService.get<GetAllPaymentOutDto[]>(query);
-  }
+
   deletePaymentIn(id: number) {
     return this.httpService.delete(`PaymentIn/${id}`);
   }
-  deletePaymentOut(id: number) {
-    return this.httpService.delete(`PaymentOut/${id}`);
-  }
+ 
   getTaxDropDown(): Observable<DropDownDto[]> {
     return this.httpService.get('Tax/Taxdropdown');
   }

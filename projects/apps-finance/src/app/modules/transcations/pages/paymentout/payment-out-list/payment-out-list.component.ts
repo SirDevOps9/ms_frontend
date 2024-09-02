@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { PageInfoResult, lookupDto, RouterService, LanguageService, PageInfo } from 'shared-lib';
 import { FinanceService } from '../../../../finance/finance.service';
 import { GetAllPaymentInDto, GetAllPaymentOutDto } from '../../../models';
+import { TranscationsService } from '../../../transcations.service';
 
 @Component({
   selector: 'app-payment-out-list',
@@ -59,7 +60,7 @@ export class PaymentOutListComponent implements OnInit {
 
 
   constructor(
-    private financeService: FinanceService,
+    private financeService: TranscationsService,
     private routerService: RouterService,
     private title: Title,
     private langService: LanguageService,) { }

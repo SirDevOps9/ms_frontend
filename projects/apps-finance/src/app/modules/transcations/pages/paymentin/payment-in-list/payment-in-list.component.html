@@ -69,15 +69,14 @@
       >
         <ng-container search>
           <div>
-            <span class="p-input-icon-left">
-              <i class="pi pi-search"></i>
-              <lib-text-input
-                pInputText
-                type="text"
-                placeholder="{{ 'payment-in.Search' | translate }}"
-                (keyup)="onSearchChange($event)"
-              />
-            </span>
+
+            <lib-text-input
+            type="text"
+            placeholder="{{ 'payment-in.Search' | translate }}"
+            (keyUp)="onSearchChange($event)"
+            [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+          >
+          </lib-text-input>
           </div>
         </ng-container>
         <ng-container action>
