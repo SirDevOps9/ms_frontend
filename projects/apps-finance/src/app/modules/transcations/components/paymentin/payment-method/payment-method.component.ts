@@ -35,7 +35,7 @@ export class PaymentMethodComponent {
           this.addForm.patchValue({
             paymentMethodId: paymentDetails.paymentMethodId || this.paymentmethodId,
             chequeNumber: paymentDetails.chequeNumber || null,
-            chequeDueDate: paymentDetails.chequeDueDate || new Date(),
+            chequeDueDate: new Date(paymentDetails.chequeDueDate )|| new Date(),
             bankReference: paymentDetails.bankReference || null,
             vatAmount: paymentDetails.VatAmount || null,
             commissionAmount: paymentDetails.CommissionAmount || null,

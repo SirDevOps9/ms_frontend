@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
 import {
@@ -97,7 +97,7 @@ export class EditPaymentInComponent {
     this.subscribe();
     this.initializeDropDown();
     this.loadLookups();
-    this.addNewRow()
+    // this.addNewRow()
 
 
   }
@@ -143,7 +143,7 @@ export class EditPaymentInComponent {
     this.addForm = this.formBuilder.group({
       id:new FormControl(0),
       description: new FormControl(''),
-      PaymentInDate: new FormControl(this.getTodaysDate(), [customValidators.required]),
+      PaymentInDate: new FormControl( '', [customValidators.required]),
       paymentHub: new FormControl('', [customValidators.required]),
       bankAccountId: new FormControl(null),
       paymentHubDetailId: new FormControl('', [customValidators.required]),
@@ -227,7 +227,7 @@ export class EditPaymentInComponent {
   getpaidByDetails(index: number, name: string) {
     const journalLine = this.paymentInDetailsFormArray.at(index);
     journalLine.get('glAccountname')?.setValue(null);
-    journalLine.get('paidByDetailsName')?.setValue(null);
+     journalLine.get('paidByDetailsName')?.setValue(null);
 
     if (name == this.sharedFinanceEnums.paiedDropDown.customer) {
       this.paidByDetailsCustomer = this.customerDropDown
@@ -236,6 +236,8 @@ export class EditPaymentInComponent {
 
     } else if (name == this.sharedFinanceEnums.paiedDropDown.other) {
       this.paidByDetailsOther = this.other
+           journalLine.get('paidByDetailsName')?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount);
+
     }
   }
   updateRateInPaymentDetails(newRate: any) {
@@ -310,13 +312,34 @@ export class EditPaymentInComponent {
       this.paymentDetails = res
       this.addForm.patchValue({
         ...res,
-        paymentInDetailsFormArray: res.paymentInDetails,
+        // paymentInDetailsFormArray: res.paymentInDetails,
       });
+      this.addForm.get('PaymentInDate')?.setValue(new Date(res.paymentInDate))
+      console.log(res?.paymentInDetails ,"res.paymentInDetails");
+      if(res.paymentInDetails){
+        res.paymentInDetails.forEach((element:any) => {
+          console.log(element);
+          
+                  this.paymentInDetailsFormArray.push(this.formBuilder.group(element))
+                  // this.getLabel(element, this.toNumber(element.paidByDetailsId))
+                  this.calculateTotalAmount()
+
+
+        });
+      }
+   
       this.paymentInDetailsFormArray.controls.forEach((control: any, index: number) => {
+        if(control.value.paidBy === this.sharedFinanceEnums.paiedDropDown.other ){
+          console.log(control , "555555555555555");
+          
+          control.get('paidByDetailsName')?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount) 
+
+        }
+        console.log(control , "333333333");
 
         //  control.value.PaidBy
-        this.getpaidByDetails(index, control.value.paidBy)
-        this.getLabel(control, this.toNumber(control.value.paidByDetailsId))
+        // this.getpaidByDetails(index, control.value.paidBy)
+        // this.getLabel(control, this.toNumber(control.value.paidByDetailsId))
 
         this.accountSelected( control.value.glAccountId , index )
       });
@@ -360,7 +383,7 @@ export class EditPaymentInComponent {
 
         /////////
         id: new FormControl(0),
-        glAccountname: new FormControl(''),
+        // accountName: new FormControl(''),
         paymentMethodName: new FormControl(''),
         paidByDetailsName: new FormControl(''),
         // accountCode: new FormControl('', [customValidators.required]),
@@ -549,7 +572,6 @@ export class EditPaymentInComponent {
   }
   getLabel(journal: FormGroup, id: number): string | undefined {
     const paidByValue = journal.controls['paidBy'].value;
-
     if (paidByValue === this.sharedFinanceEnums.paiedDropDown.customer) {
       const customer = this.customerDropDown.find((e: any) => e.id === id);
       journal.controls['paidByDetailsName'].setValue(customer ? customer.name : "")
@@ -757,14 +779,14 @@ export class EditPaymentInComponent {
       if (customer) {
 
         journalLine.get('glAccountId')?.setValue(customer.accountId);
-        journalLine.get('glAccountname')?.setValue(customer.accountName);
+        //journalLine.get('glAccountname')?.setValue(customer.accountName);
 
       }
     } else if (paidByValue === this.sharedFinanceEnums.paiedDropDown.vendor) {
       const vendor = this.vendorDropDown.find((e) => e.id === id);
       if (vendor) {
         journalLine.get('glAccountId')?.setValue(vendor.accountId);
-        journalLine.get('glAccountname')?.setValue(vendor.accountName);
+       // journalLine.get('glAccountname')?.setValue(vendor.accountName);
 
       }
     }
@@ -803,6 +825,9 @@ export class EditPaymentInComponent {
   }
   cancel() {
     this.routerService.navigateTo(`/transcations/paymentin`);
+  }
+  OnDestroy(){
+    
   }
 }
 

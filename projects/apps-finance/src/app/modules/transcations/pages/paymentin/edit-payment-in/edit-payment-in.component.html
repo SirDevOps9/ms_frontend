@@ -268,7 +268,7 @@
                 </ng-template>
                 <ng-template pTemplate="output">
                   {{journalLine.controls['paidByDetailsName'].value}}
-                  <!-- {{ getLabel(journalLine, journalLine.controls['paidByDetailsId'].value) }} -->
+                  <!-- {{ getLabel(journalLine, toNumber(journalLine.controls['paidByDetailsId'].value)) }} -->
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations [appControl]="journalLine.controls['paidByDetailsId']"> </lib-field-validations>
@@ -294,7 +294,7 @@
                 </ng-template>
               </p-cellEditor>
               <p *ngIf="journalLine.controls['paidBy'].value != this.sharedFinanceEnums.paiedDropDown.other">
-                {{journalLine.controls['glAccountname'].value}}
+                {{journalLine.controls['accountName'].value}}
               </p>
               <lib-field-validations [appControl]="journalLine.controls['glAccountId']">
               </lib-field-validations>
