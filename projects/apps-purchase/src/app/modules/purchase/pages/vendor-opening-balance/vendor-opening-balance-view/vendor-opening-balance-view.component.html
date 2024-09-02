@@ -1,9 +1,9 @@
- <!-- <div style="margin-left: 20px; overflow-x: hidden">
+<div style="margin-left: 20px; overflow-x: hidden">
   <div class="grid-cont">
     <div class="my-3 grid-item">
       <p class="headsCont paragraph_b16">{{  'openeingBalance.openingJournal' | translate }}</p>
       <small class="subHead heading_b16">
-        {{ vendorView?. }}
+        {{ vendorView?.openingBalanceJournalEntryCode }}
       </small>
     </div>
     <div class="my-3 grid-item">
@@ -29,8 +29,8 @@
 
   <div class="journal_page">
     <lib-data-table
-      *ngIf="vendorView"
-      [items]="vendorView!.customerOpeningDetails!"
+      *ngIf="vendorView!.vendorOpeningDetails!"
+      [items]="vendorView!.vendorOpeningDetails!"
       className="p-datatable-gridlines"
       [tableConfigs]="{
         allowPagination: false,
@@ -39,13 +39,13 @@
         pageSize: 10,
         columns: [
           {
-            name: 'customerCode',
+            name: 'vendorCode',
             headerText: 'customerDefinition.code'  | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
-            name: 'customerName',
+            name: 'vendorName',
             headerText: 'customerDefinition.name' | translate,
             isGlobalFilter: true,
             isSortable: true
@@ -103,4 +103,4 @@
       </ng-container>
     </lib-data-table>
   </div>
-</div>  -->
+</div>

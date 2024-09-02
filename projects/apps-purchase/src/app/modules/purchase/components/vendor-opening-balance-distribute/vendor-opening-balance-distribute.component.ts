@@ -19,7 +19,10 @@ export class VendorOpeningBalanceDistributeComponent implements OnInit {
   totalBalanceSum: number = 0
   error:boolean
 
-  constructor(private formsService: FormsService,
+  balanceType: any = [{ label: "Debit", value: "Debit" }, { label: "Credit", value: "Credit" }]
+
+  constructor(
+    private formsService: FormsService,
     private fb: FormBuilder,
     private dialog: DialogService,
     private ref: DynamicDialogRef,
@@ -27,164 +30,163 @@ export class VendorOpeningBalanceDistributeComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private toasterService: ToasterService,
     private langService: LanguageService,
+
+
     private translationService: TranslationService) { }
+    
+  ngAfterViewInit(): void {
+    this.balance = this.config.data.balance;
+    this.vendorForm.clear();
 
-    ngAfterViewInit(): void {
-      this.balance = this.config.data.balance;
-      this.vendorForm.clear();
-      console.log("sandra",this.config.data);
-  
-      if (this.config.data.dueDate) {
-        this.config.data.dueDate.forEach((e: any) => {
-          console.log("data",this.config.data.balanceDueDates.dueDate);
-  
-          this.vendorForm.push(this.fb.group({
-            id: e.balanceDueDates.id,
-            dueDate: e.balanceDueDates.dueDate,
-            credit: e.balanceDueDates.credit,
-            debit: e.balanceDueDates.debit
-          }));
-        });
-        this.getTotalBalanceSum();
-      } else {
-        // this.addLine()
-        this.items.push(this.createBankFormGroup())
-      }
-  
-      this.cdr.detectChanges();
-    }
+    if (this.config.data.dueDates) {
+      this.config.data.dueDates.forEach((e: any) => {
+        console.log(this.config.data.dueDates, "this.config.data.dueDates");
 
-    ngOnInit(): void {
-      this.formGroup = this.fb.group({
-        balance: ''
-      })
-      this.formGroupBalance = this.fb.group({
-        balance: ''
-      })
-  
-      this.vendorForm = this.fb.array([this.createBankFormGroup()]);
-  
-      this.createBankFormGroup()
-    }
-
-    public get items(): FormArray {
-      return this.vendorForm as FormArray;
-    }
-
-    addLine() {
-      if (!this.formsService.validForm(this.vendorForm, false)) return;
-  
+        this.vendorForm.push(this.fb.group({
+          id: e.id,
+          dueDate: e.dueDate,
+          credit: e.credit,
+          debit: e.debit
+        }));
+      });
+      this.getTotalBalanceSum();
+    } else {
+      // this.addLine()
       this.items.push(this.createBankFormGroup())
     }
 
-    onDelete(index: number): void {
+    this.cdr.detectChanges();
+  }
+  ngOnInit(): void {
+    this.formGroup = this.fb.group({
+      balance: ''
+    })
+    this.formGroupBalance = this.fb.group({
+      balance: ''
+    })
 
-      this.vendorForm.removeAt(index);
-      this.getTotalBalanceSum()
-    }
+    this.vendorForm = this.fb.array([this.createBankFormGroup()]);
 
-    createBankFormGroup(): FormGroup {
-      const group=  this.fb.group({
-        id: 0,
-        dueDate: new FormControl(this.getTodaysDate()),
-        credit: new FormControl(0, [customValidators.required , customValidators.number ,customValidators.hasSpaces]),
-        debit: new FormControl(0, [customValidators.required , customValidators.number ,customValidators.hasSpaces ]),
-  
-      });
-      group.get('credit')?.valueChanges.subscribe(value => {
-        if (value != 0) {
-          group.get('dueDate')?.setValue(null); // Set dueDate to null
-        }
-      });
-    
-      return group;
-    }
+    this.createBankFormGroup()
+  }
 
-    getTodaysDate() {
-      var date = new Date();
-      return date.toISOString().substring(0, 10);
-    }
+  public get items(): FormArray {
+    return this.vendorForm as FormArray;
+  }
 
-    onCancel() {
-      this.ref.close()
-    }
+  addLine() {
+    if (!this.formsService.validForm(this.vendorForm, false)) return;
 
-    formatDate(date: string, format: string): string {
-      const pipe = new DatePipe('en-US');
-      return pipe.transform(date, format) || '';
-    }
+    this.items.push(this.createBankFormGroup())
+  }
 
-    getTotalCredit(): number {
-      return this.vendorForm.controls.reduce((total, control) => {
-        const credit = Number(control.get('credit')?.value) || 0; // Convert to number
-        return total + credit;
-      }, 0);
-    }
+  onDelete(index: number): void {
 
-    getTotalDebit(): number {
-      return this.vendorForm.controls.reduce((total, control) => {
-        const debit = Number(control.get('debit')?.value) || 0; // Convert to number
-        return total + debit;
-      }, 0);
-    }
+    this.vendorForm.removeAt(index);
+    this.getTotalBalanceSum()
+  }
 
-    getTotalBalanceSum() {
-      this.totalBalanceSum = Math.round(this.getTotalDebit() - this.getTotalCredit());
-      if(this.totalBalanceSum != this.balance){
-        this.error=true
-      }else{
-        this.error=false
+
+  createBankFormGroup(): FormGroup {
+    const group=  this.fb.group({
+      id: 0,
+      dueDate: new FormControl(this.getTodaysDate()),
+      credit: new FormControl(0, [customValidators.required , customValidators.number ,customValidators.hasSpaces]),
+      debit: new FormControl(0, [customValidators.required , customValidators.number ,customValidators.hasSpaces ]),
+
+    });
+    group.get('credit')?.valueChanges.subscribe(value => {
+      if (value != 0) {
+        group.get('dueDate')?.setValue(null); // Set dueDate to null
       }
-    }
+    });
+  
+    return group;
+  }
 
-    onSubmit() {
-      if (!this.formsService.validForm(this.vendorForm, false)) return;
-  
-      const formattedItems = this.items.value.map((item: any) => {
-        return {
-          ...item,
-          // dueDate: this.datePipe.transform(item.dueDate, 'yyyy-MM-dd') // Format due date
-          dueDate: this.formatDate(item.dueDate, 'yyyy-MM-dd') // Use formatDate method
-  
-        };
-      });
-  
-      let allValid = true;
-  
-      for (let i = 0; i < formattedItems.length; i++) {
-        const element = formattedItems[i];
-        const credit = element.credit;
-        const debit = element.debit;
-        console.log(element);
-  
-        if (((credit != 0 && debit != 0) || (credit == 0 && debit == 0))) {
-          this.toasterService.showError(
-            this.langService.transalte('Error'),
-            this.langService.transalte('InvalidAmount')
-          );
-          console.log(allValid, i);
-  
-          allValid = false;
-          break; // Exit the loop early if an invalid item is found
-        }
-      }
-  
-      if (!allValid) return;
-      const totalCredit = this.getTotalCredit();
-      const totalDebit = this.getTotalDebit();
-      const totalSum = Math.round(this.getTotalDebit() - this.getTotalCredit());
-      if (totalSum == this.balance) {
-        this.error=false
-        this.ref.close(formattedItems);
-  
-      } else {
-        this.error=true
+  getTodaysDate() {
+    var date = new Date();
+    return date.toISOString().substring(0, 10);
+  }
+  onCancel() {
+    this.ref.close()
+  }
+  formatDate(date: string, format: string): string {
+    const pipe = new DatePipe('en-US');
+    return pipe.transform(date, format) || '';
+  }
+  onSubmit() {
+    if (!this.formsService.validForm(this.vendorForm, false)) return;
+
+    const formattedItems = this.items.value.map((item: any) => {
+      return {
+        ...item,
+        // dueDate: this.datePipe.transform(item.dueDate, 'yyyy-MM-dd') // Format due date
+        dueDate: this.formatDate(item.dueDate, 'yyyy-MM-dd') // Use formatDate method
+
+      };
+    });
+
+    let allValid = true;
+
+    for (let i = 0; i < formattedItems.length; i++) {
+      const element = formattedItems[i];
+      const credit = element.credit;
+      const debit = element.debit;
+      console.log(element);
+
+      if (((credit != 0 && debit != 0) || (credit == 0 && debit == 0))) {
         this.toasterService.showError(
           this.langService.transalte('Error'),
-          this.langService.transalte('errorSum')
+          this.langService.transalte('InvalidAmount')
         );
+        console.log(allValid, i);
+
+        allValid = false;
+        break; // Exit the loop early if an invalid item is found
       }
     }
+
+    if (!allValid) return;
+    const totalCredit = this.getTotalCredit();
+    const totalDebit = this.getTotalDebit();
+    const totalSum = Math.round(this.getTotalDebit() - this.getTotalCredit());
+    if (totalSum == this.balance) {
+      this.error=false
+      this.ref.close(formattedItems);
+
+    } else {
+      this.error=true
+      this.toasterService.showError(
+        this.langService.transalte('Error'),
+        this.langService.transalte('errorSum')
+      );
+    }
+  }
+  getTotalCredit(): number {
+    return this.vendorForm.controls.reduce((total, control) => {
+      const credit = Number(control.get('credit')?.value) || 0; // Convert to number
+      return total + credit;
+    }, 0);
+  }
+
+  getTotalDebit(): number {
+    return this.vendorForm.controls.reduce((total, control) => {
+      const debit = Number(control.get('debit')?.value) || 0; // Convert to number
+      return total + debit;
+    }, 0);
+  }
+  getTotalBalanceSum() {
+    this.totalBalanceSum = Math.round(this.getTotalDebit() - this.getTotalCredit());
+    if(this.totalBalanceSum != this.balance){
+      this.error=true
+    }else{
+      this.error=false
+    }
+  }
+  resetDate(e:any){
+   
+  }
   
 
 }

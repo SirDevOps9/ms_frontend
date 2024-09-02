@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { DropDownDto, JournalLineDropdownDto, lookupDto, LookupEnum } from '../../../models';
+import { AccountDto, DropDownDto, GetLineDropDownById, JournalLineDropdownDto, lookupDto, LookupEnum } from '../../../models';
 import { DialogService } from 'primeng/dynamicdialog';
 import { customValidators, FormsService, LanguageService, LookupsService, RouterService, ToasterService } from 'shared-lib';
 import { Title } from '@angular/platform-browser';
@@ -8,6 +8,7 @@ import { PurchaseService } from '../../../purchase.service';
 import { SharedPurchaseEnums } from '../../../models/sharedenums';
 import { VendorOpeningBalanceAddComponent } from '../vendor-opening-balance-add/vendor-opening-balance-add.component';
 import { VendorOpeningBalanceDistributeComponent } from '../../../components/vendor-opening-balance-distribute/vendor-opening-balance-distribute.component';
+import { AccountNature } from '../../../models/account-nature';
 
 @Component({
   selector: 'app-vendor-opening-balance-edit',
@@ -20,47 +21,48 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
   formGroup: FormGroup;
   vendorForm: FormArray;
   openingJournalList: DropDownDto[];
-  linesDropDown: JournalLineDropdownDto[];
+  linesDropDown: GetLineDropDownById[];
+  vendorDropDownByAccountId: DropDownDto[] | any;
   amount: string;
+  balanceTypeSelect: string;
   debitOrCredit: string;
   openingJournalId: number;
-  vendorDropDownByAccountId: DropDownDto[] | any;
   totalBalance: number;
-  LookupEnum = LookupEnum;
+  filteredAccounts: AccountDto[] = [];
+  lookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
-  amountNature: string;
   openingBalanceJournalEntryLineId: number;
+  amountNature: AccountNature;
+  editMode: boolean;
   formChanged: boolean;
 
-
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private dialog: DialogService,
+    private PurchaseService: PurchaseService,
     private toasterService: ToasterService,
     private languageService: LanguageService,
-    private formService: FormsService,
-    public routerService: RouterService,
     private title: Title,
+    public routerService: RouterService,
+    private formService: FormsService,
     private lookupsService: LookupsService,
-    private purchaseService: PurchaseService,
-    public enums: SharedPurchaseEnums,) { }
-
-  ngOnInit() {
+    public enums: SharedPurchaseEnums
+  ) {}
+  
+  ngOnInit(): void {
     this.languageService
-    .getTranslation('openeingBalance.CustomerOpeningBalance')
-    .subscribe((res) => this.title.setTitle(res));
-  this.loadLookups();
-  this.initializeMainFormGroup();
-
-  this.subscribe();
-  this.vendorLineFormGroup();
-    this.getVendorOpeningBalance(this.vendorId());
+      .getTranslation('openeingBalance.CustomerOpeningBalance')
+      .subscribe((res) => this.title.setTitle(res));
+    this.loadLookups();
+    this.initializeMainFormGroup();
+    this.subscribe();
+    this.vendorLineFormGroup();
+    this.getVendorOpeningBalance(this.routerService.currentId);
     this.openingBalanceJournalEntryDropdown();
-
-
   }
 
-  vendorId() {
-    return this.routerService.currentId;
+  loadLookups() {
+    this.lookupsService.loadLookups([LookupEnum.AccountNature]);
   }
 
   private initializeMainFormGroup(): void {
@@ -74,105 +76,6 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
     this.vendorForm = this.fb.array([this.vendorLineFormGroup()]);
   }
 
-  getVendorOpeningBalance(id: number) {
-    this.purchaseService.getVendorOpeningBalanceByID(id);
-  }
-
-  vendorLineFormGroup(): FormGroup {
-    return this.fb.group({
-      id: 0,
-      vendorId: new FormControl('', customValidators.required),
-      accountName: new FormControl(),
-      vendorCode: new FormControl(),
-      balance: new FormControl(0, [
-        customValidators.required,
-        customValidators.number,
-        customValidators.hasSpaces,
-        customValidators.nonZero,
-      ]),
-      balanceType: new FormControl('', [customValidators.required]),
-     // displayName: new FormControl(),
-     balanceDueDates: new FormControl([]),
-    });
-  }
-
-  subscribe() {
-    this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
-
-    this.purchaseService.vendorOpeningBalnceDataByIDObservable.subscribe((res: any) => {
-      this.vendorForm.clear();
-      if (res.length != 0) {
-
-        this.formGroup?.patchValue(
-          {
-            OpeningJournal: res.openingBalanceJournalEntryId,
-            JournalLine: res.openingBalanceJournalLineId,
-            amount:res.amount,
-            amountNature: res.amountNature,
-          },
-          { emitEvent: true }
-        );
-        this.onOpeningJournalChange(res.openingBalanceJournalEntryId);
-        this.onLinesChange(res.openingBalanceJournalEntryLineId);
-        this.formChanged = false;
-      }
-      if (res && res.vendorOpeningDetails && Array.isArray(res.vendorOpeningDetails)) {
-        res.vendorOpeningDetails.forEach((detail: any, index: number) => {
-          const formGroup = this.vendorLineFormGroup();
-          formGroup.patchValue({
-            id: detail.id,
-            vendorId: detail.vendorId || '',
-            accountName: detail.vendorName || '',
-            vendorCode: detail.vendorCode || '',
-            balance: detail.balance || 0,
-            balanceType: detail.balanceType || '',
-           // displayName: detail.displayName || '',
-           balanceDueDates: detail.balanceDueDates || [],
-          });
-          this.vendorForm.push(formGroup);
-          this.accountSelected(detail.customerId, index);
-          this.calculateTotalBalance();
-        });
-      }
-    });
-    this.purchaseService.openingBalanceJournalEntryDropdownDataObservable.subscribe((res) => {
-      this.openingJournalList = res;
-    });
-
-    this.purchaseService.VendorDropDownByAccountIdObservable.subscribe((res) => {
-      this.vendorDropDownByAccountId = res;
-    });
-    this.purchaseService.JournalLinesDropDownDataObservable.subscribe((res: any) => {
-      this.linesDropDown = res;
-    });
-    
-     if (this.formGroup) {
-       this.formGroup.get('OpeningJournal')?.valueChanges.subscribe((value) => {
-         this.onOpeningJournalChange(value);
-       });
-       this.formGroup.get('JournalLine')?.valueChanges.subscribe((value) => {
-         this.onLinesChange(value);
-       });
-     }
-  }
-
-  cancel() {
-    this.routerService.navigateTo('/masterdata/customer-opening-balance');
-  }
-
-  openingBalanceJournalEntryDropdown() {
-    this.purchaseService.openingBalanceJournalEntryDropdown();
-  }
-
-  onOpeningJournalChange(event: any) {
-    this.getLinesDropDown(event);
-  }
-
-  getLinesDropDown(id: number) {
-    this.openingJournalId = id;
-    this.purchaseService.getLinesDropDown(id);
-  }
-  
   public get items(): FormArray {
     return this.vendorForm as FormArray;
   }
@@ -189,33 +92,113 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
     this.calculateTotalBalance();
   }
 
-  loadLookups() {
-    this.lookupsService.loadLookups([LookupEnum.AccountNature]);
+  onDelete(id: number, index: number): void {
+    if (id == 0) {
+      this.removeByFront(index);
+    } else {
+      this.PurchaseService.deletevendorOpeningBalance(id);
+      this.PurchaseService.vendorDeletedObser.subscribe((res: boolean) => {
+        if (res == true) {
+          this.vendorForm.removeAt(index);
+          this.calculateTotalBalance();
+        }
+      });
+    }
   }
-  
-  openDistribute(data: any, account: number, index: number, VendorGroup: FormGroup) {
-    if (!this.formService.validForm(this.vendorForm, false)) return;
 
-     if (data.balanceType != this.enums.BalanceType.Debit) {
-       this.toasterService.showError(
-         this.languageService.transalte('Error'),
-         this.languageService.transalte('Distribution')
-       );
-       return;
-     } else {
-       const ref = this.dialog.open(VendorOpeningBalanceDistributeComponent, {
-         width: '750px',
-         height: '600px',
-         data: data,
-       });
-       ref.onClose.subscribe((res) => {
-         if (res) {
-           data.dueDates = res;
-         } else {
-           data.dueDates = [];
-         }
-       });
-     }
+  vendorLineFormGroup(): FormGroup {
+    return this.fb.group({
+      id: 0,
+      vendorId: new FormControl('', customValidators.required),
+      accountName: new FormControl(),
+      vendorCode: new FormControl(),
+      balance: new FormControl(0, [
+        customValidators.required,
+        customValidators.number,
+        customValidators.hasSpaces,
+        customValidators.nonZero,
+      ]),
+      balanceType: new FormControl('', [customValidators.required]),
+      displayName: new FormControl(),
+      dueDates: new FormControl([]),
+    });
+  }
+
+  openDistribute(data: any, account: number, index: number, customerGroup: FormGroup) {
+    let accountData = this.filteredAccounts.find((elem) => elem.id === account);
+    if (!this.formService.validForm(this.vendorForm, false)) return;
+    if (data.balanceType != this.enums.BalanceType.Debit) {
+      this.toasterService.showError(
+        this.languageService.transalte('Error'),
+        this.languageService.transalte('Distribution')
+      );
+      return;
+    } else {
+      const ref = this.dialog.open(VendorOpeningBalanceDistributeComponent, {
+        width: '750px',
+        height: '600px',
+        data: data,
+      });
+      ref.onClose.subscribe((res) => {
+        if (res) {
+          data.dueDates = res;
+        } else {
+          data.dueDates = [];
+        }
+      });
+    }
+  }
+
+  openingBalanceJournalEntryDropdown() {
+    this.PurchaseService.openingBalanceJournalEntryDropdown();
+  }
+
+  onOpeningJournalChange(event: any) {
+    this.getLinesDropDown(event);
+  }
+
+  getLinesDropDown(id: number) {
+    this.openingJournalId = id;
+    this.PurchaseService.getLinesDropDown(id);
+  }
+
+  onLinesChange(event: any) {
+    setTimeout(() => {
+      this.linesDropDown?.forEach((element: any) => {
+        if (element.id == event) {
+          this.formGroup.patchValue({
+            amount: element.amount,
+            amountNature: element.amountNature,
+          });
+          this.getvendorDropDownByAccountId(element.accountId);
+          this.openingBalanceJournalEntryLineId = element.id;
+          this.amountNature = element.amountNature;
+        }
+      });
+    }, 500);
+  }
+
+  getvendorDropDownByAccountId(id: number) {
+    this.PurchaseService.getVendorDropDownByAccountId(id);
+  }
+
+
+  accountSelected(event: any, index: number) {
+    const line = this.items.at(index);
+    if (!line) {
+      return;
+    }
+    const selectedCustomer = this.vendorDropDownByAccountId.find((c: any) => c.id === event);
+
+    if (!selectedCustomer) {
+      return;
+    }
+
+    line.get('accountName')?.setValue(selectedCustomer.name);
+    line.get('vendorCode')?.setValue(selectedCustomer.code);
+    line.get('displayName')?.setValue(`${selectedCustomer.code}`);
+
+    line.get('vendorId')?.setValue(selectedCustomer.id);
   }
 
   balanceTypeSelected(event: any, index: number) {
@@ -224,19 +207,19 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
       return;
     }
 
-    const selectedVendorId = line.get('vendorId')?.value;
+    const selectedCustomerId = line.get('vendorId')?.value;
 
-    if (!selectedVendorId) {
+    if (!selectedCustomerId) {
       return;
     }
 
-    const isVendorAlreadySelected = this.items.controls.some((group, i) => {
-      return group.get('vendorId')?.value === selectedVendorId && i !== index;
+    const isCustomerAlreadySelected = this.items.controls.some((group, i) => {
+      return group.get('vendorId')?.value === selectedCustomerId && i !== index;
     });
 
-    if (isVendorAlreadySelected) {
+    if (isCustomerAlreadySelected) {
       const matchingGroup = this.items.controls.find(
-        (group) => group.get('vendorId')?.value === selectedVendorId
+        (group) => group.get('vendorId')?.value === selectedCustomerId
       );
       const existingBalanceType = matchingGroup?.get('balanceType')?.value;
 
@@ -249,8 +232,81 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
         return;
       }
     }
-
     line.get('balanceType')?.setValue(event);
+  }
+
+  onSubmit() {
+    if (!this.formService.validForm(this.vendorForm, false)) return;
+    this.vendorForm.updateValueAndValidity();
+    this.formGroup.updateValueAndValidity();
+    const body = {
+      id: this.routerService.currentId,
+      openingBalanceJournalEntryLineId: this.openingBalanceJournalEntryLineId,
+      amountNature: this.amountNature,
+      vendorOpeningBalanceDetails: this.items.value,
+    };
+    this.PurchaseService.EditVendorOpeningBalance(body);
+  }
+
+  getVendorOpeningBalance(id: number) {
+    this.PurchaseService.getVendorOpeningBalanceByID(id);
+  }
+
+  subscribe() {
+    this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
+
+    this.PurchaseService.vendorOpeningBalnceDataByIDObservable.subscribe((res: any) => {
+      this.vendorForm.clear();
+      if (res.length != 0) {
+        this.formGroup?.patchValue(
+          {
+            OpeningJournal: res.openingBalanceJournalEntryId,
+            JournalLine: res.openingBalanceJournalEntryLineId,
+          },
+          { emitEvent: true }
+        );
+        this.onOpeningJournalChange(res.openingBalanceJournalEntryId);
+        this.onLinesChange(res.openingBalanceJournalEntryLineId);
+        this.editMode = true;
+        this.formChanged = false;
+      }
+      if (res && res.vendorOpeningDetails && Array.isArray(res.vendorOpeningDetails)) {
+        res.vendorOpeningDetails.forEach((detail: any, index: number) => {
+          const formGroup = this.vendorLineFormGroup();
+          formGroup.patchValue({
+            id: detail.id,
+            vendorId: detail.vendorId || '',
+            accountName: detail.vendorName || '',
+            vendorCode: detail.vendorCode || '',
+            balance: detail.balance || 0,
+            balanceType: detail.balanceType || '',
+            displayName: detail.displayName || '',
+            dueDates: detail.balanceDueDates || [],
+          });
+          this.vendorForm.push(formGroup);
+          this.accountSelected(detail.vendorId, index);
+          this.calculateTotalBalance();
+        });
+      }
+    });
+    this.PurchaseService.openingBalanceJournalEntryDropdownDataObservable.subscribe((res) => {
+      this.openingJournalList = res;
+    });
+
+    this.PurchaseService.VendorDropDownByAccountIdObservable.subscribe((res) => {
+      this.vendorDropDownByAccountId = res;
+    });
+    this.PurchaseService.JournalLinesDropDownDataObservable.subscribe((res: any) => {
+      this.linesDropDown = res;
+    });
+    if (this.formGroup) {
+      this.formGroup.get('OpeningJournal')?.valueChanges.subscribe((value) => {
+        this.onOpeningJournalChange(value);
+      });
+      this.formGroup.get('JournalLine')?.valueChanges.subscribe((value) => {
+        this.onLinesChange(value);
+      });
+    }
   }
 
   calculateTotalBalance() {
@@ -260,58 +316,10 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
     }, 0);
   }
 
-  accountSelected(event: any, index: number) {
-    const line = this.items.at(index);
-    if (!line) {
-      return;
-    }
-
-    const selectedvendor = this.vendorDropDownByAccountId.find((c: any) => c.id === event);
-
-    if (!selectedvendor) {
-      return;
-    }
-
-    line.get('accountName')?.setValue(selectedvendor.name);
-    line.get('vendorCode')?.setValue(selectedvendor.code);
-    line.get('displayName')?.setValue(`${selectedvendor.code}`);
-
-    line.get('vendorId')?.setValue(selectedvendor.id);
+  cancel() {
+    this.routerService.navigateTo('/masterdata/vendor-opening-balance');
   }
 
-  getVendorDropDownByAccountId(id: number) {
-    this.purchaseService.getVendorDropDownByAccountId(id);
-  }
-
-  onLinesChange(event: any) {
-    setTimeout(() => {
-      this.linesDropDown?.forEach((element: any) => {
-        if (element.id == event) {
-          this.formGroup.patchValue({
-            amount: element.amount,
-            amountNature: element.amountNature,
-          });
-          this.getVendorDropDownByAccountId(element.accountId);
-          this.openingBalanceJournalEntryLineId = element.id;
-          this.amountNature = element.amountNature;
-        }
-      });
-    }, 500);
-  }
-  
-  onSubmit(){
-    if (!this.formService.validForm(this.vendorForm, false)) return;
-
-    this.vendorForm.updateValueAndValidity();
-    this.formGroup.updateValueAndValidity();
-    const body = {
-      id: this.routerService.currentId,
-      openingBalanceJournalEntryLineId: this.openingBalanceJournalEntryLineId,
-      amountNature: this.amountNature,
-      customerOpeningBalanceDetails: this.items.value,
-    };
-    this.purchaseService.EditVendorOpeningBalance(body);
-
-  }
+  ngOnDestroy() {}
 
 }

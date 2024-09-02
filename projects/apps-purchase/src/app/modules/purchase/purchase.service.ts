@@ -27,6 +27,7 @@ import {
   JournalLineDropdownDto,
   DropDownDto,
   AddVendorOpeningBalanceDto,
+  GetVendorOpeningBalanceViewDto,
 } from './models';
 import { PurchaseProxyService } from './purchase-proxy.service';
 import { FormGroup } from '@angular/forms';
@@ -103,6 +104,14 @@ export class PurchaseService {
   public VendorDropDownByAccountId = new BehaviorSubject<DropDownDto[]>([]);
   public VendorDropDownByAccountIdObservable =this.VendorDropDownByAccountId.asObservable();
   
+  private vendorDeleted = new BehaviorSubject<boolean>(false);
+  public vendorDeletedObser = this.vendorDeleted.asObservable();
+
+  private VendorOpeningBalanceView = new BehaviorSubject<GetVendorOpeningBalanceViewDto | undefined>(undefined);
+  public VendorOpeningBalanceViewObservable = this.VendorOpeningBalanceView.asObservable();
+
+
+
   
 
 
@@ -366,20 +375,27 @@ export class PurchaseService {
       },
     });
   }
+
   async deletevendorOpeningBalance(id: number) {
     const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
+      this.loaderService.show();
+
       this.purchaseProxy.deleteVendorOpeningBalance(id).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
-            this.languageService.transalte('deleteVendorDefinition.success'),
-            this.languageService.transalte('deleteVendorDefinition.delete')
+            this.languageService.transalte('Success'),
+            this.languageService.transalte('openeingBalance.CustomerDeleted')
           );
-          let data = this.vendorDefinitionDataSource.getValue();
-          const updatedVendor = data.filter((elem) => elem.id !== id);
-          this.vendorDefinitionDataSource.next(updatedVendor);
-
-          return res;
+          this.loaderService.hide();
+          this.vendorDeleted.next(res);
+        },
+        error: () => {
+          this.loaderService.hide();
+          this.toasterService.showError(
+            this.languageService.transalte('Error'),
+            this.languageService.transalte('DeleteError')
+          );
         },
       });
     }
@@ -387,6 +403,13 @@ export class PurchaseService {
   getVendorOpeningBalanceByID(id: number) {
     this.purchaseProxy.getVendorOpeningBalanceByID(id).subscribe((res) => {
       this.vendorOpeningBalnceDataByID.next(res);
+    });
+  }
+  getVendorOpeningBalanceView(id: number) {
+    this.purchaseProxy.GetVendorOpeningBalanceView(id).subscribe((res) => {
+      if (res) {
+        this.VendorOpeningBalanceView.next(res);
+      }
     });
   }
 }

@@ -18,6 +18,7 @@ import {
   VendorOpeningBalanceListDto,
   DropDownDto,
   JournalLineDropdownDto,
+  GetVendorOpeningBalanceViewDto,
 } from './models';
 @Injectable({
   providedIn: 'root',
@@ -156,5 +157,8 @@ export class PurchaseProxyService {
   }
   deleteVendorOpeningBalance(id: number): Observable<boolean> {
     return this.httpService.delete<boolean>(`VendorOpeningBalance/${id}`);
+  }
+  GetVendorOpeningBalanceView(id: number): Observable<GetVendorOpeningBalanceViewDto> {
+    return this.httpService.get<GetVendorOpeningBalanceViewDto>(`VendorOpeningBalance/GetOpeningBalanceView/${id}`);
   }
 }

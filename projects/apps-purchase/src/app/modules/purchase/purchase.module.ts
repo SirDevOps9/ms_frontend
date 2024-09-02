@@ -19,6 +19,7 @@ import { VendorOpeningBalanceAddComponent } from './pages/vendor-opening-balance
 import { VendorOpeningBalanceEditComponent } from './pages/vendor-opening-balance/vendor-opening-balance-edit/vendor-opening-balance-edit.component';
 import { VendorOpeningBalanceDistributeComponent } from './components/vendor-opening-balance-distribute/vendor-opening-balance-distribute.component';
 import { VendorOpeningBalanceViewComponent } from './pages/vendor-opening-balance/vendor-opening-balance-view/vendor-opening-balance-view.component';
+import { VendorOpeningBalanceDistributeViewComponent } from './components/vendor-opening-balance-distribute-view/vendor-opening-balance-distribute-view.component';
 
 const routes: Routes = [
   {
@@ -153,7 +154,8 @@ const routes: Routes = [
     VendorOpeningBalanceAddComponent,
     VendorOpeningBalanceEditComponent,
     VendorOpeningBalanceDistributeComponent,
-    VendorOpeningBalanceViewComponent
+    VendorOpeningBalanceViewComponent,
+    VendorOpeningBalanceDistributeViewComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })

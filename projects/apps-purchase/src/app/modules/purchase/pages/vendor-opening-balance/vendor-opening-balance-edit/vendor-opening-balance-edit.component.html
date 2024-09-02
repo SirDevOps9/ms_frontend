@@ -14,7 +14,7 @@
               optionLabel="code"
               optionValue="id"
               (valueChanged)="onOpeningJournalChange($event)"
-              [readOnly]="true"
+              [readOnly]="editMode"
             >
             </lib-select>
           </lib-form-group>
@@ -31,7 +31,7 @@
               optionLabel="accountCodeName"
               optionValue="id"
               (valueChanged)="onLinesChange($event)"
-              [readOnly]="true"
+              [readOnly]="editMode"
             >
             </lib-select>
           </lib-form-group>
@@ -152,7 +152,7 @@
                   <lib-form-group>
                     <lib-select
                       formControlName="balanceType"
-                      [options]="lookups[LookupEnum.AccountNature]"
+                      [options]="lookups[lookupEnum.AccountNature]"
                       optionValue="name"
                       optionLabel="name"
                       placeholder="{{ 'openeingBalance.balanceType' | translate }}"
@@ -199,7 +199,7 @@
                 src="assets/images/table/delete.svg"
                 class="pointer"
                 alt=""
-                (click)="removeByFront(i)"
+                (click)="onDelete(customerGroup.controls['id'].value, i)"
               />
               <!-- <i class="pi pi-trash pointer" (click)="onDelete(customerGroup.controls['id'].value, i)"></i> -->
             </td>
