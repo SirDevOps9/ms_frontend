@@ -32,16 +32,17 @@ export class VendorOpeningBalanceDistributeComponent implements OnInit {
     ngAfterViewInit(): void {
       this.balance = this.config.data.balance;
       this.vendorForm.clear();
+      console.log("sandra",this.config.data);
   
-      if (this.config.data.dueDates) {
-        this.config.data.dueDates.forEach((e: any) => {
-          console.log(this.config.data.dueDates, "this.config.data.dueDates");
+      if (this.config.data.dueDate) {
+        this.config.data.dueDate.forEach((e: any) => {
+          console.log("data",this.config.data.balanceDueDates.dueDate);
   
           this.vendorForm.push(this.fb.group({
-            id: e.id,
-            dueDate: e.dueDate,
-            credit: e.credit,
-            debit: e.debit
+            id: e.balanceDueDates.id,
+            dueDate: e.balanceDueDates.dueDate,
+            credit: e.balanceDueDates.credit,
+            debit: e.balanceDueDates.debit
           }));
         });
         this.getTotalBalanceSum();

@@ -106,7 +106,9 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
         this.formGroup?.patchValue(
           {
             OpeningJournal: res.openingBalanceJournalEntryId,
-            JournalLine: res.openingBalanceJournalEntryLineId,
+            JournalLine: res.openingBalanceJournalLineId,
+            amount:res.amount,
+            amountNature: res.amountNature,
           },
           { emitEvent: true }
         );
@@ -167,7 +169,6 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
   }
 
   getLinesDropDown(id: number) {
-    console.log('id', id);
     this.openingJournalId = id;
     this.purchaseService.getLinesDropDown(id);
   }

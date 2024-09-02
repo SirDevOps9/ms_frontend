@@ -194,6 +194,7 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
     this.salesService.getCustomerDropDownByAccountId(id);
   }
 
+
   accountSelected(event: any, index: number) {
     const line = this.items.at(index);
     if (!line) {

@@ -1,27 +1,27 @@
-<!-- <div style="margin-left: 20px; overflow-x: hidden">
+ <!-- <div style="margin-left: 20px; overflow-x: hidden">
   <div class="grid-cont">
     <div class="my-3 grid-item">
       <p class="headsCont paragraph_b16">{{  'openeingBalance.openingJournal' | translate }}</p>
       <small class="subHead heading_b16">
-        {{ customerView?.openingBalanceJournalEntryCode }}
+        {{ vendorView?. }}
       </small>
     </div>
     <div class="my-3 grid-item">
       <p class="headsCont paragraph_b16">{{ 'openeingBalance.JournalLine' | translate }}</p>
       <small class="subHead heading_b16">
-        {{ customerView?.journalEntryLineDescription }}
+        {{ vendorView?.journalEntryLineDescription }}
       </small>
     </div>
     <div class="my-3 grid-item">
       <p class="headsCont paragraph_b16">{{ 'openeingBalance.amount'| translate }}</p>
       <small class="subHead heading_b16">
-        {{ customerView?.amount }}
+        {{ vendorView?.amount }}
       </small>
     </div>
     <div class="my-3 grid-item">
       <p class="headsCont paragraph_b16">{{ 'openeingBalance.debitCredit' | translate }}</p>
       <small class="subHead heading_b16">
-        {{ customerView?.amountNature }}
+        {{ vendorView?.amountNature }}
       </small>
     </div>
 
@@ -29,8 +29,8 @@
 
   <div class="journal_page">
     <lib-data-table
-      *ngIf="customerView"
-      [items]="customerView!.customerOpeningDetails!"
+      *ngIf="vendorView"
+      [items]="vendorView!.customerOpeningDetails!"
       className="p-datatable-gridlines"
       [tableConfigs]="{
         allowPagination: false,
@@ -103,4 +103,4 @@
       </ng-container>
     </lib-data-table>
   </div>
-</div> -->
+</div>  -->

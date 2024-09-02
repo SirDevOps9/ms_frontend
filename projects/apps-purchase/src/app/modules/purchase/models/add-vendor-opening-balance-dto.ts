@@ -3,14 +3,14 @@ import { AccountNature } from "projects/apps-accounting/src/app/modules/account/
 export interface AddVendorOpeningBalanceDto {
     OpeningBalanceJournalEntryLineId: string;
     AmountNature: AccountNature;
-    VendorOpeningBalanceDetails:VendorOpeningBalanceDetailsDto;
+    VendorOpeningBalanceDetails:VendorOpeningBalanceDetailsDto[];
   }
 
   export interface VendorOpeningBalanceDetailsDto {
     id: number;
     Balance: number[];
     BalanceType:string;
-    DueDates:VendorOpeningBalanceDueDatesDto;
+    DueDates:VendorOpeningBalanceDueDatesDto[];
   }
 
   export interface VendorOpeningBalanceDueDatesDto {

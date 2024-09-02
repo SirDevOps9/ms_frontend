@@ -56,7 +56,7 @@ export class PurchaseService {
   public vendorDefinitionDataByID = new BehaviorSubject<GetVendorById | undefined>({} as GetVendorById | undefined);
   private vendorDefinitionDataSource = new BehaviorSubject<vendorDefinitionDto[]>([]);
   private vendorOpeningBalanceDataSource = new BehaviorSubject<VendorOpeningBalanceListDto[]>([]);
-  public vendorOpeningBalnceDataByID = new BehaviorSubject<any | undefined>({} as any | undefined);
+  public vendorOpeningBalnceDataByID = new BehaviorSubject<AddVendorOpeningBalanceDto | undefined>({} as AddVendorOpeningBalanceDto | undefined);
 
 
   public addVendorCategoryDataObservable = this.addVendorCategoryData.asObservable();
