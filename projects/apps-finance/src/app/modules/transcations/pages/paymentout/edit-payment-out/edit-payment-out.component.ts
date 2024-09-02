@@ -319,7 +319,24 @@ export class EditPaymentOutComponent implements OnInit {
 
         });
       }
-   
+      if(res.paymentHub){
+        console.log(res.paymentHub ,"res.value.paymentHubres.value.paymentHubres.value.paymentHub");
+        if(res.paymentHub == this.sharedFinanceEnums.paymentplaceString.Bank){
+          console.log("000000000000000");
+          this.getAccountBalance(res.bankAccountId)
+          if(res.currencyId){
+            this.getAccountCurrencyRate(res.currencyId )
+           }
+          
+        } else if(res.paymentHub == this.sharedFinanceEnums.paymentplaceString.Treasury){
+          console.log("111111111111");
+          this.getTreasuryBalance(res.treasuryId)
+          
+          if(res.currencyId){
+            this.getAccountCurrencyRate(res.currencyId)
+           }
+        }
+     }
       this.paymentOutDetailsFormArray.controls.forEach((control: any, index: number) => {
         if(control.value.paidBy === this.sharedFinanceEnums.paiedDropDown.other ){
           console.log(control , "555555555555555");
@@ -489,7 +506,7 @@ export class EditPaymentOutComponent implements OnInit {
           this.addForm.controls['currency'].patchValue(e.currencyName)
           this.addForm.controls['currencyId'].patchValue(e.currencyId)
 
-          this.getAccountCurrencyRate(this.addForm.controls['currencyId'].value as number, id);
+          this.getAccountCurrencyRate(this.addForm.controls['currencyId'].value as number);
           this.addForm.controls['currentBalance'].patchValue(this.TreasuryBalance)
 
         }
@@ -497,18 +514,22 @@ export class EditPaymentOutComponent implements OnInit {
       })
     }
   }
-  getCurrencyBankAccount(id: number) {
 
+  getCurrencyBankAccount(id: number) {
+    if(this.addForm.controls['paymentHubDetailId'].value&& id){
     this.bankAccount.forEach((element: any) => {
       if (element.id == id) {
         this.selectedCurrency = element.currencyName
         this.addForm.controls['currencyId'].patchValue(element.currencyId)
-        this.getAccountCurrencyRate(this.addForm.controls['currencyId'].value as number, id);
+        this.getAccountCurrencyRate(this.addForm.controls['currencyId'].value as number);
         this.getAccountBalance(element.id)
       }
     });
     
-    this.getAllPayMethodsDropdown(this.addForm.controls['paymentHubDetailId'].value, id)
+   
+      this.getAllPayMethodsDropdown(this.addForm.controls['paymentHubDetailId'].value, id)
+
+    }
     this.addForm.controls['currentBalance'].patchValue(this.AccountBalance)
   }
   clacLocalAmount(e: any) {
@@ -753,7 +774,7 @@ export class EditPaymentOutComponent implements OnInit {
 
     return total;
   }
-  getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
+  getAccountCurrencyRate(accountCurrency: number) {
     this.financeService.getAccountCurrencyRate(
       accountCurrency,
       this.currentUserService.getCurrency()
