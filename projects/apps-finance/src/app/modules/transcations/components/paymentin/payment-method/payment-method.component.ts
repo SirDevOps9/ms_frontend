@@ -40,7 +40,7 @@ export class PaymentMethodComponent {
             vatAmount: paymentDetails.VatAmount || null,
             commissionAmount: paymentDetails.CommissionAmount || null,
           });
-        }, 500);
+        }, 100);
      
 
       }
