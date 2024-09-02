@@ -5,7 +5,7 @@
         <div class="md:col-4">
           <lib-form-group>
             <lib-label [appControl]="formGroup.controls['OpeningJournal']">
-              {{ 'openeingBalance.openingJournal' | translate }}
+              {{ 'addVendorOpeneingBalance.openingJournal' | translate }}
             </lib-label>
             <lib-select
               formControlName="OpeningJournal"
@@ -22,7 +22,7 @@
         <div class="md:col-4">
           <lib-form-group>
             <lib-label [appControl]="formGroup.controls['JournalLine']">
-              {{ 'openeingBalance.JournalLine' | translate }}
+              {{ 'addVendorOpeneingBalance.JournalLine' | translate }}
             </lib-label>
             <lib-select
               formControlName="JournalLine"
@@ -39,7 +39,7 @@
         <div class="md:col-2">
           <lib-form-group>
             <lib-label [appControl]="formGroup.controls['amount']">
-              {{ 'openeingBalance.amount' | translate }}
+              {{ 'addVendorOpeneingBalance.amount' | translate }}
             </lib-label>
             <lib-text-input
               type="text"
@@ -55,7 +55,7 @@
         <div class="md:col-2">
           <lib-form-group>
             <lib-label [appControl]="formGroup.controls['amountNature']">
-              {{ 'openeingBalance.debitCredit' | translate }}
+              {{ 'addVendorOpeneingBalance.debitCredit' | translate }}
             </lib-label>
             <lib-text-input
               type="text"
@@ -84,12 +84,12 @@
       >
         <ng-template pTemplate="header">
           <tr>
-            <th>{{ 'customerDefinition.code' | translate }}</th>
-            <th>{{ 'customerDefinition.name' | translate }}</th>
-            <th>{{ 'openeingBalance.balance' | translate }}</th>
-            <th>{{ 'openeingBalance.balanceType' | translate }}</th>
-            <th>{{ 'openeingBalance.dueDate' | translate }}</th>
-            <th>{{ 'customerDefinition.actions' | translate }}</th>
+            <th>{{ 'addVendorOpeneingBalance.code' | translate }}</th>
+            <th>{{ 'addVendorOpeneingBalance.name' | translate }}</th>
+            <th>{{ 'addVendorOpeneingBalance.balance' | translate }}</th>
+            <th>{{ 'addVendorOpeneingBalance.balanceType' | translate }}</th>
+            <th>{{ 'addVendorOpeneingBalance.dueDate' | translate }}</th>
+            <th>{{ 'addVendorOpeneingBalance.actions' | translate }}</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-customerGroup let-editing="editing" let-i="rowIndex">
@@ -106,7 +106,7 @@
                       [options]="vendorDropDownByAccountId"
                       optionValue="id"
                       optionLabel="name"
-                      placeholder="{{ 'customerDefinition.code' | translate }}"
+                      placeholder="{{ 'addVendorOpeneingBalance.code' | translate }}"
                       (valueChanged)="accountSelected($event, i)"
                       [selectedValue]="customerGroup.controls['vendorId'].value"
                     >
@@ -155,7 +155,7 @@
                       [options]="lookups[lookupEnum.AccountNature]"
                       optionValue="name"
                       optionLabel="name"
-                      placeholder="{{ 'openeingBalance.balanceType' | translate }}"
+                      placeholder="{{ 'addVendorOpeneingBalance.balanceType' | translate }}"
                       (valueChanged)="balanceTypeSelected($event, i)"
                       [selectedValue]="customerGroup.controls['balanceType'].value"
                     >
@@ -174,7 +174,7 @@
 
             <td>
               <lib-button-micro
-                title="{{ 'openeingBalance.distribute' | translate }}"
+                title="{{ 'addVendorOpeneingBalance.distribute' | translate }}"
                 (click)="
                   openDistribute(
                     customerGroup.value,
@@ -208,7 +208,7 @@
         <ng-template pTemplate="footer">
           <tr>
             <td colspan="2" class="imptyData total" style="text-align: center">
-              {{ 'total' | translate }}
+              {{ 'addVendorOpeneingBalance.total' | translate }}
             </td>
             <td class="total">
               {{ totalBalance }}
@@ -224,7 +224,7 @@
             </div> -->
       <div class="add_new">
         <button class="btn" (click)="addLine()">
-          {{ 'add_new_line' | translate }}
+          {{ 'addVendorOpeneingBalance.add_new_line' | translate }}
         </button>
       </div>
       <!-- <div class="action_header">

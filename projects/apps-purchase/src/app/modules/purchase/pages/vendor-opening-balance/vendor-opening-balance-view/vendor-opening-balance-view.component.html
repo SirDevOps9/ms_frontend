@@ -1,25 +1,25 @@
 <div style="margin-left: 20px; overflow-x: hidden">
   <div class="grid-cont">
     <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{  'openeingBalance.openingJournal' | translate }}</p>
+      <p class="headsCont paragraph_b16">{{  'addVendorOpeneingBalance.openingJournal' | translate }}</p>
       <small class="subHead heading_b16">
         {{ vendorView?.openingBalanceJournalEntryCode }}
       </small>
     </div>
     <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{ 'openeingBalance.JournalLine' | translate }}</p>
+      <p class="headsCont paragraph_b16">{{ 'addVendorOpeneingBalance.JournalLine' | translate }}</p>
       <small class="subHead heading_b16">
         {{ vendorView?.journalEntryLineDescription }}
       </small>
     </div>
     <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{ 'openeingBalance.amount'| translate }}</p>
+      <p class="headsCont paragraph_b16">{{ 'addVendorOpeneingBalance.amount'| translate }}</p>
       <small class="subHead heading_b16">
         {{ vendorView?.amount }}
       </small>
     </div>
     <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{ 'openeingBalance.debitCredit' | translate }}</p>
+      <p class="headsCont paragraph_b16">{{ 'addVendorOpeneingBalance.debitCredit' | translate }}</p>
       <small class="subHead heading_b16">
         {{ vendorView?.amountNature }}
       </small>
@@ -40,31 +40,31 @@
         columns: [
           {
             name: 'vendorCode',
-            headerText: 'customerDefinition.code'  | translate,
+            headerText: 'addVendorOpeneingBalance.code'  | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'vendorName',
-            headerText: 'customerDefinition.name' | translate,
+            headerText: 'addVendorOpeneingBalance.name' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'balance',
-            headerText: 'openeingBalance.balance' | translate,
+            headerText: 'addVendorOpeneingBalance.balance' | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'balanceType',
-            headerText:'openeingBalance.balanceType'  | translate,
+            headerText:'addVendorOpeneingBalance.balanceType'  | translate,
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'id',
-            headerText: 'openeingBalance.dueDate'| translate,
+            headerText: 'addVendorOpeneingBalance.dueDate'| translate,
             isGlobalFilter: true,
             isSortable: true,
             template : dueDates
@@ -75,7 +75,7 @@
       <ng-template #dueDates let-i>
         <div>
           <lib-button-micro
-          title="{{ 'openeingBalance.ViewDistribution' | translate }}"
+          title="{{ 'addVendorOpeneingBalance.ViewDistribution' | translate }}"
           (click)="
             openDistribute(i)
           "
@@ -92,7 +92,7 @@
       <ng-container footer>
         <tr>
           <td colspan="2" class="imptyData total" style="text-align: center">
-            {{ 'total' | translate }}
+            {{ 'addVendorOpeneingBalance.total' | translate }}
           </td>
           <td class="total">
             {{ totalBalance }}

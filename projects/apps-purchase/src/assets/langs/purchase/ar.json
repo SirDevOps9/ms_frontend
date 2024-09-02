@@ -187,11 +187,26 @@
   "editTreasury": {
     "edit": "تم تعديل تعريف الخزانة بنجاح"
   },
-  "VendorOpeningBalance": {
-    "CustomerOpeningBalance": "رصيد افتتاحي للعميل",
-    "OpeningJournalCode": "رمز القيد الافتتاحي",
+ "VendorOpeningBalance": {
+    "CustomerOpeningBalance": "رصيد افتتاحي للبائع",
+    "OpeningJournalCode": "رمز السجل الافتتاحي",
     "AccountName": "اسم الحساب",
     "Amount": "المبلغ",
     "AmountNature": "طبيعة المبلغ"
   },
+  "addVendorOpeneingBalance": {
+    "openingJournal": "السجل الافتتاحي",
+    "JournalLine": "سطر السجل",
+    "amount": "المبلغ",
+    "debitCredit": "مدين/دائن",
+    "code": "الرمز",
+    "name": "الاسم",
+    "balance": "الرصيد",
+    "balanceType": "نوع الرصيد",
+    "dueDate": "تاريخ الاستحقاق",
+    "actions": "الإجراءات",
+    "distribute": "توزيع",
+    "total": "الإجمالي",
+    "add_new_line": "إضافة سطر جديد"
+  }
 }

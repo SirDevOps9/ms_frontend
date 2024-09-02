@@ -43,7 +43,7 @@ export class VendorOpeningBalanceAddComponent implements OnInit {
   ngOnInit() {
 
     this.languageService
-    .getTranslation('openeingBalance.CustomerOpeningBalance')
+    .getTranslation('VendorOpeningBalance.vendorOpeningBalance')
     .subscribe((res) => this.title.setTitle(res));
 
   this.purchaseService.JournalLinesDropDownData.next([]);
