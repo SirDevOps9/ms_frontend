@@ -192,7 +192,12 @@
     "OpeningJournalCode": "رمز السجل الافتتاحي",
     "AccountName": "اسم الحساب",
     "Amount": "المبلغ",
-    "AmountNature": "طبيعة المبلغ"
+    "AmountNature": "طبيعة المبلغ",
+    "VendorDeleted": "تم حذف المورد بنجاح",
+  "VendorUpdated": "تم تحديث المورد بنجاح",
+  "VendorAdded": "تم إضافة المورد بنجاح",
+  "Search": "بحث"
+
   },
   "addVendorOpeneingBalance": {
     "openingJournal": "السجل الافتتاحي",

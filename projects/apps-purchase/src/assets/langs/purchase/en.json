@@ -194,7 +194,11 @@
     "OpeningJournalCode": "Opening Journal Code",
     "AccountName": "Account Name",
     "Amount": "Amount",
-    "AmountNature": "Amount Nature"
+    "AmountNature": "Amount Nature",
+    "VendorDeleted":"Vendor Deleted Successfully",
+    "VendorUpdated":"Vendor Updated Successfully",
+    "VendorAdded":"Vendor Added Successfully",
+    "Search":"Search"
   },
   "addVendorOpeneingBalance": {
     "openingJournal": "Opening Journal",

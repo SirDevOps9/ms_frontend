@@ -350,7 +350,7 @@ export class PurchaseService {
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('addCustomerDefinition.success'),
-          this.languageService.transalte('openeingBalance.CustomerAdded')
+          this.languageService.transalte('openeingBalance.VendorAdded')
         );
         if (res) {
           this.loaderService.hide();
@@ -366,8 +366,8 @@ export class PurchaseService {
     this.purchaseProxy.editVendorrOpeningBalance(vendor).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('addCustomerCategory.success'),
-          this.languageService.transalte('openeingBalance.CustomerEdited')
+          this.languageService.transalte('Success'),
+          this.languageService.transalte('VendorOpeningBalance.VendorUpdated')
         );
         if (res) {
           this.routerService.navigateTo('/masterdata/vendor-opening-balance');
@@ -385,7 +385,7 @@ export class PurchaseService {
         next: (res) => {
           this.toasterService.showSuccess(
             this.languageService.transalte('Success'),
-            this.languageService.transalte('openeingBalance.CustomerDeleted')
+            this.languageService.transalte('VendorOpeningBalance.VendorDeleted')
           );
           this.loaderService.hide();
           this.vendorDeleted.next(res);

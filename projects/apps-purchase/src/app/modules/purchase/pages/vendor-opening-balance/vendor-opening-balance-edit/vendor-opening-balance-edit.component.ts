@@ -261,12 +261,12 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
         this.formGroup?.patchValue(
           {
             OpeningJournal: res.openingBalanceJournalEntryId,
-            JournalLine: res.openingBalanceJournalEntryLineId,
+            JournalLine: res.openingBalanceJournalLineId,
           },
           { emitEvent: true }
         );
         this.onOpeningJournalChange(res.openingBalanceJournalEntryId);
-        this.onLinesChange(res.openingBalanceJournalEntryLineId);
+        this.onLinesChange(res.openingBalanceJournalLineId);
         this.editMode = true;
         this.formChanged = false;
       }
