@@ -112,24 +112,10 @@ export class AddPaymentInComponent {
     this.financeService.customerDropdown()
   }
   initializeDropDown() {
-    // this.paidBy = [
-    //   {
-    //     id: 1,
-    //     name: "customer"
-    //   },
-    //   {
-    //     id: 2,
-    //     name: "vendor"
-    //   },
-    //   {
-    //     id: 3,
-    //     name: "other"
-    //   },
-    // ]
     this.paidBy = [
-      { id: 1, name: this.sharedFinanceEnums.PaidBy.Customer },
-      { id: 2, name: this.sharedFinanceEnums.PaidBy.Vendor },
-      { id: 3, name: this.sharedFinanceEnums.PaidBy.Other }
+      { id: 1, name: this.sharedFinanceEnums.paiedDropDown.customer },
+      { id: 2, name: this.sharedFinanceEnums.paiedDropDown.vendor },
+      { id: 3, name: this.sharedFinanceEnums.paiedDropDown.other }
     ];
     this.other = [
       {
@@ -145,7 +131,7 @@ export class AddPaymentInComponent {
   initializeForm() {
     this.addForm = this.formBuilder.group({
       description: new FormControl(''),
-      PaymentInDate: new FormControl(this.getTodaysDate(), [customValidators.required]),
+      PaymentInDate: new FormControl('', [customValidators.required]),
       paymentHub: new FormControl('', [customValidators.required]),
       bankAccountId: new FormControl(null),
       paymentHubDetailId: new FormControl('', [customValidators.required]),
@@ -166,10 +152,6 @@ export class AddPaymentInComponent {
 
   }
 
-  getTodaysDate() {
-    var date = new Date();
-    return date.toISOString().substring(0, 10);
-  }
   loadLookups() {
     this.lookupsService.loadLookups([
       LookupEnum.PaymentMethodType,

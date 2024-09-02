@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
 import {
@@ -15,7 +15,6 @@ import {
 } from 'shared-lib';
 import { AccountDto, BankAccount, BankPaymentMethods, costCenters, CustomerDropDown, PaidByDropDown, paymentplace, paymentplaceString, SharedFinanceTranscationEnums, SimpleDropDown, TreasuriesPaymentMethod, TreasuryDropDown, VendorDropDown } from '../../../models';
 import { CurrencyDto } from '../../../../general/models';
-import { DatePipe } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { TranscationsService } from '../../../transcations.service';
 import { PaymentMethodComponent } from '../../../components/paymentin/payment-method/payment-method.component';
@@ -64,6 +63,7 @@ export class EditPaymentInComponent {
   id: number;
   newBalance: number = 0;
   selectedBank: boolean;
+  change: boolean;
   selectedCurrency: string = "";
   paymentMethod: BankPaymentMethods[] = []
   AllTreasuriesPayMethod: TreasuriesPaymentMethod[] = []
@@ -91,15 +91,12 @@ export class EditPaymentInComponent {
       this.langService.transalte('PaymentIn.editpaymentin')
     );
     this.id = this.route.snapshot.params['id'];
-
     this.getPaymentDetails(this.id);
     this.initializeForm();
     this.subscribe();
     this.initializeDropDown();
     this.loadLookups();
-    // this.addNewRow()
-
-
+  
   }
   getPaymentDetails(id: number) {
     this.financeService.getPaymentInById(id)
@@ -141,9 +138,9 @@ export class EditPaymentInComponent {
 
 
     this.addForm = this.formBuilder.group({
-      id:new FormControl(0),
+      id: new FormControl(0),
       description: new FormControl(''),
-      paymentInDate: new FormControl( '', [customValidators.required]),
+      paymentInDate: new FormControl('', [customValidators.required]),
       paymentHub: new FormControl('', [customValidators.required]),
       bankAccountId: new FormControl(null),
       paymentHubDetailId: new FormControl('', [customValidators.required]),
@@ -151,14 +148,11 @@ export class EditPaymentInComponent {
       rate: new FormControl<number | undefined>(0, [customValidators.required]),
       glAccountId: new FormControl(null),
       paymentInDetails: this.formBuilder.array([]),
-
-      ////////
       code: new FormControl(''),
       currency: new FormControl(""),
       currentBalance: new FormControl(0),
       totalReceivedAmount: new FormControl(0),
       newBalance: new FormControl(''),
-      // paymentInDetailCostCenters: new FormControl(null),
     });
     this.addForm.controls['paymentInDate'].patchValue(new Date());
 
@@ -201,7 +195,6 @@ export class EditPaymentInComponent {
 
   }
   getDetails(id: string) {
-    // this.paymentInDetailsFormArray.clear()
     this.addForm.controls['currentBalance'].patchValue(0)
     this.addForm.controls['totalReceivedAmount'].patchValue(0)
 
@@ -227,7 +220,7 @@ export class EditPaymentInComponent {
   getpaidByDetails(index: number, name: string) {
     const journalLine = this.paymentInDetailsFormArray.at(index);
     journalLine.get('glAccountname')?.setValue(null);
-     journalLine.get('paidByDetailsName')?.setValue(null);
+    journalLine.get('paidByDetailsName')?.setValue(null);
 
     if (name == this.sharedFinanceEnums.paiedDropDown.customer) {
       this.paidByDetailsCustomer = this.customerDropDown
@@ -236,7 +229,7 @@ export class EditPaymentInComponent {
 
     } else if (name == this.sharedFinanceEnums.paiedDropDown.other) {
       this.paidByDetailsOther = this.other
-           journalLine.get('paidByDetailsName')?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount);
+      journalLine.get('paidByDetailsName')?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount);
 
     }
   }
@@ -282,9 +275,6 @@ export class EditPaymentInComponent {
       this.AccountBalance = res
 
     })
-    // this.addForm.get('paymentInDate')?.valueChanges.subscribe((res: any) => {
-    //   this.paymentInDate = this.formatDate(res, 'yyyy-MM-dd');
-    // })
 
     this.addForm.get('paymentHub')?.valueChanges.subscribe((res: any) => {
       if (res == paymentplace.Treasury) {
@@ -312,81 +302,66 @@ export class EditPaymentInComponent {
       this.paymentDetails = res
       this.addForm.patchValue({
         ...res,
-        // paymentInDetailsFormArray: res.paymentInDetails,
       });
       this.addForm.get('paymentInDate')?.setValue(new Date(res.paymentInDate))
-      // if(res.paymentInDetails){
-      //   res.paymentInDetails.forEach((element:any) => {
-          
-      //             this.paymentInDetailsFormArray.push(this.formBuilder.group(element))
-      //             // this.getLabel(element, this.toNumber(element.paidByDetailsId))
-                 
-      //             this.calculateTotalAmount()
 
-
-      //   });
-      // }
       if (res.paymentInDetails) {
         res.paymentInDetails.forEach((element: any) => {
-            const formGroup = this.formBuilder.group({
-                ...element,
-                paymentInDetailCostCenters: this.formBuilder.array(
-                    element.paymentInDetailCostCenters.map((costCenter: any) =>
-                        this.formBuilder.group(costCenter)
-                    )
-                )
-            });
-    
-            this.paymentInDetailsFormArray.push(formGroup);
-            this.calculateTotalAmount();
+          const formGroup = this.formBuilder.group({
+            ...element,
+            paymentInDetailCostCenters: this.formBuilder.array(
+              element.paymentInDetailCostCenters.map((costCenter: any) =>
+                this.formBuilder.group(costCenter)
+              )
+            )
+          });
+
+          this.paymentInDetailsFormArray.push(formGroup);
+          this.calculateTotalAmount();
         });
-    }
-    
-      console.log(res.paymentInDetailsFormArray ,"this.paymentInDetailsFormArray77777777777777777777");
-      
-   if(res.paymentHub){
-      console.log(res.paymentHub ,"res.value.paymentHubres.value.paymentHubres.value.paymentHub");
-      if(res.paymentHub == this.sharedFinanceEnums.paymentplaceString.Bank){
-        this.getAccountBalance(res.bankAccountId)
-        if(res.currencyId){
-          this.getAccountCurrencyRate(res.currencyId )
-         }
-        
-      } else if(res.paymentHub == this.sharedFinanceEnums.paymentplaceString.Treasury){
-        this.getTreasuryBalance(res.treasuryId)
-        
-        if(res.currencyId){
-          this.getAccountCurrencyRate(res.currencyId)
-         }
       }
-   }
-  
-      this.paymentInDetailsFormArray.controls.forEach((control: any, index: number) => {
-        if(control.value.paidBy === this.sharedFinanceEnums.paiedDropDown.other ){
-          control.get('paidByDetailsName')?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount) 
+
+
+      if (res.paymentHub) {
+        if (res.paymentHub == this.sharedFinanceEnums.paymentplaceString.Bank) {
+          this.getAccountBalance(res.bankAccountId)
+          if (res.currencyId) {
+            this.getAccountCurrencyRate(res.currencyId)
+          }
+
+        } else if (res.paymentHub == this.sharedFinanceEnums.paymentplaceString.Treasury) {
+          this.getTreasuryBalance(res.treasuryId)
+
+          if (res.currencyId) {
+            this.getAccountCurrencyRate(res.currencyId)
+          }
         }
+      }
 
-        //  control.value.PaidBy
-        // this.getpaidByDetails(index, control.value.paidBy)
-        // this.getLabel(control, this.toNumber(control.value.paidByDetailsId))
-
-        // this.accountSelected( control.value.glAccountId , index )
+      this.paymentInDetailsFormArray.controls.forEach((control: any, index: number) => {
+        if (control.value.paidBy === this.sharedFinanceEnums.paiedDropDown.other) {
+          control.get('paidByDetailsName')?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount)
+        }
       });
       this.addForm.controls['currency'].patchValue(res.currencyName)
-      // this.addForm.controls['paymentHubDetailId'].patchValue(res.paymentHubDetailId)
-
+      this.change=true
+      this.addForm.valueChanges.subscribe((formValues: any) => {
+        if (this.change) {
+          console.log( "changechangechangechangechangechangechangechange");
+        }
+      });
     })
     this.addForm.controls['paymentHub'].valueChanges.subscribe((paymentHub: any) => {
-       this.getDetails(paymentHub)
+      this.getDetails(paymentHub)
       this.addForm.controls['paymentHubDetailId'].patchValue(this.paymentDetails.paymentHubDetailId)
 
-       this.bankAccountDropDown(this.paymentDetails.paymentHubDetailId)
+      this.bankAccountDropDown(this.paymentDetails.paymentHubDetailId)
 
 
 
     })
-    this.addForm.controls['paymentHubDetailId'].valueChanges.subscribe((res:any)=>{
-      this.getCurrencyBankAccount(this.toNumber( res))
+    this.addForm.controls['paymentHubDetailId'].valueChanges.subscribe((res: any) => {
+      this.getCurrencyBankAccount(this.toNumber(res))
     })
   }
 
@@ -409,26 +384,13 @@ export class EditPaymentInComponent {
         currencyId: new FormControl(this.addForm.controls['currencyId'].value),
         paymentInMethodDetail: new FormControl([]),
         paymentInDetailCostCenters: new FormControl([]),
-
-        /////////
         id: new FormControl(0),
-        // accountName: new FormControl(''),
         paymentMethodName: new FormControl(''),
         paidByDetailsName: new FormControl(''),
-        // accountCode: new FormControl('', [customValidators.required]),
-        // accountId: new FormControl(),
         accountName: new FormControl(),
-        // selectedFalg: new FormControl(false),
         costCenterConfig: new FormControl(null),
-        // lineDescription: new FormControl(null, [customValidators.required]),
-        // currencyId: new FormControl(null, [customValidators.required]),
         currency: new FormControl(""),
-        // currencyRate: new FormControl(),
-        // debitAmountLocal: new FormControl(0),
-        // creditAmountLocal: new FormControl(0),
-        // costCenters: new FormControl([]),
       }
-      //{ validators: customValidators.debitAndCreditBothCanNotBeZero }
     );
     newLine.updateValueAndValidity();
     this.paymentInDetailsFormArray.push(newLine);
@@ -485,9 +447,8 @@ export class EditPaymentInComponent {
 
   }
   accountSelected(event: any, id: number) {
-    
-    var accountData = this.filteredAccounts.find((c) => c.id == event);    
-    //  this.updateAccount(accountData as AccountDto, id);
+
+    var accountData = this.filteredAccounts.find((c) => c.id == event);
   }
   isCostCenterallowed(journalLine: any, costCenterConfig: string): boolean {
     if (costCenterConfig === this.sharedFinanceEnums.costCenterConfig.Mandatory || costCenterConfig === this.sharedFinanceEnums.costCenterConfig.Optional) {
@@ -515,7 +476,7 @@ export class EditPaymentInComponent {
         this.bankAccount = res
         this.addForm.controls['currencyId'].patchValue(null)
       })
-    } 
+    }
     else if (!this.selectedBank) {
 
       this.TreasuryDropDown.forEach((e: any) => {
@@ -536,17 +497,17 @@ export class EditPaymentInComponent {
     }
   }
   getCurrencyBankAccount(id: number) {
-    if(this.addForm.controls['paymentHubDetailId'].value&& id){
-    this.bankAccount.forEach((element: any) => {
-      if (element.id == id) {
-        this.selectedCurrency = element.currencyName
-        this.addForm.controls['currencyId'].patchValue(element.currencyId)
-        this.getAccountCurrencyRate(this.addForm.controls['currencyId'].value as number);
-        this.getAccountBalance(element.id)
-      }
-    });
-    
-   
+    if (this.addForm.controls['paymentHubDetailId'].value && id) {
+      this.bankAccount.forEach((element: any) => {
+        if (element.id == id) {
+          this.selectedCurrency = element.currencyName
+          this.addForm.controls['currencyId'].patchValue(element.currencyId)
+          this.getAccountCurrencyRate(this.addForm.controls['currencyId'].value as number);
+          this.getAccountBalance(element.id)
+        }
+      });
+
+
       this.getAllPayMethodsDropdown(this.addForm.controls['paymentHubDetailId'].value, id)
 
     }
@@ -560,7 +521,6 @@ export class EditPaymentInComponent {
   }
   getPaymentMethodName(paymentMethodId: any): string {
     const paymentMethod = this.lookups[LookupEnum.PaymentMethodType]?.find(option => option.id === paymentMethodId);
-    // this.paymentInDetailsFormArray.controls['paymentMethodType']
 
     return paymentMethod ? paymentMethod.name : '';
   }
@@ -598,7 +558,6 @@ export class EditPaymentInComponent {
 
       journalLine.get('paymentInMethodDetail')?.setValue(this.paymentform.value);
       journalLine.get('paymentMethodName')?.setValue(selectedPayment?.name);
-      // journalLine.get('paymentInMethodDetail')?.setValue([]);
       return selectedPayment ? selectedPayment.name : '';
     }
 
@@ -649,8 +608,7 @@ export class EditPaymentInComponent {
     journalLine.get('paymentMethodType')?.setValue(TreasuriesPayMethod?.paymentMethodType);
   }
   openCostPopup(data: any, journal: FormGroup, account: number, index: number) {
-   console.log(data ,journal ,account ,index , "coooooooooost");
-   
+
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
     if (!account || accountData?.costCenterConfig == 'NotAllow') {
       if (data.costCenterConfig == 'NotAllow') {
@@ -732,9 +690,6 @@ export class EditPaymentInComponent {
       }
     });
     if (validpaymentInDetails) {
-
-      // const formattedChequeDueDate = this.formatDate(this.addForm.controls['chequeDueDate'].value, 'yyyy-MM-dd');
-      // const formattedpaymentInDate = this.formatDate(this.addForm.controls['paymentInDate'].value, 'yyyy-MM-dd');
       const paymentHubDetailId = this.addForm.controls['paymentHubDetailId'].value.toString();
       this.paymentInDetailsFormArray.controls.forEach((control) => {
         if (control instanceof FormGroup) {
@@ -743,30 +698,18 @@ export class EditPaymentInComponent {
           if (paidByDetailsIdControl) {
             const paidByDetailsId = paidByDetailsIdControl.value.toString();
             control.get('paidByDetailsId')?.setValue(paidByDetailsId)
-            // Add your logic here to work with paidByDetailsId
           }
         }
       });
-      // Update the form controls with the formatted dates if necessary
-      // this.addForm.controls['chequeDueDate'].setValue(formattedChequeDueDate);
-      // this.addForm.controls['paymentInDate'].setValue(formattedpaymentInDate);
+
       this.addForm.controls['paymentHubDetailId'].setValue(paymentHubDetailId);
-
-      // Now you can proceed with saving the form data
-
-      //this.financeService.addPaymentIn(this.addForm.value)
       this.financeService.editPaymentIn(this.addForm.value)
 
     }
-    // console.log(this.addForm.value);
-    //   this.financeService.editPaymentIn(this.addForm.value)
 
 
   }
-  // formatDate(date: string, format: string): string {
-  //   const pipe = new DatePipe('en-US');
-  //   return pipe.transform(date, format) || '';
-  // }
+
   deleteLine(index: number) {
     this.paymentInDetailsFormArray.removeAt(index);
     this.calculateTotalAmount()
@@ -806,7 +749,7 @@ export class EditPaymentInComponent {
     this.financeService.getAllPayMethodsDropdown(BankId, BankAccountId)
   }
   getGlAccount(index: number, id: number) {
-    
+
     const journalLine: any = this.paymentInDetailsFormArray.at(index);
     const paidByValue = journalLine.controls['paidBy'].value;
     if (paidByValue === this.sharedFinanceEnums.paiedDropDown.customer) {
@@ -814,14 +757,12 @@ export class EditPaymentInComponent {
       if (customer) {
 
         journalLine.get('glAccountId')?.setValue(customer.accountId);
-        //journalLine.get('glAccountname')?.setValue(customer.accountName);
 
       }
     } else if (paidByValue === this.sharedFinanceEnums.paiedDropDown.vendor) {
       const vendor = this.vendorDropDown.find((e) => e.id === id);
       if (vendor) {
         journalLine.get('glAccountId')?.setValue(vendor.accountId);
-       // journalLine.get('glAccountname')?.setValue(vendor.accountName);
 
       }
     }
@@ -863,8 +804,6 @@ export class EditPaymentInComponent {
   }
   ngOnDestroy(): void {
     this.financeService.paymentDetails.next(null)
-    // this.financeService.TreasuryBalance.next(undefined)
-    // this.financeService.AccountBalance.next(undefined)
   }
 }
 
