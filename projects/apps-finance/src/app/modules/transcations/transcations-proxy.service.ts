@@ -109,5 +109,8 @@ getAccountCurrencyRate(currentCurrency:number,accountCurrency:number){
   GetPaymentInById(id:number) : Observable<number> {
     return this.httpService.get(`PaymentIn/${id}`);
   }
+  editPaymentIn(  obj : any) : Observable<boolean> {
+    return this.httpService.put(`PaymentIn` , obj);
+  }
 }
 

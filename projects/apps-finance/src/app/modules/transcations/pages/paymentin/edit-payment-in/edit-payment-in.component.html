@@ -61,16 +61,15 @@
                 [options]="BankDropDown"
                 optionValue="id"
                  optionLabel="name"
-                 [selectedValue]="addForm.controls['paymentHubDetailId'].value"
+                 [selectedValue]="toNumber(addForm.controls['paymentHubDetailId'].value)"
                 (valueChanged)="bankAccountDropDown(addForm.controls['paymentHubDetailId'].value)"
                 [placeholder]="'PaymentIn.Form.PlaceholderPaymentHubDetails' | translate">
               </lib-select>
-              {{addForm.controls['paymentHubDetailId'].value}}
               <lib-select *ngIf="!selectedBank"
                formControlName="paymentHubDetailId"
                 [options]="TreasuryDropDown"
                 optionValue="id" optionLabel="name"
-                [selectedValue]="addForm.controls['paymentHubDetailId'].value"
+                [selectedValue]="toNumber(addForm.controls['paymentHubDetailId'].value)"
                 (valueChanged)="bankAccountDropDown(addForm.controls['paymentHubDetailId'].value)"
                 [placeholder]="'PaymentIn.Form.PlaceholderPaymentHubDetails' | translate">
 
@@ -88,6 +87,7 @@
               </lib-label>
               <lib-select formControlName="bankAccountId" [options]="bankAccount" optionValue="id"
                 optionLabel="accountNumber"
+                [selectedValue]="addForm.controls['bankAccountId'].value"
                 (valueChanged)="getCurrencyBankAccount(addForm.controls['bankAccountId'].value)"
                 [placeholder]="'PaymentIn.Form.PlaceholderBankAccount' | translate"></lib-select>
               <lib-field-validations [appControl]="addForm.controls['bankAccountId']">
@@ -224,7 +224,8 @@
             <td [pEditableColumn]="journalLine.controls['paidBy']" pEditableColumnField="paidBy">
               <p-cellEditor>
                 <ng-template pTemplate="input">
-                  <lib-select formControlName="paidBy" [options]="paidBy"
+                  <lib-select formControlName="paidBy"
+                   [options]="paidBy"
                     [selectedValue]="journalLine.controls['paidBy'].value" 
                     optionValue="name" 
                     optionLabel="name"
@@ -245,22 +246,23 @@
                   <lib-select
                     *ngIf="journalLine.controls['paidBy'].value == this.sharedFinanceEnums.paiedDropDown.vendor"
                     formControlName="paidByDetailsId" [options]="vendorDropDown"
-                    [selectedValue]="journalLine.controls['paidByDetailsId'].value" optionValue="id" optionLabel="name"
-                    (valueChanged)="getGlAccount(rowIndex, journalLine.controls['paidByDetailsId'].value)">
+                    [selectedValue]="toNumber(journalLine.controls['paidByDetailsId'].value)"
+                     optionValue="id" optionLabel="name"
+                    (valueChanged)="getGlAccount(rowIndex, toNumber(journalLine.controls['paidByDetailsId'].value))">
 
                   </lib-select>
                   <lib-select
                     *ngIf="journalLine.controls['paidBy'].value == this.sharedFinanceEnums.paiedDropDown.customer"
                     formControlName="paidByDetailsId" [options]="customerDropDown"
-                    [selectedValue]="journalLine.controls['paidByDetailsId'].value" optionValue="id" optionLabel="name"
-                    (valueChanged)="getGlAccount(rowIndex, journalLine.controls['paidByDetailsId'].value)">
+                    [selectedValue]="toNumber(journalLine.controls['paidByDetailsId'].value)" optionValue="id" optionLabel="name"
+                    (valueChanged)="getGlAccount(rowIndex, toNumber(journalLine.controls['paidByDetailsId'].value))">
 
                   </lib-select>
                   <lib-select
                     *ngIf="journalLine.controls['paidBy'].value == this.sharedFinanceEnums.paiedDropDown.other"
                     formControlName="paidByDetailsId" [options]="other"
-                    [selectedValue]="journalLine.controls['paidByDetailsId'].value" optionValue="id" optionLabel="name"
-                    (valueChanged)="getLabel(journalLine, journalLine.controls['paidByDetailsId'].value)">
+                    [selectedValue]="toNumber(journalLine.controls['paidByDetailsId'].value)" optionValue="id" optionLabel="name"
+                    (valueChanged)="getLabel(journalLine,toNumber( journalLine.controls['paidByDetailsId'].value))">
 
                   </lib-select>
                 </ng-template>
@@ -278,7 +280,8 @@
                     <lib-select formControlName="glAccountId" [options]="filteredAccounts" optionValue="id"
                       optionLabel="displayName" [customClass]="'add-journal'"
                       [selectedValue]="journalLine.controls['glAccountId'].value"
-                      (valueChanged)="accountSelected($event, rowIndex)" (valueSearchChanged)="onFilter($event)"
+                      (valueChanged)="accountSelected($event, rowIndex)" 
+                      (valueSearchChanged)="onFilter($event)"
                       [placeholder]=" journalLine.controls['glAccountId'].value"
                       [readOnly]="journalLine.controls['paidBy'].value != this.sharedFinanceEnums.paiedDropDown.other">
                     </lib-select>
