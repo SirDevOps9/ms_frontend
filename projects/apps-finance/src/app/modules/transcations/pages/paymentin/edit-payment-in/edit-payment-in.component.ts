@@ -826,8 +826,8 @@ export class EditPaymentInComponent {
   cancel() {
     this.routerService.navigateTo(`/transcations/paymentin`);
   }
-  OnDestroy(){
-    
+  ngOnDestroy(): void {
+    this.financeService.paymentDetails.next(null)
   }
 }
 
