@@ -5,6 +5,8 @@
   "Logout": "Logout",
   "DeleteError": "Error in Delete",
   "LoadError": "Error in loading Data",
+  "Post": "Post",
+
   "Table": {
     "Actions": "Actions",
     "Edit": "Edit",
@@ -337,5 +339,85 @@
     "mandatory" : "Mandatory",
     "optional" : "Optional",
     "notAllow" : "Not Allow"
+  },
+  "PaymentIn": {
+    "Form": {
+      "Save": "Save",
+      "Cancel": "Cancel",
+      "Code": "Code",
+      "Date": "Date",
+      "Description": "Description",
+      "PaymentHub": "Payment Hub",
+      "PaymentHubDetails": "Payment Hub Details",
+      "BankAccount": "Bank Account",
+      "Currency": "Currency",
+      "Rate": "Rate",
+      "SourceDocument": "Source Document",
+      "CreatedJournal": "Created Journal",
+      "CurrentBalance": "Current Balance",
+      "TotalReceivedAmount": "Total Received Amount",
+      "NewBalance": "New Balance",
+      "PlaceholderCode": "Auto from seq.",
+      "PlaceholderDate": "01/05/1990",
+      "PlaceholderDescription": "Max 50 char.",
+      "PlaceholderPaymentHub": "Select Payment Hub",
+      "PlaceholderPaymentHubDetails": "Select Payment Hub Details",
+      "PlaceholderBankAccount": "Select Bank Account",
+      "PlaceholderCurrency": "Auto Display",
+      "PlaceholderRate": "Number",
+      "PlaceholderSourceDocument": "Display Source Doc. Code",
+      "PlaceholderCreatedJournal": "Display Created Journal Code",
+      "PlaceholderCurrentBalance": "Display Payment Type Details",
+      "PlaceholderTotalReceivedAmount": "Auto Display 7000",
+      "PlaceholderNewBalance": "auto = curr. bal + tot. rec. amo.",
+
+        "PaymentMethod" : "Payment method",
+        "CommissionAmount" : "commission amount",
+        "VatAmount" : "vat amount",
+        "BankReference" : "bank reference",
+        "CheckNumber" : "Check number",
+        "CheckDueDat" : "Check due dat"
+    },
+
+    "Table":{
+      "Amount" : "Amount",
+      "LocalAmount" : "Local Amount",
+      "PaymentMethod" : "payment method ",
+      "PaymentMethodDetails" : "payment method details",
+      "PaidBy" : "paid by",
+      "PaidByDetails" : "paid by details",
+      "LinkedGLAccount" : "linked GL account",
+      "CostCenter" : "cost center",
+      "Notes" : "notes"
+    },
+    "Success": "Success",
+    "PaymentInAddedSuccessfully": "PaymentIn added successfully",
+    "PaymentInPostedSuccessfully": "PaymentIn posted successfully",
+    "addedError": "Error in added",
+    "postedError": "Error in posted",
+    "Error":"Error",
+    "paymentMethodTypeNotAllowed":"payment Method details Not Allowed",
+    "paymentMethodTypeRequired":"payment Method details Required In line",
+    "addpaymentin":" add Paymentin"
+  },
+  "popupPayment":{ 
+    "AccountName": "Account Name",
+    "AccountCode": "Account Code",
+    "Search": "Search",
+    "Actions": "Actions",
+    "ChooseAnAccount": "Choose An Account",
+    "Select": "Select",
+    "Id": "Id"
+  },
+  "popupCostCenter":{
+    "CostCenter" : "cost center",
+    "Percentage": "Percentage",
+    "Amount" : "Amount",
+    "Actions": "Actions",
+    "AddNewLine": "Add New Line",
+    "error":"Percentage Calculation Shouldn't be more than 100",
+    "CostCenterAllocation":"Cost Center Allocation"
+
+
   }
 }

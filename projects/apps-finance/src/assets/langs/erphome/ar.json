@@ -5,6 +5,8 @@
   "Logout": "تسجيل الخروج",
   "DeleteError": "حدث خطاء فى المسح",
   "LoadError": "حدث خطاء فى التحميل",
+  "Post": "ترحيل",
+
   "Table": {
     "Actions": "اجراءات",
     "Edit": "تعديل",
@@ -276,5 +278,89 @@
     "mandatory" : "إلزامي",
     "optional" : "اختياري",
     "notAllow" : "غير مسموح"
+},
+"PaymentIn": {
+  "Form": {
+    "Save": "حفظ",
+      "Cancel": "الغاء",
+    "Code": "رمز",
+    "Date": "تاريخ",
+    "Description": "وصف",
+    "PaymentHub": "مركز الدفع",
+    "PaymentHubDetails": "تفاصيل مركز الدفع",
+    "BankAccount": "الحساب البنكي",
+    "Currency": "عملة",
+    "Rate": "سعر الصرف",
+    "SourceDocument": "المستند المصدر",
+    "CreatedJournal": "السجل المنشأ",
+    "CurrentBalance": "الرصيد الحالي",
+    "TotalReceivedAmount": "إجمالي المبلغ المستلم",
+    "NewBalance": "الرصيد الجديد",
+    "PlaceholderCode": "يتم تلقائيًا من التسلسل.",
+    "PlaceholderDate": "01/05/1990",
+    "PlaceholderDescription": "حد أقصى 50 حرف.",
+    "PlaceholderPaymentHub": "اختر مركز الدفع",
+    "PlaceholderPaymentHubDetails": "اختر تفاصيل مركز الدفع",
+    "PlaceholderBankAccount": "اختر الحساب البنكي",
+    "PlaceholderCurrency": "عرض تلقائي",
+    "PlaceholderRate": "رقم",
+    "PlaceholderSourceDocument": "عرض كود المستند المصدر",
+    "PlaceholderCreatedJournal": "عرض كود السجل المنشأ",
+    "PlaceholderCurrentBalance": "عرض تفاصيل نوع الدفع",
+    "PlaceholderTotalReceivedAmount": "عرض تلقائي 7000",
+    "PlaceholderNewBalance": "auto = الرصيد الحالي + إجمالى المبلغ المستلم.",
+
+    "PaymentMethod": "طريقة الدفع",
+    "CommissionAmount": "مبلغ العمولات",
+    "VatAmount": "مبلغ الضريبة المضافة",
+    "BankReference": "مرجع البنك",
+    "CheckNumber": "رقم الشيك",
+    "CheckDueDate": "تاريخ استحقاق الشيك"
+  },
+
+  "Table": {
+    "Amount": "المبلغ",
+    "LocalAmount": "المبلغ المحلي",
+    "PaymentMethod": "طريقة الدفع",
+    "PaymentMethodDetails": "تفاصيل طريقة الدفع",
+    "PaidBy": "مدفوع بواسطة",
+    "PaidByDetails": "تفاصيل المدفوع بواسطة",
+    "LinkedGLAccount": "حساب GL المرتبط",
+    "CostCenter": "مركز التكلفة",
+    "Notes": "ملاحظات"
+  },
+  "Success": "نجاح",
+  "PaymentInAddedSuccessfully": "تمت إضافة PaymentIn بنجاح",
+  "addedError": "خطأ في الإضافة",
+  "Error": "خطأ",
+  "paymentMethodTypeNotAllowed": "نوع طريقة الدفع غير مسموح به",
+  "paymentMethodTypeRequired": "تفاصيل طريقة الدفع مطلوبة في السطر",
+  "addpaymentin":"إضافة الدفع",
+  "postedError": "خطأ في الترحيل",
+  "PaymentInPostedSuccessfully": "تم ترحيل إيصال الدفع بنجاح"
+
+
+
+  
+},
+"popupPayment": { 
+  "AccountName": "اسم الحساب",
+  "AccountCode": "رمز الحساب",
+  "Search": "بحث",
+  "Actions": "إجراءات",
+  "ChooseAnAccount": "اختر حساباً",
+  "Select": "اختيار",
+  "Id": "معرف"
+},
+"popupCostCenter": {
+  "CostCenter": "مركز التكلفة",
+  "Percentage": "النسبة المئوية",
+  "Amount": "المبلغ",
+  "Actions": "إجراءات",
+  "AddNewLine": "إضافة سطر جديد",
+  "error": "يجب ألا تتجاوز نسبة الحساب 100",
+  "CostCenterAllocation": "تخصيص مركز التكلفة"
+
+
 }
 }

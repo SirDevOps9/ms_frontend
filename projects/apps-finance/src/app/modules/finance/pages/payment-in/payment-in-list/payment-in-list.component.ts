@@ -73,8 +73,7 @@ export class PaymentInListComponent implements OnInit {
   }
 
   routeToAdd() {
-     //todo
-    this.routerService.navigateTo('');
+    this.routerService.navigateTo(`/masterdata/paymentin/add`);
   }
 
   routeToEdit(id: number) {

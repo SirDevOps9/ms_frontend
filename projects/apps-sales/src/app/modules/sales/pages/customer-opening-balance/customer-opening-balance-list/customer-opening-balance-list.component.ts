@@ -59,13 +59,13 @@ export class CustomerOpeningBalanceListComponent implements OnInit {
 
   routeToAdd() {
     this.routerService.navigateTo(
-      'masterdata/customer-opening-balance/add-customer-opening-balance'
+      'masterdata/customer-opening-balance/add'
     );
   }
 
   routeToEdit(id: number) {
     this.routerService.navigateTo(
-      `masterdata/customer-opening-balance/edit-customer-opening-balance/${id}`
+      `masterdata/customer-opening-balance/edit/${id}`
     );
   }
 
@@ -77,6 +77,6 @@ export class CustomerOpeningBalanceListComponent implements OnInit {
 
   view(id: number) {
     this.routerService.navigateTo(
-      `masterdata/customer-opening-balance/view-customer-opening-balance/${id}`
+      `masterdata/customer-opening-balance/view/${id}`
     );  }
 }
