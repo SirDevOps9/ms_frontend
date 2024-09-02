@@ -21,8 +21,8 @@ export class TranscationsService {
   public getVendorDropdownData = new BehaviorSubject<any>([])
   public AllPayMethodsDropdown = new BehaviorSubject<any>([])
   public AllTreasuriesPayMethodsDropdown = new BehaviorSubject<any>([])
-  public AccountBalance = new BehaviorSubject<number>(0)
-  public TreasuryBalance = new BehaviorSubject<number>(0)
+  public AccountBalance = new BehaviorSubject<number|undefined>(0)
+  public TreasuryBalance = new BehaviorSubject<number|undefined>(0)
   public childrenAccountDataSource = new BehaviorSubject<AccountDto[]>([]);
   public childrenAccountList = this.childrenAccountDataSource.asObservable();
   public childrenAccountPageInfo = new BehaviorSubject<PageInfoResult>({});
@@ -266,7 +266,7 @@ export class TranscationsService {
           this.languageService.transalte('success'),
           this.languageService.transalte('add-paymentMethod.edit')
         );
-        this.routerService.navigateTo('/masterdata/payment-method')
+        this.routerService.navigateTo('/transcations/paymentin')
         
       }
     })

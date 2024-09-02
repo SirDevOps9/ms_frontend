@@ -13,11 +13,11 @@
 
       <div class="md:col-4">
         <lib-form-group>
-          <lib-label [appControl]="addForm.controls['PaymentInDate']">
+          <lib-label [appControl]="addForm.controls['paymentInDate']">
             {{ 'PaymentIn.Form.Date' | translate }}
           </lib-label>
-          <lib-calendar formControlName="PaymentInDate" [placeholder]="PaymentInDate"></lib-calendar>
-          <lib-field-validations [appControl]="addForm.controls['PaymentInDate']">
+          <lib-calendar formControlName="paymentInDate" [placeholder]="paymentInDate"></lib-calendar>
+          <lib-field-validations [appControl]="addForm.controls['paymentInDate']">
           </lib-field-validations>
         </lib-form-group>
       </div>
