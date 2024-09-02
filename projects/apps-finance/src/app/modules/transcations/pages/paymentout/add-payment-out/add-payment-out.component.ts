@@ -147,7 +147,7 @@ export class AddPaymentOutComponent implements OnInit {
       currency: new FormControl(""),
       currentBalance: new FormControl(0),
       totalPaidAmount: new FormControl(0),
-      newBalance: new FormControl(''),
+      newBalance: new FormControl(0, customValidators.nonNegativeNumbers),
       paymentOutDetailCostCenters: new FormControl(null),
     });
     this.addForm.controls['paymentOutDate'].patchValue(new Date());
@@ -291,7 +291,15 @@ export class AddPaymentOutComponent implements OnInit {
       this.updatecurrencyIdnPaymentDetails(currencyId)
     })
 
-
+    this.addForm.controls['totalPaidAmount'].valueChanges.subscribe(() => {
+      this.updateNewBalance();
+    });
+  
+    this.addForm.controls['currentBalance'].valueChanges.subscribe(() => {
+      this.updateNewBalance();
+    });
+  
+    //this.updateNewBalance();
   }
   addNewRow() {
     
@@ -746,6 +754,16 @@ export class AddPaymentOutComponent implements OnInit {
   getAccountBalance(id: number) {
     this.financeService.GetAccountBalance(id);
   }
+
+  updateNewBalance() {
+    const totalPaidAmount = this.addForm.controls['totalPaidAmount'].value || 0;
+    const newBalance = this.AccountBalance - totalPaidAmount;
+  
+    this.addForm.controls['newBalance'].setValue(newBalance);
+
+    this.addForm.controls['newBalance'].updateValueAndValidity();
+  }
+
   cancel(){
     this.routerService.navigateTo(`/transcations/paymentout`);
   }
