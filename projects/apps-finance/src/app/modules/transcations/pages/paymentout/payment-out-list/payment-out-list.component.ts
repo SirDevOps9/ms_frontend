@@ -8,17 +8,15 @@ import { TranscationsService } from '../../../transcations.service';
 @Component({
   selector: 'app-payment-out-list',
   templateUrl: './payment-out-list.component.html',
-  styleUrls: ['./payment-out-list.component.scss']
+  styleUrls: ['./payment-out-list.component.scss'],
 })
 export class PaymentOutListComponent implements OnInit {
-
   tableData: GetAllPaymentOutDto[];
 
   paymentOutCurrentPageInfo: PageInfoResult = {};
   searchTerm: string;
 
-  exportColumns: lookupDto[]=[
-   
+  exportColumns: lookupDto[] = [
     {
       id: 'id',
       name: 'Id',
@@ -54,24 +52,21 @@ export class PaymentOutListComponent implements OnInit {
     {
       id: 'relatedSourceJournal',
       name: 'relatedSourceJournal',
-    }
+    },
   ];
   exportData: GetAllPaymentInDto[];
-
 
   constructor(
     private financeService: TranscationsService,
     private routerService: RouterService,
     private title: Title,
-    private langService: LanguageService,) { }
+    private langService: LanguageService
+  ) {}
 
- 
   ngOnInit() {
     this.subscribes();
     this.initPaymentInData();
-    this.title.setTitle(
-      this.langService.transalte('PaymentOut.Title')
-    );
+    this.title.setTitle(this.langService.transalte('PaymentOut.Title'));
   }
 
   routeToAdd() {
@@ -79,13 +74,13 @@ export class PaymentOutListComponent implements OnInit {
   }
 
   routeToEdit(id: number) {
-    this.routerService.navigateTo( `/transcations/paymentout/edit/${id}`);
+    this.routerService.navigateTo(`/transcations/paymentout/edit/${id}`);
   }
 
   initPaymentInData() {
     this.financeService.getAllPaymentOut('', new PageInfo());
   }
-  subscribes(){
+  subscribes() {
     this.financeService.paymentOutDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
@@ -103,17 +98,14 @@ export class PaymentOutListComponent implements OnInit {
 
   onPageChange(pageInfo: PageInfo) {
     this.financeService.getAllPaymentOut('', pageInfo);
-
   }
 
   onSearchChange(event: any) {
     this.financeService.getAllPaymentOut(event, new PageInfo());
   }
 
-  
   exportClick() {
     this.financeService.exportsPaymentOutList(this.searchTerm);
-    
   }
 
   onDelete(id: number) {
@@ -124,5 +116,4 @@ export class PaymentOutListComponent implements OnInit {
     //todo
     this.routerService.navigateTo(`/view/${id}`);
   }
-
 }

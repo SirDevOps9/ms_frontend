@@ -83,6 +83,7 @@
   "PaymentOut": {
     "Title":"Payment Out",
     "delete": "Payment Out Deleted Successfully",
+    "edit": "Payment Out Updated Successfully",
     "List": {
       "code": "Code",
       "date": "Date",

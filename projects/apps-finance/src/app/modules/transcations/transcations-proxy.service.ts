@@ -113,6 +113,14 @@ getAccountCurrencyRate(currentCurrency:number,accountCurrency:number){
     return this.httpService.put(`PaymentIn` , obj);
   }
 
+  GetPaymentOutById(id:number) : Observable<number> {
+    return this.httpService.get(`PaymentOut/${id}`);
+  }
+
+  editPaymentOut(  obj : any) : Observable<boolean> {
+    return this.httpService.put(`PaymentOut` , obj);
+  }
+
   getAllPymentOut(
     searchTerm: string,
     pageInfo: PageInfo

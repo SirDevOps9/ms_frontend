@@ -53,6 +53,10 @@ export class TranscationsService {
   paymentOutDataSourceObservable = this.paymentOutDataSource.asObservable()
   exportedPaymentOutDataSourceObservable = this.exportedpaymentOutListDataSource.asObservable()
 
+
+  public paymentOutDetails = new BehaviorSubject<any>({});
+  paymentOutDetailsDataObservable = this.paymentOutDetails.asObservable()
+
   public paymentOutCurrentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
 
@@ -267,7 +271,26 @@ export class TranscationsService {
       }
     })
   }
-
+  GetPaymentOutById(id:number){
+    this.TranscationsProxy.GetPaymentOutById(id).subscribe(res=>{
+      if(res) {
+       this.paymentOutDetails.next(res)
+      }
+    })
+  }
+  
+  editPaymentOut(obj : any) {
+    this.TranscationsProxy.editPaymentOut(obj).subscribe(res=>{
+      if(res) {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('success'),
+          this.languageService.transalte('PaymentOut.edit')
+        );
+        this.routerService.navigateTo('/transcations/paymentout')
+        
+      }
+    })
+  }
   
   getAllPaymentOut(quieries: string, pageInfo: PageInfo)  {
     this.TranscationsProxy.getAllPymentOut(quieries, pageInfo).subscribe((response) => {
