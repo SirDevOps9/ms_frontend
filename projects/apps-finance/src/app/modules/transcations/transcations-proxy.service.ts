@@ -147,5 +147,9 @@ getAccountCurrencyRate(currentCurrency:number,accountCurrency:number){
   postPaymentIn(id:number){
     return this.httpService.post(`PaymentIn/${id}/Post`,null);
   }
+
+   postPaymentOut(id:number){
+    return this.httpService.post(`PaymentOut/${id}/Post`,null);
+  }
 }
 

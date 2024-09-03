@@ -5,6 +5,8 @@
     "AddPaymentOut": "إضافة إيصال نقدي",
     "EditPaymentOut": "تعديل إيصال نقدي"
   },
+  "Success": "نجاح",
+  "Error": "خطأ",
   "PaymentIn": {
     "Form": {
       "Save": "حفظ",
@@ -68,6 +70,8 @@
     "add": "تم اضافة الإيصال النقدي بنجاح",
     "delete": "تم حذف الإيصال النقدي بنجاح",
     "edit": "تم تعديل الإيصال النقدي بنجاح",
+    "postedError": "خطأ في الترحيل",
+    "PaymentInPostedSuccessfully": "تم ترحيل إيصال الدفع بنجاح",
     "List": {
       "code": "الرمز",
       "date": "التاريخ",
@@ -139,4 +143,5 @@
     "addpaymentout": "إضافة إيصال نقدي",
     "editpaymentout": "تعديل إيصال نقدي"
   }
+
 }

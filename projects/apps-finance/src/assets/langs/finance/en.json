@@ -5,6 +5,7 @@
     "AddPaymentOut": "Add Payment Out",
     "EditPaymentOut": "Edit Payment Out"
   },
+  "Success": "Success",
   "Error": "Error",
   "PaymentIn": {
     "Form": {
@@ -86,6 +87,8 @@
     "add": "Payment Out Added Successfully",
     "edit": "Payment Out Updated Successfully",
     "delete": "Payment Out Deleted Successfully",
+    "PaymentOutPostedSuccessfully": "Payment Out Posted successfully",
+    "postedError": "Error in Posted",
     "List": {
       "code": "Code",
       "date": "Date",
