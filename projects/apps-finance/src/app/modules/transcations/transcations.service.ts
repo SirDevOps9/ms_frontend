@@ -167,10 +167,8 @@ export class TranscationsService {
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
           this.languageService.transalte('PaymentOut.add')
-          
         );
         this.routerService.navigateTo('/transcations/paymentout');
-
       },
       error: (error) => {
         this.toasterService.showError(
@@ -277,27 +275,24 @@ export class TranscationsService {
           this.languageService.transalte('success'),
           this.languageService.transalte('add-paymentMethod.edit')
         );
-        this.routerService.navigateTo('/transcations/paymentin')
-        
+        this.routerService.navigateTo('/transcations/paymentin');
       }
-    })
+    });
   }
-  postPaymentIn(id:number) {
+  postPaymentIn(id: number) {
     this.loaderService.show();
 
     this.TranscationsProxy.postPaymentIn(id).subscribe({
-
-      next:(res:any)=> {
+      next: (res: any) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('PaymentIn.Success'),
           this.languageService.transalte('PaymentIn.PaymentInPostedSuccessfully')
         );
         this.loaderService.hide();
 
-        this.routerService.navigateTo('/transcations/paymentin')
-
+        this.routerService.navigateTo('/transcations/paymentin');
       },
-      error:(error)=>{
+      error: (error) => {
         this.loaderService.hide();
         this.toasterService.showError(
           this.languageService.transalte('PaymentIn.Error'),
@@ -306,5 +301,76 @@ export class TranscationsService {
       },
     });
   }
-}
 
+  editPaymentOut(obj: any) {
+    this.TranscationsProxy.editPaymentOut(obj).subscribe((res) => {
+      if (res) {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('success'),
+          this.languageService.transalte('PaymentOut.edit')
+        );
+        this.routerService.navigateTo('/transcations/paymentout');
+      }
+    });
+  }
+
+  postPaymentOut(id: number) {
+    this.TranscationsProxy.postPaymentOut(id).subscribe({
+      next: (res: any) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('Success'),
+          this.languageService.transalte('PaymentOut.PaymentOutPostedSuccessfully')
+        );
+        this.routerService.navigateTo('/transcations/paymentout');
+      },
+      error: (error) => {
+        this.toasterService.showError(
+          this.languageService.transalte('Error'),
+          this.languageService.transalte('PaymentOut.postedError')
+        );
+      },
+    });
+  }
+
+  GetPaymentOutById(id: number) {
+    this.TranscationsProxy.GetPaymentOutById(id).subscribe((res) => {
+      if (res) {
+        this.paymentOutDetails.next(res);
+      }
+    });
+  }
+
+  getAllPaymentOut(quieries: string, pageInfo: PageInfo) {
+    this.TranscationsProxy.getAllPymentOut(quieries, pageInfo).subscribe((response) => {
+      this.paymentOutDataSource.next(response.result);
+      this.paymentOutCurrentPageInfo.next(response.pageInfoResult);
+    });
+  }
+
+  exportsPaymentOutList(searchTerm: string | undefined) {
+    this.TranscationsProxy.exportsPaymentOutList(searchTerm).subscribe({
+      next: (res: any) => {
+        this.exportedpaymentOutListDataSource.next(res);
+      },
+    });
+  }
+  async deletePaymentOut(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.TranscationsProxy.deletePaymentOut(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('PaymentOut.delete')
+          );
+          this.loaderService.hide();
+          const currentPaymentOut = this.paymentOutDataSource.getValue();
+          const updatedcurrentPaymentOut = currentPaymentOut.filter((c: any) => c.id !== id);
+          this.paymentOutDataSource.next(updatedcurrentPaymentOut);
+        },
+      });
+    }
+  }
+}
