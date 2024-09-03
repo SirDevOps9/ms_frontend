@@ -11,13 +11,11 @@ import {
   RouterService,
   ToasterService,
 } from 'shared-lib';
-import { PaymentMethodComponent } from '../../../components/paymentin/payment-method/payment-method.component';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CurrencyDto } from '../../../../general/models';
-import { AddCostCenterComponent } from '../../../components/paymentin/add-cost-center/add-cost-center.component';
 import { PopupAccountsComponent } from '../../../components/paymentin/popup-accounts/popup-accounts.component';
 import {
   costCenters,
@@ -35,6 +33,8 @@ import {
   SharedFinanceTranscationEnums,
 } from '../../../models';
 import { TranscationsService } from '../../../transcations.service';
+import { AddPaymentOutCostCenterComponent } from '../../../components/paymentout/add-payment-out-cost-center/add-payment-out-cost-center.component';
+import { PaymentOutPaymentMethodComponent } from '../../../components/paymentout/payment-out-payment-method/payment-out-payment-method.component';
 
 @Component({
   selector: 'app-edit-payment-out',
@@ -191,7 +191,7 @@ export class EditPaymentOutComponent implements OnInit {
       return true;
     } else {
       const data = value;
-      const ref = this.dialog.open(PaymentMethodComponent, {
+      const ref = this.dialog.open(PaymentOutPaymentMethodComponent, {
         width: '900px',
         height: '600px',
         data: { ...data, selectedPayment },
@@ -238,9 +238,9 @@ export class EditPaymentOutComponent implements OnInit {
       this.paidByDetailsVendor = this.vendorDropDown;
     } else if (name == this.sharedFinanceEnums.paiedDropDown.other) {
       this.paidByDetailsOther = this.other;
-      journalLine
-        .get('paidByDetailsName')
-        ?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount);
+      // journalLine
+      //   .get('paidByDetailsName')
+      //   ?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount);
     }
   }
   updateRateInPaymentDetails(newRate: any) {
@@ -294,9 +294,9 @@ export class EditPaymentOutComponent implements OnInit {
     });
     this.financeService.accountCurrencyRate.subscribe((res) => {
       if (res) {
-        this.addForm.controls['rate'].patchValue(res.rate);
+        this.addForm.controls['rate'].patchValue(res?.rate);
         this.calculateTotalLocalAmount();
-        this.updateRateInPaymentDetails(res.rate);
+        this.updateRateInPaymentDetails(res?.rate);
       }
     });
     this.addForm.controls['currencyId'].valueChanges.subscribe((currencyId: any) => {
@@ -307,20 +307,20 @@ export class EditPaymentOutComponent implements OnInit {
     });
     this.financeService.paymentOutDetailsDataObservable.subscribe((res: any) => {
       this.paymentDetails = res
-      this.paymenInId=res.id
-      if(res.status == this.sharedFinanceEnums.paymentInStatus.Draft){
+      this.paymenInId=res?.id
+      if(res?.status == this.sharedFinanceEnums.paymentInStatus.Draft){
         this.paymentInDraft=true
-      } else  if(res.status == this.sharedFinanceEnums.paymentInStatus.Posted){
+      } else  if(res?.status == this.sharedFinanceEnums.paymentInStatus.Posted){
         this.paymentInDraft=false
       } ;
 
       this.addForm.patchValue({
         ...res,
       });
-      this.addForm.get('paymentOutDate')?.setValue(new Date(res.paymentOutDate))
+      this.addForm.get('paymentOutDate')?.setValue(new Date(res?.paymentOutDate))
 
-      if (res.paymentOutDetails) {
-        res.paymentOutDetails.forEach((element: any) => {
+      if (res?.paymentOutDetails) {
+        res?.paymentOutDetails.forEach((element: any) => {
           const formGroup = this.formBuilder.group({
             ...element,
             paymentOutDetailCostCenters: this.formBuilder.array(
@@ -336,18 +336,18 @@ export class EditPaymentOutComponent implements OnInit {
       }
 
 
-      if (res.paymentHub) {
-        if (res.paymentHub == this.sharedFinanceEnums.paymentplaceString.Bank) {
-          this.getAccountBalance(res.bankAccountId)
-          if (res.currencyId) {
-            this.getAccountCurrencyRate(res.currencyId)
+      if (res?.paymentHub) {
+        if (res?.paymentHub == this.sharedFinanceEnums.paymentplaceString.Bank) {
+          this.getAccountBalance(res?.bankAccountId)
+          if (res?.currencyId) {
+            this.getAccountCurrencyRate(res?.currencyId)
           }
 
-        } else if (res.paymentHub == this.sharedFinanceEnums.paymentplaceString.Treasury) {
-          this.getTreasuryBalance(res.treasuryId)
+        } else if (res?.paymentHub == this.sharedFinanceEnums.paymentplaceString.Treasury) {
+          this.getTreasuryBalance(res?.treasuryId)
 
-          if (res.currencyId) {
-            this.getAccountCurrencyRate(res.currencyId)
+          if (res?.currencyId) {
+            this.getAccountCurrencyRate(res?.currencyId)
           }
         }
       }
@@ -357,7 +357,7 @@ export class EditPaymentOutComponent implements OnInit {
           control.get('paidByDetailsName')?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount)
         }
       });
-      this.addForm.controls['currency'].patchValue(res.currencyName)
+      this.addForm.controls['currency'].patchValue(res?.currencyName)
 
     })
     this.addForm.controls['paymentHub'].valueChanges.subscribe((paymentHub: any) => {
@@ -371,6 +371,12 @@ export class EditPaymentOutComponent implements OnInit {
     this.addForm.controls['paymentHubDetailId'].valueChanges.subscribe((res: any) => {
       this.getCurrencyBankAccount(this.toNumber(res));
     });
+
+    this.addForm.controls['totalPaidAmount'].valueChanges.subscribe(() => {
+      this.updateNewBalance();
+    });
+
+    this.updateNewBalance();
   }
 
   addNewRow() {
@@ -426,8 +432,8 @@ export class EditPaymentOutComponent implements OnInit {
     this.financeService.getAccountsHasNoChildrenNew(event, new PageInfo());
 
     this.financeService.childrenAccountList.subscribe((res: any) => {
-      if (res.length) {
-        this.filteredAccounts = res.map((account: any) => ({
+      if (res?.length) {
+        this.filteredAccounts = res?.map((account: any) => ({
           ...account,
           displayName: `${account.name} (${account.accountCode})`,
         }));
@@ -641,7 +647,7 @@ export class EditPaymentOutComponent implements OnInit {
       return;
     }
 
-    const dialogRef = this.dialog.open(AddCostCenterComponent, {
+    const dialogRef = this.dialog.open(AddPaymentOutCostCenterComponent, {
       width: '900px',
       height: '600px',
       header: 'Edit Cost Center Allocation',
@@ -650,7 +656,7 @@ export class EditPaymentOutComponent implements OnInit {
     dialogRef.onClose.subscribe((res) => {
 
       if (res) {
-        const paymentInDetailCostCenters = journal.get('paymentInDetailCostCenters') as FormArray;
+        const paymentInDetailCostCenters = journal.get('paymentOutDetailCostCenters') as FormArray;
 
         const resArray = res || [];  // Ensure res is an array
 
@@ -821,16 +827,27 @@ export class EditPaymentOutComponent implements OnInit {
   updateNewBalance() {
     const totalPaidAmount = this.addForm.controls['totalPaidAmount'].value || 0;
 
-    console.log('currentBalance', this.AccountBalance);
-    console.log('totalPaidAmount', totalPaidAmount);
 
     const newBalance = this.AccountBalance - totalPaidAmount;
-    console.log('newBalance', newBalance);
 
     this.addForm.controls['newBalance'].setValue(newBalance);
 
     this.addForm.controls['newBalance'].updateValueAndValidity();
     this.updatedNewBalance = newBalance;
+  }
+  onDelete(id: number, index: number): void {
+    
+    if (id == 0) {
+      this.deleteLine(index);
+    } else {
+      this.financeService.paymentOutDeleteLine(id);
+      this.financeService.paymentOutLineDeletedObser.subscribe((res: boolean) => {
+        if (res == true) {
+          this.paymentOutDetailsFormArray.removeAt(index);
+          this.calculateTotalAmount();
+        }
+      });
+    }
   }
 
   ngOnDestroy(): void {

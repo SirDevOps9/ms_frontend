@@ -492,8 +492,9 @@
               </lib-field-validations>
             </td>
             <td>
-              <lib-button-micro nameClass="table_button_delete" (click)="deleteLine(rowIndex)">
+              <lib-button-micro nameClass="table_button_delete" (click)="onDelete( journalLine.controls['id'].value ,rowIndex)">
               </lib-button-micro>
+
             </td>
           </tr>
         </ng-template>

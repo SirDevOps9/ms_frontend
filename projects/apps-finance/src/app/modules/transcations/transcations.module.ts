@@ -16,6 +16,8 @@ import { EditPaymentOutComponent } from './pages/paymentout/edit-payment-out/edi
 import { ViewPaymentOutComponent } from './pages/paymentout/view-payment-out/view-payment-out.component';
 import { MainPaymentOutComponent } from './pages/paymentout/main-payment-out/main-payment-out.component';
 import { PaymentOutListComponent } from './pages/paymentout/payment-out-list/payment-out-list.component';
+import { AddPaymentOutCostCenterComponent } from './components/paymentout/add-payment-out-cost-center/add-payment-out-cost-center.component';
+import {  PaymentOutPaymentMethodComponent } from './components/paymentout/payment-out-payment-method/payment-out-payment-method.component';
 
 const routes: Routes = [
   {
@@ -103,7 +105,9 @@ const routes: Routes = [
     EditPaymentOutComponent,
     ViewPaymentOutComponent,
     MainPaymentOutComponent,
-    PaymentOutListComponent
+    PaymentOutListComponent,
+    AddPaymentOutCostCenterComponent,
+    PaymentOutPaymentMethodComponent
   ],
   imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes)],
 

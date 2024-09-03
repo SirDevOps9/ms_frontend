@@ -48,6 +48,8 @@ export class TranscationsService {
 
 
 
+  private paymenOutLineDeleted = new BehaviorSubject<boolean>(false);
+  public paymentOutLineDeletedObser = this.paymenOutLineDeleted.asObservable();
 
   paymentDetailsnDataObservable = this.paymentDetails.asObservable();
   getVendorDropdownDataObservable = this.getVendorDropdownData.asObservable();
@@ -289,6 +291,27 @@ export class TranscationsService {
       });
     }
   }
+
+  async paymentOutDeleteLine(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.TranscationsProxy.paymentOutDeleteLine(id).subscribe({
+        next: (res) => {
+          
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('PaymentOut.delete')
+          );
+          this.loaderService.hide();
+          this.paymenOutLineDeleted.next(res);
+
+        },
+        
+      });
+    }
+  }
   getPaymentInById(id:number){
     this.TranscationsProxy.GetPaymentInById(id).subscribe(res=>{
       if(res) {
@@ -344,12 +367,15 @@ export class TranscationsService {
   }
 
   postPaymentOut(id: number) {
+    this.loaderService.show();
     this.TranscationsProxy.postPaymentOut(id).subscribe({
       next: (res: any) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Success'),
           this.languageService.transalte('PaymentOut.PaymentOutPostedSuccessfully')
         );
+        this.loaderService.hide();
+
         this.routerService.navigateTo('/transcations/paymentout');
       },
       error: (error) => {

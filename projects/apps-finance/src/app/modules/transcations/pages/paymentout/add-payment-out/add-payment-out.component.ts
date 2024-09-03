@@ -16,8 +16,6 @@ import {
   PageInfo,
 } from 'shared-lib';
 import { CurrencyDto } from '../../../../general/models';
-import { AddCostCenterComponent } from '../../../components/paymentin/add-cost-center/add-cost-center.component';
-import { PaymentMethodComponent } from '../../../components/paymentin/payment-method/payment-method.component';
 import { PopupAccountsComponent } from '../../../components/paymentin/popup-accounts/popup-accounts.component';
 import {
   costCenters,
@@ -35,6 +33,8 @@ import {
   SharedFinanceTranscationEnums,
 } from '../../../models';
 import { TranscationsService } from '../../../transcations.service';
+import { AddPaymentOutCostCenterComponent } from '../../../components/paymentout/add-payment-out-cost-center/add-payment-out-cost-center.component';
+import { PaymentOutPaymentMethodComponent } from '../../../components/paymentout/payment-out-payment-method/payment-out-payment-method.component';
 
 @Component({
   selector: 'app-add-payment-out',
@@ -176,7 +176,7 @@ export class AddPaymentOutComponent implements OnInit {
       return true;
     } else {
       const data = value;
-      const ref = this.dialog.open(PaymentMethodComponent, {
+      const ref = this.dialog.open(PaymentOutPaymentMethodComponent, {
         width: '900px',
         height: '600px',
         data: { ...data, selectedPayment },
@@ -283,9 +283,9 @@ export class AddPaymentOutComponent implements OnInit {
     });
     this.financeService.accountCurrencyRate.subscribe((res) => {
       if (res) {
-        this.addForm.controls['rate'].patchValue(res.rate);
+        this.addForm.controls['rate'].patchValue(res?.rate);
         this.calculateTotalLocalAmount();
-        this.updateRateInPaymentDetails(res.rate);
+        this.updateRateInPaymentDetails(res?.rate);
       }
     });
     this.addForm.controls['currencyId'].valueChanges.subscribe((currencyId: any) => {
@@ -359,8 +359,8 @@ export class AddPaymentOutComponent implements OnInit {
     this.financeService.getAccountsHasNoChildrenNew(event, new PageInfo());
 
     this.financeService.childrenAccountList.subscribe((res: any) => {
-      if (res.length) {
-        this.filteredAccounts = res.map((account: any) => ({
+      if (res?.length) {
+        this.filteredAccounts = res?.map((account: any) => ({
           ...account,
           displayName: `${account.name} (${account.accountCode})`,
         }));
@@ -570,7 +570,7 @@ export class AddPaymentOutComponent implements OnInit {
       return;
     }
 
-    const dialogRef = this.dialog.open(AddCostCenterComponent, {
+    const dialogRef = this.dialog.open(AddPaymentOutCostCenterComponent, {
       width: '900px',
       height: '600px',
       header: 'Edit Cost Center Allocation',
