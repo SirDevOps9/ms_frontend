@@ -52,7 +52,7 @@ export interface ViewPaymentInDto {
   }
 
   export interface ViewPaymentInMethodDetailDto {
-    id: number;
+    paymentMethodId: number;
     paymentMethodName?: string;
     chequeNumber?: string;
     chequeDueDate?: Date;

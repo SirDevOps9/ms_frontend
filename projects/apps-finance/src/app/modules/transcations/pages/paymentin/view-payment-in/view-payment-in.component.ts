@@ -87,9 +87,10 @@ export class ViewPaymentInComponent {
     const selectedPayment = this.paymentMethod.find(method => method.id === paymentMethodId);
 console.log("selectedPayment",selectedPayment)
     if (selectedPayment) {
-      Line.get('paymentMethodType')?.setValue(selectedPayment.paymentMethodType);
       const paymentMethodType = selectedPayment.paymentMethodType;
-      this.openDialog(Line.value, selectedPayment, Line, Line.amount);
+      console.log("Line.value",Line)
+
+      this.openDialog(Line, selectedPayment, Line, Line.amount);
     }
   }
   
@@ -98,7 +99,7 @@ console.log("selectedPayment",selectedPayment)
       return true
     } else {
       const data = value
-      const viewdata = false;
+      const viewdata = true;
       const ref = this.dialog.open(PaymentMethodComponent, {
         width: '900px',
         height: '600px',
