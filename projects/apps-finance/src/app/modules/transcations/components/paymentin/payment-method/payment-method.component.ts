@@ -34,7 +34,7 @@ export class PaymentMethodComponent {
           this.addForm.patchValue({
             paymentMethodId: paymentDetails.paymentMethodId || this.paymentmethodId,
             chequeNumber: paymentDetails.chequeNumber || null,
-            chequeDueDate: new Date(paymentDetails.chequeDueDate )|| new Date(),
+            chequeDueDate: paymentDetails.chequeDueDate ? new Date(paymentDetails.chequeDueDate) : new Date(),
             bankReference: paymentDetails.bankReference || null,
             vatAmount: paymentDetails.vatAmount || null,
             commissionAmount: paymentDetails.CommissionAmount || null,
@@ -50,10 +50,14 @@ export class PaymentMethodComponent {
       } else if (this.config.data.selectedPayment.commissionType == this.sharedFinanceEnums.commissionTypeString.Amount) {
         this.commissionAmount = (this.config.data.selectedPayment.commissionValue);
       }
-        if(this.config.data.selectedPayment.commissionType ){
+        if(this.config.data.selectedPayment.commissionType && this.config.data.ratio ){
+          
           this.vat = (this.commissionAmount * this.config.data.ratio) / 100
+        }else if(this.config.data.selectedPayment.commissionType && this.config.data.selectedPayment){
+          this.vat = (this.commissionAmount * this.config.data.selectedPayment.ratio) / 100
+
         }
-     
+        
 
 
     }
@@ -64,7 +68,7 @@ export class PaymentMethodComponent {
     this.addForm = this.formBuilder.group({
       paymentMethodId: new FormControl(this.paymentmethodId),
       chequeNumber: new FormControl(null),
-      chequeDueDate: new FormControl(null),
+      chequeDueDate: new FormControl(new Date()),
       bankReference: new FormControl(null),
       vatAmount: new FormControl(null),
       commissionAmount: new FormControl(null),

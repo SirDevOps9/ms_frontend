@@ -367,6 +367,8 @@ export class EditPaymentInComponent {
     this.addForm.controls['paymentHubDetailId'].valueChanges.subscribe((res: any) => {
       this.getCurrencyBankAccount(this.toNumber(res))
     })
+  
+ 
   }
 
   addNewRow() {
@@ -537,6 +539,7 @@ export class EditPaymentInComponent {
       journalLine.get('paymentMethodName')?.setValue(selectedPayment?.name);
       journalLine.get('paymentMethodType')?.setValue(selectedPayment?.paymentMethodType);
       journalLine.get('ratio')?.setValue(selectedPayment?.ratio);
+      console.log( selectedPayment ,"selectedPayment");
 
       this.paymentform = this.formBuilder.group({
         paymentMethodId: new FormControl(selectedPayment?.id),
@@ -821,8 +824,8 @@ export class EditPaymentInComponent {
   ngOnDestroy(): void {
     this.financeService.paymentDetails.next(null)
   }
-  post(){
-    
+  addToPost(){
+    this.financeService.postPaymentIn(this.paymenInId)
   }
 }
 
