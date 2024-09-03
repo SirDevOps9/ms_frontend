@@ -106,21 +106,18 @@ console.log("selectedPayment",selectedPayment)
         height: '600px',
         data: { ...data, selectedPayment,viewdata },
       });
-      ref.onClose.subscribe((res) => {
-        if (res) {
-          journal.get('paymentInMethodDetail')?.setValue(res);
-        }
-      });
+      
     }
   }
   openCostPopup(data: any, journal: FormGroup, account: number, index: number) {
     console.log("data 11", data)
+    const viewdata = true;
 
     const dialogRef = this.dialog.open(AddCostCenterComponent, {
       width: '900px',
       height: '600px',
       header: 'Edit Cost Center Allocation',
-      data: data,
+      data: { ...data,viewdata },
     });
     
   }

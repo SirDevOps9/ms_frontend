@@ -2,6 +2,7 @@
 title="{{ 'PaymentIn.Form.PaymentMethod' | translate }}" 
 [closeFunction]="close"
 (Submit)="save()"
+[disabled]="disabled"
 >
   <div>
     <form [formGroup]="addForm">
@@ -21,7 +22,7 @@ title="{{ 'PaymentIn.Form.PaymentMethod' | translate }}"
               {{ 'PaymentIn.Form.CheckDueDat' | translate }}
             </lib-label>
             <lib-calendar
-              formControlName="chequeDueDate" [readOnly]="disabled"
+              formControlName="chequeDueDate" [disabled]="disabled"
             ></lib-calendar>
             <lib-field-validations [appControl]="addForm.controls['chequeDueDate']"> </lib-field-validations>
           </lib-form-group>

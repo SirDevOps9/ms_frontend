@@ -2,6 +2,7 @@
 title="{{ 'PaymentIn.Form.PaymentMethod' | translate }}" 
 [closeFunction]="close"
 (Submit)="save()"
+[disabled]="disabled"
 >
   <div>
     <form [formGroup]="addForm">
@@ -11,7 +12,7 @@ title="{{ 'PaymentIn.Form.PaymentMethod' | translate }}"
             <lib-label [appControl]="addForm.controls['chequeNumber']">
               {{ 'PaymentIn.Form.CheckNumber' | translate }}
             </lib-label>
-            <lib-text-input type="text" formControlName="chequeNumber" placeholder="000" />
+            <lib-text-input type="text" formControlName="chequeNumber" placeholder="000" [readOnly]="disabled" />
             <lib-field-validations [appControl]="addForm.controls['chequeNumber']"> </lib-field-validations>
           </lib-form-group>
         </div>
@@ -21,7 +22,7 @@ title="{{ 'PaymentIn.Form.PaymentMethod' | translate }}"
               {{ 'PaymentIn.Form.CheckDueDat' | translate }}
             </lib-label>
             <lib-calendar
-              formControlName="chequeDueDate"
+              formControlName="chequeDueDate" [disabled]="disabled"
             ></lib-calendar>
             <lib-field-validations [appControl]="addForm.controls['chequeDueDate']"> </lib-field-validations>
           </lib-form-group>
@@ -49,7 +50,7 @@ title="{{ 'PaymentIn.Form.PaymentMethod' | translate }}"
             <lib-label [appControl]="addForm.controls['bankReference']">
               {{ 'PaymentIn.Form.BankReference' | translate }}
             </lib-label>
-            <lib-text-input type="text" formControlName="bankReference" placeholder="text up to 25" />
+            <lib-text-input [readOnly]="disabled" type="text" formControlName="bankReference" placeholder="text up to 25" />
             <lib-field-validations [appControl]="addForm.controls['bankReference']"> </lib-field-validations>
           </lib-form-group>
         </div>

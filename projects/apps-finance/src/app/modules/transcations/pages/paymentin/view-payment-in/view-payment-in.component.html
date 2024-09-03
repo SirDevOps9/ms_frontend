@@ -82,7 +82,7 @@
 
       <div class="journal_page">
         <lib-data-table
-          *ngIf="ViewForm!"
+          *ngIf="ViewForm!.paymentInDetails"
           [items]="ViewForm.paymentInDetails"
           className="p-datatable-gridlines"
           [tableConfigs]="{

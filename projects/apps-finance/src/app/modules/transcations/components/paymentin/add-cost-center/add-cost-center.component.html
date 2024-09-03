@@ -2,7 +2,7 @@
   title="{{ 'popupCostCenter.CostCenterAllocation' | translate }}"
   [closeFunction]="close"
   (Submit)="clickSave($event)"
-  [disabled]="calcPercentage > 100 || !allocationform.valid"
+  [disabled]="calcPercentage > 100 || !allocationform.valid ||disabled"
 >
   <div class="flex justify-content-between align-items-center mt-2 w-12">
     <div class="flex gap-3">
@@ -32,6 +32,7 @@
                 optionValue="id"
                 optionLabel="displayName"
                 [selectedValue]="lookupValues.length ? lookupValues[i] : ''"
+                [readOnly]="disabled"
               >
               </lib-select>
             </lib-form-group>
@@ -43,6 +44,7 @@
               formControlName="percentage"
               type="text"
               (keyUpFullEvent)="validateInput($event)"
+              [readOnly]="disabled"
             ></lib-text-input>
             <small class="text-danger" *ngIf="calcPercentage > 100"
               >
@@ -55,6 +57,7 @@
               formControlName="amount"
               type="text"
               (keyUpFullEvent)="validateInput($event)"
+              [readOnly]="disabled"
             ></lib-text-input>
           </td>
           <td>
@@ -66,7 +69,7 @@
     </p-table>
 
     <div class="pt-2">
-      <lib-button className="new-line" (onClick)="addItem()">
+      <lib-button [disabled]="disabled" className="new-line" (onClick)="addItem()">
         {{ 'popupCostCenter.AddNewLine' | translate }}
       </lib-button>
     </div>

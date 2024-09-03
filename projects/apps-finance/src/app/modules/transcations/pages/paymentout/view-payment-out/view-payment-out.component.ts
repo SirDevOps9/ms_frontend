@@ -7,11 +7,14 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AddCostCenterComponent } from '../../../components/paymentin/add-cost-center/add-cost-center.component';
 import { PaymentMethodComponent } from '../../../components/paymentin/payment-method/payment-method.component';
+import { PaymentOutPaymentMethodComponent } from '../../../components/paymentout/payment-out-payment-method/payment-out-payment-method.component';
+import { AddPaymentOutCostCenterComponent } from '../../../components/paymentout/add-payment-out-cost-center/add-payment-out-cost-center.component';
 
 @Component({
   selector: 'app-view-payment-out',
   templateUrl: './view-payment-out.component.html',
-  styleUrls: ['./view-payment-out.component.scss']
+  styleUrls: ['./view-payment-out.component.scss'],
+  providers: [RouterService]
 })
 export class ViewPaymentOutComponent implements OnInit {
 
@@ -100,7 +103,7 @@ console.log("selectedPayment",selectedPayment)
     } else {
       const data = value
       const viewdata = true;
-      const ref = this.dialog.open(PaymentMethodComponent, {
+      const ref = this.dialog.open(PaymentOutPaymentMethodComponent, {
         width: '900px',
         height: '600px',
         data: { ...data, selectedPayment,viewdata },
@@ -110,12 +113,13 @@ console.log("selectedPayment",selectedPayment)
   }
   openCostPopup(data: any, journal: FormGroup, account: number, index: number) {
     console.log("data 11", data)
+    const viewdata = true;
 
-    const dialogRef = this.dialog.open(AddCostCenterComponent, {
+    const dialogRef = this.dialog.open(AddPaymentOutCostCenterComponent, {
       width: '900px',
       height: '600px',
       header: 'Edit Cost Center Allocation',
-      data: data,
+      data: { ...data,viewdata },
     });
     
   }
