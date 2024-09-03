@@ -50,3 +50,7 @@ export enum paymentplace {
   export enum OtherOptions {
     GLAccount = 'GL account'
   }
+  export enum paymentInStatus {
+    Draft = 'Draft',
+    Posted  = 'Posted',
+  }

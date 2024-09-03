@@ -144,5 +144,8 @@ getAccountCurrencyRate(currentCurrency:number,accountCurrency:number){
     return this.httpService.delete(`PaymentOut/${id}`);
   }
 
+  postPaymentIn(id:number){
+    return this.httpService.post(`PaymentIn/${id}/Post`,null);
+  }
 }
 

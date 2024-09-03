@@ -139,7 +139,9 @@ export class TranscationsService {
         this.toasterService.showSuccess(
           this.languageService.transalte('PaymentIn.Success'),
           this.languageService.transalte('PaymentIn.PaymentInAddedSuccessfully')
-        );        
+        );    
+        this.routerService.navigateTo('/transcations/paymentin')
+    
       },
       error:(error)=>{
         this.toasterService.showError(
@@ -271,7 +273,24 @@ export class TranscationsService {
       }
     })
   }
-  GetPaymentOutById(id:number){
+  postPaymentIn(id:number) {
+    this.TranscationsProxy.postPaymentIn(id).subscribe({
+      next:(res:any)=> {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('PaymentIn.Success'),
+          this.languageService.transalte('PaymentIn.PaymentInPostedSuccessfully')
+        );
+        this.routerService.navigateTo('/transcations/paymentin')
+
+      },
+      error:(error)=>{
+        this.toasterService.showError(
+          this.languageService.transalte('PaymentIn.Error'),
+          this.languageService.transalte('PaymentIn.postedError')
+        );
+      }
+    })
+  }  GetPaymentOutById(id:number){
     this.TranscationsProxy.GetPaymentOutById(id).subscribe(res=>{
       if(res) {
        this.paymentOutDetails.next(res)

@@ -32,12 +32,14 @@ export class AddCostCenterComponent {
     public generalService: GeneralService
   ) {}
   ngAfterViewInit(): void {
+    setTimeout(() => {    
     if (this.config.data?.paymentInDetailCostCenters?.length) {
+      console.log(this.config.data?.paymentInDetailCostCenters,"this.config.data?.paymentInDetailCostCentersthis.config.data?.paymentInDetailCostCenters");
+      
       this.allocationform.clear();
       this.config.data.paymentInDetailCostCenters.forEach((element: any) => {
         this.lookupValues.push(Number(element.costCenterId));
         this.cdr.detectChanges();
-        // this.select.selectedValue = element.costCenterId
         this.allocationform.push(
           this.fb.group({
             ...element,
@@ -45,6 +47,8 @@ export class AddCostCenterComponent {
         );
       });
     }
+  }, 0);
+
   }
 
   close() {
@@ -65,7 +69,6 @@ export class AddCostCenterComponent {
       this.amountForm.get('amount')?.setValue(creditAmount);
     }
     
-    // Check if cost centers data is provided, then patch it to the form
     if (this.config.data?.costCenters?.length) {
       this.allocationform.clear();
       this.config.data.costCenters.forEach((element: any) => {
@@ -77,12 +80,9 @@ export class AddCostCenterComponent {
         );
       });
     } else {
-      // Add an initial empty item if no data is provided
       this.addItem();
     }
-  
-    // Subscribe to value changes
-    this.allocationform.valueChanges.subscribe((res) => {
+      this.allocationform.valueChanges.subscribe((res) => {
       this.initValueChangeHandlers();
   
       this.calcPercentage = res.reduce((accumulator: any, currentValue: any) => {
