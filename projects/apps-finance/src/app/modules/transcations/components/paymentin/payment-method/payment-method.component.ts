@@ -21,6 +21,7 @@ export class PaymentMethodComponent {
 
   ngOnInit() {
     if (this.config.data) {
+      console.log(this.config.data);
       
       this.paymentmethod = this.config.data.paymentMethodType;
       this.paymentmethodId = this.config.data.paymentMethodId;
@@ -42,6 +43,20 @@ export class PaymentMethodComponent {
         }, 100);
      
 
+      }else  if (this.config.data?.paymentInMethodDetails) {
+        const paymentDetails = this.config.data.paymentInMethodDetails;
+        this.initializeForm();
+        setTimeout(() => {
+          this.addForm.patchValue({
+            paymentMethodId: paymentDetails.paymentMethodId || this.paymentmethodId,
+            chequeNumber: paymentDetails.chequeNumber || null,
+            chequeDueDate: paymentDetails.chequeDueDate ? new Date(paymentDetails.chequeDueDate) : new Date(),
+            bankReference: paymentDetails.bankReference || null,
+            vatAmount: paymentDetails.vatAmount || null,
+            commissionAmount: paymentDetails.CommissionAmount || null,
+          });
+        }, 100);
+     
       }
       if (this.config.data.selectedPayment.commissionType === this.sharedFinanceEnums.commissionTypeString.Percent) {
         this.commissionAmount = (this.amount * this.config.data.selectedPayment.commissionValue) / 100;

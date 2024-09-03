@@ -232,7 +232,7 @@ export class EditPaymentInComponent {
 
     } else if (name == this.sharedFinanceEnums.paiedDropDown.other) {
       this.paidByDetailsOther = this.other
-      journalLine.get('paidByDetailsName')?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount);
+      // journalLine.get('paidByDetailsName')?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount);
 
     }
   }
@@ -353,7 +353,28 @@ export class EditPaymentInComponent {
 
       this.paymentInDetailsFormArray.controls.forEach((control: any, index: number) => {
         if (control.value.paidBy === this.sharedFinanceEnums.paiedDropDown.other) {
-          control.get('paidByDetailsName')?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount)
+        const paidByValue = control.value.paidBy
+        console.log(control.value ,"control.value");
+        
+          if (paidByValue === this.sharedFinanceEnums.paiedDropDown.customer) {
+            const customer = this.customerDropDown.find((e: any) => e.id === index);
+            control.controls['paidByDetailsName'].setValue(customer ? customer.name : "")
+            return customer ? customer.name : '';
+          } else if (paidByValue === this.sharedFinanceEnums.paiedDropDown.vendor) {
+            const vendor = this.vendorDropDown.find((e: any) => e.id === index);
+            control.controls['paidByDetailsName'].setValue(vendor ? vendor.name : "")
+      
+            return vendor ? vendor.name : '';
+          } else if (paidByValue === this.sharedFinanceEnums.paiedDropDown.other) {
+            const other : any = this.other.find((e: any) => e.id === 1);
+            console.log("000000000");
+            console.log( other ,"000000000");
+                           control.get('paidByDetailsName')?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount)
+               control.get('paidByDetailsId')?.setValue(other?.id)
+      
+            return other ? other.name : '';
+          }
+          // control.get('paidByDetailsName')?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount)
         }
       });
       this.addForm.controls['currency'].patchValue(res.currencyName)
@@ -382,7 +403,7 @@ export class EditPaymentInComponent {
 
     let newLine = this.formBuilder.group(
       {
-        amount: new FormControl(0, [customValidators.required, customValidators.hasSpaces]),
+        amount: new FormControl(0, [customValidators.required, customValidators.hasSpaces ,customValidators.nonZero]),
         paymentMethodId: new FormControl(null, [customValidators.required]),
         paymentMethodType: new FormControl("Check"),
         ratio: new FormControl(null),
@@ -588,7 +609,11 @@ export class EditPaymentInComponent {
       return vendor ? vendor.name : '';
     } else if (paidByValue === this.sharedFinanceEnums.paiedDropDown.other) {
       const other = this.other.find((e: any) => e.id === id);
-      journal.controls['paidByDetailsName'].setValue(other ? other.name : "")
+      console.log("000000000");
+      console.log( other ,"000000000");
+      
+        journal.controls['paidByDetailsName'].setValue(other ? other.name : "")
+        //  journal.get('paidByDetailsName')?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount)
 
       return other ? other.name : '';
     }
@@ -666,69 +691,89 @@ export class EditPaymentInComponent {
 
   }
   save() {
-    if (!this.formsService.validForm(this.paymentInDetailsFormArray && this.addForm, false)) return;
+    if(!this.paymentInPosted){
+      if (!this.formsService.validForm(this.paymentInDetailsFormArray && this.addForm, false)) return;
 
-    let lineNumber = 0;
-    let validpaymentInDetails: boolean = true;
-    this.paymentInDetailsFormArray.controls.forEach((control) => {
-
-      lineNumber++;
-
-      if (control.value.paymentMethodType == this.sharedFinanceEnums.paymentMethodTypeString.Check) {
-        if (control.value.paymentInMethodDetail.chequeNumber == null || control.value.paymentInMethodDetail.chequeDueDate == null) {
-          this.toasterService.showError(
-            this.langService.transalte('PaymentIn.Error'),
-            this.langService.transalte(`PaymentIn.paymentMethodTypeRequired`) + lineNumber
-          );
-          validpaymentInDetails = false
-          return
-        }
-
-      }
-      else if (control.value.paymentMethodType == this.sharedFinanceEnums.paymentMethodTypeString.Master) {
-        if (control.value.paymentInMethodDetail.bankReference == null) {
-          this.toasterService.showError(
-            this.langService.transalte('PaymentIn.Error'),
-            this.langService.transalte(`PaymentIn.paymentMethodTypeRequired`) + lineNumber
-          );
-          validpaymentInDetails = false
-
-          return
-        }
-
-      }
-      else if (control.value.paymentMethodType == this.sharedFinanceEnums.paymentMethodTypeString.Visa) {
-        if (control.value.paymentInMethodDetail.bankReference == null) {
-          this.toasterService.showError(
-            this.langService.transalte('PaymentIn.Error'),
-            this.langService.transalte(`PaymentIn.paymentMethodTypeRequired`) + lineNumber
-          );
-          validpaymentInDetails = false
-
-          return
-        }
-
-      }
-    });
-    if (validpaymentInDetails) {
-      const paymentHubDetailId = this.addForm.controls['paymentHubDetailId'].value.toString();
+      let lineNumber = 0;
+      let validpaymentInDetails: boolean = true;
       this.paymentInDetailsFormArray.controls.forEach((control) => {
-        if (control instanceof FormGroup) {
-          const paidByDetailsIdControl = control.get('paidByDetailsId');
-
-          if (paidByDetailsIdControl) {
-            const paidByDetailsId = paidByDetailsIdControl.value.toString();
-            control.get('paidByDetailsId')?.setValue(paidByDetailsId)
+  
+        lineNumber++;
+  
+        if (control.value.paymentMethodType == this.sharedFinanceEnums.paymentMethodTypeString.Check) {
+          if (control.value.paymentInMethodDetail.chequeNumber == null || control.value.paymentInMethodDetail.chequeDueDate == null) {
+            this.toasterService.showError(
+              this.langService.transalte('PaymentIn.Error'),
+              this.langService.transalte(`PaymentIn.paymentMethodTypeRequired`) + lineNumber
+            );
+            validpaymentInDetails = false
+            return
           }
+  
+        }
+        else if (control.value.paymentMethodType == this.sharedFinanceEnums.paymentMethodTypeString.Master) {
+          if (control.value.paymentInMethodDetail.bankReference == null) {
+            this.toasterService.showError(
+              this.langService.transalte('PaymentIn.Error'),
+              this.langService.transalte(`PaymentIn.paymentMethodTypeRequired`) + lineNumber
+            );
+            validpaymentInDetails = false
+  
+            return
+          }
+  
+        }
+        else if (control.value.paymentMethodType == this.sharedFinanceEnums.paymentMethodTypeString.Visa) {
+          if (control.value.paymentInMethodDetail.bankReference == null) {
+            this.toasterService.showError(
+              this.langService.transalte('PaymentIn.Error'),
+              this.langService.transalte(`PaymentIn.paymentMethodTypeRequired`) + lineNumber
+            );
+            validpaymentInDetails = false
+  
+            return
+          }
+  
         }
       });
-
-      this.addForm.controls['paymentHubDetailId'].setValue(paymentHubDetailId);
-      this.financeService.editPaymentIn(this.addForm.value)
-
+      if (validpaymentInDetails) {
+        const paymentHubDetailId = this.addForm.controls['paymentHubDetailId'].value.toString();
+        this.paymentInDetailsFormArray.controls.forEach((control) => {
+          if (control instanceof FormGroup) {
+            const paidByDetailsIdControl = control.get('paidByDetailsId');
+  
+            if (paidByDetailsIdControl) {
+              const paidByDetailsId = paidByDetailsIdControl.value.toString();
+              control.get('paidByDetailsId')?.setValue(paidByDetailsId)
+            }
+          }
+        });
+  
+        this.addForm.controls['paymentHubDetailId'].setValue(paymentHubDetailId);
+        this.financeService.editPaymentIn(this.addForm.value)
+  
+      }
+    }else{
+      return
     }
+  
 
 
+  }
+  onDelete(id: number, index: number): void {
+    console.log(id ,"0000");
+    
+    if (id == 0) {
+      this.deleteLine(index);
+    } else {
+      this.financeService.paymentInDeleteLine(id);
+      this.financeService.paymenInLineDeletedObser.subscribe((res: boolean) => {
+        if (res == true) {
+          this.paymentInDetailsFormArray.removeAt(index);
+          this.calculateTotalAmount();
+        }
+      });
+    }
   }
 
   deleteLine(index: number) {

@@ -303,7 +303,7 @@ export class AddPaymentInComponent {
     
     let newLine = this.formBuilder.group(
       {
-        amount: new FormControl(0, [customValidators.required, customValidators.number, customValidators.hasSpaces]),
+        amount: new FormControl(0, [customValidators.required, customValidators.number, customValidators.hasSpaces ,customValidators.nonZero]),
         paymentMethodId: new FormControl(null, [customValidators.required]),
         paymentMethodType: new FormControl(null),
         ratio: new FormControl(null),

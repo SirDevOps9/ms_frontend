@@ -42,7 +42,12 @@ export class TranscationsService {
   public childrenAccountList = this.childrenAccountDataSource.asObservable();
   public childrenAccountPageInfo = new BehaviorSubject<PageInfoResult>({});
   public paymentDetails = new BehaviorSubject<any>({});
-  private accountCurrencyRateDataSource = new BehaviorSubject<CurrencyRateDto>({ rate: 0 });
+  private accountCurrencyRateDataSource = new BehaviorSubject<CurrencyRateDto>({rate:0});
+  private paymenInLineDeleted = new BehaviorSubject<boolean>(false);
+  public paymenInLineDeletedObser = this.paymenInLineDeleted.asObservable();
+
+
+
 
   paymentDetailsnDataObservable = this.paymentDetails.asObservable();
   getVendorDropdownDataObservable = this.getVendorDropdownData.asObservable();
@@ -260,10 +265,34 @@ export class TranscationsService {
       });
     }
   }
-  getPaymentInById(id: number) {
-    this.TranscationsProxy.GetPaymentInById(id).subscribe((res) => {
-      if (res) {
-        this.paymentDetails.next(res);
+  async paymentInDeleteLine(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.TranscationsProxy.PaymentInDeleteLine(id).subscribe({
+        next: (res) => {
+          
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('payment-in.delete')
+          );
+          this.loaderService.hide();
+          // const currentPaymentIn = this.paymentInDataSource.getValue();
+          // const updatedcurrentPaymentIn = currentPaymentIn.filter((c : any) => c.id !== id);
+          // this.paymentInDataSource.next(updatedcurrentPaymentIn);
+          
+          this.paymenInLineDeleted.next(res);
+
+        },
+        
+      });
+    }
+  }
+  getPaymentInById(id:number){
+    this.TranscationsProxy.GetPaymentInById(id).subscribe(res=>{
+      if(res) {
+       this.paymentDetails.next(res)
       }
     });
   }
