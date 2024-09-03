@@ -1,5 +1,5 @@
 <lib-page-content>
-  <form [formGroup]="addForm">
+  <form [formGroup]="addForm" >
     <div class="grid m-0">
       <div class="md:col-4">
         <lib-form-group>
@@ -385,7 +385,9 @@
           </div>
           <div class="md:col-4">
             <div>
-              <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%" (click)="save()">
+              <lib-button-micro title="{{ 'Save' | translate }}"  
+              [nameClass]="!paymentInPosted ? 'save' : 'disabled'"
+              widthNumber="100%" (click)="save()">
               </lib-button-micro>
             </div>
           </div>

@@ -64,6 +64,7 @@ export class EditPaymentInComponent {
   newBalance: number = 0;
   selectedBank: boolean;
   paymentInDraft: boolean;
+  paymentInPosted: boolean;
   change: boolean;
   selectedCurrency: string = "";
   paymentMethod: BankPaymentMethods[] = []
@@ -304,10 +305,13 @@ export class EditPaymentInComponent {
       this.paymentDetails = res
       this.paymenInId=res.id
       if(res.status == this.sharedFinanceEnums.paymentInStatus.Draft){
-        this.paymentInDraft=true
+        this.paymentInDraft=true  
+        this.paymentInPosted=false
+
+
       } else  if(res.status == this.sharedFinanceEnums.paymentInStatus.Posted){
-        this.paymentInDraft=false
-      } ;
+        this.paymentInPosted=true
+         } ;
 
       this.addForm.patchValue({
         ...res,

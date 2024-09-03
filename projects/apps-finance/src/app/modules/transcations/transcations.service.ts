@@ -247,19 +247,25 @@ export class TranscationsService {
     })
   }
   postPaymentIn(id:number) {
+    this.loaderService.show();
+
     this.TranscationsProxy.postPaymentIn(id).subscribe({
+
       next:(res:any)=> {
         this.toasterService.showSuccess(
           this.languageService.transalte('PaymentIn.Success'),
           this.languageService.transalte('PaymentIn.PaymentInPostedSuccessfully')
         );
+        this.loaderService.hide();
+
         this.routerService.navigateTo('/transcations/paymentin')
 
       },
       error:(error)=>{
+        this.loaderService.hide();
         this.toasterService.showError(
           this.languageService.transalte('PaymentIn.Error'),
-          this.languageService.transalte('PaymentIn.postedError')
+          this.languageService.transalte(error.message)
         );
       }
     })
