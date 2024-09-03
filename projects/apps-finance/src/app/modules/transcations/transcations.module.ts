@@ -89,6 +89,12 @@ const routes: Routes = [
               data: {
                 breadcrumb: BreadcrumbLabel.EDIT_PAYMENT_OUT,
               },
+            },{
+              path: 'view/:id',
+              component: ViewPaymentOutComponent,
+              data: {
+                breadcrumb: BreadcrumbLabel.EDIT_PAYMENT_OUT,
+              },
             },
           ]
           },

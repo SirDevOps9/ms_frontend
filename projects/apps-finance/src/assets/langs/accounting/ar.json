@@ -14,7 +14,10 @@
     "AddPaymentMethod": "إضافة طريقة الدفع",
     "EditPaymentMethod": "تحرير طريقة الدفع",
     "ViewPaymentMethod": "عرض طريقة الدفع",
-    "PaymentIn": "إيصال الدفع"
+    "PaymentIn": "إيصال الدفع",
+    "ViewPaymentIn": "عرض قبض",
+    "ViewPaymentout": "عرض صرف"
+
 
 
   },

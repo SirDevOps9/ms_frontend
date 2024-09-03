@@ -1,6 +1,6 @@
 import { commissiontype, costCenterConfig, PaidBy, paymentmethodtype, paymentplace } from "./enums";
 
-export interface ViewPaymentInDto {
+export interface ViewPaymentOutDto {
     id: number;
     code: string;
    // status: PaymentInStatus;
@@ -19,11 +19,11 @@ export interface ViewPaymentInDto {
     journalId?: number;
     journalCode?: string;
     sourceDocument?: string;
-    paymentInDetails: PaymentInDetailViewDto[];
+    paymentOutDetails: PaymentOutDetailViewDto[];
 
   }
 
-  export interface PaymentInDetailViewDto {
+  export interface PaymentOutDetailViewDto {
     id: number;
     amount: number;
     rate: number;
@@ -33,7 +33,7 @@ export interface ViewPaymentInDto {
     paidBy: PaidBy;
     paidByDetailsName: string;
     paymentMethodId:number;
-    paymentInMethodDetail?: ViewPaymentInMethodDetailDto;
+    paymentOutMethodDetail?: ViewPaymentOutMethodDetailDto;
     paymentMethodType: paymentmethodtype;
     vendorName?: string;
     customerName?: string;
@@ -41,17 +41,17 @@ export interface ViewPaymentInDto {
     accountName?: string;
     notes: string;
     costCenterConfig: costCenterConfig;
-    paymentInDetailCostCenters: ViewPaymentInDetailCostCenterDto[];
+    paymentOutDetailCostCenters: ViewPaymentOutDetailCostCenterDto[];
   }
 
-  export interface ViewPaymentInDetailCostCenterDto {
+  export interface ViewPaymentOutDetailCostCenterDto {
     id: number;
     costCenterName: string;
     percentage: number;
     amount: number;
   }
 
-  export interface ViewPaymentInMethodDetailDto {
+  export interface ViewPaymentOutMethodDetailDto {
     paymentMethodId: number;
     paymentMethodName?: string;
     chequeNumber?: string;

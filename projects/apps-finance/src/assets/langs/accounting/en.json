@@ -13,7 +13,9 @@
   "AddPaymentMethod": "Add Payment Method",
   "EditPaymentMethod": "Edit Payment Method",
   "ViewPaymentMethod": "View Payment Method",
-  "PaymentIn":"Payment In " 
+  "PaymentIn":"Payment In " ,
+  "ViewPaymentIn": "View Payment In",
+  "ViewPaymentout": "View Payment Out"
 
 },
   "COAConfigration": {
