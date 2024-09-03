@@ -5,6 +5,8 @@
   "Logout": "تسجيل الخروج",
   "DeleteError": "حدث خطاء فى المسح",
   "LoadError": "حدث خطاء فى التحميل",
+  "Post": "ترحيل",
+
   "Table": {
     "Actions": "اجراءات",
     "Edit": "تعديل",
@@ -336,7 +338,9 @@
   "paymentMethodTypeNotAllowed": "نوع طريقة الدفع غير مسموح به",
   "paymentMethodTypeRequired": "تفاصيل طريقة الدفع مطلوبة في السطر",
   "addpaymentin": "إضافة إيصال الدفع",
-  "editpaymentin": "تعديل إيصال الدفع"
+  "editpaymentin": "تعديل إيصال الدفع",
+  "PaymentInPostedSuccessfully": "تم ترحيل إيصال الدفع بنجاح"
+
 
 
   

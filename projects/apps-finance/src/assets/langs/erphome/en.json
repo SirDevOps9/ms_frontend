@@ -5,6 +5,8 @@
   "Logout": "Logout",
   "DeleteError": "Error in Delete",
   "LoadError": "Error in loading Data",
+  "Post": "Post",
+
   "Table": {
     "Actions": "Actions",
     "Edit": "Edit",

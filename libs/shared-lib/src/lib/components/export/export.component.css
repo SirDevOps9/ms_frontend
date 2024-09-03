@@ -10,6 +10,9 @@
     cursor: pointer;
    
 }
+.export-btn{
+  position: relative;
+}
 /* .container {
   position: relative;
   width: 157px;
@@ -19,7 +22,7 @@
         width: 160px !important;
         position: absolute;
         top: 50.8px !important;
-        left: 0 !important; 
+        left: -240% !important; 
         margin-right: 50px !important;
       
     }
@@ -31,6 +34,6 @@
     color: red; /* Change this to your desired color */
   }
   .exportImg{
-    height: 43px;
+    height: 100%;
     cursor: pointer;
   }

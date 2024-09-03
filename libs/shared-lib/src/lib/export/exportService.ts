@@ -9,7 +9,7 @@ export class ExportService {
     fileName: string,
     includeColumns: lookupDto[] = []
   ): Promise<void> {
-    const doc = await addFontFromUrl('/erp/media/Cairo-Regular.ttf', 'Cairo');
+    const doc = await addFontFromUrl('assets/fonts/poppins/cairo-regular.ttf', 'Cairo');
     let flattenData: any[];
 
     // Check if jsonData is in a tree structure and flatten if necessary
@@ -68,7 +68,6 @@ export class ExportService {
   static ToExcel(jsonData: any[], fileName: string, includeColumns: lookupDto[] = []): void {
     let flattenData: any[];
 
-    console.log(jsonData);
 
     if (this.isTreeStructure(jsonData)) {
       // Function to flatten the nested tree structure
@@ -149,15 +148,12 @@ async function addFontFromUrl(
   style: string = 'normal'
 ): Promise<jsPDF> {
   try {
-    console.log(`Fetching font from URL: ${url}`);
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Network response was not ok. Status: ${response.status}`);
     }
 
     const fontBlob = await response.blob();
-    console.log('Font fetched successfully');
-
     // Convert blob to base64
     const fontBase64 = await blobToBase64(fontBlob);
     const base64Data = fontBase64.split(',')[1]; // Extract base64 data from data URL
@@ -168,7 +164,6 @@ async function addFontFromUrl(
     doc.setFont(fontName);
     doc.setFontSize(12);
 
-    console.log('Font added to jsPDF successfully');
     return doc;
   } catch (error) {
     console.error('Error fetching or using font:', error);
