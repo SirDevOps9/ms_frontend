@@ -53,6 +53,13 @@ const routes: Routes = [
               breadcrumb: BreadcrumbLabel.EDIT_PAYMENT_IN,
             },
           },
+          {
+            path: 'view/:id',
+            component: ViewPaymentInComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_PAYMENT_IN,
+            }
+          }
         ]
         },
         {

@@ -1,1 +1,165 @@
-<p>view-payment-in works!</p>
+<lib-page-content>
+    <div class="grid-cont">
+        <div class="my-3 grid-item">
+          <p class="headsCont paragraph_b16">{{ 'ViewForm.code' | translate }}</p>
+          <small class="subHead heading_b16">
+            {{ ViewForm.code }}
+          </small>
+        </div>
+        <div class="my-3 grid-item">
+          <p class="headsCont paragraph_b16">{{ 'ViewForm.paymentInDate' | translate }}</p>
+          <small class="subHead heading_b16">
+            {{ ViewForm.paymentInDate | date : 'dd/MM/yyyy'}}
+          </small>
+        </div>
+        <div class="my-3 grid-item">
+          <p class="headsCont paragraph_b16">{{ 'ViewForm.description' | translate }}</p>
+          <small class="subHead heading_b16">
+            {{ ViewForm.description }}
+          </small>
+        </div>
+        <div class="my-3 grid-item">
+          <p class="headsCont paragraph_b16">{{ 'ViewForm.paymentHub' | translate }}</p>
+          <small class="subHead heading_b16">
+            {{ ViewForm.paymentHub  }}
+          </small>
+        </div>
+        <div class="my-3 grid-item">
+          <p class="headsCont paragraph_b16">{{ 'ViewForm.paymentHubDetailName' | translate }}</p>
+          <small class="subHead heading_b16">
+            {{ ViewForm.paymentHubDetailName }}
+          </small>
+        </div>
+         <div class="my-3 grid-item">
+          <p class="headsCont paragraph_b16">{{ 'ViewForm.bankAccountNumber' | translate }}</p>
+          <small class="subHead heading_b16">
+            {{ ViewForm.bankAccountNumber }}
+          </small>
+         </div>
+         <div class="my-3 grid-item">
+            <p class="headsCont paragraph_b16">{{ 'ViewForm.bankAccountNumber' | translate }}</p>
+            <small class="subHead heading_b16">
+              {{ ViewForm.bankAccountNumber }}
+            </small>
+          </div>
+          <div class="my-3 grid-item">
+            <p class="headsCont paragraph_b16">{{ 'ViewForm.sourceDocument' | translate }}</p>
+            <small class="subHead heading_b16">
+              {{ ViewForm.sourceDocument }}
+            </small>
+          </div>
+          <div class="my-3 grid-item">
+            <p class="headsCont paragraph_b16">{{ 'ViewForm.journalCode' | translate }}</p>
+            <small class="subHead heading_b16">
+              {{ ViewForm.journalCode }}
+            </small>
+          </div>
+          <div class="my-3 grid-item">
+            <p class="headsCont paragraph_b16">{{ 'ViewForm.currencyName' | translate }}</p>
+            <small class="subHead heading_b16">
+              {{ ViewForm.currencyName }}
+            </small>
+          </div>
+          <div class="my-3 grid-item">
+            <p class="headsCont paragraph_b16">{{ 'ViewForm.rate' | translate }}</p>
+            <small class="subHead heading_b16">
+              {{ ViewForm.rate }}
+            </small>
+          </div>
+          <div class="my-3 grid-item">
+            <p class="headsCont paragraph_b16">{{ 'ViewForm.amount' | translate }}</p>
+            <small class="subHead heading_b16">
+              {{ ViewForm.amount }}
+            </small>
+          </div>
+          <div class="my-3 grid-item">
+            <p class="headsCont paragraph_b16">{{ 'ViewForm.localAmount' | translate }}</p>
+            <small class="subHead heading_b16">
+              {{ ViewForm.localAmount }}
+            </small>
+          </div>
+      </div>
+
+      <div class="journal_page">
+        <lib-data-table
+          *ngIf="ViewForm!"
+          [items]="ViewForm.paymentInDetails"
+          className="p-datatable-gridlines"
+          [tableConfigs]="{
+            allowPagination: false,
+            allowServerPagination: false,
+            dataKey: 'id',
+            pageSize: 10,
+            columns: [
+              {
+                name: 'amount',
+                headerText: 'ViewForm.amount' | translate,
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'localAmount',
+                headerText: 'ViewForm.localAmount' | translate,
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'paymentMethodName',
+                headerText: 'ViewForm.paymentMethodName' | translate,
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'paymentInMethodDetail',
+                headerText: 'ViewForm.paymentInMethodDetail' | translate,
+                template : method
+              },
+              {
+                name: 'paidBy',
+                headerText: 'ViewForm.paidBy' | translate,
+                isGlobalFilter: true,
+                isSortable: true,
+                applyNumberFormat:true,
+              },
+              {
+                name: 'glAccountId',
+                headerText: 'ViewForm.glAccountId' | translate,
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'costCenterConfig',
+                headerText: 'ViewForm.costCenterConfig' | translate,
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'notes',
+                headerText: 'ViewForm.notes' | translate,
+                isGlobalFilter: true,
+                isSortable: true,
+                applyNumberFormat:true,
+              }
+            ]
+          }"
+        >
+        <ng-template #method let-method>
+          <div class="method flex align-items-center"> 
+        <lib-button-micro title="{{ 'ViewForm.PaymentMethod' | translate }}"
+        widthNumber="100%" (click)="handleButtonClick(method)">
+
+          </lib-button-micro>
+      </div>
+       </ng-template>
+
+          <ng-template pTemplate="footer">
+            <tr>
+              <td class="total">{{totalAmount}}</td>
+              <td class="total">{{ calculateTotalLocalAmount() }}</td>
+              <td colspan="8" class="total"></td>
+            </tr>
+          </ng-template>
+        </lib-data-table>
+      </div>
+  
+  </lib-page-content>

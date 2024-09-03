@@ -18,6 +18,7 @@ export class PaymentMethodComponent {
   vat: number
   commissionAmount: number = 0
   paymentMethodTypeString: paymentMethodTypeString
+  disabled: boolean
 
   ngOnInit() {
     if (this.config.data) {
@@ -43,6 +44,9 @@ export class PaymentMethodComponent {
         }, 100);
      
 
+      }
+      if (this.config.data.viewdata) {
+        this.disabled=false;
       }
       if (this.config.data.selectedPayment.commissionType === this.sharedFinanceEnums.commissionTypeString.Percent) {
         this.commissionAmount = (this.amount * this.config.data.selectedPayment.commissionValue) / 100;
