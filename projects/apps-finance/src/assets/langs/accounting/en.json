@@ -341,7 +341,9 @@
     "actions": "Actions",
     "Search": "Search",
     "addNew": "Add New",
-    "delete":"Payment In Deleted Successfully"
+    "delete":"Payment In Deleted Successfully",
+    "post":"post"
+
   }
 
 

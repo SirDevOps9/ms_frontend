@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { commissionTypeString, costCenterConfig, OtherOptions, PaidBy, paiedDropDown, paymentmethodtype, paymentMethodTypeString, paymentplaceString } from "./enums";
+import { commissionTypeString, costCenterConfig, OtherOptions, PaidBy, paiedDropDown, paymentInStatus, paymentmethodtype, paymentMethodTypeString, paymentplaceString } from "./enums";
 
 
 @Injectable({
@@ -30,6 +30,9 @@ export class SharedFinanceTranscationEnums {
 
     get paymentplaceString(): typeof paymentplaceString {
         return paymentplaceString;
+    }
+    get paymentInStatus(): typeof paymentInStatus {
+        return paymentInStatus;
     }
 }
   

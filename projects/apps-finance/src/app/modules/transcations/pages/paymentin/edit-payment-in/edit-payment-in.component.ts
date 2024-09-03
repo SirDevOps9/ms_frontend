@@ -63,11 +63,12 @@ export class EditPaymentInComponent {
   id: number;
   newBalance: number = 0;
   selectedBank: boolean;
+  paymentInDraft: boolean;
   change: boolean;
   selectedCurrency: string = "";
   paymentMethod: BankPaymentMethods[] = []
   AllTreasuriesPayMethod: TreasuriesPaymentMethod[] = []
-
+  paymenInId:number
   constructor(
     private formBuilder: FormBuilder,
     private dialog: DialogService,
@@ -301,6 +302,13 @@ export class EditPaymentInComponent {
     })
     this.financeService.paymentDetailsnDataObservable.subscribe((res: any) => {
       this.paymentDetails = res
+      this.paymenInId=res.id
+      if(res.status == this.sharedFinanceEnums.paymentInStatus.Draft){
+        this.paymentInDraft=true
+      } else  if(res.status == this.sharedFinanceEnums.paymentInStatus.Posted){
+        this.paymentInDraft=false
+      } ;
+
       this.addForm.patchValue({
         ...res,
       });
@@ -812,6 +820,9 @@ export class EditPaymentInComponent {
   }
   ngOnDestroy(): void {
     this.financeService.paymentDetails.next(null)
+  }
+  post(){
+    
   }
 }
 
