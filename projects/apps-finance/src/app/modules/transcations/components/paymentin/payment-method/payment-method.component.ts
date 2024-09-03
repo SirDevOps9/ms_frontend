@@ -26,7 +26,6 @@ export class PaymentMethodComponent {
       this.paymentmethodId = this.config.data.paymentMethodId;
       this.ratio = this.config.data.ratio;
       this.amount = parseInt(this.config.data.amount);
-      console.log(this.config.data ,"kkkkkkkkkkkkkkk");
       
       if (this.config.data?.paymentInMethodDetail) {
         const paymentDetails = this.config.data.paymentInMethodDetail;
@@ -37,7 +36,7 @@ export class PaymentMethodComponent {
             chequeNumber: paymentDetails.chequeNumber || null,
             chequeDueDate: new Date(paymentDetails.chequeDueDate )|| new Date(),
             bankReference: paymentDetails.bankReference || null,
-            vatAmount: paymentDetails.VatAmount || null,
+            vatAmount: paymentDetails.vatAmount || null,
             commissionAmount: paymentDetails.CommissionAmount || null,
           });
         }, 100);
@@ -51,9 +50,10 @@ export class PaymentMethodComponent {
       } else if (this.config.data.selectedPayment.commissionType == this.sharedFinanceEnums.commissionTypeString.Amount) {
         this.commissionAmount = (this.config.data.selectedPayment.commissionValue);
       }
-      if(this.config.data.selectedPayment.commissionType ){
-        this.vat = (this.commissionAmount * this.config.data.ratio) / 100
-      }
+        if(this.config.data.selectedPayment.commissionType ){
+          this.vat = (this.commissionAmount * this.config.data.ratio) / 100
+        }
+     
 
 
     }

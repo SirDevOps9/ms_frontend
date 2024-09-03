@@ -131,7 +131,9 @@ export class TranscationsService {
         this.toasterService.showSuccess(
           this.languageService.transalte('PaymentIn.Success'),
           this.languageService.transalte('PaymentIn.PaymentInAddedSuccessfully')
-        );        
+        );    
+        this.routerService.navigateTo('/transcations/paymentin')
+    
       },
       error:(error)=>{
         this.toasterService.showError(
