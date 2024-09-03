@@ -186,6 +186,7 @@ export class AddPaymentInComponent {
   }
   getDetails(id: string) {
     this.paymentInDetailsFormArray.clear()
+    this.addNewRow();
     this.addForm.controls['currentBalance'].patchValue(0)
     this.addForm.controls['totalReceivedAmount'].patchValue(0)
 

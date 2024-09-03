@@ -69,18 +69,27 @@
       >
         <ng-container search>
           <div>
-
-            <lib-text-input
-            type="text"
-            placeholder="{{ 'payment-in.Search' | translate }}"
-            (keyUp)="onSearchChange($event)"
-            [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
-          >
-          </lib-text-input>
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <lib-text-input
+                type="text"
+                placeholder="{{ 'payment-in.Search' | translate }}"
+                (keyup)="onSearchChange($event)"
+                iconUrl="pi pi-search"
+              ></lib-text-input>
+            </span>
           </div>
         </ng-container>
         <ng-container action>
           <div class="flex gap-2">
+            <lib-button-micro
+              title="{{ 'Table.Add' | translate }}"
+              (click)="routeToAdd()"
+              [iconName]="'pi pi-plus'"
+              nameClass="save"
+            >
+            </lib-button-micro>
+            
             <lib-export
               (exportClick)="exportClick()"
               [exportData]="exportData"
@@ -88,14 +97,6 @@
               [ExportName]="'Payment In'"
             >
             </lib-export>
-            <lib-button
-              pRipple
-              className="addToList"
-              label="{{ 'payment-in.addNew' | translate }}"
-              (onClick)="routeToAdd()"
-              [icon]="'pi pi-plus'"
-            >
-            </lib-button>
           </div>
         </ng-container>
         <ng-template #Date let-paymentIn>
