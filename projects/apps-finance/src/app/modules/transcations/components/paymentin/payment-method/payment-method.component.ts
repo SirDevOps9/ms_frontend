@@ -22,14 +22,12 @@ export class PaymentMethodComponent {
 
   ngOnInit() {
     if (this.config.data) {
+      console.log(this.config.data);
       
       this.paymentmethod = this.config.data.paymentMethodType;
       this.paymentmethodId = this.config.data.paymentMethodId;
       this.ratio = this.config.data.ratio;
       this.amount = parseInt(this.config.data.amount);
-      console.log(this.config.data ,"kkkkkkkkkkkkkkk");
-      console.log(this.config.data?.paymentInMethodDetail ,"paymentInMethodDetail");
-      console.log(this.config.data ,"data");
       
       if (this.config.data?.paymentInMethodDetail) {
         const paymentDetails = this.config.data.paymentInMethodDetail;
@@ -38,17 +36,29 @@ export class PaymentMethodComponent {
           this.addForm.patchValue({
             paymentMethodId: paymentDetails.paymentMethodId || this.paymentmethodId,
             chequeNumber: paymentDetails.chequeNumber || null,
-            chequeDueDate: new Date(paymentDetails.chequeDueDate )|| new Date(),
+            chequeDueDate: paymentDetails.chequeDueDate ? new Date(paymentDetails.chequeDueDate) : new Date(),
             bankReference: paymentDetails.bankReference || null,
-            vatAmount: paymentDetails.VatAmount || null,
+            vatAmount: paymentDetails.vatAmount || null,
             commissionAmount: paymentDetails.CommissionAmount || null,
           });
         }, 100);
      
 
+      }else  if (this.config.data?.paymentInMethodDetails) {
+        const paymentDetails = this.config.data.paymentInMethodDetails;
+        this.initializeForm();
+        setTimeout(() => {
+          this.addForm.patchValue({
+            paymentMethodId: paymentDetails.paymentMethodId || this.paymentmethodId,
+            chequeNumber: paymentDetails.chequeNumber || null,
+            chequeDueDate: paymentDetails.chequeDueDate ? new Date(paymentDetails.chequeDueDate) : new Date(),
+            bankReference: paymentDetails.bankReference || null,
+            vatAmount: paymentDetails.vatAmount || null,
+            commissionAmount: paymentDetails.CommissionAmount || null,
+          });
+        }, 100);
+     
       }
-      console.log(this.config.data.viewdata,"viewdata");
-
       if (this.config.data.viewdata) {
         this.disabled=true;
         console.log(this.disabled,"disabled");
@@ -60,9 +70,14 @@ export class PaymentMethodComponent {
       } else if (this.config.data.selectedPayment.commissionType == this.sharedFinanceEnums.commissionTypeString.Amount) {
         this.commissionAmount = (this.config.data.selectedPayment.commissionValue);
       }
-      if(this.config.data.selectedPayment.commissionType ){
-        this.vat = (this.commissionAmount * this.config.data.ratio) / 100
-      }
+        if(this.config.data.selectedPayment.commissionType && this.config.data.ratio ){
+          
+          this.vat = (this.commissionAmount * this.config.data.ratio) / 100
+        }else if(this.config.data.selectedPayment.commissionType && this.config.data.selectedPayment){
+          this.vat = (this.commissionAmount * this.config.data.selectedPayment.ratio) / 100
+
+        }
+        
 
 
     }
@@ -73,7 +88,7 @@ export class PaymentMethodComponent {
     this.addForm = this.formBuilder.group({
       paymentMethodId: new FormControl(this.paymentmethodId),
       chequeNumber: new FormControl(null),
-      chequeDueDate: new FormControl(null),
+      chequeDueDate: new FormControl(new Date()),
       bankReference: new FormControl(null),
       vatAmount: new FormControl(null),
       commissionAmount: new FormControl(null),

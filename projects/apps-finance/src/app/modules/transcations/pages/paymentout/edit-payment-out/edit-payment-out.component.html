@@ -159,8 +159,8 @@
 
       <div class="md:col-4">
         <lib-form-group>
-          <lib-label [appControl]="addForm.controls['totalReceivedAmount']">
-            {{ 'PaymentIn.Form.TotalReceivedAmount' | translate }}
+          <lib-label [appControl]="addForm.controls['totalPaidAmount']">
+            {{ 'PaymentOut.Form.TotalPaidAmount' | translate }}
           </lib-label>
           <lib-text-input placeholder="{{ calculateTotalLocalAmount() }}" [readOnly]="true" />
         </lib-form-group>
@@ -175,7 +175,7 @@
             type="text"
             formControlName="newBalance"
             class="newBalance"
-            placeholder="{{ addForm.controls['totalReceivedAmount'].value + AccountBalance }}"
+            placeholder="{{ updatedNewBalance }}"
             [readOnly]="true"
           />
         </lib-form-group>
@@ -444,7 +444,7 @@
                   isCostCenterallowed(
                     journalLine,
                     journalLine.controls['costCenterConfig'].value
-                  ) && journalLine.controls['paymentInDetailCostCenters'].value.length == 0
+                  ) && journalLine.controls['paymentOutDetailCostCenters'].value.length == 0
                 "
                 (click)="
                   openCostPopup(
@@ -463,7 +463,7 @@
                   isCostCenterallowed(
                     journalLine,
                     journalLine.controls['costCenterConfig'].value
-                  ) && journalLine.controls['paymentInDetailCostCenters'].value.length != 0
+                  ) && journalLine.controls['paymentOutDetailCostCenters'].value.length != 0
                 "
                 (click)="
                   openCostPopup(
@@ -515,9 +515,9 @@
   </div>
   <div class="btn_group">
     <div class="grid">
-      <div class="md:col-3">
+      <div class="md:col-5">
         <div class="grid">
-          <div class="md:col-6">
+          <div class="md:col-4">
             <lib-button-micro
               title="{{ 'Cancel' | translate }}"
               nameClass="cancel"
@@ -526,13 +526,24 @@
             >
             </lib-button-micro>
           </div>
-          <div class="md:col-6">
+          <div class="md:col-4">
             <div>
               <lib-button-micro
                 title="{{ 'Save' | translate }}"
                 nameClass="save"
                 widthNumber="100%"
                 (click)="save()"
+              >
+              </lib-button-micro>
+            </div>
+          </div>
+          <div class="md:col-4" *ngIf="paymentInDraft">
+            <div>
+              <lib-button-micro
+                title="{{ 'payment-in.post' | translate }}"
+                nameClass="save"
+                widthNumber="100%"
+                (click)="addToPost()"
               >
               </lib-button-micro>
             </div>

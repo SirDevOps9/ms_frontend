@@ -5,6 +5,8 @@
   "Logout": "تسجيل الخروج",
   "DeleteError": "حدث خطاء فى المسح",
   "LoadError": "حدث خطاء فى التحميل",
+  "Post": "ترحيل",
+
   "Table": {
     "Actions": "اجراءات",
     "Edit": "تعديل",
@@ -328,12 +330,16 @@
     "Notes": "ملاحظات"
   },
   "Success": "نجاح",
-  "PaymentInAddedSuccessfully": "تمت إضافة PaymentIn بنجاح",
+  "PaymentInAddedSuccessfully": "تمت إضافة إيصال الدفع بنجاح",
+  "PaymentInPostedSuccessfully": "تم ترحيل إيصال الدفع بنجاح",
   "addedError": "خطأ في الإضافة",
+  "postedError": "خطأ في الترحيل",
   "Error": "خطأ",
   "paymentMethodTypeNotAllowed": "نوع طريقة الدفع غير مسموح به",
   "paymentMethodTypeRequired": "تفاصيل طريقة الدفع مطلوبة في السطر",
-  "addpaymentin":"إضافة الدفع"
+  "addpaymentin": "إضافة إيصال الدفع",
+  "editpaymentin": "تعديل إيصال الدفع",
+  "PaymentInPostedSuccessfully": "تم ترحيل إيصال الدفع بنجاح"
 
 
 

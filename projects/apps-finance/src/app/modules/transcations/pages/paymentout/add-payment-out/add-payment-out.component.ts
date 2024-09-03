@@ -95,7 +95,7 @@ export class AddPaymentOutComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(this.langService.transalte('PaymentIn.addpaymentOut'));
+    this.titleService.setTitle(this.langService.transalte('PaymentOut.addpaymentout'));
 
     this.initializeForm();
     this.subscribe();
