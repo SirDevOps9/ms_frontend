@@ -5,6 +5,7 @@
     "AddPaymentOut": "Add Payment Out",
     "EditPaymentOut": "Edit Payment Out"
   },
+  "Error": "Error",
   "PaymentIn": {
     "Form": {
       "Save": "Save",
@@ -82,8 +83,9 @@
   },
   "PaymentOut": {
     "Title":"Payment Out",
-    "delete": "Payment Out Deleted Successfully",
+    "add": "Payment Out Added Successfully",
     "edit": "Payment Out Updated Successfully",
+    "delete": "Payment Out Deleted Successfully",
     "List": {
       "code": "Code",
       "date": "Date",
@@ -152,8 +154,8 @@
     "Error": "Error",
     "paymentMethodTypeNotAllowed": "payment Method details Not Allowed",
     "paymentMethodTypeRequired": "payment Method details Required In line",
-    "addpaymentin": " add Payment out",
-    "editpaymentin": " Edit Payment out"
+    "addpaymentout": " Add Payment out",
+    "editpaymentout": " Edit Payment out"
   }
 
 }

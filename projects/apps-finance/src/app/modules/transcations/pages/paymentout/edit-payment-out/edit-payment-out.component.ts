@@ -76,6 +76,7 @@ export class EditPaymentOutComponent implements OnInit {
   totalLocalAmount: number = 0;
   id: number;
   newBalance: number = 0;
+  updatedNewBalance: number = 0;
   selectedBank: boolean;
   selectedCurrency: string = '';
   paymentMethod: BankPaymentMethods[] = [];
@@ -97,7 +98,7 @@ export class EditPaymentOutComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(this.langService.transalte('PaymentIn.editpaymentin'));
+    this.titleService.setTitle(this.langService.transalte('PaymentOut.editpaymentout'));
     this.id = this.route.snapshot.params['id'];
 
     this.getPaymentDetails(this.id);
@@ -155,8 +156,8 @@ export class EditPaymentOutComponent implements OnInit {
       code: new FormControl(''),
       currency: new FormControl(''),
       currentBalance: new FormControl(0),
-      totalReceivedAmount: new FormControl(0),
-      newBalance: new FormControl(''),
+      totalPaidAmount: new FormControl(0),
+      newBalance: new FormControl(0, customValidators.nonNegativeNumbers),
       paymentOutDetailCostCenters: new FormControl(null),
     });
     this.addForm.controls['paymentOutDate'].patchValue(new Date());
@@ -202,7 +203,7 @@ export class EditPaymentOutComponent implements OnInit {
   getDetails(id: string) {
     // this.paymentOutDetailsFormArray.clear()
     this.addForm.controls['currentBalance'].patchValue(0);
-    this.addForm.controls['totalReceivedAmount'].patchValue(0);
+    this.addForm.controls['totalPaidAmount'].patchValue(0);
 
     this.calculateTotalAmount();
     this.addForm.controls['paymentHubDetailId'].setValue(null);
@@ -334,6 +335,11 @@ export class EditPaymentOutComponent implements OnInit {
             this.getAccountCurrencyRate(res.currencyId);
           }
         }
+        this.addForm.controls['totalPaidAmount'].valueChanges.subscribe(() => {
+          this.updateNewBalance();
+        });
+    
+        this.updateNewBalance();
       }
 
       this.paymentOutDetailsFormArray.controls.forEach((control: any, index: number) => {
@@ -738,7 +744,7 @@ export class EditPaymentOutComponent implements OnInit {
         total += amount * rate;
       }
     });
-    this.addForm.controls['totalReceivedAmount'].patchValue(total);
+    this.addForm.controls['totalPaidAmount'].patchValue(total);
 
     return total;
   }
@@ -800,6 +806,22 @@ export class EditPaymentOutComponent implements OnInit {
   cancel() {
     this.routerService.navigateTo(`/transcations/paymentout`);
   }
+
+  updateNewBalance() {
+    const totalPaidAmount = this.addForm.controls['totalPaidAmount'].value || 0;
+
+    console.log('currentBalance', this.AccountBalance);
+    console.log('totalPaidAmount', totalPaidAmount);
+
+    const newBalance = this.AccountBalance - totalPaidAmount;
+    console.log('newBalance', newBalance);
+
+    this.addForm.controls['newBalance'].setValue(newBalance);
+
+    this.addForm.controls['newBalance'].updateValueAndValidity();
+    this.updatedNewBalance = newBalance;
+  }
+
   ngOnDestroy(): void {
     this.financeService.paymentOutDetails.next(null);
   }

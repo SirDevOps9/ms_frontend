@@ -65,6 +65,7 @@
   },
   "PaymentOut": {
     "Title": "إيصال نقدي",
+    "add": "تم اضافة الإيصال النقدي بنجاح",
     "delete": "تم حذف الإيصال النقدي بنجاح",
     "edit": "تم تعديل الإيصال النقدي بنجاح",
     "List": {
@@ -135,7 +136,7 @@
     "Error": "خطأ",
     "paymentMethodTypeNotAllowed": "تفاصيل طريقة الدفع غير مسموح بها",
     "paymentMethodTypeRequired": "تفاصيل طريقة الدفع مطلوبة في السطر",
-    "addpaymentin": "إضافة إيصال نقدي",
-    "editpaymentin": "تعديل إيصال نقدي"
+    "addpaymentout": "إضافة إيصال نقدي",
+    "editpaymentout": "تعديل إيصال نقدي"
   }
 }

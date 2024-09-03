@@ -159,8 +159,8 @@
 
       <div class="md:col-4">
         <lib-form-group>
-          <lib-label [appControl]="addForm.controls['totalReceivedAmount']">
-            {{ 'PaymentIn.Form.TotalReceivedAmount' | translate }}
+          <lib-label [appControl]="addForm.controls['totalPaidAmount']">
+            {{ 'PaymentOut.Form.TotalPaidAmount' | translate }}
           </lib-label>
           <lib-text-input placeholder="{{ calculateTotalLocalAmount() }}" [readOnly]="true" />
         </lib-form-group>
@@ -175,7 +175,7 @@
             type="text"
             formControlName="newBalance"
             class="newBalance"
-            placeholder="{{ addForm.controls['totalReceivedAmount'].value + AccountBalance }}"
+            placeholder="{{ updatedNewBalance }}"
             [readOnly]="true"
           />
         </lib-form-group>

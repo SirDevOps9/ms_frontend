@@ -155,14 +155,14 @@ export class TranscationsService {
       
       next:(res)=> {
         this.toasterService.showSuccess(
-          this.languageService.transalte('PaymentIn.Success'),
-          this.languageService.transalte('PaymentIn.PaymentInAddedSuccessfully')
+          this.languageService.transalte('success'),
+          this.languageService.transalte('PaymentOut.add')
         );        
       },
       error:(error)=>{
         this.toasterService.showError(
-          this.languageService.transalte('PaymentIn.Error'),
-          this.languageService.transalte('PaymentIn.addedError')
+          this.languageService.transalte('PaymentOut.Error'),
+          this.languageService.transalte('PaymentOut.addedError')
         ); 
       }
     })
