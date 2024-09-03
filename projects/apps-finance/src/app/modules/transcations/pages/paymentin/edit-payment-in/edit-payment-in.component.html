@@ -352,7 +352,7 @@
             </td>
             <td>
               <!-- <img (click)="deleteLine(rowIndex)" src="assets/images/table/delete.svg" class="pointer" alt="" /> -->
-              <lib-button-micro nameClass="table_button_delete" (click)="deleteLine(rowIndex)">
+              <lib-button-micro nameClass="table_button_delete" (click)="onDelete( journalLine.controls['id'].value ,rowIndex)">
               </lib-button-micro>
 
             </td>
