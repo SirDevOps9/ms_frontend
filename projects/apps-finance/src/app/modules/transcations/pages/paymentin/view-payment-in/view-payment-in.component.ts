@@ -114,7 +114,8 @@ console.log("selectedPayment",selectedPayment)
     }
   }
   openCostPopup(data: any, journal: FormGroup, account: number, index: number) {
-   
+    console.log("data 11", data)
+
     const dialogRef = this.dialog.open(AddCostCenterComponent, {
       width: '900px',
       height: '600px',
@@ -125,6 +126,7 @@ console.log("selectedPayment",selectedPayment)
   }
 
   isCostCenterallowed(journalLine: any, costCenterConfig: string): boolean {
+    console.log(costCenterConfig,"costCenterConfig")
     if (costCenterConfig === this.sharedFinanceEnums.costCenterConfig.Mandatory || costCenterConfig === this.sharedFinanceEnums.costCenterConfig.Optional) {
       return true;
     } else {

@@ -58,7 +58,8 @@ export class AddCostCenterComponent {
     this.amountForm = this.fb.group({
       amount: 0,
     });
-  
+    console.log(this.config.data?.costCenters,"costCenters")
+
     const creditAmount = parseFloat(this.config.data.creditAmount || 0);
     const amount = parseFloat(this.config.data.amount || 0);
   

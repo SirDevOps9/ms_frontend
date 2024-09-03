@@ -119,11 +119,10 @@
                 headerText: 'payment-view.paidBy' | translate,
                 isGlobalFilter: true,
                 isSortable: true,
-                applyNumberFormat:true,
               },
               {
-                name: 'glAccountId',
-                headerText: 'payment-view.glAccountId' | translate,
+                name: 'accountName',
+                headerText: 'payment-view.accountName' | translate,
                 isGlobalFilter: true,
                 isSortable: true
               },
@@ -137,7 +136,6 @@
                 headerText: 'payment-view.notes' | translate,
                 isGlobalFilter: true,
                 isSortable: true,
-                applyNumberFormat:true,
               }
             ]
           }"
@@ -145,6 +143,7 @@
         <ng-template #method pTemplate="body" let-Line let-rowIndex="rowIndex">
           <div class="method flex align-items-center"> 
         <lib-button-micro title="{{ 'payment-view.PaymentMethod' | translate }}"
+        [nameClass]="Line.paymentMethodId == sharedFinanceEnums.paymentMethodTypeString.Cash ||Line.paymentMethodId == null  ? 'disabled' : 'save'"
         widthNumber="100%" (click)="handleButtonClick(Line)">
 
           </lib-button-micro>
@@ -152,37 +151,38 @@
        </ng-template>
 
        <ng-template #cost pTemplate="body" let-Line let-rowIndex="rowIndex">
-       <img *ngIf="
-       Line.paidBy!=this.sharedFinanceEnums.paiedDropDown.other ||
-       Line.paidBy==this.sharedFinanceEnums.paiedDropDown.other && 
-       Line.costCenterConfig == this.sharedFinanceEnums.costCenterConfig.NotAllow || 
-       Line.costCenterConfig == null
+        <img *ngIf="
+        Line.paidBy  !=this.sharedFinanceEnums.paiedDropDown.other ||
+        Line.paidBy==this.sharedFinanceEnums.paiedDropDown.other && 
+        Line.costCenterConfig == this.sharedFinanceEnums.costCenterConfig.NotAllow || 
+        Line.costCenterConfig == null
 
-              " src="assets/images/groups.png" />
+               " src="assets/images/groups.png" />
 
- <img *ngIf="
-    isCostCenterallowed( Line,Line.costCenterConfig) &&
-    Line.paymentInDetailCostCenters.length == 0
-   
-   " (click)="
-   openCostPopup(
-    Line,
-    Line,
-     Line.glAccountId,
-     rowIndex
-   )
- " src="assets/images/groups-mandtory-optional.png" alt="" class="pointer" />
- <img *ngIf="
-   isCostCenterallowed(Line, Line.costCenterConfig) &&
-   Line.paymentInDetailCostCenters.length != 0
-   " (click)="
-      openCostPopup(
+  <img *ngIf="
+     isCostCenterallowed( Line,Line.costCenterConfig) &&
+     Line.paymentInDetailCostCenters.length == 0
+    
+    " (click)="
+    openCostPopup(
+      Line,
+      Line,
+      Line.glAccountId,
+      rowIndex
+    )
+  " src="assets/images/groups-mandtory-optional.png" alt="" class="pointer" />
+  
+  <img *ngIf="
+    isCostCenterallowed(Line, Line.costCenterConfig) &&
+    Line.paymentInDetailCostCenters.length != 0
+    " (click)="
+       openCostPopup(
+        Line.value,
         Line,
-        Line,
-        Line.glAccountId?.value,
-        rowIndex
-      )
-    " class="pointer" src="assets/images/costcenterfull.png" />
+         Line.controls['glAccountId']?.value,
+         rowIndex
+       )
+     " class="pointer" src="assets/images/costcenterfull.png" />
 </ng-template>
           <ng-template pTemplate="footer">
             <tr>
