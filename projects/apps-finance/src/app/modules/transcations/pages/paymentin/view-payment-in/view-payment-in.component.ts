@@ -7,6 +7,7 @@ import { TranscationsService } from '../../../transcations.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ViewPaymentInDto } from '../../../models/view-payment-in-dto';
 import { PaymentMethodComponent } from '../../../components/paymentin/payment-method/payment-method.component';
+import { AddCostCenterComponent } from '../../../components/paymentin/add-cost-center/add-cost-center.component';
 
 @Component({
   selector: 'app-view-payment-in',
@@ -18,7 +19,7 @@ export class ViewPaymentInComponent {
   ViewForm: ViewPaymentInDto;
   totalAmount: number = 0;
   paymentMethod: BankPaymentMethods[] = []
-
+  CostCenter: FormGroup;
 
 
   constructor(
@@ -110,6 +111,32 @@ console.log("selectedPayment",selectedPayment)
           journal.get('paymentInMethodDetail')?.setValue(res);
         }
       });
+    }
+  }
+  openCostPopup(data: any, journal: FormGroup, account: number, index: number) {
+   
+    const dialogRef = this.dialog.open(AddCostCenterComponent, {
+      width: '900px',
+      height: '600px',
+      header: 'Edit Cost Center Allocation',
+      data: data,
+    });
+    
+  }
+
+  isCostCenterallowed(journalLine: any, costCenterConfig: string): boolean {
+    if (costCenterConfig === this.sharedFinanceEnums.costCenterConfig.Mandatory || costCenterConfig === this.sharedFinanceEnums.costCenterConfig.Optional) {
+      return true;
+    } else {
+      this.CostCenter = this.formBuilder.group({
+        costCenterId: new FormControl(null),
+        percentage: new FormControl(null),
+
+      });
+      journalLine.get('paymentInDetailCostCenters')?.setValue([]);
+
+      return false;
+
     }
   }
 }
