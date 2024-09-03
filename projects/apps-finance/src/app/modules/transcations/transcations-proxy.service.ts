@@ -105,6 +105,10 @@ getAccountCurrencyRate(currentCurrency:number,accountCurrency:number){
   PaymentInDeleteLine(id : number) {
     return this.httpService.delete(`PaymentIn/DeleteLine/${id}`);
   }
+
+  paymentOutDeleteLine(id : number) {
+    return this.httpService.delete(`PaymentOut/DeleteLine/${id}`);
+  }
   getTaxDropDown(): Observable<DropDownDto[]> {
     return this.httpService.get('Tax/Taxdropdown');
   }

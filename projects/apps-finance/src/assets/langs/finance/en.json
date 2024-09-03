@@ -7,6 +7,7 @@
   },
   "Success": "Success",
   "Error": "Error",
+  "ErrorInDelete": "Error In Delete",
   "PaymentIn": {
     "Form": {
       "Save": "Save",
