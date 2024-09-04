@@ -788,7 +788,7 @@ export class EditPaymentOutComponent implements OnInit {
       if (customer) {
         if (customer.accountId > 0) {
           journalLine.get('glAccountId')?.setValue(customer.accountId);
-          journalLine.get('glAccountname')?.setValue(customer.accountName);
+          journalLine.get('accountName')?.setValue(customer.accountName);
         }
       }
     } else if (paidByValue === this.sharedFinanceEnums.paiedDropDown.vendor) {
@@ -796,7 +796,7 @@ export class EditPaymentOutComponent implements OnInit {
       if (vendor) {
         if (vendor.accountId > 0) {
           journalLine.get('glAccountId')?.setValue(vendor.accountId);
-          journalLine.get('glAccountname')?.setValue(vendor.accountName);
+          journalLine.get('accountName')?.setValue(vendor.accountName);
         }
       }
     }
