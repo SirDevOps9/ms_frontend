@@ -148,15 +148,12 @@
             src="assets/images/groups-mandtory-optional.png"
             (click)="openCostPopup(cost, 'view')"
           />
-          <img
-          *ngIf="cost.costCenters.length ==0"
-            src="assets/images/groups.png"
-          />
+          <img *ngIf="cost.costCenters.length == 0" src="assets/images/groups.png" />
         </div>
       </ng-template>
       <ng-container footer>
         <tr>
-          <td colspan="4" class="imptyData total" style="text-align: center">
+          <td colspan="3" class="imptyData total" style="text-align: center">
             {{ 'JournalTemplate.total' | translate }}
           </td>
           <td class="total">{{ totalDebitAmount | numberFormat }}</td>
@@ -164,6 +161,7 @@
           <td class="total"></td>
           <td class="total">{{ totalDebitAmountLocal | numberFormat }}</td>
           <td class="total">{{ totalCreditAmountLocal | numberFormat }}</td>
+          <td class="total"></td>
           <td class="total"></td>
         </tr>
       </ng-container>
