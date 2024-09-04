@@ -1,15 +1,9 @@
-<div class="pop_up_config_page">
-  <div class="pop_up_header">
-    <div class="header_content">
-      <div class="title">
-        <!-- <div class="plus_icon"></div> -->
-        Edit User
-      </div>
-
-      <div class=" cancel" (click)="onCancel()"></div>
-    </div>
-  </div>
-  <div class="pop_up_content">
+<lib-popup-page
+  title="Edit User"
+  [closeFunction]="onCancel"
+  (Submit)="onSubmit()"
+>
+  <div>
     <div class="card">
       <div class="card_edit">
         <div class="information">
@@ -77,27 +71,4 @@
       </div>
     </div>
   </div>
-  <div class="pop_up_footer">
-    <div class="grid">
-      <div class="md:col-6">
-        <div class="cancel_btn">
-          <lib-button-micro
-            title=" {{ 'Company.Cancel' | translate }}"
-            nameClass="cancel"
-            (click)="onCancel()"
-            widthNumber="100%"
-          >
-          </lib-button-micro>
-        </div>
-      </div>
-      <div class="md:col-6">
-        <div class="save_btn">
-          <lib-button-micro title=" save" nameClass="save" (click)="onSubmit()" widthNumber="100%">
-          </lib-button-micro>
-        </div>
-      </div>
-    </div>
-    
-    
-  </div>
-</div>
+</lib-popup-page>

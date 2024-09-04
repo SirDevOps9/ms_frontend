@@ -62,7 +62,6 @@
           <div class="group flex justify-content-between">
             <div class="flex gap-2">
               <lib-text-input
-                [(ngModel)]="searchTerm"
                 type="text"
                 [placeholder]="'vendorDefinition.Search' | translate"
                 (keyUp)="onSearchChange($event)"
@@ -73,13 +72,12 @@
 
             <div class="flex gap-2">
               <div>
-                <lib-button
-                  pRipple
-                  className="addToList"
-                  [label]="'vendorDefinition.Add' | translate"
-                  (onClick)="routeToAdd()"
-                >
-                </lib-button>
+                <lib-button-micro
+                nameClass="save"
+                [title]="'vendorCategory.Add' | translate"
+                (click)="routeToAdd()"
+              >
+              </lib-button-micro>
               </div>
               <!--  -->
               <lib-export
@@ -95,8 +93,16 @@
 
         <ng-template #actions let-actions>
           <div class="actions flex align-items-center">
-            <img src="assets/images/table/edit.svg" alt="" (click)="routeToEdit(actions.id)">
-          <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(actions.id)">
+            <lib-button-micro
+            nameClass="table_button_edit"
+            (click)="routeToEdit(actions.id)" >
+
+            </lib-button-micro>
+            <lib-button-micro
+            nameClass="table_button_delete"
+            (click)="onDelete(actions.id)"
+            >
+            </lib-button-micro>
           </div>
         </ng-template>
       </lib-data-table>

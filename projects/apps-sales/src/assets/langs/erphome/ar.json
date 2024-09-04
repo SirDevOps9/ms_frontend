@@ -12,11 +12,44 @@
   "Logout": "تسجيل الخروج",
   "DeleteError": "حدث خطاء فى المسح",
   "LoadError": "حدث خطاء فى التحميل",
+  "add_new_line": "إضافة سطر جديد",
+  "total": "الاجمالي",
+  "errorSum": "مبلغ السطر في القيد غير مساوٍ لمجموع مبلغ الرصيد",
+  "Error": "خطأ",
+  "InvalidAmount": "من فضلك ادخل قيمة صحيحة",
+  "Distribution": "لا يمكن التوزيع على الجانب الدائن",
+  "DeletedSuccessfully": "تم الحذف بنجاح",
+  "AlreadySelected": "تم اختيار العميل بالفعل",
+  "deleted": "تم حذف الرصيد الافتتاحي بنجاح",
+  "successAdd": "تمت إضافة الرصيد الافتتاحي بنجاح",
+
+
+"openeingBalance": {
+    "openingJournal": "دفتر اليومية الافتتاحي",
+    "fromOpening": "من معاملة الرصيد الافتتاحي",
+    "JournalLine": "سطر دفتر اليومية",
+    "amount": "المبلغ",
+    "debitCredit": "مدين أو دائن",
+    "glAccount": "حساب الأستاذ العام",
+    "balance": "الرصيد",
+    "balanceType": "نوع الرصيد",
+    "dueDate": "توزيع تاريخ الاستحقاق",
+    "dueDateDis": "توزيع تاريخ الاستحقاق",
+    "add_new": "إضافة سطر جديد",
+    "distribute": "توزيع",
+    "debit": "مدين",
+    "credit": "دائن",
+    "duedate": "تاريخ الاستحقاق",
+    "cancel": "إلغاء",
+    "save": "حفظ"
+  },
+
   "Table": {
     "Actions": "اجراءات",
     "Edit": "تعديل",
     "Delete": "حذف",
     "Add": "اضافة"
+
   },
   "Toaster": {
     "Confirm": {

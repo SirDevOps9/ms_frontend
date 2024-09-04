@@ -1,101 +1,78 @@
-<div class="pop_up_config_page">
-  <div class="pop_up_header">
-    <div class="header_content">
-      <div class="title">
-        {{'currencyConversion.Editcurrency' | translate}}
+
+<lib-popup-page
+title=" {{'currencyConversion.Editcurrency' | translate}}"
+[closeFunction]="close"
+(Submit)="save()"
+>
+<div>
+  <form [formGroup]="editCurrencyForm">
+    <div class="grid m-0">
+      <div class="md:col-12">
+        <lib-form-group>
+          <lib-label [appControl]="editCurrencyForm.controls['fromCurrencyId']">
+            {{'currencyConversion.FromCurrency' | translate}}
+          </lib-label>
+          <lib-select formControlName="fromCurrencyId" [options]="currencies" optionValue="id"
+            optionLabel="name" [selectedValue]="editCurrencyForm.controls['fromCurrencyId'].value">
+          </lib-select>
+          <lib-field-validations [appControl]="editCurrencyForm.controls['fromCurrencyId']">
+          </lib-field-validations>
+          <div *ngIf="sameCurrency" class="error body_b16">
+            {{'currencyConversion.errorSameCurrency' | translate}}
+          </div>
+        </lib-form-group>
       </div>
-      <div class=" cancel" (click)="close()"></div>
+      <div class="md:col-12">
+        <lib-form-group>
+          <lib-label [appControl]="editCurrencyForm.controls['fromCurrencyRate']">
+            {{'currencyConversion.CurrencyRate' | translate}}
+          </lib-label>
+          <lib-text-input type="number" formControlName="fromCurrencyRate" />
+          <lib-field-validations [appControl]="editCurrencyForm.controls['fromCurrencyRate']">
+          </lib-field-validations>
+        </lib-form-group>
+      </div>
+      <div class="md:col-12">
+        <lib-form-group>
+          <lib-label [appControl]="editCurrencyForm.controls['toCurrencyId']">
+            {{'currencyConversion.ToCurrency' | translate}}
+
+          </lib-label>
+          <lib-select formControlName="toCurrencyId" [options]="currencies" optionValue="id"
+            optionLabel="name" [selectedValue]="editCurrencyForm.controls['toCurrencyId'].value">
+            
+          </lib-select> <lib-field-validations [appControl]="editCurrencyForm.controls['toCurrencyId']">
+          </lib-field-validations>
+          <div *ngIf="sameCurrency" class="error body_b16">
+            {{'currencyConversion.errorSameCurrency' | translate}}
+          </div>
+        </lib-form-group>
+      </div>
+      <div class="md:col-12">
+        <lib-form-group>
+          <lib-label [appControl]="editCurrencyForm.controls['reversedRate']">
+            {{'currencyConversion.ReversedRate' | translate}}
+
+          </lib-label>
+          <lib-text-input [readOnly]="true" type="text" formControlName="reversedRate" />
+          <lib-field-validations [appControl]="editCurrencyForm.controls['reversedRate']">
+          </lib-field-validations>
+        </lib-form-group>
+      </div>
+
+      <div class="md:col-12">
+        <lib-form-group>
+          <lib-label [appControl]="editCurrencyForm.controls['note']">
+            {{'currencyConversion.Notes' | translate}}
+          </lib-label>
+          <lib-text-input type="text" formControlName="note" />
+          <lib-field-validations [appControl]="editCurrencyForm.controls['note']">
+          </lib-field-validations>
+        </lib-form-group>
+      </div>
+     
+
     </div>
-  </div>
-  <div class="pop_up_content ">
-    <form [formGroup]="editCurrencyForm">
-      <div class="grid">
-        <div class="md:col-12">
-          <lib-form-group>
-            <lib-label [appControl]="editCurrencyForm.controls['fromCurrencyId']">
-              {{'currencyConversion.FromCurrency' | translate}}
-            </lib-label>
-            <lib-select formControlName="fromCurrencyId" [options]="currencies" optionValue="id"
-              optionLabel="name" [selectedValue]="editCurrencyForm.controls['fromCurrencyId'].value">
-            </lib-select>
-            <lib-field-validations [appControl]="editCurrencyForm.controls['fromCurrencyId']">
-            </lib-field-validations>
-            <div *ngIf="sameCurrency" class="error body_b16">
-              {{'currencyConversion.errorSameCurrency' | translate}}
-            </div>
-          </lib-form-group>
-        </div>
-        <div class="md:col-12">
-          <lib-form-group>
-            <lib-label [appControl]="editCurrencyForm.controls['fromCurrencyRate']">
-              {{'currencyConversion.CurrencyRate' | translate}}
-            </lib-label>
-            <lib-text-input type="number" formControlName="fromCurrencyRate" />
-            <lib-field-validations [appControl]="editCurrencyForm.controls['fromCurrencyRate']">
-            </lib-field-validations>
-          </lib-form-group>
-        </div>
-        <div class="md:col-12">
-          <lib-form-group>
-            <lib-label [appControl]="editCurrencyForm.controls['toCurrencyId']">
-              {{'currencyConversion.ToCurrency' | translate}}
-
-            </lib-label>
-            <lib-select formControlName="toCurrencyId" [options]="currencies" optionValue="id"
-              optionLabel="name" [selectedValue]="editCurrencyForm.controls['toCurrencyId'].value">
-              
-            </lib-select> <lib-field-validations [appControl]="editCurrencyForm.controls['toCurrencyId']">
-            </lib-field-validations>
-            <div *ngIf="sameCurrency" class="error body_b16">
-              {{'currencyConversion.errorSameCurrency' | translate}}
-            </div>
-          </lib-form-group>
-        </div>
-        <div class="md:col-12">
-          <lib-form-group>
-            <lib-label [appControl]="editCurrencyForm.controls['reversedRate']">
-              {{'currencyConversion.ReversedRate' | translate}}
-
-            </lib-label>
-            <lib-text-input [readOnly]="true" type="text" formControlName="reversedRate" />
-            <lib-field-validations [appControl]="editCurrencyForm.controls['reversedRate']">
-            </lib-field-validations>
-          </lib-form-group>
-        </div>
-
-        <div class="md:col-12">
-          <lib-form-group>
-            <lib-label [appControl]="editCurrencyForm.controls['note']">
-              {{'currencyConversion.Notes' | translate}}
-            </lib-label>
-            <lib-text-input type="text" formControlName="note" />
-            <lib-field-validations [appControl]="editCurrencyForm.controls['note']">
-            </lib-field-validations>
-          </lib-form-group>
-        </div>
-       
-
-      </div>
-    </form>
-  </div>
-  <div class="pop_up_footer">
-    <div class="grid">
-      <div class="md:col-6">
-        <div class="cancel_btn">
-          <lib-button-micro title="Discard" nameClass="cancel" (click)="close()" widthNumber="100%">
-          </lib-button-micro>
-        </div>
-      </div>
-      <div class="md:col-6">
-        <div class="save_btn">
-          <lib-button-micro title="Save" nameClass="save" (click)="save()" widthNumber="100%">
-          </lib-button-micro>
-        </div>
-      </div>
-    </div>
-    
-    
-  </div>
+  </form>
 </div>
-<div class="entry_table">
-</div>
+</lib-popup-page>

@@ -171,9 +171,10 @@ export class CreateJournalEntryComponent {
 
   openAttachments() {
     const dialog = this.dialog.open(AttachmentsComponent, {
-      header: 'Attachments',
+      // header: 'Attachments',
       data: this.attachmentService.filesInfo,
-      width: '700px',
+     width: '600px',
+      height: '350px',
     });
 
     dialog.onClose.subscribe((res) => {
@@ -259,7 +260,10 @@ export class CreateJournalEntryComponent {
   }
 
   openDialog(index: number) {
-    const ref = this.dialog.open(NoChildrenAccountsComponent, {});
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {
+      width: '900px',
+      height: '600px',
+    });
     ref.onClose.subscribe((r) => {
       if (r) {
         this.fa.at(index).get('account')?.setValue(r.id);
@@ -638,6 +642,6 @@ export class CreateJournalEntryComponent {
       (sum: number, item: any) => sum + parseFloat(item.percentage),
       0
     );
-    return totalPercentage ;
+    return totalPercentage;
   }
 }

@@ -5,7 +5,8 @@
   "PaymentTermList":"Payment Terms",
   "AddPaymentTerm":"Add Payment Term",
   "EditPaymentTerm":"Edit Payment Term",
-  "Treasury":"Treasury"
+  "Treasury":"Treasury",
+  "PaymentInList":"Payment In List"
 },
   "COAConfigration": {
     "levelnumber": "level Number",
@@ -176,7 +177,7 @@
     "balance" : "Balance",
     "actions" : "Actions",
     "Search" : "Search",
-    "AddNew" : "Add New",
+    "AddNew" : "Add",
     "Export" : "Export",
     "branches" : "branches",
     "code" : "Code",
@@ -185,8 +186,8 @@
     "currentBalance" : "Opening Account Balance",
     "discard" : "Discard",
     "save" : "Save",
-    "addTreasury":"Add Treasury",
-    "editTreasury":"Edit Treasury",
+    "addTreasury":"Add ",
+    "editTreasury":"Edit",
     "treasuryList": "Treasury List",
     "confirm" : "the opening balance of journal not equal treasury opening balance, do you want to Continue ?"
   },
@@ -317,6 +318,21 @@
     "AllowVAT": "Allow VAT",
     "edit":"Payment Method Edited Successfully",
     "add":"Payment Method Added Successfully"	
+  },
+  "payment-in": {
+    "payment-in": "Payment In",
+    "code": "Code",
+    "date": "Date",
+    "paymentHub": "Payment Hub",
+    "paymentHubDetailId": "Payment Hub Detail",
+    "branch": "Branch",
+    "bankAccount": "Bank Account",
+    "sourceDocument": "Source Document",
+    "relatedSourceJournal": "Related Source Journal",
+    "actions": "Actions",
+    "Search": "Search",
+    "addNew": "Add New",
+    "delete":"Payment In Deleted Successfully"
   }
 
 

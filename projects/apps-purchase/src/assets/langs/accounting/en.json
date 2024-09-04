@@ -1,4 +1,5 @@
 {
+  "Save": "Save",
   "COAConfigration": {
     "levelnumber": "level Number",
     "levelName": "level Name",
@@ -85,7 +86,7 @@
   "TaxGroup": {
     "Code": "Code",
     "Name": "Name",
-    "parent" :"parent",
+    "parent": "parent",
     "Action": "Actions",
     "status": "status",
     "type": "type",
@@ -140,57 +141,52 @@
     "CannotDeleteCostCenter": " Cannot Delete Cost Center Used In Transactions",
     "Error": "Error"
   },
-  "reportTrial":{
-     "Error": "Error",
-     "selectfaild": "At least one field must be selected Posted or unposted",
-     "posted":"posted",
-     "unposted":"unposted",
-     "viewdata":"view data",
-     "accountCode":"account Code",
-     "accountName":"account Name",
-     "Openingbalance":"Opening balance",
-     "transactionBalance":"transaction Balance",
-     "Closingbalance":"Closing balance",
-     "debit":"debit",
-     "credit":"credit",
-     "reportTrial":"report Trial",
-     "trialBalance":"Trial Balance"
-
+  "reportTrial": {
+    "Error": "Error",
+    "selectfaild": "At least one field must be selected Posted or unposted",
+    "posted": "posted",
+    "unposted": "unposted",
+    "viewdata": "view data",
+    "accountCode": "account Code",
+    "accountName": "account Name",
+    "Openingbalance": "Opening balance",
+    "transactionBalance": "transaction Balance",
+    "Closingbalance": "Closing balance",
+    "debit": "debit",
+    "credit": "credit",
+    "reportTrial": "report Trial",
+    "trialBalance": "Trial Balance"
   },
-  "reportAccount":{
-    "AccountStatement":"Account Statement"
+  "reportAccount": {
+    "AccountStatement": "Account Statement"
   },
-  "treasury" : {
-    "treasuryCode" : "Treasury Code",
-    "treasuryName" : "Treasury Name",
-    "currency" : "Currency",
-    "glAccount" : "Gl Account",
-    "balance" : "Balance",
-    "actions" : "Actions",
-    "Search" : "Search",
-    "AddNew" : "Add New",
-    "Export" : "Export",
-    "branches" : "branches",
-    "code" : "Code",
-    "name" : "Name",
-    "openingBalance" : "Treasury Opening Balance",
-    "currentBalance" : "Opening Account Balance",
-    "discard" : "Discard",
-    "save" : "Save",
-    "confirm" : "the opening balance of journal not equal treasury opening balance, do you want to Continue ?"
-
-
+  "treasury": {
+    "treasuryCode": "Treasury Code",
+    "treasuryName": "Treasury Name",
+    "currency": "Currency",
+    "glAccount": "Gl Account",
+    "balance": "Balance",
+    "actions": "Actions",
+    "Search": "Search",
+    "AddNew": "Add New",
+    "Export": "Export",
+    "branches": "branches",
+    "code": "Code",
+    "name": "Name",
+    "openingBalance": "Treasury Opening Balance",
+    "currentBalance": "Opening Account Balance",
+    "discard": "Discard",
+    "save": "Save",
+    "confirm": "the opening balance of journal not equal treasury opening balance, do you want to Continue ?"
   },
-  "deleteTreasury" : {
-    "success" : "Success",
-    "delete" : "Treasury Definition Deleted Successfully"
+  "deleteTreasury": {
+    "success": "Success",
+    "delete": "Treasury Definition Deleted Successfully"
   },
-  "addTreasury" : {
-    "add" : "Treasury Definition Added Successfully"
+  "addTreasury": {
+    "add": "Treasury Definition Added Successfully"
   },
-  "editTreasury" : {
-    "edit" : "Treasury Definition Edited Successfully"
-
+  "editTreasury": {
+    "edit": "Treasury Definition Edited Successfully"
   }
-
 }

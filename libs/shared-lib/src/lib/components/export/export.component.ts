@@ -23,12 +23,14 @@ export class ExportComponent implements OnDestroy {
 
   @Input() exportColumns: any = [];
   @Input() ExportName: string = '';
+  @Input() labelTest: string = 'export-button';
+
   //@Input() exportData: any = [];
   private exportDataList: any = [];
   @Output() exportClick: EventEmitter<any> = new EventEmitter<any>();
 
   itemsMenu: MenuItem[] = [
-    { label: 'Excel', icon: 'pi pi-file-excel', command: () => this.handleExport('excel') },
+    { label: 'Excel', icon: 'pi pi-file-excel', command: () => this.handleExport('excel') ,},
     { label: 'PDF', icon: 'pi pi-file-pdf', command: () => this.handleExport('pdf') },
   ];
 
@@ -49,6 +51,7 @@ export class ExportComponent implements OnDestroy {
   handleExport(format: string) {
     this.exportClick.emit();
     this.format = format;
+  
   }
 
   performExport() {
@@ -76,4 +79,6 @@ export class ExportComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.exportDataSubscription.unsubscribe();
   }
+
+
 }

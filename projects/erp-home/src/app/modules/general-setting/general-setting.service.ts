@@ -544,7 +544,7 @@ export class GeneralSettingService {
   openCurrencyEdit(currencyId: number) {
     const ref: DynamicDialogRef = this.dialog.open(EditCurrencyDefinitionComponent, {
       width: '600px',
-      height: '700px',
+      height: '600px',
       data: { Id: currencyId },
     });
     ref.onClose.subscribe((result: CurrencyDefinitionDto) => {});
@@ -695,7 +695,7 @@ export class GeneralSettingService {
     const ref: DynamicDialogRef = this.dialog.open(AddCurrencyConversionComponent, {
       header: this.languageService.transalte('currencyConversion.AddNewcurrency'),
       width: '600px',
-      height: '700px',
+      height: '600px',
     });
     ref.onClose.subscribe((result: any) => {});
   }
@@ -704,7 +704,7 @@ export class GeneralSettingService {
     const ref: DynamicDialogRef = this.dialog.open(EditCurrencyConversionComponent, {
       header: this.languageService.transalte('currencyConversion.Editcurrency'),
       width: '600px',
-      height: '700px',
+      height: '600px',
       data: { Id: currencyId },
     });
     ref.onClose.subscribe((result: CurrencyDefinitionDto) => {});

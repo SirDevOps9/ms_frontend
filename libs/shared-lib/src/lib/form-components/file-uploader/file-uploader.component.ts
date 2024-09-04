@@ -1,4 +1,13 @@
-import { Component, Input, Output, EventEmitter, Optional, Self, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  Optional,
+  Self,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -25,7 +34,8 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
   @Input() showImgName: boolean = true;
   @Input() className: string;
   @Input() uploadClassName: string;
-  @Input() appControl: AbstractControl;
+  @Input() appControl: AbstractControl ;
+  @Input() labelTest: any;
   @Input() config: UploadFileConfigDto = { type: AttachmentFileTypeEnum.image };
   @Output() valueChanged = new EventEmitter<string>();
   @ViewChild('fileInput') fileInput: ElementRef;
@@ -126,6 +136,15 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
       });
     }
   }
+  
+  ngAfterViewInit() {
+    if (this.appControl) {
+      setTimeout(() => {
+        //this.labelTest = this.appControl.name;
+        this.labelTest = this.label;
+      }, 500);
+    }
+  }
 
   constructor(
     @Self() @Optional() public controlDir: NgControl,
@@ -139,4 +158,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
     this.attachmentService.clearState();
     this.subscribe();
   }
+
+
+
 }

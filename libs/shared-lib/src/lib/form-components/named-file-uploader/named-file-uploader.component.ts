@@ -37,6 +37,7 @@ export class NamedFileUploaderComponent implements OnInit {
   @Input() uploadClassName: string = 'upload';
   @Input() appControl: AbstractControl;
   @Input() config: UploadFileConfigDto = { type: AttachmentFileTypeEnum.image };
+  @Input() labelTest: any ;
   imgName : string = ''
   value: string;
   public get fg(): FormGroup {
@@ -103,6 +104,15 @@ export class NamedFileUploaderComponent implements OnInit {
         }
       });
   }
+  
+  ngAfterViewInit() {
+    if (this.appControl) {
+      setTimeout(() => {
+        this.labelTest = this.label;
+      }, 500);
+    }
+  }
+
 
   constructor(
     public sharedLibEnums: SharedLibraryEnums,

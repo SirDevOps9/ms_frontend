@@ -6,7 +6,9 @@
     "PaymentTermList": "شروط الدفع",
     "AddPaymentTerm": "إضافة شرط دفع",
   "EditPaymentTerm": "تعديل شرط دفع",
-    "Treasury": "الخزائن"
+    "Treasury": "الخزائن",
+    "PaymentInList":" إيصال نقدي "
+
   },
   "COAConfigration": {
     "levelnumber": "رقم المستوى",
@@ -307,6 +309,21 @@
     "AllowVAT": "السماح بضريبة القيمة المضافة",
     "edit":"تم تعديل  طريقةالدفع بنجاح",
     "add":"تمت إضافة طريقة الدفع بنجاح"
+  },
+  "payment-in": {
+    "payment-in": "إيصال نقدي",
+    "code": "الكود",
+    "date": "التاريخ",
+    "paymentHub": "مركز الدفع",
+    "paymentHubDetailId": "تفاصيل مركز الدفع",
+    "branch": "الفرع",
+    "bankAccount": "الحساب البنكي",
+    "sourceDocument": "المستند المصدر",
+    "relatedSourceJournal": "اليومية المصدر المرتبطة",
+    "actions": "الإجراءات",
+    "Search": "بحث",
+    "addNew": "إضافة جديد",
+    "delete":"تم حذف إيصال نقدي بنجاح"
   }
 
 }
