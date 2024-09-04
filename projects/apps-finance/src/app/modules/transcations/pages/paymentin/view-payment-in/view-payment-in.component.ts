@@ -124,7 +124,8 @@ console.log("selectedPayment",selectedPayment)
 
   isCostCenterallowed(journalLine: any, costCenterConfig: string): boolean {
     console.log(costCenterConfig,"costCenterConfig")
-    if (costCenterConfig === this.sharedFinanceEnums.costCenterConfig.Mandatory || costCenterConfig === this.sharedFinanceEnums.costCenterConfig.Optional) {
+    if (costCenterConfig == this.sharedFinanceEnums.costCenterConfig.Mandatory 
+      || costCenterConfig == this.sharedFinanceEnums.costCenterConfig.Optional) {
       return true;
     } else {
       this.CostCenter = this.formBuilder.group({

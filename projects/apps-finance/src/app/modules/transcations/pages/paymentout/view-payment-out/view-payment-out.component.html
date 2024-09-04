@@ -161,7 +161,7 @@
 
 <img *ngIf="
    isCostCenterallowed( Line,Line.costCenterConfig) &&
-   Line.paymentInDetailCostCenters.length == 0
+   Line.paymentOutDetailCostCenters.length == 0
   
   " (click)="
   openCostPopup(
@@ -174,7 +174,7 @@
 
 <img *ngIf="
   isCostCenterallowed(Line, Line.costCenterConfig) &&
-  Line.paymentInDetailCostCenters.length != 0
+  Line.paymentOutDetailCostCenters.length != 0
   " (click)="
      openCostPopup(
       Line,
