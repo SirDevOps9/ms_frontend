@@ -72,7 +72,7 @@ export function nonNegativeValidator(control: AbstractControl) {
     return null;
   }
 
-  if (control.value > 0) {
+  if (control.value >= 0) {
     return null; // Validation passed
   } else {
     return { nonNegative: true }; // Validation failed

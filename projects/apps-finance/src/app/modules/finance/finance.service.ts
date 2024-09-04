@@ -37,7 +37,9 @@ export class FinanceService {
   public exportedpaymentMethodListDataSource = new BehaviorSubject<PaymentMethodDto[]>([]);
   public sendPaymentMethodByID = new BehaviorSubject<GetPaymentMethodByIdDto>({} as GetPaymentMethodByIdDto)
   public paymentInDataSource = new BehaviorSubject<GetAllPaymentInDto[]>([])
+
   public exportedpaymentinListDataSource = new BehaviorSubject<GetAllPaymentInDto[]>([]);
+
   public sendTaxDropDownDataSource = new BehaviorSubject<DropDownDto[]>([]);
   public paymentSaved = new BehaviorSubject<number>(0);
 
@@ -85,6 +87,7 @@ export class FinanceService {
   public accountCurrencyRate = this.accountCurrencyRateDataSource.asObservable();
   paymentInDataSourceObservable = this.paymentInDataSource.asObservable()
   exportedPaymentinDataSourceObservable = this.exportedpaymentinListDataSource.asObservable()
+
   taxDropDowmSourceObservable = this.sendTaxDropDownDataSource.asObservable()
 
 
@@ -517,13 +520,6 @@ export class FinanceService {
     });
   }
 
-  exportsPaymentInList(searchTerm:string | undefined) {
-    this.financeProxy.exportsPaymentInList(searchTerm).subscribe({
-      next: (res : any) => {
-         this.exportedpaymentinListDataSource.next(res);
-      },
-    });
-  }
 
   async deletePaymentIn(id: number) {
     const confirmed = await this.toasterService.showConfirm(
@@ -546,6 +542,8 @@ export class FinanceService {
       });
     }
   }
+
+
 
   getTaxDropDown() {
     this.financeProxy.getTaxDropDown().subscribe({

@@ -1,0 +1,60 @@
+<lib-popup-page 
+title="{{ 'PaymentIn.Form.PaymentMethod' | translate }}" 
+[closeFunction]="close"
+(Submit)="save()"
+[disabled]="disabled"
+>
+  <div>
+    <form [formGroup]="addForm">
+      <div class="grid m-0">
+        <div class="md:col-6" *ngIf="paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Check">
+          <lib-form-group>
+            <lib-label [appControl]="addForm.controls['chequeNumber']">
+              {{ 'PaymentIn.Form.CheckNumber' | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="chequeNumber" placeholder="000" [readOnly]="disabled" />
+            <lib-field-validations [appControl]="addForm.controls['chequeNumber']"> </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="md:col-6" *ngIf="paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Check">
+          <lib-form-group>
+            <lib-label [appControl]="addForm.controls['chequeDueDate']">
+              {{ 'PaymentIn.Form.CheckDueDat' | translate }}
+            </lib-label>
+            <lib-calendar
+              formControlName="chequeDueDate" [disabled]="disabled"
+            ></lib-calendar>
+            <lib-field-validations [appControl]="addForm.controls['chequeDueDate']"> </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="md:col-6" *ngIf="paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Visa||paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Master">
+          <lib-form-group>
+            <lib-label [appControl]="addForm.controls['commissionAmount']">
+              {{ 'PaymentIn.Form.CommissionAmount' | translate }}
+            </lib-label>
+            <lib-text-input [readOnly]="true"  formControlName="commissionAmount" placeholder="{{commissionAmount}}" />
+            <lib-field-validations [appControl]="addForm.controls['commissionAmount']"> </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="md:col-6" *ngIf="paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Visa||paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Master">
+          <lib-form-group>
+            <lib-label [appControl]="addForm.controls['vatAmount']">
+              {{ 'PaymentIn.Form.VatAmount' | translate }}
+            </lib-label>
+            <lib-text-input [readOnly]="true" type="text" formControlName="vatAmount" placeholder="{{vat}}" />
+            <lib-field-validations [appControl]="addForm.controls['vatAmount']"> </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="md:col-12" *ngIf="paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Check || paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Transfer || paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Visa ||paymentmethod ==  sharedFinanceEnums.paymentMethodTypeString.Master ||paymentmethod == sharedFinanceEnums.paymentMethodTypeString.Span ">
+          <lib-form-group>
+            <lib-label [appControl]="addForm.controls['bankReference']">
+              {{ 'PaymentIn.Form.BankReference' | translate }}
+            </lib-label>
+            <lib-text-input [readOnly]="disabled" type="text" formControlName="bankReference" placeholder="text up to 25" />
+            <lib-field-validations [appControl]="addForm.controls['bankReference']"> </lib-field-validations>
+          </lib-form-group>
+        </div>
+      </div>
+    </form>
+  </div>
+</lib-popup-page>
