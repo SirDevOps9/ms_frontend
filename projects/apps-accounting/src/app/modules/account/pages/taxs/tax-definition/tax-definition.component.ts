@@ -119,8 +119,8 @@ export class TaxDefinitionComponent implements OnInit {
     });
   }
 
-  onDelete(id: number) {
-    this.accountService.deleteTax(id);
+  onDelete(data: any) {
+    this.accountService.deleteTax(data.id);
   }
 
   exportTaxesData(searchTerm: string) {
