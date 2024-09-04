@@ -83,7 +83,7 @@ export class EditPaymentOutComponent implements OnInit {
   AllTreasuriesPayMethod: TreasuriesPaymentMethod[] = [];
   paymentInDraft: boolean;
   change: boolean;
-  paymenInId:number
+  paymenInId: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -306,18 +306,18 @@ export class EditPaymentOutComponent implements OnInit {
       this.updatecurrencyIdnPaymentDetails(currencyId);
     });
     this.financeService.paymentOutDetailsDataObservable.subscribe((res: any) => {
-      this.paymentDetails = res
-      this.paymenInId=res?.id
-      if(res?.status == this.sharedFinanceEnums.paymentInStatus.Draft){
-        this.paymentInDraft=true
-      } else  if(res?.status == this.sharedFinanceEnums.paymentInStatus.Posted){
-        this.paymentInDraft=false
-      } ;
+      this.paymentDetails = res;
+      this.paymenInId = res?.id;
+      if (res?.status == this.sharedFinanceEnums.paymentInStatus.Draft) {
+        this.paymentInDraft = true;
+      } else if (res?.status == this.sharedFinanceEnums.paymentInStatus.Posted) {
+        this.paymentInDraft = false;
+      }
 
       this.addForm.patchValue({
         ...res,
       });
-      this.addForm.get('paymentOutDate')?.setValue(new Date(res?.paymentOutDate))
+      this.addForm.get('paymentOutDate')?.setValue(new Date(res?.paymentOutDate));
 
       if (res?.paymentOutDetails) {
         res?.paymentOutDetails.forEach((element: any) => {
@@ -327,7 +327,7 @@ export class EditPaymentOutComponent implements OnInit {
               element.paymentOutDetailCostCenters.map((costCenter: any) =>
                 this.formBuilder.group(costCenter)
               )
-            )
+            ),
           });
 
           this.paymentOutDetailsFormArray.push(formGroup);
@@ -335,31 +335,30 @@ export class EditPaymentOutComponent implements OnInit {
         });
       }
 
-
       if (res?.paymentHub) {
         if (res?.paymentHub == this.sharedFinanceEnums.paymentplaceString.Bank) {
-          this.getAccountBalance(res?.bankAccountId)
+          this.getAccountBalance(res?.bankAccountId);
           if (res?.currencyId) {
-            this.getAccountCurrencyRate(res?.currencyId)
+            this.getAccountCurrencyRate(res?.currencyId);
           }
-
         } else if (res?.paymentHub == this.sharedFinanceEnums.paymentplaceString.Treasury) {
-          this.getTreasuryBalance(res?.treasuryId)
+          this.getTreasuryBalance(res?.treasuryId);
 
           if (res?.currencyId) {
-            this.getAccountCurrencyRate(res?.currencyId)
+            this.getAccountCurrencyRate(res?.currencyId);
           }
         }
       }
 
       this.paymentOutDetailsFormArray.controls.forEach((control: any, index: number) => {
         if (control.value.paidBy === this.sharedFinanceEnums.paiedDropDown.other) {
-          control.get('paidByDetailsName')?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount)
+          control
+            .get('paidByDetailsName')
+            ?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount);
         }
       });
-      this.addForm.controls['currency'].patchValue(res?.currencyName)
-
-    })
+      this.addForm.controls['currency'].patchValue(res?.currencyName);
+    });
     this.addForm.controls['paymentHub'].valueChanges.subscribe((paymentHub: any) => {
       this.getDetails(paymentHub);
       this.addForm.controls['paymentHubDetailId'].patchValue(
@@ -468,7 +467,7 @@ export class EditPaymentOutComponent implements OnInit {
   }
   accountSelected(event: any, id: number) {
     var accountData = this.filteredAccounts.find((c) => c.id == event);
-     this.updateAccount(accountData as AccountDto, id);
+    this.updateAccount(accountData as AccountDto, id);
   }
   isCostCenterallowed(journalLine: any, costCenterConfig: string): boolean {
     if (
@@ -654,11 +653,10 @@ export class EditPaymentOutComponent implements OnInit {
       data: data,
     });
     dialogRef.onClose.subscribe((res) => {
-
       if (res) {
         const paymentInDetailCostCenters = journal.get('paymentOutDetailCostCenters') as FormArray;
 
-        const resArray = res || [];  // Ensure res is an array
+        const resArray = res || []; // Ensure res is an array
 
         while (paymentInDetailCostCenters.length < resArray.length) {
           paymentInDetailCostCenters.push(this.formBuilder.control(null));
@@ -827,7 +825,6 @@ export class EditPaymentOutComponent implements OnInit {
   updateNewBalance() {
     const totalPaidAmount = this.addForm.controls['totalPaidAmount'].value || 0;
 
-
     const newBalance = this.AccountBalance - totalPaidAmount;
 
     this.addForm.controls['newBalance'].setValue(newBalance);
@@ -836,11 +833,12 @@ export class EditPaymentOutComponent implements OnInit {
     this.updatedNewBalance = newBalance;
   }
   onDelete(id: number, index: number): void {
-    
+    const Line = this.paymentOutDetailsFormArray.at(index);
+
     if (id == 0) {
       this.deleteLine(index);
     } else {
-      this.financeService.paymentOutDeleteLine(id);
+      this.financeService.paymentOutDeleteLine(Line.get('id')?.value!);
       this.financeService.paymentOutLineDeletedObser.subscribe((res: boolean) => {
         if (res == true) {
           this.paymentOutDetailsFormArray.removeAt(index);
@@ -854,7 +852,7 @@ export class EditPaymentOutComponent implements OnInit {
     this.financeService.paymentOutDetails.next(null);
   }
 
-  addToPost(){
-    this.financeService.postPaymentOut(this.paymenInId)
+  addToPost() {
+    this.financeService.postPaymentOut(this.paymenInId);
   }
 }
