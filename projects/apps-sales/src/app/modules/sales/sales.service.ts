@@ -282,7 +282,7 @@ export class SalesService {
     });
   }
 
-  getTags(moduleId:Modules) {
+  getTags(moduleId: Modules) {
     this.salesProxy.getTags(moduleId).subscribe((response) => {
       this.tagsDataSource.next(response);
     });
@@ -404,8 +404,8 @@ export class SalesService {
       this.salesProxy.deleteCustomerOpeningBalance(id).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
-            this.languageService.transalte('deleteCustomerDefinition.success'),
-            this.languageService.transalte('deleted')
+            this.languageService.transalte('Success'),
+            this.languageService.transalte('openeingBalance.CustomerDeleted')
           );
           this.loaderService.hide();
           this.customerDeleted.next(res);
@@ -413,7 +413,34 @@ export class SalesService {
         error: () => {
           this.loaderService.hide();
           this.toasterService.showError(
-            this.languageService.transalte('Company.Error'),
+            this.languageService.transalte('Error'),
+            this.languageService.transalte('DeleteError')
+          );
+        },
+      });
+    }
+  }
+
+  async deleteCustomerOpeningBalanceHeader(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      this.loaderService.show();
+
+      this.salesProxy.deleteCustomerOpeningBalanceHeader(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('Success'),
+            this.languageService.transalte('openeingBalance.CustomerDeleted')
+          );
+          this.loaderService.hide();
+          let data = this.customerOpeningBalanceDataSource.getValue();
+          const updatedOb = data.filter((elem) => elem.id !== id);
+          this.customerOpeningBalanceDataSource.next(updatedOb);
+        },
+        error: () => {
+          this.loaderService.hide();
+          this.toasterService.showError(
+            this.languageService.transalte('Error'),
             this.languageService.transalte('DeleteError')
           );
         },

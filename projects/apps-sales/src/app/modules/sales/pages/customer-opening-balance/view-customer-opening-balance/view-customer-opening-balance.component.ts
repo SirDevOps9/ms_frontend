@@ -43,6 +43,7 @@ export class ViewCustomerOpeningBalanceComponent implements OnInit {
     this.salesService.getCustomerOpeningBalanceView(this.routerService.currentId);
     this.salesService.CustomerOpeningBalanceViewObservable.subscribe((res) => {
       this.customerView = res;
+      
       this.totalBalance =
         res?.customerOpeningDetails?.reduce((acc, item) => {
           const balanceString = item?.balance.toString() || '0';

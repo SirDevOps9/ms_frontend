@@ -1,6 +1,6 @@
 <lib-page-content
-  [title]="'openeingBalance.CustomerOpeningBalance' | translate"
-  [subTitle]="'openeingBalance.CustomerOpeningBalance' | translate"
+  [title]="'VendorOpeningBalance.vendorOpeningBalance' | translate"
+  [subTitle]="'VendorOpeningBalance.vendorOpeningBalance' | translate"
 >
   <div>
     <div class="user_page">
@@ -19,25 +19,25 @@
                  
                  {
                    name: 'openingJournalCode',
-                   headerText: ('openeingBalance.OpeningJournalCode' | translate),
+                   headerText: ('VendorOpeningBalance.OpeningJournalCode' | translate),
                    isGlobalFilter: true,
                    isSortable: true
                  },
                  {
                    name: 'accountName',
-                   headerText: ('openeingBalance.AccountName' | translate),
+                   headerText: ('VendorOpeningBalance.AccountName' | translate),
                    isGlobalFilter: true,
                    isSortable: true
                  },
                  {
                    name: 'amount',
-                   headerText: ('openeingBalance.Amount' | translate),
+                   headerText: ('VendorOpeningBalance.Amount' | translate),
                    isGlobalFilter: true,
                      isSortable: true,
                  },
                  {
                    name: 'amountNature',
-                   headerText: ('openeingBalance.AmountNature' | translate),
+                   headerText: ('VendorOpeningBalance.AmountNature' | translate),
                    isGlobalFilter: true,
                      isSortable: true,
                  },
@@ -53,20 +53,20 @@
           <div class="group flex justify-content-between">
             <div>
               <lib-text-input
-                type="text"
-                placeholder="{{ 'Table.Search' | translate }}"
-                (keyUp)="onSearchChange($event)"
-                iconUrl="pi pi-search"              >
-              </lib-text-input>
+              type="text"
+              placeholder="{{ 'VendorOpeningBalance.Search' | translate }}"
+              (keyUp)="onSearchChange($event)"
+              iconUrl="pi pi-search"            >
+            </lib-text-input>
             </div>
 
             <div class="flex gap-2">
               <lib-button-micro
-                nameClass="save"
-                [title]="'Table.Add' | translate"
-                (click)="routeToAdd()"
-              >
-              </lib-button-micro>
+              nameClass="save"
+              [title]="'Table.Add' | translate"
+              (click)="routeToAdd()"
+            >
+            </lib-button-micro>
             </div>
           </div>
         </ng-container>
@@ -81,12 +81,21 @@
           </div>
         </ng-template>
         <ng-template #actions let-actions>
-          <div class="actions flex align-items-center">
-            <lib-button-micro nameClass="table_button_view" (click)="view(actions.id)">
+           <div class="actions flex align-items-center">
+            <lib-button-micro
+            nameClass="table_button_view"
+            (click)="view(actions.id)" >
+
             </lib-button-micro>
-            <lib-button-micro nameClass="table_button_edit" (click)="routeToEdit(actions.id)">
+            <lib-button-micro
+            nameClass="table_button_edit"
+            (click)="routeToEdit(actions.id)"
+            >
             </lib-button-micro>
-            <lib-button-micro nameClass="table_button_delete" (click)="onDelete(actions.id)">
+            <lib-button-micro
+            nameClass="table_button_delete"
+            (click)="onDelete(actions.id)"
+            >
             </lib-button-micro>
           </div>
         </ng-template>

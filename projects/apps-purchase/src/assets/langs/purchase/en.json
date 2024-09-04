@@ -188,5 +188,31 @@
   },
   "editTreasury": {
     "edit": "Treasury Definition Edited Successfully"
+  },
+  "VendorOpeningBalance": {
+    "vendorOpeningBalance": "Vendor Opening Balance",
+    "OpeningJournalCode": "Opening Journal Code",
+    "AccountName": "Account Name",
+    "Amount": "Amount",
+    "AmountNature": "Amount Nature",
+    "VendorDeleted":"Vendor Deleted Successfully",
+    "VendorUpdated":"Vendor Updated Successfully",
+    "VendorAdded":"Vendor Added Successfully",
+    "Search":"Search"
+  },
+  "addVendorOpeneingBalance": {
+    "openingJournal": "Opening Journal",
+    "JournalLine": "Journal Line",
+    "amount": "Amount",
+    "debitCredit": "Debit/Credit",
+    "code": "Vendor Code",
+    "name": "Vendor Name",
+    "balance": "Balance",
+    "balanceType": "Balance Type",
+    "dueDate": "Due Date",
+    "actions": "Actions",
+    "distribute": "Distribute",
+    "total": "Total",
+    "add_new_line": "Add New Line"
   }
 }

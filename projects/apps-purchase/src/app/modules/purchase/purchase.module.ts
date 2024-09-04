@@ -13,6 +13,13 @@ import { VendorDefinitionsListComponent } from './pages/vendor-definitions/vendo
 import { MainVendorCategoryComponent } from './pages/vendor-category/main-vendor-category/main-vendor-category.component';
 import { MainVendorDefintionsComponent } from './pages/vendor-definitions/main-vendor-defintions/main-vendor-defintions.component';
 import { VendorOpeningBalanceComponent } from './pages/vendor-opening-balance/vendor-opening-balance.component';
+import { VendorOpeningBalanceListComponent } from './pages/vendor-opening-balance/vendor-opening-balance-list/vendor-opening-balance-list.component';
+import { VendorOpeningBalanceMainComponent } from './pages/vendor-opening-balance/vendor-opening-balance-main/vendor-opening-balance-main.component';
+import { VendorOpeningBalanceAddComponent } from './pages/vendor-opening-balance/vendor-opening-balance-add/vendor-opening-balance-add.component';
+import { VendorOpeningBalanceEditComponent } from './pages/vendor-opening-balance/vendor-opening-balance-edit/vendor-opening-balance-edit.component';
+import { VendorOpeningBalanceDistributeComponent } from './components/vendor-opening-balance-distribute/vendor-opening-balance-distribute.component';
+import { VendorOpeningBalanceViewComponent } from './pages/vendor-opening-balance/vendor-opening-balance-view/vendor-opening-balance-view.component';
+import { VendorOpeningBalanceDistributeViewComponent } from './components/vendor-opening-balance-distribute-view/vendor-opening-balance-distribute-view.component';
 
 const routes: Routes = [
   {
@@ -91,13 +98,42 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'vendor-opening',
-        component: VendorOpeningBalanceComponent,
-       // canActivate: [AuthGuard],
+        path: 'vendor-opening-balance',
+        component: MainVendorDefintionsComponent,
         data: {
           breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE,
         },
-      },
+        children:[
+          {
+            path: '',
+            component: VendorOpeningBalanceListComponent,
+            data: {
+              breadcrumb: '',
+            },
+          },
+          {
+            path: 'add-vendor-opening-balance',
+            component: VendorOpeningBalanceAddComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE_ADD,
+            },
+          },
+          {
+            path: 'edit-vendor-opening-balance/:id',
+            component: VendorOpeningBalanceEditComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE_EDIT,
+            },
+          },
+          {
+            path: 'view-vendor-opening-balance/:id',
+            component: VendorOpeningBalanceViewComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE_EDIT,
+            },
+          },
+        ]
+      }
     ],
   },
 ];
@@ -112,7 +148,14 @@ const routes: Routes = [
     EditVendorDefinitionsComponent,
     VendorOpeningBalanceComponent,
     MainVendorCategoryComponent,
-    MainVendorDefintionsComponent
+    MainVendorDefintionsComponent,
+    VendorOpeningBalanceListComponent,
+    VendorOpeningBalanceMainComponent,
+    VendorOpeningBalanceAddComponent,
+    VendorOpeningBalanceEditComponent,
+    VendorOpeningBalanceDistributeComponent,
+    VendorOpeningBalanceViewComponent,
+    VendorOpeningBalanceDistributeViewComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })

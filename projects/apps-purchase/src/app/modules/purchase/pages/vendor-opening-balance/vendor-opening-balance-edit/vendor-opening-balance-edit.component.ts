@@ -1,40 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder, FormControl } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AccountDto, DropDownDto, GetLineDropDownById, JournalLineDropdownDto, lookupDto, LookupEnum } from '../../../models';
 import { DialogService } from 'primeng/dynamicdialog';
-import { AccountDto } from 'projects/apps-accounting/src/app/modules/account/models';
-import {
-  ToasterService,
-  LanguageService,
-  FormsService,
-  customValidators,
-  RouterService,
-  LookupsService,
-  LookupEnum,
-  lookupDto,
-} from 'shared-lib';
-import { CustomerOpeningBalanceDistributeComponent } from '../../../components/customer-opening-balance-distribute/customer-opening-balance-distribute.component';
-import {
-  CategoryDropdownDto,
-  GetLineDropDownById,
-  CustomerDropDown,
-  SharedSalesEnums,
-} from '../../../models';
-import { SalesService } from '../../../sales.service';
-import { AccountNature } from 'projects/erp-home/src/app/modules/general-setting/models';
+import { customValidators, FormsService, LanguageService, LookupsService, RouterService, ToasterService } from 'shared-lib';
 import { Title } from '@angular/platform-browser';
+import { PurchaseService } from '../../../purchase.service';
+import { SharedPurchaseEnums } from '../../../models/sharedenums';
+import { VendorOpeningBalanceAddComponent } from '../vendor-opening-balance-add/vendor-opening-balance-add.component';
+import { VendorOpeningBalanceDistributeComponent } from '../../../components/vendor-opening-balance-distribute/vendor-opening-balance-distribute.component';
+import { AccountNature } from '../../../models/account-nature';
 
 @Component({
-  selector: 'app-edit-customer-opening-balance',
-  templateUrl: './edit-customer-opening-balance.component.html',
-  styleUrls: ['./edit-customer-opening-balance.component.scss'],
-  providers: [RouterService],
+  selector: 'app-vendor-opening-balance-edit',
+  templateUrl: './vendor-opening-balance-edit.component.html',
+  styleUrls: ['./vendor-opening-balance-edit.component.scss'],
+  providers: [RouterService]
+
 })
-export class EditCustomerOpeningBalanceComponent implements OnInit {
+export class VendorOpeningBalanceEditComponent implements OnInit {
   formGroup: FormGroup;
-  customerForm: FormArray;
-  openingJournalList: CategoryDropdownDto[];
+  vendorForm: FormArray;
+  openingJournalList: DropDownDto[];
   linesDropDown: GetLineDropDownById[];
-  customerDropDownByAccountId: CustomerDropDown[] | any;
+  vendorDropDownByAccountId: DropDownDto[] | any;
   amount: string;
   balanceTypeSelect: string;
   debitOrCredit: string;
@@ -51,14 +39,14 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dialog: DialogService,
-    private salesService: SalesService,
+    private PurchaseService: PurchaseService,
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private title: Title,
     public routerService: RouterService,
     private formService: FormsService,
     private lookupsService: LookupsService,
-    public enums: SharedSalesEnums
+    public enums: SharedPurchaseEnums
   ) {}
   
   ngOnInit(): void {
@@ -68,8 +56,8 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
     this.loadLookups();
     this.initializeMainFormGroup();
     this.subscribe();
-    this.customerLineFormGroup();
-    this.getCustomerOpeningBalance(this.routerService.currentId);
+    this.vendorLineFormGroup();
+    this.getVendorOpeningBalance(this.routerService.currentId);
     this.openingBalanceJournalEntryDropdown();
   }
 
@@ -85,22 +73,22 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
       amountNature: '',
     });
 
-    this.customerForm = this.fb.array([this.customerLineFormGroup()]);
+    this.vendorForm = this.fb.array([this.vendorLineFormGroup()]);
   }
 
   public get items(): FormArray {
-    return this.customerForm as FormArray;
+    return this.vendorForm as FormArray;
   }
 
   addLine() {
-    if (!this.formService.validForm(this.customerForm, false)) return;
+    if (!this.formService.validForm(this.vendorForm, false)) return;
 
-    this.items.push(this.customerLineFormGroup());
-    this.customerForm.updateValueAndValidity();
+    this.items.push(this.vendorLineFormGroup());
+    this.vendorForm.updateValueAndValidity();
   }
 
   removeByFront(index: number) {
-    this.customerForm.removeAt(index);
+    this.vendorForm.removeAt(index);
     this.calculateTotalBalance();
   }
 
@@ -108,22 +96,22 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
     if (id == 0) {
       this.removeByFront(index);
     } else {
-      this.salesService.deleteCustomerOpeningBalance(id);
-      this.salesService.customerDeletedObser.subscribe((res: boolean) => {
+      this.PurchaseService.deletevendorOpeningBalance(id);
+      this.PurchaseService.vendorDeletedObser.subscribe((res: boolean) => {
         if (res == true) {
-          this.customerForm.removeAt(index);
+          this.vendorForm.removeAt(index);
           this.calculateTotalBalance();
         }
       });
     }
   }
 
-  customerLineFormGroup(): FormGroup {
+  vendorLineFormGroup(): FormGroup {
     return this.fb.group({
       id: 0,
-      customerId: new FormControl('', customValidators.required),
+      vendorId: new FormControl('', customValidators.required),
       accountName: new FormControl(),
-      customerCode: new FormControl(),
+      vendorCode: new FormControl(),
       balance: new FormControl(0, [
         customValidators.required,
         customValidators.number,
@@ -138,7 +126,7 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
 
   openDistribute(data: any, account: number, index: number, customerGroup: FormGroup) {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
-    if (!this.formService.validForm(this.customerForm, false)) return;
+    if (!this.formService.validForm(this.vendorForm, false)) return;
     if (data.balanceType != this.enums.BalanceType.Debit) {
       this.toasterService.showError(
         this.languageService.transalte('Error'),
@@ -146,7 +134,7 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
       );
       return;
     } else {
-      const ref = this.dialog.open(CustomerOpeningBalanceDistributeComponent, {
+      const ref = this.dialog.open(VendorOpeningBalanceDistributeComponent, {
         width: '750px',
         height: '600px',
         data: data,
@@ -162,7 +150,7 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
   }
 
   openingBalanceJournalEntryDropdown() {
-    this.salesService.openingBalanceJournalEntryDropdown();
+    this.PurchaseService.openingBalanceJournalEntryDropdown();
   }
 
   onOpeningJournalChange(event: any) {
@@ -171,7 +159,7 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
 
   getLinesDropDown(id: number) {
     this.openingJournalId = id;
-    this.salesService.getLinesDropDown(id);
+    this.PurchaseService.getLinesDropDown(id);
   }
 
   onLinesChange(event: any) {
@@ -182,7 +170,7 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
             amount: element.amount,
             amountNature: element.amountNature,
           });
-          this.getCustomerDropDownByAccountId(element.accountId);
+          this.getvendorDropDownByAccountId(element.accountId);
           this.openingBalanceJournalEntryLineId = element.id;
           this.amountNature = element.amountNature;
         }
@@ -190,8 +178,8 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
     }, 500);
   }
 
-  getCustomerDropDownByAccountId(id: number) {
-    this.salesService.getCustomerDropDownByAccountId(id);
+  getvendorDropDownByAccountId(id: number) {
+    this.PurchaseService.getVendorDropDownByAccountId(id);
   }
 
 
@@ -200,17 +188,17 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
     if (!line) {
       return;
     }
-    const selectedCustomer = this.customerDropDownByAccountId.find((c: any) => c.id === event);
+    const selectedCustomer = this.vendorDropDownByAccountId.find((c: any) => c.id === event);
 
     if (!selectedCustomer) {
       return;
     }
 
     line.get('accountName')?.setValue(selectedCustomer.name);
-    line.get('customerCode')?.setValue(selectedCustomer.code);
+    line.get('vendorCode')?.setValue(selectedCustomer.code);
     line.get('displayName')?.setValue(`${selectedCustomer.code}`);
 
-    line.get('customerId')?.setValue(selectedCustomer.id);
+    line.get('vendorId')?.setValue(selectedCustomer.id);
   }
 
   balanceTypeSelected(event: any, index: number) {
@@ -219,19 +207,19 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
       return;
     }
 
-    const selectedCustomerId = line.get('customerId')?.value;
+    const selectedCustomerId = line.get('vendorId')?.value;
 
     if (!selectedCustomerId) {
       return;
     }
 
     const isCustomerAlreadySelected = this.items.controls.some((group, i) => {
-      return group.get('customerId')?.value === selectedCustomerId && i !== index;
+      return group.get('vendorId')?.value === selectedCustomerId && i !== index;
     });
 
     if (isCustomerAlreadySelected) {
       const matchingGroup = this.items.controls.find(
-        (group) => group.get('customerId')?.value === selectedCustomerId
+        (group) => group.get('vendorId')?.value === selectedCustomerId
       );
       const existingBalanceType = matchingGroup?.get('balanceType')?.value;
 
@@ -248,67 +236,67 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.formService.validForm(this.customerForm, false)) return;
-    this.customerForm.updateValueAndValidity();
+    if (!this.formService.validForm(this.vendorForm, false)) return;
+    this.vendorForm.updateValueAndValidity();
     this.formGroup.updateValueAndValidity();
     const body = {
       id: this.routerService.currentId,
       openingBalanceJournalEntryLineId: this.openingBalanceJournalEntryLineId,
       amountNature: this.amountNature,
-      customerOpeningBalanceDetails: this.items.value,
+      vendorOpeningBalanceDetails: this.items.value,
     };
-    this.salesService.EditCustomerOpeningBalance(body);
+    this.PurchaseService.EditVendorOpeningBalance(body);
   }
 
-  getCustomerOpeningBalance(id: number) {
-    this.salesService.getCustomerOpeningBalance(id);
+  getVendorOpeningBalance(id: number) {
+    this.PurchaseService.getVendorOpeningBalanceByID(id);
   }
 
   subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
 
-    this.salesService.CustomerOpeningBalancelistObservable.subscribe((res: any) => {
-      this.customerForm.clear();
+    this.PurchaseService.vendorOpeningBalnceDataByIDObservable.subscribe((res: any) => {
+      this.vendorForm.clear();
       if (res.length != 0) {
         this.formGroup?.patchValue(
           {
             OpeningJournal: res.openingBalanceJournalEntryId,
-            JournalLine: res.openingBalanceJournalEntryLineId,
+            JournalLine: res.openingBalanceJournalLineId,
           },
           { emitEvent: true }
         );
         this.onOpeningJournalChange(res.openingBalanceJournalEntryId);
-        this.onLinesChange(res.openingBalanceJournalEntryLineId);
+        this.onLinesChange(res.openingBalanceJournalLineId);
         this.editMode = true;
         this.formChanged = false;
       }
-      if (res && res.customerOpeningDetails && Array.isArray(res.customerOpeningDetails)) {
-        res.customerOpeningDetails.forEach((detail: any, index: number) => {
-          const formGroup = this.customerLineFormGroup();
+      if (res && res.vendorOpeningDetails && Array.isArray(res.vendorOpeningDetails)) {
+        res.vendorOpeningDetails.forEach((detail: any, index: number) => {
+          const formGroup = this.vendorLineFormGroup();
           formGroup.patchValue({
             id: detail.id,
-            customerId: detail.customerId || '',
-            accountName: detail.customerName || '',
-            customerCode: detail.customerCode || '',
+            vendorId: detail.vendorId || '',
+            accountName: detail.vendorName || '',
+            vendorCode: detail.vendorCode || '',
             balance: detail.balance || 0,
             balanceType: detail.balanceType || '',
             displayName: detail.displayName || '',
             dueDates: detail.balanceDueDates || [],
           });
-          this.customerForm.push(formGroup);
-          this.accountSelected(detail.customerId, index);
+          this.vendorForm.push(formGroup);
+          this.accountSelected(detail.vendorId, index);
           this.calculateTotalBalance();
         });
       }
     });
-    this.salesService.openingBalanceJournalEntryDropdownDataObservable.subscribe((res) => {
+    this.PurchaseService.openingBalanceJournalEntryDropdownDataObservable.subscribe((res) => {
       this.openingJournalList = res;
     });
 
-    this.salesService.CustomerDropDownByAccountIdObservable.subscribe((res) => {
-      this.customerDropDownByAccountId = res;
+    this.PurchaseService.VendorDropDownByAccountIdObservable.subscribe((res) => {
+      this.vendorDropDownByAccountId = res;
     });
-    this.salesService.LinesDropDownDataObservable.subscribe((res: any) => {
+    this.PurchaseService.JournalLinesDropDownDataObservable.subscribe((res: any) => {
       this.linesDropDown = res;
     });
     if (this.formGroup) {
@@ -322,15 +310,16 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
   }
 
   calculateTotalBalance() {
-    this.totalBalance = this.customerForm.controls.reduce((acc, control) => {
+    this.totalBalance = this.vendorForm.controls.reduce((acc, control) => {
       const debitValue = parseFloat(control.get('balance')?.value) || 0;
       return acc + debitValue;
     }, 0);
   }
 
   cancel() {
-    this.routerService.navigateTo('/masterdata/customer-opening-balance');
+    this.routerService.navigateTo('/masterdata/vendor-opening-balance');
   }
 
   ngOnDestroy() {}
+
 }

@@ -69,9 +69,11 @@ export class CustomerOpeningBalanceListComponent implements OnInit {
     );
   }
 
+
   onDelete(id: number) {
-    //todo
+    this.salesService.deleteCustomerOpeningBalanceHeader(id);
   }
+  
 
   view(id: number) {
     this.routerService.navigateTo(

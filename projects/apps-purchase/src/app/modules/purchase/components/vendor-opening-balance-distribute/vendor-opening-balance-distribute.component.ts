@@ -1,20 +1,19 @@
+import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TranslationService } from 'projects/adminportal/src/app/modules/i18n';
 import { customValidators, FormsService, LanguageService, ToasterService } from 'shared-lib';
-import { DatePipe } from '@angular/common'; // Import DatePipe
 
 @Component({
-  selector: 'app-customer-opening-balance-distribute',
-  templateUrl: './customer-opening-balance-distribute.component.html',
-  styleUrl: './customer-opening-balance-distribute.component.scss',
-
+  selector: 'app-vendor-opening-balance-distribute',
+  templateUrl: './vendor-opening-balance-distribute.component.html',
+  styleUrls: ['./vendor-opening-balance-distribute.component.scss']
 })
-export class CustomerOpeningBalanceDistributeComponent implements OnInit {
+export class VendorOpeningBalanceDistributeComponent implements OnInit {
   formGroup: FormGroup
   formGroupBalance: FormGroup
-  customerForm: FormArray
+  vendorForm: FormArray
   balance: number
   totalBalance: number
   totalBalanceSum: number = 0
@@ -37,13 +36,13 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
     
   ngAfterViewInit(): void {
     this.balance = this.config.data.balance;
-    this.customerForm.clear();
+    this.vendorForm.clear();
 
     if (this.config.data.dueDates) {
       this.config.data.dueDates.forEach((e: any) => {
         console.log(this.config.data.dueDates, "this.config.data.dueDates");
 
-        this.customerForm.push(this.fb.group({
+        this.vendorForm.push(this.fb.group({
           id: e.id,
           dueDate: e.dueDate,
           credit: e.credit,
@@ -66,24 +65,24 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
       balance: ''
     })
 
-    this.customerForm = this.fb.array([this.createBankFormGroup()]);
+    this.vendorForm = this.fb.array([this.createBankFormGroup()]);
 
     this.createBankFormGroup()
   }
 
   public get items(): FormArray {
-    return this.customerForm as FormArray;
+    return this.vendorForm as FormArray;
   }
 
   addLine() {
-    if (!this.formsService.validForm(this.customerForm, false)) return;
+    if (!this.formsService.validForm(this.vendorForm, false)) return;
 
     this.items.push(this.createBankFormGroup())
   }
 
   onDelete(index: number): void {
 
-    this.customerForm.removeAt(index);
+    this.vendorForm.removeAt(index);
     this.getTotalBalanceSum()
   }
 
@@ -117,7 +116,7 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
     return pipe.transform(date, format) || '';
   }
   onSubmit() {
-    if (!this.formsService.validForm(this.customerForm, false)) return;
+    if (!this.formsService.validForm(this.vendorForm, false)) return;
 
     const formattedItems = this.items.value.map((item: any) => {
       return {
@@ -165,14 +164,14 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
     }
   }
   getTotalCredit(): number {
-    return this.customerForm.controls.reduce((total, control) => {
+    return this.vendorForm.controls.reduce((total, control) => {
       const credit = Number(control.get('credit')?.value) || 0; // Convert to number
       return total + credit;
     }, 0);
   }
 
   getTotalDebit(): number {
-    return this.customerForm.controls.reduce((total, control) => {
+    return this.vendorForm.controls.reduce((total, control) => {
       const debit = Number(control.get('debit')?.value) || 0; // Convert to number
       return total + debit;
     }, 0);
@@ -188,5 +187,6 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
   resetDate(e:any){
    
   }
+  
 
 }
