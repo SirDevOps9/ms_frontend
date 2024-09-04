@@ -177,9 +177,9 @@
   Line.paymentInDetailCostCenters.length != 0
   " (click)="
      openCostPopup(
-      Line.value,
       Line,
-       Line.controls['glAccountId']?.value,
+      Line,
+       Line.glAccountId,
        rowIndex
      )
    " class="pointer" src="assets/images/costcenterfull.png" />
