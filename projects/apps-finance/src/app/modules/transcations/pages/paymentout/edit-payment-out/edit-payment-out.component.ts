@@ -82,6 +82,7 @@ export class EditPaymentOutComponent implements OnInit {
   paymentMethod: BankPaymentMethods[] = [];
   AllTreasuriesPayMethod: TreasuriesPaymentMethod[] = [];
   paymentInDraft: boolean;
+  paymentInPosted: boolean;
   change: boolean;
   paymenInId: number;
 
@@ -318,8 +319,12 @@ export class EditPaymentOutComponent implements OnInit {
       this.paymenInId = res?.id;
       if (res?.status == this.sharedFinanceEnums.paymentInStatus.Draft) {
         this.paymentInDraft = true;
+        this.paymentInPosted = false;
+
       } else if (res?.status == this.sharedFinanceEnums.paymentInStatus.Posted) {
         this.paymentInDraft = false;
+        this.paymentInPosted = true;
+
       }
 
       this.addForm.patchValue({
@@ -846,6 +851,7 @@ export class EditPaymentOutComponent implements OnInit {
     this.updatedNewBalance = newBalance;
   }
   onDelete(id: number, index: number): void {
+    if(!this.paymentInPosted){
     const Line = this.paymentOutDetailsFormArray.at(index);
 
     if (id == 0) {
@@ -858,6 +864,8 @@ export class EditPaymentOutComponent implements OnInit {
           this.calculateTotalAmount();
         }
       });
+    }}else{
+      return
     }
   }
 
