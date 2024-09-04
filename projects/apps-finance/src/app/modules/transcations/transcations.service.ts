@@ -21,14 +21,15 @@ export class TranscationsService {
   public getVendorDropdownData = new BehaviorSubject<any>([])
   public AllPayMethodsDropdown = new BehaviorSubject<any>([])
   public AllTreasuriesPayMethodsDropdown = new BehaviorSubject<any>([])
-  public AccountBalance = new BehaviorSubject<number>(0)
-  public TreasuryBalance = new BehaviorSubject<number>(0)
+  public AccountBalance = new BehaviorSubject<number|undefined>(0)
+  public TreasuryBalance = new BehaviorSubject<number|undefined>(0)
   public childrenAccountDataSource = new BehaviorSubject<AccountDto[]>([]);
   public childrenAccountList = this.childrenAccountDataSource.asObservable();
   public childrenAccountPageInfo = new BehaviorSubject<PageInfoResult>({});
   public paymentDetails = new BehaviorSubject<any>({});
   private accountCurrencyRateDataSource = new BehaviorSubject<CurrencyRateDto>({rate:0});
-
+  private paymenInLineDeleted = new BehaviorSubject<boolean>(false);
+  public paymenInLineDeletedObser = this.paymenInLineDeleted.asObservable();
 
 
 
@@ -131,7 +132,9 @@ export class TranscationsService {
         this.toasterService.showSuccess(
           this.languageService.transalte('PaymentIn.Success'),
           this.languageService.transalte('PaymentIn.PaymentInAddedSuccessfully')
-        );        
+        );    
+        this.routerService.navigateTo('/transcations/paymentin')
+    
       },
       error:(error)=>{
         this.toasterService.showError(
@@ -225,6 +228,30 @@ export class TranscationsService {
       });
     }
   }
+  async paymentInDeleteLine(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.TranscationsProxy.PaymentInDeleteLine(id).subscribe({
+        next: (res) => {
+          
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('payment-in.delete')
+          );
+          this.loaderService.hide();
+          // const currentPaymentIn = this.paymentInDataSource.getValue();
+          // const updatedcurrentPaymentIn = currentPaymentIn.filter((c : any) => c.id !== id);
+          // this.paymentInDataSource.next(updatedcurrentPaymentIn);
+          
+          this.paymenInLineDeleted.next(res);
+
+        },
+        
+      });
+    }
+  }
   getPaymentInById(id:number){
     this.TranscationsProxy.GetPaymentInById(id).subscribe(res=>{
       if(res) {
@@ -239,11 +266,34 @@ export class TranscationsService {
           this.languageService.transalte('success'),
           this.languageService.transalte('add-paymentMethod.edit')
         );
-        this.routerService.navigateTo('/masterdata/payment-method')
+        this.routerService.navigateTo('/transcations/paymentin')
         
       }
     })
   }
+  postPaymentIn(id:number) {
+    this.loaderService.show();
 
+    this.TranscationsProxy.postPaymentIn(id).subscribe({
+
+      next:(res:any)=> {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('PaymentIn.Success'),
+          this.languageService.transalte('PaymentIn.PaymentInPostedSuccessfully')
+        );
+        this.loaderService.hide();
+
+        this.routerService.navigateTo('/transcations/paymentin')
+
+      },
+      error:(error)=>{
+        this.loaderService.hide();
+        this.toasterService.showError(
+          this.languageService.transalte('PaymentIn.Error'),
+          this.languageService.transalte(error.message)
+        );
+      }
+    })
+  }
 }
 
