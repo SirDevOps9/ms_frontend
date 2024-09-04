@@ -21,6 +21,7 @@
             {{ 'PaymentIn.Form.Date' | translate }}
           </lib-label>
           <lib-calendar
+          [disabled]="paymentInPosted"
             formControlName="paymentOutDate"
             [placeholder]="paymentOutDate"
           ></lib-calendar>
@@ -35,6 +36,7 @@
             {{ 'PaymentIn.Form.Description' | translate }}
           </lib-label>
           <lib-text-input
+          [readOnly]="paymentInPosted"
             type="text"
             formControlName="description"
             [placeholder]="'PaymentIn.Form.PlaceholderDescription' | translate"
@@ -51,6 +53,7 @@
                 {{ 'PaymentIn.Form.PaymentHub' | translate }}
               </lib-label>
               <lib-select
+              [readOnly]="paymentInPosted"
                 formControlName="paymentHub"
                 [options]="lookups[LookupEnum.PaymentPlace]"
                 [selectedValue]="addForm.controls['paymentHub'].value"
@@ -70,6 +73,7 @@
                 {{ 'PaymentIn.Form.PaymentHubDetails' | translate }}
               </lib-label>
               <lib-select
+              [readOnly]="paymentInPosted"
                 *ngIf="selectedBank"
                 formControlName="paymentHubDetailId"
                 [options]="BankDropDown"
@@ -81,6 +85,7 @@
               >
               </lib-select>
               <lib-select
+              [readOnly]="paymentInPosted"
                 *ngIf="!selectedBank"
                 formControlName="paymentHubDetailId"
                 [options]="TreasuryDropDown"
@@ -103,6 +108,7 @@
                 {{ 'PaymentIn.Form.BankAccount' | translate }}
               </lib-label>
               <lib-select
+              [readOnly]="paymentInPosted"
                 formControlName="bankAccountId"
                 [options]="bankAccount"
                 optionValue="id"
@@ -137,6 +143,7 @@
             {{ 'PaymentIn.Form.Rate' | translate }}
           </lib-label>
           <lib-text-input
+          [readOnly]="paymentInPosted"
             (keyUp)="updateRateInPaymentDetails($event)"
             formControlName="rate"
             [placeholder]="'PaymentIn.Form.PlaceholderRate' | translate"
@@ -207,8 +214,8 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-journalLine let-rowIndex="rowIndex">
-          <tr [formGroup]="journalLine">
-            <td [pEditableColumn]="journalLine.amount" pEditableColumnField="amount">
+          <tr [formGroup]="journalLine" >
+            <td [pEditableColumn]="journalLine.amount" pEditableColumnField="amount" *ngIf="!paymentInPosted">
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <div class="flex gap-2 align-items-center">
@@ -227,12 +234,17 @@
               <lib-field-validations [appControl]="journalLine.controls['amount']">
               </lib-field-validations>
             </td>
+            <td *ngIf="paymentInPosted">
+              {{ journalLine.get('amount').value }}
+
+            </td>
             <td>
               {{ journalLine.controls['amount'].value * addForm.controls['rate'].value || 0 }}
             </td>
             <td
               [pEditableColumn]="journalLine.paymentMethodId"
               pEditableColumnField="paymentMethodId"
+              *ngIf="!paymentInPosted"
             >
               <p-cellEditor>
                 <ng-template pTemplate="input">
@@ -269,7 +281,10 @@
               <lib-field-validations [appControl]="journalLine.controls['paymentMethodId']">
               </lib-field-validations>
             </td>
+            <td *ngIf="paymentInPosted">
+              {{ journalLine.controls['paymentMethodName'].value }}
 
+            </td>
             <td>
               <lib-button-micro
                 title="{{ 'PaymentIn.Form.PaymentMethod' | translate }}"
@@ -286,7 +301,7 @@
               >
               </lib-button-micro>
             </td>
-            <td [pEditableColumn]="journalLine.controls['paidBy']" pEditableColumnField="paidBy">
+            <td [pEditableColumn]="journalLine.controls['paidBy']" pEditableColumnField="paidBy" *ngIf="!paymentInPosted">
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-select
@@ -308,9 +323,14 @@
               <lib-field-validations [appControl]="journalLine.controls['paidBy']">
               </lib-field-validations>
             </td>
+            <td *ngIf="paymentInPosted">
+              {{ journalLine.controls['paidBy'].value }}
+
+            </td>
             <td
               [pEditableColumn]="journalLine.controls['paidByDetailsId']"
               pEditableColumnField="paidByDetailsId"
+              *ngIf="!paymentInPosted"
             >
               <p-cellEditor>
                 <ng-template pTemplate="input">
@@ -374,7 +394,11 @@
               <lib-field-validations [appControl]="journalLine.controls['paidByDetailsId']">
               </lib-field-validations>
             </td>
-            <td [pEditableColumn]="journalLine.glAccountId" pEditableColumnField="glAccountId">
+            <td *ngIf="paymentInPosted">
+              {{ journalLine.controls['paidByDetailsName'].value }}
+
+            </td>
+            <td [pEditableColumn]="journalLine.glAccountId" pEditableColumnField="glAccountId" *ngIf="!paymentInPosted">
               <p-cellEditor
                 *ngIf="
                   journalLine.controls['paidBy'].value ==
@@ -424,7 +448,10 @@
               <lib-field-validations [appControl]="journalLine.controls['glAccountId']">
               </lib-field-validations>
             </td>
+            <td  *ngIf="paymentInPosted">
+              {{ journalLine.controls['accountName'].value }}
 
+            </td>
             <td>
               <img
                 *ngIf="
@@ -477,7 +504,7 @@
                 src="assets/images/costcenterfull.png"
               />
             </td>
-            <td [pEditableColumn]="journalLine.notes" pEditableColumnField="notes">
+            <td [pEditableColumn]="journalLine.notes" pEditableColumnField="notes" *ngIf="!paymentInPosted">
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <div class="flex gap-2 align-items-center">
@@ -491,12 +518,17 @@
               <lib-field-validations [appControl]="journalLine.controls['notes']">
               </lib-field-validations>
             </td>
+            <td *ngIf="paymentInPosted">
+              {{ journalLine.controls['notes'].value }}
+
+            </td>
             <td>
               <lib-button-micro nameClass="table_button_delete" (click)="onDelete( journalLine.controls['id'].value ,rowIndex)">
               </lib-button-micro>
 
             </td>
           </tr>
+          
         </ng-template>
         <ng-template pTemplate="footer">
           <tr>

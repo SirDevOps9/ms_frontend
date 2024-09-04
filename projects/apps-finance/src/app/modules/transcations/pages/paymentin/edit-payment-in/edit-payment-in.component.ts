@@ -188,10 +188,11 @@ export class EditPaymentInComponent {
       return true;
     } else {
       const data = value;
+      const viewdata = this.paymentInPosted;
       const ref = this.dialog.open(PaymentMethodComponent, {
         width: '900px',
         height: '600px',
-        data: { ...data, selectedPayment },
+        data: { ...data, selectedPayment , viewdata },
       });
       ref.onClose.subscribe((res) => {
         if (res) {
@@ -652,12 +653,13 @@ export class EditPaymentInComponent {
       );
       return;
     }
+    const viewdata = this.paymentInPosted;
 
     const dialogRef = this.dialog.open(AddCostCenterComponent, {
       width: '900px',
       height: '600px',
       header: 'Edit Cost Center Allocation',
-      data: data,
+      data:{ ...data,viewdata },
     });
     dialogRef.onClose.subscribe((res) => {
       if (res) {
