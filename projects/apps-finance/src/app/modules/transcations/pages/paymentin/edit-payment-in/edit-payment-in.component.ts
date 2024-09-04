@@ -736,11 +736,12 @@ export class EditPaymentInComponent {
     }
   }
   onDelete(id: number, index: number): void {
+    const Line = this.paymentInDetailsFormArray.at(index);
 
     if (id == 0) {
       this.deleteLine(index);
     } else {
-      this.financeService.paymentInDeleteLine(id);
+      this.financeService.paymentInDeleteLine(Line.get('id')?.value!);
       this.financeService.paymenInLineDeletedObser.subscribe((res: boolean) => {
         if (res == true) {
           this.paymentInDetailsFormArray.removeAt(index);
