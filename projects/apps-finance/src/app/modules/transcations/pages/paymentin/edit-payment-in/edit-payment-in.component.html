@@ -367,7 +367,7 @@
         </ng-template>
       </p-table>
 
-      <div class="add_new">
+      <div class="add_new" *ngIf="!paymentInPosted">
         <button class="btn" type="button" (click)="addNewRow()">
           {{ 'add_new_line' | translate }}
         </button>

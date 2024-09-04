@@ -507,7 +507,7 @@
         </ng-template>
       </p-table>
 
-      <div class="add_new">
+      <div class="add_new" *ngIf="!paymentInPosted">
         <button class="btn" type="button" (click)="addNewRow()">
           {{ 'add_new_line' | translate }}
         </button>
@@ -531,7 +531,7 @@
             <div>
               <lib-button-micro
                 title="{{ 'Save' | translate }}"
-                nameClass="save"
+                [nameClass]="!paymentInPosted ? 'save' : 'disabled'"
                 widthNumber="100%"
                 (click)="save()"
               >

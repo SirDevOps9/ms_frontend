@@ -744,6 +744,8 @@ export class EditPaymentInComponent {
     }
   }
   onDelete(id: number, index: number): void {
+    if(!this.paymentInPosted){
+
     const Line = this.paymentInDetailsFormArray.at(index);
 
     if (id == 0) {
@@ -757,6 +759,9 @@ export class EditPaymentInComponent {
         }
       });
     }
+  }else{
+    return
+  }
   }
 
   deleteLine(index: number) {
