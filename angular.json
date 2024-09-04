@@ -25,14 +25,15 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "baseHref": "/bussiness-owners/",
-            "outputPath": "dist/bussiness-owners",
+            "outputPath": { "base": "C:/inetpub/wwwroot/frontadmin/businessowners", "browser": "" },
             "index": "projects/bussiness-owners/src/index.html",
             "browser": "projects/bussiness-owners/src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "projects/bussiness-owners/tsconfig.app.json",
             "assets": [
               "projects/bussiness-owners/src/favicon.ico",
-              "projects/bussiness-owners/src/assets"
+              "projects/bussiness-owners/src/assets",
+              "projects/bussiness-owners/src/web.config"
             ],
             "styles": [
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
@@ -172,13 +173,17 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "baseHref": "/admin-portal/",
-            "outputPath": "dist/adminportal",
+            "outputPath": { "base": "C:/inetpub/wwwroot/frontadmin/adminportal", "browser": "" },
             "index": "projects/adminportal/src/index.html",
             "browser": "projects/adminportal/src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "projects/adminportal/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["projects/adminportal/src/favicon.ico", "projects/adminportal/src/assets"],
+            "assets": [
+              "projects/adminportal/src/favicon.ico",
+              "projects/adminportal/src/assets",
+              "projects/adminportal/src/web.config"
+            ],
             "styles": [
               "projects/adminportal/src/styles.css",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
@@ -384,7 +389,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/apps-accounting",
+            "outputPath": { "base": "dist/apps-accounting", "browser": "" },
             "baseHref": "/accounting/",
             "index": "projects/apps-accounting/src/index.html",
             "browser": "projects/apps-accounting/src/main.ts",
@@ -393,6 +398,7 @@
             "assets": [
               "projects/apps-accounting/src/favicon.ico",
               "projects/apps-accounting/src/assets",
+              "projects/apps-accounting/src/web.config",
               {
                 "glob": "**/*",
                 "input": "libs/apps-shared-lib/src/assets",
@@ -547,7 +553,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/apps-hr",
+            "outputPath": { "base": "C:/inetpub/wwwroot/frontapps/apps-hr", "browser": "" },
             "baseHref": "/hr/",
             "index": "projects/apps-hr/src/index.html",
             "browser": "projects/apps-hr/src/main.ts",
@@ -556,6 +562,7 @@
             "assets": [
               "projects/apps-hr/src/favicon.ico",
               "projects/apps-hr/src/assets",
+              "projects/apps-hr/src/web.config",
               {
                 "glob": "**/*",
                 "input": "libs/apps-shared-lib/src/assets",
@@ -713,7 +720,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "baseHref": "/erp/",
-            "outputPath": "dist/erp-home",
+            "outputPath": { "base": "C:/inetpub/wwwroot/front-erp/erp-home", "browser": "" },
             "index": "projects/erp-home/src/index.html",
             "browser": "projects/erp-home/src/main.ts",
             "polyfills": ["zone.js"],
@@ -721,6 +728,7 @@
             "assets": [
               "projects/erp-home/src/favicon.ico",
               "projects/erp-home/src/assets",
+              "projects/erp-home/src/web.config",
               {
                 "glob": "**/*",
                 "input": "libs/apps-shared-lib/src/assets",
@@ -733,7 +741,7 @@
               "node_modules/primeflex/primeflex.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "libs/apps-shared-lib/src/assets/styling/scss/variables/_font-family.scss",
-             "libs/apps-shared-lib/src/assets/styling/scss/main-style.scss"
+              "libs/apps-shared-lib/src/assets/styling/scss/main-style.scss"
             ],
             "scripts": []
           },
@@ -874,7 +882,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "baseHref": "/finance/",
-            "outputPath": "dist/apps-finance",
+            "outputPath": { "base": "C:/inetpub/wwwroot/front-erp/apps-finance", "browser": "" },
             "index": "projects/apps-finance/src/index.html",
             "browser": "projects/apps-finance/src/main.ts",
             "polyfills": ["zone.js"],
@@ -883,6 +891,7 @@
             "assets": [
               "projects/apps-finance/src/favicon.ico",
               "projects/apps-finance/src/assets",
+              "projects/apps-finance/src/web.config",
               {
                 "glob": "**/*",
                 "input": "libs/apps-shared-lib/src/assets",
@@ -895,7 +904,7 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "projects/apps-finance/src/styles.css",
               "libs/apps-shared-lib/src/assets/styling/scss/variables/_font-family.scss",
-             "libs/apps-shared-lib/src/assets/styling/scss/main-style.scss"
+              "libs/apps-shared-lib/src/assets/styling/scss/main-style.scss"
             ],
             "scripts": []
           },
@@ -1037,7 +1046,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "baseHref": "/sales/",
-            "outputPath": "dist/apps-sales",
+            "outputPath": { "base": "C:/inetpub/wwwroot/front-erp/apps-sales", "browser": "" },
             "index": "projects/apps-sales/src/index.html",
             "browser": "projects/apps-sales/src/main.ts",
             "polyfills": ["zone.js"],
@@ -1046,6 +1055,7 @@
             "assets": [
               "projects/apps-sales/src/favicon.ico",
               "projects/apps-sales/src/assets",
+              "projects/apps-sales/src/web.config",
               {
                 "glob": "**/*",
                 "input": "libs/apps-shared-lib/src/assets",
@@ -1058,7 +1068,7 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "projects/apps-sales/src/styles.css",
               "libs/apps-shared-lib/src/assets/styling/scss/variables/_font-family.scss",
-             "libs/apps-shared-lib/src/assets/styling/scss/main-style.scss"
+              "libs/apps-shared-lib/src/assets/styling/scss/main-style.scss"
             ],
             "scripts": []
           },
@@ -1200,7 +1210,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "baseHref": "/purchase/",
-            "outputPath": "dist/apps-purchase",
+            "outputPath": { "base": "C:/inetpub/wwwroot/front-erp/apps-purchase", "browser": "" },
             "index": "projects/apps-purchase/src/index.html",
             "browser": "projects/apps-purchase/src/main.ts",
             "polyfills": ["zone.js"],
@@ -1209,6 +1219,7 @@
             "assets": [
               "projects/apps-purchase/src/favicon.ico",
               "projects/apps-purchase/src/assets",
+              "projects/apps-purchase/src/web.config",
               {
                 "glob": "**/*",
                 "input": "libs/apps-shared-lib/src/assets",
@@ -1221,7 +1232,7 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "projects/apps-purchase/src/styles.css",
               "libs/apps-shared-lib/src/assets/styling/scss/variables/_font-family.scss",
-             "libs/apps-shared-lib/src/assets/styling/scss/main-style.scss"
+              "libs/apps-shared-lib/src/assets/styling/scss/main-style.scss"
             ],
             "scripts": []
           },
