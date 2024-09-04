@@ -47,6 +47,7 @@ export interface ViewPaymentOutDto {
   export interface ViewPaymentOutDetailCostCenterDto {
     id: number;
     costCenterName: string;
+    costCenterId:number;
     percentage: number;
     amount: number;
   }

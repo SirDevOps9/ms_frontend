@@ -47,6 +47,7 @@ export interface ViewPaymentInDto {
   export interface ViewPaymentInDetailCostCenterDto {
     id: number;
     costCenterName: string;
+    costCenterId:number;
     percentage: number;
     amount: number;
   }
