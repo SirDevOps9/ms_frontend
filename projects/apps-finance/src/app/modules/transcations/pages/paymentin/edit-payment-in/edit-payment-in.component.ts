@@ -230,14 +230,22 @@ export class EditPaymentInComponent {
     journalLine.get('accountName')?.setValue(null);
 
     if (name == this.sharedFinanceEnums.paiedDropDown.customer) {
+      journalLine.get('glAccountId')?.clearValidators()
+      journalLine.get('glAccountId')?.updateValueAndValidity()
       this.paidByDetailsCustomer = this.customerDropDown;
     } else if (name == this.sharedFinanceEnums.paiedDropDown.vendor) {
       this.paidByDetailsVendor = this.vendorDropDown;
+      journalLine.get('glAccountId')?.clearValidators()
+      journalLine.get('glAccountId')?.updateValueAndValidity()
     } else if (name == this.sharedFinanceEnums.paiedDropDown.other) {
+      
+      journalLine.get('glAccountId')?.setValidators(customValidators.required)
+      journalLine.get('glAccountId')?.updateValueAndValidity()
       this.paidByDetailsOther = this.other;
       // journalLine.get('paidByDetailsName')?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount);
     }
   }
+
   updateRateInPaymentDetails(newRate: any) {
     this.paymentInDetailsFormArray.controls.forEach((formGroup) => {
       formGroup.get('rate')?.setValue(newRate);
@@ -789,25 +797,30 @@ export class EditPaymentInComponent {
   getAllPayMethodsDropdown(BankId: number, BankAccountId: number) {
     this.financeService.getAllPayMethodsDropdown(BankId, BankAccountId);
   }
+
   getGlAccount(index: number, id: number) {
     const journalLine: any = this.paymentInDetailsFormArray.at(index);
     const paidByValue = journalLine.controls['paidBy'].value;
     if (paidByValue === this.sharedFinanceEnums.paiedDropDown.customer) {
       const customer = this.customerDropDown.find((e) => e.id === id);
       if (customer) {
-        journalLine.get('glAccountId')?.setValue(customer.accountId);
-        journalLine.get('accountName').setValue(customer.accountName);
+        if(customer.accountId>0){
+        journalLine.get('glAccountId')?.setValue(customer.accountId );
+        journalLine.get('glAccountname')?.setValue(customer.accountName);
+        }
       }
     } else if (paidByValue === this.sharedFinanceEnums.paiedDropDown.vendor) {
       const vendor = this.vendorDropDown.find((e) => e.id === id);
       if (vendor) {
-        journalLine.get('glAccountId')?.setValue(vendor.accountId);
-        journalLine.get('accountName')?.setValue(vendor.accountName);
+        if(vendor.accountId>0){
+        journalLine.get('glAccountId')?.setValue(vendor.accountId );
+        journalLine.get('glAccountname')?.setValue(vendor.accountName);
+        }
       }
     }
-    this.getLabel(journalLine, id);
-  }
+    this.getLabel(journalLine, id)
 
+  }
   getGlAccountName(index: number, id: number): string {
     const journalLine: any = this.paymentInDetailsFormArray.at(index);
     const paidByValue = journalLine.controls['paidBy'].value;

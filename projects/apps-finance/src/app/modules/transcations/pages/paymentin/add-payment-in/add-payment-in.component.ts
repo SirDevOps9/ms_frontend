@@ -698,6 +698,8 @@ export class AddPaymentInComponent {
   getAllPayMethodsDropdown(BankId: number, BankAccountId: number) {
     this.financeService.getAllPayMethodsDropdown(BankId, BankAccountId)
   }
+
+  
   getGlAccount(index: number, id: number) {
     const journalLine: any = this.paymentInDetailsFormArray.at(index);
     const paidByValue = journalLine.controls['paidBy'].value;
