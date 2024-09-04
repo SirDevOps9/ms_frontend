@@ -33,6 +33,7 @@ import { environment } from '../environments/environment';
             resources: [
               { prefix: './assets/langs/accounting/', suffix: '.json' },
               { prefix: './assets/langs/erphome/', suffix: '.json' },
+              { prefix: './assets/langs/finance/', suffix: '.json' },
             ],
           }),
         deps: [HttpClient],

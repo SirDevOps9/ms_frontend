@@ -42,7 +42,7 @@ export class TaxGroupAddComponent implements OnInit {
   }
   initializeTagForm() {
     this.taxGroupForm = this.fb.group({
-      code: new FormControl('', customValidators.required),
+      code: new FormControl('', [customValidators.required,customValidators.length(1,5)]),
       name: new FormControl('', customValidators.required),
       countryCode: new FormControl(null, customValidators.required),
     });

@@ -54,7 +54,7 @@
             <div class="col-12 flex justify-content-between align-items-center">
               <!-- Left Side: Search and Change Column -->
               <div class="flex gap-2 align-items-center">
-                <div class="col-3">
+                <div class="col-12">
                   <lib-form-group>
                     <lib-text-input
                       type="text"
@@ -64,9 +64,9 @@
                     ></lib-text-input>
                   </lib-form-group>
                 </div>
-                <div class="col-3">
+                <!-- <div class="col-3">
                   <lib-change-column [dataTable]="tableData"></lib-change-column>
-                </div>
+                </div> -->
               </div>
       
               <!-- Right Side: Add New and Export -->
@@ -83,7 +83,7 @@
                 <div>
                   <lib-export  
                     (exportClick)="exportClick($event)"
-                    [exportData]="tableData"
+                    [exportData]="exportData"
                     [exportColumns]="exportColumns"
                     [ExportName]="'Payment Method'">
                   </lib-export>
@@ -96,7 +96,9 @@
         
         <ng-template #actions let-action>
           <div class="actions flex align-items-center">
-            <lib-button-micro nameClass="table_button_edit" (click)="onEdit(action)">
+            <lib-button-micro nameClass="table_button_view" (click)="view(action.id)">
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_edit" (click)="onEdit(action.id)">
             </lib-button-micro>
             <lib-button-micro nameClass="table_button_delete" (click)="onDelete(action.id)">
             </lib-button-micro>

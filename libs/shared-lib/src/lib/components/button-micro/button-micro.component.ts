@@ -10,6 +10,7 @@ export class ButtonMicroComponent {
   @Input() title: string;
   @Input() iconName: string;
   @Input() nameClass:
+      'w-100'
     | 'btn'
     | 'btn_edit'
     | 'btn_delet'

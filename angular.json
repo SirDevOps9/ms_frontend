@@ -392,14 +392,21 @@
             "tsConfig": "projects/apps-accounting/tsconfig.app.json",
             "assets": [
               "projects/apps-accounting/src/favicon.ico",
-              "projects/apps-accounting/src/assets"
+              "projects/apps-accounting/src/assets",
+              {
+                "glob": "**/*",
+                "input": "libs/apps-shared-lib/src/assets",
+                "output": "assets"
+              }
             ],
             "styles": [
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "projects/apps-accounting/src/styles.css"
+              "projects/apps-accounting/src/styles.css",
+              "libs/apps-shared-lib/src/assets/styling/scss/variables/_font-family.scss",
+              "libs/apps-shared-lib/src/assets/styling/scss/main-style.scss"
             ],
             "scripts": []
           },
@@ -500,7 +507,12 @@
             "tsConfig": "projects/apps-accounting/tsconfig.spec.json",
             "assets": [
               "projects/apps-accounting/src/favicon.ico",
-              "projects/apps-accounting/src/assets"
+              "projects/apps-accounting/src/assets",
+              {
+                "glob": "**/*",
+                "input": "libs/apps-shared-lib/src/assets",
+                "output": "assets"
+              }
             ],
             "styles": [
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
@@ -541,14 +553,24 @@
             "browser": "projects/apps-hr/src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "projects/apps-hr/tsconfig.app.json",
-            "assets": ["projects/apps-hr/src/favicon.ico", "projects/apps-hr/src/assets"],
+            "assets": [
+              "projects/apps-hr/src/favicon.ico",
+              "projects/apps-hr/src/assets",
+              {
+                "glob": "**/*",
+                "input": "libs/apps-shared-lib/src/assets",
+                "output": "assets"
+              }
+            ],
             "styles": [
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "node_modules/primeicons/primeicons.css",
-              "projects/apps-hr/src/styles.css"
+              "projects/apps-hr/src/styles.css",
+              "libs/apps-shared-lib/src/assets/styling/scss/variables/_font-family.scss",
+              "libs/apps-shared-lib/src/assets/styling/scss/main-style.scss"
             ],
             "scripts": []
           },
@@ -647,7 +669,15 @@
           "options": {
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/apps-hr/tsconfig.spec.json",
-            "assets": ["projects/apps-hr/src/favicon.ico", "projects/apps-hr/src/assets"],
+            "assets": [
+              "projects/apps-hr/src/favicon.ico",
+              "projects/apps-hr/src/assets",
+              {
+                "glob": "**/*",
+                "input": "libs/apps-shared-lib/src/assets",
+                "output": "assets"
+              }
+            ],
             "styles": [
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
@@ -688,12 +718,22 @@
             "browser": "projects/erp-home/src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "projects/erp-home/tsconfig.app.json",
-            "assets": ["projects/erp-home/src/favicon.ico", "projects/erp-home/src/assets"],
+            "assets": [
+              "projects/erp-home/src/favicon.ico",
+              "projects/erp-home/src/assets",
+              {
+                "glob": "**/*",
+                "input": "libs/apps-shared-lib/src/assets",
+                "output": "assets"
+              }
+            ],
             "styles": [
               "projects/erp-home/src/styles.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "libs/apps-shared-lib/src/assets/styling/scss/variables/_font-family.scss",
+             "libs/apps-shared-lib/src/assets/styling/scss/main-style.scss"
             ],
             "scripts": []
           },
@@ -792,7 +832,15 @@
           "options": {
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/erp-home/tsconfig.spec.json",
-            "assets": ["projects/erp-home/src/favicon.ico", "projects/erp-home/src/assets"],
+            "assets": [
+              "projects/erp-home/src/favicon.ico",
+              "projects/erp-home/src/assets",
+              {
+                "glob": "**/*",
+                "input": "libs/apps-shared-lib/src/assets",
+                "output": "assets"
+              }
+            ],
             "styles": [
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
@@ -832,12 +880,22 @@
             "polyfills": ["zone.js"],
             "tsConfig": "projects/apps-finance/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["projects/apps-finance/src/favicon.ico", "projects/apps-finance/src/assets"],
+            "assets": [
+              "projects/apps-finance/src/favicon.ico",
+              "projects/apps-finance/src/assets",
+              {
+                "glob": "**/*",
+                "input": "libs/apps-shared-lib/src/assets",
+                "output": "assets"
+              }
+            ],
             "styles": [
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "projects/apps-finance/src/styles.css"
+              "projects/apps-finance/src/styles.css",
+              "libs/apps-shared-lib/src/assets/styling/scss/variables/_font-family.scss",
+             "libs/apps-shared-lib/src/assets/styling/scss/main-style.scss"
             ],
             "scripts": []
           },
@@ -937,7 +995,15 @@
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/apps-finance/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["projects/apps-finance/src/favicon.ico", "projects/apps-finance/src/assets"],
+            "assets": [
+              "projects/apps-finance/src/favicon.ico",
+              "projects/apps-finance/src/assets",
+              {
+                "glob": "**/*",
+                "input": "libs/apps-shared-lib/src/assets",
+                "output": "assets"
+              }
+            ],
             "styles": [
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
@@ -977,12 +1043,22 @@
             "polyfills": ["zone.js"],
             "tsConfig": "projects/apps-sales/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["projects/apps-sales/src/favicon.ico", "projects/apps-sales/src/assets"],
+            "assets": [
+              "projects/apps-sales/src/favicon.ico",
+              "projects/apps-sales/src/assets",
+              {
+                "glob": "**/*",
+                "input": "libs/apps-shared-lib/src/assets",
+                "output": "assets"
+              }
+            ],
             "styles": [
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "projects/apps-sales/src/styles.css"
+              "projects/apps-sales/src/styles.css",
+              "libs/apps-shared-lib/src/assets/styling/scss/variables/_font-family.scss",
+             "libs/apps-shared-lib/src/assets/styling/scss/main-style.scss"
             ],
             "scripts": []
           },
@@ -1082,7 +1158,15 @@
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/apps-sales/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["projects/apps-sales/src/favicon.ico", "projects/apps-sales/src/assets"],
+            "assets": [
+              "projects/apps-sales/src/favicon.ico",
+              "projects/apps-sales/src/assets",
+              {
+                "glob": "**/*",
+                "input": "libs/apps-shared-lib/src/assets",
+                "output": "assets"
+              }
+            ],
             "styles": [
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
@@ -1124,13 +1208,20 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/apps-purchase/src/favicon.ico",
-              "projects/apps-purchase/src/assets"
+              "projects/apps-purchase/src/assets",
+              {
+                "glob": "**/*",
+                "input": "libs/apps-shared-lib/src/assets",
+                "output": "assets"
+              }
             ],
             "styles": [
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "projects/apps-purchase/src/styles.css"
+              "projects/apps-purchase/src/styles.css",
+              "libs/apps-shared-lib/src/assets/styling/scss/variables/_font-family.scss",
+             "libs/apps-shared-lib/src/assets/styling/scss/main-style.scss"
             ],
             "scripts": []
           },
@@ -1232,7 +1323,12 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/apps-purchase/src/favicon.ico",
-              "projects/apps-purchase/src/assets"
+              "projects/apps-purchase/src/assets",
+              {
+                "glob": "**/*",
+                "input": "libs/apps-shared-lib/src/assets",
+                "output": "assets"
+              }
             ],
             "styles": [
               "node_modules/primeng/resources/primeng.min.css",

@@ -14,6 +14,7 @@
   text-transform: capitalize;
   background: none;
   border: none;
+
   // margin-inline-start: 10px !important;
   // margin-inline-end: 10px !important;
   //width: 100%;
@@ -187,4 +188,8 @@
   border-radius:none !important;
   margin-inline-start: 0 !important;
   margin-inline-end: 0 !important;
+}
+
+.w-100{
+  width: 100%;
 }

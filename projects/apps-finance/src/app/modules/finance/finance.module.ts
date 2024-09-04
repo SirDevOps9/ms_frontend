@@ -22,7 +22,7 @@ import { MainPaymentTermComponent } from './pages/payment-term/main-payment-term
 import { PaymentMethodListComponent } from './pages/payment-method/payment-method-list/payment-method-list.component';
 import { AddPaymentMethodComponent } from './pages/payment-method/add-payment-method/add-payment-method.component';
 import { EditPaymentMethodComponent } from './pages/payment-method/edit-payment-method/edit-payment-method.component';
-import { PaymentInListComponent } from './pages/payment-in/payment-in-list/payment-in-list.component';
+import { ViewPaymentMethodComponent } from './pages/payment-method/view-payment-method/view-payment-method.component';
 
 const routes: Routes = [
   {
@@ -111,13 +111,7 @@ const routes: Routes = [
             },
             
           },
-          {
-            path: 'payment-in',
-            component: PaymentInListComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.PAYMENT_IN_LIST,
-            },
-          }
+      
         ]
         },
       {
@@ -157,12 +151,19 @@ const routes: Routes = [
         },
       },
       {
-        path: 'payment-in',
-        component: PaymentInListComponent,
+        path: 'view-payment-method/:id',
+        component: ViewPaymentMethodComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.PAYMENT_IN_LIST,
+          breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_VIEW,
         },
-      }
+      },
+
+      //   path: 'payment-in',
+      //   component: PaymentInListComponent,
+      //   data: {
+      //     breadcrumb: BreadcrumbLabel.PAYMENT_IN_LIST,
+      //   },
+      // }
     ],
   },
 ];
@@ -187,7 +188,9 @@ const routes: Routes = [
     PaymentMethodListComponent,
     AddPaymentMethodComponent,
     EditPaymentMethodComponent,
-    PaymentInListComponent
+    ViewPaymentMethodComponent
+
+    
   ],
   imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes)],
 })

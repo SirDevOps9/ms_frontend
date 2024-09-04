@@ -568,6 +568,9 @@ export class EditJournalEntryComponent implements OnInit {
 
   shouldShowCostCenterImage(costCenters: any[]): number {
     if (!costCenters) return -1;
+    if (costCenters.length == 0) {
+      return -1;
+    }
     const totalPercentage = costCenters.reduce(
       (sum: number, item: any) => sum + parseFloat(item.percentage),
       0

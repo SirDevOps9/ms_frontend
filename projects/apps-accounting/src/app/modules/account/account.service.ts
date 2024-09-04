@@ -38,6 +38,7 @@ import {
   ToasterService,
   LanguageService,
   FormsService,
+  Modules,
 } from 'shared-lib';
 import { FormArray } from '@angular/forms';
 
@@ -231,8 +232,8 @@ export class AccountService {
       this.accountTypesDataSource.next(response);
     });
   }
-  getTags() {
-    this.accountproxy.getTags().subscribe((response) => {
+  getTags(moduleId:Modules) {
+    this.accountproxy.getTags(moduleId).subscribe((response) => {
       this.tagsDataSource.next(response);
     });
   }
