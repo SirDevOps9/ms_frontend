@@ -55,6 +55,13 @@ const routes: Routes = [
               breadcrumb: BreadcrumbLabel.EDIT_PAYMENT_IN,
             },
           },
+          {
+            path: 'view/:id',
+            component: ViewPaymentInComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_PAYMENT_IN,
+            }
+          }
         ]
         },
         {
@@ -81,6 +88,12 @@ const routes: Routes = [
             {
               path: 'edit/:id',
               component: EditPaymentOutComponent,
+              data: {
+                breadcrumb: BreadcrumbLabel.EDIT_PAYMENT_OUT,
+              },
+            },{
+              path: 'view/:id',
+              component: ViewPaymentOutComponent,
               data: {
                 breadcrumb: BreadcrumbLabel.EDIT_PAYMENT_OUT,
               },

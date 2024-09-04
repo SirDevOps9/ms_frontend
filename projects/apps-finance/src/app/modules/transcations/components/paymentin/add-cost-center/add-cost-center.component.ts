@@ -20,6 +20,7 @@ export class AddCostCenterComponent {
   lookupValues: any = [];
   allocationform: FormArray = this.fb.array([]);
   amountForm: FormGroup;
+  disabled: boolean = false;
   constructor(
     private fb: FormBuilder,
     public config: DynamicDialogConfig,
@@ -58,9 +59,14 @@ export class AddCostCenterComponent {
     this.amountForm = this.fb.group({
       amount: 0,
     });
-  
+    console.log(this.config.data?.costCenters,"costCenters")
+
     const creditAmount = parseFloat(this.config.data.creditAmount || 0);
     const amount = parseFloat(this.config.data.amount || 0);
+    
+    if (this.config.data.viewdata) {
+      this.disabled=true;
+    }
   
     if (creditAmount === 0) {
       this.amountForm.get('amount')?.setValue(amount);

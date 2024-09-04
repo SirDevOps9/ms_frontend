@@ -19,6 +19,7 @@ export class PaymentOutPaymentMethodComponent implements OnInit {
   vat: number
   commissionAmount: number = 0
   paymentMethodTypeString: paymentMethodTypeString
+  disabled:boolean=false;
 
   ngOnInit() {
     if (this.config.data) {
@@ -58,6 +59,9 @@ export class PaymentOutPaymentMethodComponent implements OnInit {
           });
         }, 100);
      
+      }
+      if (this.config.data.viewdata) {
+        this.disabled=true;
       }
       if (this.config.data.selectedPayment.commissionType === this.sharedFinanceEnums.commissionTypeString.Percent) {
         this.commissionAmount = (this.amount * this.config.data.selectedPayment.commissionValue) / 100;

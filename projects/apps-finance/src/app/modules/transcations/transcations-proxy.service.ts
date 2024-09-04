@@ -1,7 +1,7 @@
 import { GetPaymentTermById } from './../finance/models/get-payment-term-by-id-dto';
 import { Injectable } from '@angular/core';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { AccountDto, AddPaymentMethodDto, BankAccountWithCurrency, CurrencyRateDto, CustomerDropDown, DropDownDto, GetAllPaymentInDto, GetAllPaymentOutDto, TreasuryDropDown, VendorDropDown } from './models';
+import { AccountDto, AddPaymentMethodDto, BankAccountWithCurrency, CurrencyRateDto, CustomerDropDown, DropDownDto, GetAllPaymentInDto, GetAllPaymentOutDto, TreasuryDropDown, VendorDropDown, ViewPaymentInDto } from './models';
 import { Observable } from 'rxjs';
 import { GetPaymentMethodByIdDto } from './models/get-payment-method-by-id-dto';
 
@@ -148,6 +148,12 @@ getAccountCurrencyRate(currentCurrency:number,accountCurrency:number){
 
   deletePaymentOut(id: number) {
     return this.httpService.delete(`PaymentOut/${id}`);
+  }
+  viewPaymentInById(id:number) : Observable<ViewPaymentInDto> {
+    return this.httpService.get(`PaymentIn/GetView/${id}`);
+  }
+  viewPaymentOutById(id:number) : Observable<number> {
+    return this.httpService.get(`PaymentOut/GetView/${id}`);
   }
 
   postPaymentIn(id:number){

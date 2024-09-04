@@ -1,1 +1,198 @@
-<p>view-payment-in works!</p>
+<lib-page-content>
+    <div class="grid-cont">
+        <div class="my-3 grid-item">
+          <p class="headsCont paragraph_b16">{{ 'payment-view.code' | translate }}</p>
+          <small class="subHead heading_b16">
+            {{ ViewForm.code }}
+          </small>
+        </div>
+        <div class="my-3 grid-item">
+          <p class="headsCont paragraph_b16">{{ 'payment-view.paymentInDate' | translate }}</p>
+          <small class="subHead heading_b16">
+            {{ ViewForm.paymentInDate | date : 'dd/MM/yyyy'}}
+          </small>
+        </div>
+        <div class="my-3 grid-item">
+          <p class="headsCont paragraph_b16">{{ 'payment-view.description' | translate }}</p>
+          <small class="subHead heading_b16">
+            {{ ViewForm.description }}
+          </small>
+        </div>
+        <div class="my-3 grid-item">
+          <p class="headsCont paragraph_b16">{{ 'payment-view.paymentHub' | translate }}</p>
+          <small class="subHead heading_b16">
+            {{ ViewForm.paymentHub  }}
+          </small>
+        </div>
+        <div class="my-3 grid-item">
+          <p class="headsCont paragraph_b16">{{ 'payment-view.paymentHubDetailName' | translate }}</p>
+          <small class="subHead heading_b16">
+            {{ ViewForm.paymentHubDetailName }}
+          </small>
+        </div>
+         <div class="my-3 grid-item">
+          <p class="headsCont paragraph_b16">{{ 'payment-view.bankAccountNumber' | translate }}</p>
+          <small class="subHead heading_b16">
+            {{ ViewForm.bankAccountNumber }}
+          </small>
+         </div>
+         <div class="my-3 grid-item">
+            <p class="headsCont paragraph_b16">{{ 'payment-view.bankAccountNumber' | translate }}</p>
+            <small class="subHead heading_b16">
+              {{ ViewForm.bankAccountNumber }}
+            </small>
+          </div>
+          <div class="my-3 grid-item">
+            <p class="headsCont paragraph_b16">{{ 'payment-view.sourceDocument' | translate }}</p>
+            <small class="subHead heading_b16">
+              {{ ViewForm.sourceDocument }}
+            </small>
+          </div>
+          <div class="my-3 grid-item">
+            <p class="headsCont paragraph_b16">{{ 'payment-view.journalCode' | translate }}</p>
+            <small class="subHead heading_b16">
+              {{ ViewForm.journalCode }}
+            </small>
+          </div>
+          <div class="my-3 grid-item">
+            <p class="headsCont paragraph_b16">{{ 'payment-view.currencyName' | translate }}</p>
+            <small class="subHead heading_b16">
+              {{ ViewForm.currencyName }}
+            </small>
+          </div>
+          <div class="my-3 grid-item">
+            <p class="headsCont paragraph_b16">{{ 'payment-view.rate' | translate }}</p>
+            <small class="subHead heading_b16">
+              {{ ViewForm.rate }}
+            </small>
+          </div>
+          <div class="my-3 grid-item">
+            <p class="headsCont paragraph_b16">{{ 'payment-view.amount' | translate }}</p>
+            <small class="subHead heading_b16">
+              {{ ViewForm.amount }}
+            </small>
+          </div>
+          <div class="my-3 grid-item">
+            <p class="headsCont paragraph_b16">{{ 'payment-view.localAmount' | translate }}</p>
+            <small class="subHead heading_b16">
+              {{ ViewForm.localAmount }}
+            </small>
+          </div>
+      </div>
+
+      <div class="journal_page">
+        <lib-data-table
+          *ngIf="ViewForm!.paymentInDetails"
+          [items]="ViewForm.paymentInDetails"
+          className="p-datatable-gridlines"
+          [tableConfigs]="{
+            allowPagination: false,
+            allowServerPagination: false,
+            dataKey: 'id',
+            pageSize: 10,
+            columns: [
+              {
+                name: 'amount',
+                headerText: 'payment-view.amount' | translate,
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'localAmount',
+                headerText: 'payment-view.localAmount' | translate,
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'paymentMethodName',
+                headerText: 'payment-view.paymentMethodName' | translate,
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'paymentInMethodDetail',
+                headerText: 'payment-view.paymentInMethodDetail' | translate,
+                template : method
+              },
+              {
+                name: 'paidBy',
+                headerText: 'payment-view.paidBy' | translate,
+                isGlobalFilter: true,
+                isSortable: true,
+              },
+              {
+                name: 'accountName',
+                headerText: 'payment-view.accountName' | translate,
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'costCenterConfig',
+                headerText: 'payment-view.costCenterConfig' | translate,
+                template : cost
+              },
+              {
+                name: 'notes',
+                headerText: 'payment-view.notes' | translate,
+                isGlobalFilter: true,
+                isSortable: true,
+              }
+            ]
+          }"
+        >
+        <ng-template #method pTemplate="body" let-Line let-rowIndex="rowIndex">
+          <div class="method flex align-items-center"> 
+        <lib-button-micro title="{{ 'payment-view.PaymentMethod' | translate }}"
+        [nameClass]="Line.paymentMethodId == sharedFinanceEnums.paymentMethodTypeString.Cash ||Line.paymentMethodId == null  ? 'disabled' : 'save'"
+        widthNumber="100%" (click)="handleButtonClick(Line)">
+
+          </lib-button-micro>
+      </div>
+       </ng-template>
+
+       <ng-template #cost pTemplate="body" let-Line let-rowIndex="rowIndex">
+        <img *ngIf="
+        Line.paidBy  !=this.sharedFinanceEnums.paiedDropDown.other ||
+        Line.paidBy==this.sharedFinanceEnums.paiedDropDown.other && 
+        Line.costCenterConfig == this.sharedFinanceEnums.costCenterConfig.NotAllow || 
+        Line.costCenterConfig == null
+
+               " src="assets/images/groups.png" />
+
+  <img *ngIf="
+     isCostCenterallowed( Line,Line.costCenterConfig) &&
+     Line.paymentInDetailCostCenters.length == 0
+    
+    " (click)="
+    openCostPopup(
+      Line,
+      Line,
+      Line.glAccountId,
+      rowIndex
+    )
+  " src="assets/images/groups-mandtory-optional.png" alt="" class="pointer" />
+  
+  <img *ngIf="
+    isCostCenterallowed(Line, Line.costCenterConfig) &&
+    Line.paymentInDetailCostCenters.length != 0
+    " (click)="
+       openCostPopup(
+        Line,
+        Line,
+         Line.glAccountId,
+         rowIndex
+       )
+     " class="pointer" src="assets/images/costcenterfull.png" />
+</ng-template>
+          <ng-template pTemplate="footer">
+            <tr>
+              <td class="total">{{totalAmount}}</td>
+              <td class="total">{{ calculateTotalLocalAmount() }}</td>
+              <td colspan="8" class="total"></td>
+            </tr>
+          </ng-template>
+        </lib-data-table>
+      </div>
+      
+  
+  </lib-page-content>

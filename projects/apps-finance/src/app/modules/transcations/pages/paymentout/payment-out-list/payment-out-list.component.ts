@@ -114,6 +114,6 @@ export class PaymentOutListComponent implements OnInit {
 
   view(id: number) {
     //todo
-    this.routerService.navigateTo(`/view/${id}`);
+    this.routerService.navigateTo(`/transcations/paymentout/view/${id}`);
   }
 }

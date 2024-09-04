@@ -120,4 +120,8 @@ export class BreadcrumbLabel {
     static ADD_PAYMENT_OUT ='BreadCrumb.AddPaymentOut';
     static EDIT_PAYMENT_OUT ='BreadCrumb.EditPaymentOut';
     static PAYMENT_OUT_LIST ='BreadCrumb.PaymentOutList';
+    static VIEW_PAYMENT_IN ='BreadCrumb.ViewPaymentIn ';
+
+    static VIEW_PAYMENT_OUT ='ViewPaymentOut ';
+
   }

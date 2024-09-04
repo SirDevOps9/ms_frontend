@@ -75,6 +75,12 @@ export class TranscationsService {
 
   public paymentOutCurrentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
+  public ViewpaymentIn = new BehaviorSubject<any>({});
+  ViewpaymentInDataObservable = this.ViewpaymentIn.asObservable()
+
+  public viewpaymentOut = new BehaviorSubject<any>({});
+  ViewpaymentOutDataObservable = this.viewpaymentOut.asObservable()
+
   constructor(
     private TranscationsProxy: TranscationsProxyService,
     private toasterService: ToasterService,
@@ -437,5 +443,19 @@ export class TranscationsService {
         },
       });
     }
+  }
+  viewPaymentIn(id:number){
+    this.TranscationsProxy.viewPaymentInById(id).subscribe(res=>{
+      if(res) {
+       this.ViewpaymentIn.next(res)
+      }
+    })
+  }
+  viewPaymentOut(id:number){
+    this.TranscationsProxy.viewPaymentOutById(id).subscribe(res=>{
+      if(res) {
+       this.viewpaymentOut.next(res)
+      }
+    })
   }
 }

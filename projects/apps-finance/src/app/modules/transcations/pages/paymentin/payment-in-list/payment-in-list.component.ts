@@ -121,8 +121,7 @@ export class PaymentInListComponent {
   }
 
   view(id: number) {
-    //todo
-    this.routerService.navigateTo(`/view/${id}`);
+    this.routerService.navigateTo(`/transcations/paymentin/view/${id}`);
   }
 
 }

@@ -149,7 +149,7 @@ export class AddPaymentOutComponent implements OnInit {
       currency: new FormControl(''),
       currentBalance: new FormControl(0),
       totalPaidAmount: new FormControl(0),
-      newBalance: new FormControl(0, customValidators.nonNegativeNumbers),
+      newBalance: new FormControl(0),
       paymentOutDetailCostCenters: new FormControl(null),
     });
     this.addForm.controls['paymentOutDate'].patchValue(new Date());
