@@ -22,6 +22,7 @@ import {
   ExportTagDto,
   GetLastYearInfoDto,
   AccountDto,
+  SubdomainModuleDto,
 } from './models';
 
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
@@ -264,6 +265,9 @@ export class GeneralSettingProxy {
     return this.httpService.get<PaginationVm<AccountDto>>(
       `ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}&${quieries ? quieries : ''}`
     );
+  }
+  getUserSubDomainModules(): Observable<SubdomainModuleDto[]> {
+    return this.httpService.get<SubdomainModuleDto[]>(`SideMenu/GetUserSubDomainModules`);
   }
   
 
