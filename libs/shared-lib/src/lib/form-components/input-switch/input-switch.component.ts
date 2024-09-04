@@ -37,9 +37,7 @@ export class InputSwitchComponent implements OnInit, ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
+
 
   changed(event: any) {
     this.value = event.checked;
