@@ -24,6 +24,10 @@ export const ERPRoutes = [
         path: 'masterdata',
         loadChildren: () => import('./modules/finance/finance.module').then((m) => m.FinanceModule),
       },
+      {
+        path: 'transcations',
+        loadChildren: () => import('./modules/transcations/transcations.module').then((m) => m.TranscationsModule),
+      },
      
     ],
   },

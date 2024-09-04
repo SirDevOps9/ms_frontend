@@ -14,7 +14,10 @@
     "AddPaymentMethod": "إضافة طريقة الدفع",
     "EditPaymentMethod": "تحرير طريقة الدفع",
     "ViewPaymentMethod": "عرض طريقة الدفع",
-    "PaymentIn": "إيصال الدفع"
+    "PaymentIn": "إيصال الدفع",
+    "ViewPaymentIn": "عرض قبض",
+    "ViewPaymentout": "عرض صرف"
+
 
 
   },
@@ -333,7 +336,30 @@
     "actions": "الإجراءات",
     "Search": "بحث",
     "addNew": "إضافة جديد",
-    "delete":"تم حذف إيصال نقدي بنجاح"
+    "delete":"تم حذف إيصال نقدي بنجاح",
+    "post": "ترحيل"
+
+  },
+  "payment-view": {
+    "code": "الرمز",
+    "paymentInDate": "تاريخ الدفع",
+    "description": "الوصف",
+    "paymentHub": "مركز الدفع",
+    "paymentHubDetailName": "تفاصيل مركز الدفع",
+    "bankAccountNumber": "رقم الحساب البنكي",
+    "sourceDocument": "المستند الأصلي",
+    "journalCode": "رمز اليومية",
+    "currencyName": "اسم العملة",
+    "rate": "السعر",
+    "amount": "المبلغ",
+    "localAmount": "المبلغ المحلي",
+    "paymentMethodName": "اسم طريقة الدفع",
+    "paymentInMethodDetail": "تفاصيل طريقة الدفع",
+    "paidBy": "مدفوع من",
+    "glAccountId": "رقم الحساب العام",
+    "costCenterConfig": "إعداد مركز التكلفة",
+    "notes": "ملاحظات",
+    "PaymentMethod": "طريقة الدفع"
   }
 
 }

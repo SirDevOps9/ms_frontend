@@ -13,7 +13,9 @@
   "AddPaymentMethod": "Add Payment Method",
   "EditPaymentMethod": "Edit Payment Method",
   "ViewPaymentMethod": "View Payment Method",
-  "PaymentIn":"Payment In " 
+  "PaymentIn":"Payment In " ,
+  "ViewPaymentIn": "View Payment In",
+  "ViewPaymentout": "View Payment Out"
 
 },
   "COAConfigration": {
@@ -341,7 +343,30 @@
     "actions": "Actions",
     "Search": "Search",
     "addNew": "Add New",
-    "delete":"Payment In Deleted Successfully"
+    "delete":"Payment In Deleted Successfully",
+    "post":"post"
+
+  },
+  "payment-view": {
+    "code": "Code",
+    "paymentInDate": "Payment In Date",
+    "description": "Description",
+    "paymentHub": "Payment Hub",
+    "paymentHubDetailName": "Payment Hub Detail Name",
+    "bankAccountNumber": "Bank Account Number",
+    "sourceDocument": "Source Document",
+    "journalCode": "Journal Code",
+    "currencyName": "Currency Name",
+    "rate": "Rate",
+    "amount": "Amount",
+    "localAmount": "Local Amount",
+    "paymentMethodName": "Payment Method Name",
+    "paymentInMethodDetail": "Payment In Method Detail",
+    "paidBy": "Paid By",
+    "glAccountId": "GL Account ID",
+    "costCenterConfig": "Cost Center Config",
+    "notes": "Notes",
+    "PaymentMethod": "Payment Method"
   }
 
 

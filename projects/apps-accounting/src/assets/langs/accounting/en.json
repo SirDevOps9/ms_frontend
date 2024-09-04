@@ -14,7 +14,10 @@
     "AddJournalEntryOpeningBalance": "Add Journal Entry Opening Balance",
     "EditJournalEntryOpeningBalance": "Edit Journal Entry Opening Balance",
     "ViewJournalEntryOpeningBalance": "View Journal Entry Opening Balance",
-    "CostCenterReport": "Cost Center Report"
+    "CostCenterReport": "Cost Center Report",
+    "VendorOpeningBalance":"Vendor Opening Balance",
+    "EditVendorOpeningBalance":"Edit Vendor Opening Balance",
+    "AddVendorOpeningBalance":"Add Vendor Opening Balance"
   },
   "COAConfigration": {
     "Success": "Success",

@@ -91,16 +91,6 @@ export class BreadcrumbLabel {
     static EDIT_JOURNAL_OPENING_BALANCE ='Edit Journal Entry Opening Balance';
     static VIEW_JOURNAL_OPENING_BALANCE ='View Journal Entry Opening Balance';
    
-
-    
-
-
-
-    
-
- 
-    static VENDOR_OPENING_BALANCE ='Vendor Opening Balancy';
-
     static COST_CENTER ='Cost Center';
     static PAYMENT_TERM_ADD ='BreadCrumb.AddPaymentterm';
     static PAYMENT_TERM_EDIT ='BreadCrumb.EditPaymentterm';
@@ -115,4 +105,18 @@ export class BreadcrumbLabel {
     static EDIT_PAYMENT_IN ='Edit Payment In ';
 
     static PAYMENT_IN_LIST ='BreadCrumb.PaymentInList';
+
+    static PAYMENT_OUT ='BreadCrumb.PaymentOut';
+    static ADD_PAYMENT_OUT ='BreadCrumb.AddPaymentOut';
+    static EDIT_PAYMENT_OUT ='BreadCrumb.EditPaymentOut';
+    static PAYMENT_OUT_LIST ='BreadCrumb.PaymentOutList';
+    static VIEW_PAYMENT_IN ='BreadCrumb.ViewPaymentIn ';
+
+    static VIEW_PAYMENT_OUT ='ViewPaymentOut ';
+
+    static VENDOR_OPENING_BALANCE ='BreadCrumb.VendorOpeningBalance ';
+    static VENDOR_OPENING_BALANCE_EDIT ='BreadCrumb.EditVendorOpeningBalance';
+    static VENDOR_OPENING_BALANCE_ADD ='BreadCrumb.AddVendorOpeningBalance';
+
+
   }

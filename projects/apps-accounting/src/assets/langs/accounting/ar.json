@@ -14,7 +14,10 @@
     "AddJournalEntryOpeningBalance": "إضافة رصيد افتتاحي لقيد اليومية",
     "EditJournalEntryOpeningBalance": "تعديل رصيد افتتاحي لقيد اليومية",
     "ViewJournalEntryOpeningBalance": "عرض رصيد افتتاحي لقيد اليومية",
-    "CostCenterReport": "تقرير مركز التكلفة"
+    "CostCenterReport": "تقرير مركز التكلفة",
+    "VendorOpeningBalance": "رصيد افتتاحي للمورد",
+    "EditVendorOpeningBalance": "تعديل الرصيد الافتتاحي للمورد",
+    "AddVendorOpeningBalance": "إضافة رصيد افتتاحي للمورد"
   },
   "COAConfigration": {
     "Success": "نجاح",

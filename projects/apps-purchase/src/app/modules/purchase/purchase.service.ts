@@ -23,6 +23,11 @@ import {
   CategoryDropdownDto,
   EditVendorCommand,
   GetVendorById,
+  VendorOpeningBalanceListDto,
+  JournalLineDropdownDto,
+  DropDownDto,
+  AddVendorOpeningBalanceDto,
+  GetVendorOpeningBalanceViewDto,
 } from './models';
 import { PurchaseProxyService } from './purchase-proxy.service';
 import { FormGroup } from '@angular/forms';
@@ -49,10 +54,11 @@ export class PurchaseService {
   private sendChildrenAccountsDropDownData = new BehaviorSubject<any>([]);
   private sendPriceListsDropDownData = new BehaviorSubject<{ id: number; name: string }[]>([]);
   private sendPaymentTermsDropDownData = new BehaviorSubject<{ id: number; name: string }[]>([]);
-  public vendorDefinitionDataByID = new BehaviorSubject<GetVendorById | undefined>(
-    {} as GetVendorById | undefined
-  );
+  public vendorDefinitionDataByID = new BehaviorSubject<GetVendorById | undefined>({} as GetVendorById | undefined);
   private vendorDefinitionDataSource = new BehaviorSubject<vendorDefinitionDto[]>([]);
+  private vendorOpeningBalanceDataSource = new BehaviorSubject<VendorOpeningBalanceListDto[]>([]);
+  public vendorOpeningBalnceDataByID = new BehaviorSubject<AddVendorOpeningBalanceDto | undefined>({} as AddVendorOpeningBalanceDto | undefined);
+
 
   public addVendorCategoryDataObservable = this.addVendorCategoryData.asObservable();
   public vendorCategoryDataSourceObservable = this.vendorCategoryDataSource.asObservable();
@@ -60,6 +66,8 @@ export class PurchaseService {
     this.sendgetVendorCategoryDropdownData.asObservable();
   public vendorCategoryDataByIDObservable = this.vendorCategoryDataByID.asObservable();
   public vendorDefinitionDataByIDObservable = this.vendorDefinitionDataByID.asObservable();
+  public vendorOpeningBalnceDataByIDObservable = this.vendorOpeningBalnceDataByID.asObservable();
+
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
 
   private countryDataSource = new BehaviorSubject<CountryDto[]>([]);
@@ -67,6 +75,8 @@ export class PurchaseService {
   private currenciesDataSource = new BehaviorSubject<CurrencyDto[]>([]);
 
   public vendorDefinitionDataSourceObservable = this.vendorDefinitionDataSource.asObservable();
+  public vendorOpeningBalanceDataSourceObservable = this.vendorOpeningBalanceDataSource.asObservable();
+
 
   public sendChildrenAccountsDropDownDataObservable =
     this.sendChildrenAccountsDropDownData.asObservable();
@@ -84,6 +94,26 @@ export class PurchaseService {
 
   private exportsVendorsDataSource = new BehaviorSubject<vendorDefinitionDto[]>([]);
   public exportsVendorsDataSourceObservable = this.exportsVendorsDataSource.asObservable();
+
+  private openingBalanceJournalEntryDropdownData = new BehaviorSubject<DropDownDto[]>([]);
+  public openingBalanceJournalEntryDropdownDataObservable =this.openingBalanceJournalEntryDropdownData.asObservable();
+
+  public JournalLinesDropDownData = new BehaviorSubject<JournalLineDropdownDto[]>([]);
+  public JournalLinesDropDownDataObservable =this.JournalLinesDropDownData.asObservable();
+  
+  public VendorDropDownByAccountId = new BehaviorSubject<DropDownDto[]>([]);
+  public VendorDropDownByAccountIdObservable =this.VendorDropDownByAccountId.asObservable();
+  
+  private vendorDeleted = new BehaviorSubject<boolean>(false);
+  public vendorDeletedObser = this.vendorDeleted.asObservable();
+
+  private VendorOpeningBalanceView = new BehaviorSubject<GetVendorOpeningBalanceViewDto | undefined>(undefined);
+  public VendorOpeningBalanceViewObservable = this.VendorOpeningBalanceView.asObservable();
+
+
+
+  
+
 
   getVendorCategory(searchTerm: string, pageInfo: PageInfo) {
     this.purchaseProxy.getVendorCategory(searchTerm, pageInfo).subscribe({
@@ -283,6 +313,103 @@ export class PurchaseService {
       next: (res) => {
          this.exportsVendorsDataSource.next(res);
       },
+    });
+  }
+  getAllVendorOpeningBalance(searchTerm: string, pageInfo: PageInfo) {
+    this.purchaseProxy.getAllVendorOpeningBalance(searchTerm, pageInfo).subscribe({
+      next: (res) => {
+        this.vendorOpeningBalanceDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+  }
+  openingBalanceJournalEntryDropdown() {
+    this.purchaseProxy.openingBalanceJournalEntryDropdown().subscribe((res) => {
+      if (res) {
+        this.openingBalanceJournalEntryDropdownData.next(res);
+      }
+    });
+  }
+  getLinesDropDown(id: number) {
+    this.purchaseProxy.GetLinesDropDown(id).subscribe((res) => {
+      if (res) {
+        this.JournalLinesDropDownData.next(res);
+      }
+    });
+  }
+  getVendorDropDownByAccountId(id: number) {
+    this.purchaseProxy.VendorDropDownByAccountId(id).subscribe((res) => {
+      if (res) {
+        this.VendorDropDownByAccountId.next(res);
+      }
+    });
+  }
+  AddVendorOpeningBalance(vendor: any) {
+    this.loaderService.show();
+    this.purchaseProxy.addVendorOpeningBalance(vendor).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('addCustomerDefinition.success'),
+          this.languageService.transalte('openeingBalance.VendorAdded')
+        );
+        if (res) {
+          this.loaderService.hide();
+          this.routerService.navigateTo('/masterdata/vendor-opening-balance');
+        }
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+  EditVendorOpeningBalance(vendor: any) {
+    this.purchaseProxy.editVendorrOpeningBalance(vendor).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('Success'),
+          this.languageService.transalte('VendorOpeningBalance.VendorUpdated')
+        );
+        if (res) {
+          this.routerService.navigateTo('/masterdata/vendor-opening-balance');
+        }
+      },
+    });
+  }
+
+  async deletevendorOpeningBalance(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      this.loaderService.show();
+
+      this.purchaseProxy.deleteVendorOpeningBalance(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('Success'),
+            this.languageService.transalte('VendorOpeningBalance.VendorDeleted')
+          );
+          this.loaderService.hide();
+          this.vendorDeleted.next(res);
+        },
+        error: () => {
+          this.loaderService.hide();
+          this.toasterService.showError(
+            this.languageService.transalte('Error'),
+            this.languageService.transalte('DeleteError')
+          );
+        },
+      });
+    }
+  }
+  getVendorOpeningBalanceByID(id: number) {
+    this.purchaseProxy.getVendorOpeningBalanceByID(id).subscribe((res) => {
+      this.vendorOpeningBalnceDataByID.next(res);
+    });
+  }
+  getVendorOpeningBalanceView(id: number) {
+    this.purchaseProxy.GetVendorOpeningBalanceView(id).subscribe((res) => {
+      if (res) {
+        this.VendorOpeningBalanceView.next(res);
+      }
     });
   }
 }
