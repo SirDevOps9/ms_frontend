@@ -55,7 +55,7 @@ export class AddPaymentTermComponent implements OnInit {
         customValidators.range(0, 100),
       ]),
       note: new FormControl('', customValidators.required),
-      afterValue: new FormControl('', customValidators.required),
+      afterValue: new FormControl('',[ customValidators.required ,customValidators.nonNegativeNumbers]),
       afterPeriod: new FormControl('', customValidators.required),
     });
   }

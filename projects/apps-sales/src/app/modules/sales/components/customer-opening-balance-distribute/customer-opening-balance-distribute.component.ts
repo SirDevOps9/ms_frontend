@@ -34,6 +34,7 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
 
 
     private translationService: TranslationService) { }
+    
   ngAfterViewInit(): void {
     this.balance = this.config.data.balance;
     this.customerForm.clear();

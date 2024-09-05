@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
 import { CustomerCategoryListComponent } from './pages/customer-category/customer-category-list/customer-category-list.component';
-import { AuthGuard } from 'microtec-auth-lib';
 import { CreateCustomerCategoryComponent } from './pages/customer-category/create-customer-category/create-customer-category.component';
 import { EditCustomerCategoryComponent } from './pages/customer-category/edit-customer-category/edit-customer-category.component';
 import { AddCustomerComponent } from './pages/customer-definitions/add-customer/add-customer.component';
@@ -15,6 +14,11 @@ import { CustomerOpeningBalanceNoChildrenComponent } from './components/customer
 import { CustomerOpeningBalanceDistributeComponent } from './components/customer-opening-balance-distribute/customer-opening-balance-distribute.component';
 import { MainCustomerCategoryComponent } from './pages/customer-category/main-customer-category/main-customer-category.component';
 import { MainCustomerDefintionComponent } from './pages/customer-definitions/main-customer-defintion/main-customer-defintion.component';
+import { MainCustomerOpeningBalanceComponent } from './pages/customer-opening-balance/main-customer-opening-balance/main-customer-opening-balance.component';
+import { CustomerOpeningBalanceListComponent } from './pages/customer-opening-balance/customer-opening-balance-list/customer-opening-balance-list.component';
+import { EditCustomerOpeningBalanceComponent } from './pages/customer-opening-balance/edit-customer-opening-balance/edit-customer-opening-balance.component';
+import { ViewCustomerOpeningBalanceComponent } from './pages/customer-opening-balance/view-customer-opening-balance/view-customer-opening-balance.component';
+import { CustomerObViewDistributionComponent } from './components/customer-ob-view-distribution/customer-ob-view-distribution.component';
 
 const routes: Routes = [
   {
@@ -93,12 +97,46 @@ const routes: Routes = [
       },
 
       {
-        path: 'add-customer-opening-balance',
-        component: AddCustomerOpeeningBalanceComponent,
+        path: 'customer-opening-balance',
+        component: MainCustomerOpeningBalanceComponent,
         //  canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.ADD_CUSTOMER_OPENEING_BALANCE,
+          breadcrumb: BreadcrumbLabel.CUSTOMER_OPENEING_BALANCE_List,
         },
+        children:[
+          {
+            path: '',
+            component: CustomerOpeningBalanceListComponent,
+            //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: '',
+            }
+          },
+          {
+            path: 'add',
+            component: AddCustomerOpeeningBalanceComponent,
+            //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_CUSTOMER_OPENEING_BALANCE,
+            }
+          },
+          {
+            path: 'edit/:id',
+            component: EditCustomerOpeningBalanceComponent,
+            //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_CUSTOMER_OPENEING_BALANCE,
+            }
+          },
+          {
+            path: 'view/:id',
+            component: ViewCustomerOpeningBalanceComponent,
+            //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.VIEW_CUSTOMER_OPENEING_BALANCE,
+            }
+          }
+        ]
       },
     ],
   },
@@ -116,7 +154,12 @@ const routes: Routes = [
     CustomerOpeningBalanceNoChildrenComponent,
     CustomerOpeningBalanceDistributeComponent,
     MainCustomerCategoryComponent,
-    MainCustomerDefintionComponent
+    MainCustomerDefintionComponent,
+    CustomerOpeningBalanceListComponent,
+    MainCustomerOpeningBalanceComponent,
+    EditCustomerOpeningBalanceComponent,
+    ViewCustomerOpeningBalanceComponent,
+    CustomerObViewDistributionComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })

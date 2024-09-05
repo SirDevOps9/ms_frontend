@@ -1,16 +1,12 @@
-<div>
+<lib-popup-page
+  title=" confirm"
+  [closeFunction]="onCancel"
+  (Submit)="onSubmit()"
+>
+  <div>
     <p class="confirm">{{'treasury.confirm' | translate}}</p>
-    <div class="grid justify-content-center">
-      
-        <div class="col-6">
-          <lib-button type="button"  [className]="'custom-danger-outline'" class="save" (click)="onCancel()">
-            {{'confirm.cancel' | translate}}
-          </lib-button>
-        </div>
-        <div class="col-6">
-            <lib-button type="button" [className]="'custom-light-blue'"  (click)="onSubmit()">
-              {{'confirm.submit' | translate}}
-            </lib-button>
-          </div>
-      </div>
-</div>
+  </div>
+</lib-popup-page>
+
+
+

@@ -1,0 +1,23 @@
+
+
+<lib-popup-page
+title="{{ 'itemType.barcode' | translate }}"
+[closeFunction]="onCancel"
+[save]="false"
+[footer]="false"
+
+>
+
+<div class="flex justify-content-center" #barCodeWrapper>
+    <svg #barcodeImage></svg>
+</div>
+<lib-button-micro
+[title]="'itemType.print' | translate"
+nameClass="print"
+iconName="pi pi-print"
+widthNumber="100%"
+(click)="printBarCode()"
+
+>
+</lib-button-micro>
+</lib-popup-page>
