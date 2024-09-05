@@ -25,6 +25,13 @@ const routes: Routes = [
     },
     children : [
       {
+        path: '',
+        component: ItemDefinitionListComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.ITEM_DIFINITION,
+        },
+      },
+      {
         path: 'item-definition',
         component: ItemDefinitionListComponent,
         data: {

@@ -165,7 +165,6 @@ export class AddItemDefinitionComponent implements OnInit {
  
     this.itemService.getItemById(this.id)
     this.itemService.GetItemByIDObs.subscribe(res=>{
-        console.log(res)
         this.itemDefinitionForm.patchValue({...res})
 
       if(res.uomId) {
@@ -193,21 +192,18 @@ export class AddItemDefinitionComponent implements OnInit {
     this.itemService.getUomDropDownByUomCategory(id)
     this.itemService.UOMDropDownLookupByUomCategoryObs.subscribe(res=>{
       this.uomLookup = res
-      console.log( this.uomLookup)
     })
   }
   UOMCategoryDropDownData() {
     this.itemService.UOMCategoryDropDown()
     this.itemService.UOMCategoryDropDownLookup.subscribe(res=>{
       this.UOMCategoryDropDown = res 
-      console.log(res)
     })
   }
   getItemVariantsByItemIdDropDown() {
     this.itemService.getItemVariantsByItemIdDropDown(this.id)
     this.itemService.ItemVariantsByItemIdDropDownObs.subscribe(res=>{
       this.ItemVariantsByItemIdDropDown = res
-      console.log(res)
     })
   }
 
@@ -215,7 +211,6 @@ export class AddItemDefinitionComponent implements OnInit {
     this.itemService.ItemCategoryDropDown()
     this.itemService.itemCategoryLookupObs.subscribe(res=>{
       this.ItemCategoryDropDown = res
-      console.log("heey" , res)
     })
   }
   // end point

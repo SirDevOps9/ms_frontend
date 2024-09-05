@@ -1380,7 +1380,9 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "projects/apps-purchase/src/styles.css"
+              "projects/apps-purchase/src/styles.css",
+              "libs/apps-shared-lib/src/assets/styling/scss/variables/_font-family.scss",
+              "libs/apps-shared-lib/src/assets/styling/scss/main-style.scss"
             ],
             "scripts": []
           },
