@@ -11,11 +11,8 @@ import {
   LanguageService,
 } from 'shared-lib';
 import { AccountService } from '../../../account.service';
-import { TaxGroupAddComponent } from '../../../components/tax-group-add/tax-group-add.component';
-import { TaxGroupEditComponent } from '../../../components/tax-group-edit/tax-group-edit.component';
 import {
   SharedCostEnums,
-  TaxGroupDto,
   costCenterActivation,
   costCenterList,
 } from '../../../models';

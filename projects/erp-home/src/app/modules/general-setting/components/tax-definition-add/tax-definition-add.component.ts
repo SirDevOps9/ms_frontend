@@ -4,14 +4,6 @@ import { Title } from '@angular/platform-browser';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
 import {
-  AccountDto,
-  AccountsChildrenDropDown,
-  AddTax,
-  GetLevelsDto,
-  TaxGroupDropDown,
-  listAddLevelsDto,
-} from 'projects/apps-accounting/src/app/modules/account/models';
-import {
   FormsService,
   LanguageService,
   LookupsService,
@@ -20,6 +12,10 @@ import {
   RouterService,
   customValidators,
 } from 'shared-lib';
+import { AccountsChildrenDropDown } from '../../models/accounts-children-dropdown-dto';
+import { TaxGroupDropDown } from '../../models/tax-group-drop-down';
+import { GeneralSettingService } from '../../general-setting.service';
+import { AddTax } from '../../models/add-tax';
 
 @Component({
   selector: 'app-tax-definition-add',
@@ -38,9 +34,9 @@ export class TaxDefinitionAddComponent {
     this.initializeForm();
     this.getAccounts('');
 
-    this.accountService.getAllTaxGroups();
+    this.generalSettingService.getAllTaxGroups();
 
-    this.accountService.taxGroupsDropDown.subscribe((res) => {
+    this.generalSettingService.taxGroupsDropDown.subscribe((res) => {
       this.taxGroupList = res;
     });
 
@@ -62,17 +58,17 @@ export class TaxDefinitionAddComponent {
   onSubmit() {
     if (!this.formsService.validForm(this.addForm)) return;
     const request: AddTax = this.addForm.value;
-    this.accountService.addTax(request, this.ref);
+    this.generalSettingService.addTax(request, this.ref);
   }
 
   getAccounts(searchTerm: string) {
-    this.accountService.getAccountsChildrenDropDown().subscribe((r) => {
+    this.generalSettingService.getAccountsChildrenDropDown().subscribe((r) => {
       this.accounts = r;
     });
   }
 
   getTaxGroups() {
-    this.accountService.getAllTaxGroups();
+    this.generalSettingService.getAllTaxGroups();
   }
 
   save() {
@@ -84,7 +80,7 @@ export class TaxDefinitionAddComponent {
   }
 
   constructor(
-    private accountService: AccountService,
+    private generalSettingService: GeneralSettingService,
     public config: DynamicDialogConfig,
     public dialogService: DialogService,
     private ref: DynamicDialogRef,

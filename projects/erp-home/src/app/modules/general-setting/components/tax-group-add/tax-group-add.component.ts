@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from '../../account.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { FormsService, LanguageService, customValidators } from 'shared-lib';
-import { AddTaxGroupDto, CountryDto } from '../../models';
 import { Title } from '@angular/platform-browser';
+import { GeneralSettingService } from '../../general-setting.service';
+import { CountryDto } from '../../models';
+import { AddTaxGroupDto } from '../../models/add-tax-group-dto';
 
 @Component({
   selector: 'app-tax-group-add',
@@ -16,7 +17,7 @@ export class TaxGroupAddComponent implements OnInit {
   countries: CountryDto[] = [];
 
   constructor(
-    private accountService: AccountService,
+    private generalSettingService: GeneralSettingService,
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
     private formsService: FormsService,
@@ -33,8 +34,8 @@ export class TaxGroupAddComponent implements OnInit {
   }
 
   loadCountries() {
-    this.accountService.loadCountries();
-    this.accountService.countries.subscribe({
+    this.generalSettingService.loadCountries();
+    this.generalSettingService.countries.subscribe({
       next: (res) => {
         this.countries = res;
       },
@@ -53,7 +54,7 @@ export class TaxGroupAddComponent implements OnInit {
     const taxGroupDto: AddTaxGroupDto = this.taxGroupForm.value;
     //taxGroupDto.branchId = 'd69e6813-2646-41e7-a56c-538b7f91da39';
     //taxGroupDto.companyId = '98c91af6-16f4-477f-9b4a-db046a04b525';
-    this.accountService.addTaxGroup(taxGroupDto, this.ref);
+    this.generalSettingService.addTaxGroup(taxGroupDto, this.ref);
   }
 
   close() {

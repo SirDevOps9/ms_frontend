@@ -19,6 +19,12 @@ import { AddCurrencyConversionComponent } from './components/currencyConversion/
 import { EditCurrencyConversionComponent } from './components/currencyConversion/edit-currency-conversion/edit-currency-conversion.component';
 import { MainFinancialCalendarComponent } from './pages/financial-calendar/main-financial-calendar/main-financial-calendar.component';
 import { NoChildrenAccountsComponent } from './components/noChildrenAccounts/nochildaccounts.component';
+import { TaxDefinitionAddComponent } from './components/tax-definition-add/tax-definition-add.component';
+import { TaxDefinitionComponent } from './pages/taxs/tax-definition/tax-definition.component';
+import { TaxDefinitionEditComponent } from './components/tax-definition-edit/tax-definition-edit.component';
+import { TaxGroupAddComponent } from './components/tax-group-add/tax-group-add.component';
+import { TaxGroupComponent } from './pages/taxs/tax-group/tax-group.component';
+import { TaxGroupEditComponent } from './components/tax-group-edit/tax-group-edit.component';
 
 const routes: Routes = [
   {
@@ -94,6 +100,20 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.CURRENCY_CONVERSION,
         },
       },
+      {
+        path: 'tax-group',
+        component: TaxGroupComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.TaxGroup
+        },
+      },
+      {
+        path: 'tax-definition',
+        component: TaxDefinitionComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.TaxDefinition
+        },
+      },
     ],
   },
 ];
@@ -113,7 +133,13 @@ const routes: Routes = [
     AddCurrencyConversionComponent,
     EditCurrencyConversionComponent,
     MainFinancialCalendarComponent,
-    NoChildrenAccountsComponent
+    NoChildrenAccountsComponent,
+    TaxDefinitionAddComponent,
+    TaxDefinitionComponent,
+    TaxDefinitionEditComponent,
+    TaxGroupAddComponent,
+    TaxGroupComponent,
+    TaxGroupEditComponent
   ],
   imports: [CommonModule, SharedLibModule, AutoCompleteModule, RouterModule.forChild(routes)],
 })

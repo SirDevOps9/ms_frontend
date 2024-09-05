@@ -12,12 +12,7 @@ import { ChartOfAccountConfigurationComponent } from './components/chart-of-acco
 import { ViewChartComponent } from './components/view-chart/view-chart.component';
 import { AddChartComponent } from './components/add-chart/add-chart.component';
 import { EditChartComponent } from './components/edit-chart/edit-chart.component';
-import { TaxDefinitionComponent } from './pages/taxs/tax-definition/tax-definition.component';
-import { TaxGroupComponent } from './pages/taxs/tax-group/tax-group.component';
-import { TaxDefinitionAddComponent } from './components/tax-definition-add/tax-definition-add.component';
-import { TaxDefinitionEditComponent } from './components/tax-definition-edit/tax-definition-edit.component';
-import { TaxGroupAddComponent } from './components/tax-group-add/tax-group-add.component';
-import { TaxGroupEditComponent } from './components/tax-group-edit/tax-group-edit.component';
+
 import { MainCostCenterComponent } from './pages/cost-center/main-cost-center/main-cost-center.component';
 import { CostCenterListComponent } from './pages/cost-center/cost-center-list/cost-center-list.component';
 import { CostCenterTreeComponent } from './pages/cost-center/cost-center-tree/cost-center-tree.component';
@@ -50,20 +45,6 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'tax-group',
-        component: TaxGroupComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.TaxGroup
-        },
-      },
-      {
-        path: 'tax-definition',
-        component: TaxDefinitionComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.TaxDefinition
-        },
-      },
-      {
         path: 'cost-center',
         component: MainCostCenterComponent,
         data: {
@@ -84,12 +65,6 @@ const routes: Routes = [
     ViewChartComponent,
     AddChartComponent,
     EditChartComponent,
-    TaxGroupComponent,
-    TaxDefinitionComponent,
-    TaxDefinitionAddComponent,
-    TaxDefinitionEditComponent,
-    TaxGroupAddComponent,
-    TaxGroupEditComponent,
     MainCostCenterComponent,
     CostCenterListComponent,
     CostCenterTreeComponent,
