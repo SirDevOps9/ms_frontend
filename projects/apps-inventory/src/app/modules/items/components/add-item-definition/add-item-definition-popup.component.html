@@ -39,7 +39,7 @@
                 <lib-select
                   placeholder="{{ 'itemCategory.itemCategory' | translate }}"
                   [options]="itemTypeLookupData"
-                  optionLabel="nameEn"
+                  optionLabel="name"
                   optionValue="id"
                   formControlName="typeId"
                 ></lib-select>
@@ -56,7 +56,7 @@
                     <lib-select
                       placeholder="{{ 'itemCategory.unitOfMeasureCategory' | translate }}"
                       [options]="ItemCategoryDropDown"
-                      optionLabel="nameEn"
+                      optionLabel="name"
                       optionValue="id"
                       formControlName="categoryId"
                     ></lib-select>
@@ -72,7 +72,7 @@
                     <lib-select
                       placeholder="{{ 'itemCategory.mainItemUnit' | translate }}"
                       [options]="UOMCategoryDropDown"
-                      optionLabel="nameEn"
+                      optionLabel="name"
                       optionValue="id"
                       formControlName="uomId"
                     ></lib-select>

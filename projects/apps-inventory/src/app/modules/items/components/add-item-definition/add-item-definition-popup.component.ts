@@ -14,8 +14,8 @@ import { ItemsService } from '../../items.service';
 export class AddItemDefinitionPopupComponent implements OnInit {
   itemDefinitionForm: FormGroup;
   selectedModules: number[] = [];
-  itemTypeLookupData : { id: number; nameAr: string; nameEn: string }[] = [{id : 1, nameAr : "Nabil" , nameEn : "Nabil"}]
-  ItemCategoryDropDown : { id: number; nameAr: string; nameEn: string }[] = [{id : 1 , nameAr : "Nabiloo" , nameEn : "Nabiloo"}]
+  itemTypeLookupData : { id: number; nameAr: string; nameEn: string }[] = []
+  ItemCategoryDropDown : { id: number; nameAr: string; nameEn: string }[] = []
   UOMCategoryDropDown : { id: number; name: string }[] = []
   constructor(
     public config: DynamicDialogConfig,
@@ -32,9 +32,9 @@ export class AddItemDefinitionPopupComponent implements OnInit {
 
   ngOnInit() {
     this.initializeitemDefinition();
-    // this.initItemTypeLookupData()
-    // this.ItemCategoryDropDownData()
-    // this.UOMCategoryDropDownData()
+    this.initItemTypeLookupData()
+    this.ItemCategoryDropDownData()
+    this.UOMCategoryDropDownData()
   }
   initItemTypeLookupData() {
     this.itemsService.itemTypeLookupData()
