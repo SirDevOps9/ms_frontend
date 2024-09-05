@@ -181,9 +181,6 @@ export class AccountProxy {
     }
     return this.httpService.get<costCenterList[]>(query);
   }
-  deleteTaxGroup(id: number): Observable<boolean> {
-    return this.httpService.delete<boolean>(`TaxGroup?Id=${id}`);
-  }
 
   constructor(private httpService: HttpService) {}
 }

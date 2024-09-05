@@ -420,29 +420,6 @@ export class AccountService {
       })
     );
   }
-  async deleteTaxGroup(id: number): Promise<boolean> {
-    const confirmed = await this.toasterService.showConfirm(
-      this.languageService.transalte('ConfirmButtonTexttodelete')
-    );
-    const p = new Promise<boolean>((res, rej) => {
-      if (confirmed) {
-        this.accountproxy.deleteTaxGroup(id).subscribe({
-          next: (status) => {
-            this.toasterService.showSuccess(
-              this.languageService.transalte('TaxGroup.Success'),
-              this.languageService.transalte('TaxGroup.DeletedSuccessfully')
-            );
-            this.loaderService.hide();
-            res(true);
-          },
-        });
-      } else {
-        res(false);
-      }
-    });
-    return await p;
-  }
-  
 
   constructor(
     private accountproxy: AccountProxy,
