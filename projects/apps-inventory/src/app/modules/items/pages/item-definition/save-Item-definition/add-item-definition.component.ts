@@ -169,6 +169,7 @@ export class AddItemDefinitionComponent implements OnInit {
 
       if(res.uomId) {
         this.getUomDropDown(res.uomId)
+        this.uomCodeDropDown(res.uomId)
 
       }
       

@@ -16,7 +16,7 @@ export class AddItemDefinitionPopupComponent implements OnInit {
   selectedModules: number[] = [];
   itemTypeLookupData : { id: number; nameAr: string; nameEn: string }[] = []
   ItemCategoryDropDown : { id: number; nameAr: string; nameEn: string }[] = []
-  UOMCategoryDropDown : { id: number; name: string }[] = []
+  UOMCategoryDropDown : { id: number; nameEn: string }[] = []
   constructor(
     public config: DynamicDialogConfig,
     public dialogService: DialogService,
@@ -34,7 +34,7 @@ export class AddItemDefinitionPopupComponent implements OnInit {
     this.initializeitemDefinition();
     this.initItemTypeLookupData()
     this.ItemCategoryDropDownData()
-    this.UOMCategoryDropDownData()
+    this.getUomDropDown()
   }
   initItemTypeLookupData() {
     this.itemsService.itemTypeLookupData()
@@ -48,9 +48,9 @@ export class AddItemDefinitionPopupComponent implements OnInit {
       this.ItemCategoryDropDown = res
     })
   }
-  UOMCategoryDropDownData() {
-    this.itemsService.UOMCategoryDropDown()
-    this.itemsService.UOMCategoryDropDownLookup.subscribe(res=>{
+  getUomDropDown() {
+    this.itemsService.getUomDropDown()
+    this.itemsService.UOMDropDownLookup.subscribe(res=>{
       this.UOMCategoryDropDown = res
     })
   }
@@ -60,7 +60,7 @@ export class AddItemDefinitionPopupComponent implements OnInit {
 
   initializeitemDefinition() {
     this.itemDefinitionForm = this.fb.group({
-      name: new FormControl(''),
+      name: new FormControl('' ,[customValidators.required]),
       typeId: new FormControl('', [customValidators.required]),
       categoryId: new FormControl([],  [customValidators.required]),
       uomId: new FormControl([],  [customValidators.required]),
