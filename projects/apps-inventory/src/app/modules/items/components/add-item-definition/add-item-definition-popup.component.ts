@@ -15,7 +15,7 @@ export class AddItemDefinitionPopupComponent implements OnInit {
   itemDefinitionForm: FormGroup;
   selectedModules: number[] = [];
   itemTypeLookupData : { id: number; nameAr: string; nameEn: string }[] = []
-  ItemCategoryDropDown : { id: number; nameAr: string; nameEn: string }[] = []
+  ItemCategoryDropDown : { id: number; name: string }[] = []
   UOMCategoryDropDown : { id: number; nameEn: string }[] = []
   constructor(
     public config: DynamicDialogConfig,
@@ -43,14 +43,14 @@ export class AddItemDefinitionPopupComponent implements OnInit {
     })
   }
   ItemCategoryDropDownData() {
-    this.itemsService.ItemCategoryDropDown()
-    this.itemsService.itemCategoryLookupObs.subscribe(res=>{
+    this.itemsService.UOMCategoryDropDown()
+    this.itemsService.UOMCategoryDropDownLookupObs.subscribe(res=>{
       this.ItemCategoryDropDown = res
     })
   }
   getUomDropDown() {
     this.itemsService.getUomDropDown()
-    this.itemsService.UOMDropDownLookup.subscribe(res=>{
+    this.itemsService.UOMDropDownLookupObs.subscribe(res=>{
       this.UOMCategoryDropDown = res
     })
   }
