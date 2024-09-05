@@ -333,6 +333,7 @@
                            " src="assets/images/groups.png" />
 
               <img *ngIf="
+                journalLine.controls['paidBy'].value==this.sharedFinanceEnums.paiedDropDown.other &&
                  isCostCenterallowed( journalLine,journalLine.controls['costCenterConfig'].value) &&
                  journalLine.controls['paymentInDetailCostCenters'].value.length == 0
                 
@@ -345,6 +346,7 @@
                 )
               " src="assets/images/groups-mandtory-optional.png" alt="" class="pointer" />
               <img *ngIf="
+                journalLine.controls['paidBy'].value==this.sharedFinanceEnums.paiedDropDown.other &&
                 isCostCenterallowed(journalLine, journalLine.controls['costCenterConfig'].value) &&
                 journalLine.controls['paymentInDetailCostCenters'].value.length != 0
                 " (click)="

@@ -28,11 +28,11 @@
         <!--  -->
       </div>
 
-      <div class="add_new my-2 flex justify-content-end">
+      <!-- <div class="add_new my-2 flex justify-content-end">
         <lib-button (onClick)="addLine()" className="outline-primary">
           {{ 'add-paymentterm.add_new' | translate }}
         </lib-button>
-      </div>
+      </div> -->
 
       <div class="entry_table">
         <div class="card">
@@ -106,7 +106,11 @@
       </div>
     </div>
   </div>
-
+  <div class="add_new">
+    <button (click)="addLine()" class="btn">
+      {{ 'add-paymentterm.add_new' | translate }}
+    </button>
+  </div>
   <div class="btn_group">
     <div class="grid mt-4">
       <div class="md:col-3">

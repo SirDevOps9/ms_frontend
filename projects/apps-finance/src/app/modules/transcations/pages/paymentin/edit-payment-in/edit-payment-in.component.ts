@@ -225,8 +225,11 @@ export class EditPaymentInComponent {
   }
 
   getpaidByDetails(index: number, name: string) {
+    
     const journalLine = this.paymentInDetailsFormArray.at(index);
+
     journalLine.get('glAccountname')?.setValue(null);
+    journalLine.get('glAccountId')?.setValue(null);
     journalLine.get('paidByDetailsName')?.setValue(null);
     journalLine.get('accountName')?.setValue(null);
 
@@ -477,6 +480,8 @@ export class EditPaymentInComponent {
     this.updateAccount(accountData as AccountDto, id);
   }
   isCostCenterallowed(journalLine: any, costCenterConfig: string): boolean {
+    console.log(journalLine ,"journalLine");
+  
     if (
       costCenterConfig === this.sharedFinanceEnums.costCenterConfig.Mandatory ||
       costCenterConfig === this.sharedFinanceEnums.costCenterConfig.Optional
@@ -487,7 +492,7 @@ export class EditPaymentInComponent {
         costCenterId: new FormControl(null),
         percentage: new FormControl(null),
       });
-      journalLine.get('paymentInDetailCostCenters')?.setValue([]);
+      // journalLine.get('paymentInDetailCostCenters')?.setValue([]);
 
       return false;
     }
@@ -812,16 +817,20 @@ export class EditPaymentInComponent {
       const customer = this.customerDropDown.find((e) => e.id === id);
       if (customer) {
         if(customer.accountId>0){
+          console.log(customer.accountName ,"00000000");
+          
         journalLine.get('glAccountId')?.setValue(customer.accountId );
-        journalLine.get('glAccountname')?.setValue(customer.accountName);
+        journalLine.get('accountName')?.setValue(customer.accountName);
         }
       }
     } else if (paidByValue === this.sharedFinanceEnums.paiedDropDown.vendor) {
       const vendor = this.vendorDropDown.find((e) => e.id === id);
       if (vendor) {
         if(vendor.accountId>0){
+          console.log(vendor.accountName ,"00000000");
+
         journalLine.get('glAccountId')?.setValue(vendor.accountId );
-        journalLine.get('glAccountname')?.setValue(vendor.accountName);
+        journalLine.get('accountName')?.setValue(vendor.accountName);
         }
       }
     }
