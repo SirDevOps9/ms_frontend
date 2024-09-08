@@ -119,5 +119,34 @@
         "itemTracking" : "Item Tracking",
         "SelectItemTracking" : "Select Item Tracking",
         "hasExpiry" : "Has Expiry Date"
+    },
+    "warehouse" : {
+        "Add" : "Add",
+        "search" : "Search",
+        "ChangeColumn" : "Change Column",
+        "save" : "Save",
+        "code" : "Code",
+        "name" : "Name",
+        "relatedBranch" : "Related Branch",
+        "warehouseType" : "Warehouse Type",
+        "actions" : "Actions",
+        "warehouse" : "Warehouse",
+        "account" : "Account",
+        "address" : "Address",
+        
+        "glAccount" : "GL Account",
+        "cashSalesAccount" : "Cash Sales Account",
+        "creditSalesAccount" : "Credit Sales Account",
+        "salesReturnAccount" : "Sales Return Account",
+        "purchaseAccount" : "Purchase Account",
+        "salesCostCenter" : "Sales Cost Center",
+        "discountAccount" : "Discount Account",
+        "evaluationaccount" : "Evaluation Account",
+        "adjustmentAccount" : "Adjustment Account",
+        "goodsInTransit" : "Goods In Transit"
+
+
+
+        
     }
 }

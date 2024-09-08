@@ -92,16 +92,7 @@ export class WarehouseListComponent implements OnInit {
   }
 
   onAdd() {
-    const dialogRef = this.dialog.open(AddItemDefinitionPopupComponent, {
-    
-      width: '800px',
-      height : '700px'
-  
-    });
-
-    dialogRef.onClose.subscribe(() => {
-    this.initItemDefinitionData()
-    });
+   this.routerService.navigateTo('/masterdata/add-warehouse')
   }
 
   onEdit(data: any) {

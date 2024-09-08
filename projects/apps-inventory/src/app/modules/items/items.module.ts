@@ -15,6 +15,7 @@ import { ViewVariantPopupComponent } from './components/view-variant-popup/view-
 import { AddBarcodePopupComponent } from './components/add-barcode-popup/add-barcode-popup.component';
 import { ViewQRcodeComponent } from './components/view-qrcode/view-qrcode.component';
 import { WarehouseListComponent } from './pages/warehouse/warehouse-list/warehouse-list.component';
+import { AddWarehouseComponent } from './pages/warehouse/add-warehouse/add-warehouse.component';
 
 
 const routes: Routes = [
@@ -45,6 +46,14 @@ const routes: Routes = [
         component: WarehouseListComponent,
         data: {
           breadcrumb: BreadcrumbLabel.WARE_HOUSE
+        },
+     
+      },
+      {
+        path: 'add-warehouse',
+        component: AddWarehouseComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.ADD_WARE_HOUSE
         },
      
       },
@@ -93,7 +102,8 @@ const routes: Routes = [
     ViewVariantPopupComponent,
     AddBarcodePopupComponent,
     ViewQRcodeComponent,
-    WarehouseListComponent
+    WarehouseListComponent,
+    AddWarehouseComponent
   ],
   imports: [
     CommonModule,

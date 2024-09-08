@@ -1,4 +1,4 @@
-<lib-page-content [title]="'itemDefinition.TaxList' | translate" [subTitle]="'itemDefinition.TaxList' | translate">
+<lib-page-content [title]="'warehouse.warehouse' | translate" [subTitle]="'warehouse.warehouse' | translate">
     <div>
       <div class="user_page">
         <lib-data-table
@@ -13,40 +13,33 @@
             pageSize: 10,
             columns: [
               {
-                name: 'name',
-                headerText: ('itemDefinition.name' | translate),
+                name: 'code',
+                headerText: ('warehouse.code' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
-                name: 'typeName',
-                headerText: ('itemDefinition.type' | translate),
+                name: 'name',
+                headerText: ('warehouse.name' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
+            
               {
                 name: 'itemCategoryName',
-                headerText: ('itemDefinition.category' | translate),
+                headerText: ('warehouse.relatedBranch' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
                 name: 'uomName',
-                headerText: ('itemDefinition.uom' | translate),
+                headerText: ('warehouse.warehouseType' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
-              {
-                name: 'barCode',
-                headerText: ('itemDefinition.barcode' | translate),
-                isGlobalFilter: true,
-                isSortable: true
-              },
-            
-  
               {
                 name: 'id',
-                headerText: ('itemDefinition.actions' | translate),
+                headerText: ('warehouse.actions' | translate),
                 template: actions
               }
             ]
@@ -59,7 +52,7 @@
                   <lib-form-group>
                     <lib-text-input
                       type="text"
-                      [placeholder]="'itemDefinition.search' | translate"
+                      [placeholder]="'warehouse.search' | translate"
                       [(ngModel)]="searchTerm"
                       (keyUp)="onSearchChange()"
                     ></lib-text-input>
@@ -68,7 +61,7 @@
                 <!--  -->
                 <div class="col-3">
                   <lib-change-column
-                    [placeholder]="'itemDefinition.ChangeColumn' | translate"
+                    [placeholder]="'warehouse.ChangeColumn' | translate"
                     [dataTable]="tableData"
                   ></lib-change-column>
                 </div>
@@ -76,7 +69,7 @@
                 <div class="col-6 flex gap-2 justify-content-end align-items-center">
                   <div>
                     <lib-button-micro
-                      [title]="'itemDefinition.Add' | translate"
+                      [title]="'warehouse.Add' | translate"
                       nameClass="save"
                       iconName="pi pi-plus"
                       (click)="onAdd()"
