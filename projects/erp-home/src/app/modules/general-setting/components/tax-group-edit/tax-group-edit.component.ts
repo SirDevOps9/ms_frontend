@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { AccountService } from '../../account.service';
 import { customValidators, LanguageService } from 'shared-lib';
-import { CountryDto, TaxGroupDto } from '../../models';
 import { Title } from '@angular/platform-browser';
+import { CountryDto } from '../../models';
+import { GeneralSettingService } from '../../general-setting.service';
+import { TaxGroupDto } from '../../models/tax-group-dto';
 
 @Component({
   selector: 'app-tax-group-edit',
@@ -19,7 +20,7 @@ export class TaxGroupEditComponent implements OnInit {
   }
 
   constructor(
-    private accountService: AccountService,
+    private generalSettingService: GeneralSettingService,
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
     public config: DynamicDialogConfig,
@@ -36,8 +37,8 @@ export class TaxGroupEditComponent implements OnInit {
     this.loadCountries();
   }
   loadCountries() {
-    this.accountService.loadCountries();
-    this.accountService.countries.subscribe({
+    this.generalSettingService.loadCountries();
+    this.generalSettingService.countries.subscribe({
       next: (res) => {
         this.countries = res;
       },
@@ -54,8 +55,8 @@ export class TaxGroupEditComponent implements OnInit {
 
   currentTaxGroup() {
     console.log('Id', this.Id);
-    this.accountService.getTaxGroupById(parseInt(this.Id));
-    this.accountService.currentTaxGroup.subscribe((response) => {
+    this.generalSettingService.getTaxGroupById(parseInt(this.Id));
+    this.generalSettingService.currentTaxGroup.subscribe((response) => {
       this.taxGroupForm.patchValue(response);
     });
   }
@@ -63,7 +64,7 @@ export class TaxGroupEditComponent implements OnInit {
   save() {
     if (!this.taxGroupForm.valid) return;
     const taxGroupDto: TaxGroupDto = this.taxGroupForm.value;
-    this.accountService.editTaxGroup(taxGroupDto, this.ref);
+    this.generalSettingService.editTaxGroup(taxGroupDto, this.ref);
   }
 
   close() {
