@@ -28,6 +28,7 @@ import {
   ExportTagDto,
   GetLastYearInfoDto,
   AccountDto,
+  SubdomainModuleDto,
 } from './models';
 
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
@@ -63,11 +64,15 @@ export class GeneralSettingService {
   private exportcurrencyDefinitionDataSource = new BehaviorSubject<CurrencyDefinitionDto[]>([]);
   private exportsFinancialCalendarDataSource = new BehaviorSubject<financialCalendar[]>([]);
   private exportsTagDataSource = new BehaviorSubject<ExportTagDto[]>([]);
+  private subdomainModuleDataSource = new BehaviorSubject<SubdomainModuleDto[]>([]);
+
 
   public exportsFinancialCalendarDataSourceObservable =
     this.exportsFinancialCalendarDataSource.asObservable();
 
   public exportsTagDataSourceObservable = this.exportsTagDataSource.asObservable();
+  public subdomainModuleDataSourceObservable = this.subdomainModuleDataSource.asObservable();
+
 
   private currencyDefinitionDataSource = new BehaviorSubject<CurrencyDefinitionDto[]>([]);
   private currencyConversionDataSource = new BehaviorSubject<CurrencyConversionDto[]>([]);
@@ -769,6 +774,13 @@ export class GeneralSettingService {
     this.GeneralSettingproxy.getAccountsHasNoChildren(quieries, pageInfo).subscribe((res) => {
       this.childrenAccountDataSource.next(res.result);
       this.childrenAccountPageInfo.next(res.pageInfoResult);
+    });
+  }
+  getUserSubDomainModules() {
+    this.GeneralSettingproxy.getUserSubDomainModules().subscribe({
+      next: (res) => {
+        this.subdomainModuleDataSource.next(res);
+      },
     });
   }
 

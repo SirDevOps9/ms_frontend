@@ -22,6 +22,7 @@ import {
   ExportTagDto,
   GetLastYearInfoDto,
   AccountDto,
+  SubdomainModuleDto,
 } from './models';
 
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
@@ -335,6 +336,9 @@ export class GeneralSettingProxy {
     return this.httpService.get<AccountsChildrenDropDown[]>(
       `ChartOfAccounts/ChildrenAccountsDropDown`
     );
+  }
+  getUserSubDomainModules(): Observable<SubdomainModuleDto[]> {
+    return this.httpService.get<SubdomainModuleDto[]>(`SideMenu/GetUserSubDomainModules`);
   }
 
   constructor(private httpService: HttpService) {}

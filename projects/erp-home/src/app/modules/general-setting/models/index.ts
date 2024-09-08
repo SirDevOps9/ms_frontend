@@ -29,4 +29,6 @@ export * from './export-tag-dto';
 export * from './getLastYearInfoDto';
 export * from './monthDto';
 export * from './accountDto';
+export * from './sub-domain-module-dto';
+
 
