@@ -35,6 +35,14 @@ import { TagDropDownDto } from './models/TagDropDownDto';
 import { EditVendorCommand } from './models/editVendorCommand';
 import { GetVendorById } from './models/getVendorById';
 import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
+import { TaxGroupDto } from './models/tax-group-dto';
+import { AddTaxGroupDto } from './models/add-tax-group-dto';
+import { TaxDto } from './models/tax-dto';
+import { AddTax } from './models/add-tax';
+import { EditTax } from './models/edit-tax';
+import { ExportTaxDto } from './models/export-tax-dto';
+import { TaxGroupDropDown } from './models/tax-group-drop-down';
+import { AccountsChildrenDropDown } from './models/accounts-children-dropdown-dto';
 @Injectable({
   providedIn: 'root',
 })
@@ -266,10 +274,72 @@ export class GeneralSettingProxy {
       `ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}&${quieries ? quieries : ''}`
     );
   }
+  getAllTaxGroup(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<TaxGroupDto>> {
+    return this.httpService.get<PaginationVm<TaxGroupDto>>(
+      `TaxGroup?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`
+    );
+  }
+  addTaxGroup(taxgroupdto: AddTaxGroupDto): Observable<boolean> {
+    return this.httpService.post<boolean>(`TaxGroup`, taxgroupdto);
+  }
+
+  editTaxGroup(taxgroupdto: TaxGroupDto): Observable<boolean> {
+    return this.httpService.put<boolean>(`TaxGroup`, taxgroupdto);
+  }
+  getTaxGroupById(id: number): Observable<TaxGroupDto> {
+    return this.httpService.get<TaxGroupDto>(`TaxGroup/GetById?Id=${id}`);
+  }
+  getAllTaxes(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<TaxDto>> {
+    return this.httpService.get<PaginationVm<TaxDto>>(
+      `Tax?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`
+    );
+  }
+
+  getTaxById(id: number): Observable<TaxDto> {
+    return this.httpService.get<TaxDto>(`Tax/GetById?Id=${id}`);
+  }
+
+  addTax(command: AddTax): Observable<TaxDto> {
+    return this.httpService.post('Tax', command);
+  }
+
+  editTax(command: EditTax): Observable<TaxDto> {
+    return this.httpService.put('Tax', command);
+  }
+
+  exportTaxGroupData(searchTerm: string | undefined): Observable<TaxGroupDto[]> {
+    let query = `TaxGroup/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<TaxGroupDto[]>(query);
+  }
+
+  exportTaxesData(searchTerm: string | undefined): Observable<ExportTaxDto[]> {
+    let query = `Tax/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<ExportTaxDto[]>(query);
+  }
+  getAllTaxGroups(): Observable<TaxGroupDropDown[]> {
+    return this.httpService.get<TaxGroupDropDown[]>(`TaxGroup/TaxGroupDropDown`);
+  }
+  deleteTax(id: number): Observable<number> {
+    return this.httpService.delete<number>(`Tax?Id=${id}`);
+  }
+  deleteTaxGroup(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`TaxGroup?Id=${id}`);
+  }
+
+  getAccountsChildrenDropDown(): Observable<AccountsChildrenDropDown[]> {
+    return this.httpService.get<AccountsChildrenDropDown[]>(
+      `ChartOfAccounts/ChildrenAccountsDropDown`
+    );
+  }
   getUserSubDomainModules(): Observable<SubdomainModuleDto[]> {
     return this.httpService.get<SubdomainModuleDto[]>(`SideMenu/GetUserSubDomainModules`);
   }
-  
 
   constructor(private httpService: HttpService) {}
 }

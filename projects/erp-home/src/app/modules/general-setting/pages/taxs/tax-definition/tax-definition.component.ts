@@ -10,10 +10,11 @@ import {
   lookupDto,
   LanguageService,
 } from 'shared-lib';
-import { AccountService } from '../../../account.service';
-import { ExportTaxDto, TaxDto } from '../../../models';
 import { TaxDefinitionEditComponent } from '../../../components/tax-definition-edit/tax-definition-edit.component';
 import { Title } from '@angular/platform-browser';
+import { GeneralSettingService } from '../../../general-setting.service';
+import { TaxDto } from '../../../models/tax-dto';
+import { ExportTaxDto } from '../../../models/export-tax-dto';
 
 @Component({
   selector: 'app-tax-definition',
@@ -25,7 +26,7 @@ export class TaxDefinitionComponent implements OnInit {
     private routerService: RouterService,
     public authService: AuthService,
     private dialog: DialogService,
-    private accountService: AccountService,
+    private generalSettingService: GeneralSettingService,
     private title: Title,
     private langService: LanguageService
   ) {
@@ -69,20 +70,20 @@ export class TaxDefinitionComponent implements OnInit {
   }
 
   initTaxData() {
-    this.accountService.getAllTaxes('', new PageInfo());
+    this.generalSettingService.getAllTaxes('', new PageInfo());
 
-    this.accountService.taxesDefintionList.subscribe((res) => {
+    this.generalSettingService.taxesDefintionList.subscribe((res) => {
       this.tableData = res;
     });
-    this.accountService.currentPageInfo.subscribe((currentPageInfo) => {
+    this.generalSettingService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.accountService.getAllTaxes('', pageInfo);
+    this.generalSettingService.getAllTaxes('', pageInfo);
 
-    this.accountService.taxesDefintionList.subscribe({
+    this.generalSettingService.taxesDefintionList.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -111,21 +112,21 @@ export class TaxDefinitionComponent implements OnInit {
   }
 
   onSearchChange(e: any) {
-    this.accountService.getAllTaxes(e.target.value, new PageInfo());
-    this.accountService.taxesDefintionList.subscribe({
+    this.generalSettingService.getAllTaxes(e.target.value, new PageInfo());
+    this.generalSettingService.taxesDefintionList.subscribe({
       next: (res) => {
         this.tableData = res;
       },
     });
   }
 
-  onDelete(data: any) {
-    this.accountService.deleteTax(data.id);
+  onDelete(id: number) {
+    this.generalSettingService.deleteTax(id);
   }
 
   exportTaxesData(searchTerm: string) {
-    this.accountService.exportTaxesData(searchTerm);
-    this.accountService.exportsTaxesDataSourceObservable.subscribe((res) => {
+    this.generalSettingService.exportTaxesData(searchTerm);
+    this.generalSettingService.exportsTaxesDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });
   }
