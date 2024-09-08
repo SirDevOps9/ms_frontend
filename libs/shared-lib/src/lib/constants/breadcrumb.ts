@@ -94,6 +94,7 @@ export class BreadcrumbLabel {
     static  ADD_ITEM_DIFINITION ='Add Item Definition';
     static  ITEM_TYPE ='Item Type';
     static  ITEM_CATEGORY ='Item Category';
+    static  WARE_HOUSE ='Warehouse';
    
     static COST_CENTER ='Cost Center';
     static PAYMENT_TERM_ADD ='BreadCrumb.AddPaymentterm';
