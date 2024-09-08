@@ -5,6 +5,7 @@ import { DynamicDialogConfig, DialogService, DynamicDialogRef } from 'primeng/dy
 import { AddTagDto } from 'projects/apps-purchase/src/app/modules/purchase/models';
 import { MenuModule, FormsService, customValidators } from 'shared-lib';
 import { ItemsService } from '../../items.service';
+import { UomCodeLookup } from '../../models';
 
 @Component({
   selector: 'app-add-item-definition-popup',
@@ -14,9 +15,9 @@ import { ItemsService } from '../../items.service';
 export class AddItemDefinitionPopupComponent implements OnInit {
   itemDefinitionForm: FormGroup;
   selectedModules: number[] = [];
-  itemTypeLookupData : { id: number; nameAr: string; nameEn: string }[] = [{id : 1, nameAr : "Nabil" , nameEn : "Nabil"}]
-  ItemCategoryDropDown : { id: number; nameAr: string; nameEn: string }[] = [{id : 1 , nameAr : "Nabiloo" , nameEn : "Nabiloo"}]
-  UOMCategoryDropDown : { id: number; name: string }[] = []
+  itemTypeLookupData : { id: number;  name: string }[] = []
+  ItemCategoryDropDown : { id: number;  name: string }[] = []
+  UOMCategoryDropDown : UomCodeLookup[] = []
   constructor(
     public config: DynamicDialogConfig,
     public dialogService: DialogService,
@@ -32,29 +33,34 @@ export class AddItemDefinitionPopupComponent implements OnInit {
 
   ngOnInit() {
     this.initializeitemDefinition();
-    // this.initItemTypeLookupData()
-    // this.ItemCategoryDropDownData()
-    // this.UOMCategoryDropDownData()
+    this.initItemTypeLookupData()
+    this.ItemCategoryDropDownData()
+   
+  }
+  uomCategoryChanged(e : any) {
+    this.getUomDropDown(e)
   }
   initItemTypeLookupData() {
-    this.itemsService.itemTypeLookupData()
-    this.itemsService.itemTypeLookupObs.subscribe(res=>{
+    this.itemsService.ItemCategoryDropDown()
+    this.itemsService.itemCategoryLookupObs.subscribe(res=>{
       this.itemTypeLookupData = res
     })
   }
-  ItemCategoryDropDownData() {
-    this.itemsService.ItemCategoryDropDown()
-    this.itemsService.itemCategoryLookupObs.subscribe(res=>{
-      this.ItemCategoryDropDown = res
-    })
-  }
-  UOMCategoryDropDownData() {
-    this.itemsService.UOMCategoryDropDown()
-    this.itemsService.UOMCategoryDropDownLookup.subscribe(res=>{
+  getUomDropDown(id : number) {
+    this.itemsService.uomCodeDropDown(id)
+    this.itemsService.uomCodeLookupObs.subscribe(res=>{
       this.UOMCategoryDropDown = res
     })
   }
+  ItemCategoryDropDownData() {
+    this.itemsService.UOMCategoryDropDown()
+    this.itemsService.UOMCategoryDropDownLookupObs.subscribe(res=>{
+      this.ItemCategoryDropDown = res
+    })
+  }
 
+
+  
 
  
 
@@ -74,13 +80,16 @@ export class AddItemDefinitionPopupComponent implements OnInit {
 
   onSubmit(text : string) {
     if (!this.formsService.validForm(this.itemDefinitionForm)) return;   
-    this.itemsService.addItemDefinition(this.itemDefinitionForm.value , this.ref , text)
+    const { typeId, ...arg } = this.itemDefinitionForm.value;
+    this.itemsService.addItemDefinition(arg , this.ref , text)
 
   }
 
   onSaveConinue(text : string){
     if (!this.formsService.validForm(this.itemDefinitionForm)) return;   
-    this.itemsService.addItemDefinition(this.itemDefinitionForm.value , this.ref , text)
+    const { typeId, ...arg } = this.itemDefinitionForm.value;
+
+    this.itemsService.addItemDefinition(arg , this.ref , text)
   }
 }
 

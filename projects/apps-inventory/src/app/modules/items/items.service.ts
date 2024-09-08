@@ -20,8 +20,8 @@ export class ItemsService {
   sendItemDefinitionDataSource  = new BehaviorSubject<itemDefinitionDto[]>([])
   sendDataDefinitionById  = new BehaviorSubject<EditItemDefinitionDto>({} as EditItemDefinitionDto)
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
-  public itemTypeLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([]);
-  public itemCategoryLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([]);
+  public itemTypeLookup = new BehaviorSubject<{ id: number;  name: string }[]>([]);
+  public itemCategoryLookup = new BehaviorSubject<{ id: number; name : string }[]>([]);
   public tagLookup = new BehaviorSubject<{ id: number; name: string}[]>([]);
   public AccountsDropDownLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([]);
   public trackingTrackingDropDown = new BehaviorSubject<{ id: number; name: string}[]>([]);
@@ -31,7 +31,7 @@ export class ItemsService {
   public codeByuomCodeDropDown = new BehaviorSubject<{ code: string }>({ code: '' });
   public UOMCategoryDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public UOMDropDownLookup = new BehaviorSubject<{ id: number; nameEn: string }[]>([]);
-  public UOMDropDownLookupByUomCategory = new BehaviorSubject<{ id: number; nameEn: string }[]>([]);
+  public UOMDropDownLookupByUomCategory = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public ItemVariantsByItemIdDropDown = new BehaviorSubject<{ id: number; nameEn: string }[]>([]);
   public addVariantLineData = new BehaviorSubject<any>('');
   public ActivateVairiantGroupData = new BehaviorSubject<boolean>(false);
