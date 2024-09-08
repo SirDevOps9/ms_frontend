@@ -33,34 +33,35 @@
             </div>
             <div class="col-12 my-2">
               <lib-form-group>
-                <lib-label [appControl]="itemDefinitionForm.controls['typeId']">
+                <lib-label [appControl]="itemDefinitionForm.controls['categoryId']">
                     {{ 'itemCategory.itemCategory' | translate }}
                   </lib-label>
                 <lib-select
                   placeholder="{{ 'itemCategory.itemCategory' | translate }}"
                   [options]="itemTypeLookupData"
-                  optionLabel="nameEn"
+                  optionLabel="name"
                   optionValue="id"
-                  formControlName="typeId"
+                  formControlName="categoryId"
                 ></lib-select>
-                <lib-field-validations [appControl]="itemDefinitionForm.controls['typeId']">
+                <lib-field-validations [appControl]="itemDefinitionForm.controls['categoryId']">
                 </lib-field-validations>
               </lib-form-group>
             </div>
   
             <div class="col-12 my-2 multi-cont">
                 <lib-form-group>
-                    <lib-label [appControl]="itemDefinitionForm.controls['categoryId']">
+                    <lib-label [appControl]="itemDefinitionForm.controls['typeId']">
                         {{ 'itemCategory.unitOfMeasureCategory' | translate }}
                       </lib-label>
                     <lib-select
                       placeholder="{{ 'itemCategory.unitOfMeasureCategory' | translate }}"
                       [options]="ItemCategoryDropDown"
-                      optionLabel="nameEn"
+                      optionLabel="name"
                       optionValue="id"
-                      formControlName="categoryId"
+                      formControlName="typeId"
+                      (valueChanged)="uomCategoryChanged($event)"
                     ></lib-select>
-                    <lib-field-validations [appControl]="itemDefinitionForm.controls['categoryId']">
+                    <lib-field-validations [appControl]="itemDefinitionForm.controls['typeId']">
                     </lib-field-validations>
                   </lib-form-group>
             </div>
@@ -72,7 +73,7 @@
                     <lib-select
                       placeholder="{{ 'itemCategory.mainItemUnit' | translate }}"
                       [options]="UOMCategoryDropDown"
-                      optionLabel="nameEn"
+                      optionLabel="name"
                       optionValue="id"
                       formControlName="uomId"
                     ></lib-select>
