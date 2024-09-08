@@ -57,29 +57,37 @@
           <div class="grid">
             <div class="md:col-6">
               <lib-button-micro
-              nameClass="cancel"
-              title="{{ 'costCenter.Cancel' | translate }}"
-              (click)="cancelClick()"
-              widthNumber=100%
-            >
-            </lib-button-micro>
+                nameClass="cancel"
+                title="{{ 'costCenter.Cancel' | translate }}"
+                (click)="cancelClick()"
+                widthNumber="100%"
+              >
+              </lib-button-micro>
             </div>
             <div class="md:col-6">
               <lib-button-micro
-        nameClass="save"
-        title="{{ 'costCenter.save' | translate }}"
-        (click)="onSubmit()"
-        widthNumber=100%
-      >
-      </lib-button-micro>
+                nameClass="save"
+                title="{{ 'costCenter.save' | translate }}"
+                (click)="onSubmit()"
+                widthNumber="100%"
+              >
+              </lib-button-micro>
+              <div class="md:col-6">
+                <lib-input-switch formControlName="isActive" (valueChanged)="changeStatus($event)">
+                </lib-input-switch>
+
+                <p class="active" *ngIf="isActive">
+                  {{ 'User.Activate' | translate }}
+                </p>
+                <p class="inactive" *ngIf="!isActive">
+                  {{ 'User.Deactivate' | translate }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="action">
-      
-      
-    </div>
+    <div class="action"></div>
   </form>
 </div>
