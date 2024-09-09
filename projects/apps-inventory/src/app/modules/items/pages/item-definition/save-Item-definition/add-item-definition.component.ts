@@ -20,7 +20,7 @@ export class AddItemDefinitionComponent implements OnInit {
 
   itemDefinitionForm : FormGroup = new FormGroup({})
   id : number
-  uomLookup : { id: number; nameEn: string }[] = []
+  uomLookup : { id: number; name: string }[] = []
   colors = [
     { label: 'Red', value: '#FF0000', icon: 'pi pi-circle' },
     { label: 'Green', value: '#008000', icon: 'pi pi-circle' },
@@ -72,9 +72,9 @@ export class AddItemDefinitionComponent implements OnInit {
     { label: 'Honeydew', value: '#F0FFF0', icon: 'pi pi-circle' },
     { label: 'Azure', value: '#007FFF', icon: 'pi pi-circle' },
   ];
-  ItemCategoryDropDown : { id: number; nameAr: string; nameEn: string }[] = []
+  ItemCategoryDropDown : { id: number; name: string }[] = []
   tagDropDropDownLookup : { id: number; name: string }[] = []
-  AccountsDropDownLookup : { id: number; nameAr: string; nameEn: string }[] = []
+  AccountsDropDownLookup : { id: number; nameAr: string; nameEn: string }[] =  []
   taxesDropDropDownLookup : { id: number; nameAr: string; nameEn: string }[] = []
   trackingTrackingLookup : { id: number; name: string }[] = []
   uomCodeLookup : UomCodeLookup[] = []
