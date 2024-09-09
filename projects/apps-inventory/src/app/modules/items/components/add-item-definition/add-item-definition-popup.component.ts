@@ -66,7 +66,7 @@ export class AddItemDefinitionPopupComponent implements OnInit {
 
   initializeitemDefinition() {
     this.itemDefinitionForm = this.fb.group({
-      name: new FormControl(''),
+      name: new FormControl('' ,[customValidators.required]),
       typeId: new FormControl('', [customValidators.required]),
       categoryId: new FormControl([],  [customValidators.required]),
       uomId: new FormControl([],  [customValidators.required]),
