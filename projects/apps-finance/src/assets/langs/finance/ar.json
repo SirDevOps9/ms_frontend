@@ -143,6 +143,18 @@
     "paymentMethodTypeRequired": "تفاصيل طريقة الدفع مطلوبة في السطر",
     "addpaymentout": "إضافة إيصال نقدي",
     "editpaymentout": "تعديل إيصال نقدي"
+  },
+  "AccountStatement": {
+    "posted": "تم النشر",
+    "unposted": "لم يتم النشر",
+    "viewData": "عرض البيانات",
+    "journalEntryCode": "رمز قيد اليومية",
+    "journalEntryDate": "تاريخ قيد اليومية",
+    "description": "الوصف",
+    "debitAmount": "مقدار المدين",
+    "creditAmount": "مقدار الدائن",
+    "balance": "الرصيد",
+    "sourceDocumentCode": "رمز المستند المصدر"
   }
 
 }

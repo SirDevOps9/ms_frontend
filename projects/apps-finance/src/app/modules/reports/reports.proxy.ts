@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { reportAccount } from 'projects/apps-accounting/src/app/modules/journal-entry/models';
 import { HttpService } from 'shared-lib';
-import { BankAccountStatementDto, BankAccountStatementfilterDto } from './models';
+import { BankAccountStatementDto, BankAccountStatementfilterDto, BankAccountWithCurrency, DropDownDto } from './models';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,10 +11,18 @@ export class ReportsProxy {
 
   getBankAccountStatement(
     filter: BankAccountStatementfilterDto
-  ): Observable<BankAccountStatementDto[]> {
+  ): Observable<BankAccountStatementDto> {
     return this.httpService.post<BankAccountStatementfilterDto>(
       `FinanceReports/BankAccountStatement`,
       filter
     );
+  }
+
+  BankAccountDropDown( bankId :number) : Observable<BankAccountWithCurrency[]> {
+    return this.httpService.get(`Bank/BankAccountDropDown?bankId=${bankId}`);
+  }
+
+  BankDropDown() : Observable<DropDownDto[]> {
+    return this.httpService.get(`Bank/BankDropDown`);
   }
 }

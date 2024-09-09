@@ -84,7 +84,7 @@
     "delete": "Payment In Deleted Successfully"
   },
   "PaymentOut": {
-    "Title":"Payment Out",
+    "Title": "Payment Out",
     "add": "Payment Out Added Successfully",
     "edit": "Payment Out Updated Successfully",
     "delete": "Payment Out Deleted Successfully",
@@ -160,6 +160,26 @@
     "paymentMethodTypeRequired": "payment Method details Required In line",
     "addpaymentout": " Add Payment out",
     "editpaymentout": " Edit Payment out"
+  },
+  "BankAccountStatement": {
+    "DisplayCurrency": "Display Currency",
+    "Bank": "Bank",
+    "BankAccount": "Bank Account",
+    "SelectBankValue": "Select Bank 1 Value",
+    "SelectBankAccountValue": "Select Bank Account 1 Value",
+    "ViewData":"View Data",
+    "Date":"Date",
+    "PaymentCode":"Payment Code",
+    "PaymentName":"Payment Name",
+    "Debit":"Debit (In)",
+    "Credit":"Credit (Out)",
+    "Balance":"Balance",
+    "PaymentMethodName":"Payment Method",
+    "SourceCode":"Source Code",
+    "JournalCode":"Journal Code",
+    "PaidByDetailsName":"Paid By Details",
+    "AccountName":"Linked GL Account",
+    "HeaderDescription":"Header Description",
+    "LineDescription":"Line Description"
   }
-
 }
