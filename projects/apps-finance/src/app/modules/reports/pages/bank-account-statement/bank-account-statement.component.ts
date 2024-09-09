@@ -79,6 +79,8 @@ export class BankAccountStatementComponent {
         this.reportsService.BankAccountStatementObservable.subscribe((res: BankAccountStatementDto) => {
           this.tableData = res;
           this.transactions = res?.transactions;
+          this.totalDebit = res?.totalDebit;
+          this.totalCredit = res?.totalCredit;
           console.log("ransactin", res.transactions)
         });
       } else {
