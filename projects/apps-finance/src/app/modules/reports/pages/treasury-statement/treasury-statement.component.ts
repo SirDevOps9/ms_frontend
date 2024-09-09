@@ -3,9 +3,11 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { customValidators, LanguageService,  PrintService } from 'shared-lib';
-import { treasuryStatementDto } from '../../models';
+import { treasuryStatementDto, TreasuryStatementfilterDto } from '../../models';
 import { TreasuryDropDown } from '../../../finance/models';
 import { TranscationsService } from '../../../transcations/transcations.service';
+import { ReportsService } from '../../reports.service';
+import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 
 @Component({
   selector: 'app-treasury-statement',
@@ -18,7 +20,7 @@ export class TreasuryStatementComponent implements OnInit {
   treasuryDropDown: TreasuryDropDown[] = []
   defoultSelectedAcounts: number[] = [];
   currency: string
-  tableData: treasuryStatementDto[];
+  tableData: treasuryStatementDto;
   cols: any[] = [];
   total: number = 0;
   constructor(
@@ -27,6 +29,8 @@ export class TreasuryStatementComponent implements OnInit {
     private languageService: LanguageService,
     private financeService: TranscationsService,
     private PrintService: PrintService,
+    private ReportService: ReportsService,
+    public generalService: GeneralService
 
   ) {}
 
@@ -38,16 +42,26 @@ export class TreasuryStatementComponent implements OnInit {
     this.initializeDates();
 
     this.reportForm.valueChanges.subscribe(() => {
-      this.tableData = [];
+      this.tableData.transactions = [];
+    });
+
+    this.ReportService.treasuryStatementObservable.subscribe(data => {
+      this.tableData = data;
+    })
+
+    this.reportForm.get('treasuryId')!.valueChanges.subscribe(Id => {
+      const selected = this.treasuryDropDown.find(x => x.id === Id);
+      if (selected) {
+        this.reportForm.get('currency')!.setValue(selected.currencyName);
+      }
     });
   }
 
   getTreasuryDropDown() {
     this.financeService.treasuryDropDown()
     this.financeService.getTreasuryDropDownDataObservable.subscribe((res: any) => {
-      this.treasuryDropDown = res
-      this.currency = res.currencyName
-    })
+      this.treasuryDropDown = res  
+     })
   }
 
   initializeForm() {
@@ -55,6 +69,7 @@ export class TreasuryStatementComponent implements OnInit {
       dateFrom: new FormControl('', [customValidators.required]),
       dateTo: new FormControl('', [customValidators.required]),
       treasuryId: new FormControl('', [customValidators.required]),
+      currency:new FormControl('')
     });
   }
 
@@ -71,6 +86,18 @@ export class TreasuryStatementComponent implements OnInit {
     this.PrintService.print(id);
   }
   getReportData(){
-
+    const formValue = this.reportForm.value;
+    const filterDto: TreasuryStatementfilterDto = {
+    DateFrom: formValue.dateFrom,
+    DateTo: formValue.dateTo,
+    TreasuryId: formValue.treasuryId
+  };
+    console.log("sandra",filterDto)
+    this.ReportService.getTreasuryStatement(filterDto)
+    this.ReportService.treasuryStatementObservable.subscribe(data => {
+      console.log("data",data)
+      this.tableData = data;
+      console.log("tableData ",this.tableData )
+    })
   }
 }

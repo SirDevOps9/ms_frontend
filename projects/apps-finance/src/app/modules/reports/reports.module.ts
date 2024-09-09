@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LayoutPageComponent } from 'apps-shared-lib';
+import { LandingPageComponent, LayoutPageComponent } from 'apps-shared-lib';
 import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
 import { RouterModule, Routes } from '@angular/router';
 import { BankAccountStatementComponent } from './pages/bank-account-statement/bank-account-statement.component';
@@ -13,11 +13,11 @@ const routes: Routes = [
     data: {
       moduleId: Modules.Finance,
     },
-    children: [
+    children: [ 
+      
       {
         path: 'bankaccountstatement',
         component: BankAccountStatementComponent,
-        //  canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.BANK_ACCOUNT_STATEMENT,
         },
@@ -25,9 +25,8 @@ const routes: Routes = [
       {
         path: 'treasury-statement',
         component: TreasuryStatementComponent,
-        //  canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.BANK_ACCOUNT_STATEMENT,
+          breadcrumb: BreadcrumbLabel.TREASURY_STATEMENT,
         },
       },
     ],

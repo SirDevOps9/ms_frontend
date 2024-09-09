@@ -1,4 +1,12 @@
 export interface treasuryStatementDto {
+    totalDebit: string;
+    totalCredit: string;
+    totalBalance: string;
+    transactions: TreasuryStatmentTransactionDto[];
+}
+
+
+export interface TreasuryStatmentTransactionDto {
     date: string;
     paymentCode: string;
     paymentName: string;
