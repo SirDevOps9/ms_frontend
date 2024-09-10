@@ -118,3 +118,23 @@ input[type=checkbox]{
     border-radius: 6px;
     border: 1px solid #d1d5db;
   }
+
+  .code {
+    color:#1a90b0;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .code:hover {
+    color: darkblue;
+  }
+.total {
+  text-align: center;
+}
+.imptyData {
+  font-weight: bold;
+  text-align: center;
+}
+td {
+  background-color:#f2f4f8;
+  padding: 10px;
+}

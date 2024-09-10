@@ -11,6 +11,7 @@
   "Success": "نجاح",
   "Error": "خطأ",
   "ErrorInDelete": "خطأ فى الحذف",
+  "DateFromLessThanToValidation": "التاريخ من يجب أن يكون قبل التاريخ إلى.",
   "PaymentIn": {
     "Form": {
       "Save": "حفظ",
