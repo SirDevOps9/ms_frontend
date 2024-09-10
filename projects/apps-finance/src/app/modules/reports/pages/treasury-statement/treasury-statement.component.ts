@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { customValidators, LanguageService,  PrintService } from 'shared-lib';
+import { customValidators, FormsService, LanguageService,  PrintService } from 'shared-lib';
 import { treasuryStatementDto, TreasuryStatementfilterDto } from '../../models';
 import { TreasuryDropDown } from '../../../finance/models';
 import { TranscationsService } from '../../../transcations/transcations.service';
@@ -23,6 +23,8 @@ export class TreasuryStatementComponent implements OnInit {
   tableData: treasuryStatementDto;
   cols: any[] = [];
   total: number = 0;
+  selectedTreasuryName: string = '';
+
   constructor(
     private fb: FormBuilder,
     private titleService: Title,
@@ -30,7 +32,8 @@ export class TreasuryStatementComponent implements OnInit {
     private financeService: TranscationsService,
     private PrintService: PrintService,
     private ReportService: ReportsService,
-    public generalService: GeneralService
+    public generalService: GeneralService,
+    private formsService: FormsService,
 
   ) {}
 
@@ -54,6 +57,9 @@ export class TreasuryStatementComponent implements OnInit {
       const selected = this.treasuryDropDown.find(x => x.id === Id);
       if (selected) {
         this.reportForm.get('currency')!.setValue(selected.currencyName);
+        this.currency=selected.currencyName
+        this.selectedTreasuryName = selected.name
+
       }
     });
   }
@@ -87,18 +93,18 @@ export class TreasuryStatementComponent implements OnInit {
     this.PrintService.print(id);
   }
   getReportData(){
+
+    if (!this.formsService.validForm(this.reportForm, false)) return;
+
     const formValue = this.reportForm.value;
     const filterDto: TreasuryStatementfilterDto = {
     DateFrom: formValue.dateFrom,
     DateTo: formValue.dateTo,
     TreasuryId: formValue.treasuryId
   };
-    console.log("sandra",filterDto)
     this.ReportService.getTreasuryStatement(filterDto)
     this.ReportService.treasuryStatementObservable.subscribe(data => {
-      console.log("data",data)
       this.tableData = data;
-      console.log("tableData ",this.tableData )
     })
   }
 }

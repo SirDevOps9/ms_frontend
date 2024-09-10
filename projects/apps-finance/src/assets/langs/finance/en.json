@@ -166,8 +166,8 @@
     "date": "Date",
     "paymentCode": "Payment Code",
     "paymentName": "Payment Name",
-    "debit": "Debit",
-    "credit": "Credit",
+    "debit": "Debit (in)",
+    "credit": "Credit (out)",
     "balance": "Balance",
     "paymentMethodName": "Payment Method",
     "sourceCode": "Source Code",
@@ -181,8 +181,9 @@
     "openingBalance":"Opening Balance",
     "totals":"Totals",
     "TreasuryStatement":"Treasury Statement",
-     "currency":"Currency"
-  }
+     "currency":"Currency",
+     "DateFrom":"Date From",
+    "DateTo":"Date To"
   },
   "BankAccountStatement": {
     "DisplayCurrency": "Display Currency",
