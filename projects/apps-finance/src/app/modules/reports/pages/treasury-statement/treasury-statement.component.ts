@@ -35,7 +35,7 @@ export class TreasuryStatementComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(this.languageService.transalte('reportAccount.AccountStatement'));
+    this.titleService.setTitle(this.languageService.transalte('TreasuryStatement.TreasuryStatement'));
 
     this.initializeForm();
     this.getTreasuryDropDown();

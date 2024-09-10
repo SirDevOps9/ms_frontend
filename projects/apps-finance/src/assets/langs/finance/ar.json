@@ -4,7 +4,9 @@
     "PaymentOutList": "قائمة الإيصالات النقدية",
     "AddPaymentOut": "إضافة إيصال نقدي",
     "EditPaymentOut": "تعديل إيصال نقدي",
-    "BankAccountStatement": "كشف الحساب البنكي"
+    "BankAccountStatement": "كشف الحساب البنكي",
+    "TreasuryStatement": "بيان الخزانة"
+
   },
   "Success": "نجاح",
   "Error": "خطأ",
