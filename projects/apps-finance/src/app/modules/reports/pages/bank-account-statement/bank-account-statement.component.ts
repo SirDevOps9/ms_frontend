@@ -148,13 +148,24 @@ export class BankAccountStatementComponent {
     });
   }
 
-  routeToPaymentView(id:number){
+  routeToPaymentView(id:number, paymentname: string){
+    const pageName = paymentname?.replace(/\s+/g, '').toLowerCase();
+    console.log(pageName,"sddddd")
+
+    console.log(paymentname,"sddddd")
     const test =location.href.split("/")
         console.log(test[3]);
-    const url = this.router.serializeUrl(
-      this.router.createUrlTree([`${test[3]}/transcations/paymentin/view/${id}`])
-    );
-    window.open(url, '_blank');
+    //     if(paymentname==SourceDocument.PaymentIn)
+    //       {
+    //         const url = this.router.serializeUrl(
+    //           this.router.createUrlTree([`${test[3]}/transcations/paymentin/view/${id}`])
+    //         );
+    //         window.open(url, '_blank');
+    //       }else{
+    //         const url = this.router.serializeUrl(
+    //           this.router.createUrlTree([`${test[3]}/transcations/paymentout/view/${id}`])
+    //         );
+    // window.open(url, '_blank');
       }
     
       routeToJournalView(id:number){
