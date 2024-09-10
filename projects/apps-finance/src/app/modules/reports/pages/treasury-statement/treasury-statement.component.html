@@ -78,14 +78,17 @@
                   },{
                     name: 'debit',
                     headerText: 'TreasuryStatement.debit' | translate,
+                    template:debit
                   },
                   {
                     name: 'credit',
                     headerText: 'TreasuryStatement.credit' | translate,
+                    template:credit
                   },
                   {
                     name: 'balance',
                     headerText: 'TreasuryStatement.balance' | translate,
+                    template:balance
                   },
                   {
                     name: 'paymentMethodName',
@@ -123,6 +126,23 @@
         <ng-template #date let-account>
           <div>
             <p>{{ account.date | date : 'MM/dd/yyyy' }}</p>
+          </div>
+        </ng-template>
+
+        <ng-template #balance let-line>
+          <div>
+            <p>{{ line.balance | numberFormat }}</p>
+          </div>
+        </ng-template>
+        <ng-template #debit let-line>
+          <div>
+            <p>{{ line.debit | numberFormat }}</p>
+          </div>
+        </ng-template>
+
+        <ng-template #credit let-line>
+          <div>
+            <p>{{ line.credit | numberFormat }}</p>
           </div>
         </ng-template>
 
