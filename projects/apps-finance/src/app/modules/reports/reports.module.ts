@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LandingPageComponent, LayoutPageComponent } from 'apps-shared-lib';
+import {  LayoutPageComponent } from 'apps-shared-lib';
 import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
 import { RouterModule, Routes } from '@angular/router';
 import { BankAccountStatementComponent } from './pages/bank-account-statement/bank-account-statement.component';

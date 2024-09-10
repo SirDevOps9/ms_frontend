@@ -80,6 +80,7 @@
     </form>
     <div class="mb-4">
       <lib-data-table
+        [firstRow]="true"
         [items]="transactions"
         className="p-datatable-gridlines"
         [reportTable]="true"
@@ -96,6 +97,7 @@
         {
           name: 'paymentCode',
           headerText: 'BankAccountStatement.PaymentCode' | translate,
+          template:paymentCode
         },
         {
           name: 'paymentName',
@@ -127,6 +129,7 @@
         {
           name: 'journalCode',
           headerText: 'BankAccountStatement.JournalCode' | translate,
+          template:journalCode
         },
         {
           name: 'paidByDetailsName',
@@ -147,11 +150,22 @@
                 ]
               }"
       >
-        <ng-template #date let-account>
-          <div>
-            <p>{{ account.journalEntryDate | date : 'MM/dd/yyyy' }}</p>
-          </div>
-        </ng-template>
+        <ng-container firstRow>
+          <td class="total">{{ openingBalanceLine?.date | date : 'MM/dd/yyyy' }}</td>
+          <td class="total">{{ openingBalanceLine?.headerDescription }}</td>
+          <td class="total">{{ openingBalanceLine?.debit }}</td>
+          <td class="total">{{ openingBalanceLine?.credit }}</td>
+          <td class="total">{{ openingBalanceLine?.balance }}</td>
+          <td class="imptyData"></td>
+          <td class="imptyData"></td>
+          <td class="imptyData"></td>
+          <td class="imptyData"></td>
+          <td class="imptyData"></td>
+          <td class="imptyData"></td>
+          <td class="imptyData"></td>
+          <td class="imptyData"></td>
+        </ng-container>
+
         <ng-container footer>
           <tr>
             <td class="imptyData"></td>
@@ -159,11 +173,24 @@
             <td class="imptyData"></td>
             <td class="total">{{ totalDebit | numberFormat }}</td>
             <td class="total">{{ totalCredit | numberFormat }}</td>
-            <td class="total">{{ totalBalance }}</td>
+            <td class="total">{{ totalBalance | numberFormat }}</td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
             <td class="imptyData"></td>
             <td class="imptyData"></td>
           </tr>
         </ng-container>
+        <ng-template #paymentCode let-transactions>
+          <div>
+            <p class="code" (click)="routeToPaymentView(transactions.paymentHeaderId)">{{ transactions.paymentCode}}</p>
+          </div>
+        </ng-template>
+        <ng-template #journalCode let-transactions>
+          <div>
+            <p class="code" (click)="routeToJournalView(transactions.journalId)">{{ transactions.journalCode}}</p>
+          </div>
+        </ng-template>
       </lib-data-table>
     </div>
     <div id="printableTable">

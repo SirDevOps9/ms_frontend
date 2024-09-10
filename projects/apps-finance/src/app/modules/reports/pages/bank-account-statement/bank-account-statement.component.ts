@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
 import { AccountsChildrenDropDown } from 'projects/apps-accounting/src/app/modules/account/models';
@@ -31,8 +31,8 @@ import { ReportsService } from '../../reports.service';
 export class BankAccountStatementComponent {
   accountStatementForm: FormGroup;
   defoultSelectedAcounts: number[] = [];
-
   tableData: BankAccountStatementDto;
+  openingBalanceLine: BankAccountStatementLinesDto;
   transactions: BankAccountStatementLinesDto[] = [];
   totalDebit: number;
   totalCredit: number;
@@ -49,14 +49,15 @@ export class BankAccountStatementComponent {
     private accountService: AccountService,
     private reportsService: ReportsService,
     private routerService: RouterService,
-    private router: ActivatedRoute,
+    private router:Router,
     private titleService: Title,
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
     private ToasterService: ToasterService,
     private PrintService: PrintService,
     public generalService: GeneralService,
-    private formsService: FormsService
+    private formsService: FormsService,
+
   ) {}
 
   ngOnInit() {
@@ -94,6 +95,7 @@ export class BankAccountStatementComponent {
       this.reportsService.BankAccountStatementObservable.subscribe(
         (res: BankAccountStatementDto) => {
           this.tableData = res;
+          this.openingBalanceLine = res.openingBalance;
           this.transactions = res?.transactions?.map((transaction) => ({
             ...transaction,
             date: new Date(transaction.date).toISOString().split('T')[0],
@@ -145,4 +147,22 @@ export class BankAccountStatementComponent {
       }
     });
   }
-}
+
+  routeToPaymentView(id:number){
+    const test =location.href.split("/")
+        console.log(test[3]);
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`${test[3]}/transcations/paymentin/view/${id}`])
+    );
+    window.open(url, '_blank');
+      }
+    
+      routeToJournalView(id:number){
+        const test =location.href.split("/")
+            console.log(test[3]);
+        const url = this.router.serializeUrl(
+          this.router.createUrlTree([`/accounting/transcations/journalentry/view/${id}`])
+        );
+        window.open(url, '_blank');
+          }
+    }
