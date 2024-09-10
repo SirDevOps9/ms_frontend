@@ -7,4 +7,6 @@ export * from './bank-account';
 
 export * from './treasury-statement-dto'
 export * from './treasury-statement-filter-dto';
+export * from './shared-finance-report-enums';
+
 

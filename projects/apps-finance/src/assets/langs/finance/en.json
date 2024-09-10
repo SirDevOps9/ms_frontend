@@ -9,6 +9,7 @@
   "Success": "Success",
   "Error": "Error",
   "ErrorInDelete": "Error In Delete",
+  "DateFromLessThanToValidation":"date From is not before the end of dateTo.",
   "PaymentIn": {
     "Form": {
       "Save": "Save",
