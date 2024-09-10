@@ -1,14 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import {  Router } from '@angular/router';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
-import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
-import { JournalEntryService } from 'projects/apps-accounting/src/app/modules/journal-entry/journal-entry.service';
 import {
   ToasterService,
   LanguageService,
-  RouterService,
   customValidators,
   FormsService,
   PrintService,
@@ -45,13 +42,10 @@ export class BankAccountStatementComponent {
   selectedBankAccountName: string = '';
   constructor(
     private fb: FormBuilder,
-    private accountService: AccountService,
     private reportsService: ReportsService,
-    private routerService: RouterService,
     private router:Router,
     private titleService: Title,
     private languageService: LanguageService,
-    private journalEntryService: JournalEntryService,
     private ToasterService: ToasterService,
     private PrintService: PrintService,
     public generalService: GeneralService,
@@ -95,14 +89,10 @@ export class BankAccountStatementComponent {
         (res: BankAccountStatementDto) => {
           this.tableData = res;
           this.openingBalanceLine = res.openingBalance;
-          this.transactions = res?.transactions?.map((transaction) => ({
-            ...transaction,
-            date: new Date(transaction.date).toISOString().split('T')[0],
-          }));
+          this.transactions = res?.transactions;
           this.totalDebit = res?.totalDebit;
           this.totalCredit = res?.totalCredit;
           this.totalBalance = res?.totalBalance;
-          console.log('ransactin', res.transactions);
         }
       );
     } else {
