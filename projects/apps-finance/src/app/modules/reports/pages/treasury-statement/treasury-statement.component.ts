@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { customValidators, FormsService, LanguageService,  PrintService } from 'shared-lib';
+import { customValidators, FormsService, LanguageService,  PrintService ,ToasterService } from 'shared-lib';
 import { treasuryStatementDto, TreasuryStatementfilterDto, TreasuryStatmentTransactionDto } from '../../models';
 import { TreasuryDropDown } from '../../../finance/models';
 import { TranscationsService } from '../../../transcations/transcations.service';
@@ -36,6 +36,8 @@ export class TreasuryStatementComponent implements OnInit {
     public generalService: GeneralService,
     private formsService: FormsService,
     private router:Router,
+    private ToasterService: ToasterService
+
 
 
   ) {}
@@ -98,6 +100,15 @@ export class TreasuryStatementComponent implements OnInit {
   getReportData(){
 
     if (!this.formsService.validForm(this.reportForm, false)) return;
+    if (
+      this.reportForm.get('dateFrom')?.value >
+      this.reportForm.get('dateTo')?.value
+    ) {
+      this.ToasterService.showError(
+        this.languageService.transalte('Error'),
+        this.languageService.transalte('DateFromLessThanToValidation')
+      );
+    }
 
     const formValue = this.reportForm.value;
     const filterDto: TreasuryStatementfilterDto = {
