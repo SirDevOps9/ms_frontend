@@ -162,6 +162,9 @@
               </ng-container>
             </ng-container>
           </tr>
+          <tr *ngIf="firstRow">
+            <ng-content select="[firstRow]"> </ng-content>
+           </tr>
         </ng-template>
         <!-- ///////////// -->
         <!-- <ng-template pTemplate="body" let-row let-i="rowIndex">
@@ -181,11 +184,9 @@
             </td>
           </tr>
         </ng-template> -->
-
+       
         <ng-template pTemplate="body" let-row let-i="rowIndex">
-          <tr *ngIf="firstRow">
-            <ng-content select="[firstRow]"> </ng-content>
-           </tr>
+        
           <tr [ngClass]="{ cssClass: i == selectedIndex }">
             <ng-container *ngFor="let col of tableConfigs.columns">
               <!-- Check if the column has children -->

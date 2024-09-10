@@ -3,7 +3,8 @@
     "PaymentOut": "إيصال نقدي",
     "PaymentOutList": "قائمة الإيصالات النقدية",
     "AddPaymentOut": "إضافة إيصال نقدي",
-    "EditPaymentOut": "تعديل إيصال نقدي"
+    "EditPaymentOut": "تعديل إيصال نقدي",
+    "TreasuryStatement": "بيان الخزانة"
   },
   "Success": "نجاح",
   "Error": "خطأ",
@@ -158,7 +159,13 @@
     "accountName": "اسم الحساب",
     "headerDescription": "وصف الرأس",
     "lineDescription": "وصف السطر",
-    "ViewData": "عرض البيانات"
+    "ViewData": "عرض البيانات",
+    "treasury": "الخزانة",
+    "openingBalance": "الرصيد الافتتاحي",
+    "totals": "الإجماليات",
+    "TreasuryStatement": "بيان الخزانة",
+    "currency": "العملة"
+   
   }
 
 }

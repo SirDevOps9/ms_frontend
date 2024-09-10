@@ -20,6 +20,7 @@
               [options]="treasuryDropDown"
               optionValue="id"
               optionLabel="name"
+              [placeholder]="'TreasuryStatement.treasury' | translate"
             >
             </lib-select>
           </div>
@@ -28,6 +29,7 @@
                 type="text" 
                 formControlName="currency" 
                 [readOnly]="true" 
+                [placeholder]="'TreasuryStatement.currency' | translate"
                 />
           </div>
           <div class="col-12 md:col-3">
@@ -122,24 +124,38 @@
         </ng-template>
 
         <ng-container firstRow>
-          <td class="imptyData"></td>
+          <td class="imptyData">{{'TreasuryStatement.openingBalance' | translate}}</td>
           <td class="imptyData"></td>
           <td class="imptyData"></td>
           <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceDebit, generalService.fraction) }}</td>
           <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceCredit, generalService.fraction)}}</td>
           <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceBalance, generalService.fraction)}}</td>
+          <td class="imptyData"></td> 
+          <td class="imptyData"></td> 
           <td class="imptyData"></td>      
+          <td class="imptyData"></td> 
+          <td class="imptyData"></td> 
+          <td class="imptyData"></td> 
+          <td class="imptyData"></td> 
+          <td class="imptyData"></td> 
           </ng-container>
-          
+
         <ng-container footer>
           <tr>
-            <td class="imptyData"></td>
+            <td class="imptyData">{{'TreasuryStatement.totals' | translate}}</td>
             <td class="imptyData"></td>
             <td class="imptyData"></td>
             <td class="total">{{ generalService.formatNumber(  tableData.totalDebit, generalService.fraction) }}</td>
             <td class="total">{{ generalService.formatNumber(  tableData.totalCredit, generalService.fraction)}}</td>
             <td class="total">{{ generalService.formatNumber(  tableData.totalBalance, generalService.fraction)}}</td>
             <td class="imptyData"></td>
+            <td class="imptyData"></td> 
+          <td class="imptyData"></td>      
+          <td class="imptyData"></td> 
+          <td class="imptyData"></td> 
+          <td class="imptyData"></td> 
+          <td class="imptyData"></td> 
+          <td class="imptyData"></td> 
           </tr>
         </ng-container>
       </lib-data-table>
@@ -181,6 +197,7 @@
         
     <lib-data-table
     *ngIf="tableData.transactions"
+    [firstRow]="true"
       [items]="tableData.transactions"
       className="p-datatable-gridlines"
       [reportTable]="true"
@@ -226,14 +243,14 @@
                   name: 'journalCode',
                   headerText: 'TreasuryStatement.journalCode' | translate,
                 },
-                  {
-                    name: 'paidByDetails',
-                    headerText: 'TreasuryStatement.paidByDetailsName' | translate,
-                  },
-                  {
-                    name: 'linkedGLAccount',
-                    headerText: 'TreasuryStatement.accountName' | translate,
-                  },
+                {
+                  name: 'paidByDetails',
+                  headerText: 'TreasuryStatement.paidByDetailsName' | translate,
+                },
+                {
+                  name: 'linkedGLAccount',
+                  headerText: 'TreasuryStatement.accountName' | translate,
+                },
                 {
                   name: 'headerDescription',
                   headerText: 'TreasuryStatement.headerDescription' | translate,
@@ -252,15 +269,39 @@
         </div>
       </ng-template>
 
+      <ng-container firstRow>
+        <td class="imptyData">{{'TreasuryStatement.openingBalance' | translate}}</td>
+        <td class="imptyData"></td>
+        <td class="imptyData"></td>
+        <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceDebit, generalService.fraction) }}</td>
+        <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceCredit, generalService.fraction)}}</td>
+        <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceBalance, generalService.fraction)}}</td>
+        <td class="imptyData"></td> 
+        <td class="imptyData"></td> 
+        <td class="imptyData"></td>      
+        <td class="imptyData"></td> 
+        <td class="imptyData"></td> 
+        <td class="imptyData"></td> 
+        <td class="imptyData"></td> 
+        <td class="imptyData"></td> 
+        </ng-container>
+
       <ng-container footer>
         <tr>
-          <td class="imptyData"></td>
+          <td class="imptyData">{{'TreasuryStatement.totals' | translate}}</td>
           <td class="imptyData"></td>
           <td class="imptyData"></td>
           <td class="total">{{ generalService.formatNumber(  tableData.totalDebit, generalService.fraction) }}</td>
           <td class="total">{{ generalService.formatNumber(  tableData.totalCredit, generalService.fraction)}}</td>
           <td class="total">{{ generalService.formatNumber(  tableData.totalBalance, generalService.fraction)}}</td>
           <td class="imptyData"></td>
+          <td class="imptyData"></td> 
+        <td class="imptyData"></td>      
+        <td class="imptyData"></td> 
+        <td class="imptyData"></td> 
+        <td class="imptyData"></td> 
+        <td class="imptyData"></td> 
+        <td class="imptyData"></td> 
         </tr>
       </ng-container>
     </lib-data-table>

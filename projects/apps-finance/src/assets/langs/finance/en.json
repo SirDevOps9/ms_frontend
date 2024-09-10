@@ -175,7 +175,12 @@
     "accountName": "Account Name",
     "headerDescription": "Header Description",
     "lineDescription": "Line Description",
-    "ViewData":"View Data"
+    "ViewData":"View Data",
+    "treasury":"Treasury",
+    "openingBalance":"Opening Balance",
+    "totals":"Totals",
+    "TreasuryStatement":"Treasury Statement",
+     "currency":"Currency"
   }
 
 }
