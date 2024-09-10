@@ -28,7 +28,6 @@ export class BankAccountStatementComponent {
   accountStatementForm: FormGroup;
   defoultSelectedAcounts: number[] = [];
   tableData: BankAccountStatementDto;
-  openingBalanceLine: BankAccountStatementLinesDto;
   transactions: BankAccountStatementLinesDto[] = [];
   totalDebit: number;
   totalCredit: number;
@@ -40,6 +39,10 @@ export class BankAccountStatementComponent {
   totalBalance: number;
   selectedBankName: string = '';
   selectedBankAccountName: string = '';
+  openingDebit: number;
+  openingCredit: number;
+  openingBalance:number;
+  openingHeader:String;
   constructor(
     private fb: FormBuilder,
     private reportsService: ReportsService,
@@ -88,11 +91,15 @@ export class BankAccountStatementComponent {
       this.reportsService.BankAccountStatementObservable.subscribe(
         (res: BankAccountStatementDto) => {
           this.tableData = res;
-          this.openingBalanceLine = res.openingBalance;
+          this.transactions = res?.transactions;
           this.transactions = res?.transactions;
           this.totalDebit = res?.totalDebit;
           this.totalCredit = res?.totalCredit;
           this.totalBalance = res?.totalBalance;
+          this.openingDebit = res?.openingBalance?.debit;
+          this.openingCredit = res?.openingBalance?.credit;
+          this.openingBalance = res?.openingBalance?.balance;
+          this.openingHeader =res?.openingBalance?.headerDescription;
         }
       );
     } else {

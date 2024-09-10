@@ -158,12 +158,12 @@
       </ng-template>
 
         <ng-container firstRow>
-          <td class="total">{{ openingBalanceLine?.headerDescription }}</td>
+          <td class="total">{{ openingHeader }}</td>
           <td class="imptyData"></td>
           <td class="imptyData"></td>
-          <td class="total">{{ openingBalanceLine?.debit }}</td>
-          <td class="total">{{ openingBalanceLine?.credit }}</td>
-          <td class="total">{{ openingBalanceLine?.balance }}</td>
+          <td class="total">{{ openingDebit | numberFormat}}</td>
+          <td class="total">{{ openingCredit | numberFormat}}</td>
+          <td class="total">{{ openingBalance | numberFormat }}</td>
           <td class="imptyData"></td>
           <td class="imptyData"></td>
           <td class="imptyData"></td>
@@ -315,12 +315,12 @@
             </div>
           </ng-template>
           <ng-container firstRow>
-            <td class="total">{{ openingBalanceLine?.headerDescription }}</td>
+            <td class="total">{{ openingHeader }}</td>
             <td class="imptyData"></td>
             <td class="imptyData"></td>
-            <td class="total">{{ openingBalanceLine?.debit }}</td>
-            <td class="total">{{ openingBalanceLine?.credit }}</td>
-            <td class="total">{{ openingBalanceLine?.balance }}</td>
+            <td class="total">{{ openingDebit | numberFormat}}</td>
+            <td class="total">{{ openingCredit | numberFormat}}</td>
+            <td class="total">{{ openingBalance | numberFormat }}</td>
             <td class="imptyData"></td>
             <td class="imptyData"></td>
             <td class="imptyData"></td>
