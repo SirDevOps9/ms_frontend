@@ -113,18 +113,17 @@ export class TreasuryStatementComponent implements OnInit {
 
   routeToPaymentView(transaction:TreasuryStatmentTransactionDto){
     const test =location.href.split("/")
-    const id=transaction.paymentCode
 
         if(transaction.paymentName==SourceDocument.PaymentIn)
         {
           const url = this.router.serializeUrl(
-            this.router.createUrlTree([`${test[3]}/transcations/paymentin/view/${id}`])
+            this.router.createUrlTree([`${test[3]}/transcations/paymentin/view/${transaction.paymentInHeaderId}`])
           );
           window.open(url, '_blank');
 
         }else{
           const url = this.router.serializeUrl(
-            this.router.createUrlTree([`${test[3]}/transcations/paymentout/view/${id}`])
+            this.router.createUrlTree([`${test[3]}/transcations/paymentout/view/${transaction.paymentOutHeaderId}`])
           );
           window.open(url, '_blank');
 
