@@ -43,6 +43,8 @@ close(){
       location.href = '../finance';
     } else if (key === Modules.Purchase) {
       location.href = '../purchase';
+    }else if (key === Modules.inventory) {
+      location.href = '../inventory';
     }
   }
 

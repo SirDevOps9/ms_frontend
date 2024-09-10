@@ -1,0 +1,21 @@
+<lib-popup-page
+title="{{ 'itemType.barcode' | translate }}"
+[closeFunction]="onCancel"
+[save]="false"
+[footer]="false"
+>
+
+<div class="flex justify-content-center" #QrCodeWrapper>
+    <qrcode [qrdata]="qrData" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+</div>
+
+<lib-button-micro
+[title]="'itemType.print' | translate"
+nameClass="print"
+iconName="pi pi-print"
+widthNumber="100%"
+(click)="printQrCode()"
+
+>
+</lib-button-micro>
+</lib-popup-page>  

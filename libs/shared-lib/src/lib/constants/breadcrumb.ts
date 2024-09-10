@@ -90,6 +90,10 @@ export class BreadcrumbLabel {
     static ADD_JOURNAL_OPENING_BALANCE ='Add Journal Entry Opening Balance';
     static EDIT_JOURNAL_OPENING_BALANCE ='Edit Journal Entry Opening Balance';
     static VIEW_JOURNAL_OPENING_BALANCE ='View Journal Entry Opening Balance';
+    static  ITEM_DIFINITION ='item Definition';
+    static  ADD_ITEM_DIFINITION ='Add Item Definition';
+    static  ITEM_TYPE ='Item Type';
+    static  ITEM_CATEGORY ='Item Category';
    
     static COST_CENTER ='Cost Center';
     static PAYMENT_TERM_ADD ='BreadCrumb.AddPaymentterm';
