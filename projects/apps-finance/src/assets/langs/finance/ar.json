@@ -4,7 +4,9 @@
     "PaymentOutList": "قائمة الإيصالات النقدية",
     "AddPaymentOut": "إضافة إيصال نقدي",
     "EditPaymentOut": "تعديل إيصال نقدي",
+    "BankAccountStatement": "كشف الحساب البنكي",
     "TreasuryStatement": "بيان الخزانة"
+
   },
   "Success": "نجاح",
   "Error": "خطأ",
@@ -159,13 +161,29 @@
     "accountName": "اسم الحساب",
     "headerDescription": "وصف الرأس",
     "lineDescription": "وصف السطر",
+    "ViewData": "عرض البيانات"
+  },
+  "BankAccountStatement": {
+    "DisplayCurrency": "عرض العملة",
+    "Bank": "البنك",
+    "BankAccount": "الحساب البنكي",
+    "SelectBankValue": "اختر قيمة البنك 1",
+    "SelectBankAccountValue": "اختر قيمة الحساب البنكي 1",
     "ViewData": "عرض البيانات",
-    "treasury": "الخزانة",
-    "openingBalance": "الرصيد الافتتاحي",
-    "totals": "الإجماليات",
-    "TreasuryStatement": "بيان الخزانة",
-    "currency": "العملة"
-   
+    "Date": "التاريخ",
+    "PaymentCode": "رمز الدفع",
+    "PaymentName": "اسم الدفع",
+    "Debit": "الخصم (داخل)",
+    "Credit": "الائتمان (خارج)",
+    "Balance": "الرصيد",
+    "PaymentMethodName": "طريقة الدفع",
+    "SourceCode": "رمز المصدر",
+    "JournalCode": "رمز القيد",
+    "PaidByDetailsName": "تفاصيل الدافع",
+    "AccountName": "الحساب العام المرتبط",
+    "HeaderDescription": "وصف الرأس",
+    "LineDescription": "وصف السطر",
+    "DateFrom": "التاريخ من",
+    "DateTo": "التاريخ إلى"
   }
-
 }

@@ -16,8 +16,12 @@ export class ReportsService {
     private routerService: RouterService
   ) {}
 
-  private bankAccountStatementDataSource = new BehaviorSubject<BankAccountStatementDto[]>([]);
+  private bankAccountStatementDataSource = new BehaviorSubject<BankAccountStatementDto>( {} as BankAccountStatementDto);
   public BankAccountStatementObservable = this.bankAccountStatementDataSource.asObservable();
+
+  public getBankDropDownData = new BehaviorSubject<any>([]);
+  getBankDropDownDataObservable = this.getBankDropDownData.asObservable();
+
 
   public treasuryStatementDataSource = new BehaviorSubject<treasuryStatementDto>({} as treasuryStatementDto)
   public treasuryStatementObservable = this.treasuryStatementDataSource.asObservable();
@@ -32,6 +36,18 @@ export class ReportsService {
       error: (error) => {
         this.loaderService.hide();
       },
+    });
+  }
+
+  bankAccountDropDown(id: number) {
+    return this.reportsProxy.BankAccountDropDown(id);
+  }
+
+  bankDropDown() {
+    this.reportsProxy.BankDropDown().subscribe((res) => {
+      if (res) {
+        this.getBankDropDownData.next(res);
+      }
     });
   }
 
