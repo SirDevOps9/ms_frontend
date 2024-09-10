@@ -47,6 +47,7 @@ export class TreasuryStatementComponent implements OnInit {
 
     this.ReportService.treasuryStatementObservable.subscribe(data => {
       this.tableData = data;
+      console.log("tableData",this.tableData)
     })
 
     this.reportForm.get('treasuryId')!.valueChanges.subscribe(Id => {

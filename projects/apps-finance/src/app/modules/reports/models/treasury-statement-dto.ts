@@ -1,4 +1,7 @@
 export interface treasuryStatementDto {
+    openingBalanceDebit: string;
+    openingBalanceCredit: string;
+    openingBalanceBalance: string;
     totalDebit: string;
     totalCredit: string;
     totalBalance: string;
@@ -16,8 +19,8 @@ export interface TreasuryStatmentTransactionDto {
     paymentMethodName: string;
     sourceCode: string;
     journalCode: string;
-    paidByDetailsName: string;
-    accountName: string;
+    paidByDetails: string;
+    linkedGLAccount: string;
     headerDescription: string;
     lineDescription: string;
 }
