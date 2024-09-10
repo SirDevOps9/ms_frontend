@@ -21,7 +21,7 @@ export class TablePrintComponent {
   @Input() items: any[];
   @Input() selectedIndex: number;
   @Input() currentPageResult: PageInfoResult;
-
+  @Input() firstRow: boolean = false;
   @Input() tableConfigs: TableConfig;
   @Input() className:string='';
 

@@ -23,4 +23,7 @@ export interface TreasuryStatmentTransactionDto {
     linkedGLAccount: string;
     headerDescription: string;
     lineDescription: string;
+    journalId:number;
+    paymentOutHeaderId:number;
+    paymentInHeaderId:number;
 }

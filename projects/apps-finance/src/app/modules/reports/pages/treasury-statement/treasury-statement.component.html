@@ -51,9 +51,9 @@
     </form>
 
       <lib-data-table
-      *ngIf="tableData.transactions"
+      
       [firstRow]="true"
-        [items]="tableData.transactions"
+        [items]="tableData!.transactions!"
         className="p-datatable-gridlines"
         [reportTable]="true"
         [tableConfigs]="{
@@ -142,7 +142,7 @@
         
 
         <ng-container firstRow>
-          <td class="imptyData">{{'TreasuryStatement.openingBalance' | translate}}</td>
+          <td class="imptyData" colspan="2">{{'TreasuryStatement.openingBalance' | translate}}</td>
           <td class="imptyData"></td>
           <td class="imptyData"></td>
           <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceDebit, generalService.fraction) }}</td>
@@ -210,6 +210,7 @@
           </form>
           <div class="mb-4">
             <lib-table-print
+            [firstRow]="true"
               resizableColumns="false"
               [items]="tableData.transactions"
               className="p-datatable-gridlines"
@@ -296,6 +297,23 @@
                   <td class="imptyData"></td>
                 </tr>
               </ng-container>
+              
+              <ng-container firstRow>
+                <td class="imptyData" colspan="2">{{'TreasuryStatement.openingBalance' | translate}}</td>
+                <td class="imptyData"></td>
+                <td class="imptyData"></td>
+                <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceDebit, generalService.fraction) }}</td>
+                <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceCredit, generalService.fraction)}}</td>
+                <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceBalance, generalService.fraction)}}</td>
+                <td class="imptyData"></td> 
+                <td class="imptyData"></td> 
+                <td class="imptyData"></td>      
+                <td class="imptyData"></td> 
+                <td class="imptyData"></td> 
+                <td class="imptyData"></td> 
+                <td class="imptyData"></td> 
+                <td class="imptyData"></td> 
+                </ng-container>
             </lib-table-print>
           </div>
         </div>
