@@ -107,16 +107,19 @@
         {
           name: 'debit',
           headerText: 'BankAccountStatement.Debit' | translate,
+          template:debit
 
         },
         {
           name: 'credit',
           headerText: 'BankAccountStatement.Credit' | translate,
+          template:credit
 
         },
         {
           name: 'balance',
           headerText: 'BankAccountStatement.Balance' | translate,
+          template:balance
 
         },
         {
@@ -151,18 +154,35 @@
                 ]
               }"
       >
-      <ng-template #date let-line>
-        <div>
-          <p>{{ line.date | date : 'MM/dd/yyyy' }}</p>
-        </div>
-      </ng-template>
+        <ng-template #date let-line>
+          <div>
+            <p>{{ line.date | date : 'MM/dd/yyyy' }}</p>
+          </div>
+        </ng-template>
+
+        <ng-template #balance let-line>
+          <div>
+            <p>{{ line.balance | numberFormat }}</p>
+          </div>
+        </ng-template>
+        <ng-template #debit let-line>
+          <div>
+            <p>{{ line.debit | numberFormat }}</p>
+          </div>
+        </ng-template>
+
+        <ng-template #credit let-line>
+          <div>
+            <p>{{ line.credit | numberFormat }}</p>
+          </div>
+        </ng-template>
 
         <ng-container firstRow>
           <td class="total">{{ openingHeader }}</td>
           <td class="imptyData"></td>
           <td class="imptyData"></td>
-          <td class="total">{{ openingDebit | numberFormat}}</td>
-          <td class="total">{{ openingCredit | numberFormat}}</td>
+          <td class="total">{{ openingDebit | numberFormat }}</td>
+          <td class="total">{{ openingCredit | numberFormat }}</td>
           <td class="total">{{ openingBalance | numberFormat }}</td>
           <td class="imptyData"></td>
           <td class="imptyData"></td>
@@ -193,12 +213,19 @@
         </ng-container>
         <ng-template #paymentCode let-transactions>
           <div>
-            <p class="code" (click)="routeToPaymentView(transactions.paymentHeaderId , transactions.paymentName)">{{ transactions.paymentCode}}</p>
+            <p
+              class="code"
+              (click)="routeToPaymentView(transactions.paymentHeaderId, transactions.paymentName)"
+            >
+              {{ transactions.paymentCode }}
+            </p>
           </div>
         </ng-template>
         <ng-template #journalCode let-transactions>
           <div>
-            <p class="code" (click)="routeToJournalView(transactions.journalId)">{{ transactions.journalCode}}</p>
+            <p class="code" (click)="routeToJournalView(transactions.journalId)">
+              {{ transactions.journalCode }}
+            </p>
           </div>
         </ng-template>
       </lib-data-table>
@@ -241,6 +268,7 @@
       <div class="mb-4">
         <lib-table-print
           resizableColumns="false"
+          [firstRow]="true"
           [items]="transactions"
           className="p-datatable-gridlines"
           [tableConfigs]="{
@@ -266,16 +294,19 @@
         {
           name: 'debit',
           headerText: 'BankAccountStatement.Debit' | translate,
+          template:debit
 
         },
         {
           name: 'credit',
           headerText: 'BankAccountStatement.Credit' | translate,
+          template:credit
 
         },
         {
           name: 'balance',
           headerText: 'BankAccountStatement.Balance' | translate,
+          template:balance
 
         },
         {
@@ -314,12 +345,35 @@
               <p>{{ line.date | date : 'MM/dd/yyyy' }}</p>
             </div>
           </ng-template>
+
+          <ng-template #date let-line>
+            <div>
+              <p>{{ line.date | date : 'MM/dd/yyyy' }}</p>
+            </div>
+          </ng-template>
+
+          <ng-template #balance let-line>
+            <div>
+              <p>{{ line.balance | numberFormat }}</p>
+            </div>
+          </ng-template>
+          <ng-template #debit let-line>
+            <div>
+              <p>{{ line.debit | numberFormat }}</p>
+            </div>
+          </ng-template>
+
+          <ng-template #credit let-line>
+            <div>
+              <p>{{ line.credit | numberFormat }}</p>
+            </div>
+          </ng-template>
           <ng-container firstRow>
-            <td class="total">{{ openingHeader }}</td>
+            <td class="total" colspan="2">{{ openingHeader }}</td>
             <td class="imptyData"></td>
             <td class="imptyData"></td>
-            <td class="total">{{ openingDebit | numberFormat}}</td>
-            <td class="total">{{ openingCredit | numberFormat}}</td>
+            <td class="total">{{ openingDebit | numberFormat }}</td>
+            <td class="total">{{ openingCredit | numberFormat }}</td>
             <td class="total">{{ openingBalance | numberFormat }}</td>
             <td class="imptyData"></td>
             <td class="imptyData"></td>
@@ -330,7 +384,7 @@
             <td class="imptyData"></td>
             <td class="imptyData"></td>
           </ng-container>
-  
+
           <ng-container footer>
             <tr>
               <td class="imptyData"></td>
