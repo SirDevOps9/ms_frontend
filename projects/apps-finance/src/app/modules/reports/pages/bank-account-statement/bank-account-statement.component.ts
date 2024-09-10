@@ -1,16 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
-import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
-import { AccountsChildrenDropDown } from 'projects/apps-accounting/src/app/modules/account/models';
-import { JournalEntryService } from 'projects/apps-accounting/src/app/modules/journal-entry/journal-entry.service';
-import { reportAccount } from 'projects/apps-accounting/src/app/modules/journal-entry/models';
 import {
   ToasterService,
   LanguageService,
-  RouterService,
   customValidators,
   FormsService,
   PrintService,
@@ -22,6 +17,7 @@ import {
   DropDownDto,
 } from '../../models';
 import { ReportsService } from '../../reports.service';
+import { SourceDocument } from '../../models/source-document-dto';
 
 @Component({
   selector: 'app-bank-account-statement',
@@ -46,13 +42,10 @@ export class BankAccountStatementComponent {
   selectedBankAccountName: string = '';
   constructor(
     private fb: FormBuilder,
-    private accountService: AccountService,
     private reportsService: ReportsService,
-    private routerService: RouterService,
     private router:Router,
     private titleService: Title,
     private languageService: LanguageService,
-    private journalEntryService: JournalEntryService,
     private ToasterService: ToasterService,
     private PrintService: PrintService,
     public generalService: GeneralService,
@@ -96,20 +89,16 @@ export class BankAccountStatementComponent {
         (res: BankAccountStatementDto) => {
           this.tableData = res;
           this.openingBalanceLine = res.openingBalance;
-          this.transactions = res?.transactions?.map((transaction) => ({
-            ...transaction,
-            date: new Date(transaction.date).toISOString().split('T')[0],
-          }));
+          this.transactions = res?.transactions;
           this.totalDebit = res?.totalDebit;
           this.totalCredit = res?.totalCredit;
           this.totalBalance = res?.totalBalance;
-          console.log('ransactin', res.transactions);
         }
       );
     } else {
       this.ToasterService.showError(
-        this.languageService.transalte('reportTrial.Error'),
-        this.languageService.transalte(' date From is not before the end of dateTo.')
+        this.languageService.transalte('Error'),
+        this.languageService.transalte('DateFromLessThanToValidation')
       );
     }
   }
@@ -148,15 +137,23 @@ export class BankAccountStatementComponent {
     });
   }
 
-  routeToPaymentView(id:number){
+  routeToPaymentView(id:number, paymentname: string){
+
     const test =location.href.split("/")
         console.log(test[3]);
-    const url = this.router.serializeUrl(
-      this.router.createUrlTree([`${test[3]}/transcations/paymentin/view/${id}`])
-    );
+        if(paymentname==SourceDocument.PaymentIn)
+          {
+            const url = this.router.serializeUrl(
+              this.router.createUrlTree([`${test[3]}/transcations/paymentin/view/${id}`])
+            );
+            window.open(url, '_blank');
+          }else{
+            const url = this.router.serializeUrl(
+              this.router.createUrlTree([`${test[3]}/transcations/paymentout/view/${id}`])
+            );
     window.open(url, '_blank');
       }
-    
+  }
       routeToJournalView(id:number){
         const test =location.href.split("/")
             console.log(test[3]);

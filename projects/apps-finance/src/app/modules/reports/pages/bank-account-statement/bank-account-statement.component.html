@@ -93,6 +93,7 @@
                 {
           name: 'date',
           headerText: 'BankAccountStatement.Date' | translate,
+          template:date
         },
         {
           name: 'paymentCode',
@@ -150,9 +151,16 @@
                 ]
               }"
       >
+      <ng-template #date let-line>
+        <div>
+          <p>{{ line.date | date : 'MM/dd/yyyy' }}</p>
+        </div>
+      </ng-template>
+
         <ng-container firstRow>
-          <td class="total">{{ openingBalanceLine?.date | date : 'MM/dd/yyyy' }}</td>
           <td class="total">{{ openingBalanceLine?.headerDescription }}</td>
+          <td class="imptyData"></td>
+          <td class="imptyData"></td>
           <td class="total">{{ openingBalanceLine?.debit }}</td>
           <td class="total">{{ openingBalanceLine?.credit }}</td>
           <td class="total">{{ openingBalanceLine?.balance }}</td>
@@ -179,11 +187,13 @@
             <td class="imptyData"></td>
             <td class="imptyData"></td>
             <td class="imptyData"></td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
           </tr>
         </ng-container>
         <ng-template #paymentCode let-transactions>
           <div>
-            <p class="code" (click)="routeToPaymentView(transactions.paymentHeaderId)">{{ transactions.paymentCode}}</p>
+            <p class="code" (click)="routeToPaymentView(transactions.paymentHeaderId , transactions.paymentName)">{{ transactions.paymentCode}}</p>
           </div>
         </ng-template>
         <ng-template #journalCode let-transactions>
@@ -299,11 +309,28 @@
       ]
     }"
         >
-          <ng-template #date let-account>
+          <ng-template #date let-line>
             <div>
-              <p>{{ account.journalEntryDate | date : 'MM/dd/yyyy' }}</p>
+              <p>{{ line.date | date : 'MM/dd/yyyy' }}</p>
             </div>
           </ng-template>
+          <ng-container firstRow>
+            <td class="total">{{ openingBalanceLine?.headerDescription }}</td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
+            <td class="total">{{ openingBalanceLine?.debit }}</td>
+            <td class="total">{{ openingBalanceLine?.credit }}</td>
+            <td class="total">{{ openingBalanceLine?.balance }}</td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
+          </ng-container>
+  
           <ng-container footer>
             <tr>
               <td class="imptyData"></td>
@@ -312,6 +339,11 @@
               <td class="total">{{ totalDebit | numberFormat }}</td>
               <td class="total">{{ totalCredit | numberFormat }}</td>
               <td class="total">{{ totalBalance | numberFormat }}</td>
+              <td class="imptyData"></td>
+              <td class="imptyData"></td>
+              <td class="imptyData"></td>
+              <td class="imptyData"></td>
+              <td class="imptyData"></td>
               <td class="imptyData"></td>
               <td class="imptyData"></td>
             </tr>
