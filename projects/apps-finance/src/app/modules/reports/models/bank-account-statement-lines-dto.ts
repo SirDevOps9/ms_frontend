@@ -1,5 +1,5 @@
 export interface BankAccountStatementLinesDto {
-    date: Date;
+    date: string;
     paymentCode: string;
     paymentName: string;
     debit: number;

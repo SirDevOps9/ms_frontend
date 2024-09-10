@@ -3,7 +3,8 @@
     "PaymentOut": "Payment Out",
     "PaymentOutList": "Payment Out List",
     "AddPaymentOut": "Add Payment Out",
-    "EditPaymentOut": "Edit Payment Out"
+    "EditPaymentOut": "Edit Payment Out",
+    "BankAccountStatement":"Bank Account Statement"
   },
   "Success": "Success",
   "Error": "Error",
@@ -180,6 +181,8 @@
     "PaidByDetailsName":"Paid By Details",
     "AccountName":"Linked GL Account",
     "HeaderDescription":"Header Description",
-    "LineDescription":"Line Description"
+    "LineDescription":"Line Description",
+    "DateFrom":"Date From",
+    "DateTo":"Date To"
   }
 }

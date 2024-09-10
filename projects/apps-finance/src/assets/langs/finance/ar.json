@@ -3,7 +3,8 @@
     "PaymentOut": "إيصال نقدي",
     "PaymentOutList": "قائمة الإيصالات النقدية",
     "AddPaymentOut": "إضافة إيصال نقدي",
-    "EditPaymentOut": "تعديل إيصال نقدي"
+    "EditPaymentOut": "تعديل إيصال نقدي",
+    "BankAccountStatement": "كشف الحساب البنكي"
   },
   "Success": "نجاح",
   "Error": "خطأ",
@@ -144,17 +145,27 @@
     "addpaymentout": "إضافة إيصال نقدي",
     "editpaymentout": "تعديل إيصال نقدي"
   },
-  "AccountStatement": {
-    "posted": "تم النشر",
-    "unposted": "لم يتم النشر",
-    "viewData": "عرض البيانات",
-    "journalEntryCode": "رمز قيد اليومية",
-    "journalEntryDate": "تاريخ قيد اليومية",
-    "description": "الوصف",
-    "debitAmount": "مقدار المدين",
-    "creditAmount": "مقدار الدائن",
-    "balance": "الرصيد",
-    "sourceDocumentCode": "رمز المستند المصدر"
+  "BankAccountStatement": {
+    "DisplayCurrency": "عرض العملة",
+    "Bank": "البنك",
+    "BankAccount": "الحساب البنكي",
+    "SelectBankValue": "اختر قيمة البنك 1",
+    "SelectBankAccountValue": "اختر قيمة الحساب البنكي 1",
+    "ViewData": "عرض البيانات",
+    "Date": "التاريخ",
+    "PaymentCode": "رمز الدفع",
+    "PaymentName": "اسم الدفع",
+    "Debit": "الخصم (داخل)",
+    "Credit": "الائتمان (خارج)",
+    "Balance": "الرصيد",
+    "PaymentMethodName": "طريقة الدفع",
+    "SourceCode": "رمز المصدر",
+    "JournalCode": "رمز القيد",
+    "PaidByDetailsName": "تفاصيل الدافع",
+    "AccountName": "الحساب العام المرتبط",
+    "HeaderDescription": "وصف الرأس",
+    "LineDescription": "وصف السطر",
+    "DateFrom": "التاريخ من",
+    "DateTo": "التاريخ إلى"
   }
-
 }

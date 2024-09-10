@@ -6,9 +6,6 @@
           <div class="grid">
             <div class="col-12 md:col-4">
               <lib-form-group>
-                <!-- <lib-label [appControl]="accountStatementForm.controls['bankId']">
-                    {{ 'BankAccountStatement.Bank'  | translate }}
-                  </lib-label> -->
                 <lib-select
                   formControlName="bankId"
                   [options]="BankDropDown"
@@ -25,9 +22,6 @@
             </div>
             <div class="col-12 md:col-4">
               <lib-form-group>
-                <!-- <lib-label [appControl]="accountStatementForm.controls['bankAccountId']">
-                    {{ 'BankAccountStatement.BankAccount'  | translate }}
-                  </lib-label> -->
                 <lib-select
                   formControlName="bankAccountId"
                   [options]="bankAccount"
@@ -54,10 +48,18 @@
 
         <div class="grid">
           <div class="col-12 md:col-5">
-            <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input>
+            <lib-form-group>
+              <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input>
+              <lib-field-validations [appControl]="accountStatementForm.controls['dateFrom']">
+              </lib-field-validations>
+            </lib-form-group>
           </div>
           <div class="col-12 md:col-4">
-            <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input>
+            <lib-form-group>
+              <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input>
+              <lib-field-validations [appControl]="accountStatementForm.controls['dateTo']">
+              </lib-field-validations>
+            </lib-form-group>
           </div>
           <div class="col-12 md:col-3">
             <div class="all_btn">
@@ -90,7 +92,6 @@
                 {
           name: 'date',
           headerText: 'BankAccountStatement.Date' | translate,
-          template:date
         },
         {
           name: 'paymentCode',
@@ -99,26 +100,21 @@
         {
           name: 'paymentName',
           headerText: 'BankAccountStatement.PaymentName' | translate,
-          isGlobalFilter: true,
-          isSortable: true,
         },
         {
           name: 'debit',
           headerText: 'BankAccountStatement.Debit' | translate,
-          isGlobalFilter: true,
-          isSortable: true,
+
         },
         {
           name: 'credit',
           headerText: 'BankAccountStatement.Credit' | translate,
-          isGlobalFilter: true,
-          isSortable: true,
+
         },
         {
           name: 'balance',
           headerText: 'BankAccountStatement.Balance' | translate,
-          isGlobalFilter: true,
-          isSortable: true,
+
         },
         {
           name: 'paymentMethodName',
@@ -151,7 +147,6 @@
                 ]
               }"
       >
-
         <ng-template #date let-account>
           <div>
             <p>{{ account.journalEntryDate | date : 'MM/dd/yyyy' }}</p>
@@ -164,6 +159,7 @@
             <td class="imptyData"></td>
             <td class="total">{{ totalDebit | numberFormat }}</td>
             <td class="total">{{ totalCredit | numberFormat }}</td>
+            <td class="total">{{ totalBalance }}</td>
             <td class="imptyData"></td>
             <td class="imptyData"></td>
           </tr>
@@ -176,78 +172,36 @@
           <div class="calender">
             <div class="grid">
               <div class="col-12 md:col-4">
-                <lib-form-group>
-                  <!-- <lib-label [appControl]="accountStatementForm.controls['bankId']">
-                      {{ 'BankAccountStatement.Bank'  | translate }}
-                    </lib-label> -->
-                  <lib-select
-                    formControlName="bankId"
-                    [options]="BankDropDown"
-                    optionValue="id"
-                    optionLabel="name"
-                    (valueChanged)="
-                      bankAccountDropDown(accountStatementForm.controls['bankId'].value)
-                    "
-                    [placeholder]="'BankAccountStatement.SelectBankValue' | translate"
-                  ></lib-select>
-                  <lib-field-validations [appControl]="accountStatementForm.controls['bankId']">
-                  </lib-field-validations>
-                </lib-form-group>
+                <label> {{ 'BankAccountStatement.Bank' | translate }} </label>
+                <p class="view">{{ selectedBankName }}</p>
               </div>
               <div class="col-12 md:col-4">
-                <lib-form-group>
-                  <!-- <lib-label [appControl]="accountStatementForm.controls['bankAccountId']">
-                      {{ 'BankAccountStatement.BankAccount'  | translate }}
-                    </lib-label> -->
-                  <lib-select
-                    formControlName="bankAccountId"
-                    [options]="bankAccount"
-                    optionValue="id"
-                    optionLabel="accountNumber"
-                    (valueChanged)="
-                      getCurrencyBankAccount(accountStatementForm.controls['bankAccountId'].value)
-                    "
-                    [placeholder]="'BankAccountStatement.SelectBankAccountValue' | translate"
-                  ></lib-select>
-                  <lib-field-validations
-                    [appControl]="accountStatementForm.controls['bankAccountId']"
-                  >
-                  </lib-field-validations>
-                </lib-form-group>
+                <label> {{ 'BankAccountStatement.BankAccount' | translate }} </label>
+                <p class="view">{{ selectedBankAccountName }}</p>
               </div>
               <div class="col-12 md:col-4">
-                <div class="view">
-                  {{ currency ? currency : ('BankAccountStatement.DisplayCurrency' | translate) }}
-                </div>
+                <label> {{ 'BankAccountStatement.DisplayCurrency' | translate }} </label>
+
+                <p class="view">{{ currency }}</p>
               </div>
             </div>
           </div>
-  
+
           <div class="grid">
             <div class="col-12 md:col-5">
-              <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input>
+              <label> {{ 'BankAccountStatement.DateFrom' | translate }} </label>
+
+              <p class="view">{{ accountStatementForm.controls['dateFrom'].value }}</p>
             </div>
             <div class="col-12 md:col-4">
-              <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input>
-            </div>
-            <div class="col-12 md:col-3">
-              <div class="all_btn">
-                <lib-button-micro
-                  title="{{ 'BankAccountStatement.ViewData' | translate }}"
-                  nameClass="save"
-                  iconName="pi pi-circle"
-                  (click)="getAccountingReports()"
-                >
-                </lib-button-micro>
-                <button class="btn_ex" (click)="printTable('printableTable')">
-                  <span class="pi pi-print"></span>
-                </button>
-              </div>
+              <label> {{ 'BankAccountStatement.DateTo' | translate }} </label>
+
+              <p class="view">{{ accountStatementForm.controls['dateTo'].value }}</p>
             </div>
           </div>
         </div>
       </form>
-      <div class="mb-4" >
+      <div class="mb-4">
         <lib-table-print
           resizableColumns="false"
           [items]="transactions"
@@ -270,26 +224,22 @@
         {
           name: 'paymentName',
           headerText: 'BankAccountStatement.PaymentName' | translate,
-          isGlobalFilter: true,
-          isSortable: true,
+
         },
         {
           name: 'debit',
           headerText: 'BankAccountStatement.Debit' | translate,
-          isGlobalFilter: true,
-          isSortable: true,
+
         },
         {
           name: 'credit',
           headerText: 'BankAccountStatement.Credit' | translate,
-          isGlobalFilter: true,
-          isSortable: true,
+
         },
         {
           name: 'balance',
           headerText: 'BankAccountStatement.Balance' | translate,
-          isGlobalFilter: true,
-          isSortable: true,
+
         },
         {
           name: 'paymentMethodName',
@@ -332,8 +282,9 @@
               <td class="imptyData"></td>
               <td class="imptyData"></td>
               <td class="imptyData"></td>
-              <td class="total">{{ totalDebit }}</td>
-              <td class="total">{{ totalCredit}}</td>
+              <td class="total">{{ totalDebit | numberFormat }}</td>
+              <td class="total">{{ totalCredit | numberFormat }}</td>
+              <td class="total">{{ totalBalance | numberFormat }}</td>
               <td class="imptyData"></td>
               <td class="imptyData"></td>
             </tr>
