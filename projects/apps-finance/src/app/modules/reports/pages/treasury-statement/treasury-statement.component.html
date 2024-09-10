@@ -23,6 +23,7 @@
               [placeholder]="'TreasuryStatement.treasury' | translate"
             >
             </lib-select>
+            <lib-field-validations [appControl]="reportForm.controls['treasuryId']"></lib-field-validations>
           </div>
           <div class="col-12 md:col-4">
             <lib-text-input 
@@ -69,6 +70,7 @@
                   {
                     name: 'paymentCode',
                     headerText: 'TreasuryStatement.paymentCode' | translate,
+                    template:paymentCode
                   },
                   {
                     name: 'paymentName',
@@ -96,6 +98,7 @@
                   {
                     name: 'journalCode',
                     headerText: 'TreasuryStatement.journalCode' | translate,
+                    template:journalCode
                   },
                   {
                     name: 'paidByDetails',
@@ -122,6 +125,21 @@
             <p>{{ account.date | date : 'MM/dd/yyyy' }}</p>
           </div>
         </ng-template>
+
+        
+
+        <ng-template #journalCode let-transactions>
+          <div>
+            <p class="code" (click)="routeToJournalView(transactions.journalId)">{{ transactions.journalCode}}</p>
+          </div>
+        </ng-template>
+      
+        <ng-template #paymentCode let-transactions>
+          <div>
+            <p class="code" (click)="routeToPaymentView(transactions)">{{ transactions.paymentCode}}</p>
+          </div>
+        </ng-template>
+        
 
         <ng-container firstRow>
           <td class="imptyData">{{'TreasuryStatement.openingBalance' | translate}}</td>
@@ -161,150 +179,129 @@
       </lib-data-table>
 
 
-      <div id="printableTable">
-        <form [formGroup]="reportForm">
-      <div class="group">
-        <div class="calender"></div>
-          <div class="grid">
-            <div class="col-12 md:col-6">
-              <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input>
-            </div>
-            <div class="col-12 md:col-6">
-              <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input>
-            </div>
+      
+
+        <div id="printableTable">
+          <form [formGroup]="reportForm">
+            <div class="group">
+              <div class="calender"></div>
+                <div class="grid">
+                  <div class="col-12 md:col-6">
+                    <label> {{ 'TreasuryStatement.DateFrom' | translate }} </label>
+                    <p class="view">{{ reportForm.controls['dateFrom'].value }}</p>
+                  </div>
+                  <div class="col-12 md:col-6">
+                    <label> {{ 'TreasuryStatement.DateTo' | translate }} </label>
+                    <p class="view">{{ reportForm.controls['dateTo'].value }}</p>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="grid">
+                <div class="col-12 md:col-5">
+                  <label> {{ 'TreasuryStatement.Treasury' | translate }} </label>
+                  <p class="view">{{ selectedTreasuryName }}</p>
+                </div>
+                <div class="col-12 md:col-4">
+                  <label> {{ 'TreasuryStatement.Currency' | translate }} </label>
+                      <p class="view">{{ currency }}</p>
+                </div>
+              </div>
+          </form>
+          <div class="mb-4">
+            <lib-table-print
+              resizableColumns="false"
+              [items]="tableData.transactions"
+              className="p-datatable-gridlines"
+              [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: false,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'date',
+              headerText: 'TreasuryStatement.Date' | translate,
+              template:date
+            },
+            {
+              name: 'paymentCode',
+              headerText: 'TreasuryStatement.PaymentCode' | translate,
+            },
+            {
+              name: 'paymentName',
+              headerText: 'TreasuryStatement.PaymentName' | translate,
+    
+            },
+            {
+              name: 'debit',
+              headerText: 'TreasuryStatement.Debit' | translate,
+    
+            },
+            {
+              name: 'credit',
+              headerText: 'TreasuryStatement.Credit' | translate,
+    
+            },
+            {
+              name: 'balance',
+              headerText: 'TreasuryStatement.Balance' | translate,
+    
+            },
+            {
+              name: 'paymentMethodName',
+              headerText: 'TreasuryStatement.PaymentMethodName' | translate,
+            },
+            {
+              name: 'sourceCode',
+              headerText: 'TreasuryStatement.SourceCode' | translate,
+            },
+            {
+              name: 'journalCode',
+              headerText: 'TreasuryStatement.JournalCode' | translate,
+            },
+            {
+              name: 'paidByDetailsName',
+              headerText: 'TreasuryStatement.PaidByDetailsName' | translate,
+            },
+            {
+              name: 'accountName',
+              headerText: 'TreasuryStatement.AccountName' | translate,
+            },
+            {
+              name: 'headerDescription',
+              headerText: 'AccountStatement.HeaderDescription' | translate,
+            },
+            {
+              name: 'lineDescription',
+              headerText: 'TreasuryStatement.LineDescription' | translate,
+            }
+          ]
+        }"
+            >
+              <ng-template #date let-account>
+                <div>
+                  <p>{{ account.journalEntryDate | date : 'MM/dd/yyyy' }}</p>
+                </div>
+              </ng-template>
+              <ng-container footer>
+                <tr>
+                  <td class="imptyData"></td>
+                  <td class="imptyData"></td>
+                  <td class="imptyData"></td>
+                  <td class="total">{{ generalService.formatNumber(  tableData.totalDebit, generalService.fraction) }}</td>
+                  <td class="total">{{ generalService.formatNumber(  tableData.totalCredit, generalService.fraction)}}</td>
+                  <td class="total">{{ generalService.formatNumber(  tableData.totalBalance, generalService.fraction)}}</td>
+                  <td class="imptyData"></td>
+                  <td class="imptyData"></td>
+                </tr>
+              </ng-container>
+            </lib-table-print>
           </div>
         </div>
 
-        <div class="grid">
-          <div class="col-12 md:col-5">
-            <lib-multi-select
-            formControlName="treasuryId"
-            [options]="treasuryDropDown"
-            optionValue="id"
-            optionLabel="name"
-            [selectedValue]="defoultSelectedAcounts"
-          ></lib-multi-select>
-          </div>
-          <div class="col-12 md:col-4">
-            <lib-text-input 
-                type="text" 
-                formControlName="currency" 
-                [readOnly]="true" 
-                />
-          </div>
-        </div>
-    </form>
+
+
         
-    <lib-data-table
-    *ngIf="tableData.transactions"
-    [firstRow]="true"
-      [items]="tableData.transactions"
-      className="p-datatable-gridlines"
-      [reportTable]="true"
-      [tableConfigs]="{
-              allowPagination: false,
-              allowServerPagination: false,
-              dataKey: 'id',
-              pageSize: 10,
-              columns: [
-                {
-                  name: 'date',
-                  headerText: 'TreasuryStatement.date' | translate,
-                  template:date
-                },
-                {
-                  name: 'paymentCode',
-                  headerText: 'TreasuryStatement.paymentCode' | translate,
-                },
-                {
-                  name: 'paymentName',
-                  headerText: 'TreasuryStatement.paymentName' | translate,
-                },{
-                  name: 'debit',
-                  headerText: 'TreasuryStatement.debit' | translate,
-                },
-                {
-                  name: 'credit',
-                  headerText: 'TreasuryStatement.credit' | translate,
-                },
-                {
-                  name: 'balance',
-                  headerText: 'TreasuryStatement.balance' | translate,
-                },
-                {
-                  name: 'paymentMethodName',
-                  headerText: 'TreasuryStatement.paymentMethodName' | translate,
-                },
-                {
-                  name: 'sourceCode',
-                  headerText: 'TreasuryStatement.sourceCode' | translate,
-                },
-                {
-                  name: 'journalCode',
-                  headerText: 'TreasuryStatement.journalCode' | translate,
-                },
-                {
-                  name: 'paidByDetails',
-                  headerText: 'TreasuryStatement.paidByDetailsName' | translate,
-                },
-                {
-                  name: 'linkedGLAccount',
-                  headerText: 'TreasuryStatement.accountName' | translate,
-                },
-                {
-                  name: 'headerDescription',
-                  headerText: 'TreasuryStatement.headerDescription' | translate,
-                },
-                {
-                  name: 'lineDescription',
-                  headerText: 'TreasuryStatement.lineDescription' | translate,
-                }
-              ]
-            }"
-    >
-     
-      <ng-template #date let-account>
-        <div>
-          <p>{{ account.date | date : 'MM/dd/yyyy' }}</p>
-        </div>
-      </ng-template>
-
-      <ng-container firstRow>
-        <td class="imptyData">{{'TreasuryStatement.openingBalance' | translate}}</td>
-        <td class="imptyData"></td>
-        <td class="imptyData"></td>
-        <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceDebit, generalService.fraction) }}</td>
-        <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceCredit, generalService.fraction)}}</td>
-        <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceBalance, generalService.fraction)}}</td>
-        <td class="imptyData"></td> 
-        <td class="imptyData"></td> 
-        <td class="imptyData"></td>      
-        <td class="imptyData"></td> 
-        <td class="imptyData"></td> 
-        <td class="imptyData"></td> 
-        <td class="imptyData"></td> 
-        <td class="imptyData"></td> 
-        </ng-container>
-
-      <ng-container footer>
-        <tr>
-          <td class="imptyData">{{'TreasuryStatement.totals' | translate}}</td>
-          <td class="imptyData"></td>
-          <td class="imptyData"></td>
-          <td class="total">{{ generalService.formatNumber(  tableData.totalDebit, generalService.fraction) }}</td>
-          <td class="total">{{ generalService.formatNumber(  tableData.totalCredit, generalService.fraction)}}</td>
-          <td class="total">{{ generalService.formatNumber(  tableData.totalBalance, generalService.fraction)}}</td>
-          <td class="imptyData"></td>
-          <td class="imptyData"></td> 
-        <td class="imptyData"></td>      
-        <td class="imptyData"></td> 
-        <td class="imptyData"></td> 
-        <td class="imptyData"></td> 
-        <td class="imptyData"></td> 
-        <td class="imptyData"></td> 
-        </tr>
-      </ng-container>
-    </lib-data-table>
-        </div>
       </div>
 </lib-page-content>

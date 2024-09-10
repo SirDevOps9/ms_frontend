@@ -161,7 +161,9 @@
     "accountName": "اسم الحساب",
     "headerDescription": "وصف الرأس",
     "lineDescription": "وصف السطر",
-    "ViewData": "عرض البيانات"
+    "ViewData": "عرض البيانات",
+    "DateFrom": "التاريخ من",
+    "DateTo": "التاريخ إلى"
   },
   "BankAccountStatement": {
     "DisplayCurrency": "عرض العملة",
