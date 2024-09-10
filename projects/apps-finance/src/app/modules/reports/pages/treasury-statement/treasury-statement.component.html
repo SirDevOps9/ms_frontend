@@ -70,6 +70,7 @@
                   {
                     name: 'paymentCode',
                     headerText: 'TreasuryStatement.paymentCode' | translate,
+                    template:paymentCode
                   },
                   {
                     name: 'paymentName',
@@ -97,6 +98,7 @@
                   {
                     name: 'journalCode',
                     headerText: 'TreasuryStatement.journalCode' | translate,
+                    template:journalCode
                   },
                   {
                     name: 'paidByDetails',
@@ -123,6 +125,21 @@
             <p>{{ account.date | date : 'MM/dd/yyyy' }}</p>
           </div>
         </ng-template>
+
+        
+
+        <ng-template #journalCode let-transactions>
+          <div>
+            <p class="code" (click)="routeToJournalView(transactions.journalId)">{{ transactions.journalCode}}</p>
+          </div>
+        </ng-template>
+      
+        <ng-template #paymentCode let-transactions>
+          <div>
+            <p class="code" (click)="routeToPaymentView(transactions)">{{ transactions.paymentCode}}</p>
+          </div>
+        </ng-template>
+        
 
         <ng-container firstRow>
           <td class="imptyData">{{'TreasuryStatement.openingBalance' | translate}}</td>

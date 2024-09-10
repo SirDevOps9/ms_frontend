@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { customValidators, FormsService, LanguageService,  PrintService } from 'shared-lib';
-import { treasuryStatementDto, TreasuryStatementfilterDto } from '../../models';
+import { treasuryStatementDto, TreasuryStatementfilterDto, TreasuryStatmentTransactionDto } from '../../models';
 import { TreasuryDropDown } from '../../../finance/models';
 import { TranscationsService } from '../../../transcations/transcations.service';
 import { ReportsService } from '../../reports.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
+import { SourceDocument } from '../../models/source-document-dto';
 
 @Component({
   selector: 'app-treasury-statement',
@@ -34,6 +35,8 @@ export class TreasuryStatementComponent implements OnInit {
     private ReportService: ReportsService,
     public generalService: GeneralService,
     private formsService: FormsService,
+    private router:Router,
+
 
   ) {}
 
@@ -107,4 +110,33 @@ export class TreasuryStatementComponent implements OnInit {
       this.tableData = data;
     })
   }
+
+  routeToPaymentView(transaction:TreasuryStatmentTransactionDto){
+    const test =location.href.split("/")
+    const id=transaction.paymentCode
+
+        if(transaction.paymentName==SourceDocument.PaymentIn)
+        {
+          const url = this.router.serializeUrl(
+            this.router.createUrlTree([`${test[3]}/transcations/paymentin/view/${id}`])
+          );
+          window.open(url, '_blank');
+
+        }else{
+          const url = this.router.serializeUrl(
+            this.router.createUrlTree([`${test[3]}/transcations/paymentout/view/${id}`])
+          );
+          window.open(url, '_blank');
+
+        }
+      }
+    
+      routeToJournalView(id:number){
+        const test =location.href.split("/")
+            console.log(test[3]);
+        const url = this.router.serializeUrl(
+          this.router.createUrlTree([`/accounting/transcations/journalentry/view/${id}`])
+        );
+        window.open(url, '_blank');
+          }
 }
