@@ -5,4 +5,6 @@ export * from './bank-account-with-currency';
 export * from './drop-down-dto';
 export * from './bank-account';
 
+export * from './treasury-statement-dto'
+export * from './treasury-statement-filter-dto';
 

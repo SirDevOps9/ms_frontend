@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from 'shared-lib';
-import { BankAccountStatementDto, BankAccountStatementfilterDto, BankAccountWithCurrency, DropDownDto } from './models';
+import { BankAccountStatementDto, BankAccountStatementfilterDto, BankAccountWithCurrency, DropDownDto, treasuryStatementDto, TreasuryStatementfilterDto } from './models';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -24,5 +24,14 @@ export class ReportsProxy {
 
   BankDropDown() : Observable<DropDownDto[]> {
     return this.httpService.get(`Bank/BankDropDown`);
+  }
+
+  getTreasuryStatement(
+    filter: TreasuryStatementfilterDto
+  ): Observable<treasuryStatementDto> {
+    return this.httpService.post<treasuryStatementDto>(
+      `FinanceReports/TreasuryStatement`,
+      filter
+    );
   }
 }

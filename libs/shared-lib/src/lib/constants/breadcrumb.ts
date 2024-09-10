@@ -119,5 +119,6 @@ export class BreadcrumbLabel {
     static VENDOR_OPENING_BALANCE_ADD ='BreadCrumb.AddVendorOpeningBalance';
 
     static BANK_ACCOUNT_STATEMENT ='BreadCrumb.BankAccountStatement';
+    static TREASURY_STATEMENT ='BreadCrumb.TreasuryStatement';
 
   }

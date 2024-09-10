@@ -145,6 +145,22 @@
     "addpaymentout": "إضافة إيصال نقدي",
     "editpaymentout": "تعديل إيصال نقدي"
   },
+    "TreasuryStatement": {
+    "date": "التاريخ",
+    "paymentCode": "رمز الدفع",
+    "paymentName": "اسم الدفع",
+    "debit": "مدين",
+    "credit": "دائن",
+    "balance": "الرصيد",
+    "paymentMethodName": "طريقة الدفع",
+    "sourceCode": "رمز المصدر",
+    "journalCode": "رمز القيد",
+    "paidByDetailsName": "تم الدفع بواسطة",
+    "accountName": "اسم الحساب",
+    "headerDescription": "وصف الرأس",
+    "lineDescription": "وصف السطر",
+    "ViewData": "عرض البيانات"
+  },
   "BankAccountStatement": {
     "DisplayCurrency": "عرض العملة",
     "Bank": "البنك",

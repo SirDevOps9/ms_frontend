@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BankAccountStatementDto, BankAccountStatementfilterDto } from './models';
+import { BankAccountStatementDto, BankAccountStatementfilterDto, treasuryStatementDto, TreasuryStatementfilterDto } from './models';
 import { BehaviorSubject } from 'rxjs';
 import { ToasterService, LanguageService, LoaderService, RouterService } from 'shared-lib';
 import { ReportsProxy } from './reports.proxy';
@@ -23,6 +23,9 @@ export class ReportsService {
   getBankDropDownDataObservable = this.getBankDropDownData.asObservable();
 
 
+  public treasuryStatementDataSource = new BehaviorSubject<treasuryStatementDto>({} as treasuryStatementDto)
+  public treasuryStatementObservable = this.treasuryStatementDataSource.asObservable();
+
   getBankAccountStatement(filter: BankAccountStatementfilterDto) {
     this.loaderService.show();
     this.reportsProxy.getBankAccountStatement(filter).subscribe({
@@ -45,6 +48,19 @@ export class ReportsService {
       if (res) {
         this.getBankDropDownData.next(res);
       }
+    });
+  }
+
+  getTreasuryStatement(filter: TreasuryStatementfilterDto) {
+    this.loaderService.show();
+    this.reportsProxy.getTreasuryStatement(filter).subscribe({
+      next: (response) => {
+        this.treasuryStatementDataSource.next(response);
+        this.loaderService.hide();
+      },
+      error: (error) => {
+        this.loaderService.hide();
+      },
     });
   }
 }

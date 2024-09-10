@@ -162,6 +162,22 @@
     "addpaymentout": " Add Payment out",
     "editpaymentout": " Edit Payment out"
   },
+  "TreasuryStatement": {
+    "date": "Date",
+    "paymentCode": "Payment Code",
+    "paymentName": "Payment Name",
+    "debit": "Debit",
+    "credit": "Credit",
+    "balance": "Balance",
+    "paymentMethodName": "Payment Method",
+    "sourceCode": "Source Code",
+    "journalCode": "Journal Code",
+    "paidByDetailsName": "Paid By",
+    "accountName": "Account Name",
+    "headerDescription": "Header Description",
+    "lineDescription": "Line Description",
+    "ViewData":"View Data"
+  },
   "BankAccountStatement": {
     "DisplayCurrency": "Display Currency",
     "Bank": "Bank",
