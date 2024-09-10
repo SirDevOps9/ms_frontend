@@ -49,6 +49,7 @@
 
       <lib-data-table
       *ngIf="tableData.transactions"
+      [firstRow]="true"
         [items]="tableData.transactions"
         className="p-datatable-gridlines"
         [reportTable]="true"
@@ -95,11 +96,11 @@
                     headerText: 'TreasuryStatement.journalCode' | translate,
                   },
                   {
-                    name: 'paidByDetailsName',
+                    name: 'paidByDetails',
                     headerText: 'TreasuryStatement.paidByDetailsName' | translate,
                   },
                   {
-                    name: 'accountName',
+                    name: 'linkedGLAccount',
                     headerText: 'TreasuryStatement.accountName' | translate,
                   },
                   {
@@ -119,6 +120,17 @@
             <p>{{ account.date | date : 'MM/dd/yyyy' }}</p>
           </div>
         </ng-template>
+
+        <ng-container firstRow>
+          <td class="imptyData"></td>
+          <td class="imptyData"></td>
+          <td class="imptyData"></td>
+          <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceDebit, generalService.fraction) }}</td>
+          <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceCredit, generalService.fraction)}}</td>
+          <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceBalance, generalService.fraction)}}</td>
+          <td class="imptyData"></td>      
+          </ng-container>
+          
         <ng-container footer>
           <tr>
             <td class="imptyData"></td>
@@ -214,6 +226,14 @@
                   name: 'journalCode',
                   headerText: 'TreasuryStatement.journalCode' | translate,
                 },
+                  {
+                    name: 'paidByDetails',
+                    headerText: 'TreasuryStatement.paidByDetailsName' | translate,
+                  },
+                  {
+                    name: 'linkedGLAccount',
+                    headerText: 'TreasuryStatement.accountName' | translate,
+                  },
                 {
                   name: 'headerDescription',
                   headerText: 'TreasuryStatement.headerDescription' | translate,
