@@ -46,6 +46,8 @@ export class DashboardComponent implements OnInit {
       location.href = '../finance';
     } else if (key === Modules.Purchase) {
       location.href = '../purchase';
+    }else if (key === Modules.inventory) {
+      location.href = '../inventory';
     }
   }
 

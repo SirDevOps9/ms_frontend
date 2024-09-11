@@ -52,6 +52,8 @@ import { ChangeColumnComponent } from './components/change-column/change-column.
 import { NumberFormatPipe } from './pipes/number-format.pipe';
 import { PopupPageComponent } from './components/popup-page/popup-page.component';
 import { NumberFormatDirective } from './directives/numberFormatDirective';
+import { QRCodeModule } from 'angularx-qrcode';
+
 @NgModule({
   declarations: [
     NumberFormatDirective,
@@ -107,6 +109,8 @@ import { NumberFormatDirective } from './directives/numberFormatDirective';
     TreeTableModule,
     TreeModule,
     ProgressSpinnerModule,
+    QRCodeModule
+    
   ],
   exports: [
     GetLookupPipe,
@@ -153,7 +157,8 @@ import { NumberFormatDirective } from './directives/numberFormatDirective';
     ChangeColumnComponent,
     NumberFormatPipe,
     PopupPageComponent,
-    NumberFormatDirective
+    NumberFormatDirective,
+    QRCodeModule
   ],
 })
 export class SharedLibModule {}
