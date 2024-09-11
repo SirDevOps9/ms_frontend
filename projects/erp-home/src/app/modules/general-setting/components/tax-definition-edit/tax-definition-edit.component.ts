@@ -1,10 +1,12 @@
 import { Component, effect } from '@angular/core';
-import { AccountService } from '../../account.service';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { PageInfoResult, PageInfo, customValidators, FormsService, RouterService, LookupsService, LanguageService } from 'shared-lib';
-import { AccountDto, TaxGroupDropDown, AddTax, EditTax } from '../../models';
 import { Title } from '@angular/platform-browser';
+import { AccountDto } from '../../models';
+import { TaxGroupDropDown } from '../../models/tax-group-drop-down';
+import { GeneralSettingService } from '../../general-setting.service';
+import { EditTax } from '../../models/edit-tax';
 
 @Component({
   selector: 'app-tax-definition-edit',
@@ -25,9 +27,9 @@ export class TaxDefinitionEditComponent {
     this.initializeForm();
     this.getAccounts('');
 
-    this.accountService.getAllTaxGroups();
+    this.generalSettingService.getAllTaxGroups();
 
-    this.accountService.taxGroupsDropDown.subscribe((res) => {
+    this.generalSettingService.taxGroupsDropDown.subscribe((res) => {
       this.taxGroupList = res;
     });
 
@@ -35,9 +37,9 @@ export class TaxDefinitionEditComponent {
       this.taxGroupId = value;
     });
 
-    this.accountService.getTaxById(this.config.data.id)
+    this.generalSettingService.getTaxById(this.config.data.id)
 
-    this.accountService.currentTaxDataSource.subscribe(res=>{
+    this.generalSettingService.currentTaxDataSource.subscribe(res=>{
       if(res) {
         this.editForm.patchValue({...res})
         this.selectedTaxGroup = res.taxGroupId;
@@ -64,11 +66,11 @@ export class TaxDefinitionEditComponent {
   onSubmit() {
     if (!this.formsService.validForm(this.editForm, true)) return;
     const request: EditTax = this.editForm.getRawValue();
-    this.accountService.editTax(request, this.ref);
+    this.generalSettingService.editTax(request, this.ref);
   }
 
   getAccounts(searchTerm: string) {
-    this.accountService.getAccountsHasNoChildren(searchTerm, this.pageInfo).subscribe((r) => {
+    this.generalSettingService.getAccountsHasNoChildren(searchTerm, this.pageInfo).subscribe((r) => {
 
       this.accounts = r.result;
       this.paging = r.pageInfoResult;
@@ -76,7 +78,7 @@ export class TaxDefinitionEditComponent {
   }
 
   getTaxGroups() {
-    this.accountService.getAllTaxGroups();
+    this.generalSettingService.getAllTaxGroups();
   }
 
   save() {
@@ -88,7 +90,7 @@ export class TaxDefinitionEditComponent {
   }
 
   constructor(
-    private accountService: AccountService,
+    private generalSettingService: GeneralSettingService,
     public config: DynamicDialogConfig,
     public dialogService: DialogService,
     private ref: DynamicDialogRef,

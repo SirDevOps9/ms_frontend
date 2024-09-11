@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PageInfoResult, MenuModule, RouterService, PageInfo, lookupDto, LanguageService } from 'shared-lib';
-import { AccountService } from '../../../account.service';
-import { TaxGroupDto } from '../../../models';
 import { TaxGroupAddComponent } from '../../../components/tax-group-add/tax-group-add.component';
 import { TaxGroupEditComponent } from '../../../components/tax-group-edit/tax-group-edit.component';
 import { Title } from '@angular/platform-browser';
+import { TaxGroupDto } from '../../../models/tax-group-dto';
+import { GeneralSettingService } from '../../../general-setting.service';
 
 @Component({
   selector: 'app-tax-group',
@@ -22,7 +22,7 @@ export class TaxGroupComponent implements OnInit {
   exportData: TaxGroupDto[];
   constructor(
     private routerService: RouterService,
-    private accountService: AccountService,
+    private generalSettingService: GeneralSettingService,
     public authService: AuthService,
     private dialog: DialogService,
     private title: Title,
@@ -37,22 +37,22 @@ export class TaxGroupComponent implements OnInit {
   }
 
   initTaxGroupData() {
-    this.accountService.getAllTaxGroupPaginated('',new PageInfo());
-    this.accountService.taxGroupList.subscribe({
+    this.generalSettingService.getAllTaxGroupPaginated('',new PageInfo());
+    this.generalSettingService.taxGroupList.subscribe({
       next: (res) => {
         this.tableData = res;
       },
     });
 
-    this.accountService.currentPageInfo.subscribe((currentPageInfo) => {
+    this.generalSettingService.currentPageInfo.subscribe((currentPageInfo) => {
       console.log("currentPageInfo",currentPageInfo)
       this.currentPageInfo = currentPageInfo;
     });
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.accountService.getAllTaxGroupPaginated(this.searchTerm,pageInfo);
-    this.accountService.taxGroupList.subscribe({
+    this.generalSettingService.getAllTaxGroupPaginated(this.searchTerm,pageInfo);
+    this.generalSettingService.taxGroupList.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -83,8 +83,8 @@ export class TaxGroupComponent implements OnInit {
   }
 
   onSearchChange(e : any) {
-    this.accountService.getAllTaxGroupPaginated(e.target.value,new PageInfo());
-    this.accountService.taxGroupList.subscribe({
+    this.generalSettingService.getAllTaxGroupPaginated(e.target.value,new PageInfo());
+    this.generalSettingService.taxGroupList.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -92,13 +92,13 @@ export class TaxGroupComponent implements OnInit {
   }
 
   exportTaxGroupData(searchTerm: string) {
-    this.accountService.exportTaxGroupData(searchTerm);
-    this.accountService.exportsTaxGroupDataSourceObservable.subscribe((res) => {
+    this.generalSettingService.exportTaxGroupData(searchTerm);
+    this.generalSettingService.exportsTaxGroupDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });
   }
  async Delete(id: number) {
-    const deleted =await this.accountService.deleteTaxGroup(id);
+    const deleted =await this.generalSettingService.deleteTaxGroup(id);
     if( deleted)
       {
         const index = this.tableData.findIndex((item) => item.id === id);

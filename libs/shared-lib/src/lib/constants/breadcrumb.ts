@@ -99,9 +99,9 @@ export class BreadcrumbLabel {
     static PAYMENT_TERM_ADD ='BreadCrumb.AddPaymentterm';
     static PAYMENT_TERM_EDIT ='BreadCrumb.EditPaymentterm';
     static PAYMENT_METHOD_LIST ='BreadCrumb.PaymentMethodlist';
-    static PAYMENT_METHOD_ADD ='BreadCrumb.AddPaymentMethod ';
-    static PAYMENT_METHOD_EDIT ='BreadCrumb.EditPaymentMethod ';
-    static PAYMENT_METHOD_VIEW ='BreadCrumb.ViewPaymentMethod ';
+    static PAYMENT_METHOD_ADD ='BreadCrumb.AddPaymentMethod';
+    static PAYMENT_METHOD_EDIT ='BreadCrumb.EditPaymentMethod';
+    static PAYMENT_METHOD_VIEW ='BreadCrumb.ViewPaymentMethod';
     
     
     static PAYMENT_IN ='BreadCrumb.PaymentIn';
@@ -122,5 +122,7 @@ export class BreadcrumbLabel {
     static VENDOR_OPENING_BALANCE_EDIT ='BreadCrumb.EditVendorOpeningBalance';
     static VENDOR_OPENING_BALANCE_ADD ='BreadCrumb.AddVendorOpeningBalance';
 
+    static BANK_ACCOUNT_STATEMENT ='BreadCrumb.BankAccountStatement';
+    static TREASURY_STATEMENT ='BreadCrumb.TreasuryStatement';
 
   }

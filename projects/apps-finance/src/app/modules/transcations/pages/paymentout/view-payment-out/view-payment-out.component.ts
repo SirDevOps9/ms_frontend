@@ -75,7 +75,11 @@ export class ViewPaymentOutComponent implements OnInit {
     this.financeService.viewPaymentOut(this.routerService.currentId);
     this.financeService.ViewpaymentOutDataObservable.subscribe((res: any) => {
       this.ViewForm = res
-      console.log("ViewForm",this.ViewForm);
+      this.ViewForm = res
+      if (this.ViewForm.bankId){
+        this.getAllPayMethodsDropdown(this.ViewForm.bankId!, this.ViewForm.bankAccountId!)
+      }
+
     })
   }
   getAllPayMethodsDropdown(BankId: number, BankAccountId: number) {
@@ -83,19 +87,19 @@ export class ViewPaymentOutComponent implements OnInit {
   }
 
   handleButtonClick(Line: any): void {
+    if(Line.paymentMethodType == this.sharedFinanceEnums.paymentMethodTypeString.Cash){
+      return
+      }else{
+        this.getAllPayMethodsDropdown(this.ViewForm.bankId!,this.ViewForm.bankAccountId!)
+        const paymentMethodId = Line.paymentMethodId;
+        const selectedPayment = this.paymentMethod.find(method => method.id === paymentMethodId);
+        if (selectedPayment) {
+          const paymentMethodType = selectedPayment.paymentMethodType;
 
-    this.getAllPayMethodsDropdown(this.ViewForm.bankId!,this.ViewForm.bankAccountId!)
-    const paymentMethodId = Line.paymentMethodId;
-    console.log("Line.paymentmethodId",Line.paymentMethodId)
-    const selectedPayment = this.paymentMethod.find(method => method.id === paymentMethodId);
-console.log("selectedPayment",selectedPayment)
-    if (selectedPayment) {
-      const paymentMethodType = selectedPayment.paymentMethodType;
-      console.log("Line.value",Line)
-
-      this.openDialog(Line, selectedPayment, Line, Line.amount);
+          this.openDialog(Line, selectedPayment, Line, Line.amount);
+        }
+      }
     }
-  }
   
   openDialog(value: any, selectedPayment: any, journal: any, amount: number) {
     if (selectedPayment.paymentMethodType == this.sharedFinanceEnums.paymentMethodTypeString.Cash || selectedPayment.paymentMethodType == null) {
@@ -112,7 +116,6 @@ console.log("selectedPayment",selectedPayment)
     }
   }
   openCostPopup(data: any, journal: FormGroup, account: number, index: number) {
-    console.log("data 11", data)
     const viewdata = true;
 
     const dialogRef = this.dialog.open(AddPaymentOutCostCenterComponent, {

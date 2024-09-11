@@ -83,6 +83,7 @@ export class AddBankDefinitionComponent implements OnInit {
         this.bankForm.at(index)?.get('glAccountId')?.setValue(r.id);
         this.bankForm.at(index)?.get('accountName')?.setValue(r.name);
         this.bankForm.at(index)?.get('displayName')?.setValue(r.accountCode);
+        this.bankForm.at(index)?.get('currencyId')?.setValue(r.currencyId);
 
       }
     });
@@ -111,6 +112,8 @@ export class AddBankDefinitionComponent implements OnInit {
     bankLine.get('accountCode')?.setValue(accountData?.accountCode);
     bankLine.get('accountName')?.setValue(accountData.name);
     bankLine.get('displayName')?.setValue(accountData.accountCode);
+    bankLine.get('currencyId')?.setValue(accountData.currencyId);
+
 
 
     this.GetAccountOpeningBalance(event, id);
@@ -120,7 +123,7 @@ export class AddBankDefinitionComponent implements OnInit {
       accountNumber: new FormControl('', customValidators.required),
       glAccountId: null,
       iban: null,
-      currencyId: new FormControl('', customValidators.required),
+      currencyId: null,
       openingBalance: new FormControl('', customValidators.required),
       currentBalance: null,
       accountName: null,

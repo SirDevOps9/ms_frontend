@@ -3,11 +3,13 @@
     "PaymentOut": "Payment Out",
     "PaymentOutList": "Payment Out List",
     "AddPaymentOut": "Add Payment Out",
-    "EditPaymentOut": "Edit Payment Out"
+    "EditPaymentOut": "Edit Payment Out",
+    "BankAccountStatement":"Bank Account Statement"
   },
   "Success": "Success",
   "Error": "Error",
   "ErrorInDelete": "Error In Delete",
+  "DateFromLessThanToValidation":"date From is not before the end of dateTo.",
   "PaymentIn": {
     "Form": {
       "Save": "Save",
@@ -84,7 +86,7 @@
     "delete": "Payment In Deleted Successfully"
   },
   "PaymentOut": {
-    "Title":"Payment Out",
+    "Title": "Payment Out",
     "add": "Payment Out Added Successfully",
     "edit": "Payment Out Updated Successfully",
     "delete": "Payment Out Deleted Successfully",
@@ -160,6 +162,52 @@
     "paymentMethodTypeRequired": "payment Method details Required In line",
     "addpaymentout": " Add Payment out",
     "editpaymentout": " Edit Payment out"
+  },
+  "TreasuryStatement": {
+    "date": "Date",
+    "paymentCode": "Payment Code",
+    "paymentName": "Payment Name",
+    "debit": "Debit (in)",
+    "credit": "Credit (out)",
+    "balance": "Balance",
+    "paymentMethodName": "Payment Method",
+    "sourceCode": "Source Code",
+    "journalCode": "Journal Code",
+    "paidByDetailsName": "Paid By",
+    "accountName": "Account Name",
+    "headerDescription": "Header Description",
+    "lineDescription": "Line Description",
+    "ViewData":"View Data",
+    "treasury":"Treasury",
+    "openingBalance":"Opening Balance",
+    "totals":"Totals",
+    "TreasuryStatement":"Treasury Statement",
+     "currency":"Currency",
+     "DateFrom":"Date From",
+    "DateTo":"Date To"
+  },
+  "BankAccountStatement": {
+    "BankAccountStatement":"Bank Account Statement",
+    "DisplayCurrency": "Display Currency",
+    "Bank": "Bank",
+    "BankAccount": "Bank Account",
+    "SelectBankValue": "Select Bank 1 Value",
+    "SelectBankAccountValue": "Select Bank Account 1 Value",
+    "ViewData":"View Data",
+    "Date":"Date",
+    "PaymentCode":"Payment Code",
+    "PaymentName":"Payment Name",
+    "Debit":"Debit (In)",
+    "Credit":"Credit (Out)",
+    "Balance":"Balance",
+    "PaymentMethodName":"Payment Method",
+    "SourceCode":"Source Code",
+    "JournalCode":"Journal Code",
+    "PaidByDetailsName":"Paid By Details",
+    "AccountName":"Linked GL Account",
+    "HeaderDescription":"Header Description",
+    "LineDescription":"Line Description",
+    "DateFrom":"Date From",
+    "DateTo":"Date To"
   }
-
 }

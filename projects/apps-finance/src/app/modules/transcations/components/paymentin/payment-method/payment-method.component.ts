@@ -60,7 +60,9 @@ export class PaymentMethodComponent {
      
       }
       if (this.config.data.viewdata) {
-        this.disabled=true;
+        console.log(this.config.data.viewdata ,"this.config.data.viewdata");
+
+        this.disabled=this.config.data.viewdata;
         console.log(this.disabled,"disabled");
       }
       if (this.config.data.selectedPayment.commissionType === this.sharedFinanceEnums.commissionTypeString.Percent) {
