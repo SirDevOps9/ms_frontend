@@ -63,24 +63,9 @@ export class TreasuryStatementComponent implements OnInit {
     this.reportForm.valueChanges.subscribe(() => {
       this.tableData = {} as treasuryStatementDto;
     });
-
-    this.ReportService.treasuryStatementObservable.subscribe((res) => {
-      if (res && res.transactions && res.transactions.length > 0) {
-        this.tableData = res;
-        this.transactions = res?.transactions;
-        this.totalDebit = res?.totalDebit;
-        this.totalCredit = res?.totalCredit;
-        this.totalBalance = res?.totalBalance;
-        this.openingDebit = res?.openingBalanceDebit;
-        this.openingCredit = res?.openingBalanceCredit;
-        this.openingBalance = res?.openingBalanceBalance;
-      }
-    });
-
     this.reportForm.get('treasuryId')!.valueChanges.subscribe((Id) => {
       const selected = this.treasuryDropDown.find((x) => x.id === Id);
       if (selected) {
-        console.log(' this.tableData ', this.tableData);
         this.reportForm.get('currency')!.setValue(selected.currencyName);
         this.currency = selected.currencyName;
         this.selectedTreasuryName = selected.name;
@@ -137,9 +122,15 @@ export class TreasuryStatementComponent implements OnInit {
       TreasuryId: formValue.treasuryId,
     };
     this.ReportService.getTreasuryStatement(filterDto);
-    this.ReportService.treasuryStatementObservable.subscribe((data) => {
-      this.tableData = data;
-    });
+    this.ReportService.treasuryStatementObservable.subscribe((res) => {
+      this.tableData = res;
+      this.transactions = res?.transactions;
+      this.totalDebit = res?.totalDebit;
+      this.totalCredit = res?.totalCredit;
+      this.totalBalance = res?.totalBalance;
+      this.openingDebit = res?.openingBalanceDebit;
+      this.openingCredit = res?.openingBalanceCredit;
+      this.openingBalance = res?.openingBalanceBalance;    });
   }
 
   routeToPaymentView(transaction: TreasuryStatmentTransactionDto) {
@@ -164,7 +155,6 @@ export class TreasuryStatementComponent implements OnInit {
 
   routeToJournalView(id: number) {
     const test = location.href.split('/');
-    console.log(test[3]);
     const url = this.router.serializeUrl(
       this.router.createUrlTree([`/accounting/transcations/journalentry/view/${id}`])
     );

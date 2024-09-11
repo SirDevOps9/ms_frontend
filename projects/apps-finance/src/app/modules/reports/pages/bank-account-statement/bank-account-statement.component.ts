@@ -147,7 +147,6 @@ export class BankAccountStatementComponent {
 
   routeToPaymentView(id: number, paymentname: string) {
     const test = location.href.split('/');
-    console.log(test[3]);
     if (paymentname == SourceDocument.PaymentIn) {
       const url = this.router.serializeUrl(
         this.router.createUrlTree([`${test[3]}/transcations/paymentin/view/${id}`])
@@ -162,7 +161,6 @@ export class BankAccountStatementComponent {
   }
   routeToJournalView(id: number) {
     const test = location.href.split('/');
-    console.log(test[3]);
     const url = this.router.serializeUrl(
       this.router.createUrlTree([`/accounting/transcations/journalentry/view/${id}`])
     );

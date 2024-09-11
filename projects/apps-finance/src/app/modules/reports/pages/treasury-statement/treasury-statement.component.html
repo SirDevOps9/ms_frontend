@@ -2,7 +2,7 @@
   <div class="user_page group">
     <form [formGroup]="reportForm">
       <div class="group">
-        <div class="calender"></div>
+        <div class="calender">
         <div class="grid">
           <div class="col-12 md:col-6">
             <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input>
@@ -49,6 +49,8 @@
             </button>
           </div>
         </div>
+      </div>
+
       </div>
     </form>
     <lib-data-table
@@ -200,11 +202,11 @@
 
         <div class="grid">
           <div class="col-12 md:col-5">
-            <label> {{ 'TreasuryStatement.Treasury' | translate }} </label>
+            <label> {{ 'TreasuryStatement.treasury' | translate }} </label>
             <p class="view">{{ selectedTreasuryName }}</p>
           </div>
           <div class="col-12 md:col-4">
-            <label> {{ 'TreasuryStatement.Currency' | translate }} </label>
+            <label> {{ 'TreasuryStatement.currency' | translate }} </label>
             <p class="view">{{ currency }}</p>
           </div>
         </div>
@@ -223,60 +225,60 @@
           columns: [
             {
               name: 'date',
-              headerText: 'TreasuryStatement.Date' | translate,
+              headerText: 'TreasuryStatement.date' | translate,
               template:date
             },
             {
               name: 'paymentCode',
-              headerText: 'TreasuryStatement.PaymentCode' | translate,
+              headerText: 'TreasuryStatement.paymentCode' | translate,
             },
             {
               name: 'paymentName',
-              headerText: 'TreasuryStatement.PaymentName' | translate,
+              headerText: 'TreasuryStatement.paymentName' | translate,
     
             },
             {
               name: 'debit',
-              headerText: 'TreasuryStatement.Debit' | translate,
+              headerText: 'TreasuryStatement.debit' | translate,
     
             },
             {
               name: 'credit',
-              headerText: 'TreasuryStatement.Credit' | translate,
+              headerText: 'TreasuryStatement.credit' | translate,
     
             },
             {
               name: 'balance',
-              headerText: 'TreasuryStatement.Balance' | translate,
+              headerText: 'TreasuryStatement.balance' | translate,
     
             },
             {
               name: 'paymentMethodName',
-              headerText: 'TreasuryStatement.PaymentMethodName' | translate,
+              headerText: 'TreasuryStatement.paymentMethodName' | translate,
             },
             {
               name: 'sourceCode',
-              headerText: 'TreasuryStatement.SourceCode' | translate,
+              headerText: 'TreasuryStatement.sourceCode' | translate,
             },
             {
               name: 'journalCode',
-              headerText: 'TreasuryStatement.JournalCode' | translate,
+              headerText: 'TreasuryStatement.journalCode' | translate,
             },
             {
               name: 'paidByDetailsName',
-              headerText: 'TreasuryStatement.PaidByDetailsName' | translate,
+              headerText: 'TreasuryStatement.paidByDetailsName' | translate,
             },
             {
               name: 'accountName',
-              headerText: 'TreasuryStatement.AccountName' | translate,
+              headerText: 'TreasuryStatement.accountName' | translate,
             },
             {
               name: 'headerDescription',
-              headerText: 'AccountStatement.HeaderDescription' | translate,
+              headerText: 'AccountStatement.headerDescription' | translate,
             },
             {
               name: 'lineDescription',
-              headerText: 'TreasuryStatement.LineDescription' | translate,
+              headerText: 'TreasuryStatement.lineDescription' | translate,
             }
           ]
         }"

@@ -66,6 +66,10 @@ input[type=checkbox]{
     }
 }
 ::ng-deep{
+  .p-datatable.p-datatable-gridlines .p-datatable-header {
+    border-width:  0px;
+    background: #ffffff;
+}
   .p-checkbox .p-checkbox-box.p-highlight {
     border-color: #1a90b0 !important;
     background: #1a90b0 !important;
@@ -151,3 +155,5 @@ color: #2E2E2E;
 background: #F2F4F8;
 transition: box-shadow 0.2s;
 }
+
+
