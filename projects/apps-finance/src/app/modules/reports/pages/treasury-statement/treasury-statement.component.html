@@ -49,11 +49,10 @@
           </div>
         </div>
     </form>
-
       <lib-data-table
-      *ngIf="tableData!.transactions!"
+      
       [firstRow]="true"
-        [items]="tableData!.transactions!"
+        [items]="transactions"
         className="p-datatable-gridlines"
         [reportTable]="true"
         [tableConfigs]="{
@@ -162,41 +161,40 @@
         
 
         <ng-container firstRow>
-          <td class="imptyData" colspan="2">{{'TreasuryStatement.openingBalance' | translate}}</td>
+          <td class="total">{{'TreasuryStatement.openingBalance' | translate}}</td>
           <td class="imptyData"></td>
           <td class="imptyData"></td>
-          <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceDebit, generalService.fraction) }}</td>
-          <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceCredit, generalService.fraction)}}</td>
-          <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceBalance, generalService.fraction)}}</td>
-          <td class="imptyData"></td> 
-          <td class="imptyData"></td> 
-          <td class="imptyData"></td>      
-          <td class="imptyData"></td> 
-          <td class="imptyData"></td> 
-          <td class="imptyData"></td> 
-          <td class="imptyData"></td> 
-          <td class="imptyData"></td> 
-          </ng-container>
+          <td class="total">{{ openingDebit | numberFormat }}</td>
+          <td class="total">{{ openingCredit | numberFormat }}</td>
+          <td class="total">{{ openingBalance | numberFormat }}</td>
+          <td class="imptyData"></td>
+          <td class="imptyData"></td>
+          <td class="imptyData"></td>
+          <td class="imptyData"></td>
+          <td class="imptyData"></td>
+          <td class="imptyData"></td>
+          <td class="imptyData"></td>
+          <td class="imptyData"></td>
+        </ng-container>
 
         <ng-container footer>
           <tr>
             <td class="imptyData">{{'TreasuryStatement.totals' | translate}}</td>
             <td class="imptyData"></td>
             <td class="imptyData"></td>
-            <td class="total">{{ generalService.formatNumber(  tableData.totalDebit, generalService.fraction) }}</td>
-            <td class="total">{{ generalService.formatNumber(  tableData.totalCredit, generalService.fraction)}}</td>
-            <td class="total">{{ generalService.formatNumber(  tableData.totalBalance, generalService.fraction)}}</td>
+            <td class="total">{{ totalDebit | numberFormat }}</td>
+            <td class="total">{{ totalCredit | numberFormat }}</td>
+            <td class="total">{{ totalBalance | numberFormat }}</td>
             <td class="imptyData"></td>
-            <td class="imptyData"></td> 
-          <td class="imptyData"></td>      
-          <td class="imptyData"></td> 
-          <td class="imptyData"></td> 
-          <td class="imptyData"></td> 
-          <td class="imptyData"></td> 
-          <td class="imptyData"></td> 
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
+            <td class="imptyData"></td>
           </tr>
         </ng-container>
-      </lib-data-table>
+        </lib-data-table>
 
 
       

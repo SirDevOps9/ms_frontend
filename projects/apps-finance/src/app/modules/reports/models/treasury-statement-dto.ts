@@ -1,10 +1,10 @@
 export interface treasuryStatementDto {
-    openingBalanceDebit: string;
-    openingBalanceCredit: string;
-    openingBalanceBalance: string;
-    totalDebit: string;
-    totalCredit: string;
-    totalBalance: string;
+    openingBalanceDebit: number;
+    openingBalanceCredit: number;
+    openingBalanceBalance: number;
+    totalDebit: number;
+    totalCredit: number;
+    totalBalance: number;
     transactions: TreasuryStatmentTransactionDto[];
 }
 

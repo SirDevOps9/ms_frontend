@@ -20,11 +20,19 @@ export class TreasuryStatementComponent implements OnInit {
   reportForm: FormGroup;
   treasuryDropDown: TreasuryDropDown[] = []
   defoultSelectedAcounts: number[] = [];
-  currency: string
-  tableData: treasuryStatementDto;
+  currency: string;
+  tableData: treasuryStatementDto ; 
   cols: any[] = [];
   total: number = 0;
   selectedTreasuryName: string = '';
+  transactions: TreasuryStatmentTransactionDto[] = [];
+  openingDebit: number;
+  openingCredit: number;
+  openingBalance:number;
+  totalDebit: number;
+  totalCredit: number;
+  totalBalance: number;
+
 
   constructor(
     private fb: FormBuilder,
@@ -44,23 +52,31 @@ export class TreasuryStatementComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle(this.languageService.transalte('TreasuryStatement.TreasuryStatement'));
-
     this.initializeForm();
     this.getTreasuryDropDown();
     this.initializeDates();
+     this.reportForm.valueChanges.subscribe(() => {
+      this.tableData = {} as treasuryStatementDto;
+     });
 
-    this.reportForm.valueChanges.subscribe(() => {
-      this.tableData.transactions = [];
-    });
-
-    this.ReportService.treasuryStatementObservable.subscribe(data => {
-      this.tableData = data;
-      console.log("tableData",this.tableData)
+    this.ReportService.treasuryStatementObservable.subscribe(res => {
+      
+      if (res && res.transactions && res.transactions.length > 0) {
+        this.tableData = res;
+      this.transactions = res?.transactions
+      this.totalDebit = res?.totalDebit;
+      this.totalCredit = res?.totalCredit;
+      this.totalBalance = res?.totalBalance;
+      this.openingDebit = res?.openingBalanceDebit;
+      this.openingCredit = res?.openingBalanceCredit;
+      this.openingBalance = res?.openingBalanceBalance;
+      }
     })
 
     this.reportForm.get('treasuryId')!.valueChanges.subscribe(Id => {
       const selected = this.treasuryDropDown.find(x => x.id === Id);
       if (selected) {
+        console.log(" this.tableData ", this.tableData )
         this.reportForm.get('currency')!.setValue(selected.currencyName);
         this.currency=selected.currencyName
         this.selectedTreasuryName = selected.name
