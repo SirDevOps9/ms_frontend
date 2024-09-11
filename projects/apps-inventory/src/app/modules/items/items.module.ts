@@ -16,6 +16,10 @@ import { AddBarcodePopupComponent } from './components/add-barcode-popup/add-bar
 import { ViewQRcodeComponent } from './components/view-qrcode/view-qrcode.component';
 import { WarehouseListComponent } from './pages/warehouse/warehouse-list/warehouse-list.component';
 import { AddWarehouseComponent } from './pages/warehouse/add-warehouse/add-warehouse.component';
+import { ItemsCategoryTreeComponent } from './pages/item-categories-tree/items-category-tree/items-category-tree.component';
+import { AddItemsCategoryComponent } from './pages/item-categories-tree/add-items-category/add-items-category.component';
+import { EditItemCategoryComponent } from './pages/item-categories-tree/edit-item-category/edit-item-category.component';
+import { ViewItemCategoryComponent } from './pages/item-categories-tree/view-item-category/view-item-category.component';
 
 
 const routes: Routes = [
@@ -46,6 +50,14 @@ const routes: Routes = [
         component: WarehouseListComponent,
         data: {
           breadcrumb: BreadcrumbLabel.WARE_HOUSE
+        },
+     
+      },
+      {
+        path: 'items-category',
+        component: ItemsCategoryTreeComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.ITEMS_CATEGORY
         },
      
       },
@@ -103,7 +115,11 @@ const routes: Routes = [
     AddBarcodePopupComponent,
     ViewQRcodeComponent,
     WarehouseListComponent,
-    AddWarehouseComponent
+    AddWarehouseComponent,
+    ItemsCategoryTreeComponent,
+    AddItemsCategoryComponent,
+    EditItemCategoryComponent,
+    ViewItemCategoryComponent
   ],
   imports: [
     CommonModule,

@@ -49,6 +49,27 @@ export class ItemsService {
   public attributeValuesData = new BehaviorSubject<itemAttributeValues[]>([]);
 
   public exportedItemDefinitionListDataSource = new BehaviorSubject<itemDefinitionDto[]>([]);
+  // warehouse
+  sendWarehouseDataSource  = new BehaviorSubject<itemDefinitionDto[]>([])
+  AddWarehouseDataSource  = new BehaviorSubject<any>({})
+  getWarehouseDataSourceById  = new BehaviorSubject<any>({})
+  exportedWarehouseDataSource = new BehaviorSubject<itemDefinitionDto[]>([]);
+  // lookups
+  sendGlAccountLookup = new BehaviorSubject<any>([]);
+  sendCashSalesLookup = new BehaviorSubject<any>([]);
+  sendLookup = new BehaviorSubject<any>([]);
+  sendCreditSalesLookup = new BehaviorSubject<any>([]);
+  sendSalesReturnLookup = new BehaviorSubject<any>([]);
+  sendPurchaseAccountLookup = new BehaviorSubject<any>([]);
+  sendSalesCostCenterLookup = new BehaviorSubject<any>([]);
+  sendDiscountAccountLookup = new BehaviorSubject<any>([]);
+  sendEvaluationAccountLookup = new BehaviorSubject<any>([]);
+  sendAdjustmentAccountLookup = new BehaviorSubject<any>([]);
+  sendGoodsInTransitLookup = new BehaviorSubject<any>([]);
+  sendCityLookup = new BehaviorSubject<any>([]);
+  sendCompanyPhoneLookup = new BehaviorSubject<any>([]);
+
+
 
   public sendItemDefinitionDataSourceObs  = this.sendItemDefinitionDataSource.asObservable()
   public itemTypeLookupObs  = this.itemTypeLookup.asObservable()
@@ -77,6 +98,24 @@ export class ItemsService {
   public GetUomListByItemIdObs  = this.GetUomListByItemId.asObservable()
   public sendDefaultObs  = this.sendDefault.asObservable()
   public editItemDataObs  = this.editItemData.asObservable()
+  // warehouse
+  public sendWarehouseDataSourceObs  = this.sendWarehouseDataSource.asObservable()
+  public exportedWarehouseDataSourceObs = this.exportedWarehouseDataSource.asObservable()
+// lookups
+  public sendGlAccountLookupObs = this.sendGlAccountLookup.asObservable()
+  public sendCashSalesLookupObs = this.sendCashSalesLookup.asObservable()
+  public sendCreditSalesLookupObs = this.sendCreditSalesLookup.asObservable()
+  public sendSalesReturnLookupObs = this.sendSalesReturnLookup.asObservable()
+  public sendPurchaseAccountLookupObs = this.sendPurchaseAccountLookup.asObservable()
+  public sendSalesCostCenterLookupObs = this.sendSalesCostCenterLookup.asObservable()
+  public sendDiscountAccountLookupObs = this.sendDiscountAccountLookup.asObservable()
+  public sendEvaluationAccountLookupObs = this.sendEvaluationAccountLookup.asObservable()
+  public sendAdjustmentAccountLookupObs = this.sendAdjustmentAccountLookup.asObservable()
+  public sendGoodsInTransitLookupObs = this.sendGoodsInTransitLookup.asObservable()
+  public sendCityLookupObs = this.sendCityLookup.asObservable()
+  public sendCompanyPhoneLookupObs = this.sendCompanyPhoneLookup.asObservable()
+
+  
 
 
 
@@ -388,4 +427,52 @@ export class ItemsService {
     
     })
    }
+  //  warehouse
+  getWarehouseList(queries: string, pageInfo: PageInfo)  {
+    this.itemProxy.getWarehouseList(queries, pageInfo).subscribe((response) => {
+     this.sendWarehouseDataSource.next(response.result)
+     this.currentPageInfo.next(response.pageInfoResult)
+    });
+  } 
+
+  addWarehouse(obj : any) {
+    this.itemProxy.addWarehouse(obj).subscribe((response) => {
+      this.AddWarehouseDataSource.next(response.result)
+     });
+  }
+
+  exportsWayehouseList(searchTerm:string | undefined) {
+    this.itemProxy.exportsWayehouseList(searchTerm).subscribe({
+      next: (res : any) => {
+         this.exportedWarehouseDataSource.next(res);
+      },
+    });
+  }
+  async deleteWareHouse(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.itemProxy.deleteWareHouse(id).subscribe({
+        next: (res) => {
+          
+          this.toasterService.showSuccess(
+            this.languageService.transalte('warehouse.success'),
+            this.languageService.transalte('warehouse.delete')
+          );
+       
+          const currentWarehouse = this.sendWarehouseDataSource.getValue();
+          const updatedWarehouse = currentWarehouse.filter((c) => c.id !== id);
+          this.sendWarehouseDataSource.next(updatedWarehouse);
+        },
+        
+      });
+    }
+  }
+
+  getGlAccountLookup() {
+    return this.itemProxy.getGlAccountLookup().subscribe(res=>{
+      this.sendGlAccountLookup.next(res)
+    })
+  }
 }

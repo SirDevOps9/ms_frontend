@@ -37,7 +37,7 @@
         "uomName" : "UOM Name",
         "default" : "Default",
         "factor" : "Factor",
-        "selectUom" : "Select UOM",
+        "selectUom" : "Sales UOM",
         "pusrchaseUom" : "Purchase UOM",
         "add_new" : "Add Line",
         "barcode": "Barcode",
@@ -133,7 +133,15 @@
         "warehouse" : "Warehouse",
         "account" : "Account",
         "address" : "Address",
-        
+        "city" : "City",
+        "companyPhoneNumber" : "Company Phone Number",    
+        "email" : "Email",
+        "fax" : "Fax",    
+        "postCode" : "Post Code",
+        "longitude" : "Longitude",
+        "latitude" : "Latitude",
+        "cancel" : "Cancel",
+        "raduis" : "Raduis",
         "glAccount" : "GL Account",
         "cashSalesAccount" : "Cash Sales Account",
         "creditSalesAccount" : "Credit Sales Account",
@@ -143,10 +151,15 @@
         "discountAccount" : "Discount Account",
         "evaluationaccount" : "Evaluation Account",
         "adjustmentAccount" : "Adjustment Account",
-        "goodsInTransit" : "Goods In Transit"
+        "goodsInTransit" : "Goods In Transit",
+        "delete" : "Warehouse Deleted Successfully",
+        "success" : "Success"
 
 
 
         
+    },
+    "itemsCategory" : {
+        "title" : "Items Category"
     }
 }

@@ -37,7 +37,7 @@
         "uomName": "اسم وحدة القياس",
         "default": "افتراضي",
         "factor": "المعامل",
-        "selectUom": "اختر وحدة قياس",
+        "selectUom": "بيع وحدة قياس",
         "pusrchaseUom": "وحدة قياس الشراء",
         "add_new": "إضافة سطر",
         "barcode": "الباركود",

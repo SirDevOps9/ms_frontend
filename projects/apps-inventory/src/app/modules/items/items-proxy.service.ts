@@ -147,6 +147,68 @@ export class ItemsProxyService {
   generateVariant(obj : any) {
     return this.httpService.post(`ItemVariant/Generate` , obj)
   }
+  // warehouse
+  getWarehouseList(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<itemDefinitionDto>> {
+    let query = `WareHouse?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<itemDefinitionDto>>(query)
+  }
+
+  exportsWayehouseList(
+    searchTerm: string | undefined
+  ): Observable<itemDefinitionDto[]> {
+    let query = `WareHouse/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<itemDefinitionDto[]>(query);
+  }
+  deleteWareHouse(id : number ){
+    return this.httpService.delete(`WareHouse/DeleteWareHouse/${id}`)
+  }
+  addWarehouse(obj : any) {
+    return this.httpService.post(`WareHouse` , obj)
+  }
+  // 
+  getGlAccountLookup() {
+    return this.httpService.get<any>(`WareHouse/`);
+  }
+  getCashSalesLookup() {
+    return this.httpService.get<any>(`WareHouse/`);
+  }
+  getCreditSalesLookup() {
+    return this.httpService.get<any>(`WareHouse/`);
+  }
+  getSalesReturnLookup() {
+    return this.httpService.get<any>(`WareHouse/`);
+  }
+  getPurchaseAccountLookup() {
+    return this.httpService.get<any>(`WareHouse/`);
+  }
+  getSalesCostCenterLookup() {
+    return this.httpService.get<any>(`WareHouse/`);
+  }
+  getDiscountAccountLookup() {
+    return this.httpService.get<any>(`WareHouse/`);
+  }
+  getEvaluationAccountLookup() {
+    return this.httpService.get<any>(`WareHouse/`);
+  }
+  getAdjustmentAccountLookup() {
+    return this.httpService.get<any>(`WareHouse/`);
+  }
+  getGoodsInTransitLookup() {
+    return this.httpService.get<any>(`WareHouse/`);
+  }
+  getCityLookup() {
+    return this.httpService.get<any>(`WareHouse/`);
+  }
+  getCompanyPhoneLookup() {
+    return this.httpService.get<any>(`WareHouse/`);
+  }
 
   
 }
+

@@ -88,12 +88,12 @@ export class AddItemDefinitionComponent implements OnInit {
     this.itemDefinitionForm = this.fb.group({
       id : this.id,
       code : [''],
-      name : [''],
+      name : ['' , [customValidators.required]],
       photo : [''],
-      categoryId : [''],
+      categoryId : ['' , [customValidators.required]],
       countryName : [''],
       tags : [''],
-      defaultUOMCategoryId : [''],
+      defaultUOMCategoryId : ['' , [customValidators.required]],
       taxId : [''],
       shortName : [''],
       warranty : [''],
@@ -537,6 +537,7 @@ export class AddItemDefinitionComponent implements OnInit {
   }
 
   onSave() {
+    if (!this.formService.validForm(this.itemDefinitionForm, false)) return;
 
     const {
       id,

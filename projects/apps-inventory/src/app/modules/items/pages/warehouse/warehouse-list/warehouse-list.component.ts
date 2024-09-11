@@ -43,6 +43,14 @@ export class WarehouseListComponent implements OnInit {
       field: 'Short Name',
       header: 'shortName',
     },
+    {
+      field: 'Item Category Name',
+      header: 'itemCategoryName',
+    },
+    {
+      field: 'UOM Name',
+      header: 'uomName',
+    },
    
   ];
   exportColumns: lookupDto[];
@@ -61,9 +69,9 @@ export class WarehouseListComponent implements OnInit {
   }
 
   initItemDefinitionData() {
-    this.itemsService.getItemDefinition('', new PageInfo());
+    this.itemsService.getWarehouseList('', new PageInfo());
 
-    this.itemsService.sendItemDefinitionDataSourceObs.subscribe({
+    this.itemsService.sendWarehouseDataSourceObs.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -75,7 +83,7 @@ export class WarehouseListComponent implements OnInit {
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.itemsService.getItemDefinition('', pageInfo);
+    this.itemsService.getWarehouseList('', pageInfo);
 
   
   }
@@ -85,8 +93,8 @@ export class WarehouseListComponent implements OnInit {
   }
 
   exportBankData(searchTerm: string) {
-    this.itemsService.exportsItemsDefinitionList(searchTerm);
-    this.itemsService.exportedItemDefinitionListDataSource.subscribe((res) => {
+    this.itemsService.exportsWayehouseList(searchTerm);
+    this.itemsService.exportedWarehouseDataSourceObs.subscribe((res) => {
       this.exportData = res;
     });
   }
@@ -96,27 +104,18 @@ export class WarehouseListComponent implements OnInit {
   }
 
   onEdit(data: any) {
-    // const dialogRef = this.dialog.open(EditItemDefinitionComponent, {
-    
-    //   width: '800px',
-    //   height : '700px',
-    //   data : data
-  
-    // });
+    this.routerService.navigateTo(`/masterdata/add-warehouse/${data.id}`)
 
-    // dialogRef.onClose.subscribe(() => {
-    // this.initItemDefinitionData()
-    // });
 
   }
 
   onSearchChange() {
-    this.itemsService.getItemDefinition(this.searchTerm, new PageInfo());
+    this.itemsService.getWarehouseList(this.searchTerm, new PageInfo());
     
   }
 
   onDelete(id: number) {
-     this.itemsService.deleteItemDefinition(id)
+     this.itemsService.deleteWareHouse(id)
   }
 }
 
