@@ -57,7 +57,7 @@ export class BankAccountStatementComponent {
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(this.languageService.transalte('reportAccount.AccountStatement'));
+    this.titleService.setTitle(this.languageService.transalte('BankAccountStatement.BankAccountStatement'));
 
     this.initializeForm();
     //this.initializeDates();

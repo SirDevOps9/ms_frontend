@@ -178,37 +178,22 @@
         </ng-template>
 
         <ng-container firstRow>
-          <td class="total">{{ openingHeader }}</td>
-          <td class="imptyData"></td>
-          <td class="imptyData"></td>
-          <td class="total">{{ openingDebit | numberFormat }}</td>
-          <td class="total">{{ openingCredit | numberFormat }}</td>
-          <td class="total">{{ openingBalance | numberFormat }}</td>
-          <td class="imptyData"></td>
-          <td class="imptyData"></td>
-          <td class="imptyData"></td>
-          <td class="imptyData"></td>
-          <td class="imptyData"></td>
-          <td class="imptyData"></td>
-          <td class="imptyData"></td>
-          <td class="imptyData"></td>
+          <td class="first_row body_b16" colspan="3">{{ openingHeader }}</td>
+          <td class=" first_row body_b16">{{ openingDebit | numberFormat }}</td>
+          <td class=" first_row body_b16">{{ openingCredit | numberFormat }}</td>
+          <td class=" first_row body_b16">{{ openingBalance | numberFormat }}</td>
+          <td class="first_row" colspan="8"></td>
+
         </ng-container>
 
         <ng-container footer>
           <tr>
-            <td class="imptyData"></td>
-            <td class="imptyData"></td>
-            <td class="imptyData"></td>
-            <td class="total">{{ totalDebit | numberFormat }}</td>
-            <td class="total">{{ totalCredit | numberFormat }}</td>
-            <td class="total">{{ totalBalance | numberFormat }}</td>
-            <td class="imptyData"></td>
-            <td class="imptyData"></td>
-            <td class="imptyData"></td>
-            <td class="imptyData"></td>
-            <td class="imptyData"></td>
-            <td class="imptyData"></td>
-            <td class="imptyData"></td>
+            <td class="imptyData" colspan="3"></td>
+            <td class="first_row body_b16">{{ totalDebit | numberFormat }}</td>
+            <td class="first_row body_b16">{{ totalCredit | numberFormat }}</td>
+            <td class="first_row body_b16">{{ totalBalance | numberFormat }}</td>
+            <td class="imptyData" colspan="7"></td>
+
           </tr>
         </ng-container>
         <ng-template #paymentCode let-transactions>
