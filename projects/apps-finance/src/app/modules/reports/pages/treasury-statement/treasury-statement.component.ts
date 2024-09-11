@@ -154,7 +154,6 @@ export class TreasuryStatementComponent implements OnInit {
   }
 
   routeToJournalView(id: number) {
-    const test = location.href.split('/');
     const url = this.router.serializeUrl(
       this.router.createUrlTree([`/accounting/transcations/journalentry/view/${id}`])
     );
