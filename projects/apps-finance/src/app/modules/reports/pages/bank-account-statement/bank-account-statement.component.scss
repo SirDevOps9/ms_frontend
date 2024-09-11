@@ -121,20 +121,26 @@ input[type=checkbox]{
 
   .code {
     color:#1a90b0;
-    text-decoration: underline;
+    //text-decoration: underline;
     cursor: pointer;
   }
   .code:hover {
-    color: darkblue;
+    color: #10566a;
   }
 .total {
   text-align: center;
 }
 .imptyData {
-  font-weight: bold;
-  text-align: center;
+  background: #ffffff;
+  border:none;
 }
-td {
-  background-color:#f2f4f8;
-  padding: 10px;
+
+.first_row{
+  text-align: left;
+  padding: 1rem 1rem;
+  border: 1px solid #DDE1E6;
+  //font-weight: 600;
+  color: #2E2E2E;
+  background: #F2F4F8;
+  transition: box-shadow 0.2s;
 }

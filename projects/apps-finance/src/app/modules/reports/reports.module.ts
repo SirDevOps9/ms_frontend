@@ -16,7 +16,7 @@ const routes: Routes = [
     children: [ 
       
       {
-        path: 'bankaccountstatement',
+        path: 'bank-account-statement',
         component: BankAccountStatementComponent,
         data: {
           breadcrumb: BreadcrumbLabel.BANK_ACCOUNT_STATEMENT,

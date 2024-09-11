@@ -167,6 +167,7 @@
     "DateTo": "التاريخ إلى"
   },
   "BankAccountStatement": {
+    "BankAccountStatement": "كشف حساب البنك",
     "DisplayCurrency": "عرض العملة",
     "Bank": "البنك",
     "BankAccount": "الحساب البنكي",

@@ -187,6 +187,7 @@
     "DateTo":"Date To"
   },
   "BankAccountStatement": {
+    "BankAccountStatement":"Bank Account Statement",
     "DisplayCurrency": "Display Currency",
     "Bank": "Bank",
     "BankAccount": "Bank Account",
