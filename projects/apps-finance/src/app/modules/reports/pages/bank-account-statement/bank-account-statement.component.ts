@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 import {
   ToasterService,
@@ -26,12 +26,10 @@ import { SourceDocument } from '../../models/source-document-dto';
 })
 export class BankAccountStatementComponent {
   accountStatementForm: FormGroup;
-  defoultSelectedAcounts: number[] = [];
   tableData: BankAccountStatementDto;
   transactions: BankAccountStatementLinesDto[] = [];
   totalDebit: number;
   totalCredit: number;
-  cols: any[] = [];
   total: number = 0;
   currency: string;
   BankDropDown: DropDownDto[] = [];
@@ -41,26 +39,27 @@ export class BankAccountStatementComponent {
   selectedBankAccountName: string = '';
   openingDebit: number;
   openingCredit: number;
-  openingBalance:number;
-  openingHeader:String;
+  openingBalance: number;
+  openingHeader: String;
   constructor(
     private fb: FormBuilder,
     private reportsService: ReportsService,
-    private router:Router,
+    private router: Router,
     private titleService: Title,
     private languageService: LanguageService,
     private ToasterService: ToasterService,
     private PrintService: PrintService,
     public generalService: GeneralService,
-    private formsService: FormsService,
-
+    private formsService: FormsService
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(this.languageService.transalte('BankAccountStatement.BankAccountStatement'));
+    this.titleService.setTitle(
+      this.languageService.transalte('BankAccountStatement.BankAccountStatement')
+    );
 
     this.initializeForm();
-    //this.initializeDates();
+    this.initializeDates();
 
     this.accountStatementForm.valueChanges.subscribe(() => {
       this.tableData = {} as BankAccountStatementDto;
@@ -99,7 +98,7 @@ export class BankAccountStatementComponent {
           this.openingDebit = res?.openingBalance?.debit;
           this.openingCredit = res?.openingBalance?.credit;
           this.openingBalance = res?.openingBalance?.balance;
-          this.openingHeader =res?.openingBalance?.headerDescription;
+          this.openingHeader = res?.openingBalance?.headerDescription;
         }
       );
     } else {
@@ -111,9 +110,11 @@ export class BankAccountStatementComponent {
   }
   initializeDates() {
     const today = new Date();
+    let startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    startOfMonth.setDate(startOfMonth.getDate() + 1);
     const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1);
     this.accountStatementForm.patchValue({
-      dateFrom: today.toISOString().split('T')[0],
+      dateFrom: startOfMonth.toISOString().split('T')[0],
       dateTo: endOfMonth.toISOString().split('T')[0],
     });
   }
@@ -144,29 +145,27 @@ export class BankAccountStatementComponent {
     });
   }
 
-  routeToPaymentView(id:number, paymentname: string){
-
-    const test =location.href.split("/")
-        console.log(test[3]);
-        if(paymentname==SourceDocument.PaymentIn)
-          {
-            const url = this.router.serializeUrl(
-              this.router.createUrlTree([`${test[3]}/transcations/paymentin/view/${id}`])
-            );
-            window.open(url, '_blank');
-          }else{
-            const url = this.router.serializeUrl(
-              this.router.createUrlTree([`${test[3]}/transcations/paymentout/view/${id}`])
-            );
-    window.open(url, '_blank');
-      }
-  }
-      routeToJournalView(id:number){
-        const test =location.href.split("/")
-            console.log(test[3]);
-        const url = this.router.serializeUrl(
-          this.router.createUrlTree([`/accounting/transcations/journalentry/view/${id}`])
-        );
-        window.open(url, '_blank');
-          }
+  routeToPaymentView(id: number, paymentname: string) {
+    const test = location.href.split('/');
+    console.log(test[3]);
+    if (paymentname == SourceDocument.PaymentIn) {
+      const url = this.router.serializeUrl(
+        this.router.createUrlTree([`${test[3]}/transcations/paymentin/view/${id}`])
+      );
+      window.open(url, '_blank');
+    } else {
+      const url = this.router.serializeUrl(
+        this.router.createUrlTree([`${test[3]}/transcations/paymentout/view/${id}`])
+      );
+      window.open(url, '_blank');
     }
+  }
+  routeToJournalView(id: number) {
+    const test = location.href.split('/');
+    console.log(test[3]);
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/accounting/transcations/journalentry/view/${id}`])
+    );
+    window.open(url, '_blank');
+  }
+}

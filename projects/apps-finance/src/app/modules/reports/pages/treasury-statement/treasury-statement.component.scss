@@ -106,7 +106,6 @@ input[type=checkbox]{
   }
   .code {
     color:#1a90b0;
-    text-decoration: underline;
     cursor: pointer;
   }
   
@@ -126,4 +125,29 @@ td {
  
   background-color:#f2f4f8;   
   padding: 10px;                
+}
+
+.code {
+  color:#1a90b0;
+  cursor: pointer;
+}
+.code:hover {
+  color: #10566a;
+}
+.total {
+text-align: center;
+}
+.imptyData {
+background: #ffffff;
+border:none;
+}
+
+.first_row{
+text-align: left;
+padding: 1rem 1rem;
+border: 1px solid #DDE1E6;
+//font-weight: 600;
+color: #2E2E2E;
+background: #F2F4F8;
+transition: box-shadow 0.2s;
 }
