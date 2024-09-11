@@ -230,7 +230,7 @@
             <lib-table-print
             [firstRow]="true"
               resizableColumns="false"
-              [items]="tableData.transactions"
+              [items]="transactions"
               className="p-datatable-gridlines"
               [tableConfigs]="{
           allowPagination: false,
@@ -308,9 +308,9 @@
                   <td class="imptyData"></td>
                   <td class="imptyData"></td>
                   <td class="imptyData"></td>
-                  <td class="total">{{ generalService.formatNumber(  tableData.totalDebit, generalService.fraction) }}</td>
-                  <td class="total">{{ generalService.formatNumber(  tableData.totalCredit, generalService.fraction)}}</td>
-                  <td class="total">{{ generalService.formatNumber(  tableData.totalBalance, generalService.fraction)}}</td>
+                  <td class="total">{{ openingDebit | numberFormat }}</td>
+                  <td class="total">{{ openingDebit | numberFormat }}</td>
+                  <td class="total">{{ openingDebit | numberFormat }}</td>
                   <td class="imptyData"></td>
                   <td class="imptyData"></td>
                 </tr>
@@ -319,9 +319,9 @@
                 <td class="imptyData" colspan="2">{{'TreasuryStatement.openingBalance' | translate}}</td>
                 <td class="imptyData"></td>
                 <td class="imptyData"></td>
-                <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceDebit, generalService.fraction) }}</td>
-                <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceCredit, generalService.fraction)}}</td>
-                <td class="total">{{ generalService.formatNumber(  tableData.openingBalanceBalance, generalService.fraction)}}</td>
+                <td class="total">{{ openingDebit | numberFormat }}</td>
+                <td class="total">{{ openingCredit | numberFormat }}</td>
+                <td class="total">{{ openingBalance | numberFormat }}</td>
                 <td class="imptyData"></td> 
                 <td class="imptyData"></td> 
                 <td class="imptyData"></td>      
