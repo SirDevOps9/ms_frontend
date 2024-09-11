@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 import {
   ToasterService,
   LanguageService,
@@ -49,7 +48,6 @@ export class BankAccountStatementComponent {
     private languageService: LanguageService,
     private ToasterService: ToasterService,
     private PrintService: PrintService,
-    public generalService: GeneralService,
     private formsService: FormsService
   ) {}
 
