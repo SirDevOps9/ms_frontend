@@ -144,15 +144,15 @@ export class BankAccountStatementComponent {
   }
 
   routeToPaymentView(id: number, paymentname: string) {
-    const test = location.href.split('/');
+    const currentUrl = location.href.split('/');
     if (paymentname == SourceDocument.PaymentIn) {
       const url = this.router.serializeUrl(
-        this.router.createUrlTree([`${test[3]}/transcations/paymentin/view/${id}`])
+        this.router.createUrlTree([`${currentUrl[3]}/transcations/paymentin/view/${id}`])
       );
       window.open(url, '_blank');
     } else {
       const url = this.router.serializeUrl(
-        this.router.createUrlTree([`${test[3]}/transcations/paymentout/view/${id}`])
+        this.router.createUrlTree([`${currentUrl[3]}/transcations/paymentout/view/${id}`])
       );
       window.open(url, '_blank');
     }
