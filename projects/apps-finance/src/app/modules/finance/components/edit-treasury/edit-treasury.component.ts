@@ -58,6 +58,8 @@ export class EditTreasuryComponent implements OnInit {
         });
         this.treasuryForm.patchValue({ ...res });
         this.accountChange(res?.accountId);
+        this.GetTreasuryCurrentBalance(res.id);
+
       }
     });
   }
@@ -83,8 +85,19 @@ export class EditTreasuryComponent implements OnInit {
   GetAccountOpeningBalance(id: number) {
     this.financeService.GetAccountOpeningBalance(id).subscribe((res) => {
       this.OpeningBalanceData = res;
-      this.treasuryForm.get('journalEntryLineId')?.setValue(res.journalId);
-      this.treasuryForm.get('accountBalance')?.setValue(res.balance);
+      //this.treasuryForm.get('journalEntryLineId')?.setValue(res.journalId);
+      if(res)
+      {
+        this.treasuryForm.get('accountBalance')?.setValue(res.balance);
+      }
+    });
+  }
+
+  GetTreasuryCurrentBalance(id: number) {
+    this.financeService.GetTreasuryBalance(id);
+    this.financeService.TreasuryBalanceObservable.subscribe((res) => {
+      console.log(res);
+      this.treasuryForm.get('treasuryCurrentBalance')?.setValue(res);
     });
   }
 
@@ -103,6 +116,7 @@ export class EditTreasuryComponent implements OnInit {
       openingBalance: [null],
       journalEntryLineId: [null],
       accountBalance: [null],
+      treasuryCurrentBalance:''
     });
   }
 

@@ -135,17 +135,17 @@
           </div>
           <div class="col-6 my-2">
             <lib-form-group>
-              <lib-label [appControl]="treasuryForm.controls['openingBalance']">
+              <lib-label [appControl]="treasuryForm.controls['treasuryCurrentBalance']">
                 {{ 'treasury.openingBalance' | translate }}
               </lib-label>
               <lib-text-input
                 type="number"
-                formControlName="openingBalance"
-                placeholder="{{ 'treasury.openingBalance' | translate }}"
+                formControlName="treasuryCurrentBalance"
+                placeholder="{{ 'treasury.treasuryCurrentBalance' | translate }}"
                 class="form-control"
               />
               <lib-field-validations
-                [appControl]="treasuryForm.controls['openingBalance']"
+                [appControl]="treasuryForm.controls['treasuryCurrentBalance']"
               ></lib-field-validations>
             </lib-form-group>
           </div>
