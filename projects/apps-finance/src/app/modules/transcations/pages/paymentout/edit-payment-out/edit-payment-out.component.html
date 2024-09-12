@@ -137,6 +137,7 @@
           <lib-text-input type="text" formControlName="newBalance" class="newBalance"
             placeholder="{{ updatedNewBalance }}" [readOnly]="true" />
         </lib-form-group>
+        <lib-field-validations [appControl]="addForm.controls['newBalance']" ></lib-field-validations>
       </div>
     </div>
   </form>

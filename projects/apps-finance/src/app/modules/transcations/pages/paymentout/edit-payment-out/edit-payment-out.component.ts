@@ -303,13 +303,6 @@ export class EditPaymentOutComponent implements OnInit {
         this.addForm.get('bankAccountId')?.updateValueAndValidity();
       }
     });
-    this.financeService.accountCurrencyRate.subscribe((res) => {
-      if (res) {
-        this.addForm.controls['rate'].patchValue(res?.rate);
-        this.calculateTotalLocalAmount();
-        this.updateRateInPaymentDetails(res?.rate);
-      }
-    });
     this.addForm.controls['currencyId'].valueChanges.subscribe((currencyId: any) => {
       this.updatecurrencyIdnPaymentDetails(currencyId);
     });

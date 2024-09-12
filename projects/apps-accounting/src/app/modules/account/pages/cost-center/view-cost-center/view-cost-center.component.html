@@ -30,8 +30,17 @@
         </div>
         <div class="faild">
             <lib-form-group>
-                <p class="paragraph_b18"> Is Detail</p>
+                <p class="paragraph_b18"> {{ 'costCenter.detail' | translate }}</p>
                 <input type="checkbox"    id="isDetail" disabled="disabled" [checked]="costView?.isDetail" >
+                <label for="isDetail"> {{'costCenter.yes' | translate}}</label>
+                
+                
+            </lib-form-group>
+        </div>
+        <div class="faild" *ngIf="costView?.isDetail">
+            <lib-form-group>
+                <p class="paragraph_b18"> {{ 'costCenter.isActive' | translate }}</p>
+                <input type="checkbox"    id="isDetail" disabled="disabled" [checked]="costView?.isActive" >
                 <label for="isDetail"> {{'costCenter.yes' | translate}}</label>
                 
                 
