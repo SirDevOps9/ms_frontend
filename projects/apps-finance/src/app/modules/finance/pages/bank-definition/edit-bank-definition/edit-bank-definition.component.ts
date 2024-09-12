@@ -93,12 +93,11 @@ export class EditBankDefinitionComponent implements OnInit {
             branches: [elem.branches]
               })
           this.items.push(bankGroup)  
-          setTimeout(() => {
             this.accountSelected(elem.glAccountId , i)
             this.branchSelected(elem.branches , bankGroup , i)
             this.userPermissionSelect(elem.userPermission , bankGroup , i)
             this.currencyselected(elem.currencyId , bankGroup , i)
-          }, 1000);
+            this.GetAccountCurrentBalance(elem.id, i);
              
           })
       }
@@ -220,6 +219,18 @@ export class EditBankDefinitionComponent implements OnInit {
         
       }
     
+    });
+  }
+  GetAccountCurrentBalance(id: number, index: number) {
+    const bankLine = this.items.at(index);
+
+    this.financeService.GetAccountBalance(id);
+
+    this.financeService.AccountBalanceObservable.subscribe((res) => {
+      if (res) {
+        const currentBalance = bankLine.get('currentBalance');
+        currentBalance?.setValue(res);
+      }
     });
   }
 

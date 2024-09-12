@@ -24,6 +24,7 @@ export class AddCostCenterComponent implements OnInit {
   @Input() parentAddedId?: number | undefined;
   @Output() operationCompleted = new EventEmitter<any>();
 
+
   constructor(
     private formBuilder: FormBuilder,
     private formsService: FormsService,
@@ -38,6 +39,7 @@ export class AddCostCenterComponent implements OnInit {
       name: new FormControl('', customValidators.required),
       parentId: new FormControl(null),
       isDetail: new FormControl(false),
+      isActive : new FormControl(true)
     });
   }
   ngOnInit() {
