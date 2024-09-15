@@ -199,7 +199,8 @@
     "addTreasury":"Add ",
     "editTreasury":"Edit",
     "treasuryList": "Treasury List",
-    "confirm" : "the opening balance of journal not equal treasury opening balance, do you want to Continue ?"
+    "confirm" : "the opening balance of journal not equal treasury opening balance, do you want to Continue ?",
+    "treasuryCurrentBalance":"Treasury Current Balance"
   },
   "deleteTreasury" : {
     "success" : "Success",
