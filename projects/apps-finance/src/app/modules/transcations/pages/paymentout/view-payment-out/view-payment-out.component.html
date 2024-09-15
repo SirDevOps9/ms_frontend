@@ -30,18 +30,12 @@
           {{ ViewForm.paymentHubDetailName }}
         </small>
       </div>
-       <div class="my-3 grid-item">
+       <div *ngIf="ViewForm.bankId" class="my-3 grid-item">
         <p class="headsCont paragraph_b16">{{ 'payment-view.bankAccountNumber' | translate }}</p>
         <small class="subHead heading_b16">
           {{ ViewForm.bankAccountNumber }}
         </small>
        </div>
-       <div class="my-3 grid-item">
-          <p class="headsCont paragraph_b16">{{ 'payment-view.bankAccountNumber' | translate }}</p>
-          <small class="subHead heading_b16">
-            {{ ViewForm.bankAccountNumber }}
-          </small>
-        </div>
         <div class="my-3 grid-item">
           <p class="headsCont paragraph_b16">{{ 'payment-view.sourceDocument' | translate }}</p>
           <small class="subHead heading_b16">

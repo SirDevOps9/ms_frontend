@@ -4,7 +4,9 @@
     "PaymentOutList": "Payment Out List",
     "AddPaymentOut": "Add Payment Out",
     "EditPaymentOut": "Edit Payment Out",
-    "BankAccountStatement":"Bank Account Statement"
+    "BankAccountStatement":"Bank Account Statement",
+     "ViewPaymentIn": "View Payment In",
+     "ViewPaymentout": "View Payment Out"
   },
   "Success": "Success",
   "Error": "Error",
