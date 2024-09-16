@@ -24,7 +24,6 @@ export class AddCostCenterComponent implements OnInit {
   @Input() parentAddedId?: number | undefined;
   @Output() operationCompleted = new EventEmitter<any>();
 
-
   constructor(
     private formBuilder: FormBuilder,
     private formsService: FormsService,
@@ -39,17 +38,21 @@ export class AddCostCenterComponent implements OnInit {
       name: new FormControl('', customValidators.required),
       parentId: new FormControl(null),
       isDetail: new FormControl(false),
-      isActive : new FormControl(false)
+      isActive: new FormControl(true),
     });
   }
   ngOnInit() {
     if (this.parentAddedId) {
-      this.formGroup.get('parentId')?.setValue(this.parentAddedId);
+      this.formGroup.get('parentId')?.patchValue(this.parentAddedId);
+    } else {
+      this.formGroup.get('isActive')?.patchValue(true);
     }
     this.GetAllParentsCostCenters();
     this.accountService.costparentAccounts.subscribe((res) => {
       if (res) {
         this.parentAccounts = res;
+        const parentStatus = res.find((x) => x.id == this.parentAddedId)?.isActive;
+        if (this.parentAddedId) this.formGroup.get('isActive')?.patchValue(parentStatus);
       }
     });
   }
@@ -59,7 +62,7 @@ export class AddCostCenterComponent implements OnInit {
     let obj: addCostCenter = this.formGroup.value;
 
     this.accountService.AddCostCenter(obj);
-    
+
     setTimeout(() => {
       this.accountService.savedAddedCost.subscribe((res) => {
         if (res) {

@@ -21,8 +21,6 @@ import { AccountTypeDropDownDto } from './models/accountTypeDropDownDto';
 import { TagDropDownDto } from './models/tagDropDownDto';
 import { parentAccountDto } from './models/parentAcccountDto';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { TaxDto } from '../../../../../erp-home/src/app/modules/general-setting/models/tax-dto';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import {
@@ -52,8 +50,8 @@ export class AccountService {
   public savedAccountDataSource = new BehaviorSubject<AccountDto | undefined>(undefined);
  
   private editAccountDataSource = new BehaviorSubject<accountById | undefined>(undefined);
-  private savedCostCenter = new BehaviorSubject<addCostCenter | undefined>(undefined);
-  private parentAccountsostCenter = new BehaviorSubject<parentCostCenter[]>([]);
+  public savedCostCenter = new BehaviorSubject<addCostCenter | undefined>(undefined);
+  public parentAccountsostCenter = new BehaviorSubject<parentCostCenter[]>([]);
   private costCenterById = new BehaviorSubject<costById>({} as costById);
   private costCenterDetails = new BehaviorSubject<costCenterDetails>({} as costCenterDetails);
   public editCostCenter = new BehaviorSubject<costById | undefined>(undefined);
