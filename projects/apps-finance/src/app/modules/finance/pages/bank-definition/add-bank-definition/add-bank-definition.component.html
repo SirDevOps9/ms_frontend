@@ -6,6 +6,7 @@
           <lib-text-input
             placeholder="{{ 'bank.code' | translate }}"
             formControlName="code"
+            [readOnly]="true"
           ></lib-text-input>
           <lib-field-validations
             [appControl]="bankormGroup.controls['code']"

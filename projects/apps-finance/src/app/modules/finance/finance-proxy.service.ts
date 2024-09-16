@@ -211,6 +211,8 @@ export class FinanceProxyService {
   GetAccountBalance(id: number): Observable<number> {
     return this.httpService.get(`Bank/GetAccountBalance/${id}`);
   }
+
+  
   getAccountsHasNoChildren(
     quieries: string,
     pageInfo: PageInfo
