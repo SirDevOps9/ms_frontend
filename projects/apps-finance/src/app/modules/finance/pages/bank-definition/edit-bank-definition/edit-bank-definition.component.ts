@@ -217,6 +217,9 @@ export class EditBankDefinitionComponent implements OnInit {
         const currentBalance = bankLine.get('currentBalance');
         currentBalance?.setValue(res.balance)
         
+      }else{
+        const currentBalance = bankLine.get('currentBalance');
+        currentBalance?.setValue("0");
       }
     
     });

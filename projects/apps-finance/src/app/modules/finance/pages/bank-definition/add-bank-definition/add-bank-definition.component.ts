@@ -194,6 +194,9 @@ export class AddBankDefinitionComponent implements OnInit {
         this.OpeningBalanceData = res;
         const currentBalance = bankLine.get('currentBalance');
         currentBalance?.setValue(res.balance);
+      }else{
+        const currentBalance = bankLine.get('currentBalance');
+        currentBalance?.setValue("0");
       }
     });
   }
