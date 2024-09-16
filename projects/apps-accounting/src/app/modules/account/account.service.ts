@@ -327,6 +327,14 @@ export class AccountService {
           this.languageService.transalte('costCenter.AddedSuccessfully')
         );
       },
+      error: () => {
+        this.loaderService.hide();
+        this.savedCostCenter.next(undefined);
+        this.toasterService.showError(
+          this.languageService.transalte('costCenter.Error'),
+          this.languageService.transalte('costCenter.ParentIsDeactivated')
+        );
+      },
     });
   }
   async deleteCostCenter(costId: number) {

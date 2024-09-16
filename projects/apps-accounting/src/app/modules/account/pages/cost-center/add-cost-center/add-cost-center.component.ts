@@ -39,7 +39,7 @@ export class AddCostCenterComponent implements OnInit {
       name: new FormControl('', customValidators.required),
       parentId: new FormControl(null),
       isDetail: new FormControl(false),
-      isActive : new FormControl(true)
+      isActive : new FormControl(false)
     });
   }
   ngOnInit() {
@@ -59,6 +59,7 @@ export class AddCostCenterComponent implements OnInit {
     let obj: addCostCenter = this.formGroup.value;
 
     this.accountService.AddCostCenter(obj);
+    
     setTimeout(() => {
       this.accountService.savedAddedCost.subscribe((res) => {
         if (res) {
