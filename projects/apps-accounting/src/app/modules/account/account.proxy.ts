@@ -23,6 +23,7 @@ import {
   CountryDto,
   ExportAccountsDto,
   AccountsChildrenDropDown,
+  parentCostCenter,
 } from './models';
 import { TaxGroupDropDown } from '../../../../../erp-home/src/app/modules/general-setting/models/tax-group-drop-down';
 import { costLookup } from '../journal-entry/models';
@@ -137,8 +138,8 @@ export class AccountProxy {
   deleteCostCenter(id: number): Observable<boolean> {
     return this.httpService.delete<boolean>(`CostCenter/Delete?Id=${id}`);
   }
-  GetAllParentsCostCenters(): Observable<parentAccountDto[]> {
-    return this.httpService.get<parentAccountDto[]>(`CostCenter/GetAllParentsCostCenters`);
+  GetAllParentsCostCenters(): Observable<parentCostCenter[]> {
+    return this.httpService.get<parentCostCenter[]>(`CostCenter/GetAllParentsCostCenters`);
   }
   getCostById(id: number): Observable<costById> {
     return this.httpService.get<costById>(`CostCenter/GetById?id=${id}`);

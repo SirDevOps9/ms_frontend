@@ -7,8 +7,7 @@
   "LoadError": "حدث خطاء فى التحميل",
   "walkThrough": "إرشادات",
   "CostCenterAllocation": "تخصيص مركز التكلفة",
-  "Attachments":"المرفقات",
-
+  "Attachments": "المرفقات",
 
   "Table": {
     "Actions": "اجراءات",
@@ -22,7 +21,7 @@
       "Text": "لا يمكنك الرجوع فى هذا القرار!",
       "ConfirmButtonTexttodelete": "نعم, قم بالمسح!",
       "CancelButtonText": "الغاء",
-      "ConfirmButtonTexttochangstatus": "نعم" 
+      "ConfirmButtonTexttochangstatus": "نعم"
     }
   },
   "Layout": {
@@ -245,7 +244,7 @@
     "name": "الاسم",
     "nameEn": "الاسم بالإنجليزية",
     "ParentAccount": "الحساب الرئيسي",
-    "parentName" : "اسم الحساب الرئيسي",
+    "parentName": "اسم الحساب الرئيسي",
     "Account": "الحساب",
     "ParentAccountCode": "رمز الحساب الرئيسي",
     "AccountCode": "رمز الحساب ",
@@ -253,7 +252,7 @@
     "AccountNature": "طبيعة الحساب",
     "AccountSection": "قسم الحساب",
     "AccountType": "نوع الحساب",
-    "details":"التفاصيل",    
+    "details": "التفاصيل",
     "Tags": "الوسوم",
     "companies": "الشركات",
     "HasNoChild": "حساب تفصيلى",
@@ -284,10 +283,11 @@
     "balance": "الرصيد",
     "sourceDocumentCode": "رمز المستند المصدر"
   },
-  "costCenter" : {
-    "mandatory" : "إلزامي",
-    "optional" : "اختياري",
-    "notAllow" : "غير مسموح",
-    "isActive": "مفعل"
-}
+  "costCenter": {
+    "mandatory": "إلزامي",
+    "optional": "اختياري",
+    "notAllow": "غير مسموح",
+    "isActive": "مفعل",
+    "ParentIsDeactivated": "مركز التكلفة الرئيسي غير مفعل، لذا يجب إلغاء تفعيل مركز التكلفة الفرعي"
+  }
 }

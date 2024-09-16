@@ -281,8 +281,8 @@
     "discard": "discard",
     "save": "Save",
     "success" : "Success",
-    "AddBank":"Add Bank",
-    "EditBank":"Edit Bank",
+    "AddBank":"Add Bank Definiton",
+    "EditBank":"Edit Bank Definiton",
     "BankDefinitonsList":"Bank Definitons List"
 
   },
