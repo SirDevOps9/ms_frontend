@@ -193,7 +193,7 @@
     "code" : "Code",
     "name" : "Name",
     "openingBalance" : "Treasury Opening Balance",
-    "currentBalance" : "Opening Account Balance",
+    "accountOpeningBalance" : "Account Opening  Balance",
     "discard" : "Discard",
     "save" : "Save",
     "addTreasury":"Add ",

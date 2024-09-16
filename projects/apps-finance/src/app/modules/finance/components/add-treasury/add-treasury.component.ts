@@ -11,6 +11,7 @@ import { FinanceService } from '../../finance.service';
 import { AddTreasuryDto, Balance } from '../../models';
 import { ConfirmComponent } from '../confirm/confirm.component';
 import { Title } from '@angular/platform-browser';
+import { reduce } from 'rxjs';
 
 @Component({
   selector: 'app-add-treasury',
@@ -47,6 +48,10 @@ export class AddTreasuryComponent implements OnInit {
     this.getCurrencies();
     this.getBranchLookup();
     this.getChildrenAccountsDropDownLookup();
+    // this.treasuryForm.get('accountId')!.valueChanges.subscribe(value => {
+
+    //   this.GetAccountOpeningBalance(value);
+    // });
   }
 
   moudlelist() {
@@ -72,16 +77,29 @@ export class AddTreasuryComponent implements OnInit {
       this.accountsLookup = res;
     });
   }
+
   GetAccountOpeningBalance(id: number) {
-    this.financeService.GetAccountOpeningBalance(id).subscribe((res) => {
-      this.OpeningBalanceData = res;
-      this.treasuryForm.get('journalEntryLineId')?.setValue(res.journalId);
-      this.treasuryForm.get('accountBalance')?.setValue(res.balance);
-    });
+
+    this.financeService.GetAccountOpeningBalance(id).subscribe({
+      next:(res) => {
+      if(res){
+        console.log(res);
+        this.OpeningBalanceData = res;
+        this.treasuryForm.get('openingBalance')?.setValue(res.balance);
+        this.treasuryForm.get('accountBalance')?.setValue(res.balance);
+      }else{
+        console.log('null res',res);
+        this.treasuryForm.get('openingBalance')?.patchValue(null);
+        this.treasuryForm.get('accountBalance')?.patchValue(null);
+      }
+         
+      },
+    }
+    );
+  
   }
 
   accountChange(e: any) {
-    console.log(e);
     this.GetAccountOpeningBalance(e);
   }
 

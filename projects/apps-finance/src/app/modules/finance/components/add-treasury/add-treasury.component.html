@@ -114,7 +114,7 @@ title=" {{ 'treasury.addTreasury' | translate }}"
             
              <div class="flex gap-1 align-content-center">
               <lib-label [appControl]="treasuryForm.controls['openingBalance']">
-                {{ 'treasury.currentBalance' | translate }}
+                {{ 'treasury.accountOpeningBalance' | translate }}
               </lib-label> 
 
               <small class="mt-2">({{OpeningBalanceData?.balanceNature}})</small>
@@ -122,7 +122,7 @@ title=" {{ 'treasury.addTreasury' | translate }}"
             <lib-text-input
               type="number"
               formControlName="accountBalance"
-              placeholder="{{ 'treasury.currentBalance' | translate }}"
+              placeholder="{{ 'treasury.accountOpeningBalance' | translate }}"
               class="form-control"
               [readOnly]="true"
             />
