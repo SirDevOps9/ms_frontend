@@ -91,8 +91,8 @@ export class EditTreasuryComponent implements OnInit {
         this.OpeningBalanceData = res;
         this.treasuryForm.get('accountOpeningBalance')?.setValue(res.balance);
       }else{
-        console.log('null res',res);
-        this.treasuryForm.get('accountOpeningBalance')?.setValue(0);      }
+        this.treasuryForm.get('accountOpeningBalance')?.setValue("null");
+         }
       },
     }
     );

@@ -88,9 +88,8 @@ export class AddTreasuryComponent implements OnInit {
         this.treasuryForm.get('openingBalance')?.setValue(res.balance);
         this.treasuryForm.get('accountBalance')?.setValue(res.balance);
       }else{
-        console.log('null res',res);
-        this.treasuryForm.get('openingBalance')?.patchValue(null);
-        this.treasuryForm.get('accountBalance')?.patchValue(null);
+        this.treasuryForm.get('openingBalance')?.setValue("null");
+        this.treasuryForm.get('accountBalance')?.setValue("null");
       }
          
       },
