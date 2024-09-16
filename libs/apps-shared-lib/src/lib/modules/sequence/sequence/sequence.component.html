@@ -190,7 +190,6 @@
                                      optionValue="name"
                                      [options]="lookups[LookupEnum.Segment]"
                                      [selectedValue]="sequence.controls['segment'].value"
-                                    (valueChanged)="getSegmentName(sequence)"
                                     >
                                     </lib-select>
                                 </ng-template>
@@ -215,7 +214,7 @@
                                     <lib-select
                                     *ngIf="SharedEnums.Segments.Separator == sequence.controls['segment'].value"
                                     optionLabel="name"
-                                    optionValue="name"
+                                    optionValue="id"
                                     [options]="lookups[LookupEnum.Separator]"
                                     [selectedValue]="sequence.controls['detailValue'].value"
                                     formControlName="detailValue"
@@ -233,7 +232,7 @@
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     <p *ngIf="SharedEnums.Segments.Separator == sequence.controls['segment'].value">                                
-                                            ('{{ sequence.controls['detailValue'].value }}')
+                                            ('{{ sequence.controls['separatorName'].value }}')
                                     </p>
                                     <p *ngIf="SharedEnums.Segments.Separator != sequence.controls['segment'].value">                                
                                             {{ sequence.controls['detailValue'].value }}

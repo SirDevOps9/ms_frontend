@@ -75,10 +75,7 @@ export class SequenceComponent {
       serialNumber: new FormControl(),
       separatorName: new FormControl(),
     });
-   // this.getSegmentName(newLine)
     newLine.updateValueAndValidity();
-
-    // this.sequenceDetails.push(newLine);
 
   }
   addNewRow() {
@@ -101,7 +98,6 @@ export class SequenceComponent {
 
       }
     );
-    // this.getSegmentName(newLine)
 
     newLine.updateValueAndValidity();
     this.sequenceDetails.push(newLine);
@@ -113,17 +109,7 @@ export class SequenceComponent {
       control.get('order')?.setValue(index + 1);  // Update 'order' to be 1-based index
     });
   }
-  getSegmentName(sequence: FormGroup) {
-console.log(sequence ,"4444444");
 
-    let segemntId = sequence?.value.segment?.toString()
-
-    const foundElement = this.lookups[LookupEnum.Segment].find(element => element.id == segemntId);
-
-    if (foundElement) {
-      sequence.get('segmentName')?.setValue(foundElement.name)
-    } 
-  }
   getSeparatorName(sequence: FormGroup) {
     if (sequence!.value.detailValue) {
       let segemntId = sequence?.value.detailValue?.toString()
@@ -205,8 +191,8 @@ console.log(sequence ,"4444444");
               valueOption?.clearValidators();
 
               targetControl?.setValidators([customValidators.required ]);
+               this.getSeparatorName(control.value)
 
-              // this.getSeparatorName(control.value)
             }
             
             else {
@@ -280,26 +266,14 @@ getCompany(){
     }
   );
 }
-  // getSequence(screen:string){
-  //   this.sequenceService.getSequence(screen).subscribe(
-  //     (sequence) => {
-  //   console.log(sequence ,"000000000000000000000000000");
-  //     }
-  //   );
-  // }
+
   getSequence(screen: string) {
     this.sequenceService.getSequence(screen).subscribe(
       (sequence) => {
         console.log(sequence, "000000000000000000000000000");
-  
-        // Clear the existing FormArray (if needed)
-        // this.sequenceDetails.clear();
         this.sequence.patchValue({
           status: sequence.status,
-          // companyId: sequence.companyId,
           branchesIds: sequence.branchesIds,
-          // module: sequence.module,
-          // screen: sequence.screen,
           type: sequence.type,
         });
         // Loop through the sequenceDetails from the response
@@ -315,9 +289,6 @@ getCompany(){
             serialNumber: new FormControl(),  // Adjust as needed
             separatorName: new FormControl()  // Adjust as needed
           });
-          // this.getSegmentName(detail)
-
-          // Push the new line into the FormArray
           this.sequenceDetails.push(newLine);
         });
       }
@@ -325,15 +296,10 @@ getCompany(){
   }
   
   save(){
-
       this.sequenceService.addSequence(this.sequence.value)    
   }
   onDelete(sequencLine:any){
     this.sequenceDetails.removeAt(sequencLine);
     this.updateOrderFields();
-
-
   }
-
-
 }
