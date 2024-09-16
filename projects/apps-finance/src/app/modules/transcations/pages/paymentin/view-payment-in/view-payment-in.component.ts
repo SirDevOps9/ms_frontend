@@ -28,7 +28,7 @@ export class ViewPaymentInComponent {
     private lookupsService: LookupsService,
     private financeService: TranscationsService,
     private formsService: FormsService,
-    public  sharedFinanceEnums: SharedFinanceTranscationEnums,
+    public sharedFinanceEnums: SharedFinanceTranscationEnums,
     private toasterService: ToasterService,
     private langService: LanguageService,
     private currentUserService: CurrentUserService,
@@ -45,9 +45,7 @@ export class ViewPaymentInComponent {
     this.loadView();
 
 
-    this.financeService.AllPayMethodsDropdownObservable.subscribe((res: any) => {
-      this.paymentMethod = res
-    })
+
   }
 
   calculateTotalAmount() {
@@ -73,28 +71,40 @@ export class ViewPaymentInComponent {
     this.financeService.viewPaymentIn(this.routerService.currentId);
     this.financeService.ViewpaymentInDataObservable.subscribe((res: any) => {
       this.ViewForm = res
-      console.log("ViewForm",this.ViewForm);
+      if (this.ViewForm.bankId){
+        this.getAllPayMethodsDropdown(this.ViewForm.bankId!, this.ViewForm.bankAccountId!)
+      }
+
     })
   }
   getAllPayMethodsDropdown(BankId: number, BankAccountId: number) {
     this.financeService.getAllPayMethodsDropdown(BankId, BankAccountId)
+    this.financeService.AllPayMethodsDropdown.subscribe((res: any) => {
+      this.paymentMethod = res
+    })
   }
 
   handleButtonClick(Line: any): void {
 
-    this.getAllPayMethodsDropdown(this.ViewForm.bankId!,this.ViewForm.bankAccountId!)
-    const paymentMethodId = Line.paymentMethodId;
-    console.log("Line.paymentmethodId",Line.paymentMethodId)
-    const selectedPayment = this.paymentMethod.find(method => method.id === paymentMethodId);
-console.log("selectedPayment",selectedPayment)
-    if (selectedPayment) {
-      const paymentMethodType = selectedPayment.paymentMethodType;
-      console.log("Line.value",Line)
+    if (Line.paymentMethodType == this.sharedFinanceEnums.paymentMethodTypeString.Cash) {
+      return
+    } else {
+      this.getAllPayMethodsDropdown(this.ViewForm.bankId!, this.ViewForm.bankAccountId!)
+      const paymentMethodId = Line.paymentMethodId;
+      const selectedPayment = this.paymentMethod.find(method => method.id === paymentMethodId);
+      if (selectedPayment) {
+        const paymentMethodType = selectedPayment.paymentMethodType;
+        this.openDialog(Line, selectedPayment, Line, Line.amount);
+      }
 
-      this.openDialog(Line, selectedPayment, Line, Line.amount);
+
     }
+
   }
-  
+
+
+
+
   openDialog(value: any, selectedPayment: any, journal: any, amount: number) {
     if (selectedPayment.paymentMethodType == this.sharedFinanceEnums.paymentMethodTypeString.Cash || selectedPayment.paymentMethodType == null) {
       return true
@@ -104,27 +114,25 @@ console.log("selectedPayment",selectedPayment)
       const ref = this.dialog.open(PaymentMethodComponent, {
         width: '900px',
         height: '600px',
-        data: { ...data, selectedPayment,viewdata },
+        data: { ...data, selectedPayment, viewdata },
       });
-      
+
     }
   }
   openCostPopup(data: any, journal: FormGroup, account: number, index: number) {
-    console.log("data 11", data)
     const viewdata = true;
 
     const dialogRef = this.dialog.open(AddCostCenterComponent, {
       width: '900px',
       height: '600px',
       header: 'Edit Cost Center Allocation',
-      data: { ...data,viewdata },
+      data: { ...data, viewdata },
     });
-    
+
   }
 
   isCostCenterallowed(journalLine: any, costCenterConfig: string): boolean {
-    console.log(costCenterConfig,"costCenterConfig")
-    if (costCenterConfig == this.sharedFinanceEnums.costCenterConfig.Mandatory 
+    if (costCenterConfig == this.sharedFinanceEnums.costCenterConfig.Mandatory
       || costCenterConfig == this.sharedFinanceEnums.costCenterConfig.Optional) {
       return true;
     } else {

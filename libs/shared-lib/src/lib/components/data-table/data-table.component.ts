@@ -26,6 +26,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() resizableColumns: boolean = true;
   @Input() popup: boolean = false;
   @Input() sequence: boolean = false;
+  @Input() firstRow: boolean = false;
   @Input() currentPageResult: PageInfoResult;
   first: number = 0;
   @Input() tableConfigs: TableConfig;

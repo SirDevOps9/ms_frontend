@@ -143,7 +143,7 @@
       <ng-template #method pTemplate="body" let-Line let-rowIndex="rowIndex">
         <div class="method flex align-items-center"> 
       <lib-button-micro title="{{ 'payment-view.PaymentMethod' | translate }}"
-      [nameClass]="Line.paymentMethodId == sharedFinanceEnums.paymentMethodTypeString.Cash ||Line.paymentMethodId == null  ? 'disabled' : 'save'"
+      [nameClass]="Line.paymentMethodType == sharedFinanceEnums.paymentMethodTypeString.Cash ||Line.paymentMethodId == null  ? 'disabled' : 'save'"
       widthNumber="100%" (click)="handleButtonClick(Line)">
 
         </lib-button-micro>

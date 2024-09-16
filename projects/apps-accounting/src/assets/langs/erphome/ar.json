@@ -287,6 +287,7 @@
   "costCenter" : {
     "mandatory" : "إلزامي",
     "optional" : "اختياري",
-    "notAllow" : "غير مسموح"
+    "notAllow" : "غير مسموح",
+    "isActive": "مفعل"
 }
 }

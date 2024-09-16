@@ -87,7 +87,7 @@ export class AddPaymentInComponent {
     this.titleService.setTitle(
       this.langService.transalte('PaymentIn.addpaymentin')
     );
-
+    this.financeService.AccountBalance.next(0);
     this.initializeForm();
     this.subscribe();
     this.initializeDropDown();

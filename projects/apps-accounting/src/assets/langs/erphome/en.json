@@ -355,6 +355,7 @@
   "costCenter" : {
     "mandatory" : "Mandatory",
     "optional" : "Optional",
-    "notAllow" : "Not Allow"
+    "notAllow" : "Not Allow",
+    "isActive":"Is Active"
   }
 }

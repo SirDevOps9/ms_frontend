@@ -1,0 +1,836 @@
+<lib-page-content>
+  <div class="grid">
+<div class="md:col-12 my-3 grid flex justify-content-end">
+  <div class="md:col-4 grid flex justify-content-end">
+    <div class="md:col-6">
+      <lib-button-micro
+        title="{{ 'cancel' | translate }}"
+        nameClass="cancel"
+        widthNumber="100%"
+        (click)="onCancel()"
+      
+      >
+      </lib-button-micro>
+    </div>
+    <div  class="md:col-6">
+      <lib-button-micro
+        title="{{ 'Save' | translate }}"
+        nameClass="save"
+        widthNumber="100%"
+        (click)="onSave()"
+      >
+      </lib-button-micro>
+    
+    </div>
+  </div>
+
+   
+</div>
+  </div>
+
+  <div [formGroup]="itemDefinitionForm" class="itemDefinitionForm_header">
+    <!-- <p class="title test">{{ 'journal_entry_header' | translate }}</p> -->
+    <div class="grid">
+      <div class="md:col-9 my-2">
+        <div class="col-12 grid card">
+          <div class="md:col-6 my-2">
+            <lib-label [appControl]="itemDefinitionForm.controls['code']">
+              {{ 'itemType.code' | translate }}
+            </lib-label>
+            <lib-text-input
+              placeholder="{{ 'itemType.code' | translate }}"
+              formControlName="code"
+            ></lib-text-input>
+            <lib-field-validations
+              [appControl]="itemDefinitionForm.controls['code']"
+            ></lib-field-validations>
+          </div>
+          <div class="md:col-6 my-2">
+            <lib-label [appControl]="itemDefinitionForm.controls['name']">
+              {{ 'itemType.name' | translate }}
+            </lib-label>
+            <lib-text-input
+              placeholder="{{ 'itemType.name' | translate }}"
+              formControlName="name"
+            ></lib-text-input>
+            <lib-field-validations
+              [appControl]="itemDefinitionForm.controls['name']"
+            ></lib-field-validations>
+          </div>
+
+          <div class="md:col-6 my-2">
+            <lib-label [appControl]="itemDefinitionForm.controls['categoryId']">
+              {{ 'itemType.category' | translate }}
+            </lib-label>
+            <lib-select
+              formControlName="categoryId"
+              [options]="ItemCategoryDropDown"
+              optionValue="id"
+              optionLabel="name"
+              placeholder="{{ 'itemType.category' | translate }}"
+              [selectedValue]="itemDefinitionForm.controls['categoryId'].value"
+            >
+            </lib-select>
+            <lib-field-validations
+              [appControl]="itemDefinitionForm.controls['categoryId']"
+            ></lib-field-validations>
+          </div>
+          <div class="md:col-6 my-2">
+            <lib-label [appControl]="itemDefinitionForm.controls['tags']">
+              {{ 'itemType.tag' | translate }}
+            </lib-label>
+            <br />
+
+            <lib-multi-select
+              formControlName="tags"
+              [options]="tagDropDropDownLookup"
+              optionValue="id"
+              optionLabel="name"
+              placeholder="{{ 'itemType.tag' | translate }}"
+              [selectedValue]="itemDefinitionForm.controls['tags'].value"
+
+            >
+            </lib-multi-select>
+            <lib-field-validations
+              [appControl]="itemDefinitionForm.controls['tags']"
+            ></lib-field-validations>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+      <div class="md:col-3 my-2">
+        <div class="col-12 grid card">
+          <div class="photo">
+            <lib-form-group>
+              <lib-file-uploader
+                formControlName="photo"
+                [uploadClassName]="'rounded'"
+                [className]="'rounded'"
+                [showImgName]="false"
+                [config]="{
+                  type: sharedLibEnums.AttachmentFileTypes.image,
+                  viewThumbnail: true
+                }"
+                [appControl]="itemDefinitionForm.controls['photo']"
+              ></lib-file-uploader>
+              <lib-field-validations
+                [appControl]="itemDefinitionForm.controls['photo']"
+              ></lib-field-validations>
+            </lib-form-group>
+          </div>
+        </div>
+      </div>
+      <div class="md:col-12">
+        <p-tabView>
+          <p-tabPanel header="{{ 'itemType.general' | translate }}">
+            <lib-fildest header="{{ 'itemType.itemInformation' | translate }}" class="md:col-12">
+              <div class="grid">
+                <div class="md:col-4">
+                  <lib-form-group>
+                    <lib-label [appControl]="itemDefinitionForm.controls['shortName']">
+                      {{ 'itemType.itemShortName' | translate }}
+                    </lib-label>
+                    <lib-text-input formControlName="shortName"> </lib-text-input>
+                  </lib-form-group>
+                </div>
+                <div class="md:col-4">
+                  <lib-form-group>
+                    <lib-label [appControl]="itemDefinitionForm.controls['warranty']">
+                      {{ 'itemType.warantly' | translate }} ( {{ 'itemType.perYear' | translate }} )
+                    </lib-label>
+                    <lib-text-input formControlName="warranty" type="number"></lib-text-input>
+                  </lib-form-group>
+                </div>
+                <div class="md:col-4">
+                  <lib-form-group>
+                    <lib-label [appControl]="itemDefinitionForm.controls['lifeTime']">
+                      {{ 'itemType.lifeTime' | translate }} (
+                      {{ 'itemType.perMonth' | translate }} )
+                    </lib-label>
+                    <lib-text-input formControlName="lifeTime" type="number"></lib-text-input>
+                  </lib-form-group>
+                </div>
+              </div>
+            </lib-fildest>
+            <div class="md:col-12 grid">
+              <div class="md:col-6">
+                <lib-fildest header="{{ 'itemType.countryOfOrigin' | translate }}" class="md:col-6">
+                  <div class="grid">
+                    <div class="md:col-12">
+                      <lib-form-group>
+                        <lib-text-input formControlName="countryName"> </lib-text-input>
+                      </lib-form-group>
+                    </div>
+                  </div>
+                </lib-fildest>
+              </div>
+              <div class="md:col-6">
+                <lib-fildest header="{{ 'itemType.vatApplied' | translate }}" class="md:col-6">
+                  <div>
+                    <lib-label [appControl]="itemDefinitionForm.controls['taxId']">
+                      {{ 'itemType.taxes' | translate }}
+                    </lib-label>
+                    <br />
+        
+                    <lib-multi-select
+                      formControlName="taxId"
+                      [options]="taxesDropDropDownLookup"
+                      optionValue="id"
+                      optionLabel="nameEn"
+                      placeholder="{{ 'itemType.taxes' | translate }}"
+                      [selectedValue]="itemDefinitionForm.controls['taxId'].value"
+                    >
+                    </lib-multi-select>
+                    <lib-field-validations
+                      [appControl]="itemDefinitionForm.controls['taxId']"
+                    ></lib-field-validations>
+                  </div>
+                  <div class="grid">
+                    <div class="md:col-12">
+                      <lib-form-group>
+                        <div class="flex align-items-center gap-2">
+                          <lib-input-switch formControlName="isVatApplied"></lib-input-switch>
+                          <p>{{ 'itemType.priceIncludeVat' | translate }}</p>
+                        </div>
+                      </lib-form-group>
+                    </div>
+                  </div>
+                </lib-fildest>
+              </div>
+              <div class="md:col-6">
+                <lib-fildest header="{{ 'itemType.specialCare' | translate }}">
+                  <div class="grid">
+                    <div class="md:col-8">
+                      <lib-form-group>
+                        <lib-label [appControl]="itemDefinitionForm.controls['specialCare']">
+                          {{ 'itemType.specialCare' | translate }}
+                        </lib-label>
+                        <lib-text-input formControlName="specialCare"> </lib-text-input>
+                      </lib-form-group>
+                    </div>
+
+                    <div class="md:col-4">
+                      <lib-form-group>
+                        <lib-label [appControl]="itemDefinitionForm.controls['color']">
+                          {{ 'itemType.color' | translate }}
+                        </lib-label>
+                        <p-dropdown
+                          [options]="colors"
+                          placeholder="{{ 'itemType.color' | translate }}"
+                          
+                          formControlName="color"
+                          optionLabel="label"
+                          optionValue="label"
+                          
+                        >
+                          <ng-template let-color pTemplate="selectedItem">
+                            <div class="flex gap-2">
+                              <i
+                                [ngClass]="color.icon"
+                                [ngStyle]="{
+                                  color: color.value,
+                                  'background-color': color.value,
+                                  'border-radius': '50% 53%',
+                                  padding: '3px',
+                                  margin: '0'
+                                }"
+                              ></i>
+                              <span>{{ color.label }}</span>
+                            </div>
+                          </ng-template>
+                          <ng-template let-color pTemplate="item">
+                            <div class="flex gap-2">
+                              <i
+                                [ngClass]="color.icon"
+                                [ngStyle]="{
+                                  color: color.value,
+                                  'background-color': color.value,
+                                  'border-radius': '50% 53%',
+                                  padding: '3px',
+                                  margin: '0'
+                                }"
+                              ></i>
+                              <span>{{ color.label }}</span>
+                            </div>
+                          </ng-template>
+                        </p-dropdown>
+
+                     
+                      </lib-form-group>
+                    </div>
+                  </div>
+                </lib-fildest>
+              </div>
+            </div>
+          </p-tabPanel>
+
+          <p-tabPanel header="{{ 'itemType.uom' | translate }}">
+            <div class="md:col-4 my-2">
+              
+              <lib-label [appControl]="itemDefinitionForm.controls['defaultUOMCategoryId']">
+                {{ 'itemType.uomCategory' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="defaultUOMCategoryId"
+                [options]="UOMCategoryDropDown"
+                optionValue="id"
+                optionLabel="name"
+                placeholder="{{ 'itemType.selectOneValue' | translate }}"
+                [selectedValue]="itemDefinitionForm.controls['defaultUOMCategoryId'].value"
+                (valueChanged)="uomCategoryChanged($event)"
+                
+              >
+              </lib-select>
+              <lib-field-validations
+                [appControl]="itemDefinitionForm.controls['uomId']"
+              ></lib-field-validations>
+            </div>
+            <div class="entry_table_uom">
+              <lib-fildest>
+                <div class="add_new my-2 flex justify-content-end">
+                  <lib-button (onClick)="addLine()" className="outline-primary">
+                    {{ 'itemType.add_new' | translate }}
+                  </lib-button>
+                </div>
+                <div>
+                  <p-table
+                    [value]="UOMForm['controls']"
+                    dataKey="id"
+                    styleClass="p-datatable-gridlines p-datatable-striped"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                  >
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th>{{ 'itemType.uomName' | translate }}</th>
+                        <th>{{ 'itemType.uomCode' | translate }}</th>
+                        <th>{{ 'itemType.default' | translate }}</th>
+                        <th>{{ 'itemType.factor' | translate }}</th>
+                        <th>{{ 'itemType.selectUom' | translate }}</th>
+                        <th>{{ 'itemType.pusrchaseUom' | translate }}</th>
+
+                        <th>{{ 'itemType.actions' | translate }}</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template
+                      pTemplate="body"
+                      let-itemDefGroup
+                      let-editing="editing"
+                      let-i="rowIndex"
+                    >
+                      <tr [formGroup]="itemDefGroup">
+                   
+                        <!--  -->
+                        <td   [pEditableColumn]="itemDefGroup.controls['uomId']"
+                        pEditableColumnField="uomId">
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                <div class="flex gap-2 align-items-center">
+                                  <lib-form-group>
+                                    <lib-select
+                                      [options]="uomCodeLookup"
+                                      optionValue="id"
+                                      optionLabel="name"
+                                      formControlName="uomId"
+                                      placeholder="{{ 'itemType.uomName' | translate }}"
+                                      (valueChanged)="uomCodeLookupChanged($event , itemDefGroup)"
+                                    >
+                                    </lib-select>
+                                  </lib-form-group>
+                                </div>
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                {{ itemDefGroup.controls['uomNameEn'].value }}
+                              </ng-template>
+                            </p-cellEditor>
+                            <lib-field-validations
+                            [appControl]="itemDefGroup.controls['uomId']"
+                          ></lib-field-validations>
+                        </td>
+                        <!--  -->
+
+                        <td>
+                      <lib-text-input
+                            
+                      placeholder="{{ 'itemType.uomCode' | translate }}"
+                      formControlName="uomCode"
+                      [readOnly]="true"
+                      [disabled]="true"
+                    ></lib-text-input>
+                      </td>
+                        <td>
+                          <lib-input-switch formControlName="isDefault" [disabled]="UOMForm.value?.length == 1" (valueChanged)="defualtChanged($event ,itemDefGroup )"></lib-input-switch>
+                        </td>
+                        <!--  -->
+
+                        <td
+                          [pEditableColumn]="itemDefGroup.controls['conversionRatio']"
+                          pEditableColumnField="conversionRatio"
+                        >
+                          <p-cellEditor>
+                            <ng-template pTemplate="input">
+                              <lib-text-input
+                                placeholder="{{ 'itemType.factor' | translate }}"
+                                formControlName="conversionRatio"
+                              ></lib-text-input>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                              {{ itemDefGroup.controls['conversionRatio'].value }}
+                            </ng-template>
+                          </p-cellEditor>
+                          <lib-field-validations
+                            [appControl]="itemDefGroup.controls['conversionRatio']"
+                          ></lib-field-validations>
+                        </td>
+
+                        <!--  -->
+
+                        <td
+                          [pEditableColumn]="itemDefGroup.controls['isSales']"
+                          pEditableColumnField="itemDefGroup.controls['isSales']"
+                        >
+                          <p-cellEditor>
+                            <ng-template pTemplate="input">
+                              <lib-form-group>
+                           
+                                <lib-input-switch formControlName="isSales"></lib-input-switch>
+                              </lib-form-group>
+                            </ng-template>
+
+                            <ng-template pTemplate="output">
+                              <!-- {{ itemDefGroup.controls['isSales'].value  }} -->
+                              <lib-form-group>
+                             
+                                <lib-input-switch formControlName="isSales"></lib-input-switch>
+
+                              </lib-form-group>
+                            </ng-template>
+                          </p-cellEditor>
+                          <lib-field-validations
+                            [appControl]="itemDefGroup.controls['isSales']"
+                          ></lib-field-validations>
+                        </td>
+                        <!--  -->
+
+                        <td
+                          [pEditableColumn]="itemDefGroup.controls['isPurchase']"
+                          pEditableColumnField="isPurchase"
+                        >
+                          <p-cellEditor>
+                            <ng-template pTemplate="input">
+                              <lib-input-switch formControlName="isPurchase"></lib-input-switch>
+
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                              <!-- {{ itemDefGroup.controls['isPurchase'].value }} -->
+                              <lib-input-switch formControlName="isPurchase"></lib-input-switch>
+
+                            </ng-template>
+                          </p-cellEditor>
+                          <lib-field-validations
+                            [appControl]="itemDefGroup.controls['isPurchase']"
+                          ></lib-field-validations>
+                        </td>
+                        <!--  -->
+                        <td>
+                          <i class="pi pi-save pointer" (click)="addUOM(itemDefGroup)" [class.none]="itemDefGroup.controls['id']?.value"></i>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </lib-fildest>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel header="{{ 'itemType.attributes' | translate }}">
+            <lib-fildest>
+              <div class="add_new my-2 flex justify-content-end gap-2">
+                <lib-button (onClick)="generateVariant()" className="outline-primary">
+                  {{ 'itemType.generateVariant' | translate }}
+                </lib-button>
+                <lib-button (onClick)="addLineAttribute()" className="outline-primary">
+                  {{ 'itemType.add_new' | translate }}
+                </lib-button>
+              </div>
+              <div>
+                <p-table
+                  [value]="AttributeForm['controls']"
+                  dataKey="id"
+                  styleClass="p-datatable-gridlines p-datatable-striped"
+                  [tableStyle]="{ 'min-width': '50rem' }"
+                >
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th>{{ 'itemType.attributeName' | translate }}</th>
+                      <th>{{ 'itemType.status' | translate }}</th>
+
+                      <th>{{ 'itemType.actions' | translate }}</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template
+                    pTemplate="body"
+                    let-itemDefAttributeGroup
+                    let-editing="editing"
+                    let-i="rowIndex"
+                  >
+                    <tr [formGroup]="itemDefAttributeGroup">
+                      <!--  -->
+                      <td>
+                        <small>{{ itemDefAttributeGroup.get('name').value }}</small>
+                      </td>
+                      <!--  -->
+
+                      <td>
+                        <lib-input-switch
+                          formControlName="status"
+                          (valueChanged)="confirmChange($event, itemDefAttributeGroup)"
+                          [(ngModel)]="itemDefAttributeGroup.get('status').value"
+                        ></lib-input-switch>
+                      </td>
+                      <!--  -->
+                      <td>
+                        <div class="flex align-items-center gap-4">
+                          <i
+                            class="pi pi-eye pointer"
+                            (click)="onViewAttribute(itemDefAttributeGroup)"
+                          ></i>
+                          <i
+                            class="pi pi-trash pointer"
+                            (click)="onDeleteAttribute(itemDefAttributeGroup)"
+                          ></i>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </lib-fildest>
+          </p-tabPanel>
+          <p-tabPanel header="{{ 'itemType.barcode' | translate }}">
+            <lib-fildest>
+              <div class="add_new my-2 flex justify-content-end">
+                <lib-button (onClick)="addLineBarcode()" className="outline-primary">
+                  {{ 'itemType.add_new' | translate }}
+                </lib-button>
+              </div>
+              <div>
+                <p-table
+                  [value]="barcodeForm['controls']"
+                  dataKey="id"
+                  styleClass="p-datatable-gridlines p-datatable-striped"
+                  [tableStyle]="{ 'min-width': '50rem' }"
+                >
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th>{{ 'itemType.barcode' | translate }}</th>
+                      <th>{{ 'itemType.unit' | translate }}</th>
+                      <th>{{ 'itemType.variant' | translate }}</th>
+                      <th>{{ 'itemType.sku' | translate }}</th>
+                      <th>{{ 'itemType.Qr' | translate }}</th>
+                      <th>{{ 'itemType.barcode' | translate }}</th>
+                      <th>{{ 'itemType.status' | translate }}</th>
+
+                      <th>{{ 'itemType.actions' | translate }}</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template
+                    pTemplate="body"
+                    let-itemDefBarcodeGroup
+                    let-editing="editing"
+                    let-i="rowIndex"
+                  >
+                    <tr [formGroup]="itemDefBarcodeGroup">
+                      <td
+                        [pEditableColumn]="itemDefBarcodeGroup.controls['barcode']"
+                        pEditableColumnField="barcode"
+                      >
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <lib-text-input
+                              placeholder="{{ 'itemType.barcode' | translate }}"
+                              formControlName="barcode"
+                            ></lib-text-input>
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                            {{ itemDefBarcodeGroup.controls['barcode']?.value }}
+                          </ng-template>
+                        </p-cellEditor>
+                        <lib-field-validations
+                          [appControl]="itemDefBarcodeGroup.controls['barcode']"
+                        ></lib-field-validations>
+                      </td>
+                      <!--  -->
+
+                      <td
+                        [pEditableColumn]="itemDefBarcodeGroup.controls['uomId']"
+                        pEditableColumnField="uomId"
+                      >
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <lib-select
+                              formControlName="uomId"
+                              [options]="uomLookup"
+                              optionLabel="name"
+                              optionValue="id"
+                            ></lib-select>
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                            {{
+                              itemDefBarcodeGroup.controls['uomName']?.value ??
+                                itemDefBarcodeGroup.controls['uomId']?.value
+                            }}
+                          </ng-template>
+                        </p-cellEditor>
+                        <lib-field-validations
+                          [appControl]="itemDefBarcodeGroup.controls['uomId']"
+                        ></lib-field-validations>
+                      </td>
+
+                      <!--  -->
+                      <td
+                        [pEditableColumn]="itemDefBarcodeGroup.controls['itemVariantId']"
+                        pEditableColumnField="itemVariantId"
+                      >
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <lib-select
+                              formControlName="itemVariantId"
+                              [options]="ItemVariantsByItemIdDropDown"
+                              optionLabel="name"
+                              optionValue="id"
+                              (valueChanged)="variantChange($event , itemDefBarcodeGroup)"
+                            ></lib-select>
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                            {{ itemDefBarcodeGroup.controls['itemVariantName']?.value }}
+                          </ng-template>
+                        </p-cellEditor>
+                        <lib-field-validations
+                          [appControl]="itemDefBarcodeGroup.controls['itemVariantId']"
+                        ></lib-field-validations>
+                      </td>
+                      <!--  -->
+
+                      <td
+                        [pEditableColumn]="itemDefBarcodeGroup.controls['sku']"
+                        pEditableColumnField="sku"
+                      >
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <lib-text-input
+                              placeholder="{{ 'itemType.sku' | translate }}"
+                              formControlName="sku"
+                            ></lib-text-input>
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                            {{ itemDefBarcodeGroup.controls['sku']?.value }}
+                          </ng-template>
+                        </p-cellEditor>
+                        <lib-field-validations
+                          [appControl]="itemDefBarcodeGroup.controls['sku']"
+                        ></lib-field-validations>
+                      </td>
+
+                      <!--  -->
+
+                      <td>
+                        <p
+                          class="m-0 p-0 showtext"
+                          (click)="openQRcode(itemDefBarcodeGroup.controls['barcode']?.value)"
+                        >
+                          {{ 'itemType.show' | translate }}
+                        </p>
+                      </td>
+                      <!--  -->
+
+                      <td>
+                        <p
+                          class="m-0 p-0 showtext"
+                          (click)="openBarcode(itemDefBarcodeGroup.controls['barcode']?.value)"
+                        >
+                          {{ 'itemType.show' | translate }}
+                        </p>
+                      </td>
+                      <td>
+                        <lib-input-switch
+                          formControlName="status"
+                          (valueChanged)="confirmBarcodeChange($event, itemDefBarcodeGroup)"
+                        ></lib-input-switch>
+                      </td>
+                      <!--  -->
+
+                      <td>
+                        <div class="flex gap-4 align-items-center">
+                          <i class="pi pi-eye" (click)="onViewBarcode(itemDefBarcodeGroup)"></i>
+                          <i class="pi pi-save"  (click)="onSaveBarcode(itemDefBarcodeGroup)" [class.none]="itemDefBarcodeGroup.controls['id']?.value"></i>
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </lib-fildest>
+          </p-tabPanel>
+          <p-tabPanel header="{{ 'itemType.inventory' | translate }}">
+            <lib-fildest>
+              <div class="md:col-12 grid">
+                <div class="md:col-12">
+                  <lib-fildest
+                    header="{{ 'itemDefinition.itemTracking' | translate }}"
+                    class="md:col-6"
+                  >
+                    <div class="flex gap-3 align-items-center">
+                      <div>
+                        <lib-form-group>
+                          <div class="flex align-items-center">
+                            <lib-select
+                              placeholder="{{ 'itemDefinition.SelectItemTracking' | translate }}"
+                              [options]="trackingTrackingLookup"
+                              optionValue="id"
+                              optionLabel="name"
+                              formControlName="trackingId"
+                              [selectedValue]="itemDefinitionForm.controls['trackingId'].value"
+                            >
+                            </lib-select>
+                          </div>
+                        </lib-form-group>
+                      </div>
+
+                      <div>
+                        <lib-form-group>
+                          <div class="flex align-items-center gap-2">
+                            <lib-input-switch formControlName="hasExpiryDate"></lib-input-switch>
+                            <p>{{ 'itemDefinition.hasExpiry' | translate }}</p>
+                          </div>
+                        </lib-form-group>
+                      </div>
+                    </div>
+                  </lib-fildest>
+                </div>
+              </div>
+            </lib-fildest>
+
+            <!-- <lib-fildest header="{{ 'itemType.storageView' | translate }}" class="md:col-12">
+              <p-table
+                [value]="barcodeForm['controls']"
+                dataKey="id"
+                styleClass="p-datatable-gridlines p-datatable-striped"
+                [tableStyle]="{ 'min-width': '50rem' }"
+              >
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>{{ 'itemType.warehouse' | translate }}</th>
+                    <th>{{ 'itemType.onehandQty' | translate }}</th>
+                    <th>{{ 'itemType.allocatedQty' | translate }}</th>
+                    <th>{{ 'itemType.availableQty' | translate }}</th>
+                    <th>{{ 'itemType.toReceiveQty' | translate }}</th>
+                    <th>{{ 'itemType.toDeliverQty' | translate }}</th>
+                    <th>{{ 'itemType.toTransferQrt' | translate }}</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-itemDefBarcodeGroup let-i="rowIndex">
+                  <tr [formGroup]="itemDefBarcodeGroup">
+                    <td>Nabil</td>
+                    <td>Nabil</td>
+                    <td>Nabil</td>
+                    <td>Nabil</td>
+                    <td>Nabil</td>
+                    <td>Nabil</td>
+                    <td>Nabil</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </lib-fildest> -->
+          </p-tabPanel>
+          <p-tabPanel header="{{ 'itemType.accounting' | translate }}">
+            <ng-container formGroupName="itemAccounting">
+            <lib-fildest header="{{ 'itemType.purchase' | translate }}" class="md:col-12">
+             
+              
+              <div class="grid" >
+                <div class="md:col-6 my-2">
+                  <lib-label [appControl]="itemDefinitionForm.get('itemAccounting')?.get('pAccount')">
+                    {{ 'itemType.purchaseAmount' | translate }}
+                  </lib-label>
+                  <lib-select
+                    formControlName="pAccount"
+                    [options]="AccountsDropDownLookup"
+                    optionValue="id"
+                    optionLabel="name"
+                    placeholder="{{ 'itemType.purchaseAmount' | translate }}"
+                    [selectedValue]="itemDefinitionForm.get('itemAccounting')?.get('pAccount')?.value"
+
+                  >
+                  </lib-select>
+                  <lib-field-validations
+                    [appControl]="itemDefinitionForm.get('itemAccounting')?.get('pAccount')"
+                  ></lib-field-validations>
+                </div>
+                <div class="md:col-6 my-2">
+                  <lib-label [appControl]="itemDefinitionForm.get('itemAccounting')?.get('prAccount')">
+                    {{ 'itemType.purchaseReturnAmount' | translate }}
+                  </lib-label>
+                  <lib-select
+                    formControlName="prAccount"
+                    [options]="AccountsDropDownLookup"
+                    optionValue="id"
+                    optionLabel="name"
+                    placeholder="{{ 'itemType.purchaseReturnAmount' | translate }}"
+                    [selectedValue]="itemDefinitionForm.get('itemAccounting')?.get('prAccount')?.value"
+
+                  >
+                  </lib-select>
+
+                  <lib-field-validations
+                    [appControl]="itemDefinitionForm.get('itemAccounting')?.get('prAccount')"
+                  ></lib-field-validations>
+                </div>
+              </div>
+            </lib-fildest>
+            <lib-fildest header="{{ 'itemType.sales' | translate }}" class="md:col-12">
+              <div class="grid">
+                <div class="md:col-6 my-2">
+                  <lib-label [appControl]="itemDefinitionForm.get('itemAccounting')?.get('sAccount')">
+                    {{ 'itemType.salesAmount' | translate }}
+                  </lib-label>
+                  <lib-select
+                    formControlName="sAccount"
+                    [options]="AccountsDropDownLookup"
+                    optionValue="id"
+                    optionLabel="name"
+                    placeholder="{{ 'itemType.salesAmount' | translate }}"
+                    [selectedValue]="itemDefinitionForm.get('itemAccounting')?.get('sAccount')?.value"
+
+                  >
+                  </lib-select>
+                  <lib-field-validations
+                    [appControl]="itemDefinitionForm.get('itemAccounting')?.get('sAccount')"
+                  ></lib-field-validations>
+                </div>
+                <div class="md:col-6 my-2">
+                  <lib-label [appControl]="itemDefinitionForm.get('itemAccounting')?.get('srAccount')">
+                    {{ 'itemType.salesReturnAmount' | translate }}
+                  </lib-label>
+                  <lib-select
+                  formControlName="srAccount"
+                  [options]="AccountsDropDownLookup"
+                  optionValue="id"
+                  optionLabel="name"
+                  placeholder="{{ 'itemType.salesReturnAmount' | translate }}"
+                  [selectedValue]="itemDefinitionForm.get('itemAccounting')?.get('srAccount')?.value"
+
+                >
+                </lib-select>
+                  <lib-field-validations
+                    [appControl]="itemDefinitionForm.get('itemAccounting')?.get('srAccount')"
+                  ></lib-field-validations>
+                </div>
+              </div>
+            </lib-fildest>
+          </ng-container>
+          </p-tabPanel>
+        </p-tabView>
+      </div>
+    </div>
+  </div>
+</lib-page-content>

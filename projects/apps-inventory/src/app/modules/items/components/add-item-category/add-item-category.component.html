@@ -1,0 +1,115 @@
+<div class="pop_up_config_page">
+    <div class="pop_up_header">
+      <div class="header_content">
+        <div class="title">
+          <!-- <div class="plus_icon"></div> -->
+          {{ 'itemCategory.itemDefinition' | translate }}
+        </div>
+        <div class="cancel" (click)="onCancel()">
+          <!-- <img src="/projects/apps-accounting/src/assets/images/close.svg" alt=""> -->
+        </div>
+      </div>
+    </div>
+    <div class="pop_up_content">
+      <form class="domain_form" [formGroup]="tagForm" (ngSubmit)="onSubmit()">
+        <div class="domain_content">
+          <div class="grid">
+            <div class="col-12 my-2">
+              <lib-form-group>
+                <lib-label [appControl]="tagForm.controls['code']">
+                    {{ 'itemCategory.name' | translate }}
+                  </lib-label>
+                <lib-text-input
+                  type="text"
+                  formControlName="code"
+                  placeholder="{{ 'itemCategory.name' | translate }}"
+                  [readOnly]="true"
+                  [iconUrl]="'assets/images/Vector.png'"
+                  class="form-control"
+                />
+                <lib-field-validations
+                  [appControl]="tagForm.controls['code']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="col-12 my-2">
+              <lib-form-group>
+                <lib-label [appControl]="tagForm.controls['code']">
+                    {{ 'itemCategory.itemCategory' | translate }}
+                  </lib-label>
+                <lib-select
+                  placeholder="{{ 'itemCategory.itemCategory' | translate }}"
+                  [options]="modulelist"
+                  optionLabel="module"
+                  optionValue="moduleId"
+                  formControlName="moduleIds"
+                ></lib-select>
+                <lib-field-validations [appControl]="tagForm.controls['moduleIds']">
+                </lib-field-validations>
+              </lib-form-group>
+            </div>
+  
+            <div class="col-12 my-2 multi-cont">
+                <lib-form-group>
+                    <lib-label [appControl]="tagForm.controls['code']">
+                        {{ 'itemCategory.unitOfMeasureCategory' | translate }}
+                      </lib-label>
+                    <lib-select
+                      placeholder="{{ 'itemCategory.unitOfMeasureCategory' | translate }}"
+                      [options]="modulelist"
+                      optionLabel="module"
+                      optionValue="moduleId"
+                      formControlName="moduleIds"
+                    ></lib-select>
+                    <lib-field-validations [appControl]="tagForm.controls['moduleIds']">
+                    </lib-field-validations>
+                  </lib-form-group>
+            </div>
+            <div class="col-12 my-2 multi-cont">
+                <lib-form-group>
+                    <lib-label [appControl]="tagForm.controls['code']">
+                        {{ 'itemCategory.mainItemUnit' | translate }}
+                      </lib-label>
+                    <lib-select
+                      placeholder="{{ 'itemCategory.mainItemUnit' | translate }}"
+                      [options]="modulelist"
+                      optionLabel="module"
+                      optionValue="moduleId"
+                      formControlName="moduleIds"
+                    ></lib-select>
+                    <lib-field-validations [appControl]="tagForm.controls['moduleIds']">
+                    </lib-field-validations>
+                  </lib-form-group>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="pop_up_footer">
+      <div class="grid">
+        <div class="md:col-6">
+            <div class="save_btn">
+              <lib-button-micro
+                title="{{ 'itemCategory.saveContinue' | translate }}"
+                nameClass="save"
+                (click)="onSubmit()"
+                widthNumber="100%"
+              >
+              </lib-button-micro>
+            </div>
+          </div>
+        <div class="md:col-6">
+          <div class="save_btn">
+            <lib-button-micro
+            title="{{ 'itemCategory.save' | translate }}"
+            nameClass="save"
+              (click)="onSubmit()"
+              widthNumber="100%"
+            >
+            </lib-button-micro>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

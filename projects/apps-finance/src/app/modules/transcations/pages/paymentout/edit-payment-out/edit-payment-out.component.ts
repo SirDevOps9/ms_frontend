@@ -192,10 +192,12 @@ export class EditPaymentOutComponent implements OnInit {
       return true;
     } else {
       const data = value;
+      const viewdata = this.paymentInPosted;
+
       const ref = this.dialog.open(PaymentOutPaymentMethodComponent, {
         width: '900px',
         height: '600px',
-        data: { ...data, selectedPayment },
+        data: { ...data, selectedPayment , viewdata },
       });
       ref.onClose.subscribe((res) => {
         if (res) {
@@ -299,13 +301,6 @@ export class EditPaymentOutComponent implements OnInit {
       } else if (res == paymentplace.Bank) {
         this.addForm.get('bankAccountId')?.addValidators([customValidators.required]);
         this.addForm.get('bankAccountId')?.updateValueAndValidity();
-      }
-    });
-    this.financeService.accountCurrencyRate.subscribe((res) => {
-      if (res) {
-        this.addForm.controls['rate'].patchValue(res?.rate);
-        this.calculateTotalLocalAmount();
-        this.updateRateInPaymentDetails(res?.rate);
       }
     });
     this.addForm.controls['currencyId'].valueChanges.subscribe((currencyId: any) => {
@@ -658,12 +653,13 @@ export class EditPaymentOutComponent implements OnInit {
       );
       return;
     }
+    const viewdata = this.paymentInPosted;
 
     const dialogRef = this.dialog.open(AddPaymentOutCostCenterComponent, {
       width: '900px',
       height: '600px',
       header: 'Edit Cost Center Allocation',
-      data: data,
+      data:{ ...data,viewdata },
     });
     dialogRef.onClose.subscribe((res) => {
       if (res) {

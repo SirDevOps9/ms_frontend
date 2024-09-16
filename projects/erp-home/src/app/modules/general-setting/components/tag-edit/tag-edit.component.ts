@@ -5,7 +5,7 @@ import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dy
 import { GeneralSettingService } from '../../general-setting.service';
 import { LanguageService, MenuModule, customValidators } from 'shared-lib';
 import { LayoutService } from 'libs/apps-shared-lib/src/lib/modules/layout/layout.service';
-import { TagDto } from '../../models';
+import { SubdomainModuleDto, TagDto } from '../../models';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -15,7 +15,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class TagEditComponent implements OnInit {
   tagForm: FormGroup;
-  modulelist: MenuModule[];
+  modulelist: SubdomainModuleDto[];
   selectedModules?: number[] = [];
   get Id(): string {
     return this.config?.data?.id;
@@ -52,7 +52,11 @@ export class TagEditComponent implements OnInit {
   }
 
   moudlelist() {
-    this.modulelist = this.layoutService.getModules();
+    this.generalSettingService.getUserSubDomainModules();
+    this.generalSettingService.subdomainModuleDataSourceObservable.subscribe((res) => {
+      this.modulelist = res;
+    });
+    console.log(this.modulelist);
   }
 
   initializeTagForm() {
