@@ -214,9 +214,6 @@ export class EditBankDefinitionComponent implements OnInit {
     this.financeService.GetAccountOpeningBalance(id).subscribe((res) => {
       if(res) {
         this.OpeningBalanceData = res;
-        const currentBalance = bankLine.get('currentBalance');
-        currentBalance?.setValue(res.balance)
-        
       }
     
     });
