@@ -13,6 +13,9 @@
   "ErrorInDelete": "Error In Delete",
   "DateFromLessThanToValidation":"date From is not before the end of dateTo.",
   "PaymentIn": {
+    "viewPaymentIn":"View Payment In",
+      "viewPaymentOut":"View Payment Out",
+      
     "Form": {
       "Save": "Save",
       "Cancel": "Cancel",
@@ -42,7 +45,7 @@
       "PlaceholderCurrentBalance": "Display Payment Type Details",
       "PlaceholderTotalReceivedAmount": "Auto Display 7000",
       "PlaceholderNewBalance": "auto = curr. bal + tot. rec. amo.",
-
+      
       "PaymentMethod": "Payment method",
       "CommissionAmount": "commission amount",
       "VatAmount": "vat amount",

@@ -16,6 +16,8 @@
   "ErrorInDelete": "خطأ فى الحذف",
   "DateFromLessThanToValidation": "التاريخ من يجب أن يكون قبل التاريخ إلى.",
   "PaymentIn": {
+    "viewPaymentIn":"عرض إيصال الدفع",
+    "viewPaymentOut": "عرض الدفعة الصادرة",
     "Form": {
       "Save": "حفظ",
       "Cancel": "الغاء",
