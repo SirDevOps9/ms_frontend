@@ -316,7 +316,7 @@ export class AccountService {
  
 
   
-  AddCostCenter(command: addCostCenter) {
+  AddCostCenter(command: addCostCenter) {    
     this.accountproxy.AddCostCenter(command).subscribe({
       next: (res) => {
         this.savedCostCenter.next(res);
