@@ -371,6 +371,7 @@
                               <lib-text-input
                                 placeholder="{{ 'itemType.factor' | translate }}"
                                 formControlName="conversionRatio"
+                                [readOnly]="itemDefGroup.controls['isDefault'].value == true"
                               ></lib-text-input>
                             </ng-template>
                             <ng-template pTemplate="output">

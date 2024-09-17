@@ -101,7 +101,7 @@ export class AddItemDefinitionComponent implements OnInit {
       specialCare : [''],
       lifeTime : [''],
       color : [''],
-      uomId : [''],
+      uomId : ['' ],
       uom : this.fb.array([]),
       barcode : this.fb.array([]),
       attribute : this.fb.array([]),
@@ -270,7 +270,7 @@ export class AddItemDefinitionComponent implements OnInit {
     return this.fb.group({
       id:0,
       itemId: this.id,
-      uomId: [null ],
+      uomId: [null  , [customValidators.required]],
       uomCode : null,
       conversionRatio: 1,
       isDefault: true,
@@ -283,7 +283,7 @@ export class AddItemDefinitionComponent implements OnInit {
     return this.fb.group({
       id : null ,
       barcode: null,
-      uomId: null,
+      uomId: [null , [customValidators.required]],
       itemVariantId: null,
       sku: null,
       status: true, 
@@ -400,6 +400,8 @@ export class AddItemDefinitionComponent implements OnInit {
   }
  
   onSaveBarcode(itemDefBarcodeGroup : FormGroup){
+    if (!this.formService.validForm(this.barcodeForm, false)) return;
+
     let {barcode , sku,itemVariantId,uomId} = itemDefBarcodeGroup.value
     return this.itemService.addBarcode({barcode , sku,itemVariantId,uomId})
   }

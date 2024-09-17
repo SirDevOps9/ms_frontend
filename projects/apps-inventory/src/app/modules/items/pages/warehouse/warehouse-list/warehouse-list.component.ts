@@ -90,10 +90,10 @@ export class WarehouseListComponent implements OnInit {
   }
 
   exportClick(e?: Event) {
-    this.exportBankData(this.searchTerm);
+    this.exportWarehouseData(this.searchTerm);
   }
 
-  exportBankData(searchTerm: string) {
+  exportWarehouseData(searchTerm: string) {
     this.itemsService.exportsWayehouseList(searchTerm);
     this.itemsService.exportedWarehouseDataSourceObs.subscribe((res) => {
       this.exportData = res;

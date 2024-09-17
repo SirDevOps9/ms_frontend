@@ -13,6 +13,12 @@
             pageSize: 10,
             columns: [
               {
+                name: 'id',
+                headerText: ('itemDefinition.code' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
                 name: 'name',
                 headerText: ('itemDefinition.name' | translate),
                 isGlobalFilter: true,

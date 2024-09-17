@@ -186,12 +186,12 @@ export class ItemsProxyService {
 
   exportsWayehouseList(
     searchTerm: string | undefined
-  ): Observable<itemDefinitionDto[]> {
-    let query = `WareHouse/Export?`;
+  ): Observable<GetWarehouseList[]> {
+    let query = `WareHouse/ExportWareHouse?`;
     if (searchTerm) {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-     return this.httpService.get<itemDefinitionDto[]>(query);
+     return this.httpService.get<GetWarehouseList[]>(query);
   }
   exportsItemCategoryList(
     searchTerm: string | undefined
