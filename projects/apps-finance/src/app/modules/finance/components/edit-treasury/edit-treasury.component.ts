@@ -24,6 +24,7 @@ export class EditTreasuryComponent implements OnInit {
   branchesLookup: { id: number; name: string }[];
   accountsLookup: { id: number; name: string }[];
   treasuryData: GetTreasuryDtoById;
+  disabled: boolean = false;
   constructor(
     public config: DynamicDialogConfig,
     public dialogService: DialogService,
@@ -58,6 +59,8 @@ export class EditTreasuryComponent implements OnInit {
         });
         this.treasuryForm.patchValue({ ...res });
         this.accountChange(res?.accountId);
+        this.GetTreasuryCurrentBalance(res.id);
+
       }
     });
   }
@@ -81,11 +84,34 @@ export class EditTreasuryComponent implements OnInit {
     });
   }
   GetAccountOpeningBalance(id: number) {
-    this.financeService.GetAccountOpeningBalance(id).subscribe((res) => {
-      this.OpeningBalanceData = res;
-      this.treasuryForm.get('journalEntryLineId')?.setValue(res.journalId);
-      this.treasuryForm.get('accountBalance')?.setValue(res.balance);
+    this.financeService.GetAccountOpeningBalance(id).subscribe({
+      next:(res) => {
+      if(res){
+        console.log(res);
+        this.OpeningBalanceData = res;
+        this.treasuryForm.get('accountOpeningBalance')?.setValue(res.balance);
+      }else{
+        this.treasuryForm.get('accountOpeningBalance')?.setValue("");
+         }
+      },
+    }
+    );
+  }
+
+  GetTreasuryCurrentBalance(id: number) {
+    this.financeService.GetTreasuryBalance(id);
+    this.financeService.TreasuryBalanceObservable.subscribe((res) => {
+      this.treasuryForm.get('treasuryCurrentBalance')?.setValue(res);
+      if(this.treasuryForm.get('openingBalance')?.value != res)
+      {
+        this.disabled=true;
+      }
+      else{
+        this.disabled=false;
+      }
+      
     });
+    
   }
 
   accountChange(e: any) {
@@ -100,9 +126,10 @@ export class EditTreasuryComponent implements OnInit {
       currencyId: [null, customValidators.required],
       branches: [null, customValidators.required],
       accountId: [null],
-      openingBalance: [null],
+      accountOpeningBalance: [0],
       journalEntryLineId: [null],
-      accountBalance: [null],
+      openingBalance: [null],
+      treasuryCurrentBalance:''
     });
   }
 
