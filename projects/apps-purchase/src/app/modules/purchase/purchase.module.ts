@@ -129,7 +129,7 @@ const routes: Routes = [
             path: 'view-vendor-opening-balance/:id',
             component: VendorOpeningBalanceViewComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE_EDIT,
+              breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE_VIEW,
             },
           },
         ]

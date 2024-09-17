@@ -280,7 +280,8 @@
     "success": "نجاح",
     "AddBank": "إضافة بنك",
     "EditBank": "تعديل بنك",
-    "BankDefinitonsList": "قائمة تعريفات البنوك"
+    "BankDefinitonsList": "قائمة تعريفات البنوك",
+    "accountOpeningBalance": "رصيد افتتاح الحساب"
   },
   "deleteBank": {
     "success": "نجاح",

@@ -306,7 +306,10 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
     });
 
     this.salesService.CustomerDropDownByAccountIdObservable.subscribe((res) => {
-      this.customerDropDownByAccountId = res;
+      this.customerDropDownByAccountId = res.map((x) => ({
+        ...x,
+        name: `${x.name} (${x.code})`,
+      }));;
     });
     this.salesService.LinesDropDownDataObservable.subscribe((res: any) => {
       this.linesDropDown = res;

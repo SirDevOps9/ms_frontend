@@ -204,7 +204,10 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     });
 
     this.SalesService.CustomerDropDownByAccountIdObservable.subscribe((res) => {
-      this.customerDropDownByAccountId = res;
+      this.customerDropDownByAccountId = res.map((x) => ({
+        ...x,
+        name: `${x.name} (${x.code})`,
+      }));;
     });
     this.SalesService.LinesDropDownDataObservable.subscribe((res: any) => {
       this.linesDropDown = res;

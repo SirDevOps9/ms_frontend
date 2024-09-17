@@ -119,9 +119,10 @@ export class BreadcrumbLabel {
 
     static VIEW_PAYMENT_OUT ='BreadCrumb.ViewPaymentOut ';
 
-    static VENDOR_OPENING_BALANCE ='BreadCrumb.VendorOpeningBalance ';
+    static VENDOR_OPENING_BALANCE ='BreadCrumb.VendorOpeningBalance';
     static VENDOR_OPENING_BALANCE_EDIT ='BreadCrumb.EditVendorOpeningBalance';
     static VENDOR_OPENING_BALANCE_ADD ='BreadCrumb.AddVendorOpeningBalance';
+    static VENDOR_OPENING_BALANCE_VIEW ='BreadCrumb.ViewVendorOpeningBalance';
 
     static BANK_ACCOUNT_STATEMENT ='BreadCrumb.BankAccountStatement';
     static TREASURY_STATEMENT ='BreadCrumb.TreasuryStatement';
