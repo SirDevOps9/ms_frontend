@@ -38,6 +38,8 @@ export class TranscationsService {
   public AllTreasuriesPayMethodsDropdown = new BehaviorSubject<any>([]);
   public AccountBalance = new BehaviorSubject<number | undefined>(0);
   public TreasuryBalance = new BehaviorSubject<number | undefined>(0);
+  public paymentSaved = new BehaviorSubject<number | undefined>(0);
+  public paymentOutSaved = new BehaviorSubject<number | undefined>(0);
   public childrenAccountDataSource = new BehaviorSubject<AccountDto[]>([]);
   public childrenAccountList = this.childrenAccountDataSource.asObservable();
   public childrenAccountPageInfo = new BehaviorSubject<PageInfoResult>({});
@@ -165,7 +167,8 @@ export class TranscationsService {
           this.languageService.transalte('PaymentIn.Success'),
           this.languageService.transalte('PaymentIn.PaymentInAddedSuccessfully')
         );
-        this.routerService.navigateTo('/transcations/paymentin');
+        this.paymentSaved.next(res)
+        // this.routerService.navigateTo('/transcations/paymentin');
       },
       error: (error) => {
         this.loaderService.hide();
@@ -190,8 +193,9 @@ export class TranscationsService {
           this.languageService.transalte('success'),
           this.languageService.transalte('PaymentOut.add')
         );
+        this.paymentOutSaved.next(res)
 
-        this.routerService.navigateTo('/transcations/paymentout');
+        // this.routerService.navigateTo('/transcations/paymentout');
       },
       error: (error) => {
         this.loaderService.hide();
@@ -219,16 +223,12 @@ export class TranscationsService {
   }
   GetTreasuryBalance(id: number) {
     this.TranscationsProxy.GetTreasuryBalance(id).subscribe((res) => {
-      if (res) {
-        this.TreasuryBalance.next(res);
-      }
+      this.TreasuryBalance.next(res);
     });
   }
   GetAccountBalance(id: number) {
     this.TranscationsProxy.GetAccountBalance(id).subscribe((res) => {
-      if (res) {
         this.AccountBalance.next(res);
-      }
     });
   }
   getAccountsHasNoChildren(quieries: string, pageInfo: PageInfo) {
