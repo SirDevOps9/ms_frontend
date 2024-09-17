@@ -117,13 +117,12 @@ export class AddJournalEntryOpeningBalanceComponent {
 
     this.fg = this.fb.group({
       refrenceNumber: [null, [customValidators.required, customValidators.length(0, 15)]],
-      journalDate: [this.getTodaysDate(), customValidators.required],
+      journalDate: [new Date(), customValidators.required],
       periodId: ['Period1', customValidators.required],
       description: ['', customValidators.required],
 
       journalEntryLines: fb.array([]),
     });
-    this.fg.controls['journalDate'].setValue(this.getTodaysDate());
   }
 
   public get attachments(): FormArray {
@@ -175,7 +174,6 @@ export class AddJournalEntryOpeningBalanceComponent {
     journalLine.get('lineDescription')?.setValue(accountData.name);
     journalLine.get('costCenterConfig')?.setValue(accountData.costCenterConfig);
     journalLine.get('selectedFalg')?.setValue(true);
-    console.log(journalLine.get('costCenterConfig')?.value);
 
     var currencyData = this.currencies.find((c) => c.id == accountData?.currencyId);
 

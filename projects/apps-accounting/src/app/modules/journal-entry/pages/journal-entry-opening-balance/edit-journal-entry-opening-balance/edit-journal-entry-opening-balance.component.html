@@ -307,7 +307,8 @@
                     class="pointer"
                     *ngIf="
                       isCostCenterallowed(journalLine.controls['costCenterConfig'].value) &&
-                      shouldShowCostCenterImage(journalLine.controls['costCenters'].value) <= 0
+                      shouldShowCostCenterImage(journalLine.controls['costCenters'].value) <= 0 &&
+                      journalLine.controls['id'].value ==0 
                     "
                     (click)="
                       openCostPopup(
