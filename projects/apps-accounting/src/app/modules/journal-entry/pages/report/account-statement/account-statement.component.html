@@ -78,6 +78,7 @@
                   {
                     name: 'journalEntryCode',
                     headerText: 'AccountStatement.journalEntryCode' | translate,
+                    template:journalEntryCode
                   },
                   {
                     name: 'journalEntryDate',
@@ -143,6 +144,11 @@
         <ng-template #date let-account>
           <div>
             <p>{{ account.journalEntryDate | date : 'MM/dd/yyyy' }}</p>
+          </div>
+        </ng-template>
+        <ng-template #journalEntryCode let-line>
+          <div>
+            <p class="code" (click)="routeTo(line.journalEntryId)">{{ line.journalEntryCode }}</p>
           </div>
         </ng-template>
         <ng-container footer>
@@ -282,6 +288,11 @@
           <ng-template #date let-account>
             <div>
               <p>{{ account.journalEntryDate | date : 'MM/dd/yyyy' }}</p>
+            </div>
+          </ng-template>
+          <ng-template #journalEntryCode let-line>
+            <div>
+              <p class="code" (click)="routeTo(line.journalEntryId)">{{ line.journalEntryCode }}</p>
             </div>
           </ng-template>
           <ng-container footer>

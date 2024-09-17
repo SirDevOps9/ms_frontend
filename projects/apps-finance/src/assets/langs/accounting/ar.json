@@ -16,7 +16,9 @@
     "ViewPaymentMethod": "عرض طريقة الدفع",
     "PaymentIn": "إيصال الدفع",
     "ViewPaymentIn": "عرض قبض",
-    "ViewPaymentout": "عرض صرف"
+    "ViewPaymentout": "عرض صرف",
+    "sequence": "تسلسل"
+
 
 
 
@@ -197,7 +199,8 @@
     "confirm": "رصيد افتتاح اليومية لا يساوي رصيد افتتاح الخزانة، هل تريد المتابعة؟",
     "addTreasury": "إضافة خزينة",
     "editTreasury": "تعديل خزينة",
-    "treasuryList": "قائمة الخزائن"
+    "treasuryList": "قائمة الخزائن",
+    "treasuryCurrentBalance": "رصيد الخزينة الحالي"
   },
   "deleteTreasury": {
     "success": "نجاح",

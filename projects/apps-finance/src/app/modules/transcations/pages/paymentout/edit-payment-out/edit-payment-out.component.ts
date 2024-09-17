@@ -154,7 +154,7 @@ export class EditPaymentOutComponent implements OnInit {
       bankAccountId: new FormControl(null),
       paymentHubDetailId: new FormControl('', [customValidators.required]),
       currencyId: new FormControl(null),
-      rate: new FormControl<number | undefined>(0, [customValidators.required]),
+      rate: new FormControl<number | undefined>(0, [customValidators.required,customValidators.nonNegativeNumbers]),
       glAccountId: new FormControl(null),
       paymentOutDetails: this.formBuilder.array([]),
       code: new FormControl(''),
@@ -789,7 +789,7 @@ export class EditPaymentOutComponent implements OnInit {
       if (customer) {
         if (customer.accountId > 0) {
           journalLine.get('glAccountId')?.setValue(customer.accountId);
-          journalLine.get('glAccountname')?.setValue(customer.accountName);
+          journalLine.get('accountName')?.setValue(customer.accountName);
         }
       }
     } else if (paidByValue === this.sharedFinanceEnums.paiedDropDown.vendor) {
@@ -797,7 +797,7 @@ export class EditPaymentOutComponent implements OnInit {
       if (vendor) {
         if (vendor.accountId > 0) {
           journalLine.get('glAccountId')?.setValue(vendor.accountId);
-          journalLine.get('glAccountname')?.setValue(vendor.accountName);
+          journalLine.get('accountName')?.setValue(vendor.accountName);
         }
       }
     }

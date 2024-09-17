@@ -174,7 +174,7 @@
                     {{ fg.controls['debitAmount'].value | numberFormat }}
                   </ng-template>
                 </p-cellEditor>
-                <lib-field-validations [appControl]="fg"></lib-field-validations>
+                <lib-field-validations [appControl]="fg.controls['debitAmount']"></lib-field-validations>
               </td>
               <td
                 [pEditableColumn]="fg.controls['creditAmount']"
@@ -193,7 +193,7 @@
                     {{ fg.controls['creditAmount'].value | numberFormat }}
                   </ng-template>
                 </p-cellEditor>
-                <lib-field-validations [appControl]="fg"></lib-field-validations>
+                <lib-field-validations [appControl]="fg.controls['creditAmount']"></lib-field-validations>
               </td>
               <td>
                 <!-- <lib-form-group>
@@ -231,7 +231,10 @@
                   <ng-template pTemplate="output">
                     {{ fg.controls['currencyRate'].value }}
                   </ng-template>
+
                 </p-cellEditor>
+                <lib-field-validations [appControl]="fg.controls['currencyRate']"></lib-field-validations>
+
               </td>
               <td>
                 {{ fg.controls['debitAmountLocal'].value | numberFormat }}
