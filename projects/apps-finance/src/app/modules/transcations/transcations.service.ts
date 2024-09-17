@@ -157,8 +157,12 @@ export class TranscationsService {
     });
   }
   addPaymentIn(obj: AddPaymentTermDto) {
+    this.loaderService.show();
+
     this.TranscationsProxy.addPaymentIn(obj).subscribe({
       next: (res) => {
+        this.loaderService.hide();
+
         this.toasterService.showSuccess(
           this.languageService.transalte('PaymentIn.Success'),
           this.languageService.transalte('PaymentIn.PaymentInAddedSuccessfully')
@@ -166,6 +170,8 @@ export class TranscationsService {
         this.routerService.navigateTo('/transcations/paymentin');
       },
       error: (error) => {
+        this.loaderService.hide();
+
         this.toasterService.showError(
           this.languageService.transalte('PaymentIn.Error'),
           this.languageService.transalte('PaymentIn.addedError')
@@ -175,15 +181,23 @@ export class TranscationsService {
   }
 
   addPaymentOut(obj: AddPaymentTermDto) {
+    this.loaderService.show();
+
     this.TranscationsProxy.addPaymentOut(obj).subscribe({
+
       next: (res) => {
+        this.loaderService.hide();
+
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
           this.languageService.transalte('PaymentOut.add')
         );
+
         this.routerService.navigateTo('/transcations/paymentout');
       },
       error: (error) => {
+        this.loaderService.hide();
+
         this.toasterService.showError(
           this.languageService.transalte('PaymentOut.Error'),
           this.languageService.transalte('PaymentOut.addedError')
@@ -337,8 +351,12 @@ export class TranscationsService {
   }
 
   editPaymentIn(obj: any) {
+    this.loaderService.show();
+
     this.TranscationsProxy.editPaymentIn(obj).subscribe((res) => {
       if (res) {
+        this.loaderService.hide();
+
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
           this.languageService.transalte('add-paymentMethod.edit')
@@ -371,12 +389,17 @@ export class TranscationsService {
   }
 
   editPaymentOut(obj: any) {
+
     this.TranscationsProxy.editPaymentOut(obj).subscribe((res) => {
+      this.loaderService.show();
+
       if (res) {
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
           this.languageService.transalte('PaymentOut.edit')
         );
+        this.loaderService.hide();
+
         this.routerService.navigateTo('/transcations/paymentout');
       }
     });

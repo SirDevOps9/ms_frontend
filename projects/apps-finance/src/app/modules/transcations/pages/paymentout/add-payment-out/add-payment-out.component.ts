@@ -752,12 +752,7 @@ export class AddPaymentOutComponent implements OnInit {
     const currentBalance = this.addForm.controls['currentBalance'].value || 0;
     const totalPaidAmount = this.addForm.controls['totalPaidAmount'].value || 0;
 
-    console.log('currentBalance', this.AccountBalance);
-    console.log('totalPaidAmount', totalPaidAmount);
-
     const newBalance = this.AccountBalance - totalPaidAmount;
-    console.log('newBalance', newBalance);
-
     this.addForm.controls['newBalance'].setValue(newBalance);
 
     this.addForm.controls['newBalance'].updateValueAndValidity();
