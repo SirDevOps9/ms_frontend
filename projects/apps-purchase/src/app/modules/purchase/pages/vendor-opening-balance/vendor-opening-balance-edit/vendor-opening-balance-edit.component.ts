@@ -265,6 +265,7 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
           },
           { emitEvent: true }
         );
+
         this.onOpeningJournalChange(res.openingBalanceJournalEntryId);
         this.onLinesChange(res.openingBalanceJournalLineId);
         this.editMode = true;
@@ -294,7 +295,10 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
     });
 
     this.PurchaseService.VendorDropDownByAccountIdObservable.subscribe((res) => {
-      this.vendorDropDownByAccountId = res;
+      this.vendorDropDownByAccountId = res.map((x) => ({
+        ...x,
+        name: `${x.name} (${x.code})`,
+      }));
     });
     this.PurchaseService.JournalLinesDropDownDataObservable.subscribe((res: any) => {
       this.linesDropDown = res;

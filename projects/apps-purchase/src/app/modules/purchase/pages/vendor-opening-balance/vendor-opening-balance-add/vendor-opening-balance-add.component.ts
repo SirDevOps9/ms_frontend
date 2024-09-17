@@ -93,15 +93,18 @@ export class VendorOpeningBalanceAddComponent implements OnInit {
       this.openingJournalList = res;
     });
     this.purchaseService.VendorDropDownByAccountIdObservable.subscribe((res) => {
-      this.vendorDropDownByAccountId = res;
+      this.vendorDropDownByAccountId = res.map((x) => ({
+        ...x,
+        name: `${x.name} (${x.code})`,
+      }));
     });
     this.purchaseService.JournalLinesDropDownDataObservable.subscribe((res: any) => {
       this.linesDropDown = res;
     });
   }
   cancel() {
-    this.routerService.navigateTo('/masterdata/customer-opening-balance');
-  }
+    this.routerService.navigateTo('/masterdata/vendor-opening-balance');
+  }        
 
   openingBalanceJournalEntryDropdown() {
     this.purchaseService.openingBalanceJournalEntryDropdown();
