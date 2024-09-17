@@ -42,11 +42,9 @@ export class TranscationsService {
   public childrenAccountList = this.childrenAccountDataSource.asObservable();
   public childrenAccountPageInfo = new BehaviorSubject<PageInfoResult>({});
   public paymentDetails = new BehaviorSubject<any>({});
-  private accountCurrencyRateDataSource = new BehaviorSubject<CurrencyRateDto>({rate:0});
+  private accountCurrencyRateDataSource = new BehaviorSubject<CurrencyRateDto>({ rate: 0 });
   private paymenInLineDeleted = new BehaviorSubject<boolean>(false);
   public paymenInLineDeletedObser = this.paymenInLineDeleted.asObservable();
-
-
 
   private paymenOutLineDeleted = new BehaviorSubject<boolean>(false);
   public paymentOutLineDeletedObser = this.paymenOutLineDeleted.asObservable();
@@ -76,10 +74,10 @@ export class TranscationsService {
   public paymentOutCurrentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
   public ViewpaymentIn = new BehaviorSubject<any>({});
-  ViewpaymentInDataObservable = this.ViewpaymentIn.asObservable()
+  ViewpaymentInDataObservable = this.ViewpaymentIn.asObservable();
 
   public viewpaymentOut = new BehaviorSubject<any>({});
-  ViewpaymentOutDataObservable = this.viewpaymentOut.asObservable()
+  ViewpaymentOutDataObservable = this.viewpaymentOut.asObservable();
 
   constructor(
     private TranscationsProxy: TranscationsProxyService,
@@ -165,12 +163,6 @@ export class TranscationsService {
         );
         this.routerService.navigateTo('/transcations/paymentin');
       },
-      error: (error) => {
-        this.toasterService.showError(
-          this.languageService.transalte('PaymentIn.Error'),
-          this.languageService.transalte('PaymentIn.addedError')
-        );
-      },
     });
   }
 
@@ -182,12 +174,6 @@ export class TranscationsService {
           this.languageService.transalte('PaymentOut.add')
         );
         this.routerService.navigateTo('/transcations/paymentout');
-      },
-      error: (error) => {
-        this.toasterService.showError(
-          this.languageService.transalte('PaymentOut.Error'),
-          this.languageService.transalte('PaymentOut.addedError')
-        );
       },
     });
   }
@@ -274,7 +260,6 @@ export class TranscationsService {
     }
   }
 
-
   async paymentInDeleteLine(id: number) {
     const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
@@ -299,8 +284,6 @@ export class TranscationsService {
       });
     }
   }
-
-
 
   async paymentOutDeleteLine(id: number) {
     const confirmed = await this.toasterService.showConfirm('Delete');
@@ -327,11 +310,10 @@ export class TranscationsService {
     }
   }
 
-
-  getPaymentInById(id:number){
-    this.TranscationsProxy.GetPaymentInById(id).subscribe(res=>{
-      if(res) {
-       this.paymentDetails.next(res)
+  getPaymentInById(id: number) {
+    this.TranscationsProxy.GetPaymentInById(id).subscribe((res) => {
+      if (res) {
+        this.paymentDetails.next(res);
       }
     });
   }
@@ -444,18 +426,18 @@ export class TranscationsService {
       });
     }
   }
-  viewPaymentIn(id:number){
-    this.TranscationsProxy.viewPaymentInById(id).subscribe(res=>{
-      if(res) {
-       this.ViewpaymentIn.next(res)
+  viewPaymentIn(id: number) {
+    this.TranscationsProxy.viewPaymentInById(id).subscribe((res) => {
+      if (res) {
+        this.ViewpaymentIn.next(res);
       }
-    })
+    });
   }
-  viewPaymentOut(id:number){
-    this.TranscationsProxy.viewPaymentOutById(id).subscribe(res=>{
-      if(res) {
-       this.viewpaymentOut.next(res)
+  viewPaymentOut(id: number) {
+    this.TranscationsProxy.viewPaymentOutById(id).subscribe((res) => {
+      if (res) {
+        this.viewpaymentOut.next(res);
       }
-    })
+    });
   }
 }
