@@ -3,7 +3,13 @@ import { FormArray, FormGroup, FormBuilder, FormControl, Validators } from '@ang
 import { DialogService } from 'primeng/dynamicdialog';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
 import { AccountDto } from 'projects/apps-accounting/src/app/modules/account/models';
-import { RouterService, FormsService, customValidators, PageInfo, LanguageService } from 'shared-lib';
+import {
+  RouterService,
+  FormsService,
+  customValidators,
+  PageInfo,
+  LanguageService,
+} from 'shared-lib';
 import { CurrencyService } from '../../../../general/currency.service';
 import { CurrencyDto } from '../../../../general/models';
 import { ConfirmOpeningBalanceComponent } from '../../../components/bank/confirm-opening-balance/confirm-opening-balance.component';
@@ -30,10 +36,9 @@ export class EditBankDefinitionComponent implements OnInit {
     private accountService: AccountService,
     private routerService: RouterService,
     private formsService: FormsService,
-    private languageService:LanguageService,
+    private languageService: LanguageService,
     private route: ActivatedRoute,
-    private titleService: Title,
-
+    private titleService: Title
   ) {
     this.titleService.setTitle(this.languageService.transalte('bank.EditBank'));
   }
@@ -45,7 +50,7 @@ export class EditBankDefinitionComponent implements OnInit {
   openingBalanceDataList: any = [];
   OpeningBalanceData: Balance;
   id: number = this.route.snapshot.params['id'];
-    disabled: boolean = false;
+  disabled: boolean = false;
 
   ngOnInit(): void {
     this.bankForm = this.fb.array([this.createBankFormGroup()]);
@@ -135,11 +140,10 @@ export class EditBankDefinitionComponent implements OnInit {
   accountSelected(event: any, id: number) {
     const bankLine = this.items.at(id);
     var accountData: any = this.filteredAccounts.find((c) => c.id == event);
-    console.log(accountData);
-    if (accountData != null) {
-      bankLine.get('glAccountId')?.setValue(accountData?.id);
-      bankLine.get('accountCode')?.setValue(accountData?.accountCode);
-      bankLine.get('accountName')?.setValue(accountData?.name);
+    if (accountData) {
+      bankLine.get('glAccountId')!.setValue(accountData.id);
+      bankLine.get('accountNumber')!.setValue(accountData.accountCode);
+      bankLine.get('accountName')!.setValue(accountData.name);
     }
     this.GetAccountOpeningBalance(event, id);
     console.log(this.items.value);
@@ -216,18 +220,6 @@ export class EditBankDefinitionComponent implements OnInit {
   }
   GetAccountOpeningBalance(id: number, index: number) {
     const bankLine = this.items.at(index);
-
-    this.financeService.GetAccountOpeningBalance(id).subscribe((res) => {
-      if (res) {
-        this.OpeningBalanceData = res;
-        const currentBalance = bankLine.get('currentBalance');
-        currentBalance?.setValue(res.balance)
-        
-      }else{
-        const currentBalance = bankLine.get('currentBalance');
-        currentBalance?.setValue("0");
-      }
-    });
   }
   GetAccountCurrentBalance(id: number, index: number) {
     const bankLine = this.items.at(index);
@@ -239,16 +231,21 @@ export class EditBankDefinitionComponent implements OnInit {
         const currentBalance = bankLine.get('currentBalance');
         currentBalance?.setValue(res);
       }
-      if(bankLine.get('currentBalance')?.value != res)
-        {
-          this.disabled=true;
-        }
-        else{
-          this.disabled=false;
-        }
     });
   }
 
+  validateBalance(id: number,currentBalance: any, openBalance: any) {
+    console.log('Current', currentBalance);
+    console.log('OpenBalance', openBalance);
+    console.log('id', id);
+    if(id ==0)
+      return false;
+    if(!currentBalance)
+      currentBalance="";
+    if (currentBalance !== openBalance ) return true;
+
+    return false;
+  }
   discard() {
     this.routerService.navigateTo('/masterdata/bank-definition');
   }
