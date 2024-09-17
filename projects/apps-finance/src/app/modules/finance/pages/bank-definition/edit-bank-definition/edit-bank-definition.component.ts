@@ -45,6 +45,8 @@ export class EditBankDefinitionComponent implements OnInit {
   openingBalanceDataList: any = [];
   OpeningBalanceData: Balance;
   id: number = this.route.snapshot.params['id'];
+    disabled: boolean = false;
+
   ngOnInit(): void {
     this.bankForm = this.fb.array([this.createBankFormGroup()]);
     this.bankormGroup = new FormGroup({
@@ -237,6 +239,13 @@ export class EditBankDefinitionComponent implements OnInit {
         const currentBalance = bankLine.get('currentBalance');
         currentBalance?.setValue(res);
       }
+      if(bankLine.get('currentBalance')?.value != res)
+        {
+          this.disabled=true;
+        }
+        else{
+          this.disabled=false;
+        }
     });
   }
 

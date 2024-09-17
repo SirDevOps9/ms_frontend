@@ -285,7 +285,8 @@
     "success" : "Success",
     "AddBank":"Add Bank Definiton",
     "EditBank":"Edit Bank Definiton",
-    "BankDefinitonsList":"Bank Definitons List"
+    "BankDefinitonsList":"Bank Definitons List",
+    "accountOpeningBalance":"Account Opening  Balance"
 
   },
   "deleteBank" : {
