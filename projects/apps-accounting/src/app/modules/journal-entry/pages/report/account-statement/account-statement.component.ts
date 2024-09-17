@@ -13,7 +13,7 @@ import { AccountService } from '../../../../account/account.service';
 import { AccountDto, AccountsChildrenDropDown } from '../../../../account/models';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { reportAccount } from '../../../models';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 
 @Component({
@@ -39,7 +39,8 @@ export class AccountStatementComponent {
     private journalEntryService: JournalEntryService,
     private ToasterService: ToasterService,
     private PrintService: PrintService,
-    public generalService: GeneralService
+    public generalService: GeneralService,
+    private route:Router
   ) {}
 
   ngOnInit() {
@@ -158,4 +159,13 @@ export class AccountStatementComponent {
   printTable(id: string) {
     this.PrintService.print(id);
   }
+
+  routeTo(id:number){
+    const test =location.href.split("/")
+        console.log(test[3]);
+    const url = this.route.serializeUrl(
+      this.route.createUrlTree([`${test[3]}/transcations/journalentry/view/${id}`])
+    );
+    window.open(url, '_blank');
+      }
 }

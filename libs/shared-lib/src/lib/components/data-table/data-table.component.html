@@ -42,7 +42,16 @@
                   [first]="first"
                 ></p-paginator>
               </div>
-              <ng-content select="[action]"> </ng-content>
+              <ng-content select="[action]">
+            
+              </ng-content>
+              <lib-button-micro
+              *ngIf="sequence"
+              nameClass="sequence"
+              (click)="routeToSequence()"
+              >
+
+              </lib-button-micro>  
             </div>
           </div>
           <ng-content select="[caption]"> </ng-content>

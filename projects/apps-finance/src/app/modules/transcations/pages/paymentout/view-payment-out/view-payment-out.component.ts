@@ -42,7 +42,7 @@ export class ViewPaymentOutComponent implements OnInit {
   }
   ngOnInit() {
     this.titleService.setTitle(
-      this.langService.transalte('PaymentIn.addpaymentin')
+      this.langService.transalte('PaymentIn.viewPaymentOut')
     );
     this.loadView();
 

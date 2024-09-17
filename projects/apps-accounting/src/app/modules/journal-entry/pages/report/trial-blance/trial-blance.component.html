@@ -208,7 +208,7 @@
       </ng-container>
       <ng-template #accountName let-trial>
         <div>
-          <p>
+          <p class="code" (click)="routeTo(trial.accountId)">
             {{ trial.accountName }} <span class="accountNature">({{ trial.accountNature }})</span>
           </p>
         </div>
@@ -399,7 +399,7 @@
   </ng-container>
     <ng-template #accountName let-trial>
       <div>
-        <p>
+        <p (click)="routeTo(trial.accountId)">
           {{ trial.accountName }} <span class="accountNature">({{ trial.accountNature }})</span>
         </p>
       </div>
