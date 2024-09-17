@@ -22,3 +22,4 @@ export * from './getGlOpeningBalance';
 export * from './JournalEntryGlBalanceLineDto';
 export * from './reportCostCenter';
 export * from './reportCostAllData';
+export * from './get-open-financial-period-date-dto';
