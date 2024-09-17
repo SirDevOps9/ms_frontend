@@ -44,7 +44,7 @@ export class SequenceComponent {
   ngOnInit(): void {
     this.titleService.setTitle(this.languageService.transalte('sequence.sequence'));
 
-      this.getBranch()
+     
     this.separatorOptions = this.SharedEnums.getSeparatorEntries();
    
     this.route.data.subscribe(data => {
@@ -133,7 +133,8 @@ export class SequenceComponent {
 
   supscrip() {
     
-     this.getSequence(this.pageId.toString())
+    this.getSequence(this.pageId.toString())
+    this.getBranch()
     this.getCompany()
     this.sequenceDetails.valueChanges.subscribe((res)=>{
       this.sequenceDetails.controls.forEach((control, index) => {
@@ -260,12 +261,17 @@ export class SequenceComponent {
       })
       .join('');
   }
-  getBranch(){
+
+getBranch() {
   this.sequenceService.getBranch().subscribe(
     (branches) => {
-      this.allBranches = branches
-      this.sequence.get('branchesIds')?.setValue(this.allBranches[0].id)
-
+      if (branches) {
+        this.allBranches = branches;
+        // Ensure branchesIds is an array, even if there's only one branch ID
+        this.sequence.get('branchesIds')?.setValue([this.allBranches[0]?.id]);
+      }
+    },
+    (error) => {
     }
   );
 }
@@ -280,31 +286,41 @@ getCompany(){
 
   getSequence(screen: string) {
     this.sequenceService.getSequence(screen).subscribe(
-      (sequence) => {
-        console.log(sequence, "000000000000000000000000000");
-        this.sequence.patchValue({
-          status: sequence.status,
-          branchesIds: sequence.branchesIds || [this.allBranches[0].id],
-          type: sequence.type,
-        });
-        // Loop through the sequenceDetails from the response
-        sequence.sequenceDetails.forEach((detail: any) => {
-          let newLine = this.fb.group({
-            order: new FormControl(detail.order),
-            segment: new FormControl(detail.segment),
-            detailValue: new FormControl(detail.detailValue),
-            valueOption: new FormControl(detail.valueOption),
-            segmentName: new FormControl(""), // Adjust as needed
-            companyCode: new FormControl(""), // Adjust as needed
-            branchCode: new FormControl(""),  // Adjust as needed
-            serialNumber: new FormControl(),  // Adjust as needed
-            separatorName: new FormControl()  // Adjust as needed
+    
+        (sequence) => {
+          if(sequence){
+          this.sequence.patchValue({
+            status: sequence?.status,
+            // branchesIds: sequence?.branchesIds || this.allBranches[0]?.id,
+            type: sequence?.type,
           });
-          this.sequenceDetails.push(newLine);
-        });
+          // Loop through the sequenceDetails from the response
+          sequence.sequenceDetails.forEach((detail: any) => {
+            let newLine = this.fb.group({
+              order: new FormControl(detail.order),
+              segment: new FormControl(detail.segment),
+              detailValue: new FormControl(detail.detailValue),
+              valueOption: new FormControl(detail.valueOption),
+              segmentName: new FormControl(""), // Adjust as needed
+              companyCode: new FormControl(""), // Adjust as needed
+              branchCode: new FormControl(""),  // Adjust as needed
+              serialNumber: new FormControl(),  // Adjust as needed
+              separatorName: new FormControl()  // Adjust as needed
+            });
+            if(detail.segment == this.SharedEnums.Segments.Separator){
+              console.log(detail ,"detail");
+              // this.getSeparatorName(detail)
+
+            }
+
+            this.sequenceDetails.push(newLine);
+          });
+        }
       }
+    
     );
   }
+
   
   save(){
     if (!this.formsService.validForm(this.sequence, false)) return;
