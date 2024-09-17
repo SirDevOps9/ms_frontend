@@ -11,7 +11,7 @@ import { AppsSharedLibModule } from 'apps-shared-lib';
 import { MicrotecAuthLibModule, ERPInterceptor } from 'microtec-auth-lib';
 import { CookieModule } from 'ngx-cookie';
 import { MultiTranslateHttpLoader, SharedLibModule, EnvironmentService, LowerCaseUrlSerializer } from 'shared-lib';
-import { environment } from '../environments/environment.development';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [

@@ -14,6 +14,15 @@ import { AddVariantPopupComponent } from './components/add-variant-popup/add-var
 import { ViewVariantPopupComponent } from './components/view-variant-popup/view-variant-popup.component';
 import { AddBarcodePopupComponent } from './components/add-barcode-popup/add-barcode-popup.component';
 import { ViewQRcodeComponent } from './components/view-qrcode/view-qrcode.component';
+import { WarehouseListComponent } from './pages/warehouse/warehouse-list/warehouse-list.component';
+import { AddWarehouseComponent } from './pages/warehouse/add-warehouse/add-warehouse.component';
+import { ItemsCategoryTreeComponent } from './pages/item-categories-tree/items-category-tree/items-category-tree.component';
+import { AddItemsCategoryComponent } from './pages/item-categories-tree/add-items-category/add-items-category.component';
+import { EditItemCategoryComponent } from './pages/item-categories-tree/edit-item-category/edit-item-category.component';
+import { ViewItemCategoryComponent } from './pages/item-categories-tree/view-item-category/view-item-category.component';
+import { EditWarehouseComponent } from './pages/warehouse/edit-warehouse/edit-warehouse.component';
+import { MainItemCategoriesTreeComponent } from './pages/item-categories-tree/main-item-categories-tree/main-item-categories-tree.component';
+import { AddWarehousePopupComponent } from './components/warehouse/add-warehouse-popup/add-warehouse-popup.component';
 
 
 const routes: Routes = [
@@ -36,6 +45,38 @@ const routes: Routes = [
         component: ItemDefinitionListComponent,
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_DIFINITION
+        },
+     
+      },
+      {
+        path: 'warehouse',
+        component: WarehouseListComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.WARE_HOUSE
+        },
+     
+      },
+      {
+        path: 'items-category',
+        component: MainItemCategoriesTreeComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.ITEMS_CATEGORY
+        },
+     
+      },
+      {
+        path: 'add-warehouse',
+        component: AddWarehouseComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.ADD_WARE_HOUSE
+        },
+     
+      },
+      {
+        path: 'edit-warehouse/:id',
+        component: EditWarehouseComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE
         },
      
       },
@@ -63,6 +104,7 @@ const routes: Routes = [
         },
      
       },
+     
     ]
 
   }
@@ -82,7 +124,16 @@ const routes: Routes = [
     AddVariantPopupComponent,
     ViewVariantPopupComponent,
     AddBarcodePopupComponent,
-    ViewQRcodeComponent
+    ViewQRcodeComponent,
+    WarehouseListComponent,
+    AddWarehouseComponent,
+    ItemsCategoryTreeComponent,
+    AddItemsCategoryComponent,
+    EditItemCategoryComponent,
+    ViewItemCategoryComponent,
+    EditWarehouseComponent,
+    MainItemCategoriesTreeComponent,
+    AddWarehousePopupComponent
   ],
   imports: [
     CommonModule,

@@ -136,7 +136,8 @@
                 <div class="md:col-4">
                   <lib-form-group>
                     <lib-label [appControl]="itemDefinitionForm.controls['warranty']">
-                      {{ 'itemType.warantly' | translate }} ( {{ 'itemType.perYear' | translate }} )
+                      {{ 'itemType.warantly' | translate }} (
+                        {{ 'itemType.perMonth' | translate }} )
                     </lib-label>
                     <lib-text-input formControlName="warranty" type="number"></lib-text-input>
                   </lib-form-group>
@@ -144,8 +145,7 @@
                 <div class="md:col-4">
                   <lib-form-group>
                     <lib-label [appControl]="itemDefinitionForm.controls['lifeTime']">
-                      {{ 'itemType.lifeTime' | translate }} (
-                      {{ 'itemType.perMonth' | translate }} )
+                      {{ 'itemType.lifeTime' | translate }}  ( {{ 'itemType.perYear' | translate }} )
                     </lib-label>
                     <lib-text-input formControlName="lifeTime" type="number"></lib-text-input>
                   </lib-form-group>
@@ -168,19 +168,19 @@
                 <lib-fildest header="{{ 'itemType.vatApplied' | translate }}" class="md:col-6">
                   <div>
                     <lib-label [appControl]="itemDefinitionForm.controls['taxId']">
-                      {{ 'itemType.taxes' | translate }}
+                      {{ 'itemType.vat' | translate }}
                     </lib-label>
                     <br />
         
-                    <lib-multi-select
+                    <lib-select
                       formControlName="taxId"
                       [options]="taxesDropDropDownLookup"
                       optionValue="id"
-                      optionLabel="nameEn"
+                      optionLabel="name"
                       placeholder="{{ 'itemType.taxes' | translate }}"
                       [selectedValue]="itemDefinitionForm.controls['taxId'].value"
                     >
-                    </lib-multi-select>
+                    </lib-select>
                     <lib-field-validations
                       [appControl]="itemDefinitionForm.controls['taxId']"
                     ></lib-field-validations>
@@ -282,7 +282,7 @@
               >
               </lib-select>
               <lib-field-validations
-                [appControl]="itemDefinitionForm.controls['uomId']"
+                [appControl]="itemDefinitionForm.controls['defaultUOMCategoryId']"
               ></lib-field-validations>
             </div>
             <div class="entry_table_uom">
@@ -371,6 +371,7 @@
                               <lib-text-input
                                 placeholder="{{ 'itemType.factor' | translate }}"
                                 formControlName="conversionRatio"
+                                [readOnly]="itemDefGroup.controls['isDefault'].value == true"
                               ></lib-text-input>
                             </ng-template>
                             <ng-template pTemplate="output">

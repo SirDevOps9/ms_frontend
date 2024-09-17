@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ItemsProxyService } from './items-proxy.service';
 import { LanguageService, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
-import { BehaviorSubject } from 'rxjs';
-import { addBarcode, AddItemDefinitionDto, AddVariantLine, GetItemById, getUomByItemId, itemDefinitionDto, ItemTypeDto, UomCodeLookup, UomDefault } from './models';
+import { BehaviorSubject, map } from 'rxjs';
+import { addBarcode, AddItemCategory, AddItemDefinitionDto, AddVariantLine, AddWarehouse, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, itemDefinitionDto, ItemTypeDto, UomCodeLookup, UomDefault, WarehouseAccountData } from './models';
 import { EditItemDefinitionDto } from './models/editItemDefinitionDto';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { variantGroupById } from './models/variantGroupById';
@@ -20,10 +20,16 @@ export class ItemsService {
   sendItemDefinitionDataSource  = new BehaviorSubject<itemDefinitionDto[]>([])
   sendDataDefinitionById  = new BehaviorSubject<EditItemDefinitionDto>({} as EditItemDefinitionDto)
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
-  public itemTypeLookup = new BehaviorSubject<{ id: number;  name: string }[]>([]);
-  public itemCategoryLookup = new BehaviorSubject<{ id: number; name : string }[]>([]);
+  public itemTypeLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([]);
+  public itemCategoryLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
+  public AddItemCategoryLookup = new BehaviorSubject<AddItemCategory>({} as AddItemCategory);
+  public itemsCategoryDeleted = new BehaviorSubject<boolean>(false);
+  public EditItemCategoryData = new BehaviorSubject<AddItemCategory>({} as AddItemCategory);
+  public getItemCategoryByIdData = new BehaviorSubject<AddItemCategory>({} as AddItemCategory);
+  sendItemCategoryDataSource  = new BehaviorSubject<GetItemCategoryDto[]>([])
+
   public tagLookup = new BehaviorSubject<{ id: number; name: string}[]>([]);
-  public AccountsDropDownLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([]);
+  public AccountsDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public trackingTrackingDropDown = new BehaviorSubject<{ id: number; name: string}[]>([]);
   public taxesLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([]);
   public uomCodeLookup = new BehaviorSubject<UomCodeLookup[]>([]);
@@ -49,10 +55,41 @@ export class ItemsService {
   public attributeValuesData = new BehaviorSubject<itemAttributeValues[]>([]);
 
   public exportedItemDefinitionListDataSource = new BehaviorSubject<itemDefinitionDto[]>([]);
+  // warehouse
+  sendWarehouseDataSource  = new BehaviorSubject<GetWarehouseList[]>([])
+  AddWarehouseDataSource  = new BehaviorSubject<AddWarehouse>({} as AddWarehouse)
+  sendWarehouseById  = new BehaviorSubject<AddWarehouse>({} as AddWarehouse)
+
+  getWarehouseDataSourceById  = new BehaviorSubject<WarehouseAccountData>({} as WarehouseAccountData)
+  exportedWarehouseDataSource = new BehaviorSubject<GetWarehouseList[]>([]);
+  exportedItemCategoryDataSource = new BehaviorSubject<GetItemCategoryDto[]>([]);
+  // lookups
+  sendGlAccountLookup = new BehaviorSubject<any>([]);
+  sendBranchesLookup = new BehaviorSubject<any>([]);
+  sendCitiesLookup = new BehaviorSubject<any>([]);
+  sendCountriesLookup = new BehaviorSubject<any>([]);
+  // sendCashSalesLookup = new BehaviorSubject<any>([]);
+  // sendLookup = new BehaviorSubject<any>([]);
+  // sendCreditSalesLookup = new BehaviorSubject<any>([]);
+  // sendSalesReturnLookup = new BehaviorSubject<any>([]);
+  // sendPurchaseAccountLookup = new BehaviorSubject<any>([]);
+  // sendSalesCostCenterLookup = new BehaviorSubject<any>([]);
+  // sendDiscountAccountLookup = new BehaviorSubject<any>([]);
+  // sendEvaluationAccountLookup = new BehaviorSubject<any>([]);
+  // sendAdjustmentAccountLookup = new BehaviorSubject<any>([]);
+  // sendGoodsInTransitLookup = new BehaviorSubject<any>([]);
+  // sendCompanyPhoneLookup = new BehaviorSubject<any>([]);
+
+
 
   public sendItemDefinitionDataSourceObs  = this.sendItemDefinitionDataSource.asObservable()
   public itemTypeLookupObs  = this.itemTypeLookup.asObservable()
   public itemCategoryLookupObs  = this.itemCategoryLookup.asObservable()
+  public AddItemCategoryLookupObs  = this.AddItemCategoryLookup.asObservable()
+  public itemsCategoryDeletedObs  = this.itemsCategoryDeleted.asObservable()
+  public EditItemCategoryDataObs  = this.EditItemCategoryData.asObservable()
+  public getItemCategoryByIdDataObs  = this.getItemCategoryByIdData.asObservable()
+  public sendItemCategoryDataSourceObs  = this.sendItemCategoryDataSource.asObservable()
   public tagLookupObs  = this.tagLookup.asObservable()
   public AccountsDropDownLookupObs  = this.AccountsDropDownLookup.asObservable()
   public taxesLookupObs  = this.taxesLookup.asObservable()
@@ -77,6 +114,29 @@ export class ItemsService {
   public GetUomListByItemIdObs  = this.GetUomListByItemId.asObservable()
   public sendDefaultObs  = this.sendDefault.asObservable()
   public editItemDataObs  = this.editItemData.asObservable()
+  public exportedItemCategoryDataSourceObs  = this.exportedItemCategoryDataSource.asObservable()
+  // warehouse
+  public sendWarehouseDataSourceObs  = this.sendWarehouseDataSource.asObservable()
+  public AddWarehouseDataSourceObs  = this.AddWarehouseDataSource.asObservable()
+  public sendWarehouseByIdObs  = this.sendWarehouseById.asObservable()
+  public exportedWarehouseDataSourceObs = this.exportedWarehouseDataSource.asObservable()
+// lookups
+  public sendBranchesLookupObs = this.sendBranchesLookup.asObservable()
+  public sendCitiesLookupObs = this.sendCitiesLookup.asObservable()
+  public sendCountriesLookupObs = this.sendCountriesLookup.asObservable()
+  // public sendGlAccountLookupObs = this.sendGlAccountLookup.asObservable()
+  // public sendCashSalesLookupObs = this.sendCashSalesLookup.asObservable()
+  // public sendCreditSalesLookupObs = this.sendCreditSalesLookup.asObservable()
+  // public sendSalesReturnLookupObs = this.sendSalesReturnLookup.asObservable()
+  // public sendPurchaseAccountLookupObs = this.sendPurchaseAccountLookup.asObservable()
+  // public sendSalesCostCenterLookupObs = this.sendSalesCostCenterLookup.asObservable()
+  // public sendDiscountAccountLookupObs = this.sendDiscountAccountLookup.asObservable()
+  // public sendEvaluationAccountLookupObs = this.sendEvaluationAccountLookup.asObservable()
+  // public sendAdjustmentAccountLookupObs = this.sendAdjustmentAccountLookup.asObservable()
+  // public sendGoodsInTransitLookupObs = this.sendGoodsInTransitLookup.asObservable()
+  // public sendCompanyPhoneLookupObs = this.sendCompanyPhoneLookup.asObservable()
+
+  
 
 
 
@@ -138,6 +198,7 @@ export class ItemsService {
   exportsItemsDefinitionList(searchTerm:string | undefined) {
     this.itemProxy.exportsItemsDefinitionList(searchTerm).subscribe({
       next: (res : any) => {
+        console.log(res)
          this.exportedItemDefinitionListDataSource.next(res);
       },
     });
@@ -149,6 +210,73 @@ export class ItemsService {
       },
     });
   }
+  getItemCategoryTreeList() {
+    return this.itemProxy.getItemCategoryTreeList().pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+
+  getItemCategoryById(id : number) {
+    this.itemProxy.getItemCategoryById(id).subscribe({
+      next: (res : any) => {
+         this.getItemCategoryByIdData.next(res);
+      },
+    });
+  }
+  getItemCategory(queries: string, pageInfo: PageInfo)  {
+    this.itemProxy.getItemCategory(queries, pageInfo).subscribe((response) => {
+     this.sendItemCategoryDataSource.next(response.result)
+     this.currentPageInfo.next(response.pageInfoResult)
+    });
+  }
+  addItemCategory(obj : AddItemCategory) {
+    this.itemProxy.addItemCategory(obj).subscribe({
+      next: (res : any) => {
+         this.AddItemCategoryLookup.next(res);
+         this.toasterService.showSuccess(
+          this.languageService.transalte('itemsCategory.success'),
+          this.languageService.transalte('itemsCategory.add')
+        );
+      },
+    });
+  }
+
+  editItemCategory(obj : AddItemCategory) {
+    this.itemProxy.editItemCategory(obj).subscribe({
+      next: (res : any) => {
+         this.EditItemCategoryData.next(res);
+         this.toasterService.showSuccess(
+          this.languageService.transalte('itemsCategory.success'),
+          this.languageService.transalte('itemsCategory.edit')
+        );
+      },
+    });
+  }
+  async deleteItemCategory(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.itemProxy.deleteItemCategory(id).subscribe({
+        next: (res) => {
+
+          this.itemsCategoryDeleted.next(true)
+          
+          this.toasterService.showSuccess(
+            this.languageService.transalte('itemsCategory.success'),
+            this.languageService.transalte('itemsCategory.delete')
+          );
+       
+
+        },
+        
+      });
+    }
+  }
+
+
   ItemCategoryDropDown() {
     this.itemProxy.ItemCategoryDropDown().subscribe({
       next: (res : any) => {
@@ -388,4 +516,121 @@ export class ItemsService {
     
     })
    }
+  //  warehouse
+  getWarehouseList(queries: string, pageInfo: PageInfo)  {
+    this.itemProxy.getWarehouseList(queries, pageInfo).subscribe((response) => {
+     this.sendWarehouseDataSource.next(response.result)
+     this.currentPageInfo.next(response.pageInfoResult)
+    });
+  } 
+
+  // addWarehouse(obj : AddWarehouse) {
+  //   this.itemProxy.addWarehouse(obj).subscribe((response) => {
+  //     this.toasterService.showSuccess(
+  //       this.languageService.transalte('warehouse.success'),
+  //       this.languageService.transalte('warehouse.add')
+  //     );
+      
+  //     this.router.navigateTo(`/masterdata/warehouse` )
+
+  //    });
+  // }
+  addWarehouse( obj: AddWarehouse, dialogRef: DynamicDialogRef,text : string) {
+    this.itemProxy.addWarehouse(obj).subscribe(res=>{
+      if(res) {
+        
+        this.languageService.transalte('warehouse.success'),
+             this.languageService.transalte('warehouse.add')
+        let dataRes : number = Number(res)
+        console.log(dataRes)
+        console.log(text)
+        if(text == 'save') {
+          dialogRef.close(res)
+        }else{
+          this.router.navigateTo(`/masterdata/edit-warehouse/${dataRes}` )
+   
+          dialogRef.close()
+        }
+    
+      }
+    })
+  }
+  editWarehouse(obj : EditWareHouse) {
+    this.itemProxy.editWarehouse(obj).subscribe((response) => {
+      this.toasterService.showSuccess(
+        this.languageService.transalte('warehouse.success'),
+        this.languageService.transalte('warehouse.edit')
+      );
+      
+      this.router.navigateTo(`/masterdata/warehouse` )
+
+     });
+  }
+
+  getWarehouseById(id : number) {
+    this.itemProxy.getWarehouseById(id).subscribe((response) => {
+      if(response) {
+        this.sendWarehouseById.next(response)
+
+      }
+
+     });
+  }
+
+  exportsWayehouseList(searchTerm:string | undefined) {
+    this.itemProxy.exportsWayehouseList(searchTerm).subscribe({
+      next: (res : any) => {
+         this.exportedWarehouseDataSource.next(res);
+      },
+    });
+  }
+  exportsItemCategoryList(searchTerm:string | undefined) {
+    this.itemProxy.exportsItemCategoryList(searchTerm).subscribe({
+      next: (res : any) => {
+         this.exportedItemCategoryDataSource.next(res);
+      },
+    });
+  }
+  async deleteWareHouse(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.itemProxy.deleteWareHouse(id).subscribe({
+        next: (res) => {
+          
+          this.toasterService.showSuccess(
+            this.languageService.transalte('warehouse.success'),
+            this.languageService.transalte('warehouse.delete')
+          );
+       
+          const currentWarehouse = this.sendWarehouseDataSource.getValue();
+          const updatedWarehouse = currentWarehouse.filter((c) => c.id !== id);
+          this.sendWarehouseDataSource.next(updatedWarehouse);
+        },
+        
+      });
+    }
+  }
+
+  // getGlAccountLookup() {
+  //   return this.itemProxy.getGlAccountLookup().subscribe(res=>{
+  //     this.sendGlAccountLookup.next(res)
+  //   })
+  // }
+  getBranchDropdown(){
+    return this.itemProxy.getBranchDropdown().subscribe(res=>{
+      this.sendBranchesLookup.next(res)
+    })
+  }
+  getCitiesDropdown(id : string){
+    return this.itemProxy.getCitiesDropdown(id).subscribe(res=>{
+      this.sendCitiesLookup.next(res)
+    })
+  }
+  getCcountriesDropdown(){
+    return this.itemProxy.getCcountriesDropdown().subscribe(res=>{
+      this.sendCountriesLookup.next(res)
+    })
+  }
 }

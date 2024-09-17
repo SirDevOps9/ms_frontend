@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { addBarcode, AddItemDefinitionDto, AddVariantLine, GetItemById, getUomByItemId, itemDefinitionDto, ItemTypeDto, UomDefault } from './models';
+import { addBarcode, AddItemCategory, AddItemDefinitionDto, AddVariantLine, AddWarehouse, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, itemDefinitionDto, ItemTypeDto, UomDefault } from './models';
 import { EditItemDefinitionDto } from './models/editItemDefinitionDto';
 import { variantGroupById } from './models/variantGroupById';
 import { itemAttributeValues } from './models/itemAttributeValues';
@@ -47,6 +47,34 @@ export class ItemsProxyService {
   
  itemTypeLookup() {
   return this.httpService.get(`ItemType/ItemTypeDropDown`)
+ }
+ addItemCategory(obj : AddItemCategory) {
+  return this.httpService.post(`ItemCategory` , obj)
+ }
+ editItemCategory(obj : AddItemCategory) {
+  return this.httpService.put(`ItemCategory/Edit` , obj)
+ }
+ deleteItemCategory(id : number) {
+  return this.httpService.delete(`ItemCategory/${id}` )
+
+ }
+ getItemCategory(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<GetItemCategoryDto>> {
+
+    let query = `ItemCategory/ItemCategoryList?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<GetItemCategoryDto>>(query)
+  
+  
+ }
+ getItemCategoryById(id : number){
+  return this.httpService.get(`ItemCategory/${id}`)
+
+ }
+ getItemCategoryTreeList() {
+  return this.httpService.get('ItemCategory/GetTree')
+
  }
  ItemCategoryDropDown() {
   return this.httpService.get(`ItemCategory/ItemCategoryDropDown`)
@@ -147,6 +175,92 @@ export class ItemsProxyService {
   generateVariant(obj : any) {
     return this.httpService.post(`ItemVariant/Generate` , obj)
   }
+  // warehouse
+  getWarehouseList(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<GetWarehouseList>> {
+    let query = `WareHouse?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<GetWarehouseList>>(query)
+  }
+
+  exportsWayehouseList(
+    searchTerm: string | undefined
+  ): Observable<GetWarehouseList[]> {
+    let query = `WareHouse/ExportWareHouse?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<GetWarehouseList[]>(query);
+  }
+  exportsItemCategoryList(
+    searchTerm: string | undefined
+  ): Observable<GetItemCategoryDto[]> {
+    let query = `ItemCategory/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<GetItemCategoryDto[]>(query);
+  }
+  deleteWareHouse(id : number ){
+    return this.httpService.delete(`WareHouse/DeleteWareHouse/${id}`)
+  }
+  addWarehouse(obj : AddWarehouse) {
+    return this.httpService.post(`WareHouse/QuickAdd` , obj)
+  }
+  editWarehouse(obj : EditWareHouse) {
+    return this.httpService.put(`WareHouse/EditWareHouse` , obj)
+  }
+  getWarehouseById(id : number) : Observable<AddWarehouse> {
+    return this.httpService.get(`WareHouse/${id}`)
+  }
+  // 
+  // getGlAccountLookup() {
+  //   return this.httpService.get<any>(`WareHouse/`);
+  // }
+  // getCashSalesLookup() {
+  //   return this.httpService.get<any>(`WareHouse/`);
+  // }
+  // getCreditSalesLookup() {
+  //   return this.httpService.get<any>(`WareHouse/`);
+  // }
+  // getSalesReturnLookup() {
+  //   return this.httpService.get<any>(`WareHouse/`);
+  // }
+  // getPurchaseAccountLookup() {
+  //   return this.httpService.get<any>(`WareHouse/`);
+  // }
+  // getSalesCostCenterLookup() {
+  //   return this.httpService.get<any>(`WareHouse/`);
+  // }
+  // getDiscountAccountLookup() {
+  //   return this.httpService.get<any>(`WareHouse/`);
+  // }
+  // getEvaluationAccountLookup() {
+  //   return this.httpService.get<any>(`WareHouse/`);
+  // }
+  // getAdjustmentAccountLookup() {
+  //   return this.httpService.get<any>(`WareHouse/`);
+  // }
+  // getGoodsInTransitLookup() {
+  //   return this.httpService.get<any>(`WareHouse/`);
+  // }
+  // getCityLookup() {
+  //   return this.httpService.get<any>(`WareHouse/`);
+  // }
+  // getCompanyPhoneLookup() {
+  //   return this.httpService.get<any>(`WareHouse/`);
+  // }
+  getBranchDropdown() {
+    return this.httpService.get<any>(`GeneralSettings/BranchDropdown`);
+  }
+  getCitiesDropdown(CountryCode:string) {
+    return this.httpService.get<any>(`GeneralSettings/GetCities?CountryCode=${CountryCode}`);
+  }
+  getCcountriesDropdown() {
+    return this.httpService.get<any>(`GeneralSettings/GetCountries`);
+  }
 
   
 }
+
