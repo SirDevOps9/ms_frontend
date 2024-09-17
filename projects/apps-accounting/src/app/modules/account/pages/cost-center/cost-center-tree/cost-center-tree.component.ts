@@ -27,6 +27,7 @@ export class CostCenterTreeComponent implements OnInit {
   parentAdded: any;
   parentEditedId: any;
   activeNode: any = null;
+  parentStatus: boolean
 
   constructor(
     private accountService: AccountService,
@@ -62,6 +63,7 @@ export class CostCenterTreeComponent implements OnInit {
     this.add = false;
     this.addmode.emit(true);
     this.parentAddedId = parentNode.id;
+    this.parentStatus = parentNode.isActive;
 
     if (!parentNode.children) {
       parentNode.children = [];

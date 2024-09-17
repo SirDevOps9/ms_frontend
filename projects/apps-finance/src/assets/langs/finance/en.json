@@ -4,13 +4,18 @@
     "PaymentOutList": "Payment Out List",
     "AddPaymentOut": "Add Payment Out",
     "EditPaymentOut": "Edit Payment Out",
-    "BankAccountStatement":"Bank Account Statement"
+    "BankAccountStatement":"Bank Account Statement",
+     "ViewPaymentIn": "View Payment In",
+     "ViewPaymentout": "View Payment Out"
   },
   "Success": "Success",
   "Error": "Error",
   "ErrorInDelete": "Error In Delete",
   "DateFromLessThanToValidation":"date From is not before the end of dateTo.",
   "PaymentIn": {
+    "viewPaymentIn":"View Payment In",
+      "viewPaymentOut":"View Payment Out",
+      
     "Form": {
       "Save": "Save",
       "Cancel": "Cancel",
@@ -40,7 +45,7 @@
       "PlaceholderCurrentBalance": "Display Payment Type Details",
       "PlaceholderTotalReceivedAmount": "Auto Display 7000",
       "PlaceholderNewBalance": "auto = curr. bal + tot. rec. amo.",
-
+      
       "PaymentMethod": "Payment method",
       "CommissionAmount": "commission amount",
       "VatAmount": "vat amount",
@@ -66,7 +71,7 @@
     "Error": "Error",
     "paymentMethodTypeNotAllowed": "payment Method details Not Allowed",
     "paymentMethodTypeRequired": "payment Method details Required In line",
-    "addpaymentin": " add Paymentin",
+    "addpaymentin": "Add Paymentin",
     "editpaymentin": " Edit Paymentin"
   },
 

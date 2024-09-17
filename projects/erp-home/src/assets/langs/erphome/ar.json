@@ -438,6 +438,8 @@
     "TaxGrouplist": "قائمة مجموعة الضرائب",
     "AddNew": "إضافة جديد",
     "Search": "بحث",
+    "CannotDeleteTaxGroupUsedInTransactions":"لا يمكن حذف مجموعة الضرائب المستخدمة في المعاملات",
+
     "Add": {
       "AddTaxGroup": "إضافة مجموعة ضريبية",
       "Code": "رمز",

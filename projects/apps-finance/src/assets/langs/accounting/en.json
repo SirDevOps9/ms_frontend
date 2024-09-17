@@ -15,7 +15,8 @@
   "ViewPaymentMethod": "View Payment Method",
   "PaymentIn":"Payment In " ,
   "ViewPaymentIn": "View Payment In",
-  "ViewPaymentout": "View Payment Out"
+  "ViewPaymentout": "View Payment Out",
+  "sequence":"sequence"
 
 },
   "COAConfigration": {
@@ -193,13 +194,14 @@
     "code" : "Code",
     "name" : "Name",
     "openingBalance" : "Treasury Opening Balance",
-    "currentBalance" : "Opening Account Balance",
+    "accountOpeningBalance" : "Account Opening  Balance",
     "discard" : "Discard",
     "save" : "Save",
     "addTreasury":"Add ",
     "editTreasury":"Edit",
     "treasuryList": "Treasury List",
-    "confirm" : "the opening balance of journal not equal treasury opening balance, do you want to Continue ?"
+    "confirm" : "the opening balance of journal not equal treasury opening balance, do you want to Continue ?",
+    "treasuryCurrentBalance":"Treasury Current Balance"
   },
   "deleteTreasury" : {
     "success" : "Success",
@@ -281,9 +283,10 @@
     "discard": "discard",
     "save": "Save",
     "success" : "Success",
-    "AddBank":"Add Bank",
-    "EditBank":"Edit Bank",
-    "BankDefinitonsList":"Bank Definitons List"
+    "AddBank":"Add Bank Definiton",
+    "EditBank":"Edit Bank Definiton",
+    "BankDefinitonsList":"Bank Definitons List",
+    "accountOpeningBalance":"Account Opening  Balance"
 
   },
   "deleteBank" : {

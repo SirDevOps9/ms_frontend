@@ -103,7 +103,7 @@
             <lib-label [appControl]="addForm.controls['rate']">
               {{ 'PaymentIn.Form.Rate' | translate }}
             </lib-label>
-            <lib-text-input (keyUp)="updateRateInPaymentDetails($event)"  formControlName="rate" [placeholder]="'PaymentIn.Form.PlaceholderRate' | translate" />
+            <lib-text-input type="number" (keyUp)="updateRateInPaymentDetails($event)"  formControlName="rate" [placeholder]="'PaymentIn.Form.PlaceholderRate' | translate" />
             <lib-field-validations [appControl]="addForm.controls['rate']">
             </lib-field-validations>
           </lib-form-group>
@@ -372,8 +372,12 @@
               </lib-button-micro>
             </div>
             <div class="md:col-6">
-              <div>
+              <div *ngIf="!post">
                 <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%" (click)="save()">
+                </lib-button-micro>
+              </div>
+              <div *ngIf="post">
+                <lib-button-micro title="{{ 'Post' | translate }}" nameClass="save" widthNumber="100%" (click)="addToPost()">
                 </lib-button-micro>
               </div>
             </div>

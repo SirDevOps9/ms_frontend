@@ -40,7 +40,7 @@ export class ViewPaymentInComponent {
   }
   ngOnInit() {
     this.titleService.setTitle(
-      this.langService.transalte('PaymentIn.addpaymentin')
+      this.langService.transalte('PaymentIn.viewPaymentIn')
     );
     this.loadView();
 

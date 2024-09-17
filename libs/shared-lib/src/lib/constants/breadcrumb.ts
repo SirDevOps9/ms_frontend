@@ -50,6 +50,7 @@ export class BreadcrumbLabel {
   static EDIT_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.EditCustomerOpeningBalance';
   static CUSTOMER_OPENEING_BALANCE_List ='BreadCrumb.CustomerOpeningBalanceList';
   static VIEW_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.ViewCustomerOpeningBalance';
+  static SEQUENCE ='BreadCrumb.sequence';
 
 
 
@@ -116,11 +117,12 @@ export class BreadcrumbLabel {
     static PAYMENT_OUT_LIST ='BreadCrumb.PaymentOutList';
     static VIEW_PAYMENT_IN ='BreadCrumb.ViewPaymentIn ';
 
-    static VIEW_PAYMENT_OUT ='ViewPaymentOut ';
+    static VIEW_PAYMENT_OUT ='BreadCrumb.ViewPaymentOut ';
 
-    static VENDOR_OPENING_BALANCE ='BreadCrumb.VendorOpeningBalance ';
+    static VENDOR_OPENING_BALANCE ='BreadCrumb.VendorOpeningBalance';
     static VENDOR_OPENING_BALANCE_EDIT ='BreadCrumb.EditVendorOpeningBalance';
     static VENDOR_OPENING_BALANCE_ADD ='BreadCrumb.AddVendorOpeningBalance';
+    static VENDOR_OPENING_BALANCE_VIEW ='BreadCrumb.ViewVendorOpeningBalance';
 
     static BANK_ACCOUNT_STATEMENT ='BreadCrumb.BankAccountStatement';
     static TREASURY_STATEMENT ='BreadCrumb.TreasuryStatement';

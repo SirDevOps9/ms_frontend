@@ -151,7 +151,7 @@ export class EditPaymentInComponent {
       bankAccountId: new FormControl(null),
       paymentHubDetailId: new FormControl('', [customValidators.required]),
       currencyId: new FormControl(null),
-      rate: new FormControl<number | undefined>(0, [customValidators.required]),
+      rate: new FormControl<number | undefined>(0, [customValidators.required,customValidators.nonNegativeNumbers]),
       glAccountId: new FormControl(null),
       paymentInDetails: this.formBuilder.array([]),
       code: new FormControl(''),

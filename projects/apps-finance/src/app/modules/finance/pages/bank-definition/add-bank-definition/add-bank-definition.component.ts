@@ -113,9 +113,8 @@ export class AddBankDefinitionComponent implements OnInit {
     bankLine.get('accountName')?.setValue(accountData.name);
     bankLine.get('displayName')?.setValue(accountData.accountCode);
     bankLine.get('currencyId')?.setValue(accountData.currencyId);
-
-
-
+    let data: any = this.currenciesList.find((item) => item.id == accountData.currencyId);
+    bankLine.get('currencyName')?.setValue(data.name);
     this.GetAccountOpeningBalance(event, id);
   }
   createBankFormGroup(): FormGroup {
@@ -151,6 +150,8 @@ export class AddBankDefinitionComponent implements OnInit {
     bankForm.controls['branchName'].setValue(branchName);
   }
   currencyselected(event: any, bankForm: FormGroup, i: number) {
+    console.log("000000000");
+    
     let data: any = this.currenciesList.find((item) => item.id == event);
 
     bankForm.controls['currencyName'].setValue(data.name);
@@ -194,6 +195,9 @@ export class AddBankDefinitionComponent implements OnInit {
         this.OpeningBalanceData = res;
         const currentBalance = bankLine.get('currentBalance');
         currentBalance?.setValue(res.balance);
+      }else{
+        const currentBalance = bankLine.get('currentBalance');
+        currentBalance?.setValue("0");
       }
     });
   }

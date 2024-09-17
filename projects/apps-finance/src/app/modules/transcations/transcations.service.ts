@@ -38,15 +38,15 @@ export class TranscationsService {
   public AllTreasuriesPayMethodsDropdown = new BehaviorSubject<any>([]);
   public AccountBalance = new BehaviorSubject<number | undefined>(0);
   public TreasuryBalance = new BehaviorSubject<number | undefined>(0);
+  public paymentSaved = new BehaviorSubject<number | undefined>(0);
+  public paymentOutSaved = new BehaviorSubject<number | undefined>(0);
   public childrenAccountDataSource = new BehaviorSubject<AccountDto[]>([]);
   public childrenAccountList = this.childrenAccountDataSource.asObservable();
   public childrenAccountPageInfo = new BehaviorSubject<PageInfoResult>({});
   public paymentDetails = new BehaviorSubject<any>({});
-  private accountCurrencyRateDataSource = new BehaviorSubject<CurrencyRateDto>({rate:0});
+  private accountCurrencyRateDataSource = new BehaviorSubject<CurrencyRateDto>({ rate: 0 });
   private paymenInLineDeleted = new BehaviorSubject<boolean>(false);
   public paymenInLineDeletedObser = this.paymenInLineDeleted.asObservable();
-
-
 
   private paymenOutLineDeleted = new BehaviorSubject<boolean>(false);
   public paymentOutLineDeletedObser = this.paymenOutLineDeleted.asObservable();
@@ -76,10 +76,10 @@ export class TranscationsService {
   public paymentOutCurrentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
   public ViewpaymentIn = new BehaviorSubject<any>({});
-  ViewpaymentInDataObservable = this.ViewpaymentIn.asObservable()
+  ViewpaymentInDataObservable = this.ViewpaymentIn.asObservable();
 
   public viewpaymentOut = new BehaviorSubject<any>({});
-  ViewpaymentOutDataObservable = this.viewpaymentOut.asObservable()
+  ViewpaymentOutDataObservable = this.viewpaymentOut.asObservable();
 
   constructor(
     private TranscationsProxy: TranscationsProxyService,
@@ -157,15 +157,22 @@ export class TranscationsService {
     });
   }
   addPaymentIn(obj: AddPaymentTermDto) {
+    this.loaderService.show();
+
     this.TranscationsProxy.addPaymentIn(obj).subscribe({
       next: (res) => {
+        this.loaderService.hide();
+
         this.toasterService.showSuccess(
           this.languageService.transalte('PaymentIn.Success'),
           this.languageService.transalte('PaymentIn.PaymentInAddedSuccessfully')
         );
-        this.routerService.navigateTo('/transcations/paymentin');
+        this.paymentSaved.next(res)
+        // this.routerService.navigateTo('/transcations/paymentin');
       },
       error: (error) => {
+        this.loaderService.hide();
+
         this.toasterService.showError(
           this.languageService.transalte('PaymentIn.Error'),
           this.languageService.transalte('PaymentIn.addedError')
@@ -175,15 +182,24 @@ export class TranscationsService {
   }
 
   addPaymentOut(obj: AddPaymentTermDto) {
+    this.loaderService.show();
+
     this.TranscationsProxy.addPaymentOut(obj).subscribe({
+
       next: (res) => {
+        this.loaderService.hide();
+
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
           this.languageService.transalte('PaymentOut.add')
         );
-        this.routerService.navigateTo('/transcations/paymentout');
+        this.paymentOutSaved.next(res)
+
+        // this.routerService.navigateTo('/transcations/paymentout');
       },
       error: (error) => {
+        this.loaderService.hide();
+
         this.toasterService.showError(
           this.languageService.transalte('PaymentOut.Error'),
           this.languageService.transalte('PaymentOut.addedError')
@@ -207,16 +223,12 @@ export class TranscationsService {
   }
   GetTreasuryBalance(id: number) {
     this.TranscationsProxy.GetTreasuryBalance(id).subscribe((res) => {
-      if (res) {
-        this.TreasuryBalance.next(res);
-      }
+      this.TreasuryBalance.next(res);
     });
   }
   GetAccountBalance(id: number) {
     this.TranscationsProxy.GetAccountBalance(id).subscribe((res) => {
-      if (res) {
         this.AccountBalance.next(res);
-      }
     });
   }
   getAccountsHasNoChildren(quieries: string, pageInfo: PageInfo) {
@@ -274,7 +286,6 @@ export class TranscationsService {
     }
   }
 
-
   async paymentInDeleteLine(id: number) {
     const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
@@ -299,8 +310,6 @@ export class TranscationsService {
       });
     }
   }
-
-
 
   async paymentOutDeleteLine(id: number) {
     const confirmed = await this.toasterService.showConfirm('Delete');
@@ -327,18 +336,21 @@ export class TranscationsService {
     }
   }
 
-
-  getPaymentInById(id:number){
-    this.TranscationsProxy.GetPaymentInById(id).subscribe(res=>{
-      if(res) {
-       this.paymentDetails.next(res)
+  getPaymentInById(id: number) {
+    this.TranscationsProxy.GetPaymentInById(id).subscribe((res) => {
+      if (res) {
+        this.paymentDetails.next(res);
       }
     });
   }
 
   editPaymentIn(obj: any) {
+    this.loaderService.show();
+
     this.TranscationsProxy.editPaymentIn(obj).subscribe((res) => {
       if (res) {
+        this.loaderService.hide();
+
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
           this.languageService.transalte('add-paymentMethod.edit')
@@ -371,12 +383,17 @@ export class TranscationsService {
   }
 
   editPaymentOut(obj: any) {
+
     this.TranscationsProxy.editPaymentOut(obj).subscribe((res) => {
+      this.loaderService.show();
+
       if (res) {
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
           this.languageService.transalte('PaymentOut.edit')
         );
+        this.loaderService.hide();
+
         this.routerService.navigateTo('/transcations/paymentout');
       }
     });
@@ -444,18 +461,18 @@ export class TranscationsService {
       });
     }
   }
-  viewPaymentIn(id:number){
-    this.TranscationsProxy.viewPaymentInById(id).subscribe(res=>{
-      if(res) {
-       this.ViewpaymentIn.next(res)
+  viewPaymentIn(id: number) {
+    this.TranscationsProxy.viewPaymentInById(id).subscribe((res) => {
+      if (res) {
+        this.ViewpaymentIn.next(res);
       }
-    })
+    });
   }
-  viewPaymentOut(id:number){
-    this.TranscationsProxy.viewPaymentOutById(id).subscribe(res=>{
-      if(res) {
-       this.viewpaymentOut.next(res)
+  viewPaymentOut(id: number) {
+    this.TranscationsProxy.viewPaymentOutById(id).subscribe((res) => {
+      if (res) {
+        this.viewpaymentOut.next(res);
       }
-    })
+    });
   }
 }

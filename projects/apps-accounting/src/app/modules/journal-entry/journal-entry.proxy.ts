@@ -1,5 +1,5 @@
 import { FilterDto, HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { AddJournalEntryCommandOpeningBalance, GetGlOpeningBalanceById, JournalEntryDto, JournalEntryStatus, JournalEntryViewDto, TrialBalance, costLookup, reportAccount, reportCostAllData, reportCostCenter } from './models';
+import { AddJournalEntryCommandOpeningBalance, GetGlOpeningBalanceById, GetOpenFinancialPeriodDate, JournalEntryDto, JournalEntryStatus, JournalEntryViewDto, TrialBalance, costLookup, reportAccount, reportCostAllData, reportCostCenter } from './models';
 import { Observable } from 'rxjs';
 import { AddJournalEntryCommand } from './models/addJournalEntryCommand';
 import { EditJournalEntry, GetJournalEntryByIdDto } from './models';
@@ -104,6 +104,10 @@ export class JournalEntryProxy {
   }
   getCostCenterReports(cost:reportCostAllData){
     return this.httpService.post<reportAccount>(`CostCenterReports`,cost);
+  }
+
+  getOpenFinancialPeriodDate(): Observable<GetOpenFinancialPeriodDate>{
+    return this.httpService.get<GetOpenFinancialPeriodDate>(`FinancialYear/GetOpenFinancialPeriodDate`);
   }
   constructor(private httpService: HttpService) {}
 }

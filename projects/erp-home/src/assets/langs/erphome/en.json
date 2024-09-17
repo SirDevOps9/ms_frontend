@@ -567,6 +567,7 @@
     "AddNew": "Add",
     "Search": "Search",
     "Actions": "Actions",
+    "CannotDeleteTaxGroupUsedInTransactions":"Cannot Delete TaxGroup Used in Transactions",
     "Add": {
       "AddTaxGroup": "Add",
       "Code": "Code",

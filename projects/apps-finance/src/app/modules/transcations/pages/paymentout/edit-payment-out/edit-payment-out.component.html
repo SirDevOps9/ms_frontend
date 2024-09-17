@@ -41,7 +41,7 @@
               <lib-label [appControl]="addForm.controls['paymentHub']">
                 {{ 'PaymentIn.Form.PaymentHub' | translate }}
               </lib-label>
-              <lib-select [readOnly]="paymentInPosted" formControlName="paymentHub"
+              <lib-select [readOnly]="true" formControlName="paymentHub"
                 [options]="lookups[LookupEnum.PaymentPlace]" [selectedValue]="addForm.controls['paymentHub'].value"
                 (valueChanged)="getDetails(addForm.controls['paymentHub'].value)" optionValue="name" optionLabel="name">
               </lib-select>
@@ -102,7 +102,9 @@
           <lib-label [appControl]="addForm.controls['rate']">
             {{ 'PaymentIn.Form.Rate' | translate }}
           </lib-label>
-          <lib-text-input [readOnly]="paymentInPosted" (keyUp)="updateRateInPaymentDetails($event)"
+          <lib-text-input
+          type="number"
+           [readOnly]="paymentInPosted" (keyUp)="updateRateInPaymentDetails($event)"
             formControlName="rate" [placeholder]="'PaymentIn.Form.PlaceholderRate' | translate" />
           <lib-field-validations [appControl]="addForm.controls['rate']"> </lib-field-validations>
         </lib-form-group>

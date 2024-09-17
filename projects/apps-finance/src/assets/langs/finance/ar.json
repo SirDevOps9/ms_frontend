@@ -5,7 +5,10 @@
     "AddPaymentOut": "إضافة إيصال نقدي",
     "EditPaymentOut": "تعديل إيصال نقدي",
     "BankAccountStatement": "كشف الحساب البنكي",
-    "TreasuryStatement": "بيان الخزانة"
+    "TreasuryStatement": "بيان الخزانة",
+    "ViewPaymentIn": "عرض قبض",
+    "ViewPaymentout": "عرض صرف"
+
 
   },
   "Success": "نجاح",
@@ -13,6 +16,8 @@
   "ErrorInDelete": "خطأ فى الحذف",
   "DateFromLessThanToValidation": "التاريخ من يجب أن يكون قبل التاريخ إلى.",
   "PaymentIn": {
+    "viewPaymentIn":"عرض إيصال الدفع",
+    "viewPaymentOut": "عرض الدفعة الصادرة",
     "Form": {
       "Save": "حفظ",
       "Cancel": "الغاء",

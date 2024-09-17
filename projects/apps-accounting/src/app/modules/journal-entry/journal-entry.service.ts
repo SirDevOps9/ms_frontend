@@ -281,4 +281,11 @@ export class JournalEntryService {
       this.CostCenterReportsDataSource.next(response);
     });
   }
+  getOpenFinancialPeriodDate() {
+    return this.journalEntryProxy.getOpenFinancialPeriodDate().pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
 }
