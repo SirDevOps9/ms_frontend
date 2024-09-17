@@ -305,11 +305,12 @@ getCompany(){
               companyCode: new FormControl(""), // Adjust as needed
               branchCode: new FormControl(""),  // Adjust as needed
               serialNumber: new FormControl(),  // Adjust as needed
-              separatorName: new FormControl()  // Adjust as needed
+              separatorName: new FormControl(this.getSeparatorNameOfDetailValue(detail.detailValue))  // Adjust as needed
             });
             if(detail.segment == this.SharedEnums.Segments.Separator){
               console.log(detail ,"detail");
               // this.getSeparatorName(detail)
+         
 
             }
 
@@ -321,7 +322,13 @@ getCompany(){
     );
   }
 
-  
+  getSeparatorNameOfDetailValue(separator:string){
+    let segemntId =separator
+    const foundElement:any = this.lookups[LookupEnum.Separator].find(element => element.id == segemntId);
+    if (foundElement) {
+      return foundElement.name
+    }
+  }
   save(){
     if (!this.formsService.validForm(this.sequence, false)) return;
   const hasSeparator = this.sequenceDetails.controls.some(control => {
