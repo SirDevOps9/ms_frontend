@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { LanguageService, customValidators, ToasterService, DateTimeService , PrintService } from 'shared-lib';
 import { JournalEntryService } from '../../../journal-entry.service';
-import { reportCostAllData } from '../../../models';
+import { GetOpenFinancialPeriodDate, reportCostAllData } from '../../../models';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 
 @Component({
@@ -104,17 +104,19 @@ export class CostCenterReportComponent {
       }
     }
   }
-  // initializeDates() {
-  //   this.reportCostForm.patchValue({
-  //     dateFrom: this.dateTimeService.firstDayOfMonth(),
-  //     dateTo: this.dateTimeService.lastDayOfMonth(),
-  //   });
-  // }
   getOpenFinancialPeriodDate() {
-    this.journalEntryService.getOpenFinancialPeriodDate().subscribe((res: any) => {
+    this.journalEntryService.getOpenFinancialPeriodDate().subscribe((res: GetOpenFinancialPeriodDate) => {
+      const dateFrom = new Date(res.dateFrom);
+      const dateTo = new Date(res.dateTo);
+  
+      dateFrom.setDate(dateFrom.getDate() + 1);
+      dateTo.setDate(dateTo.getDate() + 1);
+  
+      const formattedDateFrom = dateFrom.toISOString().split('T')[0];
+      const formattedDateTo = dateTo.toISOString().split('T')[0];
       this.reportCostForm.patchValue({
-        dateFrom: new Date(res.startDate),
-        dateTo: new Date(res.endDate),
+        dateFrom: formattedDateFrom,
+        dateTo:formattedDateTo,
       });
     });
   }
