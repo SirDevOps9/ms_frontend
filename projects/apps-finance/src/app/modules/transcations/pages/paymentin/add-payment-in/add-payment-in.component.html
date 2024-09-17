@@ -372,8 +372,12 @@
               </lib-button-micro>
             </div>
             <div class="md:col-6">
-              <div>
+              <div *ngIf="!post">
                 <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%" (click)="save()">
+                </lib-button-micro>
+              </div>
+              <div *ngIf="post">
+                <lib-button-micro title="{{ 'Post' | translate }}" nameClass="save" widthNumber="100%" (click)="addToPost()">
                 </lib-button-micro>
               </div>
             </div>

@@ -61,11 +61,12 @@ export class AddPaymentInComponent {
   TreasuryBalance: number = 0;
   totalLocalAmount: number = 0;
   newBalance: number = 0;
+  PaymentInId: number;
   selectedBank: boolean;
   selectedCurrency: string = "";
   paymentMethod: BankPaymentMethods[] = []
   AllTreasuriesPayMethod: TreasuriesPaymentMethod[] = []
-
+  post: boolean;
   constructor(
     private formBuilder: FormBuilder,
     private dialog: DialogService,
@@ -293,8 +294,14 @@ export class AddPaymentInComponent {
     this.addForm.controls['currencyId'].valueChanges.subscribe((currencyId: any) => {
       this.updatecurrencyIdnPaymentDetails(currencyId)
     })
-
-
+    this.financeService.paymentSaved.subscribe((res:any)=>{
+      if(res!=0){
+        this.PaymentInId=res
+        this.post=true;
+      }else{
+        this.post=false;
+      }
+    })
   }
   addNewRow() {
     
@@ -757,6 +764,12 @@ export class AddPaymentInComponent {
   }
   cancel(){
     this.routerService.navigateTo(`/transcations/paymentin`);
+  }
+  addToPost(){
+    this.financeService.postPaymentIn(this.PaymentInId)
+  }
+  ngOnDestroy() {
+    this.financeService.paymentSaved.next(0)    
   }
 }
 
