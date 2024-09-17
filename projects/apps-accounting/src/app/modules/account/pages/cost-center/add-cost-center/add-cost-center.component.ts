@@ -20,10 +20,10 @@ export class AddCostCenterComponent implements OnInit {
   formGroup: FormGroup;
   parentAccounts: parentCostCenter[] = [];
   @Input() newChiled?: boolean;
-
   @Input() parentAddedId?: number | undefined;
-  @Output() operationCompleted = new EventEmitter<any>();
+  @Input() parentStatus: boolean;
 
+  @Output() operationCompleted = new EventEmitter<any>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,12 +39,15 @@ export class AddCostCenterComponent implements OnInit {
       name: new FormControl('', customValidators.required),
       parentId: new FormControl(null),
       isDetail: new FormControl(false),
-      isActive : new FormControl(true)
+      isActive: new FormControl(true),
     });
   }
   ngOnInit() {
     if (this.parentAddedId) {
-      this.formGroup.get('parentId')?.setValue(this.parentAddedId);
+      this.formGroup.get('parentId')?.patchValue(this.parentAddedId);
+      this.formGroup.get('isActive')?.patchValue(this.parentStatus);
+    } else {
+      this.formGroup.get('isActive')?.patchValue(true);
     }
     this.GetAllParentsCostCenters();
     this.accountService.costparentAccounts.subscribe((res) => {
@@ -54,11 +57,14 @@ export class AddCostCenterComponent implements OnInit {
     });
   }
   addChiled() {
+    console.log(this.formGroup.value, 'this.formsService');
+
     if (!this.formsService.validForm(this.formGroup, false)) return;
 
     let obj: addCostCenter = this.formGroup.value;
 
     this.accountService.AddCostCenter(obj);
+
     setTimeout(() => {
       this.accountService.savedAddedCost.subscribe((res) => {
         if (res) {
@@ -75,6 +81,15 @@ export class AddCostCenterComponent implements OnInit {
       if (this.newChiled == true) {
         delete this.formGroup.value.accountCode;
         this.formGroup.get('accountCode')?.setValue([null]);
+        this.formGroup.get('parentId')?.setValue(null);
+        this.formGroup.get('isActive')?.setValue(true);
+      }
+    }
+    if (changes['parentStatus']) {
+      if (this.parentStatus == true) {
+        this.formGroup.get('isActive')?.setValue(true);
+      } else {
+        this.formGroup.get('isActive')?.setValue(false);
       }
     }
   }

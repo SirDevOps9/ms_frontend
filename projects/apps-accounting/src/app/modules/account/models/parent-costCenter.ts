@@ -1,5 +1,5 @@
 
 export interface parentCostCenter {
     id: number,
-    name: string
+    name: string,
   }

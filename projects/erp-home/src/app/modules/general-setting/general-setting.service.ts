@@ -957,6 +957,13 @@ export class GeneralSettingService {
             this.loaderService.hide();
             res(true);
           },
+          error: () => {
+            this.loaderService.hide();
+            this.toasterService.showError(
+              this.languageService.transalte('Tax.Error'),
+              this.languageService.transalte('TaxGroup.CannotDeleteTaxGroupUsedInTransactions')
+            );
+          },
         });
       } else {
         res(false);
