@@ -34,7 +34,7 @@ export class CostCenterReportComponent {
     this.titleService.setTitle(this.languageService.transalte('reportCost.title'));
     this.initializeForm();
     this.getAccounts();
-    this.initializeDates();
+    this.getOpenFinancialPeriodDate();
     this.reportCostForm.valueChanges.subscribe(() => {
       this.tableData = [];
     });
@@ -47,6 +47,7 @@ export class CostCenterReportComponent {
       }));
     });
   }
+  
   initializeForm() {
     this.reportCostForm = this.fb.group({
       dateFrom: new FormControl('', [customValidators.required]),
@@ -103,10 +104,18 @@ export class CostCenterReportComponent {
       }
     }
   }
-  initializeDates() {
-    this.reportCostForm.patchValue({
-      dateFrom: this.dateTimeService.firstDayOfMonth(),
-      dateTo: this.dateTimeService.lastDayOfMonth(),
+  // initializeDates() {
+  //   this.reportCostForm.patchValue({
+  //     dateFrom: this.dateTimeService.firstDayOfMonth(),
+  //     dateTo: this.dateTimeService.lastDayOfMonth(),
+  //   });
+  // }
+  getOpenFinancialPeriodDate() {
+    this.journalEntryService.getOpenFinancialPeriodDate().subscribe((res: any) => {
+      this.reportCostForm.patchValue({
+        dateFrom: new Date(res.startDate),
+        dateTo: new Date(res.endDate),
+      });
     });
   }
   printTable(id: string) {
