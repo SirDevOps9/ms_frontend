@@ -20,6 +20,9 @@ import { ItemsCategoryTreeComponent } from './pages/item-categories-tree/items-c
 import { AddItemsCategoryComponent } from './pages/item-categories-tree/add-items-category/add-items-category.component';
 import { EditItemCategoryComponent } from './pages/item-categories-tree/edit-item-category/edit-item-category.component';
 import { ViewItemCategoryComponent } from './pages/item-categories-tree/view-item-category/view-item-category.component';
+import { EditWarehouseComponent } from './pages/warehouse/edit-warehouse/edit-warehouse.component';
+import { MainItemCategoriesTreeComponent } from './pages/item-categories-tree/main-item-categories-tree/main-item-categories-tree.component';
+import { AddWarehousePopupComponent } from './components/warehouse/add-warehouse-popup/add-warehouse-popup.component';
 
 
 const routes: Routes = [
@@ -55,7 +58,7 @@ const routes: Routes = [
       },
       {
         path: 'items-category',
-        component: ItemsCategoryTreeComponent,
+        component: MainItemCategoriesTreeComponent,
         data: {
           breadcrumb: BreadcrumbLabel.ITEMS_CATEGORY
         },
@@ -66,6 +69,14 @@ const routes: Routes = [
         component: AddWarehouseComponent,
         data: {
           breadcrumb: BreadcrumbLabel.ADD_WARE_HOUSE
+        },
+     
+      },
+      {
+        path: 'edit-warehouse/:id',
+        component: EditWarehouseComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE
         },
      
       },
@@ -119,7 +130,10 @@ const routes: Routes = [
     ItemsCategoryTreeComponent,
     AddItemsCategoryComponent,
     EditItemCategoryComponent,
-    ViewItemCategoryComponent
+    ViewItemCategoryComponent,
+    EditWarehouseComponent,
+    MainItemCategoriesTreeComponent,
+    AddWarehousePopupComponent
   ],
   imports: [
     CommonModule,

@@ -7,6 +7,8 @@ import { CurrencyService } from 'projects/apps-accounting/src/app/modules/genera
 import { CurrencyDto } from 'projects/apps-finance/src/app/modules/general/models';
 import { Subscription } from 'rxjs';
 import { LookupEnum, lookupDto, RouterService, FormsService, LookupsService, ToasterService, LanguageService, CurrentUserService, customValidators, Modules } from 'shared-lib';
+import { ItemsService } from '../../../items.service';
+import { AddItemCategory } from '../../../models';
 
 @Component({
   selector: 'app-add-items-category',
@@ -20,6 +22,16 @@ export class AddItemsCategoryComponent {
   fitleredCurrencies: CurrencyDto[];
   accountSections: AccountSectionDropDownDto[];
   accountTypes: AccountTypeDropDownDto[];
+  ItemCategoryDropDown : { id: number; name : string }[]
+  AccountsDropDownLookup : { id: number; name: string}[] = []
+
+  categoryType = [
+    { label: 'Storable', value: 1 },
+    { label: 'Service', value: 2 },
+    { label: 'Asset', value: 3 }
+  
+  ]
+
   accountTags: TagDropDownDto[];
   companyDropDown: companyDropDownDto[];
   LookupEnum = LookupEnum;
@@ -45,28 +57,30 @@ export class AddItemsCategoryComponent {
     private toaserService: ToasterService,
     private title: Title,
     private langService: LanguageService,
-    private currentUserService: CurrentUserService
+    private currentUserService: CurrentUserService,
+    private itemService : ItemsService
 
   ) {
     this.title.setTitle(this.langService.transalte('ChartOfAccount.AddChartOfAccount'));
 
     this.formGroup = formBuilder.group({
-      name: new FormControl('', [customValidators.length(0, 255), customValidators.required]),
-      levelId: new FormControl(''),
-      accountCode: new FormControl(''),
-      parentId: new FormControl(null),
-      accountSectionName: new FormControl(''),
-      natureId: new FormControl('', customValidators.required),
-      hasNoChild: new FormControl(false),
-      accountTypeId: new FormControl('', customValidators.required),
-      accountSectionId: new FormControl('', customValidators.required),
-      currencyId: new FormControl(),
-      tags: new FormControl([]),
-      companies: new FormControl([]),
-      accountActivation: new FormControl('Active'),
-      periodicActiveFrom: new FormControl(),
-      periodicActiveTo: new FormControl(),
-      costCenterConfig: new FormControl()
+      code: [''],
+      nameEn: [''],
+      nameAr: [''],
+      parentCategoryId: [null],
+      isDetailed: [false], // Assuming a boolean default of `false`
+      categoryType: [''],
+
+      glAccountId: [null],
+      cashSalesAccountId: [null],
+      creditSalesAccountId: [null],
+      salesReturnAccountId: [null],
+      purchaseAccountId: [null],
+      salesCostAccountId: [null],
+      discountAccountId: [null],
+      evaluationAccountId: [null],
+      adjustmentAccountId: [null],
+      goodsInTransitAccountId: [null]
     });
   }
   ngOnInit() {
@@ -88,7 +102,6 @@ export class AddItemsCategoryComponent {
     this.currencyService.currencies.subscribe((res) => {
       this.currencies = res;
     });
-    this.formGroup.controls['currencyId'].setValue(this.currentUserService.getCurrency())
     // this.currenciesDefault= this.currentUserService.getCurrency()
 
     this.accountService.getAccountSections();
@@ -98,12 +111,30 @@ export class AddItemsCategoryComponent {
 
     this.getTags();
     this.getCompanyDropdown();
+    this.AccountsDropDown()
+    
 
-    this.formGroup.get('accountActivation')?.valueChanges.subscribe((value) => {
-      this.onRadioButtonChange(value);
-    });
 
     if (this.routerService.currentId) this.onParentAccountChange(this.routerService.currentId);
+    this.ItemCategoryDropDownData()
+    this.itemService.AddItemCategoryLookupObs.subscribe(res=>{
+      
+    })
+  }
+
+  AccountsDropDown() {
+    this.itemService.AccountsDropDown()
+    this.itemService.AccountsDropDownLookupObs.subscribe(res=>{
+      this.AccountsDropDownLookup = res
+    })
+  }
+
+  ItemCategoryDropDownData() {
+    this.itemService.ItemCategoryDropDown()
+    this.itemService.itemCategoryLookupObs.subscribe(res=>{
+      this.ItemCategoryDropDown = res
+      console.log(res)
+    })
   }
 
   getTags() {
@@ -190,9 +221,9 @@ export class AddItemsCategoryComponent {
 
     if (!this.formsService.validForm(this.formGroup, false)) return;
 
-    let obj: AddAccountDto = this.formGroup.value;
+    let obj: AddItemCategory = this.formGroup.value;
 
-    this.accountService.addAccount(obj);
+    this.itemService.addItemCategory(obj);
 
   }
   ngOnChanges(changes: SimpleChanges): void {

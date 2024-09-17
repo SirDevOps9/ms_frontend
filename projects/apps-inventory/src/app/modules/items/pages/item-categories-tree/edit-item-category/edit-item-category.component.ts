@@ -6,6 +6,8 @@ import { parentAccountDto, AccountSectionDropDownDto, AccountTypeDropDownDto, Ta
 import { CurrencyService } from 'projects/apps-accounting/src/app/modules/general/currency.service';
 import { CurrencyDto } from 'projects/apps-finance/src/app/modules/general/models';
 import { LookupEnum, lookupDto, RouterService, FormsService, LookupsService, LanguageService, ToasterService, CurrentUserService, customValidators, Modules } from 'shared-lib';
+import { ItemsService } from '../../../items.service';
+import { AddItemCategory } from '../../../models';
 
 @Component({
   selector: 'app-edit-item-category',
@@ -21,7 +23,14 @@ export class EditItemCategoryComponent {
   accountTypes: AccountTypeDropDownDto[];
   accountTags: TagDropDownDto[];
   companyDropDown: companyDropDownDto[];
-
+  AccountsDropDownLookup : { id: number; name: string}[] = []
+  ItemCategoryDropDown : { id: number; name : string }[]
+  categoryType = [
+    { label: 'Storable', value: 'Storable' },
+    { label: 'Service', value: 'Service' },
+    { label: 'Asset', value: 'Asset' }
+  
+  ]
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   currencyIsVisible: boolean;
@@ -44,81 +53,58 @@ export class EditItemCategoryComponent {
     private title: Title,
     private langService: LanguageService,
     private toaserService: ToasterService,
-    private currentUserService : CurrentUserService
+    private currentUserService : CurrentUserService,
+    private itemService : ItemsService
 
   ) {
     this.title.setTitle(this.langService.transalte('ChartOfAccount.EditChartOfAccount'));
 
     this.formGroup = formBuilder.group({
       id: new FormControl(),
-      name: new FormControl('', [customValidators.length(0, 255), customValidators.required]),
-      levelId: new FormControl(''),
-      accountCode: new FormControl(''),
-      parentAccountCode: new FormControl(''),
-      parentId: new FormControl(null),
-      accountSectionName: new FormControl(''),
-      natureId: new FormControl('', customValidators.required),
-      hasNoChild: new FormControl(false),
-      accountTypeId: new FormControl('', customValidators.required),
-      accountSectionId: new FormControl('', customValidators.required),
-      currencyId: new FormControl(),
-      tags: new FormControl(),
-      companies: new FormControl(),
-      accountActivation: new FormControl('Active'),
-      periodicActiveFrom: new FormControl(),
-      periodicActiveTo: new FormControl(),
-      costCenterConfig: new FormControl(1),
+     
+
+      code: [''],
+      nameEn: [''],
+      nameAr: [''],
+      parentCategoryId: [null],
+      isDetailed: [false], // Assuming a boolean default of `false`
+      categoryType: [''],
+
+      glAccountId: [null],
+      cashSalesAccountId: [null],
+      creditSalesAccountId: [null],
+      salesReturnAccountId: [null],
+      purchaseAccountId: [null],
+      salesCostAccountId: [null],
+      discountAccountId: [null],
+      evaluationAccountId: [null],
+      adjustmentAccountId: [null],
+      goodsInTransitAccountId: [null]
     });
   }
   ngOnInit() {
     this.getAccountById(this.parentEditedId)
-    this.loadLookups();
-    this.Subscribe();
-    this.accountService.getAllParentAccounts();
-    this.accountService.parentAccounts.subscribe((res) => {
-      if (res) {
-        this.parentAccounts = res;
-      }
-    });
 
-    this.accountService.getAccountSections();
-    this.accountService.accountSections.subscribe((res) => {
-      this.accountSections = res;
-    });
-    this.getTags();
-    this.getCompanyDropdown();
-    this.getCurrencies();
-    this.formGroup.get('accountActivation')?.valueChanges.subscribe((value) => {
-      this.onRadioButtonChange(value);
-    });
+   
+ 
+
+
+    this.ItemCategoryDropDownData()
+    this.AccountsDropDown()
 
   }
-  getCurrencies(){
-  this.currencyService.getCurrencies('');
-  this.currencyService.currencies.subscribe((res) => {
-  this.currencies = res;
-  this.formGroup.controls['currencyId'].setValue(this.currentUserService.getCurrency())
-
-  });
- }
-  getTags() {
-    this.accountService.getTags(Modules.Accounting);
-    this.accountService.tags.subscribe((res) => {
-      this.accountTags = res;
-    });
+  ItemCategoryDropDownData() {
+    this.itemService.ItemCategoryDropDown()
+    this.itemService.itemCategoryLookupObs.subscribe(res=>{
+      this.ItemCategoryDropDown = res
+      console.log(res)
+    })
   }
-  getCompanyDropdown() {
-    this.accountService.getCompanyDropdown();
-    this.accountService.companyDropdown.subscribe((res) => {
-      this.companyDropDown=res
-    });
-  }
-
-  loadLookups() {
-    this.lookupsService.loadLookups([LookupEnum.AccountNature]);
-  }
-  Subscribe() {
-    this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
+  AccountsDropDown() {
+    this.itemService.AccountsDropDown()
+    this.itemService.AccountsDropDownLookupObs.subscribe(res=>{
+      this.AccountsDropDownLookup = res
+    })
   }
 
   onAccountSectionChange(event: any) {
@@ -150,11 +136,11 @@ export class EditItemCategoryComponent {
     if (!this.formsService.validForm(this.formGroup, false)) return;
 
 
-    let obj: accountById = this.formGroup.value;
+    let obj: AddItemCategory = this.formGroup.value;
 
-    this.accountService.editAccount(obj);
+    this.itemService.editItemCategory(obj);
 
-    this.accountService.editedAccount.subscribe((res) => {
+    this.itemService.EditItemCategoryDataObs.subscribe((res) => {
       if (res) {
         this.operationCompleted.emit(this.parentEditedId);
       }
@@ -166,9 +152,8 @@ export class EditItemCategoryComponent {
     }
   }
   getAccountById(id: any) {
-    this.accountService.getAccountById(id);
-    this.accountService.selectedAccountById.subscribe((res:any) => {
-      this.currencyIsVisible=res.hasNoChild
+    this.itemService.getItemCategoryById(id);
+    this.itemService.getItemCategoryByIdDataObs.subscribe((res:any) => {
       this.parentAcountName = res;
 
             if(res.parentId!=null){
@@ -179,32 +164,10 @@ export class EditItemCategoryComponent {
               this.selectValue=true
               
             }
-            const newAccountData = {
-              id:res.id,
-              name: res.name || '',
-              levelId: res.levelId || '',
-              accountCode: res.accountCode || '',
-              parentAccountCode: res.parentAccountCode || '',
-              parentId: res.parentId || null,
-              accountSectionName: res.accountSectionName || '',
-              natureId: res.natureId || '',
-              hasNoChild: res.hasNoChild || false,
-              accountTypeId: res.accountTypeId ,
-              accountSectionId: res.accountSectionId || '',
-              currencyId: res.currencyId ,
-              tags: res.tags ,
-              companies: res.companies ,
-              accountActivation: res.accountActivation,
-              periodicActiveFrom: res.periodicActiveFrom ? res.periodicActiveFrom.replace('T00:00:00' , '') : null,
-              periodicActiveTo: res.periodicActiveTo ? res.periodicActiveTo.replace('T00:00:00' , '') : null,
-              costCenterConfig: res.costCenterConfig
-            };
-            // this.formGroup.patchValue({...res});
-            this.onAccountSectionChange(res.accountSectionId);
-            this.formGroup.patchValue(newAccountData);
-            this.accountTypeIdValue = res.accountTypeId 
+          
 
-            this.onRadioButtonChange(res.accountActivation)
+            this.formGroup.patchValue({...res});
+           
 
     });
   }

@@ -4,7 +4,7 @@ import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { RouterService, LanguageService, lookupDto, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
-import { ItemTypeDto } from '../../../models';
+import { GetItemCategoryDto, ItemTypeDto } from '../../../models';
 import { AddItemCategoryComponent } from '../../../components/add-item-category/add-item-category.component';
 
 @Component({
@@ -25,9 +25,9 @@ export class ItemCategoryListComponent implements OnInit {
 
   }
 
-  tableData: ItemTypeDto[];
+  tableData: GetItemCategoryDto[];
 
-  exportData: ItemTypeDto[];
+  exportData: GetItemCategoryDto[];
   cols = [
    
     {
@@ -61,11 +61,10 @@ export class ItemCategoryListComponent implements OnInit {
   }
 
   initItemTypeData() {
-    console.log('wasdf')
 
-    this.itemsService.getItemType('', new PageInfo());
+    this.itemsService.getItemCategory('', new PageInfo());
 
-    this.itemsService.sendItemTypeDataSource.subscribe({
+    this.itemsService.sendItemCategoryDataSourceObs.subscribe({
       next: (res) => {
         console.log(res)
         this.tableData = res;
@@ -78,18 +77,19 @@ export class ItemCategoryListComponent implements OnInit {
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.itemsService.getItemType('', pageInfo);
+    this.itemsService.getItemCategory('', pageInfo);
   }
 
-  exportClick(e?: Event) {
-    this.exportBankData(this.searchTerm);
+  exportItemClick(e: any) {
+    this.exportItemData(this.searchTerm);
   }
 
-  exportBankData(searchTerm: string) {
-    // this.financeService.exportsBankList(searchTerm);
-    // this.financeService.exportedBankListDataSourceObservable.subscribe((res) => {
-    //   this.exportData = res;
-    // });
+  exportItemData(searchTerm: string) {
+    this.itemsService.exportsItemCategoryList(searchTerm);
+    this.itemsService.exportedItemCategoryDataSourceObs.subscribe((res) => {
+      console.log(res)
+      this.exportData = res;
+    });
   }
 
   onAdd() {
@@ -105,13 +105,20 @@ export class ItemCategoryListComponent implements OnInit {
 
   }
 
-  onSearchChange() {
-    this.itemsService.getItemType(this.searchTerm, new PageInfo());
+  onSearchChange(e : any) {
+    this.searchTerm = e
+    this.itemsService.getItemCategory(this.searchTerm, new PageInfo());
     
   }
 
   onDelete(id: number) {
-    // this.financeService.deleteBank(id);
+    this.itemsService.deleteItemCategory(id);
+    this.itemsService.itemsCategoryDeletedObs.subscribe(res=>{
+      if(res) {
+        this.initItemTypeData();
+
+      }
+    })
   }
 }
 

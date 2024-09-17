@@ -4,6 +4,8 @@ import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
 import { AccountByIdDto, accountTreeList } from 'projects/apps-accounting/src/app/modules/account/models';
 import { LanguageService } from 'shared-lib';
+import { ItemsService } from '../../../items.service';
+import { AddItemCategory } from '../../../models';
 
 @Component({
   selector: 'app-items-category-tree',
@@ -15,7 +17,7 @@ export class ItemsCategoryTreeComponent implements OnInit {
   @Input() view: boolean;
   @Input() add: boolean;
   parentAddedId: number | undefined;
-  account: AccountByIdDto;
+  account: AddItemCategory;
   @Output() addmode = new EventEmitter<boolean>();
   nodes: accountTreeList[];
   expanded: boolean = false;
@@ -33,23 +35,26 @@ export class ItemsCategoryTreeComponent implements OnInit {
     private accountService: AccountService,
     private title: Title,
     private langService: LanguageService,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private itemsSevice : ItemsService
   ) {
     this.title.setTitle(this.langService.transalte('ChartOfAccount.Title'));
   }
   ngOnInit() {
     this.getTreeList();
+    this.itemsSevice.AddItemCategoryLookupObs.subscribe(res=>{
+      this.getTreeList();
+
+    })
   }
   mapToTreeNodes(data: any[]) {
     data = data.map((item, index) => {
       return {
-        hasNoChild: item.hasNoChild,
+        isActive: item.isActive,
         id: item.id,
-        accountCode: item.accountCode,
-        ParentId: item.ParentId,
-        LevelId: item.LevelId,
-        label: item.name + ' - ' + item.accountCode, // Assuming you want to display the English label
-        children: item.childrens ? this.mapToTreeNodes(item.childrens) : [],
+      
+        label: item.name ,
+        children: item.children ? this.mapToTreeNodes(item.children) : [],
       };
     });
     return data;
@@ -82,15 +87,15 @@ export class ItemsCategoryTreeComponent implements OnInit {
     this.add = true;
   }
   getAccountDetails(id: number) {
-    this.accountService.getAccountDetails(id);
-    this.accountService.AccountViewDetails.subscribe((res) => {
+    this.itemsSevice.getItemCategoryById(id);
+    this.itemsSevice.getItemCategoryByIdDataObs.subscribe((res) => {
       this.account = res;
     });
-    if (this.account.parentAccountName === '') {
-      this.viewWithParent = true;
-    } else {
-      this.viewWithParent = false;
-    }
+    // if (this.account.parentAccountName === '') {
+    //   this.viewWithParent = true;
+    // } else {
+    //   this.viewWithParent = false;
+    // }
   }
 
   handleTabClick(node: any) {
@@ -152,7 +157,7 @@ export class ItemsCategoryTreeComponent implements OnInit {
 
   getTreeList() {
     const activeNodeId = this.activeNode ? this.activeNode.id : null;
-    this.accountService.getTreeList().subscribe((res: any) => {
+    this.itemsSevice.getItemCategoryTreeList().subscribe((res: any) => {
       this.nodes = this.mapToTreeNodes(res);
       if (activeNodeId) {
         setTimeout(() => {
@@ -242,8 +247,8 @@ export class ItemsCategoryTreeComponent implements OnInit {
   }
   deleteAccount(id: number) {
     const parentNode = this.findParentNodeById(this.nodes, id);
-    this.accountService.deleteAccount(id);
-    this.accountService.accountdeletedObser.subscribe((res) => {
+    this.itemsSevice.deleteItemCategory(id);
+    this.itemsSevice.itemsCategoryDeletedObs.subscribe((res) => {
       if (res) {
         if (parentNode) {
           this.setActiveNode(parentNode.id);

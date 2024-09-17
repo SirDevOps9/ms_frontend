@@ -5,7 +5,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { RouterService, LanguageService, lookupDto, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
 import { AddItemDefinitionPopupComponent } from '../../../components/add-item-definition/add-item-definition-popup.component';
 import { ItemsService } from '../../../items.service';
-import { itemDefinitionDto } from '../../../models';
+import { GetWarehouseList, itemDefinitionDto } from '../../../models';
+import { AddWarehousePopupComponent } from '../../../components/warehouse/add-warehouse-popup/add-warehouse-popup.component';
 
 @Component({
   selector: 'app-warehouse-list',
@@ -25,9 +26,9 @@ export class WarehouseListComponent implements OnInit {
 
   }
 
-  tableData: itemDefinitionDto[];
+  tableData: GetWarehouseList[];
 
-  exportData: itemDefinitionDto[];
+  exportData: GetWarehouseList[];
   cols = [
    
     {
@@ -100,11 +101,18 @@ export class WarehouseListComponent implements OnInit {
   }
 
   onAdd() {
-   this.routerService.navigateTo('/masterdata/add-warehouse')
+      const dialogRef = this.dialog.open(AddWarehousePopupComponent, {
+      width: '800px',
+      height : '550px',
+    });
+    dialogRef.onClose.subscribe(() => {
+    this.initItemDefinitionData()
+    });
+  
   }
 
   onEdit(data: any) {
-    this.routerService.navigateTo(`/masterdata/add-warehouse/${data.id}`)
+    this.routerService.navigateTo(`/masterdata/edit-warehouse/${data.id}`)
 
 
   }

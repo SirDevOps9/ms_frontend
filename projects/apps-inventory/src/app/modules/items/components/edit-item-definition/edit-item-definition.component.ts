@@ -14,7 +14,7 @@ export class EditItemDefinitionComponent implements OnInit {
   itemDefinitionForm: FormGroup;
   selectedModules: number[] = [];
   itemTypeLookupData : { id: number; nameAr: string; nameEn: string }[] = [{id : 1, nameAr : "Nabil" , nameEn : "Nabil"}]
-  ItemCategoryDropDown : { id: number; nameAr: string; nameEn: string }[] = [{id : 1 , nameAr : "Nabiloo" , nameEn : "Nabiloo"}]
+  ItemCategoryDropDown : { id: number; name: string;  }[] = []
   UOMCategoryDropDown : { id: number; name: string;}[] = []
   constructor(
     public config: DynamicDialogConfig,

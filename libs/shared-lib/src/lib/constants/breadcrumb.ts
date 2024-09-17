@@ -96,6 +96,7 @@ export class BreadcrumbLabel {
     static  ITEM_CATEGORY ='Item Category';
     static  WARE_HOUSE ='Warehouse';
     static  ADD_WARE_HOUSE ='Add Warehouse';
+    static  EDIT_WARE_HOUSE ='Edit Warehouse';
     static  ITEMS_CATEGORY ='Items Category';
    
     static COST_CENTER ='Cost Center';

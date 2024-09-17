@@ -72,9 +72,9 @@ export class AddItemDefinitionComponent implements OnInit {
     { label: 'Honeydew', value: '#F0FFF0', icon: 'pi pi-circle' },
     { label: 'Azure', value: '#007FFF', icon: 'pi pi-circle' },
   ];
-  ItemCategoryDropDown : { id: number; nameAr: string; nameEn: string }[] = []
+  ItemCategoryDropDown : { id: number; name: string;  }[] = []
   tagDropDropDownLookup : { id: number; name: string }[] = []
-  AccountsDropDownLookup : { id: number; nameAr: string; nameEn: string }[] = []
+  AccountsDropDownLookup : { id: number; name: string }[] = []
   taxesDropDropDownLookup : { id: number; nameAr: string; nameEn: string }[] = []
   trackingTrackingLookup : { id: number; name: string }[] = []
   uomCodeLookup : UomCodeLookup[] = []
@@ -212,6 +212,7 @@ export class AddItemDefinitionComponent implements OnInit {
     this.itemService.ItemCategoryDropDown()
     this.itemService.itemCategoryLookupObs.subscribe(res=>{
       this.ItemCategoryDropDown = res
+      console.log(res)
     })
   }
   // end point

@@ -20,6 +20,8 @@
           nameClass="cancel"
           widthNumber="100%"
           (click)="close()"
+          *ngIf="showCancel"
+
         >
         </lib-button-micro>
       </div>
@@ -30,6 +32,7 @@
           widthNumber="100%"
           *ngIf="!disabled"
           (click)="onSubmit()"
+          [class.none]="!showSave"
         >
         </lib-button-micro>
         <lib-button-micro
@@ -37,6 +40,8 @@
           nameClass="saveDisabled"
           widthNumber="100%"
           *ngIf="disabled"
+          [class.none]="!showSecondSave"
+
         >
         </lib-button-micro>
       </div>

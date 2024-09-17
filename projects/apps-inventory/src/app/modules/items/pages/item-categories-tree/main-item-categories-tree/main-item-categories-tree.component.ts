@@ -1,15 +1,14 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ChartOfAccountConfigurationComponent } from '../../../components/chart-of-account-configuration/chart-of-account-configuration.component';
+import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { LanguageService } from 'shared-lib';
 
 @Component({
-  selector: 'app-main-chart-of-account',
-  templateUrl: './main-chart-of-account.component.html',
-  styleUrl: './main-chart-of-account.component.scss'
+  selector: 'app-main-item-categories-tree',
+  templateUrl: './main-item-categories-tree.component.html',
+  styleUrl: './main-item-categories-tree.component.scss'
 })
-export class MainChartOfAccountComponent {
+export class MainItemCategoriesTreeComponent {
   Viewlist:boolean=false;
   edit:boolean=false;
   view:boolean=false;
@@ -41,10 +40,10 @@ export class MainChartOfAccountComponent {
     this.add=event;
   }
   RedirectToConfiguration() {
-    this.ref = this.dialog.open(ChartOfAccountConfigurationComponent, {
-      width: '647px',
-      height: '600px',
-    });
+    // this.ref = this.dialog.open(ChartOfAccountConfigurationComponent, {
+    //   width: '647px',
+    //   height: '600px',
+    // });
   }
   constructor(
     private dialog: DialogService,

@@ -1,372 +1,326 @@
 <div class="chart_add_page">
-    <form [formGroup]="formGroup">
-      <div class="grid">
-        <lib-fildest header="{{ 'ChartOfAccounts.AccountCode' | translate }}" class="md:col-12">
-          <div class="grid">
-            <div class="md:col-6">
-              <lib-form-group>
-                <lib-label [appControl]="formGroup.controls['accountCode']">
-                  {{ 'ChartOfAccounts.AccountCode' | translate }}
-                </lib-label>
-              <lib-text-input [readOnly]="true" formControlName="accountCode"> </lib-text-input>
-            </lib-form-group>
+  <form [formGroup]="formGroup">
+    <div class="gird">
 
-            </div>
-            <div class="md:col-6" *ngIf="hasParentAccount">
-              <lib-form-group>
-                <lib-label [appControl]="formGroup.controls['levelId']">
-                  {{ 'ChartOfAccounts.level' | translate }}
-                </lib-label>
-                <lib-text-input [readOnly]="true" type="text" formControlName="levelId" />
-                <lib-field-validations [appControl]="formGroup.controls['levelId']">
-                </lib-field-validations>
-              </lib-form-group>
-            </div>
-            <div class="md:col-12">
-              <lib-form-group>
-                <lib-label [appControl]="formGroup.controls['name']">
-                  {{ 'ChartOfAccounts.name' | translate }}
-                </lib-label>
-                <lib-text-input type="text" formControlName="name" />
-                <lib-field-validations [appControl]="formGroup.controls['name']">
-                </lib-field-validations>
-              </lib-form-group>
-            </div>
-          </div>
-        
-        
-        </lib-fildest>
-        <lib-fildest header="{{ 'ChartOfAccounts.ParentAccount' | translate }}" class="md:col-12">
-          <div class="grid">
-            <div class="md:col-6">
-              <lib-form-group>
-                <lib-label [appControl]="formGroup.controls['parentId']">
-                {{"ChartOfAccounts.parentName" | translate}}
+      <lib-fildest header="{{ 'itemsCategory.Main' | translate }}" class="md:col-12">
+        <div class="grid">
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['code']">
+                {{ 'itemsCategory.categoryCode' | translate }}
               </lib-label>
-                <lib-select
-                [readOnly]="currencyIsVisible"
-                  formControlName="parentId"
-                  [options]="parentAccounts"
-                  optionValue="id"
-                  [selectedValue]=" selectValue ? formGroup.controls['parentId'].value :null"
-                  optionLabel="name"
-                  (valueChanged)="onParentAccountChange($event)"
-                >
-                </lib-select>
-              </lib-form-group>
-            </div>
-            <div class="md:col-6">
-              <lib-form-group>
-                <lib-label [appControl]="formGroup.controls['accountCode']">
-                  {{ 'ChartOfAccounts.ParentAccountCode' | translate }}
-                </lib-label>
-                <lib-text-input [readOnly]="true" type="text" formControlName="parentAccountCode" />
-               
-              </lib-form-group>
-            </div>
+              <lib-text-input [readOnly]="true" formControlName="code"> </lib-text-input>
+  
+            </lib-form-group>
           </div>
-      
-        </lib-fildest>
-        <lib-fildest header="{{ 'ChartOfAccounts.Account' | translate }}" class="md:col-12">
-          <div class="grid">
-          
-        
-            <div class="md:col-6">
-              <lib-form-group>
-                <lib-label [appControl]="formGroup.controls['natureId']">
-                  {{ 'ChartOfAccounts.AccountNature' | translate }}
-                </lib-label>
-                <lib-select
-                  [readOnly]="hasParentAccount"
-                  formControlName="natureId"
-                  [selectedValue]="selectValue? parentAcountName?.natureId?.toString() : null"
-                  [options]="lookups[LookupEnum.AccountNature]"
-                  optionValue="name"
-                  optionLabel="name"
-                >
-                </lib-select>
-                <lib-field-validations [appControl]="formGroup.controls['natureId']">
-                </lib-field-validations>
-                <!-- <lib-select
-                  [options]="lookups[LookupEnum.AccountNature]"
-                  optionValue="id"
-                  optionLabel="name"
-                >
-                </lib-select> -->
-              </lib-form-group>
-            </div>
-            <div class="md:col-6">
-              <lib-form-group>
-                <lib-label [appControl]="formGroup.controls['accountSectionId']">
-                  {{ 'ChartOfAccounts.AccountSection' | translate }}
-                </lib-label>
-                <lib-select
-                  [readOnly]="hasParentAccount "
-                  formControlName="accountSectionId"
-                  [selectedValue]="selectValue? parentAcountName?.accountSectionId :null"
-                  [options]="accountSections"
-                  optionValue="id"
-                  optionLabel="nameAr"
-                  (valueChanged)="onAccountSectionChange($event)"
-
-                >
-
-                </lib-select>
-                <lib-field-validations [appControl]="formGroup.controls['accountSectionId']">
-                </lib-field-validations>
-              </lib-form-group>
-            </div>
-            <div class="md:col-6">
-              <lib-form-group>
-                <lib-label [appControl]="formGroup.controls['accountTypeId']">
-                  {{ 'ChartOfAccounts.AccountType' | translate }}
-                </lib-label>
-                <lib-select
-                  formControlName="accountTypeId"
-                  [options]="accountTypes"
-                  optionValue="id"
-                  optionLabel="nameEn"
-                  [selectedValue]="accountTypeIdValue"
-
-                >
-                </lib-select>
-                <lib-field-validations [appControl]="formGroup.controls['accountTypeId']">
-                </lib-field-validations>
-              </lib-form-group>
-            </div>
-            <div class="md:col-6">
-              <lib-form-group>
-                <lib-label [appControl]="formGroup.controls['tags']">
-                  {{ 'ChartOfAccounts.Tags' | translate }}
-                </lib-label>
-                <lib-multi-select
-                  formControlName="tags"
-                  [options]="accountTags"
-                  optionValue="id"
-                  optionLabel="name"
-                  [placeholder]="'ChartOfAccount.Select' | translate"
-                  [selectedValue]="formGroup.controls['tags'].value"
-                >
-                </lib-multi-select>
-              </lib-form-group>
-            </div>
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label  [appControl]="formGroup.controls['nameEn']">
+                {{ 'itemsCategory.nameEn' | translate }}
+              </lib-label>
+              <lib-text-input  type="text" formControlName="nameEn" />
+             <lib-field-validations [appControl]="formGroup.controls['nameEn']">
+              </lib-field-validations>
+            </lib-form-group>
           </div>
-          <lib-fildest header="{{ 'ChartOfAccounts.details' | translate }}" class="md:col-12">
-            <div class="grid">
-              <div class="md:col-12">
-                <lib-label [appControl]="formGroup.controls['hasNoChild']">
-                  {{ 'ChartOfAccounts.HasNoChild' | translate }}
-                </lib-label>
-                <div >
-                  <lib-input-switch formControlName="hasNoChild" (ngModelChange)="toggleCurrencyVisibility()">
-                  </lib-input-switch>
-    
-                </div>
-              </div>
-              <div class="md:col-6" *ngIf="!currencyIsVisible">
-                <lib-form-group >
-                  <lib-label [appControl]="formGroup.controls['currencyId']">
-                    {{ 'ChartOfAccounts.Currency' | translate }}
-                  </lib-label>
-                  <lib-select
-                    formControlName="currencyId"
-                    [options]="currencies"
-                    optionValue="id"
-                    optionLabel="name"
-                    [selectedValue]="formGroup.controls['currencyId'].value"
-                  >
-                  </lib-select>
-                </lib-form-group>
-              </div>
-            </div>
-            <lib-fildest
-            header="{{ 'ChartOfAccounts.costCenterConfig' | translate }}"
-            class="md:col-12"
-            *ngIf="!currencyIsVisible"
-          >
-            <div class="grid" >
-              <div class="md:col-6">
-                              <lib-form-group>
-                                <div class="account_activation">
-                                  <div>
-                                    <p-radioButton
-                                      name="costCenterConfig"
-                                      value="Mandatory"
-                                      formControlName="costCenterConfig"
-                                      inputId="Mandatory"
-                                    >
-                                    </p-radioButton>
-                                    <label class="title" for="Mandatory">{{
-                                      'costCenter.mandatory' | translate
-                                    }}</label>
-                                  </div>
-                                  <div>
-                                    <p-radioButton
-                                      name="costCenterConfig"
-                                      value="Optional"
-                                      formControlName="costCenterConfig"
-                                      inputId="Optional"
-                                    >
-                                    </p-radioButton>
-                                    <label class="title" for="Optional">{{
-                                      'costCenter.optional' | translate
-                                    }}</label>
-                                  </div>
-                                  <div>
-                                    <p-radioButton
-                                      name="costCenterConfig"
-                                      value="NotAllow"
-                                      formControlName="costCenterConfig"
-                                      inputId="NotAllow"
-                                    >
-                                    </p-radioButton>
-                                    <label class="title" for="NotAllow">{{
-                                      'costCenter.notAllow' | translate
-                                    }}</label>
-                                  </div>
-                                </div>
-                                
-                              </lib-form-group>
-             
-              </div>
-            </div>
-            </lib-fildest>
-              
-          </lib-fildest>
-           
-          <lib-fildest
-            header="{{ 'ChartOfAccounts.AccountActivation' | translate }}"
-            class="md:col-12"
-          >
-            <div class="grid">
-              <div class="md:col-6">
-                <lib-form-group>
-                  <div class="account_activation">
-                    <div>
-                      <p-radioButton
-                        name="accountActivation"
-                        value="Active"
-                        formControlName="accountActivation"
-                        inputId="Active"
-                      >
-                      </p-radioButton>
-  
-                      <label class="title" for="Active">{{
-                        'ChartOfAccounts.Active' | translate
-                      }}</label>
-                    </div>
-                    <div>
-                      <p-radioButton
-                        name="accountActivation"
-                        value="Inactive"
-                        formControlName="accountActivation"
-                        inputId="Inactive"
-                      >
-                      </p-radioButton>
-  
-                      <label class="title" for="Inactive">{{
-                        'ChartOfAccounts.Inactive' | translate
-                      }}</label>
-                    </div>
-                    <div>
-                      <p-radioButton
-                        name="accountActivation"
-                        value="PeriodicActive"
-                        formControlName="accountActivation"
-                        inputId="Period"
-
-                      >
-                      </p-radioButton>
-                      <label class="title" for="Period">{{
-                        'ChartOfAccounts.periodicActive' | translate
-                      }}</label>
-                    </div>
-                  </div>
-  
-                  <lib-field-validations [appControl]="formGroup.controls['AccountActivation']">
-                  </lib-field-validations>
-                </lib-form-group>
-              </div>
-              <div class="md:col-3">
-                <lib-form-group *ngIf="selectedPeriodOption === 'PeriodicActive'">
-                  <lib-label [appControl]="formGroup.controls['periodicActiveFrom']">
-                    {{ 'ChartOfAccounts.periodicActiveFrom' | translate }}
-                  </lib-label>
-                  <lib-text-input type="date" formControlName="periodicActiveFrom"  />
-                  <lib-field-validations [appControl]="formGroup.controls['periodicActiveFrom']">
-                  </lib-field-validations>
-                </lib-form-group>
-              </div>
-              <div class="md:col-3">
-                <lib-form-group *ngIf="selectedPeriodOption === 'PeriodicActive'">
-                  <lib-label [appControl]="formGroup.controls['periodicActiveTo']">
-                    {{ 'ChartOfAccounts.periodicActiveTo' | translate }}
-                  </lib-label>
-                  <lib-text-input type="date" formControlName="periodicActiveTo" />
-                  <lib-field-validations [appControl]="formGroup.controls['periodicActiveTo']">
-                  </lib-field-validations>
-                </lib-form-group>
-              </div>
-            </div>
-          </lib-fildest>
-       
-         <!-- <div class="grid">
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label  [appControl]="formGroup.controls['nameAr']">
+                {{ 'itemsCategory.nameAr' | translate }}
+              </lib-label>
+              <lib-text-input  type="text" formControlName="nameAr" />
+             <lib-field-validations [appControl]="formGroup.controls['nameAr']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
          
-          
         
-             <div class="md:col-6">
-              <lib-form-group>
-                <lib-label [appControl]="formGroup.controls['companies']">
-                  {{ 'ChartOfAccounts.companies' | translate }}
-                </lib-label>
-                <lib-multi-select
-                  formControlName="companies"
-                  [options]="companyDropDown"
-                  optionValue="id"
-                  optionLabel="name"
-                  [selectedValue]="formGroup.controls['companies'].value"
-                >
-                </lib-multi-select>
-              </lib-form-group>
-            </div> 
-          </div>-->
-          
+         
+        </div>
+    
+      
+
+      </lib-fildest>
+    
+      <lib-fildest header="{{ 'itemsCategory.parentCategory' | translate }}" class="md:col-12">
+        <div class="grid">
+          <div class="md:col-12" *ngIf="hasParentAccount">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['parentCategoryId']">
+                {{ 'itemsCategory.parentCategory' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="parentCategoryId"
+                [options]="ItemCategoryDropDown"
+                optionValue="id"
+                optionLabel="name"
+                [selectedValue]="formGroup.controls['parentCategoryId'].value"
+                (valueChanged)="onParentAccountChange($event)"
+              >
+              </lib-select>
+              
+              <lib-field-validations [appControl]="formGroup.controls['parentCategoryId'].value">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="md:col-6 flex gap-2 align-items-center">
+              <lib-label [appControl]="formGroup.controls['isDetailed']">
+                {{ 'itemsCategory.isDetails' | translate }}
+              </lib-label>
+              <lib-input-switch formControlName="isDetailed" > </lib-input-switch>
+             
+          </div>
+          <div class="md:col-12">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['categoryType']">
+              {{"itemsCategory.categoryType" | translate}}
+            </lib-label>
+              <lib-select
+                formControlName="categoryType"
+                [options]="categoryType"
+                optionValue="value"
+                [selectedValue]="formGroup.controls['categoryType'].value "
+                optionLabel="label"
+                (valueChanged)="onParentAccountChange($event)"
+              >
+              </lib-select>
+            </lib-form-group>
+          </div>
+        </div>
        
-  
-       
-        </lib-fildest>
-      </div>
-    </form>
-    <div class="btn_group">
-      <div class="grid">
-        <div class="md:col-3">
-          <div class="grid">
-            <div class="md:col-6">
-              <lib-button-micro
-        title="{{ 'ChartOfAccounts.Cancel' | translate }}"
-        nameClass="cancel"
-        (click)="cancel()"
-        widthNumber=100%
-      >
-      </lib-button-micro>
-            </div>
-            <div class="md:col-6">
-              <lib-button-micro
-        title="{{ 'ChartOfAccounts.Save' | translate }}"
-        nameClass="save"
-        (click)="onSubmit()"
-        widthNumber=100%
-      >
-      </lib-button-micro>
-            </div>
+      </lib-fildest>
+     
+
+    
+    </div>
+    <p-tabView>
+      <p-tabPanel  header="{{'warehouse.account' | translate}}">
+       <div class="grid">
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <lib-label [appControl]="formGroup.controls['glAccountId']">
+                          {{ 'warehouse.glAccount' | translate }}
+                        </lib-label>
+                      <lib-select
+                        placeholder="{{ 'warehouse.glAccount' | translate }}"
+                        [options]="AccountsDropDownLookup"
+                        optionLabel="name"
+                        optionValue="id"
+                        formControlName="glAccountId"
+                        [selectedValue]="formGroup.controls['glAccountId'].value"
+
+                      ></lib-select>
+                      <lib-field-validations [appControl]="formGroup.controls['glAccountId']">
+                      </lib-field-validations>
+                    </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <lib-label [appControl]="formGroup.controls['cashSalesAccountId']">
+                          {{ 'warehouse.cashSalesAccount' | translate }}
+                        </lib-label>
+                      <lib-select
+                        placeholder="{{ 'warehouse.cashSalesAccount' | translate }}"
+                        [options]="AccountsDropDownLookup"
+                        optionLabel="name"
+                        optionValue="id"
+                        formControlName="cashSalesAccountId"
+                        [selectedValue]="formGroup.controls['cashSalesAccountId'].value"
+
+                      ></lib-select>
+                      <lib-field-validations [appControl]="formGroup.controls['cashSalesAccountId']">
+                      </lib-field-validations>
+                    </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <lib-label [appControl]="formGroup.controls['creditSalesAccountId']">
+                          {{ 'warehouse.creditSalesAccount' | translate }}
+                        </lib-label>
+                      <lib-select
+                        placeholder="{{ 'warehouse.creditSalesAccount' | translate }}"
+                        [options]="AccountsDropDownLookup"
+                        optionLabel="name"
+                        optionValue="id"
+                        formControlName="creditSalesAccountId"
+                        [selectedValue]="formGroup.controls['creditSalesAccountId'].value"
+
+                      ></lib-select>
+                      <lib-field-validations [appControl]="formGroup.controls['creditSalesAccountId']">
+                      </lib-field-validations>
+                    </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <lib-label [appControl]="formGroup.controls['salesReturnAccountId']">
+                          {{ 'warehouse.salesReturnAccount' | translate }}
+                        </lib-label>
+                      <lib-select
+                        placeholder="{{ 'warehouse.salesReturnAccount' | translate }}"
+                        [options]="AccountsDropDownLookup"
+                        optionLabel="name"
+                        optionValue="id"
+                        formControlName="salesReturnAccountId"
+                        [selectedValue]="formGroup.controls['salesReturnAccountId'].value"
+
+                      ></lib-select>
+                      <lib-field-validations [appControl]="formGroup.controls['salesReturnAccountId']">
+                      </lib-field-validations>
+                    </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <lib-label [appControl]="formGroup.controls['purchaseAccountId']">
+                          {{ 'warehouse.purchaseAccount' | translate }}
+                        </lib-label>
+                      <lib-select
+                        placeholder="{{ 'warehouse.purchaseAccount' | translate }}"
+                        [options]="AccountsDropDownLookup"
+                        optionLabel="name"
+                        optionValue="id"
+                        formControlName="purchaseAccountId"
+                        [selectedValue]="formGroup.controls['purchaseAccountId'].value"
+
+                      ></lib-select>
+                      <lib-field-validations [appControl]="formGroup.controls['purchaseAccountId']">
+                      </lib-field-validations>
+                    </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <lib-label [appControl]="formGroup.controls['salesCostAccountId']">
+                          {{ 'warehouse.salesCostCenter' | translate }}
+                        </lib-label>
+                      <lib-select
+                        placeholder="{{ 'warehouse.salesCostCenter' | translate }}"
+                        [options]="AccountsDropDownLookup"
+                        optionLabel="name"
+                        optionValue="id"
+                        formControlName="salesCostAccountId"
+                        [selectedValue]="formGroup.controls['salesCostAccountId'].value"
+
+                      ></lib-select>
+                      <lib-field-validations [appControl]="formGroup.controls['salesCostAccountId']">
+                      </lib-field-validations>
+                    </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <lib-label [appControl]="formGroup.controls['discountAccountId']">
+                          {{ 'warehouse.discountAccount' | translate }}
+                        </lib-label>
+                      <lib-select
+                        placeholder="{{ 'warehouse.discountAccount' | translate }}"
+                        [options]="AccountsDropDownLookup"
+                        optionLabel="name"
+                        optionValue="id"
+                        formControlName="discountAccountId"
+                        [selectedValue]="formGroup.controls['discountAccountId'].value"
+
+                      ></lib-select>
+                      <lib-field-validations [appControl]="formGroup.controls['discountAccountId']">
+                      </lib-field-validations>
+                    </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <lib-label [appControl]="formGroup.controls['evaluationAccountId']">
+                          {{ 'warehouse.evaluationaccount' | translate }}
+                        </lib-label>
+                      <lib-select
+                        placeholder="{{ 'warehouse.evaluationaccount' | translate }}"
+                        [options]="AccountsDropDownLookup"
+                        optionLabel="name"
+                        optionValue="id"
+                        formControlName="evaluationAccountId"
+                        [selectedValue]="formGroup.controls['evaluationAccountId'].value"
+
+                      ></lib-select>
+                      <lib-field-validations [appControl]="formGroup.controls['evaluationAccountId']">
+                      </lib-field-validations>
+                    </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <lib-label [appControl]="formGroup.controls['adjustmentAccountId']">
+                          {{ 'warehouse.adjustmentAccount' | translate }}
+                        </lib-label>
+                      <lib-select
+                        placeholder="{{ 'warehouse.adjustmentAccount' | translate }}"
+                        [options]="AccountsDropDownLookup"
+                        optionLabel="name"
+                        optionValue="id"
+                        formControlName="adjustmentAccountId"
+                        [selectedValue]="formGroup.controls['adjustmentAccountId'].value"
+
+                      ></lib-select>
+                      <lib-field-validations [appControl]="formGroup.controls['adjustmentAccountId']">
+                      </lib-field-validations>
+                    </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <lib-label [appControl]="formGroup.controls['goodsInTransitAccountId']">
+                          {{ 'warehouse.goodsInTransit' | translate }}
+                        </lib-label>
+                      <lib-select
+                        placeholder="{{ 'warehouse.goodsInTransit' | translate }}"
+                        [options]="AccountsDropDownLookup"
+                        optionLabel="name"
+                        optionValue="id"
+                        formControlName="goodsInTransitAccountId"
+                        [selectedValue]="formGroup.controls['goodsInTransitAccountId'].value"
+
+                      ></lib-select>
+                      <lib-field-validations [appControl]="formGroup.controls['goodsInTransitAccountId']">
+                      </lib-field-validations>
+                    </lib-form-group>
+          </div>
+          <!--  -->
+       </div>
+      </p-tabPanel>
+    </p-tabView>
+  </form>
+  <div class="btn_group ">
+    <div class="grid">
+      <div class="md:col-3">
+        <div class="grid">
+          <div class="md:col-6">
+            <lib-button-micro
+      title="{{ 'itemsCategory.cancel' | translate }}"
+      nameClass="cancel"
+      (click)="cancel()"
+      widthNumber=100%
+     
+    >
+    </lib-button-micro>
+          </div>
+          <div class="md:col-6">
+            <lib-button-micro
+    title="{{ 'itemsCategory.save' | translate }}"
+    nameClass="save"
+    (click)="onSubmit()"
+    widthNumber=100%
+  >
+  </lib-button-micro>
           </div>
         </div>
       </div>
     </div>
-    <div class="action">
-      
-      
-      
-    </div>
+
   </div>
-  
+  <div class="action">
+ 
+    
+    
+  </div>
+</div>

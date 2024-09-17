@@ -75,6 +75,7 @@
         "perMonth" : "Per Month",
         "perYear" : "Per Year",
         "taxes" : "Taxes",
+        "vat" : "Vat",
         "uomSuccess" : "UOM Added Successfully",
         "statusuom" : "UOM Default Changed Successfully",
         "itemEdit" : "Item Edited Successfully",
@@ -125,6 +126,7 @@
         "search" : "Search",
         "ChangeColumn" : "Change Column",
         "save" : "Save",
+        "cancel" : "Cancel",
         "code" : "Code",
         "name" : "Name",
         "relatedBranch" : "Related Branch",
@@ -140,7 +142,6 @@
         "postCode" : "Post Code",
         "longitude" : "Longitude",
         "latitude" : "Latitude",
-        "cancel" : "Cancel",
         "raduis" : "Raduis",
         "glAccount" : "GL Account",
         "cashSalesAccount" : "Cash Sales Account",
@@ -153,13 +154,44 @@
         "adjustmentAccount" : "Adjustment Account",
         "goodsInTransit" : "Goods In Transit",
         "delete" : "Warehouse Deleted Successfully",
-        "success" : "Success"
+        "success" : "Success",
+        "add" : "Warehouse Added Successfully",
+        "edit" : "Warehouse Edited Successfully",
+        "addWarehouse" : "Add Warehouse",
+        "defaultBranch" : "Default Branch",
+        "saveContinue" : "Save & Continue",
+        "branch" : "Realted Branch",
+        "addressLine" : "Address Line",
+        "phone" : "Phone",
+        "postalCode" : "Postal Code",
+        "radius" : "Radius",
+        "salesCostAccount" : "Sales Cost Account"
+
+        
 
 
 
         
     },
     "itemsCategory" : {
-        "title" : "Items Category"
+        "title" : "Items Category",
+        "Configration" : "Configuration",
+        "import" : "Import",
+        "edit" : "Edit",
+        "save" : "Save",
+        "cancel" : "Cancel",
+        "categoryCode" : "Category Code",
+        "parentCategory" : "Parent Category",
+        "isDetails" : "Is Details",
+        "categoryType" : "Category Type",
+        "Main" : "Main",
+        "nameEn" : "Name En",
+        "nameAr" : "Name Ar",
+        "delete" : "Item Category Deleted Successfully",
+        "success" : "Success",
+        "add" : "Item Category Added Successfully",
+        "edits" : "Item Category Edited Successfully",
+        "code" : "Code"
+
     }
 }

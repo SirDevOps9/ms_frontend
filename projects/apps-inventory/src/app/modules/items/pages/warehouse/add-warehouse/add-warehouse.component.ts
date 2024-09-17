@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { FormsService, RouterService } from 'shared-lib';
+import { customValidators, FormsService, RouterService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 
 @Component({
@@ -18,24 +18,44 @@ export class AddWarehouseComponent implements OnInit {
   DiscountAccountLookup = []
   EvaluationAccountLookup = []
   AdjustmentAccountLookup = []
-  AccountsDropDownLookup : { id: number; nameAr: string; nameEn: string }[] = []
+  AccountsDropDownLookup : { id: number; name: string }[] = []
   GoodsInTransitLookup = []
   CityLookup = []
   CompanyPhoneLookup = []
   constructor(private fb : FormBuilder , private formService : FormsService , private itemsService : ItemsService , private routerService : RouterService){}
   ngOnInit(): void {
    this.warehouseForm = this.fb.group({
-    moduleIds : '',
-    code : '',
-    name : '',
-    countryId : ""
+    code: [''],
+    name: [''],
+    warehouseType: [''],
+    branchId: [null],
+    city: [''],
+    addressLine: [''],
+    phone: ['' , customValidators.phone],
+    fax: ['' ],
+    postalCode: [''],
+    email: ['' , customValidators.email],
+    longitude: [null],
+    latitude: [null],
+    radius: [null],
+    glAccountId: [null],
+    cashSalesAccountId: [null],
+    creditSalesAccountId: [null],
+    salesReturnAccountId: [null],
+    salesCostAccountId: [null],
+    discountAccountId: [null],
+    purchaseAccountId: [null],
+    evaluationAccountId: [null],
+    goodsInTransitAccountId: [null],
+    adjustmentAccountId: [null]
    })
    this.getAccount()
   }
   warehouseForm : FormGroup = new FormGroup({})
 
   onSubmit() {
-    
+    // this.itemsService.addWarehouse(this.warehouseForm.getRawValue())
+   
   }
   onCancel() {
     this.routerService.navigateTo('/masterdata/warehouse')

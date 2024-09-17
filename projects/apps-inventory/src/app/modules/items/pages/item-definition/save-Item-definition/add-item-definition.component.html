@@ -168,11 +168,11 @@
                 <lib-fildest header="{{ 'itemType.vatApplied' | translate }}" class="md:col-6">
                   <div>
                     <lib-label [appControl]="itemDefinitionForm.controls['taxId']">
-                      {{ 'itemType.taxes' | translate }}
+                      {{ 'itemType.vat' | translate }}
                     </lib-label>
                     <br />
         
-                    <lib-multi-select
+                    <lib-select
                       formControlName="taxId"
                       [options]="taxesDropDropDownLookup"
                       optionValue="id"
@@ -180,7 +180,7 @@
                       placeholder="{{ 'itemType.taxes' | translate }}"
                       [selectedValue]="itemDefinitionForm.controls['taxId'].value"
                     >
-                    </lib-multi-select>
+                    </lib-select>
                     <lib-field-validations
                       [appControl]="itemDefinitionForm.controls['taxId']"
                     ></lib-field-validations>
