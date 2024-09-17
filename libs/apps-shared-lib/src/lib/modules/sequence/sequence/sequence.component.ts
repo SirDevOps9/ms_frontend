@@ -20,7 +20,7 @@ export class SequenceComponent {
   sequenceDetails: FormArray
   sequence: FormGroup
   separatorOptions: { key: string, value: number }[] = [];
-  segmentOptions: { id: string, name: string }[] = [];
+  segmentOptions: BaseDto[] = [];
   lookups: { [key: string]: lookupDto[] };
   LookupEnum = LookupEnum;
   originalPaymentMethodTypeLookups: lookupDto[] = [];
@@ -309,9 +309,6 @@ getCompany(){
             });
             if(detail.segment == this.SharedEnums.Segments.Separator){
               console.log(detail ,"detail");
-              // this.getSeparatorName(detail)
-         
-
             }
 
             this.sequenceDetails.push(newLine);
