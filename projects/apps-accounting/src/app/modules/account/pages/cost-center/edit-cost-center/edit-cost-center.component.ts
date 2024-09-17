@@ -35,7 +35,7 @@ export class EditCostCenterComponent implements OnInit {
       name: new FormControl('', customValidators.required),
       parentId: new FormControl(null),
       isDetail: new FormControl(false),
-      isActive : new FormControl(true)
+      isActive : new FormControl(false)
     });
   }
   ngOnInit() {
