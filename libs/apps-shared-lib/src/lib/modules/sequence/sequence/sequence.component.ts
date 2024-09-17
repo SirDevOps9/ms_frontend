@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { BaseDto, customValidators, FormsService, lookupDto, LookupEnum, LookupsService, Pages } from 'shared-lib';
+import { BaseDto, customValidators, FormsService, LanguageService, lookupDto, LookupEnum, LookupsService, Pages, ToasterService } from 'shared-lib';
 import { SharedEnums } from '../models/shared-enum';
 import { SequenceService } from '../sequence.service';
+import { Title } from '@angular/platform-browser';
 Pages
 @Component({
   selector: 'lib-sequence',
@@ -31,12 +32,18 @@ export class SequenceComponent {
     private formsService: FormsService,
     public SharedEnums: SharedEnums,
     public lookupsService: LookupsService,
-    public sequenceService: SequenceService
+    public sequenceService: SequenceService,
+    private toasterService : ToasterService ,
+    private languageService : LanguageService ,
+    private titleService: Title,
+
 
 
   ) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle(this.languageService.transalte('sequence.sequence'));
+
       this.getBranch()
     this.separatorOptions = this.SharedEnums.getSeparatorEntries();
    
@@ -53,8 +60,8 @@ export class SequenceComponent {
   initializeForm() {
     this.sequence = this.fb.group({
       status: new FormControl(true),
-      companyId: new FormControl(1),
-      branchesIds: new FormControl(),
+      companyId: new FormControl(),
+      branchesIds: new FormControl('',customValidators.required),
       module: new FormControl(),
       screen: new FormControl(),
       type: new FormControl('Yearly'),
@@ -186,6 +193,8 @@ export class SequenceComponent {
             else if(value == this.SharedEnums.Segments.BranchCode){
               targetControl?.clearValidators();
               valueOption?.clearValidators();  
+              control.get('detailValue')?.setValue(this.allBranches[0].id)
+
             }else if(value == this.SharedEnums.Segments.Separator){
               targetControl?.clearValidators();
               valueOption?.clearValidators();
@@ -255,6 +264,8 @@ export class SequenceComponent {
   this.sequenceService.getBranch().subscribe(
     (branches) => {
       this.allBranches = branches
+      this.sequence.get('branchesIds')?.setValue(this.allBranches[0].id)
+
     }
   );
 }
@@ -273,7 +284,7 @@ getCompany(){
         console.log(sequence, "000000000000000000000000000");
         this.sequence.patchValue({
           status: sequence.status,
-          branchesIds: sequence.branchesIds,
+          branchesIds: sequence.branchesIds || [this.allBranches[0].id],
           type: sequence.type,
         });
         // Loop through the sequenceDetails from the response
@@ -296,7 +307,19 @@ getCompany(){
   }
   
   save(){
-      this.sequenceService.addSequence(this.sequence.value)    
+    if (!this.formsService.validForm(this.sequence, false)) return;
+  const hasSeparator = this.sequenceDetails.controls.some(control => {
+    return control.get('segment')?.value === this.SharedEnums.Segments.SerialNumber;
+  });
+
+  if (!hasSeparator) {
+    this.toasterService.showError(
+      this.languageService.transalte('error'),
+      this.languageService.transalte('sequence.addSerialnumber')
+    );
+   return; 
+  }
+  this.sequenceService.addSequence(this.sequence.value);
   }
   onDelete(sequencLine:any){
     this.sequenceDetails.removeAt(sequencLine);

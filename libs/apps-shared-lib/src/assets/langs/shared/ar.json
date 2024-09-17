@@ -2,8 +2,10 @@
     "Save": "حفظ",
     "Cancel": "إلغاء",
     "AddNewLine": "إضافة سطر جديد",
-  
+    "error": "خطأ",
+    "success": "نجاح",
     "sequence": {
+      "sequence": "تسلسل",
       "Allowed": "مسموح",
       "company": "شركة",
       "branch": "فرع",
@@ -18,7 +20,9 @@
       "option": "خيار",
       "actions": "إجراءات",
       "example": "مثال",
-      "AddNewLine": "إضافة سطر جديد"
+      "AddNewLine": "إضافة سطر جديد",
+      "addSerialnumber":"يرجى إدخال الرقم التسلسلي  لإتمام العملية. الرقم التسلسلي",
+      "sequenceAdded": "تم إضافة التسلسل بنجاح"
     },
     "validation": {
       "invalidForm": "الرجاء إكمال جميع الحقول المطلوبة",

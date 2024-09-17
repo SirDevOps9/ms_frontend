@@ -51,10 +51,13 @@
                             optionValue="id"
                             optionLabel="name"
                             formControlName="branchesIds"
-                            
+                            [selectedValue]="sequence.controls['branchesIds'].value"
                             
                             ></lib-multi-select>
-
+                            <lib-field-validations
+                            [appControl]="sequence.controls['branchesIds']"
+                            >
+                            </lib-field-validations>
                         </lib-form-group>
                     </div>
                     <div class="col-12 md:col-6">

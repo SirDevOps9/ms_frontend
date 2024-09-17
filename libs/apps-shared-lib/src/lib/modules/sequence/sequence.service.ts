@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { sequenceProxy } from './sequence.proxy';
-import { LanguageService, LoaderService, ToasterService } from 'shared-lib';
+import { LanguageService, ToasterService } from 'shared-lib';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,6 @@ export class SequenceService {
     private sequenceProxy:sequenceProxy,
     private toasterService : ToasterService ,
      private languageService : LanguageService ,
-      private loaderService : LoaderService
   ){}
   
   getBranch()  {
@@ -23,24 +22,16 @@ export class SequenceService {
     return this.sequenceProxy.getSequence(screen)
    }
    addSequence(sequence:any){
-    console.log(sequence ,"444444444");
     
     this.sequenceProxy.addSequence(sequence).subscribe({
       next: (res) => {
         if (res) {
           this.toasterService.showSuccess(
-            this.languageService.transalte('add-paymentterm.success'),
-            this.languageService.transalte('add-paymentterm.add')
+            this.languageService.transalte('success'),
+            this.languageService.transalte('sequence.sequenceAdded')
           );
         }
       },
-      error: (err) => {
-        // Handle the error appropriately
-        this.toasterService.showError(
-          this.languageService.transalte('add-paymentterm.error'),
-          this.languageService.transalte('add-paymentterm.add')
-        );
-      }
     });
   
 }
