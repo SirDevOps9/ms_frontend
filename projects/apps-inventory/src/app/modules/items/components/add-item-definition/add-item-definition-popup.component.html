@@ -33,7 +33,7 @@
             </div>
             <div class="col-12 my-2">
               <lib-form-group>
-                <lib-label [appControl]="itemDefinitionForm.controls['typeId']">
+                <lib-label [appControl]="itemDefinitionForm.controls['categoryId']">
                     {{ 'itemCategory.itemCategory' | translate }}
                   </lib-label>
                 <lib-select
@@ -41,16 +41,16 @@
                   [options]="itemTypeLookupData"
                   optionLabel="name"
                   optionValue="id"
-                  formControlName="typeId"
+                  formControlName="categoryId"
                 ></lib-select>
-                <lib-field-validations [appControl]="itemDefinitionForm.controls['typeId']">
+                <lib-field-validations [appControl]="itemDefinitionForm.controls['categoryId']">
                 </lib-field-validations>
               </lib-form-group>
             </div>
   
             <div class="col-12 my-2 multi-cont">
                 <lib-form-group>
-                    <lib-label [appControl]="itemDefinitionForm.controls['categoryId']">
+                    <lib-label [appControl]="itemDefinitionForm.controls['typeId']">
                         {{ 'itemCategory.unitOfMeasureCategory' | translate }}
                       </lib-label>
                     <lib-select
@@ -58,9 +58,10 @@
                       [options]="ItemCategoryDropDown"
                       optionLabel="name"
                       optionValue="id"
-                      formControlName="categoryId"
+                      formControlName="typeId"
+                      (valueChanged)="uomCategoryChanged($event)"
                     ></lib-select>
-                    <lib-field-validations [appControl]="itemDefinitionForm.controls['categoryId']">
+                    <lib-field-validations [appControl]="itemDefinitionForm.controls['typeId']">
                     </lib-field-validations>
                   </lib-form-group>
             </div>

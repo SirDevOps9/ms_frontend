@@ -20,7 +20,7 @@ export class AddItemDefinitionComponent implements OnInit {
 
   itemDefinitionForm : FormGroup = new FormGroup({})
   id : number
-  uomLookup : { id: number; nameEn: string }[] = []
+  uomLookup : { id: number; name: string }[] = []
   colors = [
     { label: 'Red', value: '#FF0000', icon: 'pi pi-circle' },
     { label: 'Green', value: '#008000', icon: 'pi pi-circle' },

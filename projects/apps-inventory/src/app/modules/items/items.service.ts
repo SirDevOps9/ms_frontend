@@ -37,7 +37,7 @@ export class ItemsService {
   public codeByuomCodeDropDown = new BehaviorSubject<{ code: string }>({ code: '' });
   public UOMCategoryDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public UOMDropDownLookup = new BehaviorSubject<{ id: number; nameEn: string }[]>([]);
-  public UOMDropDownLookupByUomCategory = new BehaviorSubject<{ id: number; nameEn: string }[]>([]);
+  public UOMDropDownLookupByUomCategory = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public ItemVariantsByItemIdDropDown = new BehaviorSubject<{ id: number; nameEn: string }[]>([]);
   public addVariantLineData = new BehaviorSubject<any>('');
   public ActivateVairiantGroupData = new BehaviorSubject<boolean>(false);
