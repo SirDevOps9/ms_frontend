@@ -9,7 +9,7 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { LanguageService, LookupsService } from '../../services';
+import { LanguageService, LookupsService, RouterService } from '../../services';
 import { TableConfig } from './data-table-column';
 import { PageInfo, PageInfoResult } from '../../models';
 import { NgIfContext } from '@angular/common';
@@ -25,6 +25,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() selectedIndex: number;
   @Input() resizableColumns: boolean = true;
   @Input() popup: boolean = false;
+  @Input() sequence: boolean = false;
   @Input() firstRow: boolean = false;
   @Input() currentPageResult: PageInfoResult;
   first: number = 0;
@@ -113,14 +114,20 @@ export class DataTableComponent implements OnInit, OnChanges {
   hasNestedHeaders(): boolean {
     return this.tableConfigs.columns.some((col) => col.children && col.children.length > 0);
   }
-
-  constructor(
-    public languageService: LanguageService,
-    public lookupsService: LookupsService,
-
-    private generalService: GeneralService
-  ) {}
   ngOnChanges(changes: SimpleChanges): void {
     this.clonedTableConfigs = this.tableConfigs;
   }
+  routeToSequence(){
+    const currentUrl = this.routerService.getCurrentUrl();
+    this.routerService.navigateTo(`${currentUrl}/sequence`);
+
+
+  }
+  constructor(
+    public languageService: LanguageService,
+    public lookupsService: LookupsService,
+    private generalService: GeneralService,
+    private routerService: RouterService,
+
+  ) {}
 }

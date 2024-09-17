@@ -1,3 +1,4 @@
+import { Pages } from './../../../../../../libs/shared-lib/src/lib/models/pages';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddPaymentInComponent } from './pages/paymentin/add-payment-in/add-payment-in.component';
@@ -10,7 +11,7 @@ import { PaymentMethodComponent } from './components/paymentin/payment-method/pa
 import { PopupAccountsComponent } from './components/paymentin/popup-accounts/popup-accounts.component';
 import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutPageComponent } from 'apps-shared-lib';
+import { LayoutPageComponent ,SequenceComponent } from 'apps-shared-lib';
 import { AddPaymentOutComponent } from './pages/paymentout/add-payment-out/add-payment-out.component';
 import { EditPaymentOutComponent } from './pages/paymentout/edit-payment-out/edit-payment-out.component';
 import { ViewPaymentOutComponent } from './pages/paymentout/view-payment-out/view-payment-out.component';
@@ -27,6 +28,14 @@ const routes: Routes = [
       moduleId: Modules.Finance,
     },
     children: [
+      {
+        path: 'sequence/:page',
+        component: SequenceComponent,
+        data: {
+          moduleId: Modules.Finance,
+          pageId: Pages.paymenitIn,
+        },
+      },
       {
         path: 'paymentin',
         component: MainPaymentInComponent,
@@ -61,7 +70,17 @@ const routes: Routes = [
             data: {
               breadcrumb: BreadcrumbLabel.VIEW_PAYMENT_IN,
             }
-          }
+          },
+          {
+            path: 'sequence',
+            component: SequenceComponent,
+            data: {
+              moduleId: Modules.Finance,
+              pageId: Pages.paymenitIn,
+              breadcrumb: BreadcrumbLabel.SEQUENCE,
+
+            },
+          },
         ]
         },
         {
@@ -96,6 +115,15 @@ const routes: Routes = [
               component: ViewPaymentOutComponent,
               data: {
                 breadcrumb: BreadcrumbLabel.VIEW_PAYMENT_OUT,
+              },
+            },
+            {
+              path: 'sequence',
+              component: SequenceComponent,
+              data: {
+                moduleId: Modules.Finance,
+                pageId: Pages.PaymentOut,
+                breadcrumb: BreadcrumbLabel.SEQUENCE,
               },
             },
           ]

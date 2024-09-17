@@ -15,7 +15,8 @@
   "ViewPaymentMethod": "View Payment Method",
   "PaymentIn":"Payment In " ,
   "ViewPaymentIn": "View Payment In",
-  "ViewPaymentout": "View Payment Out"
+  "ViewPaymentout": "View Payment Out",
+  "sequence":"sequence"
 
 },
   "COAConfigration": {

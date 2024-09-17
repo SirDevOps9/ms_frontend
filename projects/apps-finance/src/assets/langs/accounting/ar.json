@@ -16,7 +16,9 @@
     "ViewPaymentMethod": "عرض طريقة الدفع",
     "PaymentIn": "إيصال الدفع",
     "ViewPaymentIn": "عرض قبض",
-    "ViewPaymentout": "عرض صرف"
+    "ViewPaymentout": "عرض صرف",
+    "sequence": "تسلسل"
+
 
 
 
