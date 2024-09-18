@@ -284,42 +284,6 @@ getCompany(){
   );
 }
 
-  // getSequence(screen: string) {
-  //   this.sequenceService.getSequence(screen).subscribe(
-    
-  //       (sequence) => {
-  //         if(sequence){
-  //         this.sequence.patchValue({
-  //           status: sequence?.status,
-  //           // branchesIds: sequence?.branchesIds || this.allBranches[0]?.id,
-  //           type: sequence?.type,
-  //         });
-  //         // Loop through the sequenceDetails from the response
-  //         sequence.sequenceDetails.forEach((detail: any) => {
-  //           let newLine = this.fb.group({
-  //             order: new FormControl(detail.order),
-  //             segment: new FormControl(detail.segment),
-  //             detailValue: new FormControl(detail.detailValue),
-  //             valueOption: new FormControl(detail.valueOption),
-  //             segmentName: new FormControl(""), // Adjust as needed
-  //             companyCode: new FormControl(""), // Adjust as needed
-  //             branchCode: new FormControl(""),  // Adjust as needed
-  //             serialNumber: new FormControl(),  // Adjust as needed
-  //             separatorName: new FormControl(this.getSeparatorNameOfDetailValue(detail.detailValue))  // Adjust as needed
-  //           });
-  //           if(detail.segment == this.SharedEnums.Segments.Separator){
-  //             console.log(detail ,"detail");
-  //           }
-  //           newLine.updateValueAndValidity();
-
-  //           this.sequenceDetails.push(newLine);
-  //           this.updateOrderFields();
-  //         });
-  //       }
-  //     }
-    
-  //   );
-  // }
  getSequence(screen: string) {
   this.sequenceService.getSequence(screen).subscribe(
     (sequence) => {
@@ -328,28 +292,6 @@ getCompany(){
           status: sequence?.status,
           type: sequence?.type,
         });
-
-        // Loop through the sequenceDetails from the response
-        // sequence.sequenceDetails.forEach((detail: any) => {
-        //   let newLine = this.fb.group({
-        //     order: new FormControl(detail.order),
-        //     segment: new FormControl(detail.segment),
-        //     detailValue: new FormControl(detail.detailValue),
-        //     valueOption: new FormControl(detail.valueOption),
-        //     segmentName: new FormControl(""),
-        //     companyCode: new FormControl(""),
-        //     branchCode: new FormControl(""),
-        //     serialNumber: new FormControl(),
-        //     separatorName: new FormControl(this.getSeparatorNameOfDetailValue(detail.detailValue))
-        //   });
-
-        //   // Apply Validators based on segment value
-        //   this.applySegmentValidators(newLine);
-
-        //   newLine.updateValueAndValidity(); // Trigger validation
-        //   this.sequenceDetails.push(newLine);
-        //   this.updateOrderFields();
-        // });
         sequence.sequenceDetails.forEach((detail: any) => {
           let newLine = this.fb.group({
             order: new FormControl(detail.order),
