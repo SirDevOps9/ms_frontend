@@ -95,7 +95,7 @@ export class VendorOpeningBalanceDistributeComponent implements OnInit {
       debit: new FormControl(0, [customValidators.required , customValidators.number ,customValidators.hasSpaces ]),
 
     });
-    group.get('credit')?.valueChanges.subscribe(value => {
+    group.get('debit')?.valueChanges.subscribe(value => {
       if (value != 0) {
         group.get('dueDate')?.setValue(null); // Set dueDate to null
       }
@@ -150,7 +150,7 @@ export class VendorOpeningBalanceDistributeComponent implements OnInit {
     if (!allValid) return;
     const totalCredit = this.getTotalCredit();
     const totalDebit = this.getTotalDebit();
-    const totalSum = Math.round(this.getTotalDebit() - this.getTotalCredit());
+    const totalSum = Math.round( this.getTotalCredit()-this.getTotalDebit() );
     if (totalSum == this.balance) {
       this.error=false
       this.ref.close(formattedItems);
@@ -177,7 +177,8 @@ export class VendorOpeningBalanceDistributeComponent implements OnInit {
     }, 0);
   }
   getTotalBalanceSum() {
-    this.totalBalanceSum = Math.round(this.getTotalDebit() - this.getTotalCredit());
+    console.log("this.totalBalanceSum",this.totalBalanceSum)
+    this.totalBalanceSum = Math.round( this.getTotalCredit()-this.getTotalDebit() );
     if(this.totalBalanceSum != this.balance){
       this.error=true
     }else{

@@ -127,7 +127,7 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
   openDistribute(data: any, account: number, index: number, customerGroup: FormGroup) {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
     if (!this.formService.validForm(this.vendorForm, false)) return;
-    if (data.balanceType != this.enums.BalanceType.Debit) {
+    if (data.balanceType != this.enums.BalanceType.Credit) {
       this.toasterService.showError(
         this.languageService.transalte('Error'),
         this.languageService.transalte('Distribution')

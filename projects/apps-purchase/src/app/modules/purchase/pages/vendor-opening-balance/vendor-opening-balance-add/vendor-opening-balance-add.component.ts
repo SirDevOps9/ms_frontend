@@ -139,7 +139,7 @@ export class VendorOpeningBalanceAddComponent implements OnInit {
   openDistribute(data: any, account: number, index: number, VendorGroup: FormGroup) {
     if (!this.formService.validForm(this.vendorForm, false)) return;
 
-     if (data.balanceType != this.enums.BalanceType.Debit) {
+     if (data.balanceType != this.enums.BalanceType.Credit) {
        this.toasterService.showError(
          this.languageService.transalte('Error'),
          this.languageService.transalte('Distribution')
