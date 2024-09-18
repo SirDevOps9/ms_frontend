@@ -353,6 +353,7 @@
   "payment-view": {
     "code": "Code",
     "paymentInDate": "Payment In Date",
+    "paymentOutDate": "Payment Out Date",
     "description": "Description",
     "paymentHub": "Payment Hub",
     "paymentHubDetailName": "Payment Hub Detail Name",
