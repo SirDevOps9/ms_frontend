@@ -229,7 +229,14 @@ const routes: Routes = [
     EditAttributeDefinitionComponent,
     OperationTagMainComponent,
     OperationTagAddComponent,
-    OperationTagEditComponent
+    OperationTagEditComponent,
+    ItemsCategoryTreeComponent,
+    AddItemsCategoryComponent,
+    EditItemCategoryComponent,
+    ViewItemCategoryComponent,
+    EditWarehouseComponent,
+    MainItemCategoriesTreeComponent,
+    AddWarehousePopupComponent
   ],
   imports: [
     CommonModule,
