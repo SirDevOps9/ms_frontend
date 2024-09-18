@@ -347,6 +347,7 @@
   "payment-view": {
     "code": "الرمز",
     "paymentInDate": "تاريخ الدفع",
+    "paymentOutDate": "تاريخ الدفع",
     "description": "الوصف",
     "paymentHub": "مركز الدفع",
     "paymentHubDetailName": "تفاصيل مركز الدفع",
