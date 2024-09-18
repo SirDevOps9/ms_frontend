@@ -49,7 +49,7 @@
               <td [pEditableColumn]="customerGroup.controls['credit']" pEditableColumnField="credit">
                 <p-cellEditor>
                   <ng-template pTemplate="input">
-                    <lib-text-input (keyUp)="getTotalBalanceSum() ;resetDate($event)" formControlName="credit"></lib-text-input>
+                    <lib-text-input (keyUp)="getTotalBalanceSum()" formControlName="credit"></lib-text-input>
 
                   </ng-template>
                   <ng-template pTemplate="output">
