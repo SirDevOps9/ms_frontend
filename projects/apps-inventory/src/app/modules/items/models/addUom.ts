@@ -8,3 +8,14 @@ export interface AddUom {
     isPurchase: boolean
   }
   
+  
+  export interface UomPost {
+    code?: string
+    nameAr?: string
+    nameEn?: string
+    shortName?: string
+    uomType?: string
+    uomCategoryId?: number
+    conversionRatio?: number
+    isActive?:boolean
+  }

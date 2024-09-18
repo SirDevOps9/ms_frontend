@@ -23,7 +23,6 @@ import { PaymentMethodListComponent } from './pages/payment-method/payment-metho
 import { AddPaymentMethodComponent } from './pages/payment-method/add-payment-method/add-payment-method.component';
 import { EditPaymentMethodComponent } from './pages/payment-method/edit-payment-method/edit-payment-method.component';
 import { ViewPaymentMethodComponent } from './pages/payment-method/view-payment-method/view-payment-method.component';
-
 const routes: Routes = [
   {
     path: '',
@@ -109,9 +108,7 @@ const routes: Routes = [
             data: {
               breadcrumb: BreadcrumbLabel.PAYMENT_TERM_Edit,
             },
-            
           },
-      
         ]
         },
       {
@@ -135,7 +132,6 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_LIST,
         },
       },
-
       {
         path: 'add-payment-method',
         component: AddPaymentMethodComponent,
@@ -157,7 +153,6 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_VIEW,
         },
       },
-
       //   path: 'payment-in',
       //   component: PaymentInListComponent,
       //   data: {
@@ -167,7 +162,6 @@ const routes: Routes = [
     ],
   },
 ];
-
 @NgModule({
   declarations: [
     TreauryDefinitionListComponent,
@@ -189,8 +183,6 @@ const routes: Routes = [
     AddPaymentMethodComponent,
     EditPaymentMethodComponent,
     ViewPaymentMethodComponent
-
-    
   ],
   imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes)],
 })

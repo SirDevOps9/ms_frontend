@@ -96,7 +96,19 @@ export class BreadcrumbLabel {
     static  ITEM_CATEGORY ='Item Category';
     static  WARE_HOUSE ='Warehouse';
     static  ADD_WARE_HOUSE ='Add Warehouse';
-   
+    static  UOM ='uom';
+    static  UOM_LIST ='uom-list';
+    static  ADD_UOM ='Add uom';
+    static  Edit_UOM ='edit uom';
+
+    // attr attribute-definition 
+    static  Attribute_Definition = 'Attribute Definition';
+    static  Operational_Tag = 'Operational Tag';
+    static  Add_Operational_Tag = 'Add Operational Tag';
+    static  Edit_Operational_Tag = 'Edit Operational Tag';
+    static  Add_Attribute_Definition = 'Add Attribute Definition';
+    static  Edit_Attribute_Definition = 'Edit Attribute Definition';
+
     static COST_CENTER ='Cost Center';
     static PAYMENT_TERM_ADD ='BreadCrumb.AddPaymentterm';
     static PAYMENT_TERM_EDIT ='BreadCrumb.EditPaymentterm';
