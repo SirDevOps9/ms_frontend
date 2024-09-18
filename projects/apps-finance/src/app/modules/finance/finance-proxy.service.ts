@@ -24,7 +24,6 @@ import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { AddBankDto } from './models/addBankDto';
 import { UserPermission } from './models/user-permission';
 import { bankByID } from './models/getBankByID';
-import { AddPaymentTermComponent } from './pages/payment-term/add-payment-term/add-payment-term.component';
 import { GetPaymentTermById } from './models/get-payment-term-by-id-dto';
 import { BankAccountWithCurrency } from './models/bank-account-with-currency-dto';
 import { GetPaymentMethodByIdDto } from './models/get-payment-method-by-id-dto';

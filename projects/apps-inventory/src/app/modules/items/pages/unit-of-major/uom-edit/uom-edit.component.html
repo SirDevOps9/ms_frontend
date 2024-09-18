@@ -1,0 +1,276 @@
+<lib-page-content [title]="'bank.TaxList' | translate" [subTitle]="'bank.TaxList' | translate">
+  <div class="bank">
+    <div [formGroup]="UOMFormGroup" class="entry_header">
+      <div class="grid">
+        <div class="col-12 md:col-6">
+          <lib-form-group>
+            <lib-label
+              [appControl]="UOMFormGroup.controls['uomCodeCategory']"
+              class="body_b14 mb-2 ms-4"
+            >
+              {{ 'UOM.CategoryCode' | translate }}
+            </lib-label>
+            <lib-select
+              formControlName="uomCodeCategory"
+              [options]="listOfUOM"
+              optionValue="id"
+              optionLabel="name"
+              [readOnly]="true"
+              [selectedValue]="UOMFormGroup.controls['uomCodeCategory'].value"
+            >
+            </lib-select>
+          </lib-form-group>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+
+  <div class="entry_table">
+    <div class="card">
+      <p-table
+        [value]="uomTableForm.controls"
+        dataKey="id"
+        styleClass="p-datatable-gridlines p-datatable-striped"
+        [tableStyle]="{ 'min-width': '50rem' }"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>{{ 'UOM.code' | translate }}</th>
+            <th>{{ 'UOM.nameAr' | translate }}</th>
+            <th>{{ 'UOM.nameEn' | translate }}</th>
+            <th>{{ 'UOM.shortName' | translate }}</th>
+            <th>{{ 'UOM.type' | translate }}</th>
+            <th>{{ 'UOM.conversionUOM' | translate }}</th>
+            <th>{{ 'UOM.conversionRatio' | translate }}</th>
+            <th>{{ 'UOM.status' | translate }}</th>
+            <th>{{ 'UOM.action' | translate }}</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-uomTableForm let-editing="editing" let-i="rowIndex">
+          <tr [formGroup]="uomTableForm">
+            <!-- code   -->
+            <td [pEditableColumn]="uomTableForm.controls['code']" pEditableColumnField="code">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    placeholder="{{ 'UOM.code' | translate }}"
+                    formControlName="code"
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ uomTableForm.controls['code'].value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="uomTableForm.controls['code']"
+              ></lib-field-validations>
+            </td>
+            <!--  -->
+            <!--  name in arabic-->
+            <td [pEditableColumn]="uomTableForm.controls['nameAr']" pEditableColumnField="nameAr">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    placeholder="{{ 'UOM.nameAr' | translate }}"
+                    formControlName="nameAr"
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ uomTableForm.controls['nameAr'].value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="uomTableForm.controls['nameAr']"
+              ></lib-field-validations>
+            </td>
+            <!--  -->
+            <!-- name in english -->
+            <td [pEditableColumn]="uomTableForm.controls['nameEn']" pEditableColumnField="nameEn">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    placeholder="{{ 'UOM.nameEn' | translate }}"
+                    formControlName="nameEn"
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ uomTableForm.controls['nameEn'].value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="uomTableForm.controls['nameEn']"
+              ></lib-field-validations>
+            </td>
+            <!--  -->
+            <!-- name in english -->
+            <td
+              [pEditableColumn]="uomTableForm.controls['shortName']"
+              pEditableColumnField="shortName"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    placeholder="{{ 'UOM.shortName' | translate }}"
+                    formControlName="shortName"
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ uomTableForm.controls['shortName'].value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="uomTableForm.controls['shortName']"
+              ></lib-field-validations>
+            </td>
+            <!--  -->
+            <!-- Type -->
+
+            <!-- type -->
+
+            <td
+              [pEditableColumn]="uomTableForm.controls['uomType']"
+              pEditableColumnField="uomTableForm.controls['uomType']"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-form-group>
+                    <lib-select
+                      placeholder="{{ 'UOM.uomType' | translate }}"
+                      [options]="uomTypeList"
+                      optionLabel="name"
+                      optionValue="name"
+                      formControlName="uomType"
+                    ></lib-select>
+                  </lib-form-group>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ uomTableForm.controls['uomType'].value }}
+                  <lib-field-validations
+                    [appControl]="uomTableForm.controls['uomType']"
+                  ></lib-field-validations>
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <!--  -->
+            <!--  -->
+
+            <td
+              [pEditableColumn]="uomTableForm.controls['conversionUOM']"
+              pEditableColumnField="uomTableForm.controls['conversionUOM']"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-form-group>
+                  
+                    <lib-select
+                      placeholder="{{ 'UOM.conversionUOM' | translate }}"
+                      [options]="getFilteredConversionUOMOptions(i)"
+                      optionLabel="name"
+                      optionValue="id"
+                      formControlName="conversionUOM"
+                    ></lib-select>
+                  </lib-form-group>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ getConversionUOMName(uomTableForm.controls['conversionUOM'].value) }}
+                  <lib-field-validations
+                    [appControl]="uomTableForm.controls['conversionUOM']"
+                  ></lib-field-validations>
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <!-- name rasio -->
+            <td
+              [pEditableColumn]="uomTableForm.controls['conversionRatio']"
+              pEditableColumnField="conversionRatio"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    [type]="'number'"
+                    placeholder="{{ 'UOM.conversionRatio' | translate }}"
+                    formControlName="conversionRatio"
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ uomTableForm.controls['conversionRatio'].value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="uomTableForm.controls['conversionRatio']"
+              ></lib-field-validations>
+            </td>
+            <!--  -->
+            <!--  -->
+
+            <!--  -->
+
+            <td [pEditableColumn]="uomTableForm.controls['isActive']" pEditableColumnField="isActive">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <!-- Bind the form control to the value of lib-input-switch -->
+                  <lib-input-switch [id]="i" [disabled]="false" formControlName="isActive"
+                    (valueChanged)="toggleAttrStatus(uomTableForm?.value, $event)">
+                  </lib-input-switch>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ uomTableForm.controls['isActive']?.value ? 'Active' : 'Inactive' }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations [appControl]="uomTableForm?.controls['isActive']"></lib-field-validations>
+            </td>
+            <td>
+              <div class="actions flex align-items-center">
+                @if( !shouldShowSaveButton(i) && isLastLineSaved){
+                <lib-button-micro
+                  nameClass="cancel"
+                  iconName="pi pi-trash"
+                  type="button"
+                  (click)="onDelete(uomTableForm.value)"
+                >
+                </lib-button-micro>
+                } @if( !isLastLineSaved){
+                <lib-button-micro
+                  nameClass="cancel"
+                  iconName="pi pi-trash"
+                  type="button"
+                  (click)="deleteLine(i)"
+                >
+                </lib-button-micro>
+                } @if(shouldShowSaveButton(i)){
+                <lib-button-micro
+                  nameClass="save"
+                  iconName="pi pi-save"
+                  *ngIf="shouldShowSaveButton(i)"
+                  type="button"
+                  (click)="onSave(uomTableForm.value, i)"
+                >
+                </lib-button-micro>
+                }
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+
+  <div class="btn_group">
+    <div class="grid mt-4">
+      <div class="md:col-3">
+        <div class="grid">
+          <div class="md:col-6">
+            <!-- <lib-button-micro nameClass="cancel" title="{{ 'UOM.discard' | translate }}" (click)="discard()">
+              </lib-button-micro> -->
+          </div>
+          <div class="md:col-6">
+            <!-- <lib-button-micro nameClass="save w-100" title="{{ 'UOM.save' | translate }}" iconName="pi pi-save"
+                type="button" (click)="onSave()">
+              </lib-button-micro> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</lib-page-content>
