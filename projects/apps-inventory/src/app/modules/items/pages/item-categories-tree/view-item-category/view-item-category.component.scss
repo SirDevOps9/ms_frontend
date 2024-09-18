@@ -1,0 +1,114 @@
+// @import "../../../../../../../../libs/apps-shared-lib/src/assets/styling/scss/variables/font-family";
+
+.content_descreption{
+    width: 100%;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #E6E4E4;
+    border-radius: 8px;
+    .parent_account , .accountCode , .account_nature{
+        margin: 10px 0px;
+    }
+    .account_child{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+   
+      
+      
+}
+.active{
+    background: #DCF3FA;
+    color: #0D4859;
+}
+.label_text{
+    font-size: 16px;
+    // font-family: $cairo_regular;
+}
+
+/////////
+.chart_view_page{
+    input[type="radio"]:disabled {
+        background-color: #1a90b0;
+        border: 2px solid #ccc;
+        cursor: not-allowed;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        position: relative;
+    }
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    .account_activation{
+        display: flex !important;
+        align-items: center !important;
+        .title{
+            margin-inline-start: 5px;
+        }
+    }
+    .action{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    ::ng-deep{
+        .chart_view_page{
+            .p-inputtext::placeholder {
+                color: #6B7280 !important;
+                font-size: 16px;
+                // font-family: $cairo_regular;
+              }
+        }
+        .p-multiselect {
+            width: 100% !important;
+        }
+        .p-radiobutton .p-radiobutton-box.p-highlight {
+            border-color: #1a90b0 !important;
+            background: #1a90b0 !important;
+        }
+        
+            
+            .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+                background: #1a90b0 !important;
+              }
+              .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider {
+                background: #1a90b0 !important;
+              }
+              .p-inputswitch.p-focus .p-inputswitch-slider {
+                box-shadow:  none !important;
+              }
+        
+    
+      
+    }
+    }
+    ::ng-deep{
+        .chart_view_page{
+            .p-inputtext::placeholder {
+                color: #000 !important;
+                font-size: 16px;
+                // font-family: $cairo_regular;
+              }
+          
+              .p-radiobutton .p-radiobutton-box {
+                border: 2px solid #d1d5db;
+                background: #1a90b0 !important;
+                width: 15px !important;
+                height: 15px !important;
+                color: #4b5563;
+                border-radius: 50%;
+                transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+                outline-color: transparent;
+              }
+              .p-radiobutton {
+                width: 22px;
+                height: auto !important;
+              }
+        }
+    }

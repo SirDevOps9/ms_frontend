@@ -108,6 +108,8 @@ export class BreadcrumbLabel {
     static  Edit_Operational_Tag = 'Edit Operational Tag';
     static  Add_Attribute_Definition = 'Add Attribute Definition';
     static  Edit_Attribute_Definition = 'Edit Attribute Definition';
+    static  EDIT_WARE_HOUSE ='Edit Warehouse';
+    static  ITEMS_CATEGORY ='Items Category';
 
     static COST_CENTER ='Cost Center';
     static PAYMENT_TERM_ADD ='BreadCrumb.AddPaymentterm';

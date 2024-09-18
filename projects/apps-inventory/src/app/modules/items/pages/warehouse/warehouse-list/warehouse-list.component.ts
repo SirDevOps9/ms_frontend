@@ -5,7 +5,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { RouterService, LanguageService, lookupDto, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
 import { AddItemDefinitionPopupComponent } from '../../../components/add-item-definition/add-item-definition-popup.component';
 import { ItemsService } from '../../../items.service';
-import { itemDefinitionDto } from '../../../models';
+import { GetWarehouseList, itemDefinitionDto } from '../../../models';
+import { AddWarehousePopupComponent } from '../../../components/warehouse/add-warehouse-popup/add-warehouse-popup.component';
 
 @Component({
   selector: 'app-warehouse-list',
@@ -25,9 +26,9 @@ export class WarehouseListComponent implements OnInit {
 
   }
 
-  tableData: itemDefinitionDto[];
+  tableData: GetWarehouseList[];
 
-  exportData: itemDefinitionDto[];
+  exportData: GetWarehouseList[];
   cols = [
    
     {
@@ -42,6 +43,14 @@ export class WarehouseListComponent implements OnInit {
     {
       field: 'Short Name',
       header: 'shortName',
+    },
+    {
+      field: 'Item Category Name',
+      header: 'itemCategoryName',
+    },
+    {
+      field: 'UOM Name',
+      header: 'uomName',
     },
    
   ];
@@ -61,9 +70,9 @@ export class WarehouseListComponent implements OnInit {
   }
 
   initItemDefinitionData() {
-    this.itemsService.getItemDefinition('', new PageInfo());
+    this.itemsService.getWarehouseList('', new PageInfo());
 
-    this.itemsService.sendItemDefinitionDataSourceObs.subscribe({
+    this.itemsService.sendWarehouseDataSourceObs.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -75,48 +84,46 @@ export class WarehouseListComponent implements OnInit {
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.itemsService.getItemDefinition('', pageInfo);
+    this.itemsService.getWarehouseList('', pageInfo);
 
   
   }
 
   exportClick(e?: Event) {
-    this.exportBankData(this.searchTerm);
+    this.exportWarehouseData(this.searchTerm);
   }
 
-  exportBankData(searchTerm: string) {
-    this.itemsService.exportsItemsDefinitionList(searchTerm);
-    this.itemsService.exportedItemDefinitionListDataSource.subscribe((res) => {
+  exportWarehouseData(searchTerm: string) {
+    this.itemsService.exportsWayehouseList(searchTerm);
+    this.itemsService.exportedWarehouseDataSourceObs.subscribe((res) => {
       this.exportData = res;
     });
   }
 
   onAdd() {
-   this.routerService.navigateTo('/masterdata/add-warehouse')
+      const dialogRef = this.dialog.open(AddWarehousePopupComponent, {
+      width: '800px',
+      height : '550px',
+    });
+    dialogRef.onClose.subscribe(() => {
+    this.initItemDefinitionData()
+    });
+  
   }
 
   onEdit(data: any) {
-    // const dialogRef = this.dialog.open(EditItemDefinitionComponent, {
-    
-    //   width: '800px',
-    //   height : '700px',
-    //   data : data
-  
-    // });
+    this.routerService.navigateTo(`/masterdata/edit-warehouse/${data.id}`)
 
-    // dialogRef.onClose.subscribe(() => {
-    // this.initItemDefinitionData()
-    // });
 
   }
 
   onSearchChange() {
-    this.itemsService.getItemDefinition(this.searchTerm, new PageInfo());
+    this.itemsService.getWarehouseList(this.searchTerm, new PageInfo());
     
   }
 
   onDelete(id: number) {
-     this.itemsService.deleteItemDefinition(id)
+     this.itemsService.deleteWareHouse(id)
   }
 }
 

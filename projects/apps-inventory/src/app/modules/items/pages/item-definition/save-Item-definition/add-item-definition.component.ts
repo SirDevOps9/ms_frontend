@@ -20,7 +20,7 @@ export class AddItemDefinitionComponent implements OnInit {
 
   itemDefinitionForm : FormGroup = new FormGroup({})
   id : number
-  uomLookup : { id: number; nameEn: string }[] = []
+  uomLookup : { id: number; name: string }[] = []
   colors = [
     { label: 'Red', value: '#FF0000', icon: 'pi pi-circle' },
     { label: 'Green', value: '#008000', icon: 'pi pi-circle' },
@@ -72,9 +72,9 @@ export class AddItemDefinitionComponent implements OnInit {
     { label: 'Honeydew', value: '#F0FFF0', icon: 'pi pi-circle' },
     { label: 'Azure', value: '#007FFF', icon: 'pi pi-circle' },
   ];
-  ItemCategoryDropDown : { id: number; nameAr: string; nameEn: string }[] = []
+  ItemCategoryDropDown : { id: number; name: string;  }[] = []
   tagDropDropDownLookup : { id: number; name: string }[] = []
-  AccountsDropDownLookup : { id: number; nameAr: string; nameEn: string }[] = []
+  AccountsDropDownLookup : { id: number; name: string }[] = []
   taxesDropDropDownLookup : { id: number; nameAr: string; nameEn: string }[] = []
   trackingTrackingLookup : { id: number; name: string }[] = []
   uomCodeLookup : UomCodeLookup[] = []
@@ -88,12 +88,12 @@ export class AddItemDefinitionComponent implements OnInit {
     this.itemDefinitionForm = this.fb.group({
       id : this.id,
       code : [''],
-      name : [''],
+      name : ['' , [customValidators.required]],
       photo : [''],
-      categoryId : [''],
+      categoryId : ['' , [customValidators.required]],
       countryName : [''],
       tags : [''],
-      defaultUOMCategoryId : [''],
+      defaultUOMCategoryId : ['' , [customValidators.required]],
       taxId : [''],
       shortName : [''],
       warranty : [''],
@@ -101,7 +101,7 @@ export class AddItemDefinitionComponent implements OnInit {
       specialCare : [''],
       lifeTime : [''],
       color : [''],
-      uomId : [''],
+      uomId : ['' ],
       uom : this.fb.array([]),
       barcode : this.fb.array([]),
       attribute : this.fb.array([]),
@@ -212,6 +212,7 @@ export class AddItemDefinitionComponent implements OnInit {
     this.itemService.ItemCategoryDropDown()
     this.itemService.itemCategoryLookupObs.subscribe(res=>{
       this.ItemCategoryDropDown = res
+      console.log(res)
     })
   }
   // end point
@@ -269,7 +270,7 @@ export class AddItemDefinitionComponent implements OnInit {
     return this.fb.group({
       id:0,
       itemId: this.id,
-      uomId: [null ],
+      uomId: [null  , [customValidators.required]],
       uomCode : null,
       conversionRatio: 1,
       isDefault: true,
@@ -282,7 +283,7 @@ export class AddItemDefinitionComponent implements OnInit {
     return this.fb.group({
       id : null ,
       barcode: null,
-      uomId: null,
+      uomId: [null , [customValidators.required]],
       itemVariantId: null,
       sku: null,
       status: true, 
@@ -399,6 +400,8 @@ export class AddItemDefinitionComponent implements OnInit {
   }
  
   onSaveBarcode(itemDefBarcodeGroup : FormGroup){
+    if (!this.formService.validForm(this.barcodeForm, false)) return;
+
     let {barcode , sku,itemVariantId,uomId} = itemDefBarcodeGroup.value
     return this.itemService.addBarcode({barcode , sku,itemVariantId,uomId})
   }
@@ -537,6 +540,7 @@ export class AddItemDefinitionComponent implements OnInit {
   }
 
   onSave() {
+    if (!this.formService.validForm(this.itemDefinitionForm, false)) return;
 
     const {
       id,

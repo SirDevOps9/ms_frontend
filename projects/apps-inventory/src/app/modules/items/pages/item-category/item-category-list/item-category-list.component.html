@@ -14,34 +14,30 @@
             columns: [
               {
                 name: 'id',
-                headerText: ('itemCategory.itemCode' | translate),
+                headerText: ('itemsCategory.code' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
-                name: 'nameEn',
-                headerText: ('itemCategory.itemName' | translate),
+                name: 'parentCategoryName',
+                headerText: ('itemsCategory.parentCategory' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
-                name: 'nameAr',
-                headerText: ('itemCategory.itemType' | translate),
+                name: 'isDetailed',
+                headerText: ('itemsCategory.isDetails' | translate),
                 isGlobalFilter: true,
-                isSortable: true
+                isSortable: true,
+                template : isDetails
               },
               {
-                name: 'nameAr',
-                headerText: ('itemCategory.uom' | translate),
+                name: 'categoryType',
+                headerText: ('itemsCategory.categoryType' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
-              {
-                name: 'nameAr',
-                headerText: ('itemCategory.barcode' | translate),
-                isGlobalFilter: true,
-                isSortable: true
-              },
+             
   
               {
                 name: 'id',
@@ -51,57 +47,43 @@
             ]
           }"
         >
-          <ng-container caption>
-            <div class="">
-              <div class="grid">
-                <div class="col-3">
-                  <lib-form-group>
-                    <lib-text-input
-                      type="text"
-                      [placeholder]="'itemCategory.search' | translate"
-                      [(ngModel)]="searchTerm"
-                      (keyUp)="onSearchChange()"
-                    ></lib-text-input>
-                  </lib-form-group>
-                </div>
-                <!--  -->
-                <div class="col-3">
-                  <lib-change-column
-                    [placeholder]="'itemCategory.ChangeColumn' | translate"
-                    [dataTable]="tableData"
-                  ></lib-change-column>
-                </div>
-  
-                <div class="col-6 flex gap-2 justify-content-end align-items-center">
-                  <div>
-                    <lib-button-micro
-                      [title]="'itemCategory.Add' | translate"
-                      nameClass="save"
-                      iconName="pi pi-plus"
-                      (click)="onAdd()"
-                    >
-                    </lib-button-micro>
-                  </div>
-                  <!--  -->
-                  <div>
-                    <lib-export
-                      (exportClick)="exportClick($event)"
-                      [exportData]="exportData"
-                      [exportColumns]="exportColumns"
-                      [ExportName]="'Item Type'"
-                    >
-                    </lib-export>
-                  </div>
-                  <!--  -->
-                </div>
-              </div>
-            </div>
+        <ng-container search>
+          <div>
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                [(ngModel)]="searchTerm"
+                (keyup)="onSearchChange($event)"
+                [placeholder]="'itemCategory.search' | translate"
+              />
+            </span>
+          </div>
           </ng-container>
+          <ng-container action>
+            <div>
+              <lib-export
+                (exportClick)="exportItemClick($event)"
+                [exportData]="exportData"
+                [exportColumns]="exportColumns"
+                [ExportName]="'Item Category'"
+              >
+              </lib-export>
+            </div>
+            </ng-container>
+       
   
           <ng-template #actions let-action>
             <div class="actions flex align-items-center">
               <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
               <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
+            </div>
+          </ng-template>
+          <ng-template #isDetails let-isDetails>
+            <div class="actions flex align-items-center">
+              <lib-input-switch [(ngModel)]="isDetails.isDetailed"></lib-input-switch>
+          
             </div>
           </ng-template>
         </lib-data-table>

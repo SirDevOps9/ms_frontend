@@ -28,6 +28,13 @@ import { OperationTagMainComponent } from './pages/operational-tag/operation-tag
 import { OperationTagAddComponent } from './pages/operational-tag/operation-tag-add/operation-tag-add.component';
 import { OperationTagListComponent } from './pages/operational-tag/operation-tag-list/operation-tag-list.component';
 import { OperationTagEditComponent } from './pages/operational-tag/operation-tag-edit/operation-tag-edit.component';
+import { ItemsCategoryTreeComponent } from './pages/item-categories-tree/items-category-tree/items-category-tree.component';
+import { AddItemsCategoryComponent } from './pages/item-categories-tree/add-items-category/add-items-category.component';
+import { EditItemCategoryComponent } from './pages/item-categories-tree/edit-item-category/edit-item-category.component';
+import { ViewItemCategoryComponent } from './pages/item-categories-tree/view-item-category/view-item-category.component';
+import { EditWarehouseComponent } from './pages/warehouse/edit-warehouse/edit-warehouse.component';
+import { MainItemCategoriesTreeComponent } from './pages/item-categories-tree/main-item-categories-tree/main-item-categories-tree.component';
+import { AddWarehousePopupComponent } from './components/warehouse/add-warehouse-popup/add-warehouse-popup.component';
 
 
 const routes: Routes = [
@@ -62,12 +69,28 @@ const routes: Routes = [
 
       },
       {
+        path: 'items-category',
+        component: MainItemCategoriesTreeComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.ITEMS_CATEGORY
+        },
+     
+      },
+      {
         path: 'add-warehouse',
         component: AddWarehouseComponent,
         data: {
           breadcrumb: BreadcrumbLabel.ADD_WARE_HOUSE
         },
 
+      },
+      {
+        path: 'edit-warehouse/:id',
+        component: EditWarehouseComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE
+        },
+     
       },
       {
         path: 'uom', component: UOMMainComponent,
