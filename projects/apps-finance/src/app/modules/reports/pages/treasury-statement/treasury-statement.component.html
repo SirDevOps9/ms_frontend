@@ -21,6 +21,8 @@
             optionValue="id"
             optionLabel="name"
             [placeholder]="'TreasuryStatement.treasury' | translate"
+            [selectedValue]="reportForm.controls['treasuryId'].value"
+
           >
           </lib-select>
           <lib-field-validations

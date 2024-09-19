@@ -15,6 +15,7 @@ import { AddTreasuryComponent } from '../../../components/add-treasury/add-treas
 import { EditTreasuryComponent } from '../../../components/edit-treasury/edit-treasury.component';
 import { TaxDto } from '../../../../general/models';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-treaury-definition-list',
@@ -28,7 +29,8 @@ export class TreauryDefinitionListComponent implements OnInit {
     private dialog: DialogService,
     private financeService: FinanceService,
     private languageService: LanguageService,
-    private titleService:Title
+    private titleService: Title,
+    private router: Router
   ) {}
 
   tableData: TreasureDefinitionDto[];
@@ -147,7 +149,13 @@ export class TreauryDefinitionListComponent implements OnInit {
       },
     });
   }
-
+  routeTo(id: number) {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`finance/reports/treasury-statement/${id}`])
+    );
+    window.open(url, '_blank');
+  }
+  
   onDelete(id: number) {
     this.financeService.deleteTreasury(id);
   }
