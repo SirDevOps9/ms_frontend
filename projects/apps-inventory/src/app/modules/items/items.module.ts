@@ -128,14 +128,14 @@ const routes: Routes = [
             data: { breadcrumb: '' }
           },
           {
-            path: 'add-operationa-tag',
+            path: 'add-operational-tag',
             component: OperationTagAddComponent,
             data: {
               breadcrumb: BreadcrumbLabel.Add_Operational_Tag
             },
           },
           {
-            path: 'edit-operationa-tag/:id',
+            path: 'edit-operational-tag/:id',
             component: OperationTagEditComponent,
             data: {
               breadcrumb: BreadcrumbLabel.Edit_Operational_Tag
@@ -228,6 +228,7 @@ const routes: Routes = [
     AddAttributeDefinitionComponent,
     EditAttributeDefinitionComponent,
     OperationTagMainComponent,
+    OperationTagListComponent,
     OperationTagAddComponent,
     OperationTagEditComponent,
     ItemsCategoryTreeComponent,

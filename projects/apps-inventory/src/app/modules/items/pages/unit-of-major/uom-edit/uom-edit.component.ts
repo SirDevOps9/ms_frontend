@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { UserPermission } from 'projects/apps-finance/src/app/modules/finance/models/user-permission';
-import { UOMType } from 'projects/apps-finance/src/app/modules/transcations/models';
 import { RouterService, LanguageService, customValidators, ToasterService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { UomCodeLookup } from '../../../models';
 import { UomPost } from '../../../models/addUom';
 import { ActivatedRoute } from '@angular/router';
+import { UOMType } from '../../../models/enums';
 
 @Component({
   selector: 'app-uom-edit',

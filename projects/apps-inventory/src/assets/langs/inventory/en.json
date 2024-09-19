@@ -207,5 +207,31 @@
     "types": "Attribute Types",
     "shortName": "Short Name",
     "addAttribute": "Add Attribute"
+  },
+  "OperationalTag": {
+    "Add": "Add",
+    "action": "action",
+    "value": "Value",
+    "success": "Success",
+    "nameAr": "Name Ar",
+    "nameEn": "Name En",
+    "glAccount": "GL Account",
+    "AddNew": "Add New",
+    "Active": "Active",
+    "inActive": "inActive",
+    "Search": "Search",
+    "code": " Code",
+    "operationType": " Operation Type",
+    "name": " Name",
+    "save": "Save",
+    "discard": "Discard",
+    "warehouseName": "Warehouse Name",
+    "status": "Status",
+    "delete": "Deleted",
+    "Success": "Success",
+    "actions": "Actions"
+
+  
+  
   }
 }
