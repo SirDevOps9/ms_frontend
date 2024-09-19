@@ -365,7 +365,6 @@ applySegmentValidators(control: FormGroup) {
 
   setTimeout(() => {
     if(this.sequence.valueChanges.subscribe((res)=>{
-      console.log("0000000000000000000000");
       this.oldSequence=true
     })){
 
