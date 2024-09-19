@@ -254,6 +254,10 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
 
   subscribe() {
     this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
+    this.PurchaseService.openingBalanceJournalEntryDropdownDataObservable.subscribe((res) => {
+      this.openingJournalList = res;
+    });
+    console.log("this.openingJournalList",this.openingJournalList)
 
     this.PurchaseService.vendorOpeningBalnceDataByIDObservable.subscribe((res: any) => {
       this.vendorForm.clear();
@@ -262,13 +266,16 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
           {
             OpeningJournal: res.openingBalanceJournalEntryId,
             JournalLine: res.openingBalanceJournalLineId,
+            amount:res.amount,
+            amountNature:res.amountNature
           },
           { emitEvent: true }
         );
-
+        this.formGroup.controls['OpeningJournal'].updateValueAndValidity()
+        this.formGroup.controls['JournalLine'].updateValueAndValidity()
         this.onOpeningJournalChange(res.openingBalanceJournalEntryId);
         this.onLinesChange(res.openingBalanceJournalLineId);
-        this.editMode = true;
+        this.editMode = false;
         this.formChanged = false;
       }
       if (res && res.vendorOpeningDetails && Array.isArray(res.vendorOpeningDetails)) {
@@ -290,9 +297,7 @@ export class VendorOpeningBalanceEditComponent implements OnInit {
         });
       }
     });
-    this.PurchaseService.openingBalanceJournalEntryDropdownDataObservable.subscribe((res) => {
-      this.openingJournalList = res;
-    });
+    
 
     this.PurchaseService.VendorDropDownByAccountIdObservable.subscribe((res) => {
       this.vendorDropDownByAccountId = res.map((x) => ({
