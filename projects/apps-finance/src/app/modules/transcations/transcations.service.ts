@@ -172,6 +172,11 @@ export class TranscationsService {
       },
       error: (error) => {
         this.loaderService.hide();
+
+        this.toasterService.showError(
+          this.languageService.transalte('PaymentIn.Error'),
+          this.languageService.transalte('PaymentIn.addedError')
+        );
       },
     });
   }
@@ -194,7 +199,10 @@ export class TranscationsService {
       },
       error: (error) => {
         this.loaderService.hide();
-
+        this.toasterService.showError(
+          this.languageService.transalte('PaymentOut.Error'),
+          this.languageService.transalte('PaymentOut.addedError')
+        );
       },
     });
   }
