@@ -141,7 +141,7 @@
     "Name": "Name",
     "Account": "Account",
     "Search": "Search",
-    "AddNew": "Add New",
+    "AddNew": "Add",
     "Export": "Export",
     "CannotEditTaxGroupUsedInTransactions": "Cannot Edit Tax Group Used In Transactions",
     "CannotDeleteTaxUsedInTransactions": "Cannot Delete Tax Used In Transactions",
@@ -224,7 +224,7 @@
     "name": "Name",
     "term-type": "Term Type",
     "Search": "Search",
-    "AddNew": "Add New",
+    "AddNew": "Add",
     "edit": "Edit",
     "delete": "Delete",
     "save": "Save",
@@ -253,7 +253,7 @@
   "bank" : {
     "actions" : "Actions",
     "Search" : "Search",
-    "AddNew" : "Add New",
+    "AddNew" : "Add",
     "Export" : "Export",
     "branches" : "branches",
     "code" : "Code",
@@ -314,7 +314,7 @@
     "PaymentPlace": "Payment Place",
     "PaymentMethodType": "Payment Method Type",
     "Search": "Search",
-    "AddNew": "Add New"
+    "AddNew": "Add"
   },
   "add-paymentMethod": {
     "title": "Add Payment Method",
@@ -345,7 +345,7 @@
     "relatedSourceJournal": "Related Source Journal",
     "actions": "Actions",
     "Search": "Search",
-    "addNew": "Add New",
+    "addNew": "Add",
     "delete":"Payment In Deleted Successfully",
     "post":"post"
 
@@ -353,6 +353,7 @@
   "payment-view": {
     "code": "Code",
     "paymentInDate": "Payment In Date",
+    "paymentOutDate": "Payment Out Date",
     "description": "Description",
     "paymentHub": "Payment Hub",
     "paymentHubDetailName": "Payment Hub Detail Name",

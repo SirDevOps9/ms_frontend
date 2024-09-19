@@ -1,7 +1,7 @@
 <lib-page-content>
     <div class="sequence_page">
         <form [formGroup]="sequence">
-            <lib-fildest header="sequence Status">
+            <lib-fildest header="{{'sequence.status' | translate}}">
                 <lib-form-group>
                     <div class="flex align-items-center">
                         <div>
@@ -19,7 +19,7 @@
 
                 </lib-form-group>
             </lib-fildest>
-            <lib-fildest header="sequence apply on">
+            <lib-fildest header="{{'sequence.applyOn' | translate}}">
                 <div class="grid">
                     <div class="col-12 md:col-6">
                         <lib-form-group>
@@ -104,7 +104,7 @@
                     
                 </div>
             </lib-fildest>
-            <lib-fildest header="sequence Status">
+            <lib-fildest header="{{'sequence.sequenceType' | translate}}">
                 <lib-form-group>
                     <div class="flex align-items-center">
                         <div  class="account_activation">
@@ -282,7 +282,7 @@
                                 </lib-field-validations>
                             </td>
                             <td>
-                                <lib-button-micro nameClass="table_button_delete" (click)="onDelete(sequence)" >
+                                <lib-button-micro nameClass="table_button_delete" (click)="onDelete(rowIndex)" >
                                 </lib-button-micro>
                             </td>
                     </tr>

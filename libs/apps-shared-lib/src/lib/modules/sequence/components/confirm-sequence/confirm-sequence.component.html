@@ -1,0 +1,11 @@
+<lib-popup-page
+title="{{'confirmation' | translate}}"
+[closeFunction]="onCancel"
+(Submit)="onSubmit()"
+>
+  <p class="confirm body-b16 center">
+    {{'sequence.SerialnumberChanged' | translate }}
+  </p>
+<p class="body-b20 center">{{ 'sequence.confirm2' | translate }}
+</p>
+</lib-popup-page>

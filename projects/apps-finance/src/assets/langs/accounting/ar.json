@@ -146,7 +146,7 @@
     "Name": "الاسم",
     "Account": "الحساب",
     "Search": "بحث",
-    "AddNew": "إضافة جديد",
+    "AddNew": "إضافة",
     "Export": "تصدير",
     "CannotEditTaxGroupUsedInTransactions": "لا يمكن تعديل مجموعة الضرائب المستخدمة في المعاملات",
     "CannotDeleteTaxUsedInTransactions": "لا يمكن حذف الضريبة المستخدمة في المعاملات",
@@ -187,7 +187,7 @@
     "balance": "الرصيد",
     "actions": "العمليات",
     "Search": "بحث",
-    "AddNew": "إضافة جديد",
+    "AddNew": "إضافة",
     "Export": "تصدير",
     "branches": "الفروع",
     "code": "الرمز",
@@ -222,7 +222,7 @@
     "name": "اسم",
     "term-type": "نوع المصطلح",
     "Search": "بحث",
-    "AddNew": "إضافة جديدة",
+    "AddNew": "إضافة",
     "edit": "تعديل",
     "delete": "حذف",
     "save": "حفظ",
@@ -248,7 +248,7 @@
   "bank": {
     "actions": "العمليات",
     "Search": "بحث",
-    "AddNew": "إضافة جديد",
+    "AddNew": "إضافة",
     "Export": "تصدير",
     "branches": "فروع",
     "code": "رمز",
@@ -307,7 +307,7 @@
     "PaymentPlace": "مكان الدفع",
     "PaymentMethodType": "نوع طريقة الدفع",
     "Search": "بحث",
-    "AddNew": "إضافة جديد"
+    "AddNew": "إضافة"
   },
   "add-paymentMethod": {
     "title": "إضافة طريقة دفع",
@@ -339,7 +339,7 @@
     "relatedSourceJournal": "اليومية المصدر المرتبطة",
     "actions": "الإجراءات",
     "Search": "بحث",
-    "addNew": "إضافة جديد",
+    "addNew": "إضافة",
     "delete":"تم حذف إيصال نقدي بنجاح",
     "post": "ترحيل"
 
@@ -347,6 +347,7 @@
   "payment-view": {
     "code": "الرمز",
     "paymentInDate": "تاريخ الدفع",
+    "paymentOutDate": "تاريخ الدفع",
     "description": "الوصف",
     "paymentHub": "مركز الدفع",
     "paymentHubDetailName": "تفاصيل مركز الدفع",
