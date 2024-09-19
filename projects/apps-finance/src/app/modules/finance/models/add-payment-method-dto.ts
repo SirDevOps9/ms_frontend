@@ -10,6 +10,8 @@ export interface AddPaymentMethodDto {
     commissionType: string|null,
     commissionValue: number|null,
     commissionAccountId: number|null,
-    allowVAT: boolean
+    allowVAT: boolean,
+    taxId:number|null
+
   }
   
