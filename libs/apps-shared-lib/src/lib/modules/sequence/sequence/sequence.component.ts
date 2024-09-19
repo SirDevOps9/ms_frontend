@@ -5,6 +5,8 @@ import { BaseDto, customValidators, FormsService, LanguageService, lookupDto, Lo
 import { SharedEnums } from '../models/shared-enum';
 import { SequenceService } from '../sequence.service';
 import { Title } from '@angular/platform-browser';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmSequenceComponent } from '../components/confirm-sequence/confirm-sequence.component';
 Pages
 @Component({
   selector: 'lib-sequence',
@@ -26,6 +28,7 @@ export class SequenceComponent {
   originalPaymentMethodTypeLookups: lookupDto[] = [];
   allBranches:BaseDto[]
   allgetCompanys:BaseDto[]
+  oldSequence:boolean=false
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -36,6 +39,7 @@ export class SequenceComponent {
     private toasterService : ToasterService ,
     private languageService : LanguageService ,
     private titleService: Title,
+    private dialog: DialogService,
 
 
 
@@ -331,14 +335,24 @@ applySegmentValidators(control: FormGroup) {
     valueOptionControl?.clearValidators();
     targetControl?.setValidators([customValidators.required, customValidators.number, customValidators.hasSpaces, customValidators.nonZero]);
     valueOptionControl?.setValidators([customValidators.required, customValidators.number, customValidators.hasSpaces]);
-    control.get('detailValue')?.valueChanges.subscribe(value => {
-      const userInput =control.get('detailValue')?.value
-      if (userInput !== null && userInput !== undefined) {
-        control.get('valueOption')?.setValue( '0'.repeat(userInput));
-        valueOptionControl?.setValidators([customValidators.required,customValidators.length(userInput, userInput ) ,customValidators.number ,customValidators.hasSpaces]);
+    setTimeout(() => {
+      control.get('detailValue')?.valueChanges.subscribe(value => {
+        const userInput =control.get('detailValue')?.value
+        if (userInput !== null && userInput !== undefined) {
+          control.get('valueOption')?.setValue( '0'.repeat(userInput));
+          valueOptionControl?.setValidators([customValidators.required,customValidators.length(userInput, userInput ) ,customValidators.number ,customValidators.hasSpaces]);
+  
+        }
+      })
+    }, 2000);
+    // control.get('detailValue')?.valueChanges.subscribe(value => {
+    //   const userInput =control.get('detailValue')?.value
+      // if (userInput !== null && userInput !== undefined) {
+      //   control.get('valueOption')?.setValue( '0'.repeat(userInput));
+      //   valueOptionControl?.setValidators([customValidators.required,customValidators.length(userInput, userInput ) ,customValidators.number ,customValidators.hasSpaces]);
 
-      }
-    })
+      // }
+    // })
   } else if (segmentValue === this.SharedEnums.Segments.Year) {
     targetControl?.setValue('YYYY');
     targetControl?.clearValidators();
@@ -348,6 +362,15 @@ applySegmentValidators(control: FormGroup) {
 
   targetControl?.updateValueAndValidity();
   valueOptionControl?.updateValueAndValidity();
+
+  setTimeout(() => {
+    if(this.sequence.valueChanges.subscribe((res)=>{
+      console.log("0000000000000000000000");
+      this.oldSequence=true
+    })){
+
+    }
+  }, 1000);
 }
 
   getSeparatorNameOfDetailValue(separator:string){
@@ -370,10 +393,26 @@ applySegmentValidators(control: FormGroup) {
     );
    return; 
   }  
-   this.sequenceService.addSequence(this.sequence.value);
+if(this.oldSequence ){
+  const dialogRef = this.dialog.open(ConfirmSequenceComponent, {
+    header: this.languageService.transalte("confirm.confirm"),
+    width: '400px',
+    height: '330px',
+  });
+  dialogRef.onClose.subscribe((res) => {
+    if (res) {
+          this.sequenceService.addSequence(this.sequence.value);
+
+    }
+  });
+}else{  
+    this.sequenceService.addSequence(this.sequence.value);
+  
+}
   }
   onDelete(sequencLine:any){    
     this.sequenceDetails.removeAt(sequencLine);
     this.updateOrderFields();
   }
+
 }

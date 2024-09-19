@@ -10,6 +10,7 @@
      "TreasuryStatement":"Treasury Statement"
 
   },
+  "confirmation":"confirmation",
   "Success": "Success",
   "Error": "Error",
   "ErrorInDelete": "Error In Delete",
