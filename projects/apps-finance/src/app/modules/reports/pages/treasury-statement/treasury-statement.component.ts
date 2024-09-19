@@ -7,6 +7,7 @@ import {
   FormsService,
   LanguageService,
   PrintService,
+  RouterService,
   ToasterService,
 } from 'shared-lib';
 import {
@@ -24,6 +25,7 @@ import { SourceDocument } from '../../models/source-document-dto';
   selector: 'app-treasury-statement',
   templateUrl: './treasury-statement.component.html',
   styleUrls: ['./treasury-statement.component.scss'],
+  providers: [RouterService],
 })
 export class TreasuryStatementComponent implements OnInit {
   reportForm: FormGroup;
@@ -50,6 +52,8 @@ export class TreasuryStatementComponent implements OnInit {
     public generalService: GeneralService,
     private formsService: FormsService,
     private router: Router,
+    private routerService: RouterService,
+
     private ToasterService: ToasterService
   ) {}
 
@@ -57,9 +61,10 @@ export class TreasuryStatementComponent implements OnInit {
     this.titleService.setTitle(
       this.languageService.transalte('TreasuryStatement.TreasuryStatement')
     );
-    this.initializeForm();
     this.getTreasuryDropDown();
+    this.initializeForm();
     this.initializeDates();
+    this.getTreasuryFromRoute();
     this.reportForm.valueChanges.subscribe(() => {
       this.tableData = {} as treasuryStatementDto;
     });
@@ -130,7 +135,8 @@ export class TreasuryStatementComponent implements OnInit {
       this.totalBalance = res?.totalBalance;
       this.openingDebit = res?.openingBalanceDebit;
       this.openingCredit = res?.openingBalanceCredit;
-      this.openingBalance = res?.openingBalanceBalance;    });
+      this.openingBalance = res?.openingBalanceBalance;
+    });
   }
 
   routeToPaymentView(transaction: TreasuryStatmentTransactionDto) {
@@ -151,6 +157,11 @@ export class TreasuryStatementComponent implements OnInit {
       );
       window.open(url, '_blank');
     }
+  }
+
+  getTreasuryFromRoute() {
+    if (this.routerService.currentId)
+      this.reportForm.controls['treasuryId'].patchValue(parseInt(this.routerService.currentId));
   }
 
   routeToJournalView(id: number) {

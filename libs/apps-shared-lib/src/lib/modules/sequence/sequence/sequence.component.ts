@@ -5,6 +5,8 @@ import { BaseDto, customValidators, FormsService, LanguageService, lookupDto, Lo
 import { SharedEnums } from '../models/shared-enum';
 import { SequenceService } from '../sequence.service';
 import { Title } from '@angular/platform-browser';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmSequenceComponent } from '../components/confirm-sequence/confirm-sequence.component';
 Pages
 @Component({
   selector: 'lib-sequence',
@@ -26,6 +28,7 @@ export class SequenceComponent {
   originalPaymentMethodTypeLookups: lookupDto[] = [];
   allBranches:BaseDto[]
   allgetCompanys:BaseDto[]
+  oldSequence:boolean=false
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -36,6 +39,7 @@ export class SequenceComponent {
     private toasterService : ToasterService ,
     private languageService : LanguageService ,
     private titleService: Title,
+    private dialog: DialogService,
 
 
 
@@ -54,6 +58,9 @@ export class SequenceComponent {
     this.initializeForm()
     this.loadLookups();
     this.supscrip();
+    this.getSequence(this.pageId.toString())
+    this.getBranch()
+    this.getCompany()
 
   }
 
@@ -118,7 +125,7 @@ export class SequenceComponent {
   }
 
   getSeparatorName(sequence: FormGroup) {
-    if (sequence!.value.detailValue) {
+    if (sequence!.value?.detailValue) {
       let segemntId = sequence?.value.detailValue?.toString()
 
       const foundElement = this.lookups[LookupEnum.Separator].find(element => element.id == segemntId);
@@ -132,10 +139,6 @@ export class SequenceComponent {
   }
 
   supscrip() {
-    
-    this.getSequence(this.pageId.toString())
-    this.getBranch()
-    this.getCompany()
     this.sequenceDetails.valueChanges.subscribe((res)=>{
       this.sequenceDetails.controls.forEach((control, index) => {
       
@@ -149,8 +152,9 @@ export class SequenceComponent {
 
               targetControl?.setValidators([customValidators.required, customValidators.length(1, 4) ]);
             } else if(value == this.SharedEnums.Segments.SerialNumber){
+              
               targetControl?.clearValidators();
-              targetControl?.setValidators([customValidators.required,customValidators.number ,customValidators.hasSpaces ]);
+              targetControl?.setValidators([customValidators.required,customValidators.number ,customValidators.hasSpaces, customValidators.nonZero ]);
               valueOption?.setValidators([customValidators.required ,customValidators.number ,customValidators.hasSpaces ]);
 
               control.get('detailValue')?.valueChanges.subscribe(value => {
@@ -220,7 +224,7 @@ export class SequenceComponent {
 
     }
   )
-    
+ 
     this.lookupsService.lookups.subscribe((l) => {
       this.lookups = l;      
     });
@@ -284,40 +288,89 @@ getCompany(){
   );
 }
 
-  getSequence(screen: string) {
-    this.sequenceService.getSequence(screen).subscribe(
-    
-        (sequence) => {
-          if(sequence){
-          this.sequence.patchValue({
-            status: sequence?.status,
-            // branchesIds: sequence?.branchesIds || this.allBranches[0]?.id,
-            type: sequence?.type,
+ getSequence(screen: string) {
+  this.sequenceService.getSequence(screen).subscribe(
+    (sequence) => {
+      if(sequence) {
+        this.sequence.patchValue({
+          status: sequence?.status,
+          type: sequence?.type,
+        });
+        sequence.sequenceDetails.forEach((detail: any) => {
+          let newLine = this.fb.group({
+            order: new FormControl(detail.order),
+            segment: new FormControl(detail.segment),
+            detailValue: new FormControl(detail.detailValue),
+            valueOption: new FormControl(detail.valueOption),
+            segmentName: new FormControl(""),
+            companyCode: new FormControl(""),
+            branchCode: new FormControl(""),
+            serialNumber: new FormControl(),
+            separatorName: new FormControl(this.getSeparatorNameOfDetailValue(detail.detailValue))
           });
-          // Loop through the sequenceDetails from the response
-          sequence.sequenceDetails.forEach((detail: any) => {
-            let newLine = this.fb.group({
-              order: new FormControl(detail.order),
-              segment: new FormControl(detail.segment),
-              detailValue: new FormControl(detail.detailValue),
-              valueOption: new FormControl(detail.valueOption),
-              segmentName: new FormControl(""), // Adjust as needed
-              companyCode: new FormControl(""), // Adjust as needed
-              branchCode: new FormControl(""),  // Adjust as needed
-              serialNumber: new FormControl(),  // Adjust as needed
-              separatorName: new FormControl(this.getSeparatorNameOfDetailValue(detail.detailValue))  // Adjust as needed
-            });
-            if(detail.segment == this.SharedEnums.Segments.Separator){
-              console.log(detail ,"detail");
-            }
-
-            this.sequenceDetails.push(newLine);
-          });
-        }
+        
+          // Apply Validators based on segment value
+          this.applySegmentValidators(newLine);
+        
+          newLine.updateValueAndValidity(); // Trigger validation
+          this.sequenceDetails.push(newLine);
+          this.updateOrderFields();
+        });
+        
       }
-    
-    );
+    }
+  );
+}
+applySegmentValidators(control: FormGroup) {
+  
+  const segmentValue = control.get('segment')?.value;
+  const targetControl = control.get('detailValue');
+  const valueOptionControl = control.get('valueOption');
+
+  if (segmentValue === this.SharedEnums.Segments.Text) {
+    valueOptionControl?.clearValidators();
+
+    targetControl?.setValidators([customValidators.required, customValidators.length(1, 4)]);
+  } else if (segmentValue === this.SharedEnums.Segments.SerialNumber) {
+    valueOptionControl?.clearValidators();
+    targetControl?.setValidators([customValidators.required, customValidators.number, customValidators.hasSpaces, customValidators.nonZero]);
+    valueOptionControl?.setValidators([customValidators.required, customValidators.number, customValidators.hasSpaces]);
+    setTimeout(() => {
+      control.get('detailValue')?.valueChanges.subscribe(value => {
+        const userInput =control.get('detailValue')?.value
+        if (userInput !== null && userInput !== undefined) {
+          control.get('valueOption')?.setValue( '0'.repeat(userInput));
+          valueOptionControl?.setValidators([customValidators.required,customValidators.length(userInput, userInput ) ,customValidators.number ,customValidators.hasSpaces]);
+  
+        }
+      })
+    }, 2000);
+    // control.get('detailValue')?.valueChanges.subscribe(value => {
+    //   const userInput =control.get('detailValue')?.value
+      // if (userInput !== null && userInput !== undefined) {
+      //   control.get('valueOption')?.setValue( '0'.repeat(userInput));
+      //   valueOptionControl?.setValidators([customValidators.required,customValidators.length(userInput, userInput ) ,customValidators.number ,customValidators.hasSpaces]);
+
+      // }
+    // })
+  } else if (segmentValue === this.SharedEnums.Segments.Year) {
+    targetControl?.setValue('YYYY');
+    targetControl?.clearValidators();
+    valueOptionControl?.clearValidators();
   }
+  // Add similar blocks for Month, Day, CompanyCode, BranchCode, Separator, etc.
+
+  targetControl?.updateValueAndValidity();
+  valueOptionControl?.updateValueAndValidity();
+
+  setTimeout(() => {
+    if(this.sequence.valueChanges.subscribe((res)=>{
+      this.oldSequence=true
+    })){
+
+    }
+  }, 1000);
+}
 
   getSeparatorNameOfDetailValue(separator:string){
     let segemntId =separator
@@ -338,11 +391,27 @@ getCompany(){
       this.languageService.transalte('sequence.addSerialnumber')
     );
    return; 
+  }  
+if(this.oldSequence ){
+  const dialogRef = this.dialog.open(ConfirmSequenceComponent, {
+    header: this.languageService.transalte("confirm.confirm"),
+    width: '400px',
+    height: '330px',
+  });
+  dialogRef.onClose.subscribe((res) => {
+    if (res) {
+          this.sequenceService.addSequence(this.sequence.value);
+
+    }
+  });
+}else{  
+    this.sequenceService.addSequence(this.sequence.value);
+  
+}
   }
-  this.sequenceService.addSequence(this.sequence.value);
-  }
-  onDelete(sequencLine:any){
+  onDelete(sequencLine:any){    
     this.sequenceDetails.removeAt(sequencLine);
     this.updateOrderFields();
   }
+
 }
