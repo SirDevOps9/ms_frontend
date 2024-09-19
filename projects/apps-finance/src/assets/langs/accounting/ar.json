@@ -200,7 +200,8 @@
     "addTreasury": "إضافة خزينة",
     "editTreasury": "تعديل خزينة",
     "treasuryList": "قائمة الخزائن",
-    "treasuryCurrentBalance": "رصيد الخزينة الحالي"
+    "treasuryCurrentBalance": "رصيد الخزينة الحالي",
+    "GoToStatement": "الانتقال إلى تقرير"
   },
   "deleteTreasury": {
     "success": "نجاح",

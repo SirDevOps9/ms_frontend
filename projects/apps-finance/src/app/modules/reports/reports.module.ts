@@ -29,6 +29,13 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.TREASURY_STATEMENT,
         },
       },
+      {
+        path: 'treasury-statement/:id',
+        component: TreasuryStatementComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.AccountStatement,
+        },
+      },
     ],
   },
 ];
