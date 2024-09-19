@@ -6,8 +6,8 @@ import { UserPermission } from 'projects/apps-finance/src/app/modules/finance/mo
 import { RouterService, FormsService, LanguageService, customValidators, PageInfo } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { UomCodeLookup } from '../../../models/uomCodeLookup';
-import { UOMType } from 'projects/apps-finance/src/app/modules/transcations/models/enums';
 import { UomPost } from '../../../models/addUom';
+import { UOMType } from '../../../models/enums';
 
 
 
