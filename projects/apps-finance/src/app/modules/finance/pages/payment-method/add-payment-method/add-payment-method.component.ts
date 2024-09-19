@@ -75,6 +75,10 @@ export class AddPaymentMethodComponent implements OnInit {
         this.getTaxDropDown();
         this.paymentMethodForm.get('paymentMethodCommissionData.taxId')!.setValidators([customValidators.required]);
         this.paymentMethodForm.get('paymentMethodCommissionData.taxId')!.updateValueAndValidity();
+      }else{
+        this.paymentMethodForm.get('paymentMethodCommissionData.taxId')!.clearValidators();
+        this.paymentMethodForm.get('paymentMethodCommissionData.taxId')!.updateValueAndValidity();
+
       }
     });
 
@@ -187,6 +191,10 @@ export class AddPaymentMethodComponent implements OnInit {
 
     if (formData.paymentPlace == this.sharedFinanceEnum.PaymentPlace.Treasury.toString()) {
       formData.paymentMethodCommissionData = null;
+  }
+  if(!formData.paymentMethodCommissionData?.allowVAT)
+  {
+    formData.paymentMethodCommissionData!.taxId= null
   }
 
 
