@@ -58,7 +58,7 @@ export class VendorOpeningBalanceViewComponent implements OnInit {
   openDistribute(data: any) {
     console.log('data from click', data);
 
-    if (data.balanceType != this.enums.BalanceType.Debit) {
+    if (data.balanceType != this.enums.BalanceType.Credit) {
       return;
     } else {
       const ref = this.dialog.open(VendorOpeningBalanceDistributeViewComponent, {

@@ -11,6 +11,7 @@
 
 
   },
+  "confirmation":"تأكيد ",
   "Success": "نجاح",
   "Error": "خطأ",
   "ErrorInDelete": "خطأ فى الحذف",

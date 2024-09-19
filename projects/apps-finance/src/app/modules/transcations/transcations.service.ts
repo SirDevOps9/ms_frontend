@@ -403,6 +403,7 @@ export class TranscationsService {
         this.routerService.navigateTo('/transcations/paymentout');
       },
       error: (error) => {
+        this.loaderService.hide();
         this.toasterService.showError(
           this.languageService.transalte('Error'),
           this.languageService.transalte('PaymentOut.postedError')

@@ -1,27 +1,14 @@
-<div>
-  <div class="grid justify-content-center">
-    <div *ngFor="let elem of data">
-      <p class="confirm">
-        {{ 'bank.confirm' | translate }} <span class="spanText"> ({{ elem.accountName }}) </span>
-      </p>
-    </div>
-    {{ 'bank.confirm2' | translate }}
-  </div>
-  <div class="grid justify-content-center">
-    <div class="col-6">
-      <lib-button
-        type="button"
-        [className]="'custom-danger-outline'"
-        class="save"
-        (click)="onCancel()"
-      >
-        {{ 'confirm.cancel' | translate }}
-      </lib-button>
-    </div>
-    <div class="col-6">
-      <lib-button type="button" [className]="'custom-light-blue'" (click)="onSubmit()">
-        {{ 'confirm.submit' | translate }}
-      </lib-button>
-    </div>
-  </div>
+<lib-popup-page
+title="{{'confirmation' | translate}}"
+[closeFunction]="onCancel"
+(Submit)="onSubmit()"
+>
+<div *ngFor="let elem of data" class="center">
+  <p class="confirm body-b16">
+    {{ 'bank.confirm' | translate }} <span class="spanText"> ({{ elem.accountName }}) </span>
+  </p>
 </div>
+<p class="body-b20 center">{{ 'bank.confirm2' | translate }}
+</p>
+<!-- </div> -->
+</lib-popup-page>

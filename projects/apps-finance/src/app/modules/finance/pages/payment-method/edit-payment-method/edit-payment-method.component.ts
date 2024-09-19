@@ -97,6 +97,10 @@ export class EditPaymentMethodComponent implements OnInit {
         this.getTaxDropDown();
         this.PaymentMethodForm.get('paymentMethodCommissionData.taxId')!.setValidators([customValidators.required]);
         this.PaymentMethodForm.get('paymentMethodCommissionData.taxId')!.updateValueAndValidity();
+      }else{
+        this.PaymentMethodForm.get('paymentMethodCommissionData.taxId')!.clearValidators();
+        this.PaymentMethodForm.get('paymentMethodCommissionData.taxId')!.updateValueAndValidity();
+
       }
     });
   }
@@ -212,7 +216,10 @@ export class EditPaymentMethodComponent implements OnInit {
     if (formData.paymentPlace == this.sharedFinanceEnum.PaymentPlace.Treasury) {
       formData.paymentMethodCommissionData = null;
   }
-
+  if(!formData.paymentMethodCommissionData?.allowVAT)
+    {
+      formData.paymentMethodCommissionData!.taxId= null
+    }
     if (!this.formsService.validForm(this.PaymentMethodForm, false)) return;
   
    this.financeService.editPaymentMethod(formData);
