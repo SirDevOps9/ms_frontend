@@ -1,4 +1,5 @@
 .pop_up_page{
+  
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -86,6 +87,9 @@
          
         }
        
+    }
+    .none{
+      display: none;
     }
     // ::ng-deep {
     //     .pop_up_config_page{

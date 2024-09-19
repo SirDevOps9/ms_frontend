@@ -1,0 +1,465 @@
+
+<lib-page-content [title]="'warehouse.warehouse' | translate" [subTitle]="'warehouse.warehouse' | translate">
+  <div class="grid">
+    <div class="md:col-12 my-3 grid flex justify-content-end">
+      <div class="md:col-4 grid flex justify-content-end">
+        <div class="md:col-6">
+          <lib-button-micro
+            title="{{ 'warehouse.cancel' | translate }}"
+            nameClass="cancel"
+            widthNumber="100%"
+            (click)="onCancel()"
+          
+          >
+          </lib-button-micro>
+        </div>
+        <div  class="md:col-6">
+          <lib-button-micro
+            title="{{ 'warehouse.save' | translate }}"
+            nameClass="save"
+            widthNumber="100%"
+            (click)="onSubmit()"
+          >
+          </lib-button-micro>
+        
+        </div>
+      </div>
+    
+       
+    </div>
+      </div>
+    
+    <form class="domain_form" [formGroup]="warehouseForm" (ngSubmit)="onSubmit()">
+        <div class="domain_content">
+          <div class="grid">
+            <div class="col-3 my-2">
+              <lib-form-group>
+                <lib-label [appControl]="warehouseForm.controls['code']">
+                    {{ 'warehouse.code' | translate }}
+                  </lib-label>
+                <lib-text-input
+                  type="text"
+                  formControlName="code"
+                  placeholder="{{ 'warehouse.code' | translate }}"
+                  [readOnly]="true"
+                  [iconUrl]="'assets/images/Vector.png'"
+                  class="form-control"
+                />
+                <lib-field-validations
+                  [appControl]="warehouseForm.controls['code']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="col-9 my-2">
+              <lib-form-group>
+                <lib-label [appControl]="warehouseForm.controls['code']">
+                    {{ 'warehouse.name' | translate }}
+                  </lib-label>
+                <lib-text-input
+                  type="text"
+                  formControlName="name"
+                  placeholder="{{ 'warehouse.name' | translate }}"
+                  [iconUrl]="'assets/images/Vector.png'"
+                  class="form-control"
+                />
+                <lib-field-validations
+                  [appControl]="warehouseForm.controls['code']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
+         
+            <div class="col-6 my-2 multi-cont">
+                <lib-form-group>
+                    <lib-label [appControl]="warehouseForm.controls['code']">
+                        {{ 'warehouse.relatedBranch' | translate }}
+                      </lib-label>
+                    <lib-select
+                      placeholder="{{ 'warehouse.relatedBranch' | translate }}"
+                      [options]="[]"
+                      optionLabel="name"
+                      optionValue="id"
+                      formControlName="branchId"
+                    ></lib-select>
+                    <lib-field-validations [appControl]="warehouseForm.controls['moduleIds']">
+                    </lib-field-validations>
+                  </lib-form-group>
+            </div>
+            <div class="col-6 my-2 multi-cont">
+                <lib-form-group>
+                    <lib-label [appControl]="warehouseForm.controls['code']">
+                        {{ 'warehouse.warehouseType' | translate }}
+                      </lib-label>
+                    <lib-select
+                      placeholder="{{ 'warehouse.warehouseType' | translate }}"
+                      [options]="[]"
+                      optionLabel="name"
+                      optionValue="id"
+                      formControlName="warehouseType"
+                    ></lib-select>
+                    <lib-field-validations [appControl]="warehouseForm.controls['moduleIds']">
+                    </lib-field-validations>
+                  </lib-form-group>
+            </div>
+          </div>
+        </div>
+        <p-tabView>
+            <p-tabPanel  header="{{'warehouse.account' | translate}}">
+             <div class="grid">
+                <div class="md:col-6">
+                        <lib-form-group>
+                            <lib-label [appControl]="warehouseForm.controls['code']">
+                                {{ 'warehouse.glAccount' | translate }}
+                              </lib-label>
+                            <lib-select
+                              placeholder="{{ 'warehouse.glAccount' | translate }}"
+                              [options]="AccountsDropDownLookup"
+                              optionLabel="name"
+                              optionValue="id"
+                              formControlName="glAccountId"
+                            ></lib-select>
+                            <lib-field-validations [appControl]="warehouseForm.controls['moduleIds']">
+                            </lib-field-validations>
+                          </lib-form-group>
+                </div>
+                <!--  -->
+                <div class="md:col-6">
+                        <lib-form-group>
+                            <lib-label [appControl]="warehouseForm.controls['code']">
+                                {{ 'warehouse.cashSalesAccount' | translate }}
+                              </lib-label>
+                            <lib-select
+                              placeholder="{{ 'warehouse.cashSalesAccount' | translate }}"
+                              [options]="AccountsDropDownLookup"
+                              optionLabel="name"
+                              optionValue="id"
+                              formControlName="cashSalesAccountId"
+                            ></lib-select>
+                            <lib-field-validations [appControl]="warehouseForm.controls['moduleIds']">
+                            </lib-field-validations>
+                          </lib-form-group>
+                </div>
+                <!--  -->
+                <div class="md:col-6">
+                        <lib-form-group>
+                            <lib-label [appControl]="warehouseForm.controls['code']">
+                                {{ 'warehouse.creditSalesAccount' | translate }}
+                              </lib-label>
+                            <lib-select
+                              placeholder="{{ 'warehouse.creditSalesAccount' | translate }}"
+                              [options]="AccountsDropDownLookup"
+                              optionLabel="name"
+                              optionValue="id"
+                              formControlName="creditSalesAccountId"
+                            ></lib-select>
+                            <lib-field-validations [appControl]="warehouseForm.controls['moduleIds']">
+                            </lib-field-validations>
+                          </lib-form-group>
+                </div>
+                <!--  -->
+                <div class="md:col-6">
+                        <lib-form-group>
+                            <lib-label [appControl]="warehouseForm.controls['code']">
+                                {{ 'warehouse.salesReturnAccount' | translate }}
+                              </lib-label>
+                            <lib-select
+                              placeholder="{{ 'warehouse.salesReturnAccount' | translate }}"
+                              [options]="AccountsDropDownLookup"
+                              optionLabel="name"
+                              optionValue="id"
+                              formControlName="salesReturnAccountId"
+                            ></lib-select>
+                            <lib-field-validations [appControl]="warehouseForm.controls['moduleIds']">
+                            </lib-field-validations>
+                          </lib-form-group>
+                </div>
+                <!--  -->
+                <div class="md:col-6">
+                        <lib-form-group>
+                            <lib-label [appControl]="warehouseForm.controls['code']">
+                                {{ 'warehouse.purchaseAccount' | translate }}
+                              </lib-label>
+                            <lib-select
+                              placeholder="{{ 'warehouse.purchaseAccount' | translate }}"
+                              [options]="AccountsDropDownLookup"
+                              optionLabel="name"
+                              optionValue="id"
+                              formControlName="purchaseAccountId"
+                            ></lib-select>
+                            <lib-field-validations [appControl]="warehouseForm.controls['moduleIds']">
+                            </lib-field-validations>
+                          </lib-form-group>
+                </div>
+                <!--  -->
+                <div class="md:col-6">
+                        <lib-form-group>
+                            <lib-label [appControl]="warehouseForm.controls['code']">
+                                {{ 'warehouse.salesCostCenter' | translate }}
+                              </lib-label>
+                            <lib-select
+                              placeholder="{{ 'warehouse.salesCostCenter' | translate }}"
+                              [options]="AccountsDropDownLookup"
+                              optionLabel="name"
+                              optionValue="id"
+                              formControlName="salesCostAccountId"
+                            ></lib-select>
+                            <lib-field-validations [appControl]="warehouseForm.controls['moduleIds']">
+                            </lib-field-validations>
+                          </lib-form-group>
+                </div>
+                <!--  -->
+                <div class="md:col-6">
+                        <lib-form-group>
+                            <lib-label [appControl]="warehouseForm.controls['code']">
+                                {{ 'warehouse.discountAccount' | translate }}
+                              </lib-label>
+                            <lib-select
+                              placeholder="{{ 'warehouse.discountAccount' | translate }}"
+                              [options]="AccountsDropDownLookup"
+                              optionLabel="name"
+                              optionValue="id"
+                              formControlName="discountAccountId"
+                            ></lib-select>
+                            <lib-field-validations [appControl]="warehouseForm.controls['moduleIds']">
+                            </lib-field-validations>
+                          </lib-form-group>
+                </div>
+                <!--  -->
+                <div class="md:col-6">
+                        <lib-form-group>
+                            <lib-label [appControl]="warehouseForm.controls['code']">
+                                {{ 'warehouse.evaluationaccount' | translate }}
+                              </lib-label>
+                            <lib-select
+                              placeholder="{{ 'warehouse.evaluationaccount' | translate }}"
+                              [options]="AccountsDropDownLookup"
+                              optionLabel="name"
+                              optionValue="id"
+                              formControlName="evaluationAccountId"
+                            ></lib-select>
+                            <lib-field-validations [appControl]="warehouseForm.controls['moduleIds']">
+                            </lib-field-validations>
+                          </lib-form-group>
+                </div>
+                <!--  -->
+                <div class="md:col-6">
+                        <lib-form-group>
+                            <lib-label [appControl]="warehouseForm.controls['code']">
+                                {{ 'warehouse.adjustmentAccount' | translate }}
+                              </lib-label>
+                            <lib-select
+                              placeholder="{{ 'warehouse.adjustmentAccount' | translate }}"
+                              [options]="AccountsDropDownLookup"
+                              optionLabel="name"
+                              optionValue="id"
+                              formControlName="adjustmentAccountId"
+                            ></lib-select>
+                            <lib-field-validations [appControl]="warehouseForm.controls['moduleIds']">
+                            </lib-field-validations>
+                          </lib-form-group>
+                </div>
+                <!--  -->
+                <div class="md:col-6">
+                        <lib-form-group>
+                            <lib-label [appControl]="warehouseForm.controls['code']">
+                                {{ 'warehouse.goodsInTransit' | translate }}
+                              </lib-label>
+                            <lib-select
+                              placeholder="{{ 'warehouse.goodsInTransit' | translate }}"
+                              [options]="AccountsDropDownLookup"
+                              optionLabel="name"
+                              optionValue="id"
+                              formControlName="goodsInTransitAccountId"
+                            ></lib-select>
+                            <lib-field-validations [appControl]="warehouseForm.controls['moduleIds']">
+                            </lib-field-validations>
+                          </lib-form-group>
+                </div>
+                <!--  -->
+             </div>
+            </p-tabPanel>
+            <p-tabPanel  header="{{'warehouse.address' | translate}}">
+              <div class="grid">
+                <div class="md:col-6">
+                  <div class="grid">
+                    <div class="col-12">
+                      <lib-form-group>
+                        <lib-label [appControl]="warehouseForm.controls['code']">
+                            {{ 'warehouse.city' | translate }}
+                          </lib-label>
+                        <lib-select
+                          placeholder="{{ 'warehouse.city' | translate }}"
+                          [options]="[]"
+                          optionLabel="module"
+                          optionValue="moduleId"
+                          formControlName="city"
+                        ></lib-select>
+                        <lib-field-validations [appControl]="warehouseForm.controls['moduleIds']">
+                        </lib-field-validations>
+                      </lib-form-group>
+                    </div>
+                    <!--  -->
+                    <div class="col-12">
+                      <lib-form-group>
+                        <lib-label [appControl]="warehouseForm.controls['code']">
+                            {{ 'warehouse.address' | translate }}
+                          </lib-label>
+                        <lib-text-input
+                          type="text"
+                          formControlName="addressLine"
+                          placeholder="{{ 'warehouse.address' | translate }}"
+                          [iconUrl]="'assets/images/Vector.png'"
+                          class="form-control"
+                        />
+                        <lib-field-validations
+                          [appControl]="warehouseForm.controls['code']"
+                        ></lib-field-validations>
+                      </lib-form-group>
+                    </div>
+                    <!--  -->
+                    <div class="md:col-5">
+                      <lib-label [appControl]="warehouseForm.controls['code']">
+                        {{ 'warehouse.companyPhoneNumber' | translate }}
+                      </lib-label>
+                      <lib-selectIcon
+                      formControlName="phone"
+                      [options]="[]"
+                      optionValue="id"
+                      optionLabel="nameEn"
+                      icons="flags"
+                    >
+                    </lib-selectIcon>
+                    </div>
+                    <!--  -->
+                    <div class="md:col-7 mt-5">
+                      <lib-text-input
+                      type="text"
+                      formControlName="code"
+                   
+                      [iconUrl]="'assets/images/Vector.png'"
+                      class="form-control"
+                    />
+                      </div>
+                      <!--  -->
+                      <div class="col-12">
+                        <lib-form-group>
+                          <lib-label [appControl]="warehouseForm.controls['code']">
+                              {{ 'warehouse.email' | translate }}
+                            </lib-label>
+                          <lib-text-input
+                            type="text"
+                            formControlName="email"
+                            placeholder="{{ 'warehouse.email' | translate }}"
+                            [iconUrl]="'assets/images/Vector.png'"
+                            class="form-control"
+                          />
+                          <lib-field-validations
+                            [appControl]="warehouseForm.controls['code']"
+                          ></lib-field-validations>
+                        </lib-form-group>
+                      </div>
+                      <!--  -->
+                      
+                      <div class="col-12">
+                        <lib-form-group>
+                          <lib-label [appControl]="warehouseForm.controls['code']">
+                              {{ 'warehouse.fax' | translate }}
+                            </lib-label>
+                          <lib-text-input
+                            type="text"
+                            formControlName="fax"
+                            placeholder="{{ 'warehouse.fax' | translate }}"
+                            [iconUrl]="'assets/images/Vector.png'"
+                            class="form-control"
+                          />
+                          <lib-field-validations
+                            [appControl]="warehouseForm.controls['code']"
+                          ></lib-field-validations>
+                        </lib-form-group>
+                      </div>
+                      <!--  -->
+                      <div class="col-12">
+                        <lib-form-group>
+                          <lib-label [appControl]="warehouseForm.controls['code']">
+                              {{ 'warehouse.postCode' | translate }}
+                            </lib-label>
+                          <lib-text-input
+                            type="text"
+                            formControlName="postalCode"
+                            placeholder="{{ 'warehouse.postCode' | translate }}"
+                            [iconUrl]="'assets/images/Vector.png'"
+                            class="form-control"
+                          />
+                          <lib-field-validations
+                            [appControl]="warehouseForm.controls['code']"
+                          ></lib-field-validations>
+                        </lib-form-group>
+                      </div>
+                      <!--  -->
+                      <div class="col-4">
+                        <lib-form-group>
+                          <lib-label [appControl]="warehouseForm.controls['code']">
+                              {{ 'warehouse.longitude' | translate }}
+                            </lib-label>
+                          <lib-text-input
+                            type="text"
+                            formControlName="longitude"
+                            placeholder="{{ 'warehouse.longitude' | translate }}"
+                            [iconUrl]="'assets/images/Vector.png'"
+                            class="form-control"
+                          />
+                          <lib-field-validations
+                            [appControl]="warehouseForm.controls['code']"
+                          ></lib-field-validations>
+                        </lib-form-group>
+                      </div>
+                      <div class="col-4">
+                        <lib-form-group>
+                          <lib-label [appControl]="warehouseForm.controls['code']">
+                              {{ 'warehouse.latitude' | translate }}
+                            </lib-label>
+                          <lib-text-input
+                            type="text"
+                            formControlName="latitude"
+                            placeholder="{{ 'warehouse.latitude' | translate }}"
+                            [iconUrl]="'assets/images/Vector.png'"
+                            class="form-control"
+                          />
+                          <lib-field-validations
+                            [appControl]="warehouseForm.controls['code']"
+                          ></lib-field-validations>
+                        </lib-form-group>
+                      </div>
+                      <div class="col-4">
+                        <lib-form-group>
+                          <lib-label [appControl]="warehouseForm.controls['code']">
+                              {{ 'warehouse.raduis' | translate }}
+                            </lib-label>
+                          <lib-text-input
+                            type="text"
+                            formControlName="radius"
+                            placeholder="{{ 'warehouse.raduis' | translate }}"
+                            [iconUrl]="'assets/images/Vector.png'"
+                            class="form-control"
+                          />
+                          <lib-field-validations
+                            [appControl]="warehouseForm.controls['code']"
+                          ></lib-field-validations>
+                        </lib-form-group>
+                      </div>
+                    
+                  </div>
+                  <!-- (valueChanged)="onCountryChange($event)" -->
+
+                </div>
+                <!--  -->
+                <div class="md:col-6">
+                   <!-- image -->
+                </div>
+                <!--  -->
+              
+                <!--  -->
+             </div>
+            </p-tabPanel>
+            </p-tabView>
+      </form>
+</lib-page-content>

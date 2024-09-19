@@ -13,7 +13,7 @@ import { ItemsService } from '../../items.service';
 export class EditItemDefinitionComponent implements OnInit {
   itemDefinitionForm: FormGroup;
   selectedModules: number[] = [];
-  itemTypeLookupData : { id: number; name: string }[] = []
+  itemTypeLookupData : any[] = []
   ItemCategoryDropDown : { id: number; name: string }[] = []
   UOMCategoryDropDown : { id: number; name: string;}[] = []
   constructor(
