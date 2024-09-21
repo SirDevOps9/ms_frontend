@@ -81,20 +81,20 @@
         </ng-container>
         <ng-container action>
           <div class="flex gap-2">
-            <lib-button-micro
-              title="{{ 'PaymentOut.List.addNew' | translate }}"
-              (click)="routeToAdd()"
-              [iconName]="'pi pi-plus'"
-              nameClass="save"
-            >
-            </lib-button-micro>
             <lib-export
-              (exportClick)="exportClick()"
-              [exportData]="exportData"
-              [exportColumns]="exportColumns"
-              [ExportName]="'Payment Out'"
+            (exportClick)="exportClick()"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Payment Out'"
             >
-            </lib-export>
+          </lib-export>
+          <lib-button-micro
+            title="{{ 'PaymentOut.List.addNew' | translate }}"
+            (click)="routeToAdd()"
+            [iconName]="'pi pi-plus'"
+            nameClass="save"
+          >
+          </lib-button-micro>
           </div>
         </ng-container>
         <ng-template #Date let-paymentIn>

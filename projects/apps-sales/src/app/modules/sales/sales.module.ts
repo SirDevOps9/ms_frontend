@@ -32,14 +32,14 @@ const routes: Routes = [
         path: 'customer-category',
         component: MainCustomerCategoryComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.customer_list,
+          breadcrumb: BreadcrumbLabel.CUSTOMER_LIST,
         },
         children:[
           {
             path: '',
             component: CustomerCategoryListComponent,
             data: {
-              breadcrumb: '',
+              breadcrumb: BreadcrumbLabel.CUSTOMER_LIST
             },
           },
           {
@@ -47,7 +47,7 @@ const routes: Routes = [
             component: CreateCustomerCategoryComponent,
             // canActivate: [AuthGuard],
             data: {
-              breadcrumb: BreadcrumbLabel.customer_add,
+              breadcrumb: BreadcrumbLabel.CUSTOMER_ADD,
             },
           },
           {
@@ -55,7 +55,7 @@ const routes: Routes = [
             component: EditCustomerCategoryComponent,
             // canActivate: [AuthGuard],
             data: {
-              breadcrumb: BreadcrumbLabel.customer_edit,
+              breadcrumb: BreadcrumbLabel.CUSTOMER_EDIT,
             },
           },
         ]

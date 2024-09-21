@@ -58,7 +58,7 @@
                       [placeholder]="'AddCustomerDefinition.select' | translate"
                       optionValue="id"
                       optionLabel="name"
-                      [selectedValue]="addCustomerForm.controls['tagIds']"
+                      [selectedValue]="addCustomerForm.controls['tagIds'].value"
                     >
                     </lib-multi-select>
                     <lib-field-validations></lib-field-validations>
@@ -744,7 +744,7 @@
                 <div class="md:col-6">
                   <lib-button-micro
             nameClass="cancel"
-            [title]="'AddCustomerDefinition.Discard' | translate"
+            [title]="'Cancel' | translate"
             (click)="onDiscard()"
           >
           </lib-button-micro>
@@ -752,8 +752,7 @@
                 <div class="md:col-6">
                   <lib-button-micro
             nameClass="save w-100"
-            [title]="'AddCustomerDefinition.Save' | translate"
-            iconName="pi pi-save"
+            [title]="'Save' | translate"
             type="submit"
             [disabled]="!addCustomerForm.valid"
           >

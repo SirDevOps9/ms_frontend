@@ -42,9 +42,7 @@
                   [first]="first"
                 ></p-paginator>
               </div>
-              <ng-content select="[action]">
-            
-              </ng-content>
+              
               <lib-button-micro
               *ngIf="sequence"
               nameClass="sequence"
@@ -52,6 +50,8 @@
               >
 
               </lib-button-micro>  
+              <ng-content select="[action]"></ng-content>
+            
             </div>
           </div>
           <ng-content select="[caption]"> </ng-content>
