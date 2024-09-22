@@ -81,14 +81,14 @@ export class PaymentMethodListComponent implements OnInit {
   }
 
   onAdd() {
-  this.routerService.navigateTo('/masterdata/add-payment-method')
+  this.routerService.navigateTo('/masterdata/payment-method/add')
   }
 
   onEdit(id: number) {
-    this.routerService.navigateTo(`/masterdata/edit-payment-method/${id}`);
+    this.routerService.navigateTo(`/masterdata/payment-method/edit/${id}`);
   }
   view(id: number){
-    this.routerService.navigateTo(`/masterdata/view-payment-method/${id}`);
+    this.routerService.navigateTo(`/masterdata/payment-method/view/${id}`);
   }
   onSearchChange() {
     this.financeService.getAllPaymentMethod(this.searchTerm, new PageInfo());

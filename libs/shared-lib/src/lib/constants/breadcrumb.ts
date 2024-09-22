@@ -17,9 +17,9 @@ export class BreadcrumbLabel {
   static readonly CUSTOMER_DEFINITIONS ='BreadCrumb.CustomerDefinition';
   static readonly ADD_CUSTOMER_DEFINITIONS ='BreadCrumb.AddCustomerDefinition';
   static readonly EDIT_CUSTOMER_DEFINITIONS ='BreadCrumb.EditCustomerDefinition';
-  static readonly customer_list ='BreadCrumb.CustomerCategory';
-  static readonly customer_add ='BreadCrumb.AddCustomerCategory';
-  static readonly customer_edit ='BreadCrumb.EditCustomerCategory';
+  static readonly CUSTOMER_LIST ='BreadCrumb.CustomerCategory';
+  static readonly CUSTOMER_ADD ='BreadCrumb.AddCustomerCategory';
+  static readonly CUSTOMER_EDIT ='BreadCrumb.EditCustomerCategory';
   static readonly BANK_LIST ='BreadCrumb.BankDefinition';
   static readonly BANK_LIST_ADD ='BreadCrumb.AddBankDefinition';
   static readonly BANK_LIST_EDIT ='BreadCrumb.EditBankDefinition';
