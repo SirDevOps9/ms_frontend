@@ -110,9 +110,7 @@ const routes: Routes = [
             data: {
               breadcrumb: BreadcrumbLabel.PAYMENT_TERM_Edit,
             },
-            
           },
-      
         ]
         },
       {
@@ -178,7 +176,6 @@ const routes: Routes = [
     ],
   },
 ];
-
 @NgModule({
   declarations: [
     TreauryDefinitionListComponent,

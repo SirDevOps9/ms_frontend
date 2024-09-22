@@ -6,6 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class GetElementByIDPipe implements PipeTransform {
 
   transform(itemId: any, list: any[]): any {
+
     if (list && itemId) {
       return list.find((elem: any) => elem?.id == itemId);
     }

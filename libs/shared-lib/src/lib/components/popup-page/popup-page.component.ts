@@ -13,6 +13,9 @@ export class PopupPageComponent {
   @Input() disabled: boolean;
   @Input() closeFunction: () => void;
   @Input() saveFunction: () => void;
+  @Input() showCancel : boolean = true
+  @Input() showSave : boolean = true
+  @Input() showSecondSave : boolean = true
   @Output() Submit = new EventEmitter<boolean>();
 
   close() {

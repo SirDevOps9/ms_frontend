@@ -1,0 +1,130 @@
+<lib-page-content [title]="'attributeDefinition.TaxList' | translate" [subTitle]="'attributeDefinition.TaxList' | translate">
+    <div>
+      <div class="user_page">
+        <lib-data-table
+          [items]="tableData"
+          className="p-datatable-gridlines"
+          [currentPageResult]="currentPageInfo"
+          (pageChange)="onPageChange($event)"
+          [tableConfigs]="{
+            allowPagination: true,
+            allowServerPagination: true,
+            dataKey: 'id',
+            pageSize: 10,
+            columns: [
+              {
+                name: 'nameAr',
+                headerText: ('attributeDefinition.nameAr' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'nameEn',
+                headerText: ('attributeDefinition.nameEn' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+         
+              {
+                name: 'isActive',
+                headerText: ('attributeDefinition.status' | translate),
+                isGlobalFilter: true,
+                isSortable: true,
+                template:isActive
+              },
+              {
+                name: 'id',
+                headerText: ('attributeDefinition.action' | translate),
+                isGlobalFilter: true,
+                isSortable: true,
+                template: actions
+
+              },
+             
+            ]
+          }"
+        >
+          <ng-container caption>
+            <div class="">
+              <div class="grid grid-cols-4 gap-2" >
+                <div class="col-span-1">
+                  <lib-form-group>
+                    <lib-text-input
+                      type="text"
+                      [placeholder]="'attributeDefinition.Search' | translate"
+                      [(ngModel)]="searchTerm"
+                      (keyUp)="onSearchChange()"
+                    ></lib-text-input>
+                  </lib-form-group>
+                </div>
+                <!-- <div class="col-span-1">
+                  <lib-form-group>
+                    <lib-text-input
+                      type="text"
+                      [placeholder]="'attributeDefinition.Search' | translate"
+                      [(ngModel)]="searchTerm"
+                      (keyUp)="onSearchChange()"
+                    ></lib-text-input>
+                  </lib-form-group>
+                </div>
+                <div class="col-span-1">
+                  <lib-form-group>
+                    <lib-text-input
+                      type="text"
+                      [placeholder]="'attributeDefinition.Search' | translate"
+                      [(ngModel)]="searchTerm"
+                      (keyUp)="onSearchChange()"
+                    ></lib-text-input>
+                  </lib-form-group>
+                </div> -->
+              
+  
+                <div class=" flex flex-auto justify-content-end align-items-center gap-2">
+                  <div>
+                    <lib-button-micro
+                      [title]="'attributeDefinition.addAttribute' | translate"
+                      nameClass="save"
+                      iconName="pi pi-plus"
+                      (click)="Add()"
+                    >
+                    </lib-button-micro>
+                  </div>
+                  <!--  -->
+                  <div>
+                    <lib-export
+                      (exportClick)="exportClick($event)"
+                      [exportData]="exportData"
+                      [exportColumns]="exportColumns"
+                      [ExportName]="'Attribute Definition'"
+                    >
+                    </lib-export>
+                  </div>
+                  <!--  -->
+                </div>
+              </div>
+            </div>
+          </ng-container>
+    
+  
+       
+          <ng-template #isActive let-isActive>
+            <div *ngIf="isActive" class="actions flex align-items-center" >
+             {{'attributeDefinition.Active'| translate}}
+            
+            </div>
+            <div *ngIf="!isActive" class="actions flex align-items-center" >
+             {{'attributeDefinition.inActive'| translate}}
+            
+            </div>
+          </ng-template>
+          <ng-template #actions let-action>
+            <div class="actions flex align-items-center">
+              <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
+              <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
+            </div>
+          </ng-template>
+        </lib-data-table>
+      </div>
+    </div>
+  </lib-page-content>
+  
