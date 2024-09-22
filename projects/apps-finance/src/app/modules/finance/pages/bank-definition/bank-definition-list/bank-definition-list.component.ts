@@ -84,13 +84,12 @@ export class BankDefinitionListComponent implements OnInit {
     });
   }
 
-  exportClick(e?: Event) {
-    this.exportBankData(this.searchTerm);
-  }
 
-  exportBankData(searchTerm: string) {
-    this.financeService.exportsBankList(searchTerm);
+  exportClick(e?: Event) {
+
+    this.financeService.exportsBankList(this.searchTerm);
     this.financeService.exportedBankListDataSourceObservable.subscribe((res) => {
+      console.log("res",res)
       this.exportData = res;
     });
   }
