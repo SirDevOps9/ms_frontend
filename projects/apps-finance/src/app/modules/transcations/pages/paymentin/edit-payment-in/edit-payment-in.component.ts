@@ -394,7 +394,7 @@ export class EditPaymentInComponent {
     if (!this.formsService.validForm(this.paymentInDetailsFormArray, false)) return;
 
     let newLine = this.formBuilder.group({
-      amount: new FormControl(0, [
+      amount: new FormControl('', [
         customValidators.required,
         customValidators.hasSpaces,
         customValidators.nonZero,

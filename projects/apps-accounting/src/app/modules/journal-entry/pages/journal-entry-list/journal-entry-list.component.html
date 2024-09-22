@@ -104,8 +104,15 @@
             [exportColumns]="exportColumns" [ExportName]="'Journal Entries'">
           </lib-export>
 
-          <lib-button pRipple className="addToList" label="{{ 'EditJournal.add' | translate }}" (onClick)="routeToAdd()"
-            [icon]="'pi pi-plus'"></lib-button>
+          <!-- <lib-button pRipple className="addToList" label="{{ 'EditJournal.add' | translate }}" (onClick)="routeToAdd()"
+            [icon]="'pi pi-plus'"></lib-button> -->
+            <lib-button-micro
+            title="{{ 'EditJournal.add' | translate }}"
+            (click)="routeToAdd()"
+            nameClass="save"
+            >
+
+            </lib-button-micro>
         </div>
       </ng-container>
 

@@ -391,7 +391,7 @@ export class EditPaymentOutComponent implements OnInit {
 
     let newLine = this.formBuilder.group(
       {
-        amount: new FormControl(0, [customValidators.required, customValidators.hasSpaces]),
+        amount: new FormControl('', [customValidators.required, customValidators.hasSpaces]),
         paymentMethodId: new FormControl(null, [customValidators.required]),
         paymentMethodType: new FormControl('Check'),
         ratio: new FormControl(null),
