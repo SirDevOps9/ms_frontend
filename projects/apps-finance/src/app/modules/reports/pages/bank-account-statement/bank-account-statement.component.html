@@ -39,10 +39,9 @@
               </lib-form-group>
             </div>
             <div class="col-12 md:col-4">
-              <div class="view" >
+              <div class="view">
                 <p>
                   {{ currency ? currency : ('BankAccountStatement.DisplayCurrency' | translate) }}
-
                 </p>
               </div>
             </div>
@@ -81,10 +80,11 @@
         </div>
       </div>
     </form>
-    <div class="mb-4">
+    <div class="mb-4" *ngIf="tableData">
       <lib-data-table
+        id="printableTable"
         [firstRow]="true"
-        [items]="transactions"
+        [items]="tableData.transactions"
         className="p-datatable-gridlines"
         [reportTable]="true"
         [tableConfigs]="{
@@ -180,20 +180,22 @@
           </div>
         </ng-template>
 
-        <ng-container firstRow>
-          <td class="first_row body_b16" colspan="3">{{ openingHeader }}</td>
-          <td class="first_row body_b16">{{ openingDebit | numberFormat }}</td>
-          <td class="first_row body_b16">{{ openingCredit | numberFormat }}</td>
-          <td class="first_row body_b16">{{ openingBalance | numberFormat }}</td>
+        <ng-container firstRow *ngIf="tableData.openingBalance">
+          <td class="first_row body_b16" colspan="3">
+            {{ tableData.openingBalance!.headerDescription }}
+          </td>
+          <td class="first_row body_b16">{{ tableData!.openingBalance.debit | numberFormat }}</td>
+          <td class="first_row body_b16">{{ tableData!.openingBalance.credit | numberFormat }}</td>
+          <td class="first_row body_b16">{{ tableData!.openingBalance.balance | numberFormat }}</td>
           <td class="first_row" colspan="8"></td>
         </ng-container>
 
-        <ng-container footer>
+        <ng-container footer *ngIf="tableData">
           <tr>
             <td class="imptyData" colspan="3"></td>
-            <td class="first_row body_b16">{{ totalDebit | numberFormat }}</td>
-            <td class="first_row body_b16">{{ totalCredit | numberFormat }}</td>
-            <td class="first_row body_b16">{{ totalBalance | numberFormat }}</td>
+            <td class="first_row body_b16">{{ tableData!.totalDebit | numberFormat }}</td>
+            <td class="first_row body_b16">{{ tableData!.totalCredit | numberFormat }}</td>
+            <td class="first_row body_b16">{{ tableData!.totalBalance | numberFormat }}</td>
             <td class="imptyData" colspan="7"></td>
           </tr>
         </ng-container>
@@ -216,164 +218,5 @@
         </ng-template>
       </lib-data-table>
     </div>
-    <div id="printableTable">
-      <form [formGroup]="accountStatementForm">
-        <div class="group">
-          <div class="calender">
-            <div class="grid">
-              <div class="col-12 md:col-4">
-                <label> {{ 'BankAccountStatement.Bank' | translate }} </label>
-                <p class="view">{{ selectedBankName }}</p>
-              </div>
-              <div class="col-12 md:col-4">
-                <label> {{ 'BankAccountStatement.BankAccount' | translate }} </label>
-                <p class="view">{{ selectedBankAccountName }}</p>
-              </div>
-              <div class="col-12 md:col-4">
-                <label> {{ 'BankAccountStatement.DisplayCurrency' | translate }} </label>
-
-                <p class="view">{{ currency }}</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="grid">
-            <div class="col-12 md:col-5">
-              <label> {{ 'BankAccountStatement.DateFrom' | translate }} </label>
-
-              <p class="view">{{ accountStatementForm.controls['dateFrom'].value }}</p>
-            </div>
-            <div class="col-12 md:col-4">
-              <label> {{ 'BankAccountStatement.DateTo' | translate }} </label>
-
-              <p class="view">{{ accountStatementForm.controls['dateTo'].value }}</p>
-            </div>
-          </div>
-        </div>
-      </form>
-      <div class="mb-4">
-        <lib-table-print
-          resizableColumns="false"
-          [firstRow]="true"
-          [items]="transactions"
-          className="p-datatable-gridlines"
-          [tableConfigs]="{
-      allowPagination: false,
-      allowServerPagination: false,
-      dataKey: 'id',
-      pageSize: 10,
-      columns: [
-        {
-          name: 'date',
-          headerText: 'BankAccountStatement.Date' | translate,
-          template:date
-        },
-        {
-          name: 'paymentCode',
-          headerText: 'BankAccountStatement.PaymentCode' | translate,
-        },
-        {
-          name: 'paymentName',
-          headerText: 'BankAccountStatement.PaymentName' | translate,
-
-        },
-        {
-          name: 'debit',
-          headerText: 'BankAccountStatement.Debit' | translate,
-          template:debit
-
-        },
-        {
-          name: 'credit',
-          headerText: 'BankAccountStatement.Credit' | translate,
-          template:credit
-
-        },
-        {
-          name: 'balance',
-          headerText: 'BankAccountStatement.Balance' | translate,
-          template:balance
-
-        },
-        {
-          name: 'paymentMethodName',
-          headerText: 'BankAccountStatement.PaymentMethodName' | translate,
-        },
-        {
-          name: 'sourceCode',
-          headerText: 'BankAccountStatement.SourceCode' | translate,
-        },
-        {
-          name: 'journalCode',
-          headerText: 'BankAccountStatement.JournalCode' | translate,
-        },
-        {
-          name: 'paidByDetailsName',
-          headerText: 'BankAccountStatement.PaidByDetailsName' | translate,
-        },
-        {
-          name: 'accountName',
-          headerText: 'BankAccountStatement.AccountName' | translate,
-        },
-        {
-          name: 'headerDescription',
-          headerText: 'AccountStatement.HeaderDescription' | translate,
-        },
-        {
-          name: 'lineDescription',
-          headerText: 'BankAccountStatement.LineDescription' | translate,
-        }
-      ]
-    }"
-        >
-          <ng-template #date let-line>
-            <div>
-              <p>{{ line.date | date : 'MM/dd/yyyy' }}</p>
-            </div>
-          </ng-template>
-
-          <ng-template #date let-line>
-            <div>
-              <p>{{ line.date | date : 'MM/dd/yyyy' }}</p>
-            </div>
-          </ng-template>
-
-          <ng-template #balance let-line>
-            <div>
-              <p>{{ line.balance | numberFormat }}</p>
-            </div>
-          </ng-template>
-          <ng-template #debit let-line>
-            <div>
-              <p>{{ line.debit | numberFormat }}</p>
-            </div>
-          </ng-template>
-
-          <ng-template #credit let-line>
-            <div>
-              <p>{{ line.credit | numberFormat }}</p>
-            </div>
-          </ng-template>
-          <ng-container firstRow>
-            <td class="first_row body_b16" colspan="3">{{ openingHeader }}</td>
-            <td class="first_row body_b16">{{ openingDebit | numberFormat }}</td>
-            <td class="first_row body_b16">{{ openingCredit | numberFormat }}</td>
-            <td class="first_row body_b16">{{ openingBalance | numberFormat }}</td>
-            <td class="first_row" colspan="8"></td>
-          </ng-container>
-
-          <ng-container footer>
-            <tr>
-              <td class="imptyData" colspan="3"></td>
-              <td class="first_row body_b16">{{ totalDebit | numberFormat }}</td>
-              <td class="first_row body_b16">{{ totalCredit | numberFormat }}</td>
-              <td class="first_row body_b16">{{ totalBalance | numberFormat }}</td>
-              <td class="imptyData" colspan="7"></td>
-            </tr>
-          </ng-container>
-        </lib-table-print>
-      </div>
-    </div>
   </div>
-  
 </lib-page-content>

@@ -106,7 +106,7 @@ export class BreadcrumbLabel {
     
     
     static PAYMENT_IN ='BreadCrumb.PaymentIn';
-    static ADD_PAYMENT_IN ='Add Payment In';
+    static ADD_PAYMENT_IN ='PaymentIn.addpaymentin';
     static EDIT_PAYMENT_IN ='Edit Payment In';
 
     static PAYMENT_IN_LIST ='BreadCrumb.PaymentInList';
