@@ -310,7 +310,7 @@
   }
   ,
   "paymentmethod": {
-    "payment-term-list": "Payment Term List",
+    "payment-method-list": "Payment Method List",
     "code": "Code",
     "name": "Name",
     "PaymentPlace": "Payment Place",
@@ -320,6 +320,7 @@
   },
   "add-paymentMethod": {
     "title": "Add Payment Method",
+    "title-edit" :"Edit Payment Method",
     "code": "Code",
     "name": "Name",
     "paymentPlace": "Payment Place",
