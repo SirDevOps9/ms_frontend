@@ -7,6 +7,7 @@ import { FinanceService } from '../../../finance.service';
 import { SharedFinanceEnums } from '../../../models/shared-finance-enums';
 import { ActivatedRoute } from '@angular/router';
 import { GetPaymentMethodByIdDto } from '../../../models/get-payment-method-by-id-dto';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-payment-method',
@@ -37,12 +38,16 @@ export class EditPaymentMethodComponent implements OnInit {
               private toasterService: ToasterService,
               private languageService: LanguageService,
               private route : ActivatedRoute,
-              public sharedFinanceEnum: SharedFinanceEnums) {
+              public sharedFinanceEnum: SharedFinanceEnums,
+              private title: Title,
+            ) {
 
     
   }
 
   ngOnInit() {
+    this.title.setTitle(this.languageService.transalte('add-paymentMethod.title-edit'));
+
     this.initForm();
     this.getChildrenAccountsDropDownLookup();
     this.getBankDropDown();

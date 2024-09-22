@@ -302,7 +302,7 @@
     "submit": "تأكيد"
   },
   "paymentmethod": {
-    "payment-term-list": "قائمة شروط الدفع",
+    "payment-method-list": "قائمة طريقة الدفع",
     "code": "الرمز",
     "name": "الاسم",
     "PaymentPlace": "مكان الدفع",
@@ -312,6 +312,7 @@
   },
   "add-paymentMethod": {
     "title": "إضافة طريقة دفع",
+    "title-edit": "تعديل طريقة الدفع",
     "code": "كود",
     "name": "اسم",
     "paymentPlace": "مكان الدفع",

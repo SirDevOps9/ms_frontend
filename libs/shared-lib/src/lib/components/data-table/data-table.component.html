@@ -28,7 +28,7 @@
             <div class="flex align-items-center">
               <div
                 class="paginationHead"
-                *ngIf="tableConfigs.allowServerPagination"
+                *ngIf="tableConfigs.allowServerPagination && currentPageResult.totalItems"
                 [class.none]="currentPageResult.totalItems! <= 25"
               >
                 <p-paginator
@@ -42,9 +42,7 @@
                   [first]="first"
                 ></p-paginator>
               </div>
-              <ng-content select="[action]">
-            
-              </ng-content>
+              
               <lib-button-micro
               *ngIf="sequence"
               nameClass="sequence"
@@ -52,6 +50,8 @@
               >
 
               </lib-button-micro>  
+              <ng-content select="[action]"></ng-content>
+            
             </div>
           </div>
           <ng-content select="[caption]"> </ng-content>
@@ -73,7 +73,7 @@
         <!-- ////////// -->
         <ng-template pTemplate="header">
           <!-- First level header row -->
-         
+
           <tr>
             <ng-container *ngFor="let col of tableConfigs.columns">
               <ng-container *ngIf="col.children && col.children.length">
@@ -173,7 +173,7 @@
           </tr>
           <tr *ngIf="firstRow">
             <ng-content select="[firstRow]"> </ng-content>
-           </tr>
+          </tr>
         </ng-template>
         <!-- ///////////// -->
         <!-- <ng-template pTemplate="body" let-row let-i="rowIndex">
@@ -193,9 +193,8 @@
             </td>
           </tr>
         </ng-template> -->
-       
+
         <ng-template pTemplate="body" let-row let-i="rowIndex">
-        
           <tr [ngClass]="{ cssClass: i == selectedIndex }">
             <ng-container *ngFor="let col of tableConfigs.columns">
               <!-- Check if the column has children -->
@@ -246,9 +245,9 @@
           <ng-content select="[footer]"> </ng-content>
         </ng-template>
       </p-table>
-      <ng-container *ngIf="!items.length && !firstRow">
+      <ng-container *ngIf="items! && !items.length && !firstRow">
         <div class="flex justify-content-center mt-4" (click)="addNewItem()">
-          <div class="flex gap-2  align-content-center pointer">
+          <div class="flex gap-2 align-content-center pointer">
             <i *ngIf="!reportTable" class="pi pi-plus"></i> <small>There is no data</small>
           </div>
         </div>
@@ -298,7 +297,7 @@
   </div>
 </div>
 <div
-  *ngIf="tableConfigs.allowServerPagination"
+  *ngIf="tableConfigs.allowServerPagination && currentPageResult.totalItems"
   class="flex justify-content-end"
   [class.none]="currentPageResult.totalItems! <= 25"
 >

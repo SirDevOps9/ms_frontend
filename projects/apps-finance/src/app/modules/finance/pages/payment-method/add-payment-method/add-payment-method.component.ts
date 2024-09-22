@@ -34,7 +34,7 @@ export class AddPaymentMethodComponent implements OnInit {
               public sharedFinanceEnum: SharedFinanceEnums) 
               {
 
-    this.title.setTitle(this.languageService.transalte('currencyDefinition.Title'));
+    this.title.setTitle(this.languageService.transalte('add-paymentMethod.title'));
 
     this.paymentMethodForm = fb.group({
       code: new FormControl(null),
@@ -189,13 +189,15 @@ export class AddPaymentMethodComponent implements OnInit {
   onSave() {
     const formData = this.paymentMethodForm.value as AddPaymentMethodDto;
 
-    if (formData.paymentPlace == this.sharedFinanceEnum.PaymentPlace.Treasury.toString()) {
+    if(!formData.paymentMethodCommissionData?.allowVAT)
+      {
+        formData.paymentMethodCommissionData!.taxId= null
+      }
+    if (formData.paymentPlace == this.sharedFinanceEnum.PaymentPlace.Treasury.toString()) 
+      {
       formData.paymentMethodCommissionData = null;
-  }
-  if(!formData.paymentMethodCommissionData?.allowVAT)
-  {
-    formData.paymentMethodCommissionData!.taxId= null
-  }
+      }
+  
 
 
     if (!this.formsService.validForm(this.paymentMethodForm, false)) return;

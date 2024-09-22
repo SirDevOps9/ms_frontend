@@ -25,10 +25,8 @@ import { SourceDocument } from '../../models/source-document-dto';
 })
 export class BankAccountStatementComponent {
   accountStatementForm: FormGroup;
-  tableData: BankAccountStatementDto;
+  tableData?: BankAccountStatementDto;
   transactions: BankAccountStatementLinesDto[] = [];
-  totalDebit: number;
-  totalCredit: number;
   total: number = 0;
   currency: string;
   BankDropDown: DropDownDto[] = [];
@@ -36,10 +34,6 @@ export class BankAccountStatementComponent {
   totalBalance: number;
   selectedBankName: string = '';
   selectedBankAccountName: string = '';
-  openingDebit: number;
-  openingCredit: number;
-  openingBalance: number;
-  openingHeader: String;
   constructor(
     private fb: FormBuilder,
     private reportsService: ReportsService,
@@ -60,7 +54,7 @@ export class BankAccountStatementComponent {
     this.initializeDates();
 
     this.accountStatementForm.valueChanges.subscribe(() => {
-      this.tableData = {} as BankAccountStatementDto;
+      this.tableData = undefined;
     });
 
     this.getBankDropDown();
@@ -89,14 +83,6 @@ export class BankAccountStatementComponent {
         (res: BankAccountStatementDto) => {
           this.tableData = res;
           this.transactions = res?.transactions;
-          this.transactions = res?.transactions;
-          this.totalDebit = res?.totalDebit;
-          this.totalCredit = res?.totalCredit;
-          this.totalBalance = res?.totalBalance;
-          this.openingDebit = res?.openingBalance?.debit;
-          this.openingCredit = res?.openingBalance?.credit;
-          this.openingBalance = res?.openingBalance?.balance;
-          this.openingHeader = res?.openingBalance?.headerDescription;
         }
       );
     } else {

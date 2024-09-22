@@ -15,7 +15,8 @@ export class EditVendorCategoryComponent implements OnInit {
     private formsService: FormsService,
     private routerService: RouterService,
     private route: ActivatedRoute,
-    private purchaseService  :PurchaseService
+    private purchaseService  :PurchaseService,
+
   ) {}
 
   formGroup: FormGroup;
@@ -57,8 +58,11 @@ export class EditVendorCategoryComponent implements OnInit {
       this.formGroup.patchValue({ ...res });
     });
   }
-
-  onSave() {
+ 
+  cancel() {
+    this.routerService.navigateTo('/masterdata/vendor-category');
+  }
+  save() {
     if (!this.formsService.validForm(this.formGroup, false)) return;
     this.formGroup.value.id = this.id;
 

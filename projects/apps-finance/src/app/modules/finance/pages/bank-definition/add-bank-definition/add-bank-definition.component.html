@@ -257,7 +257,7 @@
                 pEditableColumnField="bankGroup.controls['userPermission']"
               >
                 <p-cellEditor>
-                  <ng-template pTemplate="input">
+                  <ng-template pTemplate="input" *ngIf="usersList.length>0">
                     <lib-form-group>
                       <lib-multi-select
                         formControlName="userPermission"
@@ -269,6 +269,9 @@
                         (valueChanged)="userPermissionSelect($event, bankGroup, i)"
                       ></lib-multi-select>
                     </lib-form-group>
+                  </ng-template>
+                  <ng-template pTemplate="input"  *ngIf="usersList.length==0">
+                    {{ 'bank.userPermission' | translate }}
                   </ng-template>
                   <ng-template pTemplate="output">
                     {{ bankGroup.controls['userPermissionName'].value }}

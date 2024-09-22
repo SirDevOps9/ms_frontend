@@ -23,6 +23,8 @@ import { PaymentMethodListComponent } from './pages/payment-method/payment-metho
 import { AddPaymentMethodComponent } from './pages/payment-method/add-payment-method/add-payment-method.component';
 import { EditPaymentMethodComponent } from './pages/payment-method/edit-payment-method/edit-payment-method.component';
 import { ViewPaymentMethodComponent } from './pages/payment-method/view-payment-method/view-payment-method.component';
+import { MainPaymentMethodComponent } from './pages/payment-method/main-payment-method/main-payment-method.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -127,32 +129,44 @@ const routes: Routes = [
       },
       {
         path: 'payment-method',
-        component: PaymentMethodListComponent,
+        component: MainPaymentMethodComponent,
         data: {
           breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_LIST,
         },
+        children:[
+          {
+            path: '',
+            component: PaymentMethodListComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_LIST,
+            },
+          },
+          {
+            path: 'add',
+            component: AddPaymentMethodComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_ADD,
+            },
+          },
+          {
+            path: 'edit/:id',
+            component: EditPaymentMethodComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_EDIT,
+            },
+          },
+          {
+            path: 'view/:id',
+            component: ViewPaymentMethodComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_VIEW,
+            },
+          },
+        ]
       },
-      {
-        path: 'add-payment-method',
-        component: AddPaymentMethodComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_ADD,
-        },
-      },
-      {
-        path: 'edit-payment-method/:id',
-        component: EditPaymentMethodComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_EDIT,
-        },
-      },
-      {
-        path: 'view-payment-method/:id',
-        component: ViewPaymentMethodComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_VIEW,
-        },
-      },
+
+   
+
       //   path: 'payment-in',
       //   component: PaymentInListComponent,
       //   data: {
@@ -182,7 +196,10 @@ const routes: Routes = [
     PaymentMethodListComponent,
     AddPaymentMethodComponent,
     EditPaymentMethodComponent,
-    ViewPaymentMethodComponent
+    ViewPaymentMethodComponent,
+    MainPaymentMethodComponent
+
+    
   ],
   imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes)],
 })
