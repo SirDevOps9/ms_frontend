@@ -11,7 +11,6 @@ import { FinanceService } from '../../finance.service';
 import { AddTreasuryDto, Balance } from '../../models';
 import { ConfirmComponent } from '../confirm/confirm.component';
 import { Title } from '@angular/platform-browser';
-import { reduce } from 'rxjs';
 
 @Component({
   selector: 'app-add-treasury',
@@ -109,7 +108,7 @@ export class AddTreasuryComponent implements OnInit {
       currencyId: [null, customValidators.required],
       branches: [null, customValidators.required],
       accountId: [null],
-      openingBalance: [null],
+      openingBalance:new FormControl('', [customValidators.required,customValidators.nonNegativeNumbers]),
       journalEntryLineId: [null],
       accountBalance: [null],
     });

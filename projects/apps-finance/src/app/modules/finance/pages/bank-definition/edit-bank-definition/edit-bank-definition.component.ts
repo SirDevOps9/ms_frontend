@@ -151,11 +151,11 @@ export class EditBankDefinitionComponent implements OnInit {
   createBankFormGroup(): FormGroup {
     return this.fb.group({
       id: 0,
-      accountNumber: new FormControl('', Validators.required),
+      accountNumber: new FormControl('', customValidators.required),
       glAccountId: null,
-      iban: new FormControl('', Validators.required),
+      iban: new FormControl('', customValidators.required),
       currencyId: null,
-      openingBalance: new FormControl('', Validators.required),
+      openingBalance: new FormControl('', [customValidators.required,customValidators.nonNegativeNumbers]),
       currentBalance: null,
       accountName: null,
       currencyName: null,

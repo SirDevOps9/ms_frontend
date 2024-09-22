@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { LayoutService } from 'apps-shared-lib';
 import { DynamicDialogConfig, DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { customValidators, FormsService, LanguageService, MenuModule } from 'shared-lib';
@@ -128,7 +128,7 @@ export class EditTreasuryComponent implements OnInit {
       accountId: [null],
       accountOpeningBalance: [0],
       journalEntryLineId: [null],
-      openingBalance: [null],
+      openingBalance: new FormControl('', [customValidators.required,customValidators.nonNegativeNumbers]),
       treasuryCurrentBalance:''
     });
   }
