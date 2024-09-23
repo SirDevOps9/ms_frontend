@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { PageInfoResult, lookupDto, RouterService, PageInfo, TitleService } from 'shared-lib';
+import { PageInfoResult, lookupDto, RouterService, PageInfo } from 'shared-lib';
 import { GetAllPaymentInDto } from '../../../models';
 import { TranscationsService } from '../../../transcations.service';
-
+import { Router } from '@angular/router';
+import { SharedFinanceEnums } from '../../../../finance/models';
 @Component({
   selector: 'app-payment-in-list',
   templateUrl: './payment-in-list.component.html',
@@ -57,13 +58,13 @@ export class PaymentInListComponent {
   constructor(
     private financeService: TranscationsService,
     private routerService: RouterService,
-    private titleService: TitleService
+    private router: Router,
+    public financeSharedEnums:SharedFinanceEnums
   ) {}
 
   ngOnInit() {
     this.subscribes();
     this.initPaymentInData();
-    //this.titleService.setTitle('payment-in.payment-in');
   }
 
   routeToAdd() {
@@ -111,5 +112,11 @@ export class PaymentInListComponent {
 
   view(id: number) {
     this.routerService.navigateTo(`/transcations/paymentin/view/${id}`);
+  }
+  routeToJournalView(id: number) {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/accounting/transcations/journalentry/view/${id}`])
+    );
+    window.open(url, '_blank');
   }
 }
