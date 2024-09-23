@@ -37,7 +37,6 @@ export class TreasuryStatementComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private titleService: Title,
     private languageService: LanguageService,
     private financeService: TranscationsService,
     private PrintService: PrintService,
@@ -51,9 +50,7 @@ export class TreasuryStatementComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(
-      this.languageService.transalte('TreasuryStatement.TreasuryStatement')
-    );
+    
     this.getTreasuryDropDown();
     this.initializeForm();
     this.initializeDates();

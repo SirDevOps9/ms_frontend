@@ -58,15 +58,12 @@ export class PaymentOutListComponent implements OnInit {
 
   constructor(
     private financeService: TranscationsService,
-    private routerService: RouterService,
-    private title: Title,
-    private langService: LanguageService
+    private routerService: RouterService
   ) {}
 
   ngOnInit() {
     this.subscribes();
     this.initPaymentInData();
-    this.title.setTitle(this.langService.transalte('PaymentOut.Title'));
   }
 
   routeToAdd() {

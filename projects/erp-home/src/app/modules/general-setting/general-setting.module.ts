@@ -40,6 +40,7 @@ const routes: Routes = [
         // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.tag_list,
+          pageTitle: BreadcrumbLabel.tag_list,
         },
       },
       {
@@ -48,6 +49,8 @@ const routes: Routes = [
         // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.tag_list,
+          pageTitle: BreadcrumbLabel.tag_list,
+
         },
       },
       {
@@ -56,6 +59,8 @@ const routes: Routes = [
         // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.calendar_list,
+          pageTitle: BreadcrumbLabel.calendar_list,
+
         },
         children:[
           {
@@ -72,6 +77,8 @@ const routes: Routes = [
             // canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.calendar_Add,
+              pageTitle: BreadcrumbLabel.calendar_Add,
+
             },
           },
           {
@@ -80,6 +87,8 @@ const routes: Routes = [
             // canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.calendar_Edit,
+              pageTitle: BreadcrumbLabel.calendar_Edit,
+
             },
           },
         ]
@@ -90,6 +99,8 @@ const routes: Routes = [
         // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.CURRENCY_DEFINITION_LIST,
+          pageTitle: BreadcrumbLabel.CURRENCY_DEFINITION_LIST,
+
         },
       },
       {
@@ -98,20 +109,26 @@ const routes: Routes = [
         //  canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.CURRENCY_CONVERSION,
+          pageTitle: BreadcrumbLabel.CURRENCY_CONVERSION,
+
         },
       },
       {
         path: 'tax-group',
         component: TaxGroupComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.TaxGroup
+          breadcrumb: BreadcrumbLabel.TaxGroup,
+          pageTitle: BreadcrumbLabel.TaxGroup,
+
         },
       },
       {
         path: 'tax-definition',
         component: TaxDefinitionComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.TaxDefinition
+          breadcrumb: BreadcrumbLabel.TaxDefinition,
+          pageTitle: BreadcrumbLabel.TaxDefinition,
+
         },
       },
     ],

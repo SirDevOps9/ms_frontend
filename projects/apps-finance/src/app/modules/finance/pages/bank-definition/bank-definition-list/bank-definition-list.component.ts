@@ -21,7 +21,6 @@ export class BankDefinitionListComponent implements OnInit {
     private langService: LanguageService,
     private financeService: FinanceService
   ) {
-    this.title.setTitle(this.langService.transalte('bank.BankDefinitonsList'));
 
   }
 

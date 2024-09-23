@@ -96,13 +96,11 @@ export class EditPaymentOutComponent implements OnInit {
     private toasterService: ToasterService,
     private langService: LanguageService,
     private currentUserService: CurrentUserService,
-    private titleService: Title,
     private routerService: RouterService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(this.langService.transalte('PaymentOut.editpaymentout'));
     this.id = this.route.snapshot.params['id'];
 
     this.getPaymentDetails(this.id);

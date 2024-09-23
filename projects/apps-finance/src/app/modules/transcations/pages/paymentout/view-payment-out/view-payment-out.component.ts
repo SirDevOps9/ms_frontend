@@ -27,23 +27,13 @@ export class ViewPaymentOutComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private dialog: DialogService,
-    private lookupsService: LookupsService,
     private financeService: TranscationsService,
-    private formsService: FormsService,
     public  sharedFinanceEnums: SharedFinanceTranscationEnums,
-    private toasterService: ToasterService,
-    private langService: LanguageService,
-    private currentUserService: CurrentUserService,
-    private titleService: Title,
     private routerService: RouterService,
-
-
   ) {
   }
   ngOnInit() {
-    this.titleService.setTitle(
-      this.langService.transalte('PaymentIn.viewPaymentOut')
-    );
+   
     this.loadView();
 
 

@@ -40,7 +40,6 @@ export class EditBankDefinitionComponent implements OnInit {
     private route: ActivatedRoute,
     private titleService: Title
   ) {
-    this.titleService.setTitle(this.languageService.transalte('bank.EditBank'));
   }
   branchesLookup: { id: number; name: string }[];
   accountsLookup: { id: number; name: string }[];

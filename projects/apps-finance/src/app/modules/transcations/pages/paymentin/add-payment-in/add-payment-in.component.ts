@@ -77,7 +77,6 @@ export class AddPaymentInComponent {
     private toasterService: ToasterService,
     private langService: LanguageService,
     private currentUserService: CurrentUserService,
-    private titleService: Title,
     private routerService: RouterService,
 
 
@@ -85,9 +84,7 @@ export class AddPaymentInComponent {
   }
 
   ngOnInit() {
-    this.titleService.setTitle(
-      this.langService.transalte('PaymentIn.addpaymentin')
-    );
+   
     this.financeService.AccountBalance.next(0);
     this.initializeForm();
     this.subscribe();
