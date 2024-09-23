@@ -9,7 +9,6 @@ import { AccountService } from 'projects/apps-accounting/src/app/modules/account
 import { customValidators, FormsService, LanguageService, PageInfo, RouterService } from 'shared-lib';
 import { Balance } from '../../../models';
 import { NoChildrenAccountsComponent } from '../../../components/bank/no-children-accounts/no-children-accounts.component';
-import { AddBankDto } from '../../../models/addBankDto';
 import { UserPermission } from '../../../models/user-permission';
 import { ConfirmOpeningBalanceComponent } from '../../../components/bank/confirm-opening-balance/confirm-opening-balance.component';
 import { Title } from '@angular/platform-browser';
@@ -123,7 +122,7 @@ export class AddBankDefinitionComponent implements OnInit {
       glAccountId: null,
       iban: null,
       currencyId: null,
-      openingBalance: new FormControl('', customValidators.required),
+      openingBalance: new FormControl('', [customValidators.required,customValidators.nonNegativeNumbers]),
       currentBalance: null,
       accountName: null,
       currencyName: null,

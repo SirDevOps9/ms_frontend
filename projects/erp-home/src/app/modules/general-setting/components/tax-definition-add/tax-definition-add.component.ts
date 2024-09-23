@@ -16,6 +16,7 @@ import { AccountsChildrenDropDown } from '../../models/accounts-children-dropdow
 import { TaxGroupDropDown } from '../../models/tax-group-drop-down';
 import { GeneralSettingService } from '../../general-setting.service';
 import { AddTax } from '../../models/add-tax';
+import { NoChildrenAccountsComponent } from '../noChildrenAccounts/nochildaccounts.component';
 
 @Component({
   selector: 'app-tax-definition-add',
@@ -78,7 +79,17 @@ export class TaxDefinitionAddComponent {
   close() {
     this.ref.close();
   }
-
+  openDialog() {
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {
+      width: '900px',
+      height: '600px',
+    });
+    ref.onClose.subscribe((r) => {
+      if (r) {
+        this.addForm.get('accountId')?.setValue(r.id);
+      }
+    });
+  }
   constructor(
     private generalSettingService: GeneralSettingService,
     public config: DynamicDialogConfig,
@@ -89,7 +100,9 @@ export class TaxDefinitionAddComponent {
     private title: Title,
     private langService: LanguageService,
     private routerService: RouterService,
-    public lookupsService: LookupsService
+    public lookupsService: LookupsService,
+    private dialog: DialogService,
+
   ) {
     this.title.setTitle(this.langService.transalte('Tax.AddTax'));
   }

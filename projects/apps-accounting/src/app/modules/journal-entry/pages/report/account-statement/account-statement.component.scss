@@ -79,7 +79,7 @@ input[type=checkbox]{
   }
     .group{
         .p-multiselect {
-            width: 100% !important;
+            width: 90% !important;
         }
       
       
@@ -112,4 +112,9 @@ input[type=checkbox]{
   }
   .code:hover {
     color: #10566a;
+  }
+
+  
+  .search_icon{
+    margin:8px;
   }

@@ -1,14 +1,15 @@
 
 <lib-popup-page
-title="{{ 'ChooseAnAccount' | translate }}"
+title="{{ 'ChartOfAccount.ChooseAnAccount' | translate }}"
 [closeFunction]="onCancel"
-[save]="false"
+(Submit)="onSubmit()"
+
 >
 
 <lib-data-table
 [popup]="true"
 [items]="items"
-[selectedIndex]="selectedIndex"
+[selectedIndices]="selectedIndices"
 className="p-datatable-gridlines"
 [currentPageResult]="paging"
 (pageChange)="onPageChange($event)"
@@ -68,7 +69,7 @@ class="check"
   severity="secondary"
   (onClick)="selectRow($event, account)"
 >
-  {{'Select' | translate}}
+  {{'ChartOfAccount.Select' | translate}}
 </lib-button>
 </ng-template>
 </lib-data-table>

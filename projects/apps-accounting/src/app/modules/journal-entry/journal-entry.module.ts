@@ -25,6 +25,7 @@ import { ViewJournalEntryOpeningBalanceComponent } from './pages/journal-entry-o
 import { CostCenterReportComponent } from './pages/report/cost-center-report/cost-center-report.component';
 import { MainJournalComponent } from './pages/main-journal/main-journal.component';
 import { MainOpeningBalanceComponent } from './pages/journal-entry-opening-balance/main-opening-balance/main-opening-balance.component';
+import { MultiSelectDetailedAccountsComponent } from './components/multi-select-detailed-accounts/multi-select-detailed-accounts.component';
 
 const routes: Routes = [
   {
@@ -185,6 +186,7 @@ const routes: Routes = [
     CostCenterReportComponent,
     MainJournalComponent,
     MainOpeningBalanceComponent,
+    MultiSelectDetailedAccountsComponent
   ],
   imports: [
     CommonModule,

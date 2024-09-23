@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { LayoutService } from 'apps-shared-lib';
 import { DynamicDialogConfig, DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { customValidators, FormsService, LanguageService, MenuModule } from 'shared-lib';
@@ -9,6 +9,7 @@ import { CurrencyDto } from '../../../general/models/currencyDto';
 import { EditTreasuryDto, GetTreasuryDtoById } from '../../models';
 import { ConfirmComponent } from '../confirm/confirm.component';
 import { Title } from '@angular/platform-browser';
+import { NoChildrenAccountsComponent } from '../bank/no-children-accounts/no-children-accounts.component';
 
 @Component({
   selector: 'app-edit-treasury',
@@ -128,7 +129,7 @@ export class EditTreasuryComponent implements OnInit {
       accountId: [null],
       accountOpeningBalance: [0],
       journalEntryLineId: [null],
-      openingBalance: [null],
+      openingBalance: new FormControl('', [customValidators.required,customValidators.nonNegativeNumbers]),
       treasuryCurrentBalance:''
     });
   }
@@ -161,5 +162,19 @@ export class EditTreasuryComponent implements OnInit {
       treasureDto.openingBalance = +treasureDto.openingBalance;
       this.financeService.EditTreasureDefinitionsById(treasureDto, this.ref);
     }
+  }
+
+  openDialog() {
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {
+      width: '900px',
+      height: '600px',
+    });
+    ref.onClose.subscribe((r) => {
+      if (r) {
+        console.log(r)
+        this.treasuryForm.get('accountId')?.setValue(r.id);
+
+      }
+    });
   }
 }
