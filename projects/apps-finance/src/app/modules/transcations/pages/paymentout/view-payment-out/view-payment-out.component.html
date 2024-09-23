@@ -63,13 +63,13 @@
         <div class="my-3 grid-item">
           <p class="headsCont paragraph_b16">{{ 'payment-view.amount' | translate }}</p>
           <small class="subHead heading_b16">
-            {{ ViewForm.amount }}
+            {{ ViewForm.amount | numberFormat }}
           </small>
         </div>
         <div class="my-3 grid-item">
           <p class="headsCont paragraph_b16">{{ 'payment-view.localAmount' | translate }}</p>
           <small class="subHead heading_b16">
-            {{ ViewForm.localAmount }}
+            {{ ViewForm.localAmount | numberFormat }}
           </small>
         </div>
     </div>
@@ -89,13 +89,15 @@
               name: 'amount',
               headerText: 'payment-view.amount' | translate,
               isGlobalFilter: true,
-              isSortable: true
+              isSortable: true,
+              applyNumberFormat:true,
             },
             {
               name: 'localAmount',
               headerText: 'payment-view.localAmount' | translate,
               isGlobalFilter: true,
-              isSortable: true
+              isSortable: true,
+              applyNumberFormat:true,
             },
             {
               name: 'paymentMethodName',
@@ -180,8 +182,8 @@
 </ng-template>
         <ng-template pTemplate="footer">
           <tr>
-            <td class="total">{{totalAmount}}</td>
-            <td class="total">{{ calculateTotalLocalAmount() }}</td>
+            <td class="total">{{totalAmount | numberFormat }}</td>
+            <td class="total">{{ calculateTotalLocalAmount()| numberFormat  }}</td>
             <td colspan="8" class="total"></td>
           </tr>
         </ng-template>

@@ -130,7 +130,7 @@
           <lib-label [appControl]="addForm.controls['currentBalance']">
             {{ 'PaymentIn.Form.CurrentBalance' | translate }}
           </lib-label>
-          <lib-text-input type="number" [readOnly]="true" placeholder="{{AccountBalance}}">
+          <lib-text-input type="number" [readOnly]="true" placeholder="{{AccountBalance| numberFormat}}">
           </lib-text-input>
           <p></p>
 
@@ -142,7 +142,7 @@
           <lib-label [appControl]="addForm.controls['totalReceivedAmount']">
             {{ 'PaymentIn.Form.TotalReceivedAmount' | translate }}
           </lib-label>
-          <lib-text-input placeholder="{{calculateTotalLocalAmount()}}" [readOnly]="true" />
+          <lib-text-input placeholder="{{calculateTotalLocalAmount()| numberFormat}}" [readOnly]="true" />
         </lib-form-group>
       </div>
 
@@ -152,7 +152,7 @@
             {{ 'PaymentIn.Form.NewBalance' | translate }}
           </lib-label>
           <lib-text-input type="text" formControlName="newBalance" class="newBalance"
-            placeholder="{{addForm.controls['totalReceivedAmount'].value + AccountBalance }}" [readOnly]="true" />
+            placeholder="{{addForm.controls['totalReceivedAmount'].value + AccountBalance | numberFormat }}" [readOnly]="true" />
         </lib-form-group>
       </div>
     </div>
@@ -188,17 +188,17 @@
                   </div>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ journalLine.get('amount').value  || 0}}
+                  {{ journalLine.get('amount').value  || 0 | numberFormat}}
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations [appControl]="journalLine.controls['amount']">
               </lib-field-validations>
             </td>
             <td *ngIf="paymentInPosted">
-              {{ journalLine.get('amount').value }}
+              {{ journalLine.get('amount').value| numberFormat }}
             </td>
             <td>
-              {{journalLine.controls['amount'].value * addForm.controls['rate'].value || 0 }}
+              {{journalLine.controls['amount'].value * addForm.controls['rate'].value || 0 | numberFormat}}
             </td>
             <td [pEditableColumn]="journalLine.paymentMethodId" pEditableColumnField="paymentMethodId" *ngIf="!paymentInPosted">
               <p-cellEditor>
@@ -389,8 +389,8 @@
         </ng-template>
         <ng-template pTemplate="footer">
           <tr>
-            <td class="total">{{totalAmount}}</td>
-            <td class="total">{{ calculateTotalLocalAmount() }}</td>
+            <td class="total">{{totalAmount | numberFormat}}</td>
+            <td class="total">{{ calculateTotalLocalAmount() | numberFormat }}</td>
             <td colspan="8" class="total"></td>
           </tr>
         </ng-template>
