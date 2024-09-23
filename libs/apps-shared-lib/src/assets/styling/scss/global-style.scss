@@ -1,3 +1,15 @@
-[dir='rtl'] .p-treenode-content svg {
-  transform: rotate(180deg);
+[dir='rtl'] {
+  .p-breadcrumb svg {
+    rotate: (180deg);
+  }
+  .p-treenode-content svg {
+    transform: rotate(180deg);
+  }
+  ul.nav-links > li > .iocn-link i {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 5px;
+    padding: 0 10px;
+  }
 }
