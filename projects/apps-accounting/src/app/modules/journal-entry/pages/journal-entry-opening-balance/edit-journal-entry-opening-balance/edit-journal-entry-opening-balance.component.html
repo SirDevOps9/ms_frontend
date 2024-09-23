@@ -417,9 +417,22 @@
               journalEntry?.status != enums.JournalEntryStatus.Posted
             "
           >
-            <button class="btn" type="button" (click)="addNewRow()">
-              {{ 'EditJournal.AddNewLine' | translate }}
-            </button>
+          <div class="grid">
+            <div class="md:col-3">
+              <div class="grid">
+                <div class="md:col-6">
+              <lib-button-micro
+              nameClass="outline"
+              widthNumber="100%" 
+              title="{{ 'add_new_line' | translate }}"
+              (click)="addNewRow()"
+              >
+    
+              </lib-button-micro>
+              </div>
+              </div>
+            </div>
+          </div>
           </div>
         </div>
 
