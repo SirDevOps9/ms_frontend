@@ -5,9 +5,9 @@
     "EditBankDefinition": "تعديل تعريف بنك",
     "PaymentTermList": "شروط الدفع",
     "AddPaymentTerm": "إضافة شرط دفع",
-  "EditPaymentTerm": "تعديل شرط دفع",
+    "EditPaymentTerm": "تعديل شرط دفع",
     "Treasury": "الخزائن",
-    "PaymentInList":" إيصال نقدي ",
+    "PaymentInList": " إيصال نقدي ",
     "AddPaymentterm": "إضافة شرط الدفع",
     "EditPaymentterm": "تحرير شرط الدفع",
     "PaymentMethodlist": "قائمة طرق الدفع",
@@ -18,10 +18,35 @@
     "ViewPaymentIn": "عرض قبض",
     "ViewPaymentout": "عرض صرف",
     "sequence": "تسلسل"
-
-
-
-
+  },
+  "ChartOfAccount": {
+    "Title": "دليل الحسابات",
+    "ChartOfAccountList": "قائمة دليل الحسابات",
+    "AddChartOfAccount": "إضافة دليل الحسابات",
+    "EditChartOfAccount": "تعديل دليل الحسابات",
+    "ChartOfAccountConfig": "إعداد دليل الحسابات",
+    "ViewChartOfAccount": "عرض دليل الحسابات",
+    "AccountName": "اسم الحساب",
+    "AccountCode": "كود الحساب",
+    "Nature": "الطبيعة",
+    "AccountType": "نوع الحساب",
+    "AccountSection": "قسم الحساب",
+    "Search": "بحث",
+    "Accounts": "الحسابات",
+    "Main": "رئيسي",
+    "Success": "نجاح",
+    "Error": "خطأ",
+    "UpdatedSuccessfully": "تم تحديث الحساب بنجاح",
+    "AddedSuccessfully": "تمت إضافة الحساب بنجاح",
+    "DeletedSuccessfully": "تم حذف الحساب بنجاح",
+    "import": "استيراد",
+    "edit": "تعديل",
+    "Configration": "إعدادات",
+    "ChooseAnAccount": "اختر حساب",
+    "Select": "اختر",
+    "Actions": "العمليات",
+    "Id": "الرقم التعريفي",
+    "levelNumber": "مستوى الحساب"
   },
   "COAConfigration": {
     "levelnumber": "رقم المستوى",
@@ -217,7 +242,7 @@
   },
   "paymentterm": {
     "payment-term-list": "قائمة شروط الدفع",
-     "AddPaymentTerm": "إضافة شرط دفع",
+    "AddPaymentTerm": "إضافة شرط دفع",
     "EditPaymentTerm": "تعديل شرط دفع",
     "code": "رمز",
     "name": "اسم",
@@ -324,10 +349,9 @@
     "CommissionValue": "قيمة العمولة",
     "CommissionAccount": "حساب العمولة",
     "AllowVAT": "السماح بضريبة القيمة المضافة",
-    "edit":"تم تعديل  طريقةالدفع بنجاح",
-    "add":"تمت إضافة طريقة الدفع بنجاح",
-    "Tax":"الضريبة"
-
+    "edit": "تم تعديل  طريقةالدفع بنجاح",
+    "add": "تمت إضافة طريقة الدفع بنجاح",
+    "Tax": "الضريبة"
   },
   "payment-in": {
     "payment-in": "إيصال نقدي",
@@ -338,13 +362,15 @@
     "branch": "الفرع",
     "bankAccount": "الحساب البنكي",
     "sourceDocument": "المستند المصدر",
-    "relatedSourceJournal": "اليومية المصدر المرتبطة",
+    "relatedSourceJournal": "كود قيد اليومية",
     "actions": "الإجراءات",
     "Search": "بحث",
     "addNew": "إضافة",
-    "delete":"تم حذف إيصال نقدي بنجاح",
-    "post": "ترحيل"
-
+    "delete": "تم حذف إيصال نقدي بنجاح",
+    "post": "ترحيل",
+    "status": "الحالة",
+    "posted": "مدون",
+    "draft": "مسودة"
   },
   "payment-view": {
     "code": "الرمز",
@@ -368,5 +394,4 @@
     "notes": "ملاحظات",
     "PaymentMethod": "طريقة الدفع"
   }
-
 }
