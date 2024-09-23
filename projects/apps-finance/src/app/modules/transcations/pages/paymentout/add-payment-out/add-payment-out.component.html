@@ -146,7 +146,7 @@
           <lib-label [appControl]="addForm.controls['currentBalance']">
             {{ 'PaymentOut.Form.CurrentBalance' | translate }}
           </lib-label>
-          <lib-text-input type="number" [readOnly]="true" placeholder="{{ AccountBalance }}">
+          <lib-text-input type="number" [readOnly]="true" placeholder="{{ AccountBalance | numberFormat }}">
           </lib-text-input>
           <p></p>
         </lib-form-group>
@@ -157,7 +157,7 @@
           <lib-label [appControl]="addForm.controls['totalPaidAmount']">
             {{ 'PaymentOut.Form.TotalPaidAmount' | translate }}
           </lib-label>
-          <lib-text-input placeholder="{{ calculateTotalLocalAmount() }}" [readOnly]="true" />
+          <lib-text-input placeholder="{{ calculateTotalLocalAmount() | numberFormat }}" [readOnly]="true" />
         </lib-form-group>
       </div>
 
@@ -169,7 +169,7 @@
           <lib-text-input
             type="text"
             class="newBalance"
-            placeholder="{{ updatedNewBalance }}"
+            placeholder="{{ updatedNewBalance | numberFormat }}"
             [readOnly]="true"
           />
         </lib-form-group>
@@ -217,14 +217,14 @@
                   </div>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ journalLine.get('amount').value || 0 }}
+                  {{ journalLine.get('amount').value || 0| numberFormat  }}
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations [appControl]="journalLine.controls['amount']">
               </lib-field-validations>
             </td>
             <td>
-              {{ journalLine.controls['amount'].value * addForm.controls['rate'].value || 0 }}
+              {{ journalLine.controls['amount'].value * addForm.controls['rate'].value || 0| numberFormat  }}
             </td>
             <td
               [pEditableColumn]="journalLine.paymentMethodId"
@@ -489,8 +489,8 @@
         </ng-template>
         <ng-template pTemplate="footer">
           <tr>
-            <td class="total">{{ totalAmount }}</td>
-            <td class="total">{{ calculateTotalLocalAmount() }}</td>
+            <td class="total">{{ totalAmount| numberFormat  }}</td>
+            <td class="total">{{ calculateTotalLocalAmount() | numberFormat }}</td>
             <td colspan="8" class="total"></td>
           </tr>
         </ng-template>
