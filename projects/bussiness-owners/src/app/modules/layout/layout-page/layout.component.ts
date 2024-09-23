@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { LanguageService } from 'shared-lib';
+import { Cultures, LanguageService } from 'shared-lib';
 import { AuthService } from 'microtec-auth-lib';
 import { RouterService } from 'shared-lib';
 import { UserData } from '../../user/models/userdata.model';
@@ -16,7 +16,7 @@ export class LayoutComponent implements OnInit {
   showcard: boolean = false;
   sidebarOpen: boolean = false;
   countries: any[] | undefined;
-
+  currentLang: Cultures | string;
   selectedCountry: string | undefined;
 
   @ViewChild('cardDr') cardDr: ElementRef;
@@ -39,6 +39,9 @@ export class LayoutComponent implements OnInit {
   }
   logout(): void {
     this.authService.logout();
+  }
+  languageToggleDetect(event: Cultures | string) {
+    this.currentLang = event;
   }
 
   toggleSidebar(event: boolean) {

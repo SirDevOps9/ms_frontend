@@ -42,16 +42,10 @@
                   [first]="first"
                 ></p-paginator>
               </div>
-              
-              <lib-button-micro
-              *ngIf="sequence"
-              nameClass="sequence"
-              (click)="routeToSequence()"
-              >
 
-              </lib-button-micro>  
+              <lib-button-micro *ngIf="sequence" nameClass="sequence" (click)="routeToSequence()">
+              </lib-button-micro>
               <ng-content select="[action]"></ng-content>
-            
             </div>
           </div>
           <ng-content select="[caption]"> </ng-content>
@@ -111,24 +105,24 @@
 
                     <!-- <i class="pi pi-filter-slash"></i> -->
                     <!-- <div class="p-d-flex p-jc-between p-ai-center">
-                  
-                  <p-columnFilter  field="activity" 
-                  matchMode="between" 
-                  display="menu" 
-                  [showMatchModes]="false" 
-                  [showOperator]="false" 
+
+                  <p-columnFilter  field="activity"
+                  matchMode="between"
+                  display="menu"
+                  [showMatchModes]="false"
+                  [showOperator]="false"
                   [showAddButton]="false"
-                  [showApplyButton]="false"  
-                  [showClearButton]="false" 
-                  class="custom-column-filter"> 
+                  [showApplyButton]="false"
+                  [showClearButton]="false"
+                  class="custom-column-filter">
                     <ng-template pTemplate="filter" let-filter="filterCallback">
-                    
+
                       <div class="custom-filter-content">
                         <input type="text" pInputText placeholder="Search" class="p-inputtext p-component" />
                       </div>
                       <div class="flex gap-3" *ngFor="let col of tableConfigs.columns">
-                        <p-checkbox 
-                        [binary]="true" 
+                        <p-checkbox
+                        [binary]="true"
                         inputId="binary" />
                         <p>{{ col.headerText }}</p>
                       </div>

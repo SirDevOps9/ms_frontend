@@ -36,7 +36,7 @@ export class LanguageService {
     currentLanguage = currentLanguage || Cultures.English;
     this.transalteService.use(currentLanguage);
   }
-  getLang(): string {
+  getLang(): Cultures {
     let currentLanguage = this.storageService.getItem(StorageKeys.LANG_KEY);
     return currentLanguage;
   }

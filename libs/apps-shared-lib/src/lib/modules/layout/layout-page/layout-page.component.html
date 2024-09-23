@@ -1,8 +1,11 @@
-  <!-- //TODO : Add arabic -->
-  <div dir="{{ 'dir' | translate }}" >
+<!-- //TODO : Add arabic -->
+<div dir="{{ 'dir' | translate }}">
   <div class="Layout">
-    <app-layout-sidebar (sidebaropend)="toggleSidebar($event)"></app-layout-sidebar>
-    <app-layout-header></app-layout-header>
+    <app-layout-sidebar
+      (sidebaropend)="toggleSidebar($event)"
+      [currentLanguage]="currentLang"
+    ></app-layout-sidebar>
+    <app-layout-header (language)="languageToggleDetect($event)"></app-layout-header>
 
     <div class="pages" [ngClass]="{ pages_sid_open: sidebarOpen }">
       <router-outlet></router-outlet>
