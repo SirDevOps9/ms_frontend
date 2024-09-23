@@ -52,3 +52,7 @@
     padding: 12px;
   }
 }
+
+[dir='rtl'] :host .p-paginator-current-custom {
+  display: none;
+}
