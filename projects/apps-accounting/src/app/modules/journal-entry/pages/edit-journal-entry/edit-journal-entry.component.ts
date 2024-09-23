@@ -604,6 +604,5 @@ export class EditJournalEntryComponent implements OnInit {
     private currentUserService: CurrentUserService,
     public generalService: GeneralService
   ) {
-    this.titleService.setTitle(this.langService.transalte('Journal.EditJournal'));
   }
 }
