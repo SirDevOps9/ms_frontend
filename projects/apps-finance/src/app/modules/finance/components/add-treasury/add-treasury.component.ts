@@ -11,6 +11,7 @@ import { FinanceService } from '../../finance.service';
 import { AddTreasuryDto, Balance } from '../../models';
 import { ConfirmComponent } from '../confirm/confirm.component';
 import { Title } from '@angular/platform-browser';
+import { NoChildrenAccountsComponent } from '../bank/no-children-accounts/no-children-accounts.component';
 
 @Component({
   selector: 'app-add-treasury',
@@ -141,5 +142,19 @@ export class AddTreasuryComponent implements OnInit {
       treasureDto.openingBalance = +treasureDto.openingBalance;
       this.financeService.addTreasureDefinitions(treasureDto, this.ref);
     }
+  }
+
+  openDialog() {
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {
+      width: '900px',
+      height: '600px',
+    });
+    ref.onClose.subscribe((r) => {
+      if (r) {
+        console.log(r)
+        this.treasuryForm.get('accountId')?.setValue(r.id);
+
+      }
+    });
   }
 }
