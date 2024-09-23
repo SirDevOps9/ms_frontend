@@ -783,5 +783,10 @@ export class AddPaymentOutComponent implements OnInit {
   }
   ngOnDestroy() {
     this.financeService.paymentOutSaved.next(0)
+    this.financeService.getBankDropDownData.next([])  
+    this.financeService.getTreasuryDropDownData.next([])  
+    this.financeService.AllPayMethodsDropdown.next([])  
+    this.financeService.AllTreasuriesPayMethodsDropdown.next([])  
+    this.financeService.accountCurrencyRateDataSource.next({ rate: 0 })
   }
 }

@@ -227,9 +227,13 @@
                                     </lib-select>
                                     <lib-text-input
                                     formControlName="detailValue"
-                                    *ngIf="SharedEnums.Segments.Text == sequence.controls['segment'].value|| 
-                                     SharedEnums.Segments.SerialNumber == sequence.controls['segment'].value 
+                                    *ngIf="SharedEnums.Segments.Text == sequence.controls['segment'].value 
                                     "
+                                    ></lib-text-input>
+                                    <lib-text-input
+                                    formControlName="detailValue"
+                                    *ngIf=" SharedEnums.Segments.SerialNumber == sequence.controls['segment'].value "
+                                    placeholder="{{'sequence.SerialnumberPlaceholder' | translate}}"
                                     ></lib-text-input>
                                  
                                 </ng-template>
@@ -270,6 +274,7 @@
     
                                         <lib-text-input
                                         formControlName="valueOption"
+                                        placeholder="{{'sequence.startingnumberPlaceholder' | translate}}"
 
                                         ></lib-text-input>
                                     </ng-template>
@@ -297,7 +302,7 @@
                                     </button>
                                 </div>
                                 <div class="example">
-                                   <span>
+                                   <span class="title">
                                     {{'sequence.example' | translate}}:
                                    </span>  <span class="example_code" >{{example}}</span>
                                 </div>
