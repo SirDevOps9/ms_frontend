@@ -223,9 +223,22 @@
               </lib-button>
             </div> -->
       <div class="add_new">
-        <button class="btn" (click)="addLine()">
-          {{ 'addVendorOpeneingBalance.add_new_line' | translate }}
-        </button>
+        <div class="grid">
+          <div class="md:col-3">
+            <div class="grid">
+              <div class="md:col-6">
+            <lib-button-micro
+            nameClass="outline"
+            widthNumber="100%" 
+            title="{{ 'add_new_line' | translate }}"
+            (click)="addLine()"
+            >
+  
+            </lib-button-micro>
+            </div>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- <div class="action_header">
               <lib-button-micro
