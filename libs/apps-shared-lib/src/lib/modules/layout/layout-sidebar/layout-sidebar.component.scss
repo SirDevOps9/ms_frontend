@@ -197,7 +197,7 @@
   transition: 0s;
 }
 
-.sidebar.ar .nav-links li .sub-menu {
+:host[ng-reflect-current-language='ar'] .sidebar.close .nav-links li .sub-menu {
   right: 100%;
   left: auto;
 }
