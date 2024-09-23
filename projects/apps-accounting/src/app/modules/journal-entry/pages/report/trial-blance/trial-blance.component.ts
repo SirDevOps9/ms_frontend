@@ -34,8 +34,6 @@ export class TrialBlanceComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
-    private routerService: RouterService,
-    private titleService: Title,
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
     private ToasterService: ToasterService,
@@ -47,9 +45,8 @@ export class TrialBlanceComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(this.languageService.transalte('reportTrial.trialBalance'));
-    this.tableData = [];
-    this.initializeForm();
+    this.tableData = []
+    this.initializeForm()
     this.getAccounts();
     this.initializeDates();
     this.reportTrialForm.valueChanges.subscribe((res) => {

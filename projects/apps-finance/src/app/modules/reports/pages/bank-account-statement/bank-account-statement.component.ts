@@ -38,7 +38,6 @@ export class BankAccountStatementComponent {
     private fb: FormBuilder,
     private reportsService: ReportsService,
     private router: Router,
-    private titleService: Title,
     private languageService: LanguageService,
     private ToasterService: ToasterService,
     private PrintService: PrintService,
@@ -46,9 +45,6 @@ export class BankAccountStatementComponent {
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(
-      this.languageService.transalte('BankAccountStatement.BankAccountStatement')
-    );
 
     this.initializeForm();
     this.initializeDates();

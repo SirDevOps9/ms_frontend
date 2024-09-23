@@ -23,14 +23,10 @@ import { ExportTaxDto } from '../../../models/export-tax-dto';
 })
 export class TaxDefinitionComponent implements OnInit {
   constructor(
-    private routerService: RouterService,
     public authService: AuthService,
     private dialog: DialogService,
     private generalSettingService: GeneralSettingService,
-    private title: Title,
-    private langService: LanguageService
   ) {
-    this.title.setTitle(this.langService.transalte('Tax.Title'));
   }
 
   tableData: TaxDto[];

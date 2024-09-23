@@ -100,7 +100,6 @@ export class EditPaymentInComponent {
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(this.langService.transalte('PaymentIn.editpaymentin'));
     this.id = this.route.snapshot.params['id'];
     this.getPaymentDetails(this.id);
     this.initializeForm();

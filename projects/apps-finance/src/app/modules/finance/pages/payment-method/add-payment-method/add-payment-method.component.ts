@@ -34,7 +34,6 @@ export class AddPaymentMethodComponent implements OnInit {
               public sharedFinanceEnum: SharedFinanceEnums) 
               {
 
-    this.title.setTitle(this.languageService.transalte('add-paymentMethod.title'));
 
     this.paymentMethodForm = fb.group({
       code: new FormControl(null),

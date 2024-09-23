@@ -29,8 +29,6 @@ export class JournalEntryListComponent implements OnInit {
   exportData: JournalEntryDto[];
   constructor(
     private routerService: RouterService,
-    private titleService: Title,
-    private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
     public sharedJouralEnum: SharedJournalEnums,
     private loaderService: LoaderService,
@@ -38,7 +36,6 @@ export class JournalEntryListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(this.languageService.transalte('Journal.Title'));
     this.initJournalEntryData();
     this.cols = [
       {

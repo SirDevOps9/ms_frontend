@@ -21,17 +21,14 @@ export class CostCenterReportComponent {
 
   constructor(
     private fb: FormBuilder,
-    private titleService: Title,
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
     private ToasterService: ToasterService,
-    private dateTimeService: DateTimeService,
     private PrintService: PrintService,
     public generalService: GeneralService
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(this.languageService.transalte('reportCost.title'));
     this.initializeForm();
     this.getAccounts();
     this.getOpenFinancialPeriodDate();
