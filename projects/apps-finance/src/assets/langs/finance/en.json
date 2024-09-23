@@ -6,8 +6,11 @@
     "EditPaymentOut": "Edit Payment Out",
     "BankAccountStatement":"Bank Account Statement",
      "ViewPaymentIn": "View Payment In",
-     "ViewPaymentout": "View Payment Out"
+     "ViewPaymentout": "View Payment Out",
+     "TreasuryStatement":"Treasury Statement"
+
   },
+  "confirmation":"confirmation",
   "Success": "Success",
   "Error": "Error",
   "ErrorInDelete": "Error In Delete",

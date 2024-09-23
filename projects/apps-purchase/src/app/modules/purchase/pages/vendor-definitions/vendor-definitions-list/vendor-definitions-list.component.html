@@ -58,38 +58,34 @@
              ]
           }"
       >
-        <ng-container caption>
-          <div class="group flex justify-content-between">
-            <div>
-              <lib-text-input
-                type="text"
-                [placeholder]="'vendorDefinition.Search' | translate"
-                (keyUp)="onSearchChange($event)"
-                [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
-              >
-              </lib-text-input>
-            </div>
 
-            <div class="flex gap-3">
-              <div>
-                <lib-button-micro
-                nameClass="save"
-                [title]="'vendorCategory.Add' | translate"
-                (click)="routeToAdd()"
-              >
-              </lib-button-micro>
-              </div>
-              <!--  -->
-              <lib-export
-                (exportClick)="exportVendorsData($event)"
-                [exportData]="exportData"
-                [exportColumns]="exportColumns"
-                [ExportName]="'Vendors'"
-              >
-              </lib-export>
-            </div>
-          </div>
-        </ng-container>
+      <ng-container search>
+        <lib-text-input
+        type="text"
+        [placeholder]="'vendorDefinition.Search' | translate"
+        (keyUp)="onSearchChange($event)"
+        [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+      >
+      </lib-text-input>
+      </ng-container>
+      <ng-container action>
+        <lib-export
+        (exportClick)="exportVendorsData($event)"
+        [exportData]="exportData"
+        [exportColumns]="exportColumns"
+        [ExportName]="'Vendors'"
+      >
+      </lib-export>
+          <lib-button-micro
+          nameClass="save"
+          [title]="'vendorCategory.Add' | translate"
+          (click)="routeToAdd()"
+        >
+        </lib-button-micro>
+      
+      </ng-container>
+
+       
 
         <ng-template #actions let-actions>
           <div class="actions flex align-items-center">

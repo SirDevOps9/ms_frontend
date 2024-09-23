@@ -1373,7 +1373,12 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/apps-inventory/src/favicon.ico",
-              "projects/apps-inventory/src/assets"
+              "projects/apps-inventory/src/assets",
+              {
+                "glob": "**/*",
+                "input": "libs/apps-shared-lib/src/assets",
+                "output": "assets"
+              }
             ],
             "styles": [
               "projects/apps-inventory/src/styles.scss",

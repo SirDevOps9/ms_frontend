@@ -7,6 +7,7 @@ import {
   FormsService,
   LanguageService,
   PrintService,
+  RouterService,
   ToasterService,
 } from 'shared-lib';
 import {
@@ -24,21 +25,15 @@ import { SourceDocument } from '../../models/source-document-dto';
   selector: 'app-treasury-statement',
   templateUrl: './treasury-statement.component.html',
   styleUrls: ['./treasury-statement.component.scss'],
+  providers: [RouterService],
 })
 export class TreasuryStatementComponent implements OnInit {
   reportForm: FormGroup;
   treasuryDropDown: TreasuryDropDown[] = [];
   currency: string;
-  tableData: treasuryStatementDto;
+  tableData?: treasuryStatementDto;
   total: number = 0;
   selectedTreasuryName: string = '';
-  transactions: TreasuryStatmentTransactionDto[] = [];
-  openingDebit: number;
-  openingCredit: number;
-  openingBalance: number;
-  totalDebit: number;
-  totalCredit: number;
-  totalBalance: number;
 
   constructor(
     private fb: FormBuilder,
@@ -50,6 +45,8 @@ export class TreasuryStatementComponent implements OnInit {
     public generalService: GeneralService,
     private formsService: FormsService,
     private router: Router,
+    private routerService: RouterService,
+
     private ToasterService: ToasterService
   ) {}
 
@@ -57,11 +54,12 @@ export class TreasuryStatementComponent implements OnInit {
     this.titleService.setTitle(
       this.languageService.transalte('TreasuryStatement.TreasuryStatement')
     );
-    this.initializeForm();
     this.getTreasuryDropDown();
+    this.initializeForm();
     this.initializeDates();
+    this.getTreasuryFromRoute();
     this.reportForm.valueChanges.subscribe(() => {
-      this.tableData = {} as treasuryStatementDto;
+      this.tableData = undefined;
     });
     this.reportForm.get('treasuryId')!.valueChanges.subscribe((Id) => {
       const selected = this.treasuryDropDown.find((x) => x.id === Id);
@@ -124,13 +122,7 @@ export class TreasuryStatementComponent implements OnInit {
     this.ReportService.getTreasuryStatement(filterDto);
     this.ReportService.treasuryStatementObservable.subscribe((res) => {
       this.tableData = res;
-      this.transactions = res?.transactions;
-      this.totalDebit = res?.totalDebit;
-      this.totalCredit = res?.totalCredit;
-      this.totalBalance = res?.totalBalance;
-      this.openingDebit = res?.openingBalanceDebit;
-      this.openingCredit = res?.openingBalanceCredit;
-      this.openingBalance = res?.openingBalanceBalance;    });
+    });
   }
 
   routeToPaymentView(transaction: TreasuryStatmentTransactionDto) {
@@ -151,6 +143,11 @@ export class TreasuryStatementComponent implements OnInit {
       );
       window.open(url, '_blank');
     }
+  }
+
+  getTreasuryFromRoute() {
+    if (this.routerService.currentId)
+      this.reportForm.controls['treasuryId'].patchValue(parseInt(this.routerService.currentId));
   }
 
   routeToJournalView(id: number) {

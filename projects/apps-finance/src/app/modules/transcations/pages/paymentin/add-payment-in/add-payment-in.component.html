@@ -175,7 +175,7 @@
                     </div>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ journalLine.get('amount').value }}
+                    {{ journalLine.get('amount').value || 0 }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations [appControl]="journalLine.controls['amount']">

@@ -1,20 +1,5 @@
 <lib-page-content [title]="'bank.TaxList' | translate" [subTitle]="'bank.TaxList' | translate">
-  <div class="flex justify-content-end my-2">
-    <lib-button-micro
-      nameClass="cancel"
-      title="{{ 'bank.discard' | translate }}"
-      (click)="discard()"
-    >
-    </lib-button-micro>
-    <lib-button-micro
-      nameClass="save"
-      title="{{ 'bank.save' | translate }}"
-      iconName="pi pi-save"
-      type="button"
-      (click)="onSave()"
-    >
-    </lib-button-micro>
-  </div>
+ 
 
   <div class="bank">
     <div [formGroup]="bankormGroup" class="entry_header">
@@ -253,6 +238,7 @@
                         optionLabel="name"
                         [selectedValue]="bankGroup.controls['currencyId'].value"
                         (valueChanged)="currencyselected($event, bankGroup, i)"
+                        [readOnly]="true"
                       ></lib-select>
                     </lib-form-group>
                   </ng-template>
@@ -328,6 +314,27 @@
             </tr>
           </ng-template>
         </p-table>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="btn_group my-5">
+    <div class="grid">
+      <div class="md:col-3">
+        <div class="grid">
+          <div class="md:col-6">
+            <lib-button-micro title="{{ 'Cancel' | translate }}" nameClass="cancel" widthNumber="100%" (click)="discard()">
+            </lib-button-micro>
+          </div>
+          <div class="md:col-6">
+            <div>
+              <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%"   (click)="onSave()">
+              </lib-button-micro>
+            </div>
+         
+          </div>
+        </div>
       </div>
     </div>
   </div>

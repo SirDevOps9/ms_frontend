@@ -46,6 +46,10 @@ export class LanguageService {
     return currentLanguage === 'ar';
   }
 
+  onLangChange(){
+    return this.transalteService.onLangChange;
+  }
+
   toggleLanguage(): void {
     let currentLanguage = this.storageService.getItem(StorageKeys.LANG_KEY) === 'en' ? 'ar' : 'en';
     this.storageService.setItem(StorageKeys.LANG_KEY, currentLanguage);

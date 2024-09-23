@@ -106,7 +106,7 @@
       {{ 'add-paymentterm.add_new' | translate }}
     </button>
   </div>
-  <div class="btn_group">
+  <!-- <div class="btn_group">
     <div class="grid">
 
     <div class="md:col-3">
@@ -121,6 +121,31 @@
     </div>
   </div>
     </div></div>
+  </div> -->
+  <div class="btn_group">
+    <div class="grid mt-4">
+      <div class="md:col-3">
+        <div class="grid">
+          <div class="md:col-6">
+            <lib-button-micro
+              nameClass="cancel"
+              title="{{ 'Cancel' | translate }}"
+              (click)="discard()"
+            >
+            </lib-button-micro>
+          </div>
+          <div class="md:col-6">
+            <lib-button-micro
+              nameClass="save w-100"
+              title="{{ 'Save' | translate }}"
+              type="button"
+              (click)="onSave()"
+            >
+            </lib-button-micro>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 </lib-page-content>

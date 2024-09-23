@@ -141,7 +141,7 @@ export class ViewPaymentInComponent {
         percentage: new FormControl(null),
 
       });
-      journalLine.get('paymentInDetailCostCenters')?.setValue([]);
+      // journalLine.get('paymentInDetailCostCenters')?.setValue([]);
 
       return false;
 

@@ -17,9 +17,9 @@ export class BreadcrumbLabel {
   static readonly CUSTOMER_DEFINITIONS ='BreadCrumb.CustomerDefinition';
   static readonly ADD_CUSTOMER_DEFINITIONS ='BreadCrumb.AddCustomerDefinition';
   static readonly EDIT_CUSTOMER_DEFINITIONS ='BreadCrumb.EditCustomerDefinition';
-  static readonly customer_list ='BreadCrumb.CustomerCategory';
-  static readonly customer_add ='BreadCrumb.AddCustomerCategory';
-  static readonly customer_edit ='BreadCrumb.EditCustomerCategory';
+  static readonly CUSTOMER_LIST ='BreadCrumb.CustomerCategory';
+  static readonly CUSTOMER_ADD ='BreadCrumb.AddCustomerCategory';
+  static readonly CUSTOMER_EDIT ='BreadCrumb.EditCustomerCategory';
   static readonly BANK_LIST ='BreadCrumb.BankDefinition';
   static readonly BANK_LIST_ADD ='BreadCrumb.AddBankDefinition';
   static readonly BANK_LIST_EDIT ='BreadCrumb.EditBankDefinition';
@@ -95,7 +95,23 @@ export class BreadcrumbLabel {
     static  ADD_ITEM_DIFINITION ='Add Item Definition';
     static  ITEM_TYPE ='Item Type';
     static  ITEM_CATEGORY ='Item Category';
-   
+    static  WARE_HOUSE ='Warehouse';
+    static  ADD_WARE_HOUSE ='Add Warehouse';
+    static  UOM ='uom';
+    static  UOM_LIST ='uom-list';
+    static  ADD_UOM ='Add uom';
+    static  Edit_UOM ='edit uom';
+
+    // attr attribute-definition 
+    static  Attribute_Definition = 'Attribute Definition';
+    static  Operational_Tag = 'Operational Tag';
+    static  Add_Operational_Tag = 'Add Operational Tag';
+    static  Edit_Operational_Tag = 'Edit Operational Tag';
+    static  Add_Attribute_Definition = 'Add Attribute Definition';
+    static  Edit_Attribute_Definition = 'Edit Attribute Definition';
+    static  EDIT_WARE_HOUSE ='Edit Warehouse';
+    static  ITEMS_CATEGORY ='Items Category';
+
     static COST_CENTER ='Cost Center';
     static PAYMENT_TERM_ADD ='BreadCrumb.AddPaymentterm';
     static PAYMENT_TERM_EDIT ='BreadCrumb.EditPaymentterm';
@@ -106,8 +122,8 @@ export class BreadcrumbLabel {
     
     
     static PAYMENT_IN ='BreadCrumb.PaymentIn';
-    static ADD_PAYMENT_IN ='Add Payment In ';
-    static EDIT_PAYMENT_IN ='Edit Payment In ';
+    static ADD_PAYMENT_IN ='PaymentIn.addpaymentin';
+    static EDIT_PAYMENT_IN ='Edit Payment In';
 
     static PAYMENT_IN_LIST ='BreadCrumb.PaymentInList';
 
@@ -115,9 +131,9 @@ export class BreadcrumbLabel {
     static ADD_PAYMENT_OUT ='BreadCrumb.AddPaymentOut';
     static EDIT_PAYMENT_OUT ='BreadCrumb.EditPaymentOut';
     static PAYMENT_OUT_LIST ='BreadCrumb.PaymentOutList';
-    static VIEW_PAYMENT_IN ='BreadCrumb.ViewPaymentIn ';
+    static VIEW_PAYMENT_IN ='BreadCrumb.ViewPaymentIn';
 
-    static VIEW_PAYMENT_OUT ='BreadCrumb.ViewPaymentOut ';
+    static VIEW_PAYMENT_OUT ='BreadCrumb.ViewPaymentOut';
 
     static VENDOR_OPENING_BALANCE ='BreadCrumb.VendorOpeningBalance';
     static VENDOR_OPENING_BALANCE_EDIT ='BreadCrumb.EditVendorOpeningBalance';

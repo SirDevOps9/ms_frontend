@@ -172,10 +172,9 @@ export class TranscationsService {
       },
       error: (error) => {
         this.loaderService.hide();
-
         this.toasterService.showError(
-          this.languageService.transalte('PaymentIn.Error'),
-          this.languageService.transalte('PaymentIn.addedError')
+          this.languageService.transalte('Error'),
+          this.languageService.transalte(error.message)
         );
       },
     });
@@ -199,11 +198,10 @@ export class TranscationsService {
       },
       error: (error) => {
         this.loaderService.hide();
-
         this.toasterService.showError(
-          this.languageService.transalte('PaymentOut.Error'),
-          this.languageService.transalte('PaymentOut.addedError')
-        );
+          this.languageService.transalte('Error'),
+          this.languageService.transalte(error.message)
+        )
       },
     });
   }
@@ -325,11 +323,11 @@ export class TranscationsService {
           this.loaderService.hide();
           this.paymenOutLineDeleted.next(res);
         },
-        error: () => {
+        error: (error) => {
           this.loaderService.hide();
           this.toasterService.showError(
             this.languageService.transalte('Error'),
-            this.languageService.transalte('ErrorInDelete')
+            this.languageService.transalte(error.message)
           );
         },
       });
@@ -412,10 +410,12 @@ export class TranscationsService {
         this.routerService.navigateTo('/transcations/paymentout');
       },
       error: (error) => {
+        this.loaderService.hide();
         this.toasterService.showError(
           this.languageService.transalte('Error'),
-          this.languageService.transalte('PaymentOut.postedError')
+          this.languageService.transalte(error.message)
         );
+        
       },
     });
   }
