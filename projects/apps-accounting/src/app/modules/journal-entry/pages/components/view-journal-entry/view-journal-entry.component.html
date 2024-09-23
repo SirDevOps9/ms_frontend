@@ -1,93 +1,107 @@
 <lib-page-content>
-<div>
-  <div class="">
-    <div class="grid">
-      <div class="col-12 md:col-4">
-        <div class="my-3 grid-item">
-          <p class="headsCont   heading_b16">{{ 'viewJournal.JornalCode' | translate }}</p>
-          <small class="subHead paragraph_b16 ">
-            {{ journalView?.journalCode }}
-          </small>
+  <div>
+    <div class="">
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <div class="my-3 grid-item">
+            <p class="headsCont heading_b16">{{ 'viewJournal.JornalCode' | translate }}</p>
+            <small class="subHead paragraph_b16">
+              {{ journalView?.journalCode }}
+            </small>
+          </div>
         </div>
-      </div>
-      <div class="col-12 md:col-4">
-        <div class="my-3 grid-item">
-          <p class="headsCont heading_b16">{{ 'viewJournal.Jornalstatus' | translate }}</p>
-          <small class="subHead paragraph_b16">
-            {{ journalView?.status }}
-          </small>
+        <div class="col-12 md:col-4">
+          <div class="my-3 grid-item">
+            <p class="headsCont heading_b16">{{ 'viewJournal.Jornalstatus' | translate }}</p>
+            <small class="subHead paragraph_b16">
+              {{ journalView?.status }}
+            </small>
+          </div>
         </div>
-      </div>
-      <div class="col-12 md:col-4">
-        <div class="my-3 grid-item">
-          <p class="headsCont heading_b16">{{ 'viewJournal.journalReference' | translate }}</p>
-          <small class="subHead paragraph_b16">
-            {{ journalView?.referenceNumber }}
-          </small>
+        <div class="col-12 md:col-4">
+          <div class="my-3 grid-item">
+            <p class="headsCont heading_b16">{{ 'viewJournal.journalReference' | translate }}</p>
+            <small class="subHead paragraph_b16">
+              {{ journalView?.referenceNumber }}
+            </small>
+          </div>
         </div>
-      </div>
-      <div class="col-12 md:col-4">
-        <div class="my-3 grid-item">
-          <p class="headsCont heading_b16">{{ 'viewJournal.date' | translate }}</p>
-          <small class="subHead paragraph_b16">
-            {{ journalView?.journalDate | date : 'dd/MM/yyyy' }}
-          </small>
+        <div class="col-12 md:col-4">
+          <div class="my-3 grid-item">
+            <p class="headsCont heading_b16">{{ 'viewJournal.date' | translate }}</p>
+            <small class="subHead paragraph_b16">
+              {{ journalView?.journalDate | date : 'dd/MM/yyyy' }}
+            </small>
+          </div>
         </div>
-      </div>
-      <div class="col-12 md:col-4">
-        <div class="my-3 grid-item">
-          <p class="headsCont heading_b16">{{ 'viewJournal.JournalPeriod' | translate }}</p>
-          <small class="subHead paragraph_b16">
-            {{ journalView?.journalPeriod }}
-          </small>
+        <div class="col-12 md:col-4">
+          <div class="my-3 grid-item">
+            <p class="headsCont heading_b16">{{ 'viewJournal.JournalPeriod' | translate }}</p>
+            <small class="subHead paragraph_b16">
+              {{ journalView?.journalPeriod }}
+            </small>
+          </div>
         </div>
-      </div>
-      <div class="col-12 md:col-4">
-
-        <div class="my-3 grid-item">
-          <p class="headsCont heading_b16">{{ 'viewJournal.JournalType' | translate }}</p>
-          <small class="subHead paragraph_b16">
-            {{ journalView?.type }}
-          </small>
+        <div class="col-12 md:col-4">
+          <div class="my-3 grid-item">
+            <p class="headsCont heading_b16">{{ 'Journal.sourceName' | translate }}</p>
+            <small class="subHead paragraph_b16">
+              {{ journalView?.type }}
+            </small>
+          </div>
+        </div>
+        <div class="col-12 md:col-4">
+          <div class="my-3 grid-item">
+            <p class="headsCont heading_b16">{{ 'Journal.sourceName' | translate }}</p>
+            <small
+              class="subHead paragraph_b16"
+              *ngIf="journalView?.sourceCode == 'PaymentIn'"
+              class="code"
+              (click)="routeToPaymentInView(journalView?.paymentInId!)"
+            >
+              {{ journalView?.sourceName }}
+            </small>
+            <small
+              class="subHead paragraph_b16"
+              *ngIf="journalView?.sourceCode == 'PaymentOut'"
+              class="code"
+              (click)="routeToPaymentOutView(journalView?.paymentOutId!)"
+            >
+              {{ journalView?.sourceName }}
+            </small>
+          </div>
         </div>
       </div>
     </div>
-   
- 
- 
-   
-
-  </div>
-  <!--  -->
-  <div class="grid-cont">
-    <!--
+    <!--  -->
+    <div class="grid-cont">
+      <!--
     <div class="my-3 grid-item">
       <p class="headsCont heading_b16">{{ 'Reversed Journal Code' | translate }}</p>
       <small class="subHead heading_b16">
         {{ journalView?.reversedJournalCode }}
       </small>
     </div>  
-    -->
-  </div>
-  <!--  -->
-  <div class="grid-cont">
-    <div class="my-3 grid-item">
-      <p class="headsCont heading_b16">{{ 'viewJournal.description' | translate }}</p>
-      <div>
-        <p class="subHead paragraph_b16">
-          {{ journalView?.description }}
-        </p>
+    --></div>
+    <!--  -->
+    <div class="grid-cont">
+      <div class="my-3 grid-item">
+        <p class="headsCont heading_b16">{{ 'viewJournal.description' | translate }}</p>
+        <div>
+          <p class="subHead paragraph_b16">
+            {{ journalView?.description }}
+          </p>
+        </div>
       </div>
     </div>
-  </div>
-  <!--  -->
-  <!--  -->
-  <div class="journal_page">
-    <lib-data-table
-      *ngIf="journalView!"
-      [items]="journalView!.journalEntryLines!"
-      className="p-datatable-gridlines"
-      [tableConfigs]="{
+    <!--  -->
+    <!--  -->
+    <div class="journal_page">
+      <lib-data-table
+        *ngIf="journalView!"
+        [items]="journalView!.journalEntryLines!"
+        className="p-datatable-gridlines"
+        [tableConfigs]="{
         allowPagination: false,
         allowServerPagination: false,
         dataKey: 'id',
@@ -160,35 +174,32 @@
           }
         ]
       }"
-    >
-      <ng-template #cost let-cost>
-        <div>
-          <img
-            *ngIf="cost.costCenters.length > 0"
-            class="costCenterImg pointer"
-            src="assets/images/groups-mandtory-optional.png"
-            (click)="openCostPopup(cost, 'view')"
-          />
-          <img
-          *ngIf="cost.costCenters.length ==0"
-            src="assets/images/groups.png"
-          />
-        </div>
-      </ng-template>
-      <ng-container footer>
-        <tr>
-          <td colspan="4" class="imptyData total" style="text-align: center">
-            {{ 'JournalTemplate.total' | translate }}
-          </td>
-          <td class="total">{{ totalDebitAmount | numberFormat }}</td>
-          <td class="total">{{ totalCreditAmount | numberFormat }}</td>
-          <td class="total"></td>
-          <td class="total">{{ totalDebitAmountLocal | numberFormat }}</td>
-          <td class="total">{{ totalCreditAmountLocal | numberFormat }}</td>
-          <td class="total"></td>
-        </tr>
-      </ng-container>
-    </lib-data-table>
+      >
+        <ng-template #cost let-cost>
+          <div>
+            <img
+              *ngIf="cost.costCenters.length > 0"
+              class="costCenterImg pointer"
+              src="assets/images/groups-mandtory-optional.png"
+              (click)="openCostPopup(cost, 'view')"
+            />
+            <img *ngIf="cost.costCenters.length == 0" src="assets/images/groups.png" />
+          </div>
+        </ng-template>
+        <ng-container footer>
+          <tr>
+            <td colspan="4" class="imptyData total" style="text-align: center">
+              {{ 'JournalTemplate.total' | translate }}
+            </td>
+            <td class="total">{{ totalDebitAmount | numberFormat }}</td>
+            <td class="total">{{ totalCreditAmount | numberFormat }}</td>
+            <td class="total"></td>
+            <td class="total">{{ totalDebitAmountLocal | numberFormat }}</td>
+            <td class="total">{{ totalCreditAmountLocal | numberFormat }}</td>
+            <td class="total"></td>
+          </tr>
+        </ng-container>
+      </lib-data-table>
+    </div>
   </div>
-</div>
 </lib-page-content>
