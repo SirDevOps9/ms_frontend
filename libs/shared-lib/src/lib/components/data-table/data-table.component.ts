@@ -22,7 +22,8 @@ import { GeneralService } from '../../services/general.service';
 })
 export class DataTableComponent implements OnInit, OnChanges {
   @Input() items: any[];
-  @Input() selectedIndex: number;
+  @Input() selectedIndex: number ;
+  @Input() selectedIndices: number[];
   @Input() resizableColumns: boolean = true;
   @Input() popup: boolean = false;
   @Input() sequence: boolean = false;
@@ -121,7 +122,21 @@ export class DataTableComponent implements OnInit, OnChanges {
     const currentUrl = this.routerService.getCurrentUrl();
     this.routerService.navigateTo(`${currentUrl}/sequence`);
 
+  }
 
+  isSelected(index: number): boolean {
+    if(this.selectedIndices)
+    return this.selectedIndices.includes(index);
+    return false
+  }
+
+  toggleSelection(index: number): void {
+    const selectedIndex = this.selectedIndices.indexOf(index);
+    if (selectedIndex === -1) {
+      this.selectedIndices.push(index);
+    } else {
+      this.selectedIndices.splice(selectedIndex, 1);
+    }
   }
   constructor(
     public languageService: LanguageService,
