@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LanguageService } from 'shared-lib';
+import { LanguageService, TitleService } from 'shared-lib';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +7,15 @@ import { LanguageService } from 'shared-lib';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  ngOnInit(): void {}
 
   title = 'erp-home';
 
-  constructor(public languageService: LanguageService) {
+  constructor(
+    public languageService: LanguageService,
+    private titleService: TitleService,) {
     this.languageService.setLang();
+  }
+  ngOnInit() {
+    this.titleService.setTitleFromRoute();
   }
 }

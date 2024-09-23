@@ -39,6 +39,7 @@ const routes: Routes = [
         component: MainJournalComponent,
         data: {
           breadcrumb: BreadcrumbLabel.JournalEntryList,
+          pageTitle: BreadcrumbLabel.JournalEntryList,
         },
        
         children: [
@@ -54,6 +55,8 @@ const routes: Routes = [
             component: CreateJournalEntryComponent,
             data: {
               breadcrumb: BreadcrumbLabel.JournalEntryAdd,
+              pageTitle: BreadcrumbLabel.JournalEntryAdd,
+
             },
           },
           {
@@ -61,6 +64,8 @@ const routes: Routes = [
             component: ViewJournalEntryComponent,
             data: {
               breadcrumb: BreadcrumbLabel.JournalEntryView,
+              pageTitle: BreadcrumbLabel.JournalEntryView,
+
             },
           },
           {
@@ -68,6 +73,8 @@ const routes: Routes = [
             component: EditJournalEntryComponent,
             data: {
               breadcrumb: BreadcrumbLabel.JournalEntryEdit,
+              pageTitle: BreadcrumbLabel.JournalEntryEdit,
+
             },
           },
         ],
@@ -77,6 +84,8 @@ const routes: Routes = [
         component: TrialBlanceComponent,
         data: {
           breadcrumb: BreadcrumbLabel.TrialBalance,
+          pageTitle: BreadcrumbLabel.TrialBalance,
+
         },
       },
       {
@@ -84,6 +93,8 @@ const routes: Routes = [
         component: CostCenterReportComponent,
         data: {
           breadcrumb: BreadcrumbLabel.COST_CENTER_REPORT,
+          pageTitle: BreadcrumbLabel.COST_CENTER_REPORT,
+
         },
       },
       {
@@ -91,6 +102,8 @@ const routes: Routes = [
         component: AccountStatementComponent,
         data: {
           breadcrumb: BreadcrumbLabel.AccountStatement,
+          pageTitle: BreadcrumbLabel.AccountStatement,
+
         },
       },
       {
@@ -98,6 +111,8 @@ const routes: Routes = [
         component: AccountStatementComponent,
         data: {
           breadcrumb: BreadcrumbLabel.AccountStatement,
+          pageTitle: BreadcrumbLabel.AccountStatement,
+
         },
       },
       {
@@ -105,6 +120,8 @@ const routes: Routes = [
         component: MainOpeningBalanceComponent,
         data: {
           breadcrumb: BreadcrumbLabel.JournalEntryOpeningBalance,
+          pageTitle: BreadcrumbLabel.JournalEntryOpeningBalance,
+
         },
         children: [
           {
@@ -119,6 +136,8 @@ const routes: Routes = [
             component: AddJournalEntryOpeningBalanceComponent,
             data: {
               breadcrumb: BreadcrumbLabel.AddJournalEntryOpeningBalance,
+              pageTitle: BreadcrumbLabel.AddJournalEntryOpeningBalance,
+
             },
           },
           {
@@ -126,6 +145,8 @@ const routes: Routes = [
             component: EditJournalEntryOpeningBalanceComponent,
             data: {
               breadcrumb: BreadcrumbLabel.EditJournalEntryOpeningBalance,
+              pageTitle: BreadcrumbLabel.EditJournalEntryOpeningBalance,
+
             },
           },
           {
@@ -133,6 +154,8 @@ const routes: Routes = [
             component: ViewJournalEntryOpeningBalanceComponent,
             data: {
               breadcrumb: BreadcrumbLabel.ViewJournalEntryOpeningBalance,
+              pageTitle: BreadcrumbLabel.ViewJournalEntryOpeningBalance,
+
             },
           },
         ],

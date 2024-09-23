@@ -64,6 +64,7 @@ const routes: Routes = [
             component: EditPaymentInComponent,
             data: {
               breadcrumb: BreadcrumbLabel.EDIT_PAYMENT_IN,
+              pageTitle: BreadcrumbLabel.EDIT_PAYMENT_IN,
             },
           },
           {
@@ -71,6 +72,7 @@ const routes: Routes = [
             component: ViewPaymentInComponent,
             data: {
               breadcrumb: BreadcrumbLabel.VIEW_PAYMENT_IN,
+              pageTitle: BreadcrumbLabel.VIEW_PAYMENT_IN,
             },
           },
           {
@@ -80,6 +82,7 @@ const routes: Routes = [
               moduleId: Modules.Finance,
               pageId: Pages.paymenitIn,
               breadcrumb: BreadcrumbLabel.SEQUENCE,
+              pageTitle: BreadcrumbLabel.SEQUENCE
             },
           },
         ],
@@ -89,6 +92,8 @@ const routes: Routes = [
         component: MainPaymentOutComponent,
         data: {
           breadcrumb: BreadcrumbLabel.PAYMENT_OUT,
+          pageTitle: BreadcrumbLabel.PAYMENT_OUT,
+
         },
         children: [
           {
@@ -96,6 +101,7 @@ const routes: Routes = [
             component: PaymentOutListComponent,
             data: {
               breadcrumb: BreadcrumbLabel.PAYMENT_OUT_LIST,
+              pageTitle: BreadcrumbLabel.PAYMENT_OUT_LIST,
             },
           },
           {
@@ -103,6 +109,8 @@ const routes: Routes = [
             component: AddPaymentOutComponent,
             data: {
               breadcrumb: BreadcrumbLabel.ADD_PAYMENT_OUT,
+              pageTitle: BreadcrumbLabel.ADD_PAYMENT_OUT,
+
             },
           },
           {
@@ -110,6 +118,7 @@ const routes: Routes = [
             component: EditPaymentOutComponent,
             data: {
               breadcrumb: BreadcrumbLabel.EDIT_PAYMENT_OUT,
+              pageTitle: BreadcrumbLabel.EDIT_PAYMENT_OUT,
             },
           },
           {
@@ -117,6 +126,8 @@ const routes: Routes = [
             component: ViewPaymentOutComponent,
             data: {
               breadcrumb: BreadcrumbLabel.VIEW_PAYMENT_OUT,
+              pageTitle: BreadcrumbLabel.VIEW_PAYMENT_OUT,
+
             },
           },
           {
@@ -126,6 +137,8 @@ const routes: Routes = [
               moduleId: Modules.Finance,
               pageId: Pages.PaymentOut,
               breadcrumb: BreadcrumbLabel.SEQUENCE,
+              pageTitle: BreadcrumbLabel.SEQUENCE,
+
             },
           },
         ],

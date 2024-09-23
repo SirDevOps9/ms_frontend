@@ -20,11 +20,8 @@ export class CustomerOpeningBalanceListComponent implements OnInit {
 
   constructor(
     private salesService: SalesService,
-    private routerService: RouterService,
-    private title: Title,
-    private langService: LanguageService
+    private routerService: RouterService
   ) {
-    this.title.setTitle(this.langService.transalte('openeingBalance.CustomerOpeningBalance'));
   }
 
   ngOnInit() {

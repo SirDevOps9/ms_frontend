@@ -75,7 +75,6 @@ export class TreauryDefinitionListComponent implements OnInit {
       id: col.header,
       name: col.field,
     }));
-    this.titleService.setTitle(this.languageService.transalte('treasury.treasuryList'));
   }
 
   initTreasurData() {

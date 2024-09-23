@@ -13,10 +13,7 @@ import { Title } from '@angular/platform-browser';
 export class CurrencyDefinitionComponent {
   constructor(
     private generalSettingService: GeneralSettingService,
-    private title: Title,
-    private langService: LanguageService
   ) {
-    this.title.setTitle(this.langService.transalte('currencyDefinition.Title'));
   }
   exportColumns: lookupDto[];
 

@@ -92,12 +92,10 @@ export class AddPaymentOutComponent implements OnInit {
     private toasterService: ToasterService,
     private langService: LanguageService,
     private currentUserService: CurrentUserService,
-    private titleService: Title,
     private routerService: RouterService
   ) { }
 
   ngOnInit() {
-    this.titleService.setTitle(this.langService.transalte('PaymentOut.addpaymentout'));
     this.financeService.AccountBalance.next(0);
     this.initializeForm();
     this.subscribe();

@@ -95,7 +95,6 @@ export class ViewJournalEntryComponent implements OnInit {
     private titleService: Title,
     private dialog: DialogService,
   ) {
-    this.titleService.setTitle(this.langService.transalte('Journal.ViewJournal'));
 
   }
 }

@@ -32,9 +32,7 @@ export class AccountStatementComponent {
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
-    private routerService: RouterService,
     private router: ActivatedRoute,
-    private titleService: Title,
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
     private ToasterService: ToasterService,
@@ -44,7 +42,6 @@ export class AccountStatementComponent {
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(this.languageService.transalte('reportAccount.AccountStatement'));
 
     this.initializeForm();
     this.getAccounts();

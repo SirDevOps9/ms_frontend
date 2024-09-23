@@ -74,8 +74,8 @@
     "Error": "Error",
     "paymentMethodTypeNotAllowed": "payment Method details Not Allowed",
     "paymentMethodTypeRequired": "payment Method details Required In line",
-    "addpaymentin": "Add Paymentin",
-    "editpaymentin": " Edit Paymentin"
+    "addpaymentin": "Add Payment In",
+    "editpaymentin": " Edit Payment In"
   },
 
   "payment-in": {

@@ -113,7 +113,6 @@ export class AddJournalEntryOpeningBalanceComponent {
     private currentUserService: CurrentUserService,
     private toasterService: ToasterService
   ) {
-    this.titleService.setTitle(this.langService.transalte('OpeningBalance.AddJournal'));
 
     this.fg = this.fb.group({
       refrenceNumber: [null, [customValidators.required, customValidators.length(0, 15)]],

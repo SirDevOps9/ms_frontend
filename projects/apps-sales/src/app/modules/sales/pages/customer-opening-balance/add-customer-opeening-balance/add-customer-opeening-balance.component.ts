@@ -54,15 +54,11 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     private languageService: LanguageService,
     private formService: FormsService,
     public routerService: RouterService,
-    private title: Title,
     private lookupsService: LookupsService,
     public enums: SharedSalesEnums
   ) {}
 
   ngOnInit(): void {
-    this.languageService
-      .getTranslation('openeingBalance.CustomerOpeningBalance')
-      .subscribe((res) => this.title.setTitle(res));
 
     this.SalesService.LinesDropDownData.next([]);
     this.SalesService.CustomerDropDownByAccountId.next([]);

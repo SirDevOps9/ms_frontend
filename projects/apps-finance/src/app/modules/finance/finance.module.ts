@@ -39,6 +39,9 @@ const routes: Routes = [
         //  canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.TREASURY_LIST,
+          pageTitle: BreadcrumbLabel.TREASURY_LIST,
+
+          
         },
       },
       {
@@ -47,6 +50,8 @@ const routes: Routes = [
         //canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.TREASURY_LIST,
+          pageTitle: BreadcrumbLabel.TREASURY_LIST,
+
         },
       },
       {
@@ -55,6 +60,8 @@ const routes: Routes = [
         // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.BANK_LIST,
+          pageTitle: BreadcrumbLabel.BANK_LIST,
+
         },
         children:[
           {
@@ -71,6 +78,8 @@ const routes: Routes = [
             // canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.BANK_LIST_ADD,
+              pageTitle: BreadcrumbLabel.BANK_LIST_ADD,
+
             },
           },
           {
@@ -79,6 +88,8 @@ const routes: Routes = [
             // canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.BANK_LIST_EDIT,
+              pageTitle: BreadcrumbLabel.BANK_LIST_EDIT,
+
             },
           },
         ]
@@ -88,6 +99,8 @@ const routes: Routes = [
         component: MainPaymentTermComponent,
         data: {
           breadcrumb: BreadcrumbLabel.PAYMENT_TERM_LIST,
+          pageTitle: BreadcrumbLabel.PAYMENT_TERM_LIST,
+
         },
         children:[
           {
@@ -102,6 +115,8 @@ const routes: Routes = [
             component: AddPaymentTermComponent,
             data: {
               breadcrumb: BreadcrumbLabel.PAYMENT_TERM_Add,
+              pageTitle: BreadcrumbLabel.PAYMENT_TERM_Add,
+
             },
           },
           {
@@ -109,6 +124,8 @@ const routes: Routes = [
             component: EditPaymentTermComponent,
             data: {
               breadcrumb: BreadcrumbLabel.PAYMENT_TERM_Edit,
+              pageTitle: BreadcrumbLabel.PAYMENT_TERM_Edit,
+
             },
           },
         ]
@@ -118,6 +135,8 @@ const routes: Routes = [
         component: AddPaymentTermComponent,
         data: {
           breadcrumb: BreadcrumbLabel.PAYMENT_TERM_ADD,
+          pageTitle: BreadcrumbLabel.PAYMENT_TERM_ADD,
+
         },
       },
       {
@@ -125,6 +144,8 @@ const routes: Routes = [
         component: EditPaymentTermComponent,
         data: {
           breadcrumb: BreadcrumbLabel.PAYMENT_TERM_EDIT,
+          pageTitle: BreadcrumbLabel.PAYMENT_TERM_EDIT,
+
         },
       },
       {
@@ -132,6 +153,8 @@ const routes: Routes = [
         component: MainPaymentMethodComponent,
         data: {
           breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_LIST,
+          pageTitle: BreadcrumbLabel.PAYMENT_METHOD_LIST,
+
         },
         children:[
           {
@@ -139,6 +162,8 @@ const routes: Routes = [
             component: PaymentMethodListComponent,
             data: {
               breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_LIST,
+              pageTitle: BreadcrumbLabel.PAYMENT_METHOD_LIST,
+
             },
           },
           {
@@ -146,6 +171,8 @@ const routes: Routes = [
             component: AddPaymentMethodComponent,
             data: {
               breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_ADD,
+              pageTitle: BreadcrumbLabel.PAYMENT_METHOD_ADD,
+
             },
           },
           {
@@ -153,6 +180,8 @@ const routes: Routes = [
             component: EditPaymentMethodComponent,
             data: {
               breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_EDIT,
+              pageTitle: BreadcrumbLabel.PAYMENT_METHOD_EDIT,
+
             },
           },
           {
@@ -160,6 +189,8 @@ const routes: Routes = [
             component: ViewPaymentMethodComponent,
             data: {
               breadcrumb: BreadcrumbLabel.PAYMENT_METHOD_VIEW,
+              pageTitle: BreadcrumbLabel.PAYMENT_METHOD_VIEW,
+
             },
           },
         ]

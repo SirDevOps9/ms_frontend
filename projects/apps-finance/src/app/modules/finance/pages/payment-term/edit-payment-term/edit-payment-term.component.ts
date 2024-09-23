@@ -42,7 +42,6 @@ export class EditPaymentTermComponent implements OnInit {
     private title: Title,
     private languageService: LanguageService
   ) {
-    this.title.setTitle(this.languageService.transalte('paymentterm.EditPaymentTerm'));
 
   }
 
