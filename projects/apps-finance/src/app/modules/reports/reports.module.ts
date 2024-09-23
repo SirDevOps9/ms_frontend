@@ -20,6 +20,8 @@ const routes: Routes = [
         component: BankAccountStatementComponent,
         data: {
           breadcrumb: BreadcrumbLabel.BANK_ACCOUNT_STATEMENT,
+          pageTitle: BreadcrumbLabel.BANK_ACCOUNT_STATEMENT,
+
         },
       },
       {
@@ -27,6 +29,8 @@ const routes: Routes = [
         component: TreasuryStatementComponent,
         data: {
           breadcrumb: BreadcrumbLabel.TREASURY_STATEMENT,
+          pageTitle: BreadcrumbLabel.TREASURY_STATEMENT,
+
         },
       },
       {
@@ -34,6 +38,7 @@ const routes: Routes = [
         component: TreasuryStatementComponent,
         data: {
           breadcrumb: BreadcrumbLabel.AccountStatement,
+          pageTitle: BreadcrumbLabel.AccountStatement,
         },
       },
     ],
