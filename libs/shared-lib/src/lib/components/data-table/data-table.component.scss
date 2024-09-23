@@ -26,11 +26,11 @@
 ::ng-deep .p-datatable .p-datatable-thead > tr > th {
   text-align: left;
   padding: 1rem 1rem;
-  border: 1px solid #DDE1E6;
+  border: 1px solid #dde1e6;
   border-width: 0 0 1px 0;
   font-weight: 700;
-  color: #2E2E2E;
-  background: #F2F4F8;
+  color: #2e2e2e;
+  background: #f2f4f8;
   transition: box-shadow 0.2s;
 }
 
@@ -107,7 +107,39 @@ span {
   #dt {
     min-width: 75rem;
   }
-  
+  .p-datatable .p-datatable-header {
+    background-color: transparent;
+    padding: 0.45rem 1rem;
+    align-items: center;
+  }
+  .p-datatable .p-datatable-header .group {
+    align-items: center;
+  }
+
+  .p-inputtext {
+    background: #ffffff;
+    border: 1px solid #e3e3e3;
+    padding-block: 8px;
+    padding-inline-start: 35px !important;
+    padding-inline-end: 20px;
+    outline: none !important;
+    box-shadow: none !important;
+    width: 100%;
+  }
+
+  .primary {
+    color: #ffffff;
+    background: #1a90b0;
+    border: 0px solid #1a90b0;
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s,
+      outline-color 0.2s;
+    border-radius: 6px;
+    outline-color: transparent;
+    height: fit-content;
+    cursor: pointer;
+  }
 }
 
 // .p-datatable-wrapper{
@@ -163,12 +195,12 @@ span {
 //   background: #EFEFEF !important;
 //   // color: #374151;
 // }
-.right_Balance{
-  background: #A3D3DF !important;
+.right_Balance {
+  background: #a3d3df !important;
   color: #fff !important;
 }
-.left_Balance{
-  background: #76BCD0 !important;
+.left_Balance {
+  background: #76bcd0 !important;
   color: #fff !important;
 }
 
@@ -195,7 +227,7 @@ span {
     }
   }
 }
-.parent{
+.parent {
   display: flex;
   align-items: center;
   justify-content: space-between;
