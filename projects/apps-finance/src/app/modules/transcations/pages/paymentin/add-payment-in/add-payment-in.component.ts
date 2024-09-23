@@ -345,6 +345,7 @@ export class AddPaymentInComponent {
     );
     newLine.updateValueAndValidity();
     this.paymentInDetailsFormArray.push(newLine);
+ 
   }
   shouldShowCostCenterImage(costCenters: any[]): number {
     if (!costCenters) return -1;
@@ -769,7 +770,12 @@ export class AddPaymentInComponent {
     this.financeService.postPaymentIn(this.PaymentInId)
   }
   ngOnDestroy() {
-    this.financeService.paymentSaved.next(0)    
+    this.financeService.paymentSaved.next(0)  
+    this.financeService.getBankDropDownData.next([])  
+    this.financeService.getTreasuryDropDownData.next([])  
+    this.financeService.AllPayMethodsDropdown.next([])  
+    this.financeService.AllTreasuriesPayMethodsDropdown.next([])  
+    this.financeService.accountCurrencyRateDataSource.next({ rate: 0 })  
   }
 }
 
