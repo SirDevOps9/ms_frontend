@@ -51,13 +51,13 @@
           <div>
             <span class="p-input-icon-left">
               <i class="pi pi-search"></i>
-              <input
-                pInputText
-                type="text"
-                [(ngModel)]="searchTerm"
-                (keyup)="onSearchChange($event)"
-                [placeholder]="'itemCategory.search' | translate"
-              />
+              <lib-text-input
+              type="text"
+              [placeholder]="'itemCategory.search' | translate"
+              [(ngModel)]="searchTerm"
+              (keyUp)="onSearchChange($event)"
+              ></lib-text-input>
+             
             </span>
           </div>
           </ng-container>

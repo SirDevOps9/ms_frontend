@@ -87,7 +87,7 @@ getWarehouseById() {
     this.warehouseForm.patchValue({
       code: res.code,
       name: res.name,
-      warehouseType: res.warehouseType,
+      warehouseType: this.warehouseType.find(elem=>elem.label == res.warehouseType)?.value,
       branchWarehouses: res?.branchWarehouses?.map((bw : any) => bw.branchId), // Assuming you want to patch warehouseId
       addressWarehouse: {
         city: res?.addressWarehouse?.city,

@@ -54,7 +54,7 @@
                   [options]="ItemCategoryDropDown"
                   optionValue="id"
                   optionLabel="name"
-                  [selectedValue]=" selectValue ? formGroup.controls['parentCategoryId'].value :null"
+                  [selectedValue]="formGroup.controls['parentCategoryId'].value"
                   (valueChanged)="onParentAccountChange($event)"
                 >
                 </lib-select>

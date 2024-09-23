@@ -84,38 +84,23 @@ export class AddItemsCategoryComponent {
     });
   }
   ngOnInit() {
-    this.loadLookups();
     this.Subscribe();
-    this.accountService.getAllParentAccounts();
 
-    if (this.parentAddedId) {
-      this.onParentAccountChange(this.parentAddedId);
-    }
+    // if (this.parentAddedId) {
+    //   this.onParentAccountChange(this.parentAddedId);
+    // }
 
-    this.accountService.parentAccounts.subscribe((res) => {
-      if (res) {
-        this.parentAccounts = res;
-      }
-    });
+    // this.accountService.parentAccounts.subscribe((res) => {
+    //   if (res) {
+    //     this.parentAccounts = res;
+    //   }
+    // });
 
-    this.currencyService.getCurrencies('');
-    this.currencyService.currencies.subscribe((res) => {
-      this.currencies = res;
-    });
-    // this.currenciesDefault= this.currentUserService.getCurrency()
-
-    this.accountService.getAccountSections();
-    this.accountService.accountSections.subscribe((res) => {
-      this.accountSections = res;
-    });
-
-    this.getTags();
-    this.getCompanyDropdown();
     this.AccountsDropDown()
     
 
 
-    if (this.routerService.currentId) this.onParentAccountChange(this.routerService.currentId);
+    // if (this.routerService.currentId) this.onParentAccountChange(this.routerService.currentId);
     this.ItemCategoryDropDownData()
     this.itemService.AddItemCategoryLookupObs.subscribe(res=>{
       
@@ -189,24 +174,27 @@ export class AddItemsCategoryComponent {
   onParentAccountChange(event: any) {
     const parentAccountId = event;
     if (!parentAccountId) return;
-    this.hasParentAccount = true;
-    this.accountService.getAccount(parentAccountId);
-    this.accountService.selectedAccount.subscribe((response) => {
-      this.parentAcountName = response;
-      this.selectValue = true
-      const newAccountData = {
-        levelId: response.levelId! + 1,
-        accountCode: response.accountCode,
-        accountSectionId: response.accountSectionId,
-        accountSectionName: response.accountSectionName,
-        natureId: response.natureId,
-        parentId: response.id,
-      };
-      this.formGroup.get('accountTypeId')?.setValue([null]);
+    this.itemService.getItemCategoryById(parentAccountId);
+    this.itemService.getItemCategoryByIdDataObs.subscribe((res:any) => {
+      console.log(res)
+    })
+    // this.accountService.getAccount(parentAccountId);
+    // this.accountService.selectedAccount.subscribe((response) => {
+    //   this.parentAcountName = response;
+    //   this.selectValue = true
+    //   const newAccountData = {
+    //     levelId: response.levelId! + 1,
+    //     accountCode: response.accountCode,
+    //     accountSectionId: response.accountSectionId,
+    //     accountSectionName: response.accountSectionName,
+    //     natureId: response.natureId,
+    //     parentId: response.id,
+    //   };
+    //   this.formGroup.get('accountTypeId')?.setValue([null]);
 
-      this.onAccountSectionChange(response.accountSectionId);
-      this.formGroup.patchValue(newAccountData);
-    });
+    //   this.onAccountSectionChange(response.accountSectionId);
+    //   this.formGroup.patchValue(newAccountData);
+    // });
   }
 
   toggleCurrencyVisibility() {
@@ -227,11 +215,39 @@ export class AddItemsCategoryComponent {
 
   }
   ngOnChanges(changes: SimpleChanges): void {
+  //  this.formGroup.patchValue({
+  //   nameEn: [''],
+  //   nameAr: [''],
+  //   parentCategoryId: [null],
+  //   isDetailed: [false], // Assuming a boolean default of `false`
+  //   categoryType: [''],
+
+  //   glAccountId: [null],
+  //   cashSalesAccountId: [null],
+  //   creditSalesAccountId: [null],
+  //   salesReturnAccountId: [null],
+  //   purchaseAccountId: [null],
+  //   salesCostAccountId: [null],
+  //   discountAccountId: [null],
+  //   evaluationAccountId: [null],
+  //   adjustmentAccountId: [null],
+  //   goodsInTransitAccountId: [null]
+  //  })
+
+  //   this.hasParentAccount = true
+
     if (changes['parentAddedId']) {
+
+
       this.onParentAccountChange(this.parentAddedId);
     }
+    console.log(this.parentAddedId)
+    console.log(changes)
+
 
     if (changes['newChiled']) {
+      console.log(this.newChiled ,"11111")
+
       if (this.newChiled == true) {
         this.hasParentAccount = false
         this.selectValue = false

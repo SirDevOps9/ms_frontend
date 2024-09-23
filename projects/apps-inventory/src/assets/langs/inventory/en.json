@@ -167,12 +167,6 @@
         "postalCode" : "Postal Code",
         "radius" : "Radius",
         "salesCostAccount" : "Sales Cost Account"
-
-        
-
-
-
-        
     },
     "itemsCategory" : {
         "title" : "Items Category",
@@ -193,6 +187,29 @@
         "add" : "Item Category Added Successfully",
         "edits" : "Item Category Edited Successfully",
         "code" : "Code"
+    },
+    "stockIn" : {
+        "import" : "Import",
+        "edit" : "Edit",
+        "save" : "Save",
+        "cancel" : "Cancel", 
+        "delete" : "Stock In Deleted Successfully",
+        "success" : "Success",
+        "add" : "Stock In Added Successfully",
+        "edits" : "Stock In Edited Successfully",
+        "code" : "Code",
+        "date" : "Date",
+        "description" : "Description",
+        "sourseDoc" : "sourse Document",
+        "warehouse" : "Warehouse",
+        "status" : "Status",
+        "journalCode" : "Journal Code",
+        "actions" : "Actions",
+        "Add" : "Add",
+        "search" : "Search",
+        "ChangeColumn" : "Change Column",
+        "docType" : "Document Type",
+        "notes" : "notes"
 
     }
 }

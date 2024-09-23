@@ -538,6 +538,8 @@ export class ItemsService {
   addWarehouse( obj: AddWarehouse, dialogRef: DynamicDialogRef,text : string) {
     this.itemProxy.addWarehouse(obj).subscribe(res=>{
       if(res) {
+
+        console.log(res)
         
         this.languageService.transalte('warehouse.success'),
              this.languageService.transalte('warehouse.add')
@@ -547,7 +549,7 @@ export class ItemsService {
         if(text == 'save') {
           dialogRef.close(res)
         }else{
-          this.router.navigateTo(`/masterdata/edit-warehouse/${dataRes}` )
+          this.router.navigateTo(`/masterdata/warehouse/edit-warehouse/${dataRes}` )
    
           dialogRef.close()
         }

@@ -98,6 +98,8 @@ export class BreadcrumbLabel {
     static  ADD_WARE_HOUSE ='Add Warehouse';
     static  EDIT_WARE_HOUSE ='Edit Warehouse';
     static  ITEMS_CATEGORY ='Items Category';
+    static  STOCKIN ='Stock In';
+    static  ADD_STOCKIN ='Add Stock In';
    
     static COST_CENTER ='Cost Center';
     static PAYMENT_TERM_ADD ='BreadCrumb.AddPaymentterm';

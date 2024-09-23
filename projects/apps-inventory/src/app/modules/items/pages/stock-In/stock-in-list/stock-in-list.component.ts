@@ -5,15 +5,14 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { RouterService, LanguageService, lookupDto, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
 import { AddItemDefinitionPopupComponent } from '../../../components/add-item-definition/add-item-definition-popup.component';
 import { ItemsService } from '../../../items.service';
-import { GetWarehouseList, itemDefinitionDto } from '../../../models';
-import { AddWarehousePopupComponent } from '../../../components/warehouse/add-warehouse-popup/add-warehouse-popup.component';
+import { itemDefinitionDto } from '../../../models';
 
 @Component({
-  selector: 'app-warehouse-list',
-  templateUrl: './warehouse-list.component.html',
-  styleUrl: './warehouse-list.component.scss'
+  selector: 'app-stock-in-list',
+  templateUrl: './stock-in-list.component.html',
+  styleUrl: './stock-in-list.component.scss'
 })
-export class WarehouseListComponent implements OnInit {
+export class StockInListComponent implements OnInit {
   constructor(
     private routerService: RouterService,
     public authService: AuthService,
@@ -26,9 +25,9 @@ export class WarehouseListComponent implements OnInit {
 
   }
 
-  tableData: GetWarehouseList[];
+  tableData: itemDefinitionDto[];
 
-  exportData: GetWarehouseList[];
+  exportData: itemDefinitionDto[];
   cols = [
    
     {
@@ -43,14 +42,6 @@ export class WarehouseListComponent implements OnInit {
     {
       field: 'Short Name',
       header: 'shortName',
-    },
-    {
-      field: 'Item Category Name',
-      header: 'itemCategoryName',
-    },
-    {
-      field: 'UOM Name',
-      header: 'uomName',
     },
    
   ];
@@ -70,9 +61,9 @@ export class WarehouseListComponent implements OnInit {
   }
 
   initItemDefinitionData() {
-    this.itemsService.getWarehouseList('', new PageInfo());
+    this.itemsService.getItemDefinition('', new PageInfo());
 
-    this.itemsService.sendWarehouseDataSourceObs.subscribe({
+    this.itemsService.sendItemDefinitionDataSourceObs.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -84,46 +75,58 @@ export class WarehouseListComponent implements OnInit {
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.itemsService.getWarehouseList('', pageInfo);
+    this.itemsService.getItemDefinition('', pageInfo);
 
   
   }
 
   exportClick(e?: Event) {
-    this.exportWarehouseData(this.searchTerm);
+    this.exportBankData(this.searchTerm);
   }
 
-  exportWarehouseData(searchTerm: string) {
-    this.itemsService.exportsWayehouseList(searchTerm);
-    this.itemsService.exportedWarehouseDataSourceObs.subscribe((res) => {
+  exportBankData(searchTerm: string) {
+    this.itemsService.exportsItemsDefinitionList(searchTerm);
+    this.itemsService.exportedItemDefinitionListDataSource.subscribe((res) => {
       this.exportData = res;
     });
   }
 
   onAdd() {
-      const dialogRef = this.dialog.open(AddWarehousePopupComponent, {
+    const dialogRef = this.dialog.open(AddItemDefinitionPopupComponent, {
+    
       width: '800px',
-      height : '550px',
+      height : '700px'
+  
     });
+
     dialogRef.onClose.subscribe(() => {
     this.initItemDefinitionData()
     });
-  
   }
 
   onEdit(data: any) {
-    this.routerService.navigateTo(`/masterdata/warehouse/edit-warehouse/${data.id}`)
+    // const dialogRef = this.dialog.open(EditItemDefinitionComponent, {
+    
+    //   width: '800px',
+    //   height : '700px',
+    //   data : data
+  
+    // });
 
+    // dialogRef.onClose.subscribe(() => {
+    // this.initItemDefinitionData()
+    // });
+    this.routerService.navigateTo(`masterdata/add-item-definition/${data.id}`)
 
   }
 
   onSearchChange() {
-    this.itemsService.getWarehouseList(this.searchTerm, new PageInfo());
+    this.itemsService.getItemDefinition(this.searchTerm, new PageInfo());
     
   }
 
   onDelete(id: number) {
-     this.itemsService.deleteWareHouse(id)
+     this.itemsService.deleteItemDefinition(id)
   }
 }
 
