@@ -11,3 +11,14 @@
       }
     }
   }
+
+  .advanced_search {
+     display: flex;
+    align-items: center;
+    gap: 2px;
+    .search_icon {
+      margin-top: 24px;
+      cursor: pointer;
+    }
+  }
+  
