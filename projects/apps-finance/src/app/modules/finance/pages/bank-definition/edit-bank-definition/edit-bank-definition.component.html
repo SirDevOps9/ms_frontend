@@ -252,7 +252,7 @@
               </td>
               <!--  -->
               <td>
-                {{ bankGroup.controls['currentBalance'].value ?? '--' }}
+                {{ bankGroup.controls['currentBalance'].value ?? '--' | numberFormat }}
               </td>
               <!--  -->
 
@@ -300,7 +300,7 @@
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ bankGroup.controls['openingBalance'].value }}
+                    {{ bankGroup.controls['openingBalance'].value | numberFormat  }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations

@@ -111,7 +111,7 @@
               <th>{{ 'bank.Iban' | translate }}</th>
               <th>{{ 'bank.currency' | translate }}</th>
               <th>{{ 'bank.accountOpeningBalance' | translate }}</th>
-              <th>{{ 'bank.userPermission' | translate }}</th>
+              <!-- <th>{{ 'bank.userPermission' | translate }}</th> -->
               <th>{{ 'bank.openingBalance' | translate }}</th>
               <th>{{ 'bank.actions' | translate }}</th>
             </tr>
@@ -248,11 +248,11 @@
               </td>
               <!--  -->
               <td>
-                {{ bankGroup.controls['currentBalance'].value ?? '--' }}
+                {{ bankGroup.controls['currentBalance'].value ?? '--' | numberFormat }}
               </td>
               <!--  -->
 
-              <td
+              <!-- <td
                 [pEditableColumn]="bankGroup.controls['userPermission']"
                 pEditableColumnField="bankGroup.controls['userPermission']"
               >
@@ -277,7 +277,7 @@
                     {{ bankGroup.controls['userPermissionName'].value }}
                   </ng-template>
                 </p-cellEditor>
-              </td>
+              </td> -->
               <!--  -->
 
               <td
@@ -292,7 +292,7 @@
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ bankGroup.controls['openingBalance'].value }}
+                    {{ bankGroup.controls['openingBalance'].value | numberFormat }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations
