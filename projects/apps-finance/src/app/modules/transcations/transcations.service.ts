@@ -167,7 +167,7 @@ export class TranscationsService {
           this.languageService.transalte('PaymentIn.Success'),
           this.languageService.transalte('PaymentIn.PaymentInAddedSuccessfully')
         );
-        this.paymentSaved.next(res)
+        this.paymentSaved.next(res);
         // this.routerService.navigateTo('/transcations/paymentin');
       },
       error: (error) => {
@@ -184,7 +184,6 @@ export class TranscationsService {
     this.loaderService.show();
 
     this.TranscationsProxy.addPaymentOut(obj).subscribe({
-
       next: (res) => {
         this.loaderService.hide();
 
@@ -192,7 +191,7 @@ export class TranscationsService {
           this.languageService.transalte('success'),
           this.languageService.transalte('PaymentOut.add')
         );
-        this.paymentOutSaved.next(res)
+        this.paymentOutSaved.next(res);
 
         // this.routerService.navigateTo('/transcations/paymentout');
       },
@@ -201,7 +200,7 @@ export class TranscationsService {
         this.toasterService.showError(
           this.languageService.transalte('Error'),
           this.languageService.transalte(error.message)
-        )
+        );
       },
     });
   }
@@ -226,7 +225,7 @@ export class TranscationsService {
   }
   GetAccountBalance(id: number) {
     this.TranscationsProxy.GetAccountBalance(id).subscribe((res) => {
-        this.AccountBalance.next(res);
+      this.AccountBalance.next(res);
     });
   }
   getAccountsHasNoChildren(quieries: string, pageInfo: PageInfo) {
@@ -279,6 +278,13 @@ export class TranscationsService {
           const currentPaymentIn = this.paymentInDataSource.getValue();
           const updatedcurrentPaymentIn = currentPaymentIn.filter((c: any) => c.id !== id);
           this.paymentInDataSource.next(updatedcurrentPaymentIn);
+        },
+        error: (error) => {
+          this.loaderService.hide();
+          this.toasterService.showError(
+            this.languageService.transalte('Error'),
+            this.languageService.transalte(error.message)
+          );
         },
       });
     }
@@ -381,7 +387,6 @@ export class TranscationsService {
   }
 
   editPaymentOut(obj: any) {
-
     this.TranscationsProxy.editPaymentOut(obj).subscribe((res) => {
       this.loaderService.show();
 
@@ -415,7 +420,6 @@ export class TranscationsService {
           this.languageService.transalte('Error'),
           this.languageService.transalte(error.message)
         );
-        
       },
     });
   }
@@ -457,6 +461,13 @@ export class TranscationsService {
           const currentPaymentOut = this.paymentOutDataSource.getValue();
           const updatedcurrentPaymentOut = currentPaymentOut.filter((c: any) => c.id !== id);
           this.paymentOutDataSource.next(updatedcurrentPaymentOut);
+        },
+        error: (error) => {
+          this.loaderService.hide();
+          this.toasterService.showError(
+            this.languageService.transalte('Error'),
+            this.languageService.transalte(error.message)
+          );
         },
       });
     }
