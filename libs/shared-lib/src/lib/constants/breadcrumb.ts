@@ -133,7 +133,7 @@ export class BreadcrumbLabel {
     static PAYMENT_OUT_LIST ='BreadCrumb.PaymentOutList';
     static VIEW_PAYMENT_IN ='BreadCrumb.ViewPaymentIn';
 
-    static VIEW_PAYMENT_OUT ='BreadCrumb.ViewPaymentOut';
+    static VIEW_PAYMENT_OUT ='BreadCrumb.ViewPaymentout';
 
     static VENDOR_OPENING_BALANCE ='BreadCrumb.VendorOpeningBalance';
     static VENDOR_OPENING_BALANCE_EDIT ='BreadCrumb.EditVendorOpeningBalance';
