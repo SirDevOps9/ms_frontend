@@ -1,7 +1,8 @@
 .subHead {
 
     margin: 0;
-    color: #383A42;
+    color: #6B7280;
+
     word-wrap: break-word;      /* For older browsers */
     overflow-wrap: break-word;  /* Standard property for modern browsers */
     word-break: break-word;
@@ -10,7 +11,8 @@
   }
   
   .headsCont {
-    color: #6B7280;
+    color: #383A42;
+
     padding: 0;
     margin: 0;
    
@@ -24,11 +26,11 @@
 
 }
 
-.grid-item {
-    flex: 1 1 200px; /* Adjust the basis value as needed */
-    margin: 10px;
-    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
-}
+// .grid-item {
+//     flex: 1 1 400px; /* Adjust the basis value as needed */
+//     margin: 10px;
+//     box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+// }
 ::ng-deep .journal_page {
     .p-datatable.p-datatable-gridlines .p-datatable-header {
         display: none;
