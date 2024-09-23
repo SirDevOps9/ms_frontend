@@ -96,13 +96,11 @@ export class EditPaymentOutComponent implements OnInit {
     private toasterService: ToasterService,
     private langService: LanguageService,
     private currentUserService: CurrentUserService,
-    private titleService: Title,
     private routerService: RouterService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(this.langService.transalte('PaymentOut.editpaymentout'));
     this.id = this.route.snapshot.params['id'];
 
     this.getPaymentDetails(this.id);
@@ -295,10 +293,10 @@ export class EditPaymentOutComponent implements OnInit {
     });
 
     this.addForm.get('paymentHub')?.valueChanges.subscribe((res: any) => {
-      if (res == paymentplace.Treasury) {
+      if (res == paymentplaceString.Treasury) {
         this.addForm.get('bankAccountId')?.clearValidators();
         this.addForm.get('bankAccountId')?.updateValueAndValidity();
-      } else if (res == paymentplace.Bank) {
+      } else if (res == paymentplaceString.Bank) {
         this.addForm.get('bankAccountId')?.addValidators([customValidators.required]);
         this.addForm.get('bankAccountId')?.updateValueAndValidity();
       }

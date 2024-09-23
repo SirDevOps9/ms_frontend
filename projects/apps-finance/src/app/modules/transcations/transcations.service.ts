@@ -44,7 +44,7 @@ export class TranscationsService {
   public childrenAccountList = this.childrenAccountDataSource.asObservable();
   public childrenAccountPageInfo = new BehaviorSubject<PageInfoResult>({});
   public paymentDetails = new BehaviorSubject<any>({});
-  private accountCurrencyRateDataSource = new BehaviorSubject<CurrencyRateDto>({ rate: 0 });
+  public accountCurrencyRateDataSource = new BehaviorSubject<CurrencyRateDto>({ rate: 0 });
   private paymenInLineDeleted = new BehaviorSubject<boolean>(false);
   public paymenInLineDeletedObser = this.paymenInLineDeleted.asObservable();
 

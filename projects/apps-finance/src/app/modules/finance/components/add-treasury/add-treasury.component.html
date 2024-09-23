@@ -1,100 +1,112 @@
-
 <lib-popup-page
-title=" {{ 'treasury.addTreasury' | translate }}"
-[closeFunction]="onCancel"
-(Submit)="onSubmit()"
+  title=" {{ 'treasury.addTreasury' | translate }}"
+  [closeFunction]="onCancel"
+  (Submit)="onSubmit()"
 >
-<div>
-  <form class="domain_form" [formGroup]="treasuryForm" (ngSubmit)="onSubmit()">
-    <div class="domain_content">
-      <div class="grid m-0 ">
-        <div class="col-12 my-2">
-          <lib-form-group>
+  <div>
+    <form class="domain_form" [formGroup]="treasuryForm" (ngSubmit)="onSubmit()">
+      <div class="domain_content">
+        <div class="grid m-0">
+          <div class="col-12 my-2">
+            <lib-form-group>
               <lib-label [appControl]="treasuryForm.controls['code']">
-                  {{ 'treasury.code' | translate }}
-                </lib-label>
-            <lib-text-input
-              type="text"
-              formControlName="code"
-              placeholder="{{ 'treasury.code' | translate }}"
-              [readOnly]="true"
-              class="form-control"
-            />
-            <lib-field-validations [appControl]="treasuryForm.controls['code']"></lib-field-validations>
-          </lib-form-group>
-        </div>
-     <!--  -->
-        <div class="col-12 my-2">
-          <lib-form-group>
+                {{ 'treasury.code' | translate }}
+              </lib-label>
+              <lib-text-input
+                type="text"
+                formControlName="code"
+                placeholder="{{ 'treasury.code' | translate }}"
+                [readOnly]="true"
+                class="form-control"
+              />
+              <lib-field-validations
+                [appControl]="treasuryForm.controls['code']"
+              ></lib-field-validations>
+            </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="col-12 my-2">
+            <lib-form-group>
               <lib-label [appControl]="treasuryForm.controls['name']">
-                  {{ 'treasury.name' | translate }}
-                </lib-label>
-            <lib-text-input
-              type="text"
-              formControlName="name"
-              placeholder="{{ 'treasury.name' | translate }}"
-            />
-            <lib-field-validations [appControl]="treasuryForm.controls['name']"></lib-field-validations>
-          </lib-form-group>
-        </div>
-      <!--  -->
-        <div class="col-12 my-2">
-          <lib-form-group>
+                {{ 'treasury.name' | translate }}
+              </lib-label>
+              <lib-text-input
+                type="text"
+                formControlName="name"
+                placeholder="{{ 'treasury.name' | translate }}"
+              />
+              <lib-field-validations
+                [appControl]="treasuryForm.controls['name']"
+              ></lib-field-validations>
+            </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="col-12 my-2">
+            <lib-form-group>
               <lib-label [appControl]="treasuryForm.controls['currencyId']">
-                  {{ 'treasury.currency' | translate }}
-                </lib-label>
+                {{ 'treasury.currency' | translate }}
+              </lib-label>
               <lib-select
-              formControlName="currencyId"
-              placeholder="{{ 'treasury.currency' | translate }}"
-              [options]="currenciesList"
-              [selectedValue]="treasuryForm.controls['currencyId'].value"
-              optionLabel="name"
-              optionValue="id"
-            >
-            </lib-select>
-            <lib-field-validations [appControl]="treasuryForm.controls['currencyId']"></lib-field-validations>
-          </lib-form-group>
-        </div>
-      <!--  -->
-        <div class="col-12 my-2 multi-cont">
-          <lib-form-group [className]="'customWidth'">
+                formControlName="currencyId"
+                placeholder="{{ 'treasury.currency' | translate }}"
+                [options]="currenciesList"
+                [selectedValue]="treasuryForm.controls['currencyId'].value"
+                optionLabel="name"
+                optionValue="id"
+              >
+              </lib-select>
+              <lib-field-validations
+                [appControl]="treasuryForm.controls['currencyId']"
+              ></lib-field-validations>
+            </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="col-12 my-2 multi-cont">
+            <lib-form-group [className]="'customWidth'">
               <lib-label [appControl]="treasuryForm.controls['branches']">
-                  {{ 'treasury.branches' | translate }}
-                </lib-label>
-            <lib-multi-select
-              placeholder="{{ 'treasury.branches' | translate }}"
-              [options]="branchesLookup"
-              optionLabel="name"
-              optionValue="id"
-              formControlName="branches"
-              
-            ></lib-multi-select>
-            <lib-field-validations [appControl]="treasuryForm.controls['branches']">
-            </lib-field-validations>
-          </lib-form-group>
-        </div>
-      <!--  -->
-      <div class="col-12 my-2">
-          <lib-form-group>
-              <lib-label [appControl]="treasuryForm.controls['accountId']">
+                {{ 'treasury.branches' | translate }}
+              </lib-label>
+              <lib-multi-select
+                placeholder="{{ 'treasury.branches' | translate }}"
+                [options]="branchesLookup"
+                optionLabel="name"
+                optionValue="id"
+                formControlName="branches"
+              ></lib-multi-select>
+              <lib-field-validations [appControl]="treasuryForm.controls['branches']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-12 advanced_search">
+            <div class="md:col-10">
+              <lib-form-group>
+                <lib-label [appControl]="treasuryForm.controls['accountId']">
                   {{ 'treasury.glAccount' | translate }}
                 </lib-label>
-              <lib-select
-              formControlName="accountId"
-              [options]="accountsLookup"
-              placeholder="{{ 'treasury.glAccount' | translate }}"
+                <lib-select
+                  formControlName="accountId"
+                  [options]="accountsLookup"
+                  placeholder="{{ 'treasury.glAccount' | translate }}"
+                  [selectedValue]="treasuryForm.controls['accountId'].value"
+                  optionLabel="name"
+                  optionValue="id"
+                  (valueChanged)="accountChange($event)"
+                >
+                </lib-select>
+                <lib-field-validations
+                  [appControl]="treasuryForm.controls['accountId']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
 
-              [selectedValue]="treasuryForm.controls['accountId'].value"
-              optionLabel="name"
-              optionValue="id"
-              (valueChanged)="accountChange($event)"
-            >
-            </lib-select>
-            <lib-field-validations [appControl]="treasuryForm.controls['accountId']"></lib-field-validations>
-          </lib-form-group>
-        </div>
-      <!--  -->
-      <!-- <div class="col-6 my-2">
+            <div class="md:col-2">
+              <i class="pi pi-search search-circle search_icon" (click)="openDialog()"></i>
+            </div>
+          </div>
+
+          <!--  -->
+          <!-- <div class="col-6 my-2">
           <lib-form-group>
               <lib-label [appControl]="treasuryForm.controls['openingBalance']">
                   {{ 'treasury.currentBalance' | translate }}
@@ -108,47 +120,44 @@ title=" {{ 'treasury.addTreasury' | translate }}"
             <lib-field-validations [appControl]="treasuryForm.controls['openingBalance']"></lib-field-validations>
           </lib-form-group>
         </div> -->
-        <!--  -->
-        <div class="col-6 my-2">
-          <lib-form-group>
-            
-             <div class="flex gap-1 align-content-center">
-              <lib-label [appControl]="treasuryForm.controls['openingBalance']">
-                {{ 'treasury.accountOpeningBalance' | translate }}
-              </lib-label> 
-
-              <small class="mt-2">({{OpeningBalanceData?.balanceNature}})</small>
-             </div>
-            <lib-text-input
-              type="number"
-              formControlName="accountBalance"
-              placeholder="{{ 'treasury.accountOpeningBalance' | translate }}"
-              class="form-control"
-              [readOnly]="true"
-            />
-          </lib-form-group>
-        </div>
-      <div class="col-6 my-2">
-          <lib-form-group>
-              <lib-label [appControl]="treasuryForm.controls['openingBalance']">
-                  {{ 'treasury.openingBalance' | translate }}
+          <!--  -->
+          <div class="col-6 my-2">
+            <lib-form-group>
+              <div class="flex gap-1 align-content-center">
+                <lib-label [appControl]="treasuryForm.controls['openingBalance']">
+                  {{ 'treasury.accountOpeningBalance' | translate }}
                 </lib-label>
-            <lib-text-input
-              type="number"
-              formControlName="openingBalance"
-              placeholder="{{ 'treasury.openingBalance' | translate }}"
-              class="form-control"
-            />
-            <lib-field-validations [appControl]="treasuryForm.controls['openingBalance']"></lib-field-validations>
-          </lib-form-group>
+
+                <small class="mt-2">({{ OpeningBalanceData?.balanceNature }})</small>
+              </div>
+              <lib-text-input
+                type="number"
+                formControlName="accountBalance"
+                placeholder="{{ 'treasury.accountOpeningBalance' | translate }}"
+                class="form-control"
+                [readOnly]="true"
+              />
+            </lib-form-group>
+          </div>
+          <div class="col-6 my-2">
+            <lib-form-group>
+              <lib-label [appControl]="treasuryForm.controls['openingBalance']">
+                {{ 'treasury.openingBalance' | translate }}
+              </lib-label>
+              <lib-text-input
+                type="number"
+                formControlName="openingBalance"
+                placeholder="{{ 'treasury.openingBalance' | translate }}"
+                class="form-control"
+              />
+              <lib-field-validations
+                [appControl]="treasuryForm.controls['openingBalance']"
+              ></lib-field-validations>
+            </lib-form-group>
+          </div>
+          <!--  -->
         </div>
-        <!--  -->
       </div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
 </lib-popup-page>
-
-  
-  
-

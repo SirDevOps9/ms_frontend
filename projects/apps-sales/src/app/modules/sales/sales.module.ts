@@ -33,13 +33,16 @@ const routes: Routes = [
         component: MainCustomerCategoryComponent,
         data: {
           breadcrumb: BreadcrumbLabel.CUSTOMER_LIST,
+          pageTitle: BreadcrumbLabel.CUSTOMER_LIST,
         },
         children:[
           {
             path: '',
             component: CustomerCategoryListComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.CUSTOMER_LIST
+              breadcrumb: BreadcrumbLabel.CUSTOMER_LIST,
+              pageTitle: BreadcrumbLabel.CUSTOMER_LIST,
+
             },
           },
           {
@@ -48,6 +51,8 @@ const routes: Routes = [
             // canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.CUSTOMER_ADD,
+              pageTitle: BreadcrumbLabel.CUSTOMER_ADD,
+
             },
           },
           {
@@ -56,6 +61,8 @@ const routes: Routes = [
             // canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.CUSTOMER_EDIT,
+              pageTitle: BreadcrumbLabel.CUSTOMER_EDIT,
+
             },
           },
         ]
@@ -66,6 +73,8 @@ const routes: Routes = [
         // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.CUSTOMER_DEFINITIONS,
+          pageTitle: BreadcrumbLabel.CUSTOMER_DEFINITIONS,
+
         },
         children:[
           {
@@ -82,6 +91,8 @@ const routes: Routes = [
             //  canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.ADD_CUSTOMER_DEFINITIONS,
+              pageTitle: BreadcrumbLabel.ADD_CUSTOMER_DEFINITIONS,
+
             },
           },
           {
@@ -90,6 +101,8 @@ const routes: Routes = [
             // canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.EDIT_CUSTOMER_DEFINITIONS,
+              pageTitle: BreadcrumbLabel.EDIT_CUSTOMER_DEFINITIONS,
+
             },
             
           },
@@ -102,6 +115,8 @@ const routes: Routes = [
         //  canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.CUSTOMER_OPENEING_BALANCE_List,
+          pageTitle: BreadcrumbLabel.CUSTOMER_OPENEING_BALANCE_List,
+
         },
         children:[
           {
@@ -118,6 +133,8 @@ const routes: Routes = [
             //  canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.ADD_CUSTOMER_OPENEING_BALANCE,
+              pageTitle: BreadcrumbLabel.ADD_CUSTOMER_OPENEING_BALANCE,
+
             }
           },
           {
@@ -126,6 +143,8 @@ const routes: Routes = [
             //  canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.EDIT_CUSTOMER_OPENEING_BALANCE,
+              pageTitle: BreadcrumbLabel.EDIT_CUSTOMER_OPENEING_BALANCE,
+
             }
           },
           {
@@ -134,6 +153,8 @@ const routes: Routes = [
             //  canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.VIEW_CUSTOMER_OPENEING_BALANCE,
+              pageTitle: BreadcrumbLabel.VIEW_CUSTOMER_OPENEING_BALANCE,
+
             }
           }
         ]

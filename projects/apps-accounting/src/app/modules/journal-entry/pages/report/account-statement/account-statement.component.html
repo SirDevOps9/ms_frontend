@@ -16,8 +16,9 @@
                 [options]="filteredAccounts"
                 optionValue="id"
                 optionLabel="displayName"
-                [selectedValue]="defoultSelectedAcounts"
-              ></lib-multi-select>
+                [selectedValue]="reportAccountForm.controls['Accounts'].value"
+                ></lib-multi-select>
+              <i class="pi pi-search search-circle search_icon" (click)="openDialog()"></i>
             </div>
           </div>
         </div>

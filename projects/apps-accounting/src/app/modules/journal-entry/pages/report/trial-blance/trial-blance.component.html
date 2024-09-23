@@ -115,16 +115,17 @@
                   ></lib-field-validations>
                 </div>
                 <div class="col-12 md:col-4">
-                  <lib-multi-select
-                    formControlName="Accounts"
-                    [options]="filteredAccounts"
-                    optionValue="id"
-                    optionLabel="displayName"
-                    [selectedValue]="defoultSelectedAcounts"
-                  ></lib-multi-select>
-                  <lib-field-validations
-                    [appControl]="reportTrialForm.controls['Accounts']"
-                  ></lib-field-validations>
+                    <lib-multi-select
+                      formControlName="Accounts"
+                      [options]="filteredAccounts"
+                      optionValue="id"
+                      optionLabel="displayName"
+                      [selectedValue]="reportTrialForm.controls['Accounts'].value"
+                    ></lib-multi-select>
+                    <lib-field-validations
+                      [appControl]="reportTrialForm.controls['Accounts']"
+                    ></lib-field-validations>
+                      <i class="pi pi-search search-circle search_icon" (click)="openDialog()"></i>
                 </div>
               </div>
             </div>

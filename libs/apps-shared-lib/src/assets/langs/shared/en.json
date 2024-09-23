@@ -29,7 +29,9 @@
 "status":"Status",
 "confirmation":"confirmation",
 "confirm2" : "Do you want to Continue ?",
-"SerialnumberChanged" : "We would like to inform you that a change has been made to your serial number."
+"SerialnumberChanged" : "We would like to inform you that a change has been made to your serial number.",
+"SerialnumberPlaceholder":"Please enter number of digit",
+"startingnumberPlaceholder": "Please enter the starting number"
 },
 "validation": {
     "invalidForm": "Please, complete all required sections",

@@ -30,15 +30,10 @@ export class TagListComponent implements OnInit {
   exportData: ExportTagDto[];
 
   constructor(
-    private routerService: RouterService,
     private generalSettingService: GeneralSettingService,
     public layoutService: LayoutService,
-    private dialog: DialogService,
-    private languageService: LanguageService,
-    private title: Title,
-    private langService: LanguageService
+    private dialog: DialogService
   ) {
-    this.title.setTitle(this.langService.transalte('tag.taglist'));
   }
 
   exportColumns: lookupDto[] = [

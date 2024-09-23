@@ -42,27 +42,32 @@ title="{{ 'Tax.AddTaxDefinition' | translate }}"
               </lib-field-validations>
             </lib-form-group>
           </div>
-          <div class="md:col-6">
-            <lib-form-group>
-              <lib-label
-                [appControl]="editForm.controls['accountId']"
-              >
-                {{ "Tax.GlAccount" | translate }}
-              </lib-label>
-              <lib-select
-                formControlName="accountId"
-                [options]="accounts"
-                optionValue="id"
-                optionLabel="name"
-                [selectedValue]="selectedAccount"
-
+          <div class="md:col-6 advanced_search">
+            <div class="md:col-10">
+              <lib-form-group>
+                <lib-label
+                  [appControl]="editForm.controls['accountId']"
                 >
-              </lib-select>
-              <lib-field-validations
-                [appControl]="editForm.controls['accountId']"
-              >
-              </lib-field-validations>
-            </lib-form-group>
+                  {{ "Tax.GlAccount" | translate }}
+                </lib-label>
+                <lib-select
+                  formControlName="accountId"
+                  [options]="accounts"
+                  optionValue="id"
+                  optionLabel="name"
+                  [selectedValue]="editForm.controls['accountId'].value"
+  
+                  >
+                </lib-select>
+                <lib-field-validations
+                  [appControl]="editForm.controls['accountId']"
+                >
+                </lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="md:col-2">
+              <i class="pi pi-search search-circle search_icon" (click)="openDialog()"></i>
+            </div>
           </div>
           <div class="md:col-6">
             <lib-form-group>

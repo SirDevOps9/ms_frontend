@@ -40,7 +40,6 @@ export class EditBankDefinitionComponent implements OnInit {
     private route: ActivatedRoute,
     private titleService: Title
   ) {
-    this.titleService.setTitle(this.languageService.transalte('bank.EditBank'));
   }
   branchesLookup: { id: number; name: string }[];
   accountsLookup: { id: number; name: string }[];
@@ -151,11 +150,11 @@ export class EditBankDefinitionComponent implements OnInit {
   createBankFormGroup(): FormGroup {
     return this.fb.group({
       id: 0,
-      accountNumber: new FormControl('', Validators.required),
+      accountNumber: new FormControl('', customValidators.required),
       glAccountId: null,
-      iban: new FormControl('', Validators.required),
+      iban: new FormControl(null),
       currencyId: null,
-      openingBalance: new FormControl('', Validators.required),
+      openingBalance: new FormControl('', [customValidators.required,customValidators.nonNegativeNumbers]),
       currentBalance: null,
       accountName: null,
       currencyName: null,
