@@ -153,7 +153,7 @@ export class EditBankDefinitionComponent implements OnInit {
       id: 0,
       accountNumber: new FormControl('', customValidators.required),
       glAccountId: null,
-      iban: new FormControl('', customValidators.required),
+      iban: new FormControl(null),
       currencyId: null,
       openingBalance: new FormControl('', [customValidators.required,customValidators.nonNegativeNumbers]),
       currentBalance: null,
