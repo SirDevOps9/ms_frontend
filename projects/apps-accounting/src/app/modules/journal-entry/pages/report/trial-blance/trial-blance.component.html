@@ -103,13 +103,18 @@
             <div class="calender">
               <div class="grid">
                 <div class="col-12 md:col-4">
-                  <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input>
+                  <!-- <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input> -->
+                  <lib-calendar formControlName="dateFrom" ></lib-calendar>
+
                   <lib-field-validations
                     [appControl]="reportTrialForm.controls['dateFrom']"
                   ></lib-field-validations>
                 </div>
                 <div class="col-12 md:col-4">
-                  <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input>
+                  <!-- <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input> -->
+                  <lib-calendar formControlName="dateTo" ></lib-calendar>
+
+               
                   <lib-field-validations
                     [appControl]="reportTrialForm.controls['dateTo']"
                   ></lib-field-validations>

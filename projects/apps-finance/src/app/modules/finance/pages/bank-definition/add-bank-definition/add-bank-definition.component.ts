@@ -136,6 +136,7 @@ export class AddBankDefinitionComponent implements OnInit {
   }
 
   addLine() {
+    if(!this.formsService.validForm(this.bankForm ,false)) return
     this.items.push(this.createBankFormGroup());
   }
 
@@ -241,4 +242,7 @@ export class AddBankDefinitionComponent implements OnInit {
       this.financeService.addBankDefinition(data);
     }
   }
+
+
+ 
 }

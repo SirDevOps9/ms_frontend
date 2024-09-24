@@ -152,7 +152,7 @@ export class CreateJournalEntryComponent {
 
     this.fg = this.fb.group({
       refrenceNumber: [null, [customValidators.required, customValidators.length(0, 15)]],
-      journalDate: [new Date(), customValidators.required],
+      journalDate: [new Date().toISOString().split('T')[0], customValidators.required],
       periodId: ['Period1', customValidators.required],
       description: ['', customValidators.required],
 
@@ -373,7 +373,7 @@ export class CreateJournalEntryComponent {
   save() {
     if (!this.formService.validForm(this.fg, false)) return;
     const value = this.fg.value as JournalEntryFormValue;
-    value.journalDate = this.convertDateFormat(value.journalDate);
+    // value.journalDate = this.convertDateFormat(value.journalDate);
     let obj: AddJournalEntryCommand = {
       ...value,
       journalEntryAttachments: this.journalEntryAttachments,

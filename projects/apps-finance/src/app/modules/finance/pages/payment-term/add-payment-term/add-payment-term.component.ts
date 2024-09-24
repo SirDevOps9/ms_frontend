@@ -69,6 +69,7 @@ export class AddPaymentTermComponent implements OnInit {
   }
 
   addLine() {
+    if(!this.formsService.validForm(this.paymentTermForm , false))return
     this.items.push(this.createPaymentTermFormGroup());
   }
 
@@ -113,4 +114,6 @@ export class AddPaymentTermComponent implements OnInit {
 
     this.financeService.addPaymentTerm(formData);
   }
+  
+
 }

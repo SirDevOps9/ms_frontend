@@ -38,7 +38,7 @@ export class EditBankDefinitionComponent implements OnInit {
     private formsService: FormsService,
     private languageService: LanguageService,
     private route: ActivatedRoute,
-    private titleService: Title
+    private titleService: Title,
   ) {
     this.titleService.setTitle(this.languageService.transalte('bank.EditBank'));
   }
@@ -168,14 +168,12 @@ export class EditBankDefinitionComponent implements OnInit {
   }
 
   addLine() {
+    if(!this.formsService.validForm(this.bankForm ,false)) return
+
     this.items.push(this.createBankFormGroup());
   }
 
-  deleteLine(index: number): void {
-    if (index >= 0 && index < this.bankForm.length) {
-      this.bankForm.removeAt(index);
-    }
-  }
+
   branchSelected(event: any, bankForm: FormGroup, i: number) {
     let data = this.branchesLookup.filter((item) => event.includes(item.id));
     let branchName = data.map((elem) => elem.name);
@@ -286,4 +284,5 @@ export class EditBankDefinitionComponent implements OnInit {
       this.financeService.editBankDefinition(data);
     }
   }
+  
 }

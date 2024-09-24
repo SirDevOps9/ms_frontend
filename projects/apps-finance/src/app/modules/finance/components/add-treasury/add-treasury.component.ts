@@ -56,7 +56,6 @@ export class AddTreasuryComponent implements OnInit {
 
   moudlelist() {
     this.modulelist = this.layoutService.getModules();
-    console.log(this.modulelist);
   }
 
   getCurrencies() {
@@ -68,7 +67,6 @@ export class AddTreasuryComponent implements OnInit {
   getBranchLookup() {
     this.financeService.getBranchLookup().subscribe((res) => {
       this.branchesLookup = res;
-      console.log(res);
     });
   }
 
@@ -83,7 +81,6 @@ export class AddTreasuryComponent implements OnInit {
     this.financeService.GetAccountOpeningBalance(id).subscribe({
       next:(res) => {
       if(res){
-        console.log(res);
         this.OpeningBalanceData = res;
         this.treasuryForm.get('openingBalance')?.setValue(res.balance);
         this.treasuryForm.get('accountBalance')?.setValue(res.balance);

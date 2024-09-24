@@ -305,21 +305,21 @@ export class EditPaymentInComponent {
     });
     this.financeService.paymentDetailsnDataObservable.subscribe((res: any) => {
       this.paymentDetails = res;
-      this.paymenInId = res.id;
-      if (res.status == this.sharedFinanceEnums.paymentInStatus.Draft) {
+      this.paymenInId = res?.id;
+      if (res?.status == this.sharedFinanceEnums.paymentInStatus.Draft) {
         this.paymentInDraft = true;
         this.paymentInPosted = false;
-      } else if (res.status == this.sharedFinanceEnums.paymentInStatus.Posted) {
+      } else if (res?.status == this.sharedFinanceEnums.paymentInStatus.Posted) {
         this.paymentInPosted = true;
       }
 
       this.addForm.patchValue({
         ...res,
       });
-      this.addForm.get('paymentInDate')?.setValue(new Date(res.paymentInDate));
+      this.addForm.get('paymentInDate')?.setValue(new Date(res?.paymentInDate));
 
-      if (res.paymentInDetails) {
-        res.paymentInDetails.forEach((element: any) => {
+      if (res?.paymentInDetails) {
+        res?.paymentInDetails.forEach((element: any) => {
           const formGroup = this.formBuilder.group({
             ...element,
             paymentInDetailCostCenters: this.formBuilder.array(
@@ -334,17 +334,17 @@ export class EditPaymentInComponent {
         });
       }
 
-      if (res.paymentHub) {
-        if (res.paymentHub == this.sharedFinanceEnums.paymentplaceString.Bank) {
-          this.getAccountBalance(res.bankAccountId);
-          if (res.currencyId) {
-            this.getAccountCurrencyRate(res.currencyId);
+      if (res?.paymentHub) {
+        if (res?.paymentHub == this.sharedFinanceEnums.paymentplaceString.Bank) {
+          this.getAccountBalance(res?.bankAccountId);
+          if (res?.currencyId) {
+            this.getAccountCurrencyRate(res?.currencyId);
           }
-        } else if (res.paymentHub == this.sharedFinanceEnums.paymentplaceString.Treasury) {
-          this.getTreasuryBalance(res.treasuryId);
+        } else if (res?.paymentHub == this.sharedFinanceEnums.paymentplaceString.Treasury) {
+          this.getTreasuryBalance(res?.treasuryId);
 
-          if (res.currencyId) {
-            this.getAccountCurrencyRate(res.currencyId);
+          if (res?.currencyId) {
+            this.getAccountCurrencyRate(res?.currencyId);
           }
         }
       }
@@ -375,7 +375,7 @@ export class EditPaymentInComponent {
           // control.get('paidByDetailsName')?.setValue(this.sharedFinanceEnums.OtherOptions.GLAccount)
         }
       });
-      this.addForm.controls['currency'].patchValue(res.currencyName);
+      this.addForm.controls['currency'].patchValue(res?.currencyName);
     });
     this.addForm.controls['paymentHub'].valueChanges.subscribe((paymentHub: any) => {
       this.getDetails(paymentHub);
@@ -432,8 +432,8 @@ export class EditPaymentInComponent {
     this.financeService.getAccountsHasNoChildrenNew(event, new PageInfo());
 
     this.financeService.childrenAccountList.subscribe((res: any) => {
-      if (res.length) {
-        this.filteredAccounts = res.map((account: any) => ({
+      if (res?.length) {
+        this.filteredAccounts = res?.map((account: any) => ({
           ...account,
           displayName: `${account.name} (${account.accountCode})`,
         }));

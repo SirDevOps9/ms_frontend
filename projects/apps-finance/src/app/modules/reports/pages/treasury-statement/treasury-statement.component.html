@@ -1,14 +1,21 @@
 <lib-page-content>
   <div class="user_page group">
     <form [formGroup]="reportForm">
+
+
       <div class="group">
         <div class="calender">
         <div class="grid">
           <div class="col-12 md:col-6">
-            <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input>
+            <!-- <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input> -->
+            <lib-calendar formControlName="dateFrom" [placeholder]="fromDate" ></lib-calendar>
+
           </div>
           <div class="col-12 md:col-6">
-            <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input>
+            <!-- <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input> -->
+         
+            <lib-calendar formControlName="dateTo" [placeholder]="toDate" ></lib-calendar>
+
           </div>
         </div>
       </div>

@@ -106,7 +106,7 @@ export class VendorOpeningBalanceDistributeComponent implements OnInit {
 
   getTodaysDate() {
     var date = new Date();
-    return date.toISOString().substring(0, 10);
+    return date.toISOString().split('T')[0]
   }
   onCancel() {
     this.ref.close()
@@ -121,8 +121,8 @@ export class VendorOpeningBalanceDistributeComponent implements OnInit {
     const formattedItems = this.items.value.map((item: any) => {
       return {
         ...item,
-        // dueDate: this.datePipe.transform(item.dueDate, 'yyyy-MM-dd') // Format due date
-        dueDate: this.formatDate(item.dueDate, 'yyyy-MM-dd') // Use formatDate method
+        dueDate: item.dueDate// Format due date
+        // dueDate: this.formatDate(item.dueDate, 'yyyy-MM-dd') // Use formatDate method
 
       };
     });

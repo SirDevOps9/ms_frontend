@@ -117,7 +117,7 @@ export class EditJournalEntryOpeningBalanceComponent {
     this.journalEntryService.getJournalEntryOpeningBalanceById(this.ID).subscribe((res) => {
       this.editJournalForm.patchValue({
         ...res,
-        journalDate: new Date(res.journalDate),
+        // journalDate: new Date(res.journalDate),
       });
       if (
         res.status === this.enums.JournalEntryStatus.Posted ||

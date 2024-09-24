@@ -106,10 +106,16 @@
       </div>
     </div>
   </div>
-  <div class="add_new">
-    <button (click)="addLine()" class="btn">
+  <!-- <div class="add_new"> -->
+    <!-- <button (click)="addLine()" class="btn">
       {{ 'add-paymentterm.add_new' | translate }}
     </button>
+  </div> -->
+  <div class=" w-fit">
+
+  <lib-button (onClick)="addLine()" className="outline-primary"   >
+    {{ 'add-paymentterm.add_new' | translate }}
+  </lib-button>
   </div>
   <div class="btn_group">
     <div class="grid mt-4">

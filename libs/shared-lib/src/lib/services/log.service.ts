@@ -7,7 +7,7 @@ import { EnvironmentService } from './environment.service';
 export class LogService {
   log(data: any, key: string = 'General') {
     if (!this.environmentService.production) {
-      console.log(new Date().toLocaleTimeString(), key, data);
+      // console.log(new Date().toLocaleTimeString(), key, data);
     }
   }
 
