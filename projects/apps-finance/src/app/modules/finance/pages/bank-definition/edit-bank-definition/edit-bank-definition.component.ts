@@ -100,7 +100,7 @@ export class EditBankDefinitionComponent implements OnInit {
             iban: elem.iban,
             currencyId: elem.currencyId,
             openingBalance: elem.openingBalance,
-            currentBalance: null,
+            currentBalance: elem.currentBalance,
             accountName: elem.glAccountName,
             currencyName: null,
             branchName: null,
@@ -114,7 +114,6 @@ export class EditBankDefinitionComponent implements OnInit {
           this.branchSelected(elem.branches, bankGroup, i);
           this.userPermissionSelect(elem.userPermission, bankGroup, i);
           this.currencyselected(elem.currencyId, bankGroup, i);
-          this.GetAccountCurrentBalance(elem.id, i);
         });
       }
     });
@@ -143,7 +142,6 @@ export class EditBankDefinitionComponent implements OnInit {
       bankLine.get('accountName')!.setValue(accountData.name);
       bankLine.get('currencyId')!.setValue(accountData.currencyId);
     }
-    this.GetAccountOpeningBalance(event, id);
   }
   createBankFormGroup(): FormGroup {
     return this.fb.group({
@@ -223,18 +221,6 @@ export class EditBankDefinitionComponent implements OnInit {
   }
   GetAccountOpeningBalance(id: number, index: number) {
     const bankLine = this.items.at(index);
-  }
-  GetAccountCurrentBalance(id: number, index: number) {
-    const bankLine = this.items.at(index);
-
-    this.financeService.GetAccountBalance(id);
-
-    this.financeService.AccountBalanceObservable.subscribe((res) => {
-      if (res) {
-        const currentBalance = bankLine.get('currentBalance');
-        currentBalance?.setValue(res);
-      }
-    });
   }
 
   validateBalance(id: number, currentBalance: any, openBalance: any) {
