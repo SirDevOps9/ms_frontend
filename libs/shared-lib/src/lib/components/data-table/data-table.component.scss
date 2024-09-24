@@ -130,7 +130,7 @@ span {
         border-bottom: 1px solid #dde1e6;
         thead {
           th {
-            text-align: start;
+            text-align: center;
             font-size: 1rem;
             line-height: 1;
           }
@@ -147,12 +147,6 @@ span {
             text-align: left;
             font-size: 1rem;
             line-height: 1;
-            & > p,
-            & > span,
-            & > div {
-              padding: 0;
-              margin: 0;
-            }
           }
           td.action,
           td:has(div.action) {
