@@ -2,6 +2,7 @@
   <div class="user_page">
     <lib-data-table
       [items]="tableData"
+      [sequence]="true"
       className="p-datatable-gridlines"
       [currentPageResult]="currentPageInfo"
       (pageChange)="onPageChange($event)"
