@@ -24,7 +24,7 @@
 }
 
 ::ng-deep .p-datatable .p-datatable-thead > tr > th {
-  text-align: left;
+  text-align: start;
   padding: 1rem 1rem;
   border: 1px solid #dde1e6;
   border-width: 0 0 1px 0;
@@ -86,16 +86,6 @@ span {
   width: 100%;
 }
 
-// @media (min-width: 1400px) {
-//   .viewInWeb {
-//     display: block;
-//   }
-
-//   .viewInMob {
-//     display: none;
-//   }
-// }
-
 .table__card__mob > .col-md-6 div:nth-of-type(1) .headerTExt {
   margin-top: 30px;
 }
@@ -130,7 +120,7 @@ span {
         border-bottom: 1px solid #dde1e6;
         thead {
           th {
-            text-align: start;
+            text-align: center;
             font-size: 1rem;
             line-height: 1;
           }
@@ -144,17 +134,14 @@ span {
             background-color: #f7f8f8;
           }
           td {
-            text-align: left;
+            text-align: start;
             font-size: 1rem;
             line-height: 1;
-            & > p,
-            & > span,
-            & > div {
-              padding: 0;
-              margin: 0;
-            }
           }
-          td.action,
+          td.action {
+            text-align: center;
+          }
+
           td:has(div.action) {
             text-align: center;
           }
