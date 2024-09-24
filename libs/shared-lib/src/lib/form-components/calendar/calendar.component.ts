@@ -54,11 +54,6 @@ export class CalendarComponent implements ControlValueAccessor {
     
   const parsedDate = new Date(event); 
     const localDate = this.convert_to_local_date(parsedDate);
-    
-    console.log('Input Event:', event);
-    console.log('Parsed Date:', parsedDate);
-    console.log('Converted Local Date:', localDate);
-    
     this.value = localDate;
     this.onChange(this.value);
     this.onTouched();
@@ -74,11 +69,6 @@ export class CalendarComponent implements ControlValueAccessor {
       }, 500);
     }
   }
-
-
-
-
-  
 
   convert_to_local_date(date: Date){
     // debugger;
