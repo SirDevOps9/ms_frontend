@@ -267,13 +267,19 @@ export class EditJournalEntryComponent implements OnInit {
 
     const id = this.journalEntryLinesFormArray.length + 1;
     //controls
-    const dbControl = new FormControl(0, [customValidators.required,customValidators.nonNegativeNumbers]);
-    const crControl = new FormControl(0, [customValidators.required, customValidators.nonNegativeNumbers]);
+    const dbControl = new FormControl(0, [
+      customValidators.required,
+      customValidators.nonNegativeNumbers,
+    ]);
+    const crControl = new FormControl(0, [
+      customValidators.required,
+      customValidators.nonNegativeNumbers,
+    ]);
     const currencyControl = new FormControl(null, customValidators.required);
     const rateControl = new FormControl<number | null>(null, [
       customValidators.required,
       customValidators.nonNegativeNumbers,
-        ]);
+    ]);
     //events
     dbControl.valueChanges.subscribe((value) => {
       if (rateControl.value) {
@@ -578,9 +584,16 @@ export class EditJournalEntryComponent implements OnInit {
     );
     return totalPercentage;
   }
-  routeToJournalView(id: number) {
+  routeToPaymentInView(id: number) {
     const url = this.router.serializeUrl(
-      this.router.createUrlTree([`/accounting/transcations/journalentry/view/${id}`])
+      this.router.createUrlTree([`/finance/transcations/paymentin/view/${id}`])
+    );
+    window.open(url, '_blank');
+  }
+
+  routeToPaymentOutView(id: number) {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/finance/transcations/paymentout/view/${id}`])
     );
     window.open(url, '_blank');
   }
@@ -610,7 +623,5 @@ export class EditJournalEntryComponent implements OnInit {
     private currentUserService: CurrentUserService,
     public generalService: GeneralService,
     private router: Router
-
-  ) {
-  }
+  ) {}
 }
