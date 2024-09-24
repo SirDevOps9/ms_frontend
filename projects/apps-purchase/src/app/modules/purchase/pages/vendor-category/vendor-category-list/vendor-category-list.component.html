@@ -1,12 +1,8 @@
 <lib-page-content [title]="'tag.taglist' | translate" [subTitle]="'tag.taglist' | translate">
   <div>
     <div class="user_page">
-      <lib-data-table
-        [items]="tableData"
-        className="p-datatable-gridlines"
-        [currentPageResult]="currentPageInfo"
-        (pageChange)="onPageChange($event)"
-        [tableConfigs]="{
+      <lib-data-table [items]="tableData" className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)" [tableConfigs]="{
               allowPagination: false,
               allowServerPagination: true,
               dataKey: 'id',
@@ -66,56 +62,37 @@
                    template : actions
                  },
                ]
-            }"
-      >
-      <ng-container search>
-        <div>
-
-          
-          <lib-text-input
-          type="text"
-          [placeholder]="'vendorCategory.Search' | translate"
-          (keyUp)="onSearchChange($event)"
-          [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
-        >
-        </lib-text-input>
-        </div>
-      </ng-container>
-      <ng-container action>
-        <div class="group flex gap-2">
-            
-
+            }">
+        <ng-container search>
           <div>
-            <lib-button-micro
-            nameClass="save"
-            [title]="'vendorCategory.Add' | translate"
-            (click)="routeToAdd()"
-          >
-          </lib-button-micro>
-          </div>
 
-          <lib-export
-            (exportClick)="exportVendorCategoriesData($event)"
-            [exportData]="exportData"
-            [exportColumns]="exportColumns"
-            [ExportName]="'Vendor Cateogries'"
-          >
-          </lib-export>
-        </div>
-      </ng-container>
-        
+
+            <lib-text-input type="text" [placeholder]="'vendorCategory.Search' | translate"
+              (keyUp)="onSearchChange($event)" [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">
+            </lib-text-input>
+          </div>
+        </ng-container>
+        <ng-container action>
+          <div class="group flex gap-2">
+
+
+
+
+            <lib-export (exportClick)="exportVendorCategoriesData($event)" [exportData]="exportData"
+              [exportColumns]="exportColumns" [ExportName]="'Vendor Cateogries'">
+            </lib-export>
+            <lib-button-micro nameClass="save" [title]="'vendorCategory.Add' | translate" (click)="routeToAdd()">
+            </lib-button-micro>
+          </div>
+        </ng-container>
+
 
         <ng-template #actions let-actions>
           <div class="actions flex align-items-center ">
-            <lib-button-micro
-            nameClass="table_button_edit"
-            (click)="routeToEdit(actions.id)" >
+            <lib-button-micro nameClass="table_button_edit" (click)="routeToEdit(actions.id)">
 
             </lib-button-micro>
-            <lib-button-micro
-            nameClass="table_button_delete"
-            (click)="onDelete(actions.id)"
-            >
+            <lib-button-micro nameClass="table_button_delete" (click)="onDelete(actions.id)">
             </lib-button-micro>
           </div>
         </ng-template>

@@ -54,7 +54,6 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
     private salesService: SalesService,
     private toasterService: ToasterService,
     private languageService: LanguageService,
-    private title: Title,
     public routerService: RouterService,
     private formService: FormsService,
     private lookupsService: LookupsService,
@@ -62,9 +61,7 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
   ) {}
   
   ngOnInit(): void {
-    this.languageService
-      .getTranslation('openeingBalance.CustomerOpeningBalance')
-      .subscribe((res) => this.title.setTitle(res));
+  
     this.loadLookups();
     this.initializeMainFormGroup();
     this.subscribe();
@@ -306,7 +303,10 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
     });
 
     this.salesService.CustomerDropDownByAccountIdObservable.subscribe((res) => {
-      this.customerDropDownByAccountId = res;
+      this.customerDropDownByAccountId = res.map((x) => ({
+        ...x,
+        name: `${x.name} (${x.code})`,
+      }));;
     });
     this.salesService.LinesDropDownDataObservable.subscribe((res: any) => {
       this.linesDropDown = res;

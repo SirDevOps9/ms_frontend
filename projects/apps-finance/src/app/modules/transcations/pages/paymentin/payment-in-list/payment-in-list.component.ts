@@ -1,24 +1,21 @@
 import { Component } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { PageInfoResult, lookupDto, RouterService, LanguageService, PageInfo } from 'shared-lib';
+import { PageInfoResult, lookupDto, RouterService, PageInfo } from 'shared-lib';
 import { GetAllPaymentInDto } from '../../../models';
-import { FinanceService } from '../../../../finance/finance.service';
 import { TranscationsService } from '../../../transcations.service';
-
+import { Router } from '@angular/router';
+import { SharedFinanceEnums } from '../../../../finance/models';
 @Component({
   selector: 'app-payment-in-list',
   templateUrl: './payment-in-list.component.html',
-  styleUrl: './payment-in-list.component.scss'
+  styleUrl: './payment-in-list.component.scss',
 })
 export class PaymentInListComponent {
-
   tableData: GetAllPaymentInDto[];
 
   currentPageInfo: PageInfoResult = {};
   searchTerm: string;
 
-  exportColumns: lookupDto[]=[
-   
+  exportColumns: lookupDto[] = [
     {
       id: 'id',
       name: 'Id',
@@ -54,24 +51,20 @@ export class PaymentInListComponent {
     {
       id: 'relatedSourceJournal',
       name: 'relatedSourceJournal',
-    }
+    },
   ];
   exportData: GetAllPaymentInDto[];
-
 
   constructor(
     private financeService: TranscationsService,
     private routerService: RouterService,
-    private title: Title,
-    private langService: LanguageService,) { }
+    private router: Router,
+    public financeSharedEnums:SharedFinanceEnums
+  ) {}
 
- 
   ngOnInit() {
     this.subscribes();
     this.initPaymentInData();
-    this.title.setTitle(
-      this.langService.transalte('payment-in.payment-in')
-    );
   }
 
   routeToAdd() {
@@ -79,13 +72,13 @@ export class PaymentInListComponent {
   }
 
   routeToEdit(id: number) {
-    this.routerService.navigateTo( `/transcations/paymentin/edit/${id}`);
+    this.routerService.navigateTo(`/transcations/paymentin/edit/${id}`);
   }
 
   initPaymentInData() {
     this.financeService.getAllPaymentIn('', new PageInfo());
   }
-  subscribes(){
+  subscribes() {
     this.financeService.paymentInDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
@@ -103,17 +96,14 @@ export class PaymentInListComponent {
 
   onPageChange(pageInfo: PageInfo) {
     this.financeService.getAllPaymentIn('', pageInfo);
-
   }
 
   onSearchChange(event: any) {
     this.financeService.getAllPaymentIn(event, new PageInfo());
   }
 
-  
   exportClick() {
     this.financeService.exportsPaymentInList(this.searchTerm);
-    
   }
 
   onDelete(id: number) {
@@ -123,5 +113,10 @@ export class PaymentInListComponent {
   view(id: number) {
     this.routerService.navigateTo(`/transcations/paymentin/view/${id}`);
   }
-
+  routeToJournalView(id: number) {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/accounting/transcations/journalentry/view/${id}`])
+    );
+    window.open(url, '_blank');
+  }
 }

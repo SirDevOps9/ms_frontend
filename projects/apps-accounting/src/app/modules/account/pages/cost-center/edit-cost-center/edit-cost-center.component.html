@@ -51,35 +51,48 @@
         </lib-field-validations>
       </lib-form-group>
     </div>
+    <div class="faild">
+      <lib-form-group>
+        <p class="paragraph_b18">{{ 'costCenter.isActive' | translate }}</p>
+        <input
+          type="checkbox"
+          formControlName="isActive"
+          id="isDetail"
+          [checked]="formGroup.controls['isActive']"
+        />
+
+        <lib-label [appControl]="formGroup.controls['isActive']">
+          {{ 'costCenter.yes' | translate }}
+        </lib-label>
+        <lib-field-validations [appControl]="formGroup.controls['isActive']">
+        </lib-field-validations>
+      </lib-form-group>
+    </div>
     <div class="btn_group">
       <div class="grid">
         <div class="md:col-3">
           <div class="grid">
             <div class="md:col-6">
               <lib-button-micro
-              nameClass="cancel"
-              title="{{ 'costCenter.Cancel' | translate }}"
-              (click)="cancelClick()"
-              widthNumber=100%
-            >
-            </lib-button-micro>
+                nameClass="cancel"
+                title="{{ 'costCenter.Cancel' | translate }}"
+                (click)="cancelClick()"
+                widthNumber="100%"
+              >
+              </lib-button-micro>
             </div>
             <div class="md:col-6">
               <lib-button-micro
-        nameClass="save"
-        title="{{ 'costCenter.save' | translate }}"
-        (click)="onSubmit()"
-        widthNumber=100%
-      >
-      </lib-button-micro>
+                nameClass="save"
+                title="{{ 'costCenter.save' | translate }}"
+                (click)="onSubmit()"
+                widthNumber="100%"
+              >
+              </lib-button-micro>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="action">
-      
-      
     </div>
   </form>
 </div>

@@ -65,7 +65,9 @@ export class AddCostCenterComponent {
     const amount = parseFloat(this.config.data.amount || 0);
     
     if (this.config.data.viewdata) {
-      this.disabled=true;
+      console.log(this.config.data.viewdata ,"this.config.data.viewdata");
+      
+      this.disabled=this.config.data.viewdata;
     }
   
     if (creditAmount === 0) {
