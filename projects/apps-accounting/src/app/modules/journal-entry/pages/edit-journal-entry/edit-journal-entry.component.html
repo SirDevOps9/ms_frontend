@@ -61,8 +61,28 @@
             <lib-label [appControl]="editJournalForm.controls['sourceCode']">
               {{ 'EditJournal.SourceDocumentCode' | translate }}
             </lib-label>
+            <p
+            class="subHead paragraph_b16 pragraph_demd m-0"
+            *ngIf="journalEntry?.sourceName == 'PaymentIn'"
+            [ngClass]="{'code':editJournalForm.controls['sourceCode'].value!}" 
+            (click)="routeToJournalView(journalEntry?.paymentInId!)"
+          >
+            {{ editJournalForm.controls['sourceCode'].value || 'N/A'  }}
+          </p>
+            <p
+            class="subHead paragraph_b16 pragraph_demd m-0"
+            *ngIf="journalEntry?.sourceName == 'PaymentOut'"
+            [ngClass]="{'code':editJournalForm.controls['sourceCode'].value!}" 
+            (click)="routeToJournalView(journalEntry?.paymentOutId!)"
+          >
+            {{ editJournalForm.controls['sourceCode'].value || 'N/A'  }}
+          </p>
+            <!-- <lib-text-input formControlName="sourceCode" [readOnly]="true"
+            [ngClass]="{'code':editJournalForm.controls['sourceCode'].value!}" 
+ 
+            (click)="routeToPaymentInView(editJournalForm.controls['sourceCode'].value!)"
 
-            <lib-text-input formControlName="sourceCode" [readOnly]="true"></lib-text-input>
+            ></lib-text-input> -->
           </div>
           <div class="col-12 md:col-3">
             <lib-label [appControl]="editJournalForm.controls['reversedJournalCode']">

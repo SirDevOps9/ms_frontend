@@ -13,6 +13,8 @@ export interface GetJournalEntryByIdDto {
     type: JournalEntryType;
     sourceName: string;
     sourceCode: string;
+    paymentInId: number;
+    paymentOutId: number;
     reversedJournalCode?: string; 
     status: JournalEntryStatus;
     totalDebitAmount: number;

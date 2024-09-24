@@ -33,13 +33,13 @@
             </p>
         </div>
         <div class="col-12 md:col-3">
-            <p class="headsCont heading_b16">{{ 'Journal.sourceName' | translate }}</p>
+            <p class="headsCont heading_b16">{{ 'EditJournal.SourceDocumentName' | translate }}</p>
             <p class="subHead paragraph_b16 pragraph_demd">
               {{ journalView?.type || 'N/A'  }}
             </p>
         </div>
         <div class="col-12 md:col-3">
-            <p class="headsCont heading_b16">{{ 'Journal.sourceName' | translate }}</p>
+            <p class="headsCont heading_b16">{{ 'EditJournal.SourceDocumentCode' | translate }}</p>
             <p
               class="subHead paragraph_b16 pragraph_demd"
               *ngIf="journalView?.sourceCode == 'PaymentIn'"
@@ -178,11 +178,11 @@
             <td colspan="4" class="imptyData total" style="text-align: center">
               {{ 'JournalTemplate.total' | translate }}
             </td>
-            <td class="total">{{ totalDebitAmount | numberFormat }}</td>
-            <td class="total">{{ totalCreditAmount | numberFormat }}</td>
+            <td class="total center">{{ totalDebitAmount | numberFormat }}</td>
+            <td class="total center">{{ totalCreditAmount | numberFormat }}</td>
             <td class="total"></td>
-            <td class="total">{{ totalDebitAmountLocal | numberFormat }}</td>
-            <td class="total">{{ totalCreditAmountLocal | numberFormat }}</td>
+            <td class="total center">{{ totalDebitAmountLocal | numberFormat }}</td>
+            <td class="total center">{{ totalCreditAmountLocal | numberFormat }}</td>
             <td class="total"></td>
           </tr>
         </ng-container>

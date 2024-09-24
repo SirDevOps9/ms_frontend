@@ -76,6 +76,12 @@
         {{ (ViewForm.localAmount | numberFormat) || 'N/A' }}
       </p>
     </div>
+    <div class="md:col-3 " >
+      <p class="headsCont heading_b16">{{ 'payment-view.status' | translate }}</p>
+      <p class="subHead paragraph_b16 pragraph_demd">
+        {{ ViewForm.status || 'N/A'  }}
+      </p>
+    </div>
   </div>
 
   <div class="journal_page">

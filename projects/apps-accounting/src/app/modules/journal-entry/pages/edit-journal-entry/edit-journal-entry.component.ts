@@ -30,6 +30,7 @@ import { EditCostCenterAllocationPopupComponent } from '../components/edit-cost-
 import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 import { CostCenterAllocationPopupComponent } from '../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-journal-entry',
@@ -577,7 +578,12 @@ export class EditJournalEntryComponent implements OnInit {
     );
     return totalPercentage;
   }
-
+  routeToJournalView(id: number) {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/accounting/transcations/journalentry/view/${id}`])
+    );
+    window.open(url, '_blank');
+  }
   convertDateFormat(data: Date | string) {
     const date = new Date(data);
 
@@ -602,7 +608,9 @@ export class EditJournalEntryComponent implements OnInit {
     private titleService: Title,
     private langService: LanguageService,
     private currentUserService: CurrentUserService,
-    public generalService: GeneralService
+    public generalService: GeneralService,
+    private router: Router
+
   ) {
   }
 }
