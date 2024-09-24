@@ -89,7 +89,6 @@ export class EditBankDefinitionComponent implements OnInit {
   getBankInfoById(id: number) {
     this.financeService.getBankDefinitionByID(id);
     this.financeService.sendBankByIDObservable.subscribe((res) => {
-      console.log(res);
       this.items.clear();
       this.bankormGroup.patchValue({ ...res });
       if (res?.bankAccounts?.length) {
@@ -145,7 +144,6 @@ export class EditBankDefinitionComponent implements OnInit {
       bankLine.get('currencyId')!.setValue(accountData.currencyId);
     }
     this.GetAccountOpeningBalance(event, id);
-    console.log(this.items.value);
   }
   createBankFormGroup(): FormGroup {
     return this.fb.group({
@@ -172,6 +170,8 @@ export class EditBankDefinitionComponent implements OnInit {
   addLine() {
     const newline = this.createBankFormGroup();
     newline.get('branches')?.setValue([this.branchesLookup[0].id.toString()]);
+    newline.get('branchName')?.setValue([this.branchesLookup[0].name]);
+
     this.items.push(newline);
   }
 
@@ -207,7 +207,6 @@ export class EditBankDefinitionComponent implements OnInit {
   getBranchLookup() {
     this.financeService.getBranchLookup().subscribe((res) => {
       this.branchesLookup = res;
-      console.log(res);
     });
   }
 
@@ -239,9 +238,6 @@ export class EditBankDefinitionComponent implements OnInit {
   }
 
   validateBalance(id: number, currentBalance: any, openBalance: any) {
-    console.log('Current', currentBalance);
-    console.log('OpenBalance', openBalance);
-    console.log('id', id);
     if (id == 0) return false;
     if (!currentBalance) currentBalance = '';
     if (currentBalance !== openBalance) return true;

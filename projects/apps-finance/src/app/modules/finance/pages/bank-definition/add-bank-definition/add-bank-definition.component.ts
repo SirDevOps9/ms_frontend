@@ -6,12 +6,19 @@ import { CurrencyDto } from '../../../../general/models';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AccountDto } from 'projects/apps-accounting/src/app/modules/account/models';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
-import { customValidators, FormsService, LanguageService, PageInfo, RouterService } from 'shared-lib';
+import {
+  customValidators,
+  FormsService,
+  LanguageService,
+  lookupDto,
+  PageInfo,
+  RouterService,
+} from 'shared-lib';
 import { Balance } from '../../../models';
 import { NoChildrenAccountsComponent } from '../../../components/bank/no-children-accounts/no-children-accounts.component';
 import { UserPermission } from '../../../models/user-permission';
 import { ConfirmOpeningBalanceComponent } from '../../../components/bank/confirm-opening-balance/confirm-opening-balance.component';
-import { Title } from '@angular/platform-browser';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-add-bank-definition',
@@ -29,12 +36,8 @@ export class AddBankDefinitionComponent implements OnInit {
     private accountService: AccountService,
     private routerService: RouterService,
     private formsService: FormsService,
-    private languageService:LanguageService,
-    private title: Title,
-
-  ) {
-    this.title.setTitle(this.languageService.transalte('bank.AddBank'));
-  }
+    private languageService: LanguageService
+  ) {}
   branchesLookup: { id: number; name: string }[];
   accountsLookup: { id: number; name: string }[];
   currenciesList: CurrencyDto[];
@@ -42,7 +45,8 @@ export class AddBankDefinitionComponent implements OnInit {
   usersList: UserPermission[];
   openingBalanceDataList: any = [];
   OpeningBalanceData: Balance;
-  branchId : number;
+  //branchId: number;
+  selectedBranch = new BehaviorSubject<lookupDto | undefined>(undefined);
 
   ngOnInit(): void {
     this.getBranchLookup();
@@ -54,9 +58,10 @@ export class AddBankDefinitionComponent implements OnInit {
       name: new FormControl('', [customValidators.required, customValidators.length(0, 50)]),
       bankAddress: new FormControl('', customValidators.length(0, 100)),
       bankEmail: new FormControl('', customValidators.email),
-      fax: new FormControl('')
+      fax: new FormControl(''),
     });
-    this.bankForm = this.fb.array([this.createBankFormGroup()]);
+
+    this.bankForm = this.fb.array([]);
 
     this.getAccounts();
     this.getCurrencies();
@@ -67,6 +72,7 @@ export class AddBankDefinitionComponent implements OnInit {
         displayName: `${account.name} (${account.accountCode})`,
       }));
     });
+    this.addLine();
   }
   public get items(): FormArray {
     return this.bankForm as FormArray;
@@ -79,12 +85,10 @@ export class AddBankDefinitionComponent implements OnInit {
     });
     ref.onClose.subscribe((r) => {
       if (r) {
-        console.log(r)
         this.bankForm.at(index)?.get('glAccountId')?.setValue(r.id);
         this.bankForm.at(index)?.get('accountName')?.setValue(r.name);
         this.bankForm.at(index)?.get('displayName')?.setValue(r.accountCode);
         this.bankForm.at(index)?.get('currencyId')?.setValue(r.currencyId);
-
       }
     });
   }
@@ -100,15 +104,10 @@ export class AddBankDefinitionComponent implements OnInit {
   }
 
   accountSelected(event: any, id: number) {
-    console.log(event);
 
     const bankLine = this.items.at(id);
 
     var accountData: any = this.filteredAccounts.find((c) => c.id == event);
-
-    console.log('Selectec', accountData);
-
-  
     bankLine.get('accountCode')?.setValue(accountData?.accountCode);
     bankLine.get('accountName')?.setValue(accountData.name);
     bankLine.get('displayName')?.setValue(accountData.accountCode);
@@ -123,7 +122,10 @@ export class AddBankDefinitionComponent implements OnInit {
       glAccountId: null,
       iban: null,
       currencyId: new FormControl('', customValidators.required),
-      openingBalance: new FormControl('', [customValidators.required,customValidators.nonNegativeNumbers]),
+      openingBalance: new FormControl('', [
+        customValidators.required,
+        customValidators.nonNegativeNumbers,
+      ]),
       currentBalance: null,
       accountName: null,
       currencyName: null,
@@ -131,16 +133,21 @@ export class AddBankDefinitionComponent implements OnInit {
       displayName: null,
       userPermission: [],
       userPermissionName: '',
-      branches:[],
+      branches: [],
     });
-
-    return line
+    return line;
   }
 
   addLine() {
-    console.log("check on init")
     const newline = this.createBankFormGroup();
-    newline.get('branches')?.setValue([this.branchId]);
+ 
+    this.selectedBranch.subscribe((res) => {
+      
+      if (res != undefined){
+        newline.get('branches')?.setValue([res.id]);
+        newline.get('branchName')?.setValue([res.name]);
+      }
+    });
     this.items.push(newline);
   }
   deleteLine(index: number): void {
@@ -154,8 +161,6 @@ export class AddBankDefinitionComponent implements OnInit {
     bankForm.controls['branchName'].setValue(branchName);
   }
   currencyselected(event: any, bankForm: FormGroup, i: number) {
-    console.log("000000000");
-    
     let data: any = this.currenciesList.find((item) => item.id == event);
 
     bankForm.controls['currencyName'].setValue(data.name);
@@ -176,8 +181,7 @@ export class AddBankDefinitionComponent implements OnInit {
   getBranchLookup() {
     this.financeService.getBranchLookup().subscribe((res) => {
       this.branchesLookup = res;
-      this.branchId = res[0].id;
-      console.log(res);
+      this.selectedBranch.next(res[0]);
     });
   }
 
@@ -200,9 +204,9 @@ export class AddBankDefinitionComponent implements OnInit {
         this.OpeningBalanceData = res;
         const currentBalance = bankLine.get('currentBalance');
         currentBalance?.setValue(res.balance);
-      }else{
+      } else {
         const currentBalance = bankLine.get('currentBalance');
-        currentBalance?.setValue("0");
+        currentBalance?.setValue('0');
       }
     });
   }
@@ -229,7 +233,7 @@ export class AddBankDefinitionComponent implements OnInit {
         this.openingBalanceDataList.push(element);
 
         const dialogRef = this.dialog.open(ConfirmOpeningBalanceComponent, {
-          header: this.languageService.transalte("confirm.confirm"),
+          header: this.languageService.transalte('confirm.confirm'),
           width: '400px',
           height: '330px',
           data: this.openingBalanceDataList,
