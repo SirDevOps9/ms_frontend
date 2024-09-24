@@ -42,9 +42,10 @@ export class AddBankDefinitionComponent implements OnInit {
   usersList: UserPermission[];
   openingBalanceDataList: any = [];
   OpeningBalanceData: Balance;
+  branchId : number;
 
   ngOnInit(): void {
-    this.bankForm = this.fb.array([this.createBankFormGroup()]);
+    this.getBranchLookup();
     this.bankormGroup = new FormGroup({
       code: new FormControl(''),
       shortName: new FormControl('', customValidators.length(0, 5)),
@@ -53,10 +54,11 @@ export class AddBankDefinitionComponent implements OnInit {
       name: new FormControl('', [customValidators.required, customValidators.length(0, 50)]),
       bankAddress: new FormControl('', customValidators.length(0, 100)),
       bankEmail: new FormControl('', customValidators.email),
-      fax: new FormControl(''),
+      fax: new FormControl('')
     });
+    this.bankForm = this.fb.array([this.createBankFormGroup()]);
+
     this.getAccounts();
-    this.getBranchLookup();
     this.getCurrencies();
     this.getUserPermissionLookupData();
     this.accountService.childrenAccountList.subscribe((r) => {
@@ -66,7 +68,6 @@ export class AddBankDefinitionComponent implements OnInit {
       }));
     });
   }
-
   public get items(): FormArray {
     return this.bankForm as FormArray;
   }
@@ -117,11 +118,11 @@ export class AddBankDefinitionComponent implements OnInit {
     this.GetAccountOpeningBalance(event, id);
   }
   createBankFormGroup(): FormGroup {
-    return this.fb.group({
+    const line = this.fb.group({
       accountNumber: new FormControl('', customValidators.required),
       glAccountId: null,
       iban: null,
-      currencyId: null,
+      currencyId: new FormControl('', customValidators.required),
       openingBalance: new FormControl('', [customValidators.required,customValidators.nonNegativeNumbers]),
       currentBalance: null,
       accountName: null,
@@ -130,14 +131,18 @@ export class AddBankDefinitionComponent implements OnInit {
       displayName: null,
       userPermission: [],
       userPermissionName: '',
-      branches: new FormControl('', customValidators.required),
+      branches:[],
     });
+
+    return line
   }
 
   addLine() {
-    this.items.push(this.createBankFormGroup());
+    console.log("check on init")
+    const newline = this.createBankFormGroup();
+    newline.get('branches')?.setValue([this.branchId]);
+    this.items.push(newline);
   }
-
   deleteLine(index: number): void {
     if (index >= 0 && index < this.bankForm.length) {
       this.bankForm.removeAt(index);
@@ -171,6 +176,7 @@ export class AddBankDefinitionComponent implements OnInit {
   getBranchLookup() {
     this.financeService.getBranchLookup().subscribe((res) => {
       this.branchesLookup = res;
+      this.branchId = res[0].id;
       console.log(res);
     });
   }

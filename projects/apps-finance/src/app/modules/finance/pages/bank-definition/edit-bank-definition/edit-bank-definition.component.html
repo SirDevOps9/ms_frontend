@@ -95,11 +95,7 @@
       </div>
     </div>
     <!--  -->
-    <div class="add_new my-2 flex justify-content-end">
-      <lib-button (onClick)="addLine()" className="outline-primary">
-        {{ 'bank.add_new' | translate }}
-      </lib-button>
-    </div>
+
     <div class="entry_table">
       <div class="card">
         <p-table
@@ -167,7 +163,7 @@
                     </div>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ bankGroup.controls['accountNumber']?.value }}
+                    {{ bankGroup.controls['glAccountId']?.value }}
                   </ng-template>
                 </p-cellEditor>
               </td>
@@ -238,7 +234,7 @@
                         optionLabel="name"
                         [selectedValue]="bankGroup.controls['currencyId'].value"
                         (valueChanged)="currencyselected($event, bankGroup, i)"
-                        [readOnly]="true"
+                        [readOnly]="!!bankGroup.controls['id'].value"
                       ></lib-select>
                     </lib-form-group>
                   </ng-template>
@@ -318,24 +314,40 @@
     </div>
   </div>
   
-  
-  <div class="btn_group my-5">
+  <div class="add_new">
     <div class="grid">
       <div class="md:col-3">
         <div class="grid">
           <div class="md:col-6">
-            <lib-button-micro title="{{ 'Cancel' | translate }}" nameClass="cancel" widthNumber="100%" (click)="discard()">
-            </lib-button-micro>
-          </div>
-          <div class="md:col-6">
-            <div>
-              <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%"   (click)="onSave()">
-              </lib-button-micro>
-            </div>
-         
-          </div>
+        <lib-button-micro
+        nameClass="outline"
+        widthNumber="100%" 
+        title="{{ 'add_new_line' | translate }}"
+        (click)="addLine()"
+        >
+
+        </lib-button-micro>
+        </div>
         </div>
       </div>
     </div>
   </div>
+<div class="btn_group">
+<div class="grid">
+  <div class="md:col-3">
+    <div class="grid">
+      <div class="md:col-6">
+        <lib-button-micro title="{{ 'Cancel' | translate }}" nameClass="cancel" widthNumber="100%" (click)="discard()">
+        </lib-button-micro>
+      </div>
+      <div class="md:col-6">
+        <div>
+          <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%" (click)="onSave()">
+          </lib-button-micro>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 </lib-page-content>

@@ -39,8 +39,7 @@ export class EditBankDefinitionComponent implements OnInit {
     private languageService: LanguageService,
     private route: ActivatedRoute,
     private titleService: Title
-  ) {
-  }
+  ) {}
   branchesLookup: { id: number; name: string }[];
   accountsLookup: { id: number; name: string }[];
   currenciesList: CurrencyDto[];
@@ -98,7 +97,7 @@ export class EditBankDefinitionComponent implements OnInit {
           let bankGroup = this.fb.group({
             id: elem.id,
             accountNumber: new FormControl(elem.accountNumber, Validators.required),
-            glAccountId: elem.glAccountId,
+            glAccountId: elem.glAccountId == 0 ? null : elem.glAccountId,
             iban: elem.iban,
             currencyId: elem.currencyId,
             openingBalance: elem.openingBalance,
@@ -143,6 +142,7 @@ export class EditBankDefinitionComponent implements OnInit {
       bankLine.get('glAccountId')!.setValue(accountData.id);
       bankLine.get('accountNumber')!.setValue(accountData.accountCode);
       bankLine.get('accountName')!.setValue(accountData.name);
+      bankLine.get('currencyId')!.setValue(accountData.currencyId);
     }
     this.GetAccountOpeningBalance(event, id);
     console.log(this.items.value);
@@ -153,8 +153,11 @@ export class EditBankDefinitionComponent implements OnInit {
       accountNumber: new FormControl('', customValidators.required),
       glAccountId: null,
       iban: new FormControl(null),
-      currencyId: null,
-      openingBalance: new FormControl('', [customValidators.required,customValidators.nonNegativeNumbers]),
+      currencyId: new FormControl('', customValidators.required),
+      openingBalance: new FormControl('', [
+        customValidators.required,
+        customValidators.nonNegativeNumbers,
+      ]),
       currentBalance: null,
       accountName: null,
       currencyName: null,
@@ -162,12 +165,14 @@ export class EditBankDefinitionComponent implements OnInit {
       displayName: null,
       userPermission: [],
       userPermissionName: '',
-      branches: [],
+      branches: new FormControl('', customValidators.required),
     });
   }
 
   addLine() {
-    this.items.push(this.createBankFormGroup());
+    const newline = this.createBankFormGroup();
+    newline.get('branches')?.setValue([this.branchesLookup[0].id.toString()]);
+    this.items.push(newline);
   }
 
   deleteLine(index: number): void {
@@ -176,8 +181,8 @@ export class EditBankDefinitionComponent implements OnInit {
     }
   }
   branchSelected(event: any, bankForm: FormGroup, i: number) {
-    let data = this.branchesLookup.filter((item) => event.includes(item.id));
-    let branchName = data.map((elem) => elem.name);
+    let data = this.branchesLookup?.filter((item) => event.includes(item.id));
+    let branchName = data?.map((elem) => elem.name);
     bankForm.controls['branchName'].setValue(branchName);
   }
 
@@ -233,15 +238,13 @@ export class EditBankDefinitionComponent implements OnInit {
     });
   }
 
-  validateBalance(id: number,currentBalance: any, openBalance: any) {
+  validateBalance(id: number, currentBalance: any, openBalance: any) {
     console.log('Current', currentBalance);
     console.log('OpenBalance', openBalance);
     console.log('id', id);
-    if(id ==0)
-      return false;
-    if(!currentBalance)
-      currentBalance="";
-    if (currentBalance !== openBalance ) return true;
+    if (id == 0) return false;
+    if (!currentBalance) currentBalance = '';
+    if (currentBalance !== openBalance) return true;
 
     return false;
   }
