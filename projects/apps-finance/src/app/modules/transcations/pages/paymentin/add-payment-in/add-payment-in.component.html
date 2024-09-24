@@ -147,8 +147,12 @@
   
     <div class="entry_tableCont">
       <div class="card">
-        <p-table [resizableColumns]="true" [value]="paymentInDetailsFormArray.controls" dataKey="id"
-          styleClass="p-datatable-gridlines p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }">
+        <p-table
+         [resizableColumns]="true" 
+         [value]="paymentInDetailsFormArray.controls"
+         dataKey="id"
+          styleClass="p-datatable-gridlines p-datatable-striped"
+           [tableStyle]="{ 'min-width': '50rem' }">
           <ng-template pTemplate="header">
             <tr>
               <th>{{ 'PaymentIn.Table.Amount' | translate }}</th>

@@ -12,7 +12,6 @@ import {
   ToasterService,
 } from 'shared-lib';
 import { AddPaymentTermDto, AddPaymentTermLinesDto } from '../../../models';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-payment-term',
@@ -33,7 +32,6 @@ export class AddPaymentTermComponent implements OnInit {
     private formsService: FormsService,
     private lookupsService: LookupsService,
     private toasterService: ToasterService,
-    private title: Title,
     private languageService: LanguageService
   ) {
   }
@@ -78,6 +76,7 @@ export class AddPaymentTermComponent implements OnInit {
   }
 
   onDelete(i: number) {
+
     this.items.removeAt(i);
   }
 
