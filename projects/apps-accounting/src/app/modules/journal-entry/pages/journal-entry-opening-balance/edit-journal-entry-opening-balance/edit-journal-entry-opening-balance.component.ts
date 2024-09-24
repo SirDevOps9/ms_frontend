@@ -623,7 +623,7 @@ export class EditJournalEntryOpeningBalanceComponent {
     public generalService: GeneralService,
     private currentUserService: CurrentUserService
   ) {
-    this.titleService.setTitle(this.langService.transalte('OpeningBalance.EditJournal'));
+   
   }
 
   convertDateFormat(data: Date | string) {

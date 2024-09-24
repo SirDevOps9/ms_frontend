@@ -118,6 +118,7 @@ export class ItemDefinitionListComponent implements OnInit {
     // dialogRef.onClose.subscribe(() => {
     // this.initItemDefinitionData()
     // });
+    this.routerService.navigateTo(`masterdata/add-item-definition/${data.id}`)
 
   }
 

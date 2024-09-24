@@ -93,7 +93,7 @@
       </div>
     </div>
     <!--  -->
-    
+
     <div class="entry_table">
       <div class="card">
         <p-table
@@ -111,7 +111,7 @@
               <th>{{ 'bank.Iban' | translate }}</th>
               <th>{{ 'bank.currency' | translate }}</th>
               <th>{{ 'bank.accountOpeningBalance' | translate }}</th>
-              <th>{{ 'bank.userPermission' | translate }}</th>
+              <!-- <th>{{ 'bank.userPermission' | translate }}</th> -->
               <th>{{ 'bank.openingBalance' | translate }}</th>
               <th>{{ 'bank.actions' | translate }}</th>
             </tr>
@@ -233,7 +233,6 @@
                         optionLabel="name"
                         [selectedValue]="bankGroup.controls['currencyId'].value"
                         (valueChanged)="currencyselected($event, bankGroup, i)"
-                        [readOnly]="true"
                       ></lib-select>
                     </lib-form-group>
                   </ng-template>
@@ -248,11 +247,11 @@
               </td>
               <!--  -->
               <td>
-                {{ bankGroup.controls['currentBalance'].value ?? '--' }}
+                {{ bankGroup.controls['currentBalance'].value ?? '--' | numberFormat }}
               </td>
               <!--  -->
 
-              <td
+              <!-- <td
                 [pEditableColumn]="bankGroup.controls['userPermission']"
                 pEditableColumnField="bankGroup.controls['userPermission']"
               >
@@ -277,7 +276,7 @@
                     {{ bankGroup.controls['userPermissionName'].value }}
                   </ng-template>
                 </p-cellEditor>
-              </td>
+              </td> -->
               <!--  -->
 
               <td
@@ -292,7 +291,7 @@
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ bankGroup.controls['openingBalance'].value }}
+                    {{ bankGroup.controls['openingBalance'].value | numberFormat }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations
@@ -301,7 +300,8 @@
               </td>
               <!--  -->
               <td>
-                <i class="pi pi-trash" (click)="onDelete(i)"></i>
+                <lib-button-micro nameClass="table_button_delete" (click)="onDelete(i)">
+                </lib-button-micro>
               </td>
             </tr>
           </ng-template>
@@ -315,22 +315,32 @@
       </div>
     </div>
   </div>
-    <div class="btn_group">
-      <div class="grid">
-        <div class="md:col-3">
-          <div class="grid">
-            <div class="md:col-6">
-              <lib-button-micro title="{{ 'Cancel' | translate }}" nameClass="cancel" widthNumber="100%" (click)="discard()">
+  <div class="btn_group">
+    <div class="grid">
+      <div class="md:col-3">
+        <div class="grid">
+          <div class="md:col-6">
+            <lib-button-micro
+              title="{{ 'Cancel' | translate }}"
+              nameClass="cancel"
+              widthNumber="100%"
+              (click)="discard()"
+            >
+            </lib-button-micro>
+          </div>
+          <div class="md:col-6">
+            <div>
+              <lib-button-micro
+                title="{{ 'Save' | translate }}"
+                nameClass="save"
+                widthNumber="100%"
+                (click)="onSave()"
+              >
               </lib-button-micro>
-            </div>
-            <div class="md:col-6">
-              <div>
-                <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%" (click)="onSave()">
-                </lib-button-micro>
-              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </lib-page-content>

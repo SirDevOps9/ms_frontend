@@ -1,0 +1,40 @@
+[dir='rtl'] {
+  .p-breadcrumb svg {
+    rotate: (180deg);
+  }
+
+  p-tree {
+    .p-treenode-content::before {
+      right: -2px !important;
+      transform: rotate(270deg);
+    }
+
+    p-treenode li::before {
+      right: 0px !important;
+    }
+
+    .p-treenode-content svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  ul.nav-links > li > .iocn-link i {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 5px;
+    padding: 0 10px;
+  }
+
+  .p-paginator {
+    button > .p-icon-wrapper {
+      transform: rotate(180deg);
+    }
+    .p-paginator-current {
+      flex-grow: 1;
+      display: flex;
+      justify-content: flex-start;
+      margin-right: 10rem;
+    }
+  }
+}

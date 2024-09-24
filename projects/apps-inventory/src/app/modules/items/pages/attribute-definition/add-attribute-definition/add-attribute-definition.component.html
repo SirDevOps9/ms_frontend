@@ -1,0 +1,121 @@
+<lib-page-content [title]="'attributeDefinition.TaxList' | translate" [subTitle]="'attributeDefinitionTaxList' | translate">
+    <div class="bank">
+      <div [formGroup]="attrFormGroup" class="entry_header">
+        <div class="grid">
+  
+          <div class="col-12 md:col-6">
+            <lib-form-group>
+              <lib-label [appControl]="attrFormGroup.controls['attrName']" class="body_b14 mb-2 ms-4">
+                {{ 'attributeDefinition.attributeName' | translate }}
+              </lib-label>
+              <lib-select formControlName="attrName" [options]="attributeName" optionValue="id"
+                optionLabel="name" placeholder="{{ 'attributeDefinition.attributeName'| translate }}"
+                [selectedValue]="attrFormGroup.controls['attrName'].value">
+              </lib-select>
+            </lib-form-group>
+          </div>
+          </div>
+          
+  
+  
+        </div>
+      </div>
+      <!--  -->
+      <div class="add_new my-2 flex justify-content-end" >
+        <lib-button (onClick)="addLine()" className="outline-primary"   [disabled]="!isLastLineSaved  || !attrFormGroup.controls['attrName'].value" >
+          {{ 'attributeDefinition.add_new' | translate }}
+        </lib-button>
+      </div>
+      <div class="entry_table">
+        <div class="card">
+          <p-table [value]="attrTableForm.controls" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped"
+
+            [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+        
+              <tr>
+                <th>{{ 'attributeDefinition.nameAr' | translate }}</th>
+                <th>{{ 'attributeDefinition.nameEn' | translate }}</th>
+           
+                <th>{{ 'attributeDefinition.actions' | translate }}</th> 
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-attrTableForm  let-i="rowIndex">
+              <tr [formGroup]="attrTableForm">
+                 <!--  name in arabic-->
+                 <td
+                 [pEditableColumn]="attrTableForm.controls['nameAr']"
+                 pEditableColumnField="nameAr"
+               >
+                 <p-cellEditor>
+                   <ng-template pTemplate="input">
+                     <lib-text-input
+                       placeholder="{{ 'attributeDefinition.nameAr' | translate }}"
+                       formControlName="nameAr"
+                     ></lib-text-input>
+                   </ng-template>
+                   <ng-template pTemplate="output">
+                     {{ attrTableForm.controls['nameAr'].value }}
+                   </ng-template>
+                 </p-cellEditor>
+                 <lib-field-validations
+                   [appControl]="attrTableForm.controls['nameAr']"
+                 ></lib-field-validations>
+               </td>
+                 <!--  -->
+                  <!-- name in english -->
+                  <td
+                  [pEditableColumn]="attrTableForm.controls['nameEn']"
+                  pEditableColumnField="nameEn"
+                >
+                  <p-cellEditor>
+                    <ng-template pTemplate="input">
+                      <lib-text-input
+                        placeholder="{{ 'attributeDefinition.nameEn' | translate }}"
+                        formControlName="nameEn"
+                      ></lib-text-input>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                      {{ attrTableForm.controls['nameEn'].value }}
+                    </ng-template>
+                  </p-cellEditor>
+                  <lib-field-validations
+                    [appControl]="attrTableForm.controls['nameEn']"
+                  ></lib-field-validations>
+                </td>
+  
+                <td>
+                  <div class="actions flex align-items-center">
+                  
+
+                    @if( !shouldShowSaveButton(i) && isLastLineSaved){
+                     <lib-button-micro nameClass="cancel"  iconName="pi pi-trash"
+                     type="button" (click)="onDelete(attrTableForm.value)"  >
+                   </lib-button-micro>
+                    }
+                    @if( !isLastLineSaved){
+                     <lib-button-micro nameClass="cancel"  iconName="pi pi-trash"  
+                     type="button" (click)="deleteLine(i)">
+                   </lib-button-micro>
+                    }
+                   
+                     @if(shouldShowSaveButton(i)){
+                      <lib-button-micro nameClass="save"  iconName="pi pi-save"    *ngIf="shouldShowSaveButton(i)" 
+  
+                      type="button" (click)="onSave(attrTableForm.value , i)">
+                    </lib-button-micro>
+                     }
+                    
+                 
+                   
+                  </div>
+                  
+              </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+  
+
+  </lib-page-content>

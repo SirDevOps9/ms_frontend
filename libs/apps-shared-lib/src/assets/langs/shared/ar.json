@@ -28,8 +28,9 @@
       "status": "الحالة",
       "confirmation":"تأكيد",
       "confirm2": "هل تريد المتابعة؟",
-      "SerialnumberChanged":"نود إبلاغك بأنه قد تم إجراء تعديل على الرقم التسلسلي الخاص بك."
-
+      "SerialnumberChanged":"نود إبلاغك بأنه قد تم إجراء تعديل على الرقم التسلسلي الخاص بك.",
+      "SerialnumberPlaceholder": "يرجى إدخال عدد الأرقام",
+      "startingnumberPlaceholder": "يرجى إدخال الرقم المبدئي"
     },
     "validation": {
       "invalidForm": "الرجاء إكمال جميع الحقول المطلوبة",

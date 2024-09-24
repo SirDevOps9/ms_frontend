@@ -54,7 +54,6 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
     private salesService: SalesService,
     private toasterService: ToasterService,
     private languageService: LanguageService,
-    private title: Title,
     public routerService: RouterService,
     private formService: FormsService,
     private lookupsService: LookupsService,
@@ -62,9 +61,7 @@ export class EditCustomerOpeningBalanceComponent implements OnInit {
   ) {}
   
   ngOnInit(): void {
-    this.languageService
-      .getTranslation('openeingBalance.CustomerOpeningBalance')
-      .subscribe((res) => this.title.setTitle(res));
+  
     this.loadLookups();
     this.initializeMainFormGroup();
     this.subscribe();

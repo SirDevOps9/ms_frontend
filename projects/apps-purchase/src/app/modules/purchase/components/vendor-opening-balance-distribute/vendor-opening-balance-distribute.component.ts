@@ -111,10 +111,7 @@ export class VendorOpeningBalanceDistributeComponent implements OnInit {
   onCancel() {
     this.ref.close()
   }
-  formatDate(date: string, format: string): string {
-    const pipe = new DatePipe('en-US');
-    return pipe.transform(date, format) || '';
-  }
+  
   onSubmit() {
     if (!this.formsService.validForm(this.vendorForm, false)) return;
 

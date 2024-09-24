@@ -25,10 +25,7 @@ export class TaxGroupComponent implements OnInit {
     private generalSettingService: GeneralSettingService,
     public authService: AuthService,
     private dialog: DialogService,
-    private title: Title,
-    private langService: LanguageService
   ) {
-    this.title.setTitle(this.langService.transalte('TaxGroup.Title'));
 
   }
 

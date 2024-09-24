@@ -92,12 +92,10 @@ export class AddPaymentOutComponent implements OnInit {
     private toasterService: ToasterService,
     private langService: LanguageService,
     private currentUserService: CurrentUserService,
-    private titleService: Title,
     private routerService: RouterService
   ) { }
 
   ngOnInit() {
-    this.titleService.setTitle(this.langService.transalte('PaymentOut.addpaymentout'));
     this.financeService.AccountBalance.next(0);
     this.initializeForm();
     this.subscribe();
@@ -281,10 +279,10 @@ export class AddPaymentOutComponent implements OnInit {
     });
 
     this.addForm.get('paymentHub')?.valueChanges.subscribe((res: any) => {
-      if (res == paymentplace.Treasury) {
+      if (res == paymentplaceString.Treasury) {
         this.addForm.get('bankAccountId')?.clearValidators();
         this.addForm.get('bankAccountId')?.updateValueAndValidity();
-      } else if (res == paymentplace.Bank) {
+      } else if (res == paymentplaceString.Bank) {
         this.addForm.get('bankAccountId')?.addValidators([customValidators.required]);
         this.addForm.get('bankAccountId')?.updateValueAndValidity();
       }
@@ -785,5 +783,10 @@ export class AddPaymentOutComponent implements OnInit {
   }
   ngOnDestroy() {
     this.financeService.paymentOutSaved.next(0)
+    this.financeService.getBankDropDownData.next([])  
+    this.financeService.getTreasuryDropDownData.next([])  
+    this.financeService.AllPayMethodsDropdown.next([])  
+    this.financeService.AllTreasuriesPayMethodsDropdown.next([])  
+    this.financeService.accountCurrencyRateDataSource.next({ rate: 0 })
   }
 }

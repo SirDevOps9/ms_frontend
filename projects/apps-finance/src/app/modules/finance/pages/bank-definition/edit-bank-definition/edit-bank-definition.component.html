@@ -117,7 +117,7 @@
               <th>{{ 'bank.Iban' | translate }}</th>
               <th>{{ 'bank.currency' | translate }}</th>
               <th>{{ 'bank.currentBalance' | translate }}</th>
-              <th>{{ 'bank.userPermission' | translate }}</th>
+              <!-- <th>{{ 'bank.userPermission' | translate }}</th> -->
               <th>{{ 'bank.openingBalance' | translate }}</th>
               <th>{{ 'bank.actions' | translate }}</th>
             </tr>
@@ -167,7 +167,7 @@
                     </div>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ bankGroup.controls['accountNumber']?.value }}
+                    {{ bankGroup.controls['glAccountId']?.value }}
                   </ng-template>
                 </p-cellEditor>
               </td>
@@ -238,7 +238,7 @@
                         optionLabel="name"
                         [selectedValue]="bankGroup.controls['currencyId'].value"
                         (valueChanged)="currencyselected($event, bankGroup, i)"
-                        [readOnly]="true"
+                        [readOnly]="!!bankGroup.controls['id'].value"
                       ></lib-select>
                     </lib-form-group>
                   </ng-template>
@@ -252,11 +252,11 @@
               </td>
               <!--  -->
               <td>
-                {{ bankGroup.controls['currentBalance'].value ?? '--' }}
+                {{ bankGroup.controls['currentBalance'].value ?? '--' | numberFormat }}
               </td>
               <!--  -->
 
-              <td
+              <!-- <td
                 [pEditableColumn]="bankGroup.controls['userPermission']"
                 pEditableColumnField="bankGroup.controls['userPermission']"
               >
@@ -278,7 +278,7 @@
                     {{ bankGroup.controls['userPermissionName']?.value }}
                   </ng-template>
                 </p-cellEditor>
-              </td>
+              </td> -->
               <!--  -->
 
               <td
@@ -300,7 +300,7 @@
                     ></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ bankGroup.controls['openingBalance'].value }}
+                    {{ bankGroup.controls['openingBalance'].value | numberFormat  }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations
@@ -309,7 +309,8 @@
               </td>
               <!--  -->
               <td>
-                <i class="pi pi-trash pointer" (click)="onDelete(i)"></i>
+                <lib-button-micro nameClass="table_button_delete" (click)="onDelete(i)">
+                </lib-button-micro>
               </td>
             </tr>
           </ng-template>
@@ -318,24 +319,40 @@
     </div>
   </div>
   
-  
-  <div class="btn_group my-5">
+  <div class="add_new">
     <div class="grid">
       <div class="md:col-3">
         <div class="grid">
           <div class="md:col-6">
-            <lib-button-micro title="{{ 'Cancel' | translate }}" nameClass="cancel" widthNumber="100%" (click)="discard()">
-            </lib-button-micro>
-          </div>
-          <div class="md:col-6">
-            <div>
-              <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%"   (click)="onSave()">
-              </lib-button-micro>
-            </div>
-         
-          </div>
+        <lib-button-micro
+        nameClass="outline"
+        widthNumber="100%" 
+        title="{{ 'add_new_line' | translate }}"
+        (click)="addLine()"
+        >
+
+        </lib-button-micro>
+        </div>
         </div>
       </div>
     </div>
   </div>
+<div class="btn_group">
+<div class="grid">
+  <div class="md:col-3">
+    <div class="grid">
+      <div class="md:col-6">
+        <lib-button-micro title="{{ 'Cancel' | translate }}" nameClass="cancel" widthNumber="100%" (click)="discard()">
+        </lib-button-micro>
+      </div>
+      <div class="md:col-6">
+        <div>
+          <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%" (click)="onSave()">
+          </lib-button-micro>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 </lib-page-content>

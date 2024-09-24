@@ -47,6 +47,13 @@ input[type=checkbox]{
           
             box-shadow: none !important;
         }
+        .group{
+          .p-multiselect {
+              width: 90% !important;
+          }
+        
+        
+      }
     
 }
 #printableTable {
@@ -76,3 +83,7 @@ input[type=checkbox]{
     color: #10566a;
   }
   
+
+  .search_icon{
+    margin:8px;
+  }

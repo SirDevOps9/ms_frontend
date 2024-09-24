@@ -1,24 +1,53 @@
-{  "BreadCrumb": {
-  "BankDefinition": "Bank Definitions",
-  "AddBankDefinition":"Add Bank Definition",
-  "EditBankDefinition":"Edit Bank Definition",
-  "PaymentTermList":"Payment Terms",
-  "AddPaymentTerm":"Add Payment Term",
-  "EditPaymentTerm":"Edit Payment Term",
-  "Treasury":"Treasury",
-  "PaymentInList":"Payment In List", 
-  "AddPaymentterm": "Add Payment Term",
-  "EditPaymentterm": "Edit Payment Term",
-  "PaymentMethodlist": "Payment Method List",
-  "AddPaymentMethod": "Add Payment Method",
-  "EditPaymentMethod": "Edit Payment Method",
-  "ViewPaymentMethod": "View Payment Method",
-  "PaymentIn":"Payment In " ,
-  "ViewPaymentIn": "View Payment In",
-  "ViewPaymentout": "View Payment Out",
-  "sequence":"sequence"
-
-},
+{
+  "BreadCrumb": {
+    "BankDefinition": "Bank Definitions",
+    "AddBankDefinition": "Add Bank Definition",
+    "EditBankDefinition": "Edit Bank Definition",
+    "PaymentTermList": "Payment Terms",
+    "AddPaymentTerm": "Add Payment Term",
+    "EditPaymentTerm": "Edit Payment Term",
+    "Treasury": "Treasury",
+    "PaymentInList": "Payment In List",
+    "AddPaymentterm": "Add Payment Term",
+    "EditPaymentterm": "Edit Payment Term",
+    "PaymentMethodlist": "Payment Method List",
+    "AddPaymentMethod": "Add Payment Method",
+    "EditPaymentMethod": "Edit Payment Method",
+    "ViewPaymentMethod": "View Payment Method",
+    "PaymentIn": "Payment In ",
+    "ViewPaymentIn": "View Payment In",
+    "ViewPaymentout": "View Payment Out",
+    "sequence": "sequence"
+  },
+  "ChartOfAccount": {
+    "Title": "Chart of Accounts",
+    "ChartOfAccountList": "Chart of Account List",
+    "AddChartOfAccount": "Add Chart of Account",
+    "EditChartOfAccount": "Edit Chart of Account",
+    "ViewChartOfAccount": "View Chart of Account",
+    "ChartOfAccountConfig": "Chart of Account Configuration",
+    "AccountName": "Account Name",
+    "AccountCode": "Account Code",
+    "Nature": "Nature",
+    "AccountType": "Account Type",
+    "AccountSection": "Account Section",
+    "Search": "Search",
+    "Accounts": "Accounts",
+    "Main": "Main",
+    "Success": "Success",
+    "Error": "Error",
+    "UpdatedSuccessfully": "Account Updated Successfully",
+    "AddedSuccessfully": "Account Added Successfully",
+    "DeletedSuccessfully": "Account Deleted Successfully",
+    "import": "Import",
+    "edit": "Edit",
+    "Configration": "Configuration",
+    "Actions": "Actions",
+    "ChooseAnAccount": "Choose An Account",
+    "Select": "Select",
+    "Id": "Id",
+    "levelNumber": "Account Level"
+  },
   "COAConfigration": {
     "levelnumber": "level Number",
     "levelName": "level Name",
@@ -105,7 +134,7 @@
   "TaxGroup": {
     "Code": "Code",
     "Name": "Name",
-    "parent" :"parent",
+    "parent": "parent",
     "Action": "Actions",
     "status": "status",
     "type": "type",
@@ -160,68 +189,65 @@
     "CannotDeleteCostCenter": " Cannot Delete Cost Center Used In Transactions",
     "Error": "Error"
   },
-  "reportTrial":{
-     "Error": "Error",
-     "selectfaild": "At least one field must be selected Posted or unposted",
-     "posted":"posted",
-     "unposted":"unposted",
-     "viewdata":"view data",
-     "accountCode":"account Code",
-     "accountName":"account Name",
-     "Openingbalance":"Opening balance",
-     "transactionBalance":"transaction Balance",
-     "Closingbalance":"Closing balance",
-     "debit":"debit",
-     "credit":"credit",
-     "reportTrial":"report Trial",
-     "trialBalance":"Trial Balance"
-
+  "reportTrial": {
+    "Error": "Error",
+    "selectfaild": "At least one field must be selected Posted or unposted",
+    "posted": "posted",
+    "unposted": "unposted",
+    "viewdata": "view data",
+    "accountCode": "account Code",
+    "accountName": "account Name",
+    "Openingbalance": "Opening balance",
+    "transactionBalance": "transaction Balance",
+    "Closingbalance": "Closing balance",
+    "debit": "debit",
+    "credit": "credit",
+    "reportTrial": "report Trial",
+    "trialBalance": "Trial Balance"
   },
-  "reportAccount":{
-    "AccountStatement":"Account Statement"
+  "reportAccount": {
+    "AccountStatement": "Account Statement"
   },
-  "treasury" : {
-    "treasuryCode" : "Treasury Code",
-    "treasuryName" : "Treasury Name",
-    "currency" : "Currency",
-    "glAccount" : "Gl Account",
-    "balance" : "Balance",
-    "actions" : "Actions",
-    "Search" : "Search",
-    "AddNew" : "Add",
-    "Export" : "Export",
-    "branches" : "branches",
-    "code" : "Code",
-    "name" : "Name",
-    "openingBalance" : "Treasury Opening Balance",
-    "accountOpeningBalance" : "Account Opening  Balance",
-    "discard" : "Discard",
-    "save" : "Save",
-    "addTreasury":"Add ",
-    "editTreasury":"Edit",
+  "treasury": {
+    "treasuryCode": "Treasury Code",
+    "treasuryName": "Treasury Name",
+    "currency": "Currency",
+    "glAccount": "Gl Account",
+    "balance": "Current Balance",
+    "actions": "Actions",
+    "Search": "Search",
+    "AddNew": "Add",
+    "Export": "Export",
+    "branches": "branches",
+    "code": "Code",
+    "name": "Name",
+    "openingBalance": "Treasury Opening Balance",
+    "accountOpeningBalance": "Account Opening  Balance",
+    "discard": "Discard",
+    "save": "Save",
+    "addTreasury": "Add ",
+    "editTreasury": "Edit",
     "treasuryList": "Treasury List",
-    "confirm" : "the opening balance of journal not equal treasury opening balance, do you want to Continue ?",
-    "treasuryCurrentBalance":"Treasury Current Balance",
-    "GoToStatement":"Go To Statement"
-
+    "confirm": "the opening balance of journal not equal treasury opening balance, do you want to Continue ?",
+    "treasuryCurrentBalance": "Treasury Current Balance",
+    "GoToStatement": "Go To Statement"
   },
-  "deleteTreasury" : {
-    "success" : "Success",
-    "delete" : "Treasury Definition Deleted Successfully"
+  "deleteTreasury": {
+    "success": "Success",
+    "delete": "Treasury Definition Deleted Successfully"
   },
-  "addTreasury" : {
-    "success" : "Success",
-    "add" : "Treasury Definition Added Successfully"
+  "addTreasury": {
+    "success": "Success",
+    "add": "Treasury Definition Added Successfully"
   },
-  "editTreasury" : {
-    "success" : "Success",
-    "edit" : "Treasury Definition Edited Successfully"
-
+  "editTreasury": {
+    "success": "Success",
+    "edit": "Treasury Definition Edited Successfully"
   },
   "paymentterm": {
     "payment-term-list": "Payment Term List",
-    "AddPaymentTerm":"Add Payment Term",
-    "EditPaymentTerm":"Edit Payment Term",
+    "AddPaymentTerm": "Add Payment Term",
+    "EditPaymentTerm": "Edit Payment Term",
     "code": "Code",
     "name": "Name",
     "term-type": "Term Type",
@@ -232,12 +258,11 @@
     "save": "Save",
     "export": "Export",
     "ExportName": "Bank Definition",
-    "deleted":"Payment Term Deleted Successfully",
-    "success" : "Success",
-    "actions" : "Actions",
-    "ChangeColumn":"Change Columns",
-    "discard" : "Discard"
-
+    "deleted": "Payment Term Deleted Successfully",
+    "success": "Success",
+    "actions": "Actions",
+    "ChangeColumn": "Change Columns",
+    "discard": "Discard"
   },
   "add-paymentterm": {
     "dueTermValue": "Due Term Value",
@@ -245,72 +270,69 @@
     "afterPeriod": "After Period",
     "note": "Note",
     "add_new": "Add New Line",
-    "actions":"Actions",
-    "totalerror":"The total of Due Term Values must be exactly 100.",
-    "add":"Payment Term Added Successfully",
-    "edit":"Payment Term Edited Successfully",
-    "success" : "Success"
-
+    "actions": "Actions",
+    "totalerror": "The total of Due Term Values must be exactly 100.",
+    "add": "Payment Term Added Successfully",
+    "edit": "Payment Term Edited Successfully",
+    "success": "Success"
   },
-  "bank" : {
-    "actions" : "Actions",
-    "Search" : "Search",
-    "AddNew" : "Add",
-    "Export" : "Export",
-    "branches" : "branches",
-    "code" : "Code",
-    "name" : "Name",
-    "shortName" : "Short Name",
-    "bankAddress" : "Bank Address",
-    "contactName" : "Contact Name",
-    "bankEmail" : "Bank Email",
-    "phone" : "Phone",
-    "fax" : "Fax",
-    "add_new" : "Add New Line",
-    "accountNumber" : "Account Number",
-    "glAccountCode" : "GL Account Code",
-    "glAccountName" : "GL Account Name",
-    "branch" : "Branch",
-    "Iban" : "IBAN",
-    "currency" : "Currency",
-    "currentBalance" : "Current Balance",
-    "userPermission" : "User Permission",
-    "openingBalance" : "Opening Balance",
-   "confirm" : "the opening balance of journal not equal Bank opening balance In Account",
-   "confirm2" : "Do you want to Continue ?",
-   "TaxList": "Tax List",
-   "Edit": "Edit",
-   "Delete": "Delete",
-   "ChangeColumn":"Change Columns",
+  "bank": {
+    "actions": "Actions",
+    "Search": "Search",
+    "AddNew": "Add",
+    "Export": "Export",
+    "branches": "branches",
+    "code": "Code",
+    "name": "Name",
+    "shortName": "Short Name",
+    "bankAddress": "Bank Address",
+    "contactName": "Contact Name",
+    "bankEmail": "Bank Email",
+    "phone": "Phone",
+    "fax": "Fax",
+    "add_new": "Add New Line",
+    "accountNumber": "Account Number",
+    "glAccountCode": "GL Account Code",
+    "glAccountName": "GL Account Name",
+    "branch": "Branch",
+    "Iban": "IBAN",
+    "currency": "Currency",
+    "currentBalance": "Current Balance",
+    "userPermission": "User Permission",
+    "openingBalance": "Opening Balance",
+    "confirm": "the opening balance of journal not equal Bank opening balance In Account",
+    "confirm2": "Do you want to Continue ?",
+    "TaxList": "Tax List",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "ChangeColumn": "Change Columns",
     "discard": "discard",
     "save": "Save",
-    "success" : "Success",
-    "AddBank":"Add Bank Definiton",
-    "EditBank":"Edit Bank Definiton",
-    "BankDefinitonsList":"Bank Definitons List",
-    "accountOpeningBalance":"Account Opening  Balance"
-
+    "success": "Success",
+    "AddBank": "Add Bank Definiton",
+    "EditBank": "Edit Bank Definiton",
+    "BankDefinitonsList": "Bank Definitons List",
+    "accountOpeningBalance": "Account Opening  Balance"
   },
-  "deleteBank" : {
-    "success" : "Success",
-    "delete" : "Bank Definition Deleted Successfully"
+  "deleteBank": {
+    "success": "Success",
+    "delete": "Bank Definition Deleted Successfully"
   },
-  "addBank" : {
-    "success" : "Success",
-    "add" : "Bank Definition Added Successfully"
+  "addBank": {
+    "success": "Success",
+    "add": "Bank Definition Added Successfully"
   },
-  "editBank" : {
-    "success" : "Success",
-    "edit" : "Bank Definition Edited Successfully"
+  "editBank": {
+    "success": "Success",
+    "edit": "Bank Definition Edited Successfully"
   },
   "confirm": {
-    "confirm":"confirm",
+    "confirm": "confirm",
     "cancel": "Cancel",
     "submit": "Submit"
-  }
-  ,
+  },
   "paymentmethod": {
-    "payment-term-list": "Payment Term List",
+    "payment-method-list": "Payment Method List",
     "code": "Code",
     "name": "Name",
     "PaymentPlace": "Payment Place",
@@ -320,6 +342,7 @@
   },
   "add-paymentMethod": {
     "title": "Add Payment Method",
+    "title-edit": "Edit Payment Method",
     "code": "Code",
     "name": "Name",
     "paymentPlace": "Payment Place",
@@ -331,9 +354,9 @@
     "CommissionValue": "Commission Value",
     "CommissionAccount": "Commission Account",
     "AllowVAT": "Allow VAT",
-    "edit":"Payment Method Edited Successfully",
-    "add":"Payment Method Added Successfully"	,
-    "Tax":"Tax"
+    "edit": "Payment Method Edited Successfully",
+    "add": "Payment Method Added Successfully",
+    "Tax": "Tax"
   },
   "payment-in": {
     "payment-in": "Payment In",
@@ -348,9 +371,8 @@
     "actions": "Actions",
     "Search": "Search",
     "addNew": "Add",
-    "delete":"Payment In Deleted Successfully",
-    "post":"post"
-
+    "delete": "Payment In Deleted Successfully",
+    "post": "post"
   },
   "payment-view": {
     "code": "Code",
@@ -374,6 +396,4 @@
     "notes": "Notes",
     "PaymentMethod": "Payment Method"
   }
-
-
 }

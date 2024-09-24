@@ -66,7 +66,7 @@
 
                     formControlName="duedate"
                   ></lib-text-input> -->
-                    <lib-calendar  [disabled]="customerGroup.controls['credit'].value != 0 && customerGroup.controls['debit'].value == 0 " formControlName="dueDate"></lib-calendar>
+                    <lib-calendar  [disabled]=" customerGroup.controls['debit'].value != 0 " formControlName="dueDate"></lib-calendar>
 
                   </ng-template>
                   <ng-template pTemplate="output">

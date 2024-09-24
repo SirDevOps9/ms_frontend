@@ -148,8 +148,6 @@ export class CreateJournalEntryComponent {
     public generalService: GeneralService,
     private toasterService: ToasterService
   ) {
-    this.titleService.setTitle(this.langService.transalte('Journal.AddJournal'));
-
     this.fg = this.fb.group({
       refrenceNumber: [null, [customValidators.required, customValidators.length(0, 15)]],
       journalDate: [new Date().toISOString().split('T')[0], customValidators.required],

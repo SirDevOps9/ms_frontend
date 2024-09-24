@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { LayoutService } from 'apps-shared-lib';
 import { DynamicDialogConfig, DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { customValidators, FormsService, LanguageService, MenuModule } from 'shared-lib';
+import { customValidators, FormsService, MenuModule } from 'shared-lib';
 import { CurrencyService } from '../../../general/currency.service';
 import { FinanceService } from '../../finance.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
 import { EditTreasuryDto, GetTreasuryDtoById } from '../../models';
 import { ConfirmComponent } from '../confirm/confirm.component';
-import { Title } from '@angular/platform-browser';
+import { NoChildrenAccountsComponent } from '../bank/no-children-accounts/no-children-accounts.component';
 
 @Component({
   selector: 'app-edit-treasury',
@@ -34,12 +34,8 @@ export class EditTreasuryComponent implements OnInit {
     private formsService: FormsService,
     private currencyService: CurrencyService,
     private financeService: FinanceService,
-    private title: Title,
-    private langService: LanguageService,
     private dialog: DialogService
-  ) {
-
-  }
+  ) {}
 
   ngOnInit() {
     this.initializeTreasuryForm();
@@ -60,7 +56,6 @@ export class EditTreasuryComponent implements OnInit {
         this.treasuryForm.patchValue({ ...res });
         this.accountChange(res?.accountId);
         this.GetTreasuryCurrentBalance(res.id);
-
       }
     });
   }
@@ -85,33 +80,28 @@ export class EditTreasuryComponent implements OnInit {
   }
   GetAccountOpeningBalance(id: number) {
     this.financeService.GetAccountOpeningBalance(id).subscribe({
-      next:(res) => {
-      if(res){
-        console.log(res);
-        this.OpeningBalanceData = res;
-        this.treasuryForm.get('accountOpeningBalance')?.setValue(res.balance);
-      }else{
-        this.treasuryForm.get('accountOpeningBalance')?.setValue("");
-         }
+      next: (res) => {
+        if (res) {
+          console.log(res);
+          this.OpeningBalanceData = res;
+          this.treasuryForm.get('accountOpeningBalance')?.setValue(res.balance);
+        } else {
+          this.treasuryForm.get('accountOpeningBalance')?.setValue('');
+        }
       },
-    }
-    );
+    });
   }
 
   GetTreasuryCurrentBalance(id: number) {
     this.financeService.GetTreasuryBalance(id);
     this.financeService.TreasuryBalanceObservable.subscribe((res) => {
       this.treasuryForm.get('treasuryCurrentBalance')?.setValue(res);
-      if(this.treasuryForm.get('openingBalance')?.value != res)
-      {
-        this.disabled=true;
+      if (this.treasuryForm.get('openingBalance')?.value != res) {
+        this.disabled = true;
+      } else {
+        this.disabled = false;
       }
-      else{
-        this.disabled=false;
-      }
-      
     });
-    
   }
 
   accountChange(e: any) {
@@ -128,8 +118,11 @@ export class EditTreasuryComponent implements OnInit {
       accountId: [null],
       accountOpeningBalance: [0],
       journalEntryLineId: [null],
-      openingBalance: [null],
-      treasuryCurrentBalance:''
+      openingBalance: new FormControl('', [
+        customValidators.required,
+        customValidators.nonNegativeNumbers,
+      ]),
+      treasuryCurrentBalance: '',
     });
   }
 
@@ -139,7 +132,7 @@ export class EditTreasuryComponent implements OnInit {
 
   onSubmit() {
     if (!this.formsService.validForm(this.treasuryForm, true)) return;
-    let accountBalance = this.treasuryForm.value.accountBalance;
+    let accountBalance = this.treasuryForm.value.openingBalance;
     let openingBalance = +this.treasuryForm.value.openingBalance;
     this.treasuryForm.value.id = this.treasuryData.id;
     if (accountBalance !== openingBalance) {
@@ -161,5 +154,18 @@ export class EditTreasuryComponent implements OnInit {
       treasureDto.openingBalance = +treasureDto.openingBalance;
       this.financeService.EditTreasureDefinitionsById(treasureDto, this.ref);
     }
+  }
+
+  openDialog() {
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {
+      width: '900px',
+      height: '600px',
+    });
+    ref.onClose.subscribe((r) => {
+      if (r) {
+        this.GetAccountOpeningBalance(r.id);
+        this.treasuryForm.get('accountId')?.setValue(r.id);
+      }
+    });
   }
 }

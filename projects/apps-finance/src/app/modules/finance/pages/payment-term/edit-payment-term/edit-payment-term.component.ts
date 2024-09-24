@@ -39,10 +39,8 @@ export class EditPaymentTermComponent implements OnInit {
     private lookupsService: LookupsService,
     private route: ActivatedRoute,
     private toasterService: ToasterService,
-    private title: Title,
     private languageService: LanguageService
   ) {
-    this.title.setTitle(this.languageService.transalte('paymentterm.EditPaymentTerm'));
 
   }
 

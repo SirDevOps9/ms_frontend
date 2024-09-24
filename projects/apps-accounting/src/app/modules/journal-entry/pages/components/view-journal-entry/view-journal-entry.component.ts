@@ -5,6 +5,7 @@ import { JournalEntryViewDto } from '../../../models';
 import { Title } from '@angular/platform-browser';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CostCenterAllocationPopupComponent } from '../cost-center-allocation-popup/cost-center-allocation-popup.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-journal-entry',
@@ -20,82 +21,77 @@ export class ViewJournalEntryComponent implements OnInit {
   totalCreditAmountLocal: number;
   totalCreditAmount: number;
   ngOnInit() {
-
     this.loadJournalView();
   }
 
   loadJournalView() {
-    this.journalEntryService.getJournalEntryViewById(this.routerService.currentId).subscribe((res) => {
-      this.journalView = res;
-      this.calculateTotalCreditAmount();
-      this.calculateTotalDebitAmount();
-      this.calculateTotalDebitAmountLocal();
-      this.calculateTotalCreditAmountLocal();
-    });
+    this.journalEntryService
+      .getJournalEntryViewById(this.routerService.currentId)
+      .subscribe((res) => {
+        this.journalView = res;
+        this.calculateTotalCreditAmount();
+        this.calculateTotalDebitAmount();
+        this.calculateTotalDebitAmountLocal();
+        this.calculateTotalCreditAmountLocal();
+      });
   }
   calculateTotalDebitAmount() {
-    this.totalDebitAmount = this.journalView?.journalEntryLines!.reduce(
-      (acc, control) => {
-        const debitValue = control.debitAmount;
-        return acc + debitValue;
-      },
-      0
-    )!;
+    this.totalDebitAmount = this.journalView?.journalEntryLines!.reduce((acc, control) => {
+      const debitValue = control.debitAmount;
+      return acc + debitValue;
+    }, 0)!;
   }
   calculateTotalCreditAmount() {
-    this.totalCreditAmount = this.journalView?.journalEntryLines!.reduce(
-      (acc, control) => {
-        const debitValue = control.creditAmount;
-        return acc + debitValue;
-      },
-      0
-    )!;
+    this.totalCreditAmount = this.journalView?.journalEntryLines!.reduce((acc, control) => {
+      const debitValue = control.creditAmount;
+      return acc + debitValue;
+    }, 0)!;
   }
 
   calculateTotalDebitAmountLocal() {
-    this.totalDebitAmountLocal = this.journalView?.journalEntryLines!.reduce(
-      (acc, control) => {
-        const debitValue = control.debitAmountLocal;
-        return acc + debitValue;
-      },
-      0
-    )!;
+    this.totalDebitAmountLocal = this.journalView?.journalEntryLines!.reduce((acc, control) => {
+      const debitValue = control.debitAmountLocal;
+      return acc + debitValue;
+    }, 0)!;
   }
   calculateTotalCreditAmountLocal() {
-    this.totalCreditAmountLocal = this.journalView?.journalEntryLines!.reduce(
-      (acc, control) => {
-        const debitValue = control.creditAmountLocal;
-        return acc + debitValue;
-      },
-      0
-    )!;
+    this.totalCreditAmountLocal = this.journalView?.journalEntryLines!.reduce((acc, control) => {
+      const debitValue = control.creditAmountLocal;
+      return acc + debitValue;
+    }, 0)!;
   }
-  openCostPopup(data : any , text : string) {
-    if(!data.creditAmount && !data.debitAmount){
-      return null
-    }else {
-      const dialogRef =  this.dialog.open(CostCenterAllocationPopupComponent,{
+  openCostPopup(data: any, text: string) {
+    if (!data.creditAmount && !data.debitAmount) {
+      return null;
+    } else {
+      const dialogRef = this.dialog.open(CostCenterAllocationPopupComponent, {
         width: '900px',
         height: '600px',
-        header : 'View Cost Center Allocation',
-        data : {...data , text}
+        header: 'View Cost Center Allocation',
+        data: { ...data, text },
       });
       dialogRef.onClose.subscribe((res) => {
-        if(res)data.costCenters = res
-       
+        if (res) data.costCenters = res;
       });
     }
-    
+  }
+  routeToPaymentInView(id: number) {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/finance/transcations/paymentin/view/${id}`])
+    );
+    window.open(url, '_blank');
   }
 
+  routeToPaymentOutView(id: number) {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/finance/transcations/paymentout/view/${id}`])
+    );
+    window.open(url, '_blank');
+  }
   constructor(
     private journalEntryService: JournalEntryService,
     private routerService: RouterService,
-    private langService: LanguageService,
-    private titleService: Title,
     private dialog: DialogService,
-  ) {
-    this.titleService.setTitle(this.langService.transalte('Journal.ViewJournal'));
-
-  }
+    private router: Router
+  ) {}
 }

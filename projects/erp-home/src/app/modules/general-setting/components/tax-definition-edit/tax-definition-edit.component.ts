@@ -7,6 +7,7 @@ import { AccountDto } from '../../models';
 import { TaxGroupDropDown } from '../../models/tax-group-drop-down';
 import { GeneralSettingService } from '../../general-setting.service';
 import { EditTax } from '../../models/edit-tax';
+import { NoChildrenAccountsComponent } from '../noChildrenAccounts/nochildaccounts.component';
 
 @Component({
   selector: 'app-tax-definition-edit',
@@ -88,6 +89,19 @@ export class TaxDefinitionEditComponent {
   close() {
     this.ref.close();
   }
+  
+  openDialog() {
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {
+      width: '900px',
+      height: '600px',
+    });
+    ref.onClose.subscribe((r) => {
+      if (r) {
+        this.editForm.get('accountId')?.setValue(r.id);
+
+      }
+    });
+  }
 
   constructor(
     private generalSettingService: GeneralSettingService,
@@ -99,7 +113,9 @@ export class TaxDefinitionEditComponent {
     private routerService: RouterService,
     private title: Title,
     private langService: LanguageService,
-    public lookupsService: LookupsService
+    public lookupsService: LookupsService,
+    private dialog: DialogService,
+
   ) {
     this.title.setTitle(this.langService.transalte('Tax.EditTax'));
 

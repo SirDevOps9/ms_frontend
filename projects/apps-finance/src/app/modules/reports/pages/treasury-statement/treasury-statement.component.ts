@@ -32,16 +32,9 @@ export class TreasuryStatementComponent implements OnInit {
   reportForm: FormGroup;
   treasuryDropDown: TreasuryDropDown[] = [];
   currency: string;
-  tableData: treasuryStatementDto;
+  tableData?: treasuryStatementDto;
   total: number = 0;
   selectedTreasuryName: string = '';
-  transactions: TreasuryStatmentTransactionDto[] = [];
-  openingDebit: number;
-  openingCredit: number;
-  openingBalance: number;
-  totalDebit: number;
-  totalCredit: number;
-  totalBalance: number;
 
 
   fromDate : string = ''
@@ -49,7 +42,6 @@ export class TreasuryStatementComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private titleService: Title,
     private languageService: LanguageService,
     private financeService: TranscationsService,
     private PrintService: PrintService,
@@ -63,15 +55,13 @@ export class TreasuryStatementComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(
-      this.languageService.transalte('TreasuryStatement.TreasuryStatement')
-    );
+    
     this.getTreasuryDropDown();
     this.initializeForm();
     this.initializeDates();
     this.getTreasuryFromRoute();
     this.reportForm.valueChanges.subscribe(() => {
-      this.tableData = {} as treasuryStatementDto;
+      this.tableData = undefined;
     });
     this.reportForm.get('treasuryId')!.valueChanges.subscribe((Id) => {
       const selected = this.treasuryDropDown.find((x) => x.id === Id);
@@ -146,13 +136,6 @@ export class TreasuryStatementComponent implements OnInit {
     this.ReportService.getTreasuryStatement(filterDto);
     this.ReportService.treasuryStatementObservable.subscribe((res) => {
       this.tableData = res;
-      this.transactions = res?.transactions;
-      this.totalDebit = res?.totalDebit;
-      this.totalCredit = res?.totalCredit;
-      this.totalBalance = res?.totalBalance;
-      this.openingDebit = res?.openingBalanceDebit;
-      this.openingCredit = res?.openingBalanceCredit;
-      this.openingBalance = res?.openingBalanceBalance;
     });
   }
 

@@ -83,3 +83,10 @@
     background: #eeeeee url('../../../../../assets/images/apps/lg-bg-f.png') no-repeat right top;
   }
 }
+ ::ng-deep .libCont {
+  .page_content{
+    padding-inline-start: 48px !important;
+    padding-inline-end: 7px !important;
+    overflow-x: hidden !important;
+  }
+ } 

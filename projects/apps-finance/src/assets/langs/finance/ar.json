@@ -14,6 +14,8 @@
   "confirmation":"تأكيد ",
   "Success": "نجاح",
   "Error": "خطأ",
+  "ChooseAnAccount": "اختر حساب",
+  "Select": "اختر",
   "ErrorInDelete": "خطأ فى الحذف",
   "DateFromLessThanToValidation": "التاريخ من يجب أن يكون قبل التاريخ إلى.",
   "PaymentIn": {
