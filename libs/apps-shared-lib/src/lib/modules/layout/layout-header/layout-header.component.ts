@@ -103,7 +103,7 @@ export class LayoutHeaderComponent {
   openDialog() {
     this.ref = this.dialog.open(ModuleListComponent, {
       width: '650px',
-      height: '500px',
+      height: '550px',
       // header: 'Choose App',
     });
   }
