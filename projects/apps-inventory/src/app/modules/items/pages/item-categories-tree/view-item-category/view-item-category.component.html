@@ -46,7 +46,7 @@
               <small >
                 {{ 'itemsCategory.parentCategory' | translate }}
               </small>
-              <lib-text-input  type="text" [readOnly]="true" [placeholder]="parent?.parentCategoryNameEn!" />
+              <lib-text-input  type="text" [readOnly]="true" [placeholder]="parent?.parentCategoryNameEn ?? ''" />
              
             </lib-form-group>
           </div>

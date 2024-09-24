@@ -174,6 +174,7 @@ export class AddItemsCategoryComponent {
   onParentAccountChange(event: any) {
     const parentAccountId = event;
     if (!parentAccountId) return;
+    this.hasParentAccount = true;
     this.itemService.getItemCategoryById(parentAccountId);
     this.itemService.getItemCategoryByIdDataObs.subscribe((res:any) => {
       console.log(res)
@@ -234,14 +235,15 @@ export class AddItemsCategoryComponent {
   //   goodsInTransitAccountId: [null]
   //  })
 
-  //   this.hasParentAccount = true
-
-    if (changes['parentAddedId']) {
 
 
-      this.onParentAccountChange(this.parentAddedId);
-    }
+  if (changes['parentAddedId']) {
+    this.onParentAccountChange(this.parentAddedId);
+  }
     console.log(this.parentAddedId)
+    // if(this.parentAddedId) {
+    //   this.hasParentAccount = true
+    // }
     console.log(changes)
 
 

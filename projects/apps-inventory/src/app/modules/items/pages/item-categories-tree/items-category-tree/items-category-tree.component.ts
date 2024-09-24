@@ -52,7 +52,8 @@ export class ItemsCategoryTreeComponent implements OnInit {
       return {
         isActive: item.isActive,
         id: item.id,
-      
+        hasNoChild: item.hasNoChild,
+
         label: item.name ,
         children: item.children ? this.mapToTreeNodes(item.children) : [],
       };
