@@ -26,6 +26,10 @@
     padding: 0 10px;
   }
 
+  .p-datatable-header .p-paginator .p-paginator-current {
+    margin-left: auto;
+  }
+
   .p-paginator {
     button > .p-icon-wrapper {
       transform: rotate(180deg);
