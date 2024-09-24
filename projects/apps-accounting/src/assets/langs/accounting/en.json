@@ -15,9 +15,10 @@
     "EditJournalEntryOpeningBalance": "Edit Journal Entry Opening Balance",
     "ViewJournalEntryOpeningBalance": "View Journal Entry Opening Balance",
     "CostCenterReport": "Cost Center Report",
-    "VendorOpeningBalance":"Vendor Opening Balance",
-    "EditVendorOpeningBalance":"Edit Vendor Opening Balance",
-    "AddVendorOpeningBalance":"Add Vendor Opening Balance"
+    "VendorOpeningBalance": "Vendor Opening Balance",
+    "EditVendorOpeningBalance": "Edit Vendor Opening Balance",
+    "AddVendorOpeningBalance": "Add Vendor Opening Balance",
+    "sequence": "sequence"
   },
   "COAConfigration": {
     "Success": "Success",
@@ -69,7 +70,7 @@
     "ViewJournal": "View Journal Entry",
     "Success": "Success",
     "Error": "Error",
-    "save" : "Save Draft",
+    "save": "Save Draft",
     "cannotDuplicate": "Can not distribute for the same cost center more than one time",
     "UpdatedSuccessfully": "Journal Updated Successfully",
     "AddedSuccessfully": "Journal Added Successfully",
@@ -97,8 +98,8 @@
     "posted": "Posted",
     "yes": "Yes",
     "no": "No",
-    "CostCenterNotAllowed":"This Account doesn't allow cost centers",
-    "InvalidAmount":"please enter valid debit or credit amounts"
+    "CostCenterNotAllowed": "This Account doesn't allow cost centers",
+    "InvalidAmount": "please enter valid debit or credit amounts"
   },
   "JournalTitle": "Add Journal",
   "journal_entry_header": "Please Enter journal entry Header",
@@ -150,7 +151,7 @@
     "Actions": "Actions",
     "Delete": "Delete",
     "AddNewLine": "Add New Line",
-    "add" : "Add",
+    "add": "Add",
     "Discard": "Discard",
     "Save": "Save",
     "Submit": "Submit",
@@ -185,8 +186,8 @@
     "type": "Type",
     "totalDebitAmountLocal": "Total Debit Amount",
     "totalCreditAmountLocal": "Total Credit Amount",
-    "total" : "Total",
-    "add" : "Add"
+    "total": "Total",
+    "add": "Add"
   },
   "OpeningBalance": {
     "Title": "Journal Entry Opening Balance List",

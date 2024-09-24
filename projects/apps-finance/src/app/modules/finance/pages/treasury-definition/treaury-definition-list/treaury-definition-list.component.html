@@ -44,7 +44,8 @@
               name: 'openingBalance',
               headerText: ('treasury.balance' | translate),
               isGlobalFilter: true,
-              isSortable: true
+              isSortable: true,
+              applyNumberFormat: true
             },
             {
               name: 'id',
@@ -70,7 +71,6 @@
               <!--  -->
 
               <div class="col-9 flex gap-2 justify-content-end align-items-center">
-               
                 <!--  -->
                 <div>
                   <lib-export
@@ -101,12 +101,12 @@
             <!-- <div>
               <p class="code body_b16" (click)="routeTo(action.id)">{{ 'treasury.GoToStatement' | translate }}</p>
             </div> -->
-              <lib-button-micro nameClass="table_button_statement" (click)="routeTo(action.id)">
-              </lib-button-micro>
-              <lib-button-micro nameClass="table_button_edit" (click)="onEdit(action)">
-              </lib-button-micro>
-              <lib-button-micro nameClass="table_button_delete" (click)="onDelete(action.id)">
-              </lib-button-micro>
+            <lib-button-micro nameClass="table_button_statement" (click)="routeTo(action.id)">
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_edit" (click)="onEdit(action)">
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_delete" (click)="onDelete(action.id)">
+            </lib-button-micro>
           </div>
         </ng-template>
       </lib-data-table>

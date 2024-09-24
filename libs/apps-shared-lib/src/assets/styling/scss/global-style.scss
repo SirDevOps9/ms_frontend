@@ -5,24 +5,12 @@
 
   p-tree {
     .p-treenode-content::before {
-      content: '' !important;
-      position: absolute !important;
-      top: 3px !important;
       right: -2px !important;
-      width: 20px !important;
-      height: 20px !important;
-      border-bottom-right-radius: 100%;
-      border-bottom: 2px solid #5f0000;
+      transform: rotate(270deg);
     }
 
     p-treenode li::before {
-      content: '' !important;
-      position: absolute !important;
-      top: 0 !important;
       right: 0px !important;
-      width: 1px !important;
-      height: 100% !important;
-      background: #d8dbdf !important;
     }
 
     .p-treenode-content svg {
@@ -36,6 +24,10 @@
     justify-content: flex-end;
     margin-right: 5px;
     padding: 0 10px;
+  }
+
+  .p-datatable-header .p-paginator .p-paginator-current {
+    margin-left: auto;
   }
 
   .p-paginator {

@@ -24,7 +24,7 @@
 }
 
 ::ng-deep .p-datatable .p-datatable-thead > tr > th {
-  text-align: left;
+  text-align: start;
   padding: 1rem 1rem;
   border: 1px solid #dde1e6;
   border-width: 0 0 1px 0;
@@ -86,16 +86,6 @@ span {
   width: 100%;
 }
 
-// @media (min-width: 1400px) {
-//   .viewInWeb {
-//     display: block;
-//   }
-
-//   .viewInMob {
-//     display: none;
-//   }
-// }
-
 .table__card__mob > .col-md-6 div:nth-of-type(1) .headerTExt {
   margin-top: 30px;
 }
@@ -130,12 +120,12 @@ span {
         border-bottom: 1px solid #dde1e6;
         thead {
           th {
-            text-align: start;
+            text-align: center;
             font-size: 1rem;
             line-height: 1;
           }
           th * {
-            justify-content: flex-start !important;
+            // justify-content: flex-start !important;
           }
         }
 
@@ -144,19 +134,20 @@ span {
             background-color: #f7f8f8;
           }
           td {
-            text-align: left;
+            text-align: start;
             font-size: 1rem;
             line-height: 1;
-            & > p,
-            & > span,
-            & > div {
-              padding: 0;
-              margin: 0;
-            }
           }
-          td.action,
+          td.action {
+            text-align: center;
+          }
+
           td:has(div.action) {
             text-align: center;
+          }
+          td:has(img) {
+            display: flex;
+            justify-content: center;
           }
         }
       }
@@ -165,6 +156,20 @@ span {
     p-paginator {
       .p-paginator {
         padding: 0.6rem 0;
+
+        .p-paginator-pages {
+          .p-element {
+            border-radius: 6px;
+            transition: 0.3s;
+            &:not(.p-highlight):hover {
+              background-color: #a3d3df;
+            }
+            &.p-highlight {
+              background-color: #1a90b0;
+              color: #fff;
+            }
+          }
+        }
       }
       .p-paginator-bottom {
         display: flex;
