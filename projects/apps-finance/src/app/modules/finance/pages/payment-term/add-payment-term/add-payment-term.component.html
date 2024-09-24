@@ -97,7 +97,11 @@
                   ></lib-field-validations>
                 </td>
                 <td>
-                  <i class="pi pi-trash" (click)="onDelete(i)"></i>
+                   <lib-button-micro
+                   nameClass="table_button_delete"
+                   >
+
+                   </lib-button-micro>
                 </td>
               </tr>
             </ng-template>
@@ -107,9 +111,25 @@
     </div>
   </div>
   <div class="add_new">
-    <button (click)="addLine()" class="btn">
+    <!-- <button (click)="addLine()" class="btn">
       {{ 'add-paymentterm.add_new' | translate }}
-    </button>
+    </button> -->
+    <div class="grid">
+      <div class="md:col-3">
+        <div class="grid">
+          <div class="md:col-6">
+        <lib-button-micro
+        nameClass="outline"
+        widthNumber="100%" 
+        title="{{ 'add_new_line' | translate }}"
+        (click)="addLine()"
+        >
+
+        </lib-button-micro>
+        </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="btn_group">
     <div class="grid mt-4">
