@@ -24,7 +24,7 @@
 }
 
 ::ng-deep .p-datatable .p-datatable-thead > tr > th {
-  text-align: left;
+  text-align: start;
   padding: 1rem 1rem;
   border: 1px solid #dde1e6;
   border-width: 0 0 1px 0;
@@ -144,11 +144,14 @@ span {
             background-color: #f7f8f8;
           }
           td {
-            text-align: left;
+            text-align: start;
             font-size: 1rem;
             line-height: 1;
           }
-          td.action,
+          td.action {
+            text-align: center;
+          }
+
           td:has(div.action) {
             text-align: center;
           }
