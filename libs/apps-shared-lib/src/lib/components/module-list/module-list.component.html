@@ -12,7 +12,7 @@ title="Choose App"
         <lib-text-input [placeholder]="'Search App'" #inputElement [formControl]="nameControl">
         </lib-text-input>
       </div>
-      <div class="col-12 md:col-6 pointer" *ngFor="let module of moduleList" (click)="navigateto(module.moduleId)">
+      <div class="col-12 md:col-4 pointer" *ngFor="let module of moduleList" (click)="navigateto(module.moduleId)">
         <div class="flex gap-3">
           <div class="modal-card">
             <div class="card_photo">
