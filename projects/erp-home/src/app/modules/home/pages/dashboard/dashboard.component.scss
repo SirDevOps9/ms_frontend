@@ -18,14 +18,21 @@
 //   height: 81px;
 // }
 
+.ar {
+  .modal-card {
+    background: #fff url('../../../../../assets/images/apps/lg-bg.png') no-repeat left bottom;
+  }
+
+  .modal-card:hover {
+    animation: bkChangeAr 1s forwards;
+  }
+}
 
 .modal-card {
   cursor: pointer;
   border-radius: 8px;
-  background: #fff 
-    url('../../../../../assets/images/apps/lg-bg.png') no-repeat
-    right bottom;
-  border: 1px solid #E3E3E3;
+  background: #fff url('../../../../../assets/images/apps/lg-bg.png') no-repeat right bottom;
+  border: 1px solid #e3e3e3;
   border-radius: 8px;
   padding-inline-start: 24px;
   display: flex;
@@ -43,50 +50,52 @@
   }
   .caption {
     font-size: 20px; /* Adjust as needed */
-    color: #5E6278; /* Adjust as needed */
+    color: #5e6278; /* Adjust as needed */
     font-weight: 700;
   }
-  
 }
 
 .modal-card:hover {
-  // transform: scale(1.05);
-  // box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
-  // animation: blurScaleChange 2s forwards;
-  // animation: bkChange 1s forwards;
-
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  animation: blurScaleChange 2s forwards;
+  animation: bkChange 1s forwards;
 }
-
-
 
 @keyframes blurScaleChange {
   0% {
-      filter: blur(0px);
-      
+    filter: blur(0px);
   }
   30% {
-      filter: blur(1px);
-      
+    filter: blur(1px);
   }
   100% {
-      filter: blur(0px);
-      transform: scale(1.05);
+    filter: blur(0px);
+    transform: scale(1.05);
   }
 }
 @keyframes bkChange {
   0% {
     background: #eeeeee url('../../../../../assets/images/apps/lg-bg-f.png') no-repeat right bottom;
   }
-  
-  
+
   100% {
     background: #eeeeee url('../../../../../assets/images/apps/lg-bg-f.png') no-repeat right top;
   }
 }
- ::ng-deep .libCont {
-  .page_content{
+@keyframes bkChangeAr {
+  0% {
+    background: #eeeeee url('../../../../../assets/images/apps/lg-bg-f.png') no-repeat left bottom;
+  }
+
+  100% {
+    background: #eeeeee url('../../../../../assets/images/apps/lg-bg-f.png') no-repeat left top;
+  }
+}
+::ng-deep .libCont {
+  .page_content {
     padding-inline-start: 48px !important;
     padding-inline-end: 7px !important;
     overflow-x: hidden !important;
   }
- } 
+}
