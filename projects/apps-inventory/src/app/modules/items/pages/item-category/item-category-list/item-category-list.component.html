@@ -19,6 +19,12 @@
                 isSortable: true
               },
               {
+                name: 'name',
+                headerText: ('itemsCategory.name' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
                 name: 'parentCategoryName',
                 headerText: ('itemsCategory.parentCategory' | translate),
                 isGlobalFilter: true,
@@ -76,7 +82,6 @@
   
           <ng-template #actions let-action>
             <div class="actions flex align-items-center">
-              <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
               <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
             </div>
           </ng-template>

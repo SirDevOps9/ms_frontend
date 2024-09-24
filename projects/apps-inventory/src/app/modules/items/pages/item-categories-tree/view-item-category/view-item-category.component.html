@@ -46,7 +46,7 @@
               <small >
                 {{ 'itemsCategory.parentCategory' | translate }}
               </small>
-              <lib-text-input  type="text" [readOnly]="true" [placeholder]="parent?.parentCategoryNameEn!" />
+              <lib-text-input  type="text" [readOnly]="true" [placeholder]="parent?.parentCategoryNameEn ?? ''" />
              
             </lib-form-group>
           </div>
@@ -81,7 +81,7 @@
                       <small >
                           {{ 'warehouse.glAccount' | translate }}
                         </small>
-                        <lib-text-input  type="text"  [readOnly]="true"  [placeholder]="( parent?.glAccountId| getElementByID: AccountsDropDownLookup)?.name" 
+                        <lib-text-input  type="text"  [readOnly]="true"  [placeholder]="( parent?.glAccountId| getElementByID: AccountsDropDownLookup)?.name ?? ''" 
                         />
 
                     
@@ -93,7 +93,7 @@
                       <small >
                           {{ 'warehouse.cashSalesAccount' | translate }}
                         </small>
-                        <lib-text-input  type="text"  [readOnly]="true"  [placeholder]="( parent?.cashSalesAccountId| getElementByID:  AccountsDropDownLookup)?.name" />
+                        <lib-text-input  type="text"  [readOnly]="true"  [placeholder]="( parent?.cashSalesAccountId| getElementByID:  AccountsDropDownLookup)?.name ?? ''" />
 
                     </lib-form-group>
           </div>
@@ -103,7 +103,7 @@
                       <small >
                           {{ 'warehouse.creditSalesAccount' | translate }}
                         </small>
-                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="( parent?.creditSalesAccountId| getElementByID:  AccountsDropDownLookup)?.name"/>
+                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="( parent?.creditSalesAccountId| getElementByID:  AccountsDropDownLookup)?.name ?? ''"/>
 
                     </lib-form-group>
           </div>
@@ -113,7 +113,7 @@
                       <small >
                           {{ 'warehouse.salesReturnAccount' | translate }}
                         </small>
-                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="( parent?.salesReturnAccountId| getElementByID:  AccountsDropDownLookup)?.name"/>
+                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="( parent?.salesReturnAccountId| getElementByID:  AccountsDropDownLookup)?.name ?? ''"/>
 
                     </lib-form-group>
           </div>
@@ -123,7 +123,7 @@
                       <small >
                           {{ 'warehouse.purchaseAccount' | translate }}
                         </small>
-                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="( parent?.purchaseAccountId| getElementByID: AccountsDropDownLookup)?.name"/>
+                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="( parent?.purchaseAccountId| getElementByID: AccountsDropDownLookup)?.name ?? ''"/>
 
                     </lib-form-group>
           </div>
@@ -133,7 +133,7 @@
                       <small >
                           {{ 'warehouse.salesCostCenter' | translate }}
                         </small>
-                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="(  parent.salesCostAccountId| getElementByID: AccountsDropDownLookup)?.name"/>
+                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="(  parent.salesCostAccountId| getElementByID: AccountsDropDownLookup)?.name ?? ''"/>
 
                     </lib-form-group>
           </div>
@@ -143,7 +143,7 @@
                       <small >
                           {{ 'warehouse.discountAccount' | translate }}
                         </small>
-                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="(parent.discountAccountId | getElementByID: AccountsDropDownLookup)?.name "/>
+                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="(parent.discountAccountId | getElementByID: AccountsDropDownLookup)?.name ?? '' "/>
 
                     </lib-form-group>
           </div>
@@ -153,7 +153,7 @@
                       <small >
                           {{ 'warehouse.evaluationaccount' | translate }}
                         </small>
-                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="( parent?.evaluationAccountId| getElementByID:  AccountsDropDownLookup)?.name"/>
+                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="( parent?.evaluationAccountId| getElementByID:  AccountsDropDownLookup)?.name ?? ''"/>
 
                     </lib-form-group>
           </div>
@@ -163,7 +163,7 @@
                       <small >
                           {{ 'warehouse.adjustmentAccount' | translate }}
                         </small>
-                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="( parent?.adjustmentAccountId| getElementByID:  AccountsDropDownLookup)?.name"/>
+                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="( parent?.adjustmentAccountId| getElementByID:  AccountsDropDownLookup)?.name ?? ''"/>
 
                     </lib-form-group>
           </div>
@@ -173,7 +173,7 @@
                       <small >
                           {{ 'warehouse.goodsInTransit' | translate }}
                         </small>
-                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="( parent?.goodsInTransitAccountId| getElementByID:  AccountsDropDownLookup)?.name"/>
+                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="( parent?.goodsInTransitAccountId| getElementByID:  AccountsDropDownLookup)?.name ?? ''"/>
 
                     </lib-form-group>
           </div>

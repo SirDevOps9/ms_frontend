@@ -44,9 +44,9 @@ export class EditWarehouseComponent implements OnInit {
    this.warehouseForm = this.fb.group({
     id: this.id,
     code: [''],
-    name: [''],
-    warehouseType: [''],
-    branchWarehouses: [0],
+    name: ['', [customValidators.required]],
+    warehouseType: ['', [customValidators.required]],
+    branchWarehouses: [0, [customValidators.required]],
     addressWarehouse: this.fb.group({
       city: [''],
       addressLine: [''],
@@ -199,6 +199,8 @@ getWarehouseById() {
   }
 
   onSubmit() {
+    if (!this.formService.validForm(this.warehouseForm, false)) return;
+
     console.log(this.warehouseForm.getRawValue())
     this.itemsService.editWarehouse(this.warehouseForm.getRawValue())
    

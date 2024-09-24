@@ -63,25 +63,6 @@ export class AddItemsCategoryComponent {
   ) {
     this.title.setTitle(this.langService.transalte('ChartOfAccount.AddChartOfAccount'));
 
-    this.formGroup = formBuilder.group({
-      code: [''],
-      nameEn: [''],
-      nameAr: [''],
-      parentCategoryId: [null],
-      isDetailed: [false], // Assuming a boolean default of `false`
-      categoryType: [''],
-
-      glAccountId: [null],
-      cashSalesAccountId: [null],
-      creditSalesAccountId: [null],
-      salesReturnAccountId: [null],
-      purchaseAccountId: [null],
-      salesCostAccountId: [null],
-      discountAccountId: [null],
-      evaluationAccountId: [null],
-      adjustmentAccountId: [null],
-      goodsInTransitAccountId: [null]
-    });
   }
   ngOnInit() {
     this.Subscribe();
@@ -96,6 +77,37 @@ export class AddItemsCategoryComponent {
     //   }
     // });
 
+    this.formGroup = this.formBuilder.group({
+      code: ['' ],
+      nameEn: new FormControl('',[ customValidators.required]),
+      nameAr: ['' , [customValidators.required]],
+      parentCategoryId: [null],
+      isDetailed: [false], // Assuming a boolean default of `false`
+      categoryType: ['' ],
+
+      glAccountId: [null],
+      cashSalesAccountId: [null],
+      creditSalesAccountId: [null],
+      salesReturnAccountId: [null],
+      purchaseAccountId: [null],
+      salesCostAccountId: [null],
+      discountAccountId: [null],
+      evaluationAccountId: [null],
+      adjustmentAccountId: [null],
+      goodsInTransitAccountId: [null]
+    });
+
+    this.formGroup.get('isDetailed')?.valueChanges.subscribe(res=>{
+      console.log(res)
+      if(res== true) {
+        this.formGroup.get('categoryType')?.setValidators(customValidators.required)
+        this.formGroup.get('categoryType')?.updateValueAndValidity()
+       }else{
+        this.formGroup.get('categoryType')?.clearValidators()
+        this.formGroup.get('categoryType')?.updateValueAndValidity()
+       }
+    })
+    
     this.AccountsDropDown()
     
 
@@ -103,8 +115,32 @@ export class AddItemsCategoryComponent {
     // if (this.routerService.currentId) this.onParentAccountChange(this.routerService.currentId);
     this.ItemCategoryDropDownData()
     this.itemService.AddItemCategoryLookupObs.subscribe(res=>{
-      
+      if(res) {
+       this.resetForm()
+      }
+    
     })
+  }
+  resetForm() {
+    this.formGroup.get('id')?.reset();
+    this.formGroup.get('code')?.reset('');  // Reset to an empty string
+    this.formGroup.get('nameEn')?.reset('', { emitEvent: false });  // Reset and retain validators
+    this.formGroup.get('nameAr')?.reset('', { emitEvent: false });  // Reset and retain validators
+    this.formGroup.get('parentCategoryId')?.reset(null);  // Reset to null
+    this.formGroup.get('isDetailed')?.reset(false);  // Reset to default false
+    this.formGroup.get('categoryType')?.reset('', { emitEvent: false });  // Reset and retain validators
+    
+    // Reset all the account-related fields to null
+    this.formGroup.get('glAccountId')?.reset(null);
+    this.formGroup.get('cashSalesAccountId')?.reset(null);
+    this.formGroup.get('creditSalesAccountId')?.reset(null);
+    this.formGroup.get('salesReturnAccountId')?.reset(null);
+    this.formGroup.get('purchaseAccountId')?.reset(null);
+    this.formGroup.get('salesCostAccountId')?.reset(null);
+    this.formGroup.get('discountAccountId')?.reset(null);
+    this.formGroup.get('evaluationAccountId')?.reset(null);
+    this.formGroup.get('adjustmentAccountId')?.reset(null);
+    this.formGroup.get('goodsInTransitAccountId')?.reset(null);
   }
 
   AccountsDropDown() {
@@ -168,16 +204,16 @@ export class AddItemsCategoryComponent {
       this.accountTypes = typeList;
     });
 
-    this.formGroup.patchValue({ accountTypeId: [] });
+   // this.formGroup.patchValue({ accountTypeId: [] });
   }
 
   onParentAccountChange(event: any) {
     const parentAccountId = event;
     if (!parentAccountId) return;
-    this.itemService.getItemCategoryById(parentAccountId);
-    this.itemService.getItemCategoryByIdDataObs.subscribe((res:any) => {
-      console.log(res)
-    })
+    // this.itemService.getItemCategoryById(parentAccountId);
+    // this.itemService.getItemCategoryByIdDataObs.subscribe((res:any) => {
+   
+    // })
     // this.accountService.getAccount(parentAccountId);
     // this.accountService.selectedAccount.subscribe((response) => {
     //   this.parentAcountName = response;
@@ -252,8 +288,7 @@ export class AddItemsCategoryComponent {
         this.hasParentAccount = false
         this.selectValue = false
 
-        delete this.formGroup.value.accountCode
-        this.formGroup.get('accountCode')?.setValue([null]);
+       
       }
     }
   }
