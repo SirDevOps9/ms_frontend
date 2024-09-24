@@ -48,11 +48,23 @@
     margin-right: auto;
   }
 
+  [dir='rtl'] {
+    :host p-dropdown {
+      margin-left: auto;
+      display: none;
+    }
+  }
+
   .p-dropdown {
     padding: 12px;
   }
 }
-
-[dir='rtl'] :host .p-paginator-current-custom {
-  display: none;
+[dir='rtl'] :host ::ng-deep {
+  .p-paginator-current-custom {
+    right: 11rem;
+  }
+  p-dropdown {
+    margin-right: 0;
+    margin-left: auto;
+  }
 }
