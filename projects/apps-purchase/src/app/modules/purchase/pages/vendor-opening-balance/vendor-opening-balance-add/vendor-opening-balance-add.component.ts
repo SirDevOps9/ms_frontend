@@ -250,6 +250,7 @@ export class VendorOpeningBalanceAddComponent implements OnInit {
       amountNature: this.amountNature,
       vendorOpeningBalanceDetails: this.items.value,
     };
+    console.log( "sandar",body);
     this.purchaseService.AddVendorOpeningBalance(body);
   }
   
