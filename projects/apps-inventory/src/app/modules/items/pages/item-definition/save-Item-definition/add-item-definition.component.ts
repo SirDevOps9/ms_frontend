@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
 import { customValidators, FormsService, RouterService, SharedLibraryEnums, ToasterService } from 'shared-lib';
 import { AddVariantPopupComponent } from '../../../components/add-variant-popup/add-variant-popup.component';
@@ -11,6 +11,22 @@ import { ViewQRcodeComponent } from '../../../components/view-qrcode/view-qrcode
 import { UomCodeLookup, UomDefault } from '../../../models';
 import { AddUom } from '../../../models/addUom';
 
+function uomIdUniqueValidator(formArray: AbstractControl): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const currentUomId = control.value;
+    let duplicateFound = false;
+
+    // Iterate through the form array and check for duplicates
+    formArray.value.forEach((item: any, index: number) => {
+      if (item.uomId === currentUomId && control !== formArray.get([index, 'uomId'])) {
+        duplicateFound = true;
+      }
+    });
+
+    // Return validation error if a duplicate is found
+    return duplicateFound ? { uomIdNotUnique: true } : null;
+  };
+}
 @Component({
   selector: 'app-add-item-definition',
   templateUrl: './add-item-definition.component.html',
@@ -151,11 +167,11 @@ export class AddItemDefinitionComponent implements OnInit {
     this.UOMCategoryDropDownData()
     this.AccountsDropDown()
     this. getTrackingDropDown()
-    this.itemService.sendDefaultObs.subscribe(res=>{
-      if(res){
-        this.getUOMByItemId()
-      }
-    })
+    // this.itemService.sendDefaultObs.subscribe(res=>{
+    //   if(res){
+    //     this.getUOMByItemId()
+    //   }
+    // })
 
     this.itemService.editItemDataObs.subscribe(res=>{
       if(res){
@@ -267,7 +283,8 @@ export class AddItemDefinitionComponent implements OnInit {
   }
 
   createUomFormGroup(): FormGroup {
-    return this.fb.group({
+    
+    const uomData = this.fb.group({
       id:0,
       itemId: this.id,
       uomId: [null  , [customValidators.required]],
@@ -278,6 +295,11 @@ export class AddItemDefinitionComponent implements OnInit {
       isPurchase: true,
       uomNameEn : null
     });
+
+    uomData.controls['uomId'].setValidators([uomIdUniqueValidator(this.UOMForm)]);
+
+    return uomData
+    
   }
   createbarcodeFormGroup(): FormGroup {
     return this.fb.group({
@@ -303,6 +325,7 @@ export class AddItemDefinitionComponent implements OnInit {
   }
 
   addLine() {
+    
     this.UOMForm.push(this.createUomFormGroup());
   }
   addLineBarcode() {
@@ -537,6 +560,7 @@ export class AddItemDefinitionComponent implements OnInit {
 
   generateVariant() {
     this.itemService.generateVariant({itemId:this.id})
+    this.getItemVariantsByItemIdDropDown()
   }
 
   onSave() {

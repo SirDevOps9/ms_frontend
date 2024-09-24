@@ -81,7 +81,8 @@
         "itemEdit" : "Item Edited Successfully",
         "barcodesuccess" : "Barcode Added Successfully",
         "generateVariant" : "Generate Variant",
-        "variantSuccess" : "Variant Added Successfully"
+        "variantSuccess" : "Variant Added Successfully",
+        "duplicateUomIdError" : "Item Name Can't Be Duplicated"
     },
     "itemCategory" : {
         "itemDefinition" : "Item Definition",

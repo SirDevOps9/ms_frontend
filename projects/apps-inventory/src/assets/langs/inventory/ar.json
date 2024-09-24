@@ -81,7 +81,9 @@
       "itemEdit": "تم تعديل العنصر بنجاح",
       "barcodesuccess": "تم إضافة الرمز الشريطي بنجاح",
       "generateVariant": "توليد المتغير",
-      "variantSuccess": "تم إضافة المتغير بنجاح"
+      "variantSuccess": "تم إضافة المتغير بنجاح",
+      "duplicateUomIdError" : "لا يمكن تكرار اسم المنتج"
+
     },
     "itemCategory": {
       "itemDefinition": "تعريف العنصر",
