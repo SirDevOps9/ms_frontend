@@ -70,6 +70,7 @@
         "attributeName" : "Attribute Name",
         "success" : "Success",
         "deleteVariant" : "Attibute Group Deleted Successfully",
+        "addVariant" : "Attibute Group Deleted Successfully",
         "changeVariantStatus" : "Attibute Group Status Changed Successfully",
         "changeBarcodeStatus" : "Barcode Status Changed Successfully",
         "print" : "Print",

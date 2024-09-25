@@ -131,6 +131,15 @@ export class AddItemDefinitionComponent implements OnInit {
       })
     })
 
+    this.itemService.variantGeneratedObs.subscribe(res=>{
+      if(res) {
+        this.getItemVariantsByItemIdDropDown()
+
+      }
+    })
+
+
+
     // this.addLine() 
     this.getBarcodeByItemId()
      this.getUOMByItemId()
@@ -410,7 +419,7 @@ export class AddItemDefinitionComponent implements OnInit {
     const dialogRef = this.dialog.open(ViewVariantPopupComponent, {
     
       width: '50%',
-      height : '450px',
+      height : '300px',
 
       data : form.get('id')?.value
 
@@ -560,7 +569,6 @@ export class AddItemDefinitionComponent implements OnInit {
 
   generateVariant() {
     this.itemService.generateVariant({itemId:this.id})
-    this.getItemVariantsByItemIdDropDown()
   }
 
   onSave() {

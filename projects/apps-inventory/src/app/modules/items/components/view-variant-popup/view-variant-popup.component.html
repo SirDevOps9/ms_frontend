@@ -5,8 +5,8 @@ title="{{ 'itemDefinition.viewVariant' | translate }}"
 
 >
 
-<div *ngFor="let item of attributeValues" class="d-flex justify-content-between">
-    <p class="attributeValues">{{item.attributeName}}</p>
+<div  class="flex gap-2"   >
+    <p class="attributeValues " *ngFor="let item of attributeValues[0]?.itemAttributes">{{item.name}}</p>
 </div>
 
 </lib-popup-page>

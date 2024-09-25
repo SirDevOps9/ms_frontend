@@ -146,6 +146,8 @@ export class ItemsCategoryTreeComponent implements OnInit {
       
     // }
     this.add = false;
+
+
   }
   toggelTree() {
     this.showTree = !this.showTree;

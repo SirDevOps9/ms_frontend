@@ -25,6 +25,7 @@ export class ItemsService {
   public AddItemCategoryLookup = new BehaviorSubject<any>(false);
   public itemsCategoryDeleted = new BehaviorSubject<boolean>(false);
   public EditItemCategoryData = new BehaviorSubject<boolean>(false);
+  public variantGenerated = new BehaviorSubject<boolean>(false);
   public getItemCategoryByIdData = new BehaviorSubject<AddItemCategory>({} as AddItemCategory);
   sendItemCategoryDataSource  = new BehaviorSubject<GetItemCategoryDto[]>([])
 
@@ -88,6 +89,7 @@ export class ItemsService {
   public AddItemCategoryLookupObs  = this.AddItemCategoryLookup.asObservable()
   public itemsCategoryDeletedObs  = this.itemsCategoryDeleted.asObservable()
   public EditItemCategoryDataObs  = this.EditItemCategoryData.asObservable()
+  public variantGeneratedObs  = this.variantGenerated.asObservable()
   public getItemCategoryByIdDataObs  = this.getItemCategoryByIdData.asObservable()
   public sendItemCategoryDataSourceObs  = this.sendItemCategoryDataSource.asObservable()
   public tagLookupObs  = this.tagLookup.asObservable()
@@ -434,7 +436,7 @@ export class ItemsService {
           
           this.toasterService.showSuccess(
             this.languageService.transalte('itemType.success'),
-            this.languageService.transalte('itemType.delete')
+            this.languageService.transalte('itemType.deleteVariant')
           );
           const currentVariant = this.sendAttributeVariantData.getValue();
           const updatedVariants = currentVariant.filter(c  => c.id !== id);
@@ -496,6 +498,7 @@ export class ItemsService {
    }
    generateVariant(obj:any) {
     return this.itemProxy.generateVariant(obj).subscribe(res=>{
+      this.variantGenerated.next(true)
       this.toasterService.showSuccess(
         this.languageService.transalte('itemType.success'),
         this.languageService.transalte('itemType.variantSuccess')

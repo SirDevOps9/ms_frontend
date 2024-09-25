@@ -70,6 +70,7 @@
       "attributeName": "اسم الخاصية",
       "success": "نجاح",
       "deleteVariant": "تم حذف مجموعة الخصائص بنجاح",
+      "addVariant": "تم اضافه مجموعة الخصائص بنجاح",
       "changeVariantStatus": "تم تغيير حالة مجموعة الخصائص بنجاح",
       "changeBarcodeStatus": "تم تغيير حالة الرمز الشريطي بنجاح",
       "print": "طباعة",
