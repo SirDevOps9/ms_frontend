@@ -139,6 +139,8 @@ export class AddBankDefinitionComponent implements OnInit {
   }
 
   addLine() {
+    if(!this.formsService.validForm(this.bankForm ,false)) return
+
     const newline = this.createBankFormGroup();
  
     this.selectedBranch.subscribe((res) => {
@@ -250,4 +252,7 @@ export class AddBankDefinitionComponent implements OnInit {
       this.financeService.addBankDefinition(data);
     }
   }
+
+
+ 
 }

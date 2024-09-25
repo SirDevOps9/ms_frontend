@@ -146,11 +146,12 @@ export class CreateJournalEntryComponent {
     private attachmentService: AttachmentsService,
     private currentUserService: CurrentUserService,
     public generalService: GeneralService,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
+    private languageService: LanguageService
   ) {
     this.fg = this.fb.group({
       refrenceNumber: [null, [customValidators.required, customValidators.length(0, 15)]],
-      journalDate: [new Date(), customValidators.required],
+      journalDate: [new Date().toISOString().split('T')[0], customValidators.required],
       periodId: ['Period1', customValidators.required],
       description: ['', customValidators.required],
 
@@ -371,7 +372,7 @@ export class CreateJournalEntryComponent {
   save() {
     if (!this.formService.validForm(this.fg, false)) return;
     const value = this.fg.value as JournalEntryFormValue;
-    value.journalDate = this.convertDateFormat(value.journalDate);
+    // value.journalDate = this.convertDateFormat(value.journalDate);
     let obj: AddJournalEntryCommand = {
       ...value,
       journalEntryAttachments: this.journalEntryAttachments,
@@ -393,8 +394,14 @@ export class CreateJournalEntryComponent {
       })),
     };
     this.service
-      .addJournalEntry(obj)
-      .subscribe((r) => this.routerService.navigateTo('transcations/journalentry'));
+    .addJournalEntry(obj)
+    .subscribe({
+      next: (r) => {
+        this.routerService.navigateTo('transactions/journalentry');
+      },
+      error:  (error)  => {
+      }
+    });
   }
 
   routeToJournal() {

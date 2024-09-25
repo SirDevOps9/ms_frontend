@@ -95,7 +95,11 @@
       </div>
     </div>
     <!--  -->
-
+    <div class="add_new my-2 flex justify-content-end">
+      <lib-button (onClick)="addLine()" className="outline-primary"    >
+        {{ 'bank.add_new' | translate }}
+      </lib-button>
+    </div>
     <div class="entry_table">
       <div class="card">
         <p-table
@@ -163,7 +167,7 @@
                     </div>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ bankGroup.controls['glAccountId']?.value }}
+                    {{ bankGroup.controls['displayName']?.value }}
                   </ng-template>
                 </p-cellEditor>
               </td>

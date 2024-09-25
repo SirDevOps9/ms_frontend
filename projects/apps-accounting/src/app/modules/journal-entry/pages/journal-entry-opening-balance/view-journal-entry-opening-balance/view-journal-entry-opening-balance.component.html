@@ -41,7 +41,7 @@
 
       <div class="view">
         <lib-text-input
-          [ngModel]="journalView?.journalDate"
+          [ngModel]="journalView?.journalDate | date: 'dd/MM/yyyy'"
           [disabled]="true"
           [readOnly]="true"
         ></lib-text-input>

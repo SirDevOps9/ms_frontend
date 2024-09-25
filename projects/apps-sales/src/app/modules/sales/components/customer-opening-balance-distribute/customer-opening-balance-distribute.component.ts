@@ -44,7 +44,7 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
     if (this.config.data.dueDates) {
       this.config.data.dueDates.forEach((e: any) => {
         const dueDate =
-          e.debit > 0 ? new Date(e.dueDate).toISOString().substring(0, 10) : null; // Handle null dates
+          e.debit > 0 ? new Date(e.dueDate).toISOString().split('T')[0] : null; // Handle null dates
         console.log(this.config.data.dueDates, 'this.config.data.dueDates');
 
         this.customerForm.push(
@@ -120,7 +120,7 @@ export class CustomerOpeningBalanceDistributeComponent implements OnInit {
 
   getTodaysDate() {
     var date = new Date();
-    return date.toISOString().substring(0, 10);
+    return date.toISOString().split('T')[0]
   }
   onCancel() {
     this.ref.close();

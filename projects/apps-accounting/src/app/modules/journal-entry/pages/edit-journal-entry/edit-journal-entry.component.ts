@@ -114,7 +114,7 @@ export class EditJournalEntryComponent implements OnInit {
     this.journalEntryService.getJournalEntryById(this.routerService.currentId).subscribe((res) => {
       this.editJournalForm.patchValue({
         ...res,
-        journalDate: new Date(res.journalDate),
+        // journalDate: new Date(res.journalDate),
       });
       if (
         res.status === this.enums.JournalEntryStatus.Posted ||
@@ -176,7 +176,7 @@ export class EditJournalEntryComponent implements OnInit {
 
     const request: EditJournalEntry = this.editJournalForm.value;
     request.id = this.routerService.currentId;
-    request.journalDate = this.convertDateFormat(request.journalDate);
+    // request.journalDate = this.convertDateFormat(request.journalDate);
 
     request.journalEntryLines = request.journalEntryLines?.map((item) => {
       item.costCenters = item.costCenters
