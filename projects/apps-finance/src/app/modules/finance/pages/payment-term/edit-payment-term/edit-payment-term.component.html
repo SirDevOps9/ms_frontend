@@ -4,8 +4,14 @@
 >
   <div class="bank mt-4">
     <div [formGroup]="paymentTermGroup" class="entry_header">
-      <div class="grid">
+      <div class="grid head mb-5">
         <div class="col-12 md:col-6">
+          <lib-form-group>
+            <lib-label
+            [appControl]="paymentTermGroup.controls['code']"
+            >
+            {{ 'paymentterm.code' | translate }}
+            </lib-label>
           <lib-text-input
             [readOnly]="true"
             placeholder="{{ 'paymentterm.code' | translate }}"
@@ -14,9 +20,16 @@
           <lib-field-validations
             [appControl]="paymentTermGroup.controls['code']"
           ></lib-field-validations>
+        </lib-form-group>
         </div>
         <!--  -->
         <div class="col-12 md:col-6">
+          <lib-form-group>
+            <lib-label
+            [appControl]="paymentTermGroup.controls['name']"
+            >
+            {{ 'paymentterm.name' | translate }}
+            </lib-label>
           <lib-text-input
             placeholder="{{ 'paymentterm.name' | translate }}"
             formControlName="name"
@@ -24,51 +37,68 @@
           <lib-field-validations
             [appControl]="paymentTermGroup.controls['name']"
           ></lib-field-validations>
+        </lib-form-group>
+
         </div>
         <!--  -->
       </div>
 
-      <div class="entry_table">
-        <div class="card">
-          <p-table
-            [value]="paymentTermForm.controls"
-            dataKey="id"
-            styleClass="p-datatable-gridlines p-datatable-striped"
-            [tableStyle]="{ 'min-width': '50rem' }"
-          >
-            <ng-template pTemplate="header">
-              <tr>
-                <th>{{ 'add-paymentterm.dueTermValue' | translate }}</th>
-                <th>{{ 'add-paymentterm.afterValue' | translate }}</th>
-                <th>{{ 'add-paymentterm.afterPeriod' | translate }}</th>
-                <th>{{ 'add-paymentterm.note' | translate }}</th>
-                <th>{{ 'add-paymentterm.actions' | translate }}</th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-paymentTermGroup let-i="rowIndex">
-              <tr [formGroup]="paymentTermGroup">
-                <td>
-                  <lib-text-input
-                    type="number"
-                    placeholder="{{ 'add-paymentterm.dueTermValue' | translate }}"
-                    formControlName="dueTermValue"
-                  ></lib-text-input>
-                  <lib-field-validations
-                    [appControl]="paymentTermGroup.controls['dueTermValue']"
-                  ></lib-field-validations>
-                </td>
-                <td>
-                  <lib-text-input
+    <div class="entry_table">
+      <div class="card">
+        <p-table
+          [value]="paymentTermForm.controls"
+          dataKey="id"
+          styleClass="p-datatable-gridlines p-datatable-striped"
+          [tableStyle]="{ 'min-width': '50rem' }"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th>{{ 'add-paymentterm.dueTermValue' | translate }}</th>
+              <th>{{ 'add-paymentterm.afterValue' | translate }}</th>
+              <th>{{ 'add-paymentterm.afterPeriod' | translate }}</th>
+              <th>{{ 'add-paymentterm.note' | translate }}</th>
+              <th>{{ 'add-paymentterm.actions' | translate }}</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-paymentTermGroup let-i="rowIndex">
+            <tr [formGroup]="paymentTermGroup">
+              <td [pEditableColumn]="paymentTermGroup.dueTermValue" pEditableColumnField="dueTermValue">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <lib-text-input
+                  type="number"
+                  placeholder="{{ 'add-paymentterm.dueTermValue' | translate }}"
+                  formControlName="dueTermValue"
+                ></lib-text-input>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ paymentTermGroup.get('dueTermValue').value  }}
+                  </ng-template>
+                </p-cellEditor>
+                <lib-field-validations [appControl]="paymentTermGroup.controls['dueTermValue']">
+                </lib-field-validations>
+              </td>
+              <td [pEditableColumn]="paymentTermGroup.afterValue" pEditableColumnField="afterValue">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <lib-text-input
                     type="number"
                     placeholder="{{ 'add-paymentterm.afterValue' | translate }}"
                     formControlName="afterValue"
                   ></lib-text-input>
-                  <lib-field-validations
-                    [appControl]="paymentTermGroup.controls['afterValue']"
-                  ></lib-field-validations>
-                </td>
-                <td>
-                  <lib-select
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{paymentTermGroup.controls['afterValue'].value}}
+                  </ng-template>
+                </p-cellEditor>
+                <lib-field-validations [appControl]="paymentTermGroup.controls['afterValue']"
+                >
+                </lib-field-validations>
+              </td>
+              <td [pEditableColumn]="paymentTermGroup.afterPeriod" pEditableColumnField="afterPeriod">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <lib-select
                     formControlName="afterPeriod"
                     [options]="lookups[LookupEnum.PeriodType]"
                     optionValue="name"
@@ -76,22 +106,40 @@
                     [selectedValue]="paymentTermGroup.controls['afterPeriod'].value"
                   >
                   </lib-select>
-
-                <lib-field-validations
-                  [appControl]="paymentTermGroup.controls['afterPeriod']"
-                ></lib-field-validations>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{paymentTermGroup.controls['afterPeriod'].value}}
+                  </ng-template>
+                </p-cellEditor>
+                <lib-field-validations [appControl]="paymentTermGroup.controls['afterPeriod']">
+                </lib-field-validations>
               </td>
-              <td>
-                <lib-text-input
-                  placeholder="{{ 'add-paymentterm.note' | translate }}"
-                  formControlName="note"
-                ></lib-text-input>
-                <lib-field-validations
-                  [appControl]="paymentTermGroup.controls['note']"
-                ></lib-field-validations>
+              <td [pEditableColumn]="paymentTermGroup.note" pEditableColumnField="note">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <lib-text-input
+                    placeholder="{{ 'add-paymentterm.note' | translate }}"
+                    formControlName="note"
+                  ></lib-text-input>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{paymentTermGroup.controls['note'].value}}
+                  </ng-template>
+                </p-cellEditor>
+                <lib-field-validations [appControl]="paymentTermGroup.controls['note']">
+                </lib-field-validations>
               </td>
-              <td>
+              <!-- <td>
                 <i class="pi pi-trash" (click)="onDelete(i)"></i>
+              </td> -->
+              <td>
+                <lib-button-micro
+                 nameClass="table_button_delete"
+                 (click)="onDelete(i)"
+                 >
+
+                 </lib-button-micro>
+    
               </td>
             </tr>
           </ng-template>

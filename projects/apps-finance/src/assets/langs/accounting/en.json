@@ -394,6 +394,8 @@
     "glAccountId": "GL Account ID",
     "costCenterConfig": "Cost Center Config",
     "notes": "Notes",
-    "PaymentMethod": "Payment Method"
+    "PaymentMethod": "Payment Method",
+    "status":"Status"
+
   }
 }

@@ -213,7 +213,7 @@
               </ng-container>
               <!-- Template for parent column -->
               <ng-template #parentCol>
-                <td class="body_b16" [ngClass]="col.class">
+                <td class="body_b16">
                   <ng-container *ngIf="!col.template; else customParentCellTemplate!">
                     <ng-container *ngIf="col.lookupKey">
                       {{ this.lookupsService.getLookUpText(col.lookupKey, row[col.name]) }}
@@ -243,7 +243,7 @@
               <!-- Check if the column has children -->
               <ng-container *ngIf="col.children && col.children.length; else parentCol">
                 <ng-container *ngFor="let child of col.children">
-                  <td class="body_b16" [ngClass]="child.applyClass ? child['class'] : null">
+                  <td class="body_b16">
                     <ng-container *ngIf="!child.template; else customCellTemplate!">
                       <ng-container *ngIf="child.lookupKey">
                         {{ this.lookupsService.getLookUpText(child.lookupKey, row[child.name]) }}
@@ -262,7 +262,7 @@
               </ng-container>
               <!-- Template for parent column -->
               <ng-template #parentCol>
-                <td class="body_b16" [ngClass]="col.class">
+                <td class="body_b16">
                   <ng-container *ngIf="!col.template; else customParentCellTemplate!">
                     <ng-container *ngIf="col.lookupKey">
                       {{ this.lookupsService.getLookUpText(col.lookupKey, row[col.name]) }}

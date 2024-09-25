@@ -63,14 +63,22 @@
             [ExportName]="'Tax Group'"
           >
           </lib-export>
-          <lib-button
+          <!-- <lib-button
             pRipple
             className="addToList"
             label="{{ 'Tax.AddNew' | translate }}"
             (onClick)="Add()"
             [icon]="'pi pi-plus'"
           >
-          </lib-button>
+          </lib-button> -->
+          <lib-button-micro
+          nameClass="save"
+          title="{{ 'Tax.AddNew' | translate }}"
+          (onClick)="Add()"
+          iconName="pi pi-plus"
+          >
+
+          </lib-button-micro>
         </div>
       </ng-container>
         <ng-template #actions let-action>

@@ -125,7 +125,7 @@ span {
             line-height: 1;
           }
           th * {
-            justify-content: flex-start !important;
+            // justify-content: flex-start !important;
           }
         }
 
@@ -145,6 +145,10 @@ span {
           td:has(div.action) {
             text-align: center;
           }
+          td:has(img) {
+            display: flex;
+            justify-content: center;
+          }
         }
       }
     }
@@ -152,6 +156,20 @@ span {
     p-paginator {
       .p-paginator {
         padding: 0.6rem 0;
+
+        .p-paginator-pages {
+          .p-element {
+            border-radius: 6px;
+            transition: 0.3s;
+            &:not(.p-highlight):hover {
+              background-color: #a3d3df;
+            }
+            &.p-highlight {
+              background-color: #1a90b0;
+              color: #fff;
+            }
+          }
+        }
       }
       .p-paginator-bottom {
         display: flex;

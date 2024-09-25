@@ -80,6 +80,7 @@
     "referenceNumber": "المرجع",
     "createdOn": "التاريخ",
     "type": "النوع",
+    "sourceDocumentName": "اسم المستند المصدر",
     "sourceName": "اسم المستند",
     "sourceCode": "كود المستند",
     "isRepeated": "متكرر",

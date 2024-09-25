@@ -43,7 +43,7 @@
                 {{ 'PaymentIn.Form.PaymentHub' | translate }}
               </lib-label>
               <lib-select  
-              [readOnly]="paymentInPosted"
+              [readOnly]="true"
               formControlName="paymentHub" [options]="lookups[LookupEnum.PaymentPlace]"
                 [selectedValue]="addForm.controls['paymentHub'].value"
                 (valueChanged)="getDetails(addForm.controls['paymentHub'].value)" optionValue="name" optionLabel="name">
