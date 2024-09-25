@@ -1,10 +1,11 @@
 <lib-page-content [title]="'add-paymentMethod.title' | translate" [subTitle]="'add-paymentMethod.title' | translate">
-  <div class="flex justify-content-end my-2">
-    <lib-button-micro nameClass="cancel" title="cancel" (click)="discard()"></lib-button-micro>
-    <!-- <lib-button-micro nameClass="save" title="Save" iconName="pi pi-save" type="button" (click)="onSave()"></lib-button-micro> -->
-  </div>
 
-  <div class="bank">
+
+  <div class="bank mt-3">
+    <div class="flex justify-content-end my-2">
+      <lib-button-micro nameClass="cancel" title="cancel" (click)="discard()"></lib-button-micro>
+      <!-- <lib-button-micro nameClass="save" title="Save" iconName="pi pi-save" type="button" (click)="onSave()"></lib-button-micro> -->
+    </div>
     <div [formGroup]="PaymentMethodForm" class="entry_header">
       <div class="grid">
         <div class="col-12 md:col-6">
@@ -170,7 +171,7 @@
                 </div>
               </div>
 
-              <div class="grid">
+              <div class="grid  flex align-content-start flex-column mt-2">
                 <div class="col-12 md:col-4" [formGroupName]="'paymentMethodCommissionData'">
                   <lib-form-group class="flex align-items-center">
                     <lib-input-switch

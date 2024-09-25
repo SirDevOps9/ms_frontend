@@ -146,7 +146,7 @@ export class AddPaymentInComponent {
       newBalance: new FormControl(''),
       paymentInDetailCostCenters: new FormControl(null),
     });
-    this.addForm.controls['PaymentInDate'].patchValue(new Date());
+    this.addForm.controls['PaymentInDate'].patchValue(new Date().toISOString().split('T')[0]);
 
   }
 

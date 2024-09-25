@@ -288,4 +288,11 @@ export class JournalEntryService {
       })
     );
   }
+  getOpenFinancialYearDate() {
+    return this.journalEntryProxy.getOpenFinancialYearDate().pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
 }

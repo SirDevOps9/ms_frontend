@@ -151,9 +151,11 @@ export class AccountStatementComponent {
   }
   initializeDates() {
     const today = new Date();
+    let startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    startOfMonth.setDate(startOfMonth.getDate() + 1);
     const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1);
     this.reportAccountForm.patchValue({
-      dateFrom: today.toISOString().split('T')[0],
+      dateFrom: startOfMonth.toISOString().split('T')[0],
       dateTo: endOfMonth.toISOString().split('T')[0],
     });
   }

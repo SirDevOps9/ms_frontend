@@ -25,7 +25,8 @@ export class CostCenterReportComponent {
     private journalEntryService: JournalEntryService,
     private ToasterService: ToasterService,
     private PrintService: PrintService,
-    public generalService: GeneralService
+    public generalService: GeneralService,
+    private dateTimeService: DateTimeService,
   ) {}
 
   ngOnInit() {
@@ -102,8 +103,10 @@ export class CostCenterReportComponent {
     }
   }
   getOpenFinancialPeriodDate() {
-    this.journalEntryService.getOpenFinancialPeriodDate().subscribe((res: GetOpenFinancialPeriodDate) => {
-      const dateFrom = new Date(res.dateFrom);
+    this.journalEntryService.getOpenFinancialYearDate().subscribe((res: GetOpenFinancialPeriodDate) => {
+      if(res)
+      {
+        const dateFrom = new Date(res.dateFrom);
       const dateTo = new Date(res.dateTo);
   
       dateFrom.setDate(dateFrom.getDate() + 1);
@@ -115,9 +118,21 @@ export class CostCenterReportComponent {
         dateFrom: formattedDateFrom,
         dateTo:formattedDateTo,
       });
+      }
+      else{
+        this.initializeDates()
+
+      }
+      
     });
   }
   printTable(id: string) {
     this.PrintService.print(id)
+  }
+  initializeDates() {
+    this.reportCostForm.patchValue({
+      dateFrom: this.dateTimeService.firstDayOfMonth(),
+      dateTo: this.dateTimeService.lastDayOfMonth(),
+    });
   }
 }

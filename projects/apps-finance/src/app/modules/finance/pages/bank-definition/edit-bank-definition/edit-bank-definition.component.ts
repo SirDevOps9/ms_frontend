@@ -83,6 +83,8 @@ export class EditBankDefinitionComponent implements OnInit {
         this.bankForm.at(index)?.get('glAccountId')?.setValue(r.id);
         this.bankForm.at(index)?.get('accountName')?.setValue(r.name);
         this.bankForm.at(index)?.get('accountCode')?.setValue(r.accountCode);
+        this.bankForm.at(index)?.get('displayName')?.setValue(r.accountCode);
+
       }
     });
   }
@@ -105,6 +107,7 @@ export class EditBankDefinitionComponent implements OnInit {
             currencyName: null,
             branchName: null,
             accountCode: elem.glAccountCode,
+            displayName:elem.glAccountCode,
             userPermission: [elem.userPermission],
             userPermissionName: '',
             branches: [elem.branches],
@@ -138,9 +141,11 @@ export class EditBankDefinitionComponent implements OnInit {
     var accountData: any = this.filteredAccounts.find((c) => c.id == event);
     if (accountData) {
       bankLine.get('glAccountId')!.setValue(accountData.id);
-      bankLine.get('accountNumber')!.setValue(accountData.accountCode);
+     // bankLine.get('accountNumber')!.setValue(accountData.accountCode);
       bankLine.get('accountName')!.setValue(accountData.name);
       bankLine.get('currencyId')!.setValue(accountData.currencyId);
+      bankLine.get('displayName')?.setValue(accountData.accountCode);
+
     }
   }
   createBankFormGroup(): FormGroup {
@@ -166,6 +171,8 @@ export class EditBankDefinitionComponent implements OnInit {
   }
 
   addLine() {
+    if(!this.formsService.validForm(this.bankForm ,false)) return
+
     const newline = this.createBankFormGroup();
     newline.get('branches')?.setValue([this.branchesLookup[0].id.toString()]);
     newline.get('branchName')?.setValue([this.branchesLookup[0].name]);
@@ -173,11 +180,7 @@ export class EditBankDefinitionComponent implements OnInit {
     this.items.push(newline);
   }
 
-  deleteLine(index: number): void {
-    if (index >= 0 && index < this.bankForm.length) {
-      this.bankForm.removeAt(index);
-    }
-  }
+
   branchSelected(event: any, bankForm: FormGroup, i: number) {
     let data = this.branchesLookup?.filter((item) => event.includes(item.id));
     let branchName = data?.map((elem) => elem.name);
@@ -270,4 +273,5 @@ export class EditBankDefinitionComponent implements OnInit {
       this.financeService.editBankDefinition(data);
     }
   }
+  
 }
