@@ -43,9 +43,7 @@
                 ></p-paginator>
               </div>
 
-              <lib-button-micro *ngIf="sequence"
-               nameClass="sequence"
-              (click)="routeToSequence()">
+              <lib-button-micro *ngIf="sequence" nameClass="sequence" (click)="routeToSequence()">
               </lib-button-micro>
               <ng-content select="[action]"></ng-content>
             </div>
@@ -294,7 +292,8 @@
       <ng-container *ngIf="items! && !items?.length && !firstRow">
         <div class="flex justify-content-center mt-4" (click)="addNewItem()">
           <div class="flex gap-2 align-content-center pointer">
-            <i *ngIf="!reportTable" class="pi pi-plus"></i> <small>There is no data</small>
+            <i *ngIf="!reportTable" class="pi pi-plus"></i>
+            <small ngIf="!reportTable">There is no data</small>
           </div>
         </div>
       </ng-container>

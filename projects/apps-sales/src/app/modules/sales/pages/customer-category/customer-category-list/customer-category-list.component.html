@@ -5,6 +5,7 @@
         [items]="tableData"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
+        (addNew)="routeToAdd()"
         (pageChange)="onPageChange($event)"
         [tableConfigs]="{
               allowPagination: false,
@@ -80,8 +81,6 @@
           </div>
         </ng-container>
         <ng-container action>
-       
-
           <lib-export
             (exportClick)="exportCustomerCategoriesData($event)"
             [exportData]="exportData"
@@ -95,7 +94,6 @@
               [title]="'CustomerCategory.add' | translate"
               (click)="routeToAdd()"
               [iconName]="'pi pi-plus'"
-
             >
             </lib-button-micro>
           </div>
