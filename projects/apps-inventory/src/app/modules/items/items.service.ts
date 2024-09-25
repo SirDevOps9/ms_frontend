@@ -215,6 +215,7 @@ export class ItemsService {
     });
   }
   getListOfUom(SearchTerm: string | undefined, pageInfo: PageInfo) {
+    
     this.itemProxy.getListOfUom(SearchTerm, pageInfo).subscribe((response: Iuom) => {
       this.listOfUOM.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
@@ -573,14 +574,14 @@ export class ItemsService {
   }
   // attr difinition delete
   async deleteUomCat(id: number) {
-    debugger;
+ 
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
       this.itemProxy.deleteUOM(id).subscribe({
         next: (res) => {
-          debugger;
+      
           this.toasterService.showSuccess(
             this.languageService.transalte('UOM.success'),
             this.languageService.transalte('UOM.delete')

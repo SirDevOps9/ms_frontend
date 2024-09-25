@@ -169,6 +169,7 @@
     "uomType": "UOM Types",
     "shortName": "Short Name",
     "addUom": "Add UOM",
+    "TaxList":"UOM",
     "nameAr": "Name Ar",
     "changeAttributrDifinitionStatus": "change Attributr Difinition Status",
     "success": "Success",
@@ -181,8 +182,8 @@
     "action": "action",
     "value": "Value",
     "success": "Success",
-    "nameAr": "Name Ar",
-    "nameEn": "Name En",
+    "nameAr": "Name Arabic",
+    "nameEn": "Name English",
     "attributeDefinition": "Attribute Definition",
     "attribute": "Attribute",
     "changeAttributrDifinitionStatus": "change Attributr Difinition Status",
@@ -206,7 +207,7 @@
     "type": "Attribute Type",
     "types": "Attribute Types",
     "shortName": "Short Name",
-    "addAttribute": "Add Attribute"
+    "addAttribute": "Add"
   },
   "OperationalTag": {
     "Add": "Add",

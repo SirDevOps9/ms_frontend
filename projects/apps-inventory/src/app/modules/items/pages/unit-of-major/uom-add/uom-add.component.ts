@@ -132,8 +132,8 @@ export class UOMAddComponent implements OnInit {
   shouldShowSaveButton(index: number): boolean {
     const formGroup = this.uomTableForm.at(index) as FormGroup;
 
-    const hasId = !!formGroup.get('id')?.value;
-    return formGroup.dirty && !formGroup.invalid && !this.lineStatus[index] && !hasId;
+    // const hasId = !!formGroup.get('id')?.value;
+    return formGroup.dirty && !formGroup.invalid && !this.lineStatus[index] 
   }
   public get items(): FormArray {
     return this.uomTableForm as FormArray;
@@ -142,21 +142,20 @@ export class UOMAddComponent implements OnInit {
 
 
 
-  create_UOM_FormGroup(uomData?: any): FormGroup {
-
+  create_UOM_FormGroup(uomData: any = {}): FormGroup {
     return this.fb.group({
-      id: new FormControl(uomData?.id),
+      id: new FormControl(uomData?.id || null),
       code: new FormControl(uomData?.code || '', customValidators.required),
-      nameAr: new FormControl(uomData?.name || '', customValidators.required),
-      nameEn: new FormControl(uomData?.name || '', customValidators.required),
+      nameAr: new FormControl(uomData?.nameAr || '', [customValidators.required, customValidators.onlyArabicLetters]),
+      nameEn: new FormControl(uomData?.nameEn || '', [customValidators.required, customValidators.onlyEnglishLetters]),
       shortName: new FormControl(uomData?.shortName || '', customValidators.required),
       uomType: new FormControl(uomData?.uomType || '', customValidators.required),
       uomCategoryId: new FormControl(uomData?.uomCategoryId || ''),
-      conversionRatio: new FormControl(uomData?.conversionRatio || '',),
-      conversionUOM: new FormControl(uomData?.conversionUOM || '',customValidators.required),
+      conversionRatio: new FormControl(uomData?.conversionRatio || ''),
+      conversionUOM: new FormControl(uomData?.conversionUOM || 1, customValidators.required),
     });
-
   }
+  
 
 
   addLine() {
