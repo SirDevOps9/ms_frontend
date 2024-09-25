@@ -89,6 +89,7 @@ export class AddBankDefinitionComponent implements OnInit {
         this.bankForm.at(index)?.get('accountName')?.setValue(r.name);
         this.bankForm.at(index)?.get('displayName')?.setValue(r.accountCode);
         this.bankForm.at(index)?.get('currencyId')?.setValue(r.currencyId);
+        this.GetAccountOpeningBalance(r.id, index);
       }
     });
   }
@@ -104,7 +105,6 @@ export class AddBankDefinitionComponent implements OnInit {
   }
 
   accountSelected(event: any, id: number) {
-
     const bankLine = this.items.at(id);
 
     var accountData: any = this.filteredAccounts.find((c) => c.id == event);
@@ -139,13 +139,12 @@ export class AddBankDefinitionComponent implements OnInit {
   }
 
   addLine() {
-    if(!this.formsService.validForm(this.bankForm ,false)) return
+    if (!this.formsService.validForm(this.bankForm, false)) return;
 
     const newline = this.createBankFormGroup();
- 
+
     this.selectedBranch.subscribe((res) => {
-      
-      if (res != undefined){
+      if (res != undefined) {
         newline.get('branches')?.setValue([res.id]);
         newline.get('branchName')?.setValue([res.name]);
       }
@@ -252,7 +251,4 @@ export class AddBankDefinitionComponent implements OnInit {
       this.financeService.addBankDefinition(data);
     }
   }
-
-
- 
 }

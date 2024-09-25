@@ -4,6 +4,12 @@
 "AddNewLine": "Add New Line",
 "error":"Error",
 "success":"success",
+"create":"Create",
+"view":"view",
+"edit":"edit",
+"delete":"delete",
+"statement":"statement",
+"sequence":"sequence",
 
 "sequence":{
 "sequence":"Sequence",

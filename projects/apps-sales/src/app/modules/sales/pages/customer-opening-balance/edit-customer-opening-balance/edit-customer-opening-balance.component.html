@@ -1,4 +1,6 @@
 <lib-page-content>
+  <div class="card_micro">
+
   <form [formGroup]="formGroup">
     <div class="form_header">
       <div class="grid">
@@ -70,7 +72,7 @@
       </div>
     </div>
   </form>
-
+</div>
   <div class="entry_table">
     <div class="card">
       <p-table
@@ -254,29 +256,30 @@
               nameClass="cancel"
               ></lib-button-micro>
             </div> -->
-      <div class="btn_group">
+     
+    </div>
+  </div>
+  <div class="btn_group">
+    <div class="grid">
+      <div class="md:col-3">
         <div class="grid">
-          <div class="md:col-3">
-            <div class="grid">
-              <div class="md:col-6">
-                <lib-button-micro
-                  [title]="'Cancel' | translate"
-                  nameClass="cancel"
-                  widthNumber="100%"
-                  (click)="cancel()"
-                >
-                </lib-button-micro>
-              </div>
-              <div class="md:col-6">
-                <lib-button-micro
-                  title="{{ 'Save' | translate }}"
-                  nameClass="save"
-                  (click)="onSubmit()"
-                  widthNumber="100%"
-                >
-                </lib-button-micro>
-              </div>
-            </div>
+          <div class="md:col-6">
+            <lib-button-micro
+              [title]="'Cancel' | translate"
+              nameClass="cancel"
+              widthNumber="100%"
+              (click)="cancel()"
+            >
+            </lib-button-micro>
+          </div>
+          <div class="md:col-6">
+            <lib-button-micro
+              title="{{ 'Save' | translate }}"
+              nameClass="save"
+              (click)="onSubmit()"
+              widthNumber="100%"
+            >
+            </lib-button-micro>
           </div>
         </div>
       </div>

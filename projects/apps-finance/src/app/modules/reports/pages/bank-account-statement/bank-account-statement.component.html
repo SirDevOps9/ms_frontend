@@ -1,5 +1,6 @@
 <lib-page-content>
   <div class="user_page group">
+    <div class="card_micro">
     <form [formGroup]="accountStatementForm">
       <div class="group">
         <div class="calender">
@@ -84,6 +85,7 @@
         </div>
       </div>
     </form>
+    </div>
     <div class="mb-4" *ngIf="tableData">
       <lib-data-table
         id="printableTable"

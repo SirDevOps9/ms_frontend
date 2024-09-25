@@ -13,7 +13,7 @@
     "Actions": "Actions",
     "Edit": "Edit",
     "Delete": "Delete",
-    "Add": "Add"
+    "Add": "Create"
   },
   "Toaster": {
     "Confirm": {
@@ -115,7 +115,7 @@
     "Actions": "Actions",
     "Add": {
       "CompanyLogo": "CompanyLogo",
-      "AddCompany": "Add",
+      "AddCompany": "Create",
       "Plan": "Plan",
       "CompanyAddedSuccessfully": "Company added successfully",
       "Error": "Error",
@@ -275,7 +275,7 @@
     "JournalUpdatedSuccessfully": "Journal Updated Successfully",
     "Add": {
       "CompanyLogo": "CompanyLogo",
-      "AddCompany": "Add",
+      "AddCompany": "Create",
       "Plan": "Plan",
       "CompanyAddedSuccessfully": "Company added successfully",
       "Error": "Error",

@@ -1,6 +1,8 @@
 <lib-page-content>
   <div class="journal_entry_add_page">
     <form [formGroup]="editJournalForm" (ngSubmit)="onSubmit()">
+      <div class="card_micro">
+
       <div class="entry_header">
         <div class="grid">
           <div class="col-12 md:col-3">
@@ -99,6 +101,7 @@
               ></lib-text-input>
             </div>
           </div>
+         
           <div class="col-12 md:col-3 total">
             <!-- <div>
               <p class="totals">{{ 'JournalTemplate.totalDebitAmountLocal' | translate }}</p>
@@ -140,7 +143,7 @@
           </div>
         </div>
       </div>
-
+</div>
       <div class="entry_table">
         <div class="card">
           <p-table

@@ -31,7 +31,7 @@ import { DatePipe } from '@angular/common';
 export class TreasuryStatementComponent implements OnInit {
   reportForm: FormGroup;
   treasuryDropDown: TreasuryDropDown[] = [];
-  currency: string;
+  currency: string | undefined;
   tableData?: treasuryStatementDto;
   total: number = 0;
   selectedTreasuryName: string = '';
@@ -82,8 +82,10 @@ export class TreasuryStatementComponent implements OnInit {
 
   getTreasuryDropDown() {
     this.financeService.treasuryDropDown();
-    this.financeService.getTreasuryDropDownDataObservable.subscribe((res: any) => {
+    this.financeService.getTreasuryDropDownDataObservable.subscribe((res: TreasuryDropDown[]) => {
       this.treasuryDropDown = res;
+      if(res)
+      this.currency = res.find( x =>x.id == this.routerService.currentId)?.currencyName
     });
   }
 
