@@ -400,10 +400,6 @@ export class CreateJournalEntryComponent {
         this.routerService.navigateTo('transactions/journalentry');
       },
       error:  (error)  => {
-        this.toasterService.showError(
-          this.languageService.transalte('Error'),
-          this.languageService.transalte(error.message)
-        );
       }
     });
   }

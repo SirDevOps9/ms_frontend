@@ -83,6 +83,8 @@ export class EditBankDefinitionComponent implements OnInit {
         this.bankForm.at(index)?.get('glAccountId')?.setValue(r.id);
         this.bankForm.at(index)?.get('accountName')?.setValue(r.name);
         this.bankForm.at(index)?.get('accountCode')?.setValue(r.accountCode);
+        this.bankForm.at(index)?.get('displayName')?.setValue(r.accountCode);
+
       }
     });
   }
@@ -105,6 +107,7 @@ export class EditBankDefinitionComponent implements OnInit {
             currencyName: null,
             branchName: null,
             accountCode: elem.glAccountCode,
+            displayName:elem.glAccountCode,
             userPermission: [elem.userPermission],
             userPermissionName: '',
             branches: [elem.branches],
@@ -138,9 +141,11 @@ export class EditBankDefinitionComponent implements OnInit {
     var accountData: any = this.filteredAccounts.find((c) => c.id == event);
     if (accountData) {
       bankLine.get('glAccountId')!.setValue(accountData.id);
-      bankLine.get('accountNumber')!.setValue(accountData.accountCode);
+     // bankLine.get('accountNumber')!.setValue(accountData.accountCode);
       bankLine.get('accountName')!.setValue(accountData.name);
       bankLine.get('currencyId')!.setValue(accountData.currencyId);
+      bankLine.get('displayName')?.setValue(accountData.accountCode);
+
     }
   }
   createBankFormGroup(): FormGroup {
