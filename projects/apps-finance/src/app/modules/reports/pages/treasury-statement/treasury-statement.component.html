@@ -37,12 +37,11 @@
             ></lib-field-validations>
           </div>
           <div class="col-12 md:col-4">
-            <lib-text-input
-              type="text"
-              formControlName="currency"
-              [readOnly]="true"
-              [placeholder]="'TreasuryStatement.currency' | translate"
-            />
+            <div class="view">
+              <p>
+                {{ currency ? currency : ('BankAccountStatement.DisplayCurrency' | translate) }}
+              </p>
+            </div>
           </div>
           <div class="col-12 md:col-3">
             <div class="all_btn">

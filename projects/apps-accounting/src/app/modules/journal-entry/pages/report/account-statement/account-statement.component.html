@@ -1,5 +1,7 @@
 <lib-page-content>
   <div class="user_page group">
+    <div class="card_micro">
+
     <form [formGroup]="reportAccountForm">
       <div class="group">
         <div class="calender">
@@ -69,6 +71,7 @@
         </div>
       </div>
     </form>
+    </div>
     <div class="mb-4" *ngFor="let table of tableData">
       <lib-data-table
         [items]="table?.journalEntryDtos!"

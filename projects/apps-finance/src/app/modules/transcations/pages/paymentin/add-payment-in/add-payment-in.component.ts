@@ -209,8 +209,10 @@ export class AddPaymentInComponent {
 
   getpaidByDetails(index: number, name: string) {
     const journalLine = this.paymentInDetailsFormArray.at(index);
-    journalLine.get('glAccountname')?.setValue(null);
+    journalLine.get('costCenterConfig')?.setValue(this.sharedFinanceEnums.costCenterConfig.NotAllow);
+    journalLine.get('glAccountId')?.setValue(null);
     journalLine.get('paidByDetailsName')?.setValue(null);
+    // journalLine.get('costCenterConfig')?.setValue(null);
     if (name == this.sharedFinanceEnums.paiedDropDown.customer) {
       journalLine.get('glAccountId')?.clearValidators()
       journalLine.get('glAccountId')?.updateValueAndValidity()
@@ -400,6 +402,7 @@ export class AddPaymentInComponent {
     this.updateAccount(accountData as AccountDto, id);
   }
   isCostCenterallowed(journalLine: any, costCenterConfig: string): boolean {
+ 
     if (costCenterConfig === this.sharedFinanceEnums.costCenterConfig.Mandatory || costCenterConfig === this.sharedFinanceEnums.costCenterConfig.Optional) {
       return true;
     } else {

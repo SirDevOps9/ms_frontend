@@ -214,6 +214,8 @@ export class AddPaymentOutComponent implements OnInit {
 
   getpaidByDetails(index: number, name: string) {
     const journalLine = this.paymentOutDetailsFormArray.at(index);
+    journalLine.get('costCenterConfig')?.setValue(this.sharedFinanceEnums.costCenterConfig.NotAllow);
+
     journalLine.get('glAccountname')?.setValue(null);
     journalLine.get('paidByDetailsName')?.setValue(null);
     if (name == this.sharedFinanceEnums.paiedDropDown.customer) {
