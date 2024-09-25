@@ -104,11 +104,6 @@ export class CreateJournalEntryComponent {
     this.totalCreditAmount = 0;
     this.totalDebitAmountLocal = 0;
     this.totalCreditAmountLocal = 0;
-    this.langService.getTranslation('JournalTitle').subscribe((title) => {
-      this.titleService.setTitle(title);
-    });
-
-    this.titleService.setTitle;
     this.getAccounts();
 
     this.currencyService.getCurrencies('');
@@ -116,8 +111,6 @@ export class CreateJournalEntryComponent {
     this.currencyService.currencies.subscribe((res) => {
       this.currencies = res;
     });
-    // this.calculateTotalDebitAmount();
-    // this.calculateTotalCreditAmount();
     this.addThing();
   }
   getAccounts() {
@@ -139,15 +132,13 @@ export class CreateJournalEntryComponent {
     public sharedLibEnums: SharedLibraryEnums,
     private service: JournalEntryService,
     private routerService: RouterService,
-    private titleService: Title,
     private langService: LanguageService,
     private formService: FormsService,
     private guidedTourService: GuidedTourService,
     private attachmentService: AttachmentsService,
     private currentUserService: CurrentUserService,
     public generalService: GeneralService,
-    private toasterService: ToasterService,
-    private languageService: LanguageService
+    private toasterService: ToasterService
   ) {
     this.fg = this.fb.group({
       refrenceNumber: [null, [customValidators.required, customValidators.length(0, 15)]],
@@ -397,7 +388,7 @@ export class CreateJournalEntryComponent {
     .addJournalEntry(obj)
     .subscribe({
       next: (r) => {
-        this.routerService.navigateTo('transactions/journalentry');
+        this.routerService.navigateTo('transcations/journalentry');
       },
       error:  (error)  => {
       }
