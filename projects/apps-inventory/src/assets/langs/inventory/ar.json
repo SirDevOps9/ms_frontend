@@ -25,6 +25,7 @@
       "countryOfOrigin": "بلد المنشأ",
       "itemShortName": "الاسم المختصر للعنصر",
       "warantly": "الضمان",
+      "warantlyPeriod" : "فترة الضمان",
       "lifeTime": "العمر الافتراضي",
       "vatApplied": "تطبيق ضريبة القيمة المضافة",
       "priceIncludeVat": "السعر شامل الضريبة",

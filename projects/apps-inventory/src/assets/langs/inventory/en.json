@@ -25,6 +25,7 @@
         "countryOfOrigin" : "Country Of Origin",
         "itemShortName" : "Item Short Name",
         "warantly" : "Warantly",
+        "warantlyPeriod" : "Warantly Period",
         "lifeTime" : "Life Time",
         "vatApplied" : "Vat Applied",
         "priceIncludeVat" : "Price Include Vat",

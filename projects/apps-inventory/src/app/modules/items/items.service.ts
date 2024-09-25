@@ -22,7 +22,7 @@ export class ItemsService {
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   public itemTypeLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([]);
   public itemCategoryLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
-  public AddItemCategoryLookup = new BehaviorSubject<boolean>(false);
+  public AddItemCategoryLookup = new BehaviorSubject<any>(false);
   public itemsCategoryDeleted = new BehaviorSubject<boolean>(false);
   public EditItemCategoryData = new BehaviorSubject<boolean>(false);
   public getItemCategoryByIdData = new BehaviorSubject<AddItemCategory>({} as AddItemCategory);
@@ -234,7 +234,7 @@ export class ItemsService {
   addItemCategory(obj : AddItemCategory) {
     this.itemProxy.addItemCategory(obj).subscribe({
       next: (res : any) => {
-         this.AddItemCategoryLookup.next(true);
+         this.AddItemCategoryLookup.next(obj);
          this.toasterService.showSuccess(
           this.languageService.transalte('itemsCategory.success'),
           this.languageService.transalte('itemsCategory.add')

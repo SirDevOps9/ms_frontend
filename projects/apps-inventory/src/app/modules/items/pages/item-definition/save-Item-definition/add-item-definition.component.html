@@ -105,25 +105,34 @@
                     <lib-text-input formControlName="shortName"> </lib-text-input>
                   </lib-form-group>
                 </div>
-                <div class="md:col-4">
-                  <lib-form-group>
-                    <lib-label [appControl]="itemDefinitionForm.controls['warranty']">
-                      {{ 'itemType.warantly' | translate }} (
-                        {{ 'itemType.perMonth' | translate }} )
-                    </lib-label>
-                    <lib-text-input formControlName="warranty" type="number"></lib-text-input>
-                  </lib-form-group>
-                </div>
-                <div class="md:col-4">
-                  <lib-form-group>
-                    <lib-label [appControl]="itemDefinitionForm.controls['lifeTime']">
-                      {{ 'itemType.lifeTime' | translate }}  ( {{ 'itemType.perYear' | translate }} )
-                    </lib-label>
-                    <lib-text-input formControlName="lifeTime" type="number"></lib-text-input>
-                  </lib-form-group>
-                </div>
+                
               </div>
             </lib-fildest>
+
+            <lib-fildest header="{{ 'itemType.warantlyPeriod' | translate }}" >
+              <div class="grid">
+
+              <div class="md:col-6">
+                <lib-form-group>
+                  <lib-label [appControl]="itemDefinitionForm.controls['warranty']">
+                    {{ 'itemType.warantly' | translate }} (
+                      {{ 'itemType.perMonth' | translate }} )
+                  </lib-label>
+                  <lib-text-input formControlName="warranty" type="number"></lib-text-input>
+                </lib-form-group>
+              </div>
+              <div class="md:col-6">
+                <lib-form-group>
+                  <lib-label [appControl]="itemDefinitionForm.controls['lifeTime']">
+                    {{ 'itemType.lifeTime' | translate }}  ( {{ 'itemType.perYear' | translate }} )
+                  </lib-label>
+                  <lib-text-input formControlName="lifeTime" type="number"></lib-text-input>
+                </lib-form-group>
+              </div>
+              </div>
+            </lib-fildest>
+   
+         
             <div class="md:col-12 grid">
               <div class="md:col-6">
                 <lib-fildest header="{{ 'itemType.countryOfOrigin' | translate }}" class="md:col-6">

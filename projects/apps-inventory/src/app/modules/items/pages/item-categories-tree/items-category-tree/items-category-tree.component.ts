@@ -53,6 +53,7 @@ export class ItemsCategoryTreeComponent implements OnInit {
         isActive: item.isActive,
         id: item.id,
         hasNoChild: item.hasNoChild,
+        isDetailed: item.isDetailed,
 
         label: item.name ,
         children: item.children ? this.mapToTreeNodes(item.children) : [],
@@ -133,6 +134,8 @@ export class ItemsCategoryTreeComponent implements OnInit {
   handleOperationCompleted(event: any) {
   //  this.test=event
     
+  console.log(event)
+
      this.getTreeList();
     // if(event.id){
     //  this.viewMode(event.id)

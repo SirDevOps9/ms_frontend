@@ -71,7 +71,7 @@ export class EditItemCategoryComponent {
       nameAr: ['' , [customValidators.required]],
       parentCategoryId: [null],
       isDetailed: [false], // Assuming a boolean default of `false`
-      categoryType:  ['' , [customValidators.required]],
+      categoryType:  [null , [customValidators.required]],
 
       glAccountId: [null],
       cashSalesAccountId: [null],

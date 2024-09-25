@@ -44,6 +44,7 @@ export class AddItemsCategoryComponent {
   selectedPeriodOption: string = '';
   @Input() parentAddedId?: number | undefined;
   @Input() newChiled?: boolean;
+  showCategory : boolean = true
   @Output() operationCompleted = new EventEmitter<any>();
   private savedAddedAccountSubscription: Subscription;
 
@@ -82,8 +83,8 @@ export class AddItemsCategoryComponent {
       nameEn: new FormControl('',[ customValidators.required]),
       nameAr: ['' , [customValidators.required]],
       parentCategoryId: [null],
-      isDetailed: [false], // Assuming a boolean default of `false`
-      categoryType: ['' ],
+      isDetailed: [true], // Assuming a boolean default of `false`
+      categoryType:  [null , [customValidators.required]],
 
       glAccountId: [null],
       cashSalesAccountId: [null],
@@ -102,9 +103,12 @@ export class AddItemsCategoryComponent {
       if(res== true) {
         this.formGroup.get('categoryType')?.setValidators(customValidators.required)
         this.formGroup.get('categoryType')?.updateValueAndValidity()
+        this.showCategory = true
        }else{
         this.formGroup.get('categoryType')?.clearValidators()
         this.formGroup.get('categoryType')?.updateValueAndValidity()
+        this.showCategory = false
+
        }
     })
     
@@ -116,7 +120,13 @@ export class AddItemsCategoryComponent {
     this.ItemCategoryDropDownData()
     this.itemService.AddItemCategoryLookupObs.subscribe(res=>{
       if(res) {
-       this.resetForm()
+        this.operationCompleted.emit(res);
+
+      //  this.resetForm()
+
+      //  this.ItemCategoryDropDownData()
+      //  this.AccountsDropDown()
+
       }
     
     })
@@ -211,6 +221,7 @@ export class AddItemsCategoryComponent {
     const parentAccountId = event;
     if (!parentAccountId) return;
     this.hasParentAccount = true;
+    
     this.itemService.getItemCategoryById(parentAccountId);
     this.itemService.getItemCategoryByIdDataObs.subscribe((res:any) => {
       console.log(res)
@@ -277,6 +288,11 @@ export class AddItemsCategoryComponent {
     this.onParentAccountChange(this.parentAddedId);
   }
     console.log(this.parentAddedId)
+    setTimeout(() => {
+      this.formGroup.get('parentCategoryId')?.setValue(this.parentAddedId)
+
+    }, 100);
+
     // if(this.parentAddedId) {
     //   this.hasParentAccount = true
     // }

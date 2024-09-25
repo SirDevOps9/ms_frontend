@@ -290,7 +290,7 @@ export class AddItemDefinitionComponent implements OnInit {
       uomId: [null  , [customValidators.required]],
       uomCode : null,
       conversionRatio: 1,
-      isDefault: true,
+      isDefault: false,
       isSales: true,
       isPurchase: true,
       uomNameEn : null

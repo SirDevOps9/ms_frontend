@@ -41,7 +41,7 @@
     
       <lib-fildest header="{{ 'itemsCategory.parentCategory' | translate }}" class="md:col-12">
         <div class="grid">
-          <div class="md:col-12" >
+          <div class="md:col-12" *ngIf="parent.parentCategoryId">
             <lib-form-group>
               <small >
                 {{ 'itemsCategory.parentCategory' | translate }}
@@ -57,12 +57,12 @@
               <lib-input-switch  [ngModel]="parent?.isDetailed" [disabled]="true"> </lib-input-switch>
              
           </div>
-          <div class="md:col-12">
+          <div class="md:col-12" *ngIf="parent.categoryType">
             <lib-form-group>
               <small >
               {{"itemsCategory.categoryType" | translate}}
             </small>
-            <lib-text-input  type="text" [readOnly]="true" [placeholder]="parent?.categoryType!" />
+            <lib-text-input  type="text" [readOnly]="true" [placeholder]="parent?.categoryType  ?? ''" />
 
             </lib-form-group>
           </div>
