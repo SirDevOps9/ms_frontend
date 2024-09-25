@@ -84,6 +84,8 @@
                 (valueChanged)="onParentAccountChange($event)"
               >
               </lib-select>
+              <lib-field-validations [appControl]="formGroup.controls['categoryType']">
+              </lib-field-validations>
             </lib-form-group>
           </div>
         </div>

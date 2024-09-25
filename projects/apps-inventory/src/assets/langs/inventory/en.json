@@ -173,6 +173,7 @@
         "title" : "Items Category",
         "Configration" : "Configuration",
         "import" : "Import",
+        "name" : "Name",
         "edit" : "Edit",
         "save" : "Save",
         "cancel" : "Cancel",
