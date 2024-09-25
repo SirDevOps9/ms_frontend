@@ -56,6 +56,12 @@
             >
               {{ journalView?.sourceName || 'N/A'  }}
             </p>
+            <p
+              class="subHead paragraph_b16 pragraph_demd code"
+              *ngIf="!journalView?.sourceCode"
+            >
+              {{ 'N/A'  }}
+            </p>
         </div>
         <div class="col-12 md:col-3">
             <p class="headsCont heading_b16">{{ 'viewJournal.description' | translate }}</p>

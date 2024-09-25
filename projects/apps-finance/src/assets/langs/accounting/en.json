@@ -170,7 +170,7 @@
     "Name": "Name",
     "Account": "Account",
     "Search": "Search",
-    "AddNew": "Add",
+    "AddNew": "Create",
     "Export": "Export",
     "CannotEditTaxGroupUsedInTransactions": "Cannot Edit Tax Group Used In Transactions",
     "CannotDeleteTaxUsedInTransactions": "Cannot Delete Tax Used In Transactions",
@@ -216,7 +216,7 @@
     "balance": "Current Balance",
     "actions": "Actions",
     "Search": "Search",
-    "AddNew": "Add",
+    "AddNew": "Create",
     "Export": "Export",
     "branches": "branches",
     "code": "Code",
@@ -225,7 +225,7 @@
     "accountOpeningBalance": "Account Opening  Balance",
     "discard": "Discard",
     "save": "Save",
-    "addTreasury": "Add ",
+    "addTreasury": "Create",
     "editTreasury": "Edit",
     "treasuryList": "Treasury List",
     "confirm": "the opening balance of journal not equal treasury opening balance, do you want to Continue ?",
@@ -252,7 +252,7 @@
     "name": "Name",
     "term-type": "Term Type",
     "Search": "Search",
-    "AddNew": "Add",
+    "AddNew": "Create",
     "edit": "Edit",
     "delete": "Delete",
     "save": "Save",
@@ -279,7 +279,7 @@
   "bank": {
     "actions": "Actions",
     "Search": "Search",
-    "AddNew": "Add",
+    "AddNew": "Create",
     "Export": "Export",
     "branches": "branches",
     "code": "Code",
@@ -338,7 +338,7 @@
     "PaymentPlace": "Payment Place",
     "PaymentMethodType": "Payment Method Type",
     "Search": "Search",
-    "AddNew": "Add"
+    "AddNew": "Create"
   },
   "add-paymentMethod": {
     "title": "Add Payment Method",
@@ -370,7 +370,7 @@
     "relatedSourceJournal": "Related Source Journal",
     "actions": "Actions",
     "Search": "Search",
-    "addNew": "Add",
+    "addNew": "Create",
     "delete": "Payment In Deleted Successfully",
     "post": "post"
   },

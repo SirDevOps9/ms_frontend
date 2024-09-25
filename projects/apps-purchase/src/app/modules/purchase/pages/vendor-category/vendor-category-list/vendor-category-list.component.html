@@ -81,7 +81,8 @@
             <lib-export (exportClick)="exportVendorCategoriesData($event)" [exportData]="exportData"
               [exportColumns]="exportColumns" [ExportName]="'Vendor Cateogries'">
             </lib-export>
-            <lib-button-micro nameClass="save" [title]="'vendorCategory.Add' | translate" (click)="routeToAdd()">
+            <lib-button-micro nameClass="save" [title]="'vendorCategory.Add' | translate" (click)="routeToAdd()"[iconName]="'pi pi-plus'"
+            >
             </lib-button-micro>
           </div>
         </ng-container>

@@ -7,6 +7,8 @@
         .pop_up_header{
             width: 100%;
             background-image: url('../../../assets/images/pop-header.png');
+            background-size: cover;
+
             .header_content{
             width: 100%;
             padding: 24px;
@@ -163,7 +165,8 @@
        }
 }
 .cancel {
-    background: url('../../../assets/images/close.svg');
+    background: url('../../../assets/images/Close.png');
+    background-repeat: no-repeat;
     cursor: pointer;
     font-size: 15px;
     font-weight: 700;

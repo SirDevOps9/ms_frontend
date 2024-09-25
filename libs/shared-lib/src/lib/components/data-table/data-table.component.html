@@ -43,7 +43,9 @@
                 ></p-paginator>
               </div>
 
-              <lib-button-micro *ngIf="sequence" nameClass="sequence" (click)="routeToSequence()">
+              <lib-button-micro *ngIf="sequence"
+               nameClass="sequence"
+              (click)="routeToSequence()">
               </lib-button-micro>
               <ng-content select="[action]"></ng-content>
             </div>
