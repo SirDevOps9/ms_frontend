@@ -16,7 +16,6 @@ import {
 import { AccountDto, BankAccount, BankPaymentMethods, costCenters, CustomerDropDown, PaidByDropDown, paymentplace, paymentplaceString, SharedFinanceTranscationEnums, SimpleDropDown, TreasuriesPaymentMethod, TreasuryDropDown, VendorDropDown } from '../../../models';
 import { CurrencyDto } from '../../../../general/models';
 import { DatePipe } from '@angular/common';
-import { Title } from '@angular/platform-browser';
 import { TranscationsService } from '../../../transcations.service';
 import { PaymentMethodComponent } from '../../../components/paymentin/payment-method/payment-method.component';
 import { PopupAccountsComponent } from '../../../components/paymentin/popup-accounts/popup-accounts.component';

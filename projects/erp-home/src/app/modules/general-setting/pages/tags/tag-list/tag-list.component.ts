@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {
   lookupDto,
-  LanguageService,
   MenuModule,
   PageInfo,
   PageInfoResult,
-  RouterService,
 } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { LayoutService } from 'libs/apps-shared-lib/src/lib/modules/layout/layout.service';
@@ -13,8 +11,6 @@ import { GeneralSettingService } from '../../../general-setting.service';
 import { ExportTagDto, TagDto } from '../../../models';
 import { TagEditComponent } from '../../../components/tag-edit/tag-edit.component';
 import { TagAddComponent } from '../../../components/tag-add/tag-add.component';
-import { Title } from '@angular/platform-browser';
-
 @Component({
   selector: 'app-tag-list',
   templateUrl: './tag-list.component.html',
