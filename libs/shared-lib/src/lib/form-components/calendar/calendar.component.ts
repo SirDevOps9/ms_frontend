@@ -22,23 +22,18 @@ export class CalendarComponent implements ControlValueAccessor {
   onTouched = () => {};
 
   constructor(@Self() @Optional() public controlDir: NgControl) {
-    
     if (this.controlDir) {
       this.controlDir.valueAccessor = this;
     }
   }
 
   writeValue(value: Date): void {
-    
     if (value) {
-      console.log(value);
       this.value = this.convert_to_local_date(value);
-      
     }
   }
 
   registerOnChange(fn: any): void {
-    
     this.onChange = fn;
   }
 
@@ -51,18 +46,15 @@ export class CalendarComponent implements ControlValueAccessor {
   }
 
   handleDateChange(event: any): void {
-    
-  const parsedDate = new Date(event); 
+    const parsedDate = new Date(event);
     const localDate = this.convert_to_local_date(parsedDate);
     this.value = localDate;
     this.onChange(this.value);
     this.onTouched();
     this.valueChanged.emit(localDate);
-    
   }
 
   ngAfterViewInit() {
-    
     if (this.controlDir) {
       setTimeout(() => {
         this.labelTest = this.controlDir.name;
@@ -70,13 +62,11 @@ export class CalendarComponent implements ControlValueAccessor {
     }
   }
 
-  convert_to_local_date(date: Date){
+  convert_to_local_date(date: Date) {
     // debugger;
     const currentDate = new Date(date);
     currentDate.setMinutes(currentDate.getMinutes() - currentDate.getTimezoneOffset());
-    
+
     return currentDate;
   }
-
-  
 }
