@@ -146,7 +146,8 @@ export class CreateJournalEntryComponent {
     private attachmentService: AttachmentsService,
     private currentUserService: CurrentUserService,
     public generalService: GeneralService,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
+    private languageService: LanguageService
   ) {
     this.fg = this.fb.group({
       refrenceNumber: [null, [customValidators.required, customValidators.length(0, 15)]],
@@ -393,8 +394,18 @@ export class CreateJournalEntryComponent {
       })),
     };
     this.service
-      .addJournalEntry(obj)
-      .subscribe((r) => this.routerService.navigateTo('transcations/journalentry'));
+    .addJournalEntry(obj)
+    .subscribe({
+      next: (r) => {
+        this.routerService.navigateTo('transactions/journalentry');
+      },
+      error:  (error)  => {
+        this.toasterService.showError(
+          this.languageService.transalte('Error'),
+          this.languageService.transalte(error.message)
+        );
+      }
+    });
   }
 
   routeToJournal() {
