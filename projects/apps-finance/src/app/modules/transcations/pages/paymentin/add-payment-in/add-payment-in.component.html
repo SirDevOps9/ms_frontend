@@ -1,48 +1,56 @@
 <lib-page-content>
-    <form [formGroup]="addForm">
-      <div class="grid m-0">
-        <div class="md:col-4">
-          <lib-form-group>
-            <lib-label [appControl]="addForm.controls['code']">
-              {{ 'PaymentIn.Form.Code' | translate }}
-            </lib-label>
-            <lib-text-input type="text" formControlName="code" [readOnly]="true"
-              [placeholder]="'PaymentIn.Form.PlaceholderCode' | translate" />
-          </lib-form-group>
-        </div>
-  
-        <div class="md:col-4">
-          <lib-form-group>
-            <lib-label [appControl]="addForm.controls['PaymentInDate']">
-              {{ 'PaymentIn.Form.Date' | translate }}
-            </lib-label>
-            <lib-calendar formControlName="PaymentInDate" [placeholder]="PaymentInDate"></lib-calendar>
-            <lib-field-validations [appControl]="addForm.controls['PaymentInDate']">
-            </lib-field-validations>
-          </lib-form-group>
-        </div>
-  
-        <div class="md:col-4">
-          <lib-form-group>
-            <lib-label [appControl]="addForm.controls['description']">
-              {{ 'PaymentIn.Form.Description' | translate }}
-            </lib-label>
-            <lib-text-input type="text" formControlName="description"
-              [placeholder]="'PaymentIn.Form.PlaceholderDescription' | translate" />
-            <lib-field-validations [appControl]="addForm.controls['description']">
-            </lib-field-validations>
-          </lib-form-group>
-        </div>
-        <div class="col-12">
-  
-          <div class="grid">
-  
-            <div class="md:col-4">
-              <lib-form-group>
-                <lib-label [appControl]="addForm.controls['paymentHub']">
-                  {{ 'PaymentIn.Form.PaymentHub' | translate }}
-                </lib-label>
-                <lib-select 
+  <form [formGroup]="addForm">
+    <div class="grid m-0">
+      <div class="md:col-4">
+        <lib-form-group>
+          <lib-label [appControl]="addForm.controls['code']">
+            {{ 'PaymentIn.Form.Code' | translate }}
+          </lib-label>
+          <lib-text-input
+            type="text"
+            formControlName="code"
+            [readOnly]="true"
+            [placeholder]="'PaymentIn.Form.PlaceholderCode' | translate"
+          />
+        </lib-form-group>
+      </div>
+
+      <div class="md:col-4">
+        <lib-form-group>
+          <lib-label [appControl]="addForm.controls['PaymentInDate']">
+            {{ 'PaymentIn.Form.Date' | translate }}
+          </lib-label>
+          <lib-calendar
+            formControlName="PaymentInDate"
+            [placeholder]="PaymentInDate"
+          ></lib-calendar>
+          <lib-field-validations [appControl]="addForm.controls['PaymentInDate']">
+          </lib-field-validations>
+        </lib-form-group>
+      </div>
+
+      <div class="md:col-4">
+        <lib-form-group>
+          <lib-label [appControl]="addForm.controls['description']">
+            {{ 'PaymentIn.Form.Description' | translate }}
+          </lib-label>
+          <lib-text-input
+            type="text"
+            formControlName="description"
+            [placeholder]="'PaymentIn.Form.PlaceholderDescription' | translate"
+          />
+          <lib-field-validations [appControl]="addForm.controls['description']">
+          </lib-field-validations>
+        </lib-form-group>
+      </div>
+      <div class="col-12">
+        <div class="grid">
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="addForm.controls['paymentHub']">
+                {{ 'PaymentIn.Form.PaymentHub' | translate }}
+              </lib-label>
+              <lib-select
                 formControlName="paymentHub"
                  [options]="lookups[LookupEnum.PaymentPlace]"
                   [selectedValue]="addForm.controls['paymentHub'].value"
@@ -372,31 +380,46 @@
   
             </lib-button-micro>
             </div>
-            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="btn_group">
-      <div class="grid">
-        <div class="md:col-3">
-          <div class="grid">
-            <div class="md:col-6">
-              <lib-button-micro title="{{ 'Cancel' | translate }}" nameClass="cancel" widthNumber="100%" (click)="cancel()">
+  </div>
+  <div class="btn_group">
+    <div class="grid">
+      <div class="md:col-3">
+        <div class="grid">
+          <div class="md:col-6">
+            <lib-button-micro
+              title="{{ 'Cancel' | translate }}"
+              nameClass="cancel"
+              widthNumber="100%"
+              (click)="cancel()"
+            >
+            </lib-button-micro>
+          </div>
+          <div class="md:col-6">
+            <div *ngIf="!post">
+              <lib-button-micro
+                title="{{ 'Save' | translate }}"
+                nameClass="save"
+                widthNumber="100%"
+                (click)="save()"
+              >
               </lib-button-micro>
             </div>
-            <div class="md:col-6">
-              <div *ngIf="!post">
-                <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%" (click)="save()">
-                </lib-button-micro>
-              </div>
-              <div *ngIf="post">
-                <lib-button-micro title="{{ 'Post' | translate }}" nameClass="save" widthNumber="100%" (click)="addToPost()">
-                </lib-button-micro>
-              </div>
+            <div *ngIf="post">
+              <lib-button-micro
+                title="{{ 'Post' | translate }}"
+                nameClass="save"
+                widthNumber="100%"
+                (click)="addToPost()"
+              >
+              </lib-button-micro>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </lib-page-content>
+  </div>
+</lib-page-content>

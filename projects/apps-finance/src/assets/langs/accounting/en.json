@@ -265,7 +265,7 @@
     "discard": "Discard"
   },
   "add-paymentterm": {
-    "dueTermValue": "Due Term Value",
+    "dueTermValue": "Due Term Percent",
     "afterValue": "After Value",
     "afterPeriod": "After Period",
     "note": "Note",
@@ -395,7 +395,6 @@
     "costCenterConfig": "Cost Center Config",
     "notes": "Notes",
     "PaymentMethod": "Payment Method",
-    "status":"Status"
-
+    "status": "Status"
   }
 }

@@ -5,6 +5,7 @@
         [items]="tableData"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
+        (addNew)="routeToAdd()"
         (pageChange)="onPageChange($event)"
         [tableConfigs]="{
             allowPagination: false,
@@ -58,48 +59,37 @@
              ]
           }"
       >
-
-      <ng-container search>
-        <lib-text-input
-        type="text"
-        [placeholder]="'vendorDefinition.Search' | translate"
-        (keyUp)="onSearchChange($event)"
-        [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
-      >
-      </lib-text-input>
-      </ng-container>
-      <ng-container action>
-        <lib-export
-        (exportClick)="exportVendorsData($event)"
-        [exportData]="exportData"
-        [exportColumns]="exportColumns"
-        [ExportName]="'Vendors'"
-      >
-      </lib-export>
+        <ng-container search>
+          <lib-text-input
+            type="text"
+            [placeholder]="'vendorDefinition.Search' | translate"
+            (keyUp)="onSearchChange($event)"
+            [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+          >
+          </lib-text-input>
+        </ng-container>
+        <ng-container action>
+          <lib-export
+            (exportClick)="exportVendorsData($event)"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Vendors'"
+          >
+          </lib-export>
           <lib-button-micro
-          nameClass="save"
-          [title]="'vendorCategory.Add' | translate"
-          [iconName]="'pi pi-plus'"
-
-          (click)="routeToAdd()"
-        >
-        </lib-button-micro>
-      
-      </ng-container>
-
-       
+            nameClass="save"
+            [title]="'vendorCategory.Add' | translate"
+            [iconName]="'pi pi-plus'"
+            (click)="routeToAdd()"
+          >
+          </lib-button-micro>
+        </ng-container>
 
         <ng-template #actions let-actions>
           <div class="actions flex align-items-center">
-            <lib-button-micro
-            nameClass="table_button_edit"
-            (click)="routeToEdit(actions.id)" >
-
+            <lib-button-micro nameClass="table_button_edit" (click)="routeToEdit(actions.id)">
             </lib-button-micro>
-            <lib-button-micro
-            nameClass="table_button_delete"
-            (click)="onDelete(actions.id)"
-            >
+            <lib-button-micro nameClass="table_button_delete" (click)="onDelete(actions.id)">
             </lib-button-micro>
           </div>
         </ng-template>

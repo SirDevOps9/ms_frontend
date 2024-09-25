@@ -567,7 +567,7 @@
     "AddNew": "Create",
     "Search": "Search",
     "Actions": "Actions",
-    "CannotDeleteTaxGroupUsedInTransactions":"Cannot Delete TaxGroup Used in Transactions",
+    "CannotDeleteTaxGroupUsedInTransactions": "Cannot Delete TaxGroup Used in Transactions",
     "Add": {
       "AddTaxGroup": "Create",
       "Code": "Code",
@@ -607,6 +607,7 @@
     "Search": "Search",
     "AddNew": "Create",
     "Export": "Export",
+    "Error": "Error",
     "CannotEditTaxGroupUsedInTransactions": "Cannot Edit Tax Group Used In Transactions",
     "CannotDeleteTaxUsedInTransactions": "Cannot Delete Tax Used In Transactions",
     "UpdatedSuccessfully": "Tax Updated Successfully",
