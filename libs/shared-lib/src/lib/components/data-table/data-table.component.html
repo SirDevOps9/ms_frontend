@@ -300,6 +300,17 @@
       </ng-container>
     </div>
   </div>
+  <div
+  *ngIf="tableConfigs.allowServerPagination && currentPageResult.totalItems"
+  class="flex justify-content-end custom-paginator"
+  [class.none]="currentPageResult.totalItems! <= 25"
+>
+  <lib-table-paginator
+    (pageChange)="onPageChange($event)"
+    [totalRecords]="currentPageResult.totalItems!"
+    [rows]="currentPageResult.pageSize!"
+  ></lib-table-paginator>
+</div>
 </div>
 
 <div class="viewInMob" *ngIf="false">
@@ -341,8 +352,7 @@
     </div>
     <span></span>
   </div>
-</div>
-<div
+  <div
   *ngIf="tableConfigs.allowServerPagination && currentPageResult.totalItems"
   class="flex justify-content-end custom-paginator"
   [class.none]="currentPageResult.totalItems! <= 25"
@@ -353,3 +363,5 @@
     [rows]="currentPageResult.pageSize!"
   ></lib-table-paginator>
 </div>
+</div>
+

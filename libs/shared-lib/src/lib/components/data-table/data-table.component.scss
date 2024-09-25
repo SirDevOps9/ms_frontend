@@ -78,7 +78,11 @@ span {
 }
 
 .viewInWeb {
-  padding-top: 16px;
+  margin-top: 16px;
+  background: #fff;
+  padding: 16px;
+  border-radius: 16px;
+  // padding-top: 16px;
 }
 
 .viewInMob {
@@ -146,8 +150,7 @@ span {
             text-align: center;
           }
           td:has(img) {
-            display: flex;
-            justify-content: center;
+           text-align: center;
           }
         }
       }
@@ -252,6 +255,9 @@ span {
     height: fit-content;
     cursor: pointer;
   }
+ 
+
+
 }
 
 // .p-datatable-wrapper{

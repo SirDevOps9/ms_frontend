@@ -1,5 +1,6 @@
 <lib-page-content>
   <div class="user_page group">
+    <div class="card_micro">
     <form [formGroup]="reportForm">
 
 
@@ -60,6 +61,7 @@
         </div>
       </div>
     </form>
+    </div>
     <lib-data-table
       *ngIf="tableData"
       id="printableTable"
