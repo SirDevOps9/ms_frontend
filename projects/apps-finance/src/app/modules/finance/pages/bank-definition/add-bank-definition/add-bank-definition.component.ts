@@ -89,6 +89,9 @@ export class AddBankDefinitionComponent implements OnInit {
         this.bankForm.at(index)?.get('accountName')?.setValue(r.name);
         this.bankForm.at(index)?.get('displayName')?.setValue(r.accountCode);
         this.bankForm.at(index)?.get('currencyId')?.setValue(r.currencyId);
+        let data: any = this.currenciesList.find((item) => item.id == r.currencyId);
+        this.bankForm.at(index)?.get('currencyName')?.setValue(data.name);
+
         this.GetAccountOpeningBalance(r.id, index);
       }
     });
