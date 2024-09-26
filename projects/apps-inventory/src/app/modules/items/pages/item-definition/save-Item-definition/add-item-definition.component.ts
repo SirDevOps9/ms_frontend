@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ItemsService } from '../../../items.service';
 import { ViewQRcodeComponent } from '../../../components/view-qrcode/view-qrcode.component';
 import { UomCodeLookup, UomDefault } from '../../../models';
-import { AddUom } from '../../../models/addUom';
+import { AddUom, ItemUom } from '../../../models/addUom';
 
 function uomIdUniqueValidator(formArray: AbstractControl): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -192,6 +192,14 @@ export class AddItemDefinitionComponent implements OnInit {
     this.itemService.GetItemByIDObs.subscribe(res=>{
         this.itemDefinitionForm.patchValue({...res})
 
+        console.log(res)
+
+        // setTimeout(() => {
+        //   this.itemDefinitionForm.get('defaultUOMCategoryId')?.setValue(res.uomId)
+
+        // }, 1000);
+
+
       if(res.uomId) {
         this.getUomDropDown(res.uomId)
         this.uomCodeDropDown(res.uomId)
@@ -218,6 +226,8 @@ export class AddItemDefinitionComponent implements OnInit {
     this.itemService.getUomDropDownByUomCategory(id)
     this.itemService.UOMDropDownLookupByUomCategoryObs.subscribe(res=>{
       this.uomLookup = res
+
+     
     })
   }
   UOMCategoryDropDownData() {
@@ -255,14 +265,22 @@ export class AddItemDefinitionComponent implements OnInit {
   }
 
   uomCategoryChanged(e : any) {
+    this.UOMForm.clear()
     this.uomCodeDropDown(e)
     this.getUomDropDown(e)
   }
   uomCodeLookupChanged(e:any , itemDefitionForm : FormGroup) {
     this.getCodeByuomCodeDropDown(e  , itemDefitionForm)
     let data : any=  this.uomCodeLookup.find((elem : any)=>elem.id == e)
+    // let defaultUnit =  this.UOMCategoryDropDown.find(elem=>elem.isDefault)
+    //   console.log(defaultUnit?.id)
 
+        // this.itemDefinitionForm.get('uomId')?.setValue(defaultUnit?.id)
+        console.log(itemDefitionForm.controls['conversionRatio'].value)
+        console.log(data)
+        console.log(data)
     itemDefitionForm.controls['uomNameEn'].setValue(data?.name)
+    itemDefitionForm.controls['isDefault'].value == true ? 1 : itemDefitionForm.controls['conversionRatio'].setValue(data?.conversionRatio)
 
   }
   // end point
@@ -282,6 +300,7 @@ export class AddItemDefinitionComponent implements OnInit {
     this.itemService.getCodeByuomCodeDropDown(id)
     this.itemService.codeByuomCodeDropDownObs.subscribe(res=>{
       itemDefitionForm.controls['uomCode'].setValue(res?.code)
+
     })
   }
   getTrackingDropDown() {
@@ -292,24 +311,31 @@ export class AddItemDefinitionComponent implements OnInit {
   }
 
   createUomFormGroup(): FormGroup {
-    
+    const defaultUom = this.uomCodeLookup.find((elem) => elem.isDefault);
+  
     const uomData = this.fb.group({
-      id:0,
-      itemId: this.id,
-      uomId: [null  , [customValidators.required]],
-      uomCode : null,
-      conversionRatio: 1,
-      isDefault: false,
-      isSales: true,
-      isPurchase: true,
-      uomNameEn : null
+      id: [0],
+      itemId: [this.id],
+      uomId: [this.UOMForm.value.length < 1 ? defaultUom?.id : null, [customValidators.required, uomIdUniqueValidator(this.UOMForm)]],
+      uomCode: [null],
+      conversionRatio: [0],
+      isDefault: [false],
+      isSales: [true],
+      isPurchase: [true],
+      uomNameEn: [this.UOMForm.value.length < 1 ? defaultUom?.name : null],
     });
-
-    uomData.controls['uomId'].setValidators([uomIdUniqueValidator(this.UOMForm)]);
-
-    return uomData
-    
+  
+    // Set conversion ratio based on isDefault flag
+    const conversion = defaultUom?.conversionRatio;
+    if (uomData.get('isDefault')?.value === true) {
+      uomData.get('conversionRatio')?.setValue(1);
+    } else {
+      uomData.get('conversionRatio')?.setValue(conversion ?? null);
+    }
+  
+    return uomData;
   }
+  
   createbarcodeFormGroup(): FormGroup {
     return this.fb.group({
       id : null ,
@@ -522,18 +548,18 @@ export class AddItemDefinitionComponent implements OnInit {
   }
   addUOM(itemDefGroup : FormGroup) {
 
-    if (!this.formService.validForm(this.UOMForm, false)) return;
+    // if (!this.formService.validForm(this.UOMForm, false)) return;
 
-    let data : AddUom = {
-      id: itemDefGroup.get('id')?.value,
-      itemId: itemDefGroup.get('itemId')?.value,
-      uomId: itemDefGroup.get('uomId')?.value,
-      conversionRatio: itemDefGroup.get('conversionRatio')?.value,
-      isDefault: itemDefGroup.get('isDefault')?.value,
-      isSales: itemDefGroup.get('isSales')?.value,
-      isPurchase: itemDefGroup.get('isPurchase')?.value,
-    }
-     this.itemService.addUOM(data)
+    // let data : AddUom = {
+    //   id: itemDefGroup.get('id')?.value,
+    //   itemId: itemDefGroup.get('itemId')?.value,
+    //   uomId: itemDefGroup.get('uomId')?.value,
+    //   conversionRatio: itemDefGroup.get('conversionRatio')?.value,
+    //   isDefault: itemDefGroup.get('isDefault')?.value,
+    //   isSales: itemDefGroup.get('isSales')?.value,
+    //   isPurchase: itemDefGroup.get('isPurchase')?.value,
+    // }
+    //  this.itemService.addUOM(data)
      
   }
   openQRcode(barcode:string) {
@@ -569,6 +595,32 @@ export class AddItemDefinitionComponent implements OnInit {
 
   generateVariant() {
     this.itemService.generateVariant({itemId:this.id})
+  }
+
+  saveUom() {
+    if (!this.formService.validForm(this.UOMForm, false)) return;
+
+    let data = this.UOMForm.value.map((elem: ItemUom) => {
+      return {
+        itemId: this.id,  // Assuming this.id is available
+        uomId: elem.uomId,
+        conversionRatio: elem.conversionRatio,
+        isDefault: elem.isDefault,
+        isSales: elem.isSales,
+        isPurchase: elem.isPurchase
+      };
+    });
+
+    // let data : AddUom = {
+    //   id: itemDefGroup.get('id')?.value,
+    //   itemId: itemDefGroup.get('itemId')?.value,
+    //   uomId: itemDefGroup.get('uomId')?.value,
+    //   conversionRatio: itemDefGroup.get('conversionRatio')?.value,
+    //   isDefault: itemDefGroup.get('isDefault')?.value,
+    //   isSales: itemDefGroup.get('isSales')?.value,
+    //   isPurchase: itemDefGroup.get('isPurchase')?.value,
+    // }
+     this.itemService.addUOM({itemUOMs : data})
   }
 
   onSave() {

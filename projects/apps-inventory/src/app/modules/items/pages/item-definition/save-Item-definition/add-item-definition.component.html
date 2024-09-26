@@ -289,7 +289,6 @@
                         <th>{{ 'itemType.selectUom' | translate }}</th>
                         <th>{{ 'itemType.pusrchaseUom' | translate }}</th>
 
-                        <th>{{ 'itemType.actions' | translate }}</th>
                       </tr>
                     </ng-template>
                     <ng-template
@@ -314,13 +313,14 @@
                                       formControlName="uomId"
                                       placeholder="{{ 'itemType.uomName' | translate }}"
                                       (valueChanged)="uomCodeLookupChanged($event , itemDefGroup)"
+                                      [selectedValue]="itemDefGroup.controls['uomId'].value"
                                     >
                                     </lib-select>
                                   </lib-form-group>
                                 </div>
                               </ng-template>
                               <ng-template pTemplate="output">
-                                {{ itemDefGroup.controls['uomNameEn'].value }}
+                                {{ itemDefGroup.controls['uomNameEn'].value ?? ('itemType.select' | translate) }}
                               </ng-template>
                             </p-cellEditor>
                             <lib-field-validations
@@ -342,7 +342,7 @@
                     ></lib-text-input>
                       </td>
                         <td>
-                          <lib-input-switch formControlName="isDefault" [disabled]="UOMForm.value?.length == 1" (valueChanged)="defualtChanged($event ,itemDefGroup )"></lib-input-switch>
+                          <lib-input-switch formControlName="isDefault"  (valueChanged)="defualtChanged($event ,itemDefGroup )"></lib-input-switch>
                         </td>
                         <!--  -->
 
@@ -416,14 +416,18 @@
                           ></lib-field-validations>
                         </td>
                         <!--  -->
-                        <td>
-                          <i class="pi pi-save pointer" (click)="addUOM(itemDefGroup)" [class.none]="itemDefGroup.controls['id']?.value"></i>
-                        </td>
+                       
                       </tr>
                     </ng-template>
                   </p-table>
                 </div>
               </lib-fildest>
+            </div>
+            <div class="add_new my-2 flex justify-content-end gap-2">
+
+              <lib-button (onClick)="saveUom()" className="outline-primary">
+                {{ 'itemType.saveUom' | translate }}
+              </lib-button>
             </div>
           </p-tabPanel>
           <p-tabPanel header="{{ 'itemType.attributes' | translate }}">

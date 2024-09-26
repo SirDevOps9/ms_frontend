@@ -201,8 +201,18 @@ getWarehouseById() {
   onSubmit() {
     if (!this.formService.validForm(this.warehouseForm, false)) return;
 
-    console.log(this.warehouseForm.getRawValue())
-    this.itemsService.editWarehouse(this.warehouseForm.getRawValue())
+    let warehouseData = this.warehouseForm.getRawValue();
+
+    // Safely check for addressWarehouse
+    if (!!warehouseData.addressWarehouse  ) {
+      warehouseData.addressWarehouse = null;
+    }
+    
+    // Safely check for warehouseAccount
+    if (!!warehouseData.warehouseAccount ) {
+      warehouseData.warehouseAccount = null;
+    }
+    this.itemsService.editWarehouse(warehouseData)
    
   }
   onCancel() {
