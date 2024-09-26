@@ -300,7 +300,7 @@
     </div>
   </div>
   <div
-  *ngIf="tableConfigs.allowServerPagination && currentPageResult.totalItems"
+  *ngIf="tableConfigs.allowServerPagination && currentPageResult?.totalItems"
   class="flex justify-content-end custom-paginator"
   [class.none]="currentPageResult.totalItems! <= 25"
 >
@@ -352,7 +352,7 @@
     <span></span>
   </div>
   <div
-  *ngIf="tableConfigs.allowServerPagination && currentPageResult.totalItems"
+  *ngIf="tableConfigs.allowServerPagination && currentPageResult?.totalItems"
   class="flex justify-content-end custom-paginator"
   [class.none]="currentPageResult.totalItems! <= 25"
 >
