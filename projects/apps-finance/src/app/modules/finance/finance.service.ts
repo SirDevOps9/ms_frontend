@@ -107,6 +107,10 @@ export class FinanceService {
   getTreasureDefinitionsByIdData(id : number)  {
    return this.financeProxy.getTreasureDefinitionsById(id)
   }
+  getTreasureDefinitionsView(id : number)  {
+    return this.financeProxy.getTreasureDefinitionsView(id)
+   }
+ 
 
 
   EditTreasureDefinitionsById(model: EditTreasuryDto, dialogRef: DynamicDialogRef)  {
@@ -571,4 +575,8 @@ export class FinanceService {
       }
     })
   }
+
+  viewBank(id : number)  {
+    return this.financeProxy.viewBank(id)
+   }
 }

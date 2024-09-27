@@ -16,6 +16,7 @@ import { EditTreasuryComponent } from '../../../components/edit-treasury/edit-tr
 import { TaxDto } from '../../../../general/models';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { ViewTreasuryComponent } from '../../../components/view-treasury/view-treasury.component';
 
 @Component({
   selector: 'app-treaury-definition-list',
@@ -136,6 +137,15 @@ export class TreauryDefinitionListComponent implements OnInit {
     });
     dialogRef.onClose.subscribe(() => {
       this.initTreasurData();
+    });
+  }
+
+  view(id: number) {
+    console.log('view',id)
+    const dialogRef = this.dialog.open(ViewTreasuryComponent, {
+      width: '600px',
+      height: '600px',
+      data: id,
     });
   }
 
