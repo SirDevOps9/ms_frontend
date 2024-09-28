@@ -8,7 +8,8 @@
     "TreasuryStatement": "بيان الخزانة",
     "ViewPaymentIn": "عرض قبض",
     "ViewPaymentout": "عرض صرف",
-    "ViewBankDefination":"عرض تعريف البنك"
+    "ViewBankDefination":"عرض تعريف البنك",
+    "ViewPaymentTerm": "عرض شروط الدفع"
 
 
   },

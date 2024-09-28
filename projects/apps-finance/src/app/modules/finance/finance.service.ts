@@ -579,4 +579,8 @@ export class FinanceService {
   viewBank(id : number)  {
     return this.financeProxy.viewBank(id)
    }
+
+   viewPaymentTerm(id : number)  {
+    return this.financeProxy.viewPaymentTerm(id)
+   }
 }

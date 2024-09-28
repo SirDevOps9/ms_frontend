@@ -88,6 +88,9 @@ export class PaymentTermListComponent implements OnInit {
   onEdit(data: any) {
     this.routerService.navigateTo(`/masterdata/paymentterm/edit-payment-term/${data.id}`);
   }
+  view(id: any) {
+    this.routerService.navigateTo(`/masterdata/paymentterm/view-payment-term/${id}`);
+  }
 
   onSearchChange() {
     this.financeService.getAllPaymentTerm(this.searchTerm, new PageInfo());

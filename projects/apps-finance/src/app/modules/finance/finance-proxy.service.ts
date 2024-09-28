@@ -276,4 +276,8 @@ export class FinanceProxyService {
   viewBank(id: number): Observable<ViewBankDto> {
     return this.httpService.get(`Bank/View/${id}`);
   }
+
+  viewPaymentTerm(id: number): Observable<GetPaymentTermById> {
+    return this.httpService.get(`PaymentTerms/View/${id}`);
+  }
 }

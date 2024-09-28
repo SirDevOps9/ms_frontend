@@ -25,6 +25,7 @@ import { EditPaymentMethodComponent } from './pages/payment-method/edit-payment-
 import { ViewPaymentMethodComponent } from './pages/payment-method/view-payment-method/view-payment-method.component';
 import { MainPaymentMethodComponent } from './pages/payment-method/main-payment-method/main-payment-method.component';
 import { ViewBankDefinitionComponent } from './pages/bank-definition/view-bank-definition/view-bank-definition.component';
+import { ViewPaymentTermComponent } from './pages/payment-term/view-payment-term/view-payment-term.component';
 
 const routes: Routes = [
   {
@@ -138,6 +139,15 @@ const routes: Routes = [
 
             },
           },
+          {
+            path: 'view-payment-term/:id',
+            component: ViewPaymentTermComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VIEW_PAYMENT_TERM,
+              pageTitle: BreadcrumbLabel.VIEW_PAYMENT_TERM,
+
+            },
+          },
         ]
         },
       {
@@ -240,7 +250,8 @@ const routes: Routes = [
     EditPaymentMethodComponent,
     ViewPaymentMethodComponent,
     MainPaymentMethodComponent,
-    ViewBankDefinitionComponent
+    ViewBankDefinitionComponent,
+    ViewPaymentTermComponent
 
     
   ],

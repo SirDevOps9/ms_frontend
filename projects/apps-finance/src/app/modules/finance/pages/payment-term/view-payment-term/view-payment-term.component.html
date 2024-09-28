@@ -1,59 +1,24 @@
+
 <lib-page-content>
   <div class="grid">
     <div class="md:col-3 ">
-      <p class="headsCont heading_b16">{{ 'bank-view.code' | translate }}</p>
+      <p class="headsCont heading_b16">{{ 'paymentterm.code' | translate }}</p>
       <p class="subHead paragraph_b16 pragraph_demd">
         {{ ViewForm.code  || 'N/A'}}
       </p>
     </div>
     <div class="md:col-3 " >
-      <p class="headsCont heading_b16">{{ 'bank-view.name' | translate }}</p>
+      <p class="headsCont heading_b16">{{ 'paymentterm.name' | translate }}</p>
       <p class="subHead paragraph_b16 pragraph_demd">
-        {{ ViewForm.name  || 'N/A' }}
-      </p>
-    </div>
-    <div class="md:col-3 " >
-      <p class="headsCont heading_b16">{{ 'bank-view.shortName' | translate }}</p>
-      <p class="subHead paragraph_b16 pragraph_demd">
-        {{ ViewForm.shortName || 'N/A' }}
-      </p>
-    </div>
-    <div class="md:col-3 " >
-      <p class="headsCont heading_b16">{{ 'bank-view.bankAddress' | translate }}</p>
-      <p class="subHead paragraph_b16 pragraph_demd">
-        {{ ViewForm.bankAddress || 'N/A' }}
-      </p>
-    </div>
-    <div  class="md:col-3 " >
-      <p class="headsCont heading_b16 ">{{ 'bank-view.contactName' | translate }}</p>
-      <p class="subHead paragraph_b16 pragraph_demd ">
-        {{ ViewForm.contactName || 'N/A' }}
-      </p>
-    </div>
-    <div class="md:col-3 " >
-      <p class="headsCont heading_b16">{{ 'bank-view.bankEmail' | translate }}</p>
-      <p class="subHead paragraph_b16 pragraph_demd">
-        {{ ViewForm.bankEmail  || 'N/A'}}
-      </p>
-    </div>
-    <div class="md:col-3 " >
-      <p class="headsCont heading_b16">{{ 'bank-view.phone' | translate }}</p>
-      <p class="subHead paragraph_b16 pragraph_demd">
-        {{ ViewForm.phone || 'N/A' }}
-      </p>
-    </div>
-    <div class="md:col-3 " >
-      <p class="headsCont heading_b16">{{ 'bank-view.fax' | translate }}</p>
-      <p class="subHead paragraph_b16 pragraph_demd">
-        {{ ViewForm.fax || 'N/A'}}
+        {{ ViewForm.name || 'N/A' }}
       </p>
     </div>
   </div>
 
    <div class="journal_page">
     <lib-data-table
-      *ngIf="ViewForm!.bankAccounts"
-      [items]="ViewForm.bankAccounts"
+      *ngIf="ViewForm!.paymentTermLines"
+      [items]="ViewForm.paymentTermLines"
       className="p-datatable-gridlines"
       [tableConfigs]="{
           allowPagination: false,
@@ -62,44 +27,26 @@
           pageSize: 10,
           columns: [
             {
-              name: 'accountNumber',
-              headerText: 'bank-view.accountNumber' | translate,
+              name: 'dueTermValue',
+              headerText: 'add-paymentterm.dueTermValue' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'glAccountCode',
-              headerText: 'bank-view.glAccountCode' | translate,
+              name: 'afterValue',
+              headerText: 'add-paymentterm.afterValue' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'glAccountName',
-              headerText: 'bank-view.glAccountName' | translate,
+              name: 'afterPeriod',
+              headerText: 'add-paymentterm.afterPeriod' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'iban',
-              headerText: 'bank-view.iban' | translate,
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'currencyName',
-              headerText: 'bank-view.currencyName' | translate,
-              isGlobalFilter: true,
-              isSortable: true,
-            },
-            {
-              name: 'currentBalance',
-              headerText: 'bank-view.currentBalance' | translate,
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'openingBalance',
-              headerText: 'bank-view.openingBalance' | translate,
+              name: 'note',
+              headerText: 'add-paymentterm.note' | translate,
               isGlobalFilter: true,
               isSortable: true
             }
@@ -109,7 +56,7 @@
       <!-- <ng-template #method pTemplate="body" let-Line let-rowIndex="rowIndex">
         <div class="method flex align-items-center">
           <lib-button-micro
-            title="{{ 'bank-view.PaymentMethod' | translate }}"
+            title="{{ 'paymentterm.PaymentMethod' | translate }}"
             [nameClass]="
               Line.paymentMethodType == sharedFinanceEnums.paymentMethodTypeString.Cash ||
               Line.paymentMethodId == null

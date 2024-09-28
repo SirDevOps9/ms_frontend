@@ -8,7 +8,8 @@
     "ViewPaymentIn": "View Payment In",
     "ViewPaymentout": "View Payment Out",
     "TreasuryStatement": "Treasury Statement",
-    "ViewBankDefination":"View Bank Defination"
+    "ViewBankDefination":"View Bank Defination",
+    "ViewPaymentTerm":"View Payment Term"
 
   },
   "confirmation": "confirmation",
