@@ -166,7 +166,7 @@ export class AddChartComponent {
 
   onAccountSectionChange(event: any) {
     const sectionId = event;
-    if (!sectionId) return;
+    if (!sectionId) return; 
     this.accountService.getAccountTypes(sectionId);
     this.accountService.accountTypes.subscribe((typeList) => {
       this.accountTypes = typeList;

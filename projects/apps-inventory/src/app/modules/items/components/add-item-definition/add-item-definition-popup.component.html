@@ -76,6 +76,9 @@
                       optionLabel="name"
                       optionValue="id"
                       formControlName="uomId"
+                      [selectedValue]="itemDefinitionForm.controls['uomId'].value"
+                      (valueChanged)="UOMCategoryDropDownChanged($event)"
+
                     ></lib-select>
                     <lib-field-validations [appControl]="itemDefinitionForm.controls['uomId']">
                     </lib-field-validations>

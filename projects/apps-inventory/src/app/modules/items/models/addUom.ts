@@ -1,13 +1,16 @@
 export interface AddUom {
-    id: number
-    itemId: number
-    uomId: number
-    conversionRatio: number
-    isDefault: boolean
-    isSales: boolean
-    isPurchase: boolean
-  }
-  
+  itemUOMs: ItemUom[]
+}
+
+export interface ItemUom {
+  itemId: number
+  uomId: number
+  conversionRatio: number
+  isDefault: boolean
+  isSales: boolean
+  isPurchase: boolean
+}
+
   
   export interface UomPost {
     code?: string

@@ -1,32 +1,4 @@
 <lib-page-content>
-  <div class="grid">
-<div class="md:col-12 my-3 grid flex justify-content-end">
-  <div class="md:col-4 grid flex justify-content-end">
-    <div class="md:col-6">
-      <lib-button-micro
-        title="{{ 'cancel' | translate }}"
-        nameClass="cancel"
-        widthNumber="100%"
-        (click)="onCancel()"
-      
-      >
-      </lib-button-micro>
-    </div>
-    <div  class="md:col-6">
-      <lib-button-micro
-        title="{{ 'Save' | translate }}"
-        nameClass="save"
-        widthNumber="100%"
-        (click)="onSave()"
-      >
-      </lib-button-micro>
-    
-    </div>
-  </div>
-
-   
-</div>
-  </div>
 
   <div [formGroup]="itemDefinitionForm" class="itemDefinitionForm_header">
     <!-- <p class="title test">{{ 'journal_entry_header' | translate }}</p> -->
@@ -133,25 +105,34 @@
                     <lib-text-input formControlName="shortName"> </lib-text-input>
                   </lib-form-group>
                 </div>
-                <div class="md:col-4">
-                  <lib-form-group>
-                    <lib-label [appControl]="itemDefinitionForm.controls['warranty']">
-                      {{ 'itemType.warantly' | translate }} (
-                        {{ 'itemType.perMonth' | translate }} )
-                    </lib-label>
-                    <lib-text-input formControlName="warranty" type="number"></lib-text-input>
-                  </lib-form-group>
-                </div>
-                <div class="md:col-4">
-                  <lib-form-group>
-                    <lib-label [appControl]="itemDefinitionForm.controls['lifeTime']">
-                      {{ 'itemType.lifeTime' | translate }}  ( {{ 'itemType.perYear' | translate }} )
-                    </lib-label>
-                    <lib-text-input formControlName="lifeTime" type="number"></lib-text-input>
-                  </lib-form-group>
-                </div>
+                
               </div>
             </lib-fildest>
+
+            <lib-fildest header="{{ 'itemType.warantlyPeriod' | translate }}" >
+              <div class="grid">
+
+              <div class="md:col-6">
+                <lib-form-group>
+                  <lib-label [appControl]="itemDefinitionForm.controls['warranty']">
+                    {{ 'itemType.warantly' | translate }} (
+                      {{ 'itemType.perMonth' | translate }} )
+                  </lib-label>
+                  <lib-text-input formControlName="warranty" type="number"></lib-text-input>
+                </lib-form-group>
+              </div>
+              <div class="md:col-6">
+                <lib-form-group>
+                  <lib-label [appControl]="itemDefinitionForm.controls['lifeTime']">
+                    {{ 'itemType.lifeTime' | translate }}  ( {{ 'itemType.perYear' | translate }} )
+                  </lib-label>
+                  <lib-text-input formControlName="lifeTime" type="number"></lib-text-input>
+                </lib-form-group>
+              </div>
+              </div>
+            </lib-fildest>
+   
+         
             <div class="md:col-12 grid">
               <div class="md:col-6">
                 <lib-fildest header="{{ 'itemType.countryOfOrigin' | translate }}" class="md:col-6">
@@ -308,7 +289,6 @@
                         <th>{{ 'itemType.selectUom' | translate }}</th>
                         <th>{{ 'itemType.pusrchaseUom' | translate }}</th>
 
-                        <th>{{ 'itemType.actions' | translate }}</th>
                       </tr>
                     </ng-template>
                     <ng-template
@@ -333,18 +313,22 @@
                                       formControlName="uomId"
                                       placeholder="{{ 'itemType.uomName' | translate }}"
                                       (valueChanged)="uomCodeLookupChanged($event , itemDefGroup)"
+                                      [selectedValue]="itemDefGroup.controls['uomId'].value"
                                     >
                                     </lib-select>
                                   </lib-form-group>
                                 </div>
                               </ng-template>
                               <ng-template pTemplate="output">
-                                {{ itemDefGroup.controls['uomNameEn'].value }}
+                                {{ itemDefGroup.controls['uomNameEn'].value ?? ('itemType.select' | translate) }}
                               </ng-template>
                             </p-cellEditor>
                             <lib-field-validations
                             [appControl]="itemDefGroup.controls['uomId']"
                           ></lib-field-validations>
+                          <div *ngIf="itemDefGroup.controls['uomId'].hasError('uomIdNotUnique')">
+                            <span class="error">{{ 'itemType.duplicateUomIdError' | translate }}</span>
+                          </div>
                         </td>
                         <!--  -->
 
@@ -358,7 +342,7 @@
                     ></lib-text-input>
                       </td>
                         <td>
-                          <lib-input-switch formControlName="isDefault" [disabled]="UOMForm.value?.length == 1" (valueChanged)="defualtChanged($event ,itemDefGroup )"></lib-input-switch>
+                          <lib-input-switch formControlName="isDefault"  (valueChanged)="defualtChanged($event ,itemDefGroup )"></lib-input-switch>
                         </td>
                         <!--  -->
 
@@ -432,14 +416,18 @@
                           ></lib-field-validations>
                         </td>
                         <!--  -->
-                        <td>
-                          <i class="pi pi-save pointer" (click)="addUOM(itemDefGroup)" [class.none]="itemDefGroup.controls['id']?.value"></i>
-                        </td>
+                       
                       </tr>
                     </ng-template>
                   </p-table>
                 </div>
               </lib-fildest>
+            </div>
+            <div class="add_new my-2 flex justify-content-end gap-2">
+
+              <lib-button (onClick)="saveUom()" className="outline-primary">
+                {{ 'itemType.saveUom' | translate }}
+              </lib-button>
             </div>
           </p-tabPanel>
           <p-tabPanel header="{{ 'itemType.attributes' | translate }}">
@@ -663,6 +651,7 @@
                         <div class="flex gap-4 align-items-center">
                           <i class="pi pi-eye" (click)="onViewBarcode(itemDefBarcodeGroup)"></i>
                           <i class="pi pi-save"  (click)="onSaveBarcode(itemDefBarcodeGroup)" [class.none]="itemDefBarcodeGroup.controls['id']?.value"></i>
+                          <i class="pi pi-trash"  (click)="onDeleteBarcode(itemDefBarcodeGroup , i)" ></i>
                           
                         </div>
                       </td>
@@ -834,4 +823,33 @@
       </div>
     </div>
   </div>
+  <div class="grid">
+    <div class="md:col-12 my-3 grid flex justify-content-end">
+      <div class="md:col-4 grid flex justify-content-end">
+        <div class="md:col-6">
+          <lib-button-micro
+            title="{{ 'cancel' | translate }}"
+            nameClass="cancel"
+            widthNumber="100%"
+            (click)="onCancel()"
+          
+          >
+          </lib-button-micro>
+        </div>
+        <div  class="md:col-6">
+          <lib-button-micro
+            title="{{ 'Save' | translate }}"
+            nameClass="save"
+            widthNumber="100%"
+            (click)="onSave()"
+          >
+          </lib-button-micro>
+        
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+
 </lib-page-content>

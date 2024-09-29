@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
 import { customValidators, FormsService, RouterService, SharedLibraryEnums, ToasterService } from 'shared-lib';
 import { AddVariantPopupComponent } from '../../../components/add-variant-popup/add-variant-popup.component';
@@ -8,9 +8,25 @@ import { AddBarcodePopupComponent } from '../../../components/add-barcode-popup/
 import { ActivatedRoute } from '@angular/router';
 import { ItemsService } from '../../../items.service';
 import { ViewQRcodeComponent } from '../../../components/view-qrcode/view-qrcode.component';
-import { UomCodeLookup, UomDefault } from '../../../models';
-import { AddUom } from '../../../models/addUom';
+import { GetItemById, UomCodeLookup, UomDefault } from '../../../models';
+import { AddUom, ItemUom } from '../../../models/addUom';
 
+function uomIdUniqueValidator(formArray: AbstractControl): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const currentUomId = control.value;
+    let duplicateFound = false;
+
+    // Iterate through the form array and check for duplicates
+    formArray.value.forEach((item: any, index: number) => {
+      if (item.uomId === currentUomId && control !== formArray.get([index, 'uomId'])) {
+        duplicateFound = true;
+      }
+    });
+
+    // Return validation error if a duplicate is found
+    return duplicateFound ? { uomIdNotUnique: true } : null;
+  };
+}
 @Component({
   selector: 'app-add-item-definition',
   templateUrl: './add-item-definition.component.html',
@@ -75,10 +91,14 @@ export class AddItemDefinitionComponent implements OnInit {
   ItemCategoryDropDown : { id: number; name: string;  }[] = []
   tagDropDropDownLookup : { id: number; name: string }[] = []
   AccountsDropDownLookup : { id: number; name: string }[] = []
+  defualtUnitData : { id: number; name: string } 
   taxesDropDropDownLookup : { id: number; nameAr: string; nameEn: string }[] = []
   trackingTrackingLookup : { id: number; name: string }[] = []
   uomCodeLookup : UomCodeLookup[] = []
+  clonedUomCodeLookup : UomCodeLookup[] = []
   UOMCategoryDropDown : { id: number; name: string}[] = []
+  itemData : GetItemById
+  codeData :{ code: number; conversionRatio: string}
 
   ItemVariantsByItemIdDropDown : { id: number; nameEn: string }[] = []
   constructor(private _router : RouterService,private fb : FormBuilder , private formService : FormsService ,  public sharedLibEnums: SharedLibraryEnums,private dialog : DialogService , private route : ActivatedRoute , private toaserService : ToasterService , private itemService : ItemsService){
@@ -115,9 +135,17 @@ export class AddItemDefinitionComponent implements OnInit {
       })
     })
 
+    this.itemService.variantGeneratedObs.subscribe(res=>{
+      if(res) {
+        this.getItemVariantsByItemIdDropDown()
+
+      }
+    })
+
+
+
     // this.addLine() 
     this.getBarcodeByItemId()
-     this.getUOMByItemId()
     this.itemService.getAttributeVariantById(this.id)
     this.addLineBarcode()
     this.itemService.sendAttributeVariantDataObs.subscribe(res=>{
@@ -141,9 +169,10 @@ export class AddItemDefinitionComponent implements OnInit {
     this.itemService.sendBarcode.subscribe(res=>{
       this.getBarcodeByItemId()
     })
-    this.itemService.sendUOMObs.subscribe(res=>{
-      this.getUOMByItemId()
-    })
+    // this.itemService.sendUOMObs.subscribe(res=>{
+    //   console.log("heey" , res)
+    //   this.getUOMByItemId()
+    // })
 
     this.ItemCategoryDropDownData()
     this.tagDropDropDown()
@@ -151,11 +180,11 @@ export class AddItemDefinitionComponent implements OnInit {
     this.UOMCategoryDropDownData()
     this.AccountsDropDown()
     this. getTrackingDropDown()
-    this.itemService.sendDefaultObs.subscribe(res=>{
-      if(res){
-        this.getUOMByItemId()
-      }
-    })
+    // this.itemService.sendDefaultObs.subscribe(res=>{
+    //   if(res){
+    //     this.getUOMByItemId()
+    //   }
+    // })
 
     this.itemService.editItemDataObs.subscribe(res=>{
       if(res){
@@ -167,14 +196,41 @@ export class AddItemDefinitionComponent implements OnInit {
     this.itemService.GetItemByIDObs.subscribe(res=>{
         this.itemDefinitionForm.patchValue({...res})
 
-      if(res.uomId) {
-        this.getUomDropDown(res.uomId)
-        this.uomCodeDropDown(res.uomId)
+        this.itemData = res
+        
 
+        // console.log(res)
+
+        // setTimeout(() => {
+        //   this.itemDefinitionForm.get('defaultUOMCategoryId')?.setValue(res.uomId)
+
+        // }, 1000);
+      if(res.defaultUOMCategoryId) {
+        this.uomCategoryChanged(res.defaultUOMCategoryId)
+
+          this.addLine()
+
+  
+        this.getDefaultUnit(res.defaultUOMCategoryId )
       }
+
+
+      if(!!res) {
+        this.getUOMByItemId()
+      }
+
+      // if(res.uomId) {
+      //   this.getUomDropDown(res.uomId)
+      //   this.uomCodeDropDown(res.uomId)
+      //   this.getDefaultCode(res.uomId)
+     
+      // }
       
     
     })
+
+   
+
   }
 
  
@@ -193,8 +249,31 @@ export class AddItemDefinitionComponent implements OnInit {
     this.itemService.getUomDropDownByUomCategory(id)
     this.itemService.UOMDropDownLookupByUomCategoryObs.subscribe(res=>{
       this.uomLookup = res
+
+     
     })
   }
+
+  getDefaultUnit(id : number ){
+    this.itemService.getDefaultUnit(id , this.id)
+    this.itemService.defaultUnitObs.subscribe(res=>{
+
+      this.defualtUnitData = res
+
+      this.UOMForm.controls[0].get('uomId')?.setValue(res.id)
+      this.UOMForm.controls[0].get('uomNameEn')?.setValue(res.name)
+      if(res.id) {
+        this.getDefaultCode(res.id)
+
+      }
+
+
+
+    
+    })
+
+  }
+  
   UOMCategoryDropDownData() {
     this.itemService.UOMCategoryDropDown()
     this.itemService.UOMCategoryDropDownLookup.subscribe(res=>{
@@ -212,7 +291,6 @@ export class AddItemDefinitionComponent implements OnInit {
     this.itemService.ItemCategoryDropDown()
     this.itemService.itemCategoryLookupObs.subscribe(res=>{
       this.ItemCategoryDropDown = res
-      console.log(res)
     })
   }
   // end point
@@ -230,14 +308,17 @@ export class AddItemDefinitionComponent implements OnInit {
   }
 
   uomCategoryChanged(e : any) {
+    this.UOMForm.clear()
+  
     this.uomCodeDropDown(e)
     this.getUomDropDown(e)
+    // this.getDefaultUnit(e)
   }
   uomCodeLookupChanged(e:any , itemDefitionForm : FormGroup) {
     this.getCodeByuomCodeDropDown(e  , itemDefitionForm)
-    let data : any=  this.uomCodeLookup.find((elem : any)=>elem.id == e)
+    
+    itemDefitionForm.controls['uomNameEn'].setValue(this.uomCodeLookup.find(elem=>elem.id == e)?.name)
 
-    itemDefitionForm.controls['uomNameEn'].setValue(data?.name)
 
   }
   // end point
@@ -254,10 +335,42 @@ export class AddItemDefinitionComponent implements OnInit {
     })
   }
   getCodeByuomCodeDropDown(id:number  , itemDefitionForm: FormGroup) {
-    this.itemService.getCodeByuomCodeDropDown(id)
-    this.itemService.codeByuomCodeDropDownObs.subscribe(res=>{
-      itemDefitionForm.controls['uomCode'].setValue(res?.code)
+    this.itemService.getCodeByuomCodeDropDown(id).subscribe(res=>{
+      let uomId = itemDefitionForm.get('uomId')?.value
+      let data = {...res , uomId}
+      console.log(data)
+
+      itemDefitionForm.get('uomCode')?.setValue(data?.code)
+      itemDefitionForm.get('isDefault')?.value == true ? 1 : itemDefitionForm.get('conversionRatio')?.setValue(data?.conversionRatio)
+
+     itemDefitionForm.get('tempConversionRatio')?.setValue(data?.conversionRatio)
+
+      
+      // let uomId = itemDefitionForm.get('uomId')?.value
+      // this.itemService.codeByuomCodeDropDownObs.subscribe(res=>{
+      //   let data = res 
+      //   console.log(data)
+      
+      // })
     })
+   
+  }
+
+  getDefaultCode(id:number) {
+    this.itemService.getCodeByuomCodeDropDown(id).subscribe(res=>{
+        this.UOMForm.controls[0].get('uomCode')?.setValue(res.code)
+     this.UOMForm.controls[0].get('isDefault')?.value == true ? this.UOMForm.controls[0].get('conversionRatio')?.setValue(1) : this.UOMForm.controls[0].get('conversionRatio')?.setValue(res.conversionRatio)
+
+     this.UOMForm.controls[0].get('tempConversionRatio')?.setValue(res.conversionRatio)
+     
+  
+    })
+    // this.itemService.codeByuomCodeDropDownObs.subscribe(res=>{
+    //  this.codeData = res
+    //  this.UOMForm.controls[0].get('uomCode')?.setValue(res.code)
+    //  this.UOMForm.controls[0].get('isDefault')?.value == true ? this.UOMForm.controls[0].get('conversionRatio')?.setValue(1) : this.UOMForm.controls[0].get('conversionRatio')?.setValue(res.conversionRatio)
+    // })
+
   }
   getTrackingDropDown() {
     this.itemService.getTrackingDropDown()
@@ -267,18 +380,26 @@ export class AddItemDefinitionComponent implements OnInit {
   }
 
   createUomFormGroup(): FormGroup {
-    return this.fb.group({
-      id:0,
-      itemId: this.id,
-      uomId: [null  , [customValidators.required]],
-      uomCode : null,
-      conversionRatio: 1,
-      isDefault: true,
-      isSales: true,
-      isPurchase: true,
-      uomNameEn : null
+    
+  
+    const uomData = this.fb.group({
+      id: [0],
+      itemId: [this.id],
+      uomId: [ null,  [customValidators.required]],
+      uomCode: [ null],
+      conversionRatio: [ 1],
+      isDefault: [true],
+      isSales: [true],
+      isPurchase: [true],
+      uomNameEn: [ ''],
+      tempConversionRatio : ['']
     });
+  
+   
+  
+    return uomData;
   }
+  
   createbarcodeFormGroup(): FormGroup {
     return this.fb.group({
       id : null ,
@@ -303,6 +424,7 @@ export class AddItemDefinitionComponent implements OnInit {
   }
 
   addLine() {
+    
     this.UOMForm.push(this.createUomFormGroup());
   }
   addLineBarcode() {
@@ -333,6 +455,7 @@ export class AddItemDefinitionComponent implements OnInit {
       if(res) {
         this.AttributeForm.push(this.createAttributeFormGroup(res))
         this.itemService.getAttributeVariantById(this.id)
+        this.getItemVariantsByItemIdDropDown()
 
       }
     });
@@ -340,9 +463,14 @@ export class AddItemDefinitionComponent implements OnInit {
 
   onDelete(i: number) {
     this.UOMForm.removeAt(i);
-  }
-  onDeleteBarcode(i: number) {
-    this.barcodeForm.removeAt(i);
+  };
+  onDeleteBarcode(itemDefBarcodeGroup: FormGroup , i : number) {
+    if(itemDefBarcodeGroup.get('id')?.value) {
+      this.itemService.deleteBarcode(itemDefBarcodeGroup.get('id')?.value)
+    }else{
+      this.barcodeForm.removeAt(i)
+    }
+
   }
   onDeleteAttribute(itemDefAttributeGroup:FormGroup) {
     this.itemService.deleteVariant(itemDefAttributeGroup.get('id')?.value)
@@ -387,7 +515,7 @@ export class AddItemDefinitionComponent implements OnInit {
     const dialogRef = this.dialog.open(ViewVariantPopupComponent, {
     
       width: '50%',
-      height : '450px',
+      height : '300px',
 
       data : form.get('id')?.value
 
@@ -414,6 +542,7 @@ export class AddItemDefinitionComponent implements OnInit {
 
         res.forEach(element => {
           let data = this.fb.group({
+            id : element.id,
             barcode: element.barcode,
             uomId: element.uomId,
             itemVariantId: element.itemVariantId,
@@ -435,9 +564,13 @@ export class AddItemDefinitionComponent implements OnInit {
     itemDefBarcodeGroup.get('itemVariantName')?.setValue(data.name)
   }
   getUOMByItemId(){
-     this.itemService.getUomByItemId(this.id)
+    setTimeout(() => {
+        this.itemService.getUomByItemId(this.id)
      this.itemService.GetUomListByItemIdObs.subscribe(res=>{
       if(res.length) {
+        console.log("heey" , res)
+        // this.uomCategoryChanged(this.itemData.defaultUOMCategoryId)
+        this.itemDefinitionForm.get('')
         this.UOMForm.clear()      
     
 
@@ -447,6 +580,8 @@ export class AddItemDefinitionComponent implements OnInit {
             itemId: element.itemId,
             uomId: element.uomId,
             uomCode : null,
+            tempConversionRatio : [null],
+
             uomNameEn : element.uomNameEn,
             conversionRatio: element.isDefault ? 1 : null,
             isDefault: element.isDefault,
@@ -459,6 +594,8 @@ export class AddItemDefinitionComponent implements OnInit {
       }
  
      })
+    }, 1000);
+   
 
   }
 
@@ -490,18 +627,18 @@ export class AddItemDefinitionComponent implements OnInit {
   }
   addUOM(itemDefGroup : FormGroup) {
 
-    if (!this.formService.validForm(this.UOMForm, false)) return;
+    // if (!this.formService.validForm(this.UOMForm, false)) return;
 
-    let data : AddUom = {
-      id: itemDefGroup.get('id')?.value,
-      itemId: itemDefGroup.get('itemId')?.value,
-      uomId: itemDefGroup.get('uomId')?.value,
-      conversionRatio: itemDefGroup.get('conversionRatio')?.value,
-      isDefault: itemDefGroup.get('isDefault')?.value,
-      isSales: itemDefGroup.get('isSales')?.value,
-      isPurchase: itemDefGroup.get('isPurchase')?.value,
-    }
-     this.itemService.addUOM(data)
+    // let data : AddUom = {
+    //   id: itemDefGroup.get('id')?.value,
+    //   itemId: itemDefGroup.get('itemId')?.value,
+    //   uomId: itemDefGroup.get('uomId')?.value,
+    //   conversionRatio: itemDefGroup.get('conversionRatio')?.value,
+    //   isDefault: itemDefGroup.get('isDefault')?.value,
+    //   isSales: itemDefGroup.get('isSales')?.value,
+    //   isPurchase: itemDefGroup.get('isPurchase')?.value,
+    // }
+    //  this.itemService.addUOM(data)
      
   }
   openQRcode(barcode:string) {
@@ -517,26 +654,100 @@ export class AddItemDefinitionComponent implements OnInit {
   }
 
  async defualtChanged(e:any , itemDefinition : FormGroup) {
-    const confirmed = await this.toaserService.showConfirm('ConfirmButtonTexttochangestatus');
-    if (confirmed) {
-      let obj : UomDefault = {
-        isDefault: e,
-        itemId: +this.id,
-        uomId: itemDefinition.get('uomId')?.value
-      }
-      this.itemService.setUomDefault(obj)
-   
-    } else {
-      // Properly toggle the status value
-      const currentStatus = itemDefinition.get('isDefault')?.value;
-      itemDefinition.get('isDefault')?.setValue(!currentStatus);
+  // const defaultUom = this.uomCodeLookup.find((elem) => elem.isDefault);
+
+
+  let conversionRatioTemp = itemDefinition.get('tempConversionRatio')?.value;
+
+  console.log(conversionRatioTemp)
+  console.log( itemDefinition.get('conversionRatio')?.value)
+  console.log( e)
+
+
+
+  if(e == true) {
+    itemDefinition.get('conversionRatio')?.setValue(1);
+  }else{
+
+    itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
     }
   
+
+  
+  
+
+      if(itemDefinition.get('id')?.value) {
+        const confirmed = await this.toaserService.showConfirm('ConfirmButtonTexttochangestatus');
+        if (confirmed) {
+          // if(e == true) {
+          //   itemDefinition.get('conversionRatio')?.setValue(1);
+          // }else{
+        
+          //   itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
+          //   }
+          
+          let obj : UomDefault = {
+            isDefault: e,
+            itemId: +this.id,
+            uomId: itemDefinition.get('uomId')?.value
+          }
+          this.itemService.setUomDefault(obj)
+          
+       
+        } else {
+          // Properly toggle the status value
+          // if(e == true) {
+          //   itemDefinition.get('conversionRatio')?.setValue(1);
+          // }else{
+        
+          //   itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
+          // e =! e
+
+          console.log(conversionRatioTemp)
+          console.log( itemDefinition.get('conversionRatio')?.value)
+          console.log( e)
+          itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
+        
+          //   }
+          const currentStatus = itemDefinition.get('isDefault')?.value;
+          itemDefinition.get('isDefault')?.setValue(!currentStatus);
+        }
+      
+      }
+
+
+    
    
   }
 
   generateVariant() {
     this.itemService.generateVariant({itemId:this.id})
+  }
+
+  saveUom() {
+    if (!this.formService.validForm(this.UOMForm, false)) return;
+
+    let data = this.UOMForm.value.map((elem: ItemUom) => {
+      return {
+        itemId: this.id,  // Assuming this.id is available
+        uomId: elem.uomId,
+        conversionRatio: elem.conversionRatio,
+        isDefault: elem.isDefault,
+        isSales: elem.isSales,
+        isPurchase: elem.isPurchase
+      };
+    });
+
+    // let data : AddUom = {
+    //   id: itemDefGroup.get('id')?.value,
+    //   itemId: itemDefGroup.get('itemId')?.value,
+    //   uomId: itemDefGroup.get('uomId')?.value,
+    //   conversionRatio: itemDefGroup.get('conversionRatio')?.value,
+    //   isDefault: itemDefGroup.get('isDefault')?.value,
+    //   isSales: itemDefGroup.get('isSales')?.value,
+    //   isPurchase: itemDefGroup.get('isPurchase')?.value,
+    // }
+     this.itemService.addUOM({itemUOMs : data})
   }
 
   onSave() {
@@ -591,3 +802,5 @@ export class AddItemDefinitionComponent implements OnInit {
 
   }
 }
+
+

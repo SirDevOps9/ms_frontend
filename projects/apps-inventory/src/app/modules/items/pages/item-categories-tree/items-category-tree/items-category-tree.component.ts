@@ -38,7 +38,7 @@ export class ItemsCategoryTreeComponent implements OnInit {
     private dialog: DialogService,
     private itemsSevice : ItemsService
   ) {
-    this.title.setTitle(this.langService.transalte('ChartOfAccount.Title'));
+    this.title.setTitle(this.langService.transalte('itemsCategory.title'));
   }
   ngOnInit() {
     this.getTreeList();
@@ -52,7 +52,9 @@ export class ItemsCategoryTreeComponent implements OnInit {
       return {
         isActive: item.isActive,
         id: item.id,
-      
+        hasNoChild: item.hasNoChild,
+        isDetailed: item.isDetailed,
+
         label: item.name ,
         children: item.children ? this.mapToTreeNodes(item.children) : [],
       };
@@ -86,7 +88,7 @@ export class ItemsCategoryTreeComponent implements OnInit {
     this.newChiled = true;
     this.add = true;
   }
-  getAccountDetails(id: number) {
+  getItemCategoryById(id: number) {
     this.itemsSevice.getItemCategoryById(id);
     this.itemsSevice.getItemCategoryByIdDataObs.subscribe((res) => {
       this.account = res;
@@ -105,7 +107,7 @@ export class ItemsCategoryTreeComponent implements OnInit {
     this.activeNode = node;
     this.parentAddedId = node.id;
     if (this.parentAddedId) {
-      this.getAccountDetails(this.parentAddedId);
+      this.getItemCategoryById(this.parentAddedId);
     }
     this.view = true;
   }
@@ -122,7 +124,7 @@ export class ItemsCategoryTreeComponent implements OnInit {
       this.view = false;
       this.parentAddedId = event;
       if (this.parentAddedId) {
-        this.getAccountDetails(this.parentAddedId);
+        this.getItemCategoryById(this.parentAddedId);
       }
       this.view = true;
       this.getTreeList();
@@ -132,6 +134,8 @@ export class ItemsCategoryTreeComponent implements OnInit {
   handleOperationCompleted(event: any) {
   //  this.test=event
     
+  console.log(event)
+
      this.getTreeList();
     // if(event.id){
     //  this.viewMode(event.id)
@@ -142,6 +146,8 @@ export class ItemsCategoryTreeComponent implements OnInit {
       
     // }
     this.add = false;
+
+
   }
   toggelTree() {
     this.showTree = !this.showTree;
@@ -197,12 +203,12 @@ export class ItemsCategoryTreeComponent implements OnInit {
       x.children.forEach((element:any) => {
         if(element.id===this.test){
           this.activeNode=element 
-            this.getAccountDetails(element.id);
+            this.getItemCategoryById(element.id);
           
           this.view = true;
         }else{
           // this.activeNode=x
-          // this.getAccountDetails(x.id);
+          // this.getItemCategoryById(x.id);
           
           // this.view = true; 
 

@@ -17,6 +17,9 @@
     "type": "النوع",
     "tag": "الوسم",
     "actions": "الإجراءات",
+      "saveUom" : "حفظ وحدة القياس",
+      "select" : "اختار الوحده",
+
     "Add": "إضافة",
     "search": "بحث",
     "ChangeColumn": "تغيير العمود",
@@ -25,6 +28,7 @@
     "countryOfOrigin": "بلد المنشأ",
     "itemShortName": "الاسم المختصر للعنصر",
     "warantly": "الضمان",
+      "warantlyPeriod" : "فترة الضمان",
     "lifeTime": "العمر الافتراضي",
     "vatApplied": "تطبيق ضريبة القيمة المضافة",
     "priceIncludeVat": "السعر شامل الضريبة",
@@ -41,6 +45,7 @@
     "pusrchaseUom": "وحدة القياس للشراء",
     "add_new": "إضافة خط جديد",
     "barcode": "الرمز الشريطي",
+      "deleteBarcode" : "تم اضافة الرمز الشريطي بنجاح",
     "unit": "الوحدة",
     "variant": "متغير",
     "sku": "SKU",
@@ -69,6 +74,7 @@
     "attributeName": "اسم الخاصية",
     "success": "نجاح",
     "deleteVariant": "تم حذف مجموعة الخصائص بنجاح",
+      "addVariant": "تم اضافه مجموعة الخصائص بنجاح",
     "changeVariantStatus": "تم تغيير حالة مجموعة الخصائص بنجاح",
     "changeBarcodeStatus": "تم تغيير حالة الرمز الشريطي بنجاح",
     "print": "طباعة",
@@ -81,7 +87,9 @@
     "itemEdit": "تم تعديل العنصر بنجاح",
     "barcodesuccess": "تم إضافة الرمز الشريطي بنجاح",
     "generateVariant": "توليد المتغير",
-    "variantSuccess": "تم إضافة المتغير بنجاح"
+    "variantSuccess": "تم إضافة المتغير بنجاح",
+      "duplicateUomIdError" : "لا يمكن تكرار اسم المنتج"
+
   },
   "itemCategory": {
     "itemDefinition": "تعريف العنصر",
@@ -99,7 +107,9 @@
     "actions": "الإجراءات",
     "Add": "إضافة",
     "search": "بحث",
-    "ChangeColumn": "تغيير العمود"
+    "ChangeColumn": "تغيير العمود",
+      "Variants": "تم إضافة الأصناف بنجاح"
+
   },
   "itemDefinition": {
     "name": "الاسم",

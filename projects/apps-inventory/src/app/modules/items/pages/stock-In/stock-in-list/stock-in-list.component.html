@@ -1,4 +1,4 @@
-<lib-page-content [title]="'itemDefinition.TaxList' | translate" [subTitle]="'itemDefinition.TaxList' | translate">
+<lib-page-content [title]="'stockIn.TaxList' | translate" [subTitle]="'stockIn.TaxList' | translate">
     <div>
       <div class="user_page">
         <lib-data-table
@@ -13,51 +13,58 @@
             pageSize: 10,
             columns: [
               {
-                name: 'id',
-                headerText: ('itemDefinition.code' | translate),
+                name: 'code',
+                headerText: ('stockIn.code' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
                 name: 'name',
-                headerText: ('itemDefinition.name' | translate),
+                headerText: ('stockIn.date' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
                 name: 'typeName',
-                headerText: ('itemDefinition.type' | translate),
+                headerText: ('stockIn.description' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
                 name: 'itemCategoryName',
-                headerText: ('itemDefinition.category' | translate),
+                headerText: ('stockIn.sourseDoc' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
                 name: 'uomName',
-                headerText: ('itemDefinition.uom' | translate),
+                headerText: ('stockIn.warehouse' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
                 name: 'barCode',
-                headerText: ('itemDefinition.barcode' | translate),
+                headerText: ('stockIn.status' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'barCode',
+                headerText: ('stockIn.journalCode' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
             
   
-              {
-                name: 'id',
-                headerText: ('itemDefinition.actions' | translate),
-                template: actions
-              }
+             
             ]
           }"
         >
+        <!-- {
+            name: 'id',
+            headerText: ('stockIn.journalCode' | translate),
+            template: actions
+          } -->
           <ng-container caption>
             <div class="">
               <div class="grid">
@@ -65,36 +72,40 @@
                   <lib-form-group>
                     <lib-text-input
                       type="text"
-                      [placeholder]="'itemDefinition.search' | translate"
+                      [placeholder]="'stockIn.search' | translate"
                       [(ngModel)]="searchTerm"
                       (keyUp)="onSearchChange()"
                     ></lib-text-input>
                   </lib-form-group>
                 </div>
                 <!--  -->
-              
+                <div class="col-3">
+                  <lib-change-column
+                    [placeholder]="'stockIn.ChangeColumn' | translate"
+                    [dataTable]="tableData"
+                  ></lib-change-column>
+                </div>
   
-                <div class="col-9 flex gap-2 justify-content-end align-items-center">
-                     <!--  -->
-                     <div>
-                      <lib-export
-                        (exportClick)="exportClick($event)"
-                        [exportData]="exportData"
-                        [exportColumns]="exportColumns"
-                        [ExportName]="'Item Definition'"
-                      >
-                      </lib-export>
-                    </div>
+                <div class="col-6 flex gap-2 justify-content-end align-items-center">
                   <div>
                     <lib-button-micro
-                      [title]="'itemDefinition.Add' | translate"
+                      [title]="'stockIn.Add' | translate"
                       nameClass="save"
                       iconName="pi pi-plus"
                       (click)="onAdd()"
                     >
                     </lib-button-micro>
                   </div>
-               
+                  <!--  -->
+                  <div>
+                    <lib-export
+                      (exportClick)="exportClick($event)"
+                      [exportData]="exportData"
+                      [exportColumns]="exportColumns"
+                      [ExportName]="'Item Definition'"
+                    >
+                    </lib-export>
+                  </div>
                   <!--  -->
                 </div>
               </div>
