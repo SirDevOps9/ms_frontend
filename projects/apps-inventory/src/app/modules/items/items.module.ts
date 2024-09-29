@@ -35,8 +35,10 @@ import { ViewItemCategoryComponent } from './pages/item-categories-tree/view-ite
 import { EditWarehouseComponent } from './pages/warehouse/edit-warehouse/edit-warehouse.component';
 import { MainItemCategoriesTreeComponent } from './pages/item-categories-tree/main-item-categories-tree/main-item-categories-tree.component';
 import { AddWarehousePopupComponent } from './components/warehouse/add-warehouse-popup/add-warehouse-popup.component';
+import { StockInListComponent } from './pages/stock-In/stock-in-list/stock-in-list.component';
+import { AddStockInComponent } from './pages/stock-In/add-stock-in/add-stock-in.component';
+import { MainWarehouseComponent } from './pages/warehouse/main-warehouse/main-warehouse.component';
 import { ViewItemDefinitionComponent } from './components/view-item-definition/view-item-definition/view-item-definition.component';
-
 
 const routes: Routes = [
   {
@@ -59,7 +61,6 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_DIFINITION
         },
-
       },
       {
         path: 'warehouse',
@@ -74,7 +75,6 @@ const routes: Routes = [
             data: {
               breadcrumb: BreadcrumbLabel.WARE_HOUSE
             },
-         
           },
           {
             path: 'add-warehouse',
@@ -82,7 +82,6 @@ const routes: Routes = [
             data: {
               breadcrumb: BreadcrumbLabel.ADD_WARE_HOUSE
             },
-         
           },
           {
             path: 'edit-warehouse/:id',
@@ -90,10 +89,8 @@ const routes: Routes = [
             data: {
               breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE
             },
-         
           },
         ]
-     
       },
       {
         path: 'items-category',
@@ -101,7 +98,6 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.ITEMS_CATEGORY
         },
-     
       },
       {
         path: 'stock-in',
@@ -109,7 +105,6 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.STOCKIN
         },
-     
       },
       {
         path: 'add-stock-in',
@@ -117,16 +112,13 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.ADD_STOCKIN
         },
-     
       },
-      
       {
         path: 'add-item-definition/:id',
         component: AddItemDefinitionComponent,
         data: {
           breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION
         },
-
       },
       {
         path: 'item-type',
@@ -134,7 +126,6 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_TYPE
         },
-
       },
       {
         path: 'item-category',
@@ -142,16 +133,10 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_CATEGORY
         },
-
       },
-
     ]
-
   }
-
-
 ]
-
 @NgModule({
   declarations: [
     ItemDefinitionListComponent,
@@ -186,6 +171,9 @@ const routes: Routes = [
     EditWarehouseComponent,
     MainItemCategoriesTreeComponent,
     AddWarehousePopupComponent,
+    StockInListComponent,
+    AddStockInComponent,
+    MainWarehouseComponent,
     ViewItemDefinitionComponent
   ],
   imports: [
