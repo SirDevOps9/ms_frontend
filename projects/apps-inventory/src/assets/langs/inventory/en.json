@@ -233,5 +233,25 @@
 
   
   
+  },
+  "itemsCategory": {
+    "title": "Item Category",
+    "Configration": "Configuration",
+    "import": "Import",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "categoryCode": "Category Code",
+    "parentCategory": "Parent Category",
+    "isDetails": "Details",
+    "categoryType": "Category Type",
+    "Main": "Main",
+    "nameEn": "Name (English)",
+    "nameAr": "Name (Arabic)",
+    "delete": "Item category deleted successfully",
+    "success": "Success",
+    "add": "Item category added successfully",
+    "edits": "Item category updated successfully",
+    "code": "Code"
   }
 }
