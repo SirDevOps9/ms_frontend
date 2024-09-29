@@ -7,6 +7,7 @@ import {
   Output,
   SimpleChanges,
   TemplateRef,
+  viewChild,
   ViewChild,
 } from '@angular/core';
 import { LanguageService, LookupsService, RouterService } from '../../services';
@@ -14,6 +15,9 @@ import { TableConfig } from './data-table-column';
 import { PageInfo, PageInfoResult } from '../../models';
 import { NgIfContext } from '@angular/common';
 import { GeneralService } from '../../services/general.service';
+import { FormControl } from '@angular/forms';
+import { tap } from 'rxjs/operators';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'lib-data-table',
@@ -22,7 +26,7 @@ import { GeneralService } from '../../services/general.service';
 })
 export class DataTableComponent implements OnInit, OnChanges {
   @Input() items: any[];
-  @Input() selectedIndex: number ;
+  @Input() selectedIndex: number;
   @Input() selectedIndices: number[];
   @Input() resizableColumns: boolean = true;
   @Input() popup: boolean = false;
@@ -39,16 +43,38 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Output() pageChange = new EventEmitter<PageInfo>();
   @Output() addNew = new EventEmitter<boolean>(false);
 
+  //  to fill the dropdown in the component
+  @Output() fiteredDropdOwn = new EventEmitter<TableConfig>();
+
   sortingFields: string[];
   selectedColumns: any = [];
 
   globalFilterFields: string[];
 
+  filtered_columns: any[];
+  clonedList: any[];
+
   @ViewChild('customCellTemplate', { static: true })
   customCellTemplate?: TemplateRef<any>;
   customParentCellTemplate: TemplateRef<NgIfContext<boolean>> | null;
 
+  selected_filtered_columns: any[] = [];
+  searchColumnsControl = new FormControl([]);
+
+  pTaple = viewChild('dt', { read: Table });
+
   ngOnInit(): void {
+    // this.handleFilterColumns();
+    this.searchColumnsControl.valueChanges
+      .pipe(tap((res) => this.handleFilterColumns(res || [])))
+      .subscribe();
+
+    this.filtered_columns = this.tableConfigs.columns;
+    console.log(this.globalFilterFields);
+    console.log(this.tableConfigs);
+    console.log(this.selected_filtered_columns);
+
+    console.log(this.tableConfigs);
     this.globalFilterFields = this.tableConfigs.columns
       .filter((c) => c.isSortable)
       .map((c) => c.name);
@@ -116,18 +142,16 @@ export class DataTableComponent implements OnInit, OnChanges {
     return this.tableConfigs.columns.some((col) => col.children && col.children.length > 0);
   }
   ngOnChanges(changes: SimpleChanges): void {
-    this.clonedTableConfigs = this.tableConfigs;
+    this.clonedTableConfigs = { ...this.tableConfigs };
   }
-  routeToSequence(){
+  routeToSequence() {
     const currentUrl = this.routerService.getCurrentUrl();
     this.routerService.navigateTo(`${currentUrl}/sequence`);
-
   }
 
   isSelected(index: number): boolean {
-    if(this.selectedIndices)
-    return this.selectedIndices.includes(index);
-    return false
+    if (this.selectedIndices) return this.selectedIndices.includes(index);
+    return false;
   }
 
   toggleSelection(index: number): void {
@@ -142,7 +166,38 @@ export class DataTableComponent implements OnInit, OnChanges {
     public languageService: LanguageService,
     public lookupsService: LookupsService,
     private generalService: GeneralService,
-    private routerService: RouterService,
-
+    private routerService: RouterService
   ) {}
+
+  filterList: any[];
+
+  // handleFilterColumns() {
+  //   this.searchColumnsControl = new FormControl([]);
+  //   this.searchColumnsControl.valueChanges.subscribe((selectedColumns: string[]) => {
+  //     debugger
+  //     console.log('Selected columns:', selectedColumns);
+  //     console.log(
+
+  //      this.clonedList =   this.tableConfigs.columns.filter(x=>selectedColumns.includes(x.name))
+  //     );
+
+  // })
+  // }
+  handleFilterColumns(selectedColumns: string[]) {
+    // Listen to changes in the FormControl's value
+
+    // If no columns are selected, restore the original columns
+    if (selectedColumns.length === 0) {
+      this.tableConfigs.columns = [...this.clonedTableConfigs.columns]; // Restore original columns
+    } else {
+      const columns = [...this.clonedTableConfigs.columns];
+
+      const filteredColumns = columns.filter((col) =>
+        selectedColumns.some((sCol: string) => col.name === sCol)
+      );
+
+      this.tableConfigs.columns = [...filteredColumns];
+      this.pTaple()?.cd.detectChanges();
+    }
+  }
 }

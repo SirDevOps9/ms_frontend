@@ -23,8 +23,20 @@
       >
         <!-- [class.none]="currentPageResult.totalItems! <= 25" -->
         <ng-template pTemplate="caption">
+          <div class="col-12 md:col-4">
+            <lib-multi-select
+            [formControl]="searchColumnsControl"
+            [options]="filtered_columns"
+              optionValue="name"
+              optionLabel="name"
+              [placeholder]="'reportCost.Select' | translate"
+  
+            ></lib-multi-select>
+          </div>
           <div class="parent">
-            <ng-content select="[search]"> </ng-content>
+            <ng-content select="[search]">
+              
+            </ng-content>
             <div class="flex align-items-center">
               <div
                 class="paginationHead"

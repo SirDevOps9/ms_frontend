@@ -11,6 +11,7 @@ import {
 import { JournalEntryService } from '../../journal-entry.service';
 import { JournalEntryDto, SharedJournalEnums } from '../../models';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-journal-entry-list',
@@ -33,10 +34,17 @@ export class JournalEntryListComponent implements OnInit {
     public sharedJouralEnum: SharedJournalEnums,
     private loaderService: LoaderService,
     private router: Router
-  ) {}
+  ) {
+    this.searchColumnsControl = new FormControl([]);
+
+  }
 
   ngOnInit() {
     this.initJournalEntryData();
+    // this.searchColumnsControl.valueChanges.subscribe(res=>{
+    //   console.log(res);
+      
+    // })
     this.cols = [
       {
         field: 'Id',
@@ -96,6 +104,7 @@ export class JournalEntryListComponent implements OnInit {
       },
     ];
   }
+  
 
   initJournalEntryData() {
     this.journalEntryService.getAllJournalEntriesPaginated('', new PageInfo());
@@ -163,5 +172,16 @@ export class JournalEntryListComponent implements OnInit {
       this.router.createUrlTree([`/finance/transcations/paymentout/view/${id}`])
     );
     window.open(url, '_blank');
+  }
+
+  filtered_columns : any[] = []
+  selected_filtered_columns : any[]=[]
+  searchColumnsControl: FormControl;
+
+  fillFilterDropdown(dropdown : any){
+    // console.log(dropdown);
+    this.filtered_columns = dropdown.columns
+    
+
   }
 }
