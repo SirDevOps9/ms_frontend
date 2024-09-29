@@ -148,17 +148,14 @@ export class CreateJournalEntryComponent {
     public generalService: GeneralService,
     private toasterService: ToasterService
   ) {
-    this.titleService.setTitle(this.langService.transalte('Journal.AddJournal'));
-
     this.fg = this.fb.group({
       refrenceNumber: [null, [customValidators.required, customValidators.length(0, 15)]],
-      journalDate: [this.getTodaysDate(), customValidators.required],
+      journalDate: [new Date(), customValidators.required],
       periodId: ['Period1', customValidators.required],
       description: ['', customValidators.required],
 
       journalEntryLines: fb.array([]),
     });
-    this.fg.controls['journalDate'].setValue(this.getTodaysDate());
   }
 
   public get attachments(): FormArray {
@@ -294,12 +291,12 @@ export class CreateJournalEntryComponent {
 
     const id = this.fa.length + 1;
     //controls
-    const dbControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
-    const crControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
+    const dbControl = new FormControl(0, [customValidators.required, customValidators.nonNegativeNumbers]);
+    const crControl = new FormControl(0, [customValidators.required,customValidators.nonNegativeNumbers]);
     const currencyControl = new FormControl(null, customValidators.required);
     const rateControl = new FormControl<number | null>(null, [
       customValidators.required,
-      Validators.min(0),
+      customValidators.nonNegativeNumbers,
     ]);
     //events
     dbControl.valueChanges.subscribe((value) => {
@@ -636,7 +633,7 @@ export class CreateJournalEntryComponent {
   }
 
   shouldShowCostCenterImage(costCenters: any[]): number {
-    console.log(costCenters);
+ 
     if (!costCenters) return -1;
     const totalPercentage = costCenters.reduce(
       (sum: number, item: any) => sum + parseFloat(item.percentage),

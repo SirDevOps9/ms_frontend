@@ -1,0 +1,46 @@
+.code {
+  color: #1a90b0;
+  cursor: pointer;
+}
+
+.code:hover {
+  color: darkblue;
+}
+.status {
+  padding: 0px 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  p {
+    margin-block: 8px;
+  }
+}
+.draft {
+  background: #f7f8f8;
+  color: #383a42;
+}
+.unbalanced {
+  background: #f5d9d5;
+  color: #cc3f2d;
+}
+.unposted {
+  background: #d1e9ef;
+  color: #737374;
+}
+.returned {
+  background: #f9e5d3;
+  color: #e17f24;
+}
+.Posted {
+  background: #d1e9ef;
+  color: #1a90b0;
+}
+.dot {
+  display: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #fff;
+  margin-inline-end: 5px;
+  margin-block: 0;
+}

@@ -63,11 +63,37 @@ const routes: Routes = [
       },
       {
         path: 'warehouse',
-        component: WarehouseListComponent,
+        component: MainWarehouseComponent,
         data: {
           breadcrumb: BreadcrumbLabel.WARE_HOUSE
         },
-
+        children : [
+          {
+            path: '',
+            component: WarehouseListComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.WARE_HOUSE
+            },
+         
+          },
+          {
+            path: 'add-warehouse',
+            component: AddWarehouseComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_WARE_HOUSE
+            },
+         
+          },
+          {
+            path: 'edit-warehouse/:id',
+            component: EditWarehouseComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE
+            },
+         
+          },
+        ]
+     
       },
       {
         path: 'items-category',
@@ -78,101 +104,22 @@ const routes: Routes = [
      
       },
       {
-        path: 'add-warehouse',
-        component: AddWarehouseComponent,
+        path: 'stock-in',
+        component: StockInListComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.ADD_WARE_HOUSE
-        },
-
-      },
-      {
-        path: 'edit-warehouse/:id',
-        component: EditWarehouseComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE
+          breadcrumb: BreadcrumbLabel.STOCKIN
         },
      
       },
       {
-        path: 'uom', component: UOMMainComponent,
-        data: { breadcrumb: BreadcrumbLabel.UOM }, children: [
-          {
-            path: '',
-            component: UOMListComponent,
-            data: {
-              breadcrumb: ''
-            },
-
-          },
-          {
-            path: 'add-uom',
-            component: UOMAddComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.ADD_UOM
-            },
-
-          },
-          {
-            path: 'edit-uom/:id',
-            component: UOMEditComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.Edit_UOM
-            },
-
-          },
-        ]
+        path: 'add-stock-in',
+        component: AddStockInComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.ADD_STOCKIN
+        },
+     
       },
-      {
-        path:'operational-tag', component: OperationTagMainComponent, data:{breadcrumb:BreadcrumbLabel.Operational_Tag },children:[
-          {
-            path: '', component: OperationTagListComponent,
-            data: { breadcrumb: '' }
-          },
-          {
-            path: 'add-operational-tag',
-            component: OperationTagAddComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.Add_Operational_Tag
-            },
-          },
-          {
-            path: 'edit-operational-tag/:id',
-            component: OperationTagEditComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.Edit_Operational_Tag
-            },
-          }
-
-        ]
-      },
-      {
-        path: 'attribute-definition', component: AttributeDefinitionComponent,
-        data: { breadcrumb: BreadcrumbLabel.Attribute_Definition }, children: [
-          {
-            path: '', component: AttributeDefinitionListComponent,
-            data: { breadcrumb: '' }
-          },
-          {
-            path: 'add-attribute',
-            component: AddAttributeDefinitionComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.Add_Attribute_Definition
-            },
-
-          },
-          {
-            path: 'edit-attribute/:id',
-            component: EditAttributeDefinitionComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.Edit_Attribute_Definition
-            },
-
-          },
-
-
-        ]
-      },
-
+      
       {
         path: 'add-item-definition/:id',
         component: AddItemDefinitionComponent,

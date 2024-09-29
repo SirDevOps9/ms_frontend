@@ -213,6 +213,7 @@
     "actions": "Actions",
     "distribute": "Distribute",
     "total": "Total",
-    "add_new_line": "Add New Line"
+    "add_new_line": "Add New Line",
+    "ViewDistribution":"View Distribution"
   }
 }

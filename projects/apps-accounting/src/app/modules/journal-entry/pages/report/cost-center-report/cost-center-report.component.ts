@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { LanguageService, customValidators, ToasterService, DateTimeService , PrintService } from 'shared-lib';
 import { JournalEntryService } from '../../../journal-entry.service';
-import { reportCostAllData } from '../../../models';
+import { GetOpenFinancialPeriodDate, reportCostAllData } from '../../../models';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 
 @Component({
@@ -21,20 +21,17 @@ export class CostCenterReportComponent {
 
   constructor(
     private fb: FormBuilder,
-    private titleService: Title,
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
     private ToasterService: ToasterService,
-    private dateTimeService: DateTimeService,
     private PrintService: PrintService,
     public generalService: GeneralService
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(this.languageService.transalte('reportCost.title'));
     this.initializeForm();
     this.getAccounts();
-    this.initializeDates();
+    this.getOpenFinancialPeriodDate();
     this.reportCostForm.valueChanges.subscribe(() => {
       this.tableData = [];
     });
@@ -47,6 +44,7 @@ export class CostCenterReportComponent {
       }));
     });
   }
+  
   initializeForm() {
     this.reportCostForm = this.fb.group({
       dateFrom: new FormControl('', [customValidators.required]),
@@ -103,10 +101,20 @@ export class CostCenterReportComponent {
       }
     }
   }
-  initializeDates() {
-    this.reportCostForm.patchValue({
-      dateFrom: this.dateTimeService.firstDayOfMonth(),
-      dateTo: this.dateTimeService.lastDayOfMonth(),
+  getOpenFinancialPeriodDate() {
+    this.journalEntryService.getOpenFinancialPeriodDate().subscribe((res: GetOpenFinancialPeriodDate) => {
+      const dateFrom = new Date(res.dateFrom);
+      const dateTo = new Date(res.dateTo);
+  
+      dateFrom.setDate(dateFrom.getDate() + 1);
+      dateTo.setDate(dateTo.getDate() + 1);
+  
+      const formattedDateFrom = dateFrom.toISOString().split('T')[0];
+      const formattedDateTo = dateTo.toISOString().split('T')[0];
+      this.reportCostForm.patchValue({
+        dateFrom: formattedDateFrom,
+        dateTo:formattedDateTo,
+      });
     });
   }
   printTable(id: string) {

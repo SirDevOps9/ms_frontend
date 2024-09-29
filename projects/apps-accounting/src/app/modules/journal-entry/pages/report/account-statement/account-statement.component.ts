@@ -13,8 +13,10 @@ import { AccountService } from '../../../../account/account.service';
 import { AccountDto, AccountsChildrenDropDown } from '../../../../account/models';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { reportAccount } from '../../../models';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { MultiSelectDetailedAccountsComponent } from '../../../components/multi-select-detailed-accounts/multi-select-detailed-accounts.component';
 
 @Component({
   selector: 'app-account-statement',
@@ -32,18 +34,18 @@ export class AccountStatementComponent {
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
-    private routerService: RouterService,
     private router: ActivatedRoute,
-    private titleService: Title,
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
     private ToasterService: ToasterService,
     private PrintService: PrintService,
-    public generalService: GeneralService
+    public generalService: GeneralService,
+    private route:Router,
+    private dialog: DialogService
+
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(this.languageService.transalte('reportAccount.AccountStatement'));
 
     this.initializeForm();
     this.getAccounts();
@@ -158,4 +160,26 @@ export class AccountStatementComponent {
   printTable(id: string) {
     this.PrintService.print(id);
   }
+
+  routeTo(id:number){
+    const test =location.href.split("/")
+        console.log(test[3]);
+    const url = this.route.serializeUrl(
+      this.route.createUrlTree([`${test[3]}/transcations/journalentry/view/${id}`])
+    );
+    window.open(url, '_blank');
+      }
+
+      openDialog() {
+        const ref = this.dialog.open(MultiSelectDetailedAccountsComponent, {
+          width: '900px',
+          height: '600px',
+        });
+        ref.onClose.subscribe((selectedAccounts: AccountsChildrenDropDown[]) => {    
+          if (selectedAccounts) {
+            const selectedIds = selectedAccounts.map((acc) => acc.id);
+            this.reportAccountForm.get('Accounts')?.setValue(selectedIds);
+          }
+        });
+      }
 }

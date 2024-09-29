@@ -294,7 +294,7 @@ export class EditVendorDefinitionsComponent implements OnInit {
     return this.routerService.currentId;
   }
 
-  onDiscard() {
+  cancel() {
     //this.editEmployeeForm.reset();
     this.routerService.navigateTo(`/masterdata/vendor-definitions`);
   }

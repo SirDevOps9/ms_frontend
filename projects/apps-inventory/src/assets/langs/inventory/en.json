@@ -99,7 +99,6 @@
     "Add": "Add",
     "search": "Search",
     "ChangeColumn": "Change Column"
-
   },
   "itemDefinition": {
     "name": "Name",
@@ -118,12 +117,7 @@
     "viewVariant": "View",
     "itemTracking": "Item Tracking",
     "SelectItemTracking": "Select Item Tracking",
-    "hasExpiry": "Has Expiry Date",
-    "warehouseName": "Warehouse Name",
-    "onHandQuantity":"On Hand Quantity",
-    "reservedQuantity":"Reserved Quantity",
-    "demandQuantity":"Demand Quantity",
-    "notFoundType":"Not Found Type"
+    "hasExpiry": "Has Expiry Date"
   },
   "warehouse": {
     "Add": "Add",
@@ -175,7 +169,6 @@
     "uomType": "UOM Types",
     "shortName": "Short Name",
     "addUom": "Add UOM",
-    "TaxList":"UOM",
     "nameAr": "Name Ar",
     "changeAttributrDifinitionStatus": "change Attributr Difinition Status",
     "success": "Success",
@@ -188,8 +181,8 @@
     "action": "action",
     "value": "Value",
     "success": "Success",
-    "nameAr": "Name Arabic",
-    "nameEn": "Name English",
+    "nameAr": "Name Ar",
+    "nameEn": "Name En",
     "attributeDefinition": "Attribute Definition",
     "attribute": "Attribute",
     "changeAttributrDifinitionStatus": "change Attributr Difinition Status",
@@ -213,7 +206,7 @@
     "type": "Attribute Type",
     "types": "Attribute Types",
     "shortName": "Short Name",
-    "addAttribute": "Add"
+    "addAttribute": "Add Attribute"
   },
   "OperationalTag": {
     "Add": "Add",

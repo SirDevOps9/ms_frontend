@@ -106,6 +106,7 @@ export class ItemCategoryListComponent implements OnInit {
   }
 
   onSearchChange(e : any) {
+    console.log(e)
     this.searchTerm = e
     this.itemsService.getItemCategory(this.searchTerm, new PageInfo());
     

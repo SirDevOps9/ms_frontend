@@ -61,7 +61,7 @@ export class PaymentOutPaymentMethodComponent implements OnInit {
      
       }
       if (this.config.data.viewdata) {
-        this.disabled=true;
+        this.disabled=this.config.data.viewdata;
       }
       if (this.config.data.selectedPayment.commissionType === this.sharedFinanceEnums.commissionTypeString.Percent) {
         this.commissionAmount = (this.amount * this.config.data.selectedPayment.commissionValue) / 100;

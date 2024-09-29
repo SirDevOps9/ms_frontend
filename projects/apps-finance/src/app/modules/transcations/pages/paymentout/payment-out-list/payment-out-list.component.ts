@@ -4,6 +4,8 @@ import { PageInfoResult, lookupDto, RouterService, LanguageService, PageInfo } f
 import { FinanceService } from '../../../../finance/finance.service';
 import { GetAllPaymentInDto, GetAllPaymentOutDto } from '../../../models';
 import { TranscationsService } from '../../../transcations.service';
+import { SharedFinanceEnums } from '../../../../finance/models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment-out-list',
@@ -59,14 +61,13 @@ export class PaymentOutListComponent implements OnInit {
   constructor(
     private financeService: TranscationsService,
     private routerService: RouterService,
-    private title: Title,
-    private langService: LanguageService
+    public financeSharedEnums: SharedFinanceEnums,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.subscribes();
     this.initPaymentInData();
-    this.title.setTitle(this.langService.transalte('PaymentOut.Title'));
   }
 
   routeToAdd() {
@@ -115,5 +116,11 @@ export class PaymentOutListComponent implements OnInit {
   view(id: number) {
     //todo
     this.routerService.navigateTo(`/transcations/paymentout/view/${id}`);
+  }
+  routeToJournalView(id: number) {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/accounting/transcations/journalentry/view/${id}`])
+    );
+    window.open(url, '_blank');
   }
 }

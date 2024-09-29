@@ -61,11 +61,12 @@ export class AddPaymentInComponent {
   TreasuryBalance: number = 0;
   totalLocalAmount: number = 0;
   newBalance: number = 0;
+  PaymentInId: number;
   selectedBank: boolean;
   selectedCurrency: string = "";
   paymentMethod: BankPaymentMethods[] = []
   AllTreasuriesPayMethod: TreasuriesPaymentMethod[] = []
-
+  post: boolean;
   constructor(
     private formBuilder: FormBuilder,
     private dialog: DialogService,
@@ -76,7 +77,6 @@ export class AddPaymentInComponent {
     private toasterService: ToasterService,
     private langService: LanguageService,
     private currentUserService: CurrentUserService,
-    private titleService: Title,
     private routerService: RouterService,
 
 
@@ -84,10 +84,8 @@ export class AddPaymentInComponent {
   }
 
   ngOnInit() {
-    this.titleService.setTitle(
-      this.langService.transalte('PaymentIn.addpaymentin')
-    );
-
+   
+    this.financeService.AccountBalance.next(0);
     this.initializeForm();
     this.subscribe();
     this.initializeDropDown();
@@ -136,7 +134,7 @@ export class AddPaymentInComponent {
       bankAccountId: new FormControl(null),
       paymentHubDetailId: new FormControl('', [customValidators.required]),
       currencyId: new FormControl(null),
-      rate: new FormControl<number | undefined>(0, [customValidators.required]),
+      rate: new FormControl<number | undefined>(0, [customValidators.required,customValidators.nonNegativeNumbers]),
       glAccountId: new FormControl(null),
       paymentInDetails: this.formBuilder.array([]),
 
@@ -272,10 +270,10 @@ export class AddPaymentInComponent {
     })
 
     this.addForm.get('paymentHub')?.valueChanges.subscribe((res: any) => {
-      if (res == paymentplace.Treasury) {
+      if (res == paymentplaceString.Treasury) {
         this.addForm.get('bankAccountId')?.clearValidators()
         this.addForm.get('bankAccountId')?.updateValueAndValidity()
-      } else if (res == paymentplace.Bank) {
+      } else if (res == paymentplaceString.Bank) {
         this.addForm.get('bankAccountId')?.addValidators([customValidators.required])
         this.addForm.get('bankAccountId')?.updateValueAndValidity()
       }
@@ -293,8 +291,14 @@ export class AddPaymentInComponent {
     this.addForm.controls['currencyId'].valueChanges.subscribe((currencyId: any) => {
       this.updatecurrencyIdnPaymentDetails(currencyId)
     })
-
-
+    this.financeService.paymentSaved.subscribe((res:any)=>{
+      if(res!=0){
+        this.PaymentInId=res
+        this.post=true;
+      }else{
+        this.post=false;
+      }
+    })
   }
   addNewRow() {
     
@@ -303,7 +307,7 @@ export class AddPaymentInComponent {
     
     let newLine = this.formBuilder.group(
       {
-        amount: new FormControl(0, [customValidators.required, customValidators.number, customValidators.hasSpaces ,customValidators.nonZero]),
+        amount: new FormControl('', [customValidators.required, customValidators.number, customValidators.hasSpaces ,customValidators.nonZero]),
         paymentMethodId: new FormControl(null, [customValidators.required]),
         paymentMethodType: new FormControl(null),
         ratio: new FormControl(null),
@@ -338,6 +342,7 @@ export class AddPaymentInComponent {
     );
     newLine.updateValueAndValidity();
     this.paymentInDetailsFormArray.push(newLine);
+ 
   }
   shouldShowCostCenterImage(costCenters: any[]): number {
     if (!costCenters) return -1;
@@ -757,6 +762,17 @@ export class AddPaymentInComponent {
   }
   cancel(){
     this.routerService.navigateTo(`/transcations/paymentin`);
+  }
+  addToPost(){
+    this.financeService.postPaymentIn(this.PaymentInId)
+  }
+  ngOnDestroy() {
+    this.financeService.paymentSaved.next(0)  
+    this.financeService.getBankDropDownData.next([])  
+    this.financeService.getTreasuryDropDownData.next([])  
+    this.financeService.AllPayMethodsDropdown.next([])  
+    this.financeService.AllTreasuriesPayMethodsDropdown.next([])  
+    this.financeService.accountCurrencyRateDataSource.next({ rate: 0 })  
   }
 }
 

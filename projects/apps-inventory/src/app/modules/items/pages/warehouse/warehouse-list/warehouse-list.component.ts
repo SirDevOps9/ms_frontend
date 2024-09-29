@@ -112,7 +112,7 @@ export class WarehouseListComponent implements OnInit {
   }
 
   onEdit(data: any) {
-    this.routerService.navigateTo(`/masterdata/edit-warehouse/${data.id}`)
+    this.routerService.navigateTo(`/masterdata/warehouse/edit-warehouse/${data.id}`)
 
 
   }

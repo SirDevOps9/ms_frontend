@@ -107,7 +107,7 @@ export class ItemsProxyService {
  uomCodeDropDown(id:number) {
   return this.httpService.get(`UOM/GetUOMsByUOMCategoryId/${id}`)//
  }
- getCodeByuomCodeDropDown(id:number) {
+ getCodeByuomCodeDropDown(id:number) : Observable<{ code: number; conversionRatio: string}> {
   return this.httpService.get(`UOM/GetUOMCodeByUOMId/${id}`)//
  }
  getTrackingDropDown() {
@@ -132,6 +132,14 @@ export class ItemsProxyService {
  attributeGroups(){
   return this.httpService.get(`AttributesVariants/GetAllAttributesGroups`)
  }
+
+
+ getDefaultUnit(catID : number ,itemId:number) :Observable<{ id: number; name: string }>{
+  return this.httpService.get(`UOM/GetDefaultUOMByUOMCategoryIdAndItemId/${catID}/${itemId}`)
+
+ }
+
+
  AttributeGroupDropDown(){
   return this.httpService.get(`AttributeGroup/AttributeGroupDropDown
 `)
@@ -191,7 +199,9 @@ export class ItemsProxyService {
   deleteVariant(id:number) {
     return this.httpService.delete(`api/ItemAttributesGroup/${id}`)
   }
-
+  deleteBarcode(id:number) {
+    return this.httpService.delete(`Barcode/${id}`)
+  }
 
   getAttributeVariantById(id:number) : Observable<variantGroupById[]>{
     return this.httpService.get(`api/ItemAttributesGroup/GetAllAttributeLinesByItemId?ItemId=${id}`)
@@ -216,7 +226,7 @@ export class ItemsProxyService {
   }
  
   getBarcodeByItemId(id:number) : Observable<getBarcodeById[]> {
-    return this.httpService.get(`Barcode/${id}`)
+    return this.httpService.get(`Barcode/GetBarCodeByItemId/${id}`)
   }
   getItemById(id:number) : Observable<GetItemById> {
     return this.httpService.get(`Item/${id}`)
