@@ -255,10 +255,6 @@ export class AccountService {
       },
       error: (error) => {
         this.loaderService.hide();
-        this.toasterService.showError(
-          this.languageService.transalte('ChartOfAccounts.Error'),
-          error.message
-        );
       },
     });
   }
