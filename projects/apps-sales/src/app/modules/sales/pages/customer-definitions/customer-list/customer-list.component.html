@@ -58,39 +58,33 @@
                ]
             }"
       >
-        <ng-container caption>
-          <div class="group flex justify-content-between">
-            <div>
-              <lib-text-input
-                type="text"
-                [placeholder]="'customerDefinition.Search' | translate"
-                (keyUp)="onSearchChange($event)"
-                [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
-              >
-              </lib-text-input>
-            </div>
+        <ng-container search> <div>
+          <lib-text-input
+            type="text"
+            [placeholder]="'customerDefinition.Search' | translate"
+            (keyUp)="onSearchChange($event)"
+            [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+          >
+          </lib-text-input>
+        </div></ng-container>
+        <ng-container action>
+          
+          <lib-export
+            (exportClick)="exportCustomersData($event)"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Customers'"
+          >
+          </lib-export>
+            <lib-button-micro
+              nameClass="save"
+              [title]="'customerDefinition.add' | translate"
+              (click)="routeToAdd()"
+            >
+            </lib-button-micro>
 
-            <div class="flex gap-2">
-              <div>
-                <lib-button-micro
-                  nameClass="save"
-                  [title]="'customerDefinition.add' | translate"
-                  (click)="routeToAdd()"
-                >
-                </lib-button-micro>
-              </div>
-              <!--  -->
-
-              <lib-export
-                (exportClick)="exportCustomersData($event)"
-                [exportData]="exportData"
-                [exportColumns]="exportColumns"
-                [ExportName]="'Customers'"
-              >
-              </lib-export>
-            </div>
-          </div>
         </ng-container>
+
 
         <ng-template #actions let-actions>
           <div class="actions flex align-items-center">

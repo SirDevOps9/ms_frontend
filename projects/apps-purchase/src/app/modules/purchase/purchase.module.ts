@@ -35,6 +35,7 @@ const routes: Routes = [
       //  canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.vendor_list,
+          pageTitle: BreadcrumbLabel.vendor_list,
         },
         children:[
           {
@@ -51,6 +52,8 @@ const routes: Routes = [
            // canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.vendor_Add,
+              pageTitle: BreadcrumbLabel.vendor_Add,
+
             },
           },
           {
@@ -59,6 +62,8 @@ const routes: Routes = [
            // canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.vendor_Edit,
+              pageTitle: BreadcrumbLabel.vendor_Edit,
+
             },
           },
         ]
@@ -69,6 +74,8 @@ const routes: Routes = [
        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.VENDOR_DEFINITIONS,
+          pageTitle: BreadcrumbLabel.VENDOR_DEFINITIONS,
+
         },
         children:[
           {
@@ -85,6 +92,8 @@ const routes: Routes = [
            // canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.ADD_VENDOR_DEFINITIONS,
+              pageTitle: BreadcrumbLabel.ADD_VENDOR_DEFINITIONS,
+
             },
           },
           {
@@ -93,6 +102,8 @@ const routes: Routes = [
            // canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.EDIT_VENDOR_DEFINITIONS,
+              pageTitle: BreadcrumbLabel.EDIT_VENDOR_DEFINITIONS,
+
             },
           },
         ]
@@ -102,6 +113,7 @@ const routes: Routes = [
         component: MainVendorDefintionsComponent,
         data: {
           breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE,
+          pageTitle: BreadcrumbLabel.VENDOR_OPENING_BALANCE,
         },
         children:[
           {
@@ -116,6 +128,8 @@ const routes: Routes = [
             component: VendorOpeningBalanceAddComponent,
             data: {
               breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE_ADD,
+              pageTitle: BreadcrumbLabel.VENDOR_OPENING_BALANCE_ADD,
+
             },
           },
           {
@@ -123,13 +137,17 @@ const routes: Routes = [
             component: VendorOpeningBalanceEditComponent,
             data: {
               breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE_EDIT,
+              pageTitle: BreadcrumbLabel.VENDOR_OPENING_BALANCE_EDIT,
+
             },
           },
           {
             path: 'view-vendor-opening-balance/:id',
             component: VendorOpeningBalanceViewComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE_EDIT,
+              breadcrumb: BreadcrumbLabel.VENDOR_OPENING_BALANCE_VIEW,
+              pageTitle: BreadcrumbLabel.VENDOR_OPENING_BALANCE_VIEW,
+
             },
           },
         ]

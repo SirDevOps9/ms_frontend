@@ -35,52 +35,39 @@
           ]
         }"
       >
-      <ng-container caption>
-        <div class="">
-          <div class="grid">
-            <!-- Single Row Layout -->
-            <div class="col-12 flex justify-content-between align-items-center">
-              <!-- Left Side: Search and Change Column -->
-              <div class="flex gap-2 align-items-center">
-                <div class="col-12">
-                  <lib-form-group>
-                    <lib-text-input
-                      type="text"
-                      [placeholder]="'paymentterm.Search' | translate"
-                      [(ngModel)]="searchTerm"
-                      (keyUp)="onSearchChange()"
-                    ></lib-text-input>
-                  </lib-form-group>
-                </div>
-                <!-- <div class="col-3">
-                  <lib-change-column [placeholder]="'paymentterm.ChangeColumn' | translate" [dataTable]="tableData"></lib-change-column>
-                </div> -->
-              </div>
-      
-              <!-- Right Side: Add New and Export -->
-              <div class="flex gap-2 align-items-center">
-                <div>
-                  <lib-button-micro
-                    [title]="'paymentterm.AddNew' | translate"
-                    nameClass="save"
-                    iconName="pi pi-plus"
-                    (click)="onAdd()"
-                  >
-                  </lib-button-micro>
-                </div>
-                <div>
-                  <lib-export  
-                    (exportClick)="exportClick($event)"
-                    [exportData]="exportData"
-                    [exportColumns]="exportColumns"
-                    [ExportName]="'Payment Term'">
-                  </lib-export>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <ng-container search>
+        <lib-form-group>
+          <lib-text-input
+            type="text"
+            [placeholder]="'paymentterm.Search' | translate"
+            [(ngModel)]="searchTerm"
+            (keyUp)="onSearchChange()"
+          ></lib-text-input>
+        </lib-form-group>
       </ng-container>
+      <ng-container action>
+        <div>
+          <lib-export  
+            (exportClick)="exportClick($event)"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Payment Term'">
+          </lib-export>
+        </div>
+        <div>
+          <lib-button-micro
+            [title]="'paymentterm.AddNew' | translate"
+            nameClass="save"
+            iconName="pi pi-plus"
+            (click)="onAdd()"
+          >
+          </lib-button-micro>
+        </div>
+      
+
+      </ng-container>
+  
+      
         
         <ng-template #actions let-action>
           <div class="actions flex align-items-center">

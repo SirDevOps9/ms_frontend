@@ -1,0 +1,83 @@
+.status{
+    margin-inline-start: 20px;
+}
+.sequence_type{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .group_type{
+        display: flex;
+        align-items: end;
+    }
+}
+.example_code{
+    color: #1A8EAE;
+}
+.add_new {
+    padding: 20px;
+    .btn {
+      background: none;
+      border: none;
+      font-size: 16px;
+      color: #1a90b0;
+      cursor: pointer;
+    }
+    .btn:disabled {
+background-color: #1a90b0; /* Keep the same color */
+opacity: 0.5;  /* Make the button appear dimmed */
+cursor: not-allowed; /* Change the cursor to indicate the button is not clickable */
+color: #fff;
+}
+    .Line {
+      border-inline-end: 3px solid #dde1e6ed;
+    }
+  }
+  .example{
+    width: 60%;
+    .title{
+      font-size: 24px;
+    }
+
+  }
+  .btn_group{
+    margin-top: 50px;
+  }
+::ng-deep{
+    .sequence_page{
+        .p-fieldset {
+            margin: 24px 0px;
+        }
+        .p-radiobutton .p-radiobutton-box.p-highlight {
+            border-color: #1a90b0 !important;
+            background: #1a90b0 !important;
+            
+        }
+        p-radiobutton {
+        //     padding-bottom: 20px !important;
+            margin-inline-end: 5px !important;
+            margin-inline-start: 30px !important;
+        }
+        
+    }
+}
+
+::ng-deep{
+    .p-checkbox .p-checkbox-box.p-highlight {
+      border-color: #1a90b0 !important;
+      background: #1a90b0 !important;
+    }
+    .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
+    
+      box-shadow: none !important;
+  }
+    .p-datatable-wrapper {
+      height: auto !important;
+    }
+      .group{
+          .p-multiselect {
+              width: 100% !important;
+          }
+        
+        
+      }
+  }

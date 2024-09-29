@@ -311,12 +311,12 @@ export class EditJournalEntryOpeningBalanceComponent {
 
     const id = this.journalEntryLinesFormArray.length + 1;
     //controls
-    const dbControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
-    const crControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
+    const dbControl = new FormControl(0, [customValidators.required, customValidators.nonNegativeNumbers]);
+    const crControl = new FormControl(0, [customValidators.required, customValidators.nonNegativeNumbers]);
     const currencyControl = new FormControl(null, customValidators.required);
     const rateControl = new FormControl<number | null>(null, [
       customValidators.required,
-      Validators.min(0),
+   customValidators.nonNegativeNumbers,
     ]);
     //events
     dbControl.valueChanges.subscribe((value) => {
@@ -623,7 +623,7 @@ export class EditJournalEntryOpeningBalanceComponent {
     public generalService: GeneralService,
     private currentUserService: CurrentUserService
   ) {
-    this.titleService.setTitle(this.langService.transalte('OpeningBalance.EditJournal'));
+   
   }
 
   convertDateFormat(data: Date | string) {

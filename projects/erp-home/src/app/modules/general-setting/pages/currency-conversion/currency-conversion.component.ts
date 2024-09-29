@@ -17,11 +17,8 @@ import { Title } from '@angular/platform-browser';
 })
 export class CurrencyConversionComponent {
   constructor(
-    private generalSettingService: GeneralSettingService,
-    private title: Title,
-    private langService: LanguageService
+    private generalSettingService: GeneralSettingService
   ) {
-    this.title.setTitle(this.langService.transalte('currencyConversion.Title'));
   }
   tableData: CurrencyConversionDto[];
   currencies: CountryDto[] = [];

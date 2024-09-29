@@ -1,7 +1,12 @@
 <lib-page-content>
   <div class="user_page">
-    <lib-data-table [items]="tableData" className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
-      (pageChange)="onPageChange($event)" (addNew)="routeToAdd()" [tableConfigs]="{
+    <lib-data-table
+      [items]="tableData"
+      className="p-datatable-gridlines"
+      [currentPageResult]="currentPageInfo"
+      (pageChange)="onPageChange($event)"
+      (addNew)="routeToAdd()"
+      [tableConfigs]="{
         allowPagination: false,
         allowServerPagination: true,
         dataKey: 'id',
@@ -81,8 +86,7 @@
           {
             name: 'sourceCode',
             headerText: 'Journal.sourceCode' | translate,
-            isGlobalFilter: true,
-            isSortable: true
+            template:sourceCodeTemplate
           },
           {
             name: 'id',
@@ -90,25 +94,57 @@
             template: userCol
           }
         ]
-      }">
+      }"
+    >
+      <ng-template #sourceCodeTemplate let-journal>
+        <div>
+          <p
+            *ngIf="journal.sourceName == 'PaymentIn'"
+            class="code"
+            (click)="routeToPaymentInView(journal.paymentInId)"
+          >
+            {{ journal.sourceCode }}
+          </p>
+          <p
+            *ngIf="journal.sourceName == 'PaymentOut'"
+            class="code"
+            (click)="routeToPaymentOutView(journal.paymentOutId)"
+          >
+            {{ journal.sourceCode }}
+          </p>
+        </div>
+      </ng-template>
       <ng-container search>
         <div>
-          <lib-text-input type="text" [placeholder]="'Journal.search' | translate" (keyUp)="onSearchChange($event)"
-            [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">
+          <lib-text-input
+            type="text"
+            [placeholder]="'Journal.search' | translate"
+            (keyUp)="onSearchChange($event)"
+            [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+          >
           </lib-text-input>
         </div>
       </ng-container>
       <ng-container action>
         <div class="flex gap-2">
-          <lib-export (exportClick)="exportJournalEntriesData($event)" [exportData]="exportData"
-            [exportColumns]="exportColumns" [ExportName]="'Journal Entries'">
+          <lib-export
+            (exportClick)="exportJournalEntriesData($event)"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Journal Entries'"
+          >
           </lib-export>
 
-          <lib-button pRipple className="addToList" label="{{ 'EditJournal.add' | translate }}" (onClick)="routeToAdd()"
-            [icon]="'pi pi-plus'"></lib-button>
+          <!-- <lib-button pRipple className="addToList" label="{{ 'EditJournal.add' | translate }}" (onClick)="routeToAdd()"
+            [icon]="'pi pi-plus'"></lib-button> -->
+          <lib-button-micro
+            title="{{ 'EditJournal.add' | translate }}"
+            (click)="routeToAdd()"
+            nameClass="save"
+          >
+          </lib-button-micro>
         </div>
       </ng-container>
-
 
       <ng-template #userCol let-journal>
         <div class="actions flex align-items-center">
@@ -119,19 +155,31 @@
         </div>
       </ng-template>
       <ng-template #userStatus let-journal>
-        <div class="status unbalanced" *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Unbalanced">
+        <div
+          class="status unbalanced"
+          *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Unbalanced"
+        >
           <p class="dot"></p>
           <p>{{ 'Journal.unbalanced' | translate }}</p>
         </div>
-        <div class="status draft" *ngIf="journal.status == sharedJouralEnum.JournalEntryStatus.Draft">
+        <div
+          class="status draft"
+          *ngIf="journal.status == sharedJouralEnum.JournalEntryStatus.Draft"
+        >
           <p class="dot"></p>
           <p>{{ 'Journal.draft' | translate }}</p>
         </div>
-        <div class="status unposted" *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Submitted">
+        <div
+          class="status unposted"
+          *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Submitted"
+        >
           <p class="dot"></p>
           <p>{{ 'Journal.unposted' | translate }}</p>
         </div>
-        <div class="status Posted" *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Posted">
+        <div
+          class="status Posted"
+          *ngIf="journal.status === sharedJouralEnum.JournalEntryStatus.Posted"
+        >
           <p class="dot"></p>
           <p>{{ 'Journal.posted' | translate }}</p>
         </div>

@@ -93,15 +93,18 @@ export class VendorOpeningBalanceAddComponent implements OnInit {
       this.openingJournalList = res;
     });
     this.purchaseService.VendorDropDownByAccountIdObservable.subscribe((res) => {
-      this.vendorDropDownByAccountId = res;
+      this.vendorDropDownByAccountId = res.map((x) => ({
+        ...x,
+        name: `${x.name} (${x.code})`,
+      }));
     });
     this.purchaseService.JournalLinesDropDownDataObservable.subscribe((res: any) => {
       this.linesDropDown = res;
     });
   }
   cancel() {
-    this.routerService.navigateTo('/masterdata/customer-opening-balance');
-  }
+    this.routerService.navigateTo('/masterdata/vendor-opening-balance');
+  }        
 
   openingBalanceJournalEntryDropdown() {
     this.purchaseService.openingBalanceJournalEntryDropdown();
@@ -136,7 +139,7 @@ export class VendorOpeningBalanceAddComponent implements OnInit {
   openDistribute(data: any, account: number, index: number, VendorGroup: FormGroup) {
     if (!this.formService.validForm(this.vendorForm, false)) return;
 
-     if (data.balanceType != this.enums.BalanceType.Debit) {
+     if (data.balanceType != this.enums.BalanceType.Credit) {
        this.toasterService.showError(
          this.languageService.transalte('Error'),
          this.languageService.transalte('Distribution')

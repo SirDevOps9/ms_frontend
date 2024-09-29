@@ -54,15 +54,11 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     private languageService: LanguageService,
     private formService: FormsService,
     public routerService: RouterService,
-    private title: Title,
     private lookupsService: LookupsService,
     public enums: SharedSalesEnums
   ) {}
 
   ngOnInit(): void {
-    this.languageService
-      .getTranslation('openeingBalance.CustomerOpeningBalance')
-      .subscribe((res) => this.title.setTitle(res));
 
     this.SalesService.LinesDropDownData.next([]);
     this.SalesService.CustomerDropDownByAccountId.next([]);
@@ -204,7 +200,10 @@ export class AddCustomerOpeeningBalanceComponent implements OnInit {
     });
 
     this.SalesService.CustomerDropDownByAccountIdObservable.subscribe((res) => {
-      this.customerDropDownByAccountId = res;
+      this.customerDropDownByAccountId = res.map((x) => ({
+        ...x,
+        name: `${x.name} (${x.code})`,
+      }));;
     });
     this.SalesService.LinesDropDownDataObservable.subscribe((res: any) => {
       this.linesDropDown = res;
