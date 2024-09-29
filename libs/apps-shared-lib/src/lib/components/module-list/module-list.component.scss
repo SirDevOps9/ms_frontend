@@ -33,6 +33,7 @@
         height: 50px;
       }
     }
+    transition: 0.3s ease;
   }
 }
 
@@ -43,3 +44,36 @@
 .pointer {
   cursor: pointer;
 }
+
+// .modal-card:hover {
+//   transform: scale(1.03);
+//   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+//   animation: blurScaleChange 2s forwards;
+//   animation: bkChange 1s forwards;
+// }
+
+// @keyframes blurScaleChange {
+//   0% {
+//     filter: blur(0px);
+//   }
+//   30% {
+//     filter: blur(1px);
+//   }
+//   100% {
+//     filter: blur(0px);
+//     transform: scale(1.05);
+//   }
+// }
+// @keyframes bkChange {
+//   0% {
+//     background: #eeeeee
+//       url('../../../../../../projects/apps-accounting/src/assets/images/apps/lg-bg-f.png') no-repeat
+//       right bottom;
+//   }
+
+//   100% {
+//     background: #eeeeee
+//       url('../../../../../../projects/apps-accounting/src/assets/images/apps/lg-bg-f.png') no-repeat
+//       right top;
+//   }
+// }

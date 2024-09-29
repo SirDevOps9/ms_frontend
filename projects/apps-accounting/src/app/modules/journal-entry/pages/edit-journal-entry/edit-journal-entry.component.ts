@@ -30,6 +30,7 @@ import { EditCostCenterAllocationPopupComponent } from '../components/edit-cost-
 import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 import { CostCenterAllocationPopupComponent } from '../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-journal-entry',
@@ -113,7 +114,7 @@ export class EditJournalEntryComponent implements OnInit {
     this.journalEntryService.getJournalEntryById(this.routerService.currentId).subscribe((res) => {
       this.editJournalForm.patchValue({
         ...res,
-        journalDate: new Date(res.journalDate),
+        // journalDate: new Date(res.journalDate),
       });
       if (
         res.status === this.enums.JournalEntryStatus.Posted ||
@@ -175,7 +176,7 @@ export class EditJournalEntryComponent implements OnInit {
 
     const request: EditJournalEntry = this.editJournalForm.value;
     request.id = this.routerService.currentId;
-    request.journalDate = this.convertDateFormat(request.journalDate);
+    // request.journalDate = this.convertDateFormat(request.journalDate);
 
     request.journalEntryLines = request.journalEntryLines?.map((item) => {
       item.costCenters = item.costCenters
@@ -266,13 +267,19 @@ export class EditJournalEntryComponent implements OnInit {
 
     const id = this.journalEntryLinesFormArray.length + 1;
     //controls
-    const dbControl = new FormControl(0, [customValidators.required,customValidators.nonNegativeNumbers]);
-    const crControl = new FormControl(0, [customValidators.required, customValidators.nonNegativeNumbers]);
+    const dbControl = new FormControl(0, [
+      customValidators.required,
+      customValidators.nonNegativeNumbers,
+    ]);
+    const crControl = new FormControl(0, [
+      customValidators.required,
+      customValidators.nonNegativeNumbers,
+    ]);
     const currencyControl = new FormControl(null, customValidators.required);
     const rateControl = new FormControl<number | null>(null, [
       customValidators.required,
       customValidators.nonNegativeNumbers,
-        ]);
+    ]);
     //events
     dbControl.valueChanges.subscribe((value) => {
       if (rateControl.value) {
@@ -577,7 +584,19 @@ export class EditJournalEntryComponent implements OnInit {
     );
     return totalPercentage;
   }
+  routeToPaymentInView(id: number) {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/finance/transcations/paymentin/view/${id}`])
+    );
+    window.open(url, '_blank');
+  }
 
+  routeToPaymentOutView(id: number) {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/finance/transcations/paymentout/view/${id}`])
+    );
+    window.open(url, '_blank');
+  }
   convertDateFormat(data: Date | string) {
     const date = new Date(data);
 
@@ -602,7 +621,7 @@ export class EditJournalEntryComponent implements OnInit {
     private titleService: Title,
     private langService: LanguageService,
     private currentUserService: CurrentUserService,
-    public generalService: GeneralService
-  ) {
-  }
+    public generalService: GeneralService,
+    private router: Router
+  ) {}
 }

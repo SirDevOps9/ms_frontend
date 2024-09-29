@@ -109,5 +109,8 @@ export class JournalEntryProxy {
   getOpenFinancialPeriodDate(): Observable<GetOpenFinancialPeriodDate>{
     return this.httpService.get<GetOpenFinancialPeriodDate>(`FinancialYear/GetOpenFinancialPeriodDate`);
   }
+  getOpenFinancialYearDate(): Observable<GetOpenFinancialPeriodDate>{
+    return this.httpService.get<GetOpenFinancialPeriodDate>(`FinancialYear/GetOpenFinancialYearDate`);
+  }
   constructor(private httpService: HttpService) {}
 }

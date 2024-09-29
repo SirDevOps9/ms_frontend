@@ -59,9 +59,17 @@
             <lib-export (exportClick)="exportTaxesData($event)" [exportData]="exportData"
               [exportColumns]="exportColumns" [ExportName]="'Taxes'">
             </lib-export>
-            <lib-button pRipple className="addToList" label="{{ 'Tax.AddNew' | translate }}" (onClick)="onAdd()"
+            <!-- <lib-button pRipple className="addToList" label="{{ 'Tax.AddNew' | translate }}" (onClick)="onAdd()"
               [icon]="'pi pi-plus'">
-            </lib-button>
+            </lib-button> -->
+            <lib-button-micro
+            nameClass="save"
+            title="{{ 'Tax.AddNew' | translate }}"
+            (click)="onAdd()"
+            iconName="pi pi-plus"
+            >
+  
+            </lib-button-micro>
           </div>
         </ng-container>
 

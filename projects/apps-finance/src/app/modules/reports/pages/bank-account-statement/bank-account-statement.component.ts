@@ -34,6 +34,13 @@ export class BankAccountStatementComponent {
   totalBalance: number;
   selectedBankName: string = '';
   selectedBankAccountName: string = '';
+  openingDebit: number;
+  openingCredit: number;
+  openingBalance: number;
+  openingHeader: String;
+
+    fromDate : string = ''
+  toDate : string = ''
   constructor(
     private fb: FormBuilder,
     private reportsService: ReportsService,
@@ -60,6 +67,8 @@ export class BankAccountStatementComponent {
   }
 
   initializeForm() {
+   
+
     this.accountStatementForm = this.fb.group({
       dateFrom: new FormControl('', [customValidators.required]),
       dateTo: new FormControl('', [customValidators.required]),

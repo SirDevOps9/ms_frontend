@@ -1,6 +1,8 @@
 <lib-page-content>
   <div class="journal_entry_add_page">
     <form [formGroup]="editJournalForm" (ngSubmit)="onSubmit()">
+      <div class="card_micro">
+
       <div class="entry_header">
         <div class="grid">
           <div class="col-12 md:col-3">
@@ -61,8 +63,34 @@
             <lib-label [appControl]="editJournalForm.controls['sourceCode']">
               {{ 'EditJournal.SourceDocumentCode' | translate }}
             </lib-label>
+            <p
+              class="subHead paragraph_b16 pragraph_demd m-0"
+              *ngIf="journalEntry?.sourceName == 'PaymentIn'"
+              [ngClass]="{ code: editJournalForm.controls['sourceCode'].value! }"
+              (click)="routeToPaymentInView(journalEntry?.paymentInId!)"
+            >
+              {{ editJournalForm.controls['sourceCode'].value || 'N/A' }}
+            </p>
+            <p
+              class="subHead paragraph_b16 pragraph_demd m-0"
+              *ngIf="journalEntry?.sourceName == 'PaymentOut'"
+              [ngClass]="{ code: editJournalForm.controls['sourceCode'].value! }"
+              (click)="routeToPaymentOutView(journalEntry?.paymentOutId!)"
+            >
+              {{ editJournalForm.controls['sourceCode'].value || 'N/A' }}
+            </p>
+            <p
+            class="subHead paragraph_b16 pragraph_demd  m-0"
+            *ngIf="!journalEntry?.sourceCode"
+          >
+            {{ 'N/A'  }}
+          </p>
+            <!-- <lib-text-input formControlName="sourceCode" [readOnly]="true"
+            [ngClass]="{'code':editJournalForm.controls['sourceCode'].value!}" 
+ 
+            (click)="routeToPaymentInView(editJournalForm.controls['sourceCode'].value!)"
 
-            <lib-text-input formControlName="sourceCode" [readOnly]="true"></lib-text-input>
+            ></lib-text-input> -->
           </div>
           <div class="col-12 md:col-3">
             <lib-label [appControl]="editJournalForm.controls['reversedJournalCode']">
@@ -112,7 +140,7 @@
           </div>
         </div>
       </div>
-
+      </div>
       <div class="entry_tableCont">
         <div class="card">
           <p-table
@@ -209,7 +237,9 @@
                       {{ journalLine.controls['debitAmount'].value | numberFormat }}
                     </ng-template>
                   </p-cellEditor>
-                  <lib-field-validations [appControl]="journalLine.controls['debitAmount']"></lib-field-validations>
+                  <lib-field-validations
+                    [appControl]="journalLine.controls['debitAmount']"
+                  ></lib-field-validations>
                 </td>
                 <td
                   [pEditableColumn]="journalLine.controls['creditAmount']"
@@ -229,7 +259,9 @@
                       {{ journalLine.controls['creditAmount'].value | numberFormat }}
                     </ng-template>
                   </p-cellEditor>
-                  <lib-field-validations [appControl]="journalLine.controls['creditAmount']"></lib-field-validations>
+                  <lib-field-validations
+                    [appControl]="journalLine.controls['creditAmount']"
+                  ></lib-field-validations>
                 </td>
 
                 <td>
@@ -243,8 +275,9 @@
                       formControlName="currencyRate"
                       [readOnly]="viewMode"
                     ></lib-text-input>
-                    <lib-field-validations [appControl]="journalLine.controls['currencyRate']"></lib-field-validations>
-
+                    <lib-field-validations
+                      [appControl]="journalLine.controls['currencyRate']"
+                    ></lib-field-validations>
                   </lib-form-group>
                 </td>
                 <td>
@@ -271,7 +304,7 @@
                     *ngIf="
                       isCostCenterallowed(journalLine.controls['costCenterConfig'].value) &&
                       shouldShowCostCenterImage(journalLine.controls['costCenters'].value) <= 0 &&
-                      journalLine.controls['id'].value ==0 
+                      journalLine.controls['id'].value == 0
                     "
                     (click)="
                       openCostPopup(
@@ -381,20 +414,18 @@
               journalEntry?.status != enums.JournalEntryStatus.Posted
             "
           >
-        
-            <div class="grid ">
+            <div class="grid">
               <div class="md:col-3">
                 <div class="grid">
                   <div class="md:col-6">
-                <lib-button-micro
-                nameClass="outline"
-                widthNumber="100%" 
-                title="{{ 'add_new_line' | translate }}"
-                (click)="addNewRow()"
-                >
-      
-                </lib-button-micro>
-                </div>
+                    <lib-button-micro
+                      nameClass="outline"
+                      widthNumber="100%"
+                      title="{{ 'add_new_line' | translate }}"
+                      (click)="addNewRow()"
+                    >
+                    </lib-button-micro>
+                  </div>
                 </div>
               </div>
             </div>

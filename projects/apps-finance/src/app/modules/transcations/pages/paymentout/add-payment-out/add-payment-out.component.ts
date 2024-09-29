@@ -152,7 +152,7 @@ export class AddPaymentOutComponent implements OnInit {
       newBalance: new FormControl(0, customValidators.nonNegativeNumbers),
       paymentOutDetailCostCenters: new FormControl(null),
     });
-    this.addForm.controls['paymentOutDate'].patchValue(new Date());
+    this.addForm.controls['paymentOutDate'].patchValue(new Date().toISOString().split('T')[0]);
   }
 
   loadLookups() {
@@ -214,6 +214,8 @@ export class AddPaymentOutComponent implements OnInit {
 
   getpaidByDetails(index: number, name: string) {
     const journalLine = this.paymentOutDetailsFormArray.at(index);
+    journalLine.get('costCenterConfig')?.setValue(this.sharedFinanceEnums.costCenterConfig.NotAllow);
+
     journalLine.get('glAccountname')?.setValue(null);
     journalLine.get('paidByDetailsName')?.setValue(null);
     if (name == this.sharedFinanceEnums.paiedDropDown.customer) {
@@ -264,11 +266,11 @@ export class AddPaymentOutComponent implements OnInit {
     });
     this.financeService.TreasuryBalanceObservable.subscribe((res: any) => {
       if (res == 0) {
-        console.log("00000000000");
+        // console.log("00000000000");
 
       }
       this.AccountBalance = res;
-      console.log(res, "1111111111111");
+      // console.log(res, "1111111111111");
 
     });
     this.financeService.AccountBalanceObservable.subscribe((res: any) => {

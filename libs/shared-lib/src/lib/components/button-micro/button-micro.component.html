@@ -5,6 +5,13 @@
   [ngClass]="{ icon_btn: !title && iconName }"
   [type]="type"
   [disabled]="disabled"
+  [title]="
+    nameClass === 'table_button_view' ? ('view' | translate) :
+    nameClass === 'table_button_edit' ? ('edit' | translate) :
+    nameClass === 'table_button_delete' ? ('delete' | translate) : 
+    nameClass === 'table_button_statement' ? ('statement' | translate) : 
+    nameClass === 'sequence' ? ('sequence' | translate) :title
+  "
 >
   <span class="icon {{ iconName }}" *ngIf="iconName"></span>
   {{ title }}

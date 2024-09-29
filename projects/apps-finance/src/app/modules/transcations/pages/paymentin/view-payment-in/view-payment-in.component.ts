@@ -127,9 +127,12 @@ export class ViewPaymentInComponent {
   }
 
   routeToJournalView(id: number) {
-    const url = this.router.serializeUrl(
-      this.router.createUrlTree([`/accounting/transcations/journalentry/view/${id}`])
-    );
-    window.open(url, '_blank');
-  }
+    if(id){
+      const url = this.router.serializeUrl(
+        this.router.createUrlTree([`/accounting/transcations/journalentry/view/${id}`])
+      );
+      window.open(url, '_blank');
+    }else return
+    }
+  
 }

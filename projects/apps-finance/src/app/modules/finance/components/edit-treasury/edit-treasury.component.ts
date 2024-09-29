@@ -47,15 +47,16 @@ export class EditTreasuryComponent implements OnInit {
 
   getTreasuryById() {
     this.financeService.getTreasureDefinitionsByIdData(this.config.data.id).subscribe((res) => {
-      console.log(res);
       this.treasuryData = res;
       if (res) {
         res.branches = res?.branches?.map((elem) => {
           return elem.branchId;
         });
         this.treasuryForm.patchValue({ ...res });
-        this.accountChange(res?.accountId);
-        this.GetTreasuryCurrentBalance(res.id);
+        if (res.accountId != null) {
+          this.accountChange(res?.accountId);
+          this.GetTreasuryCurrentBalance(res.id);
+        }
       }
     });
   }
@@ -69,7 +70,6 @@ export class EditTreasuryComponent implements OnInit {
   getBranchLookup() {
     this.financeService.getBranchLookup().subscribe((res) => {
       this.branchesLookup = res;
-      console.log(res);
     });
   }
 
@@ -82,7 +82,6 @@ export class EditTreasuryComponent implements OnInit {
     this.financeService.GetAccountOpeningBalance(id).subscribe({
       next: (res) => {
         if (res) {
-          console.log(res);
           this.OpeningBalanceData = res;
           this.treasuryForm.get('accountOpeningBalance')?.setValue(res.balance);
         } else {
@@ -105,7 +104,6 @@ export class EditTreasuryComponent implements OnInit {
   }
 
   accountChange(e: any) {
-    console.log(e);
     this.GetAccountOpeningBalance(e);
   }
 
