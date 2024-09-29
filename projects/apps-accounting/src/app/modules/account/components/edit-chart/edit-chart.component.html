@@ -292,7 +292,8 @@
                   <lib-label [appControl]="formGroup.controls['periodicActiveFrom']">
                     {{ 'ChartOfAccounts.periodicActiveFrom' | translate }}
                   </lib-label>
-                  <lib-text-input type="date" formControlName="periodicActiveFrom"  />
+                  <lib-calendar formControlName="periodicActiveFrom"></lib-calendar>
+
                   <lib-field-validations [appControl]="formGroup.controls['periodicActiveFrom']">
                   </lib-field-validations>
                 </lib-form-group>
@@ -302,7 +303,8 @@
                   <lib-label [appControl]="formGroup.controls['periodicActiveTo']">
                     {{ 'ChartOfAccounts.periodicActiveTo' | translate }}
                   </lib-label>
-                  <lib-text-input type="date" formControlName="periodicActiveTo" />
+                  <lib-calendar formControlName="periodicActiveTo"></lib-calendar>
+
                   <lib-field-validations [appControl]="formGroup.controls['periodicActiveTo']">
                   </lib-field-validations>
                 </lib-form-group>
