@@ -83,7 +83,13 @@ export class EditBankDefinitionComponent implements OnInit {
         this.bankForm.at(index)?.get('glAccountId')?.setValue(r.id);
         this.bankForm.at(index)?.get('accountName')?.setValue(r.name);
         this.bankForm.at(index)?.get('accountCode')?.setValue(r.accountCode);
-      }
+        this.bankForm.at(index)?.get('displayName')?.setValue(r.accountCode);
+        this.bankForm.at(index)?.get('currencyId')!.setValue(r.currencyId);
+        let data: any = this.currenciesList.find((item) => item.id == r.currencyId);
+        this.bankForm.at(index)?.get('currencyName')?.setValue(data.name);
+        this.GetAccountOpeningBalance(r.id, index);
+      }     
+
     });
   }
   getBankInfoById(id: number) {
@@ -105,6 +111,7 @@ export class EditBankDefinitionComponent implements OnInit {
             currencyName: null,
             branchName: null,
             accountCode: elem.glAccountCode,
+            displayName:elem.glAccountCode,
             userPermission: [elem.userPermission],
             userPermissionName: '',
             branches: [elem.branches],
@@ -137,10 +144,16 @@ export class EditBankDefinitionComponent implements OnInit {
     const bankLine = this.items.at(id);
     var accountData: any = this.filteredAccounts.find((c) => c.id == event);
     if (accountData) {
+    
       bankLine.get('glAccountId')!.setValue(accountData.id);
-      bankLine.get('accountNumber')!.setValue(accountData.accountCode);
+     // bankLine.get('accountNumber')!.setValue(accountData.accountCode);
       bankLine.get('accountName')!.setValue(accountData.name);
       bankLine.get('currencyId')!.setValue(accountData.currencyId);
+      bankLine.get('displayName')?.setValue(accountData.accountCode);
+      let data: any = this.currenciesList.find((item) => item.id == accountData.currencyId);
+      bankLine?.get('currencyName')?.setValue(data.name);
+      this.GetAccountOpeningBalance(event, id);
+
     }
   }
   createBankFormGroup(): FormGroup {
@@ -219,6 +232,17 @@ export class EditBankDefinitionComponent implements OnInit {
   }
   GetAccountOpeningBalance(id: number, index: number) {
     const bankLine = this.items.at(index);
+
+    this.financeService.GetAccountOpeningBalance(id).subscribe((res) => {
+      if (res) {
+        this.OpeningBalanceData = res;
+        const currentBalance = bankLine.get('currentBalance');
+        currentBalance?.setValue(res.balance);
+      } else {
+        const currentBalance = bankLine.get('currentBalance');
+        currentBalance?.setValue('0');
+      }
+    });
   }
 
   validateBalance(id: number, currentBalance: any, openBalance: any) {
@@ -244,7 +268,7 @@ export class EditBankDefinitionComponent implements OnInit {
     if (!this.formsService.validForm(this.bankormGroup, false)) return;
     if (!this.formsService.validForm(this.items, false)) return;
     let formData = this.items.value;
-    formData.forEach((element: any) => {
+    formData?.forEach((element: any) => {
       let accountBalance = element.currentBalance;
       let openingBalance = Number(element.openingBalance);
       if (accountBalance !== openingBalance) {
@@ -256,7 +280,7 @@ export class EditBankDefinitionComponent implements OnInit {
           height: '330px',
           data: this.openingBalanceDataList,
         });
-        dialogRef.onClose.subscribe((res) => {
+        dialogRef?.onClose.subscribe((res) => {
           if (res) {
             this.financeService.editBankDefinition(data);
           }

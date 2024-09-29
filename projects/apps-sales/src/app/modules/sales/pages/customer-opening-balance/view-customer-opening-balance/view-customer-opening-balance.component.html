@@ -1,32 +1,38 @@
-<div style="margin-left: 20px; overflow-x: hidden">
-  <div class="grid-cont">
-    <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{  'openeingBalance.openingJournal' | translate }}</p>
-      <small class="subHead heading_b16">
-        {{ customerView?.openingBalanceJournalEntryCode }}
-      </small>
+<lib-page-content >
+  <div class="card_micro">
+
+  <div class="grid">
+    <div class="md:col-3 ">
+      <p class="headsCont heading_b16">{{ 'openeingBalance.openingJournal' | translate }}</p>
+      <p class="subHead paragraph_b16 pragraph_demd">
+        {{ customerView?.openingBalanceJournalEntryCode || 'N/A'}}
+      </p>
     </div>
-    <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{ 'openeingBalance.JournalLine' | translate }}</p>
-      <small class="subHead heading_b16">
-        {{ customerView?.journalEntryLineDescription }}
-      </small>
+    <div class="md:col-3 ">
+      <p class="headsCont heading_b16">{{ 'openeingBalance.JournalLine' | translate }}</p>
+      <p class="subHead paragraph_b16 pragraph_demd">
+        {{ customerView?.journalEntryLineDescription || 'N/A'}}
+      </p>
     </div>
-    <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{ 'openeingBalance.amount'| translate }}</p>
-      <small class="subHead heading_b16">
-        {{ customerView?.amount }}
-      </small>
+    <div class="md:col-3 ">
+      <p class="headsCont heading_b16">{{ 'openeingBalance.amount' | translate }}</p>
+      <p class="subHead paragraph_b16 pragraph_demd">
+        {{  customerView?.amount   || 'N/A'}}
+      </p>
     </div>
-    <div class="my-3 grid-item">
-      <p class="headsCont paragraph_b16">{{ 'openeingBalance.debitCredit' | translate }}</p>
-      <small class="subHead heading_b16">
-        {{ customerView?.amountNature }}
-      </small>
+    <div class="md:col-3 ">
+      <p class="headsCont heading_b16">{{ 'openeingBalance.debitCredit' | translate }}</p>
+      <p class="subHead paragraph_b16 pragraph_demd">
+        {{  customerView?.amountNature   || 'N/A'}}
+      </p>
     </div>
+   
+   
+  
+   
 
   </div>
-
+</div>
   <div class="journal_page">
     <lib-data-table
       *ngIf="customerView"
@@ -103,4 +109,4 @@
       </ng-container>
     </lib-data-table>
   </div>
-</div>
+</lib-page-content>

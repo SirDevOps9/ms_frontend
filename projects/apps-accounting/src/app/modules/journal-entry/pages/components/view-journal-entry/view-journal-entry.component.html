@@ -1,71 +1,77 @@
 <lib-page-content>
   <div>
+    <div class="card_micro">
+
     <div class="">
       <div class="grid">
         <div class="col-12 md:col-3">
-            <p class="headsCont heading_b16">{{ 'viewJournal.JornalCode' | translate }}</p>
+          <p class="headsCont heading_b16">{{ 'viewJournal.JornalCode' | translate }}</p>
+          <p class="subHead paragraph_b16 pragraph_demd">
+            {{ journalView?.journalCode || 'N/A' }}
+          </p>
+        </div>
+        <div class="col-12 md:col-3">
+          <p class="headsCont heading_b16">{{ 'viewJournal.Jornalstatus' | translate }}</p>
+          <p class="subHead paragraph_b16 pragraph_demd">
+            {{ journalView?.status || 'N/A' }}
+          </p>
+        </div>
+        <div class="col-12 md:col-3">
+          <p class="headsCont heading_b16">{{ 'viewJournal.journalReference' | translate }}</p>
+          <p class="subHead paragraph_b16 pragraph_demd">
+            {{ journalView?.referenceNumber || 'N/A' }}
+          </p>
+        </div>
+        <div class="col-12 md:col-3">
+          <p class="headsCont heading_b16">{{ 'viewJournal.date' | translate }}</p>
+          <p class="subHead paragraph_b16 pragraph_demd">
+            {{ (journalView?.journalDate | date : 'dd/MM/yyyy') || 'N/A' }}
+          </p>
+        </div>
+        <div class="col-12 md:col-3">
+          <p class="headsCont heading_b16">{{ 'viewJournal.JournalPeriod' | translate }}</p>
+          <p class="subHead paragraph_b16 pragraph_demd">
+            {{ journalView?.journalPeriod || 'N/A' }}
+          </p>
+        </div>
+        <div class="col-12 md:col-3">
+          <p class="headsCont heading_b16">{{ 'EditJournal.SourceDocumentName' | translate }}</p>
+          <p class="subHead paragraph_b16 pragraph_demd">
+            {{ journalView?.sourceCode || 'N/A' }}
+          </p>
+        </div>
+        <div class="col-12 md:col-3">
+          <p class="headsCont heading_b16">{{ 'EditJournal.SourceDocumentCode' | translate }}</p>
+          <p
+            class="subHead paragraph_b16 pragraph_demd"
+            *ngIf="journalView?.sourceCode == 'PaymentIn'"
+            [ngClass]="{ code: journalView?.paymentInId }"
+            (click)="routeToPaymentInView(journalView?.paymentInId!)"
+          >
+            {{ journalView?.sourceName || 'N/A' }}
+          </p>
+          <p
+            class="subHead paragraph_b16 pragraph_demd"
+            *ngIf="journalView?.sourceCode == 'PaymentOut'"
+            [ngClass]="{ code: journalView?.paymentOutId }"
+            (click)="routeToPaymentOutView(journalView?.paymentOutId!)"
+          >
+            {{ journalView?.sourceName || 'N/A' }}
+          </p>
+          <p class="subHead paragraph_b16 pragraph_demd code" *ngIf="!journalView?.sourceCode">
+            {{ 'N/A' }}
+          </p>
+        </div>
+        <div class="col-12 md:col-3">
+          <p class="headsCont heading_b16">{{ 'viewJournal.description' | translate }}</p>
+          <div>
             <p class="subHead paragraph_b16 pragraph_demd">
-              {{ journalView?.journalCode || 'N/A'  }}
+              {{ journalView?.description || 'N/A' }}
             </p>
-        </div>
-        <div class="col-12 md:col-3">
-            <p class="headsCont heading_b16">{{ 'viewJournal.Jornalstatus' | translate }}</p>
-            <p class="subHead paragraph_b16 pragraph_demd">
-              {{ journalView?.status || 'N/A'  }}
-            </p>
-        </div>
-        <div class="col-12 md:col-3">
-            <p class="headsCont heading_b16">{{ 'viewJournal.journalReference' | translate }}</p>
-            <p class="subHead paragraph_b16 pragraph_demd">
-              {{ journalView?.referenceNumber || 'N/A'  }}
-            </p>
-        </div>
-        <div class="col-12 md:col-3">
-            <p class="headsCont heading_b16">{{ 'viewJournal.date' | translate }}</p>
-            <p class="subHead paragraph_b16 pragraph_demd">
-              {{ (journalView?.journalDate | date : 'dd/MM/yyyy') || 'N/A'  }}
-            </p>
-        </div>
-        <div class="col-12 md:col-3">
-            <p class="headsCont heading_b16">{{ 'viewJournal.JournalPeriod' | translate }}</p>
-            <p class="subHead paragraph_b16 pragraph_demd">
-              {{ journalView?.journalPeriod || 'N/A'  }}
-            </p>
-        </div>
-        <div class="col-12 md:col-3">
-            <p class="headsCont heading_b16">{{ 'EditJournal.SourceDocumentName' | translate }}</p>
-            <p class="subHead paragraph_b16 pragraph_demd">
-              {{ journalView?.type || 'N/A'  }}
-            </p>
-        </div>
-        <div class="col-12 md:col-3">
-            <p class="headsCont heading_b16">{{ 'EditJournal.SourceDocumentCode' | translate }}</p>
-            <p
-              class="subHead paragraph_b16 pragraph_demd"
-              *ngIf="journalView?.sourceCode == 'PaymentIn'"
-              [ngClass]="{'code':journalView?.paymentInId}" 
-              (click)="routeToPaymentInView(journalView?.paymentInId!)"
-            >
-              {{ journalView?.sourceName || 'N/A'  }}
-            </p>
-            <p
-              class="subHead paragraph_b16 pragraph_demd"
-              *ngIf="journalView?.sourceCode == 'PaymentOut'"
-              [ngClass]="{'code':journalView?.paymentOutId}" 
-              (click)="routeToPaymentOutView(journalView?.paymentOutId!)"
-            >
-              {{ journalView?.sourceName || 'N/A'  }}
-            </p>
-        </div>
-        <div class="col-12 md:col-3">
-            <p class="headsCont heading_b16">{{ 'viewJournal.description' | translate }}</p>
-            <div>
-              <p class="subHead paragraph_b16 pragraph_demd">
-                {{ journalView?.description || 'N/A'  }}
-              </p>
           </div>
         </div>
       </div>
+    </div>
     </div>
     <!--  -->
     <div class="grid-cont">
@@ -76,11 +82,9 @@
         {{ journalView?.reversedJournalCode }}
       </p>
     </div>  
-    -->
-    
-  </div>
+    --></div>
     <!--  -->
- 
+
     <!--  -->
     <!--  -->
     <div class="journal_page">

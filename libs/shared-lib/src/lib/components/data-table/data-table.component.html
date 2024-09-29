@@ -292,12 +292,24 @@
       <ng-container *ngIf="items! && !items?.length && !firstRow">
         <div class="flex justify-content-center mt-4" (click)="addNewItem()">
           <div class="flex gap-2 align-content-center pointer">
-            <i *ngIf="!reportTable" class="pi pi-plus"></i> <small>There is no data</small>
+            <i *ngIf="!reportTable" class="pi pi-plus"></i>
+            <small *ngIf="!reportTable">There is no data</small>
           </div>
         </div>
       </ng-container>
     </div>
   </div>
+  <div
+  *ngIf="tableConfigs.allowServerPagination && currentPageResult?.totalItems"
+  class="flex justify-content-end custom-paginator"
+  [class.none]="currentPageResult.totalItems! <= 25"
+>
+  <lib-table-paginator
+    (pageChange)="onPageChange($event)"
+    [totalRecords]="currentPageResult.totalItems!"
+    [rows]="currentPageResult.pageSize!"
+  ></lib-table-paginator>
+</div>
 </div>
 
 <div class="viewInMob" *ngIf="false">
@@ -339,9 +351,8 @@
     </div>
     <span></span>
   </div>
-</div>
-<div
-  *ngIf="tableConfigs.allowServerPagination && currentPageResult.totalItems"
+  <div
+  *ngIf="tableConfigs.allowServerPagination && currentPageResult?.totalItems"
   class="flex justify-content-end custom-paginator"
   [class.none]="currentPageResult.totalItems! <= 25"
 >
@@ -351,3 +362,5 @@
     [rows]="currentPageResult.pageSize!"
   ></lib-table-paginator>
 </div>
+</div>
+

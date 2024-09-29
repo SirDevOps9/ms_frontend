@@ -116,7 +116,7 @@ export class TreauryDefinitionListComponent implements OnInit {
   onAdd() {
     const dialogRef = this.dialog.open(AddTreasuryComponent, {
       // header: this.languageService.transalte('treasury.addTreasury'),
-      width: '600px',
+      width: '650px',
       height: '600px',
 
       // position: 'bottom-right', // Adjust position as needed
@@ -164,7 +164,7 @@ export class TreauryDefinitionListComponent implements OnInit {
     );
     window.open(url, '_blank');
   }
-  
+
   onDelete(id: number) {
     this.financeService.deleteTreasury(id);
   }

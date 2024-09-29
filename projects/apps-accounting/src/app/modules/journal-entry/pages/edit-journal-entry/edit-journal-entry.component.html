@@ -1,6 +1,8 @@
 <lib-page-content>
   <div class="journal_entry_add_page">
     <form [formGroup]="editJournalForm" (ngSubmit)="onSubmit()">
+      <div class="card_micro">
+
       <div class="entry_header">
         <div class="grid">
           <div class="col-12 md:col-3">
@@ -77,6 +79,12 @@
             >
               {{ editJournalForm.controls['sourceCode'].value || 'N/A' }}
             </p>
+            <p
+            class="subHead paragraph_b16 pragraph_demd  m-0"
+            *ngIf="!journalEntry?.sourceCode"
+          >
+            {{ 'N/A'  }}
+          </p>
             <!-- <lib-text-input formControlName="sourceCode" [readOnly]="true"
             [ngClass]="{'code':editJournalForm.controls['sourceCode'].value!}" 
  
@@ -132,7 +140,7 @@
           </div>
         </div>
       </div>
-
+      </div>
       <div class="entry_tableCont">
         <div class="card">
           <p-table

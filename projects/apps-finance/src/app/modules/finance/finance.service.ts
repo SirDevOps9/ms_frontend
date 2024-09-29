@@ -270,7 +270,7 @@ export class FinanceService {
   exportsBankList(searchTerm:string | undefined) {
     this.financeProxy.exportsBankList(searchTerm).subscribe({
       next: (res : any) => {
-         this.exportedTreasuryListDataSource.next(res);
+         this.exportedBankListDataSource.next(res);
       },
     });
   }

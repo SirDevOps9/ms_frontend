@@ -1,4 +1,6 @@
 <lib-page-content>
+  <div class="card_micro">
+
     <div class="page_content_header">
         <div class="actions">
             <button class="icon_btn" [ngClass]="{ active: Viewlist }" (click)="listView()">
@@ -9,11 +11,15 @@
             </button>
           </div>
     </div>
+    </div>
+    <div class="card_micro">
+
     <div class="main_chat_of_account">
       <app-cost-center-tree
         *ngIf="!Viewlist"
        
       ></app-cost-center-tree>
       <app-cost-center-list *ngIf="Viewlist"></app-cost-center-list>
+    </div>
     </div>
   </lib-page-content>

@@ -392,6 +392,7 @@
     "glAccountId": "رقم الحساب العام",
     "costCenterConfig": "إعداد مركز التكلفة",
     "notes": "ملاحظات",
-    "PaymentMethod": "طريقة الدفع"
+    "PaymentMethod": "طريقة الدفع",
+    "status": "الحالة"
   }
 }
