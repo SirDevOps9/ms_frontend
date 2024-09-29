@@ -44,6 +44,7 @@
         "pusrchaseUom" : "Purchase UOM",
         "add_new" : "Add Line",
         "barcode": "Barcode",
+        "deleteBarcode" : "Barcode Deleted Successfully",
         "unit": "Unit",
         "variant": "Variant",
         "sku": "SKU",
@@ -125,7 +126,8 @@
         "viewVariant" : "View",
         "itemTracking" : "Item Tracking",
         "SelectItemTracking" : "Select Item Tracking",
-        "hasExpiry" : "Has Expiry Date"
+        "hasExpiry" : "Has Expiry Date",
+        "Variants":"Variants add success"
     },
     "warehouse" : {
         "Add" : "Add",

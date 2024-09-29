@@ -45,6 +45,7 @@
       "pusrchaseUom": "وحدة القياس للشراء",
       "add_new": "إضافة خط جديد",
       "barcode": "الرمز الشريطي",
+      "deleteBarcode" : "تم اضافة الرمز الشريطي بنجاح",
       "unit": "الوحدة",
       "variant": "متغير",
       "sku": "SKU",
@@ -106,7 +107,9 @@
       "actions": "الإجراءات",
       "Add": "إضافة",
       "search": "بحث",
-      "ChangeColumn": "تغيير العمود"
+      "ChangeColumn": "تغيير العمود",
+      "Variants": "تم إضافة الأصناف بنجاح"
+
     },
     "itemDefinition": {
       "name": "الاسم",

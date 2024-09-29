@@ -651,7 +651,7 @@
                         <div class="flex gap-4 align-items-center">
                           <i class="pi pi-eye" (click)="onViewBarcode(itemDefBarcodeGroup)"></i>
                           <i class="pi pi-save"  (click)="onSaveBarcode(itemDefBarcodeGroup)" [class.none]="itemDefBarcodeGroup.controls['id']?.value"></i>
-                          <i class="pi pi-trash"  (click)="onDeleteBarcode(i)" [class.none]="itemDefBarcodeGroup.controls['id']?.value"></i>
+                          <i class="pi pi-trash"  (click)="onDeleteBarcode(itemDefBarcodeGroup , i)" ></i>
                           
                         </div>
                       </td>

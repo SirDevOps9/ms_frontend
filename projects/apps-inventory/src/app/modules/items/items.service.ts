@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { ItemsProxyService } from './items-proxy.service';
 import { LanguageService, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map, Subject } from 'rxjs';
 import { addBarcode, AddItemCategory, AddItemDefinitionDto, AddVariantLine, AddWarehouse, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, itemDefinitionDto, ItemTypeDto, UomCodeLookup, UomDefault, WarehouseAccountData } from './models';
 import { EditItemDefinitionDto } from './models/editItemDefinitionDto';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -35,7 +35,10 @@ export class ItemsService {
   public taxesLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([]);
   public uomCodeLookup = new BehaviorSubject<UomCodeLookup[]>([]);
 
-  public codeByuomCodeDropDown = new BehaviorSubject<{ code: string }>({ code: '' });
+  public defaultUnit = new BehaviorSubject<{ id: number; name: string }>({} as { id: number; name: string });
+
+
+  public codeByuomCodeDropDown = new EventEmitter<{ code: number; conversionRatio: string}>();
   public UOMCategoryDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public UOMDropDownLookup = new BehaviorSubject<{ id: number; nameEn: string }[]>([]);
   public UOMDropDownLookupByUomCategory = new BehaviorSubject<{ id: number; name: string }[]>([]);
@@ -93,6 +96,7 @@ export class ItemsService {
   public getItemCategoryByIdDataObs  = this.getItemCategoryByIdData.asObservable()
   public sendItemCategoryDataSourceObs  = this.sendItemCategoryDataSource.asObservable()
   public tagLookupObs  = this.tagLookup.asObservable()
+  public defaultUnitObs  = this.defaultUnit.asObservable()
   public AccountsDropDownLookupObs  = this.AccountsDropDownLookup.asObservable()
   public taxesLookupObs  = this.taxesLookup.asObservable()
   public uomCodeLookupObs  = this.uomCodeLookup.asObservable()
@@ -182,6 +186,11 @@ export class ItemsService {
   addVariantLine(obj : AddVariantLine) {
     this.itemProxy.addVariantLine(obj).subscribe(res=>{
       this.addVariantLineData.next(res)
+      this.toasterService.showSuccess(
+        this.languageService.transalte('itemDefinition.success'),
+        this.languageService.transalte('itemDefinition.add')
+     
+      );
     })
   }
 
@@ -315,11 +324,12 @@ export class ItemsService {
     });
   }
   getCodeByuomCodeDropDown(id:number) {
-    this.itemProxy.getCodeByuomCodeDropDown(id).subscribe({
-      next: (res : any) => {
-        this.codeByuomCodeDropDown.next(res);
-      },
-    });
+    return this.itemProxy.getCodeByuomCodeDropDown(id)
+    // this.itemProxy.getCodeByuomCodeDropDown(id).subscribe({
+    //   next: (res : any) => {
+    //     this.codeByuomCodeDropDown.emit(res);
+    //   },
+    // });
   }
   getTrackingDropDown(){
     this.itemProxy.getTrackingDropDown().subscribe({
@@ -356,6 +366,15 @@ export class ItemsService {
          this.ItemVariantsByItemIdDropDown.next(res);
       },
     });
+  }
+
+  getDefaultUnit(id:number , itemId : number) {
+    this.itemProxy.getDefaultUnit(id , itemId).subscribe(res=>{
+      if(res) {
+        this.defaultUnit.next(res)
+
+      }
+    })
   }
 
   attributeGroups() {
@@ -441,6 +460,27 @@ export class ItemsService {
           const currentVariant = this.sendAttributeVariantData.getValue();
           const updatedVariants = currentVariant.filter(c  => c.id !== id);
           this.sendAttributeVariantData.next(updatedVariants);
+        },
+        
+      });
+    }
+  }
+  
+  async deleteBarcode(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.itemProxy.deleteBarcode(id).subscribe({
+        next: (res) => {
+          
+          this.toasterService.showSuccess(
+            this.languageService.transalte('itemType.success'),
+            this.languageService.transalte('itemType.deleteBarcode')
+          );
+          const currentVariant = this.GetBarcode.getValue();
+          const updatedVariants = currentVariant.filter(c  => c.id !== id);
+          this.GetBarcode.next(updatedVariants);
         },
         
       });
