@@ -152,4 +152,20 @@ export class CostCenterTreeComponent implements OnInit {
       }
     });
   }
+
+  expand_Collapse(){
+    this.expanded = !this.expanded; 
+    this.nodes.forEach(node => {
+      this.toggleNode(node, this.expanded);  
+    });   
+  }
+
+  toggleNode(node: any, expanded: boolean) {
+    node.expanded = expanded;
+    if (node.children) {
+      node.children.forEach((child: any) => {
+        this.toggleNode(child, expanded); 
+      });
+    }
+  }
 }

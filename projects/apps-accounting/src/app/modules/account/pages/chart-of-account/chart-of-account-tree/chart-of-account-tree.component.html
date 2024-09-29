@@ -8,9 +8,18 @@
             <img src="assets/images/tree/folder.png" alt="" />
             <p class="text paragraph_b18">{{ 'ChartOfAccount.Title' | translate }}</p>
           </div>
-
-          <button class="btn_tree_item btn_add pi pi-plus" (click)="newChild()"></button>
-
+          <div class="flex justify-content-center align-content-center gap-1 ">
+  
+            @if(!expanded){
+              <button class="btn_tree_item pi pi-expand"  (click)="expand_Collapse()">
+              </button>   
+            }@else{
+              <button class="btn_tree_item "  (click)="expand_Collapse()">
+                <i class="fa-solid fa-compress"></i>
+              </button>
+            }
+            <button class="btn_tree_item btn_add pi pi-plus" (click)="newChild()"></button>
+        </div>
         </div>
 
         <p-tree [value]="nodes" [filter]="true" expanded="true" *ngIf="showTree">
