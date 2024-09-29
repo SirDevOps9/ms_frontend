@@ -8,6 +8,7 @@ import { itemAttributeValues } from './models/itemAttributeValues';
 import { getBarcodeById } from './models/getBarcodeById';
 import { AddUom, UomPost } from './models/addUom';
 import { addAttributeDifintion, IAttrributeDifinition } from './models/AttrbuteDiffintion';
+import { VieItemDefinitionDto } from './models/VieItemDefinitionDto';
 
 @Injectable({
   providedIn: 'root'
@@ -34,9 +35,13 @@ export class ItemsProxyService {
     return this.httpService.post('Item',obj)
   }
  
-  getItemDefinitionById(id : number ): Observable<EditItemDefinitionDto>{
+  ViewDefinitionById(id : number ): Observable<EditItemDefinitionDto>{
     return this.httpService.get(`Item/${id}`)
   }
+  getItemViewDefinitionById(id : number ): Observable<VieItemDefinitionDto>{
+    return this.httpService.get(`StorageInformation/${id}`)
+  }
+
   deleteItemDefinition(id : number ){
     return this.httpService.delete(`Item/${id}`)
   }

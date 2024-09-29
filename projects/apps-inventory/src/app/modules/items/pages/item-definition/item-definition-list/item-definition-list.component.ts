@@ -8,6 +8,7 @@ import { ItemsService } from '../../../items.service';
 import { itemDefinitionDto } from '../../../models';
 import { AddItemDefinitionPopupComponent } from '../../../components/add-item-definition/add-item-definition-popup.component';
 import { EditItemDefinitionComponent } from '../../../components/edit-item-definition/edit-item-definition.component';
+import { ViewItemDefinitionComponent } from '../../../components/view-item-definition/view-item-definition/view-item-definition.component';
 
 @Component({
   selector: 'app-item-definition-list',
@@ -122,6 +123,16 @@ export class ItemDefinitionListComponent implements OnInit {
 
   }
 
+  onView(data:any){
+    const dialogRef = this.dialog.open(ViewItemDefinitionComponent, {
+      width: '800px',
+      height : '700px',
+      data : data
+    });
+    dialogRef.onClose.subscribe(() => {
+    // this.initItemDefinitionData()
+    });
+  }
   onSearchChange() {
     this.itemsService.getItemDefinition(this.searchTerm, new PageInfo());
     

@@ -69,7 +69,7 @@ export class AddAttributeDefinitionComponent implements OnInit {
   // init the form
   initAttrGroupForm() {
     this.attrFormGroup = this.fb.group({
-      attrName: [null, customValidators.required],
+      attrName: ['', customValidators.required],
     });
 
     this.attrFormGroup.get('attrName')?.valueChanges.subscribe((res: any) => {

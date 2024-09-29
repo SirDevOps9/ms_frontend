@@ -97,9 +97,9 @@ export class BreadcrumbLabel {
     static  ITEM_CATEGORY ='Item Category';
     static  WARE_HOUSE ='Warehouse';
     static  ADD_WARE_HOUSE ='Add Warehouse';
-    static  UOM ='uom';
+    static  UOM ='UOM';
     static  UOM_LIST ='uom-list';
-    static  ADD_UOM ='Add uom';
+    static  ADD_UOM ='UOM Add';
     static  Edit_UOM ='edit uom';
 
     // attr attribute-definition 

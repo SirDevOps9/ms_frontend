@@ -107,9 +107,7 @@
     "actions": "الإجراءات",
     "Add": "إضافة",
     "search": "بحث",
-    "ChangeColumn": "تغيير العمود",
-      "Variants": "تم إضافة الأصناف بنجاح"
-
+    "ChangeColumn": "تغيير العمود"
   },
   "itemDefinition": {
     "name": "الاسم",
