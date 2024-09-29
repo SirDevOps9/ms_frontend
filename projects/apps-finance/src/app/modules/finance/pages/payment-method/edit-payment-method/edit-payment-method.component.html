@@ -3,7 +3,7 @@
     <lib-button-micro nameClass="cancel" title="cancel" (click)="discard()"></lib-button-micro>
     <lib-button-micro nameClass="save" title="Save" iconName="pi pi-save" type="button" (click)="onSave()"></lib-button-micro>
   </div> -->
-
+  <div class="card_micro">
   <div class="bank">
     <div [formGroup]="PaymentMethodForm" class="entry_header">
       <div class="grid">
@@ -170,7 +170,7 @@
                 </div>
               </div>
 
-              <div class="grid">
+              <div class="grid flex align-content-start flex-column mt-2">
                 <div class="col-3 md:col-4" [formGroupName]="'paymentMethodCommissionData'">
                   <lib-form-group class="flex align-items-center">
                     <lib-input-switch
@@ -209,8 +209,9 @@
       </div>
     </div>
   </div>
+  </div>
   <div class="btn_group">
-    <div class="grid mt-4">
+    <div class="grid ">
       <div class="md:col-3">
         <div class="grid">
           <div class="md:col-6">

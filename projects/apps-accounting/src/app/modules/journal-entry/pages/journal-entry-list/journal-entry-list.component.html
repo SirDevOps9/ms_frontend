@@ -2,6 +2,7 @@
   <div class="user_page">
     <lib-data-table
       [items]="tableData"
+      [sequence]="true"
       className="p-datatable-gridlines"
       [currentPageResult]="currentPageInfo"
       (pageChange)="onPageChange($event)"
@@ -12,12 +13,7 @@
         dataKey: 'id',
         pageSize: 10,
         columns: [
-          {
-            name: 'id',
-            headerText: 'Journal.id' | translate,
-            isGlobalFilter: true,
-            isSortable: true
-          },
+         
           {
             name: 'journalCode',
             headerText: 'Journal.journalCode' | translate,
@@ -138,8 +134,9 @@
           <!-- <lib-button pRipple className="addToList" label="{{ 'EditJournal.add' | translate }}" (onClick)="routeToAdd()"
             [icon]="'pi pi-plus'"></lib-button> -->
           <lib-button-micro
-            title="{{ 'EditJournal.add' | translate }}"
+            title="{{ 'create' | translate }}"
             (click)="routeToAdd()"
+            [iconName]="'pi pi-plus'"
             nameClass="save"
           >
           </lib-button-micro>
@@ -148,10 +145,11 @@
 
       <ng-template #userCol let-journal>
         <div class="actions flex align-items-center">
-          <lib-button-micro nameClass="table_button_edit" (click)="routeToEdit(journal.id)">
-          </lib-button-micro>
           <lib-button-micro nameClass="table_button_view" (click)="viewJournal(journal.id)">
           </lib-button-micro>
+          <lib-button-micro nameClass="table_button_edit" (click)="routeToEdit(journal.id)">
+          </lib-button-micro>
+       
         </div>
       </ng-template>
       <ng-template #userStatus let-journal>

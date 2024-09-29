@@ -52,7 +52,6 @@ export class AddTreasuryComponent implements OnInit {
 
   moudlelist() {
     this.modulelist = this.layoutService.getModules();
-    console.log(this.modulelist);
   }
 
   getCurrencies() {

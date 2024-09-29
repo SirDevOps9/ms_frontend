@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { AuthService } from 'microtec-auth-lib';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { GeneralSettingService } from '../../general-setting.service';
-import { LanguageService, MenuModule, customValidators } from 'shared-lib';
+import {  customValidators } from 'shared-lib';
 import { LayoutService } from 'libs/apps-shared-lib/src/lib/modules/layout/layout.service';
 import { SubdomainModuleDto, TagDto } from '../../models';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tag-edit',
@@ -74,7 +72,6 @@ export class TagEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('onSubmit', this.tagForm.value);
     if (!this.tagForm.valid) return;
     const tagDto: TagDto = this.tagForm.value;
     this.generalSettingService.editTag(tagDto, this.ref);

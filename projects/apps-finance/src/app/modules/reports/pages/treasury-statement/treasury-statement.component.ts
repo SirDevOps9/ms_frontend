@@ -20,6 +20,7 @@ import { TranscationsService } from '../../../transcations/transcations.service'
 import { ReportsService } from '../../reports.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 import { SourceDocument } from '../../models/source-document-dto';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-treasury-statement',
@@ -30,10 +31,14 @@ import { SourceDocument } from '../../models/source-document-dto';
 export class TreasuryStatementComponent implements OnInit {
   reportForm: FormGroup;
   treasuryDropDown: TreasuryDropDown[] = [];
-  currency: string;
+  currency: string | undefined;
   tableData?: treasuryStatementDto;
   total: number = 0;
   selectedTreasuryName: string = '';
+
+
+  fromDate : string = ''
+  toDate : string = ''
 
   constructor(
     private fb: FormBuilder,
@@ -66,12 +71,21 @@ export class TreasuryStatementComponent implements OnInit {
         this.selectedTreasuryName = selected.name;
       }
     });
+
+    this.reportForm.get('dateFrom')?.valueChanges.subscribe((res: any) => {
+      this.fromDate = this.formatDate(res, 'yyyy-MM-dd');
+    })
+    this.reportForm.get('dateTo')?.valueChanges.subscribe((res: any) => {
+      this.toDate = this.formatDate(res, 'yyyy-MM-dd');
+    })
   }
 
   getTreasuryDropDown() {
     this.financeService.treasuryDropDown();
-    this.financeService.getTreasuryDropDownDataObservable.subscribe((res: any) => {
+    this.financeService.getTreasuryDropDownDataObservable.subscribe((res: TreasuryDropDown[]) => {
       this.treasuryDropDown = res;
+      if(res)
+      this.currency = res.find( x =>x.id == this.routerService.currentId)?.currencyName
     });
   }
 
@@ -82,6 +96,9 @@ export class TreasuryStatementComponent implements OnInit {
       treasuryId: new FormControl('', [customValidators.required]),
       currency: new FormControl(''),
     });
+    this.reportForm.controls['dateFrom'].patchValue(new Date());
+    this.reportForm.controls['dateTo'].patchValue(new Date());
+
   }
 
   initializeDates() {
@@ -92,6 +109,8 @@ export class TreasuryStatementComponent implements OnInit {
 
     const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1);
 
+    this.formatDate(this.reportForm.controls['dateFrom'].value, 'yyyy-MM-dd');
+    this.formatDate(this.reportForm.controls['dateTo'].value, 'yyyy-MM-dd');
     this.reportForm.patchValue({
       dateFrom: startOfMonth.toISOString().split('T')[0],
       dateTo: endOfMonth.toISOString().split('T')[0],
@@ -152,5 +171,12 @@ export class TreasuryStatementComponent implements OnInit {
       this.router.createUrlTree([`/accounting/transcations/journalentry/view/${id}`])
     );
     window.open(url, '_blank');
+  }
+
+
+  //  format date 
+  formatDate(date: string, format: string): string {
+    const pipe = new DatePipe('en-US');
+    return pipe.transform(date, format) || '';
   }
 }

@@ -61,17 +61,12 @@
               <td [pEditableColumn]="customerGroup.controls['duedate']" pEditableColumnField="duedate">
                 <p-cellEditor>
                   <ng-template pTemplate="input">
-                    <!-- <lib-text-input
-                  type="date"
-
-                    formControlName="duedate"
-                  ></lib-text-input> -->
+                
                     <lib-calendar  [disabled]="customerGroup.controls['credit'].value != 0 && customerGroup.controls['debit'].value == 0 " formControlName="dueDate"></lib-calendar>
 
                   </ng-template>
                   <ng-template pTemplate="output">
-                    <!-- <lib-calendar  [disabled]="true"  formControlName="duedate" [placeholder]="customerGroup.controls['duedate'].value"></lib-calendar> -->
-                    {{customerGroup.controls['dueDate'].value}}
+                    {{customerGroup.controls['dueDate'].value | date: 'dd/MM/yyyy'}}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations [appControl]="customerGroup.controls['dueDate']"></lib-field-validations>

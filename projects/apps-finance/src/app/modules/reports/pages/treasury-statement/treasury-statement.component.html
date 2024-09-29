@@ -1,17 +1,25 @@
 <lib-page-content>
   <div class="user_page group">
+    <div class="card_micro">
     <form [formGroup]="reportForm">
+
+
       <div class="group">
         <div class="calender">
-          <div class="grid">
-            <div class="col-12 md:col-6">
-              <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input>
-            </div>
-            <div class="col-12 md:col-6">
-              <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input>
-            </div>
+        <div class="grid">
+          <div class="col-12 md:col-6">
+            <!-- <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input> -->
+            <lib-calendar formControlName="dateFrom" [placeholder]="fromDate" ></lib-calendar>
+
+          </div>
+          <div class="col-12 md:col-6">
+            <!-- <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input> -->
+         
+            <lib-calendar formControlName="dateTo" [placeholder]="toDate" ></lib-calendar>
+
           </div>
         </div>
+      </div>
 
         <div class="grid">
           <div class="col-12 md:col-5">
@@ -29,12 +37,11 @@
             ></lib-field-validations>
           </div>
           <div class="col-12 md:col-4">
-            <lib-text-input
-              type="text"
-              formControlName="currency"
-              [readOnly]="true"
-              [placeholder]="'TreasuryStatement.currency' | translate"
-            />
+            <div class="view">
+              <p>
+                {{ currency ? currency : ('BankAccountStatement.DisplayCurrency' | translate) }}
+              </p>
+            </div>
           </div>
           <div class="col-12 md:col-3">
             <div class="all_btn">
@@ -53,6 +60,7 @@
         </div>
       </div>
     </form>
+    </div>
     <lib-data-table
       *ngIf="tableData"
       id="printableTable"
