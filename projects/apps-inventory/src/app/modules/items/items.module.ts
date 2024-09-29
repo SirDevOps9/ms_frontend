@@ -35,6 +35,7 @@ import { ViewItemCategoryComponent } from './pages/item-categories-tree/view-ite
 import { EditWarehouseComponent } from './pages/warehouse/edit-warehouse/edit-warehouse.component';
 import { MainItemCategoriesTreeComponent } from './pages/item-categories-tree/main-item-categories-tree/main-item-categories-tree.component';
 import { AddWarehousePopupComponent } from './components/warehouse/add-warehouse-popup/add-warehouse-popup.component';
+import { ViewItemDefinitionComponent } from './components/view-item-definition/view-item-definition/view-item-definition.component';
 
 
 const routes: Routes = [
@@ -237,7 +238,8 @@ const routes: Routes = [
     ViewItemCategoryComponent,
     EditWarehouseComponent,
     MainItemCategoriesTreeComponent,
-    AddWarehousePopupComponent
+    AddWarehousePopupComponent,
+    ViewItemDefinitionComponent
   ],
   imports: [
     CommonModule,

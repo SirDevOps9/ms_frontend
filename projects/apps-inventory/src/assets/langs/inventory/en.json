@@ -99,6 +99,7 @@
     "Add": "Add",
     "search": "Search",
     "ChangeColumn": "Change Column"
+
   },
   "itemDefinition": {
     "name": "Name",
@@ -117,7 +118,12 @@
     "viewVariant": "View",
     "itemTracking": "Item Tracking",
     "SelectItemTracking": "Select Item Tracking",
-    "hasExpiry": "Has Expiry Date"
+    "hasExpiry": "Has Expiry Date",
+    "warehouseName": "Warehouse Name",
+    "onHandQuantity":"On Hand Quantity",
+    "reservedQuantity":"Reserved Quantity",
+    "demandQuantity":"Demand Quantity",
+    "notFoundType":"Not Found Type"
   },
   "warehouse": {
     "Add": "Add",

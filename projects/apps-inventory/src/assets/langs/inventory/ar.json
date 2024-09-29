@@ -99,7 +99,8 @@
     "actions": "الإجراءات",
     "Add": "إضافة",
     "search": "بحث",
-    "ChangeColumn": "تغيير العمود"
+    "ChangeColumn": "تغيير العمود",
+     "notFoundType":"لا يوجد نوع"
   },
   "itemDefinition": {
     "name": "الاسم",

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ItemsProxyService } from './items-proxy.service';
 import {
   LanguageService,
+  LoaderService,
   PageInfo,
   PageInfoResult,
   RouterService,
@@ -38,6 +39,7 @@ import { getBarcodeById } from './models/getBarcodeById';
 import { AddUom, UomPost } from './models/addUom';
 import { addAttributeDifintion, IAttrributeDifinitionResult } from './models/AttrbuteDiffintion';
 import { OperationType } from './models/enums';
+import { VieItemDefinitionDto } from './models/VieItemDefinitionDto';
 
 @Injectable({
   providedIn: 'root',
@@ -47,11 +49,15 @@ export class ItemsService {
     private itemProxy: ItemsProxyService,
     private toasterService: ToasterService,
     private languageService: LanguageService,
-    private router: RouterService
+    private router: RouterService,
+    private loaderService: LoaderService,
+
+
   ) {}
   sendItemTypeDataSource = new BehaviorSubject<ItemTypeDto[]>([]);
   sendItemDefinitionDataSource = new BehaviorSubject<itemDefinitionDto[]>([]);
   sendDataDefinitionById = new BehaviorSubject<EditItemDefinitionDto>({} as EditItemDefinitionDto);
+  ViewDataDefinitionById = new BehaviorSubject<VieItemDefinitionDto>({} as VieItemDefinitionDto);
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   public itemTypeLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([]);
   public itemCategoryLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
@@ -132,6 +138,7 @@ export class ItemsService {
   public SendExportOperationalTagList = new BehaviorSubject<IOperationalTagResult[]>([]);
 
   public sendItemDefinitionDataSourceObs = this.sendItemDefinitionDataSource.asObservable();
+  public  ViewDataDefinitionByIdObs = this.ViewDataDefinitionById.asObservable();
   public SendexportUOMList$ = this.SendexportUOMList.asObservable();
   public wareHousesDropDownLookup$ = this.wareHousesDropDownLookup.asObservable();
   public SendexportAttrDifinitionList$ = this.SendexportAttrDifinitionList.asObservable();
@@ -209,9 +216,20 @@ export class ItemsService {
     });
   }
   getItemDefinition(quieries: string, pageInfo: PageInfo) {
+    this.loaderService.show();
     this.itemProxy.getItemDefinition(quieries, pageInfo).subscribe((response) => {
       this.sendItemDefinitionDataSource.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
+      this.loaderService.hide();
+    });
+  }
+  ViewDefinitionById(id: number) {
+    this.loaderService.show();
+    this.itemProxy.getItemViewDefinitionById(id).subscribe((res) => {
+      if (res) {
+        this.ViewDataDefinitionById.next(res);
+        this.loaderService.hide();
+      }
     });
   }
   getListOfUom(SearchTerm: string | undefined, pageInfo: PageInfo) {
@@ -261,13 +279,13 @@ export class ItemsService {
   }
 
   getItemDefinitionById(id: number) {
-    this.itemProxy.getItemDefinitionById(id).subscribe((res) => {
+    this.itemProxy.getItemViewDefinitionById(id).subscribe((res) => {
       if (res) {
-        this.sendDataDefinitionById.next(res);
+        this.ViewDataDefinitionById.next(res);
       }
     });
   }
-
+ 
   exportsItemsDefinitionList(searchTerm: string | undefined) {
     this.itemProxy.exportsItemsDefinitionList(searchTerm).subscribe({
       next: (res: any) => {
