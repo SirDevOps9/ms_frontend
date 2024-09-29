@@ -1,49 +1,49 @@
 <lib-page-content>
   <div class="grid">
     <div class="md:col-3 ">
-      <p class="headsCont heading_b16">{{ 'bank-view.code' | translate }}</p>
+      <p class="headsCont heading_b16">{{ 'bank.code' | translate }}</p>
       <p class="subHead paragraph_b16 pragraph_demd">
         {{ ViewForm.code  || 'N/A'}}
       </p>
     </div>
     <div class="md:col-3 " >
-      <p class="headsCont heading_b16">{{ 'bank-view.name' | translate }}</p>
+      <p class="headsCont heading_b16">{{ 'bank.name' | translate }}</p>
       <p class="subHead paragraph_b16 pragraph_demd">
         {{ ViewForm.name  || 'N/A' }}
       </p>
     </div>
     <div class="md:col-3 " >
-      <p class="headsCont heading_b16">{{ 'bank-view.shortName' | translate }}</p>
+      <p class="headsCont heading_b16">{{ 'bank.shortName' | translate }}</p>
       <p class="subHead paragraph_b16 pragraph_demd">
         {{ ViewForm.shortName || 'N/A' }}
       </p>
     </div>
     <div class="md:col-3 " >
-      <p class="headsCont heading_b16">{{ 'bank-view.bankAddress' | translate }}</p>
+      <p class="headsCont heading_b16">{{ 'bank.bankAddress' | translate }}</p>
       <p class="subHead paragraph_b16 pragraph_demd">
         {{ ViewForm.bankAddress || 'N/A' }}
       </p>
     </div>
     <div  class="md:col-3 " >
-      <p class="headsCont heading_b16 ">{{ 'bank-view.contactName' | translate }}</p>
+      <p class="headsCont heading_b16 ">{{ 'bank.contactName' | translate }}</p>
       <p class="subHead paragraph_b16 pragraph_demd ">
         {{ ViewForm.contactName || 'N/A' }}
       </p>
     </div>
     <div class="md:col-3 " >
-      <p class="headsCont heading_b16">{{ 'bank-view.bankEmail' | translate }}</p>
+      <p class="headsCont heading_b16">{{ 'bank.bankEmail' | translate }}</p>
       <p class="subHead paragraph_b16 pragraph_demd">
         {{ ViewForm.bankEmail  || 'N/A'}}
       </p>
     </div>
     <div class="md:col-3 " >
-      <p class="headsCont heading_b16">{{ 'bank-view.phone' | translate }}</p>
+      <p class="headsCont heading_b16">{{ 'bank.phone' | translate }}</p>
       <p class="subHead paragraph_b16 pragraph_demd">
         {{ ViewForm.phone || 'N/A' }}
       </p>
     </div>
     <div class="md:col-3 " >
-      <p class="headsCont heading_b16">{{ 'bank-view.fax' | translate }}</p>
+      <p class="headsCont heading_b16">{{ 'bank.fax' | translate }}</p>
       <p class="subHead paragraph_b16 pragraph_demd">
         {{ ViewForm.fax || 'N/A'}}
       </p>
@@ -63,107 +63,53 @@
           columns: [
             {
               name: 'accountNumber',
-              headerText: 'bank-view.accountNumber' | translate,
+              headerText: 'bank.accountNumber' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'glAccountCode',
-              headerText: 'bank-view.glAccountCode' | translate,
+              headerText: 'bank.glAccountCode' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'glAccountName',
-              headerText: 'bank-view.glAccountName' | translate,
+              headerText: 'bank.glAccountName' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
             {
+              name: 'branches',
+              headerText: 'bank.branches' | translate,
+            },
+            {
               name: 'iban',
-              headerText: 'bank-view.iban' | translate,
+              headerText: 'bank.Iban' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'currencyName',
-              headerText: 'bank-view.currencyName' | translate,
+              headerText: 'bank.currency' | translate,
               isGlobalFilter: true,
               isSortable: true,
             },
             {
               name: 'currentBalance',
-              headerText: 'bank-view.currentBalance' | translate,
+              headerText: 'bank.currentBalance' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'openingBalance',
-              headerText: 'bank-view.openingBalance' | translate,
+              headerText: 'bank.openingBalance' | translate,
               isGlobalFilter: true,
               isSortable: true
             }
           ]
         }"
     >
-      <!-- <ng-template #method pTemplate="body" let-Line let-rowIndex="rowIndex">
-        <div class="method flex align-items-center">
-          <lib-button-micro
-            title="{{ 'bank-view.PaymentMethod' | translate }}"
-            [nameClass]="
-              Line.paymentMethodType == sharedFinanceEnums.paymentMethodTypeString.Cash ||
-              Line.paymentMethodId == null
-                ? 'disabled'
-                : 'save'
-            "
-            widthNumber="100%"
-            (click)="handleButtonClick(Line)"
-          >
-          </lib-button-micro>
-        </div>
-      </ng-template> -->
-
-      <!-- <ng-template #cost pTemplate="body" let-Line let-rowIndex="rowIndex">
-        <img
-          *ngIf="
-            Line.paidBy != this.sharedFinanceEnums.paiedDropDown.other ||
-            (Line.paidBy == this.sharedFinanceEnums.paiedDropDown.other &&
-              Line.costCenterConfig == this.sharedFinanceEnums.costCenterConfig.NotAllow) ||
-            Line.costCenterConfig == null
-          "
-          src="assets/images/groups.png"
-        />
-
-        <img
-          *ngIf="
-            Line.paidBy == this.sharedFinanceEnums.paiedDropDown.other &&
-            isCostCenterallowed(Line, Line.costCenterConfig) &&
-            Line.paymentInDetailCostCenters.length == 0
-          "
-          (click)="openCostPopup(Line, Line, Line.glAccountId, rowIndex)"
-          src="assets/images/groups-mandtory-optional.png"
-          alt=""
-          class="pointer"
-        />
-
-        <img
-          *ngIf="
-            isCostCenterallowed(Line, Line.costCenterConfig) &&
-            Line.paymentInDetailCostCenters.length != 0
-          "
-          (click)="openCostPopup(Line, Line, Line.glAccountId, rowIndex)"
-          class="pointer"
-          src="assets/images/costcenterfull.png"
-        />
-      </ng-template> -->
-
-      <!-- <ng-template pTemplate="footer">
-        <tr>
-          <td class="total">{{ totalAmount | numberFormat }}</td>
-          <td class="total">{{ calculateTotalLocalAmount() | numberFormat }}</td>
-          <td colspan="8" class="total"></td>
-        </tr>
-      </ng-template> -->
 
     </lib-data-table>
   </div> 

@@ -13,8 +13,6 @@ export class ViewBankDefinitionComponent implements OnInit {
   ViewForm: ViewBankDto = {} as ViewBankDto;
   id: number = this.route.snapshot.params['id'];
 
- 
-
   constructor(
     private financeService: FinanceService,
     private route: ActivatedRoute,
@@ -30,5 +28,6 @@ export class ViewBankDefinitionComponent implements OnInit {
     });
 
   }
+ 
 
 }
