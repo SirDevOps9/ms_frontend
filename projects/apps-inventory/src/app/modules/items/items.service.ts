@@ -413,11 +413,13 @@ export class ItemsService {
     });
   }
   getCodeByuomCodeDropDown(id: number) {
-    this.itemProxy.getCodeByuomCodeDropDown(id).subscribe({
-      next: (res: any) => {
-        this.codeByuomCodeDropDown.next(res);
-      },
-    });
+   return this.itemProxy.getCodeByuomCodeDropDown(id)
+    
+    // .subscribe({
+    //   next: (res: any) => {
+    //     this.codeByuomCodeDropDown.next(res);
+    //   },
+    // });
   }
   getTrackingDropDown() {
     this.itemProxy.getTrackingDropDown().subscribe({
