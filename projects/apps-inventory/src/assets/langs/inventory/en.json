@@ -207,5 +207,51 @@
     "types": "Attribute Types",
     "shortName": "Short Name",
     "addAttribute": "Add Attribute"
+  },
+  "OperationalTag": {
+    "Add": "Add",
+    "action": "action",
+    "value": "Value",
+    "success": "Success",
+    "nameAr": "Name Ar",
+    "nameEn": "Name En",
+    "glAccount": "GL Account",
+    "AddNew": "Add New",
+    "Active": "Active",
+    "inActive": "inActive",
+    "Search": "Search",
+    "code": " Code",
+    "operationType": " Operation Type",
+    "name": " Name",
+    "save": "Save",
+    "discard": "Discard",
+    "warehouseName": "Warehouse Name",
+    "status": "Status",
+    "delete": "Deleted",
+    "Success": "Success",
+    "actions": "Actions"
+
+  
+  
+  },
+  "itemsCategory": {
+    "title": "Item Category",
+    "Configration": "Configuration",
+    "import": "Import",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "categoryCode": "Category Code",
+    "parentCategory": "Parent Category",
+    "isDetails": "Details",
+    "categoryType": "Category Type",
+    "Main": "Main",
+    "nameEn": "Name (English)",
+    "nameAr": "Name (Arabic)",
+    "delete": "Item category deleted successfully",
+    "success": "Success",
+    "add": "Item category added successfully",
+    "edits": "Item category updated successfully",
+    "code": "Code"
   }
 }

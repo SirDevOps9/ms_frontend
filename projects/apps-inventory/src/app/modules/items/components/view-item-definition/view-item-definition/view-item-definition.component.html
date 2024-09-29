@@ -1,0 +1,74 @@
+<lib-popup-page
+  title="{{ 'COAConfigration.ChartOfAccountConfig' | translate }}"
+  [closeFunction]="onCancel"
+  [save]="false" 
+  [showCancel]="false"  
+>
+  <!-- First Data Table -->
+  <lib-data-table
+    [items]="dataTabels"
+    className="p-datatable-gridlines"
+    [tableConfigs]="{
+      allowPagination: false,
+      columns: [
+        { name: 'itemName', headerText: ('itemDefinition.warehouseName' | translate) },
+        {
+          name: 'itemType',
+          template: ViewDate,
+          headerText: ('itemDefinition.warehouseName' | translate)
+        },
+        { name: 'itemCategory', headerText: ('itemDefinition.reservedQuantity' | translate) },
+        { name: 'itemUOM', headerText: ('itemDefinition.demandQuantity' | translate) }
+      ]
+    }"
+  ></lib-data-table>
+
+  <!-- Second Data Table -->
+  <lib-data-table
+    [items]="dataTabel"  
+    className="p-datatable-gridlines"
+    [tableConfigs]="{
+      allowPagination: false,
+      columns: [
+        { name: 'warehouseName', headerText: ('itemDefinition.warehouseName' | translate) },
+        { name: 'onHandQuantity', headerText: ('itemDefinition.onHandQuantity' | translate) },
+        { name: 'reservedQuantity', headerText: ('itemDefinition.reservedQuantity' | translate) },
+        { name: 'demandQuantity', headerText: ('itemDefinition.demandQuantity' | translate) }
+      ]
+    }"
+  >
+    <ng-template #ViewDate let-journal>
+      <div>
+        <p>{{ journal.name == null ? ('itemDefinition.notFoundType' | translate) : journal.itemType }}</p>
+      </div>
+    </ng-template>
+  </lib-data-table>
+
+  <!-- Export Button -->
+  <ng-container action>
+    
+    <div class="grid w-full flex align-items-center justify-content-center">
+      <div class="col-6">
+        <lib-button-micro
+          nameClass="cancel"
+          title="{{ 'Export' | translate }}"
+        
+          widthNumber="100%"
+          (click)="onCancel()"
+        >
+        </lib-button-micro>
+      </div>
+      <div class="col-6">
+        <lib-button-micro
+          nameClass="export"
+          title="{{ 'Export' | translate }}"
+           iconName="pi pi-file-export"
+          widthNumber="100%"
+          (click)="performExport()"
+        >
+        </lib-button-micro>
+      </div>
+     
+    </div>
+  </ng-container>
+</lib-popup-page>

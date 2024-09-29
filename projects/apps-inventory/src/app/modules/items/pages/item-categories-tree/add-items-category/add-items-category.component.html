@@ -44,7 +44,7 @@
       
         <lib-fildest header="{{ 'itemsCategory.parentCategory' | translate }}" class="md:col-12">
           <div class="grid">
-            <div class="md:col-12" *ngIf="hasParentAccount">
+            <div class="md:col-12" >
               <lib-form-group>
                 <lib-label [appControl]="formGroup.controls['parentCategoryId']">
                   {{ 'itemsCategory.parentCategory' | translate }}
@@ -54,7 +54,7 @@
                   [options]="ItemCategoryDropDown"
                   optionValue="id"
                   optionLabel="name"
-                  [selectedValue]=" selectValue ? formGroup.controls['parentCategoryId'].value :null"
+                  [selectedValue]="formGroup.controls['parentCategoryId'].value"
                   (valueChanged)="onParentAccountChange($event)"
                 >
                 </lib-select>
@@ -70,7 +70,7 @@
                 <lib-input-switch formControlName="isDetailed" > </lib-input-switch>
                
             </div>
-            <div class="md:col-12">
+            <div class="md:col-12" *ngIf="showCategory">
               <lib-form-group>
                 <lib-label [appControl]="formGroup.controls['categoryType']">
                 {{"itemsCategory.categoryType" | translate}}
@@ -81,10 +81,12 @@
                   optionValue="value"
                   [selectedValue]=" selectValue ? formGroup.controls['categoryType'].value :null"
                   optionLabel="label"
-                  (valueChanged)="onParentAccountChange($event)"
                 >
                 </lib-select>
+                <lib-field-validations [appControl]="formGroup.controls['categoryType']">
+                </lib-field-validations>
               </lib-form-group>
+           
             </div>
           </div>
          

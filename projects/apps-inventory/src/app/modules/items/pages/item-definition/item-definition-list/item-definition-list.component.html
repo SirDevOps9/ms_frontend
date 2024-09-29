@@ -72,14 +72,19 @@
                   </lib-form-group>
                 </div>
                 <!--  -->
-                <div class="col-3">
-                  <lib-change-column
-                    [placeholder]="'itemDefinition.ChangeColumn' | translate"
-                    [dataTable]="tableData"
-                  ></lib-change-column>
-                </div>
+              
   
-                <div class="col-6 flex gap-2 justify-content-end align-items-center">
+                <div class="col-9 flex gap-2 justify-content-end align-items-center">
+                     <!--  -->
+                     <div>
+                      <lib-export
+                        (exportClick)="exportClick($event)"
+                        [exportData]="exportData"
+                        [exportColumns]="exportColumns"
+                        [ExportName]="'Item Definition'"
+                      >
+                      </lib-export>
+                    </div>
                   <div>
                     <lib-button-micro
                       [title]="'create' | translate"
@@ -89,16 +94,7 @@
                     >
                     </lib-button-micro>
                   </div>
-                  <!--  -->
-                  <div>
-                    <lib-export
-                      (exportClick)="exportClick($event)"
-                      [exportData]="exportData"
-                      [exportColumns]="exportColumns"
-                      [ExportName]="'Item Definition'"
-                    >
-                    </lib-export>
-                  </div>
+               
                   <!--  -->
                 </div>
               </div>
@@ -109,6 +105,7 @@
             <div class="actions flex align-items-center">
               <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
               <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
+              <img src="assets//images/table/view.svg" alt="" (click)="onView(action)" />
             </div>
           </ng-template>
         </lib-data-table>

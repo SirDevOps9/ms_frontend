@@ -97,9 +97,9 @@ export class BreadcrumbLabel {
     static  ITEM_CATEGORY ='Item Category';
     static  WARE_HOUSE ='Warehouse';
     static  ADD_WARE_HOUSE ='Add Warehouse';
-    static  UOM ='uom';
+    static  UOM ='UOM';
     static  UOM_LIST ='uom-list';
-    static  ADD_UOM ='Add uom';
+    static  ADD_UOM ='UOM Add';
     static  Edit_UOM ='edit uom';
 
     // attr attribute-definition 
@@ -111,7 +111,9 @@ export class BreadcrumbLabel {
     static  Edit_Attribute_Definition = 'Edit Attribute Definition';
     static  EDIT_WARE_HOUSE ='Edit Warehouse';
     static  ITEMS_CATEGORY ='Items Category';
-
+    static  STOCKIN ='Stock In';
+    static  ADD_STOCKIN ='Add Stock In';
+   
     static COST_CENTER ='Cost Center';
     static PAYMENT_TERM_ADD ='BreadCrumb.AddPaymentterm';
     static PAYMENT_TERM_EDIT ='BreadCrumb.EditPaymentterm';

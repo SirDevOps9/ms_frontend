@@ -43,8 +43,10 @@ export class TextInputComponent implements ControlValueAccessor, Validator, Afte
   onTouched = () => {};
 
   writeValue(value: any): void {
-    if (value) {
+    if (value !== undefined && value !== null) {
       this.value = value;
+    } else {
+      this.value = '';  // Reset the input to an empty string if null is passed
     }
   }
 
