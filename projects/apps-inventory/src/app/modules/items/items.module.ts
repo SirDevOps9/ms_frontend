@@ -20,25 +20,25 @@ import { UOMListComponent } from './pages/unit-of-major/uom-list/uom-list.compon
 import { UOMAddComponent } from './pages/unit-of-major/uom-add/uom-add.component';
 import { UOMEditComponent } from './pages/unit-of-major/uom-edit/uom-edit.component';
 import { UOMMainComponent } from './pages/unit-of-major/UOM-main/UOM-main.component';
-import { AttributeDefinitionComponent } from './pages/attribute-definition/attribute-definition.component';
-import { AttributeDefinitionListComponent } from './pages/attribute-definition/attribute-definition-list/attribute-definition-list.component';
+import { ViewItemDefinitionComponent } from './components/view-item-definition/view-item-definition/view-item-definition.component';
+import { AddWarehousePopupComponent } from './components/warehouse/add-warehouse-popup/add-warehouse-popup.component';
 import { AddAttributeDefinitionComponent } from './pages/attribute-definition/add-attribute-definition/add-attribute-definition.component';
+import { AttributeDefinitionListComponent } from './pages/attribute-definition/attribute-definition-list/attribute-definition-list.component';
+import { AttributeDefinitionComponent } from './pages/attribute-definition/attribute-definition.component';
 import { EditAttributeDefinitionComponent } from './pages/attribute-definition/edit-attribute-definition/edit-attribute-definition.component';
-import { OperationTagMainComponent } from './pages/operational-tag/operation-tag-main/operation-tag-main.component';
-import { OperationTagAddComponent } from './pages/operational-tag/operation-tag-add/operation-tag-add.component';
-import { OperationTagListComponent } from './pages/operational-tag/operation-tag-list/operation-tag-list.component';
-import { OperationTagEditComponent } from './pages/operational-tag/operation-tag-edit/operation-tag-edit.component';
-import { ItemsCategoryTreeComponent } from './pages/item-categories-tree/items-category-tree/items-category-tree.component';
 import { AddItemsCategoryComponent } from './pages/item-categories-tree/add-items-category/add-items-category.component';
 import { EditItemCategoryComponent } from './pages/item-categories-tree/edit-item-category/edit-item-category.component';
-import { ViewItemCategoryComponent } from './pages/item-categories-tree/view-item-category/view-item-category.component';
-import { EditWarehouseComponent } from './pages/warehouse/edit-warehouse/edit-warehouse.component';
+import { ItemsCategoryTreeComponent } from './pages/item-categories-tree/items-category-tree/items-category-tree.component';
 import { MainItemCategoriesTreeComponent } from './pages/item-categories-tree/main-item-categories-tree/main-item-categories-tree.component';
-import { AddWarehousePopupComponent } from './components/warehouse/add-warehouse-popup/add-warehouse-popup.component';
-import { StockInListComponent } from './pages/stock-In/stock-in-list/stock-in-list.component';
+import { ViewItemCategoryComponent } from './pages/item-categories-tree/view-item-category/view-item-category.component';
+import { OperationTagAddComponent } from './pages/operational-tag/operation-tag-add/operation-tag-add.component';
+import { OperationTagEditComponent } from './pages/operational-tag/operation-tag-edit/operation-tag-edit.component';
+import { OperationTagListComponent } from './pages/operational-tag/operation-tag-list/operation-tag-list.component';
+import { OperationTagMainComponent } from './pages/operational-tag/operation-tag-main/operation-tag-main.component';
 import { AddStockInComponent } from './pages/stock-In/add-stock-in/add-stock-in.component';
+import { StockInListComponent } from './pages/stock-In/stock-in-list/stock-in-list.component';
+import { EditWarehouseComponent } from './pages/warehouse/edit-warehouse/edit-warehouse.component';
 import { MainWarehouseComponent } from './pages/warehouse/main-warehouse/main-warehouse.component';
-import { ViewItemDefinitionComponent } from './components/view-item-definition/view-item-definition/view-item-definition.component';
 
 const routes: Routes = [
   {
