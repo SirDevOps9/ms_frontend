@@ -45,3 +45,78 @@
     </div>
   </div>
 </div>
+<lib-data-table
+[items]="urls"
+className="p-datatable-gridlines"
+[tableConfigs]="{
+  allowPagination: false,
+  allowServerPagination: false,
+  dataKey: 'id',
+  pageSize: 10,
+  columns: [
+    {
+      name: '',
+      headerText: 'Upload',
+      template: uploads
+    },
+    {
+      name: 'nme',
+      headerText:'Name',
+      template: name
+
+    },
+    {
+      name: '',
+      headerText: 'Preview',
+      template: preview
+
+    },
+    {
+      name: '',
+      headerText: 'Download',
+      template: download
+
+    }
+
+  ]
+}"
+>
+<ng-template  #uploads let-account>
+  <div class="group">
+    <div
+    class="uploadParent"
+    (click)="upload.click()"
+    (dragover)="onDragDrop($event)"
+    (drop)="onDragDrop($event)"
+  >
+    <div class="">
+      <i class="pi pi-cloud-upload uploadIcon"></i>
+    </div>
+  </div>
+  </div>
+
+
+</ng-template >
+<ng-template  #name let-test>
+  <div class="group">
+    {{ filesName}}
+  </div>
+
+
+</ng-template >
+<ng-template  #preview let>
+  <div class="group">
+  
+  </div>
+
+  
+</ng-template >
+<ng-template  #download let>
+  <div class="group">
+  
+  </div>
+
+ 
+</ng-template >
+
+</lib-data-table>
