@@ -6,7 +6,7 @@
       className="p-datatable-gridlines"
       [reportTable]="true"
       [tableConfigs]="{
-        allowPagination: true,
+        allowPagination: false,
 
         allowServerPagination: false,
         dataKey: 'id',
@@ -103,29 +103,33 @@
             <div class="calender">
               <div class="grid">
                 <div class="col-12 md:col-4">
-                  <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input>
+                  <!-- <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input> -->
+                  <lib-calendar formControlName="dateFrom"></lib-calendar>
+
                   <lib-field-validations
                     [appControl]="reportTrialForm.controls['dateFrom']"
                   ></lib-field-validations>
                 </div>
                 <div class="col-12 md:col-4">
-                  <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input>
+                  <!-- <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input> -->
+                  <lib-calendar formControlName="dateTo"></lib-calendar>
+
                   <lib-field-validations
                     [appControl]="reportTrialForm.controls['dateTo']"
                   ></lib-field-validations>
                 </div>
                 <div class="col-12 md:col-4">
-                    <lib-multi-select
-                      formControlName="Accounts"
-                      [options]="filteredAccounts"
-                      optionValue="id"
-                      optionLabel="displayName"
-                      [selectedValue]="reportTrialForm.controls['Accounts'].value"
-                    ></lib-multi-select>
-                    <lib-field-validations
-                      [appControl]="reportTrialForm.controls['Accounts']"
-                    ></lib-field-validations>
-                      <i class="pi pi-search search-circle search_icon" (click)="openDialog()"></i>
+                  <lib-multi-select
+                    formControlName="Accounts"
+                    [options]="filteredAccounts"
+                    optionValue="id"
+                    optionLabel="displayName"
+                    [selectedValue]="reportTrialForm.controls['Accounts'].value"
+                  ></lib-multi-select>
+                  <lib-field-validations
+                    [appControl]="reportTrialForm.controls['Accounts']"
+                  ></lib-field-validations>
+                  <i class="pi pi-search search-circle search_icon" (click)="openDialog()"></i>
                 </div>
               </div>
             </div>

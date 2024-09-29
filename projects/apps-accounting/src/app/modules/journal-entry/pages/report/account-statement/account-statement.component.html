@@ -1,14 +1,20 @@
 <lib-page-content>
   <div class="user_page group">
+    <div class="card_micro">
+
     <form [formGroup]="reportAccountForm">
       <div class="group">
         <div class="calender">
           <div class="grid">
             <div class="col-12 md:col-4">
-              <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input>
+              <!-- <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input> -->
+              <lib-calendar formControlName="dateFrom"  ></lib-calendar>
+
             </div>
             <div class="col-12 md:col-4">
-              <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input>
+              <!-- <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input> -->
+              <lib-calendar formControlName="dateTo"  ></lib-calendar>
+
             </div>
             <div class="col-12 md:col-4">
               <lib-multi-select
@@ -65,6 +71,7 @@
         </div>
       </div>
     </form>
+    </div>
     <div class="mb-4" *ngFor="let table of tableData">
       <lib-data-table
         [items]="table?.journalEntryDtos!"
@@ -167,10 +174,14 @@
           <div class="calender">
             <div class="grid">
               <div class="col-12 md:col-4">
-                <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input>
+                <!-- <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input> -->
+                <lib-calendar formControlName="dateFrom"  ></lib-calendar>
+
               </div>
               <div class="col-12 md:col-4">
-                <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input>
+                <!-- <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input> -->
+                <lib-calendar formControlName="dateTo"  ></lib-calendar>
+
               </div>
               <div class="col-12 md:col-4">
                 <lib-multi-select

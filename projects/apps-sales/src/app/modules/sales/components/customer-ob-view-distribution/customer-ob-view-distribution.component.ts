@@ -94,7 +94,7 @@ export class CustomerObViewDistributionComponent implements OnInit {
 
   getTodaysDate() {
     var date = new Date();
-    return date.toISOString().substring(0, 10);
+    return date.toISOString().split('T')[0]
   }
   onCancel() {
     this.ref.close();

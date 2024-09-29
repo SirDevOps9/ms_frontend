@@ -17,7 +17,8 @@
     "CostCenterReport": "تقرير مركز التكلفة",
     "VendorOpeningBalance": "رصيد افتتاحي للمورد",
     "EditVendorOpeningBalance": "تعديل الرصيد الافتتاحي للمورد",
-    "AddVendorOpeningBalance": "إضافة رصيد افتتاحي للمورد"
+    "AddVendorOpeningBalance": "إضافة رصيد افتتاحي للمورد",
+    "sequence": "تسلسل رقمى"
   },
   "COAConfigration": {
     "Success": "نجاح",
@@ -79,6 +80,7 @@
     "referenceNumber": "المرجع",
     "createdOn": "التاريخ",
     "type": "النوع",
+    "sourceDocumentName": "اسم المستند المصدر",
     "sourceName": "اسم المستند",
     "sourceCode": "كود المستند",
     "isRepeated": "متكرر",

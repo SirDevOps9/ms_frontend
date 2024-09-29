@@ -79,7 +79,7 @@
                     <lib-calendar [disabled]="true" formControlName="dueDate"></lib-calendar>
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ customerGroup.controls['dueDate'].value }}
+                    {{ customerGroup.controls['dueDate'].value | date: 'dd/MM/yyyy' }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations

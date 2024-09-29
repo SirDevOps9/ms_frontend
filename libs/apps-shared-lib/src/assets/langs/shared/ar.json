@@ -4,6 +4,13 @@
     "AddNewLine": "إضافة سطر جديد",
     "error": "خطأ",
     "success": "نجاح",
+    "create": "إنشاء",
+    "view": "عرض",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "statement": "بيان",
+    "sequence": "تسلسل",
+
     "sequence": {
       "sequence": "تسلسل",
       "Allowed": "مسموح",

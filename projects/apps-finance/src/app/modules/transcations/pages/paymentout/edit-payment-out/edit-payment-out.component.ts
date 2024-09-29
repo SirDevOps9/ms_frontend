@@ -162,7 +162,7 @@ export class EditPaymentOutComponent implements OnInit {
       newBalance: new FormControl(0, customValidators.nonNegativeNumbers),
       paymentOutDetailCostCenters: new FormControl(null),
     });
-    this.addForm.controls['paymentOutDate'].patchValue(new Date());
+    this.addForm.controls['paymentOutDate'].patchValue(new Date().toISOString().split('T')[0]);
   }
 
   getTodaysDate() {

@@ -2,7 +2,7 @@
   <div class="add_vendor_page">
     <form [formGroup]="addCustomerForm" (ngSubmit)="AddCustomer()">
       
-
+      <div class="card_micro">
       <div class="vendor_header">
         <div class="grid">
           <div class="col-12 md:col-8">
@@ -110,9 +110,11 @@
           </div>
         </div>
       </div>
+</div>
+<div class="card_micro">
 
       <div class="vendor_body">
-        <div class="card">
+        <!-- <div class="card"> -->
           <p-tabView>
             <p-tabPanel [header]="'AddCustomerDefinition.Information' | translate">
               <div formGroupName="contactInfo">
@@ -735,8 +737,8 @@
             </p-tabPanel>
           </p-tabView>
         </div>
-      </div>
-
+      <!-- </div> -->
+</div>
         <div class="btn_group">
           <div class="grid">
             <div class="md:col-3">

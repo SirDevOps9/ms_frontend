@@ -17,7 +17,7 @@
     "type": "Type",
     "tag": "Tag",
     "actions": "Actions",
-    "Add": "Add",
+    "Add": "Create",
     "search": "Search",
     "ChangeColumn": "Change Column",
     "general": "General",
@@ -96,7 +96,7 @@
     "uom": "UOM",
     "barcode": "Barcode",
     "actions": "Actions",
-    "Add": "Add",
+    "Add": "Create",
     "search": "Search",
     "ChangeColumn": "Change Column"
   },
@@ -107,7 +107,7 @@
     "uom": "UOM",
     "barcode": "Barcode",
     "actions": "Actions",
-    "Add": "Add",
+    "Add": "Create",
     "search": "Search",
     "ChangeColumn": "Change Column",
     "success": "Success",
@@ -120,7 +120,7 @@
     "hasExpiry": "Has Expiry Date"
   },
   "warehouse": {
-    "Add": "Add",
+    "Add": "Create",
     "search": "Search",
     "ChangeColumn": "Change Column",
     "save": "Save",
@@ -145,7 +145,7 @@
     "goodsInTransit": "Goods In Transit"
   },
   "UOM": {
-    "Add": "Add",
+    "Add": "Create",
     "conversionRatio": "Conversion Ratio",
     "add_new": "Add New",
     "uomList": "List of unit of measure",
@@ -177,7 +177,7 @@
     "conversionUOM": "conversion UOM "
   },
   "attributeDefinition": {
-    "Add": "Add",
+    "Add": "Create",
     "action": "action",
     "value": "Value",
     "success": "Success",
@@ -233,5 +233,25 @@
 
   
   
+  },
+  "itemsCategory": {
+    "title": "Item Category",
+    "Configration": "Configuration",
+    "import": "Import",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "categoryCode": "Category Code",
+    "parentCategory": "Parent Category",
+    "isDetails": "Details",
+    "categoryType": "Category Type",
+    "Main": "Main",
+    "nameEn": "Name (English)",
+    "nameAr": "Name (Arabic)",
+    "delete": "Item category deleted successfully",
+    "success": "Success",
+    "add": "Item category added successfully",
+    "edits": "Item category updated successfully",
+    "code": "Code"
   }
 }

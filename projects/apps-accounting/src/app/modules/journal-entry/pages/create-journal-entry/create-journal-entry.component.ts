@@ -104,11 +104,6 @@ export class CreateJournalEntryComponent {
     this.totalCreditAmount = 0;
     this.totalDebitAmountLocal = 0;
     this.totalCreditAmountLocal = 0;
-    this.langService.getTranslation('JournalTitle').subscribe((title) => {
-      this.titleService.setTitle(title);
-    });
-
-    this.titleService.setTitle;
     this.getAccounts();
 
     this.currencyService.getCurrencies('');
@@ -116,8 +111,6 @@ export class CreateJournalEntryComponent {
     this.currencyService.currencies.subscribe((res) => {
       this.currencies = res;
     });
-    // this.calculateTotalDebitAmount();
-    // this.calculateTotalCreditAmount();
     this.addThing();
   }
   getAccounts() {
@@ -139,7 +132,6 @@ export class CreateJournalEntryComponent {
     public sharedLibEnums: SharedLibraryEnums,
     private service: JournalEntryService,
     private routerService: RouterService,
-    private titleService: Title,
     private langService: LanguageService,
     private formService: FormsService,
     private guidedTourService: GuidedTourService,
@@ -150,7 +142,7 @@ export class CreateJournalEntryComponent {
   ) {
     this.fg = this.fb.group({
       refrenceNumber: [null, [customValidators.required, customValidators.length(0, 15)]],
-      journalDate: [new Date(), customValidators.required],
+      journalDate: [new Date().toISOString().split('T')[0], customValidators.required],
       periodId: ['Period1', customValidators.required],
       description: ['', customValidators.required],
 
@@ -371,7 +363,7 @@ export class CreateJournalEntryComponent {
   save() {
     if (!this.formService.validForm(this.fg, false)) return;
     const value = this.fg.value as JournalEntryFormValue;
-    value.journalDate = this.convertDateFormat(value.journalDate);
+    // value.journalDate = this.convertDateFormat(value.journalDate);
     let obj: AddJournalEntryCommand = {
       ...value,
       journalEntryAttachments: this.journalEntryAttachments,
@@ -393,8 +385,14 @@ export class CreateJournalEntryComponent {
       })),
     };
     this.service
-      .addJournalEntry(obj)
-      .subscribe((r) => this.routerService.navigateTo('transcations/journalentry'));
+    .addJournalEntry(obj)
+    .subscribe({
+      next: (r) => {
+        this.routerService.navigateTo('transcations/journalentry');
+      },
+      error:  (error)  => {
+      }
+    });
   }
 
   routeToJournal() {
