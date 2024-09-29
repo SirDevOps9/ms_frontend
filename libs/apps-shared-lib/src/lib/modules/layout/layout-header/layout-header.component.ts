@@ -1,8 +1,15 @@
-import { Component, ElementRef, HostListener } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'microtec-auth-lib';
 import { Observable } from 'rxjs';
-import { LanguageService, MenuModule, Modules, RouterService, breadCrumbHome } from 'shared-lib';
+import {
+  Cultures,
+  LanguageService,
+  MenuModule,
+  Modules,
+  RouterService,
+  breadCrumbHome,
+} from 'shared-lib';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModuleListComponent } from '../../../components/module-list/module-list.component';
 import { LayoutService } from '../layout.service';
@@ -14,6 +21,8 @@ import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service
   styleUrl: './layout-header.component.scss',
 })
 export class LayoutHeaderComponent {
+  @Output() language = new EventEmitter();
+  currentLang: Cultures;
   userName: string;
   moduleName: string;
   showcard: boolean = false;
@@ -26,6 +35,7 @@ export class LayoutHeaderComponent {
 
   ngOnInit() {
     this.moduleList = this.layoutService.getModules();
+    this.currentLang = this.languageService.getLang();
     if (this.router.snapshot.data['moduleId'] === Modules.Accounting)
       this.moduleName = 'Accounting';
     else if (this.router.snapshot.data['moduleId'] === Modules.Hr) this.moduleName = 'Hr';
@@ -39,6 +49,9 @@ export class LayoutHeaderComponent {
 
   toggleLanguage(): void {
     this.languageService.toggleLanguage();
+    this.language.emit(this.languageService.getLang());
+    this.currentLang = this.languageService.getLang();
+    location.reload();
   }
   logout(): void {
     this.authService.logout();
@@ -76,7 +89,7 @@ export class LayoutHeaderComponent {
       location.href = '../finance';
     } else if (key === Modules.Purchase) {
       location.href = '../purchase';
-    }else if (key === Modules.inventory) {
+    } else if (key === Modules.inventory) {
       location.href = '../inventory';
     }
   }

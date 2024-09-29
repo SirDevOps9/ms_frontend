@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Output, effect, signal } from '@angular/core';
+import { Component, EventEmitter, Input, Output, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SideMenuModel } from 'shared-lib';
+import { Cultures, SideMenuModel } from 'shared-lib';
 import { LayoutService } from '../layout.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-layout-sidebar',
@@ -11,6 +12,7 @@ import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service
 })
 export class LayoutSidebarComponent {
   @Output() sidebaropend = new EventEmitter<boolean>();
+  @Input() currentLanguage: Cultures | string;
   sidebarVisible: boolean = true;
   sidebarOpen: boolean = false;
   menuList?: SideMenuModel[];
@@ -18,6 +20,7 @@ export class LayoutSidebarComponent {
   treeData: any;
   highlightedParent: any = null; // To track the highlighted parent node
   menuItems: any;
+  // _location = inject(Location)
   ngOnInit(): void {
     this.layoutService.getSideMenu();
 
@@ -81,7 +84,7 @@ export class LayoutSidebarComponent {
       this.sidebaropend.emit(true);
     }
 
-    this.generalService.sendSideBarState.next(this.sidebarOpen)
+    this.generalService.sendSideBarState.next(this.sidebarOpen);
   }
 
   mapToTreeNodes(data: any[]) {
@@ -137,5 +140,9 @@ export class LayoutSidebarComponent {
     // Find and update the highlighted parent node
     this.highlightedParent = this.findParentNode(expandedNode);
   }
-  constructor(public layoutService: LayoutService, private router: ActivatedRoute , private generalService : GeneralService) {}
+  constructor(
+    public layoutService: LayoutService,
+    private router: ActivatedRoute,
+    private generalService: GeneralService
+  ) {}
 }

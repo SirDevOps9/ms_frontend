@@ -40,12 +40,9 @@ export class PaymentTermListComponent implements OnInit {
 
   constructor(
     private financeService: FinanceService,
-    private routerService: RouterService,
-    private title: Title,
-    private langService: LanguageService,
+    private routerService: RouterService
 
   ) {
-    this.title.setTitle(this.langService.transalte('paymentterm.payment-term-list'));
 
   }
 

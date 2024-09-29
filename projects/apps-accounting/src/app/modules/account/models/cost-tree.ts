@@ -4,5 +4,6 @@ export interface costTree {
     code: string,
     parentId: number,
     isDetail: boolean,
+    isActive: boolean,
     children: costTree[]
 }

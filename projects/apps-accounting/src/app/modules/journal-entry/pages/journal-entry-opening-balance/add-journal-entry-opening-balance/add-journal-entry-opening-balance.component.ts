@@ -113,17 +113,15 @@ export class AddJournalEntryOpeningBalanceComponent {
     private currentUserService: CurrentUserService,
     private toasterService: ToasterService
   ) {
-    this.titleService.setTitle(this.langService.transalte('OpeningBalance.AddJournal'));
 
     this.fg = this.fb.group({
       refrenceNumber: [null, [customValidators.required, customValidators.length(0, 15)]],
-      journalDate: [this.getTodaysDate(), customValidators.required],
+      journalDate: [new Date(), customValidators.required],
       periodId: ['Period1', customValidators.required],
       description: ['', customValidators.required],
 
       journalEntryLines: fb.array([]),
     });
-    this.fg.controls['journalDate'].setValue(this.getTodaysDate());
   }
 
   public get attachments(): FormArray {
@@ -175,7 +173,6 @@ export class AddJournalEntryOpeningBalanceComponent {
     journalLine.get('lineDescription')?.setValue(accountData.name);
     journalLine.get('costCenterConfig')?.setValue(accountData.costCenterConfig);
     journalLine.get('selectedFalg')?.setValue(true);
-    console.log(journalLine.get('costCenterConfig')?.value);
 
     var currencyData = this.currencies.find((c) => c.id == accountData?.currencyId);
 
@@ -259,12 +256,12 @@ export class AddJournalEntryOpeningBalanceComponent {
   addThing() {
     const id = this.fa.length + 1;
     //controls
-    const dbControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
-    const crControl = new FormControl(0, [customValidators.required, Validators.min(0)]);
+    const dbControl = new FormControl(0, [customValidators.required, customValidators.nonNegativeNumbers]);
+    const crControl = new FormControl(0, [customValidators.required,customValidators.nonNegativeNumbers]);
     const currencyControl = new FormControl(null, customValidators.required);
     const rateControl = new FormControl<number | null>(null, [
       customValidators.required,
-      Validators.min(0),
+      customValidators.nonNegativeNumbers,
     ]);
     //events
     dbControl.valueChanges.subscribe((value) => {

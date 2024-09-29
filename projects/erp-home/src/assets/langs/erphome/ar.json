@@ -5,7 +5,9 @@
     "EditFinancialCalendar": "تعديل سنة مالية",
     "CurrencyDefinition": "تعريفات العملة",
     "CurrencyConversion": "تحويلات العملة",
-    "TagList": "قائمة العلامات"
+    "TagList": "قائمة العلامات",
+    "TaxGroup": "مجموعة الضرائب",
+    "TaxDefinition": "تعريف الضرائب"
   },
   "dir": "rtl",
   "Welcome": "مرحبا",
@@ -416,5 +418,71 @@
     "Actions": "العمليات",
     "Id": "الرقم التعريفي",
     "levelNumber": "مستوى الحساب"
+  },
+  "TaxGroup": {
+    "Title": "قائمة مجموعات الضرائب",
+    "AddTaxGroup": "إضافة مجموعة ضرائب",
+    "EditTaxGroup": "تعديل مجموعة الضرائب",
+    "UpdatedSuccessfully": "تم تحديث مجموعة الضرائب بنجاح",
+    "AddedSuccessfully": "تمت إضافة مجموعة الضرائب بنجاح",
+    "DeletedSuccessfully": "تم حذف مجموعة الضرائب بنجاح",
+    "Success": "نجاح",
+    "Error": "خطأ",
+    "Code": "رمز",
+    "Name": "اسم",
+    "parent": "الأصل",
+    "status": "الحالة",
+    "type": "النوع",
+    "Actions": "العمليات",
+    "CountryName": "اسم البلد",
+    "TaxGrouplist": "قائمة مجموعة الضرائب",
+    "AddNew": "إضافة جديد",
+    "Search": "بحث",
+    "CannotDeleteTaxGroupUsedInTransactions":"لا يمكن حذف مجموعة الضرائب المستخدمة في المعاملات",
+
+    "Add": {
+      "AddTaxGroup": "إضافة مجموعة ضريبية",
+      "Code": "رمز",
+      "Name": "اسم",
+      "Discard": "تجاهل",
+      "CountryName": "اسم البلد",
+      "Save": "حفظ"
+    },
+    "Edit": {
+      "EditTaxGroup": "تحرير مجموعة ضريبية",
+      "Code": "رمز",
+      "Name": "اسم",
+      "Discard": "تجاهل",
+      "CountryName": "اسم البلد",
+      "Save": "حفظ"
+    }
+  },
+  "Tax": {
+    "Title": "قائمة الضرائب",
+    "AddTax": "إضافة ضريبة",
+    "EditTax": "تعديل الضريبة",
+    "Success": "نجاح",
+    "TaxName": "اسم الضريبة",
+    "AddTaxDefinition": "إضافة تعريف الضريبة",
+    "TaxCode": "كود الضريبة",
+    "Ratio": "النسبة",
+    "GlAccount": "حساب الأستاذ العام",
+    "TaxGroup": "مجموعة الضرائب",
+    "TaxGroupId": "معرف مجموعة الضرائب",
+    "Save": "حفظ",
+    "Discard": "تجاهل",
+    "TaxList": "قائمة الضرائب",
+    "Id": "الرقم التعريفي",
+    "Name": "الاسم",
+    "Account": "الحساب",
+    "Search": "بحث",
+    "AddNew": "إضافة جديد",
+    "Export": "تصدير",
+    "CannotEditTaxGroupUsedInTransactions": "لا يمكن تعديل مجموعة الضرائب المستخدمة في المعاملات",
+    "CannotDeleteTaxUsedInTransactions": "لا يمكن حذف الضريبة المستخدمة في المعاملات",
+    "UpdatedSuccessfully": "تم تحديث الضريبة بنجاح",
+    "AddedSuccessfully": "تم إضافة الضريبة بنجاح",
+    "DeletedSuccessfully": "تم حذف الضريبة بنجاح",
+    "Actions": "العمليات"
   }
 }

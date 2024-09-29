@@ -212,6 +212,7 @@
     "actions": "الإجراءات",
     "distribute": "توزيع",
     "total": "الإجمالي",
-    "add_new_line": "إضافة سطر جديد"
+    "add_new_line": "إضافة سطر جديد",
+    "ViewDistribution": "عرض التوزيع"
   }
 }

@@ -6,7 +6,12 @@
     "EditVendorCategory": "Edit Vendor Category",
     "VendorDefinitions":"Vendor Definitions",
     "AddVendorDefinition":"Add Vendor Definition",
-    "EditVendorDefinition":"Edit Vendor Definition"
+    "EditVendorDefinition":"Edit Vendor Definition",
+    "VendorOpeningBalance":"Vendor Opening Balance",
+    "AddVendorOpeningBalance":"Add Vendor Opening Balance",
+    "EditVendorOpeningBalance":"Edit Vendor Opening Balance",
+    "ViewVendorOpeningBalance":"View Vendor Opening Balance"
+
   },
   "dir": "ltr",
   "Welcome": "Welcome",

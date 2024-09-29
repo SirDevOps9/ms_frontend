@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { addBarcode, AddItemCategory, AddItemDefinitionDto, AddVariantLine, AddWarehouse, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, itemDefinitionDto, ItemTypeDto, UomDefault } from './models';
+import { addBarcode, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddVariantLine, AddWarehouse, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, UomDefault } from './models';
 import { EditItemDefinitionDto } from './models/editItemDefinitionDto';
 import { variantGroupById } from './models/variantGroupById';
 import { itemAttributeValues } from './models/itemAttributeValues';
 import { getBarcodeById } from './models/getBarcodeById';
-import { AddUom } from './models/addUom';
+import { AddUom, UomPost } from './models/addUom';
+import { addAttributeDifintion, IAttrributeDifinition } from './models/AttrbuteDiffintion';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,16 @@ export class ItemsProxyService {
   }
   deleteItemDefinition(id : number ){
     return this.httpService.delete(`Item/${id}`)
+  }
+  deleteUOM(id : number ) {
+    return this.httpService.delete(`UOM/DeleteUOM/${id}` )
+  }
+    
+  deleteAttributeGroup(id:number) {
+    return this.httpService.delete(`AttributeGroup/${id}`)
+  }
+  deleteAttrDifinition(id : number ) {
+    return this.httpService.delete(`ItemAttribute/${id}` )
   }
 
   addVariantLine(obj:AddVariantLine) {
@@ -83,7 +94,7 @@ export class ItemsProxyService {
   return this.httpService.get(`GeneralSettings/GetTagsDropDown?module=inventory`)//
  }
  AccountsDropDown() {
-  return this.httpService.get(`Accounts`)//
+  return this.httpService.get(`Accounts`)//id
  }
  taxesDropDropDown() {
   return this.httpService.get(`GeneralSettings/GetTaxDropDown`)//
@@ -104,6 +115,7 @@ export class ItemsProxyService {
  getUomDropDown() {
   return this.httpService.get(`UOM/UOMDropDown`)
  }
+
  getUomDropDownByUomCategory(id:number) {
   return this.httpService.get(`ItemUOM/GetItemUOMsByUOMId/${id}`)
  }
@@ -123,6 +135,10 @@ export class ItemsProxyService {
  }
 
 
+ AttributeGroupDropDown(){
+  return this.httpService.get(`AttributeGroup/AttributeGroupDropDown
+`)
+ }
  attributeGroupsValue(id:number) : Observable<itemAttributeValues[]> {
   return this.httpService.get(`AttributesVariants/ItemAttributeByIdDropDown?Id=${id}`)
  }
@@ -132,9 +148,16 @@ export class ItemsProxyService {
  ActivateVairiantGroup(obj:{id:number}) {
   return this.httpService.put(`AttributesVariants/ActivateAttributesVariants` , obj) // edit
  }
+ ActivateUOM(obj:{id:number}) {
+  return this.httpService.put(`UOM/ActivateUOM` , obj) // edit
+ }
  ActivateBarcode(obj:{id:number , status : boolean}) {
   return this.httpService.put(`Barcode/ItemBarcodeActivation` , obj) // edit
  }
+ ActivateAttrDifinition(obj:{id:number , status : boolean}) {
+  return this.httpService.put(`ItemAttribute/ItemAttributeActivation` , obj) // edit
+ }
+
  exportsItemsDefinitionList(
     searchTerm: string | undefined
   ): Observable<itemDefinitionDto[]> {
@@ -143,6 +166,29 @@ export class ItemsProxyService {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
      return this.httpService.get<itemDefinitionDto[]>(query);
+  }
+
+  //   to export uom list
+  ExportUOMList(SearchTerm: string | undefined){
+    let url = `UOM/ExportUOM`
+    if(SearchTerm) url +=`SearchTerm=${encodeURIComponent(SearchTerm)}`
+    return this.httpService.get<any>(url)
+
+  }
+  //   to export operationalTag list
+  ExportOperationalTagList(SearchTerm: string | undefined){
+    let url = `OperationalTag/Export`
+    if(SearchTerm) url +=`SearchTerm=${encodeURIComponent(SearchTerm)}`
+    return this.httpService.get<any>(url)
+
+  }
+  //   to export attr list as excel
+  ExporAttrList(SearchTerm: string | undefined){
+    let url = `AttributeGroup/Export
+`
+    if(SearchTerm) url +=`SearchTerm=${encodeURIComponent(SearchTerm)}`
+    return this.httpService.get<any>(url)
+
   }
   
   deleteVariant(id:number) {
@@ -162,11 +208,29 @@ export class ItemsProxyService {
   addUOM(obj:AddUom) {
     return this.httpService.post('ItemUom' , obj)
   }
+  addUOMCategory(obj:UomPost) {
+    return this.httpService.post('UOM' , obj)
+  }
+  //  add attr de
+  addAttrDifinition(obj:addAttributeDifintion) {
+    return this.httpService.post('ItemAttribute' , obj)
+  }
+  //  add operation tag 
+  addOperationTag(obj:AddOperatioalTag) {
+    return this.httpService.post('OperationalTag' , obj)
+  }
+ 
   getBarcodeByItemId(id:number) : Observable<getBarcodeById[]> {
     return this.httpService.get(`Barcode/GetBarCodeByItemId/${id}`)
   }
   getItemById(id:number) : Observable<GetItemById> {
     return this.httpService.get(`Item/${id}`)
+  }
+  getOperationalTagById(id:number) : Observable<AddOperatioalTag> {
+    return this.httpService.get(`OperationalTag/${id}`)
+  }
+  deleteOperationalTag(id : number ){
+    return this.httpService.delete(`OperationalTag/Delete/${id}`)
   }
 
   getUomByItemId(id:number) : Observable<getUomByItemId[]> {
@@ -182,17 +246,52 @@ export class ItemsProxyService {
   editItem(obj : any){
     return this.httpService.put(`Item/Edit` , obj)
   }
+  editOperationalTag(obj :AddOperatioalTag){
+    return this.httpService.put(`OperationalTag` , obj)
+  }
+  updateUOM(obj:UomPost) {
+    return this.httpService.put(`UOM/Edit` , obj) 
+   }
+  updateAttrDifinition(obj:addAttributeDifintion) {
+    return this.httpService.put(`ItemAttribute/Edit` , obj) 
+   }
 
   generateVariant(obj : any) {
     return this.httpService.post(`ItemVariant/Generate` , obj)
   }
   // warehouse
+  getListOfUom(SearchTerm : string| undefined,pageInfo :PageInfo ): Observable<Iuom> {
+  let url = `UOM?${pageInfo.toQuery}`
+
+  if(SearchTerm ){
+    url +=`&SearchTerm=${encodeURIComponent(SearchTerm)}`
+  }
+    return this.httpService.get<Iuom>(url)
+   }
+
+  getListOfAttr(SearchTerm : string| undefined,pageInfo :PageInfo ): Observable<IAttrributeDifinition> {
+  let url = `AttributeGroup/GetAllWithValues?${pageInfo.toQuery}`
+
+  if(SearchTerm ){
+    url +=`&SearchTerm=${encodeURIComponent(SearchTerm)}`
+  }
+    return this.httpService.get(url)
+   }
   getWarehouseList(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<GetWarehouseList>> {
     let query = `WareHouse?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.httpService.get<PaginationVm<GetWarehouseList>>(query)
+  }
+
+//  operational tag list
+getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOperationalTag> {
+    let query = `OperationalTag?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<IOperationalTag>(query)
   }
 
   exportsWayehouseList(
@@ -216,6 +315,7 @@ export class ItemsProxyService {
   deleteWareHouse(id : number ){
     return this.httpService.delete(`WareHouse/DeleteWareHouse/${id}`)
   }
+
   addWarehouse(obj : AddWarehouse) {
     return this.httpService.post(`WareHouse/QuickAdd` , obj)
   }
@@ -264,6 +364,9 @@ export class ItemsProxyService {
   // }
   getBranchDropdown() {
     return this.httpService.get<any>(`GeneralSettings/BranchDropdown`);
+  }
+  getWareHousesDropDown() {
+    return this.httpService.get<any>(`WareHouse/WareHousesDropDown`);
   }
   getCitiesDropdown(CountryCode:string) {
     return this.httpService.get<any>(`GeneralSettings/GetCities?CountryCode=${CountryCode}`);

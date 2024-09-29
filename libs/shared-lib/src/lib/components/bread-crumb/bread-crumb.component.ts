@@ -3,7 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { LanguageService } from '../../services';
-import { breadCrumbHome } from 'shared-lib';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'lib-bread-crumb',
@@ -12,16 +12,26 @@ import { breadCrumbHome } from 'shared-lib';
 })
 export class BreadCrumbComponent implements OnInit {
   home: MenuItem | undefined;
+  menuItems: MenuItem[] = [];
+  langChangeSubscription: Subscription | undefined;
 
-  menuItems: MenuItem[];
   ngOnInit(): void {
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
+
+    // Create initial breadcrumbs
     this.menuItems = this.createBreadcrumb(this.activatedRoute.root);
 
-    this.home = { icon: 'pi pi-home', routerLink:'/' };
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => (this.menuItems = this.createBreadcrumb(this.activatedRoute.root)));
+    // Update breadcrumbs on route change
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
+      this.menuItems = this.createBreadcrumb(this.activatedRoute.root);
+    });
+
+    // Update breadcrumbs on language change
+    this.langChangeSubscription = this.languageService.onLangChange().subscribe(() => {
+      this.menuItems = this.createBreadcrumb(this.activatedRoute.root);
+    });
   }
+
   private createBreadcrumb(
     route: ActivatedRoute,
     url: string = '',
@@ -38,27 +48,31 @@ export class BreadCrumbComponent implements OnInit {
       if (routeURL !== '') {
         url += `/${routeURL}`;
       }
-
       const label = child.snapshot.data['breadcrumb'];
       if (label) {
-        // this.languageService.getTranslation(label).subscribe((localized) => {
-        //   breadcrumbs.push({ label: localized, routerLink: url });
-        // });
-        const localized = this.languageService.transalte(label);
-        breadcrumbs.push({ label: localized, routerLink: url });
+        this.languageService.getTranslation(label).subscribe((localized) => {
+          breadcrumbs.push({ label: localized, routerLink: url });
+        });
       }
 
+      // Recursively create breadcrumbs for child routes
       if (child.children && child.children.length > 0) {
         return this.createBreadcrumb(child, url, breadcrumbs);
       }
     }
     return breadcrumbs;
   }
-  constructor(
-    public languageService: LanguageService,
 
+  ngOnDestroy(): void {
+    // Unsubscribe from language change to prevent memory leaks
+    if (this.langChangeSubscription) {
+      this.langChangeSubscription.unsubscribe();
+    }
+  }
+
+  constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private breadcrumbhome:breadCrumbHome
+    private languageService: LanguageService
   ) {}
 }

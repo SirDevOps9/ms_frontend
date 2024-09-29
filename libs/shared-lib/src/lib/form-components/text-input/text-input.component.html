@@ -1,36 +1,40 @@
-<input *ngIf="iconUrl"
-  class="p-inputtext p-component p-element "
+<input
+  *ngIf="iconUrl"
+  class="p-inputtext p-component p-element"
   [type]="type"
   (change)="change($event)"
   [value]="value"
   [readOnly]="readOnly"
   [disabled]="readOnly"
   [placeholder]="placeholder"
-  [ngClass]="{'reads':readOnly ,'textbox':textbox}"
+  [ngClass]="{ reads: readOnly, textbox: textbox }"
   (keyup)="keyupChange($event)"
   (keydown)="type === 'number' ? filterInput($event) : null"
   (paste)="type === 'number' ? handlePaste($event) : null"
-    [ngStyle]="{
+  [ngStyle]="{
     'padding-right': '25px',
-    'background': 'url(' + iconUrl + ') no-repeat right 8px center / 19px',
+    background: 'url(' + iconUrl + ') no-repeat right 8px center / 19px',
     'background-size': '20px'
   }"
   [attr.data-testid]="labelTest"
   min="0"
-  />
-<input *ngIf="!iconUrl"
-  class="p-inputtext p-component p-element "
+/>
+<input
+  *ngIf="!iconUrl"
+  class="p-inputtext p-component p-element"
   [type]="type"
   (change)="change($event)"
   [value]="value"
   [readOnly]="readOnly"
   [disabled]="readOnly"
   [placeholder]="placeholder"
-  [ngClass]="{'reads':readOnly ,'textbox':textbox}"
+  [ngClass]="{ reads: readOnly, textbox: textbox }"
   (keyup)="keyupChange($event)"
   (keydown)="type === 'number' ? filterInput($event) : null"
   (paste)="type === 'number' ? handlePaste($event) : null"
   [attr.data-testid]="labelTest"
   min="0"
-
-  />
+  [ngStyle]="{
+    padding: '12px 16px'
+  }"
+/>

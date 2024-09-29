@@ -1,0 +1,127 @@
+<lib-page-content [title]="'UOM.TaxList' | translate" [subTitle]="'UOM.TaxList' | translate">
+    <div>
+      <div class="user_page">
+        <lib-data-table
+          [items]="tableData"
+          className="p-datatable-gridlines"
+          [currentPageResult]="currentPageInfo"
+          (pageChange)="onPageChange($event)"
+          [tableConfigs]="{
+            allowPagination: true,
+            allowServerPagination: true,
+            dataKey: 'id',
+            pageSize: 10,
+            columns: [
+              {
+                name: 'code',
+                headerText: ('UOM.code' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'name',
+                headerText: ('UOM.name' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'shortName',
+                headerText: ('UOM.shortName' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'uomType',
+                headerText: ('UOM.uomType' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'conversionRatio',
+                headerText: ('UOM.conversionRatio' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+  
+              {
+                name: 'id',
+                headerText: ('UOM.actions' | translate),
+                template: actions
+              }
+            ]
+          }"
+        >
+          <ng-container caption>
+            <div class="">
+              <div class="grid grid-cols-4 gap-2" >
+                <div class="col-span-1">
+                  <lib-form-group>
+                    <lib-text-input
+                      type="text"
+                      [placeholder]="'UOM.Search' | translate"
+                      [(ngModel)]="searchTerm"
+                      (keyUp)="onSearchChange()"
+                    ></lib-text-input>
+                  </lib-form-group>
+                </div>
+                <!-- <div class="col-span-1">
+                  <lib-form-group>
+                    <lib-text-input
+                      type="text"
+                      [placeholder]="'UOM.Search' | translate"
+                      [(ngModel)]="searchTerm"
+                      (keyUp)="onSearchChange()"
+                    ></lib-text-input>
+                  </lib-form-group>
+                </div>
+                <div class="col-span-1">
+                  <lib-form-group>
+                    <lib-text-input
+                      type="text"
+                      [placeholder]="'UOM.Search' | translate"
+                      [(ngModel)]="searchTerm"
+                      (keyUp)="onSearchChange()"
+                    ></lib-text-input>
+                  </lib-form-group>
+                </div> -->
+              
+  
+                <div class=" flex flex-auto justify-content-end align-items-center gap-2">
+                  <div>
+                    <lib-button-micro
+                      [title]="'UOM.AddNew' | translate"
+                      nameClass="save"
+                      iconName="pi pi-plus"
+                      (click)="Add()"
+                    >
+                    </lib-button-micro>
+                  </div>
+                  <!--  -->
+                  <div>
+                    <lib-export
+                      (exportClick)="exportClick($event)"
+                      [exportData]="exportData"
+                      [exportColumns]="exportColumns"
+                      [ExportName]="'Unit Of Measure'"
+                    >
+                    </lib-export>
+                  </div>
+                  <!--  -->
+                </div>
+              </div>
+            </div>
+          </ng-container>
+  
+          <ng-template #actions let-action>
+            <div class="actions flex align-items-center">
+              <lib-button-micro nameClass="table_button_edit" (click)="onEdit(action)">
+              </lib-button-micro>
+              <lib-button-micro nameClass="table_button_delete" (click)="onDelete(action.id)">
+              </lib-button-micro>
+            </div>
+          </ng-template>
+        </lib-data-table>
+      </div>
+    </div>
+  </lib-page-content>
+  

@@ -1,0 +1,24 @@
+.label_total{
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    color: #6b7280;
+  }
+  ::ng-deep{
+    .total{
+      .p-inputtext::placeholder {
+          color: black !important;
+         font-weight: bold !important;
+      }
+    }
+  }
+
+  .advanced_search {
+     display: flex;
+    align-items: center;
+    gap: 2px;
+    .search_icon {
+      margin-top: 24px;
+      cursor: pointer;
+    }
+  }
+  

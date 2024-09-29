@@ -20,6 +20,10 @@ export enum LookupEnum {
   PeriodType='PeriodType',
   CommissionType='CommissionType', 
   PaymentPlace= 'PaymentPlace', 
-  PaymentMethodType= 'PaymentMethodType'
-
+  PaymentMethodType= 'PaymentMethodType',
+  Screen='Screen',
+  Module='Module',
+  SequenceType='SequenceType',
+  Segment='Segment',
+  Separator ='Separator',
 }

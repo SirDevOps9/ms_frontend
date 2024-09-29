@@ -9,7 +9,7 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { LanguageService, LookupsService } from '../../services';
+import { LanguageService, LookupsService, RouterService } from '../../services';
 import { TableConfig } from './data-table-column';
 import { PageInfo, PageInfoResult } from '../../models';
 import { NgIfContext } from '@angular/common';
@@ -22,9 +22,12 @@ import { GeneralService } from '../../services/general.service';
 })
 export class DataTableComponent implements OnInit, OnChanges {
   @Input() items: any[];
-  @Input() selectedIndex: number;
+  @Input() selectedIndex: number ;
+  @Input() selectedIndices: number[];
   @Input() resizableColumns: boolean = true;
   @Input() popup: boolean = false;
+  @Input() sequence: boolean = false;
+  @Input() firstRow: boolean = false;
   @Input() currentPageResult: PageInfoResult;
   first: number = 0;
   @Input() tableConfigs: TableConfig;
@@ -112,14 +115,34 @@ export class DataTableComponent implements OnInit, OnChanges {
   hasNestedHeaders(): boolean {
     return this.tableConfigs.columns.some((col) => col.children && col.children.length > 0);
   }
-
-  constructor(
-    public languageService: LanguageService,
-    public lookupsService: LookupsService,
-
-    private generalService: GeneralService
-  ) {}
   ngOnChanges(changes: SimpleChanges): void {
     this.clonedTableConfigs = this.tableConfigs;
   }
+  routeToSequence(){
+    const currentUrl = this.routerService.getCurrentUrl();
+    this.routerService.navigateTo(`${currentUrl}/sequence`);
+
+  }
+
+  isSelected(index: number): boolean {
+    if(this.selectedIndices)
+    return this.selectedIndices.includes(index);
+    return false
+  }
+
+  toggleSelection(index: number): void {
+    const selectedIndex = this.selectedIndices.indexOf(index);
+    if (selectedIndex === -1) {
+      this.selectedIndices.push(index);
+    } else {
+      this.selectedIndices.splice(selectedIndex, 1);
+    }
+  }
+  constructor(
+    public languageService: LanguageService,
+    public lookupsService: LookupsService,
+    private generalService: GeneralService,
+    private routerService: RouterService,
+
+  ) {}
 }

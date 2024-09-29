@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { BreadcrumbLabel, LayoutComponent, Modules, SharedLibModule } from 'shared-lib';
+import { breadCrumbHome, BreadcrumbLabel, LayoutComponent, Modules, SharedLibModule } from 'shared-lib';
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { AddItemCategoryComponent } from './components/add-item-category/add-item-category.component';
 import { ItemCategoryListComponent } from './pages/item-category/item-category-list/item-category-list.component';
@@ -16,6 +16,18 @@ import { AddBarcodePopupComponent } from './components/add-barcode-popup/add-bar
 import { ViewQRcodeComponent } from './components/view-qrcode/view-qrcode.component';
 import { WarehouseListComponent } from './pages/warehouse/warehouse-list/warehouse-list.component';
 import { AddWarehouseComponent } from './pages/warehouse/add-warehouse/add-warehouse.component';
+import { UOMListComponent } from './pages/unit-of-major/uom-list/uom-list.component';
+import { UOMAddComponent } from './pages/unit-of-major/uom-add/uom-add.component';
+import { UOMEditComponent } from './pages/unit-of-major/uom-edit/uom-edit.component';
+import { UOMMainComponent } from './pages/unit-of-major/UOM-main/UOM-main.component';
+import { AttributeDefinitionComponent } from './pages/attribute-definition/attribute-definition.component';
+import { AttributeDefinitionListComponent } from './pages/attribute-definition/attribute-definition-list/attribute-definition-list.component';
+import { AddAttributeDefinitionComponent } from './pages/attribute-definition/add-attribute-definition/add-attribute-definition.component';
+import { EditAttributeDefinitionComponent } from './pages/attribute-definition/edit-attribute-definition/edit-attribute-definition.component';
+import { OperationTagMainComponent } from './pages/operational-tag/operation-tag-main/operation-tag-main.component';
+import { OperationTagAddComponent } from './pages/operational-tag/operation-tag-add/operation-tag-add.component';
+import { OperationTagListComponent } from './pages/operational-tag/operation-tag-list/operation-tag-list.component';
+import { OperationTagEditComponent } from './pages/operational-tag/operation-tag-edit/operation-tag-edit.component';
 import { ItemsCategoryTreeComponent } from './pages/item-categories-tree/items-category-tree/items-category-tree.component';
 import { AddItemsCategoryComponent } from './pages/item-categories-tree/add-items-category/add-items-category.component';
 import { EditItemCategoryComponent } from './pages/item-categories-tree/edit-item-category/edit-item-category.component';
@@ -35,7 +47,7 @@ const routes: Routes = [
     data: {
       moduleId: Modules.inventory,
     },
-    children : [
+    children: [
       {
         path: '',
         component: ItemDefinitionListComponent,
@@ -49,7 +61,7 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_DIFINITION
         },
-     
+
       },
       {
         path: 'warehouse',
@@ -116,7 +128,7 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION
         },
-     
+
       },
       {
         path: 'item-type',
@@ -124,7 +136,7 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_TYPE
         },
-     
+
       },
       {
         path: 'item-category',
@@ -132,14 +144,14 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_CATEGORY
         },
-     
+
       },
-     
+
     ]
 
   }
-      
-    
+
+
 ]
 
 @NgModule({
@@ -157,6 +169,18 @@ const routes: Routes = [
     ViewQRcodeComponent,
     WarehouseListComponent,
     AddWarehouseComponent,
+    UOMMainComponent,
+    UOMListComponent,
+    UOMAddComponent,
+    UOMEditComponent,
+    AttributeDefinitionComponent,
+    AttributeDefinitionListComponent,
+    AddAttributeDefinitionComponent,
+    EditAttributeDefinitionComponent,
+    OperationTagMainComponent,
+    OperationTagListComponent,
+    OperationTagAddComponent,
+    OperationTagEditComponent,
     ItemsCategoryTreeComponent,
     AddItemsCategoryComponent,
     EditItemCategoryComponent,
@@ -170,8 +194,8 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-     RouterModule.forChild(routes),
-     SharedLibModule
+    RouterModule.forChild(routes),
+    SharedLibModule
   ]
 })
 export class ItemsModule { }
