@@ -168,4 +168,12 @@ export class CostCenterTreeComponent implements OnInit {
       });
     }
   }
+  routeToEditFromView(id : number){
+    this.view = false
+    this.add = false
+    this.parentEditedId = id
+    this.edit= true
+
+    
+  }
 }

@@ -55,7 +55,7 @@
       </div>
     </div>
     <div class="md:col-8">
-      <app-view-chart *ngIf="view" [account]="account"></app-view-chart>
+      <app-view-chart *ngIf="view" [account]="account" (sendId)="routeToEditFromView($event)"></app-view-chart>
       <app-add-chart *ngIf="add" [newChiled]="newChiled" [parentAddedId]="parentAddedId"
         (operationCompleted)="handleOperationCompleted($event)"></app-add-chart>
       <app-edit-chart *ngIf="edit" [parentEditedId]="parentEditedId"
