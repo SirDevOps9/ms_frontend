@@ -23,7 +23,6 @@ export class ViewBankDefinitionComponent implements OnInit {
 
   loadView() {
     this.financeService.viewBank(this.id).subscribe((res) => {
-      console.log(res);
       this.ViewForm = res;
     });
 

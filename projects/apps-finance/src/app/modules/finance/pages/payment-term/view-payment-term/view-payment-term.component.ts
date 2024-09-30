@@ -24,7 +24,6 @@ export class ViewPaymentTermComponent implements OnInit {
 
   loadView() {
     this.financeService.viewPaymentTerm(this.id).subscribe((res) => {
-      console.log(res);
       this.ViewForm = res;
     });
 

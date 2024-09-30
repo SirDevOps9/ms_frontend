@@ -56,7 +56,7 @@ export class FinanceProxyService {
   getTreasureDefinitionsById(id: number): Observable<GetTreasuryDtoById> {
     return this.httpService.get(`Treasury/${id}`);
   }
-  getTreasureDefinitionsView(id: number): Observable<TreasuryViewDto> {
+  getTreasuryDefinitionsView(id: number): Observable<TreasuryViewDto> {
     return this.httpService.get(`Treasury/View/${id}`);
   }
 

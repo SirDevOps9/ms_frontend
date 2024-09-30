@@ -107,8 +107,8 @@ export class FinanceService {
   getTreasureDefinitionsByIdData(id : number)  {
    return this.financeProxy.getTreasureDefinitionsById(id)
   }
-  getTreasureDefinitionsView(id : number)  {
-    return this.financeProxy.getTreasureDefinitionsView(id)
+  getTreasuryDefinitionsView(id : number)  {
+    return this.financeProxy.getTreasuryDefinitionsView(id)
    }
  
 
