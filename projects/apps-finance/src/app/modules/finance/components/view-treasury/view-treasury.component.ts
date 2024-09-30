@@ -26,8 +26,7 @@ export class ViewTreasuryComponent {
   }
 
   getTreasuryView() {
-    this.financeService.getTreasureDefinitionsView(this.config.data).subscribe((res) => {
-      console.log(res);
+    this.financeService.getTreasuryDefinitionsView(this.config.data).subscribe((res) => {
       this.ViewForm = res;
     });
   }
