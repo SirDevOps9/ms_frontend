@@ -40,6 +40,7 @@ export class ChartOfAccountTreeComponent implements OnInit {
   }
   ngOnInit() {
     this.getTreeList();
+    
   }
   mapToTreeNodes(data: any[]) {
     data = data.map((item, index) => {
@@ -127,7 +128,8 @@ export class ChartOfAccountTreeComponent implements OnInit {
 
   handleOperationCompleted(event: any) {
   //  this.test=event
-    
+  this.activeNode=event
+
      this.getTreeList();
     // if(event.id){
     //  this.viewMode(event.id)
@@ -152,6 +154,8 @@ export class ChartOfAccountTreeComponent implements OnInit {
   }
 
   getTreeList() {
+    // console.log(this.activeNode ,"0000");
+    
     const activeNodeId = this.activeNode ? this.activeNode.id : null;
     this.accountService.getTreeList().subscribe((res: any) => {
       this.nodes = this.mapToTreeNodes(res);
@@ -163,56 +167,48 @@ export class ChartOfAccountTreeComponent implements OnInit {
     });
   }
 
-  setActiveNode(id: number) {
-    const findNode = (nodes: any[]): any => {
-      for (let node of nodes) {
-        
-        if (node.id === id) {
-          //  this.test=node
 
-          return node;
+  setActiveNode(id: number) {
+    const findAndExpandNode = (nodes: any[], id: number): any => {
+      for (let node of nodes) {
+        if (node.id === id) {
+          return node; // Found the target node
         }
-         if (node.children) {
-          const foundChild = findNode(node.children);
-          if (foundChild ) {
-            if(node.children.id===id){
-              
-            }
-            
-            return foundChild;
+  
+        if (node.children) {
+          const foundChild = findAndExpandNode(node.children, id);
+          if (foundChild) {
+            node.expanded = true;
+            return foundChild; 
           }
         }
       }
       return null;
     };
-
-    const x:any = findNode(this.nodes);
-    x.expanded = true;
-
-    if (x.children.length!=0) {
-      x.children.forEach((element:any) => {
-        if(element.id===this.test){
-          this.activeNode=element 
-            this.getAccountDetails(element.id);
-          
-          this.view = true;
-        }else{
-          // this.activeNode=x
-          // this.getAccountDetails(x.id);
-          
-          // this.view = true; 
-
-        }
-      });
-    }else if(x.children.length[0]){
-
-                this.activeNode=x 
-
+  
+    const targetNode: any = findAndExpandNode(this.nodes, id);
+  
+    if (targetNode) {
+      this.activeNode = targetNode; // Set the active node
+  
+      if (targetNode.children && targetNode.children.length > 0) {
+        targetNode.children.forEach((child: any) => {
+          if (child.id === this.test) {
+            this.activeNode = child;
+            this.getAccountDetails(child.id);
+            this.view = true;
+          }
+        });
+      } else {
+        this.getAccountDetails(targetNode.id);
+        this.view = true;
+      }
     }
-
-
+  
+    // Logging for debug
+    console.log(targetNode, "Activated node");
   }
-
+  
   expandParents(node: any) {
     let parentNode = this.findParentNode(this.nodes, node);
     while (parentNode) {
@@ -270,12 +266,12 @@ export class ChartOfAccountTreeComponent implements OnInit {
   }
 
 
-  expand_Collapse(){
-    this.expanded = !this.expanded; 
-    this.nodes.forEach(node => {
-      this.toggleNode(node, this.expanded); 
-    });   
-  }
+  // expand_Collapse(){
+  //   this.expanded = !this.expanded; 
+  //   this.nodes.forEach(node => {
+  //     this.toggleNode(node, this.expanded); 
+  //   });   
+  // }
 
   toggleNode(node: any, expanded: boolean) {
     node.expanded = expanded; 
@@ -294,4 +290,60 @@ export class ChartOfAccountTreeComponent implements OnInit {
 
     
   }
+
+// check if all nodes are expanded
+areAllNodesExpanded(): boolean {
+  return this.nodes.every((node) => this.isNodeFullyExpanded(node));
+}
+
+// function to check if a single node and all its children are expanded
+isNodeFullyExpanded(node: any): boolean {
+  if (!node.expanded) {
+    return false;
+  }
+
+  if (node.children) {
+    return node.children.every((childNode: any) => this.isNodeFullyExpanded(childNode));
+  }
+
+  return true;
+}
+
+// When a node is expanded, expand only the clicked node without expanding its children
+nodeExpand(event: any) {
+  const expandedNode = event.node;
+  expandedNode.expanded = true; 
+  // console.log('Node expanded:', expandedNode);
+
+  // Check if all nodes are expanded after this node is expanded
+  this.expanded = this.areAllNodesExpanded();
+}
+
+// When a node is collapsed, collapse only the clicked node without collapsing its children
+nodeCollapse(event: any) {
+  const collapsedNode = event.node;
+  collapsedNode.expanded = false; 
+  // console.log('Node collapsed:', collapsedNode);
+
+  // Set expanded to false as not all nodes are expanded
+  this.expanded = false;
+}
+
+// Function to toggle expansion/collapse for the whole tree
+expand_Collapse() {
+  this.expanded = !this.expanded;
+  this.nodes.forEach((node) => {
+    this.setNodeExpandedState(node, this.expanded);
+  });
+}
+
+setNodeExpandedState(node: any, expanded: boolean) {
+  node.expanded = expanded;
+
+  if (expanded && node.children) {
+    node.children.forEach((childNode: any) => {
+      this.setNodeExpandedState(childNode, expanded);
+    });
+  }
+}
 }

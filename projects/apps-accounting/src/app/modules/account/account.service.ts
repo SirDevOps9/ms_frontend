@@ -232,7 +232,7 @@ export class AccountService {
   addAccount(command: AddAccountDto) {
     this.accountproxy.addAccount(command).subscribe({
       next: (res) => {
-        this.savedAccountDataSource.next(res);
+        this.savedAccountDataSource?.next(res);
       },
       error: (err) => {
         this.toasterService.showError('Error', err.message);

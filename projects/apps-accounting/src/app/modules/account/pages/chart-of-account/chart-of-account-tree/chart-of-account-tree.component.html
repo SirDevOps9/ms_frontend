@@ -22,10 +22,18 @@
         </div>
         </div>
 
-        <p-tree [value]="nodes" [filter]="true" expanded="true" *ngIf="showTree">
+        <p-tree
+        
+        (onNodeExpand)="nodeExpand($event)" 
+        (onNodeCollapse)="nodeCollapse($event)" 
+       
+        
+        [value]="nodes" [filter]="true" expanded="true" *ngIf="showTree">
           <ng-template let-node pTemplate="default">
             <div class="ui-tree-node-content label_text tree-item-container"
-              [ngClass]="{ active: node === activeNode }">
+              [ngClass]="{ active: node === activeNode  }"
+              
+              >
               <div class="description">
                 <!-- <span class="tree-icon" *ngIf="node.children"></span> -->
                 <span class="folder" *ngIf="!node.hasNoChild"></span>
