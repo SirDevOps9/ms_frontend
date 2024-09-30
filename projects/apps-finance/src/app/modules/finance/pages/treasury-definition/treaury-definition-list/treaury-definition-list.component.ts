@@ -141,7 +141,6 @@ export class TreauryDefinitionListComponent implements OnInit {
   }
 
   view(id: number) {
-    console.log('view',id)
     const dialogRef = this.dialog.open(ViewTreasuryComponent, {
       width: '600px',
       height: '600px',
@@ -154,7 +153,6 @@ export class TreauryDefinitionListComponent implements OnInit {
     this.financeService.sendTreasuryDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
-        console.log(res);
       },
     });
   }
