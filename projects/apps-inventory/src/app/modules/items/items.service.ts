@@ -230,11 +230,11 @@ export class ItemsService {
     });
   }
   ViewDefinitionById(id: number) {
-    this.loaderService.show();
+    // this.loaderService.show();
     this.itemProxy.getItemViewDefinitionById(id).subscribe((res) => {
       if (res) {
         this.ViewDataDefinitionById.next(res);
-        this.loaderService.hide();
+        // this.loaderService.hide();
       }
     });
   }
