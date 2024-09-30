@@ -235,7 +235,6 @@ export class AccountService {
         this.savedAccountDataSource.next(res);
       },
       error: (err) => {
-        this.toasterService.showError('Error', err.message);
       },
     });
   }
