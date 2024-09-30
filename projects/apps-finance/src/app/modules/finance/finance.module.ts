@@ -24,6 +24,8 @@ import { AddPaymentMethodComponent } from './pages/payment-method/add-payment-me
 import { EditPaymentMethodComponent } from './pages/payment-method/edit-payment-method/edit-payment-method.component';
 import { ViewPaymentMethodComponent } from './pages/payment-method/view-payment-method/view-payment-method.component';
 import { MainPaymentMethodComponent } from './pages/payment-method/main-payment-method/main-payment-method.component';
+import { ViewBankDefinitionComponent } from './pages/bank-definition/view-bank-definition/view-bank-definition.component';
+import { ViewPaymentTermComponent } from './pages/payment-term/view-payment-term/view-payment-term.component';
 
 const routes: Routes = [
   {
@@ -92,6 +94,15 @@ const routes: Routes = [
 
             },
           },
+          {
+            path: 'view-bank-definition/:id',
+            component: ViewBankDefinitionComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VIEW_BANK_DEFINATION,
+              pageTitle: BreadcrumbLabel.VIEW_BANK_DEFINATION,
+
+            },
+          },
         ]
       },
       {
@@ -125,6 +136,15 @@ const routes: Routes = [
             data: {
               breadcrumb: BreadcrumbLabel.PAYMENT_TERM_Edit,
               pageTitle: BreadcrumbLabel.PAYMENT_TERM_Edit,
+
+            },
+          },
+          {
+            path: 'view-payment-term/:id',
+            component: ViewPaymentTermComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VIEW_PAYMENT_TERM,
+              pageTitle: BreadcrumbLabel.VIEW_PAYMENT_TERM,
 
             },
           },
@@ -193,6 +213,7 @@ const routes: Routes = [
 
             },
           },
+          
         ]
       },
 
@@ -228,7 +249,9 @@ const routes: Routes = [
     AddPaymentMethodComponent,
     EditPaymentMethodComponent,
     ViewPaymentMethodComponent,
-    MainPaymentMethodComponent
+    MainPaymentMethodComponent,
+    ViewBankDefinitionComponent,
+    ViewPaymentTermComponent
 
     
   ],

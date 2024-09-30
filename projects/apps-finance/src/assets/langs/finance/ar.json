@@ -7,7 +7,9 @@
     "BankAccountStatement": "كشف الحساب البنكي",
     "TreasuryStatement": "بيان الخزانة",
     "ViewPaymentIn": "عرض قبض",
-    "ViewPaymentout": "عرض صرف"
+    "ViewPaymentout": "عرض صرف",
+    "ViewBankDefination":"عرض تعريف البنك",
+    "ViewPaymentTerm": "عرض شروط الدفع"
 
 
   },
@@ -197,5 +199,16 @@
     "LineDescription": "وصف السطر",
     "DateFrom": "التاريخ من",
     "DateTo": "التاريخ إلى"
+  },
+  "treasury-view": {
+    "title": "تفاصيل الخزينة",
+    "code": "الكود",
+    "name": "الاسم",
+    "currency": "العملة",
+    "branches": "الفروع",
+    "accountName": "اسم الحساب",
+    "acountopeningBalance": "رصيد افتتاح الحساب",
+    "treasuryOpeningBalance": "رصيد افتتاح الخزينة",
+    "treasuryCurrentBalance": "الرصيد الحالي للخزينة"
   }
 }
