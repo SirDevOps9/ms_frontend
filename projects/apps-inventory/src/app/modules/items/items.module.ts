@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { breadCrumbHome, BreadcrumbLabel, LayoutComponent, Modules, SharedLibModule } from 'shared-lib';
+import {
+  breadCrumbHome,
+  BreadcrumbLabel,
+  LayoutComponent,
+  Modules,
+  SharedLibModule,
+} from 'shared-lib';
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { AddItemCategoryComponent } from './components/add-item-category/add-item-category.component';
 import { ItemCategoryListComponent } from './pages/item-category/item-category-list/item-category-list.component';
@@ -59,84 +65,164 @@ const routes: Routes = [
         path: 'item-definition',
         component: ItemDefinitionListComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.ITEM_DIFINITION
+          breadcrumb: BreadcrumbLabel.ITEM_DIFINITION,
         },
       },
       {
         path: 'warehouse',
         component: MainWarehouseComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.WARE_HOUSE
+          breadcrumb: BreadcrumbLabel.WARE_HOUSE,
         },
-        children : [
+        children: [
           {
             path: '',
             component: WarehouseListComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.WARE_HOUSE
+              breadcrumb: BreadcrumbLabel.WARE_HOUSE,
             },
           },
           {
             path: 'add-warehouse',
             component: AddWarehouseComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.ADD_WARE_HOUSE
+              breadcrumb: BreadcrumbLabel.ADD_WARE_HOUSE,
             },
           },
           {
             path: 'edit-warehouse/:id',
             component: EditWarehouseComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE
+              breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE,
             },
           },
-        ]
+        ],
+      },
+      {
+        path: 'uom',
+        component: UOMMainComponent,
+        data: { breadcrumb: BreadcrumbLabel.UOM },
+        children: [
+          {
+            path: '',
+            component: UOMListComponent,
+            data: {
+              breadcrumb: '',
+            },
+          },
+          {
+            path: 'add-uom',
+            component: UOMAddComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_UOM,
+            },
+          },
+          {
+            path: 'edit-uom/:id',
+            component: UOMEditComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.Edit_UOM,
+            },
+          },
+        ],
+      },
+      {
+        path: 'operational-tag',
+        component: OperationTagMainComponent,
+        data: { breadcrumb: BreadcrumbLabel.Operational_Tag },
+        children: [
+          {
+            path: '',
+            component: OperationTagListComponent,
+            data: { breadcrumb: '' },
+          },
+          {
+            path: 'add-operational-tag',
+            component: OperationTagAddComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.Add_Operational_Tag,
+            },
+          },
+          {
+            path: 'edit-operational-tag/:id',
+            component: OperationTagEditComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.Edit_Operational_Tag,
+            },
+          },
+        ],
+      },
+      {
+        path: 'attribute-definition',
+        component: AttributeDefinitionComponent,
+        data: { breadcrumb: BreadcrumbLabel.Attribute_Definition },
+        children: [
+          {
+            path: '',
+            component: AttributeDefinitionListComponent,
+            data: { breadcrumb: '' },
+          },
+          {
+            path: 'add-attribute',
+            component: AddAttributeDefinitionComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.Add_Attribute_Definition,
+            },
+          },
+          {
+            path: 'edit-attribute/:id',
+            component: EditAttributeDefinitionComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.Edit_Attribute_Definition,
+            },
+          },
+        ],
       },
       {
         path: 'items-category',
         component: MainItemCategoriesTreeComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.ITEMS_CATEGORY
+          breadcrumb: BreadcrumbLabel.ITEMS_CATEGORY,
         },
       },
       {
         path: 'stock-in',
         component: StockInListComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.STOCKIN
+          breadcrumb: BreadcrumbLabel.STOCKIN,
         },
       },
       {
         path: 'add-stock-in',
         component: AddStockInComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.ADD_STOCKIN
+          breadcrumb: BreadcrumbLabel.ADD_STOCKIN,
         },
       },
       {
         path: 'add-item-definition/:id',
         component: AddItemDefinitionComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION
+          breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
         },
       },
       {
         path: 'item-type',
         component: ItemTypeListComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.ITEM_TYPE
+          breadcrumb: BreadcrumbLabel.ITEM_TYPE,
         },
       },
       {
         path: 'item-category',
         component: ItemCategoryListComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.ITEM_CATEGORY
+          breadcrumb: BreadcrumbLabel.ITEM_CATEGORY,
         },
       },
-    ]
-  }
-]
+    ],
+  },
+];
 @NgModule({
   declarations: [
     ItemDefinitionListComponent,
@@ -174,12 +260,8 @@ const routes: Routes = [
     StockInListComponent,
     AddStockInComponent,
     MainWarehouseComponent,
-    ViewItemDefinitionComponent
+    ViewItemDefinitionComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    SharedLibModule
-  ]
+  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })
-export class ItemsModule { }
+export class ItemsModule {}
