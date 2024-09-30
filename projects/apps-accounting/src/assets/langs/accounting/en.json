@@ -61,7 +61,8 @@
     "ChooseAnAccount": "Choose An Account",
     "Select": "Select",
     "Id": "Id",
-    "levelNumber": "Account Level"
+    "levelNumber": "Account Level",
+    "Status": "Status"
   },
   "Journal": {
     "Title": "Journal Entry List",

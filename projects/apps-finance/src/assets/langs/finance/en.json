@@ -7,7 +7,10 @@
     "BankAccountStatement": "Bank Account Statement",
     "ViewPaymentIn": "View Payment In",
     "ViewPaymentout": "View Payment Out",
-    "TreasuryStatement": "Treasury Statement"
+    "TreasuryStatement": "Treasury Statement",
+    "ViewBankDefination":"View Bank Defination",
+    "ViewPaymentTerm":"View Payment Term"
+
   },
   "confirmation": "confirmation",
   "Success": "Success",
@@ -221,5 +224,16 @@
     "LineDescription": "Line Description",
     "DateFrom": "Date From",
     "DateTo": "Date To"
+  },
+  "treasury-view": {
+    "title": "Treasury Details",
+    "code": "Code",
+    "name": "Name",
+    "currency": "Currency",
+    "branches": "Branches",
+    "accountName": "Account Name",
+    "acountopeningBalance": "Account Opening Balance",
+    "treasuryOpeningBalance": "Treasury Opening Balance",
+    "treasuryCurrentBalance": "Treasury Current Balance"
   }
 }
