@@ -11,8 +11,8 @@ export const environment: IEnvironment = {
   AuthConfiguration: {
     authority: 'https://localhost:7116',
     clientId: 'microtecadminfrontend',
-    logoutRedirectUri: window.location.origin + '/bussinessowners/logout-redirect',
-    redirectUrl: window.location.origin + '/bussinessowners/login-redirect',
+    logoutRedirectUri: window.location.origin + '/bussiness-owners/logout-redirect',
+    redirectUrl: window.location.origin + '/bussiness-owners/login-redirect',
     scopes: 'bo',
     state: '',
   },

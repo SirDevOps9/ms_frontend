@@ -11,8 +11,8 @@ export const environment: IEnvironment = {
   AuthConfiguration: {
     authority: 'https://intmicrotec.neat-url.com:2050',
     clientId: 'microtecadminfrontend',
-    logoutRedirectUri: window.location.origin + '/bussinessowners/logout-redirect',
-    redirectUrl: window.location.origin + '/bussinessowners/login-redirect',
+    logoutRedirectUri: window.location.origin + '/bussiness-owners/logout-redirect',
+    redirectUrl: window.location.origin + '/bussiness-owners/login-redirect',
     scopes: 'bo',
     state: '',
   },
