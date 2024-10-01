@@ -205,18 +205,17 @@
               <lib-text-input
                 [readOnly]="true"
                 type="text"
-                [placeholder]="parent?.periodicActiveFrom!"
+                [placeholder]="(parent?.periodicActiveFrom! | date : 'dd/MM/yyyy')!"
               />
             </lib-form-group>
           </div>
           <div class="md:col-3" *ngIf="Period">
             <lib-form-group>
               <label> {{ 'ChartOfAccounts.periodicActiveTo' | translate }}</label>
-
               <lib-text-input
                 [readOnly]="true"
                 type="text"
-                [placeholder]="parent?.periodicActiveTo!"
+                [placeholder]="(parent?.periodicActiveTo | date : 'dd/MM/yyyy')!"
               />
             </lib-form-group>
           </div>

@@ -235,7 +235,6 @@ export class AccountService {
         this.savedAccountDataSource?.next(res);
       },
       error: (err) => {
-        this.toasterService.showError('Error', err.message);
       },
     });
   }
@@ -255,10 +254,6 @@ export class AccountService {
       },
       error: (error) => {
         this.loaderService.hide();
-        this.toasterService.showError(
-          this.languageService.transalte('ChartOfAccounts.Error'),
-          error.message
-        );
       },
     });
   }
