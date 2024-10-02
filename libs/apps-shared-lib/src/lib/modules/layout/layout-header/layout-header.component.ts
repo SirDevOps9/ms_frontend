@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, inject, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'microtec-auth-lib';
 import { Observable } from 'rxjs';
@@ -8,20 +8,23 @@ import {
   MenuModule,
   Modules,
   RouterService,
+  StorageService,
   breadCrumbHome,
 } from 'shared-lib';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModuleListComponent } from '../../../components/module-list/module-list.component';
 import { LayoutService } from '../layout.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-layout-header',
   templateUrl: './layout-header.component.html',
   styleUrl: './layout-header.component.scss',
 })
-export class LayoutHeaderComponent {
+export class LayoutHeaderComponent implements OnInit , AfterViewInit {
   @Output() language = new EventEmitter();
+  coBrForm: FormGroup;
   currentLang: Cultures;
   userName: string;
   moduleName: string;
@@ -32,8 +35,17 @@ export class LayoutHeaderComponent {
   userPhoto: string;
   ref: DynamicDialogRef;
   userEmail: string;
+  branchList: any;
+  companyList: any;
+
+  _fb = inject(FormBuilder);
+  localstoarage = inject(StorageService);
+  companyDataFetched: boolean = false;
+
 
   ngOnInit() {
+    this.setDefaulatCompany();
+
     this.moduleList = this.layoutService.getModules();
     this.currentLang = this.languageService.getLang();
     if (this.router.snapshot.data['moduleId'] === Modules.Accounting)
@@ -45,6 +57,10 @@ export class LayoutHeaderComponent {
     else if (this.router.snapshot.data['moduleId'] === Modules.Purchase)
       this.moduleName = 'Purchase';
     else if (this.router.snapshot.data['moduleId'] === Modules.Sales) this.moduleName = 'Sales';
+
+
+
+
   }
 
   toggleLanguage(): void {
@@ -118,10 +134,82 @@ export class LayoutHeaderComponent {
     private breadCrumbHome: breadCrumbHome,
     public generalService: GeneralService
   ) {
+
     this.userName = this.authService.getUserName;
     this.languageService.setLang();
     this.userPhoto = this.authService.getUserPhoto;
     // console.log(this.generalService.sendSideBarState.getValue())
     this.userEmail = this.authService.getUserEmail;
+    this.initForm();
+    this.updateValue()
+
+  }
+  ngAfterViewInit(): void {
+
+  }
+  initForm() {
+    const storedCompanyId = this.localstoarage.getItem('defaultCompany');
+    const storedBranchId = this.localstoarage.getItem('defaultBranch');
+    this.coBrForm = this._fb.group({
+      companyId: this.localstoarage.getItem('defaultCompany') || null,
+      branchId: this.localstoarage.getItem('defaultBranch') || null,
+    });
+    // this.setDefaultBranch(storedCompanyId);
+
+    this.coBrForm.get('companyId')?.valueChanges.subscribe((companyId) => {
+      if (!companyId) return;
+      this.localstoarage.deleteItem('defaultCompany');
+      this.localstoarage.setItem('defaultCompany', companyId);
+      this.setDefaultBranch(companyId);
+    });
+  }
+  setDefaulatCompany() {
+    const storedCompanyId = this.localstoarage.getItem('defaultCompany');
+
+    this.layoutService.companiesDropDown();
+    this.layoutService.companyListDropDown$.subscribe((res) => {
+      this.companyList = res;
+      if (res.some((x) => x.id === storedCompanyId)) {
+        let matchedBranch = res.filter((x) => x.id === storedCompanyId)[0].id;
+
+        this.coBrForm.get('companyId')?.setValue(matchedBranch);
+       
+      }
+    });
+  }
+  setDefaultBranch(id: string) {
+    if (id) {
+      this.layoutService.branchesDropDown(id);
+      this.layoutService.branceDropDown$.subscribe((res) => {
+        const storedBranchId = this.localstoarage.getItem('defaultBranch');
+
+        this.branchList = res;
+        if (res.some((x) => x.id === storedBranchId)) {
+          let matchedBranch = res.filter((x) => x.id === storedBranchId)[0].id;
+
+          this.coBrForm.get('branchId')?.setValue(matchedBranch);
+         
+        }else{
+          
+          this.coBrForm.get('branchId')?.valueChanges.subscribe((branchId) => {
+            if (!branchId) return;
+            this.localstoarage.deleteItem('defaultBranch');
+            this.localstoarage.setItem('defaultBranch', branchId);
+          });
+    
+        }
+      });
+    }
+  }
+  updateValue(){
+    if(this.coBrForm.getRawValue().companyId == null){
+
+      setTimeout(() => {
+        
+        this.routerService.goToHomePage()
+    
+      },500);
+  
+    }
   }
 }

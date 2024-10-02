@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, SideMenuModel } from 'shared-lib';
@@ -11,4 +12,19 @@ export class LayoutProxy {
   loadSideMenu(): Observable<SideMenuModel[]> {
     return this.baseService.get<SideMenuModel[]>(`SideMenu`);
   }
+    // get the list of branch to set the default
+    branchesDropDown(companyId: string): Observable<{id:string , name : string, isDefault : boolean}[]> {
+       this.baseService.addHeaders().set('companyid', companyId);
+
+      return this.baseService.get<{id: string, name: string, isDefault: boolean}[]>(
+        `Branch/BranchDropdown`,
+      );
+    }
+
+    // get the list of companies to set the default
+    companiesDropDown(): Observable<{id:string , name : string,companyType : number}[]> {
+      return this.baseService.get<{id:string , name : string,companyType : number}[]>(
+        `Company/CompanyDropdown`
+      );
+    }
 }
