@@ -1,0 +1,116 @@
+<lib-page-content>
+  <div class="grid">
+    <div class="md:col-3 ">
+      <p class="headsCont heading_b16">{{ 'bank.code' | translate }}</p>
+      <p class="subHead paragraph_b16 pragraph_demd">
+        {{ ViewForm.code  || 'N/A'}}
+      </p>
+    </div>
+    <div class="md:col-3 " >
+      <p class="headsCont heading_b16">{{ 'bank.name' | translate }}</p>
+      <p class="subHead paragraph_b16 pragraph_demd">
+        {{ ViewForm.name  || 'N/A' }}
+      </p>
+    </div>
+    <div class="md:col-3 " >
+      <p class="headsCont heading_b16">{{ 'bank.shortName' | translate }}</p>
+      <p class="subHead paragraph_b16 pragraph_demd">
+        {{ ViewForm.shortName || 'N/A' }}
+      </p>
+    </div>
+    <div class="md:col-3 " >
+      <p class="headsCont heading_b16">{{ 'bank.bankAddress' | translate }}</p>
+      <p class="subHead paragraph_b16 pragraph_demd">
+        {{ ViewForm.bankAddress || 'N/A' }}
+      </p>
+    </div>
+    <div  class="md:col-3 " >
+      <p class="headsCont heading_b16 ">{{ 'bank.contactName' | translate }}</p>
+      <p class="subHead paragraph_b16 pragraph_demd ">
+        {{ ViewForm.contactName || 'N/A' }}
+      </p>
+    </div>
+    <div class="md:col-3 " >
+      <p class="headsCont heading_b16">{{ 'bank.bankEmail' | translate }}</p>
+      <p class="subHead paragraph_b16 pragraph_demd">
+        {{ ViewForm.bankEmail  || 'N/A'}}
+      </p>
+    </div>
+    <div class="md:col-3 " >
+      <p class="headsCont heading_b16">{{ 'bank.phone' | translate }}</p>
+      <p class="subHead paragraph_b16 pragraph_demd">
+        {{ ViewForm.phone || 'N/A' }}
+      </p>
+    </div>
+    <div class="md:col-3 " >
+      <p class="headsCont heading_b16">{{ 'bank.fax' | translate }}</p>
+      <p class="subHead paragraph_b16 pragraph_demd">
+        {{ ViewForm.fax || 'N/A'}}
+      </p>
+    </div>
+  </div>
+
+   <div class="journal_page">
+    <lib-data-table
+      *ngIf="ViewForm!.bankAccounts"
+      [items]="ViewForm.bankAccounts"
+      className="p-datatable-gridlines"
+      [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: false,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'accountNumber',
+              headerText: 'bank.accountNumber' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'glAccountCode',
+              headerText: 'bank.glAccountCode' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'glAccountName',
+              headerText: 'bank.glAccountName' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'branches',
+              headerText: 'bank.branches' | translate,
+            },
+            {
+              name: 'iban',
+              headerText: 'bank.Iban' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'currencyName',
+              headerText: 'bank.currency' | translate,
+              isGlobalFilter: true,
+              isSortable: true,
+            },
+            {
+              name: 'currentBalance',
+              headerText: 'bank.currentBalance' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'openingBalance',
+              headerText: 'bank.openingBalance' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            }
+          ]
+        }"
+    >
+
+    </lib-data-table>
+  </div> 
+</lib-page-content>
