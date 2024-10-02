@@ -256,10 +256,19 @@ export class EditBankDefinitionComponent implements OnInit {
     this.routerService.navigateTo('/masterdata/bank-definition');
   }
 
-  onDelete(i: number) {
-    this.items.removeAt(i);
+  
+  onDelete(id: number, index: number): void {
+    if (id == 0) {
+      this.items.removeAt(index);
+    } else {
+      this.financeService.deleteBankAccount(id);
+      this.financeService.bankAccountDeletedObser.subscribe((res: boolean) => {
+        if (res == true) {
+          this.items.removeAt(index);
+        }
+      });
+    }
   }
-
   onSave() {
     this.openingBalanceDataList = [];
     let data: any = { ...this.bankormGroup.value, bankAccounts: this.items.value };
