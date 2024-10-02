@@ -44,7 +44,6 @@ export class LayoutHeaderComponent implements OnInit , AfterViewInit {
 
 
   ngOnInit() {
-    this.setDefaulatCompany();
 
     this.moduleList = this.layoutService.getModules();
     this.currentLang = this.languageService.getLang();
@@ -57,8 +56,10 @@ export class LayoutHeaderComponent implements OnInit , AfterViewInit {
     else if (this.router.snapshot.data['moduleId'] === Modules.Purchase)
       this.moduleName = 'Purchase';
     else if (this.router.snapshot.data['moduleId'] === Modules.Sales) this.moduleName = 'Sales';
+    this.setDefaulatCompany();
 
 
+    this.updateValue()
 
 
   }
@@ -139,7 +140,6 @@ export class LayoutHeaderComponent implements OnInit , AfterViewInit {
     this.userPhoto = this.authService.getUserPhoto;
     this.userEmail = this.authService.getUserEmail;
     this.initForm();
-    this.updateValue()
 
   }
   ngAfterViewInit(): void {
@@ -177,12 +177,12 @@ export class LayoutHeaderComponent implements OnInit , AfterViewInit {
 
     const companies = this.localstoarage.getItem('companies')
     this.companyList = companies
-    if (companies.some((x: {id:string , name : string,companyType : string}) => x.id === storedCompanyId)) {
-          let matchedBranch = companies.filter((x: {id:string , name : string,companyType : string}) => x.id === storedCompanyId)[0].id;
+    // if (companies?.some((x: {id:string , name : string,companyType : string}) => x.id === storedCompanyId)) {
+          let matchedBranch = companies?.filter((x: {id:string , name : string,companyType : string}) => x.id === storedCompanyId)[0].id;
   
           this.coBrForm.get('companyId')?.setValue(matchedBranch);
          
-        }
+        // }
     this.setDefaultBranch(storedCompanyId)
   }
   setDefaultBranch(id: string) {
@@ -213,25 +213,29 @@ export class LayoutHeaderComponent implements OnInit , AfterViewInit {
     const branches = this.localstoarage.getItem('branches')
     this.branchList = branches;
     if(id ) {
-      if (branches.some((x:  {id:string , name : string,isDefault : boolean}) => x.id === storedBranchId)) {
-              let matchedBranch = branches.filter((x:  {id:string , name : string,isDefault : boolean}) => x.id === storedBranchId)[0].id;
+      // if (branches?.some((x:  {id:string , name : string,isDefault : boolean}) => x.id === storedBranchId)) {
+              let matchedBranch = branches?.filter((x:  {id:string , name : string,isDefault : boolean}) => x.id === storedBranchId)[0].id;
     
               this.coBrForm.get('branchId')?.setValue(matchedBranch);
              
-            }
+            // }
 
 
     }
   }
   updateValue(){
-    if(this.coBrForm.getRawValue().companyId == null){
+
+    if (this.coBrForm.getRawValue().companyId == null ) {
 
       setTimeout(() => {
         
         this.routerService.goToHomePage()
+      
     
       },500);
   
     }
   }
+
+
 }
