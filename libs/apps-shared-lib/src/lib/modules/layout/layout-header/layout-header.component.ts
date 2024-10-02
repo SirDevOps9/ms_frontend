@@ -35,8 +35,8 @@ export class LayoutHeaderComponent implements OnInit , AfterViewInit {
   userPhoto: string;
   ref: DynamicDialogRef;
   userEmail: string;
-  branchList: any;
-  companyList: any;
+  branchList: {id:string , name : string,isDefault : boolean}[];
+  companyList:{id:string , name : string,companyType : string}[]
 
   _fb = inject(FormBuilder);
   localstoarage = inject(StorageService);
@@ -91,7 +91,6 @@ export class LayoutHeaderComponent implements OnInit , AfterViewInit {
   routeToCart() {}
 
   navigateto(key: number) {
-    console.log(key);
 
     if (key === Modules.Hr) {
       location.href = '../hr';
@@ -138,7 +137,6 @@ export class LayoutHeaderComponent implements OnInit , AfterViewInit {
     this.userName = this.authService.getUserName;
     this.languageService.setLang();
     this.userPhoto = this.authService.getUserPhoto;
-    // console.log(this.generalService.sendSideBarState.getValue())
     this.userEmail = this.authService.getUserEmail;
     this.initForm();
     this.updateValue()
@@ -151,54 +149,78 @@ export class LayoutHeaderComponent implements OnInit , AfterViewInit {
     const storedCompanyId = this.localstoarage.getItem('defaultCompany');
     const storedBranchId = this.localstoarage.getItem('defaultBranch');
     this.coBrForm = this._fb.group({
-      companyId: this.localstoarage.getItem('defaultCompany') || null,
-      branchId: this.localstoarage.getItem('defaultBranch') || null,
+      companyId:storedCompanyId || null,
+      branchId:storedBranchId || null,
     });
     // this.setDefaultBranch(storedCompanyId);
 
-    this.coBrForm.get('companyId')?.valueChanges.subscribe((companyId) => {
-      if (!companyId) return;
-      this.localstoarage.deleteItem('defaultCompany');
-      this.localstoarage.setItem('defaultCompany', companyId);
-      this.setDefaultBranch(companyId);
-    });
+    // this.coBrForm.get('companyId')?.valueChanges.subscribe((companyId) => {
+    //   if (!companyId) return;
+    //   this.localstoarage.deleteItem('defaultCompany');
+    //   this.localstoarage.setItem('defaultCompany', companyId);
+    //   this.setDefaultBranch(companyId);
+    // });
   }
   setDefaulatCompany() {
     const storedCompanyId = this.localstoarage.getItem('defaultCompany');
 
-    this.layoutService.companiesDropDown();
-    this.layoutService.companyListDropDown$.subscribe((res) => {
-      this.companyList = res;
-      if (res.some((x) => x.id === storedCompanyId)) {
-        let matchedBranch = res.filter((x) => x.id === storedCompanyId)[0].id;
+    // this.layoutService.companiesDropDown();
+    // this.layoutService.companyListDropDown$.subscribe((res) => {
+    //   this.companyList = res;
+    //   if (res.some((x) => x.id === storedCompanyId)) {
+    //     let matchedBranch = res.filter((x) => x.id === storedCompanyId)[0].id;
 
-        this.coBrForm.get('companyId')?.setValue(matchedBranch);
+    //     this.coBrForm.get('companyId')?.setValue(matchedBranch);
        
-      }
-    });
+    //   }
+    // });
+
+    const companies = this.localstoarage.getItem('companies')
+    this.companyList = companies
+    if (companies.some((x: {id:string , name : string,companyType : string}) => x.id === storedCompanyId)) {
+          let matchedBranch = companies.filter((x: {id:string , name : string,companyType : string}) => x.id === storedCompanyId)[0].id;
+  
+          this.coBrForm.get('companyId')?.setValue(matchedBranch);
+         
+        }
+    this.setDefaultBranch(storedCompanyId)
   }
   setDefaultBranch(id: string) {
-    if (id) {
-      this.layoutService.branchesDropDown(id);
-      this.layoutService.branceDropDown$.subscribe((res) => {
-        const storedBranchId = this.localstoarage.getItem('defaultBranch');
+    const storedBranchId = this.localstoarage.getItem('defaultBranch');
 
-        this.branchList = res;
-        if (res.some((x) => x.id === storedBranchId)) {
-          let matchedBranch = res.filter((x) => x.id === storedBranchId)[0].id;
+    // if (id) {
+    //   this.layoutService.branchesDropDown(id);
+    //   this.layoutService.branceDropDown$.subscribe((res) => {
+    //     const storedBranchId = this.localstoarage.getItem('defaultBranch');
 
-          this.coBrForm.get('branchId')?.setValue(matchedBranch);
+    //     this.branchList = res;
+    //     if (res.some((x) => x.id === storedBranchId)) {
+    //       let matchedBranch = res.filter((x) => x.id === storedBranchId)[0].id;
+
+    //       this.coBrForm.get('branchId')?.setValue(matchedBranch);
          
-        }else{
+    //     }else{
           
-          this.coBrForm.get('branchId')?.valueChanges.subscribe((branchId) => {
-            if (!branchId) return;
-            this.localstoarage.deleteItem('defaultBranch');
-            this.localstoarage.setItem('defaultBranch', branchId);
-          });
+    //       this.coBrForm.get('branchId')?.valueChanges.subscribe((branchId) => {
+    //         if (!branchId) return;
+    //         this.localstoarage.deleteItem('defaultBranch');
+    //         this.localstoarage.setItem('defaultBranch', branchId);
+    //       });
     
-        }
-      });
+    //     }
+    //   });
+    // }
+    const branches = this.localstoarage.getItem('branches')
+    this.branchList = branches;
+    if(id ) {
+      if (branches.some((x:  {id:string , name : string,isDefault : boolean}) => x.id === storedBranchId)) {
+              let matchedBranch = branches.filter((x:  {id:string , name : string,isDefault : boolean}) => x.id === storedBranchId)[0].id;
+    
+              this.coBrForm.get('branchId')?.setValue(matchedBranch);
+             
+            }
+
+
     }
   }
   updateValue(){

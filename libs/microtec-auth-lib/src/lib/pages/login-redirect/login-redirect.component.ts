@@ -33,8 +33,10 @@ export class LoginRedirectComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {}
 
   setDefaulatCompany() {
-    // this.layoutService.companiesDropDown();
-    this.proxyService.companiesDropDown().subscribe((res) => {
+    this.layoutService.companiesDropDown();
+    this.layoutService.companyListDropDown$.subscribe((res) => {
+      this.localstoarage.setItem('companies',res)
+      
       if (res && res.length > 0) {
         const holdingCompany = res.find((x) => x.companyType === CompanyTypes.Holding);
 
@@ -47,7 +49,7 @@ export class LoginRedirectComponent implements OnInit, AfterViewInit {
             this.localstoarage.setItem('defaultCompany', subsidiaryCompany.id);
             this.setDefaultBranch(subsidiaryCompany.id);
           } else {
-            const type_0_Company = res.find((x) => x.companyType === 0);
+            const type_0_Company = res.find((x) => x.companyType === '0');
             if (type_0_Company) {
               this.localstoarage.setItem('defaultCompany', type_0_Company.id);
               this.setDefaultBranch(type_0_Company.id);
@@ -62,6 +64,8 @@ export class LoginRedirectComponent implements OnInit, AfterViewInit {
       this.layoutService.branchesDropDown(id);
       this.layoutService.branceDropDown$.subscribe((res) => {
         if (res) {
+          this.localstoarage.setItem('branches',res)
+
           const filtered = res.find((x) => x.isDefault === true)?.id;
           if (filtered) {
             this.localstoarage.setItem('defaultBranch', filtered);

@@ -48,16 +48,18 @@ export class LayoutService {
 
   public branceDropDown = new BehaviorSubject<{id:string , name : string,isDefault : boolean}[]>([]);
   public branceDropDown$ = this.branceDropDown.asObservable();
-  public companyListDropDown = new BehaviorSubject<{id:string , name : string,companyType : number}[]>([]);
+  public companyListDropDown = new BehaviorSubject<{id:string , name : string,companyType : string}[]>([]);
   public companyListDropDown$ = this.companyListDropDown.asObservable();
 
   companiesDropDown() {
     this.layoutProxy.companiesDropDown().subscribe({
       next: (res) => {
         this.companyListDropDown.next(res);
-        console.log(res);
         
       },
+      error:(err: any)=>{
+        return
+      }
     });
   }
   branchesDropDown(id: string) {
@@ -65,9 +67,11 @@ export class LayoutService {
     this.layoutProxy.branchesDropDown(id).subscribe({
       next: (res) => {
         this.branceDropDown.next(res);
-        console.log(res);
         
       },
+      error:(err: any)=>{
+        return
+      }
     });
   }
 

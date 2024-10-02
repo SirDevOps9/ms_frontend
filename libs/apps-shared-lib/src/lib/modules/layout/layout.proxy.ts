@@ -22,8 +22,8 @@ export class LayoutProxy {
     }
 
     // get the list of companies to set the default
-    companiesDropDown(): Observable<{id:string , name : string,companyType : number}[]> {
-      return this.baseService.get<{id:string , name : string,companyType : number}[]>(
+    companiesDropDown(): Observable<{id:string , name : string,companyType : string}[]> {
+      return this.baseService.get<{id:string , name : string,companyType : string}[]>(
         `Company/CompanyDropdown`
       );
     }

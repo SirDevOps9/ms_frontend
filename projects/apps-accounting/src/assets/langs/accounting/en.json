@@ -246,6 +246,7 @@
     "Success": "Success",
     "TaxName": "Tax Name",
     "AddTaxDefinition": "Create",
+    "EditTaxDefinition": "Edit",
     "TaxCode": "Tax Code",
     "Ratio": "Ratio",
     "GlAccount": "GL Account",

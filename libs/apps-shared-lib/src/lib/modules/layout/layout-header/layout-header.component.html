@@ -28,11 +28,12 @@
                 <lib-form-group>
                   <lib-select
                     formControlName="companyId"
-                    placeholder="{{ 'DefaultCompany' | translate }}"
+                    placeholder="{{ 'Layout.DefaultCompany' | translate }}"
                     [options]="companyList"
                     [selectedValue]="coBrForm.controls['companyId'].value"
                     optionLabel="name"
                     optionValue="id"
+                    [readOnly]="true"
                   >
                   </lib-select>
                 </lib-form-group>
@@ -40,8 +41,9 @@
               <div class="modules">
                 <lib-form-group>
                   <lib-select
+                  [readOnly]="true"
                     formControlName="branchId"
-                    placeholder="{{ 'DefaultBranch' | translate }}"
+                    placeholder="{{ 'Layout.DefaultBranch' | translate }}"
                     [options]="branchList"
                     [selectedValue]="coBrForm.controls['branchId'].value"
                     optionLabel="name"

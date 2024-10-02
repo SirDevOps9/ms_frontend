@@ -1,5 +1,5 @@
 <lib-popup-page
-title="{{ 'Tax.AddTaxDefinition' | translate }}"
+title="{{ 'Tax.EditTaxDefinition' | translate }}"
 [closeFunction]="close"
 (Submit)="save()"
 >
@@ -32,24 +32,14 @@ title="{{ 'Tax.AddTaxDefinition' | translate }}"
       </div>
       <div class="md:col-12">
         <lib-form-group>
-          <div class="my-1">
-            <lib-label [appControl]="taxGroupForm.controls['countryCode']">
-              {{ 'TaxGroup.Edit.CountryName' | translate }}
-            </lib-label>
-          </div>
-          <lib-selectIcon
-            formControlName="countryCode"
-            [options]="countries"
-            [selectedValue]="taxGroupForm.controls['countryCode'].value"
-            optionValue="id"
-            optionLabel="nameEn"
-            icons="flags"
-          >
-          </lib-selectIcon>
-          <lib-field-validations [appControl]="taxGroupForm.controls['countryCode']">
-          </lib-field-validations>
+          <lib-label [appControl]="taxGroupForm.controls['countryName']">
+            {{ 'TaxGroup.Edit.CountryName' | translate }}
+          </lib-label>
+          <lib-text-input [readOnly]="true"  type="text" formControlName="countryName" />
+    
         </lib-form-group>
       </div>
+    
 </div>
 </form>
 </div>
