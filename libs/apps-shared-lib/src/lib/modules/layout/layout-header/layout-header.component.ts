@@ -1,4 +1,13 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, inject, OnInit, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  inject,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'microtec-auth-lib';
 import { Observable } from 'rxjs';
@@ -22,7 +31,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: './layout-header.component.html',
   styleUrl: './layout-header.component.scss',
 })
-export class LayoutHeaderComponent implements OnInit , AfterViewInit {
+export class LayoutHeaderComponent implements OnInit, AfterViewInit {
   @Output() language = new EventEmitter();
   coBrForm: FormGroup;
   currentLang: Cultures;
@@ -35,16 +44,14 @@ export class LayoutHeaderComponent implements OnInit , AfterViewInit {
   userPhoto: string;
   ref: DynamicDialogRef;
   userEmail: string;
-  branchList: {id:string , name : string,isDefault : boolean}[];
-  companyList:{id:string , name : string,companyType : string}[]
+  branchList: { id: string; name: string; isDefault: boolean }[];
+  companyList: { id: string; name: string; companyType: string }[];
 
   _fb = inject(FormBuilder);
   localstoarage = inject(StorageService);
   companyDataFetched: boolean = false;
 
-
   ngOnInit() {
-
     this.moduleList = this.layoutService.getModules();
     this.currentLang = this.languageService.getLang();
     if (this.router.snapshot.data['moduleId'] === Modules.Accounting)
@@ -58,10 +65,7 @@ export class LayoutHeaderComponent implements OnInit , AfterViewInit {
     else if (this.router.snapshot.data['moduleId'] === Modules.Sales) this.moduleName = 'Sales';
     this.setDefaulatCompany();
 
-
-    this.updateValue()
-
-
+    this.updateValue();
   }
 
   toggleLanguage(): void {
@@ -92,7 +96,6 @@ export class LayoutHeaderComponent implements OnInit , AfterViewInit {
   routeToCart() {}
 
   navigateto(key: number) {
-
     if (key === Modules.Hr) {
       location.href = '../hr';
     } else if (key === Modules.Accounting) {
@@ -134,23 +137,19 @@ export class LayoutHeaderComponent implements OnInit , AfterViewInit {
     private breadCrumbHome: breadCrumbHome,
     public generalService: GeneralService
   ) {
-
     this.userName = this.authService.getUserName;
     this.languageService.setLang();
     this.userPhoto = this.authService.getUserPhoto;
     this.userEmail = this.authService.getUserEmail;
     this.initForm();
-
   }
-  ngAfterViewInit(): void {
-
-  }
+  ngAfterViewInit(): void {}
   initForm() {
     const storedCompanyId = this.localstoarage.getItem('defaultCompany');
     const storedBranchId = this.localstoarage.getItem('defaultBranch');
     this.coBrForm = this._fb.group({
-      companyId:storedCompanyId || null,
-      branchId:storedBranchId || null,
+      companyId: storedCompanyId || null,
+      branchId: storedBranchId || null,
     });
     // this.setDefaultBranch(storedCompanyId);
 
@@ -171,19 +170,21 @@ export class LayoutHeaderComponent implements OnInit , AfterViewInit {
     //     let matchedBranch = res.filter((x) => x.id === storedCompanyId)[0].id;
 
     //     this.coBrForm.get('companyId')?.setValue(matchedBranch);
-       
+
     //   }
     // });
 
-    const companies = this.localstoarage.getItem('companies')
-    this.companyList = companies
+    const companies = this.localstoarage.getItem('companies');
+    this.companyList = companies;
     // if (companies?.some((x: {id:string , name : string,companyType : string}) => x.id === storedCompanyId)) {
-          let matchedBranch = companies?.filter((x: {id:string , name : string,companyType : string}) => x.id === storedCompanyId)[0].id;
-  
-          this.coBrForm.get('companyId')?.setValue(matchedBranch);
-         
-        // }
-    this.setDefaultBranch(storedCompanyId)
+    let matchedBranch = companies?.filter(
+      (x: { id: string; name: string; companyType: string }) => x.id === storedCompanyId
+    )[0].id;
+
+    this.coBrForm.get('companyId')?.setValue(matchedBranch);
+
+    // }
+    this.setDefaultBranch(storedCompanyId);
   }
   setDefaultBranch(id: string) {
     const storedBranchId = this.localstoarage.getItem('defaultBranch');
@@ -198,44 +199,36 @@ export class LayoutHeaderComponent implements OnInit , AfterViewInit {
     //       let matchedBranch = res.filter((x) => x.id === storedBranchId)[0].id;
 
     //       this.coBrForm.get('branchId')?.setValue(matchedBranch);
-         
+
     //     }else{
-          
+
     //       this.coBrForm.get('branchId')?.valueChanges.subscribe((branchId) => {
     //         if (!branchId) return;
     //         this.localstoarage.deleteItem('defaultBranch');
     //         this.localstoarage.setItem('defaultBranch', branchId);
     //       });
-    
+
     //     }
     //   });
     // }
-    const branches = this.localstoarage.getItem('branches')
+    const branches = this.localstoarage.getItem('branches');
     this.branchList = branches;
-    if(id ) {
+    if (id) {
       // if (branches?.some((x:  {id:string , name : string,isDefault : boolean}) => x.id === storedBranchId)) {
-              let matchedBranch = branches?.filter((x:  {id:string , name : string,isDefault : boolean}) => x.id === storedBranchId)[0].id;
-    
-              this.coBrForm.get('branchId')?.setValue(matchedBranch);
-             
-            // }
+      let matchedBranch = branches?.filter(
+        (x: { id: string; name: string; isDefault: boolean }) => x.id === storedBranchId
+      )[0].id;
 
+      this.coBrForm.get('branchId')?.setValue(matchedBranch);
 
+      // }
     }
   }
-  updateValue(){
-
-    if (this.coBrForm.getRawValue().companyId == null ) {
-
+  updateValue() {
+    if (this.coBrForm.getRawValue().companyId == null) {
       setTimeout(() => {
-        
-        this.routerService.goToHomePage()
-      
-    
-      },500);
-  
+        this.routerService.goToHomePage();
+      }, 500);
     }
   }
-
-
 }
