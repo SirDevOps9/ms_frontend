@@ -10,6 +10,9 @@
     "delete": "حذف",
     "statement": "بيان",
     "sequence": "تسلسل",
+    "attachment": "مرفق",
+    "attachmentDeletedSuccessfully": "تم حذف المرفق بنجاح",
+    "CannotDeleteattachment": "لا يمكن حذف المرفق",
 
     "sequence": {
       "sequence": "تسلسل",

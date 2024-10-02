@@ -162,8 +162,8 @@ export class CreateJournalEntryComponent {
     const dialog = this.dialog.open(AttachmentsComponent, {
       // header: 'Attachments',
       data: this.attachmentService.filesInfo,
-     width: '600px',
-      height: '350px',
+      width: '1200px',
+      height: '450px',
     });
 
     dialog.onClose.subscribe((res) => {

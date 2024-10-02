@@ -1,6 +1,6 @@
 <lib-page-content>
   <div class="journal_entry_add_page">
-    <form [formGroup]="editJournalForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="editJournalForm">
       <div class="card_micro">
 
       <div class="entry_header">
@@ -137,6 +137,16 @@
               {{ 'EditJournal.JournalDescription' | translate }}
             </lib-label>
             <lib-text-input formControlName="description" [readOnly]="viewMode"></lib-text-input>
+          </div>
+          <div>
+            <lib-button-micro
+            nameClass="save"
+            title="{{'attachment' | translate}}"
+            (click)="openAttachments()"
+            >
+
+
+            </lib-button-micro>
           </div>
         </div>
       </div>

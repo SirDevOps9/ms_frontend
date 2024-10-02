@@ -32,6 +32,8 @@ export class JournalEntryService {
   private accountReportsDataSource = new BehaviorSubject<reportAccount[]>([]);
   private CostCenterReportsDataSource = new BehaviorSubject<reportCostAllData[]>([]);
   public editJournalLineStatusDataSource = new BehaviorSubject<boolean | undefined>(undefined);
+  private attachmentDeleted = new BehaviorSubject(false);
+  public attachmentDeletedObser = this.attachmentDeleted.asObservable();
 
   public journalEntries = this.journalEntriesDataSource.asObservable();
   public journalEntriesObs = this.journalEntriesOpeningBalanceDataSource.asObservable();
@@ -294,5 +296,30 @@ export class JournalEntryService {
         return res;
       })
     );
+  }
+  async deleteAttachment(attachmentId: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.loaderService.show();
+      this.journalEntryProxy.DeleteAttachment(attachmentId).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('attachmentDeletedSuccessfully')
+          );
+          this.loaderService.hide();
+          this.attachmentDeleted.next(res);
+        },
+        error: () => {
+          this.loaderService.hide();
+          this.toasterService.showError(
+            this.languageService.transalte('error'),
+            this.languageService.transalte('CannotDeleteattachment')
+          );
+        },
+      });
+    }
   }
 }

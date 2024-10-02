@@ -10,6 +10,11 @@
 "delete":"delete",
 "statement":"statement",
 "sequence":"sequence",
+"attachment":"Attachment",
+"attachmentDeletedSuccessfully":"attachment Deleted Successfully",
+"CannotDeleteattachment":"Cannot Delete attachment",
+
+
 
 "sequence":{
 "sequence":"Sequence",

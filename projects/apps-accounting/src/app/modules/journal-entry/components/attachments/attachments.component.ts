@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { customValidators } from 'shared-lib';
@@ -8,7 +8,7 @@ import { customValidators } from 'shared-lib';
   templateUrl: './attachments.component.html',
   styleUrl: './attachments.component.scss'
 })
-export class AttachmentsComponent {
+export class AttachmentsComponent  {
 
   attachments: FormArray;
   filesData : any = []
@@ -28,7 +28,7 @@ export class AttachmentsComponent {
     private ref: DynamicDialogRef,
     ) {
       this.filesData = config.data;
-      console.log(this.filesData)
+      console.log(this.filesData , "1111111111111111111111")
   }
 
   files(data:any) {
