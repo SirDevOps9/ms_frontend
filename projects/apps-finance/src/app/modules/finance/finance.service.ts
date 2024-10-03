@@ -93,7 +93,8 @@ export class FinanceService {
 
 
 
-  
+  private bankAccountDeleted = new BehaviorSubject<boolean>(false);
+  public bankAccountDeletedObser = this.bankAccountDeleted.asObservable();
 
 
 
@@ -262,6 +263,32 @@ export class FinanceService {
       }
     })
   }
+
+  async deleteBankAccount(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      this.loaderService.show();
+
+      this.financeProxy.deleteBankAccount(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('deleteBank.success'),
+            this.languageService.transalte('deleteBank.delete')
+          );
+          this.loaderService.hide();
+          this.bankAccountDeleted.next(res);
+        },
+        error: () => {
+          this.loaderService.hide();
+          this.toasterService.showError(
+            this.languageService.transalte('Error'),
+            this.languageService.transalte('DeleteError')
+          );
+        },
+      });
+    }
+  }
+
   getUserPermissionLookupData() {
     this.financeProxy.getUserPermissionLookupData().subscribe(res=>{
       this.getUsersPermissionData.next(res)
