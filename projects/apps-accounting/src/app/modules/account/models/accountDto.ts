@@ -11,4 +11,5 @@ export interface AccountDto {
   accountSectionName: string;
   currencyId?: number;
   costCenterConfig: string;
+  isActive:boolean;
 }
