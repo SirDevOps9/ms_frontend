@@ -108,17 +108,7 @@ export class ItemDefinitionListComponent implements OnInit {
   }
 
   onEdit(data: any) {
-    // const dialogRef = this.dialog.open(EditItemDefinitionComponent, {
-    
-    //   width: '800px',
-    //   height : '700px',
-    //   data : data
-  
-    // });
-
-    // dialogRef.onClose.subscribe(() => {
-    // this.initItemDefinitionData()
-    // });
+   
     this.routerService.navigateTo(`masterdata/add-item-definition/${data.id}`)
 
   }
