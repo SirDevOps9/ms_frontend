@@ -129,4 +129,3 @@ export class StockInListComponent implements OnInit {
      this.itemsService.deleteItemDefinition(id)
   }
 }
-

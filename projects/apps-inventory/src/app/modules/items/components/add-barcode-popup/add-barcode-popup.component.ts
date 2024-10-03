@@ -48,5 +48,8 @@ export class AddBarcodePopupComponent implements OnInit {
       WindowPrt.print();
     }
   }
-  
+  generateBarcodeAndClose() {
+    const barcodeValue = this.config.data;
+    this.ref.close(barcodeValue); 
+  }
 }

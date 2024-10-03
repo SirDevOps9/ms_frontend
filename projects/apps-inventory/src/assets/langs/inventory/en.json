@@ -117,7 +117,17 @@
     "viewVariant": "View",
     "itemTracking": "Item Tracking",
     "SelectItemTracking": "Select Item Tracking",
-    "hasExpiry": "Has Expiry Date"
+    "hasExpiry": "Has Expiry Date",
+    "warehouse": "Warehouse",
+    "reservedQuantity":"Reserved Quantity",
+    "itemName":"Item Name",
+    "itemType":"Item Type",
+    "itemCategory":"Category",
+    "itemUOM":"Unit",
+    "warehouseName": "Warehouse Name",
+    "onHandQuantity":"On Hand Quantity",
+    "demandQuantity":"Demand Quantity"
+
   },
   "warehouse": {
     "Add": "Add",
@@ -144,6 +154,33 @@
     "adjustmentAccount": "Adjustment Account",
     "goodsInTransit": "Goods In Transit"
   },
+
+  "stock":{
+    "receiptCode": "Receipt Code",
+    "receiptCodeplaceholder": "Auto Form Seq",
+    "receiptData": "Receipt Data",
+    "sourceDocumentType":"Source Document Type",
+       "docType": "Select Document Type",
+    "sourceDocument":"Source Document",
+    "sourseDoc":"Select Document Number",
+    "selctWarehouse": "Select Warehouse",
+    "warehouseselected":"Select Wrehouse",
+    "notes":"Notes",
+    "stockInnotes":"Enter notes here",
+    "barcode":"Barcode",
+    "itemCode":"Item Code",
+    "name":"Name",
+    "uom":"Uom"
+    ,"variant":"Variant",
+    "Qty":"Qty",
+    "cost":"Cost",
+    "subtotola":"Subtotola",
+    "batchNo":"Batch No.",
+    "exp":"Expiry Date",
+    "quantity":"Quantity",
+    "note":"Note"
+  },
+
   "UOM": {
     "Add": "Add",
     "conversionRatio": "Conversion Ratio",

@@ -13,7 +13,7 @@ export class PopupPageComponent {
   
   @Input() footer: boolean=true;
   @Input() disabled: boolean;
-  @Input() closeFunction: () => void;
+  @Input() closeFunction: (data? : any) => void;
   @Input() saveFunction: () => void;
   @Input() showCancel : boolean = true
   @Input() showSave : boolean = true

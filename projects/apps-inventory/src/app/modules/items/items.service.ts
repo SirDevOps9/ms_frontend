@@ -8,7 +8,7 @@ import {
   RouterService,
   ToasterService,
 } from 'shared-lib';
-import { BehaviorSubject, map, Subject } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
 import {
   addBarcode,
   AddItemCategory,
@@ -40,6 +40,7 @@ import { AddUom, UomPost } from './models/addUom';
 import { addAttributeDifintion, IAttrributeDifinitionResult } from './models/AttrbuteDiffintion';
 import { OperationType } from './models/enums';
 import { VieItemDefinitionDto } from './models/VieItemDefinitionDto';
+import { AddTransaction } from './models/AddTransaction';
 
 @Injectable({
   providedIn: 'root',
@@ -56,6 +57,8 @@ export class ItemsService {
   ) {}
   sendItemTypeDataSource = new BehaviorSubject<ItemTypeDto[]>([]);
   sendItemDefinitionDataSource = new BehaviorSubject<itemDefinitionDto[]>([]);
+  sendTransaction  = new BehaviorSubject<AddTransaction[]>([])
+
   sendDataDefinitionById = new BehaviorSubject<EditItemDefinitionDto>({} as EditItemDefinitionDto);
   ViewDataDefinitionById = new BehaviorSubject<VieItemDefinitionDto>({} as VieItemDefinitionDto);
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
@@ -120,8 +123,10 @@ export class ItemsService {
   sendGlAccountLookup = new BehaviorSubject<any>([]);
   sendBranchesLookup = new BehaviorSubject<any>([]);
   wareHousesDropDownLookup = new BehaviorSubject<GetWarehouseList[]>([]);
+
   sendCitiesLookup = new BehaviorSubject<any>([]);
   sendCountriesLookup = new BehaviorSubject<any>([]);
+  sendCarcodeWithItem= new BehaviorSubject<any>([]);
   // sendCashSalesLookup = new BehaviorSubject<any>([]);
   // sendLookup = new BehaviorSubject<any>([]);
   // sendCreditSalesLookup = new BehaviorSubject<any>([]);
@@ -142,6 +147,7 @@ export class ItemsService {
   public SendExportOperationalTagList = new BehaviorSubject<IOperationalTagResult[]>([]);
 
   public sendItemDefinitionDataSourceObs = this.sendItemDefinitionDataSource.asObservable();
+   public sendTransactionObs = this.sendTransaction.asObservable();
   public  ViewDataDefinitionByIdObs = this.ViewDataDefinitionById.asObservable();
   public SendexportUOMList$ = this.SendexportUOMList.asObservable();
   public wareHousesDropDownLookup$ = this.wareHousesDropDownLookup.asObservable();
@@ -159,6 +165,7 @@ export class ItemsService {
   public AccountsDropDownLookupObs = this.AccountsDropDownLookup.asObservable();
   public taxesLookupObs = this.taxesLookup.asObservable();
   public uomCodeLookupObs = this.uomCodeLookup.asObservable();
+  public sendCarcodeWithItemObs = this.sendCarcodeWithItem.asObservable();
   public trackingTrackingDropDownObs = this.trackingTrackingDropDown.asObservable();
   public codeByuomCodeDropDownObs = this.codeByuomCodeDropDown.asObservable();
   public UOMCategoryDropDownLookupObs = this.UOMCategoryDropDownLookup.asObservable();
@@ -214,7 +221,8 @@ export class ItemsService {
   public editOperationTag$ = this.editOperationTag.asObservable();
   public getOperationalTagItemsById$ = this.getOperationalTagItemsById.asObservable();
   public SendExportOperationalTagList$ = this.SendExportOperationalTagList.asObservable();
-
+  barcodeScanned = new BehaviorSubject({})
+  barcodeScannedObs = this.barcodeScanned.asObservable()
   getItemType(quieries: string, pageInfo: PageInfo) {
     this.itemProxy.getItemType(quieries, pageInfo).subscribe((response) => {
       this.sendItemTypeDataSource.next(response.result);
@@ -229,6 +237,21 @@ export class ItemsService {
       this.loaderService.hide();
     });
   }
+
+  addTransaction(dataModel:AddTransaction){
+
+    this.loaderService.show();
+    this.itemProxy.addTransaction(dataModel).subscribe((response)=>{
+this.sendTransaction.next(response)
+this.loaderService.hide();
+
+    },error =>{
+      this.loaderService.hide();
+    })
+
+  }
+
+
   ViewDefinitionById(id: number) {
     this.loaderService.show();
     this.itemProxy.getItemViewDefinitionById(id).subscribe((res) => {
@@ -251,6 +274,18 @@ export class ItemsService {
       this.currentPageInfo.next(response.pageInfoResult);
     });
   }
+  getCarcodeWithItem(SearchTerm: any ) {
+    this.itemProxy.getCarcodeWithItem(SearchTerm).subscribe((response) => {
+      if(response) {
+        this.sendCarcodeWithItem.next(response);
+
+      }
+    });
+  }
+  sendCarcodeWithItemData(data: any): void {
+    this.sendCarcodeWithItem.next(data);
+  }
+ 
   getOperationalTagList(SearchTerm: string, pageInfo: PageInfo) {
     this.itemProxy.getOperationalTagList(SearchTerm, pageInfo).subscribe((response) => {
       this.listOfOperationalTag.next(response.result);
@@ -885,8 +920,12 @@ export class ItemsService {
   }
  
   getWareHousesDropDown() {
+    this.loaderService.show()
     return this.itemProxy.getWareHousesDropDown().subscribe((res) => {
       this.wareHousesDropDownLookup.next(res);
+      this.loaderService.hide()
+    },error =>{
+      this.loaderService.hide()
     });
   }
   getBranchDropdown() {

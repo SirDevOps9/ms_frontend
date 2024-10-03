@@ -55,6 +55,7 @@ import { NumberFormatPipe } from './pipes/number-format.pipe';
 import { PopupPageComponent } from './components/popup-page/popup-page.component';
 import { NumberFormatDirective } from './directives/numberFormatDirective';
 import { QRCodeModule } from 'angularx-qrcode';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     TreeModule,
     ProgressSpinnerModule,
     QRCodeModule,
-    InputTextareaModule
+    InputTextareaModule,
+    ZXingScannerModule
     
   ],
   exports: [

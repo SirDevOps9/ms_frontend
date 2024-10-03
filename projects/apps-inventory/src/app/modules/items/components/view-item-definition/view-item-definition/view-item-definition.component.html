@@ -11,14 +11,14 @@
     [tableConfigs]="{
       allowPagination: false,
       columns: [
-        { name: 'itemName', headerText: ('itemDefinition.warehouseName' | translate) },
+        { name: 'itemName', headerText: ('itemDefinition.itemName' | translate) },
         {
           name: 'itemType',
           template: ViewDate,
-          headerText: ('itemDefinition.warehouseName' | translate)
+          headerText: ('itemDefinition.itemType' | translate)
         },
-        { name: 'itemCategory', headerText: ('itemDefinition.reservedQuantity' | translate) },
-        { name: 'itemUOM', headerText: ('itemDefinition.demandQuantity' | translate) }
+        { name: 'itemCategory', headerText: ('itemDefinition.itemCategory' | translate) },
+        { name: 'itemUOM', headerText: ('itemDefinition.itemUOM' | translate) }
       ]
     }"
   ></lib-data-table>

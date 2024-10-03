@@ -39,6 +39,8 @@ import { StockInListComponent } from './pages/stock-In/stock-in-list/stock-in-li
 import { AddStockInComponent } from './pages/stock-In/add-stock-in/add-stock-in.component';
 import { MainWarehouseComponent } from './pages/warehouse/main-warehouse/main-warehouse.component';
 import { ViewItemDefinitionComponent } from './components/view-item-definition/view-item-definition/view-item-definition.component';
+import { ScanbarcodeComponent } from './pages/stock-In/scanBarCode/scanbarcode/scanbarcode.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 const routes: Routes = [
   {
@@ -134,6 +136,7 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.ITEM_CATEGORY
         },
       },
+      
     ]
   }
 ]
@@ -161,6 +164,7 @@ const routes: Routes = [
     AddAttributeDefinitionComponent,
     EditAttributeDefinitionComponent,
     OperationTagMainComponent,
+    
     OperationTagListComponent,
     OperationTagAddComponent,
     OperationTagEditComponent,
@@ -174,12 +178,14 @@ const routes: Routes = [
     StockInListComponent,
     AddStockInComponent,
     MainWarehouseComponent,
-    ViewItemDefinitionComponent
+    ViewItemDefinitionComponent,
+    ScanbarcodeComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    SharedLibModule
+    SharedLibModule,
+    ZXingScannerModule
   ]
 })
 export class ItemsModule { }

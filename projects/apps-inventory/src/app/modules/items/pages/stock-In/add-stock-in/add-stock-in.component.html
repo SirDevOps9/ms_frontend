@@ -1,0 +1,177 @@
+<lib-page-content>
+  <div class="grid">
+    <div class="md:col-12 my-3 grid flex justify-content-end">
+      <div class="md:col-4 grid flex justify-content-end">
+        <div class="md:col-6">
+          <lib-button-micro
+            title="{{ 'cancel' | translate }}"
+            nameClass="cancel"
+            widthNumber="100%"
+            (click)="onCancel()">
+          </lib-button-micro>
+        </div>
+        <div class="md:col-6">
+          <lib-button-micro
+            title="{{ 'Save' | translate }}"
+            nameClass="save"
+            widthNumber="100%"
+            (click)="onSave()">
+          </lib-button-micro>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div [formGroup]="stockInForm" class="stockInForm_header">
+    <div class="grid">
+      <div class="md:col-6 my-2">
+        <lib-label [appControl]="stockInForm.controls['code']">{{ 'stock.receiptCode' | translate }}</lib-label>
+        <lib-text-input
+          placeholder="{{ 'stock.receiptCodeplaceholder' | translate }}"
+          formControlName="code">
+        </lib-text-input>
+        <lib-field-validations [appControl]="stockInForm.controls['code']"></lib-field-validations>
+      </div>
+
+      <div class="md:col-6 my-2">
+        <lib-label [appControl]="stockInForm.controls['date']">{{ 'stock.receiptData' | translate }}</lib-label>
+        <lib-calendar formControlName="date"></lib-calendar>
+        <lib-field-validations [appControl]="stockInForm.controls['date']"></lib-field-validations>
+      </div>
+
+      <div class="md:col-6 my-2">
+        <lib-label [appControl]="stockInForm.controls['sourceDocumentType']">{{ 'stock.sourceDocumentType' | translate }}</lib-label>
+        <lib-select
+          formControlName="sourceDocumentType"
+          [options]="dataListSourceDocumentType"
+          optionValue="id"
+          optionLabel="name"
+          placeholder="{{ 'stock.docType' | translate }}">
+        </lib-select>
+        <lib-field-validations [appControl]="stockInForm.controls['sourceDocumentType']"></lib-field-validations>
+      </div>
+
+      <div class="md:col-6 my-2">
+        <lib-label [appControl]="stockInForm.controls['sourceDocumentNumber']">{{ 'stock.sourceDocument' | translate }}</lib-label>
+        <lib-select
+          formControlName="sourceDocumentNumber"
+          [options]="dataListSourceDocumentNumbers"
+          optionValue="id"
+          optionLabel="numbers"
+          placeholder="{{ 'stock.sourseDoc' | translate }}">
+        </lib-select>
+        <lib-field-validations [appControl]="stockInForm.controls['sourceDocumentNumber']"></lib-field-validations>
+      </div>
+
+      <div class="md:col-12 my-2">
+        <lib-label [appControl]="stockInForm.controls['warehouseId']">{{ 'stock.selctWarehouse' | translate }}</lib-label>
+        <lib-select
+          formControlName="warehouseId"
+          [options]="dataList"
+          optionValue="id"
+          optionLabel="name"
+          placeholder="{{ 'stock.warehouseselected' | translate }}">
+        </lib-select>
+        <lib-field-validations [appControl]="stockInForm.controls['warehouseId']"></lib-field-validations>
+      </div>
+
+      <div class="md:col-12 my-2">
+        <lib-label [appControl]="stockInForm.controls['note']">{{ 'stock.notes' | translate }}</lib-label>
+        <textarea
+          pInputTextarea
+          formControlName="note"
+          placeholder="{{ 'stock.notes' | translate }}"
+          style="width: 100%;"
+          rows="5">
+        </textarea>
+      </div>
+    </div>
+
+  
+    <div class="grid">
+      <div class="md:col-12 my-3 grid flex justify-content-end">
+        <div class="md:col-4 grid flex justify-content-end">
+          <div class="md:col-6">
+            <lib-button-micro
+              title="Add Line"
+              nameClass="save"
+              widthNumber="100%"
+              (click)="addDebtor()">
+            </lib-button-micro>
+          </div>
+          <div class="md:col-6">
+            <lib-button-micro
+              title="Scan"
+              nameClass="save"
+              widthNumber="100%"
+              (click)="openBarcode()">
+            </lib-button-micro>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div formArrayName="transactionDetails">
+      <p-table [value]="transactionDetails.controls" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>{{ 'stock.barcode' | translate }}</th>
+            <th>{{ 'stock.itemCode' | translate }}</th>
+            <th>{{ 'stock.name' | translate }}</th>
+            <th>{{ 'stock.uom' | translate }}</th>
+            <th>{{ 'stock.variant' | translate }}</th>
+            <th>{{ 'stock.Qty' | translate }}</th>
+            <th>{{ 'stock.cost' | translate }}</th>
+            <th>{{ 'stock.subtotola' | translate }}</th>
+            <th>{{ 'stock.batchNo' | translate }}</th>
+            <th>{{ 'stock.exp' | translate }}</th>
+            <th>{{ 'stock.note' | translate }}</th>
+          </tr>
+        </ng-template>
+    
+        <ng-template pTemplate="body" let-debtor let-i="rowIndex">
+          <tr [formGroupName]="i">
+            <td>
+              <lib-text-input 
+                formControlName="itemBarcodeId" 
+                (change)="scan($event.target)" 
+                placeholder="{{ 'stock.barcode' | translate }}">
+              </lib-text-input>
+            </td>
+            <td>
+              <lib-text-input formControlName="itemId" placeholder="{{ 'stock.itemCode' | translate }}"></lib-text-input>
+            </td>
+            <td>
+              <lib-text-input placeholder="{{ 'stock.name' | translate }}"></lib-text-input>
+            </td>
+            <td>
+              <lib-select formControlName="uomId" [options]="dataListSourceDocumentType" optionLabel="name" optionValue="id"></lib-select>
+            </td>
+            <td>
+              <lib-select formControlName="itemVariantId" [options]="dataListSourceDocumentNumbers" optionLabel="numbers" optionValue="id"></lib-select>
+            </td>
+            <td>
+              <lib-text-input formControlName="quantity" placeholder="{{ 'stock.Qty' | translate }}"></lib-text-input>
+            </td>
+            <td>
+              <lib-text-input formControlName="cost" placeholder="{{ 'stock.cost' | translate }}"></lib-text-input>
+            </td>
+            <td>
+              <lib-text-input formControlName="subTotal" placeholder="{{ 'stock.subtotola' | translate }}"></lib-text-input>
+            </td>
+            <td>
+              <lib-text-input formControlName="batchNumber" placeholder="{{ 'stock.batchNo' | translate }}"></lib-text-input>
+            </td>
+            <td>
+              <lib-calendar formControlName="batchExpiryDate"></lib-calendar>
+            </td>
+            <td>
+              <lib-text-input formControlName="note" placeholder="{{ 'stock.note' | translate }}"></lib-text-input>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    
+  </div>
+</lib-page-content>

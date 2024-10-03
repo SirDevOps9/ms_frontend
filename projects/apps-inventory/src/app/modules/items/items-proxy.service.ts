@@ -9,6 +9,7 @@ import { getBarcodeById } from './models/getBarcodeById';
 import { AddUom, UomPost } from './models/addUom';
 import { addAttributeDifintion, IAttrributeDifinition } from './models/AttrbuteDiffintion';
 import { VieItemDefinitionDto } from './models/VieItemDefinitionDto';
+import { AddTransaction } from './models/AddTransaction';
 
 @Injectable({
   providedIn: 'root'
@@ -282,6 +283,8 @@ export class ItemsProxyService {
   }
     return this.httpService.get(url)
    }
+
+  
   getWarehouseList(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<GetWarehouseList>> {
     let query = `WareHouse?${pageInfo.toQuery}`;
     if (searchTerm) {
@@ -329,6 +332,10 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
   }
   getWarehouseById(id : number) : Observable<AddWarehouse> {
     return this.httpService.get(`WareHouse/${id}`)
+  }
+
+  getCarcodeWithItem(Barcode: number): Observable<any> {
+    return this.httpService.get(`Barcode/GetItemBarcodeWithItemVariantAndItemByBarcode?Barcode=${Barcode}`);
   }
   // 
   // getGlAccountLookup() {
@@ -381,5 +388,10 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
   }
 
   
+ addTransaction(model:AddTransaction) {
+
+    return this.httpService.post<any>(`Transaction`,model);
+  }
+
 }
 
