@@ -99,7 +99,7 @@ export class ViewJournalEntryComponent implements OnInit {
       //  data: this.journalView?.journalEntryAttachments,
 
       width: '1200px',
-      height: '450px',
+      height: '1000px',
       data: {
         journalEntryAttachments: this.journalView?.journalEntryAttachments,
         viewData: viewdata

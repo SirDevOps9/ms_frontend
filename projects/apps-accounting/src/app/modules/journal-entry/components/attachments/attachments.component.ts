@@ -34,15 +34,14 @@ export class AttachmentsComponent  {
 
   files(data:any) {
     this.test = data
-    console.log(this.test ,"8888888888");
-    this.ref.close(this.test)
-
   }
   onCancel(){
-
-    console.log(this.test ,"999999999");
+    this.ref.close()
+  }
+  save(){
+    console.log(this.test ,"ffffffffffffffffff");
+    
     this.ref.close(this.test)
   }
-
 
 }

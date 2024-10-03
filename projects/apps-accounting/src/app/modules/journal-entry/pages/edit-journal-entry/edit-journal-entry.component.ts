@@ -625,7 +625,7 @@ export class EditJournalEntryComponent implements OnInit {
   openAttachments() {
     const dialog = this.dialog.open(AttachmentsComponent, {
       width: '1200px',
-      height: '450px',
+      height: '1000px',
       data: {
         journalEntryAttachments: this.journalEntryAttachment,
         screen: Pages.JournalEntry,

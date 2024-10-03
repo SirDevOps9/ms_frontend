@@ -96,7 +96,7 @@ export class UploadMultipeFilesComponent implements OnInit {
       this.urls.push(element);
   }
               });
-            }, 2000);
+            }, 500);
             //  this.sendFiles.emit(this.urls);
 
             this.editStates.push(false); // Initialize edit state for new file
@@ -275,7 +275,7 @@ export class UploadMultipeFilesComponent implements OnInit {
   
       if (!existingFile) {
         this.router.navigate(['/attachment-view'], { queryParams: { url: url } });
-        this.ref.close(this.urls);
+        this.ref.close(this.arr);
         return
       }
   
@@ -311,7 +311,7 @@ export class UploadMultipeFilesComponent implements OnInit {
           // return
 
               this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
-              this.ref.close(this.urls)
+              this.ref.close(this.arr)
               
             } catch (error) {
               console.error('Error decoding Base64 string:', error);
@@ -345,7 +345,7 @@ export class UploadMultipeFilesComponent implements OnInit {
   
       // توجيه إلى مكون العرض مع الرابط
       this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
-      this.ref.close(this.urls);
+      this.ref.close(this.arr);
     } catch (error) {
       console.error('Error decoding Base64 string:', error);
     }
@@ -355,7 +355,7 @@ export class UploadMultipeFilesComponent implements OnInit {
   private showFileFromUrl(url: string) {
     // توجيه إلى مكون العرض مع الرابط
     this.router.navigate(['/attachment-view'], { queryParams: { url: url } });
-    this.ref.close(this.urls);
+    this.ref.close(this.arr);
   }
   
   
@@ -382,7 +382,7 @@ export class UploadMultipeFilesComponent implements OnInit {
   
       // Navigate to the attachment view component
       this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
-      this.ref.close(this.urls);
+      this.ref.close(this.arr);
     } catch (error) {
       console.error('Error decoding Base64 string:', error);
     }

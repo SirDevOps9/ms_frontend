@@ -163,7 +163,7 @@ export class CreateJournalEntryComponent {
       // header: 'Attachments',
       data: this.attachmentService.filesInfo,
       width: '1200px',
-      height: '450px',
+      height: '1000px',
     });
 
     dialog.onClose.subscribe((res) => {

@@ -1,10 +1,8 @@
 <div class="Attachments">
-
-
 <lib-popup-page
 title="{{ 'Attachments' | translate }}"
 [closeFunction]="onCancel"
-[footer]="false"
+(Submit)="save()"
 >
 <lib-upload-multipe-files [filesData]="filesData.journalEntryAttachments" [viewData]="this.filesData.viewData" [screen]="this.filesData.screen" (sendFiles)="files($event)" ></lib-upload-multipe-files>
 
