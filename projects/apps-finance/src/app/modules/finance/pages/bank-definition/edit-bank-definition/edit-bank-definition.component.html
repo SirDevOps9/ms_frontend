@@ -311,7 +311,7 @@
               </td>
               <!--  -->
               <td>
-                <lib-button-micro nameClass="table_button_delete" (click)="onDelete(i)">
+                <lib-button-micro nameClass="table_button_delete" (click)="onDelete(bankGroup.controls['id'].value, i)">
                 </lib-button-micro>
               </td>
             </tr>

@@ -102,7 +102,9 @@ export class FinanceProxyService {
   deleteBank(id: number) {
     return this.httpService.delete(`Bank/${id}`);
   }
-
+  deleteBankAccount(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`Bank/DeleteAccount/${id}`);
+  }
   getBankDefinitionByID(id: number): Observable<bankByID> {
     return this.httpService.get(`Bank/${id}`);
   }
