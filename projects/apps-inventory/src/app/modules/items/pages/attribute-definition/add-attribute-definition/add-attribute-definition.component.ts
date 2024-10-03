@@ -70,6 +70,8 @@ export class AddAttributeDefinitionComponent implements OnInit {
   initAttrGroupForm() {
     this.attrFormGroup = this.fb.group({
       attrName: ['', customValidators.required],
+      attrNameAr: ['', customValidators.required],
+      attrNameEn: ['', customValidators.required],
     });
 
     this.attrFormGroup.get('attrName')?.valueChanges.subscribe((res: any) => {
@@ -91,8 +93,9 @@ export class AddAttributeDefinitionComponent implements OnInit {
   create_Attr_FormGroup(attrData?: any): FormGroup {
     return this.fb.group({
       id: new FormControl(attrData?.id),
-      nameAr: new FormControl(attrData?.nameAr || '', customValidators.required),
-      nameEn: new FormControl(attrData?.nameEn || '', customValidators.required),
+      valueAr: new FormControl(attrData?.nameAr || '', customValidators.required),
+      valueEn: new FormControl(attrData?.nameEn || '', customValidators.required),
+      status: new FormControl(attrData?.nameEn || '', customValidators.required),
 
       attributeGroupId: new FormControl(attrData?.attributeGroupId || ''),
     });
@@ -126,14 +129,19 @@ export class AddAttributeDefinitionComponent implements OnInit {
 
   
   onSave(obj: addAttributeDifintion, index: number) {
-    obj.attributeGroupId = this.attrName;
+    // obj.attributeGroupId = this.attrName;
 
-    this.itemsService.addAttrDifintion(obj);
-    this.itemsService.sendAttrDefinition$.subscribe((res: any) => {
-      this.lineStatus[index] = true;
+    // this.itemsService.addAttrDifintion(obj);
+    // this.itemsService.sendAttrDefinition$.subscribe((res: any) => {
+    //   this.lineStatus[index] = true;
 
-      this.isLastLineSaved = true;
-      this.attributeGroupsValue(this.attrName);
-    });
+    //   this.isLastLineSaved = true;
+    //   this.attributeGroupsValue(this.attrName);
+    // });
+    console.log(this.attrFormGroup.value);
+    console.log(this.attrTableForm.value);
+    
   }
+
+  discard(){}
 }

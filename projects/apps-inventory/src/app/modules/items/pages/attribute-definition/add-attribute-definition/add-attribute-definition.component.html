@@ -1,17 +1,58 @@
 <lib-page-content [title]="'attributeDefinition.TaxList' | translate" [subTitle]="'attributeDefinitionTaxList' | translate">
     <div class="bank">
+      <div class="card_micro">
       <div [formGroup]="attrFormGroup" class="entry_header">
         <div class="grid">
   
-          <div class="col-12 md:col-6">
+          <!-- <div class="col-12 md:col-6">
             <lib-form-group>
               <lib-label [appControl]="attrFormGroup.controls['attrName']" class="body_b14 mb-2 ms-4">
                 {{ 'attributeDefinition.attributeName' | translate }}
               </lib-label>
               <lib-select formControlName="attrName" [options]="attributeName" optionValue="id"
                 optionLabel="name" placeholder="{{ 'attributeDefinition.attributeName'| translate }}"
-                [selectedValue]="attrFormGroup.controls['attrName'].value">
+                [selectedValue]="attrFormGroup.controls['attrName']?.value">
               </lib-select>
+            </lib-form-group>
+          </div> -->
+          <div class="col-12 md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="attrFormGroup.controls['attrName']" class="body_b14 mb-2 ms-4">
+              {{ 'attributeDefinition.attributeId' | translate }}
+            </lib-label>
+            <lib-text-input
+              placeholder="{{ 'attributeDefinition.attributeId' | translate }}"
+              formControlName="attrName"
+              [readOnly]="true"
+            ></lib-text-input>
+            <lib-field-validations
+              [appControl]="attrFormGroup.controls['attrName']"
+            ></lib-field-validations>
+          </lib-form-group>
+
+          </div>
+          <!--  -->
+          <div class="col-12 md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="attrFormGroup.controls['attrNameAr']" class="body_b14 mb-2 ms-4">
+                {{ 'attributeDefinition.attributeNameAr' | translate }}
+              </lib-label>
+              <lib-text-input
+              placeholder="{{ 'attributeDefinition.attributeName' | translate }}"
+              formControlName="attrNameAr"
+            ></lib-text-input>
+            </lib-form-group>
+          </div>
+          <div class="col-12 md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="attrFormGroup.controls['attrNameEn']" class="body_b14 mb-2 ms-4">
+                {{ 'attributeDefinition.attributeNameEn' | translate }}
+              </lib-label>
+              
+              <lib-text-input
+              placeholder="{{ 'attributeDefinition.attributeName' | translate }}"
+              formControlName="attrNameEn"
+            ></lib-text-input>
             </lib-form-group>
           </div>
           </div>
@@ -20,12 +61,8 @@
   
         </div>
       </div>
-      <!--  -->
-      <div class="add_new my-2 flex justify-content-end" >
-        <lib-button (onClick)="addLine()" className="outline-primary"   [disabled]="!isLastLineSaved  || !attrFormGroup.controls['attrName'].value" >
-          {{ 'attributeDefinition.add_new' | translate }}
-        </lib-button>
       </div>
+     
       <div class="entry_table">
         <div class="card">
           <p-table [value]="attrTableForm.controls" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped"
@@ -34,8 +71,9 @@
             <ng-template pTemplate="header">
         
               <tr>
-                <th>{{ 'attributeDefinition.nameAr' | translate }}</th>
-                <th>{{ 'attributeDefinition.nameEn' | translate }}</th>
+                <th>{{ 'attributeDefinition.valueEn' | translate }}</th>
+                <th>{{ 'attributeDefinition.valueAr' | translate }}</th>
+                <th>{{ 'attributeDefinition.status' | translate }}</th>
            
                 <th>{{ 'attributeDefinition.actions' | translate }}</th> 
               </tr>
@@ -44,68 +82,69 @@
               <tr [formGroup]="attrTableForm">
                  <!--  name in arabic-->
                  <td
-                 [pEditableColumn]="attrTableForm.controls['nameAr']"
-                 pEditableColumnField="nameAr"
+                 [pEditableColumn]="attrTableForm?.controls['valueAr']"
+                 pEditableColumnField="valueAr"
                >
                  <p-cellEditor>
                    <ng-template pTemplate="input">
                      <lib-text-input
-                       placeholder="{{ 'attributeDefinition.nameAr' | translate }}"
-                       formControlName="nameAr"
+                       placeholder="{{ 'attributeDefinition.valueAr' | translate }}"
+                       formControlName="valueAr"
                      ></lib-text-input>
                    </ng-template>
                    <ng-template pTemplate="output">
-                     {{ attrTableForm.controls['nameAr'].value }}
+                     {{ attrTableForm?.controls['valueAr']?.value }}
                    </ng-template>
                  </p-cellEditor>
                  <lib-field-validations
-                   [appControl]="attrTableForm.controls['nameAr']"
+                   [appControl]="attrTableForm?.controls['valueAr']"
                  ></lib-field-validations>
                </td>
                  <!--  -->
                   <!-- name in english -->
                   <td
-                  [pEditableColumn]="attrTableForm.controls['nameEn']"
-                  pEditableColumnField="nameEn"
+                  [pEditableColumn]="attrTableForm?.controls['valueEn']"
+                  pEditableColumnField="valueEn"
                 >
                   <p-cellEditor>
                     <ng-template pTemplate="input">
                       <lib-text-input
-                        placeholder="{{ 'attributeDefinition.nameEn' | translate }}"
-                        formControlName="nameEn"
+                        placeholder="{{ 'attributeDefinition.valueEn' | translate }}"
+                        formControlName="valueEn"
                       ></lib-text-input>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{ attrTableForm.controls['nameEn'].value }}
+                      {{ attrTableForm?.controls['valueEn']?.value }}
                     </ng-template>
                   </p-cellEditor>
                   <lib-field-validations
-                    [appControl]="attrTableForm.controls['nameEn']"
+                    [appControl]="attrTableForm?.controls['valueEn']"
                   ></lib-field-validations>
                 </td>
   
                 <td>
+                  <!-- (valueChanged)="toggleAttrStatus(attrTableForm?.value, $event)" -->
+                  <div class=" flex align-items-center">
+                  
+                    <lib-input-switch [id]="i" [disabled]="false" formControlName="status"
+                   >
+                  </lib-input-switch>
+                  
+                 
+                   
+                  </div>
+                  
+              </td>
+                <td>
                   <div class="actions flex align-items-center">
                   
 
-                    @if( !shouldShowSaveButton(i) && isLastLineSaved){
-                     <lib-button-micro nameClass="cancel"  iconName="pi pi-trash"
-                     type="button" (click)="onDelete(attrTableForm.value)"  >
-                   </lib-button-micro>
-                    }
-                    @if( !isLastLineSaved){
+               
                      <lib-button-micro nameClass="cancel"  iconName="pi pi-trash"  
                      type="button" (click)="deleteLine(i)">
                    </lib-button-micro>
-                    }
                    
-                     @if(shouldShowSaveButton(i)){
-                      <lib-button-micro nameClass="save"  iconName="pi pi-save"    *ngIf="shouldShowSaveButton(i)" 
-  
-                      type="button" (click)="onSave(attrTableForm.value , i)">
-                    </lib-button-micro>
-                     }
-                    
+                  
                  
                    
                   </div>
@@ -114,6 +153,54 @@
               </tr>
             </ng-template>
           </p-table>
+          <div class="add_new"> 
+            <div class="grid">
+              <div class="md:col-3">
+                <div class="grid">
+                  <div class="md:col-6">
+                <lib-button-micro
+                nameClass="outline"
+                widthNumber="100%" 
+                title="{{ 'attributeDefinition.add_new' | translate }}"
+                (click)="addLine()"
+                >
+      
+                </lib-button-micro>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+       <!--  -->
+     
+      <div class="btn_group">
+        <div class="grid">
+          <div class="md:col-3">
+            <div class="grid">
+              <div class="md:col-6">
+                <lib-button-micro
+                  title="{{ 'Cancel' | translate }}"
+                  nameClass="cancel"
+                  widthNumber="100%"
+                  (click)="discard()"
+                >
+                </lib-button-micro>
+              </div>
+              <div class="md:col-6">
+                <div>
+                  <lib-button-micro
+                    title="{{ 'Save' | translate }}"
+                    nameClass="save"
+                    widthNumber="100%"
+                    (click)="onSave({},2)"
+                  >
+                  </lib-button-micro>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
   
