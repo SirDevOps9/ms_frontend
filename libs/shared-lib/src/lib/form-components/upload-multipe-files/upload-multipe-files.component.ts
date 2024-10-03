@@ -32,25 +32,7 @@ export class UploadMultipeFilesComponent implements OnInit {
   ) {
 
   }
-  // ngOnInit(): void {
-  //   this.urls = this.fb.array([]); // تعريف FormArray
-
-  //   this.urls = this.attachmentService.filesUrls
-  //   this.filesName = this.attachmentService.filesName
-  //   this.files = this.attachmentService.files
-  //   console.log(this.filesData ,"filesDatafilesData");
-  //   // if(this.filesData.length>0){
-  //   //   this.urls= this.filesData
-  //   // }
-  //   if (this.filesData && this.filesData.length > 0) {
-  //     this.filesData.forEach((file:any) => {
-  //       this.urls.push(file.attachmentId);  // استخدم attachmentId لعرضه في الجدول
-  //       this.filesName.push(file.name);
-  //       this.files.push(file);  // يمكنك أيضاً الاحتفاظ بالكائن الكامل للملف إذا كنت بحاجة إلى ذلك
-  //       this.editStates.push(false);  // إضافة حالة تحرير جديدة
-  //     });
-  //   }
-  // }
+ 
   attachmentUrl: SafeResourceUrl = '';
 
   urls: any = [];
@@ -180,7 +162,18 @@ export class UploadMultipeFilesComponent implements OnInit {
             
             }
             
-          } 
+          } else {
+            this.urls.splice(index, 1);
+            this.files.splice(index, 1);
+            this.filesName.splice(index, 1);
+            this.editStates.splice(index, 1);
+          
+            // Optionally, log the updated arrays to check if they're correctly updated
+            console.log(this.urls, this.files, this.filesName, this.editStates, "Updated arrays after removal");
+          
+            // Detect changes to update the view
+            this.cdRef.detectChanges();
+          }
         }else {
           this.urls.splice(index, 1);
           this.files.splice(index, 1);
@@ -201,76 +194,34 @@ export class UploadMultipeFilesComponent implements OnInit {
   toggleEditState(index: number) {
     this.editStates[index] = !this.editStates[index];
   }
-
   downloadFile(url: string, fileName: string) {
     if (this.filesData && this.filesData.length > 0) {
       // تحقق إذا كان الملف موجودًا في الملفات المحملة مسبقًا
       const existingFile = this.filesData.find((file: any) => file.attachmentId === url || file.name === fileName);
-console.log(existingFile.attachmentId ,"ddddddddddddddddd");
-
-    this.attachmentService.downloadAttachment(existingFile.attachmentId, fileName, AttachmentFileTypeEnum.image);
+      
+      if (existingFile) {
+        console.log(existingFile.attachmentId, "ddddddddddddddddd");
+        this.attachmentService.downloadAttachment(existingFile.attachmentId, fileName, AttachmentFileTypeEnum.image);
+      } else {
+        // إذا لم يكن الملف موجودًا، قم بتحميله مباشرة
+        console.log('File not found in existing files, downloading new file.');
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        link.click();
+      }
+    } else {
+      // إذا كانت filesData فارغة، قم بتحميل الملف مباشرة
+      console.log('filesData is empty, downloading new file.');
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      link.click();
     }
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = fileName;
-    link.click();
   }
-  // reviewAttachment(fileName: any, url: string): void {
-  //   if (this.filesData && this.filesData.length > 0) {
-  //     const existingFile = this.filesData.find(
-  //       (file: any) => file.attachmentId === url || file.name === fileName
-  //     );
+  
 
-  //     if (!existingFile) {
-  //       console.error('File not found');
-  //       return;
-  //     }
 
-  //     this.httpService
-  //       .getFullUrl(
-  //         `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
-  //           existingFile.attachmentId
-  //       )
-  //       .subscribe(
-  //         (apiResponse: any) => {
-  //           if (apiResponse) {
-  //             let base64Content = apiResponse.fileContent;
-  //             const mimeType = apiResponse.base64Padding.split(';')[0].split(':')[1]; // استخراج نوع MIME
-
-  //             // Clean up and ensure Base64 string is properly padded
-  //             base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
-  //             while (base64Content.length % 4 !== 0) {
-  //               base64Content += '=';
-  //             }
-
-  //             try {
-  //               // Decode Base64 content
-  //               const byteCharacters = atob(base64Content);
-  //               const byteNumbers = new Array(byteCharacters.length);
-  //               for (let i = 0; i < byteCharacters.length; i++) {
-  //                 byteNumbers[i] = byteCharacters.charCodeAt(i);
-  //               }
-  //               const byteArray = new Uint8Array(byteNumbers);
-  //               const blob = new Blob([byteArray], { type: mimeType });
-
-  //               // Create an object URL for the Blob
-  //               const unsafeUrl = URL.createObjectURL(blob);
-                
-  //               // Use DomSanitizer to make the URL safe
-  //               this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(unsafeUrl);
-  //               this.showIframe = true; // Show the iframe
-                
-  //             } catch (error) {
-  //               console.error('Error decoding Base64 string:', error);
-  //             }
-  //           }
-  //         },
-  //         (error) => {
-  //           console.error('Error fetching file:', error);
-  //         }
-  //       );
-  //   }
-  // }
   reviewAttachment(fileName: any, url: string): void {
     if (this.filesData && this.filesData.length > 0) {
       const existingFile = this.filesData.find(
