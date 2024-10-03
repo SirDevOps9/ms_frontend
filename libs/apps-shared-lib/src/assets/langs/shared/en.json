@@ -13,7 +13,9 @@
 "attachment":"Attachment",
 "attachmentDeletedSuccessfully":"attachment Deleted Successfully",
 "CannotDeleteattachment":"Cannot Delete attachment",
-
+"id":"Id",
+"name":"Name",
+"actions":"actions",
 
 
 "sequence":{

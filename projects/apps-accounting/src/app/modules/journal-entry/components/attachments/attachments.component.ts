@@ -32,10 +32,10 @@ export class AttachmentsComponent  {
   }
 
   files(data:any) {
-    // this.filesData = data
+    this.filesData = data
   }
   onCancel(){
-    this.ref.close()
+    this.ref.close(this.filesData)
   }
 
 

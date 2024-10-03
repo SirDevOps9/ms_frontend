@@ -12,9 +12,9 @@
 <p-table [value]="urls" styleClass="p-datatable-gridlines p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }">
   <ng-template pTemplate="header">
     <tr>
-      <th>{{ 'EditJournal.Id' | translate }}</th>
-      <th>{{ 'EditJournal.AccountName' | translate }}</th>
-      <th>{{ 'EditJournal.AccountName' | translate }}</th>
+      <th>{{ 'id' | translate }}</th>
+      <th>{{ 'name' | translate }}</th>
+      <th>{{ 'actions' | translate }}</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-url let-rowIndex="rowIndex">
@@ -48,8 +48,8 @@
         <div class="action flex align-items-center justify-content-center w-full ">
           <lib-button-micro nameClass="table_button_download"
             (click)="downloadFile(url, files[rowIndex].name)"></lib-button-micro>
-          <lib-button-micro nameClass="table_button_view" (click)="reviewAttachment( filesName[rowIndex]  ,url)" ></lib-button-micro>
-          <lib-button-micro  *ngIf="!viewData" nameClass="table_button_delete" (click)="removeFile( filesName[rowIndex] , url ,rowIndex)"> </lib-button-micro>
+          <lib-button-micro nameClass="table_button_view" (click)="reviewAttachment( files[rowIndex].name  ,url)" ></lib-button-micro>
+          <lib-button-micro  *ngIf="!viewData" nameClass="table_button_delete" (click)="removeFile( filesName[rowIndex] , url , rowIndex)"> </lib-button-micro>
 
 
         </div>
@@ -62,6 +62,4 @@
   </ng-template>
 
 </p-table>
-<div class="modal-body" *ngIf="attachmentUrl">
-  <iframe [src]="attachmentUrl" width="100%" height="500px"></iframe>
-</div>
+<iframe *ngIf="showIframe" [src]="fileUrl" width="100%" height="600px" style="border:none;"></iframe>

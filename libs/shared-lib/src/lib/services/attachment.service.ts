@@ -158,7 +158,9 @@ export class AttachmentsService {
         }
       });
   }
-  
+  updateFilesInfo(newFiles: any[]) {
+    this.filesInfo = newFiles;
+  }
   constructor(
     private httpService: HttpService,
     private languageService: LanguageService,

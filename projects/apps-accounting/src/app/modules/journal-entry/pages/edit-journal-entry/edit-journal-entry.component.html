@@ -132,13 +132,14 @@
             ></lib-text-input>
             <!-- <label >{{totalCreditAmountLocal | numberFormat }}</label> -->
           </div>
-          <div class="col-12 desc">
+
+          <div class="col-12 md:col-3 ">
             <lib-label [appControl]="editJournalForm.controls['description']">
               {{ 'EditJournal.JournalDescription' | translate }}
             </lib-label>
             <lib-text-input formControlName="description" [readOnly]="viewMode"></lib-text-input>
           </div>
-          <div>
+          <div class="col-12 md:col-3">
             <lib-button-micro
             nameClass="save"
             title="{{'attachment' | translate}}"
@@ -474,6 +475,7 @@
                     title="{{ 'Journal.save' | translate }}"
                     nameClass="outline"
                     widthNumber="100%"
+                    (click)="onSubmit()"
                   >
                   </lib-button-micro>
                 </div>
