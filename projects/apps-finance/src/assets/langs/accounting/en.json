@@ -357,7 +357,9 @@
     "AllowVAT": "Allow VAT",
     "edit": "Payment Method Edited Successfully",
     "add": "Payment Method Added Successfully",
-    "Tax": "Tax"
+    "Tax": "Tax",
+    "BankInformation":"Bank Information",
+    "CommissionInformation":"Commission Information"
   },
   "payment-in": {
     "payment-in": "Payment In",
@@ -396,6 +398,10 @@
     "costCenterConfig": "Cost Center Config",
     "notes": "Notes",
     "PaymentMethod": "Payment Method",
-    "status": "Status"
-  }
+    "status": "Status",
+    "accountName":"Account Name"
+  },
+  "Confirm":"confirm",
+  "Actions": "Actions"
+
 }

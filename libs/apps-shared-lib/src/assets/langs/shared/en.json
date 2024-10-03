@@ -90,6 +90,11 @@
     "Language":"Language",
     "AccountSettings":"Account Settings",
     "logout":"logout"
+  },
+  "Paginator":{
+  "Showing":"Showing",
+   "To":"to",
+   "entries":"entries"
   }
   
 }

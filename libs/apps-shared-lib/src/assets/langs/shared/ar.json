@@ -89,6 +89,11 @@
   "Language": "اللغة",
   "AccountSettings": "إعدادات الحساب",
   "logout": "تسجيل الخروج"
+  },
+  "Paginator": {
+    "Showing": "عرض",
+    "To": "إلى",
+    "Entries": "مدخلات"
   }
   }
   
