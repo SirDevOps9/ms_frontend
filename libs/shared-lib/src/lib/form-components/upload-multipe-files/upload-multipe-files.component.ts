@@ -110,31 +110,14 @@ export class UploadMultipeFilesComponent implements OnInit {
         console.log(this.urls ,"urls");
         console.log(this.filesData ,"filesDatafilesData");
         console.log(this.filesName ,"filesName");
-         this.arr = this.filesData
+         this.arr = this.filesData||[]
         console.log(this.arr ,"oooo");
-        // let x=0
-        // this.urls.forEach((element:any) => {
-        //   if(!this.arr.find((url:any) => url.attachmentId === element)){
-
-        //     this.arr.push(
-        //       {
-        //       id:0,
-        //       attachmentId:element,
-        //       name:this.filesName[x]
-        //     })
-        //     x++
-        //   }
-        // });
         setTimeout(() => {
           let index = 0; // Use a more descriptive name
 
           this.urls.forEach((url: string) => { 
-            console.log(url ,"aaaaaa");
-            
-            // Assuming urls is an array of strings
-            // Check if the attachmentId is not already in arr
-            if (!this.arr.find((attachment:any) => attachment.attachmentId == url)) {
-              // Push new object into arr
+
+            if (!this.arr?.find((attachment:any) => attachment.attachmentId == url)) {
               this.arr.push({
                 id: 0,
                 attachmentId: url,
@@ -142,6 +125,9 @@ export class UploadMultipeFilesComponent implements OnInit {
               });
               console.log(this.arr ,"sssssss");
           
+            }else{
+             // this.arr = this.filesData
+
             }
             index++;
 

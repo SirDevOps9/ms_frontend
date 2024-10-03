@@ -167,16 +167,17 @@ export class CreateJournalEntryComponent {
     });
 
     dialog.onClose.subscribe((res) => {
-      this.attachmentService.attachmentIdsObservable.subscribe((res) => {
-        this.journalEntryAttachments = this.attachmentService.filesInfo.map(
-          (item: any, i: number) => {
-            return {
-              attachmentId: res[i],
-              name: this.attachmentService.filesName[i],
-            };
-          }
-        );
-      });
+      this.journalEntryAttachments = res
+      // this.attachmentService.attachmentIdsObservable.subscribe((res) => {
+      //   this.journalEntryAttachments = this.attachmentService.filesInfo.map(
+      //     (item: any, i: number) => {
+      //       return {
+      //         attachmentId: res[i],
+      //         name: this.attachmentService.filesName[i],
+      //       };
+      //     }
+      //   );
+      // });
     });
   }
 
