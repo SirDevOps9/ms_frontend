@@ -30,6 +30,9 @@ export class NewCompanyComponent {
   showHoldingCompanies: boolean = false;
   isFirstCompany: boolean = false;
   selectedCompanyType='';
+  selectedCountryCode: string | null;
+  selectedCurrency?: string ;
+
 
   get subdomainId(): string {
     return this.config.data.Id;
@@ -58,6 +61,9 @@ export class NewCompanyComponent {
       companyType: new FormControl('', [customValidators.required]),
       parentId: new FormControl(),
       companyLogo: new FormControl(''),
+      countryCode: new FormControl('', [customValidators.required]),
+      currencyId: new FormControl('', [customValidators.required]),
+
     });
   }
 
@@ -65,6 +71,9 @@ export class NewCompanyComponent {
     this.lookupsService.loadLookups([
       LookupEnum.CompanyHolding,
       LookupEnum.CompanyType,
+      LookupEnum.Country,
+      LookupEnum.Currency
+
     ]);
   }
   Subscribe() {
