@@ -30,7 +30,6 @@ export class ViewJournalEntryComponent implements OnInit {
       .getJournalEntryViewById(this.routerService.currentId)
       .subscribe((res) => {
         this.journalView = res;
-        console.log(this.journalView ,"this.journalView");
         
         this.calculateTotalCreditAmount();
         this.calculateTotalDebitAmount();
@@ -95,8 +94,6 @@ export class ViewJournalEntryComponent implements OnInit {
     const viewdata:Boolean = true ;
 
     const dialog = this.dialog.open(AttachmentsComponent, {
-      // header: 'Attachments',
-      //  data: this.journalView?.journalEntryAttachments,
 
       width: '1200px',
       height: '1000px',
@@ -109,14 +106,6 @@ export class ViewJournalEntryComponent implements OnInit {
 
     dialog.onClose.subscribe((res) => {
       this.attachmentService.attachmentIdsObservable.subscribe((res) => {
-        // this.journalEntryAttachments = this.attachmentService.filesInfo.map(
-        //   (item: any, i: number) => {
-        //     return {
-        //       attachmentId: res[i],
-        //       name: this.attachmentService.filesName[i],
-        //     };
-        //   }
-        // );
       });
     });
   }
