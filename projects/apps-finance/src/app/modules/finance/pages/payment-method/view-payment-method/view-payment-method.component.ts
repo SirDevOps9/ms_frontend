@@ -163,7 +163,6 @@ export class ViewPaymentMethodComponent implements OnInit {
    changebankaccount(e: any) 
    {
        const selectedAccount = this.BankAccountList.find(account => account.id === e);
-       console.log("selectedAccount", selectedAccount)
        if (selectedAccount) {
          this.PaymentMethodForm.get('paymentMethodCommissionData.currency')!.setValue(selectedAccount.currencyName);
        }

@@ -158,6 +158,7 @@
   "Tax": {
     "TaxName": "Tax Name",
     "AddTaxDefinition": "Add Tax Definition",
+    "EditTaxDefinition": "Edit",
     "TaxCode": "Tax Code",
     "Ratio": "Ratio",
     "GlAccount": "GL Account",

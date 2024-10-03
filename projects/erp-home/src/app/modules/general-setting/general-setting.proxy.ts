@@ -157,6 +157,9 @@ export class GeneralSettingProxy {
   getAllCountries(): Observable<CountryDto[]> {
     return this.httpService.get<CountryDto[]>(`Country`);
   }
+  getCountry(): Observable<any> {
+    return this.httpService.get<any>(`Company/GetCompanyCountry`);
+  }
   getCities(countryCode: string): Observable<CityDto[]> {
     return this.httpService.get<CityDto[]>(`Country/GetCities?CountryCode=${countryCode}`);
   }

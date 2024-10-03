@@ -76,5 +76,10 @@
     "ageAbove": "You must be at least {{age}} years old.",
     "nonNegativeNumbers": "it should be a positive number",
     "noAlphabeticCharacter": "The field must not contain alphabetic characters."
+  },
+  "Layout":{
+    "DefaultCompany": "Default Company",
+  "DefaultBranch": "Default Branch"
   }
+  
 }

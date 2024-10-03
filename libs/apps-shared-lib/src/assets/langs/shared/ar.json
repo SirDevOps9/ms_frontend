@@ -76,6 +76,10 @@
       "ageAbove": "يجب أن يكون عمرك على الأقل {{age}} عامًا.",
       "nonNegativeNumbers": "يجب ان يكون رقما موجبا",
       "noAlphabeticCharacter": "يجب أن لا يحتوي الحقل على أحرف أبجدية."
-    }
+    },
+    "Layout":{
+    "DefaultCompany": "الشركة",
+  "DefaultBranch": "الفرع"
+  }
   }
   

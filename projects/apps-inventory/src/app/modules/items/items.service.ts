@@ -489,7 +489,7 @@ export class ItemsService {
   }
   // attr difinition delete
   async deleteAttrDifinition(id: number) {
-    debugger
+    
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
@@ -497,13 +497,13 @@ export class ItemsService {
       this.itemProxy.deleteAttrDifinition(id).subscribe({
         
         next: (res) => {
-        debugger  
+          
           this.toasterService.showSuccess(
             this.languageService.transalte('attributeDefinition.success'),
             this.languageService.transalte('attributeDefinition.delete')
           );
        
-          debugger
+          
           const currentAttrDif = this.attributeValuesDropDownLookup.getValue();
           const updatedAttrDif =currentAttrDif.filter((c:any) => c.id !== id);
           this.attributeValuesDropDownLookup.next(updatedAttrDif);
@@ -514,7 +514,7 @@ export class ItemsService {
   }
   // attr difinition delete
   async deleteUOM(id: number) {
-    debugger
+    
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
@@ -522,7 +522,7 @@ export class ItemsService {
       this.itemProxy.deleteUOM(id).subscribe({
         
         next: (res) => {
-        debugger  
+          
           this.toasterService.showSuccess(
             this.languageService.transalte('UOM.success'),
             this.languageService.transalte('UOM.delete')
@@ -539,7 +539,7 @@ export class ItemsService {
   }
   // attr difinition delete
   async deleteUomCat(id: number) {
-    debugger
+    
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
@@ -547,7 +547,7 @@ export class ItemsService {
       this.itemProxy.deleteUOM(id).subscribe({
         
         next: (res) => {
-        debugger  
+          
           this.toasterService.showSuccess(
             this.languageService.transalte('UOM.success'),
             this.languageService.transalte('UOM.delete')
@@ -564,7 +564,7 @@ export class ItemsService {
   }
   // deleteAttributeGroup delete
   async deleteAttributeGroup(id: number) {
-    debugger
+    
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
@@ -572,13 +572,13 @@ export class ItemsService {
       this.itemProxy.deleteAttributeGroup(id).subscribe({
         
         next: (res) => {
-        debugger  
+          
           this.toasterService.showSuccess(
             this.languageService.transalte('attributeDefinition.success'),
             this.languageService.transalte('attributeDefinition.delete')
           );
        
-          debugger
+          
           const currentAttr = this.listOfAttrDifinition.getValue();
           const updatedattr =currentAttr.filter((c:any) => c.id !== id);
           this.listOfAttrDifinition.next(updatedattr);
