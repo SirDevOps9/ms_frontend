@@ -7,6 +7,7 @@ import { JournalEntryService } from 'projects/apps-accounting/src/app/modules/jo
 import { EnvironmentService, HttpService } from 'shared-lib';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
+import { window } from 'rxjs';
 
 @Component({
   selector: 'lib-upload-multipe-files',
@@ -285,6 +286,39 @@ export class UploadMultipeFilesComponent implements OnInit {
             }
           }
         });
+    }else{
+      this.httpService.getFullUrl(
+        `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
+        url
+      )
+      .subscribe((apiResponse: any) => {
+        if (apiResponse) {
+          let base64Content = apiResponse.fileContent;
+          const mimeType = apiResponse.base64Padding.split(';')[0].split(':')[1];
+
+          base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
+          while (base64Content.length % 4 !== 0) {
+            base64Content += '=';
+          }
+
+          try {
+            const byteCharacters = atob(base64Content);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+              byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], { type: mimeType });
+            const unsafeUrl = URL.createObjectURL(blob);
+            this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
+            this.ref.close(this.arr)
+
+          } catch (error) {
+            console.error('Error decoding Base64 string:', error);
+          }
+        }
+      });
     }
   }
 
