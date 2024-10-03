@@ -5,4 +5,7 @@ export interface CreateCompany {
   companyType: number;
   companyLogo: string;
   parentId?: string;
+  countryCode:string;
+  currencyId:number;
+
 }
