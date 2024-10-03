@@ -231,6 +231,7 @@ export class UploadMultipeFilesComponent implements OnInit {
       if (!existingFile) {
         this.router.navigate(['/attachment-view'], { queryParams: { url: url } });
         this.ref.close();
+        return
       }
   
       this.httpService
