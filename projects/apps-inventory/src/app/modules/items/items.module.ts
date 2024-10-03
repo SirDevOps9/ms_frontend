@@ -45,6 +45,7 @@ import { AddStockInComponent } from './pages/stock-In/add-stock-in/add-stock-in.
 import { StockInListComponent } from './pages/stock-In/stock-in-list/stock-in-list.component';
 import { EditWarehouseComponent } from './pages/warehouse/edit-warehouse/edit-warehouse.component';
 import { MainWarehouseComponent } from './pages/warehouse/main-warehouse/main-warehouse.component';
+import { MainStockInListComponentComponent } from './pages/stock-In/main-stock-in-list-component/main-stock-in-list-component.component';
 
 const routes: Routes = [
   {
@@ -67,6 +68,14 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_DIFINITION,
         },
+      },
+      {
+        path: 'add-item-definition/:id',
+        component: AddItemDefinitionComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION
+        },
+     
       },
       {
         path: 'warehouse',
@@ -187,25 +196,33 @@ const routes: Routes = [
       },
       {
         path: 'stock-in',
-        component: StockInListComponent,
+        component: MainStockInListComponentComponent,
         data: {
           breadcrumb: BreadcrumbLabel.STOCKIN,
         },
+        children: [
+          {
+            path: '',
+            component: StockInListComponent,
+            data: { breadcrumb: '' },
+          },
+          {
+            path: 'add-stock-in',
+            component: AddStockInComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_STOCKIN,
+            },
+          },
+          {
+            path: 'add-item-definition/:id',
+            component: AddItemDefinitionComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
+            },
+          },
+        ],
       },
-      {
-        path: 'add-stock-in',
-        component: AddStockInComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.ADD_STOCKIN,
-        },
-      },
-      {
-        path: 'add-item-definition/:id',
-        component: AddItemDefinitionComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
-        },
-      },
+     
       {
         path: 'item-type',
         component: ItemTypeListComponent,
@@ -261,6 +278,7 @@ const routes: Routes = [
     AddStockInComponent,
     MainWarehouseComponent,
     ViewItemDefinitionComponent,
+    MainStockInListComponentComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })

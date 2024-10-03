@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { addBarcode, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddVariantLine, AddWarehouse, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, UomDefault } from './models';
+import { addBarcode, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddVariantLine, AddWarehouse, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, StockInDto, UomDefault } from './models';
 import { EditItemDefinitionDto } from './models/editItemDefinitionDto';
 import { variantGroupById } from './models/variantGroupById';
 import { itemAttributeValues } from './models/itemAttributeValues';
@@ -29,6 +29,48 @@ export class ItemsProxyService {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.httpService.get<PaginationVm<itemDefinitionDto>>(query)
+  }
+  getStockIn(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockInDto>> {
+    let query = `Transaction/GetStockInTransactionList?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<StockInDto>>(query)
+  }
+  deleteStockIn(id : number ){
+    return this.httpService.delete(`Transaction/GetStockInTransactionList/${id}`)
+  }
+
+  exportsStockInList(
+    searchTerm: string | undefined
+  ): Observable<itemDefinitionDto[]> {
+    let query = `Transaction/GetStockInTransactionList/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<itemDefinitionDto[]>(query);
+  }
+
+  getStockOut(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockInDto>> {
+    let query = `Transaction/GetStockInTransactionList?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<StockInDto>>(query)
+  }
+
+  exportsStockOutList(
+    searchTerm: string | undefined
+  ): Observable<itemDefinitionDto[]> {
+    let query = `Transaction/GetStockInTransactionList/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+     return this.httpService.get<itemDefinitionDto[]>(query);
+  }
+
+  deleteStockOut(id : number ){
+    return this.httpService.delete(`Transaction/GetStockInTransactionList/${id}`)
   }
 
   addItemDefinition(obj : AddItemDefinitionDto){

@@ -27,6 +27,7 @@ import {
   ItemTypeDto,
   Iuom,
   IuomResult,
+  StockInDto,
   UomCodeLookup,
   UomDefault,
   WarehouseAccountData,
@@ -76,6 +77,13 @@ export class ItemsService {
 
   public defaultUnit = new BehaviorSubject<{ id: number; name: string }>({} as { id: number; name: string });
 
+  //transactions
+
+  sendStockInDataSources = new BehaviorSubject<StockInDto[]>([]);
+  sendStockOutDataSources = new BehaviorSubject<StockInDto[]>([]);
+
+  public exportedStockInDataSource = new BehaviorSubject<StockInDto[]>([]);
+  public exportedStockOutDataSource = new BehaviorSubject<StockInDto[]>([]);
 
   public codeByuomCodeDropDown = new EventEmitter<{ code: number; conversionRatio: string}>();
   public UOMCategoryDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
@@ -116,6 +124,12 @@ export class ItemsService {
   );
   exportedWarehouseDataSource = new BehaviorSubject<GetWarehouseList[]>([]);
   exportedItemCategoryDataSource = new BehaviorSubject<GetItemCategoryDto[]>([]);
+
+  // transactions
+  sendStockInDataSourcesObs = this.sendStockInDataSources.asObservable()
+  sendStockOutDataSourcesObs = this.sendStockOutDataSources.asObservable()
+  exportedStockInDataSourceObs = this.exportedStockInDataSource.asObservable()
+  exportedStockOutDataSourceObs = this.exportedStockOutDataSource.asObservable()
   // lookups
   sendGlAccountLookup = new BehaviorSubject<any>([]);
   sendBranchesLookup = new BehaviorSubject<any>([]);
@@ -229,6 +243,82 @@ export class ItemsService {
       this.loaderService.hide();
     });
   }
+  getStockIn(quieries: string, pageInfo: PageInfo) {
+    this.loaderService.show();
+    this.itemProxy.getStockIn(quieries, pageInfo).subscribe((response) => {
+      this.sendStockInDataSources.next(response.result);
+      this.currentPageInfo.next(response.pageInfoResult);
+      this.loaderService.hide();
+    });
+  }
+  exportsStockInList(searchTerm: string | undefined) {
+    this.itemProxy.exportsStockInList(searchTerm).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.exportedStockInDataSource.next(res);
+      },
+    });
+  }
+
+  async deleteStockIn(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.itemProxy.deleteStockIn(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('transactions.success'),
+            this.languageService.transalte('transactions.deleteStockIn')
+          );
+
+          const currentCostCenter = this.sendStockInDataSources.getValue();
+          const updatedCostCenter = currentCostCenter.filter((c) => c.id !== id);
+          this.sendStockInDataSources.next(updatedCostCenter);
+        },
+      });
+    }
+  }
+  async deleteStockOut(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.itemProxy.deleteStockOut(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('transactions.success'),
+            this.languageService.transalte('transactions.deleteStockOut')
+          );
+
+          const currentCostCenter = this.sendStockOutDataSources.getValue();
+          const updatedCostCenter = currentCostCenter.filter((c) => c.id !== id);
+          this.sendStockOutDataSources.next(updatedCostCenter);
+        },
+      });
+    }
+  }
+
+  getStockOut(quieries: string, pageInfo: PageInfo) {
+    this.loaderService.show();
+    this.itemProxy.getStockOut(quieries, pageInfo).subscribe((response) => {
+      this.sendStockOutDataSources.next(response.result);
+      this.currentPageInfo.next(response.pageInfoResult);
+      this.loaderService.hide();
+    });
+  }
+
+  exportsStockOutList(searchTerm: string | undefined) {
+    this.itemProxy.exportsStockOutList(searchTerm).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.exportedStockOutDataSource.next(res);
+      },
+    });
+  }
+
+
+
   ViewDefinitionById(id: number) {
     // this.loaderService.show();
     this.itemProxy.getItemViewDefinitionById(id).subscribe((res) => {
@@ -305,6 +395,7 @@ export class ItemsService {
       },
     });
   }
+
 
   exportUOMList(SearchTerm: string | undefined) {
     this.itemProxy.ExportUOMList(SearchTerm).subscribe({
