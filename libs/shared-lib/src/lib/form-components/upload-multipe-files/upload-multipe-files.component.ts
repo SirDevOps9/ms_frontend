@@ -229,8 +229,8 @@ export class UploadMultipeFilesComponent implements OnInit {
       );
   
       if (!existingFile) {
-        console.error('File not found');
-        return;
+        this.router.navigate(['/attachment-view'], { queryParams: { url: url } });
+        this.ref.close();
       }
   
       this.httpService
@@ -270,6 +270,74 @@ export class UploadMultipeFilesComponent implements OnInit {
         });
     }
   }
+ 
+  
+  // وظيفة لعرض الملف مباشرة من Base64
+  private showFile(base64Content: string, base64Padding: string) {
+    const mimeType = base64Padding.split(';')[0].split(':')[1];
+  
+    // تأكد من صحة بيانات Base64
+    base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
+    while (base64Content.length % 4 !== 0) {
+      base64Content += '=';
+    }
+  
+    try {
+      const byteCharacters = atob(base64Content);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+  
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: mimeType });
+      const unsafeUrl = URL.createObjectURL(blob);
+  
+      // توجيه إلى مكون العرض مع الرابط
+      this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
+      this.ref.close();
+    } catch (error) {
+      console.error('Error decoding Base64 string:', error);
+    }
+  }
+  
+  // وظيفة لعرض الملف من الرابط مباشرة
+  private showFileFromUrl(url: string) {
+    // توجيه إلى مكون العرض مع الرابط
+    this.router.navigate(['/attachment-view'], { queryParams: { url: url } });
+    this.ref.close();
+  }
+  
+  
+  // Helper function to handle downloading from base64 content
+  private handleFileDownload(base64Content: string, base64Padding: string) {
+    const mimeType = base64Padding.split(';')[0].split(':')[1];
+  
+    // Ensure valid base64 data
+    base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
+    while (base64Content.length % 4 !== 0) {
+      base64Content += '=';
+    }
+  
+    try {
+      const byteCharacters = atob(base64Content);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+  
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: mimeType });
+      const unsafeUrl = URL.createObjectURL(blob);
+  
+      // Navigate to the attachment view component
+      this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
+      this.ref.close();
+    } catch (error) {
+      console.error('Error decoding Base64 string:', error);
+    }
+  }
+  
   
   
  
