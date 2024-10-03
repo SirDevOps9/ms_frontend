@@ -174,7 +174,9 @@
     "lineDescription": "وصف السطر",
     "ViewData": "عرض البيانات",
     "DateFrom": "التاريخ من",
-    "DateTo": "التاريخ إلى"
+    "DateTo": "التاريخ إلى",
+    "openingBalance": "الرصيد الافتتاحي"
+
   },
   "BankAccountStatement": {
     "BankAccountStatement": "كشف حساب البنك",

@@ -1,8 +1,12 @@
 {
+  "BreadCrumb": {
+    "Dashboard": "لوحة التحكم"
+  },
     "Save": "حفظ",
     "Cancel": "إلغاء",
     "AddNewLine": "إضافة سطر جديد",
     "error": "خطأ",
+    "ChooseApp": "اختر التطبيق",
     "success": "نجاح",
     "create": "إنشاء",
     "view": "عرض",
@@ -79,7 +83,12 @@
     },
     "Layout":{
     "DefaultCompany": "الشركة",
-  "DefaultBranch": "الفرع"
+  "DefaultBranch": "الفرع",
+  "MySubscription": "اشتراكي",
+  "Myfavorite": "المفضلة",
+  "Language": "اللغة",
+  "AccountSettings": "إعدادات الحساب",
+  "logout": "تسجيل الخروج"
   }
   }
   

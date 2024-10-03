@@ -227,7 +227,9 @@
     "editTreasury": "تعديل خزينة",
     "treasuryList": "قائمة الخزائن",
     "treasuryCurrentBalance": "رصيد الخزينة الحالي",
-    "GoToStatement": "الانتقال إلى تقرير"
+    "GoToStatement": "الانتقال إلى تقرير",
+    "accountOpeningBalance": "رصيد فتح الحساب"
+
   },
   "deleteTreasury": {
     "success": "نجاح",

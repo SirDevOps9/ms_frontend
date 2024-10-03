@@ -45,12 +45,14 @@ export class BreadcrumbLabel {
   static readonly EMPLOYEE_VIEW='BreadCrumb.ViewEmployee';
   static readonly EMPLOYEE_EDIT='BreadCrumb.EditEmployee';
   static readonly COST_CENTER_REPORT = 'BreadCrumb.CostCenterReport';
+  
 
   static ADD_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.AddCustomerOpeningBalance';
   static EDIT_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.EditCustomerOpeningBalance';
   static CUSTOMER_OPENEING_BALANCE_List ='BreadCrumb.CustomerOpeningBalanceList';
   static VIEW_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.ViewCustomerOpeningBalance';
   static SEQUENCE ='BreadCrumb.sequence';
+  static DASHBOARD ='BreadCrumb.Dashboard';
 
 
 
@@ -85,7 +87,6 @@ export class BreadcrumbLabel {
     static ADD_CURRENCY_DEFINITION ='Add Currency Definition';
 
  
-    static DASHBOARD ='Dashboard';
 
     static JOURNAL_OPENING_BALANCE ='Journal Entry Opening Balance';
     static ADD_JOURNAL_OPENING_BALANCE ='Add Journal Entry Opening Balance';
