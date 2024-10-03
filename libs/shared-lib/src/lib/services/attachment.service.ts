@@ -90,6 +90,8 @@ export class AttachmentsService {
        
         this.attachemntIdsList.push(res)
         this.attachmentIds.next(this.attachemntIdsList)
+        console.log(this.attachemntIdsList ,"this.attachemntIdsList");
+
       })
   }
 

@@ -38,6 +38,7 @@ export class UploadMultipeFilesComponent implements OnInit {
   urls: any = [];
   files: any = [];
   filesName: string[] = [];
+  arr: any[] = [];
   @Input() filesData: any;
   @Input() viewData: any;
   @Input() screen: any;
@@ -55,7 +56,8 @@ export class UploadMultipeFilesComponent implements OnInit {
     this.urls = this.attachmentService.filesUrls;
     this.filesName = this.attachmentService.filesName;
     this.files = this.attachmentService.files;
-  
+    this.attachmentService.filesInfo.push(this.attachmentService.filesUrls);
+
     console.log(this.filesData, "filesDatafilesData");
   
     if (this.filesData && this.filesData.length > 0 && this.urls.length === 0) {
@@ -77,16 +79,26 @@ export class UploadMultipeFilesComponent implements OnInit {
     
         reader.onload = ((fileItem) => {
           return (event: any) => {
-            this.urls.push(event.target.result); // يمكن تعديل ذلك ليتناسب مع ما تريد عرضه
+            // this.urls.push(event.target.result); // يمكن تعديل ذلك ليتناسب مع ما تريد عرضه
             this.files.push(fileItem);
             this.filesName.push(fileItem.name);
-  
+          
             let fileInfo: AttachmentDto = {
               fileContent: event.target.result as string,
               fileName: fileItem.name,
             };
             this.attachmentService.filesInfo.push(fileInfo);
             this.attachmentService.uploadValidatedFile(fileInfo);
+            setTimeout(() => {
+              this.attachmentService.attachemntIdsList.forEach((element:any) => {
+                
+    if (!this.urls.find((url:any) => url === element)) {
+      this.urls.push(element);
+  }
+              });
+            }, 2000);
+            //  this.sendFiles.emit(this.urls);
+
             this.editStates.push(false); // Initialize edit state for new file
     
             this.cdRef.detectChanges();
@@ -94,6 +106,53 @@ export class UploadMultipeFilesComponent implements OnInit {
         })(file[i]);
     
         reader.readAsDataURL(file[i]);
+        console.log(this.attachmentService.attachemntIdsList[0] ,"attachemntIdsList");
+        console.log(this.urls ,"urls");
+        console.log(this.filesData ,"filesDatafilesData");
+        console.log(this.filesName ,"filesName");
+         this.arr = this.filesData
+        console.log(this.arr ,"oooo");
+        // let x=0
+        // this.urls.forEach((element:any) => {
+        //   if(!this.arr.find((url:any) => url.attachmentId === element)){
+
+        //     this.arr.push(
+        //       {
+        //       id:0,
+        //       attachmentId:element,
+        //       name:this.filesName[x]
+        //     })
+        //     x++
+        //   }
+        // });
+        setTimeout(() => {
+          let index = 0; // Use a more descriptive name
+
+          this.urls.forEach((url: string) => { 
+            console.log(url ,"aaaaaa");
+            
+            // Assuming urls is an array of strings
+            // Check if the attachmentId is not already in arr
+            if (!this.arr.find((attachment:any) => attachment.attachmentId == url)) {
+              // Push new object into arr
+              this.arr.push({
+                id: 0,
+                attachmentId: url,
+                name: this.filesName[index] // Assuming filesName has a direct mapping with urls
+              });
+              console.log(this.arr ,"sssssss");
+          
+            }
+            index++;
+
+          });
+                  
+                  console.log(this.arr ,"aaaaaaaa");
+                  this.sendFiles.emit(this.arr);
+
+        }, 3000);
+
+
       }
     }
   }
@@ -114,11 +173,11 @@ export class UploadMultipeFilesComponent implements OnInit {
           this.urls.push(event.target.result);
           this.files.push(files[i]);
           this.filesName.push(files[i].name);
-          // this.sendFiles.emit({
-          //  name : this.filesName,
-          //  attachmentId : this.urls
-          // })
-          this.sendFiles.emit({});
+          this.sendFiles.emit({
+           name : this.filesName,
+           attachmentId : this.urls
+          })
+         // this.sendFiles.emit({});
 
           this.editStates.push(false); // Initialize edit state for new file
         };
@@ -230,7 +289,7 @@ export class UploadMultipeFilesComponent implements OnInit {
   
       if (!existingFile) {
         this.router.navigate(['/attachment-view'], { queryParams: { url: url } });
-        this.ref.close();
+        this.ref.close(this.urls);
         return
       }
   
@@ -261,8 +320,12 @@ export class UploadMultipeFilesComponent implements OnInit {
               const unsafeUrl = URL.createObjectURL(blob);
   
               // توجيه إلى مكون العرض مع الرابط
+          //     const currentUrl = window.location.href; // الحصول على الرابط الحالي
+          // console.log(currentUrl ,"lllllllllllll");
+          // return
+
               this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
-              this.ref.close()
+              this.ref.close(this.urls)
               
             } catch (error) {
               console.error('Error decoding Base64 string:', error);
@@ -296,7 +359,7 @@ export class UploadMultipeFilesComponent implements OnInit {
   
       // توجيه إلى مكون العرض مع الرابط
       this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
-      this.ref.close();
+      this.ref.close(this.urls);
     } catch (error) {
       console.error('Error decoding Base64 string:', error);
     }
@@ -306,7 +369,7 @@ export class UploadMultipeFilesComponent implements OnInit {
   private showFileFromUrl(url: string) {
     // توجيه إلى مكون العرض مع الرابط
     this.router.navigate(['/attachment-view'], { queryParams: { url: url } });
-    this.ref.close();
+    this.ref.close(this.urls);
   }
   
   
@@ -333,7 +396,7 @@ export class UploadMultipeFilesComponent implements OnInit {
   
       // Navigate to the attachment view component
       this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
-      this.ref.close();
+      this.ref.close(this.urls);
     } catch (error) {
       console.error('Error decoding Base64 string:', error);
     }
@@ -349,5 +412,11 @@ export class UploadMultipeFilesComponent implements OnInit {
   });
 }
 
-
+getFileType(fileName: string): string {
+  const extension = fileName.split('.').pop()?.toLowerCase(); // Use optional chaining here
+    return '.' +extension!
+   
+ 
+  
+}
 }

@@ -624,45 +624,90 @@ export class EditJournalEntryComponent implements OnInit {
   }
   openAttachments() {
     const dialog = this.dialog.open(AttachmentsComponent, {
-      // header: 'Attachments',
       width: '1200px',
       height: '450px',
       data: {
-        journalEntryAttachments:this.journalEntryAttachment,
-        screen:Pages.JournalEntry,
+        journalEntryAttachments: this.journalEntryAttachment,
+        screen: Pages.JournalEntry,
       }
-
     });
-    dialog.onClose.subscribe((updatedFiles) => {
-      if (updatedFiles) {
-        // تحديث قائمة الملفات بعد إغلاق البوب أب
-        this.journalEntryAttachment = updatedFiles;
   
-        // تحديث البيانات في الـ AttachmentsService إذا لزم الأمر
-        this.attachmentService.updateFilesInfo(this.journalEntryAttachment);
-  
-        console.log(updatedFiles, this.journalEntryAttachment, "Updated Files");
-      }
-      console.log(updatedFiles, this.journalEntryAttachment, "Updated Files");
-
+    dialog.onClose.subscribe((newFiles: any) => {
+      console.log(newFiles , "newFiles");
+      // console.log( this.attachmentService.filesInfo , "filesInfo");
+        this.journalEntryAttachment = newFiles
+        
+        
+        // this.attachmentService.filesInfo.map(
+        //   (item: any, i: number) => {
+        //     return {
+        //       attachmentId: newFiles[i],
+        //       name: this.attachmentService.filesName[i],
+        //     };
+        //   }
+        // );
+      console.log(this.journalEntryAttachment,"this.journalEntryAttachment");
+      
     });
-    // dialog.onClose.subscribe((res) => {
-    //   this.attachmentService.attachmentIdsObservable.subscribe((res) => {
-    //      this.journalEntryAttachment = this.attachmentService.filesInfo.map(
-    //       (item: any, i: number) => {
-    //         return {
-    //           attachmentId: res[i],
-    //           name: this.attachmentService.filesName[i],
-    //         };
-    //       }
-    //     );
-    //     console.log(res ,  this.journalEntryAttachment ,"lllllllllll");
-
-    //   });
-    // }
-  
-  // );
   }
+  
+
+  // openAttachments() {
+  //   const dialog = this.dialog.open(AttachmentsComponent, {
+  //     // header: 'Attachments',
+  //     width: '1200px',
+  //     height: '450px',
+  //     data: {
+  //       journalEntryAttachments:this.journalEntryAttachment,
+  //       screen:Pages.JournalEntry,
+  //     }
+
+  //   });
+  //   dialog.onClose.subscribe((updatedFiles) => {
+  //     console.log(this.attachmentService.filesInfo ,"hhhhhhhhhhhhhh");
+  //     console.log(this.attachmentService.filesName ,"hhhhhhhhhhhhhh");
+  //     console.log(this.attachmentService.filesUrls ,"hhhhhhhhhhhhhh");
+  //     console.log(this.attachmentService.attachemntIdsList ,"ttttttttttt");
+      
+  // console.log(updatedFiles,"updatedFiles");
+  
+  //     this.attachmentService.attachmentIdsObservable.subscribe((res) => {
+  //       this.journalEntryAttachment = this.attachmentService.filesInfo.map(
+  //         (item: any, i: number) => {
+  //           return {
+  //             attachmentId: res[i],
+  //             name: this.attachmentService.filesName[i],
+  //           };
+  //         }
+  //       );
+  //     });
+
+  //     console.log(this.journalEntryAttachment,"this.journalEntryAttachment ");
+
+      
+  //     console.log(updatedFiles,"22222222222222222");
+      
+   
+  //     console.log(updatedFiles, this.journalEntryAttachment, "Updated Files");
+
+  //   });
+  //   // dialog.onClose.subscribe((res) => {
+  //   //   this.attachmentService.attachmentIdsObservable.subscribe((res) => {
+  //   //      this.journalEntryAttachment = this.attachmentService.filesInfo.map(
+  //   //       (item: any, i: number) => {
+  //   //         return {
+  //   //           attachmentId: res[i],
+  //   //           name: this.attachmentService.filesName[i],
+  //   //         };
+  //   //       }
+  //   //     );
+  //   //     console.log(res ,  this.journalEntryAttachment ,"lllllllllll");
+
+  //   //   });
+  //   // }
+  
+  // // );
+  // }
   constructor(
     private journalEntryService: JournalEntryService,
     private routerService: RouterService,

@@ -16,6 +16,7 @@
 "id":"Id",
 "name":"Name",
 "actions":"actions",
+"type": "file extension",
 
 
 "sequence":{

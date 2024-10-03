@@ -12,6 +12,7 @@ export class AttachmentsComponent  {
 
   attachments: FormArray;
   filesData : any = []
+  test : any = []
   addAttachment() {
     this.attachments.push(this.fb.group({
       attachmentId: ['', customValidators.required],
@@ -32,10 +33,15 @@ export class AttachmentsComponent  {
   }
 
   files(data:any) {
-    this.filesData = data
+    this.test = data
+    console.log(this.test ,"8888888888");
+    this.ref.close(this.test)
+
   }
   onCancel(){
-    this.ref.close(this.filesData)
+
+    console.log(this.test ,"999999999");
+    this.ref.close(this.test)
   }
 
 
