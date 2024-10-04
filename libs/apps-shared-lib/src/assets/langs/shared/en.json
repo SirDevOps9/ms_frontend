@@ -15,6 +15,14 @@
 "delete":"delete",
 "statement":"statement",
 "sequence":"sequence",
+"attachment":"Attachment",
+"attachmentDeletedSuccessfully":"attachment Deleted Successfully",
+"CannotDeleteattachment":"Cannot Delete attachment",
+"id":"Id",
+"name":"Name",
+"actions":"actions",
+"type": "file extension",
+
 
 "sequence":{
 "sequence":"Sequence",

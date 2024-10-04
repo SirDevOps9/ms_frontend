@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { LayoutModule } from './modules/layout/layout.module';
 import { LandingPageComponent } from 'apps-shared-lib';
 import { MultiTranslateHttpLoader, SharedLibModule } from 'shared-lib';
 import { SequenceModule } from './modules/sequence/sequence.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
+import { ActtachmentViewComponent } from './pages/attachment-view/acttachment-view/acttachment-view.component';
 
-
+const routes: Routes = [
+  { path: 'attachment-view', component: ActtachmentViewComponent },
+];
 @NgModule({
-  declarations: [LandingPageComponent ],
+  declarations: [LandingPageComponent  ,ActtachmentViewComponent],
   imports: [
     LayoutModule,
     CommonModule,
@@ -22,6 +25,8 @@ import { HttpClient } from '@angular/common/http';
     TranslateModule,
     SharedLibModule,
     SequenceModule,
+    RouterModule.forChild(routes), // Add the routes here
+
     TranslateModule.forRoot({
 
     loader: {

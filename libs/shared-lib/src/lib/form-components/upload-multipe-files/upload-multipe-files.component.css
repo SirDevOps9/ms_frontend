@@ -57,7 +57,7 @@
  }
  .uploadIcon{
     font-size: 8rem;
-    color: #3b82f6;
+    color: #1a90b0;
 
  }
  .uploadParent{
@@ -108,4 +108,7 @@
         font-size: 1rem;
         color: #3b82f6;
      }
+ }
+ .action{
+   gap: 8px;
  }

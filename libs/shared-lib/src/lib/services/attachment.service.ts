@@ -90,6 +90,8 @@ export class AttachmentsService {
        
         this.attachemntIdsList.push(res)
         this.attachmentIds.next(this.attachemntIdsList)
+        console.log(this.attachemntIdsList ,"this.attachemntIdsList");
+
       })
   }
 
@@ -98,7 +100,7 @@ export class AttachmentsService {
     label: string,
     fileType: AttachmentFileTypeEnum
   ) {
-    const fileTypeMetaData = getFileType(fileType);
+    // const fileTypeMetaData = getFileType(fileType);
 
     this.httpService
       .getFullUrl(
@@ -116,7 +118,7 @@ export class AttachmentsService {
 
           link.href = source;
 
-          link.download = label + fileTypeMetaData.fileExtension;
+          link.download = label ;
 
           link.click();
         } else {
@@ -137,6 +139,29 @@ export class AttachmentsService {
 
   clearState(){
     this.attachmentIdDataSource.next('');
+  }
+  viewAttachment(fileId: string) {
+    this.httpService
+      .getFullUrl(
+        `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
+        fileId
+      )
+      .subscribe((apiResponse: AttachmentDto) => {
+        if (apiResponse) {
+          const source = `${apiResponse.base64Padding},${apiResponse.fileContent}`;
+          console.log(source ,"source");
+          
+          window.open(source, '_blank');
+        } else {
+          this.toasterService.showError(
+            this.languageService.transalte('Shared.Error'),
+            this.languageService.transalte('Shared.valdation.invalidForm')
+          );
+        }
+      });
+  }
+  updateFilesInfo(newFiles: any[]) {
+    this.filesInfo = newFiles;
   }
   constructor(
     private httpService: HttpService,

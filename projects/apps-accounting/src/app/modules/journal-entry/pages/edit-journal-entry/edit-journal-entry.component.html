@@ -1,6 +1,6 @@
 <lib-page-content>
   <div class="journal_entry_add_page">
-    <form [formGroup]="editJournalForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="editJournalForm">
       <div class="card_micro">
 
       <div class="entry_header">
@@ -132,11 +132,22 @@
             ></lib-text-input>
             <!-- <label >{{totalCreditAmountLocal | numberFormat }}</label> -->
           </div>
-          <div class="col-12 desc">
+
+          <div class="col-12 md:col-3 ">
             <lib-label [appControl]="editJournalForm.controls['description']">
               {{ 'EditJournal.JournalDescription' | translate }}
             </lib-label>
             <lib-text-input formControlName="description" [readOnly]="viewMode"></lib-text-input>
+          </div>
+          <div class="col-12 md:col-3">
+            <lib-button-micro
+            nameClass="save"
+            title="{{'attachment' | translate}}"
+            (click)="openAttachments()"
+            >
+
+
+            </lib-button-micro>
           </div>
         </div>
       </div>
@@ -464,6 +475,7 @@
                     title="{{ 'Journal.save' | translate }}"
                     nameClass="outline"
                     widthNumber="100%"
+                    (click)="onSubmit()"
                   >
                   </lib-button-micro>
                 </div>

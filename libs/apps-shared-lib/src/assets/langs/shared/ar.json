@@ -14,6 +14,13 @@
     "delete": "حذف",
     "statement": "بيان",
     "sequence": "تسلسل",
+    "attachment": "مرفق",
+    "attachmentDeletedSuccessfully": "تم حذف المرفق بنجاح",
+    "CannotDeleteattachment": "لا يمكن حذف المرفق",
+    "id": "معرف",
+    "name": "اسم",
+    "actions": "إجراءات",
+    "type": "امتداد الملف",
 
     "sequence": {
       "sequence": "تسلسل",

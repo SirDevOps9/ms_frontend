@@ -1,28 +1,11 @@
-<!-- <div>
-    <div class="flex justify-content-end">
-        <button (click)="addAttachment()" class="add-attachment">add</button>
-
-    </div>
-
-        <div *ngFor="let item of attachments.controls; let i = index">
-            <div class="grid align-items-center">
-                <div class="col-10"><lib-named-file-uploader [appControl]="item"></lib-named-file-uploader></div>
-              
-            </div>
-        </div>
-</div> -->
-
+<div class="Attachments">
 <lib-popup-page
 title="{{ 'Attachments' | translate }}"
 [closeFunction]="onCancel"
-[footer]="false"
+(Submit)="save()"
 >
-<lib-upload-multipe-files (sendFiles)="files($event)"></lib-upload-multipe-files>
+<lib-upload-multipe-files [filesData]="filesData.journalEntryAttachments" [viewData]="this.filesData.viewData" [screen]="this.filesData.screen" (sendFiles)="files($event)" ></lib-upload-multipe-files>
 
 </lib-popup-page>
 
-  
-  
-
-
-
+</div>
