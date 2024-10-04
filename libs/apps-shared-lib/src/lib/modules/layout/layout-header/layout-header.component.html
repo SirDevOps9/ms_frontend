@@ -22,6 +22,37 @@
           </ng-template>
           <ng-template pTemplate="end">
             <div class="header_sec">
+              <ng-container [formGroup]="coBrForm" >
+              
+              <!-- <div class="modules">
+                <lib-form-group>
+                  <lib-select
+                    formControlName="companyId"
+                    placeholder="{{ 'Layout.DefaultCompany' | translate }}"
+                    [options]="companyList"
+                    [selectedValue]="coBrForm.controls['companyId'].value"
+                    optionLabel="name"
+                    optionValue="id"
+                    [readOnly]="true"
+                  >
+                  </lib-select>
+                </lib-form-group>
+              </div>
+              <div class="modules">
+                <lib-form-group>
+                  <lib-select
+                  [readOnly]="true"
+                    formControlName="branchId"
+                    placeholder="{{ 'Layout.DefaultBranch' | translate }}"
+                    [options]="branchList"
+                    [selectedValue]="coBrForm.controls['branchId'].value"
+                    optionLabel="name"
+                    optionValue="id"
+                  >
+                  </lib-select>
+                </lib-form-group>
+              </div> -->
+            </ng-container      >
               <div class="modules">
                 <button class="btn_mod_select" (click)="openDialog()">
                   <img src="assets/images/header-icons/change-app.svg" alt="" />
