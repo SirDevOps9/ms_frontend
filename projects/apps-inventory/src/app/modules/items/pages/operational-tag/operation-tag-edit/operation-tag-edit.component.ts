@@ -71,6 +71,7 @@ export class OperationTagEditComponent implements OnInit {
     this.itemsService.getOperationalTagItemsById$.subscribe(
 (res : AddOperatioalTag)=>{
   this.formGroup.patchValue(res)
+  this.formGroup.get('operationType')?.patchValue(res.operationType)
 }
     )
 

@@ -162,6 +162,10 @@ export class ItemsProxyService {
  ActivateAttrDifinition(obj:{id:number , status : boolean}) {
   return this.httpService.put(`ItemAttribute/ItemAttributeActivation` , obj) // edit
  }
+ ActivateOperationalTag
+(obj:{id:number , status : boolean}) {
+  return this.httpService.put(`OperationalTag/ActivateOperationalTag` , obj) // edit
+ }
 
  exportsItemsDefinitionList(
     searchTerm: string | undefined
@@ -218,7 +222,7 @@ export class ItemsProxyService {
   }
   //  add attr de
   addAttrDifinition(obj:addAttributeDifintion) {
-    return this.httpService.post('ItemAttribute' , obj)
+    return this.httpService.post('AttributeGroup/AddAttributeGroupWithAttributeValues' , obj)
   }
   //  add operation tag 
   addOperationTag(obj:AddOperatioalTag) {

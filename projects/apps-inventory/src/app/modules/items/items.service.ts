@@ -88,7 +88,7 @@ export class ItemsService {
   public sendBarcode = new BehaviorSubject<addBarcode>({} as addBarcode);
   public sendUOM = new BehaviorSubject<AddUom>({} as AddUom);
   public sendUOMCategory = new BehaviorSubject<UomPost>({} as UomPost);
-  public sendAttrDefinition = new BehaviorSubject<addAttributeDifintion>({});
+  public sendAttrDefinition = new BehaviorSubject<addAttributeDifintion>({} as addAttributeDifintion);
   public sendOperationTag = new BehaviorSubject<AddOperatioalTag>({});
   public editOperationTag = new BehaviorSubject<AddOperatioalTag>({});
   public GetBarcode = new BehaviorSubject<getBarcodeById[]>([]);
@@ -98,7 +98,7 @@ export class ItemsService {
   public sendDefault = new BehaviorSubject<boolean>(false);
   public editItemData = new BehaviorSubject<any>(false);
   public updateUOMobj = new BehaviorSubject<any>(false);
-  public updateAttrobj = new BehaviorSubject<addAttributeDifintion>({});
+  public updateAttrobj = new BehaviorSubject<addAttributeDifintion>({} as addAttributeDifintion);
 
   public attributeNameDropDownLookup = new BehaviorSubject<any>([]);
   public attributeGroupeDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
@@ -523,6 +523,14 @@ export class ItemsService {
       );
     });
   }
+  ActivateOperationalTag(obj: any) {
+    this.itemProxy.ActivateOperationalTag(obj).subscribe((res) => {
+      this.toasterService.showSuccess(
+        this.languageService.transalte('itemType.success'),
+        this.languageService.transalte('itemType.changeVariantStatus')
+      );
+    });
+  }
   ActivateBarcode(obj: any) {
     this.itemProxy.ActivateBarcode(obj).subscribe((res) => {
       this.toasterService.showSuccess(
@@ -569,20 +577,17 @@ export class ItemsService {
   }
   // attr difinition delete
   async deleteAttrDifinition(id: number) {
-    debugger;
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
       this.itemProxy.deleteAttrDifinition(id).subscribe({
         next: (res) => {
-          debugger;
           this.toasterService.showSuccess(
             this.languageService.transalte('attributeDefinition.success'),
             this.languageService.transalte('attributeDefinition.delete')
           );
 
-          debugger;
           const currentAttrDif = this.attributeValuesDropDownLookup.getValue();
           const updatedAttrDif = currentAttrDif.filter((c: any) => c.id !== id);
           this.attributeValuesDropDownLookup.next(updatedAttrDif);
@@ -592,14 +597,12 @@ export class ItemsService {
   }
   // attr difinition delete
   async deleteUOM(id: number) {
-    debugger;
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
       this.itemProxy.deleteUOM(id).subscribe({
         next: (res) => {
-          debugger;
           this.toasterService.showSuccess(
             this.languageService.transalte('UOM.success'),
             this.languageService.transalte('UOM.delete')
@@ -636,20 +639,17 @@ export class ItemsService {
   }
   // deleteAttributeGroup delete
   async deleteAttributeGroup(id: number) {
-    debugger;
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
       this.itemProxy.deleteAttributeGroup(id).subscribe({
         next: (res) => {
-          debugger;
           this.toasterService.showSuccess(
             this.languageService.transalte('attributeDefinition.success'),
             this.languageService.transalte('attributeDefinition.delete')
           );
 
-          debugger;
           const currentAttr = this.listOfAttrDifinition.getValue();
           const updatedattr = currentAttr.filter((c: any) => c.id !== id);
           this.listOfAttrDifinition.next(updatedattr);

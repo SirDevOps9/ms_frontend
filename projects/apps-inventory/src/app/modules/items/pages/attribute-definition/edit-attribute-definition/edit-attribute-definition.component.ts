@@ -151,7 +151,7 @@ export class EditAttributeDefinitionComponent implements OnInit {
   }
 
   onSave(obj: addAttributeDifintion, index: number) {
-    obj.attributeGroupId = this.attrName;
+    // obj.attributeGroupId = this.attrName;
 
     this.itemsService.updateAttrDifinition(obj);
     this.itemsService.updateAttrobj$.subscribe((res: any) => {

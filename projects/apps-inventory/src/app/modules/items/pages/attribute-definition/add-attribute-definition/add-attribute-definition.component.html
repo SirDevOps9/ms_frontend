@@ -4,55 +4,49 @@
       <div [formGroup]="attrFormGroup" class="entry_header">
         <div class="grid">
   
-          <!-- <div class="col-12 md:col-6">
-            <lib-form-group>
-              <lib-label [appControl]="attrFormGroup.controls['attrName']" class="body_b14 mb-2 ms-4">
-                {{ 'attributeDefinition.attributeName' | translate }}
-              </lib-label>
-              <lib-select formControlName="attrName" [options]="attributeName" optionValue="id"
-                optionLabel="name" placeholder="{{ 'attributeDefinition.attributeName'| translate }}"
-                [selectedValue]="attrFormGroup.controls['attrName']?.value">
-              </lib-select>
-            </lib-form-group>
-          </div> -->
+       
           <div class="col-12 md:col-4">
             <lib-form-group>
-              <lib-label [appControl]="attrFormGroup.controls['attrName']" class="body_b14 mb-2 ms-4">
+              <lib-label [appControl]="attrFormGroup.controls['attributeId']" class="body_b14 mb-2 ms-4">
               {{ 'attributeDefinition.attributeId' | translate }}
             </lib-label>
             <lib-text-input
               placeholder="{{ 'attributeDefinition.attributeId' | translate }}"
-              formControlName="attrName"
+              formControlName="attributeId"
               [readOnly]="true"
             ></lib-text-input>
-            <lib-field-validations
-              [appControl]="attrFormGroup.controls['attrName']"
-            ></lib-field-validations>
+           
           </lib-form-group>
 
           </div>
           <!--  -->
           <div class="col-12 md:col-4">
             <lib-form-group>
-              <lib-label [appControl]="attrFormGroup.controls['attrNameAr']" class="body_b14 mb-2 ms-4">
+              <lib-label [appControl]="attrFormGroup.controls['nameAr']" class="body_b14 mb-2 ms-4">
                 {{ 'attributeDefinition.attributeNameAr' | translate }}
               </lib-label>
               <lib-text-input
-              placeholder="{{ 'attributeDefinition.attributeName' | translate }}"
-              formControlName="attrNameAr"
+              placeholder="{{ 'attributeDefinition.attributeNameAr' | translate }}"
+              formControlName="nameAr"
             ></lib-text-input>
+            <lib-field-validations
+            [appControl]="attrFormGroup.controls['nameAr']"
+          ></lib-field-validations>
             </lib-form-group>
           </div>
           <div class="col-12 md:col-4">
             <lib-form-group>
-              <lib-label [appControl]="attrFormGroup.controls['attrNameEn']" class="body_b14 mb-2 ms-4">
+              <lib-label [appControl]="attrFormGroup.controls['nameEn']" class="body_b14 mb-2 ms-4">
                 {{ 'attributeDefinition.attributeNameEn' | translate }}
               </lib-label>
               
               <lib-text-input
-              placeholder="{{ 'attributeDefinition.attributeName' | translate }}"
-              formControlName="attrNameEn"
+              placeholder="{{ 'attributeDefinition.attributeNameEn' | translate }}"
+              formControlName="nameEn"
             ></lib-text-input>
+            <lib-field-validations
+            [appControl]="attrFormGroup.controls['nameEn']"
+          ></lib-field-validations>
             </lib-form-group>
           </div>
           </div>
@@ -82,43 +76,43 @@
               <tr [formGroup]="attrTableForm">
                  <!--  name in arabic-->
                  <td
-                 [pEditableColumn]="attrTableForm?.controls['valueAr']"
-                 pEditableColumnField="valueAr"
+                 [pEditableColumn]="attrTableForm?.controls['nameEn']"
+                 pEditableColumnField="nameEn"
                >
                  <p-cellEditor>
                    <ng-template pTemplate="input">
                      <lib-text-input
                        placeholder="{{ 'attributeDefinition.valueAr' | translate }}"
-                       formControlName="valueAr"
+                       formControlName="nameEn"
                      ></lib-text-input>
                    </ng-template>
                    <ng-template pTemplate="output">
-                     {{ attrTableForm?.controls['valueAr']?.value }}
+                     {{ attrTableForm?.controls['nameEn']?.value }}
                    </ng-template>
                  </p-cellEditor>
                  <lib-field-validations
-                   [appControl]="attrTableForm?.controls['valueAr']"
+                   [appControl]="attrTableForm?.controls['nameEn']"
                  ></lib-field-validations>
                </td>
                  <!--  -->
                   <!-- name in english -->
                   <td
-                  [pEditableColumn]="attrTableForm?.controls['valueEn']"
-                  pEditableColumnField="valueEn"
+                  [pEditableColumn]="attrTableForm?.controls['nameAr']"
+                  pEditableColumnField="nameAr"
                 >
                   <p-cellEditor>
                     <ng-template pTemplate="input">
                       <lib-text-input
                         placeholder="{{ 'attributeDefinition.valueEn' | translate }}"
-                        formControlName="valueEn"
+                        formControlName="nameAr"
                       ></lib-text-input>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{ attrTableForm?.controls['valueEn']?.value }}
+                      {{ attrTableForm?.controls['nameAr']?.value }}
                     </ng-template>
                   </p-cellEditor>
                   <lib-field-validations
-                    [appControl]="attrTableForm?.controls['valueEn']"
+                    [appControl]="attrTableForm?.controls['nameAr']"
                   ></lib-field-validations>
                 </td>
   
@@ -126,7 +120,7 @@
                   <!-- (valueChanged)="toggleAttrStatus(attrTableForm?.value, $event)" -->
                   <div class=" flex align-items-center">
                   
-                    <lib-input-switch [id]="i" [disabled]="false" formControlName="status"
+                    <lib-input-switch [id]="i" [disabled]="false" formControlName="isActive"
                    >
                   </lib-input-switch>
                   
@@ -161,7 +155,7 @@
                 <lib-button-micro
                 nameClass="outline"
                 widthNumber="100%" 
-                title="{{ 'attributeDefinition.add_new' | translate }}"
+                title="{{ 'attributeDefinition.add_new_value' | translate }}"
                 (click)="addLine()"
                 >
       
@@ -194,7 +188,7 @@
                     title="{{ 'Save' | translate }}"
                     nameClass="save"
                     widthNumber="100%"
-                    (click)="onSave({},2)"
+                    (click)="onSave()"
                   >
                   </lib-button-micro>
                 </div>
