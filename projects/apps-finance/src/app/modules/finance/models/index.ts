@@ -25,3 +25,6 @@ export * from './bankPaymentMethods';
 export * from './treasuriesPaymentMethod';
 export * from './currencyRateDto';
 export * from './sharedEnums';
+export * from './treasury-view-dto';
+export * from './view-bank-dto';
+export * from './bank-account-view-dto';

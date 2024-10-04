@@ -195,7 +195,6 @@ export class EditPaymentMethodComponent implements OnInit {
 
    if (paymentPlace == this.sharedFinanceEnum.PaymentPlace.Treasury)
      {
-      console.log('Treasury')
        paymentMethodTypeOptions = this.originalPaymentMethodTypeLookups?.filter(
            option => option.id == this.sharedFinanceEnum.paymentMethodType.Cash.toString()
        );
@@ -210,7 +209,6 @@ export class EditPaymentMethodComponent implements OnInit {
                option.id == this.sharedFinanceEnum.paymentMethodType.Transfer.toString() || 
                option.id == this.sharedFinanceEnum.paymentMethodType.Visa.toString()
        );
-       console.log(paymentMethodTypeOptions)
    }
    this.lookups[LookupEnum.PaymentMethodType] = paymentMethodTypeOptions;
 
@@ -232,7 +230,6 @@ export class EditPaymentMethodComponent implements OnInit {
   changebankaccount(e: any) 
   {
       const selectedAccount = this.BankAccountList.find(account => account.id === e);
-      console.log("selectedAccount", selectedAccount)
       if (selectedAccount) {
         this.PaymentMethodForm.get('paymentMethodCommissionData.currency')!.setValue(selectedAccount.currencyName);
       }

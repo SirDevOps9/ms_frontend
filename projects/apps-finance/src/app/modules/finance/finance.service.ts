@@ -93,7 +93,8 @@ export class FinanceService {
 
 
 
-  
+  private bankAccountDeleted = new BehaviorSubject<boolean>(false);
+  public bankAccountDeletedObser = this.bankAccountDeleted.asObservable();
 
 
 
@@ -107,6 +108,10 @@ export class FinanceService {
   getTreasureDefinitionsByIdData(id : number)  {
    return this.financeProxy.getTreasureDefinitionsById(id)
   }
+  getTreasuryDefinitionsView(id : number)  {
+    return this.financeProxy.getTreasuryDefinitionsView(id)
+   }
+ 
 
 
   EditTreasureDefinitionsById(model: EditTreasuryDto, dialogRef: DynamicDialogRef)  {
@@ -227,17 +232,25 @@ export class FinanceService {
     });
   }
   addBankDefinition(obj:AddBankDto) {
-    this.financeProxy.addBankDefinition(obj).subscribe(res=>{
-      if(res) {
+    this.loaderService.show();
+
+    this.financeProxy.addBankDefinition(obj).subscribe( {
+      next: (res) => {
+
         this.toasterService.showSuccess(
           this.languageService.transalte('addBank.success'),
           this.languageService.transalte('addBank.add')
         );
+        this.loaderService.hide();
         this.routerService.navigateTo('/masterdata/bank-definition')
-        
-      }
-    })
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  
   }
+  
   editBankDefinition(obj : bankByID) {
     this.financeProxy.editBankDefinition(obj).subscribe(res=>{
       if(res) {
@@ -258,6 +271,32 @@ export class FinanceService {
       }
     })
   }
+
+  async deleteBankAccount(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      this.loaderService.show();
+
+      this.financeProxy.deleteBankAccount(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('deleteBank.success'),
+            this.languageService.transalte('deleteBank.delete')
+          );
+          this.loaderService.hide();
+          this.bankAccountDeleted.next(res);
+        },
+        error: () => {
+          this.loaderService.hide();
+          this.toasterService.showError(
+            this.languageService.transalte('Error'),
+            this.languageService.transalte('DeleteError')
+          );
+        },
+      });
+    }
+  }
+
   getUserPermissionLookupData() {
     this.financeProxy.getUserPermissionLookupData().subscribe(res=>{
       this.getUsersPermissionData.next(res)
@@ -308,17 +347,26 @@ export class FinanceService {
     }
   }
   addPaymentTerm(obj:AddPaymentTermDto) {
-    this.financeProxy.addPaymentTerm(obj).subscribe(res=>{
-      if(res) {
+    this.loaderService.show();
+
+    this.financeProxy.addPaymentTerm(obj).subscribe( {
+      next: (res) => {
+
         this.toasterService.showSuccess(
           this.languageService.transalte('add-paymentterm.success'),
           this.languageService.transalte('add-paymentterm.add')
         );
+        this.loaderService.hide();
         this.routerService.navigateTo('/masterdata/paymentterm')
-        
-      }
-    })
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  
   }
+  
+  
   getPaymentTermByID(id : number) {
     this.financeProxy.getPaymentTermByID(id).subscribe(res=>{
       if(res) {
@@ -415,17 +463,26 @@ export class FinanceService {
   }
   
   addPaymentMethod(obj:AddPaymentMethodDto) {
-    this.financeProxy.addPaymentMethod(obj).subscribe(res=>{
-      if(res) {
+    this.loaderService.show();
+
+    this.financeProxy.addPaymentMethod(obj).subscribe( {
+      next: (res) => {
+
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
           this.languageService.transalte('add-paymentMethod.add')
         );
+        this.loaderService.hide();
         this.routerService.navigateTo('/masterdata/payment-method')
-        
-      }
-    })
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  
   }
+  
+  
   getPaymentMethodByID(id : number) {
     this.financeProxy.getPaymentMethodByID(id).subscribe(res=>{
       if(res) {
@@ -571,4 +628,12 @@ export class FinanceService {
       }
     })
   }
+
+  viewBank(id : number)  {
+    return this.financeProxy.viewBank(id)
+   }
+
+   viewPaymentTerm(id : number)  {
+    return this.financeProxy.viewPaymentTerm(id)
+   }
 }

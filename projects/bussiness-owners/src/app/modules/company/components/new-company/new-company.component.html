@@ -48,6 +48,38 @@
                   </lib-field-validations>
                 </lib-form-group>
               </div>
+              <div class="md:col-12">
+                <lib-form-group>
+                  <lib-label [appControl]="addCompanyForm.controls['countryCode']">
+                    {{ 'Company.Address.country' | translate }}
+                  </lib-label>
+                  <lib-selectIcon
+                    formControlName="countryCode"
+                    icons="flags"
+                    [options]="lookups[LookupEnum.Country]"
+                    [selectedValue]="selectedCountryCode"
+                    optionValue="id"
+                    icons="flags"
+                    optionLabel="name"
+                  >
+                  </lib-selectIcon>
+                </lib-form-group>
+              </div>
+              <div class="md:col-12">
+                <lib-form-group>
+                  <lib-label [appControl]="addCompanyForm.controls['currencyId']">
+                    {{ 'Company.Address.currency' | translate }}
+                  </lib-label>
+                  <lib-select
+                    formControlName="currencyId"
+                    [options]="lookups[LookupEnum.Currency]"
+                    optionValue="id"
+                    optionLabel="name"
+                    [selectedValue]="selectedCurrency"
+                  >
+                  </lib-select>
+                </lib-form-group>
+              </div>
               <div class="md:col-12" *ngIf="showHoldingCompanies">
                 <lib-form-group>
                   <lib-label [appControl]="addCompanyForm.controls['parentId']">
