@@ -232,17 +232,25 @@ export class FinanceService {
     });
   }
   addBankDefinition(obj:AddBankDto) {
-    this.financeProxy.addBankDefinition(obj).subscribe(res=>{
-      if(res) {
+    this.loaderService.show();
+
+    this.financeProxy.addBankDefinition(obj).subscribe( {
+      next: (res) => {
+
         this.toasterService.showSuccess(
           this.languageService.transalte('addBank.success'),
           this.languageService.transalte('addBank.add')
         );
+        this.loaderService.hide();
         this.routerService.navigateTo('/masterdata/bank-definition')
-        
-      }
-    })
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  
   }
+  
   editBankDefinition(obj : bankByID) {
     this.financeProxy.editBankDefinition(obj).subscribe(res=>{
       if(res) {
@@ -339,17 +347,26 @@ export class FinanceService {
     }
   }
   addPaymentTerm(obj:AddPaymentTermDto) {
-    this.financeProxy.addPaymentTerm(obj).subscribe(res=>{
-      if(res) {
+    this.loaderService.show();
+
+    this.financeProxy.addPaymentTerm(obj).subscribe( {
+      next: (res) => {
+
         this.toasterService.showSuccess(
           this.languageService.transalte('add-paymentterm.success'),
           this.languageService.transalte('add-paymentterm.add')
         );
+        this.loaderService.hide();
         this.routerService.navigateTo('/masterdata/paymentterm')
-        
-      }
-    })
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  
   }
+  
+  
   getPaymentTermByID(id : number) {
     this.financeProxy.getPaymentTermByID(id).subscribe(res=>{
       if(res) {
@@ -446,17 +463,26 @@ export class FinanceService {
   }
   
   addPaymentMethod(obj:AddPaymentMethodDto) {
-    this.financeProxy.addPaymentMethod(obj).subscribe(res=>{
-      if(res) {
+    this.loaderService.show();
+
+    this.financeProxy.addPaymentMethod(obj).subscribe( {
+      next: (res) => {
+
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
           this.languageService.transalte('add-paymentMethod.add')
         );
+        this.loaderService.hide();
         this.routerService.navigateTo('/masterdata/payment-method')
-        
-      }
-    })
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  
   }
+  
+  
   getPaymentMethodByID(id : number) {
     this.financeProxy.getPaymentMethodByID(id).subscribe(res=>{
       if(res) {

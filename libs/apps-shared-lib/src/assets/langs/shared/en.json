@@ -1,8 +1,13 @@
 {
+  "BreadCrumb":{
+    "Dashboard":"Dashboard"
+  },
+  
 "Save": "Save",
 "Cancel": "Cancel",
 "AddNewLine": "Add New Line",
 "error":"Error",
+"ChooseApp":"Choose App",
 "success":"success",
 "create":"Create",
 "view":"view",
@@ -79,7 +84,17 @@
   },
   "Layout":{
     "DefaultCompany": "Default Company",
-  "DefaultBranch": "Default Branch"
+    "DefaultBranch": "Default Branch",
+    "MySubscription":"My Subscription",
+    "Myfavorite":"My favorite",
+    "Language":"Language",
+    "AccountSettings":"Account Settings",
+    "logout":"logout"
+  },
+  "Paginator":{
+  "Showing":"Showing",
+   "To":"to",
+   "entries":"entries"
   }
   
 }

@@ -9,11 +9,13 @@
     "ViewPaymentout": "View Payment Out",
     "TreasuryStatement": "Treasury Statement",
     "ViewBankDefination":"View Bank Defination",
-    "ViewPaymentTerm":"View Payment Term"
+    "ViewPaymentTerm":"View Payment Term",
+    "EditPaymentIn": "Edit Payment in"
 
   },
   "confirmation": "confirmation",
   "Success": "Success",
+  "Confirm":"confirm",
   "Error": "Error",
   "ErrorInDelete": "Error In Delete",
   "ChooseAnAccount": "Choose An Account",
@@ -73,7 +75,7 @@
       "Notes": "notes"
     },
     "Success": "Success",
-    "PaymentInAddedSuccessfully": "PaymentIn added successfully",
+    "PaymentInAddedSuccessfully": "تم إضافة الإيصال النقدي بنجاح",
     "addedError": "Error in added",
     "Error": "Error",
     "paymentMethodTypeNotAllowed": "payment Method details Not Allowed",

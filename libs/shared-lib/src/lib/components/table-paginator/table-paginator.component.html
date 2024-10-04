@@ -1,6 +1,6 @@
 <div class="paginator-wrapper">
   <span class="p-paginator-current-custom ng-star-inserted"
-    >Showing {{ currentPage }} to {{ lastPage }} / {{ totalRecords }} entries</span
+    >{{"Paginator.Showing" | translate}} {{ currentPage }} {{"Paginator.To" | translate}} {{ lastPage }} / {{ totalRecords }} {{"Paginator.Entries" | translate}}</span
   >
   <p-paginator
     (onPageChange)="onPageChange($event)"

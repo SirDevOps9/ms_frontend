@@ -1,7 +1,7 @@
 {
   "BreadCrumb": {
     "PaymentOut": "إيصال نقدي",
-    "PaymentOutList": "قائمة الإيصالات النقدية",
+    "PaymentOutList":"إيصالات الدفع" ,
     "AddPaymentOut": "إضافة إيصال نقدي",
     "EditPaymentOut": "تعديل إيصال نقدي",
     "BankAccountStatement": "كشف الحساب البنكي",
@@ -9,13 +9,15 @@
     "ViewPaymentIn": "عرض قبض",
     "ViewPaymentout": "عرض صرف",
     "ViewBankDefination":"عرض تعريف البنك",
-    "ViewPaymentTerm": "عرض شروط الدفع"
+    "ViewPaymentTerm": "عرض شروط الدفع",
+    "EditPaymentIn": "تعديل إيصال نقدي"
 
 
   },
   "confirmation":"تأكيد ",
   "Success": "نجاح",
   "Error": "خطأ",
+  "Confirm": "تأكيد",
   "ChooseAnAccount": "اختر حساب",
   "Select": "اختر",
   "ErrorInDelete": "خطأ فى الحذف",
@@ -68,7 +70,7 @@
       "PaymentMethodDetails": "تفاصيل طريقة الدفع",
       "PaidBy": "مدفوع بواسطة",
       "PaidByDetails": "تفاصيل المدفوع بواسطة",
-      "LinkedGLAccount": "حساب GL المرتبط",
+      "LinkedGLAccount": "حساب المرتبط",
       "CostCenter": "مركز التكلفة",
       "Notes": "ملاحظات"
     },
@@ -174,7 +176,9 @@
     "lineDescription": "وصف السطر",
     "ViewData": "عرض البيانات",
     "DateFrom": "التاريخ من",
-    "DateTo": "التاريخ إلى"
+    "DateTo": "التاريخ إلى",
+    "openingBalance": "الرصيد الافتتاحي"
+
   },
   "BankAccountStatement": {
     "BankAccountStatement": "كشف حساب البنك",
