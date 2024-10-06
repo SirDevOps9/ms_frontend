@@ -231,18 +231,19 @@
     toggleEditState(index: number) {
       this.editStates[index] = !this.editStates[index];
     }
-    downloadFile(url: string, fileName: string) {
-      this.attachmentService.downloadAttachment(url, fileName, AttachmentFileTypeEnum.image);
+    downloadFile(url: any, fileName: string) {
+      console.log(url?.attachmentId ,"0000000000000000");
+      this.attachmentService.downloadAttachment(url.attachmentId, fileName, AttachmentFileTypeEnum.image);
     }
 
 
 
-    reviewAttachment(fileName: any, url: string): void {
+    reviewAttachment(fileName: any, url: any): void {
     // const x = url?.attachmentId
       console.log(url , "000000000000000");
       
       this.httpService.getFullUrl(
-        `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` + url )
+        `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` + url.attachmentId )
       .subscribe((apiResponse: any) => {
         if (apiResponse) {
           let base64Content = apiResponse.fileContent;
