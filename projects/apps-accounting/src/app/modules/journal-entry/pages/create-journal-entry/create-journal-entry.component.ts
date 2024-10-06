@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   AttachmentsService,
+  ComponentType,
   FormsService,
   LanguageService,
   PageInfo,
@@ -160,13 +161,19 @@ export class CreateJournalEntryComponent {
 
   openAttachments() {
     const dialog = this.dialog.open(AttachmentsComponent, {
-      data: this.attachmentService.filesInfo,
+      // data: this.attachmentService.filesInfo,
       width: '1200px',
       height: '1000px',
+      data: {
+        journalEntryAttachments: this.attachmentService.filesInfo,
+        page: ComponentType.add,
+      }
     });
 
     dialog.onClose.subscribe((res) => {
       this.journalEntryAttachments = res
+      console.log(res ,"close");
+      
     });
   }
 
@@ -378,6 +385,7 @@ export class CreateJournalEntryComponent {
     .subscribe({
       next: (r) => {
         this.routerService.navigateTo('transcations/journalentry');
+        this.attachmentService.attachmentIds.next([]) 
       },
       error:  (error)  => {
       }

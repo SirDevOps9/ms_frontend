@@ -24,6 +24,7 @@ import {
   ButtonComponent,
   SharedFormComponent,
   ToggelComponent,
+  EditMultipeFilesComponent,
 } from './form-components';
 import { DropdownModule } from 'primeng/dropdown';
 import { GetLookupPipe } from './pipes/lookupList';
@@ -72,6 +73,7 @@ import { ActtachmentViewComponent } from 'libs/apps-shared-lib/src/lib/pages/att
     FileUploaderComponent,
     NamedFileUploaderComponent,
     MultiSelectComponent,
+    EditMultipeFilesComponent,
     DataTableComponent,
     AttachmentViewerComponent,
     ButtonComponent,
@@ -133,6 +135,7 @@ import { ActtachmentViewComponent } from 'libs/apps-shared-lib/src/lib/pages/att
     PrimeSharedModule,
     FileUploaderComponent,
     MultiSelectComponent,
+    EditMultipeFilesComponent,
     DataTableComponent,
     AttachmentViewerComponent,
     ButtonComponent,

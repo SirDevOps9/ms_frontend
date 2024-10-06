@@ -11,6 +11,7 @@ import {
 } from './models';
 import { BehaviorSubject, catchError, map } from 'rxjs';
 import {
+  AttachmentsService,
   LanguageService,
   LoaderService,
   PageInfo,
@@ -53,7 +54,9 @@ export class JournalEntryService {
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private loaderService: LoaderService,
-    private routerService: RouterService
+    private routerService: RouterService,
+    private attachmentService: AttachmentsService,
+
   ) {}
 
   getAllJournalEntriesPaginated(searchTerm: string, pageInfo: PageInfo) {
@@ -159,6 +162,7 @@ export class JournalEntryService {
           this.languageService.transalte('Journal.UpdatedSuccessfully')
         );
         this.loaderService.hide();
+        this.attachmentService.attachemntIdsList=[]
 
         this.editJournalLineStatusDataSource.next(true);
         // setTimeout(() => {
