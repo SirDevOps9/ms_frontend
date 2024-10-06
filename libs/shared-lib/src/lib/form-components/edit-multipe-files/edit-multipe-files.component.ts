@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -19,7 +18,6 @@ export class EditMultipeFilesComponent {
     private enviormentService: EnvironmentService,
     private router: Router,
     private ref: DynamicDialogRef,
-    private fb: FormBuilder
   ) {
 
   }
@@ -42,7 +40,6 @@ export class EditMultipeFilesComponent {
 
   showText: boolean = true;
   ngOnInit(): void {
-    console.log(this.attachmentService.attachemntIdsList,"kkkkkkkkkkkkkk");
     this.fileExtension = this.attachmentService.fileExtension;
     this.files = this.attachmentService.files;
     this.attachmentService.filesInfo.push(this.attachmentService.filesUrls);
@@ -57,166 +54,77 @@ export class EditMultipeFilesComponent {
         this.editStates.push(false); // إضافة حالة تحرير جديدة
       });
     }
-     this.urls = this.attachmentService.attachemntIdsList
+    this.urls = this.attachmentService.attachemntIdsList
     this.subscrip()
   }
 
-  // onSelectFile(event: any) {
-  //   let file = event.target.files;
-  //   if (event.target.files && event.target.files[0]) {
-  //     const filesAmount = event.target.files.length;
-  //     for (let i = 0; i < filesAmount; i++) {
-  //       const reader = new FileReader();
 
-  //       reader.onload = ((fileItem) => {
-  //         return (event: any) => {
-  //           this.files.push(fileItem);
-  //           this.filesName.push(fileItem.name);
-
-  //           let fileInfo: AttachmentDto = {
-  //             fileContent: event.target.result as string,
-  //             fileName: fileItem.name,
-  //           };
-  //           this.attachmentService.filesInfo.push(fileInfo);
-  //           this.attachmentService.uploadValidatedFile(fileInfo);
-
-
-  //           this.editStates.push(false); // Initialize edit state for new file
-
-  //           this.cdRef.detectChanges();
-            
-  //         };
-  //       })(file[i]);
-
-  //       reader.readAsDataURL(file[i]);
-
-  //       this.arr = this.filesData || []
-     
-  //     }
-  //   }
-  // }
-  // subscrip(){
-  //   this.attachmentService.attachmentIdsObservable.subscribe((res:any)=>{
-  //     console.log(res , "attachmentIdsObservableattachmentIdsObservableattachmentIdsObservable");
-  //     res.forEach((url: any, index: number) => {
-  //       if (!this.urls.find((item:any) => item.attachmentId === url)) {
-  //           this.urls.push({
-  //               id: 0,
-  //               attachmentId: url,
-  //               name:this.filesName[index] || url.name // Fallback if filesName is undefined
-  //           });
-
-  //           console.log(this.urls, "arr");
-  //           console.log(this.filesName, "filesNamefilesName");
-  //       }
-  //   });
-  //      this.arr=this.urls
-  //      console.log(this.arr ,"this.arr");
-  //      console.log(this.urls ,"this.urls");
-       
-  //   // this.processAttachments();
-     
-  //   })
-  // }
   onSelectFile(event: any) {
     let files = event.target.files;
     if (files && files.length > 0) {
       for (let i = 0; i < files.length; i++) {
         const reader = new FileReader();
-  
+
         reader.onload = ((fileItem) => {
           return (event: any) => {
-            // Pushing the file information to `files` array
             this.files.push(fileItem);
             this.filesName.push(fileItem.name);
             this.fileExtension.push(fileItem.name.includes('.') ? files[i].name.split('.').pop() || '' : '');
 
-            // Create an object of AttachmentDto and push to attachmentService.filesInfo
             let fileInfo: AttachmentDto = {
               fileContent: event.target.result as string,
               fileName: fileItem.name,
             };
             this.attachmentService.filesInfo.push(fileInfo);
             this.attachmentService.uploadValidatedFile(fileInfo);
-  
-            // Push an object with id, attachmentId, and name to the `urls` array
-            // this.urls.push({
-            //   id: 0,
-            //   attachmentId: fileItem.name, // Set attachmentId to the file name or another unique identifier
-            //   name: fileItem.name
-            // });
-            // this.urls = this.attachmentService.attachemntIdsList.map(attachment => {
-        
-            //   return {
-            //     attachmentId: attachment // Create an object or simply return the attachment ID
-            //   };
-            // });
             this.save()
-  
+
             this.editStates.push(false); // Initialize edit state for the new file
             this.cdRef.detectChanges();
           };
         })(files[i]);
-  
+
         reader.readAsDataURL(files[i]);
       }
     }
   }
-  
+
   subscrip() {
-    this.attachmentService.attachmentIdsObservable.subscribe((res: any) => { 
-      console.log(res ,"yyyyyyyyyyyyyyyyy");
-      this.urls.forEach((element:any , index :number) => {
-        if(!element.attachmentId){
+    this.attachmentService.attachmentIdsObservable.subscribe((res: any) => {
+      this.urls.forEach((element: any, index: number) => {
+        if (!element.attachmentId) {
           this.urls.splice(index, 1)
           this.urls.push({
-            id:0,
-            attachmentId:element,
-            name:this.filesName[index]
+            id: 0,
+            attachmentId: element,
+            name: this.filesName[index]
           })
         }
       });
-      // res.forEach((url: any, index: number) => {
-      //   const existingItem = this.urls.find((item: any) => item.attachmentId != url.attachmentId || item.attachmentId != url)
-      //     if (!existingItem) {
-      //       console.log(url ,"44444444444");
 
-      //       this.urls.push({
-      //         id: 0,
-      //         attachmentId: url,
-      //         name:this.filesName[index]||url.name
-      //       });
-      //     }
-      //   });
-        this.save()
+      this.save()
 
-      });
-  console.log(this.urls ,"ggggggggggggggggg");
-  
-    // });
+    });
+
   }
-  
-save(){
-  this.arr=[]
-  console.log(this.filesName ,"filesName");
-  this.urls.forEach((element:any , index :number) => {
-    if(element.attachmentId){
-      this.arr.push(element)
-    }else{
-      this.arr.push({
-        id:0,
-        attachmentId:element,
-        name:this.filesName[index]
-      })
-    }
-  });
-  // this.arr = [...this.urls]; // Create a shallow copy of `urls`
-  this.sendFiles.emit(this.arr);
-  // this.attachmentService.attachemntIdsList = this.arr
-  console.log(this.arr ,"arrrrrrrr");
 
-}
-  
+  save() {
+    this.arr = []
+    this.urls.forEach((element: any, index: number) => {
+      if (element.attachmentId) {
+        this.arr.push(element)
+      } else {
+        this.arr.push({
+          id: 0,
+          attachmentId: element,
+          name: this.filesName[index]
+        })
+      }
+    });
+    this.sendFiles.emit(this.arr);
+
+  }
+
   onDragDrop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
@@ -251,17 +159,14 @@ save(){
   }
 
   removeFile(test: any, url: any, index: number) {
-      console.log("1111111111111" ,url , test );
-      
+
     if (this.urls && this.urls.length > 0) {
       // تحقق إذا كان الملف موجودًا في الملفات المحملة مسبقًا
-      const existingFile = this.filesData.find((file: any) => file.attachmentId === url.attachmentId|| file.name === test);
-console.log(existingFile);
+      const existingFile = this.filesData.find((file: any) => file.attachmentId === url.attachmentId || file.name === test);
 
       if (existingFile) {
         if (this.screen == Pages.JournalEntry) {
-          console.log("donecccccccccccc");
-          
+
           this.journalEntryService.deleteAttachment(existingFile.id).then(() => {
             this.journalEntryService.attachmentDeletedObser.subscribe((res: boolean) => {
               if (res) {
@@ -270,10 +175,6 @@ console.log(existingFile);
                 this.filesName.splice(index, 1);
                 this.fileExtension.splice(index, 1);
                 this.editStates.splice(index, 1);
-
-                // Optionally, log the updated arrays to check if they're correctly updated
-
-                // Detect changes to update the view
                 this.cdRef.detectChanges();
               }
             });
@@ -375,39 +276,39 @@ console.log(existingFile);
             }
           }
         });
-    }else{
+    } else {
       this.httpService.getFullUrl(
         `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
         url
       )
-      .subscribe((apiResponse: any) => {
-        if (apiResponse) {
-          let base64Content = apiResponse.fileContent;
-          const mimeType = apiResponse.base64Padding.split(';')[0].split(':')[1];
+        .subscribe((apiResponse: any) => {
+          if (apiResponse) {
+            let base64Content = apiResponse.fileContent;
+            const mimeType = apiResponse.base64Padding.split(';')[0].split(':')[1];
 
-          base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
-          while (base64Content.length % 4 !== 0) {
-            base64Content += '=';
-          }
-
-          try {
-            const byteCharacters = atob(base64Content);
-            const byteNumbers = new Array(byteCharacters.length);
-            for (let i = 0; i < byteCharacters.length; i++) {
-              byteNumbers[i] = byteCharacters.charCodeAt(i);
+            base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
+            while (base64Content.length % 4 !== 0) {
+              base64Content += '=';
             }
 
-            const byteArray = new Uint8Array(byteNumbers);
-            const blob = new Blob([byteArray], { type: mimeType });
-            const unsafeUrl = URL.createObjectURL(blob);
-            this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
-            this.ref.close(this.arr)
+            try {
+              const byteCharacters = atob(base64Content);
+              const byteNumbers = new Array(byteCharacters.length);
+              for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+              }
 
-          } catch (error) {
-            console.error('Error decoding Base64 string:', error);
+              const byteArray = new Uint8Array(byteNumbers);
+              const blob = new Blob([byteArray], { type: mimeType });
+              const unsafeUrl = URL.createObjectURL(blob);
+              this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
+              this.ref.close(this.arr)
+
+            } catch (error) {
+              console.error('Error decoding Base64 string:', error);
+            }
           }
-        }
-      });
+        });
     }
     this.save()
   }
@@ -438,7 +339,6 @@ console.log(existingFile);
       this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
       this.ref.close(this.arr);
     } catch (error) {
-      console.error('Error decoding Base64 string:', error);
     }
   }
 
@@ -483,23 +383,19 @@ console.log(existingFile);
 
 
   updateFileName(index: number, newName: string) {
-      this.filesName[index] =  newName.trim();
-      this.attachmentService.filesName = this.filesName;
-    
-    this.urls[index].name=newName
+    this.filesName[index] = newName.trim();
+    this.attachmentService.filesName = this.filesName;
+
+    this.urls[index].name = newName
   }
 
-  // getFileType(fileName: string): string {
-  //   const extension = fileName.split('.').pop()?.toLowerCase(); // Use optional chaining here
-  //   return '.' + extension!
-  // }
   getFileType(fileName: string | undefined): string {
     if (!fileName) {
       return 'unknown'; // Return a default value if fileName is undefined
     }
-  
+
     const parts = fileName.split('.');
     return parts.length > 1 ? parts[parts.length - 1].toLowerCase() : 'unknown';
   }
-  
+
 }

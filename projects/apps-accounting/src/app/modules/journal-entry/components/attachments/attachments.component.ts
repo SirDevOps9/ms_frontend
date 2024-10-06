@@ -54,7 +54,6 @@ export class AttachmentsComponent implements OnInit  {
       this.add =false;
       this.edit =true;
       this.journalEntryAttachments = this.config.data.journalEntryAttachments
-      console.log(this.journalEntryAttachments);
       
       if(this.journalEntryAttachments.length>0){
        this.attachmentService.attachemntIdsList=this.config.data.journalEntryAttachments
@@ -71,7 +70,6 @@ export class AttachmentsComponent implements OnInit  {
     this.ref.close()
   }
   save(){
-    console.log(this.test ,"ffffffffffffffffff");
     this.ref.close(this.test)
   }
 
