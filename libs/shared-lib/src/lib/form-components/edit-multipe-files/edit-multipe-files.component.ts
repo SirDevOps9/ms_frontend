@@ -31,7 +31,7 @@ export class EditMultipeFilesComponent {
   fileExtension: string[] = [];
   arr: any[] = [];
   @Input() filesData: any;
-  @Input() viewData: any;
+  @Input() viewData: boolean;
   @Input() screen: any;
 
   @Input() imgExtentions = ['image/png', 'image/png', 'application/pdf'];

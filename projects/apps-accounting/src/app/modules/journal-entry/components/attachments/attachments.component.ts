@@ -16,6 +16,7 @@ export class AttachmentsComponent implements OnInit  {
   journalEntryAttachments : any = []
   edit:boolean 
   add:boolean
+  viewData:boolean
   screen:any
   addAttachment() {
     this.attachments.push(this.fb.group({
@@ -49,6 +50,16 @@ export class AttachmentsComponent implements OnInit  {
     }else if(this.config.data.page == ComponentType.add){
       this.edit =false;
      this.add =true;
+    }else if(this.config.data.page == ComponentType.view){
+      this.add =false;
+      this.edit =true;
+      this.journalEntryAttachments = this.config.data.journalEntryAttachments
+      console.log(this.journalEntryAttachments);
+      
+      if(this.journalEntryAttachments.length>0){
+       this.attachmentService.attachemntIdsList=this.config.data.journalEntryAttachments
+      }
+    this.viewData=true
     }
     }
 
