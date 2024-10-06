@@ -52,16 +52,13 @@ export class AttachmentsComponent implements OnInit  {
 
   files(data:any) {
     this.test = data
-    this.attachmentService.attachemntIdsList = data
-    this.journalEntryAttachments = data
+  
   }
   onCancel(){
     this.ref.close()
   }
   save(){
     console.log(this.test ,"ffffffffffffffffff");
-    this.attachmentService.attachemntIdsList = this.test
-
     this.ref.close(this.test)
   }
 

@@ -4,7 +4,7 @@ title="{{ 'Attachments' | translate }}"
 [closeFunction]="onCancel"
 (Submit)="save()"
 >
-<lib-upload-multipe-files  *ngIf="add" [filesData]="filesData.journalEntryAttachments" [viewData]="this.filesData.viewData" [screen]="this.filesData.screen" (sendFiles)="files($event)" ></lib-upload-multipe-files>
+<lib-upload-multipe-files  *ngIf="add"  [viewData]="this.filesData.viewData" [screen]="this.filesData.screen" (sendFiles)="files($event)" ></lib-upload-multipe-files>
 <lib-edit-multipe-files  *ngIf="edit" [filesData]="journalEntryAttachments" [viewData]="this.filesData.viewData" [screen]="this.filesData.screen" (sendFiles)="files($event)" ></lib-edit-multipe-files>
 
 </lib-popup-page>
