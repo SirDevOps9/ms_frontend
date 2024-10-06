@@ -385,7 +385,7 @@ export class CreateJournalEntryComponent {
     .subscribe({
       next: (r) => {
         this.routerService.navigateTo('transcations/journalentry');
-        this.attachmentService.attachmentIds.next([]) 
+        // this.attachmentService.attachemntIdsList=[] 
       },
       error:  (error)  => {
       }

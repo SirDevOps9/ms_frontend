@@ -119,7 +119,7 @@
           this.urls.push({
             id: 0,
             attachmentId: url,
-            name: this.filesName[index] || (url.name ? url.name : `Unknown-${index}`)
+            name: this.filesName[index]
           });
         }
       });
@@ -393,9 +393,26 @@
 
     updateFileName(index: number, newName: string) {
     
-        this.filesName[index] = newName.trim();
+         this.filesName[index] = newName.trim();
         this.attachmentService.filesName =[...this.filesName];
-      this.urls[index].name=newName
+      // this.urls[index].name= newName
+      this.urls.forEach((element:any ,line:number) => {
+        element.name=this.filesName[line]
+        // if(index==inde){
+        //   element.name = newName
+        // }else{
+        //   element.name =this.filesName[inde]
+        // }
+        
+      });
+      // this.urls.forEach((element:any ,inde:number) => {
+      //   if(index==inde){
+      //     element.name = newName
+      //   }else{
+      //     element.name =this.filesName[inde]
+      //   }
+        
+      // });
         // this.setUrls()
 
       // this.onTableDataChange()

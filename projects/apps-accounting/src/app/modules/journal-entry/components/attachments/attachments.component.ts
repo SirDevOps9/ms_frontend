@@ -16,6 +16,7 @@ export class AttachmentsComponent implements OnInit  {
   journalEntryAttachments : any = []
   edit:boolean 
   add:boolean
+  screen:any
   addAttachment() {
     this.attachments.push(this.fb.group({
       attachmentId: ['', customValidators.required],
@@ -43,6 +44,7 @@ export class AttachmentsComponent implements OnInit  {
      this.journalEntryAttachments = this.config.data.journalEntryAttachments
      if(this.config.data.journalEntryAttachments.length>0){
       this.attachmentService.attachemntIdsList=this.config.data.journalEntryAttachments
+      this.screen=this.config.data.screen
      }
     }else if(this.config.data.page == ComponentType.add){
       this.edit =false;

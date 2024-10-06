@@ -28,6 +28,7 @@ export class EditMultipeFilesComponent {
   urls: any = [];
   files: any = [];
   filesName: string[] = [];
+  fileExtension: string[] = [];
   arr: any[] = [];
   @Input() filesData: any;
   @Input() viewData: any;
@@ -42,7 +43,7 @@ export class EditMultipeFilesComponent {
   showText: boolean = true;
   ngOnInit(): void {
     console.log(this.attachmentService.attachemntIdsList,"kkkkkkkkkkkkkk");
- 
+    this.fileExtension = this.attachmentService.fileExtension;
     this.files = this.attachmentService.files;
     this.attachmentService.filesInfo.push(this.attachmentService.filesUrls);
 
@@ -50,6 +51,8 @@ export class EditMultipeFilesComponent {
     if (this.filesData && this.filesData.length > 0) {
       this.filesData.forEach((file: any) => {
         this.filesName.push(file.name);
+        this.fileExtension.push(file.name.split('.').pop());
+
         this.files.push(file); // يمكنك أيضاً الاحتفاظ بالكائن الكامل للملف إذا كنت بحاجة إلى ذلك
         this.editStates.push(false); // إضافة حالة تحرير جديدة
       });
@@ -126,7 +129,8 @@ export class EditMultipeFilesComponent {
             // Pushing the file information to `files` array
             this.files.push(fileItem);
             this.filesName.push(fileItem.name);
-  
+            this.fileExtension.push(fileItem.name.includes('.') ? files[i].name.split('.').pop() || '' : '');
+
             // Create an object of AttachmentDto and push to attachmentService.filesInfo
             let fileInfo: AttachmentDto = {
               fileContent: event.target.result as string,
@@ -226,6 +230,8 @@ save(){
           // this.urls.push(event.target.result);
           this.files.push(files[i]);
           this.filesName.push(files[i].name);
+          this.fileExtension.push(files[i].name.includes('.') ? files[i].name.split('.').pop() || '' : '');
+
           this.sendFiles.emit({
             name: this.filesName,
             attachmentId: this.urls
@@ -245,19 +251,24 @@ save(){
   }
 
   removeFile(test: any, url: any, index: number) {
-
-    if (this.filesData && this.filesData.length > 0) {
+      console.log("1111111111111" ,url , test );
+      
+    if (this.urls && this.urls.length > 0) {
       // تحقق إذا كان الملف موجودًا في الملفات المحملة مسبقًا
-      const existingFile = this.filesData.find((file: any) => file.attachmentId === url || file.name === test);
+      const existingFile = this.filesData.find((file: any) => file.attachmentId === url.attachmentId|| file.name === test);
+console.log(existingFile);
 
       if (existingFile) {
         if (this.screen == Pages.JournalEntry) {
+          console.log("donecccccccccccc");
+          
           this.journalEntryService.deleteAttachment(existingFile.id).then(() => {
             this.journalEntryService.attachmentDeletedObser.subscribe((res: boolean) => {
               if (res) {
                 this.urls.splice(index, 1);
                 this.files.splice(index, 1);
                 this.filesName.splice(index, 1);
+                this.fileExtension.splice(index, 1);
                 this.editStates.splice(index, 1);
 
                 // Optionally, log the updated arrays to check if they're correctly updated
@@ -274,6 +285,7 @@ save(){
         this.urls.splice(index, 1);
         this.files.splice(index, 1);
         this.filesName.splice(index, 1);
+        this.fileExtension.splice(index, 1);
         this.editStates.splice(index, 1);
         this.cdRef.detectChanges();
       }
@@ -281,6 +293,7 @@ save(){
       this.urls.splice(index, 1);
       this.files.splice(index, 1);
       this.filesName.splice(index, 1);
+      this.fileExtension.splice(index, 1);
       this.editStates.splice(index, 1);
 
       this.cdRef.detectChanges();

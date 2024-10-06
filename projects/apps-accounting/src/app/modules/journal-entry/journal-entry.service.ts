@@ -163,7 +163,6 @@ export class JournalEntryService {
         );
         this.loaderService.hide();
         this.attachmentService.attachemntIdsList=[]
-
         this.editJournalLineStatusDataSource.next(true);
         // setTimeout(() => {
         //   location.reload();
