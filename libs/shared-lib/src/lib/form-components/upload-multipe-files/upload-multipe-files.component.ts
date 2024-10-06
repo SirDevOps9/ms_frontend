@@ -7,7 +7,7 @@ import { JournalEntryService } from 'projects/apps-accounting/src/app/modules/jo
 import { EnvironmentService, HttpService } from 'shared-lib';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
-import { window } from 'rxjs';
+import { Subscription, window } from 'rxjs';
 
 @Component({
   selector: 'lib-upload-multipe-files',
@@ -27,12 +27,12 @@ export class UploadMultipeFilesComponent implements OnInit {
   ) {
 
   }
-
   attachmentUrl: SafeResourceUrl = '';
 
   urls: any = [];
   files: any = [];
   filesName: string[] = [];
+  fileExtension: string[] = [];
   arr: any[] = [];
   @Input() filesData: any;
   @Input() viewData: any;
@@ -46,22 +46,12 @@ export class UploadMultipeFilesComponent implements OnInit {
 
   showText: boolean = true;
   ngOnInit(): void {
-    this.urls = this.fb.array([]); // تعريف FormArray
 
-    this.urls = this.attachmentService.filesUrls;
+    this.subscrip()
+    this.fileExtension = this.attachmentService.fileExtension;
     this.filesName = this.attachmentService.filesName;
     this.files = this.attachmentService.files;
     this.attachmentService.filesInfo.push(this.attachmentService.filesUrls);
-
-
-    if (this.filesData && this.filesData.length > 0 && this.urls.length === 0) {
-      this.filesData.forEach((file: any) => {
-        this.urls.push(file.attachmentId); // استخدم attachmentId لعرضه في الجدول
-        this.filesName.push(file.name);
-        this.files.push(file); // يمكنك أيضاً الاحتفاظ بالكائن الكامل للملف إذا كنت بحاجة إلى ذلك
-        this.editStates.push(false); // إضافة حالة تحرير جديدة
-      });
-    }
   }
 
   onSelectFile(event: any) {
@@ -73,8 +63,10 @@ export class UploadMultipeFilesComponent implements OnInit {
 
         reader.onload = ((fileItem) => {
           return (event: any) => {
+
             this.files.push(fileItem);
             this.filesName.push(fileItem.name);
+            this.fileExtension.push(fileItem.name.split('.').pop());
 
             let fileInfo: AttachmentDto = {
               fileContent: event.target.result as string,
@@ -82,16 +74,6 @@ export class UploadMultipeFilesComponent implements OnInit {
             };
             this.attachmentService.filesInfo.push(fileInfo);
             this.attachmentService.uploadValidatedFile(fileInfo);
-            setTimeout(() => {
-              this.attachmentService.attachemntIdsList.forEach((element: any) => {
-
-                if (!this.urls.find((url: any) => url === element)) {
-                  this.urls.push(element);
-                }
-              });
-            }, 500);
-            //  this.sendFiles.emit(this.urls);
-
             this.editStates.push(false); // Initialize edit state for new file
 
             this.cdRef.detectChanges();
@@ -99,37 +81,46 @@ export class UploadMultipeFilesComponent implements OnInit {
         })(file[i]);
 
         reader.readAsDataURL(file[i]);
-
-        this.arr = this.filesData || []
-        setTimeout(() => {
-          let index = 0; // Use a more descriptive name
-
-          this.urls.forEach((url: string) => {
-
-            if (!this.arr?.find((attachment: any) => attachment.attachmentId == url)) {
-              this.arr.push({
-                id: 0,
-                attachmentId: url,
-                name: this.filesName[index] // Assuming filesName has a direct mapping with urls
-              });
-
-            } else {
-              // this.arr = this.filesData
-
-            }
-            index++;
-
-          });
-          this.sendFiles.emit(this.arr);
-
-        }, 3000);
-
-
       }
     }
   }
 
+  subscrip() {
+    this.attachmentService.attachmentIdsObservable.subscribe((res: any) => {
+      this.setUrls()
+    })
 
+
+  }
+  setUrls() {
+    this.urls = []
+    this.attachmentService.attachemntIdsList.forEach((url: any, index: number) => {
+      // تحقق مما إذا كان العنصر موجودًا مسبقًا في المصفوفة
+      const existingItem = this.urls.find((item: any) => item.attachmentId === url);
+
+      if (!existingItem) {
+        // أضف العنصر الجديد إذا لم يكن موجودًا بالفعل          
+        this.urls.push({
+          id: 0,
+          attachmentId: url,
+          name: this.filesName[index]
+        });
+      }
+    });
+    this.processAttachments();
+  }
+  processAttachments() {
+    this.arr = []; // Resetting the array    
+
+
+    this.arr = [...this.urls]; // Create a shallow copy of `urls`
+
+    this.sendFiles.emit(this.arr);
+
+  }
+  onTableDataChange() {
+    this.processAttachments();
+  }
 
 
   onDragDrop(event: DragEvent) {
@@ -142,14 +133,10 @@ export class UploadMultipeFilesComponent implements OnInit {
         const reader = new FileReader();
 
         reader.onload = (event: any) => {
-          this.urls.push(event.target.result);
+          // this.urls.push(event.target.result);
           this.files.push(files[i]);
           this.filesName.push(files[i].name);
-          this.sendFiles.emit({
-            name: this.filesName,
-            attachmentId: this.urls
-          })
-
+          this.fileExtension.push(files[i].name.includes('.') ? files[i].name.split('.').pop() || '' : '');
           this.editStates.push(false); // Initialize edit state for new file
         };
 
@@ -165,50 +152,18 @@ export class UploadMultipeFilesComponent implements OnInit {
 
   removeFile(test: any, url: any, index: number) {
 
-    if (this.filesData && this.filesData.length > 0) {
-      // تحقق إذا كان الملف موجودًا في الملفات المحملة مسبقًا
-      const existingFile = this.filesData.find((file: any) => file.attachmentId === url || file.name === test);
+    if (this.urls && this.urls.length > 0) {
 
-      if (existingFile) {
-        if (this.screen == Pages.JournalEntry) {
-          this.journalEntryService.deleteAttachment(existingFile.id).then(() => {
-            this.journalEntryService.attachmentDeletedObser.subscribe((res: boolean) => {
-              if (res) {
-                this.urls.splice(index, 1);
-                this.files.splice(index, 1);
-                this.filesName.splice(index, 1);
-                this.editStates.splice(index, 1);
-
-                // Optionally, log the updated arrays to check if they're correctly updated
-
-                // Detect changes to update the view
-                this.cdRef.detectChanges();
-              }
-            });
-          });
-
-        }
-
-      } else {
-        this.urls.splice(index, 1);
-        this.files.splice(index, 1);
-        this.filesName.splice(index, 1);
-        this.editStates.splice(index, 1);
-
-        // Optionally, log the updated arrays to check if they're correctly updated
-
-        // Detect changes to update the view
-        this.cdRef.detectChanges();
-      }
-    } else {
       this.urls.splice(index, 1);
+      this.attachmentService.attachemntIdsList.splice(index, 1);
       this.files.splice(index, 1);
       this.filesName.splice(index, 1);
+      this.fileExtension.splice(index, 1);
       this.editStates.splice(index, 1);
 
       this.cdRef.detectChanges();
     }
-
+this.processAttachments()
 
   }
 
@@ -216,81 +171,18 @@ export class UploadMultipeFilesComponent implements OnInit {
   toggleEditState(index: number) {
     this.editStates[index] = !this.editStates[index];
   }
-  downloadFile(url: string, fileName: string) {
-    if (this.filesData && this.filesData.length > 0) {
-      // تحقق إذا كان الملف موجودًا في الملفات المحملة مسبقًا
-      const existingFile = this.filesData.find((file: any) => file.attachmentId === url || file.name === fileName);
-
-      if (existingFile) {
-        this.attachmentService.downloadAttachment(existingFile.attachmentId, fileName, AttachmentFileTypeEnum.image);
-      } else {
-        // إذا لم يكن الملف موجودًا، قم بتحميله مباشرة
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = fileName;
-        link.click();
-      }
-    } else {
-      // إذا كانت filesData فارغة، قم بتحميل الملف مباشرة
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = fileName;
-      link.click();
-    }
+  downloadFile(url: any, fileName: string) {
+    this.attachmentService.downloadAttachment(url.attachmentId, fileName, AttachmentFileTypeEnum.image);
   }
 
 
 
-  reviewAttachment(fileName: any, url: string): void {
-    if (this.filesData && this.filesData.length > 0) {
-      const existingFile = this.filesData.find(
-        (file: any) => file.attachmentId === url || file.name === fileName
-      );
+  reviewAttachment(fileName: any, url: any): void {
+    // const x = url?.attachmentId
+    console.log(url, "000000000000000");
 
-      if (!existingFile) {
-        this.router.navigate(['/attachment-view'], { queryParams: { url: url } });
-        this.ref.close(this.arr);
-        return
-      }
-
-      this.httpService
-        .getFullUrl(
-          `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
-          existingFile.attachmentId
-        )
-        .subscribe((apiResponse: any) => {
-          if (apiResponse) {
-            let base64Content = apiResponse.fileContent;
-            const mimeType = apiResponse.base64Padding.split(';')[0].split(':')[1];
-
-            base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
-            while (base64Content.length % 4 !== 0) {
-              base64Content += '=';
-            }
-
-            try {
-              const byteCharacters = atob(base64Content);
-              const byteNumbers = new Array(byteCharacters.length);
-              for (let i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
-              }
-
-              const byteArray = new Uint8Array(byteNumbers);
-              const blob = new Blob([byteArray], { type: mimeType });
-              const unsafeUrl = URL.createObjectURL(blob);
-              this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
-              this.ref.close(this.arr)
-
-            } catch (error) {
-              console.error('Error decoding Base64 string:', error);
-            }
-          }
-        });
-    }else{
-      this.httpService.getFullUrl(
-        `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
-        url
-      )
+    this.httpService.getFullUrl(
+      `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` + url.attachmentId)
       .subscribe((apiResponse: any) => {
         if (apiResponse) {
           let base64Content = apiResponse.fileContent;
@@ -319,7 +211,7 @@ export class UploadMultipeFilesComponent implements OnInit {
           }
         }
       });
-    }
+
   }
 
 
@@ -393,9 +285,11 @@ export class UploadMultipeFilesComponent implements OnInit {
 
 
   updateFileName(index: number, newName: string) {
-    setTimeout(() => {
-      this.filesName[index] = newName;
-      this.attachmentService.filesName = [...this.filesName];
+
+    this.filesName[index] = newName.trim();
+    this.attachmentService.filesName = [...this.filesName];
+    this.urls.forEach((element: any, line: number) => {
+      element.name = this.filesName[line]
     });
   }
 
@@ -403,4 +297,5 @@ export class UploadMultipeFilesComponent implements OnInit {
     const extension = fileName.split('.').pop()?.toLowerCase(); // Use optional chaining here
     return '.' + extension!
   }
+
 }

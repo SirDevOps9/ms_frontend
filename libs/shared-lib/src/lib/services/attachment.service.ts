@@ -21,7 +21,7 @@ import { UploadFileResult } from '../models/uploadFileResult';
 })
 export class AttachmentsService {
   private attachmentIdDataSource = new BehaviorSubject<string>('');
-  private attachmentIds = new BehaviorSubject<any>([]);
+  public attachmentIds = new BehaviorSubject<any>([]);
   public attachmentIdsObservable = this.attachmentIds.asObservable()
 
   public attachemntId = this.attachmentIdDataSource.asObservable();
@@ -31,6 +31,7 @@ export class AttachmentsService {
   public validationErrors = this.validationErrorsDataSource.asObservable();
   filesInfo : any = []
   filesName: any = []
+  fileExtension: any = []
   filesUrls : any = []
   files : any = []
   attachemntIdsList : string[] = []

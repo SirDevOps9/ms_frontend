@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AttachmentsService, LanguageService, PageInfo, RouterService } from 'shared-lib';
+import { AttachmentsService, ComponentType, LanguageService, PageInfo, RouterService } from 'shared-lib';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { JournalEntryViewDto } from '../../../models';
 import { Title } from '@angular/platform-browser';
@@ -99,7 +99,7 @@ export class ViewJournalEntryComponent implements OnInit {
       height: '1000px',
       data: {
         journalEntryAttachments: this.journalView?.journalEntryAttachments,
-        viewData: viewdata
+        page: ComponentType.view,
       }
       
     });

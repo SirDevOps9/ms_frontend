@@ -1,0 +1,114 @@
+.imgMulti {
+    border: 1px solid #ddd;
+    height: 80px;
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover; /* or contain, fill, scale-down, none */
+    margin-bottom: 5px;
+
+
+}
+
+::ng-deep .inputCont 
+    .p-inputtext:enabled:focus {
+        outline: 0 none;
+        outline-offset: 0;
+         box-shadow:none !important;
+        border-color: #1a90b0 !important;
+    }
+
+
+.pdfCont{
+    border: 1px solid #ddd;
+    height: 80px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.card {
+    border-radius: 10px;
+    width: 200px; 
+    max-width: 200px; 
+    overflow: hidden;
+    margin-top: 20px;
+    transition: transform 0.2s;
+    border: 1px solid #ddd;
+    padding: 10px;
+    min-height: 200px;
+    text-align: center;
+    word-wrap: break-word;
+  }
+ .fileicons{
+    font-size: 1rem;
+ }
+
+ .pdfFile{
+    font-size: 3rem;
+    color: red;
+
+ }
+
+ .uploadIconContainer{
+    width: 60px;
+    height: 60px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+
+ }
+ .uploadIcon{
+    font-size: 8rem;
+    color: #1a90b0;
+
+ }
+ .uploadParent{
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+ }
+ .chooseImg{
+    color: #3b82f6;
+    font-size: 2rem;
+ }
+ .parent {
+    display: flex;
+    flex-wrap: wrap;
+ }
+
+ .fileName{
+    height: 40px;
+    max-height: 40px;
+    margin-top: 5px;
+ }
+
+ .circleDiv {
+    margin-top: 5px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+ }
+ .circleDiv:hover {
+    margin-top: 5px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #3b82f6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    .fileicons{
+        font-size: 1rem;
+        color: #3b82f6;
+     }
+ }
+ .action{
+   gap: 8px;
+ }
