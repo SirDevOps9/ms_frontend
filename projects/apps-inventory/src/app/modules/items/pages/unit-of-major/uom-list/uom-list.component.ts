@@ -31,6 +31,7 @@ export class UOMListComponent implements OnInit {
 
   }
   ngOnInit(): void {
+
     this.initTreasurData()
     
 
@@ -71,7 +72,10 @@ export class UOMListComponent implements OnInit {
   }
 
   exportClick(e?: Event) {
-    this.exportBankData(this.searchTerm);
+    
+      this.exportBankData(this.searchTerm);
+  
+
   }
 
   exportBankData(searchTerm: string) {

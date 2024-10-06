@@ -39,6 +39,7 @@ export class AddItemDefinitionPopupComponent implements OnInit {
   }
   uomCategoryChanged(e : any) {
     this.getUomDropDown(e)
+    
   }
   initItemTypeLookupData() {
     this.itemsService.ItemCategoryDropDown()
@@ -50,12 +51,28 @@ export class AddItemDefinitionPopupComponent implements OnInit {
     this.itemsService.uomCodeDropDown(id)
     this.itemsService.uomCodeLookupObs.subscribe(res=>{
       this.UOMCategoryDropDown = res
+
+      console.log( this.UOMCategoryDropDown)
+
+      let defaultUnit =  this.UOMCategoryDropDown.find(elem=>elem.isDefault)
+      console.log(defaultUnit?.id)
+
+        this.itemDefinitionForm.get('uomId')?.setValue(defaultUnit?.id)
+
+
+    
     })
+  }
+
+  UOMCategoryDropDownChanged(event: any) {
+    this.itemDefinitionForm.get('uomId')?.setValue(event)
   }
   ItemCategoryDropDownData() {
     this.itemsService.UOMCategoryDropDown()
     this.itemsService.UOMCategoryDropDownLookupObs.subscribe(res=>{
       this.ItemCategoryDropDown = res
+
+    
     })
   }
 

@@ -9,6 +9,8 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 export class PopupPageComponent {
   @Input() title: string;
   @Input() save: boolean=true;
+  @Input() export: boolean=true;
+  
   @Input() footer: boolean=true;
   @Input() disabled: boolean;
   @Input() closeFunction: () => void;

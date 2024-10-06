@@ -44,9 +44,9 @@ export class EditWarehouseComponent implements OnInit {
    this.warehouseForm = this.fb.group({
     id: this.id,
     code: [''],
-    name: [''],
-    warehouseType: [''],
-    branchWarehouses: [0],
+    name: ['', [customValidators.required]],
+    warehouseType: ['', [customValidators.required]],
+    branchWarehouses: [0, [customValidators.required]],
     addressWarehouse: this.fb.group({
       city: [''],
       addressLine: [''],
@@ -87,7 +87,7 @@ getWarehouseById() {
     this.warehouseForm.patchValue({
       code: res.code,
       name: res.name,
-      warehouseType: res.warehouseType,
+      warehouseType: this.warehouseType.find(elem=>elem.label == res.warehouseType)?.value,
       branchWarehouses: res?.branchWarehouses?.map((bw : any) => bw.branchId), // Assuming you want to patch warehouseId
       addressWarehouse: {
         city: res?.addressWarehouse?.city,
@@ -199,8 +199,20 @@ getWarehouseById() {
   }
 
   onSubmit() {
-    console.log(this.warehouseForm.getRawValue())
-    this.itemsService.editWarehouse(this.warehouseForm.getRawValue())
+    if (!this.formService.validForm(this.warehouseForm, false)) return;
+
+    let warehouseData = this.warehouseForm.getRawValue();
+
+    // Safely check for addressWarehouse
+    if (!!warehouseData.addressWarehouse  ) {
+      warehouseData.addressWarehouse = null;
+    }
+    
+    // Safely check for warehouseAccount
+    if (!!warehouseData.warehouseAccount ) {
+      warehouseData.warehouseAccount = null;
+    }
+    this.itemsService.editWarehouse(warehouseData)
    
   }
   onCancel() {

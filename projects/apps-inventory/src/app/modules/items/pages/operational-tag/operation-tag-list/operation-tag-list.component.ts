@@ -1,10 +1,103 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { AuthService } from 'microtec-auth-lib';
+import { PageInfoResult, RouterService, LanguageService, PageInfo } from 'shared-lib';
+import { ItemsService } from '../../../items.service';
+import { IOperationalTagResult } from '../../../models';
 
 @Component({
   selector: 'app-operation-tag-list',
   templateUrl: './operation-tag-list.component.html',
-  styleUrl: './operation-tag-list.component.scss'
+  styleUrl: './operation-tag-list.component.scss',
 })
-export class OperationTagListComponent {
+export class OperationTagListComponent implements OnInit {
+  tableData: IOperationalTagResult[] = [];
+  currentPageInfo: PageInfoResult = { totalItems: 0 };
+  searchTerm: string;
+  exportData: IOperationalTagResult[];
+  exportColumns: any[];
 
+  constructor(
+    private routerService: RouterService,
+    private itemService: ItemsService,
+
+    public authService: AuthService,
+    private title: Title,
+    private langService: LanguageService
+  ) {
+    this.title.setTitle(this.langService.transalte('OperationalTag.OperationalTag'));
+  }
+  ngOnInit(): void {
+    this.initOperationalTagData();
+
+    this.itemService.currentPageInfo.subscribe((currentPageInfo) => {
+      this.currentPageInfo = currentPageInfo;
+    });
+  }
+
+  initOperationalTagData() {
+    this.itemService.getOperationalTagList('', new PageInfo());
+
+    this.itemService.listOfOperationalTag$.subscribe({
+      next: (res) => {
+        debugger;
+        this.tableData = res;
+      },
+    });
+
+    this.itemService.currentPageInfo.subscribe((currentPageInfo) => {
+      this.currentPageInfo = currentPageInfo;
+    });
+  }
+
+  Add() {
+    this.routerService.navigateTo('/masterdata/operational-tag/add-operational-tag');
+  }
+
+  onSearchChange() {
+    this.itemService.getOperationalTagList(this.searchTerm, new PageInfo());
+
+    this.itemService.listOfOperationalTag$.subscribe({
+      next: (res) => {
+        debugger;
+        this.tableData = res;
+      },
+    });
+
+    this.itemService.currentPageInfo.subscribe((currentPageInfo) => {
+      this.currentPageInfo = currentPageInfo;
+    });
+ 
+  }
+  onPageChange(pageInfo: PageInfo) {
+    this.itemService.getOperationalTagList('', pageInfo);
+
+    this.itemService.listOfOperationalTag$.subscribe({
+      next: (res) => {
+        debugger;
+        this.tableData = res;
+      },
+    });
+  }
+
+  exportClick(e?: Event) {
+    debugger;
+    this.exportOperationalData(this.searchTerm);
+  }
+
+  exportOperationalData(searchTerm: string) {
+    // debugger
+    this.itemService.ExportOperationalTagList(searchTerm);
+
+    this.itemService.SendExportOperationalTagList$.subscribe((res) => {
+      this.exportData = res;
+    });
+  }
+  onEdit(data: any) {
+    this.routerService.navigateTo(`/masterdata/operational-tag/edit-operational-tag/${data.id}`);
+  }
+  onDelete(id: number) {
+    this.itemService.deleteOperationalTag(id);
+    this.initOperationalTagData();
+  }
 }
