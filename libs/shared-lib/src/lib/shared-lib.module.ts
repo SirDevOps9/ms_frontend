@@ -28,6 +28,8 @@ import {
 } from './form-components';
 import { DropdownModule } from 'primeng/dropdown';
 import { GetLookupPipe } from './pipes/lookupList';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+
 import { PageContentComponent } from './components/page-content/page-content.component';
 import { PrimeSharedModule } from './prime-module/prime.module';
 import { FileUploaderComponent } from './form-components/file-uploader/file-uploader.component';
@@ -112,7 +114,8 @@ import { ActtachmentViewComponent } from 'libs/apps-shared-lib/src/lib/pages/att
     TreeTableModule,
     TreeModule,
     ProgressSpinnerModule,
-    QRCodeModule
+    QRCodeModule,
+    InputTextareaModule
     
   ],
   exports: [
@@ -162,7 +165,8 @@ import { ActtachmentViewComponent } from 'libs/apps-shared-lib/src/lib/pages/att
     NumberFormatPipe,
     PopupPageComponent,
     NumberFormatDirective,
-    QRCodeModule
+    QRCodeModule,
+    InputTextareaModule
   ],
 })
 export class SharedLibModule {}

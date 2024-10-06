@@ -53,7 +53,7 @@
             </div>
             <div class="col-9 my-2">
               <lib-form-group>
-                <lib-label [appControl]="warehouseForm.controls['code']">
+                <lib-label [appControl]="warehouseForm.controls['name']">
                     {{ 'warehouse.name' | translate }}
                   </lib-label>
                 <lib-text-input
@@ -63,7 +63,7 @@
                   class="form-control"
                 />
                 <lib-field-validations
-                  [appControl]="warehouseForm.controls['code']"
+                  [appControl]="warehouseForm.controls['name']"
                 ></lib-field-validations>
               </lib-form-group>
             </div>
@@ -289,7 +289,7 @@
                 <!--  -->
              </div>
             </p-tabPanel>
-            <p-tabPanel  header="{{'warehouse.address' | translate}}">
+            <p-tabPanel  header="{{'warehouse.address' | translate}}" *ngIf="warehouseForm.get('warehouseType')?.value == 1">
               <div class="grid">
                 <div class="md:col-6 grid">
                   <ng-container [formGroupName]="'addressWarehouse'">

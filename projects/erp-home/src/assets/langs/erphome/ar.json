@@ -465,6 +465,7 @@
     "Success": "نجاح",
     "TaxName": "اسم الضريبة",
     "AddTaxDefinition": "إضافة تعريف الضريبة",
+    "EditTaxDefinition": "تعديل تعريف الضريبة",
     "TaxCode": "كود الضريبة",
     "Ratio": "النسبة",
     "GlAccount": "حساب الأستاذ العام",

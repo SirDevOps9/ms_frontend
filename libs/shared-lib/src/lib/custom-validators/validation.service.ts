@@ -12,7 +12,7 @@ import {
   onlyLettersValidator,
 } from './stringValidators';
 import { IsAgreedToTermsRequired } from './agreedToTermsValidator';
-import { IsValidCRNumber } from './saudiIdsValidators';
+import { IsValidCRNumber, onlyEnglishLetters } from './saudiIdsValidators';
 import { IsValid700Number } from './saudiIdsValidators';
 import { validPassword } from './passwordValidators';
 import { ConfirmPasswordValidator } from './passwordValidators';
@@ -25,6 +25,7 @@ import { IsValidEmail } from './emailValidators';
 import { IsRequired } from './requiredValidators';
 import { fileValidator } from './attachmentValidators';
 import { debitAndCreditValidator } from './debit-credit-validator';
+import { onlyArabicLetters } from './arabicPattern';
 
 export const customValidators = {
   notOnlyWhitespaceValidator: notOnlyWhitespaceValidator,
@@ -54,5 +55,7 @@ export const customValidators = {
   onlyLetter: onlyLettersValidator,
   debitAndCreditBothCanNotBeZero:debitAndCreditValidator,
   nonNegativeNumbers: nonNegativeValidator,
-  noAlphabeticCharacter: noAlphabeticValidator
+  noAlphabeticCharacter: noAlphabeticValidator,
+  onlyEnglishLetters: onlyEnglishLetters,
+  onlyArabicLetters: onlyArabicLetters,
 };
