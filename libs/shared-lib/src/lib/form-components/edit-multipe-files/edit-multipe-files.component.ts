@@ -54,7 +54,7 @@ export class EditMultipeFilesComponent {
         this.editStates.push(false); // إضافة حالة تحرير جديدة
       });
     }
-    this.urls= this.attachmentService.attachemntIdsList
+     this.urls = this.attachmentService.attachemntIdsList
     this.subscrip()
   }
 
@@ -160,33 +160,44 @@ export class EditMultipeFilesComponent {
   }
   
   subscrip() {
-    this.attachmentService.attachmentIdsObservable.subscribe((res: any) => {  
+    this.attachmentService.attachmentIdsObservable.subscribe((res: any) => { 
+      console.log(res ,"yyyyyyyyyyyyyyyyy");
+
       res.forEach((url: any, index: number) => {
-        if (!this.urls.some((item: any) => item.attachmentId === url)) {
-          // Make sure attachmentId is always a string
-          let attachmentId = typeof url === 'string' ? url : '';
-  
-          if (attachmentId) {
+        const existingItem = this.urls.find((item: any) => item.attachmentId != url.attachmentId || item.attachmentId != url)
+          if (!existingItem) {
+            console.log(url ,"44444444444");
+
             this.urls.push({
               id: 0,
-              attachmentId: attachmentId,
+              attachmentId: url,
               name:this.filesName[index]||url.name
             });
           }
-  
-          console.log(this.urls, "updated urls array");
-          console.log(this.filesName, "filesName");
-        }
+        });
+        this.save()
+
       });
+  console.log(this.urls ,"ggggggggggggggggg");
   
-       this.save()
-    });
+    // });
   }
   
 save(){
   this.arr=[]
   console.log(this.filesName ,"filesName");
-  this.arr = [...this.urls]; // Create a shallow copy of `urls`
+  this.urls.forEach((element:any , index :number) => {
+    if(element.attachmentId){
+      this.arr.push(element)
+    }else{
+      this.arr.push({
+        id:0,
+        attachmentId:element,
+        name:this.filesName[index]
+      })
+    }
+  });
+  // this.arr = [...this.urls]; // Create a shallow copy of `urls`
   this.sendFiles.emit(this.arr);
   console.log(this.arr ,"arrrrrrrr");
   
@@ -202,7 +213,7 @@ save(){
         const reader = new FileReader();
 
         reader.onload = (event: any) => {
-          this.urls.push(event.target.result);
+          // this.urls.push(event.target.result);
           this.files.push(files[i]);
           this.filesName.push(files[i].name);
           this.sendFiles.emit({
