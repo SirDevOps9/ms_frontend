@@ -162,19 +162,28 @@ export class EditMultipeFilesComponent {
   subscrip() {
     this.attachmentService.attachmentIdsObservable.subscribe((res: any) => { 
       console.log(res ,"yyyyyyyyyyyyyyyyy");
+      this.urls.forEach((element:any , index :number) => {
+        if(!element.attachmentId){
+          this.urls.splice(index, 1)
+          this.urls.push({
+            id:0,
+            attachmentId:element,
+            name:this.filesName[index]
+          })
+        }
+      });
+      // res.forEach((url: any, index: number) => {
+      //   const existingItem = this.urls.find((item: any) => item.attachmentId != url.attachmentId || item.attachmentId != url)
+      //     if (!existingItem) {
+      //       console.log(url ,"44444444444");
 
-      res.forEach((url: any, index: number) => {
-        const existingItem = this.urls.find((item: any) => item.attachmentId != url.attachmentId || item.attachmentId != url)
-          if (!existingItem) {
-            console.log(url ,"44444444444");
-
-            this.urls.push({
-              id: 0,
-              attachmentId: url,
-              name:this.filesName[index]||url.name
-            });
-          }
-        });
+      //       this.urls.push({
+      //         id: 0,
+      //         attachmentId: url,
+      //         name:this.filesName[index]||url.name
+      //       });
+      //     }
+      //   });
         this.save()
 
       });
@@ -199,8 +208,9 @@ save(){
   });
   // this.arr = [...this.urls]; // Create a shallow copy of `urls`
   this.sendFiles.emit(this.arr);
+  // this.attachmentService.attachemntIdsList = this.arr
   console.log(this.arr ,"arrrrrrrr");
-  
+
 }
   
   onDragDrop(event: DragEvent) {
@@ -462,9 +472,8 @@ save(){
   updateFileName(index: number, newName: string) {
       this.filesName[index] =  newName.trim();
       this.attachmentService.filesName = this.filesName;
-    console.log(this.filesName ,"this.filesName");
     
-    this.save()
+    this.urls[index].name=newName
   }
 
   // getFileType(fileName: string): string {
