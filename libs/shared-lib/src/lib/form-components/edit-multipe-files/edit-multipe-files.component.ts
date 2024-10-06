@@ -3,6 +3,7 @@ import { SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { JournalEntryService } from 'projects/apps-accounting/src/app/modules/journal-entry/journal-entry.service';
+import { take } from 'rxjs';
 import { AttachmentDto, AttachmentFileTypeEnum, AttachmentsService, EnvironmentService, HttpService, Pages } from 'shared-lib';
 
 @Component({
@@ -165,23 +166,42 @@ export class EditMultipeFilesComponent {
       const existingFile = this.filesData.find((file: any) => file.attachmentId === url.attachmentId || file.name === test);
 
       if (existingFile) {
-        if (this.screen == Pages.JournalEntry) {
+        if(url.id == 0){
+          console.log(url ,"11111111");
+          
+          this.urls.splice(index, 1);
+          this.files.splice(index, 1);
+          this.filesName.splice(index, 1);
+          this.fileExtension.splice(index, 1);
+          this.editStates.splice(index, 1);
+          this.cdRef.detectChanges();
+        }
+        else{
+           if (this.screen == Pages.JournalEntry) {
 
-          this.journalEntryService.deleteAttachment(existingFile.id).then(() => {
-            this.journalEntryService.attachmentDeletedObser.subscribe((res: boolean) => {
-              if (res) {
-                this.urls.splice(index, 1);
+            this.journalEntryService.deleteAttachment(existingFile.id).then(()=>{
+
+            setTimeout(() => {
+              if (this.journalEntryService.attachmentDeleted) {
+                console.log("Attachment deleted successfully.");
+                this.attachmentService.attachemntIdsList.splice(index, 1);
                 this.files.splice(index, 1);
                 this.filesName.splice(index, 1);
                 this.fileExtension.splice(index, 1);
                 this.editStates.splice(index, 1);
-                this.cdRef.detectChanges();
+                // this.journalEntryService.attachmentDeleted=false
+              } else {
+                console.log("Attachment deletion failed.");
               }
-            });
-          });
+              this.cdRef.detectChanges();
+            }, 100);
+          
+            })
 
+          }
+  
         }
-
+      
       } else {
         this.urls.splice(index, 1);
         this.files.splice(index, 1);
@@ -200,7 +220,7 @@ export class EditMultipeFilesComponent {
       this.cdRef.detectChanges();
     }
 
-
+this.save()
   }
 
   toggleEditState(index: number) {

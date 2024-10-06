@@ -152,37 +152,10 @@ export class UploadMultipeFilesComponent implements OnInit {
 
   removeFile(test: any, url: any, index: number) {
 
-    if (this.filesData && this.filesData.length > 0) {
-      // تحقق إذا كان الملف موجودًا في الملفات المحملة مسبقًا
-      const existingFile = this.filesData.find((file: any) => file.attachmentId === url || file.name === test);
+    if (this.urls && this.urls.length > 0) {
 
-      if (existingFile) {
-        if (this.screen == Pages.JournalEntry) {
-          this.journalEntryService.deleteAttachment(existingFile.id).then(() => {
-            this.journalEntryService.attachmentDeletedObser.subscribe((res: boolean) => {
-              if (res) {
-                this.urls.splice(index, 1);
-                this.files.splice(index, 1);
-                this.filesName.splice(index, 1);
-                this.fileExtension.splice(index, 1);
-                this.editStates.splice(index, 1);
-                this.cdRef.detectChanges();
-              }
-            });
-          });
-
-        }
-
-      } else {
-        this.urls.splice(index, 1);
-        this.files.splice(index, 1);
-        this.filesName.splice(index, 1);
-        this.fileExtension.splice(index, 1);
-        this.editStates.splice(index, 1);
-        this.cdRef.detectChanges();
-      }
-    } else {
       this.urls.splice(index, 1);
+      this.attachmentService.attachemntIdsList.splice(index, 1);
       this.files.splice(index, 1);
       this.filesName.splice(index, 1);
       this.fileExtension.splice(index, 1);
@@ -190,7 +163,7 @@ export class UploadMultipeFilesComponent implements OnInit {
 
       this.cdRef.detectChanges();
     }
-
+this.processAttachments()
 
   }
 
