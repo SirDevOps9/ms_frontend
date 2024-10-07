@@ -12,6 +12,7 @@ import {
 import { JournalEntryService } from '../../journal-entry.service';
 import {
   AttachmentsService,
+  ComponentType,
   FormsService,
   LanguageService,
   PageInfo,
@@ -625,6 +626,7 @@ export class EditJournalEntryComponent implements OnInit {
       data: {
         journalEntryAttachments: this.journalEntryAttachment,
         screen: Pages.JournalEntry,
+        page: ComponentType.edit,
       }
     });
   
