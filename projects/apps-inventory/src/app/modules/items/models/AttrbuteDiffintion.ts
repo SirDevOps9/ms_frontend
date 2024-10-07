@@ -29,6 +29,7 @@ export interface IAttrributeDifinition {
   }
   
   export interface addAttributeDifintion {
+    id?: number
     nameAr: string
     nameEn: string
     itemAttributeDtos: ItemAttributeDto[]
@@ -36,6 +37,7 @@ export interface IAttrributeDifinition {
 
   
   export interface ItemAttributeDto {
+    id?: number
     nameEn: string
     nameAr: string
     isActive: boolean

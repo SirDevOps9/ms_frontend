@@ -1,13 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { AccountDto } from 'projects/apps-accounting/src/app/modules/account/models';
-import { Balance } from 'projects/apps-finance/src/app/modules/finance/models';
-import { UserPermission } from 'projects/apps-finance/src/app/modules/finance/models/user-permission';
-import { CurrencyDto } from 'projects/apps-finance/src/app/modules/general/models';
 import { FormsService, LanguageService, RouterService, customValidators } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
-import { addAttributeDifintion } from '../../../models';
 import { itemAttributeValues } from '../../../models/itemAttributeValues';
 
 @Component({
@@ -94,6 +89,7 @@ export class AddAttributeDefinitionComponent implements OnInit {
 
     if (!this.formsService.validForm(this.attrFormGroup, false)) return;
     if (!this.formsService.validForm(this.attrTableForm, false)) return;
+    if(this.attrTableForm.length == 0)return
     debugger
     let formGroupVal = this.attrFormGroup.value;
     delete formGroupVal.attributeId;

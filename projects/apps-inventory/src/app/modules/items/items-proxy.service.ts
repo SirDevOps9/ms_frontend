@@ -4,7 +4,7 @@ import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { addBarcode, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddVariantLine, AddWarehouse, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, UomDefault } from './models';
 import { EditItemDefinitionDto } from './models/editItemDefinitionDto';
 import { variantGroupById } from './models/variantGroupById';
-import { itemAttributeValues } from './models/itemAttributeValues';
+import { itemAttributeValues, itemAttributeValuesByID } from './models/itemAttributeValues';
 import { getBarcodeById } from './models/getBarcodeById';
 import { AddUom, UomPost } from './models/addUom';
 import { addAttributeDifintion, IAttrributeDifinition } from './models/AttrbuteDiffintion';
@@ -144,8 +144,8 @@ export class ItemsProxyService {
   return this.httpService.get(`AttributeGroup/AttributeGroupDropDown
 `)
  }
- attributeGroupsValue(id:number) : Observable<itemAttributeValues[]> {
-  return this.httpService.get(`AttributesVariants/ItemAttributeByIdDropDown?Id=${id}`)
+ attributeGroupsValue(id:number) : Observable<itemAttributeValuesByID> {
+  return this.httpService.get(`AttributeGroup/${id}`)
  }
  attributeGroupsValuesData(id:number) : Observable<itemAttributeValues[]> {
   return this.httpService.get(`api/ItemAttributesGroup/GetAttributesByLineId?Id=${id}`)
@@ -262,7 +262,7 @@ export class ItemsProxyService {
     return this.httpService.put(`UOM/Edit` , obj) 
    }
   updateAttrDifinition(obj:addAttributeDifintion) {
-    return this.httpService.put(`ItemAttribute/Edit` , obj) 
+    return this.httpService.put(`AttributeGroup/EditAttributeGroupWithAttributeValues` , obj) 
    }
 
   generateVariant(obj : any) {

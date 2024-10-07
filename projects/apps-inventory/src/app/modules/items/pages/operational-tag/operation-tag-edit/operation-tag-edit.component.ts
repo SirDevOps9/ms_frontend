@@ -44,7 +44,7 @@ export class OperationTagEditComponent implements OnInit {
 
     this.initForm();
     this.initWareHouseLookupData()
-
+    this.getAccount()
     if(id){
 
       this.getOperationalTagById(id)
