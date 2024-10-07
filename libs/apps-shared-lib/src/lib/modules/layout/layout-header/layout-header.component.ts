@@ -25,6 +25,7 @@ import { ModuleListComponent } from '../../../components/module-list/module-list
 import { LayoutService } from '../layout.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { CompanyTypes } from '../../sequence/models/companyTypes';
 
 @Component({
   selector: 'app-layout-header',
@@ -63,9 +64,11 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
     else if (this.router.snapshot.data['moduleId'] === Modules.Purchase)
       this.moduleName = 'Purchase';
     else if (this.router.snapshot.data['moduleId'] === Modules.Sales) this.moduleName = 'Sales';
-    // this.setDefaulatCompany();
+    this.setDefaulatCompany();
 
-    // this.updateValue();
+    // setTimeout(()=>{
+    //   this.setDefaulatCompany();
+    // },500)
   }
 
   toggleLanguage(): void {
@@ -167,7 +170,7 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
     // this.layoutService.companyListDropDown$.subscribe((res) => {
     //   this.companyList = res;
     //   if (res.some((x) => x.id === storedCompanyId)) {
-    //     let matchedBranch = res.filter((x) => x.id === storedCompanyId)[0].id;
+    //     let matchedBranch = res.filter((x) => x.id === storedCompanyId)[0]?.id;
 
     //     this.coBrForm.get('companyId')?.setValue(matchedBranch);
 
@@ -176,14 +179,14 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
 
     const companies = this.localstoarage.getItem('companies');
     this.companyList = companies;
-    // if (companies?.some((x: {id:string , name : string,companyType : string}) => x.id === storedCompanyId)) {
+    if (companies?.some((x: {id:string , name : string,companyType : string}) => x.id === storedCompanyId)) {
     let matchedBranch = companies?.filter(
       (x: { id: string; name: string; companyType: string }) => x.id === storedCompanyId
-    )[0].id;
+    )[0]?.id;
 
     this.coBrForm.get('companyId')?.setValue(matchedBranch);
 
-    // }
+    }
     this.setDefaultBranch(storedCompanyId);
   }
   setDefaultBranch(id: string) {
@@ -196,7 +199,7 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
 
     //     this.branchList = res;
     //     if (res.some((x) => x.id === storedBranchId)) {
-    //       let matchedBranch = res.filter((x) => x.id === storedBranchId)[0].id;
+    //       let matchedBranch = res.filter((x) => x.id === storedBranchId)[0]?.id;
 
     //       this.coBrForm.get('branchId')?.setValue(matchedBranch);
 
@@ -214,21 +217,16 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
     const branches = this.localstoarage.getItem('branches');
     this.branchList = branches;
     if (id) {
-      // if (branches?.some((x:  {id:string , name : string,isDefault : boolean}) => x.id === storedBranchId)) {
+      if (branches?.some((x:  {id:string , name : string,isDefault : boolean}) => x.id === storedBranchId)) {
       let matchedBranch = branches?.filter(
         (x: { id: string; name: string; isDefault: boolean }) => x.id === storedBranchId
-      )[0].id;
+      )[0]?.id;
 
       this.coBrForm.get('branchId')?.setValue(matchedBranch);
 
-      // }
+      }
     }
   }
-  updateValue() {
-    if (this.coBrForm.getRawValue().companyId == null) {
-      setTimeout(() => {
-        this.routerService.goToHomePage();
-      }, 500);
-    }
-  }
+
+  
 }
