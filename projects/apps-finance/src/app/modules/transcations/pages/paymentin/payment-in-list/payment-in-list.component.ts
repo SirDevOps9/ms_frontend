@@ -99,6 +99,7 @@ export class PaymentInListComponent {
   }
 
   onSearchChange(event: any) {
+    this.searchTerm=event
     this.financeService.getAllPaymentIn(event, new PageInfo());
   }
 
