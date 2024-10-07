@@ -21,6 +21,7 @@
     "name": "اسم",
     "actions": "إجراءات",
     "type": "امتداد الملف",
+      "download": "تحميل",
 
     "sequence": {
       "sequence": "تسلسل",

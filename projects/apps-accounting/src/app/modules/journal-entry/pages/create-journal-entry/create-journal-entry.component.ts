@@ -1,5 +1,5 @@
 import { CurrencyService } from './../../../general/currency.service';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   AttachmentsService,
@@ -53,7 +53,7 @@ export interface JournalEntryFormValue {
   templateUrl: './create-journal-entry.component.html',
   styleUrl: './create-journal-entry.component.scss',
 })
-export class CreateJournalEntryComponent {
+export class CreateJournalEntryComponent implements OnInit , OnDestroy  {
   fg: FormGroup;
   totalDebitAmount: number;
   totalDebitAmountLocal: number;
@@ -633,5 +633,10 @@ export class CreateJournalEntryComponent {
       0
     );
     return totalPercentage;
+  }
+  
+  ngOnDestroy(): void {
+    this.attachmentService.attachemntIdsList=[] 
+
   }
 }

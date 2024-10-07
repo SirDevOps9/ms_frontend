@@ -47,11 +47,14 @@ export class UploadMultipeFilesComponent implements OnInit {
   showText: boolean = true;
   ngOnInit(): void {
 
-    this.subscrip()
     this.fileExtension = this.attachmentService.fileExtension;
+    console.log(this.attachmentService.filesName ,"ddddddddddddddddddddddddddddddddd");
+    
     this.filesName = this.attachmentService.filesName;
     this.files = this.attachmentService.files;
     this.attachmentService.filesInfo.push(this.attachmentService.filesUrls);
+    this.subscrip()
+
   }
 
   onSelectFile(event: any) {
@@ -87,8 +90,8 @@ export class UploadMultipeFilesComponent implements OnInit {
 
   subscrip() {
     this.attachmentService.attachmentIdsObservable.subscribe((res: any) => {
-      this.setUrls()
-    })
+       this.setUrls()
+    });
 
 
   }
@@ -99,14 +102,22 @@ export class UploadMultipeFilesComponent implements OnInit {
       const existingItem = this.urls.find((item: any) => item.attachmentId === url);
 
       if (!existingItem) {
+        // let filesName = this.filesName[index]
+        // let dotIndex = filesName.lastIndexOf(".");
+        // let name = filesName.substring(0, dotIndex); // الاسم
+        // let extension = filesName.substring(dotIndex + 1); // الامتداد
         // أضف العنصر الجديد إذا لم يكن موجودًا بالفعل          
         this.urls.push({
           id: 0,
           attachmentId: url,
+          // fileName:name,
+          // fileExtension:extension,
           name: this.filesName[index]
         });
       }
     });
+    console.log(this.urls ,"yyyyyyyyyy");
+    
     this.processAttachments();
   }
   processAttachments() {
@@ -175,44 +186,84 @@ this.processAttachments()
     this.attachmentService.downloadAttachment(url.attachmentId, fileName, AttachmentFileTypeEnum.image);
   }
 
-
-
   reviewAttachment(fileName: any, url: any): void {
-    // const x = url?.attachmentId
     console.log(url, "000000000000000");
-
+  
     this.httpService.getFullUrl(
       `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` + url.attachmentId)
       .subscribe((apiResponse: any) => {
         if (apiResponse) {
           let base64Content = apiResponse.fileContent;
           const mimeType = apiResponse.base64Padding.split(';')[0].split(':')[1];
-
+  
           base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
           while (base64Content.length % 4 !== 0) {
             base64Content += '=';
           }
-
+  
           try {
             const byteCharacters = atob(base64Content);
             const byteNumbers = new Array(byteCharacters.length);
             for (let i = 0; i < byteCharacters.length; i++) {
               byteNumbers[i] = byteCharacters.charCodeAt(i);
             }
-
+  
             const byteArray = new Uint8Array(byteNumbers);
             const blob = new Blob([byteArray], { type: mimeType });
             const unsafeUrl = URL.createObjectURL(blob);
-            this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
-            this.ref.close(this.arr)
-
+  
+            // const newUrl = `${window.location.origin}/attachment-view?url=${encodeURIComponent(unsafeUrl)}`;
+            // window.open(newUrl, '_blank');
+            const newUrl = `${globalThis.location.origin}/accounting/attachment-view?url=${encodeURIComponent(unsafeUrl)}`;
+            globalThis.open(newUrl, '_blank');
+            
+            // window.open(newUrl, '_blank');
+            this.ref.close(this.arr);
+  
           } catch (error) {
             console.error('Error decoding Base64 string:', error);
           }
         }
       });
-
   }
+  
+  
+  // reviewAttachment(fileName: any, url: any): void {
+  //   // const x = url?.attachmentId
+  //   console.log(url, "000000000000000");
+
+  //   this.httpService.getFullUrl(
+  //     `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` + url.attachmentId)
+  //     .subscribe((apiResponse: any) => {
+  //       if (apiResponse) {
+  //         let base64Content = apiResponse.fileContent;
+  //         const mimeType = apiResponse.base64Padding.split(';')[0].split(':')[1];
+
+  //         base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
+  //         while (base64Content.length % 4 !== 0) {
+  //           base64Content += '=';
+  //         }
+
+  //         try {
+  //           const byteCharacters = atob(base64Content);
+  //           const byteNumbers = new Array(byteCharacters.length);
+  //           for (let i = 0; i < byteCharacters.length; i++) {
+  //             byteNumbers[i] = byteCharacters.charCodeAt(i);
+  //           }
+
+  //           const byteArray = new Uint8Array(byteNumbers);
+  //           const blob = new Blob([byteArray], { type: mimeType });
+  //           const unsafeUrl = URL.createObjectURL(blob);
+  //           this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
+  //           this.ref.close(this.arr)
+
+  //         } catch (error) {
+  //           console.error('Error decoding Base64 string:', error);
+  //         }
+  //       }
+  //     });
+
+  // }
 
 
   // وظيفة لعرض الملف مباشرة من Base64

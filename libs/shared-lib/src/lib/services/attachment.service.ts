@@ -30,7 +30,7 @@ export class AttachmentsService {
 
   public validationErrors = this.validationErrorsDataSource.asObservable();
   filesInfo : any = []
-  filesName: any = []
+  filesName: any[] = []
   fileExtension: any = []
   filesUrls : any = []
   files : any = []

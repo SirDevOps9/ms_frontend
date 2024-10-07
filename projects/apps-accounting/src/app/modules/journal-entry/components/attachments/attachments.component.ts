@@ -67,7 +67,9 @@ export class AttachmentsComponent implements OnInit  {
   
   }
   onCancel(){
-    this.ref.close()
+    // this.ref.close()
+    this.ref.close(this.test)
+
   }
   save(){
     this.ref.close(this.test)

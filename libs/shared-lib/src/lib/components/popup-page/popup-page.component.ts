@@ -19,6 +19,7 @@ export class PopupPageComponent {
   @Input() showSave : boolean = true
   @Input() showSecondSave : boolean = true
   @Output() Submit = new EventEmitter<boolean>();
+  @Output() Cancel = new EventEmitter<boolean>();
 
   close() {
     if (this.closeFunction) {
@@ -28,6 +29,10 @@ export class PopupPageComponent {
   
   onSubmit() {
     this.Submit.emit(true);
+    
+  }
+  onCancel() {
+    this.Cancel.emit(true);
     
   }
   constructor(

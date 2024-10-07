@@ -162,7 +162,6 @@ export class EditMultipeFilesComponent {
   removeFile(test: any, url: any, index: number) {
 
     if (this.urls && this.urls.length > 0) {
-      // تحقق إذا كان الملف موجودًا في الملفات المحملة مسبقًا
       const existingFile = this.filesData.find((file: any) => file.attachmentId === url.attachmentId || file.name === test);
 
       if (existingFile) {
@@ -180,21 +179,24 @@ export class EditMultipeFilesComponent {
            if (this.screen == Pages.JournalEntry) {
 
             this.journalEntryService.deleteAttachment(existingFile.id).then(()=>{
-
-            setTimeout(() => {
-              if (this.journalEntryService.attachmentDeleted) {
-                console.log("Attachment deleted successfully.");
-                this.attachmentService.attachemntIdsList.splice(index, 1);
-                this.files.splice(index, 1);
-                this.filesName.splice(index, 1);
-                this.fileExtension.splice(index, 1);
-                this.editStates.splice(index, 1);
-                // this.journalEntryService.attachmentDeleted=false
-              } else {
-                console.log("Attachment deletion failed.");
-              }
-              this.cdRef.detectChanges();
-            }, 100);
+                console.log(this.journalEntryService.attachmentDeleted ,"ddddddddddd");
+setTimeout(() => {
+  if (this.journalEntryService.attachmentDeleted) {
+    console.log("Attachment deleted successfully.");
+    //  this.urls.splice(index, 1);
+     this.urls.splice(index, 1);
+    this.files.splice(index, 1);
+    this.filesName.splice(index, 1);
+    this.fileExtension.splice(index, 1);
+    this.editStates.splice(index, 1);
+    // this.journalEntryService.attachmentDeleted=false
+  } else {
+    console.log("Attachment deletion failed.");
+  }
+  this.cdRef.detectChanges();
+  this.save()
+}, 500);
+           
           
             })
 
@@ -202,25 +204,9 @@ export class EditMultipeFilesComponent {
   
         }
       
-      } else {
-        this.urls.splice(index, 1);
-        this.files.splice(index, 1);
-        this.filesName.splice(index, 1);
-        this.fileExtension.splice(index, 1);
-        this.editStates.splice(index, 1);
-        this.cdRef.detectChanges();
-      }
-    } else {
-      this.urls.splice(index, 1);
-      this.files.splice(index, 1);
-      this.filesName.splice(index, 1);
-      this.fileExtension.splice(index, 1);
-      this.editStates.splice(index, 1);
-
-      this.cdRef.detectChanges();
-    }
-
-this.save()
+      } 
+    } 
+    this.save()
   }
 
   toggleEditState(index: number) {
@@ -249,89 +235,128 @@ this.save()
     }
   }
 
-
-
-  reviewAttachment(fileName: any, url: string): void {
-    if (this.filesData && this.filesData.length > 0) {
-      const existingFile = this.filesData.find(
-        (file: any) => file.attachmentId === url || file.name === fileName
-      );
-
-      if (!existingFile) {
-        this.router.navigate(['/attachment-view'], { queryParams: { url: url } });
-        this.ref.close(this.arr);
-        return
-      }
-
-      this.httpService
-        .getFullUrl(
-          `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
-          existingFile.attachmentId
-        )
-        .subscribe((apiResponse: any) => {
-          if (apiResponse) {
-            let base64Content = apiResponse.fileContent;
-            const mimeType = apiResponse.base64Padding.split(';')[0].split(':')[1];
-
-            base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
-            while (base64Content.length % 4 !== 0) {
-              base64Content += '=';
-            }
-
-            try {
-              const byteCharacters = atob(base64Content);
-              const byteNumbers = new Array(byteCharacters.length);
-              for (let i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
-              }
-
-              const byteArray = new Uint8Array(byteNumbers);
-              const blob = new Blob([byteArray], { type: mimeType });
-              const unsafeUrl = URL.createObjectURL(blob);
-              this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
-              this.ref.close(this.arr)
-
-            } catch (error) {
-              console.error('Error decoding Base64 string:', error);
-            }
+  reviewAttachment(fileName: any, url: any): void {
+    console.log(url, "000000000000000");
+  
+    this.httpService.getFullUrl(
+      `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` + url.attachmentId)
+      .subscribe((apiResponse: any) => {
+        if (apiResponse) {
+          let base64Content = apiResponse.fileContent;
+          const mimeType = apiResponse.base64Padding.split(';')[0].split(':')[1];
+  
+          base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
+          while (base64Content.length % 4 !== 0) {
+            base64Content += '=';
           }
-        });
-    } else {
-      this.httpService.getFullUrl(
-        `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
-        url
-      )
-        .subscribe((apiResponse: any) => {
-          if (apiResponse) {
-            let base64Content = apiResponse.fileContent;
-            const mimeType = apiResponse.base64Padding.split(';')[0].split(':')[1];
-
-            base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
-            while (base64Content.length % 4 !== 0) {
-              base64Content += '=';
+  
+          try {
+            const byteCharacters = atob(base64Content);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+              byteNumbers[i] = byteCharacters.charCodeAt(i);
             }
-
-            try {
-              const byteCharacters = atob(base64Content);
-              const byteNumbers = new Array(byteCharacters.length);
-              for (let i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
-              }
-
-              const byteArray = new Uint8Array(byteNumbers);
-              const blob = new Blob([byteArray], { type: mimeType });
-              const unsafeUrl = URL.createObjectURL(blob);
-              this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
-              this.ref.close(this.arr)
-
-            } catch (error) {
-              console.error('Error decoding Base64 string:', error);
-            }
+  
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], { type: mimeType });
+            const unsafeUrl = URL.createObjectURL(blob);
+  
+            // const newUrl = `${window.location.origin}/attachment-view?url=${encodeURIComponent(unsafeUrl)}`;
+            // window.open(newUrl, '_blank');
+            const newUrl = `${globalThis.location.origin}/accounting/attachment-view?url=${encodeURIComponent(unsafeUrl)}`;
+            globalThis.open(newUrl, '_blank');
+            
+            // window.open(newUrl, '_blank');
+            this.ref.close(this.arr);
+  
+          } catch (error) {
+            console.error('Error decoding Base64 string:', error);
           }
-        });
-    }
-    this.save()
+        }
+      });
   }
+
+  // reviewAttachment(fileName: any, url: string): void {
+  //   if (this.filesData && this.filesData.length > 0) {
+  //     const existingFile = this.filesData.find(
+  //       (file: any) => file.attachmentId === url || file.name === fileName
+  //     );
+
+  //     if (!existingFile) {
+  //       this.router.navigate(['/attachment-view'], { queryParams: { url: url } });
+  //       this.ref.close(this.arr);
+  //       return
+  //     }
+
+  //     this.httpService
+  //       .getFullUrl(
+  //         `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
+  //         existingFile.attachmentId
+  //       )
+  //       .subscribe((apiResponse: any) => {
+  //         if (apiResponse) {
+  //           let base64Content = apiResponse.fileContent;
+  //           const mimeType = apiResponse.base64Padding.split(';')[0].split(':')[1];
+
+  //           base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
+  //           while (base64Content.length % 4 !== 0) {
+  //             base64Content += '=';
+  //           }
+
+  //           try {
+  //             const byteCharacters = atob(base64Content);
+  //             const byteNumbers = new Array(byteCharacters.length);
+  //             for (let i = 0; i < byteCharacters.length; i++) {
+  //               byteNumbers[i] = byteCharacters.charCodeAt(i);
+  //             }
+
+  //             const byteArray = new Uint8Array(byteNumbers);
+  //             const blob = new Blob([byteArray], { type: mimeType });
+  //             const unsafeUrl = URL.createObjectURL(blob);
+  //             this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
+  //             this.ref.close(this.arr)
+
+  //           } catch (error) {
+  //             console.error('Error decoding Base64 string:', error);
+  //           }
+  //         }
+  //       });
+  //   } else {
+  //     this.httpService.getFullUrl(
+  //       `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
+  //       url
+  //     )
+  //       .subscribe((apiResponse: any) => {
+  //         if (apiResponse) {
+  //           let base64Content = apiResponse.fileContent;
+  //           const mimeType = apiResponse.base64Padding.split(';')[0].split(':')[1];
+
+  //           base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
+  //           while (base64Content.length % 4 !== 0) {
+  //             base64Content += '=';
+  //           }
+
+  //           try {
+  //             const byteCharacters = atob(base64Content);
+  //             const byteNumbers = new Array(byteCharacters.length);
+  //             for (let i = 0; i < byteCharacters.length; i++) {
+  //               byteNumbers[i] = byteCharacters.charCodeAt(i);
+  //             }
+
+  //             const byteArray = new Uint8Array(byteNumbers);
+  //             const blob = new Blob([byteArray], { type: mimeType });
+  //             const unsafeUrl = URL.createObjectURL(blob);
+  //             this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
+  //             this.ref.close(this.arr)
+
+  //           } catch (error) {
+  //             console.error('Error decoding Base64 string:', error);
+  //           }
+  //         }
+  //       });
+  //   }
+  //   this.save()
+  // }
 
 
   // وظيفة لعرض الملف مباشرة من Base64
