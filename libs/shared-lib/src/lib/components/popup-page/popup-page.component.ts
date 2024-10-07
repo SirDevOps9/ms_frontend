@@ -24,6 +24,9 @@ export class PopupPageComponent {
   close() {
     if (this.closeFunction) {
       this.closeFunction();  // Execute the passed function
+    }else{
+      this.Cancel.emit(true);
+
     }
   }
   

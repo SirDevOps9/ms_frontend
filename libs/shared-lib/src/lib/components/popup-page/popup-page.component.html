@@ -4,7 +4,7 @@
       <div class="title">
         {{ title }}
       </div>
-      <div class="pi cancel" (click)="onCancel()"></div>
+      <div class="pi cancel" (click)="close()"></div>
     </div>
   </div>
   <div class="pop_up_content">
@@ -20,7 +20,7 @@
           title="{{ 'Cancel' | translate }}"
           nameClass="cancel"
           widthNumber="100%"
-          (click)="onCancel()"
+          (click)="close()"
           *ngIf="showCancel"
 
         >
