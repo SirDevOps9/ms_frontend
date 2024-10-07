@@ -66,9 +66,9 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
     else if (this.router.snapshot.data['moduleId'] === Modules.Sales) this.moduleName = 'Sales';
     this.setDefaulatCompany();
 
-    // setTimeout(()=>{
-    //   this.setDefaulatCompany();
-    // },500)
+    setTimeout(()=>{
+      this.setDefaulatCompany();
+    },500)
   }
 
   toggleLanguage(): void {
