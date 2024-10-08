@@ -519,7 +519,7 @@ export class CreateJournalEntryComponent {
 
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
     const journalLine = this.items.at(currentJournalId);
-
+    
     const subscription = this.currencyService.accountCurrencyRate.subscribe((res) => {
       const currencyRateControl = journalLine?.get('currencyRate');
       currencyRateControl?.setValue(res.rate);

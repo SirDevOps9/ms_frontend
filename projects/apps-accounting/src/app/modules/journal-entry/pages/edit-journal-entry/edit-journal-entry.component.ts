@@ -567,12 +567,11 @@ export class EditJournalEntryComponent implements OnInit {
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
     const journalLine = this.journalEntryLinesFormArray.at(currentJournalId);
 
-    this.currencyService.accountCurrencyRate.subscribe((res) => {
-      const currencyRateControl = journalLine.get('currencyRate')!;
-
-      currencyRateControl.setValue(res.rate);
+    const subscription = this.currencyService.accountCurrencyRate.subscribe((res) => {
+      const currencyRateControl = journalLine?.get('currencyRate');
+      currencyRateControl?.setValue(res.rate);
+      subscription.unsubscribe(); 
     });
-
     this.currencyService.getAccountCurrencyRate(
       accountCurrency,
       this.currentUserService.getCurrency()
