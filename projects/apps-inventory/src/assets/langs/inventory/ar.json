@@ -246,7 +246,16 @@
     "factor": "المعامل",
     "factors": "المعاملات",
     "actions": "الإجراءات",
-    "type": "النوع"
+    "type": "النوع",
+    "attributeCode": "الكود",
+    "attributeName": "اسم السمات",
+    "attributeNameEn": "السمات بالإنجليزية",
+    "attributeNameAr": "السمات بالعربية",
+    "attributeId": "الكود",
+    "valueEn": " القيمة بالانجليزية",
+    "valueAr": "القيمة بالعربية",
+    "add_new_value": "اضف قيمة",
+    "delete": "تم الحذف"
   },
   "OperationalTag": {
   "Add": "إضافة",
