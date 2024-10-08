@@ -2,23 +2,38 @@
     <div class="bank">
       <div [formGroup]="UOMFormGroup" class="entry_header">
         <div class="grid">
-          <div class="col-12 md:col-6">
+       
+          <div class="col-12 md:col-4">
             <lib-form-group>
               <lib-label
-                [appControl]="UOMFormGroup.controls['uomCodeCategory']"
+                [appControl]="UOMFormGroup.controls['uomCategoryNameEn']"
                 class="body_b14 mb-2 ms-4"
               >
-                {{ 'UOM.CategoryCode' | translate }}
+                {{ 'UOM.categorynameEn' | translate }}
               </lib-label>
-              <lib-select
-                formControlName="uomCodeCategory"
-                [options]="listOfUOM"
-                optionValue="id"
-                optionLabel="name"
-                placeholder="{{ 'UOM.categoryname' | translate }}"
-                [selectedValue]="UOMFormGroup.controls['uomCodeCategory'].value"
+              <lib-text-input
+                formControlName="uomCategoryNameEn"
+                placeholder="{{ 'UOM.categorynameEn' | translate }}"
+
               >
-              </lib-select>
+              </lib-text-input>
+            </lib-form-group>
+            <!-- <i class="pi pi-search search-circle" (click)="openDialog(i)"></i> -->
+          </div>
+          <div class="col-12 md:col-4">
+            <lib-form-group>
+              <lib-label
+                [appControl]="UOMFormGroup.controls['uomCategoryNameAr']"
+                class="body_b14 mb-2 ms-4"
+              >
+                {{ 'UOM.categorynameAr' | translate }}
+              </lib-label>
+              <lib-text-input
+                formControlName="uomCategoryNameAr"
+                placeholder="{{ 'UOM.categorynameAr' | translate }}"
+
+              >
+              </lib-text-input>
             </lib-form-group>
             <!-- <i class="pi pi-search search-circle" (click)="openDialog(i)"></i> -->
           </div>
@@ -28,14 +43,14 @@
     <!--  -->
     <div class="add_new my-2 flex justify-content-end">
       <!-- !UOMFormGroup.controls['uomCodeCategory'].value -->
-      <lib-button (onClick)="addLine()" [disabled]="!isLastLineSaved " className="outline-primary">
+      <lib-button (onClick)="addLine()"  className="outline-primary">
         {{ 'UOM.add_new' | translate }}
       </lib-button>
     </div>
     <div class="entry_table">
       <div class="card">
         <p-table
-          [value]="uomTableForm.controls"
+          [value]="getUOMS.controls"
           dataKey="id"
           styleClass="p-datatable-gridlines p-datatable-striped"
           [tableStyle]="{ 'min-width': '50rem' }"
@@ -228,34 +243,17 @@
               </td> -->
               <td>
                 <div class="actions flex align-items-center">
-                @if( !shouldShowSaveButton(i) && isLastLineSaved){
                   <lib-button-micro
                     nameClass="cancel"
                     iconName="pi pi-trash"
                     type="button"
-                    (click)="onDelete(uomTableForm.value)"
+                    (click)="onDelete(i)"
                   >
                   </lib-button-micro>
-                  } @if( !isLastLineSaved){
-                  <lib-button-micro
-                  *ngIf="!isLastLineSaved"
-                  nameClass="cancel"
-                  iconName="pi pi-trash"
-                  type="button"
-                  (click)="deleteLine(i)"
-                  >
-                  </lib-button-micro>
-                  }
-                  @if(shouldShowSaveButton(i)){
-                    <lib-button-micro
-                      nameClass="save"
-                      iconName="pi pi-save"
-                      *ngIf="shouldShowSaveButton(i)"
-                      type="button"
-                      (click)="onSave(uomTableForm.value, i)"
-                    >
-                    </lib-button-micro>
-                    } 
+                
+              
+                  
+               
                 </div>
               </td>
             </tr>
@@ -264,14 +262,33 @@
       </div>
     </div>
 
-  <div class="btn_group">
-    <div class="grid ">
-      <div class="md:col-3">
-        <div class="grid">
-          <div class="md:col-6"></div>
-          <div class="md:col-6"></div>
+    <div class="grid">
+      <div class="md:col-12 my-3 grid flex justify-content-end">
+        <div class="md:col-4 grid flex justify-content-end">
+          <div class="md:col-6">
+            <lib-button-micro
+              title="{{ 'cancel' | translate }}"
+              nameClass="cancel"
+              widthNumber="100%"
+              (click)="onCancel()"
+            
+            >
+            </lib-button-micro>
+          </div>
+          <div  class="md:col-6">
+            <lib-button-micro
+              title="{{ 'Save' | translate }}"
+              nameClass="save"
+              widthNumber="100%"
+              (click)="onSave()"
+            >
+            </lib-button-micro>
+          
+          </div>
         </div>
+  
+        
       </div>
     </div>
-  </div>
+  
 </lib-page-content>

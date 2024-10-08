@@ -44,7 +44,7 @@ export class OperationTagEditComponent implements OnInit {
 
     this.initForm();
     this.initWareHouseLookupData()
-
+this.getAccount()
     if(id){
 
       this.getOperationalTagById(id)
@@ -61,7 +61,11 @@ export class OperationTagEditComponent implements OnInit {
   getAccount() { 
     this.itemsService.AccountsDropDown()
     this.itemsService.AccountsDropDownLookupObs.subscribe(res=>{
-      this.AccountsDropDownLookup = res
+      if(res.length) {
+        this.AccountsDropDownLookup = res
+        console.log(res)
+
+      }
     })
   }
 
@@ -69,9 +73,17 @@ export class OperationTagEditComponent implements OnInit {
   getOperationalTagById(id: number){
     this.itemsService.getOperationalTagById(id)
     this.itemsService.getOperationalTagItemsById$.subscribe(
-(res : AddOperatioalTag)=>{
-  this.formGroup.patchValue(res)
-}
+      (res : AddOperatioalTag)=>{
+        setTimeout(() => {
+          console.log(res)
+          this.formGroup.patchValue(res)
+          let accountCode = String(res.glAccountId) 
+
+          this.formGroup.get('glAccountId')?.setValue(accountCode)
+
+
+        }, 1000);
+      }
     )
 
   }
@@ -83,7 +95,7 @@ export class OperationTagEditComponent implements OnInit {
         name: new FormControl('', customValidators.required),
         operationType: new FormControl('', customValidators.required),
         warehouseId: new FormControl('', customValidators.required),
-        glAccountId: new FormControl('', customValidators.required),
+        glAccountId: new FormControl(''),
       });
   }
 

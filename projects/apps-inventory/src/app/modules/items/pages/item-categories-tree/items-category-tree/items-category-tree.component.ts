@@ -38,7 +38,6 @@ export class ItemsCategoryTreeComponent implements OnInit {
     private dialog: DialogService,
     private itemsSevice : ItemsService
   ) {
-    this.title.setTitle(this.langService.transalte('itemsCategory.title'));
   }
   ngOnInit() {
     this.getTreeList();
@@ -132,21 +131,18 @@ export class ItemsCategoryTreeComponent implements OnInit {
   }
 
   handleOperationCompleted(event: any) {
-  //  this.test=event
+//  this.test=event
     
-  console.log(event)
-
-     this.getTreeList();
+    this.getTreeList();
     // if(event.id){
     //  this.viewMode(event.id)
 
       //this.expandParents(event)
-     // this.setActiveNode(event.id)
+    // this.setActiveNode(event.id)
       this.test=event.id
       
     // }
     this.add = false;
-
 
   }
   toggelTree() {

@@ -94,11 +94,13 @@ export class BreadcrumbLabel {
     static VIEW_JOURNAL_OPENING_BALANCE ='View Journal Entry Opening Balance';
     static  ITEM_DIFINITION ='item Definition';
     static  ADD_ITEM_DIFINITION ='Add Item Definition';
+    static  EDIT_ITEM_DIFINITION ='Edit Item Definition';
     static  ITEM_TYPE ='Item Type';
     static  ITEM_CATEGORY ='Item Category';
     static  WARE_HOUSE ='Warehouse';
+    static  UNITOFMEASURE = 'Unit Of Measure';
     static  ADD_WARE_HOUSE ='Add Warehouse';
-    static  UOM ='UOM';
+    static  UOM = 'UOM';
     static  UOM_LIST ='uom-list';
     static  ADD_UOM ='UOM Add';
     static  Edit_UOM ='edit uom';

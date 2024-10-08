@@ -5,7 +5,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { RouterService, LanguageService, lookupDto, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
 import { AddItemDefinitionPopupComponent } from '../../../components/add-item-definition/add-item-definition-popup.component';
 import { ItemsService } from '../../../items.service';
-import { itemDefinitionDto } from '../../../models';
+import { itemDefinitionDto, StockInDto } from '../../../models';
 
 @Component({
   selector: 'app-stock-in-list',
@@ -25,9 +25,9 @@ export class StockInListComponent implements OnInit {
 
   }
 
-  tableData: itemDefinitionDto[];
+  tableData: StockInDto[];
 
-  exportData: itemDefinitionDto[];
+  exportData: StockInDto[];
   cols = [
    
     {
@@ -53,17 +53,17 @@ export class StockInListComponent implements OnInit {
   searchTerm: string;
 
   ngOnInit() {
-    this.initItemDefinitionData();
+    this.initStockInData();
     this.exportColumns = this.cols.map((col) => ({
       id: col.header,
       name: col.field,
     }));
   }
 
-  initItemDefinitionData() {
-    this.itemsService.getItemDefinition('', new PageInfo());
+  initStockInData() {
+    this.itemsService.getStockIn('', new PageInfo());
 
-    this.itemsService.sendItemDefinitionDataSourceObs.subscribe({
+    this.itemsService.sendStockInDataSourcesObs.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -75,7 +75,7 @@ export class StockInListComponent implements OnInit {
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.itemsService.getItemDefinition('', pageInfo);
+    this.itemsService.getStockIn('', pageInfo);
 
   
   }
@@ -86,7 +86,7 @@ export class StockInListComponent implements OnInit {
 
   exportBankData(searchTerm: string) {
     this.itemsService.exportsItemsDefinitionList(searchTerm);
-    this.itemsService.exportedItemDefinitionListDataSource.subscribe((res) => {
+    this.itemsService.sendStockOutDataSourcesObs.subscribe((res) => {
       this.exportData = res;
     });
   }
@@ -100,33 +100,23 @@ export class StockInListComponent implements OnInit {
     });
 
     dialogRef.onClose.subscribe(() => {
-    this.initItemDefinitionData()
+    this.initStockInData()
     });
   }
 
   onEdit(data: any) {
-    // const dialogRef = this.dialog.open(EditItemDefinitionComponent, {
-    
-    //   width: '800px',
-    //   height : '700px',
-    //   data : data
-  
-    // });
 
-    // dialogRef.onClose.subscribe(() => {
-    // this.initItemDefinitionData()
-    // });
     this.routerService.navigateTo(`masterdata/add-item-definition/${data.id}`)
 
   }
 
   onSearchChange() {
-    this.itemsService.getItemDefinition(this.searchTerm, new PageInfo());
+    this.itemsService.getStockIn(this.searchTerm, new PageInfo());
     
   }
 
   onDelete(id: number) {
-     this.itemsService.deleteItemDefinition(id)
+     this.itemsService.deleteStockIn(id)
   }
 }
 
