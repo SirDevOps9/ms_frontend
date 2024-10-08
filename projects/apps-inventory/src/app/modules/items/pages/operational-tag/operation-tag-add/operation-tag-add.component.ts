@@ -43,9 +43,7 @@ export class OperationTagAddComponent implements OnInit {
      this.getAccount()
    
   }
-  uomCategoryChanged(e : any) {
-    // this.getUomDropDown(e)
-  }
+
   initWareHouseLookupData() {
     this.itemsService.getWareHousesDropDown()
     this.itemsService.wareHousesDropDownLookup$.subscribe(res=>{

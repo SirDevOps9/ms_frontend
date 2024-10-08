@@ -70,7 +70,7 @@ export class ItemsService {
   public variantGenerated = new BehaviorSubject<boolean>(false);
   public getItemCategoryByIdData = new BehaviorSubject<AddItemCategory>({} as AddItemCategory);
   sendItemCategoryDataSource = new BehaviorSubject<GetItemCategoryDto[]>([]);
-
+   public deleteAttrDifinitionData =  new BehaviorSubject<any[]>([]);
   public tagLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public AccountsDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public trackingTrackingDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
@@ -158,7 +158,7 @@ export class ItemsService {
   public listOfAttrDifinition = new BehaviorSubject<IAttrributeDifinitionResult[]>([]);
   public listOfOperationalTag = new BehaviorSubject<IOperationalTagResult[]>([]);
   public SendExportOperationalTagList = new BehaviorSubject<IOperationalTagResult[]>([]);
-
+ 
   public sendItemDefinitionDataSourceObs = this.sendItemDefinitionDataSource.asObservable();
   public GetUOMCategoriesDataSourceObs = this.GetUOMCategoriesDataSource.asObservable();
   public  ViewDataDefinitionByIdObs = this.ViewDataDefinitionById.asObservable();
@@ -166,6 +166,8 @@ export class ItemsService {
   public wareHousesDropDownLookup$ = this.wareHousesDropDownLookup.asObservable();
   public SendexportAttrDifinitionList$ = this.SendexportAttrDifinitionList.asObservable();
   public itemTypeLookupObs = this.itemTypeLookup.asObservable();
+
+  public deleteAttrDifinitionDataObs = this.deleteAttrDifinitionData.asObservable()
   public itemCategoryLookupObs = this.itemCategoryLookup.asObservable();
   public AddItemCategoryLookupObs = this.AddItemCategoryLookup.asObservable();
   public itemsCategoryDeletedObs = this.itemsCategoryDeleted.asObservable();
@@ -363,6 +365,18 @@ export class ItemsService {
       this.listOfOperationalTag.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
     });
+  }
+
+  editStatusAttributeGroup(modle:any){
+    this.itemProxy.editStatusAttributeGroup(modle).subscribe((data:any)=>{
+ 
+        this.toasterService.showSuccess(
+          this.languageService.transalte('attributeDefinition.success'),
+          this.languageService.transalte('attributeDefinition.attributeEditStatus')
+        );
+   
+
+    })
   }
 
   addItemDefinition(obj: AddItemDefinitionDto, dialogRef: DynamicDialogRef, text: string) {
@@ -656,6 +670,14 @@ export class ItemsService {
       );
     });
   }
+  ActivateOperationalTag(obj: any) {
+    this.itemProxy.ActivateOperationalTag(obj).subscribe((res) => {
+      this.toasterService.showSuccess(
+        this.languageService.transalte('itemType.success'),
+        this.languageService.transalte('itemType.changeVariantStatus')
+      );
+    });
+  }
   ActivateBarcode(obj: any) {
     this.itemProxy.ActivateBarcode(obj).subscribe((res) => {
       this.toasterService.showSuccess(
@@ -722,6 +744,29 @@ export class ItemsService {
         },
       });
     }
+  }
+
+  async deleteAttrDifinitionWithId(id:number){
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.itemProxy.deleteAttrDifinition(id).subscribe((data:any)=>{
+        this.deleteAttrDifinitionData.next(data);
+           })
+    }
+
+    
+
+
+
+    /*
+       this.itemProxy.attributeGroupsValue(id).subscribe({
+      next: (res: any) => {
+        this.attributeValuesDropDownLookup.next(res);
+      },
+    });
+    */ 
   }
   // attr difinition delete
   async deleteUOM(id: number) {
@@ -894,6 +939,13 @@ export class ItemsService {
         this.languageService.transalte('attributeDefinition.Success')
       );
       this.sendAttrDefinition.next(res);
+      this.router.navigateTo('/masterdata/attribute-definition')
+      let audio = new Audio();
+          
+      audio.src = './assets/notification-sound/done.wav';
+      audio.load();
+      audio.play();
+
     });
   }
  
@@ -1079,7 +1131,14 @@ export class ItemsService {
         this.toasterService.showSuccess(
           this.languageService.transalte('attributeDefinition.success'),
           this.languageService.transalte('attributeDefinition.success')
+          
         );
+        let audio = new Audio();
+          
+        audio.src = './assets/notification-sound/done.wav';
+        audio.load();
+        audio.play();
+  
         // this.router.navigateTo(`/masterdata/item-definition` )
       }
     });
