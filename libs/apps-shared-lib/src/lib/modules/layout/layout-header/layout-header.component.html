@@ -41,13 +41,14 @@
               <div class="modules">
                 <lib-form-group>
                   <lib-select
-                  [readOnly]="true"
                     formControlName="branchId"
                     placeholder="{{ 'Layout.DefaultBranch' | translate }}"
                     [options]="branchList"
                     [selectedValue]="coBrForm.controls['branchId'].value"
                     optionLabel="name"
                     optionValue="id"
+                  [readOnly]="true"
+
                   >
                   </lib-select>
                 </lib-form-group>

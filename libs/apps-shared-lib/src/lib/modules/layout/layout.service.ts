@@ -10,6 +10,7 @@ export class LayoutService {
   sideMenuItems = new BehaviorSubject<SideMenuModel[] | undefined>(undefined);
   modulItems = new BehaviorSubject<MenuModule[] | undefined>(undefined);
 
+
   saveSideMenu(menuItems: SideMenuModel[]) {
     const distinctModules = menuItems
       .filter(
