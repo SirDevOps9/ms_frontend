@@ -123,11 +123,13 @@ export class ItemsProxyService {
   return this.httpService.get(`ItemVariant/ItemVariantsByItemIdDropDown?ItemId=${id}`)
 
  }
-  
  attributeGroups(){
   return this.httpService.get(`AttributesVariants/GetAllAttributesGroups`)
  }
+editStatusAttributeGroup(modle:any){
+  return this.httpService.put(`AttributeGroup/AttributeGroupActivation`,modle)
 
+}
 
  getDefaultUnit(catID : number ,itemId:number) :Observable<{ id: number; name: string }>{
   return this.httpService.get(`UOM/GetDefaultUOMByUOMCategoryIdAndItemId/${catID}/${itemId}`)

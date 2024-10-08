@@ -38,6 +38,8 @@ import { AddWarehousePopupComponent } from './components/warehouse/add-warehouse
 import { StockInListComponent } from './pages/stock-In/stock-in-list/stock-in-list.component';
 import { AddStockInComponent } from './pages/stock-In/add-stock-in/add-stock-in.component';
 import { MainWarehouseComponent } from './pages/warehouse/main-warehouse/main-warehouse.component';
+import { ViewAttributeDetalisComponent } from './pages/attribute-definition/view-attribute-detalis/view-attribute-detalis/view-attribute-detalis.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 const routes: Routes = [
@@ -53,13 +55,15 @@ const routes: Routes = [
         component: ItemDefinitionListComponent,
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_DIFINITION,
+          pageTitle: BreadcrumbLabel. ITEM_DIFINITION,
         },
       },
       {
         path: 'item-definition',
         component: ItemDefinitionListComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.ITEM_DIFINITION
+          breadcrumb: BreadcrumbLabel.ITEM_DIFINITION,
+          pageTitle: BreadcrumbLabel. ITEM_DIFINITION,
         },
 
       },
@@ -146,6 +150,35 @@ const routes: Routes = [
         },
 
       },
+      {
+        path: 'attribute-definition',
+        component: AttributeDefinitionComponent,
+        data: { breadcrumb: BreadcrumbLabel.Attribute_Definition },
+        children: [
+          {
+            path: '',
+            component: AttributeDefinitionListComponent,
+            data: { breadcrumb: '' },
+          },
+          {
+            path: 'add-attribute',
+            component: AddAttributeDefinitionComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.Add_Attribute_Definition,
+            },
+          },
+          {
+            path: 'edit-attribute/:id',
+            component: EditAttributeDefinitionComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.Edit_Attribute_Definition,
+            },
+          },
+        ],
+      },
+
+
+       
 
     ]
 
@@ -191,11 +224,14 @@ const routes: Routes = [
     StockInListComponent,
     AddStockInComponent,
     MainWarehouseComponent,
+    ViewAttributeDetalisComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    SharedLibModule
-  ]
+    SharedLibModule,
+    MatDialogModule
+  ],
+  
 })
 export class ItemsModule { }

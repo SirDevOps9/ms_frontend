@@ -38,6 +38,7 @@ import { getBarcodeById } from './models/getBarcodeById';
 import { AddUom, UomPost } from './models/addUom';
 import { addAttributeDifintion, IAttrributeDifinitionResult } from './models/AttrbuteDiffintion';
 import { OperationType } from './models/enums';
+import { StatusAttribute } from './models/statusAttribute';
 
 @Injectable({
   providedIn: 'root',
@@ -79,6 +80,7 @@ export class ItemsService {
   public addVariantLineData = new BehaviorSubject<any>('');
   public ActivateVairiantGroupData = new BehaviorSubject<boolean>(false);
   public sendAttributeVariantData = new BehaviorSubject<variantGroupById[]>([]);
+  public editStatusAttributeiantData = new BehaviorSubject<StatusAttribute[]>([]);
   public sendBarcode = new BehaviorSubject<addBarcode>({} as addBarcode);
   public sendUOM = new BehaviorSubject<AddUom>({} as AddUom);
   public sendUOMCategory = new BehaviorSubject<UomPost>({} as UomPost);
@@ -134,7 +136,7 @@ export class ItemsService {
   public listOfAttrDifinition = new BehaviorSubject<IAttrributeDifinitionResult[]>([]);
   public listOfOperationalTag = new BehaviorSubject<IOperationalTagResult[]>([]);
   public SendExportOperationalTagList = new BehaviorSubject<IOperationalTagResult[]>([]);
-
+  
   public sendItemDefinitionDataSourceObs = this.sendItemDefinitionDataSource.asObservable();
   public SendexportUOMList$ = this.SendexportUOMList.asObservable();
   public wareHousesDropDownLookup$ = this.wareHousesDropDownLookup.asObservable();
@@ -142,6 +144,7 @@ export class ItemsService {
   public itemTypeLookupObs = this.itemTypeLookup.asObservable();
   public itemCategoryLookupObs = this.itemCategoryLookup.asObservable();
   public AddItemCategoryLookupObs = this.AddItemCategoryLookup.asObservable();
+  public editStatusAttributeiantDataObs = this.editStatusAttributeiantData.asObservable();
   public itemsCategoryDeletedObs = this.itemsCategoryDeleted.asObservable();
   public EditItemCategoryDataObs = this.EditItemCategoryData.asObservable();
   public variantGeneratedObs  = this.variantGenerated.asObservable()
@@ -237,6 +240,18 @@ export class ItemsService {
       this.listOfOperationalTag.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
     });
+  }
+
+  editStatusAttributeGroup(modle:any){
+    this.itemProxy.editStatusAttributeGroup(modle).subscribe((data:any)=>{
+ 
+        this.toasterService.showSuccess(
+          this.languageService.transalte('attributeDefinition.success'),
+          this.languageService.transalte('attributeDefinition.attributeEditStatus')
+        );
+   
+
+    })
   }
 
   addItemDefinition(obj: AddItemDefinitionDto, dialogRef: DynamicDialogRef, text: string) {

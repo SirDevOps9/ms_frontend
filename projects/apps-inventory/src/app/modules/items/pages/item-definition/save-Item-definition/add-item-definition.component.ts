@@ -101,7 +101,13 @@ export class AddItemDefinitionComponent implements OnInit {
   codeData :{ code: number; conversionRatio: string}
 
   ItemVariantsByItemIdDropDown : { id: number; nameEn: string }[] = []
-  constructor(private _router : RouterService,private fb : FormBuilder , private formService : FormsService ,  public sharedLibEnums: SharedLibraryEnums,private dialog : DialogService , private route : ActivatedRoute , private toaserService : ToasterService , private itemService : ItemsService){
+  constructor(private _router : RouterService,private fb : FormBuilder ,
+     private formService : FormsService ,  
+     public sharedLibEnums: SharedLibraryEnums,
+     private dialog : DialogService , 
+     private route : ActivatedRoute , 
+     private toaserService : ToasterService ,
+      private itemService : ItemsService){
     this.id = this.route.snapshot.params['id']
   }
   ngOnInit(): void {

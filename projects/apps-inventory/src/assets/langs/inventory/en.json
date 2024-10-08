@@ -109,7 +109,8 @@
       "Add": "Add",
       "search": "Search",
       "ChangeColumn": "Change Column",
-      "Variants": "Variants added successfully"
+      "Variants": "Variants added successfully",
+      "close":"Close"
     },
     "itemDefinition": {
       "name": "Name",
@@ -129,7 +130,8 @@
       "viewVariant": "View",
       "itemTracking": "Item Tracking",
       "SelectItemTracking": "Select Item Tracking",
-      "hasExpiry": "Has Expiry Date"
+      "hasExpiry": "Has Expiry Date",
+      "itemAttributes": "Item Attributes"
     },
     "warehouse": {
       "Add": "Add",
@@ -238,14 +240,17 @@
       "Active": "Active",
       "inActive": "Inactive",
       "Search": "Search",
+      "status": "Status",
       "CategoryCode": "Category Code",
       "success": "Success",
       "attributeAdd": "Attribute added successfully",
       "attributeEdit": "Attribute updated successfully",
+      "attributeEditStatus": "Attribute Status updated successfully",
       "attributeDelete": "Attribute deleted successfully",
       "barcodeEdit": "Barcode edited successfully",
       "editStatus": "Status changed successfully",
       "category": "Category",
+      "addAttribute":"Add Attribute",
       "save": "Save",
       "CategoryName": "Category Name",
       "delete": "Deleted",

@@ -1,0 +1,33 @@
+<lib-popup-page
+title="{{'itemDefinition.itemAttributes' | translate}}"
+[closeFunction]="onCancel"
+[footer]="false">
+<div>
+  <div class="user_page">
+    <lib-data-table
+      [items]="data"
+      className="p-datatable-gridlines"
+      [tableConfigs]="{
+        dataKey: 'id',
+        pageSize: 10,
+        columns: [
+          {
+            name: 'nameAr',
+            headerText: ('attributeDefinition.nameAr' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'nameEn',
+            headerText: ('attributeDefinition.nameEn' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+       
+        ]
+      }"
+    >
+    </lib-data-table>
+  </div>
+</div>
+</lib-popup-page>

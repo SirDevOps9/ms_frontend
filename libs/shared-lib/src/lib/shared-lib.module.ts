@@ -28,6 +28,7 @@ import {
 import { DropdownModule } from 'primeng/dropdown';
 import { GetLookupPipe } from './pipes/lookupList';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { PageContentComponent } from './components/page-content/page-content.component';
 import { PrimeSharedModule } from './prime-module/prime.module';
@@ -124,6 +125,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     LabelComponent,
     TextInputComponent,
     SelectComponent,
+    MatDialogModule,
     SelectIconComponent,
     FormGroupComponent,
     CommonModule,

@@ -121,7 +121,8 @@ export class BreadcrumbLabel {
     static PAYMENT_METHOD_ADD ='BreadCrumb.AddPaymentMethod';
     static PAYMENT_METHOD_EDIT ='BreadCrumb.EditPaymentMethod';
     static PAYMENT_METHOD_VIEW ='BreadCrumb.ViewPaymentMethod';
-    
+
+
     
     static PAYMENT_IN ='BreadCrumb.PaymentIn';
     static ADD_PAYMENT_IN ='PaymentIn.addpaymentin';
