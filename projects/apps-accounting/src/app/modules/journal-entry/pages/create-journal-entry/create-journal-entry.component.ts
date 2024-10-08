@@ -27,6 +27,7 @@ import { CostCenterAllocationPopupComponent } from '../components/cost-center-al
 import { costCenters } from '../../models';
 import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
+import { take } from 'rxjs';
 export interface JournalEntryLineFormValue {
   id: number;
   account: AccountDto;
@@ -518,16 +519,18 @@ export class CreateJournalEntryComponent {
 
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
     const journalLine = this.items.at(currentJournalId);
-    this.currencyService.accountCurrencyRate.subscribe((res) => {
-      const currencyRateControl = journalLine.get('currencyRate')!;
 
-      currencyRateControl.setValue(res.rate);
+    const subscription = this.currencyService.accountCurrencyRate.subscribe((res) => {
+      const currencyRateControl = journalLine?.get('currencyRate');
+      currencyRateControl?.setValue(res.rate);
+      subscription.unsubscribe(); 
     });
-
+  
     this.currencyService.getAccountCurrencyRate(
       accountCurrency,
       this.currentUserService.getCurrency()
     );
+    
   }
   onFilter(event: any) {
     this.accountService.getAccountsHasNoChildrenNew(event, new PageInfo());
