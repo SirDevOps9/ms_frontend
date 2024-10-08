@@ -95,7 +95,7 @@ export class VendorOpeningBalanceDistributeComponent implements OnInit {
       debit: new FormControl(0, [customValidators.required , customValidators.number ,customValidators.hasSpaces ]),
 
     });
-    group.get('credit')?.valueChanges.subscribe(value => {
+    group.get('debit')?.valueChanges.subscribe(value => {
       if (value != 0) {
         group.get('dueDate')?.setValue(null); // Set dueDate to null
       }
@@ -106,23 +106,20 @@ export class VendorOpeningBalanceDistributeComponent implements OnInit {
 
   getTodaysDate() {
     var date = new Date();
-    return date.toISOString().substring(0, 10);
+    return date.toISOString().split('T')[0]
   }
   onCancel() {
     this.ref.close()
   }
-  formatDate(date: string, format: string): string {
-    const pipe = new DatePipe('en-US');
-    return pipe.transform(date, format) || '';
-  }
+  
   onSubmit() {
     if (!this.formsService.validForm(this.vendorForm, false)) return;
 
     const formattedItems = this.items.value.map((item: any) => {
       return {
         ...item,
-        // dueDate: this.datePipe.transform(item.dueDate, 'yyyy-MM-dd') // Format due date
-        dueDate: this.formatDate(item.dueDate, 'yyyy-MM-dd') // Use formatDate method
+        dueDate: item.dueDate// Format due date
+        // dueDate: this.formatDate(item.dueDate, 'yyyy-MM-dd') // Use formatDate method
 
       };
     });
@@ -150,7 +147,7 @@ export class VendorOpeningBalanceDistributeComponent implements OnInit {
     if (!allValid) return;
     const totalCredit = this.getTotalCredit();
     const totalDebit = this.getTotalDebit();
-    const totalSum = Math.round(this.getTotalDebit() - this.getTotalCredit());
+    const totalSum = Math.round( this.getTotalCredit()-this.getTotalDebit() );
     if (totalSum == this.balance) {
       this.error=false
       this.ref.close(formattedItems);
@@ -177,7 +174,8 @@ export class VendorOpeningBalanceDistributeComponent implements OnInit {
     }, 0);
   }
   getTotalBalanceSum() {
-    this.totalBalanceSum = Math.round(this.getTotalDebit() - this.getTotalCredit());
+    console.log("this.totalBalanceSum",this.totalBalanceSum)
+    this.totalBalanceSum = Math.round( this.getTotalCredit()-this.getTotalDebit() );
     if(this.totalBalanceSum != this.balance){
       this.error=true
     }else{

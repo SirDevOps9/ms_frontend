@@ -13,6 +13,7 @@ const projects = [
   { path: '/finance', target: 'https://develop.localhost.com:4404' },
   { path: '/sales', target: 'https://develop.localhost.com:4405' },
   { path: '/purchase', target: 'https://develop.localhost.com:4406' },
+  { path: '/inventory', target: 'https://develop.localhost.com:4407' },
 ];
 
 projects.forEach(({ path, target }) => {

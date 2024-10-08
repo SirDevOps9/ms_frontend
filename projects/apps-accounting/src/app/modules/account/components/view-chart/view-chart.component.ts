@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, output, Signal, SimpleChanges } from '@angular/core';
 import { AccountByIdDto } from '../../models';
 import { AccountService } from '../../account.service';
 import { LanguageService } from 'shared-lib';
@@ -12,6 +12,9 @@ import { Title } from '@angular/platform-browser';
 export class ViewChartComponent {
   @Input() parentAddedId: number;
   @Input() account: AccountByIdDto;
+  // sendId = output()
+  sendId = output<number>();
+
   checked: boolean = true;
   yes: boolean = false;
   Active: boolean = false;
@@ -101,4 +104,9 @@ export class ViewChartComponent {
       //console.log('Account changed:', changes['account'].currentValue);
     }
   }
+  routeToEdit(){
+    this.sendId.emit(this.parent?.id as number) 
+    
+  }
+
 }

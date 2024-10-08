@@ -1,0 +1,124 @@
+<lib-page-content>
+    <div class="grid">
+      <div class="md:col-12 my-3 grid flex justify-content-end">
+        <div class="md:col-4 grid flex justify-content-end">
+          <div class="md:col-6">
+            <lib-button-micro
+              title="{{ 'cancel' | translate }}"
+              nameClass="cancel"
+              widthNumber="100%"
+              (click)="onCancel()"
+            
+            >
+            </lib-button-micro>
+          </div>
+          <div  class="md:col-6">
+            <lib-button-micro
+              title="{{ 'Save' | translate }}"
+              nameClass="save"
+              widthNumber="100%"
+              (click)="onSave()"
+            >
+            </lib-button-micro>
+          
+          </div>
+        </div>
+  
+        
+      </div>
+    </div>
+    
+  <div [formGroup]="stockInForm" class="stockInForm_header">
+    <!-- <p class="title test">{{ 'journal_entry_header' | translate }}</p> -->
+    <div class="grid">
+        <div class="md:col-6 my-2">
+            <lib-label [appControl]="stockInForm.controls['code']">
+            {{ 'stockIn.code' | translate }}
+            </lib-label>
+            <lib-text-input
+            placeholder="{{ 'stockIn.code' | translate }}"
+            formControlName="code"
+            ></lib-text-input>
+            <lib-field-validations
+            [appControl]="stockInForm.controls['code']"
+            ></lib-field-validations>
+        </div>
+        <div class="md:col-6 my-2">
+            <lib-label [appControl]="stockInForm.controls['code']">
+            {{ 'stockIn.date' | translate }}
+            </lib-label>
+          <lib-calendar   formControlName="code"></lib-calendar>
+            <lib-field-validations
+            [appControl]="stockInForm.controls['code']"
+            ></lib-field-validations>
+        </div>
+
+        <div class="md:col-6 my-2">
+            <lib-label [appControl]="stockInForm.controls['code']">
+            {{ 'stockIn.docType' | translate }}
+            </lib-label>
+            <lib-select
+            formControlName="code"
+            [options]="[]"
+            optionValue="id"
+            optionLabel="name"
+            placeholder="{{ 'stockIn.docType' | translate }}"
+            [selectedValue]="stockInForm.controls['code'].value"
+            >
+            </lib-select>
+            <lib-field-validations
+            [appControl]="stockInForm.controls['code']"
+            ></lib-field-validations>
+        </div>
+        <div class="md:col-6 my-2">
+            <lib-label [appControl]="stockInForm.controls['code']">
+            {{ 'stockIn.sourseDoc' | translate }}
+            </lib-label>
+            <lib-select
+            formControlName="code"
+            [options]="[]"
+            optionValue="id"
+            optionLabel="name"
+            placeholder="{{ 'stockIn.sourseDoc' | translate }}"
+            [selectedValue]="stockInForm.controls['code'].value"
+            >
+            </lib-select>
+            <lib-field-validations
+            [appControl]="stockInForm.controls['code']"
+            ></lib-field-validations>
+        </div>
+        <div class="md:col-12 my-2">
+            <lib-label [appControl]="stockInForm.controls['code']">
+            {{ 'stockIn.warehouse' | translate }}
+            </lib-label>
+            <lib-select
+            formControlName="code"
+            [options]="[]"
+            optionValue="id"
+            optionLabel="name"
+            placeholder="{{ 'stockIn.warehouse' | translate }}"
+            [selectedValue]="stockInForm.controls['code'].value"
+            >
+            </lib-select>
+            <lib-field-validations
+            [appControl]="stockInForm.controls['code']"
+            ></lib-field-validations>
+        </div>
+        <div class="md:col-12 my-2">
+            <div>
+                <lib-label [appControl]="stockInForm.controls['code']">
+                    {{ 'stockIn.notes' | translate }}
+                    </lib-label>
+            </div>
+
+            <textarea 
+            pInputTextarea 
+            style="width: 100%;"
+                rows="1"
+                placeholder="{{ 'stockIn.notes' | translate }}"
+            ></textarea>
+        </div>
+  
+    </div>
+</div>
+</lib-page-content>  

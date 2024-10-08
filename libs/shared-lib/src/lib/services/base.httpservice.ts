@@ -25,14 +25,14 @@ export class HttpService {
     private languageService : LanguageService
   ) {}
 
-  private addHeaders(): HttpHeaders {
+  public addHeaders(): HttpHeaders {
     const token = this.storageService.getItem(StorageKeys.USER_TOKEN) || '';
     return new HttpHeaders({
       'Content-Type': 'application/json-patch+json',
       Authorization: `Bearer ${token}`,
       'Accept-Language': this.storageService.getItem(StorageKeys.LANG_KEY) || 'en',
-      [HeaderParams.COMPANY_ID]: '2',
-      [HeaderParams.BRANCH_ID]: '2',
+      [HeaderParams.COMPANY_ID]:  this.storageService.getItem('defaultCompany')?? '98c91af6-16f4-477f-9b4a-db046a04b525',
+      [HeaderParams.BRANCH_ID]: this.storageService.getItem('defaultBranch')?? 'd69e6813-2646-41e7-a56c-538b7f91da39',
       [HeaderParams.VERSION]: this.environmentService.Version,
       [HeaderParams.CLIENTID]: this.environmentService.ClientId,
       [HeaderParams.PLATFORMTYPE]: this.environmentService.Platform,
@@ -46,8 +46,8 @@ export class HttpService {
       Authorization: `Bearer ${token}`,
       'Accept-Language': this.storageService.getItem(StorageKeys.LANG_KEY) || 'en',
       [HeaderParams.TENANT_ID]: '1',
-      [HeaderParams.COMPANY_ID]: '2',
-      [HeaderParams.BRANCH_ID]: '2',
+      [HeaderParams.COMPANY_ID]:  this.storageService.getItem('defaultCompany')?? '2',
+      [HeaderParams.BRANCH_ID]: this.storageService.getItem('defaultBranch')?? '2',
       [HeaderParams.VERSION]: this.environmentService.Version,
       [HeaderParams.CLIENTID]: this.environmentService.ClientId,
       [HeaderParams.PLATFORMTYPE]: this.environmentService.Platform,

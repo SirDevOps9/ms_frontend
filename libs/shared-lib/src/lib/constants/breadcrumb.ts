@@ -17,9 +17,9 @@ export class BreadcrumbLabel {
   static readonly CUSTOMER_DEFINITIONS ='BreadCrumb.CustomerDefinition';
   static readonly ADD_CUSTOMER_DEFINITIONS ='BreadCrumb.AddCustomerDefinition';
   static readonly EDIT_CUSTOMER_DEFINITIONS ='BreadCrumb.EditCustomerDefinition';
-  static readonly customer_list ='BreadCrumb.CustomerCategory';
-  static readonly customer_add ='BreadCrumb.AddCustomerCategory';
-  static readonly customer_edit ='BreadCrumb.EditCustomerCategory';
+  static readonly CUSTOMER_LIST ='BreadCrumb.CustomerCategory';
+  static readonly CUSTOMER_ADD ='BreadCrumb.AddCustomerCategory';
+  static readonly CUSTOMER_EDIT ='BreadCrumb.EditCustomerCategory';
   static readonly BANK_LIST ='BreadCrumb.BankDefinition';
   static readonly BANK_LIST_ADD ='BreadCrumb.AddBankDefinition';
   static readonly BANK_LIST_EDIT ='BreadCrumb.EditBankDefinition';
@@ -45,11 +45,14 @@ export class BreadcrumbLabel {
   static readonly EMPLOYEE_VIEW='BreadCrumb.ViewEmployee';
   static readonly EMPLOYEE_EDIT='BreadCrumb.EditEmployee';
   static readonly COST_CENTER_REPORT = 'BreadCrumb.CostCenterReport';
+  
 
   static ADD_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.AddCustomerOpeningBalance';
   static EDIT_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.EditCustomerOpeningBalance';
   static CUSTOMER_OPENEING_BALANCE_List ='BreadCrumb.CustomerOpeningBalanceList';
   static VIEW_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.ViewCustomerOpeningBalance';
+  static SEQUENCE ='BreadCrumb.sequence';
+  static DASHBOARD ='BreadCrumb.Dashboard';
 
 
 
@@ -84,25 +87,46 @@ export class BreadcrumbLabel {
     static ADD_CURRENCY_DEFINITION ='Add Currency Definition';
 
  
-    static DASHBOARD ='Dashboard';
 
     static JOURNAL_OPENING_BALANCE ='Journal Entry Opening Balance';
     static ADD_JOURNAL_OPENING_BALANCE ='Add Journal Entry Opening Balance';
     static EDIT_JOURNAL_OPENING_BALANCE ='Edit Journal Entry Opening Balance';
     static VIEW_JOURNAL_OPENING_BALANCE ='View Journal Entry Opening Balance';
+    static  ITEM_DIFINITION ='item Definition';
+    static  ADD_ITEM_DIFINITION ='Add Item Definition';
+    static  ITEM_TYPE ='Item Type';
+    static  ITEM_CATEGORY ='Item Category';
+    static  WARE_HOUSE ='Warehouse';
+    static  ADD_WARE_HOUSE ='Add Warehouse';
+    static  UOM ='UOM';
+    static  UOM_LIST ='uom-list';
+    static  ADD_UOM ='UOM Add';
+    static  Edit_UOM ='edit uom';
+
+    // attr attribute-definition 
+    static  Attribute_Definition = 'Attribute Definition';
+    static  Operational_Tag = 'Operational Tag';
+    static  Add_Operational_Tag = 'Add Operational Tag';
+    static  Edit_Operational_Tag = 'Edit Operational Tag';
+    static  Add_Attribute_Definition = 'Add Attribute Definition';
+    static  Edit_Attribute_Definition = 'Edit Attribute Definition';
+    static  EDIT_WARE_HOUSE ='Edit Warehouse';
+    static  ITEMS_CATEGORY ='Items Category';
+    static  STOCKIN ='Stock In';
+    static  ADD_STOCKIN ='Add Stock In';
    
     static COST_CENTER ='Cost Center';
     static PAYMENT_TERM_ADD ='BreadCrumb.AddPaymentterm';
     static PAYMENT_TERM_EDIT ='BreadCrumb.EditPaymentterm';
     static PAYMENT_METHOD_LIST ='BreadCrumb.PaymentMethodlist';
-    static PAYMENT_METHOD_ADD ='BreadCrumb.AddPaymentMethod ';
-    static PAYMENT_METHOD_EDIT ='BreadCrumb.EditPaymentMethod ';
-    static PAYMENT_METHOD_VIEW ='BreadCrumb.ViewPaymentMethod ';
+    static PAYMENT_METHOD_ADD ='BreadCrumb.AddPaymentMethod';
+    static PAYMENT_METHOD_EDIT ='BreadCrumb.EditPaymentMethod';
+    static PAYMENT_METHOD_VIEW ='BreadCrumb.ViewPaymentMethod';
     
     
     static PAYMENT_IN ='BreadCrumb.PaymentIn';
-    static ADD_PAYMENT_IN ='Add Payment In ';
-    static EDIT_PAYMENT_IN ='Edit Payment In ';
+    static ADD_PAYMENT_IN ='PaymentIn.addpaymentin';
+    static EDIT_PAYMENT_IN ='BreadCrumb.EditPaymentIn';
 
     static PAYMENT_IN_LIST ='BreadCrumb.PaymentInList';
 
@@ -110,13 +134,21 @@ export class BreadcrumbLabel {
     static ADD_PAYMENT_OUT ='BreadCrumb.AddPaymentOut';
     static EDIT_PAYMENT_OUT ='BreadCrumb.EditPaymentOut';
     static PAYMENT_OUT_LIST ='BreadCrumb.PaymentOutList';
-    static VIEW_PAYMENT_IN ='BreadCrumb.ViewPaymentIn ';
+    static VIEW_PAYMENT_IN ='BreadCrumb.ViewPaymentIn';
 
-    static VIEW_PAYMENT_OUT ='ViewPaymentOut ';
+    static VIEW_PAYMENT_OUT ='BreadCrumb.ViewPaymentout';
 
-    static VENDOR_OPENING_BALANCE ='BreadCrumb.VendorOpeningBalance ';
+    static VENDOR_OPENING_BALANCE ='BreadCrumb.VendorOpeningBalance';
     static VENDOR_OPENING_BALANCE_EDIT ='BreadCrumb.EditVendorOpeningBalance';
     static VENDOR_OPENING_BALANCE_ADD ='BreadCrumb.AddVendorOpeningBalance';
+    static VENDOR_OPENING_BALANCE_VIEW ='BreadCrumb.ViewVendorOpeningBalance';
+
+    static BANK_ACCOUNT_STATEMENT ='BreadCrumb.BankAccountStatement';
+    static TREASURY_STATEMENT ='BreadCrumb.TreasuryStatement';
+    static VIEW_BANK_DEFINATION ='BreadCrumb.ViewBankDefination';
+    static VIEW_PAYMENT_TERM ='BreadCrumb.ViewPaymentTerm';
+
+
 
 
   }

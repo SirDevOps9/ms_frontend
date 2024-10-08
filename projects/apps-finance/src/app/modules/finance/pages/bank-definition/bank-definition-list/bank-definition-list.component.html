@@ -39,58 +39,47 @@
           ]
         }"
       >
-        <ng-container caption>
-          <div class="">
-            <div class="grid">
-              <div class="col-3">
-                <lib-form-group>
-                  <lib-text-input
-                    type="text"
-                    [placeholder]="'bank.Search' | translate"
-                    [(ngModel)]="searchTerm"
-                    (keyUp)="onSearchChange()"
-                  ></lib-text-input>
-                </lib-form-group>
-              </div>
-              <!--  -->
-              <!-- <div class="col-3">
-                <lib-change-column
-                  [placeholder]="'bank.ChangeColumn' | translate"
-                  [dataTable]="tableData"
-                ></lib-change-column>
-              </div> -->
-
-              <div class=" col-9 flex gap-2 justify-content-end align-items-center">
-                <div>
-                  <lib-button-micro
-                    [title]="'bank.AddNew' | translate"
-                    nameClass="save"
-                    iconName="pi pi-plus"
-                    (click)="onAdd()"
-                  >
-                  </lib-button-micro>
-                </div>
-                <!--  -->
-                <div>
-                  <lib-export
-                    (exportClick)="exportClick($event)"
-                    [exportData]="exportData"
-                    [exportColumns]="exportColumns"
-                    [ExportName]="'Bank Definition'"
-                  >
-                  </lib-export>
-                </div>
-                <!--  -->
-              </div>
-            </div>
+        <ng-container search>
+          <lib-form-group>
+            <lib-text-input
+              type="text"
+              [placeholder]="'bank.Search' | translate"
+              [(ngModel)]="searchTerm"
+              (keyUp)="onSearchChange()"
+            ></lib-text-input>
+          </lib-form-group>
+          </ng-container>
+        <ng-container action>
+          
+          <div>
+            <lib-export
+              (exportClick)="exportClick($event)"
+              [exportData]="exportData"
+              [exportColumns]="exportColumns"
+              [ExportName]="'Bank Definition'"
+            >
+            </lib-export>
           </div>
-        </ng-container>
+          <!--  -->
+          <div>
+            <lib-button-micro
+              [title]="'bank.AddNew' | translate"
+              nameClass="save"
+              iconName="pi pi-plus"
+              (click)="onAdd()"
+            >
+            </lib-button-micro>
+          </div>
+          </ng-container>
+       
 
         <ng-template #actions let-action>
           <div class="actions flex align-items-center">
             <lib-button-micro nameClass="table_button_edit" (click)="onEdit(action)">
             </lib-button-micro>
             <lib-button-micro nameClass="table_button_delete" (click)="onDelete(action.id)">
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_view" (click)="view(action.id)">
             </lib-button-micro>
           </div>
         </ng-template>

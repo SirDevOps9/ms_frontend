@@ -1,1 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+
+.Layout .Layout {
+  width: calc(100% - 70px) !important;
+  margin: auto;
+}

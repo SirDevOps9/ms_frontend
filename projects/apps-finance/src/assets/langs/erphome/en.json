@@ -11,7 +11,7 @@
     "Actions": "Actions",
     "Edit": "Edit",
     "Delete": "Delete",
-    "Add": "Add"
+    "Add": "Create"
   },
   "Toaster": {
     "Confirm": {
@@ -113,7 +113,7 @@
     "Actions": "Actions",
     "Add": {
       "CompanyLogo": "CompanyLogo",
-      "AddCompany": "Add",
+      "AddCompany": "Create",
       "Plan": "Plan",
       "CompanyAddedSuccessfully": "Company added successfully",
       "Error": "Error",
@@ -262,7 +262,7 @@
     "JournalUpdatedSuccessfully": "Journal Updated Successfully",
     "Add": {
       "CompanyLogo": "CompanyLogo",
-      "AddCompany": "Add",
+      "AddCompany": "Create",
       "Plan": "Plan",
       "CompanyAddedSuccessfully": "Company added successfully",
       "Error": "Error",
@@ -398,7 +398,7 @@
     "Error":"Error",
     "paymentMethodTypeNotAllowed":"payment Method details Not Allowed",
     "paymentMethodTypeRequired":"payment Method details Required In line",
-    "addpaymentin":" add Paymentin",
+    "addpaymentin":" Add Paymentin",
     "editpaymentin":" Edit Paymentin"
   },
   "popupPayment":{ 

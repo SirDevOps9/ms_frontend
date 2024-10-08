@@ -18,13 +18,14 @@ import {
   PaymentTermDto,
   SimpleDropDown,
   TreasuryDropDown,
+  TreasuryViewDto,
   VendorDropDown,
+  ViewBankDto,
 } from './models';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { AddBankDto } from './models/addBankDto';
 import { UserPermission } from './models/user-permission';
 import { bankByID } from './models/getBankByID';
-import { AddPaymentTermComponent } from './pages/payment-term/add-payment-term/add-payment-term.component';
 import { GetPaymentTermById } from './models/get-payment-term-by-id-dto';
 import { BankAccountWithCurrency } from './models/bank-account-with-currency-dto';
 import { GetPaymentMethodByIdDto } from './models/get-payment-method-by-id-dto';
@@ -54,6 +55,9 @@ export class FinanceProxyService {
   }
   getTreasureDefinitionsById(id: number): Observable<GetTreasuryDtoById> {
     return this.httpService.get(`Treasury/${id}`);
+  }
+  getTreasuryDefinitionsView(id: number): Observable<TreasuryViewDto> {
+    return this.httpService.get(`Treasury/View/${id}`);
   }
 
   deleteTreasury(id: number) {
@@ -98,7 +102,9 @@ export class FinanceProxyService {
   deleteBank(id: number) {
     return this.httpService.delete(`Bank/${id}`);
   }
-
+  deleteBankAccount(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`Bank/DeleteAccount/${id}`);
+  }
   getBankDefinitionByID(id: number): Observable<bankByID> {
     return this.httpService.get(`Bank/${id}`);
   }
@@ -211,6 +217,8 @@ export class FinanceProxyService {
   GetAccountBalance(id: number): Observable<number> {
     return this.httpService.get(`Bank/GetAccountBalance/${id}`);
   }
+
+  
   getAccountsHasNoChildren(
     quieries: string,
     pageInfo: PageInfo
@@ -265,5 +273,13 @@ export class FinanceProxyService {
   }
   postPaymentIn(id:number){
     return this.httpService.post(`PaymentIn/${id}/Post`,null);
+  }
+
+  viewBank(id: number): Observable<ViewBankDto> {
+    return this.httpService.get(`Bank/View/${id}`);
+  }
+
+  viewPaymentTerm(id: number): Observable<GetPaymentTermById> {
+    return this.httpService.get(`PaymentTerms/View/${id}`);
   }
 }

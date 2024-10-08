@@ -5,7 +5,7 @@ export interface ViewPaymentOutDto {
     code: string;
    // status: PaymentInStatus;
     description: string;
-    paymentInDate: Date;
+    paymentOutDate: Date;
     paymentHub: paymentplace;
     paymentHubDetailName: string;
     bankId?: number;
@@ -19,6 +19,7 @@ export interface ViewPaymentOutDto {
     journalId?: number;
     journalCode?: string;
     sourceDocument?: string;
+    status?: string;
     paymentOutDetails: PaymentOutDetailViewDto[];
 
   }

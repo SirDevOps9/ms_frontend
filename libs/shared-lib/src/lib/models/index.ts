@@ -21,3 +21,5 @@ export * from './sideMenuModel';
 export * from './menuModule';
 export * from './form';
 export * from './modules';
+export * from './pages';
+export * from './component-type';

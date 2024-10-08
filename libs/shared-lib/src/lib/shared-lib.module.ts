@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -24,9 +24,12 @@ import {
   ButtonComponent,
   SharedFormComponent,
   ToggelComponent,
+  EditMultipeFilesComponent,
 } from './form-components';
 import { DropdownModule } from 'primeng/dropdown';
 import { GetLookupPipe } from './pipes/lookupList';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+
 import { PageContentComponent } from './components/page-content/page-content.component';
 import { PrimeSharedModule } from './prime-module/prime.module';
 import { FileUploaderComponent } from './form-components/file-uploader/file-uploader.component';
@@ -52,6 +55,9 @@ import { ChangeColumnComponent } from './components/change-column/change-column.
 import { NumberFormatPipe } from './pipes/number-format.pipe';
 import { PopupPageComponent } from './components/popup-page/popup-page.component';
 import { NumberFormatDirective } from './directives/numberFormatDirective';
+import { QRCodeModule } from 'angularx-qrcode';
+import { ActtachmentViewComponent } from 'libs/apps-shared-lib/src/lib/pages/attachment-view/acttachment-view/acttachment-view.component';
+
 @NgModule({
   declarations: [
     NumberFormatDirective,
@@ -69,6 +75,7 @@ import { NumberFormatDirective } from './directives/numberFormatDirective';
     FileUploaderComponent,
     NamedFileUploaderComponent,
     MultiSelectComponent,
+    EditMultipeFilesComponent,
     DataTableComponent,
     AttachmentViewerComponent,
     ButtonComponent,
@@ -107,6 +114,9 @@ import { NumberFormatDirective } from './directives/numberFormatDirective';
     TreeTableModule,
     TreeModule,
     ProgressSpinnerModule,
+    QRCodeModule,
+    InputTextareaModule
+    
   ],
   exports: [
     GetLookupPipe,
@@ -128,6 +138,7 @@ import { NumberFormatDirective } from './directives/numberFormatDirective';
     PrimeSharedModule,
     FileUploaderComponent,
     MultiSelectComponent,
+    EditMultipeFilesComponent,
     DataTableComponent,
     AttachmentViewerComponent,
     ButtonComponent,
@@ -153,7 +164,9 @@ import { NumberFormatDirective } from './directives/numberFormatDirective';
     ChangeColumnComponent,
     NumberFormatPipe,
     PopupPageComponent,
-    NumberFormatDirective
+    NumberFormatDirective,
+    QRCodeModule,
+    InputTextareaModule
   ],
 })
 export class SharedLibModule {}

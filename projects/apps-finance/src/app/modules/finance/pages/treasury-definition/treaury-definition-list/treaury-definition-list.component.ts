@@ -15,6 +15,8 @@ import { AddTreasuryComponent } from '../../../components/add-treasury/add-treas
 import { EditTreasuryComponent } from '../../../components/edit-treasury/edit-treasury.component';
 import { TaxDto } from '../../../../general/models';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { ViewTreasuryComponent } from '../../../components/view-treasury/view-treasury.component';
 
 @Component({
   selector: 'app-treaury-definition-list',
@@ -28,7 +30,8 @@ export class TreauryDefinitionListComponent implements OnInit {
     private dialog: DialogService,
     private financeService: FinanceService,
     private languageService: LanguageService,
-    private titleService:Title
+    private titleService: Title,
+    private router: Router
   ) {}
 
   tableData: TreasureDefinitionDto[];
@@ -73,7 +76,6 @@ export class TreauryDefinitionListComponent implements OnInit {
       id: col.header,
       name: col.field,
     }));
-    this.titleService.setTitle(this.languageService.transalte('treasury.treasuryList'));
   }
 
   initTreasurData() {
@@ -114,7 +116,7 @@ export class TreauryDefinitionListComponent implements OnInit {
   onAdd() {
     const dialogRef = this.dialog.open(AddTreasuryComponent, {
       // header: this.languageService.transalte('treasury.addTreasury'),
-      width: '600px',
+      width: '650px',
       height: '600px',
 
       // position: 'bottom-right', // Adjust position as needed
@@ -138,14 +140,27 @@ export class TreauryDefinitionListComponent implements OnInit {
     });
   }
 
+  view(id: number) {
+    const dialogRef = this.dialog.open(ViewTreasuryComponent, {
+      width: '600px',
+      height: '600px',
+      data: id,
+    });
+  }
+
   onSearchChange() {
     this.financeService.getTreasureDefinitions(this.searchTerm, new PageInfo());
     this.financeService.sendTreasuryDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
-        console.log(res);
       },
     });
+  }
+  routeTo(id: number) {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`finance/reports/treasury-statement/${id}`])
+    );
+    window.open(url, '_blank');
   }
 
   onDelete(id: number) {

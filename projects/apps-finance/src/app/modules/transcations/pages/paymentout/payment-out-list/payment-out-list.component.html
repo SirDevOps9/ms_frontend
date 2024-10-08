@@ -5,6 +5,7 @@
   <div>
     <div class="user_page">
       <lib-data-table
+        [sequence]="true"
         [items]="tableData"
         className="p-datatable-gridlines"
         [currentPageResult]="paymentOutCurrentPageInfo"
@@ -49,15 +50,21 @@
                   headerText: ('PaymentOut.List.bankAccount' | translate) ,
 
                  },
+                 
+                 {
+                  name: 'status',
+                  headerText: ('payment-in.status' | translate) ,
+                  template: pStatus
+                 },
                  {
                   name: 'sourceDocument',
-                  headerText: ('PaymentOut.List.sourceDocument' | translate) ,
+                  headerText: ('payment-in.sourceDocument' | translate) ,
 
                  },
                  {
                   name: 'relatedSourceJournal',
-                  headerText: ('PaymentOut.List.relatedSourceJournal' | translate) ,
-
+                  headerText: ('payment-in.relatedSourceJournal' | translate) ,
+                  template:journalCode
                  },
                  {
                    name: 'id',
@@ -78,15 +85,27 @@
             </lib-text-input>
           </div>
         </ng-container>
+
+        <ng-template #journalCode let-transactions>
+          <div>
+            <p class="code" (click)="routeToJournalView(transactions.relatedSourceJournalId)">
+              {{ transactions.relatedSourceJournal }}
+            </p>
+          </div>
+        </ng-template>
+
+        <ng-template #pStatus let-p>
+          <div class="status draft" *ngIf="p.status == financeSharedEnums.PaymentInStatus.Draft">
+            <p class="dot"></p>
+            <p>{{ 'payment-in.draft' | translate }}</p>
+          </div>
+          <div class="status Posted" *ngIf="p.status === financeSharedEnums.PaymentInStatus.Posted">
+            <p class="dot"></p>
+            <p>{{ 'payment-in.posted' | translate }}</p>
+          </div>
+        </ng-template>
         <ng-container action>
           <div class="flex gap-2">
-            <lib-button-micro
-              title="{{ 'PaymentOut.List.addNew' | translate }}"
-              (click)="routeToAdd()"
-              [iconName]="'pi pi-plus'"
-              nameClass="save"
-            >
-            </lib-button-micro>
             <lib-export
               (exportClick)="exportClick()"
               [exportData]="exportData"
@@ -94,6 +113,13 @@
               [ExportName]="'Payment Out'"
             >
             </lib-export>
+            <lib-button-micro
+              title="{{ 'create' | translate }}"
+              (click)="routeToAdd()"
+              [iconName]="'pi pi-plus'"
+              nameClass="save"
+            >
+            </lib-button-micro>
           </div>
         </ng-container>
         <ng-template #Date let-paymentIn>

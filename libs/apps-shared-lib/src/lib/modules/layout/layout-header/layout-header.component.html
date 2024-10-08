@@ -22,6 +22,37 @@
           </ng-template>
           <ng-template pTemplate="end">
             <div class="header_sec">
+              <ng-container [formGroup]="coBrForm" >
+              
+              <!-- <div class="modules">
+                <lib-form-group>
+                  <lib-select
+                    formControlName="companyId"
+                    placeholder="{{ 'Layout.DefaultCompany' | translate }}"
+                    [options]="companyList"
+                    [selectedValue]="coBrForm.controls['companyId'].value"
+                    optionLabel="name"
+                    optionValue="id"
+                    [readOnly]="true"
+                  >
+                  </lib-select>
+                </lib-form-group>
+              </div>
+              <div class="modules">
+                <lib-form-group>
+                  <lib-select
+                  [readOnly]="true"
+                    formControlName="branchId"
+                    placeholder="{{ 'Layout.DefaultBranch' | translate }}"
+                    [options]="branchList"
+                    [selectedValue]="coBrForm.controls['branchId'].value"
+                    optionLabel="name"
+                    optionValue="id"
+                  >
+                  </lib-select>
+                </lib-form-group>
+              </div> -->
+            </ng-container      >
               <div class="modules">
                 <button class="btn_mod_select" (click)="openDialog()">
                   <img src="assets/images/header-icons/change-app.svg" alt="" />
@@ -81,15 +112,15 @@
                     </div>
                     <div class="card-items">
                       <button class="profaile_link">
-                        <p class="title">My Subscription</p>
+                        <p class="title">{{'Layout.MySubscription' | translate}}</p>
                       </button>
                       <button class="profaile_link">
-                        <p class="title">My favorite</p>
+                        <p class="title">{{'Layout.Myfavorite' | translate}}</p>
                       </button>
                     </div>
                     <div class="card-items">
                       <button class="profaile_link">
-                        <p class="title">Language</p>
+                        <p class="title">{{ 'Layout.Language' | translate }}</p>
                         <button class="lang_link" (click)="toggleLanguage()">
                           <p class="title">
                             {{ languageService.Lang === 'en' ? 'English' : 'عربى' }}
@@ -104,10 +135,10 @@
                         </button>
                       </button>
                       <button class="profaile_link">
-                        <p class="title">Account Settings</p>
+                        <p class="title">{{ 'Layout.AccountSettings' | translate }}</p>
                       </button>
                     </div>
-                    <!--                     
+                    <!--
                     <button class="mode_link">
                       <p class="pi pi-moon"></p>
                       <p class="title">Dark Mood</p>
@@ -115,7 +146,7 @@
                     <div class="footer_card card-items">
                       <div class="logout">
                         <button class="log_link" (click)="logout()">
-                          <p class="title">logout</p>
+                          <p class="title">{{ 'Layout.logout' | translate }}</p>
                           <img src="assets/images/header-icons/Logout.svg" />
                         </button>
                       </div>

@@ -40,12 +40,9 @@ export class PaymentTermListComponent implements OnInit {
 
   constructor(
     private financeService: FinanceService,
-    private routerService: RouterService,
-    private title: Title,
-    private langService: LanguageService,
+    private routerService: RouterService
 
   ) {
-    this.title.setTitle(this.langService.transalte('paymentterm.payment-term-list'));
 
   }
 
@@ -90,6 +87,9 @@ export class PaymentTermListComponent implements OnInit {
 
   onEdit(data: any) {
     this.routerService.navigateTo(`/masterdata/paymentterm/edit-payment-term/${data.id}`);
+  }
+  view(id: any) {
+    this.routerService.navigateTo(`/masterdata/paymentterm/view-payment-term/${id}`);
   }
 
   onSearchChange() {

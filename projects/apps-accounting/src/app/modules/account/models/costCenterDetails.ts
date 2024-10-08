@@ -3,5 +3,7 @@ export interface costCenterDetails {
     code: string,
     name: string,
     isDetail: boolean,
-    parentName: string
+    isActive:boolean,
+    parentName: string,
+    parentId :number
   }

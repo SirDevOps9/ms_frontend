@@ -6,5 +6,11 @@ export class EditJournalEntry {
     journalDate: string;
     description: string;
     journalEntryLines?: EditJournalEntryLine[];
+    journalEntryAttachments?: EditJournalEntryAttachment[];
   }
   
+  export class EditJournalEntryAttachment {
+    id: number;
+    attachmentId: string;
+    name: string;
+}

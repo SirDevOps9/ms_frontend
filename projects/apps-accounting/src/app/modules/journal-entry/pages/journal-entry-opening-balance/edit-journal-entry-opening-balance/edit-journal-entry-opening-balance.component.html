@@ -1,6 +1,8 @@
 <lib-page-content>
   <div class="journal_entry_add_page">
     <form [formGroup]="editJournalForm" (ngSubmit)="onSubmit()">
+      <div class="card_micro">
+
       <div class="entry_header">
         <div class="grid">
           <div class="col-12 md:col-3">
@@ -99,6 +101,7 @@
               ></lib-text-input>
             </div>
           </div>
+         
           <div class="col-12 md:col-3 total">
             <!-- <div>
               <p class="totals">{{ 'JournalTemplate.totalDebitAmountLocal' | translate }}</p>
@@ -140,7 +143,7 @@
           </div>
         </div>
       </div>
-
+</div>
       <div class="entry_table">
         <div class="card">
           <p-table
@@ -243,7 +246,7 @@
                       {{ journalLine.controls['debitAmount'].value | numberFormat }}
                     </ng-template>
                   </p-cellEditor>
-                  <lib-field-validations [appControl]="journalLine"> </lib-field-validations>
+                  <lib-field-validations [appControl]="journalLine.controls['debitAmount']"></lib-field-validations>
                 </td>
                 <td
                   [pEditableColumn]="journalLine.controls['creditAmount']"
@@ -264,7 +267,7 @@
                       {{ journalLine.controls['creditAmount'].value | numberFormat }}
                     </ng-template>
                   </p-cellEditor>
-                  <lib-field-validations [appControl]="journalLine"> </lib-field-validations>
+                  <lib-field-validations [appControl]="journalLine.controls['creditAmount']"></lib-field-validations>
                 </td>
 
                 <td>
@@ -280,8 +283,8 @@
                       [readOnly]="viewMode"
                       [disabled]="viewMode"
                     ></lib-text-input>
-                    <lib-field-validations [appControl]="journalLine?.get('currencyRate')">
-                    </lib-field-validations>
+                    <lib-field-validations [appControl]="journalLine.controls['currencyRate']"></lib-field-validations>
+
                   </lib-form-group>
                 </td>
                 <td>
@@ -307,7 +310,8 @@
                     class="pointer"
                     *ngIf="
                       isCostCenterallowed(journalLine.controls['costCenterConfig'].value) &&
-                      shouldShowCostCenterImage(journalLine.controls['costCenters'].value) <= 0
+                      shouldShowCostCenterImage(journalLine.controls['costCenters'].value) <= 0 &&
+                      journalLine.controls['id'].value ==0 
                     "
                     (click)="
                       openCostPopup(
@@ -416,9 +420,22 @@
               journalEntry?.status != enums.JournalEntryStatus.Posted
             "
           >
-            <button class="btn" type="button" (click)="addNewRow()">
-              {{ 'EditJournal.AddNewLine' | translate }}
-            </button>
+          <div class="grid">
+            <div class="md:col-3">
+              <div class="grid">
+                <div class="md:col-6">
+              <lib-button-micro
+              nameClass="outline"
+              widthNumber="100%" 
+              title="{{ 'add_new_line' | translate }}"
+              (click)="addNewRow()"
+              >
+    
+              </lib-button-micro>
+              </div>
+              </div>
+            </div>
+          </div>
           </div>
         </div>
 

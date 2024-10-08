@@ -1,7 +1,7 @@
 <lib-page-content>
   <div class="add_vendor_page">
-    <form [formGroup]="editVendorForm" (ngSubmit)="editVendor()">
-      <div class="grid top_header">
+    <form [formGroup]="editVendorForm" >
+      <!-- <div class="grid top_header">
         <div class="col-9"></div>
         <div class="col-3">
           <lib-button-micro
@@ -18,8 +18,9 @@
         >
         </lib-button-micro>
         </div>
-      </div>
+      </div> -->
 
+      <div class="card_micro">
 
       <div class="vendor_header">
         <div class="grid">
@@ -125,6 +126,10 @@
             <!-- </div> -->
           </div>
         </div>
+        </div>
+        </div>
+        <div class="card_micro">
+
         <div class="vendor_body">
           <div class="card">
             <p-tabView>
@@ -766,5 +771,29 @@
         </div>
       </div>
     </form>
+    <div class="btn_group">
+      <div class="grid">
+        <div class="md:col-3">
+          <div class="grid">
+            <div class="md:col-6">
+              <lib-button-micro
+        nameClass="cancel"
+        [title]="'Cancel' | translate"
+        (click)="cancel()"
+      >
+      </lib-button-micro>
+            </div>
+            <div class="md:col-6">
+              <lib-button-micro
+        nameClass="save w-100"
+        [title]="'Save' | translate"
+        (click)="editVendor()"
+      >
+      </lib-button-micro>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </lib-page-content>

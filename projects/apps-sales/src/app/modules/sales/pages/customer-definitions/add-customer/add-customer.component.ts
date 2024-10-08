@@ -177,7 +177,10 @@ export class AddCustomerComponent implements OnInit {
   getTags() {
     this.salesService.getTags(Modules.Sales);
     this.salesService.tags.subscribe((res) => {
-      this.accountTags = res;
+      if(res){
+        this.accountTags = res;
+
+      }
     });
   }
   getCurrencies() {

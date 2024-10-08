@@ -96,13 +96,11 @@ export class EditPaymentOutComponent implements OnInit {
     private toasterService: ToasterService,
     private langService: LanguageService,
     private currentUserService: CurrentUserService,
-    private titleService: Title,
     private routerService: RouterService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle(this.langService.transalte('PaymentOut.editpaymentout'));
     this.id = this.route.snapshot.params['id'];
 
     this.getPaymentDetails(this.id);
@@ -154,7 +152,7 @@ export class EditPaymentOutComponent implements OnInit {
       bankAccountId: new FormControl(null),
       paymentHubDetailId: new FormControl('', [customValidators.required]),
       currencyId: new FormControl(null),
-      rate: new FormControl<number | undefined>(0, [customValidators.required]),
+      rate: new FormControl<number | undefined>(0, [customValidators.required,customValidators.nonNegativeNumbers]),
       glAccountId: new FormControl(null),
       paymentOutDetails: this.formBuilder.array([]),
       code: new FormControl(''),
@@ -164,7 +162,7 @@ export class EditPaymentOutComponent implements OnInit {
       newBalance: new FormControl(0, customValidators.nonNegativeNumbers),
       paymentOutDetailCostCenters: new FormControl(null),
     });
-    this.addForm.controls['paymentOutDate'].patchValue(new Date());
+    this.addForm.controls['paymentOutDate'].patchValue(new Date().toISOString().split('T')[0]);
   }
 
   getTodaysDate() {
@@ -192,10 +190,12 @@ export class EditPaymentOutComponent implements OnInit {
       return true;
     } else {
       const data = value;
+      const viewdata = this.paymentInPosted;
+
       const ref = this.dialog.open(PaymentOutPaymentMethodComponent, {
         width: '900px',
         height: '600px',
-        data: { ...data, selectedPayment },
+        data: { ...data, selectedPayment , viewdata },
       });
       ref.onClose.subscribe((res) => {
         if (res) {
@@ -293,19 +293,12 @@ export class EditPaymentOutComponent implements OnInit {
     });
 
     this.addForm.get('paymentHub')?.valueChanges.subscribe((res: any) => {
-      if (res == paymentplace.Treasury) {
+      if (res == paymentplaceString.Treasury) {
         this.addForm.get('bankAccountId')?.clearValidators();
         this.addForm.get('bankAccountId')?.updateValueAndValidity();
-      } else if (res == paymentplace.Bank) {
+      } else if (res == paymentplaceString.Bank) {
         this.addForm.get('bankAccountId')?.addValidators([customValidators.required]);
         this.addForm.get('bankAccountId')?.updateValueAndValidity();
-      }
-    });
-    this.financeService.accountCurrencyRate.subscribe((res) => {
-      if (res) {
-        this.addForm.controls['rate'].patchValue(res?.rate);
-        this.calculateTotalLocalAmount();
-        this.updateRateInPaymentDetails(res?.rate);
       }
     });
     this.addForm.controls['currencyId'].valueChanges.subscribe((currencyId: any) => {
@@ -396,7 +389,7 @@ export class EditPaymentOutComponent implements OnInit {
 
     let newLine = this.formBuilder.group(
       {
-        amount: new FormControl(0, [customValidators.required, customValidators.hasSpaces]),
+        amount: new FormControl('', [customValidators.required, customValidators.hasSpaces]),
         paymentMethodId: new FormControl(null, [customValidators.required]),
         paymentMethodType: new FormControl('Check'),
         ratio: new FormControl(null),
@@ -658,12 +651,13 @@ export class EditPaymentOutComponent implements OnInit {
       );
       return;
     }
+    const viewdata = this.paymentInPosted;
 
     const dialogRef = this.dialog.open(AddPaymentOutCostCenterComponent, {
       width: '900px',
       height: '600px',
       header: 'Edit Cost Center Allocation',
-      data: data,
+      data:{ ...data,viewdata },
     });
     dialogRef.onClose.subscribe((res) => {
       if (res) {
@@ -793,7 +787,7 @@ export class EditPaymentOutComponent implements OnInit {
       if (customer) {
         if (customer.accountId > 0) {
           journalLine.get('glAccountId')?.setValue(customer.accountId);
-          journalLine.get('glAccountname')?.setValue(customer.accountName);
+          journalLine.get('accountName')?.setValue(customer.accountName);
         }
       }
     } else if (paidByValue === this.sharedFinanceEnums.paiedDropDown.vendor) {
@@ -801,7 +795,7 @@ export class EditPaymentOutComponent implements OnInit {
       if (vendor) {
         if (vendor.accountId > 0) {
           journalLine.get('glAccountId')?.setValue(vendor.accountId);
-          journalLine.get('glAccountname')?.setValue(vendor.accountName);
+          journalLine.get('accountName')?.setValue(vendor.accountName);
         }
       }
     }

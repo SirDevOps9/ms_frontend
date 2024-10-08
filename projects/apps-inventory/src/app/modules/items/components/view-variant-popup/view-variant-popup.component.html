@@ -1,0 +1,13 @@
+<lib-popup-page
+title="{{ 'itemDefinition.viewVariant' | translate }}"
+[closeFunction]="close"
+[save]="false"
+
+>
+
+<div  class="flex gap-2"   >
+    <p class="attributeValues " *ngFor="let item of attributeValues[0]?.itemAttributes">{{item.name}}</p>
+</div>
+
+</lib-popup-page>
+<!-- [closeFunction]="onCancel" -->

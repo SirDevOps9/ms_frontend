@@ -19,6 +19,7 @@ export interface ViewPaymentInDto {
     journalId?: number;
     journalCode?: string;
     sourceDocument?: string;
+    status?: string;
     paymentInDetails: PaymentInDetailViewDto[];
 
   }

@@ -4,6 +4,7 @@ import { JournalEntryStatus } from "./journalentrystatus";
 import { JournalEntryType } from "./journalentrytype";
 
 export interface GetJournalEntryByIdDto {
+    journalEntryAttachments : any
     id: number;
     journalCode: string;
     referenceNumber?: string;
@@ -13,6 +14,8 @@ export interface GetJournalEntryByIdDto {
     type: JournalEntryType;
     sourceName: string;
     sourceCode: string;
+    paymentInId: number;
+    paymentOutId: number;
     reversedJournalCode?: string; 
     status: JournalEntryStatus;
     totalDebitAmount: number;

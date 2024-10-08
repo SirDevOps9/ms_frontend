@@ -1,0 +1,228 @@
+<lib-page-content>
+  <div class="user_page group">
+    <div class="card_micro">
+    <form [formGroup]="accountStatementForm">
+      <div class="group">
+        <div class="calender">
+          <div class="grid">
+            <div class="col-12 md:col-4">
+              <lib-form-group>
+                <lib-select
+                  formControlName="bankId"
+                  [options]="BankDropDown"
+                  optionValue="id"
+                  optionLabel="name"
+                  (valueChanged)="
+                    bankAccountDropDown(accountStatementForm.controls['bankId'].value)
+                  "
+                  [placeholder]="'BankAccountStatement.SelectBankValue' | translate"
+                ></lib-select>
+                <lib-field-validations [appControl]="accountStatementForm.controls['bankId']">
+                </lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="col-12 md:col-4">
+              <lib-form-group>
+                <lib-select
+                  formControlName="bankAccountId"
+                  [options]="bankAccount"
+                  optionValue="id"
+                  optionLabel="accountNumber"
+                  (valueChanged)="
+                    getCurrencyBankAccount(accountStatementForm.controls['bankAccountId'].value)
+                  "
+                  [placeholder]="'BankAccountStatement.SelectBankAccountValue' | translate"
+                ></lib-select>
+                <lib-field-validations
+                  [appControl]="accountStatementForm.controls['bankAccountId']"
+                >
+                </lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="col-12 md:col-4">
+              <div class="view">
+                <p>
+                  {{ currency ? currency : ('BankAccountStatement.DisplayCurrency' | translate) }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="col-12 md:col-5">
+            <lib-form-group>
+              <!-- <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input> -->
+              <lib-calendar formControlName="dateFrom" [placeholder]="fromDate" ></lib-calendar>
+
+              <lib-field-validations [appControl]="accountStatementForm.controls['dateFrom']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12 md:col-4">
+            <lib-form-group>
+              <!-- <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input> -->
+              <lib-calendar formControlName="dateTo" [placeholder]="toDate" ></lib-calendar>
+
+              <lib-field-validations [appControl]="accountStatementForm.controls['dateTo']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="col-12 md:col-3">
+            <div class="all_btn">
+              <lib-button-micro
+                title="{{ 'BankAccountStatement.ViewData' | translate }}"
+                nameClass="save"
+                iconName="pi pi-circle"
+                (click)="getAccountingReports()"
+              >
+              </lib-button-micro>
+              <button class="btn_ex" (click)="printTable('printableTable')">
+                <span class="pi pi-print"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    </div>
+    <div class="mb-4" *ngIf="tableData">
+      <lib-data-table
+        id="printableTable"
+        [firstRow]="true"
+        [items]="tableData.transactions"
+        className="p-datatable-gridlines"
+        [reportTable]="true"
+        [tableConfigs]="{
+                allowPagination: false,
+                allowServerPagination: false,
+                dataKey: 'id',
+                pageSize: 10,
+                columns: [
+                {
+          name: 'date',
+          headerText: 'BankAccountStatement.Date' | translate,
+          template:date
+        },
+        {
+          name: 'paymentCode',
+          headerText: 'BankAccountStatement.PaymentCode' | translate,
+          template:paymentCode
+        },
+        {
+          name: 'paymentName',
+          headerText: 'BankAccountStatement.PaymentName' | translate,
+        },
+        {
+          name: 'debit',
+          headerText: 'BankAccountStatement.Debit' | translate,
+          template:debit
+
+        },
+        {
+          name: 'credit',
+          headerText: 'BankAccountStatement.Credit' | translate,
+          template:credit
+
+        },
+        {
+          name: 'balance',
+          headerText: 'BankAccountStatement.Balance' | translate,
+          template:balance
+
+        },
+        {
+          name: 'paymentMethodName',
+          headerText: 'BankAccountStatement.PaymentMethodName' | translate,
+        },
+        {
+          name: 'sourceCode',
+          headerText: 'BankAccountStatement.SourceCode' | translate,
+        },
+        {
+          name: 'journalCode',
+          headerText: 'BankAccountStatement.JournalCode' | translate,
+          template:journalCode
+        },
+        {
+          name: 'paidByDetailsName',
+          headerText: 'BankAccountStatement.PaidByDetailsName' | translate,
+        },
+        {
+          name: 'accountName',
+          headerText: 'BankAccountStatement.AccountName' | translate,
+        },
+        {
+          name: 'headerDescription',
+          headerText: 'BankAccountStatement.HeaderDescription' | translate,
+        },
+        {
+          name: 'lineDescription',
+          headerText: 'BankAccountStatement.LineDescription' | translate,
+        }
+                ]
+              }"
+      >
+        <ng-template #date let-line>
+          <div>
+            <p>{{ line.date | date : 'MM/dd/yyyy' }}</p>
+          </div>
+        </ng-template>
+
+        <ng-template #balance let-line>
+          <div>
+            <p>{{ line.balance | numberFormat }}</p>
+          </div>
+        </ng-template>
+        <ng-template #debit let-line>
+          <div>
+            <p>{{ line.debit | numberFormat }}</p>
+          </div>
+        </ng-template>
+
+        <ng-template #credit let-line>
+          <div>
+            <p>{{ line.credit | numberFormat }}</p>
+          </div>
+        </ng-template>
+
+        <ng-container firstRow *ngIf="tableData.openingBalance">
+          <td class="first_row body_b16" colspan="3">
+            {{ tableData.openingBalance!.headerDescription }}
+          </td>
+          <td class="first_row body_b16">{{ tableData!.openingBalance.debit | numberFormat }}</td>
+          <td class="first_row body_b16">{{ tableData!.openingBalance.credit | numberFormat }}</td>
+          <td class="first_row body_b16">{{ tableData!.openingBalance.balance | numberFormat }}</td>
+          <td class="first_row" colspan="8"></td>
+        </ng-container>
+
+        <ng-container footer *ngIf="tableData">
+          <tr>
+            <td class="imptyData" colspan="3"></td>
+            <td class="first_row body_b16">{{ tableData!.totalDebit | numberFormat }}</td>
+            <td class="first_row body_b16">{{ tableData!.totalCredit | numberFormat }}</td>
+            <td class="first_row body_b16">{{ tableData!.totalBalance | numberFormat }}</td>
+            <td class="imptyData" colspan="7"></td>
+          </tr>
+        </ng-container>
+        <ng-template #paymentCode let-transactions>
+          <div>
+            <p
+              class="code"
+              (click)="routeToPaymentView(transactions.paymentHeaderId, transactions.paymentName)"
+            >
+              {{ transactions.paymentCode }}
+            </p>
+          </div>
+        </ng-template>
+        <ng-template #journalCode let-transactions>
+          <div>
+            <p class="code" (click)="routeToJournalView(transactions.journalId)">
+              {{ transactions.journalCode }}
+            </p>
+          </div>
+        </ng-template>
+      </lib-data-table>
+    </div>
+  </div>
+</lib-page-content>

@@ -1,0 +1,36 @@
+@import '../../../../../../../../libs/apps-shared-lib/src/assets/styling/scss/variables/_font-family';
+
+
+
+.view {
+  font-size: 1rem;
+  color: #4b5563;
+  background: #ffffff;
+  padding: 15px;
+  min-height: 45px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+}
+.label_total{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  color: #6b7280;
+}
+::ng-deep{
+  .total{
+    .p-inputtext::placeholder {
+        color: black !important;
+       font-weight: bold !important;
+    }
+  }
+}
+
+.advanced_search {
+  display: flex;
+ align-items: center;
+ gap: 2px;
+ .search_icon {
+   margin-top: 24px;
+   cursor: pointer;
+ }
+}

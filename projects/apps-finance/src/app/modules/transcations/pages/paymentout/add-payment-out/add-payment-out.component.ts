@@ -79,6 +79,8 @@ export class AddPaymentOutComponent implements OnInit {
   selectedCurrency: string = '';
   paymentMethod: BankPaymentMethods[] = [];
   AllTreasuriesPayMethod: TreasuriesPaymentMethod[] = [];
+  paymentOutId: number;
+  post: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -90,13 +92,11 @@ export class AddPaymentOutComponent implements OnInit {
     private toasterService: ToasterService,
     private langService: LanguageService,
     private currentUserService: CurrentUserService,
-    private titleService: Title,
     private routerService: RouterService
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.titleService.setTitle(this.langService.transalte('PaymentOut.addpaymentout'));
-
+    this.financeService.AccountBalance.next(0);
     this.initializeForm();
     this.subscribe();
     this.initializeDropDown();
@@ -142,17 +142,17 @@ export class AddPaymentOutComponent implements OnInit {
       bankAccountId: new FormControl(null),
       paymentHubDetailId: new FormControl('', [customValidators.required]),
       currencyId: new FormControl(null),
-      rate: new FormControl<number | undefined>(0, [customValidators.required]),
+      rate: new FormControl<number | undefined>(0, [customValidators.required, customValidators.nonNegativeNumbers]),
       glAccountId: new FormControl(null),
       paymentOutDetails: this.formBuilder.array([]),
       code: new FormControl(''),
       currency: new FormControl(''),
       currentBalance: new FormControl(0),
       totalPaidAmount: new FormControl(0),
-      newBalance: new FormControl(0),
+      newBalance: new FormControl(0, customValidators.nonNegativeNumbers),
       paymentOutDetailCostCenters: new FormControl(null),
     });
-    this.addForm.controls['paymentOutDate'].patchValue(new Date());
+    this.addForm.controls['paymentOutDate'].patchValue(new Date().toISOString().split('T')[0]);
   }
 
   loadLookups() {
@@ -214,6 +214,8 @@ export class AddPaymentOutComponent implements OnInit {
 
   getpaidByDetails(index: number, name: string) {
     const journalLine = this.paymentOutDetailsFormArray.at(index);
+    journalLine.get('costCenterConfig')?.setValue(this.sharedFinanceEnums.costCenterConfig.NotAllow);
+
     journalLine.get('glAccountname')?.setValue(null);
     journalLine.get('paidByDetailsName')?.setValue(null);
     if (name == this.sharedFinanceEnums.paiedDropDown.customer) {
@@ -263,7 +265,13 @@ export class AddPaymentOutComponent implements OnInit {
       this.AllTreasuriesPayMethod = res;
     });
     this.financeService.TreasuryBalanceObservable.subscribe((res: any) => {
+      if (res == 0) {
+        // console.log("00000000000");
+
+      }
       this.AccountBalance = res;
+      // console.log(res, "1111111111111");
+
     });
     this.financeService.AccountBalanceObservable.subscribe((res: any) => {
       this.AccountBalance = res;
@@ -273,10 +281,10 @@ export class AddPaymentOutComponent implements OnInit {
     });
 
     this.addForm.get('paymentHub')?.valueChanges.subscribe((res: any) => {
-      if (res == paymentplace.Treasury) {
+      if (res == paymentplaceString.Treasury) {
         this.addForm.get('bankAccountId')?.clearValidators();
         this.addForm.get('bankAccountId')?.updateValueAndValidity();
-      } else if (res == paymentplace.Bank) {
+      } else if (res == paymentplaceString.Bank) {
         this.addForm.get('bankAccountId')?.addValidators([customValidators.required]);
         this.addForm.get('bankAccountId')?.updateValueAndValidity();
       }
@@ -298,7 +306,15 @@ export class AddPaymentOutComponent implements OnInit {
     this.addForm.controls['totalPaidAmount'].valueChanges.subscribe(() => {
       this.updateNewBalance();
     });
+    this.financeService.paymentOutSaved.subscribe((res: any) => {
+      if (res != 0) {
+        this.paymentOutId = res
+        this.post = true;
 
+      } else {
+        this.post = false;
+      }
+    })
     this.updateNewBalance();
   }
   addNewRow() {
@@ -306,10 +322,11 @@ export class AddPaymentOutComponent implements OnInit {
 
     let newLine = this.formBuilder.group(
       {
-        amount: new FormControl(0, [
+        amount: new FormControl('', [
           customValidators.required,
           customValidators.number,
           customValidators.hasSpaces,
+          customValidators.nonZero,
         ]),
         paymentMethodId: new FormControl(null, [customValidators.required]),
         paymentMethodType: new FormControl(null),
@@ -427,6 +444,7 @@ export class AddPaymentOutComponent implements OnInit {
       this.TreasuryDropDown.forEach((e: any) => {
         if (id == e.id) {
           this.selectedCurrency = e.currencyName;
+          console.log(e.id, "0000000000000000");
 
           this.getTreasuryBalance(e.id);
 
@@ -752,12 +770,7 @@ export class AddPaymentOutComponent implements OnInit {
     const currentBalance = this.addForm.controls['currentBalance'].value || 0;
     const totalPaidAmount = this.addForm.controls['totalPaidAmount'].value || 0;
 
-    console.log('currentBalance', this.AccountBalance);
-    console.log('totalPaidAmount', totalPaidAmount);
-
     const newBalance = this.AccountBalance - totalPaidAmount;
-    console.log('newBalance', newBalance);
-
     this.addForm.controls['newBalance'].setValue(newBalance);
 
     this.addForm.controls['newBalance'].updateValueAndValidity();
@@ -766,5 +779,16 @@ export class AddPaymentOutComponent implements OnInit {
 
   cancel() {
     this.routerService.navigateTo(`/transcations/paymentout`);
+  }
+  addToPost() {
+    this.financeService.postPaymentOut(this.paymentOutId)
+  }
+  ngOnDestroy() {
+    this.financeService.paymentOutSaved.next(0)
+    this.financeService.getBankDropDownData.next([])  
+    this.financeService.getTreasuryDropDownData.next([])  
+    this.financeService.AllPayMethodsDropdown.next([])  
+    this.financeService.AllTreasuriesPayMethodsDropdown.next([])  
+    this.financeService.accountCurrencyRateDataSource.next({ rate: 0 })
   }
 }

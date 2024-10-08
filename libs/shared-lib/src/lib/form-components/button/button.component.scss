@@ -28,6 +28,19 @@
   }
 }
 ::ng-deep .orange {
+  .primary {
+    color: #ffffff;
+    background: #1a90b0;
+    border: 0px solid #1a90b0;
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s,
+      outline-color 0.2s;
+    border-radius: 6px;
+    outline-color: transparent;
+    height: fit-content;
+    cursor: pointer;
+  }
   .p-button {
     color: #ffffff;
     background: #e17f24;

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { lookupDto, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { LanguageService, lookupDto, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { FinanceService } from '../../../finance.service';
 import { PaymentMethodDto } from '../../../models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-payment-method-list',
@@ -40,11 +41,15 @@ export class PaymentMethodListComponent implements OnInit {
 
   constructor(
     private financeService: FinanceService,
-    private routerService: RouterService
+    private routerService: RouterService,
+    private title: Title,
+      private languageService: LanguageService,
 
   ) {}
 
   ngOnInit() {
+    this.title.setTitle(this.languageService.transalte('paymentmethod.payment-method-list'));
+
     this.initPaymentMethodData();
     
   }
@@ -81,21 +86,20 @@ export class PaymentMethodListComponent implements OnInit {
   }
 
   onAdd() {
-  this.routerService.navigateTo('/masterdata/add-payment-method')
+  this.routerService.navigateTo('/masterdata/payment-method/add')
   }
 
   onEdit(id: number) {
-    this.routerService.navigateTo(`/masterdata/edit-payment-method/${id}`);
+    this.routerService.navigateTo(`/masterdata/payment-method/edit/${id}`);
   }
   view(id: number){
-    this.routerService.navigateTo(`/masterdata/view-payment-method/${id}`);
+    this.routerService.navigateTo(`/masterdata/payment-method/view/${id}`);
   }
   onSearchChange() {
     this.financeService.getAllPaymentMethod(this.searchTerm, new PageInfo());
     this.financeService.paymentMethodDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
-        console.log(res);
       },
     });
   }

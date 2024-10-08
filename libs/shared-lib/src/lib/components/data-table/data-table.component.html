@@ -28,7 +28,7 @@
             <div class="flex align-items-center">
               <div
                 class="paginationHead"
-                *ngIf="tableConfigs.allowServerPagination"
+                *ngIf="tableConfigs.allowServerPagination && currentPageResult.totalItems"
                 [class.none]="currentPageResult.totalItems! <= 25"
               >
                 <p-paginator
@@ -42,7 +42,10 @@
                   [first]="first"
                 ></p-paginator>
               </div>
-              <ng-content select="[action]"> </ng-content>
+
+              <lib-button-micro *ngIf="sequence" nameClass="sequence" (click)="routeToSequence()">
+              </lib-button-micro>
+              <ng-content select="[action]"></ng-content>
             </div>
           </div>
           <ng-content select="[caption]"> </ng-content>
@@ -64,6 +67,7 @@
         <!-- ////////// -->
         <ng-template pTemplate="header">
           <!-- First level header row -->
+
           <tr>
             <ng-container *ngFor="let col of tableConfigs.columns">
               <ng-container *ngIf="col.children && col.children.length">
@@ -71,7 +75,7 @@
                   [attr.rowspan]="col.rowspan"
                   [attr.colspan]="col.colspan"
                   [ngClass]="col.class"
-                  class="heading_b16"
+                  class="heading_b16 center"
                 >
                   {{ col.headerText }}
                 </th>
@@ -83,7 +87,7 @@
                   [ngClass]="col.class"
                   [pSortableColumn]="col.name"
                   *ngIf="col.isSortable"
-                  class="heading_b16"
+                  class="heading_b16 center"
                 >
                   {{ col.headerText }}
 
@@ -94,31 +98,31 @@
                   [attr.colspan]="col.colspan"
                   [ngClass]="col.class"
                   *ngIf="!col.isSortable"
-                  class="body_b16"
+                  class="body_b16 center"
                 >
-                  <div class="flex gap-3 justify-content-between align-content-center">
+                  <div class="flex gap-3 justify-content-center align-content-center">
                     {{ col.headerText }}
 
                     <!-- <i class="pi pi-filter-slash"></i> -->
                     <!-- <div class="p-d-flex p-jc-between p-ai-center">
-                  
-                  <p-columnFilter  field="activity" 
-                  matchMode="between" 
-                  display="menu" 
-                  [showMatchModes]="false" 
-                  [showOperator]="false" 
+
+                  <p-columnFilter  field="activity"
+                  matchMode="between"
+                  display="menu"
+                  [showMatchModes]="false"
+                  [showOperator]="false"
                   [showAddButton]="false"
-                  [showApplyButton]="false"  
-                  [showClearButton]="false" 
-                  class="custom-column-filter"> 
+                  [showApplyButton]="false"
+                  [showClearButton]="false"
+                  class="custom-column-filter">
                     <ng-template pTemplate="filter" let-filter="filterCallback">
-                    
+
                       <div class="custom-filter-content">
                         <input type="text" pInputText placeholder="Search" class="p-inputtext p-component" />
                       </div>
                       <div class="flex gap-3" *ngFor="let col of tableConfigs.columns">
-                        <p-checkbox 
-                        [binary]="true" 
+                        <p-checkbox
+                        [binary]="true"
                         inputId="binary" />
                         <p>{{ col.headerText }}</p>
                       </div>
@@ -142,7 +146,7 @@
                     [ngClass]="child.class"
                     [pSortableColumn]="child.name"
                     *ngIf="child.isSortable"
-                    class="heading_b16"
+                    class="heading_b16 center"
                   >
                     {{ child.headerText }}
 
@@ -153,13 +157,16 @@
                     [attr.colspan]="child.colspan"
                     [ngClass]="child.class"
                     *ngIf="!child.isSortable"
-                    class="body_b16"
+                    class="body_b16 center"
                   >
                     {{ child.headerText }}
                   </th>
                 </ng-container>
               </ng-container>
             </ng-container>
+          </tr>
+          <tr *ngIf="firstRow">
+            <ng-content select="[firstRow]"> </ng-content>
           </tr>
         </ng-template>
         <!-- ///////////// -->
@@ -206,7 +213,7 @@
               </ng-container>
               <!-- Template for parent column -->
               <ng-template #parentCol>
-                <td class="body_b16" [ngClass]="col.class">
+                <td class="body_b16">
                   <ng-container *ngIf="!col.template; else customParentCellTemplate!">
                     <ng-container *ngIf="col.lookupKey">
                       {{ this.lookupsService.getLookUpText(col.lookupKey, row[col.name]) }}
@@ -228,19 +235,81 @@
             </ng-container>
           </tr>
         </ng-template>
+
+        <ng-template pTemplate="body" let-row let-i="rowIndex">
+          <tr [ngClass]="{ cssClass: isSelected(i) }">
+            <!-- Updated to use isSelected(i) -->
+            <ng-container *ngFor="let col of tableConfigs.columns">
+              <!-- Check if the column has children -->
+              <ng-container *ngIf="col.children && col.children.length; else parentCol">
+                <ng-container *ngFor="let child of col.children">
+                  <td class="body_b16">
+                    <ng-container *ngIf="!child.template; else customCellTemplate!">
+                      <ng-container *ngIf="child.lookupKey">
+                        {{ this.lookupsService.getLookUpText(child.lookupKey, row[child.name]) }}
+                      </ng-container>
+
+                      <!-- {{ row?.[col?.name]?.row?.[child?.name] }} -->
+                      {{ row[col.name]?.[child.name] ?? row[col.name] }}
+                    </ng-container>
+                    <ng-template
+                      #customChildCellTemplate
+                      *ngTemplateOutlet="child.template!; context: { $implicit: row }"
+                    >
+                    </ng-template>
+                  </td>
+                </ng-container>
+              </ng-container>
+              <!-- Template for parent column -->
+              <ng-template #parentCol>
+                <td class="body_b16">
+                  <ng-container *ngIf="!col.template; else customParentCellTemplate!">
+                    <ng-container *ngIf="col.lookupKey">
+                      {{ this.lookupsService.getLookUpText(col.lookupKey, row[col.name]) }}
+                    </ng-container>
+                    <ng-container *ngIf="col.applyNumberFormat">
+                      {{ row[col.name] | numberFormat }}
+                    </ng-container>
+                    <ng-container *ngIf="!col.applyNumberFormat">
+                      {{ row[col.name] }}
+                    </ng-container>
+                  </ng-container>
+                  <ng-template
+                    #customParentCellTemplate
+                    *ngTemplateOutlet="col.template!; context: { $implicit: row }"
+                  >
+                  </ng-template>
+                </td>
+              </ng-template>
+            </ng-container>
+          </tr>
+        </ng-template>
+
         <ng-template pTemplate="footer">
           <ng-content select="[footer]"> </ng-content>
         </ng-template>
       </p-table>
-      <ng-container *ngIf="!items.length">
+      <ng-container *ngIf="items! && !items?.length && !firstRow">
         <div class="flex justify-content-center mt-4" (click)="addNewItem()">
           <div class="flex gap-2 align-content-center pointer">
-            <i *ngIf="!reportTable" class="pi pi-plus"></i> <small>There is no data</small>
+            <i *ngIf="!reportTable" class="pi pi-plus"></i>
+            <small *ngIf="!reportTable">There is no data</small>
           </div>
         </div>
       </ng-container>
     </div>
   </div>
+  <div
+  *ngIf="tableConfigs.allowServerPagination && currentPageResult?.totalItems"
+  class="flex justify-content-end custom-paginator"
+  [class.none]="currentPageResult.totalItems! <= 25"
+>
+  <lib-table-paginator
+    (pageChange)="onPageChange($event)"
+    [totalRecords]="currentPageResult.totalItems!"
+    [rows]="currentPageResult.pageSize!"
+  ></lib-table-paginator>
+</div>
 </div>
 
 <div class="viewInMob" *ngIf="false">
@@ -282,10 +351,9 @@
     </div>
     <span></span>
   </div>
-</div>
-<div
-  *ngIf="tableConfigs.allowServerPagination"
-  class="flex justify-content-end"
+  <div
+  *ngIf="tableConfigs.allowServerPagination && currentPageResult?.totalItems"
+  class="flex justify-content-end custom-paginator"
   [class.none]="currentPageResult.totalItems! <= 25"
 >
   <lib-table-paginator
@@ -294,3 +362,5 @@
     [rows]="currentPageResult.pageSize!"
   ></lib-table-paginator>
 </div>
+</div>
+

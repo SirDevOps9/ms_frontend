@@ -1,10 +1,19 @@
 <lib-page-content>
   <div class="journal_entry_add_page">
+    <div class="card_micro">
+
     <div [formGroup]="fg" class="entry_header">
       <!-- <p class="title test">{{ 'journal_entry_header' | translate }}</p> -->
       <div class="grid">
         <div class="col-12 md:col-3 step-1-element">
-          <p class="totals">{{ 'reference_number' | translate }}</p>
+          <lib-form-group>
+               <lib-label
+               [appControl]="fg.controls['refrenceNumber']"
+               >
+               {{ 'reference_number' | translate }}
+
+          </lib-label>
+          <!-- <p class="totals">{{ 'reference_number' | translate }}</p> -->
           <lib-text-input
             placeholder="{{ 'reference_number' | translate }}"
             [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
@@ -13,25 +22,41 @@
           <lib-field-validations
             [appControl]="fg.controls['refrenceNumber']"
           ></lib-field-validations>
+          </lib-form-group>
+       
         </div>
         <!--  -->
 
         <div class="col-12 md:col-3 step-2-element">
-          <p class="totals">{{ 'journal_date' | translate }}</p>
+          <!-- <p class="totals">{{ 'journal_date' | translate }}</p> -->
           <!-- <lib-text-input
             placeholder="{{ 'journal_date' | translate }}"
             type="date"
             formControlName="journalDate"
           ></lib-text-input> -->
+          <lib-form-group>
+            <lib-label
+            [appControl]="fg.controls['journalDate']"
+            >
+            {{ 'journal_date' | translate }}
 
+       </lib-label>
           <lib-calendar formControlName="journalDate"></lib-calendar>
+          </lib-form-group>
         </div>
         <div class="col-12 md:col-3 mt-3">
           <button (click)="openAttachments()" class="attach">{{ 'attach' | translate }}</button>
         </div>
 
         <div class="col-12 md:col-12 step-3-element">
-          <p class="totals">{{ 'description' | translate }}</p>
+          <!-- <p class="totals">{{ 'description' | translate }}</p> -->
+          <lib-form-group>
+            <lib-label
+            [appControl]="fg.controls['description']"
+            >
+            {{ 'description' | translate }}
+
+       </lib-label>
           <lib-text-input
             class="description"
             [textbox]="true"
@@ -39,6 +64,7 @@
             formControlName="description"
           ></lib-text-input>
           <lib-field-validations [appControl]="fg.controls['description']"></lib-field-validations>
+          </lib-form-group>
         </div>
         <div class="col-12 md:col-3 total">
           <!-- <p class="totals">{{ 'JournalTemplate.totalDebitAmountLocal' | translate }}</p> -->
@@ -76,6 +102,7 @@
           <!-- <label >{{totalCreditAmountLocal | numberFormat }}</label> -->
         </div>
       </div>
+    </div>
     </div>
     <div class="entry_table">
       <div class="card">
@@ -166,7 +193,7 @@
                     {{ fg.controls['debitAmount'].value | numberFormat }}
                   </ng-template>
                 </p-cellEditor>
-                <lib-field-validations [appControl]="fg"></lib-field-validations>
+                <lib-field-validations [appControl]="fg.controls['debitAmount']"></lib-field-validations>
               </td>
               <td
                 [pEditableColumn]="fg.controls['creditAmount']"
@@ -185,7 +212,7 @@
                     {{ fg.controls['creditAmount'].value | numberFormat }}
                   </ng-template>
                 </p-cellEditor>
-                <lib-field-validations [appControl]="fg"></lib-field-validations>
+                <lib-field-validations [appControl]="fg.controls['creditAmount']"></lib-field-validations>
               </td>
               <td>
                 <!-- <lib-form-group>
@@ -224,6 +251,8 @@
                     {{ fg.controls['currencyRate'].value }}
                   </ng-template>
                 </p-cellEditor>
+                <lib-field-validations [appControl]="fg.controls['currencyRate']"></lib-field-validations>
+
               </td>
 
               <td>
@@ -313,9 +342,23 @@
         </p-table>
       </div>
       <div class="add_new">
-        <button class="btn step-4-element" (click)="addThing()">
-          {{ 'add_new_line' | translate }}
-        </button>
+        <div class="grid">
+          <div class="md:col-3">
+            <div class="grid">
+              <div class="md:col-6">
+            <lib-button-micro
+            nameClass="outline"
+            widthNumber="100%" 
+            title="{{ 'add_new_line' | translate }}"
+            (click)="addThing()"
+            >
+  
+            </lib-button-micro>
+            </div>
+            </div>
+          </div>
+        </div>
+     
       </div>
       <!-- <div class="paginator">
               <lib-paginator [totalRecords]="50" [first]="0" [rows]="10"></lib-paginator>

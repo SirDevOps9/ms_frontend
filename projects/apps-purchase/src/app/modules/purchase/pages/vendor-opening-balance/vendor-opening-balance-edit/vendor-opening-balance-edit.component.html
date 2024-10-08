@@ -1,4 +1,6 @@
 <lib-page-content>
+  <div class="card_micro">
+
   <form [formGroup]="formGroup">
     <div class="form_header">
       <div class="grid">
@@ -70,7 +72,7 @@
       </div>
     </div>
   </form>
-
+</div>
   <div class="entry_table">
     <div class="card">
       <p-table
@@ -184,7 +186,7 @@
                   )
                 "
                 [nameClass]="
-                  customerGroup.controls['balanceType'].value === enums.BalanceType.Credit
+                  customerGroup.controls['balanceType'].value === enums.BalanceType.Debit
                     ? 'outline disabled'
                     : 'outline'
                 "
@@ -223,9 +225,22 @@
               </lib-button>
             </div> -->
       <div class="add_new">
-        <button class="btn" (click)="addLine()">
-          {{ 'addVendorOpeneingBalance.add_new_line' | translate }}
-        </button>
+        <div class="grid">
+          <div class="md:col-3">
+            <div class="grid">
+              <div class="md:col-6">
+            <lib-button-micro
+            nameClass="outline"
+            widthNumber="100%" 
+            title="{{ 'add_new_line' | translate }}"
+            (click)="addLine()"
+            >
+  
+            </lib-button-micro>
+            </div>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- <div class="action_header">
               <lib-button-micro
@@ -240,29 +255,30 @@
               nameClass="cancel"
               ></lib-button-micro>
             </div> -->
-      <div class="btn_group">
+     
+    </div>
+  </div>
+  <div class="btn_group">
+    <div class="grid">
+      <div class="md:col-3">
         <div class="grid">
-          <div class="md:col-3">
-            <div class="grid">
-              <div class="md:col-6">
-                <lib-button-micro
-                  [title]="'Cancel' | translate"
-                  nameClass="cancel"
-                  widthNumber="100%"
-                  (click)="cancel()"
-                >
-                </lib-button-micro>
-              </div>
-              <div class="md:col-6">
-                <lib-button-micro
-                  title="{{ 'Save' | translate }}"
-                  nameClass="save"
-                  (click)="onSubmit()"
-                  widthNumber="100%"
-                >
-                </lib-button-micro>
-              </div>
-            </div>
+          <div class="md:col-6">
+            <lib-button-micro
+              [title]="'Cancel' | translate"
+              nameClass="cancel"
+              widthNumber="100%"
+              (click)="cancel()"
+            >
+            </lib-button-micro>
+          </div>
+          <div class="md:col-6">
+            <lib-button-micro
+              title="{{ 'Save' | translate }}"
+              nameClass="save"
+              (click)="onSubmit()"
+              widthNumber="100%"
+            >
+            </lib-button-micro>
           </div>
         </div>
       </div>
