@@ -62,7 +62,6 @@ export class AddItemsCategoryComponent {
     private itemService : ItemsService
 
   ) {
-    this.title.setTitle(this.langService.transalte('ChartOfAccount.AddChartOfAccount'));
 
   }
   ngOnInit() {
@@ -119,8 +118,9 @@ export class AddItemsCategoryComponent {
     // if (this.routerService.currentId) this.onParentAccountChange(this.routerService.currentId);
     this.ItemCategoryDropDownData()
     this.itemService.AddItemCategoryLookupObs.subscribe(res=>{
+      console.log(res)
       if(res) {
-        // this.operationCompleted.emit(res);
+        this.operationCompleted.emit(res);
 
         setTimeout(() => {
           this.resetForm()
@@ -228,6 +228,8 @@ export class AddItemsCategoryComponent {
     this.itemService.getItemCategoryById(parentAccountId);
     this.itemService.getItemCategoryByIdDataObs.subscribe((res:any) => {
       console.log(res)
+      // this.formGroup.patchValue({...res});
+
     })
     // this.accountService.getAccount(parentAccountId);
     // this.accountService.selectedAccount.subscribe((response) => {

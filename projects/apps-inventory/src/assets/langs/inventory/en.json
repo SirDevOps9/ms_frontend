@@ -9,7 +9,9 @@
     }
   },
   "itemType": {
+    "vat" : "Vat Applied",
     "code": "Code",
+    "main" : "Main",
     "nameEn": "Name En",
     "nameAr": "Name Ar",
     "name": "Name",
@@ -17,7 +19,11 @@
     "type": "Type",
     "tag": "Tag",
     "actions": "Actions",
+    "save" : "Save",
+    "cancel" : "Cancel",
     "Add": "Create",
+    "saveUom" : "Save UOM",
+    "warantlyPeriod" : "Warantly Period",
     "search": "Search",
     "ChangeColumn": "Change Column",
     "general": "General",
@@ -37,7 +43,7 @@
     "uomName": "UOM Name",
     "default": "Default",
     "factor": "Factor",
-    "selectUom": "Select UOM",
+    "selectUom": "Sales UOM",
     "pusrchaseUom": "Purchase UOM",
     "add_new": "Add Line",
     "barcode": "Barcode",
@@ -106,6 +112,8 @@
     "uom": "UOM",
     "barcode": "Barcode",
     "actions": "Actions",
+    "code" : "Code",
+
     "Add": "Create",
     "search": "Search",
     "ChangeColumn": "Change Column",
@@ -119,29 +127,50 @@
     "hasExpiry": "Has Expiry Date"
   },
   "warehouse": {
-    "Add": "Create",
-    "search": "Search",
-    "ChangeColumn": "Change Column",
-    "save": "Save",
-    "code": "Code",
-    "name": "Name",
-    "relatedBranch": "Related Branch",
-    "warehouseType": "Warehouse Type",
-    "actions": "Actions",
-    "warehouse": "Warehouse",
-    "account": "Account",
-    "address": "Address",
-
-    "glAccount": "GL Account",
-    "cashSalesAccount": "Cash Sales Account",
-    "creditSalesAccount": "Credit Sales Account",
-    "salesReturnAccount": "Sales Return Account",
-    "purchaseAccount": "Purchase Account",
-    "salesCostCenter": "Sales Cost Center",
-    "discountAccount": "Discount Account",
-    "evaluationaccount": "Evaluation Account",
-    "adjustmentAccount": "Adjustment Account",
-    "goodsInTransit": "Goods In Transit"
+    "Add" : "Add",
+    "search" : "Search",
+    "ChangeColumn" : "Change Column",
+    "save" : "Save",
+    "cancel" : "Cancel",
+    "code" : "Code",
+    "name" : "Name",
+    "relatedBranch" : "Related Branch",
+    "warehouseType" : "Warehouse Type",
+    "actions" : "Actions",
+    "warehouse" : "Warehouse",
+    "account" : "Account",
+    "address" : "Address",
+    "city" : "City",
+    "companyPhoneNumber" : "Company Phone Number",    
+    "email" : "Email",
+    "fax" : "Fax",    
+    "postCode" : "Post Code",
+    "longitude" : "Longitude",
+    "latitude" : "Latitude",
+    "raduis" : "Raduis",
+    "glAccount" : "GL Account",
+    "cashSalesAccount" : "Cash Sales Account",
+    "creditSalesAccount" : "Credit Sales Account",
+    "salesReturnAccount" : "Sales Return Account",
+    "purchaseAccount" : "Purchase Account",
+    "salesCostCenter" : "Sales Cost Center",
+    "discountAccount" : "Discount Account",
+    "evaluationaccount" : "Evaluation Account",
+    "adjustmentAccount" : "Adjustment Account",
+    "goodsInTransit" : "Goods In Transit",
+    "delete" : "Warehouse Deleted Successfully",
+    "success" : "Success",
+    "add" : "Warehouse Added Successfully",
+    "edit" : "Warehouse Edited Successfully",
+    "addWarehouse" : "Add Warehouse",
+    "defaultBranch" : "Default Branch",
+    "saveContinue" : "Save & Continue",
+    "branch" : "Realted Branch",
+    "addressLine" : "Address Line",
+    "phone" : "Phone",
+    "postalCode" : "Postal Code",
+    "radius" : "Radius",
+    "salesCostAccount" : "Sales Cost Account"
   },
   "UOM": {
     "Add": "Create",
@@ -152,7 +181,7 @@
     "Search": "Search",
     "delete": "Deleted",
     "CategoryCode": "Category Code",
-    "code": "UOM Code",
+    "code": "Code",
     "categoryCode": "UOM Category Code",
     "name": "UOM Name",
     "categoryname": "UOM Category Name",
@@ -171,9 +200,12 @@
     "nameAr": "Name Ar",
     "changeAttributrDifinitionStatus": "change Attributr Difinition Status",
     "success": "Success",
-
+    "uomSuccess" : "UOM Added Successfully",
     "nameEn": "Name En",
-    "conversionUOM": "conversion UOM "
+    "conversionUOM": "conversion UOM ",
+    "categorynameEn" : "Name En",
+    "categorynameAr" : "Name Ar"
+
   },
   "attributeDefinition": {
     "Add": "Create",
@@ -239,7 +271,8 @@
     "status": "Status",
     "delete": "Deleted",
     "Success": "Success",
-    "actions": "Actions"
+    "actions": "Actions",
+    "glAccountId" : "GL Account Code"
 
   
   
@@ -251,6 +284,7 @@
     "edit": "Edit",
     "save": "Save",
     "cancel": "Cancel",
+    "name" : "Name",
     "categoryCode": "Category Code",
     "parentCategory": "Parent Category",
     "isDetails": "Details",
@@ -287,5 +321,10 @@
     "docType" : "Document Type",
     "notes" : "notes"
 
+},
+"transactions" : {
+  "deleteStockIn": "Stock In deleted successfully",
+  "deleteStockOut": "Stock Out deleted successfully",
+  "success": "Success"
 }
 }

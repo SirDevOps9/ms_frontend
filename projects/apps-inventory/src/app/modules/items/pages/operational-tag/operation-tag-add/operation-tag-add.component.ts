@@ -40,7 +40,7 @@ export class OperationTagAddComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.initWareHouseLookupData()
-    this.getAccount()
+     this.getAccount()
    
   }
 
@@ -55,6 +55,7 @@ export class OperationTagAddComponent implements OnInit {
     this.itemsService.AccountsDropDown()
     this.itemsService.AccountsDropDownLookupObs.subscribe(res=>{
       this.AccountsDropDownLookup = res
+      console.log(res)
     })
   }
 
@@ -65,8 +66,8 @@ export class OperationTagAddComponent implements OnInit {
         code: new FormControl(''),
         name: new FormControl('', customValidators.required),
         operationType: new FormControl('', customValidators.required),
-        warehouseId: new FormControl( '',customValidators.required),
-        glAccountId: new FormControl(0),
+        warehouseId: new FormControl('', customValidators.required),
+        glAccountId: new FormControl(''),
       });
   }
 

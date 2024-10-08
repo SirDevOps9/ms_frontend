@@ -3,6 +3,7 @@ export interface AddUom {
 }
 
 export interface ItemUom {
+  id? :number;
   itemId: number
   uomId: number
   conversionRatio: number
@@ -12,13 +13,20 @@ export interface ItemUom {
 }
 
   
-  export interface UomPost {
-    code?: string
-    nameAr?: string
-    nameEn?: string
-    shortName?: string
-    uomType?: string
-    uomCategoryId?: number
-    conversionRatio?: number
-    isActive?:boolean
-  }
+export interface addUOM {
+  code: string
+  uomCategoryNameAr: string
+  uomCategoryNameEn: string
+  uoMs: UoM[]
+}
+
+export interface UoM {
+  nameAr: string
+  nameEn: string
+  shortName: string
+  uomType: string
+  uomCategoryId: number
+  conversionRatio: number
+  conversionUOM: number
+  isDefault: boolean
+}

@@ -57,7 +57,6 @@ export class EditItemCategoryComponent {
     private itemService : ItemsService
 
   ) {
-    this.title.setTitle(this.langService.transalte('ChartOfAccount.EditChartOfAccount'));
 
 
   }

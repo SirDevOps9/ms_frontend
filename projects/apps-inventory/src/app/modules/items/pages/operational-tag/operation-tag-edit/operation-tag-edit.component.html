@@ -72,9 +72,10 @@
               <lib-select
                 formControlName="glAccountId"
                 [options]="AccountsDropDownLookup"
-                [selectedValue]="formGroup.controls['glAccountId'].value"
                 optionLabel="name"
-                optionValue="id"
+                optionValue="accountCode"
+                [selectedValue]="formGroup.controls['glAccountId'].value"
+
               >
               </lib-select>
             </lib-form-group>

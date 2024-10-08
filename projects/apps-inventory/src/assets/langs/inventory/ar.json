@@ -12,10 +12,14 @@
     "code": "الرمز",
     "nameEn": "الاسم (إنجليزي)",
     "nameAr": "الاسم (عربي)",
+    "main" : "الرئيسي",
+
     "name": "الاسم",
     "category": "الفئة",
     "type": "النوع",
     "tag": "الوسم",
+    "save" : "حفظ",
+    "cancel" : "الغاء",
     "actions": "الإجراءات",
       "saveUom" : "حفظ وحدة القياس",
       "select" : "اختار الوحده",
@@ -182,6 +186,7 @@
     "edit": "تعديل",
     "save": "حفظ",
     "cancel": "إلغاء",
+    "name" : "الاسم",
     "categoryCode": "رمز الفئة",
     "parentCategory": "الفئة الرئيسية",
     "isDetails": "تفاصيل",
@@ -195,32 +200,39 @@
     "edits": "تم تعديل فئة العنصر بنجاح",
     "code": "الرمز"
   },
-  "UOM": {
-    "Add": "إضافة",
+ "UOM": {
+    "Add": "إنشاء",
     "conversionRatio": "نسبة التحويل",
     "add_new": "إضافة جديد",
     "uomList": "قائمة وحدات القياس",
     "AddNew": "إضافة جديد",
     "Search": "بحث",
+    "delete": "تم الحذف",
     "CategoryCode": "رمز الفئة",
     "code": "رمز وحدة القياس",
     "categoryCode": "رمز فئة وحدة القياس",
     "name": "اسم وحدة القياس",
     "categoryname": "اسم فئة وحدة القياس",
     "save": "حفظ",
-    "discard": "تجاهل",
+    "uomEdit": "تم التعديل",
+    "discard": "إلغاء",
     "status": "الحالة",
     "factor": "معامل وحدة القياس",
-    "factors": "معاملات وحدة القياس",
+    "factors": "عوامل وحدة القياس",
     "actions": "الإجراءات",
-    "action": "الإجراء",
+    "action": "الإجراءات",
     "type": "نوع وحدة القياس",
     "uomType": "أنواع وحدة القياس",
-    "shortName": "اسم مختصر",
+    "shortName": "الاسم المختصر",
     "addUom": "إضافة وحدة قياس",
     "nameAr": "الاسم بالعربية",
+    "changeAttributrDifinitionStatus": "تغيير حالة تعريف السمة",
+    "success": "نجاح",
+    "uomSuccess": "تمت إضافة وحدة القياس بنجاح",
     "nameEn": "الاسم بالإنجليزية",
-    "conversionUOM": "تحويل وحدة القياس"
+    "conversionUOM": "تحويل وحدة القياس",
+    "categorynameEn": "اسم الفئة بالإنجليزية",
+    "categorynameAr": "اسم الفئة بالعربية"
   },
   "attributeDefinition": {
     "Add": "إضافة",
@@ -278,7 +290,8 @@
   "status": "الحالة",
   "delete": "تم الحذف",
   "Success": "نجاح",
-  "actions": "الإجراءات"
+  "actions": "الإجراءات",
+  "glAccountId" : "حساب دفتر الأستاذ العام"
 }
 
 
