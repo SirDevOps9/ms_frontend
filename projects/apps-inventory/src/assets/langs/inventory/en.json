@@ -196,6 +196,7 @@
     "name": "Attribute Name",
     "categoryname": "Attribute Category Name",
     "save": "Save",
+    "delete": "Delete",
     "discard": "Discard",
     "status": "Status",
     "factor": "Attribute Factor",

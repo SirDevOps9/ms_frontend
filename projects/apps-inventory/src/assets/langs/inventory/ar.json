@@ -254,7 +254,8 @@
     "attributeId": "الكود",
     "valueEn": " القيمة بالانجليزية",
     "valueAr": "القيمة بالعربية",
-    "add_new_value": "اضف قيمة"
+    "add_new_value": "اضف قيمة",
+    "delete": "تم الحذف"
   },
   "OperationalTag": {
   "Add": "إضافة",

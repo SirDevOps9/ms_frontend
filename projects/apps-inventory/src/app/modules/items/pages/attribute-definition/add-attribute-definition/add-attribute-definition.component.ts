@@ -85,23 +85,17 @@ export class AddAttributeDefinitionComponent implements OnInit {
   }
 
   onSave() {
-    debugger
 
     if (!this.formsService.validForm(this.attrFormGroup, false)) return;
     if (!this.formsService.validForm(this.attrTableForm, false)) return;
     if(this.attrTableForm.length == 0)return
-    debugger
     let formGroupVal = this.attrFormGroup.value;
     delete formGroupVal.attributeId;
-    console.log(formGroupVal);
-    console.log(this.attrTableForm.value);
     let data: any = {
       ...formGroupVal,
       itemAttributeDtos: this.attrTableForm.value,
     };
-    console.log(data);
     this.itemsService.addAttrDifintion(data)
-    debugger
 
     this.itemsService.sendAttrDefinition$.subscribe((res: any) => {
       if(res ){
