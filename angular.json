@@ -25,7 +25,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "baseHref": "/bussiness-owners/",
-            "outputPath": { "base": "C:/inetpub/wwwroot/frontadmin/businessowners", "browser": "" },
+            "outputPath": { "base": "dist/bussiness-owners", "browser": "" },
             "index": "projects/bussiness-owners/src/index.html",
             "browser": "projects/bussiness-owners/src/main.ts",
             "polyfills": ["zone.js"],
@@ -173,7 +173,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "baseHref": "/admin-portal/",
-            "outputPath": { "base": "C:/inetpub/wwwroot/frontadmin/adminportal", "browser": "" },
+            "outputPath": { "base": "dist/adminportal", "browser": "" },
             "index": "projects/adminportal/src/index.html",
             "browser": "projects/adminportal/src/main.ts",
             "polyfills": ["zone.js"],
@@ -553,7 +553,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": { "base": "C:/inetpub/wwwroot/frontapps/apps-hr", "browser": "" },
+            "outputPath": { "base": "dist/apps-hr", "browser": "" },
             "baseHref": "/hr/",
             "index": "projects/apps-hr/src/index.html",
             "browser": "projects/apps-hr/src/main.ts",
@@ -720,7 +720,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "baseHref": "/erp/",
-            "outputPath": { "base": "C:/inetpub/wwwroot/front-erp/erp-home", "browser": "" },
+            "outputPath": { "base": "dist/erp-home", "browser": "" },
             "index": "projects/erp-home/src/index.html",
             "browser": "projects/erp-home/src/main.ts",
             "polyfills": ["zone.js"],
@@ -882,7 +882,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "baseHref": "/finance/",
-            "outputPath": { "base": "C:/inetpub/wwwroot/front-erp/apps-finance", "browser": "" },
+            "outputPath": { "base": "dist/apps-finance", "browser": "" },
             "index": "projects/apps-finance/src/index.html",
             "browser": "projects/apps-finance/src/main.ts",
             "polyfills": ["zone.js"],
@@ -1046,7 +1046,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "baseHref": "/sales/",
-            "outputPath": { "base": "C:/inetpub/wwwroot/front-erp/apps-sales", "browser": "" },
+            "outputPath": { "base": "dist/apps-sales", "browser": "" },
             "index": "projects/apps-sales/src/index.html",
             "browser": "projects/apps-sales/src/main.ts",
             "polyfills": ["zone.js"],
@@ -1210,7 +1210,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "baseHref": "/purchase/",
-            "outputPath": { "base": "C:/inetpub/wwwroot/front-erp/apps-purchase", "browser": "" },
+            "outputPath": { "base": "dist/apps-purchase", "browser": "" },
             "index": "projects/apps-purchase/src/index.html",
             "browser": "projects/apps-purchase/src/main.ts",
             "polyfills": ["zone.js"],
