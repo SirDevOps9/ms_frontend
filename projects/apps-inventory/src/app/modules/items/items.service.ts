@@ -100,7 +100,7 @@ export class ItemsService {
   public sendBarcode = new BehaviorSubject<addBarcode>({} as addBarcode);
   public sendUOM = new BehaviorSubject<AddUom>({} as AddUom);
   public sendUOMCategory = new BehaviorSubject<addUOM>({} as addUOM);
-  public sendAttrDefinition = new BehaviorSubject<addAttributeDifintion>({});
+  public sendAttrDefinition = new BehaviorSubject<addAttributeDifintion>({} as addAttributeDifintion);
   public sendOperationTag = new BehaviorSubject<AddOperatioalTag>({});
   public editOperationTag = new BehaviorSubject<AddOperatioalTag>({});
   public GetBarcode = new BehaviorSubject<getBarcodeById[]>([]);
@@ -110,7 +110,7 @@ export class ItemsService {
   public sendDefault = new BehaviorSubject<boolean>(false);
   public editItemData = new BehaviorSubject<any>(false);
   public updateUOMobj = new BehaviorSubject<addUOM>({} as addUOM);
-  public updateAttrobj = new BehaviorSubject<addAttributeDifintion>({});
+  public updateAttrobj = new BehaviorSubject<addAttributeDifintion>({} as addAttributeDifintion);
 
   public attributeNameDropDownLookup = new BehaviorSubject<any>([]);
   public attributeGroupeDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
