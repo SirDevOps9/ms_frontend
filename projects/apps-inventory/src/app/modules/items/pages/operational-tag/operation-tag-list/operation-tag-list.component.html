@@ -7,7 +7,7 @@
           [currentPageResult]="currentPageInfo"
           (pageChange)="onPageChange($event)"
           [tableConfigs]="{
-            allowPagination: true,
+            allowPagination: false,
             allowServerPagination: true,
             dataKey: 'id',
             pageSize: 10,
@@ -15,6 +15,12 @@
               {
                 name: 'code',
                 headerText: ('OperationalTag.code' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'glAccountId',
+                headerText: ('OperationalTag.glAccountId' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },

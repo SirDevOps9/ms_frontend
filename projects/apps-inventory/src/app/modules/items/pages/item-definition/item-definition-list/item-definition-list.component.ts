@@ -24,7 +24,6 @@ export class ItemDefinitionListComponent implements OnInit {
     private langService: LanguageService,
     private itemsService : ItemsService
   ) {
-    this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
 
   }
 

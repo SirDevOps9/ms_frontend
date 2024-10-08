@@ -92,6 +92,8 @@ export class AddItemDefinitionComponent implements OnInit {
   tagDropDropDownLookup : { id: number; name: string }[] = []
   AccountsDropDownLookup : { id: number; name: string }[] = []
   defualtUnitData : { id: number; name: string } 
+
+  countriesLookup : []
   taxesDropDropDownLookup : { id: number; nameAr: string; nameEn: string }[] = []
   trackingTrackingLookup : { id: number; name: string }[] = []
   uomCodeLookup : UomCodeLookup[] = []
@@ -105,13 +107,15 @@ export class AddItemDefinitionComponent implements OnInit {
     this.id = this.route.snapshot.params['id']
   }
   ngOnInit(): void {
+         this.getUomDropDown(this.id)
+
     this.itemDefinitionForm = this.fb.group({
       id : this.id,
       code : [''],
       name : ['' , [customValidators.required]],
       photo : [''],
       categoryId : ['' , [customValidators.required]],
-      countryName : [''],
+      countryId : [''],
       tags : [''],
       defaultUOMCategoryId : ['' , [customValidators.required]],
       taxId : [''],
@@ -134,6 +138,9 @@ export class AddItemDefinitionComponent implements OnInit {
         srAccount: 0
       })
     })
+
+
+    this.getCcountriesDropdown()
 
     this.itemService.variantGeneratedObs.subscribe(res=>{
       if(res) {
@@ -233,6 +240,8 @@ export class AddItemDefinitionComponent implements OnInit {
 
   }
 
+
+
  
 
   get UOMForm() {
@@ -246,13 +255,32 @@ export class AddItemDefinitionComponent implements OnInit {
   }
 
   getUomDropDown(id : number) {
-    this.itemService.getUomDropDownByUomCategory(id)
-    this.itemService.UOMDropDownLookupByUomCategoryObs.subscribe(res=>{
+    this.itemService.getUomDropDownByUomItemId(id)
+    this.itemService.UOMDropDownLookupByItemIdObs.subscribe(res=>{
+      console.log(res)
       this.uomLookup = res
 
      
     })
   }
+
+
+
+  getCcountriesDropdown() {
+    this.itemService.getCcountriesDropdown()
+
+    this.itemService.sendCountriesLookupObs.subscribe(res=>{
+      this.countriesLookup = res
+    })
+  }
+
+  uomChange(e : any , itemDefBarcodeGroup : FormGroup) {
+
+    let data = this.uomLookup.find(elem=>elem.id == e)
+
+itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
+  }
+
 
   getDefaultUnit(id : number ){
     this.itemService.getDefaultUnit(id , this.id)
@@ -311,7 +339,6 @@ export class AddItemDefinitionComponent implements OnInit {
     this.UOMForm.clear()
   
     this.uomCodeDropDown(e)
-    this.getUomDropDown(e)
     // this.getDefaultUnit(e)
   }
   uomCodeLookupChanged(e:any , itemDefitionForm : FormGroup) {
@@ -383,7 +410,7 @@ export class AddItemDefinitionComponent implements OnInit {
     
   
     const uomData = this.fb.group({
-      id: [0],
+      id: [null],
       itemId: [this.id],
       uomId: [ null,  [customValidators.required]],
       uomCode: [ null],
@@ -676,44 +703,44 @@ export class AddItemDefinitionComponent implements OnInit {
   
   
 
-      if(itemDefinition.get('id')?.value) {
-        const confirmed = await this.toaserService.showConfirm('ConfirmButtonTexttochangestatus');
-        if (confirmed) {
-          // if(e == true) {
-          //   itemDefinition.get('conversionRatio')?.setValue(1);
-          // }else{
+      // if(itemDefinition.get('id')?.value) {
+      //   const confirmed = await this.toaserService.showConfirm('ConfirmButtonTexttochangestatus');
+      //   if (confirmed) {
+      //     // if(e == true) {
+      //     //   itemDefinition.get('conversionRatio')?.setValue(1);
+      //     // }else{
         
-          //   itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
-          //   }
+      //     //   itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
+      //     //   }
           
-          let obj : UomDefault = {
-            isDefault: e,
-            itemId: +this.id,
-            uomId: itemDefinition.get('uomId')?.value
-          }
-          this.itemService.setUomDefault(obj)
+      //     let obj : UomDefault = {
+      //       isDefault: e,
+      //       itemId: +this.id,
+      //       uomId: itemDefinition.get('uomId')?.value
+      //     }
+      //     this.itemService.setUomDefault(obj)
           
        
-        } else {
-          // Properly toggle the status value
-          // if(e == true) {
-          //   itemDefinition.get('conversionRatio')?.setValue(1);
-          // }else{
+      //   } else {
+      //     // Properly toggle the status value
+      //     // if(e == true) {
+      //     //   itemDefinition.get('conversionRatio')?.setValue(1);
+      //     // }else{
         
-          //   itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
-          // e =! e
+      //     //   itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
+      //     // e =! e
 
-          console.log(conversionRatioTemp)
-          console.log( itemDefinition.get('conversionRatio')?.value)
-          console.log( e)
-          itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
+      //     console.log(conversionRatioTemp)
+      //     console.log( itemDefinition.get('conversionRatio')?.value)
+      //     console.log( e)
+      //     itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
         
-          //   }
-          const currentStatus = itemDefinition.get('isDefault')?.value;
-          itemDefinition.get('isDefault')?.setValue(!currentStatus);
-        }
+      //     //   }
+      //     const currentStatus = itemDefinition.get('isDefault')?.value;
+      //     itemDefinition.get('isDefault')?.setValue(!currentStatus);
+      //   }
       
-      }
+      // }
 
 
     
@@ -729,6 +756,7 @@ export class AddItemDefinitionComponent implements OnInit {
 
     let data = this.UOMForm.value.map((elem: ItemUom) => {
       return {
+        id : elem.id ?? null,
         itemId: this.id,  // Assuming this.id is available
         uomId: elem.uomId,
         conversionRatio: elem.conversionRatio,

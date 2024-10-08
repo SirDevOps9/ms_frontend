@@ -2,34 +2,72 @@
   <div class="bank">
     <div [formGroup]="UOMFormGroup" class="entry_header">
       <div class="grid">
-        <div class="col-12 md:col-6">
+        <div class="col-12 md:col-4">
           <lib-form-group>
             <lib-label
-              [appControl]="UOMFormGroup.controls['uomCodeCategory']"
+              [appControl]="UOMFormGroup.controls['id']"
               class="body_b14 mb-2 ms-4"
             >
               {{ 'UOM.CategoryCode' | translate }}
             </lib-label>
-            <lib-select
-              formControlName="uomCodeCategory"
-              [options]="listOfUOM"
-              optionValue="id"
-              optionLabel="name"
+            <lib-text-input
+              formControlName="id"
+              placeholder="{{ 'UOM.CategoryCode' | translate }}"
               [readOnly]="true"
-              [selectedValue]="UOMFormGroup.controls['uomCodeCategory'].value"
+
             >
-            </lib-select>
+            </lib-text-input>
           </lib-form-group>
+          <!-- <i class="pi pi-search search-circle" (click)="openDialog(i)"></i> -->
+        </div>
+        <div class="col-12 md:col-4">
+          <lib-form-group>
+            <lib-label
+              [appControl]="UOMFormGroup.controls['uomCategoryNameEn']"
+              class="body_b14 mb-2 ms-4"
+            >
+              {{ 'UOM.categorynameEn' | translate }}
+            </lib-label>
+            <lib-text-input
+              formControlName="uomCategoryNameEn"
+              placeholder="{{ 'UOM.categorynameEn' | translate }}"
+
+            >
+            </lib-text-input>
+          </lib-form-group>
+          <!-- <i class="pi pi-search search-circle" (click)="openDialog(i)"></i> -->
+        </div>
+        <div class="col-12 md:col-4">
+          <lib-form-group>
+            <lib-label
+              [appControl]="UOMFormGroup.controls['uomCategoryNameAr']"
+              class="body_b14 mb-2 ms-4"
+            >
+              {{ 'UOM.categorynameAr' | translate }}
+            </lib-label>
+            <lib-text-input
+              formControlName="uomCategoryNameAr"
+              placeholder="{{ 'UOM.categorynameAr' | translate }}"
+
+            >
+            </lib-text-input>
+          </lib-form-group>
+          <!-- <i class="pi pi-search search-circle" (click)="openDialog(i)"></i> -->
         </div>
       </div>
     </div>
   </div>
   <!--  -->
-
+  <div class="add_new my-2 flex justify-content-end">
+    <!-- !UOMFormGroup.controls['uomCodeCategory'].value -->
+    <lib-button (onClick)="addLine()"  className="outline-primary">
+      {{ 'UOM.add_new' | translate }}
+    </lib-button>
+  </div>
   <div class="entry_table">
     <div class="card">
       <p-table
-        [value]="uomTableForm.controls"
+        [value]="getUOMS.controls"
         dataKey="id"
         styleClass="p-datatable-gridlines p-datatable-striped"
         [tableStyle]="{ 'min-width': '50rem' }"
@@ -43,7 +81,6 @@
             <th>{{ 'UOM.type' | translate }}</th>
             <th>{{ 'UOM.conversionUOM' | translate }}</th>
             <th>{{ 'UOM.conversionRatio' | translate }}</th>
-            <th>{{ 'UOM.status' | translate }}</th>
             <th>{{ 'UOM.action' | translate }}</th>
           </tr>
         </ng-template>
@@ -81,7 +118,7 @@
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations
-                [appControl]="uomTableForm.controls['nameAr']"
+              [appControl]="uomTableForm.controls['nameAr']"
               ></lib-field-validations>
             </td>
             <!--  -->
@@ -162,13 +199,16 @@
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-form-group>
-                  
+                    <!-- <lib-multi-select formControlName="conversionUOM" placeholder="{{ 'uom.conversionUOM' | translate }}"
+                        [options]="conversionUOMlist" optionValue="id" optionLabel="name"
+                        (valueChanged)="branchSelected($event, uomTableForm, i)"></lib-multi-select> -->
                     <lib-select
                       placeholder="{{ 'UOM.conversionUOM' | translate }}"
                       [options]="getFilteredConversionUOMOptions(i)"
                       optionLabel="name"
                       optionValue="id"
                       formControlName="conversionUOM"
+                      [selectedValue]="uomTableForm.controls['conversionUOM'].value"
                     ></lib-select>
                   </lib-form-group>
                 </ng-template>
@@ -205,32 +245,22 @@
             <!--  -->
 
             <!--  -->
-
-            <td [pEditableColumn]="uomTableForm.controls['isActive']" pEditableColumnField="isActive">
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <!-- Bind the form control to the value of lib-input-switch -->
-                  <lib-input-switch [id]="i" [disabled]="false" formControlName="isActive"
-                    (valueChanged)="toggleAttrStatus(uomTableForm?.value, $event)">
+            <!-- 
+              <td [pEditableColumn]="uomTableForm.controls['hasNoChild']"
+                pEditableColumnField="uomTableForm.controls['hasNoChild']">
+                <div >
+                  (ngModelChange)="toggleCurrencyVisibility()"
+                    
+                    (ngModelChange)="toggleCurrencyVisibility()" (valueChanged)="toggleCurrencyVisibility()"
+                  
+                  <lib-input-switch formControlName="hasNoChild">
                   </lib-input-switch>
-                </ng-template>
-                <ng-template pTemplate="output">
-                  {{ uomTableForm.controls['isActive']?.value ? 'Active' : 'Inactive' }}
-                </ng-template>
-              </p-cellEditor>
-              <lib-field-validations [appControl]="uomTableForm?.controls['isActive']"></lib-field-validations>
-            </td>
+      
+                  
+                </div>
+            </td> -->
             <td>
               <div class="actions flex align-items-center">
-                @if( !shouldShowSaveButton(i) && isLastLineSaved){
-                <lib-button-micro
-                  nameClass="cancel"
-                  iconName="pi pi-trash"
-                  type="button"
-                  (click)="onDelete(uomTableForm.value)"
-                >
-                </lib-button-micro>
-                } @if( !isLastLineSaved){
                 <lib-button-micro
                   nameClass="cancel"
                   iconName="pi pi-trash"
@@ -238,16 +268,10 @@
                   (click)="deleteLine(i)"
                 >
                 </lib-button-micro>
-                } @if(shouldShowSaveButton(i)){
-                <lib-button-micro
-                  nameClass="save"
-                  iconName="pi pi-save"
-                  *ngIf="shouldShowSaveButton(i)"
-                  type="button"
-                  (click)="onSave(uomTableForm.value, i)"
-                >
-                </lib-button-micro>
-                }
+              
+            
+                
+             
               </div>
             </td>
           </tr>
@@ -256,21 +280,33 @@
     </div>
   </div>
 
-  <div class="btn_group">
-    <div class="grid ">
-      <div class="md:col-3">
-        <div class="grid">
-          <div class="md:col-6">
-            <!-- <lib-button-micro nameClass="cancel" title="{{ 'UOM.discard' | translate }}" (click)="discard()">
-              </lib-button-micro> -->
-          </div>
-          <div class="md:col-6">
-            <!-- <lib-button-micro nameClass="save w-100" title="{{ 'UOM.save' | translate }}" iconName="pi pi-save"
-                type="button" (click)="onSave()">
-              </lib-button-micro> -->
-          </div>
+  <div class="grid">
+    <div class="md:col-12 my-3 grid flex justify-content-end">
+      <div class="md:col-4 grid flex justify-content-end">
+        <div class="md:col-6">
+          <lib-button-micro
+            title="{{ 'cancel' | translate }}"
+            nameClass="cancel"
+            widthNumber="100%"
+            (click)="onCancel()"
+          
+          >
+          </lib-button-micro>
+        </div>
+        <div  class="md:col-6">
+          <lib-button-micro
+            title="{{ 'Save' | translate }}"
+            nameClass="save"
+            widthNumber="100%"
+            (click)="onSave()"
+          >
+          </lib-button-micro>
+        
         </div>
       </div>
+
+      
     </div>
   </div>
+
 </lib-page-content>

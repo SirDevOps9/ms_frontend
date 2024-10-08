@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { addBarcode, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddVariantLine, AddWarehouse, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, StockInDto, UomDefault } from './models';
+import { addBarcode, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddVariantLine, AddWarehouse, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, StockInDto, UOMCategoryDto, UomDefault } from './models';
 import { EditItemDefinitionDto } from './models/editItemDefinitionDto';
 import { variantGroupById } from './models/variantGroupById';
 import { itemAttributeValues } from './models/itemAttributeValues';
 import { getBarcodeById } from './models/getBarcodeById';
-import { AddUom, UomPost } from './models/addUom';
+import { addUOM, AddUom } from './models/addUom';
 import { addAttributeDifintion, IAttrributeDifinition } from './models/AttrbuteDiffintion';
 import { VieItemDefinitionDto } from './models/VieItemDefinitionDto';
 
@@ -91,6 +91,10 @@ export class ItemsProxyService {
     return this.httpService.delete(`UOM/DeleteUOM/${id}` )
   }
     
+  deleteCategory(id : number ) {
+    return this.httpService.delete(`UOMCategories/DeleteUOMCategory/${id}`  )
+  }
+    
   deleteAttributeGroup(id:number) {
     return this.httpService.delete(`AttributeGroup/${id}`)
   }
@@ -126,6 +130,16 @@ export class ItemsProxyService {
   
   
  }
+ GetUOMCategories(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<UOMCategoryDto>> {
+
+    let query = `UOMCategories?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<UOMCategoryDto>>(query)
+  
+  
+ }
  getItemCategoryById(id : number){
   return this.httpService.get(`ItemCategory/${id}`)
 
@@ -149,6 +163,13 @@ export class ItemsProxyService {
  uomCodeDropDown(id:number) {
   return this.httpService.get(`UOM/GetUOMsByUOMCategoryId/${id}`)//
  }
+ getUomById(id:number) {
+  return this.httpService.get(`UOM/${id}`)//
+ }
+
+ getUOMByCategoryID(id:number){
+  return this.httpService.get(`UOMCategories/GetUOMCategoryWithUomsById/${id}`)//
+ }
  getCodeByuomCodeDropDown(id:number) : Observable<{ code: number; conversionRatio: string}> {
   return this.httpService.get(`UOM/GetUOMCodeByUOMId/${id}`)//
  }
@@ -159,11 +180,18 @@ export class ItemsProxyService {
   return this.httpService.get(`UOMCategories/UOMCategoryDropDown`)
  }
 
+
  getUomDropDown() {
   return this.httpService.get(`UOM/UOMDropDown`)
  }
 
  getUomDropDownByUomCategory(id:number) {
+  return this.httpService.get(`ItemUOM/GetItemUOMsByUOMId/${id}`)
+ }
+ getUomDropDownByUomItemId(id:number) {
+  return this.httpService.get(`ItemUOM/GetAllItemUOMsByItemIdDropDown?Id=${id}`)
+ }
+ getUomByItemId(id:number) : Observable<getUomByItemId[]> {
   return this.httpService.get(`ItemUOM/GetItemUOMsByUOMId/${id}`)
  }
  getItemVariantsByItemIdDropDown(id:number) {
@@ -253,9 +281,9 @@ export class ItemsProxyService {
     return this.httpService.post('Barcode' , obj)
   }
   addUOM(obj:AddUom) {
-    return this.httpService.post('ItemUom' , obj)
+    return this.httpService.put('ItemUom' , obj)
   }
-  addUOMCategory(obj:UomPost) {
+  addUOMCategory(obj:addUOM) {
     return this.httpService.post('UOM' , obj)
   }
   //  add attr de
@@ -280,7 +308,7 @@ export class ItemsProxyService {
     return this.httpService.delete(`OperationalTag/Delete/${id}`)
   }
 
-  getUomByItemId(id:number) : Observable<getUomByItemId[]> {
+  getUomByItemIdDropDown(id:number) : Observable<any[]> {
     return this.httpService.get(`ItemUOM/GetAllItemUOMsByItemId?Id=${id}`)
 
   }
@@ -296,7 +324,7 @@ export class ItemsProxyService {
   editOperationalTag(obj :AddOperatioalTag){
     return this.httpService.put(`OperationalTag` , obj)
   }
-  updateUOM(obj:UomPost) {
+  updateUOM(obj:addUOM) {
     return this.httpService.put(`UOM/Edit` , obj) 
    }
   updateAttrDifinition(obj:addAttributeDifintion) {

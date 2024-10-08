@@ -9,7 +9,9 @@
     }
   },
   "itemType": {
+    "vat" : "Vat Applied",
     "code": "Code",
+    "main" : "Main",
     "nameEn": "Name En",
     "nameAr": "Name Ar",
     "name": "Name",
@@ -17,7 +19,11 @@
     "type": "Type",
     "tag": "Tag",
     "actions": "Actions",
+    "save" : "Save",
+    "cancel" : "Cancel",
     "Add": "Create",
+    "saveUom" : "Save UOM",
+    "warantlyPeriod" : "Warantly Period",
     "search": "Search",
     "ChangeColumn": "Change Column",
     "general": "General",
@@ -37,7 +43,7 @@
     "uomName": "UOM Name",
     "default": "Default",
     "factor": "Factor",
-    "selectUom": "Select UOM",
+    "selectUom": "Sales UOM",
     "pusrchaseUom": "Purchase UOM",
     "add_new": "Add Line",
     "barcode": "Barcode",
@@ -176,7 +182,7 @@
     "Search": "Search",
     "delete": "Deleted",
     "CategoryCode": "Category Code",
-    "code": "UOM Code",
+    "code": "Code",
     "categoryCode": "UOM Category Code",
     "name": "UOM Name",
     "categoryname": "UOM Category Name",
@@ -195,9 +201,12 @@
     "nameAr": "Name Ar",
     "changeAttributrDifinitionStatus": "change Attributr Difinition Status",
     "success": "Success",
-
+    "uomSuccess" : "UOM Added Successfully",
     "nameEn": "Name En",
-    "conversionUOM": "conversion UOM "
+    "conversionUOM": "conversion UOM ",
+    "categorynameEn" : "Name En",
+    "categorynameAr" : "Name Ar"
+
   },
   "attributeDefinition": {
     "Add": "Create",
@@ -252,7 +261,8 @@
     "status": "Status",
     "delete": "Deleted",
     "Success": "Success",
-    "actions": "Actions"
+    "actions": "Actions",
+    "glAccountId" : "GL Account Code"
 
   
   
@@ -264,6 +274,7 @@
     "edit": "Edit",
     "save": "Save",
     "cancel": "Cancel",
+    "name" : "Name",
     "categoryCode": "Category Code",
     "parentCategory": "Parent Category",
     "isDetails": "Details",

@@ -40,7 +40,6 @@ export class OperationTagListComponent implements OnInit {
 
     this.itemService.listOfOperationalTag$.subscribe({
       next: (res) => {
-        debugger;
         this.tableData = res;
       },
     });
@@ -59,7 +58,6 @@ export class OperationTagListComponent implements OnInit {
 
     this.itemService.listOfOperationalTag$.subscribe({
       next: (res) => {
-        debugger;
         this.tableData = res;
       },
     });
@@ -74,19 +72,16 @@ export class OperationTagListComponent implements OnInit {
 
     this.itemService.listOfOperationalTag$.subscribe({
       next: (res) => {
-        debugger;
         this.tableData = res;
       },
     });
   }
 
   exportClick(e?: Event) {
-    debugger;
     this.exportOperationalData(this.searchTerm);
   }
 
   exportOperationalData(searchTerm: string) {
-    // debugger
     this.itemService.ExportOperationalTagList(searchTerm);
 
     this.itemService.SendExportOperationalTagList$.subscribe((res) => {

@@ -46,6 +46,11 @@ import { StockInListComponent } from './pages/stock-In/stock-in-list/stock-in-li
 import { EditWarehouseComponent } from './pages/warehouse/edit-warehouse/edit-warehouse.component';
 import { MainWarehouseComponent } from './pages/warehouse/main-warehouse/main-warehouse.component';
 import { MainStockInListComponentComponent } from './pages/stock-In/main-stock-in-list-component/main-stock-in-list-component.component';
+import { ItemDefinitionGeneralComponent } from './pages/item-definition/item-definition-general/item-definition-general.component';
+import { ItemDefinitionUomComponent } from './pages/item-definition/item-definition-uom/item-definition-uom.component';
+import { ItemDefinitionAttributesVariantsComponent } from './pages/item-definition/item-definition-attributes-variants/item-definition-attributes-variants.component';
+import { ItemDefinitionBarcodeComponent } from './pages/item-definition/item-definition-barcode/item-definition-barcode.component';
+import { ItemDefinitionInventoryComponent } from './pages/item-definition/item-definition-inventory/item-definition-inventory.component';
 
 const routes: Routes = [
   {
@@ -60,6 +65,8 @@ const routes: Routes = [
         component: ItemDefinitionListComponent,
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_DIFINITION,
+          pageTitle : BreadcrumbLabel.ITEM_DIFINITION
+
         },
       },
       {
@@ -67,13 +74,17 @@ const routes: Routes = [
         component: ItemDefinitionListComponent,
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_DIFINITION,
+        pageTitle : BreadcrumbLabel.ITEM_DIFINITION
+
         },
       },
       {
         path: 'add-item-definition/:id',
         component: AddItemDefinitionComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION
+          breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
+          pageTitle : BreadcrumbLabel.EDIT_ITEM_DIFINITION
+
         },
      
       },
@@ -81,7 +92,7 @@ const routes: Routes = [
         path: 'warehouse',
         component: MainWarehouseComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.WARE_HOUSE,
+          breadcrumb: '',
         },
         children: [
           {
@@ -89,6 +100,7 @@ const routes: Routes = [
             component: WarehouseListComponent,
             data: {
               breadcrumb: BreadcrumbLabel.WARE_HOUSE,
+              pageTitle : BreadcrumbLabel.WARE_HOUSE
             },
           },
           {
@@ -96,6 +108,8 @@ const routes: Routes = [
             component: AddWarehouseComponent,
             data: {
               breadcrumb: BreadcrumbLabel.ADD_WARE_HOUSE,
+              pageTitle : BreadcrumbLabel.ADD_WARE_HOUSE
+
             },
           },
           {
@@ -103,6 +117,8 @@ const routes: Routes = [
             component: EditWarehouseComponent,
             data: {
               breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE,
+              pageTitle : BreadcrumbLabel.EDIT_WARE_HOUSE
+
             },
           },
         ],
@@ -110,7 +126,9 @@ const routes: Routes = [
       {
         path: 'uom',
         component: UOMMainComponent,
-        data: { breadcrumb: BreadcrumbLabel.UOM },
+        data: {
+          breadcrumb: BreadcrumbLabel.UNITOFMEASURE
+        },
         children: [
           {
             path: '',
@@ -135,6 +153,7 @@ const routes: Routes = [
           },
         ],
       },
+   
       {
         path: 'operational-tag',
         component: OperationTagMainComponent,
@@ -192,6 +211,8 @@ const routes: Routes = [
         component: MainItemCategoriesTreeComponent,
         data: {
           breadcrumb: BreadcrumbLabel.ITEMS_CATEGORY,
+          pageTitle : BreadcrumbLabel.ITEMS_CATEGORY
+
         },
       },
       {
@@ -279,6 +300,11 @@ const routes: Routes = [
     MainWarehouseComponent,
     ViewItemDefinitionComponent,
     MainStockInListComponentComponent,
+    ItemDefinitionGeneralComponent,
+    ItemDefinitionUomComponent,
+    ItemDefinitionAttributesVariantsComponent,
+    ItemDefinitionBarcodeComponent,
+    ItemDefinitionInventoryComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })
