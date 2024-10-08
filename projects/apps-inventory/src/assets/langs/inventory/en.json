@@ -184,6 +184,8 @@
     "Success": "Success",
     "attributeDefinition": "Attribute Definition",
     "attribute": "Attribute",
+    "AddNewLine": "Add New Line",
+    "noItems": "No items in the attribute table.",
     "changeAttributrDifinitionStatus": "change Attributr Difinition Status",
     "add_new": "Add New",
     "uomList": "List of unit of measure",

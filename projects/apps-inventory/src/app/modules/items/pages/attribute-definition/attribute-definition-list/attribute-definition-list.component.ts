@@ -20,6 +20,7 @@ export class AttributeDefinitionListComponent implements OnInit {
   searchTerm: string;
   exportData: IAttrributeDifinitionResult[];
   exportColumns:any[]
+action: any;
 
   constructor(
     private routerService: RouterService,
@@ -112,6 +113,23 @@ onDelete(id: number) {
 
 }
 
+onToggleActive(newStatus: boolean, id: number): void {
+  // Find the row with the corresponding ID and update its isActive value
+  const index = this.tableData.findIndex(item => item.id === id);
+  if (index !== -1) {
+    this.tableData[index].isActive = newStatus;
+
+    // Optionally, trigger a save/update action
+    this.saveChanges(this.tableData[index]);
+  }
+}
+
+saveChanges(updatedRow: any): void {
+  // // Implement the logic to save the changes (e.g., send to the server)
+  // this.attributeService.updateAttribute(updatedRow.id, updatedRow).subscribe(response => {
+  //   console.log('Updated successfully');
+  // });
+}
 
 
 }

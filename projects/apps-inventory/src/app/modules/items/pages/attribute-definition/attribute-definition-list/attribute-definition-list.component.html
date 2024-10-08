@@ -108,15 +108,16 @@
   
        
           <ng-template #isActive let-isActive>
-            <div *ngIf="isActive" class="actions flex align-items-center" >
-             {{'attributeDefinition.Active'| translate}}
-            
-            </div>
-            <div *ngIf="!isActive" class="actions flex align-items-center" >
-             {{'attributeDefinition.inActive'| translate}}
-            
+            <div class="actions flex align-items-center">
+              {{ 'attributeDefinition.Active' | translate }}
+              <lib-input-switch
+              [ngModel]="isActive.isActive"
+             
+              ></lib-input-switch>
             </div>
           </ng-template>
+          
+          
           <ng-template #actions let-action>
             <div class="actions flex align-items-center">
               <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />

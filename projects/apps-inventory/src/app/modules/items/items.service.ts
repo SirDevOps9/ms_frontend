@@ -67,7 +67,7 @@ export class ItemsService {
   public variantGenerated = new BehaviorSubject<boolean>(false);
   public getItemCategoryByIdData = new BehaviorSubject<AddItemCategory>({} as AddItemCategory);
   sendItemCategoryDataSource = new BehaviorSubject<GetItemCategoryDto[]>([]);
-
+   public deleteAttrDifinitionData =  new BehaviorSubject<any[]>([]);
   public tagLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public AccountsDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public trackingTrackingDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
@@ -140,13 +140,15 @@ export class ItemsService {
   public listOfAttrDifinition = new BehaviorSubject<IAttrributeDifinitionResult[]>([]);
   public listOfOperationalTag = new BehaviorSubject<IOperationalTagResult[]>([]);
   public SendExportOperationalTagList = new BehaviorSubject<IOperationalTagResult[]>([]);
-
+ 
   public sendItemDefinitionDataSourceObs = this.sendItemDefinitionDataSource.asObservable();
   public  ViewDataDefinitionByIdObs = this.ViewDataDefinitionById.asObservable();
   public SendexportUOMList$ = this.SendexportUOMList.asObservable();
   public wareHousesDropDownLookup$ = this.wareHousesDropDownLookup.asObservable();
   public SendexportAttrDifinitionList$ = this.SendexportAttrDifinitionList.asObservable();
   public itemTypeLookupObs = this.itemTypeLookup.asObservable();
+
+  public deleteAttrDifinitionDataObs = this.deleteAttrDifinitionData.asObservable()
   public itemCategoryLookupObs = this.itemCategoryLookup.asObservable();
   public AddItemCategoryLookupObs = this.AddItemCategoryLookup.asObservable();
   public itemsCategoryDeletedObs = this.itemsCategoryDeleted.asObservable();
@@ -595,6 +597,29 @@ export class ItemsService {
       });
     }
   }
+
+  async deleteAttrDifinitionWithId(id:number){
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.itemProxy.deleteAttrDifinition(id).subscribe((data:any)=>{
+        this.deleteAttrDifinitionData.next(data);
+           })
+    }
+
+    
+
+
+
+    /*
+       this.itemProxy.attributeGroupsValue(id).subscribe({
+      next: (res: any) => {
+        this.attributeValuesDropDownLookup.next(res);
+      },
+    });
+    */ 
+  }
   // attr difinition delete
   async deleteUOM(id: number) {
     const confirmed = await this.toasterService.showConfirm(
@@ -738,6 +763,8 @@ export class ItemsService {
         this.languageService.transalte('attributeDefinition.Success')
       );
       this.sendAttrDefinition.next(res);
+      this.router.navigateTo('/masterdata/attribute-definition')
+
     });
   }
  

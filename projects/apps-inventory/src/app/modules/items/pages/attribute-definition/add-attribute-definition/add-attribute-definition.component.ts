@@ -32,8 +32,7 @@ export class AddAttributeDefinitionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.attrTableForm = this.fb.array([this.create_Attr_FormGroup()]);
-
+    this.attrTableForm = this.fb.array([]);
     this.initAttrGroupForm();
   }
 
@@ -47,17 +46,14 @@ export class AddAttributeDefinitionComponent implements OnInit {
       attributeId: [''],
       nameAr: ['', customValidators.required],
       nameEn: ['', customValidators.required],
+      itemAttributeDtos: this.attrTableForm, 
     });
-
   }
 
-  get attrName(): number {
-    return this.attrFormGroup.get('attrName')?.value;
+  get itemAttributeDtos(): FormArray {
+    return this.attrFormGroup.get('itemAttributeDtos') as FormArray;
   }
 
-  public get items(): FormArray {
-    return this.attrTableForm as FormArray;
-  }
 
   create_Attr_FormGroup(): FormGroup {
     return this.fb.group({
@@ -66,12 +62,18 @@ export class AddAttributeDefinitionComponent implements OnInit {
       isActive: new FormControl(true),
     });
   }
+ showLine :boolean= true;
+ addLine() {
+  // Only allow adding if form is valid
+  if (!this.formsService.validForm(this.attrFormGroup, false)) return;
 
-  addLine() {
-    if (!this.formsService.validForm(this.attrTableForm, false)) return;
+  // Push a new form group into the array
+  this.attrTableForm.push(this.create_Attr_FormGroup());
 
-    this.items.push(this.create_Attr_FormGroup());
-  }
+  // Ensure the line is now visible
+  this.showLine = true;
+}
+
 
   deleteLine(index: number): void {
     if (index >= 0 && index < this.attrTableForm.length) {
@@ -97,14 +99,7 @@ export class AddAttributeDefinitionComponent implements OnInit {
     };
     this.itemsService.addAttrDifintion(data)
 
-    this.itemsService.sendAttrDefinition$.subscribe((res: any) => {
-      if(res ){
 
-        this.routerService.navigateTo('/masterdata/attribute-definition')
-      }else{
-        return
-      }
-    });
   }
 
   discard() {

@@ -53,6 +53,7 @@ export class ItemsProxyService {
     return this.httpService.delete(`AttributeGroup/${id}`)
   }
   deleteAttrDifinition(id : number ) {
+    
     return this.httpService.delete(`ItemAttribute/${id}` )
   }
 

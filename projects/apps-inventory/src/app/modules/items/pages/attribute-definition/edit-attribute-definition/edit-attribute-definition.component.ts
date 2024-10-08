@@ -80,7 +80,8 @@ export class EditAttributeDefinitionComponent implements OnInit {
       id: new FormControl(attrData?.id ?? 0),
       nameAr: new FormControl( attrData?.nameAr, customValidators.required),
       nameEn: new FormControl( attrData?.nameEn, customValidators.required),
-      isActive: new FormControl(attrData?.isActive),
+      isActive: new FormControl(attrData?.isActive ?? false), 
+
     });
   }
   isLastLineSaved: boolean = true;
@@ -100,43 +101,124 @@ export class EditAttributeDefinitionComponent implements OnInit {
       return;
     }
   }
-  deleteLine(index: number): void {
+
+  deleteLineWithId(index: number): void {
     if (index >= 0 && index < this.attrTableForm.length) {
       this.attrTableForm.removeAt(index);
       this.isLastLineSaved = true;
+      this.attributeGroups();
     }
   }
-  onDelete(id: any) {
-    this.itemsService.deleteAttrDifinition(id.id);
-    this.attributeGroupsValue(this.attrName);
+
+  async deleteLine(index: number): Promise<void> {
+    const confirmed = await this.toaserService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    
+    if (confirmed) {
+      if (index >= 0 && index < this.attrTableForm.length) {
+        // Remove the line
+        this.attrTableForm.removeAt(index);
+        this.isLastLineSaved = true;
+  
+        // Re-evaluate duplicate lines after deletion
+        this.updateDuplicateLines();
+  
+        // If you have any other method that needs to be called after deletion
+        this.attributeGroups();
+      }
+    }
   }
+  duplicateLines:any[]=[]
+  // Function to update duplicate lines based on current values
+  private updateDuplicateLines(): void {
+    let existingItems = this.attrTableForm.value; 
+    this.duplicateLines = existingItems.map((item: { nameAr: any; nameEn: any; }) =>
+      existingItems.filter((existingItem: { nameAr: any; nameEn: any; }) =>
+        existingItem.nameAr === item.nameAr || existingItem.nameEn === item.nameEn
+      ).length > 1
+    );
+  }
+  
+onDeleteOrRemove(index: number): void {
+  const formControl = this.attrTableForm.at(index);
+
+  if (formControl.get('id')?.value) {
+    this.onDelete(formControl.get('id')?.value, index);
+    this.attributeGroups()
+  } else {
+    this.deleteLine(index);
+        this.attributeGroups();
+  }
+}
+onDelete(id: number, index: number): void {
+  this.itemsService.deleteAttrDifinitionWithId(id );
+  this.attributeGroups();
+}
+
+
   shouldShowSaveButton(index: number): boolean | undefined {
     const formGroup = this.attrTableForm.at(index) as FormGroup;
     const otherFieldsDirty = formGroup.get('nameAr')?.dirty || formGroup.get('nameEn')?.dirty;
     return otherFieldsDirty && !formGroup.invalid && !this.lineStatus[index];
   }
 
-    onSave() {
-    if (!this.formsService.validForm(this.attrFormGroup, false)) return;
-    if (!this.formsService.validForm(this.attrTableForm, false)) return;
-let formGroupVal = this.attrFormGroup.value
-delete formGroupVal.isActive
-    console.log(formGroupVal );
-    console.log(this.attrTableForm.value);
-    let data : any = {
-      ...formGroupVal , ItemAttributes :this.attrTableForm.value
+  onSave() {
+    if (!this.formsService.validForm(this.attrFormGroup, false)) {
+      return;
     }
-    console.log(data);
+    
+    if (this.attrTableForm.length === 0) {
+      const errorTitle = this.languageService.transalte('Error'); 
+      const errorMessage = this.languageService.transalte('attributeDefinition.noItems');
+      this.toaserService.showError(errorMessage, errorTitle);
+      return;
+    }
+  
+    // Check for duplicates before sending the data
+    let existingItems = this.attrTableForm.value; 
+    this.duplicateLines = existingItems.map((item: { nameAr: any; nameEn: any; }) =>
+      existingItems.filter((existingItem: { nameAr: any; nameEn: any; }) =>
+        existingItem.nameAr === item.nameAr || existingItem.nameEn === item.nameEn
+      ).length > 1
+    );
+  
+    let formGroupVal = this.attrFormGroup.value;
+    delete formGroupVal.isActive;
+  
+    let data: any = {
+      ...formGroupVal, 
+      ItemAttributes: this.attrTableForm.value
+    };
+  
     this.itemsService.updateAttrDifinition(data);
-      this.itemsService.updateAttrobj$.subscribe((res: any) => {
-
-        if(res){
-          this.routerService.navigateTo('/masterdata/attribute-definition')
-        }else{
-          return
+  
+    this.itemsService.updateAttrobj$.subscribe(
+      (res: any) => {
+        if (res.messageCode === 4001) {
+          alert("Error occurred: " + res.message);
+          if (res.validationErrors) {
+            res.validationErrors.forEach((error: any) => {
+              alert(`Field: ${error.key}, Error: ${error.errorMessages.join(', ')}`);
+            });
+          }
+          
+         
+  
+          return;
+        } else {
+          if (res === true) {
+            this.routerService.navigateTo('/masterdata/attribute-definition');
+          }
         }
-      });
+      },
+      (error) => {
+        console.error('An unexpected error occurred:', error);
+        // Optionally, you can handle generic errors here, if needed
+      }
+    );
   }
+  
     discard(){
       this.routerService.navigateTo('/masterdata/attribute-definition')
 
