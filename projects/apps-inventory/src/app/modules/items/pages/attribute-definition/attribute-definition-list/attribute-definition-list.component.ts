@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { FinanceService } from 'projects/apps-finance/src/app/modules/finance/finance.service';
-import { PageInfoResult, RouterService, LanguageService, PageInfo } from 'shared-lib';
+import { PageInfoResult, RouterService, LanguageService, PageInfo, ToasterService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { IAttrributeDifinitionResult } from '../../../models/AttrbuteDiffintion';
 
@@ -25,6 +25,7 @@ action: any;
   constructor(
     private routerService: RouterService,
     private itemService : ItemsService,
+    private toasterService: ToasterService,
 
     public authService: AuthService,
     private dialog: DialogService,
@@ -131,5 +132,28 @@ saveChanges(updatedRow: any): void {
   // });
 }
 
+async confirmChange(newValue: boolean, user: any) {
+  user.isActive =!user.isActive
+  const confirmed = await this.toasterService.showConfirm('ConfirmButtonTexttochangestatus');
+
+  if (confirmed) {
+    const command = {
+      id: user.id,
+      status: user.isActive,
+    };
+
+    
+    this.itemService.editStatusAttributeGroup(command)
+    let audio = new Audio();
+          
+    audio.src = 'assets/notification-sound/done.wav';
+    audio.load();
+    audio.play();
+  } else {
+    user.isActive =!user.isActive
+
+    console.log('Change was canceled', user.isActive);
+  }
+}
 
 }

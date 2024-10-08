@@ -66,23 +66,7 @@
     [formGroup]="attrTableForm" 
     [ngClass]="{'duplicate-row': attrTableForm?.controls['isDuplicate']?.value}"
   >
-    <!-- Name in English -->
-    <td [pEditableColumn]="attrTableForm?.controls['nameEn']" pEditableColumnField="nameEn">
-      <p-cellEditor>
-        <ng-template pTemplate="input">
-          <lib-text-input
-            placeholder="{{ 'attributeDefinition.valueEn' | translate }}"
-            formControlName="nameEn"
-          ></lib-text-input>
-        </ng-template>
-        <ng-template pTemplate="output">
-          {{ attrTableForm?.controls['nameEn']?.value}}
-        </ng-template>
-      </p-cellEditor>
-      <lib-field-validations
-        [appControl]="attrTableForm?.controls['nameEn']"
-      ></lib-field-validations>
-    </td>
+  
     <!-- Name in Arabic -->
     <td [pEditableColumn]="attrTableForm?.controls['nameAr']" pEditableColumnField="nameAr">
       <p-cellEditor>
@@ -100,7 +84,23 @@
         [appControl]="attrTableForm?.controls['nameAr']"
       ></lib-field-validations>
     </td>
-  
+    <!-- Name in English -->
+    <td [pEditableColumn]="attrTableForm?.controls['nameEn']" pEditableColumnField="nameEn">
+      <p-cellEditor>
+        <ng-template pTemplate="input">
+          <lib-text-input
+            placeholder="{{ 'attributeDefinition.valueEn' | translate }}"
+            formControlName="nameEn"
+          ></lib-text-input>
+        </ng-template>
+        <ng-template pTemplate="output">
+          {{ attrTableForm?.controls['nameEn']?.value}}
+        </ng-template>
+      </p-cellEditor>
+      <lib-field-validations
+        [appControl]="attrTableForm?.controls['nameEn']"
+      ></lib-field-validations>
+    </td>
     <td>
       <div class="flex align-items-center">
         <lib-input-switch [id]="i" [disabled]="false" formControlName="isActive"></lib-input-switch>

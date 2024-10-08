@@ -167,7 +167,10 @@ export class ItemsProxyService {
 (obj:{id:number , status : boolean}) {
   return this.httpService.put(`OperationalTag/ActivateOperationalTag` , obj) // edit
  }
+ editStatusAttributeGroup(modle:any){
+  return this.httpService.put(`AttributeGroup/AttributeGroupActivation`,modle)
 
+}
  exportsItemsDefinitionList(
     searchTerm: string | undefined
   ): Observable<itemDefinitionDto[]> {

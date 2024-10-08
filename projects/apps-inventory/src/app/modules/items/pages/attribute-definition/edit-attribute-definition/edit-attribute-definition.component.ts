@@ -17,6 +17,7 @@ export class EditAttributeDefinitionComponent implements OnInit {
   attributeValues: itemAttributeValuesByID 
   _routeid: number;
   lineStatus: boolean[] = [];
+  duplicateLines:any[]=[]
   formsService = inject(FormsService);
   constructor(
     private fb: FormBuilder,
@@ -117,20 +118,19 @@ export class EditAttributeDefinitionComponent implements OnInit {
     
     if (confirmed) {
       if (index >= 0 && index < this.attrTableForm.length) {
-        // Remove the line
         this.attrTableForm.removeAt(index);
         this.isLastLineSaved = true;
-  
-        // Re-evaluate duplicate lines after deletion
         this.updateDuplicateLines();
-  
-        // If you have any other method that needs to be called after deletion
-        this.attributeGroups();
+          this.attributeGroups();
+          let audio = new Audio();
+          
+          audio.src = 'assets/notification-sound/done.wav';
+          audio.load();
+          audio.play();
       }
     }
   }
-  duplicateLines:any[]=[]
-  // Function to update duplicate lines based on current values
+
   private updateDuplicateLines(): void {
     let existingItems = this.attrTableForm.value; 
     this.duplicateLines = existingItems.map((item: { nameAr: any; nameEn: any; }) =>
@@ -175,7 +175,6 @@ onDelete(id: number, index: number): void {
       return;
     }
   
-    // Check for duplicates before sending the data
     let existingItems = this.attrTableForm.value; 
     this.duplicateLines = existingItems.map((item: { nameAr: any; nameEn: any; }) =>
       existingItems.filter((existingItem: { nameAr: any; nameEn: any; }) =>
@@ -209,12 +208,12 @@ onDelete(id: number, index: number): void {
         } else {
           if (res === true) {
             this.routerService.navigateTo('/masterdata/attribute-definition');
+    
           }
         }
       },
       (error) => {
         console.error('An unexpected error occurred:', error);
-        // Optionally, you can handle generic errors here, if needed
       }
     );
   }

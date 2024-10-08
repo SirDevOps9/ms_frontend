@@ -260,6 +260,18 @@ export class ItemsService {
     });
   }
 
+  editStatusAttributeGroup(modle:any){
+    this.itemProxy.editStatusAttributeGroup(modle).subscribe((data:any)=>{
+ 
+        this.toasterService.showSuccess(
+          this.languageService.transalte('attributeDefinition.success'),
+          this.languageService.transalte('attributeDefinition.attributeEditStatus')
+        );
+   
+
+    })
+  }
+
   addItemDefinition(obj: AddItemDefinitionDto, dialogRef: DynamicDialogRef, text: string) {
     this.itemProxy.addItemDefinition(obj).subscribe((res) => {
       if (res) {
@@ -764,6 +776,11 @@ export class ItemsService {
       );
       this.sendAttrDefinition.next(res);
       this.router.navigateTo('/masterdata/attribute-definition')
+      let audio = new Audio();
+          
+      audio.src = './assets/notification-sound/done.wav';
+      audio.load();
+      audio.play();
 
     });
   }
@@ -950,7 +967,14 @@ export class ItemsService {
         this.toasterService.showSuccess(
           this.languageService.transalte('attributeDefinition.success'),
           this.languageService.transalte('attributeDefinition.success')
+          
         );
+        let audio = new Audio();
+          
+        audio.src = './assets/notification-sound/done.wav';
+        audio.load();
+        audio.play();
+  
         // this.router.navigateTo(`/masterdata/item-definition` )
       }
     });
