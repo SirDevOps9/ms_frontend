@@ -38,8 +38,8 @@ function addConsoleDebugToJsFiles(dir) {
     });
 }
 
-
-const publishPath = 'C:Users/tuy_2/Desktop/Publish';
+const publishPath = 'C:/inetpub/wwwroot'; // for stage
+//const publishPath = 'C:/inetpub/wwwroot'; // for cloud
 
 const projectName = process.env.PROJECT_NAME;
 const outputDir = `dist/${projectName}`;
@@ -56,6 +56,5 @@ function moveBuild() {
   }
 }
 
-// Execute the move
 moveBuild();
 addConsoleDebugToJsFiles(targetDir);
