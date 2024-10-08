@@ -4,7 +4,7 @@ const fse = require('fs-extra');
 
 // Get the output directory and the target directory from environment variables
 const currentDate = new Date().toLocaleString();
-const debugMessage = `console.log('Build Date: ${currentDate}');`;
+const debugMessage = `console.debug('Build Date: ${currentDate}');`;
 
 function addConsoleDebugToJsFiles(dir) {
     fs.readdir(dir, (err, files) => {
