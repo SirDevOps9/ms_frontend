@@ -1374,7 +1374,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "baseHref": "/inventory/",
-            "outputPath": "dist/apps-inventory",
+            "outputPath": { "base": "dist/apps-inventory", "browser": "" },
             "index": "projects/apps-inventory/src/index.html",
             "browser": "projects/apps-inventory/src/main.ts",
             "polyfills": [
