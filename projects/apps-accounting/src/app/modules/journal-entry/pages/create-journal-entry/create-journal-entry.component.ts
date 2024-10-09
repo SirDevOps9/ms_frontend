@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   AttachmentsService,
+  ComponentType,
   FormsService,
   LanguageService,
   PageInfo,
@@ -160,23 +161,19 @@ export class CreateJournalEntryComponent {
 
   openAttachments() {
     const dialog = this.dialog.open(AttachmentsComponent, {
-      // header: 'Attachments',
-      data: this.attachmentService.filesInfo,
-     width: '600px',
-      height: '350px',
+      // data: this.attachmentService.filesInfo,
+      width: '1200px',
+      height: '1000px',
+      data: {
+        journalEntryAttachments: this.attachmentService.filesInfo,
+        page: ComponentType.add,
+      }
     });
 
     dialog.onClose.subscribe((res) => {
-      this.attachmentService.attachmentIdsObservable.subscribe((res) => {
-        this.journalEntryAttachments = this.attachmentService.filesInfo.map(
-          (item: any, i: number) => {
-            return {
-              attachmentId: res[i],
-              name: this.attachmentService.filesName[i],
-            };
-          }
-        );
-      });
+      this.journalEntryAttachments = res
+      console.log(res ,"close");
+      
     });
   }
 
@@ -199,7 +196,6 @@ export class CreateJournalEntryComponent {
     journalLine.get('lineDescription')?.setValue(this.accountData.name);
     journalLine.get('costCenterConfig')?.setValue(this.accountData.costCenterConfig);
     journalLine.get('selectedFalg')?.setValue(true);
-    console.log(journalLine.get('costCenterConfig')?.value);
 
     var currencyData = this.currencies.find((c) => c.id == this.accountData?.currencyId);
 
@@ -389,6 +385,7 @@ export class CreateJournalEntryComponent {
     .subscribe({
       next: (r) => {
         this.routerService.navigateTo('transcations/journalentry');
+        this.attachmentService.attachemntIdsList=[] 
       },
       error:  (error)  => {
       }
@@ -542,7 +539,6 @@ export class CreateJournalEntryComponent {
           displayName: `${account.name} (${account.accountCode})`,
         }));
 
-        console.log(this.filteredAccounts);
       }
 
       //          this.filteredAccounts=res.result.map((account:any) => ({
@@ -550,7 +546,6 @@ export class CreateJournalEntryComponent {
       //   displayName: `${account.name} (${account.accountCode})`,
       // }));
     });
-    console.log(event);
 
     // this.accountService.getAccountsHasNoChildrenNew(event, new PageInfo()).subscribe((r) => {
     //   this.filteredAccounts = r.result.map((account) => ({

@@ -86,12 +86,14 @@
                 </lib-label>
                 <lib-select
                   formControlName="accountId"
-                  [options]="accountsLookup"
+                  [options]="filteredAccounts"
                   placeholder="{{ 'treasury.glAccount' | translate }}"
                   [selectedValue]="treasuryForm.controls['accountId'].value"
-                  optionLabel="name"
+                  optionLabel="displayName"
                   optionValue="id"
                   (valueChanged)="accountChange($event)"
+                  (valueSearchChanged)="onFilter($event)"
+
                 >
                 </lib-select>
                 <lib-field-validations

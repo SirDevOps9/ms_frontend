@@ -67,7 +67,7 @@
 
         <div class="col-12">
           <div class="card">
-            <lib-fildest header="Bank Information">
+            <lib-fildest [header]="'add-paymentMethod.BankInformation' | translate">
               <div class="grid">
                 <div class="col-12 md:col-4" [formGroupName]="'paymentMethodCommissionData'">
                   <lib-form-group>
@@ -150,7 +150,7 @@
 
         <div class="col-12">
           <div class="card">
-            <lib-fildest header="Commission Information">
+            <lib-fildest [header]="'add-paymentMethod.CommissionInformation' | translate">
               <div class="grid">
                 <div class="col-12 md:col-4" [formGroupName]="'paymentMethodCommissionData'">
                   <lib-form-group>

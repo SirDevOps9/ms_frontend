@@ -1,8 +1,13 @@
 {
+  "BreadCrumb":{
+    "Dashboard":"Dashboard"
+  },
+  
 "Save": "Save",
 "Cancel": "Cancel",
 "AddNewLine": "Add New Line",
 "error":"Error",
+"ChooseApp":"Choose App",
 "success":"success",
 "create":"Create",
 "view":"view",
@@ -10,6 +15,14 @@
 "delete":"delete",
 "statement":"statement",
 "sequence":"sequence",
+"attachment":"Attachment",
+"attachmentDeletedSuccessfully":"attachment Deleted Successfully",
+"CannotDeleteattachment":"Cannot Delete attachment",
+"id":"Id",
+"name":"Name",
+"actions":"actions",
+"type": "file extension",
+
 
 "sequence":{
 "sequence":"Sequence",
@@ -76,5 +89,20 @@
     "ageAbove": "You must be at least {{age}} years old.",
     "nonNegativeNumbers": "it should be a positive number",
     "noAlphabeticCharacter": "The field must not contain alphabetic characters."
+  },
+  "Layout":{
+    "DefaultCompany": "Default Company",
+    "DefaultBranch": "Default Branch",
+    "MySubscription":"My Subscription",
+    "Myfavorite":"My favorite",
+    "Language":"Language",
+    "AccountSettings":"Account Settings",
+    "logout":"logout"
+  },
+  "Paginator":{
+  "Showing":"Showing",
+   "To":"to",
+   "entries":"entries"
   }
+  
 }

@@ -103,6 +103,9 @@ export class BankDefinitionListComponent implements OnInit {
 
 
   }
+  view(id: number) {
+    this.routerService.navigateTo(`/masterdata/bank-definition/view-bank-definition/${id}`);
+  }
 
   onSearchChange() {
     this.financeService.getBankDefinitions(this.searchTerm, new PageInfo());

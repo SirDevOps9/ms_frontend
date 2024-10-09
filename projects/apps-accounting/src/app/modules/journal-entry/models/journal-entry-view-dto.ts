@@ -1,3 +1,4 @@
+import { EditJournalEntryAttachment } from './edit-journal-entry-dto';
 import { JournalEntryLineViewDto } from './journal-entry-lines-view-dto';
 import { JournalEntryStatus } from './journalentrystatus';
 import { JournalEntryType } from './journalentrytype';
@@ -19,4 +20,5 @@ export interface JournalEntryViewDto {
   journalEntryLines?: JournalEntryLineViewDto[];
   paymentInId?: number;
   paymentOutId?: number;
+  journalEntryAttachments:EditJournalEntryAttachment[]
 }

@@ -4,6 +4,7 @@ import { JournalEntryStatus } from "./journalentrystatus";
 import { JournalEntryType } from "./journalentrytype";
 
 export interface GetJournalEntryByIdDto {
+    journalEntryAttachments : any
     id: number;
     journalCode: string;
     referenceNumber?: string;

@@ -27,10 +27,12 @@ export class TaxGroupAddComponent implements OnInit {
     this.title.setTitle(this.langService.transalte('TaxGroup.AddTaxGroup'));
 
   }
+  defaultCountry: {countryName :string}
 
   ngOnInit() {
     this.initializeTagForm();
-    this.loadCountries();
+    // this.loadCountries();
+    this.GetCompanyCountry();
   }
 
   loadCountries() {
@@ -41,17 +43,30 @@ export class TaxGroupAddComponent implements OnInit {
       },
     });
   }
+  GetCompanyCountry() {
+    this.generalSettingService.getCountry();
+    this.generalSettingService.countryString$.subscribe({
+      next: (res) => {
+        this.defaultCountry = res;
+        if(res){
+          this.taxGroupForm.get('countryName')?.patchValue(res.countryName)
+        }
+        
+      },
+    });
+  }
   initializeTagForm() {
     this.taxGroupForm = this.fb.group({
       code: new FormControl('', [customValidators.required,customValidators.length(1,5)]),
       name: new FormControl('', customValidators.required),
-      countryCode: new FormControl(null, customValidators.required),
+      countryName: new FormControl(''),
     });
   }
 
   save() {
     if (!this.formsService.validForm(this.taxGroupForm, false)) return;
     const taxGroupDto: AddTaxGroupDto = this.taxGroupForm.value;
+    delete taxGroupDto?.countryName
     //taxGroupDto.branchId = 'd69e6813-2646-41e7-a56c-538b7f91da39';
     //taxGroupDto.companyId = '98c91af6-16f4-477f-9b4a-db046a04b525';
     this.generalSettingService.addTaxGroup(taxGroupDto, this.ref);
