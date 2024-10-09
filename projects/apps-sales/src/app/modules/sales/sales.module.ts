@@ -176,8 +176,17 @@ const routes: Routes = [
             component: PricelistListComponent,
             //  canActivate: [AuthGuard],
             data: {
-              breadcrumb: BreadcrumbLabel.PRICELIST_LIST,
-              pageTitle: BreadcrumbLabel.PRICELIST_LIST,
+              breadcrumb: '',
+              pageTitle:''
+            }
+          },
+          {
+            path: 'add',
+            component: PricelistListComponent,
+            //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: '',
+              pageTitle:''
             }
           }
         ]
