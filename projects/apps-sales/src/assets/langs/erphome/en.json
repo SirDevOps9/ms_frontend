@@ -9,7 +9,8 @@
     "CustomerOpeningBalanceList":"Customer Opening Balance list",
     "AddCustomerOpeningBalance": "Add Customer Opening Balance",
     "EditCustomerOpeningBalance":"Edit Customer Opening Balance",
-    "ViewCustomerOpeningBalance":"View Customer Opening Balance"
+    "ViewCustomerOpeningBalance":"View Customer Opening Balance",
+    "PriceList":"Price List"
   },
   "dir": "ltr",
   "Welcome": "Welcome",

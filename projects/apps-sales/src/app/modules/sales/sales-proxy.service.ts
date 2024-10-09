@@ -11,6 +11,7 @@ import {
   EditCustomerOpeningBalanceDto,
   GetCustomerOpeningBalanceDto,
   GetCustomerOpeningBalanceViewDto,
+  PricelistDto,
 } from './models';
 import {
   CategoryDropdownDto,
@@ -169,5 +170,24 @@ export class SalesProxyService {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.httpService.get<PaginationVm<GetAllCustomerOpeningBalanceDto>>(query);
+  }
+
+  getAllPriceList(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<PricelistDto>> {
+    let query = `Pricelist?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<PricelistDto>>(query);
+  }
+
+  exportPriceList(searchTerm: string | undefined): Observable<PricelistDto[]> {
+    let query = `Pricelist/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PricelistDto[]>(query);
   }
 }

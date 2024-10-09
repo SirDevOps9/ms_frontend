@@ -19,6 +19,8 @@ import { CustomerOpeningBalanceListComponent } from './pages/customer-opening-ba
 import { EditCustomerOpeningBalanceComponent } from './pages/customer-opening-balance/edit-customer-opening-balance/edit-customer-opening-balance.component';
 import { ViewCustomerOpeningBalanceComponent } from './pages/customer-opening-balance/view-customer-opening-balance/view-customer-opening-balance.component';
 import { CustomerObViewDistributionComponent } from './components/customer-ob-view-distribution/customer-ob-view-distribution.component';
+import { PricelistMainComponent } from './pages/pricelist/Pricelist-main/Pricelist-main.component';
+import { PricelistListComponent } from './pages/pricelist/Pricelist-list/Pricelist-list.component';
 
 const routes: Routes = [
   {
@@ -159,6 +161,27 @@ const routes: Routes = [
           }
         ]
       },
+      {
+        path: 'pricelist',
+        component: PricelistMainComponent,
+        //  canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.PRICELIST_LIST,
+          pageTitle: BreadcrumbLabel.PRICELIST_LIST,
+
+        },
+        children:[
+          {
+            path: '',
+            component: PricelistListComponent,
+            //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.PRICELIST_LIST,
+              pageTitle: BreadcrumbLabel.PRICELIST_LIST,
+            }
+          }
+        ]
+      },
     ],
   },
 ];
@@ -180,7 +203,9 @@ const routes: Routes = [
     MainCustomerOpeningBalanceComponent,
     EditCustomerOpeningBalanceComponent,
     ViewCustomerOpeningBalanceComponent,
-    CustomerObViewDistributionComponent
+    CustomerObViewDistributionComponent,
+    PricelistListComponent,
+    PricelistMainComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })

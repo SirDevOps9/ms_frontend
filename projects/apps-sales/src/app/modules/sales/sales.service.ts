@@ -23,6 +23,7 @@ import {
   GetCustomerOpeningBalanceDto,
   GetCustomerOpeningBalanceViewDto,
   GetLineDropDownById,
+  PricelistDto,
 } from './models';
 import { SalesProxyService } from './sales-proxy.service';
 import { BehaviorSubject } from 'rxjs';
@@ -103,11 +104,14 @@ export class SalesService {
   private exportsCustomersDataSource = new BehaviorSubject<CustomerDefinitionDto[]>([]);
   public exportsCustomersDataSourceObservable = this.exportsCustomersDataSource.asObservable();
 
-  public customerOpeningBalanceDataSource = new BehaviorSubject<GetAllCustomerOpeningBalanceDto[]>(
-    []
-  );
-
+  public customerOpeningBalanceDataSource = new BehaviorSubject<GetAllCustomerOpeningBalanceDto[]>([]);
   customerOpeningBalanceObservable = this.customerOpeningBalanceDataSource.asObservable();
+
+  public priceListDataSource = new BehaviorSubject<PricelistDto[]>([]);
+  priceListDataSourceeObservable = this.priceListDataSource.asObservable();
+
+  private exportsPriceListDataSource = new BehaviorSubject<PricelistDto[]>([]);
+  public exportsPriceListObservable = this.exportsPriceListDataSource.asObservable();
 
   private CustomerOpeningBalanceView = new BehaviorSubject<
     GetCustomerOpeningBalanceViewDto | undefined
@@ -454,4 +458,21 @@ export class SalesService {
       this.currentPageInfo.next(response.pageInfoResult);
     });
   }
+
+  getAllPriceList(quieries: string, pageInfo: PageInfo) {
+    this.salesProxy.getAllPriceList(quieries, pageInfo).subscribe((response) => {
+      this.priceListDataSource.next(response.result);
+      this.currentPageInfo.next(response.pageInfoResult);
+    });
+  }
+
+  exportPriceList(searchTerm: string | undefined) {
+    this.salesProxy.exportPriceList(searchTerm).subscribe({
+      next: (res) => {
+        this.exportsPriceListDataSource.next(res);
+      },
+    });
+  }
+
+
 }
