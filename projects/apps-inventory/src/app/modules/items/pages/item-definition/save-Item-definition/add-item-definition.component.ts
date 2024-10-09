@@ -8,7 +8,7 @@ import { AddBarcodePopupComponent } from '../../../components/add-barcode-popup/
 import { ActivatedRoute } from '@angular/router';
 import { ItemsService } from '../../../items.service';
 import { ViewQRcodeComponent } from '../../../components/view-qrcode/view-qrcode.component';
-import { GetItemById, UomCodeLookup, UomDefault } from '../../../models';
+import { GetItemById, getUomByItemId, UomCodeLookup, UomDefault } from '../../../models';
 import { AddUom, ItemUom } from '../../../models/addUom';
 
 function uomIdUniqueValidator(formArray: AbstractControl): ValidatorFn {
@@ -37,6 +37,7 @@ export class AddItemDefinitionComponent implements OnInit {
   itemDefinitionForm : FormGroup = new FormGroup({})
   id : number
   uomLookup : { id: number; name: string }[] = []
+  allUOmLines : getUomByItemId[]
   colors = [
     { label: 'Red', value: '#FF0000', icon: 'pi pi-circle' },
     { label: 'Green', value: '#008000', icon: 'pi pi-circle' },
@@ -179,6 +180,8 @@ export class AddItemDefinitionComponent implements OnInit {
     this.itemService.sendUOMObs.subscribe(res=>{
       console.log("heey" , res)
       this.getUOMByItemId()
+
+      this.getUomDropDown(this.id)
     })
 
     this.ItemCategoryDropDownData()
@@ -220,6 +223,9 @@ export class AddItemDefinitionComponent implements OnInit {
   
         this.getDefaultUnit(res.defaultUOMCategoryId )
       }
+
+        this.getUomDropDown(this.id)
+
 
 
       if(!!res) {
@@ -373,7 +379,7 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
       console.log(data)
 
       itemDefitionForm.get('uomCode')?.setValue(data?.code)
-      itemDefitionForm.get('isDefault')?.value == true ? 1 : itemDefitionForm.get('conversionRatio')?.setValue(data?.conversionRatio)
+      itemDefitionForm.get('isDefault')?.value == true ? 1 : itemDefitionForm.get('conversionRatio')?.value ? itemDefitionForm.get('conversionRatio')?.value :  itemDefitionForm.get('conversionRatio')?.setValue(data?.conversionRatio)
 
      itemDefitionForm.get('tempConversionRatio')?.setValue(data?.conversionRatio)
 
@@ -420,7 +426,7 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
       uomId: [ null,  [customValidators.required]],
       uomCode: [ null],
       conversionRatio: [ 1],
-      isDefault: [true],
+      isDefault: this.UOMForm.length > 0 ? false : true,
       isSales: [true],
       isPurchase: [true],
       uomNameEn: [ ''],
@@ -603,7 +609,9 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
 
       if(res.length) {
         // this.uomCategoryChanged(this.itemData.defaultUOMCategoryId)
-        this.itemDefinitionForm.get('')
+
+        this.allUOmLines = res
+      
         this.UOMForm.clear()      
     
 
@@ -616,12 +624,12 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
             tempConversionRatio : [null],
 
             uomNameEn : element.uomNameEn,
-            conversionRatio: element.isDefault ? 1 : null,
+            conversionRatio: element.isDefault ? 1 : element.conversionRatio,
             isDefault: element.isDefault,
             isSales: element.isSales,
             isPurchase: element.isPurchase
           })
-          this.getCodeByuomCodeDropDown(element.uomId  , data)
+           this.getCodeByuomCodeDropDown(element.uomId  , data)
           this.UOMForm.push(data)
         });
       }
