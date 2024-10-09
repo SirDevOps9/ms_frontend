@@ -11,6 +11,7 @@ import {
   EditCustomerOpeningBalanceDto,
   GetCustomerOpeningBalanceDto,
   GetCustomerOpeningBalanceViewDto,
+  ItemDto,
   PricelistDto,
 } from './models';
 import {
@@ -189,5 +190,14 @@ export class SalesProxyService {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.httpService.get<PricelistDto[]>(query);
+  }
+
+  getItems(
+    quieries: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<ItemDto>> {
+    return this.httpService.get<PaginationVm<ItemDto>>(
+      `ChartOfAccounts/getItems?${pageInfo.toQuery}&${quieries ? quieries : ''}`
+    );
   }
 }

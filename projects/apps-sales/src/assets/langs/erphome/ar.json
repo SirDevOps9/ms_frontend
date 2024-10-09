@@ -272,5 +272,17 @@
     "DiscountAccount": "حساب الخصم",
     "Discard": "تجاهل",
     "Save": "حفظ"
-  }
+  },
+  "ItemsAdvancedSearch": {
+  "ItemSearch": "بحث عن الصنف",
+  "IsStorable": "قابل للتخزين",
+  "IsService": "خدمة",
+  "HasExpiryDate": "له تاريخ انتهاء",
+  "ItemCode": "كود الصنف",
+  "ItemName": "اسم الصنف",
+  "ItemUOM": "وحدة قياس الصنف",
+  "ItemVariant": "نوع الصنف",
+  "ItemCategory": "فئة الصنف",
+  "Confirm": "تأكيد"
+}
 }

@@ -23,6 +23,7 @@ import {
   GetCustomerOpeningBalanceDto,
   GetCustomerOpeningBalanceViewDto,
   GetLineDropDownById,
+  ItemDto,
   PricelistDto,
 } from './models';
 import { SalesProxyService } from './sales-proxy.service';
@@ -117,6 +118,10 @@ export class SalesService {
     GetCustomerOpeningBalanceViewDto | undefined
   >(undefined);
   public CustomerOpeningBalanceViewObservable = this.CustomerOpeningBalanceView.asObservable();
+
+  private itemsDataSource = new BehaviorSubject<ItemDto[]>([]);
+  public itemsList = this.itemsDataSource.asObservable();
+  public itemsPageInfo = new BehaviorSubject<PageInfoResult>({});
 
   constructor(
     private loaderService: LoaderService,
@@ -474,5 +479,11 @@ export class SalesService {
     });
   }
 
+  getItems(quieries: string, pageInfo: PageInfo) {
+    this.salesProxy.getItems(quieries, pageInfo).subscribe((res) => {
+      this.itemsDataSource.next(res.result);
+      this.itemsPageInfo.next(res.pageInfoResult);
+    });
+  }
 
 }

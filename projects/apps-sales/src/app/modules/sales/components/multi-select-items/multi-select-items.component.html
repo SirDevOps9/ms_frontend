@@ -1,0 +1,90 @@
+<lib-popup-page
+  title="{{ 'ItemsAdvancedSearch.ItemSearch' | translate }}"
+  [closeFunction]="onCancel"
+  (Submit)="onSubmit()"
+>
+  <lib-data-table
+    [popup]="true"
+    [items]="itemsData"
+    [showCheckBox]="true"
+    className="p-datatable-gridlines"
+    [currentPageResult]="paging"
+    (pageChange)="onPageChange($event)"
+    (selectedRowsChange)="onSelectedRowsChange($event)"
+    [tableConfigs]="{
+      allowPagination: false,
+      allowServerPagination: true,
+      dataKey: 'id',
+      pageSize: 10,
+      columns: [
+        {
+          name: 'code',
+          headerText: 'ItemsAdvancedSearch.ItemCode' | translate,
+          isGlobalFilter: true,
+          isSortable: true
+        },
+        {
+          name: 'name',
+          headerText: 'ItemsAdvancedSearch.ItemName' | translate,
+          isGlobalFilter: true,
+          isSortable: true
+        },
+        {
+          name: 'itemUOM',
+          headerText: 'ItemsAdvancedSearch.ItemUOM' | translate,
+          isGlobalFilter: true,
+          isSortable: true
+        },
+        {
+          name: 'itemVairant',
+          headerText: 'ItemsAdvancedSearch.ItemVariant' | translate,
+          isGlobalFilter: true,
+          isSortable: true
+        },
+        {
+          name: 'itemCategory',
+          headerText: 'ItemsAdvancedSearch.ItemCategory' | translate,
+          isGlobalFilter: true,
+          isSortable: true
+        }
+      ]
+    }"
+  >
+    <ng-container search>
+      <div [formGroup]="searchForm">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            formControlName="SearchTerm"
+            type="text"
+            placeholder="{{ 'Table.Search' | translate }}"
+          />
+        </span>
+      </div>
+    </ng-container>
+
+    <!-- <ng-template #actions let-account>
+      <lib-button
+        [className]="'light-blue'"
+        [rounded]="true"
+        [enableText]="true"
+        severity="secondary"
+        (onClick)="selectRow($event, account)"
+      >
+        {{ 'ItemsAdvancedSearch.Select' | translate }}
+      </lib-button>
+    </ng-template> -->
+
+    <!-- <ng-template #checkbox let-item>
+      <lib-form-group>
+        <input
+          [(ngModel)]="selectAll"
+          type="checkbox"
+          id="isDetail"
+          (onChange)="toggleSelectAll($event)"
+        />
+      </lib-form-group>
+    </ng-template> -->
+  </lib-data-table>
+</lib-popup-page>

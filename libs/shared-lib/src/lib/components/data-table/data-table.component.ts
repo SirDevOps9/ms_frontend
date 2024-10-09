@@ -22,7 +22,7 @@ import { GeneralService } from '../../services/general.service';
 })
 export class DataTableComponent implements OnInit, OnChanges {
   @Input() items: any[];
-  @Input() selectedIndex: number ;
+  @Input() selectedIndex: number;
   @Input() selectedIndices: number[];
   @Input() resizableColumns: boolean = true;
   @Input() popup: boolean = false;
@@ -38,6 +38,11 @@ export class DataTableComponent implements OnInit, OnChanges {
 
   @Output() pageChange = new EventEmitter<PageInfo>();
   @Output() addNew = new EventEmitter<boolean>(false);
+  @Input() showCheckBox: boolean;
+
+  selectedRows: any[] = [];
+  
+  @Output() selectedRowsChange = new EventEmitter<any[]>();
 
   sortingFields: string[];
   selectedColumns: any = [];
@@ -47,7 +52,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @ViewChild('customCellTemplate', { static: true })
   customCellTemplate?: TemplateRef<any>;
   customParentCellTemplate: TemplateRef<NgIfContext<boolean>> | null;
-
+  rows: [];
   ngOnInit(): void {
     this.globalFilterFields = this.tableConfigs.columns
       .filter((c) => c.isSortable)
@@ -118,16 +123,14 @@ export class DataTableComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.clonedTableConfigs = this.tableConfigs;
   }
-  routeToSequence(){
+  routeToSequence() {
     const currentUrl = this.routerService.getCurrentUrl();
     this.routerService.navigateTo(`${currentUrl}/sequence`);
-
   }
 
   isSelected(index: number): boolean {
-    if(this.selectedIndices)
-    return this.selectedIndices.includes(index);
-    return false
+    if (this.selectedIndices) return this.selectedIndices.includes(index);
+    return false;
   }
 
   toggleSelection(index: number): void {
@@ -138,11 +141,33 @@ export class DataTableComponent implements OnInit, OnChanges {
       this.selectedIndices.splice(selectedIndex, 1);
     }
   }
+
+  onRowSelect(event: any) {
+    this.selectedRows.push(event.data);
+    this.selectedRowsChange.emit(this.selectedRows); 
+  }
+
+  onRowUnselect(event: any) {
+    const index = this.selectedRows.findIndex((row) => row === event.data);
+    if (index > -1) {
+      this.selectedRows.splice(index, 1);
+    }
+    this.selectedRowsChange.emit(this.selectedRows); 
+  }
+
+  onSelectAllRows(event: any) {
+    if (event.checked) {
+      this.selectedRows = [...this.items];
+    } else {
+      this.selectedRows = []; 
+    }
+    this.selectedRowsChange.emit(this.selectedRows); 
+  }
+
   constructor(
     public languageService: LanguageService,
     public lookupsService: LookupsService,
     private generalService: GeneralService,
-    private routerService: RouterService,
-
+    private routerService: RouterService
   ) {}
 }
