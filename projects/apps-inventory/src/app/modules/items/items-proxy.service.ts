@@ -195,6 +195,9 @@ export class ItemsProxyService {
  getUomByItemId(id:number) : Observable<getUomByItemId[]> {
   return this.httpService.get(`ItemUOM/GetItemUOMsByUOMId/${id}`)
  }
+ getAllUomByItemId(id:number) : Observable<getUomByItemId[]> {
+  return this.httpService.get(`ItemUOM/GetAllItemUOMsByItemId?Id=${id}`)
+ }
  getItemVariantsByItemIdDropDown(id:number) {
   return this.httpService.get(`ItemVariant/ItemVariantsByItemIdDropDown?ItemId=${id}`)
 
