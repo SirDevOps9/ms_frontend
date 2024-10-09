@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Cultures, SideMenuModel } from 'shared-lib';
+import { Cultures, LanguageService, SideMenuModel } from 'shared-lib';
 import { LayoutService } from '../layout.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 import { Location } from '@angular/common';
@@ -20,8 +20,13 @@ export class LayoutSidebarComponent {
   treeData: any;
   highlightedParent: any = null; // To track the highlighted parent node
   menuItems: any;
+  language:any
   // _location = inject(Location)
   ngOnInit(): void {
+    this.languageService.language$.subscribe((lang) => {
+      this.language = lang
+      // this.mapToTreeNodes(this.data, lang);
+    });
     this.layoutService.getSideMenu();
 
     this.layoutService.sideMenuItems.subscribe({
@@ -31,7 +36,7 @@ export class LayoutSidebarComponent {
           this.menuList = this.menuList.filter(
             (x) => x.moduleId == this.router.snapshot.data['moduleId']
           );
-          this.treeData = this.mapToTreeNodes(this.menuList);
+          this.treeData = this.mapToTreeNodes(this.menuList,  this.language);
         }
       },
     });
@@ -87,15 +92,18 @@ export class LayoutSidebarComponent {
     this.generalService.sendSideBarState.next(this.sidebarOpen);
   }
 
-  mapToTreeNodes(data: any[]) {
+  mapToTreeNodes(data: any[] ,lang:any) {
+
     data = data.map((item) => {
       return {
         key: item.key.toString(),
-        name: item.labelEn,
+        // name: item.labelEn,
+        name: lang === 'ar' ? item.labelAr : item.labelEn,
+
         icon: item.icon,
         type: item.type.toLowerCase(),
         link: item.routePath,
-        subMenu: item.children ? this.mapToTreeNodes(item.children) : [],
+        subMenu: item.children ? this.mapToTreeNodes(item.children , lang) : [],
       };
     });
     return data;
@@ -143,6 +151,7 @@ export class LayoutSidebarComponent {
   constructor(
     public layoutService: LayoutService,
     private router: ActivatedRoute,
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private languageService: LanguageService
   ) {}
 }

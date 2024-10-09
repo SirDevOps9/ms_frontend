@@ -1,12 +1,9 @@
 <lib-popup-page
-  title=" confirm"
+  [title]="'Confirm' | translate"
   [closeFunction]="onCancel"
   (Submit)="onSubmit()"
 >
   <div>
-    <p class="confirm">{{'treasury.confirm' | translate}}</p>
+    <p class="confirm">{{ 'treasury.confirm' | translate }}</p>
   </div>
 </lib-popup-page>
-
-
-

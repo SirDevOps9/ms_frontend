@@ -18,6 +18,7 @@ export class TaxGroupEditComponent implements OnInit {
   get Id(): string {
     return this.config?.data;
   }
+  defaultCountry: {countryName :string}
 
   constructor(
     private generalSettingService: GeneralSettingService,
@@ -34,13 +35,27 @@ export class TaxGroupEditComponent implements OnInit {
   ngOnInit() {
     this.initializeTagForm();
     this.currentTaxGroup();
-    this.loadCountries();
+    // this.loadCountries();
+    this.GetCompanyCountry();
+
   }
-  loadCountries() {
-    this.generalSettingService.loadCountries();
-    this.generalSettingService.countries.subscribe({
+  // loadCountries() {
+  //   this.generalSettingService.loadCountries();
+  //   this.generalSettingService.countries.subscribe({
+  //     next: (res) => {
+  //       this.countries = res;
+  //     },
+  //   });
+  // }
+  GetCompanyCountry() {
+    this.generalSettingService.getCountry();
+    this.generalSettingService.countryString$.subscribe({
       next: (res) => {
-        this.countries = res;
+        this.defaultCountry = res;
+        if(res){
+          this.taxGroupForm.get('CountryName')?.patchValue(res.countryName)
+        }
+        
       },
     });
   }
@@ -49,14 +64,15 @@ export class TaxGroupEditComponent implements OnInit {
       id: new FormControl('', customValidators.required),
       code: new FormControl('', [customValidators.required,customValidators.length(1,5)]),
       name: new FormControl('', customValidators.required),
-      countryCode: new FormControl(null, customValidators.required),
+      countryName: new FormControl(null,),
     });
   }
 
   currentTaxGroup() {
-    console.log('Id', this.Id);
     this.generalSettingService.getTaxGroupById(parseInt(this.Id));
     this.generalSettingService.currentTaxGroup.subscribe((response) => {
+      
+      
       this.taxGroupForm.patchValue(response);
     });
   }

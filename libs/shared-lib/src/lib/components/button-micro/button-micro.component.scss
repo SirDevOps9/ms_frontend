@@ -96,6 +96,7 @@
 //   }
 
 .cancel {
+
   background: #fff;
   border: 1px solid #cb3f2d;
   color: #cb3f2d;
@@ -193,6 +194,17 @@
   width: 32px !important;
   height: 32px !important;
   background-image: url(../../../assets/images/table/statement.svg) !important;
+  background-position: center !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  border-radius: none !important;
+  margin-inline-start: 0 !important;
+  margin-inline-end: 0 !important;
+}
+.table_button_download {
+  width: 32px !important;
+  height: 32px !important;
+  background-image: url(../../../assets/images/table/download.png) !important;
   background-position: center !important;
   background-size: contain !important;
   background-repeat: no-repeat !important;
