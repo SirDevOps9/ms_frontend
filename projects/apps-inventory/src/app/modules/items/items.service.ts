@@ -251,6 +251,8 @@ export class ItemsService {
       this.sendItemDefinitionDataSource.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
       this.loaderService.hide();
+    },erorr=>{
+      this.loaderService.hide();
     });
   }
   getUOmCategories(quieries: string, pageInfo: PageInfo) {
@@ -260,6 +262,8 @@ export class ItemsService {
        this.GetUOMCategoriesDataSource.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
       this.loaderService.hide();
+    },erorr=>{
+      this.loaderService.hide();
     });
   }
   getStockIn(quieries: string, pageInfo: PageInfo) {
@@ -267,6 +271,8 @@ export class ItemsService {
     this.itemProxy.getStockIn(quieries, pageInfo).subscribe((response) => {
       this.sendStockInDataSources.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
+      this.loaderService.hide();
+    },erorr=>{
       this.loaderService.hide();
     });
   }
