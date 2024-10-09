@@ -176,10 +176,10 @@ export class AddItemDefinitionComponent implements OnInit {
     this.itemService.sendBarcode.subscribe(res=>{
       this.getBarcodeByItemId()
     })
-    // this.itemService.sendUOMObs.subscribe(res=>{
-    //   console.log("heey" , res)
-    //   this.getUOMByItemId()
-    // })
+    this.itemService.sendUOMObs.subscribe(res=>{
+      console.log("heey" , res)
+      this.getUOMByItemId()
+    })
 
     this.ItemCategoryDropDownData()
     this.tagDropDropDown()
@@ -223,8 +223,13 @@ export class AddItemDefinitionComponent implements OnInit {
 
 
       if(!!res) {
-        this.getUOMByItemId()
+
       }
+
+      // setTimeout(() => {
+      //   this.getUOMByItemId()
+
+      // }, 1000);
 
       // if(res.uomId) {
       //   this.getUomDropDown(res.uomId)
@@ -592,10 +597,11 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
   }
   getUOMByItemId(){
     setTimeout(() => {
-        this.itemService.getUomByItemId(this.id)
+        this.itemService.getAllUomByItemId(this.id)
      this.itemService.GetUomListByItemIdObs.subscribe(res=>{
+      console.log("heey" , res)
+
       if(res.length) {
-        console.log("heey" , res)
         // this.uomCategoryChanged(this.itemData.defaultUOMCategoryId)
         this.itemDefinitionForm.get('')
         this.UOMForm.clear()      

@@ -967,6 +967,11 @@ export class ItemsService {
       this.GetUomListByItemId.next(res);
     });
   }
+  getAllUomByItemId(id: number) {
+    return this.itemProxy.getAllUomByItemId(id).subscribe((res) => {
+      this.GetUomListByItemId.next(res);
+    });
+  }
 
   setUomDefault(obj: UomDefault) {
     return this.itemProxy.setUomDefault(obj).subscribe((res) => {
