@@ -140,15 +140,16 @@
                         <lib-label [appControl]="itemDefinitionForm.controls['countryId']">
                           {{ 'itemType.countryOfOrigin' | translate }} 
                         </lib-label>
-                        <lib-select 
+                        <lib-selectIcon
                         formControlName="countryId" 
                         [options]="countriesLookup"
                         optionValue="id"
                         optionLabel="nameEn"
+                        icons="flags"
                         [selectedValue]="itemDefinitionForm.controls['countryId'].value"
                         >
 
-                        </lib-select>
+                        </lib-selectIcon>
                       </lib-form-group>
                     </div>
                   </div>
