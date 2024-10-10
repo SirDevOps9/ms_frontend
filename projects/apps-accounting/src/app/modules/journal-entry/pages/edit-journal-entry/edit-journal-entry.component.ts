@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   EditJournalEntry,
   EditJournalEntryAttachment,
@@ -43,7 +43,7 @@ import { AttachmentsComponent } from '../../components/attachments/attachments.c
   styleUrls: ['./edit-journal-entry.component.scss'],
   providers: [RouterService],
 })
-export class EditJournalEntryComponent implements OnInit {
+export class EditJournalEntryComponent implements OnInit ,OnDestroy  {
   editJournalForm: FormGroup;
   journalEntry?: GetJournalEntryByIdDto;
   journalEntryLines?: JournalEntryLineDto[];
@@ -567,12 +567,11 @@ export class EditJournalEntryComponent implements OnInit {
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
     const journalLine = this.journalEntryLinesFormArray.at(currentJournalId);
 
-    this.currencyService.accountCurrencyRate.subscribe((res) => {
-      const currencyRateControl = journalLine.get('currencyRate')!;
-
-      currencyRateControl.setValue(res.rate);
+    const subscription = this.currencyService.accountCurrencyRate.subscribe((res) => {
+      const currencyRateControl = journalLine?.get('currencyRate');
+      currencyRateControl?.setValue(res.rate);
+      subscription.unsubscribe(); 
     });
-
     this.currencyService.getAccountCurrencyRate(
       accountCurrency,
       this.currentUserService.getCurrency()
@@ -631,11 +630,16 @@ export class EditJournalEntryComponent implements OnInit {
     });
   
     dialog.onClose.subscribe((newFiles: any) => {
+      console.log(newFiles ,"close");
+
         this.journalEntryAttachment = newFiles
       
     });
   }
-  
+  ngOnDestroy(): void {
+    this.attachmentService.attachemntIdsList=[] 
+
+  }
   constructor(
     private journalEntryService: JournalEntryService,
     private routerService: RouterService,

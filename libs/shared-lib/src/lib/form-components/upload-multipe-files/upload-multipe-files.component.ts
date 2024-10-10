@@ -1,13 +1,9 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AttachmentsService } from '../../services/attachment.service';
-import { AttachmentDto, AttachmentFileTypeEnum, Pages } from '../../models';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { AttachmentDto, AttachmentFileTypeEnum } from '../../models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { JournalEntryService } from 'projects/apps-accounting/src/app/modules/journal-entry/journal-entry.service';
 import { EnvironmentService, HttpService } from 'shared-lib';
 import { Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
-import { Subscription, window } from 'rxjs';
 
 @Component({
   selector: 'lib-upload-multipe-files',
@@ -16,42 +12,23 @@ import { Subscription, window } from 'rxjs';
   styleUrl: './upload-multipe-files.component.css',
 })
 export class UploadMultipeFilesComponent implements OnInit {
-  constructor(public attachmentService: AttachmentsService,
-    private cdRef: ChangeDetectorRef,
-    private journalEntryService: JournalEntryService,
-    private httpService: HttpService,
-    private enviormentService: EnvironmentService,
-    private router: Router,
-    private ref: DynamicDialogRef,
-    private fb: FormBuilder
-  ) {
-
-  }
-  attachmentUrl: SafeResourceUrl = '';
-
   urls: any = [];
   files: any = [];
   filesName: string[] = [];
   fileExtension: string[] = [];
-  arr: any[] = [];
+  attachments: any[] = [];
   @Input() filesData: any;
-  @Input() viewData: any;
   @Input() screen: any;
-
-  @Input() imgExtentions = ['image/png', 'image/png', 'application/pdf'];
   @Output() sendFiles = new EventEmitter();
   editStates: boolean[] = [];
-  fileUrl: any; // URL for the iframe
-  showIframe: boolean = false; // Flag to show/hide the iframe
-
-  showText: boolean = true;
   ngOnInit(): void {
 
-    this.subscrip()
     this.fileExtension = this.attachmentService.fileExtension;
     this.filesName = this.attachmentService.filesName;
     this.files = this.attachmentService.files;
     this.attachmentService.filesInfo.push(this.attachmentService.filesUrls);
+    this.subscrip()
+
   }
 
   onSelectFile(event: any) {
@@ -88,7 +65,7 @@ export class UploadMultipeFilesComponent implements OnInit {
   subscrip() {
     this.attachmentService.attachmentIdsObservable.subscribe((res: any) => {
       this.setUrls()
-    })
+    });
 
 
   }
@@ -99,10 +76,16 @@ export class UploadMultipeFilesComponent implements OnInit {
       const existingItem = this.urls.find((item: any) => item.attachmentId === url);
 
       if (!existingItem) {
+        let filesName = this.filesName[index]
+        let dotIndex = filesName.lastIndexOf(".");
+        let name = filesName.substring(0, dotIndex); // الاسم
+        let extension = filesName.substring(dotIndex + 1); // الامتداد
         // أضف العنصر الجديد إذا لم يكن موجودًا بالفعل          
         this.urls.push({
           id: 0,
           attachmentId: url,
+          fileName: name,
+          fileExtension: extension,
           name: this.filesName[index]
         });
       }
@@ -110,12 +93,12 @@ export class UploadMultipeFilesComponent implements OnInit {
     this.processAttachments();
   }
   processAttachments() {
-    this.arr = []; // Resetting the array    
+    this.attachments = []; // Resetting the array    
 
 
-    this.arr = [...this.urls]; // Create a shallow copy of `urls`
+    this.attachments = [...this.urls]; // Create a shallow copy of `urls`
 
-    this.sendFiles.emit(this.arr);
+    this.sendFiles.emit(this.attachments);
 
   }
   onTableDataChange() {
@@ -150,7 +133,7 @@ export class UploadMultipeFilesComponent implements OnInit {
     event.stopPropagation();
   }
 
-  removeFile(test: any, url: any, index: number) {
+  removeFile(index: number) {
 
     if (this.urls && this.urls.length > 0) {
 
@@ -163,7 +146,7 @@ export class UploadMultipeFilesComponent implements OnInit {
 
       this.cdRef.detectChanges();
     }
-this.processAttachments()
+    this.processAttachments()
 
   }
 
@@ -175,12 +158,7 @@ this.processAttachments()
     this.attachmentService.downloadAttachment(url.attachmentId, fileName, AttachmentFileTypeEnum.image);
   }
 
-
-
   reviewAttachment(fileName: any, url: any): void {
-    // const x = url?.attachmentId
-    console.log(url, "000000000000000");
-
     this.httpService.getFullUrl(
       `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` + url.attachmentId)
       .subscribe((apiResponse: any) => {
@@ -203,54 +181,16 @@ this.processAttachments()
             const byteArray = new Uint8Array(byteNumbers);
             const blob = new Blob([byteArray], { type: mimeType });
             const unsafeUrl = URL.createObjectURL(blob);
-            this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
-            this.ref.close(this.arr)
+            const newUrl = `${globalThis.location.origin}/accounting/attachment-view?url=${encodeURIComponent(unsafeUrl)}`;
+            globalThis.open(newUrl, '_blank');
+            this.ref.close(this.attachments);
 
           } catch (error) {
             console.error('Error decoding Base64 string:', error);
           }
         }
       });
-
   }
-
-
-  // وظيفة لعرض الملف مباشرة من Base64
-  private showFile(base64Content: string, base64Padding: string) {
-    const mimeType = base64Padding.split(';')[0].split(':')[1];
-
-    // تأكد من صحة بيانات Base64
-    base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
-    while (base64Content.length % 4 !== 0) {
-      base64Content += '=';
-    }
-
-    try {
-      const byteCharacters = atob(base64Content);
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], { type: mimeType });
-      const unsafeUrl = URL.createObjectURL(blob);
-
-      // توجيه إلى مكون العرض مع الرابط
-      this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
-      this.ref.close(this.arr);
-    } catch (error) {
-      console.error('Error decoding Base64 string:', error);
-    }
-  }
-
-  // وظيفة لعرض الملف من الرابط مباشرة
-  private showFileFromUrl(url: string) {
-    // توجيه إلى مكون العرض مع الرابط
-    this.router.navigate(['/attachment-view'], { queryParams: { url: url } });
-    this.ref.close(this.arr);
-  }
-
 
   // Helper function to handle downloading from base64 content
   private handleFileDownload(base64Content: string, base64Padding: string) {
@@ -275,27 +215,32 @@ this.processAttachments()
 
       // Navigate to the attachment view component
       this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
-      this.ref.close(this.arr);
+      this.ref.close(this.attachments);
     } catch (error) {
       console.error('Error decoding Base64 string:', error);
     }
   }
 
 
+  updateFileName(index: number, newName: string, extension: string) {
 
-
-  updateFileName(index: number, newName: string) {
-
-    this.filesName[index] = newName.trim();
+    this.filesName[index] = newName.trim() + '.' + extension;
     this.attachmentService.filesName = [...this.filesName];
     this.urls.forEach((element: any, line: number) => {
+      if (line == index) {
+        element.fileName = newName.trim()
+      }
       element.name = this.filesName[line]
     });
   }
+  constructor(
+    public attachmentService: AttachmentsService,
+    private cdRef: ChangeDetectorRef,
+    private httpService: HttpService,
+    private enviormentService: EnvironmentService,
+    private router: Router,
+    private ref: DynamicDialogRef,
+  ) {
 
-  getFileType(fileName: string): string {
-    const extension = fileName.split('.').pop()?.toLowerCase(); // Use optional chaining here
-    return '.' + extension!
   }
-
 }
