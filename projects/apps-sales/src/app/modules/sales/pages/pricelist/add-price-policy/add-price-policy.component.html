@@ -42,10 +42,13 @@
                         <lib-label [appControl]="addForm.controls['uploadPolicy']">
                             {{'pricePolicy.uploadPolicy'|translate}}
                         </lib-label>
-                        <lib-text-input
+                        <!-- <lib-text-input
                         formControlName="uploadPolicy"
 
-                        ></lib-text-input>
+                        ></lib-text-input> -->
+                        <lib-text-input  type="file" (change)="onFileSelected($event)" iconUrl="pi pi-upload"  accept=".xlsx"></lib-text-input>
+                        <lib-button-micro title="log" nameClass="save" (click)="onclick()">
+                        </lib-button-micro>
                         <lib-field-validations [appControl]="addForm.controls['uploadPolicy']">
 
                         </lib-field-validations>
@@ -329,7 +332,9 @@
                 </td>
              <td>
                 <lib-input-switch 
-                formControlName="VAT">
+                formControlName="VAT"
+                [(ngModel)]="pricePolicy.get('VAT').value"
+                >
 
                 </lib-input-switch>
              </td>

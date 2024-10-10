@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { customValidators, FormsService } from 'shared-lib';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-add-price-policy',
@@ -8,7 +9,9 @@ import { customValidators, FormsService } from 'shared-lib';
   styleUrl: './add-price-policy.component.scss'
 })
 export class AddPricePolicyComponent implements OnInit {
- 
+  data:any;
+  listOfExcel: any[]=[];
+
   addForm: FormGroup;
   ngOnInit() {
     this.initializeForm()
@@ -59,6 +62,77 @@ export class AddPricePolicyComponent implements OnInit {
 
 }
   test(){
+
+  }
+  /////////////////////////////
+  onclick() {
+    console.log(this.data);
+
+    const keys = ['code', 'name', 'uom', 'varient', 'price', 'VAT'];
+
+    const result = this.data.slice(1).map((arr:any) => {
+      return keys.reduce((obj: any, key, index) => {
+        obj[key] = arr[index];
+        return obj;
+      }, {});
+    });
+
+    console.log(result);
+    this.listOfExcel = result;
+    // this.pricePolicyFormArray.clear();
+
+    this.listOfExcel.forEach((ele: any) => {
+      let dataForm = this.formBuilder.group({
+        code: new FormControl(ele.code, [customValidators.required]),
+        name: new FormControl(ele.name),
+        uom: new FormControl(ele.uom),
+        varient: new FormControl(ele.varient),
+        price: new FormControl(ele.price, [customValidators.required]),
+        VAT: new FormControl(ele.VAT),
+        priceVAT: new FormControl(''), // Assuming this will be calculated or handled elsewhere
+        id: new FormControl(0), // Default value, assuming id is 0 for new entries
+      });
+  
+      // Add the group to the form array
+      this.pricePolicyFormArray.push(dataForm);
+    });
+    // this.pricePolicyFormArray.patchValue(result)
+    // console.log(this.pricePolicyFormArray);
+    
+  }
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const fileType = file.name.split('.').pop().toLowerCase();
+      if (fileType === 'xlsx') {
+        this.readExcelFile(file);
+      } else {
+        console.log('not supported');
+      }
+    }
+  }
+
+  readExcelFile(file: File) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const binaryStr = e.target.result;
+      const workbook = XLSX.read(binaryStr, { type: 'binary' });
+      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+      const json = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+      const keys = ['code', 'name', 'uom', 'varient', 'price', 'vat'];
+      this.data = json
+      // .slice(1).map((arr:any) => {
+      //   return keys.reduce((obj: any, key, index) => {
+      //     obj[key] = arr[index];
+      //     return obj;
+      //   }, {});
+      // });
+      
+      console.log(json,'this.datathis.data');
+    };
+    
+    reader.readAsBinaryString(file);
+    console.log(reader.readAsBinaryString(file),'this.datathis.data');
 
   }
   constructor(
