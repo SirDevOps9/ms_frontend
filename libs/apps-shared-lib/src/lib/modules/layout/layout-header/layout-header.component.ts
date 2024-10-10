@@ -47,7 +47,7 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
   ref: DynamicDialogRef;
   userEmail: string;
   branchList: { id: string; name: string; isDefault: boolean }[] = [];
-  companyList: { id: string, name: string,code : string, companyType: string }[] = []
+  companyList: { id: string; name: string; code: string; companyType: string }[] = [];
 
   _fb = inject(FormBuilder);
   localstoarage = inject(StorageService);
@@ -161,7 +161,8 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
     const storedCompanyId = this.localstoarage.getItem(StorageKeys.DEFAULT_COMPANY);
     this.companyList = companies;
     let matchedCompany = companies?.filter(
-      (x: { id: string, name: string,code : string, companyType: string }) => x.id === storedCompanyId.id
+      (x: { id: string; name: string; code: string; companyType: string }) =>
+        x.id === storedCompanyId.id
     );
 
     this.coBrForm.get('companyId')?.setValue(matchedCompany[0]?.id);
@@ -181,11 +182,8 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
   }
 
   getCompany() {
- 
     this.layoutService.GetFirstCompany();
     this.layoutService.GetFirstCompanyDropdown$.subscribe((res) => {
-      console.log(res);
-      
       this.localstoarage.setItem(StorageKeys.COMPANIES_LIST, res);
       if (res && res.length > 0) {
         this.companyList = res;
@@ -197,7 +195,6 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
         }
       }
     });
- 
   }
   getBranch(id: string) {
     this.layoutService.branchesDropDown(id);
