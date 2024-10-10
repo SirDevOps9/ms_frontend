@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
-import { PageInfoResult, RouterService, LanguageService, PageInfo } from 'shared-lib';
+import { PageInfoResult, RouterService, LanguageService, PageInfo, ToasterService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { IOperationalTagResult } from '../../../models';
 
@@ -20,6 +20,7 @@ export class OperationTagListComponent implements OnInit {
   constructor(
     private routerService: RouterService,
     private itemService: ItemsService,
+    private toaserService: ToasterService,
 
     public authService: AuthService,
     private title: Title,
@@ -40,7 +41,6 @@ export class OperationTagListComponent implements OnInit {
 
     this.itemService.listOfOperationalTag$.subscribe({
       next: (res) => {
-        debugger;
         this.tableData = res;
       },
     });
@@ -59,7 +59,6 @@ export class OperationTagListComponent implements OnInit {
 
     this.itemService.listOfOperationalTag$.subscribe({
       next: (res) => {
-        debugger;
         this.tableData = res;
       },
     });
@@ -74,19 +73,16 @@ export class OperationTagListComponent implements OnInit {
 
     this.itemService.listOfOperationalTag$.subscribe({
       next: (res) => {
-        debugger;
         this.tableData = res;
       },
     });
   }
 
   exportClick(e?: Event) {
-    debugger;
     this.exportOperationalData(this.searchTerm);
   }
 
   exportOperationalData(searchTerm: string) {
-    // debugger
     this.itemService.ExportOperationalTagList(searchTerm);
 
     this.itemService.SendExportOperationalTagList$.subscribe((res) => {
@@ -99,5 +95,21 @@ export class OperationTagListComponent implements OnInit {
   onDelete(id: number) {
     this.itemService.deleteOperationalTag(id);
     this.initOperationalTagData();
+  }
+
+  async confirmChange(newValue: boolean, user: any) {
+    user.isActive =!user.isActive
+    const confirmed = await this.toaserService.showConfirm('ConfirmButtonTexttochangestatus');
+    if (confirmed) {
+      const command = {
+        id: user.id,
+        status: user.isActive,
+      };
+      console.log(command);
+      this.itemService.ActivateOperationalTag(command)
+    } else {
+      user.isActive =!user.isActive
+      console.log('Change was canceled', user.isActive);
+    }
   }
 }

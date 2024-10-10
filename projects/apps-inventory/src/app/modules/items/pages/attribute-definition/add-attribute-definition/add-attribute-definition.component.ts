@@ -1,13 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { AccountDto } from 'projects/apps-accounting/src/app/modules/account/models';
-import { Balance } from 'projects/apps-finance/src/app/modules/finance/models';
-import { UserPermission } from 'projects/apps-finance/src/app/modules/finance/models/user-permission';
-import { CurrencyDto } from 'projects/apps-finance/src/app/modules/general/models';
-import { LanguageService, customValidators } from 'shared-lib';
+import { FormsService, LanguageService, RouterService, customValidators } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
-import { addAttributeDifintion } from '../../../models';
 import { itemAttributeValues } from '../../../models/itemAttributeValues';
 
 @Component({
@@ -23,87 +18,62 @@ export class AddAttributeDefinitionComponent implements OnInit {
   attributeValues: itemAttributeValues[] = [];
   isLastLineSaved: boolean = true;
   lineStatus: boolean[] = [];
-  constructor(
-    private fb: FormBuilder,
-    private itemsService: ItemsService,
 
-    private languageService: LanguageService,
-    private title: Title
-  ) {
+  fb = inject(FormBuilder);
+  itemsService = inject(ItemsService);
+  formsService = inject(FormsService);
+  languageService = inject(LanguageService);
+  title = inject(Title);
+  routerService = inject(RouterService);
+  constructor() {
     this.title.setTitle(
       this.languageService.transalte('attributeDefinition.addattributeDefinition')
     );
   }
 
-
-
   ngOnInit(): void {
     this.attrTableForm = this.fb.array([]);
-
-    this.attributeGroups();
     this.initAttrGroupForm();
   }
 
   // attr group dropdown
 
-  attributeGroups() {
-    this.itemsService.AttributeGroupDropDown();
-    this.itemsService.attributeGroupeDropDownLookup$.subscribe((res) => {
-      this.attributeName = res;
-    });
-  }
-  attributeGroupsValue(id: number) {
-    this.itemsService.attributeGroupsValue(id);
-    this.itemsService.attributeValuesDropDownLookupObs.subscribe((res: any) => {
-      this.attributeValues = res;
-
-      this.attrTableForm.clear();
-
-      // Add new form groups to the form array
-      this.attributeValues.forEach((attr: any) => {
-        this.attrTableForm.push(this.create_Attr_FormGroup(attr));
-      });
-    });
-  }
+  
 
   // init the form
   initAttrGroupForm() {
     this.attrFormGroup = this.fb.group({
-      attrName: ['', customValidators.required],
-    });
-
-    this.attrFormGroup.get('attrName')?.valueChanges.subscribe((res: any) => {
-      debugger;
-      if (!res) return;
-
-      this.attributeGroupsValue(res);
+      attributeId: [''],
+      nameAr: ['', customValidators.required],
+      nameEn: ['', customValidators.required],
+      itemAttributeDtos: this.attrTableForm, 
     });
   }
 
-  get attrName(): number {
-    return this.attrFormGroup.get('attrName')?.value;
+  get itemAttributeDtos(): FormArray {
+    return this.attrFormGroup.get('itemAttributeDtos') as FormArray;
   }
 
-  public get items(): FormArray {
-    return this.attrTableForm as FormArray;
-  }
 
-  create_Attr_FormGroup(attrData?: any): FormGroup {
+  create_Attr_FormGroup(): FormGroup {
     return this.fb.group({
-      id: new FormControl(attrData?.id),
-      nameAr: new FormControl(attrData?.nameAr || '', customValidators.required),
-      nameEn: new FormControl(attrData?.nameEn || '', customValidators.required),
-
-      attributeGroupId: new FormControl(attrData?.attributeGroupId || ''),
+      nameAr: new FormControl('', customValidators.required),
+      nameEn: new FormControl('', customValidators.required),
+      isActive: new FormControl(true),
     });
   }
+ showLine :boolean= true;
+ addLine() {
+  // Only allow adding if form is valid
+  if (!this.formsService.validForm(this.attrFormGroup, false)) return;
 
-  addLine() {
-    this.items.push(this.create_Attr_FormGroup());
+  // Push a new form group into the array
+  this.attrTableForm.push(this.create_Attr_FormGroup());
 
-    this.lineStatus.push(false);
-    this.isLastLineSaved = false;
-  }
+  // Ensure the line is now visible
+  this.showLine = true;
+}
+
 
   deleteLine(index: number): void {
     if (index >= 0 && index < this.attrTableForm.length) {
@@ -115,25 +85,25 @@ export class AddAttributeDefinitionComponent implements OnInit {
   onDelete(id: any) {
     this.itemsService.deleteAttrDifinition(id.id);
   }
-  // Check if the save button should be shown for a specific row
-  shouldShowSaveButton(index: number): boolean {
-    const formGroup = this.attrTableForm.at(index) as FormGroup;
 
-    const hasId = !!formGroup.get('id')?.value;
+  onSave() {
 
-    return formGroup.dirty && !formGroup.invalid && !this.lineStatus[index] && !hasId;
+    if (!this.formsService.validForm(this.attrFormGroup, false)) return;
+    if (!this.formsService.validForm(this.attrTableForm, false)) return;
+    if(this.attrTableForm.length == 0)return
+    let formGroupVal = this.attrFormGroup.value;
+    delete formGroupVal.attributeId;
+    let data: any = {
+      ...formGroupVal,
+      itemAttributeDtos: this.attrTableForm.value,
+    };
+    this.itemsService.addAttrDifintion(data)
+
+
   }
 
-  
-  onSave(obj: addAttributeDifintion, index: number) {
-    obj.attributeGroupId = this.attrName;
+  discard() {
+    this.routerService.navigateTo('/masterdata/attribute-definition')
 
-    this.itemsService.addAttrDifintion(obj);
-    this.itemsService.sendAttrDefinition$.subscribe((res: any) => {
-      this.lineStatus[index] = true;
-
-      this.isLastLineSaved = true;
-      this.attributeGroupsValue(this.attrName);
-    });
   }
 }
