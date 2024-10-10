@@ -176,7 +176,7 @@ export class SalesProxyService {
     searchTerm: string,
     pageInfo: PageInfo
   ): Observable<PaginationVm<PricelistDto>> {
-    let query = `Pricelist?${pageInfo.toQuery}`;
+    let query = `PricePolicy?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
@@ -184,7 +184,7 @@ export class SalesProxyService {
   }
 
   exportPriceList(searchTerm: string | undefined): Observable<PricelistDto[]> {
-    let query = `Pricelist/Export?`;
+    let query = `PricePolicy/Export?`;
     if (searchTerm) {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
