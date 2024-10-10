@@ -1,0 +1,25 @@
+{
+    "BreadCrumb": {
+        "add":"Add"
+    },
+    "pricePolicy":{
+        "code":"Code",
+        "name":"Name",
+        "getPolicy":"Get policy",
+        "uploadPolicy":"upload policy",
+        "fromPolicy":"get from other policy",
+        "applyPolicy":"Apply and Update Policy",
+        "item":"Item",
+        "itemCategory":"Item Category",
+        "value":"Value",
+        "valueType":"Value Type",
+        "toDate":"To Date",
+        "applyDate":"Apply Date",
+        "VAT":"VAT include",
+        "UOM":"UOM",
+        "varient":"Varient",
+        "price":"Price",
+        "priceVAT":"Price With VAT"
+
+    }
+}

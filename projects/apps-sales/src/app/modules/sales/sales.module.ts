@@ -21,6 +21,7 @@ import { ViewCustomerOpeningBalanceComponent } from './pages/customer-opening-ba
 import { CustomerObViewDistributionComponent } from './components/customer-ob-view-distribution/customer-ob-view-distribution.component';
 import { PricelistMainComponent } from './pages/pricelist/Pricelist-main/Pricelist-main.component';
 import { PricelistListComponent } from './pages/pricelist/Pricelist-list/Pricelist-list.component';
+import { AddPricePolicyComponent } from './pages/pricelist/add-price-policy/add-price-policy.component';
 
 const routes: Routes = [
   {
@@ -182,11 +183,10 @@ const routes: Routes = [
           },
           {
             path: 'add',
-            component: PricelistListComponent,
-            //  canActivate: [AuthGuard],
+            component: AddPricePolicyComponent,
             data: {
-              breadcrumb: '',
-              pageTitle:''
+              breadcrumb: BreadcrumbLabel.PRICE_POLICY_ADD,
+              pageTitle:BreadcrumbLabel.PRICE_POLICY_ADD,
             }
           }
         ]
@@ -214,7 +214,8 @@ const routes: Routes = [
     ViewCustomerOpeningBalanceComponent,
     CustomerObViewDistributionComponent,
     PricelistListComponent,
-    PricelistMainComponent
+    PricelistMainComponent,
+    AddPricePolicyComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })

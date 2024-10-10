@@ -148,6 +148,7 @@ export class BreadcrumbLabel {
     static VIEW_BANK_DEFINATION ='BreadCrumb.ViewBankDefination';
     static VIEW_PAYMENT_TERM ='BreadCrumb.ViewPaymentTerm';
     static PRICELIST_LIST ='BreadCrumb.PriceList';
+    static PRICE_POLICY_ADD ='BreadCrumb.add';
 
 
 
