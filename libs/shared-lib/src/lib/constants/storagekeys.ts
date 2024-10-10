@@ -7,4 +7,8 @@ export class StorageKeys {
   static PERMISSIONTREE = 'permissiontree';
   static SIDEMENU = 'SideMenu';
   static MODULES = 'Modules';
+  static COMPANIES_LIST= 'Companies';
+  static BRANCHES_LIST= 'Branches';
+  static DEFAULT_COMPANY= 'DefaultCompany';
+  static DEFAULT_BRANCHE= 'DefaultBranche';
 }
