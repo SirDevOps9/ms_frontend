@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { SearchFunc } from 'libs/shared-lib/src/lib/models/sendQueries';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { debounceTime } from 'rxjs';
 import { PageInfo, PageInfoResult } from 'shared-lib';
-import { ItemDto } from '../../models';
+import { ItemDto, SharedSalesEnums } from '../../models';
 import { SalesService } from '../../sales.service';
 
 @Component({
@@ -15,13 +13,18 @@ import { SalesService } from '../../sales.service';
 export class MultiSelectItemsComponent implements OnInit {
   pageInfo = new PageInfo();
   items: ItemDto[] = [];
-  paging: PageInfoResult;
+  currentPageInfo: PageInfoResult;
   searchTerm: string = '';
   selectedRows: ItemDto[] = [];
   selectAll: boolean = false;
-  searchForm: FormGroup = this.fb.group({
-    SearchTerm: [''],
+
+  filterForm: FormGroup = this.fb.group({
+    searchTerm: [''],
+    isStorable: new FormControl(false),
+    isService: new FormControl(false),
+    hasExpiryDate: new FormControl(false),
   });
+
   itemsData: ItemDto[] = [
     {
       id: 1,
@@ -66,33 +69,37 @@ export class MultiSelectItemsComponent implements OnInit {
   ];
   constructor(
     private salesService: SalesService,
+    public sharedEnums: SharedSalesEnums,
     private ref: DynamicDialogRef,
     private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.getItems(this.searchForm.get('SearchTerm')?.value);
-
-    this.searchForm.valueChanges.pipe(debounceTime(1000)).subscribe((res) => {
-      this.getItems(SearchFunc(this.searchForm.value));
-    });
-
-    this.salesService.itemsList.subscribe((res) => {
-      this.items = res;
-    });
-
-    this.salesService.itemsPageInfo.subscribe((res) => {
-      this.paging = res;
+    this.subscribes();
+    this.initItemsData();
+    this.filterForm.valueChanges.subscribe(() => {
+      this.onFilterChange();
     });
   }
 
-  getItems(searchTerm: string) {
-    this.salesService.getItems(searchTerm, this.pageInfo);
+  subscribes() {
+    this.salesService.itemsList.subscribe({
+      next: (res) => {
+        this.items = res;
+      },
+    });
+
+    this.salesService.itemsPageInfo.subscribe((currentPageInfo) => {
+      this.currentPageInfo = currentPageInfo;
+    });
+  }
+
+  initItemsData() {
+    this.salesService.getItems('', new PageInfo());
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.pageInfo = pageInfo;
-    this.getItems(SearchFunc(this.searchForm.value));
+    this.salesService.getItems('', pageInfo);
   }
 
   onSubmit() {
@@ -105,5 +112,27 @@ export class MultiSelectItemsComponent implements OnInit {
 
   onCancel() {
     this.ref.close();
+  }
+
+  onFilterChange() {
+    const query = this.buildQuery();
+    this.salesService.getItems(query, new PageInfo());
+  }
+
+  buildQuery(): string {
+    const searchTerm = this.filterForm.get('searchTerm')?.value;
+    const isStorable = this.filterForm.get('isStorable')?.value;
+    const isService = this.filterForm.get('isService')?.value;
+    const hasExpiryDate = this.filterForm.get('hasExpiryDate')?.value;
+    
+    const query = [];
+
+    if (searchTerm) query.push(`${this.sharedEnums.ItemsQueryEnum.SearchText}=${searchTerm}`);
+    if (isStorable) query.push(`${this.sharedEnums.ItemsQueryEnum.IsStorable}=${isStorable}`);
+    if (isService) query.push(`${this.sharedEnums.ItemsQueryEnum.IsService}=${isService}`);
+    if (hasExpiryDate)
+      query.push(`${this.sharedEnums.ItemsQueryEnum.HasExpiryDate}=${hasExpiryDate}`);
+
+    return query.join('&');
   }
 }

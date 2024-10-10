@@ -13,4 +13,8 @@ export class SharedSalesEnums {
     get AccountNature(): typeof AccountNature {
         return AccountNature;
     }
+
+    get ItemsQueryEnum(): typeof ItemsQueryEnum{
+        return this.ItemsQueryEnum;
+    }
 }
