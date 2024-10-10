@@ -24,7 +24,7 @@ import {
 export class TextInputComponent implements ControlValueAccessor, Validator, AfterViewInit {
   @Input() label: string;
   @Input() labelTest: any  = "input-text";
-  @Input() type: 'text' | 'number' | 'tel' | 'email' | 'date' | 'radio';
+  @Input() type: 'text' | 'number' | 'tel' | 'email' | 'date' | 'radio' | 'file';
   @Input() readOnly: boolean;
   @Input() textbox: boolean;
   @Input() inputContainerClass: string;
