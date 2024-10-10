@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+  import { Component } from '@angular/core';
 import { PageInfoResult, lookupDto, RouterService, PageInfo } from 'shared-lib';
 import { GetAllPaymentInDto } from '../../../models';
 import { TranscationsService } from '../../../transcations.service';
