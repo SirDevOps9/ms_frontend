@@ -13,15 +13,12 @@ export class ReadExcelComponent implements OnInit {
   ngOnInit(): void {}
 
   onclick() {
-    debugger
     console.log(this.data);
 
     const keys = ['code', 'name', 'uom', 'varient', 'price', 'vat'];
 
     const result = this.data.slice(1).map((arr) => {
-      debugger;
       return keys.reduce((obj: any, key, index) => {
-        debugger;
         obj[key] = arr[index];
         return obj;
       }, {});
