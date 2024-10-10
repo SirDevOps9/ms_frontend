@@ -1,0 +1,287 @@
+<lib-page-content>
+  <div class="card_micro">
+
+  <form [formGroup]="formGroup">
+    <div class="form_header">
+      <div class="grid">
+        <div class="md:col-4">
+          <lib-form-group>
+            <lib-label [appControl]="formGroup.controls['OpeningJournal']">
+              {{ 'addVendorOpeneingBalance.openingJournal' | translate }}
+            </lib-label>
+            <lib-select
+              formControlName="OpeningJournal"
+              [options]="openingJournalList"
+              [selectedValue]="formGroup.controls['OpeningJournal'].value"
+              optionLabel="code"
+              optionValue="id"
+              (valueChanged)="onOpeningJournalChange($event)"
+              [readOnly]="editMode"
+            >
+            </lib-select>
+          </lib-form-group>
+        </div>
+        <div class="md:col-4">
+          <lib-form-group>
+            <lib-label [appControl]="formGroup.controls['JournalLine']">
+              {{ 'addVendorOpeneingBalance.JournalLine' | translate }}
+            </lib-label>
+            <lib-select
+              formControlName="JournalLine"
+              [options]="linesDropDown"
+              [selectedValue]="formGroup.controls['JournalLine'].value"
+              optionLabel="accountCodeName"
+              optionValue="id"
+              (valueChanged)="onLinesChange($event)"
+              [readOnly]="editMode"
+            >
+            </lib-select>
+          </lib-form-group>
+        </div>
+        <div class="md:col-2">
+          <lib-form-group>
+            <lib-label [appControl]="formGroup.controls['amount']">
+              {{ 'addVendorOpeneingBalance.amount' | translate }}
+            </lib-label>
+            <lib-text-input
+              type="text"
+              formControlName="amount"
+              [readOnly]="true"
+              placeholder="{{ amount }}"
+            />
+            <lib-field-validations [appControl]="formGroup.controls['amount']">
+            </lib-field-validations>
+          </lib-form-group>
+        </div>
+
+        <div class="md:col-2">
+          <lib-form-group>
+            <lib-label [appControl]="formGroup.controls['amountNature']">
+              {{ 'addVendorOpeneingBalance.debitCredit' | translate }}
+            </lib-label>
+            <lib-text-input
+              type="text"
+              formControlName="amountNature"
+              [readOnly]="true"
+              placeholder="{{ debitOrCredit }}"
+            />
+            <lib-field-validations [appControl]="formGroup.controls['amountNature']">
+            </lib-field-validations>
+          </lib-form-group>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+  <div class="entry_table">
+    <div class="card">
+      <p-table
+        [value]="vendorForm.controls"
+        dataKey="id"
+        styleClass="p-datatable-gridlines p-datatable-striped"
+        [paginator]="vendorForm.controls.length > 25"
+        [rows]="10"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [rowsPerPageOptions]="[5, 10, 20]"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>{{ 'addVendorOpeneingBalance.code' | translate }}</th>
+            <th>{{ 'addVendorOpeneingBalance.name' | translate }}</th>
+            <th>{{ 'addVendorOpeneingBalance.balance' | translate }}</th>
+            <th>{{ 'addVendorOpeneingBalance.balanceType' | translate }}</th>
+            <th>{{ 'addVendorOpeneingBalance.dueDate' | translate }}</th>
+            <th>{{ 'addVendorOpeneingBalance.actions' | translate }}</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-customerGroup let-editing="editing" let-i="rowIndex">
+          <tr [formGroup]="customerGroup">
+            <td
+              [pEditableColumn]="customerGroup.controls['vendorId']"
+              pEditableColumnField="customerGroup.controls['vendorId']"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-form-group>
+                    <lib-select
+                      formControlName="vendorId"
+                      [options]="vendorDropDownByAccountId"
+                      optionValue="id"
+                      optionLabel="name"
+                      placeholder="{{ 'addVendorOpeneingBalance.code' | translate }}"
+                      (valueChanged)="accountSelected($event, i)"
+                      [selectedValue]="customerGroup.controls['vendorId'].value"
+                    >
+                    </lib-select>
+                  </lib-form-group>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ customerGroup.controls['vendorCode'].value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations [appControl]="customerGroup.controls['vendorId']">
+              </lib-field-validations>
+            </td>
+            <td>
+              {{ customerGroup.controls['accountName'].value }}
+            </td>
+
+            <td
+              [pEditableColumn]="customerGroup.controls['balance']"
+              pEditableColumnField="balance"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    formControlName="balance"
+                    (keyUp)="calculateTotalBalance()"
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ customerGroup.controls['balance'].value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="customerGroup.controls['balance']"
+              ></lib-field-validations>
+            </td>
+            <td
+              [pEditableColumn]="customerGroup.controls['balanceType']"
+              pEditableColumnField="customerGroup.controls['balanceType']"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-form-group>
+                    <lib-select
+                      formControlName="balanceType"
+                      [options]="lookups[lookupEnum.AccountNature]"
+                      optionValue="name"
+                      optionLabel="name"
+                      placeholder="{{ 'addVendorOpeneingBalance.balanceType' | translate }}"
+                      (valueChanged)="balanceTypeSelected($event, i)"
+                      [selectedValue]="customerGroup.controls['balanceType'].value"
+                    >
+                    </lib-select>
+                  </lib-form-group>
+                  <!-- <i class="pi pi-search search-circle" (click)="openDialog(i)"></i> -->
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ customerGroup.controls['balanceType'].value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="customerGroup.controls['balanceType']"
+              ></lib-field-validations>
+            </td>
+
+            <td>
+              <lib-button-micro
+                title="{{ 'addVendorOpeneingBalance.distribute' | translate }}"
+                (click)="
+                  openDistribute(
+                    customerGroup.value,
+                    customerGroup.controls['glAccountId']?.value,
+                    i,
+                    customerGroup
+                  )
+                "
+                [nameClass]="
+                  customerGroup.controls['balanceType'].value === enums.BalanceType.Debit
+                    ? 'outline disabled'
+                    : 'outline'
+                "
+                widthNumber="100%"
+              >
+              </lib-button-micro>
+            </td>
+
+            <!--  -->
+            <td>
+              <img
+                src="assets/images/table/delete.svg"
+                class="pointer"
+                alt=""
+                (click)="onDelete(customerGroup.controls['id'].value, i)"
+              />
+              <!-- <i class="pi pi-trash pointer" (click)="onDelete(customerGroup.controls['id'].value, i)"></i> -->
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr>
+            <td colspan="2" class="imptyData total" style="text-align: center">
+              {{ 'addVendorOpeneingBalance.total' | translate }}
+            </td>
+            <td class="total">
+              {{ totalBalance }}
+            </td>
+            <td colspan="3" class="imptyData total" style="text-align: center"></td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <!-- <div class="add_new my-2 flex ">
+              <lib-button (onClick)="addLine()" className="outline-primary">
+                {{ 'openeingBalance.add_new' | translate }}
+              </lib-button>
+            </div> -->
+      <div class="add_new">
+        <div class="grid">
+          <div class="md:col-3">
+            <div class="grid">
+              <div class="md:col-6">
+            <lib-button-micro
+            nameClass="outline"
+            widthNumber="100%" 
+            title="{{ 'add_new_line' | translate }}"
+            (click)="addLine()"
+            >
+  
+            </lib-button-micro>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="action_header">
+              <lib-button-micro
+              title="save"
+              iconName="pi pi-save"
+              nameClass="save"
+              (click)="onSubmit()"
+              
+              ></lib-button-micro>
+              <lib-button-micro
+              title="cancel"
+              nameClass="cancel"
+              ></lib-button-micro>
+            </div> -->
+     
+    </div>
+  </div>
+  <div class="btn_group">
+    <div class="grid">
+      <div class="md:col-3">
+        <div class="grid">
+          <div class="md:col-6">
+            <lib-button-micro
+              [title]="'Cancel' | translate"
+              nameClass="cancel"
+              widthNumber="100%"
+              (click)="cancel()"
+            >
+            </lib-button-micro>
+          </div>
+          <div class="md:col-6">
+            <lib-button-micro
+              title="{{ 'Save' | translate }}"
+              nameClass="save"
+              (click)="onSubmit()"
+              widthNumber="100%"
+            >
+            </lib-button-micro>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</lib-page-content>

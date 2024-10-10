@@ -1,0 +1,32 @@
+.btn_group {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-top: 16PX;
+    .grid {
+      width: 100%;
+      justify-content: end;
+    }
+    .btn {
+      background: none;
+      border: none;
+      padding: 10px 50px;
+      border-radius: 12px;
+      cursor: pointer;
+      position: relative;
+    }
+    .save {
+      background: #1a90b0;
+      color: #fff;
+    }
+    .discard {
+      border: 1px solid #cb3f2d;
+      color: #cb3f2d;
+    }
+  }
+  .actions {
+    gap: 8px;
+    img{
+        cursor: pointer;
+    }
+  }

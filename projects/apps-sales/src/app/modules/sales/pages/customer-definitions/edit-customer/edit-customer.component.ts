@@ -8,6 +8,7 @@ import {
   customValidators,
   LookupEnum,
   lookupDto,
+  Modules,
 } from 'shared-lib';
 import { ActivatedRoute } from '@angular/router';
 import { SalesService } from '../../../sales.service';
@@ -186,7 +187,7 @@ export class EditCustomerComponent implements OnInit {
     this.lookupsService.loadLookups([LookupEnum.MobileCode]);
   }
   getTags() {
-    this.salesService.getTags();
+    this.salesService.getTags(Modules.Sales);
     this.salesService.tags.subscribe((res) => {
       this.accountTags = res;
     });
@@ -202,11 +203,15 @@ export class EditCustomerComponent implements OnInit {
     this.salesService.getCustomerDefinitionResByIDObservable.subscribe((res) => {
       console.log(res, '135');
       if (res) {
-        this.addCustomerForm.patchValue({ ...res });
+        this.addCustomerForm.patchValue({ ...res ,
+          birthdate : new Date(res.birthdate)
 
-        this.addCustomerForm
-          .get('birthdate')
-          ?.setValue(res.birthdate ? new Date(res.birthdate) : null);
+        });
+        this.addCustomerForm.get('birthdate')?.setValue(new Date(res?.birthdate));
+
+        // this.addCustomerForm
+        //   .get('birthdate')
+        //   ?.setValue(new Date(res.birthdate).toISOString().split('T')[0]);
         this.onCountryChange(res?.addressInfo?.countryId);
       }
     });
@@ -226,9 +231,9 @@ export class EditCustomerComponent implements OnInit {
   editCustomer() {
     if (!this.formsService.validForm(this.addCustomerForm, true)) return;
     this.addCustomerForm.value.id = +this.id;
-    this.addCustomerForm.value.birthdate = this.addCustomerForm.value.birthdate
-      ? this.convertDateFormat(this.addCustomerForm.value.birthdate)
-      : null;
+    // this.addCustomerForm.value.birthdate = this.addCustomerForm.value.birthdate
+    //   ? this.addCustomerForm.value.birthdate
+    //   : null;
 
     const customer: EditCustomerDefintionsDto = this.addCustomerForm.value;
     this.salesService.editCustomerDefinition(customer, this.addCustomerForm);

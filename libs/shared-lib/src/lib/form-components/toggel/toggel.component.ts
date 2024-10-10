@@ -13,7 +13,7 @@ export class ToggelComponent implements ControlValueAccessor, Validator {
   @Input() labelTest: any;
 
   writeValue(value: any): void {
-    alert("Write Value" + value);
+    // alert("Write Value" + value);
     if (value) {
       this.isActive = value;
     }

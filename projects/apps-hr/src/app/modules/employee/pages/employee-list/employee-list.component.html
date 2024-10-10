@@ -1,4 +1,4 @@
-<div>
+<lib-page-content>
   <div class="user_page employees-cont">
     <lib-data-table
       [items]="tableData"
@@ -62,12 +62,14 @@
               >
               </lib-export>
             </div>
-            <button class="primary" (click)="navigateToAdd()">
-              <span class="pi pi-plus"></span>
-              {{ 'Employee.List.Add' | translate }}
-            </button>
-
-            
+            <lib-button-micro
+              title="{{ 'create' | translate }}"
+              nameClass="save"
+              widthNumber="100%"
+              (click)="navigateToAdd()"
+              [iconName]="'pi pi-plus'"
+            >
+            </lib-button-micro>
           </div>
         </div>
       </ng-container>
@@ -89,4 +91,4 @@
       </ng-template>
     </lib-data-table>
   </div>
-</div>
+</lib-page-content>

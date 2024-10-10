@@ -3,14 +3,14 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { LayoutService } from 'apps-shared-lib';
 import { DynamicDialogConfig, DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
-import { MenuModule, FormsService, customValidators, LanguageService } from 'shared-lib';
+import { MenuModule, FormsService, customValidators, PageInfo } from 'shared-lib';
 import { CurrencyService } from '../../../general/currency.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
 
 import { FinanceService } from '../../finance.service';
-import { AddTreasuryDto, Balance } from '../../models';
+import { AccountDto, AddTreasuryDto } from '../../models';
 import { ConfirmComponent } from '../confirm/confirm.component';
-import { Title } from '@angular/platform-browser';
+import { NoChildrenAccountsComponent } from '../bank/no-children-accounts/no-children-accounts.component';
 
 @Component({
   selector: 'app-add-treasury',
@@ -25,6 +25,7 @@ export class AddTreasuryComponent implements OnInit {
   currenciesList: CurrencyDto[];
   branchesLookup: { id: number; name: string }[];
   accountsLookup: { id: number; name: string }[];
+  filteredAccounts: AccountDto[] = [];
 
   constructor(
     public config: DynamicDialogConfig,
@@ -35,23 +36,23 @@ export class AddTreasuryComponent implements OnInit {
     private formsService: FormsService,
     private currencyService: CurrencyService,
     private financeService: FinanceService,
-    private title: Title,
-    private langService: LanguageService,
     private dialog: DialogService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.moudlelist();
     this.initializeTreasuryForm();
     this.getCurrencies();
     this.getBranchLookup();
-    this.getChildrenAccountsDropDownLookup();
+    this.getAccounts();
+    // this.treasuryForm.get('accountId')!.valueChanges.subscribe(value => {
+
+    //   this.GetAccountOpeningBalance(value);
+    // });
   }
 
   moudlelist() {
     this.modulelist = this.layoutService.getModules();
-    console.log(this.modulelist);
   }
 
   getCurrencies() {
@@ -63,25 +64,55 @@ export class AddTreasuryComponent implements OnInit {
   getBranchLookup() {
     this.financeService.getBranchLookup().subscribe((res) => {
       this.branchesLookup = res;
-      console.log(res);
     });
   }
 
-  getChildrenAccountsDropDownLookup() {
-    this.financeService.getChildrenAccountsDropDownLookup().subscribe((res) => {
-      this.accountsLookup = res;
+  // getChildrenAccountsDropDownLookup() {
+  //   this.financeService.getChildrenAccountsDropDownLookup().subscribe((res) => {
+  //     this.accountsLookup = res;
+  //   });
+  // }
+
+  onFilter(event: any) {
+    this.financeService.getAccountsHasNoChildrenNew(event, new PageInfo());
+
+    this.financeService.childrenAccountList.subscribe((res: any) => {
+      if (res.length) {
+        this.filteredAccounts = res.map((account: any) => ({
+          ...account,
+          displayName: `${account.name} (${account.accountCode})`,
+
+        }));
+
+      }
     });
   }
+
+  getAccounts() {
+    this.financeService.getAccountsHasNoChildren('', new PageInfo()).subscribe((r) => {
+      this.filteredAccounts = r.result.map((account) => ({
+        ...account,
+        displayName: `${account.name} (${account.accountCode})`,
+      }));
+    });
+  }
+
   GetAccountOpeningBalance(id: number) {
-    this.financeService.GetAccountOpeningBalance(id).subscribe((res) => {
-      this.OpeningBalanceData = res;
-      this.treasuryForm.get('journalEntryLineId')?.setValue(res.journalId);
-      this.treasuryForm.get('accountBalance')?.setValue(res.balance);
+    this.financeService.GetAccountOpeningBalance(id).subscribe({
+      next: (res) => {
+        if (res) {
+          this.OpeningBalanceData = res;
+          this.treasuryForm.get('openingBalance')?.setValue(res.balance);
+          this.treasuryForm.get('accountBalance')?.setValue(res.balance);
+        } else {
+          this.treasuryForm.get('openingBalance')?.setValue('');
+          this.treasuryForm.get('accountBalance')?.setValue('');
+        }
+      },
     });
   }
 
   accountChange(e: any) {
-    console.log(e);
     this.GetAccountOpeningBalance(e);
   }
 
@@ -92,7 +123,10 @@ export class AddTreasuryComponent implements OnInit {
       currencyId: [null, customValidators.required],
       branches: [null, customValidators.required],
       accountId: [null],
-      openingBalance: [null],
+      openingBalance: new FormControl('', [
+        customValidators.required,
+        customValidators.nonNegativeNumbers,
+      ]),
       journalEntryLineId: [null],
       accountBalance: [null],
     });
@@ -125,5 +159,18 @@ export class AddTreasuryComponent implements OnInit {
       treasureDto.openingBalance = +treasureDto.openingBalance;
       this.financeService.addTreasureDefinitions(treasureDto, this.ref);
     }
+  }
+
+  openDialog() {
+    const ref = this.dialog.open(NoChildrenAccountsComponent, {
+      width: '900px',
+      height: '600px',
+    });
+    ref.onClose.subscribe((r) => {
+      if (r) {
+        this.GetAccountOpeningBalance(r.id);
+        this.treasuryForm.get('accountId')?.setValue(r.id);
+      }
+    });
   }
 }

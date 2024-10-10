@@ -1,24 +1,8 @@
 <lib-page-content>
   <div class="add_vendor_page">
     <form [formGroup]="addVendorForm" (ngSubmit)="AddVendor()">
-      <div class="grid top_header">
-        <div class="col-9"></div>
-        <div class="col-3">
-          <lib-button-micro
-          nameClass="cancel"
-          [title]="'AddVendorDefinition.Discard' | translate"
-          (click)="onDiscard()"
-        >
-        </lib-button-micro>
-        <lib-button-micro
-          nameClass="save"
-          [title]="'AddVendorDefinition.Save' | translate"
-          iconName="pi pi-save"
-          type="submit"
-        >
-        </lib-button-micro>
-        </div>
-      </div>
+     
+      <div class="card_micro">
 
       <div class="vendor_header">
         <div class="grid">
@@ -117,6 +101,9 @@
           </div>
         </div>
       </div>
+      </div>
+      <div class="card_micro">
+
       <div class="vendor_body">
         <div class="card">
           <p-tabView>
@@ -127,7 +114,7 @@
                     <div class="grid">
                       <div class="col-12 md:col-4">
                         <div class="grid d">
-                          <div class="col-2">
+                          <div class="col-4">
                             <lib-form-group>
                               <lib-label
                                 [appControl]="
@@ -153,7 +140,7 @@
                               </lib-field-validations>
                             </lib-form-group>
                           </div>
-                          <div class="col-10">
+                          <div class="col-8">
                             <lib-form-group>
                               <lib-label
                                 [appControl]="
@@ -271,7 +258,7 @@
                         </div>
                         <div class="col-12 md:col-4">
                           <div class="grid">
-                            <div class="col-2">
+                            <div class="col-4">
                               <lib-form-group>
                                 <lib-label
                                   [appControl]="
@@ -300,7 +287,7 @@
                                 </lib-field-validations>
                               </lib-form-group>
                             </div>
-                            <div class="col-10">
+                            <div class="col-8">
                               <lib-form-group>
                                 <lib-label
                                   [appControl]="
@@ -505,33 +492,36 @@
             <p-tabPanel [header]="'AddVendorDefinition.Legal' | translate">
               <div class="legal" formGroupName="vendorLegal">
                 <div class="grid">
-                  <div class="col-12 md:col-8">
-                    <div class="col-12">
-                      <lib-form-group>
-                        <lib-label
-                          [appControl]="addVendorForm.get('vendorLegal')?.get('commercialId')"
-                        >
-                        {{ 'AddVendorDefinition.CommercialId' | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="commercialId">
-                        </lib-text-input>
-                        <lib-field-validations
-                          [appControl]="addVendorForm.get('vendorLegal')?.get('commercialId')"
-                        >
-                        </lib-field-validations>
-                      </lib-form-group>
-                    </div>
-                    <div class="col-12">
-                      <lib-form-group>
-                        <lib-label [appControl]="addVendorForm.get('vendorLegal')?.get('taxId')">
-                          {{ 'AddVendorDefinition.TaxId' | translate }}
-                        </lib-label>
-                        <lib-text-input type="text" formControlName="taxId"> </lib-text-input>
-                        <lib-field-validations
-                          [appControl]="addVendorForm.get('vendorLegal')?.get('taxId')"
-                        >
-                        </lib-field-validations>
-                      </lib-form-group>
+                  <div class="col-12 md:col-12">
+                    <div class="grid">
+
+                      <div class="col-12 md:col-6">
+                        <lib-form-group>
+                          <lib-label
+                            [appControl]="addVendorForm.get('vendorLegal')?.get('commercialId')"
+                          >
+                          {{ 'AddVendorDefinition.CommercialId' | translate }}
+                          </lib-label>
+                          <lib-text-input type="text" formControlName="commercialId">
+                          </lib-text-input>
+                          <lib-field-validations
+                            [appControl]="addVendorForm.get('vendorLegal')?.get('commercialId')"
+                          >
+                          </lib-field-validations>
+                        </lib-form-group>
+                      </div>
+                      <div class="col-12 md:col-6">
+                        <lib-form-group>
+                          <lib-label [appControl]="addVendorForm.get('vendorLegal')?.get('taxId')">
+                            {{ 'AddVendorDefinition.TaxId' | translate }}
+                          </lib-label>
+                          <lib-text-input type="text" formControlName="taxId"> </lib-text-input>
+                          <lib-field-validations
+                            [appControl]="addVendorForm.get('vendorLegal')?.get('taxId')"
+                          >
+                          </lib-field-validations>
+                        </lib-form-group>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -540,83 +530,86 @@
             <p-tabPanel [header]="'AddVendorDefinition.Financial' | translate">
               <div class="financial" formGroupName="vendorFinancial">
                 <div class="grid">
-                  <div class="col-12 md:col-8">
-                    <div class="col-12">
-                      <lib-form-group>
-                        <lib-label
-                          [appControl]="addVendorForm.get('vendorFinancial')?.get('paymentTermId')"
-                        >
-                        {{ 'AddVendorDefinition.PaymentTerm' | translate }}
-                        </lib-label>
-                        <lib-select
-                          formControlName="paymentTermId"
-                          [options]="paymentTermsList"
-                          optionLabel="name"
-                          optionValue="id"
-                        >
-                        </lib-select>
-                        <lib-field-validations
-                          [appControl]="addVendorForm.get('vendorFinancial')?.get('paymentTermId')"
-                        >
-                        </lib-field-validations>
-                      </lib-form-group>
+                  <div class="col-12 md:col-12">
+                    <div class="grid">
+                      <div class="col-12 md:col-6">
+                        <lib-form-group>
+                          <lib-label
+                            [appControl]="addVendorForm.get('vendorFinancial')?.get('paymentTermId')"
+                          >
+                          {{ 'AddVendorDefinition.PaymentTerm' | translate }}
+                          </lib-label>
+                          <lib-select
+                            formControlName="paymentTermId"
+                            [options]="paymentTermsList"
+                            optionLabel="name"
+                            optionValue="id"
+                          >
+                          </lib-select>
+                          <lib-field-validations
+                            [appControl]="addVendorForm.get('vendorFinancial')?.get('paymentTermId')"
+                          >
+                          </lib-field-validations>
+                        </lib-form-group>
+                      </div>
+                      <div class="col-12 md:col-6">
+                        <lib-form-group>
+                          <lib-label
+                            [appControl]="addVendorForm.get('vendorFinancial')?.get('priceListId')"
+                          >
+                          {{ 'AddVendorDefinition.PriceList' | translate }}
+                          </lib-label>
+                          <lib-select
+                            formControlName="priceListId"
+                            [options]="priceList"
+                            optionLabel="name"
+                            optionValue="id"
+                          >
+                          </lib-select>
+                          <lib-field-validations
+                            [appControl]="addVendorForm.get('vendorFinancial')?.get('priceListId')"
+                          >
+                          </lib-field-validations>
+                        </lib-form-group>
+                      </div>
+                      <div class="col-12 md:col-6">
+                        <lib-form-group>
+                          <lib-label
+                            [appControl]="addVendorForm.get('vendorFinancial')?.get('creditLimit')"
+                          >
+                          {{ 'AddVendorDefinition.CreditLimit' | translate }}
+                          </lib-label>
+                          <lib-text-input type="number" formControlName="creditLimit">
+                          </lib-text-input>
+                          <lib-field-validations
+                            [appControl]="addVendorForm.get('vendorFinancial')?.get('creditLimit')"
+                          >
+                          </lib-field-validations>
+                        </lib-form-group>
+                      </div>
+  
+                      <div class="col-12 md:col-6">
+                        <lib-form-group>
+                          <lib-label
+                            [appControl]="addVendorForm.get('vendorFinancial')?.get('currencyId')"
+                          >
+                          {{ 'AddVendorDefinition.Currency' | translate }}
+                          </lib-label>
+                          <lib-select
+                            formControlName="currencyId"
+                            [options]="currencies"
+                            optionValue="id"
+                            optionLabel="name"
+                          >
+                          </lib-select>
+                          <lib-field-validations
+                            [appControl]="addVendorForm.get('vendorFinancial')?.get('currencyId')"
+                          >
+                          </lib-field-validations>
+                        </lib-form-group>
+                      </div>
                     </div>
-                    <div class="col-12">
-                      <lib-form-group>
-                        <lib-label
-                          [appControl]="addVendorForm.get('vendorFinancial')?.get('priceListId')"
-                        >
-                        {{ 'AddVendorDefinition.PriceList' | translate }}
-                        </lib-label>
-                        <lib-select
-                          formControlName="priceListId"
-                          [options]="priceList"
-                          optionLabel="name"
-                          optionValue="id"
-                        >
-                        </lib-select>
-                        <lib-field-validations
-                          [appControl]="addVendorForm.get('vendorFinancial')?.get('priceListId')"
-                        >
-                        </lib-field-validations>
-                      </lib-form-group>
-                    </div>
-                    <div class="col-12">
-                      <lib-form-group>
-                        <lib-label
-                          [appControl]="addVendorForm.get('vendorFinancial')?.get('creditLimit')"
-                        >
-                        {{ 'AddVendorDefinition.CreditLimit' | translate }}
-                        </lib-label>
-                        <lib-text-input type="number" formControlName="creditLimit">
-                        </lib-text-input>
-                        <lib-field-validations
-                          [appControl]="addVendorForm.get('vendorFinancial')?.get('creditLimit')"
-                        >
-                        </lib-field-validations>
-                      </lib-form-group>
-                    </div>
-
-                    <div class="col-12">
-                      <lib-form-group>
-                        <lib-label
-                          [appControl]="addVendorForm.get('vendorFinancial')?.get('currencyId')"
-                        >
-                        {{ 'AddVendorDefinition.Currency' | translate }}
-                        </lib-label>
-                        <lib-select
-                          formControlName="currencyId"
-                          [options]="currencies"
-                          optionValue="id"
-                          optionLabel="name"
-                        >
-                        </lib-select>
-                        <lib-field-validations
-                          [appControl]="addVendorForm.get('vendorFinancial')?.get('currencyId')"
-                        >
-                        </lib-field-validations>
-                      </lib-form-group>
-                    </div>
+                    
                   </div>
                 </div>
               </div>
@@ -624,108 +617,136 @@
             <p-tabPanel [header]="'AddVendorDefinition.Accounting' | translate">
               <div class="accounting" formGroupName="vendorAccounting">
                 <div class="grid">
-                  <div class="col-12 md:col-8">
-                    <div class="col-12">
-                      <lib-form-group>
-                        <lib-label
-                          [appControl]="
-                            addVendorForm.get('vendorAccounting')?.get('payableAccountId')
-                          "
-                        >
-                        {{ 'AddVendorDefinition.PayableAccount' | translate }}
-                        </lib-label>
-                        <lib-select
-                          formControlName="payableAccountId"
-                          [options]="accountsList"
-                          optionLabel="name"
-                          optionValue="id"
-                        >
-                        </lib-select>
-                        <lib-field-validations
-                          [appControl]="
-                            addVendorForm.get('vendorAccounting')?.get('payableAccountId')
-                          "
-                        >
-                        </lib-field-validations>
-                      </lib-form-group>
+                  <div class="col-12 md:col-12">
+                    <div class="grid">
+                      <div class="col-12 md:col-6">
+                        <lib-form-group>
+                          <lib-label
+                            [appControl]="
+                              addVendorForm.get('vendorAccounting')?.get('payableAccountId')
+                            "
+                          >
+                          {{ 'AddVendorDefinition.PayableAccount' | translate }}
+                          </lib-label>
+                          <lib-select
+                            formControlName="payableAccountId"
+                            [options]="accountsList"
+                            optionLabel="name"
+                            optionValue="id"
+                          >
+                          </lib-select>
+                          <lib-field-validations
+                            [appControl]="
+                              addVendorForm.get('vendorAccounting')?.get('payableAccountId')
+                            "
+                          >
+                          </lib-field-validations>
+                        </lib-form-group>
+                      </div>
+                      <div class="col-12 md:col-6">
+                        <lib-form-group>
+                          <lib-label
+                            [appControl]="
+                              addVendorForm.get('vendorAccounting')?.get('purchaseAccountId')
+                            "
+                          >
+                          {{ 'AddVendorDefinition.PurchaseAccount' | translate }}
+                          </lib-label>
+                          <lib-select
+                            formControlName="purchaseAccountId"
+                            [options]="accountsList"
+                            optionLabel="name"
+                            optionValue="id"
+                          >
+                          </lib-select>
+                          <lib-field-validations
+                            [appControl]="
+                              addVendorForm.get('vendorAccounting')?.get('purchaseAccountId')
+                            "
+                          >
+                          </lib-field-validations>
+                        </lib-form-group>
+                      </div>
+                      <div class="col-12 md:col-6">
+                        <lib-form-group>
+                          <lib-label
+                            [appControl]="
+                              addVendorForm.get('vendorAccounting')?.get('purchaseReturnAccountId')
+                            "
+                          >
+                          {{ 'AddVendorDefinition.PurchaseReturnAccount' | translate }}
+                          </lib-label>
+                          <lib-select
+                            formControlName="purchaseReturnAccountId"
+                            [options]="accountsList"
+                            optionLabel="name"
+                            optionValue="id"
+                          >
+                          </lib-select>
+                          <lib-field-validations
+                            [appControl]="
+                              addVendorForm.get('vendorAccounting')?.get('purchaseReturnAccountId')
+                            "
+                          >
+                          </lib-field-validations>
+                        </lib-form-group>
+                      </div>
+                      <div class="col-12 md:col-6">
+                        <lib-form-group>
+                          <lib-label
+                            [appControl]="
+                              addVendorForm.get('vendorAccounting')?.get('discountAccountId')
+                            "
+                          >
+                          {{ 'AddVendorDefinition.DiscountAccount' | translate }}
+                          </lib-label>
+                          <lib-select
+                            formControlName="discountAccountId"
+                            [options]="accountsList"
+                            optionLabel="name"
+                            optionValue="id"
+                          >
+                          </lib-select>
+                          <lib-field-validations
+                            [appControl]="
+                              addVendorForm.get('vendorAccounting')?.get('discountAccountId')
+                            "
+                          >
+                          </lib-field-validations>
+                        </lib-form-group>
+                      </div>
                     </div>
-                    <div class="col-12">
-                      <lib-form-group>
-                        <lib-label
-                          [appControl]="
-                            addVendorForm.get('vendorAccounting')?.get('purchaseAccountId')
-                          "
-                        >
-                        {{ 'AddVendorDefinition.PurchaseAccount' | translate }}
-                        </lib-label>
-                        <lib-select
-                          formControlName="purchaseAccountId"
-                          [options]="accountsList"
-                          optionLabel="name"
-                          optionValue="id"
-                        >
-                        </lib-select>
-                        <lib-field-validations
-                          [appControl]="
-                            addVendorForm.get('vendorAccounting')?.get('purchaseAccountId')
-                          "
-                        >
-                        </lib-field-validations>
-                      </lib-form-group>
-                    </div>
-                    <div class="col-12">
-                      <lib-form-group>
-                        <lib-label
-                          [appControl]="
-                            addVendorForm.get('vendorAccounting')?.get('purchaseReturnAccountId')
-                          "
-                        >
-                        {{ 'AddVendorDefinition.PurchaseReturnAccount' | translate }}
-                        </lib-label>
-                        <lib-select
-                          formControlName="purchaseReturnAccountId"
-                          [options]="accountsList"
-                          optionLabel="name"
-                          optionValue="id"
-                        >
-                        </lib-select>
-                        <lib-field-validations
-                          [appControl]="
-                            addVendorForm.get('vendorAccounting')?.get('purchaseReturnAccountId')
-                          "
-                        >
-                        </lib-field-validations>
-                      </lib-form-group>
-                    </div>
-                    <div class="col-12">
-                      <lib-form-group>
-                        <lib-label
-                          [appControl]="
-                            addVendorForm.get('vendorAccounting')?.get('discountAccountId')
-                          "
-                        >
-                        {{ 'AddVendorDefinition.DiscountAccount' | translate }}
-                        </lib-label>
-                        <lib-select
-                          formControlName="discountAccountId"
-                          [options]="accountsList"
-                          optionLabel="name"
-                          optionValue="id"
-                        >
-                        </lib-select>
-                        <lib-field-validations
-                          [appControl]="
-                            addVendorForm.get('vendorAccounting')?.get('discountAccountId')
-                          "
-                        >
-                        </lib-field-validations>
-                      </lib-form-group>
-                    </div>
+                    
                   </div>
                 </div>
               </div>
             </p-tabPanel>
           </p-tabView>
+        </div>
+      </div>
+    </div>
+      <div class="btn_group">
+        <div class="grid">
+          <div class="md:col-3">
+            <div class="grid">
+              <div class="md:col-6">
+                <lib-button-micro
+                nameClass="cancel"
+                [title]="'Cancel' | translate"
+                (click)="onDiscard()"
+              >
+              </lib-button-micro>
+              </div>
+              <div class="md:col-6">
+                <lib-button-micro
+          nameClass="save w-100"
+          [title]="'AddVendorDefinition.Save' | translate"
+          type="submit"
+        >
+        </lib-button-micro>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </form>

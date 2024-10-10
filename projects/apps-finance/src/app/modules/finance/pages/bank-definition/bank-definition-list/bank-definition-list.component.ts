@@ -21,7 +21,6 @@ export class BankDefinitionListComponent implements OnInit {
     private langService: LanguageService,
     private financeService: FinanceService
   ) {
-    this.title.setTitle(this.langService.transalte('bank.BankDefinitonsList'));
 
   }
 
@@ -103,6 +102,9 @@ export class BankDefinitionListComponent implements OnInit {
           this.routerService.navigateTo(`/masterdata/bank-definition/edit-bank-definition/${data.id}`);
 
 
+  }
+  view(id: number) {
+    this.routerService.navigateTo(`/masterdata/bank-definition/view-bank-definition/${id}`);
   }
 
   onSearchChange() {

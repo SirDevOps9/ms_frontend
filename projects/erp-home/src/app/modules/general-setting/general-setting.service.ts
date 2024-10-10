@@ -28,6 +28,7 @@ import {
   ExportTagDto,
   GetLastYearInfoDto,
   AccountDto,
+  SubdomainModuleDto,
 } from './models';
 
 import { AddCustomerCategoryDto } from './models/addCustomerCategoryDto';
@@ -47,6 +48,13 @@ import { AddCurrencyConversionComponent } from './components/currencyConversion/
 import { EditCurrencyConversionComponent } from './components/currencyConversion/edit-currency-conversion/edit-currency-conversion.component';
 
 import { FormGroup } from '@angular/forms';
+import { TaxGroupDto } from './models/tax-group-dto';
+import { ExportTaxDto } from './models/export-tax-dto';
+import { TaxGroupDropDown } from './models/tax-group-drop-down';
+import { AddTaxGroupDto } from './models/add-tax-group-dto';
+import { AddTax } from './models/add-tax';
+import { TaxDto } from './models/tax-dto';
+import { EditTax } from './models/edit-tax';
 @Injectable({
   providedIn: 'root',
 })
@@ -56,11 +64,15 @@ export class GeneralSettingService {
   private exportcurrencyDefinitionDataSource = new BehaviorSubject<CurrencyDefinitionDto[]>([]);
   private exportsFinancialCalendarDataSource = new BehaviorSubject<financialCalendar[]>([]);
   private exportsTagDataSource = new BehaviorSubject<ExportTagDto[]>([]);
+  private subdomainModuleDataSource = new BehaviorSubject<SubdomainModuleDto[]>([]);
+
 
   public exportsFinancialCalendarDataSourceObservable =
     this.exportsFinancialCalendarDataSource.asObservable();
 
   public exportsTagDataSourceObservable = this.exportsTagDataSource.asObservable();
+  public subdomainModuleDataSourceObservable = this.subdomainModuleDataSource.asObservable();
+
 
   private currencyDefinitionDataSource = new BehaviorSubject<CurrencyDefinitionDto[]>([]);
   private currencyConversionDataSource = new BehaviorSubject<CurrencyConversionDto[]>([]);
@@ -107,6 +119,7 @@ export class GeneralSettingService {
   private vendorDefinitionDataSource = new BehaviorSubject<vendorDefinitionDto[]>([]);
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
   private countryDataSource = new BehaviorSubject<CountryDto[]>([]);
+  private countryString = new BehaviorSubject<any>({});
   private cityDataSource = new BehaviorSubject<CityDto[]>([]);
   private currenciesDataSource = new BehaviorSubject<CurrencyDto[]>([]);
 
@@ -115,6 +128,7 @@ export class GeneralSettingService {
   public cities = this.cityDataSource.asObservable();
 
   public countries = this.countryDataSource.asObservable();
+  public countryString$ = this.countryString.asObservable();
 
   public tags = this.tagsDataSource.asObservable();
   public currentTag = this.currentTagDataSource.asObservable();
@@ -155,6 +169,25 @@ export class GeneralSettingService {
   private childrenAccountDataSource = new BehaviorSubject<AccountDto[]>([]);
   public childrenAccountList = this.childrenAccountDataSource.asObservable();
   public childrenAccountPageInfo = new BehaviorSubject<PageInfoResult>({});
+
+  private taxGroupDataSource = new BehaviorSubject<TaxGroupDto[]>([]);
+  private currentTaxGroupDataSource = new BehaviorSubject<TaxGroupDto>({} as TaxGroupDto);
+  private exportsTaxGroupDataSource = new BehaviorSubject<TaxGroupDto[]>([]);
+  public exportsTaxGroupDataSourceObservable = this.exportsTaxGroupDataSource.asObservable();
+  private exportsTaxesDataSource = new BehaviorSubject<ExportTaxDto[]>([]);
+  public exportsTaxesDataSourceObservable = this.exportsTaxesDataSource.asObservable();
+  public taxGroupList = this.taxGroupDataSource.asObservable();
+  public currentTaxGroup = this.currentTaxGroupDataSource.asObservable();
+  public taxGroupsDropDown = new BehaviorSubject<TaxGroupDropDown[]>([]);
+  private taxesDefinitionsDataSource = new BehaviorSubject<TaxDto[]>([]);
+  public currentTaxDataSource = new BehaviorSubject<TaxDto>({} as TaxDto);
+  public editTaxStatus = new BehaviorSubject<boolean>(false);
+  public taxesDefintionList = this.taxesDefinitionsDataSource.asObservable();
+
+
+
+
+
 
 
   getTagList(searchTerm: string, pageInfo: PageInfo) {
@@ -522,6 +555,11 @@ export class GeneralSettingService {
       this.countryDataSource.next(response);
     });
   }
+  getCountry() {
+    this.GeneralSettingproxy.getCountry().subscribe((response) => {
+      this.countryString.next(response);
+    });
+  }
   loadCities(countryCode: string) {
     this.GeneralSettingproxy.getCities(countryCode).subscribe((response) => {
       this.cityDataSource.next(response);
@@ -744,6 +782,216 @@ export class GeneralSettingService {
       this.childrenAccountDataSource.next(res.result);
       this.childrenAccountPageInfo.next(res.pageInfoResult);
     });
+  }
+  getUserSubDomainModules() {
+    this.GeneralSettingproxy.getUserSubDomainModules().subscribe({
+      next: (res) => {
+        this.subdomainModuleDataSource.next(res);
+      },
+    });
+  }
+
+  getAllTaxGroupPaginated(searchTerm: string, pageInfo: PageInfo) {
+    return this.GeneralSettingproxy.getAllTaxGroup(searchTerm, pageInfo).subscribe((response) => {
+      this.taxGroupDataSource.next(response.result);
+      this.currentPageInfo.next(response.pageInfoResult);
+    });
+  }
+
+  addTaxGroup(addTaxGroupDto: AddTaxGroupDto, dialogRef: DynamicDialogRef) {
+    this.loaderService.show();
+    this.GeneralSettingproxy.addTaxGroup(addTaxGroupDto).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('TaxGroup.Success'),
+          this.languageService.transalte('TaxGroup.AddedSuccessfully')
+        );
+        this.loaderService.hide();
+        dialogRef.close(res);
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+
+  editTaxGroup(TaxGroupDto: TaxGroupDto, dialogRef: DynamicDialogRef) {
+    this.loaderService.show();
+    this.GeneralSettingproxy.editTaxGroup(TaxGroupDto).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('TaxGroup.Success'),
+          this.languageService.transalte('TaxGroup.UpdatedSuccessfully')
+        );
+        this.loaderService.hide();
+        dialogRef.close(res);
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+  getTaxGroupById(id: number) {
+    this.GeneralSettingproxy.getTaxGroupById(id).subscribe((response) => {
+      this.currentTaxGroupDataSource.next(response);
+    });
+  }
+
+  getAllTaxes(searchTerm: string, pageInfo: PageInfo) {
+    this.GeneralSettingproxy.getAllTaxes(searchTerm, pageInfo).subscribe({
+      next: (res) => {
+        this.taxesDefinitionsDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+  }
+
+  getTaxById(id: number) {
+    this.GeneralSettingproxy.getTaxById(id).subscribe((response) => {
+      this.currentTaxDataSource.next(response);
+    });
+  }
+
+  addTax(model: AddTax, dialogRef: DynamicDialogRef) {
+    this.loaderService.show();
+    this.GeneralSettingproxy.addTax(model).subscribe({
+      next: (res) => {
+        // this.taxesSignal.update((textSignal) => ({
+        //   ...textSignal,
+        //   result: [...textSignal.result, res],
+        // }));
+        this.toasterService.showSuccess(
+          this.languageService.transalte('Tax.Success'),
+          this.languageService.transalte('Tax.AddedSuccessfully')
+        );
+        this.loaderService.hide();
+        dialogRef.close(res);
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+
+  editTax(model: EditTax, dialogRef: DynamicDialogRef) {
+    this.loaderService.show();
+
+    this.GeneralSettingproxy.editTax(model).subscribe({
+      next: (res) => {
+        // this.taxesSignal.update((taxSignal) => ({
+        //   ...taxSignal,
+        //   result: taxSignal.result.map((tax) => (tax.id === res.id ? res : tax)),
+        // }));
+        this.toasterService.showSuccess(
+          this.languageService.transalte('Tax.Success'),
+          this.languageService.transalte('Tax.UpdatedSuccessfully')
+        );
+        this.loaderService.hide();
+        this.editTaxStatus.next(true);
+        dialogRef.close();
+      },
+      error: () => {
+        this.loaderService.hide();
+        this.toasterService.showError(
+          this.languageService.transalte('Tax.Error'),
+          this.languageService.transalte('Tax.CannotEditTaxGroupUsedInTransactions')
+        );
+        this.editTaxStatus.next(true);
+      },
+    });
+  }
+  getAllTaxGroups() {
+    this.GeneralSettingproxy.getAllTaxGroups().subscribe({
+      next: (res) => {
+        this.taxGroupsDropDown.next(res);
+      },
+    });
+  }
+  exportTaxGroupData(searchTerm: string | undefined) {
+    this.GeneralSettingproxy.exportTaxGroupData(searchTerm).subscribe({
+      next: (res) => {
+        this.exportsTaxGroupDataSource.next(res);
+      },
+    });
+  }
+
+  exportTaxesData(searchTerm: string | undefined) {
+    this.GeneralSettingproxy.exportTaxesData(searchTerm).subscribe({
+      next: (res) => {
+        this.exportsTaxesDataSource.next(res);
+      },
+    });
+  }
+  async deleteTax(taxId: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.GeneralSettingproxy.deleteTax(taxId).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('Tax.Success'),
+            this.languageService.transalte('Tax.DeletedSuccessfully')
+          );
+          this.loaderService.hide();
+          // this.getAllTaxes('', new PageInfo());
+          const currentTaxes = this.taxesDefinitionsDataSource.getValue();
+          const updatedTaxes = currentTaxes.filter((tax) => tax.id !== taxId);
+          this.taxesDefinitionsDataSource.next(updatedTaxes);
+        },
+        error: () => {
+          this.loaderService.hide();
+          this.toasterService.showError(
+            this.languageService.transalte('Tax.Error'),
+            this.languageService.transalte('Tax.CannotDeleteTaxUsedInTransactions')
+          );
+        },
+      });
+    }
+  }
+  async deleteTaxGroup(id: number): Promise<boolean> {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    const p = new Promise<boolean>((res, rej) => {
+      if (confirmed) {
+        this.GeneralSettingproxy.deleteTaxGroup(id).subscribe({
+          next: (status) => {
+            this.toasterService.showSuccess(
+              this.languageService.transalte('TaxGroup.Success'),
+              this.languageService.transalte('TaxGroup.DeletedSuccessfully')
+            );
+            this.loaderService.hide();
+            res(true);
+          },
+          error: () => {
+            this.loaderService.hide();
+            this.toasterService.showError(
+              this.languageService.transalte('Tax.Error'),
+              this.languageService.transalte('TaxGroup.CannotDeleteTaxGroupUsedInTransactions')
+            );
+          },
+        });
+      } else {
+        res(false);
+      }
+    });
+    return await p;
+  }
+  getAccountsHasNoChildren(quieries: string, pageInfo: PageInfo) {
+    return this.GeneralSettingproxy.getAccountsHasNoChildren(quieries, pageInfo).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+  
+  getAccountsChildrenDropDown() {
+    return this.GeneralSettingproxy.getAccountsChildrenDropDown().pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
 
   constructor(

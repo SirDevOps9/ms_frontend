@@ -7,12 +7,32 @@
               <img src="assets/images/tree/folder.png" alt="" />
               <p class="text paragraph_b18">{{'costCenter.costCenter' | translate}}</p>
             </div>
+            <div class="flex justify-content-center align-content-center gap-1 ">
   
-            <button class="btn_tree_item btn_add pi pi-plus" (click)="newChild()"></button>
-  
+           
+            @if(!expanded){
+              <button class="btn_tree_item pi pi-expand"  (click)="expand_Collapse()">
+              </button>  
+              
+              
+            }@else{
+              <button class="btn_tree_item "  (click)="expand_Collapse()">
+                <i class="fa-solid fa-compress"></i>
+              </button>
+            }
+              <button class="btn_tree_item btn_add pi pi-plus" (click)="newChild()"></button>
           </div>
+                     </div>
   
-          <p-tree [value]="nodes" [filter]="true" expanded="true" *ngIf="showTree">
+          <p-tree 
+          [value]="nodes" 
+          [filter]="true" 
+          expanded="true" 
+          *ngIf="showTree"
+          (onNodeExpand)="nodeExpand($event)" 
+          (onNodeCollapse)="nodeCollapse($event)" 
+         
+          >
             <ng-template let-node pTemplate="default">
               <div class="ui-tree-node-content label_text tree-item-container"
                 [ngClass]="{ active: node === activeNode }">
@@ -40,9 +60,9 @@
         </div>
       </div>
       <div class="md:col-8">
-        <app-view-cost-center *ngIf="view"  [parentViewdId]="parentAddedId"></app-view-cost-center>
+        <app-view-cost-center *ngIf="view"  [parentViewdId]="parentAddedId" (sendId)="routeToEditFromView($event)" ></app-view-cost-center>
        <app-edit-cost-center *ngIf="edit" [parentEditedId]="parentEditedId"  (operationCompleted)="viewMode($event)"></app-edit-cost-center>
-        <app-add-cost-center *ngIf="add"  [newChiled]="newChiled" [parentAddedId]="parentAddedId"  (operationCompleted)="handleOperationCompleted($event)" ></app-add-cost-center>
+        <app-add-cost-center *ngIf="add" [parentStatus]="parentStatus"  [newChiled]="newChiled" [parentAddedId]="parentAddedId"  (operationCompleted)="handleOperationCompleted($event)" ></app-add-cost-center>
       </div>
     </div>
   </div>

@@ -14,7 +14,11 @@
     "AddJournalEntryOpeningBalance": "إضافة رصيد افتتاحي لقيد اليومية",
     "EditJournalEntryOpeningBalance": "تعديل رصيد افتتاحي لقيد اليومية",
     "ViewJournalEntryOpeningBalance": "عرض رصيد افتتاحي لقيد اليومية",
-    "CostCenterReport": "تقرير مركز التكلفة"
+    "CostCenterReport": "تقرير مركز التكلفة",
+    "VendorOpeningBalance": "رصيد افتتاحي للمورد",
+    "EditVendorOpeningBalance": "تعديل الرصيد الافتتاحي للمورد",
+    "AddVendorOpeningBalance": "إضافة رصيد افتتاحي للمورد",
+    "sequence": "تسلسل رقمى"
   },
   "COAConfigration": {
     "Success": "نجاح",
@@ -57,7 +61,8 @@
     "Select": "اختر",
     "Actions": "العمليات",
     "Id": "الرقم التعريفي",
-    "levelNumber": "مستوى الحساب"
+    "levelNumber": "مستوى الحساب",
+    "Status": "الحالة"
   },
   "Journal": {
     "Title": " قائمة القيود اليومية",
@@ -76,6 +81,7 @@
     "referenceNumber": "المرجع",
     "createdOn": "التاريخ",
     "type": "النوع",
+    "sourceDocumentName": "اسم المستند المصدر",
     "sourceName": "اسم المستند",
     "sourceCode": "كود المستند",
     "isRepeated": "متكرر",

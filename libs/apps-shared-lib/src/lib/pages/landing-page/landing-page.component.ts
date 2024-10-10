@@ -12,7 +12,6 @@ export class LandingPageComponent implements OnInit {
   moduleName: string;
 
   ngOnInit() {
-    console.log('Landing Page');
 
     if (this.router.snapshot.data['moduleId'] === Modules.Accounting)
       this.moduleName = 'Accounting';

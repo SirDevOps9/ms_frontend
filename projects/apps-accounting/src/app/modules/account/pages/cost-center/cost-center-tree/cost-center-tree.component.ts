@@ -1,4 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output, input, output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  inject,
+  input,
+  output,
+} from '@angular/core';
 import { AccountService } from '../../../account.service';
 import { AccountByIdDto, accountTreeList, costById } from '../../../models';
 import { Title } from '@angular/platform-browser';
@@ -19,7 +29,7 @@ export class CostCenterTreeComponent implements OnInit {
   account: costById;
   @Output() addmode = new EventEmitter<boolean>();
   nodes: accountTreeList[];
-  expanded: boolean = false;
+  expanded: boolean;
   viewWithParent: boolean = false;
   newChiled: boolean = false;
   showTree: boolean = true;
@@ -27,7 +37,11 @@ export class CostCenterTreeComponent implements OnInit {
   parentAdded: any;
   parentEditedId: any;
   activeNode: any = null;
+  parentStatus: boolean;
+  test: any;
+  activeNodeId: number | null = null; // Store the active node ID
 
+  cdr = inject(ChangeDetectorRef);
   constructor(
     private accountService: AccountService,
     private title: Title,
@@ -38,21 +52,26 @@ export class CostCenterTreeComponent implements OnInit {
   }
   ngOnInit() {
     this.getCostTree();
+
+    this.expanded = false;
   }
   mapToTreeNodes(data: any[]) {
+    debugger;
     data = data.map((item, index) => {
       return {
-        hasNoChild: item.hasNoChild,
-        id: item.id,
-        accountCode: item.accountCode,
-        ParentId: item.ParentId,
-        LevelId: item.LevelId,
-        label: item.name, // Assuming you want to display the English label
-        children: item.childrens ? this.mapToTreeNodes(item.childrens) : [],
+        id: item.id ?? '',
+        code: item.code,
+        label: item.label,
+        isDetail: item.isDetail,
+        parentId: item.parentId,
+        isActive: item.isActive,
+
+        children: item.children ? this.mapToTreeNodes(item.children) : [],
       };
     });
     return data;
   }
+
   addChild(parentNode: any) {
     this.activeNode = parentNode;
     this.parentAdded = parentNode;
@@ -62,6 +81,7 @@ export class CostCenterTreeComponent implements OnInit {
     this.add = false;
     this.addmode.emit(true);
     this.parentAddedId = parentNode.id;
+    this.parentStatus = parentNode.isActive;
 
     if (!parentNode.children) {
       parentNode.children = [];
@@ -92,12 +112,15 @@ export class CostCenterTreeComponent implements OnInit {
   }
 
   handleTabClick(node: any) {
+    debugger;
     this.edit = false;
     this.add = false;
     this.view = false;
     this.activeNode = node;
     this.parentAddedId = node.id;
     this.view = true;
+    this.activeNode = node;
+    this.parentAddedId = node.id;
   }
   viewMode(event: number) {
     if (event === -1) {
@@ -113,21 +136,31 @@ export class CostCenterTreeComponent implements OnInit {
       this.parentAddedId = event;
 
       this.view = true;
-      this.getCostTree();
+      // this.getCostTree();
     }, 1000);
   }
   getCostTree() {
+    const activeNodeId = this.activeNode ? this.activeNode.id : null;
     this.accountService.GetCostTree().subscribe((res: any) => {
-      this.nodes = res;
+      this.nodes = this.mapToTreeNodes(res);
+      if (activeNodeId) {
+        setTimeout(() => {
+          this.setActiveNode(activeNodeId);
+        }, 100);
+      }
     });
+
+    // this.accountService.GetCostTree().subscribe((res: any) => {
+    //   this.nodes = res;
+    // });
   }
   handleOperationCompleted(event: any) {
-    // if(this.parentAdded){
-    //   this.parentAdded.children.push({ label: event.name, id: event.id, children: [] });
-    // }else{
+    this.activeNode = event;
     this.getCostTree();
     // }
+    this.test = event.id;
     this.add = false;
+    this.viewMode(event.id);
     //this.view=true
   }
   toggelTree() {
@@ -147,7 +180,176 @@ export class CostCenterTreeComponent implements OnInit {
     this.accountService.costCenterDataObser.subscribe((res) => {
       if (res) {
         this.getCostTree();
+        // this.expand_Collapse()
       }
     });
   }
+
+  toggleNode(node: any, expanded: boolean) {
+    node.expanded = expanded;
+    if (node.children) {
+      node.children.forEach((child: any) => {
+        this.toggleNode(child, expanded);
+      });
+    }
+  }
+  routeToEditFromView(id: number) {
+    this.view = false;
+    this.add = false;
+    this.parentEditedId = id;
+    this.edit = true;
+  }
+
+  expandParents(node: any) {
+    let parentNode = this.findParentNode(this.nodes, node);
+    while (parentNode) {
+      parentNode.expanded = true;
+      parentNode = this.findParentNode(this.nodes, parentNode);
+    }
+  }
+
+  findParentNode(nodes: any[], childNode: any): any {
+    for (let node of nodes) {
+      if (node.children && node.children.includes(childNode)) {
+        return node;
+      }
+      if (node.children) {
+        const parent = this.findParentNode(node.children, childNode);
+        if (parent) {
+          return parent;
+        }
+      }
+    }
+    return null;
+  }
+
+  findParentNodeById(nodes: any[], childId: number): any {
+    for (let node of nodes) {
+      if (node.children && node.children.some((child: any) => child.id === childId)) {
+        return node;
+      }
+      if (node.children) {
+        const parent = this.findParentNodeById(node.children, childId);
+        if (parent) {
+          return parent;
+        }
+      }
+    }
+    return null;
+  }
+
+  getCostDetails(id: number) {
+    if (id === undefined || id === null) {
+      return;
+    }
+    this.accountService.getCostDetails(id);
+    this.accountService.selectedCostDetails.subscribe((res) => {
+      this.account = res;
+    });
+    if (this.account.name === '') {
+      this.viewWithParent = true;
+    } else {
+      this.viewWithParent = false;
+    }
+  }
+
+  setActiveNode(id: number) {
+    const findAndExpandNode = (nodes: any[], id: number): any => {
+      for (let node of nodes) {
+        if (node.id === id) {
+          return node;
+        }
+
+        if (node.children) {
+          const foundChild = findAndExpandNode(node.children, id);
+          // expand the parent node and  return the found child
+          if (foundChild) {
+            node.expanded = true;
+            return foundChild;
+          }
+        }
+      }
+      return null;
+    };
+
+    const targetNode: any = findAndExpandNode(this.nodes, id);
+
+    if (targetNode) {
+      this.activeNode = targetNode;
+
+      // Only fetch details if the id is valid
+      if (targetNode.id) {
+        this.getCostDetails(targetNode.id);
+      }
+
+      if (targetNode.children && targetNode.children.length > 0) {
+        targetNode.children.forEach((child: any) => {
+          if (child.id === this.test) {
+            this.activeNode = child;
+
+            if (child.id) {
+              this.getCostDetails(child.id);
+            }
+
+            this.view = true;
+          }
+        });
+      }
+    }
+  }
+// check if all nodes are expanded
+areAllNodesExpanded(): boolean {
+  return this.nodes.every((node) => this.isNodeFullyExpanded(node));
+}
+
+// function to check if a single node and all its children are expanded
+isNodeFullyExpanded(node: any): boolean {
+  if (!node.expanded) {
+    return false;
+  }
+
+  if (node.children) {
+    return node.children.every((childNode: any) => this.isNodeFullyExpanded(childNode));
+  }
+
+  return true;
+}
+
+// When a node is expanded, expand only the clicked node without expanding its children
+nodeExpand(event: any) {
+  const expandedNode = event.node;
+  expandedNode.expanded = true; 
+  // console.log('Node expanded:', expandedNode);
+
+  // Check if all nodes are expanded after this node is expanded
+  this.expanded = this.areAllNodesExpanded();
+}
+
+// When a node is collapsed, collapse only the clicked node without collapsing its children
+nodeCollapse(event: any) {
+  const collapsedNode = event.node;
+  collapsedNode.expanded = false; 
+  // console.log('Node collapsed:', collapsedNode);
+
+  // Set expanded to false as not all nodes are expanded
+  this.expanded = false;
+}
+
+// Function to toggle expansion/collapse for the whole tree
+expand_Collapse() {
+  this.expanded = !this.expanded;
+  this.nodes.forEach((node) => {
+    this.setNodeExpandedState(node, this.expanded);
+  });
+}
+
+setNodeExpandedState(node: any, expanded: boolean) {
+  node.expanded = expanded;
+
+  if (expanded && node.children) {
+    node.children.forEach((childNode: any) => {
+      this.setNodeExpandedState(childNode, expanded);
+    });
+  }
+}
 }

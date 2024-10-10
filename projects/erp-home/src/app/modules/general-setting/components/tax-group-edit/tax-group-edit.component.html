@@ -1,0 +1,46 @@
+<lib-popup-page
+title="{{ 'Tax.EditTaxDefinition' | translate }}"
+[closeFunction]="close"
+(Submit)="save()"
+>
+<div>
+  <form [formGroup]="taxGroupForm" >
+    <div class="grid m-0">
+      <div class="md:col-12">
+        <lib-form-group>
+          <lib-label [appControl]="taxGroupForm.controls['code']">
+            {{ "TaxGroup.Edit.Code" | translate }}
+          </lib-label>
+          <lib-text-input type="text" formControlName="code" />
+          <lib-field-validations
+            [appControl]="taxGroupForm.controls['code']"
+          >
+          </lib-field-validations>
+        </lib-form-group>
+      </div>
+      <div class="md:col-12">
+        <lib-form-group>
+          <lib-label [appControl]="taxGroupForm.controls['name']">
+            {{ "TaxGroup.Edit.Name" | translate }}
+          </lib-label>
+          <lib-text-input type="text" formControlName="name" />
+          <lib-field-validations
+            [appControl]="taxGroupForm.controls['name']"
+          >
+          </lib-field-validations>
+        </lib-form-group>
+      </div>
+      <div class="md:col-12">
+        <lib-form-group>
+          <lib-label [appControl]="taxGroupForm.controls['countryName']">
+            {{ 'TaxGroup.Edit.CountryName' | translate }}
+          </lib-label>
+          <lib-text-input [readOnly]="true"  type="text" formControlName="countryName" />
+    
+        </lib-form-group>
+      </div>
+    
+</div>
+</form>
+</div>
+</lib-popup-page>

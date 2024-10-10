@@ -4,6 +4,7 @@ import {
   FormsService,
   LookupEnum,
   LookupsService,
+  Modules,
   RouterService,
   SharedLibraryEnums,
   customValidators,
@@ -57,7 +58,7 @@ export class AddCustomerComponent implements OnInit {
           customValidators.noSpecialChars,
           customValidators.noAlphabeticCharacter
         ]),
-        ContactMobileCode: new FormControl(null),
+        contactMobileCode: new FormControl(null),
         contactPhone: new FormControl(null, [
           customValidators.hasSpaces,
           customValidators.noSpecialChars,
@@ -83,7 +84,7 @@ export class AddCustomerComponent implements OnInit {
           customValidators.noAlphabeticCharacter
 
         ]),
-        ContactPersonMobileCode: new FormControl(null),
+        contactPersonMobileCode: new FormControl(null),
       }),
       addressInfo: this.fb.group({
         state: new FormControl(null),
@@ -174,9 +175,12 @@ export class AddCustomerComponent implements OnInit {
     this.lookupsService.loadLookups([LookupEnum.MobileCode]);
   }
   getTags() {
-    this.salesService.getTags();
+    this.salesService.getTags(Modules.Sales);
     this.salesService.tags.subscribe((res) => {
-      this.accountTags = res;
+      if(res){
+        this.accountTags = res;
+
+      }
     });
   }
   getCurrencies() {

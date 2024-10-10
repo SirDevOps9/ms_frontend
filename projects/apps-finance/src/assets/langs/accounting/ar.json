@@ -5,10 +5,48 @@
     "EditBankDefinition": "تعديل تعريف بنك",
     "PaymentTermList": "شروط الدفع",
     "AddPaymentTerm": "إضافة شرط دفع",
-  "EditPaymentTerm": "تعديل شرط دفع",
+    "EditPaymentTerm": "تعديل شرط دفع",
     "Treasury": "الخزائن",
-    "PaymentInList":" إيصال نقدي "
-
+    "PaymentInList":"إيصالات الدفع",
+    "AddPaymentterm": "إضافة شرط الدفع",
+    "EditPaymentterm": "تحرير شرط الدفع",
+    "PaymentMethodlist": "قائمة طرق الدفع",
+    "AddPaymentMethod": "إضافة طريقة الدفع",
+    "EditPaymentMethod": "تحرير طريقة الدفع",
+    "ViewPaymentMethod": "عرض طريقة الدفع",
+    "PaymentIn": "إيصال الدفع",
+    "ViewPaymentIn": "عرض قبض",
+    "ViewPaymentout": "عرض صرف",
+    "sequence": "تسلسل"
+  },
+  "ChartOfAccount": {
+    "Title": "دليل الحسابات",
+    "ChartOfAccountList": "قائمة دليل الحسابات",
+    "AddChartOfAccount": "إضافة دليل الحسابات",
+    "EditChartOfAccount": "تعديل دليل الحسابات",
+    "ChartOfAccountConfig": "إعداد دليل الحسابات",
+    "ViewChartOfAccount": "عرض دليل الحسابات",
+    "AccountName": "اسم الحساب",
+    "AccountCode": "كود الحساب",
+    "Nature": "الطبيعة",
+    "AccountType": "نوع الحساب",
+    "AccountSection": "قسم الحساب",
+    "Search": "بحث",
+    "Accounts": "الحسابات",
+    "Main": "رئيسي",
+    "Success": "نجاح",
+    "Error": "خطأ",
+    "UpdatedSuccessfully": "تم تحديث الحساب بنجاح",
+    "AddedSuccessfully": "تمت إضافة الحساب بنجاح",
+    "DeletedSuccessfully": "تم حذف الحساب بنجاح",
+    "import": "استيراد",
+    "edit": "تعديل",
+    "Configration": "إعدادات",
+    "ChooseAnAccount": "اختر حساب",
+    "Select": "اختر",
+    "Actions": "العمليات",
+    "Id": "الرقم التعريفي",
+    "levelNumber": "مستوى الحساب"
   },
   "COAConfigration": {
     "levelnumber": "رقم المستوى",
@@ -121,6 +159,7 @@
   "Tax": {
     "TaxName": "اسم الضريبة",
     "AddTaxDefinition": "إضافة تعريف الضريبة",
+    "EditTaxDefinition": "تعديل تعريف الضريبة",
     "TaxCode": "كود الضريبة",
     "Ratio": "النسبة",
     "GlAccount": "حساب الأستاذ العام",
@@ -133,7 +172,7 @@
     "Name": "الاسم",
     "Account": "الحساب",
     "Search": "بحث",
-    "AddNew": "إضافة جديد",
+    "AddNew": "إضافة",
     "Export": "تصدير",
     "CannotEditTaxGroupUsedInTransactions": "لا يمكن تعديل مجموعة الضرائب المستخدمة في المعاملات",
     "CannotDeleteTaxUsedInTransactions": "لا يمكن حذف الضريبة المستخدمة في المعاملات",
@@ -174,7 +213,7 @@
     "balance": "الرصيد",
     "actions": "العمليات",
     "Search": "بحث",
-    "AddNew": "إضافة جديد",
+    "AddNew": "إضافة",
     "Export": "تصدير",
     "branches": "الفروع",
     "code": "الرمز",
@@ -186,7 +225,11 @@
     "confirm": "رصيد افتتاح اليومية لا يساوي رصيد افتتاح الخزانة، هل تريد المتابعة؟",
     "addTreasury": "إضافة خزينة",
     "editTreasury": "تعديل خزينة",
-    "treasuryList": "قائمة الخزائن"
+    "treasuryList": "قائمة الخزائن",
+    "treasuryCurrentBalance": "رصيد الخزينة الحالي",
+    "GoToStatement": "الانتقال إلى تقرير",
+    "accountOpeningBalance": "رصيد فتح الحساب"
+
   },
   "deleteTreasury": {
     "success": "نجاح",
@@ -202,13 +245,13 @@
   },
   "paymentterm": {
     "payment-term-list": "قائمة شروط الدفع",
-     "AddPaymentTerm": "إضافة شرط دفع",
+    "AddPaymentTerm": "إضافة شرط دفع",
     "EditPaymentTerm": "تعديل شرط دفع",
     "code": "رمز",
     "name": "اسم",
     "term-type": "نوع المصطلح",
     "Search": "بحث",
-    "AddNew": "إضافة جديدة",
+    "AddNew": "إضافة",
     "edit": "تعديل",
     "delete": "حذف",
     "save": "حفظ",
@@ -234,7 +277,7 @@
   "bank": {
     "actions": "العمليات",
     "Search": "بحث",
-    "AddNew": "إضافة جديد",
+    "AddNew": "إضافة",
     "Export": "تصدير",
     "branches": "فروع",
     "code": "رمز",
@@ -266,7 +309,8 @@
     "success": "نجاح",
     "AddBank": "إضافة بنك",
     "EditBank": "تعديل بنك",
-    "BankDefinitonsList": "قائمة تعريفات البنوك"
+    "BankDefinitonsList": "قائمة تعريفات البنوك",
+    "accountOpeningBalance": "رصيد افتتاح الحساب"
   },
   "deleteBank": {
     "success": "نجاح",
@@ -285,17 +329,19 @@
     "cancel": "إلغاء",
     "submit": "تأكيد"
   },
+  "cancel": "إلغاء",
   "paymentmethod": {
-    "payment-term-list": "قائمة شروط الدفع",
+    "payment-method-list": "قائمة طريقة الدفع",
     "code": "الرمز",
     "name": "الاسم",
     "PaymentPlace": "مكان الدفع",
     "PaymentMethodType": "نوع طريقة الدفع",
     "Search": "بحث",
-    "AddNew": "إضافة جديد"
+    "AddNew": "إضافة"
   },
   "add-paymentMethod": {
     "title": "إضافة طريقة دفع",
+    "title-edit": "تعديل طريقة الدفع",
     "code": "كود",
     "name": "اسم",
     "paymentPlace": "مكان الدفع",
@@ -307,8 +353,11 @@
     "CommissionValue": "قيمة العمولة",
     "CommissionAccount": "حساب العمولة",
     "AllowVAT": "السماح بضريبة القيمة المضافة",
-    "edit":"تم تعديل  طريقةالدفع بنجاح",
-    "add":"تمت إضافة طريقة الدفع بنجاح"
+    "edit": "تم تعديل  طريقةالدفع بنجاح",
+    "add": "تمت إضافة طريقة الدفع بنجاح",
+    "Tax": "الضريبة",
+    "BankInformation": "معلومات البنك",
+    "CommissionInformation": "معلومات العمولة"
   },
   "payment-in": {
     "payment-in": "إيصال نقدي",
@@ -319,11 +368,42 @@
     "branch": "الفرع",
     "bankAccount": "الحساب البنكي",
     "sourceDocument": "المستند المصدر",
-    "relatedSourceJournal": "اليومية المصدر المرتبطة",
+    "relatedSourceJournal": "كود قيد اليومية",
     "actions": "الإجراءات",
     "Search": "بحث",
-    "addNew": "إضافة جديد",
-    "delete":"تم حذف إيصال نقدي بنجاح"
-  }
+    "addNew": "إضافة",
+    "delete": "تم حذف إيصال نقدي بنجاح",
+    "post": "ترحيل",
+    "status": "الحالة",
+    "posted": "مدون",
+    "draft": "مسودة"
+  },
+  "payment-view": {
+    "code": "الرمز",
+    "paymentInDate": "تاريخ الدفع",
+    "paymentOutDate": "تاريخ الدفع",
+    "description": "الوصف",
+    "paymentHub": "مركز الدفع",
+    "paymentHubDetailName": "تفاصيل مركز الدفع",
+    "bankAccountNumber": "رقم الحساب البنكي",
+    "sourceDocument": "المستند الأصلي",
+    "journalCode": "رمز اليومية",
+    "currencyName": "اسم العملة",
+    "rate": "السعر",
+    "amount": "المبلغ",
+    "localAmount": "المبلغ المحلي",
+    "paymentMethodName": "اسم طريقة الدفع",
+    "paymentInMethodDetail": "تفاصيل طريقة الدفع",
+    "paidBy": "مدفوع من",
+    "glAccountId": "رقم الحساب العام",
+    "costCenterConfig": "إعداد مركز التكلفة",
+    "notes": "ملاحظات",
+    "PaymentMethod": "طريقة الدفع",
+    "status": "الحالة",
+    "accountName": "اسم الحساب"
+  },
+  "Confirm": "تأكيد",
+  "Actions": "العمليات"
+
 
 }

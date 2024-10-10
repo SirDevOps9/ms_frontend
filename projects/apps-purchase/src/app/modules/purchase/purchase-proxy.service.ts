@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
+import { HttpService, Modules, PageInfo, PaginationVm } from 'shared-lib';
 import {
   VendorCategoryDto,
   AddVendorCategory,
@@ -14,6 +14,11 @@ import {
   EditVendorCommand,
   CategoryDropdownDto,
   GetVendorById,
+  AddVendorOpeningBalanceDto,
+  VendorOpeningBalanceListDto,
+  DropDownDto,
+  JournalLineDropdownDto,
+  GetVendorOpeningBalanceViewDto,
 } from './models';
 @Injectable({
   providedIn: 'root',
@@ -97,8 +102,8 @@ export class PurchaseProxyService {
     return this.httpService.get<CountryDto[]>(`Country`);
   }
 
-  getTags(): Observable<TagDropDownDto[]> {
-    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown`);
+  getTags(moduleId:Modules): Observable<TagDropDownDto[]> {
+    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown?moduleId=`+ moduleId);
   }
 
   exportVendorCategoriesData(
@@ -119,5 +124,41 @@ export class PurchaseProxyService {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
      return this.httpService.get<vendorDefinitionDto[]>(query);
+  }
+
+  addVendorOpeningBalance(data: AddVendorOpeningBalanceDto): Observable<AddVendorCommand> {
+    return this.httpService.post(`VendorOpeningBalance`, data);
+  }
+  editVendorrOpeningBalance(vendor: any): Observable<any> {
+    return this.httpService.put(`VendorOpeningBalance`, vendor, false);
+  }
+  getVendorOpeningBalanceByID(id: number): Observable<any> {
+    const url = `VendorOpeningBalance/${id}`;
+    return this.httpService.get(url);
+  }
+
+  getAllVendorOpeningBalance(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<VendorOpeningBalanceListDto>> {
+    const url = `VendorOpeningBalance?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+
+    return this.httpService.get<PaginationVm<VendorOpeningBalanceListDto>>(url);
+  }
+
+  openingBalanceJournalEntryDropdown(): Observable<DropDownDto[]> {
+    return this.httpService.get<CategoryDropdownDto[]>('OpeningBalanceJournalEntry/GetDropDown');
+  }
+  GetLinesDropDown(id: number): Observable<JournalLineDropdownDto[]> {
+    return this.httpService.get<any[]>(`OpeningBalanceJournalEntry/GetLinesDropDown/${id}`);
+  }
+  VendorDropDownByAccountId(id: number): Observable<DropDownDto[]> {
+    return this.httpService.get<any[]>(`Vendor/DropDownByAccountId/${id}`);
+  }
+  deleteVendorOpeningBalance(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`VendorOpeningBalance/${id}`);
+  }
+  GetVendorOpeningBalanceView(id: number): Observable<GetVendorOpeningBalanceViewDto> {
+    return this.httpService.get<GetVendorOpeningBalanceViewDto>(`VendorOpeningBalance/GetOpeningBalanceView/${id}`);
   }
 }

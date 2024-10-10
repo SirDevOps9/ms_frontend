@@ -97,6 +97,5 @@ export class ViewJournalEntryOpeningBalanceComponent implements OnInit {
     private dialog: DialogService,
     private route: ActivatedRoute
   ) {
-    this.titleService.setTitle(this.langService.transalte('OpeningBalance.ViewJournal'));
   }
 }

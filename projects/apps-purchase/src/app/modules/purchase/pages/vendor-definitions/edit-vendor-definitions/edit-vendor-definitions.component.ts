@@ -4,6 +4,7 @@ import {
   FormsService,
   LookupEnum,
   LookupsService,
+  Modules,
   RouterService,
   SharedLibraryEnums,
   customValidators,
@@ -278,7 +279,7 @@ export class EditVendorDefinitionsComponent implements OnInit {
   }
 
   getTags() {
-    this.purchaseService.getTags();
+    this.purchaseService.getTags(Modules.Purchase);
     this.purchaseService.tags.subscribe((res) => {
       this.accountTags = res;
     });
@@ -293,7 +294,7 @@ export class EditVendorDefinitionsComponent implements OnInit {
     return this.routerService.currentId;
   }
 
-  onDiscard() {
+  cancel() {
     //this.editEmployeeForm.reset();
     this.routerService.navigateTo(`/masterdata/vendor-definitions`);
   }

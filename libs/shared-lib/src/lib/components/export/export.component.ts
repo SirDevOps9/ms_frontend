@@ -57,6 +57,7 @@ export class ExportComponent implements OnDestroy {
   performExport() {
     if (this.exportDataList && this.exportDataList.length > 0) {
       if (this.format === 'excel') {
+        
         this.exportToExcel();
       } else if (this.format === 'pdf') {
         this.exportToPDF();
@@ -67,8 +68,6 @@ export class ExportComponent implements OnDestroy {
   }
 
   exportToPDF() {
-    console.log("Exported Cols",this.exportColumns);
-    
     ExportService.ToPDF(this.exportDataList, `${this.ExportName}.pdf`, this.exportColumns);
   }
 

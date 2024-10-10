@@ -8,3 +8,4 @@ export * from './button/button.component';
 export * from './input-switch/input-switch.component';
 export * from './shared-form/shared-form.component';
 export * from './toggel/toggel.component';
+export * from './edit-multipe-files/edit-multipe-files.component';

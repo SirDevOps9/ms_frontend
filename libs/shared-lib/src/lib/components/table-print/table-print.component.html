@@ -67,6 +67,9 @@
                 </ng-container>
               </ng-container>
             </tr>
+            <tr *ngIf="firstRow">
+              <ng-content select="[firstRow]"> </ng-content>
+             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-row let-i="rowIndex">
             <tr [ngClass]="{ cssClass: i == selectedIndex }">

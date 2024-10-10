@@ -1,0 +1,107 @@
+<lib-page-content
+  [title]="'VendorOpeningBalance.vendorOpeningBalance' | translate"
+  [subTitle]="'VendorOpeningBalance.vendorOpeningBalance' | translate"
+>
+  <div>
+    <div class="user_page">
+      <lib-data-table
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        (addNew)="routeToAdd()"
+        [tableConfigs]="{
+              allowPagination: false,
+              allowServerPagination: true,
+              dataKey: 'id',
+              pageSize: 10,
+              columns: [
+                 
+                 {
+                   name: 'openingJournalCode',
+                   headerText: ('VendorOpeningBalance.OpeningJournalCode' | translate),
+                   isGlobalFilter: true,
+                   isSortable: true
+                 },
+                 {
+                   name: 'accountName',
+                   headerText: ('VendorOpeningBalance.AccountName' | translate),
+                   isGlobalFilter: true,
+                   isSortable: true
+                 },
+                 {
+                   name: 'amount',
+                   headerText: ('VendorOpeningBalance.Amount' | translate),
+                   isGlobalFilter: true,
+                     isSortable: true,
+                 },
+                 {
+                   name: 'amountNature',
+                   headerText: ('VendorOpeningBalance.AmountNature' | translate),
+                   isGlobalFilter: true,
+                     isSortable: true,
+                 },
+                 {
+                   name: 'id',
+                   headerText: ('Table.Actions' | translate),
+                   template : actions
+                 },
+               ]
+            }"
+      >
+        <ng-container caption>
+          <div class="group flex justify-content-between">
+            <div>
+              <lib-text-input
+              type="text"
+              placeholder="{{ 'VendorOpeningBalance.Search' | translate }}"
+              (keyUp)="onSearchChange($event)"
+              iconUrl="pi pi-search"            >
+            </lib-text-input>
+            </div>
+
+            <div class="flex gap-2">
+              <lib-button-micro
+              nameClass="save"
+              [title]="'Table.Add' | translate"
+              (click)="routeToAdd()"
+              [iconName]="'pi pi-plus'"
+
+            >
+            </lib-button-micro>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #Date let-paymentIn>
+          <div>
+            <p>{{ paymentIn.date | date : 'dd/MM/yyyy' }}</p>
+          </div>
+        </ng-template>
+        <ng-template #status let-status>
+          <div class="actions flex align-items-center gap-2">
+            <lib-input-switch [disabled]="true" [(ngModel)]="status.status"></lib-input-switch>
+          </div>
+        </ng-template>
+        <ng-template #actions let-actions>
+           <div class="actions flex align-items-center">
+            <lib-button-micro
+            nameClass="table_button_view"
+            (click)="view(actions.id)" >
+
+            </lib-button-micro>
+            <lib-button-micro
+            nameClass="table_button_edit"
+            (click)="routeToEdit(actions.id)"
+            >
+            </lib-button-micro>
+            <lib-button-micro
+            nameClass="table_button_delete"
+            (click)="onDelete(actions.id)"
+            >
+            </lib-button-micro>
+          </div>
+        </ng-template>
+      </lib-data-table>
+    </div>
+  </div>
+</lib-page-content>

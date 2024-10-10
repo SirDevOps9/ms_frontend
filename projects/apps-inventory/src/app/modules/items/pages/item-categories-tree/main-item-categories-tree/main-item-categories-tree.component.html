@@ -1,0 +1,45 @@
+<lib-page-content>
+    <div class="page_content_header">
+      <div class="actions">
+        
+  
+       
+   
+  
+        <lib-button-micro
+        [title]="'itemsCategory.edit' | translate"
+        nameClass="save"
+          (click)="editMode()"
+          iconName=" pi pi-user-edit"
+          *ngIf="!Viewlist && view"
+        >
+        </lib-button-micro>
+      
+        <button class="btn save" *ngIf="!Viewlist && view" (click)="editMode()">
+          <i class="btn_icon pi pi-user-edit"></i>
+          {{ 'itemsCategory.edit' | translate }}
+        </button>
+        <!-- <button class="btn save" *ngIf="(!Viewlist && edit) || (!add && !view)">
+          <i class="btn_icon pi pi-user-edit"></i>
+          save
+        </button> -->
+        <button class="icon_btn" [ngClass]="{ active: Viewlist }" (click)="listView()">
+          <i class="pi pi-bars"></i>
+        </button>
+        <button class="icon_btn" [ngClass]="{ active: !Viewlist }" (click)="treeView()">
+          <i class="pi pi-sitemap"></i>
+        </button>
+      </div>
+    </div>
+    <div class="main_chat_of_account">
+      <app-items-category-tree
+        *ngIf="!Viewlist"
+        [edit]="edit"
+        [view]="view"
+        [add]="add"
+        (addmode)="changeMode($event)"
+      ></app-items-category-tree>
+      <app-item-category-list *ngIf="Viewlist"></app-item-category-list>
+    </div>
+  </lib-page-content>
+  

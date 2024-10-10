@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FinanceProxyService } from './finance-proxy.service';
 import { HttpService, LanguageService, LoaderService, PageInfo, PageInfoResult, PaginationVm, RouterService, ToasterService } from 'shared-lib';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { TreasureDefinitionDto } from './models/treasureDefinitionsDto';
-import { AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, EditTreasuryDto, GetAllPaymentInDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
+import { AccountDto, AddPaymentMethodDto, AddPaymentTermDto, AddTreasuryDto, CurrencyRateDto, DropDownDto, EditTreasuryDto, GetAllPaymentInDto, GetTreasuryDtoById, PaymentMethodDto, PaymentTermDto } from './models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { HttpClient } from '@angular/common/http';
@@ -37,13 +37,33 @@ export class FinanceService {
   public exportedpaymentMethodListDataSource = new BehaviorSubject<PaymentMethodDto[]>([]);
   public sendPaymentMethodByID = new BehaviorSubject<GetPaymentMethodByIdDto>({} as GetPaymentMethodByIdDto)
   public paymentInDataSource = new BehaviorSubject<GetAllPaymentInDto[]>([])
+
   public exportedpaymentinListDataSource = new BehaviorSubject<GetAllPaymentInDto[]>([]);
 
+  public sendTaxDropDownDataSource = new BehaviorSubject<DropDownDto[]>([]);
+  public paymentSaved = new BehaviorSubject<number>(0);
+
+  public getTreasuryDropDownData = new BehaviorSubject<any>([])
+  public getBankDropDownData = new BehaviorSubject<any>([])
+  public getCustomerDropdownData = new BehaviorSubject<any>([])
+  public getVendorDropdownData = new BehaviorSubject<any>([])
+  public AllPayMethodsDropdown = new BehaviorSubject<any>([])
+  public AllTreasuriesPayMethodsDropdown = new BehaviorSubject<any>([])
+  public AccountBalance = new BehaviorSubject<number>(0)
+  public TreasuryBalance = new BehaviorSubject<number>(0)
+  public childrenAccountDataSource = new BehaviorSubject<AccountDto[]>([]);
+  public childrenAccountList = this.childrenAccountDataSource.asObservable();
+  public childrenAccountPageInfo = new BehaviorSubject<PageInfoResult>({});
+  private accountCurrencyRateDataSource = new BehaviorSubject<CurrencyRateDto>({rate:0});
 
 
 
 
 
+  getVendorDropdownDataObservable = this.getVendorDropdownData.asObservable()
+  getCustomerDropdownDataObservable = this.getCustomerDropdownData.asObservable()
+  getBankDropDownDataObservable = this.getBankDropDownData.asObservable()
+  getTreasuryDropDownDataObservable = this.getTreasuryDropDownData.asObservable()
   sendTreasuryDataSourceObservable = this.sendTreasuryDataSource.asObservable()
   addTreasureDefinitionsObservable = this.treasureDefinitions.asObservable()
   getTreasureDefinitionsByIDObservable = this.getTreasureDefinitionsByID.asObservable()
@@ -60,11 +80,21 @@ export class FinanceService {
   paymentMethodDataSourceObservable = this.paymentMethodDataSource.asObservable()
   exportedPaymentMethodDataSourceObservable = this.exportedpaymentMethodListDataSource.asObservable()
   sendPaymentMethodByIDObservable = this.sendPaymentMethodByID.asObservable()
+  AllPayMethodsDropdownObservable = this.AllPayMethodsDropdown.asObservable()
+  AllTreasuriesPayMethodsDropdownObservable = this.AllTreasuriesPayMethodsDropdown.asObservable()
+  AccountBalanceObservable = this.AccountBalance.asObservable()
+  TreasuryBalanceObservable = this.TreasuryBalance.asObservable()
+  public accountCurrencyRate = this.accountCurrencyRateDataSource.asObservable();
   paymentInDataSourceObservable = this.paymentInDataSource.asObservable()
   exportedPaymentinDataSourceObservable = this.exportedpaymentinListDataSource.asObservable()
 
+  taxDropDowmSourceObservable = this.sendTaxDropDownDataSource.asObservable()
 
-  
+
+
+
+  private bankAccountDeleted = new BehaviorSubject<boolean>(false);
+  public bankAccountDeletedObser = this.bankAccountDeleted.asObservable();
 
 
 
@@ -78,6 +108,10 @@ export class FinanceService {
   getTreasureDefinitionsByIdData(id : number)  {
    return this.financeProxy.getTreasureDefinitionsById(id)
   }
+  getTreasuryDefinitionsView(id : number)  {
+    return this.financeProxy.getTreasuryDefinitionsView(id)
+   }
+ 
 
 
   EditTreasureDefinitionsById(model: EditTreasuryDto, dialogRef: DynamicDialogRef)  {
@@ -198,17 +232,25 @@ export class FinanceService {
     });
   }
   addBankDefinition(obj:AddBankDto) {
-    this.financeProxy.addBankDefinition(obj).subscribe(res=>{
-      if(res) {
+    this.loaderService.show();
+
+    this.financeProxy.addBankDefinition(obj).subscribe( {
+      next: (res) => {
+
         this.toasterService.showSuccess(
           this.languageService.transalte('addBank.success'),
           this.languageService.transalte('addBank.add')
         );
+        this.loaderService.hide();
         this.routerService.navigateTo('/masterdata/bank-definition')
-        
-      }
-    })
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  
   }
+  
   editBankDefinition(obj : bankByID) {
     this.financeProxy.editBankDefinition(obj).subscribe(res=>{
       if(res) {
@@ -229,6 +271,32 @@ export class FinanceService {
       }
     })
   }
+
+  async deleteBankAccount(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      this.loaderService.show();
+
+      this.financeProxy.deleteBankAccount(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('deleteBank.success'),
+            this.languageService.transalte('deleteBank.delete')
+          );
+          this.loaderService.hide();
+          this.bankAccountDeleted.next(res);
+        },
+        error: () => {
+          this.loaderService.hide();
+          this.toasterService.showError(
+            this.languageService.transalte('Error'),
+            this.languageService.transalte('DeleteError')
+          );
+        },
+      });
+    }
+  }
+
   getUserPermissionLookupData() {
     this.financeProxy.getUserPermissionLookupData().subscribe(res=>{
       this.getUsersPermissionData.next(res)
@@ -237,7 +305,7 @@ export class FinanceService {
   exportsBankList(searchTerm:string | undefined) {
     this.financeProxy.exportsBankList(searchTerm).subscribe({
       next: (res : any) => {
-         this.exportedTreasuryListDataSource.next(res);
+         this.exportedBankListDataSource.next(res);
       },
     });
   }
@@ -279,17 +347,26 @@ export class FinanceService {
     }
   }
   addPaymentTerm(obj:AddPaymentTermDto) {
-    this.financeProxy.addPaymentTerm(obj).subscribe(res=>{
-      if(res) {
+    this.loaderService.show();
+
+    this.financeProxy.addPaymentTerm(obj).subscribe( {
+      next: (res) => {
+
         this.toasterService.showSuccess(
           this.languageService.transalte('add-paymentterm.success'),
           this.languageService.transalte('add-paymentterm.add')
         );
+        this.loaderService.hide();
         this.routerService.navigateTo('/masterdata/paymentterm')
-        
-      }
-    })
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  
   }
+  
+  
   getPaymentTermByID(id : number) {
     this.financeProxy.getPaymentTermByID(id).subscribe(res=>{
       if(res) {
@@ -351,24 +428,61 @@ export class FinanceService {
     return this.financeProxy.BankAccountDropDown(id)
 
   }
-
   BankDropDown() {
     return this.financeProxy.BankDropDown()
+  }
 
+  bankDropDown() {
+    this.financeProxy.BankDropDown().subscribe((res) => {
+      if (res) {
+        this.getBankDropDownData.next(res);
+      }
+    });
+  }
+
+  treasuryDropDown() {
+    this.financeProxy.treasuryDropDown().subscribe((res) => {
+      if (res) {
+        this.getTreasuryDropDownData.next(res);
+      }
+    });
+  }
+  customerDropdown() {
+    this.financeProxy.CustomerDropdown().subscribe((res) => {
+      if (res) {
+        this.getCustomerDropdownData.next(res);
+      }
+    });
+  }
+  vendorDropdown() {
+    this.financeProxy.VendorDropdown().subscribe((res) => {
+      if (res) {
+        this.getVendorDropdownData.next(res);
+      }
+    });
   }
   
   addPaymentMethod(obj:AddPaymentMethodDto) {
-    this.financeProxy.addPaymentMethod(obj).subscribe(res=>{
-      if(res) {
+    this.loaderService.show();
+
+    this.financeProxy.addPaymentMethod(obj).subscribe( {
+      next: (res) => {
+
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
           this.languageService.transalte('add-paymentMethod.add')
         );
+        this.loaderService.hide();
         this.routerService.navigateTo('/masterdata/payment-method')
-        
-      }
-    })
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  
   }
+  
+  
   getPaymentMethodByID(id : number) {
     this.financeProxy.getPaymentMethodByID(id).subscribe(res=>{
       if(res) {
@@ -389,6 +503,73 @@ export class FinanceService {
       }
     })
   }
+  addPaymentIn(obj:AddPaymentTermDto) {
+    this.financeProxy.addPaymentIn(obj).subscribe({
+      
+      next:(res:any)=> {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('PaymentIn.Success'),
+          this.languageService.transalte('PaymentIn.PaymentInAddedSuccessfully')
+
+        );      
+        this.paymentSaved.next(res)  
+      },
+      error:(error)=>{
+        this.toasterService.showError(
+          this.languageService.transalte('PaymentIn.Error'),
+          this.languageService.transalte('PaymentIn.addedError')
+        ); 
+      }
+    })
+  }
+  getAllPayMethodsDropdown(BankId:number ,BankAccountId: number ) {
+    this.financeProxy.GetAllPayMethodsDropdown(BankId , BankAccountId).subscribe(res=>{
+      if(res) {
+       this.AllPayMethodsDropdown.next(res)
+        
+      }
+    })
+  }
+  GetAllTreasuriesPaymentMethodsDropdown() {
+    this.financeProxy.GetAllTreasuriesPaymentMethodsDropdown().subscribe(res=>{
+      if(res) {
+       this.AllTreasuriesPayMethodsDropdown.next(res)
+        
+      }
+    })
+  }
+  GetTreasuryBalance(id:number){
+    this.financeProxy.GetTreasuryBalance(id).subscribe(res=>{
+      if(res) {
+        this.TreasuryBalance.next(res)        
+      }
+    })
+  }
+  GetAccountBalance(id:number){
+    this.financeProxy.GetAccountBalance(id).subscribe(res=>{
+      if(res) {
+       this.AccountBalance.next(res)
+      }
+    })
+  }
+  getAccountsHasNoChildren(quieries: string, pageInfo: PageInfo) {
+    return this.financeProxy.getAccountsHasNoChildren(quieries, pageInfo).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+  getAccountsHasNoChildrenNew(quieries: string, pageInfo: PageInfo) {
+    this.financeProxy.getAccountsHasNoChildrenNew(quieries, pageInfo).subscribe((res) => {
+      this.childrenAccountDataSource.next(res.result);
+      this.childrenAccountPageInfo.next(res.pageInfoResult);
+    });
+  }
+  getAccountCurrencyRate(currentCurrency:number,accountCurrency:number){
+    this.financeProxy.getAccountCurrencyRate(currentCurrency,accountCurrency).subscribe((response) => {
+      this.accountCurrencyRateDataSource.next(response);
+    });
+  }
   getAllPaymentIn(quieries: string, pageInfo: PageInfo)  {
     this.financeProxy.getAllPymentIn(quieries, pageInfo).subscribe((response) => {
      this.paymentInDataSource.next(response.result)
@@ -396,13 +577,6 @@ export class FinanceService {
     });
   }
 
-  exportsPaymentInList(searchTerm:string | undefined) {
-    this.financeProxy.exportsPaymentInList(searchTerm).subscribe({
-      next: (res : any) => {
-         this.exportedpaymentinListDataSource.next(res);
-      },
-    });
-  }
 
   async deletePaymentIn(id: number) {
     const confirmed = await this.toasterService.showConfirm(
@@ -425,4 +599,41 @@ export class FinanceService {
       });
     }
   }
+
+
+
+  getTaxDropDown() {
+    this.financeProxy.getTaxDropDown().subscribe({
+      next: (res : any) => {
+         this.sendTaxDropDownDataSource.next(res);
+      },
+    });
+  }
+  postPaymentIn(id:number) {
+    this.financeProxy.postPaymentIn(id).subscribe({
+      
+      next:(res:any)=> {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('PaymentIn.Success'),
+          this.languageService.transalte('PaymentIn.PaymentInPostedSuccessfully')
+
+        );      
+        this.paymentSaved.next(res)  
+      },
+      error:(error)=>{
+        this.toasterService.showError(
+          this.languageService.transalte('PaymentIn.Error'),
+          this.languageService.transalte('PaymentIn.postedError')
+        ); 
+      }
+    })
+  }
+
+  viewBank(id : number)  {
+    return this.financeProxy.viewBank(id)
+   }
+
+   viewPaymentTerm(id : number)  {
+    return this.financeProxy.viewPaymentTerm(id)
+   }
 }

@@ -5,4 +5,5 @@ export enum Modules {
   Finance = 4,
   Sales = 5,
   Purchase = 6,
+  inventory = 7
 }

@@ -1,0 +1,347 @@
+<lib-page-content>
+    <div class="sequence_page">
+        <form [formGroup]="sequence">
+            <lib-fildest header="{{'sequence.status' | translate}}">
+                <lib-form-group>
+                    <div class="flex align-items-center">
+                        <div>
+                            <lib-label [appControl]="sequence.controls['status']">
+                                
+                                {{'sequence.Allowed' | translate}}
+                            </lib-label>
+                        </div>
+                        <div class="status">
+                            <lib-input-switch formControlName="status">
+
+                            </lib-input-switch>
+                        </div>
+                    </div>
+
+                </lib-form-group>
+            </lib-fildest>
+            <lib-fildest header="{{'sequence.applyOn' | translate}}">
+                <div class="grid">
+                    <div class="col-12 md:col-6">
+                        <lib-form-group>
+                            <lib-label [appControl]="sequence.controls['companyId']">
+                                
+                                {{'sequence.company' | translate}}
+                            </lib-label>
+                            <lib-select
+                            [readOnly]="true"
+                            [options]="allgetCompanys"
+                            optionValue="id"
+                            optionLabel="name"
+                            formControlName="companyId"
+                            [selectedValue]="sequence.controls['companyId'].value"
+                            >
+
+                            </lib-select>
+
+                        </lib-form-group>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <lib-form-group>
+                            <lib-label [appControl]="sequence.controls['branchesIds']">
+                                
+                                {{'sequence.branch' | translate}}
+                            </lib-label>
+                            <lib-multi-select
+                            [options]="allBranches"
+                            optionValue="id"
+                            optionLabel="name"
+                            formControlName="branchesIds"
+                            [selectedValue]="sequence.controls['branchesIds'].value"
+                            
+                            ></lib-multi-select>
+                            <lib-field-validations
+                            [appControl]="sequence.controls['branchesIds']"
+                            >
+                            </lib-field-validations>
+                        </lib-form-group>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <lib-form-group>
+                            <lib-label [appControl]="sequence.controls['module']">
+                                
+                                {{'sequence.module' | translate}}
+                            </lib-label
+                            
+                            >
+                            <lib-select
+                                    [readOnly]="true"
+                                    optionLabel="name"
+                                    optionValue="id"
+                                    [options]="lookups[LookupEnum.Module]"
+                                    formControlName="module"
+                                    [selectedValue]="sequence.controls['module'].value"
+                            >
+
+                            </lib-select>
+
+                        </lib-form-group>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <lib-form-group>
+                            <lib-label [appControl]="sequence.controls['screen']">
+                                
+                                {{'sequence.screen' | translate}}
+                            </lib-label>
+                            <lib-select 
+                                    [readOnly]="true"
+                                    optionLabel="name"
+                                    optionValue="id"
+                                    [options]="lookups[LookupEnum.Screen]"
+                                    formControlName="screen"
+                                    [selectedValue]="sequence.controls['screen'].value"
+
+                            >
+
+                            </lib-select>
+
+                        </lib-form-group>
+                    </div>
+                    
+                </div>
+            </lib-fildest>
+            <lib-fildest header="{{'sequence.sequenceType' | translate}}">
+                <lib-form-group>
+                    <div class="flex align-items-center">
+                        <div  class="account_activation">
+                            <lib-form-group>
+                                <div class="sequence_type">
+                                  <div class="group_type">
+                                    <p-radioButton
+                                      name="type"
+                                      [value]="SharedEnums.SequenceTypes.Yearly"
+                                      formControlName="type"
+                                      inputId="Yearly"
+                                    >
+                                    </p-radioButton>
+                  
+                                    <label class="title" for="Yearly"> {{'sequence.yearly' | translate}}</label>
+                                  </div>
+                                  <div>
+                                    <p-radioButton
+                                      name="type"
+                                      [value]="SharedEnums.SequenceTypes.Monthly"
+                                      formControlName="type"
+                                      inputId="Monthly"
+                                    >
+                                    </p-radioButton>
+                  
+                                    <label class="title" for="Monthly">{{'sequence.Monthly' | translate}}</label>
+                                  </div>
+                                  <div>
+                                    <p-radioButton
+                                      name="type"
+                                      [value]="SharedEnums.SequenceTypes.Daily"
+                                      formControlName="type"
+                                      inputId="Daily"
+                                    >
+                                    </p-radioButton>
+                                    <label class="title" for="Daily"> {{'sequence.Daily' | translate}}</label>
+                                  </div>
+                                  <div>
+                                    <p-radioButton
+                                      name="type"
+                                      [value]="SharedEnums.SequenceTypes.Continuous"
+                                      formControlName="type"
+                                      inputId="Continuous"
+                                    >
+                                    </p-radioButton>
+                                    <label class="title" for="Continuous"> {{'sequence.Continuous' | translate}}</label>
+                                  </div>
+                                </div>
+                  
+                                
+                              </lib-form-group>
+                        </div>
+                        
+                    </div>
+
+                </lib-form-group>
+            </lib-fildest>
+            <p-table
+            reorderableRows="true"
+            (onRowReorder)="onRowReorder($event)"
+
+
+            [value]="sequenceDetails!.controls" dataKey="id"
+                styleClass="p-datatable-gridlines p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pReorderableRowHandle  style="width:3rem"></th>
+                        <th> {{'sequence.segment' | translate}}</th>
+                        <th> {{'sequence.Value' | translate}}</th>
+                        <th> {{'sequence.option' | translate}}</th>
+                        <th> {{'sequence.actions' | translate}}</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-sequence let-rowIndex="rowIndex"             let-rowData 
+                >
+                    <tr [formGroup]="sequence"  [pReorderableRow]="rowIndex">
+                        <td>
+                            <span class="pi pi-bars" pReorderableRowHandle></span>
+                        </td>
+                        <td [pEditableColumn]="sequence.controls['segment']" pEditableColumnField="segment">
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <lib-select
+                                     formControlName="segment"
+                                     optionLabel="name"
+                                     optionValue="name"
+                                     [options]="lookups[LookupEnum.Segment]"
+                                     [selectedValue]="sequence.controls['segment'].value"
+                                    >
+                                    </lib-select>
+                                </ng-template>
+                                <ng-template pTemplate="output" >
+                                    {{sequence.controls['segment'].value}}
+
+                                </ng-template>   
+                            </p-cellEditor>
+                            <lib-field-validations>
+                            </lib-field-validations>
+                        </td>
+                        <td [pEditableColumn]="sequence.controls['detailValue']" pEditableColumnField="detailValue">
+                            <p-cellEditor
+                            *ngIf="SharedEnums.Segments.Separator == sequence.controls['segment'].value
+                        ||
+                        SharedEnums.Segments.Text == sequence.controls['segment'].value||
+                        SharedEnums.Segments.SerialNumber == sequence.controls['segment'].value
+                        "
+                            >
+                                <ng-template pTemplate="input">
+
+                                    <lib-select
+                                    *ngIf="SharedEnums.Segments.Separator == sequence.controls['segment'].value"
+                                    optionLabel="name"
+                                    optionValue="id"
+                                    [options]="lookups[LookupEnum.Separator]"
+                                    [selectedValue]="sequence.controls['detailValue'].value"
+                                    formControlName="detailValue"
+                                    (valueChanged)="getSeparatorName(sequence)"
+ 
+                                     >
+                                    </lib-select>
+                                    <lib-text-input
+                                    formControlName="detailValue"
+                                    *ngIf="SharedEnums.Segments.Text == sequence.controls['segment'].value 
+                                    "
+                                    ></lib-text-input>
+                                    <lib-text-input
+                                    formControlName="detailValue"
+                                    *ngIf=" SharedEnums.Segments.SerialNumber == sequence.controls['segment'].value "
+                                    placeholder="{{'sequence.SerialnumberPlaceholder' | translate}}"
+                                    ></lib-text-input>
+                                 
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    <p *ngIf="SharedEnums.Segments.Separator == sequence.controls['segment'].value">                                
+                                            ('{{ sequence.controls['separatorName'].value }}')
+                                    </p>
+                                    <p *ngIf="SharedEnums.Segments.Separator != sequence.controls['segment'].value">                                
+                                            {{ sequence.controls['detailValue'].value }}
+                                    </p>
+                               
+                                   
+                                </ng-template>
+                            </p-cellEditor>
+                            <p 
+                            *ngIf="
+                         SharedEnums.Segments.CompanyCode == sequence.controls['segment'].value||
+                         SharedEnums.Segments.BranchCode == sequence.controls['segment'].value||
+                         SharedEnums.Segments.Year == sequence.controls['segment'].value||
+                         SharedEnums.Segments.Month == sequence.controls['segment'].value||
+                         SharedEnums.Segments.Day == sequence.controls['segment'].value
+                         ">
+                        
+                        
+                        {{ sequence.controls['detailValue'].value }}
+
+                        </p>
+                            <lib-field-validations [appControl]="sequence.controls['detailValue']">
+                            </lib-field-validations>
+                        </td>
+                    
+                            
+                            <td [pEditableColumn]="sequence.controls['valueOption']" pEditableColumnField="valueOption">
+                                <p-cellEditor
+                                *ngIf="SharedEnums.Segments.SerialNumber == sequence.controls['segment'].value"
+                                >
+                                    <ng-template pTemplate="input">
+    
+                                        <lib-text-input
+                                        formControlName="valueOption"
+                                        placeholder="{{'sequence.startingnumberPlaceholder' | translate}}"
+
+                                        ></lib-text-input>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        <p *ngIf="SharedEnums.Segments.SerialNumber == sequence.controls['segment'].value "> {{sequence.controls['valueOption'].value}}</p>
+                                    </ng-template>
+                                </p-cellEditor>
+                              
+                                <lib-field-validations [appControl]="sequence.controls['valueOption']">
+                                </lib-field-validations>
+                            </td>
+                            <td>
+                                <lib-button-micro nameClass="table_button_delete" (click)="onDelete(rowIndex)" >
+                                </lib-button-micro>
+                            </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td colspan="5">
+                            <div class="flex align-items-center justify-content-between">
+                                <div class="add_new">
+                                    <button class="btn" type="button" (click)="addNewRow()" >
+                                        {{'sequence.AddNewLine' | translate}}
+                                    </button>
+                                </div>
+                                <div class="example">
+                                   <span class="title">
+                                    {{'sequence.example' | translate}}:
+                                   </span>  <span class="example_code" >{{example}}</span>
+                                </div>
+
+                            </div>
+                        </td>
+                    </tr>
+
+                </ng-template>
+
+            </p-table>
+
+        </form>
+        <div class="btn_group">
+            <div class="grid">
+              <div class="md:col-3">
+                <div class="grid">
+                  <div class="md:col-6">
+                    <lib-button-micro
+                      [title]="'Cancel' | translate"
+                      nameClass="cancel"
+                      widthNumber="100%"
+                    >
+                    </lib-button-micro>
+                  </div>
+                  <div class="md:col-6">
+                    <lib-button-micro
+                      title="{{ 'Save' | translate }}"
+                      nameClass="save"
+                      widthNumber="100%"
+                      (click)="save()"
+                    >
+                    </lib-button-micro>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+
+
+</lib-page-content>

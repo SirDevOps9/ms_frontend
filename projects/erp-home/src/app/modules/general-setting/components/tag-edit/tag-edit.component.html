@@ -45,8 +45,8 @@ title=" {{ 'tag.EditTag' | translate }}"
             <lib-multi-select
               placeholder="{{ 'tag.addtag.applicability' | translate }}"
               [options]="modulelist"
-              optionLabel="module"
-              optionValue="moduleId"
+              optionLabel="name"
+              optionValue="id"
               formControlName="ModulesId"
               [selectedValue]="selectedModules!"
             >

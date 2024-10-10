@@ -42,8 +42,8 @@ title=" {{ 'tag.AddNewTag' | translate }}"
             <lib-multi-select
               placeholder="{{ 'tag.addtag.applicability' | translate }}"
               [options]="modulelist"
-              optionLabel="module"
-              optionValue="moduleId"
+              optionLabel="name"
+              optionValue="id"
               formControlName="moduleIds"
             ></lib-multi-select>
             <lib-field-validations [appControl]="tagForm.controls['moduleIds']">

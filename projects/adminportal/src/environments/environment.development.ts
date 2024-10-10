@@ -8,10 +8,10 @@ export const environment: IEnvironment = {
   Platform: 'Web',
   photoBaseUrl: 'https://intmicrotec.neat-url.com:2022',
   AuthConfiguration: {
-    authority: 'https://intmicrotec.neat-url.com:2050',
+    authority: 'https://localhost:7116',
     clientId: 'microtec_admin_portal',
-    logoutRedirectUri: window.location.origin + '/bussinessowners/logout-redirect',
-    redirectUrl: window.location.origin + '/bussinessowners/login-redirect',
+    logoutRedirectUri: window.location.origin + '/admin-portal/logout-redirect',
+    redirectUrl: window.location.origin + '/admin-portal/login-redirect',
     scopes: 'bo',
     state: '',
   },

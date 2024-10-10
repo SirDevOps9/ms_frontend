@@ -1,14 +1,20 @@
 <lib-page-content>
   <div class="user_page group">
+    <div class="card_micro">
+
     <form [formGroup]="reportAccountForm">
       <div class="group">
         <div class="calender">
           <div class="grid">
             <div class="col-12 md:col-4">
-              <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input>
+              <!-- <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input> -->
+              <lib-calendar formControlName="dateFrom"  ></lib-calendar>
+
             </div>
             <div class="col-12 md:col-4">
-              <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input>
+              <!-- <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input> -->
+              <lib-calendar formControlName="dateTo"  ></lib-calendar>
+
             </div>
             <div class="col-12 md:col-4">
               <lib-multi-select
@@ -16,8 +22,9 @@
                 [options]="filteredAccounts"
                 optionValue="id"
                 optionLabel="displayName"
-                [selectedValue]="defoultSelectedAcounts"
-              ></lib-multi-select>
+                [selectedValue]="reportAccountForm.controls['Accounts'].value"
+                ></lib-multi-select>
+              <i class="pi pi-search search-circle search_icon" (click)="openDialog()"></i>
             </div>
           </div>
         </div>
@@ -64,6 +71,7 @@
         </div>
       </div>
     </form>
+    </div>
     <div class="mb-4" *ngFor="let table of tableData">
       <lib-data-table
         [items]="table?.journalEntryDtos!"
@@ -78,6 +86,7 @@
                   {
                     name: 'journalEntryCode',
                     headerText: 'AccountStatement.journalEntryCode' | translate,
+                    template:journalEntryCode
                   },
                   {
                     name: 'journalEntryDate',
@@ -87,26 +96,22 @@
                   {
                     name: 'description',
                     headerText: 'AccountStatement.description' | translate,
-                    isGlobalFilter: true,
-                    isSortable: true,
+
                   },
                   {
                     name: 'debitAmount',
                     headerText: 'AccountStatement.debitAmount' | translate,
-                    isGlobalFilter: true,
-                    isSortable: true,
+
                   },
                   {
                     name: 'creditAmount',
                     headerText: 'AccountStatement.creditAmount' | translate,
-                    isGlobalFilter: true,
-                    isSortable: true,
+
                   },
                   {
                     name: 'balance',
                     headerText: 'AccountStatement.balance' | translate,
-                    isGlobalFilter: true,
-                    isSortable: true,
+
                   },
                   {
                     name: 'sourceDocumentCode',
@@ -145,13 +150,18 @@
             <p>{{ account.journalEntryDate | date : 'MM/dd/yyyy' }}</p>
           </div>
         </ng-template>
+        <ng-template #journalEntryCode let-line>
+          <div>
+            <p class="code" (click)="routeTo(line.journalEntryId)">{{ line.journalEntryCode }}</p>
+          </div>
+        </ng-template>
         <ng-container footer>
           <tr>
             <td class="imptyData"></td>
             <td class="imptyData"></td>
             <td class="imptyData"></td>
-            <td class="total">{{ table.totalDebitAmount  | numberFormat}}</td>
-            <td class="total">{{ table.totalCreditAmount |numberFormat }}</td>
+            <td class="total">{{ table.totalDebitAmount | numberFormat }}</td>
+            <td class="total">{{ table.totalCreditAmount | numberFormat }}</td>
             <td class="imptyData"></td>
             <td class="imptyData"></td>
           </tr>
@@ -164,10 +174,14 @@
           <div class="calender">
             <div class="grid">
               <div class="col-12 md:col-4">
-                <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input>
+                <!-- <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input> -->
+                <lib-calendar formControlName="dateFrom"  ></lib-calendar>
+
               </div>
               <div class="col-12 md:col-4">
-                <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input>
+                <!-- <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input> -->
+                <lib-calendar formControlName="dateTo"  ></lib-calendar>
+
               </div>
               <div class="col-12 md:col-4">
                 <lib-multi-select
@@ -226,26 +240,20 @@
         {
           name: 'description',
           headerText: 'AccountStatement.description' | translate,
-          isGlobalFilter: true,
-          isSortable: true,
+
         },
         {
           name: 'debitAmount',
           headerText: 'AccountStatement.debitAmount' | translate,
-          isGlobalFilter: true,
-          isSortable: true,
         },
         {
           name: 'creditAmount',
           headerText: 'AccountStatement.creditAmount' | translate,
-          isGlobalFilter: true,
-          isSortable: true,
         },
         {
           name: 'balance',
           headerText: 'AccountStatement.balance' | translate,
-          isGlobalFilter: true,
-          isSortable: true,
+
         },
         {
           name: 'sourceDocumentCode',
@@ -282,6 +290,11 @@
           <ng-template #date let-account>
             <div>
               <p>{{ account.journalEntryDate | date : 'MM/dd/yyyy' }}</p>
+            </div>
+          </ng-template>
+          <ng-template #journalEntryCode let-line>
+            <div>
+              <p class="code" (click)="routeTo(line.journalEntryId)">{{ line.journalEntryCode }}</p>
             </div>
           </ng-template>
           <ng-container footer>

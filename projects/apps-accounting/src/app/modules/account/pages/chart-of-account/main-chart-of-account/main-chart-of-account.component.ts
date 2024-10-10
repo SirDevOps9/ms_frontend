@@ -19,7 +19,7 @@ export class MainChartOfAccountComponent {
   //@Output() edit = new EventEmitter<boolean>();
   
   // toggleView(){
-  //   this.listView=!this.listView
+  //   this.listView=!this.listView 
   // }
   listView(){
     this.Viewlist=true

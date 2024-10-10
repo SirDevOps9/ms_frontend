@@ -1,0 +1,120 @@
+<lib-page-content [title]="'stockIn.TaxList' | translate" [subTitle]="'stockIn.TaxList' | translate">
+    <div>
+      <div class="user_page">
+        <lib-data-table
+          [items]="tableData"
+          className="p-datatable-gridlines"
+          [currentPageResult]="currentPageInfo"
+          (pageChange)="onPageChange($event)"
+          [tableConfigs]="{
+            allowPagination: false,
+            allowServerPagination: true,
+            dataKey: 'id',
+            pageSize: 10,
+            columns: [
+              {
+                name: 'code',
+                headerText: ('stockIn.code' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'date',
+                headerText: ('stockIn.date' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'note',
+                headerText: ('stockIn.description' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'sourceDocumentNumber',
+                headerText: ('stockIn.sourseDoc' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'warehouseName',
+                headerText: ('stockIn.warehouse' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'transactionStatus',
+                headerText: ('stockIn.status' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'barCode',
+                headerText: ('stockIn.journalCode' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+            
+  
+             
+            ]
+          }"
+        >
+        <!-- {
+            name: 'id',
+            headerText: ('stockIn.journalCode' | translate),
+            template: actions
+          } -->
+          <ng-container caption>
+            <div class="">
+              <div class="grid">
+                <div class="col-3">
+                  <lib-form-group>
+                    <lib-text-input
+                      type="text"
+                      [placeholder]="'stockIn.search' | translate"
+                      [(ngModel)]="searchTerm"
+                      (keyUp)="onSearchChange()"
+                    ></lib-text-input>
+                  </lib-form-group>
+                </div>
+                <!--  -->
+              
+  
+                <div class="col-9 flex gap-2 justify-content-end align-items-center">
+                  <div>
+                    <lib-button-micro
+                      [title]="'stockIn.Add' | translate"
+                      nameClass="save"
+                      iconName="pi pi-plus"
+                      (click)="onAdd()"
+                    >
+                    </lib-button-micro>
+                  </div>
+                  <!--  -->
+                  <div>
+                    <lib-export
+                      (exportClick)="exportClick($event)"
+                      [exportData]="exportData"
+                      [exportColumns]="exportColumns"
+                      [ExportName]="'Item Definition'"
+                    >
+                    </lib-export>
+                  </div>
+                  <!--  -->
+                </div>
+              </div>
+            </div>
+          </ng-container>
+  
+          <ng-template #actions let-action>
+            <div class="actions flex align-items-center">
+              <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
+              <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
+            </div>
+          </ng-template>
+        </lib-data-table>
+      </div>
+    </div>
+  </lib-page-content>
+  

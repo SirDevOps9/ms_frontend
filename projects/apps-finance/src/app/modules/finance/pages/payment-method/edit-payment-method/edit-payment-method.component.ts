@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { customValidators, FormsService, LanguageService, lookupDto, LookupEnum, LookupsService, RouterService, ToasterService } from 'shared-lib';
 import { BankAccountWithCurrency } from '../../../models/bank-account-with-currency-dto';
-import { AddPaymentMethodDto, paymentmethodtype, paymentplace } from '../../../models';
+import { AddPaymentMethodDto, DropDownDto, paymentmethodtype, paymentplace } from '../../../models';
 import { FinanceService } from '../../../finance.service';
 import { SharedFinanceEnums } from '../../../models/shared-finance-enums';
 import { ActivatedRoute } from '@angular/router';
 import { GetPaymentMethodByIdDto } from '../../../models/get-payment-method-by-id-dto';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-payment-method',
@@ -24,6 +25,8 @@ export class EditPaymentMethodComponent implements OnInit {
   id: number = this.route.snapshot.params['id']
   originalPaymentMethodTypeLookups: lookupDto[] = [];
   disableCommission: boolean = false;
+  taxList: DropDownDto[];
+
 
 
 
@@ -35,12 +38,16 @@ export class EditPaymentMethodComponent implements OnInit {
               private toasterService: ToasterService,
               private languageService: LanguageService,
               private route : ActivatedRoute,
-              public sharedFinanceEnum: SharedFinanceEnums) {
+              public sharedFinanceEnum: SharedFinanceEnums,
+              private title: Title,
+            ) {
 
     
   }
 
   ngOnInit() {
+    this.title.setTitle(this.languageService.transalte('add-paymentMethod.title-edit'));
+
     this.initForm();
     this.getChildrenAccountsDropDownLookup();
     this.getBankDropDown();
@@ -65,7 +72,8 @@ export class EditPaymentMethodComponent implements OnInit {
         commissionType: new FormControl(null),
         commissionValue: new FormControl(null),
         commissionAccountId: new FormControl(null),
-        allowVAT: new FormControl(false)
+        allowVAT: new FormControl(false),
+        taxId:new FormControl(null),
       })
     });
   }
@@ -88,6 +96,18 @@ export class EditPaymentMethodComponent implements OnInit {
          this.getBankAccountDropDown(bankId);
        }
      });
+
+     this.PaymentMethodForm.get('paymentMethodCommissionData.allowVAT')!.valueChanges.subscribe(allowVAT => {
+      if (allowVAT) {
+        this.getTaxDropDown();
+        this.PaymentMethodForm.get('paymentMethodCommissionData.taxId')!.setValidators([customValidators.required]);
+        this.PaymentMethodForm.get('paymentMethodCommissionData.taxId')!.updateValueAndValidity();
+      }else{
+        this.PaymentMethodForm.get('paymentMethodCommissionData.taxId')!.clearValidators();
+        this.PaymentMethodForm.get('paymentMethodCommissionData.taxId')!.updateValueAndValidity();
+
+      }
+    });
   }
 
   updateCommissionFields() {
@@ -122,7 +142,8 @@ export class EditPaymentMethodComponent implements OnInit {
           commissionValue: res.paymentMethodCommissionData?.commissionValue ,
           commissionAccountId: res.paymentMethodCommissionData?.commissionAccountId ,
           allowVAT: res.paymentMethodCommissionData?.allowVAT ,
-          currency: res.paymentMethodCommissionData?.currencyName
+          currency: res.paymentMethodCommissionData?.currencyName,
+          taxId: res.paymentMethodCommissionData?.taxId
          }
       });
     })
@@ -134,6 +155,14 @@ export class EditPaymentMethodComponent implements OnInit {
       LookupEnum.PaymentPlace,
       LookupEnum.CommissionType
     ]);
+  }
+
+  getTaxDropDown() {
+    this.financeService.getTaxDropDown();
+    
+    this.financeService.taxDropDowmSourceObservable.subscribe((res) => {
+      this.taxList =res;
+    });
   }
 
   discard() {
@@ -153,7 +182,7 @@ export class EditPaymentMethodComponent implements OnInit {
   }
 
   getBankDropDown() {
-    this.financeService.BankDropDown().subscribe((res) => {
+    this.financeService.BankDropDown().subscribe((res:any) => {
       this.BankList = res;
     });
   }
@@ -166,7 +195,6 @@ export class EditPaymentMethodComponent implements OnInit {
 
    if (paymentPlace == this.sharedFinanceEnum.PaymentPlace.Treasury)
      {
-      console.log('Treasury')
        paymentMethodTypeOptions = this.originalPaymentMethodTypeLookups?.filter(
            option => option.id == this.sharedFinanceEnum.paymentMethodType.Cash.toString()
        );
@@ -181,7 +209,6 @@ export class EditPaymentMethodComponent implements OnInit {
                option.id == this.sharedFinanceEnum.paymentMethodType.Transfer.toString() || 
                option.id == this.sharedFinanceEnum.paymentMethodType.Visa.toString()
        );
-       console.log(paymentMethodTypeOptions)
    }
    this.lookups[LookupEnum.PaymentMethodType] = paymentMethodTypeOptions;
 
@@ -192,7 +219,10 @@ export class EditPaymentMethodComponent implements OnInit {
     if (formData.paymentPlace == this.sharedFinanceEnum.PaymentPlace.Treasury) {
       formData.paymentMethodCommissionData = null;
   }
-
+  if(!formData.paymentMethodCommissionData?.allowVAT)
+    {
+      formData.paymentMethodCommissionData!.taxId= null
+    }
     if (!this.formsService.validForm(this.PaymentMethodForm, false)) return;
   
    this.financeService.editPaymentMethod(formData);
@@ -200,7 +230,6 @@ export class EditPaymentMethodComponent implements OnInit {
   changebankaccount(e: any) 
   {
       const selectedAccount = this.BankAccountList.find(account => account.id === e);
-      console.log("selectedAccount", selectedAccount)
       if (selectedAccount) {
         this.PaymentMethodForm.get('paymentMethodCommissionData.currency')!.setValue(selectedAccount.currencyName);
       }

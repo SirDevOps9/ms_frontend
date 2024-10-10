@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { LayoutService } from 'apps-shared-lib';
 import { TextInputComponent } from 'libs/shared-lib/src/lib/form-components';
 import { debounceTime } from 'rxjs';
-import { MenuModule, Modules } from 'shared-lib';
+import { Cultures, LanguageService, MenuModule, Modules } from 'shared-lib';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,8 +14,9 @@ export class DashboardComponent implements OnInit {
   @ViewChild('inputElement', { static: false }) inputElement: TextInputComponent;
   nameControl = new FormControl('');
   moduleList: MenuModule[];
-
+  lang: Cultures;
   ngOnInit() {
+    this.lang = this.languageService.getLang();
     this.moduleList = this.layoutService.getModules();
 
     if (!this.moduleList) {
@@ -46,8 +47,10 @@ export class DashboardComponent implements OnInit {
       location.href = '../finance';
     } else if (key === Modules.Purchase) {
       location.href = '../purchase';
+    } else if (key === Modules.inventory) {
+      location.href = '../inventory';
     }
   }
 
-  constructor(public layoutService: LayoutService) {}
+  constructor(public layoutService: LayoutService, private languageService: LanguageService) {}
 }

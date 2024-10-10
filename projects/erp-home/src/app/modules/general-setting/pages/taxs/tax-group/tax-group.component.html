@@ -1,0 +1,95 @@
+<lib-page-content
+  [title]="'TaxGroup.TaxGrouplist' | translate"
+  [subTitle]="'TaxGroup.TaxGrouplist' | translate"
+>
+  <div>
+    <div class="user_page">
+      <lib-data-table
+        [items]="tableData"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        (addNew)="Add()"
+        [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: true,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'code',
+              headerText: ('TaxGroup.Code' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'name',
+              headerText: ('TaxGroup.Name' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'countryName',
+              headerText: ('TaxGroup.CountryName' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'id',
+              headerText: ('TaxGroup.Action' | translate),
+              template: actions
+            }
+          ]
+        }"
+      >
+      <ng-container search>
+        <div>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              placeholder="{{ 'TaxGroup.Search' | translate }}"
+              (keyup)="onSearchChange($event)"
+            />
+          </span>
+        </div>
+      </ng-container>
+      <ng-container action>
+        <div class="flex gap-2">
+          <lib-export
+            (exportClick)="exportTaxGroupData($event)"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Tax Group'"
+          >
+          </lib-export>
+          <!-- <lib-button
+            pRipple
+            className="addToList"
+            label="{{ 'Tax.AddNew' | translate }}"
+            (onClick)="Add()"
+            [icon]="'pi pi-plus'"
+          >
+          </lib-button> -->
+          <lib-button-micro
+          nameClass="save"
+          title="{{ 'Tax.AddNew' | translate }}"
+          (click)="Add()"
+          iconName="pi pi-plus"
+          >
+
+          </lib-button-micro>
+        </div>
+      </ng-container>
+        <ng-template #actions let-action>
+          <div class="actions flex align-items-center">
+            <lib-button-micro nameClass="table_button_edit" (click)="Edit(action.id)">
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_delete" (click)="Delete(action.id)">
+            </lib-button-micro>
+          </div>
+        </ng-template>
+      </lib-data-table>
+    </div>
+  </div>
+</lib-page-content>

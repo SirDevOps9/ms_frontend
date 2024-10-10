@@ -122,12 +122,12 @@
       rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
   }
   .pages {
-    background: #fdfefe;
+    // background: #fdfefe;
     // background: linear-gradient(345deg, rgba(255,255,255,1) 0%, rgba(234,237,238,1) 0%);
-    width: calc(100% - 30px) !important;
+    width: calc(100% - 35px) !important;
     // margin-left: auto;
     margin-inline-start: auto;
-    min-height: calc(100vh - 85px);
+    // min-height: calc(100vh - 85px);
   }
   .pages_sid_open {
     width: calc(100% - 200px) !important;

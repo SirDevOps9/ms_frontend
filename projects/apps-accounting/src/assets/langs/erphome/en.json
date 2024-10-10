@@ -6,14 +6,14 @@
   "DeleteError": "Error in Delete",
   "LoadError": "Error in loading Data",
   "walkThrough": "walk Through",
-  "CostCenterAllocation":"Cost Center Allocation",
-  "Attachments":"Attachments",
+  "CostCenterAllocation": "Cost Center Allocation",
+  "Attachments": "Attachments",
 
   "Table": {
     "Actions": "Actions",
     "Edit": "Edit",
     "Delete": "Delete",
-    "Add": "Add"
+    "Add": "Create"
   },
   "Toaster": {
     "Confirm": {
@@ -115,7 +115,7 @@
     "Actions": "Actions",
     "Add": {
       "CompanyLogo": "CompanyLogo",
-      "AddCompany": "Add",
+      "AddCompany": "Create",
       "Plan": "Plan",
       "CompanyAddedSuccessfully": "Company added successfully",
       "Error": "Error",
@@ -248,15 +248,15 @@
   "JournalEntry": {
     "journalcode": "Journal Code",
     "reference": "Reference",
-    "date" : "Date",
-    "type" : "Type",
-    "docName" : "Document Name",
-    "docCode" : "Document Code",
-    "repeated" : "Repeated",
-    "reversed" : "Reversed",
-    "status" : "Status",
-    "Credit" : "credit",
-    "debit" : "Debit",
+    "date": "Date",
+    "type": "Type",
+    "docName": "Document Name",
+    "docCode": "Document Code",
+    "repeated": "Repeated",
+    "reversed": "Reversed",
+    "status": "Status",
+    "Credit": "credit",
+    "debit": "Debit",
     "CompanyCode": "Company Code",
     "Error": "Error",
     "Success": "Success",
@@ -275,7 +275,7 @@
     "JournalUpdatedSuccessfully": "Journal Updated Successfully",
     "Add": {
       "CompanyLogo": "CompanyLogo",
-      "AddCompany": "Add",
+      "AddCompany": "Create",
       "Plan": "Plan",
       "CompanyAddedSuccessfully": "Company added successfully",
       "Error": "Error",
@@ -307,13 +307,13 @@
     }
   },
   "ChartOfAccounts": {
-    "main" :"Main",
+    "main": "Main",
     "name": "Name",
     "nameEn": "English Name",
     "ParentAccount": "Parent Account",
-    "parentName" : "Parent Name",
+    "parentName": "Parent Name",
     "Account": "Account",
-    "details" :"Details",
+    "details": "Details",
     "ParentAccountCode": "Parent Account Code",
     "AccountCode": "Account Code",
     "ParentLevel": "Parent Level",
@@ -352,9 +352,11 @@
     "balance": "Balance",
     "sourceDocumentCode": "Source Document Code"
   },
-  "costCenter" : {
-    "mandatory" : "Mandatory",
-    "optional" : "Optional",
-    "notAllow" : "Not Allow"
+  "costCenter": {
+    "mandatory": "Mandatory",
+    "optional": "Optional",
+    "notAllow": "Not Allow",
+    "isActive": "Is Active",
+    "ParentIsDeactivated": "The parent cost center is deactivated, so the child cost center must also be deactivated."
   }
 }

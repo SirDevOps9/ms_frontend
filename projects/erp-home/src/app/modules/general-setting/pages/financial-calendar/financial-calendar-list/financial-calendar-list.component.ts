@@ -16,13 +16,8 @@ import { Title } from '@angular/platform-browser';
 export class FinancialCalendarListComponent implements OnInit {
   constructor(
     public authService: AuthService,
-    private dialog: DialogService,
-    private accountService: AccountService,
     private generalSettingService: GeneralSettingService,
     private routerService: RouterService,
-    private titleService: Title,
-    private languageService : LanguageService
-
   ) {}
 
   tableData: financialCalendar[];
@@ -36,9 +31,6 @@ export class FinancialCalendarListComponent implements OnInit {
 
   ngOnInit() {
     this.initFinancialCalendarData();
-    this.titleService.setTitle(
-      this.languageService.transalte('financialCalendar.financialCalendar')
-    );
   }
 
   routeToAdd() {

@@ -6,7 +6,12 @@
     "EditVendorCategory": "Edit Vendor Category",
     "VendorDefinitions":"Vendor Definitions",
     "AddVendorDefinition":"Add Vendor Definition",
-    "EditVendorDefinition":"Edit Vendor Definition"
+    "EditVendorDefinition":"Edit Vendor Definition",
+    "VendorOpeningBalance":"Vendor Opening Balance",
+    "AddVendorOpeningBalance":"Add Vendor Opening Balance",
+    "EditVendorOpeningBalance":"Edit Vendor Opening Balance",
+    "ViewVendorOpeningBalance":"View Vendor Opening Balance"
+
   },
   "dir": "ltr",
   "Welcome": "Welcome",
@@ -18,7 +23,7 @@
     "Actions": "Actions",
     "Edit": "Edit",
     "Delete": "Delete",
-    "Add": "Add"
+    "Add": "Create"
   },
   "Toaster": {
     "Confirm": {
@@ -122,7 +127,7 @@
     "Actions": "Actions",
     "Add": {
       "CompanyLogo": "CompanyLogo",
-      "AddCompany": "Add",
+      "AddCompany": "Create",
       "Plan": "Plan",
       "CompanyAddedSuccessfully": "Company added successfully",
       "Error": "Error",
@@ -271,7 +276,7 @@
     "JournalUpdatedSuccessfully":"Journal Updated Successfully",
     "Add": {
       "CompanyLogo": "CompanyLogo",
-      "AddCompany": "Add",
+      "AddCompany": "Create",
       "Plan": "Plan",
       "CompanyAddedSuccessfully": "Company added successfully",
       "Error": "Error",
@@ -312,7 +317,7 @@
       "Actions":"Actions",
       "Edit":"Edit",
       "Delete":"Delete",
-      "Add":"Add",
+      "Add":"Create",
       "AddTag":"Add Tag",
       "Active":"Active",
       "Deactivate":"Deactivate",
@@ -377,7 +382,7 @@
       "paymentTerms" : "Payment Terms",
       "marketType" : "Market Type",
       "actions" : "Actions",
-      "Add": "Add",
+      "Add": "Create",
       "Search":"Search..."
 
     },
@@ -431,7 +436,7 @@
       "actions" : "Actions",
       "success":"success",
       "vendorSuccess":"vendor created successfully ",
-      "Add": "Add",
+      "Add": "Create",
       "Search":"Search..."
     },
     "deleteVendorDefinition" : {

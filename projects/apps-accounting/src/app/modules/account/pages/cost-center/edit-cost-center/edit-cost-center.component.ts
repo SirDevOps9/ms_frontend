@@ -35,6 +35,7 @@ export class EditCostCenterComponent implements OnInit {
       name: new FormControl('', customValidators.required),
       parentId: new FormControl(null),
       isDetail: new FormControl(false),
+      isActive : new FormControl(false)
     });
   }
   ngOnInit() {
@@ -77,6 +78,7 @@ export class EditCostCenterComponent implements OnInit {
         name: res.name,
         parentId: res.parentId,
         isDetail: res.isDetail,
+        isActive :res.isActive
       };
       this.formGroup.patchValue(newAccountData);
     });
@@ -92,7 +94,7 @@ export class EditCostCenterComponent implements OnInit {
   cancelClick() {
     this.operationCompleted.emit(-1);
   }
-
+  
   ngOnDestroy() {
     if (this.subscription) {
       this.accountService.editCostCenter.next(undefined);

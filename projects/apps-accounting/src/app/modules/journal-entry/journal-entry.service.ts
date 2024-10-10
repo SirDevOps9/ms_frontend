@@ -11,6 +11,7 @@ import {
 } from './models';
 import { BehaviorSubject, catchError, map } from 'rxjs';
 import {
+  AttachmentsService,
   LanguageService,
   LoaderService,
   PageInfo,
@@ -26,12 +27,15 @@ import { JournalStatusUpdate } from './models/update-status';
   providedIn: 'root',
 })
 export class JournalEntryService {
+  attachmentDeleted:boolean=false
   private journalEntriesDataSource = new BehaviorSubject<JournalEntryDto[]>([]);
   private journalEntriesOpeningBalanceDataSource = new BehaviorSubject<JournalEntryDto[]>([]);
   private trialDataSource = new BehaviorSubject<TrialBalance[]>([]);
   private accountReportsDataSource = new BehaviorSubject<reportAccount[]>([]);
   private CostCenterReportsDataSource = new BehaviorSubject<reportCostAllData[]>([]);
   public editJournalLineStatusDataSource = new BehaviorSubject<boolean | undefined>(undefined);
+  // public attachmentDeleted = new BehaviorSubject<boolean>(false);
+  // public attachmentDeletedObser = this.attachmentDeleted.asObservable();
 
   public journalEntries = this.journalEntriesDataSource.asObservable();
   public journalEntriesObs = this.journalEntriesOpeningBalanceDataSource.asObservable();
@@ -51,7 +55,9 @@ export class JournalEntryService {
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private loaderService: LoaderService,
-    private routerService: RouterService
+    private routerService: RouterService,
+    private attachmentService: AttachmentsService,
+
   ) {}
 
   getAllJournalEntriesPaginated(searchTerm: string, pageInfo: PageInfo) {
@@ -157,7 +163,7 @@ export class JournalEntryService {
           this.languageService.transalte('Journal.UpdatedSuccessfully')
         );
         this.loaderService.hide();
-
+        this.attachmentService.attachemntIdsList=[]
         this.editJournalLineStatusDataSource.next(true);
         // setTimeout(() => {
         //   location.reload();
@@ -280,5 +286,51 @@ export class JournalEntryService {
     this.journalEntryProxy.getCostCenterReports(cost).subscribe((response) => {
       this.CostCenterReportsDataSource.next(response);
     });
+  }
+  getOpenFinancialPeriodDate() {
+    return this.journalEntryProxy.getOpenFinancialPeriodDate().pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+  getOpenFinancialYearDate() {
+    return this.journalEntryProxy.getOpenFinancialYearDate().pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+  async deleteAttachment(attachmentId: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.loaderService.show();
+      this.journalEntryProxy.DeleteAttachment(attachmentId).subscribe({
+        next: (res) => {
+          this.attachmentDeleted=true;
+
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('attachmentDeletedSuccessfully')
+          );
+          this.loaderService.hide();
+        },
+        error: () => {
+          this.loaderService.hide();
+          this.attachmentDeleted=false;
+
+          this.toasterService.showError(
+            this.languageService.transalte('error'),
+            this.languageService.transalte('CannotDeleteattachment')   
+
+          );
+        },
+      });
+    }else{
+      this.attachmentDeleted=false;
+
+    }
   }
 }
