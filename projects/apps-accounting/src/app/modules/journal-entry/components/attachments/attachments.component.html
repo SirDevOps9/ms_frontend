@@ -1,11 +1,11 @@
 <div class="Attachments">
 <lib-popup-page
 title="{{ 'Attachments' | translate }}"
-[closeFunction]="onCancel"
+(Cancel)="onCancel()"
 (Submit)="save()"
 [footer]="!viewData"
 >
-<lib-upload-multipe-files  *ngIf="add"  [viewData]="this.filesData.viewData" [screen]="screen" (sendFiles)="files($event)" ></lib-upload-multipe-files>
+<lib-upload-multipe-files  *ngIf="add"  [screen]="screen" (sendFiles)="files($event)" ></lib-upload-multipe-files>
 <lib-edit-multipe-files  *ngIf="edit" [filesData]="journalEntryAttachments" [viewData]="viewData" [screen]="screen" (sendFiles)="files($event)" ></lib-edit-multipe-files>
 
 </lib-popup-page>
