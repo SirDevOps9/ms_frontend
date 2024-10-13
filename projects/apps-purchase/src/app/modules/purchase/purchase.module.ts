@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
 import { EditVendorCategoryComponent } from './pages/vendor-category/edit-vendor-category/edit-vendor-category.component';
-import { AuthGuard } from 'microtec-auth-lib';
 import { CreateVendorCategoryComponent } from './pages/vendor-category/create-vendor-category/create-vendor-category.component';
 import { VendorCategoryListComponent } from './pages/vendor-category/vendor-category-list/vendor-category-list.component';
 import { EditVendorDefinitionsComponent } from './pages/vendor-definitions/edit-vendor-definitions/edit-vendor-definitions.component';
@@ -12,7 +11,6 @@ import { AddVendorDefinitionsComponent } from './pages/vendor-definitions/add-ve
 import { VendorDefinitionsListComponent } from './pages/vendor-definitions/vendor-definitions-list/vendor-definitions-list.component';
 import { MainVendorCategoryComponent } from './pages/vendor-category/main-vendor-category/main-vendor-category.component';
 import { MainVendorDefintionsComponent } from './pages/vendor-definitions/main-vendor-defintions/main-vendor-defintions.component';
-import { VendorOpeningBalanceComponent } from './pages/vendor-opening-balance/vendor-opening-balance.component';
 import { VendorOpeningBalanceListComponent } from './pages/vendor-opening-balance/vendor-opening-balance-list/vendor-opening-balance-list.component';
 import { VendorOpeningBalanceMainComponent } from './pages/vendor-opening-balance/vendor-opening-balance-main/vendor-opening-balance-main.component';
 import { VendorOpeningBalanceAddComponent } from './pages/vendor-opening-balance/vendor-opening-balance-add/vendor-opening-balance-add.component';
@@ -164,16 +162,15 @@ const routes: Routes = [
     VendorDefinitionsListComponent,
     AddVendorDefinitionsComponent,
     EditVendorDefinitionsComponent,
-    VendorOpeningBalanceComponent,
     MainVendorCategoryComponent,
     MainVendorDefintionsComponent,
-    VendorOpeningBalanceListComponent,
     VendorOpeningBalanceMainComponent,
     VendorOpeningBalanceAddComponent,
     VendorOpeningBalanceEditComponent,
     VendorOpeningBalanceDistributeComponent,
     VendorOpeningBalanceViewComponent,
-    VendorOpeningBalanceDistributeViewComponent
+    VendorOpeningBalanceDistributeViewComponent,
+    VendorOpeningBalanceListComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })
