@@ -3,6 +3,8 @@
   [subTitle]="'OperationalTagTaxList' | translate"
 >
   <div class="bank">
+    <div class="card_micro">
+
     <form [formGroup]="formGroup">
       <div class="form_header">
         <div class="grid">
@@ -70,9 +72,10 @@
               <lib-select
                 formControlName="glAccountId"
                 [options]="AccountsDropDownLookup"
-                [selectedValue]="formGroup.controls['glAccountId'].value"
                 optionLabel="name"
-                optionValue="id"
+                optionValue="accountCode"
+                [selectedValue]="formGroup.controls['glAccountId'].value"
+
               >
               </lib-select>
             </lib-form-group>
@@ -80,6 +83,7 @@
         </div>
       </div>
     </form>
+    </div>
   </div>
   <div class="btn_group">
     <div class="grid mt-4">

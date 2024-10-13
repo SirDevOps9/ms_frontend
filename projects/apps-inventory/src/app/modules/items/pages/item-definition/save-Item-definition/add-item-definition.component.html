@@ -1,7 +1,5 @@
 <lib-page-content>
-
   <div [formGroup]="itemDefinitionForm" class="itemDefinitionForm_header">
-    <!-- <p class="title test">{{ 'journal_entry_header' | translate }}</p> -->
     <div class="grid">
       <div class="md:col-9 my-2">
         <div class="col-12 grid card">
@@ -139,7 +137,19 @@
                   <div class="grid">
                     <div class="md:col-12">
                       <lib-form-group>
-                        <lib-text-input formControlName="countryName"> </lib-text-input>
+                        <lib-label [appControl]="itemDefinitionForm.controls['countryId']">
+                          {{ 'itemType.countryOfOrigin' | translate }} 
+                        </lib-label>
+                        <lib-selectIcon
+                        formControlName="countryId" 
+                        [options]="countriesLookup"
+                        optionValue="id"
+                        optionLabel="nameEn"
+                        icons="flags"
+                        [selectedValue]="itemDefinitionForm.controls['countryId'].value"
+                        >
+
+                        </lib-selectIcon>
                       </lib-form-group>
                     </div>
                   </div>
@@ -558,8 +568,9 @@
                             <lib-select
                               formControlName="uomId"
                               [options]="uomLookup"
-                              optionLabel="name"
-                              optionValue="id"
+                              optionLabel="uomName"
+                              optionValue="uomId"
+                              (valueChanged)="uomChange($event , itemDefBarcodeGroup)"
                             ></lib-select>
                           </ng-template>
                           <ng-template pTemplate="output">
@@ -828,7 +839,7 @@
       <div class="md:col-4 grid flex justify-content-end">
         <div class="md:col-6">
           <lib-button-micro
-            title="{{ 'cancel' | translate }}"
+            title="{{ 'itemType.cancel' | translate }}"
             nameClass="cancel"
             widthNumber="100%"
             (click)="onCancel()"
@@ -838,7 +849,7 @@
         </div>
         <div  class="md:col-6">
           <lib-button-micro
-            title="{{ 'Save' | translate }}"
+            title="{{ 'itemType.save' | translate }}"
             nameClass="save"
             widthNumber="100%"
             (click)="onSave()"

@@ -5,9 +5,9 @@ import { UserPermission } from 'projects/apps-finance/src/app/modules/finance/mo
 import { RouterService, LanguageService, customValidators, ToasterService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { UomCodeLookup } from '../../../models';
-import { UomPost } from '../../../models/addUom';
 import { ActivatedRoute } from '@angular/router';
 import { UOMType } from '../../../models/enums';
+import { addUOM } from '../../../models/addUom';
 
 @Component({
   selector: 'app-uom-edit',
@@ -44,14 +44,13 @@ export class UOMEditComponent implements OnInit {
     private title: Title,
 
   ) {
-    this.title.setTitle(this.languageService.transalte('UOM.editUom'));
   
   }
 
 
   ngOnInit(): void {
     const id =this._route.snapshot.params['id']
-
+  
     // console.log(this.categoryId);
     
     this.uomTableForm = this.fb.array([this.create_UOM_FormGroup()]);
@@ -60,12 +59,12 @@ export class UOMEditComponent implements OnInit {
     this.getUOM_list1()
     this.conversionUomDD()
     // console.log(id);
-    if(id){
+    // if(id){
 
-      this.UOMFormGroup.get('uomCodeCategory')?.setValue(id)
-      this.Get_UOMs_ByUOM_CategoryId(id)
-    }
-    
+    //   this.UOMFormGroup.get('uomCodeCategory')?.setValue(id)
+      
+    // }
+    this.Get_UOMs_ByUOM_CategoryId(id)
 
   }
 
@@ -78,7 +77,10 @@ export class UOMEditComponent implements OnInit {
   // init the form 
   initUOMForm() {
     this.UOMFormGroup = this.fb.group({
-      uomCodeCategory: [null, customValidators.required],
+      id : '',
+      uomCategoryNameEn: [null, customValidators.required],
+      uomCategoryNameAr : [null, customValidators.required],
+      uoMs : this.fb.array([])
 
     });
 
@@ -93,7 +95,7 @@ export class UOMEditComponent implements OnInit {
   getUOM_list1() {
     this._itemService.UOMCategoryDropDown()
     this._itemService.UOMCategoryDropDownLookupObs.subscribe((response: { id: number; name: string }[]) => {
-      debugger
+      
       this.listOfUOM = response
       // let id 
       this.UOMFormGroup.get('uomCodeCategory')?.setValue(this.listOfUOM[0]?.id)
@@ -104,25 +106,36 @@ export class UOMEditComponent implements OnInit {
   conversionUomDD() {
     this._itemService.getUomDropDown()
     this._itemService.UOMDropDownLookupObs.subscribe((response: any[]) => {
-      this.conversionUOMlist = response
+      if(response.length){
+        this.conversionUOMlist = response
+        console.log(response)
+      }
+    
 
     })
   }
 
   // get data table by id 
   Get_UOMs_ByUOM_CategoryId(id: any) {
-    this._itemService.uomCodeDropDown(id);
-    this._itemService.uomCodeLookup.subscribe((response: UomCodeLookup[]) => {
-      
-      this.listOfUOMCat = response;
+    this._itemService.getUOMByCategoryID(id);
+    this._itemService.getuomByIdObs.subscribe((response) => {
+      if(!!response ) {
+        console.log(response)
 
+        this.UOMFormGroup.patchValue({...response})
+
+        this.getUOMS.clear();
+
+        //  new form groups to the form array
+        if(response?.uoMs?.length){
+          response.uoMs.forEach(uom => {
+            this.getUOMS.push(this.create_UOM_FormGroup(uom));
+          });
+        }
+   
+      }
       // del the  form array
-      this.uomTableForm.clear();
-
-      //  new form groups to the form array
-      this.listOfUOMCat.forEach(uom => {
-        this.uomTableForm.push(this.create_UOM_FormGroup(uom));
-      });
+    
     });
   }
 
@@ -135,54 +148,47 @@ export class UOMEditComponent implements OnInit {
   }
 
   getFilteredConversionUOMOptions(index: number): any[] {
-    debugger
-    const currentFormGroup = this.uomTableForm.at(index) as FormGroup;
+    
+    const currentFormGroup = this.getUOMS.at(index) as FormGroup;
     const currentConversionUomName = currentFormGroup.get('nameEn')?.value;
       return this.conversionUOMlist.filter(option => option.name !== currentConversionUomName);
   }
   
 
 
-  public get items(): FormArray {
-    return this.uomTableForm as FormArray;
-  }
 
 
 
 
   create_UOM_FormGroup(uomData?: any): FormGroup {
-
+    console.log(uomData)
     return this.fb.group({
-      id: new FormControl(uomData?.id || '', customValidators.required),
-      code: new FormControl(uomData?.code || '', customValidators.required),
-      nameAr: new FormControl(uomData?.name || '', customValidators.required),
-      nameEn: new FormControl(uomData?.name || '', customValidators.required),
-      shortName: new FormControl(uomData?.shortName || '', customValidators.required),
-      uomType: new FormControl(uomData?.uomType || '', customValidators.required),
-      uomCategoryId: new FormControl(uomData?.uomCategoryId || ''),
-      isActive: new FormControl(uomData?.isActive || ''),
-      conversionRatio: new FormControl(uomData?.conversionRatio || '',),
-      conversionUOM: new FormControl(uomData?.conversionUOM || '', customValidators.required),
+      id: new FormControl(uomData?.id ?? 0, customValidators.required),
+      code: new FormControl(uomData?.code ?? '', customValidators.required),
+      nameAr: new FormControl(uomData?.nameAr ?? '', customValidators.required),
+      nameEn: new FormControl(uomData?.nameEn ?? '', customValidators.required),
+      shortName: new FormControl(uomData?.shortName ?? '', customValidators.required),
+      uomType: new FormControl(uomData?.uomType ?? '', customValidators.required),
+      isActive: new FormControl(uomData?.isActive ?? ''),
+      conversionRatio: new FormControl(uomData?.conversionRatio ?? '',),
+      conversionUOM: new FormControl(uomData?.conversionUOM ?? '', customValidators.required),
+      uomCategoryId : uomData?.uomCategoryId ?? 0
     });
 
   }
 
 
   lineStatus: boolean[] = [];
-    addLine() {
-      this.items.push(this.create_UOM_FormGroup());
-      this.lineStatus.push(false); 
 
-      this.isLastLineSaved = false; 
+    addLine() {
+      this.getUOMS.push(this.create_UOM_FormGroup());
     }
   
 
   deleteLine(index: number): void {
-    if (index >= 0 && index < this.uomTableForm.length) {
-      this.uomTableForm.removeAt(index);
-      this.isLastLineSaved = true
+      this.getUOMS.removeAt(index);
 
-    }
+    
   }
 
   //display the name of the conversion rasio
@@ -192,9 +198,14 @@ export class UOMEditComponent implements OnInit {
     return uom ? uom.name : '';
   }
   uomCodeCategory(id: any): string | undefined {
-    debugger
+    
     const uomCat = this.listOfUOM.find(option => option.id == id)?.name;
     return uomCat 
+  }
+
+
+  get getUOMS() {
+    return this.UOMFormGroup.get('uoMs') as FormArray
   }
 
 
@@ -210,7 +221,12 @@ export class UOMEditComponent implements OnInit {
     this.Get_UOMs_ByUOM_CategoryId(this.categoryId)
   }
 
-  // on save table
+
+  onCancel() {
+
+  }
+
+
 
   shouldShowSaveButton(index: number): boolean {
     const formGroup = this.uomTableForm.at(index) as FormGroup;
@@ -219,16 +235,11 @@ export class UOMEditComponent implements OnInit {
     );    return anyFieldDirty && !this.lineStatus[index];
   }
 
-  onSave(obj: UomPost , index : number) {
+  onSave() {
 
-    obj.uomCategoryId = this.categoryId
 
-    this._itemService.updateUOM(obj)
-    this._itemService.updateUOMobj$.subscribe((res: any) => {
-
-      // this.isLastLineSaved = true
-      this.Get_UOMs_ByUOM_CategoryId(this.categoryId)
-    })
+    this._itemService.updateUOM(this.UOMFormGroup.value)
+ 
 
    
   }
