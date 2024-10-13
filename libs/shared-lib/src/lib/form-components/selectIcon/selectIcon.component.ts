@@ -1,11 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  Optional,
-  Self,
-} from '@angular/core';
+import { Component, Input, Output, EventEmitter, Optional, Self, inject } from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -13,14 +6,15 @@ import {
   ValidationErrors,
   Validator,
 } from '@angular/forms';
+import { StorageService, LanguageService } from 'shared-lib';
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'lib-selectIcon',
   templateUrl: './selectIcon.component.html',
   styleUrls: ['./selectIcon.component.scss'],
 })
-export class
-  SelectIconComponent implements ControlValueAccessor, Validator {
+export class SelectIconComponent implements ControlValueAccessor, Validator {
   @Input() label: string;
   @Input() options: any[];
   @Input() icons: 'flags';
@@ -38,8 +32,12 @@ export class
   @Output() valueChanged = new EventEmitter<string>();
 
   value: string = '';
-  onChange = (value: any) => { };
-  onTouched = () => { };
+  primengConfig = inject(PrimeNGConfig);
+
+  _local = inject(StorageService);
+  lang = inject(LanguageService);
+  onChange = (value: any) => {};
+  onTouched = () => {};
 
   writeValue(value: any): void {
     if (value) {
@@ -83,6 +81,13 @@ export class
       setTimeout(() => {
         this.labelTest = this.controlDir.name;
       }, 500);
+    }
+    if (this._local.getItem('selectedLanguage') == 'ar') {
+      this.primengConfig.setTranslation({
+        emptyMessage: 'لا توجد نتائج',
+      });
+    } else {
+      return;
     }
   }
 

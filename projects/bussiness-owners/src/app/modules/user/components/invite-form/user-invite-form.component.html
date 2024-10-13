@@ -2,7 +2,7 @@
   <div class="invite_user_header">
     <div class="title">
       <!-- <div class="plus_icon"></div> -->
-     Invite user
+    {{'invite_user' | translate}}
     </div>
     <div class="pi pi-times cancel" (click)="onCancel()"></div>
   </div>
@@ -75,7 +75,7 @@
               <lib-label
                 [appControl]="inviteForm.controls['tenantLicenseId']"
               >
-              select Licence
+             {{ 'User.selectLicence' | translate}}
               </lib-label>
               <lib-select
               formControlName="tenantLicenseId"

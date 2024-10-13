@@ -58,9 +58,9 @@ export class BreadcrumbLabel {
 
     static SUBSCRIPTION ='Subscription'
     static USERS = 'Users';
-    static ADD_COMPANY = 'Add company';
-    static COMPANY_LIST = 'Company list';
-    static COMPANY_EDIT = 'Company Edit';
+    static ADD_COMPANY = 'Company.Addcompany';
+    static COMPANY_LIST = 'Company.CompanyList';
+    static COMPANY_EDIT = 'Company.CompanyEdit';
     static my_subscription = 'My Subscription';
     static ERP_USERS = 'ERP Users';
     static APP_STORE = 'App Store';
@@ -76,11 +76,11 @@ export class BreadcrumbLabel {
     static USER_INFO ='USER Info';
     static APP_INFO ='APP Info';
     static Add_Tag ='Add Tag';
-    static EDIT_ADDRESS ='Edit Address';
-    static EDIT_BRANCHES ='Edit Branches';
-    static EDIT_HIERARCHY ='Edit Hierarchy';
-    static EDIT_LEGAL ='Edit Legal';
-    static EDIT_CONTACT ='Edit Contact';
+    static EDIT_ADDRESS ='Company.EditAddress';
+    static EDIT_BRANCHES ='Company.EditBranches';
+    static EDIT_HIERARCHY ='Company.EditHierarchy';
+    static EDIT_LEGAL ='Company.EditLegal';
+    static EDIT_CONTACT ='Company.EditContact';
 
 
     static CURRENCY_DEFINITION ='Currency Definition';

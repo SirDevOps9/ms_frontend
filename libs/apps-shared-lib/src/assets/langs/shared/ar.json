@@ -2,6 +2,7 @@
   "BreadCrumb": {
     "Dashboard": "لوحة التحكم"
   },
+  "There is no data":"لا يوجد بيانات",
     "Save": "حفظ",
     "Cancel": "إلغاء",
     "AddNewLine": "إضافة سطر جديد",
@@ -14,6 +15,7 @@
     "delete": "حذف",
     "statement": "بيان",
     "sequence": "تسلسل",
+    "Click_to_upload":"اضغط لرفع ملف",
     "attachment": "مرفق",
     "attachmentDeletedSuccessfully": "تم حذف المرفق بنجاح",
     "CannotDeleteattachment": "لا يمكن حذف المرفق",

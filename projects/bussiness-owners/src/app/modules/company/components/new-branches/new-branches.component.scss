@@ -1,3 +1,7 @@
 @import '../../../../../assets/styling/scss/variables/font-family';
 
 
+::ng-deep .p-dialog .p-dialog-header {
+    display: none;
+
+}

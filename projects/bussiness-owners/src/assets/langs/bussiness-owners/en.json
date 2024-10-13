@@ -37,6 +37,7 @@
     "Id": "Id",
     "Name": "Name",
     "Email": "Email",
+    "selectLicence": "Select Licence",
     "Phone": "Phone",
     "Status": "Status",
     "Resend": "Resend",
@@ -81,15 +82,31 @@
       "UserUpdated": "User Updated Successfully"
     }
   },
+  "Click_to_upload":"Click to upload",
+  " No results found ":"Click to upload",
+"invite_user":"Invite User",
+
   "Company": {
     "CompanyCode": "Company Code",
     "Error": "Error",
+    "No_logo_to_display":"No logo to display",
+
     "Success": "Success",
+    "Discard": "Discard",
+    "EditContact": "Edit Contact",
+    "EditLegal": "Edit Legal",
     "PageName": "Companies",
+    "add_new": "Add New",
+    "Addcompany": "Add Company",
+    "CompanyEdit": "Edit Company",
     "CompanyList": "Company List",
     "CreateNew": "Create New Company",
     "CompanyName": "Company Name",
     "Industry": "Industry",
+    "EditBranches": "Edit Branches",
+    "EditHierarchy": "Edit Hierarchy",
+    "EditAddress": "Edit Address",
+
     "Website": "Website",
     "NoData": " There is no data",
     "CompanyDeactivatedSuccessfully": "Company deactivaed Successfully",
@@ -97,6 +114,7 @@
     "CompanyUpdatedSuccessfully": "Company Updated successfully",
     "Id": "Id",
     "Name": "Name",
+    "Search": "Search",
     "Deactivate": "Deactivate",
     "Activate": "Activate",
     "CompanyType": "Company Type",

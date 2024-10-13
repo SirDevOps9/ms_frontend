@@ -7,8 +7,7 @@
         </button>
         <div *ngIf="editMode">
           <button type="button" class="cancel body_b16" (click)="onDiscard(editMode)">
-            Discard
-          </button>
+{{'Company.Discard' | translate}}          </button>
         </div>
       </div>
 
@@ -35,7 +34,7 @@
                 [attachmentId]="companyContactForm.controls['companyLogo'].value"
               ></lib-attachment-viewer>
               <div *ngIf="!companyContactForm.controls['companyLogo'].value && !editMode ">
-                No logo to display
+                {{'Company.No_logo_to_display' | translate}}
               </div>
               <lib-field-validations
                 [appControl]="companyContactForm.controls['companyLogo']"
@@ -62,7 +61,7 @@
               <lib-selectIcon
                 [readOnly]="!editMode"
                 formControlName="mobileNumberCode"
-                [options]="lookups[LookupEnum.MobileCode]"
+                [options]="[]"
                 [selectedValue]="selectedMobileCode"
                 optionValue="id"
                 optionLabel="name"

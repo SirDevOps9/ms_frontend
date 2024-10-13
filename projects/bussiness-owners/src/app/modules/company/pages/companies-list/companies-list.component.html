@@ -10,13 +10,13 @@
         pInputText
         type="text"
         (keyup)="search($event)"
-        placeholder="Search..."
+        placeholder="{{ 'Company.Search' | translate}}"
       />
     </div>
     <button
       pButton
       pRipple
-      label="Add New"
+      label="{{ 'Company.add_new' | translate}}"
       icon="pi pi-plus"
       class="add_new mr-2"
       (click)="newCompany()"
