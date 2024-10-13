@@ -22,6 +22,7 @@
 "name":"Name",
 "actions":"actions",
 "type": "file extension",
+"download": "Download",
 
 
 "sequence":{

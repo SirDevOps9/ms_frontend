@@ -10,6 +10,7 @@ export class LayoutService {
   sideMenuItems = new BehaviorSubject<SideMenuModel[] | undefined>(undefined);
   modulItems = new BehaviorSubject<MenuModule[] | undefined>(undefined);
 
+
   saveSideMenu(menuItems: SideMenuModel[]) {
     const distinctModules = menuItems
       .filter(
@@ -50,11 +51,24 @@ export class LayoutService {
   public branceDropDown$ = this.branceDropDown.asObservable();
   public companyListDropDown = new BehaviorSubject<{id:string , name : string,companyType : string}[]>([]);
   public companyListDropDown$ = this.companyListDropDown.asObservable();
+  public GetFirstCompanyDropdown = new BehaviorSubject<{ id: string, name: string,code : string, companyType: string }[]>([]);
+  public GetFirstCompanyDropdown$ = this.GetFirstCompanyDropdown.asObservable();
 
   companiesDropDown() {
     this.layoutProxy.companiesDropDown().subscribe({
       next: (res) => {
         this.companyListDropDown.next(res);
+        
+      },
+      error:(err: any)=>{
+        return
+      }
+    });
+  }
+  GetFirstCompany() {
+    this.layoutProxy.GetFirstCompany().subscribe({
+      next: (res) => {
+        this.GetFirstCompanyDropdown.next(res);
         
       },
       error:(err: any)=>{

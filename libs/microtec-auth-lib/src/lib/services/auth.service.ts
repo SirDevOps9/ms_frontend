@@ -85,6 +85,7 @@ export class AuthService {
   saveLoginData(model: TokenModel) {
     this.localStorageService.setItem(StorageKeys.USER_TOKEN, model.token);
     this.localStorageService.setItem(StorageKeys.LOGIN_RESPONSE, model);
+    
   }
 
   clearAllStorage() {

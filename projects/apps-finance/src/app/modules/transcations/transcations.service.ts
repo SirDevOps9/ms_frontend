@@ -355,18 +355,22 @@ export class TranscationsService {
   editPaymentIn(obj: any) {
     this.loaderService.show();
 
-    this.TranscationsProxy.editPaymentIn(obj).subscribe((res) => {
-      if (res) {
-        this.loaderService.hide();
-
+    this.TranscationsProxy.editPaymentIn(obj).subscribe({
+      next: (res: any) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('success'),
-          this.languageService.transalte('add-paymentMethod.edit')
+          this.languageService.transalte('PaymentIn.PaymentInEditedSuccessfully')
         );
+        this.loaderService.hide();
+
         this.routerService.navigateTo('/transcations/paymentin');
-      }
+      },
+      error: (error) => {
+        this.loaderService.hide();
+      },
     });
   }
+
   postPaymentIn(id: number) {
     this.loaderService.show();
 
