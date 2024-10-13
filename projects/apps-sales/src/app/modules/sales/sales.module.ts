@@ -162,7 +162,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'pricelist',
+        path: 'price-policy',
         component: PricelistMainComponent,
         //  canActivate: [AuthGuard],
         data: {
