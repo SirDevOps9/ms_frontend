@@ -61,7 +61,7 @@
               <lib-selectIcon
                 [readOnly]="!editMode"
                 formControlName="mobileNumberCode"
-                [options]="[]"
+                [options]="lookups[LookupEnum.MobileCode]"
                 [selectedValue]="selectedMobileCode"
                 optionValue="id"
                 optionLabel="name"
