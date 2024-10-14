@@ -1,25 +1,100 @@
-.landing-page {
-  /* background: url("../../../../../../projects/apps-accounting/src/assets/images/dashboard-bg.png") no-repeat center center; */
+// .landing-page {
+//   /* background: url("../../../../../../projects/apps-accounting/src/assets/images/dashboard-bg.png") no-repeat center center; */
+//   height: 100vh;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   /* background: linear-gradient(to right, #198EAF, #1A94B5);  */
+//   /* color: white; */
+//   /* font-family: Arial, sans-serif; */
+//   /* text-align: center; */
+// }
+
+// .content {
+//   width: 100%;
+//   margin-top: 43px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   img {
+//     width: 90%;
+//     //  margin: auto;
+
+//     height: 100%;
+//   }
+// }
+
+
+.parent {
+  margin: 4rem;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* background: linear-gradient(to right, #198EAF, #1A94B5);  */
-  /* color: white; */
-  /* font-family: Arial, sans-serif; */
-  /* text-align: center; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2rem;
 }
 
-.content {
-  width: 100%;
-  margin-top: 43px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  img {
-     width: 90%;
-    //  margin: auto;
-    
-    height: 100%;
+.parent > * {
+  border: 1px solid #ddd; /* Border to style the card */
+  background-color: #f1eeee; /* Background color */
+  border-radius: 15px; /* Curves the corners of the border */}
+
+.cards_container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column: span 2;
+  grid-gap: 2rem;
+}
+
+.cards_container > * {
+  border: 1px solid #ddd; /* Border to style the card */
+  background-color: #e3e1e1; /* Background color */
+  border-radius: 15px; /* Curves the corners of the border */}
+
+.chart {
+  grid-column: span 2;
+}
+
+.table {
+  grid-column: span 3;
+}
+
+.tasks {
+  padding: 1rem;
+}
+
+.tasks_grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
+
+  .icon {
+    width: 15%;
+    height: auto;
   }
+
+  .task_card {
+    // display: flex;
+    // flex-direction: column;
+    // align-items: flex-start;
+    padding: 1rem;
+  }
+  .icon-row {
+    margin-bottom: 10px; /* Adds space between the icon and the words */
+  }
+
+  .text-row {
+    padding: 0px;
+    margin: 0px;
+  }
+  .text_letter {
+    margin-top: 12px;
+    font-weight: 600;
+    font-size: x-large;
+  }
+}
+
+.tasks_grid > * {
+  border: 1px solid #ddd; /* Border to style the card */
+  background-color: #e3e1e1; /* Background color */
+  border-radius: 15px; /* Curves the corners of the border */
 }
