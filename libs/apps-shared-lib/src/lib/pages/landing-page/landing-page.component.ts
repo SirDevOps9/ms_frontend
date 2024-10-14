@@ -10,6 +10,7 @@ import { Modules } from 'shared-lib';
 })
 export class LandingPageComponent implements OnInit {
   moduleName: string;
+  items = new Array(4); 
 
   ngOnInit() {
 

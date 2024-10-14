@@ -8,28 +8,19 @@
 
 <div class="parent">
   <div class="tasks">
-    <p>My Tasks</p>
-    <p>You have 4 tasks to complete</p>
-    <div class="tasks_grid">
-      <div class="task_card">
-        <img class="icon" src="assets/images/finance.png" alt="" />
-        <p class="text-row text_letter">6</p>
-        <p class="text-row">card title</p>
-      </div>
-      <div class="task_card">
-        <img class="icon" src="assets/images/finance.png" alt="" />
-        <p class="text-row text_letter">6</p>
-        <p class="text-row">card title</p>
-      </div>
-      <div class="task_card">
-        <img class="icon" src="assets/images/finance.png" alt="" />
-        <p class="text-row text_letter">6</p>
-        <p class="text-row">card title</p>
-      </div>
-      <div class="task_card">
-        <img class="icon" src="assets/images/finance.png" alt="" />
-        <p class="text-row text_letter">6</p>
-        <p class="text-row">card title</p>
+    <div class="curve">
+      <div class="header">My Tasks</div>
+      <div class="sub_header">You have 4 tasks to complete</div>
+      <div class="tasks_grid">
+        <div *ngFor="let item of items">
+          <div class="task_card">
+            <img class="icon" src="assets/images/finance.png" alt="" />
+            <p class="text-row text_letter">6</p>
+            <p class="sub-text-row">card title</p>
+          </div>
+  
+        </div>
+
       </div>
     </div>
   </div>

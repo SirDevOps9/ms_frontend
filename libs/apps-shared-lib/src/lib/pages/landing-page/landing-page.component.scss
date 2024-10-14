@@ -24,7 +24,6 @@
 //   }
 // }
 
-
 .parent {
   margin: 4rem;
   height: 100vh;
@@ -34,9 +33,10 @@
 }
 
 .parent > * {
-  border: 1px solid #ddd; /* Border to style the card */
-  background-color: #f1eeee; /* Background color */
-  border-radius: 15px; /* Curves the corners of the border */}
+  border: 1px solid #ddd;
+  //background-color: #f1eeee;
+  border-radius: 15px;
+}
 
 .cards_container {
   display: grid;
@@ -48,7 +48,8 @@
 .cards_container > * {
   border: 1px solid #ddd; /* Border to style the card */
   background-color: #e3e1e1; /* Background color */
-  border-radius: 15px; /* Curves the corners of the border */}
+  border-radius: 15px; /* Curves the corners of the border */
+}
 
 .chart {
   grid-column: span 2;
@@ -57,16 +58,44 @@
 .table {
   grid-column: span 3;
 }
+.header {
+  padding: 3rem 2rem 0;
+  color: white;
+  font-size: x-large;
+}
+.sub_header{
+  padding: .5rem 2rem;
+  color: white;
+  font-size: 1rem;
+  font-weight: 300;
+
+}
 
 .tasks {
-  padding: 1rem;
+  .curve {
+    background-color: #10566a;
+
+    /* You can use gradient background color such as */
+    /* background: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.1) 100%); */
+
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+    /* Curved corners */
+    border-bottom-left-radius: 10% 10%;
+    border-bottom-right-radius: 10% 10%;
+
+    /* Size */
+    height: 45%;
+    width: 100%;
+  }
 }
 
 .tasks_grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
-
+  padding: 1rem;
   .icon {
     width: 15%;
     height: auto;
@@ -93,8 +122,16 @@
   }
 }
 
+.sub-text-row{
+  padding: 0px;
+  margin: 0px;
+  font-size: small;
+  font-weight: 600;
+
+}
+
 .tasks_grid > * {
   border: 1px solid #ddd; /* Border to style the card */
-  background-color: #e3e1e1; /* Background color */
-  border-radius: 15px; /* Curves the corners of the border */
+  background-color: #f7f8f8; /* Background color */
+  border-radius: 8px; /* Curves the corners of the border */
 }
