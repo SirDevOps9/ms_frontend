@@ -65,12 +65,12 @@ export class AddPricePolicyComponent implements OnInit {
 
   }
   /////////////////////////////
-  onclick() {
-    console.log(this.data);
+  onclick(data:any) {
+    console.log(data ,"00000000000");
 
     const keys = ['code', 'name', 'uom', 'varient', 'price', 'VAT'];
 
-    const result = this.data.slice(1).map((arr:any) => {
+    const result = data.slice(1).map((arr:any) => {
       return keys.reduce((obj: any, key, index) => {
         obj[key] = arr[index];
         return obj;
@@ -100,41 +100,41 @@ export class AddPricePolicyComponent implements OnInit {
     // console.log(this.pricePolicyFormArray);
     
   }
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const fileType = file.name.split('.').pop().toLowerCase();
-      if (fileType === 'xlsx') {
-        this.readExcelFile(file);
-      } else {
-        console.log('not supported');
-      }
-    }
-  }
+  // onFileSelected(event: any) {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     const fileType = file.name.split('.').pop().toLowerCase();
+  //     if (fileType === 'xlsx') {
+  //       this.readExcelFile(file);
+  //     } else {
+  //       console.log('not supported');
+  //     }
+  //   }
+  // }
 
-  readExcelFile(file: File) {
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      const binaryStr = e.target.result;
-      const workbook = XLSX.read(binaryStr, { type: 'binary' });
-      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-      const json = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-      const keys = ['code', 'name', 'uom', 'varient', 'price', 'vat'];
-      this.data = json
-      // .slice(1).map((arr:any) => {
-      //   return keys.reduce((obj: any, key, index) => {
-      //     obj[key] = arr[index];
-      //     return obj;
-      //   }, {});
-      // });
-      
-      console.log(json,'this.datathis.data');
-    };
+  // readExcelFile(file: File) {
+  //   const reader = new FileReader();
+  //   reader.onload = (e: any) => {
+  //     const binaryStr = e.target.result;
+  //     const workbook = XLSX.read(binaryStr, { type: 'binary' });
+  //     const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+  //     const json = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+  //     const keys = ['code', 'name', 'uom', 'varient', 'price', 'vat'];
+  //     this.data = json
+  //     // .slice(1).map((arr:any) => {
+  //     //   return keys.reduce((obj: any, key, index) => {
+  //     //     obj[key] = arr[index];
+  //     //     return obj;
+  //     //   }, {});
+  //     // });
+  //     this.onclick()
+  //     console.log(json,'this.datathis.data');
+  //   };
     
-    reader.readAsBinaryString(file);
-    console.log(reader.readAsBinaryString(file),'this.datathis.data');
+  //   reader.readAsBinaryString(file);
+  //   console.log(reader.readAsBinaryString(file),'this.datathis.data');
 
-  }
+  // }
   constructor(
     private formBuilder: FormBuilder,
     private formsService: FormsService,

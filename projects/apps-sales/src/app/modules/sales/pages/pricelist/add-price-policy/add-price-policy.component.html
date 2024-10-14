@@ -46,9 +46,8 @@
                         formControlName="uploadPolicy"
 
                         ></lib-text-input> -->
-                        <lib-text-input  type="file" (change)="onFileSelected($event)" iconUrl="pi pi-upload"  accept=".xlsx"></lib-text-input>
-                        <lib-button-micro title="log" nameClass="save" (click)="onclick()">
-                        </lib-button-micro>
+                        <!-- <lib-text-input  type="file" (change)="onFileSelected($event)" iconUrl="pi pi-upload"  accept=".xlsx"></lib-text-input>     -->
+                        <lib-file-uploader [file]="true" (data)="onclick($event)"></lib-file-uploader>                 
                         <lib-field-validations [appControl]="addForm.controls['uploadPolicy']">
 
                         </lib-field-validations>
