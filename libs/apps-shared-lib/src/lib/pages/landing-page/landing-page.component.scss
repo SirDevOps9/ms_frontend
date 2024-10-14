@@ -73,19 +73,15 @@
 
 .tasks {
   .curve {
-    background-color: #10566a;
+    background-color: #10576adf;
 
-    /* You can use gradient background color such as */
-    /* background: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.1) 100%); */
-
+    //  background: linear-gradient(rgba(16, 87, 106, 0.2) 50%, rgba(16, 87, 106, 0.1) 100%);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 
-    /* Curved corners */
     border-bottom-left-radius: 10% 10%;
     border-bottom-right-radius: 10% 10%;
 
-    /* Size */
     height: 45%;
     width: 100%;
   }
@@ -108,7 +104,7 @@
     padding: 1rem;
   }
   .icon-row {
-    margin-bottom: 10px; /* Adds space between the icon and the words */
+    margin-bottom: 16px; /* Adds space between the icon and the words */
   }
 
   .text-row {
@@ -127,6 +123,7 @@
   margin: 0px;
   font-size: small;
   font-weight: 600;
+  color: #565a71;
 
 }
 
@@ -134,4 +131,11 @@
   border: 1px solid #ddd; /* Border to style the card */
   background-color: #f7f8f8; /* Background color */
   border-radius: 8px; /* Curves the corners of the border */
+}
+
+
+.underline {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-color: #b3d8e3 !important;  
 }
