@@ -29,25 +29,28 @@
   height: 100vh;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+
   grid-gap: 2rem;
 }
 
 .parent > * {
-  border: 1px solid #ddd;
-  //background-color: #f1eeee;
-  border-radius: 15px;
+  // border: 1px solid #ddd;
+  // background-color: #f1eeee;
+  // border-radius: 15px;
 }
 
 .cards_container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+
   grid-column: span 2;
   grid-gap: 2rem;
 }
 
 .cards_container > * {
   border: 1px solid #ddd; /* Border to style the card */
-  background-color: #e3e1e1; /* Background color */
+  background-color: #ffff; /* Background color */
   border-radius: 15px; /* Curves the corners of the border */
 }
 
@@ -57,11 +60,15 @@
 
 .table {
   grid-column: span 3;
+  border: 1px solid #ddd; /* Border to style the card */
+  background-color: #ffff; /* Background color */
+  border-radius: 15px; /* Curves the corners of the border */
+  
 }
 .header {
   padding: 3rem 2rem 0;
   color: white;
-  font-size: x-large;
+  font-size: 2rem;
 }
 .sub_header{
   padding: .5rem 2rem;
@@ -72,6 +79,9 @@
 }
 
 .tasks {
+  border: 1px solid #ddd;
+  background-color: white;
+  border-radius: 15px;
   .curve {
     background-color: #10576adf;
 
@@ -87,9 +97,15 @@
   }
 }
 
+.tasks-flex{
+  display: flex;
+  //flex-grow: 1;
+}
 .tasks_grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  //height: 500px;
+
   grid-gap: 1rem;
   padding: 1rem;
   .icon {
@@ -102,6 +118,7 @@
     // flex-direction: column;
     // align-items: flex-start;
     padding: 1rem;
+    //height: 200px;
   }
   .icon-row {
     margin-bottom: 16px; /* Adds space between the icon and the words */
@@ -112,16 +129,16 @@
     margin: 0px;
   }
   .text_letter {
-    margin-top: 12px;
+    margin-top: 40px;
     font-weight: 600;
-    font-size: x-large;
+    font-size: 2.5rem;
   }
 }
 
 .sub-text-row{
   padding: 0px;
   margin: 0px;
-  font-size: small;
+  font-size: 1rem;
   font-weight: 600;
   color: #565a71;
 
@@ -139,3 +156,148 @@
   text-underline-offset: 5px;
   text-decoration-color: #b3d8e3 !important;  
 }
+
+.pie_chart_grid{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+   grid-template-rows: 22% 5% auto;
+}
+
+.pie_chart{
+  width: 40%;
+  height: auto;
+  margin-left: 8px;
+}
+
+.chart_paragraphs{
+  display: flex;
+  justify-items: center;
+  align-items: flex-start;
+  margin: 1rem;
+
+}
+.third_chart_paragraph{
+  justify-self: flex-end;
+
+}
+.chart_paragraphs_grid{
+  display: grid;
+  grid-template-rows: 16% 16% 16%;
+  justify-items: end;
+
+}
+
+// .chart_paragraphs_grid > *{
+//   margin: 8px;
+// }
+
+.chart_p2{
+  color: #000000;
+  font-weight: 500;
+}
+
+.chart_p1{
+  color: #4f536b;
+  font-weight: 500;
+  margin: 0 8px;
+}
+.graph_p1{
+  color: #4f536b;
+  font-weight: 500;
+  margin: 0 8px;
+  padding: 0 1rem;
+}
+.graph_p1{
+  padding: 0 1rem;
+
+}
+
+.curved-line {
+  width: 40px;         
+  height: 5px;       
+  border: 1px solid #50cd89; 
+  border-radius: 50px;  
+  background-color: #50cd89;
+  margin: 8px;
+}
+
+.line{
+  //width: 90%;
+  height: 2px;
+  border: 1px solid #ededed; 
+  background-color: #ededed;
+  grid-column: span 2;
+  margin: 0px 16px;
+
+}
+.chart_title{
+  grid-column: span 2;
+  padding: 24px;
+  font-weight: 500;
+  font-size: 20px;
+  color: #000000;
+
+}
+
+.chart_p1{
+  //margin: 5px;
+
+}
+
+.price {
+  display: flex;
+  margin: 0;
+  padding: 0 1rem;
+  text-align: start;
+  margin-bottom: 10px;
+  padding-inline-end: 40px;
+  .currency{
+    color: #4f536b;
+
+  }
+  .period {
+    color: #50cd89;
+    background-color: #50cd885d;
+    border-radius: 2px;
+    padding: auto;
+    height: 50%;
+    align-self: center;
+    //font-size: 2rem;
+  }
+  .cost {
+    color: #000;
+    // font-weight: 700;
+     font-size: 2rem;
+    margin: 0 2px;
+  }
+}
+
+
+
+.graph{
+  margin: 0 1rem 1rem 1rem;
+}
+
+
+
+.table_container{
+  margin: 2rem;
+ //border: 1px solid #ddd;
+ // background-color: #f1eeee;
+   border-radius: 15px;
+}
+
+// ::ng-deep .p-chart {
+//   width: 600px !important; 
+//   height: 400px !important;
+  
+// }
+
+ th:first-child {
+  border-top-left-radius: 15px;
+}
+
+th:last-child {
+  border-top-right-radius: 15px;
+}
+

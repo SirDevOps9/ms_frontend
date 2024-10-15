@@ -9,12 +9,12 @@ import { SequenceModule } from './modules/sequence/sequence.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { ActtachmentViewComponent } from './pages/attachment-view/acttachment-view/acttachment-view.component';
+import { ChartModule } from 'primeng/chart';
 
-const routes: Routes = [
-  { path: 'attachment-view', component: ActtachmentViewComponent },
-];
+
+const routes: Routes = [{ path: 'attachment-view', component: ActtachmentViewComponent }];
 @NgModule({
-  declarations: [LandingPageComponent  ,ActtachmentViewComponent],
+  declarations: [LandingPageComponent, ActtachmentViewComponent],
   imports: [
     LayoutModule,
     CommonModule,
@@ -25,24 +25,20 @@ const routes: Routes = [
     TranslateModule,
     SharedLibModule,
     SequenceModule,
+    ChartModule,
     RouterModule.forChild(routes), // Add the routes here
 
     TranslateModule.forRoot({
-
-    loader: {
-      provide: TranslateLoader,
-      useFactory: (http: HttpClient) =>
-        new MultiTranslateHttpLoader(http, {
-          resources: [
-            { prefix: './assets/langs/shared /', suffix: '.json' },
-          ],
-        }),
-      deps: [HttpClient],
-    },
-  }),
-
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (http: HttpClient) =>
+          new MultiTranslateHttpLoader(http, {
+            resources: [{ prefix: './assets/langs/shared /', suffix: '.json' }],
+          }),
+        deps: [HttpClient],
+      },
+    }),
   ],
-  exports: [
-  ],
+  exports: [],
 })
 export class AppsSharedLibModule {}
