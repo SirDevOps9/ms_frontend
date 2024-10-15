@@ -26,10 +26,12 @@ export class ItemsProxyService {
   }
   getItemDefinition(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<itemDefinitionDto>> {
     let query = `Item?${pageInfo.toQuery}`;
+    
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
-    return this.httpService.get<PaginationVm<itemDefinitionDto>>(query)
+    
+    return this.httpService.get<PaginationVm<itemDefinitionDto>>(query);
   }
 
   addItemDefinition(obj : AddItemDefinitionDto){

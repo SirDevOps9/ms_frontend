@@ -4,7 +4,7 @@ import { AuthService } from 'microtec-auth-lib';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrl: './layout.component.scss',
+  styleUrl: './layout.component.css',
 })
 export class LayoutComponent {
   constructor(
