@@ -121,7 +121,39 @@
 }
 
 
+@media screen and (min-width:778px) and (max-width:1000px) {
+  .upload-container {
 
+    width: auto !important;
+       height: auto !important;
+      margin: 2px !important;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+}
+
+@media screen and (min-width:1001px) and (max-width:1300px) {
+  .upload-container {
+
+    width: auto !important;
+       height: auto !important;
+      margin: 2px !important;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+}
 /* Card header */
 .card-header {
   background-color: #f5f5f5;
@@ -205,20 +237,4 @@
   max-height: 100%;
   border-radius: 10px;
   object-fit: cover;
-}
-
-
-@media screen and (min-width:770px) and (max-width:1150px) {
-  .upload-container {
-    width: 100% !important;
-       height: 100% !important;
-      margin: 20px;
-    border: 2px dashed #ccc;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-  }
 }

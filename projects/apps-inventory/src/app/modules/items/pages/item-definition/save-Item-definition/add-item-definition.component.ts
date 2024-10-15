@@ -1,7 +1,21 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
-import { customValidators, FormsService, RouterService, SharedLibraryEnums, ToasterService } from 'shared-lib';
+import {
+  customValidators,
+  FormsService,
+  RouterService,
+  SharedLibraryEnums,
+  ToasterService,
+} from 'shared-lib';
 import { AddVariantPopupComponent } from '../../../components/add-variant-popup/add-variant-popup.component';
 import { ViewVariantPopupComponent } from '../../../components/view-variant-popup/view-variant-popup.component';
 import { AddBarcodePopupComponent } from '../../../components/add-barcode-popup/add-barcode-popup.component';
@@ -30,13 +44,12 @@ function uomIdUniqueValidator(formArray: AbstractControl): ValidatorFn {
 @Component({
   selector: 'app-add-item-definition',
   templateUrl: './add-item-definition.component.html',
-  styleUrl: './add-item-definition.component.scss'
+  styleUrl: './add-item-definition.component.scss',
 })
 export class AddItemDefinitionComponent implements OnInit {
-
-  itemDefinitionForm : FormGroup = new FormGroup({})
-  id : number
-  uomLookup : { id: number; name: string }[] = []
+  itemDefinitionForm: FormGroup = new FormGroup({});
+  id: number;
+  uomLookup: { id: number; name: string }[] = [];
   colors = [
     { label: 'Red', value: '#FF0000', icon: 'pi pi-circle' },
     { label: 'Green', value: '#008000', icon: 'pi pi-circle' },
@@ -88,547 +101,493 @@ export class AddItemDefinitionComponent implements OnInit {
     { label: 'Honeydew', value: '#F0FFF0', icon: 'pi pi-circle' },
     { label: 'Azure', value: '#007FFF', icon: 'pi pi-circle' },
   ];
-  ItemCategoryDropDown : { id: number; name: string;  }[] = []
-  tagDropDropDownLookup : { id: number; name: string }[] = []
-  AccountsDropDownLookup : { id: number; name: string }[] = []
-  defualtUnitData : { id: number; name: string } 
-  taxesDropDropDownLookup : { id: number; nameAr: string; nameEn: string }[] = []
-  trackingTrackingLookup : { id: number; name: string }[] = []
-  uomCodeLookup : UomCodeLookup[] = []
-  clonedUomCodeLookup : UomCodeLookup[] = []
-  UOMCategoryDropDown : { id: number; name: string}[] = []
-  itemData : GetItemById
-  codeData :{ code: number; conversionRatio: string}
+  ItemCategoryDropDown: { id: number; name: string }[] = [];
+  tagDropDropDownLookup: { id: number; name: string }[] = [];
+  AccountsDropDownLookup: { id: number; name: string }[] = [];
+  defualtUnitData: { id: number; name: string };
+  taxesDropDropDownLookup: { id: number; nameAr: string; nameEn: string }[] = [];
+  trackingTrackingLookup: { id: number; name: string }[] = [];
+  uomCodeLookup: UomCodeLookup[] = [];
+  clonedUomCodeLookup: UomCodeLookup[] = [];
+  UOMCategoryDropDown: { id: number; name: string }[] = [];
+  itemData: GetItemById;
+  codeData: { code: number; conversionRatio: string };
 
-  ItemVariantsByItemIdDropDown : { id: number; nameEn: string }[] = []
-  constructor(private _router : RouterService,private fb : FormBuilder , private formService : FormsService ,  public sharedLibEnums: SharedLibraryEnums,private dialog : DialogService , private route : ActivatedRoute , private toaserService : ToasterService , private itemService : ItemsService){
-    this.id = this.route.snapshot.params['id']
+  ItemVariantsByItemIdDropDown: { id: number; nameEn: string }[] = [];
+  constructor(
+    private _router: RouterService,
+    private fb: FormBuilder,
+    private formService: FormsService,
+    public sharedLibEnums: SharedLibraryEnums,
+    private dialog: DialogService,
+    private route: ActivatedRoute,
+    private toaserService: ToasterService,
+    private itemService: ItemsService
+  ) {
+    this.id = this.route.snapshot.params['id'];
   }
   ngOnInit(): void {
     this.itemDefinitionForm = this.fb.group({
-      id : this.id,
-      code : [''],
-      name : ['' , [customValidators.required]],
-      photo : [''],
-      categoryId : ['' , [customValidators.required]],
-      countryName : [''],
-      tags : [''],
-      defaultUOMCategoryId : ['' , [customValidators.required]],
-      taxId : [''],
-      shortName : [''],
-      warranty : [''],
-      isVatApplied : [''],
-      specialCare : [''],
-      lifeTime : [''],
-      color : [''],
-      uomId : ['' ],
-      uom : this.fb.array([]),
-      barcode : this.fb.array([]),
-      attribute : this.fb.array([]),
-      hasExpiryDate : [''],
-      trackingId : [''],
-      itemAccounting : this.fb.group({
+      id: this.id,
+      code: [''],
+      name: ['', [customValidators.required]],
+      photo: [''],
+      categoryId: ['', [customValidators.required]],
+      countryName: [''],
+      tags: [''],
+      defaultUOMCategoryId: ['', [customValidators.required]],
+      taxId: [''],
+      shortName: [''],
+      warranty: [''],
+      isVatApplied: [''],
+      specialCare: [''],
+      lifeTime: [''],
+      color: [''],
+      uomId: [''],
+      uom: this.fb.array([]),
+      barcode: this.fb.array([]),
+      attribute: this.fb.array([]),
+      hasExpiryDate: [''],
+      trackingId: [''],
+      itemAccounting: this.fb.group({
         pAccount: 0,
         prAccount: 0,
         sAccount: 0,
-        srAccount: 0
-      })
-    })
+        srAccount: 0,
+      }),
+    });
 
-    this.itemService.variantGeneratedObs.subscribe(res=>{
-      if(res) {
-        this.getItemVariantsByItemIdDropDown()
-
+    this.itemService.variantGeneratedObs.subscribe((res) => {
+      if (res) {
+        this.getItemVariantsByItemIdDropDown();
       }
-    })
+    });
 
-
-
-    // this.addLine() 
-    this.getBarcodeByItemId()
-    this.itemService.getAttributeVariantById(this.id)
-    this.addLineBarcode()
-    this.itemService.sendAttributeVariantDataObs.subscribe(res=>{
-      if(res) {
-        this.AttributeForm.clear()
-        res.forEach(element => {
+    // this.addLine()
+    this.getBarcodeByItemId();
+    this.itemService.getAttributeVariantById(this.id);
+    this.addLineBarcode();
+    this.itemService.sendAttributeVariantDataObs.subscribe((res) => {
+      if (res) {
+        this.AttributeForm.clear();
+        res.forEach((element) => {
           let data = this.fb.group({
             name: element.attributeGroupNameEn,
-            attributeGroupId : element.attributeGroupId,
+            attributeGroupId: element.attributeGroupId,
             status: element.isActive,
-            itemId:element.itemId,
-            id : element.id
-            
-          })
-          this.AttributeForm.push(data)
+            itemId: element.itemId,
+            id: element.id,
+          });
+          this.AttributeForm.push(data);
         });
       }
-    })
-    this.getItemVariantsByItemIdDropDown()
+    });
+    this.getItemVariantsByItemIdDropDown();
 
-    this.itemService.sendBarcode.subscribe(res=>{
-      this.getBarcodeByItemId()
-    })
+    this.itemService.sendBarcode.subscribe((res) => {
+      this.getBarcodeByItemId();
+    });
     // this.itemService.sendUOMObs.subscribe(res=>{
     //   console.log("heey" , res)
     //   this.getUOMByItemId()
     // })
 
-    this.ItemCategoryDropDownData()
-    this.tagDropDropDown()
-    this.taxesDropDropDown()
-    this.UOMCategoryDropDownData()
-    this.AccountsDropDown()
-    this. getTrackingDropDown()
+    this.ItemCategoryDropDownData();
+    this.tagDropDropDown();
+    this.taxesDropDropDown();
+    this.UOMCategoryDropDownData();
+    this.AccountsDropDown();
+    this.getTrackingDropDown();
     // this.itemService.sendDefaultObs.subscribe(res=>{
     //   if(res){
     //     this.getUOMByItemId()
     //   }
     // })
 
-    this.itemService.editItemDataObs.subscribe(res=>{
-      if(res){
-
+    this.itemService.editItemDataObs.subscribe((res) => {
+      if (res) {
       }
-    })
- 
-    this.itemService.getItemById(this.id)
-    this.itemService.GetItemByIDObs.subscribe(res=>{
-        this.itemDefinitionForm.patchValue({...res})
+    });
 
-        this.itemData = res
-        
+    this.itemService.getItemById(this.id);
+    this.itemService.GetItemByIDObs.subscribe((res) => {
+      this.itemDefinitionForm.patchValue({ ...res });
 
-        // console.log(res)
+      this.itemData = res;
 
-        // setTimeout(() => {
-        //   this.itemDefinitionForm.get('defaultUOMCategoryId')?.setValue(res.uomId)
+      // console.log(res)
 
-        // }, 1000);
-      if(res.defaultUOMCategoryId) {
-        this.uomCategoryChanged(res.defaultUOMCategoryId)
+      // setTimeout(() => {
+      //   this.itemDefinitionForm.get('defaultUOMCategoryId')?.setValue(res.uomId)
 
-          this.addLine()
+      // }, 1000);
+      if (res.defaultUOMCategoryId) {
+        this.uomCategoryChanged(res.defaultUOMCategoryId);
 
-  
-        this.getDefaultUnit(res.defaultUOMCategoryId )
+        this.addLine();
+
+        this.getDefaultUnit(res.defaultUOMCategoryId);
       }
 
-
-      if(!!res) {
-        this.getUOMByItemId()
+      if (!!res) {
+        this.getUOMByItemId();
       }
 
       // if(res.uomId) {
       //   this.getUomDropDown(res.uomId)
       //   this.uomCodeDropDown(res.uomId)
       //   this.getDefaultCode(res.uomId)
-     
+
       // }
-      
-    
-    })
-
-   
-
+    });
   }
-
- 
 
   get UOMForm() {
-    return this.itemDefinitionForm.get('uom') as FormArray
+    return this.itemDefinitionForm.get('uom') as FormArray;
   }
   get barcodeForm() {
-    return this.itemDefinitionForm.get('barcode') as FormArray
+    return this.itemDefinitionForm.get('barcode') as FormArray;
   }
   get AttributeForm() {
-    return this.itemDefinitionForm.get('attribute') as FormArray
+    return this.itemDefinitionForm.get('attribute') as FormArray;
   }
 
-  getUomDropDown(id : number) {
-    this.itemService.getUomDropDownByUomCategory(id)
-    this.itemService.UOMDropDownLookupByUomCategoryObs.subscribe(res=>{
-      this.uomLookup = res
-
-     
-    })
+  getUomDropDown(id: number) {
+    this.itemService.getUomDropDownByUomCategory(id);
+    this.itemService.UOMDropDownLookupByUomCategoryObs.subscribe((res) => {
+      this.uomLookup = res;
+    });
   }
 
-  getDefaultUnit(id : number ){
-    this.itemService.getDefaultUnit(id , this.id)
-    this.itemService.defaultUnitObs.subscribe(res=>{
+  getDefaultUnit(id: number) {
+    this.itemService.getDefaultUnit(id, this.id);
+    this.itemService.defaultUnitObs.subscribe((res) => {
+      this.defualtUnitData = res;
 
-      this.defualtUnitData = res
-
-      this.UOMForm.controls[0].get('uomId')?.setValue(res.id)
-      this.UOMForm.controls[0].get('uomNameEn')?.setValue(res.name)
-      if(res.id) {
-        this.getDefaultCode(res.id)
-
+      this.UOMForm.controls[0].get('uomId')?.setValue(res.id);
+      this.UOMForm.controls[0].get('uomNameEn')?.setValue(res.name);
+      if (res.id) {
+        this.getDefaultCode(res.id);
       }
-
-
-
-    
-    })
-
+    });
   }
-  
+
   UOMCategoryDropDownData() {
-    this.itemService.UOMCategoryDropDown()
-    this.itemService.UOMCategoryDropDownLookup.subscribe(res=>{
-      this.UOMCategoryDropDown = res 
-    })
+    this.itemService.UOMCategoryDropDown();
+    this.itemService.UOMCategoryDropDownLookup.subscribe((res) => {
+      this.UOMCategoryDropDown = res;
+    });
   }
   getItemVariantsByItemIdDropDown() {
-    this.itemService.getItemVariantsByItemIdDropDown(this.id)
-    this.itemService.ItemVariantsByItemIdDropDownObs.subscribe(res=>{
-      this.ItemVariantsByItemIdDropDown = res
-    })
+    this.itemService.getItemVariantsByItemIdDropDown(this.id);
+    this.itemService.ItemVariantsByItemIdDropDownObs.subscribe((res) => {
+      this.ItemVariantsByItemIdDropDown = res;
+    });
   }
 
   ItemCategoryDropDownData() {
-    this.itemService.ItemCategoryDropDown()
-    this.itemService.itemCategoryLookupObs.subscribe(res=>{
-      this.ItemCategoryDropDown = res
-    })
+    this.itemService.ItemCategoryDropDown();
+    this.itemService.itemCategoryLookupObs.subscribe((res) => {
+      this.ItemCategoryDropDown = res;
+    });
   }
   // end point
   tagDropDropDown() {
-    this.itemService.tagDropDown()
-    this.itemService.tagLookupObs.subscribe(res=>{
-      this.tagDropDropDownLookup = res
-    })
+    this.itemService.tagDropDown();
+    this.itemService.tagLookupObs.subscribe((res) => {
+      this.tagDropDropDownLookup = res;
+    });
   }
   AccountsDropDown() {
-    this.itemService.AccountsDropDown()
-    this.itemService.AccountsDropDownLookupObs.subscribe(res=>{
-      this.AccountsDropDownLookup = res
-    })
+    this.itemService.AccountsDropDown();
+    this.itemService.AccountsDropDownLookupObs.subscribe((res) => {
+      this.AccountsDropDownLookup = res;
+    });
   }
 
-  uomCategoryChanged(e : any) {
-    this.UOMForm.clear()
-  
-    this.uomCodeDropDown(e)
-    this.getUomDropDown(e)
+  uomCategoryChanged(e: any) {
+    this.UOMForm.clear();
+
+    this.uomCodeDropDown(e);
+    this.getUomDropDown(e);
     // this.getDefaultUnit(e)
   }
-  uomCodeLookupChanged(e:any , itemDefitionForm : FormGroup) {
-    this.getCodeByuomCodeDropDown(e  , itemDefitionForm)
-    
-    itemDefitionForm.controls['uomNameEn'].setValue(this.uomCodeLookup.find(elem=>elem.id == e)?.name)
+  uomCodeLookupChanged(e: any, itemDefitionForm: FormGroup) {
+    this.getCodeByuomCodeDropDown(e, itemDefitionForm);
 
-
+    itemDefitionForm.controls['uomNameEn'].setValue(
+      this.uomCodeLookup.find((elem) => elem.id == e)?.name
+    );
   }
   // end point
   taxesDropDropDown() {
-    this.itemService.taxesDropDropDown()
-    this.itemService.taxesLookupObs.subscribe(res=>{
-      this.taxesDropDropDownLookup = res
-    })
+    this.itemService.taxesDropDropDown();
+    this.itemService.taxesLookupObs.subscribe((res) => {
+      this.taxesDropDropDownLookup = res;
+    });
   }
-  uomCodeDropDown(id:number) {
-    this.itemService.uomCodeDropDown(id)
-    this.itemService.uomCodeLookupObs.subscribe(res=>{
-      this.uomCodeLookup = res
-    })
+  uomCodeDropDown(id: number) {
+    this.itemService.uomCodeDropDown(id);
+    this.itemService.uomCodeLookupObs.subscribe((res) => {
+      this.uomCodeLookup = res;
+    });
   }
-  getCodeByuomCodeDropDown(id:number  , itemDefitionForm: FormGroup) {
-    this.itemService.getCodeByuomCodeDropDown(id).subscribe(res=>{
-      let uomId = itemDefitionForm.get('uomId')?.value
-      let data = {...res , uomId}
-      console.log(data)
+  getCodeByuomCodeDropDown(id: number, itemDefitionForm: FormGroup) {
+    this.itemService.getCodeByuomCodeDropDown(id).subscribe((res) => {
+      let uomId = itemDefitionForm.get('uomId')?.value;
+      let data = { ...res, uomId };
+      console.log(data);
 
-      itemDefitionForm.get('uomCode')?.setValue(data?.code)
-      itemDefitionForm.get('isDefault')?.value == true ? 1 : itemDefitionForm.get('conversionRatio')?.setValue(data?.conversionRatio)
+      itemDefitionForm.get('uomCode')?.setValue(data?.code);
+      itemDefitionForm.get('isDefault')?.value == true
+        ? 1
+        : itemDefitionForm.get('conversionRatio')?.setValue(data?.conversionRatio);
 
-     itemDefitionForm.get('tempConversionRatio')?.setValue(data?.conversionRatio)
+      itemDefitionForm.get('tempConversionRatio')?.setValue(data?.conversionRatio);
 
-      
       // let uomId = itemDefitionForm.get('uomId')?.value
       // this.itemService.codeByuomCodeDropDownObs.subscribe(res=>{
-      //   let data = res 
+      //   let data = res
       //   console.log(data)
-      
+
       // })
-    })
-   
+    });
   }
 
-  getDefaultCode(id:number) {
-    this.itemService.getCodeByuomCodeDropDown(id).subscribe(res=>{
-        this.UOMForm.controls[0].get('uomCode')?.setValue(res.code)
-     this.UOMForm.controls[0].get('isDefault')?.value == true ? this.UOMForm.controls[0].get('conversionRatio')?.setValue(1) : this.UOMForm.controls[0].get('conversionRatio')?.setValue(res.conversionRatio)
+  getDefaultCode(id: number) {
+    this.itemService.getCodeByuomCodeDropDown(id).subscribe((res) => {
+      this.UOMForm.controls[0].get('uomCode')?.setValue(res.code);
+      this.UOMForm.controls[0].get('isDefault')?.value == true
+        ? this.UOMForm.controls[0].get('conversionRatio')?.setValue(1)
+        : this.UOMForm.controls[0].get('conversionRatio')?.setValue(res.conversionRatio);
 
-     this.UOMForm.controls[0].get('tempConversionRatio')?.setValue(res.conversionRatio)
-     
-  
-    })
+      this.UOMForm.controls[0].get('tempConversionRatio')?.setValue(res.conversionRatio);
+    });
     // this.itemService.codeByuomCodeDropDownObs.subscribe(res=>{
     //  this.codeData = res
     //  this.UOMForm.controls[0].get('uomCode')?.setValue(res.code)
     //  this.UOMForm.controls[0].get('isDefault')?.value == true ? this.UOMForm.controls[0].get('conversionRatio')?.setValue(1) : this.UOMForm.controls[0].get('conversionRatio')?.setValue(res.conversionRatio)
     // })
-
   }
   getTrackingDropDown() {
-    this.itemService.getTrackingDropDown()
-    this.itemService.trackingTrackingDropDownObs.subscribe(res=>{
-    this.trackingTrackingLookup = res
-    })
+    this.itemService.getTrackingDropDown();
+    this.itemService.trackingTrackingDropDownObs.subscribe((res) => {
+      this.trackingTrackingLookup = res;
+    });
   }
 
   createUomFormGroup(): FormGroup {
-    
-  
     const uomData = this.fb.group({
       id: [0],
       itemId: [this.id],
-      uomId: [ null,  [customValidators.required]],
-      uomCode: [ null],
-      conversionRatio: [ 1],
+      uomId: [null, [customValidators.required]],
+      uomCode: [null],
+      conversionRatio: [1],
       isDefault: [true],
       isSales: [true],
       isPurchase: [true],
-      uomNameEn: [ ''],
-      tempConversionRatio : ['']
+      uomNameEn: [''],
+      tempConversionRatio: [''],
     });
-  
-   
-  
+
     return uomData;
   }
-  
+
   createbarcodeFormGroup(): FormGroup {
     return this.fb.group({
-      id : null ,
+      id: null,
       barcode: null,
-      uomId: [null , [customValidators.required]],
+      uomId: [null, [customValidators.required]],
       itemVariantId: null,
       sku: null,
-      status: true, 
-      uomName : null,
-      itemVariantName : null
+      status: true,
+      uomName: null,
+      itemVariantName: null,
     });
   }
-  createAttributeFormGroup(res:any): FormGroup {
+  createAttributeFormGroup(res: any): FormGroup {
     return this.fb.group({
       name: res,
-      attributeGroupId : 0,
+      attributeGroupId: 0,
       status: true,
-      itemId : null,
-      id : null
-
+      itemId: null,
+      id: null,
     });
   }
 
   addLine() {
-    
     this.UOMForm.push(this.createUomFormGroup());
   }
   addLineBarcode() {
-
     // const dialogRef = this.dialog.open(AddBarcodePopupComponent, {
-    
+
     //   width: '50%',
     //   height : '450px'
-  
+
     // });
-  
+
     // dialogRef.onClose.subscribe((res) => {
     //   this.barcodeForm.push(this.createbarcodeFormGroup());
     // });
     this.barcodeForm.push(this.createbarcodeFormGroup());
   }
   addLineAttribute() {
-  
     const dialogRef = this.dialog.open(AddVariantPopupComponent, {
-    
       width: '50%',
-      height : '430px',
-      data : this.id
-  
+      height: '430px',
+      data: this.id,
     });
 
     dialogRef.onClose.subscribe((res) => {
-      if(res) {
-        this.AttributeForm.push(this.createAttributeFormGroup(res))
-        this.itemService.getAttributeVariantById(this.id)
-        this.getItemVariantsByItemIdDropDown()
-
+      if (res) {
+        this.AttributeForm.push(this.createAttributeFormGroup(res));
+        this.itemService.getAttributeVariantById(this.id);
+        this.getItemVariantsByItemIdDropDown();
       }
     });
   }
 
   onDelete(i: number) {
     this.UOMForm.removeAt(i);
-  };
-  onDeleteBarcode(itemDefBarcodeGroup: FormGroup , i : number) {
-    if(itemDefBarcodeGroup.get('id')?.value) {
-      this.itemService.deleteBarcode(itemDefBarcodeGroup.get('id')?.value)
-    }else{
-      this.barcodeForm.removeAt(i)
+  }
+  onDeleteBarcode(itemDefBarcodeGroup: FormGroup, i: number) {
+    if (itemDefBarcodeGroup.get('id')?.value) {
+      this.itemService.deleteBarcode(itemDefBarcodeGroup.get('id')?.value);
+    } else {
+      this.barcodeForm.removeAt(i);
     }
-
   }
-  onDeleteAttribute(itemDefAttributeGroup:FormGroup) {
-    this.itemService.deleteVariant(itemDefAttributeGroup.get('id')?.value)
+  onDeleteAttribute(itemDefAttributeGroup: FormGroup) {
+    this.itemService.deleteVariant(itemDefAttributeGroup.get('id')?.value);
   }
 
-
-  async confirmChange(event: any, itemDefAttributeGroup : FormGroup) {
+  async confirmChange(event: any, itemDefAttributeGroup: FormGroup) {
     const confirmed = await this.toaserService.showConfirm('ConfirmButtonTexttochangestatus');
     if (confirmed) {
       const command = {
         id: itemDefAttributeGroup.get('id')?.value,
-       
       };
       this.itemService.ActivateVairiantGroup(command);
-   
     } else {
       // Properly toggle the status value
       const currentStatus = itemDefAttributeGroup.get('status')?.value;
       itemDefAttributeGroup.get('status')?.setValue(!currentStatus);
     }
-    
   }
-  async confirmBarcodeChange(event: any, itemBarcodeGroup : FormGroup) {
+  async confirmBarcodeChange(event: any, itemBarcodeGroup: FormGroup) {
     const confirmed = await this.toaserService.showConfirm('ConfirmButtonTexttochangestatus');
     if (confirmed) {
       const command = {
         id: itemBarcodeGroup.get('itemVariantId')?.value,
-        status : itemBarcodeGroup.get('status')?.value
-       
+        status: itemBarcodeGroup.get('status')?.value,
       };
       this.itemService.ActivateBarcode(command);
-   
     } else {
       // Properly toggle the status value
       const currentStatus = itemBarcodeGroup.get('status')?.value;
       itemBarcodeGroup.get('status')?.setValue(!currentStatus);
     }
-    
   }
 
-  onViewAttribute(form : FormGroup) {
+  onViewAttribute(form: FormGroup) {
     const dialogRef = this.dialog.open(ViewVariantPopupComponent, {
-    
       width: '50%',
-      height : '300px',
+      height: '300px',
 
-      data : form.get('id')?.value
+      data: form.get('id')?.value,
+    });
 
-  
-    });
-  
-    dialogRef.onClose.subscribe((res) => {
-   
-    });
+    dialogRef.onClose.subscribe((res) => {});
   }
- 
-  onSaveBarcode(itemDefBarcodeGroup : FormGroup){
+
+  onSaveBarcode(itemDefBarcodeGroup: FormGroup) {
     if (!this.formService.validForm(this.barcodeForm, false)) return;
 
-    let {barcode , sku,itemVariantId,uomId} = itemDefBarcodeGroup.value
-    return this.itemService.addBarcode({barcode , sku,itemVariantId,uomId})
+    let { barcode, sku, itemVariantId, uomId } = itemDefBarcodeGroup.value;
+    return this.itemService.addBarcode({ barcode, sku, itemVariantId, uomId });
   }
 
-  getBarcodeByItemId(){
-     this.itemService.getBarcodeByItemId(this.id)
-     this.itemService.GetBarcodeObs.subscribe(res=>{
-      if(res) {
-        this.barcodeForm.clear()      
+  getBarcodeByItemId() {
+    this.itemService.getBarcodeByItemId(this.id);
+    this.itemService.GetBarcodeObs.subscribe((res) => {
+      if (res) {
+        this.barcodeForm.clear();
 
-        res.forEach(element => {
+        res.forEach((element) => {
           let data = this.fb.group({
-            id : element.id,
+            id: element.id,
             barcode: element.barcode,
             uomId: element.uomId,
             itemVariantId: element.itemVariantId,
             sku: element.sku,
-            status: element.isActive, 
-            uomName : element.uomName,
-            itemVariantName : element.itemVariantName
-          })
-          this.barcodeForm.push(data)
+            status: element.isActive,
+            uomName: element.uomName,
+            itemVariantName: element.itemVariantName,
+          });
+          this.barcodeForm.push(data);
         });
       }
-    
-     })
-
-  }
-
-  variantChange(e : any , itemDefBarcodeGroup : FormGroup) {
-    let data : any = this.ItemVariantsByItemIdDropDown.find(elem=>elem.id == e)
-    itemDefBarcodeGroup.get('itemVariantName')?.setValue(data.name)
-  }
-  getUOMByItemId(){
-    setTimeout(() => {
-        this.itemService.getUomByItemId(this.id)
-     this.itemService.GetUomListByItemIdObs.subscribe(res=>{
-      if(res.length) {
-        console.log("heey" , res)
-        // this.uomCategoryChanged(this.itemData.defaultUOMCategoryId)
-        this.itemDefinitionForm.get('')
-        this.UOMForm.clear()      
-    
-
-        res.forEach(element => {
-          let data = this.fb.group({
-            id : element.id,
-            itemId: element.itemId,
-            uomId: element.uomId,
-            uomCode : null,
-            tempConversionRatio : [null],
-
-            uomNameEn : element.uomNameEn,
-            conversionRatio: element.isDefault ? 1 : null,
-            isDefault: element.isDefault,
-            isSales: element.isSales,
-            isPurchase: element.isPurchase
-          })
-          this.getCodeByuomCodeDropDown(element.uomId  , data)
-          this.UOMForm.push(data)
-        });
-      }
- 
-     })
-    }, 1000);
-   
-
-  }
-
-  onViewBarcode(itemDefBarcodeGroup : FormGroup) {
-    const dialogRef = this.dialog.open(ViewVariantPopupComponent, {
-    
-      width: '50%',
-      height : '450px',
-
-      data : itemDefBarcodeGroup.get('itemVariantId')?.value
-
-  
     });
   }
-  files(data:any) {
+
+  variantChange(e: any, itemDefBarcodeGroup: FormGroup) {
+    let data: any = this.ItemVariantsByItemIdDropDown.find((elem) => elem.id == e);
+    itemDefBarcodeGroup.get('itemVariantName')?.setValue(data.name);
+  }
+  getUOMByItemId() {
+    setTimeout(() => {
+      this.itemService.getUomByItemId(this.id);
+      this.itemService.GetUomListByItemIdObs.subscribe((res) => {
+        if (res.length) {
+          console.log('heey', res);
+          // this.uomCategoryChanged(this.itemData.defaultUOMCategoryId)
+          this.itemDefinitionForm.get('');
+          this.UOMForm.clear();
+
+          res.forEach((element) => {
+            let data = this.fb.group({
+              id: element.id,
+              itemId: element.itemId,
+              uomId: element.uomId,
+              uomCode: null,
+              tempConversionRatio: [null],
+
+              uomNameEn: element.uomNameEn,
+              conversionRatio: element.isDefault ? 1 : null,
+              isDefault: element.isDefault,
+              isSales: element.isSales,
+              isPurchase: element.isPurchase,
+            });
+            this.getCodeByuomCodeDropDown(element.uomId, data);
+            this.UOMForm.push(data);
+          });
+        }
+      });
+    }, 1000);
+  }
+
+  onViewBarcode(itemDefBarcodeGroup: FormGroup) {
+    const dialogRef = this.dialog.open(ViewVariantPopupComponent, {
+      width: '50%',
+      height: '450px',
+
+      data: itemDefBarcodeGroup.get('itemVariantId')?.value,
+    });
+  }
+  files(data: any) {
     // this.filesData = data
   }
 
-  openBarcode(barcode:string) {
+  openBarcode(barcode: string) {
     const dialogRef = this.dialog.open(AddBarcodePopupComponent, {
-    
       width: '50%',
-      height : '330px',
+      height: '330px',
 
-      data : barcode
-
-  
+      data: barcode,
     });
   }
-  addUOM(itemDefGroup : FormGroup) {
-
+  addUOM(itemDefGroup: FormGroup) {
     // if (!this.formService.validForm(this.UOMForm, false)) return;
-
     // let data : AddUom = {
     //   id: itemDefGroup.get('id')?.value,
     //   itemId: itemDefGroup.get('itemId')?.value,
@@ -639,89 +598,70 @@ export class AddItemDefinitionComponent implements OnInit {
     //   isPurchase: itemDefGroup.get('isPurchase')?.value,
     // }
     //  this.itemService.addUOM(data)
-     
   }
-  openQRcode(barcode:string) {
+  openQRcode(barcode: string) {
     const dialogRef = this.dialog.open(ViewQRcodeComponent, {
-    
       width: '50%',
-      height : '440px',
+      height: '440px',
 
-      data : barcode
-
-  
+      data: barcode,
     });
   }
 
- async defualtChanged(e:any , itemDefinition : FormGroup) {
-  // const defaultUom = this.uomCodeLookup.find((elem) => elem.isDefault);
+  async defualtChanged(e: any, itemDefinition: FormGroup) {
+    // const defaultUom = this.uomCodeLookup.find((elem) => elem.isDefault);
 
+    let conversionRatioTemp = itemDefinition.get('tempConversionRatio')?.value;
 
-  let conversionRatioTemp = itemDefinition.get('tempConversionRatio')?.value;
+    console.log(conversionRatioTemp);
+    console.log(itemDefinition.get('conversionRatio')?.value);
+    console.log(e);
 
-  console.log(conversionRatioTemp)
-  console.log( itemDefinition.get('conversionRatio')?.value)
-  console.log( e)
-
-
-
-  if(e == true) {
-    itemDefinition.get('conversionRatio')?.setValue(1);
-  }else{
-
-    itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
+    if (e == true) {
+      itemDefinition.get('conversionRatio')?.setValue(1);
+    } else {
+      itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
     }
-  
 
-  
-  
+    if (itemDefinition.get('id')?.value) {
+      const confirmed = await this.toaserService.showConfirm('ConfirmButtonTexttochangestatus');
+      if (confirmed) {
+        // if(e == true) {
+        //   itemDefinition.get('conversionRatio')?.setValue(1);
+        // }else{
 
-      if(itemDefinition.get('id')?.value) {
-        const confirmed = await this.toaserService.showConfirm('ConfirmButtonTexttochangestatus');
-        if (confirmed) {
-          // if(e == true) {
-          //   itemDefinition.get('conversionRatio')?.setValue(1);
-          // }else{
-        
-          //   itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
-          //   }
-          
-          let obj : UomDefault = {
-            isDefault: e,
-            itemId: +this.id,
-            uomId: itemDefinition.get('uomId')?.value
-          }
-          this.itemService.setUomDefault(obj)
-          
-       
-        } else {
-          // Properly toggle the status value
-          // if(e == true) {
-          //   itemDefinition.get('conversionRatio')?.setValue(1);
-          // }else{
-        
-          //   itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
-          // e =! e
+        //   itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
+        //   }
 
-          console.log(conversionRatioTemp)
-          console.log( itemDefinition.get('conversionRatio')?.value)
-          console.log( e)
-          itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
-        
-          //   }
-          const currentStatus = itemDefinition.get('isDefault')?.value;
-          itemDefinition.get('isDefault')?.setValue(!currentStatus);
-        }
-      
+        let obj: UomDefault = {
+          isDefault: e,
+          itemId: +this.id,
+          uomId: itemDefinition.get('uomId')?.value,
+        };
+        this.itemService.setUomDefault(obj);
+      } else {
+        // Properly toggle the status value
+        // if(e == true) {
+        //   itemDefinition.get('conversionRatio')?.setValue(1);
+        // }else{
+
+        //   itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
+        // e =! e
+
+        console.log(conversionRatioTemp);
+        console.log(itemDefinition.get('conversionRatio')?.value);
+        console.log(e);
+        itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
+
+        //   }
+        const currentStatus = itemDefinition.get('isDefault')?.value;
+        itemDefinition.get('isDefault')?.setValue(!currentStatus);
       }
-
-
-    
-   
+    }
   }
 
   generateVariant() {
-    this.itemService.generateVariant({itemId:this.id})
+    this.itemService.generateVariant({ itemId: this.id });
   }
 
   saveUom() {
@@ -729,12 +669,12 @@ export class AddItemDefinitionComponent implements OnInit {
 
     let data = this.UOMForm.value.map((elem: ItemUom) => {
       return {
-        itemId: this.id,  // Assuming this.id is available
+        itemId: this.id, // Assuming this.id is available
         uomId: elem.uomId,
         conversionRatio: elem.conversionRatio,
         isDefault: elem.isDefault,
         isSales: elem.isSales,
-        isPurchase: elem.isPurchase
+        isPurchase: elem.isPurchase,
       };
     });
 
@@ -747,10 +687,11 @@ export class AddItemDefinitionComponent implements OnInit {
     //   isSales: itemDefGroup.get('isSales')?.value,
     //   isPurchase: itemDefGroup.get('isPurchase')?.value,
     // }
-     this.itemService.addUOM({itemUOMs : data})
+    this.itemService.addUOM({ itemUOMs: data });
   }
 
   onSave() {
+  
     if (!this.formService.validForm(this.itemDefinitionForm, false)) return;
 
     const {
@@ -770,37 +711,33 @@ export class AddItemDefinitionComponent implements OnInit {
       lifeTime,
       tags,
       taxId,
-      itemAccounting
+      itemAccounting,
     } = this.itemDefinitionForm.value;
-   let itemData = {
-    id,
-    code,
-    name,
-    shortName,
-    warranty,
-    isVatApplied,
-    color,
-    specialCare,
-    countryName,
-    categoryId,
-    photo,
-    trackingId,
-    hasExpiryDate,
-    lifeTime,
-    tags,
-    taxId,
-    itemAccounting
-    
-  }
-  // itemData.warranty = Number(itemData.warranty)
-   itemData.tags = itemData.tags ? itemData.tags : []
-     this.itemService.editItem(itemData)
+    let itemData = {
+      id,
+      code,
+      name,
+      shortName,
+      warranty,
+      isVatApplied,
+      color,
+      specialCare,
+      countryName,
+      categoryId,
+      photo,
+      trackingId,
+      hasExpiryDate,
+      lifeTime,
+      tags: tags ? tags : [],
+      taxId,
+      itemAccounting,
+    };
+    itemData.tags = itemData.tags ? itemData.tags : [];
+    this.itemService.editItem(itemData);
+    this.itemDefinitionForm.reset();
   }
 
   onCancel() {
-    this._router.navigateTo(`/masterdata/item-definition` )
-
+    this._router.navigateTo(`/masterdata/item-definition`);
   }
 }
-
-

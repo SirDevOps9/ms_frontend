@@ -234,6 +234,8 @@ export class ItemsService {
     this.itemProxy.getItemDefinition(quieries, pageInfo).subscribe((response) => {
       this.sendItemDefinitionDataSource.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
+   this.loaderService.hide();   
+    },error =>{ 
       this.loaderService.hide();
     });
   }
@@ -817,7 +819,7 @@ this.loaderService.hide();
   editItem(obj: any) {
     return this.itemProxy.editItem(obj).subscribe((res) => {
       if (res) {
-        this.editItemData.next(res);
+        this.editItemData.next(res); // Notify other components or listeners about the successful edit
         this.toasterService.showSuccess(
           this.languageService.transalte('itemType.success'),
           this.languageService.transalte('itemType.itemEdit')
@@ -826,7 +828,8 @@ this.loaderService.hide();
       }
     });
   }
-
+  
+ 
   //  warehouse
   getWarehouseList(queries: string, pageInfo: PageInfo) {
     this.itemProxy.getWarehouseList(queries, pageInfo).subscribe((response) => {

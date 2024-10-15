@@ -136,16 +136,6 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.ITEM_CATEGORY
         },
       },
-
-      {
-        path: ' attribute-definition',
-        component: AttributeDefinitionComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.ITEM_CATEGORY
-        },
-      },
-
-     
       
     ]
   }

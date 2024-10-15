@@ -47,7 +47,7 @@ export class AttributeDefinitionListComponent implements OnInit {
 
     this.itemService.listOfAttrDifinition$.subscribe({
       next: (res) => {
-        debugger
+    
         this.tableData = res;
       },
     });
@@ -78,19 +78,19 @@ export class AttributeDefinitionListComponent implements OnInit {
 
     this.itemService.listOfAttrDifinition$.subscribe({
       next: (res) => {
-        debugger
+    
         this.tableData = res;
       },
     });
   }
 
   exportClick(e?: Event) {
-    debugger
+
     this.exportAttrData(this.searchTerm);
   }
 
   exportAttrData(searchTerm: string) {
-    debugger
+
     this.itemService.exportAttrDifinitionList(searchTerm)
 
     this.itemService.SendexportAttrDifinitionList$.subscribe((res)=>{
