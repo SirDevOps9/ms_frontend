@@ -26,7 +26,6 @@ import { UOMListComponent } from './pages/unit-of-major/uom-list/uom-list.compon
 import { UOMAddComponent } from './pages/unit-of-major/uom-add/uom-add.component';
 import { UOMEditComponent } from './pages/unit-of-major/uom-edit/uom-edit.component';
 import { UOMMainComponent } from './pages/unit-of-major/UOM-main/UOM-main.component';
-import { ViewItemDefinitionComponent } from './components/view-item-definition/view-item-definition/view-item-definition.component';
 import { AddWarehousePopupComponent } from './components/warehouse/add-warehouse-popup/add-warehouse-popup.component';
 import { AddAttributeDefinitionComponent } from './pages/attribute-definition/add-attribute-definition/add-attribute-definition.component';
 import { AttributeDefinitionListComponent } from './pages/attribute-definition/attribute-definition-list/attribute-definition-list.component';
@@ -263,11 +262,12 @@ const routes: Routes = [
       },
       
     ]
-  }
-]
-    ],
-  },
-];
+  
+
+    
+  
+
+}]
 @NgModule({
   declarations: [
     ItemDefinitionListComponent,
@@ -307,14 +307,7 @@ const routes: Routes = [
     AddStockInComponent,
     MainWarehouseComponent,
     ViewItemDefinitionComponent,
-    ScanbarcodeComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    SharedLibModule,
-    ZXingScannerModule
-  ]
+    ScanbarcodeComponent,
     ViewItemDefinitionComponent,
     MainStockInListComponentComponent,
     ItemDefinitionGeneralComponent,
@@ -323,6 +316,10 @@ const routes: Routes = [
     ItemDefinitionBarcodeComponent,
     ItemDefinitionInventoryComponent,
   ],
+
+
+ 
+  
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })
 export class ItemsModule {}

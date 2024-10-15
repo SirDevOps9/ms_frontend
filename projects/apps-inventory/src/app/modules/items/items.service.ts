@@ -274,17 +274,7 @@ this.loaderService.hide();
   }
 
 
-  ViewDefinitionById(id: number) {
-    this.loaderService.show();
-    this.itemProxy.GetUOMCategories(quieries, pageInfo).subscribe((response) => {
-      console.log(response)
-       this.GetUOMCategoriesDataSource.next(response.result);
-      this.currentPageInfo.next(response.pageInfoResult);
-      this.loaderService.hide();
-    },erorr=>{
-      this.loaderService.hide();
-    });
-  }
+
   getStockIn(quieries: string, pageInfo: PageInfo) {
     this.loaderService.show();
     this.itemProxy.getStockIn(quieries, pageInfo).subscribe((response) => {
