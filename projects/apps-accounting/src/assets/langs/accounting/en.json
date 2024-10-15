@@ -15,9 +15,10 @@
     "EditJournalEntryOpeningBalance": "Edit Journal Entry Opening Balance",
     "ViewJournalEntryOpeningBalance": "View Journal Entry Opening Balance",
     "CostCenterReport": "Cost Center Report",
-    "VendorOpeningBalance":"Vendor Opening Balance",
-    "EditVendorOpeningBalance":"Edit Vendor Opening Balance",
-    "AddVendorOpeningBalance":"Add Vendor Opening Balance"
+    "VendorOpeningBalance": "Vendor Opening Balance",
+    "EditVendorOpeningBalance": "Edit Vendor Opening Balance",
+    "AddVendorOpeningBalance": "Add Vendor Opening Balance",
+    "sequence": "sequence"
   },
   "COAConfigration": {
     "Success": "Success",
@@ -60,7 +61,8 @@
     "ChooseAnAccount": "Choose An Account",
     "Select": "Select",
     "Id": "Id",
-    "levelNumber": "Account Level"
+    "levelNumber": "Account Level",
+    "Status": "Status"
   },
   "Journal": {
     "Title": "Journal Entry List",
@@ -69,7 +71,7 @@
     "ViewJournal": "View Journal Entry",
     "Success": "Success",
     "Error": "Error",
-    "save" : "Save Draft",
+    "save": "Save Draft",
     "cannotDuplicate": "Can not distribute for the same cost center more than one time",
     "UpdatedSuccessfully": "Journal Updated Successfully",
     "AddedSuccessfully": "Journal Added Successfully",
@@ -77,8 +79,9 @@
     "id": "ID",
     "journalCode": "Journal Code",
     "referenceNumber": "Reference",
-    "createdOn": "Date",
+    "CreatedOn": "Date",
     "type": "Type",
+    "sourceDocumentName": "Source Document Name",
     "sourceName": "Document Name",
     "sourceCode": "Document Code",
     "isRepeated": "Repeated",
@@ -96,8 +99,8 @@
     "posted": "Posted",
     "yes": "Yes",
     "no": "No",
-    "CostCenterNotAllowed":"This Account doesn't allow cost centers",
-    "InvalidAmount":"please enter valid debit or credit amounts"
+    "CostCenterNotAllowed": "This Account doesn't allow cost centers",
+    "InvalidAmount": "please enter valid debit or credit amounts"
   },
   "JournalTitle": "Add Journal",
   "journal_entry_header": "Please Enter journal entry Header",
@@ -149,7 +152,7 @@
     "Actions": "Actions",
     "Delete": "Delete",
     "AddNewLine": "Add New Line",
-    "add" : "Add",
+    "add": "Create",
     "Discard": "Discard",
     "Save": "Save",
     "Submit": "Submit",
@@ -184,8 +187,8 @@
     "type": "Type",
     "totalDebitAmountLocal": "Total Debit Amount",
     "totalCreditAmountLocal": "Total Credit Amount",
-    "total" : "Total",
-    "add" : "Add"
+    "total": "Total",
+    "add": "Create"
   },
   "OpeningBalance": {
     "Title": "Journal Entry Opening Balance List",
@@ -200,7 +203,7 @@
   },
   "TaxGroup": {
     "Title": "Tax Group List",
-    "AddTaxGroup": "Add",
+    "AddTaxGroup": "Create",
     "EditTaxGroup": "Edit",
     "Success": "Success",
     "Error": "Error",
@@ -215,11 +218,11 @@
     "type": "type",
     "CountryName": "Country Name",
     "TaxGrouplist": "Tax Group list",
-    "AddNew": "Add",
+    "AddNew": "Create",
     "Search": "Search",
     "Actions": "Actions",
     "Add": {
-      "AddTaxGroup": "Add",
+      "AddTaxGroup": "Create",
       "Code": "Code",
       "Name": "Name",
       "type": "type",
@@ -238,11 +241,12 @@
   },
   "Tax": {
     "Title": "Tax List",
-    "AddTax": "Add",
+    "AddTax": "Create",
     "EditTax": "Edit",
     "Success": "Success",
     "TaxName": "Tax Name",
-    "AddTaxDefinition": "Add",
+    "AddTaxDefinition": "Create",
+    "EditTaxDefinition": "Edit",
     "TaxCode": "Tax Code",
     "Ratio": "Ratio",
     "GlAccount": "GL Account",
@@ -255,7 +259,7 @@
     "Name": "Name",
     "Account": "Account",
     "Search": "Search",
-    "AddNew": "Add",
+    "AddNew": "Create",
     "Export": "Export",
     "CannotEditTaxGroupUsedInTransactions": "Cannot Edit Tax Group Used In Transactions",
     "CannotDeleteTaxUsedInTransactions": "Cannot Delete Tax Used In Transactions",

@@ -172,10 +172,12 @@ export class TranscationsService {
       },
       error: (error) => {
         this.loaderService.hide();
-        this.toasterService.showError(
-          this.languageService.transalte('Error'),
-          this.languageService.transalte(error.message)
-        );
+        if (error.messageCode != 4001) {
+          this.toasterService.showError(
+            this.languageService.transalte('Error'),
+            this.languageService.transalte(error.message)
+          );
+        }
       },
     });
   }
@@ -197,10 +199,12 @@ export class TranscationsService {
       },
       error: (error) => {
         this.loaderService.hide();
-        this.toasterService.showError(
-          this.languageService.transalte('Error'),
-          this.languageService.transalte(error.message)
-        );
+        if (error.messageCode != 4001) {
+          this.toasterService.showError(
+            this.languageService.transalte('Error'),
+            this.languageService.transalte(error.message)
+          );
+        }
       },
     });
   }

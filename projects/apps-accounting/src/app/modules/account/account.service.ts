@@ -232,10 +232,9 @@ export class AccountService {
   addAccount(command: AddAccountDto) {
     this.accountproxy.addAccount(command).subscribe({
       next: (res) => {
-        this.savedAccountDataSource.next(res);
+        this.savedAccountDataSource?.next(res);
       },
       error: (err) => {
-        this.toasterService.showError('Error', err.message);
       },
     });
   }
@@ -255,10 +254,6 @@ export class AccountService {
       },
       error: (error) => {
         this.loaderService.hide();
-        this.toasterService.showError(
-          this.languageService.transalte('ChartOfAccounts.Error'),
-          error.message
-        );
       },
     });
   }

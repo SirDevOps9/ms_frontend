@@ -67,6 +67,9 @@ export class JournalEntryProxy {
   deleteJounralEntryLine(id: number): Observable<JournalEntryStatus> {
     return this.httpService.delete<number>(`JournalEntry/DeleteLine?Id=${id}`);
   }
+  DeleteAttachment(id: number): Observable<any> {
+    return this.httpService.delete<number>(`JournalEntry/DeleteAttachment?Id=${id}`);
+  }
   deleteJournalEntryLineOpeningBalance(id: number): Observable<JournalEntryStatus> {
     return this.httpService.delete<number>(`OpeningBalanceJournalEntry/DeleteLine?Id=${id}`);
   }
@@ -109,5 +112,9 @@ export class JournalEntryProxy {
   getOpenFinancialPeriodDate(): Observable<GetOpenFinancialPeriodDate>{
     return this.httpService.get<GetOpenFinancialPeriodDate>(`FinancialYear/GetOpenFinancialPeriodDate`);
   }
+  getOpenFinancialYearDate(): Observable<GetOpenFinancialPeriodDate>{
+    return this.httpService.get<GetOpenFinancialPeriodDate>(`FinancialYear/GetOpenFinancialYearDate`);
+  }
+
   constructor(private httpService: HttpService) {}
 }

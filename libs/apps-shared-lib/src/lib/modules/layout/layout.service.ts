@@ -45,4 +45,34 @@ export class LayoutService {
   }
 
   constructor(private localStorageService: StorageService, private layoutProxy: LayoutProxy) {}
+
+  public branceDropDown = new BehaviorSubject<{id:string , name : string,isDefault : boolean}[]>([]);
+  public branceDropDown$ = this.branceDropDown.asObservable();
+  public companyListDropDown = new BehaviorSubject<{id:string , name : string,companyType : string}[]>([]);
+  public companyListDropDown$ = this.companyListDropDown.asObservable();
+
+  companiesDropDown() {
+    this.layoutProxy.companiesDropDown().subscribe({
+      next: (res) => {
+        this.companyListDropDown.next(res);
+        
+      },
+      error:(err: any)=>{
+        return
+      }
+    });
+  }
+  branchesDropDown(id: string) {
+
+    this.layoutProxy.branchesDropDown(id).subscribe({
+      next: (res) => {
+        this.branceDropDown.next(res);
+        
+      },
+      error:(err: any)=>{
+        return
+      }
+    });
+  }
+
 }

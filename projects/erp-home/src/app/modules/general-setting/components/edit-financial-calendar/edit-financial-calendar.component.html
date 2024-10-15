@@ -1,4 +1,5 @@
 <lib-page-content>
+  <div class="card_micro">
   <div class="chart_add_page p">
     <form [formGroup]="formGroup">
       <div class="grid">
@@ -102,7 +103,7 @@
     >
     </lib-button>
   </div>
-
+</div>
   <div class="user_pages" *ngIf="tableData?.length">
     <lib-data-table
       [items]="tableData"

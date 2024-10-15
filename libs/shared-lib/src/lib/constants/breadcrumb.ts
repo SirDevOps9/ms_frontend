@@ -45,12 +45,14 @@ export class BreadcrumbLabel {
   static readonly EMPLOYEE_VIEW='BreadCrumb.ViewEmployee';
   static readonly EMPLOYEE_EDIT='BreadCrumb.EditEmployee';
   static readonly COST_CENTER_REPORT = 'BreadCrumb.CostCenterReport';
+  
 
   static ADD_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.AddCustomerOpeningBalance';
   static EDIT_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.EditCustomerOpeningBalance';
   static CUSTOMER_OPENEING_BALANCE_List ='BreadCrumb.CustomerOpeningBalanceList';
   static VIEW_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.ViewCustomerOpeningBalance';
   static SEQUENCE ='BreadCrumb.sequence';
+  static DASHBOARD ='BreadCrumb.Dashboard';
 
 
 
@@ -85,7 +87,6 @@ export class BreadcrumbLabel {
     static ADD_CURRENCY_DEFINITION ='Add Currency Definition';
 
  
-    static DASHBOARD ='Dashboard';
 
     static JOURNAL_OPENING_BALANCE ='Journal Entry Opening Balance';
     static ADD_JOURNAL_OPENING_BALANCE ='Add Journal Entry Opening Balance';
@@ -93,11 +94,13 @@ export class BreadcrumbLabel {
     static VIEW_JOURNAL_OPENING_BALANCE ='View Journal Entry Opening Balance';
     static  ITEM_DIFINITION ='item Definition';
     static  ADD_ITEM_DIFINITION ='Add Item Definition';
+    static  EDIT_ITEM_DIFINITION ='Edit Item Definition';
     static  ITEM_TYPE ='Item Type';
     static  ITEM_CATEGORY ='Item Category';
     static  WARE_HOUSE ='Warehouse';
+    static  UNITOFMEASURE = 'Unit Of Measure';
     static  ADD_WARE_HOUSE ='Add Warehouse';
-    static  UOM ='UOM';
+    static  UOM = 'UOM';
     static  UOM_LIST ='uom-list';
     static  ADD_UOM ='UOM Add';
     static  Edit_UOM ='edit uom';
@@ -125,7 +128,7 @@ export class BreadcrumbLabel {
     
     static PAYMENT_IN ='BreadCrumb.PaymentIn';
     static ADD_PAYMENT_IN ='PaymentIn.addpaymentin';
-    static EDIT_PAYMENT_IN ='Edit Payment In';
+    static EDIT_PAYMENT_IN ='BreadCrumb.EditPaymentIn';
 
     static PAYMENT_IN_LIST ='BreadCrumb.PaymentInList';
 
@@ -144,5 +147,10 @@ export class BreadcrumbLabel {
 
     static BANK_ACCOUNT_STATEMENT ='BreadCrumb.BankAccountStatement';
     static TREASURY_STATEMENT ='BreadCrumb.TreasuryStatement';
+    static VIEW_BANK_DEFINATION ='BreadCrumb.ViewBankDefination';
+    static VIEW_PAYMENT_TERM ='BreadCrumb.ViewPaymentTerm';
+
+
+
 
   }

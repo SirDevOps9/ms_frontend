@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -24,6 +24,7 @@ import {
   ButtonComponent,
   SharedFormComponent,
   ToggelComponent,
+  EditMultipeFilesComponent,
 } from './form-components';
 import { DropdownModule } from 'primeng/dropdown';
 import { GetLookupPipe } from './pipes/lookupList';
@@ -55,7 +56,10 @@ import { NumberFormatPipe } from './pipes/number-format.pipe';
 import { PopupPageComponent } from './components/popup-page/popup-page.component';
 import { NumberFormatDirective } from './directives/numberFormatDirective';
 import { QRCodeModule } from 'angularx-qrcode';
+
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { ActtachmentViewComponent } from 'libs/apps-shared-lib/src/lib/pages/attachment-view/acttachment-view/acttachment-view.component';
+
 
 @NgModule({
   declarations: [
@@ -74,6 +78,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     FileUploaderComponent,
     NamedFileUploaderComponent,
     MultiSelectComponent,
+    EditMultipeFilesComponent,
     DataTableComponent,
     AttachmentViewerComponent,
     ButtonComponent,
@@ -137,6 +142,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     PrimeSharedModule,
     FileUploaderComponent,
     MultiSelectComponent,
+    EditMultipeFilesComponent,
     DataTableComponent,
     AttachmentViewerComponent,
     ButtonComponent,

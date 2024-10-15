@@ -29,7 +29,7 @@ export class CalendarComponent implements ControlValueAccessor {
 
   writeValue(value: Date): void {
     if (value) {
-      this.value = value;
+      this.value = this.convert_to_local_date(value);
     }
   }
 
@@ -46,10 +46,12 @@ export class CalendarComponent implements ControlValueAccessor {
   }
 
   handleDateChange(event: any): void {
-    this.value = event;
+    const parsedDate = new Date(event);
+    const localDate = this.convert_to_local_date(parsedDate);
+    this.value = localDate;
     this.onChange(this.value);
     this.onTouched();
-    this.valueChanged.emit(this.value);
+    this.valueChanged.emit(localDate);
   }
 
   ngAfterViewInit() {
@@ -60,4 +62,11 @@ export class CalendarComponent implements ControlValueAccessor {
     }
   }
 
+  convert_to_local_date(date: Date) {
+    // debugger;
+    const currentDate = new Date(date);
+    currentDate.setMinutes(currentDate.getMinutes() - currentDate.getTimezoneOffset());
+
+    return currentDate;
+  }
 }

@@ -1,5 +1,6 @@
 <lib-page-content>
   <div class="user_page group">
+    <div class="card_micro">
     <form [formGroup]="accountStatementForm">
       <div class="group">
         <div class="calender">
@@ -51,14 +52,18 @@
         <div class="grid">
           <div class="col-12 md:col-5">
             <lib-form-group>
-              <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input>
+              <!-- <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input> -->
+              <lib-calendar formControlName="dateFrom" [placeholder]="fromDate" ></lib-calendar>
+
               <lib-field-validations [appControl]="accountStatementForm.controls['dateFrom']">
               </lib-field-validations>
             </lib-form-group>
           </div>
           <div class="col-12 md:col-4">
             <lib-form-group>
-              <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input>
+              <!-- <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input> -->
+              <lib-calendar formControlName="dateTo" [placeholder]="toDate" ></lib-calendar>
+
               <lib-field-validations [appControl]="accountStatementForm.controls['dateTo']">
               </lib-field-validations>
             </lib-form-group>
@@ -80,6 +85,7 @@
         </div>
       </div>
     </form>
+    </div>
     <div class="mb-4" *ngIf="tableData">
       <lib-data-table
         id="printableTable"

@@ -1,9 +1,9 @@
 //@import "../../../../assets/styling/scss/variables/font-family";
 .journal_entry_add_page {
   .entry_header {
-    background: #f7f8f8;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    padding: 20px;
+    // background: #f7f8f8;
+    // box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    // padding: 20px;
     margin-bottom: 20px;
     .title {
       font-size: 18px;
@@ -124,4 +124,15 @@
        font-weight: bold !important;
     }
   }
+}
+.code{
+  background: #D8DBDF !important;
+  color: #1a90b0 !important;
+  padding: 5px 16px !important;
+  cursor: pointer;
+}
+.code{
+  padding: 5px 16px !important;
+  background: #D8DBDF !important;
+
 }

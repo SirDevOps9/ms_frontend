@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { FinanceService } from 'projects/apps-finance/src/app/modules/finance/finance.service';
-import { PageInfoResult, RouterService, LanguageService, PageInfo } from 'shared-lib';
+import { PageInfoResult, RouterService, LanguageService, PageInfo, ToasterService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { IAttrributeDifinitionResult } from '../../../models/AttrbuteDiffintion';
 
@@ -20,10 +20,12 @@ export class AttributeDefinitionListComponent implements OnInit {
   searchTerm: string;
   exportData: IAttrributeDifinitionResult[];
   exportColumns:any[]
+action: any;
 
   constructor(
     private routerService: RouterService,
     private itemService : ItemsService,
+    private toasterService: ToasterService,
 
     public authService: AuthService,
     private dialog: DialogService,
@@ -47,7 +49,11 @@ export class AttributeDefinitionListComponent implements OnInit {
 
     this.itemService.listOfAttrDifinition$.subscribe({
       next: (res) => {
+<<<<<<< HEAD
     
+=======
+        
+>>>>>>> feature/me-1917/warehouse
         this.tableData = res;
       },
     });
@@ -78,19 +84,31 @@ export class AttributeDefinitionListComponent implements OnInit {
 
     this.itemService.listOfAttrDifinition$.subscribe({
       next: (res) => {
+<<<<<<< HEAD
     
+=======
+        
+>>>>>>> feature/me-1917/warehouse
         this.tableData = res;
       },
     });
   }
 
   exportClick(e?: Event) {
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> feature/me-1917/warehouse
     this.exportAttrData(this.searchTerm);
   }
 
   exportAttrData(searchTerm: string) {
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> feature/me-1917/warehouse
     this.itemService.exportAttrDifinitionList(searchTerm)
 
     this.itemService.SendexportAttrDifinitionList$.subscribe((res)=>{
@@ -112,6 +130,46 @@ onDelete(id: number) {
 
 }
 
+onToggleActive(newStatus: boolean, id: number): void {
+  // Find the row with the corresponding ID and update its isActive value
+  const index = this.tableData.findIndex(item => item.id === id);
+  if (index !== -1) {
+    this.tableData[index].isActive = newStatus;
 
+    // Optionally, trigger a save/update action
+    this.saveChanges(this.tableData[index]);
+  }
+}
+
+saveChanges(updatedRow: any): void {
+  // // Implement the logic to save the changes (e.g., send to the server)
+  // this.attributeService.updateAttribute(updatedRow.id, updatedRow).subscribe(response => {
+  //   console.log('Updated successfully');
+  // });
+}
+
+async confirmChange(newValue: boolean, user: any) {
+  user.isActive =!user.isActive
+  const confirmed = await this.toasterService.showConfirm('ConfirmButtonTexttochangestatus');
+
+  if (confirmed) {
+    const command = {
+      id: user.id,
+      status: user.isActive,
+    };
+
+    
+    this.itemService.editStatusAttributeGroup(command)
+    let audio = new Audio();
+          
+    audio.src = 'assets/notification-sound/done.wav';
+    audio.load();
+    audio.play();
+  } else {
+    user.isActive =!user.isActive
+
+    console.log('Change was canceled', user.isActive);
+  }
+}
 
 }

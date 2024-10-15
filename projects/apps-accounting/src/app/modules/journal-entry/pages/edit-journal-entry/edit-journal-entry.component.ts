@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   EditJournalEntry,
+  EditJournalEntryAttachment,
   GetJournalEntryByIdDto,
   JournalEntryLineDto,
   JournalEntryStatus,
@@ -10,9 +11,12 @@ import {
 } from '../../models';
 import { JournalEntryService } from '../../journal-entry.service';
 import {
+  AttachmentsService,
+  ComponentType,
   FormsService,
   LanguageService,
   PageInfo,
+  Pages,
   RouterService,
   ToasterService,
   customValidators,
@@ -30,6 +34,8 @@ import { EditCostCenterAllocationPopupComponent } from '../components/edit-cost-
 import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 import { CostCenterAllocationPopupComponent } from '../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
+import { Router } from '@angular/router';
+import { AttachmentsComponent } from '../../components/attachments/attachments.component';
 
 @Component({
   selector: 'app-edit-journal-entry',
@@ -62,6 +68,7 @@ export class EditJournalEntryComponent implements OnInit {
   creditLocal: string;
 
   currentAccounts: number[] = [];
+  journalEntryAttachment:EditJournalEntryAttachment[]
   isPatching: boolean = false;
 
   ngOnInit() {
@@ -105,6 +112,7 @@ export class EditJournalEntryComponent implements OnInit {
       totalDebitAmount: new FormControl(),
       totalCreditAmount: new FormControl(),
       journalEntryLines: this.fb.array([]),
+      journalEntryAttachments: this.fb.array([]),
     });
   }
 
@@ -113,14 +121,17 @@ export class EditJournalEntryComponent implements OnInit {
     this.journalEntryService.getJournalEntryById(this.routerService.currentId).subscribe((res) => {
       this.editJournalForm.patchValue({
         ...res,
-        journalDate: new Date(res.journalDate),
+        // journalDate: new Date(res.journalDate),
       });
+       this.editJournalForm.value.journalEntryAttachments = res.journalEntryAttachments 
       if (
         res.status === this.enums.JournalEntryStatus.Posted ||
         res.status === this.enums.JournalEntryStatus.Submitted
       ) {
         this.viewMode = true;
       }
+      this.journalEntryAttachment = res.journalEntryAttachments
+      
       this.statusName = res.status;
       this.journalTypeName = res.type;
 
@@ -172,10 +183,10 @@ export class EditJournalEntryComponent implements OnInit {
 
   onSubmit() {
     if (!this.formsService.validForm(this.editJournalForm, false)) return;
-
+     this.editJournalForm.value.journalEntryAttachments= this.journalEntryAttachment
     const request: EditJournalEntry = this.editJournalForm.value;
     request.id = this.routerService.currentId;
-    request.journalDate = this.convertDateFormat(request.journalDate);
+    // request.journalDate = this.convertDateFormat(request.journalDate);
 
     request.journalEntryLines = request.journalEntryLines?.map((item) => {
       item.costCenters = item.costCenters
@@ -193,6 +204,7 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   ChangeStatus(status: JournalEntryStatus) {
+    
     let journalStatus = new JournalStatusUpdate();
     journalStatus.id = this.routerService.currentId;
     journalStatus.status = status;
@@ -266,13 +278,19 @@ export class EditJournalEntryComponent implements OnInit {
 
     const id = this.journalEntryLinesFormArray.length + 1;
     //controls
-    const dbControl = new FormControl(0, [customValidators.required,customValidators.nonNegativeNumbers]);
-    const crControl = new FormControl(0, [customValidators.required, customValidators.nonNegativeNumbers]);
+    const dbControl = new FormControl(0, [
+      customValidators.required,
+      customValidators.nonNegativeNumbers,
+    ]);
+    const crControl = new FormControl(0, [
+      customValidators.required,
+      customValidators.nonNegativeNumbers,
+    ]);
     const currencyControl = new FormControl(null, customValidators.required);
     const rateControl = new FormControl<number | null>(null, [
       customValidators.required,
       customValidators.nonNegativeNumbers,
-        ]);
+    ]);
     //events
     dbControl.valueChanges.subscribe((value) => {
       if (rateControl.value) {
@@ -577,7 +595,19 @@ export class EditJournalEntryComponent implements OnInit {
     );
     return totalPercentage;
   }
+  routeToPaymentInView(id: number) {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/finance/transcations/paymentin/view/${id}`])
+    );
+    window.open(url, '_blank');
+  }
 
+  routeToPaymentOutView(id: number) {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/finance/transcations/paymentout/view/${id}`])
+    );
+    window.open(url, '_blank');
+  }
   convertDateFormat(data: Date | string) {
     const date = new Date(data);
 
@@ -589,6 +619,23 @@ export class EditJournalEntryComponent implements OnInit {
     // Format the date into YYYY-MM-DD
     return `${year}-${month}-${day}`;
   }
+  openAttachments() {
+    const dialog = this.dialog.open(AttachmentsComponent, {
+      width: '1200px',
+      height: '1000px',
+      data: {
+        journalEntryAttachments: this.journalEntryAttachment,
+        screen: Pages.JournalEntry,
+        page: ComponentType.edit,
+      }
+    });
+  
+    dialog.onClose.subscribe((newFiles: any) => {
+        this.journalEntryAttachment = newFiles
+      
+    });
+  }
+  
   constructor(
     private journalEntryService: JournalEntryService,
     private routerService: RouterService,
@@ -602,7 +649,9 @@ export class EditJournalEntryComponent implements OnInit {
     private titleService: Title,
     private langService: LanguageService,
     private currentUserService: CurrentUserService,
-    public generalService: GeneralService
-  ) {
-  }
+    public generalService: GeneralService,
+    private router: Router,
+    private attachmentService: AttachmentsService,
+
+  ) {}
 }

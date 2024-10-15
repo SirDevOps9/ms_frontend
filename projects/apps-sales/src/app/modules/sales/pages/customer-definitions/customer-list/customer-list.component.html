@@ -5,6 +5,7 @@
         [items]="tableData"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
+        (addNew)="routeToAdd()"
         (pageChange)="onPageChange($event)"
         [tableConfigs]="{
               allowPagination: false,
@@ -58,17 +59,17 @@
                ]
             }"
       >
-        <ng-container search> <div>
-          <lib-text-input
-            type="text"
-            [placeholder]="'customerDefinition.Search' | translate"
-            (keyUp)="onSearchChange($event)"
-            [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
-          >
-          </lib-text-input>
-        </div></ng-container>
+        <ng-container search>
+          <div>
+            <lib-text-input
+              type="text"
+              [placeholder]="'customerDefinition.Search' | translate"
+              (keyUp)="onSearchChange($event)"
+              [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+            >
+            </lib-text-input></div
+        ></ng-container>
         <ng-container action>
-          
           <lib-export
             (exportClick)="exportCustomersData($event)"
             [exportData]="exportData"
@@ -76,15 +77,14 @@
             [ExportName]="'Customers'"
           >
           </lib-export>
-            <lib-button-micro
-              nameClass="save"
-              [title]="'customerDefinition.add' | translate"
-              (click)="routeToAdd()"
-            >
-            </lib-button-micro>
-
+          <lib-button-micro
+            nameClass="save"
+            [title]="'customerDefinition.add' | translate"
+            (click)="routeToAdd()"
+            [iconName]="'pi pi-plus'"
+          >
+          </lib-button-micro>
         </ng-container>
-
 
         <ng-template #actions let-actions>
           <div class="actions flex align-items-center">

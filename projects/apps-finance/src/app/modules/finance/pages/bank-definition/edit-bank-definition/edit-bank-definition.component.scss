@@ -1,3 +1,5 @@
+
+
 ::ng-deep .bank {
     .p-datatable.p-datatable-gridlines:has(.p-datatable-thead):has(.p-datatable-tbody) .p-datatable-tbody > tr > td {
         border-width: 0 0 1px 1px;
@@ -9,3 +11,18 @@
 .pointer {
     cursor: pointer;
 }
+    .add_new {
+      padding: 20px 0;
+      .btn {
+        background: none;
+        border: none;
+        font-size: 16px;
+        color: #1a90b0;
+        cursor: pointer;
+      }
+      .Line {
+        border-inline-end: 3px solid #dde1e6ed;
+      }
+    }
+    
+  

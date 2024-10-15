@@ -1,3 +1,23 @@
+body{
+  background-color: #f7f7fa !important;
+
+}
+.card_micro{
+  margin-top: 16px;
+  background: #fff;
+  padding: 16px;
+  border-radius: 16px;
+}
+.card:has(table) {
+  margin-top: 16px !important;
+  background: #fff !important;
+  padding: 16px !important;
+  border-radius: 16px !important;
+}
+.add_new{
+  padding: 20px 0 0 0 !important;
+}
+
 [dir='rtl'] {
   .p-breadcrumb svg {
     rotate: (180deg);
@@ -5,24 +25,12 @@
 
   p-tree {
     .p-treenode-content::before {
-      content: '' !important;
-      position: absolute !important;
-      top: 3px !important;
       right: -2px !important;
-      width: 20px !important;
-      height: 20px !important;
-      border-bottom-right-radius: 100%;
-      border-bottom: 2px solid #5f0000;
+      transform: rotate(270deg);
     }
 
     p-treenode li::before {
-      content: '' !important;
-      position: absolute !important;
-      top: 0 !important;
       right: 0px !important;
-      width: 1px !important;
-      height: 100% !important;
-      background: #d8dbdf !important;
     }
 
     .p-treenode-content svg {
@@ -38,6 +46,10 @@
     padding: 0 10px;
   }
 
+  .p-datatable-header .p-paginator .p-paginator-current {
+    margin-left: auto;
+  }
+
   .p-paginator {
     button > .p-icon-wrapper {
       transform: rotate(180deg);
@@ -50,3 +62,15 @@
     }
   }
 }
+.pragraph_demd{
+  padding: 5px 16px !important;
+    background: #efefef;
+    border: 1px solid #e3e3e3;
+    transition: none !important;
+    border-radius: 6px;
+    width: 100% !important;
+  }
+  .p-paginator .p-dropdown {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }

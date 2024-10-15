@@ -3,12 +3,12 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { LayoutService } from 'apps-shared-lib';
 import { DynamicDialogConfig, DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
-import { MenuModule, FormsService, customValidators } from 'shared-lib';
+import { MenuModule, FormsService, customValidators, PageInfo } from 'shared-lib';
 import { CurrencyService } from '../../../general/currency.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
 
 import { FinanceService } from '../../finance.service';
-import { AddTreasuryDto } from '../../models';
+import { AccountDto, AddTreasuryDto } from '../../models';
 import { ConfirmComponent } from '../confirm/confirm.component';
 import { NoChildrenAccountsComponent } from '../bank/no-children-accounts/no-children-accounts.component';
 
@@ -25,6 +25,7 @@ export class AddTreasuryComponent implements OnInit {
   currenciesList: CurrencyDto[];
   branchesLookup: { id: number; name: string }[];
   accountsLookup: { id: number; name: string }[];
+  filteredAccounts: AccountDto[] = [];
 
   constructor(
     public config: DynamicDialogConfig,
@@ -43,7 +44,7 @@ export class AddTreasuryComponent implements OnInit {
     this.initializeTreasuryForm();
     this.getCurrencies();
     this.getBranchLookup();
-    this.getChildrenAccountsDropDownLookup();
+    this.getAccounts();
     // this.treasuryForm.get('accountId')!.valueChanges.subscribe(value => {
 
     //   this.GetAccountOpeningBalance(value);
@@ -52,7 +53,6 @@ export class AddTreasuryComponent implements OnInit {
 
   moudlelist() {
     this.modulelist = this.layoutService.getModules();
-    console.log(this.modulelist);
   }
 
   getCurrencies() {
@@ -67,9 +67,33 @@ export class AddTreasuryComponent implements OnInit {
     });
   }
 
-  getChildrenAccountsDropDownLookup() {
-    this.financeService.getChildrenAccountsDropDownLookup().subscribe((res) => {
-      this.accountsLookup = res;
+  // getChildrenAccountsDropDownLookup() {
+  //   this.financeService.getChildrenAccountsDropDownLookup().subscribe((res) => {
+  //     this.accountsLookup = res;
+  //   });
+  // }
+
+  onFilter(event: any) {
+    this.financeService.getAccountsHasNoChildrenNew(event, new PageInfo());
+
+    this.financeService.childrenAccountList.subscribe((res: any) => {
+      if (res.length) {
+        this.filteredAccounts = res.map((account: any) => ({
+          ...account,
+          displayName: `${account.name} (${account.accountCode})`,
+
+        }));
+
+      }
+    });
+  }
+
+  getAccounts() {
+    this.financeService.getAccountsHasNoChildren('', new PageInfo()).subscribe((r) => {
+      this.filteredAccounts = r.result.map((account) => ({
+        ...account,
+        displayName: `${account.name} (${account.accountCode})`,
+      }));
     });
   }
 

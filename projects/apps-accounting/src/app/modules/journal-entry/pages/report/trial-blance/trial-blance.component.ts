@@ -1,22 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { reportTrialDto } from '../../../models';
 import {
   DateTimeService,
   LanguageService,
-  PageInfo,
   PrintService,
-  RouterService,
   ToasterService,
   customValidators,
 } from 'shared-lib';
-import { Title } from '@angular/platform-browser';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { AccountDto, AccountsChildrenDropDown } from '../../../../account/models';
+import { AccountsChildrenDropDown } from '../../../../account/models';
 import { AccountService } from '../../../../account/account.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 import { Router } from '@angular/router';
-import { NoChildrenAccountsComponent } from '../../../components/noChildrenAccounts/nochildaccounts.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { MultiSelectDetailedAccountsComponent } from '../../../components/multi-select-detailed-accounts/multi-select-detailed-accounts.component';
 
@@ -45,8 +41,8 @@ export class TrialBlanceComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.tableData = []
-    this.initializeForm()
+    this.tableData = [];
+    this.initializeForm();
     this.getAccounts();
     this.initializeDates();
     this.reportTrialForm.valueChanges.subscribe((res) => {
@@ -64,8 +60,6 @@ export class TrialBlanceComponent implements OnInit {
         displayName: `${account.name} (${account.accountCode})`,
       }));
     });
-
-    
   }
   initializeForm() {
     this.reportTrialForm = this.fb.group({
@@ -157,7 +151,6 @@ export class TrialBlanceComponent implements OnInit {
   }
   routeTo(id: number) {
     const test = location.href.split('/');
-    console.log(test[3]);
     const url = this.router.serializeUrl(
       this.router.createUrlTree([`${test[3]}/transcations/account-statement/${id}`])
     );
@@ -169,12 +162,9 @@ export class TrialBlanceComponent implements OnInit {
       height: '600px',
     });
     ref.onClose.subscribe((selectedAccounts: AccountsChildrenDropDown[]) => {
-      console.log('rrrr', selectedAccounts);
-
       if (selectedAccounts) {
         const selectedIds = selectedAccounts.map((acc) => acc.id);
         this.reportTrialForm.get('Accounts')?.setValue(selectedIds);
-        console.log('rrrr', selectedIds);
       }
     });
   }

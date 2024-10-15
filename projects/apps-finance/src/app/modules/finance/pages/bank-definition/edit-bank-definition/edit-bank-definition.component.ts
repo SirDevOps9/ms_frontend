@@ -39,8 +39,7 @@ export class EditBankDefinitionComponent implements OnInit {
     private languageService: LanguageService,
     private route: ActivatedRoute,
     private titleService: Title
-  ) {
-  }
+  ) {}
   branchesLookup: { id: number; name: string }[];
   accountsLookup: { id: number; name: string }[];
   currenciesList: CurrencyDto[];
@@ -84,13 +83,18 @@ export class EditBankDefinitionComponent implements OnInit {
         this.bankForm.at(index)?.get('glAccountId')?.setValue(r.id);
         this.bankForm.at(index)?.get('accountName')?.setValue(r.name);
         this.bankForm.at(index)?.get('accountCode')?.setValue(r.accountCode);
-      }
+        this.bankForm.at(index)?.get('displayName')?.setValue(r.accountCode);
+        this.bankForm.at(index)?.get('currencyId')!.setValue(r.currencyId);
+        let data: any = this.currenciesList.find((item) => item.id == r.currencyId);
+        this.bankForm.at(index)?.get('currencyName')?.setValue(data.name);
+        this.GetAccountOpeningBalance(r.id, index);
+      }     
+
     });
   }
   getBankInfoById(id: number) {
     this.financeService.getBankDefinitionByID(id);
     this.financeService.sendBankByIDObservable.subscribe((res) => {
-      console.log(res);
       this.items.clear();
       this.bankormGroup.patchValue({ ...res });
       if (res?.bankAccounts?.length) {
@@ -98,15 +102,16 @@ export class EditBankDefinitionComponent implements OnInit {
           let bankGroup = this.fb.group({
             id: elem.id,
             accountNumber: new FormControl(elem.accountNumber, Validators.required),
-            glAccountId: elem.glAccountId,
+            glAccountId: elem.glAccountId == 0 ? null : elem.glAccountId,
             iban: elem.iban,
             currencyId: elem.currencyId,
             openingBalance: elem.openingBalance,
-            currentBalance: null,
+            currentBalance: elem.currentBalance,
             accountName: elem.glAccountName,
             currencyName: null,
             branchName: null,
             accountCode: elem.glAccountCode,
+            displayName:elem.glAccountCode,
             userPermission: [elem.userPermission],
             userPermissionName: '',
             branches: [elem.branches],
@@ -116,7 +121,6 @@ export class EditBankDefinitionComponent implements OnInit {
           this.branchSelected(elem.branches, bankGroup, i);
           this.userPermissionSelect(elem.userPermission, bankGroup, i);
           this.currencyselected(elem.currencyId, bankGroup, i);
-          this.GetAccountCurrentBalance(elem.id, i);
         });
       }
     });
@@ -140,12 +144,17 @@ export class EditBankDefinitionComponent implements OnInit {
     const bankLine = this.items.at(id);
     var accountData: any = this.filteredAccounts.find((c) => c.id == event);
     if (accountData) {
+    
       bankLine.get('glAccountId')!.setValue(accountData.id);
-      bankLine.get('accountNumber')!.setValue(accountData.accountCode);
+     // bankLine.get('accountNumber')!.setValue(accountData.accountCode);
       bankLine.get('accountName')!.setValue(accountData.name);
+      bankLine.get('currencyId')!.setValue(accountData.currencyId);
+      bankLine.get('displayName')?.setValue(accountData.accountCode);
+      let data: any = this.currenciesList.find((item) => item.id == accountData.currencyId);
+      bankLine?.get('currencyName')?.setValue(data.name);
+      this.GetAccountOpeningBalance(event, id);
+
     }
-    this.GetAccountOpeningBalance(event, id);
-    console.log(this.items.value);
   }
   createBankFormGroup(): FormGroup {
     return this.fb.group({
@@ -153,8 +162,11 @@ export class EditBankDefinitionComponent implements OnInit {
       accountNumber: new FormControl('', customValidators.required),
       glAccountId: null,
       iban: new FormControl(null),
-      currencyId: null,
-      openingBalance: new FormControl('', [customValidators.required,customValidators.nonNegativeNumbers]),
+      currencyId: new FormControl('', customValidators.required),
+      openingBalance: new FormControl('', [
+        customValidators.required,
+        customValidators.nonNegativeNumbers,
+      ]),
       currentBalance: null,
       accountName: null,
       currencyName: null,
@@ -162,22 +174,24 @@ export class EditBankDefinitionComponent implements OnInit {
       displayName: null,
       userPermission: [],
       userPermissionName: '',
-      branches: [],
+      branches: new FormControl('', customValidators.required),
     });
   }
 
   addLine() {
-    this.items.push(this.createBankFormGroup());
+    if(!this.formsService.validForm(this.bankForm ,false)) return
+
+    const newline = this.createBankFormGroup();
+    newline.get('branches')?.setValue([this.branchesLookup[0].id.toString()]);
+    newline.get('branchName')?.setValue([this.branchesLookup[0].name]);
+
+    this.items.push(newline);
   }
 
-  deleteLine(index: number): void {
-    if (index >= 0 && index < this.bankForm.length) {
-      this.bankForm.removeAt(index);
-    }
-  }
+
   branchSelected(event: any, bankForm: FormGroup, i: number) {
-    let data = this.branchesLookup.filter((item) => event.includes(item.id));
-    let branchName = data.map((elem) => elem.name);
+    let data = this.branchesLookup?.filter((item) => event.includes(item.id));
+    let branchName = data?.map((elem) => elem.name);
     bankForm.controls['branchName'].setValue(branchName);
   }
 
@@ -202,7 +216,6 @@ export class EditBankDefinitionComponent implements OnInit {
   getBranchLookup() {
     this.financeService.getBranchLookup().subscribe((res) => {
       this.branchesLookup = res;
-      console.log(res);
     });
   }
 
@@ -219,29 +232,23 @@ export class EditBankDefinitionComponent implements OnInit {
   }
   GetAccountOpeningBalance(id: number, index: number) {
     const bankLine = this.items.at(index);
-  }
-  GetAccountCurrentBalance(id: number, index: number) {
-    const bankLine = this.items.at(index);
 
-    this.financeService.GetAccountBalance(id);
-
-    this.financeService.AccountBalanceObservable.subscribe((res) => {
+    this.financeService.GetAccountOpeningBalance(id).subscribe((res) => {
       if (res) {
+        this.OpeningBalanceData = res;
         const currentBalance = bankLine.get('currentBalance');
-        currentBalance?.setValue(res);
+        currentBalance?.setValue(res.balance);
+      } else {
+        const currentBalance = bankLine.get('currentBalance');
+        currentBalance?.setValue('0');
       }
     });
   }
 
-  validateBalance(id: number,currentBalance: any, openBalance: any) {
-    console.log('Current', currentBalance);
-    console.log('OpenBalance', openBalance);
-    console.log('id', id);
-    if(id ==0)
-      return false;
-    if(!currentBalance)
-      currentBalance="";
-    if (currentBalance !== openBalance ) return true;
+  validateBalance(id: number, currentBalance: any, openBalance: any) {
+    if (id == 0) return false;
+    if (!currentBalance) currentBalance = '';
+    if (currentBalance !== openBalance) return true;
 
     return false;
   }
@@ -249,10 +256,19 @@ export class EditBankDefinitionComponent implements OnInit {
     this.routerService.navigateTo('/masterdata/bank-definition');
   }
 
-  onDelete(i: number) {
-    this.items.removeAt(i);
+  
+  onDelete(id: number, index: number): void {
+    if (id == 0) {
+      this.items.removeAt(index);
+    } else {
+      this.financeService.deleteBankAccount(id);
+      this.financeService.bankAccountDeletedObser.subscribe((res: boolean) => {
+        if (res == true) {
+          this.items.removeAt(index);
+        }
+      });
+    }
   }
-
   onSave() {
     this.openingBalanceDataList = [];
     let data: any = { ...this.bankormGroup.value, bankAccounts: this.items.value };
@@ -261,7 +277,7 @@ export class EditBankDefinitionComponent implements OnInit {
     if (!this.formsService.validForm(this.bankormGroup, false)) return;
     if (!this.formsService.validForm(this.items, false)) return;
     let formData = this.items.value;
-    formData.forEach((element: any) => {
+    formData?.forEach((element: any) => {
       let accountBalance = element.currentBalance;
       let openingBalance = Number(element.openingBalance);
       if (accountBalance !== openingBalance) {
@@ -273,7 +289,7 @@ export class EditBankDefinitionComponent implements OnInit {
           height: '330px',
           data: this.openingBalanceDataList,
         });
-        dialogRef.onClose.subscribe((res) => {
+        dialogRef?.onClose.subscribe((res) => {
           if (res) {
             this.financeService.editBankDefinition(data);
           }
@@ -285,4 +301,5 @@ export class EditBankDefinitionComponent implements OnInit {
       this.financeService.editBankDefinition(data);
     }
   }
+  
 }
