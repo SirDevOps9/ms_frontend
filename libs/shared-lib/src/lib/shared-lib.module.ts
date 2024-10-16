@@ -24,6 +24,8 @@ import {
   ButtonComponent,
   SharedFormComponent,
   ToggelComponent,
+  
+
 } from './form-components';
 import { DropdownModule } from 'primeng/dropdown';
 import { GetLookupPipe } from './pipes/lookupList';
@@ -53,6 +55,7 @@ import { NumberFormatPipe } from './pipes/number-format.pipe';
 import { PopupPageComponent } from './components/popup-page/popup-page.component';
 import { NumberFormatDirective } from './directives/numberFormatDirective';
 import { QRCodeModule } from 'angularx-qrcode';
+import { ColumnsSelectionComponent } from './form-components/columns-selection/columns-selection.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +96,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     ExportComponent,
     ChangeColumnComponent,
     NumberFormatPipe,
-    PopupPageComponent,
+    PopupPageComponent,ColumnsSelectionComponent
   ],
   imports: [
     HttpClientModule,
@@ -158,7 +161,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     NumberFormatPipe,
     PopupPageComponent,
     NumberFormatDirective,
-    QRCodeModule
+    QRCodeModule,ColumnsSelectionComponent
   ],
 })
 export class SharedLibModule {}

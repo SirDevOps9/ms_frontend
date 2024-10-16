@@ -1,9 +1,9 @@
 <div class="viewInWeb" [ngClass]="{ popup: popup }">
   <div class="row">
     <div>
+
       <p-table
         *ngIf="items"
-        #dt
         [value]="items"
         [rows]="tableConfigs.pageSize"
         [paginator]="tableConfigs.allowPagination"
@@ -21,17 +21,33 @@
         [resizableColumns]="resizableColumns"
         [ngClass]="{ empty: items.length <= 0, popup: popup }"
       >
-        <!-- [class.none]="currentPageResult.totalItems! <= 25" -->
         <ng-template pTemplate="caption">
           <div class="col-12 md:col-4">
-            <lib-multi-select
+            <lib-columns-selection
             [formControl]="searchColumnsControl"
             [options]="filtered_columns"
-              optionValue="name"
-              optionLabel="name"
-              [placeholder]="'reportCost.Select' | translate"
-  
-            ></lib-multi-select>
+            [(ngModel)]="selected_filtered_columns"
+            optionLabel="name"
+            optionValue="name"
+            [className]="'pi pi-list'"
+            (filterColumns)="handleFilterColumns($event)"
+            >
+            </lib-columns-selection>
+         
+            <!-- <p-multiSelect
+            [formControl]="searchColumnsControl"
+            [options]="filtered_columns"
+            [(ngModel)]="selected_filtered_columns"
+            optionLabel="name"
+            optionValue="name"
+            [placeholder]="'bars' | translate"
+            [style]="{ 'min-width': '50px' }"
+            [panelStyle]="{ width: '300px' }"
+          >
+            <ng-template pTemplate="selectedItems">
+              <i class="pi pi-list"></i>
+            </ng-template>
+          </p-multiSelect> -->
           </div>
           <div class="parent">
             <ng-content select="[search]">

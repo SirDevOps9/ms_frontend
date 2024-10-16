@@ -61,37 +61,16 @@ export class DataTableComponent implements OnInit, OnChanges {
   selected_filtered_columns: any[] = [];
   searchColumnsControl = new FormControl([]);
 
-  pTaple = viewChild('dt', { read: Table });
 
   ngOnInit(): void {
-    // this.handleFilterColumns();
-    this.searchColumnsControl.valueChanges
-      .pipe(tap((res) => this.handleFilterColumns(res || [])))
-      .subscribe();
 
     this.filtered_columns = this.tableConfigs.columns;
-    console.log(this.globalFilterFields);
-    console.log(this.tableConfigs);
-    console.log(this.selected_filtered_columns);
+    this.selected_filtered_columns = this.filtered_columns.map(option => option.name);
+    this.searchColumnsControl.setValue(this.selected_filtered_columns as any);
 
-    console.log(this.tableConfigs);
     this.globalFilterFields = this.tableConfigs.columns
       .filter((c) => c.isSortable)
       .map((c) => c.name);
-    // this.generalService.sendColumns.next(this.globalFilterFields);
-    // this.generalService.sendFullColumns.next(this.tableConfigs.columns);
-    // this.generalService.sendColumns.next(this.globalFilterFields)
-    // this.generalService.sendFullColumns.next(this.tableConfigs.columns)
-
-    //  this.reactToColumnChanges()
-
-    // console.log( this.globalFilterFields)
-
-    // this.generalService.sendPageChangesFromMainPaginationsObs.subscribe(res=>{
-    //   console.log(res)
-    // })
-
-    // this.reactToColumnChanges();
   }
 
   reactToColumnChanges() {
@@ -169,27 +148,13 @@ export class DataTableComponent implements OnInit, OnChanges {
     private routerService: RouterService
   ) {}
 
-  filterList: any[];
 
-  // handleFilterColumns() {
-  //   this.searchColumnsControl = new FormControl([]);
-  //   this.searchColumnsControl.valueChanges.subscribe((selectedColumns: string[]) => {
-  //     debugger
-  //     console.log('Selected columns:', selectedColumns);
-  //     console.log(
-
-  //      this.clonedList =   this.tableConfigs.columns.filter(x=>selectedColumns.includes(x.name))
-  //     );
-
-  // })
-  // }
   handleFilterColumns(selectedColumns: string[]) {
-    // Listen to changes in the FormControl's value
-
-    // If no columns are selected, restore the original columns
+    
     if (selectedColumns.length === 0) {
-      this.tableConfigs.columns = [...this.clonedTableConfigs.columns]; // Restore original columns
-    } else {
+      this.tableConfigs.columns = [...this.clonedTableConfigs.columns]; 
+    } 
+    else {
       const columns = [...this.clonedTableConfigs.columns];
 
       const filteredColumns = columns.filter((col) =>
@@ -197,7 +162,6 @@ export class DataTableComponent implements OnInit, OnChanges {
       );
 
       this.tableConfigs.columns = [...filteredColumns];
-      this.pTaple()?.cd.detectChanges();
     }
   }
 }
