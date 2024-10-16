@@ -1,11 +1,10 @@
 <lib-page-content>
   <div [formGroup]="itemDefinitionForm" class="new_employee">
 
-      <div class="grid">
+      <div class="grid mainGrid" >
         <div class="" style="width: 20%;">
           <div class="sidebar">
             <ul>
-              <li [class.active]="findRoute('main')">{{ 'itemType.main' | translate }}</li>
               <li [class.active]="findRoute('general')">{{ 'itemType.general' | translate }}</li>
               <li [class.active]="findRoute('uom')">{{ 'itemType.uom' | translate }}</li>
               <li [class.active]="findRoute('attributes')">{{ 'itemType.attributes' | translate }}</li>

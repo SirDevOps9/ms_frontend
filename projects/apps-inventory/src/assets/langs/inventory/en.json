@@ -11,7 +11,7 @@
   "itemType": {
     "vat" : "Vat Applied",
     "code": "Code",
-    "main" : "Main",
+    "main" : "Main Information",
     "attributeName" : "Attribute Name",
     "nameEn": "Name En",
     "nameAr": "Name Ar",
