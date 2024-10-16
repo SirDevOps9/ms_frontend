@@ -106,8 +106,12 @@ export class AddItemDefinitionComponent implements OnInit {
   ItemVariantsByItemIdDropDown : { id: number; nameEn: string }[] = []
   constructor(private _router : RouterService,private fb : FormBuilder , private formService : FormsService ,  public sharedLibEnums: SharedLibraryEnums,private dialog : DialogService , private route : ActivatedRoute , private toaserService : ToasterService , private itemService : ItemsService){
     this.id = this.route.snapshot.params['id']
+    console.log(this._router.getCurrentUrl())
+
+    
   }
   ngOnInit(): void {
+    
          this.getUomDropDown(this.id)
 
     this.itemDefinitionForm = this.fb.group({
@@ -251,6 +255,14 @@ export class AddItemDefinitionComponent implements OnInit {
 
   }
 
+  findRoute(routeFragment: string): boolean {
+    if (!routeFragment) {
+      return false; // Return false if the routeFragment is empty or null
+    }
+
+    // Check if the current URL contains the given route fragment
+    return this._router.getCurrentUrl().includes(`/${routeFragment}`);
+  }
 
 
  
