@@ -125,7 +125,8 @@
     "viewVariant": "View",
     "itemTracking": "Item Tracking",
     "SelectItemTracking": "Select Item Tracking",
-    "hasExpiry": "Has Expiry Date"
+    "hasExpiry": "Has Expiry Date",
+    "delete" : "Item Definition deleted successfully"
   },
   "warehouse": {
     "Add" : "Add",

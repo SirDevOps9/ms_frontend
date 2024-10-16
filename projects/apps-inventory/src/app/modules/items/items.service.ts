@@ -717,8 +717,8 @@ export class ItemsService {
       this.itemProxy.deleteItemDefinition(id).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
-            this.languageService.transalte('itemType.success'),
-            this.languageService.transalte('itemType.delete')
+            this.languageService.transalte('itemDefinition.success'),
+            this.languageService.transalte('itemDefinition.delete')
           );
 
           const currentCostCenter = this.sendItemDefinitionDataSource.getValue();

@@ -131,7 +131,9 @@
     "viewVariant": "عرض",
     "itemTracking": "تتبع العنصر",
     "SelectItemTracking": "اختر تتبع العنصر",
-    "hasExpiry": "له تاريخ انتهاء"
+    "hasExpiry": "له تاريخ انتهاء",
+    "delete" : "تم حذف تعريف العنصر بنجاح"
+
   },
   "warehouse": {
     "Add": "إضافة",
