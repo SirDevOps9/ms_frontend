@@ -82,10 +82,21 @@ const routes: Routes = [
         path: 'add-item-definition/:id',
         component: AddItemDefinitionComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
+          breadcrumb: '',
           pageTitle : BreadcrumbLabel.EDIT_ITEM_DIFINITION
 
         },
+        children: [
+          {
+            path: 'general',
+            component: ItemDefinitionGeneralComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.GENERAL_ITEMdEFINITION,
+              pageTitle : BreadcrumbLabel.GENERAL_ITEMdEFINITION
+            },
+          },
+          
+        ],
      
       },
       {
