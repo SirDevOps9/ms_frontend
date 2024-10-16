@@ -28,7 +28,7 @@
       </div>
       <div class="col-6" *ngIf="save">
         <lib-button-micro
-          title="{{ 'Save' | translate }}"
+          title="{{ btnTitle | translate }}"
           nameClass="save"
           widthNumber="100%"
           *ngIf="!disabled"
@@ -37,7 +37,7 @@
         >
         </lib-button-micro>
         <lib-button-micro
-          title="{{ 'Save' | translate }}"
+          title="{{ btnTitle | translate }}"
           nameClass="saveDisabled"
           widthNumber="100%"
           *ngIf="disabled"

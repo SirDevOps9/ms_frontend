@@ -5,6 +5,8 @@
   "Logout": "تسجيل الخروج",
   "DeleteError": "حدث خطاء فى المسح",
   "LoadError": "حدث خطاء فى التحميل",
+  "Cancel":"إلغاء",
+  "Save":"حفظ",
   "Table": {
     "Actions": "اجراءات",
     "Edit": "تعديل",
@@ -33,9 +35,12 @@
   "User": {
     "UserRemovedSuccessfully":"تمت إزالة المستخدم بنجاح",
     "License": "الرخصة",
-    "PageName": "صفحة المستخدمين",
+    "Users": "صفحة المستخدمين",
     "Id": "الرقم",
     "Name": "الاسم",
+    "Search": "بحث",
+    "Invite_user": "دعوة مستخدم ",
+    "selectLicence": "حدد الترخيص",
     "Email": "البريد الالكترونى",
     "Company": "شركة",
     "Branches": "الفروع",

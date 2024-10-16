@@ -57,7 +57,7 @@ export class BreadcrumbLabel {
 
 
     static SUBSCRIPTION ='Subscription'
-    static USERS = 'Users';
+    static USERS = 'User.Users';
     static ADD_COMPANY = 'Add company';
     static COMPANY_LIST = 'Company list';
     static COMPANY_EDIT = 'Company Edit';
