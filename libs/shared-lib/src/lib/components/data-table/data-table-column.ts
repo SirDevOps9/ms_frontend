@@ -22,8 +22,6 @@ export class DataTableColumn {
   body_class?: string;
   applyNumberFormat?: boolean = false;
 
-  entityColumnName? : string 
-
 }
 
 export class TableConfig {

@@ -145,18 +145,17 @@ export class DataTableComponent implements OnInit, OnChanges {
   }
 
   onSortClick(columnName?: string): void {
+    if (columnName) {
+      if (this.currentSortColumn === columnName) {
+        this.currentSortOrder =
+          this.currentSortOrder === SortBy.Ascending ? SortBy.Descending : SortBy.Ascending;
+      } else {
+        this.currentSortOrder = SortBy.Ascending;
+      }
 
+      this.currentSortColumn = columnName;
 
       setTimeout(() => {
-        if (columnName) {
-          if (this.currentSortColumn === columnName) {
-            this.currentSortOrder =
-              this.currentSortOrder === SortBy.Ascending ? SortBy.Descending : SortBy.Ascending;
-          } else {
-            this.currentSortOrder = SortBy.Ascending;
-          }
-    
-          this.currentSortColumn = columnName;
         const pageInfo = new PageInfo(
           this.pageInfo?.pageNumber,
           this.pageInfo?.pageSize,
@@ -167,8 +166,8 @@ export class DataTableComponent implements OnInit, OnChanges {
 
         console.log('page info', pageInfo);
         this.onPageChange(pageInfo);
-      }}, 100);
-    
+      }, 100);
+    }
   }
 
   constructor(

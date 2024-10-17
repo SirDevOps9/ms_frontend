@@ -20,14 +20,12 @@
                  
                  {
                    name: 'code',
-                   entityColumnName: 'Code',
                    headerText: ('payment-in.code' | translate),
                    isGlobalFilter: true,
                    isSortable: true
                  },
                  {
                    name: 'date',
-                   entityColumnName: 'PaymentInDate',
                    headerText: ('payment-in.date' | translate),
                    isGlobalFilter: true,
                      isSortable: true,
@@ -37,24 +35,29 @@
                  {
                    name: 'paymentHub',
                    headerText: ('payment-in.paymentHub' | translate),
+                   isSortable: true
                  },
                  {
                    name: 'paymentHubDetailId',
                    headerText: ('payment-in.paymentHubDetailId' | translate) ,
+                   isSortable: true
                  },
                  {
                   name: 'branch',
                   headerText: ('payment-in.branch' | translate) ,
+                  isSortable: true
 
                  },
                  {
                   name: 'bankAccount',
                   headerText: ('payment-in.bankAccount' | translate) ,
+                  isSortable: true
 
                  },
                  {
                   name: 'status',
                   headerText: ('payment-in.status' | translate) ,
+                  isSortable: true,
                   template: pStatus
                  },
                  {

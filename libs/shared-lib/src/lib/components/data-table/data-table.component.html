@@ -91,7 +91,7 @@
                 >
                   {{ col.headerText }}
 
-                  <p-sortIcon [field]="col.name" (click)="onSortClick(col.entityColumnName)"></p-sortIcon>
+                  <p-sortIcon [field]="col.name" (click)="onSortClick(col.name)"></p-sortIcon>
                 </th>
                 <th
                   [attr.rowspan]="col.rowspan || 1"
