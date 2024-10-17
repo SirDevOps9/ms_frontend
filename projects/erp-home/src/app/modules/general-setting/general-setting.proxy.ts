@@ -59,11 +59,11 @@ export class GeneralSettingProxy {
     searchTerm: string,
     pageInfo: PageInfo
   ): Observable<PaginationVm<financialCalendar>> {
-
     let query = `FinancialYear?${pageInfo.toQuery}`;
     if (searchTerm) {
-      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
+
     return this.httpService.get<PaginationVm<financialCalendar>>(query);
   }
   getVendorCategory(
@@ -201,7 +201,6 @@ export class GeneralSettingProxy {
       PageNumber: pageInfo.pageNumber.toString(),
       PageSize: pageInfo.pageSize.toString(),
     });
-
     let query = `Currency?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&SearchKey=${encodeURIComponent(searchTerm)}`;
@@ -291,9 +290,11 @@ export class GeneralSettingProxy {
     );
   }
   getAllTaxGroup(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<TaxGroupDto>> {
-    return this.httpService.get<PaginationVm<TaxGroupDto>>(
-      `TaxGroup?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`
-    );
+    let query = `TaxGroup?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchKey=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<TaxGroupDto>>(query);
   }
   addTaxGroup(taxgroupdto: AddTaxGroupDto): Observable<boolean> {
     return this.httpService.post<boolean>(`TaxGroup`, taxgroupdto);
@@ -310,7 +311,6 @@ export class GeneralSettingProxy {
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
-    
     return this.httpService.get<PaginationVm<TaxDto>>(query);
   }
 
