@@ -59,9 +59,12 @@ export class GeneralSettingProxy {
     searchTerm: string,
     pageInfo: PageInfo
   ): Observable<PaginationVm<financialCalendar>> {
-    const url = `FinancialYear?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+    let query = `FinancialYear?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
 
-    return this.httpService.get<PaginationVm<financialCalendar>>(url);
+    return this.httpService.get<PaginationVm<financialCalendar>>(query);
   }
   getVendorCategory(
     searchTerm: string,
@@ -198,9 +201,12 @@ export class GeneralSettingProxy {
       PageNumber: pageInfo.pageNumber.toString(),
       PageSize: pageInfo.pageSize.toString(),
     });
-    const url = `Currency?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+    let query = `Currency?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchKey=${encodeURIComponent(searchTerm)}`;
+    }
 
-    return this.httpService.get<PaginationVm<CurrencyDefinitionDto>>(url);
+    return this.httpService.get<PaginationVm<CurrencyDefinitionDto>>(query);
   }
   addCurrency(currency: CurrencyDefinitionDto): Observable<CurrencyDefinitionDto> {
     return this.httpService.post<CurrencyDefinitionDto>(`Currency`, currency);
@@ -223,9 +229,12 @@ export class GeneralSettingProxy {
       PageNumber: pageInfo.pageNumber.toString(),
       PageSize: pageInfo.pageSize.toString(),
     });
-    const url = `CurrencyConversion?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+    let query = `CurrencyConversion?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
 
-    return this.httpService.get<PaginationVm<CurrencyConversionDto>>(url);
+    return this.httpService.get<PaginationVm<CurrencyConversionDto>>(query);
   }
   addCurrencyConversion(currency: CurrencyConversionDto): Observable<CurrencyConversionDto> {
     return this.httpService.post<CurrencyConversionDto>(`CurrencyConversion`, currency);
@@ -281,9 +290,11 @@ export class GeneralSettingProxy {
     );
   }
   getAllTaxGroup(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<TaxGroupDto>> {
-    return this.httpService.get<PaginationVm<TaxGroupDto>>(
-      `TaxGroup?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`
-    );
+    let query = `TaxGroup?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchKey=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<TaxGroupDto>>(query);
   }
   addTaxGroup(taxgroupdto: AddTaxGroupDto): Observable<boolean> {
     return this.httpService.post<boolean>(`TaxGroup`, taxgroupdto);
@@ -296,9 +307,11 @@ export class GeneralSettingProxy {
     return this.httpService.get<TaxGroupDto>(`TaxGroup/GetById?Id=${id}`);
   }
   getAllTaxes(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<TaxDto>> {
-    return this.httpService.get<PaginationVm<TaxDto>>(
-      `Tax?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`
-    );
+    let query = `Tax?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<TaxDto>>(query);
   }
 
   getTaxById(id: number): Observable<TaxDto> {
