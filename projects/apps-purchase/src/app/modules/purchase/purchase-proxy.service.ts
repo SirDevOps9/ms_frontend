@@ -30,9 +30,13 @@ export class PurchaseProxyService {
     searchTerm: string,
     pageInfo: PageInfo
   ): Observable<PaginationVm<VendorCategoryDto>> {
-    const url = `VendorCategory?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+  debugger
+    let query = `VendorCategory?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
 
-    return this.httpService.get<PaginationVm<VendorCategoryDto>>(url);
+    return this.httpService.get<PaginationVm<VendorCategoryDto>>(query);
   }
 
   addvendorCategory(addVendorCategoryDto: AddVendorCategory): Observable<AddVendorCategory> {
@@ -58,9 +62,13 @@ export class PurchaseProxyService {
     searchTerm: string,
     pageInfo: PageInfo
   ): Observable<PaginationVm<vendorDefinitionDto>> {
-    const url = `vendor?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+    let query = `vendor?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
 
-    return this.httpService.get<PaginationVm<vendorDefinitionDto>>(url);
+
+    return this.httpService.get<PaginationVm<vendorDefinitionDto>>(query);
   }
 
   deleteVendorDefinition(id: number): Observable<boolean> {
@@ -141,9 +149,13 @@ export class PurchaseProxyService {
     searchTerm: string,
     pageInfo: PageInfo
   ): Observable<PaginationVm<VendorOpeningBalanceListDto>> {
-    const url = `VendorOpeningBalance?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
 
-    return this.httpService.get<PaginationVm<VendorOpeningBalanceListDto>>(url);
+    let query = `VendorOpeningBalance?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchKey=${encodeURIComponent(searchTerm)}`;
+    }
+
+    return this.httpService.get<PaginationVm<VendorOpeningBalanceListDto>>(query);
   }
 
   openingBalanceJournalEntryDropdown(): Observable<DropDownDto[]> {
