@@ -112,10 +112,13 @@ export class DataTableComponent implements OnInit, OnChanges {
   selectRow(row: any) {}
 
   onPageChange(pageInfo: PageInfo) {
+    pageInfo.sortColumn = this.currentSortColumn;
+    pageInfo.sortBy = this.currentSortOrder;
     this.pageChange.emit(pageInfo);
 
     this.rows2 = pageInfo.first;
     this.first = pageInfo.first;
+
 
     console.log(this.currentPageResult);
   }
@@ -144,7 +147,7 @@ export class DataTableComponent implements OnInit, OnChanges {
     }
   }
 
-  onSortClick(columnName?: string): void {
+  onSortClick(columnName: string): void {
     if (columnName) {
       if (this.currentSortColumn === columnName) {
         this.currentSortOrder =
