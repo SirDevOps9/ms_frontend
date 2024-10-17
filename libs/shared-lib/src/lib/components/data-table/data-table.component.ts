@@ -46,6 +46,9 @@ export class DataTableComponent implements OnInit, OnChanges {
 
   pageInfo: PageInfo;
 
+  currentSortColumn: string | undefined;
+  currentSortOrder: SortBy = SortBy.Descending;
+
   @ViewChild('customCellTemplate', { static: true })
   customCellTemplate?: TemplateRef<any>;
   customParentCellTemplate: TemplateRef<NgIfContext<boolean>> | null;
@@ -98,7 +101,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   rows2: any = 25;
 
   onPageChange2(pageInfoData: PageInfo | any) {
-    this.pageInfo = pageInfoData
+    this.pageInfo = pageInfoData;
     this.generalService.sendPageChanges.next(pageInfoData);
   }
 
@@ -141,31 +144,32 @@ export class DataTableComponent implements OnInit, OnChanges {
     }
   }
 
-  // onSortClick(fieldName: string): void {
-  //   const updatedPageInfo: PageInfo = {
-  //     ...this.pageInfo,
-  //     sortColumn: fieldName,
-  //     toQuery: ''
-  //   };
-  
-  //   this.onPageChange2(updatedPageInfo);
-  // }
+  onSortClick(columnName?: string): void {
 
-  onSortClick(columnName: string): void {
-    setTimeout(() => {
-      const pageInfo = new PageInfo(
-        this.pageInfo?.pageNumber,
-        this.pageInfo?.pageSize,
-        this.pageInfo?.first,
-        this.pageInfo?.sortBy,
-        columnName
-      );
-  
-      console.log('page info', pageInfo);
-      this.onPageChange(pageInfo);
-    }, 100);
+
+      setTimeout(() => {
+        if (columnName) {
+          if (this.currentSortColumn === columnName) {
+            this.currentSortOrder =
+              this.currentSortOrder === SortBy.Ascending ? SortBy.Descending : SortBy.Ascending;
+          } else {
+            this.currentSortOrder = SortBy.Ascending;
+          }
+    
+          this.currentSortColumn = columnName;
+        const pageInfo = new PageInfo(
+          this.pageInfo?.pageNumber,
+          this.pageInfo?.pageSize,
+          this.pageInfo?.first,
+          this.currentSortOrder,
+          columnName
+        );
+
+        console.log('page info', pageInfo);
+        this.onPageChange(pageInfo);
+      }}, 100);
+    
   }
-
 
   constructor(
     public languageService: LanguageService,
