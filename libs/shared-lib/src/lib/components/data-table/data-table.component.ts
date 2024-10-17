@@ -119,7 +119,6 @@ export class DataTableComponent implements OnInit, OnChanges {
     this.rows2 = pageInfo.first;
     this.first = pageInfo.first;
 
-
     console.log(this.currentPageResult);
   }
   hasNestedHeaders(): boolean {

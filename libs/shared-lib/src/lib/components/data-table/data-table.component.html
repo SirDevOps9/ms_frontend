@@ -88,10 +88,11 @@
                   [pSortableColumn]="col.name"
                   *ngIf="col.isSortable"
                   class="heading_b16 center"
+                  (click)="onSortClick(col.name)"
                 >
                   {{ col.headerText }}
 
-                  <p-sortIcon [field]="col.name" (click)="onSortClick(col.name)"></p-sortIcon>
+                  <p-sortIcon [field]="col.name"></p-sortIcon>
                 </th>
                 <th
                   [attr.rowspan]="col.rowspan || 1"

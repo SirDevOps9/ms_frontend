@@ -48,9 +48,12 @@ import { AccountsChildrenDropDown } from './models/accounts-children-dropdown-dt
 })
 export class GeneralSettingProxy {
   getAllTagsPaginated(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<TagDto>> {
-    const url = `Tag?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+    let query = `Tag?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchKey=${encodeURIComponent(searchTerm)}`;
+    }
 
-    return this.httpService.get<PaginationVm<TagDto>>(url);
+    return this.httpService.get<PaginationVm<TagDto>>(query);
   }
   getAllfinancialCalendarPaginated(
     searchTerm: string,
@@ -272,7 +275,7 @@ export class GeneralSettingProxy {
   getAccountsHasNoChildren(
     quieries: string,
     pageInfo: PageInfo
-  ): Observable<PaginationVm<AccountDto>> { 
+  ): Observable<PaginationVm<AccountDto>> {
     return this.httpService.get<PaginationVm<AccountDto>>(
       `ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}&${quieries ? quieries : ''}`
     );
