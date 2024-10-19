@@ -24,7 +24,7 @@ export class JournalEntryProxy {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
   
-    return this.httpService.get<PaginationVm<JournalEntryDto>>(`JournalEntry?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`);
+    return this.httpService.get<PaginationVm<JournalEntryDto>>(query);
   }
   getAllJournalEntriesPaginatedOpeningBalance(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<JournalEntryDto>> {
     let query = `OpeningBalanceJournalEntry?${pageInfo.toQuery}`;
