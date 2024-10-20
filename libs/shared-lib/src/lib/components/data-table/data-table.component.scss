@@ -371,4 +371,16 @@ span {
   margin-top: 12px;
 }
 
+.rtl-position {
+  left:1px; 
+}
+
+.ltr-position {
+  right: 1px;
+}
+
+::ng-deep .p-datatable .p-datatable-wrapper table thead th{
+  left: 0 !important;
+}
+
 

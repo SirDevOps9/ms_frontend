@@ -1,7 +1,6 @@
 <div class="viewInWeb" [ngClass]="{ popup: popup }">
   <div class="row">
     <div>
-
       <p-table
         *ngIf="items"
         [value]="items"
@@ -21,9 +20,11 @@
         [resizableColumns]="resizableColumns"
         [ngClass]="{ empty: items.length <= 0, popup: popup }"
       >
-        <ng-template pTemplate="caption">
-          <div class="col-12 md:col-4">
-            <lib-columns-selection
+        <ng-template class="relative" pTemplate="caption">
+          <lib-columns-selection
+            [ngClass]="{ 'rtl-position': isRtl, 'ltr-position': !isRtl }"
+            class="flex justify-content-end absolute"
+            [ngStyle]="{ top: '75px', 'z-index': 3 }"
             [formControl]="searchColumnsControl"
             [options]="filtered_columns"
             [(ngModel)]="selected_filtered_columns"
@@ -31,14 +32,9 @@
             optionValue="name"
             [className]="'pi pi-list'"
             (filterColumns)="handleFilterColumns($event)"
-            >
-            </lib-columns-selection>
-         
-          </div>
+          />
           <div class="parent">
-            <ng-content select="[search]">
-              
-            </ng-content>
+            <ng-content select="[search]"> </ng-content>
             <div class="flex align-items-center">
               <div
                 class="paginationHead"
@@ -62,26 +58,11 @@
               <ng-content select="[action]"></ng-content>
             </div>
           </div>
+
           <ng-content select="[caption]"> </ng-content>
         </ng-template>
 
-        <!-- <ng-template pTemplate="header">
-          <tr>
-            <ng-container *ngFor="let col of tableConfigs.columns">
-              <th  [attr.rowspan]="3" [attr.colspan]="4" [pSortableColumn]="col.name" *ngIf="col.isSortable" class="heading_b16">
-                {{ col.headerText }}
-                <p-sortIcon [field]="col.name"></p-sortIcon>
-              </th>
-              <th   [attr.rowspan]="col.rowspan" [attr.colspan]="4" *ngIf="!col.isSortable" class="body_b16">
-                {{ col.headerText }}
-              </th>
-            </ng-container>
-          </tr>
-        </ng-template> -->
-        <!-- ////////// -->
         <ng-template pTemplate="header">
-          <!-- First level header row -->
-
           <tr>
             <ng-container *ngFor="let col of tableConfigs.columns">
               <ng-container *ngIf="col.children && col.children.length">
@@ -107,42 +88,23 @@
 
                   <p-sortIcon [field]="col.name"></p-sortIcon>
                 </th>
+                <!-- frozen th -->
                 <th
+                  pFrozenColumn
+                  [frozen]="col.name === 'id' ? true : false"
+                  [alignFrozen]="isRtl ? 'left' : 'right'"
                   [attr.rowspan]="col.rowspan || 1"
                   [attr.colspan]="col.colspan"
-                  [ngClass]="col.class"
                   *ngIf="!col.isSortable"
-                  class="body_b16 center"
+                  [ngStyle]="col.name === 'id' ? { left: '111px' } : {}"
+                  class="center"
                 >
                   <div class="flex gap-3 justify-content-center align-content-center">
-                    {{ col.headerText }}
-
-                    <!-- <i class="pi pi-filter-slash"></i> -->
-                    <!-- <div class="p-d-flex p-jc-between p-ai-center">
-
-                  <p-columnFilter  field="activity"
-                  matchMode="between"
-                  display="menu"
-                  [showMatchModes]="false"
-                  [showOperator]="false"
-                  [showAddButton]="false"
-                  [showApplyButton]="false"
-                  [showClearButton]="false"
-                  class="custom-column-filter">
-                    <ng-template pTemplate="filter" let-filter="filterCallback">
-
-                      <div class="custom-filter-content">
-                        <input type="text" pInputText placeholder="Search" class="p-inputtext p-component" />
-                      </div>
-                      <div class="flex gap-3" *ngFor="let col of tableConfigs.columns">
-                        <p-checkbox
-                        [binary]="true"
-                        inputId="binary" />
-                        <p>{{ col.headerText }}</p>
-                      </div>
-                    </ng-template>
-                  </p-columnFilter>
-                </div> -->
+                    <span>
+                      {{ col.headerText }}
+                    </span>
+                    <i *ngIf="col.name === 'id'"></i>
+                    <i *ngIf="col.name === 'id'"></i>
                   </div>
                 </th>
               </ng-container>
@@ -314,16 +276,16 @@
     </div>
   </div>
   <div
-  *ngIf="tableConfigs.allowServerPagination && currentPageResult.totalItems"
-  class="flex justify-content-end custom-paginator"
-  [class.none]="currentPageResult.totalItems! <= 25"
->
-  <lib-table-paginator
-    (pageChange)="onPageChange($event)"
-    [totalRecords]="currentPageResult.totalItems!"
-    [rows]="currentPageResult.pageSize!"
-  ></lib-table-paginator>
-</div>
+    *ngIf="tableConfigs.allowServerPagination && currentPageResult.totalItems"
+    class="flex justify-content-end custom-paginator"
+    [class.none]="currentPageResult.totalItems! <= 25"
+  >
+    <lib-table-paginator
+      (pageChange)="onPageChange($event)"
+      [totalRecords]="currentPageResult.totalItems!"
+      [rows]="currentPageResult.pageSize!"
+    ></lib-table-paginator>
+  </div>
 </div>
 
 <div class="viewInMob" *ngIf="false">
@@ -366,15 +328,14 @@
     <span></span>
   </div>
   <div
-  *ngIf="tableConfigs.allowServerPagination && currentPageResult.totalItems"
-  class="flex justify-content-end custom-paginator"
-  [class.none]="currentPageResult.totalItems! <= 25"
->
-  <lib-table-paginator
-    (pageChange)="onPageChange($event)"
-    [totalRecords]="currentPageResult.totalItems!"
-    [rows]="currentPageResult.pageSize!"
-  ></lib-table-paginator>
+    *ngIf="tableConfigs.allowServerPagination && currentPageResult.totalItems"
+    class="flex justify-content-end custom-paginator"
+    [class.none]="currentPageResult.totalItems! <= 25"
+  >
+    <lib-table-paginator
+      (pageChange)="onPageChange($event)"
+      [totalRecords]="currentPageResult.totalItems!"
+      [rows]="currentPageResult.pageSize!"
+    ></lib-table-paginator>
+  </div>
 </div>
-</div>
-

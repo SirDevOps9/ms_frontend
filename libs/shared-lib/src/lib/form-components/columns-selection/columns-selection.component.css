@@ -5,4 +5,9 @@
   ::ng-deep .p-multiselect-label-empty {
     overflow: hidden;
     visibility: visible;
+
+}
+  ::ng-deep .p-multiselect-label {
+background-color: #f2f4f8;
+
 }

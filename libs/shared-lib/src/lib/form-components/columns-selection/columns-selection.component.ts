@@ -11,7 +11,7 @@ export class ColumnsSelectionComponent implements ControlValueAccessor {
   @Input() optionValue = 'id';
   @Input() optionLabel = 'name';
   @Input() className: string = '';
-  @Input() style: any = { 'min-width': '50px' }; 
+  @Input() style: any = { 'min-width': '20px', 'border': 'none' }; 
   @Input() panelStyle: any = { width: '300px' }; 
   @Output() valueChanged = new EventEmitter<string | []>();
   @Output() filterColumns = new EventEmitter<any>();

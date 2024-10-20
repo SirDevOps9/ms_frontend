@@ -57,17 +57,16 @@ export class DataTableComponent implements OnInit, OnChanges {
   @ViewChild('customCellTemplate', { static: true })
   customCellTemplate?: TemplateRef<any>;
   customParentCellTemplate: TemplateRef<NgIfContext<boolean>> | null;
-
   selected_filtered_columns: any[] = [];
   searchColumnsControl = new FormControl([]);
 
+  isRtl: boolean = false;
 
   ngOnInit(): void {
-
+    this.isRtl = this.languageService.ar;
     this.filtered_columns = this.tableConfigs.columns;
-    this.selected_filtered_columns = this.filtered_columns.map(option => option.name);
+    this.selected_filtered_columns = this.filtered_columns.map((option) => option.name);
     this.searchColumnsControl.setValue(this.selected_filtered_columns as any);
-
     this.globalFilterFields = this.tableConfigs.columns
       .filter((c) => c.isSortable)
       .map((c) => c.name);
@@ -80,7 +79,6 @@ export class DataTableComponent implements OnInit, OnChanges {
     this.generalService.sendSelectedColumnsObs.subscribe((res) => {
       if (res) {
         this.selectedColumns = res;
-        console.log(this.selectedColumns);
         this.tableConfigs.columns = this.generalService.sendFullColumns
           .getValue()
           .filter((elem: any) => {
@@ -108,14 +106,13 @@ export class DataTableComponent implements OnInit, OnChanges {
     this.addNew.emit(true);
   }
 
-  selectRow(row: any) {}
+  selectRow(row: any) { }
 
   onPageChange(pageInfo: PageInfo) {
     this.pageChange.emit(pageInfo);
 
     this.rows2 = pageInfo.first;
     this.first = pageInfo.first;
-    console.log(this.currentPageResult);
   }
   hasNestedHeaders(): boolean {
     return this.tableConfigs.columns.some((col) => col.children && col.children.length > 0);
@@ -146,17 +143,13 @@ export class DataTableComponent implements OnInit, OnChanges {
     public lookupsService: LookupsService,
     private generalService: GeneralService,
     private routerService: RouterService
-  ) {}
-
+  ) { }
 
   handleFilterColumns(selectedColumns: string[]) {
-    
     if (selectedColumns.length === 0) {
-      this.tableConfigs.columns = [...this.clonedTableConfigs.columns]; 
-    } 
-    else {
+      this.tableConfigs.columns = [...this.clonedTableConfigs.columns];
+    } else {
       const columns = [...this.clonedTableConfigs.columns];
-
       const filteredColumns = columns.filter((col) =>
         selectedColumns.some((sCol: string) => col.name === sCol)
       );
