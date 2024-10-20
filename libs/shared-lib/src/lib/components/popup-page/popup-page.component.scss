@@ -1,6 +1,6 @@
 .pop_up_page{
   
-        display: flex;
+    
         align-items: center;
         justify-content: space-between;
         flex-direction: column;
@@ -8,6 +8,9 @@
             width: 100%;
             background-image: url('../../../assets/images/pop-header.png');
             background-size: cover;
+            position: sticky;
+            top: 0;
+            z-index: 100;
 
             .header_content{
             width: 100%;
@@ -19,7 +22,7 @@
             padding-bottom: 16px;
             // margin-bottom: 16px;
             border-bottom: 1px solid #E3E3E3;
-
+           
         
             .title {
               display: flex;
@@ -51,6 +54,8 @@
           padding: 24px;
 
             width: 100% ;
+            max-height: 400px;
+            overflow: auto;
            // padding:50px 0 !important;
     
             .title{
@@ -73,8 +78,8 @@
                 padding-inline-start: 10px;
             }
             .card{
-          max-height: 400px;
-          overflow: auto;
+          // max-height: 400px;
+          // overflow: auto;
     
             }
           
@@ -82,7 +87,7 @@
         .pop_up_footer{
             position: fixed;
             bottom: 0;
-            display: flex;
+         
             align-items: center;
             justify-content: center;
             width: 100%;
@@ -99,7 +104,7 @@
     .none{
       display: none;
     }
-    // ::ng-deep {
+    ::ng-deep {
     //     .pop_up_config_page{
     //         .p-dialog {
     //          .p-dialog-content {
@@ -115,11 +120,11 @@
     //        padding: 0 0 0 0 !important;
     //      }
     //    }
-    //    .p-dialog-mask{
-    //     justify-content: end !important;
-    //     align-items: end !important;
-    //     z-index: 1000 !important;
-    //   }
+       .p-dialog-mask{
+        // justify-content: end !important;
+        // align-items: end !important;
+        z-index: 1000 !important;
+      }
     //   .p-dialog .p-dialog-content:last-of-type {
     //     border-top-left-radius: 15px !important;
     //     border-bottom-left-radius: 15px !important;
@@ -147,9 +152,10 @@
     //   min-height: 45px;
     //   border-radius: 6px;
     //   border: 1px solid #d1d5db;
-    // }
+    }
 ::ng-deep{
   .p-dialog .p-dialog-content {
+    overflow: hidden;
     border-top-left-radius: 8px !important;
     border-top-right-radius: 8px !important;
   }

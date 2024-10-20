@@ -100,7 +100,6 @@ export class PaymentMethodListComponent implements OnInit {
     this.financeService.paymentMethodDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
-        console.log(res);
       },
     });
   }

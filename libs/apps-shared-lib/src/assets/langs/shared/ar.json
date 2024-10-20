@@ -1,8 +1,12 @@
 {
+  "BreadCrumb": {
+    "Dashboard": "لوحة التحكم"
+  },
     "Save": "حفظ",
     "Cancel": "إلغاء",
     "AddNewLine": "إضافة سطر جديد",
     "error": "خطأ",
+    "ChooseApp": "اختر التطبيق",
     "success": "نجاح",
     "create": "إنشاء",
     "view": "عرض",
@@ -10,6 +14,14 @@
     "delete": "حذف",
     "statement": "بيان",
     "sequence": "تسلسل",
+    "attachment": "مرفق",
+    "attachmentDeletedSuccessfully": "تم حذف المرفق بنجاح",
+    "CannotDeleteattachment": "لا يمكن حذف المرفق",
+    "id": "معرف",
+    "name": "اسم",
+    "actions": "إجراءات",
+    "type": "امتداد الملف",
+      "download": "تحميل",
 
     "sequence": {
       "sequence": "تسلسل",
@@ -76,6 +88,20 @@
       "ageAbove": "يجب أن يكون عمرك على الأقل {{age}} عامًا.",
       "nonNegativeNumbers": "يجب ان يكون رقما موجبا",
       "noAlphabeticCharacter": "يجب أن لا يحتوي الحقل على أحرف أبجدية."
-    }
+    },
+    "Layout":{
+    "DefaultCompany": "الشركة",
+  "DefaultBranch": "الفرع",
+  "MySubscription": "اشتراكي",
+  "Myfavorite": "المفضلة",
+  "Language": "اللغة",
+  "AccountSettings": "إعدادات الحساب",
+  "logout": "تسجيل الخروج"
+  },
+  "Paginator": {
+    "Showing": "عرض",
+    "To": "إلى",
+    "Entries": "مدخلات"
+  }
   }
   

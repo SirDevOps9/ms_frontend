@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { LanguageService, PageInfo, RouterService } from 'shared-lib';
+import { AttachmentsService, ComponentType, LanguageService, PageInfo, RouterService } from 'shared-lib';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { JournalEntryViewDto } from '../../../models';
 import { Title } from '@angular/platform-browser';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CostCenterAllocationPopupComponent } from '../cost-center-allocation-popup/cost-center-allocation-popup.component';
 import { Router } from '@angular/router';
+import { AttachmentsComponent } from '../../../components/attachments/attachments.component';
 
 @Component({
   selector: 'app-view-journal-entry',
@@ -29,6 +30,7 @@ export class ViewJournalEntryComponent implements OnInit {
       .getJournalEntryViewById(this.routerService.currentId)
       .subscribe((res) => {
         this.journalView = res;
+        
         this.calculateTotalCreditAmount();
         this.calculateTotalDebitAmount();
         this.calculateTotalDebitAmountLocal();
@@ -88,10 +90,31 @@ export class ViewJournalEntryComponent implements OnInit {
     );
     window.open(url, '_blank');
   }
+  openAttachments() {
+    const viewdata:Boolean = true ;
+
+    const dialog = this.dialog.open(AttachmentsComponent, {
+
+      width: '1200px',
+      height: '1000px',
+      data: {
+        journalEntryAttachments: this.journalView?.journalEntryAttachments,
+        page: ComponentType.view,
+      }
+      
+    });
+
+    dialog.onClose.subscribe((res) => {
+      this.attachmentService.attachmentIdsObservable.subscribe((res) => {
+      });
+    });
+  }
   constructor(
     private journalEntryService: JournalEntryService,
     private routerService: RouterService,
     private dialog: DialogService,
-    private router: Router
+    private router: Router,
+    private attachmentService: AttachmentsService,
+
   ) {}
 }

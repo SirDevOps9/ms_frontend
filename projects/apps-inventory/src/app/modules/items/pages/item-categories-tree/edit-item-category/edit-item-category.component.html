@@ -44,7 +44,7 @@
     
       <lib-fildest header="{{ 'itemsCategory.parentCategory' | translate }}" class="md:col-12">
         <div class="grid">
-          <div class="md:col-12" *ngIf="hasParentAccount">
+          <div class="md:col-12" >
             <lib-form-group>
               <lib-label [appControl]="formGroup.controls['parentCategoryId']">
                 {{ 'itemsCategory.parentCategory' | translate }}
@@ -84,6 +84,8 @@
                 (valueChanged)="onParentAccountChange($event)"
               >
               </lib-select>
+              <lib-field-validations [appControl]="formGroup.controls['categoryType']">
+              </lib-field-validations>
             </lib-form-group>
           </div>
         </div>

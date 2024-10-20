@@ -18,7 +18,9 @@ import {
   PaymentTermDto,
   SimpleDropDown,
   TreasuryDropDown,
+  TreasuryViewDto,
   VendorDropDown,
+  ViewBankDto,
 } from './models';
 import { BankDefinitionDto } from './models/BankDefinitionDto';
 import { AddBankDto } from './models/addBankDto';
@@ -53,6 +55,9 @@ export class FinanceProxyService {
   }
   getTreasureDefinitionsById(id: number): Observable<GetTreasuryDtoById> {
     return this.httpService.get(`Treasury/${id}`);
+  }
+  getTreasuryDefinitionsView(id: number): Observable<TreasuryViewDto> {
+    return this.httpService.get(`Treasury/View/${id}`);
   }
 
   deleteTreasury(id: number) {
@@ -97,7 +102,9 @@ export class FinanceProxyService {
   deleteBank(id: number) {
     return this.httpService.delete(`Bank/${id}`);
   }
-
+  deleteBankAccount(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`Bank/DeleteAccount/${id}`);
+  }
   getBankDefinitionByID(id: number): Observable<bankByID> {
     return this.httpService.get(`Bank/${id}`);
   }
@@ -266,5 +273,13 @@ export class FinanceProxyService {
   }
   postPaymentIn(id:number){
     return this.httpService.post(`PaymentIn/${id}/Post`,null);
+  }
+
+  viewBank(id: number): Observable<ViewBankDto> {
+    return this.httpService.get(`Bank/View/${id}`);
+  }
+
+  viewPaymentTerm(id: number): Observable<GetPaymentTermById> {
+    return this.httpService.get(`PaymentTerms/View/${id}`);
   }
 }

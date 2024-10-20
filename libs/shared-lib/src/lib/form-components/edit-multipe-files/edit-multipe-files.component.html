@@ -1,0 +1,69 @@
+<input type="file" #upload hidden (change)="onSelectFile($event)" multiple />
+
+<div class="uploadParent" (click)="upload.click()" (dragover)="onDragDrop($event)" (drop)="onDragDrop($event)" *ngIf="!viewData">
+  <div class="">
+    <i class="pi pi-cloud-upload uploadIcon"></i>
+  </div>
+  <p>Drag and Drop Files Here or Click to Upload.</p>
+</div>
+
+
+
+<p-table [value]="urls" styleClass="p-datatable-gridlines p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>{{ 'id' | translate }}</th>
+      <th>{{ 'name' | translate }}</th>
+      <th>{{ 'type' | translate }}</th>
+      <th>{{ 'actions' | translate }}</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-url let-rowIndex="rowIndex">
+    <tr>
+      <td>
+
+        <div>
+          {{rowIndex+1}}
+        </div>
+
+      </td>
+      <td [pEditableColumn]="true" pEditableColumnField="fileName" *ngIf="!viewData">
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <lib-text-input type="text" (keyUp)="updateFileName(rowIndex , $event ,url.fileExtension)" ngModel=" {{url.fileName}}" ></lib-text-input>
+          </ng-template>
+          <ng-template pTemplate="output">
+            
+            <!-- {{ filesName[rowIndex] || url.name }} -->
+            {{url.fileName}}
+
+
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td *ngIf="viewData">
+        <!-- {{ filesName[rowIndex] || url.name }} -->
+        {{url.fileName}}
+
+      </td>  
+      <td>
+        {{url.fileExtension}}
+      </td> 
+      <td>
+        <div class="action flex align-items-center justify-content-center w-full ">
+          <lib-button-micro nameClass="table_button_download"
+            (click)="downloadFile(url, files[rowIndex].name)"></lib-button-micro>
+          <lib-button-micro nameClass="table_button_view" (click)="reviewAttachment( files[rowIndex].name  ,url)" ></lib-button-micro>
+          <lib-button-micro  *ngIf="!viewData" nameClass="table_button_delete" (click)="removeFile( filesName[rowIndex] , url , rowIndex)"> </lib-button-micro>
+
+
+        </div>
+
+      </td>
+
+
+
+    </tr>
+  </ng-template>
+
+</p-table>

@@ -119,6 +119,7 @@ export class GeneralSettingService {
   private vendorDefinitionDataSource = new BehaviorSubject<vendorDefinitionDto[]>([]);
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
   private countryDataSource = new BehaviorSubject<CountryDto[]>([]);
+  private countryString = new BehaviorSubject<any>({});
   private cityDataSource = new BehaviorSubject<CityDto[]>([]);
   private currenciesDataSource = new BehaviorSubject<CurrencyDto[]>([]);
 
@@ -127,6 +128,7 @@ export class GeneralSettingService {
   public cities = this.cityDataSource.asObservable();
 
   public countries = this.countryDataSource.asObservable();
+  public countryString$ = this.countryString.asObservable();
 
   public tags = this.tagsDataSource.asObservable();
   public currentTag = this.currentTagDataSource.asObservable();
@@ -181,8 +183,6 @@ export class GeneralSettingService {
   public currentTaxDataSource = new BehaviorSubject<TaxDto>({} as TaxDto);
   public editTaxStatus = new BehaviorSubject<boolean>(false);
   public taxesDefintionList = this.taxesDefinitionsDataSource.asObservable();
-
-
 
 
 
@@ -551,6 +551,11 @@ export class GeneralSettingService {
   loadCountries() {
     this.GeneralSettingproxy.getAllCountries().subscribe((response) => {
       this.countryDataSource.next(response);
+    });
+  }
+  getCountry() {
+    this.GeneralSettingproxy.getCountry().subscribe((response) => {
+      this.countryString.next(response);
     });
   }
   loadCities(countryCode: string) {

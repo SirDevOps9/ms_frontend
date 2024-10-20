@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { LanguageService, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { ItemsService } from '../../../items.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-UOM-main',
@@ -7,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UOMMainComponent implements OnInit {
 
-  constructor() { }
+  constructor(    private title: Title,
+    private langService: LanguageService,) {
+
+
+   }
 
   ngOnInit() {
   }

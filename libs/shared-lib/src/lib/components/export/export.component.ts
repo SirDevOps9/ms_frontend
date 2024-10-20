@@ -57,6 +57,7 @@ export class ExportComponent implements OnDestroy {
   performExport() {
     if (this.exportDataList && this.exportDataList.length > 0) {
       if (this.format === 'excel') {
+        
         this.exportToExcel();
       } else if (this.format === 'pdf') {
         this.exportToPDF();

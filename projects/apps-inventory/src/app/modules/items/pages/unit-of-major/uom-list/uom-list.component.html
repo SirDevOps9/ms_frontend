@@ -7,41 +7,30 @@
           [currentPageResult]="currentPageInfo"
           (pageChange)="onPageChange($event)"
           [tableConfigs]="{
-            allowPagination: true,
+            allowPagination: false,
             allowServerPagination: true,
             dataKey: 'id',
             pageSize: 10,
             columns: [
               {
-                name: 'code',
+                name: 'id',
                 headerText: ('UOM.code' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
-                name: 'name',
-                headerText: ('UOM.name' | translate),
+                name: 'nameEn',
+                headerText: ('UOM.categorynameEn' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
-                name: 'shortName',
-                headerText: ('UOM.shortName' | translate),
+                name: 'nameAr',
+                headerText: ('UOM.categorynameAr' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
-              {
-                name: 'uomType',
-                headerText: ('UOM.uomType' | translate),
-                isGlobalFilter: true,
-                isSortable: true
-              },
-              {
-                name: 'conversionRatio',
-                headerText: ('UOM.conversionRatio' | translate),
-                isGlobalFilter: true,
-                isSortable: true
-              },
+             
   
               {
                 name: 'id',
@@ -103,6 +92,7 @@
                       [exportData]="exportData"
                       [exportColumns]="exportColumns"
                       [ExportName]="'Unit Of Measure'"
+                  
                     >
                     </lib-export>
                   </div>
@@ -124,4 +114,4 @@
       </div>
     </div>
   </lib-page-content>
-  
+ 

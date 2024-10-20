@@ -1,8 +1,9 @@
 import { CurrencyService } from './../../../general/currency.service';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   AttachmentsService,
+  ComponentType,
   FormsService,
   LanguageService,
   PageInfo,
@@ -26,6 +27,7 @@ import { CostCenterAllocationPopupComponent } from '../components/cost-center-al
 import { costCenters } from '../../models';
 import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
+import { take } from 'rxjs';
 export interface JournalEntryLineFormValue {
   id: number;
   account: AccountDto;
@@ -52,7 +54,7 @@ export interface JournalEntryFormValue {
   templateUrl: './create-journal-entry.component.html',
   styleUrl: './create-journal-entry.component.scss',
 })
-export class CreateJournalEntryComponent {
+export class CreateJournalEntryComponent implements OnInit , OnDestroy  {
   fg: FormGroup;
   totalDebitAmount: number;
   totalDebitAmountLocal: number;
@@ -160,23 +162,19 @@ export class CreateJournalEntryComponent {
 
   openAttachments() {
     const dialog = this.dialog.open(AttachmentsComponent, {
-      // header: 'Attachments',
-      data: this.attachmentService.filesInfo,
-     width: '600px',
-      height: '350px',
+      // data: this.attachmentService.filesInfo,
+      width: '1200px',
+      height: '1000px',
+      data: {
+        journalEntryAttachments: this.attachmentService.filesInfo,
+        page: ComponentType.add,
+      }
     });
 
     dialog.onClose.subscribe((res) => {
-      this.attachmentService.attachmentIdsObservable.subscribe((res) => {
-        this.journalEntryAttachments = this.attachmentService.filesInfo.map(
-          (item: any, i: number) => {
-            return {
-              attachmentId: res[i],
-              name: this.attachmentService.filesName[i],
-            };
-          }
-        );
-      });
+      this.journalEntryAttachments = res
+      console.log(res ,"close");
+      
     });
   }
 
@@ -199,7 +197,6 @@ export class CreateJournalEntryComponent {
     journalLine.get('lineDescription')?.setValue(this.accountData.name);
     journalLine.get('costCenterConfig')?.setValue(this.accountData.costCenterConfig);
     journalLine.get('selectedFalg')?.setValue(true);
-    console.log(journalLine.get('costCenterConfig')?.value);
 
     var currencyData = this.currencies.find((c) => c.id == this.accountData?.currencyId);
 
@@ -389,6 +386,7 @@ export class CreateJournalEntryComponent {
     .subscribe({
       next: (r) => {
         this.routerService.navigateTo('transcations/journalentry');
+        this.attachmentService.attachemntIdsList=[] 
       },
       error:  (error)  => {
       }
@@ -521,16 +519,18 @@ export class CreateJournalEntryComponent {
 
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
     const journalLine = this.items.at(currentJournalId);
-    this.currencyService.accountCurrencyRate.subscribe((res) => {
-      const currencyRateControl = journalLine.get('currencyRate')!;
-
-      currencyRateControl.setValue(res.rate);
+    
+    const subscription = this.currencyService.accountCurrencyRate.subscribe((res) => {
+      const currencyRateControl = journalLine?.get('currencyRate');
+      currencyRateControl?.setValue(res.rate);
+      subscription.unsubscribe(); 
     });
-
+  
     this.currencyService.getAccountCurrencyRate(
       accountCurrency,
       this.currentUserService.getCurrency()
     );
+    
   }
   onFilter(event: any) {
     this.accountService.getAccountsHasNoChildrenNew(event, new PageInfo());
@@ -542,7 +542,6 @@ export class CreateJournalEntryComponent {
           displayName: `${account.name} (${account.accountCode})`,
         }));
 
-        console.log(this.filteredAccounts);
       }
 
       //          this.filteredAccounts=res.result.map((account:any) => ({
@@ -550,7 +549,6 @@ export class CreateJournalEntryComponent {
       //   displayName: `${account.name} (${account.accountCode})`,
       // }));
     });
-    console.log(event);
 
     // this.accountService.getAccountsHasNoChildrenNew(event, new PageInfo()).subscribe((r) => {
     //   this.filteredAccounts = r.result.map((account) => ({
@@ -638,5 +636,10 @@ export class CreateJournalEntryComponent {
       0
     );
     return totalPercentage;
+  }
+  
+  ngOnDestroy(): void {
+    this.attachmentService.attachemntIdsList=[] 
+
   }
 }

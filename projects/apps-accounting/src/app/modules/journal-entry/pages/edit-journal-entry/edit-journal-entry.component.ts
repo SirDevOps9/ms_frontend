@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   EditJournalEntry,
+  EditJournalEntryAttachment,
   GetJournalEntryByIdDto,
   JournalEntryLineDto,
   JournalEntryStatus,
@@ -10,9 +11,12 @@ import {
 } from '../../models';
 import { JournalEntryService } from '../../journal-entry.service';
 import {
+  AttachmentsService,
+  ComponentType,
   FormsService,
   LanguageService,
   PageInfo,
+  Pages,
   RouterService,
   ToasterService,
   customValidators,
@@ -31,6 +35,7 @@ import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 import { CostCenterAllocationPopupComponent } from '../components/cost-center-allocation-popup/cost-center-allocation-popup.component';
 import { Router } from '@angular/router';
+import { AttachmentsComponent } from '../../components/attachments/attachments.component';
 
 @Component({
   selector: 'app-edit-journal-entry',
@@ -38,7 +43,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit-journal-entry.component.scss'],
   providers: [RouterService],
 })
-export class EditJournalEntryComponent implements OnInit {
+export class EditJournalEntryComponent implements OnInit ,OnDestroy  {
   editJournalForm: FormGroup;
   journalEntry?: GetJournalEntryByIdDto;
   journalEntryLines?: JournalEntryLineDto[];
@@ -63,6 +68,7 @@ export class EditJournalEntryComponent implements OnInit {
   creditLocal: string;
 
   currentAccounts: number[] = [];
+  journalEntryAttachment:EditJournalEntryAttachment[]
   isPatching: boolean = false;
 
   ngOnInit() {
@@ -106,6 +112,7 @@ export class EditJournalEntryComponent implements OnInit {
       totalDebitAmount: new FormControl(),
       totalCreditAmount: new FormControl(),
       journalEntryLines: this.fb.array([]),
+      journalEntryAttachments: this.fb.array([]),
     });
   }
 
@@ -116,12 +123,15 @@ export class EditJournalEntryComponent implements OnInit {
         ...res,
         // journalDate: new Date(res.journalDate),
       });
+       this.editJournalForm.value.journalEntryAttachments = res.journalEntryAttachments 
       if (
         res.status === this.enums.JournalEntryStatus.Posted ||
         res.status === this.enums.JournalEntryStatus.Submitted
       ) {
         this.viewMode = true;
       }
+      this.journalEntryAttachment = res.journalEntryAttachments
+      
       this.statusName = res.status;
       this.journalTypeName = res.type;
 
@@ -173,7 +183,7 @@ export class EditJournalEntryComponent implements OnInit {
 
   onSubmit() {
     if (!this.formsService.validForm(this.editJournalForm, false)) return;
-
+     this.editJournalForm.value.journalEntryAttachments= this.journalEntryAttachment
     const request: EditJournalEntry = this.editJournalForm.value;
     request.id = this.routerService.currentId;
     // request.journalDate = this.convertDateFormat(request.journalDate);
@@ -194,6 +204,7 @@ export class EditJournalEntryComponent implements OnInit {
   }
 
   ChangeStatus(status: JournalEntryStatus) {
+    
     let journalStatus = new JournalStatusUpdate();
     journalStatus.id = this.routerService.currentId;
     journalStatus.status = status;
@@ -556,12 +567,11 @@ export class EditJournalEntryComponent implements OnInit {
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
     const journalLine = this.journalEntryLinesFormArray.at(currentJournalId);
 
-    this.currencyService.accountCurrencyRate.subscribe((res) => {
-      const currencyRateControl = journalLine.get('currencyRate')!;
-
-      currencyRateControl.setValue(res.rate);
+    const subscription = this.currencyService.accountCurrencyRate.subscribe((res) => {
+      const currencyRateControl = journalLine?.get('currencyRate');
+      currencyRateControl?.setValue(res.rate);
+      subscription.unsubscribe(); 
     });
-
     this.currencyService.getAccountCurrencyRate(
       accountCurrency,
       this.currentUserService.getCurrency()
@@ -608,6 +618,28 @@ export class EditJournalEntryComponent implements OnInit {
     // Format the date into YYYY-MM-DD
     return `${year}-${month}-${day}`;
   }
+  openAttachments() {
+    const dialog = this.dialog.open(AttachmentsComponent, {
+      width: '1200px',
+      height: '1000px',
+      data: {
+        journalEntryAttachments: this.journalEntryAttachment,
+        screen: Pages.JournalEntry,
+        page: ComponentType.edit,
+      }
+    });
+  
+    dialog.onClose.subscribe((newFiles: any) => {
+      console.log(newFiles ,"close");
+
+        this.journalEntryAttachment = newFiles
+      
+    });
+  }
+  ngOnDestroy(): void {
+    this.attachmentService.attachemntIdsList=[] 
+
+  }
   constructor(
     private journalEntryService: JournalEntryService,
     private routerService: RouterService,
@@ -622,6 +654,8 @@ export class EditJournalEntryComponent implements OnInit {
     private langService: LanguageService,
     private currentUserService: CurrentUserService,
     public generalService: GeneralService,
-    private router: Router
+    private router: Router,
+    private attachmentService: AttachmentsService,
+
   ) {}
 }

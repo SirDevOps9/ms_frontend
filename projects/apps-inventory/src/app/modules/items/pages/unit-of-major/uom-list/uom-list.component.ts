@@ -5,6 +5,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { FinanceService } from 'projects/apps-finance/src/app/modules/finance/finance.service';
 import { LanguageService, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
+import { UOMCategoryDto } from '../../../models';
 
 @Component({
   selector: 'app-uom-list',
@@ -12,12 +13,41 @@ import { ItemsService } from '../../../items.service';
   styleUrl: './uom-list.component.scss'
 })
 export class UOMListComponent implements OnInit {
-  tableData: any[] = []
+  tableData: UOMCategoryDto[] = []
   currentPageInfo: PageInfoResult = {}; 
   searchTerm: string;
   exportData: any[];
   exportColumns:any[]
 
+  cols = [
+   
+    {
+      field: 'Code',
+      header: 'code',
+    },
+
+    {
+      field: 'Name',
+      header: 'name',
+    },
+    {
+      field: 'Short Name',
+      header: 'shortName',
+    },
+    {
+      field: 'UOM Type',
+      header: 'uomType',
+    },
+    {
+      field: 'UOM Name',
+      header: 'uomName',
+    },
+    {
+      field: 'Conversion Ratio',
+      header: 'conversionRatio',
+    },
+   
+  ];
   constructor(
     private routerService: RouterService,
     private itemService : ItemsService,
@@ -27,19 +57,22 @@ export class UOMListComponent implements OnInit {
     private langService: LanguageService,
 
   ){
-    this.title.setTitle(this.langService.transalte('UOM.uomList'));
 
   }
   ngOnInit(): void {
+    this.exportColumns = this.cols.map((col) => ({
+      id: col.header,
+      name: col.field,
+    }));
     this.initTreasurData()
     
 
   }  
 
   initTreasurData() {
-    this.itemService.getListOfUom('', new PageInfo());
+    this.itemService.getUOmCategories('', new PageInfo());
 
-    this.itemService.listOfUOMs.subscribe({
+    this.itemService.GetUOMCategoriesDataSourceObs.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -55,7 +88,7 @@ export class UOMListComponent implements OnInit {
     }
 
   onSearchChange() {
-    this.itemService.getListOfUom(this.searchTerm, new PageInfo());
+    this.itemService.getUOmCategories(this.searchTerm, new PageInfo());
 
 
     //     this.itemService.listOfUOMs.subscribe({
@@ -66,12 +99,15 @@ export class UOMListComponent implements OnInit {
     // });
   }
   onPageChange(pageInfo: PageInfo) {
-    this.itemService.getListOfUom('', pageInfo);
+    this.itemService.getUOmCategories('', pageInfo);
 
   }
 
   exportClick(e?: Event) {
-    this.exportBankData(this.searchTerm);
+    
+      this.exportBankData(this.searchTerm);
+  
+
   }
 
   exportBankData(searchTerm: string) {
@@ -89,7 +125,7 @@ export class UOMListComponent implements OnInit {
 
 }
 onDelete(id: number) {
-  this.itemService.deleteUOM(id)
+  this.itemService.deleteCategory(id)
 }
   
 }

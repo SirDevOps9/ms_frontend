@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -24,11 +24,12 @@ import {
   ButtonComponent,
   SharedFormComponent,
   ToggelComponent,
-  
-
+  EditMultipeFilesComponent,
 } from './form-components';
 import { DropdownModule } from 'primeng/dropdown';
 import { GetLookupPipe } from './pipes/lookupList';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+
 import { PageContentComponent } from './components/page-content/page-content.component';
 import { PrimeSharedModule } from './prime-module/prime.module';
 import { FileUploaderComponent } from './form-components/file-uploader/file-uploader.component';
@@ -56,6 +57,7 @@ import { PopupPageComponent } from './components/popup-page/popup-page.component
 import { NumberFormatDirective } from './directives/numberFormatDirective';
 import { QRCodeModule } from 'angularx-qrcode';
 import { ColumnsSelectionComponent } from './form-components/columns-selection/columns-selection.component';
+import { ActtachmentViewComponent } from 'libs/apps-shared-lib/src/lib/pages/attachment-view/acttachment-view/acttachment-view.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,7 @@ import { ColumnsSelectionComponent } from './form-components/columns-selection/c
     FileUploaderComponent,
     NamedFileUploaderComponent,
     MultiSelectComponent,
+    EditMultipeFilesComponent,
     DataTableComponent,
     AttachmentViewerComponent,
     ButtonComponent,
@@ -112,7 +115,8 @@ import { ColumnsSelectionComponent } from './form-components/columns-selection/c
     TreeTableModule,
     TreeModule,
     ProgressSpinnerModule,
-    QRCodeModule
+    QRCodeModule,
+    InputTextareaModule
     
   ],
   exports: [
@@ -135,6 +139,7 @@ import { ColumnsSelectionComponent } from './form-components/columns-selection/c
     PrimeSharedModule,
     FileUploaderComponent,
     MultiSelectComponent,
+    EditMultipeFilesComponent,
     DataTableComponent,
     AttachmentViewerComponent,
     ButtonComponent,
@@ -161,7 +166,8 @@ import { ColumnsSelectionComponent } from './form-components/columns-selection/c
     NumberFormatPipe,
     PopupPageComponent,
     NumberFormatDirective,
-    QRCodeModule,ColumnsSelectionComponent
+    QRCodeModule,ColumnsSelectionComponent,
+    InputTextareaModule
   ],
 })
 export class SharedLibModule {}

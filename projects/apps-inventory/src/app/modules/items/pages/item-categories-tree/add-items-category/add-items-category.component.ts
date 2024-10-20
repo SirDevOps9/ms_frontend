@@ -44,6 +44,7 @@ export class AddItemsCategoryComponent {
   selectedPeriodOption: string = '';
   @Input() parentAddedId?: number | undefined;
   @Input() newChiled?: boolean;
+  showCategory : boolean = true
   @Output() operationCompleted = new EventEmitter<any>();
   private savedAddedAccountSubscription: Subscription;
 
@@ -61,15 +62,28 @@ export class AddItemsCategoryComponent {
     private itemService : ItemsService
 
   ) {
-    this.title.setTitle(this.langService.transalte('ChartOfAccount.AddChartOfAccount'));
 
-    this.formGroup = formBuilder.group({
-      code: [''],
-      nameEn: [''],
-      nameAr: [''],
+  }
+  ngOnInit() {
+    this.Subscribe();
+
+    // if (this.parentAddedId) {
+    //   this.onParentAccountChange(this.parentAddedId);
+    // }
+
+    // this.accountService.parentAccounts.subscribe((res) => {
+    //   if (res) {
+    //     this.parentAccounts = res;
+    //   }
+    // });
+
+    this.formGroup = this.formBuilder.group({
+      code: ['' ],
+      nameEn: new FormControl('',[ customValidators.required]),
+      nameAr: ['' , [customValidators.required]],
       parentCategoryId: [null],
-      isDetailed: [false], // Assuming a boolean default of `false`
-      categoryType: [''],
+      isDetailed: [true], // Assuming a boolean default of `false`
+      categoryType:  [null , [customValidators.required]],
 
       glAccountId: [null],
       cashSalesAccountId: [null],
@@ -82,44 +96,64 @@ export class AddItemsCategoryComponent {
       adjustmentAccountId: [null],
       goodsInTransitAccountId: [null]
     });
-  }
-  ngOnInit() {
-    this.loadLookups();
-    this.Subscribe();
-    this.accountService.getAllParentAccounts();
 
-    if (this.parentAddedId) {
-      this.onParentAccountChange(this.parentAddedId);
-    }
+    this.formGroup.get('isDetailed')?.valueChanges.subscribe(res=>{
+      console.log(res)
+      if(res== true) {
+        this.formGroup.get('categoryType')?.setValidators(customValidators.required)
+        this.formGroup.get('categoryType')?.updateValueAndValidity()
+        this.showCategory = true
+       }else{
+        this.formGroup.get('categoryType')?.clearValidators()
+        this.formGroup.get('categoryType')?.updateValueAndValidity()
+        this.showCategory = false
 
-    this.accountService.parentAccounts.subscribe((res) => {
-      if (res) {
-        this.parentAccounts = res;
-      }
-    });
-
-    this.currencyService.getCurrencies('');
-    this.currencyService.currencies.subscribe((res) => {
-      this.currencies = res;
-    });
-    // this.currenciesDefault= this.currentUserService.getCurrency()
-
-    this.accountService.getAccountSections();
-    this.accountService.accountSections.subscribe((res) => {
-      this.accountSections = res;
-    });
-
-    this.getTags();
-    this.getCompanyDropdown();
+       }
+    })
+    
     this.AccountsDropDown()
     
 
 
-    if (this.routerService.currentId) this.onParentAccountChange(this.routerService.currentId);
+    // if (this.routerService.currentId) this.onParentAccountChange(this.routerService.currentId);
     this.ItemCategoryDropDownData()
     this.itemService.AddItemCategoryLookupObs.subscribe(res=>{
-      
+      console.log(res)
+      if(res) {
+        this.operationCompleted.emit(res);
+
+        setTimeout(() => {
+          this.resetForm()
+
+        }, 100);
+
+      //  this.ItemCategoryDropDownData()
+      //  this.AccountsDropDown()
+
+      }
+    
     })
+  }
+  resetForm() {
+    this.formGroup.get('id')?.reset();
+    this.formGroup.get('code')?.reset(null);  // Reset to an empty string
+ 
+   
+    this.formGroup.get('parentCategoryId')?.reset(null);  // Reset to null
+    this.formGroup.get('isDetailed')?.reset(false);  // Reset to default false
+    this.formGroup.get('categoryType')?.reset(null);  // Reset and retain validators
+    
+    // Reset all the account-related fields to null
+    this.formGroup.get('glAccountId')?.reset(null);
+    this.formGroup.get('cashSalesAccountId')?.reset(null);
+    this.formGroup.get('creditSalesAccountId')?.reset(null);
+    this.formGroup.get('salesReturnAccountId')?.reset(null);
+    this.formGroup.get('purchaseAccountId')?.reset(null);
+    this.formGroup.get('salesCostAccountId')?.reset(null);
+    this.formGroup.get('discountAccountId')?.reset(null);
+    this.formGroup.get('evaluationAccountId')?.reset(null);
+    this.formGroup.get('adjustmentAccountId')?.reset(null);
+    this.formGroup.get('goodsInTransitAccountId')?.reset(null);
   }
 
   AccountsDropDown() {
@@ -183,30 +217,37 @@ export class AddItemsCategoryComponent {
       this.accountTypes = typeList;
     });
 
-    this.formGroup.patchValue({ accountTypeId: [] });
+   // this.formGroup.patchValue({ accountTypeId: [] });
   }
 
   onParentAccountChange(event: any) {
     const parentAccountId = event;
     if (!parentAccountId) return;
     this.hasParentAccount = true;
-    this.accountService.getAccount(parentAccountId);
-    this.accountService.selectedAccount.subscribe((response) => {
-      this.parentAcountName = response;
-      this.selectValue = true
-      const newAccountData = {
-        levelId: response.levelId! + 1,
-        accountCode: response.accountCode,
-        accountSectionId: response.accountSectionId,
-        accountSectionName: response.accountSectionName,
-        natureId: response.natureId,
-        parentId: response.id,
-      };
-      this.formGroup.get('accountTypeId')?.setValue([null]);
+    
+    this.itemService.getItemCategoryById(parentAccountId);
+    this.itemService.getItemCategoryByIdDataObs.subscribe((res:any) => {
+      console.log(res)
+      // this.formGroup.patchValue({...res});
 
-      this.onAccountSectionChange(response.accountSectionId);
-      this.formGroup.patchValue(newAccountData);
-    });
+    })
+    // this.accountService.getAccount(parentAccountId);
+    // this.accountService.selectedAccount.subscribe((response) => {
+    //   this.parentAcountName = response;
+    //   this.selectValue = true
+    //   const newAccountData = {
+    //     levelId: response.levelId! + 1,
+    //     accountCode: response.accountCode,
+    //     accountSectionId: response.accountSectionId,
+    //     accountSectionName: response.accountSectionName,
+    //     natureId: response.natureId,
+    //     parentId: response.id,
+    //   };
+    //   this.formGroup.get('accountTypeId')?.setValue([null]);
+
+    //   this.onAccountSectionChange(response.accountSectionId);
+    //   this.formGroup.patchValue(newAccountData);
+    // });
   }
 
   toggleCurrencyVisibility() {
@@ -227,17 +268,50 @@ export class AddItemsCategoryComponent {
 
   }
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['parentAddedId']) {
-      this.onParentAccountChange(this.parentAddedId);
-    }
+  //  this.formGroup.patchValue({
+  //   nameEn: [''],
+  //   nameAr: [''],
+  //   parentCategoryId: [null],
+  //   isDetailed: [false], // Assuming a boolean default of `false`
+  //   categoryType: [''],
+
+  //   glAccountId: [null],
+  //   cashSalesAccountId: [null],
+  //   creditSalesAccountId: [null],
+  //   salesReturnAccountId: [null],
+  //   purchaseAccountId: [null],
+  //   salesCostAccountId: [null],
+  //   discountAccountId: [null],
+  //   evaluationAccountId: [null],
+  //   adjustmentAccountId: [null],
+  //   goodsInTransitAccountId: [null]
+  //  })
+
+
+
+  if (changes['parentAddedId']) {
+    this.onParentAccountChange(this.parentAddedId);
+  }
+    console.log(this.parentAddedId)
+    setTimeout(() => {
+      this.formGroup.get('parentCategoryId')?.setValue(this.parentAddedId)
+
+    }, 100);
+
+    // if(this.parentAddedId) {
+    //   this.hasParentAccount = true
+    // }
+    console.log(changes)
+
 
     if (changes['newChiled']) {
+      console.log(this.newChiled ,"11111")
+
       if (this.newChiled == true) {
         this.hasParentAccount = false
         this.selectValue = false
 
-        delete this.formGroup.value.accountCode
-        this.formGroup.get('accountCode')?.setValue([null]);
+       
       }
     }
   }

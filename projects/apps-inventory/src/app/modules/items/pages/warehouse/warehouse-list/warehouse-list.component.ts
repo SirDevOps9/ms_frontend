@@ -22,7 +22,6 @@ export class WarehouseListComponent implements OnInit {
     private langService: LanguageService,
     private itemsService : ItemsService
   ) {
-    this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
 
   }
 
@@ -90,6 +89,7 @@ export class WarehouseListComponent implements OnInit {
   }
 
   exportClick(e?: Event) {
+    console.log(e)
     this.exportWarehouseData(this.searchTerm);
   }
 
@@ -112,7 +112,7 @@ export class WarehouseListComponent implements OnInit {
   }
 
   onEdit(data: any) {
-    this.routerService.navigateTo(`/masterdata/edit-warehouse/${data.id}`)
+    this.routerService.navigateTo(`/masterdata/warehouse/edit-warehouse/${data.id}`)
 
 
   }

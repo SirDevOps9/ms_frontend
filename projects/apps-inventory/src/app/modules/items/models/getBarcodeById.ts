@@ -1,4 +1,5 @@
 export interface getBarcodeById {
+    id? : number
     barcode: string
     sku: string
     itemVariantId: number

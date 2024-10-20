@@ -1,19 +1,23 @@
 {
   "BreadCrumb": {
     "PaymentOut": "إيصال نقدي",
-    "PaymentOutList": "قائمة الإيصالات النقدية",
+    "PaymentOutList":"إيصالات الدفع" ,
     "AddPaymentOut": "إضافة إيصال نقدي",
     "EditPaymentOut": "تعديل إيصال نقدي",
     "BankAccountStatement": "كشف الحساب البنكي",
     "TreasuryStatement": "بيان الخزانة",
     "ViewPaymentIn": "عرض قبض",
-    "ViewPaymentout": "عرض صرف"
+    "ViewPaymentout": "عرض صرف",
+    "ViewBankDefination":"عرض تعريف البنك",
+    "ViewPaymentTerm": "عرض شروط الدفع",
+    "EditPaymentIn": "تعديل إيصال نقدي"
 
 
   },
   "confirmation":"تأكيد ",
   "Success": "نجاح",
   "Error": "خطأ",
+  "Confirm": "تأكيد",
   "ChooseAnAccount": "اختر حساب",
   "Select": "اختر",
   "ErrorInDelete": "خطأ فى الحذف",
@@ -66,17 +70,18 @@
       "PaymentMethodDetails": "تفاصيل طريقة الدفع",
       "PaidBy": "مدفوع بواسطة",
       "PaidByDetails": "تفاصيل المدفوع بواسطة",
-      "LinkedGLAccount": "حساب GL المرتبط",
+      "LinkedGLAccount": "حساب المرتبط",
       "CostCenter": "مركز التكلفة",
       "Notes": "ملاحظات"
     },
     "Success": "نجاح",
-    "PaymentInAddedSuccessfully": "تمت إضافة PaymentIn بنجاح",
+    "PaymentInAddedSuccessfully": "تم إضافة الإيصال النقدي بنجاح",
     "addedError": "خطأ في الإضافة",
     "Error": "خطأ",
     "paymentMethodTypeNotAllowed": "نوع طريقة الدفع غير مسموح به",
     "paymentMethodTypeRequired": "تفاصيل طريقة الدفع مطلوبة في السطر",
-    "addpaymentin": "إضافة الدفع"
+    "addpaymentin": "إضافة الدفع",
+    "PaymentInEditedSuccessfully": "تم تعديل الإيصال النقدي بنجاح"
   },
   "PaymentOut": {
     "Title": "إيصال نقدي",
@@ -172,7 +177,9 @@
     "lineDescription": "وصف السطر",
     "ViewData": "عرض البيانات",
     "DateFrom": "التاريخ من",
-    "DateTo": "التاريخ إلى"
+    "DateTo": "التاريخ إلى",
+    "openingBalance": "الرصيد الافتتاحي"
+
   },
   "BankAccountStatement": {
     "BankAccountStatement": "كشف حساب البنك",
@@ -197,5 +204,16 @@
     "LineDescription": "وصف السطر",
     "DateFrom": "التاريخ من",
     "DateTo": "التاريخ إلى"
+  },
+  "treasury-view": {
+    "title": "تفاصيل الخزينة",
+    "code": "الكود",
+    "name": "الاسم",
+    "currency": "العملة",
+    "branches": "الفروع",
+    "accountName": "اسم الحساب",
+    "acountopeningBalance": "رصيد افتتاح الحساب",
+    "treasuryOpeningBalance": "رصيد افتتاح الخزينة",
+    "treasuryCurrentBalance": "الرصيد الحالي للخزينة"
   }
 }
