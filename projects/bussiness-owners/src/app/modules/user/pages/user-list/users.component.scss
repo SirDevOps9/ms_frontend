@@ -345,3 +345,18 @@
   border: none !important;
   margin-inline-start: 30px !important;
 }
+
+.checked {
+    position: relative;
+    .active {
+      position: absolute;
+      top: -3px;
+      left: 20px;
+      color: #fff;
+    }
+    .inactive {
+      position: absolute;
+      top: -3px;
+      left: 50px;
+      color: #40444C;
+    }}
