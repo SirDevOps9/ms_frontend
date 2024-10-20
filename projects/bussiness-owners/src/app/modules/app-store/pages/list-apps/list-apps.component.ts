@@ -15,6 +15,8 @@ export class ListAppsComponent implements OnInit {
   appInStore: number;
   subdomains: ResponseSubdomainDto[];
   cardList: boolean = false;
+  selectedLanguage: any 
+
   constructor(
     private appStoreService: AppStoreService,
     private dialog: DialogService,
@@ -24,12 +26,29 @@ export class ListAppsComponent implements OnInit {
     private titleService: Title,
     private languageService: LanguageService
   ) {}
+  items: any[] | undefined;
 
+    home: any | undefined;
+
+   
   ngOnInit(): void {
+    console.log(this.languageService.transalte('Welcome'));
+
+    this.languageService.language$.subscribe((lang) => {
+      this.selectedLanguage = lang
+
+    });
+    
     this.languageService.getTranslation('AppStore.Title').subscribe((title) => {
       this.titleService.setTitle(title);
+      console.log(title ,"0000000");
+      
     });
+    this.languageService.getTranslation('Welcome').subscribe((title) => {
+      console.log(title ,"111111111");
+      this.items = [{ icon: 'pi pi-home', route: '/installation' }, { label:title  }, { label: 'Form' }, { label: 'InputText', route: '/inputtext' }];
 
+    });
     this.appStoreService.loadApps();
 
     this.appStoreService.apps.subscribe((apps) => {
@@ -45,7 +64,7 @@ export class ListAppsComponent implements OnInit {
   }
 
   getAppDeps(app: AppDto) {
-    return app.dependencies.map((d) => d.name).join(' - ');
+    return app.dependencies.map((d) => d.nameEn).join(' - ');
   }
   
   toggelview() {

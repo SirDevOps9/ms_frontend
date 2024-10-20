@@ -1,5 +1,30 @@
 <lib-page-content>
-  <lib-bread-crumb> </lib-bread-crumb>
+  <!-- <lib-bread-crumb> </lib-bread-crumb> -->
+  <div class="card flex justify-content-center">
+    <div class="title_of_page my-2">
+
+    <!-- <p-breadcrumb class="max-w-full" [model]="items">
+        <ng-template pTemplate="item" let-item>
+            <ng-container *ngIf="item.route; else elseBlock">
+                <a [routerLink]="item.route" class="p-menuitem-link">
+                    <span [ngClass]="[item.icon ? item.icon : '', 'text-color']"></span>
+                    <span class=" test font-semibold">{{ item.label }}</span>
+                </a>
+            </ng-container>
+            <ng-template #elseBlock>
+                <a [href]="item.url">
+                    <span class="text-color">{{ item.label }}</span>
+                </a>
+            </ng-template>
+        </ng-template>
+    </p-breadcrumb> -->
+  <lib-new-bread-crumb 
+  [home]="home"
+  [menuItems]="items"
+  
+  ></lib-new-bread-crumb>  
+  </div>
+</div>
   <div class="app_list">
     <div class="grid">
       <div class="col-12">
@@ -28,7 +53,8 @@
             <div class="app_description">
               <div class="sec_one">
                 <div class="title" (click)="routeToDetails(app.id)">
-                  {{ app.name }}
+                 {{ selectedLanguage === 'en' ?  app.nameEn: app.nameAr  }}
+
                 </div>
                 <div class="re_new">{{ app.price.amount }}{{ app.price.currencyName }}</div>
               </div>

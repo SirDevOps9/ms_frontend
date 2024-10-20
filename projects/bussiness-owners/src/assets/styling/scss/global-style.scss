@@ -1,0 +1,28 @@
+.card_micro{
+    margin-top: 16px;
+    background: #fff;
+    padding: 16px;
+    border-radius: 1rem;
+  }
+  .p-dialog {
+    // .p-dialog-content {
+    //   padding: $spacing-24 !important;
+    //   border-radius: $spacing-8 ;
+    // }
+    .p-dialog-header {
+      display: none !important;
+    }
+  }
+  .card:has(table) {
+    margin-top: 16px !important;
+    background: #fff !important;
+    padding: 16px !important;
+    border-radius: 16px !important;
+  }
+  .p-treetable-scrollable-header-box{
+    padding: 0 !important;
+  }
+  body{
+    background-color: #f7f7fa !important;
+  
+  }

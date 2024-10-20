@@ -46,6 +46,8 @@ export class LanguageService {
   }
   getLang(): Cultures {
     let currentLanguage = this.storageService.getItem(StorageKeys.LANG_KEY);
+    this.languageSubject.next(currentLanguage);
+
     return currentLanguage;
   }
 
@@ -54,7 +56,7 @@ export class LanguageService {
     return currentLanguage === 'ar';
   }
 
-  onLangChange(){
+  onLangChange(){    
     return this.transalteService.onLangChange;
   }
 
@@ -62,6 +64,8 @@ export class LanguageService {
     let currentLanguage = this.storageService.getItem(StorageKeys.LANG_KEY) === 'en' ? 'ar' : 'en';
     this.storageService.setItem(StorageKeys.LANG_KEY, currentLanguage);
     this.transalteService.use(currentLanguage);
+    this.languageSubject.next(currentLanguage);
+
   }
   constructor(private transalteService: TranslateService, private storageService: StorageService) {}
 }

@@ -30,7 +30,7 @@
   </lib-export>
   </div>
 </lib-bread-crumb>
-  <div class="company_page">
+  <div class="company_page card_micro ">
     <p-treeTable
       #myTab
       [columns]="cols"
@@ -41,6 +41,9 @@
       [showCurrentPageReport]="true"
       [tableStyle]="{ 'min-width': '75rem' }"
       [rowsPerPageOptions]="[5, 10, 15]"
+      styleClass="p-treetable-gridlines"
+            [rowHover]="true"
+
     >
    
       <ng-template pTemplate="header">
@@ -68,17 +71,25 @@
             </p-treeTableToggler>
             {{ rowData[col.header] }}
             <ng-container *ngIf="i == 7">
-              <p-button
+              <!-- <p-button
                 icon="pi pi-pencil"
                 (click)="routeToEdit(rowData.id)"
                 [rounded]="true"
                 [text]="true"
                 severity="secondary "
               >
-              </p-button>
+              </p-button> -->
+              <lib-button-micro
+              nameClass="table_button_edit"
+              (click)="routeToEdit(rowData.id)"
+
+              >
+
+              </lib-button-micro>
             </ng-container>
             <ng-container *ngIf="i == 6">
-              <div >
+              <div               class="checked"
+              >
               <lib-input-switch
                   [(ngModel)]="rowData.isActive"
                   (onChange)="changed($event, rowData.id)"

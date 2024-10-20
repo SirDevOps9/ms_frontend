@@ -32,7 +32,8 @@
               <div class="app_description">
                 <div class="sec_one">
                   <div class="title">
-                    {{ app.name }}
+                    <td>{{ selectedLanguage === 'en' ?  app.nameEn: app.nameAr  }}</td>
+
                   </div>
                   <div class="re_new">
                     {{ app.price.amount }} {{ app.price.currencyName }} /

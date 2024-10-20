@@ -67,7 +67,7 @@
               <p>{{ branch.code }}</p>
             </div>
           </td>
-          <td>{{ branch.branchName }}</td>
+          <td>{{ selectedLanguage === 'en' ?  branch.nameEn: branch.nameAr  }}</td>
           <td>
             {{ branch.branchRegion }}
           </td>
@@ -84,7 +84,7 @@
             {{ branch.branchEmail }}
           </td>
           <td>
-            <div >
+            <div  class="checked" >
              <lib-input-switch
                 [id]="branch.id"
                 (onChange)="toggle(branch.id, branch.isActive)"
