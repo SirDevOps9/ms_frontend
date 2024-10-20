@@ -121,17 +121,6 @@
           >
           </lib-text-input>
         </div>
-        <div class="col-12 md:col-4">
-          <lib-multi-select
-          [formControl]="searchColumnsControl"
-          [options]="filtered_columns"
-            optionValue="name"
-            optionLabel="name"
-            [placeholder]="'reportCost.Select' | translate"
-            [(ngModel)]="selected_filtered_columns"
-
-          ></lib-multi-select>
-        </div>
       </ng-container>
       <ng-container action>
         <div class="flex gap-2">

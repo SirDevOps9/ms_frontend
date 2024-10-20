@@ -59,11 +59,13 @@ export class DataTableComponent implements OnInit, OnChanges {
   customParentCellTemplate: TemplateRef<NgIfContext<boolean>> | null;
   selected_filtered_columns: any[] = [];
   searchColumnsControl = new FormControl([]);
-
   isRtl: boolean = false;
+  showColumnFilter: boolean 
 
   ngOnInit(): void {
     this.isRtl = this.languageService.ar;
+    debugger
+    this.showColumnFilter = this.tableConfigs?.columns?.some(x=>x.name == 'id')
     this.filtered_columns = this.tableConfigs.columns;
     this.selected_filtered_columns = this.filtered_columns.map((option) => option.name);
     this.searchColumnsControl.setValue(this.selected_filtered_columns as any);

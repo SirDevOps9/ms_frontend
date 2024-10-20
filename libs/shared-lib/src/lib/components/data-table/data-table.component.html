@@ -20,19 +20,7 @@
         [resizableColumns]="resizableColumns"
         [ngClass]="{ empty: items.length <= 0, popup: popup }"
       >
-        <ng-template class="relative" pTemplate="caption">
-          <lib-columns-selection
-            [ngClass]="{ 'rtl-position': isRtl, 'ltr-position': !isRtl }"
-            class="flex justify-content-end absolute"
-            [ngStyle]="{ top: '75px', 'z-index': 3 }"
-            [formControl]="searchColumnsControl"
-            [options]="filtered_columns"
-            [(ngModel)]="selected_filtered_columns"
-            optionLabel="name"
-            optionValue="name"
-            [className]="'pi pi-list'"
-            (filterColumns)="handleFilterColumns($event)"
-          />
+        <ng-template pTemplate="caption">
           <div class="parent">
             <ng-content select="[search]"> </ng-content>
             <div class="flex align-items-center">
@@ -55,11 +43,25 @@
 
               <lib-button-micro *ngIf="sequence" nameClass="sequence" (click)="routeToSequence()">
               </lib-button-micro>
+
               <ng-content select="[action]"></ng-content>
             </div>
           </div>
 
           <ng-content select="[caption]"> </ng-content>
+          <lib-columns-selection
+            *ngIf="showColumnFilter"
+            [ngClass]="{ 'rtl-position': isRtl, 'ltr-position': !isRtl }"
+            class="absolute"
+            [ngStyle]="{ bottom: '11px', 'z-index': 3 }"
+            [formControl]="searchColumnsControl"
+            [options]="filtered_columns"
+            [(ngModel)]="selected_filtered_columns"
+            optionLabel="name"
+            optionValue="name"
+            [className]="'pi pi-list'"
+            (filterColumns)="handleFilterColumns($event)"
+          />
         </ng-template>
 
         <ng-template pTemplate="header">
@@ -96,16 +98,18 @@
                   [attr.rowspan]="col.rowspan || 1"
                   [attr.colspan]="col.colspan"
                   *ngIf="!col.isSortable"
-                  [ngStyle]="col.name === 'id' ? { left: '111px' } : {}"
                   class="center"
                 >
-                  <div class="flex gap-3 justify-content-center align-content-center">
-                    <span>
+                @if (col.name === 'id') {
+                  <div  class="flex gap-3 justify-content-center align-content-center">
                       {{ col.headerText }}
-                    </span>
-                    <i *ngIf="col.name === 'id'"></i>
-                    <i *ngIf="col.name === 'id'"></i>
-                  </div>
+                      <i ></i>
+                      <i ></i>
+                    </div>
+                  }@else {
+                  {{ col.headerText }}
+
+                }
                 </th>
               </ng-container>
             </ng-container>
@@ -145,25 +149,7 @@
             <ng-content select="[firstRow]"> </ng-content>
           </tr>
         </ng-template>
-        <!-- ///////////// -->
-        <!-- <ng-template pTemplate="body" let-row let-i="rowIndex">
-          <tr [ngClass]="{ cssClass: i == selectedIndex }">
-            <td *ngFor="let col of tableConfigs.columns" class="body_b16">
-              <ng-container *ngIf="!col.template; else customCellTemplate!">
-                <ng-container *ngIf="col.lookupKey">
-                  {{ this.lookupsService.getLookUpText(col.lookupKey, row[col.name]) }}
-                </ng-container>
-                {{ row[col.name] }}
-              </ng-container>
-              <ng-template
-                #customCellTemplate
-                *ngTemplateOutlet="col.template!; context: { $implicit: row }"
-              >
-              </ng-template>
-            </td>
-          </tr>
-        </ng-template> -->
-
+      
         <ng-template pTemplate="body" let-row let-i="rowIndex">
           <tr [ngClass]="{ cssClass: i == selectedIndex }">
             <ng-container *ngFor="let col of tableConfigs.columns">
@@ -276,16 +262,16 @@
     </div>
   </div>
   <div
-  *ngIf="tableConfigs.allowServerPagination && currentPageResult?.totalItems"
-  class="flex justify-content-end custom-paginator"
-  [class.none]="currentPageResult.totalItems! <= 25"
->
-  <lib-table-paginator
-    (pageChange)="onPageChange($event)"
-    [totalRecords]="currentPageResult.totalItems!"
-    [rows]="currentPageResult.pageSize!"
-  ></lib-table-paginator>
-</div>
+    *ngIf="tableConfigs.allowServerPagination && currentPageResult.totalItems"
+    class="flex justify-content-end custom-paginator"
+    [class.none]="currentPageResult.totalItems! <= 25"
+  >
+    <lib-table-paginator
+      (pageChange)="onPageChange($event)"
+      [totalRecords]="currentPageResult.totalItems!"
+      [rows]="currentPageResult.pageSize!"
+    ></lib-table-paginator>
+  </div>
 </div>
 
 <div class="viewInMob" *ngIf="false">
@@ -328,14 +314,14 @@
     <span></span>
   </div>
   <div
-  *ngIf="tableConfigs.allowServerPagination && currentPageResult?.totalItems"
-  class="flex justify-content-end custom-paginator"
-  [class.none]="currentPageResult.totalItems! <= 25"
->
-  <lib-table-paginator
-    (pageChange)="onPageChange($event)"
-    [totalRecords]="currentPageResult.totalItems!"
-    [rows]="currentPageResult.pageSize!"
-  ></lib-table-paginator>
-</div>
+    *ngIf="tableConfigs.allowServerPagination && currentPageResult.totalItems"
+    class="flex justify-content-end custom-paginator"
+    [class.none]="currentPageResult.totalItems! <= 25"
+  >
+    <lib-table-paginator
+      (pageChange)="onPageChange($event)"
+      [totalRecords]="currentPageResult.totalItems!"
+      [rows]="currentPageResult.pageSize!"
+    ></lib-table-paginator>
+  </div>
 </div>
