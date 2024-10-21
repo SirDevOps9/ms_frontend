@@ -88,14 +88,21 @@ export class MultiSelectItemsComponent implements OnInit {
 
     const query: string[] = [];
 
-    isStorable.forEach((x: any) => {
-      console.log('Item', x);
+    isStorable.forEach((checkbox: any) => {
+      console.log('Item', );
+      const isChecked = this.filterForm.get(checkbox.name)?.value;
+      if (isChecked) {
+        const value = checkbox.name === 'hasExpiryDate' ? 'true' : checkbox.enumKey;
+        query.push(`${checkbox.enumKey}=${value}`);
+      }
     });
 
     const result = query.join('&');
     console.log('result', result);
 
-    return result;
+    return result;    };
+
+
   }
   // buildQuery(): string {
   //   // Get the current values from the filter form
@@ -123,4 +130,4 @@ export class MultiSelectItemsComponent implements OnInit {
 
   //   return result;
   // }
-}
+
