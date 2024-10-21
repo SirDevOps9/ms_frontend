@@ -50,10 +50,10 @@
 
           <ng-content select="[caption]"> </ng-content>
           <lib-columns-selection
-            *ngIf="showColumnFilter"
             [ngClass]="{ 'rtl-position': isRtl, 'ltr-position': !isRtl }"
-            class="absolute"
-            [ngStyle]="{ bottom: '11px', 'z-index': 3 }"
+            class="absolute bg-danger"
+            *ngIf="showColumnFilter"
+            [ngStyle]="{ top: '70px', 'z-index': 33 }"
             [formControl]="searchColumnsControl"
             [options]="filtered_columns"
             [(ngModel)]="selected_filtered_columns"
