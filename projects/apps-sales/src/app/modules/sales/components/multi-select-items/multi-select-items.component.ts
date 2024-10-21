@@ -19,54 +19,15 @@ export class MultiSelectItemsComponent implements OnInit {
   selectAll: boolean = false;
 
   filterForm: FormGroup = this.fb.group({
-    searchTerm: [''],
-    isStorable: new FormControl(false),
-    isService: new FormControl(false),
-    hasExpiryDate: new FormControl(false),
+    //searchTerm: [''],
+    // isStorable:  new FormControl<string | null>(null),
+    // isService: new FormControl<string | null>(null),
+    // hasExpiryDate:  new FormControl<string | null>(null)
+     isStorable:  new FormControl([]),
+
   });
 
-  itemsData: ItemDto[] = [
-    {
-      id: 1,
-      code: 'A001',
-      name: 'Item One',
-      itemUOM: 'KG',
-      itemVairant: 'Variant A',
-      itemCategory: 'Category 1',
-    },
-    {
-      id: 2,
-      code: 'A002',
-      name: 'Item Two',
-      itemUOM: 'Litre',
-      itemVairant: 'Variant B',
-      itemCategory: 'Category 2',
-    },
-    {
-      id: 3,
-      code: 'A003',
-      name: 'Item Three',
-      itemUOM: 'Piece',
-      itemVairant: 'Variant C',
-      itemCategory: 'Category 1',
-    },
-    {
-      id: 4,
-      code: 'A004',
-      name: 'Item Four',
-      itemUOM: 'Meter',
-      itemVairant: 'Variant D',
-      itemCategory: 'Category 3',
-    },
-    {
-      id: 5,
-      code: 'A005',
-      name: 'Item Five',
-      itemUOM: 'Box',
-      itemVairant: 'Variant E',
-      itemCategory: 'Category 2',
-    },
-  ];
+
   constructor(
     private salesService: SalesService,
     public sharedEnums: SharedSalesEnums,
@@ -118,21 +79,28 @@ export class MultiSelectItemsComponent implements OnInit {
     const query = this.buildQuery();
     this.salesService.getItems(query, new PageInfo());
   }
+  onSearchChange(event: any) {
+    this.salesService.getItems(event, new PageInfo());
+  }
 
   buildQuery(): string {
-    const searchTerm = this.filterForm.get('searchTerm')?.value;
-    const isStorable = this.filterForm.get('isStorable')?.value;
-    const isService = this.filterForm.get('isService')?.value;
-    const hasExpiryDate = this.filterForm.get('hasExpiryDate')?.value;
-    
-    const query = [];
+    const isStorable = this.filterForm.get('isStorable')?.value!;
 
-    if (searchTerm) query.push(`${this.sharedEnums.ItemsQueryEnum.SearchText}=${searchTerm}`);
-    if (isStorable) query.push(`${this.sharedEnums.ItemsQueryEnum.IsStorable}=${isStorable}`);
-    if (isService) query.push(`${this.sharedEnums.ItemsQueryEnum.IsService}=${isService}`);
-    if (hasExpiryDate)
-      query.push(`${this.sharedEnums.ItemsQueryEnum.HasExpiryDate}=${hasExpiryDate}`);
+    console.log("isStorable",isStorable);
 
-    return query.join('&');
+    const query: string[] = [];
+
+    isStorable.forEach((x:any) => {
+console.log("Item",x);
+
+    });
+
+
+
+    const result  = query.join('&')
+    console.log('result', result)
+
+
+    return result ;
   }
 }

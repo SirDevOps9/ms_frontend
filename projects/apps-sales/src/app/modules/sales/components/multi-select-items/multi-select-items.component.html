@@ -7,7 +7,7 @@
     <div class="table">
       <lib-data-table
         [popup]="true"
-        [items]="itemsData"
+        [items]="items"
         [showCheckBox]="true"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
@@ -58,8 +58,9 @@
               <lib-text-input
                 type="text"
                 [placeholder]="'Table.Search' | translate"
-                formControlName="searchTerm"
                 [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+                (keyUp)="onSearchChange($event)"
+
               >
               </lib-text-input>
             </div>
@@ -71,7 +72,7 @@
                       <p-checkbox
                         formControlName="isStorable"
                         inputId="IsStorable"
-                        value="{{ 'ItemsAdvancedSearch.IsStorable' | translate }}"
+                        value="IsStorable"
                       ></p-checkbox>
                       <lib-label
                         class="margin_start"
@@ -87,14 +88,14 @@
                   <lib-form-group>
                     <div class="checkbox_filter">
                       <p-checkbox
-                      formControlName="isService"
-                      inputId="IsService"
-                      value="{{ 'ItemsAdvancedSearch.IsService' | translate }}"
-                    ></p-checkbox>
+                      formControlName="isStorable"
+                      inputId="isStorable"
+                      value="IsService"
+                      ></p-checkbox>
                     <lib-label
                       class="margin_start"
                       for="IsService"
-                      [appControl]="filterForm.controls['isService']"
+                      [appControl]="filterForm.controls['isStorable']"
                     >
                       {{ 'ItemsAdvancedSearch.IsService' | translate }}
                     </lib-label>
@@ -107,14 +108,14 @@
                   <lib-form-group>
                     <div class="checkbox_filter">
                       <p-checkbox
-                      formControlName="hasExpiryDate"
-                      inputId="HasExpiryDate"
-                      value="{{ 'ItemsAdvancedSearch.HasExpiryDate' | translate }}"
-                    ></p-checkbox>
+                      formControlName="isStorable"
+                      inputId="isStorable"
+                      value="HasExpiryDate"
+                      ></p-checkbox>
                     <lib-label
                       class="margin_start"
                       for="HasExpiryDate"
-                      [appControl]="filterForm.controls['hasExpiryDate']"
+                      [appControl]="filterForm.controls['isStorable']"
                     >
                       {{ 'ItemsAdvancedSearch.HasExpiryDate' | translate }}
                     </lib-label>

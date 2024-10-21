@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { customValidators, FormsService } from 'shared-lib';
 import * as XLSX from 'xlsx';
+import { MultiSelectItemsComponent } from '../../../components/multi-select-items/multi-select-items.component';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ItemDto } from '../../../models';
 
 @Component({
   selector: 'app-add-price-policy',
@@ -135,9 +138,24 @@ export class AddPricePolicyComponent implements OnInit {
   //   console.log(reader.readAsBinaryString(file),'this.datathis.data');
 
   // }
+
+  openDialog(index: number) {
+    const ref = this.dialog.open(MultiSelectItemsComponent, {
+      width: '900px',
+      height: '600px',
+    });
+    ref.onClose.subscribe((selectedItems: ItemDto[]) => {
+      if (selectedItems) {
+        const selectedIds = selectedItems.map(item => item.itemId);
+        console.log("onClose",selectedIds)
+        //this.reportTrialForm.get('Accounts')?.setValue(selectedIds);
+      }
+    });
+  }
   constructor(
     private formBuilder: FormBuilder,
     private formsService: FormsService,
+    private dialog: DialogService,
 
 
   ){}

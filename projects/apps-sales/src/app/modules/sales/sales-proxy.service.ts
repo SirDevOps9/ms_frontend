@@ -197,7 +197,7 @@ export class SalesProxyService {
     pageInfo: PageInfo
   ): Observable<PaginationVm<ItemDto>> {
     return this.httpService.get<PaginationVm<ItemDto>>(
-      `ChartOfAccounts/getItems?${pageInfo.toQuery}&${quieries ? quieries : ''}`
+      `PricePolicy/GetItemsList?${pageInfo.toQuery}&${quieries ? quieries : ''}`
     );
   }
 }

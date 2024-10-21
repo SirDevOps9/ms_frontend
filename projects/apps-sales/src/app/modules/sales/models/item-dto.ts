@@ -1,8 +1,15 @@
 export interface ItemDto {
-    id: number;
-    code: string;
-    name: string;
-    itemUOM:string;
-    itemVairant:string;
-    itemCategory:string;
+  itemId: number;
+  itemCode: string;
+  itemName: string;
+  uomId: number;
+  uomCode: string;
+  uomNameAr: string;
+  uomNameEn: string;
+  itemVariantId: number;
+  itemVariantCode: string;
+  itemVariantName: string;
+  itemCategoryNameAr: string;
+  itemCategoryNameEn: string;
+  categoryId: number;
   }
