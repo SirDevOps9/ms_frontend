@@ -23,10 +23,8 @@ export class MultiSelectItemsComponent implements OnInit {
     // isStorable:  new FormControl<string | null>(null),
     // isService: new FormControl<string | null>(null),
     // hasExpiryDate:  new FormControl<string | null>(null)
-     isStorable:  new FormControl([]),
-
+    isStorable: new FormControl([]),
   });
-
 
   constructor(
     private salesService: SalesService,
@@ -86,46 +84,43 @@ export class MultiSelectItemsComponent implements OnInit {
   buildQuery(): string {
     const isStorable = this.filterForm.get('isStorable')?.value!;
 
-    console.log("isStorable",isStorable);
+    console.log('isStorable', isStorable);
 
     const query: string[] = [];
 
-    isStorable.forEach((x:any) => {
-console.log("Item",x);
-
+    isStorable.forEach((x: any) => {
+      console.log('Item', x);
     });
 
-    // buildQuery(): string {
-    //   // Get the current values from the filter form
-    //   const isStorable = this.filterForm.get('isStorable')?.value;
-    //   const isService = this.filterForm.get('isService')?.value;
-    //   const hasExpiryDate = this.filterForm.get('hasExpiryDate')?.value;
-    
-    //   // Initialize an array to hold the query parameters
-    //   const query: string[] = [];
-    
-    //   // Add query parameters based on checkbox values
-    //   if (isStorable) {
-    //     query.push(`${this.sharedEnums.GetItemsQueryEnum.IsStorable}=${this.sharedEnums.GetItemsQueryEnum.IsStorable}`);
-    //   }
-    //   if (isService) {
-    //     query.push(`${this.sharedEnums.GetItemsQueryEnum.IsService}=${this.sharedEnums.GetItemsQueryEnum.IsService}`);
-    //   }
-    //   if (hasExpiryDate) {
-    //     query.push(`${this.sharedEnums.GetItemsQueryEnum.HasExpiryDate}=true`); // Adjust based on how your API expects this
-    //   }
-    
-    //   // Join the query parameters into a single string
-    //   const result = query.join('&');
-    //   console.log('Generated Query:', result);
-    
-    //   return result;
-    // }
+    const result = query.join('&');
+    console.log('result', result);
 
-    const result  = query.join('&')
-    console.log('result', result)
-
-
-    return result ;
+    return result;
   }
+  // buildQuery(): string {
+  //   // Get the current values from the filter form
+  //   const isStorable = this.filterForm.get('isStorable')?.value;
+  //   const isService = this.filterForm.get('isService')?.value;
+  //   const hasExpiryDate = this.filterForm.get('hasExpiryDate')?.value;
+
+  //   // Initialize an array to hold the query parameters
+  //   const query: string[] = [];
+
+  //   // Add query parameters based on checkbox values
+  //   if (isStorable) {
+  //     query.push(`${this.sharedEnums.GetItemsQueryEnum.IsStorable}=${this.sharedEnums.GetItemsQueryEnum.IsStorable}`);
+  //   }
+  //   if (isService) {
+  //     query.push(`${this.sharedEnums.GetItemsQueryEnum.IsService}=${this.sharedEnums.GetItemsQueryEnum.IsService}`);
+  //   }
+  //   if (hasExpiryDate) {
+  //     query.push(`${this.sharedEnums.GetItemsQueryEnum.HasExpiryDate}=true`); // Adjust based on how your API expects this
+  //   }
+
+  //   // Join the query parameters into a single string
+  //   const result = query.join('&');
+  //   console.log('Generated Query:', result);
+
+  //   return result;
+  // }
 }
