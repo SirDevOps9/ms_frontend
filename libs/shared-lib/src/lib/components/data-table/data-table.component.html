@@ -51,9 +51,8 @@
           <ng-content select="[caption]"> </ng-content>
           <lib-columns-selection
             [ngClass]="{ 'rtl-position': isRtl, 'ltr-position': !isRtl }"
-            class="absolute bg-danger"
+            class=" col-selection"
             *ngIf="showColumnFilter"
-            [ngStyle]="{ top: '70px', 'z-index': 33 }"
             [formControl]="searchColumnsControl"
             [options]="filtered_columns"
             [(ngModel)]="selected_filtered_columns"
@@ -101,9 +100,8 @@
                   class="center"
                 >
                 @if (col.name === 'id') {
-                  <div  class="flex gap-3 justify-content-center align-content-center">
+                  <div  class="flex gap-3 justify-content-between align-content-center">
                       {{ col.headerText }}
-                      <i ></i>
                       <i ></i>
                     </div>
                   }@else {
@@ -156,7 +154,12 @@
               <!-- Check if the column has children -->
               <ng-container *ngIf="col.children && col.children.length; else parentCol">
                 <ng-container *ngFor="let child of col.children">
-                  <td class="body_b16" [ngClass]="child.applyClass ? child['class'] : null">
+                  <td  
+            
+                  
+                  class="body_b16" [ngClass]="child.applyClass ? child['class'] : null"   
+                  
+                  >
                     <ng-container *ngIf="!child.template; else customCellTemplate!">
                       <ng-container *ngIf="child.lookupKey">
                         {{ this.lookupsService.getLookUpText(child.lookupKey, row[child.name]) }}
@@ -205,7 +208,10 @@
               <!-- Check if the column has children -->
               <ng-container *ngIf="col.children && col.children.length; else parentCol">
                 <ng-container *ngFor="let child of col.children">
-                  <td class="body_b16">
+                  <td   
+                   
+                  
+                  class="body_b16">
                     <ng-container *ngIf="!child.template; else customCellTemplate!">
                       <ng-container *ngIf="child.lookupKey">
                         {{ this.lookupsService.getLookUpText(child.lookupKey, row[child.name]) }}
@@ -224,7 +230,12 @@
               </ng-container>
               <!-- Template for parent column -->
               <ng-template #parentCol>
-                <td class="body_b16">
+                <td   
+                pFrozenColumn
+                [frozen]="col.name === 'id' ? true : false"
+                [alignFrozen]="isRtl ? 'left' : 'right'"   
+                
+                class="body_b16">
                   <ng-container *ngIf="!col.template; else customParentCellTemplate!">
                     <ng-container *ngIf="col.lookupKey">
                       {{ this.lookupsService.getLookUpText(col.lookupKey, row[col.name]) }}

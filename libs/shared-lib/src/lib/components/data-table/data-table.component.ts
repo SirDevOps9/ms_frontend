@@ -16,8 +16,7 @@ import { PageInfo, PageInfoResult } from '../../models';
 import { NgIfContext } from '@angular/common';
 import { GeneralService } from '../../services/general.service';
 import { FormControl } from '@angular/forms';
-import { tap } from 'rxjs/operators';
-import { Table } from 'primeng/table';
+
 
 @Component({
   selector: 'lib-data-table',
@@ -64,7 +63,6 @@ export class DataTableComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.isRtl = this.languageService.ar;
-    debugger
     this.showColumnFilter = this.tableConfigs?.columns?.some(x=>x.name == 'id')
     this.filtered_columns = this.tableConfigs.columns;
     this.selected_filtered_columns = this.filtered_columns.map((option) => option.name);
