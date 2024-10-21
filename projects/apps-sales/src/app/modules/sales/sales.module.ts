@@ -21,6 +21,8 @@ import { ViewCustomerOpeningBalanceComponent } from './pages/customer-opening-ba
 import { CustomerObViewDistributionComponent } from './components/customer-ob-view-distribution/customer-ob-view-distribution.component';
 import { PricelistMainComponent } from './pages/pricelist/Pricelist-main/Pricelist-main.component';
 import { PricelistListComponent } from './pages/pricelist/Pricelist-list/Pricelist-list.component';
+import { MultiSelectItem } from 'primeng/multiselect';
+import { MultiSelectItemsComponent } from './components/multi-select-items/multi-select-items.component';
 import { AddPricePolicyComponent } from './pages/pricelist/add-price-policy/add-price-policy.component';
 
 const routes: Routes = [
@@ -215,7 +217,8 @@ const routes: Routes = [
     CustomerObViewDistributionComponent,
     PricelistListComponent,
     PricelistMainComponent,
-    AddPricePolicyComponent
+    AddPricePolicyComponent,
+    MultiSelectItemsComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })

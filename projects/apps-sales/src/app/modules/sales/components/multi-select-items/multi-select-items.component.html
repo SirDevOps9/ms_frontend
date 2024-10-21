@@ -1,0 +1,135 @@
+<div class="main">
+  <lib-popup-page
+    title="{{ 'ItemsAdvancedSearch.ItemSearch' | translate }}"
+    [closeFunction]="onCancel"
+    (Submit)="onSubmit()"
+  >
+    <div class="table">
+      <lib-data-table
+        [popup]="true"
+        [items]="itemsData"
+        [showCheckBox]="true"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        (selectedRowsChange)="onSelectedRowsChange($event)"
+        [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: true,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'code',
+              headerText: 'ItemsAdvancedSearch.ItemCode' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'name',
+              headerText: 'ItemsAdvancedSearch.ItemName' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'itemUOM',
+              headerText: 'ItemsAdvancedSearch.ItemUOM' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'itemVairant',
+              headerText: 'ItemsAdvancedSearch.ItemVariant' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'itemCategory',
+              headerText: 'ItemsAdvancedSearch.ItemCategory' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            }
+          ]
+        }"
+      >
+        <ng-container caption>
+          <div [formGroup]="filterForm" class="grid">
+            <div class="col-12">
+              <lib-text-input
+                type="text"
+                [placeholder]="'Table.Search' | translate"
+                formControlName="searchTerm"
+                [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+              >
+              </lib-text-input>
+            </div>
+            <div class="md:col-12">
+              <div class="items_filter">
+                <div class="md:col-4">
+                  <lib-form-group>
+                    <div class="checkbox_filter">
+                      <p-checkbox
+                        formControlName="isStorable"
+                        inputId="IsStorable"
+                        value="{{ 'ItemsAdvancedSearch.IsStorable' | translate }}"
+                      ></p-checkbox>
+                      <lib-label
+                        class="margin_start"
+                        for="IsStorable"
+                        [appControl]="filterForm.controls['isStorable']"
+                      >
+                        {{ 'ItemsAdvancedSearch.IsStorable' | translate }}
+                      </lib-label>
+                    </div>
+                  </lib-form-group>
+                </div>
+                <div class="md:col-4">
+                  <lib-form-group>
+                    <div class="checkbox_filter">
+                      <p-checkbox
+                      formControlName="isService"
+                      inputId="IsService"
+                      value="{{ 'ItemsAdvancedSearch.IsService' | translate }}"
+                    ></p-checkbox>
+                    <lib-label
+                      class="margin_start"
+                      for="IsService"
+                      [appControl]="filterForm.controls['isService']"
+                    >
+                      {{ 'ItemsAdvancedSearch.IsService' | translate }}
+                    </lib-label>
+                    </div>
+
+                  </lib-form-group>
+                </div>
+
+                <div class="md:col-4">
+                  <lib-form-group>
+                    <div class="checkbox_filter">
+                      <p-checkbox
+                      formControlName="hasExpiryDate"
+                      inputId="HasExpiryDate"
+                      value="{{ 'ItemsAdvancedSearch.HasExpiryDate' | translate }}"
+                    ></p-checkbox>
+                    <lib-label
+                      class="margin_start"
+                      for="HasExpiryDate"
+                      [appControl]="filterForm.controls['hasExpiryDate']"
+                    >
+                      {{ 'ItemsAdvancedSearch.HasExpiryDate' | translate }}
+                    </lib-label>
+                    </div>
+
+
+                  </lib-form-group>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        >
+      </lib-data-table>
+    </div>
+  </lib-popup-page>
+</div>
