@@ -1,24 +1,27 @@
 <lib-page-content>
   <div class="edit_company_page">
-    <lib-bread-crumb>
-      <div class="company_code">
-        <div class="code">
-          <p class="title body_b23">{{ 'Company.CompanyCode' | translate }}</p>
-          <p class="code_num body_b23">{{ companyCode }}</p>
-        </div>
-        <div class="status">
-          <div class="checked" >
-           <lib-input-switch [(ngModel)]="isActive" (onChange)="toggle()"> </lib-input-switch>
-            <p class="active body_b16" *ngIf="isActive">
-              {{ 'User.Activate' | translate }}
-            </p>
-            <p class="inactive body_b16" *ngIf="!isActive">
-              {{ 'User.Deactivate' | translate }}
-            </p>
+    <div class="card_micro">
+
+      <lib-bread-crumb>
+        <div class="company_code">
+          <div class="code">
+            <p class="title body_b23">{{ 'Company.CompanyCode' | translate }}</p>
+            <p class="code_num body_b23">{{ companyCode }}</p>
+          </div>
+          <div class="status">
+            <div class="checked" >
+             <lib-input-switch [(ngModel)]="isActive" (onChange)="toggle()"> </lib-input-switch>
+              <p class="active body_b16" *ngIf="isActive">
+                {{ 'User.Activate' | translate }}
+              </p>
+              <p class="inactive body_b16" *ngIf="!isActive">
+                {{ 'User.Deactivate' | translate }}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </lib-bread-crumb>
+      </lib-bread-crumb>
+    </div>
 
     <div class="company_nav">
       <div class="company_nav_content">

@@ -116,14 +116,24 @@
     }
 }
 .card_list{
-    flex-direction: column !important;
-    max-width: 350px !important;
+     flex-direction: column !important;
+    //  max-width: 350px !important;
+
 }
 .contant{
     display: flex;
     align-items: start;
     justify-content: start;
     flex-wrap: wrap;
+    .card{
+      .sec_two{
+        flex-direction: column !important;
+      .rate{
+        height: 100px;
+        overflow: hidden;
+      }
+      }
+          }
 }
 .Modules{
     border-bottom:1px solid #8E95A2 ;

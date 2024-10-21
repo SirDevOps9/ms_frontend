@@ -1,12 +1,15 @@
 <lib-page-content>
-  <lib-bread-crumb>
-    <div class="plan_header">
-      <button class="btn body_b16" type="button" (click)="openSubdomainModal()">
-        <span class="icon pi pi-plus"></span>
-        {{ 'Subscription.Subdomain.AddSubdomain' | translate }}
-      </button>
-    </div>
-  </lib-bread-crumb>
+  <div class="card_micro">
+
+    <lib-bread-crumb>
+      <div class="plan_header ">
+        <button class="btn body_b16" type="button" (click)="openSubdomainModal()">
+          <span class="icon pi pi-plus"></span>
+          {{ 'Subscription.Subdomain.AddSubdomain' | translate }}
+        </button>
+      </div>
+    </lib-bread-crumb>
+  </div>
 
   <div class="plan_page">
     <div class="card-container card_micro grid" *ngIf="subdomain">
