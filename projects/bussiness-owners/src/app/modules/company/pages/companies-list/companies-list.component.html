@@ -2,37 +2,8 @@
   [title]="'Company.CompanyList' | translate"
   [subTitle]="'Company.CompanyList' | translate"
 >
-<div class=" card_micro">
-
-  <lib-bread-crumb>
-    <!-- <div class="flex justify-content-end align-items-center">
-      <div class="p-input-icon-left">
-        <i class="pi pi-search"></i>
-        <input
-          pInputText
-          type="text"
-          (keyup)="search($event)"
-          placeholder="Search..."
-        />
-      </div>
-      <button
-        pButton
-        pRipple
-        label="Add New"
-        icon="pi pi-plus"
-        class="add_new mr-2"
-        (click)="newCompany()"
-      ></button>
-      <lib-export
-      (exportClick)="exportCompaniesData($event)"
-      [exportData]="mappedTableData"
-      [exportColumns]="exportColumns"
-      [ExportName]="'Companies'"
-    >
-    </lib-export>
-    </div> -->
-  </lib-bread-crumb>
-</div>
+  <lib-new-bread-crumb >
+  </lib-new-bread-crumb>
   <div class="company_page card_micro ">
     <p-treeTable
   #myTab
@@ -98,6 +69,9 @@
         <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
         {{ rowData[col.header] }}
 
+        <ng-container *ngIf="i == 1">
+          <p> {{ selectedLanguage == 'en' ? rowData.nameEn: rowData.nameAr }} </p>
+        </ng-container>
         <ng-container *ngIf="i == 7">
           <lib-button-micro
             nameClass="table_button_edit"

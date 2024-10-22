@@ -4,12 +4,24 @@
   "Submit": "Submit",
   "Logout": "Logout",
   "DeleteError": "Error in Delete",
+  "Cancel": "Cancel",
+
   "LoadError": "Error in loading Data",
   "Table": {
     "Actions": "Actions",
     "Edit": "Edit",
     "Delete": "Delete",
     "Add": "Create"
+  },
+  "BreadCrumb":{
+    "subscription":"My Subscription",
+    "user":"Manage User",
+    "companies":"Manage Companies",
+    "app":"Manage APP",
+    "edit":"Edit Companies",
+    "appStore":"App in Store",
+    "appDetails":"Details",
+    "cart":"Cart List"
   },
   "Toaster": {
     "Confirm": {

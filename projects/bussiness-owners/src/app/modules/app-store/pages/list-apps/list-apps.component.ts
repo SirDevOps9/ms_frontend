@@ -26,9 +26,8 @@ export class ListAppsComponent implements OnInit {
     private titleService: Title,
     private languageService: LanguageService
   ) {}
-  items: any[] | undefined;
+  // items: any[] | undefined;
 
-    home: any | undefined;
 
    
   ngOnInit(): void {
@@ -41,14 +40,12 @@ export class ListAppsComponent implements OnInit {
     
     this.languageService.getTranslation('AppStore.Title').subscribe((title) => {
       this.titleService.setTitle(title);
-      console.log(title ,"0000000");
       
     });
-    this.languageService.getTranslation('Welcome').subscribe((title) => {
-      console.log(title ,"111111111");
-      this.items = [{ icon: 'pi pi-home', route: '/installation' }, { label:title  }, { label: 'Form' }, { label: 'InputText', route: '/inputtext' }];
+    // this.languageService.getTranslation('Welcome').subscribe((title) => {
+    //   this.items = [{ icon: 'pi pi-home', route: '/installation' }, { label:title  }, { label: 'Form' }, { label: 'InputText', route: '/inputtext' }];
 
-    });
+    // });
     this.appStoreService.loadApps();
 
     this.appStoreService.apps.subscribe((apps) => {

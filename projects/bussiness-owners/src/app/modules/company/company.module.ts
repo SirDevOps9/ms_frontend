@@ -17,6 +17,7 @@ import { CompanyBranchesComponent } from './pages/company-branches/company-branc
 import { NewBranchesComponent } from './components/new-branches/new-branches.component';
 import { EditBranchesComponent } from './components/edit-branches/edit-branches.component';
 import { NewCompanyComponent } from './components/new-company/new-company.component';
+import { BreadCrumbRoute } from '../../models';
 
 const routes: Routes = [
   {
@@ -28,55 +29,40 @@ const routes: Routes = [
         component: CompaniesListComponent,
         canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.COMPANY_LIST,
+          breadcrumb: BreadCrumbRoute.companies
         },
       },
       {
         path: 'company/edit/:id',
         component: EditCompanyComponent,
         canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadCrumbRoute.editCompanies
+        },
         children: [
           {
             path: '',
             component: CompanyAddresComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.EDIT_ADDRESS,
-            },
           },
           {
             path: 'address',
             component: CompanyAddresComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.EDIT_ADDRESS,
-            },
           },
           {
             path: 'legal',
             component: CompanyLegalComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.EDIT_LEGAL,
-            },
           },
           {
             path: 'contact',
             component: CompanyContactComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.EDIT_CONTACT,
-            },
           },
           {
             path: 'hierarchy',
             component: CompanyHierarchyComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.EDIT_HIERARCHY,
-            },
           },
           {
             path: 'branches',
             component: CompanyBranchesComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.EDIT_BRANCHES,
-            },
           },
         ],
       },

@@ -26,6 +26,7 @@ export class CompaniesListComponent implements OnInit {
   exportColumns: lookupDto[];
   exportTableData: ExportCompanyDto[];
   exportData: ExportCompanyDto[];
+  selectedLanguage: any 
 
   constructor(
     private routerService: RouterService,
@@ -41,6 +42,7 @@ export class CompaniesListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.subscribe()
     this.titleService.setTitle(this.languageService.transalte('Company.CompanyList'));
     this.initCompanyData();
 
@@ -140,6 +142,11 @@ export class CompaniesListComponent implements OnInit {
     this.companyService.exportCompaniesData(searchTerm, this.subdomainId);
     this.companyService.exportsCompaniesDataSourceObservable.subscribe((res) => {
       this.exportData = res;
+    });
+  }
+  subscribe(){
+    this.languageService.language$.subscribe((lang) => {
+      this.selectedLanguage = lang
     });
   }
 }
