@@ -51,7 +51,7 @@
                 </lib-label>
                 <lib-select
                   formControlName="parentCategoryId"
-                  [options]="ItemCategoryDropDown"
+                  [options]="parentCategoryList"
                   optionValue="id"
                   optionLabel="name"
                   [selectedValue]="formGroup.controls['parentCategoryId'].value"
@@ -523,7 +523,8 @@
         </p-tabPanel>
       </p-tabView>
     </form>
-    <div class="btn_group ">
+    <!-- <div class="btn_group ">
+
       <div class="grid">
         <div class="md:col-3">
           <div class="grid">
@@ -550,6 +551,32 @@
         </div>
       </div>
   
+    </div> -->
+    <div class="btn_group">
+      <div class="grid">
+        <div class="md:col-6">
+          <div class="grid">
+            <div class="md:col-6">
+              <lib-button-micro
+                nameClass="cancel"
+                title="{{ 'itemsCategory.cancel' | translate }}"
+                (click)="cancel()"
+                widthNumber="100%"
+              >
+              </lib-button-micro>
+            </div>
+            <div class="md:col-6">
+              <lib-button-micro
+                nameClass="save"
+                title="{{ 'itemsCategory.save' | translate }}"
+                (click)="onSubmit()"
+                widthNumber="100%"
+              >
+              </lib-button-micro>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="action">
    

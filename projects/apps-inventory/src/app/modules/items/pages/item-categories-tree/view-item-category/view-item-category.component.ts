@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, output, SimpleChanges } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
 import { LanguageService } from 'shared-lib';
@@ -28,6 +28,8 @@ export class ViewItemCategoryComponent {
   accountCompanies?: string;
   parent?: AddItemCategory | any;
   
+  sendId = output<number>();
+
   constructor(private accountService: AccountService,
     private title: Title,
     private langService: LanguageService,
@@ -49,57 +51,21 @@ export class ViewItemCategoryComponent {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['account']) {
-
-      // Your logic here
       this.parent = this.account;
       console.log(this.parent , "this.parent");
-
-      // if (this.parent.hasNoChild === true) {
-      //   this.yes = true;
-      // } else {
-      //   this.yes = false;
-      // }
     }
 
-    //   if (this.parent.accountActivation === 'Active') {
-    //     this.Active = true;
-    //     this.Inactive = false;
-    //     this.Period = false;
-    //   } else if (this.parent.accountActivation === 'Inactive') {
-    //     this.Inactive = true;
-    //     this.Active = false;
-    //     this.Period = false;
-    //   } else if (this.parent.accountActivation === 'PeriodicActive') {
-    //     this.Period = true;
-    //     this.Inactive = false;
-    //     this.Active = false;
-    //   }
-
-    //   if (this.parent.costCenterConfig === 'Mandatory') {
-    //     console.log("MandatoryMandatoryMandatory");
-        
-    //     this.Mandatory = true;
-    //     this.NotAllow = false;
-    //     this.Optional = false;
-    //   } else if (this.parent.costCenterConfig === 'NotAllow') {
-    //     this.NotAllow = true;
-    //     this.Mandatory = false;
-    //     this.Optional = false;
-    //   } else if (this.parent.costCenterConfig === 'Optional') {
-    //     this.Optional = true;
-    //     this.Inactive = false;
-    //     this.Mandatory = false;
-    //   }
-    //   this.accountLevel = this.parent?.accountLevel?.toString();
-    //   this.accountTags = this.parent?.accountTags?.join('  ');
-    //   this.accountCompanies = this.parent?.accountCompanies?.join('  ');
-    //   //console.log('Account changed:', changes['account'].currentValue);
-    // }
   }
   AccountsDropDown() {
     this.itemService.AccountsDropDown()
     this.itemService.AccountsDropDownLookupObs.subscribe(res=>{
       this.AccountsDropDownLookup = res
     })
+  }
+  routeToEdit(){
+    debugger
+    this.sendId.emit(this.account?.id as number) 
+    
+
   }
 }

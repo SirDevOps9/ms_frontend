@@ -2,17 +2,36 @@ import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
-import { parentAccountDto, AccountSectionDropDownDto, AccountTypeDropDownDto, TagDropDownDto, companyDropDownDto, AccountByIdDto, accountById } from 'projects/apps-accounting/src/app/modules/account/models';
+import {
+  parentAccountDto,
+  AccountSectionDropDownDto,
+  AccountTypeDropDownDto,
+  TagDropDownDto,
+  companyDropDownDto,
+  AccountByIdDto,
+  accountById,
+} from 'projects/apps-accounting/src/app/modules/account/models';
 import { CurrencyService } from 'projects/apps-accounting/src/app/modules/general/currency.service';
 import { CurrencyDto } from 'projects/apps-finance/src/app/modules/general/models';
-import { LookupEnum, lookupDto, RouterService, FormsService, LookupsService, LanguageService, ToasterService, CurrentUserService, customValidators, Modules } from 'shared-lib';
+import {
+  LookupEnum,
+  lookupDto,
+  RouterService,
+  FormsService,
+  LookupsService,
+  LanguageService,
+  ToasterService,
+  CurrentUserService,
+  customValidators,
+  Modules,
+} from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { AddItemCategory } from '../../../models';
 
 @Component({
   selector: 'app-edit-item-category',
   templateUrl: './edit-item-category.component.html',
-  styleUrl: './edit-item-category.component.scss'
+  styleUrl: './edit-item-category.component.scss',
 })
 export class EditItemCategoryComponent {
   formGroup: FormGroup;
@@ -23,14 +42,13 @@ export class EditItemCategoryComponent {
   accountTypes: AccountTypeDropDownDto[];
   accountTags: TagDropDownDto[];
   companyDropDown: companyDropDownDto[];
-  AccountsDropDownLookup : { id: number; name: string}[] = []
-  ItemCategoryDropDown : { id: number; name : string }[]
+  AccountsDropDownLookup: { id: number; name: string }[] = [];
+  ItemCategoryDropDown: { id: number; name: string }[];
   categoryType = [
     { label: 'Storable', value: 'Storable' },
     { label: 'Service', value: 'Service' },
-    { label: 'Asset', value: 'Asset' }
-  
-  ]
+    { label: 'Asset', value: 'Asset' },
+  ];
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   currencyIsVisible: boolean;
@@ -38,10 +56,10 @@ export class EditItemCategoryComponent {
   selectValue: boolean = false;
   parentAcountName?: parentAccountDto;
   parent?: AccountByIdDto;
-  accountTypeIdValue:number
-  
+  accountTypeIdValue: number;
+
   selectedPeriodOption: string = '';
-  @Input() parentEditedId?: number ;
+  @Input() parentEditedId?: number;
   @Output() operationCompleted = new EventEmitter<any>();
   constructor(
     private formBuilder: FormBuilder,
@@ -53,24 +71,20 @@ export class EditItemCategoryComponent {
     private title: Title,
     private langService: LanguageService,
     private toaserService: ToasterService,
-    private currentUserService : CurrentUserService,
-    private itemService : ItemsService
-
-  ) {
-
-
-  }
+    private currentUserService: CurrentUserService,
+    private itemService: ItemsService
+  ) {}
   ngOnInit() {
-    this.getAccountById(this.parentEditedId)
+    this.getAccountById(this.parentEditedId);
 
     this.formGroup = this.formBuilder.group({
       id: new FormControl(),
       code: [''],
-      nameEn: ['' , [customValidators.required]],
-      nameAr: ['' , [customValidators.required]],
+      nameEn: ['', [customValidators.required]],
+      nameAr: ['', [customValidators.required]],
       parentCategoryId: [null],
       isDetailed: [false], // Assuming a boolean default of `false`
-      categoryType:  [null , [customValidators.required]],
+      categoryType: [null, [customValidators.required]],
 
       glAccountId: [null],
       cashSalesAccountId: [null],
@@ -81,19 +95,19 @@ export class EditItemCategoryComponent {
       discountAccountId: [null],
       evaluationAccountId: [null],
       adjustmentAccountId: [null],
-      goodsInTransitAccountId: [null]
+      goodsInTransitAccountId: [null],
     });
- 
-    this.itemService.EditItemCategoryDataObs.subscribe(res=>{
-      if(res) {
+
+    this.itemService.EditItemCategoryDataObs.subscribe((res) => {
+      if (res) {
         this.formGroup.get('id')?.reset();
-        this.formGroup.get('code')?.reset('');  // Reset to an empty string
-        this.formGroup.get('nameEn')?.reset('', { emitEvent: false });  // Reset and retain validators
-        this.formGroup.get('nameAr')?.reset('', { emitEvent: false });  // Reset and retain validators
-        this.formGroup.get('parentCategoryId')?.reset(null);  // Reset to null
-        this.formGroup.get('isDetailed')?.reset(false);  // Reset to default false
-        this.formGroup.get('categoryType')?.reset('', { emitEvent: false });  // Reset and retain validators
-        
+        this.formGroup.get('code')?.reset(''); // Reset to an empty string
+        this.formGroup.get('nameEn')?.reset('', { emitEvent: false }); // Reset and retain validators
+        this.formGroup.get('nameAr')?.reset('', { emitEvent: false }); // Reset and retain validators
+        this.formGroup.get('parentCategoryId')?.reset(null); // Reset to null
+        this.formGroup.get('isDetailed')?.reset(false); // Reset to default false
+        this.formGroup.get('categoryType')?.reset('', { emitEvent: false }); // Reset and retain validators
+
         // Reset all the account-related fields to null
         this.formGroup.get('glAccountId')?.reset(null);
         this.formGroup.get('cashSalesAccountId')?.reset(null);
@@ -106,36 +120,34 @@ export class EditItemCategoryComponent {
         this.formGroup.get('adjustmentAccountId')?.reset(null);
         this.formGroup.get('goodsInTransitAccountId')?.reset(null);
       }
-    })
+    });
 
+    this.ItemCategoryDropDownData();
+    this.AccountsDropDown();
 
-    this.ItemCategoryDropDownData()
-    this.AccountsDropDown()
-
-    this.formGroup.get('isDetailed')?.valueChanges.subscribe(res=>{
-      console.log(res)
-      if(res== true) {
-        this.formGroup.get('categoryType')?.setValidators(customValidators.required)
-        this.formGroup.get('categoryType')?.updateValueAndValidity()
-       }else{
-        this.formGroup.get('categoryType')?.clearValidators()
-        this.formGroup.get('categoryType')?.updateValueAndValidity()
-       }
-    })
-
+    this.formGroup.get('isDetailed')?.valueChanges.subscribe((res) => {
+      console.log(res);
+      if (res == true) {
+        this.formGroup.get('categoryType')?.setValidators(customValidators.required);
+        this.formGroup.get('categoryType')?.updateValueAndValidity();
+      } else {
+        this.formGroup.get('categoryType')?.clearValidators();
+        this.formGroup.get('categoryType')?.updateValueAndValidity();
+      }
+    });
   }
   ItemCategoryDropDownData() {
-    this.itemService.ItemCategoryDropDown()
-    this.itemService.itemCategoryLookupObs.subscribe(res=>{
-      this.ItemCategoryDropDown = res
-      console.log(res)
-    })
+    this.itemService.ItemCategoryDropDown();
+    this.itemService.itemCategoryLookupObs.subscribe((res) => {
+      this.ItemCategoryDropDown = res;
+      console.log(res);
+    });
   }
   AccountsDropDown() {
-    this.itemService.AccountsDropDown()
-    this.itemService.AccountsDropDownLookupObs.subscribe(res=>{
-      this.AccountsDropDownLookup = res
-    })
+    this.itemService.AccountsDropDown();
+    this.itemService.AccountsDropDownLookupObs.subscribe((res) => {
+      this.AccountsDropDownLookup = res;
+    });
   }
 
   onAccountSectionChange(event: any) {
@@ -151,7 +163,6 @@ export class EditItemCategoryComponent {
 
   onParentAccountChange(event: any) {
     this.formGroup.controls['parentAccountCode'].setValue(event);
-
   }
 
   toggleCurrencyVisibility() {
@@ -163,9 +174,7 @@ export class EditItemCategoryComponent {
   }
 
   onSubmit() {
-
     if (!this.formsService.validForm(this.formGroup, false)) return;
-
 
     let obj: AddItemCategory = this.formGroup.value;
 
@@ -184,27 +193,22 @@ export class EditItemCategoryComponent {
   }
   getAccountById(id: any) {
     this.itemService.getItemCategoryById(id);
-    this.itemService.getItemCategoryByIdDataObs.subscribe((res:any) => {
-      console.log(res)
+    this.itemService.getItemCategoryByIdDataObs.subscribe((res: any) => {
+      console.log(res);
       this.parentAcountName = res;
 
-            if(res.parentId!=null){
-              this.hasParentAccount = true
-              this.selectValue = true
-            }else{
-              this.hasParentAccount=false
-              this.selectValue=true
-              
-            }
-          
+      if (res.parentId != null) {
+        this.hasParentAccount = true;
+        this.selectValue = true;
+      } else {
+        this.hasParentAccount = false;
+        this.selectValue = true;
+      }
 
-            this.formGroup.patchValue({...res});
-           
-
+      this.formGroup.patchValue({ ...res });
     });
   }
-  cancel(){
+  cancel() {
     this.operationCompleted.emit(-1);
-
   }
 }

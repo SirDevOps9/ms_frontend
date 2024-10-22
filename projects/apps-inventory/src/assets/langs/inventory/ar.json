@@ -1,4 +1,7 @@
 {
+  "BreadCrumb": {
+    "ItemsCategory":"فئة العناصر"
+   },
   "Toaster": {
     "Confirm": {
       "Title": "هل أنت متأكد؟",

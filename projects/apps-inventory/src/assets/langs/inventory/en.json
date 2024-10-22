@@ -1,4 +1,7 @@
 {
+ "BreadCrumb": {
+  "ItemsCategory":"Items Category"
+ },
   "Toaster": {
     "Confirm": {
       "Title": "Are you sure?",
