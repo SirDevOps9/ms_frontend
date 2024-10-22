@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { LanguageService, LookupsService, RouterService } from '../../services';
 import { TableConfig } from './data-table-column';
-import { PageInfo, PageInfoResult } from '../../models';
+import { PageInfo, PageInfoResult, SortBy } from '../../models';
 import { NgIfContext } from '@angular/common';
 import { GeneralService } from '../../services/general.service';
 import { FormControl } from '@angular/forms';
@@ -49,6 +49,11 @@ export class DataTableComponent implements OnInit, OnChanges {
   selectedColumns: any = [];
 
   globalFilterFields: string[];
+
+  pageInfo: PageInfo;
+
+  currentSortColumn: string | undefined;
+  currentSortOrder: SortBy = SortBy.Descending;
 
   filtered_columns: any[];
   clonedList: any[];
@@ -99,6 +104,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   rows2: any = 25;
 
   onPageChange2(pageInfoData: PageInfo | any) {
+    this.pageInfo = pageInfoData;
     this.generalService.sendPageChanges.next(pageInfoData);
   }
 
@@ -109,6 +115,8 @@ export class DataTableComponent implements OnInit, OnChanges {
   selectRow(row: any) { }
 
   onPageChange(pageInfo: PageInfo) {
+    pageInfo.sortColumn = this.currentSortColumn;
+    pageInfo.sortBy = this.currentSortOrder;
     this.pageChange.emit(pageInfo);
 
     this.rows2 = pageInfo.first;
@@ -121,11 +129,14 @@ export class DataTableComponent implements OnInit, OnChanges {
     this.clonedTableConfigs = { ...this.tableConfigs };
   }
   routeToSequence() {
+  routeToSequence() {
     const currentUrl = this.routerService.getCurrentUrl();
     this.routerService.navigateTo(`${currentUrl}/sequence`);
   }
 
   isSelected(index: number): boolean {
+    if (this.selectedIndices) return this.selectedIndices.includes(index);
+    return false;
     if (this.selectedIndices) return this.selectedIndices.includes(index);
     return false;
   }
@@ -138,6 +149,33 @@ export class DataTableComponent implements OnInit, OnChanges {
       this.selectedIndices.splice(selectedIndex, 1);
     }
   }
+
+  onSortClick(columnName: string): void {
+    if (columnName) {
+      if (this.currentSortColumn === columnName) {
+        this.currentSortOrder =
+          this.currentSortOrder === SortBy.Ascending ? SortBy.Descending : SortBy.Ascending;
+      } else {
+        this.currentSortOrder = SortBy.Ascending;
+      }
+
+      this.currentSortColumn = columnName;
+
+      setTimeout(() => {
+        const pageInfo = new PageInfo(
+          this.pageInfo?.pageNumber,
+          this.pageInfo?.pageSize,
+          this.pageInfo?.first,
+          this.currentSortOrder,
+          columnName
+        );
+
+        console.log('page info', pageInfo);
+        this.onPageChange(pageInfo);
+      }, 100);
+    }
+  }
+
   constructor(
     public languageService: LanguageService,
     public lookupsService: LookupsService,
