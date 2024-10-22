@@ -11,6 +11,7 @@ import {
 import { BehaviorSubject, map, ReplaySubject, Subject } from 'rxjs';
 import {
   addBarcode,
+  AddGeneralDto,
   AddItemCategory,
   AddItemDefinitionDto,
   AddOperatioalTag,
@@ -79,6 +80,14 @@ export class ItemsService {
   public getuomById = new BehaviorSubject<addUOM>({} as addUOM);
 
   public defaultUnit = new BehaviorSubject<{ id: number; name: string }>({} as { id: number; name: string });
+
+  // new Edits for item Def
+
+  saveItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
+  saveItemDefGeneral$ = this.saveItemDefGeneral.asObservable()
+  
+
+  // end Edit form item Def
 
   //transactions
 
@@ -1190,6 +1199,14 @@ editOperationalTag(obj: AddOperatioalTag) {
 }
 
 
+
+saveItemDefinitionGeneral(obj : AddGeneralDto) {
+  this.itemProxy.saveItemDefinitionGeneral(obj).subscribe((res) => {
+    this.router.navigateTo('/masterdata/item-definition')
+  })
+}
+
+
 async deleteOperationalTag(id: number) {
   const confirmed = await this.toasterService.showConfirm(
     this.languageService.transalte('ConfirmButtonTexttodelete')
@@ -1209,4 +1226,5 @@ async deleteOperationalTag(id: number) {
     });
   }
 }
+
 }

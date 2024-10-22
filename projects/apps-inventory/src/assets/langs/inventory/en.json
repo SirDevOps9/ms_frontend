@@ -36,6 +36,7 @@
     "vatApplied": "Vat Applied",
     "priceIncludeVat": "Price Include Vat",
     "specialCare": "Need Special Care",
+    "specialCareHead": "Special Care",
     "color": "Color",
     "uom": "UOM",
     "uomCategory": "UOM Category",
@@ -114,7 +115,7 @@
     "barcode": "Barcode",
     "actions": "Actions",
     "code" : "Code",
-
+    "addItemDef" : "Add Item Definition",
     "Add": "Create",
     "search": "Search",
     "ChangeColumn": "Change Column",

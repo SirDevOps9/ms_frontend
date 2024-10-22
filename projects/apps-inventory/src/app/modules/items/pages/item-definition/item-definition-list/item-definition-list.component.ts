@@ -97,7 +97,7 @@ export class ItemDefinitionListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddItemDefinitionPopupComponent, {
     
       width: '800px',
-      height : '700px'
+      height : '600px'
   
     });
 
@@ -108,7 +108,7 @@ export class ItemDefinitionListComponent implements OnInit {
 
   onEdit(data: any) {
    
-    this.routerService.navigateTo(`masterdata/add-item-definition/${data.id}`)
+    this.routerService.navigateTo(`masterdata/add-item-definition/${data.id}/general`)
 
   }
 

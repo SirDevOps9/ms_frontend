@@ -263,6 +263,9 @@ export class AddItemDefinitionComponent implements OnInit {
     // Check if the current URL contains the given route fragment
     return this._router.getCurrentUrl().includes(`/${routeFragment}`);
   }
+  onRoute() {
+    this._router.navigateTo(`masterdata/add-item-definition/${this.id}/general`)
+  }
 
 
  

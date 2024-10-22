@@ -95,6 +95,10 @@ export class AddItemDefinitionPopupComponent implements OnInit {
     this.ref.close();
   }
 
+  close() {
+    this.ref.close();
+  }
+
   onSubmit(text : string) {
     if (!this.formsService.validForm(this.itemDefinitionForm)) return;   
     const { typeId, ...arg } = this.itemDefinitionForm.value;

@@ -95,6 +95,14 @@ const routes: Routes = [
               pageTitle : BreadcrumbLabel.GENERAL_ITEMdEFINITION
             },
           },
+          {
+            path: 'attributes-variants',
+            component: ItemDefinitionAttributesVariantsComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.attributes_ITEMdEFINITION,
+              pageTitle : BreadcrumbLabel.attributes_ITEMdEFINITION
+            },
+          },
           
         ],
      
