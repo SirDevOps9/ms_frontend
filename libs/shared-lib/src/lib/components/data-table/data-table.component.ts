@@ -184,9 +184,7 @@ export class DataTableComponent implements OnInit, OnChanges {
     if (selectedColumns.length === 0) {
       this.tableConfigs.columns = [...this.clonedTableConfigs.columns];
     } else {
-      console.log(this.clonedTableConfigs.columns);
       const columns = [...this.clonedTableConfigs.columns];
-      console.log(columns);
       
       const filteredColumns = columns.filter((col) =>
         selectedColumns.some((sCol: string) => col.name === sCol)
