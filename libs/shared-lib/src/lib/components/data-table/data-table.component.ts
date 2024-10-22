@@ -129,7 +129,6 @@ export class DataTableComponent implements OnInit, OnChanges {
     this.clonedTableConfigs = { ...this.tableConfigs };
   }
   routeToSequence() {
-  routeToSequence() {
     const currentUrl = this.routerService.getCurrentUrl();
     this.routerService.navigateTo(`${currentUrl}/sequence`);
   }
@@ -137,8 +136,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   isSelected(index: number): boolean {
     if (this.selectedIndices) return this.selectedIndices.includes(index);
     return false;
-    if (this.selectedIndices) return this.selectedIndices.includes(index);
-    return false;
+   
   }
 
   toggleSelection(index: number): void {
