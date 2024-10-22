@@ -113,8 +113,8 @@ export class SalesProxyService {
     return this.httpService.get<CurrencyDto[]>('Currency/CurrencyDropDown?searchTerm=' + searchKey);
   }
 
-  getTags(moduleId:Modules): Observable<TagDropDownDto[]> {
-    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown?moduleId=`+ moduleId);
+  getTags(moduleId: Modules): Observable<TagDropDownDto[]> {
+    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown?moduleId=` + moduleId);
   }
 
   exportCustomerCategoriesData(searchTerm: string | undefined): Observable<CustomerCategoryDto[]> {
@@ -141,25 +141,33 @@ export class SalesProxyService {
   CustomerDropDownByAccountId(id: number): Observable<any[]> {
     return this.httpService.get<any[]>(`Customer/DropDownByAccountId/${id}`);
   }
-  AddCustomerOpeningBalance(customer: AddCustomerOpeningBalanceDto): Observable<AddCustomerOpeningBalanceDto> {
+  AddCustomerOpeningBalance(
+    customer: AddCustomerOpeningBalanceDto
+  ): Observable<AddCustomerOpeningBalanceDto> {
     return this.httpService.post(`CustomerOpeningBalance`, customer);
   }
   editCustomerOpeningBalance(customer: EditCustomerOpeningBalanceDto): Observable<any> {
     return this.httpService.put(`CustomerOpeningBalance`, customer);
   }
   GetCustomerOpeningBalance(id: number): Observable<GetCustomerOpeningBalanceDto[]> {
-    return this.httpService.get<GetCustomerOpeningBalanceDto[]>(`CustomerOpeningBalance/GetById/${id}`);
+    return this.httpService.get<GetCustomerOpeningBalanceDto[]>(
+      `CustomerOpeningBalance/GetById/${id}`
+    );
   }
   GetCustomerOpeningBalanceView(id: number): Observable<GetCustomerOpeningBalanceViewDto> {
-    return this.httpService.get<GetCustomerOpeningBalanceViewDto>(`CustomerOpeningBalance/GetOpeningBalanceView/${id}`);
+    return this.httpService.get<GetCustomerOpeningBalanceViewDto>(
+      `CustomerOpeningBalance/GetOpeningBalanceView/${id}`
+    );
   }
-  
+
   deleteCustomerOpeningBalance(id: number): Observable<boolean> {
     return this.httpService.delete<boolean>(`CustomerOpeningBalance/${id}`);
   }
 
   deleteCustomerOpeningBalanceHeader(id: number): Observable<boolean> {
-    return this.httpService.delete<boolean>(`CustomerOpeningBalance/DeleteOpeningBalanceHeader/${id}`);
+    return this.httpService.delete<boolean>(
+      `CustomerOpeningBalance/DeleteOpeningBalanceHeader/${id}`
+    );
   }
 
   getAllCustomerOpeningBalance(
@@ -173,10 +181,7 @@ export class SalesProxyService {
     return this.httpService.get<PaginationVm<GetAllCustomerOpeningBalanceDto>>(query);
   }
 
-  getAllPriceList(
-    searchTerm: string,
-    pageInfo: PageInfo
-  ): Observable<PaginationVm<PricelistDto>> {
+  getAllPriceList(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<PricelistDto>> {
     let query = `Pricelist?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
@@ -194,10 +199,16 @@ export class SalesProxyService {
 
   getItems(
     quieries: string,
+    searchTerm: string,
     pageInfo: PageInfo
   ): Observable<PaginationVm<ItemDto>> {
-    return this.httpService.get<PaginationVm<ItemDto>>(
-      `PricePolicy/GetItemsList?${pageInfo.toQuery}&${quieries ? quieries : ''}`
-    );
+    let query = `PricePolicy/GetItemsList?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    if (quieries) {
+      query += `&${quieries ? quieries : ''}`;
+    }
+    return this.httpService.get<PaginationVm<ItemDto>>(query);
   }
 }

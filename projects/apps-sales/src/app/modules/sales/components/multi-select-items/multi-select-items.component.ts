@@ -19,11 +19,8 @@ export class MultiSelectItemsComponent implements OnInit {
   selectAll: boolean = false;
 
   filterForm: FormGroup = this.fb.group({
-    //searchTerm: [''],
-    // isStorable:  new FormControl<string | null>(null),
-    // isService: new FormControl<string | null>(null),
-    // hasExpiryDate:  new FormControl<string | null>(null)
-    isStorable: new FormControl([]),
+    categoryType: new FormControl(),
+    hasExpiryDate: new FormControl(false),
   });
 
   constructor(
@@ -54,11 +51,11 @@ export class MultiSelectItemsComponent implements OnInit {
   }
 
   initItemsData() {
-    this.salesService.getItems('', new PageInfo());
+    this.salesService.getItems('', '', new PageInfo());
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.salesService.getItems('', pageInfo);
+    this.salesService.getItems('', '', pageInfo);
   }
 
   onSubmit() {
@@ -75,59 +72,27 @@ export class MultiSelectItemsComponent implements OnInit {
 
   onFilterChange() {
     const query = this.buildQuery();
-    this.salesService.getItems(query, new PageInfo());
+    this.salesService.getItems(query, '', new PageInfo());
   }
   onSearchChange(event: any) {
-    this.salesService.getItems(event, new PageInfo());
+    this.salesService.getItems('', event, new PageInfo());
   }
 
   buildQuery(): string {
-    const isStorable = this.filterForm.get('isStorable')?.value!;
-
-    console.log('isStorable', isStorable);
+    const isStorable = this.filterForm.get('categoryType')?.value!;
+    const hasExpiryDate = this.filterForm.get('hasExpiryDate')?.value;
 
     const query: string[] = [];
 
     isStorable.forEach((checkbox: any) => {
-      console.log('Item', );
-      const isChecked = this.filterForm.get(checkbox.name)?.value;
-      if (isChecked) {
-        const value = checkbox.name === 'hasExpiryDate' ? 'true' : checkbox.enumKey;
-        query.push(`${checkbox.enumKey}=${value}`);
-      }
+      console.log('Item', checkbox);
+      query.push(`${checkbox}=${checkbox}`);
     });
+    
+    if (hasExpiryDate.length > 0) query.push(`HasExpiryDate=${hasExpiryDate}`);
 
     const result = query.join('&');
-    console.log('result', result);
 
-    return result;    };
-
-
+    return result;
   }
-  // buildQuery(): string {
-  //   // Get the current values from the filter form
-  //   const isStorable = this.filterForm.get('isStorable')?.value;
-  //   const isService = this.filterForm.get('isService')?.value;
-  //   const hasExpiryDate = this.filterForm.get('hasExpiryDate')?.value;
-
-  //   // Initialize an array to hold the query parameters
-  //   const query: string[] = [];
-
-  //   // Add query parameters based on checkbox values
-  //   if (isStorable) {
-  //     query.push(`${this.sharedEnums.GetItemsQueryEnum.IsStorable}=${this.sharedEnums.GetItemsQueryEnum.IsStorable}`);
-  //   }
-  //   if (isService) {
-  //     query.push(`${this.sharedEnums.GetItemsQueryEnum.IsService}=${this.sharedEnums.GetItemsQueryEnum.IsService}`);
-  //   }
-  //   if (hasExpiryDate) {
-  //     query.push(`${this.sharedEnums.GetItemsQueryEnum.HasExpiryDate}=true`); // Adjust based on how your API expects this
-  //   }
-
-  //   // Join the query parameters into a single string
-  //   const result = query.join('&');
-  //   console.log('Generated Query:', result);
-
-  //   return result;
-  // }
-
+}

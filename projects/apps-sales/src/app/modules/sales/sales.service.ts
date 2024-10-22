@@ -105,7 +105,9 @@ export class SalesService {
   private exportsCustomersDataSource = new BehaviorSubject<CustomerDefinitionDto[]>([]);
   public exportsCustomersDataSourceObservable = this.exportsCustomersDataSource.asObservable();
 
-  public customerOpeningBalanceDataSource = new BehaviorSubject<GetAllCustomerOpeningBalanceDto[]>([]);
+  public customerOpeningBalanceDataSource = new BehaviorSubject<GetAllCustomerOpeningBalanceDto[]>(
+    []
+  );
   customerOpeningBalanceObservable = this.customerOpeningBalanceDataSource.asObservable();
 
   public priceListDataSource = new BehaviorSubject<PricelistDto[]>([]);
@@ -479,11 +481,10 @@ export class SalesService {
     });
   }
 
-  getItems(quieries: string, pageInfo: PageInfo) {
-    this.salesProxy.getItems(quieries, pageInfo).subscribe((res) => {
+  getItems(quieries: string, searchTerm: string, pageInfo: PageInfo) {
+    this.salesProxy.getItems(quieries, searchTerm, pageInfo).subscribe((res) => {
       this.itemsDataSource.next(res.result);
       this.itemsPageInfo.next(res.pageInfoResult);
     });
   }
-
 }
