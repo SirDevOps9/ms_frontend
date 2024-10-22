@@ -75,7 +75,7 @@
       "Notes": "notes"
     },
     "Success": "Success",
-    "PaymentInAddedSuccessfully": "Payment Out added successfully",
+    "PaymentInAddedSuccessfully": "Payment In added successfully",
     "addedError": "Error in added",
     "Error": "Error",
     "paymentMethodTypeNotAllowed": "payment Method details Not Allowed",

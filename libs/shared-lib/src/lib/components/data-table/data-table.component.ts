@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { LanguageService, LookupsService, RouterService } from '../../services';
 import { TableConfig } from './data-table-column';
-import { PageInfo, PageInfoResult } from '../../models';
+import { PageInfo, PageInfoResult, SortBy } from '../../models';
 import { NgIfContext } from '@angular/common';
 import { GeneralService } from '../../services/general.service';
 
@@ -22,7 +22,7 @@ import { GeneralService } from '../../services/general.service';
 })
 export class DataTableComponent implements OnInit, OnChanges {
   @Input() items: any[];
-  @Input() selectedIndex: number ;
+  @Input() selectedIndex: number;
   @Input() selectedIndices: number[];
   @Input() resizableColumns: boolean = true;
   @Input() popup: boolean = false;
@@ -43,6 +43,11 @@ export class DataTableComponent implements OnInit, OnChanges {
   selectedColumns: any = [];
 
   globalFilterFields: string[];
+
+  pageInfo: PageInfo;
+
+  currentSortColumn: string | undefined;
+  currentSortOrder: SortBy = SortBy.Descending;
 
   @ViewChild('customCellTemplate', { static: true })
   customCellTemplate?: TemplateRef<any>;
@@ -96,6 +101,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   rows2: any = 25;
 
   onPageChange2(pageInfoData: PageInfo | any) {
+    this.pageInfo = pageInfoData;
     this.generalService.sendPageChanges.next(pageInfoData);
   }
 
@@ -106,10 +112,13 @@ export class DataTableComponent implements OnInit, OnChanges {
   selectRow(row: any) {}
 
   onPageChange(pageInfo: PageInfo) {
+    pageInfo.sortColumn = this.currentSortColumn;
+    pageInfo.sortBy = this.currentSortOrder;
     this.pageChange.emit(pageInfo);
 
     this.rows2 = pageInfo.first;
     this.first = pageInfo.first;
+
     console.log(this.currentPageResult);
   }
   hasNestedHeaders(): boolean {
@@ -118,16 +127,14 @@ export class DataTableComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.clonedTableConfigs = this.tableConfigs;
   }
-  routeToSequence(){
+  routeToSequence() {
     const currentUrl = this.routerService.getCurrentUrl();
     this.routerService.navigateTo(`${currentUrl}/sequence`);
-
   }
 
   isSelected(index: number): boolean {
-    if(this.selectedIndices)
-    return this.selectedIndices.includes(index);
-    return false
+    if (this.selectedIndices) return this.selectedIndices.includes(index);
+    return false;
   }
 
   toggleSelection(index: number): void {
@@ -138,11 +145,37 @@ export class DataTableComponent implements OnInit, OnChanges {
       this.selectedIndices.splice(selectedIndex, 1);
     }
   }
+
+  onSortClick(columnName: string): void {
+    if (columnName) {
+      if (this.currentSortColumn === columnName) {
+        this.currentSortOrder =
+          this.currentSortOrder === SortBy.Ascending ? SortBy.Descending : SortBy.Ascending;
+      } else {
+        this.currentSortOrder = SortBy.Ascending;
+      }
+
+      this.currentSortColumn = columnName;
+
+      setTimeout(() => {
+        const pageInfo = new PageInfo(
+          this.pageInfo?.pageNumber,
+          this.pageInfo?.pageSize,
+          this.pageInfo?.first,
+          this.currentSortOrder,
+          columnName
+        );
+
+        console.log('page info', pageInfo);
+        this.onPageChange(pageInfo);
+      }, 100);
+    }
+  }
+
   constructor(
     public languageService: LanguageService,
     public lookupsService: LookupsService,
     private generalService: GeneralService,
-    private routerService: RouterService,
-
+    private routerService: RouterService
   ) {}
 }
