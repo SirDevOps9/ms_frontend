@@ -159,6 +159,8 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
   setDefaultCompany() {
     const companies = this.localstoarage.getItem(StorageKeys.COMPANIES_LIST);
     const storedCompanyId = this.localstoarage.getItem(StorageKeys.DEFAULT_COMPANY);
+    const storedBranchId = this.localstoarage.getItem(StorageKeys.DEFAULT_BRANCHE);
+
     this.companyList = companies;
     let matchedCompany = companies?.filter(
       (x: { id: string; name: string; code: string; companyType: string }) =>
@@ -167,7 +169,7 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
 
     this.coBrForm.get('companyId')?.setValue(matchedCompany[0]?.id);
 
-    this.setDefaultBranch(matchedCompany[0]?.id);
+    this.setDefaultBranch(storedBranchId?.id);
   }
   setDefaultBranch(id: string) {
     const branches = this.localstoarage.getItem(StorageKeys.BRANCHES_LIST);
@@ -202,7 +204,7 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
       if (res) {
         this.branchList = res;
         let matchedBranch = res?.filter(
-          (x: { id: string; name: string; isDefault: boolean }) => x.id === id
+          (x: { id: string; name: string; isDefault: boolean }) => x.isDefault === true
         );
 
         this.coBrForm.get('branchId')?.setValue(matchedBranch[0]?.id);
