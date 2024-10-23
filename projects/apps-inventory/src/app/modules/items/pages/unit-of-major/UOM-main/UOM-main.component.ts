@@ -13,7 +13,6 @@ export class UOMMainComponent implements OnInit {
   constructor(    private title: Title,
     private langService: LanguageService,) {
 
-    this.title.setTitle(this.langService.transalte('UOM.uomList'));
 
    }
 

@@ -50,7 +50,7 @@ export class VendorOpeningBalanceListComponent implements OnInit {
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.purchaseService.getAllVendorOpeningBalance('', new PageInfo());
+    this.purchaseService.getAllVendorOpeningBalance('', pageInfo);
   }
 
   onSearchChange(event: any) {

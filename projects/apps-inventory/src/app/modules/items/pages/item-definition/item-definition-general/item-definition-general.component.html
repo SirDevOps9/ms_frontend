@@ -1,0 +1,274 @@
+<div class="grid w-100" [formGroup]="itemDefinitionForm">
+  <div class="md:col-9">
+    <div class="col-12 grid card">
+      <div class="md:col-12">
+        <p class="heads">{{ 'itemType.main' | translate }}</p>
+      </div>
+
+      <div class="md:col-6 my-2">
+        <lib-label [appControl]="itemDefinitionForm.controls['code']">
+          {{ 'itemType.code' | translate }}
+        </lib-label>
+        <lib-text-input
+          placeholder="{{ 'itemType.code' | translate }}"
+          formControlName="code"
+        ></lib-text-input>
+        <lib-field-validations
+          [appControl]="itemDefinitionForm.controls['code']"
+        ></lib-field-validations>
+      </div>
+      <div class="md:col-6 my-2">
+        <lib-label [appControl]="itemDefinitionForm.controls['name']">
+          {{ 'itemType.name' | translate }}
+        </lib-label>
+        <lib-text-input
+          placeholder="{{ 'itemType.name' | translate }}"
+          formControlName="name"
+        ></lib-text-input>
+        <lib-field-validations
+          [appControl]="itemDefinitionForm.controls['name']"
+        ></lib-field-validations>
+      </div>
+
+      <div class="md:col-6 my-2">
+        <lib-label [appControl]="itemDefinitionForm.controls['categoryId']">
+          {{ 'itemType.category' | translate }}
+        </lib-label>
+        <lib-select
+          formControlName="categoryId"
+          [options]="ItemCategoryDropDown"
+          optionValue="id"
+          optionLabel="name"
+          placeholder="{{ 'itemType.category' | translate }}"
+          [selectedValue]="itemDefinitionForm.controls['categoryId'].value"
+        >
+        </lib-select>
+        <lib-field-validations
+          [appControl]="itemDefinitionForm.controls['categoryId']"
+        ></lib-field-validations>
+      </div>
+      <div class="md:col-6 my-2">
+        <lib-label [appControl]="itemDefinitionForm.controls['tags']">
+          {{ 'itemType.tag' | translate }}
+        </lib-label>
+        <br />
+
+        <lib-multi-select
+          formControlName="tags"
+          [options]="tagDropDropDownLookup"
+          optionValue="id"
+          optionLabel="name"
+          placeholder="{{ 'itemType.tag' | translate }}"
+          [selectedValue]="itemDefinitionForm.controls['tags'].value"
+        >
+        </lib-multi-select>
+        <lib-field-validations
+          [appControl]="itemDefinitionForm.controls['tags']"
+        ></lib-field-validations>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+  <div class="md:col-3">
+    <div class="col-12 grid card">
+      <div class="photo">
+        <lib-form-group>
+          <lib-file-uploader
+            formControlName="photo"
+            [uploadClassName]="'rounded'"
+            [className]="'rounded'"
+            [showImgName]="false"
+            [config]="{
+              type: sharedLibEnums.AttachmentFileTypes.image,
+              viewThumbnail: true
+            }"
+            [appControl]="itemDefinitionForm.controls['photo']"
+          ></lib-file-uploader>
+          <lib-field-validations
+            [appControl]="itemDefinitionForm.controls['photo']"
+          ></lib-field-validations>
+        </lib-form-group>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+  <div class="md:col-12">
+    <div class="grid p-0">
+      <lib-fildest header="{{ 'itemType.itemInformation' | translate }}" class="md:col-12">
+        <div class="grid">
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="itemDefinitionForm.controls['shortName']">
+                {{ 'itemType.itemShortName' | translate }}
+              </lib-label>
+              <lib-text-input formControlName="shortName"> </lib-text-input>
+            </lib-form-group>
+          </div>
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="itemDefinitionForm.controls['warranty']">
+                {{ 'itemType.warantly' | translate }} ( {{ 'itemType.perMonth' | translate }} )
+              </lib-label>
+              <lib-text-input formControlName="warranty" type="number"></lib-text-input>
+            </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="itemDefinitionForm.controls['lifeTime']">
+                {{ 'itemType.lifeTime' | translate }} ( {{ 'itemType.perYear' | translate }} )
+              </lib-label>
+              <lib-text-input formControlName="lifeTime" type="number"></lib-text-input>
+            </lib-form-group>
+          </div>
+        </div>
+      </lib-fildest>
+    </div>
+  </div>
+  <!--  -->
+
+  <!--  -->
+  <div class="md:col-6 mainCountryOfOrigin">
+    <lib-fildest header="{{ 'itemType.countryOfOrigin' | translate }}" class="md:col-6 m-0 p-0">
+      <div class="grid ">
+        <div class="md:col-12">
+          <lib-form-group>
+            <lib-label [appControl]="itemDefinitionForm.controls['countryId']">
+              {{ 'itemType.countryOfOrigin' | translate }}
+            </lib-label>
+            <lib-selectIcon
+              formControlName="countryId"
+              [options]="countriesLookup"
+              optionValue="id"
+              optionLabel="nameEn"
+              [selectedValue]="itemDefinitionForm.controls['countryId'].value"
+              icons="flags"
+            >
+            </lib-selectIcon>
+          </lib-form-group>
+        </div>
+      </div>
+    </lib-fildest>
+  </div>
+  <div class="md:col-6">
+    <lib-fildest header="{{ 'itemType.vat' | translate }}" class="md:col-6 m-0 p-0">
+      <div class="grid p-0 m-0">
+        <div class="md:col-12">
+          <lib-form-group>
+            <div class="flex align-items-center gap-2">
+              <lib-input-switch formControlName="isVatApplied"></lib-input-switch>
+              <p>{{ 'itemType.priceIncludeVat' | translate }}</p>
+            </div>
+          </lib-form-group>
+        </div>
+        <div class="md:col-12" *ngIf="itemDefinitionForm.get('isVatApplied')?.value == true">
+          <lib-select
+            formControlName="taxId"
+            [options]="taxesDropDropDownLookup"
+            optionValue="id"
+            optionLabel="name"
+            placeholder="{{ 'itemType.taxes' | translate }}"
+            [selectedValue]="itemDefinitionForm.controls['taxId'].value"
+          >
+          </lib-select>
+          <lib-field-validations
+            [appControl]="itemDefinitionForm.controls['taxId']"
+          ></lib-field-validations>
+        </div>
+
+       
+      </div>
+    </lib-fildest>
+  </div>
+
+  <div class="md:col-12">
+    <lib-fildest header="{{ 'itemType.specialCareHead' | translate }}">
+      <div class="grid p-0 m-0">
+        <div class="md:col-6">
+          <lib-form-group>
+            <lib-label [appControl]="itemDefinitionForm.controls['specialCare']">
+              {{ 'itemType.specialCare' | translate }}
+            </lib-label>
+            <lib-text-input formControlName="specialCare"> </lib-text-input>
+          </lib-form-group>
+        </div>
+
+        <div class="md:col-6">
+          <lib-form-group>
+            <lib-label [appControl]="itemDefinitionForm.controls['color']">
+              {{ 'itemType.color' | translate }}
+            </lib-label>
+            <p-dropdown
+              [options]="colors"
+              placeholder="{{ 'itemType.color' | translate }}"
+              formControlName="color"
+              optionLabel="label"
+              optionValue="label"
+            >
+              <ng-template let-color pTemplate="selectedItem">
+                <div class="flex gap-2">
+                  <i
+                    [ngClass]="color.icon"
+                    [ngStyle]="{
+                      color: color.value,
+                      'background-color': color.value,
+                      'border-radius': '50% 53%',
+                      padding: '3px',
+                      margin: '0'
+                    }"
+                  ></i>
+                  <span>{{ color.label }}</span>
+                </div>
+              </ng-template>
+              <ng-template let-color pTemplate="item">
+                <div class="flex gap-2">
+                  <i
+                    [ngClass]="color.icon"
+                    [ngStyle]="{
+                      color: color.value,
+                      'background-color': color.value,
+                      'border-radius': '50% 53%',
+                      padding: '3px',
+                      margin: '0'
+                    }"
+                  ></i>
+                  <span>{{ color.label }}</span>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </lib-form-group>
+        </div>
+      </div>
+    </lib-fildest>
+  </div>
+</div>
+
+
+<div class="grid">
+  <div class="md:col-12 my-3 grid flex justify-content-end">
+    <div class="md:col-4 grid flex justify-content-end">
+      <div class="md:col-6">
+        <lib-button-micro
+          title="{{ 'itemType.cancel' | translate }}"
+          nameClass="cancel"
+          widthNumber="100%"
+          (click)="onCancel()"
+        
+        >
+        </lib-button-micro>
+      </div>
+      <div  class="md:col-6">
+        <lib-button-micro
+          title="{{ 'itemType.save' | translate }}"
+          nameClass="save"
+          widthNumber="100%"
+          (click)="onSave()"
+        >
+        </lib-button-micro>
+      
+      </div>
+    </div>
+
+    
+  </div>
+</div>
