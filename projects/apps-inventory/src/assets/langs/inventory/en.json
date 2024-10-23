@@ -11,7 +11,7 @@
   "itemType": {
     "vat" : "Vat Applied",
     "code": "Code",
-    "main" : "Main",
+    "main" : "Main Information",
     "attributeName" : "Attribute Name",
     "nameEn": "Name En",
     "nameAr": "Name Ar",
@@ -36,6 +36,7 @@
     "vatApplied": "Vat Applied",
     "priceIncludeVat": "Price Include Vat",
     "specialCare": "Need Special Care",
+    "specialCareHead": "Special Care",
     "color": "Color",
     "uom": "UOM",
     "uomCategory": "UOM Category",
@@ -114,7 +115,7 @@
     "barcode": "Barcode",
     "actions": "Actions",
     "code" : "Code",
-
+    "addItemDef" : "Add Item Definition",
     "Add": "Create",
     "search": "Search",
     "ChangeColumn": "Change Column",
@@ -125,7 +126,8 @@
     "viewVariant": "View",
     "itemTracking": "Item Tracking",
     "SelectItemTracking": "Select Item Tracking",
-    "hasExpiry": "Has Expiry Date"
+    "hasExpiry": "Has Expiry Date",
+    "delete" : "Item Definition deleted successfully"
   },
   "warehouse": {
     "Add" : "Add",
@@ -205,7 +207,16 @@
     "nameEn": "Name En",
     "conversionUOM": "conversion UOM ",
     "categorynameEn" : "Name En",
-    "categorynameAr" : "Name Ar"
+    "categorynameAr" : "Name Ar",
+    "category" : "Category",
+    "baseUom" : "Base UOM",
+    "systemUnit" : "system Unit Base",
+    "nameUom" : "Name",
+    "unitSystem" : "system Unit",
+    "factorUOM": "Factor",
+    "calculation": "Calculation",
+    "reversal": "Reversal",
+    "from" : "From"
 
   },
   "attributeDefinition": {
