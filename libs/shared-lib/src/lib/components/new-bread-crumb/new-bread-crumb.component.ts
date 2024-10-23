@@ -23,7 +23,6 @@ export class NewBreadCrumbComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.home = { icon: 'pi pi-home', routerLink: '/' };
 
     // Create initial breadcrumbs
     this.menuItems = this.createBreadcrumb(this.activatedRoute.root);
@@ -56,7 +55,6 @@ export class NewBreadCrumbComponent implements OnInit, OnDestroy {
     for (const child of children) {
       const routeURL: string = child.snapshot.url.map((segment) => segment.path).join('/');
       const params = child.snapshot.params;
-  
       if (routeURL !== '') {
         url += `/${routeURL}`;
       }

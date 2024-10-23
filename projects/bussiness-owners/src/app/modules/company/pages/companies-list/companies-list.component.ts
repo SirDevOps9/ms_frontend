@@ -6,7 +6,8 @@ import { CompanyService } from '../../company.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ExportCompanyDto } from '../../models/export-company-dto';
 import { mappedData } from '../../models/mappedCompany';
-
+import { ActivatedRoute } from '@angular/router';
+import { BreadcrumbService } from 'projects/bussiness-owners/src/app/models';
 @Component({
   selector: 'app-companies-list',
   templateUrl: './companies-list.component.html',
@@ -34,7 +35,9 @@ export class CompaniesListComponent implements OnInit {
     private languageService: LanguageService,
     private companyService: CompanyService,
     private dialog: DialogService,
-    public Sharedcompanyenums: Sharedcompanyenums
+    public Sharedcompanyenums: Sharedcompanyenums,
+    private route: ActivatedRoute,
+    private breadcrumbService: BreadcrumbService
   ) {}
 
   newCompany() {
@@ -42,6 +45,11 @@ export class CompaniesListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      console.log(id ,"jjjjjjjjjjjjjjjj");
+      this.breadcrumbService.setId(id); // Set the ID in the service
+    });
     this.subscribe()
     this.titleService.setTitle(this.languageService.transalte('Company.CompanyList'));
     this.initCompanyData();

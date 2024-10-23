@@ -1,7 +1,6 @@
 import { BreadcrumbLabel } from "shared-lib";
-
-
 export const BreadCrumbRoute = {
+  
   subscription: [
     { icon: 'pi pi-home', route: '/my-subscriptions' },
     { label: BreadcrumbLabel.SUBSCRIPTION},
@@ -29,6 +28,7 @@ export const BreadCrumbRoute = {
   editCompanies: [
     { icon: 'pi pi-home', route: '/my-subscriptions' },
     { label: BreadcrumbLabel.SUBSCRIPTION , route: '/my-subscriptions'   },
+    // { label: BreadcrumbLabel.COMPANIES , route: `/company/ }`   },
     { label: BreadcrumbLabel.EDIT_COMPANIES ,  },
 
   ],
