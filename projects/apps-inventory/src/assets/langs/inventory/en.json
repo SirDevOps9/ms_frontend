@@ -73,7 +73,7 @@
     "salesAmount": "Sales Account",
     "salesReturnAmount": "Sales Return Account",
     "variantSelect": "Variant Select",
- 
+
     "success": "Success",
     "deleteVariant": "Attibute Group Deleted Successfully",
     "changeVariantStatus": "Attibute Group Status Changed Successfully",
@@ -127,7 +127,13 @@
     "itemTracking": "Item Tracking",
     "SelectItemTracking": "Select Item Tracking",
     "hasExpiry": "Has Expiry Date",
-    "delete" : "Item Definition deleted successfully"
+    "delete" : "Item Definition deleted successfully",
+    "purchase": "Purchase",
+    "purchaseAccount" : "Purchase Account",
+    "purchaseReturnAmount": "Purchase Return Account",
+    "sales":"Sales",
+    "salesAmount": "Sales Account",
+    "salesReturnAmount": "Sales Return Account"
   },
   "warehouse": {
     "Add" : "Add",
@@ -144,9 +150,9 @@
     "account" : "Account",
     "address" : "Address",
     "city" : "City",
-    "companyPhoneNumber" : "Company Phone Number",    
+    "companyPhoneNumber" : "Company Phone Number",
     "email" : "Email",
-    "fax" : "Fax",    
+    "fax" : "Fax",
     "postCode" : "Post Code",
     "longitude" : "Longitude",
     "latitude" : "Latitude",
@@ -277,8 +283,8 @@
     "actions": "Actions",
     "glAccountId" : "GL Account Code"
 
-  
-  
+
+
   },
   "itemsCategory": {
     "title": "Item Category",
@@ -305,7 +311,7 @@
     "import" : "Import",
     "edit" : "Edit",
     "save" : "Save",
-    "cancel" : "Cancel", 
+    "cancel" : "Cancel",
     "delete" : "Stock In Deleted Successfully",
     "success" : "Success",
     "add" : "Stock In Added Successfully",

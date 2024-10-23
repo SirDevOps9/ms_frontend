@@ -1,0 +1,89 @@
+<div class="md:col-12 mainCountryOfOrigin">
+    <div class="grid ">
+      <div class="md:col-12">
+        <div class="md:col-12">
+          <lib-fildest header="{{ 'itemDefinition.purchase' | translate }}" class="md:col-6 m-0 p-0">
+            <div class="grid p-0 m-0">
+
+                <div class="md:col-6">
+                  <label>{{'itemDefinition.purchaseAccount' | translate}}</label>
+
+                  <lib-select
+                    [options]="dataAccouting"
+                    optionValue="id"
+                    optionLabel="name"
+                    placeholder="{{ 'itemType.taxes' | translate }}"
+
+                  >
+                  </lib-select>
+                  <!-- <lib-field-validations
+                    [appControl]="itemDefinitionForm.controls['taxId']"
+                  ></lib-field-validations> -->
+                </div>
+                <div class="md:col-6">
+                  <label>{{'itemDefinition.purchaseReturnAmount' | translate}}</label>
+                  <lib-select
+
+                       [options]="dataAccouting"
+                    optionValue="id"
+                    optionLabel="name"
+                    placeholder="{{ 'itemType.taxes' | translate }}"
+
+                  >
+                  </lib-select>
+                  <!-- <lib-field-validations
+                    [appControl]="itemDefinitionForm.controls['taxId']"
+                  ></lib-field-validations> -->
+
+              </div>
+
+            </div>
+          </lib-fildest>
+        </div>
+      </div>
+
+      <div class="md:col-12">
+        <div class="md:col-12">
+          <lib-fildest header="{{ 'itemDefinition.sales' | translate }}" class="md:col-6 m-0 p-0">
+            <div class="grid p-0 m-0">
+
+                <div class="md:col-6">
+                  <label>{{'itemDefinition.salesAmount' | translate}}</label>
+
+                  <lib-select
+                       [options]="dataAccouting"
+                    optionValue="id"
+                    optionLabel="name"
+                    placeholder="{{ 'itemType.taxes' | translate }}"
+
+                  >
+                  </lib-select>
+                  <!-- <lib-field-validations
+                    [appControl]="itemDefinitionForm.controls['taxId']"
+                  ></lib-field-validations> -->
+                </div>
+                <div class="md:col-6">
+                  <label>{{'itemDefinition.salesReturnAmount' | translate}}</label>
+                  <lib-select
+
+                       [options]="dataAccouting"
+                    optionValue="id"
+                    optionLabel="name"
+                    placeholder="{{ 'itemType.taxes' | translate }}"
+
+                  >
+                  </lib-select>
+                  <!-- <lib-field-validations
+                    [appControl]="itemDefinitionForm.controls['taxId']"
+                  ></lib-field-validations> -->
+
+              </div>
+
+            </div>
+          </lib-fildest>
+        </div>
+      </div>
+    </div>
+
+</div>
+

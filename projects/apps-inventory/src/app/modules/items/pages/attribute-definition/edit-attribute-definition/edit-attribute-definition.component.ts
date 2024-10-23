@@ -14,7 +14,7 @@ export class EditAttributeDefinitionComponent implements OnInit {
   attrTableForm: FormArray;
   attrFormGroup: FormGroup;
   attributeName: { id: number; name: string }[] = [];
-  attributeValues: itemAttributeValuesByID 
+  attributeValues: itemAttributeValuesByID
   _routeid: number;
   lineStatus: boolean[] = [];
   duplicateLines:any[]=[]
@@ -47,7 +47,7 @@ export class EditAttributeDefinitionComponent implements OnInit {
     this.itemsService.AttributeGroupDropDown();
     this.itemsService.attributeGroupeDropDownLookup$.subscribe((res) => {
       this.attributeName = res;
- 
+
     });
   }
   attributeGroupsValue(id: number) {
@@ -68,7 +68,7 @@ export class EditAttributeDefinitionComponent implements OnInit {
       id: [''],
             nameAr: ['', customValidators.required],
             nameEn: ['', customValidators.required],    });
-  
+
   }
   get attrName(): number {
     return this.attrFormGroup.get('attrName')?.value;
@@ -81,7 +81,7 @@ export class EditAttributeDefinitionComponent implements OnInit {
       id: new FormControl(attrData?.id ?? 0),
       nameAr: new FormControl( attrData?.nameAr, customValidators.required),
       nameEn: new FormControl( attrData?.nameEn, customValidators.required),
-      isActive: new FormControl(attrData?.isActive ?? false), 
+      isActive: new FormControl(attrData?.isActive ?? false),
 
     });
   }
@@ -115,7 +115,7 @@ export class EditAttributeDefinitionComponent implements OnInit {
     const confirmed = await this.toaserService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
-    
+
     if (confirmed) {
       if (index >= 0 && index < this.attrTableForm.length) {
         this.attrTableForm.removeAt(index);
@@ -123,7 +123,7 @@ export class EditAttributeDefinitionComponent implements OnInit {
         this.updateDuplicateLines();
           this.attributeGroups();
           let audio = new Audio();
-          
+
           audio.src = 'assets/notification-sound/done.wav';
           audio.load();
           audio.play();
@@ -132,14 +132,14 @@ export class EditAttributeDefinitionComponent implements OnInit {
   }
 
   private updateDuplicateLines(): void {
-    let existingItems = this.attrTableForm.value; 
+    let existingItems = this.attrTableForm.value;
     this.duplicateLines = existingItems.map((item: { nameAr: any; nameEn: any; }) =>
       existingItems.filter((existingItem: { nameAr: any; nameEn: any; }) =>
         existingItem.nameAr === item.nameAr || existingItem.nameEn === item.nameEn
       ).length > 1
     );
   }
-  
+
 onDeleteOrRemove(index: number): void {
   const formControl = this.attrTableForm.at(index);
 
@@ -167,31 +167,31 @@ onDelete(id: number, index: number): void {
     if (!this.formsService.validForm(this.attrFormGroup, false)) {
       return;
     }
-    
+
     if (this.attrTableForm.length === 0) {
-      const errorTitle = this.languageService.transalte('Error'); 
+      const errorTitle = this.languageService.transalte('Error');
       const errorMessage = this.languageService.transalte('attributeDefinition.noItems');
       this.toaserService.showError(errorMessage, errorTitle);
       return;
     }
-  
-    let existingItems = this.attrTableForm.value; 
+
+    let existingItems = this.attrTableForm.value;
     this.duplicateLines = existingItems.map((item: { nameAr: any; nameEn: any; }) =>
       existingItems.filter((existingItem: { nameAr: any; nameEn: any; }) =>
         existingItem.nameAr === item.nameAr || existingItem.nameEn === item.nameEn
       ).length > 1
     );
-  
+
     let formGroupVal = this.attrFormGroup.value;
     delete formGroupVal.isActive;
-  
+
     let data: any = {
-      ...formGroupVal, 
+      ...formGroupVal,
       ItemAttributes: this.attrTableForm.value
     };
-  
+
     this.itemsService.updateAttrDifinition(data);
-  
+
     this.itemsService.updateAttrobj$.subscribe(
       (res: any) => {
         if (res.messageCode === 4001) {
@@ -201,14 +201,14 @@ onDelete(id: number, index: number): void {
               alert(`Field: ${error.key}, Error: ${error.errorMessages.join(', ')}`);
             });
           }
-          
-         
-  
+
+
+
           return;
         } else {
           if (res === true) {
             this.routerService.navigateTo('/masterdata/attribute-definition');
-    
+
           }
         }
       },
@@ -217,7 +217,7 @@ onDelete(id: number, index: number): void {
       }
     );
   }
-  
+
     discard(){
       this.routerService.navigateTo('/masterdata/attribute-definition')
 

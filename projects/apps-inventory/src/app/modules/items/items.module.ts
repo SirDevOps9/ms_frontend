@@ -51,6 +51,7 @@ import { ItemDefinitionUomComponent } from './pages/item-definition/item-definit
 import { ItemDefinitionAttributesVariantsComponent } from './pages/item-definition/item-definition-attributes-variants/item-definition-attributes-variants.component';
 import { ItemDefinitionBarcodeComponent } from './pages/item-definition/item-definition-barcode/item-definition-barcode.component';
 import { ItemDefinitionInventoryComponent } from './pages/item-definition/item-definition-inventory/item-definition-inventory.component';
+import { ItemDefinitionAccountingComponent } from './pages/item-definition/item-definition-accounting/item-definition-accounting.component';
 
 const routes: Routes = [
   {
@@ -103,9 +104,18 @@ const routes: Routes = [
               pageTitle : BreadcrumbLabel.attributes_ITEMdEFINITION
             },
           },
-          
+
+          {
+            path: 'accounting',
+            component: ItemDefinitionAccountingComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.attributes_ITEMdEFINITION,
+              pageTitle : BreadcrumbLabel.attributes_ITEMdEFINITION
+            },
+          },
+
         ],
-     
+
       },
       {
         path: 'warehouse',
@@ -172,7 +182,7 @@ const routes: Routes = [
           },
         ],
       },
-   
+
       {
         path: 'operational-tag',
         component: OperationTagMainComponent,
@@ -262,7 +272,7 @@ const routes: Routes = [
           },
         ],
       },
-     
+
       {
         path: 'item-type',
         component: ItemTypeListComponent,
@@ -284,6 +294,7 @@ const routes: Routes = [
   declarations: [
     ItemDefinitionListComponent,
     AddItemDefinitionComponent,
+    ItemDefinitionAccountingComponent,
     ItemTypeListComponent,
     ItemCategoryListComponent,
     AddItemCategoryComponent,

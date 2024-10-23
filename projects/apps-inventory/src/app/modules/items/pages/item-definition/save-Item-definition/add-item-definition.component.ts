@@ -92,7 +92,7 @@ export class AddItemDefinitionComponent implements OnInit {
   ItemCategoryDropDown : { id: number; name: string;  }[] = []
   tagDropDropDownLookup : { id: number; name: string }[] = []
   AccountsDropDownLookup : { id: number; name: string }[] = []
-  defualtUnitData : { id: number; name: string } 
+  defualtUnitData : { id: number; name: string }
 
   countriesLookup : []
   taxesDropDropDownLookup : { id: number; nameAr: string; nameEn: string }[] = []
@@ -108,10 +108,10 @@ export class AddItemDefinitionComponent implements OnInit {
     this.id = this.route.snapshot.params['id']
     console.log(this._router.getCurrentUrl())
 
-    
+
   }
   ngOnInit(): void {
-    
+
          this.getUomDropDown(this.id)
 
     this.itemDefinitionForm = this.fb.group({
@@ -156,7 +156,7 @@ export class AddItemDefinitionComponent implements OnInit {
 
 
 
-    // this.addLine() 
+    // this.addLine()
     this.getBarcodeByItemId()
     this.itemService.getAttributeVariantById(this.id)
     this.addLineBarcode()
@@ -170,7 +170,7 @@ export class AddItemDefinitionComponent implements OnInit {
             status: element.isActive,
             itemId:element.itemId,
             id : element.id
-            
+
           })
           this.AttributeForm.push(data)
         });
@@ -205,13 +205,13 @@ export class AddItemDefinitionComponent implements OnInit {
 
       }
     })
- 
+
     this.itemService.getItemById(this.id)
     this.itemService.GetItemByIDObs.subscribe(res=>{
         this.itemDefinitionForm.patchValue({...res})
 
         this.itemData = res
-        
+
 
         // console.log(res)
 
@@ -224,7 +224,7 @@ export class AddItemDefinitionComponent implements OnInit {
 
           this.addLine()
 
-  
+
         this.getDefaultUnit(res.defaultUOMCategoryId )
       }
 
@@ -245,30 +245,34 @@ export class AddItemDefinitionComponent implements OnInit {
       //   this.getUomDropDown(res.uomId)
       //   this.uomCodeDropDown(res.uomId)
       //   this.getDefaultCode(res.uomId)
-     
+
       // }
-      
-    
+
+
     })
 
-   
+
 
   }
+
+
+
 
   findRoute(routeFragment: string): boolean {
     if (!routeFragment) {
-      return false; // Return false if the routeFragment is empty or null
+      return false;
     }
 
-    // Check if the current URL contains the given route fragment
     return this._router.getCurrentUrl().includes(`/${routeFragment}`);
   }
-  onRoute() {
-    this._router.navigateTo(`masterdata/add-item-definition/${this.id}/general`)
+
+  onRoute(routeFragment: string) {
+    if (!routeFragment) {
+      return;
+    }
+    this._router.navigateTo(`/masterdata/add-item-definition/${this.id}/${routeFragment}`);
   }
 
-
- 
 
   get UOMForm() {
     return this.itemDefinitionForm.get('uom') as FormArray
@@ -286,7 +290,7 @@ export class AddItemDefinitionComponent implements OnInit {
       console.log(res)
       this.uomLookup = res
 
-     
+
     })
   }
 
@@ -323,15 +327,15 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
 
 
 
-    
+
     })
 
   }
-  
+
   UOMCategoryDropDownData() {
     this.itemService.UOMCategoryDropDown()
     this.itemService.UOMCategoryDropDownLookup.subscribe(res=>{
-      this.UOMCategoryDropDown = res 
+      this.UOMCategoryDropDown = res
     })
   }
   getItemVariantsByItemIdDropDown() {
@@ -363,13 +367,13 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
 
   uomCategoryChanged(e : any) {
     this.UOMForm.clear()
-  
+
     this.uomCodeDropDown(e)
     // this.getDefaultUnit(e)
   }
   uomCodeLookupChanged(e:any , itemDefitionForm : FormGroup) {
     this.getCodeByuomCodeDropDown(e  , itemDefitionForm)
-    
+
     itemDefitionForm.controls['uomNameEn'].setValue(this.uomCodeLookup.find(elem=>elem.id == e)?.name)
 
 
@@ -398,15 +402,15 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
 
      itemDefitionForm.get('tempConversionRatio')?.setValue(data?.conversionRatio)
 
-      
+
       // let uomId = itemDefitionForm.get('uomId')?.value
       // this.itemService.codeByuomCodeDropDownObs.subscribe(res=>{
-      //   let data = res 
+      //   let data = res
       //   console.log(data)
-      
+
       // })
     })
-   
+
   }
 
   getDefaultCode(id:number) {
@@ -415,8 +419,8 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
      this.UOMForm.controls[0].get('isDefault')?.value == true ? this.UOMForm.controls[0].get('conversionRatio')?.setValue(1) : this.UOMForm.controls[0].get('conversionRatio')?.setValue(res.conversionRatio)
 
      this.UOMForm.controls[0].get('tempConversionRatio')?.setValue(res.conversionRatio)
-     
-  
+
+
     })
     // this.itemService.codeByuomCodeDropDownObs.subscribe(res=>{
     //  this.codeData = res
@@ -433,8 +437,8 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
   }
 
   createUomFormGroup(): FormGroup {
-    
-  
+
+
     const uomData = this.fb.group({
       id: [null],
       itemId: [this.id],
@@ -447,12 +451,12 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
       uomNameEn: [ ''],
       tempConversionRatio : ['']
     });
-  
-   
-  
+
+
+
     return uomData;
   }
-  
+
   createbarcodeFormGroup(): FormGroup {
     return this.fb.group({
       id : null ,
@@ -460,7 +464,7 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
       uomId: [null , [customValidators.required]],
       itemVariantId: null,
       sku: null,
-      status: true, 
+      status: true,
       uomName : null,
       itemVariantName : null
     });
@@ -477,31 +481,31 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
   }
 
   addLine() {
-    
+
     this.UOMForm.push(this.createUomFormGroup());
   }
   addLineBarcode() {
 
     // const dialogRef = this.dialog.open(AddBarcodePopupComponent, {
-    
+
     //   width: '50%',
     //   height : '450px'
-  
+
     // });
-  
+
     // dialogRef.onClose.subscribe((res) => {
     //   this.barcodeForm.push(this.createbarcodeFormGroup());
     // });
     this.barcodeForm.push(this.createbarcodeFormGroup());
   }
   addLineAttribute() {
-  
+
     const dialogRef = this.dialog.open(AddVariantPopupComponent, {
-    
+
       width: '50%',
       height : '430px',
       data : this.id
-  
+
     });
 
     dialogRef.onClose.subscribe((res) => {
@@ -535,16 +539,16 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
     if (confirmed) {
       const command = {
         id: itemDefAttributeGroup.get('id')?.value,
-       
+
       };
       this.itemService.ActivateVairiantGroup(command);
-   
+
     } else {
       // Properly toggle the status value
       const currentStatus = itemDefAttributeGroup.get('status')?.value;
       itemDefAttributeGroup.get('status')?.setValue(!currentStatus);
     }
-    
+
   }
   async confirmBarcodeChange(event: any, itemBarcodeGroup : FormGroup) {
     const confirmed = await this.toaserService.showConfirm('ConfirmButtonTexttochangestatus');
@@ -552,34 +556,34 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
       const command = {
         id: itemBarcodeGroup.get('itemVariantId')?.value,
         status : itemBarcodeGroup.get('status')?.value
-       
+
       };
       this.itemService.ActivateBarcode(command);
-   
+
     } else {
       // Properly toggle the status value
       const currentStatus = itemBarcodeGroup.get('status')?.value;
       itemBarcodeGroup.get('status')?.setValue(!currentStatus);
     }
-    
+
   }
 
   onViewAttribute(form : FormGroup) {
     const dialogRef = this.dialog.open(ViewVariantPopupComponent, {
-    
+
       width: '50%',
       height : '300px',
 
       data : form.get('id')?.value
 
-  
+
     });
-  
+
     dialogRef.onClose.subscribe((res) => {
-   
+
     });
   }
- 
+
   onSaveBarcode(itemDefBarcodeGroup : FormGroup){
     if (!this.formService.validForm(this.barcodeForm, false)) return;
 
@@ -591,7 +595,7 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
      this.itemService.getBarcodeByItemId(this.id)
      this.itemService.GetBarcodeObs.subscribe(res=>{
       if(res) {
-        this.barcodeForm.clear()      
+        this.barcodeForm.clear()
 
         res.forEach(element => {
           let data = this.fb.group({
@@ -600,14 +604,14 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
             uomId: element.uomId,
             itemVariantId: element.itemVariantId,
             sku: element.sku,
-            status: element.isActive, 
+            status: element.isActive,
             uomName : element.uomName,
             itemVariantName : element.itemVariantName
           })
           this.barcodeForm.push(data)
         });
       }
-    
+
      })
 
   }
@@ -626,9 +630,9 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
         // this.uomCategoryChanged(this.itemData.defaultUOMCategoryId)
 
         this.allUOmLines = res
-      
-        this.UOMForm.clear()      
-    
+
+        this.UOMForm.clear()
+
 
         res.forEach(element => {
           let data = this.fb.group({
@@ -648,22 +652,22 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
           this.UOMForm.push(data)
         });
       }
- 
+
      })
     }, 1000);
-   
+
 
   }
 
   onViewBarcode(itemDefBarcodeGroup : FormGroup) {
     const dialogRef = this.dialog.open(ViewVariantPopupComponent, {
-    
+
       width: '50%',
       height : '450px',
 
       data : itemDefBarcodeGroup.get('itemVariantId')?.value
 
-  
+
     });
   }
   files(data:any) {
@@ -672,13 +676,13 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
 
   openBarcode(barcode:string) {
     const dialogRef = this.dialog.open(AddBarcodePopupComponent, {
-    
+
       width: '50%',
       height : '330px',
 
       data : barcode
 
-  
+
     });
   }
   addUOM(itemDefGroup : FormGroup) {
@@ -695,17 +699,17 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
     //   isPurchase: itemDefGroup.get('isPurchase')?.value,
     // }
     //  this.itemService.addUOM(data)
-     
+
   }
   openQRcode(barcode:string) {
     const dialogRef = this.dialog.open(ViewQRcodeComponent, {
-    
+
       width: '50%',
       height : '440px',
 
       data : barcode
 
-  
+
     });
   }
 
@@ -727,10 +731,10 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
 
     itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
     }
-  
 
-  
-  
+
+
+
 
       // if(itemDefinition.get('id')?.value) {
       //   const confirmed = await this.toaserService.showConfirm('ConfirmButtonTexttochangestatus');
@@ -738,24 +742,24 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
       //     // if(e == true) {
       //     //   itemDefinition.get('conversionRatio')?.setValue(1);
       //     // }else{
-        
+
       //     //   itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
       //     //   }
-          
+
       //     let obj : UomDefault = {
       //       isDefault: e,
       //       itemId: +this.id,
       //       uomId: itemDefinition.get('uomId')?.value
       //     }
       //     this.itemService.setUomDefault(obj)
-          
-       
+
+
       //   } else {
       //     // Properly toggle the status value
       //     // if(e == true) {
       //     //   itemDefinition.get('conversionRatio')?.setValue(1);
       //     // }else{
-        
+
       //     //   itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
       //     // e =! e
 
@@ -763,17 +767,17 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
       //     console.log( itemDefinition.get('conversionRatio')?.value)
       //     console.log( e)
       //     itemDefinition.get('conversionRatio')?.setValue(conversionRatioTemp);
-        
+
       //     //   }
       //     const currentStatus = itemDefinition.get('isDefault')?.value;
       //     itemDefinition.get('isDefault')?.setValue(!currentStatus);
       //   }
-      
+
       // }
 
 
-    
-   
+
+
   }
 
   generateVariant() {
@@ -849,7 +853,7 @@ itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
     tags,
     taxId,
     itemAccounting
-    
+
   }
   // itemData.warranty = Number(itemData.warranty)
    itemData.tags = itemData.tags ? itemData.tags : []

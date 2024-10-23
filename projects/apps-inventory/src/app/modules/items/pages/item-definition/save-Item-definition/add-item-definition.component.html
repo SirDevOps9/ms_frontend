@@ -5,23 +5,23 @@
         <div class="" style="width: 20%;">
           <div class="sidebar">
             <ul>
-              <li [class.active]="findRoute('general')" (click)="onRoute()">{{ 'itemType.general' | translate }}</li>
-              <li [class.active]="findRoute('uom')">{{ 'itemType.uom' | translate }}</li>
-              <li [class.active]="findRoute('attributes')">{{ 'itemType.attributes' | translate }}</li>
-              <li [class.active]="findRoute('barcode')">{{ 'itemType.barcode' | translate }}</li>
-              <li [class.active]="findRoute('inventory')">{{ 'itemType.inventory' | translate }}</li>
-              <li [class.active]="findRoute('accounting')">{{ 'itemType.accounting' | translate }}</li>
-              
+              <li [class.active]="findRoute('general')" (click)="onRoute('general')">{{ 'itemType.general' | translate }}</li>
+              <li [class.active]="findRoute('uom')" (click)="onRoute('uom')">{{ 'itemType.uom' | translate }}</li>
+              <li [class.active]="findRoute('attributes')" (click)="onRoute('attributes')">{{ 'itemType.attributes' | translate }}</li>
+              <li [class.active]="findRoute('barcode')" (click)="onRoute('barcode')">{{ 'itemType.barcode' | translate }}</li>
+              <li [class.active]="findRoute('inventory')" (click)="onRoute('inventory')">{{ 'itemType.inventory' | translate }}</li>
+              <li [class.active]="findRoute('accounting')" (click)="onRoute('accounting')">{{ 'itemType.accounting' | translate }}</li>
             </ul>
+
           </div>
         </div>
-    
+
         <div  style="width: 80%;">
           <router-outlet></router-outlet>
         </div>
       </div>
 
-   
+
     </div>
 
     <div class="grid">
@@ -33,7 +33,7 @@
               nameClass="cancel"
               widthNumber="100%"
               (click)="onCancel()"
-            
+
             >
             </lib-button-micro>
           </div>
@@ -45,11 +45,11 @@
               (click)="onSave()"
             >
             </lib-button-micro>
-          
+
           </div>
         </div>
-  
-        
+
+
       </div>
     </div>
 </lib-page-content>
