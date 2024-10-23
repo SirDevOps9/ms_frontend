@@ -79,7 +79,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'add-item-definition/:id',
+        path: 'add-item-definition',
         component: AddItemDefinitionComponent,
         data: {
           breadcrumb: '',
@@ -88,7 +88,7 @@ const routes: Routes = [
         },
         children: [
           {
-            path: 'general',
+            path: 'general/:id',
             component: ItemDefinitionGeneralComponent,
             data: {
               breadcrumb: BreadcrumbLabel.GENERAL_ITEMdEFINITION,

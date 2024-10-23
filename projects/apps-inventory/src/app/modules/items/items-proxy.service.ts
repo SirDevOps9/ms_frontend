@@ -462,7 +462,12 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
   }
 
   saveItemDefinitionGeneral(obj:AddGeneralDto) {
-    return this.httpService.post('Item/EditGeneralData' , obj)
+    return this.httpService.put('Item/EditGeneralData' , obj)
+  }
+ 
+
+ getItemDefinitionGeneral(id : number) : Observable<AddGeneralDto> {
+    return this.httpService.get(`Item/GetGeneralData/${id}`)
   }
  
 
