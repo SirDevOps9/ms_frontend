@@ -96,7 +96,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'attributes-variants',
+            path: 'attributes-variants/:id',
             component: ItemDefinitionAttributesVariantsComponent,
             data: {
               breadcrumb: BreadcrumbLabel.attributes_ITEMdEFINITION,

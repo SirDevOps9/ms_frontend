@@ -60,7 +60,8 @@ export class ItemDefinitionGeneralComponent implements OnInit{
   
   }
   constructor(private _router : RouterService,private fb : FormBuilder , private formService : FormsService ,  public sharedLibEnums: SharedLibraryEnums,private dialog : DialogService , private route : ActivatedRoute , private toaserService : ToasterService , private itemService : ItemsService){
-    this.id = this.route.snapshot.params['id']
+    this.id = this.route.snapshot.params['id'];
+
   }
   taxesDropDropDown() {
     this.itemService.taxesDropDropDown()

@@ -207,7 +207,16 @@
     "nameEn": "Name En",
     "conversionUOM": "conversion UOM ",
     "categorynameEn" : "Name En",
-    "categorynameAr" : "Name Ar"
+    "categorynameAr" : "Name Ar",
+    "category" : "Category",
+    "baseUom" : "Base UOM",
+    "systemUnit" : "system Unit Base",
+    "nameUom" : "Name",
+    "unitSystem" : "system Unit",
+    "factorUOM": "Factor",
+    "calculation": "Calculation",
+    "reversal": "Reversal",
+    "from" : "From"
 
   },
   "attributeDefinition": {

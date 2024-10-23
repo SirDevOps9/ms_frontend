@@ -14,7 +14,11 @@ import { ActivatedRoute } from '@angular/router';
 export class AddItemDefinitionComponent  {
   id : number
   constructor(private _router : RouterService,private route : ActivatedRoute ){
-    this.id = this.route.snapshot.params['id']
+    
+    this.route.firstChild?.params.subscribe(params => {
+      this.id = params['id'];
+      
+    });
   }
 
   findRoute(routeFragment: string): boolean {
@@ -24,7 +28,7 @@ export class AddItemDefinitionComponent  {
     return this._router.getCurrentUrl().includes(`/${routeFragment}`);
   }
   onRoute() {
-    this._router.navigateTo(`masterdata/add-item-definition/${this.id}/general`)
+    this._router.navigateTo(`masterdata/add-item-definition/general/${this.id}`)
   }
 }
 
