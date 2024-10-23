@@ -6,6 +6,7 @@
           className="p-datatable-gridlines"
           [currentPageResult]="currentPageInfo"
           (pageChange)="onPageChange($event)"
+          (addNew)="onAdd()"
           [tableConfigs]="{
             allowPagination: false,
             allowServerPagination: true,
