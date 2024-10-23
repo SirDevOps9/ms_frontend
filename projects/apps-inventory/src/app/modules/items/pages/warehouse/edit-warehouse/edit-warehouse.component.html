@@ -2,35 +2,8 @@
 
 
 <lib-page-content [title]="'warehouse.warehouse' | translate" [subTitle]="'warehouse.warehouse' | translate">
-  <div class="grid">
-    <div class="md:col-12 my-3 grid flex justify-content-end">
-      <div class="md:col-4 grid flex justify-content-end">
-        <div class="md:col-6">
-          <lib-button-micro
-            title="{{ 'warehouse.cancel' | translate }}"
-            nameClass="cancel"
-            widthNumber="100%"
-            (click)="onCancel()"
-          
-          >
-          </lib-button-micro>
-        </div>
-        <div  class="md:col-6">
-          <lib-button-micro
-            title="{{ 'warehouse.save' | translate }}"
-            nameClass="save"
-            widthNumber="100%"
-            (click)="onSubmit()"
-          >
-          </lib-button-micro>
-        
-        </div>
-      </div>
-    
-       
-    </div>
-      </div>
-    
+
+
     <form class="domain_form" [formGroup]="warehouseForm" (ngSubmit)="onSubmit()">
         <div class="domain_content">
           <div class="grid">
@@ -67,7 +40,7 @@
                 ></lib-field-validations>
               </lib-form-group>
             </div>
-         
+
             <div class="col-6 my-2 multi-cont">
                 <lib-form-group>
                     <lib-label [appControl]="warehouseForm.controls['branchWarehouses']">
@@ -124,7 +97,7 @@
                             </lib-field-validations>
                           </lib-form-group>
                 </div>
-                <!--  -->
+
                 <div class="md:col-6">
                         <lib-form-group>
                             <lib-label [appControl]="warehouseForm.get('warehouseAccount')?.get('cashSalesAccountId')">
@@ -142,7 +115,7 @@
                             </lib-field-validations>
                           </lib-form-group>
                 </div>
-                <!--  -->
+
                 <div class="md:col-6">
                         <lib-form-group>
                             <lib-label [appControl]="warehouseForm.get('warehouseAccount')?.get('creditSalesAccountId')">
@@ -160,7 +133,7 @@
                             </lib-field-validations>
                           </lib-form-group>
                 </div>
-                <!--  -->
+
                 <div class="md:col-6">
                         <lib-form-group>
                             <lib-label [appControl]="warehouseForm.get('warehouseAccount')?.get('salesReturnAccountId')">
@@ -281,8 +254,8 @@
                               optionValue="id"
                               formControlName="goodsInTransitAccountId"
                               [selectedValue]="warehouseForm.get('warehouseAccount')?.get('goodsInTransitAccountId')?.value"
-                            ></lib-select>]
-                            
+                            ></lib-select>
+
                             <lib-field-validations [appControl]="warehouseForm.get('warehouseAccount')?.get('goodsInTransitAccountId')">
                             </lib-field-validations>
                           </lib-form-group>
@@ -290,6 +263,10 @@
                 <!--  -->
              </div>
             </p-tabPanel>
+
+
+
+
             <p-tabPanel  header="{{'warehouse.address' | translate}}" *ngIf="warehouseForm.get('warehouseType')?.value == 1">
               <div class="grid">
                 <div class="md:col-6 grid">
@@ -317,7 +294,7 @@
                       <lib-text-input
                       type="text"
                       formControlName="phone"
-                   
+
                       [iconUrl]="'assets/images/Vector.png'"
                       class="form-control"
                     />
@@ -325,8 +302,8 @@
                     [appControl]="warehouseForm.get('addressWarehouse')?.get('phone')"
                   ></lib-field-validations>
                       </div>
-                 
-        
+
+
                     <div class="md:col-12">
                       <lib-form-group>
                         <lib-label [appControl]="warehouseForm.get('addressWarehouse')?.get('addressLine')">
@@ -341,7 +318,7 @@
                         ></lib-field-validations>
                       </lib-form-group>
                     </div>
-        
+
                     <div class="md:col-12">
                       <lib-form-group>
                         <lib-label [appControl]="warehouseForm.get('addressWarehouse')?.get('city')">
@@ -360,7 +337,7 @@
                         ></lib-field-validations>
                       </lib-form-group>
                     </div>
-                  
+
                       <div class="md:col-12">
                         <lib-form-group>
                           <lib-label [appControl]="warehouseForm.get('addressWarehouse')?.get('email')">
@@ -375,7 +352,7 @@
                           ></lib-field-validations>
                         </lib-form-group>
                       </div>
-        
+
                     <div class="md:col-6">
                       <lib-form-group>
                         <lib-label [appControl]="warehouseForm.get('addressWarehouse')?.get('fax')">
@@ -390,7 +367,7 @@
                         ></lib-field-validations>
                       </lib-form-group>
                     </div>
-        
+
                     <div class="md:col-6">
                       <lib-form-group>
                         <lib-label [appControl]="warehouseForm.get('addressWarehouse')?.get('postalCode')">
@@ -405,9 +382,9 @@
                         ></lib-field-validations>
                       </lib-form-group>
                     </div>
-        
-                 
-        
+
+
+
                     <div class="md:col-4">
                       <lib-form-group>
                         <lib-label [appControl]="warehouseForm.get('addressWarehouse')?.get('longitude')">
@@ -422,7 +399,7 @@
                         ></lib-field-validations>
                       </lib-form-group>
                     </div>
-        
+
                     <div class="md:col-4">
                       <lib-form-group>
                         <lib-label [appControl]="warehouseForm.get('addressWarehouse')?.get('latitude')">
@@ -437,7 +414,7 @@
                         ></lib-field-validations>
                       </lib-form-group>
                     </div>
-        
+
                     <div class="md:col-4">
                       <lib-form-group>
                         <lib-label [appControl]="warehouseForm.get('addressWarehouse')?.get('radius')">
@@ -454,16 +431,45 @@
                     </div>
                   </ng-container>
                 </div>
-            
+
                 <!--  -->
                 <div class="md:col-6">
                    <!-- image -->
                 </div>
-            
+
              </div>
             </p-tabPanel>
             </p-tabView>
       </form>
+
+      <div class="grid">
+        <div class="md:col-12 my-3 grid flex justify-content-end">
+          <div class="md:col-4 grid flex justify-content-end">
+            <div class="md:col-6">
+              <lib-button-micro
+                title="{{ 'warehouse.cancel' | translate }}"
+                nameClass="cancel"
+                widthNumber="100%"
+                (click)="onCancel()"
+
+              >
+              </lib-button-micro>
+            </div>
+            <div  class="md:col-6">
+              <lib-button-micro
+                title="{{ 'warehouse.save' | translate }}"
+                nameClass="save"
+                widthNumber="100%"
+                (click)="onSubmit()"
+              >
+              </lib-button-micro>
+
+            </div>
+          </div>
+
+
+        </div>
+          </div>
 </lib-page-content>
 
 

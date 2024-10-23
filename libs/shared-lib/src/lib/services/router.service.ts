@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +8,17 @@ import { map } from 'rxjs';
 export class RouterService {
   private previousUrl: string;
   private currentUrl: string;
+  routerState: any;
+
+  getCurrentUrls(): string {
+    return this.router.url;
+  }
+
+
+
+  get events(): Observable<any> {
+    return this.router.events; // Expose the events observable
+  }
 
   get skipLocationChange() {
     return false;
@@ -31,7 +42,7 @@ export class RouterService {
   }
   getId(){
     console.log(this.route.snapshot.params['id']);
-    
+
     return this.route.snapshot.params['id']
   }
 
@@ -70,7 +81,7 @@ export class RouterService {
 
   public getPreviousUrl() {
     console.log("sss");
-    
+
     return this.previousUrl;
   }
 

@@ -93,7 +93,7 @@ export class ItemDefinitionGeneralComponent implements OnInit{
     specialCare : [''],
     lifeTime : [''],
     color : [''],
-   
+
   });
   this.itemService.getItemDefinitionGeneral(this.id)
   this.itemService.getItemDefGeneral$.subscribe(data=>{
@@ -108,28 +108,28 @@ export class ItemDefinitionGeneralComponent implements OnInit{
       this.itemDefinitionForm.get('taxId')?.updateValueAndValidity()
     }
   })
-  
+
   }
   constructor(private _router : RouterService,private fb : FormBuilder , private formService : FormsService ,  public sharedLibEnums: SharedLibraryEnums,private dialog : DialogService , private route : ActivatedRoute , private toaserService : ToasterService , private itemService : ItemsService){
     this.id = this.route.snapshot.params['id']
-    console.log(this.id)
+    console.log("gen id ",this.id)
   }
   taxesDropDropDown() {
     this.itemService.taxesDropDropDown()
     this.itemService.taxesLookupObs.subscribe(res=>{
       this.taxesDropDropDownLookup = res
     })
-  } 
+  }
 
   uomCategoryChanged(e : any) {
-  
+
     // this.getDefaultUnit(e)
   }
-  
+
   UOMCategoryDropDownData() {
     this.itemService.UOMCategoryDropDown()
     this.itemService.UOMCategoryDropDownLookup.subscribe(res=>{
-      this.UOMCategoryDropDown = res 
+      this.UOMCategoryDropDown = res
     })
   }
   ItemCategoryDropDownData() {

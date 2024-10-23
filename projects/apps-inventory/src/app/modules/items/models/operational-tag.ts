@@ -4,9 +4,9 @@ export interface IOperationalTag {
     orderByDesc: boolean
     result: IOperationalTagResult[]
   }
-  
 
-  
+
+
   export interface IOperationalTagResult {
     id: number
     isActive: boolean
@@ -17,9 +17,9 @@ export interface IOperationalTag {
     warehouseName: string
     glAccountId: number
   }
-  
 
-  
+
+
     export interface AddOperatioalTag {
       id?:number
       code?: string
@@ -28,5 +28,4 @@ export interface IOperationalTag {
       warehouseId?: number
       glAccountId?: number
     }
-    
-  
+

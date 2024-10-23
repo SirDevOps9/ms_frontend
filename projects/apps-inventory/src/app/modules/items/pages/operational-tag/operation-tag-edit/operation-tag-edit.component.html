@@ -36,16 +36,16 @@
                 {{ 'OperationalTag.operationType' | translate }}
               </lib-label>
               <lib-select
-                formControlName="operationType"
-                [options]="operationTypeList"
-                [selectedValue]="formGroup.controls['operationType'].value"
-                optionLabel="name"
-                optionValue="id"
-              >
-              </lib-select>
+              formControlName="operationType"
+              [options]="operationTypeList"
+              [selectedValue]="formGroup.controls['operationType'].value"
+              optionLabel="name"
+              optionValue="id"
+            >
+            </lib-select>
             </lib-form-group>
-            <lib-field-validations [appControl]="formGroup.controls['operationType']">
-            </lib-field-validations>
+            <lib-field-validations [appControl]="formGroup.controls['operationType']"></lib-field-validations>
+
           </div>
           <div class="md:col-6">
             <lib-form-group>
@@ -105,7 +105,7 @@
               type="button"
               (click)="onSave()"
             >
-             
+
             </lib-button-micro>
           </div>
         </div>

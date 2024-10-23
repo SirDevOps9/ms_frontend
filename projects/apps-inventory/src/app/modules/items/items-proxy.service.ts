@@ -312,8 +312,9 @@ export class ItemsProxyService {
   getItemById(id:number) : Observable<GetItemById> {
     return this.httpService.get(`Item/${id}`)
   }
-  getOperationalTagById(id:number) : Observable<AddOperatioalTag> {
-    return this.httpService.get(`OperationalTag/${id}`)
+
+  getOperationalTagById(id: number): Observable<AddOperatioalTag> {
+    return this.httpService.get<AddOperatioalTag>(`OperationalTag/${id}`);
   }
   deleteOperationalTag(id : number ){
     return this.httpService.delete(`OperationalTag/Delete/${id}`)
@@ -464,7 +465,7 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
   saveItemDefinitionGeneral(obj:AddGeneralDto) {
     return this.httpService.put('Item/EditGeneralData' , obj)
   }
- 
+
 
  getItemDefinitionGeneral(id : number) : Observable<AddGeneralDto> {
     return this.httpService.get(`Item/GetGeneralData/${id}`)

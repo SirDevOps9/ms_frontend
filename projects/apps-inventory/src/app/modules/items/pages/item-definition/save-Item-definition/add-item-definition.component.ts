@@ -35,7 +35,7 @@ function uomIdUniqueValidator(formArray: AbstractControl): ValidatorFn {
 export class AddItemDefinitionComponent implements OnInit {
 
   itemDefinitionForm : FormGroup = new FormGroup({})
-  id : number
+  id : any
   uomLookup : { id: number; name: string }[] = []
   allUOmLines : getUomByItemId[]
   colors = [
@@ -105,13 +105,22 @@ export class AddItemDefinitionComponent implements OnInit {
 
   ItemVariantsByItemIdDropDown : { id: number; nameEn: string }[] = []
   constructor(private _router : RouterService,private fb : FormBuilder , private formService : FormsService ,  public sharedLibEnums: SharedLibraryEnums,private dialog : DialogService , private route : ActivatedRoute , private toaserService : ToasterService , private itemService : ItemsService){
-    this.id = this.route.snapshot.params['id']
+
+
     console.log(this._router.getCurrentUrl())
+    this.id = this.route.snapshot.paramMap.get('id'); // Get the ID from the route
 
-
+    // this.id = this.route.snapshot.paramMap.get('id');
+    // console.log(this.id);
   }
   ngOnInit(): void {
-
+        // Subscribe to route parameters
+        this.route.params.subscribe(params => {
+          this.id = params['id'];
+          console.log('Current ID:', this.id); // Log current ID whenever it changes
+      });
+    // this.id = this.route.snapshot.paramMap.get('id');
+    // console.log('Editing ID:', this.id); // This should log the ID you passed
         //  this.getUomDropDown(this.id)
 
     // this.itemDefinitionForm = this.fb.group({
@@ -254,19 +263,35 @@ export class AddItemDefinitionComponent implements OnInit {
 
 
   }
-
-  findRoute(routeFragment: string): boolean {
-    if (!routeFragment) {
-      return false; // Return false if the routeFragment is empty or null
+  onRoute(routeFragment: string): void {
+    // Ensure the id is set before navigating
+    if (!this.id) {
+        console.error('ID is not set');
+        return;
     }
 
-    // Check if the current URL contains the given route fragment
+    this._router.navigateTo(`add-item-definition/${routeFragment}/${this.id}`);
+}
+
+
+  findRoute(routeFragment: string): boolean {
     return this._router.getCurrentUrl().includes(`/${routeFragment}`);
   }
-  onRoute() {
-    this._router.navigateTo(`masterdata/add-item-definition/${this.id}/general`)
-  }
 
+
+  // onRoute(routeFragment: string): void {
+  //   if (!routeFragment || !this.id) {
+  //     console.error('Invalid route or ID'); // إضافة سجل للأخطاء
+  //     return;
+  //   }
+  //   this._router.navigateTo(`/masterdata/add-item-definition/${routeFragment}/${this.id}`);
+  // }
+
+
+  // this.route.params.subscribe(params => {
+  //   this.routeFragment = params['routeFragment'];  // التقاط قيمة routeFragment
+  //   this.id = params['id'];  // التقاط قيمة id
+  // });
 
 
 

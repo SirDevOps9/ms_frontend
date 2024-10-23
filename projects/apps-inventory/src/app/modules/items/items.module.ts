@@ -80,7 +80,10 @@ const routes: Routes = [
         },
       },
       {
+
         path: 'add-item-definition',
+
+
         component: AddItemDefinitionComponent,
         data: {
           breadcrumb: '',
@@ -96,6 +99,15 @@ const routes: Routes = [
               pageTitle : BreadcrumbLabel.GENERAL_ITEMdEFINITION
             },
           },
+
+          {
+            path: 'accounting/:id',
+        component: ItemDefinitionAccountingComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.attributes_ITEMdEFINITION,
+          pageTitle : BreadcrumbLabel.attributes_ITEMdEFINITION
+        },
+      },
           {
             path: 'attributes-variants',
             component: ItemDefinitionAttributesVariantsComponent,
@@ -105,14 +117,6 @@ const routes: Routes = [
             },
           },
 
-          {
-            path: 'accounting',
-            component: ItemDefinitionAccountingComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.attributes_ITEMdEFINITION,
-              pageTitle : BreadcrumbLabel.attributes_ITEMdEFINITION
-            },
-          },
 
         ],
 

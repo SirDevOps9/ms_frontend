@@ -31,7 +31,7 @@ export class ItemDefinitionListComponent implements OnInit {
 
   exportData: itemDefinitionDto[];
   cols = [
-   
+
     {
       field: 'Code',
       header: 'code',
@@ -45,7 +45,7 @@ export class ItemDefinitionListComponent implements OnInit {
       field: 'Short Name',
       header: 'shortName',
     },
-   
+
   ];
   exportColumns: lookupDto[];
   exportSelectedCols: string[] = [];
@@ -79,7 +79,7 @@ export class ItemDefinitionListComponent implements OnInit {
   onPageChange(pageInfo: PageInfo) {
     this.itemsService.getItemDefinition('', pageInfo);
 
-  
+
   }
 
   exportClick(e?: Event) {
@@ -95,10 +95,10 @@ export class ItemDefinitionListComponent implements OnInit {
 
   onAdd() {
     const dialogRef = this.dialog.open(AddItemDefinitionPopupComponent, {
-    
+
       width: '800px',
       height : '600px'
-  
+
     });
 
     dialogRef.onClose.subscribe(() => {
@@ -107,10 +107,19 @@ export class ItemDefinitionListComponent implements OnInit {
   }
 
   onEdit(data: any) {
-   
-    this.routerService.navigateTo(`masterdata/add-item-definition/general/${data.id}`)
+    if (data && data.id) {
+        this.routerService.navigateTo(`/masterdata/add-item-definition/general/${data.id}`);
+    } else {
+        console.error('Invalid data provided for editing');
+    }
+}
 
-  }
+
+  // onEdit(data: any) {
+  //   this.routerService.navigateTo('/masterdata/add-item-definition/general', data);
+  //   // this.routerService.navigateTo(`masterdata/add-item-definition/general/${data.id}`)
+
+  // }
 
   onView(data:any){
     const dialogRef = this.dialog.open(ViewItemDefinitionComponent, {
@@ -124,7 +133,7 @@ export class ItemDefinitionListComponent implements OnInit {
   }
   onSearchChange() {
     this.itemsService.getItemDefinition(this.searchTerm, new PageInfo());
-    
+
   }
 
   onDelete(id: number) {

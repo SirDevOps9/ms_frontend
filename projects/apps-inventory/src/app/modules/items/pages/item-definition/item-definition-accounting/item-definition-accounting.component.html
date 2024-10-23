@@ -1,15 +1,16 @@
 <div class="md:col-12 mainCountryOfOrigin">
-    <div class="grid ">
+    <div [formGroup]="selectForm" class="grid ">
       <div class="md:col-12">
         <div class="md:col-12">
-          <lib-fildest header="{{ 'itemDefinition.purchase' | translate }}" class="md:col-6 m-0 p-0">
-            <div class="grid p-0 m-0">
+          <lib-fildest  header="{{ 'itemDefinition.purchase' | translate }}" class="md:col-6 m-0 p-0">
+            <div  class="grid p-0 m-0">
 
                 <div class="md:col-6">
                   <label>{{'itemDefinition.purchaseAccount' | translate}}</label>
 
                   <lib-select
                     [options]="dataAccouting"
+                    formControlName="pAccount"
                     optionValue="id"
                     optionLabel="name"
                     placeholder="{{ 'itemType.taxes' | translate }}"
@@ -23,7 +24,7 @@
                 <div class="md:col-6">
                   <label>{{'itemDefinition.purchaseReturnAmount' | translate}}</label>
                   <lib-select
-
+                  formControlName="prAccount"
                        [options]="dataAccouting"
                     optionValue="id"
                     optionLabel="name"
@@ -48,9 +49,12 @@
             <div class="grid p-0 m-0">
 
                 <div class="md:col-6">
-                  <label>{{'itemDefinition.salesAmount' | translate}}</label>
 
+                  <lib-label [appControl]="selectForm.controls['sAccount']">
+                    {{ 'itemType.countryOfOrigin' | translate }}
+                  </lib-label>
                   <lib-select
+                  formControlName="sAccount"
                        [options]="dataAccouting"
                     optionValue="id"
                     optionLabel="name"
@@ -65,7 +69,7 @@
                 <div class="md:col-6">
                   <label>{{'itemDefinition.salesReturnAmount' | translate}}</label>
                   <lib-select
-
+                  formControlName="srAccount"
                        [options]="dataAccouting"
                     optionValue="id"
                     optionLabel="name"
@@ -83,7 +87,37 @@
           </lib-fildest>
         </div>
       </div>
+
+
     </div>
 
 </div>
+<div class="grid">
+  <div class="md:col-12 my-3 grid flex justify-content-end">
+    <div class="md:col-4 grid flex justify-content-end">
+      <div class="md:col-6">
+        <lib-button-micro
+          title="{{ 'itemType.cancel' | translate }}"
+          nameClass="cancel"
+          widthNumber="100%"
 
+
+        >
+        </lib-button-micro>
+      </div>
+      <div  class="md:col-6">
+        <lib-button-micro
+          title="{{ 'itemType.save' | translate }}"
+          nameClass="save"
+          widthNumber="100%"
+          (click)="onSave()"
+
+        >
+        </lib-button-micro>
+
+      </div>
+    </div>
+
+
+  </div>
+</div>
