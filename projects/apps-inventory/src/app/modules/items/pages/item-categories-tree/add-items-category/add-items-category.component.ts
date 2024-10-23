@@ -201,7 +201,6 @@ export class AddItemsCategoryComponent {
   }
 
   onSubmit() {
-    debugger;
     if (!this.formsService.validForm(this.formGroup, false)) return;
 
     let obj: AddItemCategory = this.formGroup.value;

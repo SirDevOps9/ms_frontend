@@ -130,7 +130,6 @@ export class ItemsCategoryTreeComponent implements OnInit {
   }
 
   handleOperationCompleted(event: any) {
-    debugger
     this.activeNode = event;
     this.getTreeList();
 
@@ -235,7 +234,6 @@ export class ItemsCategoryTreeComponent implements OnInit {
     // return null;
   }
   deleteAccount(id: number) {
-    debugger
     const parentNode = this.findParentNodeById(this.nodes, id);
     this.itemsSevice.deleteItemCategory(id);
     this.itemsSevice.itemsCategoryDeletedObs.subscribe((res) => {
@@ -265,18 +263,14 @@ export class ItemsCategoryTreeComponent implements OnInit {
 
   
   setActiveNode(id: number) {
-    debugger
     const findAndExpandNode = (nodes: any[], id: number): any => {
       for (let node of nodes) {
-        debugger
         if (node.id === id) {
-          debugger
 
           return node; // Found the target node
         }
 
         if (node.children) {
-          debugger
 
           const foundChild = findAndExpandNode(node.children, id);
           if (foundChild) {
@@ -287,29 +281,25 @@ export class ItemsCategoryTreeComponent implements OnInit {
       }
       return null;
     };
-    debugger
 
     const targetNode: any = findAndExpandNode(this.nodes, id);
     if (targetNode) {
-      debugger
 
       this.activeNode = targetNode;
 
       if (targetNode.children && targetNode.children.length > 0) {
-        debugger
 
         targetNode.children.forEach((child: any) => {
-          debugger
 
           if (child.id === this.test) {
             this.activeNode = child;
             this.getItemCategoryById(child.id);
-            this.view = false;
+            this.view = true;
           }
         });
       } else {
         this.getItemCategoryById(targetNode.id);
-        this.view = false;
+        this.view = true;
       }
     }
   }

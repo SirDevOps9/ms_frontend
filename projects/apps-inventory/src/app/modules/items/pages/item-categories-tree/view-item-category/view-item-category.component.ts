@@ -63,7 +63,6 @@ export class ViewItemCategoryComponent {
     })
   }
   routeToEdit(){
-    debugger
     this.sendId.emit(this.account?.id as number) 
     
 
