@@ -19,6 +19,7 @@ export class AddItemDefinitionComponent  {
       this.id = params['id'];
       
     });
+
   }
 
   findRoute(routeFragment: string): boolean {
@@ -27,8 +28,9 @@ export class AddItemDefinitionComponent  {
     }
     return this._router.getCurrentUrl().includes(`/${routeFragment}`);
   }
-  onRoute() {
-    this._router.navigateTo(`masterdata/add-item-definition/general/${this.id}`)
+  onRoute(path : string) {
+  // Navigate to the correct path with the current `id`
+  this._router.navigateTo(`masterdata/add-item-definition/${path}/${this.id}`);
   }
 }
 

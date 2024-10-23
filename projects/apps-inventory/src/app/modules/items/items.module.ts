@@ -11,7 +11,6 @@ import {
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { AddItemCategoryComponent } from './components/add-item-category/add-item-category.component';
 import { ItemCategoryListComponent } from './pages/item-category/item-category-list/item-category-list.component';
-import { ItemTypeListComponent } from './pages/item-type/item-type-list/item-type-list.component';
 import { AddItemDefinitionComponent } from './pages/item-definition/save-Item-definition/add-item-definition.component';
 import { AddItemDefinitionPopupComponent } from './components/add-item-definition/add-item-definition-popup.component';
 import { ItemDefinitionListComponent } from './pages/item-definition/item-definition-list/item-definition-list.component';
@@ -263,13 +262,7 @@ const routes: Routes = [
         ],
       },
      
-      {
-        path: 'item-type',
-        component: ItemTypeListComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.ITEM_TYPE,
-        },
-      },
+     
       {
         path: 'item-category',
         component: ItemCategoryListComponent,
@@ -284,7 +277,6 @@ const routes: Routes = [
   declarations: [
     ItemDefinitionListComponent,
     AddItemDefinitionComponent,
-    ItemTypeListComponent,
     ItemCategoryListComponent,
     AddItemCategoryComponent,
     AddItemDefinitionPopupComponent,
