@@ -83,21 +83,36 @@ export class ItemDefinitionGeneralComponent implements OnInit{
     name : ['' , [customValidators.required]],
     photo : [''],
     categoryId : ['' , [customValidators.required]],
-    tags : [''],
+    tags : [[]],
 
     countryId : [''],
-    taxId : [''],
+    taxId : [null],
     shortName : [''],
     warranty : [''],
-    isVatApplied : [''],
+    isVatApplied : [true],
     specialCare : [''],
     lifeTime : [''],
     color : [''],
    
+  });
+  this.itemService.getItemDefinitionGeneral(this.id)
+  this.itemService.getItemDefGeneral$.subscribe(data=>{
+    if(data){
+      this.itemDefinitionForm.patchValue({...data})
+    }
   })
+
+  this.itemDefinitionForm.get('isVatApplied')?.valueChanges.subscribe(res=>{
+    if(res == false) {
+      this.itemDefinitionForm.get('taxId')?.setValue(null);
+      this.itemDefinitionForm.get('taxId')?.updateValueAndValidity()
+    }
+  })
+  
   }
   constructor(private _router : RouterService,private fb : FormBuilder , private formService : FormsService ,  public sharedLibEnums: SharedLibraryEnums,private dialog : DialogService , private route : ActivatedRoute , private toaserService : ToasterService , private itemService : ItemsService){
     this.id = this.route.snapshot.params['id']
+    console.log(this.id)
   }
   taxesDropDropDown() {
     this.itemService.taxesDropDropDown()
@@ -143,6 +158,8 @@ export class ItemDefinitionGeneralComponent implements OnInit{
 
   }
   onSave() {
+    if (!this.formService.validForm(this.itemDefinitionForm, false)) return;
+    this.itemService.saveItemDefinitionGeneral(this.itemDefinitionForm.value)
 
   }
 

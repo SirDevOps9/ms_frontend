@@ -112,166 +112,162 @@ export class AddItemDefinitionComponent implements OnInit {
   }
   ngOnInit(): void {
 
-         this.getUomDropDown(this.id)
+        //  this.getUomDropDown(this.id)
 
-    this.itemDefinitionForm = this.fb.group({
-      id : this.id,
-      code : [''],
-      name : ['' , [customValidators.required]],
-      photo : [''],
-      categoryId : ['' , [customValidators.required]],
-      countryId : [''],
-      tags : [''],
-      defaultUOMCategoryId : ['' , [customValidators.required]],
-      taxId : [''],
-      shortName : [''],
-      warranty : [''],
-      isVatApplied : [''],
-      specialCare : [''],
-      lifeTime : [''],
-      color : [''],
-      uomId : ['' ],
-      uom : this.fb.array([]),
-      barcode : this.fb.array([]),
-      attribute : this.fb.array([]),
-      hasExpiryDate : [''],
-      trackingId : [''],
-      itemAccounting : this.fb.group({
-        pAccount: 0,
-        prAccount: 0,
-        sAccount: 0,
-        srAccount: 0
-      })
-    })
-
-
-    this.getCcountriesDropdown()
-
-    this.itemService.variantGeneratedObs.subscribe(res=>{
-      if(res) {
-        this.getItemVariantsByItemIdDropDown()
-
-      }
-    })
+    // this.itemDefinitionForm = this.fb.group({
+    //   id : this.id,
+    //   code : [''],
+    //   name : ['' , [customValidators.required]],
+    //   photo : [''],
+    //   categoryId : ['' , [customValidators.required]],
+    //   countryId : [''],
+    //   tags : [''],
+    //   defaultUOMCategoryId : ['' , [customValidators.required]],
+    //   taxId : [''],
+    //   shortName : [''],
+    //   warranty : [''],
+    //   isVatApplied : [''],
+    //   specialCare : [''],
+    //   lifeTime : [''],
+    //   color : [''],
+    //   uomId : ['' ],
+    //   uom : this.fb.array([]),
+    //   barcode : this.fb.array([]),
+    //   attribute : this.fb.array([]),
+    //   hasExpiryDate : [''],
+    //   trackingId : [''],
+    //   itemAccounting : this.fb.group({
+    //     pAccount: 0,
+    //     prAccount: 0,
+    //     sAccount: 0,
+    //     srAccount: 0
+    //   })
+    // })
 
 
+    // // this.getCcountriesDropdown()
 
-    // this.addLine()
-    this.getBarcodeByItemId()
-    this.itemService.getAttributeVariantById(this.id)
-    this.addLineBarcode()
-    this.itemService.sendAttributeVariantDataObs.subscribe(res=>{
-      if(res) {
-        this.AttributeForm.clear()
-        res.forEach(element => {
-          let data = this.fb.group({
-            name: element.attributeGroupNameEn,
-            attributeGroupId : element.attributeGroupId,
-            status: element.isActive,
-            itemId:element.itemId,
-            id : element.id
+    // this.itemService.variantGeneratedObs.subscribe(res=>{
+    //   if(res) {
+    //     this.getItemVariantsByItemIdDropDown()
 
-          })
-          this.AttributeForm.push(data)
-        });
-      }
-    })
-    this.getItemVariantsByItemIdDropDown()
+    //   }
+    // })
 
-    this.itemService.sendBarcode.subscribe(res=>{
-      this.getBarcodeByItemId()
-    })
-    this.itemService.sendUOMObs.subscribe(res=>{
-      console.log("heey" , res)
-      this.getUOMByItemId()
 
-      this.getUomDropDown(this.id)
-    })
 
-    this.ItemCategoryDropDownData()
-    this.tagDropDropDown()
-    this.taxesDropDropDown()
-    this.UOMCategoryDropDownData()
-    this.AccountsDropDown()
-    this. getTrackingDropDown()
+    // // this.addLine()
+    // this.getBarcodeByItemId()
+    // this.itemService.getAttributeVariantById(this.id)
+    // this.addLineBarcode()
+    // this.itemService.sendAttributeVariantDataObs.subscribe(res=>{
+    //   if(res) {
+    //     this.AttributeForm.clear()
+    //     res.forEach(element => {
+    //       let data = this.fb.group({
+    //         name: element.attributeGroupNameEn,
+    //         attributeGroupId : element.attributeGroupId,
+    //         status: element.isActive,
+    //         itemId:element.itemId,
+    //         id : element.id
+
+    //       })
+    //       this.AttributeForm.push(data)
+    //     });
+    //   }
+    // })
+    // this.getItemVariantsByItemIdDropDown()
+
+    // this.itemService.sendBarcode.subscribe(res=>{
+    //   this.getBarcodeByItemId()
+    // })
+    // this.itemService.sendUOMObs.subscribe(res=>{
+    //   console.log("heey" , res)
+    //   this.getUOMByItemId()
+
+    //   this.getUomDropDown(this.id)
+    // })
+
+    // this.ItemCategoryDropDownData()
+    // this.tagDropDropDown()
+    // this.taxesDropDropDown()
+    // this.UOMCategoryDropDownData()
+    // this.AccountsDropDown()
+    // this. getTrackingDropDown()
     // this.itemService.sendDefaultObs.subscribe(res=>{
     //   if(res){
     //     this.getUOMByItemId()
     //   }
     // })
 
-    this.itemService.editItemDataObs.subscribe(res=>{
-      if(res){
+    // this.itemService.editItemDataObs.subscribe(res=>{
+    //   if(res){
 
-      }
-    })
+    //   }
+    // })
 
-    this.itemService.getItemById(this.id)
-    this.itemService.GetItemByIDObs.subscribe(res=>{
-        this.itemDefinitionForm.patchValue({...res})
+    // this.itemService.getItemById(this.id)
+    // this.itemService.GetItemByIDObs.subscribe(res=>{
+    //     this.itemDefinitionForm.patchValue({...res})
 
-        this.itemData = res
-
-
-        // console.log(res)
-
-        // setTimeout(() => {
-        //   this.itemDefinitionForm.get('defaultUOMCategoryId')?.setValue(res.uomId)
-
-        // }, 1000);
-      if(res.defaultUOMCategoryId) {
-        this.uomCategoryChanged(res.defaultUOMCategoryId)
-
-          this.addLine()
+    //     this.itemData = res
 
 
-        this.getDefaultUnit(res.defaultUOMCategoryId )
-      }
+    //     // console.log(res)
 
-        this.getUomDropDown(this.id)
+    //     // setTimeout(() => {
+    //     //   this.itemDefinitionForm.get('defaultUOMCategoryId')?.setValue(res.uomId)
 
+    //     // }, 1000);
+    //   if(res.defaultUOMCategoryId) {
+    //     this.uomCategoryChanged(res.defaultUOMCategoryId)
 
-
-      if(!!res) {
-
-      }
-
-      // setTimeout(() => {
-      //   this.getUOMByItemId()
-
-      // }, 1000);
-
-      // if(res.uomId) {
-      //   this.getUomDropDown(res.uomId)
-      //   this.uomCodeDropDown(res.uomId)
-      //   this.getDefaultCode(res.uomId)
-
-      // }
+    //       this.addLine()
 
 
-    })
+    //     this.getDefaultUnit(res.defaultUOMCategoryId )
+    //   }
+
+    //     this.getUomDropDown(this.id)
+
+
+
+    //   if(!!res) {
+
+    //   }
+
+    //   // setTimeout(() => {
+    //   //   this.getUOMByItemId()
+
+    //   // }, 1000);
+
+    //   // if(res.uomId) {
+    //   //   this.getUomDropDown(res.uomId)
+    //   //   this.uomCodeDropDown(res.uomId)
+    //   //   this.getDefaultCode(res.uomId)
+
+    //   // }
+
+
+    // })
 
 
 
   }
-
-
-
 
   findRoute(routeFragment: string): boolean {
     if (!routeFragment) {
-      return false;
+      return false; // Return false if the routeFragment is empty or null
     }
 
+    // Check if the current URL contains the given route fragment
     return this._router.getCurrentUrl().includes(`/${routeFragment}`);
   }
-
-  onRoute(routeFragment: string) {
-    if (!routeFragment) {
-      return;
-    }
-    this._router.navigateTo(`/masterdata/add-item-definition/${this.id}/${routeFragment}`);
+  onRoute() {
+    this._router.navigateTo(`masterdata/add-item-definition/${this.id}/general`)
   }
+
+
 
 
   get UOMForm() {

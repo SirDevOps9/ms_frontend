@@ -108,7 +108,7 @@ export class ItemDefinitionListComponent implements OnInit {
 
   onEdit(data: any) {
    
-    this.routerService.navigateTo(`masterdata/add-item-definition/${data.id}/general`)
+    this.routerService.navigateTo(`masterdata/add-item-definition/general/${data.id}`)
 
   }
 
