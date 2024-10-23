@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
 import {
   parentAccountDto,
@@ -9,22 +8,9 @@ import {
   TagDropDownDto,
   companyDropDownDto,
   AccountByIdDto,
-  accountById,
 } from 'projects/apps-accounting/src/app/modules/account/models';
-import { CurrencyService } from 'projects/apps-accounting/src/app/modules/general/currency.service';
 import { CurrencyDto } from 'projects/apps-finance/src/app/modules/general/models';
-import {
-  LookupEnum,
-  lookupDto,
-  RouterService,
-  FormsService,
-  LookupsService,
-  LanguageService,
-  ToasterService,
-  CurrentUserService,
-  customValidators,
-  Modules,
-} from 'shared-lib';
+import { LookupEnum, lookupDto, FormsService, customValidators } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { AddItemCategory } from '../../../models';
 
@@ -41,9 +27,10 @@ export class EditItemCategoryComponent {
   accountSections: AccountSectionDropDownDto[];
   accountTypes: AccountTypeDropDownDto[];
   accountTags: TagDropDownDto[];
+  parentCategoryList: { id: number; name: string }[] = [];
+
   companyDropDown: companyDropDownDto[];
   AccountsDropDownLookup: { id: number; name: string }[] = [];
-  ItemCategoryDropDown: { id: number; name: string }[];
   categoryType = [
     { label: 'Storable', value: 'Storable' },
     { label: 'Service', value: 'Service' },
@@ -64,19 +51,14 @@ export class EditItemCategoryComponent {
   constructor(
     private formBuilder: FormBuilder,
     private accountService: AccountService,
-    private routerService: RouterService,
-    private currencyService: CurrencyService,
+
     private formsService: FormsService,
-    private lookupsService: LookupsService,
-    private title: Title,
-    private langService: LanguageService,
-    private toaserService: ToasterService,
-    private currentUserService: CurrentUserService,
+
     private itemService: ItemsService
   ) {}
   ngOnInit() {
     this.getAccountById(this.parentEditedId);
-
+    this.getParentItemCategoriesDropDown();
     this.formGroup = this.formBuilder.group({
       id: new FormControl(),
       code: [''],
@@ -122,7 +104,6 @@ export class EditItemCategoryComponent {
       }
     });
 
-    this.ItemCategoryDropDownData();
     this.AccountsDropDown();
 
     this.formGroup.get('isDetailed')?.valueChanges.subscribe((res) => {
@@ -136,13 +117,18 @@ export class EditItemCategoryComponent {
       }
     });
   }
-  ItemCategoryDropDownData() {
-    this.itemService.ItemCategoryDropDown();
-    this.itemService.itemCategoryLookupObs.subscribe((res) => {
-      this.ItemCategoryDropDown = res;
-      console.log(res);
+  getParentItemCategoriesDropDown() {
+    this.itemService.ParentItemCategoriesDropDown('');
+    this.itemService.parentItemCategoriesDropDown$.subscribe({
+      next: (res: { id: number; name: string }[]) => {
+        this.parentCategoryList = res;
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
     });
   }
+
   AccountsDropDown() {
     this.itemService.AccountsDropDown();
     this.itemService.AccountsDropDownLookupObs.subscribe((res) => {

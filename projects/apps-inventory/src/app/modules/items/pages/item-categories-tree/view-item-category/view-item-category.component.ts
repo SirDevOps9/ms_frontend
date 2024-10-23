@@ -8,7 +8,7 @@ import { ItemsService } from '../../../items.service';
 @Component({
   selector: 'app-view-item-category',
   templateUrl: './view-item-category.component.html',
-  styleUrl: './view-item-category.component.scss'
+  styleUrl: './view-item-category.component.scss',
 })
 export class ViewItemCategoryComponent {
   @Input() parentAddedId: number;
@@ -19,7 +19,7 @@ export class ViewItemCategoryComponent {
   Inactive: boolean = false;
   Period: boolean = false;
   Mandatory: boolean = false;
-  AccountsDropDownLookup : { id: number; name: string}[] = []
+  AccountsDropDownLookup: { id: number; name: string }[] = [];
 
   Optional: boolean = false;
   NotAllow: boolean = false;
@@ -27,44 +27,39 @@ export class ViewItemCategoryComponent {
   accountTags?: string;
   accountCompanies?: string;
   parent?: AddItemCategory | any;
-  
+
   sendId = output<number>();
 
-  constructor(private accountService: AccountService,
+  constructor(
+    private accountService: AccountService,
     private title: Title,
     private langService: LanguageService,
-    private itemService : ItemsService
+    private itemService: ItemsService
   ) {
     this.title.setTitle(this.langService.transalte('ChartOfAccount.ViewChartOfAccount'));
-
   }
   ngOnInit() {
-    this.AccountsDropDown()
+    this.AccountsDropDown();
   }
   getAccountDetails(id: number) {
     this.itemService.getItemCategoryById(id);
     this.itemService.getItemCategoryByIdDataObs.subscribe((res) => {
       this.parent = res;
-    
     });
-  
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['account']) {
       this.parent = this.account;
-      console.log(this.parent , "this.parent");
+      console.log(this.parent, 'this.parent');
     }
-
   }
   AccountsDropDown() {
-    this.itemService.AccountsDropDown()
-    this.itemService.AccountsDropDownLookupObs.subscribe(res=>{
-      this.AccountsDropDownLookup = res
-    })
+    this.itemService.AccountsDropDown();
+    this.itemService.AccountsDropDownLookupObs.subscribe((res) => {
+      this.AccountsDropDownLookup = res;
+    });
   }
-  routeToEdit(){
-    this.sendId.emit(this.account?.id as number) 
-    
-
+  routeToEdit() {
+    this.sendId.emit(this.account?.id as number);
   }
 }

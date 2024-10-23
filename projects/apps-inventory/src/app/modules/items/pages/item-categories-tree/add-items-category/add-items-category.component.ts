@@ -16,7 +16,6 @@ import {
   lookupDto,
   FormsService,
   LookupsService,
- 
   customValidators,
   Modules,
 } from 'shared-lib';
@@ -71,15 +70,7 @@ export class AddItemsCategoryComponent {
     private itemService: ItemsService
   ) {}
   ngOnInit() {
-    this.itemService.ParentItemCategoriesDropDown('');
-    this.itemService.parentItemCategoriesDropDown$.subscribe({
-      next: (res: { id: number; name: string }[]) => {
-        this.parentCategoryList = res;
-      },
-      error: (error: any) => {
-        console.log(error);
-      },
-    });
+    this.getParentItemCategoriesDropDown();
 
     this.formGroup = this.formBuilder.group({
       code: [''],
@@ -137,6 +128,17 @@ export class AddItemsCategoryComponent {
     this.formGroup.get('goodsInTransitAccountId')?.reset(null);
   }
 
+  getParentItemCategoriesDropDown() {
+    this.itemService.ParentItemCategoriesDropDown('');
+    this.itemService.parentItemCategoriesDropDown$.subscribe({
+      next: (res: { id: number; name: string }[]) => {
+        this.parentCategoryList = res;
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
+  }
   AccountsDropDown() {
     this.itemService.AccountsDropDown();
     this.itemService.AccountsDropDownLookupObs.subscribe((res) => {
@@ -183,7 +185,6 @@ export class AddItemsCategoryComponent {
     this.accountService.accountTypes.subscribe((typeList) => {
       this.accountTypes = typeList;
     });
-
   }
 
   onParentAccountChange(event: any) {
