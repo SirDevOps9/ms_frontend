@@ -7,6 +7,7 @@
       [currentPageResult]="currentPageInfo"
       (pageChange)="onPageChange($event)"
       (addNew)="routeToAdd()"
+      (fiteredDropdOwn)="fillFilterDropdown($event)"
       [tableConfigs]="{
         allowPagination: false,
         allowServerPagination: true,
@@ -28,7 +29,7 @@
           },
           {
             name: 'createdOn',
-            headerText: 'Journal.createdOn' | translate,
+            headerText: 'Journal.CreatedOn' | translate,
             isGlobalFilter: true,
             isSortable: true,
             template: journalDate
@@ -82,6 +83,7 @@
           {
             name: 'sourceCode',
             headerText: 'Journal.sourceCode' | translate,
+            isSortable: true,
             template:sourceCodeTemplate
           },
           {
@@ -131,8 +133,6 @@
           >
           </lib-export>
 
-          <!-- <lib-button pRipple className="addToList" label="{{ 'EditJournal.add' | translate }}" (onClick)="routeToAdd()"
-            [icon]="'pi pi-plus'"></lib-button> -->
           <lib-button-micro
             title="{{ 'create' | translate }}"
             (click)="routeToAdd()"
@@ -149,7 +149,6 @@
           </lib-button-micro>
           <lib-button-micro nameClass="table_button_edit" (click)="routeToEdit(journal.id)">
           </lib-button-micro>
-       
         </div>
       </ng-template>
       <ng-template #userStatus let-journal>

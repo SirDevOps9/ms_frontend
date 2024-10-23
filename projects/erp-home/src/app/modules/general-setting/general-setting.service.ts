@@ -188,8 +188,6 @@ export class GeneralSettingService {
 
 
 
-
-
   getTagList(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getAllTagsPaginated(searchTerm, pageInfo).subscribe({
       next: (res) => {

@@ -271,6 +271,7 @@ export class AddPaymentInComponent {
     })
 
     this.addForm.get('paymentHub')?.valueChanges.subscribe((res: any) => {
+      if(!res)return
       if (res == paymentplaceString.Treasury) {
         this.addForm.get('bankAccountId')?.clearValidators()
         this.addForm.get('bankAccountId')?.updateValueAndValidity()
@@ -423,18 +424,20 @@ export class AddPaymentInComponent {
   bankAccountDropDown(id: number) {
 
     if (this.selectedBank) {
+      
       this.financeService.BankAccountDropDown(id).subscribe((res: any) => {
         this.bankAccount = res
         this.addForm.controls['currencyId'].patchValue(null)
       })
     } else if (!this.selectedBank) {
       this.TreasuryDropDown.forEach((e: any) => {
+        
         if (id == e.id) {
-          this.selectedCurrency = e.currencyName
+          // this.selectedCurrency = e.currencyName 
 
           this.getTreasuryBalance(e.id)
 
-          // this.addForm.controls['currency'].patchValue(e.currencyName)
+          this.addForm.controls['currency'].patchValue(e?.currencyName)
           this.addForm.controls['currencyId'].patchValue(e.currencyId)
 
           this.getAccountCurrencyRate(this.addForm.controls['currencyId'].value as number, id);

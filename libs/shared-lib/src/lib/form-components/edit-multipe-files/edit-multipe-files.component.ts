@@ -1,9 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
-import { SafeResourceUrl } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { JournalEntryService } from 'projects/apps-accounting/src/app/modules/journal-entry/journal-entry.service';
-import { take } from 'rxjs';
 import { AttachmentDto, AttachmentFileTypeEnum, AttachmentsService, EnvironmentService, HttpService, Pages } from 'shared-lib';
 
 @Component({
@@ -12,34 +9,26 @@ import { AttachmentDto, AttachmentFileTypeEnum, AttachmentsService, EnvironmentS
   styleUrl: './edit-multipe-files.component.scss'
 })
 export class EditMultipeFilesComponent {
-  constructor(public attachmentService: AttachmentsService,
+  constructor(
+    public attachmentService: AttachmentsService,
     private cdRef: ChangeDetectorRef,
     private journalEntryService: JournalEntryService,
     private httpService: HttpService,
     private enviormentService: EnvironmentService,
-    private router: Router,
     private ref: DynamicDialogRef,
   ) {
 
   }
-  attachmentUrl: SafeResourceUrl = '';
-
   urls: any = [];
   files: any = [];
   filesName: string[] = [];
   fileExtension: string[] = [];
-  arr: any[] = [];
+  attachments: any[] = [];
   @Input() filesData: any;
   @Input() viewData: boolean;
   @Input() screen: any;
-
-  @Input() imgExtentions = ['image/png', 'image/png', 'application/pdf'];
   @Output() sendFiles = new EventEmitter();
   editStates: boolean[] = [];
-  fileUrl: any; // URL for the iframe
-  showIframe: boolean = false; // Flag to show/hide the iframe
-
-  showText: boolean = true;
   ngOnInit(): void {
     this.fileExtension = this.attachmentService.fileExtension;
     this.files = this.attachmentService.files;
@@ -95,14 +84,33 @@ export class EditMultipeFilesComponent {
       this.urls.forEach((element: any, index: number) => {
         if (!element.attachmentId) {
           this.urls.splice(index, 1)
+          let filesName = this.filesName[index]
+          let dotIndex = filesName.lastIndexOf(".");
+          let name = filesName.substring(0, dotIndex); // الاسم
+          let extension = filesName.substring(dotIndex + 1);
           this.urls.push({
             id: 0,
             attachmentId: element,
+            fileName:name,
+            fileExtension:extension,
             name: this.filesName[index]
           })
+        }else{          
+        let filesName = this.filesName[index]
+        let dotIndex = filesName.lastIndexOf(".");
+        let name = filesName.substring(0, dotIndex); // الاسم
+        let extension = filesName.substring(dotIndex + 1); // الامتداد
+        this.urls[index]  = {
+            id: element.id,
+            attachmentId: element.attachmentId,
+            fileName:name,
+            fileExtension:extension,
+            name: this.filesName[index]
+          }
+
         }
       });
-
+      
       this.save()
 
     });
@@ -110,19 +118,19 @@ export class EditMultipeFilesComponent {
   }
 
   save() {
-    this.arr = []
+    this.attachments = []
     this.urls.forEach((element: any, index: number) => {
       if (element.attachmentId) {
-        this.arr.push(element)
+        this.attachments.push(element)
       } else {
-        this.arr.push({
+        this.attachments.push({
           id: 0,
           attachmentId: element,
           name: this.filesName[index]
         })
       }
     });
-    this.sendFiles.emit(this.arr);
+    this.sendFiles.emit(this.attachments);
 
   }
 
@@ -162,13 +170,10 @@ export class EditMultipeFilesComponent {
   removeFile(test: any, url: any, index: number) {
 
     if (this.urls && this.urls.length > 0) {
-      // تحقق إذا كان الملف موجودًا في الملفات المحملة مسبقًا
       const existingFile = this.filesData.find((file: any) => file.attachmentId === url.attachmentId || file.name === test);
 
       if (existingFile) {
-        if(url.id == 0){
-          console.log(url ,"11111111");
-          
+        if(url.id == 0){          
           this.urls.splice(index, 1);
           this.files.splice(index, 1);
           this.filesName.splice(index, 1);
@@ -180,47 +185,28 @@ export class EditMultipeFilesComponent {
            if (this.screen == Pages.JournalEntry) {
 
             this.journalEntryService.deleteAttachment(existingFile.id).then(()=>{
-
-            setTimeout(() => {
-              if (this.journalEntryService.attachmentDeleted) {
-                console.log("Attachment deleted successfully.");
-                this.attachmentService.attachemntIdsList.splice(index, 1);
-                this.files.splice(index, 1);
-                this.filesName.splice(index, 1);
-                this.fileExtension.splice(index, 1);
-                this.editStates.splice(index, 1);
-                // this.journalEntryService.attachmentDeleted=false
-              } else {
-                console.log("Attachment deletion failed.");
-              }
-              this.cdRef.detectChanges();
-            }, 100);
-          
+setTimeout(() => {
+  if (this.journalEntryService.attachmentDeleted) {
+     this.urls.splice(index, 1);
+    this.files.splice(index, 1);
+    this.filesName.splice(index, 1);
+    this.fileExtension.splice(index, 1);
+    this.editStates.splice(index, 1);
+  } else {
+  }
+  this.cdRef.detectChanges();
+  this.save()
+}, 500);
+           
             })
 
           }
   
         }
       
-      } else {
-        this.urls.splice(index, 1);
-        this.files.splice(index, 1);
-        this.filesName.splice(index, 1);
-        this.fileExtension.splice(index, 1);
-        this.editStates.splice(index, 1);
-        this.cdRef.detectChanges();
-      }
-    } else {
-      this.urls.splice(index, 1);
-      this.files.splice(index, 1);
-      this.filesName.splice(index, 1);
-      this.fileExtension.splice(index, 1);
-      this.editStates.splice(index, 1);
-
-      this.cdRef.detectChanges();
-    }
-
-this.save()
+      } 
+    } 
+    this.save()
   }
 
   toggleEditState(index: number) {
@@ -249,173 +235,48 @@ this.save()
     }
   }
 
-
-
-  reviewAttachment(fileName: any, url: string): void {
-    if (this.filesData && this.filesData.length > 0) {
-      const existingFile = this.filesData.find(
-        (file: any) => file.attachmentId === url || file.name === fileName
-      );
-
-      if (!existingFile) {
-        this.router.navigate(['/attachment-view'], { queryParams: { url: url } });
-        this.ref.close(this.arr);
-        return
-      }
-
-      this.httpService
-        .getFullUrl(
-          `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
-          existingFile.attachmentId
-        )
-        .subscribe((apiResponse: any) => {
-          if (apiResponse) {
-            let base64Content = apiResponse.fileContent;
-            const mimeType = apiResponse.base64Padding.split(';')[0].split(':')[1];
-
-            base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
-            while (base64Content.length % 4 !== 0) {
-              base64Content += '=';
-            }
-
-            try {
-              const byteCharacters = atob(base64Content);
-              const byteNumbers = new Array(byteCharacters.length);
-              for (let i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
-              }
-
-              const byteArray = new Uint8Array(byteNumbers);
-              const blob = new Blob([byteArray], { type: mimeType });
-              const unsafeUrl = URL.createObjectURL(blob);
-              this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
-              this.ref.close(this.arr)
-
-            } catch (error) {
-              console.error('Error decoding Base64 string:', error);
-            }
+  reviewAttachment(fileName: any, url: any): void {  
+    this.httpService.getFullUrl(
+      `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` + url.attachmentId)
+      .subscribe((apiResponse: any) => {
+        if (apiResponse) {
+          let base64Content = apiResponse.fileContent;
+          const mimeType = apiResponse.base64Padding.split(';')[0].split(':')[1];
+  
+          base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
+          while (base64Content.length % 4 !== 0) {
+            base64Content += '=';
           }
-        });
-    } else {
-      this.httpService.getFullUrl(
-        `${this.enviormentService.AttachmentServiceConfig.AttachmentServiceUrl}/api/Attachment/DownloadBase64Attachment/` +
-        url
-      )
-        .subscribe((apiResponse: any) => {
-          if (apiResponse) {
-            let base64Content = apiResponse.fileContent;
-            const mimeType = apiResponse.base64Padding.split(';')[0].split(':')[1];
-
-            base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
-            while (base64Content.length % 4 !== 0) {
-              base64Content += '=';
+  
+          try {
+            const byteCharacters = atob(base64Content);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+              byteNumbers[i] = byteCharacters.charCodeAt(i);
             }
-
-            try {
-              const byteCharacters = atob(base64Content);
-              const byteNumbers = new Array(byteCharacters.length);
-              for (let i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
-              }
-
-              const byteArray = new Uint8Array(byteNumbers);
-              const blob = new Blob([byteArray], { type: mimeType });
-              const unsafeUrl = URL.createObjectURL(blob);
-              this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
-              this.ref.close(this.arr)
-
-            } catch (error) {
-              console.error('Error decoding Base64 string:', error);
-            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], { type: mimeType });
+            const unsafeUrl = URL.createObjectURL(blob);
+            const newUrl = `${globalThis.location.origin}/accounting/attachment-view?url=${encodeURIComponent(unsafeUrl)}`;
+            globalThis.open(newUrl, '_blank');
+            this.ref.close(this.attachments);
+  
+          } catch (error) {
+            console.error('Error decoding Base64 string:', error);
           }
-        });
-    }
-    this.save()
+        }
+      });
   }
 
-
-  // وظيفة لعرض الملف مباشرة من Base64
-  private showFile(base64Content: string, base64Padding: string) {
-    const mimeType = base64Padding.split(';')[0].split(':')[1];
-
-    // تأكد من صحة بيانات Base64
-    base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
-    while (base64Content.length % 4 !== 0) {
-      base64Content += '=';
-    }
-
-    try {
-      const byteCharacters = atob(base64Content);
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], { type: mimeType });
-      const unsafeUrl = URL.createObjectURL(blob);
-
-      // توجيه إلى مكون العرض مع الرابط
-      this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
-      this.ref.close(this.arr);
-    } catch (error) {
-    }
-  }
-
-  // وظيفة لعرض الملف من الرابط مباشرة
-  private showFileFromUrl(url: string) {
-    // توجيه إلى مكون العرض مع الرابط
-    this.router.navigate(['/attachment-view'], { queryParams: { url: url } });
-    this.ref.close(this.arr);
-  }
-
-
-  // Helper function to handle downloading from base64 content
-  private handleFileDownload(base64Content: string, base64Padding: string) {
-    const mimeType = base64Padding.split(';')[0].split(':')[1];
-
-    // Ensure valid base64 data
-    base64Content = base64Content.replace(/[^A-Za-z0-9+/=]/g, '');
-    while (base64Content.length % 4 !== 0) {
-      base64Content += '=';
-    }
-
-    try {
-      const byteCharacters = atob(base64Content);
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], { type: mimeType });
-      const unsafeUrl = URL.createObjectURL(blob);
-
-      // Navigate to the attachment view component
-      this.router.navigate(['/attachment-view'], { queryParams: { url: unsafeUrl } });
-      this.ref.close(this.arr);
-    } catch (error) {
-      console.error('Error decoding Base64 string:', error);
-    }
-  }
-
-
-
-
-  updateFileName(index: number, newName: string) {
-    this.filesName[index] = newName.trim();
+  updateFileName(index: number, newName: string , extension:string) {
+    this.filesName[index] = newName.trim()+ '.'+ extension;
     this.attachmentService.filesName = this.filesName;
-
-    this.urls[index].name = newName
+    this.urls.forEach((element: any, line: number) => {
+      if(line == index){
+        element.fileName=newName.trim()
+      }
+      element.name = this.filesName[line]
+    });
+    // this.urls[index].name = newName
   }
-
-  getFileType(fileName: string | undefined): string {
-    if (!fileName) {
-      return 'unknown'; // Return a default value if fileName is undefined
-    }
-
-    const parts = fileName.split('.');
-    return parts.length > 1 ? parts[parts.length - 1].toLowerCase() : 'unknown';
-  }
-
 }
