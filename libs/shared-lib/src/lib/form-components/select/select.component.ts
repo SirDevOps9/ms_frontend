@@ -5,6 +5,8 @@ import {
   EventEmitter,
   Optional,
   Self,
+  SimpleChanges,
+  OnChanges,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -20,9 +22,9 @@ import {
   styleUrls: ['./select.component.scss'],
 })
 export class 
-SelectComponent implements ControlValueAccessor, Validator {
+SelectComponent implements ControlValueAccessor, Validator ,OnChanges {
   @Input() label: string;
-  @Input() options: any[];
+  @Input() options: any[] = []
   @Input() optionValue = 'code';
   @Input() optionLabel = 'name';
   @Input() readOnly: boolean;
@@ -91,9 +93,24 @@ SelectComponent implements ControlValueAccessor, Validator {
     if (this.controlDir) {
       setTimeout(() => {
         this.labelTest=this.controlDir.name
+        this.checkSingleOption();
       }, 500);
       
       
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['options']) {
+      this.checkSingleOption();
+    }
+  }
+
+  private checkSingleOption() {
+    if (this.options && this.options.length === 1) {
+      this.selectedValue = this.options[0][this.optionValue];
+      this.onChange(this.selectedValue);
+      this.valueChanged.emit(this.selectedValue);
     }
   }
 }

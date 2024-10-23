@@ -11,6 +11,7 @@ import {
 import { BehaviorSubject, map, ReplaySubject, Subject } from 'rxjs';
 import {
   addBarcode,
+  AddGeneralDto,
   AddItemCategory,
   AddItemDefinitionDto,
   AddOperatioalTag,
@@ -79,6 +80,21 @@ export class ItemsService {
   public getuomById = new BehaviorSubject<addUOM>({} as addUOM);
 
   public defaultUnit = new BehaviorSubject<{ id: number; name: string }>({} as { id: number; name: string });
+
+  // new Edits for item Def
+
+
+  // end Edit form item Def
+
+  // new Edits for item Def
+
+  saveItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
+  saveItemDefGeneral$ = this.saveItemDefGeneral.asObservable()
+  getItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
+  getItemDefGeneral$ = this.getItemDefGeneral.asObservable()
+
+
+  // end Edit form item Def
 
   // item category tree 
   public parentItemCategoriesDropDown = new BehaviorSubject< {id:number , name:string}[]>([])
@@ -728,8 +744,8 @@ export class ItemsService {
       this.itemProxy.deleteItemDefinition(id).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
-            this.languageService.transalte('itemType.success'),
-            this.languageService.transalte('itemType.delete')
+            this.languageService.transalte('itemDefinition.success'),
+            this.languageService.transalte('itemDefinition.delete')
           );
 
           const currentCostCenter = this.sendItemDefinitionDataSource.getValue();
@@ -1201,6 +1217,24 @@ editOperationalTag(obj: AddOperatioalTag) {
 }
 
 
+
+saveItemDefinitionGeneral(obj : AddGeneralDto) {
+  this.itemProxy.saveItemDefinitionGeneral(obj).subscribe((res) => {
+    if(res) {
+      this.getItemDefGeneral.next(res)
+    }
+
+  })
+}
+getItemDefinitionGeneral(id : number) {
+  this.itemProxy.getItemDefinitionGeneral(id).subscribe((res) => {
+    if(res) {
+      this.getItemDefGeneral.next(res)
+    }
+  })
+}
+
+
 async deleteOperationalTag(id: number) {
   const confirmed = await this.toasterService.showConfirm(
     this.languageService.transalte('ConfirmButtonTexttodelete')
@@ -1220,4 +1254,5 @@ async deleteOperationalTag(id: number) {
     });
   }
 }
+
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { addBarcode, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddVariantLine, AddWarehouse, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, StockInDto, UOMCategoryDto, UomDefault } from './models';
+import { addBarcode, AddGeneralDto, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddVariantLine, AddWarehouse, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, StockInDto, UOMCategoryDto, UomDefault } from './models';
 import { EditItemDefinitionDto } from './models/editItemDefinitionDto';
 import { variantGroupById } from './models/variantGroupById';
 import { itemAttributeValues, itemAttributeValuesByID } from './models/itemAttributeValues';
@@ -162,7 +162,7 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
 
  }
  ItemCategoryDropDown() {
-  return this.httpService.get(`ItemCategory/ItemCategoryDropDown`)
+  return this.httpService.get(`ItemCategory/ChildItemCategoriesDropDown`)
  }
  tagDropDown() {
   return this.httpService.get(`GeneralSettings/GetTagsDropDown?module=inventory`)//
@@ -472,6 +472,16 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
   getCcountriesDropdown() {
     return this.httpService.get<any>(`GeneralSettings/GetCountries`);
   }
+
+  saveItemDefinitionGeneral(obj:AddGeneralDto) {
+    return this.httpService.put('Item/EditGeneralData' , obj)
+  }
+ 
+
+ getItemDefinitionGeneral(id : number) : Observable<AddGeneralDto> {
+    return this.httpService.get(`Item/GetGeneralData/${id}`)
+  }
+ 
 
   
 }

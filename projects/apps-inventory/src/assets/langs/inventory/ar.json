@@ -15,7 +15,7 @@
     "code": "الرمز",
     "nameEn": "الاسم (إنجليزي)",
     "nameAr": "الاسم (عربي)",
-    "main" : "الرئيسي",
+    "main" : "المعلومات الرئيسية",
 
     "name": "الاسم",
     "category": "الفئة",
@@ -40,6 +40,7 @@
     "vatApplied": "تطبيق ضريبة القيمة المضافة",
     "priceIncludeVat": "السعر شامل الضريبة",
     "specialCare": "يحتاج إلى عناية خاصة",
+    "specialCareHead": "عناية خاصة",
     "color": "اللون",
     "uom": "وحدة القياس",
     "uomCategory": "فئة وحدة القياس",
@@ -124,6 +125,8 @@
     "uom": "وحدة القياس",
     "barcode": "الرمز الشريطي",
     "actions": "الإجراءات",
+    "addItemDef" : "اضافة تعريف العنصر",
+
     "Add": "إضافة",
     "search": "بحث",
     "ChangeColumn": "تغيير العمود",
@@ -134,7 +137,9 @@
     "viewVariant": "عرض",
     "itemTracking": "تتبع العنصر",
     "SelectItemTracking": "اختر تتبع العنصر",
-    "hasExpiry": "له تاريخ انتهاء"
+    "hasExpiry": "له تاريخ انتهاء",
+    "delete" : "تم حذف تعريف العنصر بنجاح"
+
   },
   "warehouse": {
     "Add": "إضافة",
@@ -235,7 +240,17 @@
     "nameEn": "الاسم بالإنجليزية",
     "conversionUOM": "تحويل وحدة القياس",
     "categorynameEn": "اسم الفئة بالإنجليزية",
-    "categorynameAr": "اسم الفئة بالعربية"
+    "categorynameAr": "اسم الفئة بالعربية",
+    "category" : "الفئة",
+    "baseUom" : "وحدة القياس الافتراضية",
+    "systemUnit" : "وحدة النظام",
+    "unitSystem" : "وحدة النظام",
+    "nameUom" : "الاسم",
+    "factorUOM": "عامل",
+    "calculation": "حساب",
+    "reversal": "عكس",
+    "from" : "من"
+
   },
   "attributeDefinition": {
     "Add": "إضافة",
