@@ -8,7 +8,6 @@ import {
   TagDropDownDto,
   companyDropDownDto,
 } from 'projects/apps-accounting/src/app/modules/account/models';
-import { CurrencyService } from 'projects/apps-accounting/src/app/modules/general/currency.service';
 import { CurrencyDto } from 'projects/apps-finance/src/app/modules/general/models';
 import { Subscription } from 'rxjs';
 import {
@@ -93,7 +92,6 @@ export class AddItemsCategoryComponent {
     });
 
     this.formGroup.get('isDetailed')?.valueChanges.subscribe((res) => {
-      console.log(res);
       if (res == true) {
         this.formGroup.get('categoryType')?.setValidators(customValidators.required);
         this.formGroup.get('categoryType')?.updateValueAndValidity();
@@ -135,7 +133,6 @@ export class AddItemsCategoryComponent {
         this.parentCategoryList = res;
       },
       error: (error: any) => {
-        console.log(error);
       },
     });
   }
@@ -150,7 +147,6 @@ export class AddItemsCategoryComponent {
     this.itemService.ItemCategoryDropDown();
     this.itemService.itemCategoryLookupObs.subscribe((res) => {
       this.ItemCategoryDropDown = res;
-      console.log(res);
     });
   }
 
@@ -224,13 +220,11 @@ export class AddItemsCategoryComponent {
     if (changes['parentAddedId']) {
       this.onParentAccountChange(this.parentAddedId);
     }
-    console.log(this.parentAddedId);
     setTimeout(() => {
       this.formGroup.get('parentCategoryId')?.setValue(this.parentAddedId);
     }, 100);
 
     if (changes['newChiled']) {
-      console.log(this.newChiled, '11111');
 
       if (this.newChiled == true) {
         this.hasParentAccount = false;

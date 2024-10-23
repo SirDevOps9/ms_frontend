@@ -107,7 +107,6 @@ export class EditItemCategoryComponent {
     this.AccountsDropDown();
 
     this.formGroup.get('isDetailed')?.valueChanges.subscribe((res) => {
-      console.log(res);
       if (res == true) {
         this.formGroup.get('categoryType')?.setValidators(customValidators.required);
         this.formGroup.get('categoryType')?.updateValueAndValidity();
@@ -124,7 +123,6 @@ export class EditItemCategoryComponent {
         this.parentCategoryList = res;
       },
       error: (error: any) => {
-        console.log(error);
       },
     });
   }
@@ -180,7 +178,6 @@ export class EditItemCategoryComponent {
   getAccountById(id: any) {
     this.itemService.getItemCategoryById(id);
     this.itemService.getItemCategoryByIdDataObs.subscribe((res: any) => {
-      console.log(res);
       this.parentAcountName = res;
 
       if (res.parentId != null) {
@@ -191,7 +188,7 @@ export class EditItemCategoryComponent {
         this.selectValue = true;
       }
 
-      this.formGroup.patchValue({ ...res });
+      this.formGroup?.patchValue({ ...res });
     });
   }
   cancel() {

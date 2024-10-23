@@ -50,7 +50,6 @@ export class ViewItemCategoryComponent {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['account']) {
       this.parent = this.account;
-      console.log(this.parent, 'this.parent');
     }
   }
   AccountsDropDown() {

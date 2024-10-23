@@ -1,12 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
-import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
-import {
-  AccountByIdDto,
-  accountTreeList,
-} from 'projects/apps-accounting/src/app/modules/account/models';
-import { LanguageService } from 'shared-lib';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { accountTreeList } from 'projects/apps-accounting/src/app/modules/account/models';
 import { ItemsService } from '../../../items.service';
 import { AddItemCategory } from '../../../models';
 
@@ -32,18 +26,11 @@ export class ItemsCategoryTreeComponent implements OnInit {
   parentEditedId: any;
   test: any;
   activeNode: any = null;
-  activeNodeId: number | null = null; // Store the active node ID
+  activeNodeId: number | null = null;
 
-  constructor(
-    private accountService: AccountService,
-    private title: Title,
-    private langService: LanguageService,
-    private dialog: DialogService,
-    private itemsSevice: ItemsService
-  ) {}
+  constructor(private itemsSevice: ItemsService) {}
   ngOnInit() {
     this.getTreeList();
-   
   }
   mapToTreeNodes(data: any[]) {
     data = data.map((item, index) => {
@@ -68,12 +55,10 @@ export class ItemsCategoryTreeComponent implements OnInit {
     this.add = false;
     this.addmode.emit(true);
     this.parentAddedId = parentNode.id;
-
     if (!parentNode.children) {
       parentNode.children = [];
     }
     this.add = true;
-    // parentNode.children.push({ label: 'New Child', children: [] });
   }
   newChild() {
     this.activeNode = null;
@@ -91,11 +76,6 @@ export class ItemsCategoryTreeComponent implements OnInit {
     this.itemsSevice.getItemCategoryByIdDataObs.subscribe((res) => {
       this.account = res;
     });
-    // if (this.account.parentAccountName === '') {
-    //   this.viewWithParent = true;
-    // } else {
-    //   this.viewWithParent = false;
-    // }
   }
 
   handleTabClick(node: any) {
@@ -132,10 +112,7 @@ export class ItemsCategoryTreeComponent implements OnInit {
   handleOperationCompleted(event: any) {
     this.activeNode = event;
     this.getTreeList();
-
-
     this.test = event.id;
-
     this.add = false;
   }
   toggelTree() {
@@ -149,7 +126,6 @@ export class ItemsCategoryTreeComponent implements OnInit {
     this.parentEditedId = node.id;
     this.edit = true;
   }
-
   getTreeList() {
     const activeNodeId = this.activeNode ? this.activeNode.id : null;
     this.itemsSevice.getItemCategoryTreeList().subscribe((res: any) => {
@@ -161,55 +137,6 @@ export class ItemsCategoryTreeComponent implements OnInit {
       }
     });
   }
-
-  // setActiveNode(id: number) {
-  //   const findNode = (nodes: any[]): any => {
-  //     for (let node of nodes) {
-
-  //       if (node.id === id) {
-  //         //  this.test=node
-
-  //         return node;
-  //       }
-  //        if (node.children) {
-  //         const foundChild = findNode(node.children);
-  //         if (foundChild ) {
-  //           if(node.children.id===id){
-
-  //           }
-
-  //           return foundChild;
-  //         }
-  //       }
-  //     }
-  //     return null;
-  //   };
-
-  //   const x:any = findNode(this.nodes);
-  //   x.expanded = true;
-
-  //   if (x.children.length!=0) {
-  //     x.children.forEach((element:any) => {
-  //       if(element.id===this.test){
-  //         this.activeNode=element
-  //           this.getItemCategoryById(element.id);
-
-  //         this.view = true;
-  //       }else{
-  //         // this.activeNode=x
-  //         // this.getItemCategoryById(x.id);
-
-  //         // this.view = true;
-
-  //       }
-  //     });
-  //   }else if(x.children.length[0]){
-
-  //               this.activeNode=x
-
-  //   }
-
-  // }
 
   expandParents(node: any) {
     let parentNode = this.findParentNode(this.nodes, node);
@@ -231,20 +158,35 @@ export class ItemsCategoryTreeComponent implements OnInit {
         }
       }
     }
-    // return null;
+
   }
   deleteAccount(id: number) {
-    const parentNode = this.findParentNodeById(this.nodes, id);
     this.itemsSevice.deleteItemCategory(id);
     this.itemsSevice.itemsCategoryDeletedObs.subscribe((res) => {
       if (res) {
+        this.getTreeList();
+        // if the deleted node is the active node
+        if (this.activeNode && this.activeNode.id === id) {
+          this.activeNode = null;
+          this.view = false;
+        }
+          const parentNode = this.findParentNode(this.nodes, id);
+  
         if (parentNode) {
-          this.getTreeList();
-          this.setActiveNode(parentNode.id);
+          // If the deleted node is a child, keep the parent expanded
+          parentNode.expanded = true;
+          this.activeNode = parentNode;
+          this.getItemCategoryById(parentNode.id); 
+          this.view = false;
+        } else {
+          this.activeNode = null;
+          this.view = false;
         }
       }
     });
   }
+  
+  
 
   findParentNodeById(nodes: any[], childId: number): any {
     for (let node of nodes) {
@@ -261,17 +203,14 @@ export class ItemsCategoryTreeComponent implements OnInit {
     return null;
   }
 
-  
   setActiveNode(id: number) {
     const findAndExpandNode = (nodes: any[], id: number): any => {
       for (let node of nodes) {
         if (node.id === id) {
-
           return node; // Found the target node
         }
 
         if (node.children) {
-
           const foundChild = findAndExpandNode(node.children, id);
           if (foundChild) {
             node.expanded = true;
@@ -284,13 +223,10 @@ export class ItemsCategoryTreeComponent implements OnInit {
 
     const targetNode: any = findAndExpandNode(this.nodes, id);
     if (targetNode) {
-
       this.activeNode = targetNode;
 
       if (targetNode.children && targetNode.children.length > 0) {
-
         targetNode.children.forEach((child: any) => {
-
           if (child.id === this.test) {
             this.activeNode = child;
             this.getItemCategoryById(child.id);
@@ -323,7 +259,7 @@ export class ItemsCategoryTreeComponent implements OnInit {
   nodeExpand(event: any) {
     const expandedNode = event.node;
     expandedNode.expanded = true;
-   
+
     this.expanded = this.areAllNodesExpanded();
   }
 
@@ -331,13 +267,11 @@ export class ItemsCategoryTreeComponent implements OnInit {
   nodeCollapse(event: any) {
     const collapsedNode = event.node;
     collapsedNode.expanded = false;
-    // console.log('Node collapsed:', collapsedNode);
-
     // Set expanded to false as not all nodes are expanded
     this.expanded = false;
   }
 
-  // Function to toggle expansion/collapse for the whole tree
+  //  toggle expansion/collapse for the all tree
   expand_Collapse() {
     this.expanded = !this.expanded;
     this.nodes.forEach((node) => {
