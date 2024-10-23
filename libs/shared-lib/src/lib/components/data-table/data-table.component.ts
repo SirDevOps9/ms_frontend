@@ -7,7 +7,6 @@ import {
   Output,
   SimpleChanges,
   TemplateRef,
-  viewChild,
   ViewChild,
 } from '@angular/core';
 import { LanguageService, LookupsService, RouterService } from '../../services';
@@ -16,7 +15,6 @@ import { PageInfo, PageInfoResult, SortBy } from '../../models';
 import { NgIfContext } from '@angular/common';
 import { GeneralService } from '../../services/general.service';
 import { FormControl } from '@angular/forms';
-
 
 @Component({
   selector: 'lib-data-table',

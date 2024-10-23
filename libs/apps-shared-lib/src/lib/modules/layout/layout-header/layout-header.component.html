@@ -8,13 +8,6 @@
         <p-menubar>
           <ng-template pTemplate="start">
             <div class="start_nav">
-              <!-- <div
-                class="suplogo"
-                style="
-                  background-image: url('assets/images/navbar/suplogo.png');
-                "
-              ></div> -->
-
               <div>
                 <lib-bread-crumb></lib-bread-crumb>
               </div>
@@ -22,38 +15,36 @@
           </ng-template>
           <ng-template pTemplate="end">
             <div class="header_sec">
-              <ng-container [formGroup]="coBrForm" >
-              
-              <div class="modules">
-                <lib-form-group>
-                  <lib-select
-                    formControlName="companyId"
-                    placeholder="{{ 'Layout.DefaultCompany' | translate }}"
-                    [options]="companyList"
-                    [selectedValue]="coBrForm.controls['companyId'].value"
-                    optionLabel="name"
-                    optionValue="id"
-                    [readOnly]="true"
-                  >
-                  </lib-select>
-                </lib-form-group>
-              </div>
-              <div class="modules">
-                <lib-form-group>
-                  <lib-select
-                    formControlName="branchId"
-                    placeholder="{{ 'Layout.DefaultBranch' | translate }}"
-                    [options]="branchList"
-                    [selectedValue]="coBrForm.controls['branchId'].value"
-                    optionLabel="name"
-                    optionValue="id"
-                  [readOnly]="true"
-
-                  >
-                  </lib-select>
-                </lib-form-group>
-              </div>
-            </ng-container      >
+              <ng-container [formGroup]="coBrForm">
+                <div class="modules">
+                  <lib-form-group>
+                    <lib-select
+                      formControlName="companyId"
+                      placeholder="{{ 'Layout.DefaultCompany' | translate }}"
+                      [options]="companyList"
+                      [selectedValue]="coBrForm.controls['companyId'].value"
+                      optionLabel="name"
+                      optionValue="id"
+                      [readOnly]="true"
+                    >
+                    </lib-select>
+                  </lib-form-group>
+                </div>
+                <div class="modules">
+                  <lib-form-group>
+                    <lib-select
+                      formControlName="branchId"
+                      placeholder="{{ 'Layout.DefaultBranch' | translate }}"
+                      [options]="branchList"
+                      [selectedValue]="coBrForm.controls['branchId'].value"
+                      optionLabel="name"
+                      optionValue="id"
+                      [readOnly]="true"
+                    >
+                    </lib-select>
+                  </lib-form-group>
+                </div>
+              </ng-container>
               <div class="modules">
                 <button class="btn_mod_select" (click)="openDialog()">
                   <img src="assets/images/header-icons/change-app.svg" alt="" />
@@ -68,22 +59,6 @@
                     <img src="assets/images/header-icons/notification.svg" alt="" />
                   </button>
                 </div>
-                <!-- <div class="link_sec">
-                  <div class="count">5</div>
-                  <button class="btn_count">
-                    <span class="pi pi-comment icon_link"></span>
-                  </button>
-                </div>
-                <div class="link_sec">
-                  <button>
-                    <span class="pi pi-cog icon_link"></span>
-                  </button>
-                </div>
-                <div class="link_sec">
-                  <button>
-                    <span class="pi pi-star icon_link"></span>
-                  </button>
-                </div> -->
 
                 <div class="profaile_sec">
                   <button (click)="cardDrob()" class="btn_profaile">
@@ -113,10 +88,10 @@
                     </div>
                     <div class="card-items">
                       <button class="profaile_link">
-                        <p class="title">{{'Layout.MySubscription' | translate}}</p>
+                        <p class="title">{{ 'Layout.MySubscription' | translate }}</p>
                       </button>
                       <button class="profaile_link">
-                        <p class="title">{{'Layout.Myfavorite' | translate}}</p>
+                        <p class="title">{{ 'Layout.Myfavorite' | translate }}</p>
                       </button>
                     </div>
                     <div class="card-items">
@@ -139,11 +114,6 @@
                         <p class="title">{{ 'Layout.AccountSettings' | translate }}</p>
                       </button>
                     </div>
-                    <!--
-                    <button class="mode_link">
-                      <p class="pi pi-moon"></p>
-                      <p class="title">Dark Mood</p>
-                    </button> -->
                     <div class="footer_card card-items">
                       <div class="logout">
                         <button class="log_link" (click)="logout()">

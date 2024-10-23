@@ -36,15 +36,11 @@ export class JournalEntryListComponent implements OnInit {
     private router: Router
   ) {
     this.searchColumnsControl = new FormControl([]);
-
   }
 
   ngOnInit() {
     this.initJournalEntryData();
-    // this.searchColumnsControl.valueChanges.subscribe(res=>{
-    //   console.log(res);
-      
-    // })
+
     this.cols = [
       {
         field: 'Id',
@@ -104,7 +100,6 @@ export class JournalEntryListComponent implements OnInit {
       },
     ];
   }
-  
 
   initJournalEntryData() {
     this.journalEntryService.getAllJournalEntriesPaginated('', new PageInfo());
@@ -120,12 +115,7 @@ export class JournalEntryListComponent implements OnInit {
     });
   }
 
-  // onPageChange(pageInfo: PageInfo) {
-  //   this.initJournalEntryData(pageInfo);
-  // }
-
   routeToAdd() {
-    // this.routerService.navigateTo(`/add`);
     this.router.navigate(['/transcations/journalentry/add']);
   }
 
@@ -174,14 +164,11 @@ export class JournalEntryListComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-  filtered_columns : any[] = []
-  selected_filtered_columns : any[]=[]
+  filtered_columns: any[] = [];
+  selected_filtered_columns: any[] = [];
   searchColumnsControl: FormControl;
 
-  fillFilterDropdown(dropdown : any){
-    // console.log(dropdown);
-    this.filtered_columns = dropdown.columns
-    
-
+  fillFilterDropdown(dropdown: any) {
+    this.filtered_columns = dropdown.columns;
   }
 }
