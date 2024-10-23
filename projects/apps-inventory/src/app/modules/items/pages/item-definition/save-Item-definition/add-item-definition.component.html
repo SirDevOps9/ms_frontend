@@ -1,30 +1,28 @@
 <lib-page-content>
-  <div [formGroup]="itemDefinitionForm" class="new_employee">
-
-      <div class="grid mainGrid" >
-        <div class="" style="width: 20%;">
-          <div class="sidebar">
-            <ul>
-              <li [class.active]="findRoute('general')" (click)="onRoute()">{{ 'itemType.general' | translate }}</li>
-              <li [class.active]="findRoute('uom')">{{ 'itemType.uom' | translate }}</li>
-              <li [class.active]="findRoute('attributes')">{{ 'itemType.attributes' | translate }}</li>
-              <li [class.active]="findRoute('barcode')">{{ 'itemType.barcode' | translate }}</li>
-              <li [class.active]="findRoute('inventory')">{{ 'itemType.inventory' | translate }}</li>
-              <li [class.active]="findRoute('accounting')">{{ 'itemType.accounting' | translate }}</li>
-              
-            </ul>
-          </div>
-        </div>
-    
-        <div  style="width: 80%;">
-          <router-outlet></router-outlet>
+  <div  class="new_employee">
+    <div class="grid mainGrid">
+      <div class="" style="width: 20%">
+        <div class="sidebar">
+          <ul>
+            <li [class.active]="findRoute('general')" (click)="onRoute()">
+              {{ 'itemType.general' | translate }}
+            </li>
+            <li [class.active]="findRoute('uom')">{{ 'itemType.uom' | translate }}</li>
+            <li [class.active]="findRoute('attributes')">
+              {{ 'itemType.attributes' | translate }}
+            </li>
+            <li [class.active]="findRoute('barcode')">{{ 'itemType.barcode' | translate }}</li>
+            <li [class.active]="findRoute('inventory')">{{ 'itemType.inventory' | translate }}</li>
+            <li [class.active]="findRoute('accounting')">
+              {{ 'itemType.accounting' | translate }}
+            </li>
+          </ul>
         </div>
       </div>
 
-   
+      <div style="width: 80%">
+        <router-outlet></router-outlet>
+      </div>
     </div>
-
-
+  </div>
 </lib-page-content>
-
-
