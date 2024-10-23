@@ -14,6 +14,7 @@ import { TableConfig } from './data-table-column';
 import { PageInfo, PageInfoResult, SortBy } from '../../models';
 import { NgIfContext } from '@angular/common';
 import { GeneralService } from '../../services/general.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'lib-data-table',
@@ -39,6 +40,9 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Output() pageChange = new EventEmitter<PageInfo>();
   @Output() addNew = new EventEmitter<boolean>(false);
 
+  //  to fill the dropdown in the component
+  @Output() fiteredDropdOwn = new EventEmitter<TableConfig>();
+
   sortingFields: string[];
   selectedColumns: any = [];
 
@@ -49,28 +53,26 @@ export class DataTableComponent implements OnInit, OnChanges {
   currentSortColumn: string | undefined;
   currentSortOrder: SortBy = SortBy.Descending;
 
+  filtered_columns: any[];
+  clonedList: any[];
+
   @ViewChild('customCellTemplate', { static: true })
   customCellTemplate?: TemplateRef<any>;
   customParentCellTemplate: TemplateRef<NgIfContext<boolean>> | null;
+  selected_filtered_columns: any[] = [];
+  searchColumnsControl = new FormControl([]);
+  isRtl: boolean = false;
+  showColumnFilter: boolean 
 
   ngOnInit(): void {
+    this.isRtl = this.languageService.ar;
+    this.showColumnFilter = this.tableConfigs?.columns?.some(x=>x.name == 'id')
+    this.filtered_columns = this.tableConfigs.columns
+    this.selected_filtered_columns = this.filtered_columns.map((option) => option.name);
+    this.searchColumnsControl.setValue(this.selected_filtered_columns as any);
     this.globalFilterFields = this.tableConfigs.columns
       .filter((c) => c.isSortable)
       .map((c) => c.name);
-    // this.generalService.sendColumns.next(this.globalFilterFields);
-    // this.generalService.sendFullColumns.next(this.tableConfigs.columns);
-    // this.generalService.sendColumns.next(this.globalFilterFields)
-    // this.generalService.sendFullColumns.next(this.tableConfigs.columns)
-
-    //  this.reactToColumnChanges()
-
-    // console.log( this.globalFilterFields)
-
-    // this.generalService.sendPageChangesFromMainPaginationsObs.subscribe(res=>{
-    //   console.log(res)
-    // })
-
-    // this.reactToColumnChanges();
   }
 
   reactToColumnChanges() {
@@ -80,7 +82,6 @@ export class DataTableComponent implements OnInit, OnChanges {
     this.generalService.sendSelectedColumnsObs.subscribe((res) => {
       if (res) {
         this.selectedColumns = res;
-        console.log(this.selectedColumns);
         this.tableConfigs.columns = this.generalService.sendFullColumns
           .getValue()
           .filter((elem: any) => {
@@ -109,7 +110,7 @@ export class DataTableComponent implements OnInit, OnChanges {
     this.addNew.emit(true);
   }
 
-  selectRow(row: any) {}
+  selectRow(row: any) { }
 
   onPageChange(pageInfo: PageInfo) {
     pageInfo.sortColumn = this.currentSortColumn;
@@ -118,14 +119,12 @@ export class DataTableComponent implements OnInit, OnChanges {
 
     this.rows2 = pageInfo.first;
     this.first = pageInfo.first;
-
-    console.log(this.currentPageResult);
   }
   hasNestedHeaders(): boolean {
     return this.tableConfigs.columns.some((col) => col.children && col.children.length > 0);
   }
   ngOnChanges(changes: SimpleChanges): void {
-    this.clonedTableConfigs = this.tableConfigs;
+    this.clonedTableConfigs = { ...this.tableConfigs };
   }
   routeToSequence() {
     const currentUrl = this.routerService.getCurrentUrl();
@@ -135,6 +134,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   isSelected(index: number): boolean {
     if (this.selectedIndices) return this.selectedIndices.includes(index);
     return false;
+   
   }
 
   toggleSelection(index: number): void {
@@ -165,7 +165,6 @@ export class DataTableComponent implements OnInit, OnChanges {
           this.currentSortOrder,
           columnName
         );
-
         console.log('page info', pageInfo);
         this.onPageChange(pageInfo);
       }, 100);
@@ -177,5 +176,25 @@ export class DataTableComponent implements OnInit, OnChanges {
     public lookupsService: LookupsService,
     private generalService: GeneralService,
     private routerService: RouterService
-  ) {}
+  ) { }
+
+  handleFilterColumns(selectedColumns: string[]) {
+    if (selectedColumns.length === 0) {
+      this.tableConfigs.columns = [...this.clonedTableConfigs.columns];
+    } else {
+      const columns = [...this.clonedTableConfigs.columns];
+      
+      const filteredColumns = columns.filter((col) =>
+        selectedColumns.some((sCol: string) => col.name === sCol)
+      );
+      if(filteredColumns[filteredColumns.length - 1].name =="id"){
+
+        this.tableConfigs.columns = [...filteredColumns];
+      } else{
+        filteredColumns.push(this.clonedTableConfigs.columns[this.clonedTableConfigs.columns.length - 1])
+        this.tableConfigs.columns = [...filteredColumns];
+      }
+             
+    }
+  }
 }
