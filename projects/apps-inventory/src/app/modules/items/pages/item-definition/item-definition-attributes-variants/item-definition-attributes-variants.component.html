@@ -1,1 +1,60 @@
-<p>item-definition-attributes-variants works!</p>
+    <div class="add_new my-2 flex justify-content-end gap-2">
+      <lib-button (onClick)="generateVariant()" className="outline-primary">
+        {{ 'itemType.generateVariant' | translate }}
+      </lib-button>
+      <lib-button (onClick)="addLineAttribute()" className="outline-primary">
+        {{ 'itemType.add_new' | translate }}
+      </lib-button>
+    </div>
+    <div>
+      <p-table
+        [value]="AttributeForm['controls']"
+        dataKey="id"
+        styleClass="p-datatable-gridlines p-datatable-striped"
+        [tableStyle]="{ 'min-width': '50rem' }"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>{{ 'itemType.attributeName' | translate }}</th>
+            <th>{{ 'itemType.status' | translate }}</th>
+
+            <th>{{ 'itemType.actions' | translate }}</th>
+          </tr>
+        </ng-template>
+        <ng-template
+          pTemplate="body"
+          let-itemDefAttributeGroup
+          let-editing="editing"
+          let-i="rowIndex"
+        >
+          <tr [formGroup]="itemDefAttributeGroup">
+            <!--  -->
+            <td>
+              <small>{{ itemDefAttributeGroup.get('name').value }}</small>
+            </td>
+            <!--  -->
+
+            <td>
+              <lib-input-switch
+                formControlName="status"
+                (valueChanged)="confirmChange($event, itemDefAttributeGroup)"
+                [(ngModel)]="itemDefAttributeGroup.get('status').value"
+              ></lib-input-switch>
+            </td>
+            <!--  -->
+            <td>
+              <div class="flex align-items-center gap-4">
+                <i
+                  class="pi pi-eye pointer"
+                  (click)="onViewAttribute(itemDefAttributeGroup)"
+                ></i>
+                <i
+                  class="pi pi-trash pointer"
+                  (click)="onDeleteAttribute(itemDefAttributeGroup)"
+                ></i>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
