@@ -913,8 +913,8 @@ export class GeneralSettingService {
     });
   }
 
-  exportTaxesData(searchTerm: string | undefined) {
-    this.GeneralSettingproxy.exportTaxesData(searchTerm).subscribe({
+  exportTaxesData(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+    this.GeneralSettingproxy.exportTaxesData(searchTerm,SortBy,SortColumn).subscribe({
       next: (res) => {
         this.exportsTaxesDataSource.next(res);
       },

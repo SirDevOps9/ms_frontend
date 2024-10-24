@@ -1,17 +1,9 @@
 import { TaxDefinitionAddComponent } from './../../../components/tax-definition-add/tax-definition-add.component';
-import { Component, OnInit, Signal, computed, effect, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import {
-  PageInfoResult,
-  MenuModule,
-  RouterService,
-  PageInfo,
-  lookupDto,
-  LanguageService,
-} from 'shared-lib';
+import { PageInfoResult, MenuModule, PageInfo, lookupDto } from 'shared-lib';
 import { TaxDefinitionEditComponent } from '../../../components/tax-definition-edit/tax-definition-edit.component';
-import { Title } from '@angular/platform-browser';
 import { GeneralSettingService } from '../../../general-setting.service';
 import { TaxDto } from '../../../models/tax-dto';
 import { ExportTaxDto } from '../../../models/export-tax-dto';
@@ -25,18 +17,16 @@ export class TaxDefinitionComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private dialog: DialogService,
-    private generalSettingService: GeneralSettingService,
-  ) {
-  }
+    private generalSettingService: GeneralSettingService
+  ) {}
 
   tableData: TaxDto[];
-
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
-
+  SortBy?: number
+  SortColumn?:string
   exportData: ExportTaxDto[];
-
   exportColumns: lookupDto[] = [
     {
       id: 'code',
@@ -119,9 +109,13 @@ export class TaxDefinitionComponent implements OnInit {
   onDelete(id: number) {
     this.generalSettingService.deleteTax(id);
   }
-
-  exportTaxesData(searchTerm: string) {
-    this.generalSettingService.exportTaxesData(searchTerm);
+  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
+    this.SortBy = obj.SortBy;
+    this.SortColumn = obj.SortColumn;
+  }
+  exportTaxesData() {
+    debugger;
+    this.generalSettingService.exportTaxesData(this.searchTerm,this.SortBy,this.SortColumn);
     this.generalSettingService.exportsTaxesDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });

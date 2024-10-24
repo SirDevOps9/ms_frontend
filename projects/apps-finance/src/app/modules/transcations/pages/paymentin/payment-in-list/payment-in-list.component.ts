@@ -1,5 +1,5 @@
   import { Component } from '@angular/core';
-import { PageInfoResult, lookupDto, RouterService, PageInfo } from 'shared-lib';
+import { PageInfoResult, lookupDto, RouterService, PageInfo, SortBy } from 'shared-lib';
 import { GetAllPaymentInDto } from '../../../models';
 import { TranscationsService } from '../../../transcations.service';
 import { Router } from '@angular/router';
@@ -14,7 +14,8 @@ export class PaymentInListComponent {
 
   currentPageInfo: PageInfoResult = {};
   searchTerm: string;
-
+  SortBy: number= SortBy.Descending
+  SortColumn?:string
   exportColumns: lookupDto[] = [
     {
       id: 'id',
@@ -103,8 +104,12 @@ export class PaymentInListComponent {
     this.financeService.getAllPaymentIn(event, new PageInfo());
   }
 
+  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
+    this.SortBy = obj.SortBy;
+    this.SortColumn = obj.SortColumn;
+  }
   exportClick() {
-    this.financeService.exportsPaymentInList(this.searchTerm);
+    this.financeService.exportsPaymentInList(this.searchTerm,this.SortBy ,this.SortColumn);
   }
 
   onDelete(id: number) {

@@ -55,6 +55,7 @@ export class ExportComponent implements OnDestroy {
   }
 
   performExport() {
+    debugger
     if (this.exportDataList && this.exportDataList.length > 0) {
       if (this.format === 'excel') {
         
@@ -68,10 +69,12 @@ export class ExportComponent implements OnDestroy {
   }
 
   exportToPDF() {
+    debugger
     ExportService.ToPDF(this.exportDataList, `${this.ExportName}.pdf`, this.exportColumns);
   }
 
   exportToExcel() {
+    debugger
     ExportService.ToExcel(this.exportDataList, `${this.ExportName}.xlsx`, this.exportColumns);
   }
 

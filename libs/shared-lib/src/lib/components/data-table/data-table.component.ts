@@ -42,6 +42,7 @@ export class DataTableComponent implements OnInit, OnChanges {
 
   //  to fill the dropdown in the component
   @Output() fiteredDropdOwn = new EventEmitter<TableConfig>();
+  @Output() exportObj = new EventEmitter<{SortBy : number , SortColumn: string}>();
 
   sortingFields: string[];
   selectedColumns: any = [];
@@ -157,6 +158,7 @@ export class DataTableComponent implements OnInit, OnChanges {
 
       this.currentSortColumn = columnName;
 
+
       setTimeout(() => {
         const pageInfo = new PageInfo(
           this.pageInfo?.pageNumber,
@@ -167,8 +169,13 @@ export class DataTableComponent implements OnInit, OnChanges {
         );
         console.log('page info', pageInfo);
         this.onPageChange(pageInfo);
+        this.exportObj.emit({SortBy:this.currentSortOrder , SortColumn : this.currentSortColumn as string})
       }, 100);
     }
+
+    console.log(this.currentSortColumn);
+    console.log(this.currentSortOrder);
+    
   }
 
   constructor(
