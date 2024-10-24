@@ -123,6 +123,8 @@ export class SalesService {
 
   private itemsDataSource = new BehaviorSubject<ItemDto[]>([]);
   public itemsList = this.itemsDataSource.asObservable();
+  private latestItemsDataSource = new BehaviorSubject<ItemDto[]>([]);
+  public latestItemsList = this.latestItemsDataSource.asObservable();
   public itemsPageInfo = new BehaviorSubject<PageInfoResult>({});
 
   constructor(
@@ -485,6 +487,11 @@ export class SalesService {
     this.salesProxy.getItems(quieries, searchTerm, pageInfo).subscribe((res) => {
       this.itemsDataSource.next(res.result);
       this.itemsPageInfo.next(res.pageInfoResult);
+    });
+  }
+  getLatestItems( searchTerm: string,) {
+    this.salesProxy.GetLatestItems( searchTerm).subscribe((res:any) => {
+      this.latestItemsDataSource.next(res);
     });
   }
 }

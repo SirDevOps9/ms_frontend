@@ -211,4 +211,14 @@ export class SalesProxyService {
     }
     return this.httpService.get<PaginationVm<ItemDto>>(query);
   }
+  GetLatestItems(
+    searchTerm: string,
+  ): Observable<ItemDto> {
+    let query = `PricePolicy/GetLatestItemsList`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+   
+    return this.httpService.get<ItemDto>(query);
+  }
 }

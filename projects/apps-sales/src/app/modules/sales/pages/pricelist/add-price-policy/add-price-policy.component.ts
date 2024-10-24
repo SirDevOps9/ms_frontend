@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { customValidators, FormsService } from 'shared-lib';
+import { customValidators, FormsService, PageInfo } from 'shared-lib';
 import * as XLSX from 'xlsx';
 import { MultiSelectItemsComponent } from '../../../components/multi-select-items/multi-select-items.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ItemDto } from '../../../models';
+import { SalesService } from '../../../sales.service';
 
 @Component({
   selector: 'app-add-price-policy',
@@ -14,9 +15,12 @@ import { ItemDto } from '../../../models';
 export class AddPricePolicyComponent implements OnInit {
   data:any;
   listOfExcel: any[]=[];
+  items: ItemDto[]=[];
 
   addForm: FormGroup;
   ngOnInit() {
+    this.subscribes()
+    this.initItemsData()
     this.initializeForm()
   }
   initializeForm() {
@@ -49,13 +53,16 @@ export class AddPricePolicyComponent implements OnInit {
   
   let newLine = this.formBuilder.group(
     {
-      code: new FormControl('',[customValidators.required]),
-      name: new FormControl(''),
-      uom: new FormControl(''),
-      varient: new FormControl(''),
+      itemId: new FormControl('',[customValidators.required]),
+      isVatApplied: new FormControl(''),
+      uomId: new FormControl(''),
+      itemVariantId: new FormControl(''),
       price: new FormControl('',[customValidators.required]),
-      VAT: new FormControl(''),
-      priceVAT: new FormControl(''),
+      priceWithVat: new FormControl(''),
+      taxId: new FormControl(''),
+
+      ////
+      name: new FormControl(''),
       id: new FormControl(0),
      
     }
@@ -64,8 +71,31 @@ export class AddPricePolicyComponent implements OnInit {
   this.pricePolicyFormArray.push(newLine);
 
 }
+setRowData(index:number , event:any){
+  console.log(index , event ,";;;;;;;;;;;;");
+  
+}
+test2(e:any){
+console.log(e ,"kkkkkk");
+
+}
   test(){
 
+  }
+  //////////
+  initItemsData() {
+    this.salesService.getLatestItems('');
+  }
+  subscribes() {
+    this.salesService.latestItemsList.subscribe({
+      next: (res) => {
+        this.items = res;
+        console.log(this.items , "items");
+        
+      },
+    });
+
+   
   }
   /////////////////////////////
   onclick(data:any) {
@@ -86,13 +116,13 @@ export class AddPricePolicyComponent implements OnInit {
 
     this.listOfExcel.forEach((ele: any) => {
       let dataForm = this.formBuilder.group({
-        code: new FormControl(ele.code, [customValidators.required]),
+        itemId: new FormControl(ele.code, [customValidators.required]),
         name: new FormControl(ele.name),
-        uom: new FormControl(ele.uom),
-        varient: new FormControl(ele.varient),
+        uomId: new FormControl(ele.uom),
+        itemVariantId: new FormControl(ele.varient),
         price: new FormControl(ele.price, [customValidators.required]),
-        VAT: new FormControl(ele.VAT),
-        priceVAT: new FormControl(''), // Assuming this will be calculated or handled elsewhere
+        isVatApplied: new FormControl(ele.VAT),
+        priceWithVat: new FormControl(''), // Assuming this will be calculated or handled elsewhere
         id: new FormControl(0), // Default value, assuming id is 0 for new entries
       });
   
@@ -156,7 +186,7 @@ export class AddPricePolicyComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formsService: FormsService,
     private dialog: DialogService,
-
+    private salesService: SalesService
 
   ){}
 }

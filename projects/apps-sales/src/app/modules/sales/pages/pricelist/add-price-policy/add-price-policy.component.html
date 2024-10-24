@@ -173,7 +173,7 @@
     
                             </lib-field-validations>
                         </lib-form-group> 
-                        <lib-form-group>
+                        <!-- <lib-form-group>
                         <div class="tes">
                             <lib-input-switch
                             formControlName="applyDate"
@@ -190,11 +190,11 @@
                             <lib-field-validations [appControl]="addForm.controls['applyDate']">
     
                             </lib-field-validations>
-                        </lib-form-group> 
+                        </lib-form-group>  -->
 
                     </div>
                 </div>
-                <div class="col-12 md:col-8">
+                <!-- <div class="col-12 md:col-8">
                     <lib-form-group>
                         <lib-label [appControl]="addForm.controls['date']">
                             {{'pricePolicy.toDate'|translate}}
@@ -209,7 +209,7 @@
 
                         </lib-field-validations>
                     </lib-form-group> 
-                </div>
+                </div> -->
             
               
             </div>
@@ -239,27 +239,35 @@
             </ng-template>
             <ng-template pTemplate="body" let-pricePolicy let-rowIndex="rowIndex">
               <tr [formGroup]="pricePolicy">
-                <td [pEditableColumn]="pricePolicy.code" pEditableColumnField="code">
+                <td [pEditableColumn]="pricePolicy.itemId" pEditableColumnField="itemId">
                   <p-cellEditor>
                     <ng-template pTemplate="input">
                       <div class="flex gap-2 align-items-center">
-                        <lib-text-input
-                          type="text"
-                          formControlName="code"
+                       
+                        <lib-select
+                        [options]="items"
+                        optionLabel="itemName"
+                        formControlName="itemId"
+                        (valueChanged)="setRowData(rowIndex ,pricePolicy.controls['itemId'].value )"
+                        [selectedValue]="pricePolicy.controls['itemId'].value"
                         >
-                        </lib-text-input>
+
+                        </lib-select>
                         <i class="pi pi-search search-circle" (click)="openDialog(rowIndex)"></i>
 
                       </div>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{ pricePolicy.get('code').value }}
+                      {{ pricePolicy.get('itemId').value }}
                     </ng-template>
                   </p-cellEditor>
-                  <lib-field-validations [appControl]="pricePolicy.controls['code']">
+                  <lib-field-validations [appControl]="pricePolicy.controls['itemId']">
                   </lib-field-validations>
                 </td>
-                <td [pEditableColumn]="pricePolicy.name" pEditableColumnField="name">
+                <td>
+                  <p>name</p>
+                </td>
+                <!-- <td [pEditableColumn]="pricePolicy.name" pEditableColumnField="name">
                   <p-cellEditor>
                     <ng-template pTemplate="input">
                       <div class="flex gap-2 align-items-center">
@@ -276,41 +284,41 @@
                   </p-cellEditor>
                   <lib-field-validations [appControl]="pricePolicy.controls['name']">
                   </lib-field-validations>
-                </td>
-                <td [pEditableColumn]="pricePolicy.uom" pEditableColumnField="uom">
+                </td> -->
+                <td [pEditableColumn]="pricePolicy.uomId" pEditableColumnField="uomId">
                   <p-cellEditor>
                     <ng-template pTemplate="input">
                       <div class="flex gap-2 align-items-center">
                         <lib-text-input
                           type="text"
-                          formControlName="uom"
+                          formControlName="uomId"
                         >
                         </lib-text-input>
                       </div>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{ pricePolicy.get('uom').value }}
+                      {{ pricePolicy.get('uomId').value }}
                     </ng-template>
                   </p-cellEditor>
-                  <lib-field-validations [appControl]="pricePolicy.controls['uom']">
+                  <lib-field-validations [appControl]="pricePolicy.controls['uomId']">
                   </lib-field-validations>
                 </td>
-                <td [pEditableColumn]="pricePolicy.varient" pEditableColumnField="varient">
+                <td [pEditableColumn]="pricePolicy.itemVariantId" pEditableColumnField="itemVariantId">
                   <p-cellEditor>
                     <ng-template pTemplate="input">
                       <div class="flex gap-2 align-items-center">
                         <lib-text-input
                           type="text"
-                          formControlName="varient"
+                          formControlName="itemVariantId"
                         >
                         </lib-text-input>
                       </div>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{ pricePolicy.get('varient').value }}
+                      {{ pricePolicy.get('itemVariantId').value }}
                     </ng-template>
                   </p-cellEditor>
-                  <lib-field-validations [appControl]="pricePolicy.controls['varient']">
+                  <lib-field-validations [appControl]="pricePolicy.controls['itemVariantId']">
                   </lib-field-validations>
                 </td>
                 <td [pEditableColumn]="pricePolicy.price" pEditableColumnField="price">
@@ -333,14 +341,14 @@
                 </td>
              <td>
                 <lib-input-switch 
-                formControlName="VAT"
-                [(ngModel)]="pricePolicy.get('VAT').value"
+                formControlName="priceWithVat"
+                [(ngModel)]="pricePolicy.get('priceWithVat').value"
                 >
 
                 </lib-input-switch>
              </td>
                <td class="readOnly">
-                {{ pricePolicy.get('priceVAT').value }}
+                {{ pricePolicy.get('priceWithVat').value }}
                </td>
                
               </tr>

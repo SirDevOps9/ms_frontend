@@ -53,6 +53,7 @@ export class MultiSelectItemsComponent implements OnInit {
   initItemsData() {
     this.salesService.getItems('', '', new PageInfo());
   }
+  
 
   onPageChange(pageInfo: PageInfo) {
     this.salesService.getItems('', '', pageInfo);
