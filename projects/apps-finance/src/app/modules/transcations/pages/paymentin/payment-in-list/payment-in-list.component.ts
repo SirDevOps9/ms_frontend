@@ -14,7 +14,7 @@ export class PaymentInListComponent {
 
   currentPageInfo: PageInfoResult = {};
   searchTerm: string;
-  SortBy: number= SortBy.Descending
+  SortBy?: number
   SortColumn?:string
   exportColumns: lookupDto[] = [
     {

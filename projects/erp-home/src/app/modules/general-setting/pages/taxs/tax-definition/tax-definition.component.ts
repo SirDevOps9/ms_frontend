@@ -114,7 +114,6 @@ export class TaxDefinitionComponent implements OnInit {
     this.SortColumn = obj.SortColumn;
   }
   exportTaxesData() {
-    debugger;
     this.generalSettingService.exportTaxesData(this.searchTerm,this.SortBy,this.SortColumn);
     this.generalSettingService.exportsTaxesDataSourceObservable.subscribe((res) => {
       this.exportData = res;
