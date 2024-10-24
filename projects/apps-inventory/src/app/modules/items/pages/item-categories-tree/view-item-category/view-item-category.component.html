@@ -31,7 +31,7 @@
 
     <lib-fildest header="{{ 'itemsCategory.parentCategory' | translate }}" class="md:col-12">
       <div class="grid">
-        <div class="md:col-12" *ngIf="parent.parentCategoryId">
+        <div class="md:col-12" >
           <lib-form-group>
             <small>
               {{ 'itemsCategory.parentCategory' | translate }}
@@ -49,7 +49,7 @@
           </small>
           <lib-input-switch [ngModel]="parent?.isDetailed" [disabled]="true"> </lib-input-switch>
         </div>
-        <div class="md:col-12" *ngIf="parent.categoryType">
+        <div class="md:col-12" *ngIf="parent.categoryType && parent.isDetailed">
           <lib-form-group>
             <small>
               {{ 'itemsCategory.categoryType' | translate }}
@@ -64,72 +64,11 @@
       </div>
     </lib-fildest>
   </div>
-  <p-tabView>
+  <p-tabView *ngIf="parent.isDetailed">
     <p-tabPanel header="{{ 'warehouse.account' | translate }}">
       <ng-container *ngIf="AccountsDropDownLookup.length">
         <div class="grid">
-          <div class="md:col-6">
-            <lib-form-group>
-              <small>
-                {{ 'warehouse.glAccount' | translate }}
-              </small>
-              <lib-text-input
-                type="text"
-                [readOnly]="true"
-                [placeholder]="
-                  (parent?.glAccountId | getElementByID : AccountsDropDownLookup)?.name ?? ''
-                "
-              />
-            </lib-form-group>
-          </div>
-
-          <div class="md:col-6">
-            <lib-form-group>
-              <small>
-                {{ 'warehouse.cashSalesAccount' | translate }}
-              </small>
-              <lib-text-input
-                type="text"
-                [readOnly]="true"
-                [placeholder]="
-                  (parent?.cashSalesAccountId | getElementByID : AccountsDropDownLookup)?.name ?? ''
-                "
-              />
-            </lib-form-group>
-          </div>
-
-          <div class="md:col-6">
-            <lib-form-group>
-              <small>
-                {{ 'warehouse.creditSalesAccount' | translate }}
-              </small>
-              <lib-text-input
-                type="text"
-                [readOnly]="true"
-                [placeholder]="
-                  (parent?.creditSalesAccountId | getElementByID : AccountsDropDownLookup)?.name ??
-                  ''
-                "
-              />
-            </lib-form-group>
-          </div>
-
-          <div class="md:col-6">
-            <lib-form-group>
-              <small>
-                {{ 'warehouse.salesReturnAccount' | translate }}
-              </small>
-              <lib-text-input
-                type="text"
-                [readOnly]="true"
-                [placeholder]="
-                  (parent?.salesReturnAccountId | getElementByID : AccountsDropDownLookup)?.name ??
-                  ''
-                "
-              />
-            </lib-form-group>
-          </div>
-
+          <!-- Purchase account -->
           <div class="md:col-6">
             <lib-form-group>
               <small>
@@ -144,84 +83,24 @@
               />
             </lib-form-group>
           </div>
+          <!--  costOfGoodSoldAccountId-->
 
           <div class="md:col-6">
             <lib-form-group>
               <small>
-                {{ 'warehouse.salesCostCenter' | translate }}
+                {{ 'warehouse.costOfGoodsSold' | translate }}
               </small>
               <lib-text-input
                 type="text"
                 [readOnly]="true"
                 [placeholder]="
-                  (parent.salesCostAccountId | getElementByID : AccountsDropDownLookup)?.name ?? ''
+                  (parent.costOfGoodSoldAccountId | getElementByID : AccountsDropDownLookup)?.name ?? ''
                 "
               />
             </lib-form-group>
           </div>
 
-          <div class="md:col-6">
-            <lib-form-group>
-              <small>
-                {{ 'warehouse.discountAccount' | translate }}
-              </small>
-              <lib-text-input
-                type="text"
-                [readOnly]="true"
-                [placeholder]="
-                  (parent.discountAccountId | getElementByID : AccountsDropDownLookup)?.name ?? ''
-                "
-              />
-            </lib-form-group>
-          </div>
-
-          <div class="md:col-6">
-            <lib-form-group>
-              <small>
-                {{ 'warehouse.evaluationaccount' | translate }}
-              </small>
-              <lib-text-input
-                type="text"
-                [readOnly]="true"
-                [placeholder]="
-                  (parent?.evaluationAccountId | getElementByID : AccountsDropDownLookup)?.name ??
-                  ''
-                "
-              />
-            </lib-form-group>
-          </div>
-
-          <div class="md:col-6">
-            <lib-form-group>
-              <small>
-                {{ 'warehouse.adjustmentAccount' | translate }}
-              </small>
-              <lib-text-input
-                type="text"
-                [readOnly]="true"
-                [placeholder]="
-                  (parent?.adjustmentAccountId | getElementByID : AccountsDropDownLookup)?.name ??
-                  ''
-                "
-              />
-            </lib-form-group>
-          </div>
-
-          <div class="md:col-6">
-            <lib-form-group>
-              <small>
-                {{ 'warehouse.goodsInTransit' | translate }}
-              </small>
-              <lib-text-input
-                type="text"
-                [readOnly]="true"
-                [placeholder]="
-                  (parent?.goodsInTransitAccountId | getElementByID : AccountsDropDownLookup)
-                    ?.name ?? ''
-                "
-              />
-            </lib-form-group>
-          </div>
+  
         </div>
       </ng-container>
     </p-tabPanel>

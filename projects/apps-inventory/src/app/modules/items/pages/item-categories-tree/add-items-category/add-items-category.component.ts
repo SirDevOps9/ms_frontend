@@ -69,7 +69,6 @@ export class AddItemsCategoryComponent {
     private itemService: ItemsService
   ) {}
   ngOnInit() {
-    this.getParentItemCategoriesDropDown();
 
     this.formGroup = this.formBuilder.group({
       code: [''],
@@ -79,17 +78,10 @@ export class AddItemsCategoryComponent {
       isDetailed: [true], // Assuming a boolean default of `false`
       categoryType: [null, [customValidators.required]],
 
-      glAccountId: [null],
-      cashSalesAccountId: [null],
-      creditSalesAccountId: [null],
-      salesReturnAccountId: [null],
       purchaseAccountId: [null],
-      salesCostAccountId: [null],
-      discountAccountId: [null],
-      evaluationAccountId: [null],
-      adjustmentAccountId: [null],
-      goodsInTransitAccountId: [null],
+      costOfGoodSoldAccountId:[null]
     });
+    this.getParentItemCategoriesDropDown();
 
     this.formGroup.get('isDetailed')?.valueChanges.subscribe((res) => {
       if (res == true) {
@@ -109,21 +101,14 @@ export class AddItemsCategoryComponent {
     this.formGroup.get('id')?.reset();
     this.formGroup.get('code')?.reset(null);
 
-    this.formGroup.get('parentCategoryId')?.reset(null); // Reset to null
-    this.formGroup.get('isDetailed')?.reset(false); // Reset to default false
-    this.formGroup.get('categoryType')?.reset(null); // Reset and retain validators
+    this.formGroup.get('parentCategoryId')?.reset(null); 
+    this.formGroup.get('isDetailed')?.reset(false); 
+    this.formGroup.get('categoryType')?.reset(null); 
 
     // Reset all the account-related fields to null
-    this.formGroup.get('glAccountId')?.reset(null);
-    this.formGroup.get('cashSalesAccountId')?.reset(null);
-    this.formGroup.get('creditSalesAccountId')?.reset(null);
-    this.formGroup.get('salesReturnAccountId')?.reset(null);
     this.formGroup.get('purchaseAccountId')?.reset(null);
-    this.formGroup.get('salesCostAccountId')?.reset(null);
-    this.formGroup.get('discountAccountId')?.reset(null);
-    this.formGroup.get('evaluationAccountId')?.reset(null);
-    this.formGroup.get('adjustmentAccountId')?.reset(null);
-    this.formGroup.get('goodsInTransitAccountId')?.reset(null);
+    this.formGroup.get('costOfGoodSoldAccountId')?.reset(null);
+    
   }
 
   getParentItemCategoriesDropDown() {

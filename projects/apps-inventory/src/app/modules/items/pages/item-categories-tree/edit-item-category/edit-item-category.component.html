@@ -61,7 +61,7 @@
             </lib-label>
             <lib-input-switch formControlName="isDetailed"> </lib-input-switch>
           </div>
-          <div class="md:col-12">
+          <div class="md:col-12"   *ngIf="showCategory">
             <lib-form-group>
               <lib-label [appControl]="formGroup.controls['categoryType']">
                 {{ 'itemsCategory.categoryType' | translate }}
@@ -82,81 +82,11 @@
         </div>
       </lib-fildest>
     </div>
-    <p-tabView>
+    <p-tabView *ngIf="showCategory"  >
       <p-tabPanel header="{{ 'warehouse.account' | translate }}">
         <div class="grid">
-          <div class="md:col-6">
-            <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['glAccountId']">
-                {{ 'warehouse.glAccount' | translate }}
-              </lib-label>
-              <lib-select
-                placeholder="{{ 'warehouse.glAccount' | translate }}"
-                [options]="AccountsDropDownLookup"
-                optionLabel="name"
-                optionValue="id"
-                formControlName="glAccountId"
-                [selectedValue]="formGroup.controls['glAccountId'].value"
-              ></lib-select>
-              <lib-field-validations [appControl]="formGroup.controls['glAccountId']">
-              </lib-field-validations>
-            </lib-form-group>
-          </div>
-          <!--  -->
-          <div class="md:col-6">
-            <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['cashSalesAccountId']">
-                {{ 'warehouse.cashSalesAccount' | translate }}
-              </lib-label>
-              <lib-select
-                placeholder="{{ 'warehouse.cashSalesAccount' | translate }}"
-                [options]="AccountsDropDownLookup"
-                optionLabel="name"
-                optionValue="id"
-                formControlName="cashSalesAccountId"
-                [selectedValue]="formGroup.controls['cashSalesAccountId'].value"
-              ></lib-select>
-              <lib-field-validations [appControl]="formGroup.controls['cashSalesAccountId']">
-              </lib-field-validations>
-            </lib-form-group>
-          </div>
-          <!--  -->
-          <div class="md:col-6">
-            <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['creditSalesAccountId']">
-                {{ 'warehouse.creditSalesAccount' | translate }}
-              </lib-label>
-              <lib-select
-                placeholder="{{ 'warehouse.creditSalesAccount' | translate }}"
-                [options]="AccountsDropDownLookup"
-                optionLabel="name"
-                optionValue="id"
-                formControlName="creditSalesAccountId"
-                [selectedValue]="formGroup.controls['creditSalesAccountId'].value"
-              ></lib-select>
-              <lib-field-validations [appControl]="formGroup.controls['creditSalesAccountId']">
-              </lib-field-validations>
-            </lib-form-group>
-          </div>
-          <!--  -->
-          <div class="md:col-6">
-            <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['salesReturnAccountId']">
-                {{ 'warehouse.salesReturnAccount' | translate }}
-              </lib-label>
-              <lib-select
-                placeholder="{{ 'warehouse.salesReturnAccount' | translate }}"
-                [options]="AccountsDropDownLookup"
-                optionLabel="name"
-                optionValue="id"
-                formControlName="salesReturnAccountId"
-                [selectedValue]="formGroup.controls['salesReturnAccountId'].value"
-              ></lib-select>
-              <lib-field-validations [appControl]="formGroup.controls['salesReturnAccountId']">
-              </lib-field-validations>
-            </lib-form-group>
-          </div>
-          <!--  -->
+     
+          <!--purchaseAccountId  -->
           <div class="md:col-6">
             <lib-form-group>
               <lib-label [appControl]="formGroup.controls['purchaseAccountId']">
@@ -167,104 +97,33 @@
                 [options]="AccountsDropDownLookup"
                 optionLabel="name"
                 optionValue="id"
-                formControlName="purchaseAccountId"
                 [selectedValue]="formGroup.controls['purchaseAccountId'].value"
+                formControlName="purchaseAccountId"
               ></lib-select>
               <lib-field-validations [appControl]="formGroup.controls['purchaseAccountId']">
               </lib-field-validations>
             </lib-form-group>
           </div>
-          <!--  -->
+          <!--  costOfGoodSoldAccountId-->
           <div class="md:col-6">
             <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['salesCostAccountId']">
-                {{ 'warehouse.salesCostCenter' | translate }}
+              <lib-label [appControl]="formGroup.controls['costOfGoodSoldAccountId']">
+                {{ 'warehouse.costOfGoodsSold' | translate }}
               </lib-label>
               <lib-select
-                placeholder="{{ 'warehouse.salesCostCenter' | translate }}"
+                placeholder="{{ 'warehouse.costOfGoodsSold' | translate }}"
                 [options]="AccountsDropDownLookup"
                 optionLabel="name"
                 optionValue="id"
-                formControlName="salesCostAccountId"
-                [selectedValue]="formGroup.controls['salesCostAccountId'].value"
+                [selectedValue]="formGroup.controls['costOfGoodSoldAccountId'].value"
+
+                formControlName="costOfGoodSoldAccountId"
               ></lib-select>
-              <lib-field-validations [appControl]="formGroup.controls['salesCostAccountId']">
+              <lib-field-validations [appControl]="formGroup.controls['costOfGoodSoldAccountId']">
               </lib-field-validations>
             </lib-form-group>
           </div>
-          <!--  -->
-          <div class="md:col-6">
-            <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['discountAccountId']">
-                {{ 'warehouse.discountAccount' | translate }}
-              </lib-label>
-              <lib-select
-                placeholder="{{ 'warehouse.discountAccount' | translate }}"
-                [options]="AccountsDropDownLookup"
-                optionLabel="name"
-                optionValue="id"
-                formControlName="discountAccountId"
-                [selectedValue]="formGroup.controls['discountAccountId'].value"
-              ></lib-select>
-              <lib-field-validations [appControl]="formGroup.controls['discountAccountId']">
-              </lib-field-validations>
-            </lib-form-group>
-          </div>
-          <!--  -->
-          <div class="md:col-6">
-            <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['evaluationAccountId']">
-                {{ 'warehouse.evaluationaccount' | translate }}
-              </lib-label>
-              <lib-select
-                placeholder="{{ 'warehouse.evaluationaccount' | translate }}"
-                [options]="AccountsDropDownLookup"
-                optionLabel="name"
-                optionValue="id"
-                formControlName="evaluationAccountId"
-                [selectedValue]="formGroup.controls['evaluationAccountId'].value"
-              ></lib-select>
-              <lib-field-validations [appControl]="formGroup.controls['evaluationAccountId']">
-              </lib-field-validations>
-            </lib-form-group>
-          </div>
-          <!--  -->
-          <div class="md:col-6">
-            <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['adjustmentAccountId']">
-                {{ 'warehouse.adjustmentAccount' | translate }}
-              </lib-label>
-              <lib-select
-                placeholder="{{ 'warehouse.adjustmentAccount' | translate }}"
-                [options]="AccountsDropDownLookup"
-                optionLabel="name"
-                optionValue="id"
-                formControlName="adjustmentAccountId"
-                [selectedValue]="formGroup.controls['adjustmentAccountId'].value"
-              ></lib-select>
-              <lib-field-validations [appControl]="formGroup.controls['adjustmentAccountId']">
-              </lib-field-validations>
-            </lib-form-group>
-          </div>
-          <!--  -->
-          <div class="md:col-6">
-            <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['goodsInTransitAccountId']">
-                {{ 'warehouse.goodsInTransit' | translate }}
-              </lib-label>
-              <lib-select
-                placeholder="{{ 'warehouse.goodsInTransit' | translate }}"
-                [options]="AccountsDropDownLookup"
-                optionLabel="name"
-                optionValue="id"
-                formControlName="goodsInTransitAccountId"
-                [selectedValue]="formGroup.controls['goodsInTransitAccountId'].value"
-              ></lib-select>
-              <lib-field-validations [appControl]="formGroup.controls['goodsInTransitAccountId']">
-              </lib-field-validations>
-            </lib-form-group>
-          </div>
-          <!--  -->
+     
         </div>
       </p-tabPanel>
     </p-tabView>

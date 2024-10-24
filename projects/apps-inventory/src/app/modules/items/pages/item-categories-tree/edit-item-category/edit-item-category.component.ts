@@ -44,6 +44,7 @@ export class EditItemCategoryComponent {
   parentAcountName?: parentAccountDto;
   parent?: AccountByIdDto;
   accountTypeIdValue: number;
+  showCategory: boolean = true;
 
   selectedPeriodOption: string = '';
   @Input() parentEditedId?: number;
@@ -57,8 +58,11 @@ export class EditItemCategoryComponent {
     private itemService: ItemsService
   ) {}
   ngOnInit() {
-    this.getAccountById(this.parentEditedId);
+    this.AccountsDropDown();
+
     this.getParentItemCategoriesDropDown();
+    this.getAccountById(this.parentEditedId);
+
     this.formGroup = this.formBuilder.group({
       id: new FormControl(),
       code: [''],
@@ -66,18 +70,10 @@ export class EditItemCategoryComponent {
       nameAr: ['', [customValidators.required]],
       parentCategoryId: [null],
       isDetailed: [false], // Assuming a boolean default of `false`
-      categoryType: [null, [customValidators.required]],
+      categoryType: [null],
 
-      glAccountId: [null],
-      cashSalesAccountId: [null],
-      creditSalesAccountId: [null],
-      salesReturnAccountId: [null],
       purchaseAccountId: [null],
-      salesCostAccountId: [null],
-      discountAccountId: [null],
-      evaluationAccountId: [null],
-      adjustmentAccountId: [null],
-      goodsInTransitAccountId: [null],
+      costOfGoodSoldAccountId: [null],
     });
 
     this.itemService.EditItemCategoryDataObs.subscribe((res) => {
@@ -91,28 +87,24 @@ export class EditItemCategoryComponent {
         this.formGroup.get('categoryType')?.reset('', { emitEvent: false }); // Reset and retain validators
 
         // Reset all the account-related fields to null
-        this.formGroup.get('glAccountId')?.reset(null);
-        this.formGroup.get('cashSalesAccountId')?.reset(null);
-        this.formGroup.get('creditSalesAccountId')?.reset(null);
-        this.formGroup.get('salesReturnAccountId')?.reset(null);
         this.formGroup.get('purchaseAccountId')?.reset(null);
-        this.formGroup.get('salesCostAccountId')?.reset(null);
-        this.formGroup.get('discountAccountId')?.reset(null);
-        this.formGroup.get('evaluationAccountId')?.reset(null);
-        this.formGroup.get('adjustmentAccountId')?.reset(null);
-        this.formGroup.get('goodsInTransitAccountId')?.reset(null);
+        this.formGroup.get('costOfGoodSoldAccountId')?.reset(null);
       }
     });
 
-    this.AccountsDropDown();
 
     this.formGroup.get('isDetailed')?.valueChanges.subscribe((res) => {
       if (res == true) {
         this.formGroup.get('categoryType')?.setValidators(customValidators.required);
         this.formGroup.get('categoryType')?.updateValueAndValidity();
+        this.showCategory = true;
       } else {
         this.formGroup.get('categoryType')?.clearValidators();
+        this.formGroup.get('categoryType')?.reset(null);
         this.formGroup.get('categoryType')?.updateValueAndValidity();
+        this.formGroup.get('costOfGoodSoldAccountId')?.reset();
+        this.formGroup.get('purchaseAccountId')?.reset();
+        this.showCategory = false;
       }
     });
   }
@@ -122,8 +114,7 @@ export class EditItemCategoryComponent {
       next: (res: { id: number; name: string }[]) => {
         this.parentCategoryList = res;
       },
-      error: (error: any) => {
-      },
+      error: (error: any) => {},
     });
   }
 
@@ -146,7 +137,7 @@ export class EditItemCategoryComponent {
   }
 
   onParentAccountChange(event: any) {
-    this.formGroup.controls['parentAccountCode'].setValue(event);
+    this.formGroup.controls['parentAccountCode']?.setValue(event);
   }
 
   toggleCurrencyVisibility() {
