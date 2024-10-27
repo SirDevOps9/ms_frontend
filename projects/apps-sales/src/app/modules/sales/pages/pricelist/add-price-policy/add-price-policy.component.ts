@@ -13,6 +13,8 @@ import { SalesService } from '../../../sales.service';
   styleUrl: './add-price-policy.component.scss'
 })
 export class AddPricePolicyComponent implements OnInit {
+  rowDataMap: { [key: number]: { uomOptions: any[] } } = {};
+
   data:any;
   listOfExcel: any[]=[];
   items: ItemDto[]=[];
@@ -54,12 +56,16 @@ export class AddPricePolicyComponent implements OnInit {
   let newLine = this.formBuilder.group(
     {
       itemId: new FormControl('',[customValidators.required]),
+      itemName: new FormControl(''),
       isVatApplied: new FormControl(''),
       uomId: new FormControl(''),
+      uomName: new FormControl(''),
       itemVariantId: new FormControl(''),
+      itemVariantName: new FormControl(''),
       price: new FormControl('',[customValidators.required]),
       priceWithVat: new FormControl(''),
       taxId: new FormControl(''),
+      uomOptions:new FormControl(''),
 
       ////
       name: new FormControl(''),
@@ -71,9 +77,50 @@ export class AddPricePolicyComponent implements OnInit {
   this.pricePolicyFormArray.push(newLine);
 
 }
-setRowData(index:number , event:any){
-  console.log(index , event ,";;;;;;;;;;;;");
-  
+
+setRowData(rowIndex: number, selectedItemId: number) {
+  const selectedItem = this.items.find(item => item.id === selectedItemId);
+  console.log(selectedItem,"0000000000");
+
+  if (selectedItem) {
+    console.log(selectedItem,"selectedItem");
+    
+    const uomOptions:any = selectedItem.itemsUOM
+    // .map((uom:any) => ({
+    //   id: uom.uomId,
+    //   name: uom.uomNameEn, // Use uomNameAr if needed for Arabic
+    // }));
+    console.log(uomOptions,"uomOptions");
+
+    // Set the UOM options for the corresponding row
+    const rowForm = this.pricePolicyFormArray.at(rowIndex) as FormGroup;
+    rowForm.get('uomOptions') ?.setValue( uomOptions); // Store options for template access
+console.log(rowForm.get('uomOptions')?.value ,"dddddddddd");
+
+    rowForm.get('uomId')?.reset(); // Reset the UOM value to avoid conflicts
+    rowForm.get('uomId')?.setValue(selectedItem.uomId); // Optionally set the first UOM
+    rowForm.get('uomName')?.setValue(selectedItem.uomNameAr); // Optionally set the first UOM
+    rowForm.get('itemName')?.setValue(selectedItem.itemName); // Optionally set the first UOM
+    rowForm.get('itemVariantId')?.setValue(selectedItem.itemVariantName); // Optionally set the first UOM
+    rowForm.get('itemVariantName')?.setValue(selectedItem.itemVariantName); // Optionally set the first UOM
+  }
+}
+
+// setRowData(index:number , event:any){
+//   console.log(index , event ,";;;;;;;;;;;;");
+//   const foundItem = this.items.find(item => item.id === event);
+
+//   if (foundItem) {
+//     console.log( foundItem ,"jjjjjjjj");
+//     const priceLine = this.items.at(index);
+    
+
+//   }
+
+// }
+logValue(event: any) {
+  console.log('Value Changed:', event);
+  // this.setRowData(rowIndex, event);
 }
 test2(e:any){
 console.log(e ,"kkkkkk");
@@ -89,7 +136,11 @@ console.log(e ,"kkkkkk");
   subscribes() {
     this.salesService.latestItemsList.subscribe({
       next: (res) => {
-        this.items = res;
+        // this.items = res;
+        this.items = res.map((item, index) => ({
+          ...item,    // Spread existing properties from the original item
+          id: index + 1 // Add an `id` field starting from 1
+        }));
         console.log(this.items , "items");
         
       },

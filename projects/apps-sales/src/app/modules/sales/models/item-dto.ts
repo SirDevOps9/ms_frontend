@@ -1,5 +1,6 @@
 export interface ItemDto {
   itemId: number;
+  id?: number;
   itemCode: string;
   itemName: string;
   uomId: number;
@@ -12,4 +13,5 @@ export interface ItemDto {
   itemCategoryNameAr: string;
   itemCategoryNameEn: string;
   categoryId: number;
+  itemsUOM:any[]
   }
