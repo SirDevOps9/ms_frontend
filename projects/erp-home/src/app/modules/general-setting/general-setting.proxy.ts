@@ -248,7 +248,11 @@ export class GeneralSettingProxy {
   getCurrencyByIdConversion(id: number): Observable<CurrencyConversionDto> {
     return this.httpService.get<CurrencyConversionDto>(`CurrencyConversion/${id}`);
   }
-  exportcurrencyData(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<ExportCurrencyConversionDto[]> {
+  exportcurrencyData(
+    searchTerm?: string,
+    SortBy?: number,
+    SortColumn?: string
+  ): Observable<ExportCurrencyConversionDto[]> {
     let query = `CurrencyConversion/Export?`;
     const params: string[] = [];
     if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
@@ -258,24 +262,36 @@ export class GeneralSettingProxy {
     return this.httpService.get<ExportCurrencyConversionDto[]>(query);
   }
   exportcurrencyDefinitionData(
-    searchTerm: string | undefined
+    searchTerm?: string ,SortBy?:number,SortColumn?:string
   ): Observable<CurrencyDefinitionDto[]> {
     let query = `Currency/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
     return this.httpService.get<CurrencyDefinitionDto[]>(query);
   }
 
-  exportFinancialCalendarData(searchTerm: string | undefined): Observable<financialCalendar[]> {
+  exportFinancialCalendarData(
+    searchTerm?: string,
+    SortBy?: number,
+    SortColumn?: string
+  ): Observable<financialCalendar[]> {
     let query = `FinancialYear/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
     return this.httpService.get<financialCalendar[]>(query);
   }
 
-  exportTagData(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<ExportTagDto[]> {
+  exportTagData(
+    searchTerm?: string,
+    SortBy?: number,
+    SortColumn?: string
+  ): Observable<ExportTagDto[]> {
     let query = `Tag/Export?`;
     const params: string[] = [];
     if (searchTerm) params.push(`SearchKey=${encodeURIComponent(searchTerm)}`);
@@ -330,15 +346,21 @@ export class GeneralSettingProxy {
     return this.httpService.put('Tax', command);
   }
 
-  exportTaxGroupData(searchTerm: string | undefined): Observable<TaxGroupDto[]> {
+  exportTaxGroupData(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<TaxGroupDto[]> {
     let query = `TaxGroup/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`SearchKey=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
     return this.httpService.get<TaxGroupDto[]>(query);
   }
 
-  exportTaxesData(searchTerm?: string ,SortBy?:number,SortColumn?:string ): Observable<ExportTaxDto[]> {
+  exportTaxesData(
+    searchTerm?: string,
+    SortBy?: number,
+    SortColumn?: string
+  ): Observable<ExportTaxDto[]> {
     let query = `Tax/Export?`;
     const params: string[] = [];
     if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);

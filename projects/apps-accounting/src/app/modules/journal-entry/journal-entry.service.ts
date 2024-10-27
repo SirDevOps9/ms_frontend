@@ -79,8 +79,8 @@ export class JournalEntryService {
       });
   }
 
-  exportsEmployeesList(searchTerm: string | undefined) {
-    this.journalEntryProxy.exportGLOpeningBalance(searchTerm).subscribe({
+  exportsEmployeesList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+    this.journalEntryProxy.exportGLOpeningBalance(searchTerm,SortBy,SortColumn).subscribe({
       next: (res) => {
         this.journalEntriesOpeningBalanceDataSource.next(res);
       },
@@ -271,8 +271,8 @@ export class JournalEntryService {
     });
   }
 
-  exportJournalEntriesData(searchTerm: string | undefined) {
-    this.journalEntryProxy.exportJournalEntriesData(searchTerm).subscribe({
+  exportJournalEntriesData(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+    this.journalEntryProxy.exportJournalEntriesData(searchTerm,SortBy,SortColumn).subscribe({
       next: (res) => {
         this.exportsJournalEntriesDataSource.next(res);
       },

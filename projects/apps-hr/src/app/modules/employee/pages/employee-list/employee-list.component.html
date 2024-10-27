@@ -5,6 +5,7 @@
       className="p-datatable-gridlines"
       [currentPageResult]="currentPageInfo"
       (pageChange)="onPageChange($event)"
+      (exportObj)="exportedColumns($event)"
       [tableConfigs]="{
         allowPagination: false,
         allowServerPagination: true,
@@ -46,6 +47,7 @@
               <i class="pi pi-search"></i>
               <input
                 pInputText
+                [(ngModel)]="searchTerm"
                 type="text"
                 (input)="searchTermChange($event)"
                 [placeholder]="'Employee.List.Search' | translate"
@@ -55,7 +57,7 @@
           <div class="flex justify-content-end gap-3">
             <div>
               <lib-export
-                (exportClick)="exportClick($event)"
+                (exportClick)="exportClick()"
                 [exportData]="exportData"
                 [exportColumns]="exportColumns"
                 [ExportName]="'Employees List'"

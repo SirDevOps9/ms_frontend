@@ -120,19 +120,23 @@ export class SalesProxyService {
     return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown?moduleId=` + moduleId);
   }
 
-  exportCustomerCategoriesData(searchTerm: string | undefined): Observable<CustomerCategoryDto[]> {
+  exportCustomerCategoriesData(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<CustomerCategoryDto[]> {
     let query = `CustomerCategory/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+        const params: string[] = [];
+    if (searchTerm) params.push(`SearchKey=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
     return this.httpService.get<CustomerCategoryDto[]>(query);
   }
 
-  exportCustomersData(searchTerm: string | undefined): Observable<CustomerDefinitionDto[]> {
+  exportCustomersData(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<CustomerDefinitionDto[]> {
     let query = `Customer/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`SearchKey=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
     return this.httpService.get<CustomerDefinitionDto[]>(query);
   }
   openingBalanceJournalEntryDropdown(): Observable<CategoryDropdownDto[]> {

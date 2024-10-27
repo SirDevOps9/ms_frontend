@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import {
-  LanguageService,
   LoaderService,
   lookupDto,
   PageInfo,
@@ -26,8 +24,10 @@ export class JournalEntryListComponent implements OnInit {
   cols: any[] = [];
   active: boolean = false;
   currentPageInfo: PageInfoResult;
+  searchTerm:string
   exportColumns: lookupDto[];
-  exportData: JournalEntryDto[];
+  exportData: JournalEntryDto[];   SortBy?: number;
+  SortColumn?: string;
   constructor(
     private routerService: RouterService,
     private journalEntryService: JournalEntryService,
@@ -35,7 +35,6 @@ export class JournalEntryListComponent implements OnInit {
     private loaderService: LoaderService,
     private router: Router
   ) {
-    this.searchColumnsControl = new FormControl([]);
   }
 
   ngOnInit() {
@@ -143,8 +142,14 @@ export class JournalEntryListComponent implements OnInit {
     });
   }
 
-  exportJournalEntriesData(searchTerm: string) {
-    this.journalEntryService.exportJournalEntriesData(searchTerm);
+  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
+    this.SortBy = obj.SortBy;
+    this.SortColumn = obj.SortColumn;
+  }
+
+
+  exportJournalEntriesData() {
+    this.journalEntryService.exportJournalEntriesData(this.searchTerm ,this.SortBy,this.SortColumn);
     this.journalEntryService.exportsJournalEntriesDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });
@@ -164,11 +169,4 @@ export class JournalEntryListComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-  filtered_columns: any[] = [];
-  selected_filtered_columns: any[] = [];
-  searchColumnsControl: FormControl;
-
-  fillFilterDropdown(dropdown: any) {
-    this.filtered_columns = dropdown.columns;
-  }
 }

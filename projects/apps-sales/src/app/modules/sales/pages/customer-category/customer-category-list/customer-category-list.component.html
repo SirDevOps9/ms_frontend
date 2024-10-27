@@ -5,7 +5,8 @@
         [items]="tableData"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
-        (addNew)="routeToAdd()"
+        (addNew)="routeToAdd()"     (exportObj)="exportedColumns($event)"
+
         (pageChange)="onPageChange($event)"
         [tableConfigs]="{
               allowPagination: false,
@@ -77,6 +78,7 @@
               type="text"
               [placeholder]="'customerDefinition.Search' | translate"
               (keyUp)="onSearchChange($event)"
+              [(ngModel)]="searchTerm"
               [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
             >
             </lib-text-input>
@@ -84,7 +86,7 @@
         </ng-container>
         <ng-container action>
           <lib-export
-            (exportClick)="exportCustomerCategoriesData($event)"
+            (exportClick)="exportCustomerCategoriesData()"
             [exportData]="exportData"
             [exportColumns]="exportColumns"
             [ExportName]="'Customer Cateogries'"

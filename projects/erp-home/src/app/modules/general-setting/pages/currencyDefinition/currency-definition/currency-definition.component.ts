@@ -11,10 +11,9 @@ import { Title } from '@angular/platform-browser';
   styleUrl: './currency-definition.component.scss',
 })
 export class CurrencyDefinitionComponent {
-  constructor(
-    private generalSettingService: GeneralSettingService,
-  ) {
-  }
+  SortBy?: number;
+  SortColumn?: string;
+  constructor(private generalSettingService: GeneralSettingService) {}
   exportColumns: lookupDto[];
 
   tableData: currencyListDto[];
@@ -59,11 +58,14 @@ export class CurrencyDefinitionComponent {
       name: col.name,
     }));
   }
-  exportClick(e?: Event) {
-    this.exportcurrencyDefinitionData(this.searchTerm);
+  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
+    this.SortBy = obj.SortBy;
+    this.SortColumn = obj.SortColumn;
   }
-  exportcurrencyDefinitionData(searchTerm: string) {
-    this.generalSettingService.exportcurrencyDefinitionData(searchTerm);
+
+
+  exportClick() {
+    this.generalSettingService.exportcurrencyDefinitionData(this.searchTerm ,this.SortBy,this.SortColumn);
     this.generalSettingService.exportcurrencyDefinitionDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });

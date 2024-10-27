@@ -11,7 +11,6 @@ import { Title } from '@angular/platform-browser';
 
 })
 export class VendorOpeningBalanceListComponent implements OnInit {
-
   tableData : VendorOpeningBalanceListDto[];
 
   currentPageInfo: PageInfoResult = {};

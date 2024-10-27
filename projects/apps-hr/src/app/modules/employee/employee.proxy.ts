@@ -20,12 +20,13 @@ export class EmployeeProxy {
     return this.httpService.get<PaginationVm<EmployeeDto>>(query);
   }
   export(
-    searchTerm: string | undefined
-  ): Observable<EmployeeDto[]> {
+    searchTerm?: string ,SortBy?:number,SortColumn?:string  ): Observable<EmployeeDto[]> {
     let query = `Employee/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
      return this.httpService.get<EmployeeDto[]>(query);
   }
   

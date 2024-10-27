@@ -12,10 +12,10 @@ import { CustomerCategoryDto } from '../../../models';
   styleUrl: './customer-category-list.component.scss'
 })
 export class CustomerCategoryListComponent implements OnInit {
+  SortBy?: number;
+  SortColumn?: string;
   constructor(
     public authService: AuthService,
-    private dialog: DialogService,
-    private accountService: AccountService,
     private routerService : RouterService,
     private salesService : SalesService
   ) {}
@@ -87,8 +87,13 @@ export class CustomerCategoryListComponent implements OnInit {
     this.salesService.deleteCustomerCategory(id);
   }
 
-  exportCustomerCategoriesData(searchTerm: string) {
-    this.salesService.exportCustomerCategoriesData(searchTerm);
+  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
+    this.SortBy = obj.SortBy;
+    this.SortColumn = obj.SortColumn;
+  }
+
+  exportCustomerCategoriesData() {
+    this.salesService.exportCustomerCategoriesData(this.searchTerm ,this.SortBy,this.SortColumn);
     this.salesService.exportsCustomerCateogiesDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });

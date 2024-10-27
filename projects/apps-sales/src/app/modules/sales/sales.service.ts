@@ -315,15 +315,15 @@ export class SalesService {
     }
   }
 
-  exportCustomerCategoriesData(searchTerm: string | undefined) {
-    this.salesProxy.exportCustomerCategoriesData(searchTerm).subscribe({
+  exportCustomerCategoriesData(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+    this.salesProxy.exportCustomerCategoriesData(searchTerm,SortBy,SortColumn).subscribe({
       next: (res) => {
         this.exportsCustomerCateogiesDataSource.next(res);
       },
     });
   }
-  exportCustomersData(searchTerm: string | undefined) {
-    this.salesProxy.exportCustomersData(searchTerm).subscribe({
+  exportCustomersData(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+    this.salesProxy.exportCustomersData(searchTerm,SortBy,SortColumn).subscribe({
       next: (res) => {
         this.exportsCustomersDataSource.next(res);
       },

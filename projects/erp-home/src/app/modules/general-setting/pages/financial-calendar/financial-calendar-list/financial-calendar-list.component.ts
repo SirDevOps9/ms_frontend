@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
-import { PageInfoResult, MenuModule, RouterService, PageInfo, lookupDto, LanguageService } from 'shared-lib';
+import {
+  PageInfoResult,
+  MenuModule,
+  RouterService,
+  PageInfo,
+  lookupDto,
+  LanguageService,
+} from 'shared-lib';
 
 import { GeneralSettingService } from '../../../general-setting.service';
 import { financialCalendar } from '../../../models';
@@ -14,20 +21,20 @@ import { Title } from '@angular/platform-browser';
   styleUrl: './financial-calendar-list.component.scss',
 })
 export class FinancialCalendarListComponent implements OnInit {
-  constructor(
-    public authService: AuthService,
-    private generalSettingService: GeneralSettingService,
-    private routerService: RouterService,
-  ) {}
-
   tableData: financialCalendar[];
 
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
-
   exportColumns: lookupDto[];
   exportData: financialCalendar[];
+  SortBy?: number;
+  SortColumn?: string;
+  constructor(
+    public authService: AuthService,
+    private generalSettingService: GeneralSettingService,
+    private routerService: RouterService
+  ) {}
 
   ngOnInit() {
     this.initFinancialCalendarData();
@@ -37,9 +44,7 @@ export class FinancialCalendarListComponent implements OnInit {
     this.routerService.navigateTo('masterdata/financial-calendar/add-financial-calendar');
   }
   routeToEdit(id: number) {
-    this.routerService.navigateTo(
-      `masterdata/financial-calendar/edit-financial-calendar/${id}`
-    );
+    this.routerService.navigateTo(`masterdata/financial-calendar/edit-financial-calendar/${id}`);
   }
 
   initFinancialCalendarData() {
@@ -75,13 +80,17 @@ export class FinancialCalendarListComponent implements OnInit {
       },
     });
   }
-
-  exportClick(e?: Event){
-    this.exportcurrencyData(this.searchTerm);
-    
+  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
+    this.SortBy = obj.SortBy;
+    this.SortColumn = obj.SortColumn;
   }
-  exportcurrencyData(searchTerm: string) {
-    this.generalSettingService.exportFinancialCalendarData(searchTerm);
+
+  exportClick() {
+    this.generalSettingService.exportFinancialCalendarData(
+      this.searchTerm,
+      this.SortBy,
+      this.SortColumn
+    );
     this.generalSettingService.exportsFinancialCalendarDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });

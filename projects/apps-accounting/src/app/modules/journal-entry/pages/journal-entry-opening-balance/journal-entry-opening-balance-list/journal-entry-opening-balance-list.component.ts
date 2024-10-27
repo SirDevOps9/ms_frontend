@@ -1,13 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import {
-  PageInfoResult,
-  RouterService,
-  LanguageService, 
-  LoaderService,
-  PageInfo,
-  lookupDto,
-} from 'shared-lib';
+import { PageInfoResult, RouterService, LoaderService, PageInfo, lookupDto } from 'shared-lib';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { JournalEntryDto, SharedJournalEnums } from '../../../models';
 
@@ -21,7 +13,8 @@ export class JournalEntryOpeningBalanceListComponent implements OnInit {
   @ViewChild('myTab') myTab: any | undefined;
   searchTerm: string;
   exportColumns: lookupDto[];
-
+  SortBy?: number;
+  SortColumn?: string;
   selectedEntries: JournalEntryDto[];
   tableData: JournalEntryDto[];
   exportData: JournalEntryDto[];
@@ -31,13 +24,10 @@ export class JournalEntryOpeningBalanceListComponent implements OnInit {
 
   constructor(
     private routerService: RouterService,
-    private titleService: Title,
-    private languageService: LanguageService,
+
     private journalEntryService: JournalEntryService,
-    public sharedJouralEnum: SharedJournalEnums,
-    private loaderService: LoaderService
-  ) {
-  }
+    public sharedJouralEnum: SharedJournalEnums
+  ) {}
 
   ngOnInit() {
     this.initJournalEntryData();
@@ -101,16 +91,17 @@ export class JournalEntryOpeningBalanceListComponent implements OnInit {
     ];
   }
 
-  exportClick(e?: Event) {
-    this.exportGLOpeningBalanceData(this.searchTerm);
+  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
+    this.SortBy = obj.SortBy;
+    this.SortColumn = obj.SortColumn;
   }
 
-  exportGLOpeningBalanceData(searchTerm: string) {
-    this.journalEntryService.exportsEmployeesList(searchTerm);
+  exportClick() {
+    this.journalEntryService.exportsEmployeesList(this.searchTerm, this.SortBy, this.SortColumn);
 
-     this.journalEntryService.journalEntriesObs.subscribe((res) => {
+    this.journalEntryService.journalEntriesObs.subscribe((res) => {
       this.exportData = res;
-     });
+    });
   }
 
   initJournalEntryData() {
@@ -126,7 +117,6 @@ export class JournalEntryOpeningBalanceListComponent implements OnInit {
       this.currentPageInfo = currentPageInfo;
     });
   }
-
 
   routeToAdd() {
     this.routerService.navigateTo(`/transcations/journal-entry-opening-balance/add`);

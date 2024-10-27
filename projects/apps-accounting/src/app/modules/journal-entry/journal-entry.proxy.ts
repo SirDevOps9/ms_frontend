@@ -45,12 +45,13 @@ export class JournalEntryProxy {
 
 
   exportGLOpeningBalance(
-    searchTerm: string | undefined
-  ): Observable<JournalEntryDto[]> {
+    searchTerm?: string ,SortBy?:number,SortColumn?:string  ): Observable<JournalEntryDto[]> {
     let query = `OpeningBalanceJournalEntry/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
      return this.httpService.get<JournalEntryDto[]>(query);
   }
   
@@ -108,12 +109,14 @@ export class JournalEntryProxy {
   }
   
   exportJournalEntriesData(
-    searchTerm: string | undefined
+    searchTerm?: string ,SortBy?:number,SortColumn?:string
   ): Observable<JournalEntryDto[]> {
     let query = `JournalEntry/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
      return this.httpService.get<JournalEntryDto[]>(query);
   }
   getCostCenterReports(cost:reportCostAllData){

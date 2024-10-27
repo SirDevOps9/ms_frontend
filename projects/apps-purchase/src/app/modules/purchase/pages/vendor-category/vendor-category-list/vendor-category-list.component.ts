@@ -6,22 +6,21 @@ import { RouterService, PageInfoResult, MenuModule, PageInfo, lookupDto } from '
 import { PurchaseService } from '../../../purchase.service';
 import { VendorCategoryDto } from '../../../models';
 
-
 @Component({
   selector: 'app-vendor-category-list',
   templateUrl: './vendor-category-list.component.html',
-  styleUrl: './vendor-category-list.component.scss'
+  styleUrl: './vendor-category-list.component.scss',
 })
 export class VendorCategoryListComponent implements OnInit {
+  SortBy?: number;
+  SortColumn?: string;
   constructor(
     public authService: AuthService,
-    private dialog: DialogService,
-    private accountService: AccountService,
     private purchaseService: PurchaseService,
-    private routerService : RouterService
+    private routerService: RouterService
   ) {}
 
-  tableData : VendorCategoryDto[];
+  tableData: VendorCategoryDto[];
 
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
@@ -29,25 +28,22 @@ export class VendorCategoryListComponent implements OnInit {
 
   exportColumns: lookupDto[];
   exportData: VendorCategoryDto[];
- 
+
   ngOnInit() {
+    this.initFinancialCalendarData();
 
-     this.initFinancialCalendarData();
-
-     this.purchaseService.addVendorCategoryDataObservable.subscribe(res=>{
-      if(res) {
+    this.purchaseService.addVendorCategoryDataObservable.subscribe((res) => {
+      if (res) {
         this.initFinancialCalendarData();
-
       }
-     })
-
+    });
   }
 
   routeToAdd() {
-    this.routerService.navigateTo('/masterdata/vendor-category/add-vendor-category')
+    this.routerService.navigateTo('/masterdata/vendor-category/add-vendor-category');
   }
-  routeToEdit(id : number) {
-    this.routerService.navigateTo(`/masterdata/vendor-category/edit-vendor-category/${id}`)
+  routeToEdit(id: number) {
+    this.routerService.navigateTo(`/masterdata/vendor-category/edit-vendor-category/${id}`);
   }
 
   initFinancialCalendarData() {
@@ -64,7 +60,6 @@ export class VendorCategoryListComponent implements OnInit {
     });
   }
 
- 
   onPageChange(pageInfo: PageInfo) {
     this.purchaseService.getVendorCategory('', pageInfo);
 
@@ -75,9 +70,7 @@ export class VendorCategoryListComponent implements OnInit {
     });
   }
 
-
-
-  onSearchChange(event : any) {
+  onSearchChange(event: any) {
     this.purchaseService.getVendorCategory(event, new PageInfo());
 
     this.purchaseService.vendorCategoryDataSourceObservable.subscribe({
@@ -90,9 +83,13 @@ export class VendorCategoryListComponent implements OnInit {
   onDelete(id: number) {
     this.purchaseService.deleteVendorCategory(id);
   }
+  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
+    this.SortBy = obj.SortBy;
+    this.SortColumn = obj.SortColumn;
+  }
 
-  exportVendorCategoriesData(searchTerm: string) {
-    this.purchaseService.exportVendorCategoriesData(searchTerm);
+  exportVendorCategoriesData() {
+    this.purchaseService.exportVendorCategoriesData(this.searchTerm, this.SortBy, this.SortColumn);
     this.purchaseService.exportsVendorCateogiesDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });

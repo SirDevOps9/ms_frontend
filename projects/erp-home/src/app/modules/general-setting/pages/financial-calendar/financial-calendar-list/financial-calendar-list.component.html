@@ -9,6 +9,7 @@
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
         (pageChange)="onPageChange($event)"
+        (exportObj)="exportedColumns($event)"
         (addNew)="routeToAdd()"
         [tableConfigs]="{
               allowPagination: false,
@@ -63,6 +64,8 @@
             <div>
               <lib-text-input
               type="text"
+              [(ngModel)]="searchTerm"
+
               [placeholder]="'financialCalendar.Search' | translate"
               (keyUp)="onSearchChange($event)"
               [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
@@ -73,7 +76,7 @@
 
             <div class="flex gap-2">
               <lib-export
-                (exportClick)="exportClick($event)"
+                (exportClick)="exportClick()"
                 [exportData]="exportData"
                 [exportColumns]="exportColumns"
                 [ExportName]="'Financial Calendar'"

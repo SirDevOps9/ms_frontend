@@ -9,6 +9,8 @@
         [currentPageResult]="currentPageInfo"
         (pageChange)="onPageChange($event)"
         (addNew)="Add()"
+        (exportObj)="exportedColumns($event)"
+
         [tableConfigs]="{
           allowPagination: false,
           allowServerPagination: true,
@@ -48,6 +50,7 @@
             <input
               pInputText
               type="text"
+              [(ngModel)]="searchTerm"
               placeholder="{{ 'TaxGroup.Search' | translate }}"
               (keyup)="onSearchChange($event)"
             />
@@ -57,20 +60,12 @@
       <ng-container action>
         <div class="flex gap-2">
           <lib-export
-            (exportClick)="exportTaxGroupData($event)"
-            [exportData]="exportData"
+          (exportClick)="exportClick()"
+          [exportData]="exportData"
             [exportColumns]="exportColumns"
             [ExportName]="'Tax Group'"
           >
           </lib-export>
-          <!-- <lib-button
-            pRipple
-            className="addToList"
-            label="{{ 'Tax.AddNew' | translate }}"
-            (onClick)="Add()"
-            [icon]="'pi pi-plus'"
-          >
-          </lib-button> -->
           <lib-button-micro
           nameClass="save"
           title="{{ 'Tax.AddNew' | translate }}"

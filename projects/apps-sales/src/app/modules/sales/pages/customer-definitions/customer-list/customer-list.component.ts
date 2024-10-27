@@ -1,27 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
-import { DialogService } from 'primeng/dynamicdialog';
-import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
 import { RouterService, PageInfoResult, MenuModule, PageInfo, lookupDto } from 'shared-lib';
 import { SalesService } from '../../../sales.service';
 import { CustomerDefinitionDto } from '../../../models/customerDefinitionDto';
 
-
 @Component({
   selector: 'app-customer-list',
   templateUrl: './customer-list.component.html',
-  styleUrl: './customer-list.component.scss'
+  styleUrl: './customer-list.component.scss',
 })
 export class CustomerListComponent implements OnInit {
+  SortBy?: number;
+  SortColumn?: string;
   constructor(
     public authService: AuthService,
-    private dialog: DialogService,
-    private accountService: AccountService,
+
     private salesService: SalesService,
-    private routerService : RouterService
+    private routerService: RouterService
   ) {}
 
-  tableData : any[];
+  tableData: any[];
 
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
@@ -29,18 +27,17 @@ export class CustomerListComponent implements OnInit {
   exportColumns: lookupDto[];
   exportData: CustomerDefinitionDto[];
   ngOnInit() {
-
-     this.initFinancialCalendarData();
-
+    this.initFinancialCalendarData();
   }
 
   routeToAdd() {
-    this.routerService.navigateTo('masterdata/customer-definitions/add-customer-definitions')
+    this.routerService.navigateTo('masterdata/customer-definitions/add-customer-definitions');
   }
-  routeToEdit(id : number) {
-    this.routerService.navigateTo(`masterdata/customer-definitions/edit-customer-definitions/${id}`)
+  routeToEdit(id: number) {
+    this.routerService.navigateTo(
+      `masterdata/customer-definitions/edit-customer-definitions/${id}`
+    );
   }
-
 
   initFinancialCalendarData() {
     this.salesService.getcustomerDefinition('', new PageInfo());
@@ -56,7 +53,6 @@ export class CustomerListComponent implements OnInit {
     });
   }
 
- 
   onPageChange(pageInfo: PageInfo) {
     this.salesService.getcustomerDefinition('', pageInfo);
 
@@ -67,31 +63,27 @@ export class CustomerListComponent implements OnInit {
     });
   }
 
-
-
-  onSearchChange(event : any) {
+  onSearchChange(event: any) {
     this.salesService.getcustomerDefinition(event, new PageInfo());
 
     this.salesService.customerDefinitionDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;
-        console.log('onSearchChange',this.tableData)
-
+        console.log('onSearchChange', this.tableData);
       },
     });
   }
-  
 
   onDelete(id: number) {
     this.salesService.deleteCustomerDefinition(id);
   }
-
-  onColumnsChange(e:any) {
-
+  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
+    this.SortBy = obj.SortBy;
+    this.SortColumn = obj.SortColumn;
   }
 
-  exportCustomersData(searchTerm: string) {
-    this.salesService.exportCustomersData(searchTerm);
+  exportCustomersData() {
+    this.salesService.exportCustomersData(this.searchTerm, this.SortBy, this.SortColumn);
     this.salesService.exportsCustomersDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });

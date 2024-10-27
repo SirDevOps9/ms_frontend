@@ -10,6 +10,8 @@ import { PurchaseService } from '../../../purchase.service';
   styleUrl: './vendor-definitions-list.component.scss'
 })
 export class VendorDefinitionsListComponent implements OnInit {
+  SortBy?: number;
+  SortColumn?: string;
   constructor(
     public authService: AuthService,
     private purchaseService: PurchaseService,
@@ -79,9 +81,13 @@ export class VendorDefinitionsListComponent implements OnInit {
     this.purchaseService.deletevendorDefinition(id);
   }
 
+  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
+    this.SortBy = obj.SortBy;
+    this.SortColumn = obj.SortColumn;
+  }
 
-  exportVendorsData(searchTerm: string) {
-    this.purchaseService.exportVendorsData(searchTerm);
+  exportVendorsData() {
+    this.purchaseService.exportVendorsData(this.searchTerm ,this.SortBy,this.SortColumn);
     this.purchaseService.exportsVendorsDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });

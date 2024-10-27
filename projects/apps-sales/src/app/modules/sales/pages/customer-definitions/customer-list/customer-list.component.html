@@ -6,65 +6,66 @@
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
         (addNew)="routeToAdd()"
+        (exportObj)="exportedColumns($event)"
         (pageChange)="onPageChange($event)"
         [tableConfigs]="{
-              allowPagination: false,
-              allowServerPagination: true,
-              dataKey: 'id',
-              pageSize: 10,
-              columns: [
-                 
-                 {
-                   name: 'code',
-                   headerText: ('customerDefinition.code' | translate),
-                   isGlobalFilter: true,
-                   isSortable: true
-                 },
-                 {
-                   name: 'name',
-                   headerText: ('customerDefinition.name' | translate),
-                   isGlobalFilter: true,
-                   isSortable: true
-                 },
-               
-                 {
-                   name: 'categoryName',
-                   headerText: ('customerDefinition.category' | translate),
-                   isSortable: true
-                 },
-                 {
-                   name: 'email',
-                   headerText: ('customerDefinition.email' | translate) ,
-                   isSortable: true
-                 },
-               
-                 {
-                   name: 'country',
-                   headerText: ('customerDefinition.country' | translate),
-                   isSortable: true
-                 },
-                 {
-                   name: 'paymentTermName',
-                   headerText: ('customerDefinition.paymentTerm' | translate),
-                   isSortable: true
-                 },
-                 {
-                   name: 'creditLimit',
-                   headerText: ('customerDefinition.criditLimit' | translate),
-                   isSortable: true
-                 },
-                 {
-                   name: 'id',
-                   headerText: ('customerDefinition.actions' | translate),
-                   template : actions
-                 },
-               ]
-            }"
+          allowPagination: false,
+          allowServerPagination: true,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'code',
+              headerText: ('customerDefinition.code' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'name',
+              headerText: ('customerDefinition.name' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+
+            {
+              name: 'categoryName',
+              headerText: ('customerDefinition.category' | translate),
+              isSortable: true
+            },
+            {
+              name: 'email',
+              headerText: ('customerDefinition.email' | translate),
+              isSortable: true
+            },
+
+            {
+              name: 'country',
+              headerText: ('customerDefinition.country' | translate),
+              isSortable: true
+            },
+            {
+              name: 'paymentTermName',
+              headerText: ('customerDefinition.paymentTerm' | translate),
+              isSortable: true
+            },
+            {
+              name: 'creditLimit',
+              headerText: ('customerDefinition.criditLimit' | translate),
+              isSortable: true
+            },
+            {
+              name: 'id',
+              headerText: ('customerDefinition.actions' | translate),
+              template: actions
+            }
+          ]
+        }"
       >
         <ng-container search>
           <div>
             <lib-text-input
               type="text"
+              [(ngModel)]="searchTerm"
               [placeholder]="'customerDefinition.Search' | translate"
               (keyUp)="onSearchChange($event)"
               [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
@@ -73,7 +74,7 @@
         ></ng-container>
         <ng-container action>
           <lib-export
-            (exportClick)="exportCustomersData($event)"
+            (exportClick)="exportCustomersData()"
             [exportData]="exportData"
             [exportColumns]="exportColumns"
             [ExportName]="'Customers'"

@@ -18,6 +18,8 @@ import { ExportService } from 'libs/shared-lib/src/lib/export/exportService';
   styleUrls: ['./employee-list.component.css'],
 })
 export class EmployeeListComponent implements OnInit {
+  SortBy?: number;
+  SortColumn?: string;
   employees: EmployeeDto[];
   @ViewChild('myTab') myTab: any | undefined;
   selectedEntries: EmployeeDto[];
@@ -115,8 +117,14 @@ export class EmployeeListComponent implements OnInit {
     });
   }
 
-  exportEmployeeData(searchTerm: string) {
-    this.employeeService.exportsEmployeesList(searchTerm);
+
+  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
+    this.SortBy = obj.SortBy;
+    this.SortColumn = obj.SortColumn;
+  }
+
+  exportClick() {
+    this.employeeService.exportsEmployeesList(this.searchTerm ,this.SortBy,this.SortColumn);
 
     this.employeeService.exportedEmployeesList.subscribe((res) => {
       this.exportData = res;
@@ -146,9 +154,6 @@ export class EmployeeListComponent implements OnInit {
     this.initEmployeeData(this.searchTerm, new PageInfo());
   }
 
-  exportClick(e?: Event) {
-    this.exportEmployeeData(this.searchTerm);
-  }
   exportExcel() {
     // let filterDto : FilterDto = new FilterDto();
     // console.log(filterDto)

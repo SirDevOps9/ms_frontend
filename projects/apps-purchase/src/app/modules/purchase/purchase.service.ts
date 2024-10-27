@@ -301,15 +301,15 @@ export class PurchaseService {
       this.tagsDataSource.next(response);
     });
   }
-  exportVendorCategoriesData(searchTerm:string | undefined) {
-    this.purchaseProxy.exportVendorCategoriesData(searchTerm).subscribe({
+  exportVendorCategoriesData(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+    this.purchaseProxy.exportVendorCategoriesData(searchTerm,SortBy,SortColumn).subscribe({
       next: (res) => {
          this.exportsVendorCateogiesDataSource.next(res);
       },
     });
   }
-  exportVendorsData(searchTerm:string | undefined) {
-    this.purchaseProxy.exportVendorsData(searchTerm).subscribe({
+  exportVendorsData(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+    this.purchaseProxy.exportVendorsData(searchTerm,SortBy,SortColumn).subscribe({
       next: (res) => {
          this.exportsVendorsDataSource.next(res);
       },

@@ -7,7 +7,7 @@
       [currentPageResult]="currentPageInfo"
       (pageChange)="onPageChange($event)"
       (addNew)="routeToAdd()"
-      (fiteredDropdOwn)="fillFilterDropdown($event)"
+      (exportObj)="exportedColumns($event)"
       [tableConfigs]="{
         allowPagination: false,
         allowServerPagination: true,
@@ -116,6 +116,7 @@
         <div>
           <lib-text-input
             type="text"
+            [(ngModel)]="searchTerm"
             [placeholder]="'Journal.search' | translate"
             (keyUp)="onSearchChange($event)"
             [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
@@ -126,7 +127,7 @@
       <ng-container action>
         <div class="flex gap-2">
           <lib-export
-            (exportClick)="exportJournalEntriesData($event)"
+            (exportClick)="exportJournalEntriesData()"
             [exportData]="exportData"
             [exportColumns]="exportColumns"
             [ExportName]="'Journal Entries'"

@@ -6,7 +6,8 @@
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
         (addNew)="routeToAdd()"
-        (pageChange)="onPageChange($event)"
+        (pageChange)="onPageChange($event)"    (exportObj)="exportedColumns($event)"
+
         [tableConfigs]="{
               allowPagination: false,
               allowServerPagination: true,
@@ -79,7 +80,8 @@
         <ng-container search>
           <div>
             <lib-text-input
-              type="text"
+              type="text"          [(ngModel)]="searchTerm"
+
               [placeholder]="'vendorCategory.Search' | translate"
               (keyUp)="onSearchChange($event)"
               [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
@@ -90,7 +92,7 @@
         <ng-container action>
           <div class="group flex gap-2">
             <lib-export
-              (exportClick)="exportVendorCategoriesData($event)"
+              (exportClick)="exportVendorCategoriesData()"
               [exportData]="exportData"
               [exportColumns]="exportColumns"
               [ExportName]="'Vendor Cateogries'"

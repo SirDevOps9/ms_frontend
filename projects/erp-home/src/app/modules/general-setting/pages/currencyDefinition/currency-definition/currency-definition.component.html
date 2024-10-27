@@ -4,6 +4,7 @@
     className="p-datatable-gridlines"
     [currentPageResult]="currentPageInfo"
     (pageChange)="onPageChange($event)"
+    (exportObj)="exportedColumns($event)"
     [tableConfigs]="{
             allowPagination: false,
             allowServerPagination: true,
@@ -51,30 +52,20 @@
     <ng-container caption>
       <div class="group flex justify-content-between">
         <div>
-
           <lib-text-input
-          type="text"
-          [placeholder]="'currencyDefinition.Search' | translate"
-          (keyUp)="onSearchChange($event)"
-          [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
-        >
-        </lib-text-input>
+            type="text"
+            [(ngModel)]="searchTerm"
+            [placeholder]="'currencyDefinition.Search' | translate"
+            (keyUp)="onSearchChange($event)"
+            [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+          >
+          </lib-text-input>
         </div>
 
         <div class="flex gap-2">
-          <!--      <div>
-                  
-                      
-                        <lib-button-micro title="{{ 'currencyDefinition.AddNew' | translate }}" nameClass="save" iconName="pi pi-plus-circle" (click)="addNew()" >
-                        </lib-button-micro>
-
-
-                  </div>
-                -->
-
           <div>
             <lib-export
-              (exportClick)="exportClick($event)"
+              (exportClick)="exportClick()"
               [exportData]="exportData"
               [exportColumns]="exportColumns"
               [ExportName]="'Currency Conversion'"
@@ -89,7 +80,6 @@
       <div class="actions flex align-items-center">
         <lib-button-micro nameClass="table_button_edit" (click)="Edit(actions.id)">
         </lib-button-micro>
-        <!-- <i class="delete pi pi-trash pointer" (click)="onDelete(actions.id)"></i> -->
       </div>
     </ng-template>
   </lib-data-table>
