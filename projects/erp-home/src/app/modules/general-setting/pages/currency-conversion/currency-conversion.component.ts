@@ -66,9 +66,7 @@ export class CurrencyConversionComponent {
     this.SortBy = obj.SortBy;
     this.SortColumn = obj.SortColumn;
   }
-  // exportClick() {
-  //   this.exportcurrencyData();
-  // }
+
   exportClick(){
     this.generalSettingService.exportcurrencyData(this.searchTerm ,this.SortBy,this.SortColumn);
     this.generalSettingService.exportsCurrencyListDataSourceObservable.subscribe((res) => {
