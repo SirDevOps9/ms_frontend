@@ -38,7 +38,6 @@
               <lib-select
                 formControlName="operationType"
                 [options]="operationTypeList"
-                [selectedValue]="formGroup.controls['operationType'].value"
                 optionLabel="name"
                 optionValue="id"
               >
@@ -47,6 +46,7 @@
             <lib-field-validations [appControl]="formGroup.controls['operationType']">
             </lib-field-validations>
           </div>
+
           <div class="md:col-6">
             <lib-form-group>
               <lib-label [appControl]="formGroup.controls['warehouseId']">
@@ -104,7 +104,7 @@
               type="button"
               (click)="onSave()"
             >
-             
+
             </lib-button-micro>
           </div>
         </div>

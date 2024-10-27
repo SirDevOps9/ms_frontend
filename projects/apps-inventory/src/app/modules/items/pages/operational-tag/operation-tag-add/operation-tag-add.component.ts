@@ -21,9 +21,10 @@ export class OperationTagAddComponent implements OnInit {
     return this.operationType
   }
   operationTypeList = [
+    
     { id: OperationType.StockIn, name: OperationType.StockIn },
     { id: OperationType.StockOut, name:  OperationType.StockOut },
-  
+
   ];
   constructor(
     private fb: FormBuilder,
@@ -41,7 +42,7 @@ export class OperationTagAddComponent implements OnInit {
     this.initForm();
     this.initWareHouseLookupData()
      this.getAccount()
-   
+
   }
 
   initWareHouseLookupData() {
@@ -51,7 +52,7 @@ export class OperationTagAddComponent implements OnInit {
     })
   }
 
-  getAccount() { 
+  getAccount() {
     this.itemsService.AccountsDropDown()
     this.itemsService.AccountsDropDownLookupObs.subscribe(res=>{
       this.AccountsDropDownLookup = res
@@ -59,7 +60,7 @@ export class OperationTagAddComponent implements OnInit {
     })
   }
 
- 
+
 
   initForm() {
       this.formGroup = this.fb.group({
@@ -73,13 +74,13 @@ export class OperationTagAddComponent implements OnInit {
 
   discard() {
     this.routerService.navigateTo('/masterdata/operational-tag')
-    
+
   }
 
   onSave() {
     if (!this.formService.validForm(this.formGroup, false)) return;
 
-    
+
     let val = this .formGroup.value
 
     this.itemsService.addOperationTag(val);

@@ -6,6 +6,7 @@ import { FinanceService } from 'projects/apps-finance/src/app/modules/finance/fi
 import { PageInfoResult, RouterService, LanguageService, PageInfo, ToasterService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { IAttrributeDifinitionResult } from '../../../models/AttrbuteDiffintion';
+import { SharedService } from '../services/shared-service.service';
 
 @Component({
   selector: 'app-attribute-definition-list',
@@ -16,7 +17,7 @@ export class AttributeDefinitionListComponent implements OnInit {
   tableData: any[] = [
 
   ]
-  currentPageInfo: PageInfoResult = { totalItems: 0 }; 
+  currentPageInfo: PageInfoResult = { totalItems: 0 };
   searchTerm: string;
   exportData: IAttrributeDifinitionResult[];
   exportColumns:any[]
@@ -26,7 +27,7 @@ action: any;
     private routerService: RouterService,
     private itemService : ItemsService,
     private toasterService: ToasterService,
-
+   private sharedService :SharedService,
     public authService: AuthService,
     private dialog: DialogService,
     private title: Title,
@@ -38,18 +39,18 @@ action: any;
   }
   ngOnInit(): void {
     this.initTreasurData()
-    
+
     this.itemService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
-  }  
+  }
 
   initTreasurData() {
     this.itemService.getListOfAttr('', new PageInfo());
 
     this.itemService.listOfAttrDifinition$.subscribe({
       next: (res) => {
-        
+
         this.tableData = res;
       },
     });
@@ -80,30 +81,60 @@ action: any;
 
     this.itemService.listOfAttrDifinition$.subscribe({
       next: (res) => {
-        
+
         this.tableData = res;
       },
     });
   }
 
   exportClick(e?: Event) {
-    
     this.exportAttrData(this.searchTerm);
   }
+  // exportAttrData(searchTerm: string) {
+  //   this.itemService.exportAttrDifinitionList(searchTerm)
 
+  //   this.itemService.exportAttrDifinitionList(searchTerm).subscribe((res) => {
+  //     this.exportData = res;
+  //     console.log('Export data:', this.exportData);  // Check if the data is being set correctly
+  //   });
+  // }
+
+
+  // exportAttrData(searchTerm: string) {
+
+  //   this.itemService.exportAttrDifinitionList(searchTerm)
+
+  //   this.itemService.SendexportAttrDifinitionList$.subscribe((res)=>{
+  //     this.exportData = res
+  //   })
+  // }
+
+  // exportAttrData(searchTerm: string) {
+  //   this.itemService.exportAttrDifinitionList(searchTerm)
+  //   this.itemService.SendexportAttrDifinitionList$.subscribe((res)=>{
+
+  //     this.exportData = res.map(item => ({
+  //       ...item,
+
+  //       itemAttributes: item.itemAttributes.map((attr: { nameAr: any; nameEn: any; }) => `${attr.nameAr} (${attr.nameEn})`).join(', ')
+  //     }));
+  //     console.log('Export data:', this.exportData);
+  //   });
+  // }
   exportAttrData(searchTerm: string) {
-    
-    this.itemService.exportAttrDifinitionList(searchTerm)
+    this.itemService.exportAttrDifinitionList(searchTerm);
 
-    this.itemService.SendexportAttrDifinitionList$.subscribe((res)=>{
-      this.exportData = res
-    })
+    this.itemService.SendexportAttrDifinitionList$.subscribe((res) => {
 
-  
+      this.exportData = this.sharedService.formatItemAttributes(res);
+      console.log('Export data:', this.exportData);
+    });
   }
+
+  // }
   onEdit(data: any) {
     console.log(data);
-    
+
     this.routerService.navigateTo(`/masterdata/attribute-definition/edit-attribute/${data.id}`);
 
 
@@ -142,10 +173,10 @@ async confirmChange(newValue: boolean, user: any) {
       status: user.isActive,
     };
 
-    
+
     this.itemService.editStatusAttributeGroup(command)
     let audio = new Audio();
-          
+
     audio.src = 'assets/notification-sound/done.wav';
     audio.load();
     audio.play();

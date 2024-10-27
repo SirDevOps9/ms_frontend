@@ -24,9 +24,10 @@ export class OperationTagEditComponent implements OnInit {
   }
 
   operationTypeList = [
-    { id: OperationType.StockIn, name: OperationType.StockIn },
-    { id: OperationType.StockOut, name: OperationType.StockOut },
-];
+    { id: OperationType.StockIn, name: 'StockIn' },
+    { id: OperationType.StockOut, name: 'StockOut' }
+  ];
+
 
   constructor(
     private fb: FormBuilder,
@@ -75,17 +76,21 @@ export class OperationTagEditComponent implements OnInit {
     })
   }
 
-
   getOperationalTagById(id: number) {
     this.itemProxy.getOperationalTagById(id).subscribe(
       (res: AddOperatioalTag) => {
         console.log(res);
         if (res) {
+     
+          const operationTypeValue = this.operationTypeList.find(
+            type => type.name === res.operationType
+          )?.id || '';
+
           this.formGroup.patchValue({
             id: res.id,
             code: res.code,
             name: res.name,
-            operationType: res.operationType, // Make sure this matches the id from operationTypeList
+            operationType: operationTypeValue,
             warehouseId: res.warehouseId,
             glAccountId: String(res.glAccountId)
           });
@@ -95,7 +100,9 @@ export class OperationTagEditComponent implements OnInit {
         console.error('Error fetching operational tag:', error);
       }
     );
-}
+  }
+
+
 
 
 
