@@ -54,6 +54,7 @@
       <div class="group flex justify-content-between">
         <lib-text-input
           type="text"
+          [(ngModel)]="searchTerm"
           [placeholder]="'currencyConversion.search' | translate"
           (keyUp)="onSearchChange($event)"
           [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
@@ -61,7 +62,7 @@
         </lib-text-input>
         <div class="flex gap-2">
           <lib-export
-            (exportClick)="exportClick($event)"
+            (exportClick)="exportClick()"
             [exportData]="exportData"
             [exportColumns]="exportColumns"
             [ExportName]="'Currency Conversion'"

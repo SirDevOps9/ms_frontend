@@ -248,11 +248,13 @@ export class GeneralSettingProxy {
   getCurrencyByIdConversion(id: number): Observable<CurrencyConversionDto> {
     return this.httpService.get<CurrencyConversionDto>(`CurrencyConversion/${id}`);
   }
-  exportcurrencyData(searchTerm: string | undefined): Observable<ExportCurrencyConversionDto[]> {
+  exportcurrencyData(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<ExportCurrencyConversionDto[]> {
     let query = `CurrencyConversion/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
     return this.httpService.get<ExportCurrencyConversionDto[]>(query);
   }
   exportcurrencyDefinitionData(
@@ -273,11 +275,13 @@ export class GeneralSettingProxy {
     return this.httpService.get<financialCalendar[]>(query);
   }
 
-  exportTagData(searchTerm: string | undefined): Observable<ExportTagDto[]> {
+  exportTagData(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<ExportTagDto[]> {
     let query = `Tag/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`SearchKey=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
     return this.httpService.get<ExportTagDto[]>(query);
   }
 
