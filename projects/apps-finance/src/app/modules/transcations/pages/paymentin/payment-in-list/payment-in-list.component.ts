@@ -11,10 +11,9 @@ import { SharedFinanceEnums } from '../../../../finance/models';
 })
 export class PaymentInListComponent {
   tableData: GetAllPaymentInDto[];
-
+  SortBy?: number;
   currentPageInfo: PageInfoResult = {};
   searchTerm: string;
-  SortBy?: number
   SortColumn?:string
   exportColumns: lookupDto[] = [
     {
@@ -108,8 +107,19 @@ export class PaymentInListComponent {
     this.SortBy = obj.SortBy;
     this.SortColumn = obj.SortColumn;
   }
-  exportClick() {
-    this.financeService.exportsPaymentInList(this.searchTerm,this.SortBy ,this.SortColumn);
+  // exportClick() {
+  //   this.financeService.exportsPaymentInList(this.searchTerm,this.SortBy ,this.SortColumn);
+  // }
+
+
+
+
+
+  exportClick(){
+    this.financeService.exportsPaymentInList(this.searchTerm ,this.SortBy,this.SortColumn);
+    this.financeService.exportedPaymentinDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
   }
 
   onDelete(id: number) {

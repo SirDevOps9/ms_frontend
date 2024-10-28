@@ -76,7 +76,7 @@ export class ItemsProxyService {
   addItemDefinition(obj : AddItemDefinitionDto){
     return this.httpService.post('Item',obj)
   }
- 
+
   ViewDefinitionById(id : number ): Observable<EditItemDefinitionDto>{
     return this.httpService.get(`Item/${id}`)
   }
@@ -90,16 +90,16 @@ export class ItemsProxyService {
   deleteUOM(id : number ) {
     return this.httpService.delete(`UOM/DeleteUOM/${id}` )
   }
-    
+
   deleteCategory(id : number ) {
     return this.httpService.delete(`UOMCategories/DeleteUOMCategory/${id}`  )
   }
-    
+
   deleteAttributeGroup(id:number) {
     return this.httpService.delete(`AttributeGroup/${id}`)
   }
   deleteAttrDifinition(id : number ) {
-    
+
     return this.httpService.delete(`ItemAttribute/${id}` )
   }
 
@@ -107,7 +107,7 @@ export class ItemsProxyService {
     return this.httpService.post('AttributesVariants',obj)
 
   }
-  
+
  itemTypeLookup() {
   return this.httpService.get(`ItemType/ItemTypeDropDown`)
  }
@@ -128,8 +128,8 @@ export class ItemsProxyService {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.httpService.get<PaginationVm<GetItemCategoryDto>>(query)
-  
-  
+
+
  }
  GetUOMCategories(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<UOMCategoryDto>> {
 
@@ -138,8 +138,8 @@ export class ItemsProxyService {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.httpService.get<PaginationVm<UOMCategoryDto>>(query)
-  
-  
+
+
  }
  getItemCategoryById(id : number){
   return this.httpService.get(`ItemCategory/${id}`)
@@ -202,7 +202,7 @@ export class ItemsProxyService {
   return this.httpService.get(`ItemVariant/ItemVariantsByItemIdDropDown?ItemId=${id}`)
 
  }
-  
+
  attributeGroups(){
   return this.httpService.get(`AttributesVariants/GetAllAttributesGroups`)
  }
@@ -276,7 +276,7 @@ export class ItemsProxyService {
     return this.httpService.get<any>(url)
 
   }
-  
+
   deleteVariant(id:number) {
     return this.httpService.delete(`api/ItemAttributesGroup/${id}`)
   }
@@ -301,11 +301,11 @@ export class ItemsProxyService {
   addAttrDifinition(obj:addAttributeDifintion) {
     return this.httpService.post('AttributeGroup/AddAttributeGroupWithAttributeValues' , obj)
   }
-  //  add operation tag 
+  //  add operation tag
   addOperationTag(obj:AddOperatioalTag) {
     return this.httpService.post('OperationalTag' , obj)
   }
- 
+
   getBarcodeByItemId(id:number) : Observable<getBarcodeById[]> {
     return this.httpService.get(`Barcode/GetBarCodeByItemId/${id}`)
   }
@@ -336,10 +336,10 @@ export class ItemsProxyService {
     return this.httpService.put(`OperationalTag` , obj)
   }
   updateUOM(obj:addUOM) {
-    return this.httpService.put(`UOM/Edit` , obj) 
+    return this.httpService.put(`UOM/Edit` , obj)
    }
   updateAttrDifinition(obj:addAttributeDifintion) {
-    return this.httpService.put(`AttributeGroup/EditAttributeGroupWithAttributeValues` , obj) 
+    return this.httpService.put(`AttributeGroup/EditAttributeGroupWithAttributeValues` , obj)
    }
 
   generateVariant(obj : any) {
@@ -380,15 +380,20 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
     return this.httpService.get<IOperationalTag>(query)
   }
 
-  exportsWayehouseList(
-    searchTerm: string | undefined
-  ): Observable<GetWarehouseList[]> {
+  exportsWayehouseList(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<GetWarehouseList[]> {
+
+
+
     let query = `WareHouse/ExportWareHouse?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
      return this.httpService.get<GetWarehouseList[]>(query);
   }
+
+
   exportsItemCategoryList(
     searchTerm: string | undefined
   ): Observable<GetItemCategoryDto[]> {
@@ -411,7 +416,7 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
   getWarehouseById(id : number) : Observable<AddWarehouse> {
     return this.httpService.get(`WareHouse/${id}`)
   }
-  // 
+  //
   // getGlAccountLookup() {
   //   return this.httpService.get<any>(`WareHouse/`);
   // }
@@ -464,13 +469,13 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
   saveItemDefinitionGeneral(obj:AddGeneralDto) {
     return this.httpService.put('Item/EditGeneralData' , obj)
   }
- 
+
 
  getItemDefinitionGeneral(id : number) : Observable<AddGeneralDto> {
     return this.httpService.get(`Item/GetGeneralData/${id}`)
   }
- 
 
-  
+
+
 }
 
