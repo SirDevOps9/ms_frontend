@@ -1,0 +1,57 @@
+.card {
+  background-color: #ffffff;
+  border-radius: 7px;
+  margin: 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  min-height: 265px;
+}
+
+
+.pointer {
+  cursor: pointer;
+}
+
+.showtext {
+  color: #1a8eae;
+  cursor: pointer;
+}
+.none {
+  display: none;
+}
+
+.new_employee {
+  display: flex;
+  margin: 8px;
+
+  .sidebar {
+    ul {
+      list-style: none;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #fff;
+      color: #1a90b0;
+      padding: 0;
+      margin: 4px 8px 0px 0px;
+    }
+
+    li {
+      padding: 1rem;
+      border: 1px solid #1a90b0;
+      border-radius: 8px;
+      margin: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background-color: #1a90b0;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.mainGrid {
+  width: 100%;
+}
