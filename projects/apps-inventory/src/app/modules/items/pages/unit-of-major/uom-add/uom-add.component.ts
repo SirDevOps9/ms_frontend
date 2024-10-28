@@ -7,7 +7,7 @@ import { RouterService, FormsService, LanguageService, customValidators, PageInf
 import { ItemsService } from '../../../items.service';
 import { UomCodeLookup } from '../../../models/uomCodeLookup';
 import { UOMType } from '../../../models/enums';
-import { addUOM, UoM } from '../../../models/addUom';
+import { AddUom, addUOM, UoM } from '../../../models/addUom';
 
 
 
@@ -22,12 +22,13 @@ export class UOMAddComponent implements OnInit {
   lineStatus: boolean[] = [];
 
   list : any = []
-
+  systemUnitData : any = {}
   listOfUOM: { id: number; name: string }[] = []
   listOfUOMCat: UomCodeLookup[] = []
   listOfUomTypes: any[] = []
   conversionUOMlist: any[] = []
-  sytemUnitLookup : { id: number; nameAr: string; nameEn: string }[]
+  sytemUnitLookup : { id: number; nameAr: string; nameEn: string ; systemUnitOfMeasureCategoryId : number }[]
+  filteredSytemUnitLookup : { id: number; nameAr: string; nameEn: string ; systemUnitOfMeasureCategoryId : number }[]
   usersList: UserPermission[];
   isLastLineSaved: boolean = true
   currentLang : string
@@ -63,7 +64,8 @@ export class UOMAddComponent implements OnInit {
 // Listen to UOMFormGroup value changes to set the first index
 this.UOMFormGroup.valueChanges.subscribe((res) => {
   if (res.baseUomEn) {
-    let defaultBase = [{ name: this.currentLang == 'en' ? res.baseUomEn : res.baseUomAr}];
+    let defaultBase = [{ name: this.currentLang == 'en' ? res.baseUomEn : res.baseUomAr, id : res.shortName}];
+    console.log(defaultBase)
     this.list[0] = defaultBase; // Set the first index in the list
   }
 });
@@ -83,16 +85,17 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
     const currentData = [];
 
     // Add nameUom from UOMFormGroup
-    currentData.push({ name:  this.currentLang == 'en' ? this.UOMFormGroup.get('baseUomEn')?.value :  this.UOMFormGroup.get('baseUomAr')?.value});
+    currentData.push({ name:  this.currentLang == 'en' ? this.UOMFormGroup.get('baseUomEn')?.value :  this.UOMFormGroup.get('baseUomAr')?.value , id : this.UOMFormGroup.get('shortName')?.value});
 
 
     // Add nameAr of the current item
-    currentData.push({ name: this.currentLang == 'en' ? item.nameEn : item.itemAr });
+    currentData.push({ name: this.currentLang == 'en' ? item.nameEn : item.itemAr , id : item.shortName  });
 
     // Iterate through all previous indexes and add their nameEn
     for (let j = 0; j < i; j++) {
       const previousItem = res[j];
-      currentData.push({ name: this.currentLang == 'en' ? previousItem.nameEn :  previousItem.nameAr});
+      console.log(previousItem)
+      currentData.push({ name: this.currentLang == 'en' ? previousItem.nameEn :  previousItem.nameAr , id : previousItem.shortName});
     }
 
     // Filter out any objects with an empty name
@@ -120,16 +123,21 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
   systemUnitChanged(event  :any) {
     let data  = this.sytemUnitLookup.find(elem=>elem.id === event)
     console.log(data)
+    this.systemUnitData = data
     this.UOMFormGroup.get('baseUomAr')?.setValue(data?.nameAr)
     this.UOMFormGroup.get('baseUomEn')?.setValue(data?.nameEn)
   }
   systemUnitListChanged(event  :any , uomTableForm  :FormGroup) {
-    let data  = this.sytemUnitLookup.find(elem=>elem.id === event)
+    let data  : any = this.sytemUnitLookup.find(elem=>elem.id === event)
     console.log(data)
     uomTableForm.get('baseUomEn')?.setValue(data?.nameEn)
     uomTableForm.get('nameEn')?.setValue(data?.nameEn)
     uomTableForm.get('nameAr')?.setValue(data?.nameAr)
     uomTableForm.get('systemUnitOfMeasureName')?.setValue(data?.nameEn)
+    
+
+      this.filteredSytemUnitLookup =  this.filteredSytemUnitLookup.filter(elem=> elem.id !== data.id)
+    
   }
 
 
@@ -141,6 +149,7 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
     this._itemService.systemUnitLookup()
     this._itemService.sendSystemUnitLookup$.subscribe(res=>{
       this.sytemUnitLookup  = res
+      this.filteredSytemUnitLookup  = res
       console.log(res)
     })
   }
@@ -239,7 +248,7 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
 
 
   create_UOM_FormGroup(uomData: any = {}): FormGroup {
-    return this.fb.group({
+    let formData = this.fb.group({
       code: new FormControl(uomData?.code || ''),
       nameAr: new FormControl(uomData?.nameAr || '', [customValidators.required, customValidators.onlyArabicLetters]),
       nameEn: new FormControl(uomData?.nameEn || '', [customValidators.required, customValidators.onlyEnglishLetters]),
@@ -252,8 +261,11 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
       systemUnitOfMeasureName: '',
       systemUnitOfMeasureId:  new FormControl(uomData?.systemUnitOfMeasureId || null),
       fromUnitOfMeasureId: new FormControl(uomData?.fromUnitOfMeasureId || null),
-
     });
+ 
+    this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=>element.systemUnitOfMeasureCategoryId == this.systemUnitData.systemUnitOfMeasureCategoryId && element.nameEn !== this.systemUnitData.nameEn && element.nameAr !== this.systemUnitData.nameAr)
+
+    return formData
   }
   
 
@@ -307,6 +319,54 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
 
   // on save table
 
+  // factorChanged($event: any, uomTableForm: FormGroup, i: number) {
+  
+  
+  //   if (this.UOMFormGroup.get('shortName')?.value === uomTableForm.get('fromUnitOfMeasureId')?.value) {
+  //     const factorValue = uomTableForm.get('factor')?.value;
+  
+  //     if (factorValue !== null && factorValue !== undefined) {
+  //       const calculationResult = 1 * factorValue;
+  //       // Set the calculation field to "1 * factorValue (calculationResult)"
+  //       uomTableForm.get('calculation')?.setValue(`1 * ${factorValue} (${calculationResult})`);
+  //       uomTableForm.get('reversal')?.setValue(1 / uomTableForm.get('calculation')?.value);
+  //     }
+  //   }else{
+  //     const currentFactorValue = uomTableForm.get('factor')?.value;
+
+  //     const factorValue = this.getUOMS.at(i - 1).get('calculation')?.value
+
+  //     uomTableForm.get('calculation')?.setValue(`${currentFactorValue} * ${factorValue} (${currentFactorValue * factorValue})`);
+  //     uomTableForm.get('reversal')?.setValue(1 / uomTableForm.get('calculation')?.value);
+
+
+  //   }
+  // }
+  
+  factorChanged($event: any, uomTableForm: FormGroup, i: number) {
+  
+  
+    if (this.UOMFormGroup.get('shortName')?.value === uomTableForm.get('fromUnitOfMeasureId')?.value) {
+      const factorValue = uomTableForm.get('factor')?.value;
+  
+      if (factorValue !== null && factorValue !== undefined) {
+        const calculationResult = 1 * factorValue;
+        // Set the calculation field to "1 * factorValue (calculationResult)"
+        uomTableForm.get('calculation')?.setValue((1 * calculationResult).toString());
+        uomTableForm.get('reversal')?.setValue((1 / uomTableForm.get('calculation')?.value).toString())
+      }
+    }else{
+      const currentFactorValue = uomTableForm.get('factor')?.value;
+
+      const factorValue = this.getUOMS.at(i - 1).get('calculation')?.value
+
+      uomTableForm.get('calculation')?.setValue((currentFactorValue * factorValue).toString());
+      uomTableForm.get('reversal')?.setValue((1 / uomTableForm.get('calculation')?.value).toString());
+
+    }
+  }
+  
+
   onSave() {
 
     if (!this.formService.validForm(this.getUOMS, false)) return;
@@ -332,16 +392,16 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
     const formArray = this.getUOMS;
 
     // Loop through the form array starting from the second item
-    for (let i = 1; i < formArray.length; i++) {
-      const currentGroup = formArray.at(i) as FormGroup;
-      const previousGroup = formArray.at(i - 1) as FormGroup;
+    // for (let i = 1; i < formArray.length; i++) {
+    //   const currentGroup = formArray.at(i) as FormGroup;
+    //   const previousGroup = formArray.at(i ) as FormGroup;
   
-      // Set 'fromUnitOfMeasureId' of the current item to 'shortName' of the previous item
-      const previousShortName = previousGroup.get('shortName')?.value;
-      currentGroup.get('fromUnitOfMeasureId')?.setValue(previousShortName);
-    }
+    //   // Set 'fromUnitOfMeasureId' of the current item to 'shortName' of the previous item
+    //   const previousShortName = previousGroup.get('shortName')?.value;
+    //   currentGroup.get('fromUnitOfMeasureId')?.setValue(previousShortName);
+    // }
 
-    let unitOfMeasures = formArray.value
+    let unitOfMeasures = formArray.getRawValue()
 
 
     
@@ -356,6 +416,7 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
     
 
 
+    console.log(uom)
 
     
 

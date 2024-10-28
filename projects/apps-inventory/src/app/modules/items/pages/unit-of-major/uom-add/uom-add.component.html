@@ -162,12 +162,13 @@
                     placeholder="{{ 'UOM.uomType' | translate }}"
                     [options]="list[i]"
                     optionLabel="name"
-                    optionValue="name"
+                    optionValue="id"
                     formControlName="fromUnitOfMeasureId"
                   ></lib-select>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ uomTableForm.controls['fromUnitOfMeasureId']?.value }}
+                  
+                  {{(uomTableForm.controls['fromUnitOfMeasureId']?.value | getElementByID : list[i])?.name }}
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations
@@ -183,7 +184,7 @@
                 <ng-template pTemplate="input">
                   <lib-select
                     placeholder="{{ 'UOM.systemUnit' | translate }}"
-                    [options]="sytemUnitLookup"
+                    [options]="filteredSytemUnitLookup"
                     optionLabel="nameEn"
                     optionValue="id"
                     formControlName="systemUnitOfMeasureId"
@@ -265,6 +266,7 @@
                     <lib-text-input
                       placeholder="{{ 'UOM.factor' | translate }}"
                       formControlName="factor"
+                      (keyUp)="factorChanged($event , uomTableForm , i)"
                     ></lib-text-input>
                   </lib-form-group>
                 </ng-template>
@@ -286,6 +288,8 @@
                     <lib-text-input
                       placeholder="{{ 'UOM.calculation' | translate }}"
                       formControlName="calculation"
+                      [readOnly]="true"
+
                     ></lib-text-input>
                   </lib-form-group>
                 </ng-template>
@@ -310,6 +314,7 @@
                     <lib-text-input
                       placeholder="{{ 'UOM.reversal' | translate }}"
                       formControlName="reversal"
+                      [readOnly]="true"
                     ></lib-text-input>
                   </lib-form-group>
                 </ng-template>

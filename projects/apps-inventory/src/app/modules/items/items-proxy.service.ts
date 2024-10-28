@@ -236,7 +236,7 @@ export class ItemsProxyService {
  ActivateAttrDifinition(obj:{id:number , status : boolean}) {
   return this.httpService.put(`ItemAttribute/ItemAttributeActivation` , obj) // edit
  }
- systemUnitLookup() : Observable<{ id: number; nameAr: string; nameEn: string }[]> {
+ systemUnitLookup() : Observable<{ id: number; nameAr: string; nameEn: string;systemUnitOfMeasureCategoryId : number }[]> {
   return this.httpService.get(`SystemUOM/DropDown` ) // edit
  }
  ActivateOperationalTag

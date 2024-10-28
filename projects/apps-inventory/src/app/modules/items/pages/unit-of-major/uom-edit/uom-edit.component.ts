@@ -21,13 +21,15 @@ export class UOMEditComponent implements OnInit {
 
   list : any = []
   id : number
+  systemUnitData : any = {}
 
   listOfUOM: { id: number; name: string }[] = []
   listOfUOMCat: UomCodeLookup[] = []
   listOfUomTypes: any[] = []
   uomsData : UoM[] | any = []
   conversionUOMlist: any[] = []
-  sytemUnitLookup : { id: number; nameAr: string; nameEn: string }[]
+  sytemUnitLookup : { id: number; nameAr: string; nameEn: string ; systemUnitOfMeasureCategoryId : number }[]
+  filteredSytemUnitLookup : { id: number; nameAr: string; nameEn: string ; systemUnitOfMeasureCategoryId : number }[];
   usersList: UserPermission[];
   isLastLineSaved: boolean = true
   currentLang : string
@@ -176,17 +178,21 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
   
   systemUnitChanged(event  :any) {
     let data  = this.sytemUnitLookup.find(elem=>elem.id === event)
+    this.systemUnitData = data
+
     console.log(data)
     this.UOMFormGroup.get('baseUomAr')?.setValue(data?.nameAr)
     this.UOMFormGroup.get('baseUomEn')?.setValue(data?.nameEn)
   }
   systemUnitListChanged(event  :any , uomTableForm  :FormGroup) {
-    let data  = this.sytemUnitLookup.find(elem=>elem.id === event)
+    let data : any  = this.sytemUnitLookup.find(elem=>elem.id === event)
     console.log(data)
     uomTableForm.get('baseUomEn')?.setValue(data?.nameEn)
     uomTableForm.get('nameEn')?.setValue(data?.nameEn)
     uomTableForm.get('nameAr')?.setValue(data?.nameAr)
     uomTableForm.get('systemUnitOfMeasureName')?.setValue(data?.nameEn)
+    this.filteredSytemUnitLookup =  this.filteredSytemUnitLookup.filter(elem=> elem.id !== data.id)
+
   }
 
 
@@ -198,6 +204,7 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
     this._itemService.systemUnitLookup()
     this._itemService.sendSystemUnitLookup$.subscribe(res=>{
       this.sytemUnitLookup  = res
+      this.filteredSytemUnitLookup  = res
       console.log(res)
     })
   }
@@ -296,7 +303,7 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
 
 
   create_UOM_FormGroup(uomData: any = {}): FormGroup {
-    return this.fb.group({
+    let formData =  this.fb.group({
       code: new FormControl(uomData?.code || ''),
       nameAr: new FormControl(uomData?.nameAr || '', [customValidators.required, customValidators.onlyArabicLetters]),
       nameEn: new FormControl(uomData?.nameEn || '', [customValidators.required, customValidators.onlyEnglishLetters]),
@@ -311,6 +318,9 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
       fromUnitOfMeasureId: new FormControl(uomData?.fromUnitOfMeasureId || null),
 
     });
+    this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=>element.systemUnitOfMeasureCategoryId == this.systemUnitData.systemUnitOfMeasureCategoryId && element.nameEn !== this.systemUnitData.nameEn && element.nameAr !== this.systemUnitData.nameAr)
+    return formData
+
   }
   
 
@@ -392,7 +402,7 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
     // Loop through the form array starting from the second item
     for (let i = 1; i < formArray.length; i++) {
       const currentGroup = formArray.at(i) as FormGroup;
-      const previousGroup = formArray.at(i - 1) as FormGroup;
+      const previousGroup = formArray.at(i ) as FormGroup;
   
       // Set 'fromUnitOfMeasureId' of the current item to 'shortName' of the previous item
       const previousShortName = previousGroup.get('shortName')?.value;
