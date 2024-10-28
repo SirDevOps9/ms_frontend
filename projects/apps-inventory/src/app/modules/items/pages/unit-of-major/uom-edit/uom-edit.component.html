@@ -66,6 +66,7 @@
                 optionValue="id"
                 formControlName="systemUnitOfMeasureId"
                 (valueChanged)="systemUnitChanged($event)"
+                [selectedValue]="UOMFormGroup.controls['systemUnitOfMeasureId'].value"
               ></lib-select>
             </lib-form-group>
           </div>
@@ -167,7 +168,7 @@
                   ></lib-select>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ uomTableForm.controls['fromUnitOfMeasureId']?.value }}
+                  {{  uomTableForm.controls['fromUnitOfMeasureName']?.value ?? uomTableForm.controls['fromUnitOfMeasureId']?.value }}
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations
