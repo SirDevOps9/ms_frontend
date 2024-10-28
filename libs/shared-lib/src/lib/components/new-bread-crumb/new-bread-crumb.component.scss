@@ -1,0 +1,34 @@
+@import '../../../../../../projects/bussiness-owners/src/assets/styling/scss/variables/font-family';
+.title_of_page {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+  }
+  :host[ng-reflect-current-language='ar'] ::ng-deep {
+    .p-breadcrumb svg {
+      transform: rotate(180deg) !important;
+    }
+  }
+::ng-deep {
+    .p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
+      color: #1a90b0 !important;
+      font-size: 20px !important;
+     font-family: $cairo_regular !important;
+    }
+    .p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-text {
+      color: #0d4859;
+      font-size: 16px !important;
+      font-family: $cairo_regular !important;
+    }
+    .p-breadcrumb {
+      border: none !important;
+      background: none !important;
+    }
+  
+    .p-menuitem-link {
+      overflow: visible !important;
+    }
+  }

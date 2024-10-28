@@ -15,20 +15,20 @@
   <div class="pop_up_footer" *ngIf="footer">
     <ng-content select="[action]"> </ng-content>
     <div class="grid w-full  align-items-center justify-content-center">
-      <div class="col-6">
+      <div class="col-6"           *ngIf="showCancel"
+      >
         <lib-button-micro
           title="{{ 'Cancel' | translate }}"
           nameClass="cancel"
           widthNumber="100%"
           (click)="close()"
-          *ngIf="showCancel"
 
         >
         </lib-button-micro>
       </div>
       <div class="col-6" *ngIf="save">
         <lib-button-micro
-          title="{{ 'Save' | translate }}"
+          title="{{ titleSave ? titleSave : ('Save' | translate) }}"
           nameClass="save"
           widthNumber="100%"
           *ngIf="!disabled"
@@ -37,7 +37,7 @@
         >
         </lib-button-micro>
         <lib-button-micro
-          title="{{ 'Save' | translate }}"
+          title="{{ btnTitle | translate }}"
           nameClass="saveDisabled"
           widthNumber="100%"
           *ngIf="disabled"

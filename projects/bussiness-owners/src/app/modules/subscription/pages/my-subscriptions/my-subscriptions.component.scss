@@ -88,9 +88,11 @@
         padding-inline-end: 13px;
         margin-top: 16px;
         box-sizing: border-box;
+        align-items: center;
+    justify-content: center;
        // padding: 5px 0px;
         .plan_cover {
-          width: 200px;
+          width: 150px;
           height: 118px;
           background-image: url("../../../../../assets/images/plans/plancover.png");
           background-size: contain;
