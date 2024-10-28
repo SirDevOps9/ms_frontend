@@ -83,6 +83,11 @@ export class ItemsService {
 
   // new Edits for item Def
 
+
+  // end Edit form item Def
+
+  // new Edits for item Def
+
   saveItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
   saveItemDefGeneral$ = this.saveItemDefGeneral.asObservable()
   getItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
@@ -91,6 +96,9 @@ export class ItemsService {
 
   // end Edit form item Def
 
+  // item category tree 
+  public parentItemCategoriesDropDown = new BehaviorSubject< {id:number , name:string}[]>([])
+  parentItemCategoriesDropDown$ = this.parentItemCategoriesDropDown.asObservable()
   //transactions
 
   sendStockInDataSources = new BehaviorSubject<StockInDto[]>([]);
@@ -473,6 +481,13 @@ export class ItemsService {
       },
     });
   }
+  ParentItemCategoriesDropDown(SearchTerm: string) {
+    this.itemProxy.ParentItemCategoriesDropDown(SearchTerm).subscribe({
+      next: (res: any) => {
+        this.parentItemCategoriesDropDown.next(res);
+      },
+    });
+  }
   getItemCategoryTreeList() {
     return this.itemProxy.getItemCategoryTreeList().pipe(
       map((res) => {
@@ -494,13 +509,14 @@ export class ItemsService {
       this.currentPageInfo.next(response.pageInfoResult);
     });
   }
+
   addItemCategory(obj: AddItemCategory) {
     this.itemProxy.addItemCategory(obj).subscribe({
       next: (res: any) => {
-        setTimeout(() => {
-            location.reload()
-        }, 100);
-        this.AddItemCategoryLookup.next(obj);
+        // setTimeout(() => {
+        //     location.reload()
+        // }, 100);
+        this.AddItemCategoryLookup.next(res);
         this.toasterService.showSuccess(
           this.languageService.transalte('itemsCategory.success'),
           this.languageService.transalte('itemsCategory.add')
