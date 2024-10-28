@@ -19,10 +19,21 @@ export class JournalEntryProxy {
     );
   }
   getAllPaginated(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<JournalEntryDto>> {
-    return this.httpService.get<PaginationVm<JournalEntryDto>>(`JournalEntry?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`);
+    let query = `JournalEntry?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+  
+    return this.httpService.get<PaginationVm<JournalEntryDto>>(query);
   }
   getAllJournalEntriesPaginatedOpeningBalance(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<JournalEntryDto>> {
-    return this.httpService.get<PaginationVm<JournalEntryDto>>(`OpeningBalanceJournalEntry?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`);
+    let query = `OpeningBalanceJournalEntry?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+  
+   
+    return this.httpService.get<PaginationVm<JournalEntryDto>>(query);
   }
 
   create(command: AddJournalEntryCommand): Observable<any> {

@@ -27,4 +27,10 @@ export class LayoutProxy {
         `Company/CompanyDropdown`
       );
     }
+    
+    GetFirstCompany(): Observable<{id:string , name : string,code : string ,companyType : string}[]> {
+      return this.baseService.get<{id:string , name : string,code : string ,companyType : string}[]>(
+        `Company/GetFirstCompany`
+      );
+    }
 }

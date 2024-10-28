@@ -79,7 +79,7 @@
     "id": "الرقم التعريفي",
     "journalCode": "كود اليومية",
     "referenceNumber": "المرجع",
-    "createdOn": "التاريخ",
+    "CreatedOn": "التاريخ",
     "type": "النوع",
     "sourceDocumentName": "اسم المستند المصدر",
     "sourceName": "اسم المستند",

@@ -3,7 +3,14 @@ import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { BankDefinitionDto } from 'projects/apps-finance/src/app/modules/finance/models/BankDefinitionDto';
-import { RouterService, LanguageService, lookupDto, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
+import {
+  RouterService,
+  LanguageService,
+  lookupDto,
+  PageInfoResult,
+  MenuModule,
+  PageInfo,
+} from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { itemDefinitionDto } from '../../../models';
 import { AddItemDefinitionPopupComponent } from '../../../components/add-item-definition/add-item-definition-popup.component';
@@ -13,7 +20,7 @@ import { ViewItemDefinitionComponent } from '../../../components/view-item-defin
 @Component({
   selector: 'app-item-definition-list',
   templateUrl: './item-definition-list.component.html',
-  styleUrl: './item-definition-list.component.scss'
+  styleUrl: './item-definition-list.component.scss',
 })
 export class ItemDefinitionListComponent implements OnInit {
   constructor(
@@ -22,10 +29,8 @@ export class ItemDefinitionListComponent implements OnInit {
     private dialog: DialogService,
     private title: Title,
     private langService: LanguageService,
-    private itemsService : ItemsService
-  ) {
-
-  }
+    private itemsService: ItemsService
+  ) {}
 
   tableData: itemDefinitionDto[];
 
@@ -102,33 +107,21 @@ export class ItemDefinitionListComponent implements OnInit {
     });
 
     dialogRef.onClose.subscribe(() => {
-    this.initItemDefinitionData()
+      this.initItemDefinitionData();
     });
   }
 
   onEdit(data: any) {
-    if (data && data.id) {
-        this.routerService.navigateTo(`/masterdata/add-item-definition/general/${data.id}`);
-    } else {
-        console.error('Invalid data provided for editing');
-    }
-}
 
+    this.routerService.navigateTo(`masterdata/add-item-definition/${data.id}/general`)
 
-  // onEdit(data: any) {
-  //   this.routerService.navigateTo('/masterdata/add-item-definition/general', data);
-  //   // this.routerService.navigateTo(`masterdata/add-item-definition/general/${data.id}`)
+  }
 
-  // }
-
-  onView(data:any){
-    const dialogRef = this.dialog.open(ViewItemDefinitionComponent, {
+  onView(data: any) {
+    this.dialog.open(ViewItemDefinitionComponent, {
       width: '800px',
-      height : '700px',
-      data : data
-    });
-    dialogRef.onClose.subscribe(() => {
-    // this.initItemDefinitionData()
+      height: '700px',
+      data: data,
     });
   }
   onSearchChange() {
@@ -137,7 +130,6 @@ export class ItemDefinitionListComponent implements OnInit {
   }
 
   onDelete(id: number) {
-     this.itemsService.deleteItemDefinition(id)
+    this.itemsService.deleteItemDefinition(id);
   }
 }
-

@@ -30,24 +30,24 @@
       <td [pEditableColumn]="true" pEditableColumnField="fileName" *ngIf="!viewData">
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <lib-text-input type="text" (keyUp)="updateFileName(rowIndex , $event)" ngModel=" {{ filesName[rowIndex] || url.name }}" ></lib-text-input>
+            <lib-text-input type="text" (keyUp)="updateFileName(rowIndex , $event ,url.fileExtension)" ngModel=" {{url.fileName}}" ></lib-text-input>
           </ng-template>
           <ng-template pTemplate="output">
+            
             <!-- {{ filesName[rowIndex] || url.name }} -->
-            <!-- {{ filesName[rowIndex] ? filesName[rowIndex] : url.name }} -->
-            {{ filesName[rowIndex] || url.name }}
+            {{url.fileName}}
 
 
           </ng-template>
         </p-cellEditor>
       </td>
       <td *ngIf="viewData">
-        {{ filesName[rowIndex] || url.name }}
+        <!-- {{ filesName[rowIndex] || url.name }} -->
+        {{url.fileName}}
 
       </td>  
       <td>
-        {{fileExtension[rowIndex]}}
-        <!-- {{getFileType( filesName[rowIndex] || url.name )}} -->
+        {{url.fileExtension}}
       </td> 
       <td>
         <div class="action flex align-items-center justify-content-center w-full ">
@@ -67,4 +67,3 @@
   </ng-template>
 
 </p-table>
-<iframe *ngIf="showIframe" [src]="fileUrl" width="100%" height="600px" style="border:none;"></iframe>

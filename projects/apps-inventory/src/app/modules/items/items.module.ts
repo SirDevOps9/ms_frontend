@@ -11,8 +11,6 @@ import {
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { AddItemCategoryComponent } from './components/add-item-category/add-item-category.component';
 import { ItemCategoryListComponent } from './pages/item-category/item-category-list/item-category-list.component';
-import { ItemTypeListComponent } from './pages/item-type/item-type-list/item-type-list.component';
-import { AddItemDefinitionComponent } from './pages/item-definition/save-Item-definition/add-item-definition.component';
 import { AddItemDefinitionPopupComponent } from './components/add-item-definition/add-item-definition-popup.component';
 import { ItemDefinitionListComponent } from './pages/item-definition/item-definition-list/item-definition-list.component';
 import { EditItemDefinitionComponent } from './components/edit-item-definition/edit-item-definition.component';
@@ -52,6 +50,7 @@ import { ItemDefinitionAttributesVariantsComponent } from './pages/item-definiti
 import { ItemDefinitionBarcodeComponent } from './pages/item-definition/item-definition-barcode/item-definition-barcode.component';
 import { ItemDefinitionInventoryComponent } from './pages/item-definition/item-definition-inventory/item-definition-inventory.component';
 import { ItemDefinitionAccountingComponent } from './pages/item-definition/item-definition-accounting/item-definition-accounting.component';
+import { AddItemDefinitionComponent } from './pages/item-definition/save-Item-definition/add-item-definition.component';
 
 const routes: Routes = [
   {
@@ -80,10 +79,7 @@ const routes: Routes = [
         },
       },
       {
-
         path: 'add-item-definition',
-
-
         component: AddItemDefinitionComponent,
         data: {
           breadcrumb: '',
@@ -109,7 +105,7 @@ const routes: Routes = [
         },
       },
           {
-            path: 'attributes-variants',
+            path: 'attributes-variants/:id',
             component: ItemDefinitionAttributesVariantsComponent,
             data: {
               breadcrumb: BreadcrumbLabel.attributes_ITEMdEFINITION,
@@ -298,8 +294,6 @@ const routes: Routes = [
   declarations: [
     ItemDefinitionListComponent,
     AddItemDefinitionComponent,
-    ItemDefinitionAccountingComponent,
-    ItemTypeListComponent,
     ItemCategoryListComponent,
     AddItemCategoryComponent,
     AddItemDefinitionPopupComponent,

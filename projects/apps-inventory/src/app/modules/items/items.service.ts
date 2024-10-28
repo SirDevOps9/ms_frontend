@@ -86,9 +86,6 @@ export class ItemsService {
   saveItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
   saveItemDefGeneral$ = this.saveItemDefGeneral.asObservable()
 
-  getItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
-  getItemDefGeneral$ = this.getItemDefGeneral.asObservable()
-
 
   // end Edit form item Def
 

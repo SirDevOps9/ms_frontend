@@ -102,6 +102,7 @@ export class PaymentOutListComponent implements OnInit {
   }
 
   onSearchChange(event: any) {
+    this.searchTerm=event
     this.financeService.getAllPaymentOut(event, new PageInfo());
   }
 

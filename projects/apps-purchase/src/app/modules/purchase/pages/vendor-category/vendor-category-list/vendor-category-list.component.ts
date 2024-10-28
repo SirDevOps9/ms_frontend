@@ -66,7 +66,7 @@ export class VendorCategoryListComponent implements OnInit {
 
  
   onPageChange(pageInfo: PageInfo) {
-    this.purchaseService.getVendorCategory('', new PageInfo());
+    this.purchaseService.getVendorCategory('', pageInfo);
 
     this.purchaseService.vendorCategoryDataSourceObservable.subscribe({
       next: (res) => {

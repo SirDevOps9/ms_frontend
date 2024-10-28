@@ -1,0 +1,13 @@
+<p-multiSelect
+  [optionValue]="optionValue"
+  [options]="options"
+  [optionLabel]="optionLabel"
+  [(ngModel)]="selectedValue"
+  (onChange)="change($event)"
+  [style]="style"
+  [panelStyle]="panelStyle">
+
+  <ng-template pTemplate="selectedItems">
+    <i style="display: block;" [ngClass]="className"></i>
+  </ng-template>
+</p-multiSelect>

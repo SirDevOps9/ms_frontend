@@ -1,32 +1,20 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { DialogService } from 'primeng/dynamicdialog';
-import { customValidators, FormsService, RouterService, SharedLibraryEnums, ToasterService } from 'shared-lib';
-import { AddVariantPopupComponent } from '../../../components/add-variant-popup/add-variant-popup.component';
-import { ViewVariantPopupComponent } from '../../../components/view-variant-popup/view-variant-popup.component';
-import { AddBarcodePopupComponent } from '../../../components/add-barcode-popup/add-barcode-popup.component';
+import { Component, OnInit } from '@angular/core';
+
+import {customValidators, FormsService, RouterService, SharedLibraryEnums, ToasterService } from 'shared-lib';
+
 import { ActivatedRoute } from '@angular/router';
-import { ItemsService } from '../../../items.service';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { DialogService } from 'primeng/dynamicdialog';
+import { AddBarcodePopupComponent } from '../../../components/add-barcode-popup/add-barcode-popup.component';
+import { AddVariantPopupComponent } from '../../../components/add-variant-popup/add-variant-popup.component';
 import { ViewQRcodeComponent } from '../../../components/view-qrcode/view-qrcode.component';
-import { GetItemById, getUomByItemId, UomCodeLookup, UomDefault } from '../../../models';
-import { AddUom, ItemUom } from '../../../models/addUom';
+import { ViewVariantPopupComponent } from '../../../components/view-variant-popup/view-variant-popup.component';
+import { ItemsService } from '../../../items.service';
+import { getUomByItemId, UomCodeLookup, GetItemById } from '../../../models';
+import { ItemUom } from '../../../models/addUom';
 
-function uomIdUniqueValidator(formArray: AbstractControl): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const currentUomId = control.value;
-    let duplicateFound = false;
 
-    // Iterate through the form array and check for duplicates
-    formArray.value.forEach((item: any, index: number) => {
-      if (item.uomId === currentUomId && control !== formArray.get([index, 'uomId'])) {
-        duplicateFound = true;
-      }
-    });
 
-    // Return validation error if a duplicate is found
-    return duplicateFound ? { uomIdNotUnique: true } : null;
-  };
-}
 @Component({
   selector: 'app-add-item-definition',
   templateUrl: './add-item-definition.component.html',
@@ -35,7 +23,7 @@ function uomIdUniqueValidator(formArray: AbstractControl): ValidatorFn {
 export class AddItemDefinitionComponent implements OnInit {
 
   itemDefinitionForm : FormGroup = new FormGroup({})
-  id : any
+  id : number
   uomLookup : { id: number; name: string }[] = []
   allUOmLines : getUomByItemId[]
   colors = [
@@ -105,193 +93,166 @@ export class AddItemDefinitionComponent implements OnInit {
 
   ItemVariantsByItemIdDropDown : { id: number; nameEn: string }[] = []
   constructor(private _router : RouterService,private fb : FormBuilder , private formService : FormsService ,  public sharedLibEnums: SharedLibraryEnums,private dialog : DialogService , private route : ActivatedRoute , private toaserService : ToasterService , private itemService : ItemsService){
-
-
+    this.id = this.route.snapshot.params['id']
     console.log(this._router.getCurrentUrl())
-    this.id = this.route.snapshot.paramMap.get('id'); // Get the ID from the route
 
-    // this.id = this.route.snapshot.paramMap.get('id');
-    // console.log(this.id);
+
   }
   ngOnInit(): void {
-        // Subscribe to route parameters
-        this.route.params.subscribe(params => {
-          this.id = params['id'];
-          console.log('Current ID:', this.id); // Log current ID whenever it changes
-      });
-    // this.id = this.route.snapshot.paramMap.get('id');
-    // console.log('Editing ID:', this.id); // This should log the ID you passed
-        //  this.getUomDropDown(this.id)
 
-    // this.itemDefinitionForm = this.fb.group({
-    //   id : this.id,
-    //   code : [''],
-    //   name : ['' , [customValidators.required]],
-    //   photo : [''],
-    //   categoryId : ['' , [customValidators.required]],
-    //   countryId : [''],
-    //   tags : [''],
-    //   defaultUOMCategoryId : ['' , [customValidators.required]],
-    //   taxId : [''],
-    //   shortName : [''],
-    //   warranty : [''],
-    //   isVatApplied : [''],
-    //   specialCare : [''],
-    //   lifeTime : [''],
-    //   color : [''],
-    //   uomId : ['' ],
-    //   uom : this.fb.array([]),
-    //   barcode : this.fb.array([]),
-    //   attribute : this.fb.array([]),
-    //   hasExpiryDate : [''],
-    //   trackingId : [''],
-    //   itemAccounting : this.fb.group({
-    //     pAccount: 0,
-    //     prAccount: 0,
-    //     sAccount: 0,
-    //     srAccount: 0
-    //   })
-    // })
+         this.getUomDropDown(this.id)
+
+    this.itemDefinitionForm = this.fb.group({
+      id : this.id,
+      code : [''],
+      name : ['' , [customValidators.required]],
+      photo : [''],
+      categoryId : ['' , [customValidators.required]],
+      countryId : [''],
+      tags : [''],
+      defaultUOMCategoryId : ['' , [customValidators.required]],
+      taxId : [''],
+      shortName : [''],
+      warranty : [''],
+      isVatApplied : [''],
+      specialCare : [''],
+      lifeTime : [''],
+      color : [''],
+      uomId : ['' ],
+      uom : this.fb.array([]),
+      barcode : this.fb.array([]),
+      attribute : this.fb.array([]),
+      hasExpiryDate : [''],
+      trackingId : [''],
+      itemAccounting : this.fb.group({
+        pAccount: 0,
+        prAccount: 0,
+        sAccount: 0,
+        srAccount: 0
+      })
+    })
 
 
-    // // this.getCcountriesDropdown()
+    this.getCcountriesDropdown()
 
-    // this.itemService.variantGeneratedObs.subscribe(res=>{
-    //   if(res) {
-    //     this.getItemVariantsByItemIdDropDown()
+    this.itemService.variantGeneratedObs.subscribe(res=>{
+      if(res) {
+        this.getItemVariantsByItemIdDropDown()
 
-    //   }
-    // })
+      }
+    })
 
 
 
-    // // this.addLine()
-    // this.getBarcodeByItemId()
-    // this.itemService.getAttributeVariantById(this.id)
-    // this.addLineBarcode()
-    // this.itemService.sendAttributeVariantDataObs.subscribe(res=>{
-    //   if(res) {
-    //     this.AttributeForm.clear()
-    //     res.forEach(element => {
-    //       let data = this.fb.group({
-    //         name: element.attributeGroupNameEn,
-    //         attributeGroupId : element.attributeGroupId,
-    //         status: element.isActive,
-    //         itemId:element.itemId,
-    //         id : element.id
+    // this.addLine()
+    this.getBarcodeByItemId()
+    this.itemService.getAttributeVariantById(this.id)
+    this.addLineBarcode()
+    this.itemService.sendAttributeVariantDataObs.subscribe(res=>{
+      if(res) {
+        this.AttributeForm.clear()
+        res.forEach(element => {
+          let data = this.fb.group({
+            name: element.attributeGroupNameEn,
+            attributeGroupId : element.attributeGroupId,
+            status: element.isActive,
+            itemId:element.itemId,
+            id : element.id
 
-    //       })
-    //       this.AttributeForm.push(data)
-    //     });
-    //   }
-    // })
-    // this.getItemVariantsByItemIdDropDown()
+          })
+          this.AttributeForm.push(data)
+        });
+      }
+    })
+    this.getItemVariantsByItemIdDropDown()
 
-    // this.itemService.sendBarcode.subscribe(res=>{
-    //   this.getBarcodeByItemId()
-    // })
-    // this.itemService.sendUOMObs.subscribe(res=>{
-    //   console.log("heey" , res)
-    //   this.getUOMByItemId()
+    this.itemService.sendBarcode.subscribe(res=>{
+      this.getBarcodeByItemId()
+    })
+    this.itemService.sendUOMObs.subscribe(res=>{
+      console.log("heey" , res)
+      this.getUOMByItemId()
 
-    //   this.getUomDropDown(this.id)
-    // })
+      this.getUomDropDown(this.id)
+    })
 
-    // this.ItemCategoryDropDownData()
-    // this.tagDropDropDown()
-    // this.taxesDropDropDown()
-    // this.UOMCategoryDropDownData()
-    // this.AccountsDropDown()
-    // this. getTrackingDropDown()
+    this.ItemCategoryDropDownData()
+    this.tagDropDropDown()
+    this.taxesDropDropDown()
+    this.UOMCategoryDropDownData()
+    this.AccountsDropDown()
+    this. getTrackingDropDown()
     // this.itemService.sendDefaultObs.subscribe(res=>{
     //   if(res){
     //     this.getUOMByItemId()
     //   }
     // })
 
-    // this.itemService.editItemDataObs.subscribe(res=>{
-    //   if(res){
+    this.itemService.editItemDataObs.subscribe(res=>{
+      if(res){
 
-    //   }
-    // })
+      }
+    })
 
-    // this.itemService.getItemById(this.id)
-    // this.itemService.GetItemByIDObs.subscribe(res=>{
-    //     this.itemDefinitionForm.patchValue({...res})
+    this.itemService.getItemById(this.id)
+    this.itemService.GetItemByIDObs.subscribe(res=>{
+        this.itemDefinitionForm.patchValue({...res})
 
-    //     this.itemData = res
-
-
-    //     // console.log(res)
-
-    //     // setTimeout(() => {
-    //     //   this.itemDefinitionForm.get('defaultUOMCategoryId')?.setValue(res.uomId)
-
-    //     // }, 1000);
-    //   if(res.defaultUOMCategoryId) {
-    //     this.uomCategoryChanged(res.defaultUOMCategoryId)
-
-    //       this.addLine()
+        this.itemData = res
 
 
-    //     this.getDefaultUnit(res.defaultUOMCategoryId )
-    //   }
+        // console.log(res)
 
-    //     this.getUomDropDown(this.id)
+        // setTimeout(() => {
+        //   this.itemDefinitionForm.get('defaultUOMCategoryId')?.setValue(res.uomId)
 
+        // }, 1000);
+      if(res.defaultUOMCategoryId) {
+        this.uomCategoryChanged(res.defaultUOMCategoryId)
 
-
-    //   if(!!res) {
-
-    //   }
-
-    //   // setTimeout(() => {
-    //   //   this.getUOMByItemId()
-
-    //   // }, 1000);
-
-    //   // if(res.uomId) {
-    //   //   this.getUomDropDown(res.uomId)
-    //   //   this.uomCodeDropDown(res.uomId)
-    //   //   this.getDefaultCode(res.uomId)
-
-    //   // }
+          this.addLine()
 
 
-    // })
+        this.getDefaultUnit(res.defaultUOMCategoryId )
+      }
+
+        this.getUomDropDown(this.id)
+
+
+
+      if(!!res) {
+
+      }
+
+      // setTimeout(() => {
+      //   this.getUOMByItemId()
+
+      // }, 1000);
+
+      // if(res.uomId) {
+      //   this.getUomDropDown(res.uomId)
+      //   this.uomCodeDropDown(res.uomId)
+      //   this.getDefaultCode(res.uomId)
+
+      // }
+
+
+    })
 
 
 
   }
-  onRoute(routeFragment: string): void {
-    // Ensure the id is set before navigating
-    if (!this.id) {
-        console.error('ID is not set');
-        return;
-    }
-
-    this._router.navigateTo(`add-item-definition/${routeFragment}/${this.id}`);
-}
-
 
   findRoute(routeFragment: string): boolean {
+    if (!routeFragment) {
+      return false;
+    }
     return this._router.getCurrentUrl().includes(`/${routeFragment}`);
   }
+  onRoute() {
+    this._router.navigateTo(`masterdata/add-item-definition/${this.id}/general`)
+  }
 
-
-  // onRoute(routeFragment: string): void {
-  //   if (!routeFragment || !this.id) {
-  //     console.error('Invalid route or ID'); // إضافة سجل للأخطاء
-  //     return;
-  //   }
-  //   this._router.navigateTo(`/masterdata/add-item-definition/${routeFragment}/${this.id}`);
-  // }
-
-
-  // this.route.params.subscribe(params => {
-  //   this.routeFragment = params['routeFragment'];  // التقاط قيمة routeFragment
-  //   this.id = params['id'];  // التقاط قيمة id
-  // });
 
 
 

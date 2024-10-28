@@ -1,53 +1,142 @@
   <lib-page-content [title]="'bank.TaxList' | translate" [subTitle]="'bank.TaxList' | translate">
-    <div class="bank">
-      <div [formGroup]="UOMFormGroup" class="entry_header">
-        <div class="grid">
-       
-          <div class="col-12 md:col-4">
-            <lib-form-group>
-              <lib-label
-                [appControl]="UOMFormGroup.controls['uomCategoryNameEn']"
-                class="body_b14 mb-2 ms-4"
-              >
-                {{ 'UOM.categorynameEn' | translate }}
-              </lib-label>
-              <lib-text-input
-                formControlName="uomCategoryNameEn"
-                placeholder="{{ 'UOM.categorynameEn' | translate }}"
-
-              >
-              </lib-text-input>
-            </lib-form-group>
-            <!-- <i class="pi pi-search search-circle" (click)="openDialog(i)"></i> -->
+    <div class="grid" [formGroup]="UOMFormGroup">
+      <div class="md:col-12 p-0 my-1">
+        <div class="card">
+          <div class="grid m-0 p-0">
+            <div class="md:col-12">
+              <p class="fw-bold heads">{{ 'UOM.category' | translate }}</p>
+            </div>
+            <!--  -->
+            <div class="md:col-4">
+              <lib-form-group>
+                <lib-label
+                  [appControl]="UOMFormGroup.controls['code']"
+                  class="body_b14 mb-2 ms-4"
+                >
+                  {{ 'UOM.code' | translate }}
+                </lib-label>
+                <lib-text-input
+                  formControlName="code"
+                  placeholder="{{ 'UOM.code' | translate }}"
+  
+                >
+                </lib-text-input>
+              </lib-form-group>
+            </div>
+            <!--  -->
+            <div class="md:col-4">
+                <lib-form-group>
+                  <lib-label
+                    [appControl]="UOMFormGroup.controls['uomCategoryNameEn']"
+                    class="body_b14 mb-2 ms-4"
+                  >
+                    {{ 'UOM.categorynameEn' | translate }}
+                  </lib-label>
+                  <lib-text-input
+                    formControlName="uomCategoryNameEn"
+                    placeholder="{{ 'UOM.categorynameEn' | translate }}"
+    
+                  >
+                  </lib-text-input>
+                </lib-form-group>
+           
+             
+            </div>
+            <!--  -->
+            <div class="md:col-4">
+                <lib-form-group>
+                  <lib-label
+                    [appControl]="UOMFormGroup.controls['uomCategoryNameAr']"
+                    class="body_b14 mb-2 ms-4"
+                  >
+                    {{ 'UOM.categorynameAr' | translate }}
+                  </lib-label>
+                  <lib-text-input
+                    formControlName="uomCategoryNameAr"
+                    placeholder="{{ 'UOM.categorynameAr' | translate }}"
+    
+                  >
+                  </lib-text-input>
+                </lib-form-group>
+              </div>
+            <!--  -->
           </div>
-          <div class="col-12 md:col-4">
-            <lib-form-group>
-              <lib-label
-                [appControl]="UOMFormGroup.controls['uomCategoryNameAr']"
-                class="body_b14 mb-2 ms-4"
-              >
-                {{ 'UOM.categorynameAr' | translate }}
-              </lib-label>
-              <lib-text-input
-                formControlName="uomCategoryNameAr"
-                placeholder="{{ 'UOM.categorynameAr' | translate }}"
 
-              >
-              </lib-text-input>
-            </lib-form-group>
-            <!-- <i class="pi pi-search search-circle" (click)="openDialog(i)"></i> -->
+        </div>
+      </div>
+      <!--  -->
+      <div class="md:col-12 p-0 my-1">
+        <div class="card">
+          <div class="grid m-0 p-0">
+            <div class="md:col-12">
+              <p class="fw-bold heads">{{ 'UOM.baseUom' | translate }}</p>
+            </div>
+            <!--  -->
+            <div class="md:col-4">
+  
+              <lib-form-group>
+                <lib-label [appControl]="UOMFormGroup.controls['baseUom']">
+                  {{ 'UOM.systemUnit' | translate }}
+
+                </lib-label>
+                <lib-select
+                  placeholder="{{ 'UOM.systemUnit' | translate }}"
+                  [options]="uomTypeList"
+                  optionLabel="name"
+                  optionValue="name"
+                  formControlName="baseUom"
+                ></lib-select>
+              </lib-form-group>
+            </div>
+            <!--  -->
+            <div class="md:col-4">
+              <lib-form-group>
+                <lib-label
+                  [appControl]="UOMFormGroup.controls['nameUom']"
+                  class="body_b14 mb-2 ms-4"
+                >
+                  {{ 'UOM.nameUom' | translate }}
+                </lib-label>
+                <lib-text-input
+                  formControlName="nameUom"
+                  placeholder="{{ 'UOM.nameUom' | translate }}"
+  
+                >
+                </lib-text-input>
+              </lib-form-group>
+             
+            </div>
+            <!--  -->
+            <div class="md:col-4">
+              <lib-form-group>
+                <lib-label
+                  [appControl]="UOMFormGroup.controls['shortName']"
+                  class="body_b14 mb-2 ms-4"
+                >
+                  {{ 'UOM.shortName' | translate }}
+                </lib-label>
+                <lib-text-input
+                  formControlName="shortName"
+                  placeholder="{{ 'UOM.shortName' | translate }}"
+  
+                >
+                </lib-text-input>
+              </lib-form-group>
+              </div>
+            <!--  -->
           </div>
+
         </div>
       </div>
     </div>
-    <!--  -->
-    <div class="add_new my-2 flex justify-content-end">
+
+    <div class="add_new flex justify-content-end p-0">
       <!-- !UOMFormGroup.controls['uomCodeCategory'].value -->
       <lib-button (onClick)="addLine()"  className="outline-primary">
         {{ 'UOM.add_new' | translate }}
       </lib-button>
     </div>
-    <div class="entry_table">
+    <div class="entry_table my-2">
       <div class="card">
         <p-table
           [value]="getUOMS.controls"
@@ -57,13 +146,14 @@
         >
           <ng-template pTemplate="header">
             <tr>
-              <th>{{ 'UOM.code' | translate }}</th>
+              <th>{{ 'UOM.from' | translate }}</th>
+              <th>{{ 'UOM.systemUnit' | translate }}</th>
               <th>{{ 'UOM.nameAr' | translate }}</th>
               <th>{{ 'UOM.nameEn' | translate }}</th>
               <th>{{ 'UOM.shortName' | translate }}</th>
-              <th>{{ 'UOM.type' | translate }}</th>
-              <th>{{ 'UOM.conversionUOM' | translate }}</th>
-              <th>{{ 'UOM.conversionRatio' | translate }}</th>
+              <th>{{ 'UOM.factorUOM' | translate }}</th>
+              <th>{{ 'UOM.calculation' | translate }}</th>
+              <th>{{ 'UOM.reversal' | translate }}</th>
               <th>{{ 'UOM.action' | translate }}</th>
             </tr>
           </ng-template>
@@ -73,10 +163,13 @@
               <td [pEditableColumn]="uomTableForm.controls['code']" pEditableColumnField="code">
                 <p-cellEditor>
                   <ng-template pTemplate="input">
-                    <lib-text-input
-                      placeholder="{{ 'UOM.code' | translate }}"
-                      formControlName="code"
-                    ></lib-text-input>
+                    <lib-select
+                    placeholder="{{ 'UOM.uomType' | translate }}"
+                    [options]="uomTypeList"
+                    optionLabel="name"
+                    optionValue="name"
+                    formControlName="uomType"
+                  ></lib-select>
                   </ng-template>
                   <ng-template pTemplate="output">
                     {{ uomTableForm.controls['code'].value }}
@@ -91,10 +184,13 @@
               <td [pEditableColumn]="uomTableForm.controls['nameAr']" pEditableColumnField="nameAr">
                 <p-cellEditor>
                   <ng-template pTemplate="input">
-                    <lib-text-input
-                      placeholder="{{ 'UOM.nameAr' | translate }}"
-                      formControlName="nameAr"
-                    ></lib-text-input>
+                    <lib-select
+                    placeholder="{{ 'UOM.uomType' | translate }}"
+                    [options]="uomTypeList"
+                    optionLabel="name"
+                    optionValue="name"
+                    formControlName="uomType"
+                  ></lib-select>
                   </ng-template>
                   <ng-template pTemplate="output">
                     {{ uomTableForm.controls['nameAr'].value }}
@@ -143,11 +239,30 @@
                   [appControl]="uomTableForm.controls['shortName']"
                 ></lib-field-validations>
               </td>
-              <!--  -->
-              <!-- Type -->
-
-              <!-- type -->
-
+              <td
+                [pEditableColumn]="uomTableForm.controls['uomType']"
+                pEditableColumnField="uomTableForm.controls['uomType']"
+              >
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <lib-form-group>
+                      <lib-select
+                        placeholder="{{ 'UOM.uomType' | translate }}"
+                        [options]="uomTypeList"
+                        optionLabel="name"
+                        optionValue="name"
+                        formControlName="uomType"
+                      ></lib-select>
+                    </lib-form-group>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ uomTableForm.controls['uomType'].value }}
+                    <lib-field-validations
+                      [appControl]="uomTableForm.controls['uomType']"
+                    ></lib-field-validations>
+                  </ng-template>
+                </p-cellEditor>
+              </td>
               <td
                 [pEditableColumn]="uomTableForm.controls['uomType']"
                 pEditableColumnField="uomTableForm.controls['uomType']"

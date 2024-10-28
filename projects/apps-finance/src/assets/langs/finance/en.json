@@ -75,13 +75,14 @@
       "Notes": "notes"
     },
     "Success": "Success",
-    "PaymentInAddedSuccessfully": "تم إضافة الإيصال النقدي بنجاح",
+    "PaymentInAddedSuccessfully": "Payment In added successfully",
     "addedError": "Error in added",
     "Error": "Error",
     "paymentMethodTypeNotAllowed": "payment Method details Not Allowed",
     "paymentMethodTypeRequired": "payment Method details Required In line",
     "addpaymentin": "Add Payment In",
-    "editpaymentin": " Edit Payment In"
+    "editpaymentin": " Edit Payment In",
+    "PaymentInEditedSuccessfully":"Payment in updated successfully"
   },
 
   "payment-in": {
