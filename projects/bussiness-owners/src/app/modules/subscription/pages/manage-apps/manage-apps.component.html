@@ -1,6 +1,6 @@
 <lib-page-content>
-  <lib-bread-crumb> </lib-bread-crumb>
-  <div class="app_list">
+  <lib-new-bread-crumb > </lib-new-bread-crumb>
+  <div class="app_list card_micro">
     <div class="grid">
       <div class="col-12">
         <div class="sub_header">
@@ -41,9 +41,10 @@
         </div>
       </div> -->
 
-      <div class="col-12 md:col-12">
-        <div [ngClass]="{ contant: cardList }">
-          <div class="card" [ngClass]="{ card_list: cardList }" *ngFor="let app of appList">
+      <div class=" col-12 md:col-12">
+        <div class="" [ngClass]="{ contant: cardList }">
+          <div class="col-12" [ngClass]="{' md:col-3':cardList }" *ngFor="let app of appList">
+          <div class="card card_micro " [ngClass]="{ card_list: cardList }" >
             <div class="app_img">
               <img src="assets/images/apps/Group.png" alt="" />
             </div>
@@ -67,6 +68,7 @@
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>
