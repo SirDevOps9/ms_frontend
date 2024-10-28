@@ -10,6 +10,7 @@ import { LayoutComponent } from '../layout/layout-page/layout.component';
 import { AddDomainSpaceComponent } from './components/add-domain-space/add-domain-space.component';
 import { ManageAppsComponent } from './pages/manage-apps/manage-apps.component';
 import { LayoutModule } from '../layout/layout.module';
+import { BreadCrumbRoute } from '../../models';
 
 const routes: Routes = [
   {
@@ -18,18 +19,16 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: SubscriptionComponent,
-        canActivate: [AuthGuard],
-        data: {
-          breadcrumb: BreadcrumbLabel.my_subscription,
-        },
+        redirectTo: 'my-subscriptions',
+        pathMatch: 'full',
+       
       },
       {
         path: 'my-subscriptions',
         component: MySubscriptionsComponent,
         canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.my_subscription,
+          breadcrumb: BreadCrumbRoute.subscription
         },
       },
       {
@@ -37,7 +36,7 @@ const routes: Routes = [
         component: ManageAppsComponent,
         canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.Manage_Apps,
+          breadcrumb: BreadCrumbRoute.app
         },
       }
     ],

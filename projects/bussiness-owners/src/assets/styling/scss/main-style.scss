@@ -6,5 +6,9 @@
 @import "./fonts/fonts";
 // variable
 @import "./variables/font-family";
-//glopal
+@import './utils/';
 @import "./variables/_glopal";
+@import "./variables/glopal";
+@import "./components/_index";
+@import "./global-style";
+
