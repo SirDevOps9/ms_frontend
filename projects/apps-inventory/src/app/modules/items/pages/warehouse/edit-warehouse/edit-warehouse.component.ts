@@ -13,7 +13,6 @@ export class EditWarehouseComponent implements OnInit {
   glAccountLookup = []
   CashSalesLookup = []
   warehouseForm : FormGroup = new FormGroup({})
-
   CreditSalesLookup = []
   SalesReturnLookup = []
   PurchaseAccountLookup = []
@@ -141,56 +140,7 @@ getWarehouseById() {
       this.countriesDropDown = res
     })
   }
-  getWarehouseLookups() {
-    // this.itemsService.sendGlAccountLookupObs.subscribe(res=>{
-    //   this.glAccountLookup = res
-    // })
-    // // 
-    // this.itemsService.sendCashSalesLookupObs.subscribe(res=>{
-    //   this.CashSalesLookup = res
-    // })
-    // // 
-    // this.itemsService.sendCreditSalesLookupObs.subscribe(res=>{
-    //   this.CreditSalesLookup = res
-    // })
-    // // 
-    // this.itemsService.sendSalesReturnLookupObs.subscribe(res=>{
-    //   this.SalesReturnLookup = res
-    // })
-    // // 
-    // this.itemsService.sendPurchaseAccountLookupObs.subscribe(res=>{
-    //   this.PurchaseAccountLookup = res
-    // })
-    // // 
-    // this.itemsService.sendSalesCostCenterLookupObs.subscribe(res=>{
-    //   this.SalesCostCenterLookup = res
-    // })
-    // // 
-    // this.itemsService.sendDiscountAccountLookupObs.subscribe(res=>{
-    //   this.DiscountAccountLookup = res
-    // })
-    // // 
-    // this.itemsService.sendEvaluationAccountLookupObs.subscribe(res=>{
-    //   this.EvaluationAccountLookup = res
-    // })
-    // // 
-    // this.itemsService.sendAdjustmentAccountLookupObs.subscribe(res=>{
-    //   this.AdjustmentAccountLookup = res
-    // })
-    // // 
-    // this.itemsService.sendGoodsInTransitLookupObs.subscribe(res=>{
-    //   this.GoodsInTransitLookup = res
-    // })
-    // // 
-    // this.itemsService.sendCityLookupObs.subscribe(res=>{
-    //   this.CityLookup = res
-    // })
-    // // 
-    // this.itemsService.sendCompanyPhoneLookupObs.subscribe(res=>{
-    //   this.CompanyPhoneLookup = res
-    // })
-    // 
-  }
+
   getAccount() { 
     this.itemsService.AccountsDropDown()
     this.itemsService.AccountsDropDownLookupObs.subscribe(res=>{
@@ -201,15 +151,7 @@ getWarehouseById() {
 
   onSubmit() {
     if (!this.formService.validForm(this.warehouseForm, false)) return;
-
     let warehouseData = {...this.warehouseForm.getRawValue()}
-    // if(!Object.values(warehouseData.addressWarehouse).length) {
-    //   warehouseData.addressWarehouse = null;
-    // }
-    // if(!Object.values(warehouseData.warehouseAccount).length) {
-    //   warehouseData.warehouseAccount = null;
-    // }
-
     let WarehouseCheck = Object.values(warehouseData.addressWarehouse).every(elem => elem == undefined || elem == null || elem == 0);
     let warehouseAccountCheck = Object.values(warehouseData.warehouseAccount).every(elem => elem == undefined || elem == null || elem == 0);
     if(WarehouseCheck) {

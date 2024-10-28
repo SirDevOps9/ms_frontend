@@ -242,11 +242,16 @@
     "baseUom" : "وحدة القياس الافتراضية",
     "systemUnit" : "وحدة النظام",
     "unitSystem" : "وحدة النظام",
-    "nameUom" : "الاسم",
+    "nameUomEn" : "الاسم بالانجليزيه",
+    "nameUomAr" : "الاسم بالعربيه",
     "factorUOM": "عامل",
     "calculation": "حساب",
     "reversal": "عكس",
-    "from" : "من"
+    "from" : "من",
+    "uomCode": "كود وحدة القياس",
+    "uomName": "اسم وحدة القياس",
+    "uomCategory": "فئة وحدة القياس",
+    "uomFactor": "معامل وحدة القياس"
 
   },
   "attributeDefinition": {

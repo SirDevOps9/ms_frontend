@@ -73,7 +73,7 @@
     "salesAmount": "Sales Account",
     "salesReturnAmount": "Sales Return Account",
     "variantSelect": "Variant Select",
- 
+
     "success": "Success",
     "deleteVariant": "Attibute Group Deleted Successfully",
     "changeVariantStatus": "Attibute Group Status Changed Successfully",
@@ -127,7 +127,8 @@
     "itemTracking": "Item Tracking",
     "SelectItemTracking": "Select Item Tracking",
     "hasExpiry": "Has Expiry Date",
-    "delete" : "Item Definition deleted successfully"
+    "delete" : "Item Definition deleted successfully",
+    "editGenerl":"Edit general updated successfully"
   },
   "warehouse": {
     "Add" : "Add",
@@ -144,9 +145,9 @@
     "account" : "Account",
     "address" : "Address",
     "city" : "City",
-    "companyPhoneNumber" : "Company Phone Number",    
+    "companyPhoneNumber" : "Company Phone Number",
     "email" : "Email",
-    "fax" : "Fax",    
+    "fax" : "Fax",
     "postCode" : "Post Code",
     "longitude" : "Longitude",
     "latitude" : "Latitude",
@@ -211,12 +212,17 @@
     "category" : "Category",
     "baseUom" : "Base UOM",
     "systemUnit" : "system Unit Base",
-    "nameUom" : "Name",
+    "nameUomEn" : "Name En",
+    "nameUomAr" : "Name Ar",
     "unitSystem" : "system Unit",
     "factorUOM": "Factor",
     "calculation": "Calculation",
     "reversal": "Reversal",
-    "from" : "From"
+    "from" : "From",
+    "uomCode" : "UOM Code",
+    "uomName" : "UOM Name",
+    "uomCategory" : "UOM Category",
+    "uomFactor" : "UOM Factor"
 
   },
   "attributeDefinition": {
@@ -286,8 +292,8 @@
     "actions": "Actions",
     "glAccountId" : "GL Account Code"
 
-  
-  
+
+
   },
   "itemsCategory": {
     "title": "Item Category",
@@ -314,7 +320,7 @@
     "import" : "Import",
     "edit" : "Edit",
     "save" : "Save",
-    "cancel" : "Cancel", 
+    "cancel" : "Cancel",
     "delete" : "Stock In Deleted Successfully",
     "success" : "Success",
     "add" : "Stock In Added Successfully",

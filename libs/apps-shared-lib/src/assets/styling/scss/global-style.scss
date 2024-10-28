@@ -1,8 +1,7 @@
-body{
+body {
   background-color: #f7f7fa !important;
-
 }
-.card_micro{
+.card_micro {
   margin-top: 16px;
   background: #fff;
   padding: 16px;
@@ -14,11 +13,15 @@ body{
   padding: 16px !important;
   border-radius: 16px !important;
 }
-.add_new{
+.add_new {
   padding: 20px 0 0 0 !important;
 }
 
 [dir='rtl'] {
+  app-layout-sidebar .sidebar {
+    right: 0 !important;
+    left: auto;
+  }
   .p-breadcrumb svg {
     rotate: (180deg);
   }
@@ -62,15 +65,15 @@ body{
     }
   }
 }
-.pragraph_demd{
+.pragraph_demd {
   padding: 5px 16px !important;
-    background: #efefef;
-    border: 1px solid #e3e3e3;
-    transition: none !important;
-    border-radius: 6px;
-    width: 100% !important;
-  }
-  .p-paginator .p-dropdown {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
+  background: #efefef;
+  border: 1px solid #e3e3e3;
+  transition: none !important;
+  border-radius: 6px;
+  width: 100% !important;
+}
+.p-paginator .p-dropdown {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
