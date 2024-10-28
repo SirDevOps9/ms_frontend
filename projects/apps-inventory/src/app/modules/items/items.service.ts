@@ -172,7 +172,7 @@ export class ItemsService {
   public listOfAttrDifinition = new BehaviorSubject<IAttrributeDifinitionResult[]>([]);
   public listOfOperationalTag = new BehaviorSubject<IOperationalTagResult[]>([]);
   public SendExportOperationalTagList = new BehaviorSubject<IOperationalTagResult[]>([]);
- 
+
   public sendItemDefinitionDataSourceObs = this.sendItemDefinitionDataSource.asObservable();
   public GetUOMCategoriesDataSourceObs = this.GetUOMCategoriesDataSource.asObservable();
   public  ViewDataDefinitionByIdObs = this.ViewDataDefinitionById.asObservable();
@@ -261,13 +261,13 @@ export class ItemsService {
     });
   }
   getItemDefinition(quieries: string, pageInfo: PageInfo) {
-    this.loaderService.show();
+
     this.itemProxy.getItemDefinition(quieries, pageInfo).subscribe((response) => {
       this.sendItemDefinitionDataSource.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
-      this.loaderService.hide();
+
     },erorr=>{
-      this.loaderService.hide();
+
     });
   }
   getUOmCategories(quieries: string, pageInfo: PageInfo) {
@@ -369,7 +369,7 @@ export class ItemsService {
     });
   }
   getListOfUom(SearchTerm: string | undefined, pageInfo: PageInfo) {
-    
+
     this.itemProxy.getListOfUom(SearchTerm, pageInfo).subscribe((response: Iuom) => {
       this.listOfUOM.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
@@ -390,12 +390,12 @@ export class ItemsService {
 
   editStatusAttributeGroup(modle:any){
     this.itemProxy.editStatusAttributeGroup(modle).subscribe((data:any)=>{
- 
+
         this.toasterService.showSuccess(
           this.languageService.transalte('attributeDefinition.success'),
           this.languageService.transalte('attributeDefinition.attributeEditStatus')
         );
-   
+
 
     })
   }
@@ -426,7 +426,7 @@ export class ItemsService {
       this.toasterService.showSuccess(
         this.languageService.transalte('itemDefinition.success'),
         this.languageService.transalte('itemDefinition.add')
-     
+
       );
     });
   }
@@ -438,7 +438,7 @@ export class ItemsService {
       }
     });
   }
- 
+
   exportsItemsDefinitionList(searchTerm: string | undefined) {
     this.itemProxy.exportsItemsDefinitionList(searchTerm).subscribe({
       next: (res: any) => {
@@ -508,7 +508,7 @@ export class ItemsService {
         this.toasterService.showSuccess(
           this.languageService.transalte('itemsCategory.success'),
           this.languageService.transalte('itemsCategory.add')
-       
+
         );
       },
     });
@@ -594,7 +594,7 @@ export class ItemsService {
   }
   getCodeByuomCodeDropDown(id: number) {
    return this.itemProxy.getCodeByuomCodeDropDown(id)
-    
+
     // .subscribe({
     //   next: (res: any) => {
     //     this.codeByuomCodeDropDown.next(res);
@@ -717,7 +717,7 @@ export class ItemsService {
   }
 
   systemUnitLookup() {
-    
+
     this.itemProxy.systemUnitLookup().subscribe((res) => {
       if(res) {
         this.sendSystemUnitLookup.next(res)
@@ -756,20 +756,20 @@ export class ItemsService {
   }
   // attr difinition delete
   async deleteAttrDifinition(id: number) {
-    
+
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
       this.itemProxy.deleteAttrDifinition(id).subscribe({
         next: (res) => {
-          
+
           this.toasterService.showSuccess(
             this.languageService.transalte('attributeDefinition.success'),
             this.languageService.transalte('attributeDefinition.delete')
           );
 
-          
+
           const currentAttrDif = this.attributeValuesDropDownLookup.getValue();
           const updatedAttrDif = currentAttrDif.filter((c: any) => c.id !== id);
           this.attributeValuesDropDownLookup.next(updatedAttrDif);
@@ -788,7 +788,7 @@ export class ItemsService {
            })
     }
 
-    
+
 
 
 
@@ -798,18 +798,18 @@ export class ItemsService {
         this.attributeValuesDropDownLookup.next(res);
       },
     });
-    */ 
+    */
   }
   // attr difinition delete
   async deleteUOM(id: number) {
-    
+
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
       this.itemProxy.deleteUOM(id).subscribe({
         next: (res) => {
-          
+
           this.toasterService.showSuccess(
             this.languageService.transalte('UOM.success'),
             this.languageService.transalte('UOM.delete')
@@ -823,14 +823,14 @@ export class ItemsService {
     }
   }
   async deleteCategory(id: number) {
-    
+
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
       this.itemProxy.deleteCategory(id).subscribe({
         next: (res) => {
-          
+
           this.toasterService.showSuccess(
             this.languageService.transalte('UOM.success'),
             this.languageService.transalte('UOM.delete')
@@ -845,14 +845,14 @@ export class ItemsService {
   }
   // attr difinition delete
   async deleteUomCat(id: number) {
- 
+
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
       this.itemProxy.deleteUOM(id).subscribe({
         next: (res) => {
-      
+
           this.toasterService.showSuccess(
             this.languageService.transalte('UOM.success'),
             this.languageService.transalte('UOM.delete')
@@ -867,20 +867,20 @@ export class ItemsService {
   }
   // deleteAttributeGroup delete
   async deleteAttributeGroup(id: number) {
-    
+
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
       this.itemProxy.deleteAttributeGroup(id).subscribe({
         next: (res) => {
-          
+
           this.toasterService.showSuccess(
             this.languageService.transalte('attributeDefinition.success'),
             this.languageService.transalte('attributeDefinition.delete')
           );
 
-          
+
           const currentAttr = this.listOfAttrDifinition.getValue();
           const updatedattr = currentAttr.filter((c: any) => c.id !== id);
           this.listOfAttrDifinition.next(updatedattr);
@@ -921,7 +921,7 @@ export class ItemsService {
     if (confirmed) {
       this.itemProxy.deleteBarcode(id).subscribe({
         next: (res) => {
-          
+
           this.toasterService.showSuccess(
             this.languageService.transalte('itemType.success'),
             this.languageService.transalte('itemType.deleteBarcode')
@@ -930,11 +930,11 @@ export class ItemsService {
           const updatedVariants = currentVariant.filter(c  => c.id !== id);
           this.GetBarcode.next(updatedVariants);
         },
-        
+
       });
     }
   }
-  
+
   addBarcode(obj: addBarcode) {
     this.itemProxy.addBarcode(obj).subscribe((res) => {
       this.toasterService.showSuccess(
@@ -981,14 +981,14 @@ export class ItemsService {
       this.sendAttrDefinition.next(res);
       this.router.navigateTo('/masterdata/attribute-definition')
       let audio = new Audio();
-          
+
       audio.src = './assets/notification-sound/done.wav';
       audio.load();
       audio.play();
 
     });
   }
- 
+
   getBarcodeByItemId(id: number) {
     return this.itemProxy.getBarcodeByItemId(id).subscribe((res) => {
       this.GetBarcode.next(res);
@@ -1136,7 +1136,7 @@ export class ItemsService {
       });
     }
   }
- 
+
   getWareHousesDropDown() {
     return this.itemProxy.getWareHousesDropDown().subscribe((res) => {
       this.wareHousesDropDownLookup.next(res);
@@ -1176,14 +1176,14 @@ export class ItemsService {
         this.toasterService.showSuccess(
           this.languageService.transalte('attributeDefinition.success'),
           this.languageService.transalte('attributeDefinition.success')
-          
+
         );
         let audio = new Audio();
-          
+
         audio.src = './assets/notification-sound/done.wav';
         audio.load();
         audio.play();
-  
+
         // this.router.navigateTo(`/masterdata/item-definition` )
       }
     });
@@ -1228,7 +1228,12 @@ editOperationalTag(obj: AddOperatioalTag) {
 saveItemDefinitionGeneral(obj : AddGeneralDto) {
   this.itemProxy.saveItemDefinitionGeneral(obj).subscribe((res) => {
     if(res) {
-      this.getItemDefGeneral.next(res)
+      this.getItemDefGeneral.next(res);
+      this.toasterService.showSuccess(
+        this.languageService.transalte('itemDefinition.success'),
+        this.languageService.transalte('itemDefinition.editGenerl')
+
+      );
     }
 
   })
