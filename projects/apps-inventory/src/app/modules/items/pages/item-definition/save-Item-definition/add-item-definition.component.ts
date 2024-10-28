@@ -1,40 +1,17 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { DialogService } from 'primeng/dynamicdialog';
-import { customValidators, FormsService, RouterService, SharedLibraryEnums, ToasterService } from 'shared-lib';
-import { AddVariantPopupComponent } from '../../../components/add-variant-popup/add-variant-popup.component';
-import { ViewVariantPopupComponent } from '../../../components/view-variant-popup/view-variant-popup.component';
-import { AddBarcodePopupComponent } from '../../../components/add-barcode-popup/add-barcode-popup.component';
+import { Component } from '@angular/core';
+
+import {RouterService, SharedLibraryEnums, ToasterService } from 'shared-lib';
+
 import { ActivatedRoute } from '@angular/router';
-import { ItemsService } from '../../../items.service';
-import { ViewQRcodeComponent } from '../../../components/view-qrcode/view-qrcode.component';
-import { GetItemById, getUomByItemId, UomCodeLookup, UomDefault } from '../../../models';
-import { AddUom, ItemUom } from '../../../models/addUom';
 
-function uomIdUniqueValidator(formArray: AbstractControl): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const currentUomId = control.value;
-    let duplicateFound = false;
 
-    // Iterate through the form array and check for duplicates
-    formArray.value.forEach((item: any, index: number) => {
-      if (item.uomId === currentUomId && control !== formArray.get([index, 'uomId'])) {
-        duplicateFound = true;
-      }
-    });
 
-    // Return validation error if a duplicate is found
-    return duplicateFound ? { uomIdNotUnique: true } : null;
-  };
-}
 @Component({
   selector: 'app-add-item-definition',
   templateUrl: './add-item-definition.component.html',
   styleUrl: './add-item-definition.component.scss'
 })
-export class AddItemDefinitionComponent implements OnInit {
-
-  itemDefinitionForm : FormGroup = new FormGroup({})
+export class AddItemDefinitionComponent  {
   id : number
   uomLookup : { id: number; name: string }[] = []
   allUOmLines : getUomByItemId[]
@@ -260,18 +237,17 @@ export class AddItemDefinitionComponent implements OnInit {
 
   findRoute(routeFragment: string): boolean {
     if (!routeFragment) {
-      return false;
+      return false; // Return false if the routeFragment is empty or null
     }
 
+    // Check if the current URL contains the given route fragment
     return this._router.getCurrentUrl().includes(`/${routeFragment}`);
   }
-
-  onRoute(routeFragment: string) {
-    if (!routeFragment) {
-      return;
-    }
-    this._router.navigateTo(`/masterdata/add-item-definition/${this.id}/${routeFragment}`);
+  onRoute() {
+    this._router.navigateTo(`masterdata/add-item-definition/${this.id}/general`)
   }
+
+
 
 
   get UOMForm() {

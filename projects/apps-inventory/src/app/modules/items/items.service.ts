@@ -1202,7 +1202,17 @@ editOperationalTag(obj: AddOperatioalTag) {
 
 saveItemDefinitionGeneral(obj : AddGeneralDto) {
   this.itemProxy.saveItemDefinitionGeneral(obj).subscribe((res) => {
-    this.router.navigateTo('/masterdata/item-definition')
+    if(res) {
+      this.getItemDefGeneral.next(res)
+    }
+
+  })
+}
+getItemDefinitionGeneral(id : number) {
+  this.itemProxy.getItemDefinitionGeneral(id).subscribe((res) => {
+    if(res) {
+      this.getItemDefGeneral.next(res)
+    }
   })
 }
 

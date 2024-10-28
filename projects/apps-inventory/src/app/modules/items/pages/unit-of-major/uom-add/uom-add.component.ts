@@ -68,6 +68,10 @@ export class UOMAddComponent implements OnInit {
   initUOMForm() {
     this.UOMFormGroup = this.fb.group({
       uomCategoryNameEn: [null, customValidators.required],
+      code: [null],
+      baseUom: [null],
+      nameUom: [null],
+      shortName: [null],
       uomCategoryNameAr : [null, customValidators.required],
       uoMs : this.fb.array([])
     });
