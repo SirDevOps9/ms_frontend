@@ -1,223 +1,72 @@
 <lib-page-content>
     <div class="card_micro">
-        <form [formGroup]="addForm">
-        <lib-fildest header="">
-            <div class="grid m-0">
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="addForm.controls['code']">
-                            {{'pricePolicy.code'|translate}}
-                        </lib-label>
-                        <lib-text-input
-                        [readOnly]="true"
-                        formControlName="code"
+      <div class="grid"  [formGroup]="addForm">
+        <div class="col-12 md:col-3">
+          <lib-form-group>
+            <lib-label
+            [appControl]="addForm.controls['code']"
+        
+            >
+            policy code 
+            </lib-label>
+            <lib-text-input
+            formControlName="code"
+            [readOnly]="true"
+            >
+        
+            </lib-text-input>
+           </lib-form-group>
+        </div>
+        <div class="col-12 md:col-3">
+          <lib-form-group>
+            <lib-label
+            [appControl]="addForm.controls['name']"
+        
+            >
+            policy name 
+            </lib-label>
+            <lib-text-input
+            formControlName="name"
+            >
+        
+            </lib-text-input>
+           </lib-form-group>
+        </div>
 
-                        ></lib-text-input>
-                        <lib-field-validations [appControl]="addForm.controls['code']">
-
-                        </lib-field-validations>
-                    </lib-form-group> 
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="addForm.controls['name']">
-                            {{'pricePolicy.name'|translate}}
-                        </lib-label>
-                        <lib-text-input
-                        formControlName="name"
-
-                        ></lib-text-input>
-                        <lib-field-validations [appControl]="addForm.controls['name']">
-
-                        </lib-field-validations>
-                    </lib-form-group> 
-                </div>
-              
-            </div>
-        </lib-fildest>
-        <lib-fildest header="{{'pricePolicy.getPolicy'|translate}}">
-            <div class="grid m-0">
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="addForm.controls['uploadPolicy']">
-                            {{'pricePolicy.uploadPolicy'|translate}}
-                        </lib-label>
-                        <!-- <lib-text-input
-                        formControlName="uploadPolicy"
-
-                        ></lib-text-input> -->
-                        <!-- <lib-text-input  type="file" (change)="onFileSelected($event)" iconUrl="pi pi-upload"  accept=".xlsx"></lib-text-input>     -->
-                        <lib-file-uploader [file]="true" (data)="onclick($event)"></lib-file-uploader>                 
-                        <lib-field-validations [appControl]="addForm.controls['uploadPolicy']">
-
-                        </lib-field-validations>
-                    </lib-form-group> 
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="addForm.controls['fromPolicy']">
-                            {{'pricePolicy.fromPolicy'|translate}}
-                        </lib-label>
-                        <lib-text-input
-                        formControlName="fromPolicy"
-
-                        ></lib-text-input>
-                        <lib-field-validations [appControl]="addForm.controls['fromPolicy']">
-
-                        </lib-field-validations>
-                    </lib-form-group> 
-                </div>
-              
-            </div>
-        </lib-fildest>
-        <lib-fildest header="{{'pricePolicy.applyPolicy'|translate}}">
-            <div class="grid m-0">
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="addForm.controls['item']">
-                            {{'pricePolicy.item'|translate}}
-                        </lib-label>
-                        <lib-text-input
-                        formControlName="item"
-
-                        ></lib-text-input>
-                        <lib-field-validations [appControl]="addForm.controls['item']">
-
-                        </lib-field-validations>
-                    </lib-form-group> 
-                </div>
-                <div class="col-12 md:col-6">
-                    <lib-form-group>
-                        <lib-label [appControl]="addForm.controls['itemCategory']">
-                            {{'pricePolicy.itemCategory'|translate}}
-                        </lib-label>
-                        <!-- <lib-text-input
-                        formControlName="itemCategory"
-
-                        ></lib-text-input> -->
-                        <lib-multi-select
-                        formControlName="itemCategory"
-                        >
-
-                        </lib-multi-select>
-                        <lib-field-validations [appControl]="addForm.controls['itemCategory']">
-
-                        </lib-field-validations>
-                    </lib-form-group> 
-                </div>
-                <div class="col-12 md:col-5">
-                    <lib-form-group>
-                        <lib-label [appControl]="addForm.controls['value']">
-                            {{'pricePolicy.value'|translate}}
-                        </lib-label>
-                        <lib-text-input
-                        formControlName="value"
-
-                        ></lib-text-input>
-                        <lib-field-validations [appControl]="addForm.controls['value']">
-
-                        </lib-field-validations>
-                    </lib-form-group> 
-                </div>
-                <div class="col-12 md:col-5">
-                    <lib-form-group>
-                        <lib-label [appControl]="addForm.controls['valueType']">
-                            {{'pricePolicy.valueType'|translate}}
-                        </lib-label>
-                        <lib-text-input
-                        formControlName="valueType"
-
-                        ></lib-text-input>
-                        <lib-field-validations [appControl]="addForm.controls['valueType']">
-
-                        </lib-field-validations>
-                    </lib-form-group> 
-                </div>
-                <div class="col-12 md:col-2 mt-5" >
-                    <lib-form-group>
-                      
-                        <lib-select
-                        placeholder="+ or -"
-                        formControlName="valueSelect"
-                        >
-
-                        </lib-select>
-                        <lib-field-validations [appControl]="addForm.controls['valueType']">
-
-                        </lib-field-validations>
-                    </lib-form-group> 
-                </div>
-              
-            </div>
-        </lib-fildest>
-        <lib-fildest header="">
-            <div class="grid m-0">
-                <div class="col-12 md:col-4">
-                    <div class="date">
-                        <lib-form-group>
-                        <div class=" test  ">
-                            <p-checkbox 
-                            formControlName="VAT" 
-                            inputId="VAT"
-                            value="{{'pricePolicy.VAT'|translate}}" 
-                          ></p-checkbox>
-                          <lib-label
-                          class="margin_start"
-                          for="VAT"
-                          [appControl]="addForm.controls['VAT']">
-                              {{'pricePolicy.VAT'|translate}}
-                          </lib-label>
-                        </div>
-                         
-                            <lib-field-validations [appControl]="addForm.controls['VAT']">
-    
-                            </lib-field-validations>
-                        </lib-form-group> 
-                        <!-- <lib-form-group>
-                        <div class="tes">
-                            <lib-input-switch
-                            formControlName="applyDate"
-                            (ngModelChange)="test()"
-                            ></lib-input-switch>
-                               <lib-label
-                               class="margin_start"
-                               for="applyDate"
-                               [appControl]="addForm.controls['applyDate']">
-                                   {{'pricePolicy.applyDate'|translate}}
-                               </lib-label>
-    
-                        </div>
-                            <lib-field-validations [appControl]="addForm.controls['applyDate']">
-    
-                            </lib-field-validations>
-                        </lib-form-group>  -->
-
-                    </div>
-                </div>
-                <!-- <div class="col-12 md:col-8">
-                    <lib-form-group>
-                        <lib-label [appControl]="addForm.controls['date']">
-                            {{'pricePolicy.toDate'|translate}}
-                        </lib-label>
-                      
-                        <lib-calendar
-                        formControlName="date"
-                        >
-
-                        </lib-calendar>
-                        <lib-field-validations [appControl]="addForm.controls['date']">
-
-                        </lib-field-validations>
-                    </lib-form-group> 
-                </div> -->
-            
-              
-            </div>
-        </lib-fildest>
-    </form>
+      </div>
+ 
     </div>
+  
     <div class="entry_tableCont">
         <div class="card">
+          <div class="grid mb-3">
+            <div class="flex justify-content-between w-full ">
+              <div class="">
+                <lib-text-input
+                [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+                >
+  
+                </lib-text-input>
+              </div>
+             
+              <div class="actions">
+                <lib-button-micro
+                [title]="'update price policy'"
+                nameClass="outline"
+                iconName="pi pi-file-edit"
+                >
+                </lib-button-micro>
+                <lib-button-micro
+                [title]="'update price policy'"
+                nameClass="outline"
+                iconName="pi pi-file"
+                >
+                </lib-button-micro>
+              </div>
+            </div>
+         
+
+          </div>
           <p-table
             [resizableColumns]="true"
             [value]="pricePolicyFormArray.controls"
@@ -247,10 +96,10 @@
                         <lib-select
                         [options]="items"
                         optionValue="id"
-                        optionLabel="itemName"
+                        [customClass]="'add-journal'"
+                        optionLabel="itemCode"
                         formControlName="itemId"
                         (valueChanged)="setRowData(rowIndex ,pricePolicy.controls['itemId'].value  )"
-
                         [selectedValue]="pricePolicy.controls['itemId'].value"
                         >
 
@@ -260,7 +109,7 @@
                       </div>
                     </ng-template>
                     <ng-template pTemplate="output">
-                      {{ pricePolicy.get('itemId').value }}
+                      {{ pricePolicy.get('itemCode').value }}
                     </ng-template>
                   </p-cellEditor>
                   <lib-field-validations [appControl]="pricePolicy.controls['itemId']">
@@ -288,9 +137,9 @@
                   <lib-field-validations [appControl]="pricePolicy.controls['name']">
                   </lib-field-validations>
                 </td> -->
-                <td [pEditableColumn]="pricePolicy.uomId" pEditableColumnField="uomId">
+                <td [pEditableColumn]="pricePolicy.uomId" pEditableColumnField="uomId" [ngClass]=" {'error':rowIndex==rowDuplicate && rowDuplicate!=0}" >
                   <p-cellEditor>
-                    <ng-template pTemplate="input">
+                    <ng-template pTemplate="input" >
                       <div class="flex gap-2 align-items-center">
                         <!-- <lib-text-input
                           type="text"
@@ -300,9 +149,12 @@
                          <lib-select
                          formControlName="uomId"
                          [options]="pricePolicy.get('uomOptions').value"
-                          [selectedValue]="pricePolicy.get('uomId').value"
+                         [customClass]="'add-journal'"
+ 
+                         [selectedValue]="pricePolicy.get('uomId').value"
                          optionLabel="uomNameAr"
                          optionValue="uomId"
+                         (valueChanged)="setUomIdValue(rowIndex, $event)"
                          ></lib-select>
                       </div>
                     </ng-template>
@@ -313,7 +165,7 @@
                   <lib-field-validations [appControl]="pricePolicy.controls['uomId']">
                   </lib-field-validations>
                 </td>
-                <td [pEditableColumn]="pricePolicy.itemVariantId" pEditableColumnField="itemVariantId">
+                <!-- <td [pEditableColumn]="pricePolicy.itemVariantId" pEditableColumnField="itemVariantId"> -->
                   <!-- <p-cellEditor>
                     <ng-template pTemplate="input">
                       <div class="flex gap-2 align-items-center">
@@ -330,14 +182,17 @@
                   </p-cellEditor>
                   <lib-field-validations [appControl]="pricePolicy.controls['itemVariantId']">
                   </lib-field-validations> -->
-                  {{pricePolicy.get('itemVariantName').value}}             
-                   </td>
+                   <!-- </td> -->
+                    <td>
+                      {{pricePolicy.get('itemVariantName').value}}             
+
+                    </td>
                 <td [pEditableColumn]="pricePolicy.price" pEditableColumnField="price">
                   <p-cellEditor>
                     <ng-template pTemplate="input">
                       <div class="flex gap-2 align-items-center">
                         <lib-text-input
-                          type="text"
+                          type="number"
                           formControlName="price"
                         >
                         </lib-text-input>
@@ -352,8 +207,7 @@
                 </td>
              <td>
                 <lib-input-switch 
-                formControlName="priceWithVat"
-                [(ngModel)]="pricePolicy.get('priceWithVat').value"
+                formControlName="isVatApplied"
                 >
 
                 </lib-input-switch>
@@ -402,6 +256,7 @@
                     title="{{ 'Save' | translate }}"
                     nameClass="save"
                     widthNumber="100%"
+                    (click)="save()"
                   >
                   </lib-button-micro>
                

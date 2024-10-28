@@ -8,7 +8,7 @@
       <lib-data-table
         [popup]="true"
         [items]="items"
-        [showCheckBox]="true"
+        [showCheckBox]="false"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
         (pageChange)="onPageChange($event)"
@@ -20,34 +20,39 @@
           pageSize: 10,
           columns: [
             {
-              name: 'code',
+              name: 'itemCode',
               headerText: 'ItemsAdvancedSearch.ItemCode' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'name',
+              name: 'itemName',
               headerText: 'ItemsAdvancedSearch.ItemName' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'itemUOM',
+              name: 'uomNameEn',
               headerText: 'ItemsAdvancedSearch.ItemUOM' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'itemVairant',
+              name: 'itemVariantName',
               headerText: 'ItemsAdvancedSearch.ItemVariant' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'itemCategory',
+              name: 'itemCategoryNameEn',
               headerText: 'ItemsAdvancedSearch.ItemCategory' | translate,
               isGlobalFilter: true,
               isSortable: true
+            },
+            {
+              name: 'itemCode',
+              headerText: 'ItemsAdvancedSearch.ItemCategory' | translate,
+              template:action
             }
           ]
         }"
@@ -128,7 +133,15 @@
             </div>
           </div>
         </ng-container>
+        <ng-template #action let-item>
+          <lib-button-micro
+          nameClass="save"
+          title="select"
+          (click)="selectedRow(item)"
+          >
 
+          </lib-button-micro>
+</ng-template>
         >
       </lib-data-table>
     </div>

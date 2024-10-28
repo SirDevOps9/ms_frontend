@@ -40,7 +40,7 @@ export class MultiSelectItemsComponent implements OnInit {
 
   subscribes() {
     this.salesService.itemsList.subscribe({
-      next: (res) => {
+      next: (res:any) => {
         this.items = res;
       },
     });
@@ -63,10 +63,18 @@ export class MultiSelectItemsComponent implements OnInit {
     this.ref.close(this.selectedRows);
   }
 
+  
   onSelectedRowsChange(selectedRows: any[]) {
     this.selectedRows = selectedRows;
+    console.log(selectedRows ,"00000000");
+    
   }
+  selectedRow(selectedRow: any[]) {
+    console.log(selectedRow ,"00000000");
+    this.ref.close(selectedRow);
 
+    
+  }
   onCancel() {
     this.ref.close();
   }

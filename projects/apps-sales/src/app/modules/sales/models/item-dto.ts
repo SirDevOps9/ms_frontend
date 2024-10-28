@@ -13,5 +13,6 @@ export interface ItemDto {
   itemCategoryNameAr: string;
   itemCategoryNameEn: string;
   categoryId: number;
+  taxId: number;
   itemsUOM:any[]
   }

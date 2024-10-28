@@ -221,4 +221,7 @@ export class SalesProxyService {
    
     return this.httpService.get<ItemDto>(query);
   }
+  addPricePolicy(policy: any): Observable<any> {
+    return this.httpService.post(`PricePolicy`, policy, false);
+  }
 }

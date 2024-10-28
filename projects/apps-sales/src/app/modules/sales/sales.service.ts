@@ -494,4 +494,22 @@ export class SalesService {
       this.latestItemsDataSource.next(res);
     });
   }
+  addPricePolicy(customer: any) {
+    this.loaderService.show();
+    this.salesProxy.addPricePolicy(customer).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('addCustomerDefinition.success'),
+          this.languageService.transalte('openeingBalance.CustomerAdded')
+        );
+        if (res) {
+          this.loaderService.hide();
+        }
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  
+}
 }

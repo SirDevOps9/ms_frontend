@@ -21,3 +21,15 @@
     background-color: #f9fafb !important;
     color: #B6BAC3 !important;
 }
+.actions{
+    display: flex;
+    gap: 8px;
+}
+.error-field input {
+    border: 2px solid red;
+    background-color: #ffe6e6;
+  }
+.error{
+    border: 2px solid red !important;
+    background-color: #ffe6e6 !important;
+  }

@@ -24,6 +24,7 @@ import { PricelistListComponent } from './pages/pricelist/Pricelist-list/Priceli
 import { MultiSelectItem } from 'primeng/multiselect';
 import { MultiSelectItemsComponent } from './components/multi-select-items/multi-select-items.component';
 import { AddPricePolicyComponent } from './pages/pricelist/add-price-policy/add-price-policy.component';
+import { UpdetePricePolicyComponent } from './components/updete-price-policy/updete-price-policy.component';
 
 const routes: Routes = [
   {
@@ -218,7 +219,8 @@ const routes: Routes = [
     PricelistListComponent,
     PricelistMainComponent,
     AddPricePolicyComponent,
-    MultiSelectItemsComponent
+    MultiSelectItemsComponent,
+    UpdetePricePolicyComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })
