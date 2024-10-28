@@ -87,6 +87,8 @@ export class ItemsService {
   saveItemDefGeneral$ = this.saveItemDefGeneral.asObservable()
   getItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
   getItemDefGeneral$ = this.getItemDefGeneral.asObservable()
+  sendSystemUnitLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([])
+  sendSystemUnitLookup$ = this.sendSystemUnitLookup.asObservable()
 
 
   // end Edit form item Def
@@ -111,6 +113,7 @@ export class ItemsService {
   public sendBarcode = new BehaviorSubject<addBarcode>({} as addBarcode);
   public sendUOM = new BehaviorSubject<AddUom>({} as AddUom);
   public sendUOMCategory = new BehaviorSubject<addUOM>({} as addUOM);
+  public getUOMCategoryByIdData = new BehaviorSubject<addUOM>({} as addUOM);
   public sendAttrDefinition = new BehaviorSubject<addAttributeDifintion>({} as addAttributeDifintion);
   public sendOperationTag = new BehaviorSubject<AddOperatioalTag>({});
   public editOperationTag = new BehaviorSubject<AddOperatioalTag>({});
@@ -210,6 +213,7 @@ export class ItemsService {
   public sendBarcodeObs = this.sendBarcode.asObservable();
   public sendUOMObs = this.sendUOM.asObservable();
   public sendUOMCategory$ = this.sendUOMCategory.asObservable();
+  public getUOMCategoryByIdData$ = this.getUOMCategoryByIdData.asObservable();
   public sendAttrDefinition$ = this.sendAttrDefinition.asObservable();
   public GetBarcodeObs = this.GetBarcode.asObservable();
   public GetItemByIDObs = this.GetItemByID.asObservable();
@@ -711,6 +715,17 @@ export class ItemsService {
       );
     });
   }
+
+  systemUnitLookup() {
+    
+    this.itemProxy.systemUnitLookup().subscribe((res) => {
+      if(res) {
+        this.sendSystemUnitLookup.next(res)
+      }
+    });
+  }
+
+
   ActivateUOM(obj: any) {
     this.itemProxy.ActivateUOM(obj).subscribe((res) => {
       this.toasterService.showSuccess(
@@ -947,6 +962,14 @@ export class ItemsService {
         this.languageService.transalte('UOM.uomSuccess')
       );
       this.sendUOMCategory.next(res);
+    });
+  }
+  getUOMCategoryById(id : number) {
+    this.itemProxy.getUOMCategoryById(id).subscribe((res) => {
+      if(res) {
+        this.getUOMCategoryByIdData.next(res);
+
+      }
     });
   }
   addAttrDifintion(obj: addAttributeDifintion) {
