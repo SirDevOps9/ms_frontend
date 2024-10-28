@@ -58,7 +58,6 @@ export class UOMAddComponent implements OnInit {
 
     this.initUOMForm()
     this.getUOM_list1()
-    this.conversionUomDD()
     this.getSendSystemUnitLookup()
 
 // Listen to UOMFormGroup value changes to set the first index
@@ -298,12 +297,12 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
   }
 
   onDelete(i: number) {
-    this.getUOMS.removeAt(i);
+    const formArray = this.getUOMS;
 
-
-    // this._itemService.deleteUomCat(obj.id)
-    // this.Get_UOMs_ByUOM_CategoryId(this.categoryId)
-
+  // Remove elements starting from the given index up to the last element
+    while (formArray.length > i) {
+      formArray.removeAt(i);
+    }
   }
 
   // on save table

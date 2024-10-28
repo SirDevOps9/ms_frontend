@@ -234,6 +234,7 @@
     "changeAttributrDifinitionStatus": "تغيير حالة تعريف السمة",
     "success": "نجاح",
     "uomSuccess": "تمت إضافة وحدة القياس بنجاح",
+    "uomSuccessEdit": "تمت تعديل وحدة القياس بنجاح",
     "nameEn": "الاسم بالإنجليزية",
     "conversionUOM": "تحويل وحدة القياس",
     "categorynameEn": "اسم الفئة بالإنجليزية",

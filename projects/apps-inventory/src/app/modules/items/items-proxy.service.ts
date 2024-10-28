@@ -300,6 +300,9 @@ export class ItemsProxyService {
   addUOMCategory(obj:addUOM) {
     return this.httpService.post('UOMCategories' , obj)
   }
+  EditUOMCategory(obj:addUOM) {
+    return this.httpService.put('UOMCategories/Edit' , obj)
+  }
   getUOMCategoryById(id : number) : Observable<addUOM> {
     return this.httpService.get(`UOMCategories/GetUOMCategoryWithUomsById/${id}`)
   }

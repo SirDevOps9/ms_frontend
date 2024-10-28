@@ -7,7 +7,7 @@ import { ItemsService } from '../../../items.service';
 import { UomCodeLookup } from '../../../models';
 import { ActivatedRoute } from '@angular/router';
 import { UOMType } from '../../../models/enums';
-import { addUOM } from '../../../models/addUom';
+import { addUOM, UoM } from '../../../models/addUom';
 
 @Component({
   selector: 'app-uom-edit',
@@ -25,6 +25,7 @@ export class UOMEditComponent implements OnInit {
   listOfUOM: { id: number; name: string }[] = []
   listOfUOMCat: UomCodeLookup[] = []
   listOfUomTypes: any[] = []
+  uomsData : UoM[] | any = []
   conversionUOMlist: any[] = []
   sytemUnitLookup : { id: number; nameAr: string; nameEn: string }[]
   usersList: UserPermission[];
@@ -77,10 +78,7 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
   // Ensure the list starts from index 1 if list[0] is already filled from UOMFormGroup
   if(res.length) {
     res?.forEach((item: any, i: number) => {
-      if (i === 0) {
-        // Skip index 0 because it's filled by UOMFormGroup
-        return;
-      }
+      if (i === 0 )  return;
   
       // Initialize an array to hold the names
       const currentData = [];
@@ -89,17 +87,26 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
       currentData.push({ name:  this.currentLang == 'en' ? this.UOMFormGroup.get('baseUomEn')?.value :  this.UOMFormGroup.get('baseUomAr')?.value});
   
   
-      // Add nameAr of the current item
-      currentData.push({ name: this.currentLang == 'en' ? item.nameEn : item.itemAr });
-  
+      // // Add nameAr of the current item
+      // currentData.push({ name: this.currentLang == 'en' ? item.nameEn : item.itemAr });
+      console.log(currentData)
+
       // Iterate through all previous indexes and add their nameEn
       for (let j = 0; j < i; j++) {
+        console.log(res)
+        console.log(j)
         const previousItem = res[j];
+        console.log(previousItem)
+
         currentData.push({ name: this.currentLang == 'en' ? previousItem.nameEn :  previousItem.nameAr});
       }
+
+
   
       // Filter out any objects with an empty name
       const filteredData = currentData.filter(data => data.name !== "" && data.name !== undefined);
+
+      console.log(filteredData)
   
       // Update the list with the filtered data
       this.list[i] = filteredData;
@@ -128,6 +135,8 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
   this._itemService.getUOMCategoryById(this.id)
   this._itemService.getUOMCategoryByIdData$.subscribe(res=>{
     console.log(res)
+    this.getUOMS.clear()
+    this.uomsData = res.uoMs
     if(res.uoMs?.length) {
       this.UOMFormGroup.patchValue({
         baseUomEn: res?.uoMs[0]?.nameEn,
@@ -140,6 +149,7 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
       res?.uoMs.forEach((elem , i)=>{
         if(i == 0) return
         let formGroup = this.fb.group({
+          id : elem.id,
           code: elem.code,
           nameAr: elem.nameAr,
           nameEn: elem.nameEn,
@@ -360,6 +370,7 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
 
 
     let base =  {
+      id : this.uomsData[0].id,
       code: '',
       nameAr: this.UOMFormGroup.get('baseUomAr')?.value,
       nameEn: this.UOMFormGroup.get('baseUomEn')?.value,
@@ -396,6 +407,7 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
     unitOfMeasures.unshift(base);
 
     let uom = {
+      id : this.id ,
       nameAr: this.UOMFormGroup.get('nameAr')?.value,
       nameEn: this.UOMFormGroup.get('nameEn')?.value,
       unitOfMeasures : unitOfMeasures
@@ -406,7 +418,7 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
 
     
 
-    this._itemService.addUOMCategory(uom)
+    this._itemService.EditUOMCategory(uom)
 
 
   }

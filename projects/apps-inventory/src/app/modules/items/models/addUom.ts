@@ -21,6 +21,7 @@ export interface addUOM {
 }
 
 export interface UoM {
+  id : string,
   code: string;
   nameAr: string;
   nameEn: string;

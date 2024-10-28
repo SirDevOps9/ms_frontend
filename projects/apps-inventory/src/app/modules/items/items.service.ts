@@ -835,7 +835,7 @@ export class ItemsService {
             this.languageService.transalte('UOM.success'),
             this.languageService.transalte('UOM.delete')
           );
-
+          
           const currentUom = this.GetUOMCategoriesDataSource.getValue();
           const updatedUOM = currentUom.filter((c: any) => c.id !== id);
           this.GetUOMCategoriesDataSource.next(updatedUOM);
@@ -955,6 +955,17 @@ export class ItemsService {
   }
   addUOMCategory(obj: addUOM) {
     this.itemProxy.addUOMCategory(obj).subscribe((res) => {
+      this.router.navigateTo(`/masterdata/uom` )
+
+      this.toasterService.showSuccess(
+        this.languageService.transalte('UOM.success'),
+        this.languageService.transalte('UOM.uomSuccess')
+      );
+      this.sendUOMCategory.next(res);
+    });
+  }
+  EditUOMCategory(obj: addUOM) {
+    this.itemProxy.EditUOMCategory( obj).subscribe((res) => {
       this.router.navigateTo(`/masterdata/uom` )
 
       this.toasterService.showSuccess(
