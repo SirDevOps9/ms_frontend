@@ -98,7 +98,7 @@ export class SalesProxyService {
     return this.httpService.get('ChartOfAccounts/ChildrenAccountsDropDown');
   }
   getpriceListDropDown(): Observable<{ id: number; name: string }[]> {
-    return this.httpService.get('PriceList/PriceListDropDown');
+    return this.httpService.get('PricePolicy/DropDown');
   }
   getpaymentTermsListDropDown(): Observable<{ id: number; name: string }[]> {
     return this.httpService.get('PaymentTerms/PaymentTermsDropdown');
