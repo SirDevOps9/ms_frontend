@@ -1,1 +1,139 @@
-<p>item-definition-uom works!</p>
+<div class="grid w-100" [formGroup]="itemUomForm">
+  <div class="md:col-12">
+    <div class="col-12 grid card">
+      <div class="md:col-12">
+        <p class="heads">{{ 'itemType.main' | translate }}</p>
+      </div>
+
+      <div class="md:col-5">
+        <lib-label [appControl]="itemUomForm.controls['uomCategoryId']">
+          {{ 'itemDefinition.category' | translate }}
+        </lib-label>
+        <lib-text-input
+          placeholder="{{ 'itemDefinition.category' | translate }}"
+          formControlName="uomCategoryId"
+          [readOnly]="true"
+        ></lib-text-input>
+      </div>
+
+      <div class="md:col-5 ">
+        <lib-label [appControl]="itemUomForm.controls['name']">
+          {{ 'itemDefinition.baseUnit' | translate }}
+        </lib-label>
+        <lib-text-input
+          placeholder="{{ 'itemDefinition.baseUnit' | translate }}"
+          formControlName="name"
+        ></lib-text-input>
+        <lib-field-validations
+          [appControl]="itemUomForm.controls['name']"
+        ></lib-field-validations>
+      </div>
+
+      <div class="md:col-2 mt-4">
+        <lib-button-micro
+          title="{{ 'itemDefinition.change' | translate }}"
+          nameClass="change"
+          widthNumber="100%"
+        >
+        </lib-button-micro>
+      </div>
+
+      <div class="md:col-12 mt-4">
+        <div formArrayName="uoms">
+          <lib-data-table
+            [items]="tableData"
+            className="p-datatable-gridlines"
+            [currentPageResult]="currentPageInfo"
+            (pageChange)="onPageChange($event)"
+            [tableConfigs]="{
+              allowPagination: false,
+              allowServerPagination: true,
+              dataKey: 'uomId',
+              pageSize: 10,
+              columns: [
+                {
+                  name: 'nameEn',
+                  headerText: ('itemDefinition.name' | translate),
+                  isGlobalFilter: true,
+                  isSortable: true
+                },
+                {
+                  name: 'shortName',
+                  headerText: ('itemDefinition.shortname' | translate),
+                  isGlobalFilter: true,
+                  isSortable: true
+                },
+                {
+                  name: 'conversionRatio',
+                  headerText: ('itemDefinition.conversionfactor' | translate),
+                  isGlobalFilter: true,
+                  isSortable: true,
+                  template: actionsconversionfactor
+                },
+                {
+                  name: 'unitUsages',
+                  headerText: ('itemDefinition.unitusage' | translate),
+                  isGlobalFilter: true,
+                  isSortable: true,
+                  template: actionsData
+                },
+                {
+                  name: 'uomId',
+                  headerText: ('itemDefinition.actions' | translate),
+                  template: actions
+                }
+              ]
+            }"
+          >
+          <ng-template #actionsconversionfactor let-item>
+            <lib-text-input
+              [formControlName]="item.conversionRatio"
+              placeholder="{{ 'itemDefinition.conversionfactor' | translate }}"
+            ></lib-text-input>
+          </ng-template>
+
+            <ng-template #actionsData let-action>
+              <div class="actions flex align-items-center">
+                <img src="assets/images/table/edit.svg" alt="" />
+                <img src="assets/images/table/delete.svg" alt="" />
+                <img src="assets/images/table/view.svg" alt="" />
+              </div>
+            </ng-template>
+
+            <ng-template #actions let-action>
+              <div class="actions flex align-items-center">
+                <img src="assets/images/table/edit.svg" alt="" />
+                <img src="assets/images/table/delete.svg" alt="" />
+                <img src="assets/images/table/view.svg" alt="" />
+              </div>
+            </ng-template>
+          </lib-data-table>
+
+          <div class="grid">
+            <div class="md:col-12 my-3 grid flex justify-content-end">
+              <div class="md:col-4 grid flex justify-content-end">
+                <div class="md:col-6">
+                  <lib-button-micro
+                    title="{{ 'itemType.cancel' | translate }}"
+                    nameClass="cancel"
+                    widthNumber="100%"
+                  >
+                  </lib-button-micro>
+                </div>
+                <div class="md:col-6">
+                  <lib-button-micro
+                    title="{{ 'itemType.save' | translate }}"
+                    nameClass="save"
+                    widthNumber="100%"
+                    iconName="pi pi-plus"
+                  >
+                  </lib-button-micro>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -43,6 +43,7 @@ import { addUOM, AddUom } from './models/addUom';
 import { addAttributeDifintion, IAttrributeDifinitionResult } from './models/AttrbuteDiffintion';
 import { OperationType } from './models/enums';
 import { VieItemDefinitionDto } from './models/VieItemDefinitionDto';
+import { GetItemUom } from './models/GetItemUom';
 
 @Injectable({
   providedIn: 'root',
@@ -62,6 +63,7 @@ export class ItemsService {
   GetUOMCategoriesDataSource = new BehaviorSubject<UOMCategoryDto[]>([]);
   sendDataDefinitionById = new BehaviorSubject<EditItemDefinitionDto>({} as EditItemDefinitionDto);
   ViewDataDefinitionById = new BehaviorSubject<VieItemDefinitionDto>({} as VieItemDefinitionDto);
+  public ViewDataItemUomById =  new BehaviorSubject<any>([])
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   public itemTypeLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([]);
   public itemCategoryLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
@@ -87,6 +89,8 @@ export class ItemsService {
   saveItemDefGeneral$ = this.saveItemDefGeneral.asObservable()
   getItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
   getItemDefGeneral$ = this.getItemDefGeneral.asObservable()
+  sendSystemUnitLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([])
+  sendSystemUnitLookup$ = this.sendSystemUnitLookup.asObservable()
 
 
   // end Edit form item Def
@@ -111,6 +115,7 @@ export class ItemsService {
   public sendBarcode = new BehaviorSubject<addBarcode>({} as addBarcode);
   public sendUOM = new BehaviorSubject<AddUom>({} as AddUom);
   public sendUOMCategory = new BehaviorSubject<addUOM>({} as addUOM);
+  public getUOMCategoryByIdData = new BehaviorSubject<addUOM>({} as addUOM);
   public sendAttrDefinition = new BehaviorSubject<addAttributeDifintion>({} as addAttributeDifintion);
   public sendOperationTag = new BehaviorSubject<AddOperatioalTag>({});
   public editOperationTag = new BehaviorSubject<AddOperatioalTag>({});
@@ -170,6 +175,7 @@ export class ItemsService {
   public listOfOperationalTag = new BehaviorSubject<IOperationalTagResult[]>([]);
   public SendExportOperationalTagList = new BehaviorSubject<IOperationalTagResult[]>([]);
 
+
   public sendItemDefinitionDataSourceObs = this.sendItemDefinitionDataSource.asObservable();
   public GetUOMCategoriesDataSourceObs = this.GetUOMCategoriesDataSource.asObservable();
   public  ViewDataDefinitionByIdObs = this.ViewDataDefinitionById.asObservable();
@@ -177,7 +183,7 @@ export class ItemsService {
   public wareHousesDropDownLookup$ = this.wareHousesDropDownLookup.asObservable();
   public SendexportAttrDifinitionList$ = this.SendexportAttrDifinitionList.asObservable();
   public itemTypeLookupObs = this.itemTypeLookup.asObservable();
-
+  public ViewDataItemUomByIdObs = this.ViewDataItemUomById.asObservable();
   public deleteAttrDifinitionDataObs = this.deleteAttrDifinitionData.asObservable()
   public itemCategoryLookupObs = this.itemCategoryLookup.asObservable();
   public AddItemCategoryLookupObs = this.AddItemCategoryLookup.asObservable();
@@ -210,6 +216,7 @@ export class ItemsService {
   public sendBarcodeObs = this.sendBarcode.asObservable();
   public sendUOMObs = this.sendUOM.asObservable();
   public sendUOMCategory$ = this.sendUOMCategory.asObservable();
+  public getUOMCategoryByIdData$ = this.getUOMCategoryByIdData.asObservable();
   public sendAttrDefinition$ = this.sendAttrDefinition.asObservable();
   public GetBarcodeObs = this.GetBarcode.asObservable();
   public GetItemByIDObs = this.GetItemByID.asObservable();
@@ -257,13 +264,13 @@ export class ItemsService {
     });
   }
   getItemDefinition(quieries: string, pageInfo: PageInfo) {
-    this.loaderService.show();
+
     this.itemProxy.getItemDefinition(quieries, pageInfo).subscribe((response) => {
       this.sendItemDefinitionDataSource.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
-      this.loaderService.hide();
+
     },erorr=>{
-      this.loaderService.hide();
+
     });
   }
   getUOmCategories(quieries: string, pageInfo: PageInfo) {
@@ -366,6 +373,7 @@ export class ItemsService {
   }
   getListOfUom(SearchTerm: string | undefined, pageInfo: PageInfo) {
 
+
     this.itemProxy.getListOfUom(SearchTerm, pageInfo).subscribe((response: Iuom) => {
       this.listOfUOM.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
@@ -387,10 +395,12 @@ export class ItemsService {
   editStatusAttributeGroup(modle:any){
     this.itemProxy.editStatusAttributeGroup(modle).subscribe((data:any)=>{
 
+
         this.toasterService.showSuccess(
           this.languageService.transalte('attributeDefinition.success'),
           this.languageService.transalte('attributeDefinition.attributeEditStatus')
         );
+
 
 
     })
@@ -422,6 +432,7 @@ export class ItemsService {
       this.toasterService.showSuccess(
         this.languageService.transalte('itemDefinition.success'),
         this.languageService.transalte('itemDefinition.add')
+
 
       );
     });
@@ -504,6 +515,7 @@ export class ItemsService {
         this.toasterService.showSuccess(
           this.languageService.transalte('itemsCategory.success'),
           this.languageService.transalte('itemsCategory.add')
+
 
         );
       },
@@ -590,6 +602,7 @@ export class ItemsService {
   }
   getCodeByuomCodeDropDown(id: number) {
    return this.itemProxy.getCodeByuomCodeDropDown(id)
+
 
     // .subscribe({
     //   next: (res: any) => {
@@ -711,6 +724,17 @@ export class ItemsService {
       );
     });
   }
+
+  systemUnitLookup() {
+
+    this.itemProxy.systemUnitLookup().subscribe((res) => {
+      if(res) {
+        this.sendSystemUnitLookup.next(res)
+      }
+    });
+  }
+
+
   ActivateUOM(obj: any) {
     this.itemProxy.ActivateUOM(obj).subscribe((res) => {
       this.toasterService.showSuccess(
@@ -742,6 +766,7 @@ export class ItemsService {
   // attr difinition delete
   async deleteAttrDifinition(id: number) {
 
+
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
@@ -749,10 +774,12 @@ export class ItemsService {
       this.itemProxy.deleteAttrDifinition(id).subscribe({
         next: (res) => {
 
+
           this.toasterService.showSuccess(
             this.languageService.transalte('attributeDefinition.success'),
             this.languageService.transalte('attributeDefinition.delete')
           );
+
 
 
           const currentAttrDif = this.attributeValuesDropDownLookup.getValue();
@@ -777,6 +804,7 @@ export class ItemsService {
 
 
 
+
     /*
        this.itemProxy.attributeGroupsValue(id).subscribe({
       next: (res: any) => {
@@ -784,9 +812,11 @@ export class ItemsService {
       },
     });
     */
+    */
   }
   // attr difinition delete
   async deleteUOM(id: number) {
+
 
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
@@ -794,6 +824,7 @@ export class ItemsService {
     if (confirmed) {
       this.itemProxy.deleteUOM(id).subscribe({
         next: (res) => {
+
 
           this.toasterService.showSuccess(
             this.languageService.transalte('UOM.success'),
@@ -809,12 +840,14 @@ export class ItemsService {
   }
   async deleteCategory(id: number) {
 
+
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
       this.itemProxy.deleteCategory(id).subscribe({
         next: (res) => {
+
 
           this.toasterService.showSuccess(
             this.languageService.transalte('UOM.success'),
@@ -831,12 +864,14 @@ export class ItemsService {
   // attr difinition delete
   async deleteUomCat(id: number) {
 
+
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
       this.itemProxy.deleteUOM(id).subscribe({
         next: (res) => {
+
 
           this.toasterService.showSuccess(
             this.languageService.transalte('UOM.success'),
@@ -853,6 +888,7 @@ export class ItemsService {
   // deleteAttributeGroup delete
   async deleteAttributeGroup(id: number) {
 
+
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
@@ -860,10 +896,12 @@ export class ItemsService {
       this.itemProxy.deleteAttributeGroup(id).subscribe({
         next: (res) => {
 
+
           this.toasterService.showSuccess(
             this.languageService.transalte('attributeDefinition.success'),
             this.languageService.transalte('attributeDefinition.delete')
           );
+
 
 
           const currentAttr = this.listOfAttrDifinition.getValue();
@@ -907,6 +945,7 @@ export class ItemsService {
       this.itemProxy.deleteBarcode(id).subscribe({
         next: (res) => {
 
+
           this.toasterService.showSuccess(
             this.languageService.transalte('itemType.success'),
             this.languageService.transalte('itemType.deleteBarcode')
@@ -916,9 +955,11 @@ export class ItemsService {
           this.GetBarcode.next(updatedVariants);
         },
 
+
       });
     }
   }
+
 
   addBarcode(obj: addBarcode) {
     this.itemProxy.addBarcode(obj).subscribe((res) => {
@@ -949,6 +990,14 @@ export class ItemsService {
       this.sendUOMCategory.next(res);
     });
   }
+  getUOMCategoryById(id : number) {
+    this.itemProxy.getUOMCategoryById(id).subscribe((res) => {
+      if(res) {
+        this.getUOMCategoryByIdData.next(res);
+
+      }
+    });
+  }
   addAttrDifintion(obj: addAttributeDifintion) {
     this.itemProxy.addAttrDifinition(obj).subscribe((res) => {
       this.toasterService.showSuccess(
@@ -959,12 +1008,14 @@ export class ItemsService {
       this.router.navigateTo('/masterdata/attribute-definition')
       let audio = new Audio();
 
+
       audio.src = './assets/notification-sound/done.wav';
       audio.load();
       audio.play();
 
     });
   }
+
 
   getBarcodeByItemId(id: number) {
     return this.itemProxy.getBarcodeByItemId(id).subscribe((res) => {
@@ -1114,6 +1165,7 @@ export class ItemsService {
     }
   }
 
+
   getWareHousesDropDown() {
     return this.itemProxy.getWareHousesDropDown().subscribe((res) => {
       this.wareHousesDropDownLookup.next(res);
@@ -1154,12 +1206,15 @@ export class ItemsService {
           this.languageService.transalte('attributeDefinition.success'),
           this.languageService.transalte('attributeDefinition.success')
 
+
         );
         let audio = new Audio();
+
 
         audio.src = './assets/notification-sound/done.wav';
         audio.load();
         audio.play();
+
 
         // this.router.navigateTo(`/masterdata/item-definition` )
       }
@@ -1205,7 +1260,12 @@ editOperationalTag(obj: AddOperatioalTag) {
 saveItemDefinitionGeneral(obj : AddGeneralDto) {
   this.itemProxy.saveItemDefinitionGeneral(obj).subscribe((res) => {
     if(res) {
-      this.getItemDefGeneral.next(res)
+      this.getItemDefGeneral.next(res);
+      this.toasterService.showSuccess(
+        this.languageService.transalte('itemDefinition.success'),
+        this.languageService.transalte('itemDefinition.editGenerl')
+
+      );
     }
 
   })
@@ -1240,3 +1300,4 @@ async deleteOperationalTag(id: number) {
 }
 
 }
+

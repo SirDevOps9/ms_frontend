@@ -120,7 +120,7 @@ export class UOMListComponent implements OnInit {
   
   }
   onEdit(data: any) {
-    this.routerService.navigateTo(`/masterdata/uom/edit-uom/${data.id}`);
+    this.routerService.navigateTo(`/masterdata/uom/edit-uom/${data.uomCategoryId}`);
 
 
 }

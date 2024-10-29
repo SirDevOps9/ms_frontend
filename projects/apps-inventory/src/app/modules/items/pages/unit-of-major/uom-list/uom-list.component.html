@@ -14,19 +14,31 @@
             columns: [
               {
                 name: 'id',
-                headerText: ('UOM.code' | translate),
+                headerText: ('UOM.uomCode' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
                 name: 'nameEn',
-                headerText: ('UOM.categorynameEn' | translate),
+                headerText: ('UOM.uomName' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
-                name: 'nameAr',
-                headerText: ('UOM.categorynameAr' | translate),
+                name: 'shortName',
+                headerText: ('UOM.shortName' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'uomCategory',
+                headerText: ('UOM.uomCategory' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'uomFactor',
+                headerText: ('UOM.uomFactor' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },

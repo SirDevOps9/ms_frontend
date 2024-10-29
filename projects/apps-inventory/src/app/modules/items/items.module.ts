@@ -11,7 +11,6 @@ import {
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { AddItemCategoryComponent } from './components/add-item-category/add-item-category.component';
 import { ItemCategoryListComponent } from './pages/item-category/item-category-list/item-category-list.component';
-import { AddItemDefinitionComponent } from './pages/item-definition/save-Item-definition/add-item-definition.component';
 import { AddItemDefinitionPopupComponent } from './components/add-item-definition/add-item-definition-popup.component';
 import { ItemDefinitionListComponent } from './pages/item-definition/item-definition-list/item-definition-list.component';
 import { EditItemDefinitionComponent } from './components/edit-item-definition/edit-item-definition.component';
@@ -50,6 +49,7 @@ import { ItemDefinitionUomComponent } from './pages/item-definition/item-definit
 import { ItemDefinitionAttributesVariantsComponent } from './pages/item-definition/item-definition-attributes-variants/item-definition-attributes-variants.component';
 import { ItemDefinitionBarcodeComponent } from './pages/item-definition/item-definition-barcode/item-definition-barcode.component';
 import { ItemDefinitionInventoryComponent } from './pages/item-definition/item-definition-inventory/item-definition-inventory.component';
+import { ItemCatalogTabsComponent } from './pages/item-definition/item-catalog-tabs/item-catalog-tabs.component';
 
 const routes: Routes = [
   {
@@ -79,7 +79,7 @@ const routes: Routes = [
       },
       {
         path: 'add-item-definition',
-        component: AddItemDefinitionComponent,
+        component: ItemCatalogTabsComponent,
         data: {
           breadcrumb: '',
           pageTitle : BreadcrumbLabel.EDIT_ITEM_DIFINITION
@@ -95,6 +95,14 @@ const routes: Routes = [
             },
           },
           {
+            path: 'uom/:id',
+            component: ItemDefinitionUomComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.attributes_ITEMdEFINITION,
+              pageTitle : BreadcrumbLabel.attributes_ITEMdEFINITION
+            },
+          },
+          {
             path: 'attributes-variants/:id',
             component: ItemDefinitionAttributesVariantsComponent,
             data: {
@@ -102,9 +110,9 @@ const routes: Routes = [
               pageTitle : BreadcrumbLabel.attributes_ITEMdEFINITION
             },
           },
-          
+
         ],
-     
+
       },
       {
         path: 'warehouse',
@@ -171,7 +179,7 @@ const routes: Routes = [
           },
         ],
       },
-   
+
       {
         path: 'operational-tag',
         component: OperationTagMainComponent,
@@ -254,15 +262,15 @@ const routes: Routes = [
           },
           {
             path: 'add-item-definition/:id',
-            component: AddItemDefinitionComponent,
+            component: ItemCatalogTabsComponent,
             data: {
               breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
             },
           },
         ],
       },
-     
-     
+
+
       {
         path: 'item-category',
         component: ItemCategoryListComponent,
@@ -276,7 +284,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     ItemDefinitionListComponent,
-    AddItemDefinitionComponent,
+    ItemCatalogTabsComponent,
     ItemCategoryListComponent,
     AddItemCategoryComponent,
     AddItemDefinitionPopupComponent,
@@ -317,6 +325,6 @@ const routes: Routes = [
     ItemDefinitionBarcodeComponent,
     ItemDefinitionInventoryComponent,
   ],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
+  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ],
 })
 export class ItemsModule {}
