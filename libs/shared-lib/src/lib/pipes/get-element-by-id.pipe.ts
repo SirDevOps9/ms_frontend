@@ -7,7 +7,6 @@ export class GetElementByIDPipe implements PipeTransform {
 
   transform(itemId: any, list: any[]): any {
 
-    console.log(list)
     if (list && itemId) {
       return list.find((elem: any) => elem?.id == itemId);
     }

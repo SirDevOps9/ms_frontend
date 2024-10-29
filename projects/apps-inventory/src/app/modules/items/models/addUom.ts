@@ -35,4 +35,6 @@ export interface UoM {
   fromUnitOfMeasureId: string;
   fromUnitOfMeasureNameEn? : string
   fromUnitOfMeasureNameAr? : string
+  baseCalculation? : string
+  baseReversal? : string
 }
