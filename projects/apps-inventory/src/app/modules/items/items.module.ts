@@ -325,6 +325,6 @@ const routes: Routes = [
     ItemDefinitionBarcodeComponent,
     ItemDefinitionInventoryComponent,
   ],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
+  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ],
 })
 export class ItemsModule {}

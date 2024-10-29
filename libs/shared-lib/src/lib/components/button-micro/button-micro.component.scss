@@ -63,6 +63,23 @@
     border: 1px solid #1a90b0;
   }
 }
+
+
+.change {
+  min-width: 120px;
+  margin-top: 10px;
+  height: 46px;
+  text-align: center;
+  border: 1px solid #36A19B;
+  color: #36A19B;
+  &:hover {
+    background: #36A19B;
+    color: white;
+    border: 1px solid #1a90b0;
+  }
+}
+
+
 .print {
   background: #36a19b;
   border: 1px solid #36a19b;

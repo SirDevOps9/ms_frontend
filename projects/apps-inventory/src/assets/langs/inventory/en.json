@@ -128,7 +128,12 @@
     "SelectItemTracking": "Select Item Tracking",
     "hasExpiry": "Has Expiry Date",
     "delete" : "Item Definition deleted successfully",
-    "editGenerl":"Edit general updated successfully"
+    "editGenerl":"Edit general updated successfully",
+    "change" :"Change",
+    "baseUnit":"Base unit",
+    "shortname":"Short Name",
+    "conversionfactor":"Conversion factor",
+    "unitusage":"Unit usage"
   },
   "warehouse": {
     "Add" : "Add",

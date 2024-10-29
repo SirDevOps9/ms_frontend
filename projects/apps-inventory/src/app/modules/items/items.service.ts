@@ -43,6 +43,7 @@ import { addUOM, AddUom } from './models/addUom';
 import { addAttributeDifintion, IAttrributeDifinitionResult } from './models/AttrbuteDiffintion';
 import { OperationType } from './models/enums';
 import { VieItemDefinitionDto } from './models/VieItemDefinitionDto';
+import { GetItemUom } from './models/GetItemUom';
 
 @Injectable({
   providedIn: 'root',
@@ -62,6 +63,7 @@ export class ItemsService {
   GetUOMCategoriesDataSource = new BehaviorSubject<UOMCategoryDto[]>([]);
   sendDataDefinitionById = new BehaviorSubject<EditItemDefinitionDto>({} as EditItemDefinitionDto);
   ViewDataDefinitionById = new BehaviorSubject<VieItemDefinitionDto>({} as VieItemDefinitionDto);
+  public ViewDataItemUomById =  new BehaviorSubject<any>([])
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   public itemTypeLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([]);
   public itemCategoryLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
@@ -180,7 +182,7 @@ export class ItemsService {
   public wareHousesDropDownLookup$ = this.wareHousesDropDownLookup.asObservable();
   public SendexportAttrDifinitionList$ = this.SendexportAttrDifinitionList.asObservable();
   public itemTypeLookupObs = this.itemTypeLookup.asObservable();
-
+  public ViewDataItemUomByIdObs = this.ViewDataItemUomById.asObservable();
   public deleteAttrDifinitionDataObs = this.deleteAttrDifinitionData.asObservable()
   public itemCategoryLookupObs = this.itemCategoryLookup.asObservable();
   public AddItemCategoryLookupObs = this.AddItemCategoryLookup.asObservable();
@@ -438,6 +440,17 @@ export class ItemsService {
       }
     });
   }
+
+
+
+  getItemGetItemUomById(id: number) {
+    this.itemProxy.getGetItemUomonById(id).subscribe((res) => {
+      if (res) {
+        this.ViewDataItemUomById.next(res);
+      }
+    });
+  }
+
 
   exportsItemsDefinitionList(searchTerm: string | undefined) {
     this.itemProxy.exportsItemsDefinitionList(searchTerm).subscribe({
