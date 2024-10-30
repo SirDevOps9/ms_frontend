@@ -155,6 +155,7 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
           reversalShow: elem.reversal,
           reversal: elem.baseReversal,
           BaseReversalShow: elem.reversal,
+          systemUnitOfMeasureCategoryId: elem.systemUnitOfMeasureCategoryId,
           isBaseUnit: false,
           uomCategoryId: elem.uomCategoryId,
           systemUnitOfMeasureName: this.sytemUnitLookup.find(item=>item.id == Number(elem?.systemUnitOfMeasureId))?.nameEn,
@@ -167,8 +168,8 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
         this.systemUnitChanged(formGroup.get('systemUnitOfMeasureId')?.value)
         console.log(this.systemUnitData)
 
-       if(elem?.systemUnitOfMeasureId){
-        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=>element?.systemUnitOfMeasureCategoryId == elem?.systemUnitOfMeasureId && element.nameEn !== elem.nameEn && element.nameAr !== elem.nameAr)
+       if(elem?.systemUnitOfMeasureCategoryId){
+        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=>element?.systemUnitOfMeasureCategoryId == elem?.systemUnitOfMeasureCategoryId && element.nameEn !== elem.nameEn && element.nameAr !== elem.nameAr)
        }
       // else{
       //   // this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=> element?.systemUnitOfMeasureCategoryId == this.uomsData[0]?.systemUnitOfMeasureId && element.nameEn !==  this.uomsData[0]?.nameEn && element.nameAr !==this.uomsData[0]?.nameAr )
@@ -444,22 +445,16 @@ create_UOM_FormGroup(uomData: any = {}): FormGroup {
     fromUnitOfMeasureId: new FormControl(uomData?.fromUnitOfMeasureId || null , customValidators.required),
   });
 
-  let formValue = this.getUOMS.value
+  console.log( this.filteredSytemUnitLookup)
 
-    formValue.forEach((elem : any)=>{
-      console.log(elem.systemUnitOfMeasureId)
-      if(elem.systemUnitOfMeasureId) {
-        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(
-          (element) =>
-            element?.systemUnitOfMeasureCategoryId ==
-              elem?.systemUnitOfMeasureId &&
-            element.nameEn !== elem?.nameEn &&
-            element.nameAr !== elem?.nameAr
-        );
-      }
-    })
-
-
+   
+  this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(
+    (element) =>
+      element?.systemUnitOfMeasureCategoryId ==
+    this.uomsData[0].systemUnitOfMeasureCategoryId &&
+      element.nameEn !== this.uomsData[0]?.nameEn &&
+      element.nameAr !== this.uomsData[0]?.nameAr
+  );
 
   return formData;
 }
@@ -508,7 +503,6 @@ create_UOM_FormGroup(uomData: any = {}): FormGroup {
     let id = uomTableForm.get('id')?.value
     if(id) {
       this._itemService.DeleteUomLine(id)
-      this.Get_UOMs_ByUOM_CategoryId(this.categoryId)
     }else{
       this.getUOMS.removeAt(i);
 
