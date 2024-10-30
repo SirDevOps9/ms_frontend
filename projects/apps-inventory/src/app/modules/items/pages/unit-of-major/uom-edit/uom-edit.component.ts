@@ -137,14 +137,7 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
     
     if(res.uoMs?.length) {
       console.log(res.uoMs)
-      this.UOMFormGroup.patchValue({
-        baseUomEn: res?.uoMs[0]?.nameEn,
-        baseUomAr: res?.uoMs[0]?.nameAr,
-        shortName: res?.uoMs[0]?.shortName,
-        nameEn : res?.nameEn,
-        nameAr : res?.nameAr,
-        systemUnitOfMeasureId : res?.uoMs[0]?.systemUnitOfMeasureId
-      });
+  
 
       res?.uoMs.forEach((elem , i)=>{
         if(i == 0) return
@@ -184,6 +177,15 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
 
 
       })
+
+      this.UOMFormGroup.patchValue({
+        baseUomEn: res?.uoMs[0]?.nameEn,
+        baseUomAr: res?.uoMs[0]?.nameAr,
+        shortName: res?.uoMs[0]?.shortName,
+        nameEn : res?.nameEn,
+        nameAr : res?.nameAr,
+        systemUnitOfMeasureId : res?.uoMs[0]?.systemUnitOfMeasureId
+      });
     }
 
   })
@@ -245,11 +247,7 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
 
 
 
-    this.UOMFormGroup.get('uomCodeCategory')?.valueChanges.subscribe((res: any) => {
-      if (!res) return
-
-      this.Get_UOMs_ByUOM_CategoryId(res)
-    })
+ 
   }
 
   get getUOMS() {
