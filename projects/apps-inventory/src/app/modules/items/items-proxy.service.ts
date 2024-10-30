@@ -167,6 +167,9 @@ export class ItemsProxyService {
  getUomById(id:number) {
   return this.httpService.get(`UOM/${id}`)//
  }
+ DeleteUomLine(id:number) {
+  return this.httpService.delete(`UOM/${id}`)//
+ }
 
  getUOMByCategoryID(id:number){
   return this.httpService.get(`UOMCategories/GetUOMCategoryWithUomsById/${id}`)//

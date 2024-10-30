@@ -157,8 +157,8 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
           BaseReversalShow: elem.reversal,
           isBaseUnit: false,
           uomCategoryId: elem.uomCategoryId,
-          systemUnitOfMeasureName: this.sytemUnitLookup.find(item=>item.id == Number(elem.systemUnitOfMeasureId))?.nameEn,
-          systemUnitOfMeasureId:  elem.systemUnitOfMeasureId,
+          systemUnitOfMeasureName: this.sytemUnitLookup.find(item=>item.id == Number(elem?.systemUnitOfMeasureId))?.nameEn,
+          systemUnitOfMeasureId:  elem?.systemUnitOfMeasureId,
           fromUnitOfMeasureId: elem.fromUnitOfMeasureId,
           fromUnitOfMeasureName: this.currentLang == 'en' ? elem.fromUnitOfMeasureNameEn : elem.fromUnitOfMeasureNameAr
           
@@ -486,12 +486,18 @@ create_UOM_FormGroup(uomData: any = {}): FormGroup {
     this.routerService.navigateTo('/masterdata/uom');
   }
 
-  onDelete(i: number) {
-    this.getUOMS.removeAt(i);
+  onDelete(uomTableForm : FormGroup ,i : number) {
+    let id = uomTableForm.get('id')?.value
+    if(id) {
+      this._itemService.DeleteUomLine(id)
+      this.Get_UOMs_ByUOM_CategoryId(this.categoryId)
+    }else{
+      this.getUOMS.removeAt(i);
+
+    }
 
 
-    // this._itemService.deleteUomCat(obj.id)
-    // this.Get_UOMs_ByUOM_CategoryId(this.categoryId)
+
 
   }
 
