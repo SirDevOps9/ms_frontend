@@ -168,7 +168,7 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
 
         console.log(this.filteredSytemUnitLookup)
 
-        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=>element.systemUnitOfMeasureCategoryId == this.systemUnitData.systemUnitOfMeasureCategoryId && element.nameEn !== this.systemUnitData.nameEn && element.nameAr !== this.systemUnitData.nameAr)
+        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=>element?.systemUnitOfMeasureCategoryId == this.systemUnitData?.systemUnitOfMeasureCategoryId && element.nameEn !== this.systemUnitData.nameEn && element.nameAr !== this.systemUnitData.nameAr)
 
         this.getUOMS.push(formGroup)
 
@@ -437,10 +437,10 @@ create_UOM_FormGroup(uomData: any = {}): FormGroup {
 
   this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(
     (element) =>
-      element.systemUnitOfMeasureCategoryId ==
-        this.systemUnitData.systemUnitOfMeasureCategoryId &&
-      element.nameEn !== this.systemUnitData.nameEn &&
-      element.nameAr !== this.systemUnitData.nameAr
+      element?.systemUnitOfMeasureCategoryId ==
+        this.systemUnitData?.systemUnitOfMeasureCategoryId &&
+      element.nameEn !== this.systemUnitData?.nameEn &&
+      element.nameAr !== this.systemUnitData?.nameAr
   );
 
   return formData;
