@@ -444,13 +444,22 @@ create_UOM_FormGroup(uomData: any = {}): FormGroup {
     fromUnitOfMeasureId: new FormControl(uomData?.fromUnitOfMeasureId || null , customValidators.required),
   });
 
-  this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(
-    (element) =>
-      element?.systemUnitOfMeasureCategoryId ==
-        this.systemUnitData?.systemUnitOfMeasureCategoryId &&
-      element.nameEn !== this.systemUnitData?.nameEn &&
-      element.nameAr !== this.systemUnitData?.nameAr
-  );
+  let formValue = this.getUOMS.value
+
+    formValue.forEach((elem : any)=>{
+      console.log(elem.systemUnitOfMeasureId)
+      if(elem.systemUnitOfMeasureId) {
+        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(
+          (element) =>
+            element?.systemUnitOfMeasureCategoryId ==
+              elem?.systemUnitOfMeasureId &&
+            element.nameEn !== elem?.nameEn &&
+            element.nameAr !== elem?.nameAr
+        );
+      }
+    })
+
+
 
   return formData;
 }
