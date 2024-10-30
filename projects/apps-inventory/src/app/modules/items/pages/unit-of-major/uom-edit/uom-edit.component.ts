@@ -165,14 +165,19 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
         })
         
         this.systemUnitChanged(formGroup.get('systemUnitOfMeasureId')?.value)
+        console.log(this.systemUnitData)
 
-        console.log(this.filteredSytemUnitLookup)
-
+      if(this.systemUnitData?.systemUnitOfMeasureCategoryId){
         this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=>element?.systemUnitOfMeasureCategoryId == this.systemUnitData?.systemUnitOfMeasureCategoryId && element.nameEn !== this.systemUnitData.nameEn && element.nameAr !== this.systemUnitData.nameAr)
+      }
+       this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=> element?.systemUnitOfMeasureCategoryId == this.uomsData[0]?.systemUnitOfMeasureId && element.nameEn !==  this.uomsData[0]?.nameEn && element.nameAr !==this.uomsData[0]?.nameAr )
+       console.log(this.filteredSytemUnitLookup)
+
+      
+   
 
         this.getUOMS.push(formGroup)
 
-        console.log(this.getUOMS.value)
 
 
 
@@ -431,7 +436,7 @@ create_UOM_FormGroup(uomData: any = {}): FormGroup {
     isBaseUnit: false,
     uomCategoryId: 0,
     systemUnitOfMeasureName: '',
-    systemUnitOfMeasureId: new FormControl(uomData?.systemUnitOfMeasureId || null),
+    systemUnitOfMeasureId: new FormControl(uomData?.systemUnitOfMeasureId || ""),
     fromUnitOfMeasureId: new FormControl(uomData?.fromUnitOfMeasureId || null , customValidators.required),
   });
 
