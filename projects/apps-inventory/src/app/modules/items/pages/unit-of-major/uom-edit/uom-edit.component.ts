@@ -139,7 +139,7 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
       console.log(res.uoMs)
   
 
-      res?.uoMs.forEach((elem , i)=>{
+      res?.uoMs.forEach((elem : any , i)=>{
         if(i == 0) return
         let formGroup = this.fb.group({
           id : elem.id,
@@ -167,11 +167,15 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
         this.systemUnitChanged(formGroup.get('systemUnitOfMeasureId')?.value)
         console.log(this.systemUnitData)
 
-      if(this.systemUnitData?.systemUnitOfMeasureCategoryId){
-        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=>element?.systemUnitOfMeasureCategoryId == this.systemUnitData?.systemUnitOfMeasureCategoryId && element.nameEn !== this.systemUnitData.nameEn && element.nameAr !== this.systemUnitData.nameAr)
-      }
-       this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=> element?.systemUnitOfMeasureCategoryId == this.uomsData[0]?.systemUnitOfMeasureId && element.nameEn !==  this.uomsData[0]?.nameEn && element.nameAr !==this.uomsData[0]?.nameAr )
-       console.log(this.filteredSytemUnitLookup)
+       if(elem?.systemUnitOfMeasureId){
+        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=>element?.systemUnitOfMeasureCategoryId == elem?.systemUnitOfMeasureId && element.nameEn !== elem.nameEn && element.nameAr !== elem.nameAr)
+       }
+      // else{
+      //   // this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=> element?.systemUnitOfMeasureCategoryId == this.uomsData[0]?.systemUnitOfMeasureId && element.nameEn !==  this.uomsData[0]?.nameEn && element.nameAr !==this.uomsData[0]?.nameAr )
+      //   console.log("hh",this.filteredSytemUnitLookup)
+      // }
+      console.log("hhhhhhhhhhhhhhh",this.filteredSytemUnitLookup)
+
 
       
    
