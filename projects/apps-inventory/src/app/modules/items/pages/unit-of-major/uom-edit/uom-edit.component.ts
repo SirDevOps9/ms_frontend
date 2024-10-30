@@ -505,6 +505,7 @@ create_UOM_FormGroup(uomData: any = {}): FormGroup {
     if (!this.formService.validForm(this.UOMFormGroup, false)) return;
 
     let base = {
+      id : this.uomsData[0].id,
       code: '',
       nameAr: this.UOMFormGroup.get('baseUomAr')?.value,
       nameEn: this.UOMFormGroup.get('baseUomEn')?.value,
@@ -538,6 +539,7 @@ create_UOM_FormGroup(uomData: any = {}): FormGroup {
     })
 
     let uom = {
+      id : +this.id,
       nameAr: this.UOMFormGroup.get('nameAr')?.value,
       nameEn: this.UOMFormGroup.get('nameEn')?.value,
       unitOfMeasures: unitOfMeasures,
