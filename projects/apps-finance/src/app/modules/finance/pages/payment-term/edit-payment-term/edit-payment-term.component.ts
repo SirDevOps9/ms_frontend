@@ -90,7 +90,7 @@ export class EditPaymentTermComponent implements OnInit {
     return this.fb.group({
       id: new FormControl(0),
       dueTermValue: new FormControl('', customValidators.required),
-      note: new FormControl('', customValidators.required),
+      note: new FormControl(''),
       afterValue: new FormControl('', customValidators.required),
       afterPeriod: new FormControl('', customValidators.required),
     });

@@ -30,9 +30,12 @@ export class PurchaseProxyService {
     searchTerm: string,
     pageInfo: PageInfo
   ): Observable<PaginationVm<VendorCategoryDto>> {
-    const url = `VendorCategory?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+    let query = `VendorCategory?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
 
-    return this.httpService.get<PaginationVm<VendorCategoryDto>>(url);
+    return this.httpService.get<PaginationVm<VendorCategoryDto>>(query);
   }
 
   addvendorCategory(addVendorCategoryDto: AddVendorCategory): Observable<AddVendorCategory> {
@@ -58,9 +61,12 @@ export class PurchaseProxyService {
     searchTerm: string,
     pageInfo: PageInfo
   ): Observable<PaginationVm<vendorDefinitionDto>> {
-    const url = `vendor?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+    let query = `vendor?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
 
-    return this.httpService.get<PaginationVm<vendorDefinitionDto>>(url);
+    return this.httpService.get<PaginationVm<vendorDefinitionDto>>(query);
   }
 
   deleteVendorDefinition(id: number): Observable<boolean> {
@@ -102,28 +108,24 @@ export class PurchaseProxyService {
     return this.httpService.get<CountryDto[]>(`Country`);
   }
 
-  getTags(moduleId:Modules): Observable<TagDropDownDto[]> {
-    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown?moduleId=`+ moduleId);
+  getTags(moduleId: Modules): Observable<TagDropDownDto[]> {
+    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown?moduleId=` + moduleId);
   }
 
-  exportVendorCategoriesData(
-    searchTerm: string | undefined
-  ): Observable<VendorCategoryDto[]> {
+  exportVendorCategoriesData(searchTerm: string | undefined): Observable<VendorCategoryDto[]> {
     let query = `VendorCategory/Export?`;
     if (searchTerm) {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-     return this.httpService.get<VendorCategoryDto[]>(query);
+    return this.httpService.get<VendorCategoryDto[]>(query);
   }
 
-  exportVendorsData(
-    searchTerm: string | undefined
-  ): Observable<vendorDefinitionDto[]> {
+  exportVendorsData(searchTerm: string | undefined): Observable<vendorDefinitionDto[]> {
     let query = `vendor/Export?`;
     if (searchTerm) {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-     return this.httpService.get<vendorDefinitionDto[]>(query);
+    return this.httpService.get<vendorDefinitionDto[]>(query);
   }
 
   addVendorOpeningBalance(data: AddVendorOpeningBalanceDto): Observable<AddVendorCommand> {
@@ -141,9 +143,12 @@ export class PurchaseProxyService {
     searchTerm: string,
     pageInfo: PageInfo
   ): Observable<PaginationVm<VendorOpeningBalanceListDto>> {
-    const url = `VendorOpeningBalance?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+    let query = `VendorOpeningBalance?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
 
-    return this.httpService.get<PaginationVm<VendorOpeningBalanceListDto>>(url);
+    return this.httpService.get<PaginationVm<VendorOpeningBalanceListDto>>(query);
   }
 
   openingBalanceJournalEntryDropdown(): Observable<DropDownDto[]> {
@@ -159,6 +164,8 @@ export class PurchaseProxyService {
     return this.httpService.delete<boolean>(`VendorOpeningBalance/${id}`);
   }
   GetVendorOpeningBalanceView(id: number): Observable<GetVendorOpeningBalanceViewDto> {
-    return this.httpService.get<GetVendorOpeningBalanceViewDto>(`VendorOpeningBalance/GetOpeningBalanceView/${id}`);
+    return this.httpService.get<GetVendorOpeningBalanceViewDto>(
+      `VendorOpeningBalance/GetOpeningBalanceView/${id}`
+    );
   }
 }

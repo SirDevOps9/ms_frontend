@@ -56,7 +56,9 @@ import { NumberFormatPipe } from './pipes/number-format.pipe';
 import { PopupPageComponent } from './components/popup-page/popup-page.component';
 import { NumberFormatDirective } from './directives/numberFormatDirective';
 import { QRCodeModule } from 'angularx-qrcode';
+import { ColumnsSelectionComponent } from './form-components/columns-selection/columns-selection.component';
 import { ActtachmentViewComponent } from 'libs/apps-shared-lib/src/lib/pages/attachment-view/acttachment-view/acttachment-view.component';
+import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-crumb.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +83,7 @@ import { ActtachmentViewComponent } from 'libs/apps-shared-lib/src/lib/pages/att
     ButtonComponent,
     InputSwitchComponent,
     BreadCrumbComponent,
+    NewBreadCrumbComponent,
     TablePaginatorComponent,
     RatingComponent,
     PaginatorComponent,
@@ -98,7 +101,7 @@ import { ActtachmentViewComponent } from 'libs/apps-shared-lib/src/lib/pages/att
     ExportComponent,
     ChangeColumnComponent,
     NumberFormatPipe,
-    PopupPageComponent,
+    PopupPageComponent,ColumnsSelectionComponent
   ],
   imports: [
     HttpClientModule,
@@ -144,6 +147,7 @@ import { ActtachmentViewComponent } from 'libs/apps-shared-lib/src/lib/pages/att
     ButtonComponent,
     InputSwitchComponent,
     BreadCrumbComponent,
+    NewBreadCrumbComponent,
     TablePaginatorComponent,
     RatingComponent,
     PaginatorComponent,
@@ -165,7 +169,7 @@ import { ActtachmentViewComponent } from 'libs/apps-shared-lib/src/lib/pages/att
     NumberFormatPipe,
     PopupPageComponent,
     NumberFormatDirective,
-    QRCodeModule,
+    QRCodeModule,ColumnsSelectionComponent,
     InputTextareaModule
   ],
 })

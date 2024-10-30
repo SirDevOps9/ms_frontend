@@ -208,8 +208,6 @@ export class AddChartComponent {
   }
 
   onSubmit() {
-    debugger
-
     if (!this.formsService.validForm(this.formGroup, false)) return;
 
     let obj: AddAccountDto = this.formGroup.value;

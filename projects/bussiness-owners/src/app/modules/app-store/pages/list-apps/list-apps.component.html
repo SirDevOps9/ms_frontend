@@ -1,5 +1,7 @@
 <lib-page-content>
-  <lib-bread-crumb> </lib-bread-crumb>
+  <lib-new-bread-crumb 
+  ></lib-new-bread-crumb> 
+
   <div class="app_list">
     <div class="grid">
       <div class="col-12">
@@ -19,38 +21,52 @@
           </div>
         </div>
       </div>
-      <div class="col-12">
-        <div [ngClass]="{ contant: cardList }">
-          <div class="card" [ngClass]="{ card_list: cardList }" *ngFor="let app of apps">
-            <div class="app_img">
-              <img src="assets/images/apps/Group.png" alt="" />
-            </div>
-            <div class="app_description">
-              <div class="sec_one">
-                <div class="title" (click)="routeToDetails(app.id)">
-                  {{ app.name }}
+      <div class="col-12 ">
+        <div class="card_micro" [ngClass]="{ contant: cardList }">
+          <div class="grid">
+            <div class="col-12" [ngClass]="{' md:col-3':cardList }"   *ngFor="let app of apps">
+
+              <div class="card card_micro " [ngClass]="{ card_list: cardList }">
+                <div class="app_img">
+                  <img src="assets/images/apps/Group.png" alt="" />
                 </div>
-                <div class="re_new">{{ app.price.amount }}{{ app.price.currencyName }}</div>
-              </div>
-              <div class="sec_two">
-                <div class="rate">
-                  {{ app.description }}
-                  <!-- <lib-rating [value]="4.5" [isReadOnly]="true" [showCancel]="false"> </lib-rating> -->
-                </div>
-                <div class="cart">
-                  <button (click)="addToCart(app.id)">
-                    {{ 'AppStore.AddToCart' | translate }}
-                  </button>
-                </div>
-              </div>
-              <div class="sec_desription">
-                <!-- {{ app.description }} -->
-                <div *ngIf="app.dependencies.length">
-                  <strong>{{ 'AppStore.Dependecies' | translate }}: </strong> {{ getAppDeps(app) }}
+                <div class="app_description">
+                  <div class="sec_one">
+                    <div class="title" (click)="routeToDetails(app.id)">
+                     {{ selectedLanguage === 'en' ?  app.nameEn: app.nameAr  }}
+    
+                    </div>
+                    <div class="re_new">{{ app.price.amount }}{{ app.price.currencyName }}</div>
+                  </div>
+                  <div class="sec_two">
+                    <div class="rate">
+                      {{ app.description }}
+                      <!-- <lib-rating [value]="4.5" [isReadOnly]="true" [showCancel]="false"> </lib-rating> -->
+                    </div>
+                    <div class="cart">
+                      <!-- <button (click)="addToCart(app.id)">
+                        {{ 'AppStore.AddToCart' | translate }}
+                      </button> -->
+                      <lib-button-micro
+                      nameClass="save"
+                      title="{{ 'AppStore.AddToCart' | translate }}"
+                      (click)="addToCart(app.id)"
+                      >
+
+                      </lib-button-micro>
+                    </div>
+                  </div>
+                  <div class="sec_desription">
+                    <!-- {{ app.description }} -->
+                    <div *ngIf="app.dependencies.length">
+                      <strong>{{ 'AppStore.Dependecies' | translate }}: </strong> {{ getAppDeps(app) }}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          
         </div>
       </div>
     </div>

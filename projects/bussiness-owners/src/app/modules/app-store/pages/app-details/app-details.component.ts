@@ -19,8 +19,12 @@ export class AppDetailsComponent implements OnInit {
   id: number;
   app: AppDto;
   subdomains: ResponseSubdomainDto[];
+  selectedLanguage: any 
 
   ngOnInit(): void {
+    this.langService.language$.subscribe((lang) => {
+      this.selectedLanguage = lang
+    });
     this.langService
       .getTranslation('AppStore.AppDetail.Title')
       .subscribe((title) => this.titleService.setTitle(title));

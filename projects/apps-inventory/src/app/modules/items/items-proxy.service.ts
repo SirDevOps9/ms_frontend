@@ -131,6 +131,18 @@ export class ItemsProxyService {
   
   
  }
+
+//  item category tree
+ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:string}[]> {
+    let query = `ItemCategory/ParentItemCategoriesDropDown`;
+    if (SearchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(SearchTerm)}`;
+    }
+    return this.httpService.get< {id:number , name:string}[]>(query)
+  
+  
+ }
+//  #########################
  GetUOMCategories(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<UOMCategoryDto>> {
 
     let query = `UOM?${pageInfo.toQuery}`;
@@ -141,8 +153,8 @@ export class ItemsProxyService {
   
   
  }
- getItemCategoryById(id : number){
-  return this.httpService.get(`ItemCategory/${id}`)
+ getItemCategoryById(id : number):Observable<any>{
+  return this.httpService.get<any>(`ItemCategory/${id}`)
 
  }
  getItemCategoryTreeList() {

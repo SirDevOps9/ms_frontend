@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CompanyService } from '../../company.service';
 import { BranchDto } from '../../models/branch-dto';
-import { lookupDto, RouterService } from 'shared-lib';
+import { LanguageService, lookupDto, RouterService } from 'shared-lib';
 import { ExportBranchesDto } from '../../models';
 @Component({
   selector: 'app-company-branches',
@@ -13,6 +13,7 @@ export class CompanyBranchesComponent implements OnInit {
   branches: BranchDto[];
   ref: DynamicDialogRef;
   editMode: boolean = false;
+  selectedLanguage: any 
 
 
   mappedExportData: BranchDto[];
@@ -62,6 +63,12 @@ export class CompanyBranchesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.languageService.language$.subscribe((lang) => {
+      this.selectedLanguage = lang
+    });
+
+   console.log(this.selectedLanguage  ,"hhhhhhhhhhhhhhh");
+   
     this.initBranchData();
   }
 
@@ -117,6 +124,8 @@ export class CompanyBranchesComponent implements OnInit {
   constructor(
     private dialog: DialogService,
     private companyService: CompanyService,
-    private routerService: RouterService
+    private routerService: RouterService,
+    private languageService: LanguageService
+
   ) {}
 }
