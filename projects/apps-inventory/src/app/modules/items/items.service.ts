@@ -1141,7 +1141,7 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
       );
       this.sendAttrDefinition.next(res);
       this.router.navigateTo('/masterdata/attribute-definition')
-     
+
 
     });
   }
@@ -1338,7 +1338,7 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
 
 
         );
-      
+
 
         // this.router.navigateTo(`/masterdata/item-definition` )
       }

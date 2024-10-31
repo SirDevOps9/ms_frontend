@@ -37,9 +37,9 @@ export class ItemDefintionTaxComponent {
   }
 
   taxesDropDropDown() {
-    this.itemService.gettaxesDropDropDown(this.id);
-    this.itemService.taxesDataLookupObs.subscribe(res => {
-      this.taxesDropDropDownLookup = res || [];  
+    this.itemService.taxesDropDropDown();
+    this.itemService.taxesLookupObs.subscribe(res => {
+      this.taxesDropDropDownLookup = res || [];
       console.log(this.taxesDropDropDownLookup);
     });
   }
