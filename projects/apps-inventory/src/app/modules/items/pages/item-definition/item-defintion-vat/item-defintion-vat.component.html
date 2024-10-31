@@ -14,37 +14,38 @@
           pageSize: 10,
           columns: [
             {
-              name: 'variant ID',
+              name: 'variantCode',
               headerText: ('itemDefinition.variantID' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'variantName',
+              name: 'variantEnName',
               headerText: ('itemDefinition.variantName' | translate),
               isGlobalFilter: true,
-              isSortable: true
+              isSortable: true,
+              template: variantName
             },
 
-              {
-                name: 'id',
-              headerText: ('itemDefinition.actions' | translate),
-              template: actions
-            }
+            
           ]
         }"
       >
 
-
+      <!-- {
+        name: 'id',
+      headerText: ('itemDefinition.actions' | translate),
+      template: actions
+    } -->
 
         <ng-container search>
           <lib-form-group>
-            <lib-text-input
+            <!-- <lib-text-input
             type="text"
             [placeholder]="'itemDefinition.search' | translate"
             [(ngModel)]="searchTerm"
             (keyUp)="onSearchChange()"
-          ></lib-text-input>
+          ></lib-text-input> -->
           </lib-form-group>
           </ng-container>
         <ng-container action>
@@ -60,13 +61,13 @@
           </div>
           <!--  -->
           <div>
-            <lib-button-micro
+            <!-- <lib-button-micro
             [title]="'create' | translate"
             nameClass="save"
             iconName="pi pi-plus"
 
           >
-          </lib-button-micro>
+          </lib-button-micro> -->
           </div>
           </ng-container>
 
@@ -81,7 +82,16 @@
 
 
 
+          
 
+          <ng-template #variantName let-variantName>
+            <div class="actions flex align-items-end justify-content-start gap-6">
+
+              <p>{{variantName.variantEnName}}</p>
+              <p>{{variantName.variantArName}}</p>
+              
+            </div>
+          </ng-template>
 
 
         <ng-template #actions let-action>

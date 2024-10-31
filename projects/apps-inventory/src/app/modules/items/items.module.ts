@@ -353,7 +353,7 @@ const routes: Routes = [
     ItemDefinitionInventoryComponent,
     EditCategoryUomComponent,
     ItemDefintionVatComponent,
-    ItemDefintionTaxComponent,
+    ItemDefintionTaxComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ],
 })

@@ -69,7 +69,7 @@ export class ItemDefintionVatComponent {
   getItemVariants(){
     this.itemsService.getItemVariants(this.id)
     this.itemsService.ItemVariantsByIdObs.subscribe((data)=>{
-this.tableDataItemVariantsByI = data
+    this.tableData = data
     })
   }
 }
