@@ -6,6 +6,8 @@
           className="p-datatable-gridlines"
           [currentPageResult]="currentPageInfo"
           (pageChange)="onPageChange($event)"
+          (addNew)="addNew($event)"
+
           [tableConfigs]="{
             allowPagination: false,
             allowServerPagination: true,
@@ -13,49 +15,21 @@
             pageSize: 10,
             columns: [
               {
-                name: 'code',
-                headerText: ('OperationalTag.code' | translate),
-                isGlobalFilter: true,
-                isSortable: true
-              },
-              {
-                name: 'glAccountId',
-                headerText: ('OperationalTag.glAccountId' | translate),
+                name: 'id',
+                headerText: ('code' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
                 name: 'name',
-                headerText: ('OperationalTag.name' | translate),
+                headerText: ('name' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
-         
-              {
-                name: 'operationType',
-                headerText: ('OperationalTag.operationType' | translate),
-                isGlobalFilter: true,
-                isSortable: true,
-
-              },
-              {
-                name: 'warehouseName',
-                headerText: ('OperationalTag.warehouseName' | translate),
-                isGlobalFilter: true,
-                isSortable: true,
-
-              },
-              {
-                name: 'isActive',
-                headerText: ('OperationalTag.status' | translate),
-                isGlobalFilter: true,
-                isSortable: true,
-                template:isActive
-
-              },
+             
               {
                 name: 'id',
-                headerText: ('OperationalTag.action' | translate),
+                headerText: ('Action' | translate),
                 isGlobalFilter: true,
                 isSortable: true,
                 template: actions
@@ -78,40 +52,20 @@
                     ></lib-text-input>
                   </lib-form-group>
                 </div>
-                <!-- <div class="col-span-1">
-                  <lib-form-group>
-                    <lib-text-input
-                      type="text"
-                      [placeholder]="'OperationalTag.Search' | translate"
-                      [(ngModel)]="searchTerm"
-                      (keyUp)="onSearchChange()"
-                    ></lib-text-input>
-                  </lib-form-group>
-                </div>
-                <div class="col-span-1">
-                  <lib-form-group>
-                    <lib-text-input
-                      type="text"
-                      [placeholder]="'OperationalTag.Search' | translate"
-                      [(ngModel)]="searchTerm"
-                      (keyUp)="onSearchChange()"
-                    ></lib-text-input>
-                  </lib-form-group>
-                </div> -->
-              
+          
   
                 <div class=" flex flex-auto justify-content-end align-items-center gap-2">
                   <div>
                     <lib-button-micro
-                      [title]="'OperationalTag.Add' | translate"
+                      [title]="'Add' | translate"
                       nameClass="save"
                       iconName="pi pi-plus"
-                      (click)="Add()"
+                      (click)="newWorkflow()"
                     >
                     </lib-button-micro>
                   </div>
                   <!--  -->
-                  <div>
+                  <!-- <div>
                     <lib-export
                       (exportClick)="exportClick($event)"
                       [exportData]="exportData"
@@ -119,37 +73,20 @@
                       [ExportName]="'Operational Tag'"
                     >
                     </lib-export>
-                  </div>
+                  </div> -->
                   <!--  -->
                 </div>
               </div>
             </div>
           </ng-container>
     
-          <ng-template #isActive let-row>
-            <div   *ngIf="row.isActive !=null" class="flex align-items-center">
-              <lib-input-switch
-              [id]="row.id"
-              [ngModel]="row.isActive"
-              (valueChanged)="confirmChange($event, row)">
-            </lib-input-switch>
-            </div>
-          </ng-template>
+      
        
-          <!-- <ng-template #isActive let-isActive>
-            <div *ngIf="isActive" class="actions flex align-items-center" >
-             {{'OperationalTag.Active'| translate}}
-            
-            </div>
-            <div *ngIf="!isActive" class="actions flex align-items-center" >
-             {{'OperationalTag.inActive'| translate}}
-            
-            </div>
-          </ng-template>  -->
+        
           <ng-template #actions let-action>
             <div class="actions flex align-items-center">
               <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
-              <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
+              <img src="assets/images/table/view.svg" alt="" (click)="onView(action.id)" />
             </div>
           </ng-template>
         </lib-data-table>

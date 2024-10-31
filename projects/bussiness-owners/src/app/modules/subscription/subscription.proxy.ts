@@ -48,10 +48,22 @@ export class SubscriptionProxy {
     searchTerm: string,
     pageInfo: PageInfo
   ): Observable<PaginationVm<any>> {
-    let query = `WorkflowActions?${pageInfo.toQuery}`;
+    let query = `Workflows?${pageInfo.toQuery}`;
     if (searchTerm) {
-      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.baseService.get<PaginationVm<any>>(query);
   }
+  addWorkflow(name: {name:string}): Observable<{name:string}> {
+    return this.baseService.post<{name:string}>(`Workflows`, name);
+  }
+  editWorkflow(name: {name:string}): Observable<boolean> {
+    return this.baseService.put<boolean>(`Workflows`, name);
+  }
+
+
+  getWorkFlowByID(id: number): Observable<any> {
+    return this.baseService.get(`Workflows/${id}`);
+  }
+
 }

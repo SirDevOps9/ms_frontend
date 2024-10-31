@@ -7,7 +7,7 @@ import {
   TenantLicenseDto,
 } from './models';
 
-import { LanguageService, LoaderService, RouterService, ToasterService } from 'shared-lib';
+import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddDomainSpaceComponent } from './components/add-domain-space/add-domain-space.component';
 import { SubscriptionProxy } from './subscription.proxy';
@@ -17,6 +17,17 @@ import { ResponseSubdomainListDto } from './models/responseSubdomainListDto';
   providedIn: 'root',
 })
 export class SubscriptionService {
+// #########workflow###########
+public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
+public workwlowList = new BehaviorSubject<any>({} as any);
+public workflowObjByID = new BehaviorSubject<any>({} as any);
+workwlowList$ = this.workwlowList.asObservable()
+workflowObjByID$ = this.workflowObjByID.asObservable()
+
+// #########workflow###########
+
+
+  
   private subscriptionDataSource = new BehaviorSubject<SubscriptionDto[]>([]);
   public subscriptions = this.subscriptionDataSource.asObservable();
 
@@ -83,6 +94,51 @@ export class SubscriptionService {
 
   getTenantLicense(subdomainId: string): Observable<TenantLicenseDto[]> {
     return this.subscriptionProxy.getTenantLicense(subdomainId);
+  }
+
+  // workflow
+  getWorkFlows(quieries: string, pageInfo: PageInfo)  {
+    this.subscriptionProxy.getWorkFlows(quieries, pageInfo).subscribe((response) => {
+     this.workwlowList.next(response.result)
+     this.currentPageInfo.next(response.pageInfoResult)
+    });
+  }
+  // add 
+  addWorkflow(addTagDto: any, dialogRef: DynamicDialogRef) {
+    this.subscriptionProxy.addWorkflow(addTagDto).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('tag.addtag.success'),
+          this.languageService.transalte('tag.addtag.success')
+        );
+        dialogRef.close(res);
+      },
+      error: (err) => {
+      },
+    });
+  }
+  editWorkflow(tagDto: any, dialogRef: DynamicDialogRef) {
+    this.subscriptionProxy.editWorkflow(tagDto).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('tag.addtag.success'),
+          this.languageService.transalte('tag.addtag.success')
+        );
+        dialogRef.close();
+      },
+      error: (err) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+
+  getWorkFlowByID(id : number) {
+    this.subscriptionProxy.getWorkFlowByID(id).subscribe(res=>{
+      if(res) {
+       this.workflowObjByID.next(res)
+        
+      }
+    })
   }
 
   constructor(

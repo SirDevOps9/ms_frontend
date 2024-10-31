@@ -12,6 +12,9 @@ import { ManageAppsComponent } from './pages/manage-apps/manage-apps.component';
 import { LayoutModule } from '../layout/layout.module';
 import { BreadCrumbRoute } from '../../models';
 import { ListWorkflowComponent } from './pages/main-workflow/list-workflow/list-workflow.component';
+import { AddWorkflowComponent } from './components/workflow-comp/add-workflow/add-workflow.component';
+import { EditWorkflowComponent } from './components/workflow-comp/edit-workflow/edit-workflow.component';
+import { ViewWorkflowComponent } from './pages/main-workflow/view-workflow/view-workflow.component';
 
 const routes: Routes = [
   {
@@ -47,6 +50,14 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadCrumbRoute.app
         },
+      },
+      {
+        path: 'workflow/:id',
+        component: ViewWorkflowComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadCrumbRoute.app
+        },
       }
     ],
   },
@@ -54,7 +65,7 @@ const routes: Routes = [
 
 @NgModule({
   providers: [],
-  declarations: [SubscriptionComponent, MySubscriptionsComponent, AddDomainSpaceComponent ,ManageAppsComponent, ListWorkflowComponent],
+  declarations: [SubscriptionComponent, MySubscriptionsComponent, AddDomainSpaceComponent ,ManageAppsComponent, ListWorkflowComponent, AddWorkflowComponent, EditWorkflowComponent, ViewWorkflowComponent],
   imports: [
     MicrotecAuthLibModule,
     SharedLibModule,

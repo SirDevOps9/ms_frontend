@@ -4,6 +4,10 @@ import { AuthService } from 'microtec-auth-lib';
 import { ItemsService } from 'projects/apps-inventory/src/app/modules/items/items.service';
 import { IOperationalTagResult } from 'projects/apps-inventory/src/app/modules/items/models';
 import { PageInfoResult, RouterService, ToasterService, LanguageService, PageInfo } from 'shared-lib';
+import { SubscriptionService } from '../../../subscription.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { AddWorkflowComponent } from '../../../components/workflow-comp/add-workflow/add-workflow.component';
+import { EditWorkflowComponent } from '../../../components/workflow-comp/edit-workflow/edit-workflow.component';
 
 @Component({
   selector: 'app-list-workflow',
@@ -18,98 +22,103 @@ export class ListWorkflowComponent implements OnInit {
   exportColumns: any[];
 
   constructor(
-    private routerService: RouterService,
-    private itemService: ItemsService,
-    private toaserService: ToasterService,
-
+    private _subService: SubscriptionService,
     public authService: AuthService,
-    private title: Title,
-    private langService: LanguageService
+    private dialog: DialogService,
+    private routerService: RouterService
+
   ) {
-    this.title.setTitle(this.langService.transalte('OperationalTag.OperationalTag'));
   }
   ngOnInit(): void {
-    this.initOperationalTagData();
+    this.initworkFlowList();
 
-    this.itemService.currentPageInfo.subscribe((currentPageInfo) => {
+    this._subService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
   }
 
-  initOperationalTagData() {
-    this.itemService.getOperationalTagList('', new PageInfo());
+  initworkFlowList() {
+    this._subService.getWorkFlows('', new PageInfo());
 
-    this.itemService.listOfOperationalTag$.subscribe({
+    this._subService.workwlowList$.subscribe({
       next: (res) => {
         this.tableData = res;
       },
     });
 
-    this.itemService.currentPageInfo.subscribe((currentPageInfo) => {
+    this._subService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
   }
 
-  Add() {
-    this.routerService.navigateTo('/masterdata/operational-tag/add-operational-tag');
+  
+  addNew(e: boolean) {
+    if (e) {
+      this.newWorkflow();
+    }
   }
-
   onSearchChange() {
-    this.itemService.getOperationalTagList(this.searchTerm, new PageInfo());
+    this._subService.getWorkFlows(this.searchTerm, new PageInfo());
 
-    this.itemService.listOfOperationalTag$.subscribe({
+    this._subService.workwlowList$.subscribe({
       next: (res) => {
         this.tableData = res;
       },
     });
 
-    this.itemService.currentPageInfo.subscribe((currentPageInfo) => {
+    this._subService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
  
   }
   onPageChange(pageInfo: PageInfo) {
-    this.itemService.getOperationalTagList('', pageInfo);
+    this._subService.getWorkFlows('', pageInfo);
 
-    this.itemService.listOfOperationalTag$.subscribe({
+    this._subService.workwlowList$.subscribe({
       next: (res) => {
         this.tableData = res;
       },
     });
   }
+  newWorkflow() {
+    const dialogRef = this.dialog.open(AddWorkflowComponent, {
+      width: '400px',
+      height: '300px',
+    });
 
-  exportClick(e?: Event) {
-    this.exportOperationalData(this.searchTerm);
-  }
-
-  exportOperationalData(searchTerm: string) {
-    this.itemService.ExportOperationalTagList(searchTerm);
-
-    this.itemService.SendExportOperationalTagList$.subscribe((res) => {
-      this.exportData = res;
+    dialogRef.onClose.subscribe(() => {
+      this.initworkFlowList();
     });
   }
+
+
+  // exportClick(e?: Event) {
+  //   this.exportOperationalData(this.searchTerm);
+  // }
+
+  // exportOperationalData(searchTerm: string) {
+  //   this.itemService.ExportOperationalTagList(searchTerm);
+
+  //   this.itemService.SendExportOperationalTagList$.subscribe((res) => {
+  //     this.exportData = res;
+  //   });
+  // }
   onEdit(data: any) {
-    this.routerService.navigateTo(`/masterdata/operational-tag/edit-operational-tag/${data.id}`);
+    const dialogRef = this.dialog.open(EditWorkflowComponent, {
+      width: '400px',
+      height: '300px',
+      data: data,
+    });
+
+    dialogRef.onClose.subscribe(() => {
+      this.initworkFlowList();
+    });    
+    // this.routerService.navigateTo(`/masterdata/operational-tag/edit-operational-tag/${data.id}`);
   }
-  onDelete(id: number) {
-    this.itemService.deleteOperationalTag(id);
-    this.initOperationalTagData();
+  onView(id: number) {
+       this.routerService.navigateTo(`/workflow/${id}`);
+
   }
 
-  async confirmChange(newValue: boolean, user: any) {
-    user.isActive =!user.isActive
-    const confirmed = await this.toaserService.showConfirm('ConfirmButtonTexttochangestatus');
-    if (confirmed) {
-      const command = {
-        id: user.id,
-        status: user.isActive,
-      };
-      console.log(command);
-      this.itemService.ActivateOperationalTag(command)
-    } else {
-      user.isActive =!user.isActive
-      console.log('Change was canceled', user.isActive);
-    }
-  }
+
 }

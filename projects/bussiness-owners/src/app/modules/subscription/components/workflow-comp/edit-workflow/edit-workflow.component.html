@@ -1,0 +1,36 @@
+
+<lib-popup-page
+title=" {{ 'tag.EditTag' | translate }}"
+[closeFunction]="onCancel"
+(Submit)="onSubmit()"
+>
+<div>
+  <form class="domain_form" [formGroup]="tagForm" (ngSubmit)="onSubmit()">
+    <div class="domain_content">
+      <div class="grid m-0">
+        
+        <!-- name -->
+        <div class="col-12">
+          <lib-form-group>
+            <lib-text-input
+              placeholder="{{ 'tag.addtag.name' | translate }}"
+              [iconUrl]="'assets/images/fi-rr-text-check@2x.png'"
+              type="text"
+              formControlName="name"
+            ></lib-text-input>
+            <lib-field-validations
+              [appControl]="tagForm.controls['name']"
+            ></lib-field-validations>
+          </lib-form-group>
+        </div>
+
+      
+    </div>
+    </div>
+  </form>
+</div>
+</lib-popup-page>
+
+  
+  
+
