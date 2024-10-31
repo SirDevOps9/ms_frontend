@@ -171,6 +171,16 @@ export class ItemsProxyService {
  taxesDropDropDown() {
   return this.httpService.get(`GeneralSettings/GetTaxDropDown`)//
  }
+
+ getTaxDataDropDropDown(id:number){
+  return this.httpService.get(`Item/GetTaxData/${id}`)
+ }
+
+ editItemTax(obj:any){
+  return this.httpService.put(`Item/EditTax`,obj)
+
+ }
+
  uomCodeDropDown(id:number) {
   return this.httpService.get(`UOM/GetUOMsByUOMCategoryId/${id}`)//
  }

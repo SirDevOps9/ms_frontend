@@ -106,7 +106,7 @@ export class BreadcrumbLabel {
     static  Edit_UOM ='edit uom';
     static GENERAL_ITEMdEFINITION = 'General Item Defintion'
     static attributes_ITEMdEFINITION = 'Attributes & Variants Item Defintion'
-
+    static EditItembarcodedefinition = 'EditItembarcodedefinition'
     // attr attribute-definition
     static  Attribute_Definition = 'Attribute Definition';
     static  Operational_Tag = 'Operational Tag';
