@@ -82,11 +82,13 @@ export class ItemsService {
    public uOMCategoryDropDownById = new BehaviorSubject<[]>([]);
   public trackingTrackingDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public taxesLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([]);
+  public taxesDataLookup = new BehaviorSubject<any[]>([]);
+
+ public taxesEditDataLookup = new BehaviorSubject<any[]>([]);
   public uomCodeLookup = new BehaviorSubject<UomCodeLookup[]>([]);
   public getuomById = new BehaviorSubject<addUOM>({} as addUOM);
  public ItemGetItemUomById =  new BehaviorSubject<any[]>([])
   public defaultUnit = new BehaviorSubject<{ id: number; name: string }>({} as { id: number; name: string });
-
   // new Edits for item Def
 
   saveItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
@@ -274,6 +276,8 @@ public userSubDomainModules =  new BehaviorSubject<any[]>([]);
   public SendExportOperationalTagList$ = this.SendExportOperationalTagList.asObservable();
   public  uOMCategoryDropDownByIdObs = this.uOMCategoryDropDownById.asObservable();
 public userSubDomainModulesObs = this.userSubDomainModules.asObservable()
+public taxesDataLookupObs = this.taxesDataLookup.asObservable()
+public taxesEditDataLookupObs = this.taxesEditDataLookup.asObservable()
 
 
   getItemType(quieries: string, pageInfo: PageInfo) {
@@ -438,7 +442,7 @@ public userSubDomainModulesObs = this.userSubDomainModules.asObservable()
         if (text == 'save') {
           dialogRef.close(res);
         } else {
-          this.router.navigateTo(`/masterdata/add-item-definition/${dataRes}`);
+          this.router.navigateTo(`masterdata/add-item-definition/general/${dataRes}`);
           dialogRef.close();
         }
       }
@@ -598,6 +602,35 @@ public userSubDomainModulesObs = this.userSubDomainModules.asObservable()
       },
     });
   }
+
+gettaxesDropDropDown(id: number) {
+  this.itemProxy.getTaxDataDropDropDown(id).subscribe({
+    next: (res: any) => {
+       const taxesData = Array.isArray(res) ? res : [];
+       this.taxesDataLookup.next(taxesData);
+    },
+    error: (err) => {
+      console.error("Failed to load tax data:", err);
+      this.taxesDataLookup.next([]);
+    }
+  });
+}
+
+editItemTax(obj:any){
+   this.itemProxy.editItemTax(obj).subscribe({
+      next: (res: any) => {
+        if (res) {
+          this.taxesEditDataLookup.next(res);
+          this.toasterService.showSuccess(
+            this.languageService.transalte('UOM.success'),
+            this.languageService.transalte('UOM.uomEdit')
+          );
+          // this.router.navigateTo(`/masterdata/uom` )
+        }
+
+      },
+    });
+}
   uomCodeDropDown(id: number) {
     this.itemProxy.uomCodeDropDown(id).subscribe({
       next: (res: any) => {

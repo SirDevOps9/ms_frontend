@@ -90,7 +90,7 @@ export class AddItemDefinitionPopupComponent implements OnInit {
     this.itemDefinitionForm = this.fb.group({
       name: new FormControl('', [customValidators.required]),
       categoryId: new FormControl([], [customValidators.required]),
-      uomCategoryId: new FormControl('', [customValidators.required])  
+      uomCategoryId: new FormControl('', [customValidators.required])
     });
   }
 
@@ -115,6 +115,7 @@ export class AddItemDefinitionPopupComponent implements OnInit {
     const { typeId, ...arg } = this.itemDefinitionForm.value;
 
     this.itemsService.addItemDefinition(arg , this.ref , text)
+    
   }
 }
 

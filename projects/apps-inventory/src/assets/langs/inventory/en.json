@@ -37,7 +37,7 @@
     "warantly": "Warantly",
     "lifeTime": "Life Time",
     "vatApplied": "Vat Applied",
-    "priceIncludeVat": "Price Include Vat",
+    "priceIncludeVat": "Selling Price include Vat",
     "specialCare": "Need Special Care",
     "specialCareHead": "Special Care",
     "color": "Color",
@@ -85,12 +85,14 @@
     "perMonth": "Per Month",
     "perYear": "Per Year",
     "taxes": "Taxes",
+    "taxesValue":"select  one value",
     "uomSuccess": "UOM Added Successfully",
     "statusuom": "UOM Default Changed Successfully",
     "itemEdit": "Item Edited Successfully",
     "barcodesuccess": "Barcode Added Successfully",
     "generateVariant": "Generate Variant",
-    "variantSuccess": "Variant Added Successfully"
+    "variantSuccess": "Variant Added Successfully",
+    "variants":"variants"
   },
   "itemCategory": {
     "itemDefinition": "Item Definition",
@@ -115,6 +117,7 @@
     "type": "Type",
     "category": "Category",
     "uom": "UOM",
+    "SaveConinue":"save & Continue",
     "barcode": "Barcode",
     "actions": "Actions",
     "code" : "Code",

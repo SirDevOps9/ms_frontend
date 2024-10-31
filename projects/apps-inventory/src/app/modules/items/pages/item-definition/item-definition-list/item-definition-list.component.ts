@@ -103,6 +103,8 @@ export class ItemDefinitionListComponent implements OnInit {
     dialogRef.onClose.subscribe(() => {
       this.initItemDefinitionData();
     });
+
+    
   }
 
   onEdit(data: any) {

@@ -59,8 +59,10 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
     return this.itemUomForm.get('uoms') as FormArray;
   }
   test: string = '';
-
-  createUomFormGroup(item: any , usageName?:any): FormGroup {
+  createUomFormGroup(item: any): FormGroup {
+    // احصل على الأسماء باستخدام unitUsages
+    const initialUnitUsagesNames = this.userSubDomainModulesLookupData
+      .filter((element: any) => item.unitUsages.includes(element.id));
 
     return this.fb.group({
       uomId: [item.uomId || ''],
@@ -69,9 +71,8 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
       isActive: [item.isActive || false],
       isBaseUnit: [item.isBaseUnit || false],
       shortName: [item.shortName || ''],
-      unitUsages:[item.name || null],
-      unitUsagesName:[]
-
+      unitUsages: [item.unitUsages || null], // IDs للوحدات
+      unitUsagesName: [initialUnitUsagesNames] // الأسماء لتظهر مباشرة
     });
   }
 
@@ -79,40 +80,34 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
     return uom.get('unitUsages') as FormArray;
   }
 names:string=''
-  getDataUomById() {
-    this.subscription = this.itemService.ItemGetItemUomByIdObs.subscribe(
-      (data: any) => {
-        if (data && data.uoms && Array.isArray(data.uoms)) {
-                this.names= data.uomCategoryNameEn
+getDataUomById() {
+  this.subscription = this.itemService.ItemGetItemUomByIdObs.subscribe(
+    (data: any) => {
+      if (data && data.uoms && Array.isArray(data.uoms)) {
+        this.names = data.uomCategoryNameEn;
 
-          this.itemUomForm.patchValue({
-            itemId: data.itemId,
-            uomCategoryId: data.uomCategoryId,
-            name: data.name
-          });
-
-          this.uoms.clear();
-             data.uoms.forEach((uom: any) => {
-
-             this.uoms.push(this.createUomFormGroup(uom, uom.unitUsages));
-             let data:any  = this.userSubDomainModulesLookupData.filter((elemet => data.unitUsages.includes(elemet.id)))
-            // uom.get('unitUsagesName')?.setValue(data)
-           console.log(data);
+        this.itemUomForm.patchValue({
+          itemId: data.itemId,
+          uomCategoryId: data.uomCategoryId,
+          name: data.name
         });
 
-        this.test = this.uoms.at(0).get('nameEn')?.value;
+        this.uoms.clear();
+        data.uoms.forEach((uom: any) => {
+          // عند إضافة uom، تأكد من ربط الأسماء مباشرة
+          this.uoms.push(this.createUomFormGroup(uom));
+        });
 
-
-        }
-      },
-      (error) => {
-        console.error('Error fetching UOM data:', error);
+        this.test = this.uoms.at(0)?.get('nameEn')?.value;
       }
-    );
+    },
+    (error) => {
+      console.error('Error fetching UOM data:', error);
+    }
+  );
 
-    this.itemService.getItemGetItemUomById(this.id);
-  }
-
+  this.itemService.getItemGetItemUomById(this.id);
+}
 
   getAlluserSubDomainModules(){
     this.itemService.getUserSubDomainModules()
@@ -154,14 +149,21 @@ this.names =data.uomCategoryNameEn
 return data.uoMs;
   }
 
-  usercHN(e:any , fb:FormGroup)
-  {
-    console.log(e);
+  usercHN(e: any, fb: FormGroup) {
+    console.log(e); // Array of selected IDs
     console.log(this.userSubDomainModulesLookupData);
-  let data  = this.userSubDomainModulesLookupData.filter((elemet => e.includes(elemet.id)))
-             fb.get('unitUsagesName')?.setValue(data)
-            console.log(data);
-   }
+
+    // Filter and map selected IDs to their names
+    let data = this.userSubDomainModulesLookupData.filter((element: any) =>
+      e.includes(element.id)
+    );
+
+    // Update both unitUsages and unitUsagesName with mapped names
+    fb.get('unitUsages')?.setValue(e); // Set selected IDs
+    fb.get('unitUsagesName')?.setValue(data); // Set mapped names for display
+
+    console.log(data); // Log mapped data
+  }
 
   submit() {
 

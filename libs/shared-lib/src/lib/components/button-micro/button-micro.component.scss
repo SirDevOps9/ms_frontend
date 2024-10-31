@@ -64,6 +64,17 @@
   }
 }
 
+.savePoupUp {
+  min-width: 150px;
+  background: #36A19B;
+  border: 1px solid #36A19B;
+  color: #fff;
+  &:hover {
+    background: #fff;
+    color: #1a90b0;
+    border: 1px solid #1a90b0;
+  }
+}
 
 .change {
   min-width: 120px;

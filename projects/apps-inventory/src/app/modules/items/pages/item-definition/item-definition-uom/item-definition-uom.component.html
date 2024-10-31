@@ -96,40 +96,30 @@
                 <lib-field-validations [appControl]="fg.controls['conversionRatio']"></lib-field-validations>
               </td>
 
-              <td
-              [pEditableColumn]="fg.controls['unitUsages']"
-              pEditableColumnField="fg.controls['unitUsages']"
-            >
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <div class="flex gap-2 align-items-center">
+              <td [pEditableColumn]="fg.controls['unitUsages']" pEditableColumnField="fg.controls['unitUsages']">
+                <p-cellEditor class="tb">
+                  <ng-template pTemplate="input">
+                    <div class="flex gap-2 align-items-center">
+                      <lib-multi-select
+                        [options]="userSubDomainModulesLookupData"
+                        optionValue="id"
+                        optionLabel="name"
+                        formControlName="unitUsages"
+                        [selectedValue]="fg.controls['unitUsages'].value"
+                        (valueChanged)="usercHN($event, fg)"
+                      ></lib-multi-select>
+                      <i class="pi pi-search search-circle"></i>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    <div class="nameUage" *ngFor="let item of fg.controls['unitUsagesName']?.value">
+                      <p class="nameUage">{{ item?.name }}</p>
+                    </div>
+                  </ng-template>
+                </p-cellEditor>
+                <lib-field-validations [appControl]="fg.controls['unitUsages']"></lib-field-validations>
+              </td>
 
-                    <lib-multi-select
-                    [options]="userSubDomainModulesLookupData"
-                    optionValue="id"
-                    optionLabel="name"
-                    formControlName="unitUsages"
-                    [selectedValue]="fg.controls['unitUsages'].value"
-                    (valueChanged)="usercHN($event, fg)"
-                  ></lib-multi-select>
-
-                    <i class="pi pi-search search-circle" ></i>
-                  </div>
-                </ng-template>
-                <ng-template pTemplate="output">
-
-                           <div class="d-flex"  *ngFor="let item of fg.controls['unitUsagesName']?.value ">
-                            <P >
-                              {{item?.name}}
-                            </P>
-                           </div>
-
-                </ng-template>
-              </p-cellEditor>
-              <lib-field-validations
-                [appControl]="fg.controls['unitUsages']"
-              ></lib-field-validations>
-            </td>
 
 
               <td [pEditableColumn]="fg.controls['isActive']" pEditableColumnField="isActive">

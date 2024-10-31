@@ -51,6 +51,7 @@ import { ItemDefinitionBarcodeComponent } from './pages/item-definition/item-def
 import { ItemDefinitionInventoryComponent } from './pages/item-definition/item-definition-inventory/item-definition-inventory.component';
 import { ItemCatalogTabsComponent } from './pages/item-definition/item-catalog-tabs/item-catalog-tabs.component';
 import { EditCategoryUomComponent } from './pages/item-definition/item-definition-uom/edit-category/edit-category-uom/edit-category-uom.component';
+import { ItemDefintionVatComponent } from './pages/item-definition/item-defintion-vat/item-defintion-vat.component';
 
 const routes: Routes = [
   {
@@ -104,6 +105,14 @@ const routes: Routes = [
             },
           },
           {
+            path: 'variants/:id',
+            component: ItemDefintionVatComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.attributes_ITEMdEFINITION,
+              pageTitle : BreadcrumbLabel.attributes_ITEMdEFINITION
+            },
+          },
+          {
             path: 'attributes-variants/:id',
             component: ItemDefinitionAttributesVariantsComponent,
             data: {
@@ -111,7 +120,14 @@ const routes: Routes = [
               pageTitle : BreadcrumbLabel.attributes_ITEMdEFINITION
             },
           },
-
+          {
+            path: 'barcode/:id',
+            component: ItemDefinitionBarcodeComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EditItembarcodedefinition,
+              pageTitle : BreadcrumbLabel.EditItembarcodedefinition
+            },
+          },
         ],
 
       },
@@ -326,6 +342,7 @@ const routes: Routes = [
     ItemDefinitionBarcodeComponent,
     ItemDefinitionInventoryComponent,
     EditCategoryUomComponent,
+    ItemDefintionVatComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ],
 })
