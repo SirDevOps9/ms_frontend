@@ -35,7 +35,7 @@ export class AddVariantPopupComponent implements OnInit {
   ngOnInit() {
     this.initializeitemDefinition();
     this. attributeGroups();
-    if(this.config.data) {
+    if(this.config?.data?.attributeGroupDetails) {
       console.log(this.config.data)
 
       this.itemDefinitionForm.get('attributeGroupId')?.setValue(this.config.data.attributeGroupId)
