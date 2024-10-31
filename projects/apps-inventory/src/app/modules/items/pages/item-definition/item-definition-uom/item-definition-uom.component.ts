@@ -94,9 +94,8 @@ names:string=''
           this.uoms.clear();
              data.uoms.forEach((uom: any) => {
 
-             this.uoms.push(this.createUomFormGroup(uom));
-             this.usercHN(uom.unitUsages , uom)
-            //  let data:any  = this.userSubDomainModulesLookupData.filter((elemet => data.unitUsages.includes(elemet.id)))
+             this.uoms.push(this.createUomFormGroup(uom, uom.unitUsages));
+             let data:any  = this.userSubDomainModulesLookupData.filter((elemet => data.unitUsages.includes(elemet.id)))
             // uom.get('unitUsagesName')?.setValue(data)
            console.log(data);
         });
@@ -159,7 +158,7 @@ return data.uoMs;
   {
     console.log(e);
     console.log(this.userSubDomainModulesLookupData);
-       let data  = this.userSubDomainModulesLookupData.filter((elemet => e.includes(elemet.id)))
+  let data  = this.userSubDomainModulesLookupData.filter((elemet => e.includes(elemet.id)))
              fb.get('unitUsagesName')?.setValue(data)
             console.log(data);
    }
