@@ -3,8 +3,9 @@
 
   <lib-popup-page
   title="{{ 'itemDefinition.addItemDef' | translate }}"
-  [closeFunction]="close"
-  (Submit)="onSubmit('save')"
+
+[showSave]="false"
+[showCancel]="false"
 >
 
 <div class="pop_up_content">
@@ -84,6 +85,38 @@
       </div>
     </div>
   </form>
+
+
+  <div class="pop_up_footer" >
+    <ng-content select="[action]"> </ng-content>
+    <div class="grid w-full  align-items-center justify-content-center">
+      <div class="col-6">
+        <lib-button-micro
+          title="{{ 'SaveConinue' | translate }}"
+          nameClass="save"
+          widthNumber="100%"
+          (click)="onSaveConinue('SaveConinue')"
+
+
+        >
+        </lib-button-micro>
+      </div>
+      <div class="col-6">
+        <lib-button-micro
+          title="{{ 'Save' | translate }}"
+          nameClass="save"
+          widthNumber="100%"
+           (click)="onSubmit('save')"
+
+        >
+        </lib-button-micro>
+
+      </div>
+
+
+
+    </div>
+    </div>
 </div>
 
 </lib-popup-page>
