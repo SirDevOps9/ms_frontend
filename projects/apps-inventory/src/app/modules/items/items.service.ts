@@ -76,11 +76,13 @@ export class ItemsService {
    public deleteAttrDifinitionData =  new BehaviorSubject<any[]>([]);
   public tagLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public AccountsDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
+  public uOMCategoryDropDown = new BehaviorSubject<[]>([]);
+   public uOMCategoryDropDownById = new BehaviorSubject<[]>([]);
   public trackingTrackingDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public taxesLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([]);
   public uomCodeLookup = new BehaviorSubject<UomCodeLookup[]>([]);
   public getuomById = new BehaviorSubject<addUOM>({} as addUOM);
-
+ public ItemGetItemUomById =  new BehaviorSubject<any[]>([])
   public defaultUnit = new BehaviorSubject<{ id: number; name: string }>({} as { id: number; name: string });
 
   // new Edits for item Def
@@ -127,7 +129,7 @@ export class ItemsService {
   public editItemData = new BehaviorSubject<any>(false);
   public updateUOMobj = new BehaviorSubject<addUOM>({} as addUOM);
   public updateAttrobj = new BehaviorSubject<addAttributeDifintion>({} as addAttributeDifintion);
-
+  public updateUOMByIdobj = new BehaviorSubject<any>({});
   public attributeNameDropDownLookup = new BehaviorSubject<any>([]);
   public attributeGroupeDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public attributeValuesDropDownLookup = new BehaviorSubject<itemAttributeValues[]>([]);
@@ -175,7 +177,7 @@ export class ItemsService {
   public listOfOperationalTag = new BehaviorSubject<IOperationalTagResult[]>([]);
   public SendExportOperationalTagList = new BehaviorSubject<IOperationalTagResult[]>([]);
 
-
+public userSubDomainModules =  new BehaviorSubject<any[]>([]);
   public sendItemDefinitionDataSourceObs = this.sendItemDefinitionDataSource.asObservable();
   public GetUOMCategoriesDataSourceObs = this.GetUOMCategoriesDataSource.asObservable();
   public  ViewDataDefinitionByIdObs = this.ViewDataDefinitionById.asObservable();
@@ -197,7 +199,9 @@ export class ItemsService {
   public AccountsDropDownLookupObs = this.AccountsDropDownLookup.asObservable();
   public taxesLookupObs = this.taxesLookup.asObservable();
   public uomCodeLookupObs = this.uomCodeLookup.asObservable();
+  public updateUOMByIdobjObs = this.updateUOMByIdobj.asObservable()
   public getuomByIdObs = this.getuomById.asObservable();
+  public uOMCategoryDropDownObs = this.uOMCategoryDropDown.asObservable()
   public trackingTrackingDropDownObs = this.trackingTrackingDropDown.asObservable();
   public codeByuomCodeDropDownObs = this.codeByuomCodeDropDown.asObservable();
   public UOMCategoryDropDownLookupObs = this.UOMCategoryDropDownLookup.asObservable();
@@ -224,6 +228,7 @@ export class ItemsService {
   public sendDefaultObs = this.sendDefault.asObservable();
   public editItemDataObs = this.editItemData.asObservable();
   public exportedItemCategoryDataSourceObs = this.exportedItemCategoryDataSource.asObservable();
+  public ItemGetItemUomByIdObs = this.ItemGetItemUomById.asObservable()
   // warehouse
   public sendWarehouseDataSourceObs = this.sendWarehouseDataSource.asObservable();
   public AddWarehouseDataSourceObs = this.AddWarehouseDataSource.asObservable();
@@ -255,6 +260,8 @@ export class ItemsService {
   public editOperationTag$ = this.editOperationTag.asObservable();
   public getOperationalTagItemsById$ = this.getOperationalTagItemsById.asObservable();
   public SendExportOperationalTagList$ = this.SendExportOperationalTagList.asObservable();
+  public  uOMCategoryDropDownByIdObs = this.uOMCategoryDropDownById.asObservable();
+public userSubDomainModulesObs = this.userSubDomainModules.asObservable()
 
 
   getItemType(quieries: string, pageInfo: PageInfo) {
@@ -599,7 +606,23 @@ export class ItemsService {
         this.getuomById.next(res);
       },
     });
+
   }
+  getUOMCategoryDropDown(){
+this.itemProxy.getUOMCategoryDropDown().subscribe({
+  next: (res: any) => {
+    this.uOMCategoryDropDown.next(res);
+  },
+})
+  }
+  getUOMCategoryDropDownCategoryId(id:number){
+    this.itemProxy.getGetUOMsByUOMCategoryId(id).subscribe({
+      next: (res: any) => {
+        this.uOMCategoryDropDownById.next(res);
+      },
+    })
+  }
+
   getCodeByuomCodeDropDown(id: number) {
    return this.itemProxy.getCodeByuomCodeDropDown(id)
 
@@ -653,6 +676,35 @@ export class ItemsService {
     });
   }
 
+
+  getItemGetItemUomById(id: number){
+    this.itemProxy.getItemGetItemUomById(id).subscribe({
+      next: (res: any) => {
+        this.ItemGetItemUomById.next(res);
+      },
+    });
+  }
+
+  getUserSubDomainModules(){
+    this.itemProxy.getUserSubDomainModules().subscribe(({
+      next:(res:any)=>{
+        this.userSubDomainModules.next(res);
+      }
+    }))
+  }
+
+  updatetemGetItemUomById(obj: any) {
+    return this.itemProxy.updateItemGetItemUomById(obj).subscribe((res) => {
+      if (res) {
+        this.updateUOMByIdobj.next(res);
+        this.toasterService.showSuccess(
+          this.languageService.transalte('UOM.success'),
+          this.languageService.transalte('UOM.uomEdit')
+        );
+        // this.router.navigateTo(`/masterdata/uom` )
+      }
+    });
+  }
   getDefaultUnit(id:number , itemId : number) {
     this.itemProxy.getDefaultUnit(id , itemId).subscribe(res=>{
       if(res) {
@@ -812,7 +864,7 @@ export class ItemsService {
       },
     });
     */
-    */
+
   }
   // attr difinition delete
   async deleteUOM(id: number) {

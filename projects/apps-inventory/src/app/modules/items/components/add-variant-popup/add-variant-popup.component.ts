@@ -17,8 +17,8 @@ export class AddVariantPopupComponent implements OnInit {
   attributeName : any = []
   attributeValues : any = []
 
-  
- 
+
+
   constructor(
     public config: DynamicDialogConfig,
     public dialogService: DialogService,
@@ -58,16 +58,16 @@ export class AddVariantPopupComponent implements OnInit {
       this.attributeValues = res.itemAttributes
     })
   }
- 
 
 
- 
+
+
 
   initializeitemDefinition() {
     this.itemDefinitionForm = this.fb.group({
       attributeGroupId: new FormControl(''),
       attributeGroupDetails: new FormControl('', [customValidators.required]),
-    
+
     });
   }
 
@@ -76,7 +76,7 @@ export class AddVariantPopupComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.formsService.validForm(this.itemDefinitionForm)) return;   
+    if (!this.formsService.validForm(this.itemDefinitionForm)) return;
     let data = {...this.itemDefinitionForm.value , itemId : this.config.data}
     this.itemsService.addVariantLine(data)
     this.itemsService.addVariantLineDataObs.subscribe(res=>{
@@ -86,8 +86,6 @@ export class AddVariantPopupComponent implements OnInit {
         this.ref.close(attributeName)
       }
     })
-    
-
   }
 }
 

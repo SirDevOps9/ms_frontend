@@ -50,6 +50,7 @@ import { ItemDefinitionAttributesVariantsComponent } from './pages/item-definiti
 import { ItemDefinitionBarcodeComponent } from './pages/item-definition/item-definition-barcode/item-definition-barcode.component';
 import { ItemDefinitionInventoryComponent } from './pages/item-definition/item-definition-inventory/item-definition-inventory.component';
 import { ItemCatalogTabsComponent } from './pages/item-definition/item-catalog-tabs/item-catalog-tabs.component';
+import { EditCategoryUomComponent } from './pages/item-definition/item-definition-uom/edit-category/edit-category-uom/edit-category-uom.component';
 
 const routes: Routes = [
   {
@@ -324,6 +325,7 @@ const routes: Routes = [
     ItemDefinitionAttributesVariantsComponent,
     ItemDefinitionBarcodeComponent,
     ItemDefinitionInventoryComponent,
+    EditCategoryUomComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ],
 })

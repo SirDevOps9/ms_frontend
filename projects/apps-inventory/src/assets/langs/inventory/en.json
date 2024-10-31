@@ -116,8 +116,10 @@
     "actions": "Actions",
     "code" : "Code",
     "addItemDef" : "Add Item Definition",
+    "uOMdefinitioncategory":"UOM Definition Category",
     "Add": "Create",
     "search": "Search",
+    "EditItemUOM":"Edit Item UOM",
     "ChangeColumn": "Change Column",
     "success": "Success",
     "add": "Item Definition Added Successfully",
@@ -271,7 +273,8 @@
     "nameAr": "Name Arabic",
     "nameEn": "Name English",
     "valueEn": "Value English",
-    "valueAr": "Value Arabic"
+    "valueAr": "Value Arabic",
+    "selectattributesvalues":"Select attributes values"
   },
   "OperationalTag": {
     "Add": "Add",

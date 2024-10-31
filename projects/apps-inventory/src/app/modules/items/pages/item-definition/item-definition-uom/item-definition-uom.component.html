@@ -1,139 +1,167 @@
-<div class="grid w-100" [formGroup]="itemUomForm">
-  <div class="md:col-12">
-    <div class="col-12 grid card">
+<form [formGroup]="itemUomForm">
+  <div class="grid w-100">
+    <div class="md:col-12">
+      <p class="heads">{{ 'itemType.main' | translate }}</p>
       <div class="md:col-12">
-        <p class="heads">{{ 'itemType.main' | translate }}</p>
+        <div class="grid p-0">
+          <div class="grid">
+            <div class="md:col-12">
+              <div class="grid p-0">
+                  <div class="grid">
+                    <div class="md:col-5">
+                      <lib-form-group>
+                        <lib-label [appControl]="itemUomForm.controls['uomCategoryId']">
+                          {{ 'itemDefinition.category' | translate }}
+                        </lib-label>
+                        <lib-text-input *ngIf="false" placeholder="{{names}}"
+                          formControlName="uomCategoryId" [readOnly]="true">
+
+                        </lib-text-input>
+                        <lib-text-input  placeholder="{{names}}"
+                      [readOnly]="true">
+
+                      </lib-text-input>
+                      </lib-form-group>
+                    </div>
+                    <div class="md:col-5">
+                      <lib-form-group>
+                        <lib-label [appControl]="itemUomForm.controls['uomCategoryId']">
+                          {{ 'itemDefinition.baseUnit' | translate }}
+                        </lib-label>
+
+                        <lib-text-input
+                        (value)="test"
+                          placeholder="{{ test}}"
+                          [readOnly]="true">
+                        </lib-text-input>
+                      </lib-form-group>
+
+
+                    </div>
+                    <div class="md:col-2 mt-4">
+                      <lib-button-micro title="{{ 'itemDefinition.change' | translate }}" nameClass="change" widthNumber="100%"
+                      (click)="onEdit(names)"
+                       >
+                      </lib-button-micro>
+                    </div>
+
+
+                  </div>
+
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
       </div>
 
-      <div class="md:col-5">
-        <lib-label [appControl]="itemUomForm.controls['uomCategoryId']">
-          {{ 'itemDefinition.category' | translate }}
-        </lib-label>
-        <lib-text-input
-          placeholder="{{ 'itemDefinition.category' | translate }}"
-          formControlName="uomCategoryId"
-          [readOnly]="true"
-        ></lib-text-input>
-      </div>
 
-      <div class="md:col-5 ">
-        <lib-label [appControl]="itemUomForm.controls['name']">
-          {{ 'itemDefinition.baseUnit' | translate }}
-        </lib-label>
-        <lib-text-input
-          placeholder="{{ 'itemDefinition.baseUnit' | translate }}"
-          formControlName="name"
-        ></lib-text-input>
-        <lib-field-validations
-          [appControl]="itemUomForm.controls['name']"
-        ></lib-field-validations>
-      </div>
 
-      <div class="md:col-2 mt-4">
-        <lib-button-micro
-          title="{{ 'itemDefinition.change' | translate }}"
-          nameClass="change"
-          widthNumber="100%"
-        >
-        </lib-button-micro>
-      </div>
+
+
 
       <div class="md:col-12 mt-4">
-        <div formArrayName="uoms">
-          <lib-data-table
-            [items]="tableData"
-            className="p-datatable-gridlines"
-            [currentPageResult]="currentPageInfo"
-            (pageChange)="onPageChange($event)"
-            [tableConfigs]="{
-              allowPagination: false,
-              allowServerPagination: true,
-              dataKey: 'uomId',
-              pageSize: 10,
-              columns: [
-                {
-                  name: 'nameEn',
-                  headerText: ('itemDefinition.name' | translate),
-                  isGlobalFilter: true,
-                  isSortable: true
-                },
-                {
-                  name: 'shortName',
-                  headerText: ('itemDefinition.shortname' | translate),
-                  isGlobalFilter: true,
-                  isSortable: true
-                },
-                {
-                  name: 'conversionRatio',
-                  headerText: ('itemDefinition.conversionfactor' | translate),
-                  isGlobalFilter: true,
-                  isSortable: true,
-                  template: actionsconversionfactor
-                },
-                {
-                  name: 'unitUsages',
-                  headerText: ('itemDefinition.unitusage' | translate),
-                  isGlobalFilter: true,
-                  isSortable: true,
-                  template: actionsData
-                },
-                {
-                  name: 'uomId',
-                  headerText: ('itemDefinition.actions' | translate),
-                  template: actions
-                }
-              ]
-            }"
-          >
-          <ng-template #actionsconversionfactor let-item>
-            <lib-text-input
-              [formControlName]="item.conversionRatio"
-              placeholder="{{ 'itemDefinition.conversionfactor' | translate }}"
-            ></lib-text-input>
+        <p-table [value]="uoms.controls" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped"
+          [tableStyle]="{ 'min-width': '50rem' }">
+          <ng-template pTemplate="header">
+            <tr >
+              <th>{{ 'itemDefinition.name' | translate }}</th>
+              <th>{{ 'itemDefinition.shortname' | translate }}</th>
+              <th>{{ 'itemDefinition.conversionfactor' | translate }}</th>
+              <th>{{ 'itemDefinition.unitusage' | translate }}</th>
+
+              <th>{{ 'itemDefinition.actions' | translate }}</th>
+            </tr>
           </ng-template>
 
-            <ng-template #actionsData let-action>
-              <div class="actions flex align-items-center">
-                <img src="assets/images/table/edit.svg" alt="" />
-                <img src="assets/images/table/delete.svg" alt="" />
-                <img src="assets/images/table/view.svg" alt="" />
-              </div>
-            </ng-template>
 
-            <ng-template #actions let-action>
-              <div class="actions flex align-items-center">
-                <img src="assets/images/table/edit.svg" alt="" />
-                <img src="assets/images/table/delete.svg" alt="" />
-                <img src="assets/images/table/view.svg" alt="" />
-              </div>
-            </ng-template>
-          </lib-data-table>
+          <ng-template pTemplate="body" let-fg let-editing="editing" let-i="rowIndex">
+            <tr  [formGroup]="fg" *ngIf="fg.controls['isBaseUnit'].value === false">
 
-          <div class="grid">
-            <div class="md:col-12 my-3 grid flex justify-content-end">
-              <div class="md:col-4 grid flex justify-content-end">
-                <div class="md:col-6">
-                  <lib-button-micro
-                    title="{{ 'itemType.cancel' | translate }}"
-                    nameClass="cancel"
-                    widthNumber="100%"
-                  >
-                  </lib-button-micro>
-                </div>
-                <div class="md:col-6">
-                  <lib-button-micro
-                    title="{{ 'itemType.save' | translate }}"
-                    nameClass="save"
-                    widthNumber="100%"
-                    iconName="pi pi-plus"
-                  >
-                  </lib-button-micro>
-                </div>
-              </div>
+              <!-- {{ (fg.controls['account']?.value | getElementByID : filteredAccounts)?.costCenterConfig == 'Mandatory' || (fg.controls['account']?.value | getElementByID : filteredAccounts)?.costCenterConfig == 'NotAllow' }} -->
+              <!-- formControlName="nameEn" -->
+              <td>{{ fg.controls['nameEn'].value }}</td>
+              <td>{{ fg.controls['shortName'].value }}</td>
+              <td [pEditableColumn]="fg.controls['conversionRatio']" pEditableColumnField="conversionRatio">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <lib-text-input formControlName="conversionRatio" type="number"></lib-text-input>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ fg.controls['conversionRatio'].value }}
+                  </ng-template>
+                </p-cellEditor>
+                <lib-field-validations [appControl]="fg.controls['conversionRatio']"></lib-field-validations>
+              </td>
+
+              <td
+              [pEditableColumn]="fg.controls['unitUsages']"
+              pEditableColumnField="fg.controls['unitUsages']"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <div class="flex gap-2 align-items-center">
+
+                    <lib-multi-select
+                    [options]="userSubDomainModulesLookupData"
+                    optionValue="id"
+                    optionLabel="name"
+                    formControlName="unitUsages"
+                    [selectedValue]="fg.controls['unitUsages'].value"
+                  ></lib-multi-select>
+
+                    <i class="pi pi-search search-circle" ></i>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ fg.controls['unitUsages'].value}}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="fg.controls['unitUsages']"
+              ></lib-field-validations>
+            </td>
+
+
+              <td [pEditableColumn]="fg.controls['isActive']" pEditableColumnField="isActive">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+
+                    <lib-input-switch formControlName="isActive">
+
+
+                    </lib-input-switch>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    <lib-input-switch formControlName="isActive">
+
+
+                    </lib-input-switch>
+                  </ng-template>
+                </p-cellEditor>
+                <lib-field-validations [appControl]="fg.controls['isActive']"></lib-field-validations>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+
+
+        <div class="grid my-3 flex justify-content-end">
+          <div class="md:col-4 grid flex justify-content-end">
+            <div class="md:col-6">
+              <lib-button-micro title="{{ 'itemType.cancel' | translate }}" nameClass="cancel" widthNumber="100%">
+              </lib-button-micro>
+            </div>
+            <div class="md:col-6">
+              <lib-button-micro title="{{ 'itemType.save' | translate }}" nameClass="save" widthNumber="100%"
+                iconName="pi pi-plus" type="submit" (click)="submit()">
+              </lib-button-micro>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</form>

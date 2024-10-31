@@ -213,6 +213,29 @@ export class ItemsProxyService {
 
  }
 
+
+ getItemGetItemUomById(id:number){
+  return this.httpService.get(`Item/GetItemUom/${id}`)
+ }
+
+ updateItemGetItemUomById(obj:any) {
+  return this.httpService.put(`Item/EditUom` , obj)
+ }
+
+ getUOMCategoryDropDown(){
+  return this.httpService.get(`UOMCategories/UOMCategoryDropDown`)
+
+ }
+ getGetUOMsByUOMCategoryId(id:number){
+  return this.httpService.get(`UOM/GetUOMsByUOMCategoryId/${id}`)
+
+ }
+
+ getUserSubDomainModules(){
+  return this.httpService.get(`SideMenu/GetUserSubDomainModules`)
+
+ }
+
  attributeGroups(){
   return this.httpService.get(`AttributesVariants/GetAllAttributesGroups`)
  }
