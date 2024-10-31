@@ -1,0 +1,28 @@
+<lib-page-content>
+    <div class="card_micro">
+      <form >
+        <div class="grid border">
+          <div class="md:col-4">
+            <lib-form-group>
+            
+              <!-- <input type="file" (change)="onFileSelected($event)" name="chooseFile" id="chooseFile" accept=".xlsx"> -->
+              
+              <lib-text-input  type="file" (change)="onFileSelected($event)" iconUrl="pi pi-upload"  accept=".xlsx"></lib-text-input>
+            </lib-form-group>
+          </div>
+          <lib-button-micro title="log" nameClass="save" (click)="onclick()">
+          </lib-button-micro>
+        </div>
+      </form>
+      <div *ngIf="data.length > 0">
+        <h3>Data From excel </h3>
+        <table>
+            
+          <tr *ngFor="let row of data">
+            <td *ngFor="let cell of row">{{ cell }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </lib-page-content>
+  

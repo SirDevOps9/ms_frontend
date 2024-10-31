@@ -33,7 +33,7 @@ export class EditCustomerCategoryComponent implements OnInit {
       salesAccountId: null,
       salesReturnAccountId: null,
       discountAccountId: null,
-      priceListId: null,
+      pricePolicyId: null,
       paymentTermId: null,
       marketType: null,
     });

@@ -11,7 +11,6 @@ export class LabelComponent implements OnInit {
   @Input() label: string;
   @Input() appControl: AbstractControl | any;
   @Input() labelTest: any;
-
   get ControlName() {
     var controlName = null;
     var parent = this.appControl['_parent'];

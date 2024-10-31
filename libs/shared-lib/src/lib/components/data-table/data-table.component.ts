@@ -39,6 +39,11 @@ export class DataTableComponent implements OnInit, OnChanges {
 
   @Output() pageChange = new EventEmitter<PageInfo>();
   @Output() addNew = new EventEmitter<boolean>(false);
+  @Input() showCheckBox: boolean;
+
+  selectedRows: any[] = [];
+  
+  @Output() selectedRowsChange = new EventEmitter<any[]>();
 
   //  to fill the dropdown in the component
   @Output() fiteredDropdOwn = new EventEmitter<TableConfig>();
@@ -59,7 +64,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @ViewChild('customCellTemplate', { static: true })
   customCellTemplate?: TemplateRef<any>;
   customParentCellTemplate: TemplateRef<NgIfContext<boolean>> | null;
-  selected_filtered_columns: any[] = [];
+  rows: [];  selected_filtered_columns: any[] = [];
   searchColumnsControl = new FormControl([]);
   isRtl: boolean = false;
   showColumnFilter: boolean 
@@ -134,7 +139,6 @@ export class DataTableComponent implements OnInit, OnChanges {
   isSelected(index: number): boolean {
     if (this.selectedIndices) return this.selectedIndices.includes(index);
     return false;
-   
   }
 
   toggleSelection(index: number): void {
@@ -145,6 +149,29 @@ export class DataTableComponent implements OnInit, OnChanges {
       this.selectedIndices.splice(selectedIndex, 1);
     }
   }
+
+  onRowSelect(event: any) {
+    this.selectedRows.push(event.data);
+    this.selectedRowsChange.emit(this.selectedRows); 
+  }
+
+  onRowUnselect(event: any) {
+    const index = this.selectedRows.findIndex((row) => row === event.data);
+    if (index > -1) {
+      this.selectedRows.splice(index, 1);
+    }
+    this.selectedRowsChange.emit(this.selectedRows); 
+  }
+
+  onSelectAllRows(event: any) {
+    if (event.checked) {
+      this.selectedRows = [...this.items];
+    } else {
+      this.selectedRows = []; 
+    }
+    this.selectedRowsChange.emit(this.selectedRows); 
+  }
+
 
   onSortClick(columnName: string): void {
     if (columnName) {
