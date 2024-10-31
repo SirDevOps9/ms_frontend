@@ -86,6 +86,8 @@ export class AddVariantPopupComponent implements OnInit {
         this.ref.close(attributeName)
       }
     })
+
+
   }
 }
 

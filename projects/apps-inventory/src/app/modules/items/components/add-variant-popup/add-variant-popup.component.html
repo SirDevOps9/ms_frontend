@@ -2,9 +2,7 @@
 <lib-popup-page
 title="{{ 'itemDefinition.Add' | translate }}"
 [closeFunction]="onCancel"
-
-
-
+(Submit)="onSubmit()"
 
 >
     <div >
@@ -55,8 +53,4 @@ title="{{ 'itemDefinition.Add' | translate }}"
         </div>
       </form>
     </div>
-<!-- 
-    <ng-container action>
-      <lib-button-micro nameClass="save" title="save" (click)="onSubmit()"></lib-button-micro>
-      </ng-container> -->
-  </lib-popup-page>
+</lib-popup-page>
