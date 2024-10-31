@@ -57,13 +57,13 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
   get uoms(): FormArray {
     return this.itemUomForm.get('uoms') as FormArray;
   }
-  test: string = ''; // Define 'test' as a class property to store the modified nameEn
+  test: string = '';
 
   createUomFormGroup(item: any): FormGroup {
 
     return this.fb.group({
       uomId: [item.uomId || ''],
-      nameEn: [item.nameEn || ''], // Use the transformed value for 'nameEn'
+      nameEn: [item.nameEn || ''],
       conversionRatio: [item.conversionRatio],
       isActive: [item.isActive || false],
       isBaseUnit: [item.isBaseUnit || false],
