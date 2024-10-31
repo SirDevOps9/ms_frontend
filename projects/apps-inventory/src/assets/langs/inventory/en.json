@@ -55,7 +55,7 @@
     "Qr": "QR",
     "status": "Status",
     "show": "Show",
-    "attributes": "Attributes & Variants",
+    "attributes": "Attributes",
     "inventory": "Inventory",
     "storageView": "Storage View",
     "warehouse": "Warehouse",
@@ -89,7 +89,8 @@
     "barcodesuccess": "Barcode Added Successfully",
     "generateVariant": "Generate Variant",
     "variantSuccess": "Variant Added Successfully",
-    "variants":"variants"
+    "variants":"variants",
+     "tax":"Tax"
   },
   "itemCategory": {
     "itemDefinition": "Item Definition",
@@ -138,7 +139,10 @@
     "baseUnit":"Base unit",
     "shortname":"Short Name",
     "conversionfactor":"Conversion factor",
-    "unitusage":"Unit usage"
+    "unitusage":"Unit usage",
+    "tax":"Tax",
+    "variantID":"variant ID",
+    "variantName":"variant name"
   },
   "warehouse": {
     "Add" : "Add",
